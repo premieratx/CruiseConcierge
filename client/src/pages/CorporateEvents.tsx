@@ -28,7 +28,7 @@ import {
   Gift, Heart, Crown, Anchor, PartyPopper, Presentation,
   TrendingUp, HandshakeIcon, DollarSign, ChevronRight,
   Receipt, Coffee, Award as AwardIcon, Network, UserCheck,
-  CheckCircle, X
+  CheckCircle, X, Lightbulb, Megaphone, Zap, Globe
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { WhatToBring } from '@/components/WhatToBring';
@@ -126,7 +126,41 @@ const roiMetrics = [
   }
 ];
 
-// Why choose corporate cruises
+// Experience highlights
+const experienceHighlights = [
+  {
+    icon: Waves,
+    title: 'Lake Travis Setting',
+    description: 'Crystal-clear waters and stunning views create the perfect backdrop for professional networking and relaxation. The natural beauty removes office stress and opens minds to creative collaboration.'
+  },
+  {
+    icon: UserCheck,
+    title: 'Professional Service',
+    description: 'Our captains and crew are corporate-event trained professionals who understand business etiquette and client entertainment expectations. Discreet, attentive, and focused on making your event flawless.'
+  },
+  {
+    icon: Presentation,
+    title: 'Team Building Atmosphere',
+    description: 'The unique boat environment naturally encourages interaction and breaks down hierarchical barriers. Away from desks and screens, teams connect authentically and build genuine relationships.'
+  },
+  {
+    icon: Briefcase,
+    title: 'Client Entertainment',
+    description: 'Impress clients and prospects with a memorable experience they won\'t forget. The exclusive Lake Travis setting demonstrates thought leadership and creates positive brand associations that last long after the cruise.'
+  },
+  {
+    icon: Lightbulb,
+    title: 'Innovation-Friendly Space',
+    description: 'Many of our clients report breakthrough ideas and creative solutions emerging during cruises. The change of scenery combined with relaxed atmosphere sparks innovation and strategic thinking.'
+  },
+  {
+    icon: Camera,
+    title: 'Memorable Moments',
+    description: 'Professional photography options capture team bonding and company culture. These photos become valuable assets for recruitment, internal communications, and showcasing your employer brand.'
+  }
+];
+
+// Why choose corporate cruises (Benefits)
 const whyChooseCorporate = [
   {
     icon: Receipt,
@@ -160,7 +194,7 @@ const whyChooseCorporate = [
   }
 ];
 
-// What's included
+// What's included (Features)
 const corporateInclusions = [
   {
     icon: Building,
@@ -370,6 +404,34 @@ const galleryImages = [
   { src: discoImage, alt: 'Lake Travis Corporate Events company party atmosphere' }
 ];
 
+// Availability information
+const availabilityInfo = [
+  {
+    icon: Calendar,
+    title: 'Peak Corporate Season',
+    description: 'March through October offers the best weather for Lake Travis events. End-of-quarter celebrations and holiday parties book 4-6 weeks in advance.',
+    timeline: 'Book 4-6 weeks ahead'
+  },
+  {
+    icon: Clock,
+    title: 'Weekday Availability',
+    description: 'Monday-Thursday events offer more flexibility and availability. Perfect for team offsites, client meetings, and strategic planning sessions.',
+    timeline: 'Book 2-3 weeks ahead'
+  },
+  {
+    icon: Users,
+    title: 'Capacity Planning',
+    description: '14-person boats: Executive teams and small departments\n25-30 person boats: Medium teams and client groups\n50-75 person boats: Large departments and company events',
+    timeline: 'Multiple boats available'
+  },
+  {
+    icon: Trophy,
+    title: 'Last-Minute Options',
+    description: 'While we recommend advance booking, we often have weekday availability for smaller groups with 1-2 weeks notice. Contact us to check current openings.',
+    timeline: 'Limited availability'
+  }
+];
+
 export default function CorporateEvents() {
   const [location, navigate] = useLocation();
   const { isEditMode } = useInlineEdit();
@@ -424,7 +486,7 @@ export default function CorporateEvents() {
       <ClientOnly><PublicNavigation /></ClientOnly>
       <Breadcrumb />
       
-      {/* Hero Section */}
+      {/* 1. HERO SECTION */}
       <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
@@ -439,9 +501,12 @@ export default function CorporateEvents() {
           <Badge className="mb-6 bg-blue-600 text-white px-6 py-2 text-sm font-sans tracking-wider uppercase">
             PROFESSIONAL CORPORATE CRUISES
           </Badge>
-          <h1 className="text-5xl font-playfair font-bold mb-6 tracking-tight" data-editable data-editable-id="h1-corporate-hero">
+          
+          {/* CRITICAL: H1 with text-6xl and font-playfair - Largest text on page */}
+          <h1 className="text-5xl md:text-6xl font-playfair font-bold mb-6 tracking-tight" data-editable data-editable-id="h1-corporate-hero">
             Corporate Event Cruises
           </h1>
+          
           <p className="text-xl mb-4 max-w-3xl mx-auto leading-relaxed" data-editable data-editable-id="corporate-hero-tagline">
             Impress Clients. Reward Your Team. Elevate Your Business.
           </p>
@@ -490,7 +555,7 @@ export default function CorporateEvents() {
         </div>
       </section>
 
-      {/* ROI Metrics Section */}
+      {/* 2. ROI METRICS SECTION */}
       <SectionReveal>
         <section className="py-24 bg-gradient-to-b from-white to-blue-50">
           <div className="max-w-7xl mx-auto px-6">
@@ -498,10 +563,10 @@ export default function CorporateEvents() {
               <Badge className="mb-4 font-sans tracking-wider uppercase bg-gradient-to-r from-blue-600 to-purple-600 text-white">
                 PROVEN RESULTS
               </Badge>
-              <h2 className="text-3xl font-playfair font-bold mb-4 text-center" data-editable data-editable-id="h2-roi-metrics">
+              <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-4 text-center" data-editable data-editable-id="h2-roi-metrics">
                 The ROI of Corporate Team Events
               </h2>
-              <p className="text-base text-gray-600 max-w-3xl mx-auto">
+              <p className="text-lg text-gray-600 max-w-3xl mx-auto">
                 Data-driven results from our corporate clients
               </p>
             </div>
@@ -534,36 +599,31 @@ export default function CorporateEvents() {
         </section>
       </SectionReveal>
 
-      {/* Why Choose Corporate Cruises */}
+      {/* 3. EXPERIENCE SECTION */}
       <SectionReveal>
         <section className="py-24 bg-white">
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
-              <Badge className="mb-4 font-sans tracking-wider uppercase">WHY CHOOSE US</Badge>
-              <h2 className="text-3xl font-playfair font-bold mb-4 text-center" data-editable data-editable-id="h2-why-choose">
-                Why Choose Corporate Cruises
+              <Badge className="mb-4 font-sans tracking-wider uppercase bg-gradient-to-r from-green-600 to-green-700 text-white">
+                THE EXPERIENCE
+              </Badge>
+              <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-4 text-center" data-editable data-editable-id="h2-experience">
+                What Makes Corporate Cruises Special
               </h2>
-              <p className="text-base text-gray-600 max-w-3xl mx-auto">
-                Professional event solutions designed for business success
+              <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+                More than just a boat ride—a strategic business investment in your team and client relationships
               </p>
             </div>
             
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {whyChooseCorporate.map((item, index) => (
+              {experienceHighlights.map((item, index) => (
                 <Card key={index} className="rounded-xl border-gray-200 hover:shadow-lg transition-shadow">
                   <CardContent className="p-6">
-                    <div className="relative">
-                      <span className="absolute -top-4 -left-2 text-6xl font-black text-blue-200 opacity-30">
-                        {index + 1}
-                      </span>
-                      <div className="relative">
-                        <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
-                          <item.icon className="h-6 w-6 text-blue-600" />
-                        </div>
-                        <h3 className="text-xl font-bold mb-2">{item.title}</h3>
-                        <p className="text-base text-gray-600 leading-relaxed">{item.description}</p>
-                      </div>
+                    <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
+                      <item.icon className="h-6 w-6 text-green-600" />
                     </div>
+                    <h3 className="text-xl font-bold mb-2">{item.title}</h3>
+                    <p className="text-base text-gray-600 leading-relaxed">{item.description}</p>
                   </CardContent>
                 </Card>
               ))}
@@ -572,21 +632,21 @@ export default function CorporateEvents() {
         </section>
       </SectionReveal>
 
-      {/* Corporate Packages */}
+      {/* 4. PRICING SECTION */}
       <SectionReveal>
         <section className="py-24 bg-gradient-to-b from-blue-50 to-white">
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
-              <Badge className="mb-4 font-sans tracking-wider uppercase">PACKAGES</Badge>
-              <h2 className="text-3xl font-playfair font-bold mb-4 text-center" data-editable data-editable-id="h2-packages">
+              <Badge className="mb-4 font-sans tracking-wider uppercase">PACKAGES & PRICING</Badge>
+              <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-4 text-center" data-editable data-editable-id="h2-pricing">
                 Corporate Cruise Packages
               </h2>
-              <p className="text-base text-gray-600 max-w-3xl mx-auto">
+              <p className="text-lg text-gray-600 max-w-3xl mx-auto">
                 Choose the perfect package for your corporate event
               </p>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-8">
+            <div className="grid md:grid-cols-3 gap-8 mb-16">
               {corporatePackages.map((pkg, index) => (
                 <Card key={index} className="rounded-xl border-2 hover:border-blue-600 transition-all hover:shadow-xl">
                   <CardHeader className="text-center pb-4">
@@ -630,20 +690,130 @@ export default function CorporateEvents() {
                 </Card>
               ))}
             </div>
+
+            {/* Pricing Table */}
+            <div className="mt-12">
+              <div className="text-center mb-12">
+                <h3 className="text-2xl font-bold mb-4">Transparent Pricing Structure</h3>
+                <p className="text-base text-gray-600 max-w-2xl mx-auto">
+                  All pricing includes captain, fuel, and standard amenities. Package add-ons available.
+                </p>
+              </div>
+              <PricingTable />
+            </div>
           </div>
         </section>
       </SectionReveal>
 
-      {/* What's Included */}
+      {/* 5. AVAILABILITY SECTION */}
       <SectionReveal>
         <section className="py-24 bg-white">
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
-              <Badge className="mb-4 font-sans tracking-wider uppercase">INCLUDED</Badge>
-              <h2 className="text-3xl font-playfair font-bold mb-4 text-center" data-editable data-editable-id="h2-included">
+              <Badge className="mb-4 font-sans tracking-wider uppercase bg-gradient-to-r from-orange-600 to-orange-700 text-white">
+                BOOKING & AVAILABILITY
+              </Badge>
+              <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-4 text-center" data-editable data-editable-id="h2-availability">
+                Plan Your Corporate Event
+              </h2>
+              <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+                Flexible scheduling and multiple capacity options for your team or clients
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-8">
+              {availabilityInfo.map((item, index) => (
+                <Card key={index} className="rounded-xl border-2 border-gray-200 hover:border-orange-600 transition-all hover:shadow-xl">
+                  <CardContent className="p-8">
+                    <div className="flex items-start gap-4">
+                      <div className="w-14 h-14 bg-gradient-to-r from-orange-600 to-orange-700 rounded-xl flex items-center justify-center shrink-0">
+                        <item.icon className="h-7 w-7 text-white" />
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="text-xl font-bold mb-2">{item.title}</h3>
+                        <p className="text-base text-gray-600 leading-relaxed mb-3 whitespace-pre-line">{item.description}</p>
+                        <Badge className="bg-orange-100 text-orange-700 hover:bg-orange-200 font-sans">
+                          {item.timeline}
+                        </Badge>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+
+            <div className="mt-12 text-center">
+              <Card className="max-w-3xl mx-auto bg-gradient-to-r from-orange-50 to-yellow-50 border-2 border-orange-200">
+                <CardContent className="p-8">
+                  <Calendar className="h-12 w-12 text-orange-600 mx-auto mb-4" />
+                  <h3 className="text-xl font-bold mb-3">Ready to Check Availability?</h3>
+                  <p className="text-base text-gray-700 mb-6">
+                    Contact us with your preferred date, group size, and event details for real-time availability and pricing.
+                  </p>
+                  <Button
+                    onClick={handleGetQuote}
+                    size="lg"
+                    className="bg-gradient-to-r from-orange-600 to-orange-700 hover:from-orange-700 hover:to-orange-800 text-white font-bold"
+                  >
+                    <MessageSquare className="mr-2 h-5 w-5" />
+                    Check Availability Now
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </Button>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </section>
+      </SectionReveal>
+
+      {/* 6. BENEFITS SECTION */}
+      <SectionReveal>
+        <section className="py-24 bg-gradient-to-b from-blue-50 to-white">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="text-center mb-16">
+              <Badge className="mb-4 font-sans tracking-wider uppercase">BENEFITS</Badge>
+              <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-4 text-center" data-editable data-editable-id="h2-benefits">
+                Why Choose Corporate Cruises
+              </h2>
+              <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+                Professional event solutions designed for business success
+              </p>
+            </div>
+            
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {whyChooseCorporate.map((item, index) => (
+                <Card key={index} className="rounded-xl border-gray-200 hover:shadow-lg transition-shadow">
+                  <CardContent className="p-6">
+                    <div className="relative">
+                      <span className="absolute -top-4 -left-2 text-6xl font-black text-blue-200 opacity-30">
+                        {index + 1}
+                      </span>
+                      <div className="relative">
+                        <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
+                          <item.icon className="h-6 w-6 text-blue-600" />
+                        </div>
+                        <h3 className="text-xl font-bold mb-2">{item.title}</h3>
+                        <p className="text-base text-gray-600 leading-relaxed">{item.description}</p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </section>
+      </SectionReveal>
+
+      {/* 7. FEATURES SECTION */}
+      <SectionReveal>
+        <section className="py-24 bg-white">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="text-center mb-16">
+              <Badge className="mb-4 font-sans tracking-wider uppercase">INCLUDED FEATURES</Badge>
+              <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-4 text-center" data-editable data-editable-id="h2-features">
                 What's Included
               </h2>
-              <p className="text-base text-gray-600 max-w-3xl mx-auto">
+              <p className="text-lg text-gray-600 max-w-3xl mx-auto">
                 Professional amenities and services for your corporate event
               </p>
             </div>
@@ -665,7 +835,7 @@ export default function CorporateEvents() {
         </section>
       </SectionReveal>
 
-      {/* Case Studies */}
+      {/* 8. CASE STUDIES SECTION */}
       <SectionReveal>
         <section className="py-24 bg-gradient-to-b from-blue-50 to-white">
           <div className="max-w-7xl mx-auto px-6">
@@ -673,10 +843,10 @@ export default function CorporateEvents() {
               <Badge className="mb-4 font-sans tracking-wider uppercase bg-gradient-to-r from-green-600 to-green-700 text-white">
                 SUCCESS STORIES
               </Badge>
-              <h2 className="text-3xl font-playfair font-bold mb-4 text-center" data-editable data-editable-id="h2-case-studies">
+              <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-4 text-center" data-editable data-editable-id="h2-case-studies">
                 Corporate Event Case Studies
               </h2>
-              <p className="text-base text-gray-600 max-w-3xl mx-auto">
+              <p className="text-lg text-gray-600 max-w-3xl mx-auto">
                 Real results from companies that invested in team experiences
               </p>
             </div>
@@ -740,16 +910,16 @@ export default function CorporateEvents() {
         </section>
       </SectionReveal>
 
-      {/* Testimonials */}
+      {/* 9. TESTIMONIALS SECTION */}
       <SectionReveal>
         <section className="py-24 bg-white">
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
               <Badge className="mb-4 font-sans tracking-wider uppercase">TESTIMONIALS</Badge>
-              <h2 className="text-3xl font-playfair font-bold mb-4 text-center" data-editable data-editable-id="h2-testimonials">
+              <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-4 text-center" data-editable data-editable-id="h2-testimonials">
                 What Corporate Clients Say
               </h2>
-              <p className="text-base text-gray-600 max-w-3xl mx-auto">
+              <p className="text-lg text-gray-600 max-w-3xl mx-auto">
                 Trusted by Fortune 500 companies, healthcare organizations, and Austin's top firms
               </p>
             </div>
@@ -783,66 +953,16 @@ export default function CorporateEvents() {
         </section>
       </SectionReveal>
 
-      {/* Pricing Table */}
-      <SectionReveal>
-        <section className="py-24 bg-white">
-          <div className="max-w-7xl mx-auto px-6">
-            <div className="text-center mb-16">
-              <Badge className="mb-4 font-sans tracking-wider uppercase">PRICING</Badge>
-              <h2 className="text-3xl font-playfair font-bold mb-4 text-center" data-editable data-editable-id="h2-pricing">
-                Corporate Event Pricing
-              </h2>
-              <p className="text-base text-gray-600 max-w-3xl mx-auto">
-                Transparent pricing for your business planning
-              </p>
-            </div>
-            <PricingTable />
-          </div>
-        </section>
-      </SectionReveal>
-
-      {/* Photo Gallery */}
+      {/* 10. FAQs SECTION */}
       <SectionReveal>
         <section className="py-24 bg-gradient-to-b from-blue-50 to-white">
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
-              <Badge className="mb-4 font-sans tracking-wider uppercase">GALLERY</Badge>
-              <h2 className="text-3xl font-playfair font-bold mb-4 text-center" data-editable data-editable-id="h2-gallery">
-                Corporate Events Gallery
-              </h2>
-              <p className="text-base text-gray-600 max-w-3xl mx-auto">
-                See our professional corporate cruises in action
-              </p>
-            </div>
-
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-              {galleryImages.map((image, index) => (
-                <div key={index} className="relative aspect-square rounded-xl overflow-hidden group">
-                  <img
-                    src={image.src}
-                    alt={image.alt}
-                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-                    <p className="text-white text-sm">{image.alt}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      </SectionReveal>
-
-      {/* FAQs */}
-      <SectionReveal>
-        <section className="py-24 bg-white">
-          <div className="max-w-7xl mx-auto px-6">
-            <div className="text-center mb-16">
               <Badge className="mb-4 font-sans tracking-wider uppercase">FAQS</Badge>
-              <h2 className="text-3xl font-playfair font-bold mb-4 text-center" data-editable data-editable-id="h2-faqs">
+              <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-4 text-center" data-editable data-editable-id="h2-faqs">
                 Frequently Asked Questions
               </h2>
-              <p className="text-base text-gray-600 max-w-3xl mx-auto">
+              <p className="text-lg text-gray-600 max-w-3xl mx-auto">
                 Everything you need to know about corporate cruises
               </p>
             </div>
@@ -873,10 +993,10 @@ export default function CorporateEvents() {
       <SectionReveal>
         <section className="py-24 bg-gradient-to-r from-blue-600 to-purple-600">
           <div className="max-w-7xl mx-auto px-6 text-center text-white">
-            <h2 className="text-3xl font-playfair font-bold mb-6" data-editable data-editable-id="h2-cta">
+            <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-6" data-editable data-editable-id="h2-cta">
               Ready to Plan Your Corporate Event?
             </h2>
-            <p className="text-base mb-8 max-w-2xl mx-auto">
+            <p className="text-lg mb-8 max-w-2xl mx-auto">
               Get a custom quote for your team building, client entertainment, or corporate celebration
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -905,16 +1025,16 @@ export default function CorporateEvents() {
         </section>
       </SectionReveal>
 
-      {/* Related Experiences Section */}
+      {/* 11. SEO SECTION - Related Experiences (Bottom) */}
       <SectionReveal>
         <section className="py-24 bg-white">
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
-              <Badge className="mb-4 font-sans tracking-wider uppercase">RELATED</Badge>
-              <h2 className="text-3xl font-playfair font-bold mb-4 text-center" data-editable data-editable-id="h2-related">
+              <Badge className="mb-4 font-sans tracking-wider uppercase">EXPLORE MORE</Badge>
+              <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-4 text-center" data-editable data-editable-id="h2-related">
                 Related Corporate Experiences
               </h2>
-              <p className="text-base text-gray-600 max-w-3xl mx-auto">
+              <p className="text-lg text-gray-600 max-w-3xl mx-auto">
                 Explore our complete range of corporate event options
               </p>
             </div>
@@ -950,9 +1070,9 @@ export default function CorporateEvents() {
                   </CardHeader>
                   <CardContent>
                     <p className="text-base text-gray-600 text-center mb-4">
-                      Impress your top clients with exclusive Lake Travis experiences and premium service
+                      Impress clients and close deals with exclusive Lake Travis experiences
                     </p>
-                    <Button className="w-full bg-gradient-to-r from-blue-600 to-purple-600" data-testid="link-client-entertainment">
+                    <Button className="w-full bg-gradient-to-r from-green-600 to-green-700" data-testid="link-client-entertainment">
                       Explore Client Events
                       <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>
@@ -960,52 +1080,54 @@ export default function CorporateEvents() {
                 </Card>
               </Link>
 
-              <Link href="/company-milestone">
+              <Link href="/private-cruises">
                 <Card className="h-full rounded-xl hover:shadow-xl transition-all cursor-pointer border-2 hover:border-blue-600">
                   <CardHeader className="text-center">
-                    <div className="w-16 h-16 mx-auto mb-4 bg-yellow-100 rounded-xl flex items-center justify-center">
-                      <Trophy className="h-8 w-8 text-yellow-600" />
+                    <div className="w-16 h-16 mx-auto mb-4 bg-purple-100 rounded-xl flex items-center justify-center">
+                      <Ship className="h-8 w-8 text-purple-600" />
                     </div>
-                    <CardTitle className="text-xl">Company Milestone</CardTitle>
+                    <CardTitle className="text-xl">Private Cruises</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <p className="text-base text-gray-600 text-center mb-4">
-                      Celebrate company achievements and anniversaries with memorable Lake Travis cruises
+                      Exclusive private boat rentals for company celebrations and executive retreats
                     </p>
-                    <Button className="w-full bg-gradient-to-r from-blue-600 to-purple-600" data-testid="link-company-milestone">
-                      Celebrate Milestones
+                    <Button className="w-full bg-gradient-to-r from-purple-600 to-pink-600" data-testid="link-private-cruises">
+                      Explore Private Options
                       <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>
                   </CardContent>
                 </Card>
               </Link>
             </div>
+
+            {/* Photo Gallery - SEO Content */}
+            <div className="mt-20">
+              <div className="text-center mb-12">
+                <h3 className="text-2xl font-bold mb-4">Corporate Events Gallery</h3>
+                <p className="text-base text-gray-600 max-w-2xl mx-auto">
+                  See our professional corporate cruises in action
+                </p>
+              </div>
+
+              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+                {galleryImages.map((image, index) => (
+                  <div key={index} className="relative aspect-square rounded-xl overflow-hidden group">
+                    <img
+                      src={image.src}
+                      alt={image.alt}
+                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                      <p className="text-white text-sm">{image.alt}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </section>
       </SectionReveal>
-
-      {/* Sticky CTA Footer */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 z-40 md:hidden shadow-lg">
-        <div className="flex gap-4">
-          <Button
-            onClick={handleBookNow}
-            className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold"
-            data-testid="button-sticky-book"
-          >
-            <Calendar className="mr-2 h-4 w-4" />
-            BOOK EVENT
-          </Button>
-          <Button
-            onClick={handleGetQuote}
-            variant="outline"
-            className="flex-1 border-2 border-blue-600 text-blue-600 hover:bg-blue-50"
-            data-testid="button-sticky-quote"
-          >
-            <MessageSquare className="mr-2 h-4 w-4" />
-            GET QUOTE
-          </Button>
-        </div>
-      </div>
 
       <Footer />
     </div>

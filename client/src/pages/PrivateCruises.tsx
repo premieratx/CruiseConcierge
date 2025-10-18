@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Link, useLocation } from 'wouter';
 import { motion } from 'framer-motion';
 import PublicNavigation from '@/components/PublicNavigation';
@@ -136,7 +136,7 @@ const fleetOptions = [
   {
     name: 'Clever Girl',
     capacity: '30-75 guests',
-    baseRate: 300,
+    baseRate: 250,
     image: heroImage1,
     features: ['Flagship boat with 14 disco balls', 'Giant Texas flag display', 'Professional crew and premium amenities', '4-hour minimum', 'Ideal for corporate events and large celebrations']
   }
@@ -191,12 +191,74 @@ const whatsIncluded = [
   }
 ];
 
+// Why Choose Us
+const whyChooseUs = [
+  {
+    icon: Trophy,
+    title: '15+ Years Experience',
+    description: "Austin's premier party cruise company since 2009 with unmatched Lake Travis expertise"
+  },
+  {
+    icon: UserCheck,
+    title: '100,000+ Happy Guests',
+    description: 'Trusted by over 100,000 satisfied customers for unforgettable celebrations'
+  },
+  {
+    icon: Shield,
+    title: 'Perfect Safety Record',
+    description: 'Coast Guard certified captains and pristine safety record ensure peace of mind'
+  },
+  {
+    icon: Star,
+    title: 'Premier Fleet',
+    description: 'Three exceptional boats from intimate 14-person to grand 75-person capacity'
+  },
+  {
+    icon: Heart,
+    title: 'Customizable Experiences',
+    description: 'Flexible packages and add-ons to create your perfect Lake Travis celebration'
+  },
+  {
+    icon: Award,
+    title: 'Professional Service',
+    description: 'Dedicated crew committed to making your event absolutely perfect'
+  }
+];
+
+// Testimonials
+const testimonials = [
+  {
+    id: 1,
+    name: 'Amanda R.',
+    role: 'Corporate Event Organizer',
+    rating: 5,
+    text: "Booked Clever Girl for our company retreat - 50 people, absolutely perfect! The crew was professional, the boat was immaculate, and everyone had an amazing time. Worth every penny!",
+    avatar: '💼'
+  },
+  {
+    id: 2,
+    name: 'Jessica & Mark',
+    role: 'Wedding Rehearsal Dinner',
+    rating: 5,
+    text: "Our rehearsal dinner on The Irony was magical! 25 guests, perfect weather, amazing service. The captain found the most beautiful spot on Lake Travis for photos. Highly recommend!",
+    avatar: '💕'
+  },
+  {
+    id: 3,
+    name: 'David L.',
+    role: '40th Birthday Celebration',
+    rating: 5,
+    text: "Day Tripper was perfect for my milestone birthday with 12 close friends. Intimate, fun, and the crew went above and beyond. Best birthday ever on Lake Travis!",
+    avatar: '🎂'
+  }
+];
+
 // FAQs
 const faqItems = [
   {
     id: 'pricing',
     question: 'How does private cruise pricing work?',
-    answer: 'Private cruises are charged hourly based on the boat size. Day Tripper (up to 14 guests) starts at $200/hr, Meeseeks & The Irony (15-30 guests) at $225/hr, and Clever Girl (30-75 guests) at $300/hr. Add Essentials Package for $100/hr or Ultimate Package for $250/hr more. 4-hour minimum required.'
+    answer: 'Private cruises are charged hourly based on the boat size. Day Tripper (up to 14 guests) starts at $200/hr weekdays, Meeseeks & The Irony (15-30 guests) at $225/hr weekdays, and Clever Girl (30-75 guests) at $250/hr weekdays. Weekend rates are higher. Package flat fees: Essentials $100-200, Ultimate $250-350 (based on boat size). 4-hour minimum required.'
   },
   {
     id: 'minimum',
@@ -304,13 +366,16 @@ const privateCruiseTypes = [
 
 // Table of Contents sections
 const tocSections = [
-  { id: 'quick-answers', title: 'Quick Answers', icon: <MessageCircle className="h-4 w-4" /> },
-  { id: 'featured-snippets', title: 'Featured Info', icon: <Info className="h-4 w-4" /> },
-  { id: 'packages', title: 'Packages & Fleet', icon: <Package className="h-4 w-4" /> },
-  { id: 'what-to-bring', title: 'What to Bring', icon: <Ticket className="h-4 w-4" /> },
-  { id: 'customization', title: 'Customization', icon: <Sparkles className="h-4 w-4" /> },
-  { id: 'occasions', title: 'Perfect For', icon: <Heart className="h-4 w-4" /> },
-  { id: 'booking-process', title: 'Booking Process', icon: <CheckCircle className="h-4 w-4" /> }
+  { id: 'hero', title: 'Overview', icon: <Info className="h-4 w-4" /> },
+  { id: 'experience', title: 'Experience', icon: <Sparkles className="h-4 w-4" /> },
+  { id: 'pricing', title: 'Pricing & Packages', icon: <DollarSign className="h-4 w-4" /> },
+  { id: 'availability', title: 'Availability', icon: <Calendar className="h-4 w-4" /> },
+  { id: 'benefits', title: 'What\'s Included', icon: <CheckCircle className="h-4 w-4" /> },
+  { id: 'features', title: 'Customization', icon: <Package className="h-4 w-4" /> },
+  { id: 'why-choose', title: 'Why Choose Us', icon: <Star className="h-4 w-4" /> },
+  { id: 'gallery', title: 'Gallery', icon: <Camera className="h-4 w-4" /> },
+  { id: 'testimonials', title: 'Reviews', icon: <Quote className="h-4 w-4" /> },
+  { id: 'faqs', title: 'FAQs', icon: <HelpCircle className="h-4 w-4" /> }
 ];
 
 export default function PrivateCruises() {
@@ -332,8 +397,11 @@ export default function PrivateCruises() {
       <PublicNavigation />
       <Breadcrumb />
 
+      {/* Table of Contents - Sticky Sidebar */}
+      <TableOfContents sections={tocSections} />
+
       {/* Hero Section */}
-      <section className="relative pt-32 pb-24 px-4 overflow-hidden bg-gradient-to-br from-blue-100 via-white to-yellow-50">
+      <section id="hero" className="relative pt-32 pb-24 px-4 overflow-hidden bg-gradient-to-br from-blue-100 via-white to-yellow-50">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-200/30 via-purple-100/30 to-yellow-100/30"></div>
         
         <div className="max-w-7xl mx-auto relative z-10">
@@ -342,14 +410,14 @@ export default function PrivateCruises() {
               <Badge className="mb-6 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-sm px-6 py-2 border-0 font-sans tracking-wider font-bold uppercase">
                 Private Boat Charters
               </Badge>
-              <h1 className="text-5xl font-bold font-playfair mb-8 text-gray-900 leading-tight">
+              <h1 className="text-6xl font-bold font-playfair mb-8 text-gray-900 leading-tight">
                 Private Boat Rentals Austin
               </h1>
               <p className="text-xl text-gray-900 mb-6 font-semibold">
                 Your Private Boat. Your Rules. Your Lake Travis Adventure.
               </p>
-              <p className="text-base text-gray-700 max-w-4xl mx-auto mb-10 leading-relaxed">
-                Exclusive boat charters for 14-75 guests. BYOB friendly. Choose your schedule, play your music, create your perfect day on the lake. Perfect for <InternalLinkHighlight href="/corporate-events" title="Corporate Events">corporate events</InternalLinkHighlight>, <InternalLinkHighlight href="/corporate-events" title="Special Occasions">weddings & birthdays</InternalLinkHighlight>. Looking for a <InternalLinkHighlight href="/atx-disco-cruise" title="ATX Disco Cruise">party atmosphere</InternalLinkHighlight>? Check out our disco cruise!
+              <p className="text-lg text-gray-700 max-w-4xl mx-auto mb-10 leading-relaxed">
+                Exclusive boat charters for 14-75 guests. BYOB friendly. Choose your schedule, play your music, create your perfect day on the lake. Perfect for <InternalLinkHighlight href="/team-building" title="Corporate Events">corporate events</InternalLinkHighlight>, <InternalLinkHighlight href="/rehearsal-dinner" title="Special Occasions">weddings & birthdays</InternalLinkHighlight>. Looking for a <InternalLinkHighlight href="/atx-disco-cruise" title="ATX Disco Cruise">party atmosphere</InternalLinkHighlight>? Check out our disco cruise!
               </p>
 
               <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-12">
@@ -365,8 +433,8 @@ export default function PrivateCruises() {
                 <Button
                   size="lg"
                   variant="outline"
-                  onClick={() => document.getElementById('packages')?.scrollIntoView({ behavior: 'smooth' })}
-                  className="border-2 border-purple-500 text-purple-300 hover:bg-purple-950/50 hover:text-purple-200 font-bold text-xl px-12 py-8"
+                  onClick={() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })}
+                  className="border-2 border-purple-600 text-purple-700 hover:bg-purple-50 hover:text-purple-800 font-bold text-xl px-12 py-8"
                   data-testid="button-hero-view-packages"
                 >
                   View Packages & Pricing
@@ -421,599 +489,471 @@ export default function PrivateCruises() {
         </div>
       </section>
 
-      {/* Quick Answer Boxes Section */}
-      <section className="py-20 bg-white" id="quick-answers">
-        <div className="container mx-auto px-6">
-          <ScrollReveal>
-            <QuickAnswerBoxGroup
-              title="Quick Answers About Private Cruises"
-              boxes={[
-                {
-                  id: 'customize-route',
-                  question: 'Can we customize our route?',
-                  answer: 'Yes! Work with captain to create your perfect route on Lake Travis. Choose specific coves for swimming, scenic spots for photos, or party areas with other boats. Your captain knows all the best spots and will customize based on weather and your preferences.',
-                  keywords: ['customize', 'route', 'captain', 'Lake Travis', 'coves'],
-                  icon: MapPin,
-                  relatedLink: {
-                    href: '#fleet',
-                    text: 'View our fleet options'
-                  }
-                },
-                {
-                  id: 'life-jackets',
-                  question: 'Are life jackets provided?',
-                  answer: 'Yes, USCG approved life jackets provided for all guests in various sizes including children and adults. Safety is our top priority with certified captains ensuring proper safety equipment. Life jackets available but not required while seated. Swimming areas supervised by experienced crew.',
-                  keywords: ['USCG', 'life jackets', 'safety', 'certified captains'],
-                  icon: LifeBuoy,
-                  relatedLink: {
-                    href: '/faq#safety',
-                    text: 'Learn about safety measures'
-                  }
-                }
-              ]}
-              columns={2}
-              className="max-w-5xl mx-auto"
-            />
-          </ScrollReveal>
-        </div>
-      </section>
-
-      {/* Featured Snippets Section */}
-      <section className="py-24 bg-blue-50/30" id="featured-snippets">
-        <div className="container mx-auto px-6 max-w-5xl">
-          <div className="grid md:grid-cols-2 gap-10">
-            <ScrollReveal delay={0}>
-              <FeaturedSnippet
-                question="How to rent a private boat on Lake Travis?"
-                listItems={[
-                  "Choose your boat size (14-75 guests) and date",
-                  "Select your package level (Standard, Essentials, Premium, or VIP)",
-                  "Request a quote online or call (512) 537-2323",
-                  "Confirm availability and receive your booking agreement",
-                  "Pay the 50% deposit to secure your date",
-                  "Plan your BYOB menu and activities",
-                  "Board at Hurst Harbor Marina for your cruise"
-                ]}
-                format="list"
-                numbered={true}
-                schemaType="HowTo"
-              />
-            </ScrollReveal>
-            
-            <ScrollReveal delay={0.1}>
-              <FeaturedSnippet
-                question="Private boat rental prices Austin"
-                tableData={[
-                  { label: "Day Tripper (14)", value: "$200-275/hr - Intimate gatherings" },
-                  { label: "Meeseeks (15-30)", value: "$225-375/hr - Birthday parties" },
-                  { label: "Clever Girl (30-75)", value: "$300-475/hr - Large events" }
-                ]}
-                format="table"
-                schemaType="FAQ"
-              />
-            </ScrollReveal>
-          </div>
-        </div>
-      </section>
-
-      {/* Main Content Tabs */}
-      <section className="py-24 px-4 bg-white" id="packages">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-8">
-            <div className="w-full">
-          <ScrollReveal>
-            <Tabs defaultValue="overview" className="w-full">
-              <TabsList className="grid w-full grid-cols-4 mb-16 bg-blue-50 p-2 rounded-2xl h-auto border border-gray-200">
-                <TabsTrigger 
-                  value="overview" 
-                  className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-600 data-[state=active]:to-blue-700 data-[state=active]:text-white font-bold text-lg py-4 rounded-xl transition-all"
-                  data-testid="tab-overview"
-                >
-                  Overview
-                </TabsTrigger>
-                <TabsTrigger 
-                  value="packages" 
-                  className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-600 data-[state=active]:to-purple-700 data-[state=active]:text-white font-bold text-lg py-4 rounded-xl transition-all"
-                  data-testid="tab-packages"
-                >
-                  Packages
-                </TabsTrigger>
-                <TabsTrigger 
-                  value="fleet" 
-                  className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-600 data-[state=active]:to-pink-700 data-[state=active]:text-white font-bold text-lg py-4 rounded-xl transition-all"
-                  data-testid="tab-fleet"
-                >
-                  Our Fleet
-                </TabsTrigger>
-                <TabsTrigger 
-                  value="faq" 
-                  className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-green-600 data-[state=active]:to-green-700 data-[state=active]:text-white font-bold text-lg py-4 rounded-xl transition-all"
-                  data-testid="tab-faq"
-                >
-                  FAQs
-                </TabsTrigger>
-              </TabsList>
-
-              {/* Overview Tab */}
-              <TabsContent value="overview" className="mt-12">
-                <div className="max-w-6xl mx-auto">
-                  <ScrollReveal delay={0}>
-                    <div className="relative mb-16">
-                      <div className="absolute top-4 right-4 text-6xl font-black text-blue-200 opacity-30">01</div>
-                      <h2 className="text-3xl font-semibold font-playfair text-center mb-6 text-gray-900">
-                        Why Choose a Private Cruise?
-                      </h2>
-                      <p className="text-center text-xl text-gray-700 mb-16">
-                        Your own private boat on Lake Travis - perfect for any celebration
-                      </p>
-                    </div>
-                  </ScrollReveal>
-
-                  {/* What's Included Grid */}
-                  <div className="grid md:grid-cols-3 gap-8 mb-16">
-                    {whatsIncluded.map((item, index) => (
-                      <ScrollReveal key={index} delay={index * 0.1}>
-                        <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-200 hover:border-blue-500 transition-all group min-h-[180px]">
-                          <div className="flex items-start space-x-4">
-                            <div className="p-4 bg-blue-100 rounded-xl group-hover:scale-110 transition-transform">
-                              <item.icon className="h-8 w-8 text-blue-600" />
-                            </div>
-                            <div>
-                              <h3 className="font-semibold text-xl mb-3 text-gray-900">{item.title}</h3>
-                              <p className="text-base text-gray-700">{item.description}</p>
-                            </div>
-                          </div>
-                        </div>
-                      </ScrollReveal>
-                    ))}
-                  </div>
-
-                  <ScrollReveal delay={0.3}>
-                    <div className="text-center">
-                      <Button
-                        size="lg"
-                        onClick={handleGetQuote}
-                        className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold text-xl px-12 py-8 shadow-2xl"
-                        data-testid="button-overview-get-quote"
-                      >
-                        Get Your Custom Quote Now
-                        <ArrowRight className="ml-3 h-6 w-6" />
-                      </Button>
-                    </div>
-                  </ScrollReveal>
-                </div>
-              </TabsContent>
-
-              {/* Packages Tab */}
-              <TabsContent value="packages" className="mt-12">
-                <div className="max-w-6xl mx-auto">
-                  <ScrollReveal delay={0}>
-                    <div className="relative mb-16">
-                      <div className="absolute top-4 right-4 text-6xl font-black text-blue-200 opacity-30">02</div>
-                      <h2 className="text-3xl font-semibold font-playfair text-center mb-6 text-gray-900">
-                        Choose Your Package Level
-                      </h2>
-                      <p className="text-center text-xl text-gray-700 mb-16">
-                        From basic charter to full VIP - customize your Lake Travis experience
-                      </p>
-                    </div>
-                  </ScrollReveal>
-
-                  {/* Private vs Disco Comparison */}
-                  <ScrollReveal delay={0.1}>
-                    <div className="mb-16">
-                      <h3 className="text-2xl font-semibold text-center mb-12 text-gray-900">Why Choose Private Charter?</h3>
-                      <ComparisonTable
-                        columns={[
-                          {
-                            id: 'private',
-                            title: 'Private Charter',
-                            subtitle: 'Your exclusive experience',
-                            recommended: true,
-                            badge: { text: 'Total Control', variant: 'default' }
-                          },
-                          {
-                            id: 'disco',
-                            title: 'ATX Disco Cruise',
-                            subtitle: 'Multi-group party'
-                          }
-                        ]}
-                        rows={[
-                          {
-                            feature: 'Boat Exclusivity',
-                            values: [
-                              { text: 'Entire boat to yourself', highlight: true },
-                              'Share with other groups'
-                            ]
-                          },
-                          {
-                            feature: 'Music Control',
-                            values: [
-                              { text: 'Your playlist all day', highlight: true },
-                              'DJ plays for everyone'
-                            ]
-                          },
-                          {
-                            feature: 'Schedule Flexibility',
-                            values: [
-                              { text: 'Choose any time', highlight: true },
-                              'Fixed departures only'
-                            ]
-                          },
-                          {
-                            feature: 'Route Customization',
-                            values: [
-                              { text: 'Captain follows your wishes', highlight: true },
-                              'Preset route'
-                            ]
-                          },
-                          {
-                            feature: 'Privacy',
-                            values: [
-                              { text: '100% private', highlight: true },
-                              'Meet other groups'
-                            ]
-                          },
-                          {
-                            feature: 'Decoration Options',
-                            values: [
-                              { text: 'Decorate as you wish', highlight: true },
-                              'Pre-decorated'
-                            ]
-                          },
-                          {
-                            feature: 'Food & Catering',
-                            values: [
-                              { text: 'Bring any food/catering', highlight: true },
-                              'Snacks only'
-                            ]
-                          },
-                          {
-                            feature: 'Best For',
-                            values: [
-                              { text: 'Corporate, family, custom events', highlight: true },
-                              'Bach parties only'
-                            ]
-                          },
-                          {
-                            feature: 'Group Size',
-                            values: [
-                              { text: 'Perfect fit for any size', highlight: true },
-                              '8-50 people'
-                            ]
-                          }
-                        ]}
-                        caption="Private Charter vs ATX Disco Cruise Comparison"
-                        summary="Compare the benefits of a private charter versus the multi-group ATX Disco Cruise experience"
-                        mobileView="cards"
-                        schemaType="Service"
-                        ariaLabel="Comparison of Private Charter vs ATX Disco Cruise options"
-                      />
-                    </div>
-                  </ScrollReveal>
-
-                  {/* Package Cards */}
-                  <div className="grid md:grid-cols-3 gap-8 mb-16">
-                    {privateCruisePackages.map((pkg, index) => (
-                      <ScrollReveal key={pkg.id} delay={index * 0.15}>
-                        <Card className={cn(
-                          "relative overflow-hidden bg-white border-2 transition-all duration-300 hover:scale-105 hover:shadow-xl min-h-[500px]",
-                          pkg.popular ? 'border-purple-500 shadow-lg shadow-purple-200' : 'border-gray-200 hover:border-blue-500'
-                        )}>
-                          {pkg.badge && (
-                            <div className={cn(
-                              "absolute top-0 right-0 text-white px-4 py-2 text-sm font-sans tracking-wider font-bold uppercase",
-                              pkg.color === 'blue' && 'bg-gradient-to-r from-blue-500 to-blue-600',
-                              pkg.color === 'yellow' && 'bg-gradient-to-r from-yellow-500 to-yellow-600',
-                              pkg.color === 'purple' && 'bg-gradient-to-r from-purple-500 to-purple-600'
-                            )}>
-                              {pkg.badge}
-                            </div>
-                          )}
-                          <CardHeader className="pb-6 p-6">
-                            <div className="flex items-center gap-4 mb-4">
-                              <div className="p-4 bg-gradient-to-br from-blue-100 to-purple-100 rounded-xl">
-                                <pkg.icon className="h-10 w-10 text-blue-600" />
-                              </div>
-                              <div>
-                                <CardTitle className="text-xl font-semibold text-gray-900">{pkg.name}</CardTitle>
-                                <p className="text-sm text-gray-700 mt-1">{pkg.description}</p>
-                              </div>
-                            </div>
-                            <p className="text-gray-700 text-base">{pkg.subtitle}</p>
-                          </CardHeader>
-                          <CardContent className="p-6">
-                            <ul className="space-y-3">
-                              {pkg.features.map((feature, idx) => (
-                                <li key={idx} className="flex items-start gap-3 text-gray-700">
-                                  <CheckCircle className="h-5 w-5 text-green-600 shrink-0 mt-0.5" />
-                                  <span className="text-sm">{feature}</span>
-                                </li>
-                              ))}
-                            </ul>
-                            <Button
-                              onClick={handleGetQuote}
-                              className="w-full mt-8 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold"
-                              data-testid={`button-package-${pkg.id}`}
-                            >
-                              Get Quote
-                              <ArrowRight className="ml-2 h-4 w-4" />
-                            </Button>
-                          </CardContent>
-                        </Card>
-                      </ScrollReveal>
-                    ))}
-                  </div>
-
-                  <ScrollReveal delay={0.5}>
-                    <PricingTable
-                      title="Package Pricing Breakdown"
-                      description="Add-on fees for enhanced packages (on top of hourly boat rates)"
-                      packages={[
-                        {
-                          name: 'Standard Package',
-                          price: '$0',
-                          period: 'included',
-                          features: [
-                            'Professional captain',
-                            'Basic amenities',
-                            'Bluetooth sound',
-                            'BYOB friendly'
-                          ],
-                          highlighted: false,
-                          ctaText: 'Select Standard',
-                          ctaAction: handleGetQuote
-                        },
-                        {
-                          name: 'Essentials Package',
-                          price: '$100-200',
-                          period: 'flat fee',
-                          features: [
-                            'Everything in Standard',
-                            'Pre-stocked ice',
-                            'Water dispenser',
-                            'Food table setup'
-                          ],
-                          highlighted: true,
-                          ctaText: 'Select Essentials',
-                          ctaAction: handleGetQuote
-                        },
-                        {
-                          name: 'Ultimate Package',
-                          price: '$250-350',
-                          period: 'flat fee',
-                          features: [
-                            'Everything in Essentials',
-                            'Giant floats',
-                            'Party decorations',
-                            'Premium amenities'
-                          ],
-                          highlighted: false,
-                          ctaText: 'Select Ultimate',
-                          ctaAction: handleGetQuote
-                        }
-                      ]}
-                      testIdPrefix="pricing-private"
-                    />
-                  </ScrollReveal>
-                </div>
-              </TabsContent>
-
-              {/* Fleet Tab */}
-              <TabsContent value="fleet" className="mt-12" id="fleet">
-                <div className="max-w-6xl mx-auto">
-                  <ScrollReveal delay={0}>
-                    <div className="relative mb-16">
-                      <div className="absolute top-4 right-4 text-6xl font-black text-blue-200 opacity-30">03</div>
-                      <h2 className="text-3xl font-semibold font-playfair text-center mb-6 text-gray-900">
-                        Our Premium Fleet
-                      </h2>
-                      <p className="text-center text-xl text-gray-700 mb-16">
-                        Choose the perfect vessel for your group size and celebration
-                      </p>
-                    </div>
-                  </ScrollReveal>
-
-                  <div className="grid md:grid-cols-3 gap-8">
-                    {fleetOptions.map((boat, index) => (
-                      <ScrollReveal key={index} delay={index * 0.15}>
-                        <Card className="overflow-hidden bg-white border-2 border-gray-200 hover:border-blue-500 transition-all hover:scale-105 hover:shadow-xl group min-h-[450px]">
-                          <div className="relative h-64 overflow-hidden">
-                            <img 
-                              src={boat.image} 
-                              alt={boat.name}
-                              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent"></div>
-                            <div className="absolute bottom-4 left-4 right-4">
-                              <h3 className="text-2xl font-bold text-white mb-1">{boat.name}</h3>
-                              <p className="text-blue-200 font-semibold">{boat.capacity}</p>
-                            </div>
-                          </div>
-                          <CardContent className="p-6">
-                            <div className="mb-6">
-                              <div className="text-3xl font-bold text-gray-900 mb-1">
-                                ${boat.baseRate}<span className="text-xl text-gray-700">/hour</span>
-                              </div>
-                              <p className="text-sm text-gray-700">4-hour minimum</p>
-                            </div>
-                            <ul className="space-y-3 mb-6">
-                              {boat.features.map((feature, idx) => (
-                                <li key={idx} className="flex items-start gap-3 text-gray-700">
-                                  <CheckCircle className="h-5 w-5 text-blue-600 shrink-0 mt-0.5" />
-                                  <span className="text-sm">{feature}</span>
-                                </li>
-                              ))}
-                            </ul>
-                            <Button
-                              onClick={handleGetQuote}
-                              className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold"
-                              data-testid={`button-fleet-${boat.name.toLowerCase().replace(/\s+/g, '-')}`}
-                            >
-                              Book {boat.name}
-                              <ArrowRight className="ml-2 h-4 w-4" />
-                            </Button>
-                          </CardContent>
-                        </Card>
-                      </ScrollReveal>
-                    ))}
-                  </div>
-                </div>
-              </TabsContent>
-
-              {/* FAQ Tab */}
-              <TabsContent value="faq" className="mt-12">
-                <div className="max-w-4xl mx-auto">
-                  <ScrollReveal delay={0}>
-                    <div className="relative mb-16">
-                      <div className="absolute top-4 right-4 text-6xl font-black text-blue-200 opacity-30">04</div>
-                      <h2 className="text-3xl font-semibold font-playfair text-center mb-6 text-gray-900">
-                        Frequently Asked Questions
-                      </h2>
-                      <p className="text-center text-xl text-gray-700 mb-16">
-                        Everything you need to know about private cruises
-                      </p>
-                    </div>
-                  </ScrollReveal>
-
-                  <ScrollReveal delay={0.1}>
-                    <Accordion type="single" collapsible className="space-y-4">
-                      {faqItems.map((item) => (
-                        <AccordionItem 
-                          key={item.id} 
-                          value={item.id}
-                          className="bg-white border border-gray-200 rounded-xl px-6 hover:border-blue-500 transition-all"
-                        >
-                          <AccordionTrigger 
-                            className="text-lg font-semibold text-gray-900 hover:text-blue-600 py-6"
-                            data-testid={`faq-trigger-${item.id}`}
-                          >
-                            {item.question}
-                          </AccordionTrigger>
-                          <AccordionContent 
-                            className="text-gray-700 pb-6 text-base leading-relaxed"
-                            data-testid={`faq-content-${item.id}`}
-                          >
-                            {item.answer}
-                          </AccordionContent>
-                        </AccordionItem>
-                      ))}
-                    </Accordion>
-                  </ScrollReveal>
-
-                  <ScrollReveal delay={0.2}>
-                    <div className="mt-16 text-center">
-                      <Button
-                        size="lg"
-                        onClick={handleGetQuote}
-                        className="bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 text-white font-bold text-xl px-12 py-8 shadow-2xl"
-                        data-testid="button-faq-get-quote"
-                      >
-                        Still Have Questions? Get a Quote
-                        <ArrowRight className="ml-3 h-6 w-6" />
-                      </Button>
-                    </div>
-                  </ScrollReveal>
-                </div>
-              </TabsContent>
-            </Tabs>
-          </ScrollReveal>
-            </div>
-
-            {/* Table of Contents Sidebar */}
-            <TableOfContents sections={tocSections} />
-          </div>
-        </div>
-      </section>
-
-      {/* Types of Private Cruises Section */}
-      <section className="py-24 px-4 bg-blue-50/30">
-        <div className="max-w-7xl mx-auto">
-          <ScrollReveal delay={0}>
-            <h2 className="text-3xl font-semibold font-playfair text-center mb-6 text-gray-900">
-              Popular Private Cruise Events
-            </h2>
-            <p className="text-center text-xl text-gray-700 mb-16">
-              Explore different types of private cruises we specialize in
-            </p>
-          </ScrollReveal>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {privateCruiseTypes.map((type, index) => (
-              <ScrollReveal key={index} delay={index * 0.1}>
-                <Link href={type.href} data-testid={type.testId}>
-                  <Card className="hover:shadow-xl transition-all duration-300 cursor-pointer h-full border-2 border-gray-200 hover:border-blue-500 bg-white group hover:scale-105">
-                    <CardHeader className="p-6">
-                      <div className="flex items-start gap-4">
-                        <div className="p-4 bg-blue-100 rounded-xl group-hover:scale-110 transition-transform">
-                          <type.icon className="h-10 w-10 text-blue-600" />
-                        </div>
-                        <div className="flex-1">
-                          <CardTitle className="text-lg font-semibold text-gray-900 group-hover:text-blue-600 transition-colors">
-                            {type.title}
-                          </CardTitle>
-                          <p className="text-gray-700 text-sm mt-2">
-                            {type.description}
-                          </p>
-                        </div>
-                      </div>
-                    </CardHeader>
-                  </Card>
-                </Link>
-              </ScrollReveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <ScrollReveal delay={0}>
-        <section className="py-24 px-4 bg-gradient-to-r from-blue-600 via-purple-600 to-purple-700">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-4xl font-bold font-playfair text-white mb-8">
-              Ready to Book Your Private Cruise?
-            </h2>
-            <p className="text-xl text-white/95 mb-10">
-              Get your custom quote in minutes. Choose your boat, package, and perfect date on Lake Travis.
-            </p>
-            <Button
-              size="lg"
-              onClick={handleGetQuote}
-              className="bg-white text-blue-600 hover:bg-gray-100 font-black text-2xl px-16 py-10 shadow-2xl hover:scale-105 transition-all"
-              data-testid="button-cta-get-quote"
-            >
-              Get Your Custom Quote Now
-              <ArrowRight className="ml-4 h-7 w-7" />
-            </Button>
-          </div>
-        </section>
-      </ScrollReveal>
-
-      {/* What to Bring Section */}
-      <section className="py-24 bg-white" id="what-to-bring">
-        <div className="container mx-auto px-6">
-          <ScrollReveal>
-            <WhatToBring
-              variant="private"
-              title="What to Bring on Your Private Cruise"
-              description="Everything you need for a perfect custom celebration on Lake Travis"
-              className="max-w-7xl mx-auto"
-            />
-          </ScrollReveal>
-        </div>
-      </section>
-
-      {/* Customization Options Section */}
+      {/* Experience Section */}
       <SectionReveal>
-        <section className="py-24 bg-blue-50/30" id="customization">
+        <section id="experience" className="py-24 bg-white">
           <div className="container mx-auto px-6">
             <div className="max-w-7xl mx-auto">
-              <div className="relative mb-16">
-                <div className="absolute top-4 right-4 text-6xl font-black text-blue-200 opacity-30">02</div>
-                <h2 className="text-3xl font-semibold font-playfair text-center mb-6 text-gray-900">
+              <div className="text-center mb-16">
+                <h2 className="text-4xl font-bold font-playfair mb-6 text-gray-900">
+                  The Private Charter Experience
+                </h2>
+                <p className="text-lg text-gray-700 max-w-3xl mx-auto">
+                  Discover the freedom and luxury of your own private Lake Travis adventure
+                </p>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-12 mb-16">
+                <Card className="bg-gradient-to-br from-blue-50 to-white border-blue-200">
+                  <CardHeader>
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="p-3 bg-blue-600 rounded-lg">
+                        <Ship className="h-8 w-8 text-white" />
+                      </div>
+                      <CardTitle className="text-2xl">Your Exclusive Experience</CardTitle>
+                    </div>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-gray-700 leading-relaxed mb-6">
+                      When you book a private charter, you get the entire boat exclusively for your group. No strangers, no sharing - just you, your guests, and the beautiful waters of Lake Travis.
+                    </p>
+                    <ul className="space-y-3">
+                      <li className="flex items-start gap-3">
+                        <CheckCircle className="h-5 w-5 text-blue-600 shrink-0 mt-0.5" />
+                        <span className="text-gray-700">Choose your own departure time</span>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <CheckCircle className="h-5 w-5 text-blue-600 shrink-0 mt-0.5" />
+                        <span className="text-gray-700">Create your custom playlist</span>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <CheckCircle className="h-5 w-5 text-blue-600 shrink-0 mt-0.5" />
+                        <span className="text-gray-700">Select your preferred route and destinations</span>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <CheckCircle className="h-5 w-5 text-blue-600 shrink-0 mt-0.5" />
+                        <span className="text-gray-700">Bring your own food, drinks, and decorations</span>
+                      </li>
+                    </ul>
+                  </CardContent>
+                </Card>
+
+                <Card className="bg-gradient-to-br from-purple-50 to-white border-purple-200">
+                  <CardHeader>
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="p-3 bg-purple-600 rounded-lg">
+                        <UserCheck className="h-8 w-8 text-white" />
+                      </div>
+                      <CardTitle className="text-2xl">Professional Service</CardTitle>
+                    </div>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-gray-700 leading-relaxed mb-6">
+                      Every private charter includes experienced, USCG licensed captains who know Lake Travis like the back of their hand. They'll ensure your safety while showing you the best spots.
+                    </p>
+                    <ul className="space-y-3">
+                      <li className="flex items-start gap-3">
+                        <CheckCircle className="h-5 w-5 text-purple-600 shrink-0 mt-0.5" />
+                        <span className="text-gray-700">Coast Guard certified captains</span>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <CheckCircle className="h-5 w-5 text-purple-600 shrink-0 mt-0.5" />
+                        <span className="text-gray-700">Expert knowledge of Lake Travis</span>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <CheckCircle className="h-5 w-5 text-purple-600 shrink-0 mt-0.5" />
+                        <span className="text-gray-700">Professional crew for larger groups</span>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <CheckCircle className="h-5 w-5 text-purple-600 shrink-0 mt-0.5" />
+                        <span className="text-gray-700">Dedicated to making your event perfect</span>
+                      </li>
+                    </ul>
+                  </CardContent>
+                </Card>
+              </div>
+
+              <QuickAnswerBoxGroup
+                title="Quick Answers About Private Cruises"
+                boxes={[
+                  {
+                    id: 'customize-route',
+                    question: 'Can we customize our route?',
+                    answer: 'Yes! Work with captain to create your perfect route on Lake Travis. Choose specific coves for swimming, scenic spots for photos, or party areas with other boats. Your captain knows all the best spots and will customize based on weather and your preferences.',
+                    keywords: ['customize', 'route', 'captain', 'Lake Travis', 'coves'],
+                    icon: MapPin,
+                    relatedLink: {
+                      href: '#pricing',
+                      text: 'View our fleet options'
+                    }
+                  },
+                  {
+                    id: 'life-jackets',
+                    question: 'Are life jackets provided?',
+                    answer: 'Yes, USCG approved life jackets provided for all guests in various sizes including children and adults. Safety is our top priority with certified captains ensuring proper safety equipment. Life jackets available but not required while seated. Swimming areas supervised by experienced crew.',
+                    keywords: ['USCG', 'life jackets', 'safety', 'certified captains'],
+                    icon: LifeBuoy,
+                    relatedLink: {
+                      href: '/faq#safety',
+                      text: 'Learn about safety measures'
+                    }
+                  }
+                ]}
+                columns={2}
+                className="max-w-5xl mx-auto"
+              />
+            </div>
+          </div>
+        </section>
+      </SectionReveal>
+
+      {/* Pricing Section */}
+      <SectionReveal>
+        <section id="pricing" className="py-24 bg-blue-50/30">
+          <div className="container mx-auto px-6">
+            <div className="max-w-7xl mx-auto">
+              <div className="text-center mb-16">
+                <h2 className="text-4xl font-bold font-playfair mb-6 text-gray-900">
+                  Pricing & Packages
+                </h2>
+                <p className="text-lg text-gray-700 max-w-3xl mx-auto">
+                  Choose from three boats and three package levels to create your perfect experience
+                </p>
+              </div>
+
+              <Tabs defaultValue="fleet" className="w-full">
+                <TabsList className="grid w-full grid-cols-2 mb-12 bg-white p-2 rounded-2xl h-auto border border-gray-200">
+                  <TabsTrigger 
+                    value="fleet" 
+                    className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-600 data-[state=active]:to-blue-700 data-[state=active]:text-white font-bold text-lg py-4 rounded-xl transition-all"
+                    data-testid="tab-fleet"
+                  >
+                    Our Fleet
+                  </TabsTrigger>
+                  <TabsTrigger 
+                    value="packages" 
+                    className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-600 data-[state=active]:to-purple-700 data-[state=active]:text-white font-bold text-lg py-4 rounded-xl transition-all"
+                    data-testid="tab-packages"
+                  >
+                    Package Options
+                  </TabsTrigger>
+                </TabsList>
+
+                {/* Fleet Tab */}
+                <TabsContent value="fleet" className="mt-8">
+                  <div className="grid md:grid-cols-3 gap-8">
+                    {fleetOptions.map((boat, index) => (
+                      <Card key={index} className="bg-white border-gray-200 hover:border-blue-500 transition-all">
+                        <CardHeader className="p-0">
+                          <img
+                            src={boat.image}
+                            alt={`${boat.name} private boat charter`}
+                            className="w-full h-56 object-cover rounded-t-xl"
+                          />
+                        </CardHeader>
+                        <CardContent className="p-6">
+                          <CardTitle className="text-2xl mb-2">{boat.name}</CardTitle>
+                          <p className="text-lg font-semibold text-blue-600 mb-4">{boat.capacity}</p>
+                          <div className="mb-6">
+                            <p className="text-3xl font-bold text-gray-900">${boat.baseRate}<span className="text-lg text-gray-600">/hour</span></p>
+                            <p className="text-sm text-gray-600">4-hour minimum</p>
+                          </div>
+                          <ul className="space-y-2">
+                            {boat.features.map((feature, fIndex) => (
+                              <li key={fIndex} className="flex items-start gap-2 text-gray-700">
+                                <Check className="h-5 w-5 text-blue-600 shrink-0 mt-0.5" />
+                                <span className="text-sm">{feature}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
+
+                  <div className="mt-12 bg-white rounded-xl p-8 border border-gray-200">
+                    <h3 className="text-2xl font-bold mb-6 text-center">Fleet Pricing Overview</h3>
+                    <FeaturedSnippet
+                      question="Private boat rental prices Austin"
+                      tableData={[
+                        { label: "Day Tripper (14)", value: "$200-275/hr - Intimate gatherings" },
+                        { label: "Meeseeks (15-30)", value: "$225-375/hr - Birthday parties" },
+                        { label: "Clever Girl (30-75)", value: "$300-475/hr - Large events" }
+                      ]}
+                      format="table"
+                      schemaType="FAQ"
+                    />
+                  </div>
+                </TabsContent>
+
+                {/* Packages Tab */}
+                <TabsContent value="packages" className="mt-8">
+                  <div className="grid md:grid-cols-3 gap-8">
+                    {privateCruisePackages.map((pkg, index) => {
+                      const Icon = pkg.icon;
+                      return (
+                        <Card 
+                          key={index} 
+                          className={cn(
+                            "bg-white border-2 transition-all",
+                            pkg.popular ? "border-yellow-400 shadow-xl ring-2 ring-yellow-200" : "border-gray-200 hover:border-blue-500"
+                          )}
+                        >
+                          <CardHeader>
+                            {pkg.popular && (
+                              <Badge className="mb-4 bg-yellow-500 text-white w-fit">
+                                {pkg.badge}
+                              </Badge>
+                            )}
+                            <div className="flex items-center gap-3 mb-4">
+                              <div className={`p-3 bg-${pkg.color}-100 rounded-lg`}>
+                                <Icon className={`h-8 w-8 text-${pkg.color}-600`} />
+                              </div>
+                              <div>
+                                <CardTitle className="text-2xl">{pkg.name}</CardTitle>
+                                <p className="text-sm text-gray-600 mt-1">{pkg.description}</p>
+                              </div>
+                            </div>
+                          </CardHeader>
+                          <CardContent>
+                            <p className="text-gray-700 mb-6 italic">{pkg.subtitle}</p>
+                            <ul className="space-y-3">
+                              {pkg.features.map((feature, fIndex) => (
+                                <li key={fIndex} className="flex items-start gap-2">
+                                  <CheckCircle className={`h-5 w-5 text-${pkg.color}-600 shrink-0 mt-0.5`} />
+                                  <span className="text-gray-700">{feature}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </CardContent>
+                        </Card>
+                      );
+                    })}
+                  </div>
+
+                  <div className="mt-12 text-center bg-white rounded-xl p-8 border border-gray-200">
+                    <h3 className="text-2xl font-bold mb-4">Package Flat Fees</h3>
+                    <p className="text-gray-700 mb-6">Add these one-time fees to your hourly boat rental</p>
+                    <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+                      <div className="p-6 bg-blue-50 rounded-xl">
+                        <Ship className="h-12 w-12 text-blue-600 mx-auto mb-3" />
+                        <h4 className="font-bold text-lg mb-2">Standard</h4>
+                        <p className="text-3xl font-bold text-blue-600">$0</p>
+                        <p className="text-sm text-gray-600 mt-2">No package fee</p>
+                      </div>
+                      <div className="p-6 bg-yellow-50 rounded-xl border-2 border-yellow-400">
+                        <Sparkles className="h-12 w-12 text-yellow-600 mx-auto mb-3" />
+                        <h4 className="font-bold text-lg mb-2">Essentials</h4>
+                        <p className="text-3xl font-bold text-yellow-600">$100-200</p>
+                        <p className="text-sm text-gray-600 mt-2">Based on boat size</p>
+                      </div>
+                      <div className="p-6 bg-purple-50 rounded-xl">
+                        <Crown className="h-12 w-12 text-purple-600 mx-auto mb-3" />
+                        <h4 className="font-bold text-lg mb-2">Ultimate</h4>
+                        <p className="text-3xl font-bold text-purple-600">$250-350</p>
+                        <p className="text-sm text-gray-600 mt-2">Based on boat size</p>
+                      </div>
+                    </div>
+                  </div>
+                </TabsContent>
+              </Tabs>
+
+              <div className="mt-16 text-center">
+                <Button
+                  size="lg"
+                  onClick={handleGetQuote}
+                  className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold text-xl px-12 py-8"
+                  data-testid="button-pricing-get-quote"
+                >
+                  Get Custom Quote for Your Date
+                  <ArrowRight className="ml-3 h-6 w-6" />
+                </Button>
+              </div>
+            </div>
+          </div>
+        </section>
+      </SectionReveal>
+
+      {/* Availability Section */}
+      <SectionReveal>
+        <section id="availability" className="py-24 bg-white">
+          <div className="container mx-auto px-6">
+            <div className="max-w-7xl mx-auto">
+              <div className="text-center mb-16">
+                <h2 className="text-4xl font-bold font-playfair mb-6 text-gray-900">
+                  Booking & Availability
+                </h2>
+                <p className="text-lg text-gray-700 max-w-3xl mx-auto">
+                  Plan ahead for the best experience - popular dates fill up quickly
+                </p>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-12">
+                <Card className="bg-gradient-to-br from-blue-50 to-white border-blue-200">
+                  <CardHeader>
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="p-3 bg-blue-600 rounded-lg">
+                        <Calendar className="h-8 w-8 text-white" />
+                      </div>
+                      <CardTitle className="text-2xl">When to Book</CardTitle>
+                    </div>
+                  </CardHeader>
+                  <CardContent>
+                    <ul className="space-y-4">
+                      <li className="flex items-start gap-3">
+                        <div className="p-2 bg-blue-100 rounded-lg shrink-0">
+                          <TrendingUp className="h-5 w-5 text-blue-600" />
+                        </div>
+                        <div>
+                          <p className="font-semibold text-gray-900 mb-1">Peak Season (May-September)</p>
+                          <p className="text-gray-700">Book 6-12 weeks in advance for weekend dates</p>
+                        </div>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <div className="p-2 bg-blue-100 rounded-lg shrink-0">
+                          <Sun className="h-5 w-5 text-blue-600" />
+                        </div>
+                        <div>
+                          <p className="font-semibold text-gray-900 mb-1">Shoulder Season (March-April, October)</p>
+                          <p className="text-gray-700">Book 4-6 weeks in advance</p>
+                        </div>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <div className="p-2 bg-blue-100 rounded-lg shrink-0">
+                          <Snowflake className="h-5 w-5 text-blue-600" />
+                        </div>
+                        <div>
+                          <p className="font-semibold text-gray-900 mb-1">Off-Season (November-February)</p>
+                          <p className="text-gray-700">More flexible booking, 2-4 weeks notice</p>
+                        </div>
+                      </li>
+                    </ul>
+                  </CardContent>
+                </Card>
+
+                <Card className="bg-gradient-to-br from-purple-50 to-white border-purple-200">
+                  <CardHeader>
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="p-3 bg-purple-600 rounded-lg">
+                        <Clock className="h-8 w-8 text-white" />
+                      </div>
+                      <CardTitle className="text-2xl">Cruise Times</CardTitle>
+                    </div>
+                  </CardHeader>
+                  <CardContent>
+                    <ul className="space-y-4">
+                      <li className="flex items-start gap-3">
+                        <div className="p-2 bg-purple-100 rounded-lg shrink-0">
+                          <Sun className="h-5 w-5 text-purple-600" />
+                        </div>
+                        <div>
+                          <p className="font-semibold text-gray-900 mb-1">Morning Cruises (9am-1pm)</p>
+                          <p className="text-gray-700">Perfect for calmer waters and cooler temperatures</p>
+                        </div>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <div className="p-2 bg-purple-100 rounded-lg shrink-0">
+                          <Sun className="h-5 w-5 text-purple-600" />
+                        </div>
+                        <div>
+                          <p className="font-semibold text-gray-900 mb-1">Afternoon Cruises (2pm-6pm)</p>
+                          <p className="text-gray-700">Peak sunshine and social lake atmosphere</p>
+                        </div>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <div className="p-2 bg-purple-100 rounded-lg shrink-0">
+                          <Moon className="h-5 w-5 text-purple-600" />
+                        </div>
+                        <div>
+                          <p className="font-semibold text-gray-900 mb-1">Sunset Cruises (6pm-10pm)</p>
+                          <p className="text-gray-700">Romantic sunsets over Lake Travis (seasonal)</p>
+                        </div>
+                      </li>
+                    </ul>
+                  </CardContent>
+                </Card>
+              </div>
+
+              <div className="mt-12 text-center">
+                <Card className="bg-gradient-to-r from-blue-600 to-purple-600 text-white border-0">
+                  <CardContent className="p-12">
+                    <h3 className="text-3xl font-bold mb-4">Ready to Book Your Private Charter?</h3>
+                    <p className="text-xl mb-8 text-white/90">
+                      Get your custom quote and check availability for your preferred date
+                    </p>
+                    <Button
+                      size="lg"
+                      onClick={handleGetQuote}
+                      className="bg-white text-blue-600 hover:bg-gray-100 font-bold text-xl px-12 py-8"
+                      data-testid="button-availability-get-quote"
+                    >
+                      Check Availability & Get Quote
+                      <ArrowRight className="ml-3 h-6 w-6" />
+                    </Button>
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
+          </div>
+        </section>
+      </SectionReveal>
+
+      {/* Benefits Section - What's Included */}
+      <SectionReveal>
+        <section id="benefits" className="py-24 bg-blue-50/30">
+          <div className="container mx-auto px-6">
+            <div className="max-w-7xl mx-auto">
+              <div className="text-center mb-16">
+                <h2 className="text-4xl font-bold font-playfair mb-6 text-gray-900">
+                  What's Included in Every Charter
+                </h2>
+                <p className="text-lg text-gray-700 max-w-3xl mx-auto">
+                  Everything you need for an amazing Lake Travis experience is included
+                </p>
+              </div>
+
+              <div className="grid md:grid-cols-3 gap-8">
+                {whatsIncluded.map((item, index) => {
+                  const Icon = item.icon;
+                  return (
+                    <Card key={index} className="bg-white border-gray-200 hover:border-blue-500 transition-all">
+                      <CardHeader className="text-center">
+                        <div className="mx-auto mb-4 p-4 bg-blue-100 rounded-full w-fit">
+                          <Icon className="h-8 w-8 text-blue-600" />
+                        </div>
+                        <CardTitle className="text-xl">{item.title}</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-center text-gray-700">{item.description}</p>
+                      </CardContent>
+                    </Card>
+                  );
+                })}
+              </div>
+
+              <div className="mt-16">
+                <WhatToBring
+                  variant="private"
+                  title="What to Bring on Your Private Cruise"
+                  description="Everything you need for a perfect custom celebration on Lake Travis"
+                  className="max-w-7xl mx-auto"
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+      </SectionReveal>
+
+      {/* Features Section - Customization */}
+      <SectionReveal>
+        <section id="features" className="py-24 bg-white">
+          <div className="container mx-auto px-6">
+            <div className="max-w-7xl mx-auto">
+              <div className="text-center mb-16">
+                <h2 className="text-4xl font-bold font-playfair mb-6 text-gray-900">
                   Customize Your Experience
                 </h2>
-                <p className="text-center text-base text-gray-700 max-w-3xl mx-auto">
+                <p className="text-lg text-gray-700 max-w-3xl mx-auto">
                   Add-ons and upgrades to make your cruise unforgettable
                 </p>
               </div>
@@ -1135,243 +1075,355 @@ export default function PrivateCruises() {
                   </CardHeader>
                 </Card>
               </div>
-            </div>
-          </div>
-        </section>
-      </SectionReveal>
 
-      {/* Perfect For Section */}
-      <SectionReveal>
-        <section className="py-24 bg-white" id="occasions">
-          <div className="container mx-auto px-6">
-            <div className="max-w-7xl mx-auto">
-              <div className="relative mb-16">
-                <div className="absolute top-4 right-4 text-6xl font-black text-blue-200 opacity-30">03</div>
-                <h2 className="text-3xl font-semibold font-playfair text-center mb-6 text-gray-900">
-                  Perfect For Any Occasion
-                </h2>
-                <p className="text-center text-base text-gray-700 max-w-3xl mx-auto">
-                  From corporate events to milestone celebrations
-                </p>
-              </div>
-
-              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <Card className="bg-white border-gray-200 rounded-xl hover:border-blue-500 transition-all">
-                  <CardHeader className="p-6">
-                    <div className="flex items-center gap-3 mb-4">
-                      <div className="p-3 bg-blue-100 rounded-lg">
+              <div className="mt-12 text-center bg-blue-50 rounded-xl p-8">
+                <h3 className="text-2xl font-bold mb-4">Perfect For Any Occasion</h3>
+                <div className="grid md:grid-cols-4 gap-6 mt-8">
+                  <Card className="bg-white border-gray-200">
+                    <CardHeader className="p-6 text-center">
+                      <div className="mx-auto mb-3 p-3 bg-blue-100 rounded-lg w-fit">
                         <Briefcase className="h-6 w-6 text-blue-600" />
                       </div>
-                      <CardTitle className="text-xl font-semibold text-gray-900">Corporate Events</CardTitle>
-                    </div>
-                    <ul className="space-y-2 text-base text-gray-700">
-                      <li className="flex items-start gap-2">
-                        <Check className="h-5 w-5 text-blue-600 shrink-0 mt-0.5" />
-                        <span>Team building activities</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <Check className="h-5 w-5 text-blue-600 shrink-0 mt-0.5" />
-                        <span>Client entertainment</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <Check className="h-5 w-5 text-blue-600 shrink-0 mt-0.5" />
-                        <span>Holiday parties</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <Check className="h-5 w-5 text-blue-600 shrink-0 mt-0.5" />
-                        <span>Executive retreats</span>
-                      </li>
-                    </ul>
-                  </CardHeader>
-                </Card>
+                      <CardTitle className="text-lg">Corporate Events</CardTitle>
+                      <p className="text-sm text-gray-600 mt-2">Team building, client entertainment, executive retreats</p>
+                    </CardHeader>
+                  </Card>
 
-                <Card className="bg-white border-gray-200 rounded-xl hover:border-blue-500 transition-all">
-                  <CardHeader className="p-6">
-                    <div className="flex items-center gap-3 mb-4">
-                      <div className="p-3 bg-pink-100 rounded-lg">
+                  <Card className="bg-white border-gray-200">
+                    <CardHeader className="p-6 text-center">
+                      <div className="mx-auto mb-3 p-3 bg-pink-100 rounded-lg w-fit">
                         <Heart className="h-6 w-6 text-pink-600" />
                       </div>
-                      <CardTitle className="text-xl font-semibold text-gray-900">Weddings</CardTitle>
-                    </div>
-                    <ul className="space-y-2 text-base text-gray-700">
-                      <li className="flex items-start gap-2">
-                        <Check className="h-5 w-5 text-pink-600 shrink-0 mt-0.5" />
-                        <span>Rehearsal dinners</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <Check className="h-5 w-5 text-pink-600 shrink-0 mt-0.5" />
-                        <span>Welcome parties</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <Check className="h-5 w-5 text-pink-600 shrink-0 mt-0.5" />
-                        <span>After parties</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <Check className="h-5 w-5 text-pink-600 shrink-0 mt-0.5" />
-                        <span>Anniversary celebrations</span>
-                      </li>
-                    </ul>
-                  </CardHeader>
-                </Card>
+                      <CardTitle className="text-lg">Weddings</CardTitle>
+                      <p className="text-sm text-gray-600 mt-2">Rehearsal dinners, welcome parties, after parties</p>
+                    </CardHeader>
+                  </Card>
 
-                <Card className="bg-white border-gray-200 rounded-xl hover:border-blue-500 transition-all">
-                  <CardHeader className="p-6">
-                    <div className="flex items-center gap-3 mb-4">
-                      <div className="p-3 bg-purple-100 rounded-lg">
+                  <Card className="bg-white border-gray-200">
+                    <CardHeader className="p-6 text-center">
+                      <div className="mx-auto mb-3 p-3 bg-purple-100 rounded-lg w-fit">
                         <Cake className="h-6 w-6 text-purple-600" />
                       </div>
-                      <CardTitle className="text-xl font-semibold text-gray-900">Birthdays</CardTitle>
-                    </div>
-                    <ul className="space-y-2 text-base text-gray-700">
-                      <li className="flex items-start gap-2">
-                        <Check className="h-5 w-5 text-purple-600 shrink-0 mt-0.5" />
-                        <span>30th, 40th, 50th celebrations</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <Check className="h-5 w-5 text-purple-600 shrink-0 mt-0.5" />
-                        <span>Sweet 16 parties</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <Check className="h-5 w-5 text-purple-600 shrink-0 mt-0.5" />
-                        <span>Surprise parties</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <Check className="h-5 w-5 text-purple-600 shrink-0 mt-0.5" />
-                        <span>Family gatherings</span>
-                      </li>
-                    </ul>
-                  </CardHeader>
-                </Card>
+                      <CardTitle className="text-lg">Birthdays</CardTitle>
+                      <p className="text-sm text-gray-600 mt-2">Milestone celebrations, Sweet 16s, surprise parties</p>
+                    </CardHeader>
+                  </Card>
 
-                <Card className="bg-white border-gray-200 rounded-xl hover:border-blue-500 transition-all">
-                  <CardHeader className="p-6">
-                    <div className="flex items-center gap-3 mb-4">
-                      <div className="p-3 bg-green-100 rounded-lg">
+                  <Card className="bg-white border-gray-200">
+                    <CardHeader className="p-6 text-center">
+                      <div className="mx-auto mb-3 p-3 bg-green-100 rounded-lg w-fit">
                         <Users className="h-6 w-6 text-green-600" />
                       </div>
-                      <CardTitle className="text-xl font-semibold text-gray-900">Reunions</CardTitle>
-                    </div>
-                    <ul className="space-y-2 text-base text-gray-700">
-                      <li className="flex items-start gap-2">
-                        <Check className="h-5 w-5 text-green-600 shrink-0 mt-0.5" />
-                        <span>High school reunions</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <Check className="h-5 w-5 text-green-600 shrink-0 mt-0.5" />
-                        <span>College friend meetups</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <Check className="h-5 w-5 text-green-600 shrink-0 mt-0.5" />
-                        <span>Family reunions</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <Check className="h-5 w-5 text-green-600 shrink-0 mt-0.5" />
-                        <span>Military homecomings</span>
-                      </li>
-                    </ul>
-                  </CardHeader>
-                </Card>
+                      <CardTitle className="text-lg">Reunions</CardTitle>
+                      <p className="text-sm text-gray-600 mt-2">Family gatherings, class reunions, friend meetups</p>
+                    </CardHeader>
+                  </Card>
+                </div>
               </div>
             </div>
           </div>
         </section>
       </SectionReveal>
 
-      {/* How It Works Section */}
+      {/* Why Choose Us Section */}
       <SectionReveal>
-        <section className="py-24 bg-blue-50/30" id="booking-process">
+        <section id="why-choose" className="py-24 bg-gradient-to-br from-blue-600 to-purple-600 text-white">
           <div className="container mx-auto px-6">
             <div className="max-w-7xl mx-auto">
-              <div className="relative mb-16">
-                <div className="absolute top-4 right-4 text-6xl font-black text-blue-200 opacity-30">04</div>
-                <h2 className="text-3xl font-semibold font-playfair text-center mb-6 text-gray-900">
-                  Simple Booking Process
+              <div className="text-center mb-16">
+                <h2 className="text-4xl font-bold font-playfair mb-6 text-white">
+                  Why Choose Premier Party Cruises
                 </h2>
-                <p className="text-center text-base text-gray-700 max-w-3xl mx-auto">
-                  From inquiry to cruise in 5 easy steps
+                <p className="text-xl text-white/90 max-w-3xl mx-auto">
+                  Austin's most trusted name in private boat charters since 2009
                 </p>
               </div>
 
-              <div className="grid md:grid-cols-5 gap-6">
-                <Card className="bg-white border-gray-200 rounded-xl hover:border-blue-500 transition-all">
-                  <CardHeader className="p-6 text-center">
-                    <div className="mx-auto mb-4 w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center">
-                      <span className="text-2xl font-bold text-blue-600">1</span>
-                    </div>
-                    <div className="mx-auto mb-4 p-3 bg-blue-50 rounded-lg inline-block">
-                      <MessageSquare className="h-6 w-6 text-blue-600" />
-                    </div>
-                    <CardTitle className="text-xl font-semibold text-gray-900 mb-3">Submit Inquiry</CardTitle>
-                    <p className="text-base text-gray-700">
-                      Fill out our online form with your date, group size, and event type
-                    </p>
-                  </CardHeader>
-                </Card>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {whyChooseUs.map((item, index) => {
+                  const Icon = item.icon;
+                  return (
+                    <Card key={index} className="bg-white/10 backdrop-blur-sm border-white/20 text-white">
+                      <CardHeader className="text-center">
+                        <div className="mx-auto mb-4 p-4 bg-white/20 rounded-full w-fit">
+                          <Icon className="h-8 w-8 text-white" />
+                        </div>
+                        <CardTitle className="text-xl text-white">{item.title}</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-center text-white/90">{item.description}</p>
+                      </CardContent>
+                    </Card>
+                  );
+                })}
+              </div>
 
-                <Card className="bg-white border-gray-200 rounded-xl hover:border-blue-500 transition-all">
-                  <CardHeader className="p-6 text-center">
-                    <div className="mx-auto mb-4 w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center">
-                      <span className="text-2xl font-bold text-purple-600">2</span>
-                    </div>
-                    <div className="mx-auto mb-4 p-3 bg-purple-50 rounded-lg inline-block">
-                      <Package className="h-6 w-6 text-purple-600" />
-                    </div>
-                    <CardTitle className="text-xl font-semibold text-gray-900 mb-3">Choose Package</CardTitle>
-                    <p className="text-base text-gray-700">
-                      Select your boat and package tier with any customizations
-                    </p>
-                  </CardHeader>
-                </Card>
-
-                <Card className="bg-white border-gray-200 rounded-xl hover:border-blue-500 transition-all">
-                  <CardHeader className="p-6 text-center">
-                    <div className="mx-auto mb-4 w-16 h-16 bg-pink-100 rounded-full flex items-center justify-center">
-                      <span className="text-2xl font-bold text-pink-600">3</span>
-                    </div>
-                    <div className="mx-auto mb-4 p-3 bg-pink-50 rounded-lg inline-block">
-                      <CreditCard className="h-6 w-6 text-pink-600" />
-                    </div>
-                    <CardTitle className="text-xl font-semibold text-gray-900 mb-3">Secure Date</CardTitle>
-                    <p className="text-base text-gray-700">
-                      Pay your deposit to lock in your reservation
-                    </p>
-                  </CardHeader>
-                </Card>
-
-                <Card className="bg-white border-gray-200 rounded-xl hover:border-blue-500 transition-all">
-                  <CardHeader className="p-6 text-center">
-                    <div className="mx-auto mb-4 w-16 h-16 bg-green-100 rounded-full flex items-center justify-center">
-                      <span className="text-2xl font-bold text-green-600">4</span>
-                    </div>
-                    <div className="mx-auto mb-4 p-3 bg-green-50 rounded-lg inline-block">
-                      <CheckCircle className="h-6 w-6 text-green-600" />
-                    </div>
-                    <CardTitle className="text-xl font-semibold text-gray-900 mb-3">Final Details</CardTitle>
-                    <p className="text-base text-gray-700">
-                      Confirm headcount and arrange add-ons one week before
-                    </p>
-                  </CardHeader>
-                </Card>
-
-                <Card className="bg-white border-gray-200 rounded-xl hover:border-blue-500 transition-all">
-                  <CardHeader className="p-6 text-center">
-                    <div className="mx-auto mb-4 w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center">
-                      <span className="text-2xl font-bold text-yellow-600">5</span>
-                    </div>
-                    <div className="mx-auto mb-4 p-3 bg-yellow-50 rounded-lg inline-block">
-                      <Ship className="h-6 w-6 text-yellow-600" />
-                    </div>
-                    <CardTitle className="text-xl font-semibold text-gray-900 mb-3">Cruise Day</CardTitle>
-                    <p className="text-base text-gray-700">
-                      Arrive at the marina and enjoy your perfect Lake Travis cruise!
-                    </p>
-                  </CardHeader>
-                </Card>
+              <div className="mt-16 text-center">
+                <Button
+                  size="lg"
+                  onClick={handleGetQuote}
+                  className="bg-white text-blue-600 hover:bg-gray-100 font-bold text-xl px-12 py-8"
+                  data-testid="button-why-choose-get-quote"
+                >
+                  Book Your Private Charter Now
+                  <ArrowRight className="ml-3 h-6 w-6" />
+                </Button>
               </div>
             </div>
           </div>
         </section>
       </SectionReveal>
+
+      {/* Gallery Section */}
+      <SectionReveal>
+        <section id="gallery" className="py-24 bg-white">
+          <div className="container mx-auto px-6">
+            <div className="max-w-7xl mx-auto">
+              <div className="text-center mb-16">
+                <h2 className="text-4xl font-bold font-playfair mb-6 text-gray-900">
+                  Our Fleet Gallery
+                </h2>
+                <p className="text-lg text-gray-700 max-w-3xl mx-auto">
+                  See our beautiful boats and the amazing experiences our guests enjoy
+                </p>
+              </div>
+
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div className="space-y-4">
+                  <img
+                    src={heroImage1}
+                    alt="Clever Girl flagship boat with 14 disco balls"
+                    className="rounded-2xl shadow-xl w-full h-72 object-cover hover:scale-105 transition-transform"
+                  />
+                  <div className="text-center">
+                    <h3 className="text-xl font-bold">Clever Girl</h3>
+                    <p className="text-gray-600">Our flagship 50+ person boat</p>
+                  </div>
+                </div>
+
+                <div className="space-y-4">
+                  <img
+                    src={heroImage2}
+                    alt="Meeseeks & The Irony 25-person party boat"
+                    className="rounded-2xl shadow-xl w-full h-72 object-cover hover:scale-105 transition-transform"
+                  />
+                  <div className="text-center">
+                    <h3 className="text-xl font-bold">Meeseeks & The Irony</h3>
+                    <p className="text-gray-600">Perfect for 15-30 guests</p>
+                  </div>
+                </div>
+
+                <div className="space-y-4">
+                  <img
+                    src={heroImage3}
+                    alt="Day Tripper intimate 14-person boat"
+                    className="rounded-2xl shadow-xl w-full h-72 object-cover hover:scale-105 transition-transform"
+                  />
+                  <div className="text-center">
+                    <h3 className="text-xl font-bold">Day Tripper</h3>
+                    <p className="text-gray-600">Intimate cruises up to 14 people</p>
+                  </div>
+                </div>
+
+                <div className="space-y-4">
+                  <img
+                    src={galleryImage1}
+                    alt="Party atmosphere on Lake Travis"
+                    className="rounded-2xl shadow-xl w-full h-72 object-cover hover:scale-105 transition-transform"
+                  />
+                  <div className="text-center">
+                    <h3 className="text-xl font-bold">Party Atmosphere</h3>
+                    <p className="text-gray-600">Unforgettable celebrations</p>
+                  </div>
+                </div>
+
+                <div className="space-y-4">
+                  <img
+                    src={galleryImage2}
+                    alt="Lake Travis scenic views"
+                    className="rounded-2xl shadow-xl w-full h-72 object-cover hover:scale-105 transition-transform"
+                  />
+                  <div className="text-center">
+                    <h3 className="text-xl font-bold">Scenic Views</h3>
+                    <p className="text-gray-600">Beautiful Lake Travis waters</p>
+                  </div>
+                </div>
+
+                <div className="space-y-4">
+                  <img
+                    src={galleryImage3}
+                    alt="Happy guests enjoying cruise"
+                    className="rounded-2xl shadow-xl w-full h-72 object-cover hover:scale-105 transition-transform"
+                  />
+                  <div className="text-center">
+                    <h3 className="text-xl font-bold">Happy Guests</h3>
+                    <p className="text-gray-600">Creating amazing memories</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </SectionReveal>
+
+      {/* Testimonials Section */}
+      <SectionReveal>
+        <section id="testimonials" className="py-24 bg-blue-50/30">
+          <div className="container mx-auto px-6">
+            <div className="max-w-7xl mx-auto">
+              <div className="text-center mb-16">
+                <h2 className="text-4xl font-bold font-playfair mb-6 text-gray-900">
+                  What Our Guests Say
+                </h2>
+                <p className="text-lg text-gray-700 max-w-3xl mx-auto">
+                  Real reviews from real celebrations on Lake Travis
+                </p>
+              </div>
+
+              <div className="grid md:grid-cols-3 gap-8">
+                {testimonials.map((testimonial) => (
+                  <Card key={testimonial.id} className="bg-white border-gray-200">
+                    <CardHeader>
+                      <div className="flex items-center gap-4 mb-4">
+                        <div className="text-5xl">{testimonial.avatar}</div>
+                        <div>
+                          <CardTitle className="text-lg">{testimonial.name}</CardTitle>
+                          <p className="text-sm text-gray-600">{testimonial.role}</p>
+                        </div>
+                      </div>
+                      <div className="flex gap-1 mb-4">
+                        {[...Array(testimonial.rating)].map((_, i) => (
+                          <Star key={i} className="h-5 w-5 text-yellow-500 fill-yellow-500" />
+                        ))}
+                      </div>
+                    </CardHeader>
+                    <CardContent>
+                      <Quote className="h-8 w-8 text-blue-200 mb-2" />
+                      <p className="text-gray-700 italic">{testimonial.text}</p>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+
+              <div className="mt-16 text-center bg-white rounded-xl p-8 border border-gray-200">
+                <div className="flex justify-center gap-2 mb-4">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="h-8 w-8 text-yellow-500 fill-yellow-500" />
+                  ))}
+                </div>
+                <p className="text-3xl font-bold mb-2">100,000+ Happy Guests</p>
+                <p className="text-gray-600">Join thousands of satisfied customers who've celebrated on Lake Travis</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </SectionReveal>
+
+      {/* FAQs Section */}
+      <SectionReveal>
+        <section id="faqs" className="py-24 bg-white">
+          <div className="container mx-auto px-6">
+            <div className="max-w-4xl mx-auto">
+              <div className="text-center mb-16">
+                <h2 className="text-4xl font-bold font-playfair mb-6 text-gray-900">
+                  Frequently Asked Questions
+                </h2>
+                <p className="text-lg text-gray-700">
+                  Everything you need to know about private boat charters on Lake Travis
+                </p>
+              </div>
+
+              <Accordion type="single" collapsible className="w-full">
+                {faqItems.map((faq) => (
+                  <AccordionItem key={faq.id} value={faq.id}>
+                    <AccordionTrigger className="text-left text-lg font-semibold">
+                      {faq.question}
+                    </AccordionTrigger>
+                    <AccordionContent className="text-gray-700 text-base leading-relaxed">
+                      {faq.answer}
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+
+              <div className="mt-16 text-center bg-blue-50 rounded-xl p-8">
+                <h3 className="text-2xl font-bold mb-4">Still Have Questions?</h3>
+                <p className="text-gray-700 mb-6">Our team is here to help you plan the perfect private charter</p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <Button
+                    size="lg"
+                    onClick={handleGetQuote}
+                    className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold"
+                  >
+                    Get Custom Quote
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </Button>
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    asChild
+                    className="border-2 border-blue-600 text-blue-600 hover:bg-blue-50"
+                  >
+                    <a href="tel:+15127705050">
+                      <Phone className="mr-2 h-5 w-5" />
+                      Call (512) 770-5050
+                    </a>
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </SectionReveal>
+
+      {/* SEO Content Section - Move to bottom */}
+      <section className="py-16 bg-gray-50">
+        <div className="container mx-auto px-6">
+          <div className="max-w-4xl mx-auto">
+            <AIOptimizedSection
+              title="Private Boat Rentals Lake Travis Austin"
+              content={`
+                <p>Looking for <strong>private boat rentals on Lake Travis</strong>? Premier Party Cruises offers exclusive boat charters for groups of 14-75 guests. Our fleet includes three exceptional boats: Day Tripper (up to 14 guests), Meeseeks & The Irony (15-30 guests), and our flagship Clever Girl (30-75 guests).</p>
+                
+                <h3>Austin Private Boat Charter Services</h3>
+                <p>As <strong>Austin's premier private boat charter company</strong>, we've been creating unforgettable Lake Travis experiences since 2009. Choose from Standard, Essentials, or Ultimate packages to customize your perfect celebration. All charters include USCG licensed captains, premium sound systems, coolers with ice, and flexible departure times.</p>
+                
+                <h3>Perfect for Every Occasion</h3>
+                <p>Our <strong>Lake Travis private cruises</strong> are perfect for corporate events, weddings, birthdays, bachelor/bachelorette parties, and family celebrations. With BYOB-friendly policies and customizable routes, you have complete control over your experience.</p>
+                
+                <h3>Book Your Private Charter Today</h3>
+                <p>Ready to book your <strong>private boat rental in Austin</strong>? Get your custom quote online or call (512) 770-5050. We recommend booking 6-12 weeks in advance, especially for weekends during peak season (May-September).</p>
+              `}
+              searchIntent="transactional"
+              keywords={["private boat rentals lake travis", "austin private boat charter", "lake travis boat rental"]}
+            />
+
+            <div className="mt-12">
+              <h3 className="text-2xl font-bold mb-6">Related Private Cruise Services</h3>
+              <div className="grid md:grid-cols-3 gap-6">
+                {privateCruiseTypes.slice(0, 9).map((type, index) => {
+                  const Icon = type.icon;
+                  return (
+                    <Link key={index} href={type.href}>
+                      <Card className="bg-white border-gray-200 hover:border-blue-500 transition-all cursor-pointer h-full" data-testid={type.testId}>
+                        <CardHeader>
+                          <div className="flex items-center gap-3 mb-2">
+                            <div className="p-2 bg-blue-100 rounded-lg">
+                              <Icon className="h-5 w-5 text-blue-600" />
+                            </div>
+                            <CardTitle className="text-lg">{type.title}</CardTitle>
+                          </div>
+                          <p className="text-sm text-gray-600">{type.description}</p>
+                        </CardHeader>
+                      </Card>
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Related Services Section */}
       <RelatedServicesSection currentPath="/private-cruises" />

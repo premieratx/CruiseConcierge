@@ -345,19 +345,16 @@ const galleryPhotos = [
 
 // Table of Contents sections
 const tocSections = [
-  { id: 'hero', title: 'Hero', icon: <Sparkles className="h-4 w-4" /> },
-  { id: 'quick-answers', title: 'Quick Answers', icon: <MessageCircle className="h-4 w-4" /> },
-  { id: 'quote-builder', title: 'Quote Builder', icon: <DollarSign className="h-4 w-4" /> },
-  { id: 'overview', title: 'Overview', icon: <Eye className="h-4 w-4" /> },
-  { id: 'whats-included', title: "What's Included", icon: <CheckCircle className="h-4 w-4" /> },
+  { id: 'hero', title: 'Overview', icon: <Sparkles className="h-4 w-4" /> },
+  { id: 'experience', title: 'Experience', icon: <Star className="h-4 w-4" /> },
   { id: 'packages', title: 'Packages', icon: <Package className="h-4 w-4" /> },
-  { id: 'compare', title: 'Compare', icon: <TrendingUp className="h-4 w-4" /> },
-  { id: 'faqs', title: 'FAQs', icon: <HelpCircle className="h-4 w-4" /> },
+  { id: 'availability', title: 'Availability', icon: <Calendar className="h-4 w-4" /> },
+  { id: 'benefits', title: 'Benefits', icon: <Trophy className="h-4 w-4" /> },
+  { id: 'whats-included', title: "What's Included", icon: <CheckCircle className="h-4 w-4" /> },
+  { id: 'why-choose', title: 'Why Choose Us', icon: <Shield className="h-4 w-4" /> },
   { id: 'photos', title: 'Photos', icon: <Camera className="h-4 w-4" /> },
-  { id: 'testimonials', title: 'Testimonials', icon: <Quote className="h-4 w-4" /> },
-  { id: 'why-disco', title: 'Why Choose Disco', icon: <Crown className="h-4 w-4" /> },
-  { id: 'what-to-bring', title: 'What to Bring', icon: <Ticket className="h-4 w-4" /> },
-  { id: 'weather-guarantee', title: 'Weather Guarantee', icon: <CloudRain className="h-4 w-4" /> }
+  { id: 'testimonials', title: 'Reviews', icon: <Quote className="h-4 w-4" /> },
+  { id: 'faqs', title: 'FAQs', icon: <HelpCircle className="h-4 w-4" /> }
 ];
 
 export default function BachelorParty() {
@@ -366,12 +363,10 @@ export default function BachelorParty() {
   const reducedMotion = useReducedMotion();
   const { toast } = useToast();
   const [currentHeroImage, setCurrentHeroImage] = useState(0);
-  const [activeTab, setActiveTab] = useState('overview');
-  const [showQuoteBuilder, setShowQuoteBuilder] = useState(false);
   const heroImages = [heroImage1, heroImage2, heroImage3];
 
   useEffect(() => {
-    if (reducedMotion) return; // Skip animation for reduced motion
+    if (reducedMotion) return;
     
     const interval = setInterval(() => {
       setCurrentHeroImage((prev) => (prev + 1) % heroImages.length);
@@ -406,17 +401,6 @@ export default function BachelorParty() {
     navigate(`/chat?${params.toString()}`);
   };
 
-  // Sticky CTA configuration
-  const stickyCTA = (
-    <StickyCTA
-      primaryText="Get Free Quote"
-      primaryAction={() => handleGetQuote()}
-      secondaryText="Call Now"
-      secondaryHref="tel:+15127705050"
-      showOnDesktop={false}
-    />
-  );
-
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
       <SEOHead
@@ -429,8 +413,20 @@ export default function BachelorParty() {
       <PublicNavigation />
       <Breadcrumb />
       
-      {/* Hero Section with Crossfade */}
-      <section id="hero" className="relative min-h-[80vh] flex flex-col justify-center overflow-hidden bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900">
+      {/* Table of Contents - Sticky Sidebar */}
+      <TableOfContents sections={tocSections} />
+      
+      {/* Sticky CTA */}
+      <StickyCTA
+        primaryText="Get Free Quote"
+        primaryAction={() => handleGetQuote()}
+        secondaryText="Call Now"
+        secondaryHref="tel:+15127705050"
+        showOnDesktop={false}
+      />
+
+      {/* 1. HERO SECTION */}
+      <section id="hero" className="relative min-h-[85vh] flex flex-col justify-center overflow-hidden bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900">
         {/* Image Background with Smooth Crossfade */}
         <div className="absolute inset-0 z-0">
           {heroImages.map((image, index) => (
@@ -457,7 +453,7 @@ export default function BachelorParty() {
         </div>
 
         {/* Main Hero Content */}
-        <div className="relative z-10 max-w-7xl mx-auto px-6 text-white text-center flex-grow flex items-center w-full">
+        <div className="relative z-10 max-w-7xl mx-auto px-6 text-white text-center flex-grow flex items-center w-full py-20">
           <motion.div
             initial="hidden"
             animate="visible"
@@ -466,47 +462,50 @@ export default function BachelorParty() {
           >
             <motion.div
               variants={fadeInUp}
-              className="mb-4"
+              className="mb-6"
             >
-              <Badge className="font-sans tracking-wider font-bold uppercase text-sm bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2">
+              <Badge className="font-sans tracking-wider font-bold uppercase text-sm bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 border-0">
                 Premier Lake Travis Experience
               </Badge>
             </motion.div>
             
+            {/* CRITICAL: H1 with text-6xl and font-playfair - Largest text on page */}
             <motion.h1 
               variants={fadeInUp}
-              className="text-5xl font-bold font-playfair mb-6 text-center"
-              data-editable data-editable-id="bachelor-hero-title"
+              className="text-5xl md:text-6xl font-bold font-playfair mb-6 text-center leading-tight"
+              data-editable 
+              data-editable-id="bachelor-hero-title"
             >
               Austin Bachelor Party Boat Rentals
             </motion.h1>
             
             <motion.div
               variants={fadeInUp}
-              className="text-2xl text-brand-yellow font-semibold mb-6"
+              className="text-2xl md:text-3xl text-brand-yellow font-semibold mb-6"
             >
               Lake Travis Ultimate Cruise Experience
             </motion.div>
             
             <motion.p 
               variants={fadeInUp}
-              className="text-xl mb-8 text-gray-100"
-              data-editable data-editable-id="bachelor-hero-subtitle"
+              className="text-xl md:text-2xl mb-8 text-gray-100 leading-relaxed"
+              data-editable 
+              data-editable-id="bachelor-hero-subtitle"
             >
               Exclusively for Bachelorette & Bachelor Parties<br/>
-              <span className="text-base">The Highlight of Your Weekend Every. Damn. Time.</span>
+              <span className="text-lg md:text-xl">The Highlight of Your Weekend Every. Damn. Time.</span>
             </motion.p>
 
             {/* Scarcity Banner */}
             <motion.div 
               variants={fadeInUp}
-              className="bg-red-600/90 backdrop-blur-sm rounded-lg p-4 mb-8 max-w-2xl mx-auto"
+              className="bg-red-600/90 backdrop-blur-sm rounded-lg p-6 mb-8 max-w-2xl mx-auto"
             >
               <div className="flex items-center justify-center space-x-2">
-                <AlertCircle className="h-6 w-6 animate-pulse" />
-                <span className="font-bold text-base">Most weekends sell out 4-6 weeks early!</span>
+                <AlertCircle className="h-6 w-6 animate-pulse flex-shrink-0" />
+                <span className="font-bold text-lg">Most weekends sell out 4-6 weeks early!</span>
               </div>
-              <p className="text-sm mt-2">Books up SOLID at least a month in advance</p>
+              <p className="text-base mt-2">Books up SOLID at least a month in advance</p>
             </motion.div>
 
             <motion.div 
@@ -516,2383 +515,1050 @@ export default function BachelorParty() {
               <Button
                 size="lg"
                 onClick={() => handleGetQuote()}
-                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold text-base px-8 py-6 whitespace-normal min-h-[3.5rem]"
+                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold text-lg px-10 py-7 whitespace-normal min-h-[4rem]"
                 data-testid="button-hero-book-now-bachelor"
               >
-                <Calendar className="mr-2 h-5 w-5 flex-shrink-0" />
+                <Calendar className="mr-2 h-6 w-6 flex-shrink-0" />
                 <span className="text-center leading-tight">BOOK NOW - Be the Hero!</span>
               </Button>
               
               <Button
                 size="lg"
                 variant="outline"
-                onClick={() => setActiveTab('packages')}
-                className="border-white text-white hover:bg-white hover:text-black font-bold"
+                onClick={() => document.getElementById('packages')?.scrollIntoView({ behavior: 'smooth' })}
+                className="border-2 border-white text-white hover:bg-white hover:text-black font-bold text-lg px-10 py-7"
                 data-testid="button-hero-see-packages"
               >
                 See Packages & Pricing
-                <ArrowRight className="ml-2 h-5 w-5" />
+                <ArrowRight className="ml-2 h-6 w-6" />
               </Button>
             </motion.div>
           </motion.div>
         </div>
 
         {/* Bottom Feature Bar */}
-        <div className="relative z-20 w-full bg-white/90 backdrop-blur-sm py-4 px-6">
+        <div className="relative z-20 w-full bg-white/95 backdrop-blur-sm py-6 px-6 border-t-4 border-brand-yellow">
           <div className="max-w-7xl mx-auto">
-            <p className="text-center text-gray-900 text-base font-semibold">
+            <p className="text-center text-gray-900 text-lg md:text-xl font-bold">
               Just <span className="text-brand-blue">SHOW UP & GET DOWN</span> - Everything Included!
             </p>
           </div>
         </div>
       </section>
 
-      {/* Quick Answer Boxes Section */}
+      {/* 2. EXPERIENCE DESCRIPTION */}
       <SectionReveal>
-        <section id="quick-answers" className="py-20 bg-white">
+        <section id="experience" className="py-20 bg-white">
           <div className="max-w-7xl mx-auto px-6">
-          <QuickAnswerBoxGroup
-            title="Quick Answers for Bachelor Parties"
-            boxes={[
-              {
-                id: 'start-time',
-                question: 'What time do bachelor party cruises start?',
-                answer: 'Multiple daily departures available: Morning cruises at 10 AM, popular noon departures at 12 PM, and afternoon cruises at 2 PM. Private charters offer flexible start times from 9 AM to sunset, perfect for customizing your bachelor party schedule.',
-                keywords: ['departures', 'morning', 'noon', 'afternoon', 'private charters'],
-                icon: Clock,
-                relatedLink: {
-                  href: '#packages',
-                  text: 'View packages and times'
-                }
-              },
-              {
-                id: 'cooler-allowed',
-                question: 'Can we bring a cooler on the boat?',
-                answer: 'Yes! All boats have large coolers with ice provided. BYOB is encouraged - bring your favorite beverages and we\'ll keep them cold. For disco cruises, higher packages include private coolers. Private charters always include dedicated cooler space for your group.',
-                keywords: ['cooler', 'BYOB', 'ice', 'beverages'],
-                icon: Package,
-                relatedLink: {
-                  href: '/faq',
-                  text: 'See all FAQs'
-                }
-              }
-            ]}
-            columns={2}
-            className="max-w-5xl mx-auto"
-          />
-          </div>
-        </section>
-      </SectionReveal>
-
-      {/* Build My Quote Now Section */}
-      <SectionReveal>
-        <section id="quote-builder" className="py-24 bg-gradient-to-br from-blue-600 via-purple-600 to-indigo-700">
-          <div className="max-w-7xl mx-auto px-6">
-            <div className="text-center">
-              <h2 
-                className="text-3xl font-semibold font-playfair text-center mb-6 text-white"
-                data-editable 
-                data-editable-id="quote-builder-heading"
-              >
-                BUILD MY QUOTE NOW
+            <div className="text-center mb-16">
+              <Badge className="mb-6 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
+                <Trophy className="h-4 w-4 mr-2 inline" />
+                The Premier Experience
+              </Badge>
+              <h2 className="text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
+                What Makes Our Bachelor Parties Special
               </h2>
-            <p 
-              className="text-xl text-white/90 mb-8 max-w-2xl mx-auto"
-              data-editable 
-              data-editable-id="quote-builder-subheading"
-            >
-              Get instant pricing for your <Link href="/party-boat-lake-travis" className="text-primary hover:underline">Lake Travis</Link> celebration in minutes
-            </p>
-            
-            {!showQuoteBuilder ? (
-              <Button
-                size="lg"
-                onClick={() => setShowQuoteBuilder(true)}
-                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold text-base px-8 py-6 rounded-xl shadow-2xl transform hover:scale-105 transition-all duration-300 whitespace-normal min-h-[3.5rem]"
-                data-testid="button-build-quote"
-              >
-                <Sparkles className="mr-2 h-5 w-5 flex-shrink-0" />
-                <span data-editable data-editable-id="quote-builder-button" className="text-center leading-tight">Start Building Your Quote</span>
-                <ArrowRight className="ml-2 h-5 w-5 flex-shrink-0" />
-              </Button>
-            ) : (
-              <Button
-                size="lg"
-                variant="outline"
-                onClick={() => setShowQuoteBuilder(false)}
-                className="border-3 border-white text-white hover:bg-white hover:text-black font-bold text-lg px-12 py-6 rounded-2xl backdrop-blur-sm mb-8"
-                data-testid="button-hide-quote"
-              >
-                <X className="mr-2 h-5 w-5" />
-                <span data-editable data-editable-id="quote-builder-hide-button">Hide Quote Builder</span>
-              </Button>
-            )}
-          </div>
+              <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
+                From epic ATX Disco Cruises to exclusive private charters, we deliver unforgettable bachelor party experiences on Lake Travis
+              </p>
+            </div>
 
-          {/* Expandable Quote Builder Iframe */}
-          <AnimatePresence>
-            {showQuoteBuilder && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: 'auto' }}
-                exit={{ opacity: 0, height: 0 }}
-                transition={{ duration: 0.5, ease: "easeInOut" }}
-                className="mt-12 overflow-hidden"
-              >
-                <div className="max-w-7xl mx-auto">
-                  <motion.div
-                    initial={{ y: 20, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ delay: 0.2, duration: 0.4 }}
-                    className="bg-white rounded-2xl shadow-2xl overflow-hidden"
-                  >
-                    <iframe 
-                      src="https://ppc-quote-builder.lovable.app/"
-                      title="Build Your Quote - Premier Party Cruises"
-                      className="w-full"
-                      style={{ 
-                        minHeight: '1200px',
-                        height: '90vh',
-                        border: 'none'
-                      }}
-                      allow="payment; geolocation"
-                      allowFullScreen
-                      data-testid="iframe-quote-builder"
-                    />
-                  </motion.div>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-          </div>
-        </section>
-      </SectionReveal>
-
-      {/* Featured Snippets Section */}
-      <SectionReveal>
-        <section className="py-20 bg-blue-50/30">
-          <div className="max-w-7xl mx-auto px-6">
-          <div className="grid md:grid-cols-2 gap-8">
-            {/* What is a bachelor party boat cruise? */}
-            <FeaturedSnippet
-              question="What is a bachelor party boat cruise?"
-              answer="A bachelor party boat cruise is a 4-hour celebration on Lake Travis where bachelor groups enjoy professional DJ entertainment, swimming, BYOB drinks, and party with other bachelor groups. These cruises feature giant floats, photography, and create unforgettable memories for the groom and crew."
-              format="paragraph"
-              schemaType="FAQ"
-            />
-            
-            {/* How to plan a bachelor party on Lake Travis */}
-            <FeaturedSnippetHowTo
-              title="How to plan a bachelor party on Lake Travis?"
-              description="Follow these steps to plan the perfect bachelor party on Lake Travis:"
-              steps={[
-                "Book your cruise 4-6 weeks in advance to secure your date",
-                "Choose between ATX Disco Cruise ($85-125/person) or Private Charter ($200-400/hour)",
-                "Select your package level (Basic, Disco King, or Platinum)",
-                "Pre-order alcohol delivery through Party on Delivery",
-                "Arrange round-trip transportation with 25% discount",
-                "Check-in at Anderson Mill Marina at 11:30 AM on cruise day",
-                "Bring swimsuits, sunglasses, and get ready to party!"
-              ]}
-            />
-          </div>
-          </div>
-        </section>
-      </SectionReveal>
-
-      {/* Main Content Tabs */}
-      <SectionReveal>
-        <section className="py-20 bg-white">
-          <div className="max-w-7xl mx-auto px-6">
-          {/* Grid layout for content with TOC sidebar */}
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-8">
-            <div className="w-full">
-          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="grid w-full grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-2 h-auto p-1">
-              <TabsTrigger value="overview" data-testid="tab-overview"><span data-editable data-editable-id="bachelor-tab-overview">Overview</span></TabsTrigger>
-              <TabsTrigger value="included" data-testid="tab-included"><span data-editable data-editable-id="bachelor-tab-included">What's Included</span></TabsTrigger>
-              <TabsTrigger value="packages" data-testid="tab-packages"><span data-editable data-editable-id="bachelor-tab-packages">Packages</span></TabsTrigger>
-              <TabsTrigger value="compare" data-testid="tab-compare"><span data-editable data-editable-id="bachelor-tab-compare">Compare</span></TabsTrigger>
-              <TabsTrigger value="faq" data-testid="tab-faq"><span data-editable data-editable-id="bachelor-tab-faq">FAQs</span></TabsTrigger>
-              <TabsTrigger value="photos" data-testid="tab-photos"><span data-editable data-editable-id="bachelor-tab-photos">Photos</span></TabsTrigger>
-              <TabsTrigger value="testimonials" data-testid="tab-testimonials"><span data-editable data-editable-id="bachelor-tab-reviews">Reviews</span></TabsTrigger>
-            </TabsList>
-
-            {/* Overview Tab */}
-            <TabsContent value="overview" className="mt-8" id="overview">
-              <div className="max-w-4xl mx-auto">
-                <h2 className="text-3xl font-semibold font-playfair text-center mb-8" data-editable data-editable-id="bachelor-overview-main-heading">
-                  Show Your Groom the <span className="text-brand-yellow">BEST Weekend</span> of His Life!
-                </h2>
-                
-                <div className="bg-brand-yellow/10 border-2 border-brand-yellow rounded-xl p-8 mb-8">
-                  <h3 className="text-2xl font-bold text-brand-yellow mb-4 text-center" data-editable data-editable-id="bachelor-overview-hero-callout">
-                    You'll Be the HERO - Everyone Will Love This!
-                  </h3>
-                  <div className="space-y-4">
-                    <div className="flex items-start space-x-3">
-                      <Trophy className="h-6 w-6 text-brand-yellow mt-1 flex-shrink-0" />
-                      <div>
-                        <p className="font-semibold" data-editable data-editable-id="bachelor-overview-feature-1-title">The ONLY All-Inclusive Boat Party in Austin!</p>
-                        <p className="text-gray-600 dark:text-gray-400" data-editable data-editable-id="bachelor-overview-feature-1-desc">Experience <Link href="/atx-disco-cruise" className="text-brand-blue hover:underline font-semibold">our ATX Disco Cruise</Link>, the ONLY joint party in the country EXCLUSIVELY for Bach parties - unique experience you can't get anywhere else!</p>
-                      </div>
-                    </div>
-                    <div className="flex items-start space-x-3">
-                      <Users className="h-6 w-6 text-brand-yellow mt-1 flex-shrink-0" />
-                      <div>
-                        <p className="font-semibold" data-editable data-editable-id="bachelor-overview-feature-2-title">Meet Bachelor Parties from All Over the Country!</p>
-                        <p className="text-gray-600 dark:text-gray-400" data-editable data-editable-id="bachelor-overview-feature-2-desc">The energy is AMAZING - everyone celebrating the same occasion! Make friends & create priceless memories! Planning a <InternalLinkHighlight href="/bachelorette-party-austin" title="Combined Bachelor & Bachelorette Parties">combined bachelor & bachelorette party</InternalLinkHighlight>? Even better!</p>
-                      </div>
-                    </div>
-                    <div className="flex items-start space-x-3">
-                      <Waves className="h-6 w-6 text-brand-yellow mt-1 flex-shrink-0" />
-                      <div>
-                        <p className="font-semibold" data-editable data-editable-id="bachelor-overview-feature-3-title">Party on the BIGGEST Unicorn Float in the Country!</p>
-                        <p className="text-gray-600 dark:text-gray-400" data-editable data-editable-id="bachelor-overview-feature-3-desc">Our GIANT 25-ft unicorn float is legendary - Instagram gold every time!</p>
-                      </div>
-                    </div>
-                    <div className="flex items-start space-x-3">
-                      <Zap className="h-6 w-6 text-brand-yellow mt-1 flex-shrink-0" />
-                      <div>
-                        <p className="font-semibold" data-editable data-editable-id="bachelor-overview-feature-4-title">Nothing to Plan, Nothing to Carry!</p>
-                        <p className="text-gray-600 dark:text-gray-400" data-editable data-editable-id="bachelor-overview-feature-4-desc">Everything is ready on the boat - just order booze and SHOW UP! FREE alcohol & lunch delivery from Party on Delivery!</p>
-                      </div>
-                    </div>
-                    <div className="flex items-start space-x-3">
-                      <DollarSign className="h-6 w-6 text-brand-yellow mt-1 flex-shrink-0" />
-                      <div>
-                        <p className="font-semibold" data-editable data-editable-id="bachelor-overview-feature-5-title">Flat-Rate Per-Person Pricing</p>
-                        <p className="text-gray-600 dark:text-gray-400" data-editable data-editable-id="bachelor-overview-feature-5-desc">Makes payment splitting EASY - everyone pays their own way. ALWAYS cheaper than a <Link href="/private-cruises" className="text-primary hover:underline">private cruise</Link>!</p>
-                      </div>
-                    </div>
+            <div className="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto mb-16">
+              {/* ATX Disco Cruise Experience */}
+              <Card className="border-2 border-purple-200 hover:border-purple-400 transition-all hover:shadow-xl">
+                <CardHeader>
+                  <div className="w-20 h-20 mx-auto mb-4 bg-purple-100 rounded-full flex items-center justify-center">
+                    <Music className="h-10 w-10 text-purple-600" />
                   </div>
-                </div>
-
-                {/* Your Disco Day Experience */}
-                <div className="mb-10">
-                  <h3 className="text-3xl font-semibold font-playfair text-center mb-6" data-editable data-editable-id="bachelor-timeline-title">
-                    Your <span className="text-brand-yellow">Disco Day Experience</span>
-                  </h3>
-                  <p className="text-center text-lg text-gray-600 dark:text-gray-400 mb-8" data-editable data-editable-id="bachelor-timeline-subtitle">
-                    SERIOUSLY the highlight of the weekend EVERY single time!
+                  <CardTitle className="text-2xl text-center font-playfair">ATX Disco Cruise</CardTitle>
+                  <CardDescription className="text-center text-base">
+                    The Ultimate Party Boat Experience
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <p className="text-gray-700 leading-relaxed">
+                    Join bachelor parties from across the country on our legendary ATX Disco Cruise. Professional DJ, photographer, giant floats, and an electric atmosphere make this the highlight of your Austin weekend.
                   </p>
-                  
-                  <div className="space-y-6">
-                    <motion.div 
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      className="flex items-start space-x-4"
-                    >
-                      <div className="flex-shrink-0">
-                        <div className="w-12 h-12 bg-brand-yellow rounded-full flex items-center justify-center text-black font-bold">
-                          1
-                        </div>
-                      </div>
-                      <div className="flex-1">
-                        <h4 className="font-bold text-lg mb-1" data-editable data-editable-id="bachelor-timeline-step-1-title">Arrival & Check-In (11:30 AM)</h4>
-                        <p className="text-gray-600 dark:text-gray-400" data-editable data-editable-id="bachelor-timeline-step-1-desc">
-                          Meet at the dock - our crew welcomes your group! Check in is a breeze, grab your wristbands and party favors. 
-                          Your alcohol delivery is waiting (if you pre-ordered) or grab drinks from the marina store.
-                        </p>
-                      </div>
-                    </motion.div>
-
-                    <motion.div 
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.1 }}
-                      className="flex items-start space-x-4"
-                    >
-                      <div className="flex-shrink-0">
-                        <div className="w-12 h-12 bg-brand-yellow rounded-full flex items-center justify-center text-black font-bold">
-                          2
-                        </div>
-                      </div>
-                      <div className="flex-1">
-                        <h4 className="font-bold text-lg mb-1" data-editable data-editable-id="bachelor-timeline-step-2-title">Boarding & Setup (11:45 AM)</h4>
-                        <p className="text-gray-600 dark:text-gray-400" data-editable data-editable-id="bachelor-timeline-step-2-desc">
-                          Board the boat and claim your crew's spot! Your private cooler is already stocked with ice. 
-                          Set up your drinks, grab some party supplies, and start vibing with other bachelor parties!
-                        </p>
-                      </div>
-                    </motion.div>
-
-                    <motion.div 
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.2 }}
-                      className="flex items-start space-x-4"
-                    >
-                      <div className="flex-shrink-0">
-                        <div className="w-12 h-12 bg-brand-yellow rounded-full flex items-center justify-center text-black font-bold">
-                          3
-                        </div>
-                      </div>
-                      <div className="flex-1">
-                        <h4 className="font-bold text-lg mb-1" data-editable data-editable-id="bachelor-timeline-step-3-title">We Launch! Party Starts NOW! (12:00 PM)</h4>
-                        <p className="text-gray-600 dark:text-gray-400" data-editable data-editable-id="bachelor-timeline-step-3-desc">
-                          DJ drops the first beat and the party EXPLODES! Dance floor opens, drinks flowing, 
-                          energy through the roof! Professional photographer capturing every epic moment!
-                        </p>
-                      </div>
-                    </motion.div>
-
-                    <motion.div 
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.3 }}
-                      className="flex items-start space-x-4"
-                    >
-                      <div className="flex-shrink-0">
-                        <div className="w-12 h-12 bg-brand-yellow rounded-full flex items-center justify-center text-black font-bold">
-                          4
-                        </div>
-                      </div>
-                      <div className="flex-1">
-                        <h4 className="font-bold text-lg mb-1" data-editable data-editable-id="bachelor-timeline-step-4-title">Cruising Lake Travis (12:00-2:30 PM)</h4>
-                        <p className="text-gray-600 dark:text-gray-400" data-editable data-editable-id="bachelor-timeline-step-4-desc">
-                          Dancing, partying, meeting other groups from across the country! The vibes are INSANE - 
-                          everyone's celebrating, the music is BUMPING, and you're making memories that'll last forever!
-                        </p>
-                      </div>
-                    </motion.div>
-
-                    <motion.div 
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.4 }}
-                      className="flex items-start space-x-4"
-                    >
-                      <div className="flex-shrink-0">
-                        <div className="w-12 h-12 bg-brand-yellow rounded-full flex items-center justify-center text-black font-bold">
-                          5
-                        </div>
-                      </div>
-                      <div className="flex-1">
-                        <h4 className="font-bold text-lg mb-1" data-editable data-editable-id="bachelor-timeline-step-5-title">Anchor Time! Float Party! (2:30-3:30 PM)</h4>
-                        <p className="text-gray-600 dark:text-gray-400" data-editable data-editable-id="bachelor-timeline-step-5-desc">
-                          We anchor and the LEGENDARY UNICORN comes out! Jump in Lake Travis, float on the lily pads, 
-                          dominate the BIGGEST unicorn float in the country! This is THE Instagram moment - photographer going wild!
-                        </p>
-                      </div>
-                    </motion.div>
-
-                    <motion.div 
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.5 }}
-                      className="flex items-start space-x-4"
-                    >
-                      <div className="flex-shrink-0">
-                        <div className="w-12 h-12 bg-brand-yellow rounded-full flex items-center justify-center text-black font-bold">
-                          6
-                        </div>
-                      </div>
-                      <div className="flex-1">
-                        <h4 className="font-bold text-lg mb-1" data-editable data-editable-id="bachelor-timeline-step-6-title">Return & Last Dance (3:30-4:00 PM)</h4>
-                        <p className="text-gray-600 dark:text-gray-400" data-editable data-editable-id="bachelor-timeline-step-6-desc">
-                          Head back with one EPIC last dance! DJ brings it home, everyone's singing along, 
-                          phone numbers exchanged with your new crew from across the country. You did it - you're the LEGEND!
-                        </p>
-                      </div>
-                    </motion.div>
-                  </div>
-
-                  <div className="mt-8 bg-green-50 dark:bg-green-950/20 border-2 border-green-500 rounded-lg p-6 text-center">
-                    <p className="text-lg font-bold text-green-700 dark:text-green-400 mb-2" data-editable data-editable-id="bachelor-timeline-result-title">
-                      🎉 The Result: Priceless Memories & Amazing Vibes! 🎉
-                    </p>
-                    <p className="text-gray-600 dark:text-gray-400" data-editable data-editable-id="bachelor-timeline-result-desc">
-                      Your crew will talk about this for YEARS. You'll be the hero who planned the BEST bachelor party they've ever been to!
-                    </p>
-                  </div>
-                </div>
-
-                <div className="text-center space-y-4">
-                  <p className="text-lg" data-editable data-editable-id="bachelor-overview-pricing">
-                    Starting at just <span className="text-brand-yellow font-bold text-2xl">$85/person</span>
-                    <span className="text-sm text-gray-600 dark:text-gray-400 ml-2">($109 with tax & tip)</span>
-                  </p>
-                  <p className="text-lg text-gray-600 dark:text-gray-400" data-editable data-editable-id="bachelor-overview-details">
-                    Friday & Saturday • 4 Hours on Lake Travis • Up to 50 People
-                  </p>
-                  
-                  <Button
-                    size="lg"
-                    onClick={() => handleGetQuote()}
-                    className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold"
-                    data-testid="button-overview-book-bachelor"
-                  >
-                    <span data-editable data-editable-id="bachelor-overview-book-button">Book Your Bachelor Party Now</span>
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </Button>
-                  
-                  <p className="text-sm text-red-600 font-semibold" data-editable data-editable-id="bachelor-overview-urgency">
-                    ⚠️ Limited Availability - Books up 4-6 weeks in advance!
-                  </p>
-                </div>
-              </div>
-            </TabsContent>
-
-            {/* What's Included Tab */}
-            <TabsContent value="included" className="mt-8" id="whats-included">
-              <div className="max-w-6xl mx-auto">
-                <h2 className="text-3xl font-semibold font-playfair text-center mb-4" data-editable data-editable-id="bachelor-included-title">
-                  EVERYTHING Included but Alcohol!
-                </h2>
-                <p className="text-center text-lg text-gray-600 dark:text-gray-400 mb-8" data-editable data-editable-id="bachelor-included-subtitle">
-                  Just SHOW UP & GET DOWN - We handle everything else
-                </p>
-
-                {/* Disco vs Private Comparison Sub-Tabs */}
-                <Tabs defaultValue="comparison" className="w-full mb-8">
-                  <TabsList className="grid w-full grid-cols-2 mb-8">
-                    <TabsTrigger value="comparison" data-testid="tab-disco-vs-private">Disco vs Private</TabsTrigger>
-                    <TabsTrigger value="disco-details" data-testid="tab-disco-details">Disco Details</TabsTrigger>
-                  </TabsList>
-
-                  {/* Comparison Grid */}
-                  <TabsContent value="comparison">
-                    <div className="bg-white dark:bg-gray-900 rounded-xl border-2 border-gray-200 dark:border-gray-800 overflow-hidden">
-                      <div className="overflow-x-auto">
-                        <table className="w-full">
-                          <thead className="bg-gray-100 dark:bg-gray-800">
-                            <tr>
-                              <th className="px-6 py-4 text-left text-sm font-bold text-gray-900 dark:text-white">
-                                What's Included
-                              </th>
-                              <th className="px-6 py-4 text-center text-sm font-bold text-purple-600 dark:text-purple-400">
-                                <div className="flex items-center justify-center gap-2">
-                                  <Disc3 className="h-5 w-5" />
-                                  Disco Cruise
-                                </div>
-                              </th>
-                              <th className="px-6 py-4 text-center text-sm font-bold text-blue-600 dark:text-blue-400">
-                                <div className="flex items-center justify-center gap-2">
-                                  <Ship className="h-5 w-5" />
-                                  Private Cruise
-                                </div>
-                              </th>
-                            </tr>
-                          </thead>
-                          <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
-                            <tr>
-                              <td className="px-6 py-4 text-sm text-gray-900 dark:text-gray-300">Professional DJ</td>
-                              <td className="px-6 py-4 text-center"><Check className="h-5 w-5 text-green-500 mx-auto" /></td>
-                              <td className="px-6 py-4 text-center"><X className="h-5 w-5 text-gray-400 mx-auto" /></td>
-                            </tr>
-                            <tr>
-                              <td className="px-6 py-4 text-sm text-gray-900 dark:text-gray-300">Professional Photographer</td>
-                              <td className="px-6 py-4 text-center"><Check className="h-5 w-5 text-green-500 mx-auto" /></td>
-                              <td className="px-6 py-4 text-center"><X className="h-5 w-5 text-gray-400 mx-auto" /></td>
-                            </tr>
-                            <tr>
-                              <td className="px-6 py-4 text-sm text-gray-900 dark:text-gray-300">Private Cooler with Ice</td>
-                              <td className="px-6 py-4 text-center"><Check className="h-5 w-5 text-green-500 mx-auto" /></td>
-                              <td className="px-6 py-4 text-center"><Check className="h-5 w-5 text-green-500 mx-auto" /></td>
-                            </tr>
-                            <tr>
-                              <td className="px-6 py-4 text-sm text-gray-900 dark:text-gray-300">Party Supplies (Cups, Koozies, Name Tags)</td>
-                              <td className="px-6 py-4 text-center"><Check className="h-5 w-5 text-green-500 mx-auto" /></td>
-                              <td className="px-6 py-4 text-center"><X className="h-5 w-5 text-gray-400 mx-auto" /></td>
-                            </tr>
-                            <tr>
-                              <td className="px-6 py-4 text-sm text-gray-900 dark:text-gray-300">Multiple Lily Pad Floats (3 huge 6x20')</td>
-                              <td className="px-6 py-4 text-center"><Check className="h-5 w-5 text-green-500 mx-auto" /></td>
-                              <td className="px-6 py-4 text-center text-xs text-gray-500">Add-on: $100/hr</td>
-                            </tr>
-                            <tr>
-                              <td className="px-6 py-4 text-sm text-gray-900 dark:text-gray-300">Ice Water Stations</td>
-                              <td className="px-6 py-4 text-center"><Check className="h-5 w-5 text-green-500 mx-auto" /></td>
-                              <td className="px-6 py-4 text-center"><Check className="h-5 w-5 text-green-500 mx-auto" /></td>
-                            </tr>
-                            <tr>
-                              <td className="px-6 py-4 text-sm text-gray-900 dark:text-gray-300">Clean Restroom Facilities</td>
-                              <td className="px-6 py-4 text-center"><Check className="h-5 w-5 text-green-500 mx-auto" /></td>
-                              <td className="px-6 py-4 text-center"><Check className="h-5 w-5 text-green-500 mx-auto" /></td>
-                            </tr>
-                            <tr>
-                              <td className="px-6 py-4 text-sm text-gray-900 dark:text-gray-300">Plenty of Shade Coverage</td>
-                              <td className="px-6 py-4 text-center"><Check className="h-5 w-5 text-green-500 mx-auto" /></td>
-                              <td className="px-6 py-4 text-center"><Check className="h-5 w-5 text-green-500 mx-auto" /></td>
-                            </tr>
-                            <tr>
-                              <td className="px-6 py-4 text-sm text-gray-900 dark:text-gray-300">Private Boat Charter (Entire Boat for Your Group)</td>
-                              <td className="px-6 py-4 text-center"><X className="h-5 w-5 text-gray-400 mx-auto" /></td>
-                              <td className="px-6 py-4 text-center"><Check className="h-5 w-5 text-green-500 mx-auto" /></td>
-                            </tr>
-                            <tr>
-                              <td className="px-6 py-4 text-sm text-gray-900 dark:text-gray-300">Captain & Crew Included</td>
-                              <td className="px-6 py-4 text-center"><Check className="h-5 w-5 text-green-500 mx-auto" /></td>
-                              <td className="px-6 py-4 text-center"><Check className="h-5 w-5 text-green-500 mx-auto" /></td>
-                            </tr>
-                            <tr>
-                              <td className="px-6 py-4 text-sm text-gray-900 dark:text-gray-300">Custom Playlist & Music Control</td>
-                              <td className="px-6 py-4 text-center text-xs text-gray-500">DJ Curated</td>
-                              <td className="px-6 py-4 text-center"><Check className="h-5 w-5 text-green-500 mx-auto" /></td>
-                            </tr>
-                            <tr>
-                              <td className="px-6 py-4 text-sm text-gray-900 dark:text-gray-300">Flexible Departure Times</td>
-                              <td className="px-6 py-4 text-center text-xs text-gray-500">Set Schedule</td>
-                              <td className="px-6 py-4 text-center"><Check className="h-5 w-5 text-green-500 mx-auto" /></td>
-                            </tr>
-                            <tr>
-                              <td className="px-6 py-4 text-sm text-gray-900 dark:text-gray-300">Bring Your Own Decorations</td>
-                              <td className="px-6 py-4 text-center"><X className="h-5 w-5 text-gray-400 mx-auto" /></td>
-                              <td className="px-6 py-4 text-center"><Check className="h-5 w-5 text-green-500 mx-auto" /></td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-
-                      {/* Price Range Comparison */}
-                      <div className="grid md:grid-cols-2 divide-x divide-gray-200 dark:divide-gray-700 bg-gray-50 dark:bg-gray-800">
-                        <div className="px-6 py-6 text-center">
-                          <h3 className="text-lg font-bold text-purple-600 dark:text-purple-400 mb-2">Disco Cruise</h3>
-                          <p className="text-3xl font-bold text-gray-900 dark:text-white">$85-$105</p>
-                          <p className="text-sm text-gray-600 dark:text-gray-400">per person (4 hours)</p>
-                          <p className="text-xs text-gray-500 mt-2">Best for groups of 10-50</p>
-                        </div>
-                        <div className="px-6 py-6 text-center">
-                          <h3 className="text-lg font-bold text-blue-600 dark:text-blue-400 mb-2">Private Cruise</h3>
-                          <p className="text-3xl font-bold text-gray-900 dark:text-white">Starting at $200/hour</p>
-                          <p className="text-sm text-gray-600 dark:text-gray-400">(3-4 hr minimum)</p>
-                          <p className="text-xs text-gray-500 mt-2">Best for groups of 6-75</p>
-                        </div>
-                      </div>
+                  <ul className="space-y-3">
+                    <li className="flex items-start gap-3">
+                      <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
+                      <span className="text-gray-700">Professional DJ & Photographer included</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
+                      <span className="text-gray-700">Meet bachelor groups from all over</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
+                      <span className="text-gray-700">Giant unicorn float & lily pads</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
+                      <span className="text-gray-700">BYOB - Bring your own beverages</span>
+                    </li>
+                  </ul>
+                  <div className="pt-4 border-t">
+                    <div className="text-center mb-4">
+                      <span className="text-gray-600">Starting from</span>
+                      <div className="text-4xl font-bold text-purple-600">${DISCO_PRICING.basic / 100}</div>
+                      <span className="text-gray-600">per person</span>
                     </div>
-
-                    <div className="mt-6 bg-blue-50 dark:bg-blue-950/30 border-2 border-blue-300 dark:border-blue-800 rounded-xl p-6">
-                      <h3 className="text-lg font-bold text-blue-900 dark:text-blue-300 mb-3 flex items-center gap-2">
-                        <Info className="h-5 w-5" />
-                        Which is Right for You?
-                      </h3>
-                      <div className="grid md:grid-cols-2 gap-4 text-sm">
-                        <div>
-                          <h4 className="font-semibold text-purple-700 dark:text-purple-400 mb-2">Choose Disco Cruise if you want:</h4>
-                          <ul className="space-y-1 text-gray-700 dark:text-gray-300">
-                            <li>• Professional DJ & Photographer included</li>
-                            <li>• All party supplies & amenities provided</li>
-                            <li>• Best value per person pricing</li>
-                            <li>• Meet bachelor parties from all over</li>
-                          </ul>
-                        </div>
-                        <div>
-                          <h4 className="font-semibold text-blue-700 dark:text-blue-400 mb-2">Choose Private Cruise if you want:</h4>
-                          <ul className="space-y-1 text-gray-700 dark:text-gray-300">
-                            <li>• Entire boat to yourself</li>
-                            <li>• Full control over music & schedule</li>
-                            <li>• Bring your own decorations</li>
-                            <li>• Flexible departure times</li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                  </TabsContent>
-
-                  {/* Disco Details Tab */}
-                  <TabsContent value="disco-details">
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                      {whatsIncluded.map((item, index) => (
-                        <motion.div
-                          key={index}
-                          initial={{ opacity: 0, y: 20 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ delay: index * 0.1 }}
-                          className="bg-gray-50 dark:bg-gray-900 rounded-lg p-6"
-                        >
-                          <div className="flex items-start space-x-4">
-                            <div className="p-3 bg-brand-yellow/20 rounded-full">
-                              <item.icon className="h-6 w-6 text-brand-yellow" />
-                            </div>
-                            <div>
-                              <h3 className="font-semibold text-lg mb-2" data-editable data-editable-id={`bachelor-included-item-${index}-title`}>{item.title}</h3>
-                              <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed" data-editable data-editable-id={`bachelor-included-item-${index}-description`}>{item.description}</p>
-                            </div>
-                          </div>
-                        </motion.div>
-                      ))}
-                    </div>
-
-                    <div className="bg-brand-blue/10 border-2 border-brand-blue rounded-xl p-6 text-center">
-                      <h3 className="text-xl font-bold mb-4" data-editable data-editable-id="bachelor-included-unicorn-title">Plus the BIGGEST Unicorn Float in the Country!</h3>
-                      <p className="text-gray-600 dark:text-gray-400 mb-4" data-editable data-editable-id="bachelor-included-unicorn-desc">
-                        Our GIANT 25-ft Inflatable Unicorn Float is Instagram-worthy and unforgettable
-                      </p>
-                      <Button
-                        onClick={() => handleGetQuote()}
-                        className="bg-brand-blue hover:bg-brand-blue/90 text-white"
-                        data-testid="button-included-book-bachelor"
-                      >
-                        <span data-editable data-editable-id="bachelor-included-reserve-button">Reserve Your Date Now</span>
-                      </Button>
-                    </div>
-                  </TabsContent>
-                </Tabs>
-              </div>
-            </TabsContent>
-
-            {/* Packages Tab */}
-            <TabsContent value="packages" className="mt-8" id="packages">
-              <Tabs defaultValue="disco" className="w-full">
-                <TabsList className="grid w-full grid-cols-2 mb-8">
-                  <TabsTrigger value="disco" data-testid="tab-disco-packages">Disco Cruise Packages</TabsTrigger>
-                  <TabsTrigger value="private" data-testid="tab-private-packages">Private Cruise Packages</TabsTrigger>
-                </TabsList>
-
-                {/* Enhanced Disco Packages with Pricing Table */}
-                <TabsContent value="disco">
-                  <div className="max-w-7xl mx-auto">
-                    <h2 className="text-3xl font-semibold font-playfair text-center mb-8" data-editable data-editable-id="bachelor-packages-title">
-                      Choose Your Bachelor Party Package
-                    </h2>
-                    
-                    {/* Use PricingTable for Disco packages */}
-                    <PricingTable
-                      packages={discoPackages.map(pkg => ({
-                        ...pkg,
-                        ctaLink: '/book'
-                      }))}
-                      variant="disco"
-                      showTaxAndGratuity={true}
-                      showDeposit={true}
-                    />
-
-                    {/* Keep the original display hidden for backward compatibility */}
-                    <div className="hidden">
-                      {discoPackages.map((pkg) => (
-                        <Card 
-                          key={pkg.id} 
-                          className={cn(
-                            "relative h-full",
-                            pkg.popular && "border-2 border-brand-yellow shadow-xl"
-                          )}
-                        >
-                          {pkg.popular && (
-                            <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 z-10">
-                              <Badge className="bg-brand-yellow text-black font-bold px-4 py-1">
-                                <span data-editable data-editable-id={`bachelor-package-${pkg.id}-badge`}>MOST POPULAR</span>
-                              </Badge>
-                            </div>
-                          )}
-                          
-                          <CardHeader className="text-center pb-4">
-                            <div className="flex justify-center mb-4">
-                              <pkg.icon className="h-12 w-12 text-brand-yellow" />
-                            </div>
-                            <CardTitle className="text-2xl" data-editable data-editable-id={`bachelor-package-${pkg.id}-name`}>{pkg.name}</CardTitle>
-                            <CardDescription className="text-sm mt-2" data-editable data-editable-id={`bachelor-package-${pkg.id}-subtitle`}>
-                              {pkg.subtitle}
-                            </CardDescription>
-                          </CardHeader>
-                          
-                          <CardContent className="space-y-4">
-                            <div className="text-center">
-                              <div className="text-3xl font-bold">
-                                ${pkg.price}/person
-                              </div>
-                              <div className="text-lg text-green-600 dark:text-green-400 font-semibold">
-                                ${pkg.id === 'basic' ? '109' : pkg.id === 'disco_king' ? '122' : '135'} with tax & tip
-                              </div>
-                              {pkg.originalPrice && (
-                                <div className="text-sm text-gray-400 line-through">
-                                  was ${pkg.originalPrice}
-                                </div>
-                              )}
-                            </div>
-                            
-                            <ul className="space-y-2">
-                              {pkg.features.map((feature, i) => (
-                                <li key={i} className="flex items-start space-x-2">
-                                  <Check className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
-                                  <span className="text-sm" data-editable data-editable-id={`bachelor-package-${pkg.id}-feature-${i}`}>{feature}</span>
-                                </li>
-                              ))}
-                            </ul>
-                            
-                            <Button
-                              className="w-full bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold"
-                              onClick={() => handleGetQuote(pkg.id)}
-                              data-testid={`button-package-${pkg.id}`}
-                            >
-                              <span data-editable data-editable-id={`bachelor-package-${pkg.id}-button`}>Select This Package</span>
-                            </Button>
-                          </CardContent>
-                        </Card>
-                      ))}
-                    </div>
-
-                    <div className="text-center">
-                      <p className="text-lg mb-4" data-editable data-editable-id="bachelor-packages-includes-text">
-                        All packages include: DJ, Photographer, Floats, Party Supplies & More!
-                      </p>
-                      <Badge className="bg-green-600 text-white">
-                        <TrendingUp className="h-4 w-4 mr-1" />
-                        <span data-editable data-editable-id="bachelor-packages-discount-badge">Group Discounts Available for 10+ People</span>
-                      </Badge>
-                    </div>
-                  </div>
-                </TabsContent>
-
-                {/* Enhanced Private Packages with Pricing Table */}
-                <TabsContent value="private">
-                  <div className="max-w-7xl mx-auto">
-                    <h3 className="text-3xl font-semibold font-playfair text-center mb-4">
-                      Private Cruise Options for Bachelor Parties
-                    </h3>
-                    <p className="text-center text-gray-600 dark:text-gray-400 mb-12 max-w-3xl mx-auto">
-                      Want your own private boat? Choose from our three package tiers - all 4-hour cruises starting from $200/hour.
-                    </p>
-
-                    {/* Use PricingTable for Private packages */}
-                    <PricingTable
-                      variant="private"
-                      dayType="weekend"
-                      groupSize={20}
-                      duration={4}
-                      showTaxAndGratuity={true}
-                      showDeposit={true}
-                    />
-
-                    <div className="grid md:grid-cols-3 gap-8">
-                      {/* Standard Package - $200/hr */}
-                      <Card className="border-2">
-                        <CardContent className="p-6">
-                          <div className="text-center mb-4">
-                            <Package className="h-12 w-12 mx-auto text-brand-blue mb-2" />
-                            <h4 className="text-2xl font-bold mb-2">Standard Private Cruise</h4>
-                            <p className="text-gray-600 dark:text-gray-400 mb-4">Essential cruise experience</p>
-                            <div className="text-3xl font-bold text-brand-blue">$200/hour</div>
-                            <p className="text-sm text-gray-500">4-hour minimum = $800</p>
-                          </div>
-                          <div className="space-y-2 text-sm">
-                            <div className="flex items-start gap-2">
-                              <Check className="h-4 w-4 text-green-600 mt-0.5" />
-                              <span>Amazing, experienced captain</span>
-                            </div>
-                            <div className="flex items-start gap-2">
-                              <Check className="h-4 w-4 text-green-600 mt-0.5" />
-                              <span>2 large empty coolers (bring your own ice & drinks)</span>
-                            </div>
-                            <div className="flex items-start gap-2">
-                              <Check className="h-4 w-4 text-green-600 mt-0.5" />
-                              <span>Premium Bluetooth speaker system</span>
-                            </div>
-                            <div className="flex items-start gap-2">
-                              <Check className="h-4 w-4 text-green-600 mt-0.5" />
-                              <span>Clean restroom facilities</span>
-                            </div>
-                            <div className="flex items-start gap-2">
-                              <Check className="h-4 w-4 text-green-600 mt-0.5" />
-                              <span>Comfortable seating for 14 guests</span>
-                            </div>
-                            <div className="flex items-start gap-2">
-                              <Check className="h-4 w-4 text-green-600 mt-0.5" />
-                              <span>Plenty of sun & shade areas</span>
-                            </div>
-                          </div>
-                        </CardContent>
-                      </Card>
-
-                      {/* Essentials Package - $225/hr */}
-                      <Card className="border-2 border-brand-yellow shadow-lg">
-                        <CardContent className="p-6">
-                          <Badge className="mb-2">MOST POPULAR</Badge>
-                          <div className="text-center mb-4">
-                            <Gift className="h-12 w-12 mx-auto text-brand-blue mb-2" />
-                            <h4 className="text-2xl font-bold mb-2">Private Plus Essentials</h4>
-                            <p className="text-gray-600 dark:text-gray-400 mb-4">Complete convenience package</p>
-                            <div className="text-3xl font-bold text-brand-blue">$225/hour</div>
-                            <p className="text-sm text-gray-500">4-hour minimum = $900</p>
-                          </div>
-                          <div className="space-y-2 text-sm">
-                            <div className="flex items-start gap-2">
-                              <Check className="h-4 w-4 text-green-600 mt-0.5" />
-                              <span className="font-semibold">Everything from Standard Cruise</span>
-                            </div>
-                            <div className="flex items-start gap-2">
-                              <Check className="h-4 w-4 text-green-600 mt-0.5" />
-                              <span>Insulated 5-gallon dispenser with ice water</span>
-                            </div>
-                            <div className="flex items-start gap-2">
-                              <Check className="h-4 w-4 text-green-600 mt-0.5" />
-                              <span>15 gallons of fresh water & 30 solo cups</span>
-                            </div>
-                            <div className="flex items-start gap-2">
-                              <Check className="h-4 w-4 text-green-600 mt-0.5" />
-                              <span>Coolers pre-stocked with 40lbs of ice</span>
-                            </div>
-                            <div className="flex items-start gap-2">
-                              <Check className="h-4 w-4 text-green-600 mt-0.5" />
-                              <span>6-ft folding table for food & drinks</span>
-                            </div>
-                          </div>
-                        </CardContent>
-                      </Card>
-
-                      {/* Ultimate Package - $250/hr */}
-                      <Card className="border-2">
-                        <CardContent className="p-6">
-                          <div className="text-center mb-4">
-                            <Crown className="h-12 w-12 mx-auto text-brand-blue mb-2" />
-                            <h4 className="text-2xl font-bold mb-2">Private with Ultimate Package</h4>
-                            <p className="text-gray-600 dark:text-gray-400 mb-4">Complete party experience</p>
-                            <div className="text-3xl font-bold text-brand-blue">$250/hour</div>
-                            <p className="text-sm text-gray-500">4-hour minimum = $1,000</p>
-                          </div>
-                          <div className="space-y-2 text-sm">
-                            <div className="flex items-start gap-2">
-                              <Check className="h-4 w-4 text-green-600 mt-0.5" />
-                              <span className="font-semibold">Everything from Essentials Package</span>
-                            </div>
-                            <div className="flex items-start gap-2">
-                              <Check className="h-4 w-4 text-green-600 mt-0.5" />
-                              <span>6x20' giant lily pad float</span>
-                            </div>
-                            <div className="flex items-start gap-2">
-                              <Check className="h-4 w-4 text-green-600 mt-0.5" />
-                              <span>Unicorn or ring float for guest of honor</span>
-                            </div>
-                            <div className="flex items-start gap-2">
-                              <Check className="h-4 w-4 text-green-600 mt-0.5" />
-                              <span>5 disco ball cups & 30 additional solo cups</span>
-                            </div>
-                            <div className="flex items-start gap-2">
-                              <Check className="h-4 w-4 text-green-600 mt-0.5" />
-                              <span>Bubble gun & 3 bubble wands for fun</span>
-                            </div>
-                            <div className="flex items-start gap-2">
-                              <Check className="h-4 w-4 text-green-600 mt-0.5" />
-                              <span>20 champagne flutes & 3 fruit juices</span>
-                            </div>
-                            <div className="flex items-start gap-2">
-                              <Check className="h-4 w-4 text-green-600 mt-0.5" />
-                              <span>2 bottles SPF-50 spray sunscreen</span>
-                            </div>
-                            <div className="flex items-start gap-2">
-                              <Check className="h-4 w-4 text-green-600 mt-0.5" />
-                              <span>3 disco balls installed for party atmosphere</span>
-                            </div>
-                          </div>
-                        </CardContent>
-                      </Card>
-                    </div>
-
-                    <div className="mt-8 text-center">
-                      <p className="text-sm text-gray-600 dark:text-gray-400">
-                        All prices shown are base hourly rates. Tax, gratuity, and any add-ons are additional.
-                      </p>
-                    </div>
-                  </div>
-                </TabsContent>
-              </Tabs>
-            </TabsContent>
-
-            {/* Compare Tab - Comprehensive Value Calculator */}
-            <TabsContent value="compare" className="mt-8" id="compare">
-              <div className="max-w-7xl mx-auto">
-                <h2 className="text-3xl font-semibold font-playfair text-center mb-4" data-editable data-editable-id="bachelor-compare-title">
-                  <DollarSign className="w-8 h-8 inline mr-3 text-green-600" />
-                  The Math Doesn't Lie: Disco Cruise Wins for Guys' Weekend
-                </h2>
-                <p className="text-xl text-center text-gray-600 dark:text-gray-300 mb-12">
-                  See exactly how much you save with the ATX Disco Cruise for any group size
-                </p>
-                <DiscoVsPrivateValueCalculator />
-                <div className="mt-12 text-center">
-                  <Button
-                    size="lg"
-                    onClick={() => handleGetQuote()}
-                    className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-base sm:text-lg md:text-xl px-6 sm:px-8 py-4 sm:py-5 md:py-6 h-auto whitespace-normal min-h-[3.5rem] sm:min-h-[4rem]"
-                    data-testid="button-compare-book-bachelor"
-                  >
-                    <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 mr-2 sm:mr-3 flex-shrink-0" />
-                    <span className="text-center leading-tight">Book the Best Bachelor Party Experience</span>
-                    <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6 ml-2 sm:ml-3 flex-shrink-0" />
-                  </Button>
-                </div>
-              </div>
-            </TabsContent>
-
-            {/* FAQs Tab */}
-            <TabsContent value="faq" className="mt-8" id="faqs">
-              {/* Why Choose ATX Disco Cruise Section */}
-              <div id="why-disco" className="mb-12 bg-gradient-to-br from-yellow-50 via-orange-50 to-pink-50 rounded-2xl p-8">
-                <h2 className="text-3xl font-semibold font-playfair text-center mb-8 text-gray-900">
-                  Why Choose ATX Disco Cruise?
-                </h2>
-                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                  <div className="text-center">
-                    <div className="bg-gradient-to-br from-yellow-500 to-orange-600 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-3">
-                      <Star className="h-8 w-8 text-white" />
-                    </div>
-                    <h4 className="font-bold text-gray-900 dark:text-white mb-2">Unbeatable Value</h4>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">3-5x better value than private rentals with all entertainment included</p>
-                  </div>
-                  <div className="text-center">
-                    <div className="bg-gradient-to-br from-yellow-500 to-orange-600 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-3">
-                      <Users className="h-8 w-8 text-white" />
-                    </div>
-                    <h4 className="font-bold text-gray-900 dark:text-white mb-2">Multi-Group Energy</h4>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">Meet other bachelor parties from across the country for epic vibes</p>
-                  </div>
-                  <div className="text-center">
-                    <div className="bg-gradient-to-br from-yellow-500 to-orange-600 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-3">
-                      <Trophy className="h-8 w-8 text-white" />
-                    </div>
-                    <h4 className="font-bold text-gray-900 dark:text-white mb-2">100% Satisfaction</h4>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">Thousands of groups served since 2009 with perfect track record</p>
-                  </div>
-                </div>
-                <div className="text-center">
-                  <Link href="/atx-disco-cruise">
                     <Button 
-                      size="lg"
-                      className="bg-gradient-to-r from-yellow-500 to-orange-600 hover:from-yellow-600 hover:to-orange-700 text-white font-bold"
-                      data-testid="button-why-choose-disco"
+                      className="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold"
+                      onClick={() => handleGetQuote('basic')}
                     >
-                      <Sparkles className="mr-2 h-5 w-5" />
-                      Explore ATX Disco Cruise
-                      <ArrowRight className="ml-2 h-5 w-5" />
+                      View Disco Packages
                     </Button>
-                  </Link>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Private Charter Experience */}
+              <Card className="border-2 border-blue-200 hover:border-blue-400 transition-all hover:shadow-xl">
+                <CardHeader>
+                  <div className="w-20 h-20 mx-auto mb-4 bg-blue-100 rounded-full flex items-center justify-center">
+                    <Ship className="h-10 w-10 text-blue-600" />
+                  </div>
+                  <CardTitle className="text-2xl text-center font-playfair">Private Charters</CardTitle>
+                  <CardDescription className="text-center text-base">
+                    Exclusive Boat for Your Crew
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <p className="text-gray-700 leading-relaxed">
+                    Want the boat all to yourselves? Book a private charter for complete control over music, schedule, and activities. Perfect for bachelor groups who want privacy and customization.
+                  </p>
+                  <ul className="space-y-3">
+                    <li className="flex items-start gap-3">
+                      <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
+                      <span className="text-gray-700">Entire boat for your group (14-75 capacity)</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
+                      <span className="text-gray-700">Full control over music & schedule</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
+                      <span className="text-gray-700">Flexible departure times</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
+                      <span className="text-gray-700">Bring your own decorations</span>
+                    </li>
+                  </ul>
+                  <div className="pt-4 border-t">
+                    <div className="text-center mb-4">
+                      <span className="text-gray-600">Starting from</span>
+                      <div className="text-4xl font-bold text-blue-600">$200</div>
+                      <span className="text-gray-600">per hour (4-hour minimum)</span>
+                    </div>
+                    <Button 
+                      className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold"
+                      onClick={() => handleGetQuote('private')}
+                    >
+                      View Private Options
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </section>
+      </SectionReveal>
+
+      {/* 3. PRICING & PACKAGES */}
+      <SectionReveal>
+        <section id="packages" className="py-20 bg-gradient-to-br from-gray-50 to-white">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="text-center mb-16">
+              <Badge className="mb-6 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
+                <Package className="h-4 w-4 mr-2 inline" />
+                Pricing & Packages
+              </Badge>
+              <h2 className="text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
+                Choose Your Bachelor Party Package
+              </h2>
+              <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
+                Select the perfect package for your crew - from budget-friendly to all-inclusive VIP
+              </p>
+            </div>
+
+            {/* ATX Disco Cruise Packages */}
+            <div className="mb-16">
+              <h3 className="text-3xl font-semibold font-playfair text-center mb-12">ATX Disco Cruise Packages</h3>
+              
+              <PricingTable
+                packages={discoPackages.map(pkg => ({
+                  ...pkg,
+                  ctaLink: '/book'
+                }))}
+                variant="disco"
+                showTaxAndGratuity={true}
+                showDeposit={true}
+              />
+
+              <div className="text-center mt-8">
+                <p className="text-lg mb-4 text-gray-700">
+                  All packages include: DJ, Photographer, Floats, Party Supplies & More!
+                </p>
+                <Badge className="bg-green-600 text-white px-6 py-2">
+                  <TrendingUp className="h-4 w-4 mr-2 inline" />
+                  Group Discounts Available for 10+ People
+                </Badge>
+              </div>
+            </div>
+
+            {/* Private Charter Packages */}
+            <div>
+              <h3 className="text-3xl font-semibold font-playfair text-center mb-6">Private Charter Options</h3>
+              <p className="text-center text-gray-600 mb-12 max-w-3xl mx-auto leading-relaxed">
+                Want your own private boat? Choose from our three package tiers - all 4-hour cruises starting from $200/hour.
+              </p>
+
+              <PricingTable
+                variant="private"
+                dayType="weekend"
+                groupSize={20}
+                duration={4}
+                showTaxAndGratuity={true}
+                showDeposit={true}
+              />
+            </div>
+
+            {/* Disco vs Private Comparison */}
+            <div className="mt-16 max-w-5xl mx-auto">
+              <h3 className="text-3xl font-semibold font-playfair text-center mb-8">Disco Cruise vs Private Charter</h3>
+              
+              <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
+                {/* Comparison Table */}
+                <div className="overflow-x-auto">
+                  <table className="w-full">
+                    <thead>
+                      <tr className="bg-gradient-to-r from-purple-600 to-blue-600 text-white">
+                        <th className="px-6 py-4 text-left text-sm font-bold uppercase tracking-wider">
+                          Feature
+                        </th>
+                        <th className="px-6 py-4 text-center text-sm font-bold uppercase tracking-wider">
+                          Disco Cruise
+                        </th>
+                        <th className="px-6 py-4 text-center text-sm font-bold uppercase tracking-wider">
+                          Private Charter
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-gray-200">
+                      <tr>
+                        <td className="px-6 py-4 text-sm text-gray-900 font-medium">Professional DJ</td>
+                        <td className="px-6 py-4 text-center"><Check className="h-5 w-5 text-green-500 mx-auto" /></td>
+                        <td className="px-6 py-4 text-center"><X className="h-5 w-5 text-gray-400 mx-auto" /></td>
+                      </tr>
+                      <tr>
+                        <td className="px-6 py-4 text-sm text-gray-900 font-medium">Professional Photographer</td>
+                        <td className="px-6 py-4 text-center"><Check className="h-5 w-5 text-green-500 mx-auto" /></td>
+                        <td className="px-6 py-4 text-center"><X className="h-5 w-5 text-gray-400 mx-auto" /></td>
+                      </tr>
+                      <tr>
+                        <td className="px-6 py-4 text-sm text-gray-900 font-medium">Private Boat (Entire Boat for Your Group)</td>
+                        <td className="px-6 py-4 text-center"><X className="h-5 w-5 text-gray-400 mx-auto" /></td>
+                        <td className="px-6 py-4 text-center"><Check className="h-5 w-5 text-green-500 mx-auto" /></td>
+                      </tr>
+                      <tr>
+                        <td className="px-6 py-4 text-sm text-gray-900 font-medium">Custom Music Control</td>
+                        <td className="px-6 py-4 text-center text-xs text-gray-500">DJ Curated</td>
+                        <td className="px-6 py-4 text-center"><Check className="h-5 w-5 text-green-500 mx-auto" /></td>
+                      </tr>
+                      <tr>
+                        <td className="px-6 py-4 text-sm text-gray-900 font-medium">Flexible Departure Times</td>
+                        <td className="px-6 py-4 text-center text-xs text-gray-500">Set Schedule</td>
+                        <td className="px-6 py-4 text-center"><Check className="h-5 w-5 text-green-500 mx-auto" /></td>
+                      </tr>
+                      <tr>
+                        <td className="px-6 py-4 text-sm text-gray-900 font-medium">Giant Lily Pad Floats</td>
+                        <td className="px-6 py-4 text-center"><Check className="h-5 w-5 text-green-500 mx-auto" /></td>
+                        <td className="px-6 py-4 text-center text-xs text-gray-500">Add-on: $100/hr</td>
+                      </tr>
+                      <tr>
+                        <td className="px-6 py-4 text-sm text-gray-900 font-medium">Party Supplies Included</td>
+                        <td className="px-6 py-4 text-center"><Check className="h-5 w-5 text-green-500 mx-auto" /></td>
+                        <td className="px-6 py-4 text-center"><X className="h-5 w-5 text-gray-400 mx-auto" /></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                {/* Price Range */}
+                <div className="grid md:grid-cols-2 divide-x divide-gray-200 bg-gray-50">
+                  <div className="px-8 py-6 text-center">
+                    <h3 className="text-lg font-bold text-purple-600 mb-2">Disco Cruise</h3>
+                    <p className="text-4xl font-bold text-gray-900">${DISCO_PRICING.basic / 100}-${DISCO_PRICING.platinum / 100}</p>
+                    <p className="text-sm text-gray-600 mt-1">per person (4 hours)</p>
+                    <p className="text-xs text-gray-500 mt-2">Best for groups of 10-50</p>
+                  </div>
+                  <div className="px-8 py-6 text-center">
+                    <h3 className="text-lg font-bold text-blue-600 mb-2">Private Charter</h3>
+                    <p className="text-4xl font-bold text-gray-900">$200-$250/hr</p>
+                    <p className="text-sm text-gray-600 mt-1">(4-hour minimum)</p>
+                    <p className="text-xs text-gray-500 mt-2">Best for groups of 6-75</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </SectionReveal>
+
+      {/* 4. AVAILABILITY & BOOKING */}
+      <SectionReveal>
+        <section id="availability" className="py-20 bg-white">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="text-center mb-16">
+              <Badge className="mb-6 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
+                <Calendar className="h-4 w-4 mr-2 inline" />
+                Availability & Booking
+              </Badge>
+              <h2 className="text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
+                When Can You Book Your Bachelor Party?
+              </h2>
+              <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
+                We operate year-round on Lake Travis with flexible scheduling for your celebration
+              </p>
+            </div>
+
+            {/* Time Slots */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto mb-16">
+              <Card className="border-2 border-yellow-200 hover:border-yellow-400 transition-all hover:shadow-lg">
+                <CardHeader className="text-center">
+                  <div className="mx-auto mb-4 p-4 bg-yellow-100 rounded-full w-16 h-16 flex items-center justify-center">
+                    <Sun className="h-8 w-8 text-yellow-600" />
+                  </div>
+                  <CardTitle className="text-xl font-bold">Morning Cruises</CardTitle>
+                </CardHeader>
+                <CardContent className="text-center">
+                  <p className="text-3xl font-bold text-blue-600 mb-3">9am - 1pm</p>
+                  <p className="text-sm text-gray-600 leading-relaxed">
+                    Perfect for early risers and calm waters
+                  </p>
+                </CardContent>
+              </Card>
+
+              <Card className="border-2 border-blue-300 hover:border-blue-500 transition-all hover:shadow-lg">
+                <CardHeader className="text-center">
+                  <div className="mx-auto mb-4 p-4 bg-blue-100 rounded-full w-16 h-16 flex items-center justify-center">
+                    <Clock className="h-8 w-8 text-blue-600" />
+                  </div>
+                  <CardTitle className="text-xl font-bold">Afternoon Cruises</CardTitle>
+                  <Badge className="mt-2 bg-blue-600 text-white">Most Popular</Badge>
+                </CardHeader>
+                <CardContent className="text-center">
+                  <p className="text-3xl font-bold text-blue-600 mb-3">2pm - 6pm</p>
+                  <p className="text-sm text-gray-600 leading-relaxed">
+                    Peak party time on Lake Travis
+                  </p>
+                </CardContent>
+              </Card>
+
+              <Card className="border-2 border-purple-200 hover:border-purple-400 transition-all hover:shadow-lg">
+                <CardHeader className="text-center">
+                  <div className="mx-auto mb-4 p-4 bg-purple-100 rounded-full w-16 h-16 flex items-center justify-center">
+                    <Waves className="h-8 w-8 text-purple-600" />
+                  </div>
+                  <CardTitle className="text-xl font-bold">Evening Cruises</CardTitle>
+                </CardHeader>
+                <CardContent className="text-center">
+                  <p className="text-3xl font-bold text-purple-600 mb-3">7pm - 11pm</p>
+                  <p className="text-sm text-gray-600 leading-relaxed">
+                    Sunset views and night celebrations
+                  </p>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Booking Timeline */}
+            <div className="max-w-4xl mx-auto bg-gradient-to-br from-blue-50 to-purple-50 rounded-2xl shadow-lg p-10 border border-gray-200">
+              <h3 className="text-2xl font-semibold font-playfair text-center mb-8 text-gray-900">
+                How to Book Your Bachelor Party
+              </h3>
+              
+              <div className="space-y-6">
+                <div className="flex items-start gap-6">
+                  <div className="flex-shrink-0 w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-xl">
+                    1
+                  </div>
+                  <div className="flex-1">
+                    <h4 className="text-xl font-bold text-gray-900 mb-2">Choose Your Date</h4>
+                    <p className="text-gray-700 leading-relaxed">
+                      Check availability on our calendar. Peak weekends (April-September) book up 4-6 weeks in advance. Book early!
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-6">
+                  <div className="flex-shrink-0 w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-xl">
+                    2
+                  </div>
+                  <div className="flex-1">
+                    <h4 className="text-xl font-bold text-gray-900 mb-2">Select Your Package</h4>
+                    <p className="text-gray-700 leading-relaxed">
+                      Choose between ATX Disco Cruise (Basic, Disco King, or Platinum) or Private Charter. Each has unique benefits for your crew.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-6">
+                  <div className="flex-shrink-0 w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-xl">
+                    3
+                  </div>
+                  <div className="flex-1">
+                    <h4 className="text-xl font-bold text-gray-900 mb-2">Pay Deposit & Confirm</h4>
+                    <p className="text-gray-700 leading-relaxed">
+                      Secure your booking with a 50% deposit. Final payment due 48 hours before the cruise. Full refund within 48 hours of booking.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-6">
+                  <div className="flex-shrink-0 w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-xl">
+                    4
+                  </div>
+                  <div className="flex-1">
+                    <h4 className="text-xl font-bold text-gray-900 mb-2">Show Up & Party!</h4>
+                    <p className="text-gray-700 leading-relaxed">
+                      Arrive 15 minutes before departure. Your captain handles everything else - just bring the boys and your beverages!
+                    </p>
+                  </div>
                 </div>
               </div>
 
-              <div className="max-w-3xl mx-auto">
-                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-center mb-8" data-editable data-editable-id="bachelor-faq-title">
-                  Frequently Asked Questions
-                </h2>
-                
-                <Accordion type="single" collapsible className="space-y-4">
-                  {faqItems.map((item) => (
-                    <AccordionItem 
-                      key={item.id} 
-                      value={item.id}
-                      className="bg-gray-50 dark:bg-gray-900 rounded-lg px-6"
-                    >
-                      <AccordionTrigger 
-                        className="text-left hover:no-underline"
-                        data-testid={`faq-trigger-${item.id}`}
-                      >
-                        <span data-editable data-editable-id={`bachelor-faq-${item.id}-question`}>{item.question}</span>
-                      </AccordionTrigger>
-                      <AccordionContent className="text-gray-600 dark:text-gray-400">
-                        <span data-editable data-editable-id={`bachelor-faq-${item.id}-answer`}>
-                          {(item as any).answerJsx || item.answer}
-                        </span>
-                      </AccordionContent>
-                    </AccordionItem>
-                  ))}
-                </Accordion>
+              <div className="mt-10 text-center">
+                <Button
+                  size="lg"
+                  onClick={() => handleGetQuote()}
+                  className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold text-lg px-12 py-6"
+                >
+                  <Calendar className="mr-2 h-6 w-6" />
+                  Check Availability & Book Now
+                </Button>
+              </div>
+            </div>
+          </div>
+        </section>
+      </SectionReveal>
 
-                <Card className="mt-8 bg-brand-yellow/10 border-brand-yellow">
-                  <CardContent className="pt-6">
-                    <h3 className="font-bold text-lg mb-3" data-editable data-editable-id="bachelor-faq-help-title">Still have questions?</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 mb-4" data-editable data-editable-id="bachelor-faq-help-desc">
-                      Our team is here to help make your bachelor party perfect!
-                    </p>
-                    <Link href="/contact">
-                      <Button
-                        variant="outline"
-                        className="border-brand-yellow text-brand-yellow hover:bg-brand-yellow hover:text-black"
-                        data-testid="button-faq-contact"
-                      >
-                        <MessageCircle className="mr-2 h-4 w-4" />
-                        <span data-editable data-editable-id="bachelor-faq-chat-button">Chat with Us for Custom Packages</span>
-                      </Button>
-                    </Link>
+      {/* 5. BENEFITS - Why Choose Premier */}
+      <SectionReveal>
+        <section id="benefits" className="py-20 bg-gradient-to-br from-gray-50 to-white">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="text-center mb-16">
+              <Badge className="mb-6 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
+                <Trophy className="h-4 w-4 mr-2 inline" />
+                Why Choose Us
+              </Badge>
+              <h2 className="text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
+                Why Bachelor Parties Choose Premier
+              </h2>
+              <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
+                15+ years of bachelor party expertise on Lake Travis with 10,000+ successful celebrations
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+              <Card className="border-2 border-blue-100 hover:border-blue-300 transition-all hover:shadow-lg">
+                <CardHeader className="text-center">
+                  <div className="mx-auto mb-4 p-4 bg-blue-100 rounded-full w-16 h-16 flex items-center justify-center">
+                    <Trophy className="h-8 w-8 text-blue-600" />
+                  </div>
+                  <CardTitle className="text-xl font-bold">15+ Years Experience</CardTitle>
+                </CardHeader>
+                <CardContent className="text-center">
+                  <p className="text-gray-700 leading-relaxed">
+                    Austin's longest-running party cruise company since 2009. We wrote the book on bachelor parties on Lake Travis.
+                  </p>
+                </CardContent>
+              </Card>
+
+              <Card className="border-2 border-green-100 hover:border-green-300 transition-all hover:shadow-lg">
+                <CardHeader className="text-center">
+                  <div className="mx-auto mb-4 p-4 bg-green-100 rounded-full w-16 h-16 flex items-center justify-center">
+                    <Users className="h-8 w-8 text-green-600" />
+                  </div>
+                  <CardTitle className="text-xl font-bold">10,000+ Bachelor Parties</CardTitle>
+                </CardHeader>
+                <CardContent className="text-center">
+                  <p className="text-gray-700 leading-relaxed">
+                    We've hosted over 10,000 bachelor parties with perfect safety record and 5-star reviews.
+                  </p>
+                </CardContent>
+              </Card>
+
+              <Card className="border-2 border-purple-100 hover:border-purple-300 transition-all hover:shadow-lg">
+                <CardHeader className="text-center">
+                  <div className="mx-auto mb-4 p-4 bg-purple-100 rounded-full w-16 h-16 flex items-center justify-center">
+                    <Music className="h-8 w-8 text-purple-600" />
+                  </div>
+                  <CardTitle className="text-xl font-bold">Pro DJ & Photography</CardTitle>
+                </CardHeader>
+                <CardContent className="text-center">
+                  <p className="text-gray-700 leading-relaxed">
+                    Professional DJ and photographer on every Disco Cruise. Epic beats and memories captured all day.
+                  </p>
+                </CardContent>
+              </Card>
+
+              <Card className="border-2 border-yellow-100 hover:border-yellow-300 transition-all hover:shadow-lg">
+                <CardHeader className="text-center">
+                  <div className="mx-auto mb-4 p-4 bg-yellow-100 rounded-full w-16 h-16 flex items-center justify-center">
+                    <Shield className="h-8 w-8 text-yellow-600" />
+                  </div>
+                  <CardTitle className="text-xl font-bold">Perfect Safety Record</CardTitle>
+                </CardHeader>
+                <CardContent className="text-center">
+                  <p className="text-gray-700 leading-relaxed">
+                    Coast Guard certified captains and pristine safety record. Your crew's safety is our top priority.
+                  </p>
+                </CardContent>
+              </Card>
+
+              <Card className="border-2 border-red-100 hover:border-red-300 transition-all hover:shadow-lg">
+                <CardHeader className="text-center">
+                  <div className="mx-auto mb-4 p-4 bg-red-100 rounded-full w-16 h-16 flex items-center justify-center">
+                    <DollarSign className="h-8 w-8 text-red-600" />
+                  </div>
+                  <CardTitle className="text-xl font-bold">Best Value on Lake Travis</CardTitle>
+                </CardHeader>
+                <CardContent className="text-center">
+                  <p className="text-gray-700 leading-relaxed">
+                    ATX Disco Cruise from $85/person is always cheaper than booking a private boat for smaller groups.
+                  </p>
+                </CardContent>
+              </Card>
+
+              <Card className="border-2 border-indigo-100 hover:border-indigo-300 transition-all hover:shadow-lg">
+                <CardHeader className="text-center">
+                  <div className="mx-auto mb-4 p-4 bg-indigo-100 rounded-full w-16 h-16 flex items-center justify-center">
+                    <Wine className="h-8 w-8 text-indigo-600" />
+                  </div>
+                  <CardTitle className="text-xl font-bold">Alcohol Delivery</CardTitle>
+                </CardHeader>
+                <CardContent className="text-center">
+                  <p className="text-gray-700 leading-relaxed">
+                    Partner with Party On Delivery - order alcohol online, delivered 50 feet from your boat. Zero hassle!
+                  </p>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </section>
+      </SectionReveal>
+
+      {/* 6. FEATURES & WHAT'S INCLUDED */}
+      <SectionReveal>
+        <section id="whats-included" className="py-20 bg-white">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="text-center mb-16">
+              <Badge className="mb-6 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
+                <CheckCircle className="h-4 w-4 mr-2 inline" />
+                What's Included
+              </Badge>
+              <h2 className="text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
+                Everything You Need for an Epic Day
+              </h2>
+              <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
+                From professional entertainment to giant floats - we've got you covered
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto mb-16">
+              {whatsIncluded.map((item, index) => (
+                <Card key={index} className="border border-gray-200 hover:border-blue-300 transition-all hover:shadow-lg">
+                  <CardContent className="p-6">
+                    <div className="flex items-start gap-4">
+                      <div className="flex-shrink-0 p-3 bg-brand-yellow/20 rounded-full">
+                        <item.icon className="h-6 w-6 text-brand-yellow" />
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="font-bold text-lg mb-2 text-gray-900">{item.title}</h3>
+                        <p className="text-gray-600 leading-relaxed">{item.description}</p>
+                      </div>
+                    </div>
                   </CardContent>
                 </Card>
-              </div>
-            </TabsContent>
-
-            {/* Photos Tab */}
-            <TabsContent value="photos" className="mt-8" id="photos">
-              <div className="max-w-6xl mx-auto">
-                <h2 className="text-3xl font-semibold font-playfair text-center mb-8" data-editable data-editable-id="bachelor-photos-title">
-                  Bachelor Party Vibes & Photos
-                </h2>
-                
-                <Carousel className="w-full">
-                  <CarouselContent>
-                    {galleryPhotos.map((photo) => (
-                      <CarouselItem key={photo.id} className="md:basis-1/2 lg:basis-1/3">
-                        <div className="p-2">
-                          <img
-                            src={photo.src}
-                            alt={photo.alt}
-                            className="rounded-lg w-full h-64 object-cover"
-                            loading="lazy"
-                            data-testid={`photo-gallery-${photo.id}`}
-                          />
-                        </div>
-                      </CarouselItem>
-                    ))}
-                  </CarouselContent>
-                  <CarouselPrevious />
-                  <CarouselNext />
-                </Carousel>
-
-                <div className="mt-8 text-center">
-                  <p className="text-lg mb-4" data-editable data-editable-id="bachelor-photos-description">
-                    Professional photography included with every cruise!
-                  </p>
-                  <Button
-                    onClick={() => handleGetQuote()}
-                    className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold"
-                    data-testid="button-photos-book-bachelor"
-                  >
-                    <span data-editable data-editable-id="bachelor-photos-book-button">Book Your Epic Bachelor Party</span>
-                  </Button>
-                </div>
-              </div>
-            </TabsContent>
-
-            {/* Testimonials Tab */}
-            <TabsContent value="testimonials" className="mt-8" id="testimonials">
-              <div className="max-w-6xl mx-auto">
-                <h2 className="text-3xl font-semibold font-playfair text-center mb-8" data-editable data-editable-id="bachelor-testimonials-title">
-                  What Grooms Are Saying
-                </h2>
-                
-                <Carousel className="w-full">
-                  <CarouselContent>
-                    {testimonials.map((testimonial) => (
-                      <CarouselItem key={testimonial.id} className="md:basis-1/2">
-                        <Card className="h-full">
-                          <CardContent className="pt-6">
-                            <div className="flex items-center mb-4">
-                              <span className="text-3xl md:text-4xl mr-4">{testimonial.avatar}</span>
-                              <div>
-                                <p className="font-semibold" data-editable data-editable-id={`bachelor-testimonial-${testimonial.id}-name`}>{testimonial.name}</p>
-                                <p className="text-sm text-gray-600 dark:text-gray-400" data-editable data-editable-id={`bachelor-testimonial-${testimonial.id}-role`}>
-                                  {testimonial.role} • {testimonial.location}
-                                </p>
-                              </div>
-                            </div>
-                            
-                            <div className="flex mb-3">
-                              {[...Array(testimonial.rating)].map((_, i) => (
-                                <Star key={i} className="h-4 w-4 text-yellow-500 fill-current" />
-                              ))}
-                            </div>
-                            
-                            <p className="text-gray-700 dark:text-gray-300 mb-3" data-editable data-editable-id={`bachelor-testimonial-${testimonial.id}-text`}>
-                              "{testimonial.text}"
-                            </p>
-                            
-                            <Badge variant="secondary"><span data-editable data-editable-id={`bachelor-testimonial-${testimonial.id}-package`}>{testimonial.package}</span></Badge>
-                          </CardContent>
-                        </Card>
-                      </CarouselItem>
-                    ))}
-                  </CarouselContent>
-                  <CarouselPrevious />
-                  <CarouselNext />
-                </Carousel>
-
-                <div className="mt-8 text-center">
-                  <p className="text-lg mb-4" data-editable data-editable-id="bachelor-testimonials-description">
-                    Join thousands of satisfied grooms who made their bachelor party legendary!
-                  </p>
-                  <Button
-                    size="lg"
-                    onClick={() => handleGetQuote()}
-                    className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold"
-                    data-testid="button-testimonials-book-bachelor"
-                  >
-                    <span data-editable data-editable-id="bachelor-testimonials-success-button">Be the Next Success Story</span>
-                  </Button>
-                </div>
-              </div>
-            </TabsContent>
-          </Tabs>
+              ))}
             </div>
-            
-            {/* Table of Contents Sidebar */}
-            <TableOfContents sections={tocSections} />
-          </div>
+
+            {/* What to Bring */}
+            <div className="max-w-5xl mx-auto">
+              <WhatToBring
+                variant="bachelor"
+                title="What to Bring on Your Bachelor Party Cruise"
+                description="Pack these essentials for the perfect day on Lake Travis"
+                className="max-w-7xl mx-auto"
+              />
+            </div>
           </div>
         </section>
       </SectionReveal>
 
-      {/* Comprehensive Why You Should Book ATX Disco Cruise Section */}
+      {/* 7. WHY CHOOSE PREMIER - Trust Signals */}
       <SectionReveal>
-        <section className="py-24 bg-gradient-to-br from-purple-900 via-pink-900 to-orange-900 text-white">
-        <div className="container mx-auto px-6">
-          <motion.div
-            initial={reducedMotion ? false : "hidden"}
-            whileInView={reducedMotion ? undefined : "visible"}
-            viewport={reducedMotion ? undefined : { once: true }}
-            variants={reducedMotion ? undefined : fadeInUp}
-            className="text-center mb-16"
-          >
-            <Badge className="mb-6 font-sans tracking-wider font-bold uppercase text-sm bg-brand-yellow text-black px-8 py-3">
-              <Sparkles className="w-5 h-5 mr-2 inline" /> ATX Disco Cruise
-            </Badge>
-            <h2 className="text-3xl font-semibold font-playfair text-center mb-6">
-              Why You Should Book the <span className="text-brand-yellow">ATX Disco Cruise</span>
-            </h2>
-            <p className="text-2xl md:text-3xl font-bold text-brand-yellow mb-4">
-              SHOW UP & GET DOWN!!
-            </p>
-            <p className="text-xl text-white/90 max-w-4xl mx-auto">
-              The country's ONLY all-inclusive multi-group bachelor party cruise. Here's why thousands of groups choose us every year.
-            </p>
-          </motion.div>
+        <section id="why-choose" className="py-20 bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="text-center mb-16">
+              <Badge className="mb-6 bg-white/10 border-2 border-white text-white px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm">
+                <Crown className="h-4 w-4 mr-2 inline" />
+                The Premier Difference
+              </Badge>
+              <h2 className="text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-white leading-tight">
+                Austin's Most Trusted Bachelor Party Company
+              </h2>
+              <p className="text-xl text-white/90 max-w-3xl mx-auto leading-relaxed">
+                Since 2009, we've been the go-to choice for bachelor parties on Lake Travis
+              </p>
+            </div>
 
-          <motion.div
-            initial={reducedMotion ? false : "hidden"}
-            whileInView={reducedMotion ? undefined : "visible"}
-            viewport={reducedMotion ? undefined : { once: true }}
-            variants={reducedMotion ? undefined : staggerChildren}
-            className="max-w-7xl mx-auto"
-          >
-            <Accordion type="multiple" className="space-y-4">
-              {/* Benefit 1: Show Up & Get Down */}
-              <AccordionItem value="item-1" className="bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 px-6">
-                <AccordionTrigger className="text-xl font-bold hover:text-brand-yellow" data-testid="accordion-showup">
-                  <div className="flex items-center gap-3">
-                    <Zap className="h-6 w-6 text-brand-yellow" />
-                    <span>Just SHOW UP & GET DOWN! Everything's Included!</span>
-                  </div>
-                </AccordionTrigger>
-                <AccordionContent className="text-white/90 text-lg pt-4">
-                  <p className="mb-3">Literally just show up with your booze and PARTY! We provide absolutely everything else:</p>
-                  <ul className="space-y-2 ml-6">
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="w-5 h-5 text-green-400 mt-1 flex-shrink-0" />
-                      <span>Professional DJ playing your favorite hits all day long</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="w-5 h-5 text-green-400 mt-1 flex-shrink-0" />
-                      <span>Professional photographer capturing every epic moment</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="w-5 h-5 text-green-400 mt-1 flex-shrink-0" />
-                      <span>Private cooler with ice already set up for your group</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="w-5 h-5 text-green-400 mt-1 flex-shrink-0" />
-                      <span>Mimosa supplies (juice & fresh fruit - just add champagne!)</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="w-5 h-5 text-green-400 mt-1 flex-shrink-0" />
-                      <span>Giant lily pad floats for the ultimate Instagram moment</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="w-5 h-5 text-green-400 mt-1 flex-shrink-0" />
-                      <span>Bubbles, koozies, name tags, cups - all the party supplies</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="w-5 h-5 text-green-400 mt-1 flex-shrink-0" />
-                      <span>Ice water stations to keep everyone hydrated</span>
-                    </li>
-                  </ul>
-                </AccordionContent>
-              </AccordionItem>
+            <div className="grid md:grid-cols-4 gap-8 mb-16">
+              <div className="text-center">
+                <div className="text-6xl font-bold text-brand-yellow mb-2">15+</div>
+                <div className="text-xl text-white">Years Experience</div>
+              </div>
+              <div className="text-center">
+                <div className="text-6xl font-bold text-brand-yellow mb-2">10K+</div>
+                <div className="text-xl text-white">Bachelor Parties</div>
+              </div>
+              <div className="text-center">
+                <div className="text-6xl font-bold text-brand-yellow mb-2">100%</div>
+                <div className="text-xl text-white">Satisfaction Rate</div>
+              </div>
+              <div className="text-center">
+                <div className="text-6xl font-bold text-brand-yellow mb-2">5★</div>
+                <div className="text-xl text-white">Average Rating</div>
+              </div>
+            </div>
 
-              {/* Benefit 2: Best Weekend Ever */}
-              <AccordionItem value="item-2" className="bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 px-6">
-                <AccordionTrigger className="text-xl font-bold hover:text-brand-yellow" data-testid="accordion-best-weekend">
-                  <div className="flex items-center gap-3">
-                    <Trophy className="h-6 w-6 text-brand-yellow" />
-                    <span>Show Your Groom the BEST Weekend of His Life!</span>
-                  </div>
-                </AccordionTrigger>
-                <AccordionContent className="text-white/90 text-lg pt-4">
-                  <p>This isn't just another boat rental - it's a LEGENDARY experience that will be talked about for years! Your groom and crew will remember this as the most epic day of the entire bachelor party weekend. With professional entertainment, amazing vibes, and the energy of multiple bachelor parties celebrating together, this is THE highlight that makes your Austin bachelor party unforgettable.</p>
-                </AccordionContent>
-              </AccordionItem>
+            <div className="text-center">
+              <Button
+                size="lg"
+                onClick={() => handleGetQuote()}
+                className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-lg px-12 py-7"
+              >
+                <Calendar className="mr-2 h-6 w-6" />
+                Join 10,000+ Happy Bachelor Parties
+              </Button>
+            </div>
+          </div>
+        </section>
+      </SectionReveal>
 
-              {/* Benefit 3: Highlight Every Time */}
-              <AccordionItem value="item-3" className="bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 px-6">
-                <AccordionTrigger className="text-xl font-bold hover:text-brand-yellow" data-testid="accordion-highlight">
-                  <div className="flex items-center gap-3">
-                    <Star className="h-6 w-6 text-brand-yellow fill-current" />
-                    <span>It's the Highlight of The Weekend, EVERY. DAMN. TIME.</span>
-                  </div>
-                </AccordionTrigger>
-                <AccordionContent className="text-white/90 text-lg pt-4">
-                  <p>Don't just take our word for it - after hosting thousands of bachelor parties, we can confidently say this is THE most fun they've had in years. The combination of the beautiful lake, professional DJ, amazing energy from multiple groups, and 4 full hours of non-stop partying creates an experience that consistently tops every other bachelor party activity. Your crew will be talking about this for decades!</p>
-                </AccordionContent>
-              </AccordionItem>
+      {/* 8. PHOTO GALLERY */}
+      <SectionReveal>
+        <section id="photos" className="py-20 bg-white">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="text-center mb-16">
+              <Badge className="mb-6 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
+                <Camera className="h-4 w-4 mr-2 inline" />
+                Photo Gallery
+              </Badge>
+              <h2 className="text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
+                See the Bachelor Party Experience
+              </h2>
+              <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
+                Real photos from real bachelor parties on Lake Travis
+              </p>
+            </div>
 
-              {/* Benefit 4: Turnkey Convenience */}
-              <AccordionItem value="item-4" className="bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 px-6">
-                <AccordionTrigger className="text-xl font-bold hover:text-brand-yellow" data-testid="accordion-turnkey">
-                  <div className="flex items-center gap-3">
-                    <Heart className="h-6 w-6 text-brand-yellow" />
-                    <span>You've Got Enough to Worry About! We Handle Everything!</span>
-                  </div>
-                </AccordionTrigger>
-                <AccordionContent className="text-white/90 text-lg pt-4">
-                  <p className="mb-3">Planning a bachelor party is stressful enough. Don't deal with:</p>
-                  <ul className="space-y-2 ml-6 mb-3">
-                    <li className="flex items-start gap-2">
-                      <X className="w-5 h-5 text-red-400 mt-1 flex-shrink-0" />
-                      <span>Renting and hauling coolers, ice, cups, and party supplies</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <X className="w-5 h-5 text-red-400 mt-1 flex-shrink-0" />
-                      <span>Coordinating a DJ or music setup</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <X className="w-5 h-5 text-red-400 mt-1 flex-shrink-0" />
-                      <span>Finding and paying a photographer</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <X className="w-5 h-5 text-red-400 mt-1 flex-shrink-0" />
-                      <span>Buying floats and water toys</span>
-                    </li>
-                  </ul>
-                  <p className="font-bold text-brand-yellow">Everything is ready when you arrive - just bring your booze and GET DOWN!</p>
-                </AccordionContent>
-              </AccordionItem>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              {galleryPhotos.map((photo) => (
+                <div
+                  key={photo.id}
+                  className="relative aspect-square overflow-hidden rounded-lg cursor-pointer group shadow-md hover:shadow-2xl transition-all duration-300"
+                >
+                  <img
+                    src={photo.src}
+                    alt={photo.alt}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      </SectionReveal>
 
-              {/* Benefit 5: Multi-Group Party */}
-              <AccordionItem value="item-5" className="bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 px-6">
-                <AccordionTrigger className="text-xl font-bold hover:text-brand-yellow" data-testid="accordion-multi-group">
-                  <div className="flex items-center gap-3">
-                    <Users className="h-6 w-6 text-brand-yellow" />
-                    <span>Party With Other Bachelor Parties from All Over America!</span>
-                  </div>
-                </AccordionTrigger>
-                <AccordionContent className="text-white/90 text-lg pt-4">
-                  <p className="mb-3">This is what makes the ATX Disco Cruise TRULY unique - you're not alone on the boat! We host multiple bachelor parties from across the country, all celebrating together:</p>
-                  <ul className="space-y-2 ml-6">
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="w-5 h-5 text-green-400 mt-1 flex-shrink-0" />
-                      <span>Meet groups from California, New York, Florida, and everywhere in between</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="w-5 h-5 text-green-400 mt-1 flex-shrink-0" />
-                      <span>Everyone's there for the SAME REASON - to celebrate and go CRAZY!</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="w-5 h-5 text-green-400 mt-1 flex-shrink-0" />
-                      <span>The energy is ELECTRIC when everyone's celebrating together</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="w-5 h-5 text-green-400 mt-1 flex-shrink-0" />
-                      <span>Make friends, exchange stories, and create a party atmosphere that's UNMATCHED</span>
-                    </li>
-                  </ul>
-                </AccordionContent>
-              </AccordionItem>
+      {/* 9. TESTIMONIALS/REVIEWS */}
+      <SectionReveal>
+        <section id="testimonials" className="py-20 bg-gradient-to-br from-gray-50 to-white">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="text-center mb-16">
+              <Badge className="mb-6 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
+                <Quote className="h-4 w-4 mr-2 inline" />
+                Customer Reviews
+              </Badge>
+              <h2 className="text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
+                What Bachelor Parties Are Saying
+              </h2>
+              <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
+                Real reviews from real grooms and best men who celebrated with us
+              </p>
+            </div>
 
-              {/* Benefit 6: Best Value */}
-              <AccordionItem value="item-6" className="bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 px-6">
-                <AccordionTrigger className="text-xl font-bold hover:text-brand-yellow" data-testid="accordion-value">
-                  <div className="flex items-center gap-3">
-                    <DollarSign className="h-6 w-6 text-brand-yellow" />
-                    <span>Cheaper Per Person Than a Private Cruise (Most of the Time!)</span>
-                  </div>
-                </AccordionTrigger>
-                <AccordionContent className="text-white/90 text-lg pt-4">
-                  <p className="mb-3">For smaller groups (under 15 people), the ATX Disco Cruise is ALWAYS the better deal:</p>
-                  <div className="bg-black/30 rounded-lg p-4 mb-3">
-                    <p className="font-bold text-brand-yellow mb-2">Private Boat Math:</p>
-                    <p>$2,000 private rental ÷ 10 people = $200/person (and you still need to buy supplies!)</p>
-                  </div>
-                  <div className="bg-green-900/30 rounded-lg p-4">
-                    <p className="font-bold text-green-400 mb-2">Disco Cruise Math:</p>
-                    <p>$95/person ALL-INCLUSIVE with DJ, photographer, supplies, and MORE!</p>
-                  </div>
-                  <p className="mt-3 font-bold">You get WAY more value for WAY less money!</p>
-                </AccordionContent>
-              </AccordionItem>
-
-              {/* Benefit 7: Disco Attire */}
-              <AccordionItem value="item-7" className="bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 px-6">
-                <AccordionTrigger className="text-xl font-bold hover:text-brand-yellow" data-testid="accordion-disco-attire">
-                  <div className="flex items-center gap-3">
-                    <Sparkles className="h-6 w-6 text-brand-yellow" />
-                    <span>Dress Up In Your Finest Disco Attire!</span>
-                  </div>
-                </AccordionTrigger>
-                <AccordionContent className="text-white/90 text-lg pt-4">
-                  <p className="mb-3">While it's not required, we STRONGLY encourage dressing up in disco attire! Think:</p>
-                  <ul className="space-y-2 ml-6 mb-3">
-                    <li>• Sequined shirts and bell-bottoms</li>
-                    <li>• Platform shoes and funky sunglasses</li>
-                    <li>• Afro wigs and glitter everything</li>
-                    <li>• Go full Saturday Night Fever!</li>
-                  </ul>
-                  <p className="font-bold text-brand-yellow">The groups that dress up have 10X MORE FUN and get AMAZING photos!</p>
-                </AccordionContent>
-              </AccordionItem>
-
-              {/* Benefit 8: People Watching */}
-              <AccordionItem value="item-8" className="bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 px-6">
-                <AccordionTrigger className="text-xl font-bold hover:text-brand-yellow" data-testid="accordion-people-watching">
-                  <div className="flex items-center gap-3">
-                    <Eye className="h-6 w-6 text-brand-yellow" />
-                    <span>Watch Everyone Celebrate & Go Nuts - Best People Watching on Earth!</span>
-                  </div>
-                </AccordionTrigger>
-                <AccordionContent className="text-white/90 text-lg pt-4">
-                  <p>Seeing 3-4 different bachelor parties all going wild at the same time is PRICELESS entertainment in itself! Watch groups in crazy costumes, see different celebration styles from across America, witness epic dance-offs, and be part of the most energetic party atmosphere you've ever experienced. It's a show within a party within a cruise!</p>
-                </AccordionContent>
-              </AccordionItem>
-
-              {/* Benefit 9: Nothing Compares */}
-              <AccordionItem value="item-9" className="bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 px-6">
-                <AccordionTrigger className="text-xl font-bold hover:text-brand-yellow" data-testid="accordion-nothing-compares">
-                  <div className="flex items-center gap-3">
-                    <Award className="h-6 w-6 text-brand-yellow" />
-                    <span>Nothing Else Compares - We're Miles Ahead!</span>
-                  </div>
-                </AccordionTrigger>
-                <AccordionContent className="text-white/90 text-lg pt-4">
-                  <p className="mb-3">We've analyzed every bachelor party option in Austin and across America:</p>
-                  <ul className="space-y-2 ml-6 mb-3">
-                    <li className="flex items-start gap-2">
-                      <X className="w-5 h-5 text-red-400 mt-1 flex-shrink-0" />
-                      <span>Pontoon boat rentals: Tiny, basic, 2 hours max, bring everything yourself</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <X className="w-5 h-5 text-red-400 mt-1 flex-shrink-0" />
-                      <span>Party buses: Cramped, just driving around, no swimming or water fun</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <X className="w-5 h-5 text-red-400 mt-1 flex-shrink-0" />
-                      <span>Bar crawls: Expensive drinks, dealing with crowds, no unique experience</span>
-                    </li>
-                  </ul>
-                  <p className="font-bold text-brand-yellow">The ATX Disco Cruise is in a league of its own - nothing else offers this combination of value, fun, and unique experience!</p>
-                </AccordionContent>
-              </AccordionItem>
-
-              {/* Benefit 10: Proven Track Record */}
-              <AccordionItem value="item-10" className="bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 px-6">
-                <AccordionTrigger className="text-xl font-bold hover:text-brand-yellow" data-testid="accordion-track-record">
-                  <div className="flex items-center gap-3">
-                    <Shield className="h-6 w-6 text-brand-yellow" />
-                    <span>You're In Good Hands - 14 Years, ZERO Incidents!</span>
-                  </div>
-                </AccordionTrigger>
-                <AccordionContent className="text-white/90 text-lg pt-4">
-                  <p className="mb-3">Safety and fun go hand-in-hand with Premier Party Cruises:</p>
-                  <ul className="space-y-2 ml-6">
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="w-5 h-5 text-green-400 mt-1 flex-shrink-0" />
-                      <span>14+ years of operating bachelor parties on Lake Travis</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="w-5 h-5 text-green-400 mt-1 flex-shrink-0" />
-                      <span>ZERO safety incidents - perfect track record</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="w-5 h-5 text-green-400 mt-1 flex-shrink-0" />
-                      <span>Professional, experienced crew who know how to throw a party safely</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="w-5 h-5 text-green-400 mt-1 flex-shrink-0" />
-                      <span>Thousands of 5-star reviews from satisfied bachelor parties</span>
-                    </li>
-                  </ul>
-                </AccordionContent>
-              </AccordionItem>
-
-              {/* Benefit 11: Split Payment */}
-              <AccordionItem value="item-11" className="bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 px-6">
-                <AccordionTrigger className="text-xl font-bold hover:text-brand-yellow" data-testid="accordion-split-payment">
-                  <div className="flex items-center gap-3">
-                    <CreditCard className="h-6 w-6 text-brand-yellow" />
-                    <span>Split Payment With Your Group - Easy as 1-2-3!</span>
-                  </div>
-                </AccordionTrigger>
-                <AccordionContent className="text-white/90 text-lg pt-4">
-                  <p className="mb-3">No more chasing people down for Venmo payments! Our split payment option makes it EASY:</p>
-                  <div className="space-y-3 ml-6">
-                    <div className="flex items-start gap-3">
-                      <div className="bg-brand-yellow text-black rounded-full w-8 h-8 flex items-center justify-center font-bold flex-shrink-0">1</div>
-                      <p>Share the payment link with your group</p>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+              {testimonials.slice(0, 6).map((testimonial) => (
+                <Card key={testimonial.id} className="border-2 border-gray-200 hover:border-blue-300 transition-all hover:shadow-xl">
+                  <CardHeader>
+                    <div className="flex items-center gap-4 mb-4">
+                      <div className="text-4xl">{testimonial.avatar}</div>
+                      <div className="flex-1">
+                        <CardTitle className="text-lg">{testimonial.name}</CardTitle>
+                        <CardDescription className="text-sm">
+                          {testimonial.role} • {testimonial.location}
+                        </CardDescription>
+                      </div>
                     </div>
-                    <div className="flex items-start gap-3">
-                      <div className="bg-brand-yellow text-black rounded-full w-8 h-8 flex items-center justify-center font-bold flex-shrink-0">2</div>
-                      <p>Everyone pays their own share directly</p>
+                    <div className="flex gap-1">
+                      {[...Array(testimonial.rating)].map((_, i) => (
+                        <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
+                      ))}
                     </div>
-                    <div className="flex items-start gap-3">
-                      <div className="bg-brand-yellow text-black rounded-full w-8 h-8 flex items-center justify-center font-bold flex-shrink-0">3</div>
-                      <p>No awkward money conversations or fronting thousands of dollars!</p>
-                    </div>
-                  </div>
-                </AccordionContent>
-              </AccordionItem>
-
-              {/* Benefit 12: Stress-Free Booking */}
-              <AccordionItem value="item-12" className="bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 px-6">
-                <AccordionTrigger className="text-xl font-bold hover:text-brand-yellow" data-testid="accordion-stress-free">
-                  <div className="flex items-center gap-3">
-                    <CheckCircle className="h-6 w-6 text-brand-yellow" />
-                    <span>Stress-Free Booking Process - But Don't Sleep On It!</span>
-                  </div>
-                </AccordionTrigger>
-                <AccordionContent className="text-white/90 text-lg pt-4">
-                  <div className="space-y-4">
-                    <div>
-                      <p className="font-bold text-brand-yellow mb-2">Super Easy to Book:</p>
-                      <ul className="space-y-2 ml-6">
-                        <li className="flex items-start gap-2">
-                          <CheckCircle className="w-5 h-5 text-green-400 mt-1 flex-shrink-0" />
-                          <span>Quick online checkout in minutes</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <CheckCircle className="w-5 h-5 text-green-400 mt-1 flex-shrink-0" />
-                          <span>48-hour full refund window if plans change</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <CheckCircle className="w-5 h-5 text-green-400 mt-1 flex-shrink-0" />
-                          <span>Can easily add more people after booking</span>
-                        </li>
-                      </ul>
-                    </div>
-                    <div className="bg-red-900/50 border-2 border-red-500 rounded-lg p-4">
-                      <p className="font-bold text-red-300 mb-2">⚠️ BUT DON'T WAIT TOO LONG!</p>
-                      <p>We book up SOLID at least a month in advance! Most weekends sell out 4-6 weeks early. Book NOW to secure your spot!</p>
-                    </div>
-                  </div>
-                </AccordionContent>
-              </AccordionItem>
-            </Accordion>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-gray-700 leading-relaxed mb-4">"{testimonial.text}"</p>
+                    <Badge className="bg-blue-100 text-blue-800 border-blue-200">
+                      {testimonial.package}
+                    </Badge>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
 
             <div className="text-center mt-12">
               <Button
                 size="lg"
                 onClick={() => handleGetQuote()}
-                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold text-xl px-12 py-6"
-                data-testid="button-why-book-cta-bachelor"
+                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold text-lg px-12 py-6"
               >
-                <Sparkles className="mr-3 h-6 w-6" />
-                Book Your ATX Disco Cruise Now!
-                <ArrowRight className="ml-3 h-6 w-6" />
+                Book Your Bachelor Party Today
+                <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
-              <p className="text-white/80 mt-4">Weekends sell out 4-6 weeks in advance - don't miss out!</p>
             </div>
-          </motion.div>
-        </div>
-        </section>
-      </SectionReveal>
-
-      {/* What to Bring Section */}
-      <SectionReveal>
-        <section id="what-to-bring" className="py-20 bg-blue-50/30">
-          <div className="max-w-7xl mx-auto px-6">
-            <WhatToBring
-              variant="bachelor"
-              title="What to Bring on Your Bachelor Party Cruise"
-              description="Everything you need for the perfect day on Lake Travis"
-              className="max-w-7xl mx-auto"
-            />
           </div>
         </section>
       </SectionReveal>
 
+      {/* 10. FAQs */}
+      <SectionReveal>
+        <section id="faqs" className="py-20 bg-white">
+          <div className="max-w-4xl mx-auto px-6">
+            <div className="text-center mb-16">
+              <Badge className="mb-6 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
+                <HelpCircle className="h-4 w-4 mr-2 inline" />
+                FAQs
+              </Badge>
+              <h2 className="text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
+                Frequently Asked Questions
+              </h2>
+              <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
+                Everything you need to know about bachelor parties on Lake Travis
+              </p>
+            </div>
+
+            <Accordion type="single" collapsible className="w-full space-y-4">
+              {faqItems.map((item) => (
+                <AccordionItem
+                  key={item.id}
+                  value={item.id}
+                  className="border-2 border-gray-200 rounded-lg px-6 hover:border-blue-300 transition-colors"
+                >
+                  <AccordionTrigger className="text-left text-lg font-semibold hover:text-blue-600 py-6">
+                    {item.question}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-gray-700 leading-relaxed pb-6 text-base">
+                    {item.answerJsx || item.answer}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+
+            <div className="mt-12 text-center bg-blue-50 rounded-2xl p-8 border border-blue-200">
+              <h3 className="text-2xl font-bold mb-4 text-gray-900">Still Have Questions?</h3>
+              <p className="text-gray-700 mb-6 leading-relaxed">
+                Our bachelor party experts are here to help you plan the perfect Lake Travis celebration
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button
+                  size="lg"
+                  onClick={() => handleGetQuote()}
+                  className="bg-blue-600 hover:bg-blue-700 text-white font-bold"
+                >
+                  <MessageCircle className="mr-2 h-5 w-5" />
+                  Start a Conversation
+                </Button>
+                <Button
+                  size="lg"
+                  variant="outline"
+                  onClick={() => window.open('tel:+15127705050')}
+                  className="border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white font-bold"
+                >
+                  <Phone className="mr-2 h-5 w-5" />
+                  Call (512) 770-5050
+                </Button>
+              </div>
+            </div>
+          </div>
+        </section>
+      </SectionReveal>
+
+      {/* 11. SEO-ONLY CONTENT (BOTTOM) */}
+      
       {/* AI-Optimized Event Timeline Section */}
       <SectionReveal>
-        <section className="py-20 bg-white">
-        <div className="container mx-auto px-6">
-          <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-8">
-            {/* Event Timeline */}
-            <AIOptimizedSection
-              type="timeline"
-              title="Your Bachelor Party Day Timeline"
-              description="What to expect on your Lake Travis bachelor party cruise"
-              data={[
-                {
-                  time: "11:45 AM",
-                  title: "Arrival at Anderson Mill Marina",
-                  description: "Check in at the dock, meet your captain, load coolers onto the boat. Free parking available. Bachelor party groups gather and get ready.",
-                  icon: <MapPin className="w-4 h-4 text-white" />,
-                  duration: "15 min"
-                },
-                {
-                  time: "12:00 PM",
-                  title: "Boarding & Departure",
-                  description: "Board your chosen boat (ATX Disco or private charter), safety briefing from captain, music starts playing, cruise begins on Lake Travis.",
-                  icon: <Ship className="w-4 h-4 text-white" />,
-                  duration: "15 min"
-                },
-                {
-                  time: "12:30 PM",
-                  title: "Party at Popular Coves",
-                  description: "Anchor at Devil's Cove or similar spots, swimming and floating on lily pads, DJ playing (Disco cruise), drinks flowing, bachelor party games.",
-                  icon: <Anchor className="w-4 h-4 text-white" />,
-                  duration: "2.5 hours"
-                },
-                {
-                  time: "3:00 PM",
-                  title: "Scenic Cruise & Photos",
-                  description: "Cruise scenic parts of Lake Travis, group photos with the groom, more swimming stops if requested, enjoying the Texas sun and views.",
-                  icon: <Camera className="w-4 h-4 text-white" />,
-                  duration: "45 min"
-                },
-                {
-                  time: "4:00 PM",
-                  title: "Return to Marina",
-                  description: "Head back to Anderson Mill Marina, last songs and celebrations, dock and disembark, continue the party in Austin!",
-                  icon: <Navigation className="w-4 h-4 text-white" />,
-                  duration: "15 min"
-                }
-              ]}
-            />
-            
-            {/* Group Size Guide */}
-            <AIOptimizedSection
-              type="list"
-              title="Bachelor Party Group Size Guide"
-              description="Choose the perfect boat for your crew size"
-              data={[
-                {
-                  title: "Intimate Groups (8-12 guys)",
-                  description: "Perfect for close friends. Book Day Tripper private boat or join ATX Disco Cruise. Tight-knit vibe, everyone knows each other, easier coordination.",
-                  icon: <Users className="w-5 h-5" />,
-                  badge: "Close Friends"
-                },
-                {
-                  title: "Standard Bachelor Parties (13-25 guys)",
-                  description: "Most common size. Book Meeseeks or Irony private boats, or multiple Disco Cruise tickets. Great party energy, mix of friend groups, perfect for bachelor celebrations.",
-                  icon: <Users className="w-5 h-5" />,
-                  badge: "Most Popular",
-                  highlighted: true
-                },
-                {
-                  title: "Large Celebrations (26-50 guys)",
-                  description: "Big bachelor blowouts! Book Clever Girl (75 capacity) or combine boats. Epic party atmosphere, multiple friend groups, unforgettable experience.",
-                  icon: <Users className="w-5 h-5" />,
-                  badge: "Go Big"
-                },
-                {
-                  title: "Mega Groups (50+ guys)",
-                  description: "Combine bachelor/bachelorette parties or book multiple boats. Contact us for custom packages. Ultimate Lake Travis takeover!",
-                  icon: <Users className="w-5 h-5" />,
-                  badge: "Custom Package"
-                }
-              ]}
-            />
+        <section className="py-16 bg-gray-50">
+          <div className="container mx-auto px-6">
+            <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-8">
+              <AIOptimizedSection
+                type="timeline"
+                title="Your Bachelor Party Day Timeline"
+                description="What to expect on your Lake Travis bachelor party cruise"
+                data={[
+                  {
+                    time: "11:45 AM",
+                    title: "Arrival at Anderson Mill Marina",
+                    description: "Check in at the dock, meet your captain, load coolers onto the boat. Free parking available. Bachelor party groups gather and get ready.",
+                    icon: <MapPin className="w-4 h-4 text-white" />,
+                    duration: "15 min"
+                  },
+                  {
+                    time: "12:00 PM",
+                    title: "Boarding & Departure",
+                    description: "Board your chosen boat (ATX Disco or private charter), safety briefing from captain, music starts playing, cruise begins on Lake Travis.",
+                    icon: <Ship className="w-4 h-4 text-white" />,
+                    duration: "15 min"
+                  },
+                  {
+                    time: "12:30 PM",
+                    title: "Party at Popular Coves",
+                    description: "Anchor at Devil's Cove or similar spots, swimming and floating on lily pads, DJ playing (Disco cruise), drinks flowing, bachelor party games.",
+                    icon: <Anchor className="w-4 h-4 text-white" />,
+                    duration: "2.5 hours"
+                  },
+                  {
+                    time: "3:00 PM",
+                    title: "Scenic Cruise & Photos",
+                    description: "Cruise scenic parts of Lake Travis, group photos with the groom, more swimming stops if requested, enjoying the Texas sun and views.",
+                    icon: <Camera className="w-4 h-4 text-white" />,
+                    duration: "45 min"
+                  },
+                  {
+                    time: "4:00 PM",
+                    title: "Return to Marina",
+                    description: "Head back to Anderson Mill Marina, last songs and celebrations, dock and disembark, continue the party in Austin!",
+                    icon: <Navigation className="w-4 h-4 text-white" />,
+                    duration: "15 min"
+                  }
+                ]}
+              />
+              
+              <AIOptimizedSection
+                type="list"
+                title="Bachelor Party Group Size Guide"
+                description="Choose the perfect boat for your crew size"
+                data={[
+                  {
+                    title: "Intimate Groups (8-12 guys)",
+                    description: "Perfect for close friends. Book Day Tripper private boat or join ATX Disco Cruise. Tight-knit vibe, everyone knows each other, easier coordination.",
+                    icon: <Users className="w-5 h-5" />,
+                    badge: "Close Friends"
+                  },
+                  {
+                    title: "Standard Bachelor Parties (13-25 guys)",
+                    description: "Most common size. Book Meeseeks or Irony private boats, or multiple Disco Cruise tickets. Great party energy, mix of friend groups, perfect for bachelor celebrations.",
+                    icon: <Users className="w-5 h-5" />,
+                    badge: "Most Popular",
+                    highlighted: true
+                  },
+                  {
+                    title: "Large Celebrations (26-50 guys)",
+                    description: "Big bachelor blowouts! Book Clever Girl (75 capacity) or combine boats. Epic party atmosphere, multiple friend groups, unforgettable experience.",
+                    icon: <Users className="w-5 h-5" />,
+                    badge: "Go Big"
+                  },
+                  {
+                    title: "Mega Groups (50+ guys)",
+                    description: "Combine bachelor/bachelorette parties or book multiple boats. Contact us for custom packages. Ultimate Lake Travis takeover!",
+                    icon: <Users className="w-5 h-5" />,
+                    badge: "Custom Package"
+                  }
+                ]}
+              />
+            </div>
           </div>
-        </div>
-      </section>
-
-      {/* AI-Optimized Success Metrics Section */}
-      <section className="py-16 bg-white dark:bg-gray-950">
-        <div className="container mx-auto px-6">
-          <AIOptimizedSection
-            type="statistics"
-            title="Bachelor Party Success by the Numbers"
-            description="Why Austin bachelor parties choose Premier Party Cruises"
-            data={[
-              {
-                value: "10,000+",
-                label: "Bachelor Parties Hosted",
-                icon: <Crown className="w-8 h-8" />,
-                itemProp: "numberOfBachelorParties"
-              },
-              {
-                value: "100%",
-                label: "Satisfaction Rate",
-                icon: <Trophy className="w-8 h-8" />,
-                itemProp: "satisfactionRate"
-              },
-              {
-                value: "4 Hours",
-                label: "Of Epic Celebration",
-                icon: <Clock className="w-8 h-8" />,
-                itemProp: "duration"
-              },
-              {
-                value: "$95",
-                label: "Average Per Person",
-                icon: <DollarSign className="w-8 h-8" />,
-                itemProp: "averagePrice"
-              },
-              {
-                value: "5 Stars",
-                label: "Average Bachelor Review",
-                icon: <Star className="w-8 h-8" />,
-                itemProp: "rating"
-              }
-            ]}
-            className="max-w-6xl mx-auto"
-            schemaType="Event"
-            structuredData={{
-              "@context": "https://schema.org",
-              "@type": "Event",
-              "name": "Austin Bachelor Party Boat Cruise",
-              "description": "Bachelor party boat cruises on Lake Travis, Austin Texas",
-              "location": {
-                "@type": "Place",
-                "name": "Lake Travis",
-                "address": {
-                  "@type": "PostalAddress",
-                  "addressLocality": "Austin",
-                  "addressRegion": "Texas"
-                }
-              },
-              "organizer": {
-                "@type": "Organization",
-                "name": "Premier Party Cruises"
-              }
-            }}
-          />
-        </div>
         </section>
       </SectionReveal>
 
+      {/* AI-Optimized Success Metrics */}
+      <SectionReveal>
+        <section className="py-16 bg-white">
+          <div className="container mx-auto px-6">
+            <AIOptimizedSection
+              type="statistics"
+              title="Bachelor Party Success by the Numbers"
+              description="Why Austin bachelor parties choose Premier Party Cruises"
+              data={[
+                {
+                  value: "10,000+",
+                  label: "Bachelor Parties Hosted",
+                  icon: <Crown className="w-8 h-8" />,
+                  itemProp: "numberOfBachelorParties"
+                },
+                {
+                  value: "100%",
+                  label: "Satisfaction Rate",
+                  icon: <Trophy className="w-8 h-8" />,
+                  itemProp: "satisfactionRate"
+                },
+                {
+                  value: "4 Hours",
+                  label: "Of Epic Celebration",
+                  icon: <Clock className="w-8 h-8" />,
+                  itemProp: "duration"
+                },
+                {
+                  value: "$95",
+                  label: "Average Per Person",
+                  icon: <DollarSign className="w-8 h-8" />,
+                  itemProp: "averagePrice"
+                },
+                {
+                  value: "5 Stars",
+                  label: "Average Bachelor Review",
+                  icon: <Star className="w-8 h-8" />,
+                  itemProp: "rating"
+                }
+              ]}
+              className="max-w-6xl mx-auto"
+              schemaType="Event"
+              structuredData={{
+                "@context": "https://schema.org",
+                "@type": "Event",
+                "name": "Austin Bachelor Party Boat Cruise",
+                "description": "Bachelor party boat cruises on Lake Travis, Austin Texas",
+                "location": {
+                  "@type": "Place",
+                  "name": "Lake Travis",
+                  "address": {
+                    "@type": "PostalAddress",
+                    "addressLocality": "Austin",
+                    "addressRegion": "Texas"
+                  }
+                },
+                "organizer": {
+                  "@type": "Organization",
+                  "name": "Premier Party Cruises"
+                }
+              }}
+            />
+          </div>
+        </section>
+      </SectionReveal>
+
+      {/* Party Planning Checklist */}
       <PartyPlanningChecklist partyType="Bachelor Party" eventType="bachelor celebration" />
 
-      {/* 10 Reasons Why Austin Section */}
+      {/* Featured Snippets and SEO Content */}
       <SectionReveal>
-        <section className="py-24 bg-gradient-to-br from-brand-blue via-blue-700 to-purple-800">
-        <div className="container mx-auto px-6">
-          <motion.div
-            initial={reducedMotion ? false : "hidden"}
-            whileInView={reducedMotion ? undefined : "visible"}
-            viewport={reducedMotion ? undefined : { once: true }}
-            variants={reducedMotion ? undefined : fadeInUp}
-            className="text-center mb-16"
-          >
-            <h2 
-              className="text-3xl font-semibold font-playfair text-center text-white mb-6"
-              data-testid="heading-austin-reasons-bachelor"
-            >
-              10 Reasons Why Austin is the Best Place for Bachelor Parties
-            </h2>
-            <p className="text-xl text-white/90 max-w-3xl mx-auto">
-              Discover why Austin bachelor parties are legendary and why Lake Travis is the ultimate destination
-            </p>
-          </motion.div>
+        <section className="py-16 bg-gray-50">
+          <div className="container mx-auto px-6">
+            <div className="max-w-6xl mx-auto space-y-12">
+              <FeaturedSnippet
+                question="What is the best bachelor party boat in Austin?"
+                answer="Premier Party Cruises offers the best bachelor party boat experiences in Austin on Lake Travis. With 15+ years of experience, 10,000+ bachelor parties hosted, and packages starting at $85/person for ATX Disco Cruises or $200/hour for private charters, Premier delivers professional DJ services, photography, giant floats, and an epic party atmosphere that makes every bachelor celebration unforgettable."
+                cite="Premier Party Cruises - Austin's #1 Bachelor Party Boat Company"
+              />
 
-          <motion.div
-            initial={reducedMotion ? false : "hidden"}
-            whileInView={reducedMotion ? undefined : "visible"}
-            viewport={reducedMotion ? undefined : { once: true }}
-            variants={reducedMotion ? undefined : staggerChildren}
-            className="grid md:grid-cols-2 gap-8 max-w-7xl mx-auto"
-          >
-            {/* Reason 1 */}
-            <motion.div
-              variants={fadeInUp}
-              className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20"
-              data-testid="reason-card-1"
-            >
-              <div className="flex items-start gap-4">
-                <div className="flex-shrink-0">
-                  <div className="w-12 h-12 rounded-full bg-brand-yellow text-black font-bold text-xl flex items-center justify-center">
-                    1
-                  </div>
-                </div>
-                <div className="flex-1">
-                  <div className="flex items-center gap-3 mb-3">
-                    <Waves className="h-8 w-8 text-brand-yellow" />
-                    <h3 className="text-2xl font-bold text-white">Lake Travis - Crystal Clear Waters</h3>
-                  </div>
-                  <p className="text-white/90">
-                    Austin's Lake Travis offers the clearest water in Texas with 270 miles of pristine shoreline. Perfect weather year-round means your Austin bachelor party can happen any season.
-                  </p>
-                </div>
-              </div>
-            </motion.div>
+              <FeaturedSnippetHowTo
+                title="How to Book a Bachelor Party Boat in Austin"
+                steps={[
+                  "Choose your preferred date on Lake Travis (book 4-6 weeks in advance for peak season)",
+                  "Select your package: ATX Disco Cruise (Basic $85, Disco King $95, Platinum $105) or Private Charter ($200-250/hour)",
+                  "Pay 50% deposit to secure your booking (full refund within 48 hours)",
+                  "Final payment due 48 hours before cruise",
+                  "Arrive 15 minutes early at Anderson Mill Marina with your crew and beverages"
+                ]}
+                estimatedTime="4 hours"
+                description="Simple 5-step process to book the ultimate Austin bachelor party boat experience on Lake Travis"
+              />
 
-            {/* Reason 2 */}
-            <motion.div
-              variants={fadeInUp}
-              className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20"
-              data-testid="reason-card-2"
-            >
-              <div className="flex items-start gap-4">
-                <div className="flex-shrink-0">
-                  <div className="w-12 h-12 rounded-full bg-brand-yellow text-black font-bold text-xl flex items-center justify-center">
-                    2
-                  </div>
-                </div>
-                <div className="flex-1">
-                  <div className="flex items-center gap-3 mb-3">
-                    <Music className="h-8 w-8 text-brand-yellow" />
-                    <h3 className="text-2xl font-bold text-white">World-Famous Nightlife</h3>
-                  </div>
-                  <p className="text-white/90">
-                    6th Street, Rainey Street, and the Warehouse District make Austin the live music capital with incredible nightlife. Your bachelor party Austin experience includes the best bars and clubs in Texas.
-                  </p>
-                </div>
-              </div>
-            </motion.div>
+              <QuickAnswerBoxGroup
+                title="Bachelor Party Austin - Quick Answers"
+                boxes={[
+                  {
+                    id: 'bachelor-cost',
+                    question: 'How much does a bachelor party boat cost in Austin?',
+                    answer: 'Austin bachelor party boats range from $85-$105 per person for ATX Disco Cruises (includes DJ, photographer, floats) or $200-$250 per hour for private charters with 4-hour minimums. Disco cruises are typically cheaper for groups under 15 people.',
+                    keywords: ['cost', 'pricing', 'budget', 'per person'],
+                    icon: DollarSign
+                  },
+                  {
+                    id: 'bachelor-what-included',
+                    question: 'What is included in a bachelor party boat cruise?',
+                    answer: 'Bachelor party boat cruises include professional captain and crew, premium sound system, coolers with ice, all safety equipment, and fuel. ATX Disco Cruises also include professional DJ, photographer, giant floats, party supplies, and reserved seating. Private charters offer full music control and flexible timing.',
+                    keywords: ['included', 'amenities', 'features'],
+                    icon: CheckCircle
+                  },
+                  {
+                    id: 'bachelor-byob',
+                    question: 'Can we bring alcohol on the bachelor party boat?',
+                    answer: 'Yes! All bachelor party boats are BYOB (Bring Your Own Booze) for guests 21+. Cans and plastic containers only. Coolers with ice and cups are provided. You can also order from Party On Delivery - they deliver alcohol directly to your boat at the marina, so you don\'t have to carry anything!',
+                    keywords: ['BYOB', 'alcohol', 'drinks', 'beverages'],
+                    icon: Wine
+                  },
+                  {
+                    id: 'bachelor-group-size',
+                    question: 'What size groups can you accommodate?',
+                    answer: 'Bachelor party groups from 8-75+ people. Disco Cruises work best for 8-30 people. Private charters available for 14-person boats (Day Tripper), 25-person boats (Meeseeks/Irony), or 50-75 person boats (Clever Girl flagship). For 50+ people, we can arrange multiple boats.',
+                    keywords: ['group size', 'capacity', 'how many people'],
+                    icon: Users
+                  }
+                ]}
+                columns={2}
+              />
 
-            {/* Reason 3 */}
-            <motion.div
-              variants={fadeInUp}
-              className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20"
-              data-testid="reason-card-3"
-            >
-              <div className="flex items-start gap-4">
-                <div className="flex-shrink-0">
-                  <div className="w-12 h-12 rounded-full bg-brand-yellow text-black font-bold text-xl flex items-center justify-center">
-                    3
-                  </div>
-                </div>
-                <div className="flex-1">
-                  <div className="flex items-center gap-3 mb-3">
-                    <Utensils className="h-8 w-8 text-brand-yellow" />
-                    <h3 className="text-2xl font-bold text-white">Unbeatable Food Scene</h3>
-                  </div>
-                  <p className="text-white/90">
-                    Austin's food trucks, BBQ joints, and award-winning restaurants create the perfect bachelor party fuel. From Franklin BBQ to food truck tacos, Austin bachelor parties eat like kings.
-                  </p>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Reason 4 */}
-            <motion.div
-              variants={fadeInUp}
-              className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20"
-              data-testid="reason-card-4"
-            >
-              <div className="flex items-start gap-4">
-                <div className="flex-shrink-0">
-                  <div className="w-12 h-12 rounded-full bg-brand-yellow text-black font-bold text-xl flex items-center justify-center">
-                    4
-                  </div>
-                </div>
-                <div className="flex-1">
-                  <div className="flex items-center gap-3 mb-3">
-                    <DollarSign className="h-8 w-8 text-brand-yellow" />
-                    <h3 className="text-2xl font-bold text-white">No State Income Tax</h3>
-                  </div>
-                  <p className="text-white/90">
-                    Your Austin bachelor party budget goes further - Texas has no state income tax, so drinks, activities, and entertainment cost less than other major cities.
-                  </p>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Reason 5 */}
-            <motion.div
-              variants={fadeInUp}
-              className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20"
-              data-testid="reason-card-5"
-            >
-              <div className="flex items-start gap-4">
-                <div className="flex-shrink-0">
-                  <div className="w-12 h-12 rounded-full bg-brand-yellow text-black font-bold text-xl flex items-center justify-center">
-                    5
-                  </div>
-                </div>
-                <div className="flex-1">
-                  <div className="flex items-center gap-3 mb-3">
-                    <Sun className="h-8 w-8 text-brand-yellow" />
-                    <h3 className="text-2xl font-bold text-white">Perfect Year-Round Weather</h3>
-                  </div>
-                  <p className="text-white/90">
-                    Austin's 300 days of sunshine per year mean your bachelor party Austin celebration happens rain or shine. Lake Travis maintains a constant 70-degree water temperature.
-                  </p>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Reason 6 */}
-            <motion.div
-              variants={fadeInUp}
-              className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20"
-              data-testid="reason-card-6"
-            >
-              <div className="flex items-start gap-4">
-                <div className="flex-shrink-0">
-                  <div className="w-12 h-12 rounded-full bg-brand-yellow text-black font-bold text-xl flex items-center justify-center">
-                    6
-                  </div>
-                </div>
-                <div className="flex-1">
-                  <div className="flex items-center gap-3 mb-3">
-                    <Clock className="h-8 w-8 text-brand-yellow" />
-                    <h3 className="text-2xl font-bold text-white">30 Minutes from Everything</h3>
-                  </div>
-                  <p className="text-white/90">
-                    Austin bachelor parties access Lake Travis party boats in 30 minutes, downtown bars in 20 minutes, and Hill Country wineries in 45 minutes. Everything's close.
-                  </p>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Reason 7 */}
-            <motion.div
-              variants={fadeInUp}
-              className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20"
-              data-testid="reason-card-7"
-            >
-              <div className="flex items-start gap-4">
-                <div className="flex-shrink-0">
-                  <div className="w-12 h-12 rounded-full bg-brand-yellow text-black font-bold text-xl flex items-center justify-center">
-                    7
-                  </div>
-                </div>
-                <div className="flex-1">
-                  <div className="flex items-center gap-3 mb-3">
-                    <Anchor className="h-8 w-8 text-brand-yellow" />
-                    <h3 className="text-2xl font-bold text-white">Party Boat Capital</h3>
-                  </div>
-                  <p className="text-white/90">
-                    Austin is home to Premier Party Cruises - the longest-running <Link href="/party-boat-austin" className="text-primary hover:underline">party boat</Link> company on Lake Travis with 15+ years of experience and 100,000+ happy customers.
-                  </p>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Reason 8 */}
-            <motion.div
-              variants={fadeInUp}
-              className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20"
-              data-testid="reason-card-8"
-            >
-              <div className="flex items-start gap-4">
-                <div className="flex-shrink-0">
-                  <div className="w-12 h-12 rounded-full bg-brand-yellow text-black font-bold text-xl flex items-center justify-center">
-                    8
-                  </div>
-                </div>
-                <div className="flex-1">
-                  <div className="flex items-center gap-3 mb-3">
-                    <Sparkles className="h-8 w-8 text-brand-yellow" />
-                    <h3 className="text-2xl font-bold text-white">Diverse Entertainment Options</h3>
-                  </div>
-                  <p className="text-white/90">
-                    Your Austin bachelor party can include party boats, topgolf, kayaking, live music, BBQ tours, brewery crawls, and more all in one weekend.
-                  </p>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Reason 9 */}
-            <motion.div
-              variants={fadeInUp}
-              className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20"
-              data-testid="reason-card-9"
-            >
-              <div className="flex items-start gap-4">
-                <div className="flex-shrink-0">
-                  <div className="w-12 h-12 rounded-full bg-brand-yellow text-black font-bold text-xl flex items-center justify-center">
-                    9
-                  </div>
-                </div>
-                <div className="flex-1">
-                  <div className="flex items-center gap-3 mb-3">
-                    <Heart className="h-8 w-8 text-brand-yellow" />
-                    <h3 className="text-2xl font-bold text-white">Bachelor-Friendly Atmosphere</h3>
-                  </div>
-                  <p className="text-white/90">
-                    Austin welcomes bachelor parties with open arms. The city's 'Keep Austin Weird' culture means anything goes and everyone's welcome.
-                  </p>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Reason 10 */}
-            <motion.div
-              variants={fadeInUp}
-              className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20"
-              data-testid="reason-card-10"
-            >
-              <div className="flex items-start gap-4">
-                <div className="flex-shrink-0">
-                  <div className="w-12 h-12 rounded-full bg-brand-yellow text-black font-bold text-xl flex items-center justify-center">
-                    10
-                  </div>
-                </div>
-                <div className="flex-1">
-                  <div className="flex items-center gap-3 mb-3">
-                    <Plane className="h-8 w-8 text-brand-yellow" />
-                    <h3 className="text-2xl font-bold text-white">Easy Airport Access</h3>
-                  </div>
-                  <p className="text-white/90">
-                    Austin-Bergstrom International Airport serves 150+ destinations. Your Austin bachelor party guests fly in easily from anywhere in the country.
-                  </p>
-                </div>
-              </div>
-            </motion.div>
-          </motion.div>
-
-          <motion.div
-            initial={reducedMotion ? false : "hidden"}
-            whileInView={reducedMotion ? undefined : "visible"}
-            viewport={reducedMotion ? undefined : { once: true }}
-            variants={reducedMotion ? undefined : fadeInUp}
-            className="text-center mt-12"
-          >
-            <Button
-              size="lg"
-              onClick={() => handleGetQuote()}
-              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold text-xl px-12 py-6"
-              data-testid="button-austin-reasons-book-bachelor"
-            >
-              <Calendar className="mr-2 h-6 w-6" />
-              Book Your Austin Bachelor Party Now
-            </Button>
-          </motion.div>
-        </div>
-        </section>
-      </SectionReveal>
-
-      {/* Related Experiences Section */}
-      <SectionReveal>
-        <section className="py-24 bg-blue-50/30">
-        <div className="container mx-auto px-6">
-          <motion.div
-            initial={reducedMotion ? false : "hidden"}
-            whileInView={reducedMotion ? undefined : "visible"}
-            viewport={reducedMotion ? undefined : { once: true }}
-            variants={reducedMotion ? undefined : fadeInUp}
-            className="text-center mb-12"
-          >
-            <h2 className="text-3xl font-semibold font-playfair text-center mb-4">
-              Related Austin Party Experiences
-            </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-              Planning more than just a bachelor party? Explore our full range of Lake Travis party boat experiences.
-            </p>
-          </motion.div>
-
-          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-            >
-              <Link href="/bachelorette-party-austin">
-                <Card className="h-full hover:shadow-2xl transition-all duration-300 cursor-pointer border-2 hover:border-pink-500">
-                  <CardHeader>
-                    <div className="w-16 h-16 mx-auto mb-4 bg-pink-500/10 rounded-full flex items-center justify-center">
-                      <Heart className="h-8 w-8 text-pink-500" />
-                    </div>
-                    <CardTitle className="text-2xl text-center">Bachelorette Party Austin</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-gray-600 dark:text-gray-400 text-center">
-                      Austin's #1 bachelorette party boat experience with ATX Disco Cruises on Lake Travis. Professional DJ, photographer, and VIP treatment.
-                    </p>
-                    <Button className="w-full mt-4" variant="outline">
-                      Explore Bachelorette Parties
-                      <ArrowRight className="ml-2 h-4 w-4" />
-                    </Button>
-                  </CardContent>
-                </Card>
-              </Link>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-            >
-              <Link href="/combined-bachelor-bachelorette-austin">
-                <Card className="h-full hover:shadow-2xl transition-all duration-300 cursor-pointer border-2 hover:border-purple-500">
-                  <CardHeader>
-                    <div className="w-16 h-16 mx-auto mb-4 bg-purple-500/10 rounded-full flex items-center justify-center">
-                      <Users className="h-8 w-8 text-purple-500" />
-                    </div>
-                    <CardTitle className="text-2xl text-center">Combined Bachelor/Bachelorette Austin</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-gray-600 dark:text-gray-400 text-center">
-                      Celebrate together! Combined bach parties on Lake Travis with the best of both worlds.
-                    </p>
-                    <Button className="w-full mt-4" variant="outline">
-                      Explore Combined Parties
-                      <ArrowRight className="ml-2 h-4 w-4" />
-                    </Button>
-                  </CardContent>
-                </Card>
-              </Link>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.3 }}
-            >
-              <Link href="/party-boat-austin">
-                <Card className="h-full hover:shadow-2xl transition-all duration-300 cursor-pointer border-2 hover:border-brand-blue">
-                  <CardHeader>
-                    <div className="w-16 h-16 mx-auto mb-4 bg-brand-blue/10 rounded-full flex items-center justify-center">
-                      <Ship className="h-8 w-8 text-brand-blue" />
-                    </div>
-                    <CardTitle className="text-2xl text-center">Party Boat Austin</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-gray-600 dark:text-gray-400 text-center">
-                      Explore all our Austin party boat options - from private charters to ATX Disco Cruises on Lake Travis.
-                    </p>
-                    <Button className="w-full mt-4" variant="outline">
-                      View All Party Boats
-                      <ArrowRight className="ml-2 h-4 w-4" />
-                    </Button>
-                  </CardContent>
-                </Card>
-              </Link>
-            </motion.div>
-          </div>
-        </div>
-        </section>
-      </SectionReveal>
-
-      {/* Sticky CTA Footer */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-900 border-t shadow-lg z-40 py-4">
-        <div className="container mx-auto px-6">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div className="flex items-center space-x-2">
-              <AlertCircle className="h-5 w-5 text-red-600 animate-pulse" />
-              <span className="text-sm font-semibold" data-editable data-editable-id="bachelor-sticky-footer-urgency">Limited Availability - Books 4-6 weeks out!</span>
+              <RelatedServicesSection
+                title="Related Austin Party Boat Services"
+                services={[
+                  {
+                    title: "Bachelorette Party Austin",
+                    description: "Austin's #1 bachelorette party boat experience with ATX Disco Cruises on Lake Travis. Professional DJ, photographer, and VIP treatment for the bride.",
+                    href: "/bachelorette-party-austin",
+                    icon: <Heart className="h-6 w-6" />
+                  },
+                  {
+                    title: "Combined Bachelor/Bachelorette",
+                    description: "Combine your bachelor and bachelorette parties on Lake Travis. Book the same boat or cruise together on the Disco. Epic celebrations for both crews!",
+                    href: "/combined-bachelor-bachelorette-austin",
+                    icon: <Users className="h-6 w-6" />
+                  },
+                  {
+                    title: "Private Lake Travis Charters",
+                    description: "Rent a private boat on Lake Travis for your group. Choose from Day Tripper (14), Meeseeks (25), or Clever Girl (75) with full customization.",
+                    href: "/private-cruises",
+                    icon: <Ship className="h-6 w-6" />
+                  },
+                  {
+                    title: "ATX Disco Cruise",
+                    description: "Join the legendary ATX Disco Cruise every Saturday on Lake Travis. Professional DJ, photographer, giant floats, and the ultimate party atmosphere.",
+                    href: "/atx-disco-cruise",
+                    icon: <Music className="h-6 w-6" />
+                  }
+                ]}
+              />
             </div>
-            <Button
-              onClick={() => handleGetQuote()}
-              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold"
-              data-testid="button-sticky-book-bachelor"
-            >
-              <span data-editable data-editable-id="bachelor-sticky-footer-button">Book Bachelor Party Now</span>
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
           </div>
-        </div>
-      </div>
-
-      {/* The Lemonade Disco - Weather Guarantee Section */}
-      <section id="weather-guarantee" className="py-20 bg-gradient-to-br from-yellow-400 via-orange-400 to-pink-400">
-        <div className="container mx-auto px-6">
-          <motion.div
-            initial={reducedMotion ? false : "hidden"}
-            whileInView={reducedMotion ? undefined : "visible"}
-            viewport={reducedMotion ? undefined : { once: true }}
-            variants={reducedMotion ? undefined : fadeInUp}
-            className="max-w-5xl mx-auto"
-          >
-            <Card className="bg-white/95 dark:bg-gray-900/95 backdrop-blur-lg shadow-2xl border-4 border-white">
-              <CardHeader className="text-center pb-6">
-                <div className="flex items-center justify-center gap-4 mb-4">
-                  <CloudRain className="h-12 w-12 text-blue-600" />
-                  <Sun className="h-16 w-16 text-yellow-500" />
-                  <Smile className="h-12 w-12 text-orange-600" />
-                </div>
-                <CardTitle className="text-3xl font-semibold font-playfair mb-4">
-                  The <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-600 to-orange-600">Lemonade Disco</span>
-                </CardTitle>
-                <CardDescription className="text-xl font-semibold text-gray-700 dark:text-gray-300">
-                  If The Weather Gives Us Lemons, We Make Lemonade! :)
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950/30 dark:to-purple-950/30 rounded-xl p-6 border-2 border-blue-200 dark:border-blue-800">
-                  <h3 className="text-2xl font-bold mb-4 flex items-center gap-3">
-                    <Shield className="h-7 w-7 text-blue-600" />
-                    Your 100% Weather Guarantee
-                  </h3>
-                  <p className="text-lg mb-4">
-                    We're the ONLY party cruise company in America with a comprehensive weather backup plan. If severe weather makes it unsafe to cruise, we automatically switch to our land-based party - The Lemonade Disco!
-                  </p>
-                </div>
-
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="bg-green-50 dark:bg-green-950/30 rounded-xl p-6 border-2 border-green-300 dark:border-green-800">
-                    <h4 className="text-xl font-bold mb-3 flex items-center gap-2">
-                      <CheckCircle className="h-6 w-6 text-green-600" />
-                      What's Included in Lemonade Disco:
-                    </h4>
-                    <ul className="space-y-2">
-                      <li className="flex items-start gap-2">
-                        <Utensils className="h-5 w-5 text-green-600 mt-1 flex-shrink-0" />
-                        <span>Full fajita or BBQ buffet (your choice!)</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <Wine className="h-5 w-5 text-green-600 mt-1 flex-shrink-0" />
-                        <span>Drinks provided for the group</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <Music className="h-5 w-5 text-green-600 mt-1 flex-shrink-0" />
-                        <span>Same professional DJ keeping the party going</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <Camera className="h-5 w-5 text-green-600 mt-1 flex-shrink-0" />
-                        <span>Professional photographer still capturing memories</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <PartyPopper className="h-5 w-5 text-green-600 mt-1 flex-shrink-0" />
-                        <span>Same multi-group party atmosphere indoors</span>
-                      </li>
-                    </ul>
-                  </div>
-
-                  <div className="bg-purple-50 dark:bg-purple-950/30 rounded-xl p-6 border-2 border-purple-300 dark:border-purple-800">
-                    <h4 className="text-xl font-bold mb-3 flex items-center gap-2">
-                      <Heart className="h-6 w-6 text-purple-600" />
-                      Why This Matters:
-                    </h4>
-                    <ul className="space-y-3">
-                      <li className="flex items-start gap-2">
-                        <Plane className="h-5 w-5 text-purple-600 mt-1 flex-shrink-0" />
-                        <span>Perfect peace of mind for out-of-town groups</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <Calendar className="h-5 w-5 text-purple-600 mt-1 flex-shrink-0" />
-                        <span>Your bachelor party happens NO MATTER WHAT</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <Smile className="h-5 w-5 text-purple-600 mt-1 flex-shrink-0" />
-                        <span>Often ends up being just as fun (sometimes even MORE!)</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <DollarSign className="h-5 w-5 text-purple-600 mt-1 flex-shrink-0" />
-                        <span>No additional cost - included in your package!</span>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-
-                <div className="bg-gradient-to-r from-orange-100 to-pink-100 dark:from-orange-950/30 dark:to-pink-950/30 rounded-xl p-6 border-2 border-orange-300 dark:border-orange-700 text-center">
-                  <p className="text-lg font-semibold mb-2">
-                    <AlertCircle className="h-6 w-6 inline mr-2 text-orange-600" />
-                    When Does Lemonade Disco Happen?
-                  </p>
-                  <p className="text-gray-700 dark:text-gray-300">
-                    Only if there's a <strong>complete rain-out</strong> with severe weather making it unsafe to be on the water. 
-                    Light rain? We still cruise! We've got covered areas and the party keeps going. 
-                    But if it's genuinely dangerous weather, we've got you covered with the Lemonade Disco!
-                  </p>
-                </div>
-
-                <div className="text-center pt-4">
-                  <p className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600 mb-3">
-                    Book With Confidence - Your Party WILL Happen!
-                  </p>
-                  <p className="text-gray-600 dark:text-gray-400">
-                    No other bachelor party experience in America offers this level of weather protection. 
-                    That's just one more reason why we're #1!
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Related Services Section */}
-      <SectionReveal>
-        <section className="py-24 bg-blue-50/30 pb-32">
-          <div className="max-w-7xl mx-auto px-6">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-semibold font-playfair text-center mb-4 text-gray-900">
-                EXPLORE MORE AUSTIN PARTY CRUISE OPTIONS
-              </h2>
-            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-              Check out our other Lake Travis party boat experiences perfect for any celebration
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            <Link href="/bachelorette-party-austin" data-testid="link-bachelorette-from-bachelor">
-              <Card className="hover:shadow-xl transition-all duration-300 cursor-pointer h-full border-2 border-transparent hover:border-brand-yellow">
-                <CardHeader>
-                  <CardTitle className="text-xl font-bold text-gray-900 dark:text-white">Bachelorette Party Austin</CardTitle>
-                  <p className="text-gray-600 dark:text-gray-400">Sister service - ATX Disco Cruise bachelorette party boats on Lake Travis</p>
-                </CardHeader>
-              </Card>
-            </Link>
-
-            <Link href="/combined-bachelor-bachelorette-austin" data-testid="link-combined-from-bachelor">
-              <Card className="hover:shadow-xl transition-all duration-300 cursor-pointer h-full border-2 border-transparent hover:border-brand-yellow">
-                <CardHeader>
-                  <CardTitle className="text-xl font-bold text-gray-900 dark:text-white">Combined Bachelor & Bachelorette</CardTitle>
-                  <p className="text-gray-600 dark:text-gray-400">Party together on our Lake Travis party boats - perfect for couples</p>
-                </CardHeader>
-              </Card>
-            </Link>
-
-            <Link href="/private-cruises" data-testid="link-private-from-bachelor">
-              <Card className="hover:shadow-xl transition-all duration-300 cursor-pointer h-full border-2 border-transparent hover:border-brand-yellow">
-                <CardHeader>
-                  <CardTitle className="text-xl font-bold text-gray-900 dark:text-white">Private Austin Cruises</CardTitle>
-                  <p className="text-gray-600 dark:text-gray-400">Exclusive private boat charters on Lake Travis for bachelor groups</p>
-                </CardHeader>
-              </Card>
-            </Link>
-
-            <Link href="/gallery" data-testid="link-gallery-from-bachelor">
-              <Card className="hover:shadow-xl transition-all duration-300 cursor-pointer h-full border-2 border-transparent hover:border-brand-yellow">
-                <CardHeader>
-                  <CardTitle className="text-xl font-bold text-gray-900 dark:text-white">Photo Gallery</CardTitle>
-                  <p className="text-gray-600 dark:text-gray-400">See real bachelor party photos from our Austin boat cruises</p>
-                </CardHeader>
-              </Card>
-            </Link>
-
-            <Link href="/contact" data-testid="link-contact-from-bachelor">
-              <Card className="hover:shadow-xl transition-all duration-300 cursor-pointer h-full border-2 border-transparent hover:border-brand-yellow">
-                <CardHeader>
-                  <CardTitle className="text-xl font-bold text-gray-900 dark:text-white">Contact Us</CardTitle>
-                  <p className="text-gray-600 dark:text-gray-400">Get a custom quote for your bachelor party boat experience</p>
-                </CardHeader>
-              </Card>
-            </Link>
-
-            <Link href="/" data-testid="link-home-from-bachelor">
-              <Card className="hover:shadow-xl transition-all duration-300 cursor-pointer h-full border-2 border-transparent hover:border-brand-yellow">
-                <CardHeader>
-                  <CardTitle className="text-xl font-bold text-gray-900 dark:text-white">Back to Home</CardTitle>
-                  <p className="text-gray-600 dark:text-gray-400">Explore all our party cruise options and services</p>
-                </CardHeader>
-              </Card>
-            </Link>
-          </div>
-        </div>
         </section>
       </SectionReveal>
-
-      {/* SEO-Optimized Hidden Crawlable Content for Search Engines */}
-      <div className="sr-only" itemScope itemType="https://schema.org/Service">
-        <h2>Bachelor Party Austin - Lake Travis Party Boat Packages</h2>
-        
-        {/* ATX Disco Cruise Packages */}
-        <div itemScope itemType="https://schema.org/Service">
-          <h3 itemProp="name">Basic Bach Package - Bachelor Party Austin</h3>
-          <meta itemProp="price" content="85.00" />
-          <meta itemProp="priceCurrency" content="USD" />
-          <p itemProp="description">$85 per person bachelor party Austin package on Lake Travis party boat. Join the BEST Party on Lake Travis, Exclusively for Bach Parties! BYOB, throw your drinks in a shared cooler with ice. Alcohol Delivery and Lunch Delivery Available. ALWAYS Cheaper than a Private Cruise. If you're trying to keep it cheap, this is your move for your bachelor party Austin celebration!</p>
-          <div itemProp="offers" itemScope itemType="https://schema.org/Offer">
-            <meta itemProp="price" content="85.00" />
-            <meta itemProp="priceCurrency" content="USD" />
-            <link itemProp="availability" href="https://schema.org/InStock" />
-            <link itemProp="url" href="https://premierpartycruises.com/bachelor-party-austin" />
-          </div>
-        </div>
-        
-        <div itemScope itemType="https://schema.org/Service">
-          <h3 itemProp="name">Disco King Package - Bachelor Party Lake Travis</h3>
-          <meta itemProp="price" content="95.00" />
-          <meta itemProp="priceCurrency" content="USD" />
-          <p itemProp="description">$95 per person Disco King bachelor party package on Lake Travis party boat Austin. Private Cooler with Ice and Storage Bin for Your Group. Reserved Spot for Your Group. Disco Visor and Disco Ball Necklace for the Groom. Complimentary Direct-to-Boat Alcohol and Lunch Delivery. 25% Discount on Round-Trip Transportation. $50-$100 Voucher for Airbnb Booze Delivery. Most Popular bachelor party Austin package!</p>
-          <div itemProp="offers" itemScope itemType="https://schema.org/Offer">
-            <meta itemProp="price" content="95.00" />
-            <meta itemProp="priceCurrency" content="USD" />
-            <link itemProp="availability" href="https://schema.org/InStock" />
-            <link itemProp="url" href="https://premierpartycruises.com/bachelor-party-austin" />
-          </div>
-        </div>
-        
-        <div itemScope itemType="https://schema.org/Service">
-          <h3 itemProp="name">Super Sparkle Platinum Disco - Ultimate Bachelor Party Austin</h3>
-          <meta itemProp="price" content="105.00" />
-          <meta itemProp="priceCurrency" content="USD" />
-          <p itemProp="description">$105 per person Platinum bachelor party Lake Travis package. Everything in the Disco King Package. Personal Unicorn Float for the Groom. Mimosa Setup with Champagne Flutes, 3 Juices, and a Chambong! $100 Voucher for Airbnb Concierge Services. Towel Service and SPF-50 Spray Sunscreen Provided. Nothing to Carry, Cooler Stocked with drinks When You Arrive! Ultimate all-inclusive Austin bachelor party luxury on Lake Travis party boat.</p>
-          <div itemProp="offers" itemScope itemType="https://schema.org/Offer">
-            <meta itemProp="price" content="105.00" />
-            <meta itemProp="priceCurrency" content="USD" />
-            <link itemProp="availability" href="https://schema.org/InStock" />
-            <link itemProp="url" href="https://premierpartycruises.com/bachelor-party-austin" />
-          </div>
-        </div>
-        
-        {/* What's Included - Bachelor Party Austin */}
-        <h3>What's Included in Every Bachelor Party Austin Package</h3>
-        <ul>
-          <li>Professional DJ Playing your favorites ALL DAY - bachelor party starts when you arrive on Lake Travis party boat</li>
-          <li>Professional Photographer - Capture every epic bachelor party Austin moment with high-quality photos sent after</li>
-          <li>Private Cooler with Ice - Your bachelor group's own cooler, fully stocked with ice on Lake Travis</li>
-          <li>Mimosa Supplies - Juice, fresh fruit - just add champagne for your bachelor party Austin</li>
-          <li>Multiple Lily Pad Floats - 3 huge 6x20' floats to lounge in style on Lake Travis party boat</li>
-          <li>Party Supplies - Cups, koozies, name tags, bubbles - all included for bachelor party Austin!</li>
-          <li>Ice Water Stations - Stay hydrated with unlimited ice water on Lake Travis</li>
-          <li>Clean Restroom - Full restroom facilities on board our bachelor party boat</li>
-          <li>Plenty of Shade - Covered areas to escape the Texas sun during your Lake Travis bachelor party</li>
-        </ul>
-        
-        {/* Private Cruise Options for Bachelor Party Austin */}
-        <h3>Private Bachelor Party Cruises on Lake Travis</h3>
-        <div itemScope itemType="https://schema.org/Service">
-          <h4 itemProp="name">Private Bachelor Party Cruise 14 Guests - Lake Travis</h4>
-          <p itemProp="description">Private bachelor party boat for up to 14 guests on Lake Travis. Monday-Thursday from $1,050, Friday from $1,181, Saturday from $1,838, Sunday from $1,313. Exclusive private charter for your bachelor party Austin group.</p>
-        </div>
-        <div itemScope itemType="https://schema.org/Service">
-          <h4 itemProp="name">Private Bachelor Party Cruise 25 Guests - Lake Travis Party Boat</h4>
-          <p itemProp="description">Private Lake Travis party boat for 15-25 bachelor party guests. Monday-Thursday from $1,181, Friday from $1,313, Saturday from $1,969, Sunday from $1,444. Perfect size for bachelor party Austin celebrations.</p>
-        </div>
-        <div itemScope itemType="https://schema.org/Service">
-          <h4 itemProp="name">Private Bachelor Party Cruise 30 Guests - Austin Party Boat</h4>
-          <p itemProp="description">Lake Travis bachelor party boat for 26-30 guests. Monday-Thursday from $1,381, Friday from $1,513, Saturday from $2,169, Sunday from $1,644. Ideal for larger bachelor party Austin groups.</p>
-        </div>
-        <div itemScope itemType="https://schema.org/Service">
-          <h4 itemProp="name">Private Bachelor Party Cruise 50 Guests - Large Lake Travis Boat</h4>
-          <p itemProp="description">Large bachelor party boat Lake Travis for 31-50 guests. Monday-Thursday from $1,313, Friday from $1,444, Saturday from $2,100, Sunday from $1,575. Spacious Lake Travis party boat for big bachelor party Austin celebrations.</p>
-        </div>
-        <div itemScope itemType="https://schema.org/Service">
-          <h4 itemProp="name">Private Bachelor Party Cruise 75 Guests - Mega Lake Travis Party Boat</h4>
-          <p itemProp="description">Mega bachelor party boat on Lake Travis for 51-75 guests. Monday-Thursday from $1,613, Friday from $1,744, Saturday from $2,400, Sunday from $1,875. Largest Lake Travis party boat option for massive bachelor party Austin events.</p>
-        </div>
-        
-        {/* Keywords Integration */}
-        <p>Looking for the ultimate bachelor party Austin experience? Our Lake Travis party boat cruises offer the best bachelor party packages in Austin. Whether you choose our affordable ATX Disco Cruise bachelor party or a private Lake Travis bachelor party boat charter, we guarantee an unforgettable celebration. Book your bachelor party Austin today on our premier Lake Travis party boat!</p>
-      </div>
-
-      {/* JSON-LD Structured Data for Bachelor Party Services */}
-      <script type="application/ld+json" dangerouslySetInnerHTML={{
-        __html: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "Service",
-          "@id": "https://premierpartycruises.com/bachelor-party-austin/#service",
-          "name": "Bachelor Party Boat Cruises on Lake Travis",
-          "provider": {
-            "@id": "https://premierpartycruises.com/#organization"
-          },
-          "areaServed": ["Austin TX", "Texas", "United States"],
-          "description": "Exclusive bachelor party cruises on Lake Travis featuring ATX Disco Cruise packages with BYOB options, professional DJ, professional photographer, giant floats, and all-inclusive party amenities. Austin's premier bachelor party boat experience.",
-          "offers": [
-            {
-              "@type": "Offer",
-              "priceCurrency": "USD",
-              "price": "85.00",
-              "name": "Basic Bach Package",
-              "description": "Join the BEST Party on Lake Travis, Exclusively for Bach Parties! BYOB, shared cooler with ice, alcohol and lunch delivery available. ALWAYS cheaper than a private cruise.",
-              "url": "https://premierpartycruises.com/bachelor-party-austin",
-              "availability": "https://schema.org/InStock"
-            },
-            {
-              "@type": "Offer",
-              "priceCurrency": "USD",
-              "price": "95.00",
-              "name": "Disco King Package",
-              "description": "Private Cooler with Ice & Storage Bin for Your Group. Reserved Spot. Disco Visor & Disco Ball Necklace for the Groom. Complimentary Direct-to-Boat Alcohol & Lunch Delivery. 25% Discount on Round-Trip Transportation.",
-              "url": "https://premierpartycruises.com/bachelor-party-austin",
-              "availability": "https://schema.org/InStock"
-            },
-            {
-              "@type": "Offer",
-              "priceCurrency": "USD",
-              "price": "105.00",
-              "name": "Super Sparkle Platinum Disco",
-              "description": "Everything in Disco King Package. Personal Unicorn Float for the Groom. Mimosa Setup with Champagne Flutes, 3 Juices & Chambong. $100 Voucher for Airbnb Concierge Services. Towel Service & SPF-50 Spray Sunscreen. Nothing to Carry, Cooler Stocked When You Arrive!",
-              "url": "https://premierpartycruises.com/bachelor-party-austin",
-              "availability": "https://schema.org/InStock"
-            }
-          ]
-        })
-      }} />
-
-      {/* Related Services Section */}
-      <RelatedServicesSection currentPath="/bachelor-party-austin" />
 
       {/* Related Links */}
-      <RelatedLinks 
-        blogLinks={[
-          { title: 'Lake Travis Bachelor Party Boat Rentals: The Ultimate Guide', href: '/blogs/lake-travis-bachelor-party-boat-rentals-the-ultimate-guide-to-epic-celebrations' },
-          { title: 'Creative Lake Travis Boat Party Themes', href: '/blogs/creative-lake-travis-boat-party-themes-unique-ideas-for-memorable-celebrations' },
-          { title: 'Perfect Itinerary for a Bachelor Party in Austin', href: '/blogs/perfect-bachelor-party-itinerary-austin' }
-        ]}
-      />
-
-      {/* Sticky CTA */}
-      {stickyCTA}
+      <RelatedLinks />
 
       {/* Footer */}
       <Footer />
