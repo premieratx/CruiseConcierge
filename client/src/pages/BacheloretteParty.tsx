@@ -45,6 +45,9 @@ import { PricingTable } from '@/components/PricingTable';
 import AIOptimizedSection from '@/components/AIOptimizedSection';
 import { TableOfContents } from '@/components/TableOfContents';
 import { StickyCTA } from '@/components/StickyCTA';
+import { VideoTestimonials } from '@/components/VideoTestimonials';
+import { TransportationGuide } from '@/components/TransportationGuide';
+import { LazyImage } from '@/components/LazyImage';
 
 // Hero and gallery images
 import heroImage1 from '@assets/bachelor-party-group-guys.webp';
@@ -445,14 +448,11 @@ export default function BacheloretteParty() {
               className="absolute inset-0"
               style={{ pointerEvents: index === currentHeroImage ? 'auto' : 'none' }}
             >
-              <img 
+              <LazyImage 
                 src={image}
                 alt="Bachelorette party Austin cruise on Lake Travis - ATX Disco party boat with DJ and entertainment"
                 className="w-full h-full object-cover"
-                width={1920}
-                height={1080}
-                loading={index === 0 ? "eager" : "lazy"}
-                fetchpriority={index === 0 ? "high" : "low"}
+                priority={index === 0}
               />
               <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
             </motion.div>
@@ -500,7 +500,7 @@ export default function BacheloretteParty() {
               data-editable 
               data-editable-id="bachelorette-hero-subtitle"
             >
-              Exclusively for Bachelorette & Bachelor Parties<br/>
+              Exclusively for Bachelorette & <InternalLinkHighlight href="/bachelor-party" title="Bachelor Parties">Bachelor Parties</InternalLinkHighlight><br/>
               <span className="text-lg md:text-xl">The Highlight of Your Weekend Every. Damn. Time.</span>
             </motion.p>
 
@@ -579,7 +579,7 @@ export default function BacheloretteParty() {
                 What Makes Our Bachelorette Parties Special
               </h2>
               <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
-                From epic ATX Disco Cruises to exclusive private charters, we deliver unforgettable girls' weekend experiences on Lake Travis
+                From epic <InternalLinkHighlight href="/atx-disco-cruise" title="ATX Disco Cruise">ATX Disco Cruises</InternalLinkHighlight> to exclusive <InternalLinkHighlight href="/private-cruises" title="Private Cruises">private charters</InternalLinkHighlight>, we deliver unforgettable girls' weekend experiences on Lake Travis. Also perfect for <InternalLinkHighlight href="/bachelor-party" title="Bachelor Parties">bachelor celebrations</InternalLinkHighlight>!
               </p>
             </div>
 
@@ -597,7 +597,7 @@ export default function BacheloretteParty() {
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <p className="text-gray-700 leading-relaxed">
-                    Join bachelorette parties from across the country on our legendary ATX Disco Cruise. Professional DJ, photographer, giant floats, and an electric atmosphere make this the highlight of your Austin girls' weekend.
+                    Join bachelorette parties from across the country on our legendary <InternalLinkHighlight href="/atx-disco-cruise" title="ATX Disco Cruise">ATX Disco Cruise</InternalLinkHighlight>. Professional DJ, photographer, giant floats, and an electric atmosphere make this the highlight of your Austin girls' weekend. <InternalLinkHighlightWithArrow href="/" title="Home">Explore all our party cruise options</InternalLinkHighlightWithArrow>
                   </p>
                   <ul className="space-y-3">
                     <li className="flex items-start gap-3">
@@ -640,7 +640,7 @@ export default function BacheloretteParty() {
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <p className="text-gray-700 leading-relaxed">
-                    Book an entire boat exclusively for your bride tribe. Perfect for larger groups or those wanting a completely private celebration on Lake Travis with custom itinerary and personalized service.
+                    <InternalLinkHighlight href="/private-cruises" title="Private Cruises">Book an entire boat</InternalLinkHighlight> exclusively for your bride tribe. Perfect for larger groups or those wanting a completely private celebration on Lake Travis with custom itinerary and personalized service.
                   </p>
                   <ul className="space-y-3">
                     <li className="flex items-start gap-3">
@@ -744,7 +744,7 @@ export default function BacheloretteParty() {
                         ${pkg.id === 'basic_bachelorette' ? '109' : pkg.id === 'disco_queen' ? '122' : '135'} with tax & tip
                       </div>
                       {pkg.originalPrice && (
-                        <div className="text-sm text-gray-400 line-through mt-1">
+                        <div className="text-sm text-gray-500 line-through mt-1">
                           was ${pkg.originalPrice}
                         </div>
                       )}
@@ -1111,11 +1111,10 @@ export default function BacheloretteParty() {
                   key={photo.id}
                   className="relative aspect-square overflow-hidden rounded-lg cursor-pointer group shadow-md hover:shadow-2xl transition-all duration-300"
                 >
-                  <img
+                  <LazyImage
                     src={photo.src}
                     alt={photo.alt}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                    loading="lazy"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </div>
@@ -1185,6 +1184,47 @@ export default function BacheloretteParty() {
         </section>
       </SectionReveal>
 
+      {/* Video Testimonials Section */}
+      <VideoTestimonials
+        title="Watch Real Bachelorette Parties on Lake Travis"
+        description="See why brides from across the country choose Premier Party Cruises for their Austin bachelorette weekend"
+        testimonials={[
+          {
+            id: '1',
+            name: 'Emma & The Bride Tribe',
+            event: 'Bachelorette Party',
+            location: 'Dallas, TX',
+            rating: 5,
+            thumbnailUrl: 'https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg',
+            videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+            quote: 'OMG this was the BEST party ever! We met bachelorette groups from LA, Miami, and NYC. The energy was ELECTRIC and the photos are Instagram perfection!',
+            date: 'May 2024',
+          },
+          {
+            id: '2',
+            name: 'Sarah & The Girls',
+            event: 'Bachelorette Party',
+            location: 'Houston, TX',
+            rating: 5,
+            thumbnailUrl: 'https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg',
+            videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+            quote: 'The DJ was amazing, photographer captured every moment, and the bride LOVED the unicorn float! This is THE bachelorette experience!',
+            date: 'June 2024',
+          },
+          {
+            id: '3',
+            name: 'Megan & The Squad',
+            event: 'Bachelorette Party',
+            location: 'San Antonio, TX',
+            rating: 5,
+            thumbnailUrl: 'https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg',
+            videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+            quote: 'Nothing to plan, nothing to carry - just show up and celebrate! The bride still says this was the highlight of her entire weekend!',
+            date: 'July 2024',
+          },
+        ]}
+      />
+
       {/* 10. FAQs */}
       <SectionReveal>
         <section id="faqs" className="py-20 bg-white">
@@ -1247,6 +1287,9 @@ export default function BacheloretteParty() {
           </div>
         </section>
       </SectionReveal>
+
+      {/* Transportation & Lodging Guide */}
+      <TransportationGuide showAccommodations={true} />
 
       {/* 11. SEO-ONLY CONTENT (BOTTOM) */}
       

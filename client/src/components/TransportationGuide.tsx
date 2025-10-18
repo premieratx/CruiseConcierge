@@ -32,7 +32,7 @@ export function TransportationGuide({
           <h2 className="text-3xl md:text-4xl font-bold font-playfair mb-4">
             Transportation & Lodging Guide
           </h2>
-          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
+          <p className="text-lg text-gray-700 dark:text-gray-300 max-w-3xl mx-auto">
             Coming from out of town? We've got you covered with transportation and accommodation recommendations near Anderson Mill Marina.
           </p>
         </motion.div>
@@ -74,7 +74,7 @@ export function TransportationGuide({
                     <DollarSign className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
                     <div>
                       <p className="font-semibold">Uber / Lyft</p>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">
+                      <p className="text-sm text-gray-700 dark:text-gray-300">
                         Most convenient option. Approximately $60-80 round trip from downtown Austin to Anderson Mill Marina (30-40 min each way).
                       </p>
                     </div>
@@ -84,7 +84,7 @@ export function TransportationGuide({
                     <Bus className="h-5 w-5 text-brand-blue mt-0.5 flex-shrink-0" />
                     <div>
                       <p className="font-semibold">Party Bus / Sprinter Van</p>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">
+                      <p className="text-sm text-gray-700 dark:text-gray-300">
                         Perfect for larger groups (10+ people). Keep the party going during transport! Contact us for recommended vendors with group discounts.
                       </p>
                     </div>
@@ -167,20 +167,20 @@ export function TransportationGuide({
                     <div className="space-y-3">
                       <div className="p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
                         <p className="font-semibold text-gray-900 dark:text-white">Hampton Inn & Suites - Lakeline</p>
-                        <p className="text-sm text-gray-600 dark:text-gray-400">~$120-150/night</p>
-                        <p className="text-xs text-gray-500 mt-1">14 miles from marina</p>
+                        <p className="text-sm text-gray-700 dark:text-gray-300">~$120-150/night</p>
+                        <p className="text-xs text-gray-600 mt-1">14 miles from marina</p>
                       </div>
 
                       <div className="p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
                         <p className="font-semibold text-gray-900 dark:text-white">Courtyard by Marriott - Cedar Park</p>
-                        <p className="text-sm text-gray-600 dark:text-gray-400">~$130-170/night</p>
-                        <p className="text-xs text-gray-500 mt-1">12 miles from marina</p>
+                        <p className="text-sm text-gray-700 dark:text-gray-300">~$130-170/night</p>
+                        <p className="text-xs text-gray-600 mt-1">12 miles from marina</p>
                       </div>
 
                       <div className="p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
                         <p className="font-semibold text-gray-900 dark:text-white">Hyatt Place - Lakeline</p>
-                        <p className="text-sm text-gray-600 dark:text-gray-400">~$140-180/night</p>
-                        <p className="text-xs text-gray-500 mt-1">13 miles from marina</p>
+                        <p className="text-sm text-gray-700 dark:text-gray-300">~$140-180/night</p>
+                        <p className="text-xs text-gray-600 mt-1">13 miles from marina</p>
                       </div>
                     </div>
                   </CardContent>
@@ -202,20 +202,20 @@ export function TransportationGuide({
                     <div className="space-y-3">
                       <div className="p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
                         <p className="font-semibold text-gray-900 dark:text-white">Rainey Street District</p>
-                        <p className="text-sm text-gray-600 dark:text-gray-400">Popular bachelorette area with bars</p>
-                        <p className="text-xs text-gray-500 mt-1">~$180-300/night</p>
+                        <p className="text-sm text-gray-700 dark:text-gray-300">Popular bachelorette area with bars</p>
+                        <p className="text-xs text-gray-600 mt-1">~$180-300/night</p>
                       </div>
 
                       <div className="p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
                         <p className="font-semibold text-gray-900 dark:text-white">6th Street Entertainment District</p>
-                        <p className="text-sm text-gray-600 dark:text-gray-400">Main nightlife hub</p>
-                        <p className="text-xs text-gray-500 mt-1">~$150-250/night</p>
+                        <p className="text-sm text-gray-700 dark:text-gray-300">Main nightlife hub</p>
+                        <p className="text-xs text-gray-600 mt-1">~$150-250/night</p>
                       </div>
 
                       <div className="p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
                         <p className="font-semibold text-gray-900 dark:text-white">Domain Area (North Austin)</p>
-                        <p className="text-sm text-gray-600 dark:text-gray-400">Upscale shopping & dining</p>
-                        <p className="text-xs text-gray-500 mt-1">~$160-220/night</p>
+                        <p className="text-sm text-gray-700 dark:text-gray-300">Upscale shopping & dining</p>
+                        <p className="text-xs text-gray-600 mt-1">~$160-220/night</p>
                       </div>
                     </div>
                   </CardContent>
@@ -239,7 +239,7 @@ export function TransportationGuide({
                     <div className="grid md:grid-cols-3 gap-4">
                       <div className="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg text-center">
                         <p className="text-2xl font-bold text-brand-blue mb-1">Airbnb</p>
-                        <p className="text-sm text-gray-600 dark:text-gray-400">Best selection</p>
+                        <p className="text-sm text-gray-700 dark:text-gray-300">Best selection</p>
                         <Button 
                           variant="link"
                           onClick={() => window.open('https://www.airbnb.com/s/Lake-Travis--Austin--TX', '_blank')}
@@ -251,7 +251,7 @@ export function TransportationGuide({
 
                       <div className="p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg text-center">
                         <p className="text-2xl font-bold text-purple-600 mb-1">VRBO</p>
-                        <p className="text-sm text-gray-600 dark:text-gray-400">Lakefront homes</p>
+                        <p className="text-sm text-gray-700 dark:text-gray-300">Lakefront homes</p>
                         <Button 
                           variant="link"
                           onClick={() => window.open('https://www.vrbo.com/search?destination=Lake+Travis', '_blank')}
@@ -263,7 +263,7 @@ export function TransportationGuide({
 
                       <div className="p-4 bg-green-50 dark:bg-green-900/20 rounded-lg text-center">
                         <p className="text-2xl font-bold text-green-600 mb-1">Booking.com</p>
-                        <p className="text-sm text-gray-600 dark:text-gray-400">Hotels & rentals</p>
+                        <p className="text-sm text-gray-700 dark:text-gray-300">Hotels & rentals</p>
                         <Button 
                           variant="link"
                           onClick={() => window.open('https://www.booking.com/searchresults.html?ss=Lake+Travis', '_blank')}

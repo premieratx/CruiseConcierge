@@ -169,10 +169,10 @@ export function VideoTestimonials({
                   <div className="border-t pt-4">
                     <p className="font-bold text-gray-900 dark:text-white">{testimonial.name}</p>
                     {testimonial.location && (
-                      <p className="text-sm text-gray-600 dark:text-gray-400">{testimonial.location}</p>
+                      <p className="text-sm text-gray-700 dark:text-gray-300">{testimonial.location}</p>
                     )}
                     {testimonial.date && (
-                      <p className="text-xs text-gray-500 dark:text-gray-500 mt-1">{testimonial.date}</p>
+                      <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">{testimonial.date}</p>
                     )}
                   </div>
                 </CardContent>

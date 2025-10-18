@@ -43,6 +43,7 @@ import { PricingTable } from '@/components/PricingTable';
 import AIOptimizedSection from '@/components/AIOptimizedSection';
 import { TableOfContents } from '@/components/TableOfContents';
 import { StickyCTA } from '@/components/StickyCTA';
+import { LazyImage } from '@/components/LazyImage';
 
 import heroImage1 from '@assets/atx-disco-cruise-party.webp';
 import heroImage2 from '@assets/dancing-party-scene.webp';
@@ -409,14 +410,11 @@ export default function ATXDiscoCruise() {
                 style={{ pointerEvents: index === currentHeroImage ? 'auto' : 'none' }}
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-purple-900/80 via-pink-900/70 to-orange-900/80 z-10" />
-                <img 
+                <LazyImage 
                   src={image} 
                   alt="ATX Disco Cruise party boat on Lake Travis Austin - Bachelor and bachelorette party atmosphere with DJ and dancing"
                   className="w-full h-full object-cover"
-                  width={1920}
-                  height={1080}
-                  loading={index === 0 ? "eager" : "lazy"}
-                  fetchpriority={index === 0 ? "high" : "low"}
+                  priority={index === 0}
                 />
               </motion.div>
             ))}
@@ -431,10 +429,10 @@ export default function ATXDiscoCruise() {
                 The Country's Only Multi-Group Bach Party Cruise
               </p>
               <p className="text-xl md:text-2xl text-white/90 mb-4 max-w-3xl mx-auto font-semibold text-center" data-testid="text-hero-subheadline">
-                The single most unique and comprehensive bachelor/bachelorette party experience in the United States
+                The single most unique and comprehensive <InternalLinkHighlight href="/bachelor-party" title="Bachelor Parties">bachelor</InternalLinkHighlight>/<InternalLinkHighlight href="/bachelorette-party" title="Bachelorette Parties">bachelorette party</InternalLinkHighlight> experience in the United States
               </p>
               <p className="text-base md:text-lg text-white/80 mb-8 max-w-3xl mx-auto text-center" data-testid="text-hero-description">
-                Only all-inclusive, multi-group bachelor/bachelorette party cruise in the country. Join parties from across America for an unforgettable 4-hour Lake Travis celebration with professional DJ, photographer, and 100% satisfaction track record!
+                Only all-inclusive, multi-group bachelor/bachelorette party cruise in the country. Join parties from across America for an unforgettable 4-hour Lake Travis celebration with professional DJ, photographer, and 100% satisfaction track record! <InternalLinkHighlightWithArrow href="/private-cruises" title="Private Cruises">Or book a private charter</InternalLinkHighlightWithArrow>
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button 
@@ -483,7 +481,7 @@ export default function ATXDiscoCruise() {
                   Your 4-Hour Party Journey
                 </h2>
                 <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
-                  Hour-by-hour breakdown of America's most unique bachelor/bachelorette party experience
+                  Hour-by-hour breakdown of America's most unique <InternalLinkHighlight href="/bachelor-party" title="Bachelor Parties">bachelor</InternalLinkHighlight>/<InternalLinkHighlight href="/bachelorette-party" title="Bachelorette Parties">bachelorette party</InternalLinkHighlight> experience. <InternalLinkHighlightWithArrow href="/" title="Home">Explore all our cruise options</InternalLinkHighlightWithArrow>
                 </p>
               </div>
 
@@ -539,7 +537,7 @@ export default function ATXDiscoCruise() {
                   Choose Your Perfect Package
                 </h2>
                 <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
-                  From budget-friendly to all-inclusive VIP - we've got the perfect party package for every group
+                  From budget-friendly to all-inclusive VIP - we've got the perfect party package for every group. Looking for exclusive privacy? <InternalLinkHighlight href="/private-cruises" title="Private Cruises">Check out our private charter options</InternalLinkHighlight>
                 </p>
               </div>
 
@@ -570,14 +568,14 @@ export default function ATXDiscoCruise() {
                       <div className="text-center space-y-2">
                         <div className="flex items-center justify-center gap-2">
                           {pkg.originalPrice && (
-                            <span className="text-xl text-gray-400 line-through">
+                            <span className="text-xl text-gray-500 line-through">
                               ${pkg.originalPrice}
                             </span>
                           )}
                           <span className="text-4xl font-bold text-purple-600">
                             ${pkg.price}
                           </span>
-                          <span className="text-base text-gray-600 dark:text-gray-400">/person</span>
+                          <span className="text-base text-gray-700 dark:text-gray-300">/person</span>
                         </div>
                       </div>
                       <CardDescription className="text-center text-base mt-2">
@@ -942,11 +940,10 @@ export default function ATXDiscoCruise() {
                     key={photo.id}
                     className="relative aspect-square overflow-hidden rounded-lg cursor-pointer group shadow-md hover:shadow-2xl transition-all duration-300"
                   >
-                    <img
+                    <LazyImage
                       src={photo.src}
                       alt={photo.alt}
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                      loading="lazy"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   </div>

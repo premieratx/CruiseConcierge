@@ -39,6 +39,7 @@ import { ScrollReveal } from '@/components/ScrollReveal';
 import { SectionReveal } from '@/components/SectionReveal';
 import { TableOfContents } from '@/components/TableOfContents';
 import { StickyCTA } from '@/components/StickyCTA';
+import { LazyImage } from '@/components/LazyImage';
 
 // Hero images
 import heroImage1 from '@assets/clever-girl-50-person-boat.webp';
@@ -465,24 +466,27 @@ export default function PrivateCruises() {
           {/* Hero Image Grid */}
           <div className="grid md:grid-cols-3 gap-6 mt-16">
             <ScrollReveal delay={0.1}>
-              <img
+              <LazyImage
                 src={heroImage1}
                 alt="Clever Girl 50+ person private boat charter Lake Travis"
                 className="rounded-2xl shadow-2xl w-full h-72 object-cover ring-2 ring-blue-500/50 hover:ring-blue-400 transition-all"
+                priority={true}
               />
             </ScrollReveal>
             <ScrollReveal delay={0.2}>
-              <img
+              <LazyImage
                 src={heroImage2}
                 alt="Me Seeks the Irony 25 person private boat Lake Travis"
                 className="rounded-2xl shadow-2xl w-full h-72 object-cover ring-2 ring-purple-500/50 hover:ring-purple-400 transition-all"
+                priority={true}
               />
             </ScrollReveal>
             <ScrollReveal delay={0.3}>
-              <img
+              <LazyImage
                 src={heroImage3}
                 alt="Day Tripper 14 person intimate private boat charter"
                 className="rounded-2xl shadow-2xl w-full h-72 object-cover ring-2 ring-pink-500/50 hover:ring-pink-400 transition-all"
+                priority={true}
               />
             </ScrollReveal>
           </div>
@@ -499,7 +503,7 @@ export default function PrivateCruises() {
                   The Private Charter Experience
                 </h2>
                 <p className="text-lg text-gray-700 max-w-3xl mx-auto">
-                  Discover the freedom and luxury of your own private Lake Travis adventure
+                  Discover the freedom and luxury of your own private Lake Travis adventure. Perfect for <InternalLinkHighlight href="/bachelor-party" title="Bachelor Parties">bachelor parties</InternalLinkHighlight>, <InternalLinkHighlight href="/bachelorette-party" title="Bachelorette Parties">bachelorette celebrations</InternalLinkHighlight>, or any special occasion. <InternalLinkHighlightWithArrow href="/" title="Home">See all our cruise options</InternalLinkHighlightWithArrow>
                 </p>
               </div>
 
@@ -617,7 +621,7 @@ export default function PrivateCruises() {
                   Pricing & Packages
                 </h2>
                 <p className="text-lg text-gray-700 max-w-3xl mx-auto">
-                  Choose from three boats and three package levels to create your perfect experience
+                  Choose from three boats and three package levels to create your perfect experience. Want an all-inclusive party atmosphere? <InternalLinkHighlight href="/atx-disco-cruise" title="ATX Disco Cruise">Check out our ATX Disco Cruise</InternalLinkHighlight>
                 </p>
               </div>
 
@@ -645,7 +649,7 @@ export default function PrivateCruises() {
                     {fleetOptions.map((boat, index) => (
                       <Card key={index} className="bg-white border-gray-200 hover:border-blue-500 transition-all">
                         <CardHeader className="p-0">
-                          <img
+                          <LazyImage
                             src={boat.image}
                             alt={`${boat.name} private boat charter`}
                             className="w-full h-56 object-cover rounded-t-xl"
@@ -1190,7 +1194,7 @@ export default function PrivateCruises() {
 
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <div className="space-y-4">
-                  <img
+                  <LazyImage
                     src={heroImage1}
                     alt="Clever Girl flagship boat with 14 disco balls"
                     className="rounded-2xl shadow-xl w-full h-72 object-cover hover:scale-105 transition-transform"
@@ -1202,7 +1206,7 @@ export default function PrivateCruises() {
                 </div>
 
                 <div className="space-y-4">
-                  <img
+                  <LazyImage
                     src={heroImage2}
                     alt="Meeseeks & The Irony 25-person party boat"
                     className="rounded-2xl shadow-xl w-full h-72 object-cover hover:scale-105 transition-transform"
@@ -1214,7 +1218,7 @@ export default function PrivateCruises() {
                 </div>
 
                 <div className="space-y-4">
-                  <img
+                  <LazyImage
                     src={heroImage3}
                     alt="Day Tripper intimate 14-person boat"
                     className="rounded-2xl shadow-xl w-full h-72 object-cover hover:scale-105 transition-transform"
@@ -1226,7 +1230,7 @@ export default function PrivateCruises() {
                 </div>
 
                 <div className="space-y-4">
-                  <img
+                  <LazyImage
                     src={galleryImage1}
                     alt="Party atmosphere on Lake Travis"
                     className="rounded-2xl shadow-xl w-full h-72 object-cover hover:scale-105 transition-transform"
@@ -1238,7 +1242,7 @@ export default function PrivateCruises() {
                 </div>
 
                 <div className="space-y-4">
-                  <img
+                  <LazyImage
                     src={galleryImage2}
                     alt="Lake Travis scenic views"
                     className="rounded-2xl shadow-xl w-full h-72 object-cover hover:scale-105 transition-transform"
@@ -1250,7 +1254,7 @@ export default function PrivateCruises() {
                 </div>
 
                 <div className="space-y-4">
-                  <img
+                  <LazyImage
                     src={galleryImage3}
                     alt="Happy guests enjoying cruise"
                     className="rounded-2xl shadow-xl w-full h-72 object-cover hover:scale-105 transition-transform"

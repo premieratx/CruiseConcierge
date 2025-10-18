@@ -12,7 +12,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { cn } from '@/lib/utils';
 import { useToast } from '@/hooks/use-toast';
-import { ResponsiveImage } from '@/components/ResponsiveImage';
+import { LazyImage } from '@/components/LazyImage';
 import logoPath from '@assets/PPC-Logo-LARGE.webp';
 // Lazy load icons to reduce bundle size
 import Ship from 'lucide-react/dist/esm/icons/ship';
@@ -81,6 +81,7 @@ import { InternalLinkHighlight, InternalLinkHighlightWithArrow } from '@/compone
 import { RelatedServicesSection } from '@/components/RelatedServicesSection';
 import AIOptimizedSection from '@/components/AIOptimizedSection';
 import { SectionReveal } from '@/components/SectionReveal';
+import { VideoTestimonials } from '@/components/VideoTestimonials';
 
 // Lazy load heavy components to improve FCP
 const DiscoVsPrivateComparison = lazy(() => import('@/components/DiscoVsPrivateComparison').then(mod => ({ default: mod.DiscoVsPrivateComparison })));
@@ -198,7 +199,11 @@ const services = [
     id: 'corporate',
     title: 'Corporate Events',
     subtitle: 'Team building on water',
-    description: 'Premium corporate experiences on Lake Travis. Our largest boats perfect for team building, client entertainment, and company celebrations with professional service.',
+    description: (
+      <>
+        Premium <InternalLinkHighlight href="/corporate-events" title="Corporate Events">corporate experiences on Lake Travis</InternalLinkHighlight>. Our largest boats perfect for <InternalLinkHighlight href="/team-building" title="Team Building">team building</InternalLinkHighlight>, client entertainment, and company celebrations with professional service.
+      </>
+    ),
     features: ['"Clever Girl" flagship boat available', 'Professional atmosphere & service', 'Customizable catering options', 'Team building activities', 'Transportation partnerships'],
     startingPrice: `$${HOURLY_RATES.MON_THU[50] / 100}`,
     hourlyNote: 'per hour (4-hour minimum)',
@@ -206,7 +211,7 @@ const services = [
     image: galleryImage1,
     gallery: [galleryImage1, galleryImage3, heroImage1, galleryImage2],
     detailedDescription: 'Elevate your corporate events with premium Lake Travis experiences aboard our flagship boats. Perfect for team building, client entertainment, company celebrations, and executive retreats. Our professional crew ensures a sophisticated atmosphere while our spacious boats provide the perfect setting for business networking and team bonding.',
-    highlights: ['Flagship "Clever Girl" Available', 'Professional Business Atmosphere', 'Team Building Activities', 'Customizable Catering Options', 'Transportation Partnerships', 'Client Entertainment Perfect', 'Executive Retreat Setting']
+    highlights: ['Flagship "Clever Girl" Available', 'Professional Business Atmosphere', 'Team Building Activities', 'Customizable Catering Options', 'Transportation partnerships', 'Client Entertainment Perfect', 'Executive Retreat Setting']
   }
 ];
 
@@ -568,7 +573,7 @@ export default function Home() {
       />
       <PublicNavigation />
       {/* Hero Section */}
-      <section className="relative min-h-screen flex flex-col justify-center overflow-hidden">
+      <section id="hero" className="relative min-h-screen flex flex-col justify-center overflow-hidden">
         {/* Background with smooth crossfade */}
         <div className="absolute inset-0 z-0">
           {heroImages.map((image, index) => (
@@ -580,16 +585,11 @@ export default function Home() {
               className="absolute inset-0"
               style={{ pointerEvents: index === currentHeroImage ? 'auto' : 'none' }}
             >
-              <ResponsiveImage 
+              <LazyImage 
                 src={image}
                 alt="Party boat on Lake Travis Austin - Premier Party Cruises with guests celebrating bachelor and bachelorette parties"
                 className="w-full h-full object-cover"
-                width={1920}
-                height={1080}
-                fetchpriority={index === 0 ? "high" : "low"}
-                loading={index === 0 ? "eager" : "lazy"}
-                sizes="100vw"
-                srcSet={`${image} 1920w, ${image} 1024w, ${image} 640w`}
+                priority={index === 0}
               />
               <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
             </motion.div>
@@ -606,12 +606,11 @@ export default function Home() {
           >
             {/* Logo */}
             <motion.div variants={reducedMotion ? undefined : fadeInUp} className="mb-8">
-              <ResponsiveImage 
+              <LazyImage 
                 src={logoPath} 
                 alt="Party Boat Austin - Premier Party Cruises on Lake Travis" 
                 className="h-20 md:h-24 mx-auto mb-6"
-                loading="eager"
-                fetchpriority="high"
+                priority={true}
                 data-testid="img-hero-logo"
               />
             </motion.div>
@@ -633,7 +632,8 @@ export default function Home() {
               data-editable data-editable-id="hero-description"
             >
               Experience Austin's ultimate Lake Travis adventure with the most trusted party cruise company since 2009. 
-              From intimate 14-person cruises on "Day Tripper" to epic 75-person celebrations on flagship "Clever Girl" - we create unforgettable memories.
+              From <InternalLinkHighlight href="/private-cruises" title="Private Cruises">intimate 14-person private cruises</InternalLinkHighlight> on "Day Tripper" to epic 75-person celebrations on flagship "Clever Girl" - 
+              perfect for <InternalLinkHighlight href="/bachelor-party" title="Bachelor Parties">bachelor parties</InternalLinkHighlight>, <InternalLinkHighlight href="/bachelorette-party" title="Bachelorette Parties">bachelorette celebrations</InternalLinkHighlight>, and <InternalLinkHighlight href="/corporate-events" title="Corporate Events">corporate team building</InternalLinkHighlight>.
             </motion.p>
 
             {/* Pricing Value Proposition */}
@@ -858,12 +858,10 @@ export default function Home() {
 
                   {/* Service Image with Lightbox Trigger */}
                   <div className="relative h-48 overflow-hidden cursor-pointer" onClick={() => handleOpenLightbox(service)}>
-                    <ResponsiveImage 
+                    <LazyImage 
                       src={service.image} 
                       alt={service.title}
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                      loading="lazy"
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent group-hover:from-black/60" />
                     <service.icon className="absolute bottom-4 right-4 h-8 w-8 text-white" />
@@ -902,11 +900,11 @@ export default function Home() {
                     </div>
 
                     <div className="text-center pt-4">
-                      <div className="text-sm text-gray-500 mb-2" data-editable data-editable-id={`service-${service.id}-price-label`}>Starting from</div>
+                      <div className="text-sm text-gray-600 mb-2" data-editable data-editable-id={`service-${service.id}-price-label`}>Starting from</div>
                       <div className="text-3xl font-bold text-gray-900 dark:text-white mb-2" data-editable data-editable-id={`service-${service.id}-price`}>
                         {service.startingPrice}
                       </div>
-                      <div className="text-sm text-gray-600 dark:text-gray-400 mb-4" data-editable data-editable-id={`service-${service.id}-price-note`}>
+                      <div className="text-sm text-gray-700 dark:text-gray-300 mb-4" data-editable data-editable-id={`service-${service.id}-price-note`}>
                         {service.hourlyNote || service.priceNote || ''}
                       </div>
                       
@@ -1061,7 +1059,7 @@ export default function Home() {
                     <Sun className="w-5 h-5 mr-2 text-yellow-500" />
                     Peak Season (May - September)
                   </h4>
-                  <ul className="text-sm text-gray-600 dark:text-gray-400 space-y-2 leading-relaxed">
+                  <ul className="text-sm text-gray-700 dark:text-gray-300 space-y-2 leading-relaxed">
                     <li>• Weekend rates 20-25% higher</li>
                     <li>• Holiday premium pricing</li>
                     <li>• Book 4-6 weeks in advance</li>
@@ -1072,7 +1070,7 @@ export default function Home() {
                     <Sparkles className="w-5 h-5 mr-2 text-blue-500" />
                     Off-Peak Season (October - April)
                   </h4>
-                  <ul className="text-sm text-gray-600 dark:text-gray-400 space-y-2 leading-relaxed">
+                  <ul className="text-sm text-gray-700 dark:text-gray-300 space-y-2 leading-relaxed">
                     <li>• Standard weekday rates</li>
                     <li>• More availability</li>
                     <li>• Best value deals</li>
@@ -1080,7 +1078,7 @@ export default function Home() {
                 </div>
               </div>
               <div className="border-t border-gray-200 dark:border-gray-700 pt-6">
-                <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
                   All prices subject to 8.25% tax. 20% gratuity recommended. 50% deposit required to secure booking.
                   <br />
                   <span className="font-semibold text-brand-blue">✨ Price Match Guarantee - Best Value on Lake Travis Guaranteed</span>
@@ -1127,12 +1125,10 @@ export default function Home() {
                       }}
                       data-testid={`img-gallery-${selectedService.id}-${index}`}
                     >
-                      <img
+                      <LazyImage
                         src={image}
                         alt={`${selectedService.title} gallery ${index + 1}`}
                         className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-                        loading="lazy"
-                        decoding="async"
                       />
                       <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
                       <div className="absolute bottom-2 right-2 bg-black/70 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -1221,7 +1217,7 @@ export default function Home() {
       </Dialog>
 
       {/* Availability & Booking Section */}
-      <SectionReveal>
+      <SectionReveal id="availability">
         <section className="py-20 bg-gradient-to-br from-blue-50 via-white to-blue-50 dark:from-gray-900 dark:via-gray-950 dark:to-gray-900 relative">
           <div className="absolute top-4 right-4 text-6xl font-black text-blue-200 opacity-20">03</div>
           <div className="container mx-auto px-6">
@@ -1457,7 +1453,7 @@ export default function Home() {
       </SectionReveal>
 
       {/* Benefits of Booking with Premier Section */}
-      <SectionReveal>
+      <SectionReveal id="why-choose-us">
         <section className="py-20 bg-gradient-to-br from-blue-50 to-white dark:from-gray-950 dark:to-gray-900 relative">
           <div className="absolute top-4 right-4 text-6xl font-black text-blue-200 opacity-20">04</div>
           <div className="container mx-auto px-6">
@@ -1520,7 +1516,7 @@ export default function Home() {
       </SectionReveal>
 
       {/* Photo Gallery Section */}
-      <SectionReveal>
+      <SectionReveal id="gallery">
         <section className="py-24 bg-blue-50/30 dark:bg-gray-900 relative">
           <div className="absolute top-4 right-4 text-6xl font-black text-blue-200 opacity-30">05</div>
           <div className="container mx-auto px-6">
@@ -1555,14 +1551,10 @@ export default function Home() {
                     className="group relative cursor-pointer overflow-hidden rounded-xl aspect-square border border-gray-200 hover:border-blue-500 hover:shadow-lg transition-all"
                     onClick={() => setSelectedImageIndex(index)}
                   >
-                    <ResponsiveImage 
+                    <LazyImage 
                       src={image}
                       alt={altTexts[index]}
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                      width={600}
-                      height={600}
-                      loading="lazy"
-                      sizes="(max-width: 640px) 50vw, 33vw"
                     />
                     <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center">
                       <Play className="h-12 w-12 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -1576,7 +1568,7 @@ export default function Home() {
       </SectionReveal>
 
       {/* Comparison Tables Section */}
-      <SectionReveal>
+      <SectionReveal id="fleet">
         <section className="py-24 bg-white dark:bg-gray-800 relative">
           <div className="absolute top-4 right-4 text-6xl font-black text-blue-200 opacity-30">06</div>
           <div className="container mx-auto px-6">
@@ -1752,7 +1744,7 @@ export default function Home() {
       </SectionReveal>
 
       {/* Testimonials Section */}
-      <SectionReveal>
+      <SectionReveal id="testimonials">
         <section className="py-24 bg-gradient-to-br from-blue-600 to-purple-600 text-white relative">
           <div className="absolute top-4 right-4 text-6xl font-black text-white opacity-10">07</div>
           <div className="container mx-auto px-6">
@@ -1797,6 +1789,47 @@ export default function Home() {
           </div>
         </section>
       </SectionReveal>
+
+      {/* Video Testimonials Section */}
+      <VideoTestimonials
+        title="See Why Our Guests Love Us"
+        description="Real stories from bachelor parties, bachelorette celebrations, and corporate events on Lake Travis"
+        testimonials={[
+          {
+            id: '1',
+            name: 'Jessica & The Girls',
+            event: 'Bachelorette Party',
+            location: 'Dallas, TX',
+            rating: 5,
+            thumbnailUrl: 'https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg',
+            videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+            quote: 'This was hands down the BEST part of our Austin bachelorette weekend! The DJ was amazing and everyone had a blast!',
+            date: 'May 2024',
+          },
+          {
+            id: '2',
+            name: 'Mike & The Bachelor Crew',
+            event: 'Bachelor Party',
+            location: 'Houston, TX',
+            rating: 5,
+            thumbnailUrl: 'https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg',
+            videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+            quote: 'Epic experience! The ATX Disco Cruise exceeded all expectations. Highly recommend for any bachelor party.',
+            date: 'June 2024',
+          },
+          {
+            id: '3',
+            name: 'Corporate Team from Dell',
+            event: 'Team Building Event',
+            location: 'Austin, TX',
+            rating: 5,
+            thumbnailUrl: 'https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg',
+            videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+            quote: 'Perfect team building activity! Our entire department loved it. Professional crew and amazing vibes.',
+            date: 'April 2024',
+          },
+        ]}
+      />
 
       <Suspense fallback={<div className="py-12"></div>}>
         <PartyPlanningChecklist partyType="Lake Travis Party" eventType="celebration" />
@@ -1917,7 +1950,7 @@ export default function Home() {
       </section>
 
       {/* Contact & CTA Section */}
-      <SectionReveal>
+      <SectionReveal id="contact">
         <section className="py-24 bg-blue-50/30 dark:bg-gray-950 relative">
           <div className="absolute top-4 right-4 text-6xl font-black text-blue-200 opacity-30">07</div>
           <div className="container mx-auto px-6">
@@ -2102,7 +2135,7 @@ export default function Home() {
                     <div>
                       <h4 className="font-bold text-base tracking-wide" data-editable data-editable-id="contact-phone-title">Call Us</h4>
                       <p className="text-gray-600 dark:text-gray-300" data-editable data-editable-id="contact-phone-number">(512) 488-5892</p>
-                      <p className="text-sm text-gray-500" data-editable data-editable-id="contact-phone-note">Available 7 days a week</p>
+                      <p className="text-sm text-gray-600" data-editable data-editable-id="contact-phone-note">Available 7 days a week</p>
                     </div>
                   </CardContent>
                 </Card>
@@ -2113,7 +2146,7 @@ export default function Home() {
                     <div>
                       <h4 className="font-bold text-base tracking-wide" data-editable data-editable-id="contact-email-title">Email Us</h4>
                       <p className="text-gray-600 dark:text-gray-300" data-editable data-editable-id="contact-email-address">clientservices@premierpartycruises.com</p>
-                      <p className="text-sm text-gray-500" data-editable data-editable-id="contact-email-note">Response within 24 hours</p>
+                      <p className="text-sm text-gray-600" data-editable data-editable-id="contact-email-note">Response within 24 hours</p>
                     </div>
                   </CardContent>
                 </Card>
@@ -2124,7 +2157,7 @@ export default function Home() {
                     <div>
                       <h4 className="font-bold text-base tracking-wide" data-editable data-editable-id="contact-location-title">Lake Travis</h4>
                       <p className="text-gray-600 dark:text-gray-300" data-editable data-editable-id="contact-location-city">Austin, Texas</p>
-                      <p className="text-sm text-gray-500" data-editable data-editable-id="contact-location-note">Austin, Texas</p>
+                      <p className="text-sm text-gray-600" data-editable data-editable-id="contact-location-note">Austin, Texas</p>
                     </div>
                   </CardContent>
                 </Card>
@@ -2147,7 +2180,7 @@ export default function Home() {
           </DialogHeader>
           {selectedImageIndex !== null && (
             <div className="relative">
-              <ResponsiveImage 
+              <LazyImage 
                 src={galleryImages[selectedImageIndex]}
                 alt={[
                   "Party Boat Austin Day Tripper 14-person vessel on Lake Travis",
@@ -2158,10 +2191,6 @@ export default function Home() {
                   "Party Boat Austin guests dancing and celebrating on Lake Travis"
                 ][selectedImageIndex]}
                 className="w-full h-auto max-h-[80vh] object-contain rounded-xl"
-                width={1200}
-                height={800}
-                loading="lazy"
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, 1200px"
               />
               <div className="absolute top-4 right-4 bg-black/50 text-white px-3 py-1 rounded-full text-sm">
                 {selectedImageIndex + 1} / {galleryImages.length}
@@ -2188,7 +2217,7 @@ export default function Home() {
               <Card className="hover:shadow-2xl transition-all duration-300 cursor-pointer h-full border-2 border-transparent hover:border-brand-yellow">
                 <CardHeader>
                   <CardTitle className="text-xl font-bold text-gray-900 dark:text-white">Bachelor Party Austin</CardTitle>
-                  <p className="text-gray-600 dark:text-gray-400">Epic bachelor party boat cruises on Lake Travis with DJ and photographer</p>
+                  <p className="text-gray-700 dark:text-gray-300">Epic bachelor party boat cruises on Lake Travis with DJ and photographer</p>
                 </CardHeader>
               </Card>
             </Link>
@@ -2197,7 +2226,7 @@ export default function Home() {
               <Card className="hover:shadow-2xl transition-all duration-300 cursor-pointer h-full border-2 border-transparent hover:border-brand-yellow">
                 <CardHeader>
                   <CardTitle className="text-xl font-bold text-gray-900 dark:text-white">Bachelorette Party Austin</CardTitle>
-                  <p className="text-gray-600 dark:text-gray-400">Austin's #1 bachelorette party cruise - Our specialty since 2009</p>
+                  <p className="text-gray-700 dark:text-gray-300">Austin's #1 bachelorette party cruise - Our specialty since 2009</p>
                 </CardHeader>
               </Card>
             </Link>
@@ -2206,7 +2235,7 @@ export default function Home() {
               <Card className="hover:shadow-2xl transition-all duration-300 cursor-pointer h-full border-2 border-transparent hover:border-brand-yellow">
                 <CardHeader>
                   <CardTitle className="text-xl font-bold text-gray-900 dark:text-white">Combined Parties</CardTitle>
-                  <p className="text-gray-600 dark:text-gray-400">Bachelor and bachelorette together on Lake Travis</p>
+                  <p className="text-gray-700 dark:text-gray-300">Bachelor and bachelorette together on Lake Travis</p>
                 </CardHeader>
               </Card>
             </Link>
@@ -2215,7 +2244,7 @@ export default function Home() {
               <Card className="hover:shadow-2xl transition-all duration-300 cursor-pointer h-full border-2 border-transparent hover:border-brand-yellow">
                 <CardHeader>
                   <CardTitle className="text-xl font-bold text-gray-900 dark:text-white">Party Boat Lake Travis</CardTitle>
-                  <p className="text-gray-600 dark:text-gray-400">Premium Austin party boats for unforgettable celebrations</p>
+                  <p className="text-gray-700 dark:text-gray-300">Premium Austin party boats for unforgettable celebrations</p>
                 </CardHeader>
               </Card>
             </Link>
@@ -2224,7 +2253,7 @@ export default function Home() {
               <Card className="hover:shadow-2xl transition-all duration-300 cursor-pointer h-full border-2 border-transparent hover:border-brand-yellow">
                 <CardHeader>
                   <CardTitle className="text-xl font-bold text-gray-900 dark:text-white">Private Cruises</CardTitle>
-                  <p className="text-gray-600 dark:text-gray-400">Exclusive private boat charters on Lake Travis</p>
+                  <p className="text-gray-700 dark:text-gray-300">Exclusive private boat charters on Lake Travis</p>
                 </CardHeader>
               </Card>
             </Link>
@@ -2233,7 +2262,7 @@ export default function Home() {
               <Card className="hover:shadow-2xl transition-all duration-300 cursor-pointer h-full border-2 border-transparent hover:border-brand-yellow">
                 <CardHeader>
                   <CardTitle className="text-xl font-bold text-gray-900 dark:text-white">Corporate Events</CardTitle>
-                  <p className="text-gray-600 dark:text-gray-400">Professional client entertainment on Lake Travis</p>
+                  <p className="text-gray-700 dark:text-gray-300">Professional client entertainment on Lake Travis</p>
                 </CardHeader>
               </Card>
             </Link>
@@ -2242,7 +2271,7 @@ export default function Home() {
               <Card className="hover:shadow-2xl transition-all duration-300 cursor-pointer h-full border-2 border-transparent hover:border-brand-yellow">
                 <CardHeader>
                   <CardTitle className="text-xl font-bold text-gray-900 dark:text-white">Photo Gallery</CardTitle>
-                  <p className="text-gray-600 dark:text-gray-400">See real photos from our Austin party boat cruises</p>
+                  <p className="text-gray-700 dark:text-gray-300">See real photos from our Austin party boat cruises</p>
                 </CardHeader>
               </Card>
             </Link>
@@ -2251,7 +2280,7 @@ export default function Home() {
               <Card className="hover:shadow-2xl transition-all duration-300 cursor-pointer h-full border-2 border-transparent hover:border-brand-yellow">
                 <CardHeader>
                   <CardTitle className="text-xl font-bold text-gray-900 dark:text-white">Cruise Blog & Tips</CardTitle>
-                  <p className="text-gray-600 dark:text-gray-400">Expert guides for planning your Lake Travis experience</p>
+                  <p className="text-gray-700 dark:text-gray-300">Expert guides for planning your Lake Travis experience</p>
                 </CardHeader>
               </Card>
             </Link>
@@ -2260,7 +2289,7 @@ export default function Home() {
               <Card className="hover:shadow-2xl transition-all duration-300 cursor-pointer h-full border-2 border-transparent hover:border-brand-yellow">
                 <CardHeader>
                   <CardTitle className="text-xl font-bold text-gray-900 dark:text-white">Contact Us</CardTitle>
-                  <p className="text-gray-600 dark:text-gray-400">Get your custom party boat quote today</p>
+                  <p className="text-gray-700 dark:text-gray-300">Get your custom party boat quote today</p>
                 </CardHeader>
               </Card>
             </Link>

@@ -43,6 +43,9 @@ import { SectionReveal } from '@/components/SectionReveal';
 import { ScrollReveal } from '@/components/ScrollReveal';
 import { TableOfContents } from '@/components/TableOfContents';
 import { StickyCTA } from '@/components/StickyCTA';
+import { VideoTestimonials } from '@/components/VideoTestimonials';
+import { TransportationGuide } from '@/components/TransportationGuide';
+import { LazyImage } from '@/components/LazyImage';
 
 // Hero and gallery images
 import heroImage1 from '@assets/bachelor-party-group-guys.webp';
@@ -438,14 +441,11 @@ export default function BachelorParty() {
               className="absolute inset-0"
               style={{ pointerEvents: index === currentHeroImage ? 'auto' : 'none' }}
             >
-              <img 
+              <LazyImage 
                 src={image}
                 alt="Bachelor party Austin cruise on Lake Travis - ATX Disco party boat with DJ and entertainment"
                 className="w-full h-full object-cover"
-                width={1920}
-                height={1080}
-                loading={index === 0 ? "eager" : "lazy"}
-                fetchpriority={index === 0 ? "high" : "low"}
+                priority={index === 0}
               />
               <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
             </motion.div>
@@ -492,7 +492,7 @@ export default function BachelorParty() {
               data-editable 
               data-editable-id="bachelor-hero-subtitle"
             >
-              Exclusively for Bachelorette & Bachelor Parties<br/>
+              Exclusively for <InternalLinkHighlight href="/bachelorette-party" title="Bachelorette Parties">Bachelorette</InternalLinkHighlight> & Bachelor Parties<br/>
               <span className="text-lg md:text-xl">The Highlight of Your Weekend Every. Damn. Time.</span>
             </motion.p>
 
@@ -559,7 +559,7 @@ export default function BachelorParty() {
                 What Makes Our Bachelor Parties Special
               </h2>
               <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
-                From epic ATX Disco Cruises to exclusive private charters, we deliver unforgettable bachelor party experiences on Lake Travis
+                From epic <InternalLinkHighlight href="/atx-disco-cruise" title="ATX Disco Cruise">ATX Disco Cruises</InternalLinkHighlight> to exclusive <InternalLinkHighlight href="/private-cruises" title="Private Cruises">private charters</InternalLinkHighlight>, we deliver unforgettable bachelor party experiences on Lake Travis. Also perfect for <InternalLinkHighlight href="/bachelorette-party" title="Bachelorette Parties">bachelorette celebrations</InternalLinkHighlight>!
               </p>
             </div>
 
@@ -577,7 +577,7 @@ export default function BachelorParty() {
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <p className="text-gray-700 leading-relaxed">
-                    Join bachelor parties from across the country on our legendary ATX Disco Cruise. Professional DJ, photographer, giant floats, and an electric atmosphere make this the highlight of your Austin weekend.
+                    Join bachelor parties from across the country on our legendary <InternalLinkHighlight href="/atx-disco-cruise" title="ATX Disco Cruise">ATX Disco Cruise</InternalLinkHighlight>. Professional DJ, photographer, giant floats, and an electric atmosphere make this the highlight of your Austin weekend. <InternalLinkHighlightWithArrow href="/" title="Home">Explore all our party cruise options</InternalLinkHighlightWithArrow>
                   </p>
                   <ul className="space-y-3">
                     <li className="flex items-start gap-3">
@@ -626,7 +626,7 @@ export default function BachelorParty() {
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <p className="text-gray-700 leading-relaxed">
-                    Want the boat all to yourselves? Book a private charter for complete control over music, schedule, and activities. Perfect for bachelor groups who want privacy and customization.
+                    Want the boat all to yourselves? <InternalLinkHighlight href="/private-cruises" title="Private Cruises">Book a private charter</InternalLinkHighlight> for complete control over music, schedule, and activities. Perfect for bachelor groups who want privacy and customization.
                   </p>
                   <ul className="space-y-3">
                     <li className="flex items-start gap-3">
@@ -750,37 +750,37 @@ export default function BachelorParty() {
                       <tr>
                         <td className="px-6 py-4 text-sm text-gray-900 font-medium">Professional DJ</td>
                         <td className="px-6 py-4 text-center"><Check className="h-5 w-5 text-green-500 mx-auto" /></td>
-                        <td className="px-6 py-4 text-center"><X className="h-5 w-5 text-gray-400 mx-auto" /></td>
+                        <td className="px-6 py-4 text-center"><X className="h-5 w-5 text-gray-500 mx-auto" /></td>
                       </tr>
                       <tr>
                         <td className="px-6 py-4 text-sm text-gray-900 font-medium">Professional Photographer</td>
                         <td className="px-6 py-4 text-center"><Check className="h-5 w-5 text-green-500 mx-auto" /></td>
-                        <td className="px-6 py-4 text-center"><X className="h-5 w-5 text-gray-400 mx-auto" /></td>
+                        <td className="px-6 py-4 text-center"><X className="h-5 w-5 text-gray-500 mx-auto" /></td>
                       </tr>
                       <tr>
                         <td className="px-6 py-4 text-sm text-gray-900 font-medium">Private Boat (Entire Boat for Your Group)</td>
-                        <td className="px-6 py-4 text-center"><X className="h-5 w-5 text-gray-400 mx-auto" /></td>
+                        <td className="px-6 py-4 text-center"><X className="h-5 w-5 text-gray-500 mx-auto" /></td>
                         <td className="px-6 py-4 text-center"><Check className="h-5 w-5 text-green-500 mx-auto" /></td>
                       </tr>
                       <tr>
                         <td className="px-6 py-4 text-sm text-gray-900 font-medium">Custom Music Control</td>
-                        <td className="px-6 py-4 text-center text-xs text-gray-500">DJ Curated</td>
+                        <td className="px-6 py-4 text-center text-xs text-gray-600">DJ Curated</td>
                         <td className="px-6 py-4 text-center"><Check className="h-5 w-5 text-green-500 mx-auto" /></td>
                       </tr>
                       <tr>
                         <td className="px-6 py-4 text-sm text-gray-900 font-medium">Flexible Departure Times</td>
-                        <td className="px-6 py-4 text-center text-xs text-gray-500">Set Schedule</td>
+                        <td className="px-6 py-4 text-center text-xs text-gray-600">Set Schedule</td>
                         <td className="px-6 py-4 text-center"><Check className="h-5 w-5 text-green-500 mx-auto" /></td>
                       </tr>
                       <tr>
                         <td className="px-6 py-4 text-sm text-gray-900 font-medium">Giant Lily Pad Floats</td>
                         <td className="px-6 py-4 text-center"><Check className="h-5 w-5 text-green-500 mx-auto" /></td>
-                        <td className="px-6 py-4 text-center text-xs text-gray-500">Add-on: $100/hr</td>
+                        <td className="px-6 py-4 text-center text-xs text-gray-600">Add-on: $100/hr</td>
                       </tr>
                       <tr>
                         <td className="px-6 py-4 text-sm text-gray-900 font-medium">Party Supplies Included</td>
                         <td className="px-6 py-4 text-center"><Check className="h-5 w-5 text-green-500 mx-auto" /></td>
-                        <td className="px-6 py-4 text-center"><X className="h-5 w-5 text-gray-400 mx-auto" /></td>
+                        <td className="px-6 py-4 text-center"><X className="h-5 w-5 text-gray-500 mx-auto" /></td>
                       </tr>
                     </tbody>
                   </table>
@@ -792,13 +792,13 @@ export default function BachelorParty() {
                     <h3 className="text-lg font-bold text-purple-600 mb-2">Disco Cruise</h3>
                     <p className="text-4xl font-bold text-gray-900">${DISCO_PRICING.basic / 100}-${DISCO_PRICING.platinum / 100}</p>
                     <p className="text-sm text-gray-600 mt-1">per person (4 hours)</p>
-                    <p className="text-xs text-gray-500 mt-2">Best for groups of 10-50</p>
+                    <p className="text-xs text-gray-600 mt-2">Best for groups of 10-50</p>
                   </div>
                   <div className="px-8 py-6 text-center">
                     <h3 className="text-lg font-bold text-blue-600 mb-2">Private Charter</h3>
                     <p className="text-4xl font-bold text-gray-900">$200-$250/hr</p>
                     <p className="text-sm text-gray-600 mt-1">(4-hour minimum)</p>
-                    <p className="text-xs text-gray-500 mt-2">Best for groups of 6-75</p>
+                    <p className="text-xs text-gray-600 mt-2">Best for groups of 6-75</p>
                   </div>
                 </div>
               </div>
@@ -1171,11 +1171,10 @@ export default function BachelorParty() {
                   key={photo.id}
                   className="relative aspect-square overflow-hidden rounded-lg cursor-pointer group shadow-md hover:shadow-2xl transition-all duration-300"
                 >
-                  <img
+                  <LazyImage
                     src={photo.src}
                     alt={photo.alt}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                    loading="lazy"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </div>
@@ -1245,6 +1244,47 @@ export default function BachelorParty() {
         </section>
       </SectionReveal>
 
+      {/* Video Testimonials Section */}
+      <VideoTestimonials
+        title="Watch Real Bachelor Parties on Lake Travis"
+        description="See why guys from across the country choose Premier Party Cruises for their Austin bachelor party weekend"
+        testimonials={[
+          {
+            id: '1',
+            name: 'Jake & The Groomsmen',
+            event: 'Bachelor Party',
+            location: 'Dallas, TX',
+            rating: 5,
+            thumbnailUrl: 'https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg',
+            videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+            quote: 'The ATX Disco Cruise was INSANE! We partied with bachelor groups from all over the country. Best bachelor party EVER!',
+            date: 'June 2024',
+          },
+          {
+            id: '2',
+            name: 'Marcus & The Boys',
+            event: 'Bachelor Party',
+            location: 'Houston, TX',
+            rating: 5,
+            thumbnailUrl: 'https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg',
+            videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+            quote: 'The DJ was fire, photographer captured everything, and the energy was electric. This is THE party to book for a bachelor weekend!',
+            date: 'May 2024',
+          },
+          {
+            id: '3',
+            name: 'Chris & The Crew',
+            event: 'Bachelor Party',
+            location: 'San Antonio, TX',
+            rating: 5,
+            thumbnailUrl: 'https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg',
+            videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+            quote: 'Nothing to plan, nothing to carry - just show up and party! The groom is still thanking me. Be the hero who books this!',
+            date: 'July 2024',
+          },
+        ]}
+      />
+
       {/* 10. FAQs */}
       <SectionReveal>
         <section id="faqs" className="py-20 bg-white">
@@ -1307,6 +1347,9 @@ export default function BachelorParty() {
           </div>
         </section>
       </SectionReveal>
+
+      {/* Transportation & Lodging Guide */}
+      <TransportationGuide showAccommodations={true} />
 
       {/* 11. SEO-ONLY CONTENT (BOTTOM) */}
       

@@ -33,6 +33,7 @@ import {
 import { useToast } from '@/hooks/use-toast';
 import { WhatToBring } from '@/components/WhatToBring';
 import { PricingTable } from '@/components/PricingTable';
+import { LazyImage } from '@/components/LazyImage';
 
 // Hero and gallery images
 import heroImage1 from '@assets/clever-girl-50-person-boat.jpg';
@@ -487,12 +488,13 @@ export default function CorporateEvents() {
       <Breadcrumb />
       
       {/* 1. HERO SECTION */}
-      <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden">
+      <section id="hero" className="relative min-h-[70vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <img
+          <LazyImage
             src={heroImage1}
             alt="Corporate Party Boat Austin cruise event on Lake Travis"
             className="w-full h-full object-cover"
+            priority={true}
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/60" />
         </div>
@@ -511,7 +513,7 @@ export default function CorporateEvents() {
             Impress Clients. Reward Your Team. Elevate Your Business.
           </p>
           <p className="text-base mb-8 max-w-3xl mx-auto text-white/90" data-editable data-editable-id="p-corporate-tagline">
-            Tax-deductible business entertainment • Professional service • Unforgettable experiences
+            Tax-deductible business entertainment • Professional service • Unforgettable experiences. Choose from <InternalLinkHighlight href="/private-cruises" title="Private Cruises">private charters</InternalLinkHighlight> or explore our <InternalLinkHighlight href="/team-building" title="Team Building">team building packages</InternalLinkHighlight>.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -556,7 +558,7 @@ export default function CorporateEvents() {
       </section>
 
       {/* 2. ROI METRICS SECTION */}
-      <SectionReveal>
+      <SectionReveal id="roi-metrics">
         <section className="py-24 bg-gradient-to-b from-white to-blue-50">
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
@@ -591,7 +593,7 @@ export default function CorporateEvents() {
             </div>
 
             <div className="mt-12 text-center">
-              <p className="text-sm text-gray-500 italic">
+              <p className="text-sm text-gray-600 italic">
                 Based on post-event surveys from 500+ corporate clients over 14 years
               </p>
             </div>
@@ -600,7 +602,7 @@ export default function CorporateEvents() {
       </SectionReveal>
 
       {/* 3. EXPERIENCE SECTION */}
-      <SectionReveal>
+      <SectionReveal id="experience">
         <section className="py-24 bg-white">
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
@@ -611,7 +613,7 @@ export default function CorporateEvents() {
                 What Makes Corporate Cruises Special
               </h2>
               <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-                More than just a boat ride—a strategic business investment in your team and client relationships
+                More than just a boat ride—a strategic business investment in your team and client relationships. Perfect for <InternalLinkHighlight href="/team-building" title="Team Building">team building activities</InternalLinkHighlight>, client entertainment, and company celebrations. <InternalLinkHighlightWithArrow href="/" title="Home">Explore all our cruise options</InternalLinkHighlightWithArrow>
               </p>
             </div>
             
@@ -633,7 +635,7 @@ export default function CorporateEvents() {
       </SectionReveal>
 
       {/* 4. PRICING SECTION */}
-      <SectionReveal>
+      <SectionReveal id="pricing">
         <section className="py-24 bg-gradient-to-b from-blue-50 to-white">
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
@@ -642,7 +644,7 @@ export default function CorporateEvents() {
                 Corporate Cruise Packages
               </h2>
               <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-                Choose the perfect package for your corporate event
+                Choose the perfect package for your corporate event. All cruises feature <InternalLinkHighlight href="/private-cruises" title="Private Cruises">exclusive private charters</InternalLinkHighlight> with professional service and customizable experiences.
               </p>
             </div>
 
@@ -706,7 +708,7 @@ export default function CorporateEvents() {
       </SectionReveal>
 
       {/* 5. AVAILABILITY SECTION */}
-      <SectionReveal>
+      <SectionReveal id="availability">
         <section className="py-24 bg-white">
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
@@ -767,7 +769,7 @@ export default function CorporateEvents() {
       </SectionReveal>
 
       {/* 6. BENEFITS SECTION */}
-      <SectionReveal>
+      <SectionReveal id="benefits">
         <section className="py-24 bg-gradient-to-b from-blue-50 to-white">
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
@@ -805,7 +807,7 @@ export default function CorporateEvents() {
       </SectionReveal>
 
       {/* 7. FEATURES SECTION */}
-      <SectionReveal>
+      <SectionReveal id="features">
         <section className="py-24 bg-white">
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
@@ -836,7 +838,7 @@ export default function CorporateEvents() {
       </SectionReveal>
 
       {/* 8. CASE STUDIES SECTION */}
-      <SectionReveal>
+      <SectionReveal id="case-studies">
         <section className="py-24 bg-gradient-to-b from-blue-50 to-white">
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
@@ -911,7 +913,7 @@ export default function CorporateEvents() {
       </SectionReveal>
 
       {/* 9. TESTIMONIALS SECTION */}
-      <SectionReveal>
+      <SectionReveal id="testimonials">
         <section className="py-24 bg-white">
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
@@ -954,7 +956,7 @@ export default function CorporateEvents() {
       </SectionReveal>
 
       {/* 10. FAQs SECTION */}
-      <SectionReveal>
+      <SectionReveal id="faqs">
         <section className="py-24 bg-gradient-to-b from-blue-50 to-white">
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
@@ -1113,7 +1115,7 @@ export default function CorporateEvents() {
               <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
                 {galleryImages.map((image, index) => (
                   <div key={index} className="relative aspect-square rounded-xl overflow-hidden group">
-                    <img
+                    <LazyImage
                       src={image.src}
                       alt={image.alt}
                       className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"

@@ -7,6 +7,7 @@ interface LazyImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
   className?: string;
   placeholderClassName?: string;
   fallbackSrc?: string;
+  priority?: boolean;
 }
 
 export function LazyImage({
@@ -15,14 +16,18 @@ export function LazyImage({
   className,
   placeholderClassName,
   fallbackSrc,
+  priority = false,
   ...props
 }: LazyImageProps) {
   const [isLoaded, setIsLoaded] = useState(false);
-  const [isInView, setIsInView] = useState(false);
+  const [isInView, setIsInView] = useState(priority); // If priority, load immediately
   const [error, setError] = useState(false);
   const imgRef = useRef<HTMLImageElement>(null);
 
   useEffect(() => {
+    // Skip Intersection Observer if priority is true
+    if (priority) return;
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -42,7 +47,7 @@ export function LazyImage({
     }
 
     return () => observer.disconnect();
-  }, []);
+  }, [priority]);
 
   const handleLoad = () => {
     setIsLoaded(true);
@@ -72,7 +77,8 @@ export function LazyImage({
         ref={imgRef}
         src={isInView ? (error && fallbackSrc ? fallbackSrc : src) : undefined}
         alt={alt}
-        loading="lazy"
+        loading={priority ? "eager" : "lazy"}
+        fetchpriority={priority ? "high" : undefined}
         onLoad={handleLoad}
         onError={handleError}
         className={cn(
