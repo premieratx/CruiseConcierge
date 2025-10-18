@@ -575,24 +575,20 @@ function Router() {
 function App() {
   const [xolaReady, setXolaReady] = useState(false);
 
-  // Load Xola checkout script globally on app startup
+  // Load Xola embed script globally
   useEffect(() => {
     // Check if script already exists
-    if (document.querySelector('script[data-id="xola-checkout"]')) {
+    if (document.querySelector('script[src*="64c43a70daa3e618b7229ddf.xola.com/checkout/embed"]')) {
       setXolaReady(true);
-      console.log('✅ Xola button script already loaded');
       return;
     }
 
-    // Load Xola BUTTON checkout script (opens in lightbox - more reliable)
     const script = document.createElement('script');
-    script.src = 'https://xola.com/checkout.js';
-    script.setAttribute('data-seller', '64c43a70daa3e618b7229ddf');
-    script.setAttribute('data-id', 'xola-checkout');
+    script.src = 'https://64c43a70daa3e618b7229ddf.xola.com/checkout/embed.js';
     script.async = true;
     script.onload = () => {
       setXolaReady(true);
-      console.log('✅ Xola button script loaded globally');
+      console.log('✅ Xola embed script loaded');
     };
     document.body.appendChild(script);
   }, []);
