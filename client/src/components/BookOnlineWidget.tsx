@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import logoPath from '@assets/PPC Logo LARGE_1757881944449.png';
 import { Ship, Star, CheckCircle, Clock } from 'lucide-react';
+import { useXolaEmbed } from '@/hooks/useXolaEmbed';
 
 interface BookOnlineWidgetProps {
   defaultBoatType?: '14p' | '25p' | '50p' | 'disco';
@@ -19,6 +20,10 @@ const fadeInUp = {
 export default function BookOnlineWidget({ defaultBoatType = '14p' }: BookOnlineWidgetProps) {
   const [activeTab, setActiveTab] = useState<string>(defaultBoatType);
   const [activeDiscoPackage, setActiveDiscoPackage] = useState<string>('super-sparkle');
+  const containerRef = useRef<HTMLDivElement>(null);
+  
+  // Re-initialize Xola whenever tabs change
+  useXolaEmbed(containerRef, [activeTab, activeDiscoPackage]);
 
   return (
     <div className="bg-gradient-to-br from-blue-50 via-white to-yellow-50">
@@ -156,8 +161,8 @@ export default function BookOnlineWidget({ defaultBoatType = '14p' }: BookOnline
               </div>
             )}
 
-            {/* BLANK CONTENT AREAS - READY FOR YOUR EMBED CODES */}
-            <div className="bg-white rounded-xl shadow-2xl overflow-hidden" style={{ minHeight: '600px' }}>
+            {/* Xola Widget Container */}
+            <div ref={containerRef} className="bg-white rounded-xl shadow-2xl overflow-hidden" style={{ minHeight: '600px' }}>
               
               {/* 14-Person Boat */}
               {activeTab === '14p' && (

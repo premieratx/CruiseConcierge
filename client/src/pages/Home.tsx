@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, lazy, Suspense, FormEvent } from 'react';
+import { useXolaEmbed } from '@/hooks/useXolaEmbed';
 import { Link, useLocation } from 'wouter';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useQuery } from '@tanstack/react-query';
@@ -368,6 +369,10 @@ export default function Home() {
   const reducedMotion = useReducedMotion();
   const [currentHeroImage, setCurrentHeroImage] = useState(0);
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
+  const xolaTestRef = useRef<HTMLDivElement>(null);
+  
+  // Initialize Xola widget on home page test section
+  useXolaEmbed(xolaTestRef, []);
   const [showLightbox, setShowLightbox] = useState(false);
   const [selectedService, setSelectedService] = useState<typeof services[0] | null>(null);
   const [quickPricingGroupSize, setQuickPricingGroupSize] = useState(20);
@@ -2871,8 +2876,13 @@ export default function Home() {
       <section className="py-16 bg-gray-100">
         <div className="container mx-auto px-6">
           <h2 className="text-3xl font-bold text-center mb-8">Test: 14-Person Boat Widget</h2>
-          <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-8">
-            <div className="xola-embedded-checkout" data-seller="64c43a70daa3e618b7229ddf" data-version="2" data-experience="64c7d0012c2afc7d8d70e285"></div>
+          <div ref={xolaTestRef} className="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-8">
+            <div 
+              className="xola-embedded-checkout" 
+              data-seller="64c43a70daa3e618b7229ddf" 
+              data-version="2" 
+              data-experience="64c7d0012c2afc7d8d70e285"
+            ></div>
           </div>
         </div>
       </section>

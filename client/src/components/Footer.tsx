@@ -6,18 +6,14 @@ import {
 } from 'lucide-react';
 import { CONTACT_INFO, SOCIAL_MEDIA } from '@shared/contact';
 import logoPath from '@assets/PPC-Logo-80x80.webp';
+import { loadXolaScript } from '@/services/xola';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
-  // Xola checkout.js loader
+  // Load Xola checkout.js once via centralized service
   useEffect(() => {
-    const script = document.createElement("script");
-    script.type = "text/javascript";
-    script.async = true;
-    script.src = "https://xola.com/checkout.js";
-    const s = document.getElementsByTagName("script")[0];
-    s.parentNode?.insertBefore(script, s);
+    loadXolaScript().catch(console.error);
   }, []);
 
   return (
