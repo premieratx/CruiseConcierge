@@ -569,7 +569,7 @@ export default function Home() {
         defaultKeywords={['party boat Austin', 'bachelorette party Austin', 'Austin boat rental', 'Lake Travis party boat', 'bachelor party Austin']}
         schemaType="organization"
       />
-      <PublicNavigation />
+      <PublicNavigation onBookNowClick={() => setShowBookingModal(true)} />
       {/* Hero Section */}
       <section id="hero" className="relative min-h-screen flex flex-col justify-center overflow-hidden">
         {/* Background with smooth crossfade */}
@@ -2851,7 +2851,11 @@ export default function Home() {
 
       {/* Book Online Modal */}
       <Dialog open={showBookingModal} onOpenChange={setShowBookingModal}>
-        <DialogContent className="max-w-[100vw] md:max-w-[95vw] w-full p-0 border-4 border-black overflow-hidden max-h-[95vh]">
+        <DialogContent className="max-w-[100vw] md:max-w-[95vw] w-full p-0 border-4 border-black max-h-[95vh] overflow-y-auto">
+          <DialogTitle className="sr-only">Book Your Cruise Online</DialogTitle>
+          <DialogDescription className="sr-only">
+            Select from our available boat cruises and packages to book your Lake Travis party boat experience
+          </DialogDescription>
           <BookOnlineWidget />
         </DialogContent>
       </Dialog>

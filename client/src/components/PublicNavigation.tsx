@@ -200,7 +200,11 @@ const navigationItems: NavigationItem[] = [
   }
 ];
 
-export default function PublicNavigation() {
+interface PublicNavigationProps {
+  onBookNowClick?: () => void;
+}
+
+export default function PublicNavigation({ onBookNowClick }: PublicNavigationProps = {}) {
   // SSR-safe location hook - use guard for browser-only wouter hook
   const locationData = typeof window !== 'undefined' ? useLocation() : ['/', () => {}];
   const [location, navigate] = locationData as [string, (to: string) => void];
@@ -235,8 +239,12 @@ export default function PublicNavigation() {
   };
 
   const handleBookNow = () => {
-    // Force full page reload navigation
-    window.location.href = '/chat';
+    if (onBookNowClick) {
+      onBookNowClick();
+    } else {
+      // Force full page reload navigation
+      window.location.href = '/chat';
+    }
   };
 
   return (
