@@ -243,8 +243,8 @@ export default function BookOnline({ defaultBoatType = '14p' }: BookOnlineProps)
                 />
               </div>
 
-              {/* Basic Bach Package - Always in DOM, toggled with CSS */}
-              <div style={{ display: activeTab === 'disco' && activeDiscoPackage === 'basic-bach' ? 'block' : 'none' }}>
+              {/* Basic Bach Package - Visible initially for Xola init, then toggled */}
+              <div style={{ display: !xolaLoaded || (activeTab === 'disco' && activeDiscoPackage === 'basic-bach') ? 'block' : 'none' }}>
                 <div
                   className="xola-embedded-checkout"
                   data-seller={xolaConfig.seller}
@@ -255,8 +255,8 @@ export default function BookOnline({ defaultBoatType = '14p' }: BookOnlineProps)
                 />
               </div>
 
-              {/* Disco Queen Package - Always in DOM, toggled with CSS */}
-              <div style={{ display: activeTab === 'disco' && activeDiscoPackage === 'disco-queen' ? 'block' : 'none' }}>
+              {/* Disco Queen Package - Visible initially for Xola init, then toggled */}
+              <div style={{ display: !xolaLoaded || (activeTab === 'disco' && activeDiscoPackage === 'disco-queen') ? 'block' : 'none' }}>
                 <div
                   className="xola-embedded-checkout"
                   data-seller={xolaConfig.seller}
@@ -267,8 +267,8 @@ export default function BookOnline({ defaultBoatType = '14p' }: BookOnlineProps)
                 />
               </div>
 
-              {/* Super Sparkle Platinum - Always in DOM, toggled with CSS */}
-              <div style={{ display: activeTab === 'disco' && activeDiscoPackage === 'super-sparkle' ? 'block' : 'none' }}>
+              {/* Super Sparkle Platinum - Visible initially for Xola init, then toggled */}
+              <div style={{ display: !xolaLoaded || (activeTab === 'disco' && activeDiscoPackage === 'super-sparkle') ? 'block' : 'none' }}>
                 <div
                   className="xola-embedded-checkout"
                   data-seller={xolaConfig.seller}
