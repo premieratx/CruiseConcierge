@@ -24,6 +24,7 @@ const fadeInUp = {
 
 export default function BookOnline({ defaultBoatType = '14p' }: BookOnlineProps) {
   const [activeTab, setActiveTab] = useState<string>(defaultBoatType);
+  const [activeDiscoPackage, setActiveDiscoPackage] = useState<string>('basic-bach');
   const [xolaLoaded, setXolaLoaded] = useState(false);
 
   // Ensure page loads at top
@@ -62,7 +63,7 @@ export default function BookOnline({ defaultBoatType = '14p' }: BookOnlineProps)
         window.XolaCheckout.init();
       }, 100);
     }
-  }, [activeTab, xolaLoaded]);
+  }, [activeTab, activeDiscoPackage, xolaLoaded]);
 
   // Xola experience IDs
   const xolaConfig = {
@@ -71,7 +72,11 @@ export default function BookOnline({ defaultBoatType = '14p' }: BookOnlineProps)
       '14p': '64c7d0012c2afc7d8d70e285', // Day Tripper 14-person boat
       '25p': '64c7d2b74e1de53cee29395e', // Meeseeks 25-person boat
       '50p': '64c7d4f01be574411500cf62', // Clever Girl 50-person boat
-      'disco': '64c7d0012c2afc7d8d70e285', // TODO: Replace with actual Disco Cruise experience ID
+      disco: {
+        'basic-bach': '676fe4a7ff119f53c4063c1b', // Basic Bach Package
+        'disco-queen': '676f0bc68ff6dfb29009b5ad', // Disco Queen Package
+        'super-sparkle': '676f0ceaa3744b05ae09e9de', // Super Sparkle Platinum Disco Package
+      }
     }
   };
 
@@ -243,17 +248,82 @@ export default function BookOnline({ defaultBoatType = '14p' }: BookOnlineProps)
                   </div>
                 </TabsContent>
 
-                {/* Disco Cruise Tab */}
+                {/* Disco Cruise Tab with Nested Package Tabs */}
                 <TabsContent value="disco" className="mt-0">
-                  <div className="w-full rounded-xl shadow-2xl overflow-hidden bg-white dark:bg-gray-900">
-                    <div 
-                      className="xola-embedded-checkout" 
-                      data-seller={xolaConfig.seller}
-                      data-version="2" 
-                      data-experience={xolaConfig.experiences['disco']}
-                      style={{ minHeight: '85vh' }}
-                      data-testid="widget-disco"
-                    />
+                  <div className="w-full space-y-4">
+                    {/* Package Selection Tabs */}
+                    <Tabs 
+                      defaultValue="basic-bach"
+                      value={activeDiscoPackage}
+                      onValueChange={setActiveDiscoPackage}
+                      className="w-full"
+                    >
+                      <TabsList className="grid w-full grid-cols-1 md:grid-cols-3 gap-2 mb-4 bg-purple-100/80 dark:bg-purple-900/30 p-2 rounded-xl shadow-md">
+                        <TabsTrigger 
+                          value="basic-bach" 
+                          className="text-sm font-semibold data-[state=active]:bg-purple-600 data-[state=active]:text-white"
+                          data-testid="tab-disco-basic"
+                        >
+                          Basic Bach Package
+                        </TabsTrigger>
+                        <TabsTrigger 
+                          value="disco-queen" 
+                          className="text-sm font-semibold data-[state=active]:bg-purple-600 data-[state=active]:text-white"
+                          data-testid="tab-disco-queen"
+                        >
+                          Disco Queen Package
+                        </TabsTrigger>
+                        <TabsTrigger 
+                          value="super-sparkle" 
+                          className="text-sm font-semibold data-[state=active]:bg-purple-600 data-[state=active]:text-white"
+                          data-testid="tab-disco-sparkle"
+                        >
+                          Super Sparkle Platinum
+                        </TabsTrigger>
+                      </TabsList>
+
+                      {/* Basic Bach Package Content */}
+                      <TabsContent value="basic-bach" className="mt-0">
+                        <div className="w-full rounded-xl shadow-2xl overflow-hidden bg-white dark:bg-gray-900">
+                          <div 
+                            className="xola-embedded-checkout" 
+                            data-seller={xolaConfig.seller}
+                            data-version="2" 
+                            data-experience={xolaConfig.experiences.disco['basic-bach']}
+                            style={{ minHeight: '85vh' }}
+                            data-testid="widget-disco-basic"
+                          />
+                        </div>
+                      </TabsContent>
+
+                      {/* Disco Queen Package Content */}
+                      <TabsContent value="disco-queen" className="mt-0">
+                        <div className="w-full rounded-xl shadow-2xl overflow-hidden bg-white dark:bg-gray-900">
+                          <div 
+                            className="xola-embedded-checkout" 
+                            data-seller={xolaConfig.seller}
+                            data-version="2" 
+                            data-experience={xolaConfig.experiences.disco['disco-queen']}
+                            style={{ minHeight: '85vh' }}
+                            data-testid="widget-disco-queen"
+                          />
+                        </div>
+                      </TabsContent>
+
+                      {/* Super Sparkle Platinum Package Content */}
+                      <TabsContent value="super-sparkle" className="mt-0">
+                        <div className="w-full rounded-xl shadow-2xl overflow-hidden bg-white dark:bg-gray-900">
+                          <div 
+                            className="xola-embedded-checkout" 
+                            data-seller={xolaConfig.seller}
+                            data-version="2" 
+                            data-experience={xolaConfig.experiences.disco['super-sparkle']}
+                            style={{ minHeight: '85vh' }}
+                            data-testid="widget-disco-sparkle"
+                          />
+                        </div>
+                      </TabsContent>
+                    </Tabs>
                   </div>
                 </TabsContent>
               </Tabs>
