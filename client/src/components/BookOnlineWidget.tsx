@@ -162,40 +162,40 @@ export default function BookOnlineWidget({ defaultBoatType = '14p' }: BookOnline
               {/* 14-Person Boat */}
               {activeTab === '14p' && (
                 <div className="p-8" data-testid="content-14p">
-                  {/* YOUR 14-PERSON BOAT EMBED CODE GOES HERE */}
+                  <div className="xola-embedded-checkout" data-seller="64c43a70daa3e618b7229ddf" data-version="2" data-experience="64c7d0012c2afc7d8d70e285"></div>
                 </div>
               )}
 
               {/* 25-Person Boat */}
               {activeTab === '25p' && (
                 <div className="p-8" data-testid="content-25p">
-                  {/* YOUR 25-PERSON BOAT EMBED CODE GOES HERE */}
+                  <div className="xola-embedded-checkout" data-seller="64c43a70daa3e618b7229ddf" data-version="2" data-experience="64c7d2b74e1de53cee29395e"></div>
                 </div>
               )}
 
               {/* 50-Person Boat */}
               {activeTab === '50p' && (
                 <div className="p-8" data-testid="content-50p">
-                  {/* YOUR 50-PERSON BOAT EMBED CODE GOES HERE */}
+                  <div className="xola-embedded-checkout" data-seller="64c43a70daa3e618b7229ddf" data-version="2" data-experience="64c7d4f01be574411500cf62"></div>
                 </div>
               )}
 
               {/* Disco Packages */}
               {activeTab === 'disco' && activeDiscoPackage === 'basic-bach' && (
                 <div className="p-8" data-testid="content-disco-basic">
-                  {/* YOUR BASIC BACH PACKAGE EMBED CODE GOES HERE */}
+                  <div className="xola-embedded-checkout" data-seller="64c43a70daa3e618b7229ddf" data-version="2" data-experience="676fe4a7ff119f53c4063c1b"></div>
                 </div>
               )}
 
               {activeTab === 'disco' && activeDiscoPackage === 'disco-queen' && (
                 <div className="p-8" data-testid="content-disco-queen">
-                  {/* YOUR DISCO QUEEN PACKAGE EMBED CODE GOES HERE */}
+                  <div className="xola-embedded-checkout" data-seller="64c43a70daa3e618b7229ddf" data-version="2" data-experience="676f0bc68ff6dfb29009b5ad"></div>
                 </div>
               )}
 
               {activeTab === 'disco' && activeDiscoPackage === 'super-sparkle' && (
                 <div className="p-8" data-testid="content-disco-sparkle">
-                  {/* YOUR SUPER SPARKLE PLATINUM EMBED CODE GOES HERE */}
+                  <div className="xola-embedded-checkout" data-seller="64c43a70daa3e618b7229ddf" data-version="2" data-experience="676f0ceaa3744b05ae09e9de"></div>
                 </div>
               )}
 

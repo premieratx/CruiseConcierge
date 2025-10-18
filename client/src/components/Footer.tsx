@@ -1,4 +1,5 @@
 import { Link } from 'wouter';
+import { useEffect } from 'react';
 import { 
   Ship, Phone, Mail, MapPin, Facebook, Instagram, 
   MessageCircle, Youtube, Linkedin, ExternalLink, Bot, Award, FileText 
@@ -8,6 +9,16 @@ import logoPath from '@assets/PPC-Logo-80x80.webp';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
+
+  // Xola checkout.js loader
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.type = "text/javascript";
+    script.async = true;
+    script.src = "https://xola.com/checkout.js";
+    const s = document.getElementsByTagName("script")[0];
+    s.parentNode?.insertBefore(script, s);
+  }, []);
 
   return (
     <footer className="bg-[#0F172A] text-white border-t border-gray-800" data-testid="footer-main">
