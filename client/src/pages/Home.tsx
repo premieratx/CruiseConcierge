@@ -466,6 +466,23 @@ export default function Home() {
     }
   }, []);
 
+  // Handle Escape key to close booking modal
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && showBookingModal) {
+        setShowBookingModal(false);
+      }
+    };
+
+    if (showBookingModal) {
+      document.addEventListener('keydown', handleEscape);
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleEscape);
+    };
+  }, [showBookingModal]);
+
   const handleBookNow = (packageType?: string, eventType?: string) => {
     setShowBookingModal(true);
   };

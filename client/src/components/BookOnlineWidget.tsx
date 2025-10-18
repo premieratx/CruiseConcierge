@@ -203,8 +203,8 @@ export default function BookOnlineWidget({ defaultBoatType = '14p' }: BookOnline
 
             {/* Widget Container */}
             <div className="bg-white rounded-xl shadow-2xl overflow-hidden" style={{ minHeight: '600px' }}>
-              {/* 14p Widget */}
-              <div style={{ display: activeTab === '14p' ? 'block' : 'none' }}>
+              {/* 14p Widget - Visible initially for Xola init, then toggled */}
+              <div style={{ display: !xolaLoaded || activeTab === '14p' ? 'block' : 'none' }}>
                 <div
                   className="xola-embedded-checkout"
                   data-seller={xolaConfig.seller}
@@ -215,8 +215,8 @@ export default function BookOnlineWidget({ defaultBoatType = '14p' }: BookOnline
                 />
               </div>
 
-              {/* 25p Widget */}
-              <div style={{ display: activeTab === '25p' ? 'block' : 'none' }}>
+              {/* 25p Widget - Visible initially for Xola init, then toggled */}
+              <div style={{ display: !xolaLoaded || activeTab === '25p' ? 'block' : 'none' }}>
                 <div
                   className="xola-embedded-checkout"
                   data-seller={xolaConfig.seller}
@@ -227,8 +227,8 @@ export default function BookOnlineWidget({ defaultBoatType = '14p' }: BookOnline
                 />
               </div>
 
-              {/* 50p Widget */}
-              <div style={{ display: activeTab === '50p' ? 'block' : 'none' }}>
+              {/* 50p Widget - Visible initially for Xola init, then toggled */}
+              <div style={{ display: !xolaLoaded || activeTab === '50p' ? 'block' : 'none' }}>
                 <div
                   className="xola-embedded-checkout"
                   data-seller={xolaConfig.seller}
