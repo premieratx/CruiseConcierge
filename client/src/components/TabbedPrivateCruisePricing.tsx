@@ -80,7 +80,7 @@ function calculateTotalPrice(baseHourly: number, duration: number, packageFee: n
 }
 
 export function TabbedPrivateCruisePricing({
-  dayType = 'MON_THU',
+  dayType = 'SATURDAY',
   duration = 4,
   className = ''
 }: TabbedPrivateCruisePricingProps) {
@@ -150,6 +150,20 @@ export function TabbedPrivateCruisePricing({
 
   return (
     <div className={className}>
+      {/* Saturday Peak Season Note */}
+      <div className="mb-6 p-4 bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-800 rounded-lg">
+        <div className="flex items-start gap-3">
+          <Info className="h-5 w-5 text-blue-600 flex-shrink-0 mt-0.5" />
+          <div>
+            <p className="font-semibold text-blue-900 dark:text-blue-100 mb-1">Saturday Peak Season Rates</p>
+            <p className="text-sm text-blue-800 dark:text-blue-200">
+              Prices shown are base hourly rates for Saturday bookings during peak season (May-September). 
+              Weekday rates and off-season pricing available at lower rates. Contact us for exact pricing for your date.
+            </p>
+          </div>
+        </div>
+      </div>
+      
       <Tabs value={selectedBoat} onValueChange={(val) => setSelectedBoat(val as '14' | '25' | '50')}>
         <TabsList className="grid w-full grid-cols-3 mb-8">
           <TabsTrigger value="14" data-testid="tab-14-person">
@@ -211,10 +225,13 @@ export function TabbedPrivateCruisePricing({
                     <p className="text-sm text-gray-600 dark:text-gray-400">{pkg.description}</p>
                     
                     <div className="mt-4">
-                      <div className="text-3xl font-bold text-primary" data-testid={`total-${pkg.id}`}>
-                        {formatCurrency(pricing.total)}
+                      <div className="text-3xl font-bold text-primary" data-testid={`hourly-${pkg.id}`}>
+                        {formatCurrency(boat.baseHourly)}/hr
                       </div>
-                      <p className="text-xs text-gray-500">Total for {duration} hours</p>
+                      <p className="text-xs text-gray-500">Base hourly rate (Saturday peak season)</p>
+                      {pricing.packageFee > 0 && (
+                        <p className="text-xs text-gray-500 mt-1">+ {formatCurrency(pricing.packageFee)} package fee</p>
+                      )}
                     </div>
                   </CardHeader>
                   

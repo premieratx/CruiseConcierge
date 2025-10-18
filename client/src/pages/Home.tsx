@@ -11,6 +11,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { cn } from '@/lib/utils';
 import { useToast } from '@/hooks/use-toast';
 import { LazyImage } from '@/components/LazyImage';
@@ -45,6 +46,7 @@ import Facebook from 'lucide-react/dist/esm/icons/facebook';
 import Twitter from 'lucide-react/dist/esm/icons/twitter';
 import Quote from 'lucide-react/dist/esm/icons/quote';
 import ChevronRight from 'lucide-react/dist/esm/icons/chevron-right';
+import ChevronDown from 'lucide-react/dist/esm/icons/chevron-down';
 import Navigation from 'lucide-react/dist/esm/icons/navigation';
 import Compass from 'lucide-react/dist/esm/icons/compass';
 import LifeBuoy from 'lucide-react/dist/esm/icons/life-buoy';
@@ -82,7 +84,6 @@ import { InternalLinkHighlight, InternalLinkHighlightWithArrow } from '@/compone
 import { RelatedServicesSection } from '@/components/RelatedServicesSection';
 import AIOptimizedSection from '@/components/AIOptimizedSection';
 import { SectionReveal } from '@/components/SectionReveal';
-import { VideoTestimonials } from '@/components/VideoTestimonials';
 import BookOnlineWidget from '@/components/BookOnlineWidget';
 
 // Lazy load heavy components to improve FCP
@@ -1245,20 +1246,29 @@ export default function Home() {
         <section className="py-20 bg-gradient-to-br from-blue-50 via-white to-blue-50 dark:from-gray-900 dark:via-gray-950 dark:to-gray-900 relative">
           <div className="absolute top-4 right-4 text-6xl font-black text-blue-200 opacity-20">03</div>
           <div className="container mx-auto px-6">
-            <div className="text-center mb-16">
-              <Badge className="mb-6 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
-                <Calendar className="h-4 w-4 mr-2 inline" />
-                Availability & Booking
-              </Badge>
-              <h2 className="text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 dark:text-white leading-tight" data-editable data-editable-id="availability-main-title">
-                When Can You Book?
-              </h2>
-              <p className="text-lg md:text-xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed" data-editable data-editable-id="availability-description">
-                We operate year-round on Lake Travis with flexible scheduling to fit your celebration
-              </p>
-            </div>
+            <Collapsible className="max-w-7xl mx-auto" defaultOpen={false}>
+              <div className="text-center mb-8">
+                <Badge className="mb-6 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
+                  <Calendar className="h-4 w-4 mr-2 inline" />
+                  Availability & Booking
+                </Badge>
+                <h2 className="text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 dark:text-white leading-tight" data-editable data-editable-id="availability-main-title">
+                  When Can You Book?
+                </h2>
+                <p className="text-lg md:text-xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed mb-6" data-editable data-editable-id="availability-description">
+                  We operate year-round on Lake Travis with flexible scheduling to fit your celebration
+                </p>
+                
+                <CollapsibleTrigger asChild>
+                  <Button variant="outline" size="lg" className="group" data-testid="button-toggle-availability">
+                    <span>View Booking Details</span>
+                    <ChevronDown className="ml-2 h-4 w-4 transition-transform group-data-[state=open]:rotate-180" />
+                  </Button>
+                </CollapsibleTrigger>
+              </div>
 
-            {/* Main Availability Grid */}
+              <CollapsibleContent className="space-y-12">
+                {/* Main Availability Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12 max-w-7xl mx-auto">
               {/* 7 Days a Week */}
               <Card className="border-2 border-blue-200 dark:border-blue-900 hover:border-blue-400 dark:hover:border-blue-700 transition-all hover:shadow-xl bg-white dark:bg-gray-800">
@@ -1472,6 +1482,8 @@ export default function Home() {
                 Or call us at <a href="tel:5124885892" className="font-bold text-blue-600 dark:text-blue-400 hover:underline">(512) 488-5892</a>
               </p>
             </div>
+              </CollapsibleContent>
+            </Collapsible>
           </div>
         </section>
       </SectionReveal>
@@ -1814,125 +1826,9 @@ export default function Home() {
         </section>
       </SectionReveal>
 
-      {/* Video Testimonials Section */}
-      <VideoTestimonials
-        title="See Why Our Guests Love Us"
-        description="Real stories from bachelor parties, bachelorette celebrations, and corporate events on Lake Travis"
-        testimonials={[
-          {
-            id: '1',
-            name: 'Jessica & The Girls',
-            event: 'Bachelorette Party',
-            location: 'Dallas, TX',
-            rating: 5,
-            thumbnailUrl: 'https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg',
-            videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-            quote: 'This was hands down the BEST part of our Austin bachelorette weekend! The DJ was amazing and everyone had a blast!',
-            date: 'May 2024',
-          },
-          {
-            id: '2',
-            name: 'Mike & The Bachelor Crew',
-            event: 'Bachelor Party',
-            location: 'Houston, TX',
-            rating: 5,
-            thumbnailUrl: 'https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg',
-            videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-            quote: 'Epic experience! The ATX Disco Cruise exceeded all expectations. Highly recommend for any bachelor party.',
-            date: 'June 2024',
-          },
-          {
-            id: '3',
-            name: 'Corporate Team from Dell',
-            event: 'Team Building Event',
-            location: 'Austin, TX',
-            rating: 5,
-            thumbnailUrl: 'https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg',
-            videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-            quote: 'Perfect team building activity! Our entire department loved it. Professional crew and amazing vibes.',
-            date: 'April 2024',
-          },
-        ]}
-      />
-
       <Suspense fallback={<div className="py-12"></div>}>
         <PartyPlanningChecklist partyType="Lake Travis Party" eventType="celebration" />
       </Suspense>
-
-      {/* AI-Optimized Temporal/Seasonal Content */}
-      <section className="py-16 bg-gray-50 dark:bg-gray-900">
-        <div className="container mx-auto px-6">
-          <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-8">
-            {/* Best Times to Book */}
-            <AIOptimizedSection
-              type="timeline"
-              title="Best Times to Book Your Lake Travis Cruise"
-              description="Plan your party boat experience with our seasonal guide"
-              data={[
-                {
-                  time: "Spring (March-May)",
-                  title: "Peak Season Begins",
-                  description: "Perfect weather, temperatures 75-85°F. Book 6-8 weeks in advance. Popular for bachelor/bachelorette parties.",
-                  icon: <Sun className="w-4 h-4 text-white" />,
-                  duration: "High Demand"
-                },
-                {
-                  time: "Summer (June-August)",
-                  title: "Peak Summer Season",
-                  description: "Hot weather 85-100°F, lake is busiest. Book 8+ weeks ahead. Sunset cruises popular (7:30-8:30pm start).",
-                  icon: <Sun className="w-4 h-4 text-white" />,
-                  duration: "Highest Demand"
-                },
-                {
-                  time: "Fall (September-November)",
-                  title: "Perfect Weather Returns",
-                  description: "Ideal temperatures 70-85°F. Book 4-6 weeks ahead. Great for corporate events and birthdays.",
-                  icon: <Leaf className="w-4 h-4 text-white" />,
-                  duration: "Moderate Demand"
-                },
-                {
-                  time: "Winter (December-February)",
-                  title: "Off-Season Value",
-                  description: "Cooler 50-70°F, best rates available. Book 2-3 weeks ahead. Perfect for smaller private groups.",
-                  icon: <Snowflake className="w-4 h-4 text-white" />,
-                  duration: "Low Season"
-                }
-              ]}
-            />
-
-            {/* Peak vs Off-Peak Pricing */}
-            <AIOptimizedSection
-              type="list"
-              title="Peak vs Off-Peak Pricing Guide"
-              description="Understand our seasonal pricing for better planning"
-              data={[
-                {
-                  title: "Peak Season (May-September)",
-                  description: "Weekend rates apply Friday-Sunday. Private charters start at $300/hour. ATX Disco Cruise at full price ($85-125/person).",
-                  icon: <TrendingUp className="w-5 h-5" />,
-                  badge: "Higher Rates"
-                },
-                {
-                  title: "Shoulder Season (March-April, October)",
-                  description: "Moderate pricing with good availability. Save 10-15% on weekday bookings. Perfect weather conditions.",
-                  icon: <Calendar className="w-5 h-5" />
-                },
-                {
-                  title: "Off-Peak Season (November-February)",
-                  description: "Best value pricing, save up to 20%. Weekday rates often apply to weekends. More flexibility with booking times.",
-                  icon: <DollarSign className="w-5 h-5" />,
-                  badge: "Best Value"
-                },
-                {
-                  title: "Holiday Weekends",
-                  description: "Premium rates apply for Memorial Day, July 4th, Labor Day. Book 10-12 weeks in advance. Expect 20-30% higher rates.",
-                  icon: <Star className="w-5 h-5" />
-                }
-              ]}
-            />
-          </div>
-        </div>
-      </section>
 
       {/* AI-Optimized Conversational Q&A Content */}
       <section className="py-16 bg-white dark:bg-gray-950">

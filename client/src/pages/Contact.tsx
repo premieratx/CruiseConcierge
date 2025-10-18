@@ -5,6 +5,7 @@ import Footer from '@/components/Footer';
 import SEOHead from '@/components/SEOHead';
 import Breadcrumb from '@/components/Breadcrumb';
 import { SectionReveal } from '@/components/SectionReveal';
+import VideoTestimonials from '@/components/VideoTestimonials';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -483,6 +484,11 @@ export default function Contact() {
             </div>
           </div>
         </section>
+      </SectionReveal>
+
+      {/* Video Testimonials Section */}
+      <SectionReveal id="testimonials">
+        <VideoTestimonials />
       </SectionReveal>
 
       {/* SEO-Optimized Hidden Content for Search Engines */}
