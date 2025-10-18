@@ -374,6 +374,7 @@ export default function Home() {
   const [quickPricingDayOfWeek, setQuickPricingDayOfWeek] = useState(6); // Saturday
   const [showQuoteBuilder, setShowQuoteBuilder] = useState(false);
   const [showBookingModal, setShowBookingModal] = useState(false);
+  const [xolaPreloaded, setXolaPreloaded] = useState(false);
   const [iframeHeight, setIframeHeight] = useState(3000); // Very large height to prevent any internal scrolling
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const [contactForm, setContactForm] = useState({
@@ -448,6 +449,35 @@ export default function Home() {
     updateHeight();
     window.addEventListener('resize', updateHeight);
     return () => window.removeEventListener('resize', updateHeight);
+  }, []);
+
+  // Preload Xola script on page load for instant booking widget
+  useEffect(() => {
+    // Add DNS prefetch and preconnect for faster Xola loading
+    const prefetchLink = document.createElement('link');
+    prefetchLink.rel = 'dns-prefetch';
+    prefetchLink.href = 'https://xola.com';
+    document.head.appendChild(prefetchLink);
+
+    const preconnectLink = document.createElement('link');
+    preconnectLink.rel = 'preconnect';
+    preconnectLink.href = 'https://xola.com';
+    preconnectLink.crossOrigin = 'anonymous';
+    document.head.appendChild(preconnectLink);
+
+    // Preload Xola script immediately
+    if (!document.querySelector('script[src*="xola.com/checkout"]')) {
+      const script = document.createElement('script');
+      script.src = 'https://xola.com/checkout.js';
+      script.async = true;
+      script.onload = () => {
+        setXolaPreloaded(true);
+        console.log('✅ Xola script preloaded and ready');
+      };
+      document.body.appendChild(script);
+    } else {
+      setXolaPreloaded(true);
+    }
   }, []);
 
   // Update page title for SEO
@@ -2874,7 +2904,7 @@ export default function Home() {
             Select from our available boat cruises and packages to book your Lake Travis party boat experience
           </DialogDescription>
           <div className="flex-1 overflow-y-auto">
-            <BookOnlineWidget />
+            <BookOnlineWidget preloaded={xolaPreloaded} />
           </div>
         </DialogContent>
       </Dialog>

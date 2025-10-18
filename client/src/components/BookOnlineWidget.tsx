@@ -5,6 +5,7 @@ import { Ship, Star, CheckCircle, Clock } from 'lucide-react';
 
 interface BookOnlineWidgetProps {
   defaultBoatType?: '14p' | '25p' | '50p' | 'disco';
+  preloaded?: boolean;
 }
 
 const fadeInUp = {
@@ -16,15 +17,31 @@ const fadeInUp = {
   }
 };
 
-export default function BookOnlineWidget({ defaultBoatType = '14p' }: BookOnlineWidgetProps) {
+export default function BookOnlineWidget({ defaultBoatType = '14p', preloaded = false }: BookOnlineWidgetProps) {
   const [activeTab, setActiveTab] = useState<string>(defaultBoatType);
   const [activeDiscoPackage, setActiveDiscoPackage] = useState<string>('super-sparkle');
-  const [xolaLoaded, setXolaLoaded] = useState(false);
+  const [xolaLoaded, setXolaLoaded] = useState(preloaded);
 
-  // Load Xola checkout script
+  // Initialize Xola if already preloaded, otherwise load script
   useEffect(() => {
+    if (preloaded) {
+      setXolaLoaded(true);
+      if (window.XolaCheckout) {
+        // Initialize immediately if preloaded
+        setTimeout(() => {
+          window.XolaCheckout.init();
+          console.log('✅ Xola initialized from preload');
+        }, 100);
+      }
+      return;
+    }
+
+    // Fallback: Load script if not preloaded
     if (document.querySelector('script[src*="xola.com/checkout"]')) {
       setXolaLoaded(true);
+      if (window.XolaCheckout) {
+        window.XolaCheckout.init();
+      }
       return;
     }
 
@@ -37,10 +54,10 @@ export default function BookOnlineWidget({ defaultBoatType = '14p' }: BookOnline
         if (window.XolaCheckout) {
           window.XolaCheckout.init();
         }
-      }, 500);
+      }, 300);
     };
     document.body.appendChild(script);
-  }, []);
+  }, [preloaded]);
 
   // Re-initialize Xola widgets when tab changes
   useEffect(() => {

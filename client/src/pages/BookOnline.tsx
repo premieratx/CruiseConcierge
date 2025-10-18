@@ -26,10 +26,30 @@ export default function BookOnline({ defaultBoatType = '14p' }: BookOnlineProps)
     window.scrollTo({ top: 0, behavior: 'instant' });
   }, []);
 
-  // Load Xola checkout script
+  // Preload Xola script with DNS prefetch for faster loading
   useEffect(() => {
+    // Add DNS prefetch and preconnect for faster Xola loading
+    if (!document.querySelector('link[href="https://xola.com"][rel="dns-prefetch"]')) {
+      const prefetchLink = document.createElement('link');
+      prefetchLink.rel = 'dns-prefetch';
+      prefetchLink.href = 'https://xola.com';
+      document.head.appendChild(prefetchLink);
+    }
+
+    if (!document.querySelector('link[href="https://xola.com"][rel="preconnect"]')) {
+      const preconnectLink = document.createElement('link');
+      preconnectLink.rel = 'preconnect';
+      preconnectLink.href = 'https://xola.com';
+      preconnectLink.crossOrigin = 'anonymous';
+      document.head.appendChild(preconnectLink);
+    }
+
+    // Load Xola checkout script
     if (document.querySelector('script[src*="xola.com/checkout"]')) {
       setXolaLoaded(true);
+      if (window.XolaCheckout) {
+        setTimeout(() => window.XolaCheckout.init(), 100);
+      }
       return;
     }
 
@@ -42,7 +62,8 @@ export default function BookOnline({ defaultBoatType = '14p' }: BookOnlineProps)
         if (window.XolaCheckout) {
           window.XolaCheckout.init();
         }
-      }, 500);
+        console.log('✅ Xola loaded on BookOnline page');
+      }, 200);
     };
     document.body.appendChild(script);
   }, []);
