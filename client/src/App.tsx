@@ -26,6 +26,7 @@ const NotFound = lazy(() => import("@/pages/not-found"));
 // Additional lazy-loaded routes
 const Dashboard = lazy(() => import("./pages/Dashboard"));
 const Chat = lazy(() => import("./pages/Chat"));
+const BookOnline = lazy(() => import("./pages/BookOnline"));
 const GoldenTicket = lazy(() => import("./pages/GoldenTicket"));
 const GoldenTicketPrivate = lazy(() => import("./pages/GoldenTicketPrivate"));
 const QuoteBuilderEmbed = lazy(() => import("./pages/QuoteBuilderEmbed"));
@@ -263,6 +264,11 @@ function Router() {
       {/* Public Quote Builder (Chat) - No auth required */}
       <Route path="/chat">
         <Chat />
+      </Route>
+      
+      {/* Book Online with Xola Widgets - No auth required */}
+      <Route path="/book-online">
+        <BookOnline />
       </Route>
       
       {/* Golden Ticket Promotion Page - No auth required */}
