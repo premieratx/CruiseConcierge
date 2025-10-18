@@ -44,7 +44,7 @@ const DialogContent = forwardRef<
       )}
       {...props}
     >
-      <DialogPrimitive.Close className="absolute right-2 top-2 sm:right-4 sm:top-4 rounded-sm opacity-100 transition-all hover:opacity-80 hover:scale-110 focus:outline-none focus:ring-4 focus:ring-black focus:ring-offset-2 disabled:pointer-events-none z-[9999] bg-white p-1 sm:p-2 shadow-lg" data-testid="button-close-modal">
+      <DialogPrimitive.Close className="fixed right-5 top-5 rounded-sm opacity-100 transition-all hover:opacity-80 hover:scale-110 focus:outline-none focus:ring-4 focus:ring-black focus:ring-offset-2 disabled:pointer-events-none z-[9999] bg-white p-1 sm:p-2 shadow-lg" data-testid="button-close-modal" style={{ position: 'absolute', right: '20px', top: '20px' }}>
         <X className="h-10 w-10 sm:h-12 sm:w-12 text-black" strokeWidth={4} />
         <span className="sr-only">Close</span>
       </DialogPrimitive.Close>
