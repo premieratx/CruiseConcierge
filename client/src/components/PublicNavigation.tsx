@@ -273,15 +273,41 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
               />
             </a>
 
-            {/* Mobile Hamburger Menu Button */}
-            <button
-              onClick={() => setMobileMenuOpen(true)}
-              className="lg:hidden p-2 text-gray-700 dark:text-gray-300 hover:text-brand-blue transition-colors"
-              data-testid="button-mobile-menu-toggle"
-              aria-label="Open menu"
-            >
-              <Menu className="h-6 w-6" />
-            </button>
+            {/* Mobile CTA Buttons + Hamburger Menu */}
+            <div className="lg:hidden flex items-center gap-1.5">
+              {/* Mobile Get Quote Button */}
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={handleGetQuote}
+                className="border-2 border-brand-blue text-brand-blue hover:bg-brand-blue hover:text-white font-bold px-2 py-1.5 text-xs whitespace-nowrap h-9"
+                data-testid="button-mobile-header-get-quote"
+              >
+                <MessageSquare className="h-3.5 w-3.5 mr-1" />
+                QUOTE
+              </Button>
+              
+              {/* Mobile Book Now Button */}
+              <Button
+                size="sm"
+                onClick={handleBookNow}
+                className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold px-2 py-1.5 text-xs whitespace-nowrap h-9 shadow-md"
+                data-testid="button-mobile-header-book-now"
+              >
+                <Calendar className="h-3.5 w-3.5 mr-1" />
+                BOOK
+              </Button>
+
+              {/* Hamburger Menu Button */}
+              <button
+                onClick={() => setMobileMenuOpen(true)}
+                className="p-2 text-gray-700 dark:text-gray-300 hover:text-brand-blue transition-colors"
+                data-testid="button-mobile-menu-toggle"
+                aria-label="Open menu"
+              >
+                <Menu className="h-6 w-6" />
+              </button>
+            </div>
 
             {/* Desktop Navigation */}
             <NavigationMenu className="hidden lg:block overflow-visible">
