@@ -1,5 +1,4 @@
-import { useState, useEffect, useRef, lazy, Suspense, FormEvent } from 'react';
-import { useXolaEmbed } from '@/hooks/useXolaEmbed';
+import { useState, useEffect, lazy, Suspense, FormEvent } from 'react';
 import { Link, useLocation } from 'wouter';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useQuery } from '@tanstack/react-query';
