@@ -370,12 +370,8 @@ export default function Home() {
   const reducedMotion = useReducedMotion();
   const [currentHeroImage, setCurrentHeroImage] = useState(0);
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
-  const xolaBookingRef = useRef<HTMLDivElement>(null);
   const [activeXolaTab, setActiveXolaTab] = useState('14p');
   const [discoTab, setDiscoTab] = useState('super-sparkle');
-  
-  // Initialize Xola widget for booking section
-  useXolaEmbed(xolaBookingRef, [activeXolaTab, discoTab]);
   const [showLightbox, setShowLightbox] = useState(false);
   const [selectedService, setSelectedService] = useState<typeof services[0] | null>(null);
   const [quickPricingGroupSize, setQuickPricingGroupSize] = useState(20);
@@ -2824,33 +2820,61 @@ export default function Home() {
             </div>
           )}
 
-          {/* Widget Container */}
-          <div ref={xolaBookingRef} className="max-w-5xl mx-auto bg-white rounded-2xl shadow-2xl p-8" style={{ minHeight: '700px' }}>
-            
+          {/* Widget Container - iframe approach */}
+          <div className="max-w-5xl mx-auto bg-white rounded-2xl shadow-2xl overflow-hidden">
             {activeXolaTab === '14p' && (
-              <div className="xola-embedded-checkout" data-seller="64c43a70daa3e618b7229ddf" data-version="2" data-experience="64c7d0012c2afc7d8d70e285"></div>
+              <iframe 
+                key="14p"
+                src="/widgets/14p.html" 
+                style={{ width: '100%', minHeight: '800px', border: 'none' }}
+                title="14-Person Boat Booking"
+              />
             )}
 
             {activeXolaTab === '25p' && (
-              <div className="xola-embedded-checkout" data-seller="64c43a70daa3e618b7229ddf" data-version="2" data-experience="64c7d2b74e1de53cee29395e"></div>
+              <iframe 
+                key="25p"
+                src="/widgets/25p.html" 
+                style={{ width: '100%', minHeight: '800px', border: 'none' }}
+                title="25-Person Boat Booking"
+              />
             )}
 
             {activeXolaTab === '50p' && (
-              <div className="xola-embedded-checkout" data-seller="64c43a70daa3e618b7229ddf" data-version="2" data-experience="64c7d4f01be574411500cf62"></div>
+              <iframe 
+                key="50p"
+                src="/widgets/50p.html" 
+                style={{ width: '100%', minHeight: '800px', border: 'none' }}
+                title="50-Person Boat Booking"
+              />
             )}
 
             {activeXolaTab === 'disco' && discoTab === 'basic-bach' && (
-              <div className="xola-embedded-checkout" data-seller="64c43a70daa3e618b7229ddf" data-version="2" data-experience="676fe4a7ff119f53c4063c1b"></div>
+              <iframe 
+                key="basic-bach"
+                src="/widgets/basic-bach.html" 
+                style={{ width: '100%', minHeight: '800px', border: 'none' }}
+                title="Basic Bach Package Booking"
+              />
             )}
 
             {activeXolaTab === 'disco' && discoTab === 'disco-queen' && (
-              <div className="xola-embedded-checkout" data-seller="64c43a70daa3e618b7229ddf" data-version="2" data-experience="676f0bc68ff6dfb29009b5ad"></div>
+              <iframe 
+                key="disco-queen"
+                src="/widgets/disco-queen.html" 
+                style={{ width: '100%', minHeight: '800px', border: 'none' }}
+                title="Disco Queen Package Booking"
+              />
             )}
 
             {activeXolaTab === 'disco' && discoTab === 'super-sparkle' && (
-              <div className="xola-embedded-checkout" data-seller="64c43a70daa3e618b7229ddf" data-version="2" data-experience="676f0ceaa3744b05ae09e9de"></div>
+              <iframe 
+                key="super-sparkle"
+                src="/widgets/super-sparkle.html" 
+                style={{ width: '100%', minHeight: '800px', border: 'none' }}
+                title="Super Sparkle Platinum Booking"
+              />
             )}
-
           </div>
         </div>
       </section>
