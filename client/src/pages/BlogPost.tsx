@@ -226,9 +226,9 @@ export default function BlogPostPage() {
     "headline": post.title,
     "author": {
       "@type": "Person",
-      "name": author.name || "Premier Party Cruises Team",
-      ...(author.bio && { "description": author.bio }),
-      ...(author.website && { "url": author.website })
+      "name": author?.name || "Premier Party Cruises Team",
+      ...(author?.bio && { "description": author.bio }),
+      ...(author?.website && { "url": author.website })
     },
     ...(publishedDate && { "datePublished": publishedDate }),
     ...(modifiedDate && { "dateModified": modifiedDate }),
@@ -323,7 +323,7 @@ export default function BlogPostPage() {
         article={{
           publishedTime: publishedDate,
           modifiedTime: modifiedDate,
-          author: author.name,
+          author: author?.name || "Premier Party Cruises Team",
           section: categories.length > 0 ? categories[0].name : undefined,
           tags: tags.map(t => t.name)
         }}
@@ -367,17 +367,22 @@ export default function BlogPostPage() {
             {/* Meta Information */}
             <div className="flex flex-wrap items-center gap-3 md:gap-4 text-sm text-gray-500 dark:text-gray-400 border-t border-b border-gray-200 dark:border-gray-700 py-4">
               {/* Author */}
-              <Link href={`/blogs/author/${author.id}`}>
-                <div className="flex items-center gap-2 hover:text-brand-blue transition-colors" data-testid="link-author">
-                  <Avatar className="h-9 w-9 ring-2 ring-gray-200 dark:ring-gray-700">
-                    <AvatarImage src={author.avatarUrl || ""} alt={author.name} />
-                    <AvatarFallback className="bg-brand-blue text-white font-semibold">
-                      {author.name.split(' ').map(n => n[0]).join('')}
-                    </AvatarFallback>
-                  </Avatar>
-                  <span className="font-medium">{author.name}</span>
-                </div>
-              </Link>
+              {author && (
+                <Link href={`/blogs/author/${author.id}`}>
+                  <div className="flex items-center gap-2 hover:text-brand-blue transition-colors" data-testid="link-author">
+                    <Avatar className="h-9 w-9 ring-2 ring-gray-200 dark:ring-gray-700">
+                      <AvatarImage src={author.avatarUrl || ""} alt={author.name} />
+                      <AvatarFallback className="bg-brand-blue text-white font-semibold">
+                        {author.name.split(' ').map(n => n[0]).join('')}
+                      </AvatarFallback>
+                    </Avatar>
+                    <span className="font-medium">{author.name}</span>
+                  </div>
+                </Link>
+              )}
+              {!author && (
+                <span className="text-sm text-gray-500 dark:text-gray-400">Premier Party Cruises Team</span>
+              )}
 
               <Separator orientation="vertical" className="h-5 bg-gray-300 dark:bg-gray-600" />
 
@@ -497,18 +502,19 @@ export default function BlogPostPage() {
 
           {/* Author Bio */}
           <div className="px-6 md:px-12 py-8">
-            <div className="flex items-start gap-4 p-6 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 rounded-xl border border-gray-200 dark:border-gray-700">
-              <Avatar className="h-16 w-16 ring-4 ring-white dark:ring-gray-800">
-                <AvatarImage src={author.avatarUrl || ""} alt={author.name} />
-                <AvatarFallback className="text-lg bg-brand-blue text-white font-bold">
-                  {author.name.split(' ').map(n => n[0]).join('')}
-                </AvatarFallback>
-              </Avatar>
-              <div className="flex-1">
-                <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-white" data-testid="name-author">{author.name}</h3>
-                {author.bio && (
-                  <p className="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed" data-testid="bio-author">
-                    {author.bio}
+            {author && (
+              <div className="flex items-start gap-4 p-6 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 rounded-xl border border-gray-200 dark:border-gray-700">
+                <Avatar className="h-16 w-16 ring-4 ring-white dark:ring-gray-800">
+                  <AvatarImage src={author.avatarUrl || ""} alt={author.name} />
+                  <AvatarFallback className="text-lg bg-brand-blue text-white font-bold">
+                    {author.name.split(' ').map(n => n[0]).join('')}
+                  </AvatarFallback>
+                </Avatar>
+                <div className="flex-1">
+                  <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-white" data-testid="name-author">{author.name}</h3>
+                  {author.bio && (
+                    <p className="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed" data-testid="bio-author">
+                      {author.bio}
                   </p>
                 )}
                 <div className="flex items-center gap-3">
@@ -530,7 +536,7 @@ export default function BlogPostPage() {
                   )}
                 </div>
               </div>
-            </div>
+            )}
           </div>
         </article>
 
