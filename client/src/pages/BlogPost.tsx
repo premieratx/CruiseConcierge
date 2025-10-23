@@ -515,9 +515,9 @@ export default function BlogPostPage() {
                   {author.bio && (
                     <p className="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed" data-testid="bio-author">
                       {author.bio}
-                  </p>
-                )}
-                <div className="flex items-center gap-3">
+                    </p>
+                  )}
+                  <div className="flex items-center gap-3">
                   <Link href={`/blogs/author/${author.id}`}>
                     <Button variant="default" size="sm" className="bg-brand-blue hover:bg-blue-700" data-testid="button-view-author">
                       View Profile

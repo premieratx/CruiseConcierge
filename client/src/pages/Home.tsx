@@ -567,7 +567,7 @@ export default function Home() {
         defaultKeywords={['party boat Austin', 'bachelorette party Austin', 'Austin boat rental', 'Lake Travis party boat', 'bachelor party Austin']}
         schemaType="organization"
       />
-      <PublicNavigation onBookNowClick={() => setShowBookingModal(true)} />
+      <PublicNavigation />
       {/* Hero Section */}
       <section id="hero" className="relative min-h-screen flex flex-col justify-center overflow-hidden">
         {/* Video Background */}
