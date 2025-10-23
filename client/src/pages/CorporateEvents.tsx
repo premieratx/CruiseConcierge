@@ -229,69 +229,6 @@ const corporateInclusions = [
   }
 ];
 
-// Corporate testimonials
-const corporateTestimonials = [
-  {
-    id: 1,
-    name: 'Robert Chen',
-    role: 'VP of Engineering',
-    company: 'Dell Technologies',
-    rating: 5,
-    text: "We needed something special for our engineering team's quarterly offsite, and this exceeded all expectations. The 50-person capacity was perfect for our group, and being on the water sparked creativity in ways our usual conference room never could. Three major product innovations came from conversations that started on that boat. The ROI was immediate and measurable.",
-    avatar: '💻',
-    event: 'Team Building & Innovation Workshop'
-  },
-  {
-    id: 2,
-    name: 'Dr. Patricia Williams',
-    role: 'Chief Medical Officer',
-    company: 'St. David\'s HealthCare',
-    rating: 5,
-    text: "Our medical staff works incredibly demanding schedules, and we needed an event that truly allowed them to decompress and connect. The cruise provided exactly that—a beautiful, stress-free environment where our doctors and nurses could relax and bond as a team. Staff satisfaction scores jumped 40% after this event, and we\'ve made it an annual tradition.",
-    avatar: '⚕️',
-    event: 'Healthcare Team Appreciation'
-  },
-  {
-    id: 3,
-    name: 'Marcus Thompson',
-    role: 'Managing Partner',
-    company: 'Deloitte Consulting',
-    rating: 5,
-    text: "Client entertainment is crucial in our industry, and this experience helped us close a $2M contract. The professional atmosphere combined with Lake Travis views created the perfect setting for relationship building. Our clients were thoroughly impressed, and the tax-deductible nature made it an easy decision for our CFO. We now book quarterly cruises for top-tier client meetings.",
-    avatar: '💼',
-    event: 'Client Entertainment & Deal Closing'
-  },
-  {
-    id: 4,
-    name: 'Jennifer Patel',
-    role: 'Head of People Operations',
-    company: 'Indeed',
-    rating: 5,
-    text: "As a tech company competing for top talent, we needed our team building events to be memorable and meaningful. This cruise delivered on both fronts. Our remote employees flew in for this event specifically, and it created connections that have improved cross-team collaboration ever since. Employee retention in participating departments is up 25% year-over-year.",
-    avatar: '🎯',
-    event: 'Tech Team Building & Remote Team Integration'
-  },
-  {
-    id: 5,
-    name: 'Amanda Martinez',
-    role: 'Senior VP, Wealth Management',
-    company: 'Morgan Stanley',
-    rating: 5,
-    text: "In finance, trust and relationships are everything. We use these cruises for both team building and high-net-worth client entertainment. The professional service, pristine boats, and stunning setting reflect the quality our clients expect from us. It's become our signature event—clients specifically ask when the next cruise is scheduled. Exceptional value for corporate entertainment.",
-    avatar: '📈',
-    event: 'Financial Services Client Relations'
-  },
-  {
-    id: 6,
-    name: 'David Kim',
-    role: 'Founder & CEO',
-    company: 'TechStars Austin',
-    rating: 5,
-    text: "As a startup accelerator, we wanted to celebrate our graduating cohort with something special that reflected Austin's unique culture. The cruise was perfect—professional enough for our corporate sponsors, fun enough for our entrepreneurs, and memorable enough that it's become part of our brand identity. Three startup partnerships were formed on that boat. Best investment in our program.",
-    avatar: '🚀',
-    event: 'Startup Cohort Celebration & Networking'
-  }
-];
 
 // Corporate FAQs
 const corporateFAQs = [
@@ -916,40 +853,40 @@ export default function CorporateEvents() {
       <SectionReveal id="testimonials">
         <section className="py-24 bg-white">
           <div className="max-w-7xl mx-auto px-6">
-            <div className="text-center mb-16">
+            <div className="text-center mb-12">
               <Badge className="mb-4 font-sans tracking-wider uppercase">TESTIMONIALS</Badge>
-              <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-4 text-center" data-editable data-editable-id="h2-testimonials">
+              <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-6 text-center" data-editable data-editable-id="h2-testimonials">
                 What Corporate Clients Say
               </h2>
-              <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-                Trusted by Fortune 500 companies, healthcare organizations, and Austin's top firms
+              <p className="text-xl text-gray-700 max-w-3xl mx-auto mb-8">
+                Check out our verified reviews on Google and Facebook!
               </p>
-            </div>
-
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {corporateTestimonials.map((testimonial) => (
-                <Card key={testimonial.id} className="rounded-xl border-2 border-gray-200 hover:border-blue-600 hover:shadow-xl transition-all">
-                  <CardContent className="p-6">
-                    <div className="flex items-center gap-1 mb-4">
-                      {[...Array(testimonial.rating)].map((_, i) => (
-                        <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
-                      ))}
-                    </div>
-                    <p className="text-base text-gray-700 mb-6 italic leading-relaxed">"{testimonial.text}"</p>
-                    <div className="flex items-center gap-3 mb-4">
-                      <div className="text-4xl">{testimonial.avatar}</div>
-                      <div>
-                        <p className="font-bold text-lg">{testimonial.name}</p>
-                        <p className="text-sm text-gray-600">{testimonial.role}</p>
-                        <p className="text-sm font-semibold text-blue-600">{testimonial.company}</p>
-                      </div>
-                    </div>
-                    <Badge className="font-sans tracking-wider text-xs bg-blue-100 text-blue-700 hover:bg-blue-200">
-                      {testimonial.event}
-                    </Badge>
-                  </CardContent>
-                </Card>
-              ))}
+              
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button 
+                  size="lg"
+                  variant="outline"
+                  className="border-blue-600 text-blue-600 hover:bg-blue-50"
+                  data-testid="button-google-reviews"
+                >
+                  <a href="https://www.google.com/search?q=premier+party+cruises+austin" target="_blank" rel="noopener noreferrer" className="flex items-center">
+                    <Star className="mr-2 h-5 w-5" />
+                    View Google Reviews
+                  </a>
+                </Button>
+                
+                <Button 
+                  size="lg"
+                  variant="outline"
+                  className="border-blue-600 text-blue-600 hover:bg-blue-50"
+                  data-testid="button-facebook-reviews"
+                >
+                  <a href="https://www.facebook.com/premierpartycruises" target="_blank" rel="noopener noreferrer" className="flex items-center">
+                    <Star className="mr-2 h-5 w-5" />
+                    View Facebook Reviews
+                  </a>
+                </Button>
+              </div>
             </div>
           </div>
         </section>

@@ -163,41 +163,6 @@ const weddingInclusions = [
   }
 ];
 
-// Wedding testimonials
-const weddingTestimonials = [
-  {
-    id: 1,
-    name: 'Sarah & Michael Johnson',
-    event: 'Rehearsal Dinner',
-    rating: 5,
-    text: "Our rehearsal dinner cruise was absolutely perfect! The sunset views were breathtaking, the crew was incredibly professional, and our families had the best time getting to know each other. It set the perfect tone for our wedding weekend.",
-    avatar: '💑'
-  },
-  {
-    id: 2,
-    name: 'Emily & David Chen',
-    event: 'Welcome Party',
-    rating: 5,
-    text: "We wanted something uniquely Austin for our out-of-town guests, and the welcome party cruise exceeded expectations! Everyone was talking about it all weekend. The crew handled everything beautifully.",
-    avatar: '💕'
-  },
-  {
-    id: 3,
-    name: 'Jessica & Ryan Martinez',
-    event: 'After Party',
-    rating: 5,
-    text: "After our reception, we took our wedding party and close friends on a late-night cruise. It was the perfect ending to our perfect day! Dancing under the stars on Lake Travis - unforgettable!",
-    avatar: '💖'
-  },
-  {
-    id: 4,
-    name: 'Amanda & Chris Thompson',
-    event: 'Rehearsal Dinner',
-    rating: 5,
-    text: "The intimate setting on the water was exactly what we wanted for our rehearsal dinner. The photographer captured stunning sunset shots, and the champagne toast with the Austin skyline backdrop was magical.",
-    avatar: '💐'
-  }
-];
 
 // Wedding FAQs
 const weddingFAQs = [
@@ -472,40 +437,38 @@ export default function WeddingParties() {
         </section>
       </SectionReveal>
 
-      {/* Testimonials Section */}
+      {/* Reviews Section */}
       <SectionReveal>
         <section className="py-24 bg-white">
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
               <span className="text-6xl font-black text-gray-100 opacity-30 absolute -mt-8">05</span>
               <h2 className="font-playfair text-3xl md:text-4xl font-bold mb-6 text-center relative">
-                Wedding Love Stories
+                Customer Reviews
               </h2>
-              <p className="text-base text-gray-600 max-w-3xl mx-auto text-center">
-                Real couples, real celebrations, real memories
+              <p className="text-base text-gray-600 max-w-3xl mx-auto text-center mb-8">
+                Check out our verified reviews on Google and Facebook to see what real customers are saying about their wedding events on Lake Travis!
               </p>
-            </div>
-
-            <div className="grid md:grid-cols-2 gap-8">
-              {weddingTestimonials.map((testimonial) => (
-                <Card key={testimonial.id} className="rounded-xl">
-                  <CardContent className="pt-8">
-                    <div className="flex items-center mb-4">
-                      <span className="text-4xl mr-4">{testimonial.avatar}</span>
-                      <div>
-                        <p className="font-bold text-lg">{testimonial.name}</p>
-                        <p className="text-sm text-gray-600">{testimonial.event}</p>
-                      </div>
-                    </div>
-                    <div className="flex mb-4">
-                      {[...Array(testimonial.rating)].map((_, i) => (
-                        <Star key={i} className="h-5 w-5 text-yellow-500 fill-current" />
-                      ))}
-                    </div>
-                    <p className="text-base text-gray-700 italic">"{testimonial.text}"</p>
-                  </CardContent>
-                </Card>
-              ))}
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button
+                  size="lg"
+                  asChild
+                  className="bg-white hover:bg-gray-50 text-gray-900 border-2 border-gray-300 font-bold text-lg px-10 py-7"
+                >
+                  <a href="https://www.google.com/search?q=premier+party+cruises" target="_blank" rel="noopener noreferrer" data-testid="button-google-reviews">
+                    View Google Reviews
+                  </a>
+                </Button>
+                <Button
+                  size="lg"
+                  asChild
+                  className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold text-lg px-10 py-7"
+                >
+                  <a href="https://www.facebook.com/premierpartycruises" target="_blank" rel="noopener noreferrer" data-testid="button-facebook-reviews">
+                    View Facebook Reviews
+                  </a>
+                </Button>
+              </div>
             </div>
           </div>
         </section>

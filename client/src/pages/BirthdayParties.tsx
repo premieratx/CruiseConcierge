@@ -131,42 +131,6 @@ const birthdayInclusions = [
   }
 ];
 
-// Birthday testimonials
-const birthdayTestimonials = [
-  {
-    id: 1,
-    name: 'Jessica Thompson',
-    age: '30th Birthday',
-    rating: 5,
-    text: "My dirty thirty on Lake Travis was absolutely perfect! The crew made me feel like a VIP, the decorations were amazing, and my friends are still talking about it. Best birthday ever!",
-    avatar: '🎉'
-  },
-  {
-    id: 2,
-    name: 'Michael Rodriguez',
-    age: '21st Birthday',
-    rating: 5,
-    text: "Finally 21 and celebrated in style! The crew was so fun, helped with our party games, and made sure everyone had an incredible time. The sunset views were unreal!",
-    avatar: '🎂'
-  },
-  {
-    id: 3,
-    name: 'Sarah Chen',
-    age: '40th Birthday',
-    rating: 5,
-    text: "Turned 40 feeling like 20! The VIP package was worth every penny - photographer captured amazing memories, the floats were so fun, and the crew went above and beyond.",
-    avatar: '👑'
-  },
-  {
-    id: 4,
-    name: 'David Park',
-    age: '50th Birthday',
-    rating: 5,
-    text: "My wife surprised me with a 50th birthday cruise and it was phenomenal. Professional service, beautiful boat, and the perfect way to celebrate with family and friends.",
-    avatar: '🏆'
-  }
-];
-
 // Birthday FAQs
 const birthdayFAQs = [
   {
@@ -407,40 +371,61 @@ export default function BirthdayParties() {
         </section>
       </SectionReveal>
 
-      {/* Testimonials Section */}
+      {/* Reviews Section */}
       <SectionReveal>
         <section className="py-24 bg-gradient-to-b from-blue-50 to-white">
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
               <span className="text-6xl font-black text-gray-100 opacity-30 absolute -mt-8">04</span>
+              <Badge className="mb-6 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
+                <Quote className="h-4 w-4 mr-2 inline" />
+                Customer Reviews
+              </Badge>
               <h2 className="font-playfair text-3xl md:text-4xl font-bold mb-6 text-center relative">
-                Birthday Love
+                What Birthday Parties Are Saying
               </h2>
-              <p className="text-base text-gray-600 max-w-3xl mx-auto text-center">
-                Real birthday celebrations, real happy guests
+              <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed mb-8">
+                Check out our verified reviews on Google and Facebook!
               </p>
-            </div>
+              
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <Button
+                  size="lg"
+                  variant="outline"
+                  asChild
+                  className="border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white font-bold text-lg px-10 py-6"
+                  data-testid="button-google-reviews"
+                >
+                  <a href="https://www.google.com/search?q=premier+party+cruises+austin" target="_blank" rel="noopener noreferrer">
+                    <Star className="mr-2 h-5 w-5" />
+                    View Google Reviews
+                  </a>
+                </Button>
+                
+                <Button
+                  size="lg"
+                  variant="outline"
+                  asChild
+                  className="border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white font-bold text-lg px-10 py-6"
+                  data-testid="button-facebook-reviews"
+                >
+                  <a href="https://www.facebook.com/premierpartycruises" target="_blank" rel="noopener noreferrer">
+                    <Star className="mr-2 h-5 w-5" />
+                    View Facebook Reviews
+                  </a>
+                </Button>
+              </div>
 
-            <div className="grid md:grid-cols-2 gap-8">
-              {birthdayTestimonials.map((testimonial) => (
-                <Card key={testimonial.id} className="rounded-xl">
-                  <CardContent className="pt-8">
-                    <div className="flex items-center mb-4">
-                      <span className="text-4xl mr-4">{testimonial.avatar}</span>
-                      <div>
-                        <p className="font-bold text-lg">{testimonial.name}</p>
-                        <p className="text-sm text-gray-600">{testimonial.age}</p>
-                      </div>
-                    </div>
-                    <div className="flex mb-4">
-                      {[...Array(testimonial.rating)].map((_, i) => (
-                        <Star key={i} className="h-5 w-5 text-yellow-500 fill-current" />
-                      ))}
-                    </div>
-                    <p className="text-base text-gray-700 italic">"{testimonial.text}"</p>
-                  </CardContent>
-                </Card>
-              ))}
+              <div className="text-center mt-12">
+                <Button
+                  size="lg"
+                  onClick={handleGetQuote}
+                  className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold text-lg px-12 py-6"
+                >
+                  Book Your Birthday Party Today
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+              </div>
             </div>
           </div>
         </section>
