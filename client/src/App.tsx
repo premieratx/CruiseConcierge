@@ -88,6 +88,7 @@ const BusinessSummary = lazy(() => import("./pages/admin/BusinessSummary"));
 // Landing Pages - Lazy loaded
 const BachelorParty = lazy(() => import("./pages/BachelorParty"));
 const BacheloretteParty = lazy(() => import("./pages/BacheloretteParty"));
+const CombinedBachelorBachelorette = lazy(() => import("./pages/CombinedBachelorBachelorette"));
 const ATXDiscoCruise = lazy(() => import("./pages/ATXDiscoCruise"));
 const PrivateCruises = lazy(() => import("./pages/PrivateCruises"));
 const CorporateEvents = lazy(() => import("./pages/CorporateEvents"));
@@ -159,6 +160,7 @@ function Router() {
       {/* Landing Pages */}
       <Route path="/bachelor-party-austin" component={BachelorParty} />
       <Route path="/bachelorette-party-austin" component={BacheloretteParty} />
+      <Route path="/combined-bachelor-bachelorette" component={CombinedBachelorBachelorette} />
       <Route path="/atx-disco-cruise" component={ATXDiscoCruise} />
       
       {/* Legacy URL Redirects - SEO & User Experience */}
@@ -184,7 +186,7 @@ function Router() {
         {() => {
           const [, navigate] = useLocation();
           useEffect(() => {
-            navigate('/atx-disco-cruise', { replace: true });
+            navigate('/combined-bachelor-bachelorette', { replace: true });
           }, [navigate]);
           return null;
         }}
