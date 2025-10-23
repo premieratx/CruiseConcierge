@@ -70,7 +70,7 @@ const faqData = [
   },
   {
     question: 'How much does a Lake Travis party boat cost?',
-    answer: `Private: $${HOURLY_RATES.MON_THU[14] / 100}/hr (weekdays), 4-hour minimum. ATX Disco Cruise: $${DISCO_PRICING.basic / 100}+ per person.`
+    answer: `Private: $${HOURLY_RATES.MON_THU[14] / 100}/hr (weekdays), 4-hour minimum. ATX Disco Cruise (exclusively for bachelor, bachelorette & combined bach parties): $${DISCO_PRICING.basic / 100}+ per person.`
   },
   {
     question: 'Where do Lake Travis party boats depart?',
@@ -94,7 +94,7 @@ const faqData = [
   },
   {
     question: 'How long is a Lake Travis cruise?',
-    answer: '4-hour minimum on private charters; ATX Disco Cruise is 4 hours (Fridays & Saturdays).'
+    answer: '4-hour minimum on private charters; ATX Disco Cruise (bachelor/bachelorette parties only) is 4 hours (Fridays & Saturdays).'
   }
 ];
 
@@ -438,7 +438,7 @@ export default function PartyBoatLakeTravis() {
                   </CardHeader>
                   <CardContent>
                     <p className="text-base text-gray-600 text-sm">
-                      Join the legendary party boat experience on Lake Travis! Professional DJ, photographer, giant floats, and the ultimate Austin celebration.
+                      Join the legendary party boat experience on Lake Travis! <strong>Exclusively for bachelor, bachelorette & combined bach parties.</strong> Professional DJ, photographer, giant floats, and the ultimate Austin celebration.
                     </p>
                   </CardContent>
                 </Card>

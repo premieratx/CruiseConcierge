@@ -69,7 +69,7 @@ const faqData = [
   },
   {
     question: 'How much does a party boat cost in Austin?',
-    answer: `Private charters: $${HOURLY_RATES.MON_THU[14] / 100}/hr (weekdays), 4-hour minimum. ATX Disco Cruise: $${DISCO_PRICING.basic / 100}+ per person.`
+    answer: `Private charters: $${HOURLY_RATES.MON_THU[14] / 100}/hr (weekdays), 4-hour minimum. ATX Disco Cruise (exclusively for bachelor, bachelorette & combined bach parties): $${DISCO_PRICING.basic / 100}+ per person.`
   },
   {
     question: 'Where do Austin party boats depart?',
