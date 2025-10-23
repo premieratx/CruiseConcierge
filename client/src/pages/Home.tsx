@@ -617,39 +617,28 @@ export default function Home() {
               </p>
             </motion.div>
 
-            {/* Subheadline with Pricing Value Proposition */}
-            <motion.p 
-              variants={reducedMotion ? undefined : fadeInUp}
-              className="text-sm sm:text-base md:text-lg mb-6 md:mb-8 text-gray-100 max-w-4xl mx-auto leading-relaxed px-2"
-              data-editable data-editable-id="hero-description"
-            >
-              Experience Austin's ultimate Lake Travis adventure with the most trusted party cruise company since 2009. 
-              From <InternalLinkHighlight href="/private-cruises" title="Private Cruises">intimate 14-person private cruises</InternalLinkHighlight> on "Day Tripper" to epic 75-person celebrations on flagship "Clever Girl" - 
-              perfect for <InternalLinkHighlight href="/bachelor-party" title="Bachelor Parties">bachelor parties</InternalLinkHighlight>, <InternalLinkHighlight href="/bachelorette-party" title="Bachelorette Parties">bachelorette celebrations</InternalLinkHighlight>, and <InternalLinkHighlight href="/corporate-events" title="Corporate Events">corporate team building</InternalLinkHighlight>.
-            </motion.p>
-
             {/* Pricing Value Proposition */}
             <motion.div 
               variants={reducedMotion ? undefined : fadeInUp}
-              className="bg-white border border-gray-200 rounded-xl p-4 sm:p-6 max-w-3xl mx-auto mb-8 md:mb-12"
+              className="bg-white border border-gray-200 rounded-xl p-3 sm:p-4 max-w-2xl mx-auto mb-8 md:mb-12"
             >
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 text-center">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 text-center">
                 <div>
-                  <div className="font-sans tracking-wider font-bold uppercase text-xs sm:text-sm text-blue-600 mb-2" data-editable data-editable-id="pricing-overlay-private-label">PRIVATE CRUISES FROM</div>
-                  <div className="text-2xl sm:text-3xl font-bold text-gray-900 mb-1" data-editable data-editable-id="pricing-overlay-private-price">
+                  <div className="font-sans tracking-wider font-bold uppercase text-xs text-blue-600 mb-1" data-editable data-editable-id="pricing-overlay-private-label">PRIVATE CRUISES FROM</div>
+                  <div className="text-xl sm:text-2xl font-bold text-gray-900 mb-1" data-editable data-editable-id="pricing-overlay-private-price">
                     ${HOURLY_RATES.MON_THU[14] / 100} per hour
                   </div>
-                  <div className="text-xs sm:text-sm text-gray-700" data-editable data-editable-id="pricing-overlay-private-subtitle">Weekdays • 14+ people</div>
+                  <div className="text-xs text-gray-700" data-editable data-editable-id="pricing-overlay-private-subtitle">Weekdays • 14+ people</div>
                 </div>
                 <div>
-                  <div className="font-sans tracking-wider font-bold uppercase text-xs sm:text-sm text-blue-600 mb-2" data-editable data-editable-id="pricing-overlay-disco-label">DISCO CRUISES</div>
-                  <div className="text-2xl sm:text-3xl font-bold text-gray-900 mb-1" data-editable data-editable-id="pricing-overlay-disco-price">
+                  <div className="font-sans tracking-wider font-bold uppercase text-xs text-blue-600 mb-1" data-editable data-editable-id="pricing-overlay-disco-label">ATX DISCO CRUISES</div>
+                  <div className="text-xl sm:text-2xl font-bold text-gray-900 mb-1" data-editable data-editable-id="pricing-overlay-disco-price">
                     ${pricingHighlights[1].weekdayFrom}/person
                   </div>
-                  <div className="text-xs sm:text-sm text-gray-700" data-editable data-editable-id="pricing-overlay-disco-subtitle">Friday & Saturday</div>
+                  <div className="text-xs text-gray-700" data-editable data-editable-id="pricing-overlay-disco-subtitle">Friday & Saturday</div>
                 </div>
               </div>
-              <div className="text-center mt-3 md:mt-4 text-xs sm:text-sm text-blue-600 font-medium" data-editable data-editable-id="pricing-overlay-tagline">
+              <div className="text-center mt-2 md:mt-3 text-xs text-blue-600 font-medium" data-editable data-editable-id="pricing-overlay-tagline">
                 ✨ Transparent pricing • No hidden fees • Best value guaranteed
               </div>
             </motion.div>
@@ -714,6 +703,17 @@ export default function Home() {
               ✨ <span className="text-brand-blue">Transparent Pricing</span> • No Hidden Fees • <span className="text-brand-blue">Best Value</span> Guaranteed ✨
             </p>
           </div>
+        </div>
+      </section>
+
+      {/* Description Section - Just Below Hero */}
+      <section className="py-8 bg-white dark:bg-gray-900">
+        <div className="container mx-auto px-6">
+          <p className="text-sm sm:text-base md:text-lg text-center text-gray-700 dark:text-gray-300 max-w-4xl mx-auto leading-relaxed">
+            Experience Austin's ultimate Lake Travis adventure with the most trusted party cruise company since 2009. 
+            From <InternalLinkHighlight href="/private-cruises" title="Private Cruises">intimate 14-person private cruises</InternalLinkHighlight> on "Day Tripper" to epic 75-person celebrations on flagship "Clever Girl" - 
+            perfect for <InternalLinkHighlight href="/bachelor-party" title="Bachelor Parties">bachelor parties</InternalLinkHighlight>, <InternalLinkHighlight href="/bachelorette-party" title="Bachelorette Parties">bachelorette celebrations</InternalLinkHighlight>, and <InternalLinkHighlight href="/corporate-events" title="Corporate Events">corporate team building</InternalLinkHighlight>.
+          </p>
         </div>
       </section>
 
@@ -924,7 +924,7 @@ export default function Home() {
                         data-testid={`button-service-${service.id}`}
                       >
                         <span data-editable data-editable-id={`service-${service.id}-cta-button`}>
-                          {service.id === 'private' ? 'BOOK PRIVATE CRUISE' : service.id === 'disco' ? 'BOOK DISCO CRUISE' : 'GET QUOTE'}
+                          {service.id === 'private' ? 'BOOK PRIVATE CRUISE' : service.id === 'disco' ? 'BOOK ATX DISCO CRUISE' : 'GET QUOTE'}
                         </span>
                         <ArrowRight className="ml-2 h-5 w-5" />
                       </Button>
