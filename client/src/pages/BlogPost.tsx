@@ -534,6 +534,7 @@ export default function BlogPostPage() {
                       Visit Website
                     </a>
                   )}
+                  </div>
                 </div>
               </div>
             )}
