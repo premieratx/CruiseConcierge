@@ -415,7 +415,7 @@ export default function GraduationParty() {
                 <span data-editable data-editable-id="quote-builder-hide-button">Hide Quote Builder</span>
               </Button>
             )}
-          </motion.div>
+          </div>
 
           {/* Expandable Quote Builder Iframe */}
           <AnimatePresence>
@@ -454,6 +454,7 @@ export default function GraduationParty() {
           </AnimatePresence>
         </div>
       </section>
+      </SectionReveal>
 
       {/* Packages Section */}
       <section id="packages" className="py-20 bg-gradient-to-b from-white to-gray-50 dark:from-gray-950 dark:to-gray-900">

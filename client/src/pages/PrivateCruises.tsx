@@ -202,8 +202,8 @@ const whyChooseUs = [
   },
   {
     icon: UserCheck,
-    title: '100,000+ Happy Guests',
-    description: 'Trusted by over 100,000 satisfied customers for unforgettable celebrations'
+    title: '150,000+ Happy Guests',
+    description: 'Trusted by over 150,000 satisfied customers for unforgettable celebrations'
   },
   {
     icon: Shield,
@@ -1321,7 +1321,7 @@ export default function PrivateCruises() {
                     <Star key={i} className="h-8 w-8 text-yellow-500 fill-yellow-500" />
                   ))}
                 </div>
-                <p className="text-3xl font-bold mb-2">100,000+ Happy Guests</p>
+                <p className="text-3xl font-bold mb-2">150,000+ Happy Guests</p>
                 <p className="text-gray-600">Join thousands of satisfied customers who've celebrated on Lake Travis</p>
               </div>
             </div>

@@ -5,7 +5,7 @@ import Footer from '@/components/Footer';
 import SEOHead from '@/components/SEOHead';
 import Breadcrumb from '@/components/Breadcrumb';
 import { SectionReveal } from '@/components/SectionReveal';
-import VideoTestimonials from '@/components/VideoTestimonials';
+import { VideoTestimonials } from '@/components/VideoTestimonials';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -173,7 +173,7 @@ export default function Contact() {
                   Get in Touch
                 </h2>
                 <p className="text-base text-gray-600 dark:text-gray-300 mb-12 text-center" data-editable data-editable-id="p-contact-description">
-                  Premier Party Cruises has been Austin's original Lake Travis party cruise company for over 14 years. 
+                  Premier Party Cruises has been Austin's original Lake Travis party cruise company for over 15 years. 
                   We're here to help plan your perfect celebration!
                 </p>
 
@@ -372,7 +372,7 @@ export default function Contact() {
                   ))}
                 </div>
                 <span className="text-xl font-bold text-gray-900 dark:text-white" data-editable data-editable-id="reviews-rating-score">4.9/5</span>
-                <span className="text-gray-600 dark:text-gray-300" data-editable data-editable-id="reviews-rating-count">(125,000+ Reviews)</span>
+                <span className="text-gray-600 dark:text-gray-300" data-editable data-editable-id="reviews-rating-count">(150,000+ Reviews)</span>
               </div>
             </div>
 

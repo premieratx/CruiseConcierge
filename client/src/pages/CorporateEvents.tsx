@@ -190,7 +190,7 @@ const whyChooseCorporate = [
   },
   {
     icon: Award,
-    title: '14 Years of Corporate Excellence',
+    title: '15 Years of Corporate Excellence',
     description: 'Trusted by over 500 Austin companies including Fortune 500 tech firms, healthcare organizations, and consulting agencies. Our extensive corporate event experience means we understand business protocols, client expectations, and professional standards. We\'ve successfully executed everything from intimate executive retreats to 75-person company celebrations, always maintaining the professionalism your brand requires.'
   }
 ];
@@ -531,7 +531,7 @@ export default function CorporateEvents() {
 
             <div className="mt-12 text-center">
               <p className="text-sm text-gray-600 italic">
-                Based on post-event surveys from 500+ corporate clients over 14 years
+                Based on post-event surveys from 500+ corporate clients over 15 years
               </p>
             </div>
           </div>

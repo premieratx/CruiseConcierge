@@ -225,8 +225,8 @@ const whyChooseUs = [
   },
   {
     icon: UserCheck,
-    title: '100,000+ Happy Customers',
-    description: 'We\'ve created unforgettable memories for over 100,000 guests with 5-star service since 2009.'
+    title: '150,000+ Happy Customers',
+    description: 'We\'ve created unforgettable memories for over 150,000 guests with 5-star service since 2009.'
   },
   {
     icon: Shield,
@@ -307,7 +307,7 @@ const testimonials = [
 
 const stats = [
   { value: '15+', label: 'Years Experience', icon: Trophy },
-  { value: '100K+', label: 'Happy Customers', icon: Heart },
+  { value: '150K+', label: 'Happy Customers', icon: Heart },
   { value: 'Perfect', label: 'Safety Record', icon: Shield },
   { value: '5-Star', label: 'Customer Reviews', icon: Star }
 ];
@@ -458,11 +458,11 @@ export default function Home() {
     // Add meta description
     const existingDesc = document.querySelector('meta[name="description"]');
     if (existingDesc) {
-      existingDesc.setAttribute('content', 'Austin\'s premier party cruise company since 2009 offering ATX Disco Cruises and private boat charters on Lake Travis. 100,000+ happy customers, 4 awesome boats. Book today!');
+      existingDesc.setAttribute('content', 'Austin\'s premier party cruise company since 2009 offering ATX Disco Cruises and private boat charters on Lake Travis. 150,000+ happy customers, 4 awesome boats. Book today!');
     } else {
       const metaDesc = document.createElement('meta');
       metaDesc.name = 'description';
-      metaDesc.content = 'Austin\'s premier party cruise company since 2009 offering ATX Disco Cruises and private boat charters on Lake Travis. 100,000+ happy customers, 4 awesome boats. Book today!';
+      metaDesc.content = 'Austin\'s premier party cruise company since 2009 offering ATX Disco Cruises and private boat charters on Lake Travis. 150,000+ happy customers, 4 awesome boats. Book today!';
       document.head.appendChild(metaDesc);
     }
   }, []);
@@ -563,7 +563,7 @@ export default function Home() {
       <SEOHead
         pageRoute="/"
         defaultTitle="Party Boat Austin"
-        defaultDescription="Lake Travis party boats since 2009. ATX Disco Cruise, bachelor parties, private charters. 100K+ guests. Call (512) 488-5892."
+        defaultDescription="Lake Travis party boats since 2009. ATX Disco Cruise, bachelor parties, private charters. 150K+ guests. Call (512) 488-5892."
         defaultKeywords={['party boat Austin', 'bachelorette party Austin', 'Austin boat rental', 'Lake Travis party boat', 'bachelor party Austin']}
         schemaType="organization"
       />
@@ -1549,7 +1549,7 @@ export default function Home() {
                 Experience the Premier Difference
               </h2>
               <p className="text-base text-gray-700 dark:text-gray-300 max-w-3xl mx-auto mb-6" data-editable data-editable-id="gallery-description">
-                See why 125,000+ customers choose Premier Party Cruises for their unforgettable Lake Travis experience.
+                See why 150,000+ customers choose Premier Party Cruises for their unforgettable Lake Travis experience.
               </p>
               <div className="mt-6">
                 <InternalLinkHighlightWithArrow href="/gallery" title="View Our Fleet" className="text-base">
@@ -2211,7 +2211,7 @@ export default function Home() {
         
         {/* Business Information */}
         <div itemProp="description">
-          <p>Premier Party Cruises is Austin's premier party boat rental company on Lake Travis, serving over 100,000 happy customers since 2009. We specialize in bachelorette parties, bachelor parties, corporate events, and private boat charters with professional captains and crew.</p>
+          <p>Premier Party Cruises is Austin's premier party boat rental company on Lake Travis, serving over 150,000 happy customers since 2009. We specialize in bachelorette parties, bachelor parties, corporate events, and private boat charters with professional captains and crew.</p>
         </div>
         
         {/* Location & Contact */}
@@ -2344,7 +2344,7 @@ export default function Home() {
           </div>
           <div itemProp="aggregateRating" itemScope itemType="https://schema.org/AggregateRating">
             <meta itemProp="ratingValue" content="5" />
-            <meta itemProp="reviewCount" content="100000" />
+            <meta itemProp="reviewCount" content="150000" />
           </div>
         </div>
         
@@ -2363,7 +2363,7 @@ export default function Home() {
           </div>
           <div itemProp="aggregateRating" itemScope itemType="https://schema.org/AggregateRating">
             <meta itemProp="ratingValue" content="5" />
-            <meta itemProp="reviewCount" content="100000" />
+            <meta itemProp="reviewCount" content="150000" />
           </div>
         </div>
         
@@ -2383,7 +2383,7 @@ export default function Home() {
           </div>
           <div itemProp="aggregateRating" itemScope itemType="https://schema.org/AggregateRating">
             <meta itemProp="ratingValue" content="5" />
-            <meta itemProp="reviewCount" content="100000" />
+            <meta itemProp="reviewCount" content="150000" />
           </div>
         </div>
         
@@ -2420,7 +2420,7 @@ export default function Home() {
         <h2>Why Choose Premier Party Cruises</h2>
         <ul>
           <li>15+ Years Experience - Austin's longest-running party cruise company since 2009</li>
-          <li>100,000+ Happy Customers - Over 100,000 guests served with 5-star service</li>
+          <li>150,000+ Happy Customers - Over 150,000 guests served with 5-star service</li>
           <li>Perfect Safety Record - Coast Guard certified captains and pristine safety record</li>
           <li>Premier Fleet - Four awesome boats with Austin's nicest party boat amenities</li>
           <li>Professional DJ & Photography - On-board entertainment and memory capture</li>
@@ -2437,7 +2437,7 @@ export default function Home() {
           "@id": "https://premierpartycruises.com",
           "name": "Premier Party Cruises",
           "image": "https://premierpartycruises.com/assets/PPC_Logo_LARGE.png",
-          "description": "Austin's premier party boat rental company on Lake Travis since 2009. Specializing in bachelorette parties, bachelor parties, corporate events, and private charters with 100,000+ happy customers.",
+          "description": "Austin's premier party boat rental company on Lake Travis since 2009. Specializing in bachelorette parties, bachelor parties, corporate events, and private charters with 150,000+ happy customers.",
           "address": {
             "@type": "PostalAddress",
             "streetAddress": "13993 FM2769, Anderson Mill Marina",
@@ -2488,7 +2488,7 @@ export default function Home() {
           "aggregateRating": {
             "@type": "AggregateRating",
             "ratingValue": "5",
-            "reviewCount": "100000"
+            "reviewCount": "150000"
           },
           "hasOfferCatalog": {
             "@type": "OfferCatalog",
@@ -2598,13 +2598,13 @@ export default function Home() {
             description="Trusted by thousands of customers in Austin, Texas (ATX) and Lake Travis area since 2009"
             data={[
               { 
-                value: "125,000+", 
+                value: "150,000+", 
                 label: "Happy Customers", 
                 icon: <Users className="w-8 h-8" />,
                 itemProp: "numberOfCustomers"
               },
               { 
-                value: "14+", 
+                value: "15+", 
                 label: "Years in Business", 
                 icon: <Trophy className="w-8 h-8" />,
                 itemProp: "yearsFounded"
@@ -2644,7 +2644,7 @@ export default function Home() {
               "aggregateRating": {
                 "@type": "AggregateRating",
                 "ratingValue": "4.9",
-                "ratingCount": "125000"
+                "ratingCount": "150000"
               }
             }}
           />

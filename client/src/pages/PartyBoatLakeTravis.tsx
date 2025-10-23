@@ -121,8 +121,8 @@ const whyChooseLakeTravis = [
   },
   {
     icon: Star,
-    title: '100K+ Lake Travis Guests',
-    description: 'Over 100,000 satisfied customers have celebrated on our Lake Travis party boats, making unforgettable memories on this stunning Central Texas treasure.'
+    title: '150K+ Lake Travis Guests',
+    description: 'Over 150,000 satisfied customers have celebrated on our Lake Travis party boats, making unforgettable memories on this stunning Central Texas treasure.'
   },
   {
     icon: Shield,
@@ -229,7 +229,7 @@ export default function PartyBoatLakeTravis() {
       <SEOHead
         pageRoute="/party-boat-lake-travis"
         defaultTitle="Party Boat Lake Travis | Austin Cruises"
-        defaultDescription="Premier Lake Travis party boats. Crystal clear water, 270 miles of shoreline. ATX Disco & private charters. 100K+ happy guests!"
+        defaultDescription="Premier Lake Travis party boats. Crystal clear water, 270 miles of shoreline. ATX Disco & private charters. 150K+ happy guests!"
         defaultKeywords={['party boat Lake Travis', 'Lake Travis party boat', 'Lake Travis boat rental', 'party boat rental Lake Travis', 'Lake Travis party cruise']}
       />
 
@@ -327,7 +327,7 @@ export default function PartyBoatLakeTravis() {
               </div>
               <div className="flex items-center gap-2" data-testid="stat-guests">
                 <Users className="h-5 w-5 text-yellow-300" />
-                <span>100K+ Lake Travis Guests</span>
+                <span>150K+ Lake Travis Guests</span>
               </div>
               <div className="flex items-center gap-2" data-testid="stat-safety">
                 <Shield className="h-5 w-5 text-yellow-300" />

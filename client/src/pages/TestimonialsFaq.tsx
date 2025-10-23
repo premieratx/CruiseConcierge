@@ -82,7 +82,7 @@ const faqCategories = {
     faqs: [
       {
         question: 'What safety measures are in place?',
-        answer: 'All boats have USCG-certified captains, required safety equipment, life jackets for every passenger, and comprehensive insurance. We maintain a perfect safety record over 14 years.'
+        answer: 'All boats have USCG-certified captains, required safety equipment, life jackets for every passenger, and comprehensive insurance. We maintain a perfect safety record over 15 years.'
       }
     ]
   },
@@ -174,7 +174,7 @@ export default function TestimonialsFaq() {
     "aggregateRating": {
       "@type": "AggregateRating",
       "ratingValue": "4.9",
-      "reviewCount": "125000"
+      "reviewCount": "150000"
     }
   };
 
@@ -185,7 +185,7 @@ export default function TestimonialsFaq() {
       <SEOHead
         pageRoute="/testimonials"
         defaultTitle="Customer Reviews & Testimonials | Premier Party Cruises | Lake Travis"
-        defaultDescription="Read authentic reviews from 125,000+ happy customers. 5-star rated Lake Travis party boat cruises. Bachelor parties, bachelorette parties, corporate events."
+        defaultDescription="Read authentic reviews from 150,000+ happy customers. 5-star rated Lake Travis party boat cruises. Bachelor parties, bachelorette parties, corporate events."
         defaultKeywords={[
           'premier party cruises reviews',
           'lake travis boat rental reviews',
@@ -266,8 +266,8 @@ export default function TestimonialsFaq() {
 
             <div className="grid md:grid-cols-3 gap-8">
               {[
-                { number: '125,000+', label: 'Happy Customers' },
-                { number: '14+ Years', label: 'Experience' },
+                { number: '150,000+', label: 'Happy Customers' },
+                { number: '15+ Years', label: 'Experience' },
                 { number: '5-Star', label: 'Average Rating' }
               ].map((stat, i) => (
                 <Card key={i} className="p-8 text-center rounded-xl hover:shadow-xl transition-shadow">

@@ -126,7 +126,7 @@ const allFAQs = {
         faqs: [
           {
             question: 'What safety measures do you have in place?',
-            answer: 'Safety is our top priority. All our captains are Coast Guard licensed, our boats undergo regular safety inspections, and we carry all required safety equipment including life jackets for every passenger. We have a perfect safety record over 14+ years and maintain comprehensive insurance coverage.'
+            answer: 'Safety is our top priority. All our captains are Coast Guard licensed, our boats undergo regular safety inspections, and we carry all required safety equipment including life jackets for every passenger. We have a perfect safety record over 15+ years and maintain comprehensive insurance coverage.'
           },
           {
             question: 'Do you provide life jackets?',
@@ -661,7 +661,7 @@ const allFAQs = {
     faqs: [
       {
         question: 'What makes Premier the best party boat in Austin?',
-        answer: 'Premier Party Cruises has been Austin\'s #1 party boat company since 2009 with over 100,000 happy customers. We offer the newest fleet on Lake Travis, professional Coast Guard certified captains, perfect safety record, premium sound systems, and unmatched local expertise. Our party boats depart from Anderson Mill Marina and cruise the most beautiful parts of Lake Travis, just 30 minutes from downtown Austin.',
+        answer: 'Premier Party Cruises has been Austin\'s #1 party boat company since 2009 with over 150,000 happy customers. We offer the newest fleet on Lake Travis, professional Coast Guard certified captains, perfect safety record, premium sound systems, and unmatched local expertise. Our party boats depart from Anderson Mill Marina and cruise the most beautiful parts of Lake Travis, just 30 minutes from downtown Austin.',
         isNew: true
       },
       {
