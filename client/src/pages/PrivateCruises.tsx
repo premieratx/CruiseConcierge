@@ -34,6 +34,7 @@ import { InternalLinkHighlight, InternalLinkHighlightWithArrow } from '@/compone
 import { RelatedServicesSection } from '@/components/RelatedServicesSection';
 import { WhatToBring } from '@/components/WhatToBring';
 import { PricingTable } from '@/components/PricingTable';
+import { TabbedPrivateCruisePricing } from '@/components/TabbedPrivateCruisePricing';
 import AIOptimizedSection from '@/components/AIOptimizedSection';
 import { ScrollReveal } from '@/components/ScrollReveal';
 import { SectionReveal } from '@/components/SectionReveal';
@@ -625,6 +626,11 @@ export default function PrivateCruises() {
                 </p>
               </div>
 
+              {/* Private Cruise Pricing Component */}
+              <div className="mb-12">
+                <TabbedPrivateCruisePricing dayType="SATURDAY" duration={4} />
+              </div>
+
               <Tabs defaultValue="fleet" className="w-full">
                 <TabsList className="grid w-full grid-cols-2 mb-12 bg-white p-2 rounded-2xl h-auto border border-gray-200">
                   <TabsTrigger 
@@ -1089,7 +1095,7 @@ export default function PrivateCruises() {
                         <Briefcase className="h-6 w-6 text-blue-600" />
                       </div>
                       <CardTitle className="text-lg">Corporate Events</CardTitle>
-                      <p className="text-sm text-gray-600 mt-2">Team building, client entertainment, executive retreats</p>
+                      <p className="text-sm text-gray-600 mt-2">Client entertainment, company celebrations, executive retreats</p>
                     </CardHeader>
                   </Card>
 

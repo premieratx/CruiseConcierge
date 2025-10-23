@@ -97,17 +97,15 @@ const discoPackages = [
     name: 'Disco Queen Package',
     price: DISCO_PRICING.disco_queen / 100,
     originalPrice: 110,
-    description: 'Enhanced party experience with premium perks and VIP treatment',
+    description: 'Enhanced party experience with private cooler and reserved spot',
     subtitle: 'Private Cooler & Reserved Spot for Your Group',
     features: [
       'Everything in Basic Bach Package',
       'Private cooler with ice & storage bin for your group',
       'Reserved spot for your group on the boat',
       'Disco ball cup & bubble gun for guest of honor',
-      'Complimentary direct-to-boat alcohol & lunch delivery',
-      '25% discount on round-trip transportation',
-      '$50-$100 voucher for Airbnb booze delivery',
-      'Premium positioning on the boat'
+      'Direct-to-boat alcohol & lunch delivery',
+      '25% discount on round-trip transportation'
     ],
     popular: true,
     icon: Crown,
@@ -124,15 +122,12 @@ const discoPackages = [
       'Everything in Disco Queen Package',
       'Personal unicorn float for guest of honor',
       'Mimosa setup with champagne flutes, 3 juices & chambong',
-      '$100 voucher for Airbnb concierge services',
       'Towel service & SPF-50 spray sunscreen provided',
-      'Nothing to carry - cooler pre-stocked with drinks',
-      'VIP treatment throughout the cruise',
-      'Extended photo coverage & exclusive surprises'
+      'Nothing to carry - cooler pre-stocked with drinks when you arrive'
     ],
     popular: false,
     icon: Trophy,
-    badge: 'All-Inclusive VIP'
+    badge: 'All-Inclusive'
   }
 ];
 
@@ -1382,17 +1377,15 @@ export default function ATXDiscoCruise() {
             <h3 itemProp="name">Disco Queen Package</h3>
             <meta itemProp="price" content="95" />
             <meta itemProp="priceCurrency" content="USD" />
-            <p itemProp="description">$95 per person - Enhanced party experience with premium perks and VIP treatment</p>
+            <p itemProp="description">$95 per person - Enhanced party experience with private cooler and reserved spot</p>
             <p>Private Cooler & Reserved Spot for Your Group</p>
             <ul>
               <li>Everything in Basic Bach Package</li>
               <li>Private cooler with ice & storage bin for your group</li>
               <li>Reserved spot for your group on the boat</li>
               <li>Disco ball cup & bubble gun for guest of honor</li>
-              <li>Complimentary direct-to-boat alcohol & lunch delivery</li>
+              <li>Direct-to-boat alcohol & lunch delivery</li>
               <li>25% discount on round-trip transportation</li>
-              <li>$50-$100 voucher for Airbnb booze delivery</li>
-              <li>Premium positioning on the boat</li>
             </ul>
           </div>
 
@@ -1406,11 +1399,8 @@ export default function ATXDiscoCruise() {
               <li>Everything in Disco Queen Package</li>
               <li>Personal unicorn float for guest of honor</li>
               <li>Mimosa setup with champagne flutes, 3 juices & chambong</li>
-              <li>$100 voucher for Airbnb concierge services</li>
               <li>Towel service & SPF-50 spray sunscreen provided</li>
-              <li>Nothing to carry - cooler pre-stocked with drinks</li>
-              <li>VIP treatment throughout the cruise</li>
-              <li>Extended photo coverage & exclusive surprises</li>
+              <li>Nothing to carry - cooler pre-stocked with drinks when you arrive</li>
             </ul>
           </div>
 

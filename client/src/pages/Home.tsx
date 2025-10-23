@@ -71,6 +71,7 @@ import Footer from '@/components/Footer';
 import { formatCurrency } from '@shared/formatters';
 import { PricingTable } from '@/components/PricingTable';
 import { TabbedPrivateCruisePricing } from '@/components/TabbedPrivateCruisePricing';
+import { DiscoCruisePricing } from '@/components/DiscoCruisePricing';
 import SEOHead from '@/components/SEOHead';
 import { Endorsement } from '@shared/schema';
 import { QuickDealHighlight } from '@/components/DiscoVsPrivateComparison';
@@ -83,7 +84,6 @@ import { InternalLinkHighlight, InternalLinkHighlightWithArrow } from '@/compone
 import { RelatedServicesSection } from '@/components/RelatedServicesSection';
 import AIOptimizedSection from '@/components/AIOptimizedSection';
 import { SectionReveal } from '@/components/SectionReveal';
-import BookOnlineWidget from '@/components/BookOnlineWidget';
 
 // Lazy load heavy components to improve FCP
 const DiscoVsPrivateComparison = lazy(() => import('@/components/DiscoVsPrivateComparison').then(mod => ({ default: mod.DiscoVsPrivateComparison })));
@@ -187,33 +187,33 @@ const services = [
         Austin's premier bachelorette party experience! Join the <InternalLinkHighlight href="/atx-disco-cruise" title="ATX Disco Cruise">ATX Disco Cruise</InternalLinkHighlight> or book a <InternalLinkHighlight href="/private-cruises" title="Private Charter">private charter</InternalLinkHighlight>. Professional DJ, photographer, and everything needed for an unforgettable celebration.
       </>
     ),
-    features: ['Basic Bach, Disco Queen, or Platinum packages', 'Professional DJ & photographer', 'Party favors & decorations', 'Priority booking & VIP treatment'],
+    features: ['Basic Bach, Disco Queen, or Platinum packages', 'Professional DJ & photographer', 'Giant unicorn floats & party supplies', 'BYOB with coolers & ice'],
     startingPrice: `$${DISCO_PRICING.basic / 100}`,
     priceNote: 'per person',
     icon: PartyPopper,
     image: galleryImage3,
     badge: 'Our Specialty',
     gallery: [galleryImage3, heroImage1, galleryImage2, heroImage2],
-    detailedDescription: 'We\'ve been Austin\'s #1 bachelorette party destination since 2009! Choose from our signature ATX Disco Cruise packages (Basic Bach, Disco Queen, or Platinum) or book a private charter. Every bachelorette experience includes professional DJ, photographer, party favors, and VIP treatment to make the bride\'s celebration absolutely perfect.',
-    highlights: ['Austin\'s #1 Since 2009', 'Basic Bach, Disco Queen & Platinum', 'Professional DJ & Photographer', 'Party Favors & Decorations', 'VIP Treatment for Bride', 'ATX Disco or Private Options', 'Priority Booking Available']
+    detailedDescription: 'We\'ve been Austin\'s #1 bachelorette party destination since 2009! Choose from our signature ATX Disco Cruise packages (Basic Bach, Disco Queen, or Platinum) or book a private charter. Every bachelorette experience includes professional DJ, photographer, giant floats, and party supplies to make the bride\'s celebration absolutely perfect.',
+    highlights: ['Austin\'s #1 Since 2009', 'Basic Bach, Disco Queen & Platinum', 'Professional DJ & Photographer', 'Giant Floats & Party Supplies', 'BYOB with Coolers & Ice', 'ATX Disco or Private Options', 'Multi-Group Party Atmosphere']
   },
   {
     id: 'corporate',
     title: 'Corporate Events',
-    subtitle: 'Team building on water',
+    subtitle: 'Professional lake experiences',
     description: (
       <>
-        Premium <InternalLinkHighlight href="/corporate-events" title="Corporate Events">corporate experiences on Lake Travis</InternalLinkHighlight>. Our largest boats perfect for <InternalLinkHighlight href="/team-building" title="Team Building">team building</InternalLinkHighlight>, client entertainment, and company celebrations with professional service.
+        Premium <InternalLinkHighlight href="/corporate-events" title="Corporate Events">corporate experiences on Lake Travis</InternalLinkHighlight>. Our largest boats perfect for client entertainment and company celebrations with professional service.
       </>
     ),
-    features: ['"Clever Girl" flagship boat available', 'Professional atmosphere & service', 'Customizable catering options', 'Team building activities', 'Transportation partnerships'],
+    features: ['"Clever Girl" flagship boat available', 'Professional atmosphere & service', 'Customizable catering options', 'Up to 75 guests capacity', 'BYOB allowed'],
     startingPrice: `$${HOURLY_RATES.MON_THU[50] / 100}`,
     hourlyNote: 'per hour (4-hour minimum)',
     icon: Users,
     image: galleryImage1,
     gallery: [galleryImage1, galleryImage3, heroImage1, galleryImage2],
-    detailedDescription: 'Elevate your corporate events with premium Lake Travis experiences aboard our flagship boats. Perfect for team building, client entertainment, company celebrations, and executive retreats. Our professional crew ensures a sophisticated atmosphere while our spacious boats provide the perfect setting for business networking and team bonding.',
-    highlights: ['Flagship "Clever Girl" Available', 'Professional Business Atmosphere', 'Team Building Activities', 'Customizable Catering Options', 'Transportation partnerships', 'Client Entertainment Perfect', 'Executive Retreat Setting']
+    detailedDescription: 'Elevate your corporate events with premium Lake Travis experiences aboard our flagship boats. Perfect for client entertainment, company celebrations, and executive retreats. Our professional crew ensures a sophisticated atmosphere while our spacious boats provide the perfect setting for business networking.',
+    highlights: ['Flagship "Clever Girl" Available', 'Professional Business Atmosphere', 'Up to 75 Guests', 'Customizable Catering Options', 'BYOB Allowed', 'Client Entertainment Perfect', 'Executive Retreat Setting']
   }
 ];
 
@@ -369,14 +369,11 @@ export default function Home() {
   const reducedMotion = useReducedMotion();
   const [currentHeroImage, setCurrentHeroImage] = useState(0);
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
-  const [activeXolaTab, setActiveXolaTab] = useState('14p');
-  const [discoTab, setDiscoTab] = useState('super-sparkle');
   const [showLightbox, setShowLightbox] = useState(false);
   const [selectedService, setSelectedService] = useState<typeof services[0] | null>(null);
   const [quickPricingGroupSize, setQuickPricingGroupSize] = useState(20);
   const [quickPricingDayOfWeek, setQuickPricingDayOfWeek] = useState(6); // Saturday
   const [showQuoteBuilder, setShowQuoteBuilder] = useState(false);
-  const [showBookingModal, setShowBookingModal] = useState(false);
   const [iframeHeight, setIframeHeight] = useState(3000); // Very large height to prevent any internal scrolling
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const [contactForm, setContactForm] = useState({
@@ -986,6 +983,23 @@ export default function Home() {
               </p>
             </div>
 
+            {/* ATX Disco Cruise Pricing */}
+            <div className="mb-20">
+              <div className="text-center mb-12">
+                <Badge className="mb-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-4 py-2 font-semibold">
+                  <Music className="h-4 w-4 mr-2 inline" />
+                  ATX Disco Cruise
+                </Badge>
+                <h3 className="text-3xl font-semibold font-playfair mb-4 text-gray-900 dark:text-white">
+                  Multi-Group Bachelor/Bachelorette Party Cruise
+                </h3>
+                <p className="text-base text-gray-700 dark:text-gray-300 max-w-2xl mx-auto leading-relaxed">
+                  The ONLY all-inclusive, multi-group bach party cruise in the United States. DJ, photographer, and giant floats all included!
+                </p>
+              </div>
+              <DiscoCruisePricing />
+            </div>
+
             {/* Private Cruise Detailed Pricing */}
             <div className="mb-20">
               <div className="text-center mb-12">
@@ -1052,12 +1066,12 @@ export default function Home() {
                     name: 'Corporate Events',
                     basePrice: 225,
                     pricingType: 'hour',
-                    description: 'Professional team building on water',
+                    description: 'Professional corporate experiences on Lake Travis',
                     features: [
                       'Professional atmosphere',
-                      'Team building activities',
+                      'Client entertainment',
                       'Catering partnerships',
-                      'Presentation setup available',
+                      'BYOB allowed',
                       'Tax deductible'
                     ],
                     capacity: '14-75 guests',
@@ -2266,7 +2280,7 @@ export default function Home() {
         <div itemScope itemType="https://schema.org/Service">
           <h3 itemProp="name">Bachelorette Party Austin - ATX Disco Cruise</h3>
           <p itemProp="description">
-            Austin's #1 bachelorette party experience since 2009! Join our famous ATX Disco Cruise or book a private charter. Professional DJ, photographer, party favors, decorations, and VIP treatment for the bride. Perfect for bachelorette parties and bachelor parties on Lake Travis.
+            Austin's #1 bachelorette party experience since 2009! Join our famous ATX Disco Cruise or book a private charter. Professional DJ, photographer, giant floats, and party supplies. Perfect for bachelorette parties and bachelor parties on Lake Travis.
           </p>
           <div itemProp="offers" itemScope itemType="https://schema.org/Offer">
             <meta itemProp="priceCurrency" content="USD" />
@@ -2281,9 +2295,9 @@ export default function Home() {
             <li>Platinum package - $105 per person (ultimate experience)</li>
             <li>Professional DJ and dance floor</li>
             <li>On-board professional photographer</li>
-            <li>Party favors and decorations included</li>
-            <li>VIP treatment for bride-to-be</li>
-            <li>Friday and Saturday evening cruises</li>
+            <li>Giant unicorn floats and party supplies</li>
+            <li>BYOB with coolers and ice</li>
+            <li>Friday and Saturday cruises</li>
             <li>4-hour party cruise on Lake Travis</li>
             <li>Meet other bachelorette groups</li>
           </ul>
@@ -2314,9 +2328,9 @@ export default function Home() {
         </div>
         
         <div itemScope itemType="https://schema.org/Service">
-          <h3 itemProp="name">Corporate Events - Austin Team Building on Lake Travis</h3>
+          <h3 itemProp="name">Corporate Events - Austin Lake Travis Experiences</h3>
           <p itemProp="description">
-            Premium corporate event experiences on Lake Travis. Perfect for team building, client entertainment, company celebrations, and executive retreats aboard our flagship boats with professional service.
+            Premium corporate event experiences on Lake Travis. Perfect for client entertainment, company celebrations, and executive retreats aboard our flagship boats with professional service.
           </p>
           <div itemProp="offers" itemScope itemType="https://schema.org/Offer">
             <meta itemProp="priceCurrency" content="USD" />
@@ -2328,11 +2342,11 @@ export default function Home() {
             <li>Flagship Clever Girl 50-person boat available</li>
             <li>Professional business atmosphere and service</li>
             <li>Customizable catering options</li>
-            <li>Team building activities on water</li>
+            <li>BYOB allowed for corporate events</li>
             <li>Transportation partnerships available</li>
             <li>Client entertainment packages</li>
             <li>Executive retreat setting</li>
-            <li>Conference and presentation capabilities</li>
+            <li>Up to 75 guests capacity</li>
           </ul>
         </div>
         
@@ -2682,7 +2696,7 @@ export default function Home() {
               },
               {
                 title: "Bachelor Party Packages - Austin's #1 Choice",
-                description: "Specialized bachelor party experiences with party favors, VIP treatment, and optional transportation. Available as ATX Disco Cruise or private charter options.",
+                description: "Specialized bachelor party experiences with professional DJ, photographer, and giant floats. Available as ATX Disco Cruise or private charter options.",
                 icon: <Crown className="w-6 h-6" />
               },
               {
@@ -2692,7 +2706,7 @@ export default function Home() {
               },
               {
                 title: "Corporate Events - Professional Lake Travis Experiences",
-                description: "Team building and client entertainment on our flagship boats. Professional service, customizable catering, and capacity up to 75 guests.",
+                description: "Client entertainment and company celebrations on our flagship boats. Professional service, customizable catering, and capacity up to 75 guests.",
                 icon: <Users className="w-6 h-6" />
               }
             ]}
@@ -2765,132 +2779,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* XOLA BOOKING WIDGETS - All Boats */}
-      <section className="py-16 bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600">
-        <div className="container mx-auto px-6">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 text-white">Book Your Cruise Online</h2>
-          <p className="text-xl text-center mb-8 text-white/90">Select your boat and reserve your spot on Lake Travis</p>
-          
-          {/* Main Tabs */}
-          <div className="flex flex-wrap gap-2 justify-center mb-6">
-            {[
-              { id: '14p', name: '14-Person Boat', icon: '🚤' },
-              { id: '25p', name: '25-Person Boat', icon: '⛵' },
-              { id: '50p', name: '50-Person Boat', icon: '🛥️' },
-              { id: 'disco', name: 'ATX Disco Cruises', icon: '✨' }
-            ].map(tab => (
-              <button
-                key={tab.id}
-                onClick={() => setActiveXolaTab(tab.id)}
-                className={`px-6 py-3 rounded-lg font-semibold transition-all ${
-                  activeXolaTab === tab.id
-                    ? 'bg-white text-blue-600 shadow-xl scale-105'
-                    : 'bg-white/20 text-white hover:bg-white/30 backdrop-blur-sm'
-                }`}
-                data-testid={`xola-tab-${tab.id}`}
-              >
-                <span className="mr-2">{tab.icon}</span>
-                {tab.name}
-              </button>
-            ))}
-          </div>
-
-          {/* Disco Sub-tabs */}
-          {activeXolaTab === 'disco' && (
-            <div className="flex flex-wrap gap-2 justify-center mb-6">
-              {[
-                { id: 'basic-bach', name: 'Basic Bach', price: '$85' },
-                { id: 'disco-queen', name: 'Disco Queen', price: '$105' },
-                { id: 'super-sparkle', name: 'Super Sparkle Platinum', price: '$125' }
-              ].map(tab => (
-                <button
-                  key={tab.id}
-                  onClick={() => setDiscoTab(tab.id)}
-                  className={`px-5 py-2 rounded-lg font-medium transition-all ${
-                    discoTab === tab.id
-                      ? 'bg-yellow-400 text-purple-900 shadow-lg'
-                      : 'bg-white/20 text-white hover:bg-white/30 backdrop-blur-sm'
-                  }`}
-                  data-testid={`disco-tab-${tab.id}`}
-                >
-                  {tab.name} <span className="text-sm ml-1">({tab.price})</span>
-                </button>
-              ))}
-            </div>
-          )}
-
-          {/* Widget Container - iframe approach */}
-          <div className="max-w-5xl mx-auto bg-white rounded-2xl shadow-2xl overflow-hidden">
-            {activeXolaTab === '14p' && (
-              <iframe 
-                key="14p"
-                src="/widgets/14p.html" 
-                style={{ width: '100%', minHeight: '800px', border: 'none' }}
-                title="14-Person Boat Booking"
-              />
-            )}
-
-            {activeXolaTab === '25p' && (
-              <iframe 
-                key="25p"
-                src="/widgets/25p.html" 
-                style={{ width: '100%', minHeight: '800px', border: 'none' }}
-                title="25-Person Boat Booking"
-              />
-            )}
-
-            {activeXolaTab === '50p' && (
-              <iframe 
-                key="50p"
-                src="/widgets/50p.html" 
-                style={{ width: '100%', minHeight: '800px', border: 'none' }}
-                title="50-Person Boat Booking"
-              />
-            )}
-
-            {activeXolaTab === 'disco' && discoTab === 'basic-bach' && (
-              <iframe 
-                key="basic-bach"
-                src="/widgets/basic-bach.html" 
-                style={{ width: '100%', minHeight: '800px', border: 'none' }}
-                title="Basic Bach Package Booking"
-              />
-            )}
-
-            {activeXolaTab === 'disco' && discoTab === 'disco-queen' && (
-              <iframe 
-                key="disco-queen"
-                src="/widgets/disco-queen.html" 
-                style={{ width: '100%', minHeight: '800px', border: 'none' }}
-                title="Disco Queen Package Booking"
-              />
-            )}
-
-            {activeXolaTab === 'disco' && discoTab === 'super-sparkle' && (
-              <iframe 
-                key="super-sparkle"
-                src="/widgets/super-sparkle.html" 
-                style={{ width: '100%', minHeight: '800px', border: 'none' }}
-                title="Super Sparkle Platinum Booking"
-              />
-            )}
-          </div>
-        </div>
-      </section>
-
       {/* Footer */}
       <Footer />
-
-      {/* Book Online Modal */}
-      <Dialog open={showBookingModal} onOpenChange={setShowBookingModal}>
-        <DialogContent className="max-w-[100vw] md:max-w-[95vw] w-full border-4 border-black max-h-[95vh] p-0 overflow-y-auto">
-          <DialogTitle className="sr-only">Book Your Cruise Online</DialogTitle>
-          <DialogDescription className="sr-only">
-            Choose from our fleet of private cruises or disco cruise packages and reserve your spot on Lake Travis
-          </DialogDescription>
-          <BookOnlineWidget />
-        </DialogContent>
-      </Dialog>
     </div>
   );
 }
