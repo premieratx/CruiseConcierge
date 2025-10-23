@@ -385,7 +385,7 @@ export default function PrivateCruises() {
   const { toast } = useToast();
 
   const handleGetQuote = () => {
-    setLocation('/booking.premierpartycruises.com');
+    setLocation('/chat');
   };
 
   return (

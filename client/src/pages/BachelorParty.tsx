@@ -347,26 +347,19 @@ export default function BachelorParty() {
 
       {/* 1. HERO SECTION */}
       <section id="hero" className="relative min-h-[85vh] flex flex-col justify-center overflow-hidden bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900">
-        {/* Image Background with Smooth Crossfade */}
+        {/* Video Background */}
         <div className="absolute inset-0 z-0">
-          {heroImages.map((image, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: index === currentHeroImage ? 1 : 0 }}
-              transition={{ duration: reducedMotion ? 0 : 0.8, ease: "easeInOut" }}
-              className="absolute inset-0"
-              style={{ pointerEvents: index === currentHeroImage ? 'auto' : 'none' }}
-            >
-              <LazyImage 
-                src={image}
-                alt="Bachelor party Austin cruise on Lake Travis - ATX Disco party boat with DJ and entertainment"
-                className="w-full h-full object-cover"
-                priority={index === 0}
-              />
-              <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
-            </motion.div>
-          ))}
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="w-full h-full object-cover"
+            poster={heroImage1}
+          >
+            <source src="/attached_assets/Boat_Video_Walkthrough_Generated_1761209219959.mp4" type="video/mp4" />
+          </video>
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
         </div>
 
         {/* Main Hero Content */}

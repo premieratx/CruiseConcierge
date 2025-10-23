@@ -274,27 +274,17 @@ export default function CombinedBachelorBachelorette() {
       {/* Hero Section */}
       <section className="relative min-h-[80vh] flex flex-col justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
-          {heroImages.map((image, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: index === currentHeroImage ? 1 : 0 }}
-              transition={{ duration: reducedMotion ? 0 : 0.8, ease: "easeInOut" }}
-              className="absolute inset-0"
-              style={{ pointerEvents: index === currentHeroImage ? 'auto' : 'none' }}
-            >
-              <img 
-                src={image}
-                alt="Combined Bachelor Bachelorette Austin party on Lake Travis Party Boat"
-                className="w-full h-full object-cover"
-                width={1920}
-                height={1080}
-                loading={index === 0 ? "eager" : "lazy"}
-                fetchpriority={index === 0 ? "high" : "low"}
-              />
-              <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent" />
-            </motion.div>
-          ))}
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="w-full h-full object-cover"
+            poster={heroImages[0]}
+          >
+            <source src="/attached_assets/Boat_Video_Walkthrough_Generated_1761209219959.mp4" type="video/mp4" />
+          </video>
+          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent" />
         </div>
 
         <div className="relative z-10 container mx-auto px-4 sm:px-6 text-white text-center flex-grow flex items-center">

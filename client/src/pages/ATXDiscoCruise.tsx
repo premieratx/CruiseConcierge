@@ -353,11 +353,11 @@ export default function ATXDiscoCruise() {
   }, [reducedMotion, heroImages.length]);
 
   const handleBookNow = () => {
-    navigate('/quote?service=atx-disco-cruise');
+    navigate('/chat?service=atx-disco-cruise');
   };
 
   const handleGetQuote = () => {
-    navigate('/quote?service=atx-disco-cruise');
+    navigate('/chat?service=atx-disco-cruise');
   };
 
   return (
@@ -395,24 +395,18 @@ export default function ATXDiscoCruise() {
           data-testid="section-hero"
         >
           <div className="absolute inset-0 z-0">
-            {heroImages.map((image, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: index === currentHeroImage ? 1 : 0 }}
-                transition={{ duration: reducedMotion ? 0 : 0.8, ease: "easeInOut" }}
-                className="absolute inset-0"
-                style={{ pointerEvents: index === currentHeroImage ? 'auto' : 'none' }}
-              >
-                <div className="absolute inset-0 bg-gradient-to-r from-purple-900/80 via-pink-900/70 to-orange-900/80 z-10" />
-                <LazyImage 
-                  src={image} 
-                  alt="ATX Disco Cruise party boat on Lake Travis Austin - Bachelor and bachelorette party atmosphere with DJ and dancing"
-                  className="w-full h-full object-cover"
-                  priority={index === 0}
-                />
-              </motion.div>
-            ))}
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="w-full h-full object-cover"
+              poster={heroImages[0]}
+            >
+              <source src="/attached_assets/Boat_Video_Walkthrough_Generated_1761209219959.mp4" type="video/mp4" />
+            </video>
+            <div className="absolute inset-0 bg-gradient-to-r from-purple-900/80 via-pink-900/70 to-orange-900/80" />
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/40" />
           </div>
 
           <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 text-center flex-grow flex items-center">
