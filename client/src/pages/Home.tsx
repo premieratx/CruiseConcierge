@@ -608,11 +608,11 @@ export default function Home() {
             </motion.div>
 
             {/* Main Headline */}
-            <motion.div variants={reducedMotion ? undefined : fadeInUp} className="mb-8">
-              <h1 className="text-6xl md:text-7xl font-bold font-playfair mb-6 leading-tight" data-editable data-editable-id="hero-title">
+            <motion.div variants={reducedMotion ? undefined : fadeInUp} className="mb-6 md:mb-8">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold font-playfair mb-4 md:mb-6 leading-tight" data-editable data-editable-id="hero-title">
                 Austin Party Boat Rentals on Lake Travis
               </h1>
-              <p className="text-xl md:text-2xl text-brand-yellow font-semibold leading-relaxed" data-editable data-editable-id="hero-tagline">
+              <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-brand-yellow font-semibold leading-relaxed" data-editable data-editable-id="hero-tagline">
                 Premier Party Cruises - Austin's Ultimate Lake Travis Experience Since 2009
               </p>
             </motion.div>
@@ -620,7 +620,7 @@ export default function Home() {
             {/* Subheadline with Pricing Value Proposition */}
             <motion.p 
               variants={reducedMotion ? undefined : fadeInUp}
-              className="text-base mb-8 text-gray-100 max-w-4xl mx-auto leading-relaxed"
+              className="text-sm sm:text-base md:text-lg mb-6 md:mb-8 text-gray-100 max-w-4xl mx-auto leading-relaxed px-2"
               data-editable data-editable-id="hero-description"
             >
               Experience Austin's ultimate Lake Travis adventure with the most trusted party cruise company since 2009. 
@@ -631,25 +631,25 @@ export default function Home() {
             {/* Pricing Value Proposition */}
             <motion.div 
               variants={reducedMotion ? undefined : fadeInUp}
-              className="bg-white border border-gray-200 rounded-xl p-6 max-w-3xl mx-auto mb-12"
+              className="bg-white border border-gray-200 rounded-xl p-4 sm:p-6 max-w-3xl mx-auto mb-8 md:mb-12"
             >
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-center">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 text-center">
                 <div>
-                  <div className="font-sans tracking-wider font-bold uppercase text-sm text-blue-600 mb-2" data-editable data-editable-id="pricing-overlay-private-label">PRIVATE CRUISES FROM</div>
-                  <div className="text-3xl font-bold text-gray-900 mb-1" data-editable data-editable-id="pricing-overlay-private-price">
+                  <div className="font-sans tracking-wider font-bold uppercase text-xs sm:text-sm text-blue-600 mb-2" data-editable data-editable-id="pricing-overlay-private-label">PRIVATE CRUISES FROM</div>
+                  <div className="text-2xl sm:text-3xl font-bold text-gray-900 mb-1" data-editable data-editable-id="pricing-overlay-private-price">
                     ${HOURLY_RATES.MON_THU[14] / 100} per hour
                   </div>
-                  <div className="text-sm text-gray-700" data-editable data-editable-id="pricing-overlay-private-subtitle">Weekdays • 14+ people</div>
+                  <div className="text-xs sm:text-sm text-gray-700" data-editable data-editable-id="pricing-overlay-private-subtitle">Weekdays • 14+ people</div>
                 </div>
                 <div>
-                  <div className="font-sans tracking-wider font-bold uppercase text-sm text-blue-600 mb-2" data-editable data-editable-id="pricing-overlay-disco-label">DISCO CRUISES</div>
-                  <div className="text-3xl font-bold text-gray-900 mb-1" data-editable data-editable-id="pricing-overlay-disco-price">
+                  <div className="font-sans tracking-wider font-bold uppercase text-xs sm:text-sm text-blue-600 mb-2" data-editable data-editable-id="pricing-overlay-disco-label">DISCO CRUISES</div>
+                  <div className="text-2xl sm:text-3xl font-bold text-gray-900 mb-1" data-editable data-editable-id="pricing-overlay-disco-price">
                     ${pricingHighlights[1].weekdayFrom}/person
                   </div>
-                  <div className="text-sm text-gray-700" data-editable data-editable-id="pricing-overlay-disco-subtitle">Friday & Saturday</div>
+                  <div className="text-xs sm:text-sm text-gray-700" data-editable data-editable-id="pricing-overlay-disco-subtitle">Friday & Saturday</div>
                 </div>
               </div>
-              <div className="text-center mt-4 text-sm text-blue-600 font-medium" data-editable data-editable-id="pricing-overlay-tagline">
+              <div className="text-center mt-3 md:mt-4 text-xs sm:text-sm text-blue-600 font-medium" data-editable data-editable-id="pricing-overlay-tagline">
                 ✨ Transparent pricing • No hidden fees • Best value guaranteed
               </div>
             </motion.div>
@@ -680,17 +680,17 @@ export default function Home() {
             {/* CTA Buttons */}
             <motion.div 
               variants={reducedMotion ? undefined : fadeInUp}
-              className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-12"
+              className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center items-center mb-8 md:mb-12"
             >
               <Button
                 size="lg"
                 onClick={() => handleGetQuote()}
-                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold text-xl px-12 py-8 rounded-xl shadow-2xl transform hover:scale-105 transition-all duration-300"
+                className="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold text-base sm:text-lg md:text-xl px-6 sm:px-8 md:px-12 py-4 sm:py-6 md:py-8 rounded-xl shadow-2xl transform hover:scale-105 transition-all duration-300"
                 data-testid="button-hero-book-now"
               >
-                <Calendar className="mr-3 h-6 w-6 flex-shrink-0" />
+                <Calendar className="mr-2 sm:mr-3 h-5 w-5 sm:h-6 sm:w-6 flex-shrink-0" />
                 <span data-editable data-editable-id="hero-cta-book">BOOK YOUR CRUISE</span>
-                <ArrowRight className="ml-3 h-6 w-6 flex-shrink-0" />
+                <ArrowRight className="ml-2 sm:ml-3 h-5 w-5 sm:h-6 sm:w-6 flex-shrink-0" />
               </Button>
               
               <Button

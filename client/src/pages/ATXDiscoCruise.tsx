@@ -415,18 +415,18 @@ export default function ATXDiscoCruise() {
             ))}
           </div>
 
-          <div className="relative z-20 max-w-7xl mx-auto px-6 text-center flex-grow flex items-center">
+          <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 text-center flex-grow flex items-center">
             <motion.div variants={fadeInUp} className="w-full">
-              <h1 className="font-playfair text-6xl md:text-7xl lg:text-8xl font-bold text-white mb-6 text-center leading-tight" data-testid="text-hero-headline">
+              <h1 className="font-playfair text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-4 md:mb-6 text-center leading-tight" data-testid="text-hero-headline">
                 ATX Disco Cruise
               </h1>
-              <p className="text-2xl md:text-3xl text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-pink-400 to-purple-400 mt-4 mb-4 font-bold text-center">
+              <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-pink-400 to-purple-400 mt-3 md:mt-4 mb-3 md:mb-4 font-bold text-center">
                 The Country's Only Multi-Group Bach Party Cruise
               </p>
-              <p className="text-xl md:text-2xl text-white/90 mb-4 max-w-3xl mx-auto font-semibold text-center" data-testid="text-hero-subheadline">
+              <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-white/90 mb-3 md:mb-4 max-w-3xl mx-auto font-semibold text-center px-2" data-testid="text-hero-subheadline">
                 The single most unique and comprehensive <InternalLinkHighlight href="/bachelor-party" title="Bachelor Parties">bachelor</InternalLinkHighlight>/<InternalLinkHighlight href="/bachelorette-party" title="Bachelorette Parties">bachelorette party</InternalLinkHighlight> experience in the United States
               </p>
-              <p className="text-base md:text-lg text-white/80 mb-8 max-w-3xl mx-auto text-center" data-testid="text-hero-description">
+              <p className="text-sm sm:text-base md:text-lg text-white/80 mb-6 md:mb-8 max-w-3xl mx-auto text-center px-2" data-testid="text-hero-description">
                 Only all-inclusive, multi-group bachelor/bachelorette party cruise in the country. Join parties from across America for an unforgettable 4-hour Lake Travis celebration with professional DJ, photographer, and 100% satisfaction track record! <InternalLinkHighlightWithArrow href="/private-cruises" title="Private Cruises">Or book a private charter</InternalLinkHighlightWithArrow>
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">

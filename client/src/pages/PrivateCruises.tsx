@@ -408,17 +408,17 @@ export default function PrivateCruises() {
         
         <div className="max-w-7xl mx-auto relative z-10">
           <ScrollReveal delay={0}>
-            <div className="text-center mb-16">
-              <Badge className="mb-6 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-sm px-6 py-2 border-0 font-sans tracking-wider font-bold uppercase">
+            <div className="text-center mb-12 md:mb-16 px-4">
+              <Badge className="mb-4 md:mb-6 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-xs sm:text-sm px-4 sm:px-6 py-2 border-0 font-sans tracking-wider font-bold uppercase">
                 Private Boat Charters
               </Badge>
-              <h1 className="text-6xl font-bold font-playfair mb-8 text-gray-900 leading-tight">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold font-playfair mb-6 md:mb-8 text-gray-900 leading-tight">
                 Private Boat Rentals Austin
               </h1>
-              <p className="text-xl text-gray-900 mb-6 font-semibold">
+              <p className="text-lg sm:text-xl text-gray-900 mb-4 md:mb-6 font-semibold">
                 Your Private Boat. Your Rules. Your Lake Travis Adventure.
               </p>
-              <p className="text-lg text-gray-700 max-w-4xl mx-auto mb-10 leading-relaxed">
+              <p className="text-base sm:text-lg text-gray-700 max-w-4xl mx-auto mb-8 md:mb-10 leading-relaxed">
                 Exclusive boat charters for 14-75 guests. BYOB friendly. Choose your schedule, play your music, create your perfect day on the lake. Perfect for <InternalLinkHighlight href="/team-building" title="Corporate Events">corporate events</InternalLinkHighlight>, <InternalLinkHighlight href="/rehearsal-dinner" title="Special Occasions">weddings & birthdays</InternalLinkHighlight>. Looking for a <InternalLinkHighlight href="/atx-disco-cruise" title="ATX Disco Cruise">party atmosphere</InternalLinkHighlight>? Check out our disco cruise!
               </p>
 

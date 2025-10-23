@@ -397,7 +397,7 @@ export default function BacheloretteParty() {
             {/* CRITICAL: H1 with text-6xl and font-playfair - Largest text on page */}
             <motion.h1 
               variants={fadeInUp}
-              className="text-5xl md:text-6xl font-bold font-playfair mb-6 text-center leading-tight"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold font-playfair mb-4 md:mb-6 text-center leading-tight px-2"
               data-editable 
               data-editable-id="bachelorette-hero-title"
             >
@@ -406,19 +406,19 @@ export default function BacheloretteParty() {
             
             <motion.div
               variants={fadeInUp}
-              className="text-2xl md:text-3xl text-brand-yellow font-semibold mb-6"
+              className="text-xl sm:text-2xl md:text-3xl text-brand-yellow font-semibold mb-4 md:mb-6 px-2"
             >
               Lake Travis Girls' Weekend Celebration
             </motion.div>
             
             <motion.p 
               variants={fadeInUp}
-              className="text-xl md:text-2xl mb-8 text-gray-100 leading-relaxed"
+              className="text-base sm:text-lg md:text-xl lg:text-2xl mb-6 md:mb-8 text-gray-100 leading-relaxed px-2"
               data-editable 
               data-editable-id="bachelorette-hero-subtitle"
             >
               Exclusively for Bachelorette & <InternalLinkHighlight href="/bachelor-party" title="Bachelor Parties">Bachelor Parties</InternalLinkHighlight><br/>
-              <span className="text-lg md:text-xl">The Highlight of Your Weekend Every. Damn. Time.</span>
+              <span className="text-sm sm:text-base md:text-lg lg:text-xl">The Highlight of Your Weekend Every. Damn. Time.</span>
             </motion.p>
 
             {/* Special Bride Free Offer */}
@@ -972,22 +972,22 @@ export default function BacheloretteParty() {
               </p>
             </div>
 
-            <div className="grid md:grid-cols-4 gap-8 mb-16">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 mb-12 md:mb-16">
               <div className="text-center">
-                <div className="text-6xl font-bold text-brand-yellow mb-2">15+</div>
-                <div className="text-xl text-white">Years Experience</div>
+                <div className="text-4xl sm:text-5xl md:text-6xl font-bold text-brand-yellow mb-1 md:mb-2">15+</div>
+                <div className="text-sm sm:text-base md:text-xl text-white">Years Experience</div>
               </div>
               <div className="text-center">
-                <div className="text-6xl font-bold text-brand-yellow mb-2">10K+</div>
-                <div className="text-xl text-white">Bachelorette Parties</div>
+                <div className="text-4xl sm:text-5xl md:text-6xl font-bold text-brand-yellow mb-1 md:mb-2">10K+</div>
+                <div className="text-sm sm:text-base md:text-xl text-white">Bachelorette Parties</div>
               </div>
               <div className="text-center">
-                <div className="text-6xl font-bold text-brand-yellow mb-2">100%</div>
-                <div className="text-xl text-white">Satisfaction Rate</div>
+                <div className="text-4xl sm:text-5xl md:text-6xl font-bold text-brand-yellow mb-1 md:mb-2">100%</div>
+                <div className="text-sm sm:text-base md:text-xl text-white">Satisfaction Rate</div>
               </div>
               <div className="text-center">
-                <div className="text-6xl font-bold text-brand-yellow mb-2">5★</div>
-                <div className="text-xl text-white">Average Rating</div>
+                <div className="text-4xl sm:text-5xl md:text-6xl font-bold text-brand-yellow mb-1 md:mb-2">5★</div>
+                <div className="text-sm sm:text-base md:text-xl text-white">Average Rating</div>
               </div>
             </div>
 
