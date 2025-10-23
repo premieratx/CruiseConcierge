@@ -42,14 +42,14 @@ interface DiscoInsightProps {
   className?: string;
 }
 
-// Rotating highlight quotes from Claude AI analysis
+// Factual highlight quotes verified from replit.md knowledge base
 const highlightQuotes = [
-  "The single most unique and comprehensive bachelor/bachelorette party experience in the United States",
   "Only all-inclusive, multi-group bachelor/bachelorette party cruise in the country",
-  "3-5x better value than private rentals with professional DJ and photographer included",
-  "100% satisfaction track record with thousands of groups served nationwide",
-  "Single-handedly making Austin a top-tier bachelor & bachelorette destination",
-  "Industry's only weather guarantee with Lemonade Disco backup plan"
+  "Industry's only weather guarantee with Lemonade Disco backup plan",
+  "15+ years in operation with 150,000+ customers served",
+  "Perfect safety record with zero incidents in 15+ years",
+  "GIANT 25-ft inflatable unicorn float - biggest in the country",
+  "Everything included except alcohol - just show up and get down"
 ];
 
 export default function DiscoInsight({ 
