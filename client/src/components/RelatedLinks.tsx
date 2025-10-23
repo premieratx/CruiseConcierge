@@ -9,7 +9,15 @@ interface BlogLink {
   href: string;
 }
 
+interface Link {
+  href: string;
+  label: string;
+  description: string;
+}
+
 interface RelatedLinksProps {
+  title?: string;
+  links?: Link[];
   blogLinks?: BlogLink[];
 }
 
@@ -49,8 +57,17 @@ const standardLinks = [
   }
 ];
 
-export default function RelatedLinks({ blogLinks = [] }: RelatedLinksProps) {
+export default function RelatedLinks({ title = 'Related Links & Resources', links = [], blogLinks = [] }: RelatedLinksProps) {
   const reducedMotion = useReducedMotion();
+  
+  // Combine standard links with custom links if provided
+  const allStandardLinks = links.length > 0 
+    ? links.map(link => ({
+        ...link,
+        title: link.label,
+        icon: FileText
+      }))
+    : standardLinks;
   
   return (
     <section className="py-16 bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-950">
@@ -63,14 +80,14 @@ export default function RelatedLinks({ blogLinks = [] }: RelatedLinksProps) {
           className="max-w-6xl mx-auto"
         >
           <h2 className="text-3xl md:text-4xl font-bold font-heading text-center mb-3">
-            Related Links & Resources
+            {title}
           </h2>
           <p className="text-center text-gray-600 dark:text-gray-400 mb-12 max-w-2xl mx-auto">
             Everything you need to plan the perfect Lake Travis celebration
           </p>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-            {standardLinks.map((link, index) => (
+            {allStandardLinks.map((link, index) => (
               <motion.div
                 key={link.href}
                 initial={reducedMotion ? false : { opacity: 0, y: 20 }}

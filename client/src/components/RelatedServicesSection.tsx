@@ -15,6 +15,7 @@ interface RelatedService {
 interface RelatedServicesSectionProps {
   services?: RelatedService[];
   title?: string;
+  description?: string;
   className?: string;
   currentPath?: string;
 }
@@ -56,6 +57,7 @@ const defaultServices: RelatedService[] = [
 export function RelatedServicesSection({
   services = defaultServices,
   title = 'Related Services',
+  description = 'Explore more ways to celebrate on Lake Travis',
   className,
   currentPath = ''
 }: RelatedServicesSectionProps) {
@@ -67,7 +69,7 @@ export function RelatedServicesSection({
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-8">
           <h2 className="text-3xl font-bold mb-4">{title}</h2>
-          <p className="text-muted-foreground">Explore more ways to celebrate on Lake Travis</p>
+          <p className="text-muted-foreground">{description}</p>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">

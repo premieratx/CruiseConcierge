@@ -1328,19 +1328,19 @@ export default function BacheloretteParty() {
               <FeaturedSnippet
                 question="What is an Austin bachelorette party boat cruise?"
                 answer="An Austin bachelorette party boat cruise is a 4-hour celebration on Lake Travis specifically designed for bachelorette parties. The ATX Disco Cruise features professional DJ services, photography, giant floats, and an epic party atmosphere that makes every bride's celebration unforgettable. The bride cruises FREE with premium packages!"
-                featured={true}
+                format="paragraph"
               />
               
               <FeaturedSnippet
                 question="What is included in a bachelorette party boat cruise?"
                 answer="All bachelorette party cruises include: Professional DJ playing bride's favorites, professional photographer capturing memories, giant lily pad floats (6x20'), disco ball cups and party supplies, private cooler with ice, mimosa supplies with champagne flutes, ice water stations, clean restrooms, and shaded lounge areas. Premium packages include the bride cruising FREE, alcohol delivery, and personalized bride items."
-                featured={false}
+                format="paragraph"
               />
 
               <FeaturedSnippet
                 question="How much does an Austin bachelorette party boat cost?"
                 answer="Austin bachelorette party boat cruises start at $85/person for the Basic Bach Package ($109 with tax & tip). The most popular Disco Queen Package is $95/person ($122 with tax & tip) and includes the BRIDE CRUISING FREE. The all-inclusive Super Sparkle Platinum package is $105/person ($135 with tax & tip) and includes the bride free plus a personal unicorn float, pre-stocked cooler, and full concierge service."
-                featured={false}
+                format="paragraph"
               />
             </div>
           </div>

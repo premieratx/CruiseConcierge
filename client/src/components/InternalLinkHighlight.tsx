@@ -2,6 +2,7 @@ import { Link, LinkProps } from 'wouter';
 import { cn } from '@/lib/utils';
 
 interface InternalLinkHighlightProps extends LinkProps {
+  href: string;
   children: React.ReactNode;
   className?: string;
   title?: string;
