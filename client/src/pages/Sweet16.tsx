@@ -208,33 +208,6 @@ const faqItems = [
   }
 ];
 
-// Testimonials
-const testimonials = [
-  {
-    id: 1,
-    name: 'Madison\'s Mom',
-    role: 'Sweet 16 in June',
-    rating: 5,
-    text: 'Madison\'s Sweet 16 cruise was absolutely perfect! The decorations were gorgeous, the crew was amazing with the teens, and the photos turned out incredible. She said it was the best day of her life!',
-    image: '/testimonials/madison-mom.jpg'
-  },
-  {
-    id: 2,
-    name: 'Emma Thompson',
-    role: 'Birthday Girl',
-    rating: 5,
-    text: 'OMG best Sweet 16 ever! The yacht was so pretty, my friends had the best time, and the sunset was gorgeous! The DJ played all our favorite songs and the mocktails were so fancy. Thank you for making my day so special!',
-    image: '/testimonials/emma.jpg'
-  },
-  {
-    id: 3,
-    name: 'The Johnson Family',
-    role: 'Sophia\'s Sweet 16',
-    rating: 5,
-    text: 'We were nervous about 40 teenagers on a boat, but the crew handled everything perfectly. Safe, fun, and memorable. Sophia and her friends are still talking about it months later. Worth every penny!',
-    image: '/testimonials/johnson-family.jpg'
-  }
-];
 
 export default function Sweet16() {
   const [location, navigate] = useLocation();
@@ -635,7 +608,7 @@ export default function Sweet16() {
       <section className="py-20 bg-gradient-to-b from-pink-50 to-white dark:from-gray-900 dark:to-gray-950">
         <div className="container mx-auto px-6">
           <motion.div 
-            className="text-center mb-12"
+            className="text-center mb-12 max-w-3xl mx-auto"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -643,43 +616,36 @@ export default function Sweet16() {
             <h2 className="text-4xl md:text-5xl font-bold font-heading mb-4">
               Sweet 16 Success Stories
             </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-400">
-              Hear from happy birthday girls and their parents
+            <p className="text-xl text-gray-600 dark:text-gray-400 mb-8">
+              Check out our verified reviews on Google and Facebook to see what real families are saying about their Sweet 16 cruises on Lake Travis!
             </p>
-          </motion.div>
-
-          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {testimonials.map((testimonial, index) => (
-              <motion.div
-                key={testimonial.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
+            
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <Button
+                size="lg"
+                variant="outline"
+                asChild
+                className="border-2 border-pink-500 text-pink-500 hover:bg-pink-500 hover:text-white font-bold text-lg px-10 py-6"
               >
-                <Card className="h-full">
-                  <CardContent className="pt-6">
-                    <div className="flex mb-4">
-                      {[...Array(5)].map((_, i) => (
-                        <Star key={i} className="h-5 w-5 fill-pink-400 text-pink-400" />
-                      ))}
-                    </div>
-                    
-                    <Quote className="h-8 w-8 text-pink-200 mb-2" />
-                    
-                    <p className="text-gray-600 dark:text-gray-400 mb-6 italic">
-                      "{testimonial.text}"
-                    </p>
-
-                    <div className="border-t pt-4">
-                      <p className="font-bold">{testimonial.name}</p>
-                      <p className="text-sm text-gray-500">{testimonial.role}</p>
-                    </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
+                <a href="https://www.google.com/search?q=premier+party+cruises+austin" target="_blank" rel="noopener noreferrer">
+                  <Star className="mr-2 h-5 w-5" />
+                  View Google Reviews
+                </a>
+              </Button>
+              
+              <Button
+                size="lg"
+                variant="outline"
+                asChild
+                className="border-2 border-pink-500 text-pink-500 hover:bg-pink-500 hover:text-white font-bold text-lg px-10 py-6"
+              >
+                <a href="https://www.facebook.com/premierpartycruises" target="_blank" rel="noopener noreferrer">
+                  <Star className="mr-2 h-5 w-5" />
+                  View Facebook Reviews
+                </a>
+              </Button>
+            </div>
+          </motion.div>
         </div>
       </section>
 

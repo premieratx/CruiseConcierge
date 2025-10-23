@@ -172,32 +172,6 @@ const faqItems = [
   }
 ];
 
-const testimonials = [
-  {
-    id: 1,
-    name: 'Michael Thompson',
-    role: 'CEO, Tech Startup',
-    rating: 5,
-    text: 'Celebrated our Series B funding on a Premier cruise. The team loved it, investors were impressed, and the photos were perfect for our announcement. Couldn\'t have asked for a better way to mark this milestone.',
-    image: '/testimonials/michael.jpg'
-  },
-  {
-    id: 2,
-    name: 'Sandra Lee',
-    role: 'HR Director, Fortune 500',
-    rating: 5,
-    text: 'For our 25th anniversary, we wanted something special. The Legacy package delivered beyond expectations. The crew handled our 70-person event flawlessly, and employees still talk about it months later.',
-    image: '/testimonials/sandra.jpg'
-  },
-  {
-    id: 3,
-    name: 'Robert Kim',
-    role: 'COO, Financial Services',
-    rating: 5,
-    text: 'After closing our biggest deal ever, we celebrated in style. The yacht, service, and atmosphere were perfect for recognizing our team\'s hard work. It showed our employees how much we value their contributions.',
-    image: '/testimonials/robert.jpg'
-  }
-];
 
 export default function CompanyMilestone() {
   const [location, navigate] = useLocation();
@@ -494,33 +468,39 @@ export default function CompanyMilestone() {
       <SectionReveal>
         <section className="py-24 bg-white">
           <div className="max-w-7xl mx-auto px-6">
-            <div className="text-center mb-16">
+            <div className="text-center mb-16 max-w-3xl mx-auto">
               <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-4 text-center">
                 Company Success Stories
               </h2>
-              <p className="text-xl text-base text-gray-600 text-center">
-                See how companies celebrate their greatest achievements
+              <p className="text-xl text-base text-gray-600 text-center mb-8">
+                Check out our verified reviews on Google and Facebook to see what real companies are saying about their milestone celebrations on Lake Travis!
               </p>
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-8">
-              {testimonials.map((testimonial) => (
-                <Card key={testimonial.id} className="h-full rounded-xl">
-                  <CardContent className="pt-6">
-                    <div className="flex items-center mb-4">
-                      {[...Array(testimonial.rating)].map((_, i) => (
-                        <Star key={i} className="h-5 w-5 text-yellow-400 fill-current" />
-                      ))}
-                    </div>
-                    <Quote className="h-8 w-8 text-blue-600 mb-4" />
-                    <p className="text-gray-700 text-base mb-6">{testimonial.text}</p>
-                    <div className="border-t pt-4">
-                      <p className="font-bold text-base">{testimonial.name}</p>
-                      <p className="text-sm text-gray-600">{testimonial.role}</p>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
+              
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <Button
+                  size="lg"
+                  variant="outline"
+                  asChild
+                  className="border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white font-bold text-lg px-10 py-6"
+                >
+                  <a href="https://www.google.com/search?q=premier+party+cruises+austin" target="_blank" rel="noopener noreferrer">
+                    <Star className="mr-2 h-5 w-5" />
+                    View Google Reviews
+                  </a>
+                </Button>
+                
+                <Button
+                  size="lg"
+                  variant="outline"
+                  asChild
+                  className="border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white font-bold text-lg px-10 py-6"
+                >
+                  <a href="https://www.facebook.com/premierpartycruises" target="_blank" rel="noopener noreferrer">
+                    <Star className="mr-2 h-5 w-5" />
+                    View Facebook Reviews
+                  </a>
+                </Button>
+              </div>
             </div>
           </div>
         </section>

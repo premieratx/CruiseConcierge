@@ -211,33 +211,6 @@ const faqItems = [
   }
 ];
 
-// Testimonials
-const testimonials = [
-  {
-    id: 1,
-    name: 'The Martinez Family',
-    role: 'High School Graduation 2024',
-    rating: 5,
-    text: 'Our daughter\'s graduation cruise was the perfect way to celebrate her achievement! The crew was amazing, the photos turned out beautifully, and all her friends had a blast. She\'ll remember this forever!',
-    image: '/testimonials/martinez.jpg'
-  },
-  {
-    id: 2,
-    name: 'Jake Thompson',
-    role: 'UT Austin Graduate',
-    rating: 5,
-    text: 'Epic way to celebrate finishing college! We had 50 friends on the yacht, perfect weather, and the crew helped make it unforgettable. Way better than a regular grad party. Hook \'em!',
-    image: '/testimonials/jake.jpg'
-  },
-  {
-    id: 3,
-    name: 'Susan Lee',
-    role: 'Organized Joint Grad Party',
-    rating: 5,
-    text: 'We combined 4 graduates from different high schools for one amazing celebration. The crew handled the logistics perfectly, customized decorations for each school, and everyone had an incredible time!',
-    image: '/testimonials/susan.jpg'
-  }
-];
 
 export default function GraduationParty() {
   const [location, navigate] = useLocation();
@@ -615,7 +588,7 @@ export default function GraduationParty() {
       <section className="py-20 bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-950">
         <div className="container mx-auto px-6">
           <motion.div 
-            className="text-center mb-12"
+            className="text-center mb-12 max-w-3xl mx-auto"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -623,43 +596,36 @@ export default function GraduationParty() {
             <h2 className="text-4xl md:text-5xl font-bold font-heading mb-4">
               Graduation Success Stories
             </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-400">
-              Hear from graduates and their families
+            <p className="text-xl text-gray-600 dark:text-gray-400 mb-8">
+              Check out our verified reviews on Google and Facebook to see what real graduates and families are saying about their graduation cruises on Lake Travis!
             </p>
-          </motion.div>
-
-          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {testimonials.map((testimonial, index) => (
-              <motion.div
-                key={testimonial.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
+            
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <Button
+                size="lg"
+                variant="outline"
+                asChild
+                className="border-2 border-brand-blue text-brand-blue hover:bg-brand-blue hover:text-white font-bold text-lg px-10 py-6"
               >
-                <Card className="h-full">
-                  <CardContent className="pt-6">
-                    <div className="flex mb-4">
-                      {[...Array(5)].map((_, i) => (
-                        <Star key={i} className="h-5 w-5 fill-brand-yellow text-brand-yellow" />
-                      ))}
-                    </div>
-                    
-                    <Quote className="h-8 w-8 text-brand-blue/20 mb-2" />
-                    
-                    <p className="text-gray-600 dark:text-gray-400 mb-6 italic">
-                      "{testimonial.text}"
-                    </p>
-
-                    <div className="border-t pt-4">
-                      <p className="font-bold">{testimonial.name}</p>
-                      <p className="text-sm text-gray-500">{testimonial.role}</p>
-                    </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
+                <a href="https://www.google.com/search?q=premier+party+cruises+austin" target="_blank" rel="noopener noreferrer">
+                  <Star className="mr-2 h-5 w-5" />
+                  View Google Reviews
+                </a>
+              </Button>
+              
+              <Button
+                size="lg"
+                variant="outline"
+                asChild
+                className="border-2 border-brand-blue text-brand-blue hover:bg-brand-blue hover:text-white font-bold text-lg px-10 py-6"
+              >
+                <a href="https://www.facebook.com/premierpartycruises" target="_blank" rel="noopener noreferrer">
+                  <Star className="mr-2 h-5 w-5" />
+                  View Facebook Reviews
+                </a>
+              </Button>
+            </div>
+          </motion.div>
         </div>
       </section>
 

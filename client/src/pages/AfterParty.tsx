@@ -172,32 +172,6 @@ const faqItems = [
   }
 ];
 
-const testimonials = [
-  {
-    id: 1,
-    name: 'Ashley & Ryan Cooper',
-    role: 'Married June 2024',
-    rating: 5,
-    text: 'The after party cruise was EPIC! After our reception, our closest friends joined us on the lake. The DJ was incredible, the midnight champagne was perfect, and dancing under the stars was magical!',
-    image: '/testimonials/ashley-ryan.jpg'
-  },
-  {
-    id: 2,
-    name: 'Jessica Martinez',
-    role: 'Maid of Honor',
-    rating: 5,
-    text: 'Best after party ever! The bride and groom got to really let loose with their closest friends. The boat, the music, the atmosphere - everything was perfect for ending the best day ever.',
-    image: '/testimonials/jessica.jpg'
-  },
-  {
-    id: 3,
-    name: 'Brandon & Taylor Lee',
-    role: 'Married September 2024',
-    rating: 5,
-    text: 'We didn\'t want our wedding night to end, and the after party cruise was the perfect solution. Our friends are still talking about it! The late night tacos and DJ were amazing.',
-    image: '/testimonials/brandon-taylor.jpg'
-  }
-];
 
 export default function AfterParty() {
   const [location, navigate] = useLocation();
@@ -494,33 +468,39 @@ export default function AfterParty() {
       <SectionReveal>
         <section className="py-24 bg-white">
           <div className="max-w-7xl mx-auto px-6">
-            <div className="text-center mb-16">
+            <div className="text-center mb-16 max-w-3xl mx-auto">
               <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-4 text-center">
                 Epic After Party Stories
               </h2>
-              <p className="text-xl text-base text-gray-600 text-center">
-                Hear from couples who kept the celebration going
+              <p className="text-xl text-base text-gray-600 text-center mb-8">
+                Check out our verified reviews on Google and Facebook to see what real couples are saying about their after party cruises on Lake Travis!
               </p>
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-8">
-              {testimonials.map((testimonial) => (
-                <Card key={testimonial.id} className="h-full rounded-xl">
-                  <CardContent className="pt-6">
-                    <div className="flex items-center mb-4">
-                      {[...Array(testimonial.rating)].map((_, i) => (
-                        <Star key={i} className="h-5 w-5 text-yellow-400 fill-current" />
-                      ))}
-                    </div>
-                    <Quote className="h-8 w-8 text-purple-600 mb-4" />
-                    <p className="text-gray-700 text-base mb-6">{testimonial.text}</p>
-                    <div className="border-t pt-4">
-                      <p className="font-bold text-base">{testimonial.name}</p>
-                      <p className="text-sm text-gray-600">{testimonial.role}</p>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
+              
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <Button
+                  size="lg"
+                  variant="outline"
+                  asChild
+                  className="border-2 border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white font-bold text-lg px-10 py-6"
+                >
+                  <a href="https://www.google.com/search?q=premier+party+cruises+austin" target="_blank" rel="noopener noreferrer">
+                    <Star className="mr-2 h-5 w-5" />
+                    View Google Reviews
+                  </a>
+                </Button>
+                
+                <Button
+                  size="lg"
+                  variant="outline"
+                  asChild
+                  className="border-2 border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white font-bold text-lg px-10 py-6"
+                >
+                  <a href="https://www.facebook.com/premierpartycruises" target="_blank" rel="noopener noreferrer">
+                    <Star className="mr-2 h-5 w-5" />
+                    View Facebook Reviews
+                  </a>
+                </Button>
+              </div>
             </div>
           </div>
         </section>

@@ -250,89 +250,6 @@ const faqItems = [
   }
 ];
 
-// Bachelor party testimonials
-const testimonials = [
-  {
-    id: 1,
-    name: 'Jake Martinez',
-    role: 'Groom',
-    location: 'Austin, TX',
-    rating: 5,
-    text: "This was hands down the BEST party I've ever been to! The ATX Disco Cruise was insane - we met bachelor parties from Dallas, Chicago, even California! The energy was absolutely electric. All the guys said it was their favorite bachelor party experience EVER.",
-    avatar: '🤵',
-    package: 'Disco King Package'
-  },
-  {
-    id: 2,
-    name: 'Mike Thompson',
-    role: 'Best Man',
-    location: 'Houston, TX',
-    rating: 5,
-    text: "I planned this and literally EVERYTHING was handled - no stress whatsoever! The DJ absolutely crushed it, professional photos came out AMAZING, and the free alcohol delivery was clutch. My buddy still calls me the GOAT for finding this!",
-    avatar: '🎉',
-    package: 'Platinum Package'
-  },
-  {
-    id: 3,
-    name: 'Chris Johnson',
-    role: 'Groom',
-    location: 'Dallas, TX',
-    rating: 5,
-    text: "Dancing on the water with the boys was LEGENDARY! We partied with groups from all over the country - made so many friends. The vibe was insane, everyone celebrating the same occasion. SERIOUSLY the highlight of the entire weekend!",
-    avatar: '🕺',
-    package: 'Basic Bach Package'
-  },
-  {
-    id: 4,
-    name: 'David Kim',
-    role: 'Best Man',
-    location: 'San Antonio, TX',
-    rating: 5,
-    text: "The GIANT unicorn float was EPIC! We dominated that thing, photographer got some incredible shots. Meeting other bachelor parties from across the country made it even better. This is THE party you book - trust me, you'll be the hero!",
-    avatar: '🎊',
-    package: 'Disco King Package'
-  },
-  {
-    id: 5,
-    name: 'Ryan Smith',
-    role: 'Groom',
-    location: 'Fort Worth, TX',
-    rating: 5,
-    text: "Show your groom the BEST weekend of his life! Nothing to plan, nothing to carry - just SHOW UP and GET DOWN. Everything was ready on the boat. The DJ, photographer, floats, vibes - all PERFECT. Priceless memories made!",
-    avatar: '🦄',
-    package: 'Platinum Package'
-  },
-  {
-    id: 6,
-    name: 'Brandon Lee',
-    role: 'Best Man',
-    location: 'Round Rock, TX',
-    rating: 5,
-    text: "The DJ was INCREDIBLE - best party playlist I've ever heard! Professional photographer captured every wild moment. We met groups from all over and exchanged numbers with guys from 4 different states. Absolutely unforgettable!",
-    avatar: '🎧',
-    package: 'Disco King Package'
-  },
-  {
-    id: 7,
-    name: 'Marcus Williams',
-    role: 'Groom',
-    location: 'Plano, TX',
-    rating: 5,
-    text: "My best man is a LEGEND for finding this! The professional photos came out amazing - better than our actual wedding photos LOL! The party atmosphere with other bachelor groups was next level. 100% the highlight of my bachelor weekend!",
-    avatar: '📸',
-    package: 'Platinum Package'
-  },
-  {
-    id: 8,
-    name: 'Tyler Rodriguez',
-    role: 'Best Man',
-    location: 'Cedar Park, TX',
-    rating: 5,
-    text: "Everything was HANDLED - literally zero stress! Free alcohol delivery to the boat, DJ was bumping, photographer everywhere. We just showed up and partied. The groom still thanks me every time we hang out. Be the hero who books this!",
-    avatar: '⭐',
-    package: 'Disco King Package'
-  }
-];
 
 // Photo gallery items
 const galleryPhotos = [
@@ -1196,94 +1113,50 @@ export default function BachelorParty() {
               <h2 className="text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
                 What Bachelor Parties Are Saying
               </h2>
-              <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
-                Real reviews from real grooms and best men who celebrated with us
+              <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed mb-8">
+                Check out our verified reviews on Google and Facebook to see what real customers are saying about their bachelor party experiences on Lake Travis!
               </p>
-            </div>
+              
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <Button
+                  size="lg"
+                  variant="outline"
+                  asChild
+                  className="border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white font-bold text-lg px-10 py-6"
+                >
+                  <a href="https://www.google.com/search?q=premier+party+cruises+austin" target="_blank" rel="noopener noreferrer">
+                    <Star className="mr-2 h-5 w-5" />
+                    View Google Reviews
+                  </a>
+                </Button>
+                
+                <Button
+                  size="lg"
+                  variant="outline"
+                  asChild
+                  className="border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white font-bold text-lg px-10 py-6"
+                >
+                  <a href="https://www.facebook.com/premierpartycruises" target="_blank" rel="noopener noreferrer">
+                    <Star className="mr-2 h-5 w-5" />
+                    View Facebook Reviews
+                  </a>
+                </Button>
+              </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-              {testimonials.slice(0, 6).map((testimonial) => (
-                <Card key={testimonial.id} className="border-2 border-gray-200 hover:border-blue-300 transition-all hover:shadow-xl">
-                  <CardHeader>
-                    <div className="flex items-center gap-4 mb-4">
-                      <div className="text-4xl">{testimonial.avatar}</div>
-                      <div className="flex-1">
-                        <CardTitle className="text-lg">{testimonial.name}</CardTitle>
-                        <CardDescription className="text-sm">
-                          {testimonial.role} • {testimonial.location}
-                        </CardDescription>
-                      </div>
-                    </div>
-                    <div className="flex gap-1">
-                      {[...Array(testimonial.rating)].map((_, i) => (
-                        <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
-                      ))}
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-gray-700 leading-relaxed mb-4">"{testimonial.text}"</p>
-                    <Badge className="bg-blue-100 text-blue-800 border-blue-200">
-                      {testimonial.package}
-                    </Badge>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-
-            <div className="text-center mt-12">
-              <Button
-                size="lg"
-                onClick={() => handleGetQuote()}
-                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold text-lg px-12 py-6"
-              >
-                Book Your Bachelor Party Today
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
+              <div className="text-center mt-12">
+                <Button
+                  size="lg"
+                  onClick={() => handleGetQuote()}
+                  className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold text-lg px-12 py-6"
+                >
+                  Book Your Bachelor Party Today
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+              </div>
             </div>
           </div>
         </section>
       </SectionReveal>
-
-      {/* Video Testimonials Section */}
-      <VideoTestimonials
-        title="Watch Real Bachelor Parties on Lake Travis"
-        description="See why guys from across the country choose Premier Party Cruises for their Austin bachelor party weekend"
-        testimonials={[
-          {
-            id: '1',
-            name: 'Jake & The Groomsmen',
-            event: 'Bachelor Party',
-            location: 'Dallas, TX',
-            rating: 5,
-            thumbnailUrl: 'https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg',
-            videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-            quote: 'The ATX Disco Cruise was INSANE! We partied with bachelor groups from all over the country. Best bachelor party EVER!',
-            date: 'June 2024',
-          },
-          {
-            id: '2',
-            name: 'Marcus & The Boys',
-            event: 'Bachelor Party',
-            location: 'Houston, TX',
-            rating: 5,
-            thumbnailUrl: 'https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg',
-            videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-            quote: 'The DJ was fire, photographer captured everything, and the energy was electric. This is THE party to book for a bachelor weekend!',
-            date: 'May 2024',
-          },
-          {
-            id: '3',
-            name: 'Chris & The Crew',
-            event: 'Bachelor Party',
-            location: 'San Antonio, TX',
-            rating: 5,
-            thumbnailUrl: 'https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg',
-            videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-            quote: 'Nothing to plan, nothing to carry - just show up and party! The groom is still thanking me. Be the hero who books this!',
-            date: 'July 2024',
-          },
-        ]}
-      />
 
       {/* 10. FAQs */}
       <SectionReveal>

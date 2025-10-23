@@ -177,33 +177,6 @@ const faqItems = [
   }
 ];
 
-// Testimonials
-const testimonials = [
-  {
-    id: 1,
-    name: 'Jennifer Walsh',
-    role: 'HR Director, Tech Startup',
-    rating: 5,
-    text: 'Our team building cruise exceeded expectations! The facilitator was excellent, activities were engaging, and our team left energized and more connected. Best team event we\'ve ever done.',
-    image: '/testimonials/jennifer.jpg'
-  },
-  {
-    id: 2,
-    name: 'Marcus Chen',
-    role: 'CEO, Marketing Agency',
-    rating: 5,
-    text: 'The Executive Retreat package was perfect for our leadership team. The strategic planning sessions on the water were incredibly productive, and the setting helped everyone think creatively.',
-    image: '/testimonials/marcus.jpg'
-  },
-  {
-    id: 3,
-    name: 'Sarah Thompson',
-    role: 'Operations Manager',
-    rating: 5,
-    text: 'Our 45-person team had an amazing day! The activities were fun but meaningful, and we saw immediate improvements in communication and collaboration back at the office.',
-    image: '/testimonials/sarah.jpg'
-  }
-];
 
 export default function TeamBuilding() {
   const [location, navigate] = useLocation();
@@ -501,33 +474,39 @@ export default function TeamBuilding() {
       <SectionReveal>
         <section className="py-24 bg-white">
           <div className="max-w-7xl mx-auto px-6">
-            <div className="text-center mb-16">
+            <div className="text-center mb-16 max-w-3xl mx-auto">
               <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-4 text-center">
                 Team Success Stories
               </h2>
-              <p className="text-xl text-base text-gray-600 text-center">
-                See what teams are saying about their experiences
+              <p className="text-xl text-base text-gray-600 text-center mb-8">
+                Check out our verified reviews on Google and Facebook to see what real teams are saying about their team building experiences on Lake Travis!
               </p>
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-8">
-              {testimonials.map((testimonial) => (
-                <Card key={testimonial.id} className="h-full rounded-xl">
-                  <CardContent className="pt-6">
-                    <div className="flex items-center mb-4">
-                      {[...Array(testimonial.rating)].map((_, i) => (
-                        <Star key={i} className="h-5 w-5 text-yellow-400 fill-current" />
-                      ))}
-                    </div>
-                    <Quote className="h-8 w-8 text-blue-600 mb-4" />
-                    <p className="text-gray-700 text-base mb-6">{testimonial.text}</p>
-                    <div className="border-t pt-4">
-                      <p className="font-bold text-base">{testimonial.name}</p>
-                      <p className="text-sm text-gray-600">{testimonial.role}</p>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
+              
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <Button
+                  size="lg"
+                  variant="outline"
+                  asChild
+                  className="border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white font-bold text-lg px-10 py-6"
+                >
+                  <a href="https://www.google.com/search?q=premier+party+cruises+austin" target="_blank" rel="noopener noreferrer">
+                    <Star className="mr-2 h-5 w-5" />
+                    View Google Reviews
+                  </a>
+                </Button>
+                
+                <Button
+                  size="lg"
+                  variant="outline"
+                  asChild
+                  className="border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white font-bold text-lg px-10 py-6"
+                >
+                  <a href="https://www.facebook.com/premierpartycruises" target="_blank" rel="noopener noreferrer">
+                    <Star className="mr-2 h-5 w-5" />
+                    View Facebook Reviews
+                  </a>
+                </Button>
+              </div>
             </div>
           </div>
         </section>

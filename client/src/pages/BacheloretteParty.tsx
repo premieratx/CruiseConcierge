@@ -257,89 +257,6 @@ const faqItems = [
   }
 ];
 
-// Bachelorette party testimonials
-const testimonials = [
-  {
-    id: 1,
-    name: 'Emma Rodriguez',
-    role: 'Bride',
-    location: 'Austin, TX',
-    rating: 5,
-    text: "OMG this was the BEST party I've EVER been to! We met bachelorette parties from LA, Miami, even New York! The energy was ELECTRIC - everyone celebrating together made it SO special. The professional photos are Instagram PERFECTION!",
-    avatar: '👰',
-    package: 'Disco Queen Package'
-  },
-  {
-    id: 2,
-    name: 'Sarah Chen',
-    role: 'Maid of Honor',
-    location: 'Houston, TX',
-    rating: 5,
-    text: "I planned this and literally EVERYTHING was handled - zero stress! The DJ was FIRE, professional photos came out AMAZING, and the free champagne delivery was perfect. My bride still says I'm a genius for finding this!",
-    avatar: '💕',
-    package: 'Platinum Package'
-  },
-  {
-    id: 3,
-    name: 'Jessica Martinez',
-    role: 'Bride',
-    location: 'San Antonio, TX',
-    rating: 5,
-    text: "Dancing on the lake with my girls was MAGICAL! We met parties from all over the country - made lifelong friends. The vibe was incredible, everyone celebrating their bride. SERIOUSLY the highlight of my entire bachelorette weekend!",
-    avatar: '💃',
-    package: 'Basic Bach Package'
-  },
-  {
-    id: 4,
-    name: 'Megan Thompson',
-    role: 'Maid of Honor',
-    location: 'Dallas, TX',
-    rating: 5,
-    text: "The GIANT unicorn float was EVERYTHING! We got the most incredible photos - our photographer captured pure magic. Meeting other bachelorette parties from across America made it even more fun. This IS their specialty!",
-    avatar: '🎉',
-    package: 'Disco Queen Package'
-  },
-  {
-    id: 5,
-    name: 'Ashley Williams',
-    role: 'Bride',
-    location: 'Fort Worth, TX',
-    rating: 5,
-    text: "Show your bride the BEST weekend of her life! Nothing to plan, nothing to carry - just SHOW UP and GET DOWN. Everything was ready on the boat. The DJ, photographer, unicorn float - all PERFECT. Priceless memories made!",
-    avatar: '🦄',
-    package: 'Platinum Package'
-  },
-  {
-    id: 6,
-    name: 'Rachel Davis',
-    role: 'Bridesmaid',
-    location: 'Round Rock, TX',
-    rating: 5,
-    text: "The DJ was INCREDIBLE - best playlist ever! We partied with bachelorette parties from 5 different states and exchanged Instas with everyone. The energy was INSANE - everyone celebrating the same occasion!",
-    avatar: '🥂',
-    package: 'Disco Queen Package'
-  },
-  {
-    id: 7,
-    name: 'Lauren Miller',
-    role: 'Bride',
-    location: 'Cedar Park, TX',
-    rating: 5,
-    text: "My MOH is a LEGEND for finding this! The professional photos turned out better than our engagement photos! The party atmosphere with other bachelorette groups was NEXT LEVEL. 100% the highlight of my bachelorette weekend!",
-    avatar: '👑',
-    package: 'Platinum Package'
-  },
-  {
-    id: 8,
-    name: 'Olivia Martinez',
-    role: 'Maid of Honor',
-    location: 'Plano, TX',
-    rating: 5,
-    text: "Everything was HANDLED - literally zero stress! Free champagne delivery to the boat, DJ was bumping, photographer captured EVERYTHING. We just showed up and partied. The bride still thanks me constantly. Be the hero!",
-    avatar: '✨',
-    package: 'Disco Queen Package'
-  }
-];
 
 // Photo gallery items
 const galleryPhotos = [
@@ -1136,94 +1053,50 @@ export default function BacheloretteParty() {
               <h2 className="text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
                 What Bachelorette Parties Are Saying
               </h2>
-              <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
-                Real reviews from real brides and maids of honor who celebrated with us
+              <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed mb-8">
+                Check out our verified reviews on Google and Facebook to see what real customers are saying about their bachelorette party experiences on Lake Travis!
               </p>
-            </div>
+              
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <Button
+                  size="lg"
+                  variant="outline"
+                  asChild
+                  className="border-2 border-pink-600 text-pink-600 hover:bg-pink-600 hover:text-white font-bold text-lg px-10 py-6"
+                >
+                  <a href="https://www.google.com/search?q=premier+party+cruises+austin" target="_blank" rel="noopener noreferrer">
+                    <Star className="mr-2 h-5 w-5" />
+                    View Google Reviews
+                  </a>
+                </Button>
+                
+                <Button
+                  size="lg"
+                  variant="outline"
+                  asChild
+                  className="border-2 border-pink-600 text-pink-600 hover:bg-pink-600 hover:text-white font-bold text-lg px-10 py-6"
+                >
+                  <a href="https://www.facebook.com/premierpartycruises" target="_blank" rel="noopener noreferrer">
+                    <Star className="mr-2 h-5 w-5" />
+                    View Facebook Reviews
+                  </a>
+                </Button>
+              </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-              {testimonials.slice(0, 6).map((testimonial) => (
-                <Card key={testimonial.id} className="border-2 border-gray-200 hover:border-pink-300 transition-all hover:shadow-xl">
-                  <CardHeader>
-                    <div className="flex items-center gap-4 mb-4">
-                      <div className="text-4xl">{testimonial.avatar}</div>
-                      <div className="flex-1">
-                        <CardTitle className="text-lg">{testimonial.name}</CardTitle>
-                        <CardDescription className="text-sm">
-                          {testimonial.role} • {testimonial.location}
-                        </CardDescription>
-                      </div>
-                    </div>
-                    <div className="flex gap-1">
-                      {[...Array(testimonial.rating)].map((_, i) => (
-                        <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
-                      ))}
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-gray-700 leading-relaxed mb-4">"{testimonial.text}"</p>
-                    <Badge className="bg-pink-100 text-pink-800 border-pink-200">
-                      {testimonial.package}
-                    </Badge>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-
-            <div className="text-center mt-12">
-              <Button
-                size="lg"
-                onClick={() => handleGetQuote()}
-                className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white font-bold text-lg px-12 py-6"
-              >
-                Book Your Bachelorette Party Today
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
+              <div className="text-center mt-12">
+                <Button
+                  size="lg"
+                  onClick={() => handleGetQuote()}
+                  className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white font-bold text-lg px-12 py-6"
+                >
+                  Book Your Bachelorette Party Today
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+              </div>
             </div>
           </div>
         </section>
       </SectionReveal>
-
-      {/* Video Testimonials Section */}
-      <VideoTestimonials
-        title="Watch Real Bachelorette Parties on Lake Travis"
-        description="See why brides from across the country choose Premier Party Cruises for their Austin bachelorette weekend"
-        testimonials={[
-          {
-            id: '1',
-            name: 'Emma & The Bride Tribe',
-            event: 'Bachelorette Party',
-            location: 'Dallas, TX',
-            rating: 5,
-            thumbnailUrl: 'https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg',
-            videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-            quote: 'OMG this was the BEST party ever! We met bachelorette groups from LA, Miami, and NYC. The energy was ELECTRIC and the photos are Instagram perfection!',
-            date: 'May 2024',
-          },
-          {
-            id: '2',
-            name: 'Sarah & The Girls',
-            event: 'Bachelorette Party',
-            location: 'Houston, TX',
-            rating: 5,
-            thumbnailUrl: 'https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg',
-            videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-            quote: 'The DJ was amazing, photographer captured every moment, and the bride LOVED the unicorn float! This is THE bachelorette experience!',
-            date: 'June 2024',
-          },
-          {
-            id: '3',
-            name: 'Megan & The Squad',
-            event: 'Bachelorette Party',
-            location: 'San Antonio, TX',
-            rating: 5,
-            thumbnailUrl: 'https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg',
-            videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-            quote: 'Nothing to plan, nothing to carry - just show up and celebrate! The bride still says this was the highlight of her entire weekend!',
-            date: 'July 2024',
-          },
-        ]}
-      />
 
       {/* 10. FAQs */}
       <SectionReveal>
