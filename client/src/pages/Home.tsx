@@ -1392,9 +1392,9 @@ export default function Home() {
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="text-center">
-                    <p className="text-2xl font-bold text-purple-600 dark:text-purple-400 mb-2">7pm - 11pm</p>
+                    <p className="text-2xl font-bold text-purple-600 dark:text-purple-400 mb-2">4pm - 8pm</p>
                     <p className="text-sm text-gray-600 dark:text-gray-400" data-editable data-editable-id="timeslot-evening-description">
-                      Sunset views and night celebrations
+                      Sunset views and celebrations (cruises end by 8:30pm)
                     </p>
                   </CardContent>
                 </Card>

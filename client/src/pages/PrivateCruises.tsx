@@ -875,8 +875,8 @@ export default function PrivateCruises() {
                           <Moon className="h-5 w-5 text-purple-600" />
                         </div>
                         <div>
-                          <p className="font-semibold text-gray-900 mb-1">Sunset Cruises (6pm-10pm)</p>
-                          <p className="text-gray-700">Romantic sunsets over Lake Travis (seasonal)</p>
+                          <p className="font-semibold text-gray-900 mb-1">Evening Cruises (4pm-8pm)</p>
+                          <p className="text-gray-700">Sunset views over Lake Travis (all cruises end by 8:30pm)</p>
                         </div>
                       </li>
                     </ul>

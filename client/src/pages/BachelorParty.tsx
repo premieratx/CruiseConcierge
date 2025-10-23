@@ -772,12 +772,12 @@ export default function BachelorParty() {
                   <div className="mx-auto mb-4 p-4 bg-purple-100 rounded-full w-16 h-16 flex items-center justify-center">
                     <Waves className="h-8 w-8 text-purple-600" />
                   </div>
-                  <CardTitle className="text-xl font-bold">Evening Cruises</CardTitle>
+                  <CardTitle className="text-xl font-bold">Afternoon Cruises</CardTitle>
                 </CardHeader>
                 <CardContent className="text-center">
-                  <p className="text-3xl font-bold text-purple-600 mb-3">7pm - 11pm</p>
+                  <p className="text-3xl font-bold text-purple-600 mb-3">2pm - 6pm</p>
                   <p className="text-sm text-gray-600 leading-relaxed">
-                    Sunset views and night celebrations
+                    Peak party time on Lake Travis
                   </p>
                 </CardContent>
               </Card>
