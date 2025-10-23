@@ -956,6 +956,23 @@ export default function Home() {
               </p>
             </div>
 
+            {/* Private Cruise Detailed Pricing - MOVED UP FOR PROMINENCE */}
+            <div className="mb-20">
+              <div className="text-center mb-12">
+                <Badge className="mb-4 bg-white text-brand-blue px-4 py-2 font-semibold">
+                  <Ship className="h-4 w-4 mr-2 inline" />
+                  Private Cruises
+                </Badge>
+                <h3 className="text-3xl font-semibold font-playfair mb-4 text-gray-900 dark:text-white">
+                  Your Boat, Your Way - Private Cruise Pricing
+                </h3>
+                <p className="text-base text-gray-700 dark:text-gray-300 max-w-2xl mx-auto leading-relaxed">
+                  Choose your boat size and package level. All packages include professional captain, crew, premium sound system, and coolers with ice.
+                </p>
+              </div>
+              <TabbedPrivateCruisePricing />
+            </div>
+
             {/* ATX Disco Cruise Pricing */}
             <div className="mb-20">
               <div className="text-center mb-12">
@@ -971,23 +988,6 @@ export default function Home() {
                 </p>
               </div>
               <DiscoCruisePricing />
-            </div>
-
-            {/* Private Cruise Detailed Pricing */}
-            <div className="mb-20">
-              <div className="text-center mb-12">
-                <Badge className="mb-4 bg-white text-brand-blue px-4 py-2 font-semibold">
-                  <Ship className="h-4 w-4 mr-2 inline" />
-                  Private Cruises
-                </Badge>
-                <h3 className="text-3xl font-semibold font-playfair mb-4 text-gray-900 dark:text-white">
-                  Your Boat, Your Way - Private Cruise Pricing
-                </h3>
-                <p className="text-base text-gray-700 dark:text-gray-300 max-w-2xl mx-auto leading-relaxed">
-                  Choose your boat size and package level. All packages include professional captain, crew, premium sound system, and coolers with ice.
-                </p>
-              </div>
-              <TabbedPrivateCruisePricing dayType="SATURDAY" duration={4} />
             </div>
 
             {/* All Services Overview Comparison */}

@@ -419,7 +419,7 @@ export default function PrivateCruises() {
                 Your Private Boat. Your Rules. Your Lake Travis Adventure.
               </p>
               <p className="text-base sm:text-lg text-gray-700 max-w-4xl mx-auto mb-8 md:mb-10 leading-relaxed">
-                Exclusive boat charters for 14-75 guests. BYOB friendly. Choose your schedule, play your music, create your perfect day on the lake. Perfect for <InternalLinkHighlight href="/team-building" title="Corporate Events">corporate events</InternalLinkHighlight>, <InternalLinkHighlight href="/rehearsal-dinner" title="Special Occasions">weddings & birthdays</InternalLinkHighlight>. Looking for a <InternalLinkHighlight href="/atx-disco-cruise" title="ATX Disco Cruise">party atmosphere</InternalLinkHighlight>? Check out our disco cruise!
+                Exclusive boat charters for 14-75 guests. BYOB friendly. Choose your schedule, play your music, create your perfect day on the lake. Perfect for <InternalLinkHighlight href="/team-building" title="Corporate Events">corporate events</InternalLinkHighlight>, <InternalLinkHighlight href="/rehearsal-dinner" title="Special Occasions">weddings & birthdays</InternalLinkHighlight>, and any celebration.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-12">
@@ -622,13 +622,13 @@ export default function PrivateCruises() {
                   Pricing & Packages
                 </h2>
                 <p className="text-lg text-gray-700 max-w-3xl mx-auto">
-                  Choose from three boats and three package levels to create your perfect experience. Want an all-inclusive party atmosphere? <InternalLinkHighlight href="/atx-disco-cruise" title="ATX Disco Cruise">Check out our ATX Disco Cruise</InternalLinkHighlight>
+                  Choose from three boats and three package levels to create your perfect private experience on Lake Travis.
                 </p>
               </div>
 
               {/* Private Cruise Pricing Component */}
               <div className="mb-12">
-                <TabbedPrivateCruisePricing dayType="SATURDAY" duration={4} />
+                <TabbedPrivateCruisePricing />
               </div>
 
               <Tabs defaultValue="fleet" className="w-full">

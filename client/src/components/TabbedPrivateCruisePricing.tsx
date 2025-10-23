@@ -180,8 +180,8 @@ export function TabbedPrivateCruisePricing({ className = '' }: TabbedPrivateCrui
   };
   
   const boat = boats[selectedBoat];
-  const packages = PACKAGE_DETAILS[parseInt(selectedBoat)];
-  const hourlyRate = HOURLY_RATES[selectedDay][parseInt(selectedBoat)];
+  const packages = PACKAGE_DETAILS[selectedBoat as unknown as 14 | 25 | 50];
+  const hourlyRate = HOURLY_RATES[selectedDay][selectedBoat as unknown as 14 | 25 | 50];
 
   return (
     <div className={className}>
@@ -256,7 +256,7 @@ export function TabbedPrivateCruisePricing({ className = '' }: TabbedPrivateCrui
                   
                   <CardContent>
                     <div className="space-y-2 mb-6">
-                      {packages.standard.features.map((feature, index) => (
+                      {packages.standard.features.map((feature: string, index: number) => (
                         <div key={index} className="flex items-start gap-2">
                           <CheckCircle2 className="h-4 w-4 text-green-600 flex-shrink-0 mt-0.5" />
                           <span className="text-sm">{feature}</span>
@@ -294,7 +294,7 @@ export function TabbedPrivateCruisePricing({ className = '' }: TabbedPrivateCrui
                   
                   <CardContent>
                     <div className="space-y-2 mb-6">
-                      {packages.essentials.features.map((feature, index) => (
+                      {packages.essentials.features.map((feature: string, index: number) => (
                         <div key={index} className="flex items-start gap-2">
                           <CheckCircle2 className="h-4 w-4 text-green-600 flex-shrink-0 mt-0.5" />
                           <span className="text-sm">{feature}</span>
@@ -327,7 +327,7 @@ export function TabbedPrivateCruisePricing({ className = '' }: TabbedPrivateCrui
                   
                   <CardContent>
                     <div className="space-y-2 mb-6">
-                      {packages.ultimate.features.map((feature, index) => (
+                      {packages.ultimate.features.map((feature: string, index: number) => (
                         <div key={index} className="flex items-start gap-2">
                           <CheckCircle2 className="h-4 w-4 text-green-600 flex-shrink-0 mt-0.5" />
                           <span className="text-sm">{feature}</span>
