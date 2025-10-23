@@ -94,11 +94,11 @@ export default function Footer() {
               </li>
               <li>
                 <Link 
-                  href="/combined-bachelor-bachelorette-austin" 
+                  href="/atx-disco-cruise" 
                   className="text-gray-300 hover:text-brand-yellow transition-colors text-sm block"
-                  data-testid="link-footer-combined-parties"
+                  data-testid="link-footer-atx-disco-cruise"
                 >
-                  Combined Parties Austin
+                  ATX Disco Cruise
                 </Link>
               </li>
               <li>

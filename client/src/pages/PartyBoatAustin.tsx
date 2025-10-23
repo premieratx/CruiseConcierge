@@ -190,29 +190,6 @@ const austinPackages = [
   }
 ];
 
-const austinTestimonials = [
-  {
-    name: 'Jessica M.',
-    location: 'Downtown Austin',
-    event: 'Bachelorette Party',
-    text: 'Best party boat in Austin! The Lake Travis cruise was absolutely perfect for my bachelorette. The crew was amazing and the boat was beautiful. All my Austin friends are still talking about it!',
-    rating: 5
-  },
-  {
-    name: 'Ryan T.',
-    location: 'South Austin',
-    event: 'Bachelor Party',
-    text: 'We looked at every party boat option in Austin and Premier was hands down the best. Great prices, new boats, and the Lake Travis scenery was incredible. Worth every penny!',
-    rating: 5
-  },
-  {
-    name: 'Sarah K.',
-    location: 'Tech Company, Austin',
-    event: 'Corporate Event',
-    text: 'We booked the Clever Girl for our company retreat and it exceeded all expectations. Professional crew, amazing Austin views, and our team had a blast on Lake Travis!',
-    rating: 5
-  }
-];
 
 export default function PartyBoatAustin() {
   const [location, navigate] = useLocation();
@@ -558,7 +535,7 @@ export default function PartyBoatAustin() {
       <SectionReveal>
         <section className="py-24 bg-white">
           <div className="max-w-7xl mx-auto px-6">
-            <div className="text-center mb-16">
+            <div className="text-center mb-12">
               <h2 
                 className="text-3xl font-playfair font-bold mb-6 text-center"
                 data-testid="heading-testimonials"
@@ -566,31 +543,37 @@ export default function PartyBoatAustin() {
                 What Austin Customers Say
               </h2>
               <p 
-                className="text-base text-gray-600 max-w-3xl mx-auto"
+                className="text-xl text-gray-700 max-w-3xl mx-auto mb-8"
                 data-testid="text-testimonials-description"
               >
-                Real reviews from Austin party boat guests who celebrated on Lake Travis with Premier Party Cruises.
+                Check out our verified reviews on Google and Facebook!
               </p>
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-8">
-              {austinTestimonials.map((review, index) => (
-                <Card key={index} className="h-full rounded-xl" data-testid={`card-review-${index}`}>
-                  <CardHeader>
-                    <div className="flex items-center gap-1 mb-2">
-                      {[...Array(review.rating)].map((_, i) => (
-                        <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
-                      ))}
-                    </div>
-                    <CardTitle className="text-lg font-playfair">{review.name}</CardTitle>
-                    <p className="text-sm text-gray-500">{review.location}</p>
-                    <p className="text-sm text-gray-600">{review.event}</p>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-base text-gray-700 italic">"{review.text}"</p>
-                  </CardContent>
-                </Card>
-              ))}
+              
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button 
+                  size="lg"
+                  variant="outline"
+                  className="border-blue-600 text-blue-600 hover:bg-blue-50"
+                  data-testid="button-google-reviews"
+                >
+                  <a href="https://www.google.com/search?q=premier+party+cruises+austin" target="_blank" rel="noopener noreferrer" className="flex items-center">
+                    <Star className="mr-2 h-5 w-5" />
+                    View Google Reviews
+                  </a>
+                </Button>
+                
+                <Button 
+                  size="lg"
+                  variant="outline"
+                  className="border-blue-600 text-blue-600 hover:bg-blue-50"
+                  data-testid="button-facebook-reviews"
+                >
+                  <a href="https://www.facebook.com/premierpartycruises" target="_blank" rel="noopener noreferrer" className="flex items-center">
+                    <Star className="mr-2 h-5 w-5" />
+                    View Facebook Reviews
+                  </a>
+                </Button>
+              </div>
             </div>
           </div>
         </section>

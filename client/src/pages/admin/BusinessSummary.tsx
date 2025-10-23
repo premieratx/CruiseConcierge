@@ -25,8 +25,7 @@ export default function BusinessSummary() {
   const partyTypes = [
     { name: 'Bachelor Parties', page: '/bachelor-party-austin', emoji: '🎉', description: 'Ultimate bachelor party experiences on Lake Travis' },
     { name: 'Bachelorette Parties', page: '/bachelorette-party-austin', emoji: '💃', description: 'Premier bachelorette party cruises' },
-    { name: 'Combined Bachelor/Bachelorette', page: '/combined-bachelor-bachelorette-austin', emoji: '👫', description: 'Joint celebrations for couples' },
-    { name: 'ATX Disco Cruise', page: '/atx-disco-cruise', emoji: '🕺', description: 'Public party cruises with DJ and dancing' },
+    { name: 'ATX Disco Cruise', page: '/atx-disco-cruise', emoji: '🕺', description: 'Public party cruises with DJ and dancing - perfect for combined bachelor/bachelorette celebrations' },
     { name: 'Private Cruises', page: '/private-cruises', emoji: '🚤', description: 'Exclusive private boat rentals' },
     { name: 'Corporate Events', page: '/corporate-events', emoji: '💼', description: 'Team building and corporate celebrations' },
     { name: 'Team Building', page: '/team-building', emoji: '🤝', description: 'Corporate team building activities' },
@@ -529,8 +528,7 @@ export default function BusinessSummary() {
                   <ul className="text-sm space-y-1">
                     <li>• /bachelor-party-austin - Bachelor party cruises & packages</li>
                     <li>• /bachelorette-party-austin - Bachelorette party experiences</li>
-                    <li>• /combined-bachelor-bachelorette-austin - Joint celebrations</li>
-                    <li>• /atx-disco-cruise - Public disco cruise (ticketed)</li>
+                    <li>• /atx-disco-cruise - ATX Disco Cruise (public party cruises, also for combined bachelor/bachelorette parties)</li>
                     <li>• /private-cruises - Private boat rental information</li>
                   </ul>
                 </div>

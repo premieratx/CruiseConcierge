@@ -1449,10 +1449,10 @@ export default function BachelorParty() {
                     icon: <Heart className="h-6 w-6" />
                   },
                   {
-                    title: "Combined Bachelor/Bachelorette",
-                    description: "Combine your bachelor and bachelorette parties on Lake Travis. Book the same boat or cruise together on the Disco. Epic celebrations for both crews!",
-                    href: "/combined-bachelor-bachelorette-austin",
-                    icon: <Users className="h-6 w-6" />
+                    title: "ATX Disco Cruise",
+                    description: "Join the legendary ATX Disco Cruise on Lake Travis. Professional DJ, photographer, giant floats, and the ultimate party atmosphere for epic celebrations!",
+                    href: "/atx-disco-cruise",
+                    icon: <Music className="h-6 w-6" />
                   },
                   {
                     title: "Private Lake Travis Charters",

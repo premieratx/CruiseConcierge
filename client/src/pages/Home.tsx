@@ -2139,11 +2139,11 @@ export default function Home() {
               </Card>
             </Link>
 
-            <Link href="/combined-bachelor-bachelorette-austin" data-testid="link-combined-from-home">
+            <Link href="/atx-disco-cruise" data-testid="link-atx-disco-from-home">
               <Card className="hover:shadow-2xl transition-all duration-300 cursor-pointer h-full border-2 border-transparent hover:border-brand-yellow">
                 <CardHeader>
-                  <CardTitle className="text-xl font-bold text-gray-900 dark:text-white">Combined Parties</CardTitle>
-                  <p className="text-gray-700 dark:text-gray-300">Bachelor and bachelorette together on Lake Travis</p>
+                  <CardTitle className="text-xl font-bold text-gray-900 dark:text-white">ATX Disco Cruise</CardTitle>
+                  <p className="text-gray-700 dark:text-gray-300">The legendary party boat experience on Lake Travis</p>
                 </CardHeader>
               </Card>
             </Link>

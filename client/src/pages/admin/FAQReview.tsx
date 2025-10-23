@@ -978,9 +978,9 @@ const allFAQs = {
     ]
   },
 
-  // NEW: Combined Bachelor/Bachelorette Page FAQs
+  // NEW: ATX Disco Cruise - Combined Bachelor/Bachelorette FAQs
   combinedBachelorBachelorette: {
-    source: '/combined-bachelor-bachelorette (Page)',
+    source: '/atx-disco-cruise (ATX Disco Cruise - serves combined bachelor/bachelorette parties)',
     faqs: [
       {
         question: 'What is a combined bachelor/bachelorette party?',

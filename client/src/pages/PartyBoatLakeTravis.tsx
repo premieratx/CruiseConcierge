@@ -206,29 +206,6 @@ const lakeTravisPackages = [
   }
 ];
 
-const lakeTravisTestimonials = [
-  {
-    name: 'Sarah M.',
-    event: 'Bachelorette Party',
-    rating: 5,
-    text: 'Our Lake Travis bachelorette party was absolutely perfect! The water was crystal clear, and our captain knew all the best spots on Lake Travis. We swam in secluded coves and had the time of our lives. Lake Travis is stunning!',
-    date: 'September 2024'
-  },
-  {
-    name: 'Mike T.',
-    event: 'Bachelor Party',
-    rating: 5,
-    text: 'Best bachelor party ever on Lake Travis! The crew took us to amazing Lake Travis locations, the boat was incredible, and Lake Travis itself is gorgeous. Can\'t recommend Premier Party Cruises enough for Lake Travis adventures!',
-    date: 'August 2024'
-  },
-  {
-    name: 'Jennifer K.',
-    event: 'Corporate Event',
-    rating: 5,
-    text: 'Our team building event on Lake Travis exceeded all expectations. The scenery on Lake Travis is breathtaking, and our group loved exploring the lake. Perfect Lake Travis experience for our company retreat!',
-    date: 'October 2024'
-  }
-];
 
 export default function PartyBoatLakeTravis() {
   const reducedMotion = useReducedMotion();
@@ -449,19 +426,19 @@ export default function PartyBoatLakeTravis() {
                 </Card>
               </Link>
 
-              <Link href="/combined-bachelor-bachelorette-austin">
-                <Card className="h-full hover:shadow-xl transition-all hover:-translate-y-1 cursor-pointer group rounded-xl" data-testid="card-guide-combined">
+              <Link href="/atx-disco-cruise">
+                <Card className="h-full hover:shadow-xl transition-all hover:-translate-y-1 cursor-pointer group rounded-xl" data-testid="card-guide-atx-disco">
                   <CardHeader>
                     <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mb-3">
                       <Users className="h-6 w-6 text-purple-600" />
                     </div>
                     <CardTitle className="text-lg font-playfair group-hover:text-purple-600 transition-colors">
-                      Combined Bachelor Bachelorette Party
+                      ATX Disco Cruise
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
                     <p className="text-base text-gray-600 text-sm">
-                      Celebrate together on Lake Travis! Modern trend of combined parties with both sides joining for one epic Austin celebration.
+                      Join the legendary party boat experience on Lake Travis! Professional DJ, photographer, giant floats, and the ultimate Austin celebration.
                     </p>
                   </CardContent>
                 </Card>
@@ -606,32 +583,39 @@ export default function PartyBoatLakeTravis() {
       <SectionReveal>
         <section className="py-24 bg-white">
           <div className="max-w-7xl mx-auto px-6">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl font-playfair font-bold mb-4 text-center" data-testid="heading-testimonials">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-playfair font-bold mb-6 text-center" data-testid="heading-testimonials">
                 Lake Travis Party Boat Reviews
               </h2>
-              <p className="text-base text-gray-600 max-w-3xl mx-auto" data-testid="text-testimonials-subtitle">
-                See why our Lake Travis party boats are rated 5 stars
+              <p className="text-xl text-gray-700 max-w-3xl mx-auto mb-8" data-testid="text-testimonials-subtitle">
+                Check out our verified reviews on Google and Facebook!
               </p>
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-8">
-              {lakeTravisTestimonials.map((review, index) => (
-                <Card key={index} className="h-full rounded-xl" data-testid={`card-review-${index}`}>
-                  <CardHeader>
-                    <div className="flex items-center gap-1 mb-2">
-                      {[...Array(review.rating)].map((_, i) => (
-                        <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
-                      ))}
-                    </div>
-                    <CardTitle className="text-lg font-playfair">{review.name}</CardTitle>
-                    <p className="text-sm text-gray-500">{review.event} • {review.date}</p>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-base text-gray-700 italic">"{review.text}"</p>
-                  </CardContent>
-                </Card>
-              ))}
+              
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button 
+                  size="lg"
+                  variant="outline"
+                  className="border-blue-600 text-blue-600 hover:bg-blue-50"
+                  data-testid="button-google-reviews"
+                >
+                  <a href="https://www.google.com/search?q=premier+party+cruises+austin" target="_blank" rel="noopener noreferrer" className="flex items-center">
+                    <Star className="mr-2 h-5 w-5" />
+                    View Google Reviews
+                  </a>
+                </Button>
+                
+                <Button 
+                  size="lg"
+                  variant="outline"
+                  className="border-blue-600 text-blue-600 hover:bg-blue-50"
+                  data-testid="button-facebook-reviews"
+                >
+                  <a href="https://www.facebook.com/premierpartycruises" target="_blank" rel="noopener noreferrer" className="flex items-center">
+                    <Star className="mr-2 h-5 w-5" />
+                    View Facebook Reviews
+                  </a>
+                </Button>
+              </div>
             </div>
           </div>
         </section>

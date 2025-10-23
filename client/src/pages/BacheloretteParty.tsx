@@ -1409,12 +1409,6 @@ export default function BacheloretteParty() {
                   description: "Join the legendary party boat experience",
                   href: "/atx-disco-cruise",
                   icon: <Music className="h-8 w-8" />
-                },
-                {
-                  title: "Combined Bachelor/Bachelorette",
-                  description: "Celebrate together before the big day",
-                  href: "/combined-bachelor-bachelorette-austin",
-                  icon: <Heart className="h-8 w-8" />
                 }
               ]}
             />
