@@ -3,19 +3,39 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { CheckCircle2, Ship, Info } from 'lucide-react';
+import { CheckCircle2, Ship, Info, Calendar } from 'lucide-react';
 import { Link } from 'wouter';
 import { formatCurrency } from '@shared/formatters';
-import { HOURLY_RATES, PACKAGE_FLAT_FEES, CREW_FEES } from '@shared/constants';
-import { DayType } from '@shared/pricing';
 
 interface TabbedPrivateCruisePricingProps {
-  dayType?: DayType;
-  duration?: number;
   className?: string;
 }
 
-// EXACT package definitions from knowledge base - NO BULLSHIT
+// Hourly rates by day and boat size - EXACT from knowledge base
+const HOURLY_RATES = {
+  'mon-thu': {
+    14: 200,
+    25: 225,
+    50: 250
+  },
+  'fri': {
+    14: 225,
+    25: 250,
+    50: 275
+  },
+  'sat': {
+    14: 350,
+    25: 375,
+    50: 400
+  },
+  'sun': {
+    14: 250,
+    25: 275,
+    50: 300
+  }
+};
+
+// EXACT package definitions from knowledge base
 const PACKAGE_DETAILS = {
   14: {
     standard: {
@@ -136,42 +156,38 @@ const PACKAGE_DETAILS = {
   }
 };
 
-export function TabbedPrivateCruisePricing({
-  dayType = 'SATURDAY',
-  duration = 4,
-  className = ''
-}: TabbedPrivateCruisePricingProps) {
+export function TabbedPrivateCruisePricing({ className = '' }: TabbedPrivateCruisePricingProps) {
   const [selectedBoat, setSelectedBoat] = useState<'14' | '25' | '50'>('14');
+  const [selectedDay, setSelectedDay] = useState<'mon-thu' | 'fri' | 'sat' | 'sun'>('sat');
   
   // Boat configurations - REAL NAMES AND CAPACITIES
   const boats = {
     '14': {
       name: 'Day Tripper',
       capacity: '1-14 guests',
-      baseHourly: HOURLY_RATES[dayType][14],
       crewFeeNote: null
     },
     '25': {
       name: 'Meeseeks / The Irony',
       capacity: '15-30 guests',
-      baseHourly: HOURLY_RATES[dayType][25],
-      crewFeeNote: `+${formatCurrency(CREW_FEES.HOURLY_RATES.SMALL_BOAT_EXTRA)}/hr crew fee for 26-30 guests`
+      crewFeeNote: '+$50/hr crew fee for 26-30 guests'
     },
     '50': {
       name: 'Clever Girl',
       capacity: '31-75 guests',
-      baseHourly: HOURLY_RATES[dayType][50],
-      crewFeeNote: `+${formatCurrency(CREW_FEES.HOURLY_RATES.LARGE_BOAT_EXTRA)}/hr crew fee for 51-75 guests`
+      crewFeeNote: '+$100/hr crew fee for 51-75 guests'
     }
   };
   
   const boat = boats[selectedBoat];
-  const packages = PACKAGE_DETAILS[selectedBoat];
+  const packages = PACKAGE_DETAILS[parseInt(selectedBoat)];
+  const hourlyRate = HOURLY_RATES[selectedDay][parseInt(selectedBoat)];
 
   return (
     <div className={className}>
+      {/* OUTER TABS: Boat Size */}
       <Tabs value={selectedBoat} onValueChange={(val) => setSelectedBoat(val as '14' | '25' | '50')}>
-        <TabsList className="grid w-full grid-cols-3 mb-8">
+        <TabsList className="grid w-full grid-cols-3 mb-6">
           <TabsTrigger value="14" data-testid="tab-14-person">
             <Ship className="h-4 w-4 mr-2" />
             1-14 Guests
@@ -198,134 +214,155 @@ export function TabbedPrivateCruisePricing({
                     <p className="text-sm text-gray-600" data-testid="boat-capacity">{boat.capacity}</p>
                   </div>
                 </div>
-                <Badge variant="outline" className="text-base px-4 py-2" data-testid="base-rate">
-                  {formatCurrency(boat.baseHourly)}/hour
-                </Badge>
               </div>
             </CardContent>
           </Card>
 
-          {/* Package Comparison Grid - 3 WIDE */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* STANDARD PACKAGE */}
-            <Card className="transition-all hover:shadow-xl" data-testid="card-standard">
-              <CardHeader className="pb-4">
-                <CardTitle className="text-xl">{packages.standard.name}</CardTitle>
-                <div className="mt-4">
-                  <div className="text-3xl font-bold text-primary" data-testid="hourly-standard">
-                    {formatCurrency(boat.baseHourly)}/hr
-                  </div>
-                  <p className="text-xs text-gray-500 mt-1">Base hourly rate</p>
-                </div>
-              </CardHeader>
-              
-              <CardContent>
-                <div className="space-y-2 mb-6">
-                  {packages.standard.features.map((feature, index) => (
-                    <div key={index} className="flex items-start gap-2">
-                      <CheckCircle2 className="h-4 w-4 text-green-600 flex-shrink-0 mt-0.5" />
-                      <span className="text-sm">{feature}</span>
-                    </div>
-                  ))}
-                </div>
-                
-                <Link href="/chat">
-                  <Button 
-                    className="w-full mt-4" 
-                    variant="outline"
-                    data-testid="button-book-standard"
-                  >
-                    Build My Quote
-                  </Button>
-                </Link>
-              </CardContent>
-            </Card>
+          {/* INNER TABS: Day of Week */}
+          <Tabs value={selectedDay} onValueChange={(val) => setSelectedDay(val as 'mon-thu' | 'fri' | 'sat' | 'sun')}>
+            <TabsList className="grid w-full grid-cols-4 mb-6">
+              <TabsTrigger value="mon-thu" data-testid="tab-mon-thu">
+                <Calendar className="h-4 w-4 mr-2" />
+                Mon-Thu
+              </TabsTrigger>
+              <TabsTrigger value="fri" data-testid="tab-fri">
+                <Calendar className="h-4 w-4 mr-2" />
+                Friday
+              </TabsTrigger>
+              <TabsTrigger value="sat" data-testid="tab-sat">
+                <Calendar className="h-4 w-4 mr-2" />
+                Saturday
+              </TabsTrigger>
+              <TabsTrigger value="sun" data-testid="tab-sun">
+                <Calendar className="h-4 w-4 mr-2" />
+                Sunday
+              </TabsTrigger>
+            </TabsList>
 
-            {/* ESSENTIALS PACKAGE */}
-            <Card className="relative ring-2 ring-primary shadow-lg transition-all hover:shadow-xl" data-testid="card-essentials">
-              <div className="absolute top-0 right-0 bg-gradient-to-l from-primary to-primary/80 text-white px-3 py-1 rounded-bl-lg text-sm">
-                Most Popular
+            <TabsContent value={selectedDay} className="space-y-6">
+              {/* Package Comparison Grid - 3 WIDE */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {/* STANDARD PACKAGE */}
+                <Card className="transition-all hover:shadow-xl" data-testid="card-standard">
+                  <CardHeader className="pb-4">
+                    <CardTitle className="text-xl">{packages.standard.name}</CardTitle>
+                    <div className="mt-4">
+                      <div className="text-3xl font-bold text-primary" data-testid="hourly-standard">
+                        {formatCurrency(hourlyRate)}/hr
+                      </div>
+                      <p className="text-xs text-gray-500 mt-1">Base hourly rate</p>
+                    </div>
+                  </CardHeader>
+                  
+                  <CardContent>
+                    <div className="space-y-2 mb-6">
+                      {packages.standard.features.map((feature, index) => (
+                        <div key={index} className="flex items-start gap-2">
+                          <CheckCircle2 className="h-4 w-4 text-green-600 flex-shrink-0 mt-0.5" />
+                          <span className="text-sm">{feature}</span>
+                        </div>
+                      ))}
+                    </div>
+                    
+                    <Link href="/chat">
+                      <Button 
+                        className="w-full mt-4" 
+                        variant="outline"
+                        data-testid="button-book-standard"
+                      >
+                        Build My Quote
+                      </Button>
+                    </Link>
+                  </CardContent>
+                </Card>
+
+                {/* ESSENTIALS PACKAGE */}
+                <Card className="relative ring-2 ring-primary shadow-lg transition-all hover:shadow-xl" data-testid="card-essentials">
+                  <div className="absolute top-0 right-0 bg-gradient-to-l from-primary to-primary/80 text-white px-3 py-1 rounded-bl-lg text-sm">
+                    Most Popular
+                  </div>
+                  
+                  <CardHeader className="pb-4">
+                    <CardTitle className="text-xl">{packages.essentials.name}</CardTitle>
+                    <div className="mt-4">
+                      <div className="text-3xl font-bold text-primary" data-testid="hourly-essentials">
+                        {formatCurrency(hourlyRate)}/hr
+                      </div>
+                      <p className="text-xs text-gray-500 mt-1">{packages.essentials.addOn} package add-on</p>
+                    </div>
+                  </CardHeader>
+                  
+                  <CardContent>
+                    <div className="space-y-2 mb-6">
+                      {packages.essentials.features.map((feature, index) => (
+                        <div key={index} className="flex items-start gap-2">
+                          <CheckCircle2 className="h-4 w-4 text-green-600 flex-shrink-0 mt-0.5" />
+                          <span className="text-sm">{feature}</span>
+                        </div>
+                      ))}
+                    </div>
+                    
+                    <Link href="/chat">
+                      <Button 
+                        className="w-full mt-4"
+                        data-testid="button-book-essentials"
+                      >
+                        Build My Quote
+                      </Button>
+                    </Link>
+                  </CardContent>
+                </Card>
+
+                {/* ULTIMATE PACKAGE */}
+                <Card className="transition-all hover:shadow-xl" data-testid="card-ultimate">
+                  <CardHeader className="pb-4">
+                    <CardTitle className="text-xl">{packages.ultimate.name}</CardTitle>
+                    <div className="mt-4">
+                      <div className="text-3xl font-bold text-primary" data-testid="hourly-ultimate">
+                        {formatCurrency(hourlyRate)}/hr
+                      </div>
+                      <p className="text-xs text-gray-500 mt-1">{packages.ultimate.addOn} package add-on</p>
+                    </div>
+                  </CardHeader>
+                  
+                  <CardContent>
+                    <div className="space-y-2 mb-6">
+                      {packages.ultimate.features.map((feature, index) => (
+                        <div key={index} className="flex items-start gap-2">
+                          <CheckCircle2 className="h-4 w-4 text-green-600 flex-shrink-0 mt-0.5" />
+                          <span className="text-sm">{feature}</span>
+                        </div>
+                      ))}
+                    </div>
+                    
+                    <Link href="/chat">
+                      <Button 
+                        className="w-full mt-4" 
+                        variant="outline"
+                        data-testid="button-book-ultimate"
+                      >
+                        Build My Quote
+                      </Button>
+                    </Link>
+                  </CardContent>
+                </Card>
               </div>
               
-              <CardHeader className="pb-4">
-                <CardTitle className="text-xl">{packages.essentials.name}</CardTitle>
-                <div className="mt-4">
-                  <div className="text-3xl font-bold text-primary" data-testid="hourly-essentials">
-                    {formatCurrency(boat.baseHourly)}/hr
-                  </div>
-                  <p className="text-xs text-gray-500 mt-1">{packages.essentials.addOn} package add-on</p>
-                </div>
-              </CardHeader>
-              
-              <CardContent>
-                <div className="space-y-2 mb-6">
-                  {packages.essentials.features.map((feature, index) => (
-                    <div key={index} className="flex items-start gap-2">
-                      <CheckCircle2 className="h-4 w-4 text-green-600 flex-shrink-0 mt-0.5" />
-                      <span className="text-sm">{feature}</span>
+              {/* Crew Fee Note */}
+              {boat.crewFeeNote && (
+                <Card className="bg-blue-50 dark:bg-blue-950/30 border-blue-200">
+                  <CardContent className="pt-6">
+                    <div className="flex items-start gap-3">
+                      <Info className="h-5 w-5 text-blue-600 flex-shrink-0 mt-0.5" />
+                      <p className="text-sm text-blue-800 dark:text-blue-300">
+                        {boat.crewFeeNote}
+                      </p>
                     </div>
-                  ))}
-                </div>
-                
-                <Link href="/chat">
-                  <Button 
-                    className="w-full mt-4"
-                    data-testid="button-book-essentials"
-                  >
-                    Build My Quote
-                  </Button>
-                </Link>
-              </CardContent>
-            </Card>
-
-            {/* ULTIMATE PACKAGE */}
-            <Card className="transition-all hover:shadow-xl" data-testid="card-ultimate">
-              <CardHeader className="pb-4">
-                <CardTitle className="text-xl">{packages.ultimate.name}</CardTitle>
-                <div className="mt-4">
-                  <div className="text-3xl font-bold text-primary" data-testid="hourly-ultimate">
-                    {formatCurrency(boat.baseHourly)}/hr
-                  </div>
-                  <p className="text-xs text-gray-500 mt-1">{packages.ultimate.addOn} package add-on</p>
-                </div>
-              </CardHeader>
-              
-              <CardContent>
-                <div className="space-y-2 mb-6">
-                  {packages.ultimate.features.map((feature, index) => (
-                    <div key={index} className="flex items-start gap-2">
-                      <CheckCircle2 className="h-4 w-4 text-green-600 flex-shrink-0 mt-0.5" />
-                      <span className="text-sm">{feature}</span>
-                    </div>
-                  ))}
-                </div>
-                
-                <Link href="/chat">
-                  <Button 
-                    className="w-full mt-4" 
-                    variant="outline"
-                    data-testid="button-book-ultimate"
-                  >
-                    Build My Quote
-                  </Button>
-                </Link>
-              </CardContent>
-            </Card>
-          </div>
-          
-          {/* Crew Fee Note */}
-          {boat.crewFeeNote && (
-            <Card className="bg-blue-50 dark:bg-blue-950/30 border-blue-200">
-              <CardContent className="pt-6">
-                <div className="flex items-start gap-3">
-                  <Info className="h-5 w-5 text-blue-600 flex-shrink-0 mt-0.5" />
-                  <p className="text-sm text-blue-800 dark:text-blue-300">
-                    {boat.crewFeeNote}
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
-          )}
+                  </CardContent>
+                </Card>
+              )}
+            </TabsContent>
+          </Tabs>
         </TabsContent>
       </Tabs>
     </div>
