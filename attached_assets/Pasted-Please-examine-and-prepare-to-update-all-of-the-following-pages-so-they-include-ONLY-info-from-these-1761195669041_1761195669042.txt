@@ -1,0 +1,24 @@
+Please examine and prepare to update all of the following pages so they include ONLY info from these attached knowledge base documents- the private cruises pages, home page, bachelor page, bachelorette page, disco page, combined bach page, lake travis party boat page, lake travis party boat pages all have a bunch of AI slop random sections and info - please keep the SEO strategies in place for each page, but update to ONLY INCLUDE real info from these documents
+
+
+https://premierpartycruises.com/
+https://premierpartycruises.com/atx-disco-cruise
+https://premierpartycruises.com/bachelor-party-austin, https://premierpartycruises.com/private-cruises, https://premierpartycruises.com/bachelorette-party-austin, https://premierpartycruises.com/atx-disco-cruise, https://premierpartycruises.com/team-building, https://premierpartycruises.com/client-entertainment, https://premierpartycruises.com/company-milestone, https://premierpartycruises.com/welcome-party, https://premierpartycruises.com/after-party, https://premierpartycruises.com/rehearsal-dinner, https://premierpartycruises.com/milestone-birthday, https://premierpartycruises.com/sweet-16, https://premierpartycruises.com/graduation-party, https://premierpartycruises.com/testimonials-faq
+Then, make sure each page shows the available boats and packages with 3-wide pricing charts for private cruises (Standard/Essentials/Ultimate pkgs for private cruises) - for each # of ppl (1-14, 15-25, 26-30, 31-50, 51-75) - use uploaded pricing charts to ensure all package details are exactly correct.  
+Same with disco cruise packages and details of what’s in each package
+
+Please move the ATX Disco Cruise page to be a sub-page of the bachelorette and bachelor party pages - same with combined bach page - subpage of both in top menu w/dropdown to see those options
+
+Each page should be structured as follows - all other content should be moved below the following content framework on each of the above pages:
+Top of page: hero section with seo optimized H1 headline as it is now
+‘Blue ‘build my quote’ section below this
+3-wide charts with disco or private packages, with tabs for each group size as described above
+Why it’s perfect for that occasion / demographic - no big content changes just adjust to this ordering of sections
+What sets premier apart
+Most important 10 FAQs per category - UPDATE QUESTIONS AND ANSWERS TO MAKE SURE THEY ARE ACCURATE ACCORDING TO NEW INFO
+ALL DISCO VS PRIVATE CRUISE COMPARISONS SHOULD BE ON BACHELOR, BACHELORETTE, COBMINED BACH, AND DISCO CRUISE PAGE 
+BACH PAGES SHOULD have section below pricing chart explaining difference between disco and private cruises - then show price charts for disco and then for private, 3-wide as on other pages
+Relevant testimonials for each situation
+Photo gallery at bottom of each page 
+All other existing info shifted down and checked for relevance and accuracy and duplicate info removed
+Make sure ALL LINKS AND BUTTONS WORK - TONS OF BROKEN PAGES/BUTTONS RIGHT NOW
