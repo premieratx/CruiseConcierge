@@ -149,12 +149,12 @@ export default function Contact() {
       <SectionReveal>
         <section className="relative py-24 px-6">
           <div className="max-w-7xl mx-auto">
-            <div className="text-center">
-              <MessageSquare className="h-16 w-16 text-blue-600 mx-auto mb-6" />
-              <h1 className="text-5xl md:text-6xl font-playfair font-bold mb-6 text-gray-900 dark:text-white" data-editable data-editable-id="h1-contact-us">
+            <div className="text-center px-4">
+              <MessageSquare className="h-12 sm:h-16 w-12 sm:w-16 text-blue-600 mx-auto mb-4 md:mb-6" />
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-playfair font-bold mb-4 md:mb-6 text-gray-900 dark:text-white" data-editable data-editable-id="h1-contact-us">
                 Contact Premier Party Cruises
               </h1>
-              <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto" data-editable data-editable-id="p-contact-tagline">
+              <p className="text-base sm:text-lg md:text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto" data-editable data-editable-id="p-contact-tagline">
                 Ready to plan your Lake Travis adventure? Let's make it happen!
               </p>
             </div>
