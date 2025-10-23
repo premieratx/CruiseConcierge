@@ -187,16 +187,16 @@ export function TabbedPrivateCruisePricing({ className = '' }: TabbedPrivateCrui
     <div className={className}>
       {/* OUTER TABS: Boat Size */}
       <Tabs value={selectedBoat} onValueChange={(val) => setSelectedBoat(val as '14' | '25' | '50')}>
-        <TabsList className="grid w-full grid-cols-3 mb-6">
-          <TabsTrigger value="14" data-testid="tab-14-person">
+        <TabsList className="grid w-full grid-cols-3 mb-6 bg-blue-100 dark:bg-blue-950 p-1">
+          <TabsTrigger value="14" data-testid="tab-14-person" className="data-[state=active]:bg-blue-600 data-[state=active]:text-white">
             <Ship className="h-4 w-4 mr-2" />
             1-14 Guests
           </TabsTrigger>
-          <TabsTrigger value="25" data-testid="tab-25-person">
+          <TabsTrigger value="25" data-testid="tab-25-person" className="data-[state=active]:bg-blue-600 data-[state=active]:text-white">
             <Ship className="h-4 w-4 mr-2" />
             15-30 Guests
           </TabsTrigger>
-          <TabsTrigger value="50" data-testid="tab-50-person">
+          <TabsTrigger value="50" data-testid="tab-50-person" className="data-[state=active]:bg-blue-600 data-[state=active]:text-white">
             <Ship className="h-4 w-4 mr-2" />
             31-75 Guests
           </TabsTrigger>
@@ -220,20 +220,20 @@ export function TabbedPrivateCruisePricing({ className = '' }: TabbedPrivateCrui
 
           {/* INNER TABS: Day of Week */}
           <Tabs value={selectedDay} onValueChange={(val) => setSelectedDay(val as 'mon-thu' | 'fri' | 'sat' | 'sun')}>
-            <TabsList className="grid w-full grid-cols-4 mb-6">
-              <TabsTrigger value="mon-thu" data-testid="tab-mon-thu">
+            <TabsList className="grid w-full grid-cols-4 mb-6 bg-blue-100 dark:bg-blue-950 p-1">
+              <TabsTrigger value="mon-thu" data-testid="tab-mon-thu" className="data-[state=active]:bg-blue-600 data-[state=active]:text-white">
                 <Calendar className="h-4 w-4 mr-2" />
                 Mon-Thu
               </TabsTrigger>
-              <TabsTrigger value="fri" data-testid="tab-fri">
+              <TabsTrigger value="fri" data-testid="tab-fri" className="data-[state=active]:bg-blue-600 data-[state=active]:text-white">
                 <Calendar className="h-4 w-4 mr-2" />
                 Friday
               </TabsTrigger>
-              <TabsTrigger value="sat" data-testid="tab-sat">
+              <TabsTrigger value="sat" data-testid="tab-sat" className="data-[state=active]:bg-blue-600 data-[state=active]:text-white">
                 <Calendar className="h-4 w-4 mr-2" />
                 Saturday
               </TabsTrigger>
-              <TabsTrigger value="sun" data-testid="tab-sun">
+              <TabsTrigger value="sun" data-testid="tab-sun" className="data-[state=active]:bg-blue-600 data-[state=active]:text-white">
                 <Calendar className="h-4 w-4 mr-2" />
                 Sunday
               </TabsTrigger>
@@ -248,7 +248,7 @@ export function TabbedPrivateCruisePricing({ className = '' }: TabbedPrivateCrui
                     <CardTitle className="text-xl">{packages.standard.name}</CardTitle>
                     <div className="mt-4">
                       <div className="text-3xl font-bold text-primary" data-testid="hourly-standard">
-                        {formatCurrency(hourlyRate)}/hr
+                        {formatCurrency(hourlyRate * 100)}/hr
                       </div>
                       <p className="text-xs text-gray-500 mt-1">Base hourly rate</p>
                     </div>
@@ -286,7 +286,7 @@ export function TabbedPrivateCruisePricing({ className = '' }: TabbedPrivateCrui
                     <CardTitle className="text-xl">{packages.essentials.name}</CardTitle>
                     <div className="mt-4">
                       <div className="text-3xl font-bold text-primary" data-testid="hourly-essentials">
-                        {formatCurrency(hourlyRate)}/hr
+                        {formatCurrency(hourlyRate * 100)}/hr
                       </div>
                       <p className="text-xs text-gray-500 mt-1">{packages.essentials.addOn} package add-on</p>
                     </div>
@@ -319,7 +319,7 @@ export function TabbedPrivateCruisePricing({ className = '' }: TabbedPrivateCrui
                     <CardTitle className="text-xl">{packages.ultimate.name}</CardTitle>
                     <div className="mt-4">
                       <div className="text-3xl font-bold text-primary" data-testid="hourly-ultimate">
-                        {formatCurrency(hourlyRate)}/hr
+                        {formatCurrency(hourlyRate * 100)}/hr
                       </div>
                       <p className="text-xs text-gray-500 mt-1">{packages.ultimate.addOn} package add-on</p>
                     </div>
