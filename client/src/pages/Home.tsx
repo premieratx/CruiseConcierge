@@ -467,29 +467,6 @@ export default function Home() {
     }
   }, []);
 
-  // Handle Escape key to close booking modal - High priority handler
-  useEffect(() => {
-    const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && showBookingModal) {
-        e.preventDefault();
-        e.stopPropagation();
-        setShowBookingModal(false);
-      }
-    };
-
-    if (showBookingModal) {
-      // Use capture phase to catch event before Radix
-      document.addEventListener('keydown', handleEscape, true);
-    }
-
-    return () => {
-      document.removeEventListener('keydown', handleEscape, true);
-    };
-  }, [showBookingModal]);
-
-  const handleBookNow = (packageType?: string, eventType?: string) => {
-    setShowBookingModal(true);
-  };
 
   const handleGetQuote = (packageType?: string, eventType?: string) => {
     if (packageType && eventType) {
@@ -711,7 +688,7 @@ export default function Home() {
             >
               <Button
                 size="lg"
-                onClick={() => handleBookNow()}
+                onClick={() => handleGetQuote()}
                 className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold text-xl px-12 py-8 rounded-xl shadow-2xl transform hover:scale-105 transition-all duration-300"
                 data-testid="button-hero-book-now"
               >
@@ -933,16 +910,16 @@ export default function Home() {
                           // Handle specific service booking with package context
                           switch(service.id) {
                             case 'private':
-                              handleBookNow('private-cruise', 'general');
+                              handleGetQuote('private-cruise', 'general');
                               break;
                             case 'bachelor':
-                              handleBookNow('disco-cruise', 'bachelorette');
+                              handleGetQuote('disco-cruise', 'bachelorette');
                               break;
                             case 'disco':
-                              handleBookNow('disco-cruise', 'general');
+                              handleGetQuote('disco-cruise', 'general');
                               break;
                             case 'corporate':
-                              handleBookNow('private-cruise', 'corporate');
+                              handleGetQuote('private-cruise', 'corporate');
                               break;
                             default:
                               handleGetQuote();
@@ -1480,7 +1457,7 @@ export default function Home() {
             <div className="text-center mt-12">
               <Button
                 size="lg"
-                onClick={() => handleBookNow()}
+                onClick={() => handleGetQuote()}
                 className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-6 text-lg font-bold shadow-lg hover:shadow-xl transition-all"
                 data-testid="button-check-availability"
               >
