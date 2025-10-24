@@ -305,7 +305,7 @@ export default function BlogPostPage() {
 
   return (
     <>
-      <ClientOnly><PublicNavigation /></ClientOnly>
+      <PublicNavigation />
       <Breadcrumb 
         customSegments={data ? [
           { label: 'Home', href: '/' },

@@ -732,20 +732,8 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
       const h1Content = post.title || "";
       const bodyContent = post.content || post.excerpt || "";
       
-      // Replace empty root div with server-rendered content for SEO
-      // ENHANCED: Include navigation header and proper CSS classes for better UX before React hydrates
+      // Inject H1 and content for SEO - React PublicNavigation will render normally
       const ssrContent = `<div id="root">
-        <!-- Basic navigation for SSR (React will hydrate with full component) -->
-        <nav style="display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; background: white; border-bottom: 1px solid #e5e7eb;">
-          <a href="/" style="font-size: 1.25rem; font-weight: bold; color: #1e40af; text-decoration: none;">Premier Party Cruises</a>
-          <div style="display: flex; gap: 1.5rem;">
-            <a href="/atx-disco-cruise" style="color: #374151; text-decoration: none;">ATX Disco Cruise</a>
-            <a href="/private-cruises" style="color: #374151; text-decoration: none;">Private Cruises</a>
-            <a href="/blogs" style="color: #374151; text-decoration: none;">Blog</a>
-            <a href="/chat" style="background: #fbbf24; color: black; padding: 0.5rem 1rem; border-radius: 0.375rem; text-decoration: none; font-weight: bold;">Get Quote</a>
-          </div>
-        </nav>
-        <!-- Blog post content with centered headings -->
         <div style="max-width: 56rem; margin: 0 auto; padding: 2rem 1rem;">
           <h1 style="text-align: center; font-size: 2.5rem; font-weight: 800; margin-bottom: 2rem; color: #111827;">${h1Content}</h1>
           <style>
