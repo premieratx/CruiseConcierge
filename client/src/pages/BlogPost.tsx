@@ -199,7 +199,7 @@ export default function BlogPostPage() {
 
   if (!data) return null;
 
-  const { post, author, categories, tags, relatedPosts } = data;
+  const { post, author, categories = [], tags = [], relatedPosts = [] } = data;
 
   // Create comprehensive Article and Organization schemas for SEO
   const publishedDate = safeToISOString(post.publishedAt || post.createdAt);
@@ -305,7 +305,7 @@ export default function BlogPostPage() {
 
   return (
     <>
-      <PublicNavigation />
+      <ClientOnly><PublicNavigation /></ClientOnly>
       <Breadcrumb 
         customSegments={data ? [
           { label: 'Home', href: '/' },
