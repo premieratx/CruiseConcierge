@@ -952,8 +952,7 @@ function shouldUseSSR(url: string): boolean {
     return true;
   }
   
-  // IMPORTANT: Do NOT handle /blog routes - they redirect to /blogs with 301
-  // Only handle /blogs/ routes (canonical URLs)
+  // Handle /blogs/ routes (canonical URLs) with SSR for SEO
   if (pathname.startsWith('/blogs/') && pathname.length > 7) {
     return true;
   }
@@ -1310,6 +1309,15 @@ export function ssrMiddleware() {
     
     // Check if this is a valid SPA route - let React handle it
     if (VALID_SPA_ROUTES.some(route => pathname.startsWith(route))) {
+      return next();
+    }
+    
+    // Skip individual blog post routes (with slugs) - they have custom SSR handler
+    // BUT allow /blogs listing page through for general SSR
+    // Custom handler: /blog/:slug and /blogs/:slug
+    // General SSR: /blogs (listing page)
+    if ((pathname.startsWith('/blog/') && pathname.length > 6) || 
+        (pathname.startsWith('/blogs/') && pathname.length > 7)) {
       return next();
     }
     
