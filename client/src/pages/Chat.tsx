@@ -33,8 +33,8 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
       return `${baseUrl}?${searchParams.toString()}`;
     }
     
-    // Default parameters if none provided
-    return `${baseUrl}?package=general&type=quote`;
+    // Default parameters if none provided - use valid package types
+    return `${baseUrl}?package=private-cruise&type=general`;
   };
 
   const [iframeUrl] = React.useState(getIframeUrl());
