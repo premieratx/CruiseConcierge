@@ -23,6 +23,22 @@ const fadeInUp = {
 };
 
 export default function Chat({ defaultEventType }: ChatProps = {}) {
+  // Get query parameters from URL
+  const getIframeUrl = () => {
+    const searchParams = new URLSearchParams(window.location.search);
+    const baseUrl = 'https://ppc-quote-builder.lovable.app/';
+    
+    // If there are query parameters, pass them to the iframe
+    if (searchParams.toString()) {
+      return `${baseUrl}?${searchParams.toString()}`;
+    }
+    
+    // Default parameters if none provided
+    return `${baseUrl}?package=general&type=quote`;
+  };
+
+  const [iframeUrl] = React.useState(getIframeUrl());
+
   // Ensure page loads at top
   React.useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
@@ -134,7 +150,7 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
             >
               <div className="w-full max-w-6xl mx-auto overflow-hidden rounded-xl shadow-2xl">
                 <iframe 
-                  src="https://ppc-quote-builder.lovable.app/"
+                  src={iframeUrl}
                   title="Premier Party Cruises Quote Builder"
                   className="w-full"
                   style={{ 
