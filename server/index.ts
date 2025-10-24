@@ -160,7 +160,7 @@ app.use((req, res, next) => {
       "connect-src 'self' https: wss: ws: https://xola.com https://*.xola.com https://checkout.xola.com; " +
       "img-src 'self' data: https: blob:; " +
       "font-src 'self' data: https:; " +
-      "frame-src 'self' https://xola.com https://*.xola.com https://checkout.xola.com https://botcdn.xola.com; " +
+      "frame-src 'self' https://xola.com https://*.xola.com https://checkout.xola.com https://botcdn.xola.com https://ppc-quote-builder.lovable.app; " +
       "script-src 'self' 'unsafe-inline' 'unsafe-eval' https: https://xola.com https://*.xola.com https://checkout.xola.com; " +
       "style-src 'self' 'unsafe-inline' https: https://xola.com https://*.xola.com https://checkout.xola.com;"
     );
