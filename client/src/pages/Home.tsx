@@ -686,10 +686,10 @@ export default function Home() {
                 size="lg"
                 variant="outline"
                 onClick={() => handleGetQuote()}
-                className="border-2 border-white text-white hover:bg-white hover:text-gray-900 font-bold text-xl px-12 py-8 rounded-xl backdrop-blur-sm"
+                className="w-full sm:w-auto border-3 border-white bg-white/95 text-gray-900 hover:bg-brand-yellow hover:border-brand-yellow hover:text-black font-bold text-base sm:text-lg md:text-xl px-6 sm:px-8 md:px-12 py-4 sm:py-6 md:py-8 rounded-xl shadow-2xl transform hover:scale-105 transition-all duration-300"
                 data-testid="button-hero-get-quote"
               >
-                <MessageSquare className="mr-3 h-6 w-6 flex-shrink-0" />
+                <MessageSquare className="mr-2 sm:mr-3 h-5 w-5 sm:h-6 sm:w-6 flex-shrink-0" />
                 <span data-editable data-editable-id="hero-cta-quote">GET FREE QUOTE</span>
               </Button>
             </motion.div>
