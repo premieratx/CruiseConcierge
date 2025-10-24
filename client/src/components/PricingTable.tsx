@@ -225,7 +225,7 @@ function DiscoPricingTable({ packages, showTaxAndGratuity = true, showDeposit = 
                 </div>
               )}
               
-              <Link href={pkg.ctaLink || '/book'}>
+              <Link href={pkg.ctaLink || '/chat'}>
                 <Button className="w-full mt-4" variant={pkg.popular ? "default" : "outline"}>
                   {pkg.cta || 'Book Now'}
                   <ArrowRight className="h-4 w-4 ml-2" />
@@ -437,7 +437,7 @@ function PrivateCruisePricingTable({
                         </div>
                       )}
                       
-                      <Link href={`/book?package=${pkg.id}&groupSize=${groupSize}`}>
+                      <Link href={`/chat?package=${pkg.id}&groupSize=${groupSize}`}>
                         <Button className="w-full mt-4" variant={pkg.id === 'essentials' ? 'default' : 'outline'}>
                           Book {pkg.name}
                           <ArrowRight className="h-4 w-4 ml-2" />
@@ -540,7 +540,7 @@ function ComparisonPricingTable({ className }: { className?: string }) {
                 <span className="text-sm text-gray-600">{service.best}</span>
               </TableCell>
               <TableCell className="text-right">
-                <Link href="/book">
+                <Link href="/chat">
                   <Button size="sm" variant="outline">
                     Select
                     <ChevronRight className="h-3 w-3 ml-1" />
@@ -648,7 +648,7 @@ export function PricingTable({
                     );
                   })}
                 </ul>
-                <Link href={pkg.ctaLink || '/book'}>
+                <Link href={pkg.ctaLink || '/chat'}>
                   <Button className="w-full mt-4" variant={pkg.popular ? 'default' : 'outline'}>
                     {pkg.cta || 'Book Now'}
                   </Button>

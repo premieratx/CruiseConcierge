@@ -234,17 +234,13 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
   }, [location]);
 
   const handleGetQuote = () => {
-    // Force full page reload navigation
+    // Always route to /chat
     window.location.href = '/chat';
   };
 
   const handleBookNow = () => {
-    if (onBookNowClick) {
-      onBookNowClick();
-    } else {
-      // Force full page reload navigation
-      window.location.href = '/chat';
-    }
+    // Always route to /chat (ignore prop)
+    window.location.href = '/chat';
   };
 
   return (
