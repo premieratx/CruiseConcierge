@@ -474,14 +474,16 @@ export default function BlogPostPage() {
           <div 
             className="prose prose-lg dark:prose-invert max-w-none px-6 md:px-12 py-10 md:py-12 
             prose-headings:font-bold prose-headings:text-gray-900 dark:prose-headings:text-white
-            prose-h1:text-4xl prose-h2:text-3xl prose-h2:mt-12 prose-h2:mb-6 
-            prose-h3:text-2xl prose-h3:mt-8 prose-h3:mb-4
-            prose-p:text-gray-700 dark:prose-p:text-gray-300 prose-p:leading-relaxed prose-p:mb-6
-            prose-a:text-brand-blue prose-a:no-underline hover:prose-a:underline
-            prose-strong:text-gray-900 dark:prose-strong:text-white prose-strong:font-semibold
-            prose-ul:my-6 prose-ol:my-6 prose-li:my-2
-            prose-blockquote:border-l-4 prose-blockquote:border-brand-blue prose-blockquote:pl-6 prose-blockquote:italic prose-blockquote:text-gray-600 dark:prose-blockquote:text-gray-400
-            prose-img:rounded-lg prose-img:shadow-md prose-img:my-8"
+            prose-h1:text-4xl prose-h1:text-center prose-h1:mb-8
+            prose-h2:text-3xl prose-h2:text-center prose-h2:mt-16 prose-h2:mb-8 prose-h2:font-extrabold prose-h2:tracking-tight
+            prose-h3:text-2xl prose-h3:text-center prose-h3:mt-12 prose-h3:mb-6 prose-h3:font-bold
+            prose-p:text-gray-700 dark:prose-p:text-gray-300 prose-p:leading-relaxed prose-p:mb-6 prose-p:text-lg
+            prose-a:text-brand-blue prose-a:font-medium prose-a:no-underline hover:prose-a:underline prose-a:transition-all
+            prose-strong:text-gray-900 dark:prose-strong:text-white prose-strong:font-bold
+            prose-ul:my-8 prose-ul:space-y-3 prose-ol:my-8 prose-ol:space-y-3 prose-li:my-2 prose-li:text-lg
+            prose-blockquote:border-l-4 prose-blockquote:border-brand-blue prose-blockquote:pl-6 prose-blockquote:italic prose-blockquote:text-gray-600 dark:prose-blockquote:text-gray-400 prose-blockquote:my-8
+            prose-img:rounded-xl prose-img:shadow-lg prose-img:my-12 prose-img:mx-auto
+            prose-hr:my-12 prose-hr:border-gray-300 dark:prose-hr:border-gray-700"
             dangerouslySetInnerHTML={{ __html: getProcessedContent() }}
             data-testid="content-blog-post"
           />
