@@ -150,7 +150,7 @@ export default function BlogPostPage() {
   if (error) {
     return (
       <>
-        <ClientOnly><PublicNavigation /></ClientOnly>
+        <PublicNavigation />
         <div className="min-h-screen bg-background">
           <div className="container mx-auto px-4 py-8">
             <Alert variant="destructive">
@@ -176,7 +176,7 @@ export default function BlogPostPage() {
   if (isLoading) {
     return (
       <>
-        <ClientOnly><PublicNavigation /></ClientOnly>
+        <PublicNavigation />
         <div className="min-h-screen bg-background">
           <div className="container mx-auto px-4 py-8">
             <div className="max-w-4xl mx-auto">
@@ -305,7 +305,7 @@ export default function BlogPostPage() {
 
   return (
     <>
-      <ClientOnly><PublicNavigation /></ClientOnly>
+      <PublicNavigation />
       <Breadcrumb 
         customSegments={data ? [
           { label: 'Home', href: '/' },
