@@ -1236,16 +1236,30 @@ window.__vite_plugin_react_preamble_installed__ = true
     
     // PRODUCTION-SAFE SSR: Keep SSR content visible until React hydrates successfully
     // SSR content stays visible if React fails to load (resilient fallback)
+    // CRITICAL FIX: Blog posts get content AFTER root div for SEO without hydration mismatch
     const pageContent = PAGE_CONTENT[pathname];
     let ssrContent;
 
-    if (pageContent) {
-      // Inject both root div and SSR content (SSR visible until React sets data-hydrated)
+    // Blog posts need special handling: empty root + hidden SEO content after
+    const isBlogPost = pathname.startsWith('/blogs/') && pathname.length > 7;
+    
+    if (isBlogPost) {
+      // Blog posts: empty root div + hidden SEO content for crawlers
+      // noscript ensures content is visible to bots but hidden from React hydration
+      ssrContent = `<div id="root"></div>
+      <noscript>
+        <article style="padding: 2rem; max-width: 1200px; margin: 0 auto;">
+          <h1 style="font-size: 2.5rem; font-weight: bold; margin-bottom: 1rem; color: #000;">${h1}</h1>
+          <div style="font-size: 1.125rem; line-height: 1.75; color: #374151;">${content}</div>
+        </article>
+      </noscript>`;
+    } else if (pageContent) {
+      // Marketing pages: Inject both root div and SSR content (SSR visible until React sets data-hydrated)
       ssrContent = `
       <div id="root"></div>
       ${renderPageContent(pageContent)}`;
     } else {
-      // Simple fallback with SSR content
+      // Other pages: Simple fallback with SSR content
       ssrContent = `
       <div id="root"></div>
       <div class="ssr-content" style="padding: 2rem; max-width: 1200px; margin: 0 auto;">

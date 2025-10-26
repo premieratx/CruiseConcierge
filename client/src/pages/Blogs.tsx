@@ -57,6 +57,16 @@ export default function Blogs() {
     }
   });
 
+  // Fetch ALL published blogs for the complete list
+  const { data: allBlogsData } = useQuery<BlogPostsResponse>({
+    queryKey: ['/api/blog/public/posts/all'],
+    queryFn: async () => {
+      const response = await fetch('/api/blog/public/posts?limit=1000');
+      if (!response.ok) throw new Error('Failed to fetch all blogs');
+      return response.json();
+    }
+  });
+
   const { data, isLoading, error } = useQuery<BlogPostsResponse>({
     queryKey: [
       '/api/blog/public/posts',
@@ -511,6 +521,62 @@ export default function Blogs() {
           </div>
         </div>
       </section>
+
+      {/* Complete Blog List */}
+      {allBlogsData && allBlogsData.posts.length > 0 && (
+        <section className="py-16 bg-white dark:bg-gray-900">
+          <div className="container mx-auto px-6">
+            <div className="max-w-4xl mx-auto">
+              <h2 className="text-3xl font-heading font-bold mb-8 text-gray-900 dark:text-white text-center">
+                Complete Blog Archive ({allBlogsData.total} Posts)
+              </h2>
+              <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-6 md:p-8 shadow-lg">
+                <div className="space-y-3">
+                  {allBlogsData.posts.map((post, index) => (
+                    <Link key={post.id} href={`/blogs/${post.slug}`}>
+                      <div 
+                        className="flex items-start gap-4 p-3 rounded-md hover:bg-white dark:hover:bg-gray-700 transition-colors group border-l-4 border-transparent hover:border-brand-blue"
+                        data-testid={`link-archive-blog-${post.id}`}
+                      >
+                        <span className="text-sm font-mono text-gray-400 dark:text-gray-500 flex-shrink-0 w-8">
+                          {String(index + 1).padStart(2, '0')}
+                        </span>
+                        <div className="flex-1 min-w-0">
+                          <h3 className="text-base font-medium text-gray-900 dark:text-white group-hover:text-brand-blue transition-colors line-clamp-2">
+                            {post.title}
+                          </h3>
+                          {post.excerpt && (
+                            <p className="text-sm text-gray-600 dark:text-gray-400 mt-1 line-clamp-1">
+                              {post.excerpt}
+                            </p>
+                          )}
+                          <div className="flex items-center gap-3 mt-2 text-xs text-gray-500 dark:text-gray-400">
+                            {post.author && (
+                              <span>{post.author.name}</span>
+                            )}
+                            {post.readingTime && (
+                              <>
+                                <span>•</span>
+                                <span>{post.readingTime} min read</span>
+                              </>
+                            )}
+                            {post.categories && post.categories.length > 0 && (
+                              <>
+                                <span>•</span>
+                                <span className="text-brand-blue font-medium">{post.categories[0].name}</span>
+                              </>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
 
       <Footer />
     </>
