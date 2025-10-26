@@ -2340,7 +2340,7 @@ export default function Home() {
           </div>
           <div itemProp="aggregateRating" itemScope itemType="https://schema.org/AggregateRating">
             <meta itemProp="ratingValue" content="5" />
-            <meta itemProp="reviewCount" content="150000" />
+            <meta itemProp="reviewCount" content="420" />
           </div>
         </div>
         
@@ -2359,7 +2359,7 @@ export default function Home() {
           </div>
           <div itemProp="aggregateRating" itemScope itemType="https://schema.org/AggregateRating">
             <meta itemProp="ratingValue" content="5" />
-            <meta itemProp="reviewCount" content="150000" />
+            <meta itemProp="reviewCount" content="420" />
           </div>
         </div>
         
@@ -2379,7 +2379,7 @@ export default function Home() {
           </div>
           <div itemProp="aggregateRating" itemScope itemType="https://schema.org/AggregateRating">
             <meta itemProp="ratingValue" content="5" />
-            <meta itemProp="reviewCount" content="150000" />
+            <meta itemProp="reviewCount" content="420" />
           </div>
         </div>
         
@@ -2484,7 +2484,7 @@ export default function Home() {
           "aggregateRating": {
             "@type": "AggregateRating",
             "ratingValue": "5",
-            "reviewCount": "150000"
+            "reviewCount": "420"
           },
           "hasOfferCatalog": {
             "@type": "OfferCatalog",
@@ -2640,7 +2640,7 @@ export default function Home() {
               "aggregateRating": {
                 "@type": "AggregateRating",
                 "ratingValue": "4.9",
-                "ratingCount": "150000"
+                "ratingCount": "420"
               }
             }}
           />
