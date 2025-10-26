@@ -217,7 +217,7 @@ export default function PortalLogin() {
 
         {/* Help Text */}
         <div className="text-center text-sm text-gray-600 dark:text-gray-400">
-          <p>Need help? Contact us at support@premierpartycruises.com</p>
+          <p>Need help? Contact us at clientservices@premierpartycruises.com</p>
           <p className="mt-1">or call (555) 123-CRUISE</p>
         </div>
       </div>

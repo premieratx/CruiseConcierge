@@ -295,7 +295,7 @@ export default function PortalVerify() {
 
         {/* Support Information */}
         <div className="text-center text-sm text-gray-600 dark:text-gray-400">
-          <p>Need help? Contact us at support@premierpartycruises.com</p>
+          <p>Need help? Contact us at clientservices@premierpartycruises.com</p>
         </div>
       </div>
     </div>

@@ -365,13 +365,13 @@ export default function Faq() {
                 </Card>
                 
                 <Card className="p-6 rounded-xl hover:shadow-lg transition-shadow cursor-pointer">
-                  <a href="mailto:info@premierpartycruises.com" className="flex items-center space-x-4">
+                  <a href="mailto:clientservices@premierpartycruises.com" className="flex items-center space-x-4">
                     <div className="p-3 bg-blue-100 dark:bg-blue-900 rounded-lg">
                       <Mail className="w-6 h-6 text-blue-600 dark:text-blue-400" />
                     </div>
                     <div>
                       <p className="text-sm text-gray-600 dark:text-gray-400">Email Us</p>
-                      <p className="font-semibold text-sm break-all">info@premierpartycruises.com</p>
+                      <p className="font-semibold text-sm break-all">clientservices@premierpartycruises.com</p>
                     </div>
                   </a>
                 </Card>

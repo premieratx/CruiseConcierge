@@ -229,7 +229,7 @@ export default function BookingSuccess() {
                   Try Again
                 </Button>
                 <Button 
-                  onClick={() => window.location.href = 'mailto:bookings@premierpartycruises.com?subject=Booking Confirmation Issue&body=Please help me with my booking confirmation. Session ID: ' + sessionId}
+                  onClick={() => window.location.href = 'mailto:clientservices@premierpartycruises.com?subject=Booking Confirmation Issue&body=Please help me with my booking confirmation. Session ID: ' + sessionId}
                   data-testid="button-contact"
                 >
                   Contact Support

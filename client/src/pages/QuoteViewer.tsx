@@ -447,7 +447,7 @@ export default function QuoteViewer({}: QuoteViewerProps) {
 
           {/* Footer */}
           <div className="text-center mt-8 text-sm text-gray-500">
-            <p>Questions? Contact us at (512) 555-0123 or hello@premierpartycruises.com</p>
+            <p>Questions? Contact us at (512) 488-5892 or clientservices@premierpartycruises.com</p>
           </div>
         </div>
       </div>
