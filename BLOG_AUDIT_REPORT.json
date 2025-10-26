@@ -1,0 +1,616 @@
+{
+  "auditDate": "2025-10-26T12:09:34.633Z",
+  "baseUrl": "https://premierpartycruises.com",
+  "summary": {
+    "totalPostsInDatabase": 78,
+    "successfullyLoaded": 78,
+    "failedToLoad": 0,
+    "paginationBroken": true,
+    "totalIssuesFound": 235
+  },
+  "issues": {
+    "paginationIssue": {
+      "description": "Blog list pagination is broken - all pages (1-4) display the same 20 posts instead of paginating through all 78 posts",
+      "impact": "Users cannot discover 58 blog posts through the blog listing page. These posts are only accessible via direct URL.",
+      "affectedUrls": [
+        "https://premierpartycruises.com/blogs?page=2",
+        "https://premierpartycruises.com/blogs?page=3",
+        "https://premierpartycruises.com/blogs?page=4"
+      ]
+    },
+    "failedLoads": [],
+    "missingNavigation": {
+      "count": 78,
+      "posts": [
+        "top-spots-tips-for-an-unforgettable-austin-bachelorette-party-experience",
+        "claude-ai-market-analysis-premier-party-cruises",
+        "why-choose-austin-bachelorette-party",
+        "how-to-throw-great-bachelor-party-austin",
+        "austin-bachelorette-party-december",
+        "austin-bachelor-party-november",
+        "austin-bachelorette-party-october",
+        "austin-bachelor-party-september",
+        "austin-bachelorette-party-august",
+        "austin-bachelor-party-july",
+        "austin-bachelorette-party-june",
+        "austin-bachelor-party-may",
+        "austin-bachelorette-party-april",
+        "austin-bachelor-party-march",
+        "austin-bachelorette-party-february",
+        "austin-bachelor-party-january",
+        "perfect-bachelor-party-itinerary-austin",
+        "why-choose-austin-bachelor-party",
+        "how-to-throw-great-bachelorette-party-austin",
+        "why-choose-integrated-event-services-comparing-austin-party-planning-options",
+        "integrated-austin-event-services-combining-alcohol-delivery-and-boat-rentals-for-perfect-celebrations",
+        "lake-travis-boat-safety-and-maintenance-quality-standards-for-party-cruises",
+        "lake-travis-boat-party-regulations-legal-requirements-and-compliance-guide",
+        "lake-travis-boat-party-costs-complete-pricing-guide-and-budget-planning",
+        "lake-travis-boat-party-reviews-real-customer-experiences-and-testimonials",
+        "accessible-lake-travis-boat-parties-inclusive-event-planning-for-all-guests",
+        "lake-travis-boat-party-insurance-understanding-coverage-and-liability-for-events",
+        "creative-lake-travis-boat-party-themes-unique-ideas-for-memorable-celebrations",
+        "lake-travis-boat-party-logistics-complete-planning-and-coordination-guide",
+        "holiday-celebrations-on-lake-travis-seasonal-boat-party-planning-and-coordination",
+        "lake-travis-boat-party-music-sound-systems-and-entertainment-coordination",
+        "lake-travis-party-boat-rentals-ultimate-guide-for-large-group-events-20-guests",
+        "lake-travis-boat-party-photography-capturing-perfect-memories-on-the-water",
+        "first-time-lake-travis-boat-rental-essential-tips-for-austin-party-planning",
+        "lake-travis-boat-party-entertainment-activities-and-amenities-for-unforgettable-events",
+        "lake-travis-sunset-cruises-romantic-and-celebration-options-for-every-occasion",
+        "lake-travis-boat-party-catering-food-and-beverage-coordination-for-perfect-events",
+        "lake-travis-boat-party-packages-comprehensive-guide-to-options-and-pricing",
+        "lake-travis-weather-planning-seasonal-considerations-for-perfect-boat-parties",
+        "lake-travis-boat-safety-essential-guidelines-for-safe-party-cruises",
+        "birthday-party-boat-rentals-on-lake-travis-milestone-celebrations-with-a-view",
+        "lake-travis-wedding-boat-rentals-unique-venues-for-austin-celebrations",
+        "corporate-team-building-on-lake-travis-professional-boat-rental-solutions",
+        "austin-bachelorette-party-boats-lake-travis-adventures-for-unforgettable-celebrations",
+        "lake-travis-bachelor-party-boat-rentals-the-ultimate-guide-to-epic-celebrations",
+        "party-alcohol-safety-in-austin-responsible-service-and-guest-well-being",
+        "austin-party-venue-alcohol-delivery-navigating-policies-and-logistics",
+        "holiday-party-alcohol-themes-new-years-fourth-of-july-and-austin-celebrations",
+        "graduation-party-alcohol-planning-ut-and-austin-college-celebrations",
+        "pool-party-alcohol-coordination-summer-event-planning-in-austin-heat",
+        "birthday-party-alcohol-delivery-austin-milestone-celebrations-made-easy",
+        "wedding-anniversary-celebration-ideas-recreating-your-special-day-with-boat-and-alcohol-packages",
+        "outdoor-wedding-alcohol-logistics-hill-country-and-lake-travis-coordination",
+        "austin-wedding-venue-alcohol-policies-delivery-solutions-for-every-location",
+        "wedding-party-alcohol-coordination-getting-ready-bachelor-bachelorette-and-reception",
+        "rehearsal-dinner-boat-alcohol-delivery-unique-wedding-weekend-experiences",
+        "conference-after-party-alcohol-coordination-sxsw-acl-and-austin-event-integration",
+        "startup-celebration-alcohol-packages-funding-rounds-launches-and-milestone-events",
+        "holiday-office-party-alcohol-delivery-stress-free-corporate-celebration-planning",
+        "executive-retreat-alcohol-planning-balancing-professionalism-and-team-bonding",
+        "client-entertainment-alcohol-strategy-impressing-without-overdoing-it",
+        "corporate-team-building-on-lake-travis-alcohol-coordination-for-professional-events",
+        "bachelorette-party-alcohol-emergency-kit-last-minute-delivery-solutions",
+        "budget-friendly-bachelorette-party-alcohol-maximum-fun-without-breaking-the-bank",
+        "instagram-worthy-bachelorette-party-cocktails-recipes-and-delivery-coordination",
+        "lake-travis-bachelorette-party-alcohol-laws-what-you-can-and-cant-bring-on-boats",
+        "cocktail-kits-vs-individual-bottles-the-smart-bachelorette-party-alcohol-strategy",
+        "austin-bachelorette-weekend-alcohol-timeline-day-by-day-drinking-strategy-for-multi-day-celebrations",
+        "lake-travis-bachelor-party-alcohol-delivery-complete-coordination-guide-for-boat-parties",
+        "the-ultimate-austin-bachelorette-party-alcohol-guide-what-to-order-when-to-order-and-how-much-you-actually-need",
+        "austin-bachelorette-bliss-spa-retreats-disco-cruises-alcohol-delivery",
+        "the-recipe-for-the-chillest-atx-bach-party",
+        "must-haves-for-the-perfect-austin-bachelorette-weekend",
+        "the-top-dos-and-dont-for-success-on-the-atx-disco-cruise-with-premier-party-cruises",
+        "disco-cruise-fashion-part-1",
+        "joint-bachelor-bachelorette-parties-with-premier-party-cruises",
+        "the-top-five-celebrities-at-our-dream-party-barge",
+        "hello-world"
+      ]
+    },
+    "missingCTA": {
+      "count": 78,
+      "posts": [
+        "top-spots-tips-for-an-unforgettable-austin-bachelorette-party-experience",
+        "claude-ai-market-analysis-premier-party-cruises",
+        "why-choose-austin-bachelorette-party",
+        "how-to-throw-great-bachelor-party-austin",
+        "austin-bachelorette-party-december",
+        "austin-bachelor-party-november",
+        "austin-bachelorette-party-october",
+        "austin-bachelor-party-september",
+        "austin-bachelorette-party-august",
+        "austin-bachelor-party-july",
+        "austin-bachelorette-party-june",
+        "austin-bachelor-party-may",
+        "austin-bachelorette-party-april",
+        "austin-bachelor-party-march",
+        "austin-bachelorette-party-february",
+        "austin-bachelor-party-january",
+        "perfect-bachelor-party-itinerary-austin",
+        "why-choose-austin-bachelor-party",
+        "how-to-throw-great-bachelorette-party-austin",
+        "why-choose-integrated-event-services-comparing-austin-party-planning-options",
+        "integrated-austin-event-services-combining-alcohol-delivery-and-boat-rentals-for-perfect-celebrations",
+        "lake-travis-boat-safety-and-maintenance-quality-standards-for-party-cruises",
+        "lake-travis-boat-party-regulations-legal-requirements-and-compliance-guide",
+        "lake-travis-boat-party-costs-complete-pricing-guide-and-budget-planning",
+        "lake-travis-boat-party-reviews-real-customer-experiences-and-testimonials",
+        "accessible-lake-travis-boat-parties-inclusive-event-planning-for-all-guests",
+        "lake-travis-boat-party-insurance-understanding-coverage-and-liability-for-events",
+        "creative-lake-travis-boat-party-themes-unique-ideas-for-memorable-celebrations",
+        "lake-travis-boat-party-logistics-complete-planning-and-coordination-guide",
+        "holiday-celebrations-on-lake-travis-seasonal-boat-party-planning-and-coordination",
+        "lake-travis-boat-party-music-sound-systems-and-entertainment-coordination",
+        "lake-travis-party-boat-rentals-ultimate-guide-for-large-group-events-20-guests",
+        "lake-travis-boat-party-photography-capturing-perfect-memories-on-the-water",
+        "first-time-lake-travis-boat-rental-essential-tips-for-austin-party-planning",
+        "lake-travis-boat-party-entertainment-activities-and-amenities-for-unforgettable-events",
+        "lake-travis-sunset-cruises-romantic-and-celebration-options-for-every-occasion",
+        "lake-travis-boat-party-catering-food-and-beverage-coordination-for-perfect-events",
+        "lake-travis-boat-party-packages-comprehensive-guide-to-options-and-pricing",
+        "lake-travis-weather-planning-seasonal-considerations-for-perfect-boat-parties",
+        "lake-travis-boat-safety-essential-guidelines-for-safe-party-cruises",
+        "birthday-party-boat-rentals-on-lake-travis-milestone-celebrations-with-a-view",
+        "lake-travis-wedding-boat-rentals-unique-venues-for-austin-celebrations",
+        "corporate-team-building-on-lake-travis-professional-boat-rental-solutions",
+        "austin-bachelorette-party-boats-lake-travis-adventures-for-unforgettable-celebrations",
+        "lake-travis-bachelor-party-boat-rentals-the-ultimate-guide-to-epic-celebrations",
+        "party-alcohol-safety-in-austin-responsible-service-and-guest-well-being",
+        "austin-party-venue-alcohol-delivery-navigating-policies-and-logistics",
+        "holiday-party-alcohol-themes-new-years-fourth-of-july-and-austin-celebrations",
+        "graduation-party-alcohol-planning-ut-and-austin-college-celebrations",
+        "pool-party-alcohol-coordination-summer-event-planning-in-austin-heat",
+        "birthday-party-alcohol-delivery-austin-milestone-celebrations-made-easy",
+        "wedding-anniversary-celebration-ideas-recreating-your-special-day-with-boat-and-alcohol-packages",
+        "outdoor-wedding-alcohol-logistics-hill-country-and-lake-travis-coordination",
+        "austin-wedding-venue-alcohol-policies-delivery-solutions-for-every-location",
+        "wedding-party-alcohol-coordination-getting-ready-bachelor-bachelorette-and-reception",
+        "rehearsal-dinner-boat-alcohol-delivery-unique-wedding-weekend-experiences",
+        "conference-after-party-alcohol-coordination-sxsw-acl-and-austin-event-integration",
+        "startup-celebration-alcohol-packages-funding-rounds-launches-and-milestone-events",
+        "holiday-office-party-alcohol-delivery-stress-free-corporate-celebration-planning",
+        "executive-retreat-alcohol-planning-balancing-professionalism-and-team-bonding",
+        "client-entertainment-alcohol-strategy-impressing-without-overdoing-it",
+        "corporate-team-building-on-lake-travis-alcohol-coordination-for-professional-events",
+        "bachelorette-party-alcohol-emergency-kit-last-minute-delivery-solutions",
+        "budget-friendly-bachelorette-party-alcohol-maximum-fun-without-breaking-the-bank",
+        "instagram-worthy-bachelorette-party-cocktails-recipes-and-delivery-coordination",
+        "lake-travis-bachelorette-party-alcohol-laws-what-you-can-and-cant-bring-on-boats",
+        "cocktail-kits-vs-individual-bottles-the-smart-bachelorette-party-alcohol-strategy",
+        "austin-bachelorette-weekend-alcohol-timeline-day-by-day-drinking-strategy-for-multi-day-celebrations",
+        "lake-travis-bachelor-party-alcohol-delivery-complete-coordination-guide-for-boat-parties",
+        "the-ultimate-austin-bachelorette-party-alcohol-guide-what-to-order-when-to-order-and-how-much-you-actually-need",
+        "austin-bachelorette-bliss-spa-retreats-disco-cruises-alcohol-delivery",
+        "the-recipe-for-the-chillest-atx-bach-party",
+        "must-haves-for-the-perfect-austin-bachelorette-weekend",
+        "the-top-dos-and-dont-for-success-on-the-atx-disco-cruise-with-premier-party-cruises",
+        "disco-cruise-fashion-part-1",
+        "joint-bachelor-bachelorette-parties-with-premier-party-cruises",
+        "the-top-five-celebrities-at-our-dream-party-barge",
+        "hello-world"
+      ]
+    },
+    "imagesWithoutAlt": {
+      "count": 0,
+      "samples": []
+    },
+    "structureIssues": {
+      "count": 78,
+      "details": [
+        {
+          "slug": "top-spots-tips-for-an-unforgettable-austin-bachelorette-party-experience",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "claude-ai-market-analysis-premier-party-cruises",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "why-choose-austin-bachelorette-party",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "how-to-throw-great-bachelor-party-austin",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "austin-bachelorette-party-december",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "austin-bachelor-party-november",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "austin-bachelorette-party-october",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "austin-bachelor-party-september",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "austin-bachelorette-party-august",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "austin-bachelor-party-july",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "austin-bachelorette-party-june",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "austin-bachelor-party-may",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "austin-bachelorette-party-april",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "austin-bachelor-party-march",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "austin-bachelorette-party-february",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "austin-bachelor-party-january",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "perfect-bachelor-party-itinerary-austin",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "why-choose-austin-bachelor-party",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "how-to-throw-great-bachelorette-party-austin",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "why-choose-integrated-event-services-comparing-austin-party-planning-options",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "integrated-austin-event-services-combining-alcohol-delivery-and-boat-rentals-for-perfect-celebrations",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "lake-travis-boat-safety-and-maintenance-quality-standards-for-party-cruises",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "lake-travis-boat-party-regulations-legal-requirements-and-compliance-guide",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "lake-travis-boat-party-costs-complete-pricing-guide-and-budget-planning",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "lake-travis-boat-party-reviews-real-customer-experiences-and-testimonials",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "accessible-lake-travis-boat-parties-inclusive-event-planning-for-all-guests",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "lake-travis-boat-party-insurance-understanding-coverage-and-liability-for-events",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "creative-lake-travis-boat-party-themes-unique-ideas-for-memorable-celebrations",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "lake-travis-boat-party-logistics-complete-planning-and-coordination-guide",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "holiday-celebrations-on-lake-travis-seasonal-boat-party-planning-and-coordination",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "lake-travis-boat-party-music-sound-systems-and-entertainment-coordination",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "lake-travis-party-boat-rentals-ultimate-guide-for-large-group-events-20-guests",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "lake-travis-boat-party-photography-capturing-perfect-memories-on-the-water",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "first-time-lake-travis-boat-rental-essential-tips-for-austin-party-planning",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "lake-travis-boat-party-entertainment-activities-and-amenities-for-unforgettable-events",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "lake-travis-sunset-cruises-romantic-and-celebration-options-for-every-occasion",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "lake-travis-boat-party-catering-food-and-beverage-coordination-for-perfect-events",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "lake-travis-boat-party-packages-comprehensive-guide-to-options-and-pricing",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "lake-travis-weather-planning-seasonal-considerations-for-perfect-boat-parties",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "lake-travis-boat-safety-essential-guidelines-for-safe-party-cruises",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "birthday-party-boat-rentals-on-lake-travis-milestone-celebrations-with-a-view",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "lake-travis-wedding-boat-rentals-unique-venues-for-austin-celebrations",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "corporate-team-building-on-lake-travis-professional-boat-rental-solutions",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "austin-bachelorette-party-boats-lake-travis-adventures-for-unforgettable-celebrations",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "lake-travis-bachelor-party-boat-rentals-the-ultimate-guide-to-epic-celebrations",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "party-alcohol-safety-in-austin-responsible-service-and-guest-well-being",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "austin-party-venue-alcohol-delivery-navigating-policies-and-logistics",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "holiday-party-alcohol-themes-new-years-fourth-of-july-and-austin-celebrations",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "graduation-party-alcohol-planning-ut-and-austin-college-celebrations",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "pool-party-alcohol-coordination-summer-event-planning-in-austin-heat",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "birthday-party-alcohol-delivery-austin-milestone-celebrations-made-easy",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "wedding-anniversary-celebration-ideas-recreating-your-special-day-with-boat-and-alcohol-packages",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "outdoor-wedding-alcohol-logistics-hill-country-and-lake-travis-coordination",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "austin-wedding-venue-alcohol-policies-delivery-solutions-for-every-location",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "wedding-party-alcohol-coordination-getting-ready-bachelor-bachelorette-and-reception",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "rehearsal-dinner-boat-alcohol-delivery-unique-wedding-weekend-experiences",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "conference-after-party-alcohol-coordination-sxsw-acl-and-austin-event-integration",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "startup-celebration-alcohol-packages-funding-rounds-launches-and-milestone-events",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "holiday-office-party-alcohol-delivery-stress-free-corporate-celebration-planning",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "executive-retreat-alcohol-planning-balancing-professionalism-and-team-bonding",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "client-entertainment-alcohol-strategy-impressing-without-overdoing-it",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "corporate-team-building-on-lake-travis-alcohol-coordination-for-professional-events",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "bachelorette-party-alcohol-emergency-kit-last-minute-delivery-solutions",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "budget-friendly-bachelorette-party-alcohol-maximum-fun-without-breaking-the-bank",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "instagram-worthy-bachelorette-party-cocktails-recipes-and-delivery-coordination",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "lake-travis-bachelorette-party-alcohol-laws-what-you-can-and-cant-bring-on-boats",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "cocktail-kits-vs-individual-bottles-the-smart-bachelorette-party-alcohol-strategy",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "austin-bachelorette-weekend-alcohol-timeline-day-by-day-drinking-strategy-for-multi-day-celebrations",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "lake-travis-bachelor-party-alcohol-delivery-complete-coordination-guide-for-boat-parties",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "the-ultimate-austin-bachelorette-party-alcohol-guide-what-to-order-when-to-order-and-how-much-you-actually-need",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "austin-bachelorette-bliss-spa-retreats-disco-cruises-alcohol-delivery",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "the-recipe-for-the-chillest-atx-bach-party",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "must-haves-for-the-perfect-austin-bachelorette-weekend",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "the-top-dos-and-dont-for-success-on-the-atx-disco-cruise-with-premier-party-cruises",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "disco-cruise-fashion-part-1",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "joint-bachelor-bachelorette-parties-with-premier-party-cruises",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "the-top-five-celebrities-at-our-dream-party-barge",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "hello-world",
+          "issue": "No H1 heading found"
+        }
+      ]
+    },
+    "brokenImages": {
+      "count": 0,
+      "details": []
+    },
+    "brokenInternalLinks": {
+      "count": 0,
+      "details": []
+    },
+    "brokenExternalLinks": {
+      "count": 0,
+      "details": []
+    }
+  },
+  "recommendations": [
+    {
+      "priority": "HIGH",
+      "issue": "Pagination not working on /blogs page",
+      "fix": "Fix the blog list pagination logic. All pages (1-4) currently show the same first 20 posts. Pages 2-4 should show posts 21-40, 41-60, and 61-78 respectively.",
+      "technicalDetails": "Check the Blogs.tsx component and ensure the page query parameter is properly used to offset the blog post query.",
+      "impactedUrls": [
+        "https://premierpartycruises.com/blogs?page=2",
+        "https://premierpartycruises.com/blogs?page=3",
+        "https://premierpartycruises.com/blogs?page=4"
+      ]
+    },
+    {
+      "priority": "MEDIUM",
+      "issue": "78 posts missing navigation elements",
+      "fix": "Ensure all blog posts include the navigation menu. This is likely a Layout or BlogPost component issue.",
+      "affectedPosts": [
+        "top-spots-tips-for-an-unforgettable-austin-bachelorette-party-experience",
+        "claude-ai-market-analysis-premier-party-cruises",
+        "why-choose-austin-bachelorette-party",
+        "how-to-throw-great-bachelor-party-austin",
+        "austin-bachelorette-party-december",
+        "austin-bachelor-party-november",
+        "austin-bachelorette-party-october",
+        "austin-bachelor-party-september",
+        "austin-bachelorette-party-august",
+        "austin-bachelor-party-july"
+      ]
+    },
+    {
+      "priority": "MEDIUM",
+      "issue": "78 posts missing CTA links to /chat",
+      "fix": "Add call-to-action links/buttons to /chat in blog posts to drive conversions. Consider adding a sticky CTA or inline CTAs throughout the content.",
+      "affectedPosts": [
+        "top-spots-tips-for-an-unforgettable-austin-bachelorette-party-experience",
+        "claude-ai-market-analysis-premier-party-cruises",
+        "why-choose-austin-bachelorette-party",
+        "how-to-throw-great-bachelor-party-austin",
+        "austin-bachelorette-party-december",
+        "austin-bachelor-party-november",
+        "austin-bachelorette-party-october",
+        "austin-bachelor-party-september",
+        "austin-bachelorette-party-august",
+        "austin-bachelor-party-july"
+      ]
+    },
+    {
+      "priority": "MEDIUM",
+      "issue": "78 posts have heading structure issues",
+      "fix": "Fix heading hierarchy - ensure each post has exactly one H1 tag (typically the post title) and logical H2/H3 hierarchy.",
+      "details": [
+        {
+          "slug": "top-spots-tips-for-an-unforgettable-austin-bachelorette-party-experience",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "claude-ai-market-analysis-premier-party-cruises",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "why-choose-austin-bachelorette-party",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "how-to-throw-great-bachelor-party-austin",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "austin-bachelorette-party-december",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "austin-bachelor-party-november",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "austin-bachelorette-party-october",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "austin-bachelor-party-september",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "austin-bachelorette-party-august",
+          "issue": "No H1 heading found"
+        },
+        {
+          "slug": "austin-bachelor-party-july",
+          "issue": "No H1 heading found"
+        }
+      ]
+    }
+  ]
+}
