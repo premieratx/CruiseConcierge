@@ -106,64 +106,66 @@ const WEBSITE_SCHEMA = {
   }
 };
 
-// Review Collection schema for Testimonials page (enhances AggregateRating visibility)
-const TESTIMONIALS_REVIEW_SCHEMA = {
-  "@context": "https://schema.org",
-  "@type": "ItemList",
-  "itemListElement": [
-    {
-      "@type": "Review",
-      "reviewRating": {
-        "@type": "Rating",
-        "ratingValue": "5",
-        "bestRating": "5"
-      },
-      "author": {
-        "@type": "Person",
-        "name": "Sarah Thompson"
-      },
-      "reviewBody": "Premier Party Cruises made our bachelorette party absolutely perfect! The captain and crew were professional, the boat was immaculate, and the Lake Travis views were breathtaking.",
-      "datePublished": "2024-08-15",
-      "itemReviewed": {
-        "@id": "https://premierpartycruises.com/#organization"
-      }
+// Individual Review schemas for Testimonials page (proper Google Rich Results format)
+const TESTIMONIALS_REVIEW_SCHEMAS = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Review",
+    "reviewRating": {
+      "@type": "Rating",
+      "ratingValue": "5",
+      "bestRating": "5"
     },
-    {
-      "@type": "Review",
-      "reviewRating": {
-        "@type": "Rating",
-        "ratingValue": "5",
-        "bestRating": "5"
-      },
-      "author": {
-        "@type": "Person",
-        "name": "Michael Rodriguez"
-      },
-      "reviewBody": "Best bachelor party decision we made! The crew went above and beyond to make sure we had an epic time. Great music, perfect weather, and memories that will last a lifetime.",
-      "datePublished": "2024-07-22",
-      "itemReviewed": {
-        "@id": "https://premierpartycruises.com/#organization"
-      }
+    "author": {
+      "@type": "Person",
+      "name": "Sarah Thompson"
     },
-    {
-      "@type": "Review",
-      "reviewRating": {
-        "@type": "Rating",
-        "ratingValue": "5",
-        "bestRating": "5"
-      },
-      "author": {
-        "@type": "Person",
-        "name": "Jennifer Martinez"
-      },
-      "reviewBody": "Corporate team building event was a huge success! The crew was professional, the boat was perfect for our group of 40, and everyone had an amazing experience on Lake Travis.",
-      "datePublished": "2024-06-10",
-      "itemReviewed": {
-        "@id": "https://premierpartycruises.com/#organization"
-      }
+    "reviewBody": "Premier Party Cruises made our bachelorette party absolutely perfect! The captain and crew were professional, the boat was immaculate, and the Lake Travis views were breathtaking.",
+    "datePublished": "2024-08-15",
+    "itemReviewed": {
+      "@type": "LocalBusiness",
+      "@id": "https://premierpartycruises.com/#organization"
     }
-  ]
-};
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Review",
+    "reviewRating": {
+      "@type": "Rating",
+      "ratingValue": "5",
+      "bestRating": "5"
+    },
+    "author": {
+      "@type": "Person",
+      "name": "Michael Rodriguez"
+    },
+    "reviewBody": "Best bachelor party decision we made! The crew went above and beyond to make sure we had an epic time. Great music, perfect weather, and memories that will last a lifetime.",
+    "datePublished": "2024-07-22",
+    "itemReviewed": {
+      "@type": "LocalBusiness",
+      "@id": "https://premierpartycruises.com/#organization"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Review",
+    "reviewRating": {
+      "@type": "Rating",
+      "ratingValue": "5",
+      "bestRating": "5"
+    },
+    "author": {
+      "@type": "Person",
+      "name": "Jennifer Martinez"
+    },
+    "reviewBody": "Corporate team building event was a huge success! The crew was professional, the boat was perfect for our group of 40, and everyone had an amazing experience on Lake Travis.",
+    "datePublished": "2024-06-10",
+    "itemReviewed": {
+      "@type": "LocalBusiness",
+      "@id": "https://premierpartycruises.com/#organization"
+    }
+  }
+];
 
 // Service schema for Private Cruises page
 // Note: Using generic price ranges to avoid outdated pricing in search results
@@ -1125,9 +1127,11 @@ async function renderPage(url: string, req: Request): Promise<string> {
     // Generate breadcrumb schema for interior pages
     const breadcrumbSchema = generateBreadcrumbSchema(pathname, h1);
     
-    // Build schema scripts - Organization schema on all pages EXCEPT homepage (homepage loads from organization.jsonld file)
+    // Build schema scripts - Organization schema on all pages EXCEPT homepage
+    // Homepage loads from organization.jsonld file via schemaLoader to avoid duplication
     let schemaScripts = '';
     
+    // Add Organization schema only on non-homepage pages
     if (pathname !== '/') {
       schemaScripts = `  <script type="application/ld+json">
 ${JSON.stringify(ORGANIZATION_SCHEMA, null, 2)}
@@ -1177,12 +1181,14 @@ ${JSON.stringify(articleSchema, null, 2)}
   </script>`;
     }
     
-    // Add Review schema for Testimonials page (enhances AggregateRating in rich results)
+    // Add Review schemas for Testimonials page (enhances AggregateRating in rich results)
     if (pathname === '/testimonials-faq') {
-      schemaScripts += `
+      TESTIMONIALS_REVIEW_SCHEMAS.forEach(reviewSchema => {
+        schemaScripts += `
   <script type="application/ld+json">
-${JSON.stringify(TESTIMONIALS_REVIEW_SCHEMA, null, 2)}
+${JSON.stringify(reviewSchema, null, 2)}
   </script>`;
+      });
     }
     
     // Inject preconnect tags EARLY in head (right after viewport) for optimal performance

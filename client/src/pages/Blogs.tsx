@@ -110,7 +110,7 @@ export default function Blogs() {
   if (error) {
     return (
       <>
-        <ClientOnly><PublicNavigation /></ClientOnly>
+        <PublicNavigation />
         <div className="min-h-screen bg-background">
           <div className="container mx-auto px-4 py-8">
             <Alert variant="destructive">
@@ -127,7 +127,7 @@ export default function Blogs() {
 
   return (
     <>
-      <ClientOnly><PublicNavigation /></ClientOnly>
+      <PublicNavigation />
       <Breadcrumb />
       <SEOHead 
         pageRoute="/blogs"

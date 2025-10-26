@@ -24,20 +24,6 @@
       "addressCountry": "US"
     }
   },
-  "offers": {
-    "@type": "Offer",
-    "url": "https://premierpartycruises.com/chat",
-    "priceCurrency": "USD",
-    "price": "250.00",
-    "priceSpecification": {
-      "@type": "UnitPriceSpecification",
-      "price": "250.00",
-      "priceCurrency": "USD",
-      "unitText": "per hour"
-    },
-    "availability": "https://schema.org/InStock",
-    "validFrom": "2024-01-01"
-  },
   "termsOfService": "https://premierpartycruises.com/terms",
   "category": "Party Boat Charter",
   "availableChannel": {
@@ -55,6 +41,11 @@
       "@type": "PropertyValue",
       "name": "Minimum Duration",
       "value": "4 hours"
+    },
+    {
+      "@type": "PropertyValue",
+      "name": "Starting Price",
+      "value": "$250 per hour"
     }
   ]
 }
