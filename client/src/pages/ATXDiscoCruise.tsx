@@ -879,12 +879,12 @@ export default function ATXDiscoCruise() {
                   <div className="text-xl text-white">In the United States</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-6xl font-bold text-brand-yellow mb-2">10K+</div>
-                  <div className="text-xl text-white">Bach Parties Hosted</div>
+                  <div className="text-6xl font-bold text-brand-yellow mb-2">$85+</div>
+                  <div className="text-xl text-white">Starting Price</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-6xl font-bold text-brand-yellow mb-2">100%</div>
-                  <div className="text-xl text-white">Satisfaction Rate</div>
+                  <div className="text-6xl font-bold text-brand-yellow mb-2">4 Hrs</div>
+                  <div className="text-xl text-white">Per Cruise</div>
                 </div>
                 <div className="text-center">
                   <div className="text-6xl font-bold text-brand-yellow mb-2">5★</div>
@@ -899,7 +899,7 @@ export default function ATXDiscoCruise() {
                   className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-lg px-12 py-7"
                 >
                   <Calendar className="mr-2 h-6 w-6" />
-                  Join 10,000+ Happy Bachelor & Bachelorette Parties
+                  Book Your ATX Disco Cruise Today
                 </Button>
               </div>
             </div>
@@ -1200,14 +1200,14 @@ export default function ATXDiscoCruise() {
           </section>
         </SectionReveal>
 
-        {/* AI-Optimized Success Metrics */}
+        {/* Cruise Experience Details */}
         <SectionReveal>
           <section className="py-16 bg-gray-50">
             <div className="container mx-auto px-6">
               <AIOptimizedSection
                 type="statistics"
-                title="ATX Disco Cruise Success by the Numbers"
-                description="Why bachelor & bachelorette parties choose the ATX Disco Cruise"
+                title="ATX Disco Cruise Experience Details"
+                description="What to expect on America's only multi-group party cruise"
                 data={[
                   {
                     value: "Only One",
@@ -1216,32 +1216,32 @@ export default function ATXDiscoCruise() {
                     itemProp: "uniqueness"
                   },
                   {
-                    value: "10,000+",
-                    label: "Bach Parties Hosted",
-                    icon: <Trophy className="w-8 h-8" />,
-                    itemProp: "numberOfParties"
-                  },
-                  {
-                    value: "100%",
-                    label: "Satisfaction Rate",
-                    icon: <Shield className="w-8 h-8" />,
-                    itemProp: "satisfactionRate"
-                  },
-                  {
                     value: "4 Hours",
-                    label: "Of Non-Stop Celebration",
+                    label: "Cruise Duration",
                     icon: <Clock className="w-8 h-8" />,
                     itemProp: "duration"
                   },
                   {
-                    value: "$95",
-                    label: "Average Per Person",
+                    value: "$85-$105",
+                    label: "Per Person Range",
                     icon: <DollarSign className="w-8 h-8" />,
-                    itemProp: "averagePrice"
+                    itemProp: "priceRange"
+                  },
+                  {
+                    value: "DJ + Photo",
+                    label: "Included Pros",
+                    icon: <Music className="w-8 h-8" />,
+                    itemProp: "entertainment"
+                  },
+                  {
+                    value: "Multi-Group",
+                    label: "Party Atmosphere",
+                    icon: <Users className="w-8 h-8" />,
+                    itemProp: "atmosphere"
                   },
                   {
                     value: "5 Stars",
-                    label: "Average Review",
+                    label: "Average Rating",
                     icon: <Star className="w-8 h-8" />,
                     itemProp: "rating"
                   }

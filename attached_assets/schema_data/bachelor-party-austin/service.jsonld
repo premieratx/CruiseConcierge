@@ -120,6 +120,10 @@
   ],
   "aggregateRating": {
     "@type": "AggregateRating",
+    "itemReviewed": {
+      "@type": "Service",
+      "name": "Lake Travis Bachelor Party Boat Cruises in Austin"
+    },
     "ratingValue": "5.0",
     "bestRating": "5",
     "reviewCount": 300

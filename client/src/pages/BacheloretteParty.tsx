@@ -971,12 +971,12 @@ export default function BacheloretteParty() {
                 <div className="text-sm sm:text-base md:text-xl text-white">Years Experience</div>
               </div>
               <div className="text-center">
-                <div className="text-4xl sm:text-5xl md:text-6xl font-bold text-brand-yellow mb-1 md:mb-2">10K+</div>
-                <div className="text-sm sm:text-base md:text-xl text-white">Bachelorette Parties</div>
+                <div className="text-4xl sm:text-5xl md:text-6xl font-bold text-brand-yellow mb-1 md:mb-2">4 Hrs</div>
+                <div className="text-sm sm:text-base md:text-xl text-white">Per Cruise</div>
               </div>
               <div className="text-center">
-                <div className="text-4xl sm:text-5xl md:text-6xl font-bold text-brand-yellow mb-1 md:mb-2">100%</div>
-                <div className="text-sm sm:text-base md:text-xl text-white">Satisfaction Rate</div>
+                <div className="text-4xl sm:text-5xl md:text-6xl font-bold text-brand-yellow mb-1 md:mb-2">$85+</div>
+                <div className="text-sm sm:text-base md:text-xl text-white">Starting Price</div>
               </div>
               <div className="text-center">
                 <div className="text-4xl sm:text-5xl md:text-6xl font-bold text-brand-yellow mb-1 md:mb-2">5★</div>
@@ -991,7 +991,7 @@ export default function BacheloretteParty() {
                 className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-lg px-12 py-7"
               >
                 <Calendar className="mr-2 h-6 w-6" />
-                Join 10,000+ Happy Bachelorette Parties
+                Book Your Bachelorette Party Today
               </Button>
             </div>
           </div>
@@ -1244,42 +1244,42 @@ export default function BacheloretteParty() {
         </section>
       </SectionReveal>
 
-      {/* AI-Optimized Success Metrics */}
+      {/* Package Highlights */}
       <SectionReveal>
         <section className="py-16 bg-white">
           <div className="container mx-auto px-6">
             <AIOptimizedSection
               type="statistics"
-              title="Bachelorette Party Success by the Numbers"
-              description="Why Austin bachelorette parties choose Premier Party Cruises"
+              title="Bachelorette Party Experience Details"
+              description="What to expect on your Lake Travis bachelorette party cruise"
               data={[
                 {
-                  value: "10,000+",
-                  label: "Bachelorette Parties Hosted",
-                  icon: <Crown className="w-8 h-8" />,
-                  itemProp: "numberOfBacheloretteParties"
-                },
-                {
-                  value: "100%",
-                  label: "Satisfaction Rate",
-                  icon: <Trophy className="w-8 h-8" />,
-                  itemProp: "satisfactionRate"
-                },
-                {
                   value: "4 Hours",
-                  label: "Of Girls' Weekend Fun",
+                  label: "Cruise Duration",
                   icon: <Clock className="w-8 h-8" />,
                   itemProp: "duration"
                 },
                 {
-                  value: "$95",
-                  label: "Average Per Person",
+                  value: "$85-$105",
+                  label: "Per Person Range",
                   icon: <DollarSign className="w-8 h-8" />,
-                  itemProp: "averagePrice"
+                  itemProp: "priceRange"
+                },
+                {
+                  value: "14-75",
+                  label: "Guest Capacity",
+                  icon: <Users className="w-8 h-8" />,
+                  itemProp: "capacity"
+                },
+                {
+                  value: "DJ + Photo",
+                  label: "Included Pros",
+                  icon: <Music className="w-8 h-8" />,
+                  itemProp: "entertainment"
                 },
                 {
                   value: "5 Stars",
-                  label: "Average Bride Review",
+                  label: "Average Rating",
                   icon: <Star className="w-8 h-8" />,
                   itemProp: "rating"
                 }

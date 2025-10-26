@@ -867,7 +867,7 @@ export default function BachelorParty() {
                 Why Bachelor Parties Choose Premier
               </h2>
               <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
-                15+ years of bachelor party expertise on Lake Travis with 10,000+ successful celebrations
+                15+ years of bachelor party expertise on Lake Travis
               </p>
             </div>
 
@@ -891,11 +891,11 @@ export default function BachelorParty() {
                   <div className="mx-auto mb-4 p-4 bg-green-100 rounded-full w-16 h-16 flex items-center justify-center">
                     <Users className="h-8 w-8 text-green-600" />
                   </div>
-                  <CardTitle className="text-xl font-bold">10,000+ Bachelor Parties</CardTitle>
+                  <CardTitle className="text-xl font-bold">Proven Excellence</CardTitle>
                 </CardHeader>
                 <CardContent className="text-center">
                   <p className="text-gray-700 leading-relaxed">
-                    We've hosted over 10,000 bachelor parties with perfect safety record and 5-star reviews.
+                    Bachelor parties from across the country choose Premier Party Cruises for unforgettable celebrations with perfect safety record.
                   </p>
                 </CardContent>
               </Card>
@@ -1031,12 +1031,12 @@ export default function BachelorParty() {
                 <div className="text-sm sm:text-base md:text-xl text-white">Years Experience</div>
               </div>
               <div className="text-center">
-                <div className="text-4xl sm:text-5xl md:text-6xl font-bold text-brand-yellow mb-1 md:mb-2">10K+</div>
-                <div className="text-sm sm:text-base md:text-xl text-white">Bachelor Parties</div>
+                <div className="text-4xl sm:text-5xl md:text-6xl font-bold text-brand-yellow mb-1 md:mb-2">4 Hrs</div>
+                <div className="text-sm sm:text-base md:text-xl text-white">Per Cruise</div>
               </div>
               <div className="text-center">
-                <div className="text-4xl sm:text-5xl md:text-6xl font-bold text-brand-yellow mb-1 md:mb-2">100%</div>
-                <div className="text-sm sm:text-base md:text-xl text-white">Satisfaction Rate</div>
+                <div className="text-4xl sm:text-5xl md:text-6xl font-bold text-brand-yellow mb-1 md:mb-2">$85+</div>
+                <div className="text-sm sm:text-base md:text-xl text-white">Starting Price</div>
               </div>
               <div className="text-center">
                 <div className="text-4xl sm:text-5xl md:text-6xl font-bold text-brand-yellow mb-1 md:mb-2">5★</div>
@@ -1051,7 +1051,7 @@ export default function BachelorParty() {
                 className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-lg px-12 py-7"
               >
                 <Calendar className="mr-2 h-6 w-6" />
-                Join 10,000+ Happy Bachelor Parties
+                Book Your Bachelor Party Today
               </Button>
             </div>
           </div>
@@ -1304,42 +1304,42 @@ export default function BachelorParty() {
         </section>
       </SectionReveal>
 
-      {/* AI-Optimized Success Metrics */}
+      {/* Package Highlights */}
       <SectionReveal>
         <section className="py-16 bg-white">
           <div className="container mx-auto px-6">
             <AIOptimizedSection
               type="statistics"
-              title="Bachelor Party Success by the Numbers"
-              description="Why Austin bachelor parties choose Premier Party Cruises"
+              title="Bachelor Party Experience Details"
+              description="What to expect on your Lake Travis bachelor party cruise"
               data={[
                 {
-                  value: "10,000+",
-                  label: "Bachelor Parties Hosted",
-                  icon: <Crown className="w-8 h-8" />,
-                  itemProp: "numberOfBachelorParties"
-                },
-                {
-                  value: "100%",
-                  label: "Satisfaction Rate",
-                  icon: <Trophy className="w-8 h-8" />,
-                  itemProp: "satisfactionRate"
-                },
-                {
                   value: "4 Hours",
-                  label: "Of Epic Celebration",
+                  label: "Cruise Duration",
                   icon: <Clock className="w-8 h-8" />,
                   itemProp: "duration"
                 },
                 {
-                  value: "$95",
-                  label: "Average Per Person",
+                  value: "$85-$105",
+                  label: "Per Person Range",
                   icon: <DollarSign className="w-8 h-8" />,
-                  itemProp: "averagePrice"
+                  itemProp: "priceRange"
+                },
+                {
+                  value: "14-75",
+                  label: "Guest Capacity",
+                  icon: <Users className="w-8 h-8" />,
+                  itemProp: "capacity"
+                },
+                {
+                  value: "DJ + Photo",
+                  label: "Included Pros",
+                  icon: <Music className="w-8 h-8" />,
+                  itemProp: "entertainment"
                 },
                 {
                   value: "5 Stars",
-                  label: "Average Bachelor Review",
+                  label: "Average Rating",
                   icon: <Star className="w-8 h-8" />,
                   itemProp: "rating"
                 }
@@ -1380,7 +1380,7 @@ export default function BachelorParty() {
             <div className="max-w-6xl mx-auto space-y-12">
               <FeaturedSnippet
                 question="What is the best bachelor party boat in Austin?"
-                answer="Premier Party Cruises offers the best bachelor party boat experiences in Austin on Lake Travis. With 15+ years of experience, 10,000+ bachelor parties hosted, and packages starting at $85/person for ATX Disco Cruises or $200/hour for private charters, Premier delivers professional DJ services, photography, giant floats, and an epic party atmosphere that makes every bachelor celebration unforgettable."
+                answer="Premier Party Cruises offers the best bachelor party boat experiences in Austin on Lake Travis. With 15+ years of experience and packages starting at $85/person for ATX Disco Cruises or $200/hour for private charters, Premier delivers professional DJ services, photography, giant floats, and an epic party atmosphere that makes every bachelor celebration unforgettable."
                 cite="Premier Party Cruises - Austin's #1 Bachelor Party Boat Company"
               />
 
