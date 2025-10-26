@@ -1,4 +1,4 @@
-import { useState, lazy, Suspense } from "react";
+import { useState, lazy, Suspense, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import PublicNavigation from "@/components/PublicNavigation";
 import { ClientOnly } from '@/components/ClientOnly';
@@ -18,7 +18,7 @@ import Tag from "lucide-react/dist/esm/icons/tag";
 import FolderOpen from "lucide-react/dist/esm/icons/folder-open";
 import { BlogPost, BlogAuthor, BlogCategory, BlogTag } from "@shared/schema";
 import SEOHead from "@/components/SEOHead";
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 
 const ClaudeInsight = lazy(() => import("@/components/ClaudeInsight"));
 const DiscoInsight = lazy(() => import("@/components/DiscoInsight"));
@@ -33,12 +33,35 @@ interface BlogPostsResponse {
 }
 
 export default function Blogs() {
+  const [location, setLocation] = useLocation();
+  
+  const getValidPageNumber = (pageParam: string | null): number => {
+    if (!pageParam) return 1;
+    const parsed = parseInt(pageParam, 10);
+    if (isNaN(parsed) || parsed < 1) return 1;
+    return parsed;
+  };
+  
+  const searchParams = new URLSearchParams(location.split('?')[1] || '');
+  const pageParam = searchParams.get('page');
+  const initialPage = getValidPageNumber(pageParam);
+  
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedTag, setSelectedTag] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(initialPage);
 
   const postsPerPage = 20;
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.split('?')[1] || '');
+    const pageParam = params.get('page');
+    const validPage = getValidPageNumber(pageParam);
+    
+    if (validPage !== currentPage) {
+      setCurrentPage(validPage);
+    }
+  }, [location]);
 
   const { data: categoriesData } = useQuery<BlogCategory[]>({
     queryKey: ['/api/blog/public/categories'],
@@ -109,6 +132,13 @@ export default function Blogs() {
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
+    if (page === 1) {
+      setLocation('/blogs');
+    } else {
+      const params = new URLSearchParams(location.split('?')[1] || '');
+      params.set('page', page.toString());
+      setLocation(`/blogs?${params.toString()}`);
+    }
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
