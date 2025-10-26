@@ -728,13 +728,20 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
         `<meta name="description" content="${metaDescription}" />`
       );
       
-      // Inject H1 and FULL content for SEO (crawlers need visible text, not just meta tags)
-      const h1Content = post.title || "";
-      const bodyContent = post.content || post.excerpt || "";
-      
-      // Inject H1 and content for SEO - React PublicNavigation will render normally
-      const ssrContent = `<div id="root">
-        <div style="max-width: 56rem; margin: 0 auto; padding: 2rem 1rem;">
+      // Render full React app server-side using entry-server
+      let appHtml = '';
+      try {
+        // Dynamically import entry-server render function
+        const entryServer = await import('../client/src/entry-server.tsx');
+        const rendered = entryServer.render(`/blogs/${slug}`);
+        appHtml = rendered.html;
+        console.log(`✅ [Blog SSR] Rendered full React app with PublicNavigation for: ${slug}`);
+      } catch (renderError) {
+        console.error('❌ [Blog SSR] React render failed, using fallback:', renderError);
+        // Fallback to plain content if SSR fails
+        const h1Content = post.title || "";
+        const bodyContent = post.content || post.excerpt || "";
+        appHtml = `<div style="max-width: 56rem; margin: 0 auto; padding: 2rem 1rem;">
           <h1 style="text-align: center; font-size: 2.5rem; font-weight: 800; margin-bottom: 2rem; color: #111827;">${h1Content}</h1>
           <style>
             .blog-content h2 { text-align: center; font-size: 2rem; font-weight: 800; margin-top: 4rem; margin-bottom: 2rem; color: #111827; }
@@ -747,10 +754,11 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
             .blog-content li { margin: 0.75rem 0; font-size: 1.125rem; line-height: 1.75; }
           </style>
           <div class="blog-content">${bodyContent}</div>
-        </div>
-      </div>`;
+        </div>`;
+      }
       
-      html = html.replace(/<div id="root"><\/div>/, ssrContent);
+      // Inject the full React app HTML into root div
+      html = html.replace(/<div id="root"><\/div>/, `<div id="root">${appHtml}</div>`);
       
       const sourceLabel = isWordPress ? 'WordPress/Replit DB' : 'PostgreSQL';
       console.log(`✅ [Blog SSR] Injected unique Article schema + H1 for: ${post.title || slug} (source: ${sourceLabel})`);
