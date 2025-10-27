@@ -156,14 +156,14 @@ export default function DiscoVsPrivateValueCalculator() {
     <div className="w-full space-y-3 md:space-y-4" data-testid="disco-vs-private-calculator">
       {/* Group Size Selector */}
       <div className="space-y-2">
-        <h3 className="text-lg md:text-xl font-bold text-center">Choose Your Group Size</h3>
-        <div className="grid grid-cols-5 md:grid-cols-11 gap-1.5 md:gap-2">
+        <h3 className="text-base sm:text-lg md:text-xl font-bold text-center break-words">Choose Your Group Size</h3>
+        <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-11 gap-1 sm:gap-1.5 md:gap-2">
           {GROUP_SIZES.map(size => (
             <Button
               key={size}
               variant={selectedSize === size ? 'default' : 'outline'}
               onClick={() => setSelectedSize(size)}
-              className="w-full h-8 md:h-10 text-sm md:text-base px-2"
+              className="w-full h-8 sm:h-9 md:h-10 text-xs sm:text-sm md:text-base px-1 sm:px-2"
               data-testid={`group-size-${size}`}
             >
               {size}

@@ -87,7 +87,59 @@
 }
 
 :root {
-  /* HORMOZI/MCDOWELL DESIGN SYSTEM - PREMIER PARTY CRUISES */
+  /* PREMIER PARTY CRUISES - COMPREHENSIVE DESIGN SYSTEM */
+  
+  /* ============================================ */
+  /* RESPONSIVE TYPOGRAPHY SCALE                  */
+  /* ============================================ */
+  
+  /* Fluid font sizes using clamp() for perfect scaling */
+  --font-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem); /* 12px -> 14px */
+  --font-sm: clamp(0.875rem, 0.8rem + 0.35vw, 1rem);     /* 14px -> 16px */
+  --font-base: clamp(1rem, 0.9rem + 0.5vw, 1.125rem);    /* 16px -> 18px */
+  --font-lg: clamp(1.125rem, 1rem + 0.625vw, 1.25rem);   /* 18px -> 20px */
+  --font-xl: clamp(1.25rem, 1.1rem + 0.75vw, 1.5rem);    /* 20px -> 24px */
+  --font-2xl: clamp(1.5rem, 1.25rem + 1.25vw, 2rem);     /* 24px -> 32px */
+  --font-3xl: clamp(1.875rem, 1.5rem + 1.875vw, 2.5rem); /* 30px -> 40px */
+  --font-4xl: clamp(2.25rem, 1.75rem + 2.5vw, 3rem);     /* 36px -> 48px */
+  --font-5xl: clamp(3rem, 2rem + 5vw, 4rem);             /* 48px -> 64px */
+  
+  /* Line heights for readability */
+  --line-height-tight: 1.1;
+  --line-height-snug: 1.25;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.625;
+  --line-height-loose: 2;
+  
+  /* ============================================ */
+  /* CONSISTENT SPACING SCALE                     */
+  /* ============================================ */
+  
+  /* Spacing scale based on 4px base unit */
+  --spacing-xs: clamp(0.25rem, 0.2rem + 0.25vw, 0.375rem);   /* 4px -> 6px */
+  --spacing-sm: clamp(0.5rem, 0.45rem + 0.25vw, 0.625rem);   /* 8px -> 10px */
+  --spacing-md: clamp(1rem, 0.9rem + 0.5vw, 1.25rem);        /* 16px -> 20px */
+  --spacing-lg: clamp(1.5rem, 1.3rem + 1vw, 2rem);           /* 24px -> 32px */
+  --spacing-xl: clamp(2rem, 1.75rem + 1.25vw, 2.5rem);       /* 32px -> 40px */
+  --spacing-2xl: clamp(3rem, 2.5rem + 2.5vw, 4rem);          /* 48px -> 64px */
+  --spacing-3xl: clamp(4rem, 3rem + 5vw, 6rem);              /* 64px -> 96px */
+  
+  /* Container widths */
+  --container-xs: 20rem;     /* 320px */
+  --container-sm: 24rem;     /* 384px */
+  --container-md: 28rem;     /* 448px */
+  --container-lg: 32rem;     /* 512px */
+  --container-xl: 36rem;     /* 576px */
+  --container-2xl: 42rem;    /* 672px */
+  --container-3xl: 48rem;    /* 768px */
+  --container-4xl: 56rem;    /* 896px */
+  --container-5xl: 64rem;    /* 1024px */
+  --container-6xl: 72rem;    /* 1152px */
+  --container-7xl: 80rem;    /* 1280px - Max content width */
+  
+  /* ============================================ */
+  /* COLOR SYSTEM                                 */
+  /* ============================================ */
   
   /* Core Colors - Optimized for Conversion */
   --background: hsl(0 0% 100%);
@@ -267,12 +319,25 @@
     @apply border-border;
   }
 
-  /* CRITICAL CLS FIX: Ensure stable body dimensions */
+  /* ============================================ */
+  /* GLOBAL TEXT OVERFLOW HANDLING               */
+  /* ============================================ */
+  
+  /* Prevent text overflow globally */
   body {
     @apply font-sans antialiased bg-background text-foreground;
     min-height: 100vh;
-    /* Prevent layout shift during font loading */
     font-display: swap;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+  
+  /* Ensure all text containers handle overflow */
+  p, div, span, a, button, h1, h2, h3, h4, h5, h6,
+  .card, .card-content, .card-header {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
   }
   
   /* CRITICAL CLS FIX: Ensure #root has stable dimensions during hydration */
@@ -282,39 +347,45 @@
     contain: layout style paint;
   }
   
+  /* ============================================ */
+  /* RESPONSIVE TYPOGRAPHY                       */
+  /* ============================================ */
+  
   h1, h2, h3, h4, h5, h6 {
-    @apply font-heading font-bold tracking-widest;
-    letter-spacing: 0.25em;
+    @apply font-heading font-bold;
+    line-height: var(--line-height-tight);
+    letter-spacing: -0.02em; /* Reduced letter spacing for better readability */
+    overflow-wrap: break-word;
   }
   
   h1 {
-    @apply text-5xl md:text-6xl lg:text-7xl;
-    letter-spacing: 0.3em;
+    font-size: var(--font-5xl);
+    @apply mb-6;
   }
   
   h2 {
-    @apply text-4xl md:text-5xl lg:text-6xl;
-    letter-spacing: 0.28em;
+    font-size: var(--font-4xl);
+    @apply mb-5;
   }
   
   h3 {
-    @apply text-3xl md:text-4xl lg:text-5xl;
-    letter-spacing: 0.25em;
+    font-size: var(--font-3xl);
+    @apply mb-4;
   }
   
   h4 {
-    @apply text-2xl md:text-3xl lg:text-4xl;
-    letter-spacing: 0.22em;
+    font-size: var(--font-2xl);
+    @apply mb-3;
   }
   
   h5 {
-    @apply text-xl md:text-2xl lg:text-3xl;
-    letter-spacing: 0.2em;
+    font-size: var(--font-xl);
+    @apply mb-2;
   }
   
   h6 {
-    @apply text-lg md:text-xl lg:text-2xl;
-    letter-spacing: 0.18em;
+    font-size: var(--font-lg);
+    @apply mb-2;
   }
   
   .heading-caps {
@@ -448,13 +519,67 @@
     background: linear-gradient(135deg, hsl(var(--brand-yellow)) 0%, hsl(var(--brand-blue)) 100%);
   }
   
-  /* Layout utilities */
-  .section-padding {
-    @apply px-6 py-16 sm:px-8 lg:px-12 xl:px-16;
+  /* ============================================ */
+  /* LAYOUT & CONTAINER UTILITIES                */
+  /* ============================================ */
+  
+  /* Consistent container widths */
+  .container-narrow {
+    @apply max-w-4xl mx-auto px-4 sm:px-6 lg:px-8;
   }
   
-  .container-modern {
-    @apply max-w-7xl mx-auto px-6 sm:px-8 lg:px-12;
+  .container-standard {
+    @apply max-w-6xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+  
+  .container-wide {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+  
+  .container-full {
+    @apply max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8;
+  }
+  
+  /* Section spacing utilities */
+  .section-padding {
+    padding-top: var(--spacing-3xl);
+    padding-bottom: var(--spacing-3xl);
+    @apply px-4 sm:px-6 lg:px-8;
+  }
+  
+  .section-padding-sm {
+    padding-top: var(--spacing-xl);
+    padding-bottom: var(--spacing-xl);
+    @apply px-4 sm:px-6 lg:px-8;
+  }
+  
+  .section-padding-lg {
+    padding-top: var(--spacing-3xl);
+    padding-bottom: var(--spacing-3xl);
+    @apply px-6 sm:px-8 lg:px-12;
+  }
+  
+  /* Card default styles - prevent overflow */
+  .card-default {
+    @apply p-4 sm:p-6 lg:p-8 rounded-lg overflow-hidden;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+  
+  /* Text overflow utilities */
+  .text-overflow-ellipsis {
+    @apply truncate;
+  }
+  
+  .text-overflow-wrap {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+  }
+  
+  .text-overflow-clip {
+    overflow: hidden;
+    text-overflow: clip;
   }
   
   .text-shadow-subtle {

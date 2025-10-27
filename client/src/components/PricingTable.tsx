@@ -132,36 +132,36 @@ function DiscoPricingTable({ packages, showTaxAndGratuity = true, showDeposit = 
           <Card 
             key={pkg.id}
             className={cn(
-              "relative overflow-hidden transition-all hover:shadow-xl",
-              pkg.popular && "ring-2 ring-primary shadow-lg scale-105"
+              "relative overflow-hidden transition-all hover:shadow-xl h-full flex flex-col",
+              pkg.popular && "ring-2 ring-primary shadow-lg md:scale-105"
             )}
           >
             {pkg.popular && (
-              <div className="absolute top-0 right-0 bg-gradient-to-l from-primary to-primary/80 text-white px-4 py-1 rounded-bl-lg">
-                <Star className="h-4 w-4 inline mr-1" />
-                Most Popular
+              <div className="absolute top-0 right-0 bg-gradient-to-l from-primary to-primary/80 text-white px-3 sm:px-4 py-1 rounded-bl-lg z-10">
+                <Star className="h-3 sm:h-4 w-3 sm:w-4 inline mr-1" />
+                <span className="text-xs sm:text-sm">Most Popular</span>
               </div>
             )}
             
-            <CardHeader className="pb-4">
+            <CardHeader>
               <div className="flex items-center justify-between mb-2">
-                <Icon className="h-8 w-8 text-primary" />
+                <Icon className="h-6 sm:h-8 w-6 sm:w-8 text-primary flex-shrink-0" />
                 {pkg.badge && (
-                  <Badge variant="secondary">{pkg.badge}</Badge>
+                  <Badge variant="secondary" className="text-xs">{pkg.badge}</Badge>
                 )}
               </div>
-              <CardTitle className="text-2xl">{pkg.name}</CardTitle>
-              <CardDescription>{pkg.description}</CardDescription>
+              <CardTitle className="text-lg sm:text-xl lg:text-2xl break-words">{pkg.name}</CardTitle>
+              <CardDescription className="text-sm break-words">{pkg.description}</CardDescription>
               
               <div className="mt-4">
-                <div className="flex items-baseline gap-2">
-                  <span className="text-3xl font-bold">{formatCurrency(pkg.price)}</span>
+                <div className="flex flex-wrap items-baseline gap-2">
+                  <span className="text-2xl sm:text-3xl font-bold">{formatCurrency(pkg.price)}</span>
                   {pkg.originalPrice && (
-                    <span className="text-lg text-gray-500 line-through">
+                    <span className="text-sm sm:text-lg text-gray-500 line-through">
                       {formatCurrency(pkg.originalPrice)}
                     </span>
                   )}
-                  <span className="text-sm text-gray-600">/person</span>
+                  <span className="text-xs sm:text-sm text-gray-600">/person</span>
                 </div>
               </div>
             </CardHeader>

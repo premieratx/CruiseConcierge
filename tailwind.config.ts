@@ -5,6 +5,47 @@ export default {
   content: ["./client/index.html", "./client/src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
+      // Responsive font sizes using CSS variables from index.css
+      fontSize: {
+        'xs': 'var(--font-xs)',
+        'sm': 'var(--font-sm)',
+        'base': 'var(--font-base)',
+        'lg': 'var(--font-lg)',
+        'xl': 'var(--font-xl)',
+        '2xl': 'var(--font-2xl)',
+        '3xl': 'var(--font-3xl)',
+        '4xl': 'var(--font-4xl)',
+        '5xl': 'var(--font-5xl)',
+      },
+      spacing: {
+        'xs': 'var(--spacing-xs)',
+        'sm': 'var(--spacing-sm)',
+        'md': 'var(--spacing-md)',
+        'lg': 'var(--spacing-lg)',
+        'xl': 'var(--spacing-xl)',
+        '2xl': 'var(--spacing-2xl)',
+        '3xl': 'var(--spacing-3xl)',
+      },
+      lineHeight: {
+        'tight': 'var(--line-height-tight)',
+        'snug': 'var(--line-height-snug)',
+        'normal': 'var(--line-height-normal)',
+        'relaxed': 'var(--line-height-relaxed)',
+        'loose': 'var(--line-height-loose)',
+      },
+      maxWidth: {
+        'xs': 'var(--container-xs)',
+        'sm': 'var(--container-sm)',
+        'md': 'var(--container-md)',
+        'lg': 'var(--container-lg)',
+        'xl': 'var(--container-xl)',
+        '2xl': 'var(--container-2xl)',
+        '3xl': 'var(--container-3xl)',
+        '4xl': 'var(--container-4xl)',
+        '5xl': 'var(--container-5xl)',
+        '6xl': 'var(--container-6xl)',
+        '7xl': 'var(--container-7xl)',
+      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",

@@ -51,19 +51,19 @@ export function DiscoVsPrivateComparison({
       {/* Controls */}
       <Card>
         <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Sparkles className="h-5 w-5 text-yellow-500" />
-            Smart Deal Comparison
+          <CardTitle className="flex items-center gap-2 text-lg sm:text-xl">
+            <Sparkles className="h-4 sm:h-5 w-4 sm:w-5 text-yellow-500 flex-shrink-0" />
+            <span className="break-words">Smart Deal Comparison</span>
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="grid md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="text-sm font-medium mb-2 block">Group Size</label>
+              <label className="text-xs sm:text-sm font-medium mb-2 block">Group Size</label>
               <select 
                 value={selectedGroupSize} 
                 onChange={(e) => setSelectedGroupSize(Number(e.target.value))}
-                className="w-full p-2 border rounded-md"
+                className="w-full p-2 text-sm sm:text-base border rounded-md"
                 data-testid="group-size-select"
               >
                 {[8, 10, 12, 15, 18, 20, 25, 30, 40, 50].map(size => (
@@ -72,11 +72,11 @@ export function DiscoVsPrivateComparison({
               </select>
             </div>
             <div>
-              <label className="text-sm font-medium mb-2 block">Day of Week</label>
+              <label className="text-xs sm:text-sm font-medium mb-2 block">Day of Week</label>
               <select 
                 value={selectedDayOfWeek} 
                 onChange={(e) => setSelectedDayOfWeek(Number(e.target.value))}
-                className="w-full p-2 border rounded-md"
+                className="w-full p-2 text-sm sm:text-base border rounded-md"
                 data-testid="day-of-week-select"
               >
                 {dayNames.map((day, index) => (
