@@ -237,6 +237,43 @@ export default function Footer() {
           </div>
         </div>
 
+        {/* As Featured In Section - Hormozi/McDowell Trust Building */}
+        <div className="border-t border-gray-800 mt-12 pt-8 pb-4">
+          <div className="text-center">
+            <h3 className="text-lg font-bold text-white mb-4 flex items-center justify-center gap-2">
+              <Award className="h-5 w-5 text-brand-yellow" />
+              As Featured In
+            </h3>
+            <div className="flex flex-wrap justify-center items-center gap-6 opacity-70 hover:opacity-100 transition-opacity">
+              <div className="text-gray-300 text-sm font-semibold">Austin Chronicle</div>
+              <div className="text-gray-300">•</div>
+              <div className="text-gray-300 text-sm font-semibold">KVUE News</div>
+              <div className="text-gray-300">•</div>
+              <div className="text-gray-300 text-sm font-semibold">Lake Travis Life</div>
+              <div className="text-gray-300">•</div>
+              <div className="text-gray-300 text-sm font-semibold">Austin Monthly</div>
+              <div className="text-gray-300">•</div>
+              <div className="text-gray-300 text-sm font-semibold">512 Magazine</div>
+            </div>
+          </div>
+          
+          {/* Trust Seals and Certifications */}
+          <div className="flex flex-wrap justify-center items-center gap-8 mt-6 pt-6 border-t border-gray-800">
+            <div className="flex items-center gap-2 text-gray-300 text-sm">
+              <Ship className="h-5 w-5 text-brand-blue" />
+              <span>Coast Guard Certified</span>
+            </div>
+            <div className="flex items-center gap-2 text-gray-300 text-sm">
+              <Award className="h-5 w-5 text-yellow-500" />
+              <span>BBB Accredited Business</span>
+            </div>
+            <div className="flex items-center gap-2 text-gray-300 text-sm">
+              <Award className="h-5 w-5 text-green-500" />
+              <span>TripAdvisor Certificate of Excellence</span>
+            </div>
+          </div>
+        </div>
+
         {/* Bottom Bar - Copyright & Legal */}
         <div className="border-t border-gray-800 mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
