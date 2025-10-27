@@ -46,6 +46,9 @@ import { StickyCTA } from '@/components/StickyCTA';
 import { VideoTestimonials } from '@/components/VideoTestimonials';
 import { TransportationGuide } from '@/components/TransportationGuide';
 import { LazyImage } from '@/components/LazyImage';
+import { SchemaMarkup, generateEventSchema, generateProductSchema, generateFAQSchema, 
+         generateLocalBusinessSchema, generateServiceSchema, generateAggregateRatingSchema, 
+         generateBreadcrumbSchema, generateHowToSchema } from '@/components/SEOSchemaMarkup';
 
 // Hero and gallery images
 import heroImage1 from '@assets/bachelor-party-group-guys.webp';
@@ -339,12 +342,73 @@ export default function BachelorParty() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
       <SEOHead
-        pageRoute="/bachelor-party-austin"
-        defaultTitle="Bachelor Party Boat | Premier Austin"
-        defaultDescription="Lake Travis bachelor party cruises. ATX Disco with DJ & photographer. Groom cruises FREE. From $85/person. Book now!"
-        defaultKeywords={['Austin bachelor party', 'Lake Travis bachelor party', 'ATX Disco Cruise', 'bachelor party boat Austin']}
-        schemaType="event"
+        title="Austin Bachelor Party Boat Cruises | Lake Travis | Premier Party Cruises"
+        description="Book the ultimate Austin bachelor party on Lake Travis! Professional DJ, photographer, giant floats included. Groom cruises FREE with premium packages. From $85/person. 15+ years experience!"
+        keywords="Austin bachelor party, Lake Travis bachelor party, bachelor party boat Austin, ATX Disco Cruise bachelor, Austin bachelor party ideas, Lake Travis party boat, bachelor party packages Austin"
+        canonicalUrl="/bachelor-party"
       />
+      
+      {/* Comprehensive Schema Markup for SEO */}
+      <SchemaMarkup 
+        schemas={[
+          generateLocalBusinessSchema({
+            name: "Premier Party Cruises - Bachelor Parties",
+            description: "Austin's premier bachelor party boat service on Lake Travis. Professional DJ, photographer, and all-inclusive packages for unforgettable celebrations.",
+            url: "https://premierpartycruises.com/bachelor-party",
+            priceRange: "$85-$125",
+            aggregateRating: {
+              ratingValue: "4.9",
+              reviewCount: "280"
+            }
+          }),
+          generateServiceSchema({
+            name: "Austin Bachelor Party Boat Service",
+            description: "All-inclusive bachelor party packages on Lake Travis with professional entertainment, photography, and party supplies.",
+            serviceType: "Bachelor Party Cruise",
+            areaServed: "Austin",
+            hasOfferCatalog: [
+              { name: "Basic Bach Package", description: "BYOB party cruise with DJ and photographer", price: 85 },
+              { name: "Disco King Package", description: "Private cooler, reserved spot, party gear", price: 105 },
+              { name: "Platinum Package", description: "All-inclusive luxury bachelor party", price: 125 }
+            ],
+            aggregateRating: {
+              ratingValue: "4.9",
+              reviewCount: "280"
+            }
+          }),
+          generateFAQSchema([
+            { 
+              question: "What is the best bachelor party boat in Austin?", 
+              answer: "Premier Party Cruises offers Austin's top-rated bachelor party boat experience on Lake Travis. The ATX Disco Cruise features professional DJ, photographer, giant floats, and a unique multi-group party atmosphere with bachelor parties from across the country." 
+            },
+            { 
+              question: "How much does a bachelor party cruise cost in Austin?", 
+              answer: "Austin bachelor party cruises start at $85 per person for the Basic Bach Package. The popular Disco King Package is $105, and the all-inclusive Platinum Package is $125 per person. All packages include DJ, photographer, and floats." 
+            },
+            { 
+              question: "What's included in an Austin bachelor party boat cruise?", 
+              answer: "Every bachelor party cruise includes: 4-hour Lake Travis cruise, professional DJ entertainment, professional photographer with digital photos, access to giant floats, BYOB capability with coolers and ice, and the electric multi-group party atmosphere." 
+            },
+            { 
+              question: "How many people can fit on a bachelor party boat?", 
+              answer: "ATX Disco Cruise hosts 40-80 guests total with multiple bachelor and bachelorette groups. For private bachelor party charters, boats range from 14-person to 75-person capacity depending on your group size." 
+            },
+            { 
+              question: "When do bachelor party cruises run in Austin?", 
+              answer: "ATX Disco Cruises run Saturdays from 11am-3pm or 3:30pm-7:30pm during season (March-October). Private bachelor party charters are available 7 days a week with flexible scheduling." 
+            }
+          ]),
+          generateAggregateRatingSchema({
+            itemReviewed: {
+              type: "Service",
+              name: "Austin Bachelor Party Cruises"
+            },
+            ratingValue: "4.9",
+            reviewCount: "280"
+          })
+        ]}
+      />
+      
       <PublicNavigation />
       <Breadcrumb />
       

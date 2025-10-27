@@ -34,7 +34,7 @@ import Footer from '@/components/Footer';
 import RelatedLinks from '@/components/RelatedLinks';
 import { ComparisonTable, type ComparisonColumn, type ComparisonRow } from '@/components/ComparisonTable';
 import Breadcrumb from '@/components/Breadcrumb';
-import { FeaturedSnippet } from '@/components/FeaturedSnippet';
+import { FeaturedSnippet, FeaturedSnippetHowTo } from '@/components/FeaturedSnippet';
 import { QuickAnswerBox, QuickAnswerBoxGroup } from '@/components/QuickAnswerBox';
 import { InternalLinkHighlight, InternalLinkHighlightWithArrow } from '@/components/InternalLinkHighlight';
 import { RelatedServicesSection } from '@/components/RelatedServicesSection';
@@ -44,6 +44,9 @@ import AIOptimizedSection from '@/components/AIOptimizedSection';
 import { TableOfContents } from '@/components/TableOfContents';
 import { StickyCTA } from '@/components/StickyCTA';
 import { LazyImage } from '@/components/LazyImage';
+import { SchemaMarkup, generateEventSchema, generateProductSchema, generateFAQSchema, 
+         generateLocalBusinessSchema, generateServiceSchema, generateAggregateRatingSchema, 
+         generateBreadcrumbSchema, generateHowToSchema } from '@/components/SEOSchemaMarkup';
 
 import heroImage1 from '@assets/atx-disco-cruise-party.webp';
 import heroImage2 from '@assets/dancing-party-scene.webp';
@@ -367,6 +370,69 @@ export default function ATXDiscoCruise() {
         description="Join America's only multi-group bachelor/bachelorette party cruise on Lake Travis. 4-hour celebration with professional DJ, photographer, giant floats. From $85/person. Book now!"
         keywords="ATX Disco Cruise, Lake Travis party cruise, Austin bachelor party, Austin bachelorette party, party boat Austin, Lake Travis bachelor party, Lake Travis bachelorette party, Austin boat party, disco cruise Austin"
         canonicalUrl="/atx-disco-cruise"
+      />
+
+      {/* Comprehensive Schema Markup for SEO */}
+      <SchemaMarkup 
+        schemas={[
+          generateLocalBusinessSchema({
+            name: "Premier Party Cruises - ATX Disco Cruise",
+            description: "Austin's premier Lake Travis party cruise featuring multi-group bachelor and bachelorette parties with professional DJ, photographer, and giant floats.",
+            url: "https://premierpartycruises.com/atx-disco-cruise",
+            priceRange: "$85-$125",
+            aggregateRating: {
+              ratingValue: "4.9",
+              reviewCount: "420"
+            }
+          }),
+          generateEventSchema({
+            name: "ATX Disco Cruise - Lake Travis Party Boat",
+            description: "4-hour multi-group bachelor and bachelorette party cruise on Lake Travis with professional DJ, photographer, giant floats, and party atmosphere.",
+            location: "Anderson Mill Marina, Lake Travis",
+            offers: {
+              price: 85,
+              priceCurrency: "USD",
+              availability: "https://schema.org/InStock",
+              url: "https://premierpartycruises.com/atx-disco-cruise"
+            },
+            organizer: {
+              name: "Premier Party Cruises",
+              url: "https://premierpartycruises.com"
+            }
+          }),
+          generateServiceSchema({
+            name: "ATX Disco Cruise Lake Travis Party Service",
+            description: "Multi-group party boat cruise service on Lake Travis for bachelor parties, bachelorette parties, and group celebrations.",
+            serviceType: "Party Boat Cruise",
+            areaServed: "Austin",
+            aggregateRating: {
+              ratingValue: "4.9",
+              reviewCount: "420"
+            }
+          }),
+          generateFAQSchema([
+            { 
+              question: "What is ATX Disco Cruise?", 
+              answer: "ATX Disco Cruise is America's only multi-group bachelor and bachelorette party cruise on Lake Travis. It's a 4-hour celebration featuring professional DJ entertainment, photographer, giant floats, and a high-energy party atmosphere with multiple groups celebrating together." 
+            },
+            { 
+              question: "How much does ATX Disco Cruise cost?", 
+              answer: "ATX Disco Cruise packages start at $85 per person for the Basic Bach Package, $105 for the Disco Queen Package (most popular), and $125 for the Super Sparkle Platinum package. All packages include DJ, photographer, and floats." 
+            },
+            { 
+              question: "When does ATX Disco Cruise run?", 
+              answer: "ATX Disco Cruises run on Saturdays from 11:00 AM - 3:00 PM or 3:30 PM - 7:30 PM during the season (March through October). Each cruise is 4 hours long on Lake Travis." 
+            },
+            { 
+              question: "What's included in ATX Disco Cruise?", 
+              answer: "Every ATX Disco Cruise includes: professional DJ entertainment, professional photographer with digital photos, access to giant floats, BYOB capability with shared coolers and ice, and the unique multi-group party atmosphere." 
+            },
+            { 
+              question: "How many people are on ATX Disco Cruise?", 
+              answer: "ATX Disco Cruise typically hosts 40-80 guests total, with multiple bachelor and bachelorette groups celebrating together. This creates an electric party atmosphere unique to Austin." 
+            }
+          ])
+        ]}
       />
 
       <div className="min-h-screen bg-white dark:bg-gray-950">

@@ -28,7 +28,7 @@ import Footer from '@/components/Footer';
 import RelatedLinks from '@/components/RelatedLinks';
 import { ComparisonTable, type ComparisonColumn, type ComparisonRow } from '@/components/ComparisonTable';
 import Breadcrumb from '@/components/Breadcrumb';
-import { FeaturedSnippet } from '@/components/FeaturedSnippet';
+import { FeaturedSnippet, FeaturedSnippetHowTo } from '@/components/FeaturedSnippet';
 import { QuickAnswerBox, QuickAnswerBoxGroup } from '@/components/QuickAnswerBox';
 import { InternalLinkHighlight, InternalLinkHighlightWithArrow } from '@/components/InternalLinkHighlight';
 import { RelatedServicesSection } from '@/components/RelatedServicesSection';
@@ -41,6 +41,9 @@ import { SectionReveal } from '@/components/SectionReveal';
 import { TableOfContents } from '@/components/TableOfContents';
 import { StickyCTA } from '@/components/StickyCTA';
 import { LazyImage } from '@/components/LazyImage';
+import { SchemaMarkup, generateEventSchema, generateProductSchema, generateFAQSchema, 
+         generateLocalBusinessSchema, generateServiceSchema, generateAggregateRatingSchema, 
+         generateBreadcrumbSchema, generateHowToSchema } from '@/components/SEOSchemaMarkup';
 
 // Hero images
 import heroImage1 from '@assets/clever-girl-50-person-boat.webp';
@@ -502,9 +505,77 @@ export default function PrivateCruises() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
       <SEOHead 
-        pageRoute="/private-cruises"
-        defaultTitle="Private Boat Cruises Lake Travis Austin"
-        defaultDescription="Book exclusive private boat charters on Lake Travis Austin. USCG licensed captains, flexible schedules, BYOB friendly. Perfect for corporate events, weddings, birthdays. Starting at $200/hr."
+        title="Private Boat Rental Austin | Lake Travis Private Cruises | Premier Party Cruises"
+        description="Book private boat rentals on Lake Travis Austin. USCG licensed captains, 14-75 person boats, BYOB friendly. Perfect for corporate events, weddings, birthdays. Starting at $200/hr."
+        keywords="private boat rental Austin, Lake Travis private cruise, Austin boat charter, private party boat Austin, Lake Travis boat rental, Austin yacht rental, corporate cruise Austin, wedding boat Austin"
+        canonicalUrl="/private-cruises"
+      />
+      
+      {/* Comprehensive Schema Markup for SEO */}
+      <SchemaMarkup 
+        schemas={[
+          generateLocalBusinessSchema({
+            name: "Premier Party Cruises - Private Charters",
+            description: "Private boat rental service on Lake Travis Austin. USCG licensed captains, luxury boats from 14-75 passengers, perfect for any celebration.",
+            url: "https://premierpartycruises.com/private-cruises",
+            priceRange: "$200-$800/hour",
+            aggregateRating: {
+              ratingValue: "4.9",
+              reviewCount: "180"
+            }
+          }),
+          generateServiceSchema({
+            name: "Lake Travis Private Boat Rental Service",
+            description: "Exclusive private boat charters on Lake Travis for corporate events, weddings, birthdays, and special celebrations. Professional crew and customizable packages.",
+            serviceType: "Private Boat Charter",
+            areaServed: "Austin",
+            hasOfferCatalog: [
+              { name: "Standard Package", description: "Basic private cruise with captain and crew", price: 200 },
+              { name: "Essentials Package", description: "Enhanced with ice, water, and setup", price: 300 },
+              { name: "Ultimate Package", description: "All-inclusive luxury with floats and party supplies", price: 450 }
+            ],
+            aggregateRating: {
+              ratingValue: "4.9",
+              reviewCount: "180"
+            }
+          }),
+          generateProductSchema({
+            name: "Private Boat Charter Lake Travis",
+            description: "Exclusive private boat rental on Lake Travis with professional captain, customizable packages, and luxury amenities.",
+            brand: "Premier Party Cruises",
+            offers: {
+              price: 200,
+              priceCurrency: "USD",
+              availability: "https://schema.org/InStock"
+            },
+            aggregateRating: {
+              ratingValue: "4.9",
+              reviewCount: "180"
+            }
+          }),
+          generateFAQSchema([
+            { 
+              question: "How much does it cost to rent a private boat on Lake Travis?", 
+              answer: "Private boat rentals on Lake Travis start at $200/hour for smaller boats (14 passengers) and range up to $800/hour for luxury yachts (75 passengers). Most 4-hour private cruises range from $1,200-$3,200 total depending on boat size and package." 
+            },
+            { 
+              question: "What is included in a private boat rental Austin?", 
+              answer: "Every private boat rental includes: USCG licensed captain and crew, fuel, coolers, Bluetooth sound system, and clean restroom facilities. Enhanced packages add ice, water, tables, floats, and party supplies." 
+            },
+            { 
+              question: "Can you bring alcohol on private boat rentals?", 
+              answer: "Yes! All private boat rentals are BYOB friendly. You can bring your own alcohol (cans/plastic only for safety). We provide coolers and enhanced packages include ice. We can also coordinate alcohol delivery to the boat." 
+            },
+            { 
+              question: "What size boats are available for private rental on Lake Travis?", 
+              answer: "Private boats range from intimate 14-person pontoons to luxury 75-person yachts. Popular sizes include: Day Tripper (14 passengers), Meeseeks (25 passengers), Clever Girl (30-50 passengers), and larger party yachts up to 75 passengers." 
+            },
+            { 
+              question: "How far in advance should I book a private boat rental?", 
+              answer: "Book private boat rentals 3-4 weeks in advance for weekends during peak season (April-October). Holiday weekends and special events book 6-8 weeks out. Off-season has more flexibility with 1-2 week advance booking." 
+            }
+          ])
+        ]}
       />
       
       <PublicNavigation />

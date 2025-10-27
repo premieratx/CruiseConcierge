@@ -36,7 +36,7 @@ import Footer from '@/components/Footer';
 import RelatedLinks from '@/components/RelatedLinks';
 import { ComparisonTable, type ComparisonColumn, type ComparisonRow } from '@/components/ComparisonTable';
 import Breadcrumb from '@/components/Breadcrumb';
-import { FeaturedSnippet } from '@/components/FeaturedSnippet';
+import { FeaturedSnippet, FeaturedSnippetHowTo } from '@/components/FeaturedSnippet';
 import { QuickAnswerBox, QuickAnswerBoxGroup } from '@/components/QuickAnswerBox';
 import { InternalLinkHighlight, InternalLinkHighlightWithArrow } from '@/components/InternalLinkHighlight';
 import { RelatedServicesSection } from '@/components/RelatedServicesSection';
@@ -48,6 +48,9 @@ import { StickyCTA } from '@/components/StickyCTA';
 import { VideoTestimonials } from '@/components/VideoTestimonials';
 import { TransportationGuide } from '@/components/TransportationGuide';
 import { LazyImage } from '@/components/LazyImage';
+import { SchemaMarkup, generateEventSchema, generateProductSchema, generateFAQSchema, 
+         generateLocalBusinessSchema, generateServiceSchema, generateAggregateRatingSchema, 
+         generateBreadcrumbSchema, generateHowToSchema } from '@/components/SEOSchemaMarkup';
 
 // Hero and gallery images
 import heroImage1 from '@assets/bachelor-party-group-guys.webp';
@@ -391,12 +394,73 @@ export default function BacheloretteParty() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
       <SEOHead
-        pageRoute="/bachelorette-party-austin"
-        defaultTitle="Bachelorette Party Boat | Premier Austin"
-        defaultDescription="Lake Travis bachelorette cruises. Bride cruises FREE! ATX Disco with DJ & photographer. From $85/person. Book today!"
-        defaultKeywords={['Austin bachelorette party', 'Lake Travis bachelorette party', 'ATX Disco Cruise', 'bachelorette party boat Austin']}
-        schemaType="event"
+        title="Austin Bachelorette Party Boat Cruises | Lake Travis | Premier Party Cruises"
+        description="Book the #1 Austin bachelorette party on Lake Travis! Bride cruises FREE with Disco Queen package. Professional DJ, photographer, giant floats. From $85/person. 150,000+ happy customers!"
+        keywords="Austin bachelorette party, Lake Travis bachelorette party, bachelorette party boat Austin, ATX Disco Cruise bachelorette, Austin bachelorette ideas, Lake Travis party boat, bachelorette party packages Austin"
+        canonicalUrl="/bachelorette-party"
       />
+      
+      {/* Comprehensive Schema Markup for SEO */}
+      <SchemaMarkup 
+        schemas={[
+          generateLocalBusinessSchema({
+            name: "Premier Party Cruises - Bachelorette Parties",
+            description: "Austin's premier bachelorette party boat service on Lake Travis. Bride cruises FREE, professional DJ, photographer, and all-inclusive packages.",
+            url: "https://premierpartycruises.com/bachelorette-party",
+            priceRange: "$85-$125",
+            aggregateRating: {
+              ratingValue: "4.9",
+              reviewCount: "350"
+            }
+          }),
+          generateServiceSchema({
+            name: "Austin Bachelorette Party Boat Service",
+            description: "All-inclusive bachelorette party packages on Lake Travis with professional entertainment, photography, and party supplies.",
+            serviceType: "Bachelorette Party Cruise",
+            areaServed: "Austin",
+            hasOfferCatalog: [
+              { name: "Basic Bach Package", description: "BYOB party cruise with DJ and photographer", price: 85 },
+              { name: "Disco Queen Package", description: "Bride cruises FREE, private cooler, reserved spot", price: 105 },
+              { name: "Platinum Package", description: "All-inclusive luxury with mimosa bar", price: 125 }
+            ],
+            aggregateRating: {
+              ratingValue: "4.9",
+              reviewCount: "350"
+            }
+          }),
+          generateFAQSchema([
+            { 
+              question: "What is the best bachelorette party boat in Austin?", 
+              answer: "Premier Party Cruises offers Austin's #1 rated bachelorette party boat experience on Lake Travis. With the ATX Disco Cruise, brides cruise FREE with the Disco Queen package, and every cruise includes professional DJ, photographer, giant floats, and 4 hours of celebration." 
+            },
+            { 
+              question: "How much does a bachelorette party cruise cost in Austin?", 
+              answer: "Austin bachelorette party cruises start at $85 per person for the Basic Bach Package. The most popular Disco Queen Package is $105 (bride cruises FREE), and the all-inclusive Platinum Package is $125 per person." 
+            },
+            { 
+              question: "What's included in an Austin bachelorette party boat cruise?", 
+              answer: "Every bachelorette party cruise includes: 4-hour Lake Travis cruise, professional DJ entertainment, professional photographer with digital photos, access to giant floats, BYOB with coolers and ice, and the unique multi-group party atmosphere where you celebrate with other bachelorette parties." 
+            },
+            { 
+              question: "Does the bride cruise free on bachelorette party boats?", 
+              answer: "Yes! The bride cruises FREE with the Disco Queen Package ($105/person) and Platinum Package ($125/person). These packages also include private cooler, reserved seating, and special perks for the bride." 
+            },
+            { 
+              question: "When should I book a bachelorette party cruise in Austin?", 
+              answer: "Book your Austin bachelorette party cruise 4-6 weeks in advance for peak season (March-October) weekends. Popular Saturdays sell out quickly. ATX Disco Cruises run Saturdays at 11am-3pm or 3:30pm-7:30pm." 
+            }
+          ]),
+          generateAggregateRatingSchema({
+            itemReviewed: {
+              type: "Service",
+              name: "Austin Bachelorette Party Cruises"
+            },
+            ratingValue: "4.9",
+            reviewCount: "350"
+          })
+        ]}
+      />
+      
       <PublicNavigation />
       <Breadcrumb />
       
