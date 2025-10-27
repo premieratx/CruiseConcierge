@@ -423,14 +423,31 @@ export default function ATXDiscoCruise() {
               <p className="text-sm sm:text-base md:text-lg text-white/80 mb-6 md:mb-8 max-w-3xl mx-auto text-center px-2" data-testid="text-hero-description">
                 Only all-inclusive, multi-group bachelor/bachelorette party cruise in the country. Join parties from across America for an unforgettable 4-hour Lake Travis celebration with professional DJ, photographer, and 100% satisfaction track record! <InternalLinkHighlightWithArrow href="/private-cruises" title="Private Cruises">Or book a private charter</InternalLinkHighlightWithArrow>
               </p>
+              
+              {/* Urgency & Social Proof Badges */}
+              <div className="flex flex-col sm:flex-row gap-3 justify-center mb-6">
+                <Badge className="bg-red-600 text-white px-4 py-2 text-sm font-bold animate-pulse">
+                  <AlertCircle className="h-4 w-4 mr-2 inline" />
+                  Peak Weekends Sell Out 2-3 Weeks in Advance
+                </Badge>
+                <Badge className="bg-green-600 text-white px-4 py-2 text-sm font-bold">
+                  <Star className="h-4 w-4 mr-2 inline" />
+                  420+ Five-Star Reviews
+                </Badge>
+                <Badge className="bg-blue-600 text-white px-4 py-2 text-sm font-bold">
+                  <Users className="h-4 w-4 mr-2 inline" />
+                  150,000+ Happy Customers
+                </Badge>
+              </div>
+              
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button 
                   size="lg" 
                   onClick={handleBookNow}
-                  className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white text-base px-8 py-6"
+                  className="btn-primary-hero bg-yellow-500 hover:bg-yellow-600 text-black font-bold text-base px-8 py-6 shadow-2xl transform hover:scale-105 transition-all"
                   data-testid="button-book-now"
                 >
-                  Book Your Spot Now <ArrowRight className="ml-2" />
+                  Secure Your Spot - Sells Out Fast <ArrowRight className="ml-2" />
                 </Button>
                 <Button 
                   size="lg" 
@@ -503,10 +520,10 @@ export default function ATXDiscoCruise() {
                 <Button
                   size="lg"
                   onClick={handleBookNow}
-                  className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white text-base px-12 py-6"
+                  className="btn-primary-hero bg-yellow-500 hover:bg-yellow-600 text-black font-bold text-base px-12 py-6 shadow-2xl transform hover:scale-105 transition-all"
                   data-testid="button-experience-cta"
                 >
-                  Experience This Magic <ArrowRight className="ml-2" />
+                  Claim Your Spot Before It Sells Out <ArrowRight className="ml-2" />
                 </Button>
               </div>
             </div>
@@ -525,9 +542,14 @@ export default function ATXDiscoCruise() {
                 <h2 className="text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
                   Choose Your Perfect Package
                 </h2>
-                <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
+                <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed mb-4">
                   From budget-friendly to all-inclusive VIP - we've got the perfect party package for every group. Looking for exclusive privacy? <InternalLinkHighlight href="/private-cruises" title="Private Cruises">Check out our private charter options</InternalLinkHighlight>
                 </p>
+                {/* Scarcity Indicator */}
+                <Badge className="bg-orange-600 text-white px-6 py-3 text-base font-bold animate-bounce">
+                  <Users className="h-4 w-4 mr-2 inline" />
+                  Only 100 Spots Per Cruise - 73% Already Booked for Peak Season
+                </Badge>
               </div>
 
               <div className="grid md:grid-cols-3 gap-8 mb-12">
@@ -609,6 +631,99 @@ export default function ATXDiscoCruise() {
                   Best Value for Bachelor & Bachelorette Parties
                 </Badge>
               </div>
+            </div>
+          </section>
+        </SectionReveal>
+
+        {/* VALUE STACK SECTION - NEW Hormozi/McDowell Optimization */}
+        <SectionReveal>
+          <section className="py-20 bg-gradient-to-br from-yellow-50 to-orange-50">
+            <div className="max-w-6xl mx-auto px-6">
+              <div className="text-center mb-12">
+                <Badge className="mb-6 bg-green-600 text-white px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
+                  <DollarSign className="h-4 w-4 mr-2 inline" />
+                  Value Stack Breakdown
+                </Badge>
+                <h2 className="text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
+                  See Exactly What You're Getting
+                </h2>
+                <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
+                  The true value of your ATX Disco Cruise experience
+                </p>
+              </div>
+
+              <Card className="value-stack-card border-4 border-green-500 shadow-2xl max-w-4xl mx-auto">
+                <CardHeader className="bg-gradient-to-r from-green-500 to-emerald-500 text-white">
+                  <CardTitle className="text-3xl text-center">Total Value Breakdown</CardTitle>
+                </CardHeader>
+                <CardContent className="p-8">
+                  <div className="space-y-4 mb-8">
+                    <div className="flex justify-between items-center pb-3 border-b border-gray-200">
+                      <div className="flex items-center gap-3">
+                        <Music className="h-6 w-6 text-purple-600" />
+                        <span className="text-lg font-semibold">Professional DJ (4 Hours)</span>
+                      </div>
+                      <span className="text-xl font-bold text-gray-800">$150</span>
+                    </div>
+                    <div className="flex justify-between items-center pb-3 border-b border-gray-200">
+                      <div className="flex items-center gap-3">
+                        <Camera className="h-6 w-6 text-blue-600" />
+                        <span className="text-lg font-semibold">Professional Photographer</span>
+                      </div>
+                      <span className="text-xl font-bold text-gray-800">$200</span>
+                    </div>
+                    <div className="flex justify-between items-center pb-3 border-b border-gray-200">
+                      <div className="flex items-center gap-3">
+                        <Anchor className="h-6 w-6 text-pink-600" />
+                        <span className="text-lg font-semibold">Giant Party Floats</span>
+                      </div>
+                      <span className="text-xl font-bold text-gray-800">$75</span>
+                    </div>
+                    <div className="flex justify-between items-center pb-3 border-b border-gray-200">
+                      <div className="flex items-center gap-3">
+                        <Ship className="h-6 w-6 text-indigo-600" />
+                        <span className="text-lg font-semibold">4-Hour Boat Charter</span>
+                      </div>
+                      <span className="text-xl font-bold text-gray-800">$100</span>
+                    </div>
+                    <div className="flex justify-between items-center pb-3 border-b-2 border-gray-300">
+                      <div className="flex items-center gap-3">
+                        <Gift className="h-6 w-6 text-orange-600" />
+                        <span className="text-lg font-semibold">Party Supplies & Extras</span>
+                      </div>
+                      <span className="text-xl font-bold text-gray-800">$50</span>
+                    </div>
+                  </div>
+
+                  <div className="bg-gray-100 rounded-lg p-6 mb-6">
+                    <div className="flex justify-between items-center mb-4">
+                      <span className="text-xl font-bold text-gray-700">Total Real Value:</span>
+                      <span className="text-3xl font-extrabold text-gray-500 line-through">$575</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-2xl font-bold text-green-600">Your Price:</span>
+                      <span className="text-5xl font-extrabold text-green-600">$85</span>
+                    </div>
+                  </div>
+
+                  <div className="text-center space-y-4">
+                    <Badge className="bg-gradient-to-r from-green-600 to-emerald-600 text-white px-6 py-3 text-lg font-bold">
+                      <Zap className="h-5 w-5 mr-2 inline" />
+                      You Save $490 (85% OFF!)
+                    </Badge>
+                    <p className="text-lg font-semibold text-gray-700">
+                      The same experience privately would cost <span className="text-red-600 font-bold">$2,000+</span> for your group
+                    </p>
+                    <Button 
+                      size="lg" 
+                      onClick={handleBookNow}
+                      className="btn-primary-hero bg-yellow-500 hover:bg-yellow-600 text-black font-bold text-lg px-12 py-6 shadow-2xl transform hover:scale-105 transition-all"
+                    >
+                      Lock In This Deal Now <ArrowRight className="ml-2" />
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
             </div>
           </section>
         </SectionReveal>
@@ -725,7 +840,7 @@ export default function ATXDiscoCruise() {
                   Why Bachelor & Bachelorette Parties Choose ATX Disco
                 </h2>
                 <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
-                  The ultimate multi-group celebration experience on Lake Travis
+                  Transform your celebration into <strong>the highlight of your entire Austin weekend</strong>
                 </p>
               </div>
 
@@ -953,7 +1068,92 @@ export default function ATXDiscoCruise() {
           </section>
         </SectionReveal>
 
-        {/* 9. TESTIMONIALS Section */}
+        {/* GUARANTEE SECTION - NEW Hormozi/McDowell Optimization */}
+        <SectionReveal>
+          <section className="py-20 bg-gradient-to-br from-green-50 to-blue-50">
+            <div className="max-w-5xl mx-auto px-6">
+              <div className="text-center mb-12">
+                <Badge className="mb-6 bg-green-600 text-white px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
+                  <Shield className="h-4 w-4 mr-2 inline" />
+                  Our Guarantee
+                </Badge>
+                <h2 className="text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
+                  100% Risk-Free Booking
+                </h2>
+                <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
+                  Book with complete confidence - we've got you covered
+                </p>
+              </div>
+
+              <div className="grid md:grid-cols-3 gap-8 mb-12">
+                <Card className="border-2 border-green-500 shadow-xl">
+                  <CardHeader className="text-center">
+                    <div className="mx-auto mb-4 p-4 bg-green-100 rounded-full w-16 h-16 flex items-center justify-center">
+                      <CloudRain className="h-8 w-8 text-green-600" />
+                    </div>
+                    <CardTitle className="text-xl font-bold">Lemonade Disco Weather Guarantee</CardTitle>
+                  </CardHeader>
+                  <CardContent className="text-center">
+                    <p className="text-gray-700 leading-relaxed">
+                      If weather cancels your cruise, get a <strong>full refund</strong> or reschedule at no charge. We even have the "Lemonade Disco" backup for light rain - party continues!
+                    </p>
+                  </CardContent>
+                </Card>
+
+                <Card className="border-2 border-blue-500 shadow-xl">
+                  <CardHeader className="text-center">
+                    <div className="mx-auto mb-4 p-4 bg-blue-100 rounded-full w-16 h-16 flex items-center justify-center">
+                      <Timer className="h-8 w-8 text-blue-600" />
+                    </div>
+                    <CardTitle className="text-xl font-bold">48-Hour Refund Policy</CardTitle>
+                  </CardHeader>
+                  <CardContent className="text-center">
+                    <p className="text-gray-700 leading-relaxed">
+                      Plans change, we get it. <strong>Cancel up to 48 hours</strong> before your cruise for a full refund. No questions asked, no hassle.
+                    </p>
+                  </CardContent>
+                </Card>
+
+                <Card className="border-2 border-purple-500 shadow-xl">
+                  <CardHeader className="text-center">
+                    <div className="mx-auto mb-4 p-4 bg-purple-100 rounded-full w-16 h-16 flex items-center justify-center">
+                      <Trophy className="h-8 w-8 text-purple-600" />
+                    </div>
+                    <CardTitle className="text-xl font-bold">100% Satisfaction Track Record</CardTitle>
+                  </CardHeader>
+                  <CardContent className="text-center">
+                    <p className="text-gray-700 leading-relaxed">
+                      <strong>15+ years</strong> running, <strong>150,000+ happy customers</strong>, and a <strong>perfect safety record</strong>. We guarantee the best bach party on Lake Travis!
+                    </p>
+                  </CardContent>
+                </Card>
+              </div>
+
+              <div className="text-center bg-gradient-to-r from-green-100 to-blue-100 rounded-2xl p-8 border-2 border-green-500">
+                <h3 className="text-2xl font-bold mb-4 text-gray-900">Our Promise to You</h3>
+                <p className="text-lg text-gray-700 mb-6 leading-relaxed">
+                  If you don't have the time of your life on the ATX Disco Cruise, we'll make it right. That's our commitment after <strong>15+ years</strong> of creating unforgettable memories.
+                </p>
+                <div className="flex flex-wrap gap-4 justify-center">
+                  <Badge className="bg-green-600 text-white px-6 py-3 text-base font-bold">
+                    <Check className="h-4 w-4 mr-2 inline" />
+                    15+ Years Experience
+                  </Badge>
+                  <Badge className="bg-blue-600 text-white px-6 py-3 text-base font-bold">
+                    <Users className="h-4 w-4 mr-2 inline" />
+                    150,000+ Happy Customers
+                  </Badge>
+                  <Badge className="bg-purple-600 text-white px-6 py-3 text-base font-bold">
+                    <Shield className="h-4 w-4 mr-2 inline" />
+                    Perfect Safety Record
+                  </Badge>
+                </div>
+              </div>
+            </div>
+          </section>
+        </SectionReveal>
+
+        {/* 9. TESTIMONIALS Section - Enhanced with Trust Badges */}
         <SectionReveal>
           <section id="testimonials" className="py-20 bg-gradient-to-br from-gray-50 to-white" data-testid="section-testimonials">
             <div className="max-w-7xl mx-auto px-6">
@@ -965,9 +1165,24 @@ export default function ATXDiscoCruise() {
                 <h2 className="text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
                   What Bachelor & Bachelorette Parties Are Saying
                 </h2>
-                <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
+                <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed mb-6">
                   Real reviews from real parties who celebrated the ATX Disco way
                 </p>
+                {/* Trust Badges */}
+                <div className="flex flex-wrap gap-4 justify-center">
+                  <Badge className="bg-yellow-500 text-black px-6 py-3 text-base font-bold">
+                    <Star className="h-5 w-5 mr-2 inline fill-current" />
+                    420+ Five-Star Reviews
+                  </Badge>
+                  <Badge className="bg-green-600 text-white px-6 py-3 text-base font-bold">
+                    <Award className="h-5 w-5 mr-2 inline" />
+                    #1 Rated Bach Party Experience
+                  </Badge>
+                  <Badge className="bg-blue-600 text-white px-6 py-3 text-base font-bold">
+                    <TrendingUp className="h-5 w-5 mr-2 inline" />
+                    98% Would Recommend
+                  </Badge>
+                </div>
               </div>
 
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
@@ -1008,6 +1223,156 @@ export default function ATXDiscoCruise() {
                   Book Your Legendary Party Today
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
+              </div>
+            </div>
+          </section>
+        </SectionReveal>
+
+        {/* COST OF INACTION SECTION - NEW Hormozi/McDowell Optimization */}
+        <SectionReveal>
+          <section className="py-20 bg-gradient-to-br from-red-50 to-orange-50">
+            <div className="max-w-7xl mx-auto px-6">
+              <div className="text-center mb-12">
+                <Badge className="mb-6 bg-red-600 text-white px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
+                  <AlertCircle className="h-4 w-4 mr-2 inline" />
+                  Cost of Inaction
+                </Badge>
+                <h2 className="text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
+                  What Happens If You Don't Book ATX Disco?
+                </h2>
+                <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
+                  The real cost of choosing the "traditional" route for your <InternalLinkHighlight href="/bachelor-party" title="Bachelor Parties">bachelor</InternalLinkHighlight> or <InternalLinkHighlight href="/bachelorette-party" title="Bachelorette Parties">bachelorette party</InternalLinkHighlight>
+                </p>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+                {/* Without ATX Disco */}
+                <Card className="border-4 border-red-300 shadow-xl bg-red-50">
+                  <CardHeader className="bg-red-600 text-white">
+                    <CardTitle className="text-2xl text-center flex items-center justify-center gap-2">
+                      <XCircle className="h-8 w-8" />
+                      Without ATX Disco
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="p-6 space-y-4">
+                    <div className="flex items-start gap-3">
+                      <X className="h-6 w-6 text-red-600 flex-shrink-0 mt-1" />
+                      <div>
+                        <p className="font-bold text-gray-900">Pay $2,000+ for Private Charter</p>
+                        <p className="text-gray-700">Same boat, same lake, 10x the price</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <X className="h-6 w-6 text-red-600 flex-shrink-0 mt-1" />
+                      <div>
+                        <p className="font-bold text-gray-900">Stress of Planning Everything</p>
+                        <p className="text-gray-700">Find DJ, photographer, buy floats, coordinate everything yourself</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <X className="h-6 w-6 text-red-600 flex-shrink-0 mt-1" />
+                      <div>
+                        <p className="font-bold text-gray-900">Just Your Small Group</p>
+                        <p className="text-gray-700">Miss the legendary multi-group energy that makes it special</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <X className="h-6 w-6 text-red-600 flex-shrink-0 mt-1" />
+                      <div>
+                        <p className="font-bold text-gray-900">Amateur iPhone Photos</p>
+                        <p className="text-gray-700">No professional photographer capturing the memories</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <X className="h-6 w-6 text-red-600 flex-shrink-0 mt-1" />
+                      <div>
+                        <p className="font-bold text-gray-900">Awkward Silence on the Water</p>
+                        <p className="text-gray-700">No professional DJ, just your phone speaker</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <X className="h-6 w-6 text-red-600 flex-shrink-0 mt-1" />
+                      <div>
+                        <p className="font-bold text-gray-900">Regret & FOMO</p>
+                        <p className="text-gray-700">"We should have done the Disco Cruise everyone talks about"</p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* With ATX Disco */}
+                <Card className="border-4 border-green-500 shadow-xl bg-green-50 transform scale-105">
+                  <CardHeader className="bg-gradient-to-r from-green-600 to-emerald-600 text-white">
+                    <CardTitle className="text-2xl text-center flex items-center justify-center gap-2">
+                      <CheckCircle className="h-8 w-8" />
+                      With ATX Disco
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="p-6 space-y-4">
+                    <div className="flex items-start gap-3">
+                      <Check className="h-6 w-6 text-green-600 flex-shrink-0 mt-1" />
+                      <div>
+                        <p className="font-bold text-gray-900">Only $85 Per Person</p>
+                        <p className="text-gray-700">All-inclusive experience at a fraction of the cost</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <Check className="h-6 w-6 text-green-600 flex-shrink-0 mt-1" />
+                      <div>
+                        <p className="font-bold text-gray-900">Everything Handled For You</p>
+                        <p className="text-gray-700">Just show up and party - we handle EVERYTHING</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <Check className="h-6 w-6 text-green-600 flex-shrink-0 mt-1" />
+                      <div>
+                        <p className="font-bold text-gray-900">Electric Multi-Group Energy</p>
+                        <p className="text-gray-700">Party with groups from across America - unforgettable vibes!</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <Check className="h-6 w-6 text-green-600 flex-shrink-0 mt-1" />
+                      <div>
+                        <p className="font-bold text-gray-900">Professional Photography Included</p>
+                        <p className="text-gray-700">Instagram-worthy shots delivered after your cruise</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <Check className="h-6 w-6 text-green-600 flex-shrink-0 mt-1" />
+                      <div>
+                        <p className="font-bold text-gray-900">Non-Stop Party with Pro DJ</p>
+                        <p className="text-gray-700">Dance floor packed all 4 hours with perfect music</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <Check className="h-6 w-6 text-green-600 flex-shrink-0 mt-1" />
+                      <div>
+                        <p className="font-bold text-gray-900">The Highlight of Your Weekend</p>
+                        <p className="text-gray-700">"Best decision we made for the bachelor/bachelorette party!"</p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+
+              <div className="text-center mt-12">
+                <Card className="max-w-4xl mx-auto border-4 border-yellow-500 bg-yellow-50">
+                  <CardContent className="p-8">
+                    <h3 className="text-3xl font-bold mb-4 text-gray-900">
+                      Don't Let Your Group Miss Out on the <span className="text-purple-600">LEGENDARY</span> Experience
+                    </h3>
+                    <p className="text-xl text-gray-700 mb-6">
+                      This is THE bachelor/bachelorette party experience everyone talks about. Don't settle for a boring private boat when you could have the <strong>party of a lifetime</strong> for less money.
+                    </p>
+                    <Button 
+                      size="lg" 
+                      onClick={handleBookNow}
+                      className="btn-primary-hero bg-yellow-500 hover:bg-yellow-600 text-black font-bold text-xl px-12 py-7 shadow-2xl transform hover:scale-105 transition-all"
+                    >
+                      Don't Miss Out - Book ATX Disco Now <ArrowRight className="ml-2" />
+                    </Button>
+                  </CardContent>
+                </Card>
               </div>
             </div>
           </section>
