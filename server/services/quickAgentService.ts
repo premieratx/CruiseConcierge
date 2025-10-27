@@ -145,7 +145,7 @@ export class QuickAgentService {
       });
 
       // Get chat history
-      const messages = await storage.getChatMessages(sessionId);
+      const messages = await storage.getAgentChatMessages(sessionId);
       
       // Build conversation context
       const conversationMessages = messages.map(msg => ({
@@ -236,7 +236,7 @@ Use the available tools to complete tasks. Be helpful and professional.`;
   }
 
   async getChatHistory(sessionId: string) {
-    return await storage.getChatMessages(sessionId);
+    return await storage.getAgentChatMessages(sessionId);
   }
 
   async getUserSessions(userId: string) {

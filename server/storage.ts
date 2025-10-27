@@ -6559,7 +6559,7 @@ Crawl-delay: 1`;
     return { messageId: created.id };
   }
 
-  async getChatMessages(sessionId: string): Promise<SelectAgentChatMessage[]> {
+  async getAgentChatMessages(sessionId: string): Promise<SelectAgentChatMessage[]> {
     if (this.isMemStorage) {
       return [];
     }
