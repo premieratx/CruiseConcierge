@@ -574,10 +574,12 @@ export const CREW_FEES = {
 } as const;
 
 /**
- * Add-on Fees (in cents)
+ * Add-on Fees (in cents) - ALL FLAT FEES PER CRUISE
  */
 export const ADDON_FEES = {
-  LILY_PAD: 5000  // $50 flat fee for lily pad float
+  LILY_PAD: 5000,  // $50 flat fee per lily pad float per cruise
+  PROFESSIONAL_DJ: 60000,  // $600 flat fee per cruise (not per hour)
+  PROFESSIONAL_PHOTOGRAPHER: 60000  // $600 flat fee per cruise (not per hour)
 } as const;
 
 /**

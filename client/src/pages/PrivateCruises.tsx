@@ -354,7 +354,12 @@ const faqItems = [
   {
     id: 'pricing',
     question: 'How does private cruise pricing work?',
-    answer: 'Private cruises are charged hourly based on the boat size. Day Tripper (up to 14 guests) starts at $200/hr weekdays, Meeseeks & The Irony (15-30 guests) at $225/hr weekdays, and Clever Girl (30-75 guests) at $250/hr weekdays. Weekend rates are higher. Package flat fees: Essentials $100-200, Ultimate $250-350 (based on boat size). 4-hour minimum required.'
+    answer: 'Private cruises have THREE pricing components: (1) HOURLY boat rental - Day Tripper (14 guests) $200-350/hr, Meeseeks/Irony (15-30 guests) $225-375/hr, Clever Girl (31-75 guests) $250-400/hr based on day of week. (2) Package upgrades are FLAT FEES per cruise (NOT hourly) - Essentials +$100-200, Ultimate +$250-350. (3) Add-ons are FLAT FEES - DJ $600, Photographer $600, Lily Pad $50. All cruises have 4-hour minimum.'
+  },
+  {
+    id: 'pricing-example',
+    question: 'Can you show me a pricing example?',
+    answer: 'Example: Saturday 4-hour cruise for 20 guests: Base boat rental (Meeseeks) = $375/hr × 4 hours = $1,500. If you add Essentials Package = +$150 flat fee (NOT per hour). With Ultimate Package instead = +$300 flat fee. Add Professional DJ = +$600 flat fee. Total with Ultimate + DJ = $1,500 + $300 + $600 = $2,400 plus tax and gratuity.'
   },
   {
     id: 'minimum',
@@ -379,7 +384,7 @@ const faqItems = [
   {
     id: 'customize-music',
     question: 'Can we customize the music and entertainment?',
-    answer: 'Absolutely! Connect your phone to our premium Bluetooth sound system and play your custom playlist. We can also arrange live DJs ($300-500), karaoke equipment ($150), or acoustic performers. The boat is YOUR venue - customize it however you want!'
+    answer: 'Absolutely! Connect your phone to our premium Bluetooth sound system and play your custom playlist. We can also arrange professional DJs ($600 per cruise), karaoke equipment ($150), or acoustic performers. The boat is YOUR venue - customize it however you want!'
   },
   {
     id: 'catering',
@@ -1305,11 +1310,11 @@ export default function PrivateCruises() {
                     <ul className="space-y-2 text-base text-gray-700">
                       <li className="flex items-start gap-2">
                         <Check className="h-5 w-5 text-purple-600 shrink-0 mt-0.5" />
-                        <span>Live DJ services ($300-$500)</span>
+                        <span>Professional DJ services ($600 per cruise)</span>
                       </li>
                       <li className="flex items-start gap-2">
                         <Check className="h-5 w-5 text-purple-600 shrink-0 mt-0.5" />
-                        <span>Professional photographer ($250)</span>
+                        <span>Professional photographer ($600 per cruise)</span>
                       </li>
                       <li className="flex items-start gap-2">
                         <Check className="h-5 w-5 text-purple-600 shrink-0 mt-0.5" />

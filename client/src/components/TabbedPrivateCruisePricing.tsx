@@ -51,7 +51,7 @@ const PACKAGE_DETAILS = {
     },
     essentials: {
       name: '4-Hour Cruise w/ Essentials Package',
-      addOn: '+$100',
+      addOn: '+$100 flat fee (per cruise)',
       features: [
         'Everything with Standard Cruise',
         'Insulated 5-gallon dispenser w/ ice water',
@@ -62,7 +62,7 @@ const PACKAGE_DETAILS = {
     },
     ultimate: {
       name: 'Ultimate Disco Party Cruise Package',
-      addOn: '+$250',
+      addOn: '+$250 flat fee (per cruise)',
       features: [
         'Everything with Essentials Package',
         '6x20\' giant lily pad float',
@@ -90,7 +90,7 @@ const PACKAGE_DETAILS = {
     },
     essentials: {
       name: '4-Hour Cruise w/ Essentials Package',
-      addOn: '+$150',
+      addOn: '+$150 flat fee (per cruise)',
       features: [
         'Everything with Standard Cruise',
         'Insulated 5-gallon dispenser w/ ice water',
@@ -101,7 +101,7 @@ const PACKAGE_DETAILS = {
     },
     ultimate: {
       name: 'Ultimate Disco Party Cruise Package',
-      addOn: '+$300',
+      addOn: '+$300 flat fee (per cruise)',
       features: [
         'Everything with Essentials Package',
         '(2) 6x20\' giant lily pad floats',
@@ -129,7 +129,7 @@ const PACKAGE_DETAILS = {
     },
     essentials: {
       name: '4-Hour Cruise w/ Essentials Package',
-      addOn: '+$200',
+      addOn: '+$200 flat fee (per cruise)',
       features: [
         'Everything with Standard Cruise',
         'Insulated 5-gallon dispenser w/ ice water',
@@ -140,7 +140,7 @@ const PACKAGE_DETAILS = {
     },
     ultimate: {
       name: 'Ultimate Disco Party Cruise Package',
-      addOn: '+$350',
+      addOn: '+$350 flat fee (per cruise)',
       features: [
         'Everything with Essentials Package',
         '(3) 6x20\' giant lily pad floats',
