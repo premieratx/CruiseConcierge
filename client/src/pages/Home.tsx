@@ -15,59 +15,61 @@ import { cn } from '@/lib/utils';
 import { useToast } from '@/hooks/use-toast';
 import { LazyImage } from '@/components/LazyImage';
 const logoPath = '/attached_assets/PPC-Logo-LARGE.webp';
-// Lazy load icons to reduce bundle size
-import Ship from 'lucide-react/dist/esm/icons/ship';
-import Users from 'lucide-react/dist/esm/icons/users';
-import Clock from 'lucide-react/dist/esm/icons/clock';
-import DollarSign from 'lucide-react/dist/esm/icons/dollar-sign';
-import Star from 'lucide-react/dist/esm/icons/star';
-import Calendar from 'lucide-react/dist/esm/icons/calendar';
-import Phone from 'lucide-react/dist/esm/icons/phone';
-import Mail from 'lucide-react/dist/esm/icons/mail';
-import MapPin from 'lucide-react/dist/esm/icons/map-pin';
-import ArrowRight from 'lucide-react/dist/esm/icons/arrow-right';
-import CheckCircle from 'lucide-react/dist/esm/icons/check-circle';
-import Sparkles from 'lucide-react/dist/esm/icons/sparkles';
-import Crown from 'lucide-react/dist/esm/icons/crown';
-import Music from 'lucide-react/dist/esm/icons/music';
-import Anchor from 'lucide-react/dist/esm/icons/anchor';
-import Waves from 'lucide-react/dist/esm/icons/waves';
-import Heart from 'lucide-react/dist/esm/icons/heart';
-import Camera from 'lucide-react/dist/esm/icons/camera';
-import PartyPopper from 'lucide-react/dist/esm/icons/party-popper';
-import Sun from 'lucide-react/dist/esm/icons/sun';
-import Trophy from 'lucide-react/dist/esm/icons/trophy';
-import Shield from 'lucide-react/dist/esm/icons/shield';
-import Award from 'lucide-react/dist/esm/icons/award';
-import MessageCircle from 'lucide-react/dist/esm/icons/message-circle';
-import Instagram from 'lucide-react/dist/esm/icons/instagram';
-import Facebook from 'lucide-react/dist/esm/icons/facebook';
-import Twitter from 'lucide-react/dist/esm/icons/twitter';
-import Quote from 'lucide-react/dist/esm/icons/quote';
-import ChevronRight from 'lucide-react/dist/esm/icons/chevron-right';
-import ChevronDown from 'lucide-react/dist/esm/icons/chevron-down';
-import Navigation from 'lucide-react/dist/esm/icons/navigation';
-import Compass from 'lucide-react/dist/esm/icons/compass';
-import LifeBuoy from 'lucide-react/dist/esm/icons/life-buoy';
-import Zap from 'lucide-react/dist/esm/icons/zap';
-import Target from 'lucide-react/dist/esm/icons/target';
-import TrendingUp from 'lucide-react/dist/esm/icons/trending-up';
-import Play from 'lucide-react/dist/esm/icons/play';
-import ExternalLink from 'lucide-react/dist/esm/icons/external-link';
-import BookOpen from 'lucide-react/dist/esm/icons/book-open';
-import Headphones from 'lucide-react/dist/esm/icons/headphones';
-import Car from 'lucide-react/dist/esm/icons/car';
-import Wine from 'lucide-react/dist/esm/icons/wine';
-import CameraIcon from 'lucide-react/dist/esm/icons/camera';
-import UserCheck from 'lucide-react/dist/esm/icons/user-check';
-import MessageSquare from 'lucide-react/dist/esm/icons/message-square';
-import X from 'lucide-react/dist/esm/icons/x';
-import Eye from 'lucide-react/dist/esm/icons/eye';
-import Image from 'lucide-react/dist/esm/icons/image';
-import Bot from 'lucide-react/dist/esm/icons/bot';
-import Snowflake from 'lucide-react/dist/esm/icons/snowflake';
-import Leaf from 'lucide-react/dist/esm/icons/leaf';
-import Gift from 'lucide-react/dist/esm/icons/gift';
+// Import all icons from lucide-react using standard bundled imports for production compatibility
+import {
+  Anchor,
+  ArrowRight,
+  Award,
+  BookOpen,
+  Bot,
+  Calendar,
+  Camera,
+  Camera as CameraIcon,
+  Car,
+  CheckCircle,
+  ChevronDown,
+  ChevronRight,
+  Clock,
+  Compass,
+  Crown,
+  DollarSign,
+  ExternalLink,
+  Eye,
+  Facebook,
+  Gift,
+  Headphones,
+  Heart,
+  Image,
+  Instagram,
+  Leaf,
+  LifeBuoy,
+  Mail,
+  MapPin,
+  MessageCircle,
+  MessageSquare,
+  Music,
+  Navigation,
+  PartyPopper,
+  Phone,
+  Play,
+  Quote,
+  Shield,
+  Ship,
+  Snowflake,
+  Sparkles,
+  Star,
+  Sun,
+  Target,
+  TrendingUp,
+  Trophy,
+  Twitter,
+  UserCheck,
+  Users,
+  Waves,
+  Wine,
+  X,
+  Zap
+} from 'lucide-react';
 import Footer from '@/components/Footer';
 import { formatCurrency } from '@shared/formatters';
 import { PricingTable } from '@/components/PricingTable';

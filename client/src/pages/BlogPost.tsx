@@ -14,14 +14,16 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import Calendar from "lucide-react/dist/esm/icons/calendar";
-import Clock from "lucide-react/dist/esm/icons/clock";
-import Eye from "lucide-react/dist/esm/icons/eye";
-import Share2 from "lucide-react/dist/esm/icons/share-2";
-import ArrowLeft from "lucide-react/dist/esm/icons/arrow-left";
-import Facebook from "lucide-react/dist/esm/icons/facebook";
-import Twitter from "lucide-react/dist/esm/icons/twitter";
-import Linkedin from "lucide-react/dist/esm/icons/linkedin";
+import { 
+  ArrowLeft, 
+  Calendar, 
+  Clock, 
+  Eye, 
+  Facebook, 
+  Linkedin, 
+  Share2, 
+  Twitter 
+} from "lucide-react";
 import { Link } from "wouter";
 import { BlogPost, BlogAuthor, BlogCategory, BlogTag } from "@shared/schema";
 import { useToast } from "@/hooks/use-toast";

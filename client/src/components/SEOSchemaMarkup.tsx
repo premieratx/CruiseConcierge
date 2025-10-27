@@ -101,6 +101,7 @@ export function generateEventSchema(options: {
     priceCurrency: string;
     availability: string;
     url?: string;
+    validFrom?: string;
   };
   image?: string;
   eventAttendanceMode?: string;
@@ -112,13 +113,28 @@ export function generateEventSchema(options: {
 }) {
   const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'https://premierpartycruises.com';
   
+  // Calculate default dates - next Saturday at 12:00 PM to 4:00 PM
+  const getNextSaturday = () => {
+    const now = new Date();
+    const dayOfWeek = now.getDay();
+    const daysUntilSaturday = (6 - dayOfWeek + 7) % 7 || 7;
+    const nextSaturday = new Date(now);
+    nextSaturday.setDate(now.getDate() + daysUntilSaturday);
+    nextSaturday.setHours(12, 0, 0, 0);
+    return nextSaturday;
+  };
+  
+  const defaultStartDate = getNextSaturday();
+  const defaultEndDate = new Date(defaultStartDate);
+  defaultEndDate.setHours(16, 0, 0, 0);
+  
   return {
     "@context": "https://schema.org",
     "@type": "Event",
     "name": options.name,
     "description": options.description,
-    "startDate": options.startDate || new Date().toISOString(),
-    "endDate": options.endDate || new Date().toISOString(),
+    "startDate": options.startDate || defaultStartDate.toISOString(),
+    "endDate": options.endDate || defaultEndDate.toISOString(),
     "location": {
       "@type": "Place",
       "name": options.location || "Anderson Mill Marina",
@@ -132,14 +148,18 @@ export function generateEventSchema(options: {
       }
     },
     "image": options.image || `${baseUrl}/atx-disco-cruise-party.webp`,
-    "offers": options.offers ? {
+    "offers": {
       "@type": "Offer",
-      "price": options.offers.price,
-      "priceCurrency": options.offers.priceCurrency,
-      "availability": options.offers.availability,
-      "url": options.offers.url || `${baseUrl}/atx-disco-cruise`,
-      "validFrom": new Date().toISOString()
-    } : undefined,
+      "price": options.offers?.price || 85,
+      "priceCurrency": options.offers?.priceCurrency || "USD",
+      "availability": options.offers?.availability || "https://schema.org/InStock",
+      "url": options.offers?.url || `${baseUrl}/atx-disco-cruise`,
+      "validFrom": options.offers?.validFrom || new Date().toISOString(),
+      "seller": {
+        "@type": "Organization",
+        "name": "Premier Party Cruises"
+      }
+    },
     "performer": options.performer ? {
       "@type": "PerformingGroup",
       "name": options.performer
@@ -165,6 +185,7 @@ export function generateProductSchema(options: {
     priceCurrency: string;
     availability: string;
     seller?: string;
+    validFrom?: string;
   };
   aggregateRating?: {
     ratingValue: string;
@@ -174,6 +195,7 @@ export function generateProductSchema(options: {
     author: string;
     reviewRating: number;
     reviewBody: string;
+    datePublished?: string;
   }>;
 }) {
   const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'https://premierpartycruises.com';
@@ -192,7 +214,8 @@ export function generateProductSchema(options: {
       "@type": "Offer",
       "price": options.offers.price,
       "priceCurrency": options.offers.priceCurrency || "USD",
-      "availability": options.offers.availability,
+      "availability": options.offers.availability || "https://schema.org/InStock",
+      "validFrom": options.offers.validFrom || new Date().toISOString(),
       "seller": {
         "@type": "Organization",
         "name": options.offers.seller || "Premier Party Cruises"
@@ -201,20 +224,28 @@ export function generateProductSchema(options: {
     "aggregateRating": options.aggregateRating ? {
       "@type": "AggregateRating",
       "ratingValue": options.aggregateRating.ratingValue,
-      "reviewCount": options.aggregateRating.reviewCount
+      "reviewCount": options.aggregateRating.reviewCount,
+      "bestRating": "5",
+      "worstRating": "1"
     } : undefined,
     "review": options.review?.map(r => ({
       "@type": "Review",
+      "itemReviewed": {
+        "@type": "Product",
+        "name": options.name
+      },
       "author": {
         "@type": "Person",
-        "name": r.author
+        "name": r.author || "Verified Customer"
       },
       "reviewRating": {
         "@type": "Rating",
-        "ratingValue": r.reviewRating,
-        "bestRating": "5"
+        "ratingValue": r.reviewRating || 5,
+        "bestRating": "5",
+        "worstRating": "1"
       },
-      "reviewBody": r.reviewBody
+      "reviewBody": r.reviewBody,
+      "datePublished": r.datePublished || new Date().toISOString()
     }))
   };
 }
@@ -294,12 +325,23 @@ export function generateBreadcrumbSchema(items: Array<{ name: string; url?: stri
   return {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
-    "itemListElement": items.map((item, index) => ({
-      "@type": "ListItem",
-      "position": index + 1,
-      "name": item.name,
-      "item": item.url ? `${baseUrl}${item.url}` : undefined
-    }))
+    "itemListElement": items.map((item, index) => {
+      const isLastItem = index === items.length - 1;
+      const fullUrl = item.url ? `${baseUrl}${item.url}` : undefined;
+      
+      return {
+        "@type": "ListItem",
+        "position": index + 1,
+        "name": item.name,
+        // Last item shouldn't have item property, others should have proper @id
+        ...((!isLastItem && fullUrl) ? {
+          "item": {
+            "@id": fullUrl,
+            "name": item.name
+          }
+        } : {})
+      };
+    })
   };
 }
 
@@ -334,31 +376,43 @@ export function generateReviewSchema(options: {
   itemReviewed: {
     type: string;
     name: string;
+    description?: string;
+    url?: string;
   };
   author: string;
   reviewRating: number;
   reviewBody: string;
   datePublished?: string;
+  publisher?: string;
 }) {
+  const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'https://premierpartycruises.com';
+  
   return {
     "@context": "https://schema.org",
     "@type": "Review",
     "itemReviewed": {
-      "@type": options.itemReviewed.type,
-      "name": options.itemReviewed.name
+      "@type": options.itemReviewed.type || "Service",
+      "name": options.itemReviewed.name || "Premier Party Cruises Lake Travis Boat Rental",
+      "description": options.itemReviewed.description || "Party boat rental service on Lake Travis in Austin, Texas",
+      "url": options.itemReviewed.url || baseUrl
     },
     "author": {
       "@type": "Person",
-      "name": options.author
+      "name": options.author || "Verified Customer"
     },
     "reviewRating": {
       "@type": "Rating",
-      "ratingValue": options.reviewRating,
+      "ratingValue": options.reviewRating || 5,
       "bestRating": "5",
       "worstRating": "1"
     },
     "reviewBody": options.reviewBody,
-    "datePublished": options.datePublished || new Date().toISOString()
+    "datePublished": options.datePublished || new Date().toISOString(),
+    "publisher": {
+      "@type": "Organization",
+      "name": options.publisher || "Premier Party Cruises",
+      "sameAs": baseUrl
+    }
   };
 }
 
@@ -449,6 +503,51 @@ export function generateWebSiteSchema() {
       "query-input": "required name=search_term_string"
     }
   };
+}
+
+// Review Collection Schema Generator for multiple reviews
+export function generateReviewCollectionSchema(options: {
+  itemReviewed: {
+    type: string;
+    name: string;
+    description?: string;
+    url?: string;
+  };
+  reviews: Array<{
+    author: string;
+    rating: number;
+    text: string;
+    datePublished?: string;
+  }>;
+}) {
+  const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'https://premierpartycruises.com';
+  
+  return options.reviews.map(review => ({
+    "@context": "https://schema.org",
+    "@type": "Review",
+    "itemReviewed": {
+      "@type": options.itemReviewed.type || "Service",
+      "name": options.itemReviewed.name,
+      "description": options.itemReviewed.description,
+      "url": options.itemReviewed.url || baseUrl
+    },
+    "author": {
+      "@type": "Person",
+      "name": review.author || "Verified Customer"
+    },
+    "reviewRating": {
+      "@type": "Rating",
+      "ratingValue": review.rating,
+      "bestRating": "5",
+      "worstRating": "1"
+    },
+    "reviewBody": review.text,
+    "datePublished": review.datePublished || new Date().toISOString(),
+    "publisher": {
+      "@type": "Organization",
+      "name": "Premier Party Cruises"
+    }
+  }));
 }
 
 // Place Schema Generator

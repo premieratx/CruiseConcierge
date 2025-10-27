@@ -117,12 +117,26 @@ export default function Breadcrumb({ customSegments, hideOnMobile = false, class
   const schemaData = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
-    "itemListElement": segments.map((segment, index) => ({
-      "@type": "ListItem",
-      "position": index + 1,
-      "name": segment.label,
-      "item": segment.href ? `https://premierpartycruises.com${segment.href}` : undefined
-    }))
+    "itemListElement": segments.map((segment, index) => {
+      const isLastItem = index === segments.length - 1;
+      const fullUrl = segment.href ? `https://premierpartycruises.com${segment.href}` : undefined;
+      
+      const item: any = {
+        "@type": "ListItem",
+        "position": index + 1,
+        "name": segment.label
+      };
+      
+      // Last item shouldn't have item property, others should have proper @id
+      if (!isLastItem && fullUrl) {
+        item.item = {
+          "@id": fullUrl,
+          "name": segment.label
+        };
+      }
+      
+      return item;
+    })
   };
 
   return (

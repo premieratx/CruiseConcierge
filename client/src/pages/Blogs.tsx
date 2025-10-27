@@ -10,12 +10,14 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import ChevronLeft from "lucide-react/dist/esm/icons/chevron-left";
-import ChevronRight from "lucide-react/dist/esm/icons/chevron-right";
-import Search from "lucide-react/dist/esm/icons/search";
-import TrendingUp from "lucide-react/dist/esm/icons/trending-up";
-import Tag from "lucide-react/dist/esm/icons/tag";
-import FolderOpen from "lucide-react/dist/esm/icons/folder-open";
+import { 
+  ChevronLeft, 
+  ChevronRight, 
+  FolderOpen, 
+  Search, 
+  Tag, 
+  TrendingUp 
+} from "lucide-react";
 import { BlogPost, BlogAuthor, BlogCategory, BlogTag } from "@shared/schema";
 import SEOHead from "@/components/SEOHead";
 import { Link, useLocation } from "wouter";

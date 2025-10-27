@@ -204,6 +204,9 @@ const EVENT_SCHEMA = {
   "@type": "Event",
   "@id": "https://premierpartycruises.com/atx-disco-cruise/#event",
   "name": "ATX Disco Cruise",
+  "description": "Join the BEST party on Lake Travis! Austin's exclusive ATX Disco Cruise features professional DJ entertainment, photographer, dance floor, giant floats, and incredible party atmosphere. Perfect for bachelor and bachelorette parties celebrating together. 4-hour cruise experience with multiple groups, BYOB friendly.",
+  "startDate": "2025-03-01T12:00:00-06:00",
+  "endDate": "2025-10-31T19:30:00-06:00",
   "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
   "eventStatus": "https://schema.org/EventScheduled",
   "maximumAttendeeCapacity": 100,
@@ -237,7 +240,8 @@ const EVENT_SCHEMA = {
       "price": "85.00",
       "category": "Basic Batch",
       "url": "https://premierpartycruises.com/atx-disco-cruise",
-      "availability": "https://schema.org/InStock"
+      "availability": "https://schema.org/InStock",
+      "validFrom": "2025-01-01T00:00:00-06:00"
     },
     {
       "@type": "Offer",
@@ -245,7 +249,8 @@ const EVENT_SCHEMA = {
       "price": "95.00",
       "category": "Disco Queen/King",
       "url": "https://premierpartycruises.com/atx-disco-cruise",
-      "availability": "https://schema.org/InStock"
+      "availability": "https://schema.org/InStock",
+      "validFrom": "2025-01-01T00:00:00-06:00"
     },
     {
       "@type": "Offer",
@@ -253,7 +258,8 @@ const EVENT_SCHEMA = {
       "price": "105.00",
       "category": "Super Sparkle Platinum",
       "url": "https://premierpartycruises.com/atx-disco-cruise",
-      "availability": "https://schema.org/InStock"
+      "availability": "https://schema.org/InStock",
+      "validFrom": "2025-01-01T00:00:00-06:00"
     }
   ]
 };
