@@ -12,9 +12,9 @@ import { useState } from 'react';
 import { LazyImage } from '@/components/LazyImage';
 
 // Import hero images
-import heroImage1 from '@assets/bachelor-party-group-guys.webp';
-import heroImage2 from '@assets/atx-disco-cruise-party.webp';
-import heroImage3 from '@assets/dancing-party-scene.webp';
+const heroImage1 = '/attached_assets/bachelor-party-group-guys.webp';
+const heroImage2 = '/attached_assets/atx-disco-cruise-party.webp';
+const heroImage3 = '/attached_assets/dancing-party-scene.webp';
 
 export default function HomeNew() {
   const [openFAQs, setOpenFAQs] = useState<string[]>([]);

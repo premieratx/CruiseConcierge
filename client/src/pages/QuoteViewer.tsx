@@ -17,7 +17,7 @@ import { TimeSlotList } from '@/components/TimeSlotList';
 import { useAvailabilityForDate, formatDateForAvailability } from '@/hooks/use-availability';
 import { formatCurrency, formatDate, formatLongDate, formatTimeForDisplay } from '@shared/formatters';
 import { EVENT_TYPES } from '@shared/constants';
-import logoPath from '@assets/PPC-Logo-LARGE.webp';
+const logoPath = '/attached_assets/PPC-Logo-LARGE.webp';
 
 interface QuoteViewerProps {}
 

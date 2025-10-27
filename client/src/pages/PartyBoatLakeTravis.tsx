@@ -27,15 +27,15 @@ import {
   ADDON_FEES 
 } from '@shared/constants';
 
-import heroImage1 from '@assets/bachelor-party-group-guys.jpg';
-import heroImage2 from '@assets/atx-disco-cruise-party.jpg';
-import heroImage3 from '@assets/dancing-party-scene.jpg';
-import galleryImage1 from '@assets/day-tripper-14-person-boat.jpg';
-import galleryImage2 from '@assets/meeseeks-25-person-boat.jpg';
-import galleryImage3 from '@assets/clever-girl-50-person-boat.jpg';
-import partyAtmosphere1 from '@assets/party-atmosphere-1.jpg';
-import partyAtmosphere2 from '@assets/party-atmosphere-2.jpg';
-import partyAtmosphere3 from '@assets/party-atmosphere-3.jpg';
+const heroImage1 = '/attached_assets/bachelor-party-group-guys.jpg';
+const heroImage2 = '/attached_assets/atx-disco-cruise-party.jpg';
+const heroImage3 = '/attached_assets/dancing-party-scene.jpg';
+const galleryImage1 = '/attached_assets/day-tripper-14-person-boat.jpg';
+const galleryImage2 = '/attached_assets/meeseeks-25-person-boat.jpg';
+const galleryImage3 = '/attached_assets/clever-girl-50-person-boat.jpg';
+const partyAtmosphere1 = '/attached_assets/party-atmosphere-1.jpg';
+const partyAtmosphere2 = '/attached_assets/party-atmosphere-2.jpg';
+const partyAtmosphere3 = '/attached_assets/party-atmosphere-3.jpg';
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },

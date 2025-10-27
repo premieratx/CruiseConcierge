@@ -9,7 +9,7 @@ import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
 import { format } from 'date-fns';
-import logoPath from '@assets/PPC Logo LARGE_1757881944449.png';
+const logoPath = '/attached_assets/PPC Logo LARGE_1757881944449.png';
 import { 
   Ship, Calendar, Clock, MapPin, Phone, Mail, FileText,
   Download, Printer, CheckCircle, AlertCircle, Loader2,

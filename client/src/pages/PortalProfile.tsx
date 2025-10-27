@@ -14,7 +14,7 @@ import {
   Shield, Clock, CheckCircle, AlertCircle,
   Eye, EyeOff, Calendar
 } from "lucide-react";
-import logoPath from "@assets/PPC Logo LARGE_1757881944449.png";
+const logoPath = '/attached_assets/PPC Logo LARGE_1757881944449.png';
 
 interface CustomerProfile {
   id: string;

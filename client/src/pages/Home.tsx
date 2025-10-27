@@ -14,7 +14,7 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/component
 import { cn } from '@/lib/utils';
 import { useToast } from '@/hooks/use-toast';
 import { LazyImage } from '@/components/LazyImage';
-import logoPath from '@assets/PPC-Logo-LARGE.webp';
+const logoPath = '/attached_assets/PPC-Logo-LARGE.webp';
 // Lazy load icons to reduce bundle size
 import Ship from 'lucide-react/dist/esm/icons/ship';
 import Users from 'lucide-react/dist/esm/icons/users';
@@ -101,12 +101,12 @@ import {
 } from '@shared/constants';
 
 // Hero and gallery images - Optimized WebP format for fast loading
-import heroImage1 from '@assets/bachelor-party-group-guys.webp';
-import heroImage2 from '@assets/atx-disco-cruise-party.webp';
-import heroImage3 from '@assets/dancing-party-scene.webp';
-import galleryImage1 from '@assets/day-tripper-14-person-boat.webp';
-import galleryImage2 from '@assets/meeseeks-25-person-boat.webp';
-import galleryImage3 from '@assets/clever-girl-50-person-boat.webp';
+const heroImage1 = '/attached_assets/bachelor-party-group-guys.webp';
+const heroImage2 = '/attached_assets/atx-disco-cruise-party.webp';
+const heroImage3 = '/attached_assets/dancing-party-scene.webp';
+const galleryImage1 = '/attached_assets/day-tripper-14-person-boat.webp';
+const galleryImage2 = '/attached_assets/meeseeks-25-person-boat.webp';
+const galleryImage3 = '/attached_assets/clever-girl-50-person-boat.webp';
 
 // Animation variants - Optimized to prevent layout thrashing
 const fadeInUp = {

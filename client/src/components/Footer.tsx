@@ -5,7 +5,7 @@ import {
   MessageCircle, Youtube, Linkedin, ExternalLink, Bot, Award, FileText 
 } from 'lucide-react';
 import { CONTACT_INFO, SOCIAL_MEDIA } from '@shared/contact';
-import logoPath from '@assets/PPC-Logo-80x80.webp';
+const logoPath = '/attached_assets/PPC-Logo-80x80.webp';
 import { loadXolaScript } from '@/services/xola';
 
 export default function Footer() {

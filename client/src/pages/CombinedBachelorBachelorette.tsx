@@ -33,16 +33,16 @@ import { useReducedMotion } from '@/hooks/use-reduced-motion';
 import Footer from '@/components/Footer';
 
 // Hero and gallery images
-import heroImage1 from '@assets/bachelor-party-group-guys.jpg';
-import heroImage2 from '@assets/atx-disco-cruise-party.jpg';
-import heroImage3 from '@assets/dancing-party-scene.jpg';
-import galleryImage1 from '@assets/party-atmosphere-1.jpg';
-import galleryImage2 from '@assets/party-atmosphere-2.jpg';
-import galleryImage3 from '@assets/party-atmosphere-3.jpg';
-import boatImage1 from '@assets/day-tripper-14-person-boat.jpg';
-import boatImage2 from '@assets/meeseeks-25-person-boat.jpg';
-import boatImage3 from '@assets/clever-girl-50-person-boat.jpg';
-import floatImage from '@assets/giant-unicorn-float.jpg';
+const heroImage1 = '/attached_assets/bachelor-party-group-guys.jpg';
+const heroImage2 = '/attached_assets/atx-disco-cruise-party.jpg';
+const heroImage3 = '/attached_assets/dancing-party-scene.jpg';
+const galleryImage1 = '/attached_assets/party-atmosphere-1.jpg';
+const galleryImage2 = '/attached_assets/party-atmosphere-2.jpg';
+const galleryImage3 = '/attached_assets/party-atmosphere-3.jpg';
+const boatImage1 = '/attached_assets/day-tripper-14-person-boat.jpg';
+const boatImage2 = '/attached_assets/meeseeks-25-person-boat.jpg';
+const boatImage3 = '/attached_assets/clever-girl-50-person-boat.jpg';
+const floatImage = '/attached_assets/giant-unicorn-float.jpg';
 
 // Combined party packages - gender-neutral
 const combinedPartyPackages = [

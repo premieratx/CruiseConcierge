@@ -8,7 +8,7 @@ import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
 import { useLocation } from "wouter";
 import { Loader2, Smartphone, Shield, Clock } from "lucide-react";
-import logoPath from "@assets/PPC Logo LARGE_1757881944449.png";
+const logoPath = '/attached_assets/PPC Logo LARGE_1757881944449.png';
 
 export default function PortalLogin() {
   const [phoneNumber, setPhoneNumber] = useState("");

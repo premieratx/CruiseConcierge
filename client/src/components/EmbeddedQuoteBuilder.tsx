@@ -8,7 +8,7 @@ import { Badge } from '@/components/ui/badge';
 import { apiRequest } from '@/lib/queryClient';
 import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
-import logoPath from '@assets/PPC Logo LARGE_1757881944449.png';
+const logoPath = '/attached_assets/PPC Logo LARGE_1757881944449.png';
 import { 
   MessageCircle, Send, Bot, User, X, Minimize2, Maximize2,
   Sparkles, Heart, PartyPopper, Ship, Music, Calendar,

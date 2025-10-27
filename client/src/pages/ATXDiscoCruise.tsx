@@ -49,13 +49,13 @@ import { SchemaMarkup, generateEventSchema, generateProductSchema, generateFAQSc
          generateLocalBusinessSchema, generateServiceSchema, generateAggregateRatingSchema, 
          generateBreadcrumbSchema, generateHowToSchema } from '@/components/SEOSchemaMarkup';
 
-import heroImage1 from '@assets/atx-disco-cruise-party.webp';
-import heroImage2 from '@assets/dancing-party-scene.webp';
-import heroImage3 from '@assets/bachelor-party-group-guys.webp';
-import galleryImage1 from '@assets/party-atmosphere-1.webp';
-import galleryImage2 from '@assets/party-atmosphere-2.webp';
-import galleryImage3 from '@assets/party-atmosphere-3.webp';
-import floatImage from '@assets/giant-unicorn-float.webp';
+const heroImage1 = '/attached_assets/atx-disco-cruise-party.webp';
+const heroImage2 = '/attached_assets/dancing-party-scene.webp';
+const heroImage3 = '/attached_assets/bachelor-party-group-guys.webp';
+const galleryImage1 = '/attached_assets/party-atmosphere-1.webp';
+const galleryImage2 = '/attached_assets/party-atmosphere-2.webp';
+const galleryImage3 = '/attached_assets/party-atmosphere-3.webp';
+const floatImage = '/attached_assets/giant-unicorn-float.webp';
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },

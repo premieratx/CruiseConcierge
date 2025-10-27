@@ -17,7 +17,7 @@ import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, For
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
 import { motion, AnimatePresence } from "framer-motion";
-import logoPath from '@assets/PPC Logo LARGE_1757881944449.png';
+const logoPath = '/attached_assets/PPC Logo LARGE_1757881944449.png';
 import { 
   ArrowLeft, ArrowRight, CheckCircle, Clock, Users, Ship, DollarSign,
   CreditCard, Mail, Phone, User, Calendar, MapPin, Star, Sparkles,

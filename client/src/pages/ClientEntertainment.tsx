@@ -23,12 +23,12 @@ import {
 } from 'lucide-react';
 
 // Hero and gallery images
-import heroImage1 from '@assets/clever-girl-50-person-boat.webp';
-import heroImage2 from '@assets/atx-disco-cruise-party.webp';
-import heroImage3 from '@assets/dancing-party-scene.webp';
-import galleryImage1 from '@assets/party-atmosphere-1.webp';
-import galleryImage2 from '@assets/party-atmosphere-2.webp';
-import galleryImage3 from '@assets/party-atmosphere-3.webp';
+const heroImage1 = '/attached_assets/clever-girl-50-person-boat.webp';
+const heroImage2 = '/attached_assets/atx-disco-cruise-party.webp';
+const heroImage3 = '/attached_assets/dancing-party-scene.webp';
+const galleryImage1 = '/attached_assets/party-atmosphere-1.webp';
+const galleryImage2 = '/attached_assets/party-atmosphere-2.webp';
+const galleryImage3 = '/attached_assets/party-atmosphere-3.webp';
 
 const clientPackages = [
   {

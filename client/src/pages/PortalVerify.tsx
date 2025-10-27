@@ -7,7 +7,7 @@ import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
 import { useLocation, useRoute } from "wouter";
 import { Loader2, ArrowLeft, RefreshCw, CheckCircle, AlertCircle } from "lucide-react";
-import logoPath from "@assets/PPC Logo LARGE_1757881944449.png";
+const logoPath = '/attached_assets/PPC Logo LARGE_1757881944449.png';
 
 export default function PortalVerify() {
   const [code, setCode] = useState("");

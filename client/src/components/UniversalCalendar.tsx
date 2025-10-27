@@ -12,7 +12,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Calendar as CalendarUI } from "@/components/ui/calendar";
-import logoPath from '@assets/PPC Logo LARGE_1757881944449.png';
+const logoPath = '/attached_assets/PPC Logo LARGE_1757881944449.png';
 import { 
   Users, Ship, ChevronLeft, ChevronRight, Phone, Mail, MapPin, Clock, DollarSign, Star, 
   ChevronDown, Calendar, CalendarDays, Home, ArrowRight, Sparkles, Heart, Crown, PartyPopper

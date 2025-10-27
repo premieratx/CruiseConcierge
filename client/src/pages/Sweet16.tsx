@@ -25,12 +25,12 @@ import {
 import { useReducedMotion } from '@/hooks/use-reduced-motion';
 
 // Hero and gallery images
-import heroImage1 from '@assets/party-atmosphere-1.jpg';
-import heroImage2 from '@assets/party-atmosphere-2.jpg';
-import heroImage3 from '@assets/dancing-party-scene.jpg';
-import galleryImage1 from '@assets/atx-disco-cruise-party.jpg';
-import galleryImage2 from '@assets/bachelor-party-group-guys.jpg';
-import galleryImage3 from '@assets/giant-unicorn-float.jpg';
+const heroImage1 = '/attached_assets/party-atmosphere-1.jpg';
+const heroImage2 = '/attached_assets/party-atmosphere-2.jpg';
+const heroImage3 = '/attached_assets/dancing-party-scene.jpg';
+const galleryImage1 = '/attached_assets/atx-disco-cruise-party.jpg';
+const galleryImage2 = '/attached_assets/bachelor-party-group-guys.jpg';
+const galleryImage3 = '/attached_assets/giant-unicorn-float.jpg';
 
 // Animation variants
 const fadeInUp = {

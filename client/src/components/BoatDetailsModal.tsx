@@ -12,32 +12,32 @@ import { Ship, Users, Calendar, ChevronLeft, ChevronRight, X } from 'lucide-reac
 import { cn } from '@/lib/utils';
 
 // Import boat photos - Meeseeks The Irony
-import meeseeks1 from '@assets/@capitalcityshots-1_1760072938922.jpg';
-import meeseeks2 from '@assets/@capitalcityshots-2_1760072938923.jpg';
-import meeseeks3 from '@assets/@capitalcityshots-3_1760072938923.jpg';
-import meeseeks4 from '@assets/@capitalcityshots-4_1760072938923.jpg';
-import meeseeks5 from '@assets/@capitalcityshots-5_1760072938923.jpg';
-import meeseeks6 from '@assets/@capitalcityshots-8_1760073115406.jpg';
-import meeseeks7 from '@assets/@capitalcityshots-13_1760073115406.jpg';
-import meeseeks8 from '@assets/@capitalcityshots-17_1760073115406.jpg';
-import meeseeks9 from '@assets/@capitalcityshots-18_1760073115407.jpg';
+const meeseeks1 = '/attached_assets/@capitalcityshots-1_1760072938922.jpg';
+const meeseeks2 = '/attached_assets/@capitalcityshots-2_1760072938923.jpg';
+const meeseeks3 = '/attached_assets/@capitalcityshots-3_1760072938923.jpg';
+const meeseeks4 = '/attached_assets/@capitalcityshots-4_1760072938923.jpg';
+const meeseeks5 = '/attached_assets/@capitalcityshots-5_1760072938923.jpg';
+const meeseeks6 = '/attached_assets/@capitalcityshots-8_1760073115406.jpg';
+const meeseeks7 = '/attached_assets/@capitalcityshots-13_1760073115406.jpg';
+const meeseeks8 = '/attached_assets/@capitalcityshots-17_1760073115406.jpg';
+const meeseeks9 = '/attached_assets/@capitalcityshots-18_1760073115407.jpg';
 
 // Import boat photos - Clever Girl
-import cleverGirl1 from '@assets/@capitalcityshots-9_1760073172208.jpg';
-import cleverGirl2 from '@assets/@capitalcityshots-9_1760073205047.jpg';
-import cleverGirl3 from '@assets/@capitalcityshots-10_1760073205050.jpg';
-import cleverGirl4 from '@assets/@capitalcityshots-11_1760073205050.jpg';
-import cleverGirl5 from '@assets/@capitalcityshots-14_1760073205050.jpg';
-import cleverGirl6 from '@assets/@capitalcityshots-15_1760073205051.jpg';
-import cleverGirl7 from '@assets/@capitalcityshots-16_1760073205051.jpg';
+const cleverGirl1 = '/attached_assets/@capitalcityshots-9_1760073172208.jpg';
+const cleverGirl2 = '/attached_assets/@capitalcityshots-9_1760073205047.jpg';
+const cleverGirl3 = '/attached_assets/@capitalcityshots-10_1760073205050.jpg';
+const cleverGirl4 = '/attached_assets/@capitalcityshots-11_1760073205050.jpg';
+const cleverGirl5 = '/attached_assets/@capitalcityshots-14_1760073205050.jpg';
+const cleverGirl6 = '/attached_assets/@capitalcityshots-15_1760073205051.jpg';
+const cleverGirl7 = '/attached_assets/@capitalcityshots-16_1760073205051.jpg';
 
 // Import boat photos - Day Tripper
-import dayTripper1 from '@assets/@capitalcityshots-32_1760073243497.jpg';
-import dayTripper2 from '@assets/@capitalcityshots-33_1760073243499.jpg';
-import dayTripper3 from '@assets/@capitalcityshots-34_1760073243499.jpg';
-import dayTripper4 from '@assets/@capitalcityshots-35_1760073243499.jpg';
-import dayTripper5 from '@assets/@capitalcityshots-36_1760073243500.jpg';
-import dayTripper6 from '@assets/@capitalcityshots-37_1760073243500.jpg';
+const dayTripper1 = '/attached_assets/@capitalcityshots-32_1760073243497.jpg';
+const dayTripper2 = '/attached_assets/@capitalcityshots-33_1760073243499.jpg';
+const dayTripper3 = '/attached_assets/@capitalcityshots-34_1760073243499.jpg';
+const dayTripper4 = '/attached_assets/@capitalcityshots-35_1760073243499.jpg';
+const dayTripper5 = '/attached_assets/@capitalcityshots-36_1760073243500.jpg';
+const dayTripper6 = '/attached_assets/@capitalcityshots-37_1760073243500.jpg';
 
 interface BoatPhoto {
   url: string;

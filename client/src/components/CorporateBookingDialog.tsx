@@ -13,7 +13,7 @@ import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
 import { apiRequest } from '@/lib/queryClient';
 import { useLocation } from 'wouter';
-import logoPath from '@assets/PPC Logo LARGE_1757881944449.png';
+const logoPath = '/attached_assets/PPC Logo LARGE_1757881944449.png';
 import {
   Calendar as CalendarIcon, Clock, Users, Ship, MapPin, Phone, Mail,
   CheckCircle, Star, Sparkles, Arrow, Zap, Building2, Trophy,

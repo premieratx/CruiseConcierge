@@ -38,14 +38,14 @@ import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import { InternalLinkHighlight, InternalLinkHighlightWithArrow } from '@/components/InternalLinkHighlight';
 
 // Hero and gallery images
-import heroImage1 from '@assets/clever-girl-50-person-boat.jpg';
-import heroImage2 from '@assets/meeseeks-25-person-boat.jpg';
-import heroImage3 from '@assets/day-tripper-14-person-boat.jpg';
-import galleryImage1 from '@assets/party-atmosphere-1.jpg';
-import galleryImage2 from '@assets/party-atmosphere-2.jpg';
-import galleryImage3 from '@assets/party-atmosphere-3.jpg';
-import floatImage from '@assets/giant-unicorn-float.jpg';
-import discoImage from '@assets/atx-disco-cruise-party.jpg';
+const heroImage1 = '/attached_assets/clever-girl-50-person-boat.jpg';
+const heroImage2 = '/attached_assets/meeseeks-25-person-boat.jpg';
+const heroImage3 = '/attached_assets/day-tripper-14-person-boat.jpg';
+const galleryImage1 = '/attached_assets/party-atmosphere-1.jpg';
+const galleryImage2 = '/attached_assets/party-atmosphere-2.jpg';
+const galleryImage3 = '/attached_assets/party-atmosphere-3.jpg';
+const floatImage = '/attached_assets/giant-unicorn-float.jpg';
+const discoImage = '/attached_assets/atx-disco-cruise-party.jpg';
 
 // Corporate packages
 const corporatePackages = [

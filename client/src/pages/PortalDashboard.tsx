@@ -12,7 +12,7 @@ import {
   User, Ship, Clock, ChevronRight, AlertCircle,
   CheckCircle, Star, Phone, Mail, MapPin
 } from "lucide-react";
-import logoPath from "@assets/PPC Logo LARGE_1757881944449.png";
+const logoPath = "/attached_assets/PPC Logo LARGE_1757881944449.png";
 
 interface DashboardData {
   customer: {
