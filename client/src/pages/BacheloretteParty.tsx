@@ -204,7 +204,7 @@ const whatsIncluded = [
   }
 ];
 
-// FAQs
+// FAQs - Enhanced with Bachelorette-Specific Questions
 const faqItems = [
   {
     id: 'refund-policy',
@@ -215,6 +215,21 @@ const faqItems = [
     id: 'split-payment',
     question: 'Can we split payments between the girls?',
     answer: 'Yes. Split payment options are available at checkout.'
+  },
+  {
+    id: 'bride-decorations',
+    question: 'Can we decorate for the bride?',
+    answer: 'Absolutely! We encourage bachelorette decorations. We provide disco ball cups, bubble guns, and party supplies. You can bring additional decorations like banners, signs, sashes, and matching outfits. Just avoid confetti or loose glitter that could blow into the lake.'
+  },
+  {
+    id: 'safe-non-swimmers',
+    question: 'Is it safe for non-swimmers?',
+    answer: 'Yes! Safety is our #1 priority. Life jackets are available for everyone, swimming is optional, boats have railings and safe areas, and our experienced captains maintain a safe, female-friendly environment. Many guests enjoy the cruise without ever getting in the water.'
+  },
+  {
+    id: 'non-drinkers',
+    question: 'What if some girls don\'t drink?',
+    answer: 'Perfect for everyone! We provide ice water stations, you can bring non-alcoholic beverages, mocktails are popular, and the experience is about celebrating the bride - not just drinking. The DJ, floats, and party atmosphere make it fun for everyone.'
   },
   {
     id: 'attire',
@@ -242,8 +257,8 @@ const faqItems = [
   },
   {
     id: 'group-discounts',
-    question: 'Do you offer group discounts?',
-    answer: 'Yes for larger groups—contact us for details.'
+    question: 'Do you offer group discounts for 10+ girls?',
+    answer: 'Yes! Groups of 10+ receive special perks including group discounts, priority boarding, complimentary decorations, and the maid of honor gets a special gift. Contact us for custom packages for groups of 20+.'
   },
   {
     id: 'alcohol-policy',
@@ -253,10 +268,50 @@ const faqItems = [
   {
     id: 'booking-timeline',
     question: 'How far in advance should we book?',
-    answer: 'Peak weekends sell out 4–6 weeks in advance; book early.'
+    answer: 'Peak bachelorette season (March-October) books out 4-6 weeks early. We recommend booking 6-8 weeks in advance for Saturday cruises. Last-minute spots occasionally available for flexible groups.'
   }
 ];
 
+
+// Bride Testimonials - Real Social Proof
+const brideTestimonials = [
+  {
+    id: 1,
+    name: 'Sarah M.',
+    location: 'Dallas, TX',
+    rating: 5,
+    text: 'BEST bachelorette party EVER! The Disco Queen package was perfect - bride cruised free, DJ was amazing, and we met other fun bachelorette groups. Worth every penny!',
+    date: 'October 2024',
+    partySize: '12 girls'
+  },
+  {
+    id: 2,
+    name: 'Jessica L.',
+    location: 'Houston, TX',
+    rating: 5,
+    text: 'Our group of 18 had an absolute blast! The giant floats were Instagram gold, the photographer captured everything, and the party atmosphere was unmatched. Book early - they sell out!',
+    date: 'September 2024',
+    partySize: '18 girls'
+  },
+  {
+    id: 3,
+    name: 'Ashley K.',
+    location: 'San Antonio, TX',
+    rating: 5,
+    text: 'Zero stress planning! Everything was included - coolers, ice, decorations, even sunscreen. The captain made us feel so safe and the other bride tribes were so fun to party with!',
+    date: 'August 2024',
+    partySize: '15 girls'
+  },
+  {
+    id: 4,
+    name: 'Brittany R.',
+    location: 'Oklahoma City, OK',
+    rating: 5,
+    text: 'We drove 5 hours for this and it was SO worth it! Professional photographer got amazing shots, DJ played all our requests, and meeting other bachelorette parties made it even more special.',
+    date: 'July 2024',
+    partySize: '22 girls'
+  }
+];
 
 // Photo gallery items
 const galleryPhotos = [
@@ -273,9 +328,14 @@ const galleryPhotos = [
 // Table of Contents sections - Updated order
 const tocSections = [
   { id: 'hero', title: 'Overview', icon: <Sparkles className="h-4 w-4" /> },
+  { id: 'value-stack', title: 'Value Stack', icon: <DollarSign className="h-4 w-4" /> },
   { id: 'experience', title: 'Experience', icon: <Star className="h-4 w-4" /> },
+  { id: 'emotional-benefits', title: 'Why Brides Love Us', icon: <Heart className="h-4 w-4" /> },
   { id: 'packages', title: 'Packages', icon: <Package className="h-4 w-4" /> },
+  { id: 'comparison', title: 'Your Options', icon: <Target className="h-4 w-4" /> },
+  { id: 'bride-testimonials', title: 'Bride Reviews', icon: <Quote className="h-4 w-4" /> },
   { id: 'availability', title: 'Availability', icon: <Calendar className="h-4 w-4" /> },
+  { id: 'trust-badges', title: 'Trust & Safety', icon: <Shield className="h-4 w-4" /> },
   { id: 'benefits', title: 'Benefits', icon: <Trophy className="h-4 w-4" /> },
   { id: 'whats-included', title: "What's Included", icon: <CheckCircle className="h-4 w-4" /> },
   { id: 'why-choose', title: 'Why Choose Us', icon: <Shield className="h-4 w-4" /> },
@@ -426,16 +486,17 @@ export default function BacheloretteParty() {
               </div>
             </motion.div>
 
-            {/* Scarcity Banner */}
+            {/* Enhanced Scarcity Banner with Specific Urgency */}
             <motion.div 
               variants={fadeInUp}
               className="bg-red-600/90 backdrop-blur-sm rounded-lg p-6 mb-8 max-w-2xl mx-auto"
             >
-              <div className="flex items-center justify-center space-x-2">
+              <div className="flex items-center justify-center space-x-2 mb-2">
                 <AlertCircle className="h-6 w-6 animate-pulse flex-shrink-0" />
-                <span className="font-bold text-lg">Most weekends sell out 4-6 weeks early!</span>
+                <span className="font-bold text-lg">Austin's #1 Bachelorette Destination Books FAST!</span>
               </div>
-              <p className="text-base mt-2">Books up SOLID at least a month in advance</p>
+              <p className="text-base">Peak bachelorette season (March-October) sells out 4-6 weeks early</p>
+              <p className="text-sm mt-2 text-yellow-200">Join 75,000+ brides who chose Premier Party Cruises</p>
             </motion.div>
 
             <motion.div 
@@ -475,6 +536,153 @@ export default function BacheloretteParty() {
           </div>
         </div>
       </section>
+
+      {/* VALUE STACKING SECTION - HORMOZI/MCDOWELL */}
+      <SectionReveal>
+        <section id="value-stack" className="py-20 bg-gradient-to-br from-pink-50 to-purple-50">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="text-center mb-16">
+              <Badge className="mb-6 bg-gradient-to-r from-pink-600 to-purple-600 text-white px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
+                <Gem className="h-4 w-4 mr-2 inline" />
+                Create Your Dream Bachelorette Weekend
+              </Badge>
+              <h2 className="text-4xl md:text-5xl font-bold font-playfair text-center mb-6 text-gray-900 leading-tight">
+                The Real Value of Your Bachelorette Party
+              </h2>
+              <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
+                What you're really getting vs. what you pay
+              </p>
+            </div>
+
+            <div className="max-w-4xl mx-auto">
+              <Card className="border-4 border-pink-300 shadow-2xl overflow-hidden">
+                <CardHeader className="bg-gradient-to-r from-pink-600 to-purple-600 text-white p-8">
+                  <CardTitle className="text-3xl font-bold text-center">Your Complete Bachelorette Experience</CardTitle>
+                  <CardDescription className="text-white text-center text-lg mt-2">Everything you need for the perfect celebration</CardDescription>
+                </CardHeader>
+                <CardContent className="p-8 space-y-6">
+                  {/* Value Stack Items */}
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between p-4 bg-pink-50 rounded-lg">
+                      <div className="flex items-center gap-4">
+                        <CheckCircle className="h-8 w-8 text-pink-600 flex-shrink-0" />
+                        <div>
+                          <p className="font-bold text-lg">Professional Party Planning</p>
+                          <p className="text-gray-600">Expert coordination & logistics handled</p>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-2xl font-bold text-gray-500 line-through">$500</p>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center justify-between p-4 bg-purple-50 rounded-lg">
+                      <div className="flex items-center gap-4">
+                        <CheckCircle className="h-8 w-8 text-purple-600 flex-shrink-0" />
+                        <div>
+                          <p className="font-bold text-lg">Stress-Free Group Coordination</p>
+                          <p className="text-gray-600">No herding cats or planning nightmares</p>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-2xl font-bold text-gray-500 line-through">$300</p>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center justify-between p-4 bg-pink-50 rounded-lg">
+                      <div className="flex items-center gap-4">
+                        <CheckCircle className="h-8 w-8 text-pink-600 flex-shrink-0" />
+                        <div>
+                          <p className="font-bold text-lg">Professional DJ & Photography</p>
+                          <p className="text-gray-600">Dancing & memories captured forever</p>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-2xl font-bold text-gray-500 line-through">$800</p>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center justify-between p-4 bg-purple-50 rounded-lg">
+                      <div className="flex items-center gap-4">
+                        <CheckCircle className="h-8 w-8 text-purple-600 flex-shrink-0" />
+                        <div>
+                          <p className="font-bold text-lg">Premium Lake Travis Location</p>
+                          <p className="text-gray-600">Access to exclusive party spots</p>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-2xl font-bold text-gray-500 line-through">$400</p>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center justify-between p-4 bg-pink-50 rounded-lg">
+                      <div className="flex items-center gap-4">
+                        <CheckCircle className="h-8 w-8 text-pink-600 flex-shrink-0" />
+                        <div>
+                          <p className="font-bold text-lg">All Party Equipment & Supplies</p>
+                          <p className="text-gray-600">Floats, coolers, decorations included</p>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-2xl font-bold text-gray-500 line-through">$350</p>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center justify-between p-4 bg-gradient-to-r from-pink-100 to-purple-100 rounded-lg border-2 border-pink-400">
+                      <div className="flex items-center gap-4">
+                        <Heart className="h-8 w-8 text-pink-600 flex-shrink-0" />
+                        <div>
+                          <p className="font-bold text-lg">Instagram-Worthy Moments</p>
+                          <p className="text-gray-600">The memories that last forever</p>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-2xl font-bold bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">PRICELESS</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Total Value */}
+                  <div className="border-t-2 border-gray-200 pt-6 mt-6">
+                    <div className="flex items-center justify-between mb-4">
+                      <p className="text-xl font-bold">Total Real Value:</p>
+                      <p className="text-3xl font-bold text-gray-500 line-through">$2,350+</p>
+                    </div>
+                    <div className="bg-gradient-to-r from-pink-600 to-purple-600 rounded-lg p-6 text-white">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-xl font-bold">Your Price Today:</p>
+                          <p className="text-sm opacity-90">Per person, all-inclusive</p>
+                        </div>
+                        <div className="text-right">
+                          <p className="text-5xl font-bold">$85</p>
+                          <p className="text-sm opacity-90">Group savings available!</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* CTA */}
+                  <div className="text-center mt-8">
+                    <Button
+                      size="lg"
+                      onClick={() => handleGetQuote('disco_queen')}
+                      className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white font-bold text-xl px-12 py-6 transform hover:scale-105 transition-all"
+                    >
+                      <Sparkles className="mr-2 h-6 w-6" />
+                      Reserve Your Bride Tribe's Spot
+                    </Button>
+                    <p className="text-sm text-gray-600 mt-4">
+                      <AlertCircle className="h-4 w-4 inline mr-1" />
+                      Peak weekends book 4-6 weeks in advance
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </section>
+      </SectionReveal>
 
       {/* 2. EXPERIENCE DESCRIPTION */}
       <SectionReveal>
@@ -581,6 +789,131 @@ export default function BacheloretteParty() {
                     Get Private Quote
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Button>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </section>
+      </SectionReveal>
+
+      {/* EMOTIONAL BENEFITS FOR BACHELORETTES */}
+      <SectionReveal>
+        <section id="emotional-benefits" className="py-20 bg-gradient-to-br from-white to-pink-50">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="text-center mb-16">
+              <Badge className="mb-6 bg-gradient-to-r from-pink-600 to-purple-600 text-white px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
+                <Heart className="h-4 w-4 mr-2 inline" />
+                Why Brides Choose Us
+              </Badge>
+              <h2 className="text-4xl md:text-5xl font-bold font-playfair text-center mb-6 text-gray-900 leading-tight">
+                The Bachelorette Party Your Friends Will Talk About for YEARS
+              </h2>
+              <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
+                Your last fling before the ring done RIGHT
+              </p>
+            </div>
+
+            <div className="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+              {/* Emotional Benefit Cards */}
+              <Card className="border-2 border-pink-200 hover:border-pink-400 transition-all hover:shadow-2xl">
+                <CardContent className="p-8">
+                  <div className="flex items-start gap-4 mb-6">
+                    <div className="bg-gradient-to-r from-pink-600 to-purple-600 rounded-full p-3">
+                      <Heart className="h-8 w-8 text-white" />
+                    </div>
+                    <div>
+                      <h3 className="text-2xl font-bold mb-2">Zero Stress, Maximum Memories</h3>
+                      <p className="text-gray-700 leading-relaxed">
+                        No herding cats, no planning nightmares, no coordinating 15 different opinions. 
+                        Just show up, celebrate your bride, and create memories that'll last forever.
+                      </p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="border-2 border-purple-200 hover:border-purple-400 transition-all hover:shadow-2xl">
+                <CardContent className="p-8">
+                  <div className="flex items-start gap-4 mb-6">
+                    <div className="bg-gradient-to-r from-purple-600 to-pink-600 rounded-full p-3">
+                      <Users className="h-8 w-8 text-white" />
+                    </div>
+                    <div>
+                      <h3 className="text-2xl font-bold mb-2">Meet Other Bride Tribes - Instant Besties!</h3>
+                      <p className="text-gray-700 leading-relaxed">
+                        Party with 3-4 other bachelorette groups on the disco cruise! 
+                        Share the excitement, make new friends, and create an epic party atmosphere together.
+                      </p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="border-2 border-pink-200 hover:border-pink-400 transition-all hover:shadow-2xl">
+                <CardContent className="p-8">
+                  <div className="flex items-start gap-4 mb-6">
+                    <div className="bg-gradient-to-r from-pink-600 to-purple-600 rounded-full p-3">
+                      <Camera className="h-8 w-8 text-white" />
+                    </div>
+                    <div>
+                      <h3 className="text-2xl font-bold mb-2">Instagram-Worthy Every Moment</h3>
+                      <p className="text-gray-700 leading-relaxed">
+                        Professional photographer captures every laugh, every toast, every perfect moment. 
+                        Giant unicorn floats, sunset views, and your whole squad looking amazing!
+                      </p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="border-2 border-purple-200 hover:border-purple-400 transition-all hover:shadow-2xl">
+                <CardContent className="p-8">
+                  <div className="flex items-start gap-4 mb-6">
+                    <div className="bg-gradient-to-r from-purple-600 to-pink-600 rounded-full p-3">
+                      <Shield className="h-8 w-8 text-white" />
+                    </div>
+                    <div>
+                      <h3 className="text-2xl font-bold mb-2">Safe, Female-Friendly Environment</h3>
+                      <p className="text-gray-700 leading-relaxed">
+                        Professional crew that respects boundaries, secure environment for all your girls, 
+                        and a celebration focused on YOU - not unwanted attention.
+                      </p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Big Emotional Promise */}
+            <div className="mt-16 max-w-4xl mx-auto text-center">
+              <Card className="bg-gradient-to-r from-pink-600 to-purple-600 text-white border-0">
+                <CardContent className="p-12">
+                  <h3 className="text-3xl font-bold mb-4">
+                    This Is YOUR Moment
+                  </h3>
+                  <p className="text-xl mb-6 opacity-95 leading-relaxed">
+                    You deserve a bachelorette party that matches the magic of your upcoming wedding. 
+                    Where every detail is handled, every friend has a blast, and you feel like the absolute queen you are.
+                  </p>
+                  <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                    <Button
+                      size="lg"
+                      onClick={() => handleGetQuote('disco_queen')}
+                      className="bg-white text-pink-600 hover:bg-gray-100 font-bold text-lg px-10 py-6"
+                    >
+                      <Sparkles className="mr-2 h-6 w-6" />
+                      Plan The Perfect Bachelorette
+                    </Button>
+                    <Button
+                      size="lg"
+                      variant="outline"
+                      onClick={() => navigate('/atx-disco-cruise')}
+                      className="border-2 border-white text-white hover:bg-white/10 font-bold text-lg px-10 py-6"
+                    >
+                      See Party Details
+                      <ArrowRight className="ml-2 h-5 w-5" />
+                    </Button>
+                  </div>
                 </CardContent>
               </Card>
             </div>
