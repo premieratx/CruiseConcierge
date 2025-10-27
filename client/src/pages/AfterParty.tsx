@@ -622,9 +622,9 @@ export default function AfterParty() {
                 className="border-white text-white hover:bg-white hover:text-purple-600 font-bold text-lg px-8 py-6"
                 data-testid="button-call-now"
               >
-                <a href="tel:+15124000323">
+                <a href="tel:+15124885892">
                   <Phone className="mr-2 h-5 w-5" />
-                  Call (512) 400-0323
+                  Call (512) 488-5892
                 </a>
               </Button>
             </div>

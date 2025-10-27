@@ -622,9 +622,9 @@ export default function CompanyMilestone() {
                 className="border-white text-white hover:bg-white hover:text-blue-600 font-bold text-lg px-8 py-6"
                 data-testid="button-call-now"
               >
-                <a href="tel:+15124000323">
+                <a href="tel:+15124885892">
                   <Phone className="mr-2 h-5 w-5" />
-                  Call (512) 400-0323
+                  Call (512) 488-5892
                 </a>
               </Button>
             </div>
@@ -641,7 +641,7 @@ export default function CompanyMilestone() {
           "provider": {
             "@type": "LocalBusiness",
             "name": "Premier Party Cruises",
-            "telephone": "+1-512-400-0323"
+            "telephone": "+1-512-488-5892"
           },
           "areaServed": "Austin, TX",
           "description": "Company milestone celebrations on Lake Travis. Celebrate IPOs, anniversaries, and major achievements with professional corporate events on premium boats.",

@@ -294,11 +294,11 @@ export function TransportationGuide({
           <Button
             size="lg"
             variant="secondary"
-            onClick={() => window.location.href = 'tel:+15127705050'}
+            onClick={() => window.location.href = 'tel:+15124885892'}
             data-testid="button-call-for-help"
           >
             <Phone className="h-5 w-5 mr-2" />
-            Call (512) 770-5050
+            Call (512) 488-5892
           </Button>
         </motion.div>
       </div>

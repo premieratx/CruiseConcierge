@@ -881,11 +881,11 @@ export default function ATXDiscoCruise() {
                   <Button
                     size="lg"
                     variant="outline"
-                    onClick={() => window.open('tel:+15127705050')}
+                    onClick={() => window.open('tel:+15124885892')}
                     className="border-2 border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white font-bold text-lg px-10 py-6"
                   >
                     <Phone className="mr-2 h-6 w-6" />
-                    Call (512) 770-5050
+                    Call (512) 488-5892
                   </Button>
                 </div>
               </div>
@@ -1495,11 +1495,11 @@ export default function ATXDiscoCruise() {
                   <Button
                     size="lg"
                     variant="outline"
-                    onClick={() => window.open('tel:+15127705050')}
+                    onClick={() => window.open('tel:+15124885892')}
                     className="border-2 border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white font-bold"
                   >
                     <Phone className="mr-2 h-5 w-5" />
-                    Call (512) 770-5050
+                    Call (512) 488-5892
                   </Button>
                 </div>
               </div>
@@ -1941,7 +1941,7 @@ export default function ATXDiscoCruise() {
           primaryText="Book Your Cruise"
           primaryAction={handleBookNow}
           secondaryText="Call Now"
-          secondaryHref="tel:+15127705050"
+          secondaryHref="tel:+15124885892"
           showOnDesktop={false}
         />
 

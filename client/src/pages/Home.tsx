@@ -1650,7 +1650,7 @@ export default function Home() {
               </Button>
               <p className="mt-4 text-gray-600 dark:text-gray-400">
                 <Phone className="inline h-4 w-4 mr-1" />
-                Or call us at <a href="tel:5124885892" className="font-bold text-blue-600 dark:text-blue-400 hover:underline">(512) 488-5892</a>
+                Or call us at <a href="tel:+15124885892" className="font-bold text-blue-600 dark:text-blue-400 hover:underline">(512) 488-5892</a>
               </p>
             </div>
               </CollapsibleContent>

@@ -1777,9 +1777,9 @@ export default function PrivateCruises() {
                     asChild
                     className="border-2 border-blue-600 text-blue-600 hover:bg-blue-50"
                   >
-                    <a href="tel:+15127705050">
+                    <a href="tel:+15124885892">
                       <Phone className="mr-2 h-5 w-5" />
-                      Call (512) 770-5050
+                      Call (512) 488-5892
                     </a>
                   </Button>
                 </div>
@@ -1805,7 +1805,7 @@ export default function PrivateCruises() {
                 <p>Our <strong>Lake Travis private cruises</strong> are perfect for corporate events, weddings, birthdays, bachelor/bachelorette parties, and family celebrations. With BYOB-friendly policies and customizable routes, you have complete control over your experience.</p>
                 
                 <h3>Book Your Private Charter Today</h3>
-                <p>Ready to book your <strong>private boat rental in Austin</strong>? Get your custom quote online or call (512) 770-5050. We recommend booking 6-12 weeks in advance, especially for weekends during peak season (May-September).</p>
+                <p>Ready to book your <strong>private boat rental in Austin</strong>? Get your custom quote online or call (512) 488-5892. We recommend booking 6-12 weeks in advance, especially for weekends during peak season (May-September).</p>
               `}
               searchIntent="transactional"
               keywords={["private boat rentals lake travis", "austin private boat charter", "lake travis boat rental"]}
@@ -1855,7 +1855,7 @@ export default function PrivateCruises() {
         primaryText="Get Free Quote"
         primaryAction={() => handleGetQuote()}
         secondaryText="Call Now"
-        secondaryHref="tel:+15127705050"
+        secondaryHref="tel:+15124885892"
         showOnDesktop={false}
       />
 

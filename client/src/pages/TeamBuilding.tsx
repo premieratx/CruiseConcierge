@@ -628,9 +628,9 @@ export default function TeamBuilding() {
                 className="border-white text-white hover:bg-white hover:text-blue-600 font-bold text-lg px-8 py-6"
                 data-testid="button-call-now"
               >
-                <a href="tel:+15124000323">
+                <a href="tel:+15124885892">
                   <Phone className="mr-2 h-5 w-5" />
-                  Call (512) 400-0323
+                  Call (512) 488-5892
                 </a>
               </Button>
             </div>
@@ -647,7 +647,7 @@ export default function TeamBuilding() {
           "provider": {
             "@type": "LocalBusiness",
             "name": "Premier Party Cruises",
-            "telephone": "+1-512-400-0323"
+            "telephone": "+1-512-488-5892"
           },
           "areaServed": "Austin, TX",
           "description": "Professional team building experiences on Lake Travis in Austin, Texas. Customizable corporate events with activities, facilitators, and premium boat rentals for teams of 14-75 people.",

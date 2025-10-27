@@ -20,7 +20,7 @@ export function StickyCTA({
   primaryHref = "/chat",
   secondaryText,
   secondaryAction,
-  secondaryHref = "tel:+15127705050",
+  secondaryHref = "tel:+15124885892",
   showOnDesktop = false,
   className,
 }: StickyCTAProps) {

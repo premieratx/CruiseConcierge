@@ -420,7 +420,7 @@ export default function BachelorParty() {
         primaryText="Get Free Quote"
         primaryAction={() => handleGetQuote()}
         secondaryText="Call Now"
-        secondaryHref="tel:+15127705050"
+        secondaryHref="tel:+15124885892"
         showOnDesktop={false}
       />
 
@@ -1591,11 +1591,11 @@ export default function BachelorParty() {
                 <Button
                   size="lg"
                   variant="outline"
-                  onClick={() => window.open('tel:+15127705050')}
+                  onClick={() => window.open('tel:+15124885892')}
                   className="border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white font-bold"
                 >
                   <Phone className="mr-2 h-5 w-5" />
-                  Call (512) 770-5050
+                  Call (512) 488-5892
                 </Button>
               </div>
             </div>
