@@ -44,7 +44,7 @@ interface GroupSizeComparison {
 }
 
 const DJ_COST = 60000; // $600 in cents
-const PHOTOGRAPHER_COST = 80000; // $800 in cents
+const PHOTOGRAPHER_COST = 60000; // $600 in cents
 
 function calculateDiscoPricing(pricePerPerson: number, groupSize: number): PricingCalculation {
   const subtotal = pricePerPerson * groupSize;
@@ -393,19 +393,19 @@ export default function DiscoVsPrivateValueCalculator2() {
               <ul className="text-sm space-y-1 text-muted-foreground">
                 <li className="flex items-start gap-2">
                   <X className="w-4 h-4 text-red-500 mt-0.5 flex-shrink-0" />
-                  <span>Party supplies ($200-300 value)</span>
+                  <span>Lily pad floats (extra $50/cruise)</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <X className="w-4 h-4 text-red-500 mt-0.5 flex-shrink-0" />
-                  <span>Multi-group atmosphere (priceless)</span>
+                  <span>Party supplies (extra cost)</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <X className="w-4 h-4 text-red-500 mt-0.5 flex-shrink-0" />
-                  <span>Turnkey setup</span>
+                  <span>Multi-group atmosphere</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <X className="w-4 h-4 text-red-500 mt-0.5 flex-shrink-0" />
-                  <span>Hassle-free experience</span>
+                  <span>All-inclusive setup</span>
                 </li>
               </ul>
 
@@ -512,21 +512,21 @@ export default function DiscoVsPrivateValueCalculator2() {
             <Users className="w-5 h-5 text-blue-600 mt-1 flex-shrink-0" />
             <div>
               <p className="font-semibold">Small Groups (6-14 people):</p>
-              <p className="text-sm text-muted-foreground">Disco cruise is DRAMATICALLY cheaper - save $500-1,500+ total</p>
+              <p className="text-sm text-muted-foreground">Disco cruise often costs less per person, especially when adding DJ & photographer to private cruise</p>
             </div>
           </div>
           <div className="flex items-start gap-3">
             <Users className="w-5 h-5 text-blue-600 mt-1 flex-shrink-0" />
             <div>
               <p className="font-semibold">Medium Groups (15-20 people):</p>
-              <p className="text-sm text-muted-foreground">Still cheaper or same price but WAY more included</p>
+              <p className="text-sm text-muted-foreground">Similar total cost but disco includes DJ, photographer, floats, and party supplies</p>
             </div>
           </div>
           <div className="flex items-start gap-3">
             <PartyPopper className="w-5 h-5 text-blue-600 mt-1 flex-shrink-0" />
             <div>
               <p className="font-semibold">Larger Groups (22-25 people):</p>
-              <p className="text-sm text-muted-foreground">Incredible value - even if slightly more, you get SO much more for your money</p>
+              <p className="text-sm text-muted-foreground">More services included with disco cruise - DJ & photographer alone would add $1,200 to private cruise</p>
             </div>
           </div>
         </CardContent>
