@@ -75,7 +75,7 @@ const experiences: Experience[] = [
     icon: Wine,
     highlights: [
       'Intimate sunset cruises',
-      'Full catering options available',
+      'Tables & coolers for your food',
       'Toast the couple in style'
     ],
     overview: 'Create unforgettable memories with an elegant rehearsal dinner cruise on Lake Travis. Our experienced crew ensures a seamless evening while you focus on celebrating with family and closest friends.',
@@ -112,7 +112,7 @@ const experiences: Experience[] = [
         features: [
           '50-person luxury yacht',
           'Multiple deck levels',
-          'Full catering coordination',
+          'Alcohol delivery coordination',
           'Premium amenities',
           'Multiple crew members'
         ]
@@ -273,7 +273,7 @@ const experiences: Experience[] = [
         features: [
           '50-75 person yacht',
           'Full day experience',
-          'Catered lunch option',
+          'Tables for your food setup',
           'Team challenges',
           'Awards & recognition setup'
         ]
@@ -312,7 +312,7 @@ const experiences: Experience[] = [
         duration: '4 hours',
         features: [
           '50-person luxury yacht',
-          'Catering coordination',
+          'Alcohol delivery coordination',
           'Premium bar setup',
           'Business amenities',
           'Dedicated crew'
@@ -326,7 +326,7 @@ const experiences: Experience[] = [
         features: [
           '75-person mega yacht',
           'White glove service',
-          'Full catering available',
+          'Tables & coolers provided',
           'Entertainment options',
           'Concierge service'
         ]
@@ -367,7 +367,7 @@ const experiences: Experience[] = [
           '50-person yacht',
           'Speech platform setup',
           'Award ceremony space',
-          'Catering coordination',
+          'Alcohol delivery coordination',
           'Professional crew'
         ],
         recommended: true

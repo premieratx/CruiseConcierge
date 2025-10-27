@@ -71,7 +71,7 @@ const weddingEvents = [
       'Dance floor on the water',
       'Continuation of reception energy',
       'Casual dress code',
-      'Late-night snacks available',
+      'Bring your own late-night snacks',
       'Perfect send-off to honeymoon'
     ]
   }
@@ -90,7 +90,7 @@ const weddingPackages = [
       'Clean restroom facilities',
       'Comfortable seating for guests',
       'Plenty of sun & shade areas',
-      'Vendor coordination for catering'
+      'We can help coordinate alcohol delivery through Party On Delivery'
     ],
     ideal: 'Essential wedding event experience'
   },
@@ -105,7 +105,7 @@ const weddingPackages = [
       'Fresh water & party cups',
       'Coolers pre-stocked with ice',
       'Folding tables for food & drinks',
-      'Professional wedding coordination'
+      'We can help coordinate alcohol delivery through Party On Delivery'
     ],
     ideal: 'Most popular for wedding events',
     popular: true
@@ -172,7 +172,7 @@ const weddingFAQs = [
   },
   {
     question: 'Can we have a formal dinner on board?',
-    answer: 'Absolutely! We work with Austin\'s top wedding caterers to provide plated dinners, buffets, or cocktail reception formats. The crew ensures professional service throughout.'
+    answer: 'You\'re welcome to bring your own food or arrange catering from any Austin vendor of your choice. We can help coordinate alcohol delivery through Party On Delivery. Our crew ensures professional service throughout your event with tables, coolers, and ice provided.'
   },
   {
     question: 'What about wedding decorations?',

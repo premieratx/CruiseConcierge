@@ -43,7 +43,7 @@ const afterPartyPackages = [
       'Clean restroom facilities',
       'Comfortable seating for up to 14 guests',
       'Plenty of sun & shade areas',
-      'Vendor coordination for catering'
+      'We can help coordinate alcohol delivery through Party On Delivery'
     ],
     popular: false,
     icon: Disc3,
@@ -61,7 +61,7 @@ const afterPartyPackages = [
       'Fresh water & solo cups',
       'Coolers pre-stocked with ice',
       '6-ft folding table for food & drinks',
-      'Vendor coordination for catering'
+      'We can help coordinate alcohol delivery through Party On Delivery'
     ],
     popular: true,
     icon: Crown,
@@ -83,7 +83,7 @@ const afterPartyPackages = [
       'SPF-50 spray sunscreen',
       'Plates, plasticware, & paper towels',
       'Disco balls installed for party atmosphere',
-      'Vendor coordination for catering'
+      'We can help coordinate alcohol delivery through Party On Delivery'
     ],
     popular: false,
     icon: Sparkles,
@@ -119,8 +119,8 @@ const whatsIncluded = [
   },
   {
     icon: GlassWater,
-    title: 'Late Night Bites',
-    description: 'Snacks and treats to keep energy high'
+    title: 'Late Night Setup',
+    description: 'Perfect for bringing your own snacks and treats'
   },
   {
     icon: Heart,
@@ -583,7 +583,7 @@ export default function AfterParty() {
                 'Select date and late-night time slot',
                 'Determine guest count for after party',
                 'Coordinate DJ and music preferences',
-                'Plan late night snacks and drinks',
+                'Plan what snacks and drinks to bring',
                 'Arrange transportation from venue',
                 'Share after party details with guests',
                 'Prepare send-off supplies',

@@ -64,7 +64,7 @@ const welcomePackages = [
       'Clean restroom facilities',
       'Comfortable seating for up to 14 guests',
       'Plenty of sun & shade areas',
-      'Vendor coordination for catering'
+      'We can help coordinate alcohol delivery through Party On Delivery'
     ],
     popular: false,
     icon: Smile,
@@ -82,7 +82,7 @@ const welcomePackages = [
       'Fresh water & solo cups',
       'Coolers pre-stocked with ice',
       '6-ft folding table for food & drinks',
-      'Vendor coordination for catering'
+      'We can help coordinate alcohol delivery through Party On Delivery'
     ],
     popular: true,
     icon: Crown,
@@ -104,7 +104,7 @@ const welcomePackages = [
       'SPF-50 spray sunscreen',
       'Plates, plasticware, & paper towels',
       'Disco balls installed for party atmosphere',
-      'Vendor coordination for catering'
+      'We can help coordinate alcohol delivery through Party On Delivery'
     ],
     popular: false,
     icon: Sparkles,
@@ -863,7 +863,7 @@ export default function WelcomeParty() {
         <h3>Welcome Party Features and Amenities</h3>
         <ul>
           <li>Out-of-town wedding guest welcome reception on Lake Travis</li>
-          <li>Texas BBQ and authentic cuisine catering options</li>
+          <li>Tables and coolers provided for your food and drinks</li>
           <li>Live music and entertainment for wedding guests</li>
           <li>Professional crew and captain included</li>
           <li>Premium sound system for speeches and toasts</li>

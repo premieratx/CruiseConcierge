@@ -188,7 +188,7 @@ const services = [
     badge: 'Wedding Specialists',
     gallery: [galleryImage3, heroImage1, galleryImage2, heroImage3],
     detailedDescription: 'Create magical wedding memories on Lake Travis with our exclusive wedding party cruises. Whether it\'s a rehearsal dinner, welcome party, or after-party celebration, our professional crew ensures a sophisticated and memorable experience for you and your guests.',
-    highlights: ['Rehearsal Dinner Cruises', 'Welcome Party Events', 'After Party Celebrations', 'Exclusive Private Charters', 'Professional Service', 'Custom Catering Available', 'Premium Sound Systems']
+    highlights: ['Rehearsal Dinner Cruises', 'Welcome Party Events', 'After Party Celebrations', 'Exclusive Private Charters', 'Professional Service', 'Tables & Coolers Provided', 'Premium Sound Systems']
   },
   {
     id: 'corporate',
@@ -199,14 +199,14 @@ const services = [
         Premium <InternalLinkHighlight href="/corporate-events" title="Corporate Events">corporate experiences on Lake Travis</InternalLinkHighlight>. Our largest boats perfect for client entertainment and company celebrations with professional service.
       </>
     ),
-    features: ['"Clever Girl" flagship boat available', 'Professional atmosphere & service', 'Customizable catering options', 'Up to 75 guests capacity', 'BYOB allowed'],
+    features: ['"Clever Girl" flagship boat available', 'Professional atmosphere & service', 'Alcohol delivery coordination available', 'Up to 75 guests capacity', 'BYOB allowed'],
     startingPrice: `$${HOURLY_RATES.MON_THU[50] / 100}`,
     hourlyNote: 'per hour (4-hour minimum)',
     icon: Users,
     image: galleryImage1,
     gallery: [galleryImage1, galleryImage3, heroImage1, galleryImage2],
     detailedDescription: 'Elevate your corporate events with premium Lake Travis experiences aboard our flagship boats. Perfect for client entertainment, company celebrations, and executive retreats. Our professional crew ensures a sophisticated atmosphere while our spacious boats provide the perfect setting for business networking.',
-    highlights: ['Flagship "Clever Girl" Available', 'Professional Business Atmosphere', 'Up to 75 Guests', 'Customizable Catering Options', 'BYOB Allowed', 'Client Entertainment Perfect', 'Executive Retreat Setting']
+    highlights: ['Flagship "Clever Girl" Available', 'Professional Business Atmosphere', 'Up to 75 Guests', 'Alcohol Delivery Coordination', 'BYOB Allowed', 'Client Entertainment Perfect', 'Executive Retreat Setting']
   }
 ];
 
@@ -1085,7 +1085,7 @@ export default function Home() {
                     features: [
                       'Professional atmosphere',
                       'Client entertainment',
-                      'Catering partnerships',
+                      'Alcohol delivery coordination',
                       'BYOB allowed',
                       'Tax deductible'
                     ],
@@ -1104,7 +1104,7 @@ export default function Home() {
                       'Rehearsal dinners',
                       'Welcome parties',
                       'After parties',
-                      'Custom catering available',
+                      'Tables & coolers provided',
                       'Professional service'
                     ],
                     capacity: '14-75 guests',
@@ -2457,7 +2457,7 @@ export default function Home() {
           <ul>
             <li>Flagship Clever Girl 50-person boat available</li>
             <li>Professional business atmosphere and service</li>
-            <li>Customizable catering options</li>
+            <li>Tables and coolers for your food</li>
             <li>BYOB allowed for corporate events</li>
             <li>Transportation partnerships available</li>
             <li>Client entertainment packages</li>
@@ -2744,7 +2744,7 @@ export default function Home() {
                 "itemOffered": {
                   "@type": "Service",
                   "name": "Corporate Events & Team Building",
-                  "description": "Premium corporate event experiences on Lake Travis with flagship boats, professional service, and customizable catering for team building and client entertainment.",
+                  "description": "Premium corporate event experiences on Lake Travis with flagship boats, professional service, and flexible food options for team building and client entertainment.",
                   "provider": {
                     "@type": "LocalBusiness",
                     "name": "Premier Party Cruises"
@@ -2861,7 +2861,7 @@ export default function Home() {
               },
               {
                 title: "Corporate Events - Professional Lake Travis Experiences",
-                description: "Client entertainment and company celebrations on our flagship boats. Professional service, customizable catering, and capacity up to 75 guests.",
+                description: "Client entertainment and company celebrations on our flagship boats. Professional service, flexible food options, and capacity up to 75 guests.",
                 icon: <Users className="w-6 h-6" />
               }
             ]}

@@ -1657,8 +1657,8 @@ export default function ATXDiscoCruise() {
                   {
                     id: 'food-included',
                     question: 'Is food included?',
-                    answer: 'Food not included but we make it easy! Pre-order lunch delivery direct to the boat through Party on Delivery. Many groups order tacos, pizzas, or sandwiches delivered right to the marina. Snacks and chips are welcome aboard.',
-                    keywords: ['food', 'lunch delivery', 'Party on Delivery', 'tacos'],
+                    answer: 'Food not included - bring your own! We can help coordinate alcohol delivery through Party On Delivery. You\'re welcome to bring any snacks, sandwiches, or treats you\'d like. Many groups pick up tacos or pizzas on their way to the marina.',
+                    keywords: ['food', 'bring your own', 'Party on Delivery', 'tacos'],
                     icon: Utensils,
                     relatedLink: {
                       href: '#packages',
@@ -1932,7 +1932,7 @@ export default function ATXDiscoCruise() {
               <li>Giant unicorn float access</li>
               <li>Multi-group party atmosphere</li>
               <li>BYOB with shared coolers & ice</li>
-              <li>Alcohol delivery & lunch delivery available</li>
+              <li>We can help coordinate alcohol delivery through Party On Delivery</li>
             </ul>
           </div>
 

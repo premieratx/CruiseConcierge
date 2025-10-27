@@ -139,7 +139,7 @@ export function CorporateBookingDialog({
       features: [
         'Everything in Corporate Essentials',
         'Dedicated event coordinator',
-        'Professional catering partnerships',
+        'Alcohol delivery coordination',
         'Enhanced photography and videography',
         'Custom branding opportunities',
         'VIP boarding and service upgrades',

@@ -164,7 +164,7 @@ const privateCategories: WhatToBringCategory[] = [
     color: 'text-purple-600',
     items: [
       { icon: PartyPopper, text: 'Decorations (coordinate with us first)' },
-      { icon: Utensils, text: 'Catering if desired', tooltip: 'We can help coordinate' },
+      { icon: Utensils, text: 'Food & snacks', tooltip: 'Bring your own' },
       { icon: Music, text: 'Custom playlist', tooltip: 'Bluetooth compatible' },
       { icon: Camera, text: 'Photography equipment' },
       { icon: Gift, text: 'Special requests or themes' }
@@ -223,7 +223,7 @@ const corporateCategories: WhatToBringCategory[] = [
     color: 'text-green-600',
     items: [
       { icon: Coffee, text: 'Coffee and soft drinks' },
-      { icon: Utensils, text: 'Catered lunch', tooltip: 'We can coordinate' },
+      { icon: Utensils, text: 'Food & snacks', tooltip: 'Bring your own' },
       { icon: GlassWater, text: 'Alcoholic beverages', tooltip: 'If appropriate' },
       { icon: IceCream2, text: 'Desserts or treats' }
     ]

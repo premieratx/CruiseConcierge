@@ -77,7 +77,7 @@ const sweet16Packages = [
       'Clean restroom facilities',
       'Comfortable seating for up to 14 guests',
       'Plenty of sun & shade areas',
-      'Vendor coordination for catering'
+      'We can help coordinate alcohol delivery through Party On Delivery'
     ],
     popular: false,
     icon: Gift,
@@ -95,7 +95,7 @@ const sweet16Packages = [
       'Fresh water & solo cups',
       'Coolers pre-stocked with ice',
       '6-ft folding table for food & drinks',
-      'Vendor coordination for catering'
+      'We can help coordinate alcohol delivery through Party On Delivery'
     ],
     popular: true,
     icon: Crown,
@@ -117,7 +117,7 @@ const sweet16Packages = [
       'SPF-50 spray sunscreen',
       'Plates, plasticware, & paper towels',
       'Disco balls installed for party atmosphere',
-      'Vendor coordination for catering'
+      'We can help coordinate alcohol delivery through Party On Delivery'
     ],
     popular: false,
     icon: Sparkles,

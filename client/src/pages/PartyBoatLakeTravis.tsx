@@ -197,7 +197,7 @@ const lakeTravisPackages = [
     price: 'Custom Lake Travis pricing',
     features: [
       'Private Lake Travis venues',
-      'Catering on Lake Travis',
+      'Tables & coolers provided on Lake Travis',
       'Professional Lake Travis service',
       'Scenic Lake Travis backdrop'
     ],

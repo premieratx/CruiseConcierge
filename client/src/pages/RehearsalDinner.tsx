@@ -65,7 +65,7 @@ const rehearsalPackages = [
       'Clean restroom facilities',
       'Comfortable seating for up to 14 guests',
       'Plenty of sun & shade areas',
-      'Vendor coordination for catering'
+      'We can help coordinate alcohol delivery through Party On Delivery'
     ],
     popular: false,
     icon: Heart,
@@ -84,7 +84,7 @@ const rehearsalPackages = [
       'Fresh water & solo cups',
       'Coolers pre-stocked with ice',
       '6-ft folding table for food & drinks',
-      'Vendor coordination for catering'
+      'We can help coordinate alcohol delivery through Party On Delivery'
     ],
     popular: true,
     icon: Crown,
@@ -107,7 +107,7 @@ const rehearsalPackages = [
       'SPF-50 spray sunscreen',
       'Plates, plasticware, & paper towels',
       'Disco balls installed for party atmosphere',
-      'Vendor coordination for catering'
+      'We can help coordinate alcohol delivery through Party On Delivery'
     ],
     popular: false,
     icon: Sparkles,
@@ -134,8 +134,8 @@ const whatsIncluded = [
   },
   {
     icon: Utensils,
-    title: 'Catering Ready',
-    description: 'Full setup for your chosen catering service'
+    title: 'Dinner Ready',
+    description: 'Full setup with tables and coolers for your food'
   },
   {
     icon: Wine,
@@ -867,7 +867,7 @@ export default function RehearsalDinner() {
         <h3>Rehearsal Dinner Features and Services</h3>
         <ul>
           <li>Rehearsal dinner cruise on Lake Travis with sunset timing</li>
-          <li>Professional catering coordination and setup</li>
+          <li>Tables and setup for your food and drinks</li>
           <li>Wireless microphone for toasts and speeches</li>
           <li>Scenic photo opportunities for wedding album</li>
           <li>Bar service area with beverage options</li>

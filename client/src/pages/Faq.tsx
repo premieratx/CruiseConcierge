@@ -117,13 +117,13 @@ const faqCategories: FAQCategory[] = [
       {
         id: 'hidden-fees',
         question: 'Are there any additional fees beyond the quoted price?',
-        answer: 'No hidden fees! Our quotes include everything: boat, captain, fuel, ice, and listed amenities. Optional add-ons like catering, transportation, or decorations are clearly priced. The only potential additional cost is gratuity for exceptional service, which is appreciated but never required.'
+        answer: 'No hidden fees! Our quotes include everything: boat, captain, fuel, ice, and listed amenities. Optional add-ons like transportation or decorations are clearly priced. The only potential additional cost is gratuity for exceptional service, which is appreciated but never required.'
       }
     ]
   },
   {
     name: 'Food & Drinks',
-    description: 'BYOB policies and catering options for your cruise',
+    description: 'BYOB policies and what you can bring on your cruise',
     items: [
       {
         id: 'byob-policy',
@@ -133,12 +133,12 @@ const faqCategories: FAQCategory[] = [
       {
         id: 'food-allowed',
         question: 'Can we bring food on the Lake Travis cruise?',
-        answer: 'Absolutely! Bring your own snacks, meals, or party platters. We can also coordinate delivery from Austin favorites like Torchy\'s Tacos, Franklin BBQ, or local pizzerias directly to the boat. Popular options include sandwiches, fruit platters, and finger foods that are easy to eat while cruising.'
+        answer: 'Absolutely! Bring your own snacks, meals, or party platters. Popular options include sandwiches, fruit platters, and finger foods that are easy to eat while cruising. Remember, we don\'t provide food but you\'re welcome to bring whatever you\'d like!'
       },
       {
         id: 'catering',
         question: 'Do you offer catering services for boat parties?',
-        answer: 'While we don\'t cater directly, we coordinate with Austin\'s best restaurants for boat delivery. Our team handles logistics to ensure hot food arrives fresh at departure. Popular choices include BBQ platters, taco bars, and charcuterie boards. We\'ll help arrange catering that fits your budget and preferences.'
+        answer: 'We don\'t provide food directly, but you\'re welcome to bring your own food or arrange catering from any Austin vendor of your choice. We can help coordinate alcohol delivery through Party On Delivery to make your event easier. We provide tables, coolers, and ice for your convenience.'
       },
       {
         id: 'drinks-logistics',
@@ -249,7 +249,7 @@ const faqCategories: FAQCategory[] = [
           <>
             Absolutely! Our <Link href="/corporate-events" className="text-primary hover:underline">corporate event packages</Link> accommodate 
             14-300+ guests with professional service and custom amenities. We handle team building activities, client entertainment, 
-            and company celebrations. Catering coordination, AV equipment, and dedicated event planning ensure your corporate 
+            and company celebrations. Alcohol delivery coordination, AV equipment, and dedicated event planning ensure your corporate 
             event exceeds expectations on Lake Travis.
           </>
         )

@@ -48,7 +48,7 @@ const discoPackages = [
       'Giant unicorn float access',
       'Multi-group party atmosphere',
       'BYOB with shared coolers & ice',
-      'Alcohol delivery & lunch delivery available'
+      'We can help coordinate alcohol delivery through Party On Delivery'
     ],
     popular: false,
     icon: Disc3,
@@ -66,7 +66,7 @@ const discoPackages = [
       'Private cooler with ice & storage bin for your group',
       'Reserved spot for your group on the boat',
       'Disco ball cup & bubble gun for guest of honor',
-      'Complimentary direct-to-boat alcohol & lunch delivery',
+      'Complimentary direct-to-boat alcohol delivery',
       '25% discount on round-trip transportation',
       '$50-$100 voucher for Airbnb booze delivery',
       'Premium positioning on the boat'
@@ -980,7 +980,7 @@ export default function PricingBreakdown() {
                     </li>
                     <li className="flex items-start gap-2">
                       <Check className="h-4 w-4 text-green-500 mt-0.5" />
-                      <span>Complimentary alcohol & lunch delivery</span>
+                      <span>Complimentary alcohol delivery coordination</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <Check className="h-4 w-4 text-green-500 mt-0.5" />

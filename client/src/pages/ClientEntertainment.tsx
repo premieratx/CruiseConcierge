@@ -43,7 +43,7 @@ const clientPackages = [
       'Clean restroom facilities',
       'Comfortable seating for up to 14 guests',
       'Plenty of sun & shade areas',
-      'Vendor coordination for catering'
+      'We can help coordinate alcohol delivery through Party On Delivery'
     ],
     popular: false,
     icon: Briefcase,
@@ -61,7 +61,7 @@ const clientPackages = [
       'Fresh water & solo cups',
       'Coolers pre-stocked with ice',
       '6-ft folding table for food & drinks',
-      'Vendor coordination for catering'
+      'We can help coordinate alcohol delivery through Party On Delivery'
     ],
     popular: true,
     icon: Crown,
@@ -83,7 +83,7 @@ const clientPackages = [
       'SPF-50 spray sunscreen',
       'Plates, plasticware, & paper towels',
       'Disco balls installed for party atmosphere',
-      'Vendor coordination for catering'
+      'We can help coordinate alcohol delivery through Party On Delivery'
     ],
     popular: false,
     icon: Diamond,
@@ -99,8 +99,8 @@ const whatsIncluded = [
   },
   {
     icon: Utensils,
-    title: 'Gourmet Catering',
-    description: 'Elevated cuisine from Austin\'s best caterers'
+    title: 'Food & Drinks Setup',
+    description: 'Tables, coolers, and ice for your food & drinks'
   },
   {
     icon: Handshake,
@@ -582,7 +582,7 @@ export default function ClientEntertainment() {
                 'Choose your client entertainment package',
                 'Select date and time for client event',
                 'Determine guest count and VIP attendees',
-                'Coordinate gourmet catering options',
+                'Plan food options and coordinate alcohol delivery',
                 'Plan premium bar service',
                 'Arrange company branding and signage',
                 'Send professional invitations to clients',
@@ -644,7 +644,7 @@ export default function ClientEntertainment() {
             "telephone": "+1-512-488-5892"
           },
           "areaServed": "Austin, TX",
-          "description": "Premium client entertainment cruises on Lake Travis. Impress clients with luxury boat rentals, gourmet catering, and professional service for business events.",
+          "description": "Premium client entertainment cruises on Lake Travis. Impress clients with luxury boat rentals, professional service, and stunning Lake Travis views for business events.",
           "offers": [
             {
               "@type": "Offer",

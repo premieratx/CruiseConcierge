@@ -46,7 +46,7 @@ const teamBuildingPackages = [
       'Clean restroom facilities',
       'Comfortable seating for up to 14 guests',
       'Plenty of sun & shade areas',
-      'Vendor coordination for catering'
+      'We can help coordinate alcohol delivery through Party On Delivery'
     ],
     popular: false,
     icon: Users,
@@ -64,7 +64,7 @@ const teamBuildingPackages = [
       'Fresh water & solo cups',
       'Coolers pre-stocked with ice',
       '6-ft folding table for food & drinks',
-      'Vendor coordination for catering'
+      'We can help coordinate alcohol delivery through Party On Delivery'
     ],
     popular: true,
     icon: Trophy,
@@ -86,7 +86,7 @@ const teamBuildingPackages = [
       'SPF-50 spray sunscreen',
       'Plates, plasticware, & paper towels',
       'Disco balls installed for party atmosphere',
-      'Vendor coordination for catering'
+      'We can help coordinate alcohol delivery through Party On Delivery'
     ],
     popular: false,
     icon: Sparkles,
@@ -589,7 +589,7 @@ export default function TeamBuilding() {
                 'Select date and time for team event',
                 'Determine team size and any special requirements',
                 'Coordinate team-building activities',
-                'Plan catering or meal options',
+                'Plan what food to bring or order for delivery',
                 'Arrange transportation for team members',
                 'Communicate event details to team',
                 'Prepare any materials for activities',

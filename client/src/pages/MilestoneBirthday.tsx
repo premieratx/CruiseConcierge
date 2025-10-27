@@ -78,7 +78,7 @@ const birthdayPackages = [
       'Clean restroom facilities',
       'Comfortable seating for up to 14 guests',
       'Plenty of sun & shade areas',
-      'Vendor coordination for catering'
+      'We can help coordinate alcohol delivery through Party On Delivery'
     ],
     popular: false,
     icon: Gift,
@@ -96,7 +96,7 @@ const birthdayPackages = [
       'Fresh water & solo cups',
       'Coolers pre-stocked with ice',
       '6-ft folding table for food & drinks',
-      'Vendor coordination for catering'
+      'We can help coordinate alcohol delivery through Party On Delivery'
     ],
     popular: true,
     icon: Crown,
@@ -118,7 +118,7 @@ const birthdayPackages = [
       'SPF-50 spray sunscreen',
       'Plates, plasticware, & paper towels',
       'Disco balls installed for party atmosphere',
-      'Vendor coordination for catering'
+      'We can help coordinate alcohol delivery through Party On Delivery'
     ],
     popular: false,
     icon: Trophy,
@@ -906,7 +906,7 @@ export default function MilestoneBirthday() {
           <li>21st birthday party boat cruise on Lake Travis</li>
           <li>30th birthday celebration with DJ and dancing</li>
           <li>40th birthday milestone party on private yacht</li>
-          <li>50th birthday cruise with catering and bar service</li>
+          <li>50th birthday cruise with full bar service</li>
           <li>60th birthday celebration boat rental Austin</li>
           <li>Age-specific decorations and themed party supplies</li>
           <li>Professional crew and captain included</li>

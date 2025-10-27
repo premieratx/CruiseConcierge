@@ -72,9 +72,9 @@ export default function PartyPlanningChecklist({
     },
     {
       icon: UtensilsCrossed,
-      title: 'Arrange Food & Catering',
-      description: 'Bring your own picnic or let us coordinate with Austin\'s best caterers. We have trusted catering partners ready to deliver right to the boat.',
-      highlight: 'Preferred catering partners'
+      title: 'Plan Your Food',
+      description: 'Bring your own picnic, snacks, or order from your favorite Austin restaurant. Many groups pick up food on the way to the marina or have it delivered.',
+      highlight: 'Tables & coolers provided'
     },
     {
       icon: Wine,

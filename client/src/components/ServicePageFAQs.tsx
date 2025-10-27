@@ -117,7 +117,7 @@ export const privateCruiseFAQs: FAQItem[] = [
   {
     id: 'private-customization',
     question: 'Can we customize our private cruise experience?',
-    answer: 'Absolutely! Choose your departure time, duration, route, music, and amenities. Add catering, decorations, water sports equipment, or special requests. Our crew accommodates themes, surprises, and special celebrations. Tell us your vision and we\'ll make it happen on Lake Travis.'
+    answer: 'Absolutely! Choose your departure time, duration, route, music, and amenities. Add decorations, water sports equipment, or special requests. We can help coordinate alcohol delivery. Our crew accommodates themes, surprises, and special celebrations. Tell us your vision and we\'ll make it happen on Lake Travis.'
   },
   {
     id: 'private-captain',
@@ -127,7 +127,7 @@ export const privateCruiseFAQs: FAQItem[] = [
   {
     id: 'private-corporate',
     question: 'Can private boats accommodate corporate events?',
-    answer: 'Yes! Our private fleet is perfect for team building, client entertainment, and company celebrations. We offer professional service, catering coordination, and can accommodate 14-300+ guests across multiple boats. Many Austin companies choose us for quarterly outings and annual parties.'
+    answer: 'Yes! Our private fleet is perfect for team building, client entertainment, and company celebrations. We offer professional service, alcohol delivery coordination, and can accommodate 14-300+ guests across multiple boats. Many Austin companies choose us for quarterly outings and annual parties.'
   },
   {
     id: 'private-minimum',
@@ -150,8 +150,8 @@ export const corporateFAQs: FAQItem[] = [
   },
   {
     id: 'corporate-catering',
-    question: 'Do you provide catering for corporate events?',
-    answer: 'We coordinate with Austin\'s best restaurants and caterers for your preferences and budget. Popular options include BBQ buffets, taco bars, and appetizer platters. We handle logistics ensuring food arrives fresh. Full bar service can be arranged. Everything is professionally presented for your corporate image.'
+    question: 'Can we bring food for corporate events?',
+    answer: 'Yes! You\'re welcome to bring your own food or arrange delivery from any Austin restaurant. We can help coordinate alcohol delivery through Party On Delivery. Popular options include BBQ buffets, taco bars, and appetizer platters delivered to the marina. We provide tables, coolers, and ice for your setup.'
   },
   {
     id: 'corporate-booking',

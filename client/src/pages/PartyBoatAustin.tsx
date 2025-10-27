@@ -183,7 +183,7 @@ const austinPackages = [
     title: 'Corporate Party Boats',
     icon: Users,
     description: 'Premium Austin corporate events on Lake Travis. Perfect for team building and client entertainment.',
-    features: ['Professional service', 'Flagship boat available', 'Catering coordination', 'Transportation partnerships'],
+    features: ['Professional service', 'Flagship boat available', 'Alcohol delivery coordination', 'Transportation partnerships'],
     startingPrice: `$${HOURLY_RATES.MON_THU[50] / 100}`,
     priceNote: 'per hour',
     link: '/corporate-events'

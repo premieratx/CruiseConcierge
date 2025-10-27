@@ -89,8 +89,8 @@ const privateCruisePackages = [
       'Coolers pre-stocked with ice',
       '5-gallon insulated water dispenser',
       'Solo cups and ice water',
-      '6-foot folding table for food',
-      'Vendor coordination for catering',
+      '6-foot folding table for food & drinks',
+      'We can help coordinate alcohol delivery through Party On Delivery',
       'Enhanced convenience'
     ],
     popular: true,
@@ -247,13 +247,13 @@ const corporateROI = [
   {
     title: 'Traditional Corporate Venue',
     cost: '$5,000-10,000',
-    features: ['Indoor ballroom', 'Standard catering', 'Same old experience', 'Forgotten in a week'],
+    features: ['Indoor ballroom', 'Restrictive food options', 'Same old experience', 'Forgotten in a week'],
     value: 'Average'
   },
   {
     title: 'Lake Travis Private Charter',
     cost: '$1,800-3,000',
-    features: ['Unique experience', 'Flexible catering', 'Memorable setting', 'Talked about for months'],
+    features: ['Unique experience', 'Bring your own food/drinks', 'Memorable setting', 'Talked about for months'],
     value: 'Exceptional',
     highlighted: true
   }
@@ -388,8 +388,8 @@ const faqItems = [
   },
   {
     id: 'catering',
-    question: 'Can we bring catering aboard?',
-    answer: 'Yes! We coordinate with all major Austin caterers for seamless delivery to the boat. Popular options include BBQ, tacos, charcuterie boards, and custom cakes. Our Essentials and Ultimate packages include a 6-foot table for food service. We handle all the logistics!'
+    question: 'Can we bring food aboard?',
+    answer: 'Yes! You\'re welcome to bring your own food or arrange catering from any Austin vendor of your choice. We can help coordinate alcohol delivery through Party On Delivery for your convenience. Our Essentials and Ultimate packages include a 6-foot table for food service. We provide coolers with ice!'
   },
   {
     id: 'decorations',
@@ -1276,24 +1276,24 @@ export default function PrivateCruises() {
                       <div className="p-3 bg-blue-100 rounded-lg">
                         <Utensils className="h-6 w-6 text-blue-600" />
                       </div>
-                      <CardTitle className="text-xl font-semibold text-gray-900">Food & Catering</CardTitle>
+                      <CardTitle className="text-xl font-semibold text-gray-900">Food & Drinks</CardTitle>
                     </div>
                     <ul className="space-y-2 text-base text-gray-700">
                       <li className="flex items-start gap-2">
                         <Check className="h-5 w-5 text-blue-600 shrink-0 mt-0.5" />
-                        <span>BBQ catering from local vendors</span>
+                        <span>Bring your own food & snacks</span>
                       </li>
                       <li className="flex items-start gap-2">
                         <Check className="h-5 w-5 text-blue-600 shrink-0 mt-0.5" />
-                        <span>Custom birthday cakes</span>
+                        <span>We help coordinate alcohol delivery through Party On Delivery</span>
                       </li>
                       <li className="flex items-start gap-2">
                         <Check className="h-5 w-5 text-blue-600 shrink-0 mt-0.5" />
-                        <span>Pizza delivery to boat</span>
+                        <span>Tables & coolers provided</span>
                       </li>
                       <li className="flex items-start gap-2">
                         <Check className="h-5 w-5 text-blue-600 shrink-0 mt-0.5" />
-                        <span>Charcuterie boards</span>
+                        <span>Ice included with Essentials/Ultimate packages</span>
                       </li>
                     </ul>
                   </CardHeader>

@@ -59,7 +59,7 @@ const corporatePackages = [
       'Clean restroom facilities',
       'Comfortable seating for up to 14 guests',
       'Plenty of sun & shade areas',
-      'Vendor coordination for catering'
+      'We can help coordinate alcohol delivery through Party On Delivery'
     ],
     ideal: 'Ideal for: Quarterly meetings, new team formation, remote team gatherings'
   },
@@ -74,7 +74,7 @@ const corporatePackages = [
       'Fresh water & solo cups',
       'Coolers pre-stocked with ice',
       '6-ft folding table for food & drinks',
-      'Vendor coordination for catering'
+      'We can help coordinate alcohol delivery through Party On Delivery'
     ],
     ideal: 'Ideal for: Client appreciation, deal celebrations, VIP entertainment'
   },
@@ -93,7 +93,7 @@ const corporatePackages = [
       'SPF-50 spray sunscreen',
       'Plates, plasticware, & paper towels',
       'Disco balls installed for party atmosphere',
-      'Vendor coordination for catering'
+      'We can help coordinate alcohol delivery through Party On Delivery'
     ],
     ideal: 'Ideal for: Board meetings, strategic planning, executive bonding'
   }
@@ -209,8 +209,8 @@ const corporateInclusions = [
   },
   {
     icon: ChefHat,
-    title: 'Catering Coordination',
-    description: 'We work with Austin\'s best corporate caterers'
+    title: 'Delivery Coordination',
+    description: 'We can help coordinate alcohol delivery through Party On Delivery'
   },
   {
     icon: Coffee,
@@ -241,8 +241,8 @@ const corporateFAQs = [
     answer: 'Absolutely! Our boats are equipped with premium sound systems perfect for presentations. We have microphones available and can accommodate both formal presentations and casual discussions. Many companies find the unique setting enhances creativity and engagement.'
   },
   {
-    question: 'What catering options are available?',
-    answer: 'We work with Austin\'s top corporate caterers to provide everything from light appetizers to full buffet spreads. Options include breakfast meetings, working lunches, cocktail receptions, and formal dinners. We can accommodate dietary restrictions and preferences.'
+    question: 'Can you provide food for our event?',
+    answer: 'We don\'t provide food directly, but we can help coordinate alcohol delivery through Party On Delivery. You\'re welcome to bring your own food or arrange catering from any Austin vendor of your choice. We provide tables, coolers, and ice for your convenience.'
   },
   {
     question: 'How do we handle alcohol at a corporate event?',
@@ -303,7 +303,7 @@ const caseStudies = [
     industry: 'Financial Services',
     eventType: 'Client Entertainment & Deal Closing',
     challenge: 'Competing for $5M wealth management contract with family office. Client had relationships with 3 other firms and wanted to see "Austin experience" before deciding.',
-    solution: 'Private sunset cruise for client family and key decision makers. Premium catering, professional service, personalized itinerary showcasing Lake Travis. Low-pressure environment for relationship building.',
+    solution: 'Private sunset cruise for client family and key decision makers. Premium food setup, professional service, personalized itinerary showcasing Lake Travis. Low-pressure environment for relationship building.',
     results: [
       'Won the $5M annual contract',
       'Client referred 2 additional family offices',
