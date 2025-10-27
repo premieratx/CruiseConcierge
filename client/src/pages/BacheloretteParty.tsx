@@ -82,43 +82,47 @@ const staggerChildren = {
   }
 };
 
-// ATX Disco Cruise packages for bachelorettes
-const bachelorettePackages = [
+// ATX Disco Cruise packages - CORRECTED PRICING
+const atxDiscoPackages = [
   {
-    id: 'basic_bachelorette',
+    id: 'basic_bach',
     name: 'Basic Bach Package',
-    price: DISCO_PRICING.basic / 100,
+    price: 85,
+    priceWithTaxTip: 111,
     originalPrice: null,
-    description: 'Join the BEST bachelorette party on Lake Travis',
-    subtitle: 'Most affordable option for bachelorette groups',
+    description: 'Join the ultimate multi-group bachelorette party on Lake Travis',
+    subtitle: 'Party with other bachelorette groups - social & fun!',
     features: [
-      'Join the BEST bachelorette party on Lake Travis',
-      'BYOB with shared cooler and ice',
-      'Alcohol & food delivery available',
-      'Professional DJ and photographer included',
-      'Giant floats and party atmosphere',
-      'Most affordable option for bachelorette groups'
+      '4-hour party cruise with other bachelorette groups',
+      'Professional DJ spinning all day',
+      'Professional photographer capturing memories',
+      'Access to giant lily pad floats',
+      'BYOB with coolers and ice provided',
+      'Meet and party with other bride tribes',
+      'Digital photos delivered after cruise'
     ],
     popular: false,
     icon: Disc3,
-    badge: 'Great Value',
+    badge: 'Best Value',
     brideSpecial: false
   },
   {
     id: 'disco_queen',
     name: 'Disco Queen Package',
-    price: DISCO_PRICING.disco_queen / 100,
-    originalPrice: 125,
-    description: 'Our signature bachelorette party experience - Most Popular!',
-    subtitle: 'Private cooler with ice for your group',
+    price: 95,
+    priceWithTaxTip: 124,
+    originalPrice: null,
+    description: 'Our most popular package with extra perks for your group',
+    subtitle: 'VIP treatment while partying with other groups',
     features: [
       '🎉 BRIDE CRUISES FREE with this package!',
-      'Private cooler with ice for your group',
-      'Reserved spot for your bachelorette crew',
+      'Private cooler with ice just for your group',
+      'Reserved seating area for your tribe',
       'Disco ball cup & bubble gun for bride',
-      'Complimentary alcohol & lunch delivery',
+      'Alcohol delivery coordination available',
       '25% discount on round-trip transportation',
-      '$50-$100 Airbnb delivery voucher'
+      'Priority boarding for your group',
+      'Everything from Basic Bach Package'
     ],
     popular: true,
     icon: Crown,
@@ -126,25 +130,105 @@ const bachelorettePackages = [
     brideSpecial: true
   },
   {
-    id: 'platinum_bride',
-    name: 'Super Sparkle Platinum',
-    price: DISCO_PRICING.platinum / 100,
-    originalPrice: 140,
-    description: 'Ultimate all-inclusive bachelorette party luxury',
-    subtitle: 'Cooler pre-stocked with drinks on arrival',
+    id: 'super_sparkle',
+    name: 'Super Sparkle Package',
+    price: 105,
+    priceWithTaxTip: 137,
+    originalPrice: null,
+    description: 'VIP treatment with all the extras',
+    subtitle: 'The ultimate ATX Disco experience',
     features: [
       '🎉 BRIDE CRUISES FREE with this package!',
       'Personal unicorn float for the bride',
-      'Mimosa setup with flutes, juices & chambong',
-      '$100 Airbnb concierge services voucher',
-      'Towel service & SPF-50 spray sunscreen',
-      'Cooler pre-stocked with drinks on arrival',
+      'Mimosa bar setup with supplies',
+      'SPF-50 spray sunscreen provided',
+      'Towel service for your group',
+      'Premium reserved area',
+      'VIP boarding and departure',
       'Everything from Disco Queen Package'
     ],
     popular: false,
     icon: Trophy,
-    badge: 'All-Inclusive VIP',
+    badge: 'VIP Experience',
     brideSpecial: true
+  }
+];
+
+// Private Cruise options for bachelorettes
+const privateCruiseOptions = [
+  {
+    id: 'day_tripper',
+    name: 'Day Tripper (14 people)',
+    capacity: 14,
+    weekdayRate: 350,
+    weekendRate: 450,
+    description: 'Perfect for intimate bachelorette groups',
+    features: [
+      'Exclusive use of the entire boat',
+      'Custom departure times & itinerary',
+      'BYOB - bring whatever you want',
+      'Choose your own music/DJ',
+      'Private swim stops anywhere'
+    ]
+  },
+  {
+    id: 'meeseeks',
+    name: 'Meeseeks (25 people)',
+    capacity: 25,
+    weekdayRate: 550,
+    weekendRate: 700,
+    description: 'Ideal for medium-sized groups',
+    features: [
+      'Exclusive use of the entire boat',
+      'Plenty of space to dance',
+      'Multiple seating areas',
+      'Large swim platform',
+      'Premium sound system'
+    ]
+  },
+  {
+    id: 'clever_girl',
+    name: 'Clever Girl (30-50 people)',
+    capacity: '30-50',
+    weekdayRate: 850,
+    weekendRate: 1050,
+    description: 'Perfect for large bachelorette parties',
+    features: [
+      'Exclusive use of the entire boat',
+      'Multiple levels',
+      'Dance floor area',
+      'Full bar setup area',
+      'Premium amenities'
+    ]
+  }
+];
+
+// Private Cruise add-ons
+const privateCruiseAddOns = [
+  {
+    name: 'Professional DJ',
+    price: 600,
+    description: 'Professional DJ for your entire cruise'
+  },
+  {
+    name: 'Professional Photographer',
+    price: 600,
+    description: 'Capture every moment professionally'
+  },
+  {
+    name: 'Lily Pad Floats',
+    price: 50,
+    description: 'Giant floats for swimming (per cruise)'
+  },
+  {
+    name: 'Essentials Package',
+    price: '100-200',
+    description: 'Coolers, ice, cups, basic supplies (per cruise)'
+  },
+  {
+    name: 'Ultimate Package',
+    price: '250-350',
+    description: 'Everything plus decorations, premium supplies (per cruise)'
   }
 ];
 
@@ -328,17 +412,13 @@ const galleryPhotos = [
   { id: 8, src: boatImage2, alt: 'Austin Bachelorette Party Boat Meeseeks on Lake Travis' }
 ];
 
-// Table of Contents sections - Updated order
+// Table of Contents sections - Updated with comparison
 const tocSections = [
   { id: 'hero', title: 'Overview', icon: <Sparkles className="h-4 w-4" /> },
-  { id: 'value-stack', title: 'Value Stack', icon: <DollarSign className="h-4 w-4" /> },
-  { id: 'experience', title: 'Experience', icon: <Star className="h-4 w-4" /> },
-  { id: 'emotional-benefits', title: 'Why Brides Love Us', icon: <Heart className="h-4 w-4" /> },
-  { id: 'packages', title: 'Packages', icon: <Package className="h-4 w-4" /> },
-  { id: 'comparison', title: 'Your Options', icon: <Target className="h-4 w-4" /> },
-  { id: 'bride-testimonials', title: 'Bride Reviews', icon: <Quote className="h-4 w-4" /> },
+  { id: 'your-options', title: 'Your Two Options', icon: <Target className="h-4 w-4" /> },
+  { id: 'packages', title: 'Packages & Pricing', icon: <Package className="h-4 w-4" /> },
+  { id: 'what-to-expect', title: 'What to Expect', icon: <Star className="h-4 w-4" /> },
   { id: 'availability', title: 'Availability', icon: <Calendar className="h-4 w-4" /> },
-  { id: 'trust-badges', title: 'Trust & Safety', icon: <Shield className="h-4 w-4" /> },
   { id: 'benefits', title: 'Benefits', icon: <Trophy className="h-4 w-4" /> },
   { id: 'whats-included', title: "What's Included", icon: <CheckCircle className="h-4 w-4" /> },
   { id: 'why-choose', title: 'Why Choose Us', icon: <Shield className="h-4 w-4" /> },
@@ -601,9 +681,119 @@ export default function BacheloretteParty() {
         </div>
       </section>
 
+      {/* YOUR TWO OPTIONS SECTION */}
+      <SectionReveal>
+        <section id="your-options" className="py-20 bg-gradient-to-br from-pink-50 to-purple-50">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="text-center mb-16">
+              <Badge className="mb-6 bg-gradient-to-r from-pink-600 to-purple-600 text-white px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
+                <Target className="h-4 w-4 mr-2 inline" />
+                Two Amazing Options for Your Celebration
+              </Badge>
+              <h2 className="text-4xl md:text-5xl font-bold font-playfair text-center mb-6 text-gray-900 leading-tight">
+                Choose Your Perfect Bachelorette Party Style
+              </h2>
+              <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
+                Two completely different experiences - both unforgettable!
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+              {/* ATX Disco Cruise Option */}
+              <Card className="border-3 border-pink-400 hover:shadow-2xl transition-all">
+                <CardHeader className="bg-gradient-to-r from-pink-500 to-purple-500 text-white">
+                  <div className="flex items-center justify-center mb-4">
+                    <Disc3 className="h-12 w-12" />
+                  </div>
+                  <CardTitle className="text-2xl font-bold text-center">OPTION 1: ATX Disco Cruise</CardTitle>
+                  <CardDescription className="text-white text-center mt-2">
+                    Multi-Group Party Experience
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="p-6">
+                  <ul className="space-y-3 mb-6">
+                    <li className="flex items-start gap-3">
+                      <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
+                      <span>Party with other bachelorette groups from across America</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
+                      <span>All-inclusive: DJ, photographer, floats included</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
+                      <span>From $85 per person (bride FREE on premium packages)</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
+                      <span>Zero planning stress - everything handled</span>
+                    </li>
+                  </ul>
+                  <div className="bg-pink-50 p-4 rounded-lg mb-4">
+                    <p className="text-center font-bold">Group of 10 = $850-$1,050 total</p>
+                    <p className="text-center text-sm text-gray-600">Everything included!</p>
+                  </div>
+                  <Button
+                    className="w-full bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white font-bold"
+                    onClick={() => navigate('/atx-disco-cruise')}
+                  >
+                    Learn More About ATX Disco
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </Button>
+                </CardContent>
+              </Card>
+
+              {/* Private Cruise Option */}
+              <Card className="border-3 border-purple-400 hover:shadow-2xl transition-all">
+                <CardHeader className="bg-gradient-to-r from-purple-500 to-pink-500 text-white">
+                  <div className="flex items-center justify-center mb-4">
+                    <Ship className="h-12 w-12" />
+                  </div>
+                  <CardTitle className="text-2xl font-bold text-center">OPTION 2: Private Cruises</CardTitle>
+                  <CardDescription className="text-white text-center mt-2">
+                    Exclusive Boat for Your Group
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="p-6">
+                  <ul className="space-y-3 mb-6">
+                    <li className="flex items-start gap-3">
+                      <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
+                      <span>Entire boat exclusively for your group</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
+                      <span>Custom timing, route, and itinerary</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
+                      <span>$350-$1,050 per hour (based on boat size)</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
+                      <span>Add DJ/photographer for $600 each</span>
+                    </li>
+                  </ul>
+                  <div className="bg-purple-50 p-4 rounded-lg mb-4">
+                    <p className="text-center font-bold">Group of 10 = $2,600-$4,000+</p>
+                    <p className="text-center text-sm text-gray-600">Boat + optional add-ons</p>
+                  </div>
+                  <Button
+                    className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold"
+                    onClick={() => navigate('/private-cruises')}
+                  >
+                    Learn More About Private
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </Button>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </section>
+      </SectionReveal>
+
       {/* VALUE STACKING SECTION - HORMOZI/MCDOWELL */}
       <SectionReveal>
-        <section id="value-stack" className="py-20 bg-gradient-to-br from-pink-50 to-purple-50">
+        <section id="value-stack" className="py-20 bg-white">
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
               <Badge className="mb-6 bg-gradient-to-r from-pink-600 to-purple-600 text-white px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
@@ -1002,91 +1192,388 @@ export default function BacheloretteParty() {
               </p>
             </div>
             
-            <div className="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto mb-12">
-              {bachelorettePackages.map((pkg, index) => (
-                <Card 
-                  key={pkg.id}
-                  className={cn(
-                    "relative h-full bg-white transition-all duration-300",
-                    pkg.popular && "border-4 border-pink-500 shadow-2xl scale-105",
-                    !pkg.popular && "border-2 border-gray-200 hover:border-pink-400 hover:shadow-lg"
-                  )}
-                >
-                  {pkg.popular && (
-                    <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-10">
-                      <Badge className="bg-gradient-to-r from-pink-600 to-purple-600 text-white font-sans tracking-wider font-bold uppercase text-sm px-6 py-2">
-                        MOST POPULAR
-                      </Badge>
-                    </div>
-                  )}
-                  
-                  {pkg.brideSpecial && !pkg.popular && (
-                    <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-10">
-                      <Badge className="bg-purple-600 text-white font-sans tracking-wider font-bold uppercase text-sm px-4 py-2">
-                        <Heart className="h-3 w-3 mr-1 inline fill-current" />
-                        BRIDE FREE!
-                      </Badge>
-                    </div>
-                  )}
-                  
-                  <CardHeader className="text-center pb-4 pt-10">
-                    <div className="flex justify-center mb-4">
-                      <div className="w-16 h-16 bg-pink-100 rounded-full flex items-center justify-center">
-                        <pkg.icon className="h-8 w-8 text-pink-600" />
+            {/* ATX DISCO CRUISE OPTION */}
+            <div className="mb-16">
+              <div className="text-center mb-8">
+                <Badge className="bg-pink-600 text-white px-4 py-2 mb-4">
+                  OPTION 1
+                </Badge>
+                <h3 className="text-3xl font-playfair font-bold mb-2">ATX Disco Cruise</h3>
+                <p className="text-lg text-gray-700">Multi-group party with other bachelorette parties</p>
+              </div>
+              
+              <div className="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto mb-8">
+                {atxDiscoPackages.map((pkg, index) => (
+                  <Card 
+                    key={pkg.id}
+                    className={cn(
+                      "relative h-full bg-white transition-all duration-300",
+                      pkg.popular && "border-4 border-pink-500 shadow-2xl scale-105",
+                      !pkg.popular && "border-2 border-gray-200 hover:border-pink-400 hover:shadow-lg"
+                    )}
+                  >
+                    {pkg.popular && (
+                      <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-10">
+                        <Badge className="bg-gradient-to-r from-pink-600 to-purple-600 text-white font-sans tracking-wider font-bold uppercase text-sm px-6 py-2">
+                          MOST POPULAR
+                        </Badge>
                       </div>
-                    </div>
-                    <CardTitle className="text-2xl font-playfair mb-2">{pkg.name}</CardTitle>
-                    <CardDescription className="text-base">
-                      {pkg.subtitle}
-                    </CardDescription>
-                  </CardHeader>
-                  
-                  <CardContent className="space-y-6">
-                    <div className="text-center py-4 bg-gradient-to-r from-pink-50 to-purple-50 rounded-lg">
-                      <div className="text-4xl font-bold text-gray-900 mb-1">
-                        ${pkg.price}
-                        <span className="text-xl text-gray-600">/person</span>
+                    )}
+                    
+                    {pkg.brideSpecial && !pkg.popular && (
+                      <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-10">
+                        <Badge className="bg-purple-600 text-white font-sans tracking-wider font-bold uppercase text-sm px-4 py-2">
+                          <Heart className="h-3 w-3 mr-1 inline fill-current" />
+                          BRIDE FREE!
+                        </Badge>
                       </div>
-                      <div className="text-base text-green-600 font-semibold">
-                        ${pkg.id === 'basic_bachelorette' ? '109' : pkg.id === 'disco_queen' ? '122' : '135'} with tax & tip
-                      </div>
-                      {pkg.originalPrice && (
-                        <div className="text-sm text-gray-500 line-through mt-1">
-                          was ${pkg.originalPrice}
+                    )}
+                    
+                    <CardHeader className="text-center pb-4 pt-10">
+                      <div className="flex justify-center mb-4">
+                        <div className="w-16 h-16 bg-pink-100 rounded-full flex items-center justify-center">
+                          <pkg.icon className="h-8 w-8 text-pink-600" />
                         </div>
-                      )}
-                    </div>
+                      </div>
+                      <CardTitle className="text-2xl font-playfair mb-2">{pkg.name}</CardTitle>
+                      <CardDescription className="text-base">
+                        {pkg.subtitle}
+                      </CardDescription>
+                    </CardHeader>
                     
-                    <ul className="space-y-3">
-                      {pkg.features.map((feature, i) => (
-                        <li key={i} className="flex items-start gap-3">
-                          <Check className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
-                          <span className="text-gray-700 text-sm leading-relaxed">{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
-                    
-                    <Button
-                      className="w-full bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white font-bold py-6"
-                      onClick={() => handleGetQuote(pkg.id)}
-                      data-testid={`button-package-${pkg.id}`}
-                    >
-                      Select This Package
-                      <ArrowRight className="ml-2 h-5 w-5" />
-                    </Button>
-                  </CardContent>
-                </Card>
-              ))}
+                    <CardContent className="space-y-6">
+                      <div className="text-center py-4 bg-gradient-to-r from-pink-50 to-purple-50 rounded-lg">
+                        <div className="text-4xl font-bold text-gray-900 mb-1">
+                          ${pkg.price}
+                          <span className="text-xl text-gray-600">/person</span>
+                        </div>
+                        <div className="text-base text-green-600 font-semibold">
+                          ${pkg.priceWithTaxTip} with tax & tip
+                        </div>
+                      </div>
+                      
+                      <ul className="space-y-3">
+                        {pkg.features.map((feature, i) => (
+                          <li key={i} className="flex items-start gap-3">
+                            <Check className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
+                            <span className="text-gray-700 text-sm leading-relaxed">{feature}</span>
+                          </li>
+                        ))}
+                      </ul>
+                      
+                      <Button
+                        className="w-full bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white font-bold py-6"
+                        onClick={() => navigate('/atx-disco-cruise')}
+                        data-testid={`button-atx-package-${pkg.id}`}
+                      >
+                        Book ATX Disco Cruise
+                        <ArrowRight className="ml-2 h-5 w-5" />
+                      </Button>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
             </div>
 
-            <div className="text-center bg-white rounded-2xl p-8 max-w-4xl mx-auto border-2 border-pink-200">
-              <p className="text-lg text-gray-700 mb-4 leading-relaxed">
-                <strong>All packages include:</strong> Professional DJ, Professional Photographer, Giant Floats, Party Supplies & More!
-              </p>
-              <Badge className="bg-green-600 text-white font-sans tracking-wider font-bold uppercase text-sm px-6 py-3">
-                <TrendingUp className="h-4 w-4 mr-2 inline" />
-                Group Discounts Available for 10+ Bridesmaids
+            {/* PRIVATE CRUISE OPTION */}
+            <div className="mb-12">
+              <div className="text-center mb-8">
+                <Badge className="bg-purple-600 text-white px-4 py-2 mb-4">
+                  OPTION 2
+                </Badge>
+                <h3 className="text-3xl font-playfair font-bold mb-2">Private Cruises</h3>
+                <p className="text-lg text-gray-700">Exclusive boat just for your group</p>
+              </div>
+              
+              <div className="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto mb-8">
+                {privateCruiseOptions.map((boat, index) => (
+                  <Card 
+                    key={boat.id}
+                    className="relative h-full bg-white transition-all duration-300 border-2 border-gray-200 hover:border-purple-400 hover:shadow-lg"
+                  >
+                    <CardHeader className="text-center pb-4">
+                      <div className="flex justify-center mb-4">
+                        <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center">
+                          <Ship className="h-8 w-8 text-purple-600" />
+                        </div>
+                      </div>
+                      <CardTitle className="text-2xl font-playfair mb-2">{boat.name}</CardTitle>
+                      <CardDescription className="text-base">
+                        {boat.description}
+                      </CardDescription>
+                    </CardHeader>
+                    
+                    <CardContent className="space-y-6">
+                      <div className="text-center py-4 bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg">
+                        <div className="text-3xl font-bold text-gray-900 mb-1">
+                          ${boat.weekdayRate}-${boat.weekendRate}
+                          <span className="text-xl text-gray-600">/hour</span>
+                        </div>
+                        <div className="text-sm text-gray-600">
+                          Weekday vs Weekend rates
+                        </div>
+                      </div>
+                      
+                      <ul className="space-y-3">
+                        {boat.features.map((feature, i) => (
+                          <li key={i} className="flex items-start gap-3">
+                            <Check className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
+                            <span className="text-gray-700 text-sm leading-relaxed">{feature}</span>
+                          </li>
+                        ))}
+                      </ul>
+                      
+                      <Button
+                        className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold py-6"
+                        onClick={() => navigate('/private-cruises')}
+                        data-testid={`button-private-${boat.id}`}
+                      >
+                        Book Private Cruise
+                        <ArrowRight className="ml-2 h-5 w-5" />
+                      </Button>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+
+              {/* Private Cruise Add-ons */}
+              <Card className="bg-purple-50 border-2 border-purple-200">
+                <CardHeader>
+                  <CardTitle className="text-xl">Optional Add-ons for Private Cruises</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {privateCruiseAddOns.map((addon, i) => (
+                      <div key={i} className="flex items-start gap-3">
+                        <Check className="h-5 w-5 text-purple-600 mt-0.5 flex-shrink-0" />
+                        <div>
+                          <span className="font-bold text-gray-900">{addon.name}:</span>
+                          <span className="text-gray-700 ml-2">
+                            ${typeof addon.price === 'number' ? addon.price : addon.price}
+                          </span>
+                          <p className="text-sm text-gray-600">{addon.description}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* COMPARISON SECTION */}
+            <div className="max-w-6xl mx-auto">
+              <Card className="bg-gradient-to-r from-pink-50 to-purple-50 border-2 border-pink-300 p-8">
+                <CardHeader>
+                  <CardTitle className="text-3xl font-playfair text-center mb-4">
+                    Which Option is Right for Your Group?
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid md:grid-cols-2 gap-8 mb-8">
+                    {/* ATX Disco Comparison */}
+                    <div className="text-center">
+                      <Badge className="bg-pink-600 text-white px-4 py-2 mb-4">ATX DISCO CRUISE</Badge>
+                      <h4 className="text-xl font-bold mb-4">Perfect if you want:</h4>
+                      <ul className="text-left space-y-2 mb-6">
+                        <li className="flex items-start gap-2">
+                          <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
+                          <span>Social experience with other bride tribes</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
+                          <span>All-inclusive (DJ, photographer, floats included)</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
+                          <span>Best value for smaller groups (under 20)</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
+                          <span>Zero planning stress</span>
+                        </li>
+                      </ul>
+                      <div className="bg-white p-4 rounded-lg">
+                        <p className="font-bold text-lg mb-2">Cost for 10 people:</p>
+                        <p className="text-2xl font-bold text-pink-600">$850 - $1,050 total</p>
+                        <p className="text-sm text-gray-600">All-inclusive with everything!</p>
+                      </div>
+                    </div>
+                    
+                    {/* Private Cruise Comparison */}
+                    <div className="text-center">
+                      <Badge className="bg-purple-600 text-white px-4 py-2 mb-4">PRIVATE CRUISE</Badge>
+                      <h4 className="text-xl font-bold mb-4">Perfect if you want:</h4>
+                      <ul className="text-left space-y-2 mb-6">
+                        <li className="flex items-start gap-2">
+                          <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
+                          <span>Exclusive boat just for your group</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
+                          <span>Custom itinerary and timing</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
+                          <span>Bring your own everything</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
+                          <span>Large groups (20+ people)</span>
+                        </li>
+                      </ul>
+                      <div className="bg-white p-4 rounded-lg">
+                        <p className="font-bold text-lg mb-2">Cost for 10 people (4 hours):</p>
+                        <p className="text-2xl font-bold text-purple-600">$2,600 - $4,000+</p>
+                        <p className="text-sm text-gray-600">Boat + DJ ($600) + Photo ($600)</p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="text-center border-t-2 border-pink-200 pt-6">
+                    <p className="text-lg font-bold mb-4">💡 Pro Tip for Bachelorette Groups:</p>
+                    <p className="text-gray-700">
+                      Most bachelorette parties under 20 people choose ATX Disco Cruise for the value and social atmosphere. 
+                      Private cruises make sense for very large groups or those wanting complete privacy.
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </section>
+      </SectionReveal>
+
+      {/* WHAT TO EXPECT SECTION */}
+      <SectionReveal>
+        <section id="what-to-expect" className="py-20 bg-gradient-to-br from-pink-50 to-purple-50">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="text-center mb-16">
+              <Badge className="mb-6 bg-gradient-to-r from-pink-600 to-purple-600 text-white px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
+                <Star className="h-4 w-4 mr-2 inline" />
+                What to Expect
               </Badge>
+              <h2 className="text-4xl md:text-5xl font-bold font-playfair text-center mb-6 text-gray-900 leading-tight">
+                Your Day on the Water
+              </h2>
+              <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
+                Step-by-step guide for each experience
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-8 max-w-7xl mx-auto">
+              {/* ATX Disco Cruise Steps */}
+              <Card className="border-2 border-pink-300">
+                <CardHeader className="bg-gradient-to-r from-pink-500 to-purple-500 text-white">
+                  <CardTitle className="text-2xl text-center">ATX Disco Cruise Experience</CardTitle>
+                </CardHeader>
+                <CardContent className="p-6">
+                  <ol className="space-y-4">
+                    <li className="flex gap-4">
+                      <span className="flex-shrink-0 w-8 h-8 bg-pink-600 text-white rounded-full flex items-center justify-center font-bold">1</span>
+                      <div>
+                        <p className="font-bold">Arrive at Marina (11:45 AM)</p>
+                        <p className="text-sm text-gray-600">Check-in at Hula Hut, get your wristbands</p>
+                      </div>
+                    </li>
+                    <li className="flex gap-4">
+                      <span className="flex-shrink-0 w-8 h-8 bg-pink-600 text-white rounded-full flex items-center justify-center font-bold">2</span>
+                      <div>
+                        <p className="font-bold">Board the Boat (12:00 PM)</p>
+                        <p className="text-sm text-gray-600">Find your group's reserved area, drop off coolers</p>
+                      </div>
+                    </li>
+                    <li className="flex gap-4">
+                      <span className="flex-shrink-0 w-8 h-8 bg-pink-600 text-white rounded-full flex items-center justify-center font-bold">3</span>
+                      <div>
+                        <p className="font-bold">Cruise to Devil's Cove (12:00-1:00 PM)</p>
+                        <p className="text-sm text-gray-600">DJ starts the party, meet other bachelorette groups</p>
+                      </div>
+                    </li>
+                    <li className="flex gap-4">
+                      <span className="flex-shrink-0 w-8 h-8 bg-pink-600 text-white rounded-full flex items-center justify-center font-bold">4</span>
+                      <div>
+                        <p className="font-bold">Anchor at Party Cove (1:00-3:00 PM)</p>
+                        <p className="text-sm text-gray-600">Swimming, floats, dancing, photos, games</p>
+                      </div>
+                    </li>
+                    <li className="flex gap-4">
+                      <span className="flex-shrink-0 w-8 h-8 bg-pink-600 text-white rounded-full flex items-center justify-center font-bold">5</span>
+                      <div>
+                        <p className="font-bold">Cruise Back (3:00-4:00 PM)</p>
+                        <p className="text-sm text-gray-600">More dancing, group photos, celebrate together</p>
+                      </div>
+                    </li>
+                    <li className="flex gap-4">
+                      <span className="flex-shrink-0 w-8 h-8 bg-pink-600 text-white rounded-full flex items-center justify-center font-bold">6</span>
+                      <div>
+                        <p className="font-bold">Return to Marina (4:00 PM)</p>
+                        <p className="text-sm text-gray-600">Disembark, continue the party at lakeside bars</p>
+                      </div>
+                    </li>
+                  </ol>
+                  <div className="mt-6 bg-pink-50 p-4 rounded-lg">
+                    <p className="text-sm font-bold mb-2">✨ Everything Provided:</p>
+                    <p className="text-sm">DJ, photographer, floats, coolers, ice, party supplies - just bring your drinks!</p>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Private Cruise Steps */}
+              <Card className="border-2 border-purple-300">
+                <CardHeader className="bg-gradient-to-r from-purple-500 to-pink-500 text-white">
+                  <CardTitle className="text-2xl text-center">Private Cruise Experience</CardTitle>
+                </CardHeader>
+                <CardContent className="p-6">
+                  <ol className="space-y-4">
+                    <li className="flex gap-4">
+                      <span className="flex-shrink-0 w-8 h-8 bg-purple-600 text-white rounded-full flex items-center justify-center font-bold">1</span>
+                      <div>
+                        <p className="font-bold">Choose Your Time</p>
+                        <p className="text-sm text-gray-600">Depart whenever you want (morning, afternoon, sunset)</p>
+                      </div>
+                    </li>
+                    <li className="flex gap-4">
+                      <span className="flex-shrink-0 w-8 h-8 bg-purple-600 text-white rounded-full flex items-center justify-center font-bold">2</span>
+                      <div>
+                        <p className="font-bold">Board Your Private Boat</p>
+                        <p className="text-sm text-gray-600">Load your supplies, decorations, food & drinks</p>
+                      </div>
+                    </li>
+                    <li className="flex gap-4">
+                      <span className="flex-shrink-0 w-8 h-8 bg-purple-600 text-white rounded-full flex items-center justify-center font-bold">3</span>
+                      <div>
+                        <p className="font-bold">Custom Itinerary</p>
+                        <p className="text-sm text-gray-600">Go wherever you want on the lake</p>
+                      </div>
+                    </li>
+                    <li className="flex gap-4">
+                      <span className="flex-shrink-0 w-8 h-8 bg-purple-600 text-white rounded-full flex items-center justify-center font-bold">4</span>
+                      <div>
+                        <p className="font-bold">Your Music, Your Rules</p>
+                        <p className="text-sm text-gray-600">Play your playlist or hire a DJ (+$600)</p>
+                      </div>
+                    </li>
+                    <li className="flex gap-4">
+                      <span className="flex-shrink-0 w-8 h-8 bg-purple-600 text-white rounded-full flex items-center justify-center font-bold">5</span>
+                      <div>
+                        <p className="font-bold">Private Swimming</p>
+                        <p className="text-sm text-gray-600">Anchor anywhere for exclusive swimming</p>
+                      </div>
+                    </li>
+                    <li className="flex gap-4">
+                      <span className="flex-shrink-0 w-8 h-8 bg-purple-600 text-white rounded-full flex items-center justify-center font-bold">6</span>
+                      <div>
+                        <p className="font-bold">Return When You Want</p>
+                        <p className="text-sm text-gray-600">Extend hourly if having too much fun</p>
+                      </div>
+                    </li>
+                  </ol>
+                  <div className="mt-6 bg-purple-50 p-4 rounded-lg">
+                    <p className="text-sm font-bold mb-2">⚡ You Provide Everything:</p>
+                    <p className="text-sm">Bring your own food, drinks, decorations, music. Optional add-ons available.</p>
+                  </div>
+                </CardContent>
+              </Card>
             </div>
           </div>
         </section>
