@@ -227,35 +227,126 @@ const whyChooseUs = [
   }
 ];
 
-// Testimonials
-const testimonials = [
+// Premium Value Stacking Data
+const premiumValueStack = [
+  { item: 'USCG Licensed Captain & Crew', value: 800, icon: UserCheck },
+  { item: 'Premium Bluetooth Sound System', value: 200, icon: Volume2 },
+  { item: 'Exclusive Private Use (No Sharing)', value: 500, icon: Shield },
+  { item: 'Customizable Experience & Route', value: 300, icon: Target },
+  { item: 'Professional Setup & Service', value: 200, icon: Star },
+  { item: 'Premium Insurance Coverage', value: 150, icon: Shield },
+  { item: 'Lake Travis Expert Navigation', value: 150, icon: MapPin },
+  { item: 'Flexible Schedule & Timing', value: 100, icon: Clock }
+];
+
+// Corporate ROI Data
+const corporateROI = [
   {
-    id: 1,
-    name: 'Amanda R.',
-    role: 'Corporate Event Organizer',
-    rating: 5,
-    text: "Booked Clever Girl for our company retreat - 50 people, absolutely perfect! The crew was professional, the boat was immaculate, and everyone had an amazing time. Worth every penny!",
-    avatar: '💼'
+    title: 'Traditional Corporate Venue',
+    cost: '$5,000-10,000',
+    features: ['Indoor ballroom', 'Standard catering', 'Same old experience', 'Forgotten in a week'],
+    value: 'Average'
   },
   {
-    id: 2,
-    name: 'Jessica & Mark',
-    role: 'Wedding Rehearsal Dinner',
-    rating: 5,
-    text: "Our rehearsal dinner on The Irony was magical! 25 guests, perfect weather, amazing service. The captain found the most beautiful spot on Lake Travis for photos. Highly recommend!",
-    avatar: '💕'
-  },
-  {
-    id: 3,
-    name: 'David L.',
-    role: '40th Birthday Celebration',
-    rating: 5,
-    text: "Day Tripper was perfect for my milestone birthday with 12 close friends. Intimate, fun, and the crew went above and beyond. Best birthday ever on Lake Travis!",
-    avatar: '🎂'
+    title: 'Lake Travis Private Charter',
+    cost: '$1,800-3,000',
+    features: ['Unique experience', 'Flexible catering', 'Memorable setting', 'Talked about for months'],
+    value: 'Exceptional',
+    highlighted: true
   }
 ];
 
-// FAQs
+// Premium Emotional Benefits
+const emotionalBenefits = [
+  {
+    icon: Heart,
+    title: 'Your Vision, Perfectly Executed',
+    description: 'We turn your dream celebration into reality with meticulous attention to detail'
+  },
+  {
+    icon: Shield,
+    title: 'Complete Privacy for Your Group',
+    description: 'No strangers, no sharing - just you and your VIP guests'
+  },
+  {
+    icon: Target,
+    title: 'Tailored to YOUR Exact Needs',
+    description: 'Every aspect customized to match your preferences and style'
+  },
+  {
+    icon: Trophy,
+    title: 'Impress Clients & Reward Teams',
+    description: 'Create experiences that strengthen relationships and close deals'
+  }
+];
+
+// Enhanced Testimonials with Corporate Focus
+const testimonials = [
+  {
+    id: 1,
+    name: 'Amanda Rodriguez',
+    role: 'VP Operations - Dell Technologies',
+    rating: 5,
+    text: "Booked Clever Girl for our Q3 team celebration - 50 people, absolutely perfect! The ROI on team morale was immediate. Professional crew, immaculate boat. Three months later, employees still talk about it. Already booked for next quarter!",
+    avatar: '💼',
+    highlight: 'Corporate Success'
+  },
+  {
+    id: 2,
+    name: 'Michael Chen',
+    role: 'CEO - Austin Tech Ventures',
+    rating: 5,
+    text: "Closed our biggest deal of the year on Meeseeks. There's something about getting clients out on Lake Travis that breaks down barriers. The crew handled everything flawlessly while we focused on relationship building. Worth 10x the investment.",
+    avatar: '🤝',
+    highlight: 'Deal Closer'
+  },
+  {
+    id: 3,
+    name: 'Sarah Williams',
+    role: 'HR Director - Fortune 500',
+    rating: 5,
+    text: "We've done team building everywhere - this topped them all. 75 employees on Clever Girl, perfectly executed. The Ultimate Package saved us hours of planning. Professional invoicing made expense reporting easy. This is how you retain top talent in Austin.",
+    avatar: '🏆',
+    highlight: '500+ Corporate Events'
+  },
+  {
+    id: 4,
+    name: 'Jessica & Mark Thompson',
+    role: 'Wedding Rehearsal Dinner',
+    rating: 5,
+    text: "Our rehearsal dinner on The Irony was pure magic! 25 guests, perfect weather, impeccable service. The captain found the most breathtaking spot for photos. Our families are still raving about it. Highly recommend for wedding events!",
+    avatar: '💕',
+    highlight: 'Wedding Perfect'
+  },
+  {
+    id: 5,
+    name: 'Robert Johnson',
+    role: 'Managing Partner - Johnson & Associates',
+    rating: 5,
+    text: "Annual client appreciation event for 50 VIP clients. The Ultimate Package handled everything - we just showed up. Professional crew, perfect execution, and our clients were blown away. This is how you stand out in Austin's competitive market.",
+    avatar: '⭐',
+    highlight: 'Client Entertainment'
+  },
+  {
+    id: 6,
+    name: 'David Martinez',
+    role: 'Celebrating 40th Birthday',
+    rating: 5,
+    text: "Day Tripper was perfect for my milestone birthday with 12 close friends. Intimate, sophisticated, and the crew went above and beyond. The personalized touches made it unforgettable. Best investment in memories I've ever made!",
+    avatar: '🎂',
+    highlight: 'Milestone Perfect'
+  }
+];
+
+// Urgency Indicators
+const urgencyIndicators = [
+  { text: 'Prime weekend slots book 4-6 weeks out', icon: Calendar },
+  { text: 'Only 3 premium boats in our fleet', icon: Ship },
+  { text: 'Corporate teams book months in advance', icon: Briefcase },
+  { text: 'Peak season filling fast (May-Sept)', icon: TrendingUp }
+];
+
+// Enhanced FAQs for Private Events
 const faqItems = [
   {
     id: 'pricing',
@@ -278,6 +369,26 @@ const faqItems = [
     answer: '25% deposit required if booking more than 30 days out. Full payment required if booking within 30 days of cruise date. Flexible payment options available.'
   },
   {
+    id: 'corporate-invoicing',
+    question: 'Do you handle corporate invoicing and payment?',
+    answer: 'Yes! We provide professional invoicing with all details needed for expense reports. We accept purchase orders, corporate cards, and can work with your accounting department. NET 30 terms available for established corporate clients.'
+  },
+  {
+    id: 'customize-music',
+    question: 'Can we customize the music and entertainment?',
+    answer: 'Absolutely! Connect your phone to our premium Bluetooth sound system and play your custom playlist. We can also arrange live DJs ($300-500), karaoke equipment ($150), or acoustic performers. The boat is YOUR venue - customize it however you want!'
+  },
+  {
+    id: 'catering',
+    question: 'Can we bring catering aboard?',
+    answer: 'Yes! We coordinate with all major Austin caterers for seamless delivery to the boat. Popular options include BBQ, tacos, charcuterie boards, and custom cakes. Our Essentials and Ultimate packages include a 6-foot table for food service. We handle all the logistics!'
+  },
+  {
+    id: 'decorations',
+    question: 'What about decorations and branding?',
+    answer: 'Bring any decorations you want! Corporate clients often add company banners, balloons in brand colors, and custom signage. Wedding parties love florals, lights, and themed decor. We help you set up and secure everything safely. The Ultimate Package includes party atmosphere decorations.'
+  },
+  {
     id: 'cancellation',
     question: 'What is your cancellation policy?',
     answer: 'Full refund if canceled within 48 hours of booking. After that, weather-related cancellations receive full refund at captain\'s discretion.'
@@ -295,7 +406,7 @@ const faqItems = [
   {
     id: 'booking-advance',
     question: 'How far in advance should we book?',
-    answer: 'We recommend 6-12 weeks in advance, especially for weekends and peak season (May-September). Popular dates book up fast!'
+    answer: 'We recommend 6-12 weeks in advance, especially for weekends and peak season (May-September). Prime corporate event dates and wedding season weekends book 3-4 months out. Contact us ASAP to secure your preferred date!'
   }
 ];
 
@@ -426,20 +537,21 @@ export default function PrivateCruises() {
                 <Button
                   size="lg"
                   onClick={handleGetQuote}
-                  className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold text-xl px-12 py-8 shadow-2xl shadow-blue-500/50 hover:shadow-blue-500/70 transition-all"
+                  className="bg-gradient-to-r from-blue-900 to-blue-700 hover:from-blue-800 hover:to-blue-600 text-white border-2 border-yellow-400 font-bold text-xl px-12 py-8 shadow-2xl shadow-blue-900/50 hover:shadow-blue-900/70 transition-all transform hover:scale-105"
                   data-testid="button-hero-get-quote"
                 >
-                  Get Your Custom Quote
-                  <ArrowRight className="ml-3 h-6 w-6" />
+                  Reserve Your Private Charter
+                  <ArrowRight className="ml-3 h-6 w-6 text-yellow-400" />
                 </Button>
                 <Button
                   size="lg"
                   variant="outline"
                   onClick={() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })}
-                  className="border-2 border-purple-600 text-purple-700 hover:bg-purple-50 hover:text-purple-800 font-bold text-xl px-12 py-8"
+                  className="border-3 border-blue-900 bg-white text-blue-900 hover:bg-blue-50 hover:text-blue-900 font-bold text-xl px-12 py-8 transition-all transform hover:scale-105"
                   data-testid="button-hero-view-packages"
                 >
-                  View Packages & Pricing
+                  View Elite Packages
+                  <Gem className="ml-3 h-6 w-6 text-yellow-500" />
                 </Button>
               </div>
 
@@ -493,6 +605,119 @@ export default function PrivateCruises() {
           </div>
         </div>
       </section>
+
+      {/* Premium Value Stacking Section - NEW */}
+      <SectionReveal>
+        <section className="py-20 bg-gradient-to-br from-blue-900 to-purple-900 text-white relative overflow-hidden">
+          <div className="absolute inset-0 bg-black/20"></div>
+          <div className="container mx-auto px-6 relative z-10">
+            <div className="max-w-6xl mx-auto">
+              <div className="text-center mb-12">
+                <Badge className="mb-6 bg-yellow-500 text-black text-sm px-6 py-2 border-0 font-bold tracking-wider uppercase">
+                  Your Exclusive Lake Travis Experience
+                </Badge>
+                <h2 className="text-4xl md:text-5xl font-bold mb-6">
+                  Premium Value Worth <span className="text-yellow-400">${premiumValueStack.reduce((sum, item) => sum + item.value, 0).toLocaleString()}</span>
+                </h2>
+                <p className="text-xl text-white/90 max-w-3xl mx-auto">
+                  Starting at just <span className="text-3xl font-bold text-yellow-400">$200/hour</span> - less than a nice dinner for your group
+                </p>
+              </div>
+
+              {/* Value Stack Grid */}
+              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+                {premiumValueStack.map((item, index) => {
+                  const Icon = item.icon;
+                  return (
+                    <div key={index} className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
+                      <div className="flex items-center gap-3 mb-3">
+                        <div className="p-2 bg-yellow-500/20 rounded-lg">
+                          <Icon className="h-6 w-6 text-yellow-400" />
+                        </div>
+                        <span className="text-2xl font-bold text-yellow-400">${item.value}</span>
+                      </div>
+                      <p className="text-white/90 font-medium">{item.item}</p>
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* Urgency Indicators */}
+              <div className="bg-red-500/20 border border-red-400/50 rounded-xl p-8 backdrop-blur-sm">
+                <h3 className="text-2xl font-bold mb-6 text-center text-white">
+                  ⚠️ Limited Availability Warning
+                </h3>
+                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                  {urgencyIndicators.map((indicator, index) => {
+                    const Icon = indicator.icon;
+                    return (
+                      <div key={index} className="flex items-center gap-3">
+                        <Icon className="h-6 w-6 text-red-400 shrink-0" />
+                        <span className="text-white/90 font-medium">{indicator.text}</span>
+                      </div>
+                    );
+                  })}
+                </div>
+                <div className="mt-8 text-center">
+                  <Button
+                    size="lg"
+                    onClick={handleGetQuote}
+                    className="bg-yellow-500 hover:bg-yellow-400 text-black font-bold text-xl px-12 py-8 shadow-2xl"
+                  >
+                    Reserve Your Date Now
+                    <ArrowRight className="ml-3 h-6 w-6" />
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </SectionReveal>
+
+      {/* Premium Emotional Benefits Section - NEW */}
+      <SectionReveal>
+        <section className="py-20 bg-gradient-to-br from-white to-blue-50">
+          <div className="container mx-auto px-6">
+            <div className="max-w-6xl mx-auto">
+              <div className="text-center mb-12">
+                <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900">
+                  The Experience You Deserve
+                </h2>
+                <p className="text-xl text-gray-700">
+                  More than just a boat rental - it's YOUR perfect day on the water
+                </p>
+              </div>
+
+              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                {emotionalBenefits.map((benefit, index) => {
+                  const Icon = benefit.icon;
+                  return (
+                    <Card key={index} className="bg-white border-gray-200 hover:border-blue-500 transition-all hover:shadow-xl">
+                      <CardHeader className="text-center">
+                        <div className="mx-auto mb-4 p-4 bg-gradient-to-br from-blue-100 to-purple-100 rounded-full">
+                          <Icon className="h-8 w-8 text-blue-600" />
+                        </div>
+                        <CardTitle className="text-xl">{benefit.title}</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-center text-gray-700">{benefit.description}</p>
+                      </CardContent>
+                    </Card>
+                  );
+                })}
+              </div>
+
+              <div className="mt-12 text-center">
+                <p className="text-lg text-gray-700 mb-6">
+                  <InternalLinkHighlight href="/atx-disco-cruise" title="ATX Disco Cruise">Looking for a party atmosphere? Check our ATX Disco Cruise</InternalLinkHighlight> | 
+                  <InternalLinkHighlight href="/team-building" title="Team Building"> Corporate team building</InternalLinkHighlight> | 
+                  <InternalLinkHighlight href="/wedding-parties" title="Wedding Parties"> Wedding celebrations</InternalLinkHighlight>
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </SectionReveal>
 
       {/* Experience Section */}
       <SectionReveal>
@@ -1135,6 +1360,108 @@ export default function PrivateCruises() {
         </section>
       </SectionReveal>
 
+      {/* Corporate ROI Section - NEW */}
+      <SectionReveal>
+        <section className="py-20 bg-gray-900 text-white">
+          <div className="container mx-auto px-6">
+            <div className="max-w-6xl mx-auto">
+              <div className="text-center mb-12">
+                <Badge className="mb-6 bg-green-500 text-white text-sm px-6 py-2 border-0 font-bold tracking-wider uppercase">
+                  ROI for Corporate Clients
+                </Badge>
+                <h2 className="text-4xl md:text-5xl font-bold mb-6">
+                  Why Smart Companies Choose Lake Travis
+                </h2>
+                <p className="text-xl text-white/90 max-w-3xl mx-auto">
+                  Better results, lower cost, unforgettable impact
+                </p>
+              </div>
+
+              {/* ROI Comparison Cards */}
+              <div className="grid md:grid-cols-2 gap-8 mb-12">
+                {corporateROI.map((option, index) => (
+                  <Card 
+                    key={index} 
+                    className={cn(
+                      "bg-white/10 backdrop-blur-sm border-white/20",
+                      option.highlighted && "border-2 border-green-400 shadow-2xl shadow-green-500/20"
+                    )}
+                  >
+                    <CardHeader>
+                      {option.highlighted && (
+                        <Badge className="mb-4 bg-green-500 text-white">BEST VALUE</Badge>
+                      )}
+                      <CardTitle className="text-2xl text-white">{option.title}</CardTitle>
+                      <p className="text-3xl font-bold text-yellow-400">{option.cost}</p>
+                    </CardHeader>
+                    <CardContent>
+                      <ul className="space-y-3">
+                        {option.features.map((feature, idx) => (
+                          <li key={idx} className="flex items-start gap-3">
+                            {option.highlighted ? (
+                              <CheckCircle className="h-5 w-5 text-green-400 shrink-0 mt-0.5" />
+                            ) : (
+                              <X className="h-5 w-5 text-red-400 shrink-0 mt-0.5" />
+                            )}
+                            <span className="text-white/90">{feature}</span>
+                          </li>
+                        ))}
+                      </ul>
+                      <div className="mt-6 p-4 bg-white/10 rounded-lg">
+                        <p className="text-center">
+                          <span className="text-sm text-white/70">VALUE:</span>
+                          <span className={cn(
+                            "block text-xl font-bold mt-1",
+                            option.highlighted ? "text-green-400" : "text-yellow-400"
+                          )}>
+                            {option.value}
+                          </span>
+                        </p>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+
+              {/* ROI Benefits */}
+              <div className="grid md:grid-cols-3 gap-6 text-center">
+                <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
+                  <Trophy className="h-12 w-12 text-yellow-400 mx-auto mb-4" />
+                  <h3 className="text-xl font-bold mb-2">Team Building That Works</h3>
+                  <p className="text-white/80">Break down barriers, build real connections</p>
+                </div>
+                <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
+                  <TrendingUp className="h-12 w-12 text-green-400 mx-auto mb-4" />
+                  <h3 className="text-xl font-bold mb-2">Client Entertainment That Closes</h3>
+                  <p className="text-white/80">Unique experiences that seal the deal</p>
+                </div>
+                <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
+                  <Star className="h-12 w-12 text-blue-400 mx-auto mb-4" />
+                  <h3 className="text-xl font-bold mb-2">Milestones Worth Remembering</h3>
+                  <p className="text-white/80">Celebrate success in unforgettable style</p>
+                </div>
+              </div>
+
+              <div className="mt-12 text-center">
+                <p className="text-lg text-white/90 mb-8">
+                  <span className="font-bold text-green-400">500+ successful corporate events</span> | 
+                  <span className="font-bold text-yellow-400"> Trusted by Austin's top companies</span> | 
+                  <span className="font-bold text-blue-400"> Professional invoicing available</span>
+                </p>
+                <Button
+                  size="lg"
+                  onClick={handleGetQuote}
+                  className="bg-gradient-to-r from-yellow-500 to-yellow-400 hover:from-yellow-400 hover:to-yellow-300 text-black font-bold text-xl px-12 py-8 shadow-2xl"
+                >
+                  Get Custom Corporate Quote
+                  <Briefcase className="ml-3 h-6 w-6" />
+                </Button>
+              </div>
+            </div>
+          </div>
+        </section>
+      </SectionReveal>
+
       {/* Why Choose Us Section */}
       <SectionReveal>
         <section id="why-choose" className="py-24 bg-gradient-to-br from-blue-600 to-purple-600 text-white">
@@ -1290,15 +1617,20 @@ export default function PrivateCruises() {
                 </p>
               </div>
 
-              <div className="grid md:grid-cols-3 gap-8">
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {testimonials.map((testimonial) => (
-                  <Card key={testimonial.id} className="bg-white border-gray-200">
+                  <Card key={testimonial.id} className="bg-white border-gray-200 hover:border-blue-500 transition-all hover:shadow-xl">
                     <CardHeader>
+                      {testimonial.highlight && (
+                        <Badge className="mb-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+                          {testimonial.highlight}
+                        </Badge>
+                      )}
                       <div className="flex items-center gap-4 mb-4">
                         <div className="text-5xl">{testimonial.avatar}</div>
                         <div>
                           <CardTitle className="text-lg">{testimonial.name}</CardTitle>
-                          <p className="text-sm text-gray-600">{testimonial.role}</p>
+                          <p className="text-sm text-gray-600 font-medium">{testimonial.role}</p>
                         </div>
                       </div>
                       <div className="flex gap-1 mb-4">
@@ -1309,7 +1641,7 @@ export default function PrivateCruises() {
                     </CardHeader>
                     <CardContent>
                       <Quote className="h-8 w-8 text-blue-200 mb-2" />
-                      <p className="text-gray-700 italic">{testimonial.text}</p>
+                      <p className="text-gray-700 italic leading-relaxed">{testimonial.text}</p>
                     </CardContent>
                   </Card>
                 ))}
