@@ -1,6 +1,16 @@
 import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
-import { setupVite, serveStatic, log } from "./vite";
+// Vite imports moved to conditional loading to avoid bundling in production
+// Log function for server messages
+function log(message: string, source = "express") {
+  const formattedTime = new Date().toLocaleTimeString("en-US", {
+    hour: "numeric",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: true,
+  });
+  console.log(`${formattedTime} [${source}] ${message}`);
+}
 import { setupEmbedRouting, hasEmbedBuild } from "./embedServer";
 import { blogRouter } from "./blog-api.js";
 import { setupAuth } from "./auth";
@@ -412,6 +422,8 @@ Crawl-delay: 1`;
     } else {
       log("No embed build found, all routes will use development mode", "dev");
     }
+    // Dynamically import vite only in development to avoid bundling issues
+    const { setupVite } = await import("./vite");
     await setupVite(app, server);
   } else {
     // CRITICAL FIX: Use process.cwd() instead of import.meta.dirname 
