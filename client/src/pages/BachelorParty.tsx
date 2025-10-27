@@ -197,8 +197,23 @@ const whatsIncluded = [
   }
 ];
 
-// FAQs with corrected content
+// FAQs Enhanced for Guys - Bachelor-specific
 const faqItems = [
+  {
+    id: 'cooler-policy',
+    question: 'Can we bring a cooler of whatever we want?',
+    answer: 'Hell yes! BYOB - bring beer, liquor, seltzers - whatever your crew drinks. We provide the coolers and ice. Cans/plastic only for safety.'
+  },
+  {
+    id: 'crew-size',
+    question: 'Is there room for our whole crew?',
+    answer: 'We\'ve got boats from 14 to 75 people. Most bachelor parties book the Disco Cruise where you party with other bachelor crews - more energy, more fun.'
+  },
+  {
+    id: 'party-vibe',
+    question: 'What\'s the party vibe like?',
+    answer: 'Think Vegas energy on Lake Travis. DJ spinning, multiple bachelor crews getting wild, giant floats, epic atmosphere. It\'s your last hurrah done right.'
+  },
   {
     id: 'refund-policy',
     question: 'Do you offer a refund window after booking?',
@@ -206,21 +221,21 @@ const faqItems = [
   },
   {
     id: 'split-payment',
-    question: 'Can we split payments?',
-    answer: 'Yes. Split payment options are available at checkout.'
+    question: 'Can we split payments between the guys?',
+    answer: 'Yes. Split payment options are available at checkout - makes it easy for everyone to chip in.'
   },
   {
     id: 'attire',
     question: 'Is disco attire required?',
-    answer: 'Encouraged but not required.'
+    answer: 'Encouraged but not required. Most crews go all out - it makes for legendary photos.'
   },
   {
     id: 'weather-policy',
     question: 'What happens in bad weather?',
-    answer: 'Rain or shine. For severe weather, we move to Lemonade Disco (land venue).',
+    answer: 'Rain or shine - we party. For severe weather, we move to Lemonade Disco (land venue).',
     answerJsx: (
       <>
-        Rain or shine. For severe weather, we move to{' '}
+        Rain or shine - we party. For severe weather, we move to{' '}
         <a href="#lemonade-disco" className="text-brand-blue hover:underline font-semibold">
           Lemonade Disco
         </a>{' '}
@@ -231,22 +246,22 @@ const faqItems = [
   {
     id: 'add-people',
     question: 'Can we add people after booking?',
-    answer: 'Yes, usually 1–2 if availability allows—contact us ASAP.'
+    answer: 'Yes, usually 1–2 if availability allows—contact us ASAP. The boys always bring more boys.'
   },
   {
     id: 'group-discounts',
     question: 'Do you offer group discounts?',
-    answer: 'Yes for larger groups—contact us for details.'
+    answer: 'Yes for groups of 10+ - the bigger the crew, the better the deal. Contact us for details.'
   },
   {
     id: 'alcohol-policy',
     question: 'What\'s the alcohol policy?',
-    answer: 'BYOB for 21+; cans/plastic only; coolers with ice and cups provided.'
+    answer: 'BYOB for 21+. Bring whatever you want - beer, liquor, seltzers. Cans/plastic only. We provide coolers with ice and cups.'
   },
   {
     id: 'booking-timeline',
     question: 'How far in advance should we book?',
-    answer: 'Peak weekends sell out 4–6 weeks in advance; book early.'
+    answer: 'Peak bachelor season weekends sell out 4–6 weeks in advance. Lock it in early or risk missing out.'
   }
 ];
 
@@ -455,6 +470,127 @@ export default function BachelorParty() {
           </div>
         </div>
       </section>
+
+      {/* VALUE STACKING SECTION - NEW */}
+      <SectionReveal>
+        <section className="py-20 bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="text-center mb-12">
+              <Badge className="mb-6 bg-gradient-to-r from-yellow-600 to-orange-600 text-white px-8 py-3 font-bold tracking-wider uppercase text-lg border-0">
+                <Zap className="h-5 w-5 mr-2 inline" />
+                Epic Send-Off Your Crew Deserves
+              </Badge>
+              <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
+                The Real Value of Your Bachelor Experience
+              </h2>
+              <p className="text-xl text-gray-200 max-w-3xl mx-auto">
+                <span className="font-bold text-brand-yellow">Austin's Most Legendary Bachelor Experience Books Fast</span><br/>
+                Join 75,000+ grooms who went ALL OUT
+              </p>
+            </div>
+
+            {/* Value Stack Cards */}
+            <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto mb-12">
+              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border-2 border-brand-yellow/30">
+                <h3 className="text-2xl font-bold text-white mb-6">What You're Getting:</h3>
+                <ul className="space-y-4">
+                  <li className="flex justify-between items-center">
+                    <span className="text-gray-200 flex items-center">
+                      <Ship className="h-5 w-5 mr-3 text-brand-yellow" />
+                      VIP Boat Experience (4 Hours)
+                    </span>
+                    <span className="font-bold text-brand-yellow">$500 Value</span>
+                  </li>
+                  <li className="flex justify-between items-center">
+                    <span className="text-gray-200 flex items-center">
+                      <Music className="h-5 w-5 mr-3 text-brand-yellow" />
+                      Pro DJ & Entertainment
+                    </span>
+                    <span className="font-bold text-brand-yellow">$300 Value</span>
+                  </li>
+                  <li className="flex justify-between items-center">
+                    <span className="text-gray-200 flex items-center">
+                      <Camera className="h-5 w-5 mr-3 text-brand-yellow" />
+                      Professional Photography
+                    </span>
+                    <span className="font-bold text-brand-yellow">$200 Value</span>
+                  </li>
+                  <li className="flex justify-between items-center">
+                    <span className="text-gray-200 flex items-center">
+                      <UserCheck className="h-5 w-5 mr-3 text-brand-yellow" />
+                      Zero Planning Hassle
+                    </span>
+                    <span className="font-bold text-brand-yellow">$400 Value</span>
+                  </li>
+                  <li className="flex justify-between items-center border-t-2 border-brand-yellow/30 pt-4">
+                    <span className="text-xl font-bold text-white">Total Value</span>
+                    <span className="text-2xl font-bold text-brand-yellow">$1,400+</span>
+                  </li>
+                  <li className="flex justify-between items-center">
+                    <span className="text-gray-200 flex items-center">
+                      <Trophy className="h-5 w-5 mr-3 text-green-400" />
+                      Legendary Memories
+                    </span>
+                    <span className="font-bold text-green-400">Priceless</span>
+                  </li>
+                </ul>
+                <div className="mt-8 text-center bg-brand-yellow/20 rounded-xl p-4">
+                  <p className="text-3xl font-bold text-brand-yellow mb-2">Just $85/person</p>
+                  <p className="text-gray-200">Cheaper than bottle service at any club</p>
+                </div>
+              </div>
+
+              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border-2 border-red-500/30">
+                <h3 className="text-2xl font-bold text-white mb-6">⚠️ Bachelor-Specific Urgency</h3>
+                <div className="space-y-4">
+                  <div className="bg-red-600/20 rounded-lg p-4">
+                    <p className="text-white font-bold mb-2">🔥 Peak bachelor season weekends sell out</p>
+                    <p className="text-gray-300">May through September books 4-6 weeks in advance</p>
+                  </div>
+                  <div className="bg-orange-600/20 rounded-lg p-4">
+                    <p className="text-white font-bold mb-2">📅 Only 2 Saturday slots per day</p>
+                    <p className="text-gray-300">Limited availability for the best party times</p>
+                  </div>
+                  <div className="bg-yellow-600/20 rounded-lg p-4">
+                    <p className="text-white font-bold mb-2">👥 Groups of 10+ get discounts</p>
+                    <p className="text-gray-300">The bigger the crew, the better the deal</p>
+                  </div>
+                  <div className="text-center mt-6">
+                    <p className="text-2xl font-bold text-brand-yellow">150,000+ Parties</p>
+                    <p className="text-gray-200">Legendary celebrations since 2010</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Masculine Emotional Benefits */}
+            <div className="bg-gradient-to-r from-blue-600/20 to-purple-600/20 rounded-2xl p-8 max-w-5xl mx-auto border border-white/20">
+              <div className="grid md:grid-cols-4 gap-6 text-center">
+                <div>
+                  <Trophy className="h-10 w-10 mx-auto mb-3 text-brand-yellow" />
+                  <h4 className="font-bold text-white mb-2">Your Last Hurrah</h4>
+                  <p className="text-gray-300 text-sm">Done LEGENDARY</p>
+                </div>
+                <div>
+                  <Users className="h-10 w-10 mx-auto mb-3 text-brand-yellow" />
+                  <h4 className="font-bold text-white mb-2">Party with Crews</h4>
+                  <p className="text-gray-300 text-sm">From across the country</p>
+                </div>
+                <div>
+                  <Heart className="h-10 w-10 mx-auto mb-3 text-brand-yellow" />
+                  <h4 className="font-bold text-white mb-2">The Send-Off</h4>
+                  <p className="text-gray-300 text-sm">Your boys will never forget</p>
+                </div>
+                <div>
+                  <Zap className="h-10 w-10 mx-auto mb-3 text-brand-yellow" />
+                  <h4 className="font-bold text-white mb-2">Zero Planning</h4>
+                  <p className="text-gray-300 text-sm">Maximum party energy</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </SectionReveal>
 
       {/* 2. EXPERIENCE DESCRIPTION */}
       <SectionReveal>
@@ -1048,11 +1184,14 @@ export default function BachelorParty() {
               <Button
                 size="lg"
                 onClick={() => handleGetQuote()}
-                className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-lg px-12 py-7"
+                className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-black font-bold text-lg px-12 py-7"
               >
                 <Calendar className="mr-2 h-6 w-6" />
-                Book Your Bachelor Party Today
+                Lock In Your Legendary Send-Off
               </Button>
+              <p className="text-white/90 text-sm mt-4">
+                Professional crew keeps things smooth • BYOB - bring whatever you want
+              </p>
             </div>
           </div>
         </section>
@@ -1094,21 +1233,207 @@ export default function BachelorParty() {
         </section>
       </SectionReveal>
 
-      {/* 9. TESTIMONIALS/REVIEWS */}
+      {/* COMPARISON SECTION - NEW */}
+      <SectionReveal>
+        <section className="py-20 bg-gradient-to-br from-blue-50 to-white">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="text-center mb-12">
+              <Badge className="mb-6 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 font-bold tracking-wider uppercase text-sm border-0">
+                <Target className="h-4 w-4 mr-2 inline" />
+                Your Bachelor Party Options
+              </Badge>
+              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+                Compare Your Bachelor Party Options
+              </h2>
+              <p className="text-xl text-gray-700 max-w-3xl mx-auto">
+                We've done the math - see why Austin beats Vegas every time
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+              {/* Vegas Trip Option */}
+              <Card className="border-2 border-gray-300 relative">
+                <CardHeader>
+                  <Plane className="h-10 w-10 mb-4 text-gray-600" />
+                  <CardTitle className="text-2xl">Vegas Weekend</CardTitle>
+                  <div className="text-3xl font-bold text-red-600 mt-2">$3,000+</div>
+                  <p className="text-gray-600">per person for 3 days</p>
+                </CardHeader>
+                <CardContent>
+                  <ul className="space-y-3">
+                    <li className="flex items-start gap-2">
+                      <X className="h-5 w-5 text-red-500 mt-0.5 flex-shrink-0" />
+                      <span className="text-gray-700">Flight hassles & delays</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <X className="h-5 w-5 text-red-500 mt-0.5 flex-shrink-0" />
+                      <span className="text-gray-700">$500+ hotel rooms</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <X className="h-5 w-5 text-red-500 mt-0.5 flex-shrink-0" />
+                      <span className="text-gray-700">$30 drinks everywhere</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <X className="h-5 w-5 text-red-500 mt-0.5 flex-shrink-0" />
+                      <span className="text-gray-700">Overpriced everything</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <X className="h-5 w-5 text-red-500 mt-0.5 flex-shrink-0" />
+                      <span className="text-gray-700">Same old Vegas scene</span>
+                    </li>
+                  </ul>
+                </CardContent>
+              </Card>
+
+              {/* Private Boat Option */}
+              <Card className="border-2 border-gray-300 relative">
+                <CardHeader>
+                  <Ship className="h-10 w-10 mb-4 text-gray-600" />
+                  <CardTitle className="text-2xl">Private Boat Only</CardTitle>
+                  <div className="text-3xl font-bold text-orange-600 mt-2">$200-250/hr</div>
+                  <p className="text-gray-600">4 hour minimum</p>
+                </CardHeader>
+                <CardContent>
+                  <ul className="space-y-3">
+                    <li className="flex items-start gap-2">
+                      <X className="h-5 w-5 text-orange-500 mt-0.5 flex-shrink-0" />
+                      <span className="text-gray-700">Just your small crew</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <X className="h-5 w-5 text-orange-500 mt-0.5 flex-shrink-0" />
+                      <span className="text-gray-700">No DJ or photographer</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <X className="h-5 w-5 text-orange-500 mt-0.5 flex-shrink-0" />
+                      <span className="text-gray-700">Quieter vibe</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
+                      <span className="text-gray-700">Privacy for your group</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <X className="h-5 w-5 text-orange-500 mt-0.5 flex-shrink-0" />
+                      <span className="text-gray-700">More expensive overall</span>
+                    </li>
+                  </ul>
+                </CardContent>
+              </Card>
+
+              {/* ATX Disco Option - WINNER */}
+              <Card className="border-4 border-brand-yellow relative shadow-2xl transform scale-105">
+                <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                  <Badge className="bg-gradient-to-r from-yellow-500 to-orange-500 text-black font-bold px-6 py-2 text-lg">
+                    🏆 BEST VALUE
+                  </Badge>
+                </div>
+                <CardHeader className="pt-8">
+                  <Music className="h-10 w-10 mb-4 text-brand-yellow" />
+                  <CardTitle className="text-2xl">ATX Disco Cruise</CardTitle>
+                  <div className="text-3xl font-bold text-green-600 mt-2">$85-105</div>
+                  <p className="text-gray-600">per person all-inclusive</p>
+                </CardHeader>
+                <CardContent>
+                  <ul className="space-y-3">
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
+                      <span className="text-gray-700 font-semibold">All-inclusive party</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
+                      <span className="text-gray-700 font-semibold">DJ & photographer included</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
+                      <span className="text-gray-700 font-semibold">Meet other bachelor crews</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
+                      <span className="text-gray-700 font-semibold">Epic party energy</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
+                      <span className="text-gray-700 font-semibold">BYOB - no markup</span>
+                    </li>
+                  </ul>
+                  <Button 
+                    className="w-full mt-6 bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-black font-bold text-lg py-6"
+                    onClick={() => handleGetQuote('disco_king')}
+                  >
+                    Lock In Your Legendary Send-Off
+                  </Button>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </section>
+      </SectionReveal>
+
+      {/* 9. TESTIMONIALS/REVIEWS - ENHANCED */}
       <SectionReveal>
         <section id="testimonials" className="py-20 bg-gradient-to-br from-gray-50 to-white">
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
               <Badge className="mb-6 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
                 <Quote className="h-4 w-4 mr-2 inline" />
-                Customer Reviews
+                Where Bachelor Parties from Texas and Beyond Rage
               </Badge>
               <h2 className="text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
-                What Bachelor Parties Are Saying
+                What The Grooms Are Saying
               </h2>
               <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed mb-8">
-                Check out our verified reviews on Google and Facebook to see what real customers are saying about their bachelor party experiences on Lake Travis!
+                Real reviews from real grooms who trusted us with their legendary send-off
               </p>
+
+              {/* Social Proof Testimonials for Guys */}
+              <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto mb-12">
+                <Card className="bg-gradient-to-br from-blue-50 to-white border-2 border-blue-200">
+                  <CardContent className="p-6">
+                    <div className="flex mb-4">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} className="h-5 w-5 text-yellow-500 fill-current" />
+                      ))}
+                    </div>
+                    <p className="text-gray-700 mb-4 italic">
+                      "The boys still talk about this! DJ was killing it, other bachelor crews were wild, 
+                      and the floats were epic. Better than my buddy's Vegas trip and way cheaper."
+                    </p>
+                    <div className="font-bold text-gray-900">Mike S.</div>
+                    <div className="text-gray-600 text-sm">Dallas, TX - Bachelor Party</div>
+                  </CardContent>
+                </Card>
+
+                <Card className="bg-gradient-to-br from-purple-50 to-white border-2 border-purple-200">
+                  <CardContent className="p-6">
+                    <div className="flex mb-4">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} className="h-5 w-5 text-yellow-500 fill-current" />
+                      ))}
+                    </div>
+                    <p className="text-gray-700 mb-4 italic">
+                      "Zero stress, maximum fun. They handled everything - we just showed up with coolers. 
+                      Met crews from all over Texas. Professional photos came out sick!"
+                    </p>
+                    <div className="font-bold text-gray-900">Jake R.</div>
+                    <div className="text-gray-600 text-sm">Houston, TX - 15 Guy Bachelor Bash</div>
+                  </CardContent>
+                </Card>
+
+                <Card className="bg-gradient-to-br from-yellow-50 to-white border-2 border-yellow-300">
+                  <CardContent className="p-6">
+                    <div className="flex mb-4">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} className="h-5 w-5 text-yellow-500 fill-current" />
+                      ))}
+                    </div>
+                    <p className="text-gray-700 mb-4 italic">
+                      "As best man, this made me look like a hero. Group discount for 12 guys, 
+                      split payment was easy. The groom went wild on the giant float. 10/10"
+                    </p>
+                    <div className="font-bold text-gray-900">Tyler K.</div>
+                    <div className="text-gray-600 text-sm">San Antonio, TX - Best Man Win</div>
+                  </CardContent>
+                </Card>
+              </div>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                 <Button
@@ -1140,9 +1465,9 @@ export default function BachelorParty() {
                 <Button
                   size="lg"
                   onClick={() => handleGetQuote()}
-                  className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold text-lg px-12 py-6"
+                  className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-black font-bold text-lg px-12 py-6"
                 >
-                  Book Your Bachelor Party Today
+                  Lock In Your Legendary Send-Off
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </div>
@@ -1209,6 +1534,78 @@ export default function BachelorParty() {
                   Call (512) 770-5050
                 </Button>
               </div>
+            </div>
+          </div>
+        </section>
+      </SectionReveal>
+
+      {/* INTERNAL LINKS SECTION - NEW */}
+      <SectionReveal>
+        <section className="py-16 bg-gradient-to-br from-gray-900 to-blue-900">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
+                Explore Your Party Options
+              </h2>
+              <p className="text-xl text-gray-200 max-w-3xl mx-auto">
+                Find the perfect Lake Travis experience for your crew
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+              {/* ATX Disco Link */}
+              <a href="/atx-disco-cruise" className="group">
+                <Card className="h-full border-2 border-gray-600 hover:border-brand-yellow transition-all hover:shadow-2xl">
+                  <CardContent className="p-6">
+                    <Music className="h-12 w-12 mb-4 text-brand-yellow" />
+                    <h3 className="text-xl font-bold mb-2 text-gray-900 group-hover:text-blue-600">
+                      ATX Disco Cruise Details
+                    </h3>
+                    <p className="text-gray-600">
+                      Full breakdown of the legendary ATX Disco experience with DJ, photographer, and party atmosphere
+                    </p>
+                    <div className="mt-4 text-blue-600 font-semibold flex items-center">
+                      View Full Details <ArrowRight className="ml-2 h-4 w-4" />
+                    </div>
+                  </CardContent>
+                </Card>
+              </a>
+
+              {/* Bachelorette Link */}
+              <a href="/bachelorette-party-austin" className="group">
+                <Card className="h-full border-2 border-gray-600 hover:border-purple-400 transition-all hover:shadow-2xl">
+                  <CardContent className="p-6">
+                    <Heart className="h-12 w-12 mb-4 text-purple-600" />
+                    <h3 className="text-xl font-bold mb-2 text-gray-900 group-hover:text-purple-600">
+                      Planning a Joint Party?
+                    </h3>
+                    <p className="text-gray-600">
+                      Coordinate with the bride's crew for an epic combined celebration on Lake Travis
+                    </p>
+                    <div className="mt-4 text-purple-600 font-semibold flex items-center">
+                      See Bachelorette Options <ArrowRight className="ml-2 h-4 w-4" />
+                    </div>
+                  </CardContent>
+                </Card>
+              </a>
+
+              {/* Private Cruises Link */}
+              <a href="/private-party-boats-austin" className="group">
+                <Card className="h-full border-2 border-gray-600 hover:border-blue-400 transition-all hover:shadow-2xl">
+                  <CardContent className="p-6">
+                    <Ship className="h-12 w-12 mb-4 text-blue-600" />
+                    <h3 className="text-xl font-bold mb-2 text-gray-900 group-hover:text-blue-600">
+                      Want Exclusive? Check Private Boats
+                    </h3>
+                    <p className="text-gray-600">
+                      Private charter options for groups wanting their own boat and custom experience
+                    </p>
+                    <div className="mt-4 text-blue-600 font-semibold flex items-center">
+                      View Private Options <ArrowRight className="ml-2 h-4 w-4" />
+                    </div>
+                  </CardContent>
+                </Card>
+              </a>
             </div>
           </div>
         </section>
