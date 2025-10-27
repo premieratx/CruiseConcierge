@@ -76,20 +76,20 @@ const staggerChildren = {
 const discoPackages = [
   {
     id: 'basic',
-    name: 'Basic Bach Package',
-    price: DISCO_PRICING.basic / 100,
+    name: 'Basic Bach',
+    price: 85,
     originalPrice: null,
-    description: 'Join the BEST Party on Lake Travis, Exclusively for Bach Parties!',
-    subtitle: 'BYOB & Keep it Cheap - ALWAYS Cheaper than a Private Cruise',
+    description: 'Join the BEST Party on Lake Travis - Exclusively for Bach Parties!',
+    subtitle: '$85/person ($111 with tax & tip) - BYOB & Keep it Cheap',
     features: [
       'Full 4-hour Lake Travis cruise experience',
       'Professional DJ entertainment all day',
       'Professional photographer capturing memories',
       'Digital photo delivery after the event',
       'Giant unicorn float access',
-      'Multi-group party atmosphere',
+      'Multi-group party atmosphere (50-100+ people)',
       'BYOB with shared coolers & ice',
-      'Alcohol delivery & lunch delivery available'
+      'We can coordinate alcohol delivery to boat'
     ],
     popular: false,
     icon: Disc3,
@@ -97,17 +97,17 @@ const discoPackages = [
   },
   {
     id: 'disco_queen',
-    name: 'Disco Queen Package',
-    price: DISCO_PRICING.disco_queen / 100,
-    originalPrice: 110,
+    name: 'Disco Queen',
+    price: 95,
+    originalPrice: null,
     description: 'Enhanced party experience with private cooler and reserved spot',
-    subtitle: 'Private Cooler & Reserved Spot for Your Group',
+    subtitle: '$95/person ($124 with tax & tip) - Private Cooler for Your Group',
     features: [
       'Everything in Basic Bach Package',
       'Private cooler with ice & storage bin for your group',
       'Reserved spot for your group on the boat',
       'Disco ball cup & bubble gun for guest of honor',
-      'Direct-to-boat alcohol & lunch delivery',
+      'We can coordinate alcohol delivery direct to boat',
       '25% discount on round-trip transportation'
     ],
     popular: true,
@@ -116,11 +116,11 @@ const discoPackages = [
   },
   {
     id: 'platinum',
-    name: 'Super Sparkle Platinum Disco',
-    price: DISCO_PRICING.platinum / 100,
-    originalPrice: 125,
+    name: 'Super Sparkle',
+    price: 105,
+    originalPrice: null,
     description: 'Ultimate all-inclusive party experience with maximum celebration',
-    subtitle: 'Nothing to Carry, Cooler Stocked When You Arrive!',
+    subtitle: '$105/person ($137 with tax & tip) - Nothing to Carry!',
     features: [
       'Everything in Disco Queen Package',
       'Personal unicorn float for guest of honor',
@@ -184,32 +184,46 @@ const whatsIncluded = [
 
 const experienceTimeline = [
   {
-    time: 'Hour 1: Boarding & Meet-Up',
-    title: 'Welcome Aboard!',
-    description: 'Arrive at Anderson Mill Marina, meet your fellow party-goers from across the country, get your drinks in the coolers, and let the DJ get the energy going!',
-    icon: Ship,
+    time: 'Step 1: Wake Up the Morning Of',
+    title: 'Nothing to Do!',
+    description: 'No planning needed whatsoever! Just rally the troops and get to the lake. Everything is completely handled for you - this is the beauty of ATX Disco Cruise!',
+    icon: Sun,
     color: 'from-purple-500 to-pink-500'
   },
   {
-    time: 'Hour 2: Party Starts',
-    title: 'Full Party Mode',
-    description: 'DJ cranking hits, photographer capturing moments, floats deployed! Dance, mingle with other bach parties, and experience the legendary multi-group energy.',
-    icon: Music,
+    time: 'Step 2: Check-In & Board',
+    title: 'Party Starts When You Arrive!',
+    description: 'Crew setting up your private cooler, DJ warming up and ready, photographer capturing arrival moments. Ice water, cups, koozies, bubbles, name tags all set up. Giant unicorn being inflated!',
+    icon: Ship,
     color: 'from-pink-500 to-orange-500'
   },
   {
-    time: 'Hour 3: Peak Celebration',
-    title: 'Maximum Fun',
-    description: 'The party is at its peak! Floats in full use, dancing non-stop, making friends with groups from Dallas, Houston, California, and beyond. Pure celebration!',
-    icon: PartyPopper,
+    time: 'Step 3: Find Your Party Cooler',
+    title: 'Get Settled & Start Celebrating',
+    description: 'DJ is spinning, photographer taking group pictures. Crew helps find your cooler with your name on it. Get settled, grab a drink, make yourself at home!',
+    icon: Music,
     color: 'from-orange-500 to-yellow-500'
   },
   {
-    time: 'Hour 4: Grand Finale',
-    title: 'Epic Send-Off',
-    description: 'Final dance party, group photos with your new friends, exchange numbers, and leave with unforgettable memories. The best bach party experience, guaranteed!',
+    time: 'Step 4: Quick Safety Briefing',
+    title: '"Don\'t Be a Dick & Don\'t Die"',
+    description: 'Cruise 30-45 minutes to the swim spot while captain gives swimming safety briefing. Simple rules for maximum fun and safety on the water.',
+    icon: Shield,
+    color: 'from-yellow-500 to-blue-500'
+  },
+  {
+    time: 'Step 5: Swim. Dance. Drink. Be Merry!',
+    title: 'Next 2 Hours Are Yours!',
+    description: 'Swim, float, dance, mingle with other parties from across the country! DJ takes requests (bribes work). Photographer capturing every epic moment of your celebration.',
+    icon: PartyPopper,
+    color: 'from-blue-500 to-purple-500'
+  },
+  {
+    time: 'Step 6: Dance Yourself Clean',
+    title: 'Epic Sing-Along Finale',
+    description: 'Head back to reality with the ultimate sing-along dance party! Dancing Queen, Mr. Brightside, and all the hits. Call your Uber 10 minutes before docking for a seamless exit.',
     icon: Trophy,
-    color: 'from-yellow-500 to-green-500'
+    color: 'from-purple-500 to-green-500'
   }
 ];
 
@@ -328,7 +342,8 @@ const galleryPhotos = [
 // Table of Contents sections
 const tocSections = [
   { id: 'hero', title: 'Overview', icon: <Sparkles className="h-4 w-4" /> },
-  { id: 'experience', title: '4-Hour Experience', icon: <Clock className="h-4 w-4" /> },
+  { id: 'experience', title: 'What to Expect', icon: <Clock className="h-4 w-4" /> },
+  { id: 'why-book', title: 'Why Book ATX Disco', icon: <Zap className="h-4 w-4" /> },
   { id: 'packages', title: 'Packages & Pricing', icon: <Package className="h-4 w-4" /> },
   { id: 'availability', title: 'Availability', icon: <Calendar className="h-4 w-4" /> },
   { id: 'benefits', title: 'Key Benefits', icon: <Trophy className="h-4 w-4" /> },
@@ -487,7 +502,7 @@ export default function ATXDiscoCruise() {
                 The single most unique and comprehensive <InternalLinkHighlight href="/bachelor-party" title="Bachelor Parties">bachelor</InternalLinkHighlight>/<InternalLinkHighlight href="/bachelorette-party" title="Bachelorette Parties">bachelorette party</InternalLinkHighlight> experience in the United States
               </p>
               <p className="text-sm sm:text-base md:text-lg text-white/80 mb-6 md:mb-8 max-w-3xl mx-auto text-center px-2" data-testid="text-hero-description">
-                Only all-inclusive, multi-group bachelor/bachelorette party cruise in the country. Join parties from across America for an unforgettable 4-hour Lake Travis celebration with professional DJ, photographer, and 100% satisfaction track record! <InternalLinkHighlightWithArrow href="/private-cruises" title="Private Cruises">Or book a private charter</InternalLinkHighlightWithArrow>
+                <strong>NOT a private cruise - this is a shared multi-group celebration!</strong> Join 50-100+ people from different bachelor & bachelorette parties for an unforgettable 4-hour Lake Travis party with professional DJ, photographer, and giant floats! <InternalLinkHighlightWithArrow href="/private-cruises" title="Private Cruises">Want exclusivity? Book a private charter instead</InternalLinkHighlightWithArrow>
               </p>
               
               {/* Urgency & Social Proof Badges */}
@@ -547,13 +562,13 @@ export default function ATXDiscoCruise() {
               <div className="text-center mb-16">
                 <Badge className="mb-6 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
                   <Clock className="h-4 w-4 mr-2 inline" />
-                  The Experience
+                  What to Expect
                 </Badge>
                 <h2 className="text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
-                  Your 4-Hour Party Journey
+                  Your Day of Disco Experience
                 </h2>
                 <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
-                  Hour-by-hour breakdown of America's most unique <InternalLinkHighlight href="/bachelor-party" title="Bachelor Parties">bachelor</InternalLinkHighlight>/<InternalLinkHighlight href="/bachelorette-party" title="Bachelorette Parties">bachelorette party</InternalLinkHighlight> experience. <InternalLinkHighlightWithArrow href="/" title="Home">Explore all our cruise options</InternalLinkHighlightWithArrow>
+                  Simple 6-step journey from wake up to party legend! This is America's ONLY multi-group <InternalLinkHighlight href="/bachelor-party" title="Bachelor Parties">bachelor</InternalLinkHighlight>/<InternalLinkHighlight href="/bachelorette-party" title="Bachelorette Parties">bachelorette party</InternalLinkHighlight> cruise. <InternalLinkHighlightWithArrow href="/private-cruises" title="Private Cruises">Want exclusivity? Book private instead</InternalLinkHighlightWithArrow>
                 </p>
               </div>
 
@@ -590,6 +605,129 @@ export default function ATXDiscoCruise() {
                   data-testid="button-experience-cta"
                 >
                   Claim Your Spot Before It Sells Out <ArrowRight className="ml-2" />
+                </Button>
+              </div>
+            </div>
+          </section>
+        </SectionReveal>
+
+        {/* WHY BOOK SECTION - From KB Doc */}
+        <SectionReveal>
+          <section id="why-book" className="py-20 bg-gradient-to-br from-pink-50 to-purple-50">
+            <div className="max-w-7xl mx-auto px-6">
+              <div className="text-center mb-16">
+                <Badge className="mb-6 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
+                  <Zap className="h-4 w-4 mr-2 inline" />
+                  Why Book ATX Disco
+                </Badge>
+                <h2 className="text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
+                  Why This is THE Bachelor/Bachelorette Experience
+                </h2>
+                <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
+                  The ONLY joint party exclusively for bach parties in America - here's why it's legendary
+                </p>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                <Card className="border-2 border-purple-300 shadow-xl hover:shadow-2xl transition-all">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-3 text-2xl">
+                      <Sparkles className="h-7 w-7 text-purple-600" />
+                      Experience Something NEW
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-lg text-gray-700 leading-relaxed">
+                      <strong>The ONLY joint party exclusively for bach parties.</strong> Not your typical boat rental - this is a curated multi-group celebration unlike anything else in the country!
+                    </p>
+                  </CardContent>
+                </Card>
+
+                <Card className="border-2 border-pink-300 shadow-xl hover:shadow-2xl transition-all">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-3 text-2xl">
+                      <Heart className="h-7 w-7 text-pink-600" />
+                      Priceless Memories & Amazing Vibes
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-lg text-gray-700 leading-relaxed">
+                      <strong>100% satisfaction track record!</strong> The energy of 50-100+ people all celebrating the same thing creates an electric atmosphere you can't recreate anywhere else.
+                    </p>
+                  </CardContent>
+                </Card>
+
+                <Card className="border-2 border-green-300 shadow-xl hover:shadow-2xl transition-all">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-3 text-2xl">
+                      <Package className="h-7 w-7 text-green-600" />
+                      All-Inclusive, Nothing to Plan
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-lg text-gray-700 leading-relaxed">
+                      <strong>Show up and party - that's it!</strong> DJ, photographer, floats, party supplies all included. We handle everything so you can focus on celebrating.
+                    </p>
+                  </CardContent>
+                </Card>
+
+                <Card className="border-2 border-blue-300 shadow-xl hover:shadow-2xl transition-all">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-3 text-2xl">
+                      <DollarSign className="h-7 w-7 text-blue-600" />
+                      Flat-Rate Per-Person Pricing
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-lg text-gray-700 leading-relaxed">
+                      <strong>Makes splitting the cost super easy!</strong> No boat minimums or hidden fees. Just simple per-person pricing that everyone can understand.
+                    </p>
+                  </CardContent>
+                </Card>
+
+                <Card className="border-2 border-orange-300 shadow-xl hover:shadow-2xl transition-all">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-3 text-2xl">
+                      <Users className="h-7 w-7 text-orange-600" />
+                      Party with 50-100+ People
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-lg text-gray-700 leading-relaxed">
+                      <strong>All celebrating the same occasion!</strong> Meet bach parties from Dallas, Houston, California, and beyond. Exchange numbers, make friends, create legendary stories!
+                    </p>
+                  </CardContent>
+                </Card>
+
+                <Card className="border-2 border-indigo-300 shadow-xl hover:shadow-2xl transition-all">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-3 text-2xl">
+                      <Shield className="h-7 w-7 text-indigo-600" />
+                      Weather Guarantee = No Lost Weekends
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-lg text-gray-700 leading-relaxed">
+                      <strong>Rain or shine, the party happens!</strong> If weather cancels the boat, we move to "Lemonade Disco" on land. Your celebration is guaranteed!
+                    </p>
+                  </CardContent>
+                </Card>
+              </div>
+
+              <div className="text-center mt-12 bg-gradient-to-r from-purple-100 to-pink-100 rounded-2xl p-10 border-2 border-purple-300">
+                <h3 className="text-2xl font-bold mb-4 text-gray-900 font-playfair">
+                  This is NOT a Private Cruise - It's BETTER!
+                </h3>
+                <p className="text-lg text-gray-700 mb-6 leading-relaxed max-w-3xl mx-auto">
+                  Looking for exclusivity? <InternalLinkHighlight href="/private-cruises" title="Private Cruises">We also offer private boat charters</InternalLinkHighlight> for groups wanting their own boat. But for the ultimate party experience with unmatched energy, ATX Disco Cruise is THE choice!
+                </p>
+                <Button
+                  size="lg"
+                  onClick={() => handleGetQuote()}
+                  className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold text-lg px-12 py-6"
+                  data-testid="button-why-book-cta"
+                >
+                  Join the Party - Book ATX Disco Now!
                 </Button>
               </div>
             </div>
@@ -1809,7 +1947,7 @@ export default function ATXDiscoCruise() {
               <li>Private cooler with ice & storage bin for your group</li>
               <li>Reserved spot for your group on the boat</li>
               <li>Disco ball cup & bubble gun for guest of honor</li>
-              <li>Direct-to-boat alcohol & lunch delivery</li>
+              <li>We can coordinate alcohol delivery direct to boat</li>
               <li>25% discount on round-trip transportation</li>
             </ul>
           </div>
