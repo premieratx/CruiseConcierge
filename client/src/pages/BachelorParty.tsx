@@ -359,45 +359,11 @@ const faqItems = [
   }
 ];
 
-// Groom Testimonials - Real Social Proof
-const groomTestimonials = [
-  {
-    id: 1,
-    name: 'Mike T.',
-    location: 'Dallas, TX',
-    rating: 5,
-    text: 'BEST bachelor party ever! The Disco King package was perfect - groom cruised free, DJ was killer, and meeting other bachelor crews made it legendary. Worth every penny!',
-    date: 'October 2024',
-    partySize: '12 guys'
-  },
-  {
-    id: 2,
-    name: 'Jason K.',
-    location: 'Houston, TX',
-    rating: 5,
-    text: 'Our crew of 20 had an absolute blast! The giant floats were epic, the photographer captured everything, and the party atmosphere was insane. Book early - they sell out!',
-    date: 'September 2024',
-    partySize: '20 guys'
-  },
-  {
-    id: 3,
-    name: 'Chris M.',
-    location: 'San Antonio, TX',
-    rating: 5,
-    text: 'Zero stress planning! Everything was included - coolers, ice, party gear, even sunscreen. The captain kept things safe and the other bachelor crews were awesome to party with!',
-    date: 'August 2024',
-    partySize: '15 guys'
-  },
-  {
-    id: 4,
-    name: 'Dave S.',
-    location: 'Oklahoma City, OK',
-    rating: 5,
-    text: 'We drove 6 hours for this and it was SO worth it! Professional photographer got epic shots, DJ played all our requests, and partying with other bachelor parties made it legendary.',
-    date: 'July 2024',
-    partySize: '18 guys'
-  }
-];
+// Import real reviews from shared/reviews-data.ts
+import { bachelorReviews, type Review } from '@shared/reviews-data';
+
+// Use bachelorReviews for Bachelor Party page
+const groomTestimonials: Review[] = bachelorReviews;
 
 // Photo gallery items
 const galleryPhotos = [

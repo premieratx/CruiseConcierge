@@ -15,6 +15,7 @@ import { cn } from '@/lib/utils';
 import { useInlineEdit } from '@/hooks/useInlineEdit';
 import { SectionReveal } from '@/components/SectionReveal';
 import QuoteBuilderSection from '@/components/QuoteBuilderSection';
+import { weddingReviews } from '@shared/reviews-data';
 import { 
   Heart, Users, Star, Calendar, Trophy, Shield, Award,
   MessageSquare, Quote, Volume2, Clock, Sparkles,

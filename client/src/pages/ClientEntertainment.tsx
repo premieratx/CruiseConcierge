@@ -14,6 +14,7 @@ import { cn } from '@/lib/utils';
 import { useInlineEdit } from '@/hooks/useInlineEdit';
 import SEOHead from '@/components/SEOHead';
 import { SectionReveal } from '@/components/SectionReveal';
+import { corporateReviews } from '@shared/reviews-data';
 import { 
   Briefcase, Users, Calendar, MapPin, Clock, Phone,
   ArrowRight, CheckCircle, Sparkles, Wine, Shield,

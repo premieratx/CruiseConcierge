@@ -14,6 +14,7 @@ import { cn } from '@/lib/utils';
 import { useInlineEdit } from '@/hooks/useInlineEdit';
 import SEOHead from '@/components/SEOHead';
 import { SectionReveal } from '@/components/SectionReveal';
+import { weddingReviews } from '@shared/reviews-data';
 import { 
   Moon, PartyPopper, Users, Calendar, MapPin, Clock, Phone,
   ArrowRight, CheckCircle, Sparkles, Music, Wine,

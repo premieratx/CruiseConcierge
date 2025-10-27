@@ -361,45 +361,11 @@ const faqItems = [
 ];
 
 
-// Bride Testimonials - Real Social Proof
-const brideTestimonials = [
-  {
-    id: 1,
-    name: 'Sarah M.',
-    location: 'Dallas, TX',
-    rating: 5,
-    text: 'BEST bachelorette party EVER! The Disco Queen package was perfect - bride cruised free, DJ was amazing, and we met other fun bachelorette groups. Worth every penny!',
-    date: 'October 2024',
-    partySize: '12 girls'
-  },
-  {
-    id: 2,
-    name: 'Jessica L.',
-    location: 'Houston, TX',
-    rating: 5,
-    text: 'Our group of 18 had an absolute blast! The giant floats were Instagram gold, the photographer captured everything, and the party atmosphere was unmatched. Book early - they sell out!',
-    date: 'September 2024',
-    partySize: '18 girls'
-  },
-  {
-    id: 3,
-    name: 'Ashley K.',
-    location: 'San Antonio, TX',
-    rating: 5,
-    text: 'Zero stress planning! Everything was included - coolers, ice, decorations, even sunscreen. The captain made us feel so safe and the other bride tribes were so fun to party with!',
-    date: 'August 2024',
-    partySize: '15 girls'
-  },
-  {
-    id: 4,
-    name: 'Brittany R.',
-    location: 'Oklahoma City, OK',
-    rating: 5,
-    text: 'We drove 5 hours for this and it was SO worth it! Professional photographer got amazing shots, DJ played all our requests, and meeting other bachelorette parties made it even more special.',
-    date: 'July 2024',
-    partySize: '22 girls'
-  }
-];
+// Import real reviews from shared/reviews-data.ts
+import { bacheloretteReviews, type Review } from '@shared/reviews-data';
+
+// Use bacheloretteReviews for Bachelorette Party page
+const brideTestimonials: Review[] = bacheloretteReviews;
 
 // Photo gallery items
 const galleryPhotos = [

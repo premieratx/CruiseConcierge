@@ -274,48 +274,30 @@ const faqData = [
   }
 ];
 
-const testimonials = [
-  {
-    id: 1,
-    name: 'Sarah M.',
-    role: 'Wedding Welcome Party',
-    rating: 5,
-    text: "The private charter was absolutely perfect for our wedding welcome party! The crew was professional, the Clever Girl boat with those 14 disco balls was incredible, and everyone had an amazing time!",
-    avatar: '👰',
-    date: 'October 2024',
-    verified: true
-  },
-  {
-    id: 2,
-    name: 'Mike R.',
-    role: 'Corporate Private Charter',
-    rating: 5,
-    text: "Booked the Clever Girl for our company event - 50 people, perfect service. The giant Texas flag deck and professional crew made it unforgettable. Party On Delivery made it seamless!",
-    avatar: '💼',
-    date: 'September 2024',
-    verified: true
-  },
-  {
-    id: 3,
-    name: 'Jessica & Chris',
-    role: '25-Person Private Cruise',
-    rating: 5,
-    text: "The Irony was perfect for our celebration! Anderson Mill Marina was convenient, crew was professional, and 4 hours on Lake Travis was magical. Best decision ever!",
-    avatar: '💕',
-    date: 'October 2024',
-    verified: true
-  },
-  {
-    id: 4,
-    name: 'Emily P.',
-    role: 'Birthday Party Coordinator',
-    rating: 5,
-    text: "We've done this 3 years in a row for different celebrations! Amazing value for private cruises - professional crew, great boats, and an epic party. The best party experience on Lake Travis!",
-    avatar: '🎉',
-    date: 'August 2024',
-    verified: true
-  }
-];
+// Import real reviews from shared/reviews-data.ts
+import {
+  corporateReviews,
+  weddingReviews,
+  birthdayReviews,
+  bacheloretteReviews,
+  discoHighlightReviews,
+  privateCruiseReviews,
+  type Review
+} from '@shared/reviews-data';
+
+// Mix of best reviews from all categories for home page (8-10 reviews)
+const testimonials: Review[] = [
+  corporateReviews[0], // Andrew A. - Company End of Summer Party
+  discoHighlightReviews[0], // Bailey T. - Bachelorette Weekend highlight
+  privateCruiseReviews[0], // Sarah M. - Wedding Welcome Party
+  corporateReviews[3], // Myaann Payne - Company Five-Year Anniversary
+  weddingReviews[0], // Celeste Winn - Wedding Weekend
+  birthdayReviews[0], // Delisia Jones - Birthday Party
+  discoHighlightReviews[1], // Zach Augustyn - Bachelor/Bachelorette Cruise
+  privateCruiseReviews[4], // The Johnson Family - Family Reunion
+  corporateReviews[5], // Colleen Mertes - Corporate Event
+  birthdayReviews[1] // Natalie Hernandez - Birthday-Turned-Engagement Party
+].slice(0, 8);
 
 const stats = [
   { value: '15+', label: 'Years Experience', icon: Trophy },

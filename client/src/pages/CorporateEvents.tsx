@@ -7,6 +7,7 @@ import Footer from '@/components/Footer';
 import PartyPlanningChecklist from '@/components/PartyPlanningChecklist';
 import Chat from '@/pages/Chat';
 import Breadcrumb from '@/components/Breadcrumb';
+import { corporateReviews } from '@shared/reviews-data';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -861,34 +862,55 @@ export default function CorporateEvents() {
                 What Corporate Clients Say
               </h2>
               <p className="text-xl text-gray-700 max-w-3xl mx-auto mb-8">
-                Check out our verified reviews on Google and Facebook!
+                Real Google reviews from our corporate events and team building cruises
               </p>
-              
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button 
-                  size="lg"
-                  variant="outline"
-                  className="border-blue-600 text-blue-600 hover:bg-blue-50"
-                  data-testid="button-google-reviews"
-                >
-                  <a href="https://www.google.com/search?q=premier+party+cruises+austin" target="_blank" rel="noopener noreferrer" className="flex items-center">
-                    <Star className="mr-2 h-5 w-5" />
-                    View Google Reviews
-                  </a>
-                </Button>
-                
-                <Button 
-                  size="lg"
-                  variant="outline"
-                  className="border-blue-600 text-blue-600 hover:bg-blue-50"
-                  data-testid="button-facebook-reviews"
-                >
-                  <a href="https://www.facebook.com/premierpartycruises" target="_blank" rel="noopener noreferrer" className="flex items-center">
-                    <Star className="mr-2 h-5 w-5" />
-                    View Facebook Reviews
-                  </a>
-                </Button>
-              </div>
+            </div>
+
+            {/* Real Corporate Reviews */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+              {corporateReviews.slice(0, 6).map((review) => (
+                <Card key={review.id} className="hover:shadow-lg transition-shadow">
+                  <CardHeader className="pb-4">
+                    <div className="flex items-center justify-between mb-2">
+                      <div>
+                        <h4 className="font-bold text-lg">{review.name}</h4>
+                        {review.role && (
+                          <p className="text-sm text-gray-600">{review.role}</p>
+                        )}
+                      </div>
+                      <Badge variant="secondary" className="bg-green-100 text-green-800">
+                        {review.rating}★
+                      </Badge>
+                    </div>
+                    {review.verified && (
+                      <div className="flex items-center text-xs text-gray-500">
+                        <CheckCircle className="h-3 w-3 mr-1 text-green-500" />
+                        Verified Google Review
+                      </div>
+                    )}
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-gray-700 leading-relaxed">"{review.text}"</p>
+                    {review.date && (
+                      <p className="text-sm text-gray-500 mt-4">{review.date}</p>
+                    )}
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button 
+                size="lg"
+                variant="outline"
+                className="border-blue-600 text-blue-600 hover:bg-blue-50"
+                data-testid="button-google-reviews"
+              >
+                <a href="https://www.google.com/search?q=premier+party+cruises+austin" target="_blank" rel="noopener noreferrer" className="flex items-center">
+                  <Star className="mr-2 h-5 w-5" />
+                  View All Google Reviews
+                </a>
+              </Button>
             </div>
           </div>
         </section>

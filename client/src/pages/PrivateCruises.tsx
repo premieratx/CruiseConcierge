@@ -284,63 +284,11 @@ const emotionalBenefits = [
   }
 ];
 
-// Enhanced Testimonials with Corporate Focus
-const testimonials = [
-  {
-    id: 1,
-    name: 'Amanda Rodriguez',
-    role: 'VP Operations - Dell Technologies',
-    rating: 5,
-    text: "Booked Clever Girl for our Q3 team celebration - 50 people, absolutely perfect! The ROI on team morale was immediate. Professional crew, immaculate boat. Three months later, employees still talk about it. Already booked for next quarter!",
-    avatar: '💼',
-    highlight: 'Corporate Success'
-  },
-  {
-    id: 2,
-    name: 'Michael Chen',
-    role: 'CEO - Austin Tech Ventures',
-    rating: 5,
-    text: "Closed our biggest deal of the year on Meeseeks. There's something about getting clients out on Lake Travis that breaks down barriers. The crew handled everything flawlessly while we focused on relationship building. Worth 10x the investment.",
-    avatar: '🤝',
-    highlight: 'Deal Closer'
-  },
-  {
-    id: 3,
-    name: 'Sarah Williams',
-    role: 'HR Director - Fortune 500',
-    rating: 5,
-    text: "We've done team building everywhere - this topped them all. 75 employees on Clever Girl, perfectly executed. The Ultimate Package saved us hours of planning. Professional invoicing made expense reporting easy. This is how you retain top talent in Austin.",
-    avatar: '🏆',
-    highlight: '500+ Corporate Events'
-  },
-  {
-    id: 4,
-    name: 'Jessica & Mark Thompson',
-    role: 'Wedding Rehearsal Dinner',
-    rating: 5,
-    text: "Our rehearsal dinner on The Irony was pure magic! 25 guests, perfect weather, impeccable service. The captain found the most breathtaking spot for photos. Our families are still raving about it. Highly recommend for wedding events!",
-    avatar: '💕',
-    highlight: 'Wedding Perfect'
-  },
-  {
-    id: 5,
-    name: 'Robert Johnson',
-    role: 'Managing Partner - Johnson & Associates',
-    rating: 5,
-    text: "Annual client appreciation event for 50 VIP clients. The Ultimate Package handled everything - we just showed up. Professional crew, perfect execution, and our clients were blown away. This is how you stand out in Austin's competitive market.",
-    avatar: '⭐',
-    highlight: 'Client Entertainment'
-  },
-  {
-    id: 6,
-    name: 'David Martinez',
-    role: 'Celebrating 40th Birthday',
-    rating: 5,
-    text: "Day Tripper was perfect for my milestone birthday with 12 close friends. Intimate, sophisticated, and the crew went above and beyond. The personalized touches made it unforgettable. Best investment in memories I've ever made!",
-    avatar: '🎂',
-    highlight: 'Milestone Perfect'
-  }
-];
+// Import real reviews from shared/reviews-data.ts
+import { privateCruiseReviews, type Review } from '@shared/reviews-data';
+
+// Use privateCruiseReviews for Private Cruises page
+const testimonials: Review[] = privateCruiseReviews;
 
 // Urgency Indicators
 const urgencyIndicators = [

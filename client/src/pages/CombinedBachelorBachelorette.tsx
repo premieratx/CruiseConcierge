@@ -31,6 +31,7 @@ import {
 import { useToast } from '@/hooks/use-toast';
 import { useReducedMotion } from '@/hooks/use-reduced-motion';
 import Footer from '@/components/Footer';
+import { combinedBachReviews } from '@shared/reviews-data';
 
 // Hero and gallery images
 const heroImage1 = '/attached_assets/bachelor-party-group-guys.jpg';

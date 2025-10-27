@@ -228,68 +228,11 @@ const experienceTimeline = [
   }
 ];
 
-const testimonials = [
-  {
-    id: 1,
-    name: 'Sarah M.',
-    role: 'Bride',
-    location: 'Austin, TX',
-    rating: 5,
-    text: "This was LEGENDARY! We met bachelorette parties from California, Chicago, and Dallas - made so many friends! The DJ was incredible, photographer got AMAZING shots, and the vibe was absolutely electric. Best. Bach. Party. EVER!",
-    avatar: '👰',
-    package: 'Disco Queen Package'
-  },
-  {
-    id: 2,
-    name: 'Jake T.',
-    role: 'Best Man',
-    location: 'Dallas, TX',
-    rating: 5,
-    text: "I planned this and the groom won't stop thanking me! Everything was handled - DJ crushed it, photos came out FIRE, and we partied with bachelor groups from across the country. The energy was INSANE. Easiest party I've ever planned!",
-    avatar: '🎉',
-    package: 'Platinum Package'
-  },
-  {
-    id: 3,
-    name: 'Emily R.',
-    role: 'Maid of Honor',
-    location: 'Houston, TX',
-    rating: 5,
-    text: "The multi-group atmosphere is what makes this SO special! We danced with parties from everywhere, exchanged Instagrams, and the bride said it was the best day of her life. Professional photos are stunning - better than expected!",
-    avatar: '💃',
-    package: 'Disco Queen Package'
-  },
-  {
-    id: 4,
-    name: 'Marcus L.',
-    role: 'Groom',
-    location: 'San Antonio, TX',
-    rating: 5,
-    text: "Meeting other bachelor parties from different states made this unforgettable! The giant unicorn float was EPIC, DJ had everyone dancing, and we left with numbers from guys we're still friends with. This is THE bachelor party experience!",
-    avatar: '🦄',
-    package: 'Basic Bach Package'
-  },
-  {
-    id: 5,
-    name: 'Ashley K.',
-    role: 'Bride',
-    location: 'Fort Worth, TX',
-    rating: 5,
-    text: "Nothing to plan, nothing to carry - just SHOW UP and PARTY! The Platinum package had everything ready, cooler stocked, photographer everywhere. Dancing on the water with bachelorettes from across America was MAGICAL!",
-    avatar: '✨',
-    package: 'Super Sparkle Platinum Disco'
-  },
-  {
-    id: 6,
-    name: 'Tyler B.',
-    role: 'Best Man',
-    location: 'Round Rock, TX',
-    rating: 5,
-    text: "The professional DJ made this LEGENDARY - best playlist ever! We partied with groups from 5 different states, all celebrating the same thing. The vibe was electric, photos came out amazing, and I'm the hero for booking this!",
-    avatar: '🎧',
-    package: 'Disco Queen Package'
-  }
-];
+// Import real reviews from shared/reviews-data.ts
+import { discoHighlightReviews, type Review } from '@shared/reviews-data';
+
+// Use discoHighlightReviews for ATX Disco Cruise page (best bach party reviews)
+const testimonials: Review[] = discoHighlightReviews;
 
 const faqItems = [
   {

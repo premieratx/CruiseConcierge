@@ -19,6 +19,7 @@ import { cn } from '@/lib/utils';
 import { useInlineEdit } from '@/hooks/useInlineEdit';
 import { SectionReveal } from '@/components/SectionReveal';
 import QuoteBuilderSection from '@/components/QuoteBuilderSection';
+import { birthdayReviews } from '@shared/reviews-data';
 import { 
   Cake, Users, Star, Calendar, Trophy, Shield, Award,
   MessageSquare, Quote, Volume2, Clock, PartyPopper,

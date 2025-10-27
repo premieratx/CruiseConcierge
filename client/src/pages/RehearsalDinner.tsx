@@ -15,6 +15,7 @@ import { useInlineEdit } from '@/hooks/useInlineEdit';
 import { formatCurrency } from '@shared/formatters';
 import SEOHead from '@/components/SEOHead';
 import { SectionReveal } from '@/components/SectionReveal';
+import { weddingReviews } from '@shared/reviews-data';
 import { 
   Sunset, Heart, Users, Calendar, MapPin, Clock, Phone,
   ArrowRight, CheckCircle, Sparkles, Camera, Wine, 

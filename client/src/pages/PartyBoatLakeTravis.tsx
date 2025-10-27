@@ -13,6 +13,7 @@ import { useReducedMotion } from '@/hooks/use-reduced-motion';
 import SEOHead from '@/components/SEOHead';
 import PartyPlanningChecklist from '@/components/PartyPlanningChecklist';
 import { SectionReveal } from '@/components/SectionReveal';
+import { privateCruiseReviews } from '@shared/reviews-data';
 import { 
   Ship, Users, Star, MapPin, Clock, DollarSign, Shield, Trophy, 
   PartyPopper, Music, Anchor, Heart, Camera, CheckCircle, ArrowRight,

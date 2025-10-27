@@ -17,6 +17,7 @@ import { formatCurrency } from '@shared/formatters';
 import { HOURLY_RATES, PRICING_DEFAULTS } from '@shared/constants';
 import SEOHead from '@/components/SEOHead';
 import { SectionReveal } from '@/components/SectionReveal';
+import { birthdayReviews } from '@shared/reviews-data';
 import { 
   GraduationCap, Users, Calendar, MapPin, Clock, Phone,
   ArrowRight, CheckCircle, Sparkles, Trophy, Shield,
