@@ -41,6 +41,7 @@ import { SectionReveal } from '@/components/SectionReveal';
 import { TableOfContents } from '@/components/TableOfContents';
 import { StickyCTA } from '@/components/StickyCTA';
 import { LazyImage } from '@/components/LazyImage';
+import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import { SchemaMarkup, generateEventSchema, generateProductSchema, generateFAQSchema, 
          generateLocalBusinessSchema, generateServiceSchema, generateAggregateRatingSchema, 
          generateBreadcrumbSchema, generateHowToSchema } from '@/components/SEOSchemaMarkup';
@@ -414,7 +415,7 @@ const faqItems = [
   {
     id: 'booking-advance',
     question: 'How far in advance should we book?',
-    answer: 'We recommend 6-12 weeks in advance, especially for weekends and peak season (May-September). Prime corporate event dates and wedding season weekends book 3-4 months out. Contact us ASAP to secure your preferred date!'
+    answer: 'We recommend booking 8-12 weeks for priority time slots - once they book they\'re gone! This is especially important for weekends and peak season (May-September). Prime corporate event dates and wedding season weekends book even further out. Contact us ASAP to secure your preferred date!'
   }
 ];
 
@@ -577,7 +578,7 @@ export default function PrivateCruises() {
             },
             { 
               question: "How far in advance should I book a private boat rental?", 
-              answer: "Book private boat rentals 3-4 weeks in advance for weekends during peak season (April-October). Holiday weekends and special events book 6-8 weeks out. Off-season has more flexibility with 1-2 week advance booking." 
+              answer: "Book private boat rentals 8-12 weeks for priority time slots - once they book they\'re gone! This is especially important for weekends during peak season (April-October). Holiday weekends and special events book even further out. Off-season may have more flexibility." 
             }
           ])
         ]}
@@ -612,22 +613,21 @@ export default function PrivateCruises() {
               <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-12">
                 <Button
                   size="lg"
-                  onClick={handleGetQuote}
-                  className="bg-gradient-to-r from-blue-900 to-blue-700 hover:from-blue-800 hover:to-blue-600 text-white border-2 border-yellow-400 font-bold text-xl px-12 py-8 shadow-2xl shadow-blue-900/50 hover:shadow-blue-900/70 transition-all transform hover:scale-105"
-                  data-testid="button-hero-get-quote"
-                >
-                  Reserve Your Private Charter
-                  <ArrowRight className="ml-3 h-6 w-6 text-yellow-400" />
-                </Button>
-                <Button
-                  size="lg"
-                  variant="outline"
                   onClick={() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })}
-                  className="border-3 border-blue-900 bg-white text-blue-900 hover:bg-blue-50 hover:text-blue-900 font-bold text-xl px-12 py-8 transition-all transform hover:scale-105"
+                  className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white font-bold text-xl px-12 py-8 shadow-2xl transition-all transform hover:scale-105"
                   data-testid="button-hero-view-packages"
                 >
                   View Elite Packages
-                  <Gem className="ml-3 h-6 w-6 text-yellow-500" />
+                  <Gem className="ml-3 h-6 w-6" />
+                </Button>
+                <Button
+                  size="lg"
+                  onClick={handleGetQuote}
+                  className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-xl px-12 py-8 shadow-2xl transition-all transform hover:scale-105"
+                  data-testid="button-hero-get-quote"
+                >
+                  Reserve Your Private Charter
+                  <ArrowRight className="ml-3 h-6 w-6" />
                 </Button>
               </div>
 
@@ -665,7 +665,7 @@ export default function PrivateCruises() {
             <ScrollReveal delay={0.2}>
               <LazyImage
                 src={heroImage2}
-                alt="Me Seeks the Irony 25 person private boat Lake Travis"
+                alt="Meeseeks The Irony 25 person private boat Lake Travis"
                 className="rounded-2xl shadow-2xl w-full h-72 object-cover ring-2 ring-purple-500/50 hover:ring-purple-400 transition-all"
                 priority={true}
               />
@@ -1117,7 +1117,7 @@ export default function PrivateCruises() {
                         </div>
                         <div>
                           <p className="font-semibold text-gray-900 mb-1">Peak Season (May-September)</p>
-                          <p className="text-gray-700">Book 6-12 weeks in advance for weekend dates</p>
+                          <p className="text-gray-700">Book 8-12 weeks for priority time slots - once they book they\'re gone!</p>
                         </div>
                       </li>
                       <li className="flex items-start gap-3">
@@ -1126,7 +1126,7 @@ export default function PrivateCruises() {
                         </div>
                         <div>
                           <p className="font-semibold text-gray-900 mb-1">Shoulder Season (March-April, October)</p>
-                          <p className="text-gray-700">Book 4-6 weeks in advance</p>
+                          <p className="text-gray-700">Book 8-12 weeks for priority time slots - once they book they\'re gone!</p>
                         </div>
                       </li>
                       <li className="flex items-start gap-3">
@@ -1810,7 +1810,7 @@ export default function PrivateCruises() {
                 <p>Our <strong>Lake Travis private cruises</strong> are perfect for corporate events, weddings, birthdays, bachelor/bachelorette parties, and family celebrations. With BYOB-friendly policies and customizable routes, you have complete control over your experience.</p>
                 
                 <h3>Book Your Private Charter Today</h3>
-                <p>Ready to book your <strong>private boat rental in Austin</strong>? Get your custom quote online or call (512) 488-5892. We recommend booking 6-12 weeks in advance, especially for weekends during peak season (May-September).</p>
+                <p>Ready to book your <strong>private boat rental in Austin</strong>? Get your custom quote online or call (512) 488-5892. We recommend booking 8-12 weeks for priority time slots - once they book they\'re gone! This is especially important for weekends during peak season (May-September).</p>
               `}
               searchIntent="transactional"
               keywords={["private boat rentals lake travis", "austin private boat charter", "lake travis boat rental"]}

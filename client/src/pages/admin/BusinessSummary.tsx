@@ -109,7 +109,7 @@ export default function BusinessSummary() {
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">3</div>
-                <p className="text-xs text-muted-foreground">Day Tripper, Me Seeks, Clever Girl</p>
+                <p className="text-xs text-muted-foreground">Day Tripper, Meeseeks, Clever Girl</p>
               </CardContent>
             </Card>
             <Card>
@@ -240,7 +240,7 @@ export default function BusinessSummary() {
                 </div>
                 <div className="flex justify-between items-center">
                   <span>15-30 people</span>
-                  <Badge>Me Seeks The Irony</Badge>
+                  <Badge>Meeseeks / The Irony</Badge>
                 </div>
                 <div className="flex justify-between items-center">
                   <span>31-75 people</span>

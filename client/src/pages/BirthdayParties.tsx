@@ -18,6 +18,7 @@ import { HOURLY_RATES, PRICING_DEFAULTS } from '@shared/constants';
 import { cn } from '@/lib/utils';
 import { useInlineEdit } from '@/hooks/useInlineEdit';
 import { SectionReveal } from '@/components/SectionReveal';
+import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import { 
   Cake, Users, Star, Calendar, Trophy, Shield, Award,
   MessageSquare, Quote, Volume2, Clock, PartyPopper,
@@ -151,7 +152,7 @@ const birthdayFAQs = [
   },
   {
     question: 'How many people can we bring?',
-    answer: 'Our boats accommodate different group sizes: Day Tripper (up to 14), Me Seeks The Irony (up to 30), and Clever Girl (up to 75). Choose based on your guest list. The birthday person counts toward the capacity.'
+    answer: 'Our boats accommodate different group sizes: Day Tripper (up to 14), Meeseeks / The Irony (15-30), and Clever Girl (up to 75). Choose based on your guest list. The birthday person counts toward the capacity.'
   }
 ];
 

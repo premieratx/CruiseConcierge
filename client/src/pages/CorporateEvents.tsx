@@ -34,6 +34,8 @@ import { useToast } from '@/hooks/use-toast';
 import { WhatToBring } from '@/components/WhatToBring';
 import { PricingTable } from '@/components/PricingTable';
 import { LazyImage } from '@/components/LazyImage';
+import QuoteBuilderSection from '@/components/QuoteBuilderSection';
+import { InternalLinkHighlight, InternalLinkHighlightWithArrow } from '@/components/InternalLinkHighlight';
 
 // Hero and gallery images
 import heroImage1 from '@assets/clever-girl-50-person-boat.jpg';
@@ -250,7 +252,7 @@ const corporateFAQs = [
   },
   {
     question: 'What\'s the best boat size for our team?',
-    answer: 'Day Tripper (14 people): Perfect for executive teams or small departments. Me Seeks (25-30 people): Ideal for medium teams or client groups. Clever Girl (50-75 people): Best for large departments or company-wide events. We help you choose based on your specific needs.'
+    answer: 'Day Tripper (14 people): Perfect for executive teams or small departments. Meeseeks/The Irony (15-30 people): Ideal for medium teams or client groups. Clever Girl (50-75 people): Best for large departments or company-wide events. We help you choose based on your specific needs.'
   },
   {
     question: 'Can we brand the experience with our company logo?',
@@ -262,7 +264,7 @@ const corporateFAQs = [
   },
   {
     question: 'How far in advance should we book?',
-    answer: 'For corporate events, we recommend booking 3-4 weeks in advance, especially for Friday afternoon or weekend events. Weekday events often have more flexibility. End-of-quarter celebrations and holiday parties book up quickly, so plan ahead.'
+    answer: 'For corporate events, we recommend booking 8-12 weeks for priority time slots - once they book they\'re gone! This is especially important for Friday afternoon or weekend events. Weekday events may have more flexibility. End-of-quarter celebrations and holiday parties book up even quicker, so plan ahead.'
   }
 ];
 
@@ -347,8 +349,8 @@ const availabilityInfo = [
   {
     icon: Calendar,
     title: 'Peak Corporate Season',
-    description: 'March through October offers the best weather for Lake Travis events. End-of-quarter celebrations and holiday parties book 4-6 weeks in advance.',
-    timeline: 'Book 4-6 weeks ahead'
+    description: 'March through October offers the best weather for Lake Travis events. End-of-quarter celebrations and holiday parties book 8-12 weeks for priority time slots - once they book they\'re gone!',
+    timeline: 'Book 8-12 weeks ahead'
   },
   {
     icon: Clock,
@@ -455,24 +457,24 @@ export default function CorporateEvents() {
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
-              onClick={handleGetQuote}
-              size="lg"
-              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold px-8 py-6 text-lg shadow-xl hover:shadow-2xl transition-all duration-300"
-              data-testid="button-hero-get-quote"
-            >
-              <MessageSquare className="mr-2 h-5 w-5" />
-              GET CORPORATE QUOTE
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
-            <Button
               onClick={() => navigate('/chat?eventType=corporate')}
               size="lg"
               variant="outline"
-              className="border-2 border-white text-white hover:bg-white hover:text-gray-900 font-bold px-8 py-6 text-lg"
+              className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white font-bold px-8 py-6 text-lg"
               data-testid="button-hero-view-packages"
             >
               <Briefcase className="mr-2 h-5 w-5" />
               VIEW PACKAGES
+            </Button>
+            <Button
+              onClick={handleGetQuote}
+              size="lg"
+              className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold px-8 py-6 text-lg shadow-xl hover:shadow-2xl transition-all duration-300"
+              data-testid="button-hero-get-quote"
+            >
+              <MessageSquare className="mr-2 h-5 w-5" />
+              BOOK NOW
+              <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
           </div>
 

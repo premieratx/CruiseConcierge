@@ -46,7 +46,7 @@ export default function HomeNew() {
     {
       id: 'faq-4',
       question: 'How far in advance should I book?',
-      answer: 'Peak season weekends (March-October) sell out 2-3 weeks in advance. We recommend booking as soon as you know your dates. You have 48 hours to cancel for a full refund if plans change.'
+      answer: 'Peak season weekends (March-October) book 8-12 weeks for priority time slots - once they book they\'re gone! We recommend booking as soon as you know your dates. You have 48 hours to cancel for a full refund if plans change.'
     },
     {
       id: 'faq-5',
@@ -130,7 +130,7 @@ export default function HomeNew() {
                 {/* Urgency */}
                 <div className="urgency-badge">
                   <Calendar className="inline w-4 h-4 mr-1" />
-                  Peak weekends sell out 2-3 weeks in advance
+                  Book 8-12 weeks for priority time slots - once they book they\'re gone!
                 </div>
               </div>
 
@@ -539,7 +539,7 @@ export default function HomeNew() {
                 Don't let your once-in-a-lifetime celebration be "just okay"
               </p>
               <p className="text-gray-700">
-                Peak season weekends sell out 2-3 weeks in advance. Book now or risk missing out!
+                Peak season weekends book 8-12 weeks for priority time slots - once they book they\'re gone!
               </p>
             </div>
           </div>

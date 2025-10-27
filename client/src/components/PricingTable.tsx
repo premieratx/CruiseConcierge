@@ -258,7 +258,7 @@ function PrivateCruisePricingTable({
   // Determine boat and base rate based on group size
   const getBoatInfo = () => {
     if (groupSize <= 14) return { boat: 'Day Tripper', baseRate: 200 };
-    if (groupSize <= 30) return { boat: 'Me Seeks The Irony', baseRate: 225 };
+    if (groupSize <= 30) return { boat: 'Meeseeks / The Irony', baseRate: 225 };
     return { boat: 'Clever Girl', baseRate: 300 };
   };
   
@@ -477,7 +477,7 @@ function ComparisonPricingTable({ className }: { className?: string }) {
       best: 'Best for intimate gatherings'
     },
     {
-      name: 'Private Me Seeks',
+      name: 'Private Meeseeks',
       type: 'Hourly',
       priceRange: '$225-$350/hr',
       duration: '4 hour minimum',

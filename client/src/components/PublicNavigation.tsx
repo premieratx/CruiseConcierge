@@ -22,7 +22,8 @@ import {
   CollapsibleTrigger,
 } from '@/components/ui/collapsible';
 import { cn } from '@/lib/utils';
-import logoPath from '@assets/PPC-Logo-48x48.webp';
+// Fix for SSR: Use path string instead of import for logo
+const logoPath = '/attached_assets/PPC-Logo-48x48.webp';
 import { 
   Ship, Calendar, MessageSquare, Phone, 
   Users, Camera, Heart, ArrowRight, Star,
@@ -259,7 +260,7 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
               <img 
                 src={logoPath} 
                 alt="Premier Party Cruises" 
-                className="h-12 lg:h-14 w-auto transition-transform duration-300 group-hover:scale-105"
+                className="h-12 lg:h-14 w-auto transition-transform duration-300 group-hover:scale-105 mt-[50px]"
               />
             </a>
 

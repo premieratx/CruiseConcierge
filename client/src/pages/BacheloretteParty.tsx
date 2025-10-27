@@ -48,6 +48,7 @@ import { StickyCTA } from '@/components/StickyCTA';
 import { VideoTestimonials } from '@/components/VideoTestimonials';
 import { TransportationGuide } from '@/components/TransportationGuide';
 import { LazyImage } from '@/components/LazyImage';
+import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import { SchemaMarkup, generateEventSchema, generateProductSchema, generateFAQSchema, 
          generateLocalBusinessSchema, generateServiceSchema, generateAggregateRatingSchema, 
          generateBreadcrumbSchema, generateHowToSchema } from '@/components/SEOSchemaMarkup';
@@ -355,7 +356,7 @@ const faqItems = [
   {
     id: 'booking-timeline',
     question: 'How far in advance should we book?',
-    answer: 'Peak bachelorette season (March-October) books out 4-6 weeks early. We recommend booking 6-8 weeks in advance for Saturday cruises. Last-minute spots occasionally available for flexible groups.'
+    answer: 'Peak bachelorette season (March-October) books out quickly. We recommend booking 8-12 weeks for priority time slots - once they book they\'re gone! Last-minute spots occasionally available for flexible groups.'
   }
 ];
 
@@ -527,7 +528,7 @@ export default function BacheloretteParty() {
             },
             { 
               question: "When should I book a bachelorette party cruise in Austin?", 
-              answer: "Book your Austin bachelorette party cruise 4-6 weeks in advance for peak season (March-October) weekends. Popular Saturdays sell out quickly. ATX Disco Cruises run Saturdays at 11am-3pm or 3:30pm-7:30pm." 
+              answer: "Book your Austin bachelorette party cruise 8-12 weeks for priority time slots - once they book they\'re gone! This is crucial for peak season (March-October) weekends. Popular Saturdays sell out quickly. ATX Disco Cruises run Saturdays at 11am-3pm or 3:30pm-7:30pm." 
             }
           ]),
           generateAggregateRatingSchema({
@@ -649,23 +650,22 @@ export default function BacheloretteParty() {
             >
               <Button
                 size="lg"
-                onClick={() => handleGetQuote()}
-                className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white font-bold text-lg px-10 py-7 whitespace-normal min-h-[4rem]"
-                data-testid="button-hero-book-now-bachelorette"
-              >
-                <Calendar className="mr-2 h-6 w-6 flex-shrink-0" />
-                <span className="text-center leading-tight">BOOK NOW - Be the Hero!</span>
-              </Button>
-              
-              <Button
-                size="lg"
-                variant="outline"
                 onClick={() => document.getElementById('packages')?.scrollIntoView({ behavior: 'smooth' })}
-                className="border-2 border-white text-white hover:bg-white hover:text-black font-bold text-lg px-10 py-7"
+                className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white font-bold text-lg px-10 py-7"
                 data-testid="button-hero-see-packages"
               >
                 See Packages & Pricing
                 <ArrowRight className="ml-2 h-6 w-6" />
+              </Button>
+              
+              <Button
+                size="lg"
+                onClick={() => handleGetQuote()}
+                className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-lg px-10 py-7 whitespace-normal min-h-[4rem]"
+                data-testid="button-hero-book-now-bachelorette"
+              >
+                <Calendar className="mr-2 h-6 w-6 flex-shrink-0" />
+                <span className="text-center leading-tight">BOOK NOW - Be the Hero!</span>
               </Button>
             </motion.div>
           </motion.div>
@@ -680,6 +680,9 @@ export default function BacheloretteParty() {
           </div>
         </div>
       </section>
+
+      {/* Quote Builder Section */}
+      <QuoteBuilderSection />
 
       {/* YOUR TWO OPTIONS SECTION */}
       <SectionReveal>
@@ -928,7 +931,7 @@ export default function BacheloretteParty() {
                     </Button>
                     <p className="text-sm text-gray-600 mt-4">
                       <AlertCircle className="h-4 w-4 inline mr-1" />
-                      Peak weekends book 4-6 weeks in advance
+                      Peak weekends book 8-12 weeks for priority time slots - once they book they\'re gone!
                     </p>
                   </div>
                 </CardContent>
@@ -1592,7 +1595,7 @@ export default function BacheloretteParty() {
                 Reserve Your Girls' Weekend Celebration
               </h2>
               <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
-                Peak bachelorette weekends book 4-6 weeks in advance - secure your date today
+                Peak bachelorette weekends book 8-12 weeks for priority time slots - once they book they\'re gone!
               </p>
             </div>
 

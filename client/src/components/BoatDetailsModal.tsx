@@ -11,7 +11,7 @@ import { Badge } from '@/components/ui/badge';
 import { Ship, Users, Calendar, ChevronLeft, ChevronRight, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
-// Import boat photos - Me Seeks The Irony (Meeseeks)
+// Import boat photos - Meeseeks The Irony
 import meeseeks1 from '@assets/@capitalcityshots-1_1760072938922.jpg';
 import meeseeks2 from '@assets/@capitalcityshots-2_1760072938923.jpg';
 import meeseeks3 from '@assets/@capitalcityshots-3_1760072938923.jpg';
@@ -57,21 +57,21 @@ interface BoatDetails {
 
 const BOAT_DATA: Record<string, BoatDetails> = {
   'ME_SEEKS_THE_IRONY': {
-    name: 'Me Seeks The Irony',
-    displayName: 'Me Seeks The Irony',
+    name: 'Meeseeks The Irony',
+    displayName: 'Meeseeks The Irony',
     capacity: 30,
     seatingCapacity: 25,
     description: 'Our beautiful covered vessel perfect for medium-sized groups. Features spacious seating, a stunning turquoise canopy, and wraparound views of Lake Travis.',
     photos: [
-      { url: meeseeks1, alt: 'Me Seeks The Irony - Bow seating area with turquoise canopy' },
-      { url: meeseeks2, alt: 'Me Seeks The Irony - Spacious deck with comfortable seating' },
-      { url: meeseeks3, alt: 'Me Seeks The Irony - Covered deck with panoramic lake views' },
-      { url: meeseeks4, alt: 'Me Seeks The Irony - Helm station and bench seating' },
-      { url: meeseeks5, alt: 'Me Seeks The Irony - Alternative view of helm and seating' },
-      { url: meeseeks6, alt: 'Me Seeks The Irony - Exterior view on Lake Travis' },
-      { url: meeseeks7, alt: 'Me Seeks The Irony - Front view with turquoise canopy' },
-      { url: meeseeks8, alt: 'Me Seeks The Irony - Seating detail with lake views' },
-      { url: meeseeks9, alt: 'Me Seeks The Irony - Interior deck view' },
+      { url: meeseeks1, alt: 'Meeseeks The Irony - Bow seating area with turquoise canopy' },
+      { url: meeseeks2, alt: 'Meeseeks The Irony - Spacious deck with comfortable seating' },
+      { url: meeseeks3, alt: 'Meeseeks The Irony - Covered deck with panoramic lake views' },
+      { url: meeseeks4, alt: 'Meeseeks The Irony - Helm station and bench seating' },
+      { url: meeseeks5, alt: 'Meeseeks The Irony - Alternative view of helm and seating' },
+      { url: meeseeks6, alt: 'Meeseeks The Irony - Exterior view on Lake Travis' },
+      { url: meeseeks7, alt: 'Meeseeks The Irony - Front view with turquoise canopy' },
+      { url: meeseeks8, alt: 'Meeseeks The Irony - Seating detail with lake views' },
+      { url: meeseeks9, alt: 'Meeseeks The Irony - Interior deck view' },
     ],
     features: [
       'Turquoise canopy for full shade coverage',

@@ -14,6 +14,7 @@ import SEOHead from '@/components/SEOHead';
 import { cn } from '@/lib/utils';
 import { useInlineEdit } from '@/hooks/useInlineEdit';
 import { SectionReveal } from '@/components/SectionReveal';
+import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import { 
   Heart, Users, Star, Calendar, Trophy, Shield, Award,
   MessageSquare, Quote, Volume2, Clock, Sparkles,
@@ -188,7 +189,7 @@ const weddingFAQs = [
   },
   {
     question: 'How many guests can you accommodate?',
-    answer: 'Day Tripper: Up to 14 guests (perfect for immediate family), Me Seeks: Up to 30 guests (ideal for wedding party), Clever Girl: Up to 75 guests (accommodates most rehearsal dinners and welcome parties).'
+    answer: 'Day Tripper: Up to 14 guests (perfect for immediate family), Meeseeks/The Irony: 15-30 guests (ideal for wedding party), Clever Girl: Up to 75 guests (accommodates most rehearsal dinners and welcome parties).'
   }
 ];
 
@@ -265,11 +266,11 @@ export default function WeddingParties() {
             <Button
               onClick={handleGetQuote}
               size="lg"
-              className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold px-8 py-6 text-lg"
+              className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold px-8 py-6 text-lg"
               data-testid="button-hero-get-quote"
             >
               <Heart className="mr-2 h-5 w-5" />
-              PLAN WEDDING EVENT
+              BOOK NOW
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
           </div>

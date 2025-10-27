@@ -18,7 +18,7 @@ export default function BoatName({ boatId, displayName, className, showIcon = fa
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const boatNames: Record<string, string> = {
-    'ME_SEEKS_THE_IRONY': 'Me Seeks The Irony',
+    'ME_SEEKS_THE_IRONY': 'Meeseeks The Irony',
     'DAY_TRIPPER': 'Day Tripper',
     'CLEVER_GIRL': 'Clever Girl',
   };

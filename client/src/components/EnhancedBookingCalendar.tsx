@@ -40,8 +40,8 @@ const QUICK_GROUP_SIZES = [14, 25, 30, 50, 75];
 // Boat capacity mapping for color coding and smart highlighting
 const BOAT_CAPACITY_MAP = {
   'Day Tripper': { capacity: 14, maxCapacity: 14, color: 'purple', ideal: [14] },
-  'Me Seek/The Irony': { capacity: 25, maxCapacity: 30, color: 'red', ideal: [25, 30] },
-  'Me Seek': { capacity: 25, maxCapacity: 30, color: 'red', ideal: [25, 30] },
+  'Meeseeks/The Irony': { capacity: 15, maxCapacity: 30, color: 'red', ideal: [15, 25, 30] },
+  'Meeseeks': { capacity: 15, maxCapacity: 30, color: 'red', ideal: [15, 25, 30] },
   'The Irony': { capacity: 25, maxCapacity: 30, color: 'red', ideal: [25, 30] },
   'Clever Girl': { capacity: 50, maxCapacity: 75, color: 'orange', ideal: [50, 75] },
   // ATX Disco removed - it's only for disco cruises, not private cruises
@@ -75,7 +75,7 @@ const getBoatColor = (boatName: string, capacity?: number): string => {
 // Get best boat match for group size - strict capacity rules
 const getBestBoatMatch = (groupSize: number): { color: string; boatName: string } => {
   if (groupSize <= 14) return { color: 'purple', boatName: 'Day Tripper' };
-  if (groupSize <= 30) return { color: 'red', boatName: 'Me Seek/The Irony' };
+  if (groupSize <= 30) return { color: 'red', boatName: 'Meeseeks/The Irony' };
   if (groupSize <= 75) return { color: 'orange', boatName: 'Clever Girl' };
   return { color: 'gray', boatName: 'No boats available' };
 };
@@ -183,7 +183,7 @@ export function EnhancedBookingCalendar({
     if (groupSize <= 14) {
       return privateBoats.filter(boat => boat.id === 'boat_day_tripper' || boat.name === 'Day Tripper');
     } else if (groupSize <= 25) {
-      return privateBoats.filter(boat => boat.id === 'boat_me_seeks_the_irony' || boat.name === 'Me Seeks The Irony');
+      return privateBoats.filter(boat => boat.id === 'boat_me_seeks_the_irony' || boat.name === 'Meeseeks The Irony');
     } else if (groupSize <= 50) {
       return privateBoats.filter(boat => boat.id === 'boat_clever_girl' || boat.name === 'Clever Girl');
     } else if (groupSize <= 75) {

@@ -44,6 +44,7 @@ import AIOptimizedSection from '@/components/AIOptimizedSection';
 import { TableOfContents } from '@/components/TableOfContents';
 import { StickyCTA } from '@/components/StickyCTA';
 import { LazyImage } from '@/components/LazyImage';
+import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import { SchemaMarkup, generateEventSchema, generateProductSchema, generateFAQSchema, 
          generateLocalBusinessSchema, generateServiceSchema, generateAggregateRatingSchema, 
          generateBreadcrumbSchema, generateHowToSchema } from '@/components/SEOSchemaMarkup';
@@ -501,15 +502,12 @@ export default function ATXDiscoCruise() {
               <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-white/90 mb-3 md:mb-4 max-w-3xl mx-auto font-semibold text-center px-2" data-testid="text-hero-subheadline">
                 The single most unique and comprehensive <InternalLinkHighlight href="/bachelor-party" title="Bachelor Parties">bachelor</InternalLinkHighlight>/<InternalLinkHighlight href="/bachelorette-party" title="Bachelorette Parties">bachelorette party</InternalLinkHighlight> experience in the United States
               </p>
-              <p className="text-sm sm:text-base md:text-lg text-white/80 mb-6 md:mb-8 max-w-3xl mx-auto text-center px-2" data-testid="text-hero-description">
-                <strong>NOT a private cruise - this is a shared multi-group celebration!</strong> Join 50-100+ people from different bachelor & bachelorette parties for an unforgettable 4-hour Lake Travis party with professional DJ, photographer, and giant floats! <InternalLinkHighlightWithArrow href="/private-cruises" title="Private Cruises">Want exclusivity? Book a private charter instead</InternalLinkHighlightWithArrow>
-              </p>
               
               {/* Urgency & Social Proof Badges */}
               <div className="flex flex-col sm:flex-row gap-3 justify-center mb-6">
                 <Badge className="bg-red-600 text-white px-4 py-2 text-sm font-bold animate-pulse">
                   <AlertCircle className="h-4 w-4 mr-2 inline" />
-                  Peak Weekends Sell Out 2-3 Weeks in Advance
+                  Book 8-12 weeks for priority time slots - once they book they\'re gone!
                 </Badge>
                 <Badge className="bg-green-600 text-white px-4 py-2 text-sm font-bold">
                   <Star className="h-4 w-4 mr-2 inline" />
@@ -521,23 +519,32 @@ export default function ATXDiscoCruise() {
                 </Badge>
               </div>
               
+              {/* Important Notice - Moved from above */}
+              <p className="text-sm sm:text-base md:text-lg text-white/80 mb-6 md:mb-8 max-w-3xl mx-auto text-center px-2" data-testid="text-hero-description">
+                <strong>NOT a private cruise - this is a shared multi-group celebration!</strong> Join 50-100+ people from different bachelor & bachelorette parties for an unforgettable 4-hour Lake Travis party with professional DJ, photographer, and giant floats! <InternalLinkHighlightWithArrow href="/private-cruises" title="Private Cruises">Want exclusivity? Book a private charter instead</InternalLinkHighlightWithArrow>
+              </p>
+              
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button 
                   size="lg" 
-                  onClick={handleBookNow}
-                  className="btn-primary-hero bg-yellow-500 hover:bg-yellow-600 text-black font-bold text-base px-8 py-6 shadow-2xl transform hover:scale-105 transition-all"
-                  data-testid="button-book-now"
-                >
-                  Secure Your Spot - Sells Out Fast <ArrowRight className="ml-2" />
-                </Button>
-                <Button 
-                  size="lg" 
-                  variant="outline"
                   onClick={() => navigate('/contact')}
-                  className="bg-white/10 backdrop-blur-sm text-white border-white/30 hover:bg-white/20 text-base px-8 py-6"
+                  className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white font-bold text-base px-8 py-6 shadow-2xl transform hover:scale-105 transition-all"
                   data-testid="button-learn-more"
                 >
                   <Phone className="mr-2" /> Talk to an Expert
+                </Button>
+                <Button 
+                  size="lg" 
+                  onClick={() => {
+                    const element = document.getElementById('quote-builder');
+                    if (element) {
+                      element.scrollIntoView({ behavior: 'smooth' });
+                    }
+                  }}
+                  className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-base px-8 py-6 shadow-2xl transform hover:scale-105 transition-all"
+                  data-testid="button-book-now"
+                >
+                  Get a Quote <ArrowRight className="ml-2" />
                 </Button>
               </div>
             </motion.div>
@@ -546,7 +553,7 @@ export default function ATXDiscoCruise() {
           <div className="relative z-30 w-full bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm py-4 px-6">
             <div className="container mx-auto">
               <p className="text-center text-gray-900 dark:text-white text-base md:text-lg font-semibold">
-                🎉 <span className="text-purple-600">All-Inclusive</span> • Professional DJ & Photographer • <span className="text-pink-600">Saturdays</span> 🎉
+                🎉 <span className="text-purple-600">All-Inclusive</span> • Professional DJ & Photographer • <span className="text-pink-600">Fridays & Saturdays</span> 🎉
               </p>
             </div>
           </div>
@@ -554,6 +561,134 @@ export default function ATXDiscoCruise() {
 
         {/* Table of Contents */}
         <TableOfContents sections={tocSections} />
+
+        {/* Quote Builder Section */}
+        <QuoteBuilderSection />
+
+        {/* Summary Chart Section */}
+        <SectionReveal>
+          <section className="py-20 bg-white">
+            <div className="max-w-7xl mx-auto px-6">
+              <div className="text-center mb-16">
+                <Badge className="mb-6 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
+                  <Package className="h-4 w-4 mr-2 inline" />
+                  Compare Packages
+                </Badge>
+                <h2 className="text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
+                  ATX Disco Cruise Packages at a Glance
+                </h2>
+                <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
+                  <strong>Fridays & Saturdays, March-October</strong> • Choose your perfect party package
+                </p>
+              </div>
+
+              <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                {/* Basic Bach Package */}
+                <Card className="border-2 hover:shadow-xl transition-all">
+                  <CardHeader className="bg-gradient-to-br from-purple-50 to-pink-50">
+                    <CardTitle className="text-xl font-bold text-center">Basic Bach</CardTitle>
+                    <div className="text-center">
+                      <span className="text-3xl font-bold text-purple-600">$85</span>
+                      <span className="text-gray-600">/person</span>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="pt-6">
+                    <ul className="space-y-3 text-sm">
+                      <li className="flex items-start gap-2">
+                        <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
+                        <span>Professional DJ (4 hours)</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
+                        <span>Professional Photographer</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
+                        <span>Giant Floats</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
+                        <span>Ice & Water Stations</span>
+                      </li>
+                    </ul>
+                  </CardContent>
+                </Card>
+
+                {/* Disco Queen Package */}
+                <Card className="border-2 border-purple-400 hover:shadow-xl transition-all transform scale-105">
+                  <CardHeader className="bg-gradient-to-br from-purple-100 to-pink-100">
+                    <Badge className="mb-2 bg-purple-600 text-white mx-auto">MOST POPULAR</Badge>
+                    <CardTitle className="text-xl font-bold text-center">Disco Queen</CardTitle>
+                    <div className="text-center">
+                      <span className="text-3xl font-bold text-purple-600">$95</span>
+                      <span className="text-gray-600">/person</span>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="pt-6">
+                    <p className="font-semibold text-sm mb-3">Everything in Basic PLUS:</p>
+                    <ul className="space-y-3 text-sm">
+                      <li className="flex items-start gap-2">
+                        <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
+                        <span>Reserved Spot on Boat</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
+                        <span>Private Cooler</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
+                        <span>Bride/Groom Gifts</span>
+                      </li>
+                    </ul>
+                  </CardContent>
+                </Card>
+
+                {/* Super Sparkle Package */}
+                <Card className="border-2 hover:shadow-xl transition-all">
+                  <CardHeader className="bg-gradient-to-br from-yellow-50 to-orange-50">
+                    <CardTitle className="text-xl font-bold text-center">Super Sparkle</CardTitle>
+                    <div className="text-center">
+                      <span className="text-3xl font-bold text-purple-600">$105</span>
+                      <span className="text-gray-600">/person</span>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="pt-6">
+                    <p className="font-semibold text-sm mb-3">Everything in Disco Queen PLUS:</p>
+                    <ul className="space-y-3 text-sm">
+                      <li className="flex items-start gap-2">
+                        <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
+                        <span>Personal Float</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
+                        <span>Mimosa Setup</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
+                        <span>Towel Service</span>
+                      </li>
+                    </ul>
+                  </CardContent>
+                </Card>
+              </div>
+
+              <div className="text-center mt-12">
+                <Button
+                  size="lg"
+                  onClick={() => {
+                    const element = document.getElementById('pricing');
+                    if (element) {
+                      element.scrollIntoView({ behavior: 'smooth' });
+                    }
+                  }}
+                  className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold px-8 py-4"
+                >
+                  See Full Package Details <ArrowRight className="ml-2" />
+                </Button>
+              </div>
+            </div>
+          </section>
+        </SectionReveal>
 
         {/* 2. EXPERIENCE - 4-Hour Timeline */}
         <SectionReveal>
@@ -945,7 +1080,7 @@ export default function ATXDiscoCruise() {
                   Book Your Spot on the Disco Cruise
                 </h2>
                 <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
-                  Peak weekends book 4-6 weeks in advance - secure your date today
+                  Peak weekends book 8-12 weeks for priority time slots - once they book they\'re gone!
                 </p>
               </div>
 
@@ -1883,7 +2018,7 @@ export default function ATXDiscoCruise() {
 
                 <FeaturedSnippet
                   question="When does the ATX Disco Cruise run?"
-                  answer="The ATX Disco Cruise runs on Saturdays from March through October during peak season. Two time slots are available: 11:00 AM - 3:00 PM (morning cruise) and 3:30 PM - 7:30 PM (afternoon cruise). Each cruise is 4 hours long. Peak weekends book 4-6 weeks in advance, so early booking is recommended for bachelor and bachelorette parties."
+                  answer="The ATX Disco Cruise runs on Saturdays from March through October during peak season. Two time slots are available: 11:00 AM - 3:00 PM (morning cruise) and 3:30 PM - 7:30 PM (afternoon cruise). Each cruise is 4 hours long. Peak weekends book 8-12 weeks for priority time slots - once they book they're gone! Early booking is essential for bachelor and bachelorette parties."
                   featured={false}
                 />
               </div>

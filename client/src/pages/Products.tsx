@@ -810,7 +810,7 @@ export default function Products() {
                       </CardHeader>
                       <CardContent className="space-y-2">
                         <div><strong>Day Tripper:</strong> 14 people, no crew fees</div>
-                        <div><strong>Me Seeks The Irony:</strong> 25-30 capacity, +$50/hr crew (26-30)</div>
+                        <div><strong>Meeseeks / The Irony:</strong> 15-30 capacity, +$50/hr crew (26-30)</div>
                         <div><strong>Clever Girl:</strong> 50-75 capacity, +$100/hr crew (51-75)</div>
                         <div><strong>ATX Disco:</strong> 100 people (disco only)</div>
                       </CardContent>

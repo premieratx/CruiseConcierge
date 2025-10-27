@@ -48,6 +48,7 @@ import { StickyCTA } from '@/components/StickyCTA';
 import { VideoTestimonials } from '@/components/VideoTestimonials';
 import { TransportationGuide } from '@/components/TransportationGuide';
 import { LazyImage } from '@/components/LazyImage';
+import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import { SchemaMarkup, generateEventSchema, generateProductSchema, generateFAQSchema, 
          generateLocalBusinessSchema, generateServiceSchema, generateAggregateRatingSchema, 
          generateBreadcrumbSchema, generateHowToSchema } from '@/components/SEOSchemaMarkup';
@@ -354,7 +355,7 @@ const faqItems = [
   {
     id: 'booking-timeline',
     question: 'How far in advance should we book?',
-    answer: 'Peak bachelor season weekends sell out 4–6 weeks in advance. Lock it in early or risk missing out.'
+    answer: 'Peak bachelor season weekends book 8-12 weeks for priority time slots - once they book they\'re gone! Lock it in early or risk missing out.'
   }
 ];
 
@@ -646,23 +647,22 @@ export default function BachelorParty() {
             >
               <Button
                 size="lg"
-                onClick={() => handleGetQuote()}
-                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold text-lg px-10 py-7 whitespace-normal min-h-[4rem]"
-                data-testid="button-hero-book-now-bachelor"
-              >
-                <Calendar className="mr-2 h-6 w-6 flex-shrink-0" />
-                <span className="text-center leading-tight">BOOK NOW - Be the Hero!</span>
-              </Button>
-              
-              <Button
-                size="lg"
-                variant="outline"
                 onClick={() => document.getElementById('packages')?.scrollIntoView({ behavior: 'smooth' })}
-                className="border-2 border-white text-white hover:bg-white hover:text-black font-bold text-lg px-10 py-7"
+                className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white font-bold text-lg px-10 py-7"
                 data-testid="button-hero-see-packages"
               >
                 See Packages & Pricing
                 <ArrowRight className="ml-2 h-6 w-6" />
+              </Button>
+              
+              <Button
+                size="lg"
+                onClick={() => handleGetQuote()}
+                className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-lg px-10 py-7 whitespace-normal min-h-[4rem]"
+                data-testid="button-hero-book-now-bachelor"
+              >
+                <Calendar className="mr-2 h-6 w-6 flex-shrink-0" />
+                <span className="text-center leading-tight">BOOK NOW - Be the Hero!</span>
               </Button>
             </motion.div>
           </motion.div>
@@ -677,6 +677,9 @@ export default function BachelorParty() {
           </div>
         </div>
       </section>
+
+      {/* Quote Builder Section */}
+      <QuoteBuilderSection />
 
       {/* YOUR TWO OPTIONS SECTION */}
       <SectionReveal>
@@ -925,7 +928,7 @@ export default function BachelorParty() {
                     </Button>
                     <p className="text-sm text-gray-600 mt-4">
                       <AlertCircle className="h-4 w-4 inline mr-1" />
-                      Peak weekends book 4-6 weeks in advance
+                      Peak weekends book 8-12 weeks for priority time slots - once they book they\'re gone!
                     </p>
                   </div>
                 </CardContent>
@@ -1341,7 +1344,7 @@ export default function BachelorParty() {
                   <div className="flex-1">
                     <h4 className="text-xl font-bold text-gray-900 mb-2">Choose Your Date</h4>
                     <p className="text-gray-700 leading-relaxed">
-                      Check availability on our calendar. Peak weekends (April-September) book up 4-6 weeks in advance. Book early!
+                      Check availability on our calendar. Peak weekends (April-September) book 8-12 weeks for priority time slots - once they book they\'re gone!
                     </p>
                   </div>
                 </div>

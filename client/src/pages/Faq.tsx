@@ -71,7 +71,7 @@ const faqCategories: FAQCategory[] = [
       {
         id: 'advance-booking',
         question: 'How far in advance should I book my Lake Travis cruise?',
-        answer: 'Weekend dates typically fill 6-8 weeks in advance, especially during peak season (April-September). Saturdays book fastest, followed by Fridays and Sundays. We recommend booking immediately once your group confirms dates. Last-minute availability is rare for weekends but sometimes available weekdays.'
+        answer: 'Weekend dates typically book 8-12 weeks for priority time slots - once they book they\'re gone! This is especially true during peak season (April-September). Saturdays book fastest, followed by Fridays and Sundays. We recommend booking immediately once your group confirms dates. Last-minute availability is rare for weekends but sometimes available weekdays.'
       },
       {
         id: 'deposit',

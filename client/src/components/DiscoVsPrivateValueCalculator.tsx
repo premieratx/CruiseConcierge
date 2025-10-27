@@ -44,7 +44,7 @@ interface GroupSizeComparison {
 }
 
 const DJ_COST = 60000; // $600 in cents
-const PHOTOGRAPHER_COST = 80000; // $800 in cents
+const PHOTOGRAPHER_COST = 60000; // $600 in cents
 
 function calculateDiscoPricing(pricePerPerson: number, groupSize: number): PricingCalculation {
   const subtotal = pricePerPerson * groupSize;

@@ -67,6 +67,7 @@ import Image from 'lucide-react/dist/esm/icons/image';
 import Bot from 'lucide-react/dist/esm/icons/bot';
 import Snowflake from 'lucide-react/dist/esm/icons/snowflake';
 import Leaf from 'lucide-react/dist/esm/icons/leaf';
+import Gift from 'lucide-react/dist/esm/icons/gift';
 import Footer from '@/components/Footer';
 import { formatCurrency } from '@shared/formatters';
 import { PricingTable } from '@/components/PricingTable';
@@ -267,7 +268,7 @@ const faqData = [
   },
   {
     question: 'How far in advance should we book our Austin party boat?',
-    answer: 'We recommend booking 4-6 weeks in advance, especially for weekend dates and during peak season (April-September). Wedding parties and corporate events should be booked 6-8 weeks ahead. Holiday weekends book up quickly. Last-minute bookings (1-2 weeks) may be available on weekdays. Contact us to check availability for your preferred date.'
+    answer: 'We recommend booking 8-12 weeks for priority time slots - once they book they\'re gone! Weekend dates and peak season (April-September) sell out fastest. Wedding parties and corporate events should also book 8-12 weeks ahead. Holiday weekends book up even quicker. Contact us immediately to check availability for your preferred date.'
   }
 ];
 
@@ -597,40 +598,6 @@ export default function Home() {
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/40" />
         </div>
 
-        {/* Floating Trust Badges - Hormozi/McDowell Style */}
-        <div className="absolute top-4 sm:top-8 left-0 right-0 z-20 pointer-events-none">
-          <div className="container mx-auto px-4">
-            <div className="flex flex-wrap justify-center gap-2 sm:gap-4">
-              <motion.div 
-                initial={{ y: -20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.3 }}
-                className="bg-gradient-to-r from-yellow-400/90 to-yellow-500/90 backdrop-blur-sm text-black px-3 sm:px-4 py-1.5 sm:py-2 rounded-full shadow-lg text-xs sm:text-sm font-bold flex items-center gap-2"
-              >
-                <UserCheck className="w-3 h-3 sm:w-4 sm:h-4" />
-                <span>150,000+ Happy Customers</span>
-              </motion.div>
-              <motion.div 
-                initial={{ y: -20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.4 }}
-                className="bg-gradient-to-r from-blue-500/90 to-blue-600/90 backdrop-blur-sm text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-full shadow-lg text-xs sm:text-sm font-bold flex items-center gap-2"
-              >
-                <Trophy className="w-3 h-3 sm:w-4 sm:h-4" />
-                <span>15+ Years Experience</span>
-              </motion.div>
-              <motion.div 
-                initial={{ y: -20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.5 }}
-                className="bg-gradient-to-r from-green-500/90 to-green-600/90 backdrop-blur-sm text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-full shadow-lg text-xs sm:text-sm font-bold flex items-center gap-2"
-              >
-                <Shield className="w-3 h-3 sm:w-4 sm:h-4" />
-                <span>Perfect Safety Record</span>
-              </motion.div>
-            </div>
-          </div>
-        </div>
 
         {/* Hero Content */}
         <div className="relative z-10 container mx-auto px-6 text-white flex-grow flex items-center">
@@ -718,6 +685,40 @@ export default function Home() {
               </div>
             </motion.div>
 
+            {/* Trust Badges - Moved below glass cards */}
+            <motion.div 
+              variants={reducedMotion ? undefined : fadeInUp}
+              className="flex flex-wrap justify-center gap-2 sm:gap-4 mb-8 max-w-5xl mx-auto"
+            >
+              <motion.div 
+                initial={{ y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.6 }}
+                className="bg-gradient-to-r from-yellow-400/90 to-yellow-500/90 backdrop-blur-sm text-black px-3 sm:px-4 py-1.5 sm:py-2 rounded-full shadow-lg text-xs sm:text-sm font-bold flex items-center gap-2"
+              >
+                <UserCheck className="w-3 h-3 sm:w-4 sm:h-4" />
+                <span>150,000+ Happy Customers</span>
+              </motion.div>
+              <motion.div 
+                initial={{ y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.7 }}
+                className="bg-gradient-to-r from-blue-500/90 to-blue-600/90 backdrop-blur-sm text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-full shadow-lg text-xs sm:text-sm font-bold flex items-center gap-2"
+              >
+                <Trophy className="w-3 h-3 sm:w-4 sm:h-4" />
+                <span>15+ Years Experience</span>
+              </motion.div>
+              <motion.div 
+                initial={{ y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.8 }}
+                className="bg-gradient-to-r from-green-500/90 to-green-600/90 backdrop-blur-sm text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-full shadow-lg text-xs sm:text-sm font-bold flex items-center gap-2"
+              >
+                <Shield className="w-3 h-3 sm:w-4 sm:h-4" />
+                <span>Perfect Safety Record</span>
+              </motion.div>
+            </motion.div>
+
             {/* CTA Buttons - Enhanced with Hormozi/McDowell Urgency */}
             <motion.div 
               variants={reducedMotion ? undefined : fadeInUp}
@@ -725,27 +726,27 @@ export default function Home() {
             >
               <Button
                 size="lg"
+                variant="outline"
                 onClick={() => handleGetQuote()}
-                className="relative w-full sm:w-auto bg-gradient-to-r from-yellow-400 via-yellow-500 to-orange-500 hover:from-yellow-500 hover:via-orange-500 hover:to-orange-600 text-black font-extrabold text-base sm:text-lg md:text-xl px-6 sm:px-8 md:px-12 py-4 sm:py-6 md:py-8 rounded-xl shadow-2xl transform hover:scale-110 transition-all duration-300 animate-pulse"
-                data-testid="button-hero-book-now"
+                className="w-full sm:w-auto bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white font-bold text-base sm:text-lg md:text-xl px-6 sm:px-8 md:px-12 py-4 sm:py-6 md:py-8 rounded-xl shadow-2xl transform hover:scale-105 transition-all duration-300"
+                data-testid="button-hero-get-quote"
               >
-                <Calendar className="mr-2 sm:mr-3 h-5 w-5 sm:h-6 sm:w-6 flex-shrink-0" />
-                <span data-editable data-editable-id="hero-cta-book">BOOK NOW - LIMITED SPOTS</span>
-                <ArrowRight className="ml-2 sm:ml-3 h-5 w-5 sm:h-6 sm:w-6 flex-shrink-0 animate-bounce-horizontal" />
-                <div className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full animate-pulse">
-                  🔥 HOT
-                </div>
+                <MessageSquare className="mr-2 sm:mr-3 h-5 w-5 sm:h-6 sm:w-6 flex-shrink-0" />
+                <span data-editable data-editable-id="hero-cta-quote">SEE PACKAGES & PRICING</span>
               </Button>
               
               <Button
                 size="lg"
-                variant="outline"
                 onClick={() => handleGetQuote()}
-                className="w-full sm:w-auto border-3 border-white bg-white/95 text-gray-900 hover:bg-gradient-to-r hover:from-blue-500 hover:to-purple-600 hover:text-white hover:border-transparent font-bold text-base sm:text-lg md:text-xl px-6 sm:px-8 md:px-12 py-4 sm:py-6 md:py-8 rounded-xl shadow-2xl transform hover:scale-105 transition-all duration-300"
-                data-testid="button-hero-get-quote"
+                className="relative w-full sm:w-auto bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-base sm:text-lg md:text-xl px-6 sm:px-8 md:px-12 py-4 sm:py-6 md:py-8 rounded-xl shadow-2xl transform hover:scale-110 transition-all duration-300 animate-pulse"
+                data-testid="button-hero-book-now"
               >
-                <MessageSquare className="mr-2 sm:mr-3 h-5 w-5 sm:h-6 sm:w-6 flex-shrink-0" />
-                <span data-editable data-editable-id="hero-cta-quote">GET INSTANT QUOTE</span>
+                <Calendar className="mr-2 sm:mr-3 h-5 w-5 sm:h-6 sm:w-6 flex-shrink-0" />
+                <span data-editable data-editable-id="hero-cta-book">BOOK NOW</span>
+                <ArrowRight className="ml-2 sm:ml-3 h-5 w-5 sm:h-6 sm:w-6 flex-shrink-0 animate-bounce-horizontal" />
+                <div className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full animate-pulse">
+                  🔥 HOT
+                </div>
               </Button>
             </motion.div>
           </motion.div>
@@ -1117,40 +1118,75 @@ export default function Home() {
               />
             </div>
 
-            {/* Seasonal Pricing Note */}
-            <div className="text-center p-8 bg-white dark:bg-gray-800 rounded-2xl shadow-lg max-w-4xl mx-auto">
-              <h3 className="text-xl font-semibold mb-6 text-gray-900 dark:text-white">
+            {/* Complete Pricing Information Table */}
+            <div className="p-8 bg-white dark:bg-gray-800 rounded-2xl shadow-lg">
+              <h3 className="text-xl font-semibold mb-6 text-gray-900 dark:text-white text-center">
                 Pricing Information
               </h3>
-              <div className="grid md:grid-cols-2 gap-6 mb-6">
-                <div className="text-left">
-                  <h4 className="font-semibold mb-3 flex items-center text-gray-900 dark:text-white">
-                    <Sun className="w-5 h-5 mr-2 text-yellow-500" />
-                    Peak Season (May - September)
-                  </h4>
-                  <ul className="text-sm text-gray-700 dark:text-gray-300 space-y-2 leading-relaxed">
-                    <li>• Weekend rates 20-25% higher</li>
-                    <li>• Holiday premium pricing</li>
-                    <li>• Book 4-6 weeks in advance</li>
-                  </ul>
-                </div>
-                <div className="text-left">
-                  <h4 className="font-semibold mb-3 flex items-center text-gray-900 dark:text-white">
-                    <Sparkles className="w-5 h-5 mr-2 text-blue-500" />
-                    Off-Peak Season (October - April)
-                  </h4>
-                  <ul className="text-sm text-gray-700 dark:text-gray-300 space-y-2 leading-relaxed">
-                    <li>• Standard weekday rates</li>
-                    <li>• More availability</li>
-                    <li>• Best value deals</li>
-                  </ul>
-                </div>
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="border-b-2 border-gray-200 dark:border-gray-700">
+                      <th className="text-left py-3 px-4 font-semibold text-gray-900 dark:text-white">
+                        <Ship className="inline w-4 h-4 mr-2" />
+                        Day Tripper
+                        <span className="block text-xs font-normal text-gray-600 dark:text-gray-400 mt-1">Up to 14 people</span>
+                      </th>
+                      <th className="text-left py-3 px-4 font-semibold text-gray-900 dark:text-white">
+                        <Ship className="inline w-4 h-4 mr-2" />
+                        Meeseeks / The Irony
+                        <span className="block text-xs font-normal text-gray-600 dark:text-gray-400 mt-1">15-30 people</span>
+                      </th>
+                      <th className="text-left py-3 px-4 font-semibold text-gray-900 dark:text-white">
+                        <Ship className="inline w-4 h-4 mr-2" />
+                        Clever Girl
+                        <span className="block text-xs font-normal text-gray-600 dark:text-gray-400 mt-1">31-75 people</span>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody className="text-gray-700 dark:text-gray-300">
+                    <tr className="border-b border-gray-100 dark:border-gray-800">
+                      <td className="py-2 px-4">Mon-Thu: $200/hr</td>
+                      <td className="py-2 px-4">Mon-Thu: $225/hr</td>
+                      <td className="py-2 px-4">Mon-Thu: $250/hr</td>
+                    </tr>
+                    <tr className="border-b border-gray-100 dark:border-gray-800">
+                      <td className="py-2 px-4">Friday: $225/hr</td>
+                      <td className="py-2 px-4">Friday: $250/hr</td>
+                      <td className="py-2 px-4">Friday: $275/hr</td>
+                    </tr>
+                    <tr className="border-b border-gray-100 dark:border-gray-800 bg-blue-50 dark:bg-gray-900">
+                      <td className="py-2 px-4 font-semibold">Saturday: $350/hr</td>
+                      <td className="py-2 px-4 font-semibold">Saturday: $375/hr</td>
+                      <td className="py-2 px-4 font-semibold">Saturday: $400/hr</td>
+                    </tr>
+                    <tr className="border-b border-gray-100 dark:border-gray-800">
+                      <td className="py-2 px-4">Sunday: $250/hr</td>
+                      <td className="py-2 px-4">Sunday: $275/hr</td>
+                      <td className="py-2 px-4">Sunday: $300/hr</td>
+                    </tr>
+                    <tr className="border-t-2 border-gray-200 dark:border-gray-700">
+                      <td colSpan={3} className="py-3 px-4 font-semibold text-gray-900 dark:text-white">
+                        <Gift className="inline w-4 h-4 mr-2" />
+                        Package Add-Ons (Per Cruise)
+                      </td>
+                    </tr>
+                    <tr className="border-b border-gray-100 dark:border-gray-800">
+                      <td className="py-2 px-4">Essentials: +$100</td>
+                      <td className="py-2 px-4">Essentials: +$150</td>
+                      <td className="py-2 px-4">Essentials: +$200</td>
+                    </tr>
+                    <tr className="border-b border-gray-100 dark:border-gray-800">
+                      <td className="py-2 px-4">Ultimate: +$250</td>
+                      <td className="py-2 px-4">Ultimate: +$300</td>
+                      <td className="py-2 px-4">Ultimate: +$350</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
-              <div className="border-t border-gray-200 dark:border-gray-700 pt-6">
-                <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
+              <div className="border-t border-gray-200 dark:border-gray-700 pt-6 mt-6">
+                <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed text-center">
                   All prices subject to 8.25% tax. 20% gratuity recommended. 50% deposit required to secure booking.
-                  <br />
-                  <span className="font-semibold text-brand-blue">✨ Price Match Guarantee - Best Value on Lake Travis Guaranteed</span>
                 </p>
               </div>
             </div>
@@ -1429,7 +1465,7 @@ export default function Home() {
                 </CardHeader>
                 <CardContent className="text-center">
                   <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-3" data-editable data-editable-id="availability-card-2-description">
-                    High demand season - book 2-4 weeks in advance
+                    High demand season - book 8-12 weeks for priority time slots - once they book they're gone!
                   </p>
                   <Badge variant="secondary" className="bg-orange-100 dark:bg-orange-900 text-orange-700 dark:text-orange-300">
                     Book Early
@@ -1559,7 +1595,7 @@ export default function Home() {
                       Bachelorette & Bachelor Parties
                     </h4>
                     <p className="text-gray-700 dark:text-gray-300" data-editable data-editable-id="booking-timeline-1-description">
-                      Book 4-6 weeks in advance, especially for ATX Disco Cruises on weekends during peak season
+                      Book 8-12 weeks for priority time slots - once they book they're gone! Especially for ATX Disco Cruises on weekends during peak season
                     </p>
                   </div>
                 </div>
@@ -2372,7 +2408,7 @@ export default function Home() {
         <div itemScope itemType="https://schema.org/Service">
           <h3 itemProp="name">Private Charters - Exclusive Austin Boat Rentals</h3>
           <p itemProp="description">
-            Private party boat charters on Lake Travis with exclusive boat rental for your group. Choose from our fleet of premium boats: Day Tripper 14-person boat, Me Seeks the Irony 25-person boat, or flagship Clever Girl 50-person boat with giant Texas flag and 14 disco balls.
+            Private party boat charters on Lake Travis with exclusive boat rental for your group. Choose from our fleet of premium boats: Day Tripper 14-person boat, Meeseeks The Irony 25-person boat, or flagship Clever Girl 50-person boat with giant Texas flag and 14 disco balls.
           </p>
           <div itemProp="offers" itemScope itemType="https://schema.org/Offer">
             <meta itemProp="priceCurrency" content="USD" />
@@ -2488,12 +2524,12 @@ export default function Home() {
         </div>
         
         <div itemScope itemType="https://schema.org/Product">
-          <h3 itemProp="name">Me Seeks the Irony - 25 Person Party Boat</h3>
+          <h3 itemProp="name">Meeseeks The Irony - 25 Person Party Boat</h3>
           <img itemProp="image" src="https://premierpartycruises.com/assets/meeseeks.jpg" alt="Meeseeks 25-person party boat" style={{display: 'none'}} />
           <p itemProp="description">
-            Popular 25-person party boat (seating for 18-25 guests) ideal for medium-sized celebrations on Lake Travis. Premium amenities, professional crew, and excellent sound system for the perfect Austin party boat experience.
+            Popular 25-person party boat (15-30 guests capacity) ideal for medium-sized celebrations on Lake Travis. Premium amenities, professional crew, and excellent sound system for the perfect Austin party boat experience.
           </p>
-          <span itemProp="capacity">25 passengers (18-25 seating)</span>
+          <span itemProp="capacity">25 passengers (15-30 capacity)</span>
           <div itemProp="offers" itemScope itemType="https://schema.org/Offer">
             <meta itemProp="priceCurrency" content="USD" />
             <meta itemProp="price" content="225" />
@@ -2531,7 +2567,7 @@ export default function Home() {
         <div itemScope itemType="https://schema.org/Offer">
           <h3>Private Charter Hourly Rates</h3>
           <p>Day Tripper (14 guests): Starting at $200/hour (Monday-Thursday), $250/hour (Friday-Sunday)</p>
-          <p>Meeseeks & The Irony (15-30 guests): Starting at $225/hour (Monday-Thursday), $300/hour (Friday-Sunday)</p>
+          <p>Meeseeks / The Irony (15-30 guests): Starting at $225/hour (Monday-Thursday), $300/hour (Friday-Sunday)</p>
           <p>Clever Girl (30-75 guests): Starting at $300/hour (Monday-Thursday), $350/hour (Friday-Sunday)</p>
           <p>All private charters have a 4-hour minimum. Includes captain, crew, fuel, coolers with ice, sound system, and safety equipment.</p>
         </div>
@@ -2989,7 +3025,7 @@ export default function Home() {
               <ArrowRight className="ml-3 h-6 w-6 animate-bounce-horizontal" />
             </Button>
             <p className="text-sm mt-4 opacity-90">
-              ⚠️ Weekend spots fill up 2-3 weeks in advance
+              ⚠️ Weekend spots fill up - book 8-12 weeks for priority time slots - once they book they're gone!
             </p>
           </div>
         </div>
