@@ -84,44 +84,76 @@
 }
 
 :root {
+  /* HORMOZI/MCDOWELL DESIGN SYSTEM - PREMIER PARTY CRUISES */
+  
+  /* Core Colors - Optimized for Conversion */
   --background: hsl(0 0% 100%);
-  --foreground: hsl(0 0% 0%);
+  --foreground: hsl(220 15% 7%); /* Near Black #111827 */
   --card: hsl(0 0% 100%);
-  --card-foreground: hsl(0 0% 0%);
+  --card-foreground: hsl(220 15% 7%);
   --popover: hsl(0 0% 100%);
-  --popover-foreground: hsl(0 0% 0%);
-  --primary: hsl(208 100% 50%); /* Electric Blue #0080FF */
-  --primary-foreground: hsl(0 0% 100%);
-  --secondary: hsl(51 100% 50%); /* Vibrant Yellow #FFD700 */
-  --secondary-foreground: hsl(0 0% 0%);
-  --muted: hsl(220 20% 95%);
-  --muted-foreground: hsl(220 10% 45%);
-  --accent: hsl(51 100% 50%); /* Bright yellow accent */
-  --accent-foreground: hsl(220 10% 15%);
+  --popover-foreground: hsl(220 15% 7%);
+  
+  /* Primary CTA - High Contrast Yellow/Gold for Maximum Conversion */
+  --primary: hsl(45 100% 50%); /* Gold/Yellow #FFD700 */
+  --primary-foreground: hsl(220 15% 7%);
+  
+  /* Secondary - Deep Blue for Trust */
+  --secondary: hsl(215 70% 35%); /* Deep Blue #1E3A8A */
+  --secondary-foreground: hsl(0 0% 100%);
+  
+  /* Accent - Pink for Highlights */
+  --accent: hsl(330 81% 60%); /* Pink #EC4899 */
+  --accent-foreground: hsl(0 0% 100%);
+  
+  /* Muted & Borders */
+  --muted: hsl(210 20% 98%);
+  --muted-foreground: hsl(215 10% 40%); /* Gray #6B7280 */
+  
+  /* Success/Warning/Destructive */
+  --success: hsl(160 84% 39%); /* Green #10B981 */
+  --warning: hsl(35 92% 50%); /* Orange #F59E0B */
   --destructive: hsl(0 84% 60%);
   --destructive-foreground: hsl(0 0% 100%);
+  
+  /* UI Elements */
   --border: hsl(220 15% 85%);
   --input: hsl(220 15% 85%);
-  --ring: hsl(208 100% 50%);
-  --chart-1: hsl(208 100% 50%);
-  --chart-2: hsl(51 100% 50%);
-  --chart-3: hsl(208 90% 60%);
-  --chart-4: hsl(51 95% 60%);
-  --chart-5: hsl(208 80% 70%);
+  --ring: hsl(45 100% 50%); /* Gold ring for focus states */
+  
+  /* Chart Colors */
+  --chart-1: hsl(45 100% 50%); /* Gold */
+  --chart-2: hsl(215 70% 35%); /* Deep Blue */
+  --chart-3: hsl(330 81% 60%); /* Pink */
+  --chart-4: hsl(160 84% 39%); /* Green */
+  --chart-5: hsl(35 92% 50%); /* Orange */
+  
+  /* Sidebar */
   --sidebar: hsl(0 0% 100%);
-  --sidebar-foreground: hsl(220 10% 15%);
-  --sidebar-primary: hsl(208 100% 50%);
-  --sidebar-primary-foreground: hsl(0 0% 100%);
-  --sidebar-accent: hsl(51 100% 95%);
-  --sidebar-accent-foreground: hsl(208 100% 50%);
+  --sidebar-foreground: hsl(220 15% 7%);
+  --sidebar-primary: hsl(45 100% 50%);
+  --sidebar-primary-foreground: hsl(220 15% 7%);
+  --sidebar-accent: hsl(45 100% 95%);
+  --sidebar-accent-foreground: hsl(215 70% 35%);
   --sidebar-border: hsl(220 15% 85%);
-  --sidebar-ring: hsl(208 100% 50%);
-  --font-sans: "DM Sans", "DM Sans Fallback", "Inter", system-ui, sans-serif;
+  --sidebar-ring: hsl(45 100% 50%);
+  /* Typography - Hormozi/McDowell Optimized */
+  --font-sans: "Inter", "DM Sans", system-ui, sans-serif; /* Body font */
+  --font-heading: "Poppins", "Bebas Neue", system-ui, sans-serif; /* Headings */
   --font-serif: Georgia, serif;
   --font-mono: Menlo, monospace;
-  --font-heading: "Bebas Neue", "Bebas Neue Fallback", "Oswald", system-ui, sans-serif;
-  --font-caps: "Bebas Neue", "Bebas Neue Fallback", "Oswald", system-ui, sans-serif;
-  --radius: 12px;
+  --font-caps: "Poppins", "Bebas Neue", system-ui, sans-serif;
+  
+  /* Spacing System (rem units) */
+  --space-xs: 0.5rem; /* 8px */
+  --space-sm: 1rem; /* 16px */
+  --space-md: 1.5rem; /* 24px */
+  --space-lg: 2rem; /* 32px */
+  --space-xl: 3rem; /* 48px */
+  --space-2xl: 4rem; /* 64px */
+  --space-3xl: 6rem; /* 96px */
+  
+  --radius: 0.5rem; /* 8px - Softer, more modern */
   --shadow-2xs: 0px 2px 0px 0px hsl(220 90% 55% / 0.00);
   --shadow-xs: 0px 2px 0px 0px hsl(220 90% 55% / 0.00);
   --shadow-sm: 0px 2px 0px 0px hsl(220 90% 55% / 0.00), 0px 1px 2px -1px hsl(220 90% 55% / 0.00);
@@ -807,4 +839,242 @@ button,
 /* Full containment for isolated components */
 .contain-strict {
   contain: strict;
+}
+
+/* ===================================== */
+/* HORMOZI/MCDOWELL CONVERSION FRAMEWORK */
+/* ===================================== */
+
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600&display=swap');
+
+/* Primary CTA Button - Conversion Optimized */
+.btn-primary-hero {
+  background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+  color: #111827;
+  padding: 1.25rem 2.5rem;
+  font-size: 1.125rem;
+  font-weight: 700;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+  min-height: 60px;
+  min-width: 200px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+}
+
+.btn-primary-hero:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
+  background: linear-gradient(135deg, #FFDB1A 0%, #FFB52E 100%);
+}
+
+/* Secondary Button */
+.btn-secondary-hero {
+  background: transparent;
+  color: #1E3A8A;
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border: 2px solid #1E3A8A;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-height: 48px;
+  font-family: var(--font-sans);
+}
+
+.btn-secondary-hero:hover {
+  background: #1E3A8A;
+  color: #FFFFFF;
+  transform: translateY(-1px);
+}
+
+/* Hero Section Typography */
+.hero-headline {
+  font-family: var(--font-heading);
+  font-size: 3rem;
+  font-weight: 800;
+  line-height: 1.2;
+  color: #111827;
+  margin-bottom: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .hero-headline {
+    font-size: 1.75rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-headline {
+    font-size: 3.5rem;
+  }
+}
+
+.hero-subheadline {
+  font-family: var(--font-sans);
+  font-size: 1.25rem;
+  font-weight: 500;
+  line-height: 1.6;
+  color: #6B7280;
+  margin-bottom: 2rem;
+}
+
+/* Benefit Bullets */
+.benefit-bullets {
+  list-style: none;
+  padding: 0;
+  margin: 1.5rem 0;
+}
+
+.benefit-bullets li {
+  padding: 0.75rem 0;
+  font-family: var(--font-sans);
+  font-size: 1.125rem;
+  color: #374151;
+  display: flex;
+  align-items: flex-start;
+}
+
+.benefit-bullets li::before {
+  content: "✓";
+  color: #10B981;
+  font-weight: 700;
+  margin-right: 0.75rem;
+  font-size: 1.25rem;
+}
+
+/* Social Proof Badge */
+.social-proof-badge {
+  background: linear-gradient(135deg, #FFF9E6 0%, #FFF3CC 100%);
+  border: 2px solid #FFD700;
+  border-radius: 0.5rem;
+  padding: 1rem 1.5rem;
+  display: inline-block;
+  margin: 1rem 0;
+}
+
+.social-proof-badge .rating {
+  color: #FFB800;
+  font-weight: 700;
+  font-size: 1.125rem;
+}
+
+/* Value Stack Card */
+.value-stack-card {
+  background: #FFFFFF;
+  border-radius: 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  transition: all 0.3s ease;
+  margin-bottom: 1.5rem;
+}
+
+.value-stack-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* Section Headings */
+.section-h2 {
+  font-family: var(--font-heading);
+  font-size: 2.25rem;
+  font-weight: 700;
+  line-height: 1.3;
+  color: #111827;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.section-h3 {
+  font-family: var(--font-heading);
+  font-size: 1.75rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: #1F2937;
+  margin-bottom: 1rem;
+}
+
+/* Testimonial Card */
+.testimonial-card {
+  background: #F9FAFB;
+  border-left: 4px solid #FFD700;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.testimonial-card .stars {
+  color: #FFB800;
+  margin-bottom: 0.5rem;
+}
+
+/* FAQ Accordion */
+.faq-item {
+  border-bottom: 1px solid #E5E7EB;
+  padding: 1.5rem 0;
+}
+
+.faq-question {
+  font-family: var(--font-sans);
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #111827;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.faq-answer {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #6B7280;
+  padding-top: 1rem;
+}
+
+/* Urgency Elements */
+.urgency-badge {
+  background: #FEE2E2;
+  color: #DC2626;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  font-weight: 600;
+  display: inline-block;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+}
+
+/* Mobile Optimizations */
+@media (max-width: 768px) {
+  .btn-primary-hero {
+    width: 100%;
+    padding: 1rem 2rem;
+    font-size: 1rem;
+  }
+  
+  .section-h2 {
+    font-size: 1.75rem;
+  }
+  
+  .value-stack-card {
+    padding: 1.5rem;
+  }
 }
