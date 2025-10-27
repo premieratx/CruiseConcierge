@@ -636,7 +636,7 @@ export default function Home() {
                 <div>
                   <div className="font-sans tracking-wider font-bold uppercase text-xs text-blue-600 mb-1" data-editable data-editable-id="pricing-overlay-disco-label">ATX DISCO CRUISES</div>
                   <div className="text-xl sm:text-2xl font-bold text-gray-900 mb-1" data-editable data-editable-id="pricing-overlay-disco-price">
-                    ${pricingHighlights[1].weekdayFrom}/person
+                    $85/person
                   </div>
                   <div className="text-xs text-gray-700" data-editable data-editable-id="pricing-overlay-disco-subtitle">Friday & Saturday</div>
                 </div>
