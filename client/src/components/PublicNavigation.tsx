@@ -98,12 +98,6 @@ const navigationItems: NavigationItem[] = [
     hasDropdown: true,
     dropdownItems: [
       {
-        title: '⭐ ATX Disco Cruise',
-        href: '/atx-disco-cruise',
-        description: 'All-Inclusive Bach Party Cruise • Most Popular',
-        icon: Disc3
-      },
-      {
         title: 'All Private Cruises',
         href: '/private-cruises',
         description: 'Exclusive boat charters',
@@ -487,19 +481,19 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
             <span className="text-[10px] font-medium">Bach</span>
           </a>
 
-          {/* ATX Disco */}
+          {/* Wedding */}
           <a
-            href="/atx-disco-cruise"
+            href="/wedding-parties"
             className={cn(
               "flex flex-col items-center justify-center min-h-[44px] px-2 py-1 rounded-lg transition-all duration-200",
-              location === '/atx-disco-cruise'
+              location === '/wedding-parties'
                 ? "text-brand-blue bg-brand-blue/10"
                 : "text-gray-600 dark:text-gray-400 hover:text-brand-blue hover:bg-brand-blue/5"
             )}
-            data-testid="link-bottom-nav-atx-disco"
+            data-testid="link-bottom-nav-wedding"
           >
-            <Disc3 className="h-5 w-5 mb-0.5" />
-            <span className="text-[10px] font-medium">Disco</span>
+            <Heart className="h-5 w-5 mb-0.5" />
+            <span className="text-[10px] font-medium">Wedding</span>
           </a>
 
           {/* Gallery */}

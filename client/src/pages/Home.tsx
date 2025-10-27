@@ -71,10 +71,8 @@ import Footer from '@/components/Footer';
 import { formatCurrency } from '@shared/formatters';
 import { PricingTable } from '@/components/PricingTable';
 import { TabbedPrivateCruisePricing } from '@/components/TabbedPrivateCruisePricing';
-import { DiscoCruisePricing } from '@/components/DiscoCruisePricing';
 import SEOHead from '@/components/SEOHead';
 import { Endorsement } from '@shared/schema';
-import { QuickDealHighlight } from '@/components/DiscoVsPrivateComparison';
 import { useInlineEdit } from '@/hooks/useInlineEdit';
 import { useReducedMotion } from '@/hooks/use-reduced-motion';
 import { ComparisonTable, type ComparisonColumn, type ComparisonRow } from '@/components/ComparisonTable';
@@ -86,7 +84,6 @@ import AIOptimizedSection from '@/components/AIOptimizedSection';
 import { SectionReveal } from '@/components/SectionReveal';
 
 // Lazy load heavy components to improve FCP
-const DiscoVsPrivateComparison = lazy(() => import('@/components/DiscoVsPrivateComparison').then(mod => ({ default: mod.DiscoVsPrivateComparison })));
 const PartyPlanningChecklist = lazy(() => import('@/components/PartyPlanningChecklist'));
 import { 
   calculatePackagePricing, 
@@ -95,10 +92,6 @@ import {
 } from '@shared/pricing';
 import { 
   PRIVATE_CRUISE_PRICING, 
-  DISCO_PRICING, 
-  compareDiscoVsPrivate, 
-  getBestDealRecommendation,
-  getSavingsOpportunities,
   BOATS,
   PACKAGE_FLAT_FEES,
   CREW_FEES,
@@ -179,23 +172,23 @@ const services = [
     highlights: ['3 Premium Boats Available', `${BOATS.DAY_TRIPPER.capacity}-${BOATS.CLEVER_GIRL.capacity} Person Capacity Options`, 'Professional Licensed Captains', 'Premium Sound Systems', 'Coolers & Ice Included', `Lily Pads & Floaties (+$${ADDON_FEES.LILY_PAD / 100})`, '3-4 Hour Cruise Options']
   },
   {
-    id: 'bachelor',
-    title: 'Bachelorette Parties',
-    subtitle: 'Our specialty since 2009',
+    id: 'wedding',
+    title: 'Wedding Parties',
+    subtitle: 'Celebrate your special day',
     description: (
       <>
-        Austin's premier bachelorette party experience! Join the <InternalLinkHighlight href="/atx-disco-cruise" title="ATX Disco Cruise">ATX Disco Cruise</InternalLinkHighlight> or book a <InternalLinkHighlight href="/private-cruises" title="Private Charter">private charter</InternalLinkHighlight>. Professional DJ, photographer, and everything needed for an unforgettable celebration.
+        Make your wedding celebration unforgettable with a <InternalLinkHighlight href="/wedding-parties" title="Wedding Party Cruise">private Lake Travis cruise</InternalLinkHighlight>. Perfect for rehearsal dinners, welcome parties, and after parties with exclusive boat charters.
       </>
     ),
-    features: ['Basic Bach, Disco Queen, or Platinum packages', 'Professional DJ & photographer', 'Giant unicorn floats & party supplies', 'BYOB with coolers & ice'],
-    startingPrice: `$${DISCO_PRICING.basic / 100}`,
-    priceNote: 'per person',
-    icon: PartyPopper,
+    features: ['Rehearsal dinner cruises', 'Welcome party events', 'After party celebrations', 'Exclusive private charters', 'Customizable packages'],
+    startingPrice: `$${HOURLY_RATES.MON_THU[25] / 100}`,
+    hourlyNote: 'per hour (4-hour minimum)',
+    icon: Heart,
     image: galleryImage3,
-    badge: 'Our Specialty',
-    gallery: [galleryImage3, heroImage1, galleryImage2, heroImage2],
-    detailedDescription: 'We\'ve been Austin\'s #1 bachelorette party destination since 2009! Choose from our signature ATX Disco Cruise packages (Basic Bach, Disco Queen, or Platinum) or book a private charter. Every bachelorette experience includes professional DJ, photographer, giant floats, and party supplies to make the bride\'s celebration absolutely perfect.',
-    highlights: ['Austin\'s #1 Since 2009', 'Basic Bach, Disco Queen & Platinum', 'Professional DJ & Photographer', 'Giant Floats & Party Supplies', 'BYOB with Coolers & Ice', 'ATX Disco or Private Options', 'Multi-Group Party Atmosphere']
+    badge: 'Wedding Specialists',
+    gallery: [galleryImage3, heroImage1, galleryImage2, heroImage3],
+    detailedDescription: 'Create magical wedding memories on Lake Travis with our exclusive wedding party cruises. Whether it\'s a rehearsal dinner, welcome party, or after-party celebration, our professional crew ensures a sophisticated and memorable experience for you and your guests.',
+    highlights: ['Rehearsal Dinner Cruises', 'Welcome Party Events', 'After Party Celebrations', 'Exclusive Private Charters', 'Professional Service', 'Custom Catering Available', 'Premium Sound Systems']
   },
   {
     id: 'corporate',
@@ -254,11 +247,11 @@ const whyChooseUs = [
 const faqData = [
   {
     question: 'What types of party boat services do you offer in Austin?',
-    answer: 'We offer two main types of party boat experiences on Lake Travis: Private Charters (exclusive boat rentals for your group with boats holding 14-75 people) and ATX Disco Cruises (shared party boat experiences with professional DJ and photographer starting at $85/person). Both include professional captains, premium sound systems, coolers with ice, and depart from Anderson Mill Marina.'
+    answer: 'We offer exclusive Private Charters on Lake Travis with boats holding 14-75 people. Perfect for corporate events, wedding parties, birthdays, and all special celebrations. Every cruise includes professional captains, premium sound systems, coolers with ice, and departs from Anderson Mill Marina. Choose from our fleet of premium boats based on your group size and event type.'
   },
   {
     question: 'How much does a party boat rental cost in Austin?',
-    answer: 'Austin party boat pricing varies by experience type. Private charters start at $275/hour for our 14-person boat with 4-hour minimums. ATX Disco Cruise packages start at $85/person for Basic Bach, $95/person for Disco Queen/King, and $105/person for Platinum packages. Weekend rates are higher than weekday rates. Contact us for exact pricing for your specific date and group size.'
+    answer: 'Austin party boat pricing starts at $275/hour for our 14-person boat with 4-hour minimums. Larger boats for 25-75 people range from $300-400/hour. Weekend rates are higher than weekday rates. Contact us for exact pricing for your specific date and group size. All prices include captain, crew, fuel, and amenities.'
   },
   {
     question: 'Where do Austin party boats depart from?',
@@ -266,7 +259,7 @@ const faqData = [
   },
   {
     question: 'What\'s included in your party boat services?',
-    answer: 'Every party boat cruise includes: professional Coast Guard certified captain and crew, premium Bluetooth sound system, large coolers with ice, all required safety equipment, fuel, and access to Lake Travis\'s most scenic coves and beaches. ATX Disco Cruises also include professional DJ, photographer, party favors, and reserved seating areas. Optional add-ons include lily pads, alcohol delivery, and transportation services.'
+    answer: 'Every party boat cruise includes: professional Coast Guard certified captain and crew, premium Bluetooth sound system, large coolers with ice, all required safety equipment, fuel, and access to Lake Travis\'s most scenic coves and beaches. Optional add-ons include lily pads, alcohol delivery, and transportation services. We can also arrange DJs and photographers for special events.'
   },
   {
     question: 'Can we bring our own alcohol on the party boat?',
@@ -274,7 +267,7 @@ const faqData = [
   },
   {
     question: 'How far in advance should we book our Austin party boat?',
-    answer: 'We recommend booking 4-6 weeks in advance, especially for weekend dates and during peak season (April-September). ATX Disco Cruises for bachelorette and bachelor parties sell out the fastest. Private charters for corporate events and large groups should be booked 6-8 weeks ahead. Last-minute bookings (1-2 weeks) may be available on weekdays.'
+    answer: 'We recommend booking 4-6 weeks in advance, especially for weekend dates and during peak season (April-September). Wedding parties and corporate events should be booked 6-8 weeks ahead. Holiday weekends book up quickly. Last-minute bookings (1-2 weeks) may be available on weekdays. Contact us to check availability for your preferred date.'
   }
 ];
 
@@ -282,9 +275,9 @@ const testimonials = [
   {
     id: 1,
     name: 'Sarah M.',
-    role: 'ATX Disco Cruise Bachelorette',
+    role: 'Wedding Welcome Party',
     rating: 5,
-    text: "The ATX Disco Cruise was absolutely perfect for my bachelorette party! The DJ was incredible, photographer captured amazing moments, and the Clever Girl boat with those 14 disco balls was unreal!",
+    text: "The private charter was absolutely perfect for our wedding welcome party! The crew was professional, the Clever Girl boat with those 14 disco balls was incredible, and everyone had an amazing time!",
     avatar: '👰',
     date: 'October 2024',
     verified: true
@@ -312,9 +305,9 @@ const testimonials = [
   {
     id: 4,
     name: 'Emily P.',
-    role: 'Bachelor Party Coordinator',
+    role: 'Birthday Party Coordinator',
     rating: 5,
-    text: "We've done this 3 years in a row for different bachelor parties! Can't beat the value of ATX Disco - $85/person includes DJ, photographer, and an epic party. Way better than spending $2000+ for a private boat!",
+    text: "We've done this 3 years in a row for different celebrations! Amazing value for private cruises - professional crew, great boats, and an epic party. The best party experience on Lake Travis!",
     avatar: '🎉',
     date: 'August 2024',
     verified: true
@@ -347,10 +340,10 @@ const pricingHighlights = [
     description: 'Starting prices for 14-person private cruises'
   },
   {
-    type: 'ATX Disco Cruises',
-    weekdayFrom: Math.floor(DISCO_PRICING.basic / 100),
-    weekendFrom: Math.floor(DISCO_PRICING.basic / 100),
-    description: 'Friday & Saturday party cruise tickets'
+    type: 'Wedding Parties',
+    weekdayFrom: Math.floor(samplePricingScenarios.weekday25.perPersonCost / 100),
+    weekendFrom: Math.floor(samplePricingScenarios.weekend25.perPersonCost / 100),
+    description: 'Elegant celebrations for wedding events'
   }
 ];
 
@@ -994,11 +987,8 @@ export default function Home() {
                             case 'private':
                               handleGetQuote('private-cruise', 'general');
                               break;
-                            case 'bachelor':
-                              handleGetQuote('disco-cruise', 'bachelorette');
-                              break;
-                            case 'disco':
-                              handleGetQuote('disco-cruise', 'general');
+                            case 'wedding':
+                              handleGetQuote('private-cruise', 'wedding');
                               break;
                             case 'corporate':
                               handleGetQuote('private-cruise', 'corporate');
@@ -1010,7 +1000,7 @@ export default function Home() {
                         data-testid={`button-service-${service.id}`}
                       >
                         <span data-editable data-editable-id={`service-${service.id}-cta-button`}>
-                          {service.id === 'private' ? 'BOOK PRIVATE CRUISE' : service.id === 'disco' ? 'BOOK ATX DISCO CRUISE' : 'GET QUOTE'}
+                          {service.id === 'private' ? 'BOOK PRIVATE CRUISE' : service.id === 'wedding' ? 'PLAN WEDDING EVENT' : 'GET QUOTE'}
                         </span>
                         <ArrowRight className="ml-2 h-5 w-5" />
                       </Button>
@@ -1059,22 +1049,6 @@ export default function Home() {
               <TabbedPrivateCruisePricing />
             </div>
 
-            {/* ATX Disco Cruise Pricing */}
-            <div className="mb-20">
-              <div className="text-center mb-12">
-                <Badge className="mb-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-4 py-2 font-semibold">
-                  <Music className="h-4 w-4 mr-2 inline" />
-                  ATX Disco Cruise
-                </Badge>
-                <h3 className="text-3xl font-semibold font-playfair mb-4 text-gray-900 dark:text-white">
-                  Multi-Group Bachelor/Bachelorette Party Cruise
-                </h3>
-                <p className="text-base text-gray-700 dark:text-gray-300 max-w-2xl mx-auto leading-relaxed">
-                  The ONLY all-inclusive, multi-group bach party cruise in the United States. DJ, photographer, and giant floats all included!
-                </p>
-              </div>
-              <DiscoCruisePricing />
-            </div>
 
             {/* All Services Overview Comparison */}
             <div className="mb-16">
@@ -1084,24 +1058,6 @@ export default function Home() {
               <PricingTable
                 title="All Services Overview"
                 items={[
-                  {
-                    name: 'ATX Disco Cruise',
-                    basePrice: 85,
-                    pricingType: 'person',
-                    description: 'Public party cruises with DJ and dancing',
-                    features: [
-                      'Per-person tickets',
-                      'DJ and dance floor',
-                      'Professional photographer',
-                      'Party favors included',
-                      'Friday & Saturday cruises'
-                    ],
-                    capacity: 'Groups of 8-30',
-                    duration: '4 hours',
-                    priceNote: '$85-105 per person',
-                    ctaText: 'View Disco Packages',
-                    ctaHref: '/atx-disco-cruise'
-                  },
                   {
                     name: 'Private Cruises',
                     basePrice: 200,
@@ -1138,6 +1094,24 @@ export default function Home() {
                     priceNote: 'Starting at $225/hr',
                     ctaText: 'Plan Corporate Event',
                     ctaHref: '/client-entertainment'
+                  },
+                  {
+                    name: 'Wedding Parties',
+                    basePrice: 250,
+                    pricingType: 'hour',
+                    description: 'Elegant celebrations for wedding events',
+                    features: [
+                      'Rehearsal dinners',
+                      'Welcome parties',
+                      'After parties',
+                      'Custom catering available',
+                      'Professional service'
+                    ],
+                    capacity: '14-75 guests',
+                    duration: '4+ hours',
+                    priceNote: 'Starting at $250/hr',
+                    ctaText: 'Plan Wedding Event',
+                    ctaHref: '/wedding-parties'
                   }
                 ]}
               />
@@ -1266,24 +1240,6 @@ export default function Home() {
         </section>
       </SectionReveal>
 
-      {/* Value Comparison Banner - Hormozi/McDowell Style */}
-      <section className="py-12 bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 text-white">
-        <div className="container mx-auto px-6">
-          <div className="flex flex-col md:flex-row items-center justify-center gap-6 text-center md:text-left">
-            <div className="text-3xl">💰</div>
-            <div>
-              <h3 className="text-2xl font-bold mb-2">Why Pay $2000+ for a Private Boat?</h3>
-              <p className="text-lg">Get the same premium experience for just $85/person with ATX Disco Cruise!</p>
-            </div>
-            <Button
-              onClick={() => handleGetQuote('disco-cruise', 'general')}
-              className="bg-white text-black hover:bg-gray-100 font-bold px-6 py-3 rounded-xl shadow-lg"
-            >
-              Save Money Today →
-            </Button>
-          </div>
-        </div>
-      </section>
 
       {/* CRITICAL: Lightbox Photo Gallery for Experience Cards */}
       <Dialog open={showLightbox} onOpenChange={setShowLightbox}>
@@ -2011,17 +1967,17 @@ export default function Home() {
             data={[
               {
                 question: "What should you bring on a Lake Travis party boat?",
-                answer: "You should bring your own alcohol (we're BYOB), towels, sunscreen, and snacks. We provide coolers with ice, cups, and Bluetooth speakers. For ATX Disco Cruises, just bring your drinks - we handle everything else including party supplies and music. Don't forget your ID and swimsuit!",
+                answer: "You should bring your own alcohol (we're BYOB), towels, sunscreen, and snacks. We provide coolers with ice, cups, and Bluetooth speakers. For special events, we can arrange DJ services and party supplies. Don't forget your ID and swimsuit!",
                 category: "What to Bring"
               },
               {
                 question: "How does your party boat rental process work?",
-                answer: "First, you check availability for your date online. Then you choose between our ATX Disco Cruise (shared party) or a private charter. You'll pay a deposit to secure your booking, receive confirmation via email, and show up at Anderson Mill Marina on Lake Travis 15 minutes before departure. Your captain handles everything else!",
+                answer: "First, you check availability for your date online. Then you choose the perfect boat size for your private charter based on your group (14-75 people). You'll pay a deposit to secure your booking, receive confirmation via email, and show up at Anderson Mill Marina on Lake Travis 15 minutes before departure. Your captain handles everything else!",
                 category: "Booking Process"
               },
               {
                 question: "What happens if it rains on your scheduled cruise date?",
-                answer: "For Private Cruises: Your captain can reschedule or cancel at their discretion. If any cruise time is lost, a prorated refund will be applied. For ATX Disco Cruises: You have 48 hours after booking to cancel for a refund. After 48 hours, no refunds are available. If weather conditions are unsafe (determined day-of by captain and management), we offer the Lemonade Disco as a backup indoor party option.",
+                answer: "For Private Cruises: Your captain can reschedule or cancel at their discretion. If any cruise time is lost, a prorated refund will be applied. We monitor weather conditions closely and will contact you if there are concerns. Safety is our top priority, and we'll work with you to find the best solution for your event.",
                 category: "Weather Policy"
               },
               {
@@ -2031,7 +1987,7 @@ export default function Home() {
               },
               {
                 question: "How many people fit on your boats?",
-                answer: "Your group size determines which boat: Day Tripper holds up to 14 people (perfect for intimate gatherings), Meeseeks accommodates 25 people (ideal for birthday parties), and our flagship Clever Girl holds up to 75 people (great for large corporate events or weddings). ATX Disco Cruises combine multiple groups on larger boats.",
+                answer: "Your group size determines which boat: Day Tripper holds up to 14 people (perfect for intimate gatherings), Meeseeks accommodates 25 people (ideal for birthday parties), and our flagship Clever Girl holds up to 75 people (great for large corporate events or weddings). We'll help you choose the perfect boat for your group size.",
                 category: "Capacity"
               }
             ]}
@@ -2322,11 +2278,11 @@ export default function Home() {
               </Card>
             </Link>
 
-            <Link href="/atx-disco-cruise" data-testid="link-atx-disco-from-home">
+            <Link href="/wedding-parties" data-testid="link-wedding-from-home">
               <Card className="hover:shadow-2xl transition-all duration-300 cursor-pointer h-full border-2 border-transparent hover:border-brand-yellow">
                 <CardHeader>
-                  <CardTitle className="text-xl font-bold text-gray-900 dark:text-white">ATX Disco Cruise</CardTitle>
-                  <p className="text-gray-700 dark:text-gray-300">The legendary party boat experience on Lake Travis</p>
+                  <CardTitle className="text-xl font-bold text-gray-900 dark:text-white">Wedding Parties</CardTitle>
+                  <p className="text-gray-700 dark:text-gray-300">Elegant wedding celebrations on Lake Travis</p>
                 </CardHeader>
               </Card>
             </Link>
