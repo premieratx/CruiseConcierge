@@ -1121,74 +1121,74 @@ export default function Home() {
             </div>
 
             {/* Complete Pricing Information Table */}
-            <div className="p-8 bg-white dark:bg-gray-800 rounded-2xl shadow-lg">
-              <h3 className="text-xl font-semibold mb-6 text-gray-900 dark:text-white text-center">
-                Pricing Information
+            <div className="p-8 bg-gradient-to-br from-white via-yellow-50/30 to-white dark:from-gray-800 dark:via-yellow-900/20 dark:to-gray-800 rounded-2xl shadow-2xl border-2 border-yellow-400/30">
+              <h3 className="text-3xl font-bold mb-8 text-center bg-gradient-to-r from-yellow-600 to-yellow-500 bg-clip-text text-transparent">
+                ⚓ Private Cruise Pricing ⚓
               </h3>
               <div className="overflow-x-auto">
-                <table className="w-full text-sm">
+                <table className="w-full text-base mx-auto">
                   <thead>
-                    <tr className="border-b-2 border-gray-200 dark:border-gray-700">
-                      <th className="text-left py-3 px-4 font-semibold text-gray-900 dark:text-white">
-                        <Ship className="inline w-4 h-4 mr-2" />
+                    <tr className="bg-gradient-to-r from-yellow-400 to-yellow-500 text-black">
+                      <th className="text-center py-4 px-4 font-bold border-r border-yellow-600/30">
+                        <Ship className="inline w-5 h-5 mr-2" />
                         Day Tripper
-                        <span className="block text-xs font-normal text-gray-600 dark:text-gray-400 mt-1">Up to 14 people</span>
+                        <span className="block text-xs font-semibold mt-1">Up to 14 people</span>
                       </th>
-                      <th className="text-left py-3 px-4 font-semibold text-gray-900 dark:text-white">
-                        <Ship className="inline w-4 h-4 mr-2" />
+                      <th className="text-center py-4 px-4 font-bold border-r border-yellow-600/30">
+                        <Ship className="inline w-5 h-5 mr-2" />
                         Meeseeks / The Irony
-                        <span className="block text-xs font-normal text-gray-600 dark:text-gray-400 mt-1">15-30 people</span>
+                        <span className="block text-xs font-semibold mt-1">15-30 people</span>
                       </th>
-                      <th className="text-left py-3 px-4 font-semibold text-gray-900 dark:text-white">
-                        <Ship className="inline w-4 h-4 mr-2" />
+                      <th className="text-center py-4 px-4 font-bold">
+                        <Ship className="inline w-5 h-5 mr-2" />
                         Clever Girl
-                        <span className="block text-xs font-normal text-gray-600 dark:text-gray-400 mt-1">31-75 people</span>
+                        <span className="block text-xs font-semibold mt-1">31-75 people</span>
                       </th>
                     </tr>
                   </thead>
-                  <tbody className="text-gray-700 dark:text-gray-300">
-                    <tr className="border-b border-gray-100 dark:border-gray-800">
-                      <td className="py-2 px-4">Mon-Thu: $200/hr</td>
-                      <td className="py-2 px-4">Mon-Thu: $225/hr</td>
-                      <td className="py-2 px-4">Mon-Thu: $250/hr</td>
+                  <tbody className="font-semibold">
+                    <tr className="border-b-2 border-gray-200 dark:border-gray-700 hover:bg-yellow-50/50 dark:hover:bg-yellow-900/10 transition-colors">
+                      <td className="py-3 px-4 text-center text-gray-800 dark:text-gray-200">Mon-Thu: <span className="text-green-600 dark:text-green-400 font-bold">$200/hr</span></td>
+                      <td className="py-3 px-4 text-center text-gray-800 dark:text-gray-200 border-x border-gray-200 dark:border-gray-700">Mon-Thu: <span className="text-green-600 dark:text-green-400 font-bold">$225/hr</span></td>
+                      <td className="py-3 px-4 text-center text-gray-800 dark:text-gray-200">Mon-Thu: <span className="text-green-600 dark:text-green-400 font-bold">$250/hr</span></td>
                     </tr>
-                    <tr className="border-b border-gray-100 dark:border-gray-800">
-                      <td className="py-2 px-4">Friday: $225/hr</td>
-                      <td className="py-2 px-4">Friday: $250/hr</td>
-                      <td className="py-2 px-4">Friday: $275/hr</td>
+                    <tr className="border-b-2 border-gray-200 dark:border-gray-700 hover:bg-yellow-50/50 dark:hover:bg-yellow-900/10 transition-colors">
+                      <td className="py-3 px-4 text-center text-gray-800 dark:text-gray-200">Friday: <span className="text-blue-600 dark:text-blue-400 font-bold">$225/hr</span></td>
+                      <td className="py-3 px-4 text-center text-gray-800 dark:text-gray-200 border-x border-gray-200 dark:border-gray-700">Friday: <span className="text-blue-600 dark:text-blue-400 font-bold">$250/hr</span></td>
+                      <td className="py-3 px-4 text-center text-gray-800 dark:text-gray-200">Friday: <span className="text-blue-600 dark:text-blue-400 font-bold">$275/hr</span></td>
                     </tr>
-                    <tr className="border-b border-gray-100 dark:border-gray-800 bg-blue-50 dark:bg-gray-900">
-                      <td className="py-2 px-4 font-semibold">Saturday: $350/hr</td>
-                      <td className="py-2 px-4 font-semibold">Saturday: $375/hr</td>
-                      <td className="py-2 px-4 font-semibold">Saturday: $400/hr</td>
+                    <tr className="bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-900/30 dark:to-purple-900/30 border-b-2 border-gray-200 dark:border-gray-700">
+                      <td className="py-3 px-4 text-center font-bold text-purple-700 dark:text-purple-300">Saturday: <span className="text-xl">$350/hr</span></td>
+                      <td className="py-3 px-4 text-center font-bold text-purple-700 dark:text-purple-300 border-x border-purple-300 dark:border-purple-700">Saturday: <span className="text-xl">$375/hr</span></td>
+                      <td className="py-3 px-4 text-center font-bold text-purple-700 dark:text-purple-300">Saturday: <span className="text-xl">$400/hr</span></td>
                     </tr>
-                    <tr className="border-b border-gray-100 dark:border-gray-800">
-                      <td className="py-2 px-4">Sunday: $250/hr</td>
-                      <td className="py-2 px-4">Sunday: $275/hr</td>
-                      <td className="py-2 px-4">Sunday: $300/hr</td>
+                    <tr className="border-b-2 border-gray-200 dark:border-gray-700 hover:bg-yellow-50/50 dark:hover:bg-yellow-900/10 transition-colors">
+                      <td className="py-3 px-4 text-center text-gray-800 dark:text-gray-200">Sunday: <span className="text-blue-600 dark:text-blue-400 font-bold">$250/hr</span></td>
+                      <td className="py-3 px-4 text-center text-gray-800 dark:text-gray-200 border-x border-gray-200 dark:border-gray-700">Sunday: <span className="text-blue-600 dark:text-blue-400 font-bold">$275/hr</span></td>
+                      <td className="py-3 px-4 text-center text-gray-800 dark:text-gray-200">Sunday: <span className="text-blue-600 dark:text-blue-400 font-bold">$300/hr</span></td>
                     </tr>
-                    <tr className="border-t-2 border-gray-200 dark:border-gray-700">
-                      <td colSpan={3} className="py-3 px-4 font-semibold text-gray-900 dark:text-white">
-                        <Gift className="inline w-4 h-4 mr-2" />
-                        Package Add-Ons (Per Cruise)
+                    <tr className="bg-gradient-to-r from-yellow-100 to-orange-100 dark:from-yellow-900/30 dark:to-orange-900/30">
+                      <td colSpan={3} className="py-4 px-4 font-bold text-center text-lg text-orange-700 dark:text-orange-300">
+                        <Gift className="inline w-5 h-5 mr-2" />
+                        Package Add-Ons (Flat Fee Per Cruise)
                       </td>
                     </tr>
-                    <tr className="border-b border-gray-100 dark:border-gray-800">
-                      <td className="py-2 px-4">Essentials: +$100</td>
-                      <td className="py-2 px-4">Essentials: +$150</td>
-                      <td className="py-2 px-4">Essentials: +$200</td>
+                    <tr className="border-b border-gray-200 dark:border-gray-700 hover:bg-yellow-50/50 dark:hover:bg-yellow-900/10 transition-colors">
+                      <td className="py-3 px-4 text-center text-gray-800 dark:text-gray-200">Essentials: <span className="text-orange-600 dark:text-orange-400 font-bold">+$100</span></td>
+                      <td className="py-3 px-4 text-center text-gray-800 dark:text-gray-200 border-x border-gray-200 dark:border-gray-700">Essentials: <span className="text-orange-600 dark:text-orange-400 font-bold">+$150</span></td>
+                      <td className="py-3 px-4 text-center text-gray-800 dark:text-gray-200">Essentials: <span className="text-orange-600 dark:text-orange-400 font-bold">+$200</span></td>
                     </tr>
-                    <tr className="border-b border-gray-100 dark:border-gray-800">
-                      <td className="py-2 px-4">Ultimate: +$250</td>
-                      <td className="py-2 px-4">Ultimate: +$300</td>
-                      <td className="py-2 px-4">Ultimate: +$350</td>
+                    <tr className="border-b-2 border-gray-200 dark:border-gray-700 hover:bg-yellow-50/50 dark:hover:bg-yellow-900/10 transition-colors">
+                      <td className="py-3 px-4 text-center text-gray-800 dark:text-gray-200">Ultimate: <span className="text-purple-600 dark:text-purple-400 font-bold">+$250</span></td>
+                      <td className="py-3 px-4 text-center text-gray-800 dark:text-gray-200 border-x border-gray-200 dark:border-gray-700">Ultimate: <span className="text-purple-600 dark:text-purple-400 font-bold">+$300</span></td>
+                      <td className="py-3 px-4 text-center text-gray-800 dark:text-gray-200">Ultimate: <span className="text-purple-600 dark:text-purple-400 font-bold">+$350</span></td>
                     </tr>
                   </tbody>
                 </table>
               </div>
-              <div className="border-t border-gray-200 dark:border-gray-700 pt-6 mt-6">
-                <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed text-center">
-                  All prices subject to 8.25% tax. 20% gratuity recommended. 50% deposit required to secure booking.
+              <div className="bg-gradient-to-r from-yellow-100 to-orange-100 dark:from-yellow-900/30 dark:to-orange-900/30 rounded-lg p-4 mt-6">
+                <p className="text-sm font-semibold text-center text-gray-800 dark:text-gray-200">
+                  💰 All prices subject to 8.25% tax • 20% gratuity recommended • 50% deposit required to secure booking
                 </p>
               </div>
             </div>
