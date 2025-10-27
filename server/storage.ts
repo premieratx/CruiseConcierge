@@ -1520,17 +1520,6 @@ export class DatabaseStorage implements IStorage {
     return await db.select().from(quotes).where(eq(quotes.projectId, projectId));
   }
 
-  async getQuoteByToken(token: string): Promise<Quote | undefined> {
-    const result = await db.select().from(quotes)
-      .where(
-        and(
-          eq(quotes.accessToken, token),
-          isNull(quotes.accessTokenRevokedAt)
-        )
-      )
-      .limit(1);
-    return result[0];
-  }
 
   async createQuoteFromChat(data: {
     contact: InsertContact;
@@ -1899,20 +1888,6 @@ export class DatabaseStorage implements IStorage {
   }
 
   // ===== AVAILABILITY OPERATIONS =====
-
-  async getAvailabilitySlots(startDate: Date, endDate: Date): Promise<AvailabilitySlot[]> {
-    return await db.select().from(availabilitySlots).where(
-      and(
-        gte(availabilitySlots.startTime, startDate),
-        lte(availabilitySlots.startTime, endDate)
-      )
-    );
-  }
-
-  async createAvailabilitySlot(slot: Omit<AvailabilitySlot, 'id'>): Promise<AvailabilitySlot> {
-    const result = await db.insert(availabilitySlots).values(slot).returning();
-    return result[0];
-  }
 
   async bookAvailabilitySlot(slotId: string, projectId: string): Promise<AvailabilitySlot> {
     const result = await db.update(availabilitySlots)
