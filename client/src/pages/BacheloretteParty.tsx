@@ -735,7 +735,7 @@ export default function BacheloretteParty() {
                     </li>
                   </ul>
                   <div className="bg-purple-50 p-4 rounded-lg mb-4">
-                    <p className="text-center font-bold">Group of 10 = $2,600-$4,000+</p>
+                    <p className="text-center font-bold">Group of 10-14 = $1,500-$2,000+</p>
                     <p className="text-center text-sm text-gray-600">Boat + optional add-ons</p>
                   </div>
                   <Button
@@ -1383,8 +1383,8 @@ export default function BacheloretteParty() {
                         </li>
                       </ul>
                       <div className="bg-white p-4 rounded-lg">
-                        <p className="font-bold text-lg mb-2">Cost for 10 people (4 hours):</p>
-                        <p className="text-2xl font-bold text-purple-600">$2,600 - $4,000+</p>
+                        <p className="font-bold text-lg mb-2">Cost for 10-14 people (4 hours):</p>
+                        <p className="text-2xl font-bold text-purple-600">$1,500-$2,000+</p>
                         <p className="text-sm text-gray-600">Boat + DJ ($600) + Photo ($600)</p>
                       </div>
                     </div>

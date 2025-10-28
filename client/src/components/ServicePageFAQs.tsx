@@ -127,7 +127,7 @@ export const privateCruiseFAQs: FAQItem[] = [
   {
     id: 'private-corporate',
     question: 'Can private boats accommodate corporate events?',
-    answer: 'Yes! Our private fleet is perfect for team building, client entertainment, and company celebrations. We offer professional service, alcohol delivery coordination, and can accommodate 14-300+ guests across multiple boats. Many Austin companies choose us for quarterly outings and annual parties.'
+    answer: 'Yes! Our private fleet is perfect for team building, client entertainment, and company celebrations. We offer professional service, alcohol delivery coordination, and can accommodate 14-75 guests per boat. For larger corporate events, we coordinate multiple boats departing together. Many Austin companies choose us for quarterly outings and annual parties.'
   },
   {
     id: 'private-minimum',
@@ -146,7 +146,7 @@ export const corporateFAQs: FAQItem[] = [
   {
     id: 'corporate-capacity',
     question: 'How many employees can you accommodate for corporate events?',
-    answer: 'We handle groups from 14 to 300+ employees. Single boats accommodate up to 75, and we coordinate multiple boats for larger teams departing together. This flexibility makes us perfect for department outings or company-wide celebrations. Every size corporate event gets our premium service.'
+    answer: 'We accommodate up to 75 employees per boat. For larger corporate events, we coordinate multiple boats departing together to handle teams of any size. This flexibility makes us perfect for department outings or company-wide celebrations. Every size corporate event gets our premium service.'
   },
   {
     id: 'corporate-catering',

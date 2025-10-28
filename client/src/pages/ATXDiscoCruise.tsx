@@ -1000,7 +1000,7 @@ export default function ATXDiscoCruise() {
                       You Save $490 (85% OFF!)
                     </Badge>
                     <p className="text-lg font-semibold text-gray-700">
-                      The same experience privately would cost <span className="text-red-600 font-bold">$2,000+</span> for your group
+                      The same experience privately would cost <span className="text-red-600 font-bold">$1,500-$2,000+ for a group of 10-14</span>
                     </p>
                     <Button 
                       size="lg" 
@@ -1546,8 +1546,8 @@ export default function ATXDiscoCruise() {
                     <div className="flex items-start gap-3">
                       <X className="h-6 w-6 text-red-600 flex-shrink-0 mt-1" />
                       <div>
-                        <p className="font-bold text-gray-900">Pay $2,000+ for Private Charter</p>
-                        <p className="text-gray-700">Same boat, same lake, 10x the price</p>
+                        <p className="font-bold text-gray-900">Pay $1,500-$2,000+ for Private Charter</p>
+                        <p className="text-gray-700">For a group of 10-14 - much higher cost per person</p>
                       </div>
                     </div>
                     <div className="flex items-start gap-3">

@@ -49,7 +49,7 @@ const faqCategories: FAQCategory[] = [
       {
         id: 'capacity',
         question: 'How many people can you accommodate on Lake Travis cruises?',
-        answer: 'We accommodate groups from 14 to 300+ guests. Private boats range from Day Tripper (14 guests) to Clever Girl (75 guests). The ATX Disco Cruise handles groups of 20-40 comfortably. For larger events, we can coordinate multiple boats departing together for corporate events or large celebrations.'
+        answer: 'We accommodate groups from 14 to 75 guests per boat. Private boats range from Day Tripper (14 guests) to Clever Girl (75 guests). The ATX Disco Cruise handles groups of 20-40 comfortably, with a maximum capacity of 100 guests total per cruise. For larger corporate events, we can coordinate multiple boats departing together.'
       }
     ]
   },
@@ -248,9 +248,9 @@ const faqCategories: FAQCategory[] = [
         answer: (
           <>
             Absolutely! Our <Link href="/corporate-events" className="text-primary hover:underline">corporate event packages</Link> accommodate 
-            14-300+ guests with professional service and custom amenities. We handle team building activities, client entertainment, 
-            and company celebrations. Alcohol delivery coordination, AV equipment, and dedicated event planning ensure your corporate 
-            event exceeds expectations on Lake Travis.
+            up to 75 guests on our largest boat. For larger corporate events, we can coordinate multiple boats. Professional service, 
+            custom amenities, team building activities, client entertainment, and company celebrations. Alcohol delivery coordination, 
+            AV equipment, and dedicated event planning ensure your corporate event exceeds expectations on Lake Travis.
           </>
         )
       },

@@ -121,7 +121,7 @@ const faqCategories = {
     faqs: [
       {
         question: 'Can you host corporate events?',
-        answer: 'Absolutely! We accommodate 14-300+ guests with professional service, custom amenities, and dedicated event planning for corporate team building and client entertainment.'
+        answer: 'Absolutely! We accommodate groups up to 75 guests on our largest boat. For larger corporate events, we can coordinate multiple boats. Professional service, custom amenities, and dedicated event planning for corporate team building and client entertainment.'
       }
     ]
   }
