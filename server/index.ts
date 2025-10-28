@@ -124,12 +124,6 @@ app.use(express.text({ type: 'text/html' }));
 // Set up authentication
 setupAuth(app);
 
-// API routes - fix async issue
-const apiRouter = Router();
-registerRoutes(app); // Pass app directly, don't use as middleware
-app.use('/api', apiRouter);
-app.use('/api/blog', blogRouter);
-
 // Serve attached_assets folder for videos and media
 const attachedAssetsDir = path.join(process.cwd(), 'attached_assets');
 if (fs.existsSync(attachedAssetsDir)) {
@@ -197,44 +191,56 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   });
 });
 
-// CRITICAL FOR DEPLOYMENT: Listen immediately, no async wrapper
+// CRITICAL FOR DEPLOYMENT: Register routes FIRST, then listen
 const PORT = process.env.PORT || '5000';
-const server = app.listen(parseInt(PORT, 10), '0.0.0.0', () => {
-  log(`Server running on port ${PORT}`);
-  
-  // Async initialization after server is listening
-  (async () => {
-    try {
-      const { storage } = await import('./storage');
-      const blogPostsResult = await storage.getBlogPosts({ limit: 100 });
-      const authors = await storage.getBlogAuthors();
-      const categories = await storage.getBlogCategories();
-      const tags = await storage.getBlogTags();
-      
-      const postsCount = Array.isArray(blogPostsResult) ? blogPostsResult.length : 
-                        (blogPostsResult?.posts ? blogPostsResult.posts.length : 0);
-      
-      log(`📝 Blog system persistence verified - PostgreSQL storage confirmed`);
-      log(`📊 Blog data: ${postsCount} posts, ${authors.length} authors, ${categories.length} categories, ${tags.length} tags`);
-    } catch (error) {
-      log(`⚠️ Blog system persistence check failed: ${error}`);
-    }
+
+(async () => {
+  try {
+    // Register all API routes BEFORE starting server
+    await registerRoutes(app);
+    app.use('/api/blog', blogRouter);
+    log('✅ All API routes registered');
+  } catch (error) {
+    log(`⚠️ Route registration failed: ${error}`);
+  }
+
+  const server = app.listen(parseInt(PORT, 10), '0.0.0.0', () => {
+    log(`Server running on port ${PORT}`);
     
-    try {
-      const { keepaliveService } = await import('./services/keepalive');
-      keepaliveService.start();
-    } catch (error) {
-      log(`⚠️ Keepalive service failed to start: ${error}`);
-    }
-    
-    try {
-      const { uptimeRobotService } = await import('./services/uptimerobot');
-      await uptimeRobotService.setupProductionMonitoring();
-    } catch (error) {
-      log(`⚠️ UptimeRobot service failed to start: ${error}`);
-    }
-  })();
-});
+    // Async initialization after server is listening
+    (async () => {
+      try {
+        const { storage } = await import('./storage');
+        const blogPostsResult = await storage.getBlogPosts({ limit: 100 });
+        const authors = await storage.getBlogAuthors();
+        const categories = await storage.getBlogCategories();
+        const tags = await storage.getBlogTags();
+        
+        const postsCount = Array.isArray(blogPostsResult) ? blogPostsResult.length : 
+                          (blogPostsResult?.posts ? blogPostsResult.posts.length : 0);
+        
+        log(`📝 Blog system persistence verified - PostgreSQL storage confirmed`);
+        log(`📊 Blog data: ${postsCount} posts, ${authors.length} authors, ${categories.length} categories, ${tags.length} tags`);
+      } catch (error) {
+        log(`⚠️ Blog system persistence check failed: ${error}`);
+      }
+      
+      try {
+        const { keepaliveService } = await import('./services/keepalive');
+        keepaliveService.start();
+      } catch (error) {
+        log(`⚠️ Keepalive service failed to start: ${error}`);
+      }
+      
+      try {
+        const { uptimeRobotService } = await import('./services/uptimerobot');
+        await uptimeRobotService.setupProductionMonitoring();
+      } catch (error) {
+        log(`⚠️ UptimeRobot service failed to start: ${error}`);
+      }
+    })();
+  });
+})();
 
 // Export for testing
 export default app;
