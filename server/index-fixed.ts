@@ -1,4 +1,4 @@
-import express, { type Request, Response, NextFunction, Router } from "express";
+import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
 import { setupEmbedRouting, hasEmbedBuild } from "./embedServer";
 import { blogRouter } from "./blog-api.js";
@@ -124,10 +124,8 @@ app.use(express.text({ type: 'text/html' }));
 // Set up authentication
 setupAuth(app);
 
-// API routes - fix async issue
-const apiRouter = Router();
-registerRoutes(app); // Pass app directly, don't use as middleware
-app.use('/api', apiRouter);
+// API routes
+app.use('/api', registerRoutes());
 app.use('/api/blog', blogRouter);
 
 // ALWAYS serve static files in production

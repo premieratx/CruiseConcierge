@@ -1,0 +1,509 @@
+import express, { type Request, Response, NextFunction } from "express";
+import { registerRoutes } from "./routes";
+// Vite imports moved to conditional loading to avoid bundling in production
+// Log function for server messages
+function log(message: string, source = "express") {
+  const formattedTime = new Date().toLocaleTimeString("en-US", {
+    hour: "numeric",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: true,
+  });
+  console.log(`${formattedTime} [${source}] ${message}`);
+}
+import { setupEmbedRouting, hasEmbedBuild } from "./embedServer";
+import { blogRouter } from "./blog-api.js";
+import { setupAuth } from "./auth";
+import Database from "@replit/database";
+import fs from "fs";
+import path from "path";
+import compression from "compression";
+
+const app = express();
+
+// CRITICAL: Process-level error handlers prevent complete app crashes
+// These catch errors that would otherwise terminate the entire Node.js process
+process.on('uncaughtException', (error: Error) => {
+  console.error('[UNCAUGHT EXCEPTION] Application would have crashed:', {
+    message: error.message,
+    stack: error.stack,
+    timestamp: new Date().toISOString()
+  });
+  // Don't exit - keep the app running
+});
+
+process.on('unhandledRejection', (reason: any, promise: Promise<any>) => {
+  console.error('[UNHANDLED REJECTION] Promise rejection caught:', {
+    reason: reason?.message || reason,
+    stack: reason?.stack,
+    timestamp: new Date().toISOString()
+  });
+  // Don't exit - keep the app running
+});
+
+// Configure trust proxy for correct IP detection behind reverse proxy/CDN
+app.set('trust proxy', true);
+
+// Enable strong ETags for smart caching
+app.set('etag', 'strong');
+
+// PREVIEW FIX: Detect Replit preview iframe and disable caching to fix React hydration
+app.use((req, res, next) => {
+  // Check if request is from Replit preview iframe
+  const host = req.get('host') || '';
+  const referer = req.get('referer') || '';
+  const userAgent = req.get('user-agent') || '';
+  
+  // More aggressive detection of preview environment
+  const isReplitPreview = host.includes('replit.dev') || 
+                          host.includes('repl.co') || 
+                          referer.includes('replit.com') ||
+                          referer.includes('replit.dev') ||
+                          userAgent.includes('Replit');
+  
+  if (isReplitPreview) {
+    // Log for debugging
+    console.log(`[PREVIEW CACHE FIX] Detected preview request for: ${req.path}`);
+    
+    // Disable caching for ALL assets in preview mode - especially Vite internal modules
+    const isViteModule = req.path.startsWith('/src/') || 
+                         req.path.startsWith('/@vite/') || 
+                         req.path.startsWith('/@react-refresh') ||
+                         req.path.startsWith('/@fs/') ||
+                         req.path.includes('.tsx') || 
+                         req.path.includes('.ts') || 
+                         req.path.includes('.jsx') ||
+                         req.path.includes('.js');
+    
+    if (isViteModule) {
+      res.set('Cache-Control', 'no-store, no-cache, must-revalidate, private');
+      res.set('Pragma', 'no-cache');
+      res.set('Expires', '0');
+      res.removeHeader('ETag');
+      res.removeHeader('Last-Modified');
+      
+      // Add cache-busting query param to responses
+      const originalSend = res.send;
+      res.send = function(data) {
+        if (typeof data === 'string' && data.includes('import')) {
+          // Add timestamp to all import statements
+          data = data.replace(/from\s+["']([^"']+)["']/g, (match, path) => {
+            if (!path.includes('?')) {
+              return `from "${path}?t=${Date.now()}"`;
+            }
+            return match;
+          });
+        }
+        return originalSend.call(this, data);
+      };
+    }
+  }
+  
+  next();
+});
+
+// WWW redirect - redirect www.premierpartycruises.com to premierpartycruises.com (SEO best practice)
+app.use((req, res, next) => {
+  const host = req.get('host');
+  if (host && host.startsWith('www.')) {
+    const newHost = host.replace('www.', '');
+    const protocol = req.secure || req.get('x-forwarded-proto') === 'https' ? 'https' : 'http';
+    return res.redirect(301, `${protocol}://${newHost}${req.originalUrl}`);
+  }
+  next();
+});
+
+// Enable gzip compression for all responses
+app.use(compression({
+  filter: (req, res) => {
+    if (req.headers['x-no-compression']) {
+      return false;
+    }
+    return compression.filter(req, res);
+  },
+  level: 6
+}));
+
+app.use(express.json({ limit: '5mb' }));
+app.use(express.urlencoded({ extended: false, limit: '5mb' }));
+
+app.use((req, res, next) => {
+  const start = Date.now();
+  const path = req.path;
+  let capturedJsonResponse: Record<string, any> | undefined = undefined;
+
+  const originalResJson = res.json;
+  res.json = function (bodyJson, ...args) {
+    capturedJsonResponse = bodyJson;
+    return originalResJson.apply(res, [bodyJson, ...args]);
+  };
+
+  res.on("finish", () => {
+    const duration = Date.now() - start;
+    if (path.startsWith("/api")) {
+      let logLine = `${req.method} ${path} ${res.statusCode} in ${duration}ms`;
+      if (capturedJsonResponse) {
+        logLine += ` :: ${JSON.stringify(capturedJsonResponse)}`;
+      }
+
+      if (logLine.length > 80) {
+        logLine = logLine.slice(0, 79) + "…";
+      }
+
+      log(logLine);
+    }
+  });
+
+  next();
+});
+
+(async () => {
+  // Allow iframe embedding from all domains (especially booking.premierpartycruises.com and Replit preview)
+  app.use((req, res, next) => {
+    // Remove any X-Frame-Options header
+    res.removeHeader('X-Frame-Options');
+    
+    // Set CSP to allow embedding from booking subdomain, Replit preview, production domains, and Xola
+    res.setHeader('Content-Security-Policy', 
+      "frame-ancestors 'self' https://booking.premierpartycruises.com https://*.premierpartycruises.com https://*.replit.dev https://*.repl.co; " +
+      "default-src 'self' 'unsafe-inline' 'unsafe-eval' data: https: blob:; " +
+      "connect-src 'self' https: wss: ws: https://xola.com https://*.xola.com https://checkout.xola.com; " +
+      "img-src 'self' data: https: blob:; " +
+      "font-src 'self' data: https:; " +
+      "frame-src 'self' https://xola.com https://*.xola.com https://checkout.xola.com https://botcdn.xola.com https://ppc-quote-builder.lovable.app; " +
+      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https: https://xola.com https://*.xola.com https://checkout.xola.com; " +
+      "style-src 'self' 'unsafe-inline' https: https://xola.com https://*.xola.com https://checkout.xola.com;"
+    );
+    
+    next();
+  });
+  
+  // Blog routes - register public blog API routes
+  app.use("/api/blog", blogRouter);
+  
+  // Setup authentication before registering other routes
+  // Import storage for authentication
+  const { storage } = await import('./storage');
+  setupAuth(app, storage);
+  
+  // Health check endpoint for UptimeRobot and other monitoring services
+  // This endpoint checks database connectivity and keepalive service status
+  app.get('/api/health', async (req: Request, res: Response) => {
+    try {
+      const { keepaliveService } = await import('./services/keepalive');
+      const status = keepaliveService.getStatus();
+      
+      res.json({
+        status: 'healthy',
+        timestamp: new Date().toISOString(),
+        database: {
+          connected: true,
+          lastPing: status.lastPingTime,
+          nextPingIn: status.nextPingIn,
+        },
+        keepalive: {
+          running: status.isRunning,
+          pingCount: status.pingCount,
+          lastError: status.lastError,
+        },
+      });
+    } catch (error: any) {
+      res.status(500).json({
+        status: 'unhealthy',
+        error: error.message,
+        timestamp: new Date().toISOString(),
+      });
+    }
+  });
+  
+  const server = await registerRoutes(app);
+
+  // Sitemap route - must be registered before Vite to avoid catch-all interference
+  app.get('/sitemap.xml', async (req: Request, res: Response) => {
+    try {
+      // ALWAYS use production domain for sitemap
+      const baseUrl = 'https://premierpartycruises.com';
+      
+      // Get published blog posts from PostgreSQL
+      const blogPostsResult = await storage.getBlogPosts({ 
+        status: 'published',
+        limit: 100 
+      });
+      
+      // Handle different return formats from getBlogPosts
+      const blogPosts = Array.isArray(blogPostsResult) ? blogPostsResult : 
+                       (blogPostsResult?.posts ? blogPostsResult.posts : []);
+      
+      const now = new Date().toISOString();
+      
+      // All 16 main pages as specified in requirements
+      const staticPages = [
+        { url: '/', lastmod: now, changefreq: 'weekly', priority: 1.0 },
+        { url: '/bachelor-party-austin', lastmod: now, changefreq: 'weekly', priority: 0.9 },
+        { url: '/bachelorette-party-austin', lastmod: now, changefreq: 'weekly', priority: 0.9 },
+        { url: '/private-cruises', lastmod: now, changefreq: 'weekly', priority: 0.9 },
+        { url: '/atx-disco-cruise', lastmod: now, changefreq: 'weekly', priority: 0.9 },
+        { url: '/team-building', lastmod: now, changefreq: 'weekly', priority: 0.8 },
+        { url: '/client-entertainment', lastmod: now, changefreq: 'weekly', priority: 0.8 },
+        { url: '/company-milestone', lastmod: now, changefreq: 'weekly', priority: 0.8 },
+        { url: '/welcome-party', lastmod: now, changefreq: 'weekly', priority: 0.8 },
+        { url: '/after-party', lastmod: now, changefreq: 'weekly', priority: 0.8 },
+        { url: '/rehearsal-dinner', lastmod: now, changefreq: 'weekly', priority: 0.8 },
+        { url: '/milestone-birthday', lastmod: now, changefreq: 'weekly', priority: 0.8 },
+        { url: '/sweet-16', lastmod: now, changefreq: 'weekly', priority: 0.8 },
+        { url: '/graduation-party', lastmod: now, changefreq: 'weekly', priority: 0.8 },
+        { url: '/testimonials-faq', lastmod: now, changefreq: 'monthly', priority: 0.7 },
+        { url: '/contact', lastmod: now, changefreq: 'monthly', priority: 0.7 },
+        // Blog listing page (canonical URL)
+        { url: '/blogs', lastmod: now, changefreq: 'daily', priority: 0.8 }
+      ];
+      
+      // Map blog posts to sitemap entries - ONLY /blogs/ format to avoid duplicate content
+      const blogPages = blogPosts.map((post: any) => ({
+        url: `/blogs/${post.slug}`,
+        lastmod: post.publishedAt ? new Date(post.publishedAt).toISOString() : now,
+        changefreq: 'monthly',
+        priority: 0.7
+      }));
+      
+      const urls = [...staticPages, ...blogPages];
+      
+      const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${urls.map(page => `  <url>
+    <loc>${baseUrl}${page.url}</loc>
+    <lastmod>${page.lastmod.split('T')[0]}</lastmod>
+    <changefreq>${page.changefreq}</changefreq>
+    <priority>${page.priority.toFixed(1)}</priority>
+  </url>`).join('\n')}
+</urlset>`;
+      
+      res.setHeader('Content-Type', 'application/xml; charset=UTF-8');
+      res.send(xml);
+    } catch (error) {
+      console.error('Error generating sitemap:', error);
+      res.status(500).send('Error generating sitemap');
+    }
+  });
+
+  app.get('/robots.txt', async (req: Request, res: Response) => {
+    try {
+      // ALWAYS use production domain for robots.txt
+      const baseUrl = 'https://premierpartycruises.com';
+      
+      const robotsTxt = `User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: ${baseUrl}/sitemap.xml
+
+# Disallow admin areas
+Disallow: /admin/
+Disallow: /api/
+Disallow: /dashboard/
+
+# Crawl-delay for politeness
+Crawl-delay: 1`;
+      
+      res.setHeader('Content-Type', 'text/plain; charset=UTF-8');
+      res.send(robotsTxt);
+    } catch (error) {
+      console.error('Error generating robots.txt:', error);
+      res.status(500).send('Error generating robots.txt');
+    }
+  });
+
+  app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
+    const status = err.status || err.statusCode || 500;
+    const message = err.message || "Internal Server Error";
+
+    res.status(status).json({ message });
+    throw err;
+  });
+
+  // Setup embed production routing first (if available)
+  // This must come before Vite dev middleware to take precedence
+  // Add guard to prevent embed routing from intercepting API calls
+  const embedConfigured = setupEmbedRouting(app);
+  
+  // Block admin pages from search engines with X-Robots-Tag header
+  app.use((req, res, next) => {
+    if (req.path.startsWith('/admin') || req.path.startsWith('/dashboard') || req.path.startsWith('/login')) {
+      res.setHeader('X-Robots-Tag', 'noindex, nofollow');
+    }
+    next();
+  });
+
+  // 301 redirects from /blog to /blogs (canonical URL)
+  // These MUST come before SSR middleware to intercept requests
+  app.get('/blog/:slug', (req, res) => {
+    res.redirect(301, `/blogs/${req.params.slug}`);
+  });
+
+  app.get('/blog', (req, res) => {
+    res.redirect(301, '/blogs');
+  });
+  
+  // 410 Gone status for removed draft pages
+  // These MUST come before SSR middleware to intercept requests
+  app.get(['/home-draft', '/home-draft/'], (req, res) => {
+    res.status(410).send('This page has been removed');
+  });
+
+  app.get(['/bachelorette-party-austin-draft', '/bachelorette-party-austin-draft/'], (req, res) => {
+    res.status(410).send('This page has been removed');
+  });
+  
+  // Static asset caching middleware - MUST be before SSR and static file serving
+  app.use((req, res, next) => {
+    const path = req.path;
+    
+    // Cache static assets aggressively (hashed files are immutable)
+    if (path.match(/\.(js|css|png|jpg|jpeg|gif|webp|avif|svg|woff|woff2|ttf|eot|ico|json)$/)) {
+      // Check if file has hash (e.g., index-abc123.js)
+      const hasHash = path.match(/-[a-zA-Z0-9]{8,}\.(js|css|png|jpg|jpeg|gif|webp|avif|svg|woff|woff2)$/);
+      
+      if (hasHash) {
+        // Immutable hashed assets - cache for 1 year
+        res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+      } else {
+        // Non-hashed assets - cache for 1 year (PageSpeed optimization)
+        res.setHeader('Cache-Control', 'public, max-age=31536000');
+      }
+      
+      // Font caching - ensure CORS for fonts
+      if (path.match(/\.(woff|woff2|ttf|eot|otf)$/)) {
+        res.setHeader('Access-Control-Allow-Origin', '*');
+      }
+      
+      // Add Vary header for compression
+      res.setHeader('Vary', 'Accept-Encoding');
+    } else if (!path.startsWith('/api') && !path.startsWith('/embed')) {
+      // HTML and dynamic content - no cache but allow revalidation
+      res.setHeader('Cache-Control', 'public, max-age=0, must-revalidate');
+    }
+    
+    next();
+  });
+  
+  // CRITICAL: Explicit route handling for /private-cruises and /gallery
+  // These routes must be handled by SSR middleware, ensure they're not cached incorrectly
+  app.use(['/private-cruises', '/gallery'], (req, res, next) => {
+    // Force no-cache for these specific pages to ensure fresh SSR rendering
+    res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+    res.setHeader('Pragma', 'no-cache');
+    res.setHeader('Expires', '0');
+    next();
+  });
+  
+  // SSR middleware for SEO - must come BEFORE Vite middleware
+  // This allows crawlers to see H1 tags, content, and unique meta tags
+  // CRITICAL: This runs in BOTH development AND production for proper SEO
+  // Also handles schema injection for ALL pages (both SSR and non-SSR)
+  const { ssrMiddleware } = await import('./ssr/renderer');
+  app.use(ssrMiddleware());
+  log("SSR middleware enabled for marketing/blog pages + schema injection for all routes", "ssr");
+  
+  // Serve attached_assets folder as static files
+  // MUST come before Vite middleware to prevent catch-all route from intercepting
+  const attachedAssetsPath = path.resolve(process.cwd(), "attached_assets");
+  app.use('/attached_assets', express.static(attachedAssetsPath, {
+    maxAge: '1y',
+    etag: true
+  }));
+  log("Serving attached_assets from: " + attachedAssetsPath, "static");
+  
+  // importantly only setup vite in development and after
+  // setting up all the other routes so the catch-all route
+  // doesn't interfere with the other routes
+  if (app.get("env") === "development") {
+    if (embedConfigured) {
+      log("Embed routes configured for production, main app will use development mode", "hybrid");
+    } else {
+      log("No embed build found, all routes will use development mode", "dev");
+    }
+    // Dynamically import vite only in development to avoid bundling issues
+    const { setupVite } = await import("./vite");
+    await setupVite(app, server);
+  } else {
+    // CRITICAL FIX: Use process.cwd() instead of import.meta.dirname 
+    // because import.meta.dirname doesn't work correctly in bundled production code
+    const distPath = path.resolve(process.cwd(), "dist/public");
+    
+    // Serve static files (assets, not HTML)
+    app.use(express.static(distPath));
+    
+    // Fallback to index.html for SPA routes (SSR middleware above handles marketing pages first)
+    app.use("*", (_req, res) => {
+      res.sendFile(path.resolve(distPath, "index.html"));
+    });
+  }
+
+  // CRITICAL: Global error handler middleware - MUST be after all routes
+  // This prevents unhandled errors from crashing the entire application
+  app.use((err: any, req: Request, res: Response, next: NextFunction) => {
+    // Log the error for debugging
+    console.error('[ERROR HANDLER] Caught error that would have crashed the app:', {
+      message: err.message,
+      stack: err.stack,
+      path: req.path,
+      method: req.method,
+      timestamp: new Date().toISOString()
+    });
+    
+    // Don't send error if response already sent
+    if (res.headersSent) {
+      return; // Exit without calling next - prevents duplicate sends
+    }
+    
+    // Send graceful error response instead of crashing
+    res.status(err.status || 500).json({
+      error: 'Internal server error',
+      message: process.env.NODE_ENV === 'development' ? err.message : 'Something went wrong',
+      path: req.path,
+      timestamp: new Date().toISOString()
+    });
+    
+    // DO NOT throw or call next(err) - this would turn it back into uncaughtException
+  });
+
+  // ALWAYS serve the app on the port specified in the environment variable PORT
+  // Other ports are firewalled. Default to 5000 if not specified.
+  // this serves both the API and the client.
+  // It is the only port that is not firewalled.
+  const port = parseInt(process.env.PORT || '5000', 10);
+  server.listen({
+    port,
+    host: "0.0.0.0",
+    reusePort: true,
+  }, async () => {
+    log(`serving on port ${port}`);
+    
+    // Verify blog system persistence
+    try {
+      const { storage } = await import('./storage');
+      const blogPostsResult = await storage.getBlogPosts({ limit: 100 });
+      const authors = await storage.getBlogAuthors();
+      const categories = await storage.getBlogCategories();
+      const tags = await storage.getBlogTags();
+      
+      // Handle different return formats from getBlogPosts
+      const postsCount = Array.isArray(blogPostsResult) ? blogPostsResult.length : 
+                        (blogPostsResult?.posts ? blogPostsResult.posts.length : 0);
+      
+      log(`📝 Blog system persistence verified - PostgreSQL storage confirmed`);
+      log(`📊 Blog data: ${postsCount} posts, ${authors.length} authors, ${categories.length} categories, ${tags.length} tags`);
+    } catch (error) {
+      log(`⚠️ Blog system persistence check failed: ${error}`);
+    }
+    
+    // Start keepalive service to prevent database from going to sleep
+    const { keepaliveService } = await import('./services/keepalive');
+    keepaliveService.start();
+    
+    // Setup UptimeRobot monitoring to ping production site every 5 minutes
+    // This keeps the published site alive and alerts if it goes down
+    const { uptimeRobotService } = await import('./services/uptimerobot');
+    await uptimeRobotService.setupProductionMonitoring();
+  });
+})();

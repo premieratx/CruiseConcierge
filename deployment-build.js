@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 
-// FINAL FIX - Externalizes ALL Node.js core modules and dependencies
+// DEPLOYMENT BUILD - Handles CommonJS/ESM compatibility
 import { execSync } from 'child_process';
 import fs from 'fs';
 
-console.log('🚀 DEPLOYMENT BUILD - FINAL FIX');
-console.log('================================');
+console.log('🚀 DEPLOYMENT BUILD - PRODUCTION READY');
+console.log('=======================================');
 
 try {
   // Step 1: Build client
@@ -15,65 +15,45 @@ try {
     env: { ...process.env, NODE_ENV: 'production' }
   });
   
-  // Step 2: Build server with ALL externals
-  console.log('📦 Building server (all modules externalized)...');
+  // Step 2: Build server with proper externals and compatibility
+  console.log('📦 Building server...');
   
-  // Node.js built-in modules that MUST be external
-  const nodeBuiltins = [
-    'assert', 'buffer', 'child_process', 'cluster', 'console', 'constants',
-    'crypto', 'dgram', 'dns', 'domain', 'events', 'fs', 'http', 'https',
-    'module', 'net', 'os', 'path', 'punycode', 'querystring', 'readline',
-    'repl', 'stream', 'string_decoder', 'sys', 'timers', 'tls', 'tty',
-    'url', 'util', 'vm', 'zlib', 'worker_threads', 'process'
-  ];
-  
-  // Project dependencies
-  const projectExternals = [
-    'lightningcss',
-    '@neondatabase/serverless',
-    'drizzle-orm',
-    'express',
-    'express-session',
-    'connect-pg-simple',
-    'passport',
-    'passport-local',
-    'multer',
-    'compression',
-    '@sendgrid/mail',
-    'stripe',
-    'googleapis',
-    '@google-cloud/storage',
-    'openai',
-    '@google/genai',
-    'ws',
-    '@replit/database',
-    'fast-xml-parser',
-    'vite',
-    'tailwindcss',
-    'autoprefixer',
-    'postcss',
-    'esbuild',
-    'tslib'
-  ];
-  
-  // Combine all externals
-  const allExternals = [...nodeBuiltins, ...projectExternals];
-  const externalFlags = allExternals.map(e => `--external:${e}`).join(' ');
-  
+  // Build the server bundle
   const buildCommand = `npx esbuild server/index.ts \
     --platform=node \
     --bundle \
-    --format=esm \
-    --outfile=dist/index.js \
+    --format=cjs \
+    --outfile=dist/index.cjs \
     --packages=external \
-    ${externalFlags}`;
+    --target=node20 \
+    --minify`;
   
   execSync(buildCommand, { stdio: 'inherit' });
   
-  console.log('================================');
-  console.log('✅ BUILD COMPLETE - Ready for deployment');
-  console.log('✅ All Node.js core modules externalized');
-  console.log('✅ All dependencies properly handled');
+  // Create an ESM wrapper for the CJS bundle
+  const esmWrapper = `
+// ESM wrapper for CommonJS server bundle
+import { createRequire } from 'module';
+import { fileURLToPath } from 'url';
+import path from 'path';
+
+const require = createRequire(import.meta.url);
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Load the CommonJS bundle
+const server = require('./index.cjs');
+
+// Export default if it exists
+export default server.default || server;
+`;
+  
+  fs.writeFileSync('dist/index.js', esmWrapper);
+  
+  console.log('=======================================');
+  console.log('✅ BUILD COMPLETE - Production Ready');
+  console.log('✅ CommonJS/ESM compatibility handled');
+  console.log('✅ Server bundle optimized');
   process.exit(0);
   
 } catch (error) {
