@@ -128,7 +128,7 @@ const whyChooseLakeTravis = [
   {
     icon: Shield,
     title: 'Perfect Lake Travis Safety Record',
-    description: 'Our Coast Guard certified captains know Lake Travis intimately and maintain a pristine safety record. Every Lake Travis cruise is conducted with the highest safety standards and local expertise.'
+    description: 'Our licensed, fun, experienced captains know Lake Travis intimately and maintain a pristine safety record. Every Lake Travis cruise is conducted with the highest safety standards and local expertise.'
   }
 ];
 

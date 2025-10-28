@@ -44,7 +44,7 @@ const faqCategories: FAQCategory[] = [
       {
         id: 'experience',
         question: 'Why choose Premier Party Cruises for Lake Travis boat rentals?',
-        answer: 'With 15+ years of experience and over 150,000 satisfied customers, we\'re Austin\'s longest-running party cruise company. We maintain a perfect safety record with Coast Guard certified captains, operate the newest fleet on Lake Travis, and provide full-service experiences. We\'re the only company offering the signature ATX Disco Cruise.'
+        answer: 'With 15+ years of experience and over 150,000 satisfied customers, we\'re Austin\'s longest-running party cruise company. We maintain a perfect safety record with licensed, fun, experienced captains, operate the newest fleet on Lake Travis, and provide full-service experiences. We\'re the only company offering the signature ATX Disco Cruise.'
       },
       {
         id: 'capacity',

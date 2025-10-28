@@ -227,7 +227,7 @@ const whyChooseUs = [
   {
     icon: Shield,
     title: 'Perfect Safety Record',
-    description: 'Coast Guard certified captains and pristine safety record ensure your peace of mind.'
+    description: 'Licensed, fun, experienced captains to take your group safely around the lake in style and pristine safety record ensure your peace of mind.'
   },
   {
     icon: Star,
@@ -262,7 +262,7 @@ const faqData = [
   },
   {
     question: 'What\'s included in your party boat services?',
-    answer: 'Every party boat cruise includes: professional Coast Guard certified captain and crew, premium Bluetooth sound system, large coolers with ice, all required safety equipment, fuel, and access to Lake Travis\'s most scenic coves and beaches. Optional add-ons include lily pads, alcohol delivery, and transportation services. We can also arrange DJs and photographers for special events.'
+    answer: 'Every party boat cruise includes: licensed, fun, experienced captains and crew, premium Bluetooth sound system, cooler space (bring your own ice & drinks, or order ahead from Party On Delivery), all required safety equipment, fuel, and access to Lake Travis\'s most scenic coves and beaches. Optional add-ons include lily pads, alcohol delivery, and transportation services. We can also arrange DJs and photographers for special events.'
   },
   {
     question: 'Can we bring our own alcohol on the party boat?',
@@ -710,7 +710,7 @@ export default function Home() {
               perfect for <InternalLinkHighlight href="/bachelor-party-austin" title="Bachelor Parties">bachelor parties</InternalLinkHighlight>, <InternalLinkHighlight href="/bachelorette-party-austin" title="Bachelorette Parties">bachelorette celebrations</InternalLinkHighlight>, and <InternalLinkHighlight href="/corporate-events" title="Corporate Events">corporate team building</InternalLinkHighlight>.
             </p>
             <p className="text-base md:text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
-              Operating from Anderson Mill Marina on beautiful Lake Travis, our experienced Coast Guard certified captains and pristine fleet provide unforgettable experiences for groups of all sizes. With transparent pricing, no hidden fees, and unmatched service, we make your Lake Travis celebration effortless and extraordinary.
+              Operating from Anderson Mill Marina on beautiful Lake Travis, our experienced Licensed, fun, experienced captains to take your group safely around the lake in style and pristine fleet provide unforgettable experiences for groups of all sizes. With transparent pricing, no hidden fees, and unmatched service, we make your Lake Travis celebration effortless and extraordinary.
             </p>
           </div>
         </div>
@@ -2297,7 +2297,7 @@ export default function Home() {
           </div>
           <h4>Private Charter Features & Benefits:</h4>
           <ul>
-            <li>Professional licensed Coast Guard certified captains and crew</li>
+            <li>Professional licensed Licensed, fun, experienced captains to take your group safely around the lake in style and crew</li>
             <li>Premium Bluetooth sound systems for your playlist</li>
             <li>Large coolers with ice included</li>
             <li>Lily pads and floaties available (additional $60)</li>
@@ -2476,7 +2476,7 @@ export default function Home() {
         <ul>
           <li>15+ Years Experience - Austin's longest-running party cruise company since 2009</li>
           <li>150,000+ Happy Customers - Over 150,000 guests served with 5-star service</li>
-          <li>Perfect Safety Record - Coast Guard certified captains and pristine safety record</li>
+          <li>Perfect Safety Record - Licensed, fun, experienced captains to take your group safely around the lake in style and pristine safety record</li>
           <li>Premier Fleet - Four awesome boats with Austin's nicest party boat amenities</li>
           <li>Professional DJ & Photography - On-board entertainment and memory capture</li>
           <li>Party On Delivery - Direct-to-boat alcohol delivery service</li>

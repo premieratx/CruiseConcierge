@@ -112,7 +112,7 @@ const whyChooseAustin = [
   {
     icon: Shield,
     title: 'Perfect Safety Record',
-    description: 'Coast Guard certified captains and pristine safety record ensure every Austin party boat cruise is safe and worry-free.'
+    description: 'Licensed, fun, experienced captains and pristine safety record ensure every Austin party boat cruise is safe and worry-free.'
   },
   {
     icon: Ship,

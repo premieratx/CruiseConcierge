@@ -261,7 +261,7 @@ export default function Footer() {
           <div className="flex flex-wrap justify-center items-center gap-8 mt-6 pt-6 border-t border-gray-800">
             <div className="flex items-center gap-2 text-gray-300 text-sm">
               <Ship className="h-5 w-5 text-brand-blue" />
-              <span>Coast Guard Certified</span>
+              <span>Licensed & Certified</span>
             </div>
             <div className="flex items-center gap-2 text-gray-300 text-sm">
               <Award className="h-5 w-5 text-yellow-500" />
