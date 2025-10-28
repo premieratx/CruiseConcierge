@@ -128,12 +128,86 @@ const faqCategories = {
 };
 
 
+// Review Card Component with Truncation
+interface ReviewCardProps {
+  review: Review;
+  badgeColor: string;
+  isExpanded: boolean;
+  onToggle: () => void;
+}
+
+function ReviewCard({ review, badgeColor, isExpanded, onToggle }: ReviewCardProps) {
+  const MAX_LENGTH = 200;
+  const needsTruncation = review.text.length > MAX_LENGTH;
+  const displayText = needsTruncation && !isExpanded 
+    ? review.text.substring(0, MAX_LENGTH) + '...' 
+    : review.text;
+
+  return (
+    <Card className="rounded-xl hover:shadow-lg transition-shadow flex flex-col h-full min-h-[400px]" data-testid={`review-card-${review.id}`}>
+      <CardHeader className="flex-shrink-0">
+        <div className="flex items-start justify-between">
+          <div>
+            <CardTitle className="text-lg font-bold text-gray-900 dark:text-white">
+              {review.name}
+            </CardTitle>
+            <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+              {review.role}
+            </p>
+          </div>
+          {review.verified && (
+            <Badge variant="secondary" className={badgeColor}>
+              <CheckCircle className="w-3 h-3 mr-1" />
+              Verified
+            </Badge>
+          )}
+        </div>
+        <div className="flex items-center gap-2 mt-2">
+          <div className="flex">
+            {[...Array(review.rating)].map((_, i) => (
+              <Star key={i} className="h-4 w-4 fill-yellow-500 text-yellow-500" />
+            ))}
+          </div>
+          <span className="text-sm text-gray-500 dark:text-gray-400">{review.date}</span>
+        </div>
+      </CardHeader>
+      <CardContent className="flex-grow flex flex-col">
+        <p className="text-gray-700 dark:text-gray-300 leading-relaxed flex-grow">
+          {displayText}
+        </p>
+        {needsTruncation && (
+          <button
+            onClick={onToggle}
+            className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 font-semibold text-sm mt-3 text-left transition-colors"
+            data-testid={`button-toggle-${review.id}`}
+          >
+            {isExpanded ? 'Show Less' : 'See More'}
+          </button>
+        )}
+      </CardContent>
+    </Card>
+  );
+}
+
 export default function TestimonialsFaq() {
   const [location, navigate] = useLocation();
   const { isEditMode } = useInlineEdit();
   const [searchQuery, setSearchQuery] = useState('');
   const [currentVideo, setCurrentVideo] = useState({ url: '', title: '' });
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
+  const [expandedReviews, setExpandedReviews] = useState<Set<string>>(new Set());
+
+  const toggleReview = (reviewId: string) => {
+    setExpandedReviews(prev => {
+      const next = new Set(prev);
+      if (next.has(reviewId)) {
+        next.delete(reviewId);
+      } else {
+        next.add(reviewId);
+      }
+      return next;
+    });
+  };
 
   const handleVideoPlay = (videoUrl: string, title: string) => {
     setCurrentVideo({ url: videoUrl, title });
@@ -380,41 +454,15 @@ export default function TestimonialsFaq() {
                     {corporateReviews.length} verified reviews from corporate clients
                   </p>
                 </div>
-                <div className="grid gap-6 md:grid-cols-2">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {corporateReviews.map((review) => (
-                    <Card key={review.id} className="rounded-xl hover:shadow-lg transition-shadow" data-testid={`review-card-${review.id}`}>
-                      <CardHeader>
-                        <div className="flex items-start justify-between">
-                          <div>
-                            <CardTitle className="text-lg font-bold text-gray-900 dark:text-white">
-                              {review.name}
-                            </CardTitle>
-                            <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                              {review.role}
-                            </p>
-                          </div>
-                          {review.verified && (
-                            <Badge variant="secondary" className="bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
-                              <CheckCircle className="w-3 h-3 mr-1" />
-                              Verified
-                            </Badge>
-                          )}
-                        </div>
-                        <div className="flex items-center gap-2 mt-2">
-                          <div className="flex">
-                            {[...Array(review.rating)].map((_, i) => (
-                              <Star key={i} className="h-4 w-4 fill-yellow-500 text-yellow-500" />
-                            ))}
-                          </div>
-                          <span className="text-sm text-gray-500 dark:text-gray-400">{review.date}</span>
-                        </div>
-                      </CardHeader>
-                      <CardContent>
-                        <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                          {review.text}
-                        </p>
-                      </CardContent>
-                    </Card>
+                    <ReviewCard
+                      key={review.id}
+                      review={review}
+                      badgeColor="bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+                      isExpanded={expandedReviews.has(review.id.toString())}
+                      onToggle={() => toggleReview(review.id.toString())}
+                    />
                   ))}
                 </div>
               </TabsContent>
@@ -430,41 +478,15 @@ export default function TestimonialsFaq() {
                     {weddingReviews.length} verified reviews from wedding celebrations
                   </p>
                 </div>
-                <div className="grid gap-6 md:grid-cols-2">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {weddingReviews.map((review) => (
-                    <Card key={review.id} className="rounded-xl hover:shadow-lg transition-shadow" data-testid={`review-card-${review.id}`}>
-                      <CardHeader>
-                        <div className="flex items-start justify-between">
-                          <div>
-                            <CardTitle className="text-lg font-bold text-gray-900 dark:text-white">
-                              {review.name}
-                            </CardTitle>
-                            <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                              {review.role}
-                            </p>
-                          </div>
-                          {review.verified && (
-                            <Badge variant="secondary" className="bg-pink-100 text-pink-800 dark:bg-pink-900 dark:text-pink-200">
-                              <CheckCircle className="w-3 h-3 mr-1" />
-                              Verified
-                            </Badge>
-                          )}
-                        </div>
-                        <div className="flex items-center gap-2 mt-2">
-                          <div className="flex">
-                            {[...Array(review.rating)].map((_, i) => (
-                              <Star key={i} className="h-4 w-4 fill-yellow-500 text-yellow-500" />
-                            ))}
-                          </div>
-                          <span className="text-sm text-gray-500 dark:text-gray-400">{review.date}</span>
-                        </div>
-                      </CardHeader>
-                      <CardContent>
-                        <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                          {review.text}
-                        </p>
-                      </CardContent>
-                    </Card>
+                    <ReviewCard
+                      key={review.id}
+                      review={review}
+                      badgeColor="bg-pink-100 text-pink-800 dark:bg-pink-900 dark:text-pink-200"
+                      isExpanded={expandedReviews.has(review.id.toString())}
+                      onToggle={() => toggleReview(review.id.toString())}
+                    />
                   ))}
                 </div>
               </TabsContent>
@@ -480,41 +502,15 @@ export default function TestimonialsFaq() {
                     {birthdayReviews.length} verified reviews from family celebrations
                   </p>
                 </div>
-                <div className="grid gap-6 md:grid-cols-2">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {birthdayReviews.map((review) => (
-                    <Card key={review.id} className="rounded-xl hover:shadow-lg transition-shadow" data-testid={`review-card-${review.id}`}>
-                      <CardHeader>
-                        <div className="flex items-start justify-between">
-                          <div>
-                            <CardTitle className="text-lg font-bold text-gray-900 dark:text-white">
-                              {review.name}
-                            </CardTitle>
-                            <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                              {review.role}
-                            </p>
-                          </div>
-                          {review.verified && (
-                            <Badge variant="secondary" className="bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200">
-                              <CheckCircle className="w-3 h-3 mr-1" />
-                              Verified
-                            </Badge>
-                          )}
-                        </div>
-                        <div className="flex items-center gap-2 mt-2">
-                          <div className="flex">
-                            {[...Array(review.rating)].map((_, i) => (
-                              <Star key={i} className="h-4 w-4 fill-yellow-500 text-yellow-500" />
-                            ))}
-                          </div>
-                          <span className="text-sm text-gray-500 dark:text-gray-400">{review.date}</span>
-                        </div>
-                      </CardHeader>
-                      <CardContent>
-                        <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                          {review.text}
-                        </p>
-                      </CardContent>
-                    </Card>
+                    <ReviewCard
+                      key={review.id}
+                      review={review}
+                      badgeColor="bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200"
+                      isExpanded={expandedReviews.has(review.id.toString())}
+                      onToggle={() => toggleReview(review.id.toString())}
+                    />
                   ))}
                 </div>
               </TabsContent>
@@ -530,41 +526,15 @@ export default function TestimonialsFaq() {
                     {combinedBachReviews.length} verified reviews from combined celebrations
                   </p>
                 </div>
-                <div className="grid gap-6 md:grid-cols-2">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {combinedBachReviews.map((review) => (
-                    <Card key={review.id} className="rounded-xl hover:shadow-lg transition-shadow" data-testid={`review-card-${review.id}`}>
-                      <CardHeader>
-                        <div className="flex items-start justify-between">
-                          <div>
-                            <CardTitle className="text-lg font-bold text-gray-900 dark:text-white">
-                              {review.name}
-                            </CardTitle>
-                            <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                              {review.role}
-                            </p>
-                          </div>
-                          {review.verified && (
-                            <Badge variant="secondary" className="bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200">
-                              <CheckCircle className="w-3 h-3 mr-1" />
-                              Verified
-                            </Badge>
-                          )}
-                        </div>
-                        <div className="flex items-center gap-2 mt-2">
-                          <div className="flex">
-                            {[...Array(review.rating)].map((_, i) => (
-                              <Star key={i} className="h-4 w-4 fill-yellow-500 text-yellow-500" />
-                            ))}
-                          </div>
-                          <span className="text-sm text-gray-500 dark:text-gray-400">{review.date}</span>
-                        </div>
-                      </CardHeader>
-                      <CardContent>
-                        <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                          {review.text}
-                        </p>
-                      </CardContent>
-                    </Card>
+                    <ReviewCard
+                      key={review.id}
+                      review={review}
+                      badgeColor="bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200"
+                      isExpanded={expandedReviews.has(review.id.toString())}
+                      onToggle={() => toggleReview(review.id.toString())}
+                    />
                   ))}
                 </div>
               </TabsContent>
@@ -580,41 +550,15 @@ export default function TestimonialsFaq() {
                     {bacheloretteReviews.length} verified reviews from bachelorette celebrations
                   </p>
                 </div>
-                <div className="grid gap-6 md:grid-cols-2">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {bacheloretteReviews.map((review) => (
-                    <Card key={review.id} className="rounded-xl hover:shadow-lg transition-shadow" data-testid={`review-card-${review.id}`}>
-                      <CardHeader>
-                        <div className="flex items-start justify-between">
-                          <div>
-                            <CardTitle className="text-lg font-bold text-gray-900 dark:text-white">
-                              {review.name}
-                            </CardTitle>
-                            <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                              {review.role}
-                            </p>
-                          </div>
-                          {review.verified && (
-                            <Badge variant="secondary" className="bg-pink-100 text-pink-800 dark:bg-pink-900 dark:text-pink-200">
-                              <CheckCircle className="w-3 h-3 mr-1" />
-                              Verified
-                            </Badge>
-                          )}
-                        </div>
-                        <div className="flex items-center gap-2 mt-2">
-                          <div className="flex">
-                            {[...Array(review.rating)].map((_, i) => (
-                              <Star key={i} className="h-4 w-4 fill-yellow-500 text-yellow-500" />
-                            ))}
-                          </div>
-                          <span className="text-sm text-gray-500 dark:text-gray-400">{review.date}</span>
-                        </div>
-                      </CardHeader>
-                      <CardContent>
-                        <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                          {review.text}
-                        </p>
-                      </CardContent>
-                    </Card>
+                    <ReviewCard
+                      key={review.id}
+                      review={review}
+                      badgeColor="bg-pink-100 text-pink-800 dark:bg-pink-900 dark:text-pink-200"
+                      isExpanded={expandedReviews.has(review.id.toString())}
+                      onToggle={() => toggleReview(review.id.toString())}
+                    />
                   ))}
                 </div>
               </TabsContent>
@@ -630,41 +574,15 @@ export default function TestimonialsFaq() {
                     {bachelorReviews.length} verified reviews from bachelor celebrations
                   </p>
                 </div>
-                <div className="grid gap-6 md:grid-cols-2">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {bachelorReviews.map((review) => (
-                    <Card key={review.id} className="rounded-xl hover:shadow-lg transition-shadow" data-testid={`review-card-${review.id}`}>
-                      <CardHeader>
-                        <div className="flex items-start justify-between">
-                          <div>
-                            <CardTitle className="text-lg font-bold text-gray-900 dark:text-white">
-                              {review.name}
-                            </CardTitle>
-                            <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                              {review.role}
-                            </p>
-                          </div>
-                          {review.verified && (
-                            <Badge variant="secondary" className="bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-200">
-                              <CheckCircle className="w-3 h-3 mr-1" />
-                              Verified
-                            </Badge>
-                          )}
-                        </div>
-                        <div className="flex items-center gap-2 mt-2">
-                          <div className="flex">
-                            {[...Array(review.rating)].map((_, i) => (
-                              <Star key={i} className="h-4 w-4 fill-yellow-500 text-yellow-500" />
-                            ))}
-                          </div>
-                          <span className="text-sm text-gray-500 dark:text-gray-400">{review.date}</span>
-                        </div>
-                      </CardHeader>
-                      <CardContent>
-                        <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                          {review.text}
-                        </p>
-                      </CardContent>
-                    </Card>
+                    <ReviewCard
+                      key={review.id}
+                      review={review}
+                      badgeColor="bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-200"
+                      isExpanded={expandedReviews.has(review.id.toString())}
+                      onToggle={() => toggleReview(review.id.toString())}
+                    />
                   ))}
                 </div>
               </TabsContent>

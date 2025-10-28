@@ -70,6 +70,116 @@ const categories: CategorySection[] = [
   }
 ];
 
+// Fallback static gallery photos when media library is empty
+const staticGalleryPhotos: MediaItem[] = [
+  // Boat Photos - Day Tripper
+  {
+    id: 'static-boat-1',
+    filename: 'day-tripper-14-person-boat.jpg',
+    originalName: 'Day Tripper - 14 Person Boat',
+    fileType: 'photo',
+    filePath: '/live_website_photos/day-tripper-14-person-boat.jpg',
+    uploadDate: '2024-01-01',
+    manualTags: ['boats', 'fleet', 'daytripper'],
+    altText: 'Day Tripper - 14 person capacity boat on Lake Travis'
+  },
+  // Boat Photos - Meeseeks
+  {
+    id: 'static-boat-2',
+    filename: 'meeseeks-25-person-boat.jpg',
+    originalName: 'Meeseeks - 25 Person Boat',
+    fileType: 'photo',
+    filePath: '/live_website_photos/meeseeks-25-person-boat.jpg',
+    uploadDate: '2024-01-01',
+    manualTags: ['boats', 'fleet', 'meeseeks'],
+    altText: 'Meeseeks - 25 person party boat with blue canopy'
+  },
+  // Boat Photos - Clever Girl
+  {
+    id: 'static-boat-3',
+    filename: 'clever-girl-50-person-boat.jpg',
+    originalName: 'Clever Girl - 50 Person Boat',
+    fileType: 'photo',
+    filePath: '/live_website_photos/clever-girl-50-person-boat.jpg',
+    uploadDate: '2024-01-01',
+    manualTags: ['boats', 'fleet', 'clever_girl'],
+    altText: 'Clever Girl - 50+ capacity party boat with disco balls'
+  },
+  // Party Atmosphere Photos
+  {
+    id: 'static-party-1',
+    filename: 'party-atmosphere-1.jpg',
+    originalName: 'Party Atmosphere on Lake Travis',
+    fileType: 'photo',
+    filePath: '/live_website_photos/party-atmosphere-1.jpg',
+    uploadDate: '2024-01-01',
+    manualTags: ['party_atmosphere', 'party', 'events'],
+    altText: 'Guests enjoying party atmosphere on Lake Travis cruise'
+  },
+  {
+    id: 'static-party-2',
+    filename: 'party-atmosphere-2.jpg',
+    originalName: 'Party Celebration',
+    fileType: 'photo',
+    filePath: '/live_website_photos/party-atmosphere-2.jpg',
+    uploadDate: '2024-01-01',
+    manualTags: ['party_atmosphere', 'party', 'events'],
+    altText: 'Party celebration on Premier Party Cruises boat'
+  },
+  {
+    id: 'static-party-3',
+    filename: 'party-atmosphere-3.jpg',
+    originalName: 'Lake Travis Party Scene',
+    fileType: 'photo',
+    filePath: '/live_website_photos/party-atmosphere-3.jpg',
+    uploadDate: '2024-01-01',
+    manualTags: ['party_atmosphere', 'party', 'events'],
+    altText: 'Lake Travis party scene with guests'
+  },
+  // Event Photos
+  {
+    id: 'static-event-1',
+    filename: 'atx-disco-cruise-party.jpg',
+    originalName: 'ATX Disco Cruise Party',
+    fileType: 'photo',
+    filePath: '/live_website_photos/atx-disco-cruise-party.jpg',
+    uploadDate: '2024-01-01',
+    manualTags: ['events', 'celebration', 'party_atmosphere'],
+    altText: 'ATX Disco Cruise bachelor and bachelorette party celebration'
+  },
+  {
+    id: 'static-event-2',
+    filename: 'bachelor-party-group-guys.jpg',
+    originalName: 'Bachelor Party Group',
+    fileType: 'photo',
+    filePath: '/live_website_photos/bachelor-party-group-guys.jpg',
+    uploadDate: '2024-01-01',
+    manualTags: ['events', 'celebration', 'bachelor'],
+    altText: 'Bachelor party group on Lake Travis boat rental'
+  },
+  {
+    id: 'static-event-3',
+    filename: 'dancing-party-scene.jpg',
+    originalName: 'Dancing Party Scene',
+    fileType: 'photo',
+    filePath: '/live_website_photos/dancing-party-scene.jpg',
+    uploadDate: '2024-01-01',
+    manualTags: ['events', 'celebration', 'party_atmosphere'],
+    altText: 'Guests dancing at Lake Travis party cruise'
+  },
+  // Fun Photos
+  {
+    id: 'static-fun-1',
+    filename: 'giant-unicorn-float.jpg',
+    originalName: 'Giant Unicorn Float',
+    fileType: 'photo',
+    filePath: '/live_website_photos/giant-unicorn-float.jpg',
+    uploadDate: '2024-01-01',
+    manualTags: ['events', 'party_atmosphere', 'floating'],
+    altText: 'Giant unicorn float on Lake Travis party cruise'
+  }
+];
+
 export default function Gallery() {
   const [, navigate] = useLocation();
   const [lightboxOpen, setLightboxOpen] = useState(false);
@@ -78,8 +188,8 @@ export default function Gallery() {
   const [filteredPhotos, setFilteredPhotos] = useState<MediaItem[]>([]);
   const [brokenImageIds, setBrokenImageIds] = useState<Set<string>>(new Set());
 
-  // Fetch published gallery photos from media library
-  const { data: photos = [], isLoading } = useQuery<MediaItem[]>({
+  // Fetch published gallery photos from media library, fallback to static photos
+  const { data: mediaLibraryPhotos = [], isLoading } = useQuery<MediaItem[]>({
     queryKey: ['/api/media/published'],
     queryFn: async () => {
       const response = await fetch('/api/media/published?section=gallery');
@@ -90,6 +200,9 @@ export default function Gallery() {
     staleTime: 5 * 60 * 1000,
     gcTime: 30 * 60 * 1000,
   });
+
+  // Use media library photos if available, otherwise fallback to static photos
+  const photos = mediaLibraryPhotos.length > 0 ? mediaLibraryPhotos : staticGalleryPhotos;
 
   // Set initial filtered photos when data loads, filtering out broken images
   useEffect(() => {
@@ -252,7 +365,7 @@ export default function Gallery() {
                       ) : (
                         <>
                           <img
-                            src={`/api/media/view/${photo.id}`}
+                            src={photo.id.startsWith('static-') ? photo.filePath : `/api/media/view/${photo.id}`}
                             alt={photo.altText || photo.originalName}
                             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                             loading="lazy"
@@ -327,7 +440,7 @@ export default function Gallery() {
                           >
                             <div className="aspect-square relative overflow-hidden">
                               <img
-                                src={`/api/media/view/${photo.id}`}
+                                src={photo.id.startsWith('static-') ? photo.filePath : `/api/media/view/${photo.id}`}
                                 alt={photo.altText || photo.originalName}
                                 className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                                 loading="lazy"
@@ -360,7 +473,7 @@ export default function Gallery() {
                         >
                           <div className="aspect-square relative overflow-hidden">
                             <img
-                              src={`/api/media/view/${photo.id}`}
+                              src={photo.id.startsWith('static-') ? photo.filePath : `/api/media/view/${photo.id}`}
                               alt={photo.altText || photo.originalName}
                               className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                               loading="lazy"
@@ -398,7 +511,7 @@ export default function Gallery() {
                     >
                       <div className="aspect-square relative overflow-hidden">
                         <img
-                          src={`/api/media/view/${photo.id}`}
+                          src={photo.id.startsWith('static-') ? photo.filePath : `/api/media/view/${photo.id}`}
                           alt={photo.altText || photo.originalName}
                           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                           loading="lazy"
@@ -434,7 +547,7 @@ export default function Gallery() {
                     >
                       <div className="aspect-square relative overflow-hidden">
                         <img
-                          src={`/api/media/view/${photo.id}`}
+                          src={photo.id.startsWith('static-') ? photo.filePath : `/api/media/view/${photo.id}`}
                           alt={photo.altText || photo.originalName}
                           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                           loading="lazy"
@@ -525,14 +638,14 @@ export default function Gallery() {
               <div className="relative w-full h-[80vh] flex items-center justify-center">
                 {filteredPhotos[selectedIndex].fileType === 'video' || filteredPhotos[selectedIndex].fileType === 'generated_video' ? (
                   <video
-                    src={`/api/media/view/${filteredPhotos[selectedIndex].id}`}
+                    src={filteredPhotos[selectedIndex].id.startsWith('static-') ? filteredPhotos[selectedIndex].filePath : `/api/media/view/${filteredPhotos[selectedIndex].id}`}
                     className="max-w-full max-h-full object-contain"
                     controls
                     autoPlay
                   />
                 ) : (
                   <img
-                    src={`/api/media/view/${filteredPhotos[selectedIndex].id}`}
+                    src={filteredPhotos[selectedIndex].id.startsWith('static-') ? filteredPhotos[selectedIndex].filePath : `/api/media/view/${filteredPhotos[selectedIndex].id}`}
                     alt={filteredPhotos[selectedIndex].originalName}
                     className="max-w-full max-h-full object-contain"
                   />
