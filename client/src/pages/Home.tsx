@@ -164,15 +164,15 @@ const services = [
     title: 'Private Charters',
     subtitle: 'Exclusive boat rental',
     description: `Choose from our fleet of premium party boats: "${BOATS.DAY_TRIPPER.displayName}" (${BOATS.DAY_TRIPPER.capacity} people), "${BOATS.ME_SEEKS_THE_IRONY.displayName}" (${BOATS.ME_SEEKS_THE_IRONY.seatingCapacity}-${BOATS.ME_SEEKS_THE_IRONY.capacity} people), or flagship "${BOATS.CLEVER_GIRL.displayName}" (${BOATS.CLEVER_GIRL.seatingCapacity}-${BOATS.CLEVER_GIRL.capacity} people) with giant Texas flag and 14 disco balls.`,
-    features: [`"${BOATS.DAY_TRIPPER.displayName}", "${BOATS.ME_SEEKS_THE_IRONY.displayName}", "${BOATS.CLEVER_GIRL.displayName}" boats`, 'Licensed captains & crew', 'Premium bluetooth sound systems', 'Large coolers with ice', `Lily pads & floaties available (+$${ADDON_FEES.LILY_PAD / 100})`],
+    features: [`"${BOATS.DAY_TRIPPER.displayName}", "${BOATS.ME_SEEKS_THE_IRONY.displayName}", "${BOATS.CLEVER_GIRL.displayName}" boats`, 'Licensed, fun, experienced captains to take your group safely around the lake in style', 'Premium bluetooth sound systems', 'Cooler space - bring your own ice, or add Essentials/Ultimate for ice included', `Lily pads & floaties available (+$${ADDON_FEES.LILY_PAD / 100})`],
     startingPrice: `$${HOURLY_RATES.MON_THU[14] / 100}`,
     hourlyNote: 'per hour (4-hour minimum)',
     icon: Ship,
     image: galleryImage1,
     popular: true,
     gallery: [galleryImage1, galleryImage2, galleryImage3, heroImage1],
-    detailedDescription: `Experience the ultimate private charter on Lake Travis with our premium fleet of party boats. Whether you choose the intimate "${BOATS.DAY_TRIPPER.displayName}" for ${BOATS.DAY_TRIPPER.capacity} guests, the popular "${BOATS.ME_SEEKS_THE_IRONY.displayName}" for ${BOATS.ME_SEEKS_THE_IRONY.seatingCapacity}-${BOATS.ME_SEEKS_THE_IRONY.capacity} people, or our flagship "${BOATS.CLEVER_GIRL.displayName}" for up to ${BOATS.CLEVER_GIRL.capacity} guests, every cruise includes professional captains, premium sound systems, and all the amenities for an unforgettable celebration.`,
-    highlights: ['3 Premium Boats Available', `${BOATS.DAY_TRIPPER.capacity}-${BOATS.CLEVER_GIRL.capacity} Person Capacity Options`, 'Professional Licensed Captains', 'Premium Sound Systems', 'Coolers & Ice Included', `Lily Pads & Floaties (+$${ADDON_FEES.LILY_PAD / 100})`, '3-4 Hour Cruise Options']
+    detailedDescription: `Experience the ultimate private charter on Lake Travis with our premium fleet of party boats. Whether you choose the intimate "${BOATS.DAY_TRIPPER.displayName}" for ${BOATS.DAY_TRIPPER.capacity} guests, the popular "${BOATS.ME_SEEKS_THE_IRONY.displayName}" for ${BOATS.ME_SEEKS_THE_IRONY.seatingCapacity}-${BOATS.ME_SEEKS_THE_IRONY.capacity} people, or our flagship "${BOATS.CLEVER_GIRL.displayName}" for up to ${BOATS.CLEVER_GIRL.capacity} guests, every cruise includes licensed, fun, experienced captains to take your group safely around the lake in style, premium sound systems, and all the amenities for an unforgettable celebration.`,
+    highlights: ['3 Premium Boats Available', `${BOATS.DAY_TRIPPER.capacity}-${BOATS.CLEVER_GIRL.capacity} Person Capacity Options`, 'Licensed, fun, experienced captains to take your group safely around the lake in style', 'Premium Sound Systems', 'Cooler Space Provided (ice included with Essentials/Ultimate)', `Lily Pads & Floaties (+$${ADDON_FEES.LILY_PAD / 100})`, '3-4 Hour Cruise Options']
   },
   {
     id: 'wedding',
@@ -250,7 +250,7 @@ const whyChooseUs = [
 const faqData = [
   {
     question: 'What types of party boat services do you offer in Austin?',
-    answer: 'We offer exclusive Private Charters on Lake Travis with boats holding 14-75 people. Perfect for corporate events, wedding parties, birthdays, and all special celebrations. Every cruise includes professional captains, premium sound systems, coolers with ice, and departs from Anderson Mill Marina. Choose from our fleet of premium boats based on your group size and event type.'
+    answer: 'We offer exclusive Private Charters on Lake Travis with boats holding 14-75 people. Perfect for corporate events, wedding parties, birthdays, and all special celebrations. Every cruise includes licensed, fun, experienced captains to take your group safely around the lake in style, premium sound systems, cooler space (bring your own ice, or order ahead from Party On Delivery), and departs from Anderson Mill Marina. Choose from our fleet of premium boats based on your group size and event type.'
   },
   {
     question: 'How much does a party boat rental cost in Austin?',
@@ -262,11 +262,11 @@ const faqData = [
   },
   {
     question: 'What\'s included in your party boat services?',
-    answer: 'Every party boat cruise includes: licensed, fun, experienced captains and crew, premium Bluetooth sound system, cooler space (bring your own ice & drinks, or order ahead from Party On Delivery), all required safety equipment, fuel, and access to Lake Travis\'s most scenic coves and beaches. Optional add-ons include lily pads, alcohol delivery, and transportation services. We can also arrange DJs and photographers for special events.'
+    answer: 'Every party boat cruise includes: licensed, fun, experienced captains to take your group safely around the lake in style, premium Bluetooth sound system, cooler space (bring your own ice & drinks, or order ahead from Party On Delivery), all required safety equipment, fuel, and access to Lake Travis\'s most scenic coves and beaches. Optional add-ons include lily pads, alcohol delivery, and transportation services. We can also arrange DJs and photographers for special events.'
   },
   {
     question: 'Can we bring our own alcohol on the party boat?',
-    answer: 'Yes! All our party boats are BYOB (Bring Your Own Booze). We provide large coolers with ice for your beverages. For added convenience, we partner with Party On Delivery - our sister company that delivers alcohol directly to your boat at the marina. You can order online and they deliver everything 50 feet from your boat, so you don\'t have to carry anything!'
+    answer: 'Yes! All our party boats are BYOB (Bring Your Own Booze). We provide cooler space - bring your own ice, OR add Essentials/Ultimate packages for ice included, OR order stocked and ready from Party On Delivery - our sister company that delivers alcohol directly to your boat at the marina. You can order online and they deliver everything 50 feet from your boat, so you don\'t have to carry anything!'
   },
   {
     question: 'How far in advance should we book our Austin party boat?',
@@ -987,7 +987,7 @@ export default function Home() {
                   Your Boat, Your Way - Private Cruise Pricing
                 </h3>
                 <p className="text-base text-gray-700 dark:text-gray-300 max-w-2xl mx-auto leading-relaxed">
-                  Choose your boat size and package level. All packages include professional captain, crew, premium sound system, and coolers with ice.
+                  Choose your boat size and package level. All packages include licensed, fun, experienced captains to take your group safely around the lake in style, premium sound system, and cooler space (bring your own ice, or add Essentials/Ultimate for ice included, or order from Party On Delivery).
                 </p>
               </div>
               <TabbedPrivateCruisePricing />
@@ -1883,7 +1883,7 @@ export default function Home() {
             data={[
               {
                 question: "What should you bring on a Lake Travis party boat?",
-                answer: "You should bring your own alcohol (we're BYOB), towels, sunscreen, and snacks. We provide coolers with ice, cups, and Bluetooth speakers. For special events, we can arrange DJ services and party supplies. Don't forget your ID and swimsuit!",
+                answer: "You should bring your own alcohol (we're BYOB), towels, sunscreen, and snacks. We provide cooler space - bring your own ice, OR add Essentials/Ultimate packages for ice included, OR order stocked and ready from Party On Delivery. We also provide cups and Bluetooth speakers. For special events, we can arrange DJ services and party supplies. Don't forget your ID and swimsuit!",
                 category: "What to Bring"
               },
               {
@@ -2266,7 +2266,7 @@ export default function Home() {
         
         {/* Business Information */}
         <div itemProp="description">
-          <p>Premier Party Cruises is Austin's premier party boat rental company on Lake Travis, serving over 150,000 happy customers since 2009. We specialize in bachelorette parties, bachelor parties, corporate events, and private boat charters with professional captains and crew.</p>
+          <p>Premier Party Cruises is Austin's premier party boat rental company on Lake Travis, serving over 150,000 happy customers since 2009. We specialize in bachelorette parties, bachelor parties, corporate events, and private boat charters with licensed, fun, experienced captains to take your group safely around the lake in style.</p>
         </div>
         
         {/* Location & Contact */}
@@ -2297,9 +2297,9 @@ export default function Home() {
           </div>
           <h4>Private Charter Features & Benefits:</h4>
           <ul>
-            <li>Professional licensed Licensed, fun, experienced captains to take your group safely around the lake in style and crew</li>
+            <li>Licensed, fun, experienced captains to take your group safely around the lake in style</li>
             <li>Premium Bluetooth sound systems for your playlist</li>
-            <li>Large coolers with ice included</li>
+            <li>Cooler space provided (bring your own ice, or add Essentials/Ultimate for ice included)</li>
             <li>Lily pads and floaties available (additional $60)</li>
             <li>BYOB - Bring Your Own Booze allowed</li>
             <li>Party On Delivery - alcohol delivery directly to boat</li>
@@ -2328,7 +2328,7 @@ export default function Home() {
             <li>Professional DJ and dance floor</li>
             <li>On-board professional photographer</li>
             <li>Giant unicorn floats and party supplies</li>
-            <li>BYOB with coolers and ice</li>
+            <li>BYOB with cooler space (ice included with Essentials/Ultimate packages)</li>
             <li>Friday and Saturday cruises</li>
             <li>4-hour party cruise on Lake Travis</li>
             <li>Meet other bachelorette groups</li>
@@ -2355,7 +2355,7 @@ export default function Home() {
             <li>Party On Delivery service available</li>
             <li>Lake Travis scenic locations</li>
             <li>Photography services included</li>
-            <li>Professional crew and captains</li>
+            <li>Licensed, fun, experienced captains to take your group safely around the lake in style</li>
           </ul>
         </div>
         
@@ -2388,7 +2388,7 @@ export default function Home() {
           <h3 itemProp="name">Day Tripper - 14 Person Party Boat</h3>
           <img itemProp="image" src="https://premierpartycruises.com/assets/daytripper.jpg" alt="Day Tripper 14-person party boat" style={{display: 'none'}} />
           <p itemProp="description">
-            Intimate 14-person party boat perfect for small celebrations and private groups on Lake Travis. Features professional captain, premium sound system, coolers with ice, and comfortable seating.
+            Intimate 14-person party boat perfect for small celebrations and private groups on Lake Travis. Features licensed, fun, experienced captains to take your group safely around the lake in style, premium sound system, cooler space (bring your own ice, or add Essentials/Ultimate for ice included), and comfortable seating.
           </p>
           <span itemProp="capacity">14 passengers</span>
           <div itemProp="offers" itemScope itemType="https://schema.org/Offer">
@@ -2449,7 +2449,7 @@ export default function Home() {
           <p>Day Tripper (14 guests): Starting at $200/hour (Monday-Thursday), $250/hour (Friday-Sunday)</p>
           <p>Meeseeks / The Irony (15-30 guests): Starting at $225/hour (Monday-Thursday), $300/hour (Friday-Sunday)</p>
           <p>Clever Girl (30-75 guests): Starting at $300/hour (Monday-Thursday), $350/hour (Friday-Sunday)</p>
-          <p>All private charters have a 4-hour minimum. Includes captain, crew, fuel, coolers with ice, sound system, and safety equipment.</p>
+          <p>All private charters have a 4-hour minimum. Includes captain, crew, fuel, cooler space (bring your own ice, or add Essentials/Ultimate for ice included, or order from Party On Delivery), sound system, and safety equipment.</p>
         </div>
         
         <div itemScope itemType="https://schema.org/Offer">
@@ -2593,7 +2593,7 @@ export default function Home() {
                 "itemOffered": {
                   "@type": "Service",
                   "name": "Private Charter Boat Rental",
-                  "description": "Exclusive private boat charters on Lake Travis with professional captain, crew, and premium amenities. Fleet includes 14-person, 25-person, and 50-person boats.",
+                  "description": "Exclusive private boat charters on Lake Travis with licensed, fun, experienced captains to take your group safely around the lake in style and premium amenities. Fleet includes 14-person, 25-person, and 50-person boats.",
                   "provider": {
                     "@type": "LocalBusiness",
                     "name": "Premier Party Cruises"
@@ -2931,7 +2931,7 @@ export default function Home() {
               {
                 id: 'alcohol-allowed',
                 question: 'Can you bring alcohol on Lake Travis boats?',
-                answer: 'Yes, BYOB is allowed on all our Lake Travis cruises! Bring your favorite beverages - we provide large coolers with ice, cups, and all necessary supplies. Our crews help with loading/unloading, and we can arrange alcohol delivery directly to the boat for your convenience.',
+                answer: 'Yes, BYOB is allowed on all our Lake Travis cruises! Bring your favorite beverages - we provide cooler space - bring your own ice, OR add Essentials/Ultimate packages for ice included, OR order stocked and ready from Party On Delivery. We also provide cups and all necessary supplies. Our crews help with loading/unloading, and we can arrange alcohol delivery directly to the boat for your convenience.',
                 keywords: ['BYOB', 'alcohol', 'coolers', 'Lake Travis'],
                 icon: Wine,
                 relatedLink: {

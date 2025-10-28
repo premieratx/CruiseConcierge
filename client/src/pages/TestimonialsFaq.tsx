@@ -81,7 +81,7 @@ const faqCategories = {
     faqs: [
       {
         question: 'What does the cruise price include?',
-        answer: 'All cruises include the boat, USCG-licensed captain, fuel, coolers with ice, sound system, and safety equipment. Premium packages include DJ, photographer, and additional amenities.'
+        answer: 'All cruises include the boat, licensed, fun, experienced captains, fuel, cooler space (bring your own ice, or add Essentials/Ultimate for ice included, or order from Party On Delivery), sound system, and safety equipment. Premium packages include DJ, photographer, and additional amenities.'
       }
     ]
   },
@@ -91,7 +91,7 @@ const faqCategories = {
     faqs: [
       {
         question: 'What safety measures are in place?',
-        answer: 'All boats have USCG-certified captains, required safety equipment, life jackets for every passenger, and comprehensive insurance. We maintain a perfect safety record over 15 years.'
+        answer: 'All boats have licensed, fun, experienced captains, required safety equipment, life jackets for every passenger, and comprehensive insurance. We maintain a perfect safety record over 15 years.'
       }
     ]
   },
@@ -101,7 +101,7 @@ const faqCategories = {
     faqs: [
       {
         question: 'What should we bring on the cruise?',
-        answer: 'Bring sunscreen, sunglasses, towels, swimsuits, and your favorite drinks/snacks in cans or plastic (no glass). We provide coolers with ice.'
+        answer: 'Bring sunscreen, sunglasses, towels, swimsuits, and your favorite drinks/snacks in cans or plastic (no glass). We provide cooler space - bring your own ice, OR add Essentials/Ultimate packages for ice included, OR order stocked and ready from Party On Delivery.'
       }
     ]
   },

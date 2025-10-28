@@ -66,8 +66,8 @@ const privateCruisePackages = [
     description: 'Basic cruise experience',
     subtitle: 'The boat, the captain, and the lake - ready for your event',
     features: [
-      'Professional captain and crew',
-      'Large coolers (bring your own ice)',
+      'Licensed, fun, experienced captains to take your group safely around the lake in style',
+      'Large empty coolers (plenty of cooler space - bring your own ice & drinks, or order ahead from Party On Delivery)',
       'Premium Bluetooth sound system',
       'Clean restroom facilities',
       'Sun and shade seating areas',
@@ -130,14 +130,14 @@ const fleetOptions = [
     capacity: 'Up to 14 guests',
     baseRate: 200,
     image: heroImage3,
-    features: ['Licensed captain and premium sound system', 'Coolers with ice provided', 'Comfortable seating with sun and shade', '4-hour minimum', 'Ideal for small birthday parties and gatherings']
+    features: ['Licensed, fun, experienced captains to take your group safely around the lake in style', 'Premium sound system', 'Empty coolers (bring your own ice, or order ahead from Party On Delivery)', 'Comfortable seating with sun and shade', '4-hour minimum', 'Ideal for small birthday parties and gatherings']
   },
   {
     name: 'Meeseeks & The Irony',
     capacity: '15-30 guests',
     baseRate: 225,
     image: heroImage2,
-    features: ['Professional captain and crew', 'Premium Bluetooth sound system', 'Large coolers with ice', '4-hour minimum', 'Perfect for bachelor/bachelorette parties']
+    features: ['Licensed, fun, experienced captains to take your group safely around the lake in style', 'Premium Bluetooth sound system', 'Empty coolers (bring your own ice, or order ahead from Party On Delivery)', '4-hour minimum', 'Perfect for bachelor/bachelorette parties']
   },
   {
     name: 'Clever Girl',
@@ -158,7 +158,7 @@ const whatsIncluded = [
   {
     icon: UserCheck,
     title: 'Captain & Crew',
-    description: 'USCG licensed professionals handling all navigation'
+    description: 'Licensed, fun, experienced captains to take your group safely around the lake in style'
   },
   {
     icon: Music,
@@ -172,8 +172,8 @@ const whatsIncluded = [
   },
   {
     icon: Anchor,
-    title: 'Cooler & Ice',
-    description: 'Large cooler with ice for your BYOB beverages'
+    title: 'Cooler Space',
+    description: 'Empty coolers - bring your own ice, OR add Essentials/Ultimate for ice included, OR order from Party On Delivery'
   },
   {
     icon: Droplets,
@@ -212,7 +212,7 @@ const whyChooseUs = [
   {
     icon: Shield,
     title: 'Perfect Safety Record',
-    description: 'Licensed, fun, experienced captains to take your group safely around the lake in style with pristine safety record ensure peace of mind'
+    description: 'Licensed, fun, experienced captains to take your group safely around the lake in style with a pristine safety record for peace of mind'
   },
   {
     icon: Star,
@@ -233,7 +233,7 @@ const whyChooseUs = [
 
 // Premium Value Stacking Data
 const premiumValueStack = [
-  { item: 'USCG Licensed Captain & Crew', value: 800, icon: UserCheck },
+  { item: 'Licensed, fun, experienced captains to take your group safely around the lake in style', value: 800, icon: UserCheck },
   { item: 'Premium Bluetooth Sound System', value: 200, icon: Volume2 },
   { item: 'Exclusive Private Use (No Sharing)', value: 500, icon: Shield },
   { item: 'Customizable Experience & Route', value: 300, icon: Target },
@@ -338,7 +338,7 @@ const faqItems = [
   {
     id: 'catering',
     question: 'Can we bring food aboard?',
-    answer: 'Yes! You\'re welcome to bring your own food or arrange catering from any Austin vendor of your choice. We can help coordinate alcohol delivery through Party On Delivery for your convenience. Our Essentials and Ultimate packages include a 6-foot table for food service. We provide coolers with ice!'
+    answer: 'Yes! You\'re welcome to bring your own food or arrange catering from any Austin vendor of your choice. We can help coordinate alcohol delivery through Party On Delivery for your convenience. Our Essentials and Ultimate packages include a 6-foot table for food service. We provide cooler space (bring your own ice for standard packages - Essentials/Ultimate include ice).'
   },
   {
     id: 'decorations',
@@ -460,7 +460,7 @@ export default function PrivateCruises() {
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
       <SEOHead 
         title="Private Boat Rental Austin | Lake Travis Private Cruises | Premier Party Cruises"
-        description="Book private boat rentals on Lake Travis Austin. USCG licensed captains, 14-75 person boats, BYOB friendly. Perfect for corporate events, weddings, birthdays. Starting at $200/hr."
+        description="Book private boat rentals on Lake Travis Austin. Licensed, fun, experienced captains, 14-75 person boats, BYOB friendly. Perfect for corporate events, weddings, birthdays. Starting at $200/hr."
         keywords="private boat rental Austin, Lake Travis private cruise, Austin boat charter, private party boat Austin, Lake Travis boat rental, Austin yacht rental, corporate cruise Austin, wedding boat Austin"
         canonicalUrl="/private-cruises"
       />
@@ -470,7 +470,7 @@ export default function PrivateCruises() {
         schemas={[
           generateLocalBusinessSchema({
             name: "Premier Party Cruises - Private Charters",
-            description: "Private boat rental service on Lake Travis Austin. USCG licensed captains, luxury boats from 14-75 passengers, perfect for any celebration.",
+            description: "Private boat rental service on Lake Travis Austin. Licensed, fun, experienced captains, luxury boats from 14-75 passengers, perfect for any celebration.",
             url: "https://premierpartycruises.com/private-cruises",
             priceRange: "$200-$800/hour",
             aggregateRating: {
@@ -495,7 +495,7 @@ export default function PrivateCruises() {
           }),
           generateProductSchema({
             name: "Private Boat Charter Lake Travis",
-            description: "Exclusive private boat rental on Lake Travis with professional captain, customizable packages, and luxury amenities.",
+            description: "Exclusive private boat rental on Lake Travis with licensed, fun, experienced captains to take your group safely around the lake in style, customizable packages, and luxury amenities.",
             brand: "Premier Party Cruises",
             offers: {
               price: 200,
@@ -514,7 +514,7 @@ export default function PrivateCruises() {
             },
             { 
               question: "What is included in a private boat rental Austin?", 
-              answer: "Every private boat rental includes: USCG licensed captain and crew, fuel, coolers, Bluetooth sound system, and clean restroom facilities. Enhanced packages add ice, water, tables, floats, and party supplies." 
+              answer: "Every private boat rental includes: licensed, fun, experienced captains to take your group safely around the lake in style, fuel, coolers, Bluetooth sound system, and clean restroom facilities. Enhanced packages add ice, water, tables, floats, and party supplies." 
             },
             { 
               question: "Can you bring alcohol on private boat rentals?", 
@@ -803,7 +803,7 @@ export default function PrivateCruises() {
                   </CardHeader>
                   <CardContent>
                     <p className="text-gray-700 leading-relaxed mb-6">
-                      Every private charter includes experienced, USCG licensed captains who know Lake Travis like the back of their hand. They'll ensure your safety while showing you the best spots.
+                      Every private charter includes licensed, fun, experienced captains to take your group safely around the lake in style. They know Lake Travis like the back of their hand and will show you the best spots.
                     </p>
                     <ul className="space-y-3">
                       <li className="flex items-start gap-3">
@@ -844,8 +844,8 @@ export default function PrivateCruises() {
                   {
                     id: 'life-jackets',
                     question: 'Are life jackets provided?',
-                    answer: 'Yes, USCG approved life jackets provided for all guests in various sizes including children and adults. Safety is our top priority with certified captains ensuring proper safety equipment. Life jackets available but not required while seated. Swimming areas supervised by experienced crew.',
-                    keywords: ['USCG', 'life jackets', 'safety', 'certified captains'],
+                    answer: 'Yes, approved life jackets provided for all guests in various sizes including children and adults. Safety is our top priority with licensed, fun, experienced captains to take your group safely around the lake in style. Life jackets available but not required while seated. Swimming areas supervised by experienced crew.',
+                    keywords: ['life jackets', 'safety', 'licensed captains'],
                     icon: LifeBuoy,
                     relatedLink: {
                       href: '/faq#safety',
@@ -1752,7 +1752,7 @@ export default function PrivateCruises() {
                 <p>Looking for <strong>private boat rentals on Lake Travis</strong>? Premier Party Cruises offers exclusive boat charters for groups of 14-75 guests. Our fleet includes three exceptional boats: Day Tripper (up to 14 guests), Meeseeks & The Irony (15-30 guests), and our flagship Clever Girl (30-75 guests).</p>
                 
                 <h3>Austin Private Boat Charter Services</h3>
-                <p>As <strong>Austin's premier private boat charter company</strong>, we've been creating unforgettable Lake Travis experiences since 2009. Choose from Standard, Essentials, or Ultimate packages to customize your perfect celebration. All charters include USCG licensed captains, premium sound systems, coolers with ice, and flexible departure times.</p>
+                <p>As <strong>Austin's premier private boat charter company</strong>, we've been creating unforgettable Lake Travis experiences since 2009. Choose from Standard, Essentials, or Ultimate packages to customize your perfect celebration. All charters include licensed, fun, experienced captains, premium sound systems, cooler space (ice included with Essentials/Ultimate packages), and flexible departure times.</p>
                 
                 <h3>Perfect for Every Occasion</h3>
                 <p>Our <strong>Lake Travis private cruises</strong> are perfect for corporate events, weddings, birthdays, bachelor/bachelorette parties, and family celebrations. With BYOB-friendly policies and customizable routes, you have complete control over your experience.</p>

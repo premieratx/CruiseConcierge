@@ -64,7 +64,7 @@ export const bacheloretteFAQs: FAQItem[] = [
   {
     id: 'bachelorette-safety',
     question: 'Is the boat safe for our bachelorette party?',
-    answer: 'Absolutely! We have a perfect safety record over 14 years. Our USCG-certified captains prioritize safety while ensuring maximum fun. Life jackets are available for swimming. The boat has railings, non-slip surfaces, and shaded areas. We\'ll take care of you like family while you celebrate!'
+    answer: 'Absolutely! We have a perfect safety record over 14 years. Licensed, fun, experienced captains to take your group safely around the lake in style. Life jackets are available for swimming. The boat has railings, non-slip surfaces, and shaded areas. We\'ll take care of you like family while you celebrate!'
   }
 ];
 
@@ -122,7 +122,7 @@ export const privateCruiseFAQs: FAQItem[] = [
   {
     id: 'private-captain',
     question: 'Do private boats come with a captain?',
-    answer: 'Yes, all private boats include a USCG-licensed captain who handles navigation and safety. You and your guests can relax and enjoy the cruise. Our captains know Lake Travis\'s best spots for swimming, scenery, and anchoring. They\'re professional, fun, and dedicated to your perfect day.'
+    answer: 'Yes, all private boats include licensed, fun, experienced captains to take your group safely around the lake in style. You and your guests can relax and enjoy the cruise. Our captains know Lake Travis\'s best spots for swimming, scenery, and anchoring. They\'re professional, fun, and dedicated to your perfect day.'
   },
   {
     id: 'private-corporate',

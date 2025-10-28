@@ -39,12 +39,12 @@ const faqCategories: FAQCategory[] = [
       {
         id: 'what-included',
         question: 'What\'s included with my boat rental on Lake Travis?',
-        answer: 'All rentals include a USCG-licensed captain, premium sound system, coolers with ice, restroom facilities, and shaded areas. ATX Disco Cruises add professional DJ and photographer, giant floats, and party supplies. Private charters can be customized with additional amenities. Every cruise is BYOB-friendly with no corkage fees.'
+        answer: 'All rentals include Licensed, fun, experienced captains to take your group safely around the lake in style, premium sound system, cooler space (bring your own ice & drinks for standard packages, or add Essentials/Ultimate packages for ice included, or order ahead from Party On Delivery), restroom facilities, and shaded areas. ATX Disco Cruises add professional DJ and photographer, giant floats, and party supplies. Private charters can be customized with additional amenities. Every cruise is BYOB-friendly with no corkage fees.'
       },
       {
         id: 'experience',
         question: 'Why choose Premier Party Cruises for Lake Travis boat rentals?',
-        answer: 'With 15+ years of experience and over 150,000 satisfied customers, we\'re Austin\'s longest-running party cruise company. We maintain a perfect safety record with licensed, fun, experienced captains, operate the newest fleet on Lake Travis, and provide full-service experiences. We\'re the only company offering the signature ATX Disco Cruise.'
+        answer: 'With 15+ years of experience and over 150,000 satisfied customers, we\'re Austin\'s longest-running party cruise company. We maintain a perfect safety record with Licensed, fun, experienced captains to take your group safely around the lake in style, operate the newest fleet on Lake Travis, and provide full-service experiences. We\'re the only company offering the signature ATX Disco Cruise.'
       },
       {
         id: 'capacity',
@@ -102,7 +102,7 @@ const faqCategories: FAQCategory[] = [
       {
         id: 'whats-included-price',
         question: 'What\'s included in the rental price?',
-        answer: 'Your rental includes the boat, captain, fuel, coolers with ice, sound system, and safety equipment. ATX Disco Cruises add professional DJ, photographer, floats, and party supplies. No hidden fees, fuel surcharges, or dock fees. Gratuity for exceptional service is appreciated but not required.'
+        answer: 'Your rental includes the boat, licensed, fun, experienced captains to take your group safely around the lake in style, fuel, cooler space (bring your own ice for standard packages - Essentials/Ultimate packages include ice), sound system, and safety equipment. ATX Disco Cruises add professional DJ, photographer, floats, and party supplies. No hidden fees, fuel surcharges, or dock fees. Gratuity for exceptional service is appreciated but not required.'
       },
       {
         id: 'payment-methods',
@@ -128,7 +128,7 @@ const faqCategories: FAQCategory[] = [
       {
         id: 'byob-policy',
         question: 'Can we bring our own alcohol on the boat?',
-        answer: 'Yes! All cruises are BYOB-friendly for guests 21+ with valid ID. Bring beer, wine, seltzers, and spirits in cans or plastic containers only - no glass for safety. We provide large coolers with ice. This policy keeps costs low while letting you bring your favorite drinks.'
+        answer: 'Yes! All cruises are BYOB-friendly for guests 21+ with valid ID. Bring beer, wine, seltzers, and spirits in cans or plastic containers only - no glass for safety. We provide cooler space (bring your own ice, or add Essentials/Ultimate packages for ice included, or order ahead from Party On Delivery). This policy keeps costs low while letting you bring your favorite drinks.'
       },
       {
         id: 'food-allowed',
@@ -143,7 +143,7 @@ const faqCategories: FAQCategory[] = [
       {
         id: 'drinks-logistics',
         question: 'How should we pack drinks for the cruise?',
-        answer: 'Pack drinks in cans or plastic bottles (no glass) in soft coolers or bags. We transfer everything to our large onboard coolers with ice. Bring more than you think - it\'s hot on the lake! Consider bringing water, sodas for mixers, and hydration drinks alongside alcoholic beverages.'
+        answer: 'Pack drinks in cans or plastic bottles (no glass) in soft coolers or bags. We have plenty of cooler space onboard. Bring your own ice, or add Essentials/Ultimate packages for ice included, or order everything stocked and ready from Party On Delivery. Bring more than you think - it\'s hot on the lake! Consider bringing water, sodas for mixers, and hydration drinks alongside alcoholic beverages.'
       },
       {
         id: 'water-provided',
@@ -159,7 +159,7 @@ const faqCategories: FAQCategory[] = [
       {
         id: 'safety-measures',
         question: 'What safety measures are in place on Lake Travis boats?',
-        answer: 'All boats have USCG-certified captains, required safety equipment, and life jackets for every passenger. We maintain comprehensive insurance, conduct regular safety inspections, and monitor weather constantly. Our perfect safety record over 15 years demonstrates our commitment to your security on the water.'
+        answer: 'All boats have Licensed, fun, experienced captains to take your group safely around the lake in style, required safety equipment, and life jackets for every passenger. We maintain comprehensive insurance, conduct regular safety inspections, and monitor weather constantly. Our perfect safety record over 15 years demonstrates our commitment to your security on the water.'
       },
       {
         id: 'age-requirements',

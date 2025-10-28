@@ -233,7 +233,7 @@ const allFAQs = {
         faqs: [
           {
             question: 'What corporate amenities do you provide?',
-            answer: 'Our corporate packages include: professional licensed, fun, experienced captain and crew, premium sound system with microphone capabilities, climate-controlled areas, professional restrooms, coolers with ice, charging stations, and WiFi when requested. Enhanced packages include dedicated event coordinators and presentation equipment.'
+            answer: 'Our corporate packages include: licensed, fun, experienced captains to take your group safely around the lake in style, premium sound system with microphone capabilities, climate-controlled areas, professional restrooms, coolers with ice, charging stations, and WiFi when requested. Enhanced packages include dedicated event coordinators and presentation equipment.'
           },
           {
             question: 'Can we bring catering or do you provide food service?',
@@ -582,7 +582,7 @@ const allFAQs = {
       },
       {
         question: 'What\'s included in the private cruise price?',
-        answer: 'All private cruises include: professional licensed, fun, experienced captain, fuel, coolers with ice, premium sound system with Bluetooth connectivity, safety equipment, and basic amenities. Food, beverages, and extra crew (if needed) are additional.',
+        answer: 'All private cruises include: licensed, fun, experienced captains to take your group safely around the lake in style, fuel, coolers with ice, premium sound system with Bluetooth connectivity, safety equipment, and basic amenities. Food, beverages, and extra crew (if needed) are additional.',
         isNew: true
       },
       {
@@ -639,7 +639,7 @@ const allFAQs = {
       },
       {
         question: 'What\'s included in your party boat services?',
-        answer: 'Every party boat cruise includes: professional licensed, fun, experienced captain and crew, premium Bluetooth sound system, large coolers with ice, all required safety equipment, fuel, and access to Lake Travis\'s most scenic coves and beaches. ATX Disco Cruises also include professional DJ, photographer, party favors, and reserved seating areas. Optional add-ons include lily pads, alcohol delivery, and transportation services.',
+        answer: 'Every party boat cruise includes: licensed, fun, experienced captains to take your group safely around the lake in style, premium Bluetooth sound system, large coolers with ice, all required safety equipment, fuel, and access to Lake Travis\'s most scenic coves and beaches. ATX Disco Cruises also include professional DJ, photographer, party favors, and reserved seating areas. Optional add-ons include lily pads, alcohol delivery, and transportation services.',
         isNew: true
       },
       {
@@ -661,7 +661,7 @@ const allFAQs = {
     faqs: [
       {
         question: 'What makes Premier the best party boat in Austin?',
-        answer: 'Premier Party Cruises has been Austin\'s #1 party boat company since 2009 with over 150,000 happy customers. We offer the newest fleet on Lake Travis, professional licensed, fun, experienced captains, perfect safety record, premium sound systems, and unmatched local expertise. Our party boats depart from Anderson Mill Marina and cruise the most beautiful parts of Lake Travis, just 30 minutes from downtown Austin.',
+        answer: 'Premier Party Cruises has been Austin\'s #1 party boat company since 2009 with over 150,000 happy customers. We offer the newest fleet on Lake Travis, licensed, fun, experienced captains to take your group safely around the lake in style, perfect safety record, premium sound systems, and unmatched local expertise. Our party boats depart from Anderson Mill Marina and cruise the most beautiful parts of Lake Travis, just 30 minutes from downtown Austin.',
         isNew: true
       },
       {
@@ -676,7 +676,7 @@ const allFAQs = {
       },
       {
         question: 'What\'s included in an Austin party boat rental?',
-        answer: 'Every Austin party boat rental includes: professional licensed, fun, experienced captain and crew, premium Bluetooth sound system, large coolers with ice, all safety equipment, fuel, and cruising Lake Travis\'s most scenic areas. Optional add-ons include lily pads and floaties for swimming, professional DJ services, photographer, catering coordination, and decorations for special events.',
+        answer: 'Every Austin party boat rental includes: licensed, fun, experienced captains to take your group safely around the lake in style, premium Bluetooth sound system, large coolers with ice, all safety equipment, fuel, and cruising Lake Travis\'s most scenic areas. Optional add-ons include lily pads and floaties for swimming, professional DJ services, photographer, catering coordination, and decorations for special events.',
         isNew: true
       },
       {
@@ -708,7 +708,7 @@ const allFAQs = {
       },
       {
         question: 'What\'s included in a Lake Travis party boat rental?',
-        answer: 'Every Lake Travis party boat rental includes: professional licensed, fun, experienced captain and crew familiar with Lake Travis waters, premium Bluetooth sound system, large coolers with ice, all safety equipment, fuel, and cruising Lake Travis\'s most scenic coves and beaches. Optional Lake Travis add-ons include lily pads and floaties for swimming, professional DJ services, photographer, catering coordination, and decorations for special Lake Travis events.',
+        answer: 'Every Lake Travis party boat rental includes: licensed, fun, experienced captains to take your group safely around the lake in style, premium Bluetooth sound system, large coolers with ice, all safety equipment, fuel, and cruising Lake Travis\'s most scenic coves and beaches. Optional Lake Travis add-ons include lily pads and floaties for swimming, professional DJ services, photographer, catering coordination, and decorations for special Lake Travis events.',
         isNew: true
       },
       {
