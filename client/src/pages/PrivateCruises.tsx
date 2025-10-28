@@ -867,10 +867,10 @@ export default function PrivateCruises() {
           <div className="container mx-auto px-4 sm:px-6">
             <div className="max-w-7xl mx-auto">
               <div className="text-center mb-16">
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold font-playfair mb-6 text-gray-900">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold font-playfair mb-6 text-yellow-400">
                   Pricing & Packages
                 </h2>
-                <p className="text-lg text-gray-700 max-w-3xl mx-auto">
+                <p className="text-lg text-blue-600 max-w-3xl mx-auto font-medium">
                   Choose from three boats and three package levels to create your perfect private experience on Lake Travis.
                 </p>
               </div>
@@ -881,17 +881,17 @@ export default function PrivateCruises() {
               </div>
 
               <Tabs defaultValue="fleet" className="w-full">
-                <TabsList className="grid w-full grid-cols-2 mb-12 bg-white p-2 rounded-2xl h-auto border border-gray-200">
+                <TabsList className="grid w-full grid-cols-2 mb-12 bg-gradient-to-r from-blue-600 to-purple-600 p-2 rounded-2xl h-auto">
                   <TabsTrigger 
                     value="fleet" 
-                    className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-600 data-[state=active]:to-blue-700 data-[state=active]:text-white font-bold text-lg py-4 rounded-xl transition-all"
+                    className="data-[state=active]:bg-yellow-400 data-[state=active]:text-black data-[state=inactive]:bg-white/20 data-[state=inactive]:text-white hover:bg-white/30 font-bold text-lg py-4 rounded-xl transition-all"
                     data-testid="tab-fleet"
                   >
                     Our Fleet
                   </TabsTrigger>
                   <TabsTrigger 
                     value="packages" 
-                    className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-600 data-[state=active]:to-purple-700 data-[state=active]:text-white font-bold text-lg py-4 rounded-xl transition-all"
+                    className="data-[state=active]:bg-yellow-400 data-[state=active]:text-black data-[state=inactive]:bg-white/20 data-[state=inactive]:text-white hover:bg-white/30 font-bold text-lg py-4 rounded-xl transition-all"
                     data-testid="tab-packages"
                   >
                     Package Options

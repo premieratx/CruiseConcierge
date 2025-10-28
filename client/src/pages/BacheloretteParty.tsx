@@ -761,7 +761,7 @@ export default function BacheloretteParty() {
                 <Gem className="h-4 w-4 mr-2 inline" />
                 Create Your Dream Bachelorette Weekend
               </Badge>
-              <h2 className="text-4xl md:text-5xl font-bold font-playfair text-center mb-6 text-gray-900 leading-tight">
+              <h2 className="text-4xl md:text-5xl font-bold font-playfair text-center mb-6 text-yellow-400 leading-tight">
                 The Real Value of Your Bachelorette Party
               </h2>
               <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">

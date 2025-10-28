@@ -579,11 +579,11 @@ export default function CorporateEvents() {
         <section className="py-24 bg-gradient-to-b from-blue-50 to-white">
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
-              <Badge className="mb-4 font-sans tracking-wider uppercase">PACKAGES & PRICING</Badge>
-              <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-4 text-center" data-editable data-editable-id="h2-pricing">
+              <Badge className="mb-4 font-sans tracking-wider uppercase bg-yellow-400 text-black font-bold">PACKAGES & PRICING</Badge>
+              <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-4 text-center text-yellow-400" data-editable data-editable-id="h2-pricing">
                 Corporate Cruise Packages
               </h2>
-              <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              <p className="text-lg text-blue-600 max-w-3xl mx-auto font-medium">
                 Choose the perfect package for your corporate event. All cruises feature <InternalLinkHighlight href="/private-cruises" title="Private Cruises">exclusive private charters</InternalLinkHighlight> with professional service and customizable experiences.
               </p>
             </div>

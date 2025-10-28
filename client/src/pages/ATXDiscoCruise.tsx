@@ -523,10 +523,10 @@ export default function ATXDiscoCruise() {
                   <Package className="h-4 w-4 mr-2 inline" />
                   Compare Packages
                 </Badge>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-yellow-400 leading-tight">
                   ATX Disco Cruise Packages at a Glance
                 </h2>
-                <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
+                <p className="text-xl text-blue-600 max-w-3xl mx-auto leading-relaxed font-medium">
                   <strong>Fridays & Saturdays, March-October</strong> • Choose your perfect party package
                 </p>
               </div>

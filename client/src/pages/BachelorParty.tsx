@@ -758,18 +758,18 @@ export default function BachelorParty() {
                 <Package className="h-4 w-4 mr-2 inline" />
                 ATX Disco Cruise Packages
               </Badge>
-              <h2 className="text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
+              <h2 className="text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-yellow-400 leading-tight">
                 Choose Your Bachelor Party Package
               </h2>
-              <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
+              <p className="text-xl text-blue-600 max-w-3xl mx-auto leading-relaxed font-medium">
                 All-inclusive packages from $85/person - cheaper than Vegas, more legendary
               </p>
             </div>
 
             <Tabs defaultValue="atx_disco" className="max-w-7xl mx-auto">
-              <TabsList className="grid w-full grid-cols-2 max-w-md mx-auto mb-12">
-                <TabsTrigger value="atx_disco" className="font-bold">ATX Disco Cruise</TabsTrigger>
-                <TabsTrigger value="private" className="font-bold">Private Cruises</TabsTrigger>
+              <TabsList className="grid w-full grid-cols-2 max-w-md mx-auto mb-12 bg-gradient-to-r from-blue-600 to-purple-600 p-2 rounded-xl">
+                <TabsTrigger value="atx_disco" className="font-bold data-[state=active]:bg-yellow-400 data-[state=active]:text-black data-[state=inactive]:bg-white/20 data-[state=inactive]:text-white hover:bg-white/30 rounded-lg transition-all">ATX Disco Cruise</TabsTrigger>
+                <TabsTrigger value="private" className="font-bold data-[state=active]:bg-yellow-400 data-[state=active]:text-black data-[state=inactive]:bg-white/20 data-[state=inactive]:text-white hover:bg-white/30 rounded-lg transition-all">Private Cruises</TabsTrigger>
               </TabsList>
 
               <TabsContent value="atx_disco" className="space-y-8">
