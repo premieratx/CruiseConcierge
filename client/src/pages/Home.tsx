@@ -577,9 +577,9 @@ export default function Home() {
             <source src="/attached_assets/Boat_Video_Walkthrough_Generated_1761209219959.mp4" type="video/mp4" />
           </video>
           {/* Lighter overlay for bright and happy feel */}
-          <div className="absolute inset-0 bg-gradient-to-br from-black/40 via-black/30 to-black/20" />
+          <div className="absolute inset-0 bg-gradient-to-br from-black/15 via-black/15 to-black/15" />
           {/* Additional blue tint overlay for brand color */}
-          <div className="absolute inset-0 bg-blue-900/10" />
+          <div className="absolute inset-0 bg-blue-900/5" />
         </div>
 
 
@@ -608,7 +608,7 @@ export default function Home() {
                 Austin Party Boat Rentals on Lake Travis
               </h1>
               <h2 className="text-xl sm:text-2xl md:text-3xl text-brand-yellow font-semibold leading-relaxed" data-editable data-editable-id="hero-tagline">
-                Lake Travis Party Boat Rentals in Austin, TX - Hosting the BEST Parties on Lake Travis Since 2009
+                Hosting the Best Boat Parties on Lake Travis Since 2009
               </h2>
             </motion.div>
 
