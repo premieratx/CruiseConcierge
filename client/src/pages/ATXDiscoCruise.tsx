@@ -89,7 +89,7 @@ const discoPackages = [
       'Digital photo delivery after the event',
       'Giant unicorn float access',
       'Multi-group party atmosphere (50-100+ people)',
-      'BYOB with shared coolers & ice',
+      'BYOB with shared coolers (no private ice)',
       'We can coordinate alcohol delivery to boat'
     ],
     popular: false,
@@ -148,8 +148,8 @@ const whatsIncluded = [
   },
   {
     icon: Anchor,
-    title: 'Shared Coolers with Ice',
-    description: 'BYOB - bring your drinks, we provide coolers and ice'
+    title: 'Shared Coolers',
+    description: 'BYOB - bring your drinks, shared coolers available (no private ice)'
   },
   {
     icon: Waves,

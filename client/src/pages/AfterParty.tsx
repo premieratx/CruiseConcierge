@@ -38,8 +38,8 @@ const afterPartyPackages = [
     basePrice: 200,
     description: 'Keep the celebration going - Extend the magic',
     features: [
-      'Amazing, experienced captain',
-      '2 large empty coolers (bring your own ice & drinks)',
+      'Licensed, fun, experienced captains to take your group safely around the lake in style',
+      '2 large empty coolers (plenty of cooler space - bring your own ice & drinks, or order ahead from Party On Delivery)',
       'Premium Bluetooth speaker system',
       'Clean restroom facilities',
       'Comfortable seating for up to 14 guests',

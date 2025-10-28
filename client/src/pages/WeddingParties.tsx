@@ -87,7 +87,7 @@ const weddingPackages = [
     price: 'Starting at $200/hr',
     description: 'Perfect for rehearsal dinners, welcome parties, and after parties',
     features: [
-      'Amazing, experienced captain',
+      'Licensed, fun, experienced captains to take your group safely around the lake in style',
       'Premium Bluetooth speaker system',
       'Clean restroom facilities',
       'Comfortable seating for guests',

@@ -51,7 +51,7 @@ export const corporateFAQs: FAQ[] = [
   {
     id: 'corp_service_1',
     question: 'What corporate amenities do you provide?',
-    answer: 'Our corporate packages include: professional Coast Guard certified captain and crew, premium sound system with microphone capabilities, climate-controlled areas, professional restrooms, coolers with ice, charging stations, and WiFi when requested. Enhanced packages include dedicated event coordinators and presentation equipment.',
+    answer: 'Our corporate packages include: licensed, fun, experienced captains to take your group safely around the lake in style, premium sound system with microphone capabilities, climate-controlled areas, professional restrooms, coolers with ice, charging stations, and WiFi when requested. Enhanced packages include dedicated event coordinators and presentation equipment.',
     category: 'services',
     priority: 1
   },

@@ -191,7 +191,7 @@ export const socialProofStats = [
   { number: '4.9/5', label: 'Google Rating', subtext: '500+ reviews' },
   { number: '14+', label: 'Years Experience', subtext: 'Austin\'s original' },
   { number: '1,200+', label: 'Corporate Events', subtext: 'Professional service' },
-  { number: '100%', label: 'Safety Record', subtext: 'Coast Guard certified' }
+  { number: '100%', label: 'Safety Record', subtext: 'Licensed captains' }
 ];
 
 // Get reviews by category

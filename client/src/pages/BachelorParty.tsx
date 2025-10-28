@@ -1282,7 +1282,7 @@ export default function BachelorParty() {
                 </CardHeader>
                 <CardContent className="text-center">
                   <p className="text-gray-700 leading-relaxed">
-                    Coast Guard certified captains and pristine safety record. Your crew's safety is our top priority.
+                    Licensed, fun, experienced captains to take your group safely around the lake in style with pristine safety record. Your crew's safety is our top priority.
                   </p>
                 </CardContent>
               </Card>

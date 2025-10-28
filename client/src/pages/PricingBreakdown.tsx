@@ -47,7 +47,7 @@ const discoPackages = [
       'Digital photo delivery after the event',
       'Giant unicorn float access',
       'Multi-group party atmosphere',
-      'BYOB with shared coolers & ice',
+      'BYOB with shared coolers (no private ice)',
       'We can help coordinate alcohol delivery through Party On Delivery'
     ],
     popular: false,
@@ -108,8 +108,8 @@ const privateCruisePackages = [
     addOnFee: 0,
     description: 'Essential cruise experience',
     features: [
-      'Amazing, experienced captain',
-      '2 large empty coolers (bring your own ice & drinks)',
+      'Licensed, fun, experienced captains to take your group safely around the lake in style',
+      '2 large empty coolers (plenty of cooler space - bring your own ice & drinks, or order ahead from Party On Delivery)',
       'Premium Bluetooth speaker system',
       'Clean restroom facilities',
       'Comfortable seating for 14 guests',
@@ -1055,11 +1055,11 @@ export default function PricingBreakdown() {
                   <ul className="space-y-2 text-sm">
                     <li className="flex items-start gap-2">
                       <Check className="h-4 w-4 text-green-500 mt-0.5" />
-                      <span>Amazing, experienced captain</span>
+                      <span>Licensed, fun, experienced captains to take your group safely around the lake in style</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <Check className="h-4 w-4 text-green-500 mt-0.5" />
-                      <span>2 large empty coolers (bring your own ice & drinks)</span>
+                      <span>2 large empty coolers (plenty of cooler space - bring your own ice & drinks, or order ahead from Party On Delivery)</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <Check className="h-4 w-4 text-green-500 mt-0.5" />

@@ -56,8 +56,8 @@ const corporatePackages = [
     basePrice: 200,
     description: 'Professional team building on water - Impress clients and boost morale',
     features: [
-      'Amazing, experienced captain',
-      '2 large empty coolers (bring your own ice & drinks)',
+      'Licensed, fun, experienced captains to take your group safely around the lake in style',
+      '2 large empty coolers (plenty of cooler space - bring your own ice & drinks, or order ahead from Party On Delivery)',
       'Premium Bluetooth speaker system',
       'Clean restroom facilities',
       'Comfortable seating for up to 14 guests',
@@ -189,7 +189,7 @@ const whyChooseCorporate = [
   {
     icon: Shield,
     title: 'Fully Insured & Compliant',
-    description: 'Complete peace of mind with comprehensive liability coverage and Coast Guard certified operations. All captains are licensed professionals with corporate event training. We maintain strict safety protocols and compliance with all maritime regulations. Our insurance covers corporate liability concerns, and we work with your risk management team to address any specific requirements or concerns.'
+    description: 'Complete peace of mind with comprehensive liability coverage and fully licensed operations. All captains are licensed, fun, experienced professionals who take your group safely around the lake in style while maintaining corporate event training. We maintain strict safety protocols and compliance with all maritime regulations. Our insurance covers corporate liability concerns, and we work with your risk management team to address any specific requirements or concerns.'
   },
   {
     icon: Award,

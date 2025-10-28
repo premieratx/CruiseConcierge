@@ -73,8 +73,8 @@ const birthdayPackages = [
     basePrice: 200,
     description: 'Make this birthday unforgettable - Age in style on the water',
     features: [
-      'Amazing, experienced captain',
-      '2 large empty coolers (bring your own ice & drinks)',
+      'Licensed, fun, experienced captains to take your group safely around the lake in style',
+      '2 large empty coolers (plenty of cooler space - bring your own ice & drinks, or order ahead from Party On Delivery)',
       'Premium Bluetooth speaker system',
       'Clean restroom facilities',
       'Comfortable seating for up to 14 guests',

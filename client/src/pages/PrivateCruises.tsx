@@ -212,7 +212,7 @@ const whyChooseUs = [
   {
     icon: Shield,
     title: 'Perfect Safety Record',
-    description: 'Coast Guard certified captains and pristine safety record ensure peace of mind'
+    description: 'Licensed, fun, experienced captains to take your group safely around the lake in style with pristine safety record ensure peace of mind'
   },
   {
     icon: Star,
@@ -808,7 +808,7 @@ export default function PrivateCruises() {
                     <ul className="space-y-3">
                       <li className="flex items-start gap-3">
                         <CheckCircle className="h-5 w-5 text-purple-600 shrink-0 mt-0.5" />
-                        <span className="text-gray-700">Coast Guard certified captains</span>
+                        <span className="text-gray-700">Licensed, fun, experienced captains to take your group safely around the lake in style</span>
                       </li>
                       <li className="flex items-start gap-3">
                         <CheckCircle className="h-5 w-5 text-purple-600 shrink-0 mt-0.5" />
