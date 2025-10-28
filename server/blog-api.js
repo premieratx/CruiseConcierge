@@ -125,14 +125,83 @@ blogRouter.get("/public/posts/:slug", async (req, res) => {
   try {
     const slug = req.params.slug;
     
-    // Fetch post with single query
-    const post = await storage.getBlogPostBySlug(slug);
+    // Try PostgreSQL first
+    let post = await storage.getBlogPostBySlug(slug);
+    let isWordPress = false;
     
+    // If not found in PostgreSQL, try Replit DB for WordPress posts
     if (!post || post.status !== "published") {
+      console.log(`🔍 [Blog API] Post not found in PostgreSQL, checking Replit DB for WordPress post: ${slug}`);
+      
+      const Database = (await import("@replit/database")).default;
+      const replitDb = new Database();
+      
+      const postData = await replitDb.get(`post:${slug}`);
+      
+      if (postData) {
+        // Unwrap Replit DB response (handles single, double, or no wrapping)
+        const unwrapDbResponse = (response) => {
+          if (Array.isArray(response) || response === null || response === undefined) {
+            return response;
+          }
+          if (response && typeof response === 'object' && 'value' in response) {
+            return unwrapDbResponse(response.value);
+          }
+          return response;
+        };
+        
+        const unwrapped = unwrapDbResponse(postData);
+        
+        if (unwrapped && unwrapped.status === 'published') {
+          // Map WordPress post data to expected structure
+          post = {
+            id: `wp-${slug}`,
+            title: unwrapped.title,
+            slug: slug,
+            metaTitle: unwrapped.metaTitle || unwrapped.title,
+            metaDescription: unwrapped.metaDescription || unwrapped.excerpt,
+            excerpt: unwrapped.excerpt,
+            content: unwrapped.content,
+            publishedAt: unwrapped.publishedAt || unwrapped.date,
+            updatedAt: unwrapped.updatedAt || unwrapped.modified,
+            createdAt: unwrapped.publishedAt || unwrapped.date,
+            featuredImageUrl: unwrapped.featuredImage || unwrapped.featuredImageUrl,
+            authorId: null,
+            wpPostId: unwrapped.id,
+            status: 'published',
+            viewCount: 0,
+            featured: false,
+            readingTime: unwrapped.readingTime || 5,
+            wordCount: unwrapped.wordCount || 1000
+          };
+          isWordPress = true;
+          console.log(`✅ [Blog API] Found WordPress post in Replit DB: ${post.title}`);
+        }
+      }
+    } else {
+      console.log(`✅ [Blog API] Found PostgreSQL post: ${post.title}`);
+    }
+    
+    // If still not found, return 404
+    if (!post || post.status !== "published") {
+      console.log(`❌ [Blog API] Post not found in either PostgreSQL or Replit DB: ${slug}`);
       return res.status(404).json({ error: "Not found" });
     }
 
-    // Get post categories and tags
+    // For WordPress posts, return simplified data without categories/tags/relations
+    if (isWordPress) {
+      return res.json({
+        post: {
+          ...post,
+          author: { name: "Premier Party Cruises Team" },
+          categories: [],
+          tags: []
+        },
+        relatedPosts: []
+      });
+    }
+
+    // For PostgreSQL posts, get full relations
     const [categories, tags, author] = await Promise.all([
       storage.getBlogPostCategories(post.id),
       storage.getBlogPostTags(post.id),
