@@ -584,7 +584,7 @@ export default function Home() {
 
 
         {/* Hero Content */}
-        <div className="relative z-10 container mx-auto px-6 text-white flex-grow flex items-center">
+        <div className="relative z-10 container mx-auto px-4 sm:px-6 text-white flex-grow flex items-center">
           <motion.div
             initial={reducedMotion ? false : "hidden"}
             animate={reducedMotion ? false : "visible"}
@@ -718,7 +718,7 @@ export default function Home() {
 
       {/* Build My Quote Now Section */}
       <section className="py-16 bg-gradient-to-br from-brand-blue via-purple-600 to-blue-700">
-        <div className="container mx-auto px-0 md:px-6">
+        <div className="container mx-auto px-0 sm:px-4 md:px-6">
           <motion.div
             initial="hidden"
             whileInView="visible"
@@ -808,9 +808,9 @@ export default function Home() {
 
       {/* Services Section */}
       <SectionReveal>
-        <section id="services" className="py-24 bg-white dark:bg-gray-900 relative">
+        <section id="services" className="py-12 md:py-24 bg-white dark:bg-gray-900 relative">
           <div className="absolute top-4 right-4 text-6xl font-black text-blue-200 opacity-30">01</div>
-          <div className="container mx-auto px-6">
+          <div className="container mx-auto px-4 sm:px-6">
             <div className="text-center mb-16">
               <h2 className="text-3xl font-semibold font-playfair text-center mb-6 text-gray-900 dark:text-white" data-editable data-editable-id="services-main-title">
                 Choose Your Perfect Experience
@@ -960,15 +960,15 @@ export default function Home() {
 
       {/* Pricing & Packages Section - MOVED UP FOR PROMINENCE */}
       <SectionReveal>
-        <section className="py-20 bg-gradient-to-br from-blue-50 to-purple-50 dark:from-gray-900 dark:to-gray-950 relative" id="pricing">
+        <section className="py-12 md:py-20 bg-gradient-to-br from-blue-50 to-purple-50 dark:from-gray-900 dark:to-gray-950 relative" id="pricing">
           <div className="absolute top-4 right-4 text-6xl font-black text-blue-200 opacity-20">02</div>
-          <div className="container mx-auto px-6">
+          <div className="container mx-auto px-4 sm:px-6">
             <div className="text-center mb-16">
-              <Badge className="mb-6 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
+              <Badge className="mb-6 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 sm:px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
                 <DollarSign className="h-4 w-4 mr-2 inline" />
                 Transparent Pricing
               </Badge>
-              <h2 className="text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 dark:text-white leading-tight">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 dark:text-white leading-tight">
                 Pricing & Packages
               </h2>
               <p className="text-lg md:text-xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
@@ -1139,13 +1139,13 @@ export default function Home() {
 
       {/* Testimonials Section - Hormozi/McDowell Social Proof */}
       <SectionReveal>
-        <section className="py-20 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-gray-900 dark:to-gray-950">
-          <div className="container mx-auto px-6">
+        <section className="py-12 md:py-20 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-gray-900 dark:to-gray-950">
+          <div className="container mx-auto px-4 sm:px-6">
             <div className="text-center mb-12">
               <Badge className="mb-4 bg-gradient-to-r from-yellow-400 to-orange-500 text-black px-6 py-2 font-bold">
                 ⭐ 420+ Five-Star Reviews
               </Badge>
-              <h2 className="text-4xl md:text-5xl font-bold font-playfair mb-4 text-gray-900 dark:text-white">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-playfair mb-4 text-gray-900 dark:text-white">
                 What Our Customers Say
               </h2>
               <p className="text-lg text-gray-700 dark:text-gray-300 max-w-3xl mx-auto">
@@ -1349,16 +1349,16 @@ export default function Home() {
 
       {/* Availability & Booking Section */}
       <SectionReveal id="availability">
-        <section className="py-20 bg-gradient-to-br from-blue-50 via-white to-blue-50 dark:from-gray-900 dark:via-gray-950 dark:to-gray-900 relative">
+        <section className="py-12 md:py-20 bg-gradient-to-br from-blue-50 via-white to-blue-50 dark:from-gray-900 dark:via-gray-950 dark:to-gray-900 relative">
           <div className="absolute top-4 right-4 text-6xl font-black text-blue-200 opacity-20">03</div>
-          <div className="container mx-auto px-6">
+          <div className="container mx-auto px-4 sm:px-6">
             <Collapsible className="max-w-7xl mx-auto" defaultOpen={false}>
               <div className="text-center mb-8">
-                <Badge className="mb-6 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
+                <Badge className="mb-6 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 sm:px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
                   <Calendar className="h-4 w-4 mr-2 inline" />
                   Availability & Booking
                 </Badge>
-                <h2 className="text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 dark:text-white leading-tight" data-editable data-editable-id="availability-main-title">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 dark:text-white leading-tight" data-editable data-editable-id="availability-main-title">
                   When Can You Book?
                 </h2>
                 <p className="text-lg md:text-xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed mb-6" data-editable data-editable-id="availability-description">
@@ -1596,9 +1596,9 @@ export default function Home() {
 
       {/* Photo Gallery Section */}
       <SectionReveal id="gallery">
-        <section className="py-24 bg-blue-50/30 dark:bg-gray-900 relative">
+        <section className="py-12 md:py-24 bg-blue-50/30 dark:bg-gray-900 relative">
           <div className="absolute top-4 right-4 text-6xl font-black text-blue-200 opacity-30">05</div>
-          <div className="container mx-auto px-6">
+          <div className="container mx-auto px-4 sm:px-6">
             <div className="text-center mb-16">
               <h2 className="text-3xl font-semibold font-playfair text-center mb-6 text-gray-900 dark:text-white" data-editable data-editable-id="gallery-main-title">
                 Experience the Premier Difference
@@ -1648,9 +1648,9 @@ export default function Home() {
 
       {/* Comparison Tables Section */}
       <SectionReveal id="fleet">
-        <section className="py-24 bg-white dark:bg-gray-800 relative">
+        <section className="py-12 md:py-24 bg-white dark:bg-gray-800 relative">
           <div className="absolute top-4 right-4 text-6xl font-black text-blue-200 opacity-30">06</div>
-          <div className="container mx-auto px-6">
+          <div className="container mx-auto px-4 sm:px-6">
             <div className="text-center mb-16">
               <h2 className="text-3xl font-semibold font-playfair text-center mb-6 text-gray-900 dark:text-white">
                 Compare Your Options
@@ -1824,9 +1824,9 @@ export default function Home() {
 
       {/* Testimonials Section */}
       <SectionReveal id="testimonials">
-        <section className="py-24 bg-gradient-to-br from-blue-600 to-purple-600 text-white relative">
+        <section className="py-12 md:py-24 bg-gradient-to-br from-blue-600 to-purple-600 text-white relative">
           <div className="absolute top-4 right-4 text-6xl font-black text-white opacity-10">07</div>
-          <div className="container mx-auto px-6">
+          <div className="container mx-auto px-4 sm:px-6">
             <div className="text-center mb-16">
               <h2 className="text-3xl font-semibold font-playfair text-center mb-6 text-white" data-editable data-editable-id="testimonials-main-title">
                 What Our Customers Say
@@ -1914,9 +1914,9 @@ export default function Home() {
 
       {/* Contact & CTA Section */}
       <SectionReveal id="contact">
-        <section className="py-24 bg-blue-50/30 dark:bg-gray-950 relative">
+        <section className="py-12 md:py-24 bg-blue-50/30 dark:bg-gray-950 relative">
           <div className="absolute top-4 right-4 text-6xl font-black text-blue-200 opacity-30">07</div>
-          <div className="container mx-auto px-6">
+          <div className="container mx-auto px-4 sm:px-6">
             <div className="text-center mb-16">
               <h2 className="text-3xl font-semibold font-playfair text-center mb-6 text-gray-900 dark:text-white" data-editable data-editable-id="contact-main-title">
                 Ready to Set Sail?
@@ -2814,7 +2814,7 @@ export default function Home() {
 
         <div className="container mx-auto px-6 relative z-10">
           <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
               Join Thousands of Happy Cruisers
             </h2>
             <p className="text-xl opacity-90">
@@ -2831,7 +2831,7 @@ export default function Home() {
               className="text-center"
             >
               <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20">
-                <div className="text-5xl md:text-6xl font-bold mb-2">
+                <div className="text-4xl sm:text-5xl md:text-6xl font-bold mb-2">
                   <motion.span
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
@@ -2854,7 +2854,7 @@ export default function Home() {
               className="text-center"
             >
               <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20">
-                <div className="text-5xl md:text-6xl font-bold mb-2 flex items-center justify-center gap-2">
+                <div className="text-4xl sm:text-5xl md:text-6xl font-bold mb-2 flex items-center justify-center gap-2">
                   <motion.span
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
@@ -2878,7 +2878,7 @@ export default function Home() {
               className="text-center"
             >
               <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20">
-                <div className="text-5xl md:text-6xl font-bold mb-2">
+                <div className="text-4xl sm:text-5xl md:text-6xl font-bold mb-2">
                   <motion.span
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}

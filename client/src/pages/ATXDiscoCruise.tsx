@@ -477,7 +477,7 @@ export default function ATXDiscoCruise() {
             </motion.div>
           </div>
 
-          <div className="relative z-30 w-full bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm py-4 px-6">
+          <div className="relative z-30 w-full bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm py-4 px-4 sm:px-6">
             <div className="container mx-auto">
               <p className="text-center text-gray-900 dark:text-white text-base md:text-lg font-semibold">
                 🎉 <span className="text-purple-600">All-Inclusive</span> • Professional DJ & Photographer • <span className="text-pink-600">Fridays & Saturdays</span> 🎉
@@ -487,8 +487,8 @@ export default function ATXDiscoCruise() {
         </motion.section>
 
         {/* Subtle Tagline Section - Below Hero */}
-        <section className="py-8 bg-gradient-to-b from-gray-50 to-white">
-          <div className="max-w-5xl mx-auto px-6">
+        <section className="py-6 md:py-8 bg-gradient-to-b from-gray-50 to-white">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6">
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center text-center">
               <div className="flex items-center gap-2 text-gray-700">
                 <Star className="h-5 w-5 text-green-600" />
@@ -516,14 +516,14 @@ export default function ATXDiscoCruise() {
 
         {/* Summary Chart Section */}
         <SectionReveal>
-          <section className="py-20 bg-white">
-            <div className="max-w-7xl mx-auto px-6">
+          <section className="py-12 md:py-20 bg-white">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6">
               <div className="text-center mb-16">
-                <Badge className="mb-6 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
+                <Badge className="mb-6 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-4 sm:px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
                   <Package className="h-4 w-4 mr-2 inline" />
                   Compare Packages
                 </Badge>
-                <h2 className="text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
                   ATX Disco Cruise Packages at a Glance
                 </h2>
                 <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
@@ -641,14 +641,14 @@ export default function ATXDiscoCruise() {
 
         {/* 2. EXPERIENCE - 4-Hour Timeline */}
         <SectionReveal>
-          <section id="experience" className="py-20 bg-gradient-to-br from-purple-50 to-pink-50">
-            <div className="max-w-7xl mx-auto px-6">
+          <section id="experience" className="py-12 md:py-20 bg-gradient-to-br from-purple-50 to-pink-50">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6">
               <div className="text-center mb-16">
-                <Badge className="mb-6 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
+                <Badge className="mb-6 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-4 sm:px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
                   <Clock className="h-4 w-4 mr-2 inline" />
                   What to Expect
                 </Badge>
-                <h2 className="text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
                   Your Day of Disco Experience
                 </h2>
                 <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
@@ -697,14 +697,14 @@ export default function ATXDiscoCruise() {
 
         {/* WHY BOOK SECTION - From KB Doc */}
         <SectionReveal>
-          <section id="why-book" className="py-20 bg-gradient-to-br from-pink-50 to-purple-50">
-            <div className="max-w-7xl mx-auto px-6">
+          <section id="why-book" className="py-12 md:py-20 bg-gradient-to-br from-pink-50 to-purple-50">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6">
               <div className="text-center mb-16">
-                <Badge className="mb-6 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
+                <Badge className="mb-6 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-4 sm:px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
                   <Zap className="h-4 w-4 mr-2 inline" />
                   Why Book ATX Disco
                 </Badge>
-                <h2 className="text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
                   Why This is THE Bachelor/Bachelorette Experience
                 </h2>
                 <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
@@ -820,14 +820,14 @@ export default function ATXDiscoCruise() {
 
         {/* 3. PRICING - Packages Section */}
         <SectionReveal>
-          <section className="py-20 bg-white" id="packages" data-testid="section-packages">
-            <div className="max-w-7xl mx-auto px-6">
+          <section className="py-12 md:py-20 bg-white" id="packages" data-testid="section-packages">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6">
               <div className="text-center mb-16">
-                <Badge className="mb-6 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
+                <Badge className="mb-6 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-4 sm:px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
                   <Package className="h-4 w-4 mr-2 inline" />
                   Packages & Pricing
                 </Badge>
-                <h2 className="text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
                   Choose Your Perfect Package
                 </h2>
                 <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed mb-4">
@@ -925,14 +925,14 @@ export default function ATXDiscoCruise() {
 
         {/* VALUE STACK SECTION - NEW Hormozi/McDowell Optimization */}
         <SectionReveal>
-          <section className="py-20 bg-gradient-to-br from-yellow-50 to-orange-50">
-            <div className="max-w-6xl mx-auto px-6">
+          <section className="py-12 md:py-20 bg-gradient-to-br from-yellow-50 to-orange-50">
+            <div className="max-w-6xl mx-auto px-4 sm:px-6">
               <div className="text-center mb-12">
-                <Badge className="mb-6 bg-green-600 text-white px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
+                <Badge className="mb-6 bg-green-600 text-white px-4 sm:px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
                   <DollarSign className="h-4 w-4 mr-2 inline" />
                   Value Stack Breakdown
                 </Badge>
-                <h2 className="text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
                   See Exactly What You're Getting
                 </h2>
                 <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
@@ -1018,14 +1018,14 @@ export default function ATXDiscoCruise() {
 
         {/* 4. AVAILABILITY / BOOKING */}
         <SectionReveal>
-          <section id="availability" className="py-20 bg-gradient-to-br from-purple-50 to-pink-50">
-            <div className="max-w-7xl mx-auto px-6">
+          <section id="availability" className="py-12 md:py-20 bg-gradient-to-br from-purple-50 to-pink-50">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6">
               <div className="text-center mb-16">
-                <Badge className="mb-6 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
+                <Badge className="mb-6 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-4 sm:px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
                   <Calendar className="h-4 w-4 mr-2 inline" />
                   Availability & Booking
                 </Badge>
-                <h2 className="text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
                   Book Your Spot on the Disco Cruise
                 </h2>
                 <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
@@ -1117,14 +1117,14 @@ export default function ATXDiscoCruise() {
 
         {/* 5. BENEFITS */}
         <SectionReveal>
-          <section id="benefits" className="py-20 bg-white">
-            <div className="max-w-7xl mx-auto px-6">
+          <section id="benefits" className="py-12 md:py-20 bg-white">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6">
               <div className="text-center mb-16">
-                <Badge className="mb-6 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
+                <Badge className="mb-6 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-4 sm:px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
                   <Trophy className="h-4 w-4 mr-2 inline" />
                   Key Benefits
                 </Badge>
-                <h2 className="text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
                   Why Bachelor & Bachelorette Parties Choose ATX Disco
                 </h2>
                 <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
@@ -1223,14 +1223,14 @@ export default function ATXDiscoCruise() {
 
         {/* 6. FEATURES - What's Included Section */}
         <SectionReveal>
-          <section className="py-20 bg-gradient-to-br from-purple-50 to-pink-50" id="whats-included" data-testid="section-whats-included">
-            <div className="max-w-7xl mx-auto px-6">
+          <section className="py-12 md:py-20 bg-gradient-to-br from-purple-50 to-pink-50" id="whats-included" data-testid="section-whats-included">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6">
               <div className="text-center mb-16">
-                <Badge className="mb-6 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
+                <Badge className="mb-6 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-4 sm:px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
                   <CheckCircle className="h-4 w-4 mr-2 inline" />
                   What's Included
                 </Badge>
-                <h2 className="text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
                   Everything You Need for an Epic Day
                 </h2>
                 <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
@@ -1261,14 +1261,14 @@ export default function ATXDiscoCruise() {
 
         {/* 7. WHY CHOOSE - Trust Signals */}
         <SectionReveal>
-          <section id="why-choose" className="py-20 bg-gradient-to-br from-purple-900 via-pink-900 to-purple-800">
-            <div className="max-w-7xl mx-auto px-6">
+          <section id="why-choose" className="py-12 md:py-20 bg-gradient-to-br from-purple-900 via-pink-900 to-purple-800">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6">
               <div className="text-center mb-16">
-                <Badge className="mb-6 bg-white/10 border-2 border-white text-white px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm">
+                <Badge className="mb-6 bg-white/10 border-2 border-white text-white px-4 sm:px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm">
                   <Crown className="h-4 w-4 mr-2 inline" />
                   The Premier Difference
                 </Badge>
-                <h2 className="text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-white leading-tight">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-white leading-tight">
                   America's Most Unique Bachelor/Bachelorette Experience
                 </h2>
                 <p className="text-xl text-white/90 max-w-3xl mx-auto leading-relaxed">
@@ -1276,22 +1276,22 @@ export default function ATXDiscoCruise() {
                 </p>
               </div>
 
-              <div className="grid md:grid-cols-4 gap-8 mb-16">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 mb-12 md:mb-16">
                 <div className="text-center">
-                  <div className="text-6xl font-bold text-brand-yellow mb-2">Only One</div>
-                  <div className="text-xl text-white">In the United States</div>
+                  <div className="text-4xl sm:text-5xl md:text-6xl font-bold text-brand-yellow mb-1 md:mb-2">Only One</div>
+                  <div className="text-sm sm:text-base md:text-xl text-white">In the United States</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-6xl font-bold text-brand-yellow mb-2">$85+</div>
-                  <div className="text-xl text-white">Starting Price</div>
+                  <div className="text-4xl sm:text-5xl md:text-6xl font-bold text-brand-yellow mb-1 md:mb-2">$85+</div>
+                  <div className="text-sm sm:text-base md:text-xl text-white">Starting Price</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-6xl font-bold text-brand-yellow mb-2">4 Hrs</div>
-                  <div className="text-xl text-white">Per Cruise</div>
+                  <div className="text-4xl sm:text-5xl md:text-6xl font-bold text-brand-yellow mb-1 md:mb-2">4 Hrs</div>
+                  <div className="text-sm sm:text-base md:text-xl text-white">Per Cruise</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-6xl font-bold text-brand-yellow mb-2">5★</div>
-                  <div className="text-xl text-white">Average Rating</div>
+                  <div className="text-4xl sm:text-5xl md:text-6xl font-bold text-brand-yellow mb-1 md:mb-2">5★</div>
+                  <div className="text-sm sm:text-base md:text-xl text-white">Average Rating</div>
                 </div>
               </div>
 
@@ -1311,14 +1311,14 @@ export default function ATXDiscoCruise() {
 
         {/* 8. PHOTO GALLERY */}
         <SectionReveal>
-          <section id="photos" className="py-20 bg-white">
-            <div className="max-w-7xl mx-auto px-6">
+          <section id="photos" className="py-12 md:py-20 bg-white">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6">
               <div className="text-center mb-16">
-                <Badge className="mb-6 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
+                <Badge className="mb-6 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-4 sm:px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
                   <Camera className="h-4 w-4 mr-2 inline" />
                   Photo Gallery
                 </Badge>
-                <h2 className="text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
                   See the Disco Cruise Experience
                 </h2>
                 <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
@@ -1358,14 +1358,14 @@ export default function ATXDiscoCruise() {
 
         {/* GUARANTEE SECTION - NEW Hormozi/McDowell Optimization */}
         <SectionReveal>
-          <section className="py-20 bg-gradient-to-br from-green-50 to-blue-50">
-            <div className="max-w-5xl mx-auto px-6">
+          <section className="py-12 md:py-20 bg-gradient-to-br from-green-50 to-blue-50">
+            <div className="max-w-5xl mx-auto px-4 sm:px-6">
               <div className="text-center mb-12">
-                <Badge className="mb-6 bg-green-600 text-white px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
+                <Badge className="mb-6 bg-green-600 text-white px-4 sm:px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
                   <Shield className="h-4 w-4 mr-2 inline" />
                   Our Guarantee
                 </Badge>
-                <h2 className="text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
                   100% Risk-Free Booking
                 </h2>
                 <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
@@ -1443,14 +1443,14 @@ export default function ATXDiscoCruise() {
 
         {/* 9. TESTIMONIALS Section - Enhanced with Trust Badges */}
         <SectionReveal>
-          <section id="testimonials" className="py-20 bg-gradient-to-br from-gray-50 to-white" data-testid="section-testimonials">
-            <div className="max-w-7xl mx-auto px-6">
+          <section id="testimonials" className="py-12 md:py-20 bg-gradient-to-br from-gray-50 to-white" data-testid="section-testimonials">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6">
               <div className="text-center mb-16">
-                <Badge className="mb-6 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
+                <Badge className="mb-6 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-4 sm:px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
                   <Quote className="h-4 w-4 mr-2 inline" />
                   Customer Reviews
                 </Badge>
-                <h2 className="text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
                   What Bachelor & Bachelorette Parties Are Saying
                 </h2>
                 <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed mb-6">
@@ -1518,14 +1518,14 @@ export default function ATXDiscoCruise() {
 
         {/* COST OF INACTION SECTION - NEW Hormozi/McDowell Optimization */}
         <SectionReveal>
-          <section className="py-20 bg-gradient-to-br from-red-50 to-orange-50">
-            <div className="max-w-7xl mx-auto px-6">
+          <section className="py-12 md:py-20 bg-gradient-to-br from-red-50 to-orange-50">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6">
               <div className="text-center mb-12">
-                <Badge className="mb-6 bg-red-600 text-white px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
+                <Badge className="mb-6 bg-red-600 text-white px-4 sm:px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
                   <AlertCircle className="h-4 w-4 mr-2 inline" />
                   Cost of Inaction
                 </Badge>
-                <h2 className="text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
                   What Happens If You Don't Book ATX Disco?
                 </h2>
                 <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
@@ -1668,14 +1668,14 @@ export default function ATXDiscoCruise() {
 
         {/* 10. FAQs Section */}
         <SectionReveal>
-          <section id="faqs" className="py-20 bg-white" data-testid="section-faq">
-            <div className="max-w-4xl mx-auto px-6">
+          <section id="faqs" className="py-12 md:py-20 bg-white" data-testid="section-faq">
+            <div className="max-w-4xl mx-auto px-4 sm:px-6">
               <div className="text-center mb-16">
-                <Badge className="mb-6 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
+                <Badge className="mb-6 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-4 sm:px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
                   <HelpCircle className="h-4 w-4 mr-2 inline" />
                   FAQs
                 </Badge>
-                <h2 className="text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
                   Frequently Asked Questions
                 </h2>
                 <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">

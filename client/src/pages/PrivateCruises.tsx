@@ -632,15 +632,15 @@ export default function PrivateCruises() {
 
       {/* Premium Value Stacking Section - NEW */}
       <SectionReveal>
-        <section className="py-20 bg-gradient-to-br from-blue-900 to-purple-900 text-white relative overflow-hidden">
+        <section className="py-12 md:py-20 bg-gradient-to-br from-blue-900 to-purple-900 text-white relative overflow-hidden">
           <div className="absolute inset-0 bg-black/20"></div>
-          <div className="container mx-auto px-6 relative z-10">
+          <div className="container mx-auto px-4 sm:px-6 relative z-10">
             <div className="max-w-6xl mx-auto">
               <div className="text-center mb-12">
-                <Badge className="mb-6 bg-yellow-500 text-black text-sm px-6 py-2 border-0 font-bold tracking-wider uppercase">
+                <Badge className="mb-6 bg-yellow-500 text-black text-sm px-4 sm:px-6 py-2 border-0 font-bold tracking-wider uppercase">
                   Your Exclusive Lake Travis Experience
                 </Badge>
-                <h2 className="text-4xl md:text-5xl font-bold mb-6">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6">
                   Premium Value Worth <span className="text-yellow-400">${premiumValueStack.reduce((sum, item) => sum + item.value, 0).toLocaleString()}</span>
                 </h2>
                 <p className="text-xl text-white/90 max-w-3xl mx-auto">
@@ -700,11 +700,11 @@ export default function PrivateCruises() {
 
       {/* Premium Emotional Benefits Section - NEW */}
       <SectionReveal>
-        <section className="py-20 bg-gradient-to-br from-white to-blue-50">
-          <div className="container mx-auto px-6">
+        <section className="py-12 md:py-20 bg-gradient-to-br from-white to-blue-50">
+          <div className="container mx-auto px-4 sm:px-6">
             <div className="max-w-6xl mx-auto">
               <div className="text-center mb-12">
-                <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 text-gray-900">
                   The Experience You Deserve
                 </h2>
                 <p className="text-xl text-gray-700">
@@ -745,11 +745,11 @@ export default function PrivateCruises() {
 
       {/* Experience Section */}
       <SectionReveal>
-        <section id="experience" className="py-24 bg-white">
-          <div className="container mx-auto px-6">
+        <section id="experience" className="py-12 md:py-24 bg-white">
+          <div className="container mx-auto px-4 sm:px-6">
             <div className="max-w-7xl mx-auto">
               <div className="text-center mb-16">
-                <h2 className="text-4xl font-bold font-playfair mb-6 text-gray-900">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold font-playfair mb-6 text-gray-900">
                   The Private Charter Experience
                 </h2>
                 <p className="text-lg text-gray-700 max-w-3xl mx-auto">
@@ -863,11 +863,11 @@ export default function PrivateCruises() {
 
       {/* Pricing Section */}
       <SectionReveal>
-        <section id="pricing" className="py-24 bg-blue-50/30">
-          <div className="container mx-auto px-6">
+        <section id="pricing" className="py-12 md:py-24 bg-blue-50/30">
+          <div className="container mx-auto px-4 sm:px-6">
             <div className="max-w-7xl mx-auto">
               <div className="text-center mb-16">
-                <h2 className="text-4xl font-bold font-playfair mb-6 text-gray-900">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold font-playfair mb-6 text-gray-900">
                   Pricing & Packages
                 </h2>
                 <p className="text-lg text-gray-700 max-w-3xl mx-auto">
@@ -1035,11 +1035,11 @@ export default function PrivateCruises() {
 
       {/* Availability Section */}
       <SectionReveal>
-        <section id="availability" className="py-24 bg-white">
-          <div className="container mx-auto px-6">
+        <section id="availability" className="py-12 md:py-24 bg-white">
+          <div className="container mx-auto px-4 sm:px-6">
             <div className="max-w-7xl mx-auto">
               <div className="text-center mb-16">
-                <h2 className="text-4xl font-bold font-playfair mb-6 text-gray-900">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold font-playfair mb-6 text-gray-900">
                   Booking & Availability
                 </h2>
                 <p className="text-lg text-gray-700 max-w-3xl mx-auto">
@@ -1159,11 +1159,11 @@ export default function PrivateCruises() {
 
       {/* Benefits Section - What's Included */}
       <SectionReveal>
-        <section id="benefits" className="py-24 bg-blue-50/30">
-          <div className="container mx-auto px-6">
+        <section id="benefits" className="py-12 md:py-24 bg-blue-50/30">
+          <div className="container mx-auto px-4 sm:px-6">
             <div className="max-w-7xl mx-auto">
               <div className="text-center mb-16">
-                <h2 className="text-4xl font-bold font-playfair mb-6 text-gray-900">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold font-playfair mb-6 text-gray-900">
                   What's Included in Every Charter
                 </h2>
                 <p className="text-lg text-gray-700 max-w-3xl mx-auto">
@@ -1205,11 +1205,11 @@ export default function PrivateCruises() {
 
       {/* Features Section - Customization */}
       <SectionReveal>
-        <section id="features" className="py-24 bg-white">
-          <div className="container mx-auto px-6">
+        <section id="features" className="py-12 md:py-24 bg-white">
+          <div className="container mx-auto px-4 sm:px-6">
             <div className="max-w-7xl mx-auto">
               <div className="text-center mb-16">
-                <h2 className="text-4xl font-bold font-playfair mb-6 text-gray-900">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold font-playfair mb-6 text-gray-900">
                   Customize Your Experience
                 </h2>
                 <p className="text-lg text-gray-700 max-w-3xl mx-auto">
@@ -1386,14 +1386,14 @@ export default function PrivateCruises() {
 
       {/* Corporate ROI Section - NEW */}
       <SectionReveal>
-        <section className="py-20 bg-gray-900 text-white">
-          <div className="container mx-auto px-6">
+        <section className="py-12 md:py-20 bg-gray-900 text-white">
+          <div className="container mx-auto px-4 sm:px-6">
             <div className="max-w-6xl mx-auto">
               <div className="text-center mb-12">
-                <Badge className="mb-6 bg-green-500 text-white text-sm px-6 py-2 border-0 font-bold tracking-wider uppercase">
+                <Badge className="mb-6 bg-green-500 text-white text-sm px-4 sm:px-6 py-2 border-0 font-bold tracking-wider uppercase">
                   ROI for Corporate Clients
                 </Badge>
-                <h2 className="text-4xl md:text-5xl font-bold mb-6">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6">
                   Why Smart Companies Choose Lake Travis
                 </h2>
                 <p className="text-xl text-white/90 max-w-3xl mx-auto">
@@ -1488,11 +1488,11 @@ export default function PrivateCruises() {
 
       {/* Why Choose Us Section */}
       <SectionReveal>
-        <section id="why-choose" className="py-24 bg-gradient-to-br from-blue-600 to-purple-600 text-white">
-          <div className="container mx-auto px-6">
+        <section id="why-choose" className="py-12 md:py-24 bg-gradient-to-br from-blue-600 to-purple-600 text-white">
+          <div className="container mx-auto px-4 sm:px-6">
             <div className="max-w-7xl mx-auto">
               <div className="text-center mb-16">
-                <h2 className="text-4xl font-bold font-playfair mb-6 text-white">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold font-playfair mb-6 text-white">
                   Why Choose Premier Party Cruises
                 </h2>
                 <p className="text-xl text-white/90 max-w-3xl mx-auto">
@@ -1537,11 +1537,11 @@ export default function PrivateCruises() {
 
       {/* Gallery Section */}
       <SectionReveal>
-        <section id="gallery" className="py-24 bg-white">
-          <div className="container mx-auto px-6">
+        <section id="gallery" className="py-12 md:py-24 bg-white">
+          <div className="container mx-auto px-4 sm:px-6">
             <div className="max-w-7xl mx-auto">
               <div className="text-center mb-16">
-                <h2 className="text-4xl font-bold font-playfair mb-6 text-gray-900">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold font-playfair mb-6 text-gray-900">
                   Our Fleet Gallery
                 </h2>
                 <p className="text-lg text-gray-700 max-w-3xl mx-auto">
@@ -1629,11 +1629,11 @@ export default function PrivateCruises() {
 
       {/* Testimonials Section */}
       <SectionReveal>
-        <section id="testimonials" className="py-24 bg-blue-50/30">
-          <div className="container mx-auto px-6">
+        <section id="testimonials" className="py-12 md:py-24 bg-blue-50/30">
+          <div className="container mx-auto px-4 sm:px-6">
             <div className="max-w-7xl mx-auto">
               <div className="text-center mb-16">
-                <h2 className="text-4xl font-bold font-playfair mb-6 text-gray-900">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold font-playfair mb-6 text-gray-900">
                   What Our Guests Say
                 </h2>
                 <p className="text-lg text-gray-700 max-w-3xl mx-auto">
@@ -1651,7 +1651,7 @@ export default function PrivateCruises() {
                         </Badge>
                       )}
                       <div className="flex items-center gap-4 mb-4">
-                        <div className="text-5xl">{testimonial.avatar}</div>
+                        <div className="text-3xl sm:text-4xl md:text-5xl">{testimonial.avatar}</div>
                         <div>
                           <CardTitle className="text-lg">{testimonial.name}</CardTitle>
                           <p className="text-sm text-gray-600 font-medium">{testimonial.role}</p>
@@ -1687,11 +1687,11 @@ export default function PrivateCruises() {
 
       {/* FAQs Section */}
       <SectionReveal>
-        <section id="faqs" className="py-24 bg-white">
-          <div className="container mx-auto px-6">
+        <section id="faqs" className="py-12 md:py-24 bg-white">
+          <div className="container mx-auto px-4 sm:px-6">
             <div className="max-w-4xl mx-auto">
               <div className="text-center mb-16">
-                <h2 className="text-4xl font-bold font-playfair mb-6 text-gray-900">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold font-playfair mb-6 text-gray-900">
                   Frequently Asked Questions
                 </h2>
                 <p className="text-lg text-gray-700">
@@ -1743,8 +1743,8 @@ export default function PrivateCruises() {
       </SectionReveal>
 
       {/* SEO Content Section - Move to bottom */}
-      <section className="py-16 bg-gray-50">
-        <div className="container mx-auto px-6">
+      <section className="py-10 md:py-16 bg-gray-50">
+        <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
             <AIOptimizedSection
               title="Private Boat Rentals Lake Travis Austin"

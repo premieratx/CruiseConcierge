@@ -541,7 +541,7 @@ export default function BacheloretteParty() {
         </div>
 
         {/* Main Hero Content */}
-        <div className="relative z-10 max-w-7xl mx-auto px-6 text-white text-center flex-grow flex items-center w-full py-20">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 text-white text-center flex-grow flex items-center w-full py-12 md:py-20">
           <motion.div
             initial="hidden"
             animate="visible"
@@ -552,7 +552,7 @@ export default function BacheloretteParty() {
               variants={fadeInUp}
               className="mb-6"
             >
-              <Badge className="font-sans tracking-wider font-bold uppercase text-sm bg-gradient-to-r from-pink-600 to-purple-600 text-white px-6 py-2 border-0">
+              <Badge className="font-sans tracking-wider font-bold uppercase text-sm bg-gradient-to-r from-pink-600 to-purple-600 text-white px-4 sm:px-6 py-2 border-0">
                 <Heart className="h-4 w-4 mr-2 inline" />
                 Premier Bachelorette Experience
               </Badge>
@@ -1013,14 +1013,14 @@ export default function BacheloretteParty() {
 
       {/* EMOTIONAL BENEFITS FOR BACHELORETTES */}
       <SectionReveal>
-        <section id="emotional-benefits" className="py-20 bg-gradient-to-br from-white to-pink-50">
-          <div className="max-w-7xl mx-auto px-6">
+        <section id="emotional-benefits" className="py-12 md:py-20 bg-gradient-to-br from-white to-pink-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="text-center mb-16">
-              <Badge className="mb-6 bg-gradient-to-r from-pink-600 to-purple-600 text-white px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
+              <Badge className="mb-6 bg-gradient-to-r from-pink-600 to-purple-600 text-white px-4 sm:px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
                 <Heart className="h-4 w-4 mr-2 inline" />
                 Why Brides Choose Us
               </Badge>
-              <h2 className="text-4xl md:text-5xl font-bold font-playfair text-center mb-6 text-gray-900 leading-tight">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-playfair text-center mb-6 text-gray-900 leading-tight">
                 The Bachelorette Party Your Friends Will Talk About for YEARS
               </h2>
               <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
@@ -1138,14 +1138,14 @@ export default function BacheloretteParty() {
 
       {/* 3. PRICING / PACKAGES */}
       <SectionReveal>
-        <section id="packages" className="py-20 bg-gradient-to-br from-pink-50 to-purple-50">
-          <div className="max-w-7xl mx-auto px-6">
+        <section id="packages" className="py-12 md:py-20 bg-gradient-to-br from-pink-50 to-purple-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="text-center mb-16">
-              <Badge className="mb-6 bg-gradient-to-r from-pink-600 to-purple-600 text-white px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
+              <Badge className="mb-6 bg-gradient-to-r from-pink-600 to-purple-600 text-white px-4 sm:px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
                 <Package className="h-4 w-4 mr-2 inline" />
                 Bachelorette Packages
               </Badge>
-              <h2 className="text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
                 Choose Your Bachelorette Party Package
               </h2>
               <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
@@ -1406,14 +1406,14 @@ export default function BacheloretteParty() {
 
       {/* WHAT TO EXPECT SECTION */}
       <SectionReveal>
-        <section id="what-to-expect" className="py-20 bg-gradient-to-br from-pink-50 to-purple-50">
-          <div className="max-w-7xl mx-auto px-6">
+        <section id="what-to-expect" className="py-12 md:py-20 bg-gradient-to-br from-pink-50 to-purple-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="text-center mb-16">
-              <Badge className="mb-6 bg-gradient-to-r from-pink-600 to-purple-600 text-white px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
+              <Badge className="mb-6 bg-gradient-to-r from-pink-600 to-purple-600 text-white px-4 sm:px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
                 <Star className="h-4 w-4 mr-2 inline" />
                 What to Expect
               </Badge>
-              <h2 className="text-4xl md:text-5xl font-bold font-playfair text-center mb-6 text-gray-900 leading-tight">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-playfair text-center mb-6 text-gray-900 leading-tight">
                 Your Day on the Water
               </h2>
               <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
@@ -1542,14 +1542,14 @@ export default function BacheloretteParty() {
 
       {/* 4. AVAILABILITY / BOOKING */}
       <SectionReveal>
-        <section id="availability" className="py-20 bg-white">
-          <div className="max-w-7xl mx-auto px-6">
+        <section id="availability" className="py-12 md:py-20 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="text-center mb-16">
-              <Badge className="mb-6 bg-gradient-to-r from-pink-600 to-purple-600 text-white px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
+              <Badge className="mb-6 bg-gradient-to-r from-pink-600 to-purple-600 text-white px-4 sm:px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
                 <Calendar className="h-4 w-4 mr-2 inline" />
                 Availability & Booking
               </Badge>
-              <h2 className="text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
                 Reserve Your Girls' Weekend Celebration
               </h2>
               <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
@@ -1641,14 +1641,14 @@ export default function BacheloretteParty() {
 
       {/* 5. BENEFITS */}
       <SectionReveal>
-        <section id="benefits" className="py-20 bg-gradient-to-br from-pink-50 to-purple-50">
-          <div className="max-w-7xl mx-auto px-6">
+        <section id="benefits" className="py-12 md:py-20 bg-gradient-to-br from-pink-50 to-purple-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="text-center mb-16">
-              <Badge className="mb-6 bg-gradient-to-r from-pink-600 to-purple-600 text-white px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
+              <Badge className="mb-6 bg-gradient-to-r from-pink-600 to-purple-600 text-white px-4 sm:px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
                 <Trophy className="h-4 w-4 mr-2 inline" />
                 Key Benefits
               </Badge>
-              <h2 className="text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
                 Why Bachelorette Parties Choose Us
               </h2>
               <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
@@ -1747,14 +1747,14 @@ export default function BacheloretteParty() {
 
       {/* 6. FEATURES & WHAT'S INCLUDED */}
       <SectionReveal>
-        <section id="whats-included" className="py-20 bg-white">
-          <div className="max-w-7xl mx-auto px-6">
+        <section id="whats-included" className="py-12 md:py-20 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="text-center mb-16">
-              <Badge className="mb-6 bg-gradient-to-r from-pink-600 to-purple-600 text-white px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
+              <Badge className="mb-6 bg-gradient-to-r from-pink-600 to-purple-600 text-white px-4 sm:px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
                 <CheckCircle className="h-4 w-4 mr-2 inline" />
                 What's Included
               </Badge>
-              <h2 className="text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
                 Everything You Need for an Epic Day
               </h2>
               <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
@@ -1795,14 +1795,14 @@ export default function BacheloretteParty() {
 
       {/* 7. WHY CHOOSE PREMIER - Trust Signals */}
       <SectionReveal>
-        <section id="why-choose" className="py-20 bg-gradient-to-br from-pink-900 via-purple-900 to-pink-800">
-          <div className="max-w-7xl mx-auto px-6">
+        <section id="why-choose" className="py-12 md:py-20 bg-gradient-to-br from-pink-900 via-purple-900 to-pink-800">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="text-center mb-16">
-              <Badge className="mb-6 bg-white/10 border-2 border-white text-white px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm">
+              <Badge className="mb-6 bg-white/10 border-2 border-white text-white px-4 sm:px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm">
                 <Crown className="h-4 w-4 mr-2 inline" />
                 The Premier Difference
               </Badge>
-              <h2 className="text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-white leading-tight">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-white leading-tight">
                 Austin's Most Trusted Bachelorette Party Company
               </h2>
               <p className="text-xl text-white/90 max-w-3xl mx-auto leading-relaxed">
@@ -1845,14 +1845,14 @@ export default function BacheloretteParty() {
 
       {/* 8. PHOTO GALLERY */}
       <SectionReveal>
-        <section id="photos" className="py-20 bg-white">
-          <div className="max-w-7xl mx-auto px-6">
+        <section id="photos" className="py-12 md:py-20 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="text-center mb-16">
-              <Badge className="mb-6 bg-gradient-to-r from-pink-600 to-purple-600 text-white px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
+              <Badge className="mb-6 bg-gradient-to-r from-pink-600 to-purple-600 text-white px-4 sm:px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
                 <Camera className="h-4 w-4 mr-2 inline" />
                 Photo Gallery
               </Badge>
-              <h2 className="text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
                 See the Bachelorette Party Experience
               </h2>
               <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
@@ -1881,14 +1881,14 @@ export default function BacheloretteParty() {
 
       {/* 9. TESTIMONIALS/REVIEWS */}
       <SectionReveal>
-        <section id="testimonials" className="py-20 bg-gradient-to-br from-gray-50 to-white">
-          <div className="max-w-7xl mx-auto px-6">
+        <section id="testimonials" className="py-12 md:py-20 bg-gradient-to-br from-gray-50 to-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="text-center mb-16">
-              <Badge className="mb-6 bg-gradient-to-r from-pink-600 to-purple-600 text-white px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
+              <Badge className="mb-6 bg-gradient-to-r from-pink-600 to-purple-600 text-white px-4 sm:px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
                 <Quote className="h-4 w-4 mr-2 inline" />
                 Customer Reviews
               </Badge>
-              <h2 className="text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
                 What Bachelorette Parties Are Saying
               </h2>
               <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed mb-8">
@@ -1938,14 +1938,14 @@ export default function BacheloretteParty() {
 
       {/* 10. FAQs */}
       <SectionReveal>
-        <section id="faqs" className="py-20 bg-white">
-          <div className="max-w-4xl mx-auto px-6">
+        <section id="faqs" className="py-12 md:py-20 bg-white">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6">
             <div className="text-center mb-16">
-              <Badge className="mb-6 bg-gradient-to-r from-pink-600 to-purple-600 text-white px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
+              <Badge className="mb-6 bg-gradient-to-r from-pink-600 to-purple-600 text-white px-4 sm:px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
                 <HelpCircle className="h-4 w-4 mr-2 inline" />
                 FAQs
               </Badge>
-              <h2 className="text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
                 Frequently Asked Questions
               </h2>
               <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
@@ -2006,8 +2006,8 @@ export default function BacheloretteParty() {
       
       {/* AI-Optimized Event Timeline Section */}
       <SectionReveal>
-        <section className="py-16 bg-gray-50">
-          <div className="container mx-auto px-6">
+        <section className="py-10 md:py-16 bg-gray-50">
+          <div className="container mx-auto px-4 sm:px-6">
             <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-8">
               <AIOptimizedSection
                 type="timeline"
@@ -2091,8 +2091,8 @@ export default function BacheloretteParty() {
 
       {/* Package Highlights */}
       <SectionReveal>
-        <section className="py-16 bg-white">
-          <div className="container mx-auto px-6">
+        <section className="py-10 md:py-16 bg-white">
+          <div className="container mx-auto px-4 sm:px-6">
             <AIOptimizedSection
               type="statistics"
               title="Bachelorette Party Experience Details"
@@ -2160,8 +2160,8 @@ export default function BacheloretteParty() {
 
       {/* Featured Snippets and SEO Content - NOW AT BOTTOM */}
       <SectionReveal>
-        <section className="py-16 bg-gray-50">
-          <div className="container mx-auto px-6">
+        <section className="py-10 md:py-16 bg-gray-50">
+          <div className="container mx-auto px-4 sm:px-6">
             <div className="max-w-5xl mx-auto space-y-8">
               <FeaturedSnippet
                 question="What is an Austin bachelorette party boat cruise?"
@@ -2187,8 +2187,8 @@ export default function BacheloretteParty() {
 
       {/* Quick Answer Boxes - MOVED TO BOTTOM */}
       <SectionReveal>
-        <section className="py-16 bg-white">
-          <div className="max-w-7xl mx-auto px-6">
+        <section className="py-10 md:py-16 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <QuickAnswerBoxGroup
               title="Quick Answers for Bachelorette Parties"
               boxes={[
@@ -2224,8 +2224,8 @@ export default function BacheloretteParty() {
 
       {/* Related Services Section - AT BOTTOM */}
       <SectionReveal>
-        <section className="py-16 bg-gradient-to-br from-pink-50 to-purple-50">
-          <div className="max-w-7xl mx-auto px-6">
+        <section className="py-10 md:py-16 bg-gradient-to-br from-pink-50 to-purple-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <RelatedServicesSection
               title="Other Party Options for Your Girls' Weekend"
               description="Explore more celebration options on Lake Travis"

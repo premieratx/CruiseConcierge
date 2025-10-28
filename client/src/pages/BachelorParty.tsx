@@ -539,7 +539,7 @@ export default function BachelorParty() {
         </div>
 
         {/* Main Hero Content */}
-        <div className="relative z-10 max-w-7xl mx-auto px-6 text-white text-center flex-grow flex items-center w-full py-20">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 text-white text-center flex-grow flex items-center w-full py-12 md:py-20">
           <motion.div
             initial="hidden"
             animate="visible"
@@ -641,8 +641,8 @@ export default function BachelorParty() {
 
       {/* YOUR TWO OPTIONS SECTION */}
       <SectionReveal>
-        <section id="your-options" className="py-20 bg-gradient-to-br from-blue-50 to-purple-50">
-          <div className="max-w-7xl mx-auto px-6">
+        <section id="your-options" className="py-12 md:py-20 bg-gradient-to-br from-blue-50 to-purple-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="text-center mb-16">
               <Badge className="mb-6 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
                 <Target className="h-4 w-4 mr-2 inline" />
@@ -751,8 +751,8 @@ export default function BachelorParty() {
 
       {/* 3. PACKAGES & PRICING */}
       <SectionReveal>
-        <section id="packages" className="py-20 bg-gradient-to-br from-gray-50 to-white">
-          <div className="max-w-7xl mx-auto px-6">
+        <section id="packages" className="py-12 md:py-20 bg-gradient-to-br from-gray-50 to-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="text-center mb-16">
               <Badge className="mb-6 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
                 <Package className="h-4 w-4 mr-2 inline" />
@@ -910,8 +910,8 @@ export default function BachelorParty() {
 
       {/* 4. WHAT TO EXPECT */}
       <SectionReveal>
-        <section id="what-to-expect" className="py-20 bg-white">
-          <div className="max-w-7xl mx-auto px-6">
+        <section id="what-to-expect" className="py-12 md:py-20 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="text-center mb-16">
               <Badge className="mb-6 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
                 <Star className="h-4 w-4 mr-2 inline" />
@@ -1084,8 +1084,8 @@ export default function BachelorParty() {
       {/* REMAINING SECTIONS - Keep all the existing sections from here */}
       {/* 5. AVAILABILITY */}
       <SectionReveal>
-        <section id="availability" className="py-20 bg-gradient-to-br from-blue-50 to-purple-50">
-          <div className="max-w-7xl mx-auto px-6">
+        <section id="availability" className="py-12 md:py-20 bg-gradient-to-br from-blue-50 to-purple-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="text-center mb-16">
               <Badge className="mb-6 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
                 <Calendar className="h-4 w-4 mr-2 inline" />
@@ -1215,8 +1215,8 @@ export default function BachelorParty() {
       {/* Continue with all remaining sections - keep them as they are */}
       {/* 6. BENEFITS */}
       <SectionReveal>
-        <section id="benefits" className="py-20 bg-gradient-to-br from-gray-50 to-white">
-          <div className="max-w-7xl mx-auto px-6">
+        <section id="benefits" className="py-12 md:py-20 bg-gradient-to-br from-gray-50 to-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="text-center mb-16">
               <Badge className="mb-6 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
                 <Trophy className="h-4 w-4 mr-2 inline" />
@@ -1322,7 +1322,7 @@ export default function BachelorParty() {
       {/* 7. FEATURES & WHAT'S INCLUDED */}
       <SectionReveal>
         <section id="whats-included" className="py-20 bg-white">
-          <div className="max-w-7xl mx-auto px-6">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="text-center mb-16">
               <Badge className="mb-6 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
                 <CheckCircle className="h-4 w-4 mr-2 inline" />
@@ -1370,7 +1370,7 @@ export default function BachelorParty() {
       {/* 8. WHY CHOOSE PREMIER - Trust Signals */}
       <SectionReveal>
         <section id="why-choose" className="py-20 bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900">
-          <div className="max-w-7xl mx-auto px-6">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="text-center mb-16">
               <Badge className="mb-6 bg-white/10 border-2 border-white text-white px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm">
                 <Crown className="h-4 w-4 mr-2 inline" />
@@ -1423,7 +1423,7 @@ export default function BachelorParty() {
       {/* 9. PHOTO GALLERY */}
       <SectionReveal>
         <section id="photos" className="py-20 bg-white">
-          <div className="max-w-7xl mx-auto px-6">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="text-center mb-16">
               <Badge className="mb-6 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
                 <Camera className="h-4 w-4 mr-2 inline" />
@@ -1459,7 +1459,7 @@ export default function BachelorParty() {
       {/* 10. TESTIMONIALS */}
       <SectionReveal>
         <section id="testimonials" className="py-20 bg-gradient-to-br from-blue-50 to-purple-50">
-          <div className="max-w-7xl mx-auto px-6">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="text-center mb-16">
               <Badge className="mb-6 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
                 <Quote className="h-4 w-4 mr-2 inline" />
