@@ -130,6 +130,21 @@ registerRoutes(app); // Pass app directly, don't use as middleware
 app.use('/api', apiRouter);
 app.use('/api/blog', blogRouter);
 
+// Serve attached_assets folder for videos and media
+const attachedAssetsDir = path.join(process.cwd(), 'attached_assets');
+if (fs.existsSync(attachedAssetsDir)) {
+  app.use('/attached_assets', express.static(attachedAssetsDir, {
+    maxAge: '7d',
+    etag: true,
+    lastModified: true,
+    setHeaders: (res, filepath) => {
+      if (filepath.match(/\.(mp4|webm|mov)$/)) {
+        res.setHeader('Cache-Control', 'public, max-age=604800'); // 7 days for videos
+      }
+    }
+  }));
+}
+
 // ALWAYS serve static files in production
 const currentDir = path.dirname(new URL(import.meta.url).pathname);
 const publicDir = path.join(currentDir, '..', 'dist', 'public');

@@ -563,7 +563,7 @@ export default function Home() {
       />
       <PublicNavigation />
       {/* Hero Section */}
-      <section id="hero" className="relative min-h-screen flex flex-col justify-center overflow-hidden">
+      <section id="hero" className="relative min-h-screen flex flex-col justify-center overflow-hidden bg-gray-900">
         {/* Video Background */}
         <div className="absolute inset-0 z-0">
           <video
@@ -571,15 +571,15 @@ export default function Home() {
             loop
             muted
             playsInline
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover opacity-60"
             poster={heroImage1}
           >
             <source src="/attached_assets/Boat_Video_Walkthrough_Generated_1761209219959.mp4" type="video/mp4" />
           </video>
-          {/* Dark overlay with gradient for text readability */}
-          <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/50 to-black/30" />
-          {/* Additional subtle vignette effect */}
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/40" />
+          {/* Strong dark overlay for better text contrast */}
+          <div className="absolute inset-0 bg-gradient-to-br from-black/80 via-black/70 to-black/60" />
+          {/* Additional blue tint overlay for brand color */}
+          <div className="absolute inset-0 bg-blue-900/20" />
         </div>
 
 
@@ -1631,69 +1631,6 @@ export default function Home() {
             </div>
               </CollapsibleContent>
             </Collapsible>
-          </div>
-        </section>
-      </SectionReveal>
-
-      {/* Benefits of Booking with Premier Section */}
-      <SectionReveal id="why-choose-us">
-        <section className="py-20 bg-gradient-to-br from-blue-50 to-white dark:from-gray-950 dark:to-gray-900 relative">
-          <div className="absolute top-4 right-4 text-6xl font-black text-blue-200 opacity-20">04</div>
-          <div className="container mx-auto px-6">
-            <div className="text-center mb-16">
-              <Badge className="mb-6 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
-                <Award className="h-4 w-4 mr-2 inline" />
-                Why Book With Us
-              </Badge>
-              <h2 className="text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 dark:text-white leading-tight" data-editable data-editable-id="why-choose-main-title">
-                Benefits of Booking with Premier
-              </h2>
-              <p className="text-lg md:text-xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed" data-editable data-editable-id="why-choose-description">
-                Austin's most trusted party cruise company with unmatched experience, safety, and service since 2009
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-              {whyChooseUs.map((item, index) => (
-                <div
-                  key={index}
-                  className="text-center bg-white rounded-xl p-6 border border-gray-200 hover:border-blue-500 hover:shadow-lg transition-all min-h-[250px] flex flex-col"
-                >
-                  <div className="p-4 bg-blue-100 rounded-xl w-16 h-16 flex items-center justify-center mx-auto mb-6">
-                    <item.icon className="h-8 w-8 text-blue-600" />
-                  </div>
-                  <h3 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white" data-editable data-editable-id={`why-choose-item-${index}-title`}>
-                    {item.title}
-                  </h3>
-                  <p className="text-base text-gray-700 dark:text-gray-300 flex-grow" data-editable data-editable-id={`why-choose-item-${index}-description`}>
-                    {item.description}
-                  </p>
-                </div>
-              ))}
-            </div>
-
-            {/* Stats Section */}
-            <div className="mt-16">
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
-                {stats.map((stat, index) => (
-                  <div 
-                    key={index}
-                    className="text-center"
-                    data-testid={`stat-${index}`}
-                  >
-                    <div className="p-4 bg-blue-100 rounded-xl w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                      <stat.icon className="h-8 w-8 text-blue-600" />
-                    </div>
-                    <div className="text-3xl font-bold mb-2 text-gray-900 dark:text-white" data-editable data-editable-id={`stat-${index}-value`}>
-                      {stat.value}
-                    </div>
-                    <div className="text-base text-gray-700 dark:text-gray-300 font-medium" data-editable data-editable-id={`stat-${index}-label`}>
-                      {stat.label}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
           </div>
         </section>
       </SectionReveal>

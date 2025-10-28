@@ -84,14 +84,12 @@ const navigationItems: NavigationItem[] = [
   {
     title: 'ATX Disco Cruise',
     href: '/atx-disco-cruise',
-    icon: Disc3,
-    badge: 'HOT!'
+    icon: Disc3
   },
   {
     title: 'Bachelor Party',
     href: '/bachelor-party-austin',
-    icon: Users,
-    badge: 'New!'
+    icon: Users
   },
   {
     title: 'Bachelorette Party',
