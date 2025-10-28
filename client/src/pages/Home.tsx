@@ -603,20 +603,12 @@ export default function Home() {
             </motion.div>
 
             {/* Main Headline */}
-            <motion.div variants={reducedMotion ? undefined : fadeInUp} className="mb-6 md:mb-8">
-              <div className="mb-2">
-                <Badge className="bg-gradient-to-r from-red-500 to-orange-500 text-white text-xs sm:text-sm px-4 py-1 font-bold animate-pulse">
-                  🔥 Austin's #1 Party Cruise Experience
-                </Badge>
-              </div>
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold font-playfair mb-4 md:mb-6 leading-tight" data-editable data-editable-id="hero-title">
+            <motion.div variants={reducedMotion ? undefined : fadeInUp} className="mb-8 md:mb-10">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold font-playfair mb-6 leading-tight" data-editable data-editable-id="hero-title">
                 Austin Party Boat Rentals on Lake Travis
               </h1>
-              <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-brand-yellow font-semibold leading-relaxed mb-3" data-editable data-editable-id="hero-tagline">
-                Premier Party Cruises - Austin's Ultimate Lake Travis Experience Since 2009
-              </p>
-              <p className="text-yellow-300 text-sm sm:text-base font-semibold animate-pulse">
-                ⏰ Peak Season March-October - Book Early! Limited Weekend Spots Available
+              <p className="text-xl sm:text-2xl md:text-3xl text-brand-yellow font-semibold leading-relaxed" data-editable data-editable-id="hero-tagline">
+                Premier Party Cruises Since 2009
               </p>
             </motion.div>
 
@@ -646,114 +638,81 @@ export default function Home() {
               </div>
             </motion.div>
 
-            {/* Key Features with Pricing */}
+            {/* CTA Buttons */}
             <motion.div 
               variants={reducedMotion ? undefined : fadeInUp}
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-12 max-w-5xl mx-auto"
-            >
-              <div className="flex items-center justify-center space-x-2 sm:space-x-3 bg-white/10 backdrop-blur-sm rounded-2xl p-3 sm:p-4">
-                <MapPin className="h-5 w-5 sm:h-6 sm:w-6 text-brand-yellow flex-shrink-0" />
-                <span className="font-sans tracking-wider font-bold uppercase text-sm" data-editable data-editable-id="hero-badge-marina">Anderson Mill Marina</span>
-              </div>
-              <div className="flex items-center justify-center space-x-2 sm:space-x-3 bg-white/10 backdrop-blur-sm rounded-2xl p-3 sm:p-4">
-                <Users className="h-5 w-5 sm:h-6 sm:w-6 text-brand-yellow flex-shrink-0" />
-                <span className="font-sans tracking-wider font-bold uppercase text-sm" data-editable data-editable-id="hero-badge-boats">4 Awesome Boats</span>
-              </div>
-              <div className="flex items-center justify-center space-x-2 sm:space-x-3 bg-white/10 backdrop-blur-sm rounded-2xl p-3 sm:p-4">
-                <DollarSign className="h-5 w-5 sm:h-6 sm:w-6 text-brand-yellow flex-shrink-0" />
-                <span className="font-sans tracking-wider font-bold uppercase text-sm whitespace-nowrap" data-editable data-editable-id="hero-badge-pricing">From ${HOURLY_RATES.MON_THU[14] / 100} per hour</span>
-              </div>
-              <div className="flex items-center justify-center space-x-2 sm:space-x-3 bg-white/10 backdrop-blur-sm rounded-2xl p-3 sm:p-4">
-                <Clock className="h-5 w-5 sm:h-6 sm:w-6 text-brand-yellow flex-shrink-0" />
-                <span className="font-sans tracking-wider font-bold uppercase text-sm" data-editable data-editable-id="hero-badge-disco">ATX Disco Fri/Sat</span>
-              </div>
-            </motion.div>
-
-            {/* Trust Badges - Moved below glass cards */}
-            <motion.div 
-              variants={reducedMotion ? undefined : fadeInUp}
-              className="flex flex-wrap justify-center gap-2 sm:gap-4 mb-8 max-w-5xl mx-auto"
-            >
-              <motion.div 
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.6 }}
-                className="bg-gradient-to-r from-yellow-400/90 to-yellow-500/90 backdrop-blur-sm text-black px-3 sm:px-4 py-1.5 sm:py-2 rounded-full shadow-lg text-xs sm:text-sm font-bold flex items-center gap-2"
-              >
-                <UserCheck className="w-3 h-3 sm:w-4 sm:h-4" />
-                <span>150,000+ Happy Customers</span>
-              </motion.div>
-              <motion.div 
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.7 }}
-                className="bg-gradient-to-r from-blue-500/90 to-blue-600/90 backdrop-blur-sm text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-full shadow-lg text-xs sm:text-sm font-bold flex items-center gap-2"
-              >
-                <Trophy className="w-3 h-3 sm:w-4 sm:h-4" />
-                <span>15+ Years Experience</span>
-              </motion.div>
-              <motion.div 
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.8 }}
-                className="bg-gradient-to-r from-green-500/90 to-green-600/90 backdrop-blur-sm text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-full shadow-lg text-xs sm:text-sm font-bold flex items-center gap-2"
-              >
-                <Shield className="w-3 h-3 sm:w-4 sm:h-4" />
-                <span>Perfect Safety Record</span>
-              </motion.div>
-            </motion.div>
-
-            {/* CTA Buttons - Enhanced with Hormozi/McDowell Urgency */}
-            <motion.div 
-              variants={reducedMotion ? undefined : fadeInUp}
-              className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center items-center mb-8 md:mb-12"
+              className="flex flex-col sm:flex-row gap-6 justify-center items-center"
             >
               <Button
                 size="lg"
-                variant="outline"
                 onClick={() => handleGetQuote()}
-                className="w-full sm:w-auto bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white font-bold text-base sm:text-lg md:text-xl px-6 sm:px-8 md:px-12 py-4 sm:py-6 md:py-8 rounded-xl shadow-2xl transform hover:scale-105 transition-all duration-300"
+                className="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold text-lg px-12 py-7 rounded-xl shadow-2xl transform hover:scale-105 transition-all duration-300"
                 data-testid="button-hero-get-quote"
               >
-                <MessageSquare className="mr-2 sm:mr-3 h-5 w-5 sm:h-6 sm:w-6 flex-shrink-0" />
-                <span data-editable data-editable-id="hero-cta-quote">SEE PACKAGES & PRICING</span>
+                <Calendar className="mr-3 h-6 w-6" />
+                <span data-editable data-editable-id="hero-cta-quote">Check Availability</span>
               </Button>
               
               <Button
                 size="lg"
+                variant="outline"
                 onClick={() => handleGetQuote()}
-                className="relative w-full sm:w-auto bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-base sm:text-lg md:text-xl px-6 sm:px-8 md:px-12 py-4 sm:py-6 md:py-8 rounded-xl shadow-2xl transform hover:scale-110 transition-all duration-300 animate-pulse"
+                className="w-full sm:w-auto bg-white hover:bg-gray-50 text-gray-900 font-bold text-lg px-12 py-7 rounded-xl shadow-2xl transform hover:scale-105 transition-all duration-300 border-2 border-white"
                 data-testid="button-hero-book-now"
               >
-                <Calendar className="mr-2 sm:mr-3 h-5 w-5 sm:h-6 sm:w-6 flex-shrink-0" />
-                <span data-editable data-editable-id="hero-cta-book">BOOK NOW</span>
-                <ArrowRight className="ml-2 sm:ml-3 h-5 w-5 sm:h-6 sm:w-6 flex-shrink-0 animate-bounce-horizontal" />
-                <div className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full animate-pulse">
-                  🔥 HOT
-                </div>
+                <MessageSquare className="mr-3 h-6 w-6" />
+                <span data-editable data-editable-id="hero-cta-book">Get Custom Quote</span>
               </Button>
             </motion.div>
           </motion.div>
         </div>
 
         {/* Bottom Feature Bar */}
-        <div className="relative z-20 w-full bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm py-4 px-6">
+        <div className="relative z-20 w-full bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm py-4 px-6">
           <div className="container mx-auto">
-            <p className="text-center text-gray-900 dark:text-white text-base font-semibold">
-              ✨ <span className="text-brand-blue">Transparent Pricing</span> • No Hidden Fees • <span className="text-brand-blue">Best Value</span> Guaranteed ✨
+            <p className="text-center text-gray-900 dark:text-white text-sm md:text-base font-semibold">
+              ✨ Transparent Pricing • No Hidden Fees • Best Value Guaranteed ✨
             </p>
           </div>
         </div>
       </section>
 
-      {/* Description Section - Just Below Hero */}
-      <section className="py-8 bg-white dark:bg-gray-900">
+      {/* Trust Badges - Subtle Row */}
+      <section className="py-6 bg-gray-50 dark:bg-gray-900 border-y border-gray-200 dark:border-gray-800">
         <div className="container mx-auto px-6">
-          <p className="text-sm sm:text-base md:text-lg text-center text-gray-700 dark:text-gray-300 max-w-4xl mx-auto leading-relaxed">
-            Experience Austin's ultimate Lake Travis adventure with the most trusted party cruise company since 2009. 
-            From <InternalLinkHighlight href="/private-cruises" title="Private Cruises">intimate 14-person private cruises</InternalLinkHighlight> on "Day Tripper" to epic 75-person celebrations on flagship "Clever Girl" - 
-            perfect for <InternalLinkHighlight href="/bachelor-party" title="Bachelor Parties">bachelor parties</InternalLinkHighlight>, <InternalLinkHighlight href="/bachelorette-party" title="Bachelorette Parties">bachelorette celebrations</InternalLinkHighlight>, and <InternalLinkHighlight href="/corporate-events" title="Corporate Events">corporate team building</InternalLinkHighlight>.
-          </p>
+          <div className="flex flex-wrap justify-center gap-4 md:gap-6 max-w-3xl mx-auto">
+            <div className="flex items-center gap-2 text-sm md:text-base text-gray-700 dark:text-gray-300">
+              <UserCheck className="w-4 h-4 text-blue-600" />
+              <span className="font-medium">150K+ Customers</span>
+            </div>
+            <div className="flex items-center gap-2 text-sm md:text-base text-gray-700 dark:text-gray-300">
+              <Trophy className="w-4 h-4 text-blue-600" />
+              <span className="font-medium">15+ Years</span>
+            </div>
+            <div className="flex items-center gap-2 text-sm md:text-base text-gray-700 dark:text-gray-300">
+              <Shield className="w-4 h-4 text-blue-600" />
+              <span className="font-medium">Perfect Safety Record</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Description Section - Welcome Text */}
+      <section className="py-12 md:py-16 bg-white dark:bg-gray-900">
+        <div className="container mx-auto px-6">
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="text-2xl md:text-3xl font-semibold font-playfair mb-6 text-gray-900 dark:text-white">
+              Austin's Premier Party Cruise Experience
+            </h2>
+            <p className="text-base md:text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
+              Experience Austin's ultimate Lake Travis adventure with the most trusted party cruise company since 2009. 
+              From <InternalLinkHighlight href="/private-cruises" title="Private Cruises">intimate 14-person private cruises</InternalLinkHighlight> on "Day Tripper" to epic 75-person celebrations on flagship "Clever Girl" - 
+              perfect for <InternalLinkHighlight href="/bachelor-party-austin" title="Bachelor Parties">bachelor parties</InternalLinkHighlight>, <InternalLinkHighlight href="/bachelorette-party-austin" title="Bachelorette Parties">bachelorette celebrations</InternalLinkHighlight>, and <InternalLinkHighlight href="/corporate-events" title="Corporate Events">corporate team building</InternalLinkHighlight>.
+            </p>
+            <p className="text-base md:text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+              Operating from Anderson Mill Marina on beautiful Lake Travis, our experienced Coast Guard certified captains and pristine fleet provide unforgettable experiences for groups of all sizes. With transparent pricing, no hidden fees, and unmatched service, we make your Lake Travis celebration effortless and extraordinary.
+            </p>
+          </div>
         </div>
       </section>
 
