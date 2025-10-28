@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useLocation } from 'wouter';
 import { Phone, MessageSquare, Calendar } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -24,6 +25,7 @@ export function StickyCTA({
   showOnDesktop = false,
   className,
 }: StickyCTAProps) {
+  const [, navigate] = useLocation();
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -44,7 +46,13 @@ export function StickyCTA({
     if (primaryAction) {
       primaryAction();
     } else if (primaryHref) {
-      window.location.href = primaryHref;
+      // Use wouter navigate for internal navigation
+      if (primaryHref.startsWith('/')) {
+        navigate(primaryHref);
+      } else {
+        // External link (like tel: or mailto:)
+        window.location.href = primaryHref;
+      }
     }
   };
 
@@ -52,7 +60,13 @@ export function StickyCTA({
     if (secondaryAction) {
       secondaryAction();
     } else if (secondaryHref) {
-      window.location.href = secondaryHref;
+      // Use wouter navigate for internal navigation
+      if (secondaryHref.startsWith('/') && !secondaryHref.startsWith('tel:') && !secondaryHref.startsWith('mailto:')) {
+        navigate(secondaryHref);
+      } else {
+        // External link (like tel: or mailto:)
+        window.location.href = secondaryHref;
+      }
     }
   };
 

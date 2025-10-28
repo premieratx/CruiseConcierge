@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useLocation } from 'wouter';
 import {
   Dialog,
   DialogContent,
@@ -136,6 +137,7 @@ interface BoatDetailsModalProps {
 }
 
 export default function BoatDetailsModal({ boatId, isOpen, onClose }: BoatDetailsModalProps) {
+  const [, navigate] = useLocation();
   const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
   const boat = BOAT_DATA[boatId];
 
@@ -281,7 +283,7 @@ export default function BoatDetailsModal({ boatId, isOpen, onClose }: BoatDetail
               Close
             </Button>
             <Button 
-              onClick={() => window.location.href = '/chat'}
+              onClick={() => navigate('/chat')}
               className="bg-brand-blue hover:bg-brand-blue/90"
               data-testid="button-book-boat"
             >

@@ -233,13 +233,13 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
   }, [location]);
 
   const handleGetQuote = () => {
-    // Always route to /chat
-    window.location.href = '/chat';
+    // Always route to /chat using wouter navigation
+    navigate('/chat');
   };
 
   const handleBookNow = () => {
-    // Always route to /chat (ignore prop)
-    window.location.href = '/chat';
+    // Always route to /chat using wouter navigation
+    navigate('/chat');
   };
 
   return (

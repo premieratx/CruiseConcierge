@@ -229,10 +229,10 @@ const experienceTimeline = [
 ];
 
 // Import real reviews from shared/reviews-data.ts
-import { discoHighlightReviews, type Review } from '@shared/reviews-data';
+import { discoHighlightReviews, combinedBachReviews, bachelorReviews, bacheloretteReviews, type Review } from '@shared/reviews-data';
 
-// Use discoHighlightReviews for ATX Disco Cruise page (best bach party reviews)
-const testimonials: Review[] = discoHighlightReviews;
+// Use combined bach + highlights from both bachelor and bachelorette for ATX Disco Cruise page
+const testimonials: Review[] = [...combinedBachReviews, ...discoHighlightReviews];
 
 const faqItems = [
   {
@@ -443,7 +443,7 @@ export default function ATXDiscoCruise() {
                 The Country's Only Multi-Group Bach Party Cruise
               </p>
               <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-white/90 mb-3 md:mb-4 max-w-3xl mx-auto font-semibold text-center px-2" data-testid="text-hero-subheadline">
-                The single most unique and comprehensive <InternalLinkHighlight href="/bachelor-party" title="Bachelor Parties">bachelor</InternalLinkHighlight>/<InternalLinkHighlight href="/bachelorette-party" title="Bachelorette Parties">bachelorette party</InternalLinkHighlight> experience in the United States
+                The single most unique and comprehensive <InternalLinkHighlight href="/bachelor-party-austin" title="Bachelor Parties">bachelor</InternalLinkHighlight>/<InternalLinkHighlight href="/bachelorette-party-austin" title="Bachelorette Parties">bachelorette party</InternalLinkHighlight> experience in the United States
               </p>
               
               {/* Important Notice - Moved from above */}

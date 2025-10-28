@@ -18,9 +18,18 @@ import {
   Users, Ship, PartyPopper, Building2, Heart, Trophy,
   Shield, Clock, MapPin, Camera, MessageSquare,
   ExternalLink, CheckCircle, ArrowRight, Sparkles,
-  DollarSign, Calculator
+  DollarSign, Calculator, Gem, Flower2, Beer
 } from 'lucide-react';
 import SEOHead from '@/components/SEOHead';
+import {
+  corporateReviews,
+  weddingReviews,
+  birthdayReviews,
+  combinedBachReviews,
+  bacheloretteReviews,
+  bachelorReviews,
+  Review
+} from '@shared/reviews-data';
 
 // Animation variants
 const fadeInUp = {
@@ -284,9 +293,389 @@ export default function TestimonialsFaq() {
         </section>
       </SectionReveal>
 
-      {/* FAQ Section */}
+      {/* Customer Reviews Section */}
       <SectionReveal>
         <section className="py-24 bg-white dark:bg-gray-950">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl font-playfair font-bold mb-6 text-gray-900 dark:text-white">
+                Real Customer Reviews
+              </h2>
+              <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-8">
+                Read authentic reviews from our happy customers across all event types
+              </p>
+            </div>
+
+            <Tabs defaultValue="corporate" className="w-full">
+              <TabsList className="grid w-full grid-cols-2 lg:grid-cols-6 mb-8 rounded-xl gap-2">
+                <TabsTrigger 
+                  value="corporate" 
+                  className="flex flex-col items-center gap-1 py-3 rounded-xl data-testid-tab-corporate"
+                  data-testid="tab-corporate"
+                >
+                  <Building2 className="h-5 w-5" />
+                  <span className="text-xs font-semibold">Corporate Events</span>
+                  <span className="text-xs text-gray-500">{corporateReviews.length} reviews</span>
+                </TabsTrigger>
+                
+                <TabsTrigger 
+                  value="wedding"
+                  className="flex flex-col items-center gap-1 py-3 rounded-xl"
+                  data-testid="tab-wedding"
+                >
+                  <Heart className="h-5 w-5" />
+                  <span className="text-xs font-semibold">Weddings</span>
+                  <span className="text-xs text-gray-500">{weddingReviews.length} reviews</span>
+                </TabsTrigger>
+                
+                <TabsTrigger 
+                  value="birthday"
+                  className="flex flex-col items-center gap-1 py-3 rounded-xl"
+                  data-testid="tab-birthday"
+                >
+                  <PartyPopper className="h-5 w-5" />
+                  <span className="text-xs font-semibold">Birthdays</span>
+                  <span className="text-xs text-gray-500">{birthdayReviews.length} reviews</span>
+                </TabsTrigger>
+                
+                <TabsTrigger 
+                  value="combined"
+                  className="flex flex-col items-center gap-1 py-3 rounded-xl"
+                  data-testid="tab-combined"
+                >
+                  <Users className="h-5 w-5" />
+                  <span className="text-xs font-semibold">Combined Bach</span>
+                  <span className="text-xs text-gray-500">{combinedBachReviews.length} reviews</span>
+                </TabsTrigger>
+                
+                <TabsTrigger 
+                  value="bachelorette"
+                  className="flex flex-col items-center gap-1 py-3 rounded-xl"
+                  data-testid="tab-bachelorette"
+                >
+                  <Gem className="h-5 w-5" />
+                  <span className="text-xs font-semibold">Bachelorette</span>
+                  <span className="text-xs text-gray-500">{bacheloretteReviews.length} reviews</span>
+                </TabsTrigger>
+                
+                <TabsTrigger 
+                  value="bachelor"
+                  className="flex flex-col items-center gap-1 py-3 rounded-xl"
+                  data-testid="tab-bachelor"
+                >
+                  <Beer className="h-5 w-5" />
+                  <span className="text-xs font-semibold">Bachelor</span>
+                  <span className="text-xs text-gray-500">{bachelorReviews.length} reviews</span>
+                </TabsTrigger>
+              </TabsList>
+
+              {/* Corporate Reviews */}
+              <TabsContent value="corporate" className="mt-8">
+                <div className="mb-6">
+                  <h3 className="text-2xl font-playfair font-bold text-gray-900 dark:text-white flex items-center justify-center mb-2">
+                    <Building2 className="h-6 w-6 mr-3 text-blue-600" />
+                    🏢 Corporate, Company & Business Events
+                  </h3>
+                  <p className="text-center text-gray-600 dark:text-gray-300">
+                    {corporateReviews.length} verified reviews from corporate clients
+                  </p>
+                </div>
+                <div className="grid gap-6 md:grid-cols-2">
+                  {corporateReviews.map((review) => (
+                    <Card key={review.id} className="rounded-xl hover:shadow-lg transition-shadow" data-testid={`review-card-${review.id}`}>
+                      <CardHeader>
+                        <div className="flex items-start justify-between">
+                          <div>
+                            <CardTitle className="text-lg font-bold text-gray-900 dark:text-white">
+                              {review.name}
+                            </CardTitle>
+                            <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                              {review.role}
+                            </p>
+                          </div>
+                          {review.verified && (
+                            <Badge variant="secondary" className="bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
+                              <CheckCircle className="w-3 h-3 mr-1" />
+                              Verified
+                            </Badge>
+                          )}
+                        </div>
+                        <div className="flex items-center gap-2 mt-2">
+                          <div className="flex">
+                            {[...Array(review.rating)].map((_, i) => (
+                              <Star key={i} className="h-4 w-4 fill-yellow-500 text-yellow-500" />
+                            ))}
+                          </div>
+                          <span className="text-sm text-gray-500 dark:text-gray-400">{review.date}</span>
+                        </div>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                          {review.text}
+                        </p>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </TabsContent>
+
+              {/* Wedding Reviews */}
+              <TabsContent value="wedding" className="mt-8">
+                <div className="mb-6">
+                  <h3 className="text-2xl font-playfair font-bold text-gray-900 dark:text-white flex items-center justify-center mb-2">
+                    <Heart className="h-6 w-6 mr-3 text-pink-600" />
+                    💍 Weddings, Post-Wedding & Rehearsal Parties
+                  </h3>
+                  <p className="text-center text-gray-600 dark:text-gray-300">
+                    {weddingReviews.length} verified reviews from wedding celebrations
+                  </p>
+                </div>
+                <div className="grid gap-6 md:grid-cols-2">
+                  {weddingReviews.map((review) => (
+                    <Card key={review.id} className="rounded-xl hover:shadow-lg transition-shadow" data-testid={`review-card-${review.id}`}>
+                      <CardHeader>
+                        <div className="flex items-start justify-between">
+                          <div>
+                            <CardTitle className="text-lg font-bold text-gray-900 dark:text-white">
+                              {review.name}
+                            </CardTitle>
+                            <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                              {review.role}
+                            </p>
+                          </div>
+                          {review.verified && (
+                            <Badge variant="secondary" className="bg-pink-100 text-pink-800 dark:bg-pink-900 dark:text-pink-200">
+                              <CheckCircle className="w-3 h-3 mr-1" />
+                              Verified
+                            </Badge>
+                          )}
+                        </div>
+                        <div className="flex items-center gap-2 mt-2">
+                          <div className="flex">
+                            {[...Array(review.rating)].map((_, i) => (
+                              <Star key={i} className="h-4 w-4 fill-yellow-500 text-yellow-500" />
+                            ))}
+                          </div>
+                          <span className="text-sm text-gray-500 dark:text-gray-400">{review.date}</span>
+                        </div>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                          {review.text}
+                        </p>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </TabsContent>
+
+              {/* Birthday Reviews */}
+              <TabsContent value="birthday" className="mt-8">
+                <div className="mb-6">
+                  <h3 className="text-2xl font-playfair font-bold text-gray-900 dark:text-white flex items-center justify-center mb-2">
+                    <PartyPopper className="h-6 w-6 mr-3 text-purple-600" />
+                    🎉 Family, Birthday & Anniversary Parties
+                  </h3>
+                  <p className="text-center text-gray-600 dark:text-gray-300">
+                    {birthdayReviews.length} verified reviews from family celebrations
+                  </p>
+                </div>
+                <div className="grid gap-6 md:grid-cols-2">
+                  {birthdayReviews.map((review) => (
+                    <Card key={review.id} className="rounded-xl hover:shadow-lg transition-shadow" data-testid={`review-card-${review.id}`}>
+                      <CardHeader>
+                        <div className="flex items-start justify-between">
+                          <div>
+                            <CardTitle className="text-lg font-bold text-gray-900 dark:text-white">
+                              {review.name}
+                            </CardTitle>
+                            <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                              {review.role}
+                            </p>
+                          </div>
+                          {review.verified && (
+                            <Badge variant="secondary" className="bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200">
+                              <CheckCircle className="w-3 h-3 mr-1" />
+                              Verified
+                            </Badge>
+                          )}
+                        </div>
+                        <div className="flex items-center gap-2 mt-2">
+                          <div className="flex">
+                            {[...Array(review.rating)].map((_, i) => (
+                              <Star key={i} className="h-4 w-4 fill-yellow-500 text-yellow-500" />
+                            ))}
+                          </div>
+                          <span className="text-sm text-gray-500 dark:text-gray-400">{review.date}</span>
+                        </div>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                          {review.text}
+                        </p>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </TabsContent>
+
+              {/* Combined Bach Reviews */}
+              <TabsContent value="combined" className="mt-8">
+                <div className="mb-6">
+                  <h3 className="text-2xl font-playfair font-bold text-gray-900 dark:text-white flex items-center justify-center mb-2">
+                    <Users className="h-6 w-6 mr-3 text-orange-600" />
+                    💃🕺 Combined Bachelor & Bachelorette Parties
+                  </h3>
+                  <p className="text-center text-gray-600 dark:text-gray-300">
+                    {combinedBachReviews.length} verified reviews from combined celebrations
+                  </p>
+                </div>
+                <div className="grid gap-6 md:grid-cols-2">
+                  {combinedBachReviews.map((review) => (
+                    <Card key={review.id} className="rounded-xl hover:shadow-lg transition-shadow" data-testid={`review-card-${review.id}`}>
+                      <CardHeader>
+                        <div className="flex items-start justify-between">
+                          <div>
+                            <CardTitle className="text-lg font-bold text-gray-900 dark:text-white">
+                              {review.name}
+                            </CardTitle>
+                            <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                              {review.role}
+                            </p>
+                          </div>
+                          {review.verified && (
+                            <Badge variant="secondary" className="bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200">
+                              <CheckCircle className="w-3 h-3 mr-1" />
+                              Verified
+                            </Badge>
+                          )}
+                        </div>
+                        <div className="flex items-center gap-2 mt-2">
+                          <div className="flex">
+                            {[...Array(review.rating)].map((_, i) => (
+                              <Star key={i} className="h-4 w-4 fill-yellow-500 text-yellow-500" />
+                            ))}
+                          </div>
+                          <span className="text-sm text-gray-500 dark:text-gray-400">{review.date}</span>
+                        </div>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                          {review.text}
+                        </p>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </TabsContent>
+
+              {/* Bachelorette Reviews */}
+              <TabsContent value="bachelorette" className="mt-8">
+                <div className="mb-6">
+                  <h3 className="text-2xl font-playfair font-bold text-gray-900 dark:text-white flex items-center justify-center mb-2">
+                    <Gem className="h-6 w-6 mr-3 text-pink-600" />
+                    💃 Bachelorette Party Highlights
+                  </h3>
+                  <p className="text-center text-gray-600 dark:text-gray-300">
+                    {bacheloretteReviews.length} verified reviews from bachelorette celebrations
+                  </p>
+                </div>
+                <div className="grid gap-6 md:grid-cols-2">
+                  {bacheloretteReviews.map((review) => (
+                    <Card key={review.id} className="rounded-xl hover:shadow-lg transition-shadow" data-testid={`review-card-${review.id}`}>
+                      <CardHeader>
+                        <div className="flex items-start justify-between">
+                          <div>
+                            <CardTitle className="text-lg font-bold text-gray-900 dark:text-white">
+                              {review.name}
+                            </CardTitle>
+                            <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                              {review.role}
+                            </p>
+                          </div>
+                          {review.verified && (
+                            <Badge variant="secondary" className="bg-pink-100 text-pink-800 dark:bg-pink-900 dark:text-pink-200">
+                              <CheckCircle className="w-3 h-3 mr-1" />
+                              Verified
+                            </Badge>
+                          )}
+                        </div>
+                        <div className="flex items-center gap-2 mt-2">
+                          <div className="flex">
+                            {[...Array(review.rating)].map((_, i) => (
+                              <Star key={i} className="h-4 w-4 fill-yellow-500 text-yellow-500" />
+                            ))}
+                          </div>
+                          <span className="text-sm text-gray-500 dark:text-gray-400">{review.date}</span>
+                        </div>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                          {review.text}
+                        </p>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </TabsContent>
+
+              {/* Bachelor Reviews */}
+              <TabsContent value="bachelor" className="mt-8">
+                <div className="mb-6">
+                  <h3 className="text-2xl font-playfair font-bold text-gray-900 dark:text-white flex items-center justify-center mb-2">
+                    <Beer className="h-6 w-6 mr-3 text-amber-600" />
+                    🕺 Bachelor Party Highlights
+                  </h3>
+                  <p className="text-center text-gray-600 dark:text-gray-300">
+                    {bachelorReviews.length} verified reviews from bachelor celebrations
+                  </p>
+                </div>
+                <div className="grid gap-6 md:grid-cols-2">
+                  {bachelorReviews.map((review) => (
+                    <Card key={review.id} className="rounded-xl hover:shadow-lg transition-shadow" data-testid={`review-card-${review.id}`}>
+                      <CardHeader>
+                        <div className="flex items-start justify-between">
+                          <div>
+                            <CardTitle className="text-lg font-bold text-gray-900 dark:text-white">
+                              {review.name}
+                            </CardTitle>
+                            <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                              {review.role}
+                            </p>
+                          </div>
+                          {review.verified && (
+                            <Badge variant="secondary" className="bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-200">
+                              <CheckCircle className="w-3 h-3 mr-1" />
+                              Verified
+                            </Badge>
+                          )}
+                        </div>
+                        <div className="flex items-center gap-2 mt-2">
+                          <div className="flex">
+                            {[...Array(review.rating)].map((_, i) => (
+                              <Star key={i} className="h-4 w-4 fill-yellow-500 text-yellow-500" />
+                            ))}
+                          </div>
+                          <span className="text-sm text-gray-500 dark:text-gray-400">{review.date}</span>
+                        </div>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                          {review.text}
+                        </p>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </TabsContent>
+            </Tabs>
+          </div>
+        </section>
+      </SectionReveal>
+
+      {/* FAQ Section */}
+      <SectionReveal>
+        <section className="py-24 bg-gray-50 dark:bg-gray-900">
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
               <h2 className="text-3xl font-playfair font-bold mb-6 text-gray-900 dark:text-white">

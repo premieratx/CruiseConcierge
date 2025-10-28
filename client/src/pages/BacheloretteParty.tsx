@@ -362,10 +362,10 @@ const faqItems = [
 
 
 // Import real reviews from shared/reviews-data.ts
-import { bacheloretteReviews, type Review } from '@shared/reviews-data';
+import { bacheloretteReviews, combinedBachReviews, type Review } from '@shared/reviews-data';
 
-// Use bacheloretteReviews for Bachelorette Party page
-const brideTestimonials: Review[] = bacheloretteReviews;
+// Use bacheloretteReviews + combinedBachReviews for Bachelorette Party page
+const brideTestimonials: Review[] = [...bacheloretteReviews, ...combinedBachReviews];
 
 // Photo gallery items
 const galleryPhotos = [

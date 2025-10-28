@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useLocation } from 'wouter';
 import { Play, Quote, Star } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -68,6 +69,7 @@ export function VideoTestimonials({
   description = "Real stories from real parties. Watch what makes Premier Party Cruises the #1 choice for Lake Travis celebrations.",
   className,
 }: VideoTestimonialsProps) {
+  const [, navigate] = useLocation();
   const [selectedVideo, setSelectedVideo] = useState<VideoTestimonial | null>(null);
 
   return (
@@ -195,7 +197,7 @@ export function VideoTestimonials({
           <Button 
             size="lg"
             className="bg-gradient-to-r from-brand-blue to-purple-600 hover:from-brand-blue/90 hover:to-purple-600/90 text-white font-bold px-8 py-6 text-lg"
-            onClick={() => window.location.href = '/chat'}
+            onClick={() => navigate('/chat')}
             data-testid="button-book-after-testimonials"
           >
             Book Your Cruise Now

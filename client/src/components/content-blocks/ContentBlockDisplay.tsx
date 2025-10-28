@@ -1,4 +1,5 @@
 import { SelectContentBlock } from "@shared/schema";
+import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -7,6 +8,8 @@ interface ContentBlockDisplayProps {
 }
 
 export function ContentBlockDisplay({ block }: ContentBlockDisplayProps) {
+  const [, navigate] = useLocation();
+  
   switch (block.type) {
     case 'text':
       return (
@@ -81,7 +84,11 @@ export function ContentBlockDisplay({ block }: ContentBlockDisplayProps) {
               if (ctaData.href) {
                 if (ctaData.openInNewTab) {
                   window.open(ctaData.href, '_blank', 'noopener,noreferrer');
+                } else if (ctaData.href.startsWith('/')) {
+                  // Internal navigation using wouter
+                  navigate(ctaData.href);
                 } else {
+                  // External link
                   window.location.href = ctaData.href;
                 }
               }
