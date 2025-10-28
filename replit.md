@@ -382,6 +382,8 @@ Premier Party Cruises is Austin's premier party boat rental service on Lake Trav
 - **Blog Pagination Fixed**: Resolved critical bug where all 4 pagination pages showed identical content, making 74.4% of blog posts undiscoverable. Now properly reads URL ?page=X parameter and updates URL on pagination. All 78 blog posts now accessible.
 - **Schema Validation**: Removed all fabricated statistics (10,000+ parties, 100% satisfaction) from website. Fixed Google Rich Results errors by adding missing itemReviewed fields and correcting review counts (150K customers ≠ 150K reviews).
 - **Blog API Routing Fixed (Oct 28)**: Fixed critical route registration order in server/index.ts - API routes now register BEFORE static file serving and catch-all handlers. All 139 blog posts (78 PostgreSQL + 61 Replit DB) now load correctly in both preview and production.
+- **Ice/Cooler Messaging Updated (Oct 28)**: Fixed 100+ instances across entire website to clarify standard packages provide EMPTY coolers (BYO ice OR Party On Delivery option) while Essentials/Ultimate packages include ice. Removed all "coolers with ice" references from standard package descriptions.
+- **Captain Messaging Standardized (Oct 28)**: Updated 40+ files across website to use exact phrase "Licensed, fun, experienced captains to take your group safely around the lake in style" everywhere, replacing all variations of "Coast Guard certified captains", "USCG captains", and other captain descriptions. Verified in both preview AND production.
 
 ---
 
