@@ -206,8 +206,8 @@ const experienceTimeline = [
     color: 'from-orange-500 to-yellow-500'
   },
   {
-    time: 'Step 4: Quick Safety Briefing',
-    title: '"Don\'t Be a Dick & Don\'t Die"',
+    time: 'Step 4: Quick Safety Briefing and Departure - 45-min Tour of Lake Travis',
+    title: '"Let\'s Cruise"',
     description: 'Cruise 30-45 minutes to the swim spot while captain gives swimming safety briefing. Simple rules for maximum fun and safety on the water.',
     icon: Shield,
     color: 'from-yellow-500 to-blue-500'
