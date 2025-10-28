@@ -26,7 +26,7 @@ export class PasswordService {
   }
 }
 
-export function setupAuth(app: Express, storage: any) {
+export function setupAuth(app: Express, storage?: any) {
   const sessionSecret = process.env.SESSION_SECRET || "fallback-dev-secret-change-in-production";
   
   if (!process.env.SESSION_SECRET) {
@@ -62,7 +62,9 @@ export function setupAuth(app: Express, storage: any) {
       },
       async (email, password, done) => {
         try {
-          const user = await storage.getUserByEmail(email);
+          // Lazy load storage to avoid async initialization issues
+          const { storage: storageInstance } = await import("./storage");
+          const user = await storageInstance.getUserByEmail(email);
           
           if (!user) {
             return done(null, false, { message: "Invalid email or password" });
@@ -78,7 +80,7 @@ export function setupAuth(app: Express, storage: any) {
             return done(null, false, { message: "Invalid email or password" });
           }
 
-          await storage.updateUserLastLogin(user.id);
+          await storageInstance.updateUserLastLogin(user.id);
 
           return done(null, {
             id: user.id,
@@ -101,7 +103,9 @@ export function setupAuth(app: Express, storage: any) {
 
   passport.deserializeUser(async (id: number, done) => {
     try {
-      const user = await storage.getUser(id);
+      // Lazy load storage to avoid async initialization issues
+      const { storage: storageInstance } = await import("./storage");
+      const user = await storageInstance.getUser(id);
       
       if (!user) {
         return done(null, false);
