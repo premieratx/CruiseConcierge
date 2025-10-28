@@ -608,7 +608,7 @@ export default function Home() {
                 Austin Party Boat Rentals on Lake Travis
               </h1>
               <h2 className="text-xl sm:text-2xl md:text-3xl text-brand-yellow font-semibold leading-relaxed" data-editable data-editable-id="hero-tagline">
-                Lake Travis Party Boat for Bachelor & Bachelorette Parties in Austin
+                Lake Travis Party Boat Rentals in Austin, TX - Hosting the BEST Parties on Lake Travis Since 2009
               </h2>
             </motion.div>
 
