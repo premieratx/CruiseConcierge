@@ -576,10 +576,10 @@ export default function Home() {
           >
             <source src="/attached_assets/Boat_Video_Walkthrough_Generated_1761209219959.mp4" type="video/mp4" />
           </video>
-          {/* Strong dark overlay for better text contrast */}
-          <div className="absolute inset-0 bg-gradient-to-br from-black/80 via-black/70 to-black/60" />
+          {/* Lighter overlay for bright and happy feel */}
+          <div className="absolute inset-0 bg-gradient-to-br from-black/40 via-black/30 to-black/20" />
           {/* Additional blue tint overlay for brand color */}
-          <div className="absolute inset-0 bg-blue-900/20" />
+          <div className="absolute inset-0 bg-blue-900/10" />
         </div>
 
 
@@ -607,9 +607,9 @@ export default function Home() {
               <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold font-playfair mb-6 leading-tight" data-editable data-editable-id="hero-title">
                 Austin Party Boat Rentals on Lake Travis
               </h1>
-              <p className="text-xl sm:text-2xl md:text-3xl text-brand-yellow font-semibold leading-relaxed" data-editable data-editable-id="hero-tagline">
-                Premier Party Cruises Since 2009
-              </p>
+              <h2 className="text-xl sm:text-2xl md:text-3xl text-brand-yellow font-semibold leading-relaxed" data-editable data-editable-id="hero-tagline">
+                Lake Travis Party Boat for Bachelor & Bachelorette Parties in Austin
+              </h2>
             </motion.div>
 
             {/* Pricing Value Proposition */}
@@ -910,7 +910,7 @@ export default function Home() {
                     {/* Urgency Text */}
                     <div className="bg-red-50 border border-red-200 rounded-lg p-3 text-center">
                       <p className="text-red-600 text-sm font-semibold">
-                        ⏰ Books 2-3 weeks out • {service.id === 'bachelor' ? 'Weekends sell out fast!' : 'Limited availability'}
+                        ⏰ Books 8-10 weeks before the date • {service.id === 'bachelor' ? 'Weekends sell out fast!' : 'Limited availability'}
                       </p>
                     </div>
 

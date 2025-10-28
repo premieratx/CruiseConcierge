@@ -115,7 +115,7 @@ const atxDiscoPackages = [
     description: 'Our most popular package with VIP perks for your crew',
     subtitle: 'VIP treatment while partying with other groups',
     features: [
-      '🎉 GROOM CRUISES FREE with this package!',
+      '🎉 GROOM CRUISES FREE with Disco King & Super Sparkle Package ONLY',
       'Private cooler with ice just for your crew',
       'Reserved seating area for your boys',
       'Disco ball cup & party gear for groom',
@@ -138,7 +138,7 @@ const atxDiscoPackages = [
     description: 'VIP treatment with all the extras',
     subtitle: 'The ultimate ATX Disco experience',
     features: [
-      '🎉 GROOM CRUISES FREE with this package!',
+      '🎉 GROOM CRUISES FREE with Disco King & Super Sparkle Package ONLY',
       'Personal unicorn float for the groom',
       'Drink bar setup with supplies',
       'SPF-50 spray sunscreen provided',
@@ -582,31 +582,6 @@ export default function BachelorParty() {
               <span className="text-sm sm:text-base md:text-lg lg:text-xl">The Highlight of Your Weekend Every. Damn. Time.</span>
             </motion.p>
 
-            {/* Groom Cruises Free Banner */}
-            <motion.div 
-              variants={fadeInUp}
-              className="bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg p-4 mb-6 max-w-xl mx-auto"
-            >
-              <div className="flex items-center justify-center space-x-2">
-                <Trophy className="h-6 w-6 flex-shrink-0" />
-                <span className="font-bold text-lg">GROOM CRUISES FREE with Disco King & Super Sparkle!</span>
-                <Trophy className="h-6 w-6 flex-shrink-0" />
-              </div>
-            </motion.div>
-
-            {/* Enhanced Scarcity Banner with Specific Urgency */}
-            <motion.div 
-              variants={fadeInUp}
-              className="bg-red-600/90 backdrop-blur-sm rounded-lg p-6 mb-8 max-w-2xl mx-auto"
-            >
-              <div className="flex items-center justify-center space-x-2 mb-2">
-                <AlertCircle className="h-6 w-6 animate-pulse flex-shrink-0" />
-                <span className="font-bold text-lg">Austin's #1 Bachelor Destination Books FAST!</span>
-              </div>
-              <p className="text-base">Peak bachelor season (March-October) sells out 4-6 weeks early</p>
-              <p className="text-sm mt-2 text-yellow-200">Join 75,000+ grooms who chose Premier Party Cruises</p>
-            </motion.div>
-
             <motion.div 
               variants={fadeInUp}
               className="flex flex-col sm:flex-row gap-4 justify-center"
@@ -640,6 +615,23 @@ export default function BachelorParty() {
             <p className="text-center text-gray-900 text-lg md:text-xl font-bold">
               Just <span className="text-blue-600">SHOW UP & GET DOWN</span> - Everything Included!
             </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Subtle Tagline Section - Below Hero */}
+      <section className="py-8 bg-gradient-to-b from-gray-50 to-white">
+        <div className="max-w-5xl mx-auto px-6">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center text-center">
+            <div className="flex items-center gap-2 text-gray-700">
+              <Trophy className="h-5 w-5 text-blue-600" />
+              <span className="text-sm font-medium">GROOM CRUISES FREE with Disco King & Super Sparkle Package ONLY</span>
+            </div>
+            <span className="hidden sm:inline text-gray-300">|</span>
+            <div className="flex items-center gap-2 text-gray-700">
+              <AlertCircle className="h-5 w-5 text-orange-500" />
+              <span className="text-sm font-medium">Popular weekends book 8-10 weeks before the date</span>
+            </div>
           </div>
         </div>
       </section>
@@ -750,153 +742,6 @@ export default function BachelorParty() {
                     Learn More About Private
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Button>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-        </section>
-      </SectionReveal>
-
-      {/* VALUE STACKING SECTION - HORMOZI/MCDOWELL */}
-      <SectionReveal>
-        <section id="value-stack" className="py-20 bg-white">
-          <div className="max-w-7xl mx-auto px-6">
-            <div className="text-center mb-16">
-              <Badge className="mb-6 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
-                <Swords className="h-4 w-4 mr-2 inline" />
-                Create Your Legendary Send-Off Weekend
-              </Badge>
-              <h2 className="text-4xl md:text-5xl font-bold font-playfair text-center mb-6 text-gray-900 leading-tight">
-                The Real Value of Your Bachelor Party
-              </h2>
-              <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
-                What you're really getting vs. what you pay
-              </p>
-            </div>
-
-            <div className="max-w-4xl mx-auto">
-              <Card className="border-4 border-blue-300 shadow-2xl overflow-hidden">
-                <CardHeader className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-8">
-                  <CardTitle className="text-3xl font-bold text-center">Your Complete Bachelor Experience</CardTitle>
-                  <CardDescription className="text-white text-center text-lg mt-2">Everything you need for the legendary send-off</CardDescription>
-                </CardHeader>
-                <CardContent className="p-8 space-y-6">
-                  {/* Value Stack Items */}
-                  <div className="space-y-4">
-                    <div className="flex items-center justify-between p-4 bg-blue-50 rounded-lg">
-                      <div className="flex items-center gap-4">
-                        <CheckCircle className="h-8 w-8 text-blue-600 flex-shrink-0" />
-                        <div>
-                          <p className="font-bold text-lg">Professional Party Planning</p>
-                          <p className="text-gray-600">Expert coordination & logistics handled</p>
-                        </div>
-                      </div>
-                      <div className="text-right">
-                        <p className="text-2xl font-bold text-gray-500 line-through">$500</p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center justify-between p-4 bg-purple-50 rounded-lg">
-                      <div className="flex items-center gap-4">
-                        <CheckCircle className="h-8 w-8 text-purple-600 flex-shrink-0" />
-                        <div>
-                          <p className="font-bold text-lg">Stress-Free Crew Coordination</p>
-                          <p className="text-gray-600">No herding cats or planning nightmares</p>
-                        </div>
-                      </div>
-                      <div className="text-right">
-                        <p className="text-2xl font-bold text-gray-500 line-through">$300</p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center justify-between p-4 bg-blue-50 rounded-lg">
-                      <div className="flex items-center gap-4">
-                        <CheckCircle className="h-8 w-8 text-blue-600 flex-shrink-0" />
-                        <div>
-                          <p className="font-bold text-lg">Professional DJ & Photography</p>
-                          <p className="text-gray-600">Epic beats & memories captured forever</p>
-                        </div>
-                      </div>
-                      <div className="text-right">
-                        <p className="text-2xl font-bold text-gray-500 line-through">$800</p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center justify-between p-4 bg-purple-50 rounded-lg">
-                      <div className="flex items-center gap-4">
-                        <CheckCircle className="h-8 w-8 text-purple-600 flex-shrink-0" />
-                        <div>
-                          <p className="font-bold text-lg">Premium Lake Travis Location</p>
-                          <p className="text-gray-600">Access to exclusive party spots</p>
-                        </div>
-                      </div>
-                      <div className="text-right">
-                        <p className="text-2xl font-bold text-gray-500 line-through">$400</p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center justify-between p-4 bg-blue-50 rounded-lg">
-                      <div className="flex items-center gap-4">
-                        <CheckCircle className="h-8 w-8 text-blue-600 flex-shrink-0" />
-                        <div>
-                          <p className="font-bold text-lg">All Party Equipment & Supplies</p>
-                          <p className="text-gray-600">Floats, coolers, party gear included</p>
-                        </div>
-                      </div>
-                      <div className="text-right">
-                        <p className="text-2xl font-bold text-gray-500 line-through">$350</p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center justify-between p-4 bg-gradient-to-r from-blue-100 to-purple-100 rounded-lg border-2 border-blue-400">
-                      <div className="flex items-center gap-4">
-                        <Beer className="h-8 w-8 text-blue-600 flex-shrink-0" />
-                        <div>
-                          <p className="font-bold text-lg">Legendary Bachelor Memories</p>
-                          <p className="text-gray-600">The send-off you'll talk about forever</p>
-                        </div>
-                      </div>
-                      <div className="text-right">
-                        <p className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">PRICELESS</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Total Value */}
-                  <div className="border-t-2 border-gray-200 pt-6 mt-6">
-                    <div className="flex items-center justify-between mb-4">
-                      <p className="text-xl font-bold">Total Real Value:</p>
-                      <p className="text-3xl font-bold text-gray-500 line-through">$2,350+</p>
-                    </div>
-                    <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg p-6 text-white">
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <p className="text-xl font-bold">Your Price Today:</p>
-                          <p className="text-sm opacity-90">Per person, all-inclusive</p>
-                        </div>
-                        <div className="text-right">
-                          <p className="text-5xl font-bold">$85</p>
-                          <p className="text-sm opacity-90">Crew discounts available!</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* CTA */}
-                  <div className="text-center mt-8">
-                    <Button
-                      size="lg"
-                      onClick={() => handleGetQuote('disco_king')}
-                      className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold text-xl px-12 py-6 transform hover:scale-105 transition-all"
-                    >
-                      <Sparkles className="mr-2 h-6 w-6" />
-                      Reserve Your Crew's Legendary Send-Off
-                    </Button>
-                    <p className="text-sm text-gray-600 mt-4">
-                      <AlertCircle className="h-4 w-4 inline mr-1" />
-                      Peak weekends book 8-12 weeks for priority time slots - once they book they\'re gone!
-                    </p>
-                  </div>
                 </CardContent>
               </Card>
             </div>
@@ -1264,7 +1109,7 @@ export default function BachelorParty() {
                 <CardContent className="text-center">
                   <p className="text-3xl font-bold text-blue-600 mb-3">March - October</p>
                   <p className="text-sm text-gray-600 leading-relaxed">
-                    Saturdays book 6+ weeks out. Lock in your date ASAP.
+                    Saturdays book 8-10 weeks before the date. Lock in your date ASAP.
                   </p>
                 </CardContent>
               </Card>
@@ -1698,7 +1543,7 @@ export default function BachelorParty() {
             Ready for Your Legendary Bachelor Party?
           </h2>
           <p className="text-xl text-white/90 mb-10 max-w-3xl mx-auto">
-            Join 75,000+ grooms who chose Premier Party Cruises for their Lake Travis send-off
+            Join 150,000+ happy customers who chose Premier Party Cruises for their Lake Travis send-off
           </p>
           
           <div className="flex flex-col sm:flex-row gap-6 justify-center">

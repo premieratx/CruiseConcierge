@@ -446,22 +446,6 @@ export default function ATXDiscoCruise() {
                 The single most unique and comprehensive <InternalLinkHighlight href="/bachelor-party" title="Bachelor Parties">bachelor</InternalLinkHighlight>/<InternalLinkHighlight href="/bachelorette-party" title="Bachelorette Parties">bachelorette party</InternalLinkHighlight> experience in the United States
               </p>
               
-              {/* Urgency & Social Proof Badges */}
-              <div className="flex flex-col sm:flex-row gap-3 justify-center mb-6">
-                <Badge className="bg-red-600 text-white px-4 py-2 text-sm font-bold animate-pulse">
-                  <AlertCircle className="h-4 w-4 mr-2 inline" />
-                  Book 8-12 weeks for priority time slots - once they book they\'re gone!
-                </Badge>
-                <Badge className="bg-green-600 text-white px-4 py-2 text-sm font-bold">
-                  <Star className="h-4 w-4 mr-2 inline" />
-                  420+ Five-Star Reviews
-                </Badge>
-                <Badge className="bg-blue-600 text-white px-4 py-2 text-sm font-bold">
-                  <Users className="h-4 w-4 mr-2 inline" />
-                  150,000+ Happy Customers
-                </Badge>
-              </div>
-              
               {/* Important Notice - Moved from above */}
               <p className="text-sm sm:text-base md:text-lg text-white/80 mb-6 md:mb-8 max-w-3xl mx-auto text-center px-2" data-testid="text-hero-description">
                 <strong>NOT a private cruise - this is a shared multi-group celebration!</strong> Join 50-100+ people from different bachelor & bachelorette parties for an unforgettable 4-hour Lake Travis party with professional DJ, photographer, and giant floats! <InternalLinkHighlightWithArrow href="/private-cruises" title="Private Cruises">Want exclusivity? Book a private charter instead</InternalLinkHighlightWithArrow>
@@ -501,6 +485,28 @@ export default function ATXDiscoCruise() {
             </div>
           </div>
         </motion.section>
+
+        {/* Subtle Tagline Section - Below Hero */}
+        <section className="py-8 bg-gradient-to-b from-gray-50 to-white">
+          <div className="max-w-5xl mx-auto px-6">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center text-center">
+              <div className="flex items-center gap-2 text-gray-700">
+                <Star className="h-5 w-5 text-green-600" />
+                <span className="text-sm font-medium">420+ Five-Star Reviews</span>
+              </div>
+              <span className="hidden sm:inline text-gray-300">|</span>
+              <div className="flex items-center gap-2 text-gray-700">
+                <Users className="h-5 w-5 text-blue-600" />
+                <span className="text-sm font-medium">150,000+ Happy Customers</span>
+              </div>
+              <span className="hidden sm:inline text-gray-300">|</span>
+              <div className="flex items-center gap-2 text-gray-700">
+                <AlertCircle className="h-5 w-5 text-orange-500" />
+                <span className="text-sm font-medium">Books 8-10 weeks before the date</span>
+              </div>
+            </div>
+          </div>
+        </section>
 
         {/* Table of Contents */}
         <TableOfContents sections={tocSections} />
@@ -1054,7 +1060,7 @@ export default function ATXDiscoCruise() {
                   </CardHeader>
                   <CardContent className="text-center">
                     <p className="text-gray-700 leading-relaxed mb-4">
-                      <strong>Book 4-6 weeks ahead</strong> for peak weekends. Last-minute spots sometimes available during off-season.
+                      <strong>Book 8-10 weeks before the date</strong> for peak weekends. Last-minute spots sometimes available during off-season.
                     </p>
                     <Badge className="bg-red-600 text-white">
                       Peak Season Sells Out

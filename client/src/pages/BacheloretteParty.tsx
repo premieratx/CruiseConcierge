@@ -116,7 +116,7 @@ const atxDiscoPackages = [
     description: 'Our most popular package with extra perks for your group',
     subtitle: 'VIP treatment while partying with other groups',
     features: [
-      '🎉 BRIDE CRUISES FREE with this package!',
+      '🎉 BRIDE CRUISES FREE with Disco Queen & Super Sparkle Package ONLY',
       'Private cooler with ice just for your group',
       'Reserved seating area for your tribe',
       'Disco ball cup & bubble gun for bride',
@@ -139,7 +139,7 @@ const atxDiscoPackages = [
     description: 'VIP treatment with all the extras',
     subtitle: 'The ultimate ATX Disco experience',
     features: [
-      '🎉 BRIDE CRUISES FREE with this package!',
+      '🎉 BRIDE CRUISES FREE with Disco Queen & Super Sparkle Package ONLY',
       'Personal unicorn float for the bride',
       'Mimosa bar setup with supplies',
       'SPF-50 spray sunscreen provided',
@@ -585,31 +585,6 @@ export default function BacheloretteParty() {
               <span className="text-sm sm:text-base md:text-lg lg:text-xl">The Highlight of Your Weekend Every. Damn. Time.</span>
             </motion.p>
 
-            {/* Special Bride Free Offer */}
-            <motion.div 
-              variants={fadeInUp}
-              className="bg-gradient-to-r from-pink-500 to-purple-600 rounded-lg p-6 mb-6 max-w-2xl mx-auto"
-            >
-              <div className="flex items-center justify-center space-x-2">
-                <Heart className="h-6 w-6 fill-current flex-shrink-0" />
-                <span className="font-bold text-lg">BRIDE CRUISES FREE with Disco Queen & Platinum!</span>
-                <Heart className="h-6 w-6 fill-current flex-shrink-0" />
-              </div>
-            </motion.div>
-
-            {/* Enhanced Scarcity Banner with Specific Urgency */}
-            <motion.div 
-              variants={fadeInUp}
-              className="bg-red-600/90 backdrop-blur-sm rounded-lg p-6 mb-8 max-w-2xl mx-auto"
-            >
-              <div className="flex items-center justify-center space-x-2 mb-2">
-                <AlertCircle className="h-6 w-6 animate-pulse flex-shrink-0" />
-                <span className="font-bold text-lg">Austin's #1 Bachelorette Destination Books FAST!</span>
-              </div>
-              <p className="text-base">Peak bachelorette season (March-October) sells out 4-6 weeks early</p>
-              <p className="text-sm mt-2 text-yellow-200">Join 75,000+ brides who chose Premier Party Cruises</p>
-            </motion.div>
-
             <motion.div 
               variants={fadeInUp}
               className="flex flex-col sm:flex-row gap-4 justify-center"
@@ -643,6 +618,23 @@ export default function BacheloretteParty() {
             <p className="text-center text-gray-900 text-lg md:text-xl font-bold">
               Just <span className="text-pink-600">SHOW UP & GET DOWN</span> - Everything Included!
             </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Subtle Tagline Section - Below Hero */}
+      <section className="py-8 bg-gradient-to-b from-gray-50 to-white">
+        <div className="max-w-5xl mx-auto px-6">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center text-center">
+            <div className="flex items-center gap-2 text-gray-700">
+              <Heart className="h-5 w-5 text-pink-600" />
+              <span className="text-sm font-medium">BRIDE CRUISES FREE with Disco Queen & Super Sparkle Package ONLY</span>
+            </div>
+            <span className="hidden sm:inline text-gray-300">|</span>
+            <div className="flex items-center gap-2 text-gray-700">
+              <AlertCircle className="h-5 w-5 text-orange-500" />
+              <span className="text-sm font-medium">Popular weekends book 8-10 weeks before the date</span>
+            </div>
           </div>
         </div>
       </section>
@@ -1592,7 +1584,7 @@ export default function BacheloretteParty() {
                 </CardHeader>
                 <CardContent className="text-center">
                   <p className="text-gray-700 leading-relaxed mb-4">
-                    <strong>Book 4-6 weeks ahead</strong> for peak weekends. Last-minute spots sometimes available for weekdays and off-season.
+                    <strong>Book 8-10 weeks before the date</strong> for peak weekends. Last-minute spots sometimes available for weekdays and off-season.
                   </p>
                   <Badge className="bg-red-600 text-white">
                     Peak Season Sells Out

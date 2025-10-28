@@ -292,7 +292,7 @@ const testimonials: Review[] = privateCruiseReviews;
 
 // Urgency Indicators
 const urgencyIndicators = [
-  { text: 'Prime weekend slots book 4-6 weeks out', icon: Calendar },
+  { text: 'Prime weekend slots book 8-10 weeks before the date', icon: Calendar },
   { text: 'Only 3 premium boats in our fleet', icon: Ship },
   { text: 'Corporate teams book months in advance', icon: Briefcase },
   { text: 'Peak season filling fast (May-Sept)', icon: TrendingUp }
