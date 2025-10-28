@@ -124,85 +124,85 @@ app.use(express.text({ type: 'text/html' }));
 // Set up authentication
 setupAuth(app);
 
-// Serve attached_assets folder for videos and media
-const attachedAssetsDir = path.join(process.cwd(), 'attached_assets');
-if (fs.existsSync(attachedAssetsDir)) {
-  app.use('/attached_assets', express.static(attachedAssetsDir, {
-    maxAge: '7d',
-    etag: true,
-    lastModified: true,
-    setHeaders: (res, filepath) => {
-      if (filepath.match(/\.(mp4|webm|mov)$/)) {
-        res.setHeader('Cache-Control', 'public, max-age=604800'); // 7 days for videos
-      }
-    }
-  }));
-}
-
-// ALWAYS serve static files in production
-const currentDir = path.dirname(new URL(import.meta.url).pathname);
-const publicDir = path.join(currentDir, '..', 'dist', 'public');
-
-if (fs.existsSync(publicDir)) {
-  app.use(express.static(publicDir, {
-    maxAge: '30d',
-    etag: true,
-    lastModified: true,
-    setHeaders: (res, filepath) => {
-      if (filepath.endsWith('.html')) {
-        res.setHeader('Cache-Control', 'no-cache, must-revalidate');
-      } else if (filepath.match(/\.(js|css|woff2?|ttf|eot|svg|png|jpg|jpeg|gif|webp)$/)) {
-        res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
-      }
-    }
-  }));
-  
-  // SPA fallback for production
-  app.get('*', (req, res) => {
-    if (!req.path.startsWith('/api')) {
-      res.sendFile(path.join(publicDir, 'index.html'));
-    } else {
-      res.status(404).json({ error: 'API route not found' });
-    }
-  });
-  
-  log('Production build detected - serving static files', 'ssr');
-}
-
-// Global error handler - MUST be last middleware
-app.use((err: any, req: Request, res: Response, next: NextFunction) => {
-  console.error('[ERROR HANDLER] Caught error:', {
-    message: err.message,
-    stack: err.stack,
-    url: req.url,
-    method: req.method,
-    timestamp: new Date().toISOString()
-  });
-  
-  if (res.headersSent) {
-    return;
-  }
-  
-  res.status(err.status || 500).json({
-    error: 'Internal server error',
-    message: process.env.NODE_ENV === 'development' ? err.message : 'Something went wrong',
-    path: req.path,
-    timestamp: new Date().toISOString()
-  });
-});
-
 // CRITICAL FOR DEPLOYMENT: Register routes FIRST, then listen
 const PORT = process.env.PORT || '5000';
 
 (async () => {
   try {
-    // Register all API routes BEFORE starting server
+    // Register all API routes BEFORE serving static files
     await registerRoutes(app);
     app.use('/api/blog', blogRouter);
     log('✅ All API routes registered');
   } catch (error) {
     log(`⚠️ Route registration failed: ${error}`);
   }
+
+  // Serve attached_assets folder for videos and media
+  const attachedAssetsDir = path.join(process.cwd(), 'attached_assets');
+  if (fs.existsSync(attachedAssetsDir)) {
+    app.use('/attached_assets', express.static(attachedAssetsDir, {
+      maxAge: '7d',
+      etag: true,
+      lastModified: true,
+      setHeaders: (res, filepath) => {
+        if (filepath.match(/\.(mp4|webm|mov)$/)) {
+          res.setHeader('Cache-Control', 'public, max-age=604800'); // 7 days for videos
+        }
+      }
+    }));
+  }
+
+  // ALWAYS serve static files in production
+  const currentDir = path.dirname(new URL(import.meta.url).pathname);
+  const publicDir = path.join(currentDir, '..', 'dist', 'public');
+
+  if (fs.existsSync(publicDir)) {
+    app.use(express.static(publicDir, {
+      maxAge: '30d',
+      etag: true,
+      lastModified: true,
+      setHeaders: (res, filepath) => {
+        if (filepath.endsWith('.html')) {
+          res.setHeader('Cache-Control', 'no-cache, must-revalidate');
+        } else if (filepath.match(/\.(js|css|woff2?|ttf|eot|svg|png|jpg|jpeg|gif|webp)$/)) {
+          res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+        }
+      }
+    }));
+    
+    // SPA fallback for production - MUST be after API routes
+    app.get('*', (req, res) => {
+      if (!req.path.startsWith('/api')) {
+        res.sendFile(path.join(publicDir, 'index.html'));
+      } else {
+        res.status(404).json({ error: 'API route not found' });
+      }
+    });
+    
+    log('Production build detected - serving static files', 'ssr');
+  }
+
+  // Global error handler - MUST be last middleware
+  app.use((err: any, req: Request, res: Response, next: NextFunction) => {
+    console.error('[ERROR HANDLER] Caught error:', {
+      message: err.message,
+      stack: err.stack,
+      url: req.url,
+      method: req.method,
+      timestamp: new Date().toISOString()
+    });
+    
+    if (res.headersSent) {
+      return;
+    }
+    
+    res.status(err.status || 500).json({
+      error: 'Internal server error',
+      message: process.env.NODE_ENV === 'development' ? err.message : 'Something went wrong',
+      path: req.path,
+      timestamp: new Date().toISOString()
+    });
+  });
 
   const server = app.listen(parseInt(PORT, 10), '0.0.0.0', () => {
     log(`Server running on port ${PORT}`);
