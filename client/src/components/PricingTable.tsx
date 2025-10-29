@@ -113,7 +113,7 @@ function getDepositInfo(total: number, isUrgent: boolean = false) {
     depositPercent,
     depositAmount,
     balanceAmount,
-    dueDate: isUrgent ? '48 hours' : '30 days before cruise'
+    dueDate: isUrgent ? '48 hours (or 3 days after booking)' : '14 days before cruise'
   };
 }
 

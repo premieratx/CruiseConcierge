@@ -350,7 +350,8 @@ export function calculateTaxAndGratuity(subtotal: number) {
 
 /**
  * Calculates deposit amount and due dates based on event date and total cost
- * Business Rule: Always 25% deposit, remaining balance due 30 days before event
+ * Business Rule: 25% deposit if booking 14+ days before cruise, 50% if less than 14 days
+ * Remaining balance due: 14 days before cruise date (or within 48 hours/3 days for urgent bookings)
  * @param total Total cost in cents
  * @param eventDate Event date
  * @returns Deposit information including due dates
@@ -359,17 +360,19 @@ export function calculateDeposit(total: number, eventDate: Date) {
   const today = new Date();
   const daysUntilEvent = Math.ceil((eventDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
   
-  // Updated deposit logic based on task specifications:
-  // - Standard: 25% deposit for bookings more than 30 days in advance
-  // - Urgent: 50% deposit for bookings 30 days or less from cruise date
-  const isUrgentBooking = daysUntilEvent <= PRICING_DEFAULTS.URGENCY_THRESHOLD_DAYS;
+  // Updated deposit logic based on NEW policy:
+  // - Standard: 25% deposit for bookings 14+ days before cruise
+  // - Urgent: 50% deposit for bookings less than 14 days before cruise
+  const isUrgentBooking = daysUntilEvent < 14;
   const depositPercent = isUrgentBooking ? 50 : PRICING_DEFAULTS.DEPOSIT_PERCENT; // 50% for urgent, 25% for standard
   const depositAmount = Math.floor(total * (depositPercent / 100));
   const balanceDue = total - depositAmount;
   
-  // Calculate when remaining balance is due (30 days before event)
+  // Calculate when remaining balance is due
+  // Standard: 14 days before event
+  // Urgent: within 48 hours (or 3 days after booking)
   const remainingBalanceDueAt = new Date(eventDate);
-  remainingBalanceDueAt.setDate(remainingBalanceDueAt.getDate() - 30);
+  remainingBalanceDueAt.setDate(remainingBalanceDueAt.getDate() - 14);
   
   // If the due date has already passed, set it to today
   const finalDueDate = remainingBalanceDueAt < today ? today : remainingBalanceDueAt;
@@ -381,7 +384,7 @@ export function calculateDeposit(total: number, eventDate: Date) {
     remainingBalanceDueAt: finalDueDate,
     isFullPaymentRequired: false, // Never require full payment upfront
     isUrgentBooking,
-    paymentWindow: isUrgentBooking ? 48 : null, // 48 hours to pay for urgent bookings
+    paymentWindow: isUrgentBooking ? 48 : null, // 48 hours (or 3 days) to pay for urgent bookings
     daysUntilEvent,
     daysUntilBalanceDue: Math.ceil((finalDueDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24))
   };

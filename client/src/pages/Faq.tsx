@@ -76,7 +76,7 @@ const faqCategories: FAQCategory[] = [
       {
         id: 'deposit',
         question: 'What\'s required to secure my boat rental reservation?',
-        answer: 'A 50% deposit secures your reservation, with the remaining balance due 7 days before your cruise. We accept all major credit cards. For groups wanting to split payments, we offer convenient payment splitting options at checkout. Corporate clients can request invoicing for approved accounts.'
+        answer: 'If booking 14+ days before cruise: 25% deposit required, remaining balance due 14 days before cruise. If booking less than 14 days before cruise: 50% deposit required, remaining balance due within 48 hours of booking (or 3 days after booking). We accept all major credit cards. For groups wanting to split payments, we offer convenient payment splitting options at checkout. Corporate clients can request invoicing for approved accounts.'
       },
       {
         id: 'changes',

@@ -323,7 +323,7 @@ const faqItems = [
   {
     id: 'deposit',
     question: 'How much is the deposit?',
-    answer: '25% deposit required if booking more than 30 days out. Full payment required if booking within 30 days of cruise date. Flexible payment options available.'
+    answer: 'If booking 14+ days before cruise: 25% deposit required, remaining balance due 14 days before cruise. If booking less than 14 days before cruise: 50% deposit required, remaining balance due within 48 hours of booking (or 3 days after booking). Flexible payment options available.'
   },
   {
     id: 'corporate-invoicing',

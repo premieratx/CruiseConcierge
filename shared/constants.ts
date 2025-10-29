@@ -524,7 +524,7 @@ export const PRICING_DEFAULTS = {
   TAX_RATE_BASIS_POINTS: 825, // 8.25%
   GRATUITY_PERCENT: 20, // Updated to 20% as per requirements
   DEPOSIT_PERCENT: 25,
-  URGENCY_THRESHOLD_DAYS: 30,
+  URGENCY_THRESHOLD_DAYS: 14, // Changed from 30 to 14 days
   FULL_PAYMENT_THRESHOLD_DAYS: 14,
   BASE_HOURLY_RATE: 20000, // $200.00 in cents (minimum rate)
   CREW_FEE_26_30: 20000, // $200 crew fee for 16+ people on Me Seeks The Irony (25-30 boat)
@@ -1038,30 +1038,30 @@ export const PRICING_POLICIES = {
   deposit: {
     standard: {
       percentage: 25,
-      description: 'Standard deposit for bookings made more than 30 days in advance',
+      description: 'Standard deposit for bookings made 14+ days before cruise',
       balancePercentage: 75,
-      balanceDueDays: 30,
-      title: 'Standard Booking',
-      subtitle: '25% deposit to secure, 75% due 30 days before cruise'
+      balanceDueDays: 14,
+      title: 'Standard Booking (14+ days before cruise)',
+      subtitle: '25% deposit to secure, 75% due 14 days before cruise'
     },
     urgent: {
       percentage: 50,
-      description: 'Higher deposit required for bookings made 30 days or less from cruise date',
+      description: 'Higher deposit required for bookings made less than 14 days before cruise',
       paymentWindow: 48, // hours to pay after booking
       balancePercentage: 50,
-      balanceDueDays: 2, // 48 hours = 2 days
-      title: 'Urgent Booking',
-      subtitle: '50% deposit required, balance due within 48 hours'
+      balanceDueDays: 3, // 3 days after booking or 48 hours
+      title: 'Urgent Booking (less than 14 days before cruise)',
+      subtitle: '50% deposit required, balance due within 48 hours or 3 days after booking'
     }
   },
   balance: {
-    standardDueDays: 30, // days before cruise when remaining balance is due
-    description: 'Remaining balance due 30 days before cruise date',
+    standardDueDays: 14, // days before cruise when remaining balance is due
+    description: 'Remaining balance due 14 days before cruise date',
     urgentDueHours: 48, // hours for urgent bookings
-    urgentDescription: 'Balance due within 48 hours for urgent bookings'
+    urgentDescription: 'Balance due within 48 hours of booking (or 3 days after booking)'
   },
   thresholds: {
-    urgentBookingDays: 30, // booking within this many days requires higher deposit
+    urgentBookingDays: 14, // booking within this many days requires higher deposit
     fullPaymentDays: 14, // booking within this many days may require full payment
   },
   paymentTerms: {

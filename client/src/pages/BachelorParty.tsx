@@ -1179,7 +1179,7 @@ export default function BachelorParty() {
                   <div className="flex-1">
                     <h4 className="text-xl font-bold text-gray-900 mb-2">Pay Deposit & Confirm</h4>
                     <p className="text-gray-700 leading-relaxed">
-                      Secure your booking with a 50% deposit. Final payment due 48 hours before the cruise. Full refund within 48 hours of booking.
+                      If booking 14+ days before cruise: 25% deposit, balance due 14 days before cruise. If less than 14 days: 50% deposit, balance due within 48 hours of booking (or 3 days after booking). Full refund within 48 hours of booking.
                     </p>
                   </div>
                 </div>

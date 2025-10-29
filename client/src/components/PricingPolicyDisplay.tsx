@@ -151,7 +151,7 @@ export function PricingPolicyDisplay({
                 <ul className="text-xs space-y-1 text-muted-foreground">
                   <li>• {PRICING_POLICIES.deposit.standard.percentage}% deposit to secure booking</li>
                   <li>• Remaining {PRICING_POLICIES.deposit.standard.balancePercentage}% due {PRICING_POLICIES.deposit.standard.balanceDueDays} days before cruise</li>
-                  <li>• For bookings made 30+ days in advance</li>
+                  <li>• For bookings made 14+ days in advance</li>
                 </ul>
               </div>
               
@@ -168,7 +168,7 @@ export function PricingPolicyDisplay({
                 <ul className="text-xs space-y-1 text-muted-foreground">
                   <li>• {PRICING_POLICIES.deposit.urgent.percentage}% deposit required</li>
                   <li>• Balance due within {PRICING_POLICIES.deposit.urgent.paymentWindow} hours</li>
-                  <li>• For bookings made ≤30 days from cruise date</li>
+                  <li>• For bookings made less than 14 days from cruise date</li>
                 </ul>
               </div>
             </div>

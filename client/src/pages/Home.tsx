@@ -1129,7 +1129,7 @@ export default function Home() {
               </div>
               <div className="bg-gradient-to-r from-yellow-100 to-orange-100 dark:from-yellow-900/30 dark:to-orange-900/30 rounded-lg p-4 mt-6">
                 <p className="text-sm font-semibold text-center text-gray-800 dark:text-gray-200">
-                  💰 All prices subject to 8.25% tax • 20% gratuity recommended • 50% deposit required to secure booking
+                  💰 All prices subject to 8.25% tax • 20% gratuity recommended • Deposit: 25% if booking 14+ days out, 50% if less than 14 days
                 </p>
               </div>
             </div>

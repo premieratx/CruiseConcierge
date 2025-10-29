@@ -177,7 +177,7 @@ const faqItems = [
   {
     id: 'deposits-payments',
     question: 'How do deposits and payments work?',
-    answer: '25% deposit if >30 days out (balance due 30 days prior). If booking within 30 days, 50% deposit due and remainder within 72 hours.'
+    answer: 'If booking 14+ days before cruise: 25% deposit required, remaining balance due 14 days before cruise. If booking less than 14 days before cruise: 50% deposit required, remaining balance due within 48 hours of booking (or 3 days after booking).'
   },
   {
     id: 'cancellation',
