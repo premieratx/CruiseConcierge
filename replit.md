@@ -384,6 +384,7 @@ Premier Party Cruises is Austin's premier party boat rental service on Lake Trav
 - **Blog API Routing Fixed (Oct 28)**: Fixed critical route registration order in server/index.ts - API routes now register BEFORE static file serving and catch-all handlers. All 139 blog posts (78 PostgreSQL + 61 Replit DB) now load correctly in both preview and production.
 - **Ice/Cooler Messaging Updated (Oct 28)**: Fixed 100+ instances across entire website to clarify standard packages provide EMPTY coolers (BYO ice OR Party On Delivery option) while Essentials/Ultimate packages include ice. Removed all "coolers with ice" references from standard package descriptions.
 - **Captain Messaging Standardized (Oct 28)**: Updated 40+ files across website to use exact phrase "Licensed, fun, experienced captains to take your group safely around the lake in style" everywhere, replacing all variations of "Coast Guard certified captains", "USCG captains", and other captain descriptions. Verified in both preview AND production.
+- **Contact Information Corrected (Oct 29)**: Fixed all phone numbers and email addresses across entire site. Updated 5 files to use correct phone (512) 488-5892 and email clientservices@premierpartycruises.com, replacing incorrect numbers ((512) 900-1821, (512) 123-4567) and emails (bookings@, policies@, emergency@, admin@, hello@). All contact info now pulls from shared/contact.ts constants.
 
 ---
 
