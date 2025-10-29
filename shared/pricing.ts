@@ -108,8 +108,19 @@ export function calculateSimplePricing(
   const gratuity = Math.floor(baseCruiseCost * (PRICING_DEFAULTS.GRATUITY_PERCENT / 100));
   const total = subtotal + tax + gratuity;
   
-  // 6. Calculate deposit using centralized constants
-  const depositPercent = DEPOSIT_POLICIES.PRIVATE;
+  // 6. Calculate deposit based on 14-day urgency policy
+  // Calculate days until event
+  const today = new Date();
+  today.setHours(0, 0, 0, 0); // Reset time for accurate day calculation
+  const eventDate = new Date(date);
+  eventDate.setHours(0, 0, 0, 0);
+  const daysUntilEvent = Math.ceil((eventDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
+  
+  // Determine deposit percentage based on urgency threshold
+  // If event is 14+ days away: 25% deposit
+  // If event is <14 days away: 50% deposit
+  const isUrgent = daysUntilEvent < PRICING_DEFAULTS.URGENCY_THRESHOLD_DAYS;
+  const depositPercent = isUrgent ? 50 : 25;
   const depositAmount = Math.floor(total * (depositPercent / 100));
   
   return {
@@ -137,7 +148,8 @@ export function calculateSimplePricing(
  */
 export function calculateSimpleDiscoPricing(
   selectedDiscoPackage: 'basic' | 'disco_queen' | 'platinum',
-  ticketQuantity: number
+  ticketQuantity: number,
+  eventDate?: Date
 ): {
   subtotal: number;
   discountTotal: number;
@@ -165,8 +177,19 @@ export function calculateSimpleDiscoPricing(
   const gratuity = Math.floor(subtotal * (PRICING_DEFAULTS.GRATUITY_PERCENT / 100));
   const total = subtotal + tax + gratuity;
   
-  // 3. Calculate deposit using centralized constants
-  const depositPercent = DEPOSIT_POLICIES.DISCO;
+  // 3. Calculate deposit based on 14-day urgency policy (same as private cruises)
+  let depositPercent = 25; // Default to 25% if no event date provided
+  if (eventDate) {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const event = new Date(eventDate);
+    event.setHours(0, 0, 0, 0);
+    const daysUntilEvent = Math.ceil((event.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
+    
+    // If event is <14 days away: 50% deposit, otherwise 25%
+    const isUrgent = daysUntilEvent < PRICING_DEFAULTS.URGENCY_THRESHOLD_DAYS;
+    depositPercent = isUrgent ? 50 : 25;
+  }
   const depositAmount = Math.floor(total * (depositPercent / 100));
   
   // 4. Set expiration (2 days from now)

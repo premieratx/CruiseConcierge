@@ -585,9 +585,13 @@ export const ADDON_FEES = {
 /**
  * Deposit Policies by Cruise Type (in percentages)
  */
+// LEGACY CONSTANTS - Used only for validation testing
+// Actual deposit calculations now use 14-day urgency policy:
+// - Events >=14 days away: 25% deposit
+// - Events <14 days away: 50% deposit
 export const DEPOSIT_POLICIES = {
-  PRIVATE: 50,  // 50% deposit for private cruises
-  DISCO: 25     // 25% deposit for disco cruises
+  PRIVATE: 50,  // 50% - matches urgent booking deposit (validation uses today's date)
+  DISCO: 25     // 25% - matches non-urgent booking deposit
 } as const;
 
 /**

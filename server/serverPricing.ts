@@ -70,10 +70,10 @@ const PRICING_CONFIG = {
   TAX_RATE: 0.0825, // 8.25%
   GRATUITY_RATE: 0.20, // 20%
   
-  // Deposit Rules
-  DEPOSIT_THRESHOLD_DAYS: 30,
-  EARLY_DEPOSIT_PERCENT: 0.25, // 25% if >30 days
-  LATE_DEPOSIT_PERCENT: 1.00,  // 100% if <30 days
+  // Deposit Rules - UPDATED TO MATCH 14-DAY POLICY
+  DEPOSIT_THRESHOLD_DAYS: 14,
+  EARLY_DEPOSIT_PERCENT: 0.25, // 25% if >=14 days
+  LATE_DEPOSIT_PERCENT: 0.50,  // 50% if <14 days
   
   // Duration Rules by Day Type
   DURATION_RULES: {
@@ -361,8 +361,9 @@ export async function calculateServerPricing(request: ServerPricingRequest): Pro
   const totalAmountCents = taxableAmountCents + taxAmountCents + gratuityAmountCents;
   
   // Deposit calculation based on event timing (in cents)
-  const requiresFullPayment = daysUntilEvent <= 7; // Full payment if 7 days or less
-  const depositPercent = requiresFullPayment 
+  // Use 14-day threshold: <14 days = 50% deposit, >=14 days = 25% deposit
+  const isUrgent = daysUntilEvent < PRICING_CONFIG.DEPOSIT_THRESHOLD_DAYS;
+  const depositPercent = isUrgent
     ? PRICING_CONFIG.LATE_DEPOSIT_PERCENT 
     : PRICING_CONFIG.EARLY_DEPOSIT_PERCENT;
   const depositAmountCents = Math.round(totalAmountCents * depositPercent);
@@ -423,7 +424,7 @@ export async function calculateServerPricing(request: ServerPricingRequest): Pro
     
     // Deposit Logic (in cents)
     daysUntilEvent,
-    requiresFullPayment,
+    requiresFullPayment: isUrgent, // Renamed for clarity: urgent bookings require higher deposit
     depositPercent,
     depositAmountCents,
     balanceDueCents,

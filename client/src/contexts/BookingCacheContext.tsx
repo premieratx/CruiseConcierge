@@ -227,7 +227,7 @@ export function BookingCacheProvider({ children }: { children: ReactNode }) {
         
         return computed;
       } else if (selections.cruiseType === 'disco') {
-        // Simple disco pricing calculation
+        // Simple disco pricing calculation with urgency-based deposits
         const basePrice = getDiscoBasePrice(selections.discoPackage || 'basic');
         const ticketCount = selections.discoTicketQuantity || 10;
         const subtotal = basePrice * ticketCount;
@@ -235,13 +235,27 @@ export function BookingCacheProvider({ children }: { children: ReactNode }) {
         const gratuity = Math.floor(subtotal * 0.20); // 20%
         const total = subtotal + tax + gratuity;
         
+        // Calculate deposit based on 14-day urgency policy
+        let depositPercent = 25; // Default to 25%
+        if (selections.date) {
+          const today = new Date();
+          today.setHours(0, 0, 0, 0);
+          const eventDate = new Date(selections.date);
+          eventDate.setHours(0, 0, 0, 0);
+          const daysUntilEvent = Math.ceil((eventDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
+          
+          // If event is <14 days away: 50% deposit, otherwise 25%
+          const isUrgent = daysUntilEvent < 14; // URGENCY_THRESHOLD_DAYS
+          depositPercent = isUrgent ? 50 : 25;
+        }
+        
         const pricing = {
           subtotal,
           tax,
           gratuity,
           total,
-          depositAmount: Math.floor(total * 0.25), // 25% deposit
-          depositPercent: 25,
+          depositAmount: Math.floor(total * (depositPercent / 100)),
+          depositPercent,
           perPersonCost: Math.floor(total / ticketCount)
         };
         

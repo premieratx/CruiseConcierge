@@ -64,6 +64,7 @@ interface PricingTableProps {
   dayType?: 'weekday' | 'weekend' | 'saturday';
   groupSize?: number;
   duration?: number;
+  eventDate?: Date; // Optional: for calculating urgency-based deposits
 }
 
 // Schema.org structured data for pricing
@@ -103,6 +104,19 @@ function calculateTotal(basePrice: number, includeGratuity: boolean = true) {
   };
 }
 
+// Calculate if booking is urgent based on event date
+function calculateIsUrgent(eventDate?: Date): boolean {
+  if (!eventDate) return false; // Default to non-urgent if no date provided
+  
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const event = new Date(eventDate);
+  event.setHours(0, 0, 0, 0);
+  const daysUntilEvent = Math.ceil((event.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
+  
+  return daysUntilEvent < PRICING_DEFAULTS.URGENCY_THRESHOLD_DAYS;
+}
+
 // Format deposit information
 function getDepositInfo(total: number, isUrgent: boolean = false) {
   const depositPercent = isUrgent ? 50 : PRICING_DEFAULTS.DEPOSIT_PERCENT;
@@ -113,19 +127,20 @@ function getDepositInfo(total: number, isUrgent: boolean = false) {
     depositPercent,
     depositAmount,
     balanceAmount,
-    dueDate: isUrgent ? '48 hours (or 3 days after booking)' : '14 days before cruise'
+    dueDate: isUrgent ? 'within 48 hours of booking' : '14 days before cruise'
   };
 }
 
 // Disco Cruise Pricing Table
-function DiscoPricingTable({ packages, showTaxAndGratuity = true, showDeposit = true }: { packages: PricingPackage[], showTaxAndGratuity?: boolean, showDeposit?: boolean }) {
+function DiscoPricingTable({ packages, showTaxAndGratuity = true, showDeposit = true, eventDate }: { packages: PricingPackage[], showTaxAndGratuity?: boolean, showDeposit?: boolean, eventDate?: Date }) {
   const { toast } = useToast();
+  const isUrgent = calculateIsUrgent(eventDate);
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
       {packages.map((pkg) => {
         const pricing = calculateTotal(pkg.price * 100); // Convert to cents
-        const deposit = getDepositInfo(pricing.total);
+        const deposit = getDepositInfo(pricing.total, isUrgent);
         const Icon = pkg.icon || Sparkles;
         
         return (
@@ -245,15 +260,18 @@ function PrivateCruisePricingTable({
   groupSize = 20, 
   duration = 4,
   showTaxAndGratuity = true,
-  showDeposit = true 
+  showDeposit = true,
+  eventDate
 }: { 
   dayType?: string;
   groupSize?: number;
   duration?: number;
   showTaxAndGratuity?: boolean;
   showDeposit?: boolean;
+  eventDate?: Date;
 }) {
   const [selectedPackage, setSelectedPackage] = useState('essentials');
+  const isUrgent = calculateIsUrgent(eventDate);
   
   // Determine boat and base rate based on group size
   const getBoatInfo = () => {
@@ -352,7 +370,7 @@ function PrivateCruisePricingTable({
         {packages.map((pkg) => {
           const subtotal = baseCost + pkg.fee + crewFee;
           const pricing = calculateTotal(subtotal / 100);
-          const deposit = getDepositInfo(pricing.total);
+          const deposit = getDepositInfo(pricing.total, isUrgent);
           
           return (
             <TabsContent key={pkg.id} value={pkg.id} className="mt-6">
@@ -581,7 +599,8 @@ export function PricingTable({
   className,
   dayType = 'weekday',
   groupSize = 20,
-  duration = 4
+  duration = 4,
+  eventDate
 }: PricingTableProps) {
   // Add schema markup to document head
   if (packages && typeof window !== 'undefined') {
@@ -607,6 +626,7 @@ export function PricingTable({
           packages={packages} 
           showTaxAndGratuity={showTaxAndGratuity}
           showDeposit={showDeposit}
+          eventDate={eventDate}
         />
       )}
       
@@ -617,6 +637,7 @@ export function PricingTable({
           duration={duration}
           showTaxAndGratuity={showTaxAndGratuity}
           showDeposit={showDeposit}
+          eventDate={eventDate}
         />
       )}
       
