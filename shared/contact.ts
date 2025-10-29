@@ -96,7 +96,7 @@ export const SOCIAL_MEDIA = {
  */
 export const EMERGENCY_CONTACT = {
   phone: '512-488-5892', // Same as main for now
-  email: 'emergency@premierpartycruises.com',
+  email: 'clientservices@premierpartycruises.com',
   availableHours: '24/7 for cruise days and emergencies',
   note: 'For cruise day emergencies and urgent booking needs',
 } as const;

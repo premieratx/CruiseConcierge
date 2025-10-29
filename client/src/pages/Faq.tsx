@@ -64,7 +64,7 @@ const faqCategories: FAQCategory[] = [
           <>
             Booking is easy! Use our <Link href="/chat" className="text-primary hover:underline">instant quote builder</Link> to 
             select your date, time, and package. You\'ll receive an immediate quote with availability. Secure your reservation 
-            with a deposit, and pay the balance later. Our team is available at (512) 900-1821 for questions or custom requests.
+            with a deposit, and pay the balance later. Our team is available at (512) 488-5892 for questions or custom requests.
           </>
         )
       },
@@ -81,7 +81,7 @@ const faqCategories: FAQCategory[] = [
       {
         id: 'changes',
         question: 'Can I modify my reservation after booking?',
-        answer: 'Yes, you can add guests or upgrade packages up to 7 days before your cruise, subject to availability. Date changes depend on availability and may incur fees. Guest count increases are welcome if space permits. Contact us early for any changes at (512) 900-1821.'
+        answer: 'Yes, you can add guests or upgrade packages up to 7 days before your cruise, subject to availability. Date changes depend on availability and may incur fees. Guest count increases are welcome if space permits. Contact us early for any changes at (512) 488-5892.'
       },
       {
         id: 'confirmation',
@@ -353,13 +353,13 @@ export default function Faq() {
             <div className="max-w-7xl mx-auto">
               <div className="grid md:grid-cols-3 gap-6">
                 <Card className="p-6 rounded-xl hover:shadow-lg transition-shadow cursor-pointer">
-                  <a href="tel:512-900-1821" className="flex items-center space-x-4">
+                  <a href="tel:+15124885892" className="flex items-center space-x-4">
                     <div className="p-3 bg-green-100 dark:bg-green-900 rounded-lg">
                       <Phone className="w-6 h-6 text-green-600 dark:text-green-400" />
                     </div>
                     <div>
                       <p className="text-sm text-gray-600 dark:text-gray-400">Call Us</p>
-                      <p className="font-semibold text-base">(512) 900-1821</p>
+                      <p className="font-semibold text-base">(512) 488-5892</p>
                     </div>
                   </a>
                 </Card>

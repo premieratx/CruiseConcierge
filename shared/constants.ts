@@ -1089,8 +1089,8 @@ export const PRICING_POLICIES = {
     },
     weatherPolicy: 'Full refund or reschedule for weather-related cancellations',
     contactInfo: {
-      phone: '(512) 123-4567',
-      email: 'bookings@premierpartycruises.com',
+      phone: '(512) 488-5892',
+      email: 'clientservices@premierpartycruises.com',
       hours: 'Mon-Fri 9AM-6PM, Sat-Sun 10AM-4PM'
     }
   },
@@ -1108,16 +1108,16 @@ export const PRICING_POLICIES = {
   },
   contact: {
     bookingQuestions: {
-      phone: '(512) 123-4567',
-      email: 'bookings@premierpartycruises.com',
-      text: '(512) 123-4567'
+      phone: '(512) 488-5892',
+      email: 'clientservices@premierpartycruises.com',
+      text: '(512) 488-5892'
     },
     policyQuestions: {
-      email: 'policies@premierpartycruises.com',
-      phone: '(512) 123-4567'
+      email: 'clientservices@premierpartycruises.com',
+      phone: '(512) 488-5892'
     },
     emergencyContact: {
-      phone: '(512) 123-4567',
+      phone: '(512) 488-5892',
       available: '24/7 for booked cruises'
     },
     businessHours: 'Monday-Friday 9AM-6PM, Saturday-Sunday 10AM-4PM CST'

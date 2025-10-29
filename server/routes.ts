@@ -3568,7 +3568,7 @@ const validateAdminSession = (req: any): AdminUser | null => {
       return {
         id: 'admin-dev',
         name: 'Development Admin',
-        email: 'admin@premierpartycruises.com',
+        email: 'clientservices@premierpartycruises.com',
         permissions: ['read', 'edit', 'full']
       };
     }

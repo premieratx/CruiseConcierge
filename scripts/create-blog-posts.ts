@@ -11,7 +11,7 @@ async function createBlogPosts() {
     console.log('\n📝 Creating author...');
     const author = await storage.createBlogAuthor({
       name: "Premier Party Cruises Team",
-      email: "hello@premierpartycruises.com",
+      email: "clientservices@premierpartycruises.com",
       bio: "Austin's #1 party boat company with 15+ years of experience on Lake Travis",
       slug: "ppc-team"
     });
