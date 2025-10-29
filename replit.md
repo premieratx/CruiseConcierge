@@ -35,3 +35,16 @@ UI/UX decisions focus on clear navigation with components like `TableOfContents`
 - **OpenRouter**: Powers AI chatbot interactions.
 - **Replit DB**: Stores WordPress blog content.
 - **Xola**: Provides online booking widgets.
+
+## Deposit Policy
+**Current Policy (Updated October 29, 2025):**
+- **Bookings made 14+ days before cruise:** 25% deposit required at booking, remaining balance due 14 days before cruise date
+- **Bookings made less than 14 days before cruise:** 50% deposit required at booking, remaining balance due within 48 hours of booking
+
+This policy is enforced consistently across all pages, components, and pricing calculations throughout the website.
+
+## Recent Fixes (October 2025)
+- **Ice/Cooler Messaging Updated (Oct 28)**: Fixed 100+ instances across entire website to clarify standard packages provide EMPTY coolers (BYO ice OR Party On Delivery option) while Essentials/Ultimate packages include ice. Removed all "coolers with ice" references from standard package descriptions.
+- **Captain Messaging Standardized (Oct 28)**: Updated 40+ files across website to use exact phrase "Licensed, fun, experienced captains to take your group safely around the lake in style" everywhere, replacing all variations of "Coast Guard certified captains", "USCG captains", and other captain descriptions. Verified in both preview AND production.
+- **Contact Information Corrected (Oct 29)**: Fixed all phone numbers and email addresses across entire site. Updated 5 files to use correct phone (512) 488-5892 and email clientservices@premierpartycruises.com, replacing incorrect numbers ((512) 900-1821, (512) 123-4567) and emails (bookings@, policies@, emergency@, admin@, hello@). All contact info now pulls from shared/contact.ts constants.
+- **Deposit Policy Updated (Oct 29)**: Comprehensive update of deposit terms from 30-day to 14-day threshold across 28 files. Changed both TEXT (all FAQs, pricing charts, event pages) and CALCULATIONS (server/serverPricing.ts, shared/pricing.ts, PricingTable components) to match new policy: 25% deposit if booking 14+ days out, 50% if less than 14 days. Balance due changed from "30 days before cruise" to "14 days before cruise" for regular bookings and "within 48 hours of booking" for urgent bookings. Verified all pricing calculations match displayed policy text.
