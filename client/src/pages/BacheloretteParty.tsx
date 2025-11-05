@@ -159,7 +159,7 @@ const atxDiscoPackages = [
 const privateCruiseOptions = [
   {
     id: 'day_tripper',
-    name: 'Day Tripper (14 people)',
+    name: 'Day Tripper (1-14 guests)',
     capacity: 14,
     weekdayRate: 350,
     weekendRate: 450,

@@ -37,13 +37,14 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
     }
   }, []);
 
-  // Auto-resize iframe based on content height
+  // Auto-resize iframe based on content height (max 800px to prevent page breaking)
   React.useEffect(() => {
     const handleMessage = (event: MessageEvent) => {
       if (event.origin !== 'https://booking.premierpartycruises.com') return;
       
       if (event.data.type === 'new-quote-resize' && event.data.height) {
-        const newHeight = Math.max(event.data.height + 20, 400);
+        // Set maximum height to 800px to prevent page breaking
+        const newHeight = Math.min(Math.max(event.data.height + 20, 400), 800);
         setIframeHeight(newHeight);
       }
     };
@@ -157,8 +158,10 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
                     boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
                     position: 'relative',
                     zIndex: 1,
+                    overflow: 'auto',
                     transition: 'height 0.3s ease-in-out'
                   }}
+                  scrolling="yes"
                   allow="payment"
                 />
               </div>

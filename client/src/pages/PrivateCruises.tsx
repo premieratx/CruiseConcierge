@@ -143,7 +143,7 @@ const fleetOptions = [
   },
   {
     name: 'Clever Girl',
-    capacity: '30-75 guests',
+    capacity: '31-75 guests',
     baseRate: 250,
     image: heroImage1,
     features: ['Flagship boat with 14 disco balls', 'Giant Texas flag display', 'Professional crew and premium amenities', '4-hour minimum', 'Ideal for corporate events and large celebrations']
@@ -285,7 +285,7 @@ const faqItems = [
   {
     id: 'pricing',
     question: 'How does private cruise pricing work?',
-    answer: 'Private cruises have THREE pricing components: (1) HOURLY boat rental - Day Tripper (14 guests) $200-350/hr, Meeseeks/Irony (15-30 guests) $225-375/hr, Clever Girl (31-75 guests) $250-400/hr based on day of week. (2) Package upgrades are FLAT FEES per cruise (NOT hourly) - Essentials +$100-200, Ultimate +$250-350. (3) Add-ons are FLAT FEES - DJ $600, Photographer $600, Lily Pad $50. All cruises have 4-hour minimum.'
+    answer: 'Private cruises have THREE pricing components: (1) HOURLY boat rental - Day Tripper (1-14 guests) $200-350/hr, Meeseeks/Irony (15-30 guests) $225-425/hr including crew fees for 26-30 guests, Clever Girl (31-75 guests) $250-500/hr including crew fees for 51-75 guests, based on day of week. (2) Package upgrades are FLAT FEES per cruise (NOT hourly) - Essentials +$100-200, Ultimate +$250-350. (3) Add-ons are FLAT FEES - DJ $600, Photographer $600, Lily Pad $50. All cruises have 4-hour minimum.'
   },
   {
     id: 'pricing-example',
@@ -863,9 +863,9 @@ export default function PrivateCruises() {
                     <FeaturedSnippet
                       question="Private boat rental prices Austin"
                       tableData={[
-                        { label: "Day Tripper (14)", value: "$200-275/hr - Intimate gatherings" },
-                        { label: "Meeseeks (15-30)", value: "$225-375/hr - Birthday parties" },
-                        { label: "Clever Girl (30-75)", value: "$300-475/hr - Large events" }
+                        { label: "Day Tripper (1-14)", value: "$200-350/hr - Intimate gatherings" },
+                        { label: "Meeseeks (15-30)", value: "$225-425/hr - Birthday parties" },
+                        { label: "Clever Girl (31-75)", value: "$250-500/hr - Large events" }
                       ]}
                       format="table"
                       schemaType="FAQ"
@@ -1677,7 +1677,7 @@ export default function PrivateCruises() {
             <AIOptimizedSection
               title="Private Boat Rentals Lake Travis Austin"
               content={`
-                <p>Looking for <strong>private boat rentals on Lake Travis</strong>? Premier Party Cruises offers exclusive boat charters for groups of 14-75 guests. Our fleet includes three exceptional boats: Day Tripper (up to 14 guests), Meeseeks & The Irony (15-30 guests), and our flagship Clever Girl (30-75 guests).</p>
+                <p>Looking for <strong>private boat rentals on Lake Travis</strong>? Premier Party Cruises offers exclusive boat charters for groups of 1-75 guests. Our fleet includes three exceptional boats: Day Tripper (1-14 guests), Meeseeks & The Irony (15-30 guests), and our flagship Clever Girl (31-75 guests).</p>
                 
                 <h3>Austin Private Boat Charter Services</h3>
                 <p>As <strong>Austin's premier private boat charter company</strong>, we've been creating unforgettable Lake Travis experiences since 2009. Choose from Standard, Essentials, or Ultimate packages to customize your perfect celebration. All charters include licensed, fun, experienced captains, premium sound systems, cooler space (ice included with Essentials/Ultimate packages), and flexible departure times.</p>

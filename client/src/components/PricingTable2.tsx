@@ -496,7 +496,7 @@ function ComparisonPricingTable({ className }: { className?: string }) {
       type: 'Hourly',
       priceRange: '$200-$300/hr',
       duration: '4 hour minimum',
-      groupSize: 'Up to 14 guests',
+      groupSize: '1-14 guests',
       includes: ['Private boat', 'Captain', 'Sound system'],
       best: 'Best for intimate gatherings'
     },

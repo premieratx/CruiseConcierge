@@ -231,7 +231,7 @@ export default function RehearsalDinner() {
       <SEOHead 
         pageRoute="/rehearsal-dinner"
         defaultTitle="Rehearsal Dinner Cruises | Lake Travis"
-        defaultDescription="Elegant rehearsal dinner cruises on Lake Travis. Sunset views, dinner service for 30-75 guests. Perfect pre-wedding celebration!"
+        defaultDescription="Elegant rehearsal dinner cruises on Lake Travis. Sunset views, dinner service for 31-75 guests. Perfect pre-wedding celebration!"
         defaultKeywords={[
           'rehearsal dinner cruise austin',
           'lake travis rehearsal dinner',
@@ -337,7 +337,7 @@ export default function RehearsalDinner() {
                 <div className="text-sm text-white/80">Rehearsal Dinners</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-pink-400">30-75</div>
+                <div className="text-3xl font-bold text-pink-400">31-75</div>
                 <div className="text-sm text-white/80">Guest Capacity</div>
               </div>
               <div className="text-center">

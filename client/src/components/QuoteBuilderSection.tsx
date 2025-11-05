@@ -29,7 +29,8 @@ export default function QuoteBuilderSection() {
       if (event.origin !== 'https://booking.premierpartycruises.com') return;
       
       if (event.data.type === 'new-quote-resize' && event.data.height) {
-        const newHeight = Math.max(event.data.height + 20, 400);
+        // Set maximum height to 800px to prevent page breaking
+        const newHeight = Math.min(Math.max(event.data.height + 20, 400), 800);
         setIframeHeight(newHeight);
       }
     };
@@ -72,9 +73,9 @@ export default function QuoteBuilderSection() {
                   style={{ 
                     height: `${iframeHeight}px`,
                     border: 'none',
-                    overflow: 'hidden'
+                    overflow: 'auto'
                   }}
-                  scrolling="no"
+                  scrolling="yes"
                   allow="payment; geolocation"
                   allowFullScreen
                   data-testid="iframe-quote-builder"

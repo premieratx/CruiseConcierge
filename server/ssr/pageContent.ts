@@ -24,8 +24,8 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Private Charters - Your Exclusive Boat Experience',
         paragraphs: [
-          'Choose from our fleet of premium party boats: "Day Tripper" (14 people), "Me Seeks the Irony" (18-25 people), or flagship "Clever Girl" (30-50 people) with giant Texas flag and 14 disco balls. Every private charter includes licensed captains, premium Bluetooth sound systems, large coolers with ice, and all the amenities for an unforgettable celebration.',
-          'Perfect for weddings, corporate events, birthdays, and any special celebration. Starting at $195 per hour with a 4-hour minimum. Fully customizable packages to match your event needs.'
+          'Choose from our fleet of premium party boats: "Day Tripper" (1-14 people), "Me Seeks the Irony" (15-30 people), or flagship "Clever Girl" (31-75 people) with giant Texas flag and 14 disco balls. Every private charter includes licensed captains, premium Bluetooth sound systems, large coolers with ice, and all the amenities for an unforgettable celebration.',
+          'Perfect for weddings, corporate events, birthdays, and any special celebration. Starting at $200 per hour with a 4-hour minimum. Fully customizable packages to match your event needs.'
         ],
         lists: [
           {
@@ -116,8 +116,8 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Frequently Asked Questions',
         paragraphs: [
-          'What types of party boat rentals do you offer? We offer two main types of party boat experiences: Private Charters (exclusive boat rental for your group of 14-75 guests, starting at $200/hour with 4-hour minimum) and the ATX Disco Cruise (join other groups on our signature party cruise with DJ, photographer, and all amenities included, $85-$105 per person). Perfect for bachelor parties, bachelorette parties, corporate events, birthdays, weddings, and any special celebration.',
-          'How much does it cost to rent a party boat on Lake Travis? Private charters start at $200 per hour with a 4-hour minimum. We have three boats available: Day Tripper (14 people), Meeseeks and The Irony (18-25 people), and Clever Girl (30-50 people with 14 disco balls). ATX Disco Cruise packages range from $85-$105 per person and include professional DJ, photographer, floats, and all amenities.',
+          'What types of party boat rentals do you offer? We offer two main types of party boat experiences: Private Charters (exclusive boat rental for your group of 1-75 guests, starting at $200/hour with 4-hour minimum) and the ATX Disco Cruise (join other groups on our signature party cruise with DJ, photographer, and all amenities included, $85-$105 per person). Perfect for bachelor parties, bachelorette parties, corporate events, birthdays, weddings, and any special celebration.',
+          'How much does it cost to rent a party boat on Lake Travis? Private charters start at $200 per hour with a 4-hour minimum. We have three boats available: Day Tripper (1-14 people, $200-350/hr), Meeseeks and The Irony (15-30 people, $225-425/hr), and Clever Girl (31-75 people with 14 disco balls, $250-500/hr). Crew fees are included in these price ranges. ATX Disco Cruise packages range from $85-$105 per person and include professional DJ, photographer, floats, and all amenities.',
           'Can we bring food and drinks on the boat? Yes! All cruises are fully BYOB friendly (21+ with valid ID required). You can bring your own beer, wine, seltzers, and non-alcoholic beverages in cans or plastic containers - no glass allowed for safety. We provide large coolers with ice. You can also bring snacks and meals, or we can coordinate alcohol delivery directly to the boat for your convenience.',
           'Does the bride or groom cruise free? Yes! The bride or groom cruises FREE on our Disco Queen/King and Super Sparkle Platinum packages when you have 16+ paying guests. This is our special thank you for choosing Premier Party Cruises for your bachelor or bachelorette party celebration.',
           'Where do you depart from on Lake Travis? We depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641. We\'re the closest marina to downtown Austin, approximately 30 minutes away, making us convenient for all your guests.',
@@ -540,7 +540,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
   },
   '/private-cruises': {
     h1: 'Private Boat Rentals Lake Travis | Austin Party Cruises',
-    introduction: 'Rent a private boat on Lake Travis for your exclusive celebration! Choose from our fleet of premium boats accommodating 14-75 guests. Everything set up when you arrive - professional captain, crew, sound system, coolers, and complete customization. Three package levels from Standard to Ultimate. Starting at $195/hour.',
+    introduction: 'Rent a private boat on Lake Travis for your exclusive celebration! Choose from our fleet of premium boats accommodating 1-75 guests. Everything set up when you arrive - professional captain, crew, sound system, coolers, and complete customization. Three package levels from Standard to Ultimate. Starting at $200/hour with 4-hour minimum.',
     sections: [
       {
         heading: 'Our Private Boat Fleet',
@@ -549,35 +549,35 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         ],
         lists: [
           {
-            title: 'Day Tripper - 14 Person Boat',
+            title: 'Day Tripper - 1-14 Person Boat',
             items: [
-              'Perfect for intimate groups up to 14 guests',
+              'Perfect for intimate groups of 1-14 guests',
               'Licensed captain and premium sound system',
               'Coolers with ice provided',
               'Comfortable seating with sun and shade',
-              'Starting at $200/hour (4-hour minimum)',
+              '$200-350/hr depending on day (4-hour minimum)',
               'Ideal for small birthday parties and gatherings'
             ]
           },
           {
-            title: 'Meeseeks and The Irony - 25 Person Boat',
+            title: 'Meeseeks and The Irony - 15-30 Person Boat',
             items: [
-              'Popular choice for medium groups (18-25 guests)',
+              'Popular choice for medium groups (15-30 guests)',
               'Professional captain and crew',
               'Premium Bluetooth sound system',
               'Large coolers with ice',
-              'Starting at $225/hour (4-hour minimum)',
+              '$225-425/hr depending on day and group size (4-hour minimum)',
               'Perfect for bachelor/bachelorette parties'
             ]
           },
           {
-            title: 'Clever Girl - 50 Person Flagship',
+            title: 'Clever Girl - 31-75 Person Flagship',
             items: [
               'Flagship boat with 14 disco balls',
               'Giant Texas flag display',
-              'Accommodates 30-50 guests',
+              'Accommodates 31-75 guests',
               'Professional crew and premium amenities',
-              'Starting at $250/hour (4-hour minimum)',
+              '$250-500/hr depending on day and group size (4-hour minimum)',
               'Ideal for corporate events and large celebrations'
             ]
           }
@@ -602,7 +602,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
             ]
           },
           {
-            title: 'Essentials Package (+$100/hour)',
+            title: 'Essentials Package (Flat Fee: +$100-200 per cruise)',
             items: [
               'Everything from Standard Package',
               'Coolers pre-stocked with ice',
@@ -610,11 +610,12 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
               'Solo cups and ice water',
               '6-foot folding table for food',
               'Vendor coordination for catering',
-              'Enhanced convenience'
+              'Enhanced convenience',
+              'Fee depends on group size, NOT charged per hour'
             ]
           },
           {
-            title: 'Ultimate Package (+$250/hour)',
+            title: 'Ultimate Package (Flat Fee: +$250-350 per cruise)',
             items: [
               'Everything from Essentials Package',
               'Giant lily pad float',
@@ -624,7 +625,8 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
               'Champagne flutes and fruit juices',
               'SPF-50 spray sunscreen',
               'Plates, plasticware, paper towels',
-              'Full party atmosphere setup'
+              'Full party atmosphere setup',
+              'Fee depends on group size, NOT charged per hour'
             ]
           }
         ]

@@ -1773,7 +1773,7 @@ export default function Home() {
               rows={[
                 {
                   feature: 'Capacity',
-                  values: ['Up to 14 guests', '15-25 guests', '30-75 guests', '15-30 guests']
+                  values: ['1-14 guests', '15-25 guests', '31-75 guests', '15-30 guests']
                 },
                 {
                   feature: 'Boat Size',
@@ -2446,10 +2446,10 @@ export default function Home() {
         <h2>Austin Party Boat Rental Pricing</h2>
         <div itemScope itemType="https://schema.org/Offer">
           <h3>Private Charter Hourly Rates</h3>
-          <p>Day Tripper (14 guests): Starting at $200/hour (Monday-Thursday), $250/hour (Friday-Sunday)</p>
-          <p>Meeseeks / The Irony (15-30 guests): Starting at $225/hour (Monday-Thursday), $300/hour (Friday-Sunday)</p>
-          <p>Clever Girl (30-75 guests): Starting at $300/hour (Monday-Thursday), $350/hour (Friday-Sunday)</p>
-          <p>All private charters have a 4-hour minimum. Includes captain, crew, fuel, cooler space (bring your own ice, or add Essentials/Ultimate for ice included, or order from Party On Delivery), sound system, and safety equipment.</p>
+          <p>Day Tripper (1-14 guests): $200-350/hr depending on day (Mon-Thu: $200/hr, Fri: $225/hr, Sat: $350/hr, Sun: $250/hr)</p>
+          <p>Meeseeks / The Irony (15-30 guests): $225-425/hr depending on day and group size (crew fees included in range for 26-30 guests)</p>
+          <p>Clever Girl (31-75 guests): $250-500/hr depending on day and group size (crew fees included in range for 51-75 guests)</p>
+          <p>All private charters have a 4-hour minimum. Includes captain, crew, fuel, cooler space (bring your own ice, or add Essentials/Ultimate for ice included, or order from Party On Delivery), sound system, and safety equipment. Package fees are flat fees per cruise, NOT hourly.</p>
         </div>
         
         <div itemScope itemType="https://schema.org/Offer">

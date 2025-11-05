@@ -349,9 +349,9 @@ export const FleetComparison: ComparisonRow[] = [
   {
     feature: "Capacity",
     values: [
-      "Up to 14 guests",
+      "1-14 guests",
       "15-25 guests",
-      "30-75 guests",
+      "31-75 guests",
       "15-30 guests"
     ]
   },

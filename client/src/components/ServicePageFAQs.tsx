@@ -107,7 +107,7 @@ export const privateCruiseFAQs: FAQItem[] = [
   {
     id: 'private-pricing',
     question: 'How much does a private boat rental cost on Lake Travis?',
-    answer: 'Private boats start at $200/hour for Day Tripper (14 guests), $225/hour for Meeseeks (25 guests), and $300/hour for Clever Girl (75 guests). All require a 4-hour minimum. Add Essentials Package for $100/hour or Ultimate Package for $250/hour more. No hidden fees or fuel charges!'
+    answer: 'Private boats start at $200/hour for Day Tripper (1-14 guests), $225/hour for Meeseeks (15-30 guests), and $250/hour for Clever Girl (31-75 guests). All require a 4-hour minimum. Add Essentials Package ($100-200 flat) or Ultimate Package ($250-350 flat) for enhanced amenities. No hidden fees or fuel charges!'
   },
   {
     id: 'private-vs-disco',

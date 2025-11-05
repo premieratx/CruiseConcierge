@@ -97,7 +97,7 @@ const BOAT_DATA: Record<string, BoatDetails> = {
       { url: dayTripper6, alt: 'Day Tripper - Disco ball and canopy detail' },
     ],
     features: [
-      'Intimate setting for up to 14 guests',
+      'Intimate setting for 1-14 guests',
       'Bright blue canopy for shade',
       'Professional captain included',
       'Cooler storage available',
