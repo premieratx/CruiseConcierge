@@ -158,7 +158,7 @@ const PACKAGE_DETAILS = {
 
 export function TabbedPrivateCruisePricing({ className = '' }: TabbedPrivateCruisePricingProps) {
   const [selectedBoat, setSelectedBoat] = useState<'14' | '25' | '50'>('14');
-  const [selectedDay, setSelectedDay] = useState<'mon-thu' | 'fri' | 'sat' | 'sun'>('sat');
+  const [selectedDay, setSelectedDay] = useState<'mon-thu' | 'fri' | 'sat' | 'sun'>('mon-thu');
   
   // Boat configurations - REAL NAMES AND CAPACITIES
   const boats = {
@@ -288,7 +288,7 @@ export function TabbedPrivateCruisePricing({ className = '' }: TabbedPrivateCrui
                       <div className="text-3xl font-bold text-primary" data-testid="hourly-essentials">
                         {formatCurrency(hourlyRate * 100)}/hr
                       </div>
-                      <p className="text-xs text-gray-500 mt-1">{packages.essentials.addOn} package add-on</p>
+                      <p className="text-base font-extrabold text-gray-900 dark:text-gray-100 mt-2">{packages.essentials.addOn} package add-on</p>
                     </div>
                   </CardHeader>
                   
@@ -321,7 +321,7 @@ export function TabbedPrivateCruisePricing({ className = '' }: TabbedPrivateCrui
                       <div className="text-3xl font-bold text-primary" data-testid="hourly-ultimate">
                         {formatCurrency(hourlyRate * 100)}/hr
                       </div>
-                      <p className="text-xs text-gray-500 mt-1">{packages.ultimate.addOn} package add-on</p>
+                      <p className="text-base font-extrabold text-gray-900 dark:text-gray-100 mt-2">{packages.ultimate.addOn} package add-on</p>
                     </div>
                   </CardHeader>
                   

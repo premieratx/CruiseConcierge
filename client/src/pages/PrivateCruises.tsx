@@ -233,18 +233,6 @@ const whyChooseUs = [
   }
 ];
 
-// Premium Value Stacking Data
-const premiumValueStack = [
-  { item: 'Licensed, fun, experienced captains to take your group safely around the lake in style', value: 800, icon: UserCheck },
-  { item: 'Premium Bluetooth Sound System', value: 200, icon: Volume2 },
-  { item: 'Exclusive Private Use (No Sharing)', value: 500, icon: Shield },
-  { item: 'Customizable Experience & Route', value: 300, icon: Target },
-  { item: 'Professional Setup & Service', value: 200, icon: Star },
-  { item: 'Premium Insurance Coverage', value: 150, icon: Shield },
-  { item: 'Lake Travis Expert Navigation', value: 150, icon: MapPin },
-  { item: 'Flexible Schedule & Timing', value: 100, icon: Clock }
-];
-
 // Corporate ROI Data
 const corporateROI = [
   {
@@ -291,14 +279,6 @@ import { privateCruiseReviews, type Review } from '@shared/reviews-data';
 
 // Use privateCruiseReviews for Private Cruises page
 const testimonials: Review[] = privateCruiseReviews;
-
-// Urgency Indicators
-const urgencyIndicators = [
-  { text: 'Prime weekend slots book 8-10 weeks before the date', icon: Calendar },
-  { text: 'Only 3 premium boats in our fleet', icon: Ship },
-  { text: 'Corporate teams book months in advance', icon: Briefcase },
-  { text: 'Peak season filling fast (May-Sept)', icon: TrendingUp }
-];
 
 // Enhanced FAQs for Private Events
 const faqItems = [
@@ -645,74 +625,6 @@ export default function PrivateCruises() {
           </div>
         </div>
       </section>
-
-      {/* Premium Value Stacking Section - NEW */}
-      <SectionReveal>
-        <section className="py-12 md:py-20 bg-gradient-to-br from-blue-900 to-purple-900 text-white relative overflow-hidden">
-          <div className="absolute inset-0 bg-black/20"></div>
-          <div className="container mx-auto px-4 sm:px-6 relative z-10">
-            <div className="max-w-6xl mx-auto">
-              <div className="text-center mb-12">
-                <Badge className="mb-6 bg-yellow-500 text-black text-sm px-4 sm:px-6 py-2 border-0 font-bold tracking-wider uppercase">
-                  Your Exclusive Lake Travis Experience
-                </Badge>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6">
-                  Premium Value Worth <span className="text-yellow-400">${premiumValueStack.reduce((sum, item) => sum + item.value, 0).toLocaleString()}</span>
-                </h2>
-                <p className="text-xl text-white/90 max-w-3xl mx-auto">
-                  Starting at just <span className="text-3xl font-bold text-yellow-400">$200/hour</span> - less than a nice dinner for your group
-                </p>
-              </div>
-
-              {/* Value Stack Grid */}
-              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-                {premiumValueStack.map((item, index) => {
-                  const Icon = item.icon;
-                  return (
-                    <div key={index} className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
-                      <div className="flex items-center gap-3 mb-3">
-                        <div className="p-2 bg-yellow-500/20 rounded-lg">
-                          <Icon className="h-6 w-6 text-yellow-400" />
-                        </div>
-                        <span className="text-2xl font-bold text-yellow-400">${item.value}</span>
-                      </div>
-                      <p className="text-white/90 font-medium">{item.item}</p>
-                    </div>
-                  );
-                })}
-              </div>
-
-              {/* Urgency Indicators */}
-              <div className="bg-red-500/20 border border-red-400/50 rounded-xl p-8 backdrop-blur-sm">
-                <h3 className="text-2xl font-bold mb-6 text-center text-white">
-                  ⚠️ Limited Availability Warning
-                </h3>
-                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                  {urgencyIndicators.map((indicator, index) => {
-                    const Icon = indicator.icon;
-                    return (
-                      <div key={index} className="flex items-center gap-3">
-                        <Icon className="h-6 w-6 text-red-400 shrink-0" />
-                        <span className="text-white/90 font-medium">{indicator.text}</span>
-                      </div>
-                    );
-                  })}
-                </div>
-                <div className="mt-8 text-center">
-                  <Button
-                    size="lg"
-                    onClick={handleGetQuote}
-                    className="bg-yellow-500 hover:bg-yellow-400 text-black font-bold text-xl px-12 py-8 shadow-2xl"
-                  >
-                    Reserve Your Date Now
-                    <ArrowRight className="ml-3 h-6 w-6" />
-                  </Button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      </SectionReveal>
 
       {/* Premium Emotional Benefits Section - NEW */}
       <SectionReveal>
