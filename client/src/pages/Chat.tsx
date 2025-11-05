@@ -23,38 +23,29 @@ const fadeInUp = {
 };
 
 export default function Chat({ defaultEventType }: ChatProps = {}) {
-  // Get query parameters from URL
+  // Build iframe URL with source tracking
   const getIframeUrl = () => {
-    const searchParams = new URLSearchParams(window.location.search);
-    const baseUrl = 'https://ppc-quote-builder.lovable.app/';
-    
-    // If there are query parameters, pass them to the iframe
-    if (searchParams.toString()) {
-      return `${baseUrl}?${searchParams.toString()}`;
-    }
-    
-    // Default parameters if none provided - use valid package types
-    return `${baseUrl}?package=private-cruise&type=general`;
+    const currentUrl = encodeURIComponent(window.location.href);
+    const baseUrl = 'https://booking.premierpartycruises.com/new-quote';
+    return `${baseUrl}?sourceUrl=${currentUrl}&sourceType=embedded_new_quote`;
   };
 
   const [iframeUrl] = React.useState(getIframeUrl());
+  const [iframeHeight, setIframeHeight] = React.useState(1400);
 
   // Ensure page loads at top
   React.useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
   }, []);
 
-  // Dynamic height adjustment for iframe with max constraint
+  // Auto-resize iframe based on content height
   React.useEffect(() => {
     const handleMessage = (event: MessageEvent) => {
-      if (event.origin === 'https://ppc-quote-builder.lovable.app' && event.data.height) {
-        const iframe = document.querySelector('iframe[title="Premier Party Cruises Quote Builder"]') as HTMLIFrameElement;
-        if (iframe) {
-          // Cap the height to prevent infinite expansion - max 2100px to limit blank space
-          const maxHeight = 2100;
-          const newHeight = Math.min(event.data.height, maxHeight);
-          iframe.style.height = `${newHeight}px`;
-        }
+      if (event.origin !== 'https://booking.premierpartycruises.com') return;
+      
+      if (event.data.type === 'new-quote-resize' && event.data.height) {
+        const newHeight = Math.max(event.data.height + 50, 1400);
+        setIframeHeight(newHeight);
       }
     };
     
@@ -141,27 +132,35 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
               </div>
             </motion.div>
             
-            {/* New Quote Builder Iframe */}
+            {/* New Quote Widget Iframe */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5, duration: 0.5 }}
               className="w-full mb-8"
+              id="new-quote-widget-container"
+              style={{ 
+                minHeight: `${iframeHeight}px`,
+                position: 'relative'
+              }}
             >
               <div className="w-full max-w-6xl mx-auto overflow-hidden rounded-xl shadow-2xl">
                 <iframe 
+                  id="new-quote-widget-iframe"
                   src={iframeUrl}
-                  title="Premier Party Cruises Quote Builder"
+                  title="Get Your Quote - Premier Party Cruises"
                   className="w-full"
                   style={{ 
-                    height: '1260px',
-                    maxHeight: '2100px',
+                    height: `${iframeHeight}px`,
                     border: 'none',
-                    display: 'block'
+                    display: 'block',
+                    borderRadius: '8px',
+                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+                    position: 'relative',
+                    zIndex: 1,
+                    transition: 'height 0.3s ease-in-out'
                   }}
-                  allow="payment; geolocation"
-                  allowFullScreen
-                  scrolling="auto"
+                  allow="payment"
                 />
               </div>
             </motion.div>
