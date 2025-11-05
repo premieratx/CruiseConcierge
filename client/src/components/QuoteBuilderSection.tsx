@@ -13,8 +13,9 @@ const fadeInUp = {
 
 export default function QuoteBuilderSection() {
   const [iframeUrl, setIframeUrl] = useState('');
-  const [iframeHeight, setIframeHeight] = useState(600);
+  const [iframeHeight, setIframeHeight] = useState(1400);
   const iframeRef = useRef<HTMLIFrameElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -29,8 +30,7 @@ export default function QuoteBuilderSection() {
       if (event.origin !== 'https://booking.premierpartycruises.com') return;
       
       if (event.data.type === 'new-quote-resize' && event.data.height) {
-        // Set maximum height to 800px to prevent page breaking
-        const newHeight = Math.min(Math.max(event.data.height + 20, 400), 800);
+        const newHeight = Math.max(event.data.height + 50, 1400);
         setIframeHeight(newHeight);
       }
     };
@@ -38,6 +38,10 @@ export default function QuoteBuilderSection() {
     window.addEventListener('message', handleMessage);
     return () => window.removeEventListener('message', handleMessage);
   }, []);
+
+  const handleIframeLoad = () => {
+    setIframeHeight(1400);
+  };
 
   return (
     <section id="quote-builder" className="py-16 bg-gradient-to-br from-brand-blue via-purple-600 to-blue-700">
@@ -49,9 +53,9 @@ export default function QuoteBuilderSection() {
           variants={fadeInUp}
           className="text-center mb-8"
         >
-          <div className="inline-flex items-center justify-center bg-brand-yellow hover:bg-brand-yellow text-black font-bold text-base sm:text-lg md:text-xl lg:text-2xl px-6 sm:px-10 md:px-12 lg:px-16 py-4 sm:py-5 md:py-6 lg:py-8 rounded-2xl shadow-2xl tracking-wide min-h-[3.5rem] sm:min-h-[4rem]">
-            <Sparkles className="mr-2 sm:mr-2 md:mr-3 h-5 sm:h-6 md:h-7 w-5 sm:w-6 md:w-7 flex-shrink-0" />
-            <span data-editable data-editable-id="quote-builder-button" className="text-center leading-tight">Start Building Your Quote</span>
+          <div className="inline-flex items-center justify-center bg-brand-yellow hover:bg-brand-yellow text-black font-bold text-xl sm:text-2xl md:text-3xl lg:text-4xl px-8 sm:px-12 md:px-16 lg:px-20 py-6 sm:py-7 md:py-8 lg:py-10 rounded-2xl shadow-2xl tracking-wide">
+            <Sparkles className="mr-3 sm:mr-3 md:mr-4 h-6 sm:h-7 md:h-8 w-6 sm:w-7 md:w-8 flex-shrink-0" />
+            <span data-editable data-editable-id="quote-builder-button" className="text-center leading-tight">Build My Quote Now</span>
           </div>
         </motion.div>
 
@@ -63,21 +67,36 @@ export default function QuoteBuilderSection() {
           className="overflow-hidden"
         >
           <div className="w-full md:max-w-6xl mx-auto">
-            <div className="bg-white rounded-none md:rounded-2xl shadow-2xl overflow-hidden">
+            <div 
+              ref={containerRef}
+              id="new-quote-widget-container" 
+              className="bg-white rounded-none md:rounded-2xl shadow-2xl overflow-hidden"
+              style={{ 
+                width: '100%', 
+                minHeight: `${iframeHeight}px`, 
+                position: 'relative', 
+                margin: '0'
+              }}
+            >
               {iframeUrl && (
                 <iframe 
                   ref={iframeRef}
+                  id="new-quote-widget-iframe"
                   src={iframeUrl}
-                  title="Build Your Quote - Premier Party Cruises"
+                  title="Get Your Quote - Premier Party Cruises"
                   className="w-full"
                   style={{ 
                     height: `${iframeHeight}px`,
                     border: 'none',
-                    overflow: 'auto'
+                    display: 'block',
+                    borderRadius: '0',
+                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+                    position: 'relative',
+                    zIndex: 1,
+                    transition: 'height 0.3s ease-in-out'
                   }}
-                  scrolling="yes"
-                  allow="payment; geolocation"
-                  allowFullScreen
+                  onLoad={handleIframeLoad}
+                  allow="payment"
                   data-testid="iframe-quote-builder"
                 />
               )}
