@@ -21,7 +21,7 @@ import {
   ArrowRight, CheckCircle, Sparkles, Camera, Wine, 
   Music, Utensils, Star, Shield, Gift, MessageSquare,
   Mic, GlassWater, Crown, Award, Quote, ChevronRight,
-  Ship, Anchor, Sun, Cloud, Info, TrendingUp, X
+  Ship, Anchor, Sun, Cloud, Info, TrendingUp, X, PartyPopper
 } from 'lucide-react';
 import { useReducedMotion } from '@/hooks/use-reduced-motion';
 
@@ -263,7 +263,7 @@ export default function RehearsalDinner() {
                 width={1920}
                 height={1080}
                 loading={index === 0 ? "eager" : "lazy"}
-                fetchpriority={index === 0 ? "high" : "low"}
+                fetchPriority={index === 0 ? "high" : "low"}
               />
               <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
             </motion.div>
