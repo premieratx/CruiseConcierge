@@ -245,20 +245,20 @@ export default function PartyBoatAustin() {
             style={{ border: 'none' }}
             data-testid="youtube-background-video"
           />
-          {/* White Overlay for contrast - 60% opacity */}
-          <div className="absolute inset-0 bg-white/60"></div>
+          {/* White Overlay for contrast - 75% opacity */}
+          <div className="absolute inset-0 bg-white/75"></div>
         </div>
         
         <div className="relative z-10 text-center max-w-7xl mx-auto px-6">
           <motion.div variants={fadeInUp}>
-            <Badge className="mb-4 bg-yellow-100 text-gray-900 border-yellow-400 text-lg px-6 py-2 font-sans tracking-wider" data-testid="badge-austin-1">
+            <Badge className="mb-4 bg-yellow-100 text-gray-900 border-yellow-400 text-lg px-6 py-2 font-sans tracking-wider shadow-lg" data-testid="badge-austin-1">
               <MapPin className="w-4 h-4 mr-2" />
               Austin's #1 Party Boat Since 2009
             </Badge>
           </motion.div>
           
           <motion.h1 
-            className="text-5xl md:text-5xl font-playfair font-bold text-gray-900 mb-6 leading-tight text-center"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-playfair font-extrabold text-gray-900 mb-6 leading-tight text-center drop-shadow-sm"
             variants={fadeInUp}
             data-testid="heading-main"
           >
@@ -266,12 +266,21 @@ export default function PartyBoatAustin() {
           </motion.h1>
           
           <motion.p 
-            className="text-base md:text-lg text-gray-700 mb-8 max-w-3xl mx-auto"
+            className="text-xl sm:text-2xl md:text-3xl text-gray-900 mb-6 md:mb-8 font-bold drop-shadow-sm max-w-3xl mx-auto"
             variants={fadeInUp}
             data-testid="text-hero-description"
           >
-            Experience the ultimate Austin party boat adventure on Lake Travis! Private charters, disco cruises, and unforgettable celebrations with Austin's longest-running party boat company.
+            Austin's #1 Party Boat Since 2009
           </motion.p>
+
+          <motion.div 
+            className="inline-block bg-white/90 backdrop-blur-sm rounded-2xl px-6 sm:px-8 py-4 sm:py-6 shadow-xl max-w-5xl mx-auto mb-8"
+            variants={fadeInUp}
+          >
+            <p className="text-lg sm:text-xl md:text-2xl text-gray-900 font-semibold leading-relaxed">
+              Experience the ultimate Austin party boat adventure on Lake Travis! Private charters, disco cruises, and unforgettable celebrations with Austin's longest-running party boat company.
+            </p>
+          </motion.div>
           
           <motion.div 
             className="flex flex-col sm:flex-row gap-4 justify-center items-center"

@@ -267,8 +267,8 @@ export default function Sweet16() {
             style={{ border: 'none' }}
             data-testid="youtube-background-video"
           />
-          {/* White Overlay for contrast - 60% opacity */}
-          <div className="absolute inset-0 bg-white/60"></div>
+          {/* White Overlay for contrast - 75% opacity */}
+          <div className="absolute inset-0 bg-white/75"></div>
         </div>
 
         {/* Main Hero Content */}
@@ -280,26 +280,35 @@ export default function Sweet16() {
             animate="visible"
           >
             <motion.div variants={fadeInUp}>
-              <Badge className="mb-6 px-6 py-3 text-base font-sans tracking-wider bg-pink-100 text-gray-900 border-pink-300">
+              <Badge className="mb-6 px-6 py-3 text-base font-sans tracking-wider bg-pink-100 text-gray-900 border-pink-300 shadow-lg">
                 <Sparkles className="mr-2 h-5 w-5" />
                 Make Her 16th Birthday Magical
               </Badge>
             </motion.div>
 
             <motion.h1 
-              className="text-5xl md:text-7xl font-playfair font-bold mb-6 text-center text-gray-900"
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-playfair font-extrabold mb-6 text-center text-gray-900 drop-shadow-sm"
               variants={fadeInUp}
             >
               Sweet 16 Birthday Cruises
             </motion.h1>
 
             <motion.p 
-              className="text-xl md:text-2xl text-base mb-8 text-gray-700 max-w-3xl mx-auto text-center"
+              className="text-xl sm:text-2xl md:text-3xl text-gray-900 mb-6 md:mb-8 font-bold drop-shadow-sm max-w-3xl mx-auto text-center"
               variants={fadeInUp}
             >
-              Celebrate this milestone birthday with an unforgettable Lake Travis cruise. 
-              Instagram-worthy moments, amazing friends, and memories to last a lifetime!
+              Make Her 16th Birthday Magical
             </motion.p>
+
+            <motion.div 
+              className="inline-block bg-white/90 backdrop-blur-sm rounded-2xl px-6 sm:px-8 py-4 sm:py-6 shadow-xl max-w-5xl mx-auto mb-8"
+              variants={fadeInUp}
+            >
+              <p className="text-lg sm:text-xl md:text-2xl text-gray-900 font-semibold leading-relaxed">
+                Celebrate this milestone birthday with an unforgettable Lake Travis cruise. 
+                Instagram-worthy moments, amazing friends, and memories to last a lifetime!
+              </p>
+            </motion.div>
 
             <motion.div 
               className="flex flex-col sm:flex-row gap-4 justify-center"

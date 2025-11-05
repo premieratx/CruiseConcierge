@@ -441,26 +441,28 @@ export default function CorporateEvents() {
             style={{ border: 'none' }}
             data-testid="youtube-background-video"
           />
-          {/* White Overlay for contrast - 60% opacity */}
-          <div className="absolute inset-0 bg-white/60"></div>
+          {/* White Overlay for contrast - 75% opacity */}
+          <div className="absolute inset-0 bg-white/75"></div>
         </div>
         
         <div className="relative z-10 max-w-7xl mx-auto px-6 text-center py-24">
-          <Badge className="mb-6 bg-blue-600 text-white px-6 py-2 text-sm font-sans tracking-wider uppercase">
+          <Badge className="mb-6 bg-blue-600 text-white px-6 py-2 text-sm font-sans tracking-wider uppercase shadow-lg">
             PROFESSIONAL CORPORATE CRUISES
           </Badge>
           
           {/* CRITICAL: H1 with text-6xl and font-playfair - Largest text on page */}
-          <h1 className="text-5xl md:text-6xl font-playfair font-bold mb-6 tracking-tight text-gray-900" data-editable data-editable-id="h1-corporate-hero">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-playfair font-extrabold mb-6 tracking-tight text-gray-900 drop-shadow-sm" data-editable data-editable-id="h1-corporate-hero">
             Corporate Event Cruises
           </h1>
           
-          <p className="text-xl mb-4 max-w-3xl mx-auto leading-relaxed text-gray-900" data-editable data-editable-id="corporate-hero-tagline">
+          <p className="text-xl sm:text-2xl md:text-3xl text-gray-900 mb-6 md:mb-8 font-bold drop-shadow-sm max-w-3xl mx-auto leading-relaxed" data-editable data-editable-id="corporate-hero-tagline">
             Impress Clients. Reward Your Team. Elevate Your Business.
           </p>
-          <p className="text-base mb-8 max-w-3xl mx-auto text-gray-700" data-editable data-editable-id="p-corporate-tagline">
-            Tax-deductible business entertainment • Professional service • Unforgettable experiences. Choose from <InternalLinkHighlight href="/private-cruises" title="Private Cruises">private charters</InternalLinkHighlight> or explore our <InternalLinkHighlight href="/team-building" title="Team Building">team building packages</InternalLinkHighlight>.
-          </p>
+          <div className="inline-block bg-white/90 backdrop-blur-sm rounded-2xl px-6 sm:px-8 py-4 sm:py-6 shadow-xl max-w-5xl mx-auto mb-8">
+            <p className="text-lg sm:text-xl md:text-2xl text-gray-900 font-semibold leading-relaxed" data-editable data-editable-id="p-corporate-tagline">
+              Tax-deductible business entertainment • Professional service • Unforgettable experiences. Choose from <InternalLinkHighlight href="/private-cruises" title="Private Cruises">private charters</InternalLinkHighlight> or explore our <InternalLinkHighlight href="/team-building" title="Team Building">team building packages</InternalLinkHighlight>.
+            </p>
+          </div>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button

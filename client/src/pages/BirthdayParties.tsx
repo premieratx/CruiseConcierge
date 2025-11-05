@@ -215,18 +215,18 @@ export default function BirthdayParties() {
             style={{ border: 'none' }}
             data-testid="youtube-background-video"
           />
-          {/* White Overlay for contrast - 60% opacity */}
-          <div className="absolute inset-0 bg-white/60"></div>
+          {/* White Overlay for contrast - 75% opacity */}
+          <div className="absolute inset-0 bg-white/75"></div>
         </div>
         
         <div className="relative z-10 container mx-auto px-6 text-center">
-          <Badge className="mb-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 text-sm font-sans tracking-wider">
+          <Badge className="mb-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 text-sm font-sans tracking-wider shadow-lg">
             🎉 BIRTHDAY VIP CRUISES FREE! 🎉
           </Badge>
-          <h1 className="font-playfair text-5xl md:text-6xl lg:text-7xl font-bold mb-6 text-center text-gray-900" data-editable data-editable-id="h1-birthday-hero">
+          <h1 className="font-playfair text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-6 text-center text-gray-900 drop-shadow-sm" data-editable data-editable-id="h1-birthday-hero">
             Make Your Birthday Legendary!
           </h1>
-          <p className="text-base md:text-lg mb-8 max-w-3xl mx-auto leading-relaxed text-center text-gray-700" data-editable data-editable-id="p-birthday-tagline">
+          <p className="text-xl sm:text-2xl md:text-3xl text-gray-900 mb-6 md:mb-8 font-bold drop-shadow-sm max-w-3xl mx-auto leading-relaxed text-center" data-editable data-editable-id="p-birthday-tagline">
             Celebrate on Lake Travis • All ages welcome • Milestone specialists
           </p>
           

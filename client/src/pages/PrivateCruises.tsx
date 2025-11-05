@@ -541,7 +541,7 @@ export default function PrivateCruises() {
       <TableOfContents sections={tocSections} />
 
       {/* Hero Section */}
-      <section id="hero" className="relative pt-32 pb-24 px-4 overflow-hidden">
+      <section id="hero" className="relative min-h-[80vh] flex flex-col justify-center overflow-hidden pt-20">
         {/* YouTube Video Background */}
         <div className="absolute inset-0 z-0">
           <iframe
@@ -552,25 +552,27 @@ export default function PrivateCruises() {
             style={{ border: 'none' }}
             data-testid="youtube-background-video"
           />
-          {/* White Overlay for contrast - 60% opacity */}
-          <div className="absolute inset-0 bg-white/60"></div>
+          {/* White Overlay for contrast - 75% opacity */}
+          <div className="absolute inset-0 bg-white/75"></div>
         </div>
         
-        <div className="max-w-7xl mx-auto relative z-10">
+        <div className="max-w-7xl mx-auto relative z-10 px-4">
           <ScrollReveal delay={0}>
-            <div className="text-center mb-12 md:mb-16 px-4">
-              <Badge className="mb-4 md:mb-6 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-xs sm:text-sm px-4 sm:px-6 py-2 border-0 font-sans tracking-wider font-bold uppercase">
+            <div className="text-center mb-12 md:mb-16">
+              <Badge className="mb-4 md:mb-6 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-sm sm:text-base px-6 sm:px-8 py-2.5 border-0 font-sans tracking-wider font-bold uppercase shadow-lg">
                 Private Boat Charters
               </Badge>
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold font-playfair mb-6 md:mb-8 text-gray-900 leading-tight">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold font-playfair mb-6 md:mb-8 text-gray-900 leading-tight drop-shadow-sm">
                 Private Boat Rentals Austin
               </h1>
-              <p className="text-lg sm:text-xl text-gray-900 mb-4 md:mb-6 font-semibold">
+              <p className="text-xl sm:text-2xl md:text-3xl text-gray-900 mb-6 md:mb-8 font-bold drop-shadow-sm">
                 Your Private Boat. Your Rules. Your Lake Travis Adventure.
               </p>
-              <p className="text-base sm:text-lg text-gray-700 max-w-4xl mx-auto mb-8 md:mb-10 leading-relaxed">
-                Exclusive boat charters for 14-75 guests. BYOB friendly. Choose your schedule, play your music, create your perfect day on the lake. Perfect for <InternalLinkHighlight href="/team-building" title="Corporate Events">corporate events</InternalLinkHighlight>, <InternalLinkHighlight href="/rehearsal-dinner" title="Special Occasions">weddings & birthdays</InternalLinkHighlight>, and any celebration.
-              </p>
+              <div className="inline-block bg-white/90 backdrop-blur-sm rounded-2xl px-6 sm:px-8 py-4 sm:py-6 shadow-xl max-w-5xl mx-auto">
+                <p className="text-lg sm:text-xl md:text-2xl text-gray-900 font-semibold leading-relaxed">
+                  Exclusive boat charters for 14-75 guests. BYOB friendly. Choose your schedule, play your music, create your perfect day on the lake. Perfect for <InternalLinkHighlight href="/team-building" title="Corporate Events">corporate events</InternalLinkHighlight>, <InternalLinkHighlight href="/rehearsal-dinner" title="Special Occasions">weddings & birthdays</InternalLinkHighlight>, and any celebration.
+                </p>
+              </div>
 
               <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-12">
                 <Button

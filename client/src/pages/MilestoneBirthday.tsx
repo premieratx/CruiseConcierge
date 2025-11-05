@@ -279,8 +279,8 @@ export default function MilestoneBirthday() {
             style={{ border: 'none' }}
             data-testid="youtube-background-video"
           />
-          {/* White Overlay for contrast - 60% opacity */}
-          <div className="absolute inset-0 bg-white/60"></div>
+          {/* White Overlay for contrast - 75% opacity */}
+          <div className="absolute inset-0 bg-white/75"></div>
         </div>
 
         {/* Main Hero Content */}
@@ -292,26 +292,35 @@ export default function MilestoneBirthday() {
             animate="visible"
           >
             <motion.div variants={fadeInUp}>
-              <Badge className="mb-6 px-6 py-3 text-base font-sans tracking-wider bg-blue-100 text-gray-900 border-blue-300">
+              <Badge className="mb-6 px-6 py-3 text-base font-sans tracking-wider bg-blue-100 text-gray-900 border-blue-300 shadow-lg">
                 <Cake className="mr-2 h-5 w-5" />
                 Celebrate Life's Big Milestones
               </Badge>
             </motion.div>
 
             <motion.h1 
-              className="text-5xl md:text-7xl font-playfair font-bold mb-6 text-center text-gray-900"
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-playfair font-extrabold mb-6 text-center text-gray-900 drop-shadow-sm"
               variants={fadeInUp}
             >
               Milestone Birthday Celebrations
             </motion.h1>
 
             <motion.p 
-              className="text-xl md:text-2xl text-base mb-8 text-gray-700 max-w-3xl mx-auto text-center"
+              className="text-xl sm:text-2xl md:text-3xl text-gray-900 mb-6 md:mb-8 font-bold drop-shadow-sm max-w-3xl mx-auto text-center"
               variants={fadeInUp}
             >
-              Make your milestone birthday unforgettable with a custom celebration 
-              cruise on Lake Travis. 21st, 30th, 40th, 50th, and beyond!
+              Celebrate Life's Big Milestones
             </motion.p>
+
+            <motion.div 
+              className="inline-block bg-white/90 backdrop-blur-sm rounded-2xl px-6 sm:px-8 py-4 sm:py-6 shadow-xl max-w-5xl mx-auto mb-8"
+              variants={fadeInUp}
+            >
+              <p className="text-lg sm:text-xl md:text-2xl text-gray-900 font-semibold leading-relaxed">
+                Make your milestone birthday unforgettable with a custom celebration 
+                cruise on Lake Travis. 21st, 30th, 40th, 50th, and beyond!
+              </p>
+            </motion.div>
 
             {/* Milestone Age Selector */}
             <motion.div 
