@@ -23,19 +23,18 @@ const fadeInUp = {
 };
 
 export default function Chat({ defaultEventType }: ChatProps = {}) {
-  // Build iframe URL with source tracking
-  const getIframeUrl = () => {
-    const currentUrl = encodeURIComponent(window.location.href);
-    const baseUrl = 'https://booking.premierpartycruises.com/new-quote';
-    return `${baseUrl}?sourceUrl=${currentUrl}&sourceType=embedded_new_quote`;
-  };
-
-  const [iframeUrl] = React.useState(getIframeUrl());
+  // Initialize with empty string to avoid SSR issues
+  const [iframeUrl, setIframeUrl] = React.useState('');
   const [iframeHeight, setIframeHeight] = React.useState(1400);
 
-  // Ensure page loads at top
+  // Build iframe URL with source tracking on client-side only
   React.useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'instant' });
+    if (typeof window !== 'undefined') {
+      const currentUrl = encodeURIComponent(window.location.href);
+      const baseUrl = 'https://booking.premierpartycruises.com/new-quote';
+      setIframeUrl(`${baseUrl}?sourceUrl=${currentUrl}&sourceType=embedded_new_quote`);
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    }
   }, []);
 
   // Auto-resize iframe based on content height
