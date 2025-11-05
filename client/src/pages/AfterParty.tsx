@@ -5,6 +5,8 @@ import PublicNavigation from '@/components/PublicNavigation';
 import { ClientOnly } from '@/components/ClientOnly';
 import Footer from '@/components/Footer';
 import PartyPlanningChecklist from '@/components/PartyPlanningChecklist';
+import YouTubeHeroEmbed from '@/components/YouTubeHeroEmbed';
+import VideoGallerySection from '@/components/VideoGallerySection';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -16,11 +18,11 @@ import SEOHead from '@/components/SEOHead';
 import { SectionReveal } from '@/components/SectionReveal';
 import { weddingReviews } from '@shared/reviews-data';
 import { 
-  Moon, PartyPopper, Users, Calendar, MapPin, Clock, Phone,
+  PartyPopper, Users, Calendar, MapPin, Clock, Phone,
   ArrowRight, CheckCircle, Sparkles, Music, Wine,
-  Star, Shield, Gift, MessageSquare, Volume2, Disc3,
+  Star, Shield, Gift, MessageSquare, Coffee, Disc3,
   Mic, Crown, Award, Quote, ChevronRight,
-  Anchor, Sun, Info, GlassWater, Heart, X
+  Anchor, Sun, Info, GlassWater, Heart, X, Smile, MessageCircle
 } from 'lucide-react';
 
 // Hero and gallery images
@@ -36,7 +38,7 @@ const afterPartyPackages = [
     id: 'standard',
     name: 'Standard 4-Hour Cruise',
     basePrice: 200,
-    description: 'Keep the celebration going - Extend the magic',
+    description: 'Relax and reconnect the day after - Perfect ending',
     features: [
       'Licensed, fun, experienced captains to take your group safely around the lake in style',
       '2 large empty coolers (plenty of cooler space - bring your own ice & drinks, or order ahead from Party On Delivery)',
@@ -47,15 +49,15 @@ const afterPartyPackages = [
       'We can help coordinate alcohol delivery through Party On Delivery'
     ],
     popular: false,
-    icon: Disc3,
-    badge: 'Party Continues'
+    icon: Coffee,
+    badge: 'Relaxed Vibe'
   },
   {
     id: 'essentials',
     name: 'Cruise w/Essentials Package',
     basePrice: 225,
     addOnPrice: 100,
-    description: 'After party with complete convenience',
+    description: 'Day-after relaxation with complete convenience',
     features: [
       'Everything from Standard Cruise',
       'Insulated 5-gallon dispenser with ice water',
@@ -70,73 +72,73 @@ const afterPartyPackages = [
   },
   {
     id: 'ultimate',
-    name: 'Ultimate Party Package',
+    name: 'Ultimate Relaxation Package',
     basePrice: 250,
     addOnPrice: 250,
-    description: 'The ultimate wedding after party with entertainment and party supplies',
+    description: 'The ultimate day-after experience with floats and fun',
     features: [
       'Everything from Essentials Package',
       'Giant lily pad float',
       'Guest of honor float (unicorn or ring)',
-      'Disco ball cups for party vibes',
+      'Disco ball cups for fun vibes',
       'Bubble guns & bubble wands',
       'Champagne flutes & fruit juices',
       'SPF-50 spray sunscreen',
       'Plates, plasticware, & paper towels',
-      'Disco balls installed for party atmosphere',
+      'Disco balls installed for sunny fun',
       'We can help coordinate alcohol delivery through Party On Delivery'
     ],
     popular: false,
     icon: Sparkles,
-    badge: 'Ultimate Party'
+    badge: 'Ultimate Relaxation'
   }
 ];
 
 const whatsIncluded = [
   {
-    icon: Moon,
-    title: 'Late Night Cruise',
-    description: 'Perfect timing to keep the party going after reception'
+    icon: Sun,
+    title: 'Day After Cruise',
+    description: 'Perfect daytime cruise to close out your wedding weekend'
   },
   {
-    icon: Disc3,
-    title: 'Professional DJ',
-    description: 'Keep the dance floor packed with your favorite hits'
+    icon: MessageCircle,
+    title: 'Catch Up Time',
+    description: 'Relax and talk to everyone you missed during the big day'
   },
   {
-    icon: Volume2,
-    title: 'Premium Sound',
-    description: 'Club-quality sound system for the ultimate party'
+    icon: Smile,
+    title: 'Relaxed Vibe',
+    description: 'Chill atmosphere to laugh and reminisce about your wedding'
   },
   {
-    icon: Wine,
-    title: 'Midnight Toast',
-    description: 'Champagne service for special midnight celebration'
-  },
-  {
-    icon: PartyPopper,
-    title: 'Party Lighting',
-    description: 'LED lights and effects for nighttime atmosphere'
+    icon: Coffee,
+    title: 'Mimosa-Friendly',
+    description: 'Bring champagne & OJ for day-after celebration'
   },
   {
     icon: GlassWater,
-    title: 'Late Night Setup',
-    description: 'Perfect for bringing your own snacks and treats'
+    title: 'Lake Activities',
+    description: 'Swimming, floating, and enjoying the beautiful water'
+  },
+  {
+    icon: Music,
+    title: 'Your Playlist',
+    description: 'Premium Bluetooth sound for your favorite chill tunes'
   },
   {
     icon: Heart,
-    title: 'Couple\'s VIP Area',
-    description: 'Special space for newlyweds to enjoy'
+    title: 'Close Friends',
+    description: 'Intimate time with those closest to you'
   },
   {
     icon: Shield,
-    title: 'Party Crew',
-    description: 'Experienced staff for late night celebrations'
+    title: 'Experienced Crew',
+    description: 'Professional captains for a safe, relaxing cruise'
   },
   {
     icon: Gift,
-    title: 'Send-off Supplies',
-    description: 'Sparklers and celebration supplies included'
+    title: 'Perfect Ending',
+    description: 'The best way to close out the best weekend of your life'
   }
 ];
 
@@ -192,14 +194,14 @@ export default function AfterParty() {
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
       <SEOHead 
         pageRoute="/after-party"
-        defaultTitle="Wedding After Party | Lake Travis Cruises"
-        defaultDescription="Late night wedding after party cruises. Keep the celebration going with DJ, dancing & champagne. Lake Travis magic!"
+        defaultTitle="Day After Wedding Cruise | Lake Travis After Party"
+        defaultDescription="Relax the day after your wedding on Lake Travis. Perfect daytime cruise to reconnect with loved ones and close out the best weekend of your life!"
         defaultKeywords={[
-          'wedding after party cruise',
+          'day after wedding cruise',
           'lake travis after party',
-          'wedding late night cruise',
-          'reception after party austin',
-          'wedding party boat rental'
+          'wedding day after cruise',
+          'post wedding cruise austin',
+          'wedding recovery boat rental'
         ]}
       />
 
@@ -225,28 +227,28 @@ export default function AfterParty() {
         <div className="relative z-10 max-w-7xl mx-auto px-6 flex-grow flex items-center w-full">
           <div className="max-w-4xl mx-auto text-center text-white w-full">
             <Badge className="mb-6 px-6 py-3 text-base font-sans tracking-wider bg-white/20 backdrop-blur-sm border-white/30">
-              <Moon className="mr-2 h-5 w-5" />
-              Keep the Celebration Going
+              <Sun className="mr-2 h-5 w-5" />
+              Perfect Ending to Your Wedding Weekend
             </Badge>
 
             <h1 className="text-5xl md:text-7xl font-playfair font-bold mb-6 text-center">
-              Wedding After Party Cruises
+              Day After Wedding Cruises
             </h1>
 
             <p className="text-xl md:text-2xl text-base mb-8 text-white/90 max-w-3xl mx-auto text-center">
-              Don't let the best night of your life end! Continue celebrating with 
-              your closest friends on an epic late-night Lake Travis cruise
+              Close out the best weekend of your life! Relax, reconnect, and laugh about 
+              your big day with the people you didn't have time to talk to during the wedding
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button
                 size="lg"
                 onClick={handleGetQuote}
-                className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold text-base sm:text-lg px-8 py-6 shadow-xl"
+                className="bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white font-bold text-base sm:text-lg px-8 py-6 shadow-xl"
                 data-testid="button-hero-get-quote"
               >
                 <MessageSquare className="mr-2 h-5 w-5" />
-                Plan After Party
+                Plan Day After Cruise
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
 
@@ -264,16 +266,16 @@ export default function AfterParty() {
 
             <div className="grid grid-cols-3 gap-8 mt-12 max-w-2xl mx-auto">
               <div className="text-center">
-                <div className="text-3xl font-bold text-pink-400">300+</div>
-                <div className="text-sm text-white/80">Epic After Parties</div>
+                <div className="text-3xl font-bold text-blue-300">300+</div>
+                <div className="text-sm text-white/80">Happy Couples</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-pink-400">10PM-2AM</div>
-                <div className="text-sm text-white/80">Late Night Hours</div>
+                <div className="text-3xl font-bold text-blue-300">Daytime</div>
+                <div className="text-sm text-white/80">Relaxed Hours</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-pink-400">5.0★</div>
-                <div className="text-sm text-white/80">Party Rating</div>
+                <div className="text-3xl font-bold text-blue-300">5.0★</div>
+                <div className="text-sm text-white/80">Perfect Ending</div>
               </div>
             </div>
           </div>
@@ -282,7 +284,7 @@ export default function AfterParty() {
         <div className="relative z-20 w-full bg-white/90 backdrop-blur-sm py-4 px-6">
           <div className="max-w-7xl mx-auto">
             <p className="text-center text-gray-900 text-base md:text-lg font-semibold">
-              <span className="text-purple-600">Late Night Magic</span> • DJ & Dancing • <span className="text-purple-600">Keep Celebrating</span>
+              <span className="text-blue-600">Day After Relaxation</span> • Catch Up with Friends • <span className="text-blue-600">Perfect Ending</span>
             </p>
           </div>
         </div>
@@ -290,21 +292,21 @@ export default function AfterParty() {
 
       {/* Build My Quote Section */}
       <SectionReveal>
-        <section className="py-24 bg-gradient-to-r from-purple-600 to-pink-600">
+        <section className="py-24 bg-gradient-to-r from-blue-600 to-cyan-600">
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center">
               <h2 className="text-5xl md:text-6xl font-playfair font-bold mb-6 text-white text-center tracking-wider">
                 BUILD MY QUOTE NOW
               </h2>
               <p className="text-xl text-base text-white/90 mb-8 max-w-2xl mx-auto text-center">
-                Get instant pricing for your after party celebration in minutes
+                Get instant pricing for your day-after cruise in minutes
               </p>
               
               {!showQuoteBuilder ? (
                 <Button
                   size="lg"
                   onClick={() => setShowQuoteBuilder(true)}
-                  className="bg-white hover:bg-gray-100 text-purple-600 font-bold text-lg sm:text-xl px-12 py-8 rounded-xl shadow-2xl transform hover:scale-105 transition-all duration-300"
+                  className="bg-white hover:bg-gray-100 text-blue-600 font-bold text-lg sm:text-xl px-12 py-8 rounded-xl shadow-2xl transform hover:scale-105 transition-all duration-300"
                   data-testid="button-build-quote"
                 >
                   <Sparkles className="mr-3 h-6 w-6" />
@@ -316,7 +318,7 @@ export default function AfterParty() {
                   size="lg"
                   variant="outline"
                   onClick={() => setShowQuoteBuilder(false)}
-                  className="border-3 border-white text-white hover:bg-white hover:text-purple-600 font-bold text-base px-12 py-6 rounded-xl backdrop-blur-sm mb-8"
+                  className="border-3 border-white text-white hover:bg-white hover:text-blue-600 font-bold text-base px-12 py-6 rounded-xl backdrop-blur-sm mb-8"
                   data-testid="button-hide-quote"
                 >
                   <X className="mr-2 h-5 w-5" />
@@ -362,11 +364,11 @@ export default function AfterParty() {
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-4 text-center">
-                After Party Packages
+                Day After Wedding Packages
               </h2>
               <p className="text-xl text-base text-gray-600 max-w-3xl mx-auto text-center">
-                Choose your perfect late-night celebration package. 
-                Keep the party going with DJ, dancing, and midnight festivities.
+                Choose your perfect day-after relaxation package. 
+                Relax, reconnect, and reminisce with your closest friends.
               </p>
             </div>
 
@@ -374,24 +376,24 @@ export default function AfterParty() {
               {afterPartyPackages.map((pkg) => (
                 <Card key={pkg.id} className={cn(
                   "relative h-full hover:shadow-2xl transition-all duration-300 rounded-xl",
-                  pkg.popular && "border-2 border-purple-600 shadow-xl scale-105"
+                  pkg.popular && "border-2 border-blue-600 shadow-xl scale-105"
                 )}>
                   {pkg.popular && (
                     <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-10">
-                      <Badge className="bg-purple-600 text-white font-bold font-sans tracking-wider px-4 py-1">
+                      <Badge className="bg-blue-600 text-white font-bold font-sans tracking-wider px-4 py-1">
                         MOST POPULAR
                       </Badge>
                     </div>
                   )}
 
                   <CardHeader className="text-center pb-6">
-                    <div className="w-16 h-16 mx-auto mb-4 bg-purple-100 rounded-full flex items-center justify-center">
-                      <pkg.icon className="h-8 w-8 text-purple-600" />
+                    <div className="w-16 h-16 mx-auto mb-4 bg-blue-100 rounded-full flex items-center justify-center">
+                      <pkg.icon className="h-8 w-8 text-blue-600" />
                     </div>
                     <CardTitle className="text-2xl font-bold text-center">{pkg.name}</CardTitle>
                     
                     <div className="mt-4 text-center">
-                      <div className="text-4xl font-bold text-purple-600">
+                      <div className="text-4xl font-bold text-blue-600">
                         ${pkg.basePrice}<span className="text-lg font-normal">/hr</span>
                       </div>
                       {pkg.addOnPrice && (
@@ -440,10 +442,10 @@ export default function AfterParty() {
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-4 text-center">
-                Everything for an Epic After Party
+                Everything for Your Day-After Cruise
               </h2>
               <p className="text-xl text-base text-gray-600 text-center">
-                All the ingredients for an unforgettable late-night celebration
+                All you need for a perfect relaxing day on the water
               </p>
             </div>
 
@@ -453,8 +455,8 @@ export default function AfterParty() {
                   key={index}
                   className="flex items-start p-6 rounded-xl hover:bg-white hover:shadow-lg transition-all"
                 >
-                  <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center mr-4 flex-shrink-0">
-                    <item.icon className="h-6 w-6 text-purple-600" />
+                  <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mr-4 flex-shrink-0">
+                    <item.icon className="h-6 w-6 text-blue-600" />
                   </div>
                   <div>
                     <h3 className="font-bold text-base mb-1">{item.title}</h3>
@@ -473,10 +475,10 @@ export default function AfterParty() {
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16 max-w-3xl mx-auto">
               <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-4 text-center">
-                Epic After Party Stories
+                Day-After Celebration Stories
               </h2>
               <p className="text-xl text-base text-gray-600 text-center mb-8">
-                Check out our verified reviews on Google and Facebook to see what real couples are saying about their after party cruises on Lake Travis!
+                Check out our verified reviews on Google and Facebook to see what real couples are saying about their day-after cruises on Lake Travis!
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
@@ -484,7 +486,7 @@ export default function AfterParty() {
                   size="lg"
                   variant="outline"
                   asChild
-                  className="border-2 border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white font-bold text-lg px-10 py-6"
+                  className="border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white font-bold text-lg px-10 py-6"
                 >
                   <a href="https://www.google.com/search?q=premier+party+cruises+austin" target="_blank" rel="noopener noreferrer">
                     <Star className="mr-2 h-5 w-5" />
@@ -496,7 +498,7 @@ export default function AfterParty() {
                   size="lg"
                   variant="outline"
                   asChild
-                  className="border-2 border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white font-bold text-lg px-10 py-6"
+                  className="border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white font-bold text-lg px-10 py-6"
                 >
                   <a href="https://www.facebook.com/premierpartycruises" target="_blank" rel="noopener noreferrer">
                     <Star className="mr-2 h-5 w-5" />
@@ -515,10 +517,10 @@ export default function AfterParty() {
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-4 text-center">
-                Late Night Celebration Photos
+                Day-After Cruise Photos
               </h2>
               <p className="text-xl text-base text-gray-600 text-center">
-                The party doesn't stop when the sun goes down
+                Relax and enjoy the beautiful Lake Travis sunshine
               </p>
             </div>
 
@@ -580,17 +582,17 @@ export default function AfterParty() {
         <section className="py-24 bg-gradient-to-b from-blue-50 to-white">
           <div className="max-w-7xl mx-auto px-6">
             <PartyPlanningChecklist 
-              eventType="Wedding After Party"
+              eventType="Day After Wedding Cruise"
               checklistItems={[
-                'Choose your after party cruise package',
-                'Select date and late-night time slot',
-                'Determine guest count for after party',
-                'Coordinate DJ and music preferences',
-                'Plan what snacks and drinks to bring',
-                'Arrange transportation from venue',
-                'Share after party details with guests',
-                'Prepare send-off supplies',
-                'Review timing with reception coordinator'
+                'Choose your day-after cruise package',
+                'Select date and daytime departure time',
+                'Determine guest count for relaxed cruise',
+                'Plan what drinks and snacks to bring',
+                'Coordinate brunch or lunch plans before/after',
+                'Arrange transportation to marina',
+                'Share cruise details with close friends',
+                'Bring sunscreen and comfortable clothing',
+                'Plan your chill playlist'
               ]}
             />
           </div>
@@ -599,19 +601,19 @@ export default function AfterParty() {
 
       {/* Final CTA */}
       <SectionReveal>
-        <section className="py-24 bg-gradient-to-r from-purple-600 to-pink-600">
+        <section className="py-24 bg-gradient-to-r from-blue-600 to-cyan-600">
           <div className="max-w-4xl mx-auto px-6 text-center">
             <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-6 text-white text-center">
-              Ready to Keep the Party Going?
+              Ready to Close Out the Best Weekend of Your Life?
             </h2>
             <p className="text-xl text-base text-white/90 mb-8 text-center">
-              Start planning your unforgettable after party experience today
+              Start planning your perfect day-after celebration today
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button
                 size="lg"
                 onClick={handleGetQuote}
-                className="bg-white hover:bg-gray-100 text-purple-600 font-bold text-lg px-8 py-6"
+                className="bg-white hover:bg-gray-100 text-blue-600 font-bold text-lg px-8 py-6"
                 data-testid="button-final-cta"
               >
                 <MessageSquare className="mr-2 h-5 w-5" />
@@ -622,7 +624,7 @@ export default function AfterParty() {
                 size="lg"
                 variant="outline"
                 asChild
-                className="border-white text-white hover:bg-white hover:text-purple-600 font-bold text-lg px-8 py-6"
+                className="border-white text-white hover:bg-white hover:text-blue-600 font-bold text-lg px-8 py-6"
                 data-testid="button-call-now"
               >
                 <a href="tel:+15124885892">
@@ -640,8 +642,8 @@ export default function AfterParty() {
         __html: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Service",
-          "name": "Wedding After Party Cruise Austin",
-          "description": "Epic wedding after party cruises on Lake Travis. Keep the celebration going with DJ, dancing, and midnight festivities for the perfect wedding finale.",
+          "name": "Day After Wedding Cruise Austin",
+          "description": "Relaxing day-after wedding cruises on Lake Travis. Perfect daytime cruise to reconnect with close friends and close out the best weekend of your life.",
           "provider": {
             "@type": "LocalBusiness",
             "name": "Premier Party Cruises",
@@ -652,24 +654,24 @@ export default function AfterParty() {
           "offers": [
             {
               "@type": "Offer",
-              "name": "After Party Standard Package",
+              "name": "Day After Standard Package",
               "price": "1050",
               "priceCurrency": "USD",
-              "description": "4-hour late night after party cruise for 1-14 guests"
+              "description": "4-hour daytime relaxation cruise for 1-14 guests"
             },
             {
               "@type": "Offer",
-              "name": "After Party Essentials Package",
+              "name": "Day After Essentials Package",
               "price": "1150",
               "priceCurrency": "USD",
-              "description": "4-hour after party with amenities for 1-14 guests"
+              "description": "4-hour day-after cruise with all amenities for 1-14 guests"
             },
             {
               "@type": "Offer",
-              "name": "After Party Ultimate Package",
+              "name": "Day After Ultimate Package",
               "price": "1300",
               "priceCurrency": "USD",
-              "description": "4-hour ultimate after party with DJ and entertainment for 1-14 guests"
+              "description": "4-hour ultimate relaxation cruise with floats and fun for 1-14 guests"
             }
           ]
         })

@@ -5,6 +5,8 @@ import PublicNavigation from '@/components/PublicNavigation';
 import Footer from '@/components/Footer';
 import RelatedLinks from '@/components/RelatedLinks';
 import PartyPlanningChecklist from '@/components/PartyPlanningChecklist';
+import YouTubeHeroEmbed from '@/components/YouTubeHeroEmbed';
+import VideoGallerySection from '@/components/VideoGallerySection';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
