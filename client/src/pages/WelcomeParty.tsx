@@ -240,6 +240,8 @@ export default function WelcomeParty() {
 
       <PublicNavigation />
 
+      <YouTubeHeroEmbed videoId="FABtEDZZBA0" />
+
       {/* Hero Section with Crossfade */}
       <section className="relative min-h-[80vh] flex flex-col justify-center overflow-hidden">
         {/* Image Background with Smooth Crossfade */}
@@ -956,6 +958,8 @@ export default function WelcomeParty() {
                     "description": "Private 3–4 hour cruise with licensed, experienced captain & crew, premium Bluetooth sound, coolers, restrooms, sun & shade seating. Choose Essentials or Ultimate Disco Party package add‑ons."
           })
       }} />
+
+      <VideoGallerySection videos={[{id: 'FABtEDZZBA0', title: 'Premier Party Cruises Experience', description: 'See what makes our Lake Travis cruises unforgettable'}]} />
 
       <Footer />
     </div>

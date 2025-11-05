@@ -3,6 +3,8 @@ import { Link, useLocation } from 'wouter';
 import { motion, AnimatePresence } from 'framer-motion';
 import PublicNavigation from '@/components/PublicNavigation';
 import Footer from '@/components/Footer';
+import YouTubeHeroEmbed from '@/components/YouTubeHeroEmbed';
+import VideoGallerySection from '@/components/VideoGallerySection';
 import PartyPlanningChecklist from '@/components/PartyPlanningChecklist';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
@@ -252,6 +254,8 @@ export default function Sweet16() {
       />
 
       <PublicNavigation />
+
+      <YouTubeHeroEmbed videoId="FABtEDZZBA0" />
 
       {/* Hero Section with Crossfade */}
       <section className="relative min-h-[80vh] flex flex-col justify-center overflow-hidden">
@@ -991,6 +995,8 @@ export default function Sweet16() {
                     "description": "Private 3–4 hour cruise with licensed, experienced captain & crew, premium Bluetooth sound, coolers, restrooms, sun & shade seating. Choose Essentials or Ultimate Disco Party package add‑ons."
           })
       }} />
+
+      <VideoGallerySection videos={[{id: 'FABtEDZZBA0', title: 'Premier Party Cruises Experience', description: 'See what makes our Lake Travis cruises unforgettable'}]} />
 
       <Footer />
     </div>

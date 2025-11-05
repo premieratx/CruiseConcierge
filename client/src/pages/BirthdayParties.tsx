@@ -4,6 +4,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import PublicNavigation from '@/components/PublicNavigation';
 import { ClientOnly } from '@/components/ClientOnly';
 import Footer from '@/components/Footer';
+import YouTubeHeroEmbed from '@/components/YouTubeHeroEmbed';
+import VideoGallerySection from '@/components/VideoGallerySection';
 import PartyPlanningChecklist from '@/components/PartyPlanningChecklist';
 import Chat from '@/pages/Chat';
 import Breadcrumb from '@/components/Breadcrumb';
@@ -201,6 +203,8 @@ export default function BirthdayParties() {
       <ClientOnly><PublicNavigation /></ClientOnly>
       <Breadcrumb />
       
+      <YouTubeHeroEmbed videoId="FABtEDZZBA0" />
+
       {/* Hero Section */}
       <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
@@ -530,6 +534,9 @@ export default function BirthdayParties() {
         partyType="Birthday Party"
         eventType="birthday celebration"
       />
+
+      <VideoGallerySection videos={[{id: 'FABtEDZZBA0', title: 'Premier Party Cruises Experience', description: 'See what makes our Lake Travis cruises unforgettable'}]} />
+
       <Footer />
     </div>
   );

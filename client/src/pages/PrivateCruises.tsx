@@ -25,6 +25,8 @@ import {
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import Footer from '@/components/Footer';
+import YouTubeHeroEmbed from '@/components/YouTubeHeroEmbed';
+import VideoGallerySection from '@/components/VideoGallerySection';
 import RelatedLinks from '@/components/RelatedLinks';
 import { ComparisonTable, type ComparisonColumn, type ComparisonRow } from '@/components/ComparisonTable';
 import Breadcrumb from '@/components/Breadcrumb';
@@ -534,6 +536,8 @@ export default function PrivateCruises() {
       
       <PublicNavigation />
       <Breadcrumb />
+
+      <YouTubeHeroEmbed videoId="FABtEDZZBA0" />
 
       {/* Table of Contents - Sticky Sidebar */}
       <TableOfContents sections={tocSections} />
@@ -1811,6 +1815,8 @@ export default function PrivateCruises() {
         secondaryHref="tel:+15124885892"
         showOnDesktop={false}
       />
+
+      <VideoGallerySection videos={[{id: 'FABtEDZZBA0', title: 'Premier Party Cruises Experience', description: 'See what makes our Lake Travis cruises unforgettable'}]} />
 
       <Footer />
     </div>

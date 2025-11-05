@@ -4,6 +4,8 @@ import { motion } from 'framer-motion';
 import PublicNavigation from '@/components/PublicNavigation';
 import { ClientOnly } from '@/components/ClientOnly';
 import Footer from '@/components/Footer';
+import YouTubeHeroEmbed from '@/components/YouTubeHeroEmbed';
+import VideoGallerySection from '@/components/VideoGallerySection';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -235,6 +237,8 @@ export default function PartyBoatLakeTravis() {
       />
 
       <ClientOnly><PublicNavigation /></ClientOnly>
+
+      <YouTubeHeroEmbed videoId="FABtEDZZBA0" />
 
       <section className="relative min-h-[80vh] flex flex-col justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
@@ -836,6 +840,8 @@ export default function PartyBoatLakeTravis() {
           </div>
         </section>
       </SectionReveal>
+
+      <VideoGallerySection videos={[{id: 'FABtEDZZBA0', title: 'Premier Party Cruises Experience', description: 'See what makes our Lake Travis cruises unforgettable'}]} />
 
       <Footer />
     </div>

@@ -237,6 +237,8 @@ export default function WeddingParties() {
       <ClientOnly><PublicNavigation /></ClientOnly>
       <Breadcrumb />
       
+      <YouTubeHeroEmbed videoId="FABtEDZZBA0" />
+
       {/* Hero Section */}
       <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
@@ -573,6 +575,9 @@ export default function WeddingParties() {
         partyType="Wedding Event"
         eventType="wedding celebration"
       />
+
+      <VideoGallerySection videos={[{id: 'FABtEDZZBA0', title: 'Premier Party Cruises Experience', description: 'See what makes our Lake Travis cruises unforgettable'}]} />
+
       <Footer />
     </div>
   );

@@ -166,12 +166,6 @@ const navigationItems: NavigationItem[] = [
         icon: Sparkles
       },
       {
-        title: 'Quinceañera',
-        href: '/quinceanera',
-        description: '15th birthday celebration',
-        icon: Gift
-      },
-      {
         section: 'Special Events'
       },
       {

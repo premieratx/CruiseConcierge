@@ -211,6 +211,8 @@ export default function TeamBuilding() {
       <PublicNavigation />
       <Breadcrumb />
 
+      <YouTubeHeroEmbed videoId="FABtEDZZBA0" />
+
       {/* Hero Section */}
       <section className="relative min-h-[80vh] flex flex-col justify-center overflow-hidden pt-20">
         <div className="absolute inset-0 z-0">
@@ -715,6 +717,8 @@ export default function TeamBuilding() {
           { title: 'Team Building Activity Ideas', href: '/blogs/team-building-activities-lake-travis' }
         ]}
       />
+
+      <VideoGallerySection videos={[{id: 'FABtEDZZBA0', title: 'Premier Party Cruises Experience', description: 'See what makes our Lake Travis cruises unforgettable'}]} />
 
       <Footer />
     </div>
