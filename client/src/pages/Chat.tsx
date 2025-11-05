@@ -25,7 +25,7 @@ const fadeInUp = {
 export default function Chat({ defaultEventType }: ChatProps = {}) {
   // Initialize with empty string to avoid SSR issues
   const [iframeUrl, setIframeUrl] = React.useState('');
-  const [iframeHeight, setIframeHeight] = React.useState(1400);
+  const [iframeHeight, setIframeHeight] = React.useState(600);
 
   // Build iframe URL with source tracking on client-side only
   React.useEffect(() => {
@@ -43,7 +43,7 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
       if (event.origin !== 'https://booking.premierpartycruises.com') return;
       
       if (event.data.type === 'new-quote-resize' && event.data.height) {
-        const newHeight = Math.max(event.data.height + 50, 1400);
+        const newHeight = Math.max(event.data.height + 20, 400);
         setIframeHeight(newHeight);
       }
     };
