@@ -44,7 +44,7 @@ export default function QuoteBuilderSection() {
   };
 
   return (
-    <section id="quote-builder" className="py-16 bg-gradient-to-br from-brand-blue via-purple-600 to-blue-700">
+    <section id="quote-builder" className="py-16 bg-gradient-to-br from-brand-blue via-purple-600 to-blue-700" style={{ position: 'relative', zIndex: 0 }}>
       <div className="container mx-auto px-0 md:px-6">
         <motion.div
           initial="hidden"
@@ -64,18 +64,19 @@ export default function QuoteBuilderSection() {
           whileInView="visible"
           viewport={{ once: true }}
           variants={fadeInUp}
-          className="overflow-hidden"
+          className="overflow-visible"
         >
           <div className="w-full md:max-w-6xl mx-auto">
             <div 
               ref={containerRef}
               id="new-quote-widget-container" 
-              className="bg-white rounded-none md:rounded-2xl shadow-2xl overflow-hidden"
+              className="bg-white rounded-none md:rounded-2xl shadow-2xl"
               style={{ 
                 width: '100%', 
                 minHeight: `${iframeHeight}px`, 
-                position: 'relative', 
-                margin: '0'
+                position: 'static', 
+                margin: '0',
+                overflow: 'visible'
               }}
             >
               {iframeUrl && (
@@ -90,9 +91,8 @@ export default function QuoteBuilderSection() {
                     border: 'none',
                     display: 'block',
                     borderRadius: '0',
-                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-                    position: 'relative',
-                    zIndex: 1,
+                    position: 'static',
+                    zIndex: 0,
                     transition: 'height 0.3s ease-in-out'
                   }}
                   onLoad={handleIframeLoad}

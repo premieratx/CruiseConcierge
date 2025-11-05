@@ -144,10 +144,11 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
               id="new-quote-widget-container"
               style={{ 
                 minHeight: `${iframeHeight}px`,
-                position: 'relative'
+                position: 'static',
+                overflow: 'visible'
               }}
             >
-              <div className="w-full max-w-6xl mx-auto overflow-hidden rounded-xl shadow-2xl">
+              <div className="w-full max-w-6xl mx-auto rounded-xl shadow-2xl" style={{ overflow: 'visible' }}>
                 <iframe 
                   id="new-quote-widget-iframe"
                   src={iframeUrl}
@@ -159,8 +160,8 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
                     display: 'block',
                     borderRadius: '8px',
                     boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-                    position: 'relative',
-                    zIndex: 1,
+                    position: 'static',
+                    zIndex: 0,
                     transition: 'height 0.3s ease-in-out'
                   }}
                   onLoad={handleIframeLoad}
