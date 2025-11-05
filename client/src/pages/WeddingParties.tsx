@@ -238,30 +238,33 @@ export default function WeddingParties() {
       />
       <ClientOnly><PublicNavigation /></ClientOnly>
       <Breadcrumb />
-      
-      <YouTubeHeroEmbed videoId="FABtEDZZBA0" />
 
       {/* Hero Section */}
-      <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden">
+      <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden pt-20">
+        {/* YouTube Video Background */}
         <div className="absolute inset-0 z-0">
-          <img
-            src={heroImage1}
-            alt="Wedding Party Boat Austin cruise event on Lake Travis"
-            className="w-full h-full object-cover"
+          <iframe
+            src="https://www.youtube.com/embed/FABtEDZZBA0?autoplay=1&mute=1&loop=1&playlist=FABtEDZZBA0&controls=0&modestbranding=1&rel=0&showinfo=0&disablekb=1&fs=0&playsinline=1"
+            title="Premier Party Cruises Drone Video Background"
+            allow="autoplay; encrypted-media"
+            className="absolute top-1/2 left-1/2 w-[177.77vh] h-[56.25vw] min-w-full min-h-full -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+            style={{ border: 'none' }}
+            data-testid="youtube-background-video"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/60" />
+          {/* White Overlay for contrast - 60% opacity */}
+          <div className="absolute inset-0 bg-white/60"></div>
         </div>
         
-        <div className="relative z-10 container mx-auto px-6 text-center text-white">
+        <div className="relative z-10 container mx-auto px-6 text-center">
           <Badge className="mb-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-3 text-sm font-sans tracking-wider">
             <Heart className="h-4 w-4 mr-2" />
             WEDDING CELEBRATIONS ON THE WATER
             <Heart className="h-4 w-4 ml-2" />
           </Badge>
-          <h1 className="font-playfair text-5xl md:text-6xl lg:text-7xl font-bold mb-6 text-center" data-editable data-editable-id="h1-wedding-hero">
+          <h1 className="font-playfair text-5xl md:text-6xl lg:text-7xl font-bold mb-6 text-center text-gray-900" data-editable data-editable-id="h1-wedding-hero">
             Create Unforgettable Wedding Memories on Lake Travis
           </h1>
-          <p className="text-base md:text-lg mb-8 max-w-3xl mx-auto leading-relaxed text-center" data-editable data-editable-id="p-wedding-tagline">
+          <p className="text-base md:text-lg mb-8 max-w-3xl mx-auto leading-relaxed text-center text-gray-700" data-editable data-editable-id="p-wedding-tagline">
             Rehearsal Dinners • Welcome Parties • After Parties
             <br />
             Elegant celebrations with sunset views on Lake Travis

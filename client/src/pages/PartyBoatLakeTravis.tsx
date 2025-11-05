@@ -238,34 +238,22 @@ export default function PartyBoatLakeTravis() {
 
       <ClientOnly><PublicNavigation /></ClientOnly>
 
-      <YouTubeHeroEmbed videoId="FABtEDZZBA0" />
-
-      <section className="relative min-h-[80vh] flex flex-col justify-center overflow-hidden">
+      <section className="relative min-h-[80vh] flex flex-col justify-center overflow-hidden pt-20">
+        {/* YouTube Video Background */}
         <div className="absolute inset-0 z-0">
-          {heroImages.map((image, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: index === currentImageIndex ? 1 : 0 }}
-              transition={{ duration: reducedMotion ? 0 : 0.8, ease: "easeInOut" }}
-              className="absolute inset-0"
-              style={{ pointerEvents: index === currentImageIndex ? 'auto' : 'none' }}
-            >
-              <img 
-                src={image}
-                alt="Party Boat Lake Travis - Premier Austin cruises on crystal clear water"
-                className="w-full h-full object-cover"
-                width={1920}
-                height={1080}
-                loading={index === 0 ? "eager" : "lazy"}
-                fetchpriority={index === 0 ? "high" : "low"}
-              />
-              <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
-            </motion.div>
-          ))}
+          <iframe
+            src="https://www.youtube.com/embed/FABtEDZZBA0?autoplay=1&mute=1&loop=1&playlist=FABtEDZZBA0&controls=0&modestbranding=1&rel=0&showinfo=0&disablekb=1&fs=0&playsinline=1"
+            title="Premier Party Cruises Drone Video Background"
+            allow="autoplay; encrypted-media"
+            className="absolute top-1/2 left-1/2 w-[177.77vh] h-[56.25vw] min-w-full min-h-full -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+            style={{ border: 'none' }}
+            data-testid="youtube-background-video"
+          />
+          {/* White Overlay for contrast - 60% opacity */}
+          <div className="absolute inset-0 bg-white/60"></div>
         </div>
         
-        <div className="relative z-10 max-w-7xl mx-auto px-6 text-white flex-grow flex items-center w-full">
+        <div className="relative z-10 max-w-7xl mx-auto px-6 flex-grow flex items-center w-full">
           <motion.div 
             className="max-w-4xl mx-auto text-center w-full"
             initial="hidden"
@@ -273,14 +261,14 @@ export default function PartyBoatLakeTravis() {
             variants={fadeInUp}
           >
             <motion.div variants={fadeInUp} className="mb-4">
-              <Badge className="bg-yellow-400 text-black hover:bg-yellow-500 text-lg px-6 py-2 font-sans tracking-wider" data-testid="badge-lake-travis-1">
+              <Badge className="bg-yellow-100 text-gray-900 border-yellow-400 text-lg px-6 py-2 font-sans tracking-wider" data-testid="badge-lake-travis-1">
                 <MapPin className="w-4 h-4 mr-2" />
                 Lake Travis's Premier Party Boat
               </Badge>
             </motion.div>
 
             <motion.h1 
-              className="text-5xl md:text-5xl font-playfair font-bold mb-6 leading-tight text-center"
+              className="text-5xl md:text-5xl font-playfair font-bold mb-6 leading-tight text-center text-gray-900"
               variants={fadeInUp}
               data-testid="heading-hero"
             >
@@ -288,7 +276,7 @@ export default function PartyBoatLakeTravis() {
             </motion.h1>
 
             <motion.p 
-              className="text-base md:text-lg mb-8"
+              className="text-base md:text-lg mb-8 text-gray-700"
               variants={fadeInUp}
               data-testid="text-hero-subtitle"
             >
@@ -313,7 +301,7 @@ export default function PartyBoatLakeTravis() {
               <Button 
                 size="lg" 
                 variant="outline" 
-                className="border-white text-white hover:bg-white hover:text-black text-lg px-8 py-6 backdrop-blur-sm"
+                className="bg-white border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white text-lg px-8 py-6"
                 onClick={() => setShowQuoteBuilder(true)}
                 data-testid="button-quote-lake-travis"
               >
@@ -326,16 +314,16 @@ export default function PartyBoatLakeTravis() {
               className="mt-12 flex flex-wrap gap-8 justify-center items-center text-sm"
               variants={fadeInUp}
             >
-              <div className="flex items-center gap-2" data-testid="stat-experience">
-                <Trophy className="h-5 w-5 text-yellow-300" />
+              <div className="flex items-center gap-2 text-gray-700" data-testid="stat-experience">
+                <Trophy className="h-5 w-5 text-blue-600" />
                 <span>15+ Years on Lake Travis</span>
               </div>
-              <div className="flex items-center gap-2" data-testid="stat-guests">
-                <Users className="h-5 w-5 text-yellow-300" />
+              <div className="flex items-center gap-2 text-gray-700" data-testid="stat-guests">
+                <Users className="h-5 w-5 text-blue-600" />
                 <span>150K+ Lake Travis Guests</span>
               </div>
-              <div className="flex items-center gap-2" data-testid="stat-safety">
-                <Shield className="h-5 w-5 text-yellow-300" />
+              <div className="flex items-center gap-2 text-gray-700" data-testid="stat-safety">
+                <Shield className="h-5 w-5 text-blue-600" />
                 <span>Perfect Lake Travis Safety Record</span>
               </div>
             </motion.div>

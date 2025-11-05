@@ -255,57 +255,24 @@ export default function Sweet16() {
 
       <PublicNavigation />
 
-      <YouTubeHeroEmbed videoId="FABtEDZZBA0" />
-
       {/* Hero Section with Crossfade */}
-      <section className="relative min-h-[80vh] flex flex-col justify-center overflow-hidden">
-        {/* Animated Sparkles Background */}
-        <div className="absolute inset-0 overflow-hidden z-5">
-          {[...Array(10)].map((_, i) => (
-            <motion.div
-              key={i}
-              className="absolute text-pink-300"
-              style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-              }}
-              variants={sparkleFloat}
-              initial="hidden"
-              animate="visible"
-              transition={{ delay: i * 0.3 }}
-            >
-              <Sparkles className="h-6 w-6" />
-            </motion.div>
-          ))}
-        </div>
-
-        {/* Image Background with Smooth Crossfade */}
+      <section className="relative min-h-[80vh] flex flex-col justify-center overflow-hidden pt-20">
+        {/* YouTube Video Background */}
         <div className="absolute inset-0 z-0">
-          {heroImages.map((image, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: index === currentHeroImage ? 1 : 0 }}
-              transition={{ duration: reducedMotion ? 0 : 0.8, ease: "easeInOut" }}
-              className="absolute inset-0"
-              style={{ pointerEvents: index === currentHeroImage ? 'auto' : 'none' }}
-            >
-              <img 
-                src={image}
-                alt="Sweet 16 Party Boat Austin birthday cruise on Lake Travis Sweet Sixteen"
-                className="w-full h-full object-cover"
-                width={1920}
-                height={1080}
-                loading={index === 0 ? "eager" : "lazy"}
-                fetchpriority={index === 0 ? "high" : "low"}
-              />
-              <div className="absolute inset-0 bg-gradient-to-b from-pink-900/60 via-purple-900/40 to-pink-900/70" />
-            </motion.div>
-          ))}
+          <iframe
+            src="https://www.youtube.com/embed/FABtEDZZBA0?autoplay=1&mute=1&loop=1&playlist=FABtEDZZBA0&controls=0&modestbranding=1&rel=0&showinfo=0&disablekb=1&fs=0&playsinline=1"
+            title="Premier Party Cruises Drone Video Background"
+            allow="autoplay; encrypted-media"
+            className="absolute top-1/2 left-1/2 w-[177.77vh] h-[56.25vw] min-w-full min-h-full -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+            style={{ border: 'none' }}
+            data-testid="youtube-background-video"
+          />
+          {/* White Overlay for contrast - 60% opacity */}
+          <div className="absolute inset-0 bg-white/60"></div>
         </div>
 
         {/* Main Hero Content */}
-        <div className="relative z-10 container mx-auto px-6 text-white flex-grow flex items-center">
+        <div className="relative z-10 container mx-auto px-6 flex-grow flex items-center">
           <motion.div 
             className="max-w-4xl mx-auto text-center w-full"
             variants={staggerChildren}
@@ -313,21 +280,21 @@ export default function Sweet16() {
             animate="visible"
           >
             <motion.div variants={fadeInUp}>
-              <Badge className="mb-6 px-6 py-3 text-base font-sans tracking-wider bg-white/20 backdrop-blur-sm border-white/30">
+              <Badge className="mb-6 px-6 py-3 text-base font-sans tracking-wider bg-pink-100 text-gray-900 border-pink-300">
                 <Sparkles className="mr-2 h-5 w-5" />
                 Make Her 16th Birthday Magical
               </Badge>
             </motion.div>
 
             <motion.h1 
-              className="text-5xl md:text-7xl font-playfair font-bold mb-6 text-center"
+              className="text-5xl md:text-7xl font-playfair font-bold mb-6 text-center text-gray-900"
               variants={fadeInUp}
             >
               Sweet 16 Birthday Cruises
             </motion.h1>
 
             <motion.p 
-              className="text-xl md:text-2xl text-base mb-8 text-white/90 max-w-3xl mx-auto text-center"
+              className="text-xl md:text-2xl text-base mb-8 text-gray-700 max-w-3xl mx-auto text-center"
               variants={fadeInUp}
             >
               Celebrate this milestone birthday with an unforgettable Lake Travis cruise. 

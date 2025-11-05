@@ -428,35 +428,37 @@ export default function CorporateEvents() {
       />
       <ClientOnly><PublicNavigation /></ClientOnly>
       <Breadcrumb />
-      
-      <YouTubeHeroEmbed videoId="FABtEDZZBA0" />
 
       {/* 1. HERO SECTION */}
-      <section id="hero" className="relative min-h-[70vh] flex items-center justify-center overflow-hidden">
+      <section id="hero" className="relative min-h-[80vh] flex items-center justify-center overflow-hidden pt-20">
+        {/* YouTube Video Background */}
         <div className="absolute inset-0 z-0">
-          <LazyImage
-            src={heroImage1}
-            alt="Corporate Party Boat Austin cruise event on Lake Travis"
-            className="w-full h-full object-cover"
-            priority={true}
+          <iframe
+            src="https://www.youtube.com/embed/FABtEDZZBA0?autoplay=1&mute=1&loop=1&playlist=FABtEDZZBA0&controls=0&modestbranding=1&rel=0&showinfo=0&disablekb=1&fs=0&playsinline=1"
+            title="Premier Party Cruises Drone Video Background"
+            allow="autoplay; encrypted-media"
+            className="absolute top-1/2 left-1/2 w-[177.77vh] h-[56.25vw] min-w-full min-h-full -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+            style={{ border: 'none' }}
+            data-testid="youtube-background-video"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/60" />
+          {/* White Overlay for contrast - 60% opacity */}
+          <div className="absolute inset-0 bg-white/60"></div>
         </div>
         
-        <div className="relative z-10 max-w-7xl mx-auto px-6 text-center text-white py-24">
+        <div className="relative z-10 max-w-7xl mx-auto px-6 text-center py-24">
           <Badge className="mb-6 bg-blue-600 text-white px-6 py-2 text-sm font-sans tracking-wider uppercase">
             PROFESSIONAL CORPORATE CRUISES
           </Badge>
           
           {/* CRITICAL: H1 with text-6xl and font-playfair - Largest text on page */}
-          <h1 className="text-5xl md:text-6xl font-playfair font-bold mb-6 tracking-tight" data-editable data-editable-id="h1-corporate-hero">
+          <h1 className="text-5xl md:text-6xl font-playfair font-bold mb-6 tracking-tight text-gray-900" data-editable data-editable-id="h1-corporate-hero">
             Corporate Event Cruises
           </h1>
           
-          <p className="text-xl mb-4 max-w-3xl mx-auto leading-relaxed" data-editable data-editable-id="corporate-hero-tagline">
+          <p className="text-xl mb-4 max-w-3xl mx-auto leading-relaxed text-gray-900" data-editable data-editable-id="corporate-hero-tagline">
             Impress Clients. Reward Your Team. Elevate Your Business.
           </p>
-          <p className="text-base mb-8 max-w-3xl mx-auto text-white/90" data-editable data-editable-id="p-corporate-tagline">
+          <p className="text-base mb-8 max-w-3xl mx-auto text-gray-700" data-editable data-editable-id="p-corporate-tagline">
             Tax-deductible business entertainment • Professional service • Unforgettable experiences. Choose from <InternalLinkHighlight href="/private-cruises" title="Private Cruises">private charters</InternalLinkHighlight> or explore our <InternalLinkHighlight href="/team-building" title="Team Building">team building packages</InternalLinkHighlight>.
           </p>
           

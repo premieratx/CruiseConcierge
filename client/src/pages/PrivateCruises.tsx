@@ -537,14 +537,24 @@ export default function PrivateCruises() {
       <PublicNavigation />
       <Breadcrumb />
 
-      <YouTubeHeroEmbed videoId="FABtEDZZBA0" />
-
       {/* Table of Contents - Sticky Sidebar */}
       <TableOfContents sections={tocSections} />
 
       {/* Hero Section */}
-      <section id="hero" className="relative pt-32 pb-24 px-4 overflow-hidden bg-gradient-to-br from-blue-100 via-white to-yellow-50">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-200/30 via-purple-100/30 to-yellow-100/30"></div>
+      <section id="hero" className="relative pt-32 pb-24 px-4 overflow-hidden">
+        {/* YouTube Video Background */}
+        <div className="absolute inset-0 z-0">
+          <iframe
+            src="https://www.youtube.com/embed/FABtEDZZBA0?autoplay=1&mute=1&loop=1&playlist=FABtEDZZBA0&controls=0&modestbranding=1&rel=0&showinfo=0&disablekb=1&fs=0&playsinline=1"
+            title="Premier Party Cruises Drone Video Background"
+            allow="autoplay; encrypted-media"
+            className="absolute top-1/2 left-1/2 w-[177.77vh] h-[56.25vw] min-w-full min-h-full -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+            style={{ border: 'none' }}
+            data-testid="youtube-background-video"
+          />
+          {/* White Overlay for contrast - 60% opacity */}
+          <div className="absolute inset-0 bg-white/60"></div>
+        </div>
         
         <div className="max-w-7xl mx-auto relative z-10">
           <ScrollReveal delay={0}>

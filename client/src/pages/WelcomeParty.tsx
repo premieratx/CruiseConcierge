@@ -242,37 +242,24 @@ export default function WelcomeParty() {
 
       <PublicNavigation />
 
-      <YouTubeHeroEmbed videoId="FABtEDZZBA0" />
-
-      {/* Hero Section with Crossfade */}
-      <section className="relative min-h-[80vh] flex flex-col justify-center overflow-hidden">
-        {/* Image Background with Smooth Crossfade */}
+      {/* Hero Section */}
+      <section className="relative min-h-[80vh] flex flex-col justify-center overflow-hidden pt-20">
+        {/* YouTube Video Background */}
         <div className="absolute inset-0 z-0">
-          {heroImages.map((image, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: index === currentHeroImage ? 1 : 0 }}
-              transition={{ duration: reducedMotion ? 0 : 0.8, ease: "easeInOut" }}
-              className="absolute inset-0"
-              style={{ pointerEvents: index === currentHeroImage ? 'auto' : 'none' }}
-            >
-              <img 
-                src={image}
-                alt="Welcome Party Boat Austin cruise on Lake Travis Welcome Party"
-                className="w-full h-full object-cover"
-                width={1920}
-                height={1080}
-                loading={index === 0 ? "eager" : "lazy"}
-                fetchpriority={index === 0 ? "high" : "low"}
-              />
-              <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
-            </motion.div>
-          ))}
+          <iframe
+            src="https://www.youtube.com/embed/FABtEDZZBA0?autoplay=1&mute=1&loop=1&playlist=FABtEDZZBA0&controls=0&modestbranding=1&rel=0&showinfo=0&disablekb=1&fs=0&playsinline=1"
+            title="Premier Party Cruises Drone Video Background"
+            allow="autoplay; encrypted-media"
+            className="absolute top-1/2 left-1/2 w-[177.77vh] h-[56.25vw] min-w-full min-h-full -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+            style={{ border: 'none' }}
+            data-testid="youtube-background-video"
+          />
+          {/* White Overlay for contrast - 60% opacity */}
+          <div className="absolute inset-0 bg-white/60"></div>
         </div>
 
         {/* Main Hero Content */}
-        <div className="relative z-10 container mx-auto px-6 text-white flex-grow flex items-center">
+        <div className="relative z-10 container mx-auto px-6 flex-grow flex items-center">
           <motion.div 
             className="max-w-4xl mx-auto text-center w-full"
             variants={staggerChildren}
@@ -280,21 +267,21 @@ export default function WelcomeParty() {
             animate="visible"
           >
             <motion.div variants={fadeInUp}>
-              <Badge className="mb-6 px-6 py-3 text-base font-sans tracking-wider bg-white/20 backdrop-blur-sm border-white/30">
+              <Badge className="mb-6 px-6 py-3 text-base font-sans tracking-wider bg-purple-100 border-purple-300">
                 <Plane className="mr-2 h-5 w-5" />
                 Welcome Your Wedding Guests in Style
               </Badge>
             </motion.div>
 
             <motion.h1 
-              className="text-5xl md:text-7xl font-playfair font-bold mb-6 text-center"
+              className="text-5xl md:text-7xl font-playfair font-bold mb-6 text-center text-gray-900"
               variants={fadeInUp}
             >
               Welcome Party Cruises
             </motion.h1>
 
             <motion.p 
-              className="text-xl md:text-2xl text-base mb-8 text-white/90 max-w-3xl mx-auto text-center"
+              className="text-xl md:text-2xl mb-8 text-gray-700 max-w-3xl mx-auto text-center"
               variants={fadeInUp}
             >
               Kick off your wedding weekend with an unforgettable Lake Travis cruise. 
@@ -320,7 +307,7 @@ export default function WelcomeParty() {
                 size="lg"
                 variant="outline"
                 onClick={() => document.getElementById('packages')?.scrollIntoView({ behavior: 'smooth' })}
-                className="bg-white/10 backdrop-blur-sm text-white border-white/30 hover:bg-white/20 font-bold text-base sm:text-lg px-8 py-6"
+                className="bg-white border-2 border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white font-bold text-base sm:text-lg px-8 py-6"
                 data-testid="button-hero-view-packages"
               >
                 View Packages
@@ -334,16 +321,16 @@ export default function WelcomeParty() {
               variants={fadeInUp}
             >
               <div className="text-center">
-                <div className="text-3xl font-bold text-pink-400">400+</div>
-                <div className="text-sm text-white/80">Welcome Parties</div>
+                <div className="text-3xl font-bold text-purple-600">400+</div>
+                <div className="text-sm text-gray-600">Welcome Parties</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-pink-400">25-75</div>
-                <div className="text-sm text-white/80">Guest Capacity</div>
+                <div className="text-3xl font-bold text-purple-600">25-75</div>
+                <div className="text-sm text-gray-600">Guest Capacity</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-pink-400">5.0★</div>
-                <div className="text-sm text-white/80">Guest Rating</div>
+                <div className="text-3xl font-bold text-purple-600">5.0★</div>
+                <div className="text-sm text-gray-600">Guest Rating</div>
               </div>
             </motion.div>
           </motion.div>

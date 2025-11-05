@@ -207,35 +207,34 @@ export default function CompanyMilestone() {
 
       <PublicNavigation />
 
-      <YouTubeHeroEmbed videoId="FABtEDZZBA0" />
-
       {/* Hero Section */}
       <section className="relative min-h-[80vh] flex flex-col justify-center overflow-hidden pt-20">
+        {/* YouTube Video Background */}
         <div className="absolute inset-0 z-0">
-          <div className="relative w-full h-full">
-            <img 
-              src={heroImage1} 
-              alt="Company Celebration Party Boat Austin milestone event on Lake Travis" 
-              className="w-full h-full object-cover"
-              loading="eager"
-              fetchpriority="high"
-            />
-            <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/50" />
-          </div>
+          <iframe
+            src="https://www.youtube.com/embed/FABtEDZZBA0?autoplay=1&mute=1&loop=1&playlist=FABtEDZZBA0&controls=0&modestbranding=1&rel=0&showinfo=0&disablekb=1&fs=0&playsinline=1"
+            title="Premier Party Cruises Drone Video Background"
+            allow="autoplay; encrypted-media"
+            className="absolute top-1/2 left-1/2 w-[177.77vh] h-[56.25vw] min-w-full min-h-full -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+            style={{ border: 'none' }}
+            data-testid="youtube-background-video"
+          />
+          {/* White Overlay for contrast - 60% opacity */}
+          <div className="absolute inset-0 bg-white/60"></div>
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-6 flex-grow flex items-center w-full">
-          <div className="max-w-4xl mx-auto text-center text-white w-full">
-            <Badge className="mb-6 px-6 py-3 text-base font-sans tracking-wider bg-white/20 backdrop-blur-sm border-white/30">
+          <div className="max-w-4xl mx-auto text-center w-full">
+            <Badge className="mb-6 px-6 py-3 text-base font-sans tracking-wider bg-blue-100 text-gray-900 border-blue-300">
               <Trophy className="mr-2 h-5 w-5" />
               Celebrate Your Success in Style
             </Badge>
 
-            <h1 className="text-5xl md:text-7xl font-playfair font-bold mb-6 text-center">
+            <h1 className="text-5xl md:text-7xl font-playfair font-bold mb-6 text-center text-gray-900">
               Company Milestone Celebrations
             </h1>
 
-            <p className="text-xl md:text-2xl text-base mb-8 text-white/90 max-w-3xl mx-auto text-center">
+            <p className="text-xl md:text-2xl text-base mb-8 text-gray-700 max-w-3xl mx-auto text-center">
               Mark your company's greatest achievements with an unforgettable 
               celebration on Lake Travis that your team will never forget
             </p>

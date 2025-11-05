@@ -207,35 +207,34 @@ export default function AfterParty() {
 
       <ClientOnly><PublicNavigation /></ClientOnly>
 
-      <YouTubeHeroEmbed videoId="FABtEDZZBA0" />
-
       {/* Hero Section */}
       <section className="relative min-h-[80vh] flex flex-col justify-center overflow-hidden pt-20">
+        {/* YouTube Video Background */}
         <div className="absolute inset-0 z-0">
-          <div className="relative w-full h-full">
-            <img 
-              src={heroImage1}
-              alt="After Party Boat Austin wedding cruise on Lake Travis After Party"
-              className="w-full h-full object-cover"
-              loading="eager"
-              fetchpriority="high"
-            />
-            <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
-          </div>
+          <iframe
+            src="https://www.youtube.com/embed/FABtEDZZBA0?autoplay=1&mute=1&loop=1&playlist=FABtEDZZBA0&controls=0&modestbranding=1&rel=0&showinfo=0&disablekb=1&fs=0&playsinline=1"
+            title="Premier Party Cruises Drone Video Background"
+            allow="autoplay; encrypted-media"
+            className="absolute top-1/2 left-1/2 w-[177.77vh] h-[56.25vw] min-w-full min-h-full -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+            style={{ border: 'none' }}
+            data-testid="youtube-background-video"
+          />
+          {/* White Overlay for contrast - 60% opacity */}
+          <div className="absolute inset-0 bg-white/60"></div>
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-6 flex-grow flex items-center w-full">
-          <div className="max-w-4xl mx-auto text-center text-white w-full">
-            <Badge className="mb-6 px-6 py-3 text-base font-sans tracking-wider bg-white/20 backdrop-blur-sm border-white/30">
+          <div className="max-w-4xl mx-auto text-center w-full">
+            <Badge className="mb-6 px-6 py-3 text-base font-sans tracking-wider bg-blue-100 border-blue-300">
               <Sun className="mr-2 h-5 w-5" />
               Perfect Ending to Your Wedding Weekend
             </Badge>
 
-            <h1 className="text-5xl md:text-7xl font-playfair font-bold mb-6 text-center">
+            <h1 className="text-5xl md:text-7xl font-playfair font-bold mb-6 text-center text-gray-900">
               Day After Wedding Cruises
             </h1>
 
-            <p className="text-xl md:text-2xl text-base mb-8 text-white/90 max-w-3xl mx-auto text-center">
+            <p className="text-xl md:text-2xl mb-8 text-gray-700 max-w-3xl mx-auto text-center">
               Close out the best weekend of your life! Relax, reconnect, and laugh about 
               your big day with the people you didn't have time to talk to during the wedding
             </p>
@@ -256,7 +255,7 @@ export default function AfterParty() {
                 size="lg"
                 variant="outline"
                 onClick={() => document.getElementById('packages')?.scrollIntoView({ behavior: 'smooth' })}
-                className="bg-white/10 backdrop-blur-sm text-white border-white/30 hover:bg-white/20 font-bold text-base sm:text-lg px-8 py-6"
+                className="bg-white border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white font-bold text-base sm:text-lg px-8 py-6"
                 data-testid="button-hero-view-packages"
               >
                 View Packages
@@ -266,16 +265,16 @@ export default function AfterParty() {
 
             <div className="grid grid-cols-3 gap-8 mt-12 max-w-2xl mx-auto">
               <div className="text-center">
-                <div className="text-3xl font-bold text-blue-300">300+</div>
-                <div className="text-sm text-white/80">Happy Couples</div>
+                <div className="text-3xl font-bold text-blue-600">300+</div>
+                <div className="text-sm text-gray-600">Happy Couples</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-blue-300">Daytime</div>
-                <div className="text-sm text-white/80">Relaxed Hours</div>
+                <div className="text-3xl font-bold text-blue-600">Daytime</div>
+                <div className="text-sm text-gray-600">Relaxed Hours</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-blue-300">5.0★</div>
-                <div className="text-sm text-white/80">Perfect Ending</div>
+                <div className="text-3xl font-bold text-blue-600">5.0★</div>
+                <div className="text-sm text-gray-600">Perfect Ending</div>
               </div>
             </div>
           </div>

@@ -229,33 +229,36 @@ export default function PartyBoatAustin() {
 
       <ClientOnly><PublicNavigation /></ClientOnly>
 
-      <YouTubeHeroEmbed videoId="FABtEDZZBA0" />
-
       <motion.section 
-        className="relative h-[600px] flex items-center justify-center overflow-hidden"
+        className="relative min-h-[80vh] flex items-center justify-center overflow-hidden pt-20"
         initial="hidden"
         animate="visible"
         variants={fadeInUp}
       >
+        {/* YouTube Video Background */}
         <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-900/80 to-purple-900/60 z-10" />
-          <img 
-            src={heroImage2} 
-            alt="Party Boat Austin on Lake Travis with disco lights and celebration Austin Party Boat"
-            className="w-full h-full object-cover"
+          <iframe
+            src="https://www.youtube.com/embed/FABtEDZZBA0?autoplay=1&mute=1&loop=1&playlist=FABtEDZZBA0&controls=0&modestbranding=1&rel=0&showinfo=0&disablekb=1&fs=0&playsinline=1"
+            title="Premier Party Cruises Drone Video Background"
+            allow="autoplay; encrypted-media"
+            className="absolute top-1/2 left-1/2 w-[177.77vh] h-[56.25vw] min-w-full min-h-full -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+            style={{ border: 'none' }}
+            data-testid="youtube-background-video"
           />
+          {/* White Overlay for contrast - 60% opacity */}
+          <div className="absolute inset-0 bg-white/60"></div>
         </div>
         
-        <div className="relative z-20 text-center max-w-7xl mx-auto px-6">
+        <div className="relative z-10 text-center max-w-7xl mx-auto px-6">
           <motion.div variants={fadeInUp}>
-            <Badge className="mb-4 bg-yellow-400 text-black hover:bg-yellow-500 text-lg px-6 py-2 font-sans tracking-wider" data-testid="badge-austin-1">
+            <Badge className="mb-4 bg-yellow-100 text-gray-900 border-yellow-400 text-lg px-6 py-2 font-sans tracking-wider" data-testid="badge-austin-1">
               <MapPin className="w-4 h-4 mr-2" />
               Austin's #1 Party Boat Since 2009
             </Badge>
           </motion.div>
           
           <motion.h1 
-            className="text-5xl md:text-5xl font-playfair font-bold text-white mb-6 leading-tight text-center"
+            className="text-5xl md:text-5xl font-playfair font-bold text-gray-900 mb-6 leading-tight text-center"
             variants={fadeInUp}
             data-testid="heading-main"
           >
@@ -263,7 +266,7 @@ export default function PartyBoatAustin() {
           </motion.h1>
           
           <motion.p 
-            className="text-base md:text-lg text-white/90 mb-8 max-w-3xl mx-auto"
+            className="text-base md:text-lg text-gray-700 mb-8 max-w-3xl mx-auto"
             variants={fadeInUp}
             data-testid="text-hero-description"
           >
@@ -286,7 +289,7 @@ export default function PartyBoatAustin() {
             <Button 
               size="lg" 
               variant="outline" 
-              className="bg-white/10 hover:bg-white/20 text-white border-white font-bold text-lg px-8 py-6 backdrop-blur-sm"
+              className="bg-white border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white font-bold text-lg px-8 py-6"
               onClick={() => {
                 const element = document.getElementById('fleet-section');
                 element?.scrollIntoView({ behavior: 'smooth' });
