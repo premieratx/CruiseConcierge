@@ -430,7 +430,7 @@ export default function CorporateEvents() {
       <Breadcrumb />
 
       {/* 1. HERO SECTION */}
-      <section id="hero" className="relative min-h-[80vh] flex items-center justify-center overflow-hidden pt-20">
+      <section id="hero" className="relative min-h-[80vh] flex items-center justify-center overflow-hidden ">
         {/* YouTube Video Background */}
         <div className="absolute inset-0 z-0">
           <iframe

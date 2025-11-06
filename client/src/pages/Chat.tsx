@@ -25,7 +25,6 @@ const fadeInUp = {
 export default function Chat({ defaultEventType }: ChatProps = {}) {
   // Initialize with empty string to avoid SSR issues
   const [iframeUrl, setIframeUrl] = React.useState('');
-  const [iframeHeight, setIframeHeight] = React.useState(1400);
 
   // Build iframe URL with source tracking on client-side only
   React.useEffect(() => {
@@ -36,25 +35,6 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
       window.scrollTo({ top: 0, behavior: 'instant' });
     }
   }, []);
-
-  // Auto-resize iframe based on content height
-  React.useEffect(() => {
-    const handleMessage = (event: MessageEvent) => {
-      if (event.origin !== 'https://booking.premierpartycruises.com') return;
-      
-      if (event.data.type === 'new-quote-resize' && event.data.height) {
-        const newHeight = Math.max(event.data.height + 50, 1400);
-        setIframeHeight(newHeight);
-      }
-    };
-    
-    window.addEventListener('message', handleMessage);
-    return () => window.removeEventListener('message', handleMessage);
-  }, []);
-
-  const handleIframeLoad = () => {
-    setIframeHeight(1400);
-  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-yellow-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
@@ -143,7 +123,7 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
               className="w-full mb-8"
               id="new-quote-widget-container"
               style={{ 
-                minHeight: `${iframeHeight}px`,
+                minHeight: '1400px',
                 position: 'static',
                 overflow: 'visible'
               }}
@@ -155,16 +135,14 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
                   title="Get Your Quote - Premier Party Cruises"
                   className="w-full"
                   style={{ 
-                    height: `${iframeHeight}px`,
+                    height: '1400px',
                     border: 'none',
                     display: 'block',
                     borderRadius: '8px',
                     boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
                     position: 'static',
-                    zIndex: 0,
-                    transition: 'height 0.3s ease-in-out'
+                    zIndex: 0
                   }}
-                  onLoad={handleIframeLoad}
                   allow="payment"
                 />
               </div>

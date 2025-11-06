@@ -230,7 +230,7 @@ export default function PartyBoatAustin() {
       <ClientOnly><PublicNavigation /></ClientOnly>
 
       <motion.section 
-        className="relative min-h-[80vh] flex items-center justify-center overflow-hidden pt-20"
+        className="relative min-h-[80vh] flex items-center justify-center overflow-hidden"
         initial="hidden"
         animate="visible"
         variants={fadeInUp}

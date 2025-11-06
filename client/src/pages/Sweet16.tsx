@@ -256,7 +256,7 @@ export default function Sweet16() {
       <PublicNavigation />
 
       {/* Hero Section with Crossfade */}
-      <section className="relative min-h-[80vh] flex flex-col justify-center overflow-hidden pt-20">
+      <section className="relative min-h-[80vh] flex flex-col justify-center overflow-hidden ">
         {/* YouTube Video Background */}
         <div className="absolute inset-0 z-0">
           <iframe

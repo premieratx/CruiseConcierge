@@ -13,7 +13,6 @@ const fadeInUp = {
 
 export default function QuoteBuilderSection() {
   const [iframeUrl, setIframeUrl] = useState('');
-  const [iframeHeight, setIframeHeight] = useState(1400);
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -24,24 +23,6 @@ export default function QuoteBuilderSection() {
       setIframeUrl(`${baseUrl}?sourceUrl=${currentUrl}&sourceType=embedded_new_quote`);
     }
   }, []);
-
-  useEffect(() => {
-    const handleMessage = (event: MessageEvent) => {
-      if (event.origin !== 'https://booking.premierpartycruises.com') return;
-      
-      if (event.data.type === 'new-quote-resize' && event.data.height) {
-        const newHeight = Math.max(event.data.height + 50, 1400);
-        setIframeHeight(newHeight);
-      }
-    };
-
-    window.addEventListener('message', handleMessage);
-    return () => window.removeEventListener('message', handleMessage);
-  }, []);
-
-  const handleIframeLoad = () => {
-    setIframeHeight(1400);
-  };
 
   return (
     <section id="quote-builder" className="py-16 bg-gradient-to-br from-brand-blue via-purple-600 to-blue-700" style={{ position: 'relative', zIndex: 0 }}>
@@ -73,7 +54,7 @@ export default function QuoteBuilderSection() {
               className="bg-white rounded-none md:rounded-2xl shadow-2xl"
               style={{ 
                 width: '100%', 
-                minHeight: `${iframeHeight}px`, 
+                minHeight: '1400px', 
                 position: 'static', 
                 margin: '0',
                 overflow: 'visible'
@@ -87,15 +68,13 @@ export default function QuoteBuilderSection() {
                   title="Get Your Quote - Premier Party Cruises"
                   className="w-full"
                   style={{ 
-                    height: `${iframeHeight}px`,
+                    height: '1400px',
                     border: 'none',
                     display: 'block',
                     borderRadius: '0',
                     position: 'static',
-                    zIndex: 0,
-                    transition: 'height 0.3s ease-in-out'
+                    zIndex: 0
                   }}
-                  onLoad={handleIframeLoad}
                   allow="payment"
                   data-testid="iframe-quote-builder"
                 />
