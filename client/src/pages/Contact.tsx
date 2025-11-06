@@ -1,131 +1,20 @@
-import { useState, FormEvent } from 'react';
-import { useLocation } from 'wouter';
 import PublicNavigation from '@/components/PublicNavigation';
 import Footer from '@/components/Footer';
 import SEOHead from '@/components/SEOHead';
 import Breadcrumb from '@/components/Breadcrumb';
 import { SectionReveal } from '@/components/SectionReveal';
-import { VideoTestimonials } from '@/components/VideoTestimonials';
+import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { useToast } from '@/hooks/use-toast';
+import { Card } from '@/components/ui/card';
 import { useInlineEdit } from '@/hooks/useInlineEdit';
-import { CONTACT_INFO, BUSINESS_HOURS } from '@shared/contact';
+import { CONTACT_INFO } from '@shared/contact';
 import { 
-  Phone, Mail, MapPin, Clock, MessageSquare, Calendar,
-  Send, Facebook, Instagram, Star
+  Phone, Mail, MapPin, Clock, MessageSquare,
+  Facebook, Instagram, Star
 } from 'lucide-react';
 
 export default function Contact() {
   const { isEditMode } = useInlineEdit();
-  const [, navigate] = useLocation();
-  const [contactForm, setContactForm] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    eventType: '',
-    groupSize: '',
-    eventDate: '',
-    message: ''
-  });
-  const { toast } = useToast();
-
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    
-    if (!contactForm.name || !contactForm.email || !contactForm.phone) {
-      toast({
-        title: "Please fill in all required fields",
-        description: "Name, email, and phone are required to get started.",
-        variant: "destructive"
-      });
-      return;
-    }
-
-    try {
-      // Split name into first and last name
-      const nameParts = contactForm.name.trim().split(' ');
-      const firstName = nameParts[0] || '';
-      const lastName = nameParts.slice(1).join(' ') || nameParts[0] || '';
-
-      // Create a minimal lead in the backend before redirecting
-      const leadPayload = {
-        contactInfo: {
-          firstName,
-          lastName,
-          email: contactForm.email,
-          phone: contactForm.phone
-        },
-        eventDetails: {
-          eventType: contactForm.eventType || 'general',
-          groupSize: contactForm.groupSize ? parseInt(contactForm.groupSize) : undefined,
-          eventDate: contactForm.eventDate || undefined,
-          message: contactForm.message || undefined
-        },
-        selectionDetails: {
-          cruiseType: contactForm.eventType === 'bachelor' ? 'bachelor' : 
-                      contactForm.eventType === 'bachelorette' ? 'bachelorette' : 'private'
-        }
-      };
-
-      // Submit to backend
-      const response = await fetch('/api/leads/quote-builder', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(leadPayload)
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to save contact information');
-      }
-
-      // Show success message
-      toast({
-        title: "Contact Information Saved!",
-        description: "Redirecting to quote builder...",
-      });
-
-      // Get the lead ID from response
-      const responseData = await response.json();
-      const leadId = responseData.leadId || responseData.id;
-
-      // Redirect to quote builder with pre-filled data including message
-      const params = new URLSearchParams({
-        type: contactForm.eventType || 'general',
-        name: contactForm.name,
-        email: contactForm.email,
-        phone: contactForm.phone,
-      });
-      
-      if (contactForm.groupSize) {
-        params.set('groupSize', contactForm.groupSize);
-      }
-      if (contactForm.eventDate) {
-        params.set('eventDate', contactForm.eventDate);
-      }
-      if (contactForm.message) {
-        params.set('message', contactForm.message);
-      }
-      if (leadId) {
-        params.set('leadId', leadId);
-      }
-
-      setTimeout(() => {
-        navigate(`/chat?${params.toString()}`);
-      }, 800);
-      
-    } catch (error) {
-      console.error('Contact form error:', error);
-      toast({
-        title: "Error saving contact information",
-        description: `Please call us at ${CONTACT_INFO.phoneFormatted} or try again.`,
-        variant: "destructive"
-      });
-    }
-  };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white dark:from-gray-900 dark:to-gray-950">
@@ -166,196 +55,86 @@ export default function Contact() {
       <SectionReveal>
         <section className="py-24 bg-white dark:bg-gray-950">
           <div className="max-w-7xl mx-auto px-6">
-            <div className="grid lg:grid-cols-2 gap-16">
-              {/* Contact Information */}
-              <div>
-                <h2 className="text-3xl font-playfair font-bold mb-8 text-center text-gray-900 dark:text-white" data-editable data-editable-id="h2-get-in-touch">
-                  Get in Touch
-                </h2>
-                <p className="text-base text-gray-600 dark:text-gray-300 mb-12 text-center" data-editable data-editable-id="p-contact-description">
-                  Premier Party Cruises has been Austin's original Lake Travis party cruise company for over 15 years. 
-                  We're here to help plan your perfect celebration!
-                </p>
+            <div className="max-w-5xl mx-auto">
+              <h2 className="text-3xl font-playfair font-bold mb-8 text-center text-gray-900 dark:text-white" data-editable data-editable-id="h2-get-in-touch">
+                Get in Touch
+              </h2>
+              <p className="text-base text-gray-600 dark:text-gray-300 mb-12 text-center" data-editable data-editable-id="p-contact-description">
+                Premier Party Cruises has been Austin's original Lake Travis party cruise company for over 15 years. 
+                We're here to help plan your perfect celebration!
+              </p>
 
-                <div className="space-y-8">
-                  <Card className="p-6 rounded-xl hover:shadow-lg transition-shadow">
-                    <div className="flex items-start space-x-4">
-                      <Phone className="h-6 w-6 text-blue-600 mt-1 flex-shrink-0" />
-                      <div>
-                        <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1" data-editable data-editable-id="contact-call-title">Call Us</h3>
-                        <a href={CONTACT_INFO.phoneHref} className="text-gray-600 dark:text-gray-300 hover:text-blue-600 transition-colors text-base">
-                          {CONTACT_INFO.phoneFormatted}
-                        </a>
-                        <p className="text-sm text-gray-500 mt-1" data-editable data-editable-id="contact-call-hours">Available 9 AM - 8 PM Daily</p>
-                      </div>
+              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+                <Card className="p-6 rounded-xl hover:shadow-lg transition-shadow">
+                  <div className="flex flex-col items-center text-center space-y-3">
+                    <Phone className="h-8 w-8 text-blue-600 flex-shrink-0" />
+                    <div>
+                      <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1" data-editable data-editable-id="contact-call-title">Call Us</h3>
+                      <a href={CONTACT_INFO.phoneHref} className="text-gray-600 dark:text-gray-300 hover:text-blue-600 transition-colors text-base">
+                        {CONTACT_INFO.phoneFormatted}
+                      </a>
+                      <p className="text-sm text-gray-500 mt-1" data-editable data-editable-id="contact-call-hours">9 AM - 8 PM Daily</p>
                     </div>
-                  </Card>
-
-                  <Card className="p-6 rounded-xl hover:shadow-lg transition-shadow">
-                    <div className="flex items-start space-x-4">
-                      <Mail className="h-6 w-6 text-blue-600 mt-1 flex-shrink-0" />
-                      <div>
-                        <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1" data-editable data-editable-id="contact-email-title">Email Us</h3>
-                        <a href={CONTACT_INFO.emailHref} className="text-gray-600 dark:text-gray-300 hover:text-blue-600 transition-colors text-base break-all">
-                          {CONTACT_INFO.email}
-                        </a>
-                        <p className="text-sm text-gray-500 mt-1" data-editable data-editable-id="contact-email-response-time">We respond within 24 hours</p>
-                      </div>
-                    </div>
-                  </Card>
-
-                  <Card className="p-6 rounded-xl hover:shadow-lg transition-shadow">
-                    <div className="flex items-start space-x-4">
-                      <MapPin className="h-6 w-6 text-blue-600 mt-1 flex-shrink-0" />
-                      <div>
-                        <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1" data-editable data-editable-id="contact-location-title">Location</h3>
-                        <p className="text-gray-600 dark:text-gray-300 text-base" data-editable data-editable-id="contact-location-address">Lake Travis, Austin, TX</p>
-                        <p className="text-sm text-gray-500 mt-1" data-editable data-editable-id="contact-location-details">Multiple departure points available</p>
-                      </div>
-                    </div>
-                  </Card>
-
-                  <Card className="p-6 rounded-xl hover:shadow-lg transition-shadow">
-                    <div className="flex items-start space-x-4">
-                      <Clock className="h-6 w-6 text-blue-600 mt-1 flex-shrink-0" />
-                      <div>
-                        <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1" data-editable data-editable-id="contact-hours-title">Operating Hours</h3>
-                        <p className="text-gray-600 dark:text-gray-300 text-base" data-editable data-editable-id="contact-hours-schedule">Friday & Saturday Cruises</p>
-                        <p className="text-sm text-gray-500 mt-1" data-editable data-editable-id="contact-hours-private">Private charters available any day</p>
-                      </div>
-                    </div>
-                  </Card>
-                </div>
-
-                {/* Social Media */}
-                <div className="mt-12 text-center">
-                  <h3 className="text-2xl font-playfair font-bold text-gray-900 dark:text-white mb-6" data-editable data-editable-id="contact-social-title">Follow Our Adventures</h3>
-                  <div className="flex justify-center space-x-4">
-                    <Button variant="outline" size="lg" className="rounded-xl" data-testid="button-facebook">
-                      <Facebook className="h-5 w-5 mr-2" />
-                      <span data-editable data-editable-id="contact-facebook-button">Facebook</span>
-                    </Button>
-                    <Button variant="outline" size="lg" className="rounded-xl" data-testid="button-instagram">
-                      <Instagram className="h-5 w-5 mr-2" />
-                      <span data-editable data-editable-id="contact-instagram-button">Instagram</span>
-                    </Button>
                   </div>
-                </div>
+                </Card>
+
+                <Card className="p-6 rounded-xl hover:shadow-lg transition-shadow">
+                  <div className="flex flex-col items-center text-center space-y-3">
+                    <Mail className="h-8 w-8 text-blue-600 flex-shrink-0" />
+                    <div>
+                      <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1" data-editable data-editable-id="contact-email-title">Email Us</h3>
+                      <a href={CONTACT_INFO.emailHref} className="text-gray-600 dark:text-gray-300 hover:text-blue-600 transition-colors text-sm break-all">
+                        {CONTACT_INFO.email}
+                      </a>
+                      <p className="text-sm text-gray-500 mt-1" data-editable data-editable-id="contact-email-response-time">24 hour response</p>
+                    </div>
+                  </div>
+                </Card>
+
+                <Card className="p-6 rounded-xl hover:shadow-lg transition-shadow">
+                  <div className="flex flex-col items-center text-center space-y-3">
+                    <MapPin className="h-8 w-8 text-blue-600 flex-shrink-0" />
+                    <div>
+                      <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1" data-editable data-editable-id="contact-location-title">Location</h3>
+                      <p className="text-gray-600 dark:text-gray-300 text-base" data-editable data-editable-id="contact-location-address">Lake Travis, TX</p>
+                      <p className="text-sm text-gray-500 mt-1" data-editable data-editable-id="contact-location-details">Multiple marinas</p>
+                    </div>
+                  </div>
+                </Card>
+
+                <Card className="p-6 rounded-xl hover:shadow-lg transition-shadow">
+                  <div className="flex flex-col items-center text-center space-y-3">
+                    <Clock className="h-8 w-8 text-blue-600 flex-shrink-0" />
+                    <div>
+                      <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1" data-editable data-editable-id="contact-hours-title">Schedule</h3>
+                      <p className="text-gray-600 dark:text-gray-300 text-base" data-editable data-editable-id="contact-hours-schedule">Fri & Sat Cruises</p>
+                      <p className="text-sm text-gray-500 mt-1" data-editable data-editable-id="contact-hours-private">Private any day</p>
+                    </div>
+                  </div>
+                </Card>
               </div>
 
-              {/* Contact Form */}
-              <div>
-                <Card className="p-8 rounded-xl shadow-lg">
-                  <CardHeader className="px-0 pt-0">
-                    <CardTitle className="text-3xl font-playfair font-bold text-center text-gray-900 dark:text-white" data-editable data-editable-id="contact-form-title">
-                      Send Us a Message
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="px-0 pb-0">
-                    <form onSubmit={handleSubmit} className="space-y-6">
-                      <div className="grid md:grid-cols-2 gap-6">
-                        <div>
-                          <Label htmlFor="name" className="text-base font-semibold" data-editable data-editable-id="form-label-name">Name *</Label>
-                          <Input
-                            id="name"
-                            value={contactForm.name}
-                            onChange={(e) => setContactForm(prev => ({ ...prev, name: e.target.value }))}
-                            className="mt-2"
-                            data-testid="input-contact-name"
-                          />
-                        </div>
-                        <div>
-                          <Label htmlFor="email" className="text-base font-semibold" data-editable data-editable-id="form-label-email">Email *</Label>
-                          <Input
-                            id="email"
-                            type="email"
-                            value={contactForm.email}
-                            onChange={(e) => setContactForm(prev => ({ ...prev, email: e.target.value }))}
-                            className="mt-2"
-                            data-testid="input-contact-email"
-                          />
-                        </div>
-                      </div>
-
-                      <div className="grid md:grid-cols-2 gap-6">
-                        <div>
-                          <Label htmlFor="phone" className="text-base font-semibold" data-editable data-editable-id="form-label-phone">Phone *</Label>
-                          <Input
-                            id="phone"
-                            value={contactForm.phone}
-                            onChange={(e) => setContactForm(prev => ({ ...prev, phone: e.target.value }))}
-                            className="mt-2"
-                            data-testid="input-contact-phone"
-                          />
-                        </div>
-                        <div>
-                          <Label htmlFor="eventType" className="text-base font-semibold" data-editable data-editable-id="form-label-event-type">Event Type</Label>
-                          <Input
-                            id="eventType"
-                            value={contactForm.eventType}
-                            onChange={(e) => setContactForm(prev => ({ ...prev, eventType: e.target.value }))}
-                            placeholder="Bachelor party, corporate event, etc."
-                            className="mt-2"
-                            data-testid="input-contact-event-type"
-                          />
-                        </div>
-                      </div>
-
-                      <div className="grid md:grid-cols-2 gap-6">
-                        <div>
-                          <Label htmlFor="groupSize" className="text-base font-semibold" data-editable data-editable-id="form-label-group-size">Group Size</Label>
-                          <Input
-                            id="groupSize"
-                            value={contactForm.groupSize}
-                            onChange={(e) => setContactForm(prev => ({ ...prev, groupSize: e.target.value }))}
-                            placeholder="Number of people"
-                            className="mt-2"
-                            data-testid="input-contact-group-size"
-                          />
-                        </div>
-                        <div>
-                          <Label htmlFor="eventDate" className="text-base font-semibold" data-editable data-editable-id="form-label-event-date">Preferred Date</Label>
-                          <Input
-                            id="eventDate"
-                            type="date"
-                            value={contactForm.eventDate}
-                            onChange={(e) => setContactForm(prev => ({ ...prev, eventDate: e.target.value }))}
-                            className="mt-2"
-                            data-testid="input-contact-event-date"
-                          />
-                        </div>
-                      </div>
-
-                      <div>
-                        <Label htmlFor="message" className="text-base font-semibold" data-editable data-editable-id="form-label-message">Message</Label>
-                        <Textarea
-                          id="message"
-                          value={contactForm.message}
-                          onChange={(e) => setContactForm(prev => ({ ...prev, message: e.target.value }))}
-                          placeholder="Tell us about your event and any special requests..."
-                          rows={5}
-                          className="mt-2"
-                          data-testid="input-contact-message"
-                        />
-                      </div>
-
-                      <Button
-                        type="submit"
-                        size="lg"
-                        className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold text-base py-6 rounded-xl"
-                        data-testid="button-send-message"
-                      >
-                        <Send className="mr-3 h-5 w-5" />
-                        <span data-editable data-editable-id="form-send-button">SEND MESSAGE</span>
-                      </Button>
-                    </form>
-                  </CardContent>
-                </Card>
+              {/* Social Media */}
+              <div className="text-center mb-12">
+                <h3 className="text-2xl font-playfair font-bold text-gray-900 dark:text-white mb-6" data-editable data-editable-id="contact-social-title">Follow Our Adventures</h3>
+                <div className="flex justify-center space-x-4">
+                  <Button variant="outline" size="lg" className="rounded-xl" data-testid="button-facebook">
+                    <Facebook className="h-5 w-5 mr-2" />
+                    <span data-editable data-editable-id="contact-facebook-button">Facebook</span>
+                  </Button>
+                  <Button variant="outline" size="lg" className="rounded-xl" data-testid="button-instagram">
+                    <Instagram className="h-5 w-5 mr-2" />
+                    <span data-editable data-editable-id="contact-instagram-button">Instagram</span>
+                  </Button>
+                </div>
               </div>
             </div>
           </div>
         </section>
       </SectionReveal>
+
+      {/* Quote Builder Widget */}
+      <QuoteBuilderSection />
 
       {/* Reviews Section */}
       <SectionReveal>
