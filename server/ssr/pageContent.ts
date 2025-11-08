@@ -688,7 +688,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           'How far in advance should we book? Popular weekend dates fill 6-8 weeks in advance, especially during peak season (April-September). For special events like bachelor/bachelorette parties, corporate events, or milestone birthdays, we suggest booking 2-3 months ahead to secure your preferred date and boat.',
           'How do deposits and payments work? 25% deposit if >30 days out (balance due 30 days prior). If booking within 30 days, 50% deposit due and remainder within 72 hours.',
           'What\'s your cancellation policy? 48-hour full refund window after booking. After that, cancellations are weather-dependent at the captain\'s discretion. Pro-rated refunds if weather shortens the cruise.',
-          'Can we customize our route? Absolutely! You have complete control over your Lake Travis experience. Work with your captain to customize your route, timing, and activities. Want to anchor at a quiet cove for swimming? Prefer to cruise around Devil\'s Cove? Your captain will work with you to create the perfect itinerary for your group.'
+          'Can we customize our route? Absolutely! You have complete control over your Lake Travis experience. Work with your captain to customize your route, timing, and activities. Want to anchor at a quiet cove for swimming? Prefer to cruise around popular party coves? Your captain will work with you to create the perfect itinerary for your group.'
         ]
       }
     ]
