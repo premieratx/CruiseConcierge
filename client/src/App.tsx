@@ -120,6 +120,9 @@ const GraduationParty = lazy(() => import("./pages/GraduationParty"));
 const Faq = lazy(() => import("./pages/Faq"));
 const PricingBreakdown = lazy(() => import("./pages/PricingBreakdown"));
 
+// Blog Content Pages - Lazy loaded
+const LakeTravisBoatRentalGuide = lazy(() => import("./pages/LakeTravisBoatRentalGuide"));
+
 // Customer Portal Pages - Lazy loaded
 const PortalLogin = lazy(() => import("./pages/PortalLogin"));
 const PortalVerify = lazy(() => import("./pages/PortalVerify"));
@@ -220,6 +223,9 @@ function Router() {
       <Route path="/graduation-party" component={GraduationParty} />
       <Route path="/faq" component={Faq} />
       <Route path="/pricing-breakdown" component={PricingBreakdown} />
+      
+      {/* Blog Content Pages */}
+      <Route path="/first-time-lake-travis-boat-rental-guide" component={LakeTravisBoatRentalGuide} />
       
       {/* Public Booking - Commented out, using /chat instead */}
       {/* <Route path="/calendar" component={PublicCalendar} /> */}
