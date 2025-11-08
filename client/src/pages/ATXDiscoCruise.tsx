@@ -325,9 +325,9 @@ export default function ATXDiscoCruise() {
   return (
     <>
       <SEOHead
-        title="ATX Disco Cruise - Lake Travis Bachelor & Bachelorette Party Boat | Austin TX"
-        description="Join America's only multi-group bachelor/bachelorette party cruise on Lake Travis. 4-hour celebration with professional DJ, photographer, giant floats. From $85/person. Book now!"
-        keywords="ATX Disco Cruise, Lake Travis party cruise, Austin bachelor party, Austin bachelorette party, party boat Austin, Lake Travis bachelor party, Lake Travis bachelorette party, Austin boat party, disco cruise Austin"
+        title="ATX Disco Cruise | Austin Party Boat Lake Travis"
+        description="Join America's only multi-group austin party cruise on Lake Travis. 4-hour celebration with professional DJ, photographer, giant floats. Party boat austin starting at $85/person."
+        keywords="ATX Disco Cruise, austin party cruises, lake travis party boat, party boat austin, austin party cruise, Austin bachelor party, Austin bachelorette party, party cruises, Lake Travis bachelor party, Lake Travis bachelorette party, Austin boat party"
         canonicalUrl="/atx-disco-cruise"
       />
 
@@ -437,7 +437,7 @@ export default function ATXDiscoCruise() {
           <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 text-center flex-grow flex items-center">
             <motion.div variants={fadeInUp} className="w-full">
               <h1 className="font-playfair text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-4 md:mb-6 text-center leading-tight" data-testid="text-hero-headline">
-                ATX Disco Cruise
+                ATX Disco Cruise - Austin Party Cruise on Lake Travis
               </h1>
               <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-pink-400 to-purple-400 mt-3 md:mt-4 mb-3 md:mb-4 font-bold text-center">
                 The Country's Only Multi-Group Bach Party Cruise
@@ -1109,6 +1109,178 @@ export default function ATXDiscoCruise() {
                     <Phone className="mr-2 h-6 w-6" />
                     Call (512) 488-5892
                   </Button>
+                </div>
+              </div>
+            </div>
+          </section>
+        </SectionReveal>
+
+        {/* NEW SEO SECTION 1: Austin Party Cruises - ATX Disco Guide */}
+        <SectionReveal>
+          <section className="py-12 md:py-20 bg-white">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6">
+              <div className="max-w-4xl mx-auto">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-playfair text-center mb-8 text-gray-900 leading-tight">
+                  Austin Party Cruises: The Ultimate Multi-Group Celebration
+                </h2>
+                
+                <div className="prose prose-lg max-w-none mb-8">
+                  <p className="text-lg text-gray-700 leading-relaxed mb-6">
+                    The ATX Disco Cruise represents a revolutionary approach to <strong>austin party cruises</strong> on Lake Travis. Unlike traditional private charters, our multi-group format creates an electric atmosphere where bachelor and bachelorette parties from across America celebrate together, creating an energy and social experience that you simply cannot find on a standard <strong>party boat austin</strong> rental.
+                  </p>
+                  
+                  <h3 className="text-2xl font-bold text-gray-900 mb-4 mt-8">Why Multi-Group Party Cruises Are Better</h3>
+                  <p className="text-lg text-gray-700 leading-relaxed mb-4">
+                    Our <strong>lake travis party boat</strong> experience brings together 50-100 people celebrating bachelor and bachelorette parties, creating a unique social atmosphere that private cruises simply cannot match. Imagine your group of 10-15 friends joining forces with 3-5 other bachelor/bachelorette parties - the energy is contagious, the celebrations are amplified, and friendships are formed that last well beyond the cruise. This innovative approach to <strong>party cruises</strong> has made ATX Disco the most talked-about bachelor/bachelorette experience in Austin.
+                  </p>
+                  
+                  <div className="bg-purple-50 border-l-4 border-purple-600 p-6 my-8 rounded-r-lg">
+                    <h4 className="text-xl font-bold text-gray-900 mb-3">What Makes ATX Disco Austin Party Cruise Special:</h4>
+                    <ul className="space-y-2 text-gray-700">
+                      <li className="flex items-start gap-2">
+                        <CheckCircle className="h-5 w-5 text-purple-600 mt-1 flex-shrink-0" />
+                        <span><strong>Multi-Group Energy</strong> - Meet bachelor/bachelorette parties from across the country</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <CheckCircle className="h-5 w-5 text-purple-600 mt-1 flex-shrink-0" />
+                        <span><strong>All-Inclusive Pricing</strong> - DJ, photographer, and floats included (no hidden fees)</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <CheckCircle className="h-5 w-5 text-purple-600 mt-1 flex-shrink-0" />
+                        <span><strong>Better Value</strong> - Get professional entertainment for less than private boat rental</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <CheckCircle className="h-5 w-5 text-purple-600 mt-1 flex-shrink-0" />
+                        <span><strong>Zero Planning Stress</strong> - Everything organized, just show up and party</span>
+                      </li>
+                    </ul>
+                  </div>
+
+                  <h3 className="text-2xl font-bold text-gray-900 mb-4 mt-8">Perfect for Smaller Bachelor & Bachelorette Groups</h3>
+                  <p className="text-lg text-gray-700 leading-relaxed mb-4">
+                    If you're planning a bachelor or bachelorette party with 8-15 people, ATX Disco Cruise is your best option. Private <strong>austin party cruise</strong> rentals typically cost $1,500-3,000+ for the boat alone, then you need to add DJ ($600), photographer ($600), and equipment - easily exceeding $3,000-4,000 total. With ATX Disco, your entire group gets the same professional entertainment, photography, and premium experience for $850-1,575 total depending on your package. It's the same quality for a fraction of the cost.
+                  </p>
+                  
+                  <div className="grid md:grid-cols-2 gap-6 my-8">
+                    <Card className="border-2 border-purple-200">
+                      <CardHeader className="bg-purple-50">
+                        <CardTitle className="text-lg flex items-center gap-2">
+                          <DollarSign className="h-5 w-5 text-purple-600" />
+                          Cost Comparison
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent className="pt-4">
+                        <div className="space-y-3">
+                          <div>
+                            <p className="font-bold text-sm mb-1">Private Charter (10 people)</p>
+                            <p className="text-sm text-gray-700">Boat: $2,000 + DJ: $600 + Photo: $600 = <strong>$3,200 total</strong></p>
+                          </div>
+                          <div className="border-t pt-3">
+                            <p className="font-bold text-sm mb-1">ATX Disco (10 people)</p>
+                            <p className="text-sm text-gray-700">10 x $95 = <strong>$950 total</strong> (all included!)</p>
+                          </div>
+                          <p className="text-xs text-purple-600 font-bold pt-2">Save $2,250 with ATX Disco!</p>
+                        </div>
+                      </CardContent>
+                    </Card>
+                    
+                    <Card className="border-2 border-pink-200">
+                      <CardHeader className="bg-pink-50">
+                        <CardTitle className="text-lg flex items-center gap-2">
+                          <Users className="h-5 w-5 text-pink-600" />
+                          Social Experience
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent className="pt-4">
+                        <p className="text-gray-700">Meet 3-5 other bachelor/bachelorette parties. Share the celebration, make new friends, and experience energy that only a multi-group party boat can provide.</p>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </SectionReveal>
+
+        {/* NEW SEO SECTION 2: Lake Travis Party Boat Experience */}
+        <SectionReveal>
+          <section className="py-12 md:py-20 bg-gradient-to-br from-pink-50 to-purple-50">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6">
+              <div className="max-w-4xl mx-auto">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-playfair text-center mb-8 text-gray-900 leading-tight">
+                  Your Lake Travis Party Boat Adventure Awaits
+                </h2>
+                
+                <div className="prose prose-lg max-w-none">
+                  <p className="text-lg text-gray-700 leading-relaxed mb-6">
+                    Planning an epic bachelor or bachelorette party in Austin? The ATX Disco Cruise offers the most comprehensive <strong>party cruises</strong> experience on Lake Travis. From the moment you board until you return to the marina, every detail is designed to create an unforgettable celebration that becomes the highlight of your entire weekend.
+                  </p>
+
+                  <h3 className="text-2xl font-bold text-gray-900 mb-4 mt-8">What to Expect on Your Party Boat Austin Experience</h3>
+                  <p className="text-lg text-gray-700 leading-relaxed mb-4">
+                    Your <strong>party boat austin</strong> adventure begins at Anderson Mill Marina on Lake Travis. After checking in and loading your coolers with your favorite BYOB beverages, you'll board our professionally maintained vessel and find your group's reserved area (Disco Queen/Super Sparkle packages). As we cruise out to our exclusive party coves, our professional DJ starts spinning tracks while groups begin mingling and the photographer captures those early moments of excitement.
+                  </p>
+
+                  <div className="bg-white border-2 border-purple-200 p-6 my-8 rounded-lg shadow-md">
+                    <h4 className="text-xl font-bold text-gray-900 mb-4">Maximize Your Austin Party Experience:</h4>
+                    <div className="grid md:grid-cols-2 gap-4">
+                      <div>
+                        <h5 className="font-bold text-gray-900 mb-2 flex items-center gap-2">
+                          <Wine className="h-5 w-5 text-purple-600" />
+                          BYOB Tips
+                        </h5>
+                        <ul className="text-sm text-gray-700 space-y-1 ml-7">
+                          <li>• Cans or plastic bottles only (no glass)</li>
+                          <li>• Order alcohol delivery to marina</li>
+                          <li>• We provide coolers and ice</li>
+                          <li>• Stay hydrated - bring water too</li>
+                        </ul>
+                      </div>
+                      <div>
+                        <h5 className="font-bold text-gray-900 mb-2 flex items-center gap-2">
+                          <Camera className="h-5 w-5 text-pink-600" />
+                          Photo Opportunities
+                        </h5>
+                        <ul className="text-sm text-gray-700 space-y-1 ml-7">
+                          <li>• Pro photographer included</li>
+                          <li>• Bring themed decorations</li>
+                          <li>• Coordinate group outfits</li>
+                          <li>• Use floats for epic shots</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+
+                  <h3 className="text-2xl font-bold text-gray-900 mb-4 mt-8">The Multi-Group Magic of Austin Party Cruises</h3>
+                  <p className="text-lg text-gray-700 leading-relaxed mb-4">
+                    What makes <strong>austin party cruises</strong> on the ATX Disco truly special is the multi-group atmosphere. Your bachelor or bachelorette party joins 3-5 other groups celebrating the same milestone. The DJ plays requests from all parties, creating a festival-like energy. Groups challenge each other to float races, coordin dance-offs, and share in the celebration. Many guests tell us that meeting and partying with other groups from across the country was their favorite unexpected part of the experience.
+                  </p>
+                  
+                  <p className="text-lg text-gray-700 leading-relaxed mb-6">
+                    Once anchored at our exclusive Lake Travis cove, the <strong>lake travis party boat</strong> transforms into a floating party paradise. Jump off the boat into crystal-clear water, relax on giant floats, dance on the deck with the DJ, and let our photographer capture every moment. The 4-hour experience flies by as groups rotate between swimming, floating, dancing, and celebrating together in an atmosphere that feels like a music festival on the water.
+                  </p>
+
+                  <div className="bg-purple-50 p-6 rounded-lg my-8">
+                    <h4 className="text-xl font-bold text-gray-900 mb-3">Why Groups Choose ATX Disco Over Private Charters:</h4>
+                    <ul className="space-y-2 text-gray-700">
+                      <li className="flex items-start gap-2">
+                        <Star className="h-5 w-5 text-purple-600 mt-1 flex-shrink-0" />
+                        <span><strong>Better Value</strong> - Save $2,000+ vs private charter with DJ and photographer</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <Star className="h-5 w-5 text-purple-600 mt-1 flex-shrink-0" />
+                        <span><strong>Social Energy</strong> - Meet parties from across America for amplified celebration</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <Star className="h-5 w-5 text-purple-600 mt-1 flex-shrink-0" />
+                        <span><strong>Zero Planning</strong> - Everything organized and included, just show up</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <Star className="h-5 w-5 text-purple-600 mt-1 flex-shrink-0" />
+                        <span><strong>Perfect for 8-15 People</strong> - Ideal size for ATX Disco packages</span>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
               </div>
             </div>

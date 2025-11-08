@@ -439,9 +439,9 @@ export default function BachelorParty() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
       <SEOHead
-        title="Austin Bachelor Party Boat Cruises | Lake Travis | Premier Party Cruises"
-        description="Book the ultimate Austin bachelor party on Lake Travis! Groom cruises FREE with Disco King package. Professional DJ, photographer, giant floats. From $85/person. 150,000+ happy customers!"
-        keywords="Austin bachelor party, Lake Travis bachelor party, bachelor party boat Austin, ATX Disco Cruise bachelor, Austin bachelor ideas, Lake Travis party boat, bachelor party packages Austin"
+        title="Austin Bachelor Party Boat | Lake Travis"
+        description="Book the ultimate Austin bachelor party cruise on Lake Travis. Groom cruises FREE! Professional DJ, photographer, giant floats included. Austin party boat starting at $85/person."
+        keywords="Austin bachelor party, Lake Travis bachelor party, party boat Austin, austin party cruise, bachelor party boat Austin, ATX Disco Cruise bachelor, Austin bachelor ideas, Lake Travis party boat, party cruises"
         canonicalUrl="/bachelor-party"
       />
       
@@ -562,7 +562,7 @@ export default function BachelorParty() {
               data-editable 
               data-editable-id="bachelor-hero-title"
             >
-              Austin Bachelor Party Boat Rentals
+              Austin Bachelor Party Cruises on Lake Travis
             </motion.h1>
             
             <motion.div
@@ -1077,6 +1077,170 @@ export default function BachelorParty() {
                 </div>
               </TabsContent>
             </Tabs>
+          </div>
+        </section>
+      </SectionReveal>
+
+      {/* NEW SEO SECTION 1: Austin Party Cruises for Bachelor Parties */}
+      <SectionReveal>
+        <section className="py-12 md:py-20 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6">
+            <div className="max-w-4xl mx-auto">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-playfair text-center mb-8 text-gray-900 leading-tight">
+                Austin Party Cruises: The Ultimate Bachelor Send-Off Guide
+              </h2>
+              
+              <div className="prose prose-lg max-w-none mb-8">
+                <p className="text-lg text-gray-700 leading-relaxed mb-6">
+                  Planning the perfect bachelor party requires finding activities that create legendary memories, and <strong>austin party cruises</strong> on Lake Travis deliver exactly that. As Austin's premier <strong>party boat</strong> experience for bachelor parties, we've perfected the art of sending off grooms in style since 2009.
+                </p>
+                
+                <h3 className="text-2xl font-bold text-gray-900 mb-4 mt-8">Why Lake Travis Party Boats Are Perfect for Bachelor Parties</h3>
+                <p className="text-lg text-gray-700 leading-relaxed mb-4">
+                  An <strong>austin party cruise</strong> for your bachelor celebration offers advantages that traditional bachelor party venues simply can't match. Lake Travis provides a stunning natural backdrop with 65 miles of pristine shoreline, crystal-clear water perfect for swimming, and exclusive coves where you can anchor and celebrate without interruptions. Our <strong>party cruises</strong> combine the best of outdoor adventure with professional entertainment.
+                </p>
+                
+                <div className="bg-blue-50 border-l-4 border-blue-600 p-6 my-8 rounded-r-lg">
+                  <h4 className="text-xl font-bold text-gray-900 mb-3">What Makes Our Austin Party Boat Special for Bachelor Groups:</h4>
+                  <ul className="space-y-2 text-gray-700">
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="h-5 w-5 text-blue-600 mt-1 flex-shrink-0" />
+                      <span><strong>Groom Cruises FREE</strong> - Save money with our Disco King and Super Sparkle packages</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="h-5 w-5 text-blue-600 mt-1 flex-shrink-0" />
+                      <span><strong>Professional DJ</strong> - Keep the party energy high with a live DJ who knows how to work bachelor crowds</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="h-5 w-5 text-blue-600 mt-1 flex-shrink-0" />
+                      <span><strong>Pro Photography</strong> - Capture epic moments without worrying about losing phones overboard</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="h-5 w-5 text-blue-600 mt-1 flex-shrink-0" />
+                      <span><strong>Multi-Group Energy</strong> - Party with bachelor groups from across America for an electric atmosphere</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <h3 className="text-2xl font-bold text-gray-900 mb-4 mt-8">Party Boat Austin: Choosing the Right Experience</h3>
+                <p className="text-lg text-gray-700 leading-relaxed mb-4">
+                  When selecting your <strong>party boat austin</strong> experience, consider your group size and budget. For crews under 15 people, our ATX Disco Cruise typically offers the best value - you'll get professional entertainment, photography, and floats included for less than the cost of renting a private boat. For larger groups of 15+ or those wanting complete privacy, our <strong>lake travis party boat</strong> rentals provide exclusive access and customizable itineraries.
+                </p>
+                
+                <div className="grid md:grid-cols-2 gap-6 my-8">
+                  <Card className="border-2 border-blue-200">
+                    <CardHeader className="bg-blue-50">
+                      <CardTitle className="text-lg flex items-center gap-2">
+                        <Users className="h-5 w-5 text-blue-600" />
+                        ATX Disco Cruise (Best for 8-14 guys)
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="pt-4">
+                      <p className="text-gray-700 mb-3">Social experience with other bachelor parties. All-inclusive entertainment, groom cruises FREE with premium packages, and legendary multi-group energy.</p>
+                      <p className="font-bold text-blue-600">From $85/person</p>
+                    </CardContent>
+                  </Card>
+                  
+                  <Card className="border-2 border-purple-200">
+                    <CardHeader className="bg-purple-50">
+                      <CardTitle className="text-lg flex items-center gap-2">
+                        <Ship className="h-5 w-5 text-purple-600" />
+                        Private Charter (Best for 15+)
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="pt-4">
+                      <p className="text-gray-700 mb-3">Exclusive boat just for your crew. Custom timing, your own music, complete privacy. Perfect for surprises or specific bachelor traditions.</p>
+                      <p className="font-bold text-purple-600">From $350/hour</p>
+                    </CardContent>
+                  </Card>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </SectionReveal>
+
+      {/* NEW SEO SECTION 2: Lake Travis Party Boat Planning Guide */}
+      <SectionReveal>
+        <section className="py-12 md:py-20 bg-gradient-to-br from-purple-50 to-blue-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6">
+            <div className="max-w-4xl mx-auto">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-playfair text-center mb-8 text-gray-900 leading-tight">
+                Planning Your Lake Travis Party Boat Bachelor Party
+              </h2>
+              
+              <div className="prose prose-lg max-w-none">
+                <p className="text-lg text-gray-700 leading-relaxed mb-6">
+                  Organizing epic <strong>party cruises</strong> for your best friend's bachelor party doesn't have to be stressful. We've helped thousands of best men and groomsmen plan unforgettable celebrations on our <strong>lake travis party boat</strong> experiences. Here's your complete guide to making it happen.
+                </p>
+
+                <h3 className="text-2xl font-bold text-gray-900 mb-4 mt-8">Best Time for Austin Party Boat Bachelor Celebrations</h3>
+                <p className="text-lg text-gray-700 leading-relaxed mb-4">
+                  Peak <strong>austin party</strong> season on Lake Travis runs from March through October, with April-September offering the warmest water temperatures perfect for swimming. Saturday afternoons are our most popular time slots for bachelor parties, typically booking 8-10 weeks in advance during peak season. If you're planning a destination bachelor party to Austin, we recommend booking as soon as you confirm your travel dates.
+                </p>
+
+                <div className="bg-white border-2 border-blue-200 p-6 my-8 rounded-lg shadow-md">
+                  <h4 className="text-xl font-bold text-gray-900 mb-4">Pro Tips for Your Party Boat Austin Bachelor Party:</h4>
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div>
+                      <h5 className="font-bold text-gray-900 mb-2 flex items-center gap-2">
+                        <Beer className="h-5 w-5 text-blue-600" />
+                        Drinks & Coolers
+                      </h5>
+                      <ul className="text-sm text-gray-700 space-y-1 ml-7">
+                        <li>• BYOB - bring your favorite beverages</li>
+                        <li>• We provide coolers and ice</li>
+                        <li>• Order alcohol delivery to marina</li>
+                        <li>• Stay hydrated with water too</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <h5 className="font-bold text-gray-900 mb-2 flex items-center gap-2">
+                        <Trophy className="h-5 w-5 text-purple-600" />
+                        Bachelor Traditions
+                      </h5>
+                      <ul className="text-sm text-gray-700 space-y-1 ml-7">
+                        <li>• Bring bachelor decorations</li>
+                        <li>• Plan signature drinks</li>
+                        <li>• Coordinate matching gear</li>
+                        <li>• Trust our photographer for epic shots</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <h3 className="text-2xl font-bold text-gray-900 mb-4 mt-8">What to Expect on Your Austin Party Cruise</h3>
+                <p className="text-lg text-gray-700 leading-relaxed mb-4">
+                  Your <strong>party boat austin</strong> experience begins when you arrive at the marina. After checking in and loading your coolers, you'll board our professionally maintained boat and claim your group's reserved area. As we cruise out to Lake Travis's most scenic locations, the DJ gets the party started while our photographer begins capturing the celebration.
+                </p>
+                
+                <p className="text-lg text-gray-700 leading-relaxed mb-6">
+                  Once anchored at our exclusive swimming cove, you'll have access to giant floats, open water for swimming, and plenty of deck space for celebrating. The multi-group atmosphere on <strong>austin party cruises</strong> creates an energy that single-group boats simply can't replicate - you'll meet bachelor parties from across the country, all celebrating the same milestone. Many best men tell us the social aspect and shared energy between groups made the experience even better than they imagined.
+                </p>
+
+                <div className="bg-blue-50 p-6 rounded-lg my-8">
+                  <h4 className="text-xl font-bold text-gray-900 mb-3">Making the Most of Your Lake Travis Party Boat:</h4>
+                  <ul className="space-y-2 text-gray-700">
+                    <li className="flex items-start gap-2">
+                      <Star className="h-5 w-5 text-blue-600 mt-1 flex-shrink-0" />
+                      <span><strong>Arrive Early</strong> - Get to the marina 15 minutes before departure to claim the best spots</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <Star className="h-5 w-5 text-blue-600 mt-1 flex-shrink-0" />
+                      <span><strong>Request Songs</strong> - Our DJ takes requests - plan your groom's entrance song</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <Star className="h-5 w-5 text-blue-600 mt-1 flex-shrink-0" />
+                      <span><strong>Coordinate with Other Groups</strong> - The best bachelor parties embrace the multi-group energy</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <Star className="h-5 w-5 text-blue-600 mt-1 flex-shrink-0" />
+                      <span><strong>Plan Your Photos</strong> - Think of group shots you want and let our photographer know</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
       </SectionReveal>

@@ -441,9 +441,9 @@ export default function BacheloretteParty() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
       <SEOHead
-        title="Austin Bachelorette Party Boat Cruises | Lake Travis | Premier Party Cruises"
-        description="Book the #1 Austin bachelorette party on Lake Travis! Bride cruises FREE with Disco Queen package. Professional DJ, photographer, giant floats. From $85/person. 150,000+ happy customers!"
-        keywords="Austin bachelorette party, Lake Travis bachelorette party, bachelorette party boat Austin, ATX Disco Cruise bachelorette, Austin bachelorette ideas, Lake Travis party boat, bachelorette party packages Austin"
+        title="Austin Bachelorette Party Boat | Lake Travis"
+        description="Book Austin's #1 bachelorette party cruise on Lake Travis. Bride cruises FREE! Professional DJ, photographer, giant floats included. Austin party boat starting at $85/person."
+        keywords="Austin bachelorette party, Lake Travis bachelorette party, party boat Austin, austin party cruise, bachelorette party boat Austin, ATX Disco Cruise bachelorette, Austin bachelorette ideas, Lake Travis party boat, cruise for bachelorette party"
         canonicalUrl="/bachelorette-party"
       />
       
@@ -565,7 +565,7 @@ export default function BacheloretteParty() {
               data-editable 
               data-editable-id="bachelorette-hero-title"
             >
-              Austin Bachelorette Party Boat Cruises
+              Austin Bachelorette Party Cruises on Lake Travis
             </motion.h1>
             
             <motion.div
@@ -1535,6 +1535,146 @@ export default function BacheloretteParty() {
                   </div>
                 </CardContent>
               </Card>
+            </div>
+          </div>
+        </section>
+      </SectionReveal>
+
+      {/* NEW SEO SECTION 1: Austin Party Cruises Guide */}
+      <SectionReveal>
+        <section className="py-12 md:py-20 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6">
+            <div className="max-w-4xl mx-auto">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-playfair text-center mb-8 text-gray-900 leading-tight">
+                Austin Party Cruises: Your Complete Bachelorette Celebration Guide
+              </h2>
+              
+              <div className="prose prose-lg max-w-none mb-8">
+                <p className="text-lg text-gray-700 leading-relaxed mb-6">
+                  When it comes to planning an unforgettable bachelorette party, <strong>austin party cruises</strong> on Lake Travis offer the perfect blend of adventure, relaxation, and celebration. As Austin's premier <strong>party boat</strong> experience, we've helped thousands of brides and their friends create memories that last a lifetime.
+                </p>
+                
+                <h3 className="text-2xl font-bold text-gray-900 mb-4 mt-8">Why Choose a Lake Travis Party Boat for Your Bachelorette?</h3>
+                <p className="text-lg text-gray-700 leading-relaxed mb-4">
+                  A <strong>cruise for bachelorette party</strong> celebrations combines the best of Austin's outdoor lifestyle with world-class entertainment. Lake Travis provides the perfect backdrop with its crystal-clear waters, stunning Hill Country views, and endless sunshine. Our <strong>austin party cruise</strong> experiences are designed specifically for bachelorette groups who want more than just a standard celebration.
+                </p>
+                
+                <div className="bg-pink-50 border-l-4 border-pink-600 p-6 my-8 rounded-r-lg">
+                  <h4 className="text-xl font-bold text-gray-900 mb-3">What Makes Austin Party Cruises Special:</h4>
+                  <ul className="space-y-2 text-gray-700">
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="h-5 w-5 text-pink-600 mt-1 flex-shrink-0" />
+                      <span><strong>Professional DJ</strong> - Live entertainment tailored to your bride tribe's music preferences</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="h-5 w-5 text-pink-600 mt-1 flex-shrink-0" />
+                      <span><strong>Pro Photography</strong> - Capture Instagram-worthy moments without worrying about phones in the water</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="h-5 w-5 text-pink-600 mt-1 flex-shrink-0" />
+                      <span><strong>Giant Floats</strong> - Relax on massive lily pads and unicorn floats perfect for group photos</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="h-5 w-5 text-pink-600 mt-1 flex-shrink-0" />
+                      <span><strong>BYOB Friendly</strong> - Bring your favorite drinks and we'll provide the coolers and ice</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <h3 className="text-2xl font-bold text-gray-900 mb-4 mt-8">Lake Travis Party Boat vs. Traditional Venues</h3>
+                <p className="text-lg text-gray-700 leading-relaxed mb-4">
+                  Why settle for a crowded bar or expensive restaurant when you can have your own <strong>party boat austin</strong> experience? Our Lake Travis cruises offer exclusive advantages that traditional bachelorette venues simply can't match. You'll enjoy fresh air, stunning scenery, and the freedom to celebrate exactly how you want - all while creating unique memories your bride tribe will talk about for years.
+                </p>
+                
+                <div className="grid md:grid-cols-2 gap-6 my-8">
+                  <Card className="border-2 border-pink-200">
+                    <CardHeader className="bg-pink-50">
+                      <CardTitle className="text-lg flex items-center gap-2">
+                        <Heart className="h-5 w-5 text-pink-600" />
+                        Perfect for Small Groups (8-15)
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="pt-4">
+                      <p className="text-gray-700">Our ATX Disco Cruise provides the best value for smaller bachelorette parties. Get professional entertainment, photography, and floats included - often cheaper than renting a private boat!</p>
+                    </CardContent>
+                  </Card>
+                  
+                  <Card className="border-2 border-purple-200">
+                    <CardHeader className="bg-purple-50">
+                      <CardTitle className="text-lg flex items-center gap-2">
+                        <Users className="h-5 w-5 text-purple-600" />
+                        Large Groups (15+)
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="pt-4">
+                      <p className="text-gray-700">Private cruises give you exclusive access to the entire boat. Customize your itinerary, bring your own DJ, and create a completely personalized Austin party boat experience.</p>
+                    </CardContent>
+                  </Card>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </SectionReveal>
+
+      {/* NEW SEO SECTION 2: Planning Your Austin Party Cruise */}
+      <SectionReveal>
+        <section className="py-12 md:py-20 bg-gradient-to-br from-purple-50 to-pink-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6">
+            <div className="max-w-4xl mx-auto">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-playfair text-center mb-8 text-gray-900 leading-tight">
+                Planning Your Lake Travis Party Boat Bachelorette
+              </h2>
+              
+              <div className="prose prose-lg max-w-none">
+                <p className="text-lg text-gray-700 leading-relaxed mb-6">
+                  Organizing a <strong>party cruises</strong> celebration for your best friend's bachelorette requires some planning, but we make it simple. Here's your step-by-step guide to creating the ultimate <strong>lake travis party boat</strong> experience that your bride tribe will never forget.
+                </p>
+
+                <h3 className="text-2xl font-bold text-gray-900 mb-4 mt-8">Timing Your Austin Party Cruise</h3>
+                <p className="text-lg text-gray-700 leading-relaxed mb-4">
+                  The best time for <strong>austin party</strong> celebrations on Lake Travis is between April and September when the weather is perfect and the water is warm. However, we run cruises year-round with covered areas to keep you comfortable in any season. For the most popular dates, especially weekend cruises, we recommend booking 8-12 weeks for priority time slots - once they book they're gone!
+                </p>
+
+                <div className="bg-white border-2 border-pink-200 p-6 my-8 rounded-lg shadow-md">
+                  <h4 className="text-xl font-bold text-gray-900 mb-4">Pro Tips for Your Party Boat Austin Experience:</h4>
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div>
+                      <h5 className="font-bold text-gray-900 mb-2 flex items-center gap-2">
+                        <Sun className="h-5 w-5 text-yellow-600" />
+                        Weather Prep
+                      </h5>
+                      <ul className="text-sm text-gray-700 space-y-1 ml-7">
+                        <li>• Bring sunscreen (SPF 50+)</li>
+                        <li>• Pack sunglasses and hats</li>
+                        <li>• Consider UV-protective swim wear</li>
+                        <li>• Stay hydrated with water</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <h5 className="font-bold text-gray-900 mb-2 flex items-center gap-2">
+                        <Camera className="h-5 w-5 text-pink-600" />
+                        Photo Moments
+                      </h5>
+                      <ul className="text-sm text-gray-700 space-y-1 ml-7">
+                        <li>• Coordinate matching outfits</li>
+                        <li>• Bring props and decorations</li>
+                        <li>• Use waterproof phone cases</li>
+                        <li>• Trust our pro photographer</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <h3 className="text-2xl font-bold text-gray-900 mb-4 mt-8">What to Expect on Your Cruise for Bachelorette Party</h3>
+                <p className="text-lg text-gray-700 leading-relaxed mb-4">
+                  Your <strong>lake travis party boat</strong> adventure begins the moment you arrive at the marina. Our friendly crew will help you check in, load your coolers, and find your reserved spot on the boat. As we cruise out to our exclusive swimming areas, the DJ kicks off the party while our photographer starts capturing candid moments of your celebration.
+                </p>
+                
+                <p className="text-lg text-gray-700 leading-relaxed mb-6">
+                  Once we anchor at one of Lake Travis's most beautiful coves, you'll have full access to giant floats, swimming areas, and plenty of space to dance and celebrate. The multi-group atmosphere means you'll meet other bachelorette parties from across the country, creating an electric energy that makes <strong>austin party cruises</strong> truly special. Many brides say the social aspect - meeting and celebrating with other bride tribes - was their favorite unexpected part of the experience!
+                </p>
+              </div>
             </div>
           </div>
         </section>

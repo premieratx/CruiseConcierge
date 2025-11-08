@@ -441,9 +441,9 @@ export default function PrivateCruises() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
       <SEOHead 
-        title="Private Boat Rental Austin | Lake Travis Private Cruises | Premier Party Cruises"
-        description="Book private boat rentals on Lake Travis Austin. Licensed, fun, experienced captains, 14-75 person boats, BYOB friendly. Perfect for corporate events, weddings, birthdays. Starting at $200/hr."
-        keywords="private boat rental Austin, Lake Travis private cruise, Austin boat charter, private party boat Austin, Lake Travis boat rental, Austin yacht rental, corporate cruise Austin, wedding boat Austin"
+        title="Private Boat Rental Austin | Lake Travis"
+        description="Book private boat rentals on Lake Travis Austin. BYOB friendly, 14-75 person boats with licensed captains. Perfect for austin party cruises, corporate events, weddings. Starting at $200/hr."
+        keywords="private boat rental Austin, Lake Travis private cruise, austin party cruises, party boat austin, Austin boat charter, private party boat Austin, Lake Travis boat rental, Austin yacht rental, lake travis party boat"
         canonicalUrl="/private-cruises"
       />
       
@@ -543,7 +543,7 @@ export default function PrivateCruises() {
                 Private Boat Charters
               </Badge>
               <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold font-playfair mb-6 md:mb-8 text-gray-900 leading-tight drop-shadow-sm">
-                Private Boat Rentals Austin
+                Private Boat Rentals on Lake Travis Austin
               </h1>
               <p className="text-xl sm:text-2xl md:text-3xl text-gray-900 mb-6 md:mb-8 font-bold drop-shadow-sm">
                 Your Private Boat. Your Rules. Your Lake Travis Adventure.
@@ -1079,6 +1079,180 @@ export default function PrivateCruises() {
                     </Button>
                   </CardContent>
                 </Card>
+              </div>
+            </div>
+          </div>
+        </section>
+      </SectionReveal>
+
+      {/* NEW SEO SECTION 1: Austin Party Cruises for Private Events */}
+      <SectionReveal>
+        <section className="py-12 md:py-20 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6">
+            <div className="max-w-4xl mx-auto">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-playfair text-center mb-8 text-gray-900 leading-tight">
+                Austin Party Cruises: Your Private Lake Travis Experience
+              </h2>
+              
+              <div className="prose prose-lg max-w-none mb-8">
+                <p className="text-lg text-gray-700 leading-relaxed mb-6">
+                  When planning a memorable celebration, <strong>austin party cruises</strong> on Lake Travis offer an unmatched combination of privacy, luxury, and natural beauty. Our private boat rentals provide the ultimate <strong>party boat austin</strong> experience, giving you complete control over your celebration while our professional crew handles all the details.
+                </p>
+                
+                <h3 className="text-2xl font-bold text-gray-900 mb-4 mt-8">Why Choose a Lake Travis Party Boat for Private Events</h3>
+                <p className="text-lg text-gray-700 leading-relaxed mb-4">
+                  A private <strong>lake travis party boat</strong> charter offers advantages that traditional event venues simply cannot match. With exclusive access to your own boat, you'll enjoy complete privacy, flexible scheduling, and the freedom to customize every aspect of your celebration. Whether you're planning corporate team building, a wedding rehearsal dinner, or a milestone birthday, our <strong>party cruises</strong> provide a unique and memorable setting.
+                </p>
+                
+                <div className="bg-blue-50 border-l-4 border-blue-600 p-6 my-8 rounded-r-lg">
+                  <h4 className="text-xl font-bold text-gray-900 mb-3">What Sets Our Austin Party Boat Rentals Apart:</h4>
+                  <ul className="space-y-2 text-gray-700">
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="h-5 w-5 text-blue-600 mt-1 flex-shrink-0" />
+                      <span><strong>Complete Privacy</strong> - Your group gets the entire boat, no strangers or shared space</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="h-5 w-5 text-blue-600 mt-1 flex-shrink-0" />
+                      <span><strong>Flexible Scheduling</strong> - Choose your departure time, duration, and route</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="h-5 w-5 text-blue-600 mt-1 flex-shrink-0" />
+                      <span><strong>Professional Crew</strong> - Licensed, experienced captains ensure safe and smooth sailing</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="h-5 w-5 text-blue-600 mt-1 flex-shrink-0" />
+                      <span><strong>BYOB Friendly</strong> - Bring your own beverages and food to customize your experience</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <h3 className="text-2xl font-bold text-gray-900 mb-4 mt-8">Perfect Events for Austin Party Cruises</h3>
+                <p className="text-lg text-gray-700 leading-relaxed mb-4">
+                  Our <strong>austin party cruise</strong> experiences are ideal for a wide range of celebrations. Corporate groups love our boats for team building and client entertainment, offering a unique alternative to traditional conference rooms. Wedding parties choose us for rehearsal dinners and bridal showers, creating intimate pre-wedding memories on the water. Families celebrate milestone birthdays, reunions, and graduations with our private <strong>party boat austin</strong> charters.
+                </p>
+                
+                <div className="grid md:grid-cols-3 gap-6 my-8">
+                  <Card className="border-2 border-blue-200">
+                    <CardHeader className="bg-blue-50">
+                      <CardTitle className="text-lg flex items-center gap-2">
+                        <Briefcase className="h-5 w-5 text-blue-600" />
+                        Corporate Events
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="pt-4">
+                      <p className="text-gray-700">Team building, client entertainment, company celebrations. Professional setting with stunning lake views.</p>
+                    </CardContent>
+                  </Card>
+                  
+                  <Card className="border-2 border-purple-200">
+                    <CardHeader className="bg-purple-50">
+                      <CardTitle className="text-lg flex items-center gap-2">
+                        <Heart className="h-5 w-5 text-purple-600" />
+                        Wedding Celebrations
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="pt-4">
+                      <p className="text-gray-700">Rehearsal dinners, bridal showers, wedding party gatherings. Create intimate memories before the big day.</p>
+                    </CardContent>
+                  </Card>
+                  
+                  <Card className="border-2 border-pink-200">
+                    <CardHeader className="bg-pink-50">
+                      <CardTitle className="text-lg flex items-center gap-2">
+                        <Cake className="h-5 w-5 text-pink-600" />
+                        Special Milestones
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="pt-4">
+                      <p className="text-gray-700">Birthdays, graduations, anniversaries, retirements. Celebrate life's biggest moments on the water.</p>
+                    </CardContent>
+                  </Card>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </SectionReveal>
+
+      {/* NEW SEO SECTION 2: Planning Your Lake Travis Party Boat */}
+      <SectionReveal>
+        <section className="py-12 md:py-20 bg-gradient-to-br from-purple-50 to-blue-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6">
+            <div className="max-w-4xl mx-auto">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-playfair text-center mb-8 text-gray-900 leading-tight">
+                Planning Your Private Party Boat Austin Charter
+              </h2>
+              
+              <div className="prose prose-lg max-w-none">
+                <p className="text-lg text-gray-700 leading-relaxed mb-6">
+                  Successfully planning your <strong>lake travis party boat</strong> charter requires understanding the options and making decisions that align with your group's needs. With boats ranging from intimate 14-passenger pontoons to luxurious 75-passenger yachts, we help you select the perfect vessel for your <strong>party cruises</strong> celebration.
+                </p>
+
+                <h3 className="text-2xl font-bold text-gray-900 mb-4 mt-8">Choosing the Right Boat Size</h3>
+                <p className="text-lg text-gray-700 leading-relaxed mb-4">
+                  The size of your group determines which <strong>party boat austin</strong> option works best. For intimate gatherings of 10-15 people, our Day Tripper pontoon offers a cozy, personal experience. Mid-sized groups of 20-30 guests typically choose Meeseeks or The Irony, which provide ample space without feeling too large. For major celebrations with 40+ attendees, our flagship Clever Girl yacht delivers the luxury and capacity needed for large-scale <strong>austin party</strong> events.
+                </p>
+
+                <div className="bg-white border-2 border-blue-200 p-6 my-8 rounded-lg shadow-md">
+                  <h4 className="text-xl font-bold text-gray-900 mb-4">Tips for Your Lake Travis Party Boat Experience:</h4>
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div>
+                      <h5 className="font-bold text-gray-900 mb-2 flex items-center gap-2">
+                        <Clock className="h-5 w-5 text-blue-600" />
+                        Timing Your Cruise
+                      </h5>
+                      <ul className="text-sm text-gray-700 space-y-1 ml-7">
+                        <li>• Morning cruises (10am-2pm) best for families</li>
+                        <li>• Afternoon (12pm-4pm) most popular for parties</li>
+                        <li>• Evening (4pm-8pm) perfect for sunset views</li>
+                        <li>• Book 8-12 weeks for peak season</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <h5 className="font-bold text-gray-900 mb-2 flex items-center gap-2">
+                        <Wine className="h-5 w-5 text-purple-600" />
+                        Food & Beverage
+                      </h5>
+                      <ul className="text-sm text-gray-700 space-y-1 ml-7">
+                        <li>• BYOB with cans/plastic only</li>
+                        <li>• Catering available through partners</li>
+                        <li>• Coolers and ice provided</li>
+                        <li>• Consider alcohol delivery to marina</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <h3 className="text-2xl font-bold text-gray-900 mb-4 mt-8">Customizing Your Austin Party Cruise</h3>
+                <p className="text-lg text-gray-700 leading-relaxed mb-4">
+                  The beauty of private <strong>austin party cruises</strong> lies in the customization options. Want a professional DJ to keep the energy high? We can arrange that. Need a photographer to capture your corporate event or family celebration? We have trusted professionals ready. Looking for giant floats and water toys? Our enhanced packages include everything you need to make the most of Lake Travis's pristine waters.
+                </p>
+                
+                <p className="text-lg text-gray-700 leading-relaxed mb-6">
+                  Many guests choose to combine their <strong>party boat austin</strong> charter with exclusive cove access, where you can anchor in secluded areas perfect for swimming, floating, and celebrating away from crowds. Our captains know the best spots on Lake Travis - from dramatic cliff views to calm, protected coves ideal for water activities. Whatever your vision for the perfect day on the water, we'll help make it happen.
+                </p>
+
+                <div className="bg-blue-50 p-6 rounded-lg my-8">
+                  <h4 className="text-xl font-bold text-gray-900 mb-3">Popular Add-Ons for Party Cruises:</h4>
+                  <ul className="space-y-2 text-gray-700">
+                    <li className="flex items-start gap-2">
+                      <Music className="h-5 w-5 text-blue-600 mt-1 flex-shrink-0" />
+                      <span><strong>Professional DJ Service</strong> - Live entertainment with high-quality sound system ($600)</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <Camera className="h-5 w-5 text-blue-600 mt-1 flex-shrink-0" />
+                      <span><strong>Professional Photography</strong> - Capture every moment with digital photo delivery ($600)</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <Anchor className="h-5 w-5 text-blue-600 mt-1 flex-shrink-0" />
+                      <span><strong>Giant Floats Package</strong> - Lily pads, unicorns, and water toys ($200-400)</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <Utensils className="h-5 w-5 text-blue-600 mt-1 flex-shrink-0" />
+                      <span><strong>Catering Services</strong> - Partner with local caterers for food and beverages (varies)</span>
+                    </li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
