@@ -1438,15 +1438,15 @@ export default function BacheloretteParty() {
                     <li className="flex gap-4">
                       <span className="flex-shrink-0 w-8 h-8 bg-pink-600 text-white rounded-full flex items-center justify-center font-bold">3</span>
                       <div>
-                        <p className="font-bold">Cruise to Party Cove (12:00-1:00 PM)</p>
+                        <p className="font-bold">Cruise Lake Travis (12:00-12:45 PM)</p>
                         <p className="text-sm text-gray-600">DJ starts the party, meet other bachelorette groups</p>
                       </div>
                     </li>
                     <li className="flex gap-4">
                       <span className="flex-shrink-0 w-8 h-8 bg-pink-600 text-white rounded-full flex items-center justify-center font-bold">4</span>
                       <div>
-                        <p className="font-bold">Anchor at Party Cove (1:00-3:00 PM)</p>
-                        <p className="text-sm text-gray-600">Swimming, floats, dancing, photos, games</p>
+                        <p className="font-bold">Swimming at Nature Preserve (12:45-2:45 PM)</p>
+                        <p className="text-sm text-gray-600">Tie up along cliffs, crystal clear water, floats, photos, games</p>
                       </div>
                     </li>
                     <li className="flex gap-4">

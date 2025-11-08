@@ -1218,7 +1218,7 @@ export default function ATXDiscoCruise() {
 
                   <h3 className="text-2xl font-bold text-gray-900 mb-4 mt-8">What to Expect on Your Party Boat Austin Experience</h3>
                   <p className="text-lg text-gray-700 leading-relaxed mb-4">
-                    Your <strong>party boat austin</strong> adventure begins at Anderson Mill Marina on Lake Travis. After checking in and loading your coolers with your favorite BYOB beverages, you'll board our professionally maintained vessel and find your group's reserved area (Disco Queen/Super Sparkle packages). As we cruise out to our exclusive party coves, our professional DJ starts spinning tracks while groups begin mingling and the photographer captures those early moments of excitement.
+                    Your <strong>party boat austin</strong> adventure begins at Anderson Mill Marina on Lake Travis. After checking in and loading your coolers with your favorite BYOB beverages, you'll board our professionally maintained vessel and find your group's reserved area (Disco Queen/Super Sparkle packages). As we cruise out on the lake, our professional DJ starts spinning tracks while groups begin mingling and the photographer captures those early moments of excitement.
                   </p>
 
                   <div className="bg-white border-2 border-purple-200 p-6 my-8 rounded-lg shadow-md">

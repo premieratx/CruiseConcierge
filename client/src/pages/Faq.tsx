@@ -169,7 +169,7 @@ const faqCategories: FAQCategory[] = [
       {
         id: 'swimming',
         question: 'Can we swim during the Lake Travis cruise?',
-        answer: 'Swimming is allowed when conditions are safe and the boat is anchored, at captain\'s discretion. Life jackets are required for all swimmers and provided free. Popular swimming spots include party coves and scenic lake locations. The captain chooses safe locations based on weather and water conditions.'
+        answer: 'Yes! After cruising for 30-45 minutes, we tie up along the cliffs of a beautiful Lake Travis nature preserve with crystal clear water. We typically anchor for swimming 1.5-2 hours. Life jackets are required for all swimmers and provided free. The captain chooses safe locations based on weather and water conditions.'
       },
       {
         id: 'what-to-bring',

@@ -761,8 +761,8 @@ export default function PrivateCruises() {
                   {
                     id: 'customize-route',
                     question: 'Can we customize our route?',
-                    answer: 'Yes! Work with captain to create your perfect route on Lake Travis. Choose specific coves for swimming, scenic spots for photos, or party areas with other boats. Your captain knows all the best spots and will customize based on weather and your preferences.',
-                    keywords: ['customize', 'route', 'captain', 'Lake Travis', 'coves'],
+                    answer: 'Yes! The typical cruise includes 30-45 minutes of cruising, then we tie up along the cliffs of a Lake Travis nature preserve with crystal clear water for swimming (typically 1.5-2 hours), then cruise back. However, the time is yours - work with your captain to customize any combination of cruising and swimming time that works for your group.',
+                    keywords: ['customize', 'route', 'captain', 'Lake Travis', 'nature preserve'],
                     icon: MapPin,
                     relatedLink: {
                       href: '#pricing',
@@ -1229,7 +1229,7 @@ export default function PrivateCruises() {
                 </p>
                 
                 <p className="text-lg text-gray-700 leading-relaxed mb-6">
-                  Many guests choose to combine their <strong>party boat austin</strong> charter with exclusive cove access, where you can anchor in secluded areas perfect for swimming, floating, and celebrating away from crowds. Our captains know the best spots on Lake Travis - from dramatic cliff views to calm, protected coves ideal for water activities. Whatever your vision for the perfect day on the water, we'll help make it happen.
+                  We tie up along the cliffs of a beautiful Lake Travis nature preserve with crystal clear water, perfect for swimming, floating, and celebrating. After cruising for 30-45 minutes, we typically anchor for 1.5-2 hours of swimming time, then cruise back. However, the time is yours - customize any combination of cruising and swimming that works for your group. Whatever your vision for the perfect day on the water, we'll help make it happen.
                 </p>
 
                 <div className="bg-blue-50 p-6 rounded-lg my-8">

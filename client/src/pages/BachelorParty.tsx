@@ -957,7 +957,7 @@ export default function BachelorParty() {
                         3
                       </div>
                       <div className="flex-1">
-                        <h4 className="text-xl font-bold text-gray-900 mb-2">Cruise to Party Cove (Hour 1)</h4>
+                        <h4 className="text-xl font-bold text-gray-900 mb-2">Cruise Lake Travis (30-45 min)</h4>
                         <p className="text-gray-700 leading-relaxed">
                           DJ starts spinning, drinks flowing, energy building. Photographer captures the crew. Meet bachelor groups from other cities.
                         </p>
@@ -969,9 +969,9 @@ export default function BachelorParty() {
                         4
                       </div>
                       <div className="flex-1">
-                        <h4 className="text-xl font-bold text-gray-900 mb-2">Peak Party Time (Hours 2-3)</h4>
+                        <h4 className="text-xl font-bold text-gray-900 mb-2">Swimming at Nature Preserve (1.5-2 hours)</h4>
                         <p className="text-gray-700 leading-relaxed">
-                          Anchored at the best spots. Giant floats out, everyone swimming, DJ going hard. This is when legendary moments happen.
+                          Tied up along cliffs with crystal clear water. Giant floats out, everyone swimming, DJ going hard. This is when legendary moments happen.
                         </p>
                       </div>
                     </div>

@@ -688,7 +688,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           'How far in advance should we book? Popular weekend dates fill 6-8 weeks in advance, especially during peak season (April-September). For special events like bachelor/bachelorette parties, corporate events, or milestone birthdays, we suggest booking 2-3 months ahead to secure your preferred date and boat.',
           'How do deposits and payments work? 25% deposit if >30 days out (balance due 30 days prior). If booking within 30 days, 50% deposit due and remainder within 72 hours.',
           'What\'s your cancellation policy? 48-hour full refund window after booking. After that, cancellations are weather-dependent at the captain\'s discretion. Pro-rated refunds if weather shortens the cruise.',
-          'Can we customize our route? Absolutely! You have complete control over your Lake Travis experience. Work with your captain to customize your route, timing, and activities. Want to anchor at a quiet cove for swimming? Prefer to cruise around popular party coves? Your captain will work with you to create the perfect itinerary for your group.'
+          'Can we customize our route? Absolutely! You have complete control over your Lake Travis experience. Work with your captain to customize your route, timing, and activities. The typical cruise includes 30-45 minutes of cruising, then we tie up along the cliffs of a beautiful Lake Travis nature preserve with crystal clear water for swimming (typically 1.5-2 hours), then cruise back. However, the time is yours - customize any combination of cruising and swimming time that works for your group.'
         ]
       }
     ]
@@ -1606,7 +1606,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           'What\'s included with Lake Travis party boats? All boats include Coast Guard certified captain, professional crew, premium Bluetooth sound system, coolers with ice (select packages), safety equipment and life jackets, clean restroom facilities, comfortable seating with sun and shade areas, and swimming platform access.',
           'Where do Lake Travis party boats depart from? All cruises depart from Anderson Mill Marina, located at 13993 FM 2769, Leander, TX 78641. Free parking available for all guests. The marina is approximately 30 minutes from downtown Austin with easy access from Austin, Round Rock, and Cedar Park.',
           'How far in advance should we book? Book 6-8 weeks in advance for weekend dates, especially during peak season (April-September). Summer weekends and popular dates book earliest. Weekday availability is better with less advance notice needed.',
-          'What makes Lake Travis the best for party boats? Lake Travis offers beautiful clear blue water perfect for swimming, stunning Hill Country scenery, perfect year-round weather, Instagram-worthy sunset views, multiple party coves and spots, professional marina facilities, and legendary party atmosphere. It\'s Central Texas\' premier party destination!'
+          'What makes Lake Travis the best for party boats? Lake Travis offers beautiful clear blue water perfect for swimming, stunning Hill Country scenery with nature preserves, perfect year-round weather, Instagram-worthy sunset views, professional marina facilities, and legendary party atmosphere. It\'s Central Texas\' premier party destination!'
         ]
       }
     ]
