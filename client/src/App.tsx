@@ -227,6 +227,30 @@ function Router() {
       {/* Blog Content Pages */}
       <Route path="/first-time-lake-travis-boat-rental-guide" component={LakeTravisBoatRentalGuide} />
       
+      {/* Redirect broken indexed URLs */}
+      <Route path="/blogs/atx-disco-cruise-experience">
+        {() => {
+          const [, navigate] = useLocation();
+          useEffect(() => {
+            navigate('/atx-disco-cruise', { replace: true });
+          }, [navigate]);
+          return null;
+        }}
+      </Route>
+      
+      <Route path="/party-cruises-2025">
+        {() => {
+          const [, navigate] = useLocation();
+          useEffect(() => {
+            navigate('/', { replace: true });
+          }, [navigate]);
+          return null;
+        }}
+      </Route>
+      
+      {/* Replace old static blog with new React version */}
+      <Route path="/blogs/first-time-lake-travis-boat-rental-essential-tips-for-austin-party-planning" component={LakeTravisBoatRentalGuide} />
+      
       {/* Public Booking - Commented out, using /chat instead */}
       {/* <Route path="/calendar" component={PublicCalendar} /> */}
       
