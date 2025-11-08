@@ -457,7 +457,7 @@ export default function BacheloretteParty() {
             priceRange: "$85-$125",
             aggregateRating: {
               ratingValue: "4.9",
-              reviewCount: "350"
+              reviewCount: "130"
             }
           }),
           generateServiceSchema({
@@ -472,7 +472,7 @@ export default function BacheloretteParty() {
             ],
             aggregateRating: {
               ratingValue: "4.9",
-              reviewCount: "350"
+              reviewCount: "130"
             }
           }),
           generateFAQSchema([
@@ -496,15 +496,7 @@ export default function BacheloretteParty() {
               question: "When should I book a bachelorette party cruise in Austin?", 
               answer: "Book your Austin bachelorette party cruise 8-12 weeks for priority time slots - once they book they\'re gone! This is crucial for peak season (March-October) weekends. Popular Saturdays sell out quickly. ATX Disco Cruises run Saturdays at 11am-3pm or 3:30pm-7:30pm." 
             }
-          ]),
-          generateAggregateRatingSchema({
-            itemReviewed: {
-              type: "Service",
-              name: "Premier Party Cruises - Austin Bachelorette Party Boat"
-            },
-            ratingValue: "4.9",
-            reviewCount: "130"
-          })
+          ])
         ]}
       />
       

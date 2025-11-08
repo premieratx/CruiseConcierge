@@ -5,16 +5,36 @@ interface SchemaMarkupProps {
   schemas: Array<Record<string, any>>;
 }
 
+// Helper function to remove undefined values from schema objects
+function cleanSchema(obj: any): any {
+  if (Array.isArray(obj)) {
+    return obj.map(cleanSchema).filter(item => item !== undefined);
+  }
+  if (obj && typeof obj === 'object') {
+    const cleaned: any = {};
+    for (const [key, value] of Object.entries(obj)) {
+      if (value !== undefined) {
+        cleaned[key] = cleanSchema(value);
+      }
+    }
+    return cleaned;
+  }
+  return obj;
+}
+
 export function SchemaMarkup({ schemas }: SchemaMarkupProps) {
   return (
     <Helmet>
-      {schemas.map((schema, index) => (
-        <script
-          key={index}
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-        />
-      ))}
+      {schemas.map((schema, index) => {
+        const cleanedSchema = cleanSchema(schema);
+        return (
+          <script
+            key={index}
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(cleanedSchema) }}
+          />
+        );
+      })}
     </Helmet>
   );
 }

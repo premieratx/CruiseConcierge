@@ -455,7 +455,7 @@ export default function BachelorParty() {
             priceRange: "$85-$125",
             aggregateRating: {
               ratingValue: "4.9",
-              reviewCount: "280"
+              reviewCount: "130"
             }
           }),
           generateServiceSchema({
@@ -470,7 +470,7 @@ export default function BachelorParty() {
             ],
             aggregateRating: {
               ratingValue: "4.9",
-              reviewCount: "280"
+              reviewCount: "130"
             }
           }),
           generateFAQSchema([
@@ -494,15 +494,7 @@ export default function BachelorParty() {
               question: "How many people can fit on a bachelor party boat?", 
               answer: "ATX Disco Cruise hosts 40-80 guests total with multiple bachelor groups. For private bachelor party charters, boats range from 14-person to 75-person capacity depending on your crew size." 
             }
-          ]),
-          generateAggregateRatingSchema({
-            itemReviewed: {
-              type: "Service",
-              name: "Premier Party Cruises - Austin Bachelor Party Boat"
-            },
-            ratingValue: "4.9",
-            reviewCount: "130"
-          })
+          ])
         ]}
       />
       
