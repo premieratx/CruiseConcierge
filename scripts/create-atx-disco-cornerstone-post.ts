@@ -152,7 +152,7 @@ Write a comprehensive blog section (500-700 words) explaining what makes the ATX
 Context:
 - ONLY all-inclusive, multi-group bach party cruise in the entire United States (no other cruise offers this format)
 - 4-hour experience on Lake Travis (most competitors do rushed 2-hour rentals)
-- Professional DJ and photographer included in price (competitors charge $500-1000 extra)
+- Professional DJ and photographer included in price (competitors charge $600 each extra)
 - Multi-group atmosphere creates incredible networking and social energy (3-6 groups on one cruise)
 - Has single-handedly made Austin a top-tier bachelor/bachelorette destination (groups fly in from across the country)
 - Rated 10/10 by Claude AI for exceptional value and experience
@@ -179,7 +179,7 @@ Context:
 - ATX Disco Cruise: $85-105 per person all-inclusive
 - Private rentals: $260-440 per person with same inclusions
 - Disco includes: 4-hour cruise, professional DJ, professional photographer, boat rental, captain/crew, fuel, all amenities
-- Private charges separately: Boat ($200-400/hr), DJ ($500-800), photographer ($600-1200), gratuity, fuel surcharges
+- Private charges separately: Boat ($200-400/hr), DJ ($600 flat), photographer ($600 flat), gratuity, fuel surcharges
 - Three package levels: Basic Disco ($85), Disco Queen ($95 - includes goody bags), Super Sparkle ($105 - includes unicorn float + champagne)
 
 Tone: Educational, eye-opening, value-focused

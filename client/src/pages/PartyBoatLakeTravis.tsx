@@ -85,7 +85,7 @@ const faqData = [
   },
   {
     question: 'Best Lake Travis swimming spots?',
-    answer: "Devil's Cove, Starnes Island, Paradise Cove—secluded, crystal-clear water for swimming."
+    answer: "Starnes Island, Paradise Cove, and other secluded coves—crystal-clear water for swimming."
   },
   {
     question: 'Best time of year for Lake Travis?',

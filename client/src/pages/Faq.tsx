@@ -169,7 +169,7 @@ const faqCategories: FAQCategory[] = [
       {
         id: 'swimming',
         question: 'Can we swim during the Lake Travis cruise?',
-        answer: 'Swimming is allowed when conditions are safe and the boat is anchored, at captain\'s discretion. Life jackets are required for all swimmers and provided free. Popular swimming spots include Devil\'s Cove and party coves. The captain chooses safe locations based on weather and water conditions.'
+        answer: 'Swimming is allowed when conditions are safe and the boat is anchored, at captain\'s discretion. Life jackets are required for all swimmers and provided free. Popular swimming spots include party coves and scenic lake locations. The captain chooses safe locations based on weather and water conditions.'
       },
       {
         id: 'what-to-bring',

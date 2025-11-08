@@ -1898,7 +1898,7 @@ export default function Home() {
               },
               {
                 question: "Can you swim from your party boats?",
-                answer: "Yes! You can swim at designated swimming areas on Lake Travis. We anchor at popular coves like Devil's Cove where you can jump off the boat and enjoy the water. We provide lily pads for floating. Your captain knows the best spots based on conditions that day.",
+                answer: "Yes! You can swim at designated swimming areas on Lake Travis. We anchor at popular coves where you can jump off the boat and enjoy the water. We provide lily pads for floating. Your captain knows the best spots based on conditions that day.",
                 category: "Swimming"
               },
               {
@@ -2305,7 +2305,7 @@ export default function Home() {
             <li>Party On Delivery - alcohol delivery directly to boat</li>
             <li>Clean restroom facilities onboard</li>
             <li>Fuel and safety equipment included</li>
-            <li>Devil's Cove and scenic Lake Travis locations</li>
+            <li>Scenic Lake Travis coves and locations</li>
           </ul>
         </div>
         
@@ -2467,7 +2467,7 @@ export default function Home() {
           bachelor party Austin, Lake Travis party cruise, Austin boat rental, party boat Lake Travis, 
           bachelorette party boat Austin, Austin disco cruise, Lake Travis cruises, corporate events Austin, 
           team building Lake Travis, Austin boat charter, party boat rental Austin, Lake Travis party boat, 
-          Austin TX party boat, Anderson Mill Marina, Devil's Cove Austin, Lake Travis bachelorette, 
+          Austin TX party boat, Anderson Mill Marina, Lake Travis bachelorette, 
           Austin bachelor party boat, private boat charter Austin, ATX Disco Cruise, Premier Party Cruises
         </p>
         

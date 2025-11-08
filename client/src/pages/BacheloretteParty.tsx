@@ -1438,7 +1438,7 @@ export default function BacheloretteParty() {
                     <li className="flex gap-4">
                       <span className="flex-shrink-0 w-8 h-8 bg-pink-600 text-white rounded-full flex items-center justify-center font-bold">3</span>
                       <div>
-                        <p className="font-bold">Cruise to Devil's Cove (12:00-1:00 PM)</p>
+                        <p className="font-bold">Cruise to Party Cove (12:00-1:00 PM)</p>
                         <p className="text-sm text-gray-600">DJ starts the party, meet other bachelorette groups</p>
                       </div>
                     </li>
@@ -2163,7 +2163,7 @@ export default function BacheloretteParty() {
                   {
                     time: "12:30 PM",
                     title: "Party at Popular Coves",
-                    description: "Anchor at Devil's Cove or similar spots, swimming and floating on lily pads, DJ playing (Disco cruise), drinks flowing, bachelorette party games and celebrating the bride.",
+                    description: "Anchor at popular coves, swimming and floating on lily pads, DJ playing (Disco cruise), drinks flowing, bachelorette party games and celebrating the bride.",
                     icon: <Anchor className="w-4 h-4 text-white" />,
                     duration: "2.5 hours"
                   },

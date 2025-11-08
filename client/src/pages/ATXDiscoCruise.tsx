@@ -1967,7 +1967,7 @@ export default function ATXDiscoCruise() {
                     {
                       time: "11:30 AM",
                       title: "Party at Popular Coves",
-                      description: "Anchor at Devil's Cove or similar spots, swimming and floating on lily pads, DJ playing hits, photographer capturing memories, multi-group party atmosphere in full effect!",
+                      description: "Anchor at popular coves, swimming and floating on lily pads, DJ playing hits, photographer capturing memories, multi-group party atmosphere in full effect!",
                       icon: <Anchor className="w-4 h-4 text-white" />,
                       duration: "2 hours"
                     },

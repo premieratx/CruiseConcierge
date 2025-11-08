@@ -170,12 +170,12 @@ const faqItems = [
   {
     id: 'included',
     question: "What's included?",
-    answer: 'Licensed, experienced captain & crew, premium Bluetooth sound, coolers with ice, restrooms, sun & shade seating, and safety equipment.'
+    answer: 'Licensed, experienced captain & crew, premium Bluetooth sound, cooler space (bring your own ice, or add Essentials/Ultimate packages for ice included, or order from Party On Delivery), restrooms, sun & shade seating, and safety equipment.'
   },
   {
     id: 'food-drinks',
     question: 'Can we bring food and drinks?',
-    answer: 'Yes. BYOB (21+), cans/plastic only; bring snacks or meals. We provide coolers with ice and cups.'
+    answer: 'Yes. BYOB (21+), cans/plastic only; bring snacks or meals. We provide cooler space (bring your own ice, or add Essentials/Ultimate for ice included) and cups.'
   },
   {
     id: 'deposits-payments',

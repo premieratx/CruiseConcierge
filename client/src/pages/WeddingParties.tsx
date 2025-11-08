@@ -176,7 +176,7 @@ const weddingFAQs = [
   },
   {
     question: 'Can we have a formal dinner on board?',
-    answer: 'You\'re welcome to bring your own food or arrange catering from any Austin vendor of your choice. We can help coordinate alcohol delivery through Party On Delivery. Our crew ensures professional service throughout your event with tables, coolers, and ice provided.'
+    answer: 'You\'re welcome to bring your own food or arrange catering from any Austin vendor of your choice. We can help coordinate alcohol delivery through Party On Delivery. Our crew ensures professional service throughout your event with tables and cooler space (bring your own ice, or add Essentials/Ultimate packages for ice included) provided.'
   },
   {
     question: 'What about wedding decorations?',

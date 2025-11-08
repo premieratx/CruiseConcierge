@@ -1216,7 +1216,7 @@ export default function PrivateCruises() {
                       <ul className="text-sm text-gray-700 space-y-1 ml-7">
                         <li>• BYOB with cans/plastic only</li>
                         <li>• Catering available through partners</li>
-                        <li>• Coolers and ice provided</li>
+                        <li>• Empty coolers (BYO ice OR add Essentials/Ultimate for ice included)</li>
                         <li>• Consider alcohol delivery to marina</li>
                       </ul>
                     </div>
