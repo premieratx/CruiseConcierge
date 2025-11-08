@@ -500,10 +500,10 @@ export default function BacheloretteParty() {
           generateAggregateRatingSchema({
             itemReviewed: {
               type: "Service",
-              name: "Austin Bachelorette Party Cruises"
+              name: "Premier Party Cruises - Austin Bachelorette Party Boat"
             },
             ratingValue: "4.9",
-            reviewCount: "350"
+            reviewCount: "130"
           })
         ]}
       />

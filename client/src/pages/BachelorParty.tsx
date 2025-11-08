@@ -498,10 +498,10 @@ export default function BachelorParty() {
           generateAggregateRatingSchema({
             itemReviewed: {
               type: "Service",
-              name: "Austin Bachelor Party Cruises"
+              name: "Premier Party Cruises - Austin Bachelor Party Boat"
             },
             ratingValue: "4.9",
-            reviewCount: "280"
+            reviewCount: "130"
           })
         ]}
       />

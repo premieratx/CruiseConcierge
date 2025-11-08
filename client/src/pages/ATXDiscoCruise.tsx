@@ -390,7 +390,15 @@ export default function ATXDiscoCruise() {
               question: "How many people are on ATX Disco Cruise?", 
               answer: "ATX Disco Cruise typically hosts 40-80 guests total, with multiple bachelor and bachelorette groups celebrating together. This creates an electric party atmosphere unique to Austin." 
             }
-          ])
+          ]),
+          generateAggregateRatingSchema({
+            itemReviewed: {
+              type: "Service",
+              name: "Premier Party Cruises - ATX Disco Cruise"
+            },
+            ratingValue: "4.9",
+            reviewCount: "130"
+          })
         ]}
       />
 

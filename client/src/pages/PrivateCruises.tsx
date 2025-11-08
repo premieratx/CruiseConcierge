@@ -510,7 +510,15 @@ export default function PrivateCruises() {
               question: "How far in advance should I book a private boat rental?", 
               answer: "Book private boat rentals 8-12 weeks for priority time slots - once they book they\'re gone! This is especially important for weekends during peak season (April-October). Holiday weekends and special events book even further out. Off-season may have more flexibility." 
             }
-          ])
+          ]),
+          generateAggregateRatingSchema({
+            itemReviewed: {
+              type: "Service",
+              name: "Premier Party Cruises - Private Boat Rentals Lake Travis"
+            },
+            ratingValue: "4.9",
+            reviewCount: "130"
+          })
         ]}
       />
       
