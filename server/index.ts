@@ -3,6 +3,7 @@ import { registerRoutes } from "./routes";
 import { setupEmbedRouting, hasEmbedBuild } from "./embedServer";
 import { blogRouter } from "./blog-api.js";
 import { setupAuth } from "./auth";
+import { ssrMiddleware } from "./ssr/renderer.js";
 import Database from "@replit/database";
 import fs from "fs";
 import path from "path";
@@ -151,6 +152,11 @@ const PORT = process.env.PORT || '5000';
       }
     }));
   }
+
+  // CRITICAL FOR SEO: Register SSR middleware BEFORE static files
+  // This ensures crawlers get fully-rendered HTML with H1 tags, content, and schemas
+  app.use(ssrMiddleware());
+  log('✅ SSR middleware registered - crawlers will see full content', 'ssr');
 
   // Check if production build exists (reliable check for production vs development)
   const currentDir = path.dirname(new URL(import.meta.url).pathname);
