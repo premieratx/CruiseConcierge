@@ -152,60 +152,73 @@ const PORT = process.env.PORT || '5000';
     }));
   }
 
-  // ALWAYS serve static files in production
+  // Check if production build exists (reliable check for production vs development)
   const currentDir = path.dirname(new URL(import.meta.url).pathname);
   const publicDir = path.join(currentDir, '..', 'dist', 'public');
+  const isProduction = fs.existsSync(publicDir);
 
-  if (fs.existsSync(publicDir)) {
-    app.use(express.static(publicDir, {
-      maxAge: '30d',
-      etag: true,
-      lastModified: true,
-      setHeaders: (res, filepath) => {
-        if (filepath.endsWith('.html')) {
-          res.setHeader('Cache-Control', 'no-cache, must-revalidate');
-        } else if (filepath.match(/\.(js|css|woff2?|ttf|eot|svg|png|jpg|jpeg|gif|webp)$/)) {
-          res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+  // Start server first, then configure middlewares (needed for Vite HMR in dev)
+  const server = app.listen(parseInt(PORT, 10), '0.0.0.0', async () => {
+    log(`Server running on port ${PORT} (${isProduction ? 'production' : 'development'} mode)`);
+
+    // Now that server is listening, we can set up environment-specific middlewares
+    if (isProduction) {
+      // PRODUCTION: Serve static files
+      app.use(express.static(publicDir, {
+        maxAge: '30d',
+        etag: true,
+        lastModified: true,
+        setHeaders: (res, filepath) => {
+          if (filepath.endsWith('.html')) {
+            res.setHeader('Cache-Control', 'no-cache, must-revalidate');
+          } else if (filepath.match(/\.(js|css|woff2?|ttf|eot|svg|png|jpg|jpeg|gif|webp)$/)) {
+            res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+          }
         }
+      }));
+      
+      // SPA fallback for production - MUST be after API routes
+      app.get('*', (req, res) => {
+        if (!req.path.startsWith('/api')) {
+          res.sendFile(path.join(publicDir, 'index.html'));
+        } else {
+          res.status(404).json({ error: 'API route not found' });
+        }
+      });
+      
+      log('Production build detected - serving static files', 'ssr');
+    } else {
+      // DEVELOPMENT: Set up Vite dev server with HMR support
+      try {
+        const { setupVite } = await import('./vite');
+        await setupVite(app, server);
+        log('✅ Vite dev server initialized with HMR', 'vite');
+      } catch (error) {
+        log(`⚠️ Vite dev server setup failed: ${error}`, 'vite');
       }
-    }));
-    
-    // SPA fallback for production - MUST be after API routes
-    app.get('*', (req, res) => {
-      if (!req.path.startsWith('/api')) {
-        res.sendFile(path.join(publicDir, 'index.html'));
-      } else {
-        res.status(404).json({ error: 'API route not found' });
-      }
-    });
-    
-    log('Production build detected - serving static files', 'ssr');
-  }
-
-  // Global error handler - MUST be last middleware
-  app.use((err: any, req: Request, res: Response, next: NextFunction) => {
-    console.error('[ERROR HANDLER] Caught error:', {
-      message: err.message,
-      stack: err.stack,
-      url: req.url,
-      method: req.method,
-      timestamp: new Date().toISOString()
-    });
-    
-    if (res.headersSent) {
-      return;
     }
-    
-    res.status(err.status || 500).json({
-      error: 'Internal server error',
-      message: process.env.NODE_ENV === 'development' ? err.message : 'Something went wrong',
-      path: req.path,
-      timestamp: new Date().toISOString()
-    });
-  });
 
-  const server = app.listen(parseInt(PORT, 10), '0.0.0.0', () => {
-    log(`Server running on port ${PORT}`);
+    // Global error handler - Register AFTER environment-specific middlewares
+    app.use((err: any, req: Request, res: Response, next: NextFunction) => {
+      console.error('[ERROR HANDLER] Caught error:', {
+        message: err.message,
+        stack: err.stack,
+        url: req.url,
+        method: req.method,
+        timestamp: new Date().toISOString()
+      });
+      
+      if (res.headersSent) {
+        return;
+      }
+      
+      res.status(err.status || 500).json({
+        error: 'Internal server error',
+        message: !isProduction ? err.message : 'Something went wrong',
+        path: req.path,
+        timestamp: new Date().toISOString()
+      });
+    });
     
     // Async initialization after server is listening
     (async () => {
