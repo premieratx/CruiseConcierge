@@ -14,18 +14,47 @@ export interface PageContent {
   h1: string;
   introduction: string;
   sections: PageSection[];
+  relatedPages?: string[];  // Array of link catalog keys for footer links
 }
+
+// Master Link Catalog - Centralized directory of all internal links
+export const LINK_CATALOG: Record<string, {url: string; text: string}> = {
+  'bachelor-party': {url: '/bachelor-party-austin', text: 'Bachelor Party Cruises'},
+  'bachelorette-party': {url: '/bachelorette-party-austin', text: 'Bachelorette Party Cruises'},
+  'atx-disco': {url: '/atx-disco-cruise', text: 'ATX Disco Cruise'},
+  'private-cruises': {url: '/private-cruises', text: 'Private Boat Rentals'},
+  'wedding-party': {url: '/wedding-parties', text: 'Wedding Party Boats'},
+  'corporate-events': {url: '/corporate-events', text: 'Corporate Events'},
+  'birthday-party': {url: '/birthday-parties', text: 'Birthday Parties'},
+  'team-building': {url: '/team-building', text: 'Team Building Events'},
+  'graduation-party': {url: '/graduation-party', text: 'Graduation Parties'},
+  'combined-bach': {url: '/combined-bachelor-bachelorette-austin', text: 'Combined Bachelor & Bachelorette Parties'},
+  'faq': {url: '/faq', text: 'FAQ'},
+  'contact': {url: '/contact', text: 'Contact Us'},
+  'testimonials': {url: '/testimonials-faq', text: 'Customer Reviews'},
+  'home': {url: '/', text: 'Premier Party Cruises Home'},
+  'sweet-16': {url: '/sweet-16', text: 'Sweet 16 Parties'},
+  'milestone-birthday': {url: '/milestone-birthday', text: 'Milestone Birthday Parties'},
+  'after-party': {url: '/after-party', text: 'Wedding After Parties'},
+  'rehearsal-dinner': {url: '/rehearsal-dinner', text: 'Rehearsal Dinners'},
+  'welcome-party': {url: '/welcome-party', text: 'Wedding Welcome Parties'},
+  'client-entertainment': {url: '/client-entertainment', text: 'Client Entertainment'},
+  'company-milestone': {url: '/company-milestone', text: 'Company Milestones'},
+  'party-boat-austin': {url: '/party-boat-austin', text: 'Austin Party Boats'},
+  'party-boat-lake-travis': {url: '/party-boat-lake-travis', text: 'Lake Travis Party Boats'},
+  'gallery': {url: '/gallery', text: 'Photo Gallery'}
+};
 
 export const PAGE_CONTENT: Record<string, PageContent> = {
   '/': {
     h1: 'Premier Party Cruises - Austin Lake Travis Boat Rentals',
-    introduction: 'Experience the ultimate party cruise on Lake Travis with Austin\'s premier boat rental company. Choose from private charters, the ATX Disco Cruise, bachelor parties, bachelorette parties, corporate events, and more. Professional crew, premium amenities, and unforgettable celebrations await.',
+    introduction: 'Experience the ultimate party cruise on Lake Travis with Austin\'s premier boat rental company. Choose from [[private-cruises]], the [[atx-disco]], [[bachelor-party]], [[bachelorette-party]], [[corporate-events]], and more. Professional crew, premium amenities, and unforgettable celebrations await.',
     sections: [
       {
         heading: 'Private Charters - Your Exclusive Boat Experience',
         paragraphs: [
-          'Choose from our fleet of premium party boats: "Day Tripper" (1-14 people), "Me Seeks the Irony" (15-30 people), or flagship "Clever Girl" (31-75 people) with giant Texas flag and 14 disco balls. Every private charter includes licensed captains, premium Bluetooth sound systems, large coolers with ice, and all the amenities for an unforgettable celebration.',
-          'Perfect for weddings, corporate events, birthdays, and any special celebration. Starting at $200 per hour with a 4-hour minimum. Fully customizable packages to match your event needs.'
+          'Choose from our fleet of premium party boats: "Day Tripper" (1-14 people), "Me Seeks the Irony" (15-30 people), or flagship "Clever Girl" (31-75 people) with giant Texas flag and 14 disco balls. Every [[private-cruises]] includes licensed captains, premium Bluetooth sound systems, large coolers with ice, and all the amenities for an unforgettable celebration.',
+          'Perfect for [[wedding-party]], [[corporate-events]], [[birthday-party]], and any special celebration. Starting at $200 per hour with a 4-hour minimum. Fully customizable packages to match your event needs.'
         ],
         lists: [
           {
@@ -45,8 +74,8 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'ATX Disco Cruise - The Ultimate Party Experience',
         paragraphs: [
-          'Join the BEST party on Lake Travis! Our signature ATX Disco Cruise features a professional DJ, photographer, disco dance floor, giant floats, and an incredible party atmosphere. Three package levels available: Basic Bach ($85), Disco Queen/King ($95), and Super Sparkle Platinum ($105).',
-          'Every disco cruise includes professional entertainment, photo delivery, party supplies, and an unforgettable experience with multiple bachelor and bachelorette groups celebrating together.'
+          'Join the BEST party on Lake Travis! Our signature [[atx-disco]] features a professional DJ, photographer, disco dance floor, giant floats, and an incredible party atmosphere. Three package levels available: Basic Bach ($85), Disco Queen/King ($95), and Super Sparkle Platinum ($105).',
+          'Every disco cruise includes professional entertainment, photo delivery, party supplies, and an unforgettable experience with multiple [[bachelor-party]] and [[bachelorette-party]] groups celebrating together.'
         ],
         lists: [
           {
@@ -67,8 +96,8 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Bachelor & Bachelorette Parties',
         paragraphs: [
-          'Plan the perfect bachelor or bachelorette party on Lake Travis! Choose between our affordable ATX Disco Cruise packages or rent a private boat exclusively for your group. Bride cruises FREE on Disco Queen and Platinum packages (16+ paying guests).',
-          'We specialize in creating unforgettable bachelor and bachelorette experiences with professional entertainment, premium amenities, and dedicated service. Over 125,000 happy customers have celebrated with us!'
+          'Plan the perfect [[bachelor-party]] or [[bachelorette-party]] on Lake Travis! Choose between our affordable [[atx-disco]] packages or rent a [[private-cruises]] exclusively for your group. Bride cruises FREE on Disco Queen and Platinum packages (16+ paying guests).',
+          'We specialize in creating unforgettable [[bachelor-party]] and [[bachelorette-party]] experiences with professional entertainment, premium amenities, and dedicated service. Over 125,000 happy customers have celebrated with us! Learn more about [[combined-bach]] options too.'
         ],
         lists: [
           {
@@ -88,8 +117,8 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Corporate Events & Team Building',
         paragraphs: [
-          'Elevate your corporate events with a Lake Travis cruise! Perfect for team building, client entertainment, company milestones, and employee appreciation. Our fleet accommodates groups from 14 to 75+ guests with professional service and premium amenities.',
-          'Customizable packages include catering coordination, AV equipment, and dedicated event planning to ensure your corporate event is a complete success.'
+          'Elevate your [[corporate-events]] with a Lake Travis cruise! Perfect for [[team-building]], [[client-entertainment]], [[company-milestone]], and employee appreciation. Our fleet accommodates groups from 14 to 75+ guests with professional service and premium amenities.',
+          'Customizable packages include catering coordination, AV equipment, and dedicated event planning to ensure your [[corporate-events]] is a complete success.'
         ]
       },
       {
@@ -126,16 +155,21 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           'Can you accommodate corporate events and team building activities? Absolutely! We specialize in corporate events and team building on Lake Travis. Our fleet accommodates groups from 14 to 75+ guests with professional service and premium amenities. Customizable packages include catering coordination, AV equipment, and dedicated event planning to ensure your corporate event is a complete success.'
         ]
       }
+    ],
+    relatedPages: [
+      'bachelor-party', 'bachelorette-party', 'atx-disco', 'private-cruises',
+      'wedding-party', 'corporate-events', 'birthday-party', 'team-building',
+      'combined-bach', 'testimonials', 'faq', 'contact'
     ]
   },
   '/bachelor-party-austin': {
     h1: 'Austin Bachelor Party Boat Rentals | Lake Travis Cruises',
-    introduction: 'Plan the ultimate bachelor party on Lake Travis with Premier Party Cruises! Choose from our affordable ATX Disco Cruise packages ($85-$105 per person) or rent a private boat exclusively for your group. Professional DJ, photographer, party floats, and unforgettable memories included.',
+    introduction: 'Plan the ultimate [[bachelor-party]] on Lake Travis with Premier Party Cruises! Choose from our affordable [[atx-disco]] packages ($85-$105 per person) or rent a [[private-cruises]] exclusively for your group. Professional DJ, photographer, party floats, and unforgettable memories included.',
     sections: [
       {
         heading: 'ATX Disco Cruise Bachelor Party Packages',
         paragraphs: [
-          'Join the BEST party on Lake Travis! Our disco cruise offers three package levels designed specifically for bachelor parties, with everything included for an epic celebration.'
+          'Join the BEST party on Lake Travis! Our [[atx-disco]] offers three package levels designed specifically for [[bachelor-party]], with everything included for an epic celebration.'
         ],
         lists: [
           {
@@ -200,8 +234,8 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Private Bachelor Party Boat Charters',
         paragraphs: [
-          'Want the boat all to yourselves? Rent a private boat for your bachelor party! Our fleet includes boats for 14, 25, and 50+ guests with professional captains, premium sound, and complete customization.',
-          'Private charters start at $195/hour (4-hour minimum) and include everything you need for an exclusive celebration on Lake Travis.'
+          'Want the boat all to yourselves? Rent a [[private-cruises]] for your [[bachelor-party]]! Our fleet includes boats for 14, 25, and 50+ guests with professional captains, premium sound, and complete customization.',
+          'Private charters start at $195/hour (4-hour minimum) and include everything you need for an exclusive celebration on Lake Travis. Check out our [[combined-bach]] options if you want to celebrate with your fiancée\'s group too!'
         ]
       },
       {
@@ -234,16 +268,21 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           'How far in advance should we book? Weekend dates fill 6-8 weeks early. Book as soon as possible to secure your preferred date.'
         ]
       }
+    ],
+    relatedPages: [
+      'atx-disco', 'bachelorette-party', 'private-cruises', 'combined-bach',
+      'wedding-party', 'birthday-party', 'team-building', 'corporate-events',
+      'graduation-party', 'testimonials', 'faq', 'contact'
     ]
   },
   '/bachelorette-party-austin': {
     h1: 'Austin Bachelorette Party Boat Cruises | Lake Travis',
-    introduction: 'Plan the ultimate bachelorette party on Lake Travis! The ATX Disco Cruise is our specialty with packages starting at $85. Bride cruises FREE on Disco Queen and Platinum packages (16+ paying guests). Professional DJ, photographer, floats, and unforgettable celebration guaranteed!',
+    introduction: 'Plan the ultimate [[bachelorette-party]] on Lake Travis! The [[atx-disco]] is our specialty with packages starting at $85. Bride cruises FREE on Disco Queen and Platinum packages (16+ paying guests). Professional DJ, photographer, floats, and unforgettable celebration guaranteed!',
     sections: [
       {
         heading: 'Bachelorette Party Cruise Packages',
         paragraphs: [
-          'Choose from three amazing package levels designed specifically for bachelorette parties. Each package includes professional DJ, photographer, and everything you need for an epic Lake Travis celebration!'
+          'Choose from three amazing package levels designed specifically for [[bachelorette-party]]. Each package includes professional DJ, photographer, and everything you need for an epic Lake Travis celebration!'
         ],
         lists: [
           {
@@ -308,14 +347,14 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Private Bachelorette Boat Charters',
         paragraphs: [
-          'Want the boat exclusively for your bachelorette party? Rent a private boat from our fleet! Perfect for groups that want complete privacy and customization. Our boats accommodate 14-50 guests with professional captains and premium amenities.',
-          'Private charters include everything: captain, crew, sound system, coolers, ice, and complete control over your route and schedule. Starting at $195/hour with 4-hour minimum.'
+          'Want the boat exclusively for your [[bachelorette-party]]? Rent a [[private-cruises]] from our fleet! Perfect for groups that want complete privacy and customization. Our boats accommodate 14-50 guests with professional captains and premium amenities.',
+          'Private charters include everything: captain, crew, sound system, coolers, ice, and complete control over your route and schedule. Starting at $195/hour with 4-hour minimum. Or check out [[combined-bach]] options!'
         ]
       },
       {
         heading: 'Why Bachelorette Parties Choose Us',
         paragraphs: [
-          'With 14+ years specializing in bachelorette parties, we know exactly how to create an unforgettable celebration. Over 125,000 happy customers, perfect safety record, and Austin\'s newest fleet make us the #1 choice for Lake Travis bachelorette parties.'
+          'With 14+ years specializing in [[bachelorette-party]], we know exactly how to create an unforgettable celebration. Over 125,000 happy customers, perfect safety record, and Austin\'s newest fleet make us the #1 choice for Lake Travis bachelorette parties.'
         ],
         lists: [
           {
@@ -332,6 +371,11 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           }
         ]
       }
+    ],
+    relatedPages: [
+      'atx-disco', 'bachelor-party', 'private-cruises', 'combined-bach',
+      'wedding-party', 'birthday-party', 'sweet-16', 'graduation-party',
+      'milestone-birthday', 'testimonials', 'faq', 'contact'
     ]
   },
   '/combined-bachelor-bachelorette-austin': {
@@ -424,12 +468,12 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
   },
   '/atx-disco-cruise': {
     h1: 'ATX Disco Cruise - Ultimate Party Boat Experience Austin',
-    introduction: 'Experience the legendary ATX Disco Cruise on Lake Travis! Professional DJ, photographer, disco dance floor, giant floats, and the best party atmosphere in Austin. Three packages available from $85-$105 per person. Join multiple bachelor and bachelorette parties for an unforgettable celebration!',
+    introduction: 'Experience the legendary [[atx-disco]] on Lake Travis! Professional DJ, photographer, disco dance floor, giant floats, and the best party atmosphere in Austin. Three packages available from $85-$105 per person. Join multiple [[bachelor-party]] and [[bachelorette-party]] for an unforgettable celebration!',
     sections: [
       {
         heading: 'ATX Disco Cruise Packages',
         paragraphs: [
-          'Choose your perfect disco cruise package! Every level includes professional DJ, photographer, party floats, and an incredible 4-hour Lake Travis experience.'
+          'Choose your perfect [[atx-disco]] package! Every level includes professional DJ, photographer, party floats, and an incredible 4-hour Lake Travis experience. Perfect alternative to [[private-cruises]] for budget-conscious groups!'
         ],
         lists: [
           {
@@ -536,16 +580,21 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           'Does bride/groom cruise free? Yes! On Disco Queen and Platinum packages with 16+ paying guests, bride OR groom cruises absolutely FREE.'
         ]
       }
+    ],
+    relatedPages: [
+      'bachelor-party', 'bachelorette-party', 'private-cruises', 'combined-bach',
+      'wedding-party', 'birthday-party', 'team-building', 'corporate-events',
+      'graduation-party', 'sweet-16', 'testimonials', 'faq', 'contact'
     ]
   },
   '/private-cruises': {
     h1: 'Private Boat Rentals Lake Travis | Austin Party Cruises',
-    introduction: 'Rent a private boat on Lake Travis for your exclusive celebration! Choose from our fleet of premium boats accommodating 1-75 guests. Everything set up when you arrive - professional captain, crew, sound system, coolers, and complete customization. Three package levels from Standard to Ultimate. Starting at $200/hour with 4-hour minimum.',
+    introduction: 'Rent a [[private-cruises]] on Lake Travis for your exclusive celebration! Choose from our fleet of premium boats accommodating 1-75 guests. Everything set up when you arrive - professional captain, crew, sound system, coolers, and complete customization. Three package levels from Standard to Ultimate. Starting at $200/hour with 4-hour minimum. Perfect for [[bachelor-party]], [[bachelorette-party]], [[corporate-events]], and more!',
     sections: [
       {
         heading: 'Our Private Boat Fleet',
         paragraphs: [
-          'Choose the perfect boat for your group size and celebration style:'
+          'Choose the perfect boat for your group size and celebration style. Great alternative to [[atx-disco]] if you want complete exclusivity:'
         ],
         lists: [
           {
@@ -691,6 +740,11 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           'Can we customize our route? Absolutely! You have complete control over your Lake Travis experience. Work with your captain to customize your route, timing, and activities. The typical cruise includes 30-45 minutes of cruising, then we tie up along the cliffs of a beautiful Lake Travis nature preserve with crystal clear water for swimming (typically 1.5-2 hours), then cruise back. However, the time is yours - customize any combination of cruising and swimming time that works for your group.'
         ]
       }
+    ],
+    relatedPages: [
+      'atx-disco', 'bachelor-party', 'bachelorette-party', 'corporate-events',
+      'wedding-party', 'birthday-party', 'team-building', 'client-entertainment',
+      'company-milestone', 'graduation-party', 'testimonials', 'faq', 'contact'
     ]
   },
   '/after-party': {

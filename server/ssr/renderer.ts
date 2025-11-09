@@ -3,7 +3,7 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import { resolveAsset } from "../utils/viteManifest";
-import { PAGE_CONTENT, PageContent, PageSection } from './pageContent';
+import { PAGE_CONTENT, PageContent, PageSection, LINK_CATALOG } from './pageContent';
 import { getSchemaForRoute, generateArticleSchema, isBlogPostRoute } from '../schemaLoader';
 import { storage } from '../storage';
 
@@ -615,14 +615,55 @@ h1{font-size:clamp(1.5rem,4vw,3.5rem);line-height:1.2}
 `.trim();
 
 /**
+ * Process [[token]] placeholders in text and replace them with actual links
+ * @param text - Text containing [[token]] placeholders
+ * @param catalog - Link catalog mapping tokens to URLs and text
+ * @returns Text with tokens replaced by HTML anchor tags
+ */
+function processTokens(text: string, catalog: Record<string, {url: string; text: string}>): string {
+  return text.replace(/\[\[([^\]]+)\]\]/g, (match, token) => {
+    const link = catalog[token];
+    return link ? `<a href="${link.url}" style="color: #1e40af; text-decoration: underline;">${link.text}</a>` : match;
+  });
+}
+
+/**
+ * Render "Related Pages" footer section with internal links
+ * @param relatedKeys - Array of link catalog keys for related pages
+ * @param catalog - Link catalog mapping tokens to URLs and text
+ * @returns HTML string for related pages section or empty string
+ */
+function renderRelatedPages(relatedKeys: string[] | undefined, catalog: Record<string, {url: string; text: string}>): string {
+  if (!relatedKeys || relatedKeys.length === 0) return '';
+  
+  const links = relatedKeys
+    .map(key => catalog[key])
+    .filter(Boolean)
+    .map(link => `<li style="margin-bottom: 0.5rem;"><a href="${link.url}" style="color: #1e40af; text-decoration: underline;">${link.text}</a></li>`)
+    .join('\n');
+  
+  return `
+    <div style="margin-top: 3rem; padding-top: 2rem; border-top: 2px solid #e5e7eb;">
+      <h2 style="font-size: 1.75rem; font-weight: 600; margin-bottom: 1rem; color: #000;">Related Cruises & Services</h2>
+      <ul style="list-style: none; padding: 0; columns: 2; column-gap: 2rem;">
+        ${links}
+      </ul>
+    </div>
+  `;
+}
+
+/**
  * Generate complete HTML from PageContent structure
  * Renders all headings, paragraphs, and lists in semantic HTML
  */
 function renderPageContent(content: PageContent): string {
+  // Process introduction text for [[token]] replacements
+  const processedIntroduction = processTokens(content.introduction, LINK_CATALOG);
+  
   let html = `
     <div class="ssr-content" style="padding: 2rem; max-width: 1200px; margin: 0 auto; font-family: system-ui, sans-serif;">
       <h1 style="font-size: 2.5rem; font-weight: bold; margin-bottom: 1.5rem; color: #000; line-height: 1.2;">${content.h1}</h1>
-      <p style="font-size: 1.125rem; line-height: 1.75; color: #374151; margin-bottom: 2rem;">${content.introduction}</p>
+      <p style="font-size: 1.125rem; line-height: 1.75; color: #374151; margin-bottom: 2rem;">${processedIntroduction}</p>
   `;
   
   // Render each section
@@ -632,9 +673,10 @@ function renderPageContent(content: PageContent): string {
         <h2 style="font-size: 2rem; font-weight: 600; margin-bottom: 1rem; color: #000;">${section.heading}</h2>
     `;
     
-    // Render paragraphs
+    // Render paragraphs with [[token]] processing
     section.paragraphs.forEach(para => {
-      html += `<p style="font-size: 1rem; line-height: 1.75; color: #4B5563; margin-bottom: 1rem;">${para}</p>\n`;
+      const processedPara = processTokens(para, LINK_CATALOG);
+      html += `<p style="font-size: 1rem; line-height: 1.75; color: #4B5563; margin-bottom: 1rem;">${processedPara}</p>\n`;
     });
     
     // Render lists if present
@@ -653,6 +695,9 @@ function renderPageContent(content: PageContent): string {
     
     html += '</section>\n';
   });
+  
+  // Add "Related Pages" footer section if relatedPages are defined
+  html += renderRelatedPages(content.relatedPages, LINK_CATALOG);
   
   html += `
       <noscript>
