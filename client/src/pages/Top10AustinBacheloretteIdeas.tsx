@@ -81,7 +81,6 @@ export default function Top10AustinBacheloretteIdeas() {
           'ATX Disco Cruise',
           'Lake Travis bachelorette'
         ]}
-        schemaType="blogPost"
       />
       
       <script type="application/ld+json">
@@ -133,7 +132,7 @@ export default function Top10AustinBacheloretteIdeas() {
         </section>
       </SectionReveal>
 
-      <TableOfContents items={tableOfContents} />
+      <TableOfContents sections={tableOfContents} />
 
       <SectionReveal>
         <section className="py-16 bg-white dark:bg-gray-950">

@@ -48,7 +48,6 @@ export default function AdventureAustinBachelorette() {
           'outdoor bachelorette austin',
           'lake travis adventures'
         ]}
-        schemaType="blogPost"
       />
       <PublicNavigation />
       <Breadcrumb />
@@ -95,7 +94,7 @@ export default function AdventureAustinBachelorette() {
         </section>
       </SectionReveal>
 
-      <TableOfContents items={tableOfContents} />
+      <TableOfContents sections={tableOfContents} />
 
       <SectionReveal>
         <section className="py-16 bg-white dark:bg-gray-950">

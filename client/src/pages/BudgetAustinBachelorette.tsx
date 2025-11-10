@@ -86,7 +86,6 @@ export default function BudgetAustinBachelorette() {
           'affordable bachelorette party',
           'ATX Disco Cruise'
         ]}
-        schemaType="blogPost"
       />
       
       <script type="application/ld+json">
@@ -138,7 +137,7 @@ export default function BudgetAustinBachelorette() {
         </section>
       </SectionReveal>
 
-      <TableOfContents items={tableOfContents} />
+      <TableOfContents sections={tableOfContents} />
 
       <SectionReveal>
         <section id="intro" className="py-16 bg-white dark:bg-gray-950">

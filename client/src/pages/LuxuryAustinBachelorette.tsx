@@ -84,7 +84,6 @@ export default function LuxuryAustinBachelorette() {
           'VIP party boat Austin',
           'ATX Disco Cruise'
         ]}
-        schemaType="blogPost"
       />
       
       <script type="application/ld+json">
@@ -136,7 +135,7 @@ export default function LuxuryAustinBachelorette() {
         </section>
       </SectionReveal>
 
-      <TableOfContents items={tableOfContents} />
+      <TableOfContents sections={tableOfContents} />
 
       <SectionReveal>
         <section id="intro" className="py-16 bg-white dark:bg-gray-950">
@@ -542,11 +541,7 @@ export default function LuxuryAustinBachelorette() {
         </section>
       </SectionReveal>
 
-      <QuoteBuilderSection 
-        title="Ready to Plan Your Luxury Austin Bachelorette Weekend?"
-        subtitle="Get an instant quote for VIP ATX Disco Cruise packages and luxury bachelorette boat rentals on Lake Travis"
-        eventType="Bachelorette Party"
-      />
+      <QuoteBuilderSection />
 
       <SectionReveal>
         <section className="py-16 bg-gradient-to-b from-white to-purple-50 dark:from-gray-950 dark:to-gray-900">

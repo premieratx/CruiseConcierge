@@ -47,7 +47,6 @@ export default function UltimateAustinBacheloretteWeekend() {
           'Lake Travis bachelorette',
           'Austin nightlife bachelorette'
         ]}
-        schemaType="blogPost"
       />
       <PublicNavigation />
       <Breadcrumb />
@@ -94,7 +93,7 @@ export default function UltimateAustinBacheloretteWeekend() {
         </section>
       </SectionReveal>
 
-      <TableOfContents items={tableOfContents} />
+      <TableOfContents sections={tableOfContents} />
 
       <SectionReveal>
         <section className="py-16 bg-white dark:bg-gray-950">

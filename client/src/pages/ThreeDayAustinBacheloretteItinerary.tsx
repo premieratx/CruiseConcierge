@@ -79,7 +79,6 @@ export default function ThreeDayAustinBacheloretteItinerary() {
           '3 day itinerary',
           'Lake Travis bachelorette'
         ]}
-        schemaType="blogPost"
       />
       
       <script type="application/ld+json">
@@ -131,7 +130,7 @@ export default function ThreeDayAustinBacheloretteItinerary() {
         </section>
       </SectionReveal>
 
-      <TableOfContents items={tableOfContents} />
+      <TableOfContents sections={tableOfContents} />
 
       <SectionReveal>
         <section id="intro" className="py-16 bg-white dark:bg-gray-950">
@@ -873,10 +872,7 @@ export default function ThreeDayAustinBacheloretteItinerary() {
         </section>
       </SectionReveal>
 
-      <QuoteBuilderSection 
-        title="Get Your Custom Austin Bachelorette Quote"
-        description="Tell us about your austin bachelorette weekend and we'll create a personalized quote for your bachelorette party lake travis boat experience!"
-      />
+      <QuoteBuilderSection />
 
       <Footer />
     </div>
