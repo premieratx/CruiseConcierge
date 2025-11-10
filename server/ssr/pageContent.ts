@@ -380,7 +380,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
   },
   '/combined-bachelor-bachelorette-austin': {
     h1: 'Combined Bachelor Bachelorette Parties Austin | Lake Travis',
-    introduction: 'Why celebrate separately? Plan the ultimate combined bachelor and bachelorette party on Lake Travis! Both bride AND groom cruise FREE on Party Squad and Ultimate packages. Join the ATX Disco Cruise or rent a private boat for guys and girls celebrating together. Starting at $85 per person.',
+    introduction: 'Why celebrate separately? Plan the ultimate [[combined-bach]] on Lake Travis! Both bride AND groom cruise FREE on Party Squad and Ultimate packages. Join the [[atx-disco]] or rent a [[private-cruises]] for guys and girls celebrating together. Starting at $85 per person.',
     sections: [
       {
         heading: 'Combined Party Packages - Everyone Together',
@@ -464,6 +464,11 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           'Do bride and groom really cruise free? Yes! On Party Squad and Ultimate packages with 16+ paying guests, both cruise absolutely FREE.'
         ]
       }
+    ],
+    relatedPages: [
+      'bachelor-party', 'bachelorette-party', 'atx-disco', 'private-cruises',
+      'wedding-party', 'rehearsal-dinner', 'welcome-party', 'after-party',
+      'birthday-party', 'testimonials', 'faq', 'contact', 'home'
     ]
   },
   '/atx-disco-cruise': {
@@ -749,7 +754,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
   },
   '/after-party': {
     h1: 'Wedding After Party Cruises Lake Travis | Austin',
-    introduction: 'Don\'t let your wedding night end! Continue the celebration with a late-night Lake Travis cruise for you and your closest friends. Professional DJ, midnight champagne, dancing under the stars, and the perfect finale to your special day. Three packages available starting at $200/hour.',
+    introduction: 'Don\'t let your wedding night end! Continue the celebration with a late-night [[after-party]] cruise for you and your closest friends. Professional DJ, midnight champagne, dancing under the stars, and the perfect finale to your special day. Choose from [[private-cruises]] starting at $200/hour.',
     sections: [
       {
         heading: 'After Party Cruise Packages',
@@ -846,11 +851,16 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           'How far in advance should we book the wedding after party? Book your after party cruise when you book your wedding venue to secure your date. Peak wedding season (April-October) and Saturday night slots fill quickly, often 3-6 months in advance.'
         ]
       }
+    ],
+    relatedPages: [
+      'wedding-party', 'rehearsal-dinner', 'welcome-party', 'bachelor-party',
+      'bachelorette-party', 'combined-bach', 'private-cruises', 'birthday-party',
+      'corporate-events', 'testimonials', 'faq', 'contact', 'home'
     ]
   },
   '/welcome-party': {
     h1: 'Wedding Welcome Party Cruises Lake Travis | Austin',
-    introduction: 'Start your wedding weekend with an unforgettable welcome party on Lake Travis! Gather guests who traveled from out of town for a relaxed cruise experience. Perfect for Friday evening before Saturday weddings. Private boat rentals for 14-75 guests with professional service.',
+    introduction: 'Start your [[wedding-party]] weekend with an unforgettable [[welcome-party]] on Lake Travis! Gather guests who traveled from out of town for a relaxed cruise experience. Perfect for Friday evening before Saturday weddings. [[private-cruises]] for 14-75 guests with professional service.',
     sections: [
       {
         heading: 'Welcome Party on the Water',
@@ -907,11 +917,16 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           'Where does the welcome party cruise depart from? Welcome party cruises depart from Anderson Mill Marina on Lake Travis, approximately 30 minutes from downtown Austin. Free parking is available, and many couples arrange shuttle service from hotel blocks.'
         ]
       }
+    ],
+    relatedPages: [
+      'wedding-party', 'rehearsal-dinner', 'after-party', 'bachelor-party',
+      'bachelorette-party', 'combined-bach', 'private-cruises', 'corporate-events',
+      'birthday-party', 'testimonials', 'faq', 'contact', 'home'
     ]
   },
   '/rehearsal-dinner': {
     h1: 'Rehearsal Dinner Cruises Lake Travis | Austin Weddings',
-    introduction: 'Host an unforgettable rehearsal dinner on Lake Travis! Private boat cruises for your wedding party and close family. Elegant yet relaxed atmosphere with sunset views, premium service, and complete customization. Perfect alternative to traditional restaurant dinners.',
+    introduction: 'Host an unforgettable [[rehearsal-dinner]] on Lake Travis! [[private-cruises]] for your [[wedding-party]] and close family. Elegant yet relaxed atmosphere with sunset views, premium service, and complete customization. Perfect alternative to traditional restaurant dinners.',
     sections: [
       {
         heading: 'Rehearsal Dinner on Lake Travis',
@@ -969,11 +984,16 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           'Where do we depart from for the rehearsal dinner cruise? Rehearsal dinner cruises depart from Anderson Mill Marina on Lake Travis, just 30 minutes from downtown Austin. The marina offers ample free parking and is easily accessible for out-of-town wedding guests.'
         ]
       }
+    ],
+    relatedPages: [
+      'wedding-party', 'welcome-party', 'after-party', 'bachelor-party',
+      'bachelorette-party', 'combined-bach', 'private-cruises', 'corporate-events',
+      'birthday-party', 'team-building', 'testimonials', 'faq', 'contact'
     ]
   },
   '/team-building': {
     h1: 'Team Building Cruises Lake Travis | Corporate Austin',
-    introduction: 'Strengthen your team with an unforgettable Lake Travis cruise! Perfect for corporate team building, employee appreciation, and fostering collaboration. Private boats for 14-75 guests with professional service. Unique Austin experience that brings teams together.',
+    introduction: 'Strengthen your team with an unforgettable [[team-building]] cruise! Perfect for [[corporate-events]], employee appreciation, and fostering collaboration. [[private-cruises]] for 14-75 guests with professional service. Unique Austin experience that brings teams together.',
     sections: [
       {
         heading: 'Corporate Team Building on the Water',
@@ -1032,11 +1052,16 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           'What makes Lake Travis ideal for team building? Lake Travis provides the perfect team building environment—away from office distractions in a relaxed outdoor setting where teams naturally open up and connect on a personal level. Many companies report enhanced communication, collaboration, and team cohesion after Lake Travis team building cruises.'
         ]
       }
+    ],
+    relatedPages: [
+      'corporate-events', 'client-entertainment', 'company-milestone', 'private-cruises',
+      'wedding-party', 'bachelor-party', 'bachelorette-party', 'birthday-party',
+      'graduation-party', 'testimonials', 'faq', 'contact', 'home'
     ]
   },
   '/client-entertainment': {
     h1: 'Client Entertainment Cruises Lake Travis | Austin Corporate',
-    introduction: 'Impress your clients with an exclusive Lake Travis cruise! Perfect for client appreciation, relationship building, and closing deals in style. Private boat experiences for 14-50 guests with premium service and Austin hospitality.',
+    introduction: 'Impress your clients with an exclusive [[client-entertainment]] on Lake Travis! Perfect for [[corporate-events]], relationship building, and closing deals in style. [[private-cruises]] for 14-50 guests with premium service and Austin hospitality.',
     sections: [
       {
         heading: 'Client Entertainment on Lake Travis',
@@ -1094,11 +1119,16 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           'Why choose a Lake Travis cruise for clients? A Lake Travis cruise offers a unique Austin experience that clients won\'t forget. The private, exclusive setting facilitates genuine conversation and relationship building away from office distractions in a memorable setting that truly stands out.'
         ]
       }
+    ],
+    relatedPages: [
+      'corporate-events', 'team-building', 'company-milestone', 'private-cruises',
+      'wedding-party', 'rehearsal-dinner', 'bachelor-party', 'bachelorette-party',
+      'birthday-party', 'testimonials', 'faq', 'contact', 'home'
     ]
   },
   '/company-milestone': {
     h1: 'Company Milestone Cruises Lake Travis | Corporate Celebrations',
-    introduction: 'Celebrate company milestones in style on Lake Travis! Perfect for anniversaries, IPOs, major wins, and achievement celebrations. Private boat experiences for teams of 14-75 with professional service and unforgettable memories.',
+    introduction: 'Celebrate [[company-milestone]] in style on Lake Travis! Perfect for anniversaries, IPOs, major wins, and achievement celebrations. [[private-cruises]] for teams of 14-75 with professional service and unforgettable memories for your [[corporate-events]].',
     sections: [
       {
         heading: 'Milestone Celebrations on the Water',
@@ -1157,11 +1187,16 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           'Where do we depart? Milestone celebrations depart from Anderson Mill Marina, located at 13993 FM 2769, Leander, TX 78641. The marina offers ample free parking for your entire team and is conveniently located approximately 30 minutes from downtown Austin.'
         ]
       }
+    ],
+    relatedPages: [
+      'corporate-events', 'team-building', 'client-entertainment', 'private-cruises',
+      'wedding-party', 'birthday-party', 'graduation-party', 'bachelor-party',
+      'bachelorette-party', 'testimonials', 'faq', 'contact', 'home'
     ]
   },
   '/birthday-parties': {
     h1: 'Birthday Party Boat Cruises Lake Travis | Austin Celebrations',
-    introduction: 'Celebrate birthdays on Lake Travis with an unforgettable party cruise! Perfect for milestone birthdays, kids parties, and any age celebration. Private boats for 14-75 guests with DJ, floats, and professional service. Make this birthday one they\'ll never forget!',
+    introduction: 'Celebrate [[birthday-party]] on Lake Travis with an unforgettable party cruise! Perfect for [[milestone-birthday]], [[sweet-16]], and any age celebration. [[private-cruises]] for 14-75 guests with DJ, floats, and professional service. Make this birthday one they\'ll never forget!',
     sections: [
       {
         heading: 'Birthday Parties on Lake Travis',
@@ -1220,11 +1255,16 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           'Book 4-6 weeks in advance for weekend dates. We\'ll coordinate all details including catering, decorations, and special birthday surprises. Just show up and celebrate!'
         ]
       }
+    ],
+    relatedPages: [
+      'sweet-16', 'milestone-birthday', 'graduation-party', 'private-cruises',
+      'bachelor-party', 'bachelorette-party', 'corporate-events', 'wedding-party',
+      'team-building', 'atx-disco', 'testimonials', 'faq', 'contact'
     ]
   },
   '/graduation-party': {
     h1: 'Graduation Party Cruises Lake Travis | Austin Celebrations',
-    introduction: 'Celebrate graduation achievements on Lake Travis! Perfect for high school, college, and graduate school celebrations. Private boat parties for 14-75 guests with DJ, floats, and unforgettable memories. The ultimate way to honor academic success!',
+    introduction: 'Celebrate [[graduation-party]] achievements on Lake Travis! Perfect for high school, college, and graduate school celebrations. [[private-cruises]] for 14-75 guests with DJ, floats, and unforgettable memories. The ultimate way to honor academic success with [[birthday-party]] vibes!',
     sections: [
       {
         heading: 'Graduation Celebrations on the Water',
@@ -1305,11 +1345,16 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           'How much does a graduation party cruise cost? Graduation party pricing depends on boat size. Day Tripper starts at $195/hour (14 guests), Me Seeks the Irony at $295/hour (25 guests), Clever Girl at $495/hour (50-75 guests). Ultimate package (+$250-350/hr) recommended for full graduation celebration experience. Most 3-4 hour parties range from $585-$3,380 total.'
         ]
       }
+    ],
+    relatedPages: [
+      'birthday-party', 'sweet-16', 'milestone-birthday', 'private-cruises',
+      'bachelor-party', 'bachelorette-party', 'corporate-events', 'team-building',
+      'wedding-party', 'atx-disco', 'testimonials', 'faq', 'contact'
     ]
   },
   '/sweet-16': {
     h1: 'Sweet 16 Party Cruises Lake Travis | Austin Birthday Boats',
-    introduction: 'Celebrate Sweet 16 in style on Lake Travis! Unique birthday cruise experience with DJ, floats, and friends. Private boat parties for 14-50 guests with professional service and supervised fun. Make this Sweet 16 absolutely unforgettable!',
+    introduction: 'Celebrate [[sweet-16]] in style on Lake Travis! Unique [[birthday-party]] cruise experience with DJ, floats, and friends. [[private-cruises]] for 14-50 guests with professional service and supervised fun. Make this Sweet 16 absolutely unforgettable!',
     sections: [
       {
         heading: 'Sweet 16 Lake Travis Experience',
@@ -1372,11 +1417,16 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           'How much does a Sweet 16 party cruise cost? Sweet 16 pricing varies by boat size and package. Base rates: Day Tripper $195/hr (14 guests), Me Seeks the Irony $295/hr (25 guests), Clever Girl $495/hr (50+ guests). Ultimate (+$250-350/hr) includes floats, decorations, water toys, and premium party package. Most 3-4 hour Sweet 16 parties range from $585-$3,380.'
         ]
       }
+    ],
+    relatedPages: [
+      'birthday-party', 'graduation-party', 'milestone-birthday', 'private-cruises',
+      'bachelor-party', 'bachelorette-party', 'wedding-party', 'corporate-events',
+      'team-building', 'atx-disco', 'testimonials', 'faq', 'contact'
     ]
   },
   '/milestone-birthday': {
     h1: 'Milestone Birthday Cruises Lake Travis | 30th 40th 50th Parties',
-    introduction: 'Celebrate milestone birthdays (30th, 40th, 50th, 60th+) on Lake Travis! Sophisticated party cruises with friends and family. Private boats for 14-75 guests, customizable packages, and unforgettable experiences. Make this milestone birthday absolutely legendary!',
+    introduction: 'Celebrate [[milestone-birthday]] (30th, 40th, 50th, 60th+) on Lake Travis! Sophisticated [[birthday-party]] cruises with friends and family. [[private-cruises]] for 14-75 guests, customizable packages, and unforgettable experiences. Make this milestone birthday absolutely legendary!',
     sections: [
       {
         heading: 'Milestone Birthday Celebrations',
@@ -1455,11 +1505,16 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           'What\'s the best timing for milestone birthday cruises? Milestone birthdays typically run 3-4 hours for complete celebration experience. Popular timing includes sunset cruises for romantic atmosphere, afternoon parties for swimming and activities, or evening celebrations for dinner and toasts.'
         ]
       }
+    ],
+    relatedPages: [
+      'birthday-party', 'sweet-16', 'graduation-party', 'private-cruises',
+      'bachelor-party', 'bachelorette-party', 'wedding-party', 'corporate-events',
+      'team-building', 'atx-disco', 'testimonials', 'faq', 'contact'
     ]
   },
   '/party-boat-austin': {
     h1: 'Party Boat Austin | Lake Travis Cruises & Rentals',
-    introduction: 'Austin\'s premier party boat experience on Lake Travis! Choose from private boat rentals or join the legendary ATX Disco Cruise. Perfect for bachelor/bachelorette parties, birthdays, corporate events, and any celebration. Professional crew, premium amenities, and unforgettable Lake Travis memories!',
+    introduction: 'Austin\'s premier [[party-boat-austin]] experience on Lake Travis! Choose from [[private-cruises]] or join the legendary [[atx-disco]]. Perfect for [[bachelor-party]]/[[bachelorette-party]], birthdays, [[corporate-events]], and any celebration. Professional crew, premium amenities, and unforgettable Lake Travis memories!',
     sections: [
       {
         heading: 'Austin Party Boat Options',
@@ -1556,11 +1611,16 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           'What makes Lake Travis the best Austin party boat destination? Lake Travis offers beautiful clear blue water perfect for swimming, stunning Hill Country scenery, year-round perfect weather, Instagram-worthy sunset views, and professional party atmosphere. Located just 20 miles from downtown Austin with easy access.'
         ]
       }
+    ],
+    relatedPages: [
+      'atx-disco', 'private-cruises', 'bachelor-party', 'bachelorette-party',
+      'birthday-party', 'wedding-party', 'corporate-events', 'team-building',
+      'graduation-party', 'party-boat-lake-travis', 'testimonials', 'faq', 'contact'
     ]
   },
   '/party-boat-lake-travis': {
     h1: 'Party Boat Lake Travis | Austin Cruises & Rentals',
-    introduction: 'Experience the ultimate party boat on Lake Travis! Premier Party Cruises offers private boat rentals and the ATX Disco Cruise for unforgettable celebrations. 14+ years serving Austin with perfect safety record. Book your Lake Travis party boat today!',
+    introduction: 'Experience the ultimate [[party-boat-lake-travis]]! Premier Party Cruises offers [[private-cruises]] and the [[atx-disco]] for unforgettable celebrations. 14+ years serving Austin with perfect safety record. Book your Lake Travis party boat today!',
     sections: [
       {
         heading: 'Lake Travis Party Boat Options',
@@ -1663,11 +1723,16 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           'What makes Lake Travis the best for party boats? Lake Travis offers beautiful clear blue water perfect for swimming, stunning Hill Country scenery with nature preserves, perfect year-round weather, Instagram-worthy sunset views, professional marina facilities, and legendary party atmosphere. It\'s Central Texas\' premier party destination!'
         ]
       }
+    ],
+    relatedPages: [
+      'atx-disco', 'private-cruises', 'bachelor-party', 'bachelorette-party',
+      'birthday-party', 'wedding-party', 'corporate-events', 'team-building',
+      'graduation-party', 'party-boat-austin', 'testimonials', 'faq', 'contact'
     ]
   },
   '/corporate-events': {
     h1: 'Corporate Events Lake Travis | Austin Business Cruises',
-    introduction: 'Elevate your corporate events with Lake Travis cruises! Perfect for team building, client entertainment, company milestones, and employee appreciation. Private boats for 14-75 guests with professional service. Premier corporate event experience in Austin.',
+    introduction: 'Elevate your [[corporate-events]] with Lake Travis cruises! Perfect for [[team-building]], [[client-entertainment]], [[company-milestone]], and employee appreciation. [[private-cruises]] for 14-75 guests with professional service. Premier corporate event experience in Austin.',
     sections: [
       {
         heading: 'Corporate Event Solutions',
@@ -1764,11 +1829,16 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           'Let us create the perfect corporate event on Lake Travis. Contact us today to discuss your business objectives and how a cruise can achieve them!'
         ]
       }
+    ],
+    relatedPages: [
+      'team-building', 'client-entertainment', 'company-milestone', 'private-cruises',
+      'wedding-party', 'bachelor-party', 'bachelorette-party', 'birthday-party',
+      'graduation-party', 'party-boat-austin', 'testimonials', 'faq', 'contact'
     ]
   },
   '/wedding-parties': {
     h1: 'Wedding Party Cruises Lake Travis | Austin Wedding Boats',
-    introduction: 'Celebrate your wedding on Lake Travis! Perfect for welcome parties, rehearsal dinners, wedding day cruises, and after parties. Private boat rentals for 14-75 guests with elegant service. Make your Austin wedding unforgettable with a Lake Travis celebration!',
+    introduction: 'Celebrate your [[wedding-party]] on Lake Travis! Perfect for [[welcome-party]], [[rehearsal-dinner]], wedding day cruises, and [[after-party]]. [[private-cruises]] for 14-75 guests with elegant service. Make your Austin wedding unforgettable with a Lake Travis celebration!',
     sections: [
       {
         heading: 'Wedding Celebration Options',
@@ -1865,11 +1935,16 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           'Let us make your wedding day perfect! Contact us today to start planning your unforgettable Lake Travis wedding celebration.'
         ]
       }
+    ],
+    relatedPages: [
+      'rehearsal-dinner', 'welcome-party', 'after-party', 'bachelor-party',
+      'bachelorette-party', 'combined-bach', 'private-cruises', 'corporate-events',
+      'birthday-party', 'graduation-party', 'testimonials', 'faq', 'contact'
     ]
   },
   '/testimonials-faq': {
     h1: 'Testimonials & FAQ | Premier Party Cruises Lake Travis',
-    introduction: 'Read what our customers say about their Lake Travis party cruise experiences! Over 125,000 happy guests, 5-star reviews, and answers to all your questions about Premier Party Cruises. See why we\'re Austin\'s #1 party boat company!',
+    introduction: 'Read what our customers say about their Lake Travis [[testimonials]] experiences! Over 125,000 happy guests, 5-star reviews, and answers to all your questions about Premier Party Cruises. See why we\'re Austin\'s #1 [[party-boat-austin]] company!',
     sections: [
       {
         heading: 'Customer Testimonials',
@@ -1993,11 +2068,16 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           'Ready to book? Start your quote online or call us directly. We can\'t wait to help you create unforgettable Lake Travis memories!'
         ]
       }
+    ],
+    relatedPages: [
+      'bachelor-party', 'bachelorette-party', 'atx-disco', 'private-cruises',
+      'wedding-party', 'corporate-events', 'team-building', 'birthday-party',
+      'graduation-party', 'party-boat-austin', 'party-boat-lake-travis', 'faq', 'contact'
     ]
   },
   '/contact': {
     h1: 'Contact Premier Party Cruises - Lake Travis Austin',
-    introduction: 'Ready to plan your Lake Travis adventure? Contact Premier Party Cruises, Austin\'s premier boat rental and party cruise company. Call us at (512) 488-5892 or email clientservices@premierpartycruises.com for immediate assistance with your party boat booking.',
+    introduction: 'Ready to plan your Lake Travis adventure? [[contact]] Premier Party Cruises, Austin\'s premier [[party-boat-austin]] and party cruise company. Call us at (512) 488-5892 or email clientservices@premierpartycruises.com for immediate assistance with your [[private-cruises]] booking.',
     sections: [
       {
         heading: 'Get in Touch with Premier Party Cruises',
@@ -2156,11 +2236,16 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           }
         ]
       }
+    ],
+    relatedPages: [
+      'bachelor-party', 'bachelorette-party', 'atx-disco', 'private-cruises',
+      'wedding-party', 'corporate-events', 'team-building', 'birthday-party',
+      'graduation-party', 'party-boat-austin', 'testimonials', 'faq', 'home'
     ]
   },
   '/gallery': {
     h1: 'Gallery - Premier Party Cruises Austin Lake Travis Photos & Videos',
-    introduction: 'Explore our stunning collection of photos and videos from real Premier Party Cruises events on Lake Travis. See bachelor parties, bachelorette parties, corporate events, ATX Disco Cruises, and all the amazing celebrations on Austin\'s premier party boats.',
+    introduction: 'Explore our stunning collection of photos and videos from real Premier Party Cruises events on Lake Travis. See [[bachelor-party]], [[bachelorette-party]], [[corporate-events]], [[atx-disco]], and all the amazing celebrations on Austin\'s premier party boats.',
     sections: [
       {
         heading: 'Real Photos from Lake Travis Party Cruises',
@@ -2298,6 +2383,11 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           }
         ]
       }
+    ],
+    relatedPages: [
+      'bachelor-party', 'bachelorette-party', 'atx-disco', 'private-cruises',
+      'wedding-party', 'corporate-events', 'birthday-party', 'graduation-party',
+      'team-building', 'party-boat-austin', 'testimonials', 'contact', 'home'
     ]
   }
 };
