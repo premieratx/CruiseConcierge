@@ -7,7 +7,16 @@ Easy - Requires little technical knowledge to fix.
 High - Critical issues that must be fixed. They have the greatest effect on traffic and rankings.
 Medium - Issues that affect traffic and rankings, but are not putting a website in critical SEO danger.
 Low - Recommended fixes based on best practices. They have the least effect on traffic and rankings.
-1. Problem: Without a H1 heading
+1. Problem: With no sitemap.xml to optimize interaction with bots
+Report file: no_sitemap.csv
+Description: Sitemap.xml files can facilitate your chances of ranking by making your site easier to crawl by search engines. By creating a unified list of URLs that you would like to be indexed, the sitemap.xml file ensures that not only will your site be crawled properly but that it will be done quickly and more efficiently.
+Solution: To learn more about creating a sitemap.xml file, check out {0} in-depth guide.
+Difficulty: Moderate
+SEO Impact: High
+Columns:
+    1. URL
+    2. Have sitemap
+2. Problem: Without a H1 heading
 Report file: no_h1_heading.csv
 Description: Search engine crawlers prefer content that is structured properly and has a hierarchy when it comes to heading tags. The H1 tag is the most important and tells search engines what it is your content is about. There should only be one H1 tag for each page.
 Solution: Add an H1 tag to your pages that is relevant to the content you are posting. Try to include keywords in your H1 tag and limit each page to just one H1 tag.
@@ -16,7 +25,7 @@ SEO Impact: Medium
 Columns:
     1. URL
     2. H1 count
-2. Problem: Have a low word count
+3. Problem: Have a low word count
 Report file: low_word_count.csv
 Description: Without enough text on a page, Google will have trouble understanding what the content is about. 
 
@@ -29,31 +38,7 @@ SEO Impact: High
 Columns:
     1. URL
     2. Content count words
-3. Problem: With duplicate meta descriptions
-Report file: duplicate_meta_descriptions.csv
-Description: Meta descriptions are the small blurbs you see in search results under the page titles. These give a quick description of what the content on the page is about. These descriptions help both the people searching and the search engine crawlers understand what to expect on each page.
-
-Avoiding duplicate meta descriptions is important as it ensures visitors will be accessing unique information. Having duplicate meta descriptions can make the ranking process more difficult as engine crawlers will have a hard time figuring out the differences between pages and what should rank and what shouldn't.
-Solution: Make sure that every page you post on your website has a meta description that is both relevant to the content on the page and one of a kind.
-
-To learn more about how to write amazing meta descriptions that are both unique and compelling, check out {0} article.
-Difficulty: Moderate
-SEO Impact: High
-Columns:
-    1. URL
-    2. Have meta description duplicates
-4. Problem: With duplicate <title> tags
-Report file: duplicate_title_tags.csv
-Description: It's very important that each of your pages have original and unique title tags. Duplicate title tags can make it more complicated to rank content in search results because search engine crawlers won't know which post to rank above the other. If you want to rank your pages without confusion or without having them compete with one another, creating unique and relevant title tags is incredibly important.
-Solution: Go through your pages and make sure that all of the title tags are unique and that you don't have any duplicate title tags.
-
-To learn more about creating SEO-friendly title tags, check out {0} article.
-Difficulty: Moderate
-SEO Impact: High
-Columns:
-    1. URL
-    2. Have title duplicates
-5. Problem: With a <title> tag that is too long
+4. Problem: With a <title> tag that is too long
 Report file: title_tag_too_long.csv
 Description: It is recommended to keep your title tag under 65 characters so you don't run the risk of having part of it cut out from the search results page.
 
@@ -64,7 +49,7 @@ SEO Impact: Medium
 Columns:
     1. URL
     2. Title long
-6. Problem: With a poorly formatted URL for SEO
+5. Problem: With a poorly formatted URL for SEO
 Report file: seo_non_friendly_url.csv
 Description: In order to create a URL that is truly SEO-friendly, one must take into account certain factors that Google deems important for rankings. Some of these factors include the length of the URL not exceeding 120 characters, how relevant the wording in the title is to the content in the post, avoiding symbols and underscores within the slug, inclusion of session IDs, too many different sub-folders, and so on.
 
@@ -75,7 +60,7 @@ SEO Impact: Medium
 Columns:
     1. URL
     2. Seo friendly url
-7. Problem: Keywords check
+6. Problem: Keywords check
 Report file: seo_friendly_url_keywords_check.csv
 Description: <b>Keywords Check</b> - This test will be looking for the consistency of page URL with meta tag keywords. If the keywords tag is empty or absent then the URL is being compared with the content of &lt;title&gt; tag.
 Difficulty: Easy

@@ -314,7 +314,7 @@ export default function Faq() {
     <>
       <SEOHead 
         pageRoute="/faq"
-        defaultTitle="Frequently Asked Questions | Lake Travis Boat Rentals | Austin Party Cruises"
+        defaultTitle="FAQ - Lake Travis Boat Rentals | Austin Party Cruises"
         defaultDescription="Find answers to common questions about boat rentals, party cruises, pricing, safety, and special events on Lake Travis. Learn about our bachelor party boats, bachelorette cruises, and corporate events in Austin."
         defaultKeywords={["Lake Travis boat rental FAQ", "Austin party cruise questions", "boat rental pricing", "bachelor party boats", "bachelorette cruise info"]}
         customSchema={generateFAQSchema(allFaqItems.map(item => ({
