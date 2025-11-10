@@ -161,8 +161,8 @@ const privateCruiseOptions = [
     id: 'day_tripper',
     name: 'Day Tripper (1-14 guests)',
     capacity: 14,
-    weekdayRate: 350,
-    weekendRate: 450,
+    weekdayRate: 1050,
+    weekendRate: 1838,
     description: 'Perfect for intimate bachelorette groups',
     features: [
       'Exclusive use of the entire boat',
@@ -176,8 +176,8 @@ const privateCruiseOptions = [
     id: 'meeseeks',
     name: 'Meeseeks (25 people)',
     capacity: 25,
-    weekdayRate: 550,
-    weekendRate: 700,
+    weekdayRate: 1181,
+    weekendRate: 1969,
     description: 'Ideal for medium-sized groups',
     features: [
       'Exclusive use of the entire boat',
@@ -191,8 +191,8 @@ const privateCruiseOptions = [
     id: 'clever_girl',
     name: 'Clever Girl (30-50 people)',
     capacity: '30-50',
-    weekdayRate: 850,
-    weekendRate: 1050,
+    weekdayRate: 1413,
+    weekendRate: 2260,
     description: 'Perfect for large bachelorette parties',
     features: [
       'Exclusive use of the entire boat',
@@ -719,7 +719,7 @@ export default function BacheloretteParty() {
                     </li>
                     <li className="flex items-start gap-3">
                       <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
-                      <span>$350-$1,050 per hour (based on boat size)</span>
+                      <span>$1,050-$2,660 for 4-hour cruise (based on boat size)</span>
                     </li>
                     <li className="flex items-start gap-3">
                       <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
@@ -1260,10 +1260,9 @@ export default function BacheloretteParty() {
                       <div className="text-center py-4 bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg">
                         <div className="text-3xl font-bold text-gray-900 mb-1">
                           ${boat.weekdayRate}-${boat.weekendRate}
-                          <span className="text-xl text-gray-600">/hour</span>
                         </div>
                         <div className="text-sm text-gray-600">
-                          Weekday vs Weekend rates
+                          for 4-hour cruise (Weekday-Weekend)
                         </div>
                       </div>
                       

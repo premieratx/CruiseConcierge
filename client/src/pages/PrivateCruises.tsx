@@ -130,23 +130,23 @@ const fleetOptions = [
   {
     name: 'Day Tripper',
     capacity: 'Up to 14 guests',
-    baseRate: 200,
+    baseRate: 1050,
     image: heroImage3,
-    features: ['Licensed, fun, experienced captains to take your group safely around the lake in style', 'Premium sound system', 'Empty coolers (bring your own ice, or order ahead from Party On Delivery)', 'Comfortable seating with sun and shade', '4-hour minimum', 'Ideal for small birthday parties and gatherings']
+    features: ['Licensed, fun, experienced captains to take your group safely around the lake in style', 'Premium sound system', 'Empty coolers (bring your own ice, or order ahead from Party On Delivery)', 'Comfortable seating with sun and shade', '4-hour cruise', 'Ideal for small birthday parties and gatherings']
   },
   {
     name: 'Meeseeks & The Irony',
     capacity: '15-30 guests',
-    baseRate: 225,
+    baseRate: 1181,
     image: heroImage2,
-    features: ['Licensed, fun, experienced captains to take your group safely around the lake in style', 'Premium Bluetooth sound system', 'Empty coolers (bring your own ice, or order ahead from Party On Delivery)', '4-hour minimum', 'Perfect for bachelor/bachelorette parties']
+    features: ['Licensed, fun, experienced captains to take your group safely around the lake in style', 'Premium Bluetooth sound system', 'Empty coolers (bring your own ice, or order ahead from Party On Delivery)', '4-hour cruise', 'Perfect for bachelor/bachelorette parties']
   },
   {
     name: 'Clever Girl',
     capacity: '31-75 guests',
-    baseRate: 250,
+    baseRate: 1413,
     image: heroImage1,
-    features: ['Flagship boat with 14 disco balls', 'Giant Texas flag display', 'Professional crew and premium amenities', '4-hour minimum', 'Ideal for corporate events and large celebrations']
+    features: ['Flagship boat with 14 disco balls', 'Giant Texas flag display', 'Professional crew and premium amenities', '4-hour cruise', 'Ideal for corporate events and large celebrations']
   }
 ];
 
@@ -454,7 +454,7 @@ export default function PrivateCruises() {
             name: "Premier Party Cruises - Private Charters",
             description: "Private boat rental service on Lake Travis Austin. Licensed, fun, experienced captains, luxury boats from 14-75 passengers, perfect for any celebration.",
             url: "https://premierpartycruises.com/private-cruises",
-            priceRange: "$200-$800/hour",
+            priceRange: "$1,050-$2,660 per cruise",
             aggregateRating: {
               ratingValue: "4.9",
               reviewCount: "130"
@@ -492,7 +492,7 @@ export default function PrivateCruises() {
           generateFAQSchema([
             { 
               question: "How much does it cost to rent a private boat on Lake Travis?", 
-              answer: "Private boat rentals on Lake Travis start at $200/hour for smaller boats (14 passengers) and range up to $800/hour for luxury yachts (75 passengers). Most 4-hour private cruises range from $1,200-$3,200 total depending on boat size and package." 
+              answer: "Private boat rentals on Lake Travis range from $1,050-$2,660 for 4-hour cruises depending on boat size (14-75 passengers) and day of week. This is the total cruise price, not an hourly rate. Packages and add-ons may increase the total." 
             },
             { 
               question: "What is included in a private boat rental Austin?", 
@@ -842,8 +842,8 @@ export default function PrivateCruises() {
                           <CardTitle className="text-2xl mb-2">{boat.name}</CardTitle>
                           <p className="text-lg font-semibold text-blue-600 mb-4">{boat.capacity}</p>
                           <div className="mb-6">
-                            <p className="text-3xl font-bold text-gray-900">${boat.baseRate}<span className="text-lg text-gray-600">/hour</span></p>
-                            <p className="text-sm text-gray-600">4-hour minimum</p>
+                            <p className="text-3xl font-bold text-gray-900">${boat.baseRate}</p>
+                            <p className="text-sm text-gray-600">for 4-hour cruise</p>
                           </div>
                           <ul className="space-y-2">
                             {boat.features.map((feature, fIndex) => (
@@ -920,7 +920,7 @@ export default function PrivateCruises() {
 
                   <div className="mt-12 text-center bg-white rounded-xl p-8 border border-gray-200">
                     <h3 className="text-2xl font-bold mb-4">Package Flat Fees</h3>
-                    <p className="text-gray-700 mb-6">Add these one-time fees to your hourly boat rental</p>
+                    <p className="text-gray-700 mb-6">Add these one-time fees to your 4-hour cruise</p>
                     <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
                       <div className="p-6 bg-blue-50 rounded-xl">
                         <Ship className="h-12 w-12 text-blue-600 mx-auto mb-3" />

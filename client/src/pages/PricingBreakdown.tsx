@@ -898,8 +898,8 @@ export default function PricingBreakdown() {
                 </div>
                 <div className="px-6 py-6 text-center">
                   <h3 className="text-lg font-bold text-blue-600 dark:text-blue-400 mb-2">Private Cruise</h3>
-                  <p className="text-3xl font-bold text-gray-900 dark:text-white">Starting at $200/hour</p>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">(3-4 hr minimum)</p>
+                  <p className="text-3xl font-bold text-gray-900 dark:text-white">Starting at $1,050</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">(for 4-hour cruise)</p>
                   <p className="text-xs text-gray-500 mt-2">Best for groups of 6-75</p>
                 </div>
               </div>
@@ -1049,8 +1049,8 @@ export default function PricingBreakdown() {
                     <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
                       Essential cruise experience
                     </p>
-                    <div className="text-3xl font-bold mb-2">$200/hour</div>
-                    <div className="text-sm text-gray-500">4-hour minimum = $800</div>
+                    <div className="text-3xl font-bold mb-2">$1,050</div>
+                    <div className="text-sm text-gray-500">for 4-hour cruise</div>
                   </div>
                   <ul className="space-y-2 text-sm">
                     <li className="flex items-start gap-2">
@@ -1085,8 +1085,8 @@ export default function PricingBreakdown() {
                     <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
                       Complete convenience package
                     </p>
-                    <div className="text-3xl font-bold mb-2">$225/hour</div>
-                    <div className="text-sm text-gray-500">4-hour minimum = $900</div>
+                    <div className="text-3xl font-bold mb-2">$1,150</div>
+                    <div className="text-sm text-gray-500">for 4-hour cruise</div>
                   </div>
                   <ul className="space-y-2 text-sm">
                     <li className="flex items-start gap-2">
@@ -1116,8 +1116,8 @@ export default function PricingBreakdown() {
                     <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
                       Complete party experience
                     </p>
-                    <div className="text-3xl font-bold mb-2">$250/hour</div>
-                    <div className="text-sm text-gray-500">4-hour minimum = $1,000</div>
+                    <div className="text-3xl font-bold mb-2">$1,300</div>
+                    <div className="text-sm text-gray-500">for 4-hour cruise</div>
                   </div>
                   <ul className="space-y-2 text-sm">
                     <li className="flex items-start gap-2">

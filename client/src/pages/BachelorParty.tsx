@@ -160,8 +160,8 @@ const privateCruiseOptions = [
     id: 'day_tripper',
     name: 'Day Tripper (1-14 guests)',
     capacity: 14,
-    weekdayRate: 350,
-    weekendRate: 450,
+    weekdayRate: 1050,
+    weekendRate: 1838,
     description: 'Perfect for smaller bachelor crews',
     features: [
       'Exclusive use of the entire boat',
@@ -175,8 +175,8 @@ const privateCruiseOptions = [
     id: 'meeseeks',
     name: 'Meeseeks (25 people)',
     capacity: 25,
-    weekdayRate: 550,
-    weekendRate: 700,
+    weekdayRate: 1181,
+    weekendRate: 1969,
     description: 'Ideal for medium-sized groups',
     features: [
       'Exclusive use of the entire boat',
@@ -190,8 +190,8 @@ const privateCruiseOptions = [
     id: 'clever_girl',
     name: 'Clever Girl (30-50 people)',
     capacity: '30-50',
-    weekdayRate: 850,
-    weekendRate: 1050,
+    weekdayRate: 1413,
+    weekendRate: 2260,
     description: 'Perfect for large bachelor parties',
     features: [
       'Exclusive use of the entire boat',
@@ -716,7 +716,7 @@ export default function BachelorParty() {
                     </li>
                     <li className="flex items-start gap-3">
                       <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
-                      <span>$350-$1,050 per hour (based on boat size)</span>
+                      <span>$1,050-$2,660 for 4-hour cruise (based on boat size)</span>
                     </li>
                     <li className="flex items-start gap-3">
                       <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
@@ -838,10 +838,10 @@ export default function BachelorParty() {
                         <CardContent>
                           <div className="mb-6">
                             <div className="text-3xl font-bold text-blue-600">
-                              ${boat.weekdayRate}-${boat.weekendRate}/hr
+                              ${boat.weekdayRate}-${boat.weekendRate}
                             </div>
-                            <p className="text-sm text-gray-500">Weekday-Weekend rates</p>
-                            <p className="text-sm text-gray-500 mt-1">4 hour minimum</p>
+                            <p className="text-sm text-gray-500">for 4-hour cruise</p>
+                            <p className="text-sm text-gray-500 mt-1">Weekday-Weekend rates</p>
                           </div>
                           <ul className="space-y-2 text-sm">
                             {boat.features.map((feature, idx) => (
@@ -1142,7 +1142,7 @@ export default function BachelorParty() {
                     </CardHeader>
                     <CardContent className="pt-4">
                       <p className="text-gray-700 mb-3">Exclusive boat just for your crew. Custom timing, your own music, complete privacy. Perfect for surprises or specific bachelor traditions.</p>
-                      <p className="font-bold text-purple-600">From $350/hour</p>
+                      <p className="font-bold text-purple-600">From $1,050 for 4 hours</p>
                     </CardContent>
                   </Card>
                 </div>

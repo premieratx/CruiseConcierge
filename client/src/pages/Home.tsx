@@ -165,8 +165,8 @@ const services = [
     subtitle: 'Exclusive boat rental',
     description: `Choose from our fleet of premium party boats: "${BOATS.DAY_TRIPPER.displayName}" (${BOATS.DAY_TRIPPER.capacity} people), "${BOATS.ME_SEEKS_THE_IRONY.displayName}" (${BOATS.ME_SEEKS_THE_IRONY.seatingCapacity}-${BOATS.ME_SEEKS_THE_IRONY.capacity} people), or flagship "${BOATS.CLEVER_GIRL.displayName}" (${BOATS.CLEVER_GIRL.seatingCapacity}-${BOATS.CLEVER_GIRL.capacity} people) with giant Texas flag and 14 disco balls.`,
     features: [`"${BOATS.DAY_TRIPPER.displayName}", "${BOATS.ME_SEEKS_THE_IRONY.displayName}", "${BOATS.CLEVER_GIRL.displayName}" boats`, 'Licensed, fun, experienced captains to take your group safely around the lake in style', 'Premium bluetooth sound systems', 'Cooler space - bring your own ice, or add Essentials/Ultimate for ice included', `Lily pads & floaties available (+$${ADDON_FEES.LILY_PAD / 100})`],
-    startingPrice: `$${HOURLY_RATES.MON_THU[14] / 100}`,
-    hourlyNote: 'per hour (4-hour minimum)',
+    startingPrice: '$1,050',
+    priceNote: 'for 4-hour cruise',
     icon: Ship,
     image: galleryImage1,
     popular: true,
@@ -184,8 +184,8 @@ const services = [
       </>
     ),
     features: ['Rehearsal dinner cruises', 'Welcome party events', 'After party celebrations', 'Exclusive private charters', 'Customizable packages'],
-    startingPrice: `$${HOURLY_RATES.MON_THU[25] / 100}`,
-    hourlyNote: 'per hour (4-hour minimum)',
+    startingPrice: '$1,181',
+    priceNote: 'for 4-hour cruise',
     icon: Heart,
     image: galleryImage3,
     badge: 'Wedding Specialists',
@@ -203,8 +203,8 @@ const services = [
       </>
     ),
     features: ['"Clever Girl" flagship boat available', 'Professional atmosphere & service', 'Alcohol delivery coordination available', 'Up to 75 guests capacity', 'BYOB allowed'],
-    startingPrice: `$${HOURLY_RATES.MON_THU[50] / 100}`,
-    hourlyNote: 'per hour (4-hour minimum)',
+    startingPrice: '$1,413',
+    priceNote: 'for 4-hour cruise',
     icon: Users,
     image: galleryImage1,
     gallery: [galleryImage1, galleryImage3, heroImage1, galleryImage2],
@@ -254,7 +254,7 @@ const faqData = [
   },
   {
     question: 'How much does a party boat rental cost in Austin?',
-    answer: 'Austin party boat pricing starts at $275/hour for our 14-person boat with 4-hour minimums. Larger boats for 25-75 people range from $300-400/hour. Weekend rates are higher than weekday rates. Contact us for exact pricing for your specific date and group size. All prices include captain, crew, fuel, and amenities.'
+    answer: 'Private boat charters start at $1,050 for 4-hour cruises (14-person boat), ranging up to $2,660 for larger boats (75 people). Weekend rates are higher than weekday rates. Contact us for exact pricing for your specific date and group size. All prices include captain, crew, fuel, and amenities.'
   },
   {
     question: 'Where do Austin party boats depart from?',
@@ -621,7 +621,7 @@ export default function Home() {
                 <div>
                   <div className="font-sans tracking-wider font-bold uppercase text-xs text-blue-600 mb-1" data-editable data-editable-id="pricing-overlay-private-label">PRIVATE CRUISES FROM</div>
                   <div className="text-xl sm:text-2xl font-bold text-gray-900 mb-1" data-editable data-editable-id="pricing-overlay-private-price">
-                    ${HOURLY_RATES.MON_THU[14] / 100} per hour
+                    $1,050 for 4 hours
                   </div>
                   <div className="text-xs text-gray-700" data-editable data-editable-id="pricing-overlay-private-subtitle">Weekdays • 14+ people</div>
                 </div>
@@ -885,7 +885,7 @@ export default function Home() {
                     )}
                     {service.id === 'private' && (
                       <div className="bg-gradient-to-r from-blue-500 to-purple-600 text-white text-center py-2 px-4 rounded-lg font-bold text-sm">
-                        🚢 Starting at $200/hour • 14-75 People
+                        🚢 Starting at $1,050 for 4 hours • 14-75 People
                       </div>
                     )}
                     {service.id === 'corporate' && (
@@ -1004,19 +1004,19 @@ export default function Home() {
                 items={[
                   {
                     name: 'Private Cruises',
-                    basePrice: 200,
-                    pricingType: 'hour',
+                    basePrice: 1050,
+                    pricingType: 'cruise',
                     description: 'Exclusive boat rental for your group',
                     features: [
-                      '4-hour minimum',
+                      '4-hour cruise',
                       'Choose your boat (14-75 capacity)',
                       'BYOB allowed',
                       'Customizable packages',
                       '7 days a week'
                     ],
                     capacity: '14-75 guests',
-                    duration: '4+ hours',
-                    priceNote: '$200-350/hour',
+                    duration: '4 hours',
+                    priceNote: '$1,050-$2,660 for 4-hour cruise',
                     ctaText: 'Book Private Charter',
                     ctaHref: '/private-cruises',
                     isPopular: true
@@ -1688,7 +1688,7 @@ export default function Home() {
                   feature: 'Price Range',
                   values: [
                     { text: '$85-$125 per person', highlight: true },
-                    '$200-$400+ per hour'
+                    '$1,050-$2,660 for 4-hour cruise'
                   ]
                 },
                 {
@@ -2292,8 +2292,8 @@ export default function Home() {
           </p>
           <div itemProp="offers" itemScope itemType="https://schema.org/Offer">
             <meta itemProp="priceCurrency" content="USD" />
-            <span itemProp="price">262</span>
-            <span itemProp="priceSpecification">per hour (4-hour minimum)</span>
+            <span itemProp="price">1050</span>
+            <span itemProp="priceSpecification">for 4-hour cruise</span>
           </div>
           <h4>Private Charter Features & Benefits:</h4>
           <ul>
@@ -2366,8 +2366,8 @@ export default function Home() {
           </p>
           <div itemProp="offers" itemScope itemType="https://schema.org/Offer">
             <meta itemProp="priceCurrency" content="USD" />
-            <span itemProp="price">300</span>
-            <span itemProp="priceSpecification">per hour (4-hour minimum for groups 31-50)</span>
+            <span itemProp="price">1413</span>
+            <span itemProp="priceSpecification">for 4-hour cruise (groups 31-50)</span>
           </div>
           <h4>Corporate Event Features:</h4>
           <ul>
@@ -2600,13 +2600,13 @@ export default function Home() {
                   },
                   "areaServed": "Austin, TX"
                 },
-                "price": "262.00",
+                "price": "1050.00",
                 "priceCurrency": "USD",
                 "priceSpecification": {
                   "@type": "UnitPriceSpecification",
-                  "price": "262.00",
+                  "price": "1050.00",
                   "priceCurrency": "USD",
-                  "unitText": "per hour"
+                  "unitText": "for 4-hour cruise"
                 }
               },
               {
@@ -2667,13 +2667,13 @@ export default function Home() {
                   },
                   "areaServed": "Austin, TX"
                 },
-                "price": "300.00",
+                "price": "1413.00",
                 "priceCurrency": "USD",
                 "priceSpecification": {
                   "@type": "UnitPriceSpecification",
-                  "price": "300.00",
+                  "price": "1413.00",
                   "priceCurrency": "USD",
-                  "unitText": "per hour"
+                  "unitText": "for 4-hour cruise"
                 }
               }
             ]
@@ -2762,7 +2762,7 @@ export default function Home() {
               },
               {
                 title: "Private Boat Charters - Exclusive Rentals",
-                description: "Rent an entire boat exclusively for your group. Choose from Day Tripper (14 people), Meeseeks (25 people), or Clever Girl (75 people). Starting at $200/hour with 4-hour minimum.",
+                description: "Rent an entire boat exclusively for your group. Choose from Day Tripper (14 people), Meeseeks (25 people), or Clever Girl (75 people). Starting at $1,050 for 4-hour cruise.",
                 icon: <Ship className="w-6 h-6" />
               },
               {

@@ -187,8 +187,8 @@ const austinPackages = [
     icon: Users,
     description: 'Premium Austin corporate events on Lake Travis. Perfect for team building and client entertainment.',
     features: ['Professional service', 'Flagship boat available', 'Alcohol delivery coordination', 'Transportation partnerships'],
-    startingPrice: `$${HOURLY_RATES.MON_THU[50] / 100}`,
-    priceNote: 'per hour',
+    startingPrice: '$1,413',
+    priceNote: 'for 4-hour cruise',
     link: '/corporate-events'
   }
 ];
