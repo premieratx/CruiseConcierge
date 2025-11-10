@@ -26,10 +26,10 @@ export default function Documentation() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <DollarSign className="h-5 w-5" />
-                Base Hourly Rates by Day of Week
+                4-Hour Cruise Pricing
               </CardTitle>
               <CardDescription>
-                All cruises are 4 hours. Rates vary by day and boat size.
+                All cruises are 4 hours. Pricing varies by day and boat size.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
@@ -42,15 +42,15 @@ export default function Documentation() {
                   <CardContent className="space-y-2 text-sm">
                     <div className="flex justify-between">
                       <span>14-Person Yacht:</span>
-                      <span className="font-mono">$200/hr</span>
+                      <span className="font-mono">$1,050 total</span>
                     </div>
                     <div className="flex justify-between">
                       <span>25-Person Cruiser:</span>
-                      <span className="font-mono">$250/hr</span>
+                      <span className="font-mono">$1,181 total</span>
                     </div>
                     <div className="flex justify-between">
                       <span>50-Person Charter:</span>
-                      <span className="font-mono">$300/hr</span>
+                      <span className="font-mono">$1,413 total</span>
                     </div>
                   </CardContent>
                 </Card>
@@ -63,15 +63,15 @@ export default function Documentation() {
                   <CardContent className="space-y-2 text-sm">
                     <div className="flex justify-between">
                       <span>14-Person Yacht:</span>
-                      <span className="font-mono">$250/hr</span>
+                      <span className="font-mono">$1,181 total</span>
                     </div>
                     <div className="flex justify-between">
                       <span>25-Person Cruiser:</span>
-                      <span className="font-mono">$300/hr</span>
+                      <span className="font-mono">$1,313 total</span>
                     </div>
                     <div className="flex justify-between">
                       <span>50-Person Charter:</span>
-                      <span className="font-mono">$350/hr</span>
+                      <span className="font-mono">$1,554 total</span>
                     </div>
                   </CardContent>
                 </Card>
@@ -84,15 +84,15 @@ export default function Documentation() {
                   <CardContent className="space-y-2 text-sm">
                     <div className="flex justify-between">
                       <span>14-Person Yacht:</span>
-                      <span className="font-mono">$300/hr</span>
+                      <span className="font-mono">$1,838 total</span>
                     </div>
                     <div className="flex justify-between">
                       <span>25-Person Cruiser:</span>
-                      <span className="font-mono">$350/hr</span>
+                      <span className="font-mono">$1,969 total</span>
                     </div>
                     <div className="flex justify-between">
                       <span>50-Person Charter:</span>
-                      <span className="font-mono">$400/hr</span>
+                      <span className="font-mono">$2,260 total</span>
                     </div>
                   </CardContent>
                 </Card>
@@ -105,15 +105,15 @@ export default function Documentation() {
                   <CardContent className="space-y-2 text-sm">
                     <div className="flex justify-between">
                       <span>14-Person Yacht:</span>
-                      <span className="font-mono">$300/hr</span>
+                      <span className="font-mono">$1,313 total</span>
                     </div>
                     <div className="flex justify-between">
                       <span>25-Person Cruiser:</span>
-                      <span className="font-mono">$350/hr</span>
+                      <span className="font-mono">$1,444 total</span>
                     </div>
                     <div className="flex justify-between">
                       <span>50-Person Charter:</span>
-                      <span className="font-mono">$400/hr</span>
+                      <span className="font-mono">$1,695 total</span>
                     </div>
                   </CardContent>
                 </Card>

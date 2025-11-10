@@ -16,7 +16,7 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import { cn } from '@/lib/utils';
 import { useInlineEdit } from '@/hooks/useInlineEdit';
 import { formatCurrency } from '@shared/formatters';
-import { HOURLY_RATES, PRICING_DEFAULTS } from '@shared/constants';
+import { PRICING_DEFAULTS } from '@shared/constants';
 import SEOHead from '@/components/SEOHead';
 import { SectionReveal } from '@/components/SectionReveal';
 import { birthdayReviews } from '@shared/reviews-data';
@@ -503,15 +503,14 @@ export default function GraduationParty() {
                     <CardTitle className="text-2xl font-bold">{pkg.name}</CardTitle>
                     
                     <div className="mt-4">
-                      <div className="text-4xl font-bold text-brand-blue">
-                        ${pkg.basePrice}<span className="text-lg font-normal">/hr</span>
+                      <div className="text-3xl font-bold text-brand-blue">
+                        {pkg.basePrice === 200 && '$1,050-$1,838'}
+                        {pkg.basePrice === 225 && '$1,181-$1,969'}
+                        {pkg.basePrice === 250 && '$1,413-$2,260'}
                       </div>
-                      {pkg.addOnPrice && (
-                        <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                          +${pkg.addOnPrice}/hr from base
-                        </p>
-                      )}
-                      <p className="text-xs text-gray-500 mt-2">Minimum 3 hours</p>
+                      <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                        for 4-hour cruise
+                      </p>
                     </div>
                   </CardHeader>
 

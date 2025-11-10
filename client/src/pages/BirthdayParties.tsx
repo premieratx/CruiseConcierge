@@ -16,7 +16,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import SEOHead from '@/components/SEOHead';
 import { formatCurrency } from '@shared/formatters';
-import { HOURLY_RATES, PRICING_DEFAULTS } from '@shared/constants';
+import { PRICING_DEFAULTS } from '@shared/constants';
 import { cn } from '@/lib/utils';
 import { useInlineEdit } from '@/hooks/useInlineEdit';
 import { SectionReveal } from '@/components/SectionReveal';
@@ -55,7 +55,7 @@ const birthdayPackages = [
   {
     name: 'Essential Birthday',
     icon: Gift,
-    price: 'Starting at $200/hr',
+    price: 'Starting at $1,050',
     description: 'Everything you need for an amazing birthday cruise',
     features: [
       'Private boat for your group',
@@ -70,7 +70,7 @@ const birthdayPackages = [
   {
     name: 'Birthday Bash',
     icon: PartyPopper,
-    price: 'Starting at $225/hr',
+    price: 'Starting at $1,181',
     description: 'Enhanced celebration with party essentials',
     features: [
       'Everything from Essential',
@@ -86,7 +86,7 @@ const birthdayPackages = [
   {
     name: 'VIP Birthday Experience',
     icon: Crown,
-    price: 'Starting at $250/hr',
+    price: 'Starting at $1,413',
     description: 'Ultimate birthday luxury on the water',
     features: [
       'Everything from Birthday Bash',

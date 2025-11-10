@@ -645,11 +645,11 @@ export default function Products() {
                         <CardTitle className="text-sm">Monday-Thursday</CardTitle>
                       </CardHeader>
                       <CardContent className="space-y-2">
-                        <div className="flex justify-between"><span>≤14 people:</span><span>$200/hr</span></div>
-                        <div className="flex justify-between"><span>≤25 people:</span><span>$225/hr</span></div>
-                        <div className="flex justify-between"><span>≤30 people:</span><span>$225/hr</span></div>
-                        <div className="flex justify-between"><span>≤50 people:</span><span>$250/hr</span></div>
-                        <div className="flex justify-between"><span>≤75 people:</span><span>$250/hr</span></div>
+                        <div className="flex justify-between"><span>≤14 people:</span><span>$1,050 total</span></div>
+                        <div className="flex justify-between"><span>≤25 people:</span><span>$1,181 total</span></div>
+                        <div className="flex justify-between"><span>≤30 people:</span><span>$1,381 total</span></div>
+                        <div className="flex justify-between"><span>≤50 people:</span><span>$1,413 total</span></div>
+                        <div className="flex justify-between"><span>≤75 people:</span><span>$1,813 total</span></div>
                       </CardContent>
                     </Card>
                     
@@ -658,11 +658,11 @@ export default function Products() {
                         <CardTitle className="text-sm">Friday</CardTitle>
                       </CardHeader>
                       <CardContent className="space-y-2">
-                        <div className="flex justify-between"><span>≤14 people:</span><span>$225/hr</span></div>
-                        <div className="flex justify-between"><span>≤25 people:</span><span>$250/hr</span></div>
-                        <div className="flex justify-between"><span>≤30 people:</span><span>$250/hr</span></div>
-                        <div className="flex justify-between"><span>≤50 people:</span><span>$275/hr</span></div>
-                        <div className="flex justify-between"><span>≤75 people:</span><span>$275/hr</span></div>
+                        <div className="flex justify-between"><span>≤14 people:</span><span>$1,181 total</span></div>
+                        <div className="flex justify-between"><span>≤25 people:</span><span>$1,313 total</span></div>
+                        <div className="flex justify-between"><span>≤30 people:</span><span>$1,513 total</span></div>
+                        <div className="flex justify-between"><span>≤50 people:</span><span>$1,554 total</span></div>
+                        <div className="flex justify-between"><span>≤75 people:</span><span>$1,954 total</span></div>
                       </CardContent>
                     </Card>
                     
@@ -671,20 +671,20 @@ export default function Products() {
                         <CardTitle className="text-sm">Saturday/Sunday</CardTitle>
                       </CardHeader>
                       <CardContent className="space-y-2">
-                        <div className="flex justify-between"><span>≤14 people:</span><span className="text-red-600 font-bold">$350/hr</span></div>
-                        <div className="flex justify-between"><span>≤25 people:</span><span className="text-red-600 font-bold">$375/hr</span></div>
-                        <div className="flex justify-between"><span>≤30 people:</span><span className="text-red-600 font-bold">$375/hr</span></div>
-                        <div className="flex justify-between"><span>≤50 people:</span><span className="text-red-600 font-bold">$400/hr</span></div>
-                        <div className="flex justify-between"><span>≤75 people:</span><span className="text-red-600 font-bold">$400/hr</span></div>
+                        <div className="flex justify-between"><span>≤14 people:</span><span>$1,838 total</span></div>
+                        <div className="flex justify-between"><span>≤25 people:</span><span>$1,969 total</span></div>
+                        <div className="flex justify-between"><span>≤30 people:</span><span>$2,169 total</span></div>
+                        <div className="flex justify-between"><span>≤50 people:</span><span>$2,260 total</span></div>
+                        <div className="flex justify-between"><span>≤75 people:</span><span>$2,660 total</span></div>
                       </CardContent>
                     </Card>
                   </div>
                   
-                  <div className="bg-yellow-50 dark:bg-yellow-900/20 p-4 rounded-lg">
-                    <h4 className="font-semibold text-yellow-800 dark:text-yellow-200 mb-2">⚠️ Inconsistency Alert</h4>
-                    <p className="text-sm text-yellow-700 dark:text-yellow-300">
-                      The system has multiple pricing structures that conflict. Time slot labels show rates from HOURLY_RATES 
-                      (highlighted in red above), but actual calculations may use different rates or fallback to $200/hr when errors occur.
+                  <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg">
+                    <h4 className="font-semibold text-blue-800 dark:text-blue-200 mb-2">📋 Pricing Structure (4-Hour Cruises)</h4>
+                    <p className="text-sm text-blue-700 dark:text-blue-300">
+                      All prices shown are totals for standard 4-hour cruises, including tax (8.25%) and suggested gratuity (20%). 
+                      Prices vary by day of week and boat capacity.
                     </p>
                   </div>
                 </div>

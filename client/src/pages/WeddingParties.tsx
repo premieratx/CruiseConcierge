@@ -86,7 +86,7 @@ const weddingPackages = [
   {
     name: 'Standard Wedding Cruise',
     icon: Heart,
-    price: 'Starting at $200/hr',
+    price: 'Starting at $1,050',
     description: 'Perfect for rehearsal dinners, welcome parties, and after parties',
     features: [
       'Licensed, fun, experienced captains to take your group safely around the lake in style',
@@ -101,7 +101,7 @@ const weddingPackages = [
   {
     name: 'Wedding w/Essentials',
     icon: Flower,
-    price: 'Starting at $225/hr',
+    price: 'Starting at $1,181',
     description: 'Wedding celebration with complete convenience',
     features: [
       'Everything from Standard Cruise',
@@ -117,7 +117,7 @@ const weddingPackages = [
   {
     name: 'Luxury Wedding Package',
     icon: Gem,
-    price: 'Starting at $250/hr',
+    price: 'Starting at $1,413',
     description: 'Elegant wedding experience with premium amenities',
     features: [
       'Everything from Essentials Package',

@@ -837,7 +837,7 @@ export default function PricingBreakdown() {
                     <tr>
                       <td className="px-6 py-4 text-sm text-gray-900 dark:text-gray-300">Multiple Lily Pad Floats (3 huge 6x20')</td>
                       <td className="px-6 py-4 text-center"><Check className="h-5 w-5 text-green-500 mx-auto" /></td>
-                      <td className="px-6 py-4 text-center text-xs text-gray-500">Add-on: $100/hr</td>
+                      <td className="px-6 py-4 text-center text-xs text-gray-500">Add-on: $400 for 4-hour cruise</td>
                     </tr>
                     <tr>
                       <td className="px-6 py-4 text-sm text-gray-900 dark:text-gray-300">Party Supplies (Cups, Koozies, Name Tags, Bubbles)</td>

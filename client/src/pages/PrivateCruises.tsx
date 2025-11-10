@@ -58,7 +58,7 @@ const galleryImage3 = '/attached_assets/party-atmosphere-3.webp';
 
 // Private Cruise Package Tiers - UPDATED PRICING
 // Import from constants for accurate pricing
-import { HOURLY_RATES, PACKAGE_FLAT_FEES, CREW_FEES } from '@shared/constants';
+import { PACKAGE_FLAT_FEES, CREW_FEES } from '@shared/constants';
 
 const privateCruisePackages = [
   {
@@ -285,12 +285,12 @@ const faqItems = [
   {
     id: 'pricing',
     question: 'How does private cruise pricing work?',
-    answer: 'Private cruises have THREE pricing components: (1) HOURLY boat rental - Day Tripper (1-14 guests) $200-350/hr, Meeseeks/Irony (15-30 guests) $225-425/hr including crew fees for 26-30 guests, Clever Girl (31-75 guests) $250-500/hr including crew fees for 51-75 guests, based on day of week. (2) Package upgrades are FLAT FEES per cruise (NOT hourly) - Essentials +$100-200, Ultimate +$250-350. (3) Add-ons are FLAT FEES - DJ $600, Photographer $600, Lily Pad $50. All cruises have 4-hour minimum.'
+    answer: 'Private cruises have THREE pricing components: (1) Base boat rental for 4-hour cruise - Day Tripper (1-14 guests) $1,050-$1,838, Meeseeks/Irony (15-30 guests) $1,181-$2,231 including crew fees for 26-30 guests, Clever Girl (31-75 guests) $1,313-$2,660 including crew fees for 51-75 guests, based on day of week. (2) Package upgrades are FLAT FEES per cruise - Essentials +$100-200, Ultimate +$250-350. (3) Add-ons are FLAT FEES - DJ $600, Photographer $600, Lily Pad $50. All prices shown are for 4-hour cruise.'
   },
   {
     id: 'pricing-example',
     question: 'Can you show me a pricing example?',
-    answer: 'Example: Saturday 4-hour cruise for 20 guests: Base boat rental (Meeseeks) = $375/hr × 4 hours = $1,500. If you add Essentials Package = +$150 flat fee (NOT per hour). With Ultimate Package instead = +$300 flat fee. Add Professional DJ = +$600 flat fee. Total with Ultimate + DJ = $1,500 + $300 + $600 = $2,400 plus tax and gratuity.'
+    answer: 'Example: Saturday 4-hour cruise for 20 guests: Base boat rental (Meeseeks) = $1,500 for 4-hour cruise. If you add Essentials Package = +$150 flat fee. With Ultimate Package instead = +$300 flat fee. Add Professional DJ = +$600 flat fee. Total with Ultimate + DJ = $1,500 + $300 + $600 = $2,400 plus tax and gratuity.'
   },
   {
     id: 'minimum',
@@ -442,7 +442,7 @@ export default function PrivateCruises() {
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
       <SEOHead 
         title="Private Boat Rental Austin | Lake Travis"
-        description="Book private boat rentals on Lake Travis Austin. BYOB friendly, 14-75 person boats with licensed captains. Perfect for austin party cruises, corporate events, weddings. Starting at $200/hr."
+        description="Book private boat rentals on Lake Travis Austin. BYOB friendly, 14-75 person boats with licensed captains. Perfect for austin party cruises, corporate events, weddings. Starting at $1,050 for 4-hour cruise."
         keywords="private boat rental Austin, Lake Travis private cruise, austin party cruises, party boat austin, Austin boat charter, private party boat Austin, Lake Travis boat rental, Austin yacht rental, lake travis party boat"
         canonicalUrl="/private-cruises"
       />
@@ -863,9 +863,9 @@ export default function PrivateCruises() {
                     <FeaturedSnippet
                       question="Private boat rental prices Austin"
                       tableData={[
-                        { label: "Day Tripper (1-14)", value: "$200-350/hr - Intimate gatherings" },
-                        { label: "Meeseeks (15-30)", value: "$225-425/hr - Birthday parties" },
-                        { label: "Clever Girl (31-75)", value: "$250-500/hr - Large events" }
+                        { label: "Day Tripper (1-14)", value: "$1,050-$1,838 for 4-hour cruise - Intimate gatherings" },
+                        { label: "Meeseeks (15-30)", value: "$1,181-$2,231 for 4-hour cruise - Birthday parties" },
+                        { label: "Clever Girl (31-75)", value: "$1,313-$2,660 for 4-hour cruise - Large events" }
                       ]}
                       format="table"
                       schemaType="FAQ"

@@ -18,7 +18,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import SEOHead from '@/components/SEOHead';
 import { formatCurrency } from '@shared/formatters';
-import { HOURLY_RATES, PRICING_DEFAULTS } from '@shared/constants';
+import { PRICING_DEFAULTS } from '@shared/constants';
 import { cn } from '@/lib/utils';
 import { useInlineEdit } from '@/hooks/useInlineEdit';
 import { SectionReveal } from '@/components/SectionReveal';
@@ -611,8 +611,11 @@ export default function CorporateEvents() {
                         <CardTitle className="text-xl font-bold">{pkg.name}</CardTitle>
                         <CardDescription className="mt-2 text-base">{pkg.description}</CardDescription>
                         <div className="text-2xl font-bold text-blue-600 mt-4">
-                          ${pkg.basePrice}/hr
+                          {pkg.basePrice === 200 && '$1,050-$1,838'}
+                          {pkg.basePrice === 225 && '$1,181-$1,969'}
+                          {pkg.basePrice === 250 && '$1,413-$2,260'}
                         </div>
+                        <p className="text-xs text-gray-600 mt-1">for 4-hour cruise</p>
                       </div>
                     </div>
                   </CardHeader>

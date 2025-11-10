@@ -421,7 +421,7 @@ export default function LakeTravisBoatRentalGuide() {
                     Q: What boats can I rent on Lake Travis?
                   </h3>
                   <p className="text-gray-700 dark:text-gray-300">
-                    Premier Party Cruises offers three boats: Day Tripper (1-14 guests, $200-350/hr), Meeseeks (15-30 guests, $225-425/hr), and Clever Girl (31-75 guests, $250-500/hr). All include captain, fuel, sound system, and floats.
+                    Premier Party Cruises offers three boats: Day Tripper (1-14 guests, $1,050-$1,838 for 4-hour cruise), Meeseeks (15-30 guests, $1,181-$1,969 for 4-hour cruise), and Clever Girl (31-75 guests, $1,413-$2,260 for 4-hour cruise). All include captain, fuel, sound system, and floats.
                   </p>
                 </CardContent>
               </Card>

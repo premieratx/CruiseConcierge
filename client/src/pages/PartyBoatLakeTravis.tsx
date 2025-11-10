@@ -25,7 +25,6 @@ import {
 import { formatCurrency } from '@shared/formatters';
 import { 
   BOATS, 
-  HOURLY_RATES, 
   DISCO_PRICING,
   ADDON_FEES 
 } from '@shared/constants';
@@ -73,7 +72,7 @@ const faqData = [
   },
   {
     question: 'How much does a Lake Travis party boat cost?',
-    answer: `Private: $${HOURLY_RATES.MON_THU[14] / 100}/hr (weekdays), 4-hour minimum. ATX Disco Cruise (exclusively for bachelor, bachelorette & combined bach parties): $${DISCO_PRICING.basic / 100}+ per person.`
+    answer: `Private: $1,050 for 4-hour cruise (weekdays), up to $1,838 for weekends. ATX Disco Cruise (exclusively for bachelor, bachelorette & combined bach parties): $${DISCO_PRICING.basic / 100}+ per person.`
   },
   {
     question: 'Where do Lake Travis party boats depart?',
@@ -141,7 +140,7 @@ const lakeTravisFleetShowcase = [
     description: 'Perfect for intimate Lake Travis adventures',
     features: ['Premium sound system', 'Lake Travis navigation', 'Coolers with ice', 'Swimming at Lake Travis coves'],
     image: galleryImage1,
-    startingPrice: `$${HOURLY_RATES.MON_THU[14] / 100}/hr`,
+    startingPrice: '$1,050',
     ideal: 'Small groups exploring Lake Travis'
   },
   {
@@ -150,7 +149,7 @@ const lakeTravisFleetShowcase = [
     description: 'Most popular Lake Travis party boat',
     features: ['Spacious Lake Travis cruising', 'Premium audio', 'Shade cover', 'Access to best Lake Travis spots'],
     image: galleryImage2,
-    startingPrice: `$${HOURLY_RATES.MON_THU[25] / 100}/hr`,
+    startingPrice: '$1,181',
     ideal: 'Bachelorette parties on Lake Travis'
   },
   {
@@ -159,7 +158,7 @@ const lakeTravisFleetShowcase = [
     description: 'Lake Travis\'s premier flagship party boat',
     features: ['14 disco balls', 'Giant Texas flag', 'Maximum Lake Travis space', 'VIP Lake Travis experience'],
     image: galleryImage3,
-    startingPrice: `$${HOURLY_RATES.MON_THU[50] / 100}/hr`,
+    startingPrice: '$1,413',
     ideal: 'Large Lake Travis celebrations'
   }
 ];
@@ -183,7 +182,7 @@ const lakeTravisPackages = [
     title: 'Bachelor Parties on Lake Travis',
     icon: PartyPopper,
     description: 'Epic Lake Travis bachelor party experiences with premium amenities. Explore Lake Travis like never before with your crew.',
-    price: `Starting at $${HOURLY_RATES.MON_THU[25] / 100}/hr`,
+    price: 'Starting at $1,181 for 4-hour cruise',
     features: [
       'Full Lake Travis access',
       'Water toys for Lake Travis fun',

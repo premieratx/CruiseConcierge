@@ -98,8 +98,7 @@ import {
   BOATS,
   PACKAGE_FLAT_FEES,
   CREW_FEES,
-  ADDON_FEES,
-  HOURLY_RATES
+  ADDON_FEES
 } from '@shared/constants';
 
 // Hero and gallery images - Optimized WebP format for fast loading
@@ -1035,7 +1034,7 @@ export default function Home() {
                     ],
                     capacity: '14-75 guests',
                     duration: '4+ hours',
-                    priceNote: 'Starting at $225/hr',
+                    priceNote: '$1,181 for 4-hour cruise',
                     ctaText: 'Plan Corporate Event',
                     ctaHref: '/client-entertainment'
                   },
@@ -1053,7 +1052,7 @@ export default function Home() {
                     ],
                     capacity: '14-75 guests',
                     duration: '4+ hours',
-                    priceNote: 'Starting at $250/hr',
+                    priceNote: '$1,313 for 4-hour cruise',
                     ctaText: 'Plan Wedding Event',
                     ctaHref: '/wedding-parties'
                   }
@@ -1089,24 +1088,24 @@ export default function Home() {
                   </thead>
                   <tbody className="font-semibold">
                     <tr className="border-b-2 border-gray-200 dark:border-gray-700 hover:bg-yellow-50/50 dark:hover:bg-yellow-900/10 transition-colors">
-                      <td className="py-3 px-4 text-center text-gray-800 dark:text-gray-200">Mon-Thu: <span className="text-green-600 dark:text-green-400 font-bold">$200/hr</span></td>
-                      <td className="py-3 px-4 text-center text-gray-800 dark:text-gray-200 border-x border-gray-200 dark:border-gray-700">Mon-Thu: <span className="text-green-600 dark:text-green-400 font-bold">$225/hr</span></td>
-                      <td className="py-3 px-4 text-center text-gray-800 dark:text-gray-200">Mon-Thu: <span className="text-green-600 dark:text-green-400 font-bold">$250/hr</span></td>
+                      <td className="py-3 px-4 text-center text-gray-800 dark:text-gray-200">Mon-Thu: <span className="text-green-600 dark:text-green-400 font-bold">$1,050</span></td>
+                      <td className="py-3 px-4 text-center text-gray-800 dark:text-gray-200 border-x border-gray-200 dark:border-gray-700">Mon-Thu: <span className="text-green-600 dark:text-green-400 font-bold">$1,181</span></td>
+                      <td className="py-3 px-4 text-center text-gray-800 dark:text-gray-200">Mon-Thu: <span className="text-green-600 dark:text-green-400 font-bold">$1,413</span></td>
                     </tr>
                     <tr className="border-b-2 border-gray-200 dark:border-gray-700 hover:bg-yellow-50/50 dark:hover:bg-yellow-900/10 transition-colors">
-                      <td className="py-3 px-4 text-center text-gray-800 dark:text-gray-200">Friday: <span className="text-blue-600 dark:text-blue-400 font-bold">$225/hr</span></td>
-                      <td className="py-3 px-4 text-center text-gray-800 dark:text-gray-200 border-x border-gray-200 dark:border-gray-700">Friday: <span className="text-blue-600 dark:text-blue-400 font-bold">$250/hr</span></td>
-                      <td className="py-3 px-4 text-center text-gray-800 dark:text-gray-200">Friday: <span className="text-blue-600 dark:text-blue-400 font-bold">$275/hr</span></td>
+                      <td className="py-3 px-4 text-center text-gray-800 dark:text-gray-200">Friday: <span className="text-blue-600 dark:text-blue-400 font-bold">$1,181</span></td>
+                      <td className="py-3 px-4 text-center text-gray-800 dark:text-gray-200 border-x border-gray-200 dark:border-gray-700">Friday: <span className="text-blue-600 dark:text-blue-400 font-bold">$1,313</span></td>
+                      <td className="py-3 px-4 text-center text-gray-800 dark:text-gray-200">Friday: <span className="text-blue-600 dark:text-blue-400 font-bold">$1,554</span></td>
                     </tr>
                     <tr className="bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-900/30 dark:to-purple-900/30 border-b-2 border-gray-200 dark:border-gray-700">
-                      <td className="py-3 px-4 text-center font-bold text-purple-700 dark:text-purple-300">Saturday: <span className="text-xl">$350/hr</span></td>
-                      <td className="py-3 px-4 text-center font-bold text-purple-700 dark:text-purple-300 border-x border-purple-300 dark:border-purple-700">Saturday: <span className="text-xl">$375/hr</span></td>
-                      <td className="py-3 px-4 text-center font-bold text-purple-700 dark:text-purple-300">Saturday: <span className="text-xl">$400/hr</span></td>
+                      <td className="py-3 px-4 text-center font-bold text-purple-700 dark:text-purple-300">Saturday: <span className="text-xl">$1,838</span></td>
+                      <td className="py-3 px-4 text-center font-bold text-purple-700 dark:text-purple-300 border-x border-purple-300 dark:border-purple-700">Saturday: <span className="text-xl">$1,969</span></td>
+                      <td className="py-3 px-4 text-center font-bold text-purple-700 dark:text-purple-300">Saturday: <span className="text-xl">$2,260</span></td>
                     </tr>
                     <tr className="border-b-2 border-gray-200 dark:border-gray-700 hover:bg-yellow-50/50 dark:hover:bg-yellow-900/10 transition-colors">
-                      <td className="py-3 px-4 text-center text-gray-800 dark:text-gray-200">Sunday: <span className="text-blue-600 dark:text-blue-400 font-bold">$250/hr</span></td>
-                      <td className="py-3 px-4 text-center text-gray-800 dark:text-gray-200 border-x border-gray-200 dark:border-gray-700">Sunday: <span className="text-blue-600 dark:text-blue-400 font-bold">$275/hr</span></td>
-                      <td className="py-3 px-4 text-center text-gray-800 dark:text-gray-200">Sunday: <span className="text-blue-600 dark:text-blue-400 font-bold">$300/hr</span></td>
+                      <td className="py-3 px-4 text-center text-gray-800 dark:text-gray-200">Sunday: <span className="text-blue-600 dark:text-blue-400 font-bold">$1,313</span></td>
+                      <td className="py-3 px-4 text-center text-gray-800 dark:text-gray-200 border-x border-gray-200 dark:border-gray-700">Sunday: <span className="text-blue-600 dark:text-blue-400 font-bold">$1,444</span></td>
+                      <td className="py-3 px-4 text-center text-gray-800 dark:text-gray-200">Sunday: <span className="text-blue-600 dark:text-blue-400 font-bold">$1,695</span></td>
                     </tr>
                     <tr className="bg-gradient-to-r from-yellow-100 to-orange-100 dark:from-yellow-900/30 dark:to-orange-900/30">
                       <td colSpan={3} className="py-4 px-4 font-bold text-center text-lg text-orange-700 dark:text-orange-300">
@@ -1798,12 +1797,12 @@ export default function Home() {
                   ]
                 },
                 {
-                  feature: 'Hourly Rate',
+                  feature: '4-Hour Total',
                   values: [
-                    { text: '$200/hr', highlight: true },
-                    '$225/hr',
-                    '$300/hr',
-                    '$225/hr'
+                    { text: '$1,050', highlight: true },
+                    '$1,181',
+                    '$1,413',
+                    '$1,181'
                   ]
                 },
                 {
@@ -2445,11 +2444,11 @@ export default function Home() {
         {/* Pricing Information */}
         <h2>Austin Party Boat Rental Pricing</h2>
         <div itemScope itemType="https://schema.org/Offer">
-          <h3>Private Charter Hourly Rates</h3>
-          <p>Day Tripper (1-14 guests): $200-350/hr depending on day (Mon-Thu: $200/hr, Fri: $225/hr, Sat: $350/hr, Sun: $250/hr)</p>
-          <p>Meeseeks / The Irony (15-30 guests): $225-425/hr depending on day and group size (crew fees included in range for 26-30 guests)</p>
-          <p>Clever Girl (31-75 guests): $250-500/hr depending on day and group size (crew fees included in range for 51-75 guests)</p>
-          <p>All private charters have a 4-hour minimum. Includes captain, crew, fuel, cooler space (bring your own ice, or add Essentials/Ultimate for ice included, or order from Party On Delivery), sound system, and safety equipment. Package fees are flat fees per cruise, NOT hourly.</p>
+          <h3>Private Charter 4-Hour Cruise Totals</h3>
+          <p>Day Tripper (1-14 guests): $1,050-$1,838 for 4-hour cruise depending on day (Mon-Thu: $1,050, Fri: $1,181, Sat: $1,838, Sun: $1,313)</p>
+          <p>Meeseeks / The Irony (15-30 guests): $1,181-$2,231 for 4-hour cruise depending on day and group size (crew fees included in range for 26-30 guests)</p>
+          <p>Clever Girl (31-75 guests): $1,313-$2,660 for 4-hour cruise depending on day and group size (crew fees included in range for 51-75 guests)</p>
+          <p>All prices shown are for 4-hour cruise (minimum booking). Includes captain, crew, fuel, cooler space (bring your own ice, or add Essentials/Ultimate for ice included, or order from Party On Delivery), sound system, and safety equipment. Package fees are flat fees per cruise.</p>
         </div>
         
         <div itemScope itemType="https://schema.org/Offer">

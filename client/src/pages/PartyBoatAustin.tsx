@@ -24,7 +24,6 @@ import {
 import { formatCurrency } from '@shared/formatters';
 import { 
   BOATS, 
-  HOURLY_RATES, 
   DISCO_PRICING,
   ADDON_FEES 
 } from '@shared/constants';
@@ -72,7 +71,7 @@ const faqData = [
   },
   {
     question: 'How much does a party boat cost in Austin?',
-    answer: `Private charters: $${HOURLY_RATES.MON_THU[14] / 100}/hr (weekdays), 4-hour minimum. ATX Disco Cruise (exclusively for bachelor, bachelorette & combined bach parties): $${DISCO_PRICING.basic / 100}+ per person.`
+    answer: `Private charters: $1,050 for 4-hour cruise (weekdays), up to $1,838 for weekends. ATX Disco Cruise (exclusively for bachelor, bachelorette & combined bach parties): $${DISCO_PRICING.basic / 100}+ per person.`
   },
   {
     question: 'Where do Austin party boats depart?',
@@ -140,7 +139,7 @@ const fleetShowcase = [
     description: 'Perfect for intimate Austin party boat experiences',
     features: ['Premium sound system', 'Bluetooth connectivity', 'Coolers with ice', 'Swimming access'],
     image: galleryImage1,
-    startingPrice: `$${HOURLY_RATES.MON_THU[14] / 100}/hr`,
+    startingPrice: '$1,050',
     ideal: 'Small groups, intimate celebrations'
   },
   {
@@ -149,7 +148,7 @@ const fleetShowcase = [
     description: 'Most popular Austin party boat for mid-sized groups',
     features: ['Spacious layout', 'Premium audio', 'Shade cover', 'Party-ready setup'],
     image: galleryImage2,
-    startingPrice: `$${HOURLY_RATES.MON_THU[25] / 100}/hr`,
+    startingPrice: '$1,181',
     ideal: 'Bachelorette parties, bachelor parties'
   },
   {
@@ -158,7 +157,7 @@ const fleetShowcase = [
     description: 'Austin\'s premier flagship party boat with giant Texas flag',
     features: ['14 disco balls', 'Giant Texas flag', 'Maximum space', 'VIP experience'],
     image: galleryImage3,
-    startingPrice: `$${HOURLY_RATES.MON_THU[50] / 100}/hr`,
+    startingPrice: '$1,413',
     ideal: 'Corporate events, large celebrations'
   }
 ];
@@ -445,17 +444,20 @@ export default function PartyBoatAustin() {
                   <div className="space-y-4">
                     <div>
                       <p className="text-sm text-gray-600">14-Person Boat</p>
-                      <p className="text-2xl font-bold text-blue-600">${HOURLY_RATES.MON_THU[14] / 100}-${HOURLY_RATES.SATURDAY[14] / 100}/hr</p>
+                      <p className="text-2xl font-bold text-blue-600">$1,050-$1,838</p>
+                      <p className="text-xs text-gray-500">for 4-hour cruise</p>
                     </div>
                     <div>
                       <p className="text-sm text-gray-600">25-30 Person Boat</p>
-                      <p className="text-2xl font-bold text-blue-600">${HOURLY_RATES.MON_THU[25] / 100}-${HOURLY_RATES.SATURDAY[25] / 100}/hr</p>
+                      <p className="text-2xl font-bold text-blue-600">$1,181-$1,969</p>
+                      <p className="text-xs text-gray-500">for 4-hour cruise</p>
                     </div>
                     <div>
                       <p className="text-sm text-gray-600">50-75 Person Boat</p>
-                      <p className="text-2xl font-bold text-blue-600">${HOURLY_RATES.MON_THU[50] / 100}-${HOURLY_RATES.SATURDAY[50] / 100}/hr</p>
+                      <p className="text-2xl font-bold text-blue-600">$1,413-$2,260</p>
+                      <p className="text-xs text-gray-500">for 4-hour cruise</p>
                     </div>
-                    <p className="text-sm text-gray-500 pt-4">4-hour minimum. Weekday-Weekend rates shown.</p>
+                    <p className="text-sm text-gray-500 pt-4">Weekday-Weekend rates shown. 4-hour minimum.</p>
                   </div>
                 </CardContent>
               </Card>
