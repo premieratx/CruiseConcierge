@@ -472,8 +472,8 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
     ]
   },
   '/atx-disco-cruise': {
-    h1: 'ATX Disco Cruise - Ultimate Party Boat Experience Austin',
-    introduction: 'Experience the legendary [[atx-disco]] on Lake Travis! Professional DJ, photographer, disco dance floor, giant floats, and the best party atmosphere in Austin. Three packages available from $85-$105 per person. Join multiple [[bachelor-party]] and [[bachelorette-party]] for an unforgettable celebration!',
+    h1: 'ATX Disco Cruise - Austin Bachelorette Party & Bachelor Party Boat Lake Travis',
+    introduction: 'Experience the legendary [[atx-disco]] - Austin\'s #1 bachelorette party and bachelor party cruise on Lake Travis! Perfect for austin bachelorette and austin bachelorette weekend celebrations. Professional DJ, photographer, disco dance floor, giant floats, and the best party atmosphere. Three packages available from $85-$105 per person. Join multiple [[bachelor-party]] and [[bachelorette-party]] groups for an unforgettable bachelorette party lake travis experience!',
     sections: [
       {
         heading: 'ATX Disco Cruise Packages',

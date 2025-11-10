@@ -255,7 +255,10 @@ export const blogPosts = pgTable("blog_posts", {
   galleryImages: jsonb("gallery_images").$type<string[]>().default([]),
   videoUrl: text("video_url"),
   audioUrl: text("audio_url"),
-  customFields: jsonb("custom_fields").$type<Record<string, any>>().default({}),
+  customFields: jsonb("custom_fields").$type<{
+    relatedPages?: string[];  // Array of link catalog keys for footer internal links
+    [key: string]: any;        // Allow other custom fields
+  }>().default({}),
   createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
 });

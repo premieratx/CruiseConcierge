@@ -1,5 +1,5 @@
 import { useParams } from "wouter";
-import { useEffect, lazy, Suspense } from "react";
+import { useEffect, lazy, Suspense, useMemo } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import PublicNavigation from "@/components/PublicNavigation";
 import { ClientOnly } from '@/components/ClientOnly';
@@ -22,7 +22,8 @@ import {
   Facebook, 
   Linkedin, 
   Share2, 
-  Twitter 
+  Twitter,
+  Anchor
 } from "lucide-react";
 import { Link } from "wouter";
 import { BlogPost, BlogAuthor, BlogCategory, BlogTag } from "@shared/schema";
@@ -31,6 +32,34 @@ import SEOHead from "@/components/SEOHead";
 import { format } from "date-fns";
 
 const DiscoInsight = lazy(() => import("@/components/DiscoInsight"));
+
+// Master Link Catalog - Same as server-side for consistency
+const LINK_CATALOG: Record<string, {url: string; text: string}> = {
+  'bachelor-party': {url: '/bachelor-party-austin', text: 'Bachelor Party Cruises'},
+  'bachelorette-party': {url: '/bachelorette-party-austin', text: 'Bachelorette Party Cruises'},
+  'atx-disco': {url: '/atx-disco-cruise', text: 'ATX Disco Cruise'},
+  'private-cruises': {url: '/private-cruises', text: 'Private Boat Rentals'},
+  'wedding-party': {url: '/wedding-parties', text: 'Wedding Party Boats'},
+  'corporate-events': {url: '/corporate-events', text: 'Corporate Events'},
+  'birthday-party': {url: '/birthday-parties', text: 'Birthday Parties'},
+  'team-building': {url: '/team-building', text: 'Team Building Events'},
+  'graduation-party': {url: '/graduation-party', text: 'Graduation Parties'},
+  'combined-bach': {url: '/combined-bachelor-bachelorette-austin', text: 'Combined Bachelor & Bachelorette Parties'},
+  'faq': {url: '/faq', text: 'FAQ'},
+  'contact': {url: '/contact', text: 'Contact Us'},
+  'testimonials': {url: '/testimonials-faq', text: 'Customer Reviews'},
+  'home': {url: '/', text: 'Premier Party Cruises Home'},
+  'sweet-16': {url: '/sweet-16', text: 'Sweet 16 Parties'},
+  'milestone-birthday': {url: '/milestone-birthday', text: 'Milestone Birthday Parties'},
+  'after-party': {url: '/after-party', text: 'Wedding After Parties'},
+  'rehearsal-dinner': {url: '/rehearsal-dinner', text: 'Rehearsal Dinners'},
+  'welcome-party': {url: '/welcome-party', text: 'Wedding Welcome Parties'},
+  'client-entertainment': {url: '/client-entertainment', text: 'Client Entertainment'},
+  'company-milestone': {url: '/company-milestone', text: 'Company Milestones'},
+  'party-boat-austin': {url: '/party-boat-austin', text: 'Austin Party Boats'},
+  'party-boat-lake-travis': {url: '/party-boat-lake-travis', text: 'Lake Travis Party Boats'},
+  'gallery': {url: '/gallery', text: 'Photo Gallery'}
+};
 
 interface BlogPostData {
   post: BlogPost;
@@ -572,6 +601,32 @@ export default function BlogPostPage() {
                   showExcerpt={true}
                 />
               ))}
+            </div>
+          </section>
+        )}
+
+        {/* Related Cruises & Services - SEO Internal Linking */}
+        {post.customFields?.relatedPages && post.customFields.relatedPages.length > 0 && (
+          <section className="mt-12 mb-12 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-gray-800 dark:to-gray-900 rounded-2xl p-8">
+            <div className="flex items-center gap-3 mb-6">
+              <Anchor className="h-8 w-8 text-blue-600 dark:text-blue-400" />
+              <h2 className="text-3xl font-bold text-gray-900 dark:text-white" data-testid="title-related-cruises">
+                Related Cruises & Services
+              </h2>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              {post.customFields.relatedPages
+                .map((key: string) => LINK_CATALOG[key])
+                .filter(Boolean)
+                .map((link, index) => (
+                  <Link key={index} href={link.url}>
+                    <a className="block p-4 bg-white dark:bg-gray-800 rounded-xl shadow-md hover:shadow-xl hover:scale-105 transition-all duration-200 text-center group">
+                      <span className="text-sm font-semibold text-blue-600 dark:text-blue-400 group-hover:text-blue-700 dark:group-hover:text-blue-300 transition-colors">
+                        {link.text}
+                      </span>
+                    </a>
+                  </Link>
+                ))}
             </div>
           </section>
         )}
