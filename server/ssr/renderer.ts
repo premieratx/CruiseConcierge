@@ -1372,7 +1372,7 @@ export function ssrMiddleware() {
     }
     
     // Skip static files
-    if (req.path.match(/\.(js|css|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot)$/)) {
+    if (req.path.match(/\.(js|css|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot|xml)$/)) {
       return next();
     }
     

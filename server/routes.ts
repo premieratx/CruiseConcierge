@@ -776,6 +776,55 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
   app.get('/blogs/:slug', blogSSRHandler);
   
   // ==========================================
+  // SITEMAP.XML FOR SEO
+  // ==========================================
+  
+  app.get('/sitemap.xml', (req, res) => {
+    res.header('Content-Type', 'application/xml');
+    
+    const baseUrl = 'https://premierpartycruises.com';
+    
+    const urls = [
+      // Home page - highest priority
+      { loc: '/', priority: '1.0', changefreq: 'weekly' },
+      
+      // Main service pages - high priority
+      { loc: '/atx-disco-cruise', priority: '0.9', changefreq: 'weekly' },
+      { loc: '/private-cruises', priority: '0.9', changefreq: 'weekly' },
+      { loc: '/bachelor-party-austin', priority: '0.9', changefreq: 'weekly' },
+      { loc: '/bachelorette-party-austin', priority: '0.9', changefreq: 'weekly' },
+      { loc: '/combined-bachelor-bachelorette-austin', priority: '0.9', changefreq: 'weekly' },
+      { loc: '/bachelor-bachelorette-party-boat-austin', priority: '0.9', changefreq: 'weekly' },
+      
+      // Blog pages - medium priority
+      { loc: '/ultimate-austin-bachelorette-weekend', priority: '0.7', changefreq: 'weekly' },
+      { loc: '/top-10-austin-bachelorette-ideas', priority: '0.7', changefreq: 'weekly' },
+      { loc: '/three-day-austin-bachelorette-itinerary', priority: '0.7', changefreq: 'weekly' },
+      { loc: '/budget-austin-bachelorette', priority: '0.7', changefreq: 'weekly' },
+      { loc: '/luxury-austin-bachelorette', priority: '0.7', changefreq: 'weekly' },
+      { loc: '/austin-bachelorette-nightlife', priority: '0.7', changefreq: 'weekly' },
+      
+      // Other public pages - lower priority
+      { loc: '/faq', priority: '0.6', changefreq: 'weekly' },
+      { loc: '/contact', priority: '0.6', changefreq: 'weekly' },
+      { loc: '/about', priority: '0.6', changefreq: 'weekly' },
+      { loc: '/testimonials', priority: '0.6', changefreq: 'weekly' },
+      { loc: '/chat', priority: '0.6', changefreq: 'weekly' }
+    ];
+    
+    const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${urls.map(url => `  <url>
+    <loc>${baseUrl}${url.loc}</loc>
+    <changefreq>${url.changefreq}</changefreq>
+    <priority>${url.priority}</priority>
+  </url>`).join('\n')}
+</urlset>`;
+    
+    res.send(sitemap);
+  });
+  
+  // ==========================================
   // AUTHENTICATION ROUTES
   // ==========================================
   
