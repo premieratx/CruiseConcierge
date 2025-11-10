@@ -6,33 +6,24 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { CheckCircle2, Ship, Info, Calendar } from 'lucide-react';
 import { Link } from 'wouter';
 import { formatCurrency } from '@shared/formatters';
+import { PRIVATE_CRUISE_PRICING } from '@shared/constants';
 
 interface TabbedPrivateCruisePricingProps {
   className?: string;
 }
 
-// Hourly rates by day and boat size - EXACT from knowledge base
-const HOURLY_RATES = {
-  'mon-thu': {
-    14: 200,
-    25: 225,
-    50: 250
-  },
-  'fri': {
-    14: 225,
-    25: 250,
-    50: 275
-  },
-  'sat': {
-    14: 350,
-    25: 375,
-    50: 400
-  },
-  'sun': {
-    14: 250,
-    25: 275,
-    50: 300
-  }
+// Helper function to get hourly rate from PRIVATE_CRUISE_PRICING
+const getHourlyRate = (dayType: 'mon-thu' | 'fri' | 'sat' | 'sun', capacity: 14 | 25 | 50): number => {
+  const dayMapping = {
+    'mon-thu': 'MON_THU',
+    'fri': 'FRIDAY',
+    'sat': 'SATURDAY',
+    'sun': 'SUNDAY'
+  } as const;
+  
+  const dayKey = dayMapping[dayType];
+  const tier = capacity as 14 | 25 | 50;
+  return PRIVATE_CRUISE_PRICING[tier].baseHourlyRates[dayKey] / 100; // Convert cents to dollars
 };
 
 // EXACT package definitions from knowledge base
@@ -181,7 +172,7 @@ export function TabbedPrivateCruisePricing({ className = '' }: TabbedPrivateCrui
   
   const boat = boats[selectedBoat];
   const packages = PACKAGE_DETAILS[selectedBoat as unknown as 14 | 25 | 50];
-  const hourlyRate = HOURLY_RATES[selectedDay][selectedBoat as unknown as 14 | 25 | 50];
+  const hourlyRate = getHourlyRate(selectedDay, parseInt(selectedBoat) as 14 | 25 | 50);
 
   return (
     <div className={className}>

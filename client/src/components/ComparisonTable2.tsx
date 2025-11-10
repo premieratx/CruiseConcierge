@@ -277,7 +277,7 @@ export const DiscoVsPrivateComparison: ComparisonRow[] = [
     feature: "Price Range",
     values: [
       { text: "$85-$125 per person", highlight: true },
-      { text: "$200-$400+ per hour" }
+      { text: "$263-$459+ per hour" }
     ]
   },
   {
@@ -385,10 +385,10 @@ export const FleetComparison: ComparisonRow[] = [
   {
     feature: "Price Tier",
     values: [
-      { text: "$200/hr", highlight: true },
-      "$225/hr",
-      "$300/hr",
-      "$225/hr"
+      { text: "$263/hr", highlight: true },
+      "$295/hr",
+      "$353/hr",
+      "$295/hr"
     ]
   },
   {

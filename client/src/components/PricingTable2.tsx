@@ -6,7 +6,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { cn } from '@/lib/utils';
 import { formatCurrency } from '@shared/formatters';
-import { PRICING_DEFAULTS } from '@shared/constants';
+import { PRICING_DEFAULTS, PRIVATE_CRUISE_PRICING } from '@shared/constants';
 import {
   CheckCircle2,
   Info,
@@ -275,15 +275,23 @@ function PrivateCruisePricingTable({
   
   // Determine boat and base rate based on group size
   const getBoatInfo = () => {
-    if (groupSize <= 14) return { boat: 'Day Tripper', baseRate: 200, tier: 14 as const };
-    if (groupSize <= 30) return { boat: 'Meeseeks / The Irony', baseRate: 225, tier: 25 as const };
-    return { boat: 'Clever Girl', baseRate: 300, tier: 50 as const };
+    if (groupSize <= 14) return { boat: 'Day Tripper', tier: 14 as const };
+    if (groupSize <= 30) return { boat: 'Meeseeks / The Irony', tier: 25 as const };
+    return { boat: 'Clever Girl', tier: 50 as const };
   };
   
-  const { boat, baseRate, tier } = getBoatInfo();
-  const weekendMultiplier = dayType === 'saturday' ? 1.5 : dayType === 'weekend' ? 1.25 : 1;
-  const adjustedRate = baseRate * weekendMultiplier;
-  const baseCost = adjustedRate * duration * 100; // Convert to cents
+  const { boat, tier } = getBoatInfo();
+  
+  // Get base hourly rate from PRIVATE_CRUISE_PRICING based on day type
+  const getDayKey = () => {
+    if (dayType === 'saturday') return 'SATURDAY';
+    if (dayType === 'weekend') return 'FRIDAY'; // Use Friday as weekend fallback
+    return 'MON_THU';
+  };
+  
+  const dayKey = getDayKey();
+  const baseRateInCents = PRIVATE_CRUISE_PRICING[tier].baseHourlyRates[dayKey];
+  const baseCost = baseRateInCents * duration; // Already in cents
   
   // Add package fees (FLAT fees per cruise, not hourly)
   const packageFeesByTier = {
@@ -359,7 +367,7 @@ function PrivateCruisePricingTable({
               </div>
             </div>
             <Badge variant="outline" className="text-lg px-3 py-1">
-              Base Rate: {formatCurrency(adjustedRate)}/hour
+              Base Rate: {formatCurrency(baseRateInCents)}/hour
             </Badge>
           </div>
         </CardContent>
@@ -407,7 +415,7 @@ function PrivateCruisePricingTable({
                       <h4 className="font-semibold mb-3">Pricing Breakdown:</h4>
                       <div className="space-y-2 text-sm">
                         <div className="flex justify-between">
-                          <span>Base Cruise ({duration}hrs @ {formatCurrency(adjustedRate)}/hr):</span>
+                          <span>Base Cruise ({duration}hrs @ {formatCurrency(baseRateInCents)}/hr):</span>
                           <span className="font-medium">{formatCurrency(baseCost / 100)}</span>
                         </div>
                         {pkg.fee > 0 && (

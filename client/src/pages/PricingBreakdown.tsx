@@ -98,13 +98,13 @@ const discoPackages = [
   }
 ];
 
-// Private Cruise Packages - 14-person boat (from constants)
+// Private Cruise Packages - 14-person boat (using PRIVATE_CRUISE_PRICING for accurate pricing)
 const privateCruisePackages = [
   {
     id: 'standard',
     name: 'Standard Private Cruise',
-    price: 800,
-    baseHourlyRate: 200,
+    price: PRIVATE_CRUISE_PRICING[14].packages.standard.totalPrices.MON_THU / 100,
+    baseHourlyRate: PRIVATE_CRUISE_PRICING[14].baseHourlyRates.MON_THU / 100,
     addOnFee: 0,
     description: 'Essential cruise experience',
     features: [
@@ -116,14 +116,14 @@ const privateCruisePackages = [
       'Plenty of sun & shade areas'
     ],
     icon: Ship,
-    badge: '$200/hour × 4 hours = $800'
+    badge: `${formatCurrency(PRIVATE_CRUISE_PRICING[14].baseHourlyRates.MON_THU)}/hour × 4 hours`
   },
   {
     id: 'essentials',
     name: 'Private Plus Essentials',
-    price: 900,
-    baseHourlyRate: 200,
-    addOnFee: 100,
+    price: PRIVATE_CRUISE_PRICING[14].packages.essentials.totalPrices.MON_THU / 100,
+    baseHourlyRate: PRIVATE_CRUISE_PRICING[14].baseHourlyRates.MON_THU / 100,
+    addOnFee: PRIVATE_CRUISE_PRICING[14].packages.essentials.addOn / 100,
     description: 'Complete convenience package',
     features: [
       'Everything from Standard Cruise',
@@ -139,9 +139,9 @@ const privateCruisePackages = [
   {
     id: 'ultimate',
     name: 'Private with Ultimate Package',
-    price: 1050,
-    baseHourlyRate: 200,
-    addOnFee: 250,
+    price: PRIVATE_CRUISE_PRICING[14].packages.ultimate.totalPrices.MON_THU / 100,
+    baseHourlyRate: PRIVATE_CRUISE_PRICING[14].baseHourlyRates.MON_THU / 100,
+    addOnFee: PRIVATE_CRUISE_PRICING[14].packages.ultimate.addOn / 100,
     description: 'Complete party experience',
     features: [
       'Everything from Essentials Package',
@@ -154,7 +154,7 @@ const privateCruisePackages = [
       '3 disco balls installed for party atmosphere'
     ],
     icon: Star,
-    badge: '$800 base + $250 package = $1,050'
+    badge: `Base + ${formatCurrency(PRIVATE_CRUISE_PRICING[14].packages.ultimate.addOn)} package`
   }
 ];
 
@@ -362,15 +362,15 @@ export default function PricingBreakdown() {
                       <div className="space-y-2 text-sm">
                         <div className="flex justify-between">
                           <span>Day Tripper (14 people):</span>
-                          <span className="font-semibold">Starting at $1,200</span>
+                          <span className="font-semibold">Starting at {formatCurrency(PRIVATE_CRUISE_PRICING[14].packages.standard.totalPrices.MON_THU)}</span>
                         </div>
                         <div className="flex justify-between">
                           <span>Meeseeks (25 people):</span>
-                          <span className="font-semibold">Starting at $1,500</span>
+                          <span className="font-semibold">Starting at {formatCurrency(PRIVATE_CRUISE_PRICING[25].packages.standard.totalPrices.MON_THU)}</span>
                         </div>
                         <div className="flex justify-between">
                           <span>Clever Girl (50 people):</span>
-                          <span className="font-semibold">Starting at $2,000</span>
+                          <span className="font-semibold">Starting at {formatCurrency(PRIVATE_CRUISE_PRICING[50].packages.standard.totalPrices.MON_THU)}</span>
                         </div>
                       </div>
                     </div>
