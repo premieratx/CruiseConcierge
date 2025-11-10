@@ -68,7 +68,7 @@ export default function LakeTravisBoatRentalGuide() {
           <div className="max-w-4xl mx-auto px-6">
             <div className="prose prose-lg max-w-none dark:prose-invert">
               <p className="text-xl text-gray-700 dark:text-gray-300 leading-relaxed">
-                Planning your first <strong>Lake Travis boat rental</strong> for an Austin party? You're in for an unforgettable experience! Whether it's a bachelor party, bachelorette celebration, corporate event, or birthday bash, Lake Travis offers the perfect backdrop for your event. This comprehensive guide covers everything first-timers need to know about Austin party planning on the water.
+                Planning your first <strong>Lake Travis boat rental</strong> for an Austin party? You're in for an unforgettable experience! Whether it's a <Link href="/bachelor-party-austin" className="text-blue-600 hover:text-blue-700 font-semibold">bachelor party</Link>, <Link href="/bachelorette-party-austin" className="text-blue-600 hover:text-blue-700 font-semibold">bachelorette celebration</Link>, <Link href="/corporate-events" className="text-blue-600 hover:text-blue-700 font-semibold">corporate event</Link>, or <Link href="/birthday-parties" className="text-blue-600 hover:text-blue-700 font-semibold">birthday bash</Link>, Lake Travis offers the perfect backdrop for your event. This comprehensive guide covers everything first-timers need to know about Austin party planning on the water.
               </p>
             </div>
 
@@ -233,7 +233,7 @@ export default function LakeTravisBoatRentalGuide() {
                 Pro Tip: Consider Your Group Size
               </h4>
               <p className="text-gray-700 dark:text-gray-300">
-                Our fleet accommodates 1-75 guests across three boats. Choose the <strong>Day Tripper</strong> (1-14 guests) for intimate gatherings, <strong>Meeseeks</strong> (15-30 guests) for medium parties, or <strong>Clever Girl</strong> (31-75 guests) for large celebrations. Visit our <Link href="/private-cruises" className="text-blue-600 hover:text-blue-700 font-semibold">Private Cruises page</Link> for detailed pricing.
+                Our fleet accommodates 1-75 guests across three boats. Choose the <strong>Day Tripper</strong> (1-14 guests) for intimate gatherings, <strong>Meeseeks</strong> (15-30 guests) for medium parties, or <strong>Clever Girl</strong> (31-75 guests) for large celebrations. Visit our <Link href="/private-cruises" className="text-blue-600 hover:text-blue-700 font-semibold">Private Cruises page</Link> for detailed pricing, or check out the <Link href="/atx-disco-cruise" className="text-blue-600 hover:text-blue-700 font-semibold">ATX Disco Cruise</Link> for a unique all-inclusive experience.
               </p>
             </div>
           </div>
