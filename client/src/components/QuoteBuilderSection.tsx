@@ -54,7 +54,7 @@ export default function QuoteBuilderSection() {
               className="bg-white rounded-none md:rounded-2xl shadow-2xl"
               style={{ 
                 width: '100%', 
-                minHeight: '1400px', 
+                minHeight: '700px', 
                 position: 'static', 
                 margin: '0',
                 overflow: 'visible'
@@ -68,7 +68,7 @@ export default function QuoteBuilderSection() {
                   title="Get Your Quote - Premier Party Cruises"
                   className="w-full"
                   style={{ 
-                    height: '1400px',
+                    height: '700px',
                     border: 'none',
                     display: 'block',
                     borderRadius: '0',
