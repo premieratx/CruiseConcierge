@@ -153,6 +153,28 @@ const PORT = process.env.PORT || '5000';
     }));
   }
 
+  // Server-side 301 redirects for legacy/broken URLs that shouldn't be indexed
+  // These are permanent redirects (301) that prevent Google from indexing these pages
+  const LEGACY_REDIRECTS: Record<string, string> = {
+    '/party-cruises-2025': '/',
+    '/salesvsl-page-page': '/',
+  };
+
+  Object.entries(LEGACY_REDIRECTS).forEach(([from, to]) => {
+    app.get(from, (req, res) => {
+      log(`🔀 Redirecting ${from} → ${to} (301 permanent)`, 'redirect');
+      res.redirect(301, to);
+    });
+  });
+
+  // Catch-all for any VSL pages (should be on go.premierpartycruises.com subdomain)
+  app.get(/^\/.*vsl.*/, (req, res) => {
+    log(`🔀 Redirecting VSL page ${req.path} → / (301 permanent)`, 'redirect');
+    res.redirect(301, '/');
+  });
+
+  log('✅ Legacy URL redirects configured (301 permanent)', 'redirect');
+
   // CRITICAL FOR SEO: Register SSR middleware BEFORE static files
   // This ensures crawlers get fully-rendered HTML with H1 tags, content, and schemas
   app.use(ssrMiddleware());
