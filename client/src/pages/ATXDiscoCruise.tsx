@@ -1551,11 +1551,11 @@ export default function ATXDiscoCruise() {
                     <div className="mx-auto mb-4 p-4 bg-green-100 rounded-full w-16 h-16 flex items-center justify-center">
                       <CloudRain className="h-8 w-8 text-green-600" />
                     </div>
-                    <CardTitle className="text-xl font-bold">Lemonade Disco Weather Guarantee</CardTitle>
+                    <CardTitle className="text-xl font-bold">Lemonade Disco Guarantee</CardTitle>
                   </CardHeader>
                   <CardContent className="text-center">
                     <p className="text-gray-700 leading-relaxed">
-                      If weather cancels your cruise, get a <strong>full refund</strong> or reschedule at no charge. We even have the "Lemonade Disco" backup for light rain - party continues!
+                      <strong>Your party is guaranteed to happen - rain or shine!</strong> If severe weather prevents the boat cruise, we move the party to Lemonade Disco, our downtown venue with the same DJ, photographer, and party atmosphere.
                     </p>
                   </CardContent>
                 </Card>
@@ -1563,13 +1563,13 @@ export default function ATXDiscoCruise() {
                 <Card className="border-2 border-blue-500 shadow-xl">
                   <CardHeader className="text-center">
                     <div className="mx-auto mb-4 p-4 bg-blue-100 rounded-full w-16 h-16 flex items-center justify-center">
-                      <Timer className="h-8 w-8 text-blue-600" />
+                      <XCircle className="h-8 w-8 text-blue-600" />
                     </div>
-                    <CardTitle className="text-xl font-bold">48-Hour Refund Policy</CardTitle>
+                    <CardTitle className="text-xl font-bold">No Refunds Policy</CardTitle>
                   </CardHeader>
                   <CardContent className="text-center">
                     <p className="text-gray-700 leading-relaxed">
-                      Plans change, we get it. <strong>Cancel up to 48 hours</strong> before your cruise for a full refund. No questions asked, no hassle.
+                      <strong>All sales are final - no refunds for ATX Disco Cruise.</strong> However, if severe weather prevents the boat cruise, your party continues at Lemonade Disco with the same great experience!
                     </p>
                   </CardContent>
                 </Card>

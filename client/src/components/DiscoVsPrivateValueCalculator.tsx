@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Check, X, DollarSign, TrendingDown, Sparkles, Users, Music, Camera, PartyPopper, AlertCircle } from 'lucide-react';
 import { formatCurrency } from '@shared/formatters';
-import { PRIVATE_CRUISE_FINAL_PRICES, DISCO_PRICING, PRICING_DEFAULTS } from '@shared/constants';
+import { PRIVATE_CRUISE_PRICING, DISCO_PRICING, PRICING_DEFAULTS } from '@shared/constants';
 
 interface PricingCalculation {
   subtotal: number;
@@ -43,9 +43,6 @@ interface GroupSizeComparison {
   };
 }
 
-const DJ_COST = 60000; // $600 in cents
-const PHOTOGRAPHER_COST = 60000; // $600 in cents
-
 function calculateDiscoPricing(pricePerPerson: number, groupSize: number): PricingCalculation {
   const subtotal = pricePerPerson * groupSize;
   const tax = Math.floor(subtotal * (PRICING_DEFAULTS.TAX_RATE_BASIS_POINTS / 10000));
@@ -61,40 +58,44 @@ function calculateDiscoPricing(pricePerPerson: number, groupSize: number): Prici
   };
 }
 
-function calculatePrivateCruisePricing(basePrice: number, groupSize: number): PricingCalculation {
-  const subtotal = basePrice;
-  const tax = Math.floor(subtotal * (PRICING_DEFAULTS.TAX_RATE_BASIS_POINTS / 10000));
-  const gratuity = Math.floor(subtotal * (PRICING_DEFAULTS.GRATUITY_PERCENT / 100));
-  const total = subtotal + tax + gratuity;
+function calculatePrivateCruisePricing(boatTier: 14 | 25 | 30 | 50 | 75, dayType: 'FRIDAY' | 'SATURDAY', groupSize: number): PricingCalculation {
+  // Use pre-calculated total from PRIVATE_CRUISE_PRICING as the source of truth
+  const total = PRIVATE_CRUISE_PRICING[boatTier].packages.standard.totalPrices[dayType];
+  const perPerson = Math.floor(total / groupSize);
   
+  // For display purposes, show the total as-is without breakdown
+  // since the breakdown calculation would not match the pre-calculated total
   return {
-    subtotal,
-    tax,
-    gratuity,
+    subtotal: total, // Show full price (includes tax & gratuity)
+    tax: 0, // Don't show separate tax line
+    gratuity: 0, // Don't show separate gratuity line
     total,
-    perPerson: Math.floor(total / groupSize)
+    perPerson
   };
 }
 
-function calculatePrivatePlusDjPhotoPricing(basePrice: number, groupSize: number, canFitDj: boolean): PricingCalculation {
-  const subtotal = basePrice + (canFitDj ? DJ_COST : 0) + PHOTOGRAPHER_COST;
-  const tax = Math.floor(subtotal * (PRICING_DEFAULTS.TAX_RATE_BASIS_POINTS / 10000));
-  const gratuity = Math.floor(subtotal * (PRICING_DEFAULTS.GRATUITY_PERCENT / 100));
-  const total = subtotal + tax + gratuity;
+function calculatePrivatePlusDjPhotoPricing(boatTier: 14 | 25 | 30 | 50 | 75, dayType: 'FRIDAY' | 'SATURDAY', groupSize: number, canFitDj: boolean): PricingCalculation {
+  // Use pre-calculated total from PRIVATE_CRUISE_PRICING Ultimate package as the source of truth
+  const total = PRIVATE_CRUISE_PRICING[boatTier].packages.ultimate.totalPrices[dayType];
+  const perPerson = Math.floor(total / groupSize);
   
+  // For display purposes, show the total as-is without breakdown
+  // since the breakdown calculation would not match the pre-calculated total
   return {
-    subtotal,
-    tax,
-    gratuity,
+    subtotal: total, // Show full price (includes tax & gratuity)
+    tax: 0, // Don't show separate tax line
+    gratuity: 0, // Don't show separate gratuity line
     total,
-    perPerson: Math.floor(total / groupSize)
+    perPerson
   };
 }
 
-function getBoatTier(groupSize: number): 14 | 25 | 50 {
+function getBoatTier(groupSize: number): 14 | 25 | 30 | 50 | 75 {
   if (groupSize <= 14) return 14;
   if (groupSize <= 25) return 25;
-  return 50;
+  if (groupSize <= 30) return 30;
+  if (groupSize <= 50) return 50;
+  return 75;
 }
 
 function calculateGroupComparison(groupSize: number): GroupSizeComparison {
@@ -106,13 +107,13 @@ function calculateGroupComparison(groupSize: number): GroupSizeComparison {
   const discoQueen = calculateDiscoPricing(DISCO_PRICING.disco_queen, groupSize);
   const discoPlatinum = calculateDiscoPricing(DISCO_PRICING.platinum, groupSize);
   
-  // Private cruise pricing (Friday & Saturday)
-  const privateFriday = calculatePrivateCruisePricing(PRIVATE_CRUISE_FINAL_PRICES.FRIDAY[boatTier], groupSize);
-  const privateSaturday = calculatePrivateCruisePricing(PRIVATE_CRUISE_FINAL_PRICES.SATURDAY[boatTier], groupSize);
+  // Private cruise pricing (Friday & Saturday) - using correct PRIVATE_CRUISE_PRICING
+  const privateFriday = calculatePrivateCruisePricing(boatTier, 'FRIDAY', groupSize);
+  const privateSaturday = calculatePrivateCruisePricing(boatTier, 'SATURDAY', groupSize);
   
-  // Private + DJ + Photographer (Friday & Saturday)
-  const privatePlusFriday = calculatePrivatePlusDjPhotoPricing(PRIVATE_CRUISE_FINAL_PRICES.FRIDAY[boatTier], groupSize, djFitsOn14pBoat);
-  const privatePlusSaturday = calculatePrivatePlusDjPhotoPricing(PRIVATE_CRUISE_FINAL_PRICES.SATURDAY[boatTier], groupSize, djFitsOn14pBoat);
+  // Private + DJ + Photo (Ultimate Package) - includes disco atmosphere/entertainment
+  const privatePlusFriday = calculatePrivatePlusDjPhotoPricing(boatTier, 'FRIDAY', groupSize, djFitsOn14pBoat);
+  const privatePlusSaturday = calculatePrivatePlusDjPhotoPricing(boatTier, 'SATURDAY', groupSize, djFitsOn14pBoat);
   
   return {
     groupSize,
@@ -281,22 +282,10 @@ export default function DiscoVsPrivateValueCalculator() {
           <CardContent className="space-y-4">
             <div className="space-y-2">
               <div className="flex justify-between text-sm">
-                <span>Base rental</span>
-                <span>{formatCurrency(comparison.privateCruise[selectedDay].subtotal)}</span>
+                <span>Total price (includes all fees)</span>
+                <span className="font-semibold">{formatCurrency(comparison.privateCruise[selectedDay].total)}</span>
               </div>
-              <div className="flex justify-between text-sm text-muted-foreground">
-                <span>Tax (8.25%)</span>
-                <span>{formatCurrency(comparison.privateCruise[selectedDay].tax)}</span>
-              </div>
-              <div className="flex justify-between text-sm text-muted-foreground">
-                <span>Gratuity (20%)</span>
-                <span>{formatCurrency(comparison.privateCruise[selectedDay].gratuity)}</span>
-              </div>
-              <div className="border-t pt-2 flex justify-between font-bold text-lg">
-                <span>TOTAL</span>
-                <span>{formatCurrency(comparison.privateCruise[selectedDay].total)}</span>
-              </div>
-              <div className="text-center text-xl font-bold text-orange-600">
+              <div className="text-center text-xl font-bold text-orange-600 pt-2">
                 {formatCurrency(comparison.privateCruise[selectedDay].perPerson)}/person
               </div>
             </div>
@@ -341,82 +330,68 @@ export default function DiscoVsPrivateValueCalculator() {
           </CardContent>
         </Card>
 
-        {/* Option 3: Private + DJ + Photographer */}
+        {/* Option 3: Private + Ultimate Package (includes DJ, Photo, Party Supplies) */}
         <Card className="border-red-300" data-testid="private-plus-option">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Music className="w-5 h-5" />
-              Private + DJ + Photo
+              Private Ultimate Package
             </CardTitle>
-            <CardDescription>Try to replicate the experience</CardDescription>
+            <CardDescription>Includes entertainment & party atmosphere</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="space-y-2">
               <div className="flex justify-between text-sm">
-                <span>Base rental</span>
-                <span>{formatCurrency(comparison.privateCruise[selectedDay].subtotal)}</span>
+                <span>Total price (includes all fees)</span>
+                <span className="font-semibold">{formatCurrency(comparison.privatePlusDjPhoto[selectedDay].total)}</span>
               </div>
-              {comparison.privatePlusDjPhoto.djFitsOn14pBoat ? (
-                <div className="flex justify-between text-sm">
-                  <span>DJ (4 hours)</span>
-                  <span>{formatCurrency(DJ_COST)}</span>
-                </div>
-              ) : (
-                <div className="flex justify-between text-sm text-red-600">
-                  <span>DJ</span>
-                  <span className="text-xs">❌ Won't fit on {boatTier}p boat</span>
-                </div>
-              )}
-              <div className="flex justify-between text-sm">
-                <span>Photographer (4 hours)</span>
-                <span>{formatCurrency(PHOTOGRAPHER_COST)}</span>
-              </div>
-              <div className="flex justify-between text-sm text-muted-foreground">
-                <span>Tax (8.25%)</span>
-                <span>{formatCurrency(comparison.privatePlusDjPhoto[selectedDay].tax)}</span>
-              </div>
-              <div className="flex justify-between text-sm text-muted-foreground">
-                <span>Gratuity (20%)</span>
-                <span>{formatCurrency(comparison.privatePlusDjPhoto[selectedDay].gratuity)}</span>
-              </div>
-              <div className="border-t pt-2 flex justify-between font-bold text-lg">
-                <span>TOTAL</span>
-                <span>{formatCurrency(comparison.privatePlusDjPhoto[selectedDay].total)}</span>
-              </div>
-              <div className="text-center text-xl font-bold text-red-600">
+              <div className="text-center text-xl font-bold text-red-600 pt-2">
                 {formatCurrency(comparison.privatePlusDjPhoto[selectedDay].perPerson)}/person
               </div>
             </div>
 
             <div className="space-y-2 pt-4 border-t">
-              <p className="font-semibold text-sm text-red-600">❌ Still Missing:</p>
+              <p className="font-semibold text-sm">✅ Ultimate Package Includes:</p>
+              <ul className="text-sm space-y-1">
+                <li className="flex items-start gap-2">
+                  <Check className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
+                  <span>Giant lily pad floats</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
+                  <span>Specialty floats & party supplies</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
+                  <span>Disco atmosphere setup</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
+                  <span>Champagne service & cups</span>
+                </li>
+              </ul>
+            </div>
+
+            <div className="space-y-2 pt-4 border-t">
+              <p className="font-semibold text-sm text-red-600">❌ Still Missing vs. Disco:</p>
               <ul className="text-sm space-y-1 text-muted-foreground">
                 <li className="flex items-start gap-2">
                   <X className="w-4 h-4 text-red-500 mt-0.5 flex-shrink-0" />
-                  <span>Lily pad floats (extra $50/cruise)</span>
+                  <span>Multi-group party atmosphere</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <X className="w-4 h-4 text-red-500 mt-0.5 flex-shrink-0" />
-                  <span>Party supplies (extra cost)</span>
+                  <span>Professional DJ all day</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <X className="w-4 h-4 text-red-500 mt-0.5 flex-shrink-0" />
-                  <span>Multi-group atmosphere</span>
+                  <span>Professional photographer</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <X className="w-4 h-4 text-red-500 mt-0.5 flex-shrink-0" />
-                  <span>All-inclusive setup</span>
+                  <span>Everything ready when you arrive</span>
                 </li>
               </ul>
-
-              {!comparison.privatePlusDjPhoto.djFitsOn14pBoat && (
-                <div className="mt-2 p-2 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded">
-                  <p className="text-xs text-red-600 dark:text-red-400 flex items-start gap-1">
-                    <AlertCircle className="w-3 h-3 mt-0.5 flex-shrink-0" />
-                    <span>DJ cannot fit on {boatTier}-person boat - not enough space!</span>
-                  </p>
-                </div>
-              )}
             </div>
           </CardContent>
         </Card>
