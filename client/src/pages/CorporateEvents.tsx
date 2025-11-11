@@ -413,11 +413,11 @@ export default function CorporateEvents() {
   }, [navigate, toast]);
 
   const handleGetQuote = () => {
-    window.location.href = 'https://premierpartycruises.com/book-online-popup';
+    navigate('/chat');
   };
 
   const handleBookNow = () => {
-    window.location.href = 'https://premierpartycruises.com/book-online-popup';
+    navigate('/chat');
   };
 
   return (
@@ -478,7 +478,7 @@ export default function CorporateEvents() {
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
-              onClick={() => window.location.href = 'https://premierpartycruises.com/book-online-popup'}
+              onClick={() => navigate('/chat')}
               size="lg"
               variant="outline"
               className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white font-bold px-8 py-6 text-lg"

@@ -226,11 +226,11 @@ export default function WeddingParties() {
   const { isEditMode } = useInlineEdit();
 
   const handleGetQuote = () => {
-    window.location.href = 'https://premierpartycruises.com/book-online-popup';
+    navigate('/chat');
   };
 
   const handleBookNow = () => {
-    window.location.href = 'https://premierpartycruises.com/book-online-popup';
+    navigate('/chat');
   };
 
   return (

@@ -240,7 +240,7 @@ function DiscoPricingTable({ packages, showTaxAndGratuity = true, showDeposit = 
                 </div>
               )}
               
-              <Link href={pkg.ctaLink || 'https://premierpartycruises.com/book-online-popup'}>
+              <Link href={pkg.ctaLink || '/chat'}>
                 <Button className="w-full mt-4" variant={pkg.popular ? "default" : "outline"}>
                   {pkg.cta || 'Book Now'}
                   <ArrowRight className="h-4 w-4 ml-2" />
@@ -683,7 +683,7 @@ export function PricingTable2({
                     );
                   })}
                 </ul>
-                <Link href={pkg.ctaLink || 'https://premierpartycruises.com/book-online-popup'}>
+                <Link href={pkg.ctaLink || '/chat'}>
                   <Button className="w-full mt-4" variant={pkg.popular ? 'default' : 'outline'}>
                     {pkg.cta || 'Book Now'}
                   </Button>

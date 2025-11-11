@@ -193,7 +193,7 @@ export default function CompanyMilestone() {
   };
 
   const handleBookNow = () => {
-    window.location.href = 'https://premierpartycruises.com/book-online-popup';
+    navigate('/chat');
   };
 
   return (

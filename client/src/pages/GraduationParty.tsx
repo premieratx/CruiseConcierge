@@ -242,7 +242,7 @@ export default function GraduationParty() {
   };
 
   const handleBookNow = () => {
-    window.location.href = 'https://premierpartycruises.com/book-online-popup';
+    navigate('/chat');
   };
 
   return (

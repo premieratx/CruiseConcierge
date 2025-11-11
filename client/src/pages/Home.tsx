@@ -527,8 +527,8 @@ export default function Home() {
     
     setShowLightbox(false);
     
-    // Navigate to book online popup page
-    window.location.href = 'https://premierpartycruises.com/book-online-popup';
+    // Navigate to chat page
+    navigate('/chat');
   };
 
   return (

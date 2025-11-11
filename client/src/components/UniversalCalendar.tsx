@@ -265,7 +265,7 @@ export default function UniversalCalendar({
         selectedSlot: `${slot.startTime}-${slot.endTime}`
       });
 
-      window.location.href = 'https://premierpartycruises.com/book-online-popup';
+      navigate('/chat');
       setShowSlotPopup(false);
       
       toast({

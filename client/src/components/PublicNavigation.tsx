@@ -227,19 +227,84 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
     }
   }, [location]);
 
+  // NUCLEAR OPTION: Runtime CSS injection to override WordPress theme styles
+  // This loads AFTER WordPress CSS and uses ultra-specific selectors
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    
+    const styleId = 'ppc-nav-nuclear-override';
+    
+    // Check if already injected
+    if (document.getElementById(styleId)) return;
+    
+    const style = document.createElement('style');
+    style.id = styleId;
+    style.textContent = `
+      /* NUCLEAR OVERRIDE: Ultra-specific selectors to beat WordPress theme CSS */
+      /* Sticky positioning - must stay fixed on scroll */
+      body header.ppc-public-nav,
+      html body header.ppc-public-nav {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        z-index: 9999 !important;
+      }
+      
+      /* Desktop navigation centering - only at desktop breakpoint */
+      @media (min-width: 1024px) {
+        body .ppc-public-nav-center,
+        html body .ppc-public-nav-center,
+        body header.ppc-public-nav .ppc-public-nav-center {
+          display: flex !important;
+          flex: 1 1 0% !important;
+          justify-content: center !important;
+          align-items: center !important;
+        }
+        
+        body .ppc-public-nav-center > nav,
+        html body .ppc-public-nav-center > nav {
+          display: flex !important;
+          justify-content: center !important;
+        }
+        
+        body .ppc-public-nav-center > nav > ul,
+        html body .ppc-public-nav-center > nav > ul {
+          display: flex !important;
+          list-style: none !important;
+          margin: 0 !important;
+          padding: 0 !important;
+          justify-content: center !important;
+          align-items: center !important;
+        }
+        
+        /* Force CTA buttons to stay on right */
+        body .ppc-public-nav-cta,
+        html body .ppc-public-nav-cta {
+          display: flex !important;
+          align-items: center !important;
+          gap: 0.5rem !important;
+          flex-shrink: 0 !important;
+        }
+      }
+    `;
+    
+    document.head.appendChild(style);
+  }, []);
+
   const handleGetQuote = () => {
     // Always route to /chat using wouter navigation
     navigate('/chat');
   };
 
   const handleBookNow = () => {
-    // Navigate to book online popup page
-    window.location.href = 'https://premierpartycruises.com/book-online-popup';
+    // Navigate to /chat for booking
+    navigate('/chat');
   };
 
   return (
     <>
-      {/* Sticky Header - Production-Safe with Namespaced CSS */}
+      {/* Sticky Header - Production-Safe with Namespaced CSS + Inline Styles */}
       <header 
         className={cn(
           "ppc-public-nav transition-all duration-300 overflow-visible",
@@ -247,6 +312,13 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
             ? "bg-white/95 dark:bg-gray-950/95 backdrop-blur-lg shadow-lg border-b border-gray-200 dark:border-gray-800" 
             : "bg-white/90 dark:bg-gray-950/90 backdrop-blur-sm"
         )}
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          zIndex: 9999
+        }}
       >
         <div className="ppc-public-nav-container overflow-visible">
           <div className="ppc-public-nav-flex overflow-visible">
@@ -301,8 +373,16 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
               </button>
             </div>
 
-            {/* Desktop Navigation - Centered with Production-Safe Class */}
-            <div className="ppc-public-nav-center hidden lg:flex overflow-visible">
+            {/* Desktop Navigation - Centered with Production-Safe Class + Inline Styles */}
+            <div 
+              className="ppc-public-nav-center hidden lg:flex overflow-visible"
+              style={{
+                display: 'flex',
+                flex: '1 1 0%',
+                justifyContent: 'center',
+                alignItems: 'center'
+              }}
+            >
               <NavigationMenu className="overflow-visible">
                 <NavigationMenuList className="flex items-center space-x-0 overflow-visible">
                 {navigationItems.map((item) => (
