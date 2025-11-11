@@ -13,7 +13,7 @@ import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import { 
   Anchor, Ship, Users, Calendar, Music, Camera, Sparkles, 
   Sun, Wine, MapPin, Star, Heart, Crown, PartyPopper,
-  Utensils, Clock, Trophy, Gem, CheckCircle2, Plane, Building2
+  Utensils, Clock, Trophy, Gem, CheckCircle2, Plane, Building2, Phone
 } from 'lucide-react';
 import { Link } from 'wouter';
 
