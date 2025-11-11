@@ -175,11 +175,11 @@ export default function BirthdayParties() {
   const [showQuoteBuilder, setShowQuoteBuilder] = useState(false);
 
   const handleGetQuote = () => {
-    navigate('/chat?eventType=birthday');
+    window.location.href = 'https://premierpartycruises.com/book-online-popup';
   };
 
   const handleBookNow = () => {
-    navigate('/chat?eventType=birthday');
+    window.location.href = 'https://premierpartycruises.com/book-online-popup';
   };
 
   return (

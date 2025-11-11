@@ -401,11 +401,11 @@ export default function CorporateEvents() {
   }, [navigate, toast]);
 
   const handleGetQuote = () => {
-    navigate('/chat?eventType=corporate');
+    window.location.href = 'https://premierpartycruises.com/book-online-popup';
   };
 
   const handleBookNow = () => {
-    navigate('/chat?eventType=corporate');
+    window.location.href = 'https://premierpartycruises.com/book-online-popup';
   };
 
   return (
@@ -466,7 +466,7 @@ export default function CorporateEvents() {
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
-              onClick={() => navigate('/chat?eventType=corporate')}
+              onClick={() => window.location.href = 'https://premierpartycruises.com/book-online-popup'}
               size="lg"
               variant="outline"
               className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white font-bold px-8 py-6 text-lg"

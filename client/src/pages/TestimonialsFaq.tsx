@@ -214,7 +214,7 @@ export default function TestimonialsFaq() {
     setIsVideoModalOpen(true);
   };
 
-  const handleBookNow = () => navigate('/chat');
+  const handleBookNow = () => window.location.href = 'https://premierpartycruises.com/book-online-popup';
   const handleGetQuote = () => navigate('/contact');
 
   // Filter FAQs

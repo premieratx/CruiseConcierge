@@ -527,28 +527,8 @@ export default function Home() {
     
     setShowLightbox(false);
     
-    // Handle specific service booking - Route to /chat for all bookings
-    switch(selectedService.id) {
-      case 'private':
-        navigate('/chat?eventType=private&groupSize=25');
-        break;
-      case 'disco':
-        navigate('/chat?eventType=disco&groupSize=20');
-        break;
-      case 'bachelor':
-        navigate('/chat?eventType=disco&groupSize=15');
-        break;
-      case 'corporate':
-        navigate('/chat?eventType=private&groupSize=30');
-        break;
-      default:
-        navigate('/chat?type=general');
-    }
-    
-    toast({
-      title: "Redirecting to Chat",
-      description: `Let's book your ${selectedService.title.toLowerCase()}!`,
-    });
+    // Navigate to book online popup page
+    window.location.href = 'https://premierpartycruises.com/book-online-popup';
   };
 
   return (

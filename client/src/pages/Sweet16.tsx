@@ -235,7 +235,7 @@ export default function Sweet16() {
   };
 
   const handleBookNow = () => {
-    navigate('/chat?eventType=sweet-16&action=book');
+    window.location.href = 'https://premierpartycruises.com/book-online-popup';
   };
 
   return (

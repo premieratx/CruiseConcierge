@@ -247,7 +247,7 @@ export default function MilestoneBirthday() {
   };
 
   const handleBookNow = () => {
-    navigate('/chat?eventType=milestone-birthday&action=book');
+    window.location.href = 'https://premierpartycruises.com/book-online-popup';
   };
 
   return (

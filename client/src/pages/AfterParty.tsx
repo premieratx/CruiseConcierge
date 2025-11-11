@@ -187,7 +187,7 @@ export default function AfterParty() {
   };
 
   const handleBookNow = () => {
-    navigate('/chat?eventType=after-party&action=book');
+    window.location.href = 'https://premierpartycruises.com/book-online-popup';
   };
 
   return (

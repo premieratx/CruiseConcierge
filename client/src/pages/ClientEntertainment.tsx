@@ -187,7 +187,7 @@ export default function ClientEntertainment() {
   };
 
   const handleBookNow = () => {
-    navigate('/chat?eventType=client-entertainment&action=book');
+    window.location.href = 'https://premierpartycruises.com/book-online-popup';
   };
 
   return (

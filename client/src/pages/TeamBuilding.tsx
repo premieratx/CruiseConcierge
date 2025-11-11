@@ -192,7 +192,7 @@ export default function TeamBuilding() {
   };
 
   const handleBookNow = () => {
-    navigate('/chat?eventType=team-building&action=book');
+    window.location.href = 'https://premierpartycruises.com/book-online-popup';
   };
 
   return (

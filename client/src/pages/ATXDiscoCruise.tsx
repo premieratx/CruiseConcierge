@@ -316,11 +316,11 @@ export default function ATXDiscoCruise() {
   }, [reducedMotion, heroImages.length]);
 
   const handleBookNow = () => {
-    navigate('/chat?service=atx-disco-cruise');
+    window.location.href = 'https://premierpartycruises.com/book-online-popup';
   };
 
   const handleGetQuote = () => {
-    navigate('/chat?service=atx-disco-cruise');
+    window.location.href = 'https://premierpartycruises.com/book-online-popup';
   };
 
   return (

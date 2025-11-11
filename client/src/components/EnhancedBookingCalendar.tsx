@@ -385,7 +385,7 @@ export function EnhancedBookingCalendar({
     });
 
     // Navigate to UniversalCheckout with pre-filled selections
-    navigate(`/checkout?${params.toString()}`);
+    window.location.href = 'https://premierpartycruises.com/book-online-popup';
     setShowSlotPopup(false);
     
     toast({

@@ -232,8 +232,8 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
   };
 
   const handleBookNow = () => {
-    // Always route to /chat using wouter navigation
-    navigate('/chat');
+    // Navigate to book online popup page
+    window.location.href = 'https://premierpartycruises.com/book-online-popup';
   };
 
   return (

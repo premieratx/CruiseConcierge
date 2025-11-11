@@ -258,7 +258,7 @@ export default function WelcomeParty() {
   };
 
   const handleBookNow = () => {
-    navigate('/chat?eventType=welcome-party&action=book');
+    window.location.href = 'https://premierpartycruises.com/book-online-popup';
   };
 
   return (

@@ -187,7 +187,7 @@ export default function CompanyMilestone() {
   };
 
   const handleBookNow = () => {
-    navigate('/chat?eventType=company-milestone&action=book');
+    window.location.href = 'https://premierpartycruises.com/book-online-popup';
   };
 
   return (

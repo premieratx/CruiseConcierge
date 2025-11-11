@@ -223,7 +223,7 @@ export default function RehearsalDinner() {
   };
 
   const handleBookNow = () => {
-    navigate('/chat?eventType=rehearsal-dinner&action=book');
+    window.location.href = 'https://premierpartycruises.com/book-online-popup';
   };
 
   return (

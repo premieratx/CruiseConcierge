@@ -238,7 +238,7 @@ export default function GraduationParty() {
   };
 
   const handleBookNow = () => {
-    navigate('/chat?eventType=graduation-party&action=book');
+    window.location.href = 'https://premierpartycruises.com/book-online-popup';
   };
 
   return (
