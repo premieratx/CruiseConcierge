@@ -213,7 +213,7 @@ export default function Top10AustinBacheloretteIdeas() {
               </p>
 
               <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
-                For the ultimate <strong>bachelorette party lake travis</strong> experience, book the famous <Link href="/atx-disco-cruise" className="text-pink-600 hover:text-pink-700 font-semibold">ATX Disco Cruise</Link> from <Link href="/" className="text-pink-600 hover:text-pink-700 font-semibold">Premier Party Cruises</Link>. This is Austin's #1 party boat experience, specifically designed for bachelor and bachelorette groups planning an epic <strong>austin bachelorette party</strong>. You'll join other fun-loving crews on a massive double-decker barge complete with a professional DJ, disco dance floor, giant floats, and even an onboard photographer capturing all your <strong>austin bachelorette</strong> shenanigans!
+                For the ultimate <strong>bachelorette party lake travis</strong> experience, book the famous <Link href="/atx-disco-cruise" className="text-pink-600 hover:text-pink-700 font-semibold">ATX Disco Cruise</Link> from <Link href="/" className="text-pink-600 hover:text-pink-700 font-semibold">Premier Party Cruises</Link>. This is Austin's #1 party boat experience, specifically designed for bachelor and bachelorette groups planning an epic <strong>austin bachelorette party</strong>. You'll join other fun-loving crews on a floating party venue complete with a professional DJ, disco dance floor, giant floats, and even an onboard photographer capturing all your <strong>austin bachelorette</strong> shenanigans!
               </p>
 
               <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-6">

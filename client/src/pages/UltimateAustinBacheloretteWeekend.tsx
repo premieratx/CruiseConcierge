@@ -254,7 +254,7 @@ export default function UltimateAustinBacheloretteWeekend() {
               </p>
               
               <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                When planning your <strong>bachelorette party in austin</strong>, the <Link href="/atx-disco-cruise" className="text-pink-600 hover:text-pink-700 font-semibold">ATX Disco Cruise</Link> should be at the top of your list. This is Austin's #1 party boat experience, specifically designed for <strong>austin bachelorette party</strong> groups. Imagine your squad aboard a double-decker floating playground on beautiful Lake Travis, with blue waters and Texas Hill Country scenery all around.
+                When planning your <strong>bachelorette party in austin</strong>, the <Link href="/atx-disco-cruise" className="text-pink-600 hover:text-pink-700 font-semibold">ATX Disco Cruise</Link> should be at the top of your list. This is Austin's #1 party boat experience, specifically designed for <strong>austin bachelorette party</strong> groups. Imagine your squad aboard a single-deck floating party boat on beautiful Lake Travis, with blue waters and Texas Hill Country scenery all around.
               </p>
 
               <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
