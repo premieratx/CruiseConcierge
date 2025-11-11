@@ -248,22 +248,24 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
         )}
       >
         <div className="container mx-auto px-3 md:px-4 lg:px-6 overflow-visible">
-          <div className="flex items-center justify-between h-16 lg:h-20 overflow-visible">
+          <div className="flex items-center h-16 lg:h-20 overflow-visible">
             {/* Logo */}
-            <a 
-              href="/"
-              className="flex items-center group"
-              data-testid="link-home-logo"
-            >
-              <img 
-                src={logoPath} 
-                alt="Premier Party Cruises" 
-                className="h-12 lg:h-14 w-auto transition-transform duration-300 group-hover:scale-105"
-              />
-            </a>
+            <div className="flex-shrink-0">
+              <a 
+                href="/"
+                className="flex items-center group"
+                data-testid="link-home-logo"
+              >
+                <img 
+                  src={logoPath} 
+                  alt="Premier Party Cruises" 
+                  className="h-12 lg:h-14 w-auto transition-transform duration-300 group-hover:scale-105"
+                />
+              </a>
+            </div>
 
             {/* Mobile CTA Buttons + Hamburger Menu */}
-            <div className="lg:hidden flex items-center gap-1.5">
+            <div className="lg:hidden flex items-center gap-1.5 ml-auto">
               {/* Mobile Get Quote Button */}
               <Button
                 variant="outline"
@@ -298,9 +300,10 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
               </button>
             </div>
 
-            {/* Desktop Navigation */}
-            <NavigationMenu className="hidden lg:block overflow-visible">
-              <NavigationMenuList className="flex items-center space-x-0 overflow-visible">
+            {/* Desktop Navigation - Centered */}
+            <div className="hidden lg:flex flex-1 justify-center overflow-visible">
+              <NavigationMenu className="overflow-visible">
+                <NavigationMenuList className="flex items-center space-x-0 overflow-visible">
                 {navigationItems.map((item) => (
                   item.hasDropdown ? (
                     <NavigationMenuItem key={item.href}>
@@ -391,11 +394,12 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
                     </NavigationMenuItem>
                   )
                 ))}
-              </NavigationMenuList>
-            </NavigationMenu>
+                </NavigationMenuList>
+              </NavigationMenu>
+            </div>
 
             {/* Desktop CTA Buttons */}
-            <div className="hidden lg:flex items-center space-x-2">
+            <div className="hidden lg:flex items-center space-x-2 flex-shrink-0">
               <Button
                 variant="outline"
                 onClick={handleGetQuote}
