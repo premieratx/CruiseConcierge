@@ -373,16 +373,8 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
               </button>
             </div>
 
-            {/* Desktop Navigation - Centered with Production-Safe Class + Inline Styles */}
-            <div 
-              className="ppc-public-nav-center hidden lg:flex overflow-visible"
-              style={{
-                display: 'flex',
-                flex: '1 1 0%',
-                justifyContent: 'center',
-                alignItems: 'center'
-              }}
-            >
+            {/* Desktop Navigation - Centered with Production-Safe Class */}
+            <div className="ppc-public-nav-center hidden lg:flex overflow-visible">
               <NavigationMenu className="overflow-visible">
                 <NavigationMenuList className="flex items-center space-x-0 overflow-visible">
                 {navigationItems.map((item) => (
