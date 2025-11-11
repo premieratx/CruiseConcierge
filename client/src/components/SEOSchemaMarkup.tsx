@@ -333,7 +333,9 @@ export function generateServiceSchema(options: {
     "aggregateRating": options.aggregateRating ? {
       "@type": "AggregateRating",
       "ratingValue": options.aggregateRating.ratingValue,
-      "reviewCount": options.aggregateRating.reviewCount
+      "reviewCount": options.aggregateRating.reviewCount,
+      "bestRating": "5",
+      "worstRating": "1"
     } : undefined
   };
 }

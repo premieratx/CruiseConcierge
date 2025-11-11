@@ -2581,7 +2581,9 @@ export default function Home() {
           "aggregateRating": {
             "@type": "AggregateRating",
             "ratingValue": "5",
-            "reviewCount": "420"
+            "reviewCount": "420",
+            "bestRating": "5",
+            "worstRating": "1"
           },
           "hasOfferCatalog": {
             "@type": "OfferCatalog",
@@ -2737,7 +2739,9 @@ export default function Home() {
               "aggregateRating": {
                 "@type": "AggregateRating",
                 "ratingValue": "4.9",
-                "ratingCount": "420"
+                "reviewCount": "420",
+                "bestRating": "5",
+                "worstRating": "1"
               }
             }}
           />

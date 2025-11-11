@@ -257,7 +257,9 @@ export default function TestimonialsFaq() {
     "aggregateRating": {
       "@type": "AggregateRating",
       "ratingValue": "4.9",
-      "reviewCount": "150000"
+      "reviewCount": "150000",
+      "bestRating": "5",
+      "worstRating": "1"
     }
   };
 
