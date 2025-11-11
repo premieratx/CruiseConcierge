@@ -133,13 +133,15 @@ export const CRUISE_TYPES = {
 } as const;
 
 /**
- * Disco package labels and configurations
+ * Disco party types for add-on filtering
  */
-export const DISCO_PACKAGES = {
-  basic: { label: 'Basic', description: 'Essential disco experience' },
-  disco_queen: { label: 'Disco Queen', description: 'VIP disco experience' },
-  platinum: { label: 'Super Sparkle Platinum Disco', description: 'Ultimate disco experience' },
+export const DISCO_PARTY_TYPES = {
+  bachelor: 'bachelor',
+  bachelorette: 'bachelorette',
+  combined: 'combined',
 } as const;
+
+export type DiscoPartyType = typeof DISCO_PARTY_TYPES[keyof typeof DISCO_PARTY_TYPES];
 
 /**
  * Boat configuration labels
@@ -785,12 +787,183 @@ export const CRUISE_DURATIONS = {
 } as const;
 
 /**
- * Disco cruise pricing per person (in cents)
+ * ATX Disco Cruise Time Slot Pricing
+ * Per-person base pricing + optional party-type specific add-ons
+ * Season: March through October
+ */
+export const DISCO_TIME_SLOTS = [
+  {
+    id: 'friday-12-4pm',
+    label: 'Friday 12-4pm',
+    day: 'Friday',
+    timeRange: '12-4pm',
+    basePrice: 9500, // $95.00 per person
+    priceWithTax: 12488, // $124.88 w/tax & gratuity
+    badge: null,
+  },
+  {
+    id: 'saturday-11am-3pm',
+    label: 'Saturday 11am-3pm',
+    day: 'Saturday',
+    timeRange: '11am-3pm',
+    basePrice: 10500, // $105.00 per person
+    priceWithTax: 13781, // $137.81 w/tax & gratuity
+    badge: 'BEST',
+  },
+  {
+    id: 'saturday-330-730pm',
+    label: 'Saturday 3:30-7:30pm',
+    day: 'Saturday',
+    timeRange: '3:30-7:30pm',
+    basePrice: 8500, // $85.00 per person
+    priceWithTax: 11156, // $111.56 w/tax & gratuity
+    badge: 'FUN!',
+  },
+] as const;
+
+/**
+ * What's Included in EVERY ATX Disco Cruise Ticket
+ * Common inclusions across all time slots and party types
+ */
+export const DISCO_BASE_INCLUSIONS = [
+  'Party w/the BIGGEST Unicorn Float in the ENTIRE COUNTRY!',
+  'Amazing DJ to keep the party bumpin\' from start to finish!',
+  '3 Giant 6\'x20\' Lily Pad Floats',
+  'Private Bin for All Your Group\'s Belongings!',
+  'Ice Water Stations, Solo Cups, Koozies, Bubble Wands, & Name Tags!',
+  'Souvenir "ATX Disco Cruise" koozies - 1st release in 2026!',
+  'Professional photographer to capture the moment and send photos after the cruise!',
+  'Private Cooler w/30lbs of Ice for Your Group!',
+] as const;
+
+/**
+ * Party-Type Specific Necklace Inclusion
+ * Varies based on whether it's bachelor, bachelorette, or combined party
+ */
+export const DISCO_NECKLACE_TEXT = {
+  bachelor: 'Disco Ball Necklace for the Groom!',
+  bachelorette: 'Disco Ball Necklace for the Bride!',
+  combined: 'Disco Ball Necklaces for the Bride & Groom!',
+} as const;
+
+/**
+ * ATX Disco Cruise Add-On Packages by Party Type
+ * Each party type has specific add-ons available
+ */
+export const DISCO_ADD_ONS = {
+  bachelor: [
+    {
+      id: 'mimosa-cooler-bachelor',
+      name: 'Mimosa Party Cooler',
+      price: 10000, // $100
+      inclusions: [
+        'Extra cooler w/ice',
+        '3 fruit juices',
+        'Champagne flutes',
+        'Chambong',
+        '3 bubble wands',
+      ],
+    },
+    {
+      id: 'groom-manly-sparkle',
+      name: 'Groom Manly Sparkle Package',
+      price: 10000, // $100
+      inclusions: [
+        'Disco ball cup for the groom (might I suggest rainbow!)',
+        'Disco ball necklaces for the whole crew',
+        '"Bad Day to Be a Beer" flag',
+        'SPF-50 Spray Sunscreen (1 bottle per 5 people)',
+        'PERSONAL Unicorn float for the groom!',
+        'No, you can\'t choose a different float - deal with it bro',
+      ],
+    },
+  ],
+  bachelorette: [
+    {
+      id: 'mimosa-cooler-bachelorette',
+      name: 'Mimosa Party Cooler',
+      price: 10000, // $100
+      inclusions: [
+        'Extra cooler w/ice',
+        '3 fruit juices',
+        'Champagne flutes',
+        'Chambong',
+        '3 bubble wands',
+      ],
+    },
+    {
+      id: 'bride-sparkle',
+      name: 'Bride Sparkle Package',
+      price: 10000, // $100
+      inclusions: [
+        'Disco ball cup for bride!',
+        'Bubble gun for the bride!',
+        'Disco bopper headband for the bride!',
+        'PERSONAL Unicorn float for the bride!',
+        'SPF-50 Spray Sunscreen (1 bottle per 5 people)',
+        'Disco ball necklaces for the whole group',
+      ],
+    },
+  ],
+  combined: [
+    {
+      id: 'mimosa-cooler-combined',
+      name: 'Mimosa Party Cooler',
+      price: 10000, // $100
+      inclusions: [
+        'Extra cooler w/ice',
+        '3 fruit juices',
+        'Champagne flutes',
+        'Chambong',
+        '3 bubble wands',
+      ],
+    },
+    {
+      id: 'sparkle-together',
+      name: 'Sparkle Together Package',
+      price: 15000, // $150
+      inclusions: [
+        'Disco ball cup for the Bride AND Groom',
+        'Disco ball necklaces for the whole crew',
+        '"Bad Day to Be a Beer" flag',
+        'SPF-50 Spray Sunscreen (1 bottle per 5 people)',
+        'PERSONAL Unicorn floats for the bride AND groom!',
+        '(2) Bubble guns for the Bride & Groom!',
+        'Disco bopper headband for the bride!',
+      ],
+    },
+  ],
+} as const;
+
+/**
+ * Helper function to get disco time slots
+ */
+export function getDiscoTimeSlots() {
+  return DISCO_TIME_SLOTS;
+}
+
+/**
+ * Helper function to get party-specific add-ons
+ */
+export function getPartyAddOns(partyType: DiscoPartyType) {
+  return DISCO_ADD_ONS[partyType] || [];
+}
+
+/**
+ * Helper function to get party-specific necklace text
+ */
+export function getDiscoNecklaceText(partyType: DiscoPartyType) {
+  return DISCO_NECKLACE_TEXT[partyType] || DISCO_NECKLACE_TEXT.bachelorette;
+}
+
+/**
+ * DEPRECATED - Legacy disco pricing for backward compatibility
+ * Use DISCO_TIME_SLOTS instead
  */
 export const DISCO_PRICING = {
-  basic: 8500,       // $85.00 per person
-  disco_queen: 9500, // $95.00 per person
-  platinum: 10500,   // $105.00 per person
+  basic: 8500,       // DEPRECATED - Use DISCO_TIME_SLOTS
+  disco_queen: 9500, // DEPRECATED - Use DISCO_TIME_SLOTS
+  platinum: 10500,   // DEPRECATED - Use DISCO_TIME_SLOTS
 } as const;
 
 /**
