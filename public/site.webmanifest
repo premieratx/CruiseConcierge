@@ -1,0 +1,22 @@
+{
+  "name": "Premier Party Cruises",
+  "short_name": "PPC Austin",
+  "description": "Austin's premier boat rental and party cruise experience on Lake Travis",
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#00d4ff",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "start_url": "/",
+  "scope": "/"
+}

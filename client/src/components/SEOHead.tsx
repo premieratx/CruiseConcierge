@@ -91,6 +91,14 @@ export default function SEOHead({
       <meta name="robots" content={robots} />
       <link rel="canonical" href={canonical} />
       
+      {/* Favicon - All Browsers and Devices */}
+      <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
+      <link rel="icon" type="image/png" sizes="16x16" href="/favicon.png" />
+      <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+      <link rel="manifest" href="/site.webmanifest" />
+      <meta name="msapplication-TileColor" content="#00d4ff" />
+      <meta name="msapplication-TileImage" content="/favicon.png" />
+      
       {/* Resource Hints for Performance */}
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
