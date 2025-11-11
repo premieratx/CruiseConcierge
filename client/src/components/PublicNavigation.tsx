@@ -22,6 +22,7 @@ import {
   CollapsibleTrigger,
 } from '@/components/ui/collapsible';
 import { cn } from '@/lib/utils';
+import './PublicNavigation.css';
 // Fix for SSR: Use path string instead of import for logo
 const logoPath = '/attached_assets/PPC-Logo-48x48.webp';
 import { 
@@ -238,17 +239,17 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
 
   return (
     <>
-      {/* Sticky Header */}
+      {/* Sticky Header - Production-Safe with Namespaced CSS */}
       <header 
         className={cn(
-          "fixed top-0 left-0 right-0 z-50 transition-all duration-300 overflow-visible",
+          "ppc-public-nav transition-all duration-300 overflow-visible",
           isScrolled 
             ? "bg-white/95 dark:bg-gray-950/95 backdrop-blur-lg shadow-lg border-b border-gray-200 dark:border-gray-800" 
             : "bg-white/90 dark:bg-gray-950/90 backdrop-blur-sm"
         )}
       >
-        <div className="container mx-auto px-3 md:px-4 lg:px-6 overflow-visible">
-          <div className="flex items-center h-16 lg:h-20 overflow-visible">
+        <div className="ppc-public-nav-container overflow-visible">
+          <div className="ppc-public-nav-flex overflow-visible">
             {/* Logo */}
             <div className="flex-shrink-0">
               <a 
@@ -300,8 +301,8 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
               </button>
             </div>
 
-            {/* Desktop Navigation - Centered */}
-            <div className="hidden lg:flex flex-1 justify-center overflow-visible">
+            {/* Desktop Navigation - Centered with Production-Safe Class */}
+            <div className="ppc-public-nav-center hidden lg:flex overflow-visible">
               <NavigationMenu className="overflow-visible">
                 <NavigationMenuList className="flex items-center space-x-0 overflow-visible">
                 {navigationItems.map((item) => (
@@ -398,8 +399,8 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
               </NavigationMenu>
             </div>
 
-            {/* Desktop CTA Buttons */}
-            <div className="hidden lg:flex items-center space-x-2 flex-shrink-0">
+            {/* Desktop CTA Buttons - Production-Safe Class */}
+            <div className="ppc-public-nav-cta hidden lg:flex">
               <Button
                 variant="outline"
                 onClick={handleGetQuote}
@@ -426,7 +427,7 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
       </header>
 
       {/* Spacer to prevent content from hiding behind fixed header */}
-      <div className="h-16 lg:h-20" />
+      <div className="ppc-nav-spacer" />
 
       {/* Mobile Bottom Navigation Bar */}
       <nav 
