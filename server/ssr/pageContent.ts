@@ -1251,7 +1251,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Planning Your Birthday Cruise',
         paragraphs: [
           'Birthday cruises typically run 3-4 hours. Popular times are afternoon (2pm-5pm) for kids, or evening (6pm-9pm) for adults. Sunset cruises especially popular for milestone birthdays.',
-          'Pricing starts at $195/hour for intimate gatherings (14 guests) up to $495/hour for big celebrations (50+ guests). Add Ultimate package for full party experience with floats, DJ, and all the fun.',
+          'Birthday party packages start at $1,050 for a 4-hour cruise (14 guests), $1,181 with our Birthday Bash package, or $1,413 for the VIP Birthday Experience. Larger boats available for bigger celebrations up to 75 guests.',
           'Book 4-6 weeks in advance for weekend dates. We\'ll coordinate all details including catering, decorations, and special birthday surprises. Just show up and celebrate!'
         ]
       }

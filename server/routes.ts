@@ -771,6 +771,11 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
     }
   };
   
+  // Redirect birthday blog post to React page (must be BEFORE generic blog SSR handler)
+  app.get('/blog/birthday-party-boat-rentals-on-lake-travis-milestone-celebrations-with-a-view', (req, res) => {
+    res.redirect(301, '/birthday-parties');
+  });
+  
   // Register the same SSR handler for BOTH URL formats
   app.get('/blog/:slug', blogSSRHandler);
   app.get('/blogs/:slug', blogSSRHandler);
@@ -794,11 +799,6 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
   
   app.get('/about', (req, res) => {
     res.redirect(301, '/');
-  });
-  
-  // Redirect birthday blog post to React page
-  app.get('/blog/birthday-party-boat-rentals-on-lake-travis-milestone-celebrations-with-a-view', (req, res) => {
-    res.redirect(301, '/birthday-parties');
   });
   
   // ==========================================
