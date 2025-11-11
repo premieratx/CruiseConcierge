@@ -2966,5 +2966,182 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       'first-time-lake-travis-boat-rental-guide', 'budget-austin-bachelorette', 'luxury-austin-bachelorette',
       'corporate-events', 'wedding-party', 'birthday-party', 'faq', 'contact', 'home'
     ]
+  },
+  '/combined-bachelor-bachelorette-austin': {
+    h1: 'Combined Bachelor Bachelorette Parties Lake Travis | Austin',
+    introduction: 'Celebrate together with [[combined-bach]] on Lake Travis! The modern way to party - guys and girls together for one epic celebration. Choose from [[atx-disco]] ($85-105/person) or [[private-cruises]] for larger groups. Austin\'s only combined bach party boat experience with DJ, photographer, and all-inclusive packages.',
+    sections: [
+      {
+        heading: 'Why Combined Bachelor Bachelorette Parties Are Trending',
+        paragraphs: [
+          'More couples are choosing combined celebrations - and for good reason. Save time, save money, and bring everyone together for one unforgettable party! Combined bach parties are the modern trend because they create incredible energy with all your friends celebrating together.',
+          'One party is always cheaper than two separate events. Friends from both sides bond before the wedding - no one misses out. Combined groups create an unmatched party atmosphere with more people, more energy, and more fun!',
+          'Perfect for couples who want to celebrate with all their friends, save on costs, and create shared memories. Lake Travis provides the perfect setting with beautiful scenery, amazing weather, and party boat options for any group size.'
+        ]
+      },
+      {
+        heading: 'Combined Party Package Options',
+        paragraphs: [
+          'Choose from three packages designed specifically for combined celebrations:'
+        ],
+        lists: [
+          {
+            title: 'Basic Combined Package - $85/person',
+            items: [
+              'Join the ultimate party cruise with friends from both sides',
+              'BYOB with shared cooler and ice for everyone',
+              'Alcohol delivery available directly to the boat',
+              'Always more affordable than separate parties',
+              'Perfect for budget-conscious groups celebrating together'
+            ]
+          },
+          {
+            title: 'Party Squad Package - $95/person (Most Popular)',
+            items: [
+              'Private cooler with ice and storage for your entire group',
+              'Reserved spot for your combined party crew',
+              'Special celebration items for the happy couple',
+              'Complimentary direct-to-boat alcohol delivery',
+              '25% discount on round-trip transportation',
+              '$50-100 voucher for Airbnb delivery services'
+            ]
+          },
+          {
+            title: 'Ultimate Celebration Package - $105/person',
+            items: [
+              'Everything in the Party Squad Package',
+              'Premium party floats for the entire group',
+              'Mixology setup with champagne, juices, and party supplies',
+              '$100 voucher for Airbnb concierge services',
+              'Towel service and SPF-50 spray sunscreen for everyone',
+              'Completely turnkey - cooler stocked, everything ready to party!'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'What\'s Included in Every Combined Party',
+        paragraphs: [
+          'From professional DJ to photographer, giant floats to party supplies - we\'ve got everything covered for your combined celebration:'
+        ],
+        lists: [
+          {
+            items: [
+              'Professional DJ playing music everyone loves - guys and girls both enjoy the vibe',
+              'Professional photographer capturing epic group photos with all your friends',
+              'Private group cooler dedicated for your combined crew, fully iced',
+              'Party supplies including mixers, cups, ice for both guys and girls',
+              'Multiple giant party floats everyone can enjoy on the water',
+              'Celebration essentials - cups, koozies, party supplies for the entire crew',
+              'Ice water stations to keep everyone hydrated throughout the party',
+              'Clean restroom facilities on board for everyone',
+              'Shaded areas with plenty of covered space to escape the sun'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Disco Cruise vs Private Boat for Combined Parties',
+        paragraphs: [
+          'Under 30 people total? The [[atx-disco]] is your best bet at $85-105 per person. Professional DJ, photographer, and multi-group party atmosphere creates incredible energy. Most combined bach parties choose Disco Cruise for the value and built-in entertainment.',
+          'Over 30 people or want complete privacy? Choose [[private-cruises]] starting at $200/hour (4-hour minimum). Boats accommodate 14-75 guests with complete customization. Perfect for larger combined celebrations or groups wanting exclusive boat experience.',
+          'We\'ll help you choose the perfect option based on group size, budget, and preferences. Both options deliver unforgettable combined bachelor bachelorette experiences on beautiful Lake Travis!'
+        ]
+      },
+      {
+        heading: 'Benefits of Combined Celebrations',
+        paragraphs: [
+          'Save money with one party instead of two separate events. Everyone together means no one misses out on the celebration. Combined groups create unmatched party energy and atmosphere.',
+          'Friends from both sides bond before the wedding. Shared memories and stories that last a lifetime. Easier planning with one date, one location, one celebration to coordinate.',
+          'Perfect for modern couples who want to celebrate together, maximize fun, and create inclusive celebration where all friends party together!'
+        ]
+      },
+      {
+        heading: 'Planning Your Combined Party',
+        paragraphs: [
+          'Book 6-8 weeks in advance - combined parties are trending and weekends fill quickly! All cruises are BYOB (bring your own beverages). Party On Delivery can coordinate convenient alcohol delivery at retail prices with 100% buyback on unopened bottles.',
+          'The marina is 30 minutes from downtown Austin with ample free parking. Party Squad and Ultimate packages include 25% transportation discount. Most combined parties run 4 hours with 11am-3pm being the most popular time slot.',
+          'Questions about group size, package selection, or customization? Our team specializes in combined bachelor bachelorette parties and will help you plan the perfect celebration for your crew!'
+        ]
+      },
+      {
+        heading: 'Frequently Asked Questions',
+        paragraphs: [
+          'What is a combined bach party? Both bachelor and bachelorette parties celebrate together on the same boat. Saves time and money, and everyone bonds before the wedding.',
+          'How many people can you fit? Disco cruise handles 20-40+ people comfortably. Private boats accommodate up to 75 guests for larger combined celebrations.',
+          'Disco cruise or private boat - which is better? Under 30 people total, disco cruise is the best value. Over 30 or want complete privacy, choose private boat. We\'ll help you decide!',
+          'Can we split payments? Yes - split payment options available at checkout. Perfect for groups where different people are paying.',
+          'What if guys and girls want different things? Plenty of zones on the boat: party floats, DJ dance area, lounge sections. BYOB keeps beverage preferences flexible for everyone.',
+          'What are the best activities for mixed groups? DJ dance floor, giant party floats, swimming - universal fun everyone enjoys together!',
+          'How far in advance should we book? Book 6-8 weeks early, especially for weekend dates. Combined parties are trending and popular time slots fill quickly.'
+        ]
+      }
+    ],
+    relatedPages: [
+      'bachelor-party', 'bachelorette-party', 'atx-disco', 'private-cruises',
+      'wedding-party', 'corporate-events', 'birthday-party', 'testimonials',
+      'ultimate-austin-bachelorette-weekend', 'top-10-austin-bachelorette-ideas',
+      'faq', 'contact', 'home'
+    ]
+  },
+  '/ai-endorsement': {
+    h1: 'AI-Powered Boat Rental Experience | Premier Party Cruises',
+    introduction: 'Premier Party Cruises leverages cutting-edge AI technology to enhance your booking experience. From intelligent chatbot assistance to personalized event planning, our AI-powered platform makes booking [[private-cruises]] and [[atx-disco]] packages faster, easier, and more customized to your needs.',
+    sections: [
+      {
+        heading: 'AI-Enhanced Booking Platform',
+        paragraphs: [
+          'Our AI-powered booking assistant helps you find the perfect Lake Travis cruise for your celebration. Whether planning [[bachelor-party]], [[bachelorette-party]], [[corporate-events]], or [[birthday-party]], our intelligent system provides instant quotes, availability checks, and personalized recommendations.',
+          'The AI chatbot understands natural language and can answer questions 24/7 about pricing, packages, boat capacity, amenities, and policies. Get immediate responses without waiting for business hours - perfect for groups planning late at night or across different time zones.'
+        ]
+      },
+      {
+        heading: 'Personalized Event Planning',
+        paragraphs: [
+          'Our AI system learns from thousands of successful events to provide customized recommendations. Tell us your group size, budget, and celebration type - the AI suggests optimal boat selection, package level, timing, and add-ons tailored specifically to your needs.',
+          'Machine learning algorithms analyze weather patterns, booking trends, and historical data to recommend the best dates and times for your celebration. Smart scheduling helps you avoid peak crowds while maximizing Lake Travis experience.'
+        ]
+      },
+      {
+        heading: 'Intelligent Quote Builder',
+        paragraphs: [
+          'Our AI-powered quote builder creates instant custom quotes based on your specific requirements. Input your details once and receive comprehensive pricing for multiple options - compare [[atx-disco]] packages versus [[private-cruises]] instantly.',
+          'The system factors in all variables: group size, date, package level, add-ons, and seasonal pricing to provide accurate quotes. No more back-and-forth emails - get transparent pricing immediately and book with confidence.'
+        ]
+      },
+      {
+        heading: 'Smart Recommendations',
+        paragraphs: [
+          'Based on your celebration type and preferences, our AI recommends optimal packages, boats, and upgrades. Planning a [[wedding-party]]? The system suggests timeline, catering options, and decoration packages used by successful weddings.',
+          'Corporate event? AI analyzes [[team-building]] and [[client-entertainment]] bookings to recommend professional packages, presentation capabilities, and networking-optimized boat layouts. Every recommendation backed by real customer data and success metrics.'
+        ]
+      },
+      {
+        heading: 'Streamlined Communication',
+        paragraphs: [
+          'AI-powered email summaries keep your entire group informed. Automatic reminders about deposits, balance due dates, what to bring, and marina directions ensure smooth planning process.',
+          'Smart notification system sends weather updates, last-minute tips, and day-of logistics. Everyone in your group stays informed without overwhelming communication - AI determines optimal message timing and content for each booking stage.'
+        ]
+      },
+      {
+        heading: 'Data Privacy and Security',
+        paragraphs: [
+          'All AI systems comply with data privacy regulations. Your booking information, payment details, and personal data are encrypted and secured. AI assists with planning but humans handle all payment processing and sensitive information.',
+          'We use AI to enhance service, not replace human touch. Complex requests, custom packages, and special circumstances connect you with experienced event planners. Technology streamlines simple tasks so our team can focus on exceptional personal service.'
+        ]
+      },
+      {
+        heading: 'Continuous Improvement',
+        paragraphs: [
+          'Our AI platform continuously learns from customer feedback, successful events, and changing trends. The system gets smarter with every booking, providing increasingly accurate recommendations and better service.',
+          'Machine learning identifies patterns in highly-rated celebrations to suggest winning combinations of boats, packages, timing, and add-ons. Your feedback helps improve recommendations for future customers - creating better experiences for everyone!'
+        ]
+      }
+    ],
+    relatedPages: [
+      'atx-disco', 'private-cruises', 'bachelor-party', 'bachelorette-party',
+      'corporate-events', 'wedding-party', 'birthday-party', 'pricing-breakdown',
+      'faq', 'contact', 'home'
+    ]
   }
 };
