@@ -560,7 +560,7 @@ const allFAQs = {
       },
       {
         question: 'Is food included?',
-        answer: 'Food is not included, but lunch delivery is available! Local restaurants deliver directly to the boat. Or bring your own snacks/meals. Queen & Platinum packages include delivery coordination assistance.',
+        answer: 'Food is not included. Please eat before your cruise and bring snacks/light refreshments if needed. We provide coolers with ice for your BYOB beverages. Queen & Platinum packages include alcohol delivery coordination assistance.',
         isNew: true
       },
       {

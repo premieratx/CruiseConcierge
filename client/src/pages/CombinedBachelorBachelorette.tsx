@@ -58,7 +58,7 @@ const combinedPartyPackages = [
     features: [
       'Join the ultimate party cruise with friends from both sides!',
       'BYOB, shared cooler with ice for everyone',
-      'Alcohol & food delivery available to the boat',
+      'Alcohol delivery available to the boat',
       'ALWAYS more affordable than separate parties',
       'Perfect for groups who want to celebrate together'
     ],
@@ -79,7 +79,7 @@ const combinedPartyPackages = [
       'Private Cooler w/Ice & Storage for Your Entire Group',
       'Reserved Spot for Your Combined Party',
       'Special Celebration Items for the Happy Couple',
-      'Complimentary Direct-to-Boat Alcohol & Food Delivery',
+      'Complimentary Direct-to-Boat Alcohol Delivery',
       '25% Discount on Round-Trip Transportation',
       '$50-$100 Voucher for Airbnb Delivery Services'
     ],

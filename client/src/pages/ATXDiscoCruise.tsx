@@ -1901,8 +1901,8 @@ export default function ATXDiscoCruise() {
                   {
                     id: 'food-included',
                     question: 'Is food included?',
-                    answer: 'Food not included - bring your own! We can help coordinate alcohol delivery through Party On Delivery. You\'re welcome to bring any snacks, sandwiches, or treats you\'d like. Many groups pick up tacos or pizzas on their way to the marina.',
-                    keywords: ['food', 'bring your own', 'Party on Delivery', 'tacos'],
+                    answer: 'Food is not included. Please eat before your cruise and bring snacks/light refreshments if needed. We provide coolers with ice for your BYOB beverages. We can help coordinate alcohol delivery through Party On Delivery.',
+                    keywords: ['food', 'eat before', 'bring snacks', 'BYOB', 'coolers'],
                     icon: Utensils,
                     relatedLink: {
                       href: '#packages',
