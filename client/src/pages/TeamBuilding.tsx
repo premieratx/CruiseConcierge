@@ -25,7 +25,7 @@ import {
   ArrowRight, CheckCircle, Sparkles, Trophy, Shield,
   Star, MessageSquare, Award, Quote, ChevronRight,
   Ship, Anchor, Sun, Info, TrendingUp, Zap, Play,
-  UserCheck, Building, Briefcase, Lightbulb, Handshake, X
+  UserCheck, Building, Briefcase, Lightbulb, Handshake, X, Crown
 } from 'lucide-react';
 
 // Hero and gallery images
