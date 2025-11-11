@@ -36,8 +36,8 @@ export default function DemoContentPage() {
                 <h1 className="text-2xl font-bold">Content Demo</h1>
                 <div className="hidden md:flex items-center space-x-6">
                   <a href="/" className="text-sm font-medium hover:text-primary">Home</a>
-                  <a href="/about" className="text-sm font-medium hover:text-primary">About</a>
-                  <a href="/services" className="text-sm font-medium hover:text-primary">Services</a>
+                  <a href="/" className="text-sm font-medium hover:text-primary">Home</a>
+                  <a href="/chat" className="text-sm font-medium hover:text-primary">Get Quote</a>
                   <a href="/contact" className="text-sm font-medium hover:text-primary">Contact</a>
                 </div>
               </div>

@@ -681,7 +681,7 @@ export default function PrivateCruises() {
                   The Private Charter Experience
                 </h2>
                 <p className="text-lg text-gray-700 max-w-3xl mx-auto">
-                  Discover the freedom and luxury of your own private Lake Travis adventure. Perfect for <InternalLinkHighlight href="/bachelor-party" title="Bachelor Parties">bachelor parties</InternalLinkHighlight>, <InternalLinkHighlight href="/bachelorette-party" title="Bachelorette Parties">bachelorette celebrations</InternalLinkHighlight>, or any special occasion. <InternalLinkHighlightWithArrow href="/" title="Home">See all our cruise options</InternalLinkHighlightWithArrow>
+                  Discover the freedom and luxury of your own private Lake Travis adventure. Perfect for <InternalLinkHighlight href="/bachelor-party-austin" title="Bachelor Parties">bachelor parties</InternalLinkHighlight>, <InternalLinkHighlight href="/bachelorette-party-austin" title="Bachelorette Parties">bachelorette celebrations</InternalLinkHighlight>, or any special occasion. <InternalLinkHighlightWithArrow href="/" title="Home">See all our cruise options</InternalLinkHighlightWithArrow>
                 </p>
               </div>
 

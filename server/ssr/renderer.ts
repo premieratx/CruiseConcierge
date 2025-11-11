@@ -890,6 +890,15 @@ const SSR_ROUTES = [
   '/combined-bachelor-bachelorette-austin',
   '/ai-endorsement',
   '/pricing-breakdown',
+  '/faq',
+  '/austin-bachelorette-nightlife',
+  '/budget-austin-bachelorette',
+  '/luxury-austin-bachelorette',
+  '/ultimate-austin-bachelorette-weekend',
+  '/top-10-austin-bachelorette-ideas',
+  '/3-day-austin-bachelorette-itinerary',
+  '/first-time-lake-travis-boat-rental-guide',
+  '/adventure-austin-bachelorette',
 ];
 
 // Page metadata for SEO
@@ -993,6 +1002,42 @@ const PAGE_METADATA: Record<string, { h1: string; content: string }> = {
   '/pricing-breakdown': {
     h1: 'Pricing Breakdown | Premier Party Cruises Austin',
     content: 'Complete pricing breakdown for ATX Disco Cruise packages and Private Boat Rentals. Compare side-by-side, calculate costs, and find the best deal for your Lake Travis party.'
+  },
+  '/faq': {
+    h1: 'Frequently Asked Questions - Lake Travis Boat Rentals',
+    content: 'Find answers to common questions about Premier Party Cruises boat rentals. Learn about pricing, booking policies, safety, and what to expect on Lake Travis.'
+  },
+  '/austin-bachelorette-nightlife': {
+    h1: 'Austin Bachelorette Nightlife Guide - Best Bars & Clubs',
+    content: 'Explore the ultimate bachelorette nightlife guide for Austin! From Sixth Street bars to Rainey Street, discover best nightlife paired with disco cruise adventures.'
+  },
+  '/budget-austin-bachelorette': {
+    h1: 'Budget-Friendly Austin Bachelorette Party Planning',
+    content: 'Plan an unforgettable bachelorette party on a budget! Affordable disco cruise packages starting at $85, BYOB policies, and smart planning tips for Austin.'
+  },
+  '/luxury-austin-bachelorette': {
+    h1: 'Luxury Austin Bachelorette Weekend - VIP Experiences',
+    content: 'Plan the ultimate luxury bachelorette weekend with VIP private cruises, upscale hotels, fine dining, and exclusive packages on Lake Travis.'
+  },
+  '/ultimate-austin-bachelorette-weekend': {
+    h1: 'Ultimate Austin Bachelorette Weekend Complete Guide',
+    content: 'Plan the perfect bachelorette weekend with our complete Austin guide! Disco cruise, boat parties, downtown nightlife, brunch spots, and insider tips.'
+  },
+  '/top-10-austin-bachelorette-ideas': {
+    h1: 'Top 10 Austin Bachelorette Party Ideas & Activities',
+    content: 'Discover the top 10 bachelorette party ideas for Austin! Disco cruise boat parties, Sixth Street bar crawls, brunch spots, and unique Austin experiences.'
+  },
+  '/3-day-austin-bachelorette-itinerary': {
+    h1: 'Perfect 3-Day Austin Bachelorette Party Itinerary',
+    content: 'Follow our expertly crafted 3-day bachelorette itinerary for Austin! Day-by-day schedule featuring disco cruise, nightlife, brunch, and activities.'
+  },
+  '/first-time-lake-travis-boat-rental-guide': {
+    h1: 'First-Time Lake Travis Boat Rental Guide',
+    content: 'Planning your first Lake Travis boat rental? Complete guide covering private cruises, disco cruise, what to bring, costs, and what to expect.'
+  },
+  '/adventure-austin-bachelorette': {
+    h1: 'Adventurous Austin Bachelorette Party Activities',
+    content: 'Plan an action-packed bachelorette party with outdoor adventures! Combine hiking, kayaking, ziplining, and disco cruise boat parties for active brides.'
   }
 };
 

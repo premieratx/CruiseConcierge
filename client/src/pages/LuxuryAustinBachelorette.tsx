@@ -380,7 +380,7 @@ export default function LuxuryAustinBachelorette() {
               </p>
 
               <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
-                Consider hiring a private photographer to capture every moment of your <strong>austin bachelorette party boat</strong> experience—the cost can be split among the group and you'll get magazine-worthy photos of everyone living their best lives under the Texas sun! Also, make your <strong>bachelorette party lake travis</strong> adventure gourmet by having catered lunch aboard with charcuterie platters, fresh fruit displays, and champagne. As you cruise past the stunning Hill Country scenery during your <strong>austin bachelorette party</strong>, you'll all feel like true VIPs enjoying the ultimate <Link href="/bachelor-bachelorette-party-boat-austin" className="text-pink-600 hover:text-pink-700 font-semibold">luxury party boat experience</Link>. The <Link href="/atx-disco-cruise" className="text-pink-600 hover:text-pink-700 font-semibold">ATX Disco Cruise</Link> offers both shared experiences (where you join other fun groups for an electric party atmosphere) and completely private charters—perfect for any size <strong>austin bachelorette</strong> celebration!
+                Consider hiring a private photographer to capture every moment of your <strong>austin bachelorette party boat</strong> experience—the cost can be split among the group and you'll get magazine-worthy photos of everyone living their best lives under the Texas sun! Also, make your <strong>bachelorette party lake travis</strong> adventure gourmet by having catered lunch aboard with charcuterie platters, fresh fruit displays, and champagne. As you cruise past the stunning Hill Country scenery during your <strong>austin bachelorette party</strong>, you'll all feel like true VIPs enjoying the ultimate <Link href="/combined-bachelor-bachelorette" className="text-pink-600 hover:text-pink-700 font-semibold">luxury party boat experience</Link>. The <Link href="/atx-disco-cruise" className="text-pink-600 hover:text-pink-700 font-semibold">ATX Disco Cruise</Link> offers both shared experiences (where you join other fun groups for an electric party atmosphere) and completely private charters—perfect for any size <strong>austin bachelorette</strong> celebration!
               </p>
 
               <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
@@ -583,7 +583,7 @@ export default function LuxuryAustinBachelorette() {
                 </Card>
               </Link>
 
-              <Link href="/bachelor-bachelorette-party-boat-austin">
+              <Link href="/combined-bachelor-bachelorette">
                 <Card className="hover:shadow-xl transition-all cursor-pointer h-full border-2 border-blue-300 hover:border-blue-500">
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2 text-blue-900 dark:text-blue-200">

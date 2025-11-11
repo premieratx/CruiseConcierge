@@ -640,7 +640,7 @@ export default function ATXDiscoCruise() {
                   Your Day of Disco Experience
                 </h2>
                 <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
-                  Simple 6-step journey from wake up to party legend! This is America's ONLY multi-group <InternalLinkHighlight href="/bachelor-party" title="Bachelor Parties">bachelor</InternalLinkHighlight>/<InternalLinkHighlight href="/bachelorette-party" title="Bachelorette Parties">bachelorette party</InternalLinkHighlight> cruise. <InternalLinkHighlightWithArrow href="/private-cruises" title="Private Cruises">Want exclusivity? Book private instead</InternalLinkHighlightWithArrow>
+                  Simple 6-step journey from wake up to party legend! This is America's ONLY multi-group <InternalLinkHighlight href="/bachelor-party-austin" title="Bachelor Parties">bachelor</InternalLinkHighlight>/<InternalLinkHighlight href="/bachelorette-party-austin" title="Bachelorette Parties">bachelorette party</InternalLinkHighlight> cruise. <InternalLinkHighlightWithArrow href="/private-cruises" title="Private Cruises">Want exclusivity? Book private instead</InternalLinkHighlightWithArrow>
                 </p>
               </div>
 
@@ -1689,7 +1689,7 @@ export default function ATXDiscoCruise() {
                   What Happens If You Don't Book ATX Disco?
                 </h2>
                 <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
-                  The real cost of choosing the "traditional" route for your <InternalLinkHighlight href="/bachelor-party" title="Bachelor Parties">bachelor</InternalLinkHighlight> or <InternalLinkHighlight href="/bachelorette-party" title="Bachelorette Parties">bachelorette party</InternalLinkHighlight>
+                  The real cost of choosing the "traditional" route for your <InternalLinkHighlight href="/bachelor-party-austin" title="Bachelor Parties">bachelor</InternalLinkHighlight> or <InternalLinkHighlight href="/bachelorette-party-austin" title="Bachelorette Parties">bachelorette party</InternalLinkHighlight>
                 </p>
               </div>
 

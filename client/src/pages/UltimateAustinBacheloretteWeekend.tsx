@@ -386,7 +386,7 @@ export default function UltimateAustinBacheloretteWeekend() {
               </p>
 
               <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                If you prefer a private boat just for your group, <Link href="/" className="text-pink-600 hover:text-pink-700 font-semibold">Premier Party Cruises</Link> also offers <Link href="/bachelor-bachelorette-party-boat-austin" className="text-pink-600 hover:text-pink-700 font-semibold">private bachelorette party boat</Link> rentals for groups of 14-50 people. Private charters let you customize everything—your playlist, decorations, swim coves, and timing—for a truly personalized <strong>austin bachelorette party boat</strong> experience.
+                If you prefer a private boat just for your group, <Link href="/" className="text-pink-600 hover:text-pink-700 font-semibold">Premier Party Cruises</Link> also offers <Link href="/combined-bachelor-bachelorette" className="text-pink-600 hover:text-pink-700 font-semibold">private bachelorette party boat</Link> rentals for groups of 14-50 people. Private charters let you customize everything—your playlist, decorations, swim coves, and timing—for a truly personalized <strong>austin bachelorette party boat</strong> experience.
               </p>
             </div>
 
@@ -730,7 +730,7 @@ export default function UltimateAustinBacheloretteWeekend() {
                     <ul className="space-y-2 text-gray-700 dark:text-gray-300">
                       <li>• <Link href="/atx-disco-cruise" className="text-purple-600 hover:underline">ATX Disco Cruise</Link> Disco Queen Package—bride cruises free, reserved seating for your group</li>
                       <li>• Mix of Sixth Street & Rainey Street</li>
-                      <li>• Consider a <Link href="/bachelor-bachelorette-party-boat-austin" className="text-purple-600 hover:underline">private party boat</Link> rental (Day Tripper for 14 people)</li>
+                      <li>• Consider a <Link href="/combined-bachelor-bachelorette" className="text-purple-600 hover:underline">private party boat</Link> rental (Day Tripper for 14 people)</li>
                       <li>• Group brunch reservations easy to secure</li>
                     </ul>
                   </div>
@@ -755,7 +755,7 @@ export default function UltimateAustinBacheloretteWeekend() {
                     <h4 className="font-bold mb-2 text-gray-900 dark:text-white">Recommended Activities:</h4>
                     <ul className="space-y-2 text-gray-700 dark:text-gray-300">
                       <li>• <Link href="/atx-disco-cruise" className="text-blue-600 hover:underline">ATX Disco Cruise</Link> Super Sparkle Package—VIP treatment for large groups</li>
-                      <li>• OR rent a <Link href="/bachelor-bachelorette-party-boat-austin" className="text-blue-600 hover:underline">private party boat</Link> (Clever Girl holds 30-50 people!)</li>
+                      <li>• OR rent a <Link href="/combined-bachelor-bachelorette" className="text-blue-600 hover:underline">private party boat</Link> (Clever Girl holds 30-50 people!)</li>
                       <li>• Reserve bottle service at West 6th clubs</li>
                       <li>• Split into smaller groups for some activities, reunite for others</li>
                     </ul>
@@ -991,7 +991,7 @@ export default function UltimateAustinBacheloretteWeekend() {
                 Your <strong>austin bachelorette weekend</strong> adventure starts with booking the legendary <Link href="/atx-disco-cruise" className="text-pink-600 hover:text-pink-700 font-semibold">ATX Disco Cruise</Link>! This iconic <strong>bachelorette party lake travis</strong> experience is the centerpiece of every great <strong>bachelorette party in austin</strong>. Combine it with Austin's amazing nightlife, incredible brunch scene, and unique experiences for an unforgettable <strong>austin bachelorette party</strong> the bride will never forget.
               </p>
               <p className="text-gray-700 dark:text-gray-300 mb-6">
-                Don't forget to coordinate drinks with <a href="https://partyondelivery.com" target="_blank" rel="noopener noreferrer" className="text-pink-600 hover:text-pink-700 font-semibold">Party On Delivery</a> for hassle-free <strong>austin bachelorette party boat</strong> prep, and explore <Link href="/bachelor-bachelorette-party-boat-austin" className="text-pink-600 hover:text-pink-700 font-semibold">private boat options</Link> if you want an exclusive experience. <Link href="/" className="text-pink-600 hover:text-pink-700 font-semibold">Premier Party Cruises</Link> specializes in creating unforgettable <strong>bachelorette boat rental austin</strong> experiences!
+                Don't forget to coordinate drinks with <a href="https://partyondelivery.com" target="_blank" rel="noopener noreferrer" className="text-pink-600 hover:text-pink-700 font-semibold">Party On Delivery</a> for hassle-free <strong>austin bachelorette party boat</strong> prep, and explore <Link href="/combined-bachelor-bachelorette" className="text-pink-600 hover:text-pink-700 font-semibold">private boat options</Link> if you want an exclusive experience. <Link href="/" className="text-pink-600 hover:text-pink-700 font-semibold">Premier Party Cruises</Link> specializes in creating unforgettable <strong>bachelorette boat rental austin</strong> experiences!
               </p>
               <div className="flex flex-wrap gap-4 justify-center">
                 <Link href="/chat">
@@ -1044,7 +1044,7 @@ export default function UltimateAustinBacheloretteWeekend() {
                     When planning your <strong>bachelorette party in austin</strong>, the <strong>austin bachelorette party boat</strong> experience stands out as the most memorable activity. Compare <Link href="/bachelorette-party-austin" className="text-purple-600 hover:text-purple-700 font-semibold">traditional bachelorette party activities</Link> with a <strong>bachelorette boat rental austin</strong> adventure—you'll find that boat parties offer unique photo opportunities, all-inclusive amenities, and a one-of-a-kind setting for your celebration.
                   </p>
                   <p className="text-gray-700 dark:text-gray-300">
-                    Many groups doing a <Link href="/bachelor-bachelorette-party-boat-austin" className="text-purple-600 hover:text-purple-700 font-semibold">combined bachelor and bachelorette party</Link> find that a <strong>bachelorette party lake travis</strong> boat experience works perfectly for both groups, often better than separate activities. <Link href="/" className="text-purple-600 hover:text-purple-700 font-semibold">Premier Party Cruises</Link> can accommodate combined celebrations with ease.
+                    Many groups doing a <Link href="/combined-bachelor-bachelorette" className="text-purple-600 hover:text-purple-700 font-semibold">combined bachelor and bachelorette party</Link> find that a <strong>bachelorette party lake travis</strong> boat experience works perfectly for both groups, often better than separate activities. <Link href="/" className="text-purple-600 hover:text-purple-700 font-semibold">Premier Party Cruises</Link> can accommodate combined celebrations with ease.
                   </p>
                 </CardContent>
               </Card>
@@ -1060,7 +1060,7 @@ export default function UltimateAustinBacheloretteWeekend() {
                     Absolutely! Many <strong>austin bachelorette party boat</strong> celebrations include co-ed groups or merge with a <Link href="/bachelor-party-austin" className="text-blue-600 hover:text-blue-700 font-semibold">bachelor party austin</Link> celebration. Your <strong>bachelorette boat rental austin</strong> can accommodate mixed groups, and the <Link href="/atx-disco-cruise" className="text-blue-600 hover:text-blue-700 font-semibold">ATX Disco Cruise</Link> welcomes everyone for an epic <strong>bachelorette party lake travis</strong> experience.
                   </p>
                   <p className="text-gray-700 dark:text-gray-300">
-                    If you're planning both a <Link href="/bachelor-party-austin" className="text-blue-600 hover:text-blue-700 font-semibold">bachelor party</Link> and a <strong>bachelorette party in austin</strong>, consider booking a <Link href="/bachelor-bachelorette-party-boat-austin" className="text-blue-600 hover:text-blue-700 font-semibold">combined party boat experience</Link>. <Link href="/" className="text-blue-600 hover:text-blue-700 font-semibold">Premier Party Cruises</Link> offers packages perfect for co-ed celebrations on Lake Travis.
+                    If you're planning both a <Link href="/bachelor-party-austin" className="text-blue-600 hover:text-blue-700 font-semibold">bachelor party</Link> and a <strong>bachelorette party in austin</strong>, consider booking a <Link href="/combined-bachelor-bachelorette" className="text-blue-600 hover:text-blue-700 font-semibold">combined party boat experience</Link>. <Link href="/" className="text-blue-600 hover:text-blue-700 font-semibold">Premier Party Cruises</Link> offers packages perfect for co-ed celebrations on Lake Travis.
                   </p>
                 </CardContent>
               </Card>
@@ -1092,7 +1092,7 @@ export default function UltimateAustinBacheloretteWeekend() {
                     For your <strong>bachelorette boat rental austin</strong>, both options are fantastic! The <Link href="/atx-disco-cruise" className="text-yellow-700 hover:text-yellow-800 font-semibold">ATX Disco Cruise</Link> offers an all-inclusive <strong>bachelorette party lake travis</strong> party atmosphere where you'll meet other fun groups, with professional DJ and photographer included. It's perfect for groups of 4-12 looking for high energy and social vibes during their <strong>austin bachelorette party boat</strong> adventure.
                   </p>
                   <p className="text-gray-700 dark:text-gray-300 mb-4">
-                    For larger groups (14+) or those wanting complete privacy, consider a <Link href="/bachelor-bachelorette-party-boat-austin" className="text-yellow-700 hover:text-yellow-800 font-semibold">private boat rental</Link> for your <strong>bachelorette party lake travis</strong> celebration. Private <strong>austin bachelorette party boat</strong> charters let you control every aspect—music, itinerary, decorations, and timing—for your <strong>bachelorette boat rental austin</strong> experience.
+                    For larger groups (14+) or those wanting complete privacy, consider a <Link href="/combined-bachelor-bachelorette" className="text-yellow-700 hover:text-yellow-800 font-semibold">private boat rental</Link> for your <strong>bachelorette party lake travis</strong> celebration. Private <strong>austin bachelorette party boat</strong> charters let you control every aspect—music, itinerary, decorations, and timing—for your <strong>bachelorette boat rental austin</strong> experience.
                   </p>
                   <p className="text-gray-700 dark:text-gray-300">
                     Both options can be enhanced with <a href="https://partyondelivery.com" target="_blank" rel="noopener noreferrer" className="text-yellow-700 hover:text-yellow-800 font-semibold">Party On Delivery</a> beverage service, making your <strong>austin bachelorette party boat</strong> completely hassle-free. Check out all <Link href="/bachelorette-party-austin" className="text-yellow-700 hover:text-yellow-800 font-semibold">bachelorette party options</Link> to compare and choose what works best for your group.
@@ -1119,7 +1119,7 @@ export default function UltimateAustinBacheloretteWeekend() {
                       • <Link href="/atx-disco-cruise" className="text-pink-600 hover:underline">ATX Disco Cruise Details & Pricing</Link>
                     </li>
                     <li>
-                      • <Link href="/bachelor-bachelorette-party-boat-austin" className="text-pink-600 hover:underline">Private Bachelorette Boat Rentals</Link>
+                      • <Link href="/combined-bachelor-bachelorette" className="text-pink-600 hover:underline">Private Bachelorette Boat Rentals</Link>
                     </li>
                     <li>
                       • <Link href="/" className="text-pink-600 hover:underline">Premier Party Cruises - All Options</Link>
@@ -1136,7 +1136,7 @@ export default function UltimateAustinBacheloretteWeekend() {
                       • <Link href="/bachelor-party-austin" className="text-purple-600 hover:underline">Bachelor Party Austin Options</Link>
                     </li>
                     <li>
-                      • <Link href="/bachelor-bachelorette-party-boat-austin" className="text-purple-600 hover:underline">Combined Bachelor/Bachelorette Boats</Link>
+                      • <Link href="/combined-bachelor-bachelorette" className="text-purple-600 hover:underline">Combined Bachelor/Bachelorette Boats</Link>
                     </li>
                     <li>
                       • <Link href="/bachelor-party-austin" className="text-purple-600 hover:underline">Co-Ed Pre-Wedding Celebrations</Link>
@@ -1149,7 +1149,7 @@ export default function UltimateAustinBacheloretteWeekend() {
               </div>
               <div className="mt-6 bg-white dark:bg-gray-950 p-6 rounded-xl">
                 <p className="text-gray-700 dark:text-gray-300 mb-4">
-                  <strong>Pro Tip:</strong> If your group includes both bachelor and bachelorette parties happening the same weekend, check out our <Link href="/bachelor-bachelorette-party-boat-austin" className="text-pink-600 hover:text-pink-700 font-semibold">combined party boat options</Link>. Many couples find that a co-ed <strong>bachelorette party lake travis</strong> experience brings everyone together for amazing memories before the wedding!
+                  <strong>Pro Tip:</strong> If your group includes both bachelor and bachelorette parties happening the same weekend, check out our <Link href="/combined-bachelor-bachelorette" className="text-pink-600 hover:text-pink-700 font-semibold">combined party boat options</Link>. Many couples find that a co-ed <strong>bachelorette party lake travis</strong> experience brings everyone together for amazing memories before the wedding!
                 </p>
                 <p className="text-gray-700 dark:text-gray-300">
                   Whether you're planning just a <strong>bachelorette party in austin</strong>, coordinating with a <Link href="/bachelor-party-austin" className="text-pink-600 hover:text-pink-700 font-semibold">bachelor party</Link>, or looking for the perfect <strong>bachelorette boat rental austin</strong> experience, <Link href="/" className="text-pink-600 hover:text-pink-700 font-semibold">Premier Party Cruises</Link> has you covered with options for every type of celebration.

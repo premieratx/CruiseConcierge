@@ -559,7 +559,7 @@ export default function BachelorParty() {
               data-editable 
               data-editable-id="bachelor-hero-subtitle"
             >
-              Exclusively for <InternalLinkHighlight href="/bachelorette-party" title="Bachelorette Parties">Bachelorette</InternalLinkHighlight> & Bachelor Parties<br/>
+              Exclusively for <InternalLinkHighlight href="/bachelorette-party-austin" title="Bachelorette Parties">Bachelorette</InternalLinkHighlight> & Bachelor Parties<br/>
               <span className="text-sm sm:text-base md:text-lg lg:text-xl">The Highlight of Your Weekend Every. Damn. Time.</span>
             </motion.p>
 

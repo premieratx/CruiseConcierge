@@ -562,7 +562,7 @@ export default function BacheloretteParty() {
               data-editable 
               data-editable-id="bachelorette-hero-subtitle"
             >
-              Exclusively for Bachelorette & <InternalLinkHighlight href="/bachelor-party" title="Bachelor Parties">Bachelor Parties</InternalLinkHighlight><br/>
+              Exclusively for Bachelorette & <InternalLinkHighlight href="/bachelor-party-austin" title="Bachelor Parties">Bachelor Parties</InternalLinkHighlight><br/>
               <span className="text-sm sm:text-base md:text-lg lg:text-xl">The Highlight of Your Weekend Every. Damn. Time.</span>
             </motion.p>
 
@@ -893,7 +893,7 @@ export default function BacheloretteParty() {
                 What Makes Our Bachelorette Parties Special
               </h2>
               <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
-                From epic <InternalLinkHighlight href="/atx-disco-cruise" title="ATX Disco Cruise">ATX Disco Cruises</InternalLinkHighlight> to exclusive <InternalLinkHighlight href="/private-cruises" title="Private Cruises">private charters</InternalLinkHighlight>, we deliver unforgettable girls' weekend experiences on Lake Travis. Also perfect for <InternalLinkHighlight href="/bachelor-party" title="Bachelor Parties">bachelor celebrations</InternalLinkHighlight>!
+                From epic <InternalLinkHighlight href="/atx-disco-cruise" title="ATX Disco Cruise">ATX Disco Cruises</InternalLinkHighlight> to exclusive <InternalLinkHighlight href="/private-cruises" title="Private Cruises">private charters</InternalLinkHighlight>, we deliver unforgettable girls' weekend experiences on Lake Travis. Also perfect for <InternalLinkHighlight href="/bachelor-party-austin" title="Bachelor Parties">bachelor celebrations</InternalLinkHighlight>!
               </p>
             </div>
 
