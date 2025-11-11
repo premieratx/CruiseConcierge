@@ -15,7 +15,7 @@ export const bachelorFAQs: FAQItem[] = [
   {
     id: 'bachelor-group-size',
     question: 'What size bachelor party groups work best on Lake Travis?',
-    answer: 'Groups of 15-30 are ideal for the ATX Disco Cruise, creating perfect party energy. Smaller groups (8-14) might prefer our Day Tripper private boat. Larger groups (30+) can book our Clever Girl yacht. We accommodate any size bachelor party with the right boat and atmosphere.'
+    answer: 'Groups of 15-30 are ideal for the ATX Disco Cruise, creating perfect party energy. Smaller groups (8-14) might prefer our Day Tripper private boat. Larger groups (30+) can book our Clever Girl flagship party boat. We accommodate any size bachelor party with the right boat and atmosphere.'
   },
   {
     id: 'bachelor-what-to-bring',

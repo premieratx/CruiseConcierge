@@ -110,8 +110,8 @@ const experiences: Experience[] = [
         price: '$1,000',
         duration: '4 hours',
         features: [
-          '50-person luxury yacht',
-          'Multiple deck levels',
+          '50-person flagship party boat',
+          'Spacious single-deck design',
           'Alcohol delivery coordination',
           'Premium amenities',
           'Multiple crew members'
@@ -150,7 +150,7 @@ const experiences: Experience[] = [
         price: '$750',
         duration: '3 hours',
         features: [
-          '50-person yacht',
+          '50-person party boat',
           'Extended cruise time',
           'Multiple entertainment zones',
           'Bar setup assistance',
@@ -163,10 +163,10 @@ const experiences: Experience[] = [
         price: '$1,000',
         duration: '4 hours',
         features: [
-          '75-person mega yacht',
+          '75-person large party boat',
           'Full party atmosphere',
           'DJ equipment ready',
-          'Multiple deck levels',
+          'Spacious single-deck layout',
           'Full crew service'
         ]
       }
@@ -216,7 +216,7 @@ const experiences: Experience[] = [
         price: '$1,000',
         duration: '4 hours',
         features: [
-          '50-75 person yacht',
+          '50-75 person party boat',
           'Multiple party zones',
           'Professional lighting',
           'VIP atmosphere',
@@ -271,7 +271,7 @@ const experiences: Experience[] = [
         price: '$1,250',
         duration: '5 hours',
         features: [
-          '50-75 person yacht',
+          '50-75 person party boat',
           'Full day experience',
           'Tables for your food setup',
           'Team challenges',
@@ -311,7 +311,7 @@ const experiences: Experience[] = [
         price: '$1,000',
         duration: '4 hours',
         features: [
-          '50-person luxury yacht',
+          '50-person flagship party boat',
           'BYOB - Party On Delivery coordination',
           'Coolers and ice setup',
           'Business amenities',
@@ -324,7 +324,7 @@ const experiences: Experience[] = [
         price: '$1,250',
         duration: '5 hours',
         features: [
-          '75-person mega yacht',
+          '75-person large party boat',
           'White glove service',
           'Tables & coolers provided',
           'Entertainment options',
@@ -364,7 +364,7 @@ const experiences: Experience[] = [
         price: '$1,000',
         duration: '4 hours',
         features: [
-          '50-person yacht',
+          '50-person party boat',
           'Speech platform setup',
           'Award ceremony space',
           'Alcohol delivery coordination',
@@ -377,7 +377,7 @@ const experiences: Experience[] = [
         price: '$1,250',
         duration: '5 hours',
         features: [
-          '75-person mega yacht',
+          '75-person large party boat',
           'Full event production',
           'Multiple celebration zones',
           'Premium everything',
@@ -432,7 +432,7 @@ const experiences: Experience[] = [
         price: '$1,000',
         duration: '4 hours',
         features: [
-          '50-75 person yacht',
+          '50-75 person party boat',
           'Multiple party areas',
           'DJ equipment ready',
           'VIP birthday treatment',
@@ -485,7 +485,7 @@ const experiences: Experience[] = [
         price: '$1,000',
         duration: '4 hours',
         features: [
-          '50-person yacht',
+          '50-person party boat',
           'Multiple zones for activities',
           'Professional photo ops',
           'Full party production',
@@ -540,7 +540,7 @@ const experiences: Experience[] = [
         price: '$1,000',
         duration: '4 hours',
         features: [
-          '50-75 person yacht',
+          '50-75 person party boat',
           'Large group capacity',
           'Multiple celebration areas',
           'Full party amenities',

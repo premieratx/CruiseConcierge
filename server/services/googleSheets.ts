@@ -1856,9 +1856,9 @@ export class GoogleSheetsService {
   private generateAvailabilityData(startDate: Date, endDate: Date): AvailabilityData[] {
     const availability: AvailabilityData[] = [];
     const boats = [
-      { name: "14-Person Luxury Yacht", capacity: 14, weekdayRate: 200, fridayRate: 250, weekendRate: 300 },
+      { name: "14-Person Premium Party Boat", capacity: 14, weekdayRate: 200, fridayRate: 250, weekendRate: 300 },
       { name: "25-Person Party Cruiser", capacity: 25, weekdayRate: 250, fridayRate: 300, weekendRate: 350 },
-      { name: "50-Person Charter Yacht", capacity: 50, weekdayRate: 300, fridayRate: 350, weekendRate: 400 },
+      { name: "50-Person Flagship Party Boat", capacity: 50, weekdayRate: 300, fridayRate: 350, weekendRate: 400 },
       { name: "ATX Disco Cruise", capacity: 30, weekdayRate: 85, fridayRate: 85, weekendRate: 85 }
     ];
     const times = ["12:00", "15:00", "18:00"];

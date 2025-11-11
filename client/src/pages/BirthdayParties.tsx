@@ -166,7 +166,7 @@ const galleryImages = [
   { src: heroImage3, alt: 'Birthday Party Boat Austin party atmosphere' },
   { src: boatImage1, alt: 'Lake Travis Birthday Party intimate cruise boat' },
   { src: boatImage2, alt: 'Birthday Party Boat Austin medium group boat' },
-  { src: boatImage3, alt: 'Lake Travis Birthday Party large yacht celebration' }
+  { src: boatImage3, alt: 'Lake Travis Birthday Party large party boat celebration' }
 ];
 
 export default function BirthdayParties() {

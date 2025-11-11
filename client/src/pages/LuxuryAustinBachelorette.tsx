@@ -23,7 +23,7 @@ const tableOfContents = [
   { id: 'arrival', title: 'Arrive in Style - Limo & Helicopter' },
   { id: 'dining', title: 'Fine Dining Experiences' },
   { id: 'nightlife', title: 'VIP Nightlife & Bottle Service' },
-  { id: 'yacht', title: 'Private Yacht Charter on Lake Travis' },
+  { id: 'yacht', title: 'VIP Party Boat Charter on Lake Travis' },
   { id: 'spa', title: 'Spa Day & Wellness Retreats' },
   { id: 'extras', title: 'High-End Extras & Personal Touches' },
   { id: 'planning', title: 'Planning Your Luxury Weekend' }
@@ -150,7 +150,7 @@ export default function LuxuryAustinBachelorette() {
               </p>
 
               <p className="text-xl text-gray-700 dark:text-gray-300 leading-relaxed mb-8">
-                This comprehensive guide will walk you through every aspect of planning the ultimate <strong>luxury bachelorette party in austin</strong>, featuring exclusive <Link href="/atx-disco-cruise" className="text-pink-600 hover:text-pink-700 font-semibold">ATX Disco Cruise</Link> VIP packages, premium <strong>bachelorette boat rental austin</strong> options on Lake Travis, five-star dining reservations, and upscale accommodations that will make your bride feel like absolute royalty. Whether you're seeking a sophisticated <strong>bachelorette party lake travis</strong> yacht charter or bottle service at Austin's hottest rooftop clubs, we've got you covered with insider tips and luxury experiences that transform an ordinary <strong>austin bachelorette</strong> into an extraordinary celebration!
+                This comprehensive guide will walk you through every aspect of planning the ultimate <strong>luxury bachelorette party in austin</strong>, featuring exclusive <Link href="/atx-disco-cruise" className="text-pink-600 hover:text-pink-700 font-semibold">ATX Disco Cruise</Link> VIP packages, premium <strong>bachelorette boat rental austin</strong> options on Lake Travis, five-star dining reservations, and upscale accommodations that will make your bride feel like absolute royalty. Whether you're seeking a sophisticated <strong>bachelorette party lake travis</strong> VIP party boat charter or bottle service at Austin's hottest rooftop clubs, we've got you covered with insider tips and luxury experiences that transform an ordinary <strong>austin bachelorette</strong> into an extraordinary celebration!
               </p>
             </div>
 
@@ -168,7 +168,7 @@ export default function LuxuryAustinBachelorette() {
               <Card className="hover:shadow-xl transition-all rounded-xl border-2 border-pink-200">
                 <CardContent className="p-6 text-center">
                   <Ship className="h-12 w-12 text-pink-600 mx-auto mb-4" />
-                  <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-white">Private Yacht</h3>
+                  <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-white">VIP Party Boat</h3>
                   <p className="text-gray-600 dark:text-gray-400">
                     VIP <Link href="/atx-disco-cruise" className="text-pink-600 hover:text-pink-700">ATX Disco Cruise</Link> packages
                   </p>
@@ -359,7 +359,7 @@ export default function LuxuryAustinBachelorette() {
         <section id="yacht" className="py-16 bg-gradient-to-b from-white to-purple-50 dark:from-gray-950 dark:to-gray-900">
           <div className="max-w-4xl mx-auto px-6">
             <h2 className="text-3xl md:text-4xl font-playfair font-bold text-center mb-12 text-gray-900 dark:text-white">
-              <Ship className="inline-block h-10 w-10 text-pink-600 mb-2" /> Luxury on the Lake - Private Yacht Charter on Lake Travis
+              <Ship className="inline-block h-10 w-10 text-pink-600 mb-2" /> Luxury on the Lake - VIP Party Boat Charter on Lake Travis
             </h2>
 
             <div className="mb-8">
@@ -372,7 +372,7 @@ export default function LuxuryAustinBachelorette() {
             
             <div className="prose prose-lg max-w-none dark:prose-invert">
               <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
-                A trip to Austin isn't complete without a lake excursion, and for your <strong>luxury austin bachelorette weekend</strong>, we're taking the <strong>bachelorette party lake travis</strong> experience up several notches! Skip the crowded party barges and charter an exclusive private yacht or high-end vessel through <Link href="/" className="text-pink-600 hover:text-pink-700 font-semibold">Premier Party Cruises</Link>. They offer upscale private charters with professional captains and premium amenities included—their flagship single-deck party boat features disco balls, a state-of-the-art sound system, and expansive deck space perfect for your personal dance party during your <strong>austin bachelorette party boat</strong> adventure on the beautiful waters of Lake Travis!
+                A trip to Austin isn't complete without a lake excursion, and for your <strong>luxury austin bachelorette weekend</strong>, we're taking the <strong>bachelorette party lake travis</strong> experience up several notches! Skip the crowded party barges and charter an exclusive premium party boat or high-end vessel through <Link href="/" className="text-pink-600 hover:text-pink-700 font-semibold">Premier Party Cruises</Link>. They offer upscale private charters with professional captains and premium amenities included—their flagship single-deck party boat features disco balls, a state-of-the-art sound system, and expansive deck space perfect for your personal dance party during your <strong>austin bachelorette party boat</strong> adventure on the beautiful waters of Lake Travis!
               </p>
 
               <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
@@ -384,7 +384,7 @@ export default function LuxuryAustinBachelorette() {
               </p>
 
               <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
-                The beauty of booking your <strong>bachelorette boat rental austin</strong> through <Link href="/" className="text-pink-600 hover:text-pink-700 font-semibold">Premier Party Cruises</Link> is their seamless coordination with <a href="https://partyondelivery.com" target="_blank" rel="noopener noreferrer" className="text-pink-600 hover:text-pink-700 font-semibold">Party On Delivery</a>. Instead of hauling heavy coolers and shopping for supplies yourself, <a href="https://partyondelivery.com" target="_blank" rel="noopener noreferrer" className="text-pink-600 hover:text-pink-700 font-semibold">Party On Delivery</a> delivers premium champagne, rosé, craft cocktails, and all necessary supplies directly to the marina before your <strong>austin bachelorette party boat</strong> departs. They offer curated packages specifically designed for <strong>luxury bachelorette parties in austin</strong>, including top-shelf spirits, artisanal mixers, and even decorative touches. This level of service means you spend zero time on logistics and 100% of your energy celebrating the bride during your incredible <strong>bachelorette party lake travis</strong> yacht charter!
+                The beauty of booking your <strong>bachelorette boat rental austin</strong> through <Link href="/" className="text-pink-600 hover:text-pink-700 font-semibold">Premier Party Cruises</Link> is their seamless coordination with <a href="https://partyondelivery.com" target="_blank" rel="noopener noreferrer" className="text-pink-600 hover:text-pink-700 font-semibold">Party On Delivery</a>. Instead of hauling heavy coolers and shopping for supplies yourself, <a href="https://partyondelivery.com" target="_blank" rel="noopener noreferrer" className="text-pink-600 hover:text-pink-700 font-semibold">Party On Delivery</a> delivers premium champagne, rosé, craft cocktails, and all necessary supplies directly to the marina before your <strong>austin bachelorette party boat</strong> departs. They offer curated packages specifically designed for <strong>luxury bachelorette parties in austin</strong>, including top-shelf spirits, artisanal mixers, and even decorative touches. This level of service means you spend zero time on logistics and 100% of your energy celebrating the bride during your incredible <strong>bachelorette party lake travis</strong> VIP party boat charter!
               </p>
             </div>
 
@@ -406,7 +406,7 @@ export default function LuxuryAustinBachelorette() {
                 </div>
                 <div className="flex items-start gap-3">
                   <CheckCircle2 className="h-5 w-5 text-pink-600 flex-shrink-0 mt-1" />
-                  <p><strong>Private Charter:</strong> Exclusive yacht just for your <strong>austin bachelorette weekend</strong> group (14-50 guests)</p>
+                  <p><strong>Private Charter:</strong> Exclusive party boat just for your <strong>austin bachelorette weekend</strong> group (14-50 guests)</p>
                 </div>
                 <div className="flex items-start gap-3">
                   <CheckCircle2 className="h-5 w-5 text-pink-600 flex-shrink-0 mt-1" />
@@ -493,7 +493,7 @@ export default function LuxuryAustinBachelorette() {
                 </div>
                 <div className="flex items-start gap-3">
                   <Heart className="h-5 w-5 text-pink-600 flex-shrink-0 mt-1 fill-pink-600" />
-                  <p>Private photographer for your <Link href="/atx-disco-cruise" className="text-pink-600 hover:text-pink-700 underline">ATX Disco Cruise</Link> yacht experience</p>
+                  <p>Private photographer for your <Link href="/atx-disco-cruise" className="text-pink-600 hover:text-pink-700 underline">ATX Disco Cruise</Link> party boat experience</p>
                 </div>
                 <div className="flex items-start gap-3">
                   <Heart className="h-5 w-5 text-pink-600 flex-shrink-0 mt-1 fill-pink-600" />
@@ -522,7 +522,7 @@ export default function LuxuryAustinBachelorette() {
             
             <div className="prose prose-lg max-w-none dark:prose-invert">
               <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
-                Even with the upscale vibe of your <strong>luxury austin bachelorette weekend</strong>, you'll still be doing all the activities that make Austin fun—just with a fancy, elevated twist! For example, you'll still explore the bars on Sixth or Rainey Street during your <strong>austin bachelorette party</strong>, but you might do so after a VIP cocktail-making class where you learned to shake the perfect martini. You'll still get out on beautiful Lake Travis for your <strong>bachelorette party lake travis</strong> adventure, but you'll be cruising on a sleek yacht with rosé on ice and a professional DJ spinning your favorite tracks through the premium sound system. Remember to balance your <strong>austin bachelorette</strong> schedule with some downtime so everyone can recharge—a luxury hotel pool cabana day is perfect for this relaxation between your exciting activities!
+                Even with the upscale vibe of your <strong>luxury austin bachelorette weekend</strong>, you'll still be doing all the activities that make Austin fun—just with a fancy, elevated twist! For example, you'll still explore the bars on Sixth or Rainey Street during your <strong>austin bachelorette party</strong>, but you might do so after a VIP cocktail-making class where you learned to shake the perfect martini. You'll still get out on beautiful Lake Travis for your <strong>bachelorette party lake travis</strong> adventure, but you'll be cruising on a sleek party boat with rosé on ice and a professional DJ spinning your favorite tracks through the premium sound system. Remember to balance your <strong>austin bachelorette</strong> schedule with some downtime so everyone can recharge—a luxury hotel pool cabana day is perfect for this relaxation between your exciting activities!
               </p>
 
               <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
@@ -530,7 +530,7 @@ export default function LuxuryAustinBachelorette() {
               </p>
 
               <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
-                In a <strong>luxury austin bachelorette</strong> celebration, it's all about creating those unforgettable moments—a sunset champagne toast on a rooftop overlooking the Hill Country, a surprise stretch limousine ride to your fine dining reservation, the bride's face when she walks into a penthouse suite filled with her best friends and finds Dom Pérignon waiting. Austin provides an incredible backdrop for all of these magical experiences during your <strong>bachelorette party in austin</strong>. So clink those champagne flutes, soak in the Texas sunshine from your <strong>bachelorette boat rental austin</strong> yacht, and celebrate your bride's next chapter in true high-end fashion with an unforgettable <strong>austin bachelorette party</strong> she'll cherish forever!
+                In a <strong>luxury austin bachelorette</strong> celebration, it's all about creating those unforgettable moments—a sunset champagne toast on a rooftop overlooking the Hill Country, a surprise stretch limousine ride to your fine dining reservation, the bride's face when she walks into a penthouse suite filled with her best friends and finds Dom Pérignon waiting. Austin provides an incredible backdrop for all of these magical experiences during your <strong>bachelorette party in austin</strong>. So clink those champagne flutes, soak in the Texas sunshine from your <strong>bachelorette boat rental austin</strong> party boat, and celebrate your bride's next chapter in true high-end fashion with an unforgettable <strong>austin bachelorette party</strong> she'll cherish forever!
               </p>
 
               <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-6">

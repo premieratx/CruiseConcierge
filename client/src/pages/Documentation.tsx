@@ -41,7 +41,7 @@ export default function Documentation() {
                   </CardHeader>
                   <CardContent className="space-y-2 text-sm">
                     <div className="flex justify-between">
-                      <span>14-Person Yacht:</span>
+                      <span>14-Person Premium Party Boat:</span>
                       <span className="font-mono">$1,050 total</span>
                     </div>
                     <div className="flex justify-between">
@@ -62,7 +62,7 @@ export default function Documentation() {
                   </CardHeader>
                   <CardContent className="space-y-2 text-sm">
                     <div className="flex justify-between">
-                      <span>14-Person Yacht:</span>
+                      <span>14-Person Premium Party Boat:</span>
                       <span className="font-mono">$1,181 total</span>
                     </div>
                     <div className="flex justify-between">
@@ -83,7 +83,7 @@ export default function Documentation() {
                   </CardHeader>
                   <CardContent className="space-y-2 text-sm">
                     <div className="flex justify-between">
-                      <span>14-Person Yacht:</span>
+                      <span>14-Person Premium Party Boat:</span>
                       <span className="font-mono">$1,838 total</span>
                     </div>
                     <div className="flex justify-between">
@@ -104,7 +104,7 @@ export default function Documentation() {
                   </CardHeader>
                   <CardContent className="space-y-2 text-sm">
                     <div className="flex justify-between">
-                      <span>14-Person Yacht:</span>
+                      <span>14-Person Premium Party Boat:</span>
                       <span className="font-mono">$1,313 total</span>
                     </div>
                     <div className="flex justify-between">
@@ -226,7 +226,7 @@ export default function Documentation() {
               <div className="grid gap-4 md:grid-cols-3">
                 <Card>
                   <CardHeader className="pb-3">
-                    <h3 className="font-semibold">14-Person Luxury Yacht</h3>
+                    <h3 className="font-semibold">14-Person Premium Party Boat</h3>
                     <Badge variant="outline">1-14 guests</Badge>
                   </CardHeader>
                   <CardContent className="text-sm space-y-2">
@@ -256,13 +256,13 @@ export default function Documentation() {
 
                 <Card>
                   <CardHeader className="pb-3">
-                    <h3 className="font-semibold">50-Person Charter Yacht</h3>
+                    <h3 className="font-semibold">50-Person Flagship Party Boat</h3>
                     <Badge variant="outline">31-75 guests</Badge>
                   </CardHeader>
                   <CardContent className="text-sm space-y-2">
                     <p>Maximum capacity vessel</p>
                     <ul className="space-y-1 text-muted-foreground">
-                      <li>• Two-level deck</li>
+                      <li>• Single-deck design</li>
                       <li>• Professional crew</li>
                       <li>• Event lighting</li>
                     </ul>
@@ -281,7 +281,7 @@ export default function Documentation() {
                   <ul className="mt-3 space-y-2 text-sm">
                     <li className="flex items-center gap-2">
                       <Users className="h-4 w-4 text-blue-600" />
-                      Groups of 1-14 → 14-Person Luxury Yacht
+                      Groups of 1-14 → 14-Person Premium Party Boat
                     </li>
                     <li className="flex items-center gap-2">
                       <Users className="h-4 w-4 text-blue-600" />
@@ -289,7 +289,7 @@ export default function Documentation() {
                     </li>
                     <li className="flex items-center gap-2">
                       <Users className="h-4 w-4 text-blue-600" />
-                      Groups of 31-75 → 50-Person Charter Yacht
+                      Groups of 31-75 → 50-Person Flagship Party Boat
                     </li>
                   </ul>
                 </CardContent>

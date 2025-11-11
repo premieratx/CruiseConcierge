@@ -893,7 +893,7 @@ const allFAQs = {
       },
       {
         question: 'What\'s the backup plan for bad weather?',
-        answer: 'The yacht has covered areas for light rain. For severe weather, we\'ll work with you to reschedule or we can arrange an indoor waterfront venue. We monitor weather closely and communicate any concerns 48 hours before your event.',
+        answer: 'The boat has covered areas for light rain. For severe weather, we\'ll work with you to reschedule or we can arrange an indoor waterfront venue. We monitor weather closely and communicate any concerns 48 hours before your event.',
         isNew: true
       },
       {

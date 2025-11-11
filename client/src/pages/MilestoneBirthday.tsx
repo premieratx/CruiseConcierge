@@ -905,7 +905,7 @@ export default function MilestoneBirthday() {
         <ul>
           <li>21st birthday party boat cruise on Lake Travis</li>
           <li>30th birthday celebration with DJ and dancing</li>
-          <li>40th birthday milestone party on private yacht</li>
+          <li>40th birthday milestone party on premium party boat</li>
           <li>50th birthday cruise - BYOB with Party On Delivery coordination</li>
           <li>60th birthday celebration boat rental Austin</li>
           <li>Age-specific decorations and themed party supplies</li>

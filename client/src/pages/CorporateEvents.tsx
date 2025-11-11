@@ -337,7 +337,7 @@ const caseStudies = [
 
 // Gallery images
 const galleryImages = [
-  { src: heroImage1, alt: 'Corporate Party Boat Austin yacht event on Lake Travis' },
+  { src: heroImage1, alt: 'Corporate Party Boat Austin party boat event on Lake Travis' },
   { src: heroImage2, alt: 'Lake Travis Corporate Events team building cruise' },
   { src: heroImage3, alt: 'Corporate Party Boat Austin executive meeting' },
   { src: galleryImage1, alt: 'Lake Travis Corporate Events celebration' },

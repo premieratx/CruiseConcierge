@@ -504,7 +504,7 @@ export default function PrivateCruises() {
             },
             { 
               question: "What size boats are available for private rental on Lake Travis?", 
-              answer: "Private boats range from intimate 14-person pontoons to luxury 75-person yachts. Popular sizes include: Day Tripper (14 passengers), Meeseeks (25 passengers), Clever Girl (30-50 passengers), and larger party yachts up to 75 passengers." 
+              answer: "Private boats range from intimate 14-person pontoons to high-end 75-person party boats. Popular sizes include: Day Tripper (14 passengers), Meeseeks (25 passengers), Clever Girl (30-50 passengers), and larger party boats up to 75 passengers." 
             },
             { 
               question: "How far in advance should I book a private boat rental?", 
@@ -1185,12 +1185,12 @@ export default function PrivateCruises() {
               
               <div className="prose prose-lg max-w-none">
                 <p className="text-lg text-gray-700 leading-relaxed mb-6">
-                  Successfully planning your <strong>lake travis party boat</strong> charter requires understanding the options and making decisions that align with your group's needs. With boats ranging from intimate 14-passenger pontoons to luxurious 75-passenger yachts, we help you select the perfect vessel for your <strong>party cruises</strong> celebration.
+                  Successfully planning your <strong>lake travis party boat</strong> charter requires understanding the options and making decisions that align with your group's needs. With boats ranging from intimate 14-passenger pontoons to high-end 75-passenger party boats, we help you select the perfect vessel for your <strong>party cruises</strong> celebration.
                 </p>
 
                 <h3 className="text-2xl font-bold text-gray-900 mb-4 mt-8">Choosing the Right Boat Size</h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-4">
-                  The size of your group determines which <strong>party boat austin</strong> option works best. For intimate gatherings of 10-15 people, our Day Tripper pontoon offers a cozy, personal experience. Mid-sized groups of 20-30 guests typically choose Meeseeks or The Irony, which provide ample space without feeling too large. For major celebrations with 40+ attendees, our flagship Clever Girl yacht delivers the luxury and capacity needed for large-scale <strong>austin party</strong> events.
+                  The size of your group determines which <strong>party boat austin</strong> option works best. For intimate gatherings of 10-15 people, our Day Tripper pontoon offers a cozy, personal experience. Mid-sized groups of 20-30 guests typically choose Meeseeks or The Irony, which provide ample space without feeling too large. For major celebrations with 40+ attendees, our flagship Clever Girl party boat delivers the luxury and capacity needed for large-scale <strong>austin party</strong> events.
                 </p>
 
                 <div className="bg-white border-2 border-blue-200 p-6 my-8 rounded-lg shadow-md">

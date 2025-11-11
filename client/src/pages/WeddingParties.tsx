@@ -198,7 +198,7 @@ const weddingFAQs = [
 
 // Gallery images
 const galleryImages = [
-  { src: heroImage1, alt: 'Wedding Party Boat Austin elegant yacht on Lake Travis' },
+  { src: heroImage1, alt: 'Wedding Party Boat Austin elegant party boat on Lake Travis' },
   { src: heroImage2, alt: 'Lake Travis Wedding rehearsal dinner boat' },
   { src: heroImage3, alt: 'Wedding Party Boat Austin intimate cruise' },
   { src: galleryImage1, alt: 'Lake Travis Wedding celebration on water' },
@@ -307,7 +307,7 @@ export default function WeddingParties() {
             <div className="grid md:grid-cols-3 gap-8">
               {[
                 { icon: Sunset, title: 'Sunset Romance', desc: 'Golden hour lighting creates magical moments and stunning wedding photos' },
-                { icon: Heart, title: 'Intimate Elegance', desc: 'Private yacht setting brings families together in exclusive atmosphere' },
+                { icon: Heart, title: 'Intimate Elegance', desc: 'Premium party boat setting brings families together in exclusive atmosphere' },
                 { icon: Shield, title: 'Stress-Free Planning', desc: 'Professional crew handles every detail so you can celebrate love' }
               ].map((benefit, idx) => (
                 <Card key={idx} className="rounded-xl border-2 hover:shadow-xl transition-all">
