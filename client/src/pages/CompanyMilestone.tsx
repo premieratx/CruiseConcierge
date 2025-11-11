@@ -14,6 +14,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import { cn } from '@/lib/utils';
 import { useInlineEdit } from '@/hooks/useInlineEdit';
+import { PACKAGE_FLAT_FEES, CREW_FEES } from '@shared/constants';
 import SEOHead from '@/components/SEOHead';
 import { SectionReveal } from '@/components/SectionReveal';
 import { corporateReviews } from '@shared/reviews-data';
@@ -33,64 +34,69 @@ const galleryImage1 = '/attached_assets/party-atmosphere-1.webp';
 const galleryImage2 = '/attached_assets/party-atmosphere-2.webp';
 const galleryImage3 = '/attached_assets/party-atmosphere-3.webp';
 
+// Company Milestone packages - REAL packages only (Standard, Essentials, Ultimate)
 const milestonePackages = [
   {
     id: 'standard',
-    name: 'Standard 4-Hour Cruise',
-    basePrice: 200,
-    description: 'Celebrate achievements together - Recognition and appreciation',
+    name: 'Standard Package',
+    flatFee: { 14: 0, 25: 0, 30: 0, 50: 0, 75: 0 },
+    description: 'Basic cruise experience',
+    subtitle: 'The boat, the captain, and the lake - celebrate achievements together',
     features: [
       'Licensed, fun, experienced captains to take your group safely around the lake in style',
-      '2 large empty coolers (plenty of cooler space - bring your own ice & drinks, or order ahead from Party On Delivery)',
-      'Premium Bluetooth speaker system',
+      'Large empty coolers (plenty of cooler space - bring your own ice & drinks, or order ahead from Party On Delivery)',
+      'Premium Bluetooth sound system',
       'Clean restroom facilities',
-      'Comfortable seating for up to 14 guests',
-      'Plenty of sun & shade areas',
-      'We can help coordinate alcohol delivery through Party On Delivery'
+      'Sun and shade seating areas',
+      'BYOB friendly (cans/plastic only)',
+      'Basic cruise experience'
     ],
     popular: false,
-    icon: Award,
-    badge: 'Perfect Start'
+    icon: Ship,
+    badge: 'Great Value',
+    color: 'blue'
   },
   {
     id: 'essentials',
-    name: 'Cruise w/Essentials Package',
-    basePrice: 225,
-    addOnPrice: 100,
-    description: 'Milestone celebration with complete convenience',
+    name: 'Essentials Package',
+    flatFee: PACKAGE_FLAT_FEES.ESSENTIALS,
+    description: 'Enhanced convenience',
+    subtitle: 'Everything from Standard Package + Enhanced Convenience',
     features: [
-      'Everything from Standard Cruise',
-      'Insulated 5-gallon dispenser with ice water',
-      'Fresh water & solo cups',
+      'Everything from Standard Package',
       'Coolers pre-stocked with ice',
-      '6-ft folding table for food & drinks',
-      'We can help coordinate alcohol delivery through Party On Delivery'
+      '5-gallon insulated water dispenser',
+      'Solo cups and ice water',
+      '6-foot folding table for food & drinks',
+      'We can help coordinate alcohol delivery through Party On Delivery',
+      'Enhanced convenience'
     ],
     popular: true,
-    icon: Trophy,
-    badge: 'Most Popular'
+    icon: Sparkles,
+    badge: 'Most Popular',
+    color: 'yellow'
   },
   {
     id: 'ultimate',
-    name: 'Ultimate Party Package',
-    basePrice: 250,
-    addOnPrice: 250,
-    description: 'Ultimate celebration with entertainment and party supplies',
+    name: 'Ultimate Package',
+    flatFee: PACKAGE_FLAT_FEES.ULTIMATE,
+    description: 'Full party atmosphere setup',
+    subtitle: 'Everything from Essentials Package + Full Party Atmosphere',
     features: [
       'Everything from Essentials Package',
       'Giant lily pad float',
       'Guest of honor float (unicorn or ring)',
       'Disco ball cups for party vibes',
-      'Bubble guns & bubble wands',
-      'Champagne flutes & fruit juices',
+      'Bubble guns and bubble wands',
+      'Champagne flutes and fruit juices',
       'SPF-50 spray sunscreen',
-      'Plates, plasticware, & paper towels',
-      'Disco balls installed for party atmosphere',
-      'We can help coordinate alcohol delivery through Party On Delivery'
+      'Plates, plasticware, paper towels',
+      'Full party atmosphere setup'
     ],
     popular: false,
-    icon: Rocket,
-    badge: 'Ultimate Celebration'
+    icon: Crown,
+    badge: 'All-Inclusive VIP',
+    color: 'purple'
   }
 ];
 

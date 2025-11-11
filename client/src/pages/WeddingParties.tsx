@@ -18,6 +18,7 @@ import { useInlineEdit } from '@/hooks/useInlineEdit';
 import { SectionReveal } from '@/components/SectionReveal';
 import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import { weddingReviews } from '@shared/reviews-data';
+import { PACKAGE_FLAT_FEES, CREW_FEES } from '@shared/constants';
 import { 
   Heart, Users, Star, Calendar, Trophy, Shield, Award,
   MessageSquare, Quote, Volume2, Clock, Sparkles,
@@ -25,7 +26,7 @@ import {
   ChefHat, Wifi, Target, Headphones, Check, Flower,
   Waves, Wine, Umbrella, Music, ArrowRight, Flower2,
   Crown, Anchor, Sun, Zap, ChevronRight, Gem,
-  DollarSign, Smile, GlassWater, CheckCircle, Sunset, X
+  DollarSign, Smile, GlassWater, CheckCircle, Sunset, X, Ship
 } from 'lucide-react';
 
 // Hero and gallery images
@@ -81,55 +82,69 @@ const weddingEvents = [
   }
 ];
 
-// Wedding packages
+// Wedding packages - REAL packages only (Standard, Essentials, Ultimate)
 const weddingPackages = [
   {
-    name: 'Standard Wedding Cruise',
-    icon: Heart,
-    price: 'Starting at $1,050',
-    description: 'Perfect for rehearsal dinners, welcome parties, and after parties',
+    id: 'standard',
+    name: 'Standard Package',
+    flatFee: { 14: 0, 25: 0, 30: 0, 50: 0, 75: 0 },
+    description: 'Basic cruise experience',
+    subtitle: 'The boat, the captain, and the lake - perfect for rehearsal dinners, welcome parties, and after parties',
     features: [
       'Licensed, fun, experienced captains to take your group safely around the lake in style',
-      'Premium Bluetooth speaker system',
+      'Large empty coolers (plenty of cooler space - bring your own ice & drinks, or order ahead from Party On Delivery)',
+      'Premium Bluetooth sound system',
       'Clean restroom facilities',
-      'Comfortable seating for guests',
-      'Plenty of sun & shade areas',
-      'We can help coordinate alcohol delivery through Party On Delivery'
+      'Sun and shade seating areas',
+      'BYOB friendly (cans/plastic only)',
+      'Basic cruise experience'
     ],
-    ideal: 'Essential wedding event experience'
+    popular: false,
+    icon: Ship,
+    badge: 'Great Value',
+    color: 'blue'
   },
   {
-    name: 'Wedding w/Essentials',
-    icon: Flower,
-    price: 'Starting at $1,181',
-    description: 'Wedding celebration with complete convenience',
+    id: 'essentials',
+    name: 'Essentials Package',
+    flatFee: PACKAGE_FLAT_FEES.ESSENTIALS,
+    description: 'Enhanced convenience',
+    subtitle: 'Everything from Standard Package + Enhanced Convenience',
     features: [
-      'Everything from Standard Cruise',
-      'Insulated water dispensers with ice',
-      'Fresh water & party cups',
+      'Everything from Standard Package',
       'Coolers pre-stocked with ice',
-      'Folding tables for food & drinks',
-      'We can help coordinate alcohol delivery through Party On Delivery'
+      '5-gallon insulated water dispenser',
+      'Solo cups and ice water',
+      '6-foot folding table for food & drinks',
+      'We can help coordinate alcohol delivery through Party On Delivery',
+      'Enhanced convenience'
     ],
-    ideal: 'Most popular for wedding events',
-    popular: true
+    popular: true,
+    icon: Sparkles,
+    badge: 'Most Popular',
+    color: 'yellow'
   },
   {
-    name: 'Luxury Wedding Package',
-    icon: Gem,
-    price: 'Starting at $1,413',
-    description: 'Elegant wedding experience with premium amenities',
+    id: 'ultimate',
+    name: 'Ultimate Package',
+    flatFee: PACKAGE_FLAT_FEES.ULTIMATE,
+    description: 'Full party atmosphere setup',
+    subtitle: 'Everything from Essentials Package + Full Party Atmosphere',
     features: [
       'Everything from Essentials Package',
-      'Champagne flutes & fruit juices',
-      'Elegant decorative touches',
+      'Giant lily pad float',
+      'Guest of honor float (unicorn or ring)',
+      'Disco ball cups for party vibes',
+      'Bubble guns and bubble wands',
+      'Champagne flutes and fruit juices',
       'SPF-50 spray sunscreen',
-      'Professional photo coordination',
-      'Premium party atmosphere',
-      'Complete wedding concierge service'
+      'Plates, plasticware, paper towels',
+      'Full party atmosphere setup'
     ],
-    ideal: 'For unforgettable wedding celebrations',
-    luxury: true
+    popular: false,
+    icon: Crown,
+    badge: 'All-Inclusive VIP',
+    color: 'purple'
   }
 ];
 
