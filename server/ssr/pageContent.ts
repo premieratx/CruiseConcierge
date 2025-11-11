@@ -28,7 +28,7 @@ export const LINK_CATALOG: Record<string, {url: string; text: string}> = {
   'birthday-party': {url: '/birthday-parties', text: 'Birthday Parties'},
   'team-building': {url: '/team-building', text: 'Team Building Events'},
   'graduation-party': {url: '/graduation-party', text: 'Graduation Parties'},
-  'combined-bach': {url: '/combined-bachelor-bachelorette', text: 'Combined Bachelor & Bachelorette Parties'},
+  'combined-bach': {url: '/combined-bachelor-bachelorette-austin', text: 'Combined Bachelor & Bachelorette Parties'},
   'faq': {url: '/faq', text: 'FAQ'},
   'contact': {url: '/contact', text: 'Contact Us'},
   'testimonials': {url: '/testimonials-faq', text: 'Customer Reviews'},
