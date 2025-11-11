@@ -32,6 +32,7 @@ import { useToast } from '@/hooks/use-toast';
 import { useReducedMotion } from '@/hooks/use-reduced-motion';
 import Footer from '@/components/Footer';
 import { combinedBachReviews } from '@shared/reviews-data';
+import { YouTubeVideoBackground } from '@/components/YouTubeVideoBackground';
 
 // Hero and gallery images
 const heroImage1 = '/attached_assets/bachelor-party-group-guys.jpg';
@@ -274,19 +275,7 @@ export default function CombinedBachelorBachelorette() {
       
       {/* Hero Section */}
       <section className="relative min-h-[80vh] flex flex-col justify-center overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="w-full h-full object-cover"
-            poster={heroImages[0]}
-          >
-            <source src="/attached_assets/Boat_Video_Walkthrough_Generated_1761209219959.mp4" type="video/mp4" />
-          </video>
-          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent" />
-        </div>
+        <YouTubeVideoBackground videoId="4-Yx24Y6oro" posterImage={heroImages[0]} />
 
         <div className="relative z-10 container mx-auto px-4 sm:px-6 text-white text-center flex-grow flex items-center">
           <div className="max-w-5xl mx-auto">

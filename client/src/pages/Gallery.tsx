@@ -177,6 +177,17 @@ const staticGalleryPhotos: MediaItem[] = [
     uploadDate: '2024-01-01',
     manualTags: ['events', 'party_atmosphere', 'floating'],
     altText: 'Giant unicorn float on Lake Travis party cruise'
+  },
+  // Videos
+  {
+    id: 'youtube-hero-video',
+    filename: 'premier-party-cruises-lake-travis.mp4',
+    originalName: 'Premier Party Cruises - Lake Travis Experience',
+    fileType: 'video',
+    filePath: 'https://www.youtube.com/watch?v=4-Yx24Y6oro',
+    uploadDate: '2025-11-11',
+    manualTags: ['video', 'party_atmosphere', 'boats', 'events'],
+    altText: 'Premier Party Cruises Lake Travis party boat experience video'
   }
 ];
 

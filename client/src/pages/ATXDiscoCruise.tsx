@@ -48,6 +48,7 @@ import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import { SchemaMarkup, generateEventSchema, generateProductSchema, generateFAQSchema, 
          generateLocalBusinessSchema, generateServiceSchema, generateAggregateRatingSchema, 
          generateBreadcrumbSchema, generateHowToSchema } from '@/components/SEOSchemaMarkup';
+import { YouTubeVideoBackground } from '@/components/YouTubeVideoBackground';
 
 const heroImage1 = '/attached_assets/atx-disco-cruise-party.webp';
 const heroImage2 = '/attached_assets/dancing-party-scene.webp';
@@ -419,20 +420,7 @@ export default function ATXDiscoCruise() {
           className="relative h-[70vh] flex flex-col justify-center overflow-hidden"
           data-testid="section-hero"
         >
-          <div className="absolute inset-0 z-0">
-            <video
-              autoPlay
-              loop
-              muted
-              playsInline
-              className="w-full h-full object-cover"
-              poster={heroImages[0]}
-            >
-              <source src="/attached_assets/Boat_Video_Walkthrough_Generated_1761209219959.mp4" type="video/mp4" />
-            </video>
-            <div className="absolute inset-0 bg-gradient-to-r from-purple-900/80 via-pink-900/70 to-orange-900/80" />
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/40" />
-          </div>
+          <YouTubeVideoBackground videoId="4-Yx24Y6oro" posterImage={heroImages[0]} />
 
           <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 text-center flex-grow flex items-center">
             <motion.div variants={fadeInUp} className="w-full">

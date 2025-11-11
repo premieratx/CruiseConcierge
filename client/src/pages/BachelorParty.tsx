@@ -52,6 +52,7 @@ import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import { SchemaMarkup, generateEventSchema, generateProductSchema, generateFAQSchema, 
          generateLocalBusinessSchema, generateServiceSchema, generateAggregateRatingSchema, 
          generateBreadcrumbSchema, generateHowToSchema } from '@/components/SEOSchemaMarkup';
+import { YouTubeVideoBackground } from '@/components/YouTubeVideoBackground';
 
 // Hero and gallery images
 const heroImage1 = '/attached_assets/bachelor-party-group-guys.webp';
@@ -516,19 +517,7 @@ export default function BachelorParty() {
       {/* 1. HERO SECTION */}
       <section id="hero" className="relative min-h-[85vh] flex flex-col justify-center overflow-hidden bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900">
         {/* Video Background */}
-        <div className="absolute inset-0 z-0">
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="w-full h-full object-cover"
-            poster={heroImage1}
-          >
-            <source src="/attached_assets/Boat_Video_Walkthrough_Generated_1761209219959.mp4" type="video/mp4" />
-          </video>
-          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
-        </div>
+        <YouTubeVideoBackground videoId="4-Yx24Y6oro" posterImage={heroImage1} />
 
         {/* Main Hero Content */}
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 text-white text-center flex-grow flex items-center w-full py-12 md:py-20">
