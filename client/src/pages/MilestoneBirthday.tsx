@@ -198,7 +198,7 @@ const faqItems = [
   {
     id: 'food-drinks',
     question: 'Can we bring food and drinks?',
-    answer: 'Yes. BYOB (21+), cans/plastic only; bring snacks or meals. We provide coolers with ice and cups.'
+    answer: 'Yes. For food, you have two options: (1) Bring your own - easy items that won\'t make a mess, or (2) We can help arrange full catering and setup from Austin vendors. BYOB (21+), cans/plastic only. We provide coolers with ice and cups.'
   },
   {
     id: 'deposits-payments',

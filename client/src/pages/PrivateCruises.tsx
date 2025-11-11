@@ -320,7 +320,7 @@ const faqItems = [
   {
     id: 'catering',
     question: 'Can we bring food aboard?',
-    answer: 'Yes! You\'re welcome to bring your own food or arrange catering from any Austin vendor of your choice. We can help coordinate alcohol delivery through Party On Delivery for your convenience. Our Essentials and Ultimate packages include a 6-foot table for food service. We provide cooler space (bring your own ice for standard packages - Essentials/Ultimate include ice).'
+    answer: 'Yes! For food, you have two options: (1) Bring your own - easy items that won\'t make a mess, or (2) We can help arrange full catering and setup from Austin vendors. We can also help coordinate alcohol delivery through Party On Delivery for your convenience. Our Essentials and Ultimate packages include a 6-foot table for food service. We provide cooler space (bring your own ice for standard packages - Essentials/Ultimate include ice).'
   },
   {
     id: 'decorations',

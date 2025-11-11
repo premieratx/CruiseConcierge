@@ -247,7 +247,7 @@ const corporateFAQs = [
   },
   {
     question: 'Can you provide food for our event?',
-    answer: 'We don\'t provide food directly, but we can help coordinate alcohol delivery through Party On Delivery. You\'re welcome to bring your own food or arrange catering from any Austin vendor of your choice. We provide tables and cooler space (bring your own ice, or add Essentials/Ultimate packages for ice included, or order from Party On Delivery) for your convenience.'
+    answer: 'For food, you have two options: (1) Bring your own - easy items that won\'t make a mess, or (2) We can help arrange full catering and setup from Austin vendors. We can also help coordinate alcohol delivery through Party On Delivery. We provide tables and cooler space (bring your own ice, or add Essentials/Ultimate packages for ice included, or order from Party On Delivery) for your convenience.'
   },
   {
     question: 'How do we handle alcohol at a corporate event?',

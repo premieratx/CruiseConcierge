@@ -237,7 +237,7 @@ const allFAQs = {
           },
           {
             question: 'Can we bring catering or do you provide food service?',
-            answer: 'You can bring your own catering, or we can connect you with our preferred corporate catering partners who specialize in on-water service. Our partners offer everything from lunch boxes and appetizer platters to full-service gourmet dining. We provide serving areas, tables, and coordination for seamless meal service.'
+            answer: 'For food, you have two options: (1) Bring your own - easy items that won\'t make a mess, or (2) We can help arrange full catering and setup from Austin vendors. Our catering partners specialize in on-water service and offer everything from lunch boxes and appetizer platters to full-service gourmet dining. We provide serving areas, tables, and coordination for seamless meal service.'
           },
           {
             question: 'Do you accommodate presentations and meetings?',
@@ -334,7 +334,7 @@ const allFAQs = {
       },
       {
         question: 'What catering options are available?',
-        answer: 'We offer various catering options from casual BBQ to gourmet meals. Popular choices include breakfast tacos, lunch buffets, or evening appetizers. We can also arrange team cooking challenges as part of the experience.',
+        answer: 'For food, you have two options: (1) Bring your own - easy items that won\'t make a mess, or (2) We can help arrange full catering and setup from Austin vendors. Popular catering options include casual BBQ, breakfast tacos, lunch buffets, or evening appetizers. We can also arrange team cooking challenges as part of the experience.',
         isNew: true
       },
       {
@@ -360,7 +360,7 @@ const allFAQs = {
       },
       {
         question: 'What catering options work best for client entertainment?',
-        answer: 'We recommend gourmet appetizer stations for mingling or seated dinners for formal occasions. Popular choices include surf & turf, sushi stations, or Austin BBQ with an upscale twist. All dietary restrictions can be accommodated.'
+        answer: 'For food, you have two options: (1) Bring your own - easy items that won\'t make a mess, or (2) We can help arrange full catering and setup from Austin vendors. We recommend gourmet appetizer stations for mingling or seated dinners for formal occasions. Popular choices include surf & turf, sushi stations, or Austin BBQ with an upscale twist. All dietary restrictions can be accommodated.'
       },
       {
         question: 'How does alcohol work for client entertainment?',
@@ -873,7 +873,7 @@ const allFAQs = {
     faqs: [
       {
         question: 'Do you provide catering for rehearsal dinners?',
-        answer: 'While we don\'t provide catering directly, we work with Austin\'s best catering partners who specialize in boat events. We\'ll connect you with trusted vendors and our crew will assist with all setup and service during your cruise.',
+        answer: 'For food, you have two options: (1) Bring your own - easy items that won\'t make a mess, or (2) We can help arrange full catering and setup from Austin vendors. We work with Austin\'s best catering partners who specialize in boat events. We\'ll connect you with trusted vendors and our crew will assist with all setup and service during your cruise.',
         isNew: true
       },
       {
@@ -925,7 +925,7 @@ const allFAQs = {
       },
       {
         question: 'What food options work best for after parties?',
-        answer: 'Late night snacks are perfect - think sliders, pizza, tacos, or dessert bars. We also offer coffee and energy drinks to keep the party going. Full catering is available but lighter options are most popular.',
+        answer: 'For food, you have two options: (1) Bring your own - easy items that won\'t make a mess like sliders, pizza, tacos, or dessert bars, or (2) We can help arrange full catering and setup from Austin vendors. We also offer coffee and energy drinks to keep the party going. Lighter late-night snacks are most popular for after parties.',
         isNew: true
       },
       {
@@ -952,7 +952,7 @@ const allFAQs = {
       },
       {
         question: 'What food options work best for welcome parties?',
-        answer: 'Texas BBQ and Fajita bars are our most popular choices - they\'re casual, delicious, and give guests a true Austin experience. We can also arrange lighter appetizers or full dinner service based on your preferences.',
+        answer: 'For food, you have two options: (1) Bring your own - easy items that won\'t make a mess, or (2) We can help arrange full catering and setup from Austin vendors. Texas BBQ and Fajita bars are our most popular catering choices - they\'re casual, delicious, and give guests a true Austin experience. We can also arrange lighter appetizers or full dinner service based on your preferences.',
         isNew: true
       },
       {
