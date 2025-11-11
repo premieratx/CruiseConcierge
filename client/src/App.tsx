@@ -85,6 +85,9 @@ const FAQReview = lazy(() => import("./pages/admin/FAQReview"));
 // Admin Business Summary - Lazy loaded
 const BusinessSummary = lazy(() => import("./pages/admin/BusinessSummary"));
 
+// Admin Blog Conversion Tracker - Lazy loaded
+const BlogConversionTracker = lazy(() => import("./pages/admin/BlogConversionTracker"));
+
 // Landing Pages - Lazy loaded
 const BachelorParty = lazy(() => import("./pages/BachelorParty"));
 const BacheloretteParty = lazy(() => import("./pages/BacheloretteParty"));
@@ -591,14 +594,11 @@ function Router() {
         </ProtectedRoute>
       </Route>
       
-      {/* Public Media Library */}
-      <Route path="/media">
-        <Suspense fallback={<div className="flex items-center justify-center h-screen">Loading...</div>}>
-          {(() => {
-            const MediaLibrary = lazy(() => import('./pages/MediaLibrary'));
-            return <MediaLibrary />;
-          })()}
-        </Suspense>
+      {/* Admin Blog Conversion Tracker - LOGIN REQUIRED */}
+      <Route path="/admin/blog-conversion">
+        <ProtectedRoute>
+          <BlogConversionTracker />
+        </ProtectedRoute>
       </Route>
       
       {/* Admin Content Blocks - LOGIN REQUIRED */}

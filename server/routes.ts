@@ -784,15 +784,28 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
   // NOINDEX HEADERS FOR ADMIN/PRIVATE ROUTES
   // ==========================================
   
-  // Add X-Robots-Tag: noindex for all /portal routes (defense-in-depth with auth)
-  app.get('/portal*', (req, res, next) => {
-    res.setHeader('X-Robots-Tag', 'noindex, nofollow');
-    next();
+  // Add X-Robots-Tag: noindex for all admin and media routes (defense-in-depth with auth)
+  const adminPaths = ['/portal', '/media', '/media-library', '/admin'];
+  adminPaths.forEach(path => {
+    app.use(`${path}*`, (req, res, next) => {
+      res.setHeader('X-Robots-Tag', 'noindex, nofollow');
+      res.setHeader('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+      next();
+    });
   });
   
   // ==========================================
   // LEGACY URL REDIRECTS (301 PERMANENT)
   // ==========================================
+  
+  // Redirect media routes to admin-only location
+  app.get('/media-library', (req, res) => {
+    res.redirect(301, '/admin/media');
+  });
+  
+  app.get('/media', (req, res) => {
+    res.redirect(301, '/admin/media');
+  });
   
   // Redirect phantom URLs to their correct destinations
   app.get('/bachelor-bachelorette-party-boat-austin', (req, res) => {
