@@ -716,13 +716,7 @@ export default function TeamBuilding() {
         })
       }} />
 
-      <RelatedLinks 
-        blogLinks={[
-          { title: 'Effective Corporate Team Building', href: '/blogs/corporate-team-building-lake-travis' },
-          { title: 'Planning a Team Retreat', href: '/blogs/planning-team-retreat-austin' },
-          { title: 'Team Building Activity Ideas', href: '/blogs/team-building-activities-lake-travis' }
-        ]}
-      />
+      <RelatedLinks />
 
       <VideoGallerySection videos={[{id: 'FABtEDZZBA0', title: 'Premier Party Cruises Experience', description: 'See what makes our Lake Travis cruises unforgettable'}]} />
 

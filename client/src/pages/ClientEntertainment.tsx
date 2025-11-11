@@ -680,13 +680,7 @@ export default function ClientEntertainment() {
         })
       }} />
 
-      <RelatedLinks 
-        blogLinks={[
-          { title: 'Client Entertainment Best Practices', href: '/blogs/client-entertainment-best-practices' },
-          { title: 'Corporate Event Planning Guide', href: '/blogs/corporate-event-planning-austin' },
-          { title: 'Lake Travis Corporate Events', href: '/blogs/lake-travis-corporate-events' }
-        ]}
-      />
+      <RelatedLinks />
 
       <VideoGallerySection videos={[{id: 'FABtEDZZBA0', title: 'Premier Party Cruises Experience', description: 'See what makes our Lake Travis cruises unforgettable'}]} />
 

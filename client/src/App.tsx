@@ -287,16 +287,6 @@ function Router() {
       <Route path="/blogs/lake-travis-wedding-boat-rentals-unique-venues-for-austin-celebrations" component={LakeTravisWeddingBoatRentals} />
       
       {/* Redirect broken indexed URLs */}
-      <Route path="/blogs/atx-disco-cruise-experience">
-        {() => {
-          const [, navigate] = useLocation();
-          useEffect(() => {
-            navigate('/atx-disco-cruise', { replace: true });
-          }, [navigate]);
-          return null;
-        }}
-      </Route>
-      
       <Route path="/party-cruises-2025">
         {() => {
           const [, navigate] = useLocation();

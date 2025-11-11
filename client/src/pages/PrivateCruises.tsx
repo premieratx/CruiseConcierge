@@ -1897,13 +1897,7 @@ export default function PrivateCruises() {
       <RelatedServicesSection currentPath="/private-cruises" />
 
       {/* Related Links */}
-      <RelatedLinks 
-        blogLinks={[
-          { title: 'Private Cruise Planning Guide', href: '/blogs/private-cruise-planning-guide' },
-          { title: 'Lake Travis Event Ideas', href: '/blogs/lake-travis-event-ideas' },
-          { title: 'Corporate Event Planning', href: '/blogs/corporate-event-planning-austin' }
-        ]}
-      />
+      <RelatedLinks />
 
       {/* Sticky CTA */}
       <StickyCTA

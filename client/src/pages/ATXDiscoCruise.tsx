@@ -2310,13 +2310,7 @@ export default function ATXDiscoCruise() {
         <RelatedServicesSection currentPath="/atx-disco-cruise" />
 
         {/* Related Links */}
-        <RelatedLinks 
-          blogLinks={[
-            { title: 'ATX Disco Cruise Complete Guide', href: '/blogs/atx-disco-cruise-ultimate-guide' },
-            { title: 'What to Expect on the Disco Cruise', href: '/blogs/atx-disco-cruise-experience' },
-            { title: 'Bachelor vs Bachelorette Party Tips', href: '/blogs/bachelor-bachelorette-party-tips' }
-          ]}
-        />
+        <RelatedLinks />
 
         {/* Sticky CTA */}
         <StickyCTA

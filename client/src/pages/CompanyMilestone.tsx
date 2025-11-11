@@ -680,13 +680,7 @@ export default function CompanyMilestone() {
         })
       }} />
 
-      <RelatedLinks 
-        blogLinks={[
-          { title: 'Company Milestone Celebration Ideas', href: '/blogs/company-milestone-celebration-ideas' },
-          { title: 'Corporate Anniversary Planning', href: '/blogs/corporate-anniversary-planning-austin' },
-          { title: 'Team Recognition Events', href: '/blogs/team-recognition-events-lake-travis' }
-        ]}
-      />
+      <RelatedLinks />
 
       <VideoGallerySection videos={[{id: 'FABtEDZZBA0', title: 'Premier Party Cruises Experience', description: 'See what makes our Lake Travis cruises unforgettable'}]} />
 

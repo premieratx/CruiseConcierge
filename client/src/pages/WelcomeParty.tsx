@@ -115,52 +115,87 @@ const welcomePackages = [
   }
 ];
 
-// What's included
-const whatsIncluded = [
-  {
-    icon: Plane,
-    title: 'Guest Welcome',
-    description: 'Perfect for welcoming out-of-town wedding guests'
+// Boat-specific pricing for 4-hour cruises
+const boatPricing = {
+  '14': {
+    name: 'Day Tripper',
+    capacity: '1-14 guests',
+    packages: {
+      standard: { range: '$1,050 - $1,838', note: '4-hour cruise' },
+      essentials: { range: '$1,181 - $1,969', addOn: '+$100 Essentials Package', note: '4-hour cruise w/Essentials' },
+      ultimate: { range: '$1,413 - $2,260', addOn: '+$250 Ultimate Package', note: '4-hour cruise w/Ultimate' }
+    }
   },
+  '25': {
+    name: 'Meeseeks / The Irony',
+    capacity: '15-30 guests',
+    packages: {
+      standard: { range: '$1,181 - $2,050', note: '4-hour cruise' },
+      essentials: { range: '$1,331 - $2,200', addOn: '+$150 Essentials Package', note: '4-hour cruise w/Essentials' },
+      ultimate: { range: '$1,531 - $2,500', addOn: '+$300 Ultimate Package', note: '4-hour cruise w/Ultimate' }
+    }
+  },
+  '50': {
+    name: 'Clever Girl',
+    capacity: '31-75 guests',
+    packages: {
+      standard: { range: '$1,313 - $2,350', note: '4-hour cruise' },
+      essentials: { range: '$1,513 - $2,550', addOn: '+$200 Essentials Package', note: '4-hour cruise w/Essentials' },
+      ultimate: { range: '$1,663 - $2,800', addOn: '+$350 Ultimate Package', note: '4-hour cruise w/Ultimate' }
+    }
+  }
+};
+
+// What's included in every package - GUARANTEED
+const guaranteedInclusions = [
   {
-    icon: Utensils,
-    title: 'Texas Cuisine',
-    description: 'Authentic BBQ or Fajita bar options'
+    icon: Ship,
+    title: 'Professional Captain & Crew',
+    description: 'Licensed, experienced captain handles boat operation and safety'
   },
   {
     icon: Music,
-    title: 'Live Entertainment',
-    description: 'Options for acoustic or full band performances'
+    title: 'Premium Sound System',
+    description: 'Bluetooth sound system for your music playlist'
   },
   {
     icon: Wine,
-    title: 'BYOB Setup',
-    description: 'We coordinate Party On Delivery for seamless drinks'
+    title: 'BYOB Coordination',
+    description: 'We coordinate Party On Delivery for seamless drink delivery'
   },
   {
-    icon: PartyPopper,
-    title: 'Festive Atmosphere',
-    description: 'Casual mingling space for guests to connect'
-  },
-  {
-    icon: Gift,
-    title: 'Welcome Amenities',
-    description: 'Welcome bags and local treats available'
+    icon: GlassWater,
+    title: 'Coolers & Ice Provided',
+    description: 'Coolers with ice included (pre-stocked with upgraded packages)'
   },
   {
     icon: Sun,
-    title: 'Flexible Timing',
-    description: 'Afternoon or evening cruise options'
+    title: 'Comfort & Amenities',
+    description: 'Restrooms, comfortable seating, sun & shade areas included'
   },
   {
     icon: Shield,
-    title: 'Full Service',
-    description: 'Professional crew handles everything'
+    title: 'Safety Equipment',
+    description: 'All required safety equipment and life jackets provided'
+  }
+];
+
+// Optional concierge services - AVAILABLE UPON REQUEST
+const conciergeServices = [
+  {
+    icon: Utensils,
+    title: 'Food Coordination',
+    description: 'We can help arrange catering from Austin vendors (optional service)'
   },
   {
-    icon: Heart,
-    title: 'Wedding Focus',
-    description: 'Customized to match your wedding theme'
+    icon: Mic,
+    title: 'Entertainment Booking',
+    description: 'Live music can be arranged upon request (optional service)'
+  },
+  {
+    icon: Gift,
+    title: 'Custom Services',
+    description: 'Welcome bags and decorations available upon request (optional)'
   }
 ];
 
@@ -206,6 +241,7 @@ export default function WelcomeParty() {
   const [selectedPackage, setSelectedPackage] = useState('premium');
   const [showQuoteBuilder, setShowQuoteBuilder] = useState(false);
   const [currentHeroImage, setCurrentHeroImage] = useState(0);
+  const [selectedBoatSize, setSelectedBoatSize] = useState<'14' | '25' | '50'>('14');
   const heroImages = [heroImage1, heroImage2, heroImage3];
 
   useEffect(() => {
@@ -461,77 +497,134 @@ export default function WelcomeParty() {
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {welcomePackages.map((pkg, index) => (
-              <motion.div
-                key={pkg.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
+          {/* Tabbed Pricing by Boat Size */}
+          <Tabs value={selectedBoatSize} onValueChange={(val) => setSelectedBoatSize(val as '14' | '25' | '50')} className="max-w-6xl mx-auto">
+            <TabsList className="grid w-full grid-cols-3 mb-8 bg-blue-100 dark:bg-blue-950 p-1">
+              <TabsTrigger 
+                value="14" 
+                data-testid="tab-14-person"
+                className="data-[state=active]:bg-blue-600 data-[state=active]:text-white font-semibold"
               >
-                <Card className={cn(
-                  "relative h-full hover:shadow-2xl transition-all duration-300",
-                  pkg.popular && "border-2 border-brand-yellow shadow-xl scale-105"
-                )}>
-                  {pkg.popular && (
-                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-10">
-                      <Badge className="bg-brand-yellow text-black font-bold px-4 py-1">
-                        MOST POPULAR
-                      </Badge>
-                    </div>
-                  )}
+                <Ship className="h-4 w-4 mr-2" />
+                14-Person Boat
+              </TabsTrigger>
+              <TabsTrigger 
+                value="25" 
+                data-testid="tab-25-person"
+                className="data-[state=active]:bg-blue-600 data-[state=active]:text-white font-semibold"
+              >
+                <Ship className="h-4 w-4 mr-2" />
+                25-Person Boat
+              </TabsTrigger>
+              <TabsTrigger 
+                value="50" 
+                data-testid="tab-50-person"
+                className="data-[state=active]:bg-blue-600 data-[state=active]:text-white font-semibold"
+              >
+                <Ship className="h-4 w-4 mr-2" />
+                50-Person Boat
+              </TabsTrigger>
+            </TabsList>
 
-                  <CardHeader className="text-center pb-6">
-                    <div className="w-16 h-16 mx-auto mb-4 bg-brand-blue/10 rounded-full flex items-center justify-center">
-                      <pkg.icon className="h-8 w-8 text-brand-blue" />
+            {/* Boat Info Card */}
+            <Card className="bg-blue-50 dark:bg-blue-950/30 border-blue-200 mb-8">
+              <CardContent className="pt-6">
+                <div className="flex items-center justify-between flex-wrap gap-4">
+                  <div className="flex items-center gap-3">
+                    <Ship className="h-6 w-6 text-blue-600" />
+                    <div>
+                      <p className="font-semibold text-lg">{boatPricing[selectedBoatSize].name}</p>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">{boatPricing[selectedBoatSize].capacity}</p>
                     </div>
-                    <CardTitle className="text-2xl font-bold">{pkg.name}</CardTitle>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Package Cards for Each Boat Size */}
+            {(['14', '25', '50'] as const).map((boatSize) => (
+              <TabsContent key={boatSize} value={boatSize}>
+                <div className="grid md:grid-cols-3 gap-8">
+                  {welcomePackages.map((pkg, index) => {
+                    const pricing = boatPricing[boatSize].packages[pkg.id as keyof typeof boatPricing['14']['packages']];
                     
-                    <div className="mt-4">
-                      <div className="text-3xl font-bold text-brand-blue">
-                        {pkg.basePrice === 200 && '$1,050-$1,838'}
-                        {pkg.basePrice === 225 && '$1,181-$1,969'}
-                        {pkg.basePrice === 250 && '$1,413-$2,260'}
-                      </div>
-                      <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                        for 4-hour cruise
-                      </p>
-                    </div>
-                  </CardHeader>
+                    return (
+                      <motion.div
+                        key={pkg.id}
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: index * 0.1 }}
+                      >
+                        <Card className={cn(
+                          "relative h-full hover:shadow-2xl transition-all duration-300",
+                          pkg.popular && "border-2 border-brand-yellow shadow-xl"
+                        )}>
+                          {pkg.popular && (
+                            <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-10">
+                              <Badge className="bg-brand-yellow text-black font-bold px-4 py-1">
+                                MOST POPULAR
+                              </Badge>
+                            </div>
+                          )}
 
-                  <CardContent>
-                    <p className="text-gray-600 dark:text-gray-400 mb-6">
-                      {pkg.description}
-                    </p>
+                          <CardHeader className="text-center pb-6">
+                            <div className="w-16 h-16 mx-auto mb-4 bg-brand-blue/10 rounded-full flex items-center justify-center">
+                              <pkg.icon className="h-8 w-8 text-brand-blue" />
+                            </div>
+                            <CardTitle className="text-2xl font-bold">{pkg.name}</CardTitle>
+                            
+                            <div className="mt-4">
+                              <div className="text-3xl font-bold text-brand-blue">
+                                {pricing.range}
+                              </div>
+                              <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                                {pricing.note}
+                              </p>
+                              {pricing.addOn && (
+                                <p className="text-sm font-semibold text-purple-600 dark:text-purple-400 mt-2">
+                                  {pricing.addOn}
+                                </p>
+                              )}
+                            </div>
+                          </CardHeader>
 
-                    <ul className="space-y-3 mb-6">
-                      {pkg.features.map((feature, idx) => (
-                        <li key={idx} className="flex items-start">
-                          <CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
-                          <span className="text-sm">{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
+                          <CardContent>
+                            <p className="text-gray-600 dark:text-gray-400 mb-6">
+                              {pkg.description}
+                            </p>
 
-                    <Button 
-                      className="w-full"
-                      variant={pkg.popular ? "default" : "outline"}
-                      onClick={handleGetQuote}
-                      data-testid={`button-package-${pkg.id}`}
-                    >
-                      Get Quote
-                      <ArrowRight className="ml-2 h-4 w-4" />
-                    </Button>
-                  </CardContent>
-                </Card>
-              </motion.div>
+                            <ul className="space-y-3 mb-6">
+                              {pkg.features.map((feature, idx) => (
+                                <li key={idx} className="flex items-start">
+                                  <CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
+                                  <span className="text-sm">{feature}</span>
+                                </li>
+                              ))}
+                            </ul>
+
+                            <Button 
+                              className="w-full"
+                              variant={pkg.popular ? "default" : "outline"}
+                              onClick={handleGetQuote}
+                              data-testid={`button-package-${pkg.id}-${boatSize}`}
+                            >
+                              Get Quote
+                              <ArrowRight className="ml-2 h-4 w-4" />
+                            </Button>
+                          </CardContent>
+                        </Card>
+                      </motion.div>
+                    );
+                  })}
+                </div>
+              </TabsContent>
             ))}
-          </div>
+          </Tabs>
         </div>
       </section>
 
-      {/* What's Included */}
+      {/* Guaranteed Inclusions Section */}
       <section className="py-20 bg-white dark:bg-gray-950">
         <div className="container mx-auto px-6">
           <motion.div 
@@ -541,15 +634,15 @@ export default function WelcomeParty() {
             viewport={{ once: true }}
           >
             <h2 className="text-4xl md:text-5xl font-bold font-heading mb-4">
-              The Perfect Wedding Weekend Start
+              What's Included in Every Package
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-400">
-              Everything you need to welcome your guests in true Austin style
+              Guaranteed with your welcome party cruise
             </p>
           </motion.div>
 
           <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
-            {whatsIncluded.map((item, index) => (
+            {guaranteedInclusions.map((item, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
@@ -560,6 +653,49 @@ export default function WelcomeParty() {
               >
                 <div className="w-12 h-12 bg-brand-blue/10 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
                   <item.icon className="h-6 w-6 text-brand-blue" />
+                </div>
+                <div>
+                  <h3 className="font-bold mb-1">{item.title}</h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">{item.description}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Optional Concierge Services Section */}
+      <section className="py-20 bg-gray-50 dark:bg-gray-900">
+        <div className="container mx-auto px-6">
+          <motion.div 
+            className="text-center mb-12"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <Badge className="mb-4 px-6 py-2 text-base font-sans tracking-wider bg-purple-100 border-purple-300">
+              Optional Add-Ons
+            </Badge>
+            <h2 className="text-4xl md:text-5xl font-bold font-heading mb-4">
+              Optional Concierge Services
+            </h2>
+            <p className="text-xl text-gray-600 dark:text-gray-400">
+              Available upon request - we'll help coordinate these services
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+            {conciergeServices.map((item, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.05 }}
+                className="flex items-start p-6 rounded-lg bg-white dark:bg-gray-950 border-2 border-purple-200 dark:border-purple-800 hover:border-purple-400 dark:hover:border-purple-600 transition-colors shadow-sm"
+              >
+                <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900/30 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
+                  <item.icon className="h-6 w-6 text-purple-600 dark:text-purple-400" />
                 </div>
                 <div>
                   <h3 className="font-bold mb-1">{item.title}</h3>
