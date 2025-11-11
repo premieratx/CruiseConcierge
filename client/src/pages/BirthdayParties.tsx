@@ -16,7 +16,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import SEOHead from '@/components/SEOHead';
 import { formatCurrency } from '@shared/formatters';
-import { PRICING_DEFAULTS } from '@shared/constants';
+import { PRICING_DEFAULTS, PACKAGE_FLAT_FEES, CREW_FEES } from '@shared/constants';
 import { cn } from '@/lib/utils';
 import { useInlineEdit } from '@/hooks/useInlineEdit';
 import { SectionReveal } from '@/components/SectionReveal';
@@ -29,7 +29,7 @@ import {
   ChefHat, Wifi, Target, Headphones, Check, Sparkles,
   Waves, Wine, Umbrella, Music, ArrowRight, Camera,
   Crown, Anchor, Presentation, Zap, ChevronRight,
-  DollarSign, Smile, Gem, CheckCircle, X
+  DollarSign, Smile, Gem, CheckCircle, X, Ship
 } from 'lucide-react';
 
 // Hero and gallery images
@@ -50,54 +50,69 @@ const milestones = [
   { age: '50th', label: 'Fifty & Fabulous', icon: Trophy, color: 'text-yellow-500' }
 ];
 
-// Birthday packages
+// Birthday packages - REAL packages only (Standard, Essentials, Ultimate)
 const birthdayPackages = [
   {
-    name: 'Essential Birthday',
-    icon: Gift,
-    price: 'Starting at $1,050',
-    description: 'Everything you need for an amazing birthday cruise',
+    id: 'standard',
+    name: 'Standard Package',
+    flatFee: { 14: 0, 25: 0, 30: 0, 50: 0, 75: 0 },
+    description: 'Basic cruise experience',
+    subtitle: 'The boat, the captain, and the lake - ready for your birthday celebration',
     features: [
-      'Private boat for your group',
-      'Professional captain',
-      'Premium sound system',
-      'Coolers with ice',
-      'Swimming & floating',
-      'Customizable playlist'
+      'Licensed, fun, experienced captains to take your group safely around the lake in style',
+      'Large empty coolers (plenty of cooler space - bring your own ice & drinks, or order ahead from Party On Delivery)',
+      'Premium Bluetooth sound system',
+      'Clean restroom facilities',
+      'Sun and shade seating areas',
+      'BYOB friendly (cans/plastic only)',
+      'Basic cruise experience'
     ],
-    ideal: 'Perfect for intimate celebrations'
+    popular: false,
+    icon: Ship,
+    badge: 'Great Value',
+    color: 'blue'
   },
   {
-    name: 'Birthday Bash',
-    icon: PartyPopper,
-    price: 'Starting at $1,181',
-    description: 'Enhanced celebration with party essentials',
+    id: 'essentials',
+    name: 'Essentials Package',
+    flatFee: PACKAGE_FLAT_FEES.ESSENTIALS,
+    description: 'Enhanced convenience',
+    subtitle: 'Everything from Standard Package + Enhanced Convenience',
     features: [
-      'Everything from Essential',
-      'Birthday decorations included',
-      'Complimentary birthday banner',
-      'Party supplies (cups, plates)',
-      'Fresh water & soft drinks',
-      'Setup assistance'
+      'Everything from Standard Package',
+      'Coolers pre-stocked with ice',
+      '5-gallon insulated water dispenser',
+      'Solo cups and ice water',
+      '6-foot folding table for food & drinks',
+      'We can help coordinate alcohol delivery through Party On Delivery',
+      'Enhanced convenience'
     ],
-    ideal: 'Most Popular Choice!',
-    popular: true
+    popular: true,
+    icon: Sparkles,
+    badge: 'Most Popular',
+    color: 'yellow'
   },
   {
-    name: 'VIP Birthday Experience',
+    id: 'ultimate',
+    name: 'Ultimate Package',
+    flatFee: PACKAGE_FLAT_FEES.ULTIMATE,
+    description: 'Full party atmosphere setup',
+    subtitle: 'Everything from Essentials Package + Full Party Atmosphere',
+    features: [
+      'Everything from Essentials Package',
+      'Giant lily pad float',
+      'Guest of honor float (unicorn or ring)',
+      'Disco ball cups for party vibes',
+      'Bubble guns and bubble wands',
+      'Champagne flutes and fruit juices',
+      'SPF-50 spray sunscreen',
+      'Plates, plasticware, paper towels',
+      'Full party atmosphere setup'
+    ],
+    popular: false,
     icon: Crown,
-    price: 'Starting at $1,413',
-    description: 'Ultimate birthday luxury on the water',
-    features: [
-      'Everything from Birthday Bash',
-      'Giant party floats',
-      'Professional photographer',
-      'Champagne toast setup',
-      'Premium decorations',
-      'VIP party atmosphere'
-    ],
-    ideal: 'For milestone birthdays',
-    vip: true
+    badge: 'All-Inclusive VIP',
+    color: 'purple'
   }
 ];
 
