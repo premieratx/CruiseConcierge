@@ -251,7 +251,7 @@ const corporateFAQs = [
   },
   {
     question: 'How do we handle alcohol at a corporate event?',
-    answer: 'You have complete control over alcohol service. Options include: BYOB with our cooler space (bring your own ice, or add Essentials/Ultimate for ice included), hiring a professional bartender, limiting to beer and wine only, or having an alcohol-free event. We help ensure responsible service for corporate liability.'
+    answer: 'All Premier cruises are BYOB (Bring Your Own Beverage). We work with Party On Delivery to have your drinks delivered and iced down when you arrive, making it seamless. Options include: BYOB with our cooler space (bring your own ice, or add Essentials/Ultimate for ice included), ordering through Party On Delivery, limiting to beer and wine only, or having an alcohol-free event. Optional external bartending service available for $600 per cruise plus cost of alcohol. We help ensure responsible service for corporate liability.'
   },
   {
     question: 'What\'s the best boat size for our team?',

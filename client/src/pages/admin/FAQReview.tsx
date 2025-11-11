@@ -363,8 +363,8 @@ const allFAQs = {
         answer: 'We recommend gourmet appetizer stations for mingling or seated dinners for formal occasions. Popular choices include surf & turf, sushi stations, or Austin BBQ with an upscale twist. All dietary restrictions can be accommodated.'
       },
       {
-        question: 'What bar service is included?',
-        answer: 'Our Premium and Platinum packages include full bar setup with professional bartenders. We offer premium spirits, fine wines, craft beers, and signature cocktails. Non-alcoholic options are always available for all guests.',
+        question: 'How does alcohol work for client entertainment?',
+        answer: 'All Premier cruises are BYOB (Bring Your Own Beverage). We work with Party On Delivery to have your drinks delivered and iced down when you arrive, making it seamless. Optional external bartending service available for $600 per cruise plus cost of alcohol.',
         isNew: true
       },
       {
@@ -740,7 +740,7 @@ const allFAQs = {
       },
       {
         question: 'Do you accommodate both high school and college graduations?',
-        answer: 'Yes! We tailor the experience to the age group. High school grads (17-18) have supervised, alcohol-free celebrations with mocktails. College grads (21+) can have bar service. Mixed age groups are handled appropriately.',
+        answer: 'Yes! We tailor the experience to the age group. High school grads (17-18) have supervised, alcohol-free celebrations with mocktails. College grads (21+) can BYOB - we work with Party On Delivery to have drinks delivered and iced down. Mixed age groups are handled appropriately.',
         isNew: true
       },
       {

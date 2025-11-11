@@ -590,7 +590,7 @@ class InventoryService {
     if (name.includes('clever')) {
       return ['75 Person Capacity', 'Multiple Levels', 'Full Kitchen', 'Premium Sound', 'Climate Control'];
     } else if (name.includes('disco')) {
-      return ['100 Person Capacity', 'DJ Booth', 'Light Show', 'Dance Floor', 'Premium Bar'];
+      return ['100 Person Capacity', 'DJ Booth', 'Light Show', 'Dance Floor', 'BYOB Bar Area'];
     } else if (name.includes('me') || name.includes('irony')) {
       return ['30 Person Capacity', 'Spacious Deck', 'Premium Seating', 'Swim Platform'];
     } else {

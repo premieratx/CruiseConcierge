@@ -906,13 +906,13 @@ export default function MilestoneBirthday() {
           <li>21st birthday party boat cruise on Lake Travis</li>
           <li>30th birthday celebration with DJ and dancing</li>
           <li>40th birthday milestone party on private yacht</li>
-          <li>50th birthday cruise with full bar service</li>
+          <li>50th birthday cruise - BYOB with Party On Delivery coordination</li>
           <li>60th birthday celebration boat rental Austin</li>
           <li>Age-specific decorations and themed party supplies</li>
           <li>Professional crew and captain included</li>
           <li>Premium sound system and entertainment options</li>
           <li>Sunset timing available for milestone photos</li>
-          <li>Full bar service with champagne toasts</li>
+          <li>BYOB friendly - we coordinate drinks delivery and icing</li>
           <li>Cake service and birthday celebration coordination</li>
         </ul>
         

@@ -1798,7 +1798,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
               'Experienced crew trained for corporate events',
               'Premium boats with professional appearance',
               'Catering coordination with top Austin vendors',
-              'Full bar service available',
+              'BYOB with Party On Delivery coordination',
               'Sound system for presentations',
               'Wi-Fi available on select boats',
               'Professional photography options',
@@ -1824,7 +1824,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         paragraphs: [
           'We handle all event logistics so you can focus on your business objectives. Choose from our fleet based on group size (14-75 guests). Select package level from Standard to Ultimate based on desired experience.',
           'Popular formats: half-day team building (3-4 hours), client lunch cruises (2-3 hours), sunset cocktail events (2-3 hours), or full-day corporate retreats (6+ hours).',
-          'Catering options range from casual BBQ to upscale dining. Full bar service available, or bring your own beverages. Activities can be structured (facilitated team building) or relaxed (networking and relationship building).',
+          'Catering options range from casual BBQ to upscale dining. All cruises are BYOB - we work with Party On Delivery to have drinks delivered and iced down when you arrive. Optional bartending service available ($600 + alcohol cost). Activities can be structured (facilitated team building) or relaxed (networking and relationship building).',
           'Pricing starts at $195/hour with volume discounts for regular corporate clients. Most corporate events are 3-4 hours. Book 4-6 weeks in advance for optimal date selection.',
           'Let us create the perfect corporate event on Lake Travis. Contact us today to discuss your business objectives and how a cruise can achieve them!'
         ]
@@ -2114,7 +2114,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
               'Custom packages tailored to your specific needs',
               'Group discounts for large parties',
               'Transportation coordination assistance',
-              'Catering and bar service recommendations',
+              'Catering coordination and BYOB Party On Delivery setup',
               'Special celebration add-ons (decorations, photographers, DJs)',
               'Weather contingency planning',
               'Same-day booking when available',

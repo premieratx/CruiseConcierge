@@ -312,8 +312,8 @@ const experiences: Experience[] = [
         duration: '4 hours',
         features: [
           '50-person luxury yacht',
-          'Alcohol delivery coordination',
-          'Premium bar setup',
+          'BYOB - Party On Delivery coordination',
+          'Coolers and ice setup',
           'Business amenities',
           'Dedicated crew'
         ],

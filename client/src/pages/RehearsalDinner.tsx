@@ -140,8 +140,8 @@ const whatsIncluded = [
   },
   {
     icon: Wine,
-    title: 'Bar Service Area',
-    description: 'Designated area for bar setup and service'
+    title: 'BYOB Setup',
+    description: 'We coordinate Party On Delivery for seamless drink service'
   },
   {
     icon: Music,
@@ -870,7 +870,7 @@ export default function RehearsalDinner() {
           <li>Tables and setup for your food and drinks</li>
           <li>Wireless microphone for toasts and speeches</li>
           <li>Scenic photo opportunities for wedding album</li>
-          <li>Bar service area with beverage options</li>
+          <li>BYOB friendly - Party On Delivery coordination available</li>
           <li>Elegant table settings and decor assistance</li>
           <li>Special seating area for bride and groom</li>
           <li>Premium sound system for ambient music</li>

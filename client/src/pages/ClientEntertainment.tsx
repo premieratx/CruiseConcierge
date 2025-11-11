@@ -97,8 +97,8 @@ const clientPackages = [
 const whatsIncluded = [
   {
     icon: Wine,
-    title: 'Premium Bar Service',
-    description: 'Top-shelf spirits and fine wines to impress'
+    title: 'BYOB with Party On Delivery',
+    description: 'We coordinate alcohol delivery and have it iced down when you arrive'
   },
   {
     icon: Utensils,
@@ -195,7 +195,7 @@ export default function ClientEntertainment() {
       <SEOHead 
         pageRoute="/client-entertainment"
         defaultTitle="Client Entertainment | Premier Cruises"
-        defaultDescription="Impress clients with luxury Lake Travis cruises. Gourmet dining, premium bar service. Fortune 500 trusted. Book today!"
+        defaultDescription="Impress clients with luxury Lake Travis cruises. BYOB friendly with Party On Delivery coordination. Fortune 500 trusted. Book today!"
         defaultKeywords={[
           'client entertainment austin',
           'corporate client cruise',
@@ -592,7 +592,7 @@ export default function ClientEntertainment() {
                 'Select date and time for client event',
                 'Determine guest count and VIP attendees',
                 'Plan food options and coordinate alcohol delivery',
-                'Plan premium bar service',
+                'Coordinate BYOB alcohol delivery through Party On Delivery',
                 'Arrange company branding and signage',
                 'Send professional invitations to clients',
                 'Coordinate transportation logistics',

@@ -134,8 +134,8 @@ const whatsIncluded = [
   },
   {
     icon: Wine,
-    title: 'Bar Service',
-    description: 'Full bar setup with local craft options'
+    title: 'BYOB Setup',
+    description: 'We coordinate Party On Delivery for seamless drinks'
   },
   {
     icon: PartyPopper,
@@ -870,7 +870,7 @@ export default function WelcomeParty() {
           <li>Sunset timing available for photo opportunities</li>
           <li>Transportation coordination from hotels</li>
           <li>Customizable decorations to match wedding theme</li>
-          <li>Full bar service with craft beverage options</li>
+          <li>BYOB friendly - Party On Delivery coordination available</li>
         </ul>
         
         <h3>Austin Welcome Party Cruise Keywords</h3>
