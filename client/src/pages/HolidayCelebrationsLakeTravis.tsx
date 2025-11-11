@@ -13,7 +13,7 @@ import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import { 
   Calendar, Ship, Users, Sparkles, Sun, Wine, MapPin, Star,  
   PartyPopper, Clock, Gift, Heart, Anchor, Music, CheckCircle2,
-  Snowflake, Fireworks, TreePine, Flag
+  Snowflake, TreePine, Flag
 } from 'lucide-react';
 import { Link } from 'wouter';
 
@@ -115,7 +115,7 @@ export default function HolidayCelebrationsLakeTravis() {
             <div className="grid md:grid-cols-3 gap-6 mt-12">
               <Card className="hover:shadow-xl transition-all rounded-xl border-2 border-blue-200">
                 <CardContent className="p-6 text-center">
-                  <Fireworks className="h-12 w-12 text-blue-600 mx-auto mb-4" />
+                  <Sparkles className="h-12 w-12 text-blue-600 mx-auto mb-4" />
                   <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-white">Spectacular Views</h3>
                   <p className="text-gray-600 dark:text-gray-400">
                     Best vantage point for <strong>4th of July Lake Travis</strong> fireworks
@@ -352,7 +352,7 @@ export default function HolidayCelebrationsLakeTravis() {
 
               <Card className="rounded-xl hover:shadow-lg transition-shadow border-2 border-blue-200">
                 <CardContent className="p-6">
-                  <Fireworks className="h-12 w-12 text-blue-600 mb-4" />
+                  <Sparkles className="h-12 w-12 text-blue-600 mb-4" />
                   <h4 className="text-xl font-bold mb-2 text-gray-900 dark:text-white">Prime Fireworks Viewing</h4>
                   <p className="text-gray-600 dark:text-gray-400 mb-4">
                     Your <strong>holiday boat party</strong> positions perfectly for unobstructed fireworks views from multiple lake locations.
