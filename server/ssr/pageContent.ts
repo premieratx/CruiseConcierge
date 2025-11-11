@@ -28,7 +28,7 @@ export const LINK_CATALOG: Record<string, {url: string; text: string}> = {
   'birthday-party': {url: '/birthday-parties', text: 'Birthday Parties'},
   'team-building': {url: '/team-building', text: 'Team Building Events'},
   'graduation-party': {url: '/graduation-party', text: 'Graduation Parties'},
-  'combined-bach': {url: '/combined-bachelor-bachelorette-austin', text: 'Combined Bachelor & Bachelorette Parties'},
+  'combined-bach': {url: '/combined-bachelor-bachelorette', text: 'Combined Bachelor & Bachelorette Parties'},
   'faq': {url: '/faq', text: 'FAQ'},
   'contact': {url: '/contact', text: 'Contact Us'},
   'testimonials': {url: '/testimonials-faq', text: 'Customer Reviews'},
@@ -378,7 +378,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       'milestone-birthday', 'testimonials', 'faq', 'contact'
     ]
   },
-  '/combined-bachelor-bachelorette-austin': {
+  '/combined-bachelor-bachelorette': {
     h1: 'Combined Bachelor Bachelorette Parties Austin | Lake Travis',
     introduction: 'Why celebrate separately? Plan the ultimate [[combined-bach]] on Lake Travis! Both bride AND groom cruise FREE on Party Squad and Ultimate packages. Join the [[atx-disco]] or rent a [[private-cruises]] for guys and girls celebrating together. Starting at $85 per person.',
     sections: [
@@ -2388,6 +2388,583 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       'bachelor-party', 'bachelorette-party', 'atx-disco', 'private-cruises',
       'wedding-party', 'corporate-events', 'birthday-party', 'graduation-party',
       'team-building', 'party-boat-austin', 'testimonials', 'contact', 'home'
+    ]
+  },
+  '/faq': {
+    h1: 'Frequently Asked Questions - Lake Travis Boat Rentals',
+    introduction: 'Find answers to common questions about Premier Party Cruises boat rentals on Lake Travis. Learn about [[private-cruises]], [[atx-disco]], pricing, booking policies, safety, and what to expect on your Austin party boat adventure.',
+    sections: [
+      {
+        heading: 'General Questions About Lake Travis Boat Rentals',
+        paragraphs: [
+          'Premier Party Cruises offers two main types of Lake Travis boat rental experiences: Private Boat Charters for exclusive groups of 14-75 guests starting at $200/hour with 4-hour minimum, and the ATX Disco Cruise for shared party boat experiences at $85-105 per person with professional DJ and photographer included.',
+          'We depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, located approximately 30 minutes from downtown Austin with free parking available. All rentals include licensed, fun, experienced captains, premium sound systems, cooler space, restroom facilities, and shaded areas.'
+        ]
+      },
+      {
+        heading: 'Booking and Reservations',
+        paragraphs: [
+          'Book easily using our instant quote builder to select your date, time, and package. You\'ll receive an immediate quote with availability. Secure your reservation with a deposit and pay the balance later.',
+          'Weekend dates typically book 8-12 weeks in advance for priority time slots during peak season (April-September). We recommend booking immediately once your group confirms dates. If booking 14+ days before cruise, a 25% deposit is required with remaining balance due 14 days before cruise.'
+        ]
+      },
+      {
+        heading: 'Pricing and Payment',
+        paragraphs: [
+          'Private boats start at $1,050 for 4-hour cruises for up to 14 guests, ranging up to $2,660 for larger boats (75 guests). The ATX Disco Cruise costs $85-105 per person including DJ, photographer, and amenities. Groups of 16+ get the bride/groom FREE on premium packages.',
+          'All prices include boat, licensed captains, fuel, cooler space, sound system, and safety equipment. ATX Disco Cruises add professional DJ, photographer, floats, and party supplies. We accept all major credit cards with split payment options available at checkout.'
+        ]
+      },
+      {
+        heading: 'Food, Drinks, and BYOB Policy',
+        paragraphs: [
+          'All cruises are BYOB-friendly for guests 21+ with valid ID. Bring beer, wine, seltzers, and spirits in cans or plastic containers only - no glass for safety. We provide cooler space and ice. You can bring your own food or arrange catering delivery to the boat.',
+          'We provide ice water stations on all boats. For convenient beverage delivery, Party On Delivery can coordinate alcohol, mixers, and supplies delivered directly to your boat before departure.'
+        ]
+      },
+      {
+        heading: 'Safety and Requirements',
+        paragraphs: [
+          'All boats have licensed, fun, experienced Coast Guard certified captains, required safety equipment, and life jackets for every passenger. We maintain comprehensive insurance, conduct regular safety inspections, and monitor weather constantly.',
+          'All ages are welcome on private charters with adult supervision. The ATX Disco Cruise is 21+ only. Children under 12 must wear life jackets at all times. Swimming is allowed when conditions are safe at the captain\'s discretion with life jackets required.'
+        ]
+      },
+      {
+        heading: 'Weather and Cancellations',
+        paragraphs: [
+          'We cruise rain or shine! Light rain won\'t cancel your cruise as boats have covered areas. For severe weather (lightning, high winds), the captain makes safety decisions. If we cancel for weather, you receive a full refund or can reschedule.',
+          'Cancel 48+ hours after booking for a full refund. After that, deposits are non-refundable but can be applied to rescheduling within 12 months. Rescheduling is possible based on availability with changes 30+ days out being free.'
+        ]
+      },
+      {
+        heading: 'Special Events and Packages',
+        paragraphs: [
+          'We specialize in [[bachelor-party]], [[bachelorette-party]], [[corporate-events]], [[wedding-party]], [[birthday-party]], and [[graduation-party]] celebrations. The bride or groom cruises FREE with 16+ guests on Disco Queen/King and Platinum packages.',
+          'Our [[atx-disco]] runs March through October on Fridays (12-4 PM) and Saturdays (11-3 PM or 3:30-7:30 PM). Each 4-hour cruise includes professional DJ, photographer, giant floats, and party atmosphere with multiple bachelor/bachelorette groups.'
+        ]
+      }
+    ],
+    relatedPages: [
+      'bachelor-party', 'bachelorette-party', 'atx-disco', 'private-cruises',
+      'wedding-party', 'corporate-events', 'birthday-party', 'contact', 'home'
+    ]
+  },
+  '/austin-bachelorette-nightlife': {
+    h1: 'Austin Bachelorette Nightlife Guide - Best Bars & Clubs',
+    introduction: 'Explore the ultimate [[bachelorette-party]] nightlife guide for Austin! From Sixth Street bars to Rainey Street bungalows, discover the best nightlife paired with daytime [[atx-disco]] adventures. Complete your [[bachelorette-party]] weekend with epic bar hopping.',
+    sections: [
+      {
+        heading: 'Sixth Street - The Iconic Party Strip',
+        paragraphs: [
+          'Sixth Street (Dirty 6th) is the legendary party strip that defines the Austin bachelorette nightlife experience. Wall-to-wall bars with live music, cheap drinks, and fellow party crews create the ultimate bachelorette atmosphere.',
+          'Popular spots include Maggie Mae\'s for live cover bands and rooftop patios, Buckshot for country music and line dancing, and Cheers Shot Bar for group shots and frozen drinks. Most bars have $5-10 cover on weekends, but brides wearing sashes often get in free with complimentary drinks.'
+        ]
+      },
+      {
+        heading: 'Rainey Street - Bungalow Bars & Backyard Vibes',
+        paragraphs: [
+          'Rainey Street offers a more relaxed bachelorette bar hop without skimping on fun. Converted bungalows with backyard patios, twinkling lights, and craft cocktails create an Instagram-perfect setting.',
+          'Try Lucille for giant Jenga and patio games, Container Bar for live bands, and various food trucks for late-night tacos. The welcoming block-party vibe is perfect for bachelorette groups who want to chat while they party.'
+        ]
+      },
+      {
+        heading: 'West 6th & Warehouse District - Upscale Nightlife',
+        paragraphs: [
+          'For upscale bachelorette nightlife, West 6th and the Warehouse District offer trendy lounges, rooftop bars, and dance clubs. Dress codes are typically enforced with a more sophisticated crowd.',
+          'Popular venues include ranch-style bars, upscale cocktail lounges, and clubs with bottle service. Perfect for bachelorette groups wanting a more refined night out after their Lake Travis boat day.'
+        ]
+      },
+      {
+        heading: 'Combining Day and Night Experiences',
+        paragraphs: [
+          'The ultimate Austin bachelorette weekend combines daytime [[atx-disco]] adventures with nighttime bar hopping. Start with a 4-hour ATX Disco Cruise (11am-3pm), return to freshen up, then hit the bars around 9pm.',
+          'This day-to-night combination creates the perfect energy flow. The boat party gets everyone pumped, then downtown nightlife keeps the celebration going. Many groups use Party On Delivery for convenient pregaming supplies between activities.'
+        ]
+      },
+      {
+        heading: 'Nightlife Planning Tips',
+        paragraphs: [
+          'Make the bride wear her sash or tiara for free drinks and DJ shout-outs at many bars. Plan to hit 4-5 bars during your crawl. Use rideshare services for safe transportation between nightlife districts.',
+          'Grab street vendor pizza or tacos to fuel your night. Most bars don\'t require reservations except for bottle service. Arrive around 9pm when the scene really comes alive on weekends.'
+        ]
+      }
+    ],
+    relatedPages: [
+      'bachelorette-party', 'atx-disco', 'ultimate-austin-bachelorette-weekend',
+      'top-10-austin-bachelorette-ideas', 'budget-austin-bachelorette', 'private-cruises',
+      'bachelor-party', 'party-boat-austin', 'testimonials', 'contact', 'home'
+    ]
+  },
+  '/budget-austin-bachelorette': {
+    h1: 'Budget-Friendly Austin Bachelorette Party Planning',
+    introduction: 'Plan an unforgettable [[bachelorette-party]] on a budget! Save money with affordable [[atx-disco]] packages starting at $85, BYOB policies, free activities, and smart planning tips. Epic Austin celebration without breaking the bank.',
+    sections: [
+      {
+        heading: 'Affordable Accommodation Options',
+        paragraphs: [
+          'Rent a large Airbnb or vacation home and split costs among your group. Austin has rentals sleeping 8-12 people for $50-100 per person per night when divided. Choose East Austin or South Austin areas for cheaper rates.',
+          'Having a kitchen means doing meals at home to save on restaurant bills. Perfect for coordinating with Party On Delivery for affordable beverage supplies delivered to your rental.'
+        ]
+      },
+      {
+        heading: 'ATX Disco Cruise - Best Value Party Boat',
+        paragraphs: [
+          'The [[atx-disco]] offers the most affordable bachelorette boat experience at $85-105 per person including professional DJ, photographer, giant floats, and party atmosphere. ALWAYS cheaper than renting a private boat.',
+          'With the Disco Queen package at $95, the bride cruises FREE with 16+ guests. Includes private cooler, reserved spot, complimentary alcohol delivery, and transportation discounts. Ultimate value for budget-conscious groups.'
+        ]
+      },
+      {
+        heading: 'BYOB and Money-Saving Deals',
+        paragraphs: [
+          'All Premier Party Cruises are BYOB-friendly, saving hundreds on bar tabs. Bring your own beer, wine, and seltzers in cans or plastic. We provide coolers and ice.',
+          'Use Party On Delivery to order alcohol at retail prices with delivery to your boat or Airbnb. They offer 100% buyback on unopened bottles, so you won\'t overbuy. Much cheaper than buying drinks at bars.'
+        ]
+      },
+      {
+        heading: 'Free and Cheap Austin Activities',
+        paragraphs: [
+          'Explore free activities like hiking Barton Creek Greenbelt, visiting graffiti walls for photos, enjoying Zilker Park, and swimming at Barton Springs Pool ($5 entry). Food trucks offer delicious meals for $8-12 per person.',
+          'Many bars on Sixth Street have no cover on weekdays and offer free drinks to brides. Brunch spots often have affordable options, and happy hours provide discounted drinks from 4-7pm.'
+        ]
+      },
+      {
+        heading: 'Group Discounts and DIY Ideas',
+        paragraphs: [
+          'Split costs for shared experiences like the ATX Disco Cruise where group size doesn\'t affect per-person pricing. DIY decorations from party stores instead of expensive custom items.',
+          'Create your own matching t-shirts, make homemade bachelorette sashes, and coordinate group rideshares instead of private party buses. Every dollar saved means more money for the fun stuff!'
+        ]
+      },
+      {
+        heading: 'Budget-Friendly Sample Weekend',
+        paragraphs: [
+          'Friday: Arrive at shared Airbnb ($60pp), BBQ dinner at food trucks ($12pp), Sixth Street bar crawl ($20-40pp). Saturday: ATX Disco Cruise Basic Bach package ($85pp), casual dinner ($15pp), Rainey Street bars ($20pp). Sunday: Brunch ($15pp), South Congress shopping (free to browse).',
+          'Total estimated cost: $227-267 per person for an entire weekend including accommodation, activities, meals, and nightlife. Compare that to $500+ per person at typical bachelorette destinations!'
+        ]
+      }
+    ],
+    relatedPages: [
+      'bachelorette-party', 'atx-disco', 'ultimate-austin-bachelorette-weekend',
+      'luxury-austin-bachelorette', 'top-10-austin-bachelorette-ideas', 'private-cruises',
+      'austin-bachelorette-nightlife', 'pricing-breakdown', 'testimonials', 'contact', 'home'
+    ]
+  },
+  '/luxury-austin-bachelorette': {
+    h1: 'Luxury Austin Bachelorette Weekend - VIP Experiences',
+    introduction: 'Plan the ultimate luxury [[bachelorette-party]] with VIP [[private-cruises]], upscale hotels, fine dining, and exclusive [[atx-disco]] packages. Treat the bride to an unforgettable high-end Austin celebration on Lake Travis.',
+    sections: [
+      {
+        heading: 'Luxe Hotels and Private Estates',
+        paragraphs: [
+          'Book prestigious hotels like Fairmont Austin, JW Marriott Downtown, or South Congress Hotel with rooftop infinity pools, world-class spas, and sweeping skyline views. Many offer special bachelorette packages with welcome champagne and spa credits.',
+          'Or rent a luxury Lake Travis villa or Hill Country estate with infinity pool, outdoor entertaining spaces, and stunning lake views. Hire a private chef for gourmet dinners and coordinate premium beverage delivery through Party On Delivery.'
+        ]
+      },
+      {
+        heading: 'VIP Boat Experiences',
+        paragraphs: [
+          'Book the ATX Disco Cruise Super Sparkle Platinum package at $105 per person with personal unicorn float for bride, mimosa bar setup, $100 concierge voucher, towel service, SPF-50 sunscreen, and pre-stocked cooler.',
+          'For complete exclusivity, rent a [[private-cruises]] with our flagship Clever Girl boat (50-75 guests) featuring 14 disco balls and giant Texas flag. Ultimate package includes giant lily pads, champagne setup, party supplies, and VIP service.'
+        ]
+      },
+      {
+        heading: 'Fine Dining and Upscale Experiences',
+        paragraphs: [
+          'Enjoy reservations at award-winning restaurants like Uchi for sushi, Jeffrey\'s for fine dining, or Odd Duck for farm-to-table cuisine. Many offer private dining rooms perfect for bachelorette groups.',
+          'Spa day at luxury spas with full-service treatments, champagne, and relaxation areas. VIP bottle service at upscale rooftop bars and clubs in the Warehouse District. Professional photography sessions at iconic Austin locations.'
+        ]
+      },
+      {
+        heading: 'Luxury Transportation',
+        paragraphs: [
+          'Arrive in style via private limo or even helicopter tours of Austin. Book luxury party buses with leather seating, premium sound systems, and complimentary champagne for bar hopping.',
+          'Many luxury hotels offer Tesla car service or can arrange private drivers for your group. The 25% transportation discount on Disco Queen and Platinum packages applies to upscale transportation options.'
+        ]
+      },
+      {
+        heading: 'High-End Extras and Personal Touches',
+        paragraphs: [
+          'Professional hair and makeup teams coming to your hotel or estate. Custom bachelorette swag bags with premium items. Private mixology classes with top Austin bartenders.',
+          'Surprise the bride with luxury add-ons: champagne delivery to the boat, professional videographer, custom cake from award-winning bakeries, or surprise celebrity appearances through concierge services.'
+        ]
+      },
+      {
+        heading: 'Planning Your Luxury Weekend',
+        paragraphs: [
+          'Work with Premier Party Cruises to coordinate every detail of your VIP experience. We connect you with trusted vendors for catering, photography, transportation, and special requests.',
+          'Book luxury experiences 6-8 weeks in advance to secure top-tier services and preferred dates. Budget $800-1500+ per person for a truly luxurious weekend including premium accommodations, VIP boat packages, fine dining, and upscale nightlife.'
+        ]
+      }
+    ],
+    relatedPages: [
+      'bachelorette-party', 'atx-disco', 'private-cruises', 'ultimate-austin-bachelorette-weekend',
+      'budget-austin-bachelorette', 'top-10-austin-bachelorette-ideas', 'austin-bachelorette-nightlife',
+      'wedding-party', 'pricing-breakdown', 'testimonials', 'contact', 'home'
+    ]
+  },
+  '/ultimate-austin-bachelorette-weekend': {
+    h1: 'Ultimate Austin Bachelorette Weekend Complete Guide',
+    introduction: 'Plan the perfect [[bachelorette-party]] weekend with our complete Austin guide! Featuring [[atx-disco]], Lake Travis boat parties, downtown nightlife, brunch spots, and insider tips for an unforgettable celebration.',
+    sections: [
+      {
+        heading: 'Why Austin for Your Bachelorette Party',
+        paragraphs: [
+          'Austin offers the perfect mix of outdoor adventure and legendary nightlife for bachelorette parties. Experience 300+ days of sunshine, beautiful Lake Travis for boat parties, vibrant Sixth Street and Rainey Street bar scenes, incredible Tex-Mex and BBQ, and surprisingly budget-friendly compared to other destinations.',
+          'The unique "Keep Austin Weird" culture, live music at every venue, and Instagram-worthy everything from street murals to Lake Travis views make this the ideal bachelorette destination. Plus, the [[atx-disco]] is an experience you won\'t find anywhere else!'
+        ]
+      },
+      {
+        heading: 'ATX Disco Cruise - The Must-Do Experience',
+        paragraphs: [
+          'The ATX Disco Cruise is THE premier bachelorette boat experience on Lake Travis. Join other bachelorette groups for a 4-hour party cruise with professional DJ, photographer, giant lily pad floats, and disco dance floor.',
+          'Three package levels available: Basic Bach ($85), Disco Queen ($95 with bride FREE), and Super Sparkle Platinum ($105). Includes everything you need for an epic day on the water with BYOB policies and Party On Delivery coordination available.'
+        ]
+      },
+      {
+        heading: 'Bar Hopping: Sixth Street and Rainey Street',
+        paragraphs: [
+          'No Austin bachelorette weekend is complete without bar hopping! Sixth Street offers the wild party strip with live music, cheap drinks, and bachelorette-friendly atmosphere. Rainey Street provides quirky bungalow bars with craft cocktails and twinkling patios.',
+          'Dress up in matching outfits, make sure the bride wears her sash for free drinks, and plan to hit 4-5 bars throughout the night. Many venues give special treatment to bachelorette groups with DJ shout-outs and complimentary drinks.'
+        ]
+      },
+      {
+        heading: 'Austin\'s Famous Brunch Scene',
+        paragraphs: [
+          'Recover from nightlife with amazing Austin brunch! Try Tex-Mex brunch spots for migas and mimosas, farm-to-table cafés like Josephine House, or drag brunch shows for entertainment with your meal.',
+          'Bottomless mimosas are popular at many venues. Book reservations in advance for large bachelorette groups. Or keep it simple with DIY mimosa bar and breakfast tacos delivered to your Airbnb via Party On Delivery.'
+        ]
+      },
+      {
+        heading: 'Unique Austin Experiences',
+        paragraphs: [
+          'Beyond boats and bars, explore unique Austin activities: Barton Springs Pool for swimming, graffiti walls for photo ops, South Congress shopping, food truck tastings, and live music at iconic venues.',
+          'Visit during festival season for ACL, SXSW, or other events. Explore the Texas Hill Country with winery tours. Take a bat bridge sunset tour to see millions of bats emerge. Austin offers endless unique experiences for every type of bachelorette group.'
+        ]
+      },
+      {
+        heading: 'Sample Perfect Weekend Itinerary',
+        paragraphs: [
+          'Friday: Arrive, BBQ dinner, Sixth Street bar crawl. Saturday: Sleep in, brunch with mimosas, ATX Disco Cruise (11am-3pm or 3:30pm-7:30pm), freshen up, dinner, Rainey Street dancing. Sunday: Farewell brunch, South Congress shopping, departure.',
+          'This itinerary balances activities with relaxation, day parties with nightlife, and provides unforgettable memories. Customize based on your bride\'s preferences - add spa day, adventure activities, or more nightlife as desired.'
+        ]
+      }
+    ],
+    relatedPages: [
+      'bachelorette-party', 'atx-disco', 'top-10-austin-bachelorette-ideas',
+      '3-day-austin-bachelorette-itinerary', 'austin-bachelorette-nightlife', 'budget-austin-bachelorette',
+      'luxury-austin-bachelorette', 'adventure-austin-bachelorette', 'private-cruises', 'testimonials', 'contact', 'home'
+    ]
+  },
+  '/top-10-austin-bachelorette-ideas': {
+    h1: 'Top 10 Austin Bachelorette Party Ideas & Activities',
+    introduction: 'Discover the top 10 [[bachelorette-party]] ideas for Austin! From [[atx-disco]] boat parties to Sixth Street bar crawls, brunch spots, and unique Austin experiences. Create an epic celebration with this complete activity guide.',
+    sections: [
+      {
+        heading: '1. Party Boat on Lake Travis (ATX Disco Cruise)',
+        paragraphs: [
+          'The #1 bachelorette party activity in Austin! The ATX Disco Cruise offers a 4-hour floating party with professional DJ, photographer, giant floats, and disco dance floor. Join other bachelorette groups for the ultimate Lake Travis experience.',
+          'Starting at $85 per person (bride FREE on premium packages), it\'s the most affordable and fun way to experience Lake Travis. BYOB with coolers provided, or coordinate delivery through Party On Delivery for ultimate convenience.'
+        ]
+      },
+      {
+        heading: '2. Bar Crawl on Historic Sixth Street',
+        paragraphs: [
+          'Experience the legendary Sixth Street party strip with wall-to-wall bars, live music, and bachelorette-friendly venues. Dress in matching outfits, enjoy cheap drinks, and celebrate with fellow party groups.',
+          'Many bars offer free drinks to brides wearing sashes. Plan to hit 4-5 venues including Maggie Mae\'s, Buckshot, and Cheers Shot Bar. Often closes to traffic on weekends for massive block party atmosphere.'
+        ]
+      },
+      {
+        heading: '3. Dance the Night Away on Rainey Street',
+        paragraphs: [
+          'Rainey Street offers quirky bungalow bars with backyard patios, craft cocktails, and Instagram-worthy twinkling lights. More relaxed than Sixth Street but equally fun for bachelorette groups.',
+          'Try Lucille for giant Jenga, Container Bar for live bands, and enjoy late-night tacos from food trucks. Perfect for groups wanting to chat while partying in a unique Austin setting.'
+        ]
+      },
+      {
+        heading: '4. Indulge in Brunch Feasts',
+        paragraphs: [
+          'Austin\'s brunch scene is legendary! Recover from nightlife with bottomless mimosas, Tex-Mex migas, farm-to-table fare, or drag brunch entertainment shows.',
+          'Popular spots include Banger\'s Beer Garden for Tex-Mex, Josephine House for upscale dining, or DIY mimosa bars at your Airbnb with Party On Delivery providing champagne and juices.'
+        ]
+      },
+      {
+        heading: '5. Two-Stepping at Austin Dance Halls',
+        paragraphs: [
+          'Experience authentic Texas culture with two-stepping lessons at classic dance halls. Line dancing, country music, and cowboy boots create a unique bachelorette memory.',
+          'The White Horse downtown offers free two-step lessons before dancing begins. Perfect Texas experience for your bachelorette group with live bands and authentic atmosphere.'
+        ]
+      },
+      {
+        heading: '6. Live Music Venues Tour',
+        paragraphs: [
+          'As the "Live Music Capital of the World," Austin offers incredible venues featuring local and touring bands. Experience authentic Austin culture at historic venues and modern clubs.',
+          'Create a music venue crawl hitting multiple spots in one night. Many venues are free or low cover, making it budget-friendly entertainment with great atmosphere.'
+        ]
+      },
+      {
+        heading: '7. Spa Day or Pool Party',
+        paragraphs: [
+          'Balance wild nights with relaxation at luxury spas or pool parties. Many hotels offer rooftop pools perfect for bachelorette groups with cabana rentals and drink service.',
+          'Lake Travis resorts provide day-use pool access. Or book group spa packages with massages, facials, and champagne for ultimate pampering before hitting the nightlife.'
+        ]
+      },
+      {
+        heading: '8. Taco and BBQ Tasting Tour',
+        paragraphs: [
+          'Austin is famous for Tex-Mex and BBQ! Create a food tour hitting iconic spots like Franklin BBQ, Veracruz All Natural tacos, and various food trucks.',
+          'Budget-friendly and delicious way to experience Austin culture. Many bachelorette groups do a progressive dinner visiting different food trucks and casual spots throughout the day.'
+        ]
+      },
+      {
+        heading: '9. Themed Photoshoot Experience',
+        paragraphs: [
+          'Hire a professional photographer for a themed bachelorette photoshoot at Austin\'s iconic locations: graffiti walls, South Congress, Lady Bird Lake, or Zilker Park.',
+          'The ATX Disco Cruise includes professional photography with digital delivery. Add extra photo sessions at bars, brunch, or unique Austin spots for complete coverage of your weekend.'
+        ]
+      },
+      {
+        heading: '10. Keep Austin Weird Activities',
+        paragraphs: [
+          'Embrace Austin\'s quirky culture with activities like visiting the Cathedral of Junk, bat watching at Congress Avenue Bridge, exploring South Congress vintage shops, or paddle boarding on Lady Bird Lake.',
+          'Create unique memories beyond typical bachelorette activities. Austin\'s weird and wonderful attractions provide perfect Instagram moments and stories you\'ll share for years.'
+        ]
+      }
+    ],
+    relatedPages: [
+      'bachelorette-party', 'atx-disco', 'ultimate-austin-bachelorette-weekend',
+      '3-day-austin-bachelorette-itinerary', 'austin-bachelorette-nightlife', 'budget-austin-bachelorette',
+      'adventure-austin-bachelorette', 'private-cruises', 'pricing-breakdown', 'testimonials', 'contact', 'home'
+    ]
+  },
+  '/3-day-austin-bachelorette-itinerary': {
+    h1: 'Perfect 3-Day Austin Bachelorette Party Itinerary',
+    introduction: 'Follow our expertly crafted 3-day [[bachelorette-party]] itinerary for Austin! Day-by-day schedule featuring [[atx-disco]], nightlife, brunch, and activities. Complete weekend planning made easy with this proven guide.',
+    sections: [
+      {
+        heading: 'Day 1 (Friday): Welcome to Austin - BBQ and Bar Crawl',
+        paragraphs: [
+          'Afternoon Arrival (2-4 PM): Check into shared Airbnb or hotel in downtown or East Austin. Surprise the bride with decorations and welcome bags. Use Party On Delivery to pre-stock drinks and mixers in your rental.',
+          'Evening BBQ Feast (6-7 PM): Experience authentic Texas BBQ at Franklin, La Barbecue, or Terry Black\'s. Order family-style to share and budget around $20-25 per person for amazing brisket, ribs, and sides.',
+          'Sixth Street Bar Crawl (9 PM-1 AM): Hit the legendary party strip! Start at Maggie Mae\'s rooftop, move to Buckshot for country dancing, shots at Cheers Shot Bar, and end wherever the music takes you. Bride wears sash for free drinks!'
+        ]
+      },
+      {
+        heading: 'Day 2 (Saturday): Lake Day and Dancing - The Main Event',
+        paragraphs: [
+          'Morning Sleep-In (8-10 AM): Recover with coffee and light breakfast at your rental. This is a marathon, not a sprint! Hydrate and prepare for the big day.',
+          'Brunch with Mimosas (10:30 AM-12 PM): Hit a brunch spot for bottomless mimosas and Tex-Mex. Get fueled up for the boat party! Reservations recommended for large groups.',
+          'ATX Disco Cruise (11 AM-3 PM or 3:30 PM-7:30 PM): THE highlight of your weekend! Professional DJ, photographer, giant floats, and incredible party atmosphere. BYOB with coolers provided. Bride cruises FREE on Disco Queen package.',
+          'Dinner and Freshen Up (6-8 PM): Return to rental for showers and outfit changes. Order delivery or visit casual restaurant. Use this time to rest before nightlife round two.',
+          'Rainey Street Dancing (9 PM-1 AM): Hit the bungalow bars for craft cocktails, live music, and dancing. More chill than Sixth Street but equally fun. End at food trucks for late-night tacos.'
+        ]
+      },
+      {
+        heading: 'Day 3 (Sunday): Farewell Brunch and Shopping',
+        paragraphs: [
+          'Farewell Brunch (10 AM-12 PM): Enjoy a final meal together at upscale brunch spot or drag brunch show. Bottomless mimosas and laughs while reliving the weekend stories.',
+          'South Congress Shopping (12 PM-2 PM): Explore SoCo boutiques, vintage shops, and iconic Austin landmarks. Perfect for photo ops and souvenir shopping.',
+          'Departure (2-4 PM): Head to airport or begin drive home. Already planning your next Austin bachelorette weekend!'
+        ]
+      },
+      {
+        heading: 'Planning Tips for This Itinerary',
+        paragraphs: [
+          'Book ATX Disco Cruise 6-8 weeks in advance for Saturday time slots. Make brunch reservations for Sunday as they fill up quickly. Use Party On Delivery to coordinate all beverage needs without carrying anything.',
+          'Budget approximately $400-600 per person for entire weekend including accommodation, activities, meals, and nightlife. Adjust based on accommodation choice and dining preferences.',
+          'Bring comfortable shoes for bar hopping, swimsuits for boat day, and layers for varying temperatures. Sunscreen and sunglasses essential for Lake Travis!',
+          'Use rideshare services for all transportation. Split costs among the group. Many bars are walking distance on Sixth and Rainey Streets to minimize transportation costs.'
+        ]
+      }
+    ],
+    relatedPages: [
+      'bachelorette-party', 'atx-disco', 'ultimate-austin-bachelorette-weekend',
+      'top-10-austin-bachelorette-ideas', 'austin-bachelorette-nightlife', 'budget-austin-bachelorette',
+      'private-cruises', 'pricing-breakdown', 'testimonials', 'contact', 'home'
+    ]
+  },
+  '/first-time-lake-travis-boat-rental-guide': {
+    h1: 'First-Time Lake Travis Boat Rental Guide',
+    introduction: 'Planning your first Lake Travis boat rental? This complete guide covers everything you need to know about [[private-cruises]], [[atx-disco]], what to bring, costs, and what to expect for an amazing first-time experience on Austin\'s premier party lake.',
+    sections: [
+      {
+        heading: 'Choosing Your First Boat Rental Experience',
+        paragraphs: [
+          'First-timers have two main options: The ATX Disco Cruise (shared party boat experience at $85-105 per person with DJ and photographer included) or Private Boat Charter (exclusive rental for your group at $200-500/hour with 4-hour minimum).',
+          'For groups under 20 wanting affordable fun with entertainment included, choose the ATX Disco Cruise. For groups wanting complete privacy, custom timing, or 20+ people, choose a private charter. Both options include professional captains and all essential amenities.'
+        ]
+      },
+      {
+        heading: 'What to Expect on Your First Lake Travis Cruise',
+        paragraphs: [
+          'Arrive at Anderson Mill Marina 15-20 minutes before departure time. Free parking available. Check in with crew who will give safety briefing and show you around the boat.',
+          'First 30-45 minutes is cruising around Lake Travis enjoying beautiful scenery and getting settled. Then captain anchors at a scenic cove for swimming, floating, and water activities. Life jackets required for swimming and provided free.',
+          'Boats have premium sound systems for music, coolers with ice, clean restrooms, comfortable seating with sun and shade areas, and safety equipment. Captains are experienced, friendly, and know the best spots on Lake Travis.'
+        ]
+      },
+      {
+        heading: 'Essential Items to Bring',
+        paragraphs: [
+          'Beverages: BYOB allowed for guests 21+ with ID. Bring beer, wine, seltzers in cans or plastic (no glass). We provide coolers and ice. Or use Party On Delivery to coordinate everything.',
+          'Food: Bring snacks, sandwiches, fruit, or order delivery to the marina. Easy-to-eat finger foods work best on boats.',
+          'Sun Protection: Sunscreen (reapply often), sunglasses, hats, and light cover-ups. Lake reflection intensifies sun exposure.',
+          'Swimming Gear: Swimsuits, towels, waterproof phone cases, and optional floaties. We provide giant lily pads on ATX Disco and Ultimate packages.',
+          'Clothing: Comfortable clothes with non-slip shoes or sandals. Layers for changing temperatures. Change of dry clothes recommended.'
+        ]
+      },
+      {
+        heading: 'First-Timer Budget Planning',
+        paragraphs: [
+          'ATX Disco Cruise: $85-105 per person includes boat, captain, DJ, photographer, floats, and 4-hour cruise. Add $30-50 for beverages (BYOB), $10-20 for food, $15-25 for transportation. Total: $140-200 per person.',
+          'Private Charter: Starting at $1,050 total (14 guests) for 4-hour Standard package. Add package upgrades ($100-350), beverages ($30-50pp), food ($10-20pp), gratuity (15-20%). Divide by guest count for per-person cost.',
+          'Best Value: ATX Disco Cruise for first-timers wanting affordable fun. Private charters better for larger groups or those wanting complete customization.'
+        ]
+      },
+      {
+        heading: 'Common First-Timer Questions',
+        paragraphs: [
+          'Do I need boating experience? No! All cruises include licensed, experienced captains. You just relax and enjoy.',
+          'Can kids come? Private charters welcome all ages with supervision. ATX Disco Cruise is 21+ only due to BYOB and party atmosphere.',
+          'What if I get seasick? Lake Travis is calm inland lake with minimal waves. Seasickness rare. Stay hydrated and avoid excessive alcohol.',
+          'Is swimming safe? Very safe when following captain instructions. Life jackets required in water and provided free. Captains choose protected coves.',
+          'What about bad weather? Light rain won\'t cancel - boats have covered areas. Severe weather (lightning) results in full refund or reschedule.',
+          'How do I book? Use our instant quote builder online or call (512) 488-5892. Book 6-8 weeks ahead for weekend dates.'
+        ]
+      },
+      {
+        heading: 'Making the Most of Your First Experience',
+        paragraphs: [
+          'Arrive early to avoid rushing. Bring waterproof camera or phone case for photos. Try the giant floats - they\'re incredibly fun! Talk to your captain about Lake Travis history and best spots.',
+          'Don\'t overpack alcohol - it\'s hot on the water and moderation ensures everyone enjoys safely. Bring plenty of water for hydration. Apply sunscreen every 2 hours.',
+          'Relax and enjoy! First-time renters often worry, but our professional crew handles everything. Your job is to have fun with your group on beautiful Lake Travis!'
+        ]
+      }
+    ],
+    relatedPages: [
+      'private-cruises', 'atx-disco', 'bachelor-party', 'bachelorette-party',
+      'pricing-breakdown', 'corporate-events', 'birthday-party', 'faq',
+      'party-boat-austin', 'party-boat-lake-travis', 'testimonials', 'contact', 'home'
+    ]
+  },
+  '/adventure-austin-bachelorette': {
+    h1: 'Adventurous Austin Bachelorette Party Activities',
+    introduction: 'Plan an action-packed [[bachelorette-party]] with outdoor adventures! Combine hiking, kayaking, ziplining, and [[atx-disco]] boat parties for the ultimate active Austin celebration. Perfect for adventurous brides who love the outdoors.',
+    sections: [
+      {
+        heading: 'Why Choose Adventure Bachelorette in Austin',
+        paragraphs: [
+          'Austin offers 300+ days of sunshine perfect for outdoor activities year-round. Beautiful Lake Travis provides water adventures, scenic Hill Country trails offer hiking, and adrenaline activities from ziplining to rock climbing create unforgettable bonding experiences.',
+          'The variety is unmatched: kayak Lady Bird Lake in the morning, ATX Disco Cruise in the afternoon, and Austin nightlife in the evening. This combination of outdoor adventure and party atmosphere creates the perfect adventurous bachelorette weekend.'
+        ]
+      },
+      {
+        heading: 'Austin Hiking and Nature Trails',
+        paragraphs: [
+          'Barton Creek Greenbelt offers easy to moderate trails with swimming holes - perfect for morning hikes before boat parties. Mount Bonnell provides 785 steps to panoramic views for memorable group photos.',
+          'Wild Basin Wilderness Preserve features peaceful forest trails away from city noise. McKinney Falls State Park combines hiking with waterfall swimming. All trails accommodate various fitness levels for mixed-ability bachelorette groups.'
+        ]
+      },
+      {
+        heading: 'Lake Travis Water Adventures',
+        paragraphs: [
+          'The ATX Disco Cruise is the ultimate water adventure - 4 hours of swimming, giant floats, DJ entertainment, and party atmosphere on Lake Travis. Starting at $85 per person with bride FREE on premium packages.',
+          'For private water adventures, rent kayaks or paddleboards on Lady Bird Lake for morning activity. Book a private boat charter for your group to explore Lake Travis coves. Many groups combine morning paddling with afternoon ATX Disco Cruise for full water day.'
+        ]
+      },
+      {
+        heading: 'Adrenaline-Pumping Activities',
+        paragraphs: [
+          'Lake Travis Zipline Adventures offers 5 ziplines over the lake with spectacular views. Perfect morning activity before your boat party. Reservations required for groups.',
+          'Austin Bouldering Project provides indoor rock climbing for all skill levels. Circuit of the Americas offers exotic car driving experiences. These high-energy activities create incredible bonding moments for adventurous bachelorette crews.'
+        ]
+      },
+      {
+        heading: 'Hill Country Exploration',
+        paragraphs: [
+          'Texas Hill Country provides stunning scenery 30-45 minutes from Austin. Enchanted Rock offers challenging hikes to massive pink granite dome with panoramic views.',
+          'Hamilton Pool Preserve features natural pool with waterfall in collapsed grotto - Instagram-worthy and unforgettable. Many adventurous bachelorette groups do morning Hill Country excursion before returning for ATX Disco Cruise afternoon.'
+        ]
+      },
+      {
+        heading: 'Sample Adventure Weekend Itinerary',
+        paragraphs: [
+          'Friday: Arrive, sunset hike at Mount Bonnell for photos, dinner at food trucks, Rainey Street bars. Saturday: Morning Barton Creek Greenbelt hike and swim, ATX Disco Cruise (11am-3pm), dinner, downtown dancing. Sunday: Sunrise kayak on Lady Bird Lake, brunch, South Congress shopping.',
+          'This itinerary balances adventure with celebration, outdoor activities with nightlife, and creates diverse experiences. Customize based on your group\'s fitness level and adventure preferences. Book ATX Disco Cruise 6-8 weeks in advance for Saturday slots.'
+        ]
+      }
+    ],
+    relatedPages: [
+      'bachelorette-party', 'atx-disco', 'ultimate-austin-bachelorette-weekend',
+      'top-10-austin-bachelorette-ideas', 'budget-austin-bachelorette', 'private-cruises',
+      'austin-bachelorette-nightlife', 'bachelor-party', 'testimonials', 'contact', 'home'
+    ]
+  },
+  '/pricing-breakdown': {
+    h1: 'Pricing Breakdown - Transparent Boat Rental Costs',
+    introduction: 'Complete pricing breakdown for Austin party boat rentals. Compare [[atx-disco]] packages ($85-$105) vs [[private-cruises]] ($200-500/hr). Transparent costs, no hidden fees, and value comparisons for all Premier Party Cruises options.',
+    sections: [
+      {
+        heading: 'ATX Disco Cruise Pricing',
+        paragraphs: [
+          'Basic Bach Package - $85 per person: Full 4-hour cruise, professional DJ, photographer, giant floats, BYOB with shared coolers, multi-group party atmosphere. Always cheaper than private boats.',
+          'Disco Queen/King Package - $95 per person (Most Popular): Everything in Basic Bach plus private cooler with ice, reserved spot, disco ball cup for guest of honor, complimentary alcohol delivery, 25% transportation discount, $50-100 Airbnb voucher. BRIDE/GROOM CRUISES FREE with 16+ guests!',
+          'Super Sparkle Platinum - $105 per person: Everything in Disco Queen plus personal unicorn float, mimosa setup with flutes and juices, $100 Airbnb concierge voucher, towel service, SPF-50 sunscreen, pre-stocked cooler. Ultimate luxury experience.'
+        ]
+      },
+      {
+        heading: 'Private Boat Rental Pricing',
+        paragraphs: [
+          'Day Tripper (14 guests): $200-350/hour based on day. Standard 4-hour cruise: $800-1,400 total. Essentials package adds $100, Ultimate adds $250.',
+          'Meeseeks and The Irony (25 guests): $225-425/hour based on day. Standard 4-hour cruise: $900-1,700 total. Essentials adds $150, Ultimate adds $300.',
+          'Clever Girl (50-75 guests): $250-500/hour based on day and guest count. Standard 4-hour cruise: $1,000-2,000 total. Essentials adds $200, Ultimate adds $350.',
+          'All private charters include: Licensed captain and crew, premium sound system, coolers (bring your own ice for Standard, ice included in Essentials/Ultimate), comfortable seating, restrooms, and 4-hour minimum.'
+        ]
+      },
+      {
+        heading: 'Disco Cruise vs Private Boat Comparison',
+        paragraphs: [
+          'Cost per Person: Disco Cruise $85-105 vs Private $150-400+ depending on group size. Group Size: Disco allows any size (buy individual tickets) vs Private requires minimum group. Privacy: Disco is shared vs Private is exclusive.',
+          'Entertainment: Disco includes professional DJ and photographer vs Private is optional add-on. Flexibility: Disco has fixed schedule vs Private choose your time. Best For: Disco ideal for bachelor/bachelorette parties under 30 guests, Private perfect for corporate events, families, or groups wanting complete customization.'
+        ]
+      },
+      {
+        heading: 'Additional Costs to Consider',
+        paragraphs: [
+          'Beverages: All cruises are BYOB (bring your own). Budget $30-50 per person for drinks. Party On Delivery can coordinate convenient delivery at retail prices.',
+          'Food: Bring your own or coordinate delivery to marina. Budget $10-20 per person for snacks and meals.',
+          'Transportation: Marina is 30 minutes from downtown Austin. Rideshare typically $30-50 each way per vehicle. Disco Queen and Platinum packages include 25% transportation discount.',
+          'Gratuity: Not required but appreciated for exceptional service. Standard is 15-20% of base rental cost for private charters. Disco cruise gratuity is optional per person.',
+          'Add-ons: Professional videography, premium decorations, catering coordination, extended hours, or special requests available at additional cost. Contact us for custom pricing.'
+        ]
+      },
+      {
+        heading: 'Money-Saving Tips',
+        paragraphs: [
+          'Book ATX Disco Cruise for best value - always cheaper than private boats for groups under 30. BYOB saves hundreds on bar tabs. Use Party On Delivery for retail-priced alcohol with 100% buyback on unopened bottles.',
+          'Book weekday cruises when possible for lower rates. Combine groups for shared private charters to split costs. Ask about group discounts for multiple bookings. Military and first responders receive 10% off with valid ID.',
+          'Disco Queen/King package at $95 makes bride/groom FREE with 16+ guests - effectively reducing per-person cost significantly for wedding parties.'
+        ]
+      },
+      {
+        heading: 'What\'s Included vs What Costs Extra',
+        paragraphs: [
+          'Included in All Cruises: Licensed captain and crew, boat rental, fuel, safety equipment, life jackets, premium sound system, cooler space, restroom facilities, seating areas. Disco Cruise adds: Professional DJ, photographer with digital delivery, giant floats, party supplies.',
+          'Costs Extra: Your beverages and food (BYOB), gratuity for crew (optional), transportation to/from marina, package upgrades (Essentials/Ultimate), professional videography, premium decorations, extended hours, special requests.',
+          'No Hidden Fees: Our pricing is transparent. What you see quoted is what you pay. No fuel surcharges, dock fees, or surprise charges. Optional add-ons are clearly priced upfront.'
+        ]
+      },
+      {
+        heading: 'Booking and Payment Policies',
+        paragraphs: [
+          'Deposits: If booking 14+ days before cruise, 25% deposit required with balance due 14 days before. If booking less than 14 days out, 50% deposit required with balance due within 48 hours.',
+          'Payment Methods: Accept all major credit cards. Groups can split payments among multiple cards at checkout. Corporate clients can request NET terms with approved credit.',
+          'Cancellations: Cancel 48+ hours after booking for full refund. After that, deposits non-refundable but can apply to rescheduling within 12 months. Weather cancellations by us result in full refund.',
+          'Price Matching: We already offer the best value on Lake Travis. Our Disco Cruise is unmatched - no other company offers similar experience at comparable price point.'
+        ]
+      }
+    ],
+    relatedPages: [
+      'atx-disco', 'private-cruises', 'bachelor-party', 'bachelorette-party',
+      'first-time-lake-travis-boat-rental-guide', 'budget-austin-bachelorette', 'luxury-austin-bachelorette',
+      'corporate-events', 'wedding-party', 'birthday-party', 'faq', 'contact', 'home'
     ]
   }
 };

@@ -776,6 +776,27 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
   app.get('/blogs/:slug', blogSSRHandler);
   
   // ==========================================
+  // LEGACY URL REDIRECTS (301 PERMANENT)
+  // ==========================================
+  
+  // Redirect phantom URLs to their correct destinations
+  app.get('/bachelor-bachelorette-party-boat-austin', (req, res) => {
+    res.redirect(301, '/combined-bachelor-bachelorette');
+  });
+  
+  app.get('/testimonials', (req, res) => {
+    res.redirect(301, '/testimonials-faq');
+  });
+  
+  app.get('/three-day-austin-bachelorette-itinerary', (req, res) => {
+    res.redirect(301, '/3-day-austin-bachelorette-itinerary');
+  });
+  
+  app.get('/about', (req, res) => {
+    res.redirect(301, '/');
+  });
+  
+  // ==========================================
   // SITEMAP.XML FOR SEO - GOOGLE 2025 COMPLIANT
   // ==========================================
   

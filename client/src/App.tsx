@@ -204,6 +204,45 @@ function Router() {
           return null;
         }}
       </Route>
+      
+      {/* Phase 3: Phantom URL Redirects (301 permanent via server + client-side fallback) */}
+      <Route path="/bachelor-bachelorette-party-boat-austin">
+        {() => {
+          const [, navigate] = useLocation();
+          useEffect(() => {
+            navigate('/combined-bachelor-bachelorette', { replace: true });
+          }, [navigate]);
+          return null;
+        }}
+      </Route>
+      <Route path="/testimonials">
+        {() => {
+          const [, navigate] = useLocation();
+          useEffect(() => {
+            navigate('/testimonials-faq', { replace: true });
+          }, [navigate]);
+          return null;
+        }}
+      </Route>
+      <Route path="/three-day-austin-bachelorette-itinerary">
+        {() => {
+          const [, navigate] = useLocation();
+          useEffect(() => {
+            navigate('/3-day-austin-bachelorette-itinerary', { replace: true });
+          }, [navigate]);
+          return null;
+        }}
+      </Route>
+      <Route path="/about">
+        {() => {
+          const [, navigate] = useLocation();
+          useEffect(() => {
+            navigate('/', { replace: true });
+          }, [navigate]);
+          return null;
+        }}
+      </Route>
+      
       <Route path="/private-cruises" component={PrivateCruises} />
       <Route path="/corporate-events" component={CorporateEvents} />
       <Route path="/birthday-parties" component={BirthdayParties} />
