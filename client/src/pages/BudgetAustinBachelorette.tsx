@@ -378,10 +378,6 @@ export default function BudgetAustinBachelorette() {
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-5 w-5 text-blue-600 flex-shrink-0 mt-0.5" />
-                    <span>Bride cruises free on certain packages for your <strong>austin bachelorette party boat</strong> celebration!</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle2 className="h-5 w-5 text-blue-600 flex-shrink-0 mt-0.5" />
                     <span>Most affordable <strong>bachelorette boat rental austin</strong> option that's still epic!</span>
                   </li>
                 </ul>
@@ -575,7 +571,7 @@ export default function BudgetAustinBachelorette() {
               </p>
               
               <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
-                It never hurts to mention it's a <strong>bachelorette party in austin</strong>; people love to help out brides and sometimes you'll get free dessert or a round of champagne for your <strong>austin bachelorette weekend</strong>. When booking your <Link href="/atx-disco-cruise" className="text-blue-600 hover:text-blue-700 font-semibold">ATX Disco Cruise</Link> through <Link href="/" className="text-blue-600 hover:text-blue-700 font-semibold">Premier Party Cruises</Link>, ask about group packages – the bride cruises free on certain <strong>austin bachelorette party boat</strong> packages, which is an amazing perk for your budget <strong>bachelorette party lake travis</strong> celebration!
+                It never hurts to mention it's a <strong>bachelorette party in austin</strong>; people love to help out brides and sometimes you'll get free dessert or a round of champagne for your <strong>austin bachelorette weekend</strong>. When booking your <Link href="/atx-disco-cruise" className="text-blue-600 hover:text-blue-700 font-semibold">ATX Disco Cruise</Link> through <Link href="/" className="text-blue-600 hover:text-blue-700 font-semibold">Premier Party Cruises</Link>, ask about group packages for the best value on your budget <strong>bachelorette party lake travis</strong> celebration!
               </p>
 
               <div className="bg-pink-50 dark:bg-gray-800 border-l-4 border-pink-600 p-6 rounded-r-lg my-8">
@@ -859,10 +855,6 @@ export default function BudgetAustinBachelorette() {
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-5 w-5 text-yellow-600 flex-shrink-0 mt-0.5" />
-                    <span>Bride cruises free on <Link href="/atx-disco-cruise" className="text-yellow-700 hover:text-yellow-800 font-semibold">ATX Disco Cruise</Link> group packages!</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle2 className="h-5 w-5 text-yellow-600 flex-shrink-0 mt-0.5" />
                     <span>Free dessert at restaurants for <strong>bachelorette party in austin</strong></span>
                   </li>
                   <li className="flex items-start gap-2">
@@ -873,7 +865,7 @@ export default function BudgetAustinBachelorette() {
               </div>
 
               <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
-                The <Link href="/atx-disco-cruise" className="text-blue-600 hover:text-blue-700 font-semibold">ATX Disco Cruise</Link> from <Link href="/" className="text-blue-600 hover:text-blue-700 font-semibold">Premier Party Cruises</Link> often offers special group perks where the bride cruises free on larger group packages – that's a significant savings for your <strong>austin bachelorette party boat</strong> adventure! This makes the already affordable <strong>bachelorette party lake travis</strong> experience even more budget-friendly for your <strong>austin bachelorette weekend</strong>.
+                The <Link href="/atx-disco-cruise" className="text-blue-600 hover:text-blue-700 font-semibold">ATX Disco Cruise</Link> from <Link href="/" className="text-blue-600 hover:text-blue-700 font-semibold">Premier Party Cruises</Link> offers special group perks and package deals that provide excellent value for your <strong>austin bachelorette party boat</strong> adventure! This makes the already affordable <strong>bachelorette party lake travis</strong> experience even more budget-friendly for your <strong>austin bachelorette weekend</strong>.
               </p>
 
               <p className="text-gray-700 dark:text-gray-300 leading-relaxed">

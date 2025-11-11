@@ -97,7 +97,7 @@ const faqCategories: FAQCategory[] = [
       {
         id: 'pricing-overview',
         question: 'How much does it cost to rent a boat on Lake Travis?',
-        answer: 'Private boats start at $1,050 for 4-hour cruises for up to 14 guests, ranging up to $2,660 for larger boats (75 guests). The ATX Disco Cruise costs $85-105 per person including DJ, photographer, and amenities. Groups of 16+ get the bride/groom FREE on premium packages. Best value in Austin!'
+        answer: 'Private boats start at $1,050 for 4-hour cruises for up to 14 guests, ranging up to $2,660 for larger boats (75 guests). The ATX Disco Cruise costs $85-105 per person including DJ, photographer, and amenities. Best value in Austin!'
       },
       {
         id: 'whats-included-price',
@@ -112,7 +112,7 @@ const faqCategories: FAQCategory[] = [
       {
         id: 'group-discounts',
         question: 'Do you offer group discounts for large parties?',
-        answer: 'Yes! Groups of 16+ receive the bride/groom FREE on Disco Queen/King and Platinum packages. Corporate events and multi-boat bookings receive custom pricing. Returning customers enjoy loyalty discounts. Military and first responders receive 10% off with valid ID.'
+        answer: 'Yes! Corporate events and multi-boat bookings receive custom pricing. Returning customers enjoy loyalty discounts. Military and first responders receive 10% off with valid ID.'
       },
       {
         id: 'hidden-fees',

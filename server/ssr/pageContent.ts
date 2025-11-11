@@ -96,7 +96,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Bachelor & Bachelorette Parties',
         paragraphs: [
-          'Plan the perfect [[bachelor-party]] or [[bachelorette-party]] on Lake Travis! Choose between our affordable [[atx-disco]] packages or rent a [[private-cruises]] exclusively for your group. Bride cruises FREE on Disco Queen and Platinum packages (16+ paying guests).',
+          'Plan the perfect [[bachelor-party]] or [[bachelorette-party]] on Lake Travis! Choose between our affordable [[atx-disco]] packages or rent a [[private-cruises]] exclusively for your group. ',
           'We specialize in creating unforgettable [[bachelor-party]] and [[bachelorette-party]] experiences with professional entertainment, premium amenities, and dedicated service. Over 125,000 happy customers have celebrated with us! Learn more about [[combined-bach]] options too.'
         ],
         lists: [
@@ -148,7 +148,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           'What types of party boat rentals do you offer? We offer two main types of party boat experiences: Private Charters (exclusive boat rental for your group of 1-75 guests, starting at $200/hour with 4-hour minimum) and the ATX Disco Cruise (join other groups on our signature party cruise with DJ, photographer, and all amenities included, $85-$105 per person). Perfect for bachelor parties, bachelorette parties, corporate events, birthdays, weddings, and any special celebration.',
           'How much does it cost to rent a party boat on Lake Travis? Private charters start at $200 per hour with a 4-hour minimum. We have three boats available: Day Tripper (1-14 people, $200-350/hr), Meeseeks and The Irony (15-30 people, $225-425/hr), and Clever Girl (31-75 people with 14 disco balls, $250-500/hr). Crew fees are included in these price ranges. ATX Disco Cruise packages range from $85-$105 per person and include professional DJ, photographer, floats, and all amenities.',
           'Can we bring food and drinks on the boat? Yes! All cruises are fully BYOB friendly (21+ with valid ID required). You can bring your own beer, wine, seltzers, and non-alcoholic beverages in cans or plastic containers - no glass allowed for safety. We provide large coolers with ice. You can also bring snacks and meals, or we can coordinate alcohol delivery directly to the boat for your convenience.',
-          'Does the bride or groom cruise free? Yes! The bride or groom cruises FREE on our Disco Queen/King and Super Sparkle Platinum packages when you have 16+ paying guests. This is our special thank you for choosing Premier Party Cruises for your bachelor or bachelorette party celebration.',
+          'Does the bride or groom cruise free? Yes! We offer premium Disco Queen/King and Super Sparkle Platinum packages with special perks and VIP treatment for your bachelor or bachelorette party celebration.',
           'Where do you depart from on Lake Travis? We depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641. We\'re the closest marina to downtown Austin, approximately 30 minutes away, making us convenient for all your guests.',
           'What\'s included with the ATX Disco Cruise? Every ATX Disco Cruise includes a professional DJ playing all day, professional photographer with photo delivery, giant unicorn floats, multiple lily pad floats, disco dance floor, party supplies and mixers, ice water stations, clean restroom facilities, and an unforgettable party atmosphere with multiple bachelor and bachelorette groups celebrating together.',
           'What makes Premier Party Cruises different from other Lake Travis boat rentals? With 14+ years of experience and over 125,000 satisfied customers, we are Austin\'s longest-running and most trusted party cruise company. We maintain a perfect safety record with Coast Guard certified captains, operate the newest fleet in Austin, and provide full-service experiences with professional crew and premium sound systems. We\'re the only company offering the signature ATX Disco Cruise party experience.',
@@ -277,7 +277,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
   },
   '/bachelorette-party-austin': {
     h1: 'Austin Bachelorette Party Boat Cruises | Lake Travis',
-    introduction: 'Plan the ultimate [[bachelorette-party]] on Lake Travis! The [[atx-disco]] is our specialty with packages starting at $85. Bride cruises FREE on Disco Queen and Platinum packages (16+ paying guests). Professional DJ, photographer, floats, and unforgettable celebration guaranteed!',
+    introduction: 'Plan the ultimate [[bachelorette-party]] on Lake Travis! The [[atx-disco]] is our specialty with packages starting at $85.  Professional DJ, photographer, floats, and unforgettable celebration guaranteed!',
     sections: [
       {
         heading: 'Bachelorette Party Cruise Packages',
@@ -299,7 +299,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           {
             title: 'Disco Queen Package - $95 (Most Popular)',
             items: [
-              '🎉 BRIDE CRUISES FREE with this package!',
+              '',
               'Private cooler with ice for your group',
               'Reserved spot for your bachelorette crew',
               'Disco ball cup & bubble gun for bride',
@@ -311,7 +311,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           {
             title: 'Super Sparkle Platinum - $105',
             items: [
-              '🎉 BRIDE CRUISES FREE with this package!',
+              '',
               'Personal unicorn float for the bride',
               'Mimosa setup with flutes, juices & chambong',
               '$100 Airbnb concierge services voucher',
@@ -359,7 +359,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         lists: [
           {
             items: [
-              'Bride cruises FREE on premium packages',
+              '',
               'Most Instagram-worthy party boat experience',
               'Professional photos delivered after cruise',
               'BYOB friendly with full cooler service',
@@ -380,7 +380,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
   },
   '/combined-bachelor-bachelorette': {
     h1: 'Combined Bachelor Bachelorette Parties Austin | Lake Travis',
-    introduction: 'Why celebrate separately? Plan the ultimate [[combined-bach]] on Lake Travis! Both bride AND groom cruise FREE on Party Squad and Ultimate packages. Join the [[atx-disco]] or rent a [[private-cruises]] for guys and girls celebrating together. Starting at $85 per person.',
+    introduction: 'Why celebrate separately? Plan the ultimate [[combined-bach]] on Lake Travis! Join the [[atx-disco]] or rent a [[private-cruises]] for guys and girls celebrating together. Starting at $85 per person.',
     sections: [
       {
         heading: 'Combined Party Packages - Everyone Together',
@@ -402,7 +402,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           {
             title: 'Party Squad Package - $95 (Most Popular)',
             items: [
-              '🎉 Both BRIDE & GROOM cruise FREE!',
+              '',
               'Private cooler for your entire group',
               'Reserved area for your combined party',
               'Special celebration items for the couple',
@@ -414,7 +414,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           {
             title: 'Ultimate Celebration Package - $105',
             items: [
-              '🎉 Both BRIDE & GROOM cruise FREE!',
+              '',
               'Premium party floats for entire group',
               'Mixology setup with champagne & supplies',
               '$100 Airbnb concierge voucher',
@@ -429,7 +429,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Why Combined Parties Are Better',
         paragraphs: [
           'Save time, save money, and everyone bonds before the wedding! Combined bachelor/bachelorette parties are the future of pre-wedding celebrations. Your friends from both sides get to know each other in an incredible setting, creating friendships that last beyond the wedding day.',
-          'With activities everyone loves - DJ, floats, swimming, dancing - there\'s something for every guest. Plus, both the bride and groom cruise FREE on select packages!'
+          'With activities everyone loves - DJ, floats, swimming, dancing - there\'s something for every guest.'
         ]
       },
       {
@@ -461,7 +461,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           'Should we do disco or private cruise? Under 30 people: disco cruise is perfect. 30+ people: consider a private boat. We\'ll help you choose!',
           'Can we split payments? Yes! Split payment options available at checkout for easy group coordination.',
           'What if guys and girls want different things? No problem! Plenty of zones on the boat - floats, DJ area, lounge spots. BYOB keeps everyone happy.',
-          'Do bride and groom really cruise free? Yes! On Party Squad and Ultimate packages with 16+ paying guests, both cruise absolutely FREE.'
+          'Do you offer special packages for couples? Yes! Our Party Squad and Ultimate packages offer premium perks and VIP treatment for both the bride and groom.'
         ]
       }
     ],
@@ -567,7 +567,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
               'BYOB friendly with full cooler service',
               'Perfect for groups of 10-40 guests',
               'Book last minute - availability most weekends',
-              'Bride/Groom cruises FREE on select packages'
+              ''
             ]
           }
         ]
@@ -582,7 +582,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           'What\'s the alcohol policy? BYOB for 21+; cans/plastic only; coolers with ice and cups provided.',
           'When do we get photos? Professional photos delivered digitally within 2–3 weeks after your cruise.',
           'Where do we meet? Anderson Mill Marina, 13993 FM 2769, Leander, TX 78641. Arrive 15–20 minutes early; free parking available.',
-          'Does bride/groom cruise free? Yes! On Disco Queen and Platinum packages with 16+ paying guests, bride OR groom cruises absolutely FREE.'
+          'What special perks are available? Our Disco Queen and Platinum packages offer premium amenities and VIP treatment for the guest of honor.'
         ]
       }
     ],
@@ -1954,7 +1954,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         lists: [
           {
             items: [
-              '"Best bachelorette party ever! The disco cruise was AMAZING - DJ was incredible, photographer captured perfect moments, and the bride cruised free! 10/10 recommend!" - Sarah M., Dallas',
+              '"Best bachelorette party ever! The disco cruise was AMAZING - DJ was incredible, photographer captured perfect moments, 10/10 recommend!" - Sarah M., Dallas',
               '"Booked a private cruise for our corporate team building. Professional service, beautiful boat, and our team loved it. Already planning our next event!" - Michael T., Austin',
               '"50th birthday party on Lake Travis was perfect! Captain was great, Ultimate package had everything, and our guests are still talking about it months later!" - Jennifer L., Round Rock',
               '"ATX Disco Cruise for our combined bachelor/bachelorette party was the best decision! Both sides had a blast together, way better than separate parties!" - Chris & Amanda, San Antonio',
@@ -2411,7 +2411,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Pricing and Payment',
         paragraphs: [
-          'Private boats start at $1,050 for 4-hour cruises for up to 14 guests, ranging up to $2,660 for larger boats (75 guests). The ATX Disco Cruise costs $85-105 per person including DJ, photographer, and amenities. Groups of 16+ get the bride/groom FREE on premium packages.',
+          'Private boats start at $1,050 for 4-hour cruises for up to 14 guests, ranging up to $2,660 for larger boats (75 guests). The ATX Disco Cruise costs $85-105 per person including DJ, photographer, and amenities.',
           'All prices include boat, licensed captains, fuel, cooler space, sound system, and safety equipment. ATX Disco Cruises add professional DJ, photographer, floats, and party supplies. We accept all major credit cards with split payment options available at checkout.'
         ]
       },
@@ -2439,7 +2439,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Special Events and Packages',
         paragraphs: [
-          'We specialize in [[bachelor-party]], [[bachelorette-party]], [[corporate-events]], [[wedding-party]], [[birthday-party]], and [[graduation-party]] celebrations. The bride or groom cruises FREE with 16+ guests on Disco Queen/King and Platinum packages.',
+          'We specialize in [[bachelor-party]], [[bachelorette-party]], [[corporate-events]], [[wedding-party]], [[birthday-party]], and [[graduation-party]] celebrations.',
           'Our [[atx-disco]] runs March through October on Fridays (12-4 PM) and Saturdays (11-3 PM or 3:30-7:30 PM). Each 4-hour cruise includes professional DJ, photographer, giant floats, and party atmosphere with multiple bachelor/bachelorette groups.'
         ]
       }
@@ -2510,7 +2510,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'ATX Disco Cruise - Best Value Party Boat',
         paragraphs: [
           'The [[atx-disco]] offers the most affordable bachelorette boat experience at $85-105 per person including professional DJ, photographer, giant floats, and party atmosphere. ALWAYS cheaper than renting a private boat.',
-          'With the Disco Queen package at $95, the bride cruises FREE with 16+ guests. Includes private cooler, reserved spot, complimentary alcohol delivery, and transportation discounts. Ultimate value for budget-conscious groups.'
+          'With the Disco Queen package at $95 per person, you get private cooler, reserved spot, complimentary alcohol delivery, and transportation discounts. Ultimate value for budget-conscious groups.'
         ]
       },
       {
@@ -2616,7 +2616,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'ATX Disco Cruise - The Must-Do Experience',
         paragraphs: [
           'The ATX Disco Cruise is THE premier bachelorette boat experience on Lake Travis. Join other bachelorette groups for a 4-hour party cruise with professional DJ, photographer, giant lily pad floats, and disco dance floor.',
-          'Three package levels available: Basic Bach ($85), Disco Queen ($95 with bride FREE), and Super Sparkle Platinum ($105). Includes everything you need for an epic day on the water with BYOB policies and Party On Delivery coordination available.'
+          'Three package levels available: Basic Bach ($85), Disco Queen ($95 per person), and Super Sparkle Platinum ($105). Includes everything you need for an epic day on the water with BYOB policies and Party On Delivery coordination available.'
         ]
       },
       {
@@ -2662,7 +2662,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: '1. Party Boat on Lake Travis (ATX Disco Cruise)',
         paragraphs: [
           'The #1 bachelorette party activity in Austin! The ATX Disco Cruise offers a 4-hour floating party with professional DJ, photographer, giant floats, and disco dance floor. Join other bachelorette groups for the ultimate Lake Travis experience.',
-          'Starting at $85 per person (bride FREE on premium packages), it\'s the most affordable and fun way to experience Lake Travis. BYOB with coolers provided, or coordinate delivery through Party On Delivery for ultimate convenience.'
+          'Starting at $85 per person , it\'s the most affordable and fun way to experience Lake Travis. BYOB with coolers provided, or coordinate delivery through Party On Delivery for ultimate convenience.'
         ]
       },
       {
@@ -2752,7 +2752,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         paragraphs: [
           'Morning Sleep-In (8-10 AM): Recover with coffee and light breakfast at your rental. This is a marathon, not a sprint! Hydrate and prepare for the big day.',
           'Brunch with Mimosas (10:30 AM-12 PM): Hit a brunch spot for bottomless mimosas and Tex-Mex. Get fueled up for the boat party! Reservations recommended for large groups.',
-          'ATX Disco Cruise (11 AM-3 PM or 3:30 PM-7:30 PM): THE highlight of your weekend! Professional DJ, photographer, giant floats, and incredible party atmosphere. BYOB with coolers provided. Bride cruises FREE on Disco Queen package.',
+          'ATX Disco Cruise (11 AM-3 PM or 3:30 PM-7:30 PM): THE highlight of your weekend! Professional DJ, photographer, giant floats, and incredible party atmosphere. BYOB with coolers provided.',
           'Dinner and Freshen Up (6-8 PM): Return to rental for showers and outfit changes. Order delivery or visit casual restaurant. Use this time to rest before nightlife round two.',
           'Rainey Street Dancing (9 PM-1 AM): Hit the bungalow bars for craft cocktails, live music, and dancing. More chill than Sixth Street but equally fun. End at food trucks for late-night tacos.'
         ]
@@ -2865,7 +2865,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Lake Travis Water Adventures',
         paragraphs: [
-          'The ATX Disco Cruise is the ultimate water adventure - 4 hours of swimming, giant floats, DJ entertainment, and party atmosphere on Lake Travis. Starting at $85 per person with bride FREE on premium packages.',
+          'The ATX Disco Cruise is the ultimate water adventure - 4 hours of swimming, giant floats, DJ entertainment, and party atmosphere on Lake Travis. Starting at $85 per person.',
           'For private water adventures, rent kayaks or paddleboards on Lady Bird Lake for morning activity. Book a private boat charter for your group to explore Lake Travis coves. Many groups combine morning paddling with afternoon ATX Disco Cruise for full water day.'
         ]
       },
@@ -2905,7 +2905,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'ATX Disco Cruise Pricing',
         paragraphs: [
           'Basic Bach Package - $85 per person: Full 4-hour cruise, professional DJ, photographer, giant floats, BYOB with shared coolers, multi-group party atmosphere. Always cheaper than private boats.',
-          'Disco Queen/King Package - $95 per person (Most Popular): Everything in Basic Bach plus private cooler with ice, reserved spot, disco ball cup for guest of honor, complimentary alcohol delivery, 25% transportation discount, $50-100 Airbnb voucher. BRIDE/GROOM CRUISES FREE with 16+ guests!',
+          'Disco Queen/King Package - $95 per person (Most Popular): Everything in Basic Bach plus private cooler with ice, reserved spot, disco ball cup for guest of honor, complimentary alcohol delivery, 25% transportation discount, $50-100 Airbnb voucher.',
           'Super Sparkle Platinum - $105 per person: Everything in Disco Queen plus personal unicorn float, mimosa setup with flutes and juices, $100 Airbnb concierge voucher, towel service, SPF-50 sunscreen, pre-stocked cooler. Ultimate luxury experience.'
         ]
       },
@@ -2940,7 +2940,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         paragraphs: [
           'Book ATX Disco Cruise for best value - always cheaper than private boats for groups under 30. BYOB saves hundreds on bar tabs. Use Party On Delivery for retail-priced alcohol with 100% buyback on unopened bottles.',
           'Book weekday cruises when possible for lower rates. Combine groups for shared private charters to split costs. Ask about group discounts for multiple bookings. Military and first responders receive 10% off with valid ID.',
-          'Disco Queen/King package at $95 makes bride/groom FREE with 16+ guests - effectively reducing per-person cost significantly for wedding parties.'
+          'Disco Queen/King package at $95 per person offers premium amenities and VIP treatment for wedding parties.'
         ]
       },
       {

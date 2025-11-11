@@ -126,7 +126,7 @@ export const corporateReviews: Review[] = [
     name: 'Emily Chen',
     initials: 'EC',
     rating: 5,
-    text: 'The bride cruises free promotion was amazing! The whole experience was Instagram-perfect. The crew made me feel like a queen for the day. Best bachelorette party ever!',
+    text: 'The whole experience was Instagram-perfect. The crew made me feel like a queen for the day. Best bachelorette party ever!',
     date: '2024-07-25',
     category: 'bachelorette',
     eventType: 'Bachelorette Party',

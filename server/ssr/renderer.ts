@@ -309,7 +309,7 @@ const BACHELORETTE_PARTY_SERVICE_SCHEMA = {
   "name": "Bachelorette Party Boat Cruises on Lake Travis",
   "provider": { "@id": "https://premierpartycruises.com/#organization" },
   "areaServed": ["Austin TX", "Texas", "United States"],
-  "description": "Exclusive bachelorette party cruises on Lake Travis with BYOB, professional DJ, photographer, and VIP packages. Bride cruises free on select packages.",
+  "description": "Exclusive bachelorette party cruises on Lake Travis with BYOB, professional DJ, photographer, and VIP packages.",
   "offers": [
     {
       "@type": "Offer",
@@ -454,18 +454,10 @@ const BACHELORETTE_FAQ_SCHEMA = {
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Does the bride cruise free on bachelorette party boats?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes! The bride cruises FREE on our Disco Queen and Super Sparkle Platinum packages with 16+ paying guests. This is our special thank you for choosing Premier Party Cruises for your bachelorette celebration."
-      }
-    },
-    {
-      "@type": "Question",
       "name": "What bachelorette party packages do you offer?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "We offer three bachelorette packages: Basic Bach ($85/person), Disco Queen ($95/person with bride free for 16+), and Super Sparkle Platinum ($105/person with bride free for 16+). All include DJ, photographer, floats, and full amenities."
+        "text": "We offer three bachelorette packages: Basic Bach ($85/person), Disco Queen ($95/person), and Super Sparkle Platinum ($105/person). All include DJ, photographer, floats, and full amenities."
       }
     }
   ]

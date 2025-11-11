@@ -255,7 +255,7 @@ export function generateBusinessSchema() {
           "itemOffered": {
             "@type": "Service",
             "name": "Bachelorette Packages",
-            "description": "Specialized bachelorette party packages including Basic Bach, Disco Queen, and Platinum options with bride cruises free"
+            "description": "Specialized bachelorette party packages including Basic Bach, Disco Queen, and Platinum options"
           }
         }
       ]

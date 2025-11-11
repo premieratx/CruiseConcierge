@@ -75,7 +75,6 @@ const combinedPartyPackages = [
     description: 'Our signature combined party experience - The Ultimate Group Celebration!',
     subtitle: 'Private Cooler & Reserved Area for Your Entire Crew',
     features: [
-      '🎉 Both Bride & Groom can cruise FREE (conditions apply)!',
       'Private Cooler w/Ice & Storage for Your Entire Group',
       'Reserved Spot for Your Combined Party',
       'Special Celebration Items for the Happy Couple',
@@ -96,7 +95,6 @@ const combinedPartyPackages = [
     description: 'All-inclusive luxury for the ultimate combined bachelor/bachelorette party',
     subtitle: 'Everything Ready When You Arrive - Just Show Up & Party!',
     features: [
-      '🎉 Both Bride & Groom cruise FREE with this package!',
       'Everything in the Party Squad Package',
       'Premium Party Floats for the Entire Group',
       'Mixology Setup w/Champagne, Juices & Party Supplies',
@@ -186,11 +184,6 @@ const faqItems = [
     id: 'different-preferences',
     question: 'What if guys & girls want different things?',
     answer: 'Plenty of zones: floats, DJ, lounge. BYOB keeps it flexible.'
-  },
-  {
-    id: 'couple-free',
-    question: 'Do the bride & groom cruise free?',
-    answer: 'Yes, with Party Squad or Ultimate Package (16+ paying guests).'
   },
   {
     id: 'activities',
@@ -298,7 +291,7 @@ export default function CombinedBachelorBachelorette() {
             </p>
 
             <Badge className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-3 text-base font-sans tracking-wider mb-6">
-              🎉 BOTH Bride & Groom Cruise FREE
+              🎉 The Best of Both Worlds - One Epic Celebration
             </Badge>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">

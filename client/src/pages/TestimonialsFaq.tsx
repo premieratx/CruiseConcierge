@@ -111,7 +111,7 @@ const faqCategories = {
     faqs: [
       {
         question: 'Do you accommodate bachelor and bachelorette parties?',
-        answer: 'Yes! We specialize in bachelor and bachelorette parties. The bride/groom cruises FREE with 16+ guests on premium packages.'
+        answer: 'Yes! We specialize in bachelor and bachelorette parties with premium packages designed specifically for celebrations.'
       }
     ]
   },

@@ -259,7 +259,7 @@ export default function JointBachelorBacheloretteParties() {
               </p>
               
               <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                What makes the <Link href="/atx-disco-cruise" className="text-purple-600 hover:text-purple-700 font-semibold">ATX Disco Cruise</Link> perfect for your <strong>austin co-ed bachelor party</strong>? You'll get a 4-hour cruise with everything included, the chance to meet other fun-loving groups celebrating on the lake, professional photography capturing all your <strong>joint bach party austin</strong> moments, and zero planning stress—just show up and party! The disco atmosphere, giant lily pads for swimming, and floating dance floor create the ultimate <strong>lake travis combined celebration</strong> experience. Many couples book the Disco Queen package where both the bride AND groom cruise free!
+                What makes the <Link href="/atx-disco-cruise" className="text-purple-600 hover:text-purple-700 font-semibold">ATX Disco Cruise</Link> perfect for your <strong>austin co-ed bachelor party</strong>? You'll get a 4-hour cruise with everything included, the chance to meet other fun-loving groups celebrating on the lake, professional photography capturing all your <strong>joint bach party austin</strong> moments, and zero planning stress—just show up and party! The disco atmosphere, giant lily pads for swimming, and floating dance floor create the ultimate <strong>lake travis combined celebration</strong> experience.
               </p>
             </div>
 
@@ -306,13 +306,9 @@ export default function JointBachelorBacheloretteParties() {
                       <Badge className="bg-pink-600 text-white">Most Popular - $100-$105/person</Badge>
                     </div>
                     <p className="text-gray-600 dark:text-gray-400 mb-4">
-                      The ultimate deal for <strong>co-ed bachelor party</strong> celebrations! <strong>BOTH bride and groom cruise FREE</strong> making this the best value for your <strong>joint bach party austin</strong>.
+                      The ultimate package for <strong>co-ed bachelor party</strong> celebrations! Premium perks and VIP treatment making this the best value for your <strong>joint bach party austin</strong>.
                     </p>
                     <ul className="space-y-2 text-gray-700 dark:text-gray-300">
-                      <li className="flex items-start gap-2">
-                        <Crown className="h-5 w-5 text-yellow-500 flex-shrink-0 mt-0.5" />
-                        <strong>BRIDE & GROOM BOTH CRUISE FREE!</strong>
-                      </li>
                       <li className="flex items-start gap-2">
                         <CheckCircle2 className="h-5 w-5 text-pink-600 flex-shrink-0 mt-0.5" />
                         <span>Private cooler with ice for your group</span>
@@ -345,10 +341,6 @@ export default function JointBachelorBacheloretteParties() {
                       Go all-out for your <strong>lake travis combined celebration</strong>! VIP treatment for both wedding parties with extra perks and amenities for the perfect <strong>combined pre-wedding party</strong>.
                     </p>
                     <ul className="space-y-2 text-gray-700 dark:text-gray-300">
-                      <li className="flex items-start gap-2">
-                        <Crown className="h-5 w-5 text-yellow-500 flex-shrink-0 mt-0.5" />
-                        <strong>BRIDE & GROOM BOTH CRUISE FREE!</strong>
-                      </li>
                       <li className="flex items-start gap-2">
                         <CheckCircle2 className="h-5 w-5 text-yellow-600 flex-shrink-0 mt-0.5" />
                         <span>Personal unicorn floats for bride & groom</span>

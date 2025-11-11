@@ -8,11 +8,6 @@ export const bachelorFAQs: FAQItem[] = [
     answer: 'The ATX Disco Cruise is perfect for groups under 30 wanting maximum fun at the best value. You get a DJ, photographer, and party atmosphere for $85-105 per person. Private boats offer exclusivity starting at $800 for 4 hours. Most bachelor parties choose the Disco Cruise for the unbeatable party vibe and included entertainment.'
   },
   {
-    id: 'bachelor-groom-free',
-    question: 'Does the groom really cruise free?',
-    answer: 'Yes! The groom cruises absolutely FREE on Disco King ($95) and Platinum ($105) packages with 16+ paying guests. This exclusive offer saves your group money while giving the groom VIP treatment. It\'s our way of making Austin bachelor parties more affordable and memorable.'
-  },
-  {
     id: 'bachelor-group-size',
     question: 'What size bachelor party groups work best on Lake Travis?',
     answer: 'Groups of 15-30 are ideal for the ATX Disco Cruise, creating perfect party energy. Smaller groups (8-14) might prefer our Day Tripper private boat. Larger groups (30+) can book our Clever Girl flagship party boat. We accommodate any size bachelor party with the right boat and atmosphere.'
@@ -36,11 +31,6 @@ export const bachelorFAQs: FAQItem[] = [
 
 // Bachelorette Party specific FAQs (5-7 questions)
 export const bacheloretteFAQs: FAQItem[] = [
-  {
-    id: 'bachelorette-bride-free',
-    question: 'Does the bride cruise free on bachelorette party boats?',
-    answer: 'YES! The bride cruises FREE on Disco Queen ($95) and Platinum ($105) packages with 16+ paying guests. She gets special perks like disco ball cups, bubble guns, and a personal unicorn float. It\'s our signature offer making Austin bachelorette parties more affordable and special for everyone.'
-  },
   {
     id: 'bachelorette-instagram',
     question: 'Will we get Instagram-worthy photos on the cruise?',
@@ -88,7 +78,7 @@ export const discoCruiseFAQs: FAQItem[] = [
   {
     id: 'disco-packages',
     question: 'What\'s the difference between Disco Cruise packages?',
-    answer: 'Basic Bach ($85) includes everything essential. Disco Queen/King ($95) adds private cooler, reserved spot, and party props - bride/groom FREE with 16+ guests! Platinum ($105) includes pre-stocked cooler, mimosa setup, and VIP perks. All include DJ, photographer, and floats. Most choose Disco Queen/King for best value.'
+    answer: 'Basic Bach ($85) includes everything essential. Disco Queen/King ($95) adds private cooler, reserved spot, and party props. Platinum ($105) includes pre-stocked cooler, mimosa setup, and VIP perks. All include DJ, photographer, and floats. Most choose Disco Queen/King for best value.'
   },
   {
     id: 'disco-music',

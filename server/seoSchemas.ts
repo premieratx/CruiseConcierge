@@ -171,14 +171,6 @@ export const FAQ_SCHEMAS: Record<string, any> = {
       },
       {
         "@type": "Question",
-        "name": "Does the bride really cruise free?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "YES! With our Disco Queen and Platinum packages, the bride cruises absolutely FREE! It's our way of making sure she has the best bachelorette party ever. Just book 8+ paying guests on either package and she's covered!"
-        }
-      },
-      {
-        "@type": "Question",
         "name": "Do you offer group discounts?",
         "acceptedAnswer": {
           "@type": "Answer",

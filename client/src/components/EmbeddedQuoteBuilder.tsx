@@ -81,11 +81,11 @@ const contextConfigs = {
     previewMessages: [
       { role: 'assistant', content: "Welcome to your bachelorette planning! 👰" },
       { role: 'user', content: "Bachelorette party for 12 girls" },
-      { role: 'assistant', content: "Perfect! The bride cruises FREE on weekends!" }
+      { role: 'assistant', content: "Perfect! We'll make this amazing!" }
     ],
     features: [
       { icon: Heart, text: 'Bachelorette Specialty' },
-      { icon: Crown, text: 'Bride Cruises FREE' },
+      { icon: Crown, text: 'VIP Treatment' },
       { icon: Sparkles, text: 'Instagram Perfect' }
     ]
   }

@@ -167,7 +167,7 @@ const austinPackages = [
     title: 'Bachelorette Party Boats',
     icon: Heart,
     description: 'Austin\'s #1 bachelorette party boat experience since 2009. Choose from Basic Bach, Disco Queen, or Platinum packages.',
-    features: ['Bride cruises FREE', 'Professional DJ & photographer', 'Party favors & decorations', 'ATX Disco Cruise or private charter'],
+    features: ['Professional DJ & photographer', 'Party favors & decorations', 'Giant floats included', 'ATX Disco Cruise or private charter'],
     startingPrice: `$${DISCO_PRICING.basic / 100}`,
     priceNote: 'per person',
     link: '/bachelorette-party-austin'
@@ -176,7 +176,7 @@ const austinPackages = [
     title: 'Bachelor Party Boats',
     icon: Crown,
     description: 'Ultimate Austin bachelor party on Lake Travis. Private boats or join our legendary ATX Disco Cruise.',
-    features: ['Groom cruises FREE', 'Professional entertainment', 'Lake Travis adventure', 'Swimming & activities'],
+    features: ['Professional entertainment', 'DJ & photographer included', 'Lake Travis adventure', 'Swimming & activities'],
     startingPrice: `$${DISCO_PRICING.basic / 100}`,
     priceNote: 'per person',
     link: '/bachelor-party-austin'
@@ -484,7 +484,7 @@ export default function PartyBoatAustin() {
                       <p className="text-sm text-gray-600">Platinum Package</p>
                       <p className="text-2xl font-bold text-purple-600">${DISCO_PRICING.platinum / 100}/person</p>
                     </div>
-                    <p className="text-sm text-gray-500 pt-4">Includes DJ, photographer & party favors. Bride/Groom FREE!</p>
+                    <p className="text-sm text-gray-500 pt-4">Includes DJ, photographer & party favors.</p>
                   </div>
                 </CardContent>
               </Card>

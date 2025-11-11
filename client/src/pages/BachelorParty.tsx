@@ -116,7 +116,6 @@ const atxDiscoPackages = [
     description: 'Our most popular package with VIP perks for your crew',
     subtitle: 'VIP treatment while partying with other groups',
     features: [
-      '🎉 GROOM CRUISES FREE with Disco King & Super Sparkle Package ONLY',
       'Private cooler with ice just for your crew',
       'Reserved seating area for your boys',
       'Disco ball cup & party gear for groom',
@@ -128,7 +127,7 @@ const atxDiscoPackages = [
     popular: true,
     icon: Crown,
     badge: 'Most Popular',
-    groomSpecial: true
+    groomSpecial: false
   },
   {
     id: 'super_sparkle',
@@ -139,7 +138,6 @@ const atxDiscoPackages = [
     description: 'VIP treatment with all the extras',
     subtitle: 'The ultimate ATX Disco experience',
     features: [
-      '🎉 GROOM CRUISES FREE with Disco King & Super Sparkle Package ONLY',
       'Personal unicorn float for the groom',
       'Drink bar setup with supplies',
       'SPF-50 spray sunscreen provided',
@@ -151,7 +149,7 @@ const atxDiscoPackages = [
     popular: false,
     icon: Trophy,
     badge: 'VIP Experience',
-    groomSpecial: true
+    groomSpecial: false
   }
 ];
 
@@ -441,7 +439,7 @@ export default function BachelorParty() {
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
       <SEOHead
         title="Austin Bachelor Party Boat | Lake Travis"
-        description="Book the ultimate Austin bachelor party cruise on Lake Travis. Groom cruises FREE! Professional DJ, photographer, giant floats included. Austin party boat starting at $85/person."
+        description="Book the ultimate Austin bachelor party cruise on Lake Travis. Professional DJ, photographer, giant floats included. Austin party boat starting at $85/person."
         keywords="Austin bachelor party, Lake Travis bachelor party, party boat Austin, austin party cruise, bachelor party boat Austin, ATX Disco Cruise bachelor, Austin bachelor ideas, Lake Travis party boat, party cruises"
         canonicalUrl="/bachelor-party"
       />
@@ -451,7 +449,7 @@ export default function BachelorParty() {
         schemas={[
           generateLocalBusinessSchema({
             name: "Premier Party Cruises - Bachelor Parties",
-            description: "Austin's premier bachelor party boat service on Lake Travis. Groom cruises FREE, professional DJ, photographer, and all-inclusive packages.",
+            description: "Austin's premier bachelor party boat service on Lake Travis with professional DJ, photographer, and all-inclusive packages.",
             url: "https://premierpartycruises.com/bachelor-party",
             priceRange: "$85-$125",
             aggregateRating: {
@@ -466,7 +464,7 @@ export default function BachelorParty() {
             areaServed: "Austin",
             hasOfferCatalog: [
               { name: "Basic Bach Package", description: "BYOB party cruise with DJ and photographer", price: 85 },
-              { name: "Disco King Package", description: "Groom cruises FREE, private cooler, reserved spot", price: 95 },
+              { name: "Disco King Package", description: "Premium package with private cooler, reserved spot", price: 95 },
               { name: "Super Sparkle Package", description: "All-inclusive luxury with premium extras", price: 105 }
             ],
             aggregateRating: {
@@ -477,19 +475,15 @@ export default function BachelorParty() {
           generateFAQSchema([
             { 
               question: "What is the best bachelor party boat in Austin?", 
-              answer: "Premier Party Cruises offers Austin's #1 rated bachelor party boat experience on Lake Travis. With the ATX Disco Cruise, grooms cruise FREE with the Disco King package, and every cruise includes professional DJ, photographer, giant floats, and 4 hours of legendary celebration." 
+              answer: "Premier Party Cruises offers Austin's #1 rated bachelor party boat experience on Lake Travis. With the ATX Disco Cruise, every cruise includes professional DJ, photographer, giant floats, and 4 hours of legendary celebration." 
             },
             { 
               question: "How much does a bachelor party cruise cost in Austin?", 
-              answer: "Austin bachelor party cruises start at $85 per person for the Basic Bach Package. The most popular Disco King Package is $95 (groom cruises FREE), and the all-inclusive Super Sparkle Package is $105 per person." 
+              answer: "Austin bachelor party cruises start at $85 per person for the Basic Bach Package. The most popular Disco King Package is $95 per person, and the all-inclusive Super Sparkle Package is $105 per person." 
             },
             { 
               question: "What's included in an Austin bachelor party boat cruise?", 
               answer: "Every bachelor party cruise includes: 4-hour Lake Travis cruise, professional DJ entertainment, professional photographer with digital photos, access to giant floats, BYOB with coolers and ice, and the unique multi-group party atmosphere where you celebrate with other bachelor parties." 
-            },
-            { 
-              question: "Does the groom cruise free on bachelor party boats?", 
-              answer: "Yes! The groom cruises FREE with the Disco King and Super Sparkle packages on the ATX Disco Cruise. This popular perk makes these packages the best value for bachelor groups." 
             },
             { 
               question: "How many people can fit on a bachelor party boat?", 
@@ -605,11 +599,6 @@ export default function BachelorParty() {
         <div className="max-w-5xl mx-auto px-6">
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center text-center">
             <div className="flex items-center gap-2 text-gray-700">
-              <Trophy className="h-5 w-5 text-blue-600" />
-              <span className="text-sm font-medium">GROOM CRUISES FREE with Disco King & Super Sparkle Package ONLY</span>
-            </div>
-            <span className="hidden sm:inline text-gray-300">|</span>
-            <div className="flex items-center gap-2 text-gray-700">
               <AlertCircle className="h-5 w-5 text-orange-500" />
               <span className="text-sm font-medium">Popular weekends book 8-10 weeks before the date</span>
             </div>
@@ -661,7 +650,7 @@ export default function BachelorParty() {
                     </li>
                     <li className="flex items-start gap-3">
                       <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
-                      <span>From $85 per person (groom FREE on premium packages)</span>
+                      <span>From $85 per person</span>
                     </li>
                     <li className="flex items-start gap-3">
                       <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
@@ -780,11 +769,6 @@ export default function BachelorParty() {
                           <div className="text-5xl font-bold text-blue-600">${pkg.price}</div>
                           <p className="text-gray-600 mt-1">per person</p>
                           <p className="text-sm text-gray-500 mt-2">${pkg.priceWithTaxTip} with tax & tip</p>
-                          {pkg.groomSpecial && (
-                            <Badge className="mt-3 bg-green-100 text-green-800 font-bold">
-                              🎉 GROOM CRUISES FREE!
-                            </Badge>
-                          )}
                         </div>
                       </CardHeader>
                       <CardContent>
@@ -1086,10 +1070,6 @@ export default function BachelorParty() {
                   <ul className="space-y-2 text-gray-700">
                     <li className="flex items-start gap-2">
                       <CheckCircle className="h-5 w-5 text-blue-600 mt-1 flex-shrink-0" />
-                      <span><strong>Groom Cruises FREE</strong> - Save money with our Disco King and Super Sparkle packages</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="h-5 w-5 text-blue-600 mt-1 flex-shrink-0" />
                       <span><strong>Professional DJ</strong> - Keep the party energy high with a live DJ who knows how to work bachelor crowds</span>
                     </li>
                     <li className="flex items-start gap-2">
@@ -1117,7 +1097,7 @@ export default function BachelorParty() {
                       </CardTitle>
                     </CardHeader>
                     <CardContent className="pt-4">
-                      <p className="text-gray-700 mb-3">Social experience with other bachelor parties. All-inclusive entertainment, groom cruises FREE with premium packages, and legendary multi-group energy.</p>
+                      <p className="text-gray-700 mb-3">Social experience with other bachelor parties. All-inclusive entertainment and legendary multi-group energy.</p>
                       <p className="font-bold text-blue-600">From $85/person</p>
                     </CardContent>
                   </Card>

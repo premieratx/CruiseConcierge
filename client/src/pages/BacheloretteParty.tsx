@@ -117,7 +117,6 @@ const atxDiscoPackages = [
     description: 'Our most popular package with extra perks for your group',
     subtitle: 'VIP treatment while partying with other groups',
     features: [
-      '🎉 BRIDE CRUISES FREE with Disco Queen & Super Sparkle Package ONLY',
       'Private cooler with ice just for your group',
       'Reserved seating area for your tribe',
       'Disco ball cup & bubble gun for bride',
@@ -129,7 +128,7 @@ const atxDiscoPackages = [
     popular: true,
     icon: Crown,
     badge: 'Most Popular',
-    brideSpecial: true
+    brideSpecial: false
   },
   {
     id: 'super_sparkle',
@@ -140,7 +139,6 @@ const atxDiscoPackages = [
     description: 'VIP treatment with all the extras',
     subtitle: 'The ultimate ATX Disco experience',
     features: [
-      '🎉 BRIDE CRUISES FREE with Disco Queen & Super Sparkle Package ONLY',
       'Personal unicorn float for the bride',
       'Mimosa bar setup with supplies',
       'SPF-50 spray sunscreen provided',
@@ -152,7 +150,7 @@ const atxDiscoPackages = [
     popular: false,
     icon: Trophy,
     badge: 'VIP Experience',
-    brideSpecial: true
+    brideSpecial: false
   }
 ];
 
@@ -443,7 +441,7 @@ export default function BacheloretteParty() {
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
       <SEOHead
         title="Austin Bachelorette Party Boat | Lake Travis"
-        description="Book Austin's #1 bachelorette party cruise on Lake Travis. Bride cruises FREE! Professional DJ, photographer, giant floats included. Austin party boat starting at $85/person."
+        description="Book Austin's #1 bachelorette party cruise on Lake Travis. Professional DJ, photographer, giant floats included. Austin party boat starting at $85/person."
         keywords="Austin bachelorette party, Lake Travis bachelorette party, party boat Austin, austin party cruise, bachelorette party boat Austin, ATX Disco Cruise bachelorette, Austin bachelorette ideas, Lake Travis party boat, cruise for bachelorette party"
         canonicalUrl="/bachelorette-party"
       />
@@ -453,7 +451,7 @@ export default function BacheloretteParty() {
         schemas={[
           generateLocalBusinessSchema({
             name: "Premier Party Cruises - Bachelorette Parties",
-            description: "Austin's premier bachelorette party boat service on Lake Travis. Bride cruises FREE, professional DJ, photographer, and all-inclusive packages.",
+            description: "Austin's premier bachelorette party boat service on Lake Travis with professional DJ, photographer, and all-inclusive packages.",
             url: "https://premierpartycruises.com/bachelorette-party",
             priceRange: "$85-$125",
             aggregateRating: {
@@ -468,7 +466,7 @@ export default function BacheloretteParty() {
             areaServed: "Austin",
             hasOfferCatalog: [
               { name: "Basic Bach Package", description: "BYOB party cruise with DJ and photographer", price: 85 },
-              { name: "Disco Queen Package", description: "Bride cruises FREE, private cooler, reserved spot", price: 105 },
+              { name: "Disco Queen Package", description: "Private cooler, reserved spot, VIP treatment", price: 105 },
               { name: "Platinum Package", description: "All-inclusive luxury with mimosa bar", price: 125 }
             ],
             aggregateRating: {
@@ -479,19 +477,15 @@ export default function BacheloretteParty() {
           generateFAQSchema([
             { 
               question: "What is the best bachelorette party boat in Austin?", 
-              answer: "Premier Party Cruises offers Austin's #1 rated bachelorette party boat experience on Lake Travis. With the ATX Disco Cruise, brides cruise FREE with the Disco Queen package, and every cruise includes professional DJ, photographer, giant floats, and 4 hours of celebration." 
+              answer: "Premier Party Cruises offers Austin's #1 rated bachelorette party boat experience on Lake Travis. The ATX Disco Cruise includes professional DJ, photographer, giant floats, and 4 hours of celebration with packages starting at $85 per person." 
             },
             { 
               question: "How much does a bachelorette party cruise cost in Austin?", 
-              answer: "Austin bachelorette party cruises start at $85 per person for the Basic Bach Package. The most popular Disco Queen Package is $105 (bride cruises FREE), and the all-inclusive Platinum Package is $125 per person." 
+              answer: "Austin bachelorette party cruises start at $85 per person for the Basic Bach Package. The most popular Disco Queen Package is $95 per person, and the all-inclusive Super Sparkle Package is $105 per person." 
             },
             { 
               question: "What's included in an Austin bachelorette party boat cruise?", 
               answer: "Every bachelorette party cruise includes: 4-hour Lake Travis cruise, professional DJ entertainment, professional photographer with digital photos, access to giant floats, BYOB with coolers and ice, and the unique multi-group party atmosphere where you celebrate with other bachelorette parties." 
-            },
-            { 
-              question: "Does the bride cruise free on bachelorette party boats?", 
-              answer: "Yes! The bride cruises FREE with the Disco Queen Package ($105/person) and Platinum Package ($125/person). These packages also include private cooler, reserved seating, and special perks for the bride." 
             },
             { 
               question: "When should I book a bachelorette party cruise in Austin?", 
@@ -608,13 +602,13 @@ export default function BacheloretteParty() {
         <div className="max-w-5xl mx-auto px-6">
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center text-center">
             <div className="flex items-center gap-2 text-gray-700">
-              <Heart className="h-5 w-5 text-pink-600" />
-              <span className="text-sm font-medium">BRIDE CRUISES FREE with Disco Queen & Super Sparkle Package ONLY</span>
+              <AlertCircle className="h-5 w-5 text-orange-500" />
+              <span className="text-sm font-medium">Popular weekends book 8-10 weeks before the date</span>
             </div>
             <span className="hidden sm:inline text-gray-300">|</span>
             <div className="flex items-center gap-2 text-gray-700">
-              <AlertCircle className="h-5 w-5 text-orange-500" />
-              <span className="text-sm font-medium">Popular weekends book 8-10 weeks before the date</span>
+              <Heart className="h-5 w-5 text-pink-600" />
+              <span className="text-sm font-medium">Packages from $85-$105 per person</span>
             </div>
           </div>
         </div>
@@ -664,7 +658,7 @@ export default function BacheloretteParty() {
                     </li>
                     <li className="flex items-start gap-3">
                       <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
-                      <span>From $85 per person (bride FREE on premium packages)</span>
+                      <span>From $85 per person - all packages</span>
                     </li>
                     <li className="flex items-start gap-3">
                       <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
@@ -916,10 +910,6 @@ export default function BacheloretteParty() {
                   <ul className="space-y-3">
                     <li className="flex items-start gap-3">
                       <CheckCircle className="h-5 w-5 text-pink-600 mt-0.5 flex-shrink-0" />
-                      <span className="text-gray-700"><strong className="text-pink-600">Bride Cruises FREE</strong> with premium packages</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <CheckCircle className="h-5 w-5 text-pink-600 mt-0.5 flex-shrink-0" />
                       <span className="text-gray-700"><strong>Professional DJ & Photographer</strong> included</span>
                     </li>
                     <li className="flex items-start gap-3">
@@ -1162,14 +1152,6 @@ export default function BacheloretteParty() {
                       </div>
                     )}
                     
-                    {pkg.brideSpecial && !pkg.popular && (
-                      <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-10">
-                        <Badge className="bg-purple-600 text-white font-sans tracking-wider font-bold uppercase text-sm px-4 py-2">
-                          <Heart className="h-3 w-3 mr-1 inline fill-current" />
-                          BRIDE FREE!
-                        </Badge>
-                      </div>
-                    )}
                     
                     <CardHeader className="text-center pb-4 pt-10">
                       <div className="flex justify-center mb-4">
@@ -1777,20 +1759,6 @@ export default function BacheloretteParty() {
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-              <Card className="border-2 border-pink-100 hover:border-pink-300 transition-all hover:shadow-lg">
-                <CardHeader className="text-center">
-                  <div className="mx-auto mb-4 p-4 bg-pink-100 rounded-full w-16 h-16 flex items-center justify-center">
-                    <Heart className="h-8 w-8 text-pink-600" />
-                  </div>
-                  <CardTitle className="text-xl font-bold">Bride Cruises FREE</CardTitle>
-                </CardHeader>
-                <CardContent className="text-center">
-                  <p className="text-gray-700 leading-relaxed">
-                    With Disco Queen & Platinum packages, the bride celebrates for free! Make your special day even more memorable.
-                  </p>
-                </CardContent>
-              </Card>
-
               <Card className="border-2 border-purple-100 hover:border-purple-300 transition-all hover:shadow-lg">
                 <CardHeader className="text-center">
                   <div className="mx-auto mb-4 p-4 bg-purple-100 rounded-full w-16 h-16 flex items-center justify-center">
@@ -2285,19 +2253,19 @@ export default function BacheloretteParty() {
             <div className="max-w-5xl mx-auto space-y-8">
               <FeaturedSnippet
                 question="What is an Austin bachelorette party boat cruise?"
-                answer="An Austin bachelorette party boat cruise is a 4-hour celebration on Lake Travis specifically designed for bachelorette parties. The ATX Disco Cruise features professional DJ services, photography, giant floats, and an epic party atmosphere that makes every bride's celebration unforgettable. The bride cruises FREE with premium packages!"
+                answer="An Austin bachelorette party boat cruise is a 4-hour celebration on Lake Travis specifically designed for bachelorette parties. The ATX Disco Cruise features professional DJ services, photography, giant floats, and an epic party atmosphere that makes every bride's celebration unforgettable."
                 format="paragraph"
               />
               
               <FeaturedSnippet
                 question="What is included in a bachelorette party boat cruise?"
-                answer="All bachelorette party cruises include: Professional DJ playing bride's favorites, professional photographer capturing memories, giant lily pad floats (6x20'), disco ball cups and party supplies, private cooler with ice, mimosa supplies with champagne flutes, ice water stations, clean restrooms, and shaded lounge areas. Premium packages include the bride cruising FREE, alcohol delivery, and personalized bride items."
+                answer="All bachelorette party cruises include: Professional DJ playing bride's favorites, professional photographer capturing memories, giant lily pad floats (6x20'), disco ball cups and party supplies, private cooler with ice, mimosa supplies with champagne flutes, ice water stations, clean restrooms, and shaded lounge areas. Premium packages include alcohol delivery and personalized bride items."
                 format="paragraph"
               />
 
               <FeaturedSnippet
                 question="How much does an Austin bachelorette party boat cost?"
-                answer="Austin bachelorette party boat cruises start at $85/person for the Basic Bach Package ($109 with tax & tip). The most popular Disco Queen Package is $95/person ($122 with tax & tip) and includes the BRIDE CRUISING FREE. The all-inclusive Super Sparkle Platinum package is $105/person ($135 with tax & tip) and includes the bride free plus a personal unicorn float, pre-stocked cooler, and full concierge service."
+                answer="Austin bachelorette party boat cruises start at $85/person for the Basic Bach Package ($111 with tax & tip). The most popular Disco Queen Package is $95/person ($124 with tax & tip). The all-inclusive Super Sparkle package is $105/person ($137 with tax & tip) and includes a personal unicorn float, pre-stocked cooler, and full concierge service."
                 format="paragraph"
               />
             </div>

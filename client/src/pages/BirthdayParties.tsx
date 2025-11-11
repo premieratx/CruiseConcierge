@@ -91,10 +91,10 @@ const birthdayPackages = [
     features: [
       'Everything from Birthday Bash',
       'Giant party floats',
-      'Birthday VIP cruises FREE',
       'Professional photographer',
       'Champagne toast setup',
-      'Premium decorations'
+      'Premium decorations',
+      'VIP party atmosphere'
     ],
     ideal: 'For milestone birthdays',
     vip: true
@@ -137,10 +137,6 @@ const birthdayInclusions = [
 
 // Birthday FAQs
 const birthdayFAQs = [
-  {
-    question: 'Does the birthday person really cruise free?',
-    answer: 'Yes! With our VIP Birthday Experience package and 10+ paying guests, the birthday VIP cruises absolutely FREE! It\'s our way of making your special day even more special.'
-  },
   {
     question: 'What decorations do you provide?',
     answer: 'Our Birthday Bash and VIP packages include birthday banners, balloons, and table decorations. The VIP package includes premium decorations and custom touches. You\'re also welcome to bring additional decorations to personalize your celebration.'
@@ -187,7 +183,7 @@ export default function BirthdayParties() {
       <SEOHead 
         pageRoute="/birthday-parties"
         defaultTitle="Birthday Party Boat | Lake Travis Austin"
-        defaultDescription="Lake Travis birthday cruises. VIP cruises FREE! Perfect for milestone birthdays. Decorations included. Book today!"
+        defaultDescription="Lake Travis birthday cruises. Private boat rentals for all ages. Perfect for milestone birthdays. Decorations included. Book today!"
         defaultKeywords={[
           'birthday cruise austin',
           'birthday party boat lake travis',
@@ -221,7 +217,7 @@ export default function BirthdayParties() {
         
         <div className="relative z-10 container mx-auto px-6 text-center">
           <Badge className="mb-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 text-sm font-sans tracking-wider shadow-lg">
-            🎉 BIRTHDAY VIP CRUISES FREE! 🎉
+            🎉 LAKE TRAVIS BIRTHDAY CRUISES 🎉
           </Badge>
           <h1 className="font-playfair text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-6 text-center text-gray-900 drop-shadow-sm" data-editable data-editable-id="h1-birthday-hero">
             Make Your Birthday Legendary!
@@ -274,7 +270,7 @@ export default function BirthdayParties() {
 
             <div className="grid md:grid-cols-3 gap-8">
               {[
-                { icon: Gift, title: 'Birthday VIP FREE', desc: 'Book VIP package with 10+ guests and the birthday person cruises free!' },
+                { icon: Gift, title: 'VIP Package Available', desc: 'Premium birthday experience with professional photography and champagne toast setup!' },
                 { icon: Camera, title: 'Epic Memories', desc: 'Professional photos and Instagram-worthy moments all day long' },
                 { icon: PartyPopper, title: 'All Ages Welcome', desc: 'From Sweet 16 to Fifty & Fabulous - we celebrate all birthdays!' }
               ].map((benefit, idx) => (

@@ -796,6 +796,11 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
     res.redirect(301, '/');
   });
   
+  // Redirect birthday blog post to React page
+  app.get('/blog/birthday-party-boat-rentals-on-lake-travis-milestone-celebrations-with-a-view', (req, res) => {
+    res.redirect(301, '/birthday-parties');
+  });
+  
   // ==========================================
   // SITEMAP.XML FOR SEO - GOOGLE 2025 COMPLIANT
   // ==========================================

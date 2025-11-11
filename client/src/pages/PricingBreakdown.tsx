@@ -717,7 +717,7 @@ export default function PricingBreakdown() {
                     title: 'Disco Queen Package',
                     subtitle: 'Most Popular Choice',
                     recommended: true,
-                    badge: { text: 'Bride Cruises FREE!', variant: 'default' }
+                    badge: { text: 'Most Popular', variant: 'default' }
                   },
                   {
                     id: 'platinum',
@@ -911,7 +911,7 @@ export default function PricingBreakdown() {
             <CardHeader>
               <CardTitle>Bachelorette Disco Cruise Packages</CardTitle>
               <CardDescription>
-                Three package tiers for bachelorette parties - Bride cruises FREE with Disco Queen & Platinum!
+                Three package tiers for bachelorette parties with premium features and VIP perks
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -952,9 +952,6 @@ export default function PricingBreakdown() {
                   <Badge className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-pink-500 text-white">
                     MOST POPULAR
                   </Badge>
-                  <Badge className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-purple-600 text-white text-xs">
-                    BRIDE FREE!
-                  </Badge>
                   <div className="text-center mt-4">
                     <Crown className="h-12 w-12 mx-auto text-pink-500 mb-4" />
                     <h3 className="text-2xl font-bold mb-2">Disco Queen Package</h3>
@@ -966,10 +963,6 @@ export default function PricingBreakdown() {
                     <div className="text-sm text-gray-400 line-through">was $125</div>
                   </div>
                   <ul className="space-y-2 text-sm">
-                    <li className="flex items-start gap-2">
-                      <Check className="h-4 w-4 text-green-500 mt-0.5" />
-                      <span>🎉 BRIDE CRUISES FREE with this package!</span>
-                    </li>
                     <li className="flex items-start gap-2">
                       <Check className="h-4 w-4 text-green-500 mt-0.5" />
                       <span>Private cooler with ice for your group</span>
@@ -991,9 +984,6 @@ export default function PricingBreakdown() {
 
                 {/* Platinum Package */}
                 <div className="border-2 rounded-lg p-6 space-y-4">
-                  <Badge className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-purple-600 text-white text-xs">
-                    BRIDE FREE!
-                  </Badge>
                   <div className="text-center mt-4">
                     <Trophy className="h-12 w-12 mx-auto text-pink-500 mb-4" />
                     <h3 className="text-2xl font-bold mb-2">Super Sparkle Platinum</h3>
@@ -1005,10 +995,6 @@ export default function PricingBreakdown() {
                     <div className="text-sm text-gray-400 line-through">was $140</div>
                   </div>
                   <ul className="space-y-2 text-sm">
-                    <li className="flex items-start gap-2">
-                      <Check className="h-4 w-4 text-green-500 mt-0.5" />
-                      <span>🎉 BRIDE CRUISES FREE with this package!</span>
-                    </li>
                     <li className="flex items-start gap-2">
                       <Check className="h-4 w-4 text-green-500 mt-0.5" />
                       <span>Personal unicorn float for the bride</span>

@@ -4927,7 +4927,7 @@ Crawl-delay: 1`;
         defaultMeta.metaKeywords = ['Austin bachelor party', 'Lake Travis bachelor party', 'bachelor party boat', 'disco cruise Austin', 'bachelor party ideas Austin'];
       } else if (pageRoute === '/bachelorette-party') {
         defaultMeta.metaTitle = 'Austin Bachelorette Party Boat Cruises | Lake Travis | Premier Party Cruises';
-        defaultMeta.metaDescription = 'Perfect Austin bachelorette party on Lake Travis! Disco cruises with DJ, dancing, drinks, and incredible views. Bride rides free on weekends!';
+        defaultMeta.metaDescription = 'Perfect Austin bachelorette party on Lake Travis! Disco cruises with DJ, dancing, drinks, and incredible views.';
         defaultMeta.metaKeywords = ['Austin bachelorette party', 'Lake Travis bachelorette', 'bachelorette party boat', 'disco cruise Austin', 'bachelorette party ideas Austin'];
       }
       

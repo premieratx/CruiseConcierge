@@ -2755,7 +2755,7 @@ export default function Home() {
               },
               {
                 title: "Bachelorette Party Cruises - Celebrate in Style",
-                description: "Premium bachelorette party packages with mimosa supplies, decorations, and professional photography. Bride cruises free with Disco Queen and Platinum packages.",
+                description: "Premium bachelorette party packages with mimosa supplies, decorations, and professional photography.",
                 icon: <Heart className="w-6 h-6" />
               },
               {

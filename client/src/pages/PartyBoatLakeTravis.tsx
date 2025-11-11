@@ -173,7 +173,7 @@ const lakeTravisPackages = [
       'Lake Travis\'s best party spots',
       'Swimming at secluded Lake Travis coves',
       'Professional photos on Lake Travis',
-      'Bride cruises free on Lake Travis'
+      'DJ, photographer, floats included'
     ],
     highlight: 'Most Popular on Lake Travis',
     link: '/bachelorette-party-austin'
@@ -403,7 +403,7 @@ export default function PartyBoatLakeTravis() {
                   </CardHeader>
                   <CardContent>
                     <p className="text-base text-gray-600 text-sm">
-                      Epic bachelor party cruises on Lake Travis with ATX Disco Cruise or private charters. Professional DJ, photographer, and groom cruises free!
+                      Epic bachelor party cruises on Lake Travis with ATX Disco Cruise or private charters. Professional DJ, photographer, and unforgettable memories!
                     </p>
                   </CardContent>
                 </Card>
@@ -421,7 +421,7 @@ export default function PartyBoatLakeTravis() {
                   </CardHeader>
                   <CardContent>
                     <p className="text-base text-gray-600 text-sm">
-                      Ultimate bachelorette party on Lake Travis! Bride cruises FREE, professional entertainment, and unforgettable Austin memories.
+                      Ultimate bachelorette party on Lake Travis! Professional entertainment, DJ, photographer, and unforgettable Austin memories.
                     </p>
                   </CardContent>
                 </Card>
