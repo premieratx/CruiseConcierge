@@ -33,7 +33,7 @@ let wisprFlowService: any = null;
 let generateQuoteDescription: any = null;
 let openaiService: any = null;
 type LeadWebhookPayload = any;
-import { insertContactSchema, insertProjectSchema, insertChatMessageSchema, insertAdminChatSessionSchema, insertAdminChatMessageSchema, insertUserSchema, insertInviteSchema, insertQuoteTemplateSchema, insertTemplateRuleSchema, insertDiscountRuleSchema, insertPricingSettingsSchema, insertPricingAdjustmentSchema, insertProductSchema, insertAffiliateSchema, insertDiscoSlotSchema, insertTimeframeSchema, insertSmsAuthTokenSchema, insertCustomerSessionSchema, insertPortalActivityLogSchema, insertPartialLeadSchema, insertBlogPostSchema, insertBlogAuthorSchema, insertBlogCategorySchema, insertBlogTagSchema, insertBlogCommentSchema, insertBlogAnalyticsSchema, insertSeoPageSchema, insertSeoCompetitorSchema, insertContentBlockSchema, insertPromptsLibrarySchema, endorsements, type LeadData, type LeadUpdateData, type CreateLeadRequest, type PartialLeadFilters, type SEOOptimizationRequest, type SEOBulkOperation, type AdminChatSession, type AdminChatMessage, type Endorsement } from "@shared/schema";
+import { insertContactSchema, insertProjectSchema, insertChatMessageSchema, insertAdminChatSessionSchema, insertAdminChatMessageSchema, insertUserSchema, insertInviteSchema, insertQuoteTemplateSchema, insertTemplateRuleSchema, insertDiscountRuleSchema, insertPricingSettingsSchema, insertPricingAdjustmentSchema, insertProductSchema, insertAffiliateSchema, insertDiscoSlotSchema, insertTimeframeSchema, insertSmsAuthTokenSchema, insertCustomerSessionSchema, insertPortalActivityLogSchema, insertPartialLeadSchema, insertBlogPostSchema, insertBlogAuthorSchema, insertBlogCategorySchema, insertBlogTagSchema, insertBlogCommentSchema, insertBlogAnalyticsSchema, insertSeoPageSchema, insertSeoCompetitorSchema, insertContentBlockSchema, insertPromptsLibrarySchema, endorsements, blogPosts, type LeadData, type LeadUpdateData, type CreateLeadRequest, type PartialLeadFilters, type SEOOptimizationRequest, type SEOBulkOperation, type AdminChatSession, type AdminChatMessage, type Endorsement } from "@shared/schema";
 import { calculateServerPricing, type ServerPricingRequest } from './serverPricing';
 import { PRICING_DEFAULTS } from "@shared/constants";
 import { getPrivateTimeSlotsForDate, getDiscoTimeSlotsForDate, parseTimeToDate, getTimeSlotById } from "@shared/timeSlots";
@@ -776,52 +776,151 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
   app.get('/blogs/:slug', blogSSRHandler);
   
   // ==========================================
-  // SITEMAP.XML FOR SEO
+  // SITEMAP.XML FOR SEO - GOOGLE 2025 COMPLIANT
   // ==========================================
   
-  app.get('/sitemap.xml', (req, res) => {
-    res.header('Content-Type', 'application/xml');
-    
-    const baseUrl = 'https://premierpartycruises.com';
-    
-    const urls = [
-      // Home page - highest priority
-      { loc: '/', priority: '1.0', changefreq: 'weekly' },
+  app.get('/sitemap.xml', async (req, res) => {
+    try {
+      res.header('Content-Type', 'application/xml');
       
-      // Main service pages - high priority
-      { loc: '/atx-disco-cruise', priority: '0.9', changefreq: 'weekly' },
-      { loc: '/private-cruises', priority: '0.9', changefreq: 'weekly' },
-      { loc: '/bachelor-party-austin', priority: '0.9', changefreq: 'weekly' },
-      { loc: '/bachelorette-party-austin', priority: '0.9', changefreq: 'weekly' },
-      { loc: '/combined-bachelor-bachelorette-austin', priority: '0.9', changefreq: 'weekly' },
-      { loc: '/bachelor-bachelorette-party-boat-austin', priority: '0.9', changefreq: 'weekly' },
+      const baseUrl = 'https://premierpartycruises.com';
       
-      // Blog pages - medium priority
-      { loc: '/ultimate-austin-bachelorette-weekend', priority: '0.7', changefreq: 'weekly' },
-      { loc: '/top-10-austin-bachelorette-ideas', priority: '0.7', changefreq: 'weekly' },
-      { loc: '/three-day-austin-bachelorette-itinerary', priority: '0.7', changefreq: 'weekly' },
-      { loc: '/budget-austin-bachelorette', priority: '0.7', changefreq: 'weekly' },
-      { loc: '/luxury-austin-bachelorette', priority: '0.7', changefreq: 'weekly' },
-      { loc: '/austin-bachelorette-nightlife', priority: '0.7', changefreq: 'weekly' },
+      // Static public pages - NO lastmod (these are static pages without real modification tracking)
+      // Only blog posts from the database will have lastmod dates based on actual updatedAt/publishedAt
+      const staticUrls = [
+        // Home page
+        '/',
+        
+        // Main service pages
+        '/atx-disco-cruise',
+        '/private-cruises',
+        '/bachelor-party-austin',
+        '/bachelorette-party-austin',
+        '/combined-bachelor-bachelorette',
+        
+        // Corporate & Business Events
+        '/corporate-events',
+        '/team-building',
+        '/client-entertainment',
+        '/company-milestone',
+        
+        // Wedding & Celebration Events
+        '/wedding-parties',
+        '/rehearsal-dinner',
+        '/welcome-party',
+        '/after-party',
+        
+        // Birthday & Special Events
+        '/birthday-parties',
+        '/milestone-birthday',
+        '/sweet-16',
+        '/graduation-party',
+        
+        // SEO & Information Pages
+        '/party-boat-austin',
+        '/party-boat-lake-travis',
+        '/first-time-lake-travis-boat-rental-guide',
+        
+        // Contact & Support
+        '/contact',
+        '/faq',
+        '/testimonials-faq',
+        '/pricing-breakdown',
+        
+        // Media & Social
+        '/gallery',
+        '/ai-endorsement',
+        '/media',
+        
+        // Blog Listing Pages
+        '/blog',
+        '/blogs',
+        
+        // Booking & Engagement
+        '/chat',
+        '/book-online',
+        '/book-online-popup',
+        '/book-now',
+        '/golden-ticket',
+        '/golden-ticket-private',
+        
+        // Customer Portal
+        '/portal',
+        
+        // Static blog pages (legacy content pages)
+        '/ultimate-austin-bachelorette-weekend',
+        '/top-10-austin-bachelorette-ideas',
+        '/3-day-austin-bachelorette-itinerary',
+        '/budget-austin-bachelorette',
+        '/luxury-austin-bachelorette',
+        '/adventure-austin-bachelorette',
+        '/austin-bachelorette-nightlife',
+        // NOTE: /blogs/* URLs from database are handled below via publishedPosts query
+        // Removed duplicates that were being fetched from DB:
+        // - /blogs/holiday-celebrations-on-lake-travis-seasonal-boat-party-planning-and-coordination
+        // - /blogs/joint-bachelor-bachelorette-parties-with-premier-party-cruises
+        // - /blogs/lake-travis-wedding-boat-rentals-unique-venues-for-austin-celebrations
+      ];
       
-      // Other public pages - lower priority
-      { loc: '/faq', priority: '0.6', changefreq: 'weekly' },
-      { loc: '/contact', priority: '0.6', changefreq: 'weekly' },
-      { loc: '/about', priority: '0.6', changefreq: 'weekly' },
-      { loc: '/testimonials', priority: '0.6', changefreq: 'weekly' },
-      { loc: '/chat', priority: '0.6', changefreq: 'weekly' }
-    ];
-    
-    const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+      // Query database for ALL published blog posts with real lastmod dates
+      let blogUrls: { loc: string; lastmod: string }[] = [];
+      try {
+        const publishedPosts = await db
+          .select({
+            slug: blogPosts.slug,
+            updatedAt: blogPosts.updatedAt,
+            publishedAt: blogPosts.publishedAt,
+          })
+          .from(blogPosts)
+          .where(eq(blogPosts.status, 'published'));
+        
+        blogUrls = publishedPosts.map(post => ({
+          loc: `/blogs/${post.slug}`,
+          lastmod: (post.updatedAt || post.publishedAt || new Date()).toISOString().split('T')[0]
+        }));
+        
+        console.log(`✅ Sitemap: Added ${blogUrls.length} published blog posts with real lastmod dates`);
+      } catch (error) {
+        console.error('❌ Sitemap: Error fetching blog posts:', error);
+        // Continue with static URLs even if blog query fails
+      }
+      
+      // Generate XML sitemap (Google 2025 compliant - NO changefreq or priority)
+      // Static pages: <loc> only (no lastmod - we don't track modifications for static pages)
+      // Blog posts: <loc> + <lastmod> (real dates from database)
+      let sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${urls.map(url => `  <url>
+`;
+      
+      // Add static URLs (no lastmod)
+      for (const url of staticUrls) {
+        sitemap += `  <url>
+    <loc>${baseUrl}${url}</loc>
+  </url>
+`;
+      }
+      
+      // Add blog URLs (with real lastmod dates)
+      for (const url of blogUrls) {
+        sitemap += `  <url>
     <loc>${baseUrl}${url.loc}</loc>
-    <changefreq>${url.changefreq}</changefreq>
-    <priority>${url.priority}</priority>
-  </url>`).join('\n')}
-</urlset>`;
-    
-    res.send(sitemap);
+    <lastmod>${url.lastmod}</lastmod>
+  </url>
+`;
+      }
+      
+      sitemap += `</urlset>`;
+      
+      const totalUrls = staticUrls.length + blogUrls.length;
+      console.log(`✅ Sitemap generated: ${totalUrls} total URLs (${staticUrls.length} static pages + ${blogUrls.length} blog posts)`);
+      console.log(`📝 Static pages: NO lastmod (static content without modification tracking)`);
+      console.log(`📅 Blog posts: Real lastmod dates from database (updatedAt/publishedAt)`);
+      
+      res.send(sitemap);
+    } catch (error) {
+      console.error('❌ Sitemap generation error:', error);
+      res.status(500).send('Error generating sitemap');
+    }
   });
   
   // ==========================================
