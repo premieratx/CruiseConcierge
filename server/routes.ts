@@ -781,12 +781,27 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
   app.get('/blogs/:slug', blogSSRHandler);
   
   // ==========================================
+  // NOINDEX HEADERS FOR ADMIN/PRIVATE ROUTES
+  // ==========================================
+  
+  // Add X-Robots-Tag: noindex for all /portal routes (defense-in-depth with auth)
+  app.get('/portal*', (req, res, next) => {
+    res.setHeader('X-Robots-Tag', 'noindex, nofollow');
+    next();
+  });
+  
+  // ==========================================
   // LEGACY URL REDIRECTS (301 PERMANENT)
   // ==========================================
   
   // Redirect phantom URLs to their correct destinations
   app.get('/bachelor-bachelorette-party-boat-austin', (req, res) => {
-    res.redirect(301, '/combined-bachelor-bachelorette');
+    res.redirect(301, '/combined-bachelor-bachelorette-austin');
+  });
+  
+  // Redirect legacy URL to canonical combined bach page
+  app.get('/combined-bachelor-bachelorette', (req, res) => {
+    res.redirect(301, '/combined-bachelor-bachelorette-austin');
   });
   
   app.get('/testimonials', (req, res) => {
@@ -822,7 +837,7 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
         '/private-cruises',
         '/bachelor-party-austin',
         '/bachelorette-party-austin',
-        '/combined-bachelor-bachelorette',
+        '/combined-bachelor-bachelorette-austin',
         
         // Corporate & Business Events
         '/corporate-events',
@@ -856,22 +871,10 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
         // Media & Social
         '/gallery',
         '/ai-endorsement',
-        '/media',
         
         // Blog Listing Pages
         '/blog',
         '/blogs',
-        
-        // Booking & Engagement
-        '/chat',
-        '/book-online',
-        '/book-online-popup',
-        '/book-now',
-        '/golden-ticket',
-        '/golden-ticket-private',
-        
-        // Customer Portal
-        '/portal',
         
         // Static blog pages (legacy content pages)
         '/ultimate-austin-bachelorette-weekend',
