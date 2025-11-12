@@ -9,20 +9,18 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
-import { Camera, Calendar, X, ChevronLeft, ChevronRight, Ship, Sparkles, Users, Video as VideoIcon } from 'lucide-react';
+import { Camera, X, ChevronLeft, ChevronRight, Ship, Sparkles, Users } from 'lucide-react';
 import { useLocation } from 'wouter';
+import type { GalleryImage } from '@shared/schema';
 
-interface MediaItem {
-  id: string;
-  filename: string;
-  originalName: string;
-  fileType: 'photo' | 'video' | 'edited_photo' | 'generated_video';
-  filePath: string;
-  uploadDate: string;
-  autoTags?: string[];
-  manualTags?: string[];
-  altText?: string;
-}
+// Map backend categories to frontend tags
+const categoryToTags: Record<string, string[]> = {
+  'boat_exterior': ['boats', 'fleet'],
+  'cruise_party': ['party_atmosphere', 'party'],
+  'amenities': ['events', 'celebration'],
+  'guests': ['events', 'celebration'],
+  'general': ['all']
+};
 
 interface CategorySection {
   id: string;
@@ -38,7 +36,7 @@ const categories: CategorySection[] = [
     name: 'All Media',
     icon: Camera,
     tags: [],
-    description: 'View all photos and videos'
+    description: 'View all photos'
   },
   {
     id: 'boats',
@@ -60,160 +58,35 @@ const categories: CategorySection[] = [
     icon: Users,
     tags: ['events', 'celebration'],
     description: 'Real celebrations and events'
-  },
-  {
-    id: 'videos',
-    name: 'Videos',
-    icon: VideoIcon,
-    tags: ['video'],
-    description: 'Watch our cruise videos'
   }
 ];
 
-// Fallback static gallery photos when media library is empty
-const staticGalleryPhotos: MediaItem[] = [
-  // Boat Photos - Day Tripper
-  {
-    id: 'static-boat-1',
-    filename: 'day-tripper-14-person-boat.jpg',
-    originalName: 'Day Tripper - 14 Person Boat',
-    fileType: 'photo',
-    filePath: '/live_website_photos/day-tripper-14-person-boat.jpg',
-    uploadDate: '2024-01-01',
-    manualTags: ['boats', 'fleet', 'daytripper'],
-    altText: 'Day Tripper - 14 person capacity boat on Lake Travis'
-  },
-  // Boat Photos - Meeseeks
-  {
-    id: 'static-boat-2',
-    filename: 'meeseeks-25-person-boat.jpg',
-    originalName: 'Meeseeks - 25 Person Boat',
-    fileType: 'photo',
-    filePath: '/live_website_photos/meeseeks-25-person-boat.jpg',
-    uploadDate: '2024-01-01',
-    manualTags: ['boats', 'fleet', 'meeseeks'],
-    altText: 'Meeseeks - 25 person party boat with blue canopy'
-  },
-  // Boat Photos - Clever Girl
-  {
-    id: 'static-boat-3',
-    filename: 'clever-girl-50-person-boat.jpg',
-    originalName: 'Clever Girl - 50 Person Boat',
-    fileType: 'photo',
-    filePath: '/live_website_photos/clever-girl-50-person-boat.jpg',
-    uploadDate: '2024-01-01',
-    manualTags: ['boats', 'fleet', 'clever_girl'],
-    altText: 'Clever Girl - 50+ capacity party boat with disco balls'
-  },
-  // Party Atmosphere Photos
-  {
-    id: 'static-party-1',
-    filename: 'party-atmosphere-1.jpg',
-    originalName: 'Party Atmosphere on Lake Travis',
-    fileType: 'photo',
-    filePath: '/live_website_photos/party-atmosphere-1.jpg',
-    uploadDate: '2024-01-01',
-    manualTags: ['party_atmosphere', 'party', 'events'],
-    altText: 'Guests enjoying party atmosphere on Lake Travis cruise'
-  },
-  {
-    id: 'static-party-2',
-    filename: 'party-atmosphere-2.jpg',
-    originalName: 'Party Celebration',
-    fileType: 'photo',
-    filePath: '/live_website_photos/party-atmosphere-2.jpg',
-    uploadDate: '2024-01-01',
-    manualTags: ['party_atmosphere', 'party', 'events'],
-    altText: 'Party celebration on Premier Party Cruises boat'
-  },
-  {
-    id: 'static-party-3',
-    filename: 'party-atmosphere-3.jpg',
-    originalName: 'Lake Travis Party Scene',
-    fileType: 'photo',
-    filePath: '/live_website_photos/party-atmosphere-3.jpg',
-    uploadDate: '2024-01-01',
-    manualTags: ['party_atmosphere', 'party', 'events'],
-    altText: 'Lake Travis party scene with guests'
-  },
-  // Event Photos
-  {
-    id: 'static-event-1',
-    filename: 'atx-disco-cruise-party.jpg',
-    originalName: 'ATX Disco Cruise Party',
-    fileType: 'photo',
-    filePath: '/live_website_photos/atx-disco-cruise-party.jpg',
-    uploadDate: '2024-01-01',
-    manualTags: ['events', 'celebration', 'party_atmosphere'],
-    altText: 'ATX Disco Cruise bachelor and bachelorette party celebration'
-  },
-  {
-    id: 'static-event-2',
-    filename: 'bachelor-party-group-guys.jpg',
-    originalName: 'Bachelor Party Group',
-    fileType: 'photo',
-    filePath: '/live_website_photos/bachelor-party-group-guys.jpg',
-    uploadDate: '2024-01-01',
-    manualTags: ['events', 'celebration', 'bachelor'],
-    altText: 'Bachelor party group on Lake Travis boat rental'
-  },
-  {
-    id: 'static-event-3',
-    filename: 'dancing-party-scene.jpg',
-    originalName: 'Dancing Party Scene',
-    fileType: 'photo',
-    filePath: '/live_website_photos/dancing-party-scene.jpg',
-    uploadDate: '2024-01-01',
-    manualTags: ['events', 'celebration', 'party_atmosphere'],
-    altText: 'Guests dancing at Lake Travis party cruise'
-  },
-  // Fun Photos
-  {
-    id: 'static-fun-1',
-    filename: 'giant-unicorn-float.jpg',
-    originalName: 'Giant Unicorn Float',
-    fileType: 'photo',
-    filePath: '/live_website_photos/giant-unicorn-float.jpg',
-    uploadDate: '2024-01-01',
-    manualTags: ['events', 'party_atmosphere', 'floating'],
-    altText: 'Giant unicorn float on Lake Travis party cruise'
-  },
-  // Videos
-  {
-    id: 'youtube-hero-video',
-    filename: 'premier-party-cruises-lake-travis.mp4',
-    originalName: 'Premier Party Cruises - Lake Travis Experience',
-    fileType: 'video',
-    filePath: 'https://www.youtube.com/watch?v=4-Yx24Y6oro',
-    uploadDate: '2025-11-11',
-    manualTags: ['video', 'party_atmosphere', 'boats', 'events'],
-    altText: 'Premier Party Cruises Lake Travis party boat experience video'
-  }
-];
+// Helper function to get tags for a gallery image based on its category
+const getImageTags = (image: GalleryImage): string[] => {
+  return categoryToTags[image.category] || ['all'];
+};
 
 export default function Gallery() {
   const [, navigate] = useLocation();
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [selectedCategory, setSelectedCategory] = useState('all');
-  const [filteredPhotos, setFilteredPhotos] = useState<MediaItem[]>([]);
+  const [filteredPhotos, setFilteredPhotos] = useState<GalleryImage[]>([]);
   const [brokenImageIds, setBrokenImageIds] = useState<Set<string>>(new Set());
 
-  // Fetch published gallery photos from media library, fallback to static photos
-  const { data: mediaLibraryPhotos = [], isLoading } = useQuery<MediaItem[]>({
-    queryKey: ['/api/media/published'],
+  // Fetch gallery images from the unified endpoint
+  const { data: photos = [], isLoading } = useQuery<GalleryImage[]>({
+    queryKey: ['/api/gallery/images'],
     queryFn: async () => {
-      const response = await fetch('/api/media/published?section=gallery');
-      if (!response.ok) return [];
-      const data = await response.json();
-      return data.items || [];
+      const response = await fetch('/api/gallery/images');
+      if (!response.ok) {
+        throw new Error('Failed to fetch gallery images');
+      }
+      return response.json();
     },
     staleTime: 5 * 60 * 1000,
     gcTime: 30 * 60 * 1000,
   });
-
-  // Use media library photos if available, otherwise fallback to static photos
-  const photos = mediaLibraryPhotos.length > 0 ? mediaLibraryPhotos : staticGalleryPhotos;
 
   // Set initial filtered photos when data loads, filtering out broken images
   useEffect(() => {
@@ -228,14 +101,13 @@ export default function Gallery() {
     const validPhotos = photos.filter(p => !brokenImageIds.has(p.id));
     if (categoryId === 'all') {
       setFilteredPhotos(validPhotos);
-    } else if (categoryId === 'videos') {
-      setFilteredPhotos(validPhotos.filter(p => p.fileType === 'video' || p.fileType === 'generated_video'));
     } else {
       const category = categories.find(c => c.id === categoryId);
       if (category) {
-        setFilteredPhotos(validPhotos.filter(p => 
-          p.manualTags?.some(tag => category.tags.includes(tag))
-        ));
+        setFilteredPhotos(validPhotos.filter(p => {
+          const imageTags = getImageTags(p);
+          return imageTags.some(tag => category.tags.includes(tag));
+        }));
       }
     }
   };
@@ -256,10 +128,12 @@ export default function Gallery() {
   const getCategoryCount = (categoryId: string) => {
     const validPhotos = photos.filter(p => !brokenImageIds.has(p.id));
     if (categoryId === 'all') return validPhotos.length;
-    if (categoryId === 'videos') return validPhotos.filter(p => p.fileType === 'video' || p.fileType === 'generated_video').length;
     const category = categories.find(c => c.id === categoryId);
     if (!category) return 0;
-    return validPhotos.filter(p => p.manualTags?.some(tag => category.tags.includes(tag))).length;
+    return validPhotos.filter(p => {
+      const imageTags = getImageTags(p);
+      return imageTags.some(tag => category.tags.includes(tag));
+    }).length;
   };
 
   const handleImageError = (photoId: string) => {
@@ -362,31 +236,16 @@ export default function Gallery() {
                     data-testid={`gallery-item-${index}`}
                   >
                     <div className="aspect-square relative overflow-hidden bg-gray-100 dark:bg-gray-800">
-                      {photo.fileType === 'video' || photo.fileType === 'generated_video' ? (
-                        <>
-                          <video
-                            src={`/api/media/view/${photo.id}`}
-                            className="w-full h-full object-cover"
-                            muted
-                          />
-                          <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
-                            <VideoIcon className="h-8 w-8 text-white" />
-                          </div>
-                        </>
-                      ) : (
-                        <>
-                          <img
-                            src={photo.id.startsWith('static-') ? photo.filePath : `/api/media/view/${photo.id}`}
-                            alt={photo.altText || photo.originalName}
-                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                            loading="lazy"
-                            onError={() => handleImageError(photo.id)}
-                          />
-                          <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                            <Camera className="h-6 w-6 text-white" />
-                          </div>
-                        </>
-                      )}
+                      <img
+                        src={photo.publicUrl}
+                        alt={photo.alt}
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                        loading="lazy"
+                        onError={() => handleImageError(photo.id)}
+                      />
+                      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <Camera className="h-6 w-6 text-white" />
+                      </div>
                     </div>
                   </Card>
                 ))}
@@ -410,8 +269,8 @@ export default function Gallery() {
             </div>
           </SectionReveal>
 
-          {/* Our Fleet - Organized by Boat */}
-          {photos.filter(p => p.manualTags?.some(tag => ['boats', 'fleet'].includes(tag))).length > 0 && (
+          {/* Our Fleet */}
+          {photos.filter(p => p.category === 'boat_exterior').length > 0 && (
             <SectionReveal>
               <div className="mb-20">
                 <div className="text-center mb-12">
@@ -419,88 +278,35 @@ export default function Gallery() {
                   <h3 className="text-3xl font-playfair font-bold text-gray-900 dark:text-white mb-3">Our Fleet</h3>
                   <p className="text-base text-gray-600 dark:text-gray-400">Modern boats for every occasion</p>
                 </div>
-
-                {/* Individual boat sections */}
-                {['the_irony', 'clever_girl', 'meeseeks', 'daytripper'].map((boatTag) => {
-                  const boatPhotos = photos.filter(p => p.manualTags?.includes(boatTag));
-                  if (boatPhotos.length === 0) return null;
-
-                  const boatNames: Record<string, {name: string; desc: string}> = {
-                    'the_irony': { name: 'The Irony', desc: 'Turquoise canopy' },
-                    'clever_girl': { name: 'Clever Girl', desc: '50+ capacity, 10 disco balls, Texas flag' },
-                    'meeseeks': { name: 'Meeseeks', desc: 'Blue canopy, chairs on deck' },
-                    'daytripper': { name: 'Daytripper', desc: '14-person capacity' }
-                  };
-
-                  return (
-                    <div key={boatTag} className="mb-12">
-                      <h4 className="text-xl font-bold text-center text-gray-800 dark:text-gray-200 mb-6">
-                        {boatNames[boatTag].name} 
-                        <span className="text-sm font-normal text-gray-500 ml-2">({boatNames[boatTag].desc})</span>
-                      </h4>
-                      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-                        {boatPhotos.map((photo, idx) => (
-                          <Card
-                            key={photo.id}
-                            className="group cursor-pointer overflow-hidden hover:shadow-xl transition-all duration-300 p-0 rounded-xl"
-                            onClick={() => {
-                              setFilteredPhotos(boatPhotos);
-                              setSelectedIndex(idx);
-                              setLightboxOpen(true);
-                            }}
-                          >
-                            <div className="aspect-square relative overflow-hidden">
-                              <img
-                                src={photo.id.startsWith('static-') ? photo.filePath : `/api/media/view/${photo.id}`}
-                                alt={photo.altText || photo.originalName}
-                                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                                loading="lazy"
-                              />
-                            </div>
-                          </Card>
-                        ))}
+                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                  {photos.filter(p => p.category === 'boat_exterior').map((photo, idx) => (
+                    <Card
+                      key={photo.id}
+                      className="group cursor-pointer overflow-hidden hover:shadow-xl transition-all duration-300 p-0 rounded-xl"
+                      onClick={() => {
+                        const filtered = photos.filter(p => p.category === 'boat_exterior');
+                        setFilteredPhotos(filtered);
+                        setSelectedIndex(idx);
+                        setLightboxOpen(true);
+                      }}
+                    >
+                      <div className="aspect-square relative overflow-hidden">
+                        <img
+                          src={photo.publicUrl}
+                          alt={photo.alt}
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                          loading="lazy"
+                        />
                       </div>
-                    </div>
-                  );
-                })}
-
-                {/* Fleet Photos (mixed boats) */}
-                {photos.filter(p => p.manualTags?.includes('fleet') && !p.manualTags?.some(tag => ['the_irony', 'clever_girl', 'meeseeks', 'daytripper'].includes(tag))).length > 0 && (
-                  <div className="mb-12">
-                    <h4 className="text-xl font-bold text-center text-gray-800 dark:text-gray-200 mb-6">
-                      Fleet Photos
-                    </h4>
-                    <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-                      {photos.filter(p => p.manualTags?.includes('fleet') && !p.manualTags?.some(tag => ['the_irony', 'clever_girl', 'meeseeks', 'daytripper'].includes(tag))).map((photo, idx) => (
-                        <Card
-                          key={photo.id}
-                          className="group cursor-pointer overflow-hidden hover:shadow-xl transition-all duration-300 p-0 rounded-xl"
-                          onClick={() => {
-                            const filtered = photos.filter(p => p.manualTags?.includes('fleet'));
-                            setFilteredPhotos(filtered);
-                            setSelectedIndex(idx);
-                            setLightboxOpen(true);
-                          }}
-                        >
-                          <div className="aspect-square relative overflow-hidden">
-                            <img
-                              src={photo.id.startsWith('static-') ? photo.filePath : `/api/media/view/${photo.id}`}
-                              alt={photo.altText || photo.originalName}
-                              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                              loading="lazy"
-                            />
-                          </div>
-                        </Card>
-                      ))}
-                    </div>
-                  </div>
-                )}
+                    </Card>
+                  ))}
+                </div>
               </div>
             </SectionReveal>
           )}
 
           {/* Party Atmosphere */}
-          {photos.filter(p => p.manualTags?.some(tag => ['party_atmosphere', 'party'].includes(tag))).length > 0 && (
+          {photos.filter(p => p.category === 'cruise_party').length > 0 && (
             <SectionReveal>
               <div className="mb-20">
                 <div className="text-center mb-12">
@@ -509,12 +315,12 @@ export default function Gallery() {
                   <p className="text-base text-gray-600 dark:text-gray-400">Feel the energy on Lake Travis</p>
                 </div>
                 <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-                  {photos.filter(p => p.manualTags?.some(tag => ['party_atmosphere', 'party'].includes(tag))).map((photo, idx) => (
+                  {photos.filter(p => p.category === 'cruise_party').map((photo, idx) => (
                     <Card
                       key={photo.id}
                       className="group cursor-pointer overflow-hidden hover:shadow-xl transition-all duration-300 p-0 rounded-xl"
                       onClick={() => {
-                        const filtered = photos.filter(p => p.manualTags?.some(tag => ['party_atmosphere', 'party'].includes(tag)));
+                        const filtered = photos.filter(p => p.category === 'cruise_party');
                         setFilteredPhotos(filtered);
                         setSelectedIndex(idx);
                         setLightboxOpen(true);
@@ -522,8 +328,8 @@ export default function Gallery() {
                     >
                       <div className="aspect-square relative overflow-hidden">
                         <img
-                          src={photo.id.startsWith('static-') ? photo.filePath : `/api/media/view/${photo.id}`}
-                          alt={photo.altText || photo.originalName}
+                          src={photo.publicUrl}
+                          alt={photo.alt}
                           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                           loading="lazy"
                         />
@@ -536,7 +342,7 @@ export default function Gallery() {
           )}
 
           {/* Events */}
-          {photos.filter(p => p.manualTags?.some(tag => ['events', 'celebration'].includes(tag))).length > 0 && (
+          {photos.filter(p => p.category === 'amenities' || p.category === 'guests').length > 0 && (
             <SectionReveal>
               <div className="mb-20">
                 <div className="text-center mb-12">
@@ -545,12 +351,12 @@ export default function Gallery() {
                   <p className="text-base text-gray-600 dark:text-gray-400">Unforgettable moments with loved ones</p>
                 </div>
                 <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-                  {photos.filter(p => p.manualTags?.some(tag => ['events', 'celebration'].includes(tag))).map((photo, idx) => (
+                  {photos.filter(p => p.category === 'amenities' || p.category === 'guests').map((photo, idx) => (
                     <Card
                       key={photo.id}
                       className="group cursor-pointer overflow-hidden hover:shadow-xl transition-all duration-300 p-0 rounded-xl"
                       onClick={() => {
-                        const filtered = photos.filter(p => p.manualTags?.some(tag => ['events', 'celebration'].includes(tag)));
+                        const filtered = photos.filter(p => p.category === 'amenities' || p.category === 'guests');
                         setFilteredPhotos(filtered);
                         setSelectedIndex(idx);
                         setLightboxOpen(true);
@@ -558,49 +364,11 @@ export default function Gallery() {
                     >
                       <div className="aspect-square relative overflow-hidden">
                         <img
-                          src={photo.id.startsWith('static-') ? photo.filePath : `/api/media/view/${photo.id}`}
-                          alt={photo.altText || photo.originalName}
+                          src={photo.publicUrl}
+                          alt={photo.alt}
                           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                           loading="lazy"
                         />
-                      </div>
-                    </Card>
-                  ))}
-                </div>
-              </div>
-            </SectionReveal>
-          )}
-
-          {/* Videos */}
-          {photos.filter(p => p.fileType === 'video' || p.fileType === 'generated_video').length > 0 && (
-            <SectionReveal>
-              <div className="mb-12">
-                <div className="text-center mb-12">
-                  <VideoIcon className="h-12 w-12 text-blue-600 mx-auto mb-4" />
-                  <h3 className="text-3xl font-playfair font-bold text-gray-900 dark:text-white mb-3">Videos</h3>
-                  <p className="text-base text-gray-600 dark:text-gray-400">Experience the excitement in motion</p>
-                </div>
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                  {photos.filter(p => p.fileType === 'video' || p.fileType === 'generated_video').map((photo, idx) => (
-                    <Card
-                      key={photo.id}
-                      className="group cursor-pointer overflow-hidden hover:shadow-xl transition-all duration-300 p-0 rounded-xl"
-                      onClick={() => {
-                        const filtered = photos.filter(p => p.fileType === 'video' || p.fileType === 'generated_video');
-                        setFilteredPhotos(filtered);
-                        setSelectedIndex(idx);
-                        setLightboxOpen(true);
-                      }}
-                    >
-                      <div className="aspect-video relative overflow-hidden bg-gray-900">
-                        <video
-                          src={`/api/media/view/${photo.id}`}
-                          className="w-full h-full object-cover"
-                          muted
-                        />
-                        <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
-                          <VideoIcon className="h-12 w-12 text-white" />
-                        </div>
                       </div>
                     </Card>
                   ))}
@@ -647,20 +415,11 @@ export default function Gallery() {
           {filteredPhotos.length > 0 && filteredPhotos[selectedIndex] && (
             <>
               <div className="relative w-full h-[80vh] flex items-center justify-center">
-                {filteredPhotos[selectedIndex].fileType === 'video' || filteredPhotos[selectedIndex].fileType === 'generated_video' ? (
-                  <video
-                    src={filteredPhotos[selectedIndex].id.startsWith('static-') ? filteredPhotos[selectedIndex].filePath : `/api/media/view/${filteredPhotos[selectedIndex].id}`}
-                    className="max-w-full max-h-full object-contain"
-                    controls
-                    autoPlay
-                  />
-                ) : (
-                  <img
-                    src={filteredPhotos[selectedIndex].id.startsWith('static-') ? filteredPhotos[selectedIndex].filePath : `/api/media/view/${filteredPhotos[selectedIndex].id}`}
-                    alt={filteredPhotos[selectedIndex].originalName}
-                    className="max-w-full max-h-full object-contain"
-                  />
-                )}
+                <img
+                  src={filteredPhotos[selectedIndex].publicUrl}
+                  alt={filteredPhotos[selectedIndex].alt}
+                  className="max-w-full max-h-full object-contain"
+                />
               </div>
 
               {filteredPhotos.length > 1 && (
@@ -686,9 +445,9 @@ export default function Gallery() {
                 <p className="text-center text-base">
                   {selectedIndex + 1} / {filteredPhotos.length}
                 </p>
-                {filteredPhotos[selectedIndex].originalName && (
+                {filteredPhotos[selectedIndex].title && (
                   <p className="text-center text-sm text-gray-300 mt-1">
-                    {filteredPhotos[selectedIndex].originalName}
+                    {filteredPhotos[selectedIndex].title}
                   </p>
                 )}
               </div>
