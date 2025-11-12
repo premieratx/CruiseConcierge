@@ -158,6 +158,9 @@ const PORT = process.env.PORT || '5000';
   const LEGACY_REDIRECTS: Record<string, string> = {
     '/party-cruises-2025': '/',
     '/salesvsl-page-page': '/',
+    // Blog redirects from /blog/ to /blogs/ (canonical URLs)
+    '/blog/top-spots-tips-for-an-unforgettable-austin-bachelorette-party-experience': '/blogs/top-spots-tips-for-an-unforgettable-austin-bachelorette-party-experience',
+    '/blog/must-haves-for-the-perfect-austin-bachelorette-weekend': '/blogs/must-haves-for-the-perfect-austin-bachelorette-weekend',
   };
 
   Object.entries(LEGACY_REDIRECTS).forEach(([from, to]) => {

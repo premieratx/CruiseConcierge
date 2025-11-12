@@ -776,6 +776,15 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
     res.redirect(301, '/birthday-parties');
   });
   
+  // 301 redirects from /blog/ to /blogs/ for converted React pages (must be BEFORE generic blog SSR handler)
+  app.get('/blog/top-spots-tips-for-an-unforgettable-austin-bachelorette-party-experience', (req, res) => {
+    res.redirect(301, '/blogs/top-spots-tips-for-an-unforgettable-austin-bachelorette-party-experience');
+  });
+  
+  app.get('/blog/must-haves-for-the-perfect-austin-bachelorette-weekend', (req, res) => {
+    res.redirect(301, '/blogs/must-haves-for-the-perfect-austin-bachelorette-weekend');
+  });
+  
   // React blog pages - skip WordPress SSR, let React handle them (must be BEFORE generic blog SSR handler)
   const reactBlogRoutes = [
     '/blogs/first-time-lake-travis-boat-rental-essential-tips-for-austin-party-planning',
