@@ -1073,7 +1073,8 @@ export default function BlogManagement() {
                     'holiday-celebrations-on-lake-travis-seasonal-boat-party-planning-and-coordination',
                     'joint-bachelor-bachelorette-parties-with-premier-party-cruises',
                     'lake-travis-wedding-boat-rentals-unique-venues-for-austin-celebrations',
-                    'must-haves-for-the-perfect-austin-bachelorette-weekend'
+                    'must-haves-for-the-perfect-austin-bachelorette-weekend',
+                    'top-spots-tips-for-an-unforgettable-austin-bachelorette-party-experience'
                   ];
 
                   const unconvertedBlogs = data?.posts

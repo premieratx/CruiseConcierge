@@ -144,6 +144,7 @@ const HolidayCelebrationsLakeTravis = lazy(() => import("./pages/HolidayCelebrat
 const JointBachelorBacheloretteParties = lazy(() => import("./pages/JointBachelorBacheloretteParties"));
 const LakeTravisWeddingBoatRentals = lazy(() => import("./pages/LakeTravisWeddingBoatRentals"));
 const MustHavesAustinBacheloretteWeekend = lazy(() => import("./pages/MustHavesAustinBacheloretteWeekend"));
+const TopSpotsAustinBacheloretteParty = lazy(() => import("./pages/TopSpotsAustinBacheloretteParty"));
 
 // Customer Portal Pages - Lazy loaded
 const PortalLogin = lazy(() => import("./pages/PortalLogin"));
@@ -299,6 +300,18 @@ function Router() {
       <Route path="/blogs/joint-bachelor-bachelorette-parties-with-premier-party-cruises" component={JointBachelorBacheloretteParties} />
       <Route path="/blogs/lake-travis-wedding-boat-rentals-unique-venues-for-austin-celebrations" component={LakeTravisWeddingBoatRentals} />
       <Route path="/blogs/must-haves-for-the-perfect-austin-bachelorette-weekend" component={MustHavesAustinBacheloretteWeekend} />
+      <Route path="/blogs/top-spots-tips-for-an-unforgettable-austin-bachelorette-party-experience" component={TopSpotsAustinBacheloretteParty} />
+      
+      {/* Redirect /blog/ version to /blogs/ React page */}
+      <Route path="/blog/top-spots-tips-for-an-unforgettable-austin-bachelorette-party-experience">
+        {() => {
+          const [, navigate] = useLocation();
+          useEffect(() => {
+            navigate('/blogs/top-spots-tips-for-an-unforgettable-austin-bachelorette-party-experience', { replace: true });
+          }, [navigate]);
+          return null;
+        }}
+      </Route>
       
       {/* Redirect broken indexed URLs */}
       <Route path="/party-cruises-2025">
