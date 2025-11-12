@@ -12,7 +12,6 @@ import { cn } from '@/lib/utils';
 import { formatCurrency } from '@shared/formatters';
 import SEOHead from '@/components/SEOHead';
 import { useInlineEdit } from '@/hooks/useInlineEdit';
-import { DISCO_PRICING } from '@shared/constants';
 import PartyPlanningChecklist from '@/components/PartyPlanningChecklist';
 import { SectionReveal } from '@/components/SectionReveal';
 import { 
