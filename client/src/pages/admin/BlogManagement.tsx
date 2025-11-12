@@ -832,10 +832,14 @@ export default function BlogManagement() {
 
         {/* Management Tabs */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid w-full grid-cols-4">
+          <TabsList className="grid w-full grid-cols-5">
             <TabsTrigger value="posts" className="flex items-center gap-2">
               <FileText className="h-4 w-4" />
               Posts
+            </TabsTrigger>
+            <TabsTrigger value="unconverted" className="flex items-center gap-2">
+              <AlertCircle className="h-4 w-4" />
+              Unconverted
             </TabsTrigger>
             <TabsTrigger value="categories" className="flex items-center gap-2">
               <Folder className="h-4 w-4" />
@@ -1049,6 +1053,100 @@ export default function BlogManagement() {
                 </TableBody>
               </Table>
             </div>
+          </TabsContent>
+
+          {/* Unconverted Blogs Tab */}
+          <TabsContent value="unconverted" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle>Blogs Not Yet Converted to React Pages</CardTitle>
+                <p className="text-sm text-gray-600 dark:text-gray-400">
+                  These blog posts are currently served via WordPress SSR. Convert high-traffic posts to dedicated React pages for better performance.
+                </p>
+              </CardHeader>
+              <CardContent>
+                {(() => {
+                  // List of blog slugs that have been converted to dedicated React pages
+                  const convertedBlogSlugs = [
+                    'first-time-lake-travis-boat-rental-essential-tips-for-austin-party-planning',
+                    'birthday-party-alcohol-delivery-austin-milestone-celebrations-made-easy',
+                    'holiday-celebrations-on-lake-travis-seasonal-boat-party-planning-and-coordination',
+                    'joint-bachelor-bachelorette-parties-with-premier-party-cruises',
+                    'lake-travis-wedding-boat-rentals-unique-venues-for-austin-celebrations',
+                    'must-haves-for-the-perfect-austin-bachelorette-weekend'
+                  ];
+
+                  const unconvertedBlogs = data?.posts
+                    .filter(post => !convertedBlogSlugs.includes(post.slug))
+                    .filter(post => post.status === 'published')
+                    .sort((a, b) => (b.view_count || 0) - (a.view_count || 0)) || [];
+
+                  if (unconvertedBlogs.length === 0) {
+                    return (
+                      <div className="text-center py-8 text-gray-500 dark:text-gray-400">
+                        <CheckCircle className="h-12 w-12 mx-auto mb-4 text-green-600" />
+                        <p className="text-lg font-semibold">All published blogs converted!</p>
+                        <p className="text-sm">Every published blog post has been converted to a dedicated React page.</p>
+                      </div>
+                    );
+                  }
+
+                  return (
+                    <div>
+                      <div className="mb-4 flex items-center justify-between">
+                        <p className="text-sm text-gray-600 dark:text-gray-400">
+                          Showing {unconvertedBlogs.length} unconverted blog{unconvertedBlogs.length !== 1 ? 's' : ''} (sorted by views)
+                        </p>
+                      </div>
+                      <div className="border rounded-lg overflow-hidden">
+                        <Table>
+                          <TableHeader>
+                            <TableRow>
+                              <TableHead>Title</TableHead>
+                              <TableHead>Slug</TableHead>
+                              <TableHead className="text-right">Views</TableHead>
+                              <TableHead className="text-right">Published</TableHead>
+                            </TableRow>
+                          </TableHeader>
+                          <TableBody>
+                            {unconvertedBlogs.map((post) => (
+                              <TableRow key={post.id} data-testid={`unconverted-blog-${post.id}`}>
+                                <TableCell>
+                                  <div className="space-y-1">
+                                    <div className="font-medium text-sm">
+                                      {post.title}
+                                    </div>
+                                    {post.excerpt && (
+                                      <div className="text-xs text-gray-500 line-clamp-1">
+                                        {post.excerpt.replace(/<[^>]*>/g, '').substring(0, 100)}...
+                                      </div>
+                                    )}
+                                  </div>
+                                </TableCell>
+                                <TableCell>
+                                  <code className="text-xs bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">
+                                    {post.slug}
+                                  </code>
+                                </TableCell>
+                                <TableCell className="text-right">
+                                  <div className="flex items-center justify-end gap-1">
+                                    <Eye className="h-3 w-3 text-gray-400" />
+                                    <span className="font-medium">{post.view_count || 0}</span>
+                                  </div>
+                                </TableCell>
+                                <TableCell className="text-right text-sm text-gray-600 dark:text-gray-400">
+                                  {post.published_at ? new Date(post.published_at).toLocaleDateString() : 'N/A'}
+                                </TableCell>
+                              </TableRow>
+                            ))}
+                          </TableBody>
+                        </Table>
+                      </div>
+                    </div>
+                  );
+                })()}
+              </CardContent>
+            </Card>
           </TabsContent>
 
           {/* Categories Tab */}
