@@ -776,7 +776,22 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
     res.redirect(301, '/birthday-parties');
   });
   
-  // Register the same SSR handler for BOTH URL formats
+  // React blog pages - skip WordPress SSR, let React handle them (must be BEFORE generic blog SSR handler)
+  const reactBlogRoutes = [
+    '/blogs/first-time-lake-travis-boat-rental-essential-tips-for-austin-party-planning',
+    '/blog/birthday-party-alcohol-delivery-austin-milestone-celebrations-made-easy',
+    '/blog/lake-travis-party-boat-rentals-ultimate-guide-for-large-group-events-20-guests',
+    '/blog/lake-travis-weather-planning-seasonal-considerations-for-perfect-boat-parties'
+  ];
+  
+  reactBlogRoutes.forEach(route => {
+    app.get(route, (req, res, next) => {
+      console.log(`🎯 [React Blog Route] Skipping WordPress SSR for React page: ${route}`);
+      next(); // Skip to Vite/React
+    });
+  });
+  
+  // Register the same SSR handler for BOTH URL formats (for WordPress posts only)
   app.get('/blog/:slug', blogSSRHandler);
   app.get('/blogs/:slug', blogSSRHandler);
   

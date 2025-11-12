@@ -22,8 +22,7 @@ import {
   CollapsibleTrigger,
 } from '@/components/ui/collapsible';
 import { cn } from '@/lib/utils';
-import './PublicNavigation.css';
-// Fix for SSR: Use path string instead of import for logo
+// Fix for SSR: Use path string instead of import for logo (removed CSS import - breaks SSR)
 const logoPath = '/attached_assets/PPC-Logo-48x48.webp';
 import { 
   Ship, Calendar, MessageSquare, Phone, 

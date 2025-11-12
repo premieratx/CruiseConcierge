@@ -31,7 +31,7 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
     if (typeof window !== 'undefined') {
       const currentUrl = encodeURIComponent(window.location.href);
       const baseUrl = 'https://booking.premierpartycruises.com/quote-v2';
-      setIframeUrl(`${baseUrl}?sourceUrl=${currentUrl}&sourceType=embedded_quote_v2`);
+      setIframeUrl(`${baseUrl}?sourceUrl=${currentUrl}&sourceType=embedded_quote_v2&autoResize=1`);
       window.scrollTo({ top: 0, behavior: 'instant' });
       
       // Auto-resize iframe based on content height
