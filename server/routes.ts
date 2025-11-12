@@ -32,6 +32,7 @@ let comprehensiveLeadService: any = null;
 let wisprFlowService: any = null;
 let generateQuoteDescription: any = null;
 let openaiService: any = null;
+let quickAgentService: any = null;
 type LeadWebhookPayload = any;
 import { insertContactSchema, insertProjectSchema, insertChatMessageSchema, insertAdminChatSessionSchema, insertAdminChatMessageSchema, insertUserSchema, insertInviteSchema, insertQuoteTemplateSchema, insertTemplateRuleSchema, insertDiscountRuleSchema, insertPricingSettingsSchema, insertPricingAdjustmentSchema, insertProductSchema, insertAffiliateSchema, insertPartnerApplicationSchema, insertDiscoSlotSchema, insertTimeframeSchema, insertSmsAuthTokenSchema, insertCustomerSessionSchema, insertPortalActivityLogSchema, insertPartialLeadSchema, insertBlogPostSchema, insertBlogAuthorSchema, insertBlogCategorySchema, insertBlogTagSchema, insertBlogCommentSchema, insertBlogAnalyticsSchema, insertSeoPageSchema, insertSeoCompetitorSchema, insertContentBlockSchema, insertPromptsLibrarySchema, endorsements, blogPosts, type LeadData, type LeadUpdateData, type CreateLeadRequest, type PartialLeadFilters, type SEOOptimizationRequest, type SEOBulkOperation, type AdminChatSession, type AdminChatMessage, type Endorsement, type PartnerApplication, type InsertPartnerApplication } from "@shared/schema";
 import { calculateServerPricing, type ServerPricingRequest } from './serverPricing';
@@ -372,6 +373,24 @@ const getQuoteTokenService = async () => {
     }
   }
   return quoteTokenService;
+};
+
+const getQuickAgentService = async () => {
+  if (!quickAgentService) {
+    try {
+      const { quickAgentService: service } = await import('./services/quickAgentService');
+      quickAgentService = service;
+    } catch (error) {
+      console.error('Failed to initialize Quick Agent service:', error);
+      return {
+        createChatSession: async () => '',
+        processMessage: async () => ({ content: 'Service unavailable' }),
+        getChatHistory: async () => [],
+        getUserSessions: async () => []
+      };
+    }
+  }
+  return quickAgentService;
 };
 
 const getSeedQuoteTemplates = async () => {
@@ -986,6 +1005,74 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
     } catch (error) {
       console.error('❌ Sitemap generation error:', error);
       res.status(500).send('Error generating sitemap');
+    }
+  });
+  
+  // ==========================================
+  // ADMIN AGENT CHAT ROUTES
+  // ==========================================
+  
+  // Get all chat sessions for the current user (requires auth)
+  app.get('/api/agent/chat/sessions', requireAuth, async (req, res) => {
+    try {
+      const agent = await getQuickAgentService();
+      const userId = req.user?.id || req.user?.userId || 'admin';
+      const sessions = await agent.getUserSessions(userId);
+      res.json(sessions);
+    } catch (error: any) {
+      console.error('Error fetching chat sessions:', error);
+      res.status(500).json({ error: 'Failed to fetch chat sessions' });
+    }
+  });
+  
+  // Create a new chat session (requires auth)
+  app.post('/api/agent/chat/sessions', requireAuth, async (req, res) => {
+    try {
+      const { title } = req.body;
+      const agent = await getQuickAgentService();
+      const userId = req.user?.id || req.user?.userId || 'admin';
+      
+      if (!title) {
+        return res.status(400).json({ error: 'Title is required' });
+      }
+      
+      const sessionId = await agent.createChatSession(userId, title);
+      res.json({ sessionId, userId, title, status: 'active', createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() });
+    } catch (error: any) {
+      console.error('Error creating chat session:', error);
+      res.status(500).json({ error: 'Failed to create chat session' });
+    }
+  });
+  
+  // Get chat history for a session (requires auth)
+  app.get('/api/agent/chat/:sessionId/history', requireAuth, async (req, res) => {
+    try {
+      const { sessionId } = req.params;
+      const agent = await getQuickAgentService();
+      const messages = await agent.getChatHistory(sessionId);
+      res.json(messages);
+    } catch (error: any) {
+      console.error('Error fetching chat history:', error);
+      res.status(500).json({ error: 'Failed to fetch chat history' });
+    }
+  });
+  
+  // Send a message in a chat session (requires auth)
+  app.post('/api/agent/chat/:sessionId/message', requireAuth, async (req, res) => {
+    try {
+      const { sessionId } = req.params;
+      const { message } = req.body;
+      
+      if (!message) {
+        return res.status(400).json({ error: 'Message is required' });
+      }
+      
+      const agent = await getQuickAgentService();
+      const response = await agent.processMessage(sessionId, message);
+      res.json(response);
+    } catch (error: any) {
+      console.error('Error processing message:', error);
+      res.status(500).json({ error: 'Failed to process message' });
     }
   });
   
