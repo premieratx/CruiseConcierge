@@ -30,20 +30,34 @@ export default function LakeTravisWeatherGuide() {
             "@type": "Article",
             "headline": "Lake Travis Weather Planning: Seasonal Considerations for Perfect Boat Parties",
             "description": "Comprehensive seasonal weather guide for planning Lake Travis boat parties in Austin, Texas",
+            "image": "https://premierpartycruises.com/media/schema/group-swimming-lilypad.jpg",
             "author": {
               "@type": "Organization",
-              "name": "Premier Party Cruises"
+              "name": "Premier Party Cruises",
+              "url": "https://premierpartycruises.com"
             },
             "publisher": {
               "@type": "Organization",
               "name": "Premier Party Cruises",
+              "url": "https://premierpartycruises.com",
               "logo": {
                 "@type": "ImageObject",
-                "url": "https://premierpartycruises.com/logo.png"
+                "url": "https://premierpartycruises.com/media/schema/ppc-logo.png"
               }
             },
-            "datePublished": "2025-01-01",
-            "dateModified": "2025-01-01"
+            "datePublished": "2025-11-01",
+            "dateModified": "2025-11-12",
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "@id": "https://premierpartycruises.com/lake-travis-weather-guide"
+            },
+            "aggregateRating": {
+              "@type": "AggregateRating",
+              "ratingValue": "4.9",
+              "reviewCount": "500",
+              "bestRating": "5",
+              "worstRating": "1"
+            }
           })}
         </script>
       </Helmet>
@@ -119,10 +133,10 @@ export default function LakeTravisWeatherGuide() {
           <div className="max-w-4xl mx-auto">
             <div className="prose prose-lg max-w-none dark:prose-invert">
               <p className="text-xl text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
-                The shimmering waters of Lake Travis offer unforgettable party boat experiences year-round. From lively <Link href="/bachelor-party-austin" className="text-blue-600 hover:underline font-medium">bachelor</Link> and <Link href="/bachelorette-party-austin" className="text-blue-600 hover:underline font-medium">bachelorette celebrations</Link> to <Link href="/corporate-events" className="text-blue-600 hover:underline font-medium">corporate events</Link> and <Link href="/birthday-parties" className="text-blue-600 hover:underline font-medium">birthday parties</Link>, Lake Travis provides a unique backdrop for every occasion. Understanding the lake's dynamic weather patterns is key to planning the perfect celebration.
+                The shimmering waters of Lake Travis offer unforgettable party boat experiences year-round where guests have a great time. From lively <Link href="/bachelor-party-austin" className="text-blue-600 hover:underline font-medium">bachelor</Link> and <Link href="/bachelorette-party-austin" className="text-blue-600 hover:underline font-medium">bachelorette celebrations</Link> to <Link href="/corporate-events" className="text-blue-600 hover:underline font-medium">corporate events</Link> and <Link href="/birthday-parties" className="text-blue-600 hover:underline font-medium">birthday parties</Link>, our lake travis boat rentals provide a unique backdrop for every occasion. Understanding the lake's dynamic weather patterns is key to planning the perfect celebration.
               </p>
               <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
-                With 15+ years of experience and 125,000+ satisfied guests, Premier Party Cruises operates custom-built, high-end <Link href="/private-cruises" className="text-blue-600 hover:underline font-medium">single-deck party boats</Link> on Lake Travis. Our experienced team knows Lake Travis weather intimately. This guide helps you plan the perfect cruise for any season, ensuring safety, comfort, and maximum fun on the water! <Link href="/testimonials-faq" className="text-blue-600 hover:underline font-medium">Read what our guests say</Link> about cruising in different seasons.
+                With 15+ years of experience and 125,000+ satisfied guests, Premier Party Cruises operates custom-built, high-end <Link href="/private-cruises" className="text-blue-600 hover:underline font-medium">single-deck party boats</Link> on Lake Travis. Our experienced team knows Lake Travis weather intimately and highly recommend checking seasonal conditions before booking your austin boat rental. This guide helps you plan the perfect cruise for any season, ensuring safety, comfort, and maximum fun on the water! <Link href="/testimonials-faq" className="text-blue-600 hover:underline font-medium">Read what our guests say</Link> about cruising in different seasons.
               </p>
             </div>
           </div>

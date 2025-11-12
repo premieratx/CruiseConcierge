@@ -11,7 +11,7 @@ export default function BirthdayPartyAustinGuide() {
         <title>Birthday Party Boat Austin | Milestone Celebrations on Lake Travis</title>
         <meta 
           name="description" 
-          content="Celebrate milestone birthdays on Lake Travis! Austin's premier party boat rentals with BYOB, professional crew, floats & more. 15+ years, 125,000+ guests. Book now!" 
+          content="Celebrate milestone birthdays on Lake Travis! Austin's premier party boat rentals with BYOB, crew, and floats. 15+ years, 125,000+ guests served." 
         />
         <meta 
           name="keywords" 
@@ -30,20 +30,34 @@ export default function BirthdayPartyAustinGuide() {
             "@type": "Article",
             "headline": "Birthday Party Boat Austin: Milestone Celebrations Made Easy",
             "description": "Complete guide to planning unforgettable milestone birthday parties on Lake Travis",
+            "image": "https://premierpartycruises.com/media/schema/hero-boat-1.jpg",
             "author": {
               "@type": "Organization",
-              "name": "Premier Party Cruises"
+              "name": "Premier Party Cruises",
+              "url": "https://premierpartycruises.com"
             },
             "publisher": {
               "@type": "Organization",
               "name": "Premier Party Cruises",
+              "url": "https://premierpartycruises.com",
               "logo": {
                 "@type": "ImageObject",
-                "url": "https://premierpartycruises.com/logo.png"
+                "url": "https://premierpartycruises.com/media/schema/ppc-logo.png"
               }
             },
-            "datePublished": "2025-01-01",
-            "dateModified": "2025-01-01"
+            "datePublished": "2025-11-01",
+            "dateModified": "2025-11-12",
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "@id": "https://premierpartycruises.com/birthday-party-austin-guide"
+            },
+            "aggregateRating": {
+              "@type": "AggregateRating",
+              "ratingValue": "4.9",
+              "reviewCount": "500",
+              "bestRating": "5",
+              "worstRating": "1"
+            }
           })}
         </script>
       </Helmet>
@@ -60,9 +74,9 @@ export default function BirthdayPartyAustinGuide() {
             </div>
             
             <h1 className="text-4xl md:text-6xl font-black mb-6 leading-tight">
-              Celebrate Your<br />
+              Austin Birthday Party<br />
               <span className="bg-gradient-to-r from-brand-yellow via-yellow-300 to-brand-yellow bg-clip-text text-transparent">
-                Milestone Birthday
+                Boat Rentals
               </span>
               <br />on Lake Travis
             </h1>
@@ -129,10 +143,10 @@ export default function BirthdayPartyAustinGuide() {
 
             <div className="prose prose-lg max-w-none dark:prose-invert">
               <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
-                Austin, Texas boasts vibrant culture, live music, and stunning natural beauty, with Lake Travis standing out as the ultimate destination for milestone birthday celebrations. Unlike traditional party venues, a <Link href="/private-cruises" className="text-blue-600 hover:underline font-medium">private party boat</Link> on Lake Travis provides an exclusive, dynamic environment that creates unforgettable memories.
+                Austin, Texas boasts vibrant culture, live music, and stunning natural beauty, with Lake Travis standing out as the ultimate destination for milestone birthday celebrations. Unlike traditional party venues, a <Link href="/private-cruises" className="text-blue-600 hover:underline font-medium">private party boat</Link> on Lake Travis provides an exclusive, dynamic environment that creates unforgettable memories where guests have a great time celebrating together.
               </p>
               <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
-                With 15+ years of experience and over 125,000 satisfied guests, Premier Party Cruises specializes in transforming <Link href="/milestone-birthday" className="text-blue-600 hover:underline font-medium">milestone birthdays</Link> into extraordinary Lake Travis adventures. Our custom-built, high-end single-deck party boats offer the perfect blend of comfort, excitement, and scenic beauty for your special day. <Link href="/testimonials-faq" className="text-blue-600 hover:underline font-medium">Read our customer reviews</Link> to see why we're Austin's top choice.
+                With 15+ years of experience and over 125,000 satisfied guests, Premier Party Cruises specializes in transforming <Link href="/milestone-birthday" className="text-blue-600 hover:underline font-medium">milestone birthdays</Link> into extraordinary Lake Travis adventures. Our austin boat rental services include custom-built, high-end single-deck party boats that offer the perfect blend of comfort, excitement, and scenic beauty for your special day. <Link href="/testimonials-faq" className="text-blue-600 hover:underline font-medium">Read our customer reviews</Link> to see why we're Austin's top choice.
               </p>
             </div>
           </div>
@@ -334,10 +348,10 @@ export default function BirthdayPartyAustinGuide() {
                     Book Early
                   </h3>
                   <p className="text-gray-700 dark:text-gray-300 mb-3">
-                    Milestone birthdays deserve premium dates! Book 4-8 weeks in advance, especially for weekends and peak season (April-September).
+                    Milestone birthdays deserve premium dates! Book 4-8 weeks in advance, especially for weekends and peak season (April-September). Our lake travis boat rentals are in high demand.
                   </p>
                   <p className="text-sm text-gray-600 dark:text-gray-400">
-                    Saturday slots fill up fast - <Link href="/chat" className="text-blue-600 hover:underline font-medium">secure your date today</Link> at (512) 488-5892
+                    Saturday slots fill up fast - past clients highly recommend booking early. <Link href="/chat" className="text-blue-600 hover:underline font-medium">Secure your date today</Link> at (512) 488-5892
                   </p>
                 </CardContent>
               </Card>

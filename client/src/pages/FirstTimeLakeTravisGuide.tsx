@@ -30,20 +30,34 @@ export default function FirstTimeLakeTravisGuide() {
             "@type": "Article",
             "headline": "First-Time Lake Travis Boat Rental: Essential Tips for Austin Party Planning",
             "description": "Comprehensive guide for planning your first Lake Travis boat party",
+            "image": "https://premierpartycruises.com/media/schema/disco-dance-floor.jpg",
             "author": {
               "@type": "Organization",
-              "name": "Premier Party Cruises"
+              "name": "Premier Party Cruises",
+              "url": "https://premierpartycruises.com"
             },
             "publisher": {
               "@type": "Organization",
               "name": "Premier Party Cruises",
+              "url": "https://premierpartycruises.com",
               "logo": {
                 "@type": "ImageObject",
-                "url": "https://premierpartycruises.com/logo.png"
+                "url": "https://premierpartycruises.com/media/schema/ppc-logo.png"
               }
             },
-            "datePublished": "2025-01-01",
-            "dateModified": "2025-01-01"
+            "datePublished": "2025-11-01",
+            "dateModified": "2025-11-12",
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "@id": "https://premierpartycruises.com/first-time-lake-travis-guide"
+            },
+            "aggregateRating": {
+              "@type": "AggregateRating",
+              "ratingValue": "4.9",
+              "reviewCount": "500",
+              "bestRating": "5",
+              "worstRating": "1"
+            }
           })}
         </script>
       </Helmet>
@@ -64,6 +78,7 @@ export default function FirstTimeLakeTravisGuide() {
               <span className="bg-gradient-to-r from-brand-yellow via-yellow-300 to-brand-yellow bg-clip-text text-transparent">
                 Boat Rental Guide
               </span>
+              <br />for Austin Parties
             </h1>
             
             <p className="text-xl md:text-2xl text-blue-100 mb-8 leading-relaxed">
@@ -119,10 +134,10 @@ export default function FirstTimeLakeTravisGuide() {
           <div className="max-w-4xl mx-auto">
             <div className="prose prose-lg max-w-none dark:prose-invert">
               <p className="text-xl text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
-                Austin, Texas boasts vibrant culture and the stunning Lake Travis. A party boat rental offers the perfect blend of excitement and scenic beauty. Whether you're planning a bachelor party, bachelorette celebration, birthday, or corporate event, understanding Lake Travis boat rentals is key to a seamless, unforgettable day on the water.
+                Austin, Texas boasts vibrant culture and the stunning Lake Travis. A party boat rental offers the perfect blend of excitement and scenic beauty. Whether you're planning a bachelor party, bachelorette celebration, birthday, or corporate event, understanding lake travis boat rentals is key to a seamless, unforgettable day on the water where everyone has a great time.
               </p>
               <p className="text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
-                This comprehensive guide from Premier Party Cruises equips you with everything you need to know for your first Lake Travis boat rental, ensuring confident planning and smooth Austin party execution.
+                This comprehensive guide from Premier Party Cruises equips you with everything you need to know for your first austin boat rental, ensuring confident planning and smooth Austin party execution.
               </p>
             </div>
           </div>
@@ -139,7 +154,7 @@ export default function FirstTimeLakeTravisGuide() {
                 Choose Your Perfect Party Boat
               </h2>
               <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-                Premier Party Cruises operates custom-built, high-end single-deck party boats on Lake Travis. With 15+ years of experience and 125,000+ satisfied customers, we ensure your celebration is perfect.
+                Premier Party Cruises operates custom-built, high-end single-deck party boats on Lake Travis. With 15+ years of experience and 125,000+ satisfied customers who highly recommend our services, we ensure your celebration is perfect.
               </p>
             </div>
 

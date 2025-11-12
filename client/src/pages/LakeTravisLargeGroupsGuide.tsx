@@ -8,14 +8,14 @@ export default function LakeTravisLargeGroupsGuide() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 via-white to-cyan-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950">
       <Helmet>
-        <title>Lake Travis Party Boat Rentals for Large Groups (20-75 Guests) | Austin</title>
+        <title>Lake Travis Boat Rentals Texas | Large Group Party Boats (20-75 Guests) Austin</title>
         <meta 
           name="description" 
-          content="Ultimate guide to Lake Travis party boat rentals for groups of 20-75 people. Corporate events, reunions, large celebrations. BYOB boats with pro crews. Book now!" 
+          content="Lake Travis boat rentals for large groups in Austin, Texas. Party boat cruises for 20-75 guests. Corporate events, reunions. BYOB. Book now!" 
         />
         <meta 
           name="keywords" 
-          content="Lake Travis large group, party boat 20+ guests, Austin corporate events, large group boat rental, Lake Travis team building, reunion party boat, large celebration Austin" 
+          content="boat rental lake travis texas, party boat austin, large group boat rental, Austin corporate events, Lake Travis team building, reunion party boat, bachelorette party" 
         />
         
         {/* Open Graph */}
@@ -30,20 +30,34 @@ export default function LakeTravisLargeGroupsGuide() {
             "@type": "Article",
             "headline": "Lake Travis Party Boat Rentals: Ultimate Guide for Large Group Events",
             "description": "Complete guide to planning large group celebrations on Lake Travis for 20-75 guests",
+            "image": "https://premierpartycruises.com/media/schema/hero-boat-2.jpg",
             "author": {
               "@type": "Organization",
-              "name": "Premier Party Cruises"
+              "name": "Premier Party Cruises",
+              "url": "https://premierpartycruises.com"
             },
             "publisher": {
               "@type": "Organization",
               "name": "Premier Party Cruises",
+              "url": "https://premierpartycruises.com",
               "logo": {
                 "@type": "ImageObject",
-                "url": "https://premierpartycruises.com/logo.png"
+                "url": "https://premierpartycruises.com/media/schema/ppc-logo.png"
               }
             },
-            "datePublished": "2025-01-01",
-            "dateModified": "2025-01-01"
+            "datePublished": "2025-11-01",
+            "dateModified": "2025-11-12",
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "@id": "https://premierpartycruises.com/lake-travis-large-groups-guide"
+            },
+            "aggregateRating": {
+              "@type": "AggregateRating",
+              "ratingValue": "4.9",
+              "reviewCount": "500",
+              "bestRating": "5",
+              "worstRating": "1"
+            }
           })}
         </script>
       </Helmet>
@@ -60,16 +74,16 @@ export default function LakeTravisLargeGroupsGuide() {
             </div>
             
             <h1 className="text-4xl md:text-6xl font-black mb-6 leading-tight">
-              Lake Travis Party Boats<br />
+              Lake Travis Party Boat Rentals:<br />
               <span className="bg-gradient-to-r from-brand-yellow via-yellow-300 to-brand-yellow bg-clip-text text-transparent">
-                for Large Groups
+                Ultimate Texas Guide
               </span>
-              <br />(20-75 Guests)
+              <br />for Large Group Events (20+ Guests)
             </h1>
             
             <p className="text-xl md:text-2xl text-blue-100 mb-8 leading-relaxed">
               Corporate events, reunions, large celebrations on Austin's premier lake.<br />
-              Custom-built party boats with professional crews, BYOB, and all amenities!
+              Austin boat rental with custom-built party boats, professional crews, BYOB, and all amenities!
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
@@ -162,7 +176,7 @@ export default function LakeTravisLargeGroupsGuide() {
 
             <div className="prose prose-lg max-w-none dark:prose-invert">
               <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
-                Lake Travis offers an unparalleled backdrop for large group events in Austin, Texas. The crystal-clear waters, scenic coves, and vibrant atmosphere create an ideal setting that traditional venues simply can't match. Premier Party Cruises operates custom-built, high-end <Link href="/private-cruises" className="text-blue-600 hover:underline font-medium">single-deck party boats</Link> on Lake Travis, providing a dynamic, exclusive environment that fosters camaraderie and creates unforgettable memories for groups of 20-75 people. <Link href="/testimonials-faq" className="text-blue-600 hover:underline font-medium">Read our reviews</Link> from satisfied corporate clients and event planners.
+                Lake Travis offers an unparalleled backdrop for large group events in Austin, Texas. The crystal-clear waters, scenic coves, and vibrant atmosphere create an ideal setting that traditional venues simply can't match. Premier Party Cruises operates custom-built, high-end <Link href="/private-cruises" className="text-blue-600 hover:underline font-medium">single-deck party boats</Link> on Lake Travis, providing a dynamic, exclusive environment that fosters camaraderie and creates unforgettable memories for groups of 20-75 people. Our lake travis boat rentals ensure everyone has a great time with professional crews and premium amenities. <Link href="/testimonials-faq" className="text-blue-600 hover:underline font-medium">Read our reviews</Link> from satisfied corporate clients and event planners who highly recommend our services.
               </p>
             </div>
           </div>
@@ -345,7 +359,7 @@ export default function LakeTravisLargeGroupsGuide() {
                     Book Well in Advance
                   </h3>
                   <p className="text-gray-700 dark:text-gray-300">
-                    Large group events require 4-12 weeks advance booking, especially for peak season (April-September) and weekends. Our larger boats book out quickly for corporate events and major celebrations. <Link href="/chat" className="text-blue-600 hover:underline font-medium">Get your quote</Link> today to secure your preferred date!
+                    Large group events require 4-12 weeks advance booking, especially for peak season (April-September) and weekends. Our larger boats book out quickly for corporate events and major celebrations. For the best austin boat rental experience, <Link href="/chat" className="text-blue-600 hover:underline font-medium">get your quote</Link> today to secure your preferred date!
                   </p>
                 </CardContent>
               </Card>
