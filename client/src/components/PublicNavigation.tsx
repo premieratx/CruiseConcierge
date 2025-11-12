@@ -227,70 +227,6 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
     }
   }, [location]);
 
-  // NUCLEAR OPTION: Runtime CSS injection to override WordPress theme styles
-  // This loads AFTER WordPress CSS and uses ultra-specific selectors
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-    
-    const styleId = 'ppc-nav-nuclear-override';
-    
-    // Check if already injected
-    if (document.getElementById(styleId)) return;
-    
-    const style = document.createElement('style');
-    style.id = styleId;
-    style.textContent = `
-      /* NUCLEAR OVERRIDE: Ultra-specific selectors to beat WordPress theme CSS */
-      /* Sticky positioning - must stay fixed on scroll */
-      body header.ppc-public-nav,
-      html body header.ppc-public-nav {
-        position: fixed !important;
-        top: 0 !important;
-        left: 0 !important;
-        right: 0 !important;
-        z-index: 9999 !important;
-      }
-      
-      /* Desktop navigation centering - only at desktop breakpoint */
-      @media (min-width: 1024px) {
-        body .ppc-public-nav-center,
-        html body .ppc-public-nav-center,
-        body header.ppc-public-nav .ppc-public-nav-center {
-          display: flex !important;
-          flex: 1 1 0% !important;
-          justify-content: center !important;
-          align-items: center !important;
-        }
-        
-        body .ppc-public-nav-center > nav,
-        html body .ppc-public-nav-center > nav {
-          display: flex !important;
-          justify-content: center !important;
-        }
-        
-        body .ppc-public-nav-center > nav > ul,
-        html body .ppc-public-nav-center > nav > ul {
-          display: flex !important;
-          list-style: none !important;
-          margin: 0 !important;
-          padding: 0 !important;
-          justify-content: center !important;
-          align-items: center !important;
-        }
-        
-        /* Force CTA buttons to stay on right */
-        body .ppc-public-nav-cta,
-        html body .ppc-public-nav-cta {
-          display: flex !important;
-          align-items: center !important;
-          gap: 0.5rem !important;
-          flex-shrink: 0 !important;
-        }
-      }
-    `;
-    
-    document.head.appendChild(style);
-  }, []);
 
   const handleGetQuote = () => {
     // Always route to /chat using wouter navigation
@@ -304,35 +240,16 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
 
   return (
     <>
-      {/* Sticky Header - CSS GRID Layout (WordPress-proof) */}
+      {/* Sticky Header - Flexbox Layout */}
       <header 
         className={cn(
-          "ppc-public-nav transition-all duration-300",
+          "ppc-public-nav sticky top-0 inset-x-0 z-[1100] w-full transition-all duration-300",
           isScrolled 
             ? "bg-white/95 dark:bg-gray-950/95 backdrop-blur-lg shadow-lg border-b border-gray-200 dark:border-gray-800" 
             : "bg-white/90 dark:bg-gray-950/90 backdrop-blur-sm"
         )}
-        style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          zIndex: 9999,
-          width: '100vw'
-        }}
       >
-        <div 
-          className="w-full px-6 lg:px-8"
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'auto 1fr auto',
-            alignItems: 'center',
-            gap: '1rem',
-            height: '5rem',
-            maxWidth: '1280px',
-            margin: '0 auto'
-          }}
-        >
+        <div className="mx-auto flex max-w-7xl items-center gap-4 px-6 lg:px-10" style={{ height: '5rem' }}>
           {/* Logo - Grid Column 1 */}
           <div>
             <a 
@@ -348,8 +265,8 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
             </a>
           </div>
 
-          {/* Mobile Header Controls - Grid Column 2 (on mobile) */}
-          <div className="flex lg:hidden items-center justify-end gap-2">
+          {/* Mobile Header Controls - flex-1 to push to right */}
+          <div className="flex lg:hidden flex-1 items-center justify-end gap-2">
             {/* Mobile Get Quote Button */}
             <Button
               variant="outline"
@@ -384,16 +301,8 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
             </button>
           </div>
 
-          {/* Desktop Navigation - Grid Column 2 (centered on desktop) */}
-          <div 
-            className="ppc-public-nav-center hidden lg:flex overflow-visible"
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              width: '100%'
-            }}
-          >
+          {/* Desktop Navigation - Flexbox centered */}
+          <div className="ppc-public-nav-center hidden lg:flex flex-1 justify-center items-center">
               <NavigationMenu className="overflow-visible">
                 <NavigationMenuList className="flex items-center space-x-0 overflow-visible">
                 {navigationItems.map((item) => (
@@ -515,8 +424,8 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
         </div>
       </header>
 
-      {/* Spacer to prevent content from hiding behind fixed header */}
-      <div className="ppc-nav-spacer" />
+      {/* Spacer to prevent content from hiding behind sticky header */}
+      <div style={{ height: '5rem' }} />
 
       {/* Mobile Bottom Navigation Bar */}
       <nav 
