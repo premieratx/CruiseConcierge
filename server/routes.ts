@@ -33,7 +33,7 @@ let wisprFlowService: any = null;
 let generateQuoteDescription: any = null;
 let openaiService: any = null;
 type LeadWebhookPayload = any;
-import { insertContactSchema, insertProjectSchema, insertChatMessageSchema, insertAdminChatSessionSchema, insertAdminChatMessageSchema, insertUserSchema, insertInviteSchema, insertQuoteTemplateSchema, insertTemplateRuleSchema, insertDiscountRuleSchema, insertPricingSettingsSchema, insertPricingAdjustmentSchema, insertProductSchema, insertAffiliateSchema, insertDiscoSlotSchema, insertTimeframeSchema, insertSmsAuthTokenSchema, insertCustomerSessionSchema, insertPortalActivityLogSchema, insertPartialLeadSchema, insertBlogPostSchema, insertBlogAuthorSchema, insertBlogCategorySchema, insertBlogTagSchema, insertBlogCommentSchema, insertBlogAnalyticsSchema, insertSeoPageSchema, insertSeoCompetitorSchema, insertContentBlockSchema, insertPromptsLibrarySchema, endorsements, blogPosts, type LeadData, type LeadUpdateData, type CreateLeadRequest, type PartialLeadFilters, type SEOOptimizationRequest, type SEOBulkOperation, type AdminChatSession, type AdminChatMessage, type Endorsement } from "@shared/schema";
+import { insertContactSchema, insertProjectSchema, insertChatMessageSchema, insertAdminChatSessionSchema, insertAdminChatMessageSchema, insertUserSchema, insertInviteSchema, insertQuoteTemplateSchema, insertTemplateRuleSchema, insertDiscountRuleSchema, insertPricingSettingsSchema, insertPricingAdjustmentSchema, insertProductSchema, insertAffiliateSchema, insertPartnerApplicationSchema, insertDiscoSlotSchema, insertTimeframeSchema, insertSmsAuthTokenSchema, insertCustomerSessionSchema, insertPortalActivityLogSchema, insertPartialLeadSchema, insertBlogPostSchema, insertBlogAuthorSchema, insertBlogCategorySchema, insertBlogTagSchema, insertBlogCommentSchema, insertBlogAnalyticsSchema, insertSeoPageSchema, insertSeoCompetitorSchema, insertContentBlockSchema, insertPromptsLibrarySchema, endorsements, blogPosts, type LeadData, type LeadUpdateData, type CreateLeadRequest, type PartialLeadFilters, type SEOOptimizationRequest, type SEOBulkOperation, type AdminChatSession, type AdminChatMessage, type Endorsement, type PartnerApplication, type InsertPartnerApplication } from "@shared/schema";
 import { calculateServerPricing, type ServerPricingRequest } from './serverPricing';
 import { PRICING_DEFAULTS } from "@shared/constants";
 import { getPrivateTimeSlotsForDate, getDiscoTimeSlotsForDate, parseTimeToDate, getTimeSlotById } from "@shared/timeSlots";
@@ -2204,6 +2204,61 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
         error: 'Failed to create quote builder lead',
         message: error.message || 'Unknown error',
         success: false
+      });
+    }
+  });
+
+  // ==========================================
+  // PARTNER PROGRAM SIGNUPS
+  // ==========================================
+
+  app.post('/api/partner-signups', async (req, res) => {
+    try {
+      console.log('🤝 Partner Application - Starting...');
+      
+      // Lazy load storage if needed
+      if (!storage) {
+        const { storage: storageInstance } = await import("./storage");
+        storage = storageInstance;
+      }
+      
+      // Validate request body
+      const validationResult = insertPartnerApplicationSchema.safeParse(req.body);
+      if (!validationResult.success) {
+        console.error('❌ Validation failed:', validationResult.error.flatten());
+        return res.status(400).json({ 
+          success: false,
+          error: 'Invalid request data',
+          details: validationResult.error.flatten()
+        });
+      }
+
+      const data = validationResult.data;
+
+      // Check for duplicate email
+      const existingApplication = await storage.getPartnerApplicationByEmail(data.email);
+      if (existingApplication) {
+        return res.status(409).json({
+          success: false,
+          error: 'Email already registered'
+        });
+      }
+
+      // Create partner application
+      const result = await storage.createPartnerApplication(data);
+      console.log('✅ Partner application created:', result.id);
+
+      res.json({
+        success: true,
+        id: result.id
+      });
+
+    } catch (error: any) {
+      console.error('💥 Partner Application - Error:', error);
+      res.status(500).json({ 
+        success: false,
+        error: 'Failed to submit partner application',
+        message: error.message || 'Unknown error'
       });
     }
   });

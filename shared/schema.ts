@@ -176,6 +176,21 @@ export const affiliates = pgTable("affiliates", {
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 
+export const partnerApplications = pgTable("partner_applications", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  orgId: varchar("org_id").notNull().default("org_demo"),
+  name: text("name").notNull(),
+  email: text("email").notNull(),
+  phone: text("phone").notNull(),
+  company: text("company").notNull(),
+  status: varchar("status").notNull().default("pending"), // 'pending', 'approved', 'rejected'
+  notes: text("notes"),
+  source: text("source"), // tracking where they heard about the program
+  affiliateId: varchar("affiliate_id").references(() => affiliates.id), // link to affiliate record once approved
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
 // ==========================================
 // BLOG SYSTEM
 // ==========================================
@@ -615,6 +630,22 @@ export const insertAffiliateSchema = createInsertSchema(affiliates).omit({
   createdAt: true,
 });
 
+export const insertPartnerApplicationSchema = createInsertSchema(partnerApplications).omit({
+  id: true,
+  orgId: true,
+  status: true,
+  affiliateId: true,
+  createdAt: true,
+  updatedAt: true,
+}).extend({
+  name: z.string().min(1, "Name is required"),
+  email: z.string().email("Valid email is required"),
+  phone: z.string().min(10, "Valid phone number is required"),
+  company: z.string().min(1, "Company name is required"),
+  source: z.string().optional(),
+  notes: z.string().optional(),
+});
+
 export const insertBlogAuthorSchema = createInsertSchema(blogAuthors).omit({
   id: true,
   createdAt: true,
@@ -830,6 +861,7 @@ export type AdminChatSession = typeof adminChatSessions.$inferSelect;
 export type AdminChatMessage = typeof adminChatMessages.$inferSelect;
 export type PricingSettings = typeof pricingSettings.$inferSelect;
 export type Affiliate = typeof affiliates.$inferSelect;
+export type PartnerApplication = typeof partnerApplications.$inferSelect;
 export type BlogAuthor = typeof blogAuthors.$inferSelect;
 export type BlogCategory = typeof blogCategories.$inferSelect;
 export type BlogTag = typeof blogTags.$inferSelect;
@@ -856,6 +888,7 @@ export type InsertAdminChatSession = z.infer<typeof insertAdminChatSessionSchema
 export type InsertAdminChatMessage = z.infer<typeof insertAdminChatMessageSchema>;
 export type InsertPricingSettings = z.infer<typeof insertPricingSettingsSchema>;
 export type InsertAffiliate = z.infer<typeof insertAffiliateSchema>;
+export type InsertPartnerApplication = z.infer<typeof insertPartnerApplicationSchema>;
 export type InsertBlogAuthor = z.infer<typeof insertBlogAuthorSchema>;
 export type InsertBlogCategory = z.infer<typeof insertBlogCategorySchema>;
 export type InsertBlogTag = z.infer<typeof insertBlogTagSchema>;

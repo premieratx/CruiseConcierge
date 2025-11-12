@@ -106,6 +106,7 @@ const TestimonialsFaq = lazy(() => import("./pages/TestimonialsFaq"));
 const PartyBoatAustin = lazy(() => import("./pages/PartyBoatAustin"));
 const PartyBoatLakeTravis = lazy(() => import("./pages/PartyBoatLakeTravis"));
 const AIEndorsement = lazy(() => import("./pages/AIEndorsement"));
+const Partners = lazy(() => import("./pages/Partners"));
 
 // Wedding Experience Pages - Lazy loaded
 const RehearsalDinner = lazy(() => import("./pages/RehearsalDinner"));
@@ -263,6 +264,7 @@ function Router() {
       <Route path="/contact" component={Contact} />
       <Route path="/testimonials-faq" component={TestimonialsFaq} />
       <Route path="/ai-endorsement" component={AIEndorsement} />
+      <Route path="/partners" component={Partners} />
       
       {/* Wedding Experience Pages */}
       <Route path="/rehearsal-dinner" component={RehearsalDinner} />
