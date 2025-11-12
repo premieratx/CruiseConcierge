@@ -143,6 +143,7 @@ const AustinBacheloretteNightlife = lazy(() => import("./pages/AustinBachelorett
 const HolidayCelebrationsLakeTravis = lazy(() => import("./pages/HolidayCelebrationsLakeTravis"));
 const JointBachelorBacheloretteParties = lazy(() => import("./pages/JointBachelorBacheloretteParties"));
 const LakeTravisWeddingBoatRentals = lazy(() => import("./pages/LakeTravisWeddingBoatRentals"));
+const MustHavesAustinBacheloretteWeekend = lazy(() => import("./pages/MustHavesAustinBacheloretteWeekend"));
 
 // Customer Portal Pages - Lazy loaded
 const PortalLogin = lazy(() => import("./pages/PortalLogin"));
@@ -297,6 +298,7 @@ function Router() {
       <Route path="/blogs/holiday-celebrations-on-lake-travis-seasonal-boat-party-planning-and-coordination" component={HolidayCelebrationsLakeTravis} />
       <Route path="/blogs/joint-bachelor-bachelorette-parties-with-premier-party-cruises" component={JointBachelorBacheloretteParties} />
       <Route path="/blogs/lake-travis-wedding-boat-rentals-unique-venues-for-austin-celebrations" component={LakeTravisWeddingBoatRentals} />
+      <Route path="/blogs/must-haves-for-the-perfect-austin-bachelorette-weekend" component={MustHavesAustinBacheloretteWeekend} />
       
       {/* Redirect broken indexed URLs */}
       <Route path="/party-cruises-2025">
