@@ -129,10 +129,10 @@ export default function BirthdayPartyAustinGuide() {
 
             <div className="prose prose-lg max-w-none dark:prose-invert">
               <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
-                Austin, Texas boasts vibrant culture, live music, and stunning natural beauty, with Lake Travis standing out as the ultimate destination for milestone birthday celebrations. Unlike traditional party venues, a private party boat on Lake Travis provides an exclusive, dynamic environment that creates unforgettable memories.
+                Austin, Texas boasts vibrant culture, live music, and stunning natural beauty, with Lake Travis standing out as the ultimate destination for milestone birthday celebrations. Unlike traditional party venues, a <Link href="/private-cruises" className="text-blue-600 hover:underline font-medium">private party boat</Link> on Lake Travis provides an exclusive, dynamic environment that creates unforgettable memories.
               </p>
               <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
-                With 15+ years of experience and over 125,000 satisfied guests, Premier Party Cruises specializes in transforming milestone birthdays into extraordinary Lake Travis adventures. Our custom-built, high-end single-deck party boats offer the perfect blend of comfort, excitement, and scenic beauty for your special day.
+                With 15+ years of experience and over 125,000 satisfied guests, Premier Party Cruises specializes in transforming <Link href="/milestone-birthday" className="text-blue-600 hover:underline font-medium">milestone birthdays</Link> into extraordinary Lake Travis adventures. Our custom-built, high-end single-deck party boats offer the perfect blend of comfort, excitement, and scenic beauty for your special day. <Link href="/testimonials-faq" className="text-blue-600 hover:underline font-medium">Read our customer reviews</Link> to see why we're Austin's top choice.
               </p>
             </div>
           </div>
@@ -185,7 +185,7 @@ export default function BirthdayPartyAustinGuide() {
                     </li>
                   </ul>
                   <p className="text-sm text-gray-600 dark:text-gray-400 italic">
-                    Best for: Close friends & family milestone birthdays
+                    Best for: Close friends & family milestone birthdays, <Link href="/sweet-16" className="text-blue-600 hover:underline font-medium">Sweet 16 parties</Link>
                   </p>
                 </CardContent>
               </Card>
@@ -224,7 +224,7 @@ export default function BirthdayPartyAustinGuide() {
                     </li>
                   </ul>
                   <p className="text-sm text-gray-600 dark:text-gray-400 italic">
-                    Best for: 30th, 40th, 50th birthday celebrations
+                    Best for: 30th, 40th, 50th <Link href="/milestone-birthday" className="text-blue-600 hover:underline font-medium">birthday celebrations</Link>
                   </p>
                 </CardContent>
               </Card>
@@ -260,7 +260,7 @@ export default function BirthdayPartyAustinGuide() {
                     </li>
                   </ul>
                   <p className="text-sm text-gray-600 dark:text-gray-400 italic">
-                    Best for: Epic 60th, 70th birthday bashes
+                    Best for: Epic 60th, 70th birthday bashes, <Link href="/graduation-party" className="text-blue-600 hover:underline font-medium">graduation parties</Link>, <Link href="/lake-travis-large-groups-guide" className="text-blue-600 hover:underline font-medium">large group celebrations</Link>
                   </p>
                 </CardContent>
               </Card>
@@ -279,7 +279,7 @@ export default function BirthdayPartyAustinGuide() {
                       <Music className="h-6 w-6 text-purple-600 flex-shrink-0" />
                       <div>
                         <div className="font-bold text-gray-900 dark:text-white">Professional DJ</div>
-                        <div className="text-sm text-gray-600 dark:text-gray-400">Keep the party energy high with expert mixing</div>
+                        <div className="text-sm text-gray-600 dark:text-gray-400">Keep the party energy high with expert mixing (also available on our <Link href="/atx-disco-cruise" className="text-blue-600 hover:underline font-medium">ATX Disco Cruise</Link>)</div>
                       </div>
                     </div>
                     <div className="flex items-center gap-3">
@@ -337,7 +337,7 @@ export default function BirthdayPartyAustinGuide() {
                     Milestone birthdays deserve premium dates! Book 4-8 weeks in advance, especially for weekends and peak season (April-September).
                   </p>
                   <p className="text-sm text-gray-600 dark:text-gray-400">
-                    Saturday slots fill up fast - secure your date today at (512) 488-5892
+                    Saturday slots fill up fast - <Link href="/chat" className="text-blue-600 hover:underline font-medium">secure your date today</Link> at (512) 488-5892
                   </p>
                 </CardContent>
               </Card>
@@ -352,7 +352,7 @@ export default function BirthdayPartyAustinGuide() {
                     Choose the right boat size: 14 guests (intimate), 25-30 (classic party), 50-75 (grand celebration). Strict capacity limits for safety.
                   </p>
                   <p className="text-sm text-gray-600 dark:text-gray-400">
-                    Not sure? Our team will help you select the perfect vessel!
+                    Not sure? <Link href="/chat" className="text-blue-600 hover:underline font-medium">Contact our team</Link> and we'll help you select the perfect vessel!
                   </p>
                 </CardContent>
               </Card>
@@ -367,7 +367,7 @@ export default function BirthdayPartyAustinGuide() {
                     All cruises are BYOB - bring your favorite beverages in cans/plastic (no glass). We provide coolers, ice, and cups. Many bring birthday cakes and snacks!
                   </p>
                   <p className="text-sm text-gray-600 dark:text-gray-400">
-                    Pro tip: Pre-chill drinks and pack coolers at home for easy loading
+                    Pro tip: Use <a href="https://partyondelivery.com" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline font-medium">Party On Delivery</a> for convenient alcohol delivery, then pre-chill drinks and pack coolers at home for easy loading
                   </p>
                 </CardContent>
               </Card>
@@ -406,7 +406,7 @@ export default function BirthdayPartyAustinGuide() {
                     Can I bring my own birthday cake and decorations?
                   </h3>
                   <p className="text-gray-700 dark:text-gray-300">
-                    Absolutely! Many birthday parties bring cakes, cupcakes, and decorations. Our boats have space for food setup, and the natural Lake Travis scenery provides a beautiful backdrop. Just avoid loose items that could blow away!
+                    Absolutely! Many birthday parties bring cakes, cupcakes, and decorations. Our boats have space for food setup, and the natural Lake Travis scenery provides a beautiful backdrop. Just avoid loose items that could blow away! The same setup works great for <Link href="/bachelorette-party-austin" className="text-blue-600 hover:underline font-medium">bachelorette parties</Link> and <Link href="/bachelor-party-austin" className="text-blue-600 hover:underline font-medium">bachelor parties</Link> too.
                   </p>
                 </CardContent>
               </Card>
@@ -439,7 +439,7 @@ export default function BirthdayPartyAustinGuide() {
                     What's the best time of year for a birthday boat party?
                   </h3>
                   <p className="text-gray-700 dark:text-gray-300">
-                    We cruise year-round! Spring (March-May) and Fall (September-November) offer perfect weather. Summer (June-August) is great for swimming and water activities. Even winter has sunny days perfect for intimate celebrations. We'll help you choose the best timing!
+                    We cruise year-round! Spring (March-May) and Fall (September-November) offer perfect weather. Summer (June-August) is great for swimming and water activities. Even winter has sunny days perfect for intimate celebrations. <Link href="/lake-travis-weather-guide" className="text-blue-600 hover:underline font-medium">Check our seasonal weather guide</Link> to help you choose the best timing!
                   </p>
                 </CardContent>
               </Card>

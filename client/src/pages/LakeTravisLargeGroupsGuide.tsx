@@ -130,7 +130,7 @@ export default function LakeTravisLargeGroupsGuide() {
                     Corporate Events
                   </h3>
                   <p className="text-gray-600 dark:text-gray-400">
-                    Team building, client entertainment, company milestones - create memorable experiences beyond the boardroom
+                    <Link href="/team-building" className="text-blue-600 hover:underline font-medium">Team building</Link>, <Link href="/client-entertainment" className="text-blue-600 hover:underline font-medium">client entertainment</Link>, <Link href="/company-milestone" className="text-blue-600 hover:underline font-medium">company milestones</Link> - create memorable experiences beyond the boardroom
                   </p>
                 </CardContent>
               </Card>
@@ -154,7 +154,7 @@ export default function LakeTravisLargeGroupsGuide() {
                     Celebrations
                   </h3>
                   <p className="text-gray-600 dark:text-gray-400">
-                    Weddings, anniversaries, graduations - exclusive venues for life's biggest moments
+                    <Link href="/rehearsal-dinner" className="text-blue-600 hover:underline font-medium">Weddings</Link>, <Link href="/milestone-birthday" className="text-blue-600 hover:underline font-medium">anniversaries</Link>, <Link href="/graduation-party" className="text-blue-600 hover:underline font-medium">graduations</Link> - exclusive venues for life's biggest moments
                   </p>
                 </CardContent>
               </Card>
@@ -162,7 +162,7 @@ export default function LakeTravisLargeGroupsGuide() {
 
             <div className="prose prose-lg max-w-none dark:prose-invert">
               <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
-                Lake Travis offers an unparalleled backdrop for large group events in Austin, Texas. The crystal-clear waters, scenic coves, and vibrant atmosphere create an ideal setting that traditional venues simply can't match. Premier Party Cruises operates custom-built, high-end single-deck party boats on Lake Travis, providing a dynamic, exclusive environment that fosters camaraderie and creates unforgettable memories for groups of 20-75 people.
+                Lake Travis offers an unparalleled backdrop for large group events in Austin, Texas. The crystal-clear waters, scenic coves, and vibrant atmosphere create an ideal setting that traditional venues simply can't match. Premier Party Cruises operates custom-built, high-end <Link href="/private-cruises" className="text-blue-600 hover:underline font-medium">single-deck party boats</Link> on Lake Travis, providing a dynamic, exclusive environment that fosters camaraderie and creates unforgettable memories for groups of 20-75 people. <Link href="/testimonials-faq" className="text-blue-600 hover:underline font-medium">Read our reviews</Link> from satisfied corporate clients and event planners.
               </p>
             </div>
           </div>
@@ -219,7 +219,7 @@ export default function LakeTravisLargeGroupsGuide() {
                     </li>
                   </ul>
                   <p className="text-sm text-gray-600 dark:text-gray-400 italic">
-                    Ideal for: Small corporate retreats, family reunions, extended friend groups
+                    Ideal for: Small <Link href="/corporate-events" className="text-blue-600 hover:underline font-medium">corporate retreats</Link>, family reunions, extended friend groups, <Link href="/bachelor-party-austin" className="text-blue-600 hover:underline font-medium">bachelor parties</Link>
                   </p>
                 </CardContent>
               </Card>
@@ -266,7 +266,7 @@ export default function LakeTravisLargeGroupsGuide() {
                     </li>
                   </ul>
                   <p className="text-sm text-gray-600 dark:text-gray-400 italic">
-                    Ideal for: Large corporate events, big reunions, weddings, major celebrations
+                    Ideal for: Large corporate events, big reunions, <Link href="/rehearsal-dinner" className="text-blue-600 hover:underline font-medium">weddings</Link>, <Link href="/birthday-parties" className="text-blue-600 hover:underline font-medium">major celebrations</Link>
                   </p>
                 </CardContent>
               </Card>
@@ -345,7 +345,7 @@ export default function LakeTravisLargeGroupsGuide() {
                     Book Well in Advance
                   </h3>
                   <p className="text-gray-700 dark:text-gray-300">
-                    Large group events require 4-12 weeks advance booking, especially for peak season (April-September) and weekends. Our larger boats book out quickly for corporate events and major celebrations.
+                    Large group events require 4-12 weeks advance booking, especially for peak season (April-September) and weekends. Our larger boats book out quickly for corporate events and major celebrations. <Link href="/chat" className="text-blue-600 hover:underline font-medium">Get your quote</Link> today to secure your preferred date!
                   </p>
                 </CardContent>
               </Card>
@@ -369,7 +369,7 @@ export default function LakeTravisLargeGroupsGuide() {
                     Entertainment & Activities
                   </h3>
                   <p className="text-gray-700 dark:text-gray-300">
-                    Add professional DJ, photographer, or live music. Our boats have premium sound systems and stages. Plan team-building activities, swimming stops, or scenic cruising routes.
+                    Add professional DJ, photographer, or live music. Our boats have premium sound systems and stages (check out our <Link href="/atx-disco-cruise" className="text-blue-600 hover:underline font-medium">ATX Disco Cruise</Link> for a pre-planned party experience). Plan <Link href="/team-building" className="text-blue-600 hover:underline font-medium">team-building activities</Link>, swimming stops, or scenic cruising routes.
                   </p>
                 </CardContent>
               </Card>
@@ -488,7 +488,7 @@ export default function LakeTravisLargeGroupsGuide() {
                     How far in advance should we book for a large corporate event?
                   </h3>
                   <p className="text-gray-700 dark:text-gray-300">
-                    We recommend 4-12 weeks in advance for groups of 20+ people, especially for weekends and peak season (April-September). Large corporate events often book 2-3 months ahead. Contact us at (512) 488-5892 to check availability!
+                    We recommend 4-12 weeks in advance for groups of 20+ people, especially for weekends and peak season (April-September). Large <Link href="/corporate-events" className="text-blue-600 hover:underline font-medium">corporate events</Link> often book 2-3 months ahead. <Link href="/chat" className="text-blue-600 hover:underline font-medium">Contact us</Link> at (512) 488-5892 to check availability!
                   </p>
                 </CardContent>
               </Card>
@@ -499,7 +499,7 @@ export default function LakeTravisLargeGroupsGuide() {
                     Can we bring our own catering for a large group?
                   </h3>
                   <p className="text-gray-700 dark:text-gray-300">
-                    Yes! All cruises are BYOB and you can bring food. Our boats have space for catering setups. Many corporate clients bring catered meals, while reunions often do potluck-style. We provide coolers with ice for beverages (cans/plastic only, no glass).
+                    Yes! All cruises are BYOB and you can bring food. Our boats have space for catering setups. Many corporate clients bring catered meals, while reunions often do potluck-style. We provide coolers with ice for beverages (cans/plastic only, no glass). Need drinks? Try <a href="https://partyondelivery.com" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline font-medium">Party On Delivery</a> for convenient alcohol delivery to your group.
                   </p>
                 </CardContent>
               </Card>
@@ -521,7 +521,7 @@ export default function LakeTravisLargeGroupsGuide() {
                     Can we customize the cruise route for our event?
                   </h3>
                   <p className="text-gray-700 dark:text-gray-300">
-                    Absolutely! Our experienced captains work with you to create the perfect route - scenic cruising, anchored swimming spots, sunset viewing areas, or a mix. For corporate events, we can even find quieter areas for presentations or team activities.
+                    Absolutely! Our experienced captains work with you to create the perfect route - scenic cruising, anchored swimming spots, sunset viewing areas, or a mix. For <Link href="/corporate-events" className="text-blue-600 hover:underline font-medium">corporate events</Link>, we can even find quieter areas for presentations or <Link href="/team-building" className="text-blue-600 hover:underline font-medium">team activities</Link>.
                   </p>
                 </CardContent>
               </Card>

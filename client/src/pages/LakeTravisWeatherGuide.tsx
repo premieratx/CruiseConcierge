@@ -119,10 +119,10 @@ export default function LakeTravisWeatherGuide() {
           <div className="max-w-4xl mx-auto">
             <div className="prose prose-lg max-w-none dark:prose-invert">
               <p className="text-xl text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
-                The shimmering waters of Lake Travis offer unforgettable party boat experiences year-round. From lively bachelor and bachelorette celebrations to corporate events and birthday parties, Lake Travis provides a unique backdrop for every occasion. Understanding the lake's dynamic weather patterns is key to planning the perfect celebration.
+                The shimmering waters of Lake Travis offer unforgettable party boat experiences year-round. From lively <Link href="/bachelor-party-austin" className="text-blue-600 hover:underline font-medium">bachelor</Link> and <Link href="/bachelorette-party-austin" className="text-blue-600 hover:underline font-medium">bachelorette celebrations</Link> to <Link href="/corporate-events" className="text-blue-600 hover:underline font-medium">corporate events</Link> and <Link href="/birthday-parties" className="text-blue-600 hover:underline font-medium">birthday parties</Link>, Lake Travis provides a unique backdrop for every occasion. Understanding the lake's dynamic weather patterns is key to planning the perfect celebration.
               </p>
               <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
-                With 15+ years of experience and 125,000+ satisfied guests, Premier Party Cruises operates custom-built, high-end single-deck party boats on Lake Travis. Our experienced team knows Lake Travis weather intimately. This guide helps you plan the perfect cruise for any season, ensuring safety, comfort, and maximum fun on the water!
+                With 15+ years of experience and 125,000+ satisfied guests, Premier Party Cruises operates custom-built, high-end <Link href="/private-cruises" className="text-blue-600 hover:underline font-medium">single-deck party boats</Link> on Lake Travis. Our experienced team knows Lake Travis weather intimately. This guide helps you plan the perfect cruise for any season, ensuring safety, comfort, and maximum fun on the water! <Link href="/testimonials-faq" className="text-blue-600 hover:underline font-medium">Read what our guests say</Link> about cruising in different seasons.
               </p>
             </div>
           </div>
@@ -169,9 +169,9 @@ export default function LakeTravisWeatherGuide() {
                   <div>
                     <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Perfect For</h3>
                     <ul className="space-y-2 text-gray-700 dark:text-gray-300">
-                      <li>• Bachelor/bachelorette parties</li>
-                      <li>• Corporate team building</li>
-                      <li>• Birthday celebrations</li>
+                      <li>• <Link href="/bachelor-party-austin" className="text-blue-600 hover:underline font-medium">Bachelor</Link>/<Link href="/bachelorette-party-austin" className="text-blue-600 hover:underline font-medium">bachelorette parties</Link></li>
+                      <li>• <Link href="/corporate-events" className="text-blue-600 hover:underline font-medium">Corporate</Link> <Link href="/team-building" className="text-blue-600 hover:underline font-medium">team building</Link></li>
+                      <li>• <Link href="/birthday-parties" className="text-blue-600 hover:underline font-medium">Birthday celebrations</Link></li>
                       <li>• Early season events</li>
                     </ul>
                     <div className="mt-4 p-4 bg-green-100 dark:bg-green-900/20 rounded-lg">
@@ -222,8 +222,8 @@ export default function LakeTravisWeatherGuide() {
                     <ul className="space-y-2 text-gray-700 dark:text-gray-300">
                       <li>• Swimming & water activities</li>
                       <li>• High-energy celebrations</li>
-                      <li>• ATX Disco Cruise (Fri/Sat)</li>
-                      <li>• Family reunions</li>
+                      <li>• <Link href="/atx-disco-cruise" className="text-blue-600 hover:underline font-medium">ATX Disco Cruise</Link> (Fri/Sat)</li>
+                      <li>• Family reunions, <Link href="/lake-travis-large-groups-guide" className="text-blue-600 hover:underline font-medium">large group events</Link></li>
                     </ul>
                     <div className="mt-4 p-4 bg-orange-100 dark:bg-orange-900/20 rounded-lg">
                       <p className="text-sm font-semibold text-orange-800 dark:text-orange-300">
@@ -271,9 +271,9 @@ export default function LakeTravisWeatherGuide() {
                   <div>
                     <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Perfect For</h3>
                     <ul className="space-y-2 text-gray-700 dark:text-gray-300">
-                      <li>• Intimate weddings & events</li>
-                      <li>• Corporate retreats</li>
-                      <li>• Milestone birthdays</li>
+                      <li>• Intimate <Link href="/rehearsal-dinner" className="text-blue-600 hover:underline font-medium">weddings</Link> & events</li>
+                      <li>• <Link href="/corporate-events" className="text-blue-600 hover:underline font-medium">Corporate retreats</Link></li>
+                      <li>• <Link href="/milestone-birthday" className="text-blue-600 hover:underline font-medium">Milestone birthdays</Link></li>
                       <li>• Sunset cruises</li>
                     </ul>
                     <div className="mt-4 p-4 bg-amber-100 dark:bg-amber-900/20 rounded-lg">
@@ -322,9 +322,9 @@ export default function LakeTravisWeatherGuide() {
                   <div>
                     <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Perfect For</h3>
                     <ul className="space-y-2 text-gray-700 dark:text-gray-300">
-                      <li>• Intimate gatherings</li>
+                      <li>• Intimate gatherings, <Link href="/private-cruises" className="text-blue-600 hover:underline font-medium">private cruises</Link></li>
                       <li>• Unique holiday parties</li>
-                      <li>• Corporate end-of-year events</li>
+                      <li>• <Link href="/corporate-events" className="text-blue-600 hover:underline font-medium">Corporate end-of-year events</Link></li>
                       <li>• Tranquil escapes</li>
                     </ul>
                     <div className="mt-4 p-4 bg-blue-100 dark:bg-blue-900/20 rounded-lg">
@@ -434,7 +434,7 @@ export default function LakeTravisWeatherGuide() {
                     What's the best season for a Lake Travis boat party?
                   </h3>
                   <p className="text-gray-700 dark:text-gray-300">
-                    Spring (March-May) and Fall (September-November) offer the most pleasant temperatures and stable weather. Summer (June-August) is perfect for swimming and water sports despite the heat. Winter can be lovely for intimate gatherings with less crowds.
+                    Spring (March-May) and Fall (September-November) offer the most pleasant temperatures and stable weather. Summer (June-August) is perfect for swimming and water sports despite the heat. Winter can be lovely for intimate gatherings with less crowds. <Link href="/chat" className="text-blue-600 hover:underline font-medium">Book your cruise</Link> for any season - we'll help you plan!
                   </p>
                 </CardContent>
               </Card>
@@ -456,7 +456,7 @@ export default function LakeTravisWeatherGuide() {
                     Can we cruise in winter on Lake Travis?
                   </h3>
                   <p className="text-gray-700 dark:text-gray-300">
-                    Absolutely! Many winter days in Austin are sunny and crisp (50-65°F). We cruise year-round. Pack layers for cooler temperatures and check wind advisories. Winter offers a unique, less crowded Lake Travis experience perfect for intimate celebrations.
+                    Absolutely! Many winter days in Austin are sunny and crisp (50-65°F). We cruise year-round. Pack layers for cooler temperatures and check wind advisories. Winter offers a unique, less crowded Lake Travis experience perfect for <Link href="/private-cruises" className="text-blue-600 hover:underline font-medium">intimate celebrations</Link> and <Link href="/corporate-events" className="text-blue-600 hover:underline font-medium">corporate gatherings</Link>.
                   </p>
                 </CardContent>
               </Card>
