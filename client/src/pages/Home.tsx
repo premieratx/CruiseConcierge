@@ -446,16 +446,16 @@ export default function Home() {
 
   // Update page title for SEO
   useEffect(() => {
-    document.title = 'Premier Party Cruises - Austin Lake Travis Boat Rentals Since 2009';
+    document.title = 'Premier Party Cruises | Disco Cruise Austin & Lake Travis Boat Rentals | Reviews';
     
     // Add meta description
     const existingDesc = document.querySelector('meta[name="description"]');
     if (existingDesc) {
-      existingDesc.setAttribute('content', 'Austin\'s premier party cruise company since 2009 offering ATX Disco Cruises and private boat charters on Lake Travis. 150,000+ happy customers, 4 awesome boats. Book today!');
+      existingDesc.setAttribute('content', 'Austin\'s #1 disco boat cruise & party rentals on Lake Travis since 2009. Read reviews from 150K+ happy customers. Book your disco cruise Austin experience today!');
     } else {
       const metaDesc = document.createElement('meta');
       metaDesc.name = 'description';
-      metaDesc.content = 'Austin\'s premier party cruise company since 2009 offering ATX Disco Cruises and private boat charters on Lake Travis. 150,000+ happy customers, 4 awesome boats. Book today!';
+      metaDesc.content = 'Austin\'s #1 disco boat cruise & party rentals on Lake Travis since 2009. Read reviews from 150K+ happy customers. Book your disco cruise Austin experience today!';
       document.head.appendChild(metaDesc);
     }
   }, []);
@@ -584,10 +584,10 @@ export default function Home() {
             {/* Main Headline */}
             <motion.div variants={reducedMotion ? undefined : fadeInUp} className="mb-8 md:mb-10">
               <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold font-playfair mb-6 leading-tight" data-editable data-editable-id="hero-title">
-                Austin Party Boat Rentals on Lake Travis
+                Premier Party Cruises - Disco Cruise Austin & Lake Travis Reviews
               </h1>
               <h2 className="text-xl sm:text-2xl md:text-3xl text-brand-yellow font-semibold leading-relaxed" data-editable data-editable-id="hero-tagline">
-                Hosting the Best Boat Parties on Lake Travis Since 2009
+                Austin's #1 Disco Boat Cruise - Trusted by 150K+ Customers Since 2009
               </h2>
             </motion.div>
 
@@ -684,12 +684,11 @@ export default function Home() {
               Austin's Premier Party Cruise Experience
             </h2>
             <p className="text-base md:text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
-              Experience Austin's ultimate Lake Travis adventure with the most trusted party cruise company since 2009. 
-              From <InternalLinkHighlight href="/private-cruises" title="Private Cruises">intimate 14-person private cruises</InternalLinkHighlight> on "Day Tripper" to epic 75-person celebrations on flagship "Clever Girl" - 
-              perfect for <InternalLinkHighlight href="/bachelor-party-austin" title="Bachelor Parties">bachelor parties</InternalLinkHighlight>, <InternalLinkHighlight href="/bachelorette-party-austin" title="Bachelorette Parties">bachelorette celebrations</InternalLinkHighlight>, and <InternalLinkHighlight href="/corporate-events" title="Corporate Events">corporate team building</InternalLinkHighlight>.
+              Experience the ultimate <InternalLinkHighlight href="/atx-disco-cruise" title="ATX Disco Cruise">disco cruise Austin</InternalLinkHighlight> adventure on Lake Travis! Our legendary <strong>disco boat cruise</strong> parties and <InternalLinkHighlight href="/private-cruises" title="Private Cruises">intimate 14-person private cruises</InternalLinkHighlight> on "Day Tripper" to epic 75-person celebrations on flagship "Clever Girl" have been the most trusted party cruise experience since 2009. 
+              Perfect for <InternalLinkHighlight href="/bachelor-party-austin" title="Bachelor Parties">bachelor parties</InternalLinkHighlight>, <InternalLinkHighlight href="/bachelorette-party-austin" title="Bachelorette Parties">bachelorette celebrations</InternalLinkHighlight>, and <InternalLinkHighlight href="/corporate-events" title="Corporate Events">corporate team building</InternalLinkHighlight> - read our <InternalLinkHighlight href="/testimonials-faq" title="Customer Reviews">customer reviews</InternalLinkHighlight> to see why 150K+ guests love us!
             </p>
             <p className="text-base md:text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
-              Operating from Anderson Mill Marina on beautiful Lake Travis, our experienced Licensed, fun, experienced captains to take your group safely around the lake in style and pristine fleet provide unforgettable experiences for groups of all sizes. With transparent pricing, no hidden fees, and unmatched service, we make your Lake Travis celebration effortless and extraordinary.
+              Operating from Anderson Mill Marina on beautiful Lake Travis, our experienced licensed captains and pristine fleet provide unforgettable disco cruise Austin experiences for groups of all sizes. With transparent pricing, no hidden fees, and unmatched service backed by thousands of 5-star reviews, we make your Lake Travis celebration effortless and extraordinary.
             </p>
           </div>
         </div>
