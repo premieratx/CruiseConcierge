@@ -238,10 +238,13 @@ export function TabbedPrivateCruisePricing({ className = '' }: TabbedPrivateCrui
                   <CardHeader className="pb-4">
                     <CardTitle className="text-xl">{packages.standard.name}</CardTitle>
                     <div className="mt-4">
-                      <div className="text-3xl font-bold text-primary" data-testid="hourly-standard">
-                        {formatCurrency(hourlyRate * 100)}/hr
+                      <div className="text-lg font-semibold text-gray-700 dark:text-gray-300" data-testid="hourly-standard">
+                        {formatCurrency(hourlyRate * 100)}/hour × 4 hours
                       </div>
-                      <p className="text-xs text-gray-500 mt-1">Base hourly rate</p>
+                      <div className="text-3xl font-bold text-primary mt-2">
+                        = {formatCurrency(hourlyRate * 4 * 100)}
+                      </div>
+                      <p className="text-xs text-gray-500 mt-1">Subject to tax & tip</p>
                     </div>
                   </CardHeader>
                   
@@ -276,10 +279,14 @@ export function TabbedPrivateCruisePricing({ className = '' }: TabbedPrivateCrui
                   <CardHeader className="pb-4">
                     <CardTitle className="text-xl">{packages.essentials.name}</CardTitle>
                     <div className="mt-4">
-                      <div className="text-3xl font-bold text-primary" data-testid="hourly-essentials">
-                        {formatCurrency(hourlyRate * 100)}/hr
+                      <div className="text-lg font-semibold text-gray-700 dark:text-gray-300" data-testid="hourly-essentials">
+                        {formatCurrency(hourlyRate * 100)}/hour × 4 hours
                       </div>
-                      <p className="text-base font-extrabold text-gray-900 dark:text-gray-100 mt-2">{packages.essentials.addOn} package add-on</p>
+                      <div className="text-3xl font-bold text-primary mt-2">
+                        = {formatCurrency(hourlyRate * 4 * 100)}
+                      </div>
+                      <p className="text-sm font-bold text-gray-900 dark:text-gray-100 mt-2">{packages.essentials.addOn} package add-on</p>
+                      <p className="text-xs text-gray-500 mt-1">Subject to tax & tip</p>
                     </div>
                   </CardHeader>
                   
@@ -309,10 +316,14 @@ export function TabbedPrivateCruisePricing({ className = '' }: TabbedPrivateCrui
                   <CardHeader className="pb-4">
                     <CardTitle className="text-xl">{packages.ultimate.name}</CardTitle>
                     <div className="mt-4">
-                      <div className="text-3xl font-bold text-primary" data-testid="hourly-ultimate">
-                        {formatCurrency(hourlyRate * 100)}/hr
+                      <div className="text-lg font-semibold text-gray-700 dark:text-gray-300" data-testid="hourly-ultimate">
+                        {formatCurrency(hourlyRate * 100)}/hour × 4 hours
                       </div>
-                      <p className="text-base font-extrabold text-gray-900 dark:text-gray-100 mt-2">{packages.ultimate.addOn} package add-on</p>
+                      <div className="text-3xl font-bold text-primary mt-2">
+                        = {formatCurrency(hourlyRate * 4 * 100)}
+                      </div>
+                      <p className="text-sm font-bold text-gray-900 dark:text-gray-100 mt-2">{packages.ultimate.addOn} package add-on</p>
+                      <p className="text-xs text-gray-500 mt-1">Subject to tax & tip</p>
                     </div>
                   </CardHeader>
                   

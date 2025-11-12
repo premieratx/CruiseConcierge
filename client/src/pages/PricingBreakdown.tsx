@@ -122,7 +122,7 @@ const discoVsPrivateComparison: ComparisonRow[] = [
   {
     feature: 'Cost per Person',
     values: [
-      { text: '$65-$95', highlight: true },
+      { text: '$85-$105', highlight: true },
       '$150-$400+'
     ]
   },
@@ -490,10 +490,18 @@ export default function PricingBreakdown() {
                             <CardTitle className="text-2xl">{pkg.name}</CardTitle>
                           </div>
                           <div className="space-y-2">
-                            <div className="text-3xl font-bold text-blue-600">
-                              From {formatCurrency(pkg.price * 100)}
+                            <div className="text-base font-semibold text-gray-700 dark:text-gray-300">
+                              {formatCurrency(pkg.baseHourlyRate * 100)}/hour × 4 hours = {formatCurrency(pkg.baseHourlyRate * 4 * 100)}
                             </div>
-                            <Badge variant="outline">{pkg.badge}</Badge>
+                            {pkg.addOnFee > 0 && (
+                              <div className="text-sm text-gray-600">
+                                +{formatCurrency(pkg.addOnFee * 100)} package add-on
+                              </div>
+                            )}
+                            <div className="text-2xl font-bold text-blue-600">
+                              ({formatCurrency(pkg.price * 100)} with tax & tip)
+                            </div>
+                            <Badge variant="outline" className="mt-2">{pkg.badge}</Badge>
                           </div>
                           <CardDescription>{pkg.description}</CardDescription>
                         </CardHeader>

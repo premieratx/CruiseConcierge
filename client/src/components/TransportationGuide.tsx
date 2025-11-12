@@ -126,7 +126,7 @@ export function TransportationGuide({
                   <div>
                     <p className="font-semibold text-gray-900 dark:text-white mb-2">Address:</p>
                     <p className="text-gray-700 dark:text-gray-300">
-                      12532 FM 2769, Austin, TX 78726
+                      13993 FM 2769 Leander, TX 78641
                     </p>
                   </div>
                   
@@ -140,7 +140,7 @@ export function TransportationGuide({
                   <Button
                     variant="outline"
                     className="w-full md:w-auto"
-                    onClick={() => window.open('https://maps.google.com/?q=12532+FM+2769+Austin+TX+78726', '_blank')}
+                    onClick={() => window.open('https://maps.google.com/?q=13993+FM+2769+Leander+TX+78641', '_blank')}
                     data-testid="button-open-maps"
                   >
                     <ExternalLink className="h-4 w-4 mr-2" />

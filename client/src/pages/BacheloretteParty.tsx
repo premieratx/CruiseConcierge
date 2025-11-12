@@ -1537,7 +1537,7 @@ export default function BacheloretteParty() {
                 </CardHeader>
                 <CardContent className="text-center">
                   <p className="text-gray-700 leading-relaxed mb-4">
-                    ATX Disco Cruises run <strong>Saturdays & Sundays</strong> from 12:00 PM - 4:00 PM during peak season (April-September).
+                    ATX Disco Cruises run <strong>Friday 12-4pm, Saturday 11am-3pm, Saturday 3:30-7:30pm</strong> during peak season (April-September).
                   </p>
                   <Badge className="bg-pink-600 text-white">
                     4-Hour Celebration

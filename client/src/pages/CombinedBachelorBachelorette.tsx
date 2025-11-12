@@ -47,11 +47,13 @@ const boatImage3 = '/attached_assets/clever-girl-50-person-boat.jpg';
 const floatImage = '/attached_assets/giant-unicorn-float.jpg';
 
 // Combined party packages - gender-neutral
+// Prices stored in cents to match DISCO_TIME_SLOTS pattern
 const combinedPartyPackages = [
   {
     id: 'basic_combined',
     name: 'Basic Combined Package',
-    price: DISCO_PRICING.basic / 100,
+    price: 8500, // $85.00 per person in cents
+    priceWithTax: 11156, // $111.56 w/tax & gratuity
     originalPrice: null,
     description: 'Join the BEST Party on Lake Travis - Guys & Girls Together!',
     subtitle: 'BYOB & Keep it Affordable - Perfect for Budget-Conscious Groups',
@@ -70,7 +72,8 @@ const combinedPartyPackages = [
   {
     id: 'party_squad',
     name: 'Party Squad Package',
-    price: DISCO_PRICING.disco_queen / 100,
+    price: 9500, // $95.00 per person in cents
+    priceWithTax: 12488, // $124.88 w/tax & gratuity
     originalPrice: 125,
     description: 'Our signature combined party experience - The Ultimate Group Celebration!',
     subtitle: 'Private Cooler & Reserved Area for Your Entire Crew',
@@ -90,7 +93,8 @@ const combinedPartyPackages = [
   {
     id: 'ultimate_celebration',
     name: 'Ultimate Celebration Package',
-    price: DISCO_PRICING.platinum / 100,
+    price: 10500, // $105.00 per person in cents
+    priceWithTax: 13781, // $137.81 w/tax & gratuity
     originalPrice: 140,
     description: 'All-inclusive luxury for the ultimate combined bachelor/bachelorette party',
     subtitle: 'Everything Ready When You Arrive - Just Show Up & Party!',
@@ -373,8 +377,13 @@ export default function CombinedBachelorBachelorette() {
                   <CardHeader className="text-center pb-4">
                     <pkg.icon className="h-16 w-16 mx-auto mb-4 text-purple-600" />
                     <CardTitle className="font-playfair text-2xl mb-2 text-center">{pkg.name}</CardTitle>
-                    <div className="text-3xl font-black text-purple-600 mb-2">
-                      ${pkg.price}
+                    <div className="mb-2">
+                      <div className="text-3xl font-black text-purple-600">
+                        ${pkg.price / 100}/person
+                      </div>
+                      <p className="text-sm text-gray-500 mt-1">
+                        ${(pkg.priceWithTax / 100).toFixed(2)} with tax & gratuity
+                      </p>
                     </div>
                     <CardDescription className="text-center">{pkg.description}</CardDescription>
                   </CardHeader>

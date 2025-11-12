@@ -421,7 +421,7 @@ export default function BachelorParty() {
             },
             { 
               question: "How many people can fit on a bachelor party boat?", 
-              answer: "ATX Disco Cruise hosts 40-80 guests total with multiple bachelor groups. For private bachelor party charters, boats range from 14-person to 75-person capacity depending on your crew size." 
+              answer: "ATX Disco Cruise hosts 40-80 guests total with multiple bachelor and bachelorette groups from all over the country creating an electric party atmosphere. For private bachelor party charters, boats range from 14-person to 75-person capacity depending on your crew size." 
             }
           ])
         ]}
@@ -790,7 +790,7 @@ export default function BachelorParty() {
                       <div className="flex-1">
                         <h4 className="text-xl font-bold text-gray-900 mb-2">Arrive at the Marina (15 min early)</h4>
                         <p className="text-gray-700 leading-relaxed">
-                          Park and walk to the boat. Your crew meets other bachelor groups - instant party energy. Captain checks everyone in.
+                          Park and walk to the boat. Your crew meets bachelor and bachelorette groups from all over the country - instant party energy. Captain checks everyone in.
                         </p>
                       </div>
                     </div>
@@ -814,7 +814,7 @@ export default function BachelorParty() {
                       <div className="flex-1">
                         <h4 className="text-xl font-bold text-gray-900 mb-2">Cruise Lake Travis (30-45 min)</h4>
                         <p className="text-gray-700 leading-relaxed">
-                          DJ starts spinning, drinks flowing, energy building. Photographer captures the crew. Meet bachelor groups from other cities.
+                          DJ starts spinning, drinks flowing, energy building. Photographer captures the crew. Meet bachelor and bachelorette groups from cities across America.
                         </p>
                       </div>
                     </div>
@@ -960,7 +960,7 @@ export default function BachelorParty() {
                     </li>
                     <li className="flex items-start gap-2">
                       <CheckCircle className="h-5 w-5 text-blue-600 mt-1 flex-shrink-0" />
-                      <span><strong>Multi-Group Energy</strong> - Party with bachelor groups from across America for an electric atmosphere</span>
+                      <span><strong>Multi-Group Energy</strong> - Party with bachelor and bachelorette groups from all over the country for an electric atmosphere</span>
                     </li>
                   </ul>
                 </div>

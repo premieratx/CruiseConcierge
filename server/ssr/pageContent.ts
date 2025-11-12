@@ -189,7 +189,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
               'Private cooler with ice for your group',
               'Reserved spot on the boat',
               'Professional DJ and photographer',
-              'Complimentary alcohol & lunch delivery options',
+              'Alcohol delivery available to the boat',
               'Transportation discounts available',
               'Everything included for epic party'
             ]
@@ -301,7 +301,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
               'Private cooler with ice for your group',
               'Reserved spot for your bachelorette crew',
               'Professional DJ and photographer',
-              'Complimentary alcohol & lunch delivery options',
+              'Alcohol delivery available to the boat',
               'Transportation discounts available',
               'Perfect for Friday celebrations!'
             ]
@@ -496,7 +496,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
               'Private cooler with ice for your group',
               'Reserved spot on the boat',
               'Professional DJ and photographer',
-              'Complimentary alcohol & lunch delivery options',
+              'Alcohol delivery available to the boat',
               'Transportation discounts available',
               'Premium boat positioning'
             ]
