@@ -183,6 +183,7 @@ export const partnerApplications = pgTable("partner_applications", {
   email: text("email").notNull(),
   phone: text("phone").notNull(),
   company: text("company").notNull(),
+  venmoHandle: text("venmo_handle"), // Venmo handle for commission payouts (e.g., @premieratx)
   status: varchar("status").notNull().default("pending"), // 'pending', 'approved', 'rejected'
   notes: text("notes"),
   source: text("source"), // tracking where they heard about the program
@@ -642,6 +643,10 @@ export const insertPartnerApplicationSchema = createInsertSchema(partnerApplicat
   email: z.string().email("Valid email is required"),
   phone: z.string().min(10, "Valid phone number is required"),
   company: z.string().min(1, "Company name is required"),
+  venmoHandle: z.string()
+    .regex(/^@[A-Za-z0-9_-]{1,}$/, "Venmo handle must start with @ and contain only letters, numbers, underscores, or hyphens")
+    .optional()
+    .or(z.literal('')),
   source: z.string().optional(),
   notes: z.string().optional(),
 });

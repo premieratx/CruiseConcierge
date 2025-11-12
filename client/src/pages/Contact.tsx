@@ -4,6 +4,7 @@ import SEOHead from '@/components/SEOHead';
 import Breadcrumb from '@/components/Breadcrumb';
 import { SectionReveal } from '@/components/SectionReveal';
 import QuoteBuilderSection from '@/components/QuoteBuilderSection';
+import VideoTestimonials from '@/components/VideoTestimonials';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useInlineEdit } from '@/hooks/useInlineEdit';

@@ -98,6 +98,7 @@ export default function Partners() {
       phone: '',
       email: '',
       company: '',
+      venmoHandle: '',
       source: '',
       notes: ''
     }
@@ -426,6 +427,27 @@ export default function Partners() {
                         )}
                       />
 
+                      <FormField
+                        control={form.control}
+                        name="venmoHandle"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Venmo Handle (Optional)</FormLabel>
+                            <FormControl>
+                              <Input 
+                                {...field} 
+                                placeholder="@premieratx" 
+                                data-testid="input-partner-venmo"
+                              />
+                            </FormControl>
+                            <p className="text-sm text-gray-600 mt-1">
+                              Commission payouts via Venmo when you reach $100 threshold
+                            </p>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+
                       <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
                         <div className="flex items-start gap-3">
                           <CreditCard className="w-5 h-5 text-blue-600 flex-shrink-0 mt-1" />
@@ -457,7 +479,7 @@ export default function Partners() {
               <div className="mt-8 text-center">
                 <p className="text-gray-600">
                   Questions? <Link href="/contact" className="text-blue-600 hover:underline" data-testid="link-contact">Contact us</Link> 
-                  {' '}or call <a href="tel:+15127759696" className="text-blue-600 hover:underline" data-testid="link-phone">(512) 775-9696</a>
+                  {' '}or call <a href="tel:+15124885892" className="text-blue-600 hover:underline" data-testid="link-phone">(512) 488-5892</a>
                 </p>
               </div>
             </div>
