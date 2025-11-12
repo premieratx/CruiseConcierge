@@ -689,34 +689,34 @@ export default function PricingBreakdown() {
             </p>
           </div>
 
-          {/* 1. Bachelorette Package Comparison Table */}
+          {/* 1. Bachelorette Time Slot Comparison Table */}
           <Card>
             <CardHeader>
-              <CardTitle>Bachelorette Package Comparison</CardTitle>
+              <CardTitle>Bachelorette Cruise Time Slots</CardTitle>
               <CardDescription>
-                Compare our three bachelorette party packages side-by-side
+                Compare our three time slot options - all include DJ, photographer, and full amenities
               </CardDescription>
             </CardHeader>
             <CardContent>
               <ComparisonTable2
                 columns={[
                   {
-                    id: 'basic',
-                    title: 'Basic Bach Package',
-                    subtitle: 'Budget-friendly fun',
+                    id: 'sat_afternoon',
+                    title: 'Saturday Afternoon',
+                    subtitle: '3:30pm - 7:30pm',
                     badge: { text: 'Great Value', variant: 'outline' }
                   },
                   {
-                    id: 'disco_queen',
-                    title: 'Disco Queen Package',
-                    subtitle: 'Most Popular Choice',
+                    id: 'friday',
+                    title: 'Friday Afternoon',
+                    subtitle: '12:00pm - 4:00pm',
                     recommended: true,
-                    badge: { text: 'Most Popular', variant: 'default' }
+                    badge: { text: 'Best Time', variant: 'default' }
                   },
                   {
-                    id: 'platinum',
-                    title: 'Platinum Package',
-                    subtitle: 'All-inclusive luxury'
+                    id: 'sat_morning',
+                    title: 'Saturday Morning',
+                    subtitle: '11:00am - 3:00pm'
                   }
                 ]}
                 rows={[
@@ -725,7 +725,7 @@ export default function PricingBreakdown() {
                     values: [
                       '$85',
                       { text: '$95', highlight: true },
-                      '$125'
+                      '$105'
                     ]
                   },
                   {
@@ -741,35 +741,31 @@ export default function PricingBreakdown() {
                     values: [true, true, true]
                   },
                   {
-                    feature: 'Giant Unicorn Float',
+                    feature: 'Giant Lily Pad Floats',
                     values: [true, true, true]
                   },
                   {
-                    feature: 'Cooler Service',
-                    values: ['Shared cooler', 'Private cooler for group', 'Pre-stocked cooler']
+                    feature: 'BYOB with Coolers & Ice',
+                    values: [true, true, true]
                   },
                   {
-                    feature: 'Special Perks',
-                    values: [
-                      'BYOB',
-                      'Disco cups & bubble gun',
-                      'Mimosa bar setup'
-                    ]
+                    feature: 'Party Supplies Included',
+                    values: [true, true, true]
                   },
                   {
-                    feature: 'Food/Drink Delivery',
-                    values: ['Available', 'Complimentary', 'Complimentary + $100 voucher']
+                    feature: 'Optional Add-on Packages',
+                    values: ['Available', 'Available', 'Available']
                   },
                   {
-                    feature: 'Transportation Discount',
-                    values: [false, '25% off', '25% off']
+                    feature: 'Bride Cruises Free',
+                    values: ['With 16+ guests', 'With 16+ guests', 'With 16+ guests']
                   },
                   {
                     feature: 'Best For',
                     values: [
-                      'Budget-conscious groups',
-                      { text: 'Groups of 8-20', highlight: true },
-                      'VIP experience seekers'
+                      'Sunset vibes & budget',
+                      { text: 'Popular party time', highlight: true },
+                      'Early celebration'
                     ]
                   }
                 ]}
@@ -900,110 +896,122 @@ export default function PricingBreakdown() {
             </CardContent>
           </Card>
 
-          {/* 3. Bachelorette Disco Package Cards */}
+          {/* 3. Bachelorette Disco Time Slots */}
           <Card>
             <CardHeader>
-              <CardTitle>Bachelorette Disco Cruise Packages</CardTitle>
+              <CardTitle>Bachelorette Disco Cruise Time Slots</CardTitle>
               <CardDescription>
-                Three package tiers for bachelorette parties with premium features and VIP perks
+                Choose your perfect time slot - all include DJ, photographer, floats, and full amenities
               </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="grid md:grid-cols-3 gap-6">
-                {/* Basic Bach Package */}
+                {/* Saturday Afternoon Slot */}
                 <div className="border-2 rounded-lg p-6 space-y-4">
                   <div className="text-center">
                     <Disc3 className="h-12 w-12 mx-auto text-pink-500 mb-4" />
-                    <h3 className="text-2xl font-bold mb-2">Basic Bach Package</h3>
+                    <h3 className="text-2xl font-bold mb-2">Saturday Afternoon</h3>
                     <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
-                      Budget-friendly fun
+                      3:30pm - 7:30pm
                     </p>
                     <div className="text-3xl font-bold mb-2">$85/person</div>
-                    <div className="text-lg text-green-600 font-semibold">$109 with tax & tip</div>
+                    <div className="text-lg text-green-600 font-semibold">$111.56 with tax & tip</div>
+                    <Badge className="mt-2" variant="outline">Best Value</Badge>
                   </div>
                   <ul className="space-y-2 text-sm">
                     <li className="flex items-start gap-2">
                       <Check className="h-4 w-4 text-green-500 mt-0.5" />
-                      <span>Join the BEST bachelorette party on Lake Travis</span>
+                      <span>Full 4-hour Lake Travis cruise</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <Check className="h-4 w-4 text-green-500 mt-0.5" />
-                      <span>BYOB with shared cooler and ice</span>
+                      <span>Professional DJ & photographer included</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <Check className="h-4 w-4 text-green-500 mt-0.5" />
-                      <span>Professional DJ and photographer included</span>
+                      <span>Giant lily pad floats & party supplies</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <Check className="h-4 w-4 text-green-500 mt-0.5" />
-                      <span>Giant floats and party atmosphere</span>
+                      <span>BYOB with coolers and ice provided</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <Check className="h-4 w-4 text-green-500 mt-0.5" />
+                      <span>Optional add-on packages available</span>
                     </li>
                   </ul>
                 </div>
 
-                {/* Disco Queen Package */}
+                {/* Friday Afternoon Slot */}
                 <div className="border-4 border-pink-400 rounded-lg p-6 space-y-4 relative shadow-xl">
                   <Badge className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-pink-500 text-white">
-                    MOST POPULAR
+                    BEST TIME
                   </Badge>
                   <div className="text-center mt-4">
                     <Crown className="h-12 w-12 mx-auto text-pink-500 mb-4" />
-                    <h3 className="text-2xl font-bold mb-2">Disco Queen Package</h3>
+                    <h3 className="text-2xl font-bold mb-2">Friday Afternoon</h3>
                     <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
-                      Most Popular Choice
+                      12:00pm - 4:00pm
                     </p>
                     <div className="text-3xl font-bold mb-2">$95/person</div>
-                    <div className="text-lg text-green-600 font-semibold">$122 with tax & tip</div>
-                    <div className="text-sm text-gray-400 line-through">was $125</div>
+                    <div className="text-lg text-green-600 font-semibold">$124.88 with tax & tip</div>
                   </div>
                   <ul className="space-y-2 text-sm">
                     <li className="flex items-start gap-2">
                       <Check className="h-4 w-4 text-green-500 mt-0.5" />
-                      <span>Private cooler with ice for your group</span>
+                      <span>Full 4-hour Lake Travis cruise</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <Check className="h-4 w-4 text-green-500 mt-0.5" />
-                      <span>Disco ball cup & bubble gun for bride</span>
+                      <span>Professional DJ & photographer included</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <Check className="h-4 w-4 text-green-500 mt-0.5" />
-                      <span>Complimentary alcohol delivery coordination</span>
+                      <span>Giant lily pad floats & party supplies</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <Check className="h-4 w-4 text-green-500 mt-0.5" />
-                      <span>25% discount on round-trip transportation</span>
+                      <span>BYOB with coolers and ice provided</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <Check className="h-4 w-4 text-green-500 mt-0.5" />
+                      <span>Optional add-on packages available</span>
                     </li>
                   </ul>
                 </div>
 
-                {/* Platinum Package */}
+                {/* Saturday Morning Slot */}
                 <div className="border-2 rounded-lg p-6 space-y-4">
                   <div className="text-center mt-4">
                     <Trophy className="h-12 w-12 mx-auto text-pink-500 mb-4" />
-                    <h3 className="text-2xl font-bold mb-2">Super Sparkle Platinum</h3>
+                    <h3 className="text-2xl font-bold mb-2">Saturday Morning</h3>
                     <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
-                      All-inclusive luxury
+                      11:00am - 3:00pm
                     </p>
-                    <div className="text-3xl font-bold mb-2">$125/person</div>
-                    <div className="text-lg text-green-600 font-semibold">$135 with tax & tip</div>
-                    <div className="text-sm text-gray-400 line-through">was $140</div>
+                    <div className="text-3xl font-bold mb-2">$105/person</div>
+                    <div className="text-lg text-green-600 font-semibold">$137.81 with tax & tip</div>
+                    <Badge className="mt-2" variant="secondary">Prime Time</Badge>
                   </div>
                   <ul className="space-y-2 text-sm">
                     <li className="flex items-start gap-2">
                       <Check className="h-4 w-4 text-green-500 mt-0.5" />
-                      <span>Personal unicorn float for the bride</span>
+                      <span>Full 4-hour Lake Travis cruise</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <Check className="h-4 w-4 text-green-500 mt-0.5" />
-                      <span>Mimosa setup with flutes, juices & chambong</span>
+                      <span>Professional DJ & photographer included</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <Check className="h-4 w-4 text-green-500 mt-0.5" />
-                      <span>Cooler pre-stocked with drinks on arrival</span>
+                      <span>Giant lily pad floats & party supplies</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <Check className="h-4 w-4 text-green-500 mt-0.5" />
-                      <span>Everything from Disco Queen Package</span>
+                      <span>BYOB with coolers and ice provided</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <Check className="h-4 w-4 text-green-500 mt-0.5" />
+                      <span>Optional add-on packages available</span>
                     </li>
                   </ul>
                 </div>
