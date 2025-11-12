@@ -3008,17 +3008,19 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
         return;
       }
       
-      // File is in Object Storage - get signed URL
+      // File is in Object Storage - stream the file directly (fixes production gallery)
       const ObjectStorageServiceClass = await getObjectStorageService();
       if (!ObjectStorageServiceClass) {
         return res.status(500).json({ error: 'Object storage not available' });
       }
       
       const objectStorageService = new ObjectStorageServiceClass();
-      const signedUrl = await objectStorageService.getSignedUrl(mediaItem.filePath);
       
-      // Redirect to signed URL
-      res.redirect(signedUrl);
+      // Get the file object from object storage
+      const file = await objectStorageService.getObjectEntityFile(mediaItem.filePath);
+      
+      // Stream the file directly to response (no redirect - works in production!)
+      await objectStorageService.downloadObject(file, res, 31536000); // Cache for 1 year
     } catch (error) {
       console.error('Error viewing media:', error);
       res.status(500).json({ 

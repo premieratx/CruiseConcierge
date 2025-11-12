@@ -249,8 +249,8 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
         )}
       >
         <div className="mx-auto flex max-w-7xl items-center gap-4 px-6 lg:px-10" style={{ height: '5rem' }}>
-          {/* Logo - Grid Column 1 */}
-          <div>
+          {/* Logo - Left Section (equal flex for proper centering) */}
+          <div className="flex items-center lg:flex-1">
             <a 
               href="/"
               className="flex items-center group"
@@ -398,8 +398,8 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
               </NavigationMenu>
             </div>
 
-          {/* Desktop CTA Buttons - Grid Column 3 */}
-          <div className="ppc-public-nav-cta hidden lg:flex">
+          {/* Desktop CTA Buttons - Right Section (equal flex for proper centering) */}
+          <div className="ppc-public-nav-cta hidden lg:flex lg:flex-1 lg:justify-end gap-2">
               <Button
                 variant="outline"
                 onClick={handleGetQuote}
