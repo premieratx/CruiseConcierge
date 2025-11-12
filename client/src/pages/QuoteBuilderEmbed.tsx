@@ -5,19 +5,33 @@ export default function QuoteBuilderEmbed() {
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
   useEffect(() => {
+    // Set iframe src with source tracking
+    if (iframeRef.current && typeof window !== 'undefined') {
+      const currentUrl = encodeURIComponent(window.location.href);
+      const baseUrl = 'https://booking.premierpartycruises.com/quote-v2';
+      iframeRef.current.src = `${baseUrl}?sourceUrl=${currentUrl}&sourceType=embedded_quote_v2`;
+    }
+
+    // Auto-resize iframe based on content height
     const handleMessage = (event: MessageEvent) => {
-      if (!event.origin.includes('supabase.co')) return;
+      if (event.origin !== 'https://booking.premierpartycruises.com') return;
       
-      if (event.data.type === 'quote-widget-height' && iframeRef.current) {
-        iframeRef.current.style.height = event.data.height + 'px';
+      if (event.data.type === 'quote-v2-resize') {
+        const iframe = document.getElementById('quote-v2-widget-iframe') as HTMLIFrameElement;
+        const container = document.getElementById('quote-v2-widget-container');
+        if (iframe && event.data.height) {
+          const newHeight = Math.max(event.data.height + 50, 800);
+          iframe.style.transition = 'height 0.3s ease-in-out';
+          iframe.style.height = newHeight + 'px';
+          if (container) {
+            (container as HTMLElement).style.minHeight = newHeight + 'px';
+          }
+        }
       }
     };
 
     window.addEventListener('message', handleMessage);
-
-    return () => {
-      window.removeEventListener('message', handleMessage);
-    };
+    return () => window.removeEventListener('message', handleMessage);
   }, []);
 
   return (
@@ -40,21 +54,28 @@ export default function QuoteBuilderEmbed() {
           </div>
         </div>
 
-        {/* Quote Widget Container */}
-        <div id="quote-widget-container" className="flex-1 w-full" style={{ minHeight: '600px' }}>
+        {/* Quote V2 Widget Container */}
+        <div id="quote-v2-widget-container" className="flex-1 w-full" style={{ minHeight: '800px', position: 'relative', margin: '2rem 0' }}>
           <iframe 
             ref={iframeRef}
-            id="quote-widget-iframe"
-            src="https://tgambsdjfwgoohkqopns.supabase.co/functions/v1/get-quote-widget" 
+            id="quote-v2-widget-iframe"
+            src=""
             style={{ 
               width: '100%', 
-              height: '600px', 
+              height: '800px', 
               border: 'none', 
-              display: 'block' 
+              display: 'block',
+              borderRadius: '8px',
+              boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+              position: 'relative',
+              zIndex: 1
             }}
-            title="Get Your Quote"
+            title="Get Your Quote - Premier Party Cruises"
             allow="payment"
             data-testid="iframe-quote-builder"
+            onLoad={(e) => {
+              (e.target as HTMLIFrameElement).style.height = '800px';
+            }}
           />
         </div>
       </div>

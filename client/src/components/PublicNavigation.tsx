@@ -304,10 +304,10 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
 
   return (
     <>
-      {/* Sticky Header - Production-Safe with Namespaced CSS + Inline Styles */}
+      {/* Sticky Header - CSS GRID Layout (WordPress-proof) */}
       <header 
         className={cn(
-          "ppc-public-nav transition-all duration-300 overflow-visible",
+          "ppc-public-nav transition-all duration-300",
           isScrolled 
             ? "bg-white/95 dark:bg-gray-950/95 backdrop-blur-lg shadow-lg border-b border-gray-200 dark:border-gray-800" 
             : "bg-white/90 dark:bg-gray-950/90 backdrop-blur-sm"
@@ -317,64 +317,83 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
           top: 0,
           left: 0,
           right: 0,
-          zIndex: 9999
+          zIndex: 9999,
+          width: '100vw'
         }}
       >
-        <div className="ppc-public-nav-container overflow-visible">
-          <div className="ppc-public-nav-flex overflow-visible">
-            {/* Logo */}
-            <div className="flex-shrink-0">
-              <a 
-                href="/"
-                className="flex items-center group"
-                data-testid="link-home-logo"
-              >
-                <img 
-                  src={logoPath} 
-                  alt="Premier Party Cruises" 
-                  className="h-12 lg:h-14 w-auto transition-transform duration-300 group-hover:scale-105"
-                />
-              </a>
-            </div>
+        <div 
+          className="w-full px-6 lg:px-8"
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'auto 1fr auto',
+            alignItems: 'center',
+            gap: '1rem',
+            height: '5rem',
+            maxWidth: '1280px',
+            margin: '0 auto'
+          }}
+        >
+          {/* Logo - Grid Column 1 */}
+          <div>
+            <a 
+              href="/"
+              className="flex items-center group"
+              data-testid="link-home-logo"
+            >
+              <img 
+                src={logoPath} 
+                alt="Premier Party Cruises" 
+                className="h-12 lg:h-14 w-auto transition-transform duration-300 group-hover:scale-105"
+              />
+            </a>
+          </div>
 
-            {/* Mobile CTA Buttons + Hamburger Menu */}
-            <div className="lg:hidden flex items-center gap-1.5 ml-auto">
-              {/* Mobile Get Quote Button */}
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={handleGetQuote}
-                className="border-2 border-brand-blue text-brand-blue hover:bg-brand-blue hover:text-white font-bold px-2 py-1.5 text-xs whitespace-nowrap h-9"
-                data-testid="button-mobile-header-get-quote"
-              >
-                <MessageSquare className="h-3.5 w-3.5 mr-1" />
-                QUOTE
-              </Button>
-              
-              {/* Mobile Book Now Button */}
-              <Button
-                size="sm"
-                onClick={handleBookNow}
-                className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold px-2 py-1.5 text-xs whitespace-nowrap h-9 shadow-md"
-                data-testid="button-mobile-header-book-now"
-              >
-                <Calendar className="h-3.5 w-3.5 mr-1" />
-                BOOK
-              </Button>
+          {/* Mobile Header Controls - Grid Column 2 (on mobile) */}
+          <div className="flex lg:hidden items-center justify-end gap-2">
+            {/* Mobile Get Quote Button */}
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={handleGetQuote}
+              className="border-2 border-brand-blue text-brand-blue hover:bg-brand-blue hover:text-white font-bold px-2 py-1.5 text-xs whitespace-nowrap h-9"
+              data-testid="button-mobile-header-get-quote"
+            >
+              <MessageSquare className="h-3.5 w-3.5 mr-1" />
+              QUOTE
+            </Button>
+            
+            {/* Mobile Book Now Button */}
+            <Button
+              size="sm"
+              onClick={handleBookNow}
+              className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold px-2 py-1.5 text-xs whitespace-nowrap h-9 shadow-md"
+              data-testid="button-mobile-header-book-now"
+            >
+              <Calendar className="h-3.5 w-3.5 mr-1" />
+              BOOK
+            </Button>
 
-              {/* Hamburger Menu Button */}
-              <button
-                onClick={() => setMobileMenuOpen(true)}
-                className="p-2 text-gray-700 dark:text-gray-300 hover:text-brand-blue transition-colors"
-                data-testid="button-mobile-menu-toggle"
-                aria-label="Open menu"
-              >
-                <Menu className="h-6 w-6" />
-              </button>
-            </div>
+            {/* Hamburger Menu Button */}
+            <button
+              onClick={() => setMobileMenuOpen(true)}
+              className="p-2 text-gray-700 dark:text-gray-300 hover:text-brand-blue transition-colors"
+              data-testid="button-mobile-menu-toggle"
+              aria-label="Open menu"
+            >
+              <Menu className="h-6 w-6" />
+            </button>
+          </div>
 
-            {/* Desktop Navigation - Centered with Production-Safe Class */}
-            <div className="ppc-public-nav-center hidden lg:flex overflow-visible">
+          {/* Desktop Navigation - Grid Column 2 (centered on desktop) */}
+          <div 
+            className="ppc-public-nav-center hidden lg:flex overflow-visible"
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              width: '100%'
+            }}
+          >
               <NavigationMenu className="overflow-visible">
                 <NavigationMenuList className="flex items-center space-x-0 overflow-visible">
                 {navigationItems.map((item) => (
@@ -471,8 +490,8 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
               </NavigationMenu>
             </div>
 
-            {/* Desktop CTA Buttons - Production-Safe Class */}
-            <div className="ppc-public-nav-cta hidden lg:flex">
+          {/* Desktop CTA Buttons - Grid Column 3 */}
+          <div className="ppc-public-nav-cta hidden lg:flex">
               <Button
                 variant="outline"
                 onClick={handleGetQuote}
@@ -491,9 +510,7 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
                 <Calendar className="mr-1.5 h-4 w-4" />
                 <span data-editable data-editable-id="header-book-now-button">BOOK NOW</span>
                 <ArrowRight className="ml-1.5 h-4 w-4" />
-              </Button>
-            </div>
-
+            </Button>
           </div>
         </div>
       </header>
