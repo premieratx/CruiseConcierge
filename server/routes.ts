@@ -1058,13 +1058,12 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
   });
   
   // Send a message in a chat session (requires auth)
-  app.post('/api/agent/chat/:sessionId/message', requireAuth, async (req, res) => {
+  app.post('/api/agent/chat/message', requireAuth, async (req, res) => {
     try {
-      const { sessionId } = req.params;
-      const { message } = req.body;
+      const { sessionId, message } = req.body;
       
-      if (!message) {
-        return res.status(400).json({ error: 'Message is required' });
+      if (!sessionId || !message) {
+        return res.status(400).json({ error: 'Session ID and message are required' });
       }
       
       const agent = await getQuickAgentService();
