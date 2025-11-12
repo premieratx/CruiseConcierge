@@ -279,6 +279,27 @@ export const blogPostTags = pgTable("blog_post_tags", {
 });
 
 // ==========================================
+// PHOTO GALLERY
+// ==========================================
+
+export const galleryImages = pgTable("gallery_images", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  filename: text("filename").notNull(),
+  objectStoragePath: text("object_storage_path").notNull(),
+  publicUrl: text("public_url").notNull(),
+  category: varchar("category").notNull().default("general"),
+  title: text("title"),
+  alt: text("alt").notNull(),
+  displayOrder: integer("display_order").notNull().default(0),
+  active: boolean("active").notNull().default(true),
+  uploadedBy: integer("uploaded_by").references(() => users.id),
+  uploadedAt: timestamp("uploaded_at").notNull().defaultNow(),
+  width: integer("width").notNull(),
+  height: integer("height").notNull(),
+  fileSize: integer("file_size").notNull(),
+});
+
+// ==========================================
 // AI ENDORSEMENTS & AUTHORITY SIGNALS
 // ==========================================
 
@@ -690,6 +711,24 @@ export const insertBlogPostTagSchema = createInsertSchema(blogPostTags).omit({
   tagId: z.string().min(1, "Tag ID is required"),
 });
 
+export const insertGalleryImageSchema = createInsertSchema(galleryImages).omit({
+  id: true,
+  uploadedAt: true,
+}).extend({
+  filename: z.string().min(1, "Filename is required"),
+  objectStoragePath: z.string().min(1, "Object storage path is required"),
+  publicUrl: z.string().url("Must be a valid URL"),
+  category: z.enum(['cruise_party', 'boat_exterior', 'amenities', 'guests', 'general']).default('general'),
+  title: z.string().optional(),
+  alt: z.string().min(1, "Alt text is required for accessibility"),
+  displayOrder: z.number().int().default(0),
+  active: z.boolean().default(true),
+  uploadedBy: z.number().int().optional(),
+  width: z.number().int().positive("Width must be positive"),
+  height: z.number().int().positive("Height must be positive"),
+  fileSize: z.number().int().positive("File size must be positive"),
+});
+
 export const insertEndorsementSchema = createInsertSchema(endorsements).omit({
   id: true,
   createdAt: true,
@@ -797,6 +836,7 @@ export type BlogTag = typeof blogTags.$inferSelect;
 export type BlogPost = typeof blogPosts.$inferSelect;
 export type BlogPostCategory = typeof blogPostCategories.$inferSelect;
 export type BlogPostTag = typeof blogPostTags.$inferSelect;
+export type GalleryImage = typeof galleryImages.$inferSelect;
 export type Endorsement = typeof endorsements.$inferSelect;
 export type SeoPage = typeof seoPages.$inferSelect;
 export type MediaItem = typeof mediaItems.$inferSelect;
@@ -822,6 +862,7 @@ export type InsertBlogTag = z.infer<typeof insertBlogTagSchema>;
 export type InsertBlogPost = z.infer<typeof insertBlogPostSchema>;
 export type InsertBlogPostCategory = z.infer<typeof insertBlogPostCategorySchema>;
 export type InsertBlogPostTag = z.infer<typeof insertBlogPostTagSchema>;
+export type InsertGalleryImage = z.infer<typeof insertGalleryImageSchema>;
 export type InsertEndorsement = z.infer<typeof insertEndorsementSchema>;
 export type InsertSeoPage = z.infer<typeof insertSeoPageSchema>;
 export type InsertMediaItem = z.infer<typeof insertMediaItemSchema>;

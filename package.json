@@ -96,6 +96,7 @@
     "react-syntax-highlighter": "^15.6.6",
     "recharts": "^2.15.2",
     "sanitize-html": "^2.17.0",
+    "sharp": "^0.34.5",
     "slugify": "^1.6.6",
     "stripe": "^18.5.0",
     "tailwind-merge": "^2.6.0",

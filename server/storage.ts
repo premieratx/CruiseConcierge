@@ -1,4 +1,4 @@
-import { type Contact, type InsertContact, type Project, type InsertProject, type Boat, type InsertBoat, type Product, type InsertProduct, type User, type InsertUser, type Invite, type InsertInvite, type Quote, type InsertQuote, type Invoice, type Payment, type ChatMessage, type InsertChatMessage, type AdminChatSession, type InsertAdminChatSession, type AdminChatMessage, type InsertAdminChatMessage, type AvailabilitySlot, type InsertAvailabilitySlot, type SystemBlockout, type InsertSystemBlockout, type QuoteTemplate, type InsertQuoteTemplate, type TemplateRule, type InsertTemplateRule, type DiscountRule, type InsertDiscountRule, type PricingSettings, type InsertPricingSettings, type PricingPreview, type PricingAdjustment, type InsertPricingAdjustment, type Affiliate, type InsertAffiliate, type PaymentSchedule, type DiscountCondition, type DayOfWeekMultipliers, type SeasonalAdjustment, type Booking, type InsertBooking, type DiscoSlot, type InsertDiscoSlot, type Timeframe, type InsertTimeframe, type EmailTemplate, type InsertEmailTemplate, type MasterTemplate, type InsertMasterTemplate, type QuoteItem, type RadioSection, type TemplateVisual, type RuleCondition, type RuleAction, type TemplateComponent, type AdminCalendarSlot, type AdminBookingInfo, type BatchSlotOperation, type AdminCalendarFilters, type ComprehensiveAdminBooking, type RecurringPattern, type PartialLead, type InsertPartialLead, type PartialLeadFilters, type SmsAuthToken, type InsertSmsAuthToken, type CustomerSession, type InsertCustomerSession, type PortalActivityLog, type InsertPortalActivityLog, type PhoneRateLimit, type CustomerVerificationAttempts, type QuoteAnalytics, type InsertQuoteAnalytics, type FileSend, type InsertFileSend, type EmailTracking, type InsertEmailTracking, type CustomerLifecycle, type InsertCustomerLifecycle, type CustomerActivity, type InsertCustomerActivity, type CustomerProfile, type LifecycleStage, type ActivityType, type SlotHold, type InsertSlotHold, type NormalizedSlot, type BlogPost, type InsertBlogPost, type BlogAuthor, type InsertBlogAuthor, type BlogCategory, type InsertBlogCategory, type BlogTag, type InsertBlogTag, type BlogPostCategory, type InsertBlogPostCategory, type BlogPostTag, type InsertBlogPostTag, type BlogComment, type InsertBlogComment, type BlogAnalytics, type InsertBlogAnalytics, type SeoPage, type InsertSeoPage, type SeoAuditLog, type InsertSeoAuditLog, type SeoCompetitor, type InsertSeoCompetitor, type SeoSettings, type InsertSeoSettings, type SEOAnalysisResult, type SEOOptimizationRequest, type SEOBulkOperation, type SEOIssue, type HeadingStructure, type WebhookNotification, type InsertWebhookNotification, type Media, type InsertMedia, type MediaItem, type InsertMediaItem, type ContentBlock, type InsertContentBlock, type PromptsLibrary, type InsertPromptsLibrary, type SelectAgentChatSession, type InsertAgentChatSession, type SelectAgentChatMessage, type InsertAgentChatMessage, type MasterAvailabilityRule, type InsertMasterAvailabilityRule, type HolidayException, type InsertHolidayException, type SpecialPricingRule, type InsertSpecialPricingRule, type BlackoutDate, type InsertBlackoutDate, boats, products, users, invites, adminChatSessions, adminChatMessages, pricingSettings, affiliates, blogPosts, blogAuthors, blogCategories, blogTags, blogPostCategories, blogPostTags, seoPages, mediaItems, contentBlocks, promptsLibrary } from "@shared/schema";
+import { type Contact, type InsertContact, type Project, type InsertProject, type Boat, type InsertBoat, type Product, type InsertProduct, type User, type InsertUser, type Invite, type InsertInvite, type Quote, type InsertQuote, type Invoice, type Payment, type ChatMessage, type InsertChatMessage, type AdminChatSession, type InsertAdminChatSession, type AdminChatMessage, type InsertAdminChatMessage, type AvailabilitySlot, type InsertAvailabilitySlot, type SystemBlockout, type InsertSystemBlockout, type QuoteTemplate, type InsertQuoteTemplate, type TemplateRule, type InsertTemplateRule, type DiscountRule, type InsertDiscountRule, type PricingSettings, type InsertPricingSettings, type PricingPreview, type PricingAdjustment, type InsertPricingAdjustment, type Affiliate, type InsertAffiliate, type PaymentSchedule, type DiscountCondition, type DayOfWeekMultipliers, type SeasonalAdjustment, type Booking, type InsertBooking, type DiscoSlot, type InsertDiscoSlot, type Timeframe, type InsertTimeframe, type EmailTemplate, type InsertEmailTemplate, type MasterTemplate, type InsertMasterTemplate, type QuoteItem, type RadioSection, type TemplateVisual, type RuleCondition, type RuleAction, type TemplateComponent, type AdminCalendarSlot, type AdminBookingInfo, type BatchSlotOperation, type AdminCalendarFilters, type ComprehensiveAdminBooking, type RecurringPattern, type PartialLead, type InsertPartialLead, type PartialLeadFilters, type SmsAuthToken, type InsertSmsAuthToken, type CustomerSession, type InsertCustomerSession, type PortalActivityLog, type InsertPortalActivityLog, type PhoneRateLimit, type CustomerVerificationAttempts, type QuoteAnalytics, type InsertQuoteAnalytics, type FileSend, type InsertFileSend, type EmailTracking, type InsertEmailTracking, type CustomerLifecycle, type InsertCustomerLifecycle, type CustomerActivity, type InsertCustomerActivity, type CustomerProfile, type LifecycleStage, type ActivityType, type SlotHold, type InsertSlotHold, type NormalizedSlot, type BlogPost, type InsertBlogPost, type BlogAuthor, type InsertBlogAuthor, type BlogCategory, type InsertBlogCategory, type BlogTag, type InsertBlogTag, type BlogPostCategory, type InsertBlogPostCategory, type BlogPostTag, type InsertBlogPostTag, type BlogComment, type InsertBlogComment, type BlogAnalytics, type InsertBlogAnalytics, type GalleryImage, type InsertGalleryImage, type SeoPage, type InsertSeoPage, type SeoAuditLog, type InsertSeoAuditLog, type SeoCompetitor, type InsertSeoCompetitor, type SeoSettings, type InsertSeoSettings, type SEOAnalysisResult, type SEOOptimizationRequest, type SEOBulkOperation, type SEOIssue, type HeadingStructure, type WebhookNotification, type InsertWebhookNotification, type Media, type InsertMedia, type MediaItem, type InsertMediaItem, type ContentBlock, type InsertContentBlock, type PromptsLibrary, type InsertPromptsLibrary, type SelectAgentChatSession, type InsertAgentChatSession, type SelectAgentChatMessage, type InsertAgentChatMessage, type MasterAvailabilityRule, type InsertMasterAvailabilityRule, type HolidayException, type InsertHolidayException, type SpecialPricingRule, type InsertSpecialPricingRule, type BlackoutDate, type InsertBlackoutDate, boats, products, users, invites, adminChatSessions, adminChatMessages, pricingSettings, affiliates, blogPosts, blogAuthors, blogCategories, blogTags, blogPostCategories, blogPostTags, galleryImages, seoPages, mediaItems, contentBlocks, promptsLibrary } from "@shared/schema";
 import { db } from "./db";
 import { eq, and, gte, lte, desc, asc, isNull, isNotNull, or, inArray, sql, count, sum, between } from "drizzle-orm";
 import { randomUUID } from "crypto";
@@ -628,6 +628,18 @@ export interface IStorage {
   mapWordPressAuthor(wpAuthorData: { id: number; name: string; email?: string; bio?: string }): Promise<BlogAuthor>;
 
   // ===== END BLOG SYSTEM OPERATIONS =====
+  
+  // ===== PHOTO GALLERY OPERATIONS =====
+  
+  // Gallery Images Management
+  getGalleryImages(category?: string, activeOnly?: boolean): Promise<GalleryImage[]>;
+  getGalleryImage(id: string): Promise<GalleryImage | undefined>;
+  createGalleryImage(data: InsertGalleryImage): Promise<GalleryImage>;
+  updateGalleryImage(id: string, updates: Partial<GalleryImage>): Promise<GalleryImage>;
+  deleteGalleryImage(id: string): Promise<boolean>;
+  reorderGalleryImages(imageIds: string[]): Promise<GalleryImage[]>;
+  
+  // ===== END PHOTO GALLERY OPERATIONS =====
   
   // ===== SEO MANAGEMENT OPERATIONS =====
   
@@ -4727,6 +4739,78 @@ export class DatabaseStorage implements IStorage {
     return await db.select().from(blogCategories)
       .where(eq(blogCategories.active, true))
       .orderBy(asc(blogCategories.displayOrder), asc(blogCategories.name));
+  }
+
+  // ===== PHOTO GALLERY OPERATIONS =====
+
+  async getGalleryImages(category?: string, activeOnly: boolean = true): Promise<GalleryImage[]> {
+    let query = db.select().from(galleryImages);
+    
+    const conditions = [];
+    if (category) {
+      conditions.push(eq(galleryImages.category, category));
+    }
+    if (activeOnly) {
+      conditions.push(eq(galleryImages.active, true));
+    }
+    
+    if (conditions.length > 0) {
+      query = query.where(and(...conditions));
+    }
+    
+    return await query.orderBy(asc(galleryImages.displayOrder), desc(galleryImages.uploadedAt));
+  }
+
+  async getGalleryImage(id: string): Promise<GalleryImage | undefined> {
+    const result = await db.select().from(galleryImages).where(eq(galleryImages.id, id)).limit(1);
+    return result[0];
+  }
+
+  async createGalleryImage(data: InsertGalleryImage): Promise<GalleryImage> {
+    const result = await db.insert(galleryImages).values({
+      ...data,
+      id: randomUUID(),
+      uploadedAt: new Date(),
+    }).returning();
+    return result[0];
+  }
+
+  async updateGalleryImage(id: string, updates: Partial<GalleryImage>): Promise<GalleryImage> {
+    const result = await db.update(galleryImages)
+      .set(updates)
+      .where(eq(galleryImages.id, id))
+      .returning();
+    
+    if (result.length === 0) {
+      throw new Error(`Gallery image not found: ${id}`);
+    }
+    return result[0];
+  }
+
+  async deleteGalleryImage(id: string): Promise<boolean> {
+    // Soft delete by setting active = false
+    const result = await db.update(galleryImages)
+      .set({ active: false })
+      .where(eq(galleryImages.id, id));
+    return result.rowCount > 0;
+  }
+
+  async reorderGalleryImages(imageIds: string[]): Promise<GalleryImage[]> {
+    const results: GalleryImage[] = [];
+    
+    // Update display order based on array position
+    for (let i = 0; i < imageIds.length; i++) {
+      const result = await db.update(galleryImages)
+        .set({ displayOrder: i })
+        .where(eq(galleryImages.id, imageIds[i]))
+        .returning();
+      
+      if (result.length > 0) {
+        results.push(result[0]);
+      }
+    }
+    
+    return results;
   }
 
   // ===== SEO MANAGEMENT OPERATIONS =====

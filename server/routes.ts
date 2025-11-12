@@ -3309,6 +3309,298 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
   });
 
   // ==========================================
+  // PHOTO GALLERY API ROUTES
+  // ==========================================
+
+  // POST /api/admin/gallery/upload - Multi-file upload with automatic compression
+  app.post('/api/admin/gallery/upload', requireAdmin, upload.array('images', 50), async (req, res) => {
+    try {
+      // FIX #5: Add Zod validation for request body
+      const uploadGallerySchema = z.object({
+        category: z.enum(['cruise_party', 'boat_exterior', 'amenities', 'guests', 'general']),
+        title: z.string().optional(),
+        alt: z.string().optional(),
+      });
+
+      // Validate request body
+      const validationResult = uploadGallerySchema.safeParse(req.body);
+      if (!validationResult.success) {
+        return res.status(400).json({ 
+          error: 'Invalid request body',
+          details: validationResult.error.errors 
+        });
+      }
+
+      const { category, alt, title } = validationResult.data;
+
+      const storage = await getStorage();
+      const files = req.files as Express.Multer.File[];
+      
+      if (!files || files.length === 0) {
+        return res.status(400).json({ error: 'No files uploaded' });
+      }
+
+      const uploadedImages = [];
+      const errors: Array<{ filename: string; error: string }> = [];
+
+      // Lazy load sharp
+      const sharp = (await import('sharp')).default;
+      const objectStorageService = await getObjectStorageService();
+
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        console.log(`Processing image ${i + 1}/${files.length}: ${file.originalname}`);
+
+        try {
+          // FIX #2: Validate MIME type
+          const allowedMimeTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'image/heic'];
+          if (!allowedMimeTypes.includes(file.mimetype)) {
+            throw new Error(`Invalid file type: ${file.mimetype}. Allowed types: ${allowedMimeTypes.join(', ')}`);
+          }
+
+          // FIX #1: Check source file size (10MB max)
+          const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
+          if (file.size > MAX_FILE_SIZE) {
+            throw new Error(`File too large. Maximum size is 10MB (file size: ${Math.round(file.size / 1024 / 1024)}MB)`);
+          }
+
+          // SECURITY: Validate actual file content using Sharp metadata
+          // This prevents MIME spoofing attacks by verifying the file is actually an image
+          let metadata;
+          try {
+            metadata = await sharp(file.buffer).metadata();
+            
+            // Verify it's actually an image format we support
+            const validFormats = ['jpeg', 'jpg', 'png', 'webp', 'heif', 'heic'];
+            if (!metadata.format || !validFormats.includes(metadata.format)) {
+              throw new Error(`Invalid image format detected: ${metadata.format || 'unknown'}`);
+            }
+          } catch (metadataError: any) {
+            throw new Error(`File is not a valid image: ${metadataError.message}`);
+          }
+
+          // Get original image dimensions from validated metadata
+          const originalWidth = metadata.width || 1920;
+          const originalHeight = metadata.height || 1080;
+
+          // FIX #3: First resize the image to max 1920px width, THEN compress
+          let resized = await sharp(file.buffer)
+            .resize(1920, null, { fit: 'inside', withoutEnlargement: true })
+            .toBuffer();
+
+          // Start compression with quality 90
+          let quality = 90;
+          let buffer = await sharp(resized)
+            .webp({ quality })
+            .toBuffer();
+
+          // FIX #3: Iteratively reduce quality on the RESIZED buffer (not original)
+          while (buffer.length > 800000 && quality > 60) {
+            quality -= 5;
+            buffer = await sharp(resized)
+              .webp({ quality })
+              .toBuffer();
+          }
+
+          // FIX #4: Final size check - reject if still > 800KB
+          if (buffer.length > 800000) {
+            throw new Error(`Image could not be compressed to under 800KB (final size: ${Math.round(buffer.length / 1024)}KB)`);
+          }
+
+          // Get final image dimensions
+          const finalMetadata = await sharp(buffer).metadata();
+          const finalWidth = finalMetadata.width || originalWidth;
+          const finalHeight = finalMetadata.height || originalHeight;
+          const finalFileSize = buffer.length;
+
+          console.log(`✓ Compressed ${file.originalname}: ${(file.size / 1024).toFixed(2)}KB → ${(finalFileSize / 1024).toFixed(2)}KB (quality: ${quality})`);
+
+          // Generate unique filename
+          const ext = '.webp';
+          const basename = file.originalname.replace(/\.[^/.]+$/, '');
+          const sanitizedName = basename.replace(/[^a-z0-9]/gi, '-').toLowerCase();
+          const timestamp = Date.now();
+          const filename = `${sanitizedName}-${timestamp}${ext}`;
+          
+          // Upload to object storage: /public/gallery/{category}/{filename}
+          const objectPath = `public/gallery/${category}/${filename}`;
+          
+          await objectStorageService.uploadFile(objectPath, buffer, {
+            contentType: 'image/webp',
+            metadata: {
+              originalFilename: file.originalname,
+              compressedQuality: quality.toString(),
+            }
+          });
+
+          // FIX #6: Fix PUBLIC_OBJECT_SEARCH_PATHS handling with proper fallback
+          let publicUrl: string;
+          try {
+            const publicSearchPaths = process.env.PUBLIC_OBJECT_SEARCH_PATHS 
+              ? JSON.parse(process.env.PUBLIC_OBJECT_SEARCH_PATHS) 
+              : [];
+            
+            if (!Array.isArray(publicSearchPaths) || publicSearchPaths.length === 0) {
+              throw new Error('PUBLIC_OBJECT_SEARCH_PATHS is not configured');
+            }
+            
+            const bucketPath = publicSearchPaths[0];
+            if (!bucketPath || typeof bucketPath !== 'string') {
+              throw new Error('Invalid PUBLIC_OBJECT_SEARCH_PATHS configuration');
+            }
+            
+            publicUrl = `${bucketPath}/${objectPath}`;
+          } catch (envError) {
+            console.warn('PUBLIC_OBJECT_SEARCH_PATHS error, using fallback:', envError);
+            // Fallback to relative path if env var is missing/invalid
+            publicUrl = `/storage/${objectPath}`;
+          }
+
+          // Save metadata to database
+          const galleryImage = await storage.createGalleryImage({
+            filename: file.originalname,
+            objectStoragePath: objectPath,
+            publicUrl,
+            category,
+            title: title || file.originalname,
+            alt: alt || `${category} image`,
+            displayOrder: 0,
+            active: true,
+            uploadedBy: req.user?.id,
+            width: finalWidth,
+            height: finalHeight,
+            fileSize: finalFileSize,
+          });
+
+          uploadedImages.push(galleryImage);
+        } catch (error: any) {
+          console.error(`Error processing ${file.originalname}:`, error);
+          errors.push({
+            filename: file.originalname,
+            error: error.message || 'Unknown error'
+          });
+          // Continue with next file instead of failing entire upload
+        }
+      }
+
+      console.log(`✓ Successfully uploaded ${uploadedImages.length}/${files.length} images`);
+      
+      // Return success with both uploaded images and errors
+      res.json({ 
+        success: true,
+        images: uploadedImages,
+        count: uploadedImages.length,
+        errors: errors.length > 0 ? errors : undefined
+      });
+    } catch (error: any) {
+      console.error('Error uploading gallery images:', error);
+      res.status(500).json({ error: error.message || 'Failed to upload images' });
+    }
+  });
+
+  // GET /api/gallery/images - Public endpoint for active gallery images
+  app.get('/api/gallery/images', async (req, res) => {
+    try {
+      const storage = await getStorage();
+      const { category } = req.query;
+      
+      const images = await storage.getGalleryImages(
+        category as string | undefined,
+        true // activeOnly = true
+      );
+      
+      res.json(images);
+    } catch (error: any) {
+      console.error('Error fetching gallery images:', error);
+      res.status(500).json({ error: error.message || 'Failed to fetch gallery images' });
+    }
+  });
+
+  // GET /api/admin/gallery/images - Admin endpoint for all images (including inactive)
+  app.get('/api/admin/gallery/images', requireAdmin, async (req, res) => {
+    try {
+      const storage = await getStorage();
+      const { category, activeOnly } = req.query;
+      
+      const images = await storage.getGalleryImages(
+        category as string | undefined,
+        activeOnly === 'true' ? true : false
+      );
+      
+      res.json(images);
+    } catch (error: any) {
+      console.error('Error fetching admin gallery images:', error);
+      res.status(500).json({ error: error.message || 'Failed to fetch gallery images' });
+    }
+  });
+
+  // PATCH /api/admin/gallery/:id - Update image metadata
+  app.patch('/api/admin/gallery/:id', requireAdmin, async (req, res) => {
+    try {
+      const storage = await getStorage();
+      const { id } = req.params;
+      const updates = req.body;
+
+      // Only allow updating specific fields
+      const allowedUpdates = {
+        title: updates.title,
+        alt: updates.alt,
+        category: updates.category,
+        displayOrder: updates.displayOrder,
+        active: updates.active,
+      };
+
+      // Remove undefined values
+      Object.keys(allowedUpdates).forEach(key => 
+        allowedUpdates[key as keyof typeof allowedUpdates] === undefined && delete allowedUpdates[key as keyof typeof allowedUpdates]
+      );
+
+      const updatedImage = await storage.updateGalleryImage(id, allowedUpdates);
+      res.json(updatedImage);
+    } catch (error: any) {
+      console.error('Error updating gallery image:', error);
+      res.status(500).json({ error: error.message || 'Failed to update gallery image' });
+    }
+  });
+
+  // DELETE /api/admin/gallery/:id - Soft delete image
+  app.delete('/api/admin/gallery/:id', requireAdmin, async (req, res) => {
+    try {
+      const storage = await getStorage();
+      const { id } = req.params;
+
+      const success = await storage.deleteGalleryImage(id);
+      
+      if (!success) {
+        return res.status(404).json({ error: 'Gallery image not found' });
+      }
+
+      res.json({ success: true, message: 'Image deleted successfully' });
+    } catch (error: any) {
+      console.error('Error deleting gallery image:', error);
+      res.status(500).json({ error: error.message || 'Failed to delete gallery image' });
+    }
+  });
+
+  // POST /api/admin/gallery/reorder - Update display order
+  app.post('/api/admin/gallery/reorder', requireAdmin, async (req, res) => {
+    try {
+      const storage = await getStorage();
+      const { imageIds } = req.body;
+
+      if (!Array.isArray(imageIds)) {
+        return res.status(400).json({ error: 'imageIds must be an array' });
+      }
+
+      const updatedImages = await storage.reorderGalleryImages(imageIds);
+      res.json({ success: true, images: updatedImages });
+    } catch (error: any) {
+      console.error('Error reordering gallery images:', error);
+      res.status(500).json({ error: error.message || 'Failed to reorder gallery images' });
+    }
+  });
+
+  // ==========================================
   // PROMPTS LIBRARY API ROUTES
   // ==========================================
 

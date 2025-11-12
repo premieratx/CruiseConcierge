@@ -87,6 +87,23 @@ export class MediaLibraryService {
       throw new Error(`File validation failed: ${validation.error}`);
     }
 
+    // SECURITY: For image files, validate actual file content using Sharp metadata
+    // This prevents MIME spoofing attacks by verifying the file is actually an image
+    if (file.mimetype.startsWith('image')) {
+      try {
+        const sharp = (await import('sharp')).default;
+        const metadata = await sharp(file.buffer).metadata();
+        
+        // Verify it's actually an image format we support
+        const validFormats = ['jpeg', 'jpg', 'png', 'webp', 'heif', 'heic', 'gif'];
+        if (!metadata.format || !validFormats.includes(metadata.format)) {
+          throw new Error(`Invalid image format detected: ${metadata.format || 'unknown'}`);
+        }
+      } catch (metadataError: any) {
+        throw new Error(`File is not a valid image: ${metadataError.message}`);
+      }
+    }
+
     try {
       // Get upload URL from object storage
       const uploadURL = await this.objectStorageService.getObjectEntityUploadURL();

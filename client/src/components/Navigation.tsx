@@ -58,6 +58,12 @@ const mainNavItems = [
     description: 'AI-powered photo studio and media management',
   },
   {
+    title: 'Photo Gallery',
+    href: '/admin/gallery',
+    icon: Image,
+    description: 'Upload and manage photo gallery with automatic compression',
+  },
+  {
     title: 'AI Assistant',
     href: '/admin/ai-assistant',
     icon: Code,

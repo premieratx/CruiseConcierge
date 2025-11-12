@@ -79,6 +79,9 @@ const InventoryManagement = lazy(() => import("./pages/admin/InventoryManagement
 // Admin Media Library - Lazy loaded
 const MediaLibrary = lazy(() => import("./pages/admin/MediaLibrary"));
 
+// Admin Gallery Manager - Lazy loaded
+const GalleryManager = lazy(() => import("./pages/admin/GalleryManager"));
+
 // Admin FAQ Review - Lazy loaded
 const FAQReview = lazy(() => import("./pages/admin/FAQReview"));
 
@@ -581,6 +584,11 @@ function Router() {
       <Route path="/admin/media">
         <ProtectedRoute>
           <MediaLibrary />
+        </ProtectedRoute>
+      </Route>
+      <Route path="/admin/gallery">
+        <ProtectedRoute>
+          <GalleryManager />
         </ProtectedRoute>
       </Route>
       <Route path="/admin/faq-review">
