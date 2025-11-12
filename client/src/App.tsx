@@ -128,6 +128,7 @@ const PricingBreakdown = lazy(() => import("./pages/PricingBreakdown"));
 
 // Blog Content Pages - Lazy loaded
 const LakeTravisBoatRentalGuide = lazy(() => import("./pages/LakeTravisBoatRentalGuide"));
+const FirstTimeLakeTravisGuide = lazy(() => import("./pages/FirstTimeLakeTravisGuide"));
 const UltimateAustinBacheloretteWeekend = lazy(() => import("./pages/UltimateAustinBacheloretteWeekend"));
 const Top10AustinBacheloretteIdeas = lazy(() => import("./pages/Top10AustinBacheloretteIdeas"));
 const ThreeDayAustinBacheloretteItinerary = lazy(() => import("./pages/ThreeDayAustinBacheloretteItinerary"));
@@ -304,7 +305,7 @@ function Router() {
       </Route>
       
       {/* Replace old static blog with new React version */}
-      <Route path="/blogs/first-time-lake-travis-boat-rental-essential-tips-for-austin-party-planning" component={LakeTravisBoatRentalGuide} />
+      <Route path="/blogs/first-time-lake-travis-boat-rental-essential-tips-for-austin-party-planning" component={FirstTimeLakeTravisGuide} />
       
       {/* Public Booking - Commented out, using /chat instead */}
       {/* <Route path="/calendar" component={PublicCalendar} /> */}
