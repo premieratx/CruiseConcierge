@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Check, X, DollarSign, TrendingDown, Sparkles, Users, Music, Camera, PartyPopper, AlertCircle } from 'lucide-react';
 import { formatCurrency } from '@shared/formatters';
-import { PRIVATE_CRUISE_PRICING, DISCO_PRICING, PRICING_DEFAULTS } from '@shared/constants';
+import { PRIVATE_CRUISE_PRICING, DISCO_TIME_SLOTS, PRICING_DEFAULTS } from '@shared/constants';
 
 interface PricingCalculation {
   subtotal: number;
@@ -17,11 +17,7 @@ interface PricingCalculation {
 
 interface GroupSizeComparison {
   groupSize: number;
-  disco: {
-    basic: PricingCalculation;
-    disco_queen: PricingCalculation;
-    platinum: PricingCalculation;
-  };
+  disco: PricingCalculation;
   privateCruise: {
     friday: PricingCalculation;
     saturday: PricingCalculation;
@@ -102,10 +98,9 @@ function calculateGroupComparison(groupSize: number): GroupSizeComparison {
   const boatTier = getBoatTier(groupSize);
   const djFitsOn14pBoat = boatTier > 14; // DJ can't fit on 14-person boat
   
-  // Disco cruise pricing (all packages)
-  const discoBasic = calculateDiscoPricing(DISCO_PRICING.basic, groupSize);
-  const discoQueen = calculateDiscoPricing(DISCO_PRICING.disco_queen, groupSize);
-  const discoPlatinum = calculateDiscoPricing(DISCO_PRICING.platinum, groupSize);
+  // Disco cruise pricing - use Saturday 11am-3pm ($105) as the default comparison
+  const saturdayMorningSlot = DISCO_TIME_SLOTS[1]; // Saturday 11am-3pm - most popular
+  const disco = calculateDiscoPricing(saturdayMorningSlot.basePrice, groupSize);
   
   // Private cruise pricing (Friday & Saturday) - using correct PRIVATE_CRUISE_PRICING
   const privateFriday = calculatePrivateCruisePricing(boatTier, 'FRIDAY', groupSize);
@@ -117,11 +112,7 @@ function calculateGroupComparison(groupSize: number): GroupSizeComparison {
   
   return {
     groupSize,
-    disco: {
-      basic: discoBasic,
-      disco_queen: discoQueen,
-      platinum: discoPlatinum
-    },
+    disco,
     privateCruise: {
       friday: privateFriday,
       saturday: privateSaturday
@@ -133,12 +124,12 @@ function calculateGroupComparison(groupSize: number): GroupSizeComparison {
     },
     savings: {
       friday: {
-        vsPrivate: privateFriday.total - discoQueen.total,
-        vsPrivatePlusDjPhoto: privatePlusFriday.total - discoQueen.total
+        vsPrivate: privateFriday.total - disco.total,
+        vsPrivatePlusDjPhoto: privatePlusFriday.total - disco.total
       },
       saturday: {
-        vsPrivate: privateSaturday.total - discoQueen.total,
-        vsPrivatePlusDjPhoto: privatePlusSaturday.total - discoQueen.total
+        vsPrivate: privateSaturday.total - disco.total,
+        vsPrivatePlusDjPhoto: privatePlusSaturday.total - disco.total
       }
     }
   };
@@ -205,28 +196,28 @@ export default function DiscoVsPrivateValueCalculator() {
               <Sparkles className="w-5 h-5 text-yellow-500" />
               ATX Disco Cruise
             </CardTitle>
-            <CardDescription>Disco Queen Package (Most Popular)</CardDescription>
+            <CardDescription>Saturday 11am-3pm ($105/person)</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="space-y-2">
               <div className="flex justify-between text-sm">
-                <span>${(DISCO_PRICING.disco_queen / 100).toFixed(2)}/person × {selectedSize}</span>
-                <span>{formatCurrency(comparison.disco.disco_queen.subtotal)}</span>
+                <span>$105.00/person × {selectedSize}</span>
+                <span>{formatCurrency(comparison.disco.subtotal)}</span>
               </div>
               <div className="flex justify-between text-sm text-muted-foreground">
                 <span>Tax (8.25%)</span>
-                <span>{formatCurrency(comparison.disco.disco_queen.tax)}</span>
+                <span>{formatCurrency(comparison.disco.tax)}</span>
               </div>
               <div className="flex justify-between text-sm text-muted-foreground">
                 <span>Gratuity (20%)</span>
-                <span>{formatCurrency(comparison.disco.disco_queen.gratuity)}</span>
+                <span>{formatCurrency(comparison.disco.gratuity)}</span>
               </div>
               <div className="border-t pt-2 flex justify-between font-bold text-lg">
                 <span>TOTAL</span>
-                <span>{formatCurrency(comparison.disco.disco_queen.total)}</span>
+                <span>{formatCurrency(comparison.disco.total)}</span>
               </div>
               <div className="text-center text-xl font-bold text-green-600">
-                {formatCurrency(comparison.disco.disco_queen.perPerson)}/person
+                {formatCurrency(comparison.disco.perPerson)}/person
               </div>
             </div>
 
@@ -243,15 +234,15 @@ export default function DiscoVsPrivateValueCalculator() {
                 </li>
                 <li className="flex items-start gap-2">
                   <Check className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
-                  <span>Private cooler with ice</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <Check className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
-                  <span>Mimosa supplies ready</span>
+                  <span>Private cooler with 30lbs ice</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <Check className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
                   <span>Giant lily pad floats</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
+                  <span>Giant unicorn float</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <Check className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
@@ -439,7 +430,7 @@ export default function DiscoVsPrivateValueCalculator() {
       <Card data-testid="quick-reference">
         <CardHeader>
           <CardTitle>Quick Reference: All Group Sizes ({selectedDay === 'friday' ? 'Friday' : 'Saturday'})</CardTitle>
-          <CardDescription>Disco Queen Package vs. Private Cruise Savings</CardDescription>
+          <CardDescription>ATX Disco Cruise vs. Private Cruise Savings</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="overflow-x-auto">
@@ -460,7 +451,7 @@ export default function DiscoVsPrivateValueCalculator() {
                   return (
                     <tr key={size} className={`border-b ${size === selectedSize ? 'bg-primary/10' : ''}`}>
                       <td className="py-2 px-2 font-semibold">{size} people</td>
-                      <td className="text-right py-2 px-2">{formatCurrency(comp.disco.disco_queen.total)}</td>
+                      <td className="text-right py-2 px-2">{formatCurrency(comp.disco.total)}</td>
                       <td className="text-right py-2 px-2">{formatCurrency(comp.privateCruise[selectedDay].total)}</td>
                       <td className="text-right py-2 px-2 text-green-600 font-bold">
                         {formatCurrency(savings)}

@@ -7,39 +7,15 @@
       "name": "What is the ATX Disco Cruise for bachelorette parties?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "The ATX Disco Cruise is Austin's specialty bachelorette party cruise on Lake Travis, designed specifically for celebrating brides-to-be. Enjoy a full 4-hour experience with a professional DJ, professional photographer capturing all your amazing moments, giant lily pad floats, and an incredible party atmosphere with other bachelorette groups. Our packages range from $85 to $105 per person, with options that include special bride perks and VIP treatment."
+        "text": "The ATX Disco Cruise is Austin's specialty bachelorette party cruise on Lake Travis, designed specifically for celebrating brides-to-be. Enjoy a full 4-hour experience with a professional DJ, professional photographer capturing all your amazing moments, giant lily pad floats, and an incredible party atmosphere with other bachelorette groups. Three time slots available: Friday 12-4pm at $95/person, Saturday 11am-3pm at $105/person, and Saturday 3:30-7:30pm at $85/person."
       }
     },
     {
       "@type": "Question",
-      "name": "How much are bachelorette party packages?",
+      "name": "How much are bachelorette party cruise tickets?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "We offer three bachelorette party packages: Basic Bach at $85 per person includes all essentials; Disco Queen at $95 per person is our most popular package with the bride cruising FREE with 16+ paying guests; and Super Sparkle Platinum at $105 per person includes VIP treatment, personal unicorn float for the bride, mimosa setup, and the bride cruises FREE with 16+ paying guests. All packages include professional DJ, photographer, and digital photos."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Does the bride cruise free?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "YES! The bride cruises absolutely FREE on both our Disco Queen and Super Sparkle Platinum packages when you have 16 or more paying guests. This is one of the best bachelorette party values in Austin—the bride celebrates without spending a dime while everyone enjoys an unforgettable Lake Travis experience."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What's in the Disco Queen package?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "The Disco Queen package includes everything in Basic Bach PLUS private cooler with ice for your group, reserved spot on the boat, disco ball cup and bubble gun for the bride, complimentary alcohol and lunch delivery coordination, 25% discount on transportation services, $50-$100 Airbnb voucher for your group, and the BRIDE CRUISES FREE with 16 or more paying guests. It's our most popular package for bachelorette parties!"
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What's in the Super Sparkle Platinum package?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "The Super Sparkle Platinum package includes everything in Disco Queen PLUS a personal unicorn float exclusively for the bride, complete mimosa setup with champagne flutes, juices, and chambong for fun photos, $100 Airbnb concierge voucher, towel service for your group, SPF-50 sunscreen provided, cooler pre-stocked and ready on arrival, VIP treatment throughout your cruise, and the BRIDE CRUISES FREE with 16 or more paying guests. It's the ultimate bachelorette experience on Lake Travis!"
+        "text": "We offer three time slots for bachelorette parties: Friday 12-4pm at $95 per person ($124.88 with tax and gratuity), Saturday 11am-3pm at $105 per person ($137.81 with tax and gratuity - most popular time slot), and Saturday 3:30-7:30pm at $85 per person ($111.56 with tax and gratuity). All time slots include professional DJ, photographer, digital photos, and all amenities."
       }
     },
     {

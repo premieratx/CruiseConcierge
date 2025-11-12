@@ -7,7 +7,7 @@
       "name": "What types of party boat rentals do you offer?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "We offer two main types of party boat experiences: Private Charters (exclusive boat rental for your group of 14-75 guests, starting at $200/hour with 4-hour minimum) and the ATX Disco Cruise (join other groups on our signature party cruise with DJ, photographer, and all amenities included, $85-$105 per person). Perfect for bachelor parties, bachelorette parties, corporate events, birthdays, weddings, and any special celebration."
+        "text": "We offer two main types of party boat experiences: Private Charters (exclusive boat rental for your group of 14-75 guests, starting at $200/hour with 4-hour minimum) and the ATX Disco Cruise (join other groups on our signature party cruise with DJ, photographer, and all amenities included, three time slots available from $85-$105 per person). Perfect for bachelor parties, bachelorette parties, corporate events, birthdays, weddings, and any special celebration."
       }
     },
     {
@@ -15,7 +15,7 @@
       "name": "How much does it cost to rent a party boat on Lake Travis?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Private charters start at $200 per hour with a 4-hour minimum. We have three boats available: Day Tripper (14 people), Meeseeks and The Irony (18-25 people), and Clever Girl (30-50 people with 14 disco balls). ATX Disco Cruise packages range from $85-$105 per person and include professional DJ, photographer, floats, and all amenities."
+        "text": "Private charters start at $200 per hour with a 4-hour minimum. We have three boats available: Day Tripper (14 people), Meeseeks and The Irony (18-25 people), and Clever Girl (30-50 people with 14 disco balls). ATX Disco Cruise has three time slots: Friday 12-4pm at $95/person, Saturday 11am-3pm at $105/person, and Saturday 3:30-7:30pm at $85/person (prices include DJ, photographer, floats, and all amenities)."
       }
     },
     {
@@ -24,14 +24,6 @@
       "acceptedAnswer": {
         "@type": "Answer",
         "text": "Yes! All cruises are fully BYOB friendly (21+ with valid ID required). You can bring your own beer, wine, seltzers, and non-alcoholic beverages in cans or plastic containers - no glass allowed for safety. We provide large coolers with ice. You can also bring snacks and meals, or we can coordinate alcohol delivery directly to the boat for your convenience."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Does the bride or groom cruise free?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes! The bride or groom cruises FREE on our Disco Queen/King and Super Sparkle Platinum packages when you have 16+ paying guests. This is our special thank you for choosing Premier Party Cruises for your bachelor or bachelorette party celebration."
       }
     },
     {

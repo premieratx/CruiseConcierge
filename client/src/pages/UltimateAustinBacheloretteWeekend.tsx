@@ -273,13 +273,17 @@ export default function UltimateAustinBacheloretteWeekend() {
                 <div className="space-y-6">
                   <div className="bg-white dark:bg-gray-950 p-6 rounded-xl border-2 border-pink-200">
                     <div className="flex items-center justify-between mb-4">
-                      <h4 className="text-xl font-bold text-gray-900 dark:text-white">Basic Bach Package</h4>
-                      <Badge className="bg-pink-600 text-white">$111/person</Badge>
+                      <h4 className="text-xl font-bold text-gray-900 dark:text-white">Saturday Evening (3:30-7:30pm)</h4>
+                      <Badge className="bg-pink-600 text-white">Best Value - $111.56/person</Badge>
                     </div>
                     <p className="text-gray-600 dark:text-gray-400 mb-4">
-                      Perfect for your <strong>austin bachelorette party boat</strong> adventure! This package includes everything you need for an unforgettable <strong>bachelorette party lake travis</strong> experience.
+                      The best value time slot for your <strong>austin bachelorette party boat</strong> adventure! Everything you need for an unforgettable <strong>bachelorette party lake travis</strong> experience.
                     </p>
                     <ul className="space-y-2 text-gray-700 dark:text-gray-300">
+                      <li className="flex items-start gap-2">
+                        <CheckCircle2 className="h-5 w-5 text-pink-600 flex-shrink-0 mt-0.5" />
+                        <span>$85/person base price ($111.56 with tax & gratuity)</span>
+                      </li>
                       <li className="flex items-start gap-2">
                         <CheckCircle2 className="h-5 w-5 text-pink-600 flex-shrink-0 mt-0.5" />
                         <span>4-hour party cruise with other bachelorette groups</span>
@@ -301,24 +305,24 @@ export default function UltimateAustinBacheloretteWeekend() {
 
                   <div className="bg-gradient-to-br from-purple-100 to-pink-100 dark:bg-gray-950 p-6 rounded-xl border-2 border-purple-300">
                     <div className="flex items-center justify-between mb-4">
-                      <h4 className="text-xl font-bold text-gray-900 dark:text-white">Disco Queen Package</h4>
-                      <Badge className="bg-purple-600 text-white">Most Popular - $124/person</Badge>
+                      <h4 className="text-xl font-bold text-gray-900 dark:text-white">Friday or Saturday Daytime</h4>
+                      <Badge className="bg-purple-600 text-white">Most Popular - $124.88/person</Badge>
                     </div>
                     <p className="text-gray-600 dark:text-gray-400 mb-4">
-                      The most popular choice for your <strong>bachelorette boat rental austin</strong>! Premium perks and VIP treatment perfect for your <strong>austin bachelorette</strong> celebration.
+                      The most popular time slots for your <strong>bachelorette boat rental austin</strong>! Perfect daytime vibes for your <strong>austin bachelorette</strong> celebration.
                     </p>
                     <ul className="space-y-2 text-gray-700 dark:text-gray-300">
                       <li className="flex items-start gap-2">
                         <CheckCircle2 className="h-5 w-5 text-purple-600 flex-shrink-0 mt-0.5" />
-                        <span>Private cooler with ice for your group</span>
+                        <span>$95/person base price ($124.88 with tax & gratuity)</span>
                       </li>
                       <li className="flex items-start gap-2">
                         <CheckCircle2 className="h-5 w-5 text-purple-600 flex-shrink-0 mt-0.5" />
-                        <span>Reserved seating area for your tribe</span>
+                        <span>All base cruise amenities included</span>
                       </li>
                       <li className="flex items-start gap-2">
                         <CheckCircle2 className="h-5 w-5 text-purple-600 flex-shrink-0 mt-0.5" />
-                        <span>Disco ball cup & bubble gun for bride</span>
+                        <span>Perfect lighting for photos and videos</span>
                       </li>
                       <li className="flex items-start gap-2">
                         <CheckCircle2 className="h-5 w-5 text-purple-600 flex-shrink-0 mt-0.5" />
@@ -326,39 +330,39 @@ export default function UltimateAustinBacheloretteWeekend() {
                       </li>
                       <li className="flex items-start gap-2">
                         <CheckCircle2 className="h-5 w-5 text-purple-600 flex-shrink-0 mt-0.5" />
-                        <span>Everything from Basic Bach Package</span>
+                        <span>Great energy with prime daytime cruising</span>
                       </li>
                     </ul>
                   </div>
 
                   <div className="bg-white dark:bg-gray-950 p-6 rounded-xl border-2 border-yellow-300">
                     <div className="flex items-center justify-between mb-4">
-                      <h4 className="text-xl font-bold text-gray-900 dark:text-white">Super Sparkle Package</h4>
-                      <Badge className="bg-yellow-500 text-black">VIP - $137/person</Badge>
+                      <h4 className="text-xl font-bold text-gray-900 dark:text-white">Saturday 11am-3pm "BEST"</h4>
+                      <Badge className="bg-yellow-500 text-black">VIP - $137.81/person</Badge>
                     </div>
                     <p className="text-gray-600 dark:text-gray-400 mb-4">
-                      The ultimate VIP experience for your <strong>austin bachelorette weekend</strong>! Everything you need for the perfect <strong>bachelorette party in austin</strong>.
+                      The ultimate VIP time slot for your <strong>austin bachelorette weekend</strong>! The premium "BEST" experience for the perfect <strong>bachelorette party in austin</strong>.
                     </p>
                     <ul className="space-y-2 text-gray-700 dark:text-gray-300">
                       <li className="flex items-start gap-2">
                         <CheckCircle2 className="h-5 w-5 text-yellow-600 flex-shrink-0 mt-0.5" />
-                        <span>Personal unicorn float for the bride</span>
+                        <span>$105/person base price ($137.81 with tax & gratuity)</span>
                       </li>
                       <li className="flex items-start gap-2">
                         <CheckCircle2 className="h-5 w-5 text-yellow-600 flex-shrink-0 mt-0.5" />
-                        <span>Mimosa bar setup with supplies</span>
+                        <span>Premium late morning departure time</span>
                       </li>
                       <li className="flex items-start gap-2">
                         <CheckCircle2 className="h-5 w-5 text-yellow-600 flex-shrink-0 mt-0.5" />
-                        <span>SPF-50 spray sunscreen provided</span>
+                        <span>Add Bride Sparkle Package ($100) for VIP perks</span>
                       </li>
                       <li className="flex items-start gap-2">
                         <CheckCircle2 className="h-5 w-5 text-yellow-600 flex-shrink-0 mt-0.5" />
-                        <span>Towel service & premium reserved area</span>
+                        <span>Perfect weather and lighting conditions</span>
                       </li>
                       <li className="flex items-start gap-2">
                         <CheckCircle2 className="h-5 w-5 text-yellow-600 flex-shrink-0 mt-0.5" />
-                        <span>Everything from Disco Queen Package</span>
+                        <span>All cruise amenities and features included</span>
                       </li>
                     </ul>
                   </div>
@@ -389,7 +393,7 @@ export default function UltimateAustinBacheloretteWeekend() {
                 className="w-full rounded-2xl shadow-xl"
               />
               <p className="text-center text-sm text-gray-600 dark:text-gray-400 mt-2">
-                Giant unicorn floats included with the Super Sparkle package—perfect for your <strong>bachelorette party lake travis</strong> photos!
+                Giant unicorn floats available with the Bride Sparkle Package add-on—perfect for your <strong>bachelorette party lake travis</strong> photos!
               </p>
             </div>
           </div>
@@ -694,7 +698,7 @@ export default function UltimateAustinBacheloretteWeekend() {
                   <div className="bg-pink-50 dark:bg-gray-800 p-4 rounded-lg mb-4">
                     <h4 className="font-bold mb-2 text-gray-900 dark:text-white">Recommended Activities:</h4>
                     <ul className="space-y-2 text-gray-700 dark:text-gray-300">
-                      <li>• <Link href="/atx-disco-cruise" className="text-pink-600 hover:underline">ATX Disco Cruise</Link> Basic Bach Package—party with other groups for that electric vibe</li>
+                      <li>• <Link href="/atx-disco-cruise" className="text-pink-600 hover:underline">ATX Disco Cruise</Link> Saturday evening time slot (3:30-7:30pm, $111.56/person)—party with other groups for that electric vibe</li>
                       <li>• Rainey Street bar hopping—easier to move as a small group</li>
                       <li>• Intimate brunch spots or hire a private chef via <a href="https://partyondelivery.com" target="_blank" rel="noopener noreferrer" className="text-pink-600 hover:underline">Party On Delivery</a></li>
                       <li>• Spa day or wine tour additions</li>
@@ -720,7 +724,7 @@ export default function UltimateAustinBacheloretteWeekend() {
                   <div className="bg-purple-50 dark:bg-gray-800 p-4 rounded-lg mb-4">
                     <h4 className="font-bold mb-2 text-gray-900 dark:text-white">Recommended Activities:</h4>
                     <ul className="space-y-2 text-gray-700 dark:text-gray-300">
-                      <li>• <Link href="/atx-disco-cruise" className="text-purple-600 hover:underline">ATX Disco Cruise</Link> Disco Queen Package—reserved seating for your group</li>
+                      <li>• <Link href="/atx-disco-cruise" className="text-purple-600 hover:underline">ATX Disco Cruise</Link> daytime time slots ($124.88/person)—great energy and perfect lighting</li>
                       <li>• Mix of Sixth Street & Rainey Street</li>
                       <li>• Consider a <Link href="/combined-bachelor-bachelorette" className="text-purple-600 hover:underline">private party boat</Link> rental (Day Tripper for 14 people)</li>
                       <li>• Group brunch reservations easy to secure</li>
@@ -746,7 +750,7 @@ export default function UltimateAustinBacheloretteWeekend() {
                   <div className="bg-blue-50 dark:bg-gray-800 p-4 rounded-lg mb-4">
                     <h4 className="font-bold mb-2 text-gray-900 dark:text-white">Recommended Activities:</h4>
                     <ul className="space-y-2 text-gray-700 dark:text-gray-300">
-                      <li>• <Link href="/atx-disco-cruise" className="text-blue-600 hover:underline">ATX Disco Cruise</Link> Super Sparkle Package—VIP treatment for large groups</li>
+                      <li>• <Link href="/atx-disco-cruise" className="text-blue-600 hover:underline">ATX Disco Cruise</Link> Saturday 11am-3pm "BEST" time slot ($137.81/person) + Bride Sparkle Package for VIP treatment</li>
                       <li>• OR rent a <Link href="/combined-bachelor-bachelorette" className="text-blue-600 hover:underline">private party boat</Link> (Clever Girl holds 30-50 people!)</li>
                       <li>• Reserve bottle service at West 6th clubs</li>
                       <li>• Split into smaller groups for some activities, reunite for others</li>
@@ -788,7 +792,7 @@ export default function UltimateAustinBacheloretteWeekend() {
                     For brides who want to go ALL OUT during their <strong>austin bachelorette party</strong>:
                   </p>
                   <ul className="space-y-2 text-gray-700 dark:text-gray-300">
-                    <li>• <Link href="/atx-disco-cruise" className="text-pink-600 hover:underline">ATX Disco Cruise</Link> with the Super Sparkle Package</li>
+                    <li>• <Link href="/atx-disco-cruise" className="text-pink-600 hover:underline">ATX Disco Cruise</Link> Saturday 11am-3pm "BEST" time slot with Bride Sparkle Package add-on</li>
                     <li>• Sixth Street bar crawl with matching outfits</li>
                     <li>• Drag brunch for maximum entertainment</li>
                     <li>• Late-night food truck stops</li>
@@ -940,7 +944,7 @@ export default function UltimateAustinBacheloretteWeekend() {
                     <li>• Matching swimsuits or themed outfits</li>
                     <li>• Waterproof phone case for photos</li>
                     <li>• Sunglasses, hats, and cover-ups</li>
-                    <li>• Fun floaties (or upgrade to Super Sparkle for the unicorn!)</li>
+                    <li>• Fun floaties (or add the Bride Sparkle Package for premium perks!)</li>
                   </ul>
                 </CardContent>
               </Card>

@@ -748,7 +748,7 @@ export default function Products() {
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <Card>
                       <CardHeader>
-                        <CardTitle className="text-sm">Basic Package</CardTitle>
+                        <CardTitle className="text-sm">Saturday 3:30-7:30pm</CardTitle>
                       </CardHeader>
                       <CardContent>
                         <div className="text-2xl font-bold">$85.00</div>
@@ -756,9 +756,12 @@ export default function Products() {
                       </CardContent>
                     </Card>
                     
-                    <Card>
+                    <Card className="border-2 border-purple-500">
                       <CardHeader>
-                        <CardTitle className="text-sm">Disco Queen Package</CardTitle>
+                        <CardTitle className="text-sm flex items-center gap-2">
+                          Friday 12-4pm
+                          <span className="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded">POPULAR</span>
+                        </CardTitle>
                       </CardHeader>
                       <CardContent>
                         <div className="text-2xl font-bold">$95.00</div>
@@ -766,9 +769,12 @@ export default function Products() {
                       </CardContent>
                     </Card>
                     
-                    <Card>
+                    <Card className="border-2 border-blue-500">
                       <CardHeader>
-                        <CardTitle className="text-sm">Platinum Package</CardTitle>
+                        <CardTitle className="text-sm flex items-center gap-2">
+                          Saturday 11am-3pm
+                          <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">BEST</span>
+                        </CardTitle>
                       </CardHeader>
                       <CardContent>
                         <div className="text-2xl font-bold">$105.00</div>
@@ -785,6 +791,7 @@ export default function Products() {
                       <li>• ATX Disco boat (100-person capacity)</li>
                       <li>• Bachelor/Bachelorette parties only</li>
                       <li>• Prices include tax and gratuity</li>
+                      <li>• Time slot pricing based on demand</li>
                     </ul>
                   </div>
                 </div>

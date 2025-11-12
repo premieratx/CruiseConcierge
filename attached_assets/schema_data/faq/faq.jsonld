@@ -7,7 +7,7 @@
       "name": "What types of boat rentals are available on Lake Travis?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "We offer two main experiences: Private Boat Charters for exclusive groups of 14-75 guests starting at $200/hour, and the ATX Disco Cruise, our signature party boat experience with DJ, photographer, and amenities included at $85-105 per person. Perfect for bachelor parties, bachelorette parties, corporate events, and celebrations on Lake Travis."
+        "text": "We offer two main experiences: Private Boat Charters for exclusive groups of 14-75 guests starting at $200/hour, and the ATX Disco Cruise, our signature party boat experience with DJ, photographer, and amenities included. Three time slots available: Friday 12-4pm at $95/person, Saturday 11am-3pm at $105/person, and Saturday 3:30-7:30pm at $85/person. Perfect for bachelor parties, bachelorette parties, corporate events, and celebrations on Lake Travis."
       }
     },
     {
@@ -31,7 +31,7 @@
       "name": "How much does it cost to rent a boat on Lake Travis?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Private boats start at $200/hour (4-hour minimum) for up to 14 guests. Larger boats range $225-300/hour. The ATX Disco Cruise costs $85-105 per person including DJ, photographer, and amenities. Groups of 16+ get the bride/groom FREE on premium packages. Best value in Austin!"
+        "text": "Private boats start at $200/hour (4-hour minimum) for up to 14 guests. Larger boats range $225-300/hour. The ATX Disco Cruise has three time slots: Friday 12-4pm at $95/person, Saturday 11am-3pm at $105/person, and Saturday 3:30-7:30pm at $85/person (all include DJ, photographer, and amenities). Best value in Austin!"
       }
     },
     {
@@ -56,14 +56,6 @@
       "acceptedAnswer": {
         "@type": "Answer",
         "text": "Weekend dates typically fill 6-8 weeks in advance, especially during peak season (April-September). Saturdays book fastest, followed by Fridays and Sundays. We recommend booking immediately once your group confirms dates. Last-minute availability is rare for weekends but sometimes available weekdays."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Does the bride or groom cruise free?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes! The bride or groom cruises FREE on our Disco Queen/King and Super Sparkle Platinum packages when you have 16+ paying guests. This is our special thank you for choosing Premier Party Cruises for your bachelor or bachelorette party celebration."
       }
     },
     {

@@ -9,6 +9,7 @@ import { useLocation } from 'wouter';
 import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from '@/components/ui/tooltip';
 import { calculatePackagePricing, getCapacityTier, getPricingDayType } from '@shared/pricing';
 import { formatCurrency } from '@shared/formatters';
+import { DISCO_TIME_SLOTS } from '@shared/constants';
 
 export interface TimeSlotListProps {
   slots: NormalizedSlot[];
@@ -106,20 +107,27 @@ export const TimeSlotList = ({
   // Enhanced pricing calculation for real-time pricing display
   const getEnhancedPricing = (slot: NormalizedSlot) => {
     if (slot.cruiseType === 'disco') {
-      // Disco pricing logic
+      // Disco pricing logic - match to time slot
       const slotDate = new Date(slot.dateISO);
       const dayOfWeek = slotDate.getDay();
-      const basePrice = dayOfWeek === 6 ? 9500 : 8500; // Saturday premium
+      
+      // Match slot to DISCO_TIME_SLOT by start time and day
+      const matchedTimeSlot = DISCO_TIME_SLOTS.find(ts => {
+        if (dayOfWeek === 5 && slot.startTime === '12:00') return ts.id === 'friday-12-4pm';
+        if (dayOfWeek === 6 && slot.startTime === '11:00') return ts.id === 'saturday-11am-3pm';
+        if (dayOfWeek === 6 && slot.startTime === '15:30') return ts.id === 'saturday-330-730pm';
+        return false;
+      });
+      
+      const basePrice = matchedTimeSlot?.priceWithTax || (dayOfWeek === 6 ? 9500 : 8500);
       
       return {
         displayPrice: slot.totalPrice || slot.price || basePrice,
         dayType: dayOfWeek === 6 ? 'Saturday' : dayOfWeek === 5 ? 'Friday' : dayOfWeek === 0 ? 'Sunday' : 'Weekday',
         packages: [
-          { name: 'Basic', price: basePrice, description: 'Dance floor + cash bar' },
-          { name: 'Disco Queen', price: basePrice + 1000, description: 'Basic + VIP + welcome drink', popular: true },
-          { name: 'Platinum', price: basePrice + 2000, description: 'All inclusive + bottle service' }
+          { name: 'Time Slot', price: basePrice, description: matchedTimeSlot?.label || 'Per person w/tax & tip', popular: true }
         ],
-        perPersonEstimate: Math.floor(basePrice / Math.min(slot.capacity, groupSize || 20))
+        perPersonEstimate: basePrice
       };
     } else {
       // Private cruise pricing calculation

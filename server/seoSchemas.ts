@@ -16,7 +16,7 @@ export const FAQ_SCHEMAS: Record<string, any> = {
         "name": "How much does a party boat rental cost in Austin?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Austin party boat pricing varies by experience type. Private charters start at $275/hour for our 14-person boat with 4-hour minimums. ATX Disco Cruise packages start at $85/person for Basic Bach, $95/person for Disco Queen/King, and $105/person for Platinum packages. Weekend rates are higher than weekday rates. Contact us for exact pricing for your specific date and group size."
+          "text": "Austin party boat pricing varies by experience type. Private charters start at $275/hour for our 14-person boat with 4-hour minimums. ATX Disco Cruise time slots are: Saturday 3:30-7:30pm ($85 per person base, $111.56 with tax & gratuity), Friday 12-4pm ($95 per person base, $124.88 with tax & gratuity), and Saturday 11am-3pm ($105 per person base, $137.81 with tax & gratuity - most popular!). All prices include tax and gratuity. Contact us for exact pricing for your specific date and group size."
         }
       },
       {
@@ -32,7 +32,7 @@ export const FAQ_SCHEMAS: Record<string, any> = {
         "name": "What's included in your party boat services?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Every party boat cruise includes: professional Coast Guard certified captain and crew, premium Bluetooth sound system, large coolers with ice, all required safety equipment, fuel, and access to Lake Travis's most scenic coves and beaches. ATX Disco Cruises also include professional DJ, photographer, party favors, and reserved seating areas. Optional add-ons include lily pads, alcohol delivery, and transportation services."
+          "text": "Every party boat cruise includes: professional Coast Guard certified captain and crew, premium Bluetooth sound system, large coolers with ice, all required safety equipment, fuel, and access to Lake Travis's most scenic coves and beaches. ATX Disco Cruises also include professional DJ, photographer, party favors, private coolers with ice, and giant floats. Time slots are available Friday 12-4pm and Saturdays 11am-3pm or 3:30-7:30pm. Optional add-ons include Mimosa Party Cooler ($100) and Sparkle Packages ($100) with extra floats and party supplies."
         }
       },
       {

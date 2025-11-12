@@ -76,11 +76,11 @@ const allFAQs = {
           },
           {
             question: 'How much do ATX Disco Cruise tickets cost?',
-            answer: 'ATX Disco Cruise tickets are $85 per person for the Basic Package, $95 per person for the Disco Queen Package, and $105 per person for the Platinum Package. All packages include the 4-hour party cruise experience with DJ, dancing, and all onboard amenities.'
+            answer: 'ATX Disco Cruise tickets are priced by time slot: Friday 12-4pm ($95/person), Saturday 11am-3pm ($105/person - BEST), Saturday 3:30-7:30pm ($85/person). All prices include tax & gratuity ($124.88, $137.81, $111.56 respectively). Optional add-on packages available based on party type.'
           },
           {
             question: 'Do you have special pricing for bachelor/bachelorette parties?',
-            answer: 'Yes! Our bachelor/bachelorette packages start at $85 per person for the ATX Disco Cruise experience, or you can book a private charter using our capacity-based pricing shown above. We also offer photography packages and custom decorations for these special celebrations.'
+            answer: 'Yes! ATX Disco Cruise tickets range from $85-$105 per person depending on the time slot you choose (includes tax & gratuity). You can also book a private charter using our capacity-based pricing. We offer optional add-on packages based on party type, plus photography and custom decorations for these special celebrations.'
           },
           {
             question: 'When is the crew fee required?',
@@ -462,11 +462,6 @@ const allFAQs = {
         isNew: true
       },
       {
-        question: 'Does the bride really cruise free?',
-        answer: 'YES! With our Disco Queen and Platinum packages, the bride cruises absolutely FREE! It\'s our way of making sure she has the best bachelorette party ever. Just book 8+ paying guests on either package and she\'s covered!',
-        isNew: true
-      },
-      {
         question: 'Do you offer group discounts?',
         answer: 'Yes! Groups of 10+ people receive special discounted rates. The bigger your bridal squad, the better the deal. Contact us for specific pricing for your group size.',
         isNew: true
@@ -520,7 +515,7 @@ const allFAQs = {
       },
       {
         question: 'What\'s your alcohol policy?',
-        answer: 'BYOB - bring your own beverages! We provide coolers with ice (private coolers for Queen/Platinum packages). We also partner with delivery services who can bring alcohol directly to the boat. Just bring what you want to drink!',
+        answer: 'BYOB - bring your own beverages! We provide coolers with ice (private coolers available with add-on packages). We also partner with delivery services who can bring alcohol directly to the boat. Just bring what you want to drink!',
         isNew: true
       },
       {
@@ -530,12 +525,12 @@ const allFAQs = {
       },
       {
         question: 'What should we bring?',
-        answer: 'Bring: Your drinks (BYOB), sunscreen, sunglasses, swimwear, towel, and your party energy! Platinum package includes most supplies. Basic package - bring cups, ice, and anything else you need.',
+        answer: 'Bring: Your drinks (BYOB), sunscreen, sunglasses, swimwear, towel, and your party energy! Add-on packages can include additional supplies - check your booking confirmation for details on what\'s included.',
         isNew: true
       },
       {
         question: 'When does the ATX Disco Cruise run?',
-        answer: 'Friday: 12:00 PM - 4:00 PM ($85/person) • Saturday: 11:00 AM - 3:00 PM ($95/person) • Saturday: 3:30 PM - 7:30 PM ($95/person). Available year-round, weather permitting.',
+        answer: 'Friday: 12:00 PM - 4:00 PM ($95/person) • Saturday: 11:00 AM - 3:00 PM ($105/person - BEST) • Saturday: 3:30 PM - 7:30 PM ($85/person). All prices include tax & gratuity. Available year-round, weather permitting.',
         isNew: true
       },
       {
@@ -560,7 +555,7 @@ const allFAQs = {
       },
       {
         question: 'Is food included?',
-        answer: 'Food is not included. Please eat before your cruise and bring snacks/light refreshments if needed. We provide coolers with ice for your BYOB beverages. Queen & Platinum packages include alcohol delivery coordination assistance.',
+        answer: 'Food is not included. Please eat before your cruise and bring snacks/light refreshments if needed. We provide coolers with ice for your BYOB beverages. Premium add-on packages include alcohol delivery coordination assistance.',
         isNew: true
       },
       {
@@ -629,7 +624,7 @@ const allFAQs = {
       },
       {
         question: 'How much does a party boat rental cost in Austin?',
-        answer: 'Austin party boat pricing varies by experience type. Private charters start at $275/hour for our 14-person boat with 4-hour minimums. ATX Disco Cruise packages start at $85/person for Basic Bach, $95/person for Disco Queen/King, and $105/person for Platinum packages. Weekend rates are higher than weekday rates. Contact us for exact pricing for your specific date and group size.',
+        answer: 'Austin party boat pricing varies by experience type. Private charters start at $275/hour for our 14-person boat with 4-hour minimums. ATX Disco Cruise tickets range from $85-$105 per person depending on the time slot (Friday 12-4pm: $95, Saturday 11am-3pm: $105, Saturday 3:30-7:30pm: $85), with all prices including tax & gratuity. Weekend rates are higher than weekday rates. Contact us for exact pricing for your specific date and group size.',
         isNew: true
       },
       {
@@ -666,7 +661,7 @@ const allFAQs = {
       },
       {
         question: 'How much does a party boat rental cost in Austin?',
-        answer: 'Party boat rental prices in Austin vary by boat size and day of week. Private charters start at $275/hour for our 14-person boat on weekdays, with 4-hour minimums. Our ATX Disco Cruise party boat packages start at $85 per person and include DJ, photographer, and party favors. Weekend and holiday rates are higher. Contact us for exact pricing for your Austin party boat rental.',
+        answer: 'Party boat rental prices in Austin vary by boat size and day of week. Private charters start at $275/hour for our 14-person boat on weekdays, with 4-hour minimums. Our ATX Disco Cruise tickets range from $85-$105 per person (depending on time slot) and include DJ, photographer, and party favors, with all prices including tax & gratuity. Weekend and holiday rates are higher. Contact us for exact pricing for your Austin party boat rental.',
         isNew: true
       },
       {
@@ -698,7 +693,7 @@ const allFAQs = {
       },
       {
         question: 'How much does a Lake Travis party boat rental cost?',
-        answer: 'Lake Travis party boat rental prices vary by boat size and day. Private Lake Travis charters start at $275/hour for our 14-person boat on weekdays with 4-hour minimums. Our Lake Travis ATX Disco Cruise packages start at $85 per person and include DJ, photographer, and party favors. Weekend and holiday Lake Travis party boat rates are higher. Contact us for exact Lake Travis pricing for your event.',
+        answer: 'Lake Travis party boat rental prices vary by boat size and day. Private Lake Travis charters start at $275/hour for our 14-person boat on weekdays with 4-hour minimums. Our Lake Travis ATX Disco Cruise tickets range from $85-$105 per person (depending on time slot) and include DJ, photographer, and party favors, with all prices including tax & gratuity. Weekend and holiday Lake Travis party boat rates are higher. Contact us for exact Lake Travis pricing for your event.',
         isNew: true
       },
       {
@@ -1005,11 +1000,6 @@ const allFAQs = {
       {
         question: 'What if guys want different things than girls?',
         answer: 'We\'ve got you covered! Our boats have multiple zones - some people can chill on floats, others can dance with the DJ, some can lounge in the shade. BYOB means everyone brings what they like. There\'s something for everyone, and that\'s what makes combined parties so fun!',
-        isNew: true
-      },
-      {
-        question: 'Do the bride and groom really cruise free?',
-        answer: 'YES! With our Party Squad and Ultimate packages, BOTH the bride and groom can cruise FREE when you book 16+ paying guests. It\'s our way of celebrating the happy couple - they get to enjoy the party without the cost!',
         isNew: true
       },
       {

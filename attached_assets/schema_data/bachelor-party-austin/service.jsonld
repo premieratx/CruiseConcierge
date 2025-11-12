@@ -13,37 +13,37 @@
     "Texas",
     "United States"
   ],
-  "description": "Experience the ultimate Lake Travis bachelor party boat cruise in Austin with Premier Party Cruises. Our ATX Disco Cruise offers three exceptional packages designed specifically for bachelor parties: Basic Bach at $85 per person includes professional DJ, photographer, and all essentials; Disco King at $95 per person is our most popular package with premium perks and the groom cruises FREE with 16+ guests; Super Sparkle Platinum at $105 per person includes VIP treatment and the groom cruises FREE with 16+ guests. Every bachelor party cruise features a 4-hour Lake Travis experience with professional DJ spinning all day, professional photographer capturing epic moments, BYOB cooler setup with ice, giant lily pad floats, party supplies, and an electric party atmosphere with other bachelor groups. Perfect for groups of 20-40+ guests. Also available: private boat rentals for complete exclusivity ranging from 14-75 person capacity.",
+  "description": "Experience the ultimate Lake Travis bachelor party boat cruise in Austin with Premier Party Cruises. Our ATX Disco Cruise offers three time slots to fit your schedule: Friday afternoons at $95/person, Saturday mornings at $105/person, and Saturday evenings at $85/person. Every bachelor party cruise features a 4-hour Lake Travis experience with professional DJ spinning all day, professional photographer capturing epic moments, BYOB cooler setup with ice, giant lily pad floats, party supplies, and an electric party atmosphere with other bachelor groups. Perfect for groups of 20-40+ guests. Also available: private boat rentals for complete exclusivity ranging from 14-75 person capacity.",
   "offers": [
     {
       "@type": "Offer",
-      "name": "Basic Bach Package - Bachelor Party",
-      "price": "85.00",
-      "priceCurrency": "USD",
-      "priceValidUntil": "2099-12-31",
-      "availability": "https://schema.org/InStock",
-      "url": "https://premierpartycruises.com/bachelor-party-austin",
-      "description": "Essential bachelor party package includes professional DJ, photographer with digital photos, BYOB cooler space with ice, giant lily pad floats, party supplies, and 4-hour Lake Travis cruise"
-    },
-    {
-      "@type": "Offer",
-      "name": "Disco King Package - Bachelor Party",
+      "name": "Friday 12-4pm Bachelor Cruise",
       "price": "95.00",
       "priceCurrency": "USD",
       "priceValidUntil": "2099-12-31",
       "availability": "https://schema.org/InStock",
       "url": "https://premierpartycruises.com/bachelor-party-austin",
-      "description": "Most popular bachelor package! Includes all Basic Bach amenities PLUS private cooler with ice, reserved boat spot, disco ball cup for groom, alcohol delivery coordination, 25% transportation discount, Airbnb voucher, and GROOM CRUISES FREE with 16+ paying guests"
+      "description": "$95 per person ($124.88 with tax and gratuity). Friday afternoon bachelor party cruise includes professional DJ, photographer with digital photos, BYOB cooler space with ice, giant lily pad floats, party supplies, and 4-hour Lake Travis cruise"
     },
     {
       "@type": "Offer",
-      "name": "Super Sparkle Platinum Package - Bachelor Party",
+      "name": "Saturday 11am-3pm Bachelor Cruise - BEST",
       "price": "105.00",
       "priceCurrency": "USD",
       "priceValidUntil": "2099-12-31",
       "availability": "https://schema.org/InStock",
       "url": "https://premierpartycruises.com/bachelor-party-austin",
-      "description": "Ultimate VIP bachelor experience! Includes all Disco King amenities PLUS personal float for groom, complete drink setup, $100 Airbnb voucher, towel service, SPF-50 sunscreen, pre-stocked cooler, VIP treatment, and GROOM CRUISES FREE with 16+ paying guests"
+      "description": "$105 per person ($137.81 with tax and gratuity). Most popular bachelor party time slot! Includes professional DJ, photographer with digital photos, BYOB cooler space with ice, giant lily pad floats, party supplies, and 4-hour Lake Travis cruise"
+    },
+    {
+      "@type": "Offer",
+      "name": "Saturday 3:30-7:30pm Bachelor Cruise - FUN!",
+      "price": "85.00",
+      "priceCurrency": "USD",
+      "priceValidUntil": "2099-12-31",
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/bachelor-party-austin",
+      "description": "$85 per person ($111.56 with tax and gratuity). Evening bachelor party atmosphere! Includes professional DJ, photographer with digital photos, BYOB cooler space with ice, giant lily pad floats, party supplies, and 4-hour Lake Travis cruise"
     },
     {
       "@type": "Offer",
@@ -95,17 +95,12 @@
     {
       "@type": "PropertyValue",
       "name": "Professional DJ",
-      "value": "Included on all ATX Disco Cruise packages"
+      "value": "Included on all ATX Disco Cruise time slots"
     },
     {
       "@type": "PropertyValue",
       "name": "Professional Photographer",
       "value": "Included with digital photo delivery"
-    },
-    {
-      "@type": "PropertyValue",
-      "name": "Groom Cruises Free",
-      "value": "On Disco King & Platinum packages with 16+ guests"
     },
     {
       "@type": "PropertyValue",

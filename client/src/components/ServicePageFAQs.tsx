@@ -39,7 +39,7 @@ export const bacheloretteFAQs: FAQItem[] = [
   {
     id: 'bachelorette-drinks',
     question: 'What drinks should we bring for our bachelorette party?',
-    answer: 'Popular choices include champagne for mimosas, rosé, seltzers, and vodka mixers. We provide champagne flutes and fruit juices with premium packages. Bring drinks in cans or plastic only (no glass). Pro tip: freeze water bottles to use as ice packs that become cold water later!'
+    answer: 'Popular choices include champagne for mimosas, rosé, seltzers, and vodka mixers. Add the Mimosa Party Cooler ($100) for champagne flutes, fruit juices, and extra ice. Bring drinks in cans or plastic only (no glass). Pro tip: freeze water bottles to use as ice packs that become cold water later!'
   },
   {
     id: 'bachelorette-decorations',
@@ -77,8 +77,8 @@ export const discoCruiseFAQs: FAQItem[] = [
   },
   {
     id: 'disco-packages',
-    question: 'What\'s the difference between Disco Cruise packages?',
-    answer: 'Basic Bach ($85) includes everything essential. Disco Queen/King ($95) adds private cooler, reserved spot, and party props. Platinum ($105) includes pre-stocked cooler, mimosa setup, and VIP perks. All include DJ, photographer, and floats. Most choose Disco Queen/King for best value.'
+    question: 'How does ATX Disco Cruise pricing work?',
+    answer: 'Pricing is based on time slots: Saturday sunset cruise 3:30-7:30pm ($85), Friday 12-4pm ($95), or Saturday 11am-3pm ($105 - most popular!). All time slots include DJ, photographer, giant floats, private cooler with ice, and party supplies. Enhance your experience with optional add-ons like the Mimosa Party Cooler ($100) or Bride/Groom Sparkle Packages ($100-150).'
   },
   {
     id: 'disco-music',

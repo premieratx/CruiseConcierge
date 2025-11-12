@@ -355,7 +355,7 @@ export default function BudgetAustinBachelorette() {
               </p>
               
               <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
-                The <Link href="/atx-disco-cruise" className="text-blue-600 hover:text-blue-700 font-semibold">ATX Disco Cruise</Link> by <Link href="/" className="text-blue-600 hover:text-blue-700 font-semibold">Premier Party Cruises</Link> is a prime example of budget-friendly <strong>bachelorette boat rental austin</strong> excellence! At roughly $85-95 per person, you get a 4-hour DJ party on a boat and you can bring your own beverages for your <strong>austin bachelorette party boat</strong> adventure. Think about it – for the price of a fancy brunch and an Uber ride, you've covered an entire afternoon of epic <strong>bachelorette party lake travis</strong> entertainment! That value is hard to beat for your <strong>austin bachelorette party</strong>.
+                The <Link href="/atx-disco-cruise" className="text-blue-600 hover:text-blue-700 font-semibold">ATX Disco Cruise</Link> by <Link href="/" className="text-blue-600 hover:text-blue-700 font-semibold">Premier Party Cruises</Link> is a prime example of budget-friendly <strong>bachelorette boat rental austin</strong> excellence! The Saturday evening time slot (3:30-7:30pm) at $85 per person ($111.56 with tax & gratuity) is the best value option for your <strong>austin bachelorette party boat</strong> adventure. You get a 4-hour DJ party on a boat and you can bring your own beverages. Think about it – for the price of a fancy brunch and an Uber ride, you've covered an entire afternoon of epic <strong>bachelorette party lake travis</strong> entertainment! That value is hard to beat for your <strong>austin bachelorette party</strong>.
               </p>
 
               <div className="bg-blue-50 dark:bg-gray-800 border-l-4 border-blue-600 p-6 rounded-r-lg my-8">
@@ -366,7 +366,7 @@ export default function BudgetAustinBachelorette() {
                 <ul className="space-y-2 text-gray-700 dark:text-gray-300">
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-5 w-5 text-blue-600 flex-shrink-0 mt-0.5" />
-                    <span>Only $85-95 per person for 4 hours of <strong>bachelorette party lake travis</strong> fun</span>
+                    <span>Saturday evening time slot (3:30-7:30pm): only $85 per person ($111.56 with tax & gratuity) for 4 hours of <strong>bachelorette party lake travis</strong> fun</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-5 w-5 text-blue-600 flex-shrink-0 mt-0.5" />

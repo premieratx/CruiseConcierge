@@ -53,6 +53,7 @@ import { SchemaMarkup, generateEventSchema, generateProductSchema, generateFAQSc
          generateLocalBusinessSchema, generateServiceSchema, generateAggregateRatingSchema, 
          generateBreadcrumbSchema, generateHowToSchema } from '@/components/SEOSchemaMarkup';
 import { YouTubeVideoBackground } from '@/components/YouTubeVideoBackground';
+import { DiscoCruisePricing } from '@/components/DiscoCruisePricing';
 
 // Hero and gallery images
 const heroImage1 = '/attached_assets/bachelor-party-group-guys.webp';
@@ -83,75 +84,8 @@ const staggerChildren = {
   }
 };
 
-// ATX Disco Cruise packages - CORRECTED PRICING
-const atxDiscoPackages = [
-  {
-    id: 'basic_bach',
-    name: 'Basic Bach Package',
-    price: 85,
-    priceWithTaxTip: 111,
-    originalPrice: null,
-    description: 'Join the ultimate multi-group bachelor party on Lake Travis',
-    subtitle: 'Party with other bachelor crews - legendary energy!',
-    features: [
-      '4-hour party cruise with other bachelor groups',
-      'Professional DJ spinning all day',
-      'Professional photographer capturing epic moments',
-      'Access to giant lily pad floats',
-      'BYOB with coolers and ice provided',
-      'Meet and party with other bachelor crews',
-      'Digital photos delivered after cruise'
-    ],
-    popular: false,
-    icon: Disc3,
-    badge: 'Best Value',
-    groomSpecial: false
-  },
-  {
-    id: 'disco_king',
-    name: 'Disco King Package',
-    price: 95,
-    priceWithTaxTip: 124,
-    originalPrice: null,
-    description: 'Our most popular package with VIP perks for your crew',
-    subtitle: 'VIP treatment while partying with other groups',
-    features: [
-      'Private cooler with ice just for your crew',
-      'Reserved seating area for your boys',
-      'Disco ball cup & party gear for groom',
-      'Alcohol delivery coordination available',
-      '25% discount on round-trip transportation',
-      'Priority boarding for your crew',
-      'Everything from Basic Bach Package'
-    ],
-    popular: true,
-    icon: Crown,
-    badge: 'Most Popular',
-    groomSpecial: false
-  },
-  {
-    id: 'super_sparkle',
-    name: 'Super Sparkle Package',
-    price: 105,
-    priceWithTaxTip: 137,
-    originalPrice: null,
-    description: 'VIP treatment with all the extras',
-    subtitle: 'The ultimate ATX Disco experience',
-    features: [
-      'Personal unicorn float for the groom',
-      'Drink bar setup with supplies',
-      'SPF-50 spray sunscreen provided',
-      'Towel service for your crew',
-      'Premium reserved area',
-      'VIP boarding and departure',
-      'Everything from Disco King Package'
-    ],
-    popular: false,
-    icon: Trophy,
-    badge: 'VIP Experience',
-    groomSpecial: false
-  }
-];
+// ATX Disco Cruise packages are now rendered via DiscoCruisePricing component
+// which uses data from @shared/constants
 
 // Private Cruise options for bachelors
 const privateCruiseOptions = [
@@ -439,7 +373,7 @@ export default function BachelorParty() {
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
       <SEOHead
         title="Austin Bachelor Party Boat | Lake Travis"
-        description="Book the ultimate Austin bachelor party cruise on Lake Travis. Professional DJ, photographer, giant floats included. Austin party boat starting at $85/person."
+        description="Book the ultimate Austin bachelor party cruise on Lake Travis. Professional DJ, photographer, giant floats included. ATX Disco Cruise from $85-$105/person with 3 time slots available."
         keywords="Austin bachelor party, Lake Travis bachelor party, party boat Austin, austin party cruise, bachelor party boat Austin, ATX Disco Cruise bachelor, Austin bachelor ideas, Lake Travis party boat, party cruises"
         canonicalUrl="/bachelor-party"
       />
@@ -463,9 +397,9 @@ export default function BachelorParty() {
             serviceType: "Bachelor Party Cruise",
             areaServed: "Austin",
             hasOfferCatalog: [
-              { name: "Basic Bach Package", description: "BYOB party cruise with DJ and photographer", price: 85 },
-              { name: "Disco King Package", description: "Premium package with private cooler, reserved spot", price: 95 },
-              { name: "Super Sparkle Package", description: "All-inclusive luxury with premium extras", price: 105 }
+              { name: "Friday 12-4pm ATX Disco Cruise", description: "4-hour party cruise with DJ, photographer, and floats", price: 95 },
+              { name: "Saturday 11am-3pm ATX Disco Cruise", description: "Premium Saturday afternoon time slot with all inclusions", price: 105 },
+              { name: "Saturday 3:30-7:30pm ATX Disco Cruise", description: "Evening party cruise with DJ and photographer", price: 85 }
             ],
             aggregateRating: {
               ratingValue: "4.9",
@@ -479,11 +413,11 @@ export default function BachelorParty() {
             },
             { 
               question: "How much does a bachelor party cruise cost in Austin?", 
-              answer: "Austin bachelor party cruises start at $85 per person for the Basic Bach Package. The most popular Disco King Package is $95 per person, and the all-inclusive Super Sparkle Package is $105 per person." 
+              answer: "ATX Disco Cruise bachelor parties range from $85-$105 per person depending on the time slot. Friday 12-4pm is $95/person, Saturday 11am-3pm is $105/person, and Saturday 3:30-7:30pm is $85/person. All prices include tax and gratuity." 
             },
             { 
               question: "What's included in an Austin bachelor party boat cruise?", 
-              answer: "Every bachelor party cruise includes: 4-hour Lake Travis cruise, professional DJ entertainment, professional photographer with digital photos, access to giant floats, BYOB with coolers and ice, and the unique multi-group party atmosphere where you celebrate with other bachelor parties." 
+              answer: "Every ATX Disco Cruise bachelor party includes: 4-hour Lake Travis cruise, professional DJ entertainment, professional photographer with digital photos, access to giant lily pad floats, private cooler with ice, disco ball necklace for the groom, party supplies, and the unique multi-group party atmosphere where you celebrate with other bachelor parties." 
             },
             { 
               question: "How many people can fit on a bachelor party boat?", 
@@ -650,7 +584,7 @@ export default function BachelorParty() {
                     </li>
                     <li className="flex items-start gap-3">
                       <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
-                      <span>From $85 per person</span>
+                      <span>$85-$105 per person (3 time slots available)</span>
                     </li>
                     <li className="flex items-start gap-3">
                       <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
@@ -659,7 +593,7 @@ export default function BachelorParty() {
                   </ul>
                   <div className="bg-blue-50 p-4 rounded-lg mb-4">
                     <p className="text-center font-bold">Group of 10 = $850-$1,050 total</p>
-                    <p className="text-center text-sm text-gray-600">Everything included!</p>
+                    <p className="text-center text-sm text-gray-600">Friday/Saturday time slots available!</p>
                   </div>
                   <Button
                     className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold"
@@ -729,10 +663,10 @@ export default function BachelorParty() {
                 ATX Disco Cruise Packages
               </Badge>
               <h2 className="text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-yellow-400 leading-tight">
-                Choose Your Bachelor Party Package
+                Choose Your Bachelor Party Time Slot
               </h2>
               <p className="text-xl text-blue-600 max-w-3xl mx-auto leading-relaxed font-medium">
-                All-inclusive packages from $85/person - cheaper than Vegas, more legendary
+                ATX Disco Cruise: $85-$105/person - cheaper than Vegas, more legendary
               </p>
             </div>
 
@@ -743,59 +677,7 @@ export default function BachelorParty() {
               </TabsList>
 
               <TabsContent value="atx_disco" className="space-y-8">
-                <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
-                  {atxDiscoPackages.map((pkg) => (
-                    <Card 
-                      key={pkg.id}
-                      className={cn(
-                        "relative hover:shadow-2xl transition-all transform hover:scale-105",
-                        pkg.popular ? "border-4 border-blue-500 shadow-xl" : "border-2 border-gray-200"
-                      )}
-                    >
-                      {pkg.popular && (
-                        <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                          <Badge className="bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold px-6 py-2 text-lg">
-                            MOST POPULAR
-                          </Badge>
-                        </div>
-                      )}
-                      <CardHeader className="text-center pb-8">
-                        <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center">
-                          <pkg.icon className="h-8 w-8 text-white" />
-                        </div>
-                        <CardTitle className="text-2xl font-bold">{pkg.name}</CardTitle>
-                        <p className="text-sm text-gray-600 mt-2">{pkg.subtitle}</p>
-                        <div className="mt-6">
-                          <div className="text-5xl font-bold text-blue-600">${pkg.price}</div>
-                          <p className="text-gray-600 mt-1">per person</p>
-                          <p className="text-sm text-gray-500 mt-2">${pkg.priceWithTaxTip} with tax & tip</p>
-                        </div>
-                      </CardHeader>
-                      <CardContent>
-                        <ul className="space-y-3 mb-8">
-                          {pkg.features.map((feature, idx) => (
-                            <li key={idx} className="flex items-start gap-3">
-                              <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
-                              <span className="text-sm text-gray-700">{feature}</span>
-                            </li>
-                          ))}
-                        </ul>
-                        <Button
-                          onClick={() => handleGetQuote(pkg.id)}
-                          className={cn(
-                            "w-full font-bold",
-                            pkg.popular 
-                              ? "bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white"
-                              : "bg-gray-100 hover:bg-gray-200 text-gray-900"
-                          )}
-                        >
-                          Book This Package
-                          <ArrowRight className="ml-2 h-5 w-5" />
-                        </Button>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
+                <DiscoCruisePricing partyType="bachelor" showAddOns={true} className="max-w-6xl mx-auto" />
               </TabsContent>
 
               <TabsContent value="private" className="space-y-8">
@@ -1098,7 +980,7 @@ export default function BachelorParty() {
                     </CardHeader>
                     <CardContent className="pt-4">
                       <p className="text-gray-700 mb-3">Social experience with other bachelor parties. All-inclusive entertainment and legendary multi-group energy.</p>
-                      <p className="font-bold text-blue-600">From $85/person</p>
+                      <p className="font-bold text-blue-600">$85-$105/person</p>
                     </CardContent>
                   </Card>
                   
@@ -1290,9 +1172,9 @@ export default function BachelorParty() {
                     2
                   </div>
                   <div className="flex-1">
-                    <h4 className="text-xl font-bold text-gray-900 mb-2">Select Your Package</h4>
+                    <h4 className="text-xl font-bold text-gray-900 mb-2">Select Your Time Slot</h4>
                     <p className="text-gray-700 leading-relaxed">
-                      Choose between ATX Disco Cruise (Basic, Disco King, or Super Sparkle) or Private Charter. Each has unique benefits for your crew.
+                      Choose between ATX Disco Cruise (3 time slots available) or Private Charter. Each has unique benefits for your crew.
                     </p>
                   </div>
                 </div>
@@ -1421,7 +1303,7 @@ export default function BachelorParty() {
                 </CardHeader>
                 <CardContent className="text-center">
                   <p className="text-gray-700 leading-relaxed">
-                    ATX Disco Cruise from $85/person is always cheaper than booking a private boat for smaller groups.
+                    ATX Disco Cruise ($85-$105/person) is always cheaper than booking a private boat for smaller groups.
                   </p>
                 </CardContent>
               </Card>

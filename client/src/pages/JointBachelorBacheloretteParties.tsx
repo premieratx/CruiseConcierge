@@ -10,6 +10,7 @@ import { LazyImage } from '@/components/LazyImage';
 import { TableOfContents } from '@/components/TableOfContents';
 import { StickyCTA } from '@/components/StickyCTA';
 import QuoteBuilderSection from '@/components/QuoteBuilderSection';
+import { DiscoCruisePricing } from '@/components/DiscoCruisePricing';
 import { 
   Heart, Ship, Users, Calendar, Music, Camera, Sparkles, 
   Sun, Wine, MapPin, Star, PartyPopper, Clock, Gift, 
@@ -255,7 +256,7 @@ export default function JointBachelorBacheloretteParties() {
             
             <div className="prose prose-lg max-w-none dark:prose-invert mb-8">
               <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                The <Link href="/atx-disco-cruise" className="text-purple-600 hover:text-purple-700 font-semibold">ATX Disco Cruise</Link> was practically made for <strong>joint bachelor bachelorette party</strong> celebrations! This public party cruise offers an all-inclusive <strong>bachelor bachelorette boat party</strong> experience with professional DJ, photographer, giant floats, and a high-energy social atmosphere perfect for <strong>co-ed bachelor party</strong> groups. At <strong>$85-$105 per person</strong>, it's one of the most affordable ways to host an epic <strong>combined bachelor bachelorette</strong> celebration on Lake Travis.
+                The <Link href="/atx-disco-cruise" className="text-purple-600 hover:text-purple-700 font-semibold">ATX Disco Cruise</Link> was practically made for <strong>joint bachelor bachelorette party</strong> celebrations! This public party cruise offers an all-inclusive <strong>bachelor bachelorette boat party</strong> experience with professional DJ, photographer, giant floats, and a high-energy social atmosphere perfect for <strong>co-ed bachelor party</strong> groups. With three time slots available at <strong>$85-$105 per person</strong>, it's one of the most affordable ways to host an epic <strong>combined bachelor bachelorette</strong> celebration on Lake Travis.
               </p>
               
               <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
@@ -263,105 +264,7 @@ export default function JointBachelorBacheloretteParties() {
               </p>
             </div>
 
-            <Card className="mb-8 bg-gradient-to-br from-purple-50 to-pink-50 dark:from-gray-800 dark:to-gray-900 border-2 border-purple-300 rounded-xl">
-              <CardHeader>
-                <CardTitle className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-3">
-                  <Gem className="h-8 w-8 text-purple-600" />
-                  ATX Disco Cruise Packages for Joint Celebrations
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-6">
-                  <div className="bg-white dark:bg-gray-950 p-6 rounded-xl border-2 border-purple-200">
-                    <div className="flex items-center justify-between mb-4">
-                      <h4 className="text-xl font-bold text-gray-900 dark:text-white">Basic Bach Package</h4>
-                      <Badge className="bg-purple-600 text-white">$85-$95/person</Badge>
-                    </div>
-                    <p className="text-gray-600 dark:text-gray-400 mb-4">
-                      Perfect starter package for your <strong>joint bachelor bachelorette party</strong>! Everyone pays, everyone parties together during this <strong>bachelor bachelorette boat party</strong> adventure.
-                    </p>
-                    <ul className="space-y-2 text-gray-700 dark:text-gray-300">
-                      <li className="flex items-start gap-2">
-                        <CheckCircle2 className="h-5 w-5 text-purple-600 flex-shrink-0 mt-0.5" />
-                        <span>4-hour party cruise for your <strong>combined bachelor bachelorette</strong></span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <CheckCircle2 className="h-5 w-5 text-purple-600 flex-shrink-0 mt-0.5" />
-                        <span>Professional DJ & photographer included</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <CheckCircle2 className="h-5 w-5 text-purple-600 flex-shrink-0 mt-0.5" />
-                        <span>Giant lily pad floats for swimming fun</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <CheckCircle2 className="h-5 w-5 text-purple-600 flex-shrink-0 mt-0.5" />
-                        <span>BYOB with coolers & ice provided</span>
-                      </li>
-                    </ul>
-                  </div>
-
-                  <div className="bg-gradient-to-br from-pink-100 to-purple-100 dark:bg-gray-950 p-6 rounded-xl border-2 border-pink-300">
-                    <div className="flex items-center justify-between mb-4">
-                      <h4 className="text-xl font-bold text-gray-900 dark:text-white">Disco Queen/King Package</h4>
-                      <Badge className="bg-pink-600 text-white">Most Popular - $100-$105/person</Badge>
-                    </div>
-                    <p className="text-gray-600 dark:text-gray-400 mb-4">
-                      The ultimate package for <strong>co-ed bachelor party</strong> celebrations! Premium perks and VIP treatment making this the best value for your <strong>joint bach party austin</strong>.
-                    </p>
-                    <ul className="space-y-2 text-gray-700 dark:text-gray-300">
-                      <li className="flex items-start gap-2">
-                        <CheckCircle2 className="h-5 w-5 text-pink-600 flex-shrink-0 mt-0.5" />
-                        <span>Private cooler with ice for your group</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <CheckCircle2 className="h-5 w-5 text-pink-600 flex-shrink-0 mt-0.5" />
-                        <span>Reserved seating area for your crew</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <CheckCircle2 className="h-5 w-5 text-pink-600 flex-shrink-0 mt-0.5" />
-                        <span>Disco ball cups & bubble guns for couple</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <CheckCircle2 className="h-5 w-5 text-pink-600 flex-shrink-0 mt-0.5" />
-                        <span>Drink delivery coordination via <a href="https://partyondelivery.com" target="_blank" rel="noopener noreferrer" className="text-pink-700 hover:underline font-semibold">Party On Delivery</a></span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <CheckCircle2 className="h-5 w-5 text-pink-600 flex-shrink-0 mt-0.5" />
-                        <span>Everything from Basic Package included</span>
-                      </li>
-                    </ul>
-                  </div>
-
-                  <div className="bg-white dark:bg-gray-950 p-6 rounded-xl border-2 border-yellow-300">
-                    <div className="flex items-center justify-between mb-4">
-                      <h4 className="text-xl font-bold text-gray-900 dark:text-white">Super Sparkle Package</h4>
-                      <Badge className="bg-yellow-500 text-black">VIP - $110-$120/person</Badge>
-                    </div>
-                    <p className="text-gray-600 dark:text-gray-400 mb-4">
-                      Go all-out for your <strong>lake travis combined celebration</strong>! VIP treatment for both wedding parties with extra perks and amenities for the perfect <strong>combined pre-wedding party</strong>.
-                    </p>
-                    <ul className="space-y-2 text-gray-700 dark:text-gray-300">
-                      <li className="flex items-start gap-2">
-                        <CheckCircle2 className="h-5 w-5 text-yellow-600 flex-shrink-0 mt-0.5" />
-                        <span>Personal unicorn floats for bride & groom</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <CheckCircle2 className="h-5 w-5 text-yellow-600 flex-shrink-0 mt-0.5" />
-                        <span>Mimosa bar setup with supplies</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <CheckCircle2 className="h-5 w-5 text-yellow-600 flex-shrink-0 mt-0.5" />
-                        <span>SPF-50 spray sunscreen for the group</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <CheckCircle2 className="h-5 w-5 text-yellow-600 flex-shrink-0 mt-0.5" />
-                        <span>Everything from Disco Queen/King Package</span>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+            <DiscoCruisePricing partyType="combined" className="mb-8" />
 
             <div className="bg-gradient-to-br from-blue-100 to-purple-100 dark:from-gray-800 dark:to-gray-900 p-6 rounded-2xl border-2 border-blue-300">
               <h4 className="font-bold text-xl mb-4 text-gray-900 dark:text-white">Why ATX Disco Cruise Works for Joint Parties</h4>
@@ -562,7 +465,7 @@ export default function JointBachelorBacheloretteParties() {
                 </CardHeader>
                 <CardContent>
                   <p className="text-gray-700 dark:text-gray-300 mb-4">
-                    For <Link href="/atx-disco-cruise" className="text-purple-600 hover:text-purple-700 font-semibold">ATX Disco Cruise</Link>, each guest pays their own ticket (<strong>$85-$105 per person</strong>). For <Link href="/private-cruises" className="text-purple-600 hover:text-purple-700 font-semibold">private boats</Link>, you can split the total cost (<strong>$1,050-$2,660</strong>) equally among all attendees for your <strong>joint bachelor bachelorette party</strong>.
+                    For <Link href="/atx-disco-cruise" className="text-purple-600 hover:text-purple-700 font-semibold">ATX Disco Cruise</Link>, pricing varies by time slot: Friday 12-4pm ($124.88/person w/tax & gratuity), Saturday 11am-3pm ($137.81/person w/tax & gratuity), or Saturday 3:30-7:30pm ($111.56/person w/tax & gratuity). For <Link href="/private-cruises" className="text-purple-600 hover:text-purple-700 font-semibold">private boats</Link>, you can split the total cost (<strong>$1,050-$2,660</strong>) equally among all attendees for your <strong>joint bachelor bachelorette party</strong>.
                   </p>
                   <p className="text-gray-700 dark:text-gray-300">
                     Don't forget to budget for beverages (BYOB), food/snacks, decorations, and any optional add-ons like professional photography or catering for your <strong>austin co-ed bachelor party</strong> celebration!

@@ -224,9 +224,9 @@ const faqCategories: FAQCategory[] = [
         answer: (
           <>
             Our <Link href="/bachelor-party-austin" className="text-primary hover:underline">bachelor party cruises</Link> include 
-            everything for an epic celebration: professional DJ, photographer, giant floats, and party atmosphere. The groom 
-            cruises FREE with 16+ guests on premium packages. Choose the ATX Disco Cruise for the ultimate party or a private 
-            boat for exclusive celebrations on Lake Travis.
+            everything for an epic celebration: professional DJ, photographer, giant floats, and party atmosphere. Choose the 
+            ATX Disco Cruise for the ultimate party or a private boat for exclusive celebrations on Lake Travis. Multiple time 
+            slots available with optional add-on packages for enhanced experiences.
           </>
         )
       },
@@ -236,9 +236,9 @@ const faqCategories: FAQCategory[] = [
         answer: (
           <>
             Our <Link href="/bachelorette-party-austin" className="text-primary hover:underline">bachelorette party packages</Link> feature 
-            professional DJ and photographer, mimosa supplies, giant unicorn floats, and Instagram-worthy moments. The bride 
-            cruises FREE with 16+ guests on Disco Queen and Platinum packages. Perfect for creating unforgettable memories 
-            with your girls on Lake Travis!
+            professional DJ and photographer, mimosa supplies, giant unicorn floats, and Instagram-worthy moments. Perfect for 
+            creating unforgettable memories with your girls on Lake Travis! Choose from 3 time slots with optional add-on 
+            packages to customize your experience.
           </>
         )
       },
@@ -281,6 +281,11 @@ const faqCategories: FAQCategory[] = [
             while offering superior amenities and unforgettable party vibes.
           </>
         )
+      },
+      {
+        id: 'disco-pricing',
+        question: 'How much does ATX Disco Cruise cost?',
+        answer: 'ATX Disco Cruise pricing varies by time slot: Friday 12-4pm ($95/person), Saturday 11am-3pm ($105/person - our BEST cruise), and Saturday 3:30-7:30pm ($85/person). All prices include tax and gratuity totals of $124.88, $137.81, or $111.56 respectively. Optional add-on packages available based on party type.'
       },
       {
         id: 'disco-schedule',

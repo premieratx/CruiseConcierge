@@ -71,7 +71,7 @@ const faqData = [
   },
   {
     question: 'How much does a party boat cost in Austin?',
-    answer: `Private charters: $1,050 for 4-hour cruise (weekdays), up to $1,838 for weekends. ATX Disco Cruise (exclusively for bachelor, bachelorette & combined bach parties): $${DISCO_PRICING.basic / 100}+ per person.`
+    answer: `Private charters: $1,050 for 4-hour cruise (weekdays), up to $1,838 for weekends. ATX Disco Cruise (exclusively for bachelor, bachelorette & combined bach parties): $85-$105 per person depending on time slot.`
   },
   {
     question: 'Where do Austin party boats depart?',
@@ -166,18 +166,18 @@ const austinPackages = [
   {
     title: 'Bachelorette Party Boats',
     icon: Heart,
-    description: 'Austin\'s #1 bachelorette party boat experience since 2009. Choose from Basic Bach, Disco Queen, or Platinum packages.',
+    description: 'Austin\'s #1 bachelorette party boat experience since 2009. Choose from 3 time slots available with optional add-on packages.',
     features: ['Professional DJ & photographer', 'Party favors & decorations', 'Giant floats included', 'ATX Disco Cruise or private charter'],
-    startingPrice: `$${DISCO_PRICING.basic / 100}`,
+    startingPrice: '$85-$105',
     priceNote: 'per person',
     link: '/bachelorette-party-austin'
   },
   {
     title: 'Bachelor Party Boats',
     icon: Crown,
-    description: 'Ultimate Austin bachelor party on Lake Travis. Private boats or join our legendary ATX Disco Cruise.',
+    description: 'Ultimate Austin bachelor party on Lake Travis. Private boats or join our legendary ATX Disco Cruise with 3 time slots available.',
     features: ['Professional entertainment', 'DJ & photographer included', 'Lake Travis adventure', 'Swimming & activities'],
-    startingPrice: `$${DISCO_PRICING.basic / 100}`,
+    startingPrice: '$85-$105',
     priceNote: 'per person',
     link: '/bachelor-party-austin'
   },
@@ -473,18 +473,27 @@ export default function PartyBoatAustin() {
                 <CardContent>
                   <div className="space-y-4">
                     <div>
-                      <p className="text-sm text-gray-600">Basic Bach Package</p>
-                      <p className="text-2xl font-bold text-purple-600">${DISCO_PRICING.basic / 100}/person</p>
+                      <p className="text-sm text-gray-600">Friday 12-4pm</p>
+                      <p className="text-2xl font-bold text-purple-600">$95/person</p>
+                      <p className="text-xs text-gray-500">$124.88 w/tax & gratuity</p>
                     </div>
                     <div>
-                      <p className="text-sm text-gray-600">Disco Queen Package</p>
-                      <p className="text-2xl font-bold text-purple-600">${DISCO_PRICING.disco_queen / 100}/person</p>
+                      <div className="flex items-center gap-2 mb-1">
+                        <p className="text-sm text-gray-600">Saturday 11am-3pm</p>
+                        <Badge className="bg-blue-600 text-white text-xs px-2 py-0">BEST</Badge>
+                      </div>
+                      <p className="text-2xl font-bold text-purple-600">$105/person</p>
+                      <p className="text-xs text-gray-500">$137.81 w/tax & gratuity</p>
                     </div>
                     <div>
-                      <p className="text-sm text-gray-600">Platinum Package</p>
-                      <p className="text-2xl font-bold text-purple-600">${DISCO_PRICING.platinum / 100}/person</p>
+                      <div className="flex items-center gap-2 mb-1">
+                        <p className="text-sm text-gray-600">Saturday 3:30-7:30pm</p>
+                        <Badge className="bg-purple-600 text-white text-xs px-2 py-0">FUN!</Badge>
+                      </div>
+                      <p className="text-2xl font-bold text-purple-600">$85/person</p>
+                      <p className="text-xs text-gray-500">$111.56 w/tax & gratuity</p>
                     </div>
-                    <p className="text-sm text-gray-500 pt-4">Includes DJ, photographer & party favors.</p>
+                    <p className="text-sm text-gray-500 pt-4">All time slots include DJ, photographer & party favors. <Link href="/atx-disco-cruise" className="text-primary hover:underline">View full details</Link>.</p>
                   </div>
                 </CardContent>
               </Card>

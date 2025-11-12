@@ -63,23 +63,33 @@
     },
     {
       "@type": "Offer",
-      "name": "ATX Disco Cruise - Basic Bach Package",
-      "price": "85.00",
-      "priceCurrency": "USD",
-      "priceValidUntil": "2099-12-31",
-      "availability": "https://schema.org/InStock",
-      "url": "https://premierpartycruises.com/contact",
-      "description": "Shared party cruise experience with professional DJ, photographer with digital photos, BYOB cooler space with ice, giant lily pad floats, party supplies, and 4-hour Lake Travis cruise. Join other bachelor/bachelorette groups for epic party atmosphere."
-    },
-    {
-      "@type": "Offer",
-      "name": "ATX Disco Cruise - Disco King Package",
+      "name": "ATX Disco Cruise - Friday 12-4pm Time Slot",
       "price": "95.00",
       "priceCurrency": "USD",
       "priceValidUntil": "2099-12-31",
       "availability": "https://schema.org/InStock",
       "url": "https://premierpartycruises.com/contact",
-      "description": "Most popular disco cruise package! Includes all Basic Bach amenities PLUS private cooler with ice, reserved boat spot, disco ball cup, alcohol delivery coordination, 25% transportation discount, Airbnb voucher. GROOM/BRIDE CRUISES FREE with 16+ paying guests!"
+      "description": "$95 per person ($124.88 with tax and gratuity). Friday afternoon shared party cruise with professional DJ, photographer with digital photos, BYOB cooler space with ice, giant lily pad floats, party supplies, and 4-hour Lake Travis cruise. Join other bachelor/bachelorette groups for epic party atmosphere."
+    },
+    {
+      "@type": "Offer",
+      "name": "ATX Disco Cruise - Saturday 11am-3pm Time Slot (BEST)",
+      "price": "105.00",
+      "priceCurrency": "USD",
+      "priceValidUntil": "2099-12-31",
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/contact",
+      "description": "$105 per person ($137.81 with tax and gratuity). Most popular time slot! Saturday morning shared party cruise with professional DJ, photographer with digital photos, BYOB cooler space with ice, giant lily pad floats, party supplies, and 4-hour Lake Travis cruise."
+    },
+    {
+      "@type": "Offer",
+      "name": "ATX Disco Cruise - Saturday 3:30-7:30pm Time Slot (FUN!)",
+      "price": "85.00",
+      "priceCurrency": "USD",
+      "priceValidUntil": "2099-12-31",
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/contact",
+      "description": "$85 per person ($111.56 with tax and gratuity). Evening party atmosphere! Saturday evening shared party cruise with professional DJ, photographer with digital photos, BYOB cooler space with ice, giant lily pad floats, party supplies, and 4-hour Lake Travis cruise."
     },
     {
       "@type": "Offer",

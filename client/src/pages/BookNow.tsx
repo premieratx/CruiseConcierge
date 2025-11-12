@@ -1,25 +1,20 @@
 import { useState, useRef } from 'react';
 import { useXolaEmbed } from '@/hooks/useXolaEmbed';
+import { DISCO_TIME_SLOTS } from '@shared/constants';
 
 export default function BookNow() {
   const [activeTab, setActiveTab] = useState('14p');
-  const [discoTab, setDiscoTab] = useState('super-sparkle');
+  const [discoTimeSlot, setDiscoTimeSlot] = useState('saturday-330-730pm');
   const xolaRef = useRef<HTMLDivElement>(null);
   
   // Initialize Xola widget - same as home page
-  useXolaEmbed(xolaRef, [activeTab, discoTab]);
+  useXolaEmbed(xolaRef, [activeTab, discoTimeSlot]);
 
   const tabs = [
     { id: '14p', name: '14-Person Boat' },
     { id: '25p', name: '25-Person Boat' },
     { id: '50p', name: '50-Person Boat' },
     { id: 'disco', name: 'ATX Disco Cruises' }
-  ];
-
-  const discoTabs = [
-    { id: 'basic-bach', name: 'Basic Bach' },
-    { id: 'disco-queen', name: 'Disco Queen' },
-    { id: 'super-sparkle', name: 'Super Sparkle Platinum' }
   ];
 
   return (
@@ -48,21 +43,22 @@ export default function BookNow() {
           ))}
         </div>
 
-        {/* Disco Sub-tabs */}
+        {/* Disco Time Slot Sub-tabs */}
         {activeTab === 'disco' && (
           <div className="flex flex-wrap gap-2 justify-center mb-6">
-            {discoTabs.map(tab => (
+            {DISCO_TIME_SLOTS.map(slot => (
               <button
-                key={tab.id}
-                onClick={() => setDiscoTab(tab.id)}
+                key={slot.id}
+                onClick={() => setDiscoTimeSlot(slot.id)}
                 className={`px-4 py-2 rounded-lg font-medium transition-all ${
-                  discoTab === tab.id
+                  discoTimeSlot === slot.id
                     ? 'bg-purple-600 text-white shadow'
                     : 'bg-white text-gray-700 hover:bg-gray-100'
                 }`}
-                data-testid={`disco-tab-${tab.id}`}
+                data-testid={`disco-tab-${slot.id}`}
               >
-                {tab.name}
+                {slot.label}
+                {slot.badge && <span className="block text-xs mt-1">{slot.badge}</span>}
               </button>
             ))}
           </div>
@@ -83,15 +79,15 @@ export default function BookNow() {
             <div className="xola-embedded-checkout" data-seller="64c43a70daa3e618b7229ddf" data-version="2" data-experience="64c7d4f01be574411500cf62"></div>
           )}
 
-          {activeTab === 'disco' && discoTab === 'basic-bach' && (
+          {activeTab === 'disco' && discoTimeSlot === 'friday-12-4pm' && (
             <div className="xola-embedded-checkout" data-seller="64c43a70daa3e618b7229ddf" data-version="2" data-experience="676fe4a7ff119f53c4063c1b"></div>
           )}
 
-          {activeTab === 'disco' && discoTab === 'disco-queen' && (
+          {activeTab === 'disco' && discoTimeSlot === 'saturday-11am-3pm' && (
             <div className="xola-embedded-checkout" data-seller="64c43a70daa3e618b7229ddf" data-version="2" data-experience="676f0bc68ff6dfb29009b5ad"></div>
           )}
 
-          {activeTab === 'disco' && discoTab === 'super-sparkle' && (
+          {activeTab === 'disco' && discoTimeSlot === 'saturday-330-730pm' && (
             <div className="xola-embedded-checkout" data-seller="64c43a70daa3e618b7229ddf" data-version="2" data-experience="676f0ceaa3744b05ae09e9de"></div>
           )}
 

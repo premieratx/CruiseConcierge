@@ -1430,7 +1430,7 @@ export default function Home() {
                 </CardHeader>
                 <CardContent className="text-center">
                   <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-3" data-editable data-editable-id="availability-card-4-description">
-                    Every Saturday 12pm-4pm during peak season
+                    Friday & Saturday time slots - $85-$105/person depending on time slot
                   </p>
                   <Badge variant="secondary" className="bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300">
                     Weekly Event
@@ -1666,7 +1666,7 @@ export default function Home() {
                 {
                   feature: 'Price Range',
                   values: [
-                    { text: '$85-$125 per person', highlight: true },
+                    { text: '$85-$105/person depending on time slot', highlight: true },
                     '$1,050-$2,660 for 4-hour cruise'
                   ]
                 },
@@ -1704,7 +1704,7 @@ export default function Home() {
                 },
                 {
                   feature: 'Availability',
-                  values: ['Fri, Sat, Sun only', '7 days a week']
+                  values: ['Friday & Saturday time slots', '7 days a week']
                 }
               ]}
               caption="ATX Disco Cruise vs Private Charter Comparison"
@@ -2301,14 +2301,13 @@ export default function Home() {
           </div>
           <h4>Bachelorette Party Features:</h4>
           <ul>
-            <li>Basic Bach package - $85 per person</li>
-            <li>Disco Queen package - $95 per person (most popular)</li>
-            <li>Platinum package - $105 per person (ultimate experience)</li>
+            <li>Friday 12-4pm - $95/person</li>
+            <li>Saturday 11am-3pm - $105/person (BEST)</li>
+            <li>Saturday 3:30-7:30pm - $85/person (FUN!)</li>
             <li>Professional DJ and dance floor</li>
             <li>On-board professional photographer</li>
             <li>Giant unicorn floats and party supplies</li>
-            <li>BYOB with cooler space (ice included with Essentials/Ultimate packages)</li>
-            <li>Friday and Saturday cruises</li>
+            <li>BYOB with cooler space</li>
             <li>4-hour party cruise on Lake Travis</li>
             <li>Meet other bachelorette groups</li>
           </ul>
@@ -2327,8 +2326,9 @@ export default function Home() {
           </div>
           <h4>Bachelor Party Features:</h4>
           <ul>
-            <li>ATX Disco Cruise packages available</li>
-            <li>Private charter options for larger groups</li>
+            <li>Friday 12-4pm - $95/person</li>
+            <li>Saturday 11am-3pm - $105/person (BEST)</li>
+            <li>Saturday 3:30-7:30pm - $85/person (FUN!)</li>
             <li>Professional DJ and party music</li>
             <li>BYOB - bring your own alcohol</li>
             <li>Party On Delivery service available</li>
@@ -2432,11 +2432,11 @@ export default function Home() {
         </div>
         
         <div itemScope itemType="https://schema.org/Offer">
-          <h3>ATX Disco Cruise Packages</h3>
-          <p>Basic Bach Package: $85 per person - 4-hour party cruise with DJ and dance floor</p>
-          <p>Disco Queen Package: $95 per person - Most popular! VIP experience with premium amenities</p>
-          <p>Platinum Package: $105 per person - Ultimate disco experience with all extras</p>
-          <p>Friday and Saturday evening cruises. Includes professional DJ, photographer, party favors, and Lake Travis experience.</p>
+          <h3>ATX Disco Cruise Time Slots</h3>
+          <p>Friday 12-4pm - $95/person</p>
+          <p>Saturday 11am-3pm - $105/person (BEST)</p>
+          <p>Saturday 3:30-7:30pm - $85/person (FUN!)</p>
+          <p>4-hour party cruise with professional DJ, photographer, party favors, and Lake Travis experience.</p>
         </div>
         
         {/* Keywords and Search Terms */}

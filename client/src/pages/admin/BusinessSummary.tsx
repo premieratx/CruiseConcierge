@@ -171,11 +171,12 @@ export default function BusinessSummary() {
                 </ul>
               </div>
               <div>
-                <h3 className="font-semibold mb-2">Disco Cruise Packages</h3>
+                <h3 className="font-semibold mb-2">Disco Cruise Time Slots</h3>
                 <ul className="space-y-1 text-sm">
-                  <li>• <strong>BASIC PACKAGE ($85/person):</strong> Professional DJ, 4-hour cruise, party atmosphere, shared coolers, all amenities</li>
-                  <li>• <strong>DISCO QUEEN PACKAGE ($95/person):</strong> Everything in Basic + priority boarding, party favors, special recognition</li>
-                  <li>• <strong>SUPER SPARKLE PLATINUM DISCO PACKAGE ($105/person):</strong> Everything in Disco Queen + professional photographer, premium favors, VIP treatment</li>
+                  <li>• <strong>Friday 12-4pm:</strong> $95/person ($124.88 with tax & gratuity)</li>
+                  <li>• <strong>Saturday 11am-3pm (BEST):</strong> $105/person ($137.81 with tax & gratuity)</li>
+                  <li>• <strong>Saturday 3:30-7:30pm:</strong> $85/person ($111.56 with tax & gratuity)</li>
+                  <li>• <em>Optional add-on packages available based on party type</em></li>
                 </ul>
               </div>
               <div>
@@ -308,62 +309,65 @@ export default function BusinessSummary() {
         <TabsContent value="disco" className="space-y-6" style={{ fontSize: '12px' }}>
           <Card>
             <CardHeader>
-              <CardTitle>ATX Disco Cruise Packages</CardTitle>
+              <CardTitle>ATX Disco Cruise Time Slots & Pricing</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-6">
                 <div className="border-b pb-4">
                   <div className="flex items-center justify-between mb-2">
-                    <h3 className="font-bold">BASIC PACKAGE</h3>
-                    <Badge className="text-lg">${DISCO_PRICING.basic / 100}/person</Badge>
+                    <h3 className="font-bold">FRIDAY 12-4PM</h3>
+                    <Badge className="text-lg">$95/person</Badge>
                   </div>
-                  <p className="text-sm text-muted-foreground mb-3">Essential disco experience</p>
+                  <p className="text-sm text-muted-foreground mb-3">4-hour party cruise experience</p>
                   <ul className="text-xs space-y-1">
-                    <li>• Professional DJ & dance floor</li>
-                    <li>• 4-hour party cruise experience</li>
-                    <li>• Party atmosphere with music & lights</li>
+                    <li>• <strong>Base Price:</strong> $95 per person</li>
+                    <li>• <strong>Total with Tax & Gratuity:</strong> $124.88 per person</li>
+                    <li>• <strong>Time:</strong> 12:00 PM - 4:00 PM</li>
+                    <li>• Professional DJ, dance floor, party atmosphere</li>
                     <li>• Access to all boat amenities</li>
-                    <li>• Meeting & mingling with other groups</li>
+                    <li>• Optional add-on packages available based on party type</li>
                   </ul>
                 </div>
 
                 <div className="border-b pb-4">
                   <div className="flex items-center justify-between mb-2">
-                    <h3 className="font-bold">DISCO QUEEN PACKAGE</h3>
-                    <Badge className="text-lg">${DISCO_PRICING.disco_queen / 100}/person</Badge>
+                    <h3 className="font-bold">SATURDAY 11AM-3PM</h3>
+                    <Badge className="text-lg bg-green-600">$105/person - BEST</Badge>
                   </div>
-                  <p className="text-sm text-muted-foreground mb-3">VIP disco experience</p>
+                  <p className="text-sm text-muted-foreground mb-3">Prime time 4-hour party cruise (Most Popular!)</p>
                   <ul className="text-xs space-y-1">
-                    <li>• Everything in Basic Package</li>
-                    <li>• Priority boarding</li>
-                    <li>• Party favors & accessories</li>
-                    <li>• Special recognition for celebrant</li>
-                    <li>• Enhanced party experience</li>
+                    <li>• <strong>Base Price:</strong> $105 per person</li>
+                    <li>• <strong>Total with Tax & Gratuity:</strong> $137.81 per person</li>
+                    <li>• <strong>Time:</strong> 11:00 AM - 3:00 PM</li>
+                    <li>• Professional DJ, dance floor, party atmosphere</li>
+                    <li>• Access to all boat amenities</li>
+                    <li>• Optional add-on packages available based on party type</li>
                   </ul>
                 </div>
 
                 <div className="border-b pb-4">
                   <div className="flex items-center justify-between mb-2">
-                    <h3 className="font-bold">SUPER SPARKLE PLATINUM DISCO PACKAGE</h3>
-                    <Badge className="text-lg">${DISCO_PRICING.platinum / 100}/person</Badge>
+                    <h3 className="font-bold">SATURDAY 3:30-7:30PM</h3>
+                    <Badge className="text-lg">$85/person</Badge>
                   </div>
-                  <p className="text-sm text-muted-foreground mb-3">Ultimate disco experience</p>
+                  <p className="text-sm text-muted-foreground mb-3">Sunset 4-hour party cruise experience</p>
                   <ul className="text-xs space-y-1">
-                    <li>• Everything in Disco Queen Package</li>
-                    <li>• Professional photographer (digital photos included)</li>
-                    <li>• Premium party favors</li>
-                    <li>• VIP treatment throughout cruise</li>
-                    <li>• Ultimate celebration experience</li>
+                    <li>• <strong>Base Price:</strong> $85 per person</li>
+                    <li>• <strong>Total with Tax & Gratuity:</strong> $111.56 per person</li>
+                    <li>• <strong>Time:</strong> 3:30 PM - 7:30 PM</li>
+                    <li>• Professional DJ, dance floor, party atmosphere</li>
+                    <li>• Access to all boat amenities</li>
+                    <li>• Optional add-on packages available based on party type</li>
                   </ul>
                 </div>
 
                 <div className="bg-muted/50 p-4 rounded-lg">
-                  <h4 className="font-semibold mb-2">Disco Cruise Schedule</h4>
-                  <p className="text-xs text-muted-foreground mb-2">Exclusively for bachelor and bachelorette groups</p>
+                  <h4 className="font-semibold mb-2">Important Pricing Notes</h4>
                   <ul className="text-sm space-y-1">
-                    <li>• <strong>Friday:</strong> 12:00 PM - 4:00 PM</li>
-                    <li>• <strong>Saturday:</strong> 11:00 AM - 3:00 PM</li>
-                    <li>• <strong>Saturday:</strong> 3:30 PM - 7:30 PM</li>
+                    <li>• All prices include Texas sales tax (8.25%) and automatic gratuity (20%)</li>
+                    <li>• Exclusively for bachelor and bachelorette parties</li>
+                    <li>• Optional add-on packages vary by party type (bachelor, bachelorette, combined)</li>
+                    <li>• Book early - weekend slots fill up 4-6 weeks in advance</li>
                   </ul>
                 </div>
               </div>

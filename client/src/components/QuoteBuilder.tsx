@@ -24,10 +24,18 @@ import { isDurationSelectionRequired, getPrivateTimeSlotsForDate } from "@shared
 import { 
   Calculator, Gift, DollarSign, Percent, Users, Clock, AlertTriangle, Edit, Wand2,
   Save, FileText, Package, Eye, ChevronRight, Sparkles, Copy, Plus, Trash2,
-  Ship, MapPin, Calendar, User, Phone, Mail, CheckCircle, Timer, ShoppingCart, ArrowRight
+  Ship, MapPin, Calendar, User, Phone, Mail, CheckCircle, Timer, ShoppingCart, ArrowRight, CreditCard, AlertCircle
 } from "lucide-react";
 import { format } from "date-fns";
 import { useLocation } from "wouter";
+import {
+  DISCO_TIME_SLOTS,
+  DISCO_BASE_INCLUSIONS,
+  DISCO_PARTY_TYPES,
+  getPartyAddOns,
+  getDiscoNecklaceText,
+  type DiscoPartyType,
+} from "@shared/constants";
 
 interface QuoteItem {
   id: string;
@@ -63,13 +71,6 @@ interface PackageOption {
   price: number; // in cents
   isDefault?: boolean;
 }
-
-// Disco cruise packages (per person pricing)
-const DISCO_PACKAGES: PackageOption[] = [
-  { id: 'basic-bach', name: 'Basic Bach', price: 8500, isDefault: false },
-  { id: 'disco-queen', name: 'Disco Queen', price: 9500, isDefault: true },
-  { id: 'super-sparkle', name: 'Super Sparkle Platinum Disco', price: 10500, isDefault: false }
-];
 
 // Private cruise packages (additional cost on top of base)
 const getPrivatePackages = (groupSize: number): PackageOption[] => {
@@ -124,6 +125,9 @@ export function QuoteBuilder({ projectId, templateId, groupSize = 25, onQuoteCha
   const [selectedSlot, setSelectedSlot] = useState<NormalizedSlot | null>(null);
   const [selectedDuration, setSelectedDuration] = useState<'3-hour' | '4-hour' | null>(null);
   const [selectedPackage, setSelectedPackage] = useState<string>("");
+  const [selectedDiscoTimeSlot, setSelectedDiscoTimeSlot] = useState<string>(""); // New: for disco time slot selection
+  const [selectedPartyType, setSelectedPartyType] = useState<DiscoPartyType>("bachelorette"); // New: party type
+  const [selectedAddOns, setSelectedAddOns] = useState<string[]>([]); // New: selected disco add-ons
   
   // Contact form state - ENHANCED: Show BEFORE quote display instead of after
   const [showContactDialog, setShowContactDialog] = useState(true); // Changed to true - appears first
@@ -218,7 +222,7 @@ export function QuoteBuilder({ projectId, templateId, groupSize = 25, onQuoteCha
     if (items.length > 0 || selectedSlot) {
       calculatePricing();
     }
-  }, [items, appliedPromo, projectDate, currentGroupSize, selectedPackage, selectedSlot]);
+  }, [items, appliedPromo, projectDate, currentGroupSize, selectedPackage, selectedSlot, selectedDiscoTimeSlot, selectedPartyType, selectedAddOns]);
 
   // Use default template on mount
   useEffect(() => {
@@ -227,20 +231,24 @@ export function QuoteBuilder({ projectId, templateId, groupSize = 25, onQuoteCha
     }
   }, [defaultTemplate, selectedTemplateId]);
 
-  // Pre-select default package when slot is selected
+  // Pre-select default options when slot is selected
   useEffect(() => {
     if (selectedSlot) {
       if (selectedSlot.cruiseType === 'disco') {
-        // Pre-select Disco Queen package for disco cruises
-        const defaultDisco = DISCO_PACKAGES.find(p => p.isDefault);
-        setSelectedPackage(defaultDisco?.id || 'disco-queen');
+        // For disco cruises: pre-select the BEST time slot (Saturday 11am-3pm)
+        const bestSlot = DISCO_TIME_SLOTS.find(slot => slot.badge === 'BEST');
+        setSelectedDiscoTimeSlot(bestSlot?.id || DISCO_TIME_SLOTS[0].id);
+        // Reset add-ons when switching slots
+        setSelectedAddOns([]);
       } else if (selectedSlot.cruiseType === 'private') {
         // Pre-select Standard Cruise for private cruises
         setSelectedPackage('standard');
       }
     } else {
-      // Reset package selection when no slot is selected
+      // Reset selections when no slot is selected
       setSelectedPackage("");
+      setSelectedDiscoTimeSlot("");
+      setSelectedAddOns([]);
     }
   }, [selectedSlot]);
 
@@ -249,14 +257,25 @@ export function QuoteBuilder({ projectId, templateId, groupSize = 25, onQuoteCha
     try {
       // Calculate package cost
       let packageCost = 0;
-      if (selectedSlot && selectedPackage) {
-        if (selectedSlot.cruiseType === 'disco') {
-          // For disco cruises: per person pricing
-          const discoPackage = DISCO_PACKAGES.find(p => p.id === selectedPackage);
-          if (discoPackage) {
-            packageCost = discoPackage.price * currentGroupSize; // Total in cents
+      let addOnsCost = 0;
+      
+      if (selectedSlot) {
+        if (selectedSlot.cruiseType === 'disco' && selectedDiscoTimeSlot) {
+          // For disco cruises: use time slot pricing with tax & gratuity already included
+          const timeSlot = DISCO_TIME_SLOTS.find(slot => slot.id === selectedDiscoTimeSlot);
+          if (timeSlot) {
+            packageCost = timeSlot.priceWithTax * currentGroupSize; // Total with tax & gratuity per person
           }
-        } else {
+          
+          // Add selected add-ons cost
+          const partyAddOns = getPartyAddOns(selectedPartyType);
+          selectedAddOns.forEach(addOnId => {
+            const addOn = partyAddOns.find(a => a.id === addOnId);
+            if (addOn) {
+              addOnsCost += addOn.price;
+            }
+          });
+        } else if (selectedSlot.cruiseType === 'private' && selectedPackage) {
           // For private cruises: flat additional fee
           const privatePackages = getPrivatePackages(currentGroupSize);
           const privatePackage = privatePackages.find(p => p.id === selectedPackage);
@@ -274,14 +293,14 @@ export function QuoteBuilder({ projectId, templateId, groupSize = 25, onQuoteCha
         promoCode: appliedPromo || null,
         projectDate,
         groupSize: currentGroupSize,
-        packageCost: packageCost, // Include package cost
+        packageCost: packageCost + addOnsCost, // Include package cost and add-ons
       });
 
       const result = await response.json();
       
-      // Add package cost to the subtotal
-      if (packageCost > 0) {
-        result.subtotal = (result.subtotal || 0) + packageCost;
+      // Add package cost and add-ons to the subtotal
+      if (packageCost > 0 || addOnsCost > 0) {
+        result.subtotal = (result.subtotal || 0) + packageCost + addOnsCost;
         result.total = result.subtotal + result.tax + result.gratuity - result.discountTotal;
         result.perPersonCost = Math.round(result.total / currentGroupSize);
         if (result.depositRequired) {
@@ -715,60 +734,139 @@ export function QuoteBuilder({ projectId, templateId, groupSize = 25, onQuoteCha
                 </div>
               )}
 
-              {/* Package Selection - Shows only after slot is selected */}
+              {/* Package/Time Slot Selection - Shows only after slot is selected */}
               {selectedSlot && (
-                <div className="space-y-2 mt-4">
-                  <Label className="flex items-center gap-2">
-                    <Package className="w-4 h-4" />
-                    Select Your Package
-                    <Badge variant="secondary" className="text-xs">
-                      {selectedSlot.cruiseType === 'disco' ? 'Per Person' : 'Add-On'}
-                    </Badge>
-                  </Label>
-                  <div className="rounded-lg border p-4">
-                    <RadioGroup 
-                      value={selectedPackage} 
-                      onValueChange={setSelectedPackage}
-                      className="space-y-3"
-                      data-testid="package-selector"
-                    >
-                      {selectedSlot.cruiseType === 'disco' ? (
-                        // Disco Cruise Packages
-                        DISCO_PACKAGES.map((pkg) => (
-                          <div key={pkg.id} className="flex items-start space-x-2">
-                            <RadioGroupItem value={pkg.id} id={pkg.id} />
-                            <Label 
-                              htmlFor={pkg.id} 
-                              className="flex-1 cursor-pointer text-sm font-normal space-y-1"
-                            >
-                              <div className="flex items-center justify-between">
-                                <span className="font-medium">
-                                  {pkg.name}
-                                  {pkg.isDefault && (
-                                    <Badge variant="outline" className="ml-2 text-xs">
-                                      Recommended
-                                    </Badge>
+                <div className="space-y-4 mt-4">
+                  {selectedSlot.cruiseType === 'disco' ? (
+                    // Disco Cruise: Time Slot + Party Type + Add-Ons
+                    <>
+                      {/* Time Slot Selection */}
+                      <div className="space-y-2">
+                        <Label className="flex items-center gap-2">
+                          <Clock className="w-4 h-4" />
+                          Select Time Slot
+                          <Badge variant="secondary" className="text-xs">Per Person</Badge>
+                        </Label>
+                        <Select value={selectedDiscoTimeSlot} onValueChange={setSelectedDiscoTimeSlot}>
+                          <SelectTrigger data-testid="select-disco-timeslot">
+                            <SelectValue placeholder="Choose your time slot" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {DISCO_TIME_SLOTS.map((slot) => (
+                              <SelectItem key={slot.id} value={slot.id}>
+                                <div className="flex items-center justify-between w-full">
+                                  <span>{slot.label}</span>
+                                  <span className="ml-4 text-green-600 font-semibold">
+                                    ${(slot.priceWithTax / 100).toFixed(2)}/person
+                                  </span>
+                                  {slot.badge && (
+                                    <Badge variant="outline" className="ml-2 text-xs">{slot.badge}</Badge>
                                   )}
-                                </span>
-                                <span className="font-semibold text-green-600">
-                                  ${(pkg.price / 100).toFixed(0)}/person
-                                </span>
+                                </div>
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+
+                      {/* Party Type Selection */}
+                      <div className="space-y-2">
+                        <Label className="flex items-center gap-2">
+                          <Sparkles className="w-4 h-4" />
+                          Party Type
+                        </Label>
+                        <RadioGroup 
+                          value={selectedPartyType} 
+                          onValueChange={(value) => {
+                            setSelectedPartyType(value as DiscoPartyType);
+                            setSelectedAddOns([]); // Reset add-ons when party type changes
+                          }}
+                          className="grid grid-cols-3 gap-3"
+                          data-testid="party-type-selector"
+                        >
+                          <Label 
+                            htmlFor="bachelor" 
+                            className={`cursor-pointer border rounded-lg p-3 text-center hover:border-blue-500 ${selectedPartyType === 'bachelor' ? 'border-blue-600 bg-blue-50' : ''}`}
+                          >
+                            <RadioGroupItem value="bachelor" id="bachelor" className="sr-only" />
+                            <div className="text-sm font-medium">🎉 Bachelor</div>
+                          </Label>
+                          <Label 
+                            htmlFor="bachelorette" 
+                            className={`cursor-pointer border rounded-lg p-3 text-center hover:border-pink-500 ${selectedPartyType === 'bachelorette' ? 'border-pink-600 bg-pink-50' : ''}`}
+                          >
+                            <RadioGroupItem value="bachelorette" id="bachelorette" className="sr-only" />
+                            <div className="text-sm font-medium">💃 Bachelorette</div>
+                          </Label>
+                          <Label 
+                            htmlFor="combined" 
+                            className={`cursor-pointer border rounded-lg p-3 text-center hover:border-purple-500 ${selectedPartyType === 'combined' ? 'border-purple-600 bg-purple-50' : ''}`}
+                          >
+                            <RadioGroupItem value="combined" id="combined" className="sr-only" />
+                            <div className="text-sm font-medium">💑 Combined</div>
+                          </Label>
+                        </RadioGroup>
+                      </div>
+
+                      {/* Party-Specific Add-Ons */}
+                      {getPartyAddOns(selectedPartyType).length > 0 && (
+                        <div className="space-y-2">
+                          <Label className="flex items-center gap-2">
+                            <Gift className="w-4 h-4" />
+                            Optional Add-Ons
+                          </Label>
+                          <div className="rounded-lg border p-4 space-y-3">
+                            {getPartyAddOns(selectedPartyType).map((addOn) => (
+                              <div key={addOn.id} className="flex items-start space-x-3">
+                                <input
+                                  type="checkbox"
+                                  id={addOn.id}
+                                  checked={selectedAddOns.includes(addOn.id)}
+                                  onChange={(e) => {
+                                    if (e.target.checked) {
+                                      setSelectedAddOns(prev => [...prev, addOn.id]);
+                                    } else {
+                                      setSelectedAddOns(prev => prev.filter(id => id !== addOn.id));
+                                    }
+                                  }}
+                                  className="mt-1"
+                                  data-testid={`checkbox-addon-${addOn.id}`}
+                                />
+                                <Label htmlFor={addOn.id} className="flex-1 cursor-pointer">
+                                  <div className="flex items-center justify-between mb-1">
+                                    <span className="font-medium">{addOn.name}</span>
+                                    <span className="font-semibold text-green-600">
+                                      +${(addOn.price / 100).toFixed(0)}
+                                    </span>
+                                  </div>
+                                  <ul className="text-xs text-muted-foreground space-y-0.5">
+                                    {addOn.inclusions.map((item, idx) => (
+                                      <li key={idx}>• {item}</li>
+                                    ))}
+                                  </ul>
+                                </Label>
                               </div>
-                              {pkg.id === 'basic-bach' && (
-                                <p className="text-xs text-muted-foreground">Essential party package for budget-conscious groups</p>
-                              )}
-                              {pkg.id === 'disco-queen' && (
-                                <p className="text-xs text-muted-foreground">Our most popular package with premium features</p>
-                              )}
-                              {pkg.id === 'super-sparkle' && (
-                                <p className="text-xs text-muted-foreground">Ultimate VIP experience with all the extras</p>
-                              )}
-                            </Label>
+                            ))}
                           </div>
-                        ))
-                      ) : (
-                        // Private Cruise Packages
-                        getPrivatePackages(currentGroupSize).map((pkg) => (
+                        </div>
+                      )}
+                    </>
+                  ) : (
+                    // Private Cruise: Package Selection
+                    <div className="space-y-2">
+                      <Label className="flex items-center gap-2">
+                        <Package className="w-4 h-4" />
+                        Select Your Package
+                        <Badge variant="secondary" className="text-xs">Add-On</Badge>
+                      </Label>
+                      <div className="rounded-lg border p-4">
+                        <RadioGroup 
+                          value={selectedPackage} 
+                          onValueChange={setSelectedPackage}
+                          className="space-y-3"
+                          data-testid="package-selector"
+                        >
+                          {getPrivatePackages(currentGroupSize).map((pkg) => (
                           <div key={pkg.id} className="flex items-start space-x-2">
                             <RadioGroupItem value={pkg.id} id={pkg.id} />
                             <Label 
@@ -799,34 +897,26 @@ export function QuoteBuilder({ projectId, templateId, groupSize = 25, onQuoteCha
                               )}
                             </Label>
                           </div>
-                        ))
-                      )}
-                    </RadioGroup>
-                    
-                    {/* Package total preview */}
-                    {selectedPackage && (
-                      <div className="mt-4 pt-3 border-t">
-                        <div className="flex justify-between text-sm">
-                          <span>Package Cost:</span>
-                          {selectedSlot.cruiseType === 'disco' ? (
-                            <span className="font-medium text-green-600">
-                              ${((DISCO_PACKAGES.find(p => p.id === selectedPackage)?.price || 0) * currentGroupSize / 100).toFixed(0)} total
-                              <span className="text-xs text-muted-foreground ml-1">
-                                (${(DISCO_PACKAGES.find(p => p.id === selectedPackage)?.price || 0) / 100}/person × {currentGroupSize})
+                        ))}
+                        </RadioGroup>
+                        
+                        {/* Package total preview for private cruises */}
+                        {selectedPackage && (
+                          <div className="mt-4 pt-3 border-t">
+                            <div className="flex justify-between text-sm">
+                              <span>Package Add-On:</span>
+                              <span className="font-medium text-green-600">
+                                {getPrivatePackages(currentGroupSize).find(p => p.id === selectedPackage)?.price === 0 
+                                  ? 'Included in base price' 
+                                  : `+$${(getPrivatePackages(currentGroupSize).find(p => p.id === selectedPackage)?.price || 0) / 100}`
+                                }
                               </span>
-                            </span>
-                          ) : (
-                            <span className="font-medium text-green-600">
-                              {getPrivatePackages(currentGroupSize).find(p => p.id === selectedPackage)?.price === 0 
-                                ? 'Included in base price' 
-                                : `+$${(getPrivatePackages(currentGroupSize).find(p => p.id === selectedPackage)?.price || 0) / 100}`
-                              }
-                            </span>
-                          )}
-                        </div>
+                            </div>
+                          </div>
+                        )}
                       </div>
-                    )}
-                  </div>
+                    </div>
+                  )}
                 </div>
               )}
 
@@ -919,34 +1009,55 @@ export function QuoteBuilder({ projectId, templateId, groupSize = 25, onQuoteCha
                   </div>
                 )}
 
-                {/* Selected Package Details */}
-                {selectedSlot && selectedPackage && (
+                {/* Selected Package/Time Slot Details */}
+                {selectedSlot && (selectedDiscoTimeSlot || selectedPackage) && (
                   <div className="border rounded-lg p-4 bg-blue-50/50">
                     <h4 className="font-semibold mb-2 flex items-center gap-2">
-                      <Package className="w-4 h-4" />
-                      Selected Package
+                      {selectedSlot.cruiseType === 'disco' ? <Clock className="w-4 h-4" /> : <Package className="w-4 h-4" />}
+                      {selectedSlot.cruiseType === 'disco' ? 'Selected Time Slot & Add-Ons' : 'Selected Package'}
                     </h4>
                     <div className="space-y-2 text-sm">
                       {selectedSlot.cruiseType === 'disco' ? (
                         <>
                           <div className="flex justify-between">
-                            <span>Package:</span>
+                            <span>Time Slot:</span>
                             <span className="font-medium">
-                              {DISCO_PACKAGES.find(p => p.id === selectedPackage)?.name}
+                              {DISCO_TIME_SLOTS.find(s => s.id === selectedDiscoTimeSlot)?.label}
                             </span>
                           </div>
                           <div className="flex justify-between">
-                            <span>Price per person:</span>
+                            <span>Party Type:</span>
+                            <span className="font-medium capitalize">{selectedPartyType}</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span>Price per person (w/tax & tip):</span>
                             <span className="font-medium text-green-600">
-                              ${(DISCO_PACKAGES.find(p => p.id === selectedPackage)?.price || 0) / 100}
+                              ${(DISCO_TIME_SLOTS.find(s => s.id === selectedDiscoTimeSlot)?.priceWithTax || 0) / 100}
                             </span>
                           </div>
                           <div className="flex justify-between font-semibold">
-                            <span>Total package cost:</span>
+                            <span>Subtotal ({currentGroupSize} people):</span>
                             <span className="text-green-600">
-                              ${((DISCO_PACKAGES.find(p => p.id === selectedPackage)?.price || 0) * currentGroupSize / 100).toFixed(0)}
+                              ${((DISCO_TIME_SLOTS.find(s => s.id === selectedDiscoTimeSlot)?.priceWithTax || 0) * currentGroupSize / 100).toFixed(0)}
                             </span>
                           </div>
+                          {selectedAddOns.length > 0 && (
+                            <>
+                              <Separator className="my-2" />
+                              <div className="space-y-1">
+                                <span className="text-xs font-medium text-muted-foreground">Add-Ons:</span>
+                                {selectedAddOns.map((addOnId) => {
+                                  const addOn = getPartyAddOns(selectedPartyType).find(a => a.id === addOnId);
+                                  return addOn ? (
+                                    <div key={addOnId} className="flex justify-between text-xs">
+                                      <span>{addOn.name}</span>
+                                      <span className="text-green-600">+${(addOn.price / 100).toFixed(0)}</span>
+                                    </div>
+                                  ) : null;
+                                })}
+                              </div>
+                            </>
+                          )}
                         </>
                       ) : (
                         <>

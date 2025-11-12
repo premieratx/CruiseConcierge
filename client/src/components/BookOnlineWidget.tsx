@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 const logoPath = '/attached_assets/PPC Logo LARGE_1757881944449.png';
 import { Ship, Star, CheckCircle, Clock } from 'lucide-react';
 import { useXolaEmbed } from '@/hooks/useXolaEmbed';
+import { DISCO_TIME_SLOTS } from '@shared/constants';
 
 interface BookOnlineWidgetProps {
   defaultBoatType?: '14p' | '25p' | '50p' | 'disco';
@@ -19,11 +20,11 @@ const fadeInUp = {
 
 export default function BookOnlineWidget({ defaultBoatType = '14p' }: BookOnlineWidgetProps) {
   const [activeTab, setActiveTab] = useState<string>(defaultBoatType);
-  const [activeDiscoPackage, setActiveDiscoPackage] = useState<string>('super-sparkle');
+  const [activeDiscoTimeSlot, setActiveDiscoTimeSlot] = useState<string>('saturday-330-730pm');
   const containerRef = useRef<HTMLDivElement>(null);
   
   // Re-initialize Xola whenever tabs change
-  useXolaEmbed(containerRef, [activeTab, activeDiscoPackage]);
+  useXolaEmbed(containerRef, [activeTab, activeDiscoTimeSlot]);
 
   return (
     <div className="bg-gradient-to-br from-blue-50 via-white to-yellow-50">
@@ -122,42 +123,24 @@ export default function BookOnlineWidget({ defaultBoatType = '14p' }: BookOnline
               </button>
             </div>
 
-            {/* Disco Package Sub-tabs */}
+            {/* Disco Time Slot Sub-tabs */}
             {activeTab === 'disco' && (
               <div className="flex flex-wrap gap-2 md:gap-3 pl-0 md:pl-4">
-                <button
-                  onClick={() => setActiveDiscoPackage('basic-bach')}
-                  className={`flex-1 min-w-[100px] md:min-w-[160px] px-2 py-1.5 md:px-6 md:py-3 rounded-lg text-sm md:text-base font-semibold transition-all ${
-                    activeDiscoPackage === 'basic-bach'
-                      ? 'bg-purple-600 text-white shadow-lg'
-                      : 'bg-purple-100 text-purple-700 hover:bg-purple-200 shadow'
-                  }`}
-                  data-testid="tab-disco-basic"
-                >
-                  Basic Bach Package
-                </button>
-                <button
-                  onClick={() => setActiveDiscoPackage('disco-queen')}
-                  className={`flex-1 min-w-[100px] md:min-w-[160px] px-2 py-1.5 md:px-6 md:py-3 rounded-lg text-sm md:text-base font-semibold transition-all ${
-                    activeDiscoPackage === 'disco-queen'
-                      ? 'bg-purple-600 text-white shadow-lg'
-                      : 'bg-purple-100 text-purple-700 hover:bg-purple-200 shadow'
-                  }`}
-                  data-testid="tab-disco-queen"
-                >
-                  Disco Queen Package
-                </button>
-                <button
-                  onClick={() => setActiveDiscoPackage('super-sparkle')}
-                  className={`flex-1 min-w-[100px] md:min-w-[160px] px-2 py-1.5 md:px-6 md:py-3 rounded-lg text-sm md:text-base font-semibold transition-all ${
-                    activeDiscoPackage === 'super-sparkle'
-                      ? 'bg-purple-600 text-white shadow-lg'
-                      : 'bg-purple-100 text-purple-700 hover:bg-purple-200 shadow'
-                  }`}
-                  data-testid="tab-disco-sparkle"
-                >
-                  Super Sparkle Platinum
-                </button>
+                {DISCO_TIME_SLOTS.map((slot) => (
+                  <button
+                    key={slot.id}
+                    onClick={() => setActiveDiscoTimeSlot(slot.id)}
+                    className={`flex-1 min-w-[100px] md:min-w-[160px] px-2 py-1.5 md:px-6 md:py-3 rounded-lg text-sm md:text-base font-semibold transition-all ${
+                      activeDiscoTimeSlot === slot.id
+                        ? 'bg-purple-600 text-white shadow-lg'
+                        : 'bg-purple-100 text-purple-700 hover:bg-purple-200 shadow'
+                    }`}
+                    data-testid={`tab-disco-${slot.id}`}
+                  >
+                    {slot.label}
+                    {slot.badge && <span className="block text-xs mt-1">{slot.badge}</span>}
+                  </button>
+                ))}
               </div>
             )}
 
@@ -185,21 +168,21 @@ export default function BookOnlineWidget({ defaultBoatType = '14p' }: BookOnline
                 </div>
               )}
 
-              {/* Disco Packages */}
-              {activeTab === 'disco' && activeDiscoPackage === 'basic-bach' && (
-                <div className="p-8" data-testid="content-disco-basic">
+              {/* Disco Time Slots */}
+              {activeTab === 'disco' && activeDiscoTimeSlot === 'friday-12-4pm' && (
+                <div className="p-8" data-testid="content-disco-friday">
                   <div className="xola-embedded-checkout" data-seller="64c43a70daa3e618b7229ddf" data-version="2" data-experience="676fe4a7ff119f53c4063c1b"></div>
                 </div>
               )}
 
-              {activeTab === 'disco' && activeDiscoPackage === 'disco-queen' && (
-                <div className="p-8" data-testid="content-disco-queen">
+              {activeTab === 'disco' && activeDiscoTimeSlot === 'saturday-11am-3pm' && (
+                <div className="p-8" data-testid="content-disco-saturday-morning">
                   <div className="xola-embedded-checkout" data-seller="64c43a70daa3e618b7229ddf" data-version="2" data-experience="676f0bc68ff6dfb29009b5ad"></div>
                 </div>
               )}
 
-              {activeTab === 'disco' && activeDiscoPackage === 'super-sparkle' && (
-                <div className="p-8" data-testid="content-disco-sparkle">
+              {activeTab === 'disco' && activeDiscoTimeSlot === 'saturday-330-730pm' && (
+                <div className="p-8" data-testid="content-disco-saturday-afternoon">
                   <div className="xola-embedded-checkout" data-seller="64c43a70daa3e618b7229ddf" data-version="2" data-experience="676f0ceaa3744b05ae09e9de"></div>
                 </div>
               )}

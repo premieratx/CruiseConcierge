@@ -74,7 +74,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'ATX Disco Cruise - The Ultimate Party Experience',
         paragraphs: [
-          'Join the BEST party on Lake Travis! Our signature [[atx-disco]] features a professional DJ, photographer, disco dance floor, giant floats, and an incredible party atmosphere. Three package levels available: Basic Bach ($85), Disco Queen/King ($95), and Super Sparkle Platinum ($105).',
+          'Join the BEST party on Lake Travis! Our signature [[atx-disco]] features a professional DJ, photographer, disco dance floor, giant floats, and an incredible party atmosphere. Choose from three time slots: Friday 12-4pm ($95), Saturday 11am-3pm ($105 - most popular!), or Saturday 3:30-7:30pm ($85). Prices include tax and gratuity.',
           'Every disco cruise includes professional entertainment, photo delivery, party supplies, and an unforgettable experience with multiple [[bachelor-party]] and [[bachelorette-party]] groups celebrating together.'
         ],
         lists: [
@@ -145,10 +145,10 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Frequently Asked Questions',
         paragraphs: [
-          'What types of party boat rentals do you offer? We offer two main types of party boat experiences: Private Charters (exclusive boat rental for your group of 1-75 guests, starting at $200/hour with 4-hour minimum) and the ATX Disco Cruise (join other groups on our signature party cruise with DJ, photographer, and all amenities included, $85-$105 per person). Perfect for bachelor parties, bachelorette parties, corporate events, birthdays, weddings, and any special celebration.',
-          'How much does it cost to rent a party boat on Lake Travis? Private charters start at $200 per hour with a 4-hour minimum. We have three boats available: Day Tripper (1-14 people, $200-350/hr), Meeseeks and The Irony (15-30 people, $225-425/hr), and Clever Girl (31-75 people with 14 disco balls, $250-500/hr). Crew fees are included in these price ranges. ATX Disco Cruise packages range from $85-$105 per person and include professional DJ, photographer, floats, and all amenities.',
+          'What types of party boat rentals do you offer? We offer two main types of party boat experiences: Private Charters (exclusive boat rental for your group of 1-75 guests, starting at $200/hour with 4-hour minimum) and the ATX Disco Cruise (join other groups on our signature party cruise with DJ, photographer, and all amenities included). Disco cruises run Fridays 12-4pm ($95/person) and Saturdays 11am-3pm ($105/person) or 3:30-7:30pm ($85/person), with all prices including tax and gratuity. Perfect for bachelor parties, bachelorette parties, corporate events, birthdays, weddings, and any special celebration.',
+          'How much does it cost to rent a party boat on Lake Travis? Private charters start at $200 per hour with a 4-hour minimum. We have three boats available: Day Tripper (1-14 people, $200-350/hr), Meeseeks and The Irony (15-30 people, $225-425/hr), and Clever Girl (31-75 people with 14 disco balls, $250-500/hr). Crew fees are included in these price ranges. ATX Disco Cruise time slots are Friday 12-4pm ($95/person), Saturday 11am-3pm ($105/person), or Saturday 3:30-7:30pm ($85/person), with all prices including tax and gratuity, plus professional DJ, photographer, floats, and all amenities.',
           'Can we bring food and drinks on the boat? Yes! All cruises are fully BYOB friendly (21+ with valid ID required). You can bring your own beer, wine, seltzers, and non-alcoholic beverages in cans or plastic containers - no glass allowed for safety. We provide large coolers with ice. You can also bring snacks and meals, or we can coordinate alcohol delivery directly to the boat for your convenience.',
-          'Does the bride or groom cruise free? Yes! We offer premium Disco Queen/King and Super Sparkle Platinum packages with special perks and VIP treatment for your bachelor or bachelorette party celebration.',
+          'When does the ATX Disco Cruise run? The disco cruise operates Fridays 12-4pm and Saturdays with two time slots: 11am-3pm (most popular!) or 3:30-7:30pm. Pricing varies by time slot, with all prices including tax and gratuity for a complete, transparent experience.',
           'Where do you depart from on Lake Travis? We depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641. We\'re the closest marina to downtown Austin, approximately 30 minutes away, making us convenient for all your guests.',
           'What\'s included with the ATX Disco Cruise? Every ATX Disco Cruise includes a professional DJ playing all day, professional photographer with photo delivery, giant unicorn floats, multiple lily pad floats, disco dance floor, party supplies and mixers, ice water stations, clean restroom facilities, and an unforgettable party atmosphere with multiple bachelor and bachelorette groups celebrating together.',
           'What makes Premier Party Cruises different from other Lake Travis boat rentals? With 14+ years of experience and over 125,000 satisfied customers, we are Austin\'s longest-running and most trusted party cruise company. We maintain a perfect safety record with Coast Guard certified captains, operate the newest fleet in Austin, and provide full-service experiences with professional crew and premium sound systems. We\'re the only company offering the signature ATX Disco Cruise party experience.',
@@ -164,46 +164,45 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
   },
   '/bachelor-party-austin': {
     h1: 'Austin Bachelor Party Boat Rentals | Lake Travis Cruises',
-    introduction: 'Plan the ultimate [[bachelor-party]] on Lake Travis with Premier Party Cruises! Choose from our affordable [[atx-disco]] packages ($85-$105 per person) or rent a [[private-cruises]] exclusively for your group. Professional DJ, photographer, party floats, and unforgettable memories included.',
+    introduction: 'Plan the ultimate [[bachelor-party]] on Lake Travis with Premier Party Cruises! Choose from our affordable [[atx-disco]] time slots or rent a [[private-cruises]] exclusively for your group. Professional DJ, photographer, party floats, and unforgettable memories included.',
     sections: [
       {
-        heading: 'ATX Disco Cruise Bachelor Party Packages',
+        heading: 'ATX Disco Cruise Bachelor Party Time Slots',
         paragraphs: [
-          'Join the BEST party on Lake Travis! Our [[atx-disco]] offers three package levels designed specifically for [[bachelor-party]], with everything included for an epic celebration.'
+          'Join the BEST party on Lake Travis! Our [[atx-disco]] offers three time slots designed specifically for [[bachelor-party]], with everything included for an epic celebration. All prices include tax and gratuity.'
         ],
         lists: [
           {
-            title: 'Basic Bach Package - $85',
+            title: 'Saturday 3:30-7:30pm - $85 per person ($111.56 w/tax & gratuity)',
             items: [
               'Join the ultimate bachelor party cruise',
-              'BYOB with shared cooler and ice',
+              'BYOB with private cooler and ice',
               'Alcohol & food delivery available',
               'Professional DJ and photographer',
               'Giant floats and party atmosphere',
-              'Always cheaper than private cruises'
+              'Best value time slot!'
             ]
           },
           {
-            title: 'Disco King Package - $95 (Most Popular)',
+            title: 'Friday 12-4pm - $95 per person ($124.88 w/tax & gratuity)',
             items: [
               'Private cooler with ice for your group',
               'Reserved spot on the boat',
-              'Disco visor & ball necklace for groom',
-              'Complimentary alcohol & lunch delivery',
-              '25% discount on transportation',
-              '$50-$100 Airbnb delivery voucher',
-              'Everything from Basic Bach'
+              'Professional DJ and photographer',
+              'Complimentary alcohol & lunch delivery options',
+              'Transportation discounts available',
+              'Everything included for epic party'
             ]
           },
           {
-            title: 'Super Sparkle Platinum - $105',
+            title: 'Saturday 11am-3pm - $105 per person ($137.81 w/tax & gratuity) - BEST!',
             items: [
-              'Personal unicorn float for the groom',
-              'Mimosa setup with champagne flutes',
-              '$100 Airbnb concierge voucher',
-              'Towel service & SPF-50 sunscreen',
-              'Cooler pre-stocked when you arrive',
-              'Everything from Disco King'
+              'Most popular time slot for bachelor parties',
+              'Private cooler with ice for your group',
+              'Premium boat positioning',
+              'Professional DJ and photographer',
+              'All party floats and supplies included',
+              'Best party atmosphere of the week!'
             ]
           }
         ]
@@ -277,19 +276,19 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
   },
   '/bachelorette-party-austin': {
     h1: 'Austin Bachelorette Party Boat Cruises | Lake Travis',
-    introduction: 'Plan the ultimate [[bachelorette-party]] on Lake Travis! The [[atx-disco]] is our specialty with packages starting at $85.  Professional DJ, photographer, floats, and unforgettable celebration guaranteed!',
+    introduction: 'Plan the ultimate [[bachelorette-party]] on Lake Travis! The [[atx-disco]] is our specialty with time slots starting at $85. Professional DJ, photographer, floats, and unforgettable celebration guaranteed!',
     sections: [
       {
-        heading: 'Bachelorette Party Cruise Packages',
+        heading: 'Bachelorette Party Cruise Time Slots',
         paragraphs: [
-          'Choose from three amazing package levels designed specifically for [[bachelorette-party]]. Each package includes professional DJ, photographer, and everything you need for an epic Lake Travis celebration!'
+          'Choose from three amazing time slots designed specifically for [[bachelorette-party]]. Each time slot includes professional DJ, photographer, and everything you need for an epic Lake Travis celebration! All prices include tax and gratuity.'
         ],
         lists: [
           {
-            title: 'Basic Bach Package - $85',
+            title: 'Saturday 3:30-7:30pm - $85 per person ($111.56 w/tax & gratuity)',
             items: [
               'Join the BEST bachelorette party on Lake Travis',
-              'BYOB with shared cooler and ice',
+              'BYOB with private cooler and ice',
               'Alcohol & food delivery available',
               'Professional DJ and photographer included',
               'Giant floats and party atmosphere',
@@ -297,27 +296,25 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
             ]
           },
           {
-            title: 'Disco Queen Package - $95 (Most Popular)',
+            title: 'Friday 12-4pm - $95 per person ($124.88 w/tax & gratuity)',
             items: [
-              '',
               'Private cooler with ice for your group',
               'Reserved spot for your bachelorette crew',
-              'Disco ball cup & bubble gun for bride',
-              'Complimentary alcohol & lunch delivery',
-              '25% discount on round-trip transportation',
-              '$50-$100 Airbnb delivery voucher'
+              'Professional DJ and photographer',
+              'Complimentary alcohol & lunch delivery options',
+              'Transportation discounts available',
+              'Perfect for Friday celebrations!'
             ]
           },
           {
-            title: 'Super Sparkle Platinum - $105',
+            title: 'Saturday 11am-3pm - $105 per person ($137.81 w/tax & gratuity) - BEST!',
             items: [
-              '',
-              'Personal unicorn float for the bride',
-              'Mimosa setup with flutes, juices & chambong',
-              '$100 Airbnb concierge services voucher',
-              'Towel service & SPF-50 spray sunscreen',
-              'Cooler pre-stocked with drinks on arrival',
-              'Everything from Disco Queen Package'
+              'Most popular time slot for bachelorette parties',
+              'Personal party float access',
+              'Mimosa setup available as add-on',
+              'Premium boat positioning',
+              'Towel service & SPF-50 spray sunscreen available',
+              'Everything for the ultimate bachelorette experience'
             ]
           }
         ]
@@ -380,19 +377,19 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
   },
   '/combined-bachelor-bachelorette': {
     h1: 'Combined Bachelor Bachelorette Parties Austin | Lake Travis',
-    introduction: 'Why celebrate separately? Plan the ultimate [[combined-bach]] on Lake Travis! Join the [[atx-disco]] or rent a [[private-cruises]] for guys and girls celebrating together. Starting at $85 per person.',
+    introduction: 'Why celebrate separately? Plan the ultimate [[combined-bach]] on Lake Travis! Join the [[atx-disco]] or rent a [[private-cruises]] for guys and girls celebrating together. Time slots starting at $85 per person (tax & gratuity included).',
     sections: [
       {
-        heading: 'Combined Party Packages - Everyone Together',
+        heading: 'Combined Party Time Slots - Everyone Together',
         paragraphs: [
-          'The modern way to celebrate! Combine your bachelor and bachelorette parties for one epic Lake Travis experience. Both sides get to bond before the wedding, save money, and create unforgettable memories together.'
+          'The modern way to celebrate! Combine your bachelor and bachelorette parties for one epic Lake Travis experience. Both sides get to bond before the wedding, save money, and create unforgettable memories together. All prices include tax and gratuity.'
         ],
         lists: [
           {
-            title: 'Basic Combined Package - $85',
+            title: 'Saturday 3:30-7:30pm - $85 per person ($111.56 w/tax & gratuity)',
             items: [
               'Join the ultimate combined party cruise',
-              'BYOB with shared cooler for everyone',
+              'BYOB with private cooler for everyone',
               'Alcohol & food delivery available',
               'Perfect for budget-conscious groups',
               'Professional DJ and photographer',
@@ -400,27 +397,25 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
             ]
           },
           {
-            title: 'Party Squad Package - $95 (Most Popular)',
+            title: 'Friday 12-4pm - $95 per person ($124.88 w/tax & gratuity)',
             items: [
-              '',
               'Private cooler for your entire group',
               'Reserved area for your combined party',
-              'Special celebration items for the couple',
-              'Complimentary alcohol & food delivery',
-              '25% discount on transportation',
-              '$50-$100 Airbnb delivery voucher'
+              'Special celebration items available',
+              'Complimentary alcohol & food delivery options',
+              'Transportation discounts available',
+              'Perfect for weekend kickoff!'
             ]
           },
           {
-            title: 'Ultimate Celebration Package - $105',
+            title: 'Saturday 11am-3pm - $105 per person ($137.81 w/tax & gratuity) - BEST!',
             items: [
-              '',
+              'Most popular time slot for combined parties',
               'Premium party floats for entire group',
-              'Mixology setup with champagne & supplies',
-              '$100 Airbnb concierge voucher',
-              'Towel service & SPF-50 sunscreen',
-              'Cooler completely pre-stocked',
-              'Everything from Party Squad Package'
+              'Mixology setup available as add-on',
+              'Premium boat positioning',
+              'Towel service & SPF-50 sunscreen available',
+              'Everything for the ultimate combined celebration'
             ]
           }
         ]
@@ -473,16 +468,16 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
   },
   '/atx-disco-cruise': {
     h1: 'ATX Disco Cruise - Austin Bachelorette Party & Bachelor Party Boat Lake Travis',
-    introduction: 'Experience the legendary [[atx-disco]] - Austin\'s #1 bachelorette party and bachelor party cruise on Lake Travis! Perfect for austin bachelorette and austin bachelorette weekend celebrations. Professional DJ, photographer, disco dance floor, giant floats, and the best party atmosphere. Three packages available from $85-$105 per person. Join multiple [[bachelor-party]] and [[bachelorette-party]] groups for an unforgettable bachelorette party lake travis experience!',
+    introduction: 'Experience the legendary [[atx-disco]] - Austin\'s #1 bachelorette party and bachelor party cruise on Lake Travis! Perfect for austin bachelorette and austin bachelorette weekend celebrations. Professional DJ, photographer, disco dance floor, giant floats, and the best party atmosphere. Three time slots available: Friday 12-4pm ($95), Saturday 11am-3pm ($105), Saturday 3:30-7:30pm ($85), with all prices including tax and gratuity. Join multiple [[bachelor-party]] and [[bachelorette-party]] groups for an unforgettable bachelorette party lake travis experience!',
     sections: [
       {
-        heading: 'ATX Disco Cruise Packages',
+        heading: 'ATX Disco Cruise Time Slots',
         paragraphs: [
-          'Choose your perfect [[atx-disco]] package! Every level includes professional DJ, photographer, party floats, and an incredible 4-hour Lake Travis experience. Perfect alternative to [[private-cruises]] for budget-conscious groups!'
+          'Choose your perfect [[atx-disco]] time slot! Every cruise includes professional DJ, photographer, party floats, and an incredible 4-hour Lake Travis experience. All prices include tax and gratuity. Perfect alternative to [[private-cruises]] for budget-conscious groups!'
         ],
         lists: [
           {
-            title: 'Basic Bach Package - $85',
+            title: 'Saturday 3:30-7:30pm - $85 per person ($111.56 w/tax & gratuity)',
             items: [
               'Full 4-hour Lake Travis cruise',
               'Professional DJ entertainment all day',
@@ -490,34 +485,33 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
               'Digital photo delivery',
               'Giant unicorn float access',
               'Multi-group party atmosphere',
-              'BYOB with shared coolers & ice',
-              'Alcohol & lunch delivery available'
+              'BYOB with private coolers & ice',
+              'Alcohol & food delivery available'
             ]
           },
           {
-            title: 'Disco Queen/King Package - $95 (Most Popular)',
+            title: 'Friday 12-4pm - $95 per person ($124.88 w/tax & gratuity)',
             items: [
-              'Everything in Basic Bach',
+              'Full 4-hour Lake Travis cruise',
               'Private cooler with ice for your group',
               'Reserved spot on the boat',
-              'Disco ball cup & bubble gun for guest of honor',
-              'Complimentary alcohol & lunch delivery',
-              '25% discount on transportation',
-              '$50-$100 Airbnb delivery voucher',
+              'Professional DJ and photographer',
+              'Complimentary alcohol & lunch delivery options',
+              'Transportation discounts available',
               'Premium boat positioning'
             ]
           },
           {
-            title: 'Super Sparkle Platinum - $105',
+            title: 'Saturday 11am-3pm - $105 per person ($137.81 w/tax & gratuity) - BEST!',
             items: [
-              'Everything in Disco Queen',
-              'Personal unicorn float for guest of honor',
-              'Mimosa setup with flutes, juices & chambong',
-              '$100 Airbnb concierge voucher',
-              'Towel service & SPF-50 sunscreen',
-              'Cooler pre-stocked with drinks',
-              'VIP treatment throughout',
-              'Extended photo coverage'
+              'Most popular time slot!',
+              'Private cooler with ice for your group',
+              'Personal party float access',
+              'Mimosa setup available as add-on',
+              'Premium positioning and VIP treatment',
+              'Towel service & SPF-50 sunscreen available',
+              'Extended photo coverage',
+              'Best party atmosphere of the week!'
             ]
           }
         ]
@@ -576,13 +570,13 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Frequently Asked Questions',
         paragraphs: [
           'What is the ATX Disco Cruise? A shared 4-hour party boat for bachelor/bachelorette groups with pro DJ and photographer, BYOB, floats, and multi-group energy.',
-          'When does it run? Fridays 12–4 PM and Saturdays 11–3 PM or 3:30–7:30 PM from March to October.',
-          'How much are tickets? $85 Basic, $95 Queen/King, $105 Platinum.',
+          'When does it run? Fridays 12–4 PM and Saturdays 11am–3pm or 3:30–7:30pm from March to October.',
+          'How much are tickets? Time slot pricing: Saturday 3:30-7:30pm ($85, total $111.56 w/tax & gratuity), Friday 12-4pm ($95, total $124.88 w/tax & gratuity), Saturday 11am-3pm ($105, total $137.81 w/tax & gratuity).',
           'What happens in bad weather? Rain or shine. For severe weather, we move the party to Lemonade Disco land venue.',
           'What\'s the alcohol policy? BYOB for 21+; cans/plastic only; coolers with ice and cups provided.',
           'When do we get photos? Professional photos delivered digitally within 2–3 weeks after your cruise.',
           'Where do we meet? Anderson Mill Marina, 13993 FM 2769, Leander, TX 78641. Arrive 15–20 minutes early; free parking available.',
-          'What special perks are available? Our Disco Queen and Platinum packages offer premium amenities and VIP treatment for the guest of honor.'
+          'What add-ons are available? We offer add-on packages like Mimosa Party Cooler ($100) and Sparkle Packages ($100) with extra floats, party supplies, and VIP amenities for the guest of honor.'
         ]
       }
     ],
@@ -1523,14 +1517,14 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         ],
         lists: [
           {
-            title: 'ATX Disco Cruise - $85-$105 per person',
+            title: 'ATX Disco Cruise - Time slots starting at $85',
             items: [
               'Join the ultimate multi-group party cruise',
               'Professional DJ and photographer included',
               'Giant floats and disco dance floor',
               'Perfect for bachelor/bachelorette parties',
               'Most affordable Austin party boat option',
-              'Packages from Basic Bach to Platinum VIP'
+              'Three time slots: Friday 12-4pm, Saturday 11am-3pm, Saturday 3:30-7:30pm'
             ]
           },
           {
@@ -2509,8 +2503,8 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'ATX Disco Cruise - Best Value Party Boat',
         paragraphs: [
-          'The [[atx-disco]] offers the most affordable bachelorette boat experience at $85-105 per person including professional DJ, photographer, giant floats, and party atmosphere. ALWAYS cheaper than renting a private boat.',
-          'With the Disco Queen package at $95 per person, you get private cooler, reserved spot, complimentary alcohol delivery, and transportation discounts. Ultimate value for budget-conscious groups.'
+          'The [[atx-disco]] offers the most affordable bachelorette boat experience with time slots ranging from $85-105 per person base price ($111.56-$137.81 including tax and gratuity), including professional DJ, photographer, giant floats, and party atmosphere. ALWAYS cheaper than renting a private boat.',
+          'All time slots include private cooler with ice, reserved spot, professional entertainment, and optional add-ons like Mimosa Party Cooler ($100) and Sparkle Packages ($100). Ultimate value for budget-conscious groups.'
         ]
       },
       {
@@ -2537,8 +2531,8 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Budget-Friendly Sample Weekend',
         paragraphs: [
-          'Friday: Arrive at shared Airbnb ($60pp), BBQ dinner at food trucks ($12pp), Sixth Street bar crawl ($20-40pp). Saturday: ATX Disco Cruise Basic Bach package ($85pp), casual dinner ($15pp), Rainey Street bars ($20pp). Sunday: Brunch ($15pp), South Congress shopping (free to browse).',
-          'Total estimated cost: $227-267 per person for an entire weekend including accommodation, activities, meals, and nightlife. Compare that to $500+ per person at typical bachelorette destinations!'
+          'Friday: Arrive at shared Airbnb ($60pp), BBQ dinner at food trucks ($12pp), Sixth Street bar crawl ($20-40pp). Saturday: ATX Disco Cruise Saturday 3:30-7:30pm time slot ($85 base, $111.56 w/tax & gratuity), casual dinner ($15pp), Rainey Street bars ($20pp). Sunday: Brunch ($15pp), South Congress shopping (free to browse).',
+          'Total estimated cost: $244-284 per person for an entire weekend including accommodation, activities, meals, and nightlife. Compare that to $500+ per person at typical bachelorette destinations!'
         ]
       }
     ],
@@ -2562,7 +2556,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'VIP Boat Experiences',
         paragraphs: [
-          'Book the ATX Disco Cruise Super Sparkle Platinum package at $105 per person with personal unicorn float for bride, mimosa bar setup, $100 concierge voucher, towel service, SPF-50 sunscreen, and pre-stocked cooler.',
+          'Book the ATX Disco Cruise Saturday 11am-3pm time slot (most popular!) at $105 per person base price ($137.81 with tax & gratuity), plus add premium options like Mimosa Party Cooler ($100) or Bride Sparkle Package ($100) with personal unicorn float, party supplies, and VIP amenities.',
           'For complete exclusivity, rent a [[private-cruises]] with our flagship Clever Girl boat (50-75 guests) featuring 14 disco balls and giant Texas flag. Ultimate package includes giant lily pads, champagne setup, party supplies, and VIP service.'
         ]
       },
@@ -2577,7 +2571,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Luxury Transportation',
         paragraphs: [
           'Arrive in style via private limo or even helicopter tours of Austin. Book luxury party buses with leather seating, premium sound systems, and complimentary champagne for bar hopping.',
-          'Many luxury hotels offer Tesla car service or can arrange private drivers for your group. The 25% transportation discount on Disco Queen and Platinum packages applies to upscale transportation options.'
+          'Many luxury hotels offer Tesla car service or can arrange private drivers for your group. Transportation discounts available - contact us for details on luxury transportation options for your disco cruise experience.'
         ]
       },
       {
@@ -2616,7 +2610,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'ATX Disco Cruise - The Must-Do Experience',
         paragraphs: [
           'The ATX Disco Cruise is THE premier bachelorette boat experience on Lake Travis. Join other bachelorette groups for a 4-hour party cruise with professional DJ, photographer, giant lily pad floats, and disco dance floor.',
-          'Three package levels available: Basic Bach ($85), Disco Queen ($95 per person), and Super Sparkle Platinum ($105). Includes everything you need for an epic day on the water with BYOB policies and Party On Delivery coordination available.'
+          'Three time slots available: Saturday 3:30-7:30pm ($85 base, $111.56 w/tax & gratuity), Friday 12-4pm ($95 base, $124.88 w/tax & gratuity), and Saturday 11am-3pm ($105 base, $137.81 w/tax & gratuity - most popular!). Includes everything you need for an epic day on the water with BYOB policies and Party On Delivery coordination available.'
         ]
       },
       {
@@ -2662,7 +2656,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: '1. Party Boat on Lake Travis (ATX Disco Cruise)',
         paragraphs: [
           'The #1 bachelorette party activity in Austin! The ATX Disco Cruise offers a 4-hour floating party with professional DJ, photographer, giant floats, and disco dance floor. Join other bachelorette groups for the ultimate Lake Travis experience.',
-          'Starting at $85 per person , it\'s the most affordable and fun way to experience Lake Travis. BYOB with coolers provided, or coordinate delivery through Party On Delivery for ultimate convenience.'
+          'Three time slots available starting at $85 per person base price ($111.56 including tax and gratuity). Most affordable and fun way to experience Lake Travis. BYOB with private coolers and ice provided, or coordinate delivery through Party On Delivery for ultimate convenience.'
         ]
       },
       {
@@ -2904,9 +2898,9 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'ATX Disco Cruise Pricing',
         paragraphs: [
-          'Basic Bach Package - $85 per person: Full 4-hour cruise, professional DJ, photographer, giant floats, BYOB with shared coolers, multi-group party atmosphere. Always cheaper than private boats.',
-          'Disco Queen/King Package - $95 per person (Most Popular): Everything in Basic Bach plus private cooler with ice, reserved spot, disco ball cup for guest of honor, complimentary alcohol delivery, 25% transportation discount, $50-100 Airbnb voucher.',
-          'Super Sparkle Platinum - $105 per person: Everything in Disco Queen plus personal unicorn float, mimosa setup with flutes and juices, $100 Airbnb concierge voucher, towel service, SPF-50 sunscreen, pre-stocked cooler. Ultimate luxury experience.'
+          'Saturday 3:30-7:30pm - $85 per person ($111.56 w/tax & gratuity): Full 4-hour cruise, professional DJ, photographer, giant floats, BYOB with private coolers and ice, multi-group party atmosphere. Best value time slot - always cheaper than private boats!',
+          'Friday 12-4pm - $95 per person ($124.88 w/tax & gratuity): Everything included plus premium boat positioning, professional entertainment, and great Friday party atmosphere. Perfect weekend kickoff!',
+          'Saturday 11am-3pm - $105 per person ($137.81 w/tax & gratuity) - MOST POPULAR: Best party atmosphere of the week! Premium time slot with all amenities included. Add-ons available: Mimosa Party Cooler ($100), Sparkle Packages ($100) with extra floats and VIP amenities.'
         ]
       },
       {
@@ -2930,9 +2924,9 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         paragraphs: [
           'Beverages: All cruises are BYOB (bring your own). Budget $30-50 per person for drinks. Party On Delivery can coordinate convenient delivery at retail prices.',
           'Food: Bring your own or coordinate delivery to marina. Budget $10-20 per person for snacks and meals.',
-          'Transportation: Marina is 30 minutes from downtown Austin. Rideshare typically $30-50 each way per vehicle. Disco Queen and Platinum packages include 25% transportation discount.',
-          'Gratuity: Not required but appreciated for exceptional service. Standard is 15-20% of base rental cost for private charters. Disco cruise gratuity is optional per person.',
-          'Add-ons: Professional videography, premium decorations, catering coordination, extended hours, or special requests available at additional cost. Contact us for custom pricing.'
+          'Transportation: Marina is 30 minutes from downtown Austin. Rideshare typically $30-50 each way per vehicle. Transportation discounts may be available - contact us for details.',
+          'Gratuity: Not required but appreciated for exceptional service. Standard is 15-20% of base rental cost for private charters. Disco cruise prices already include tax and gratuity for transparent pricing.',
+          'Add-ons: Mimosa Party Cooler ($100), Sparkle Packages ($100), professional videography, premium decorations, catering coordination, or special requests available at additional cost. Contact us for custom pricing.'
         ]
       },
       {
@@ -2940,7 +2934,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         paragraphs: [
           'Book ATX Disco Cruise for best value - always cheaper than private boats for groups under 30. BYOB saves hundreds on bar tabs. Use Party On Delivery for retail-priced alcohol with 100% buyback on unopened bottles.',
           'Book weekday cruises when possible for lower rates. Combine groups for shared private charters to split costs. Ask about group discounts for multiple bookings. Military and first responders receive 10% off with valid ID.',
-          'Disco Queen/King package at $95 per person offers premium amenities and VIP treatment for wedding parties.'
+          'Saturday 3:30-7:30pm time slot at $85 base price ($111.56 with tax & gratuity) offers the best value for budget-conscious groups, while Friday 12-4pm ($95 base, $124.88 total) and Saturday 11am-3pm ($105 base, $137.81 total) provide premium timing and atmosphere.'
         ]
       },
       {

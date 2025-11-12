@@ -376,7 +376,7 @@ export default function LuxuryAustinBachelorette() {
               </p>
 
               <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
-                For the absolute ultimate <strong>bachelorette boat rental austin</strong> experience, opt for their exclusive Disco Queen or Super Sparkle Platinum package designed specifically for luxury <strong>bachelorette parties in austin</strong>! These VIP <Link href="/atx-disco-cruise" className="text-pink-600 hover:text-pink-700 font-semibold">ATX Disco Cruise</Link> packages include incredible perks: your coolers come pre-stocked with premium beverages coordinated through <a href="https://partyondelivery.com" target="_blank" rel="noopener noreferrer" className="text-pink-600 hover:text-pink-700 font-semibold">Party On Delivery</a>, a mimosa bar with champagne flutes is provided, and even extras like luxury towel service and reef-safe sunscreen are covered. It's a completely turnkey <strong>luxury austin bachelorette</strong> experience—you just show up in your cutest swimsuits and kimonos, and everything else is professionally handled for your <strong>austin bachelorette weekend</strong> celebration!
+                For the absolute ultimate <strong>bachelorette boat rental austin</strong> experience, book the Saturday 11am-3pm "BEST" time slot at $105 per person ($137.81 with tax & gratuity) and add the Bride Sparkle Package ($100 for the entire group) designed specifically for luxury <strong>bachelorette parties in austin</strong>! This VIP <Link href="/atx-disco-cruise" className="text-pink-600 hover:text-pink-700 font-semibold">ATX Disco Cruise</Link> time slot and package combination includes incredible perks: the Bride Sparkle Package provides premium party favors, champagne flutes, decorations, and VIP treatment, while your coolers can be pre-stocked with premium beverages coordinated through <a href="https://partyondelivery.com" target="_blank" rel="noopener noreferrer" className="text-pink-600 hover:text-pink-700 font-semibold">Party On Delivery</a>. It's a completely turnkey <strong>luxury austin bachelorette</strong> experience—you just show up in your cutest swimsuits and kimonos, and everything else is professionally handled for your <strong>austin bachelorette weekend</strong> celebration!
               </p>
 
               <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
@@ -398,11 +398,11 @@ export default function LuxuryAustinBachelorette() {
               <CardContent className="space-y-3 text-gray-700 dark:text-gray-300">
                 <div className="flex items-start gap-3">
                   <CheckCircle2 className="h-5 w-5 text-pink-600 flex-shrink-0 mt-1" />
-                  <p><strong>Disco Queen Package:</strong> Pre-stocked coolers, mimosa bar, VIP treatment for your <strong>austin bachelorette party boat</strong></p>
+                  <p><strong>Saturday 11am-3pm "BEST" Time Slot:</strong> Premium daytime cruise at $105/person ($137.81 with tax & gratuity) for your <strong>austin bachelorette party boat</strong></p>
                 </div>
                 <div className="flex items-start gap-3">
                   <CheckCircle2 className="h-5 w-5 text-pink-600 flex-shrink-0 mt-1" />
-                  <p><strong>Super Sparkle Platinum:</strong> Ultimate luxury with champagne service and photographer for your <strong>bachelorette party lake travis</strong></p>
+                  <p><strong>Bride Sparkle Package Add-On:</strong> $100 total for premium favors, champagne service, decorations and VIP treatment for your <strong>bachelorette party lake travis</strong></p>
                 </div>
                 <div className="flex items-start gap-3">
                   <CheckCircle2 className="h-5 w-5 text-pink-600 flex-shrink-0 mt-1" />

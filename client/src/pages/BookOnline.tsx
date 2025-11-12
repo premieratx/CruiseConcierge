@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 const logoPath = '/attached_assets/PPC Logo LARGE_1757881944449.png';
 import { Ship, Star, CheckCircle, Clock } from 'lucide-react';
 import Footer from '@/components/Footer';
+import { DISCO_TIME_SLOTS } from '@shared/constants';
 
 interface BookOnlineProps {
   defaultBoatType?: '14p' | '25p' | '50p' | 'disco';
@@ -19,7 +20,7 @@ const fadeInUp = {
 
 export default function BookOnline({ defaultBoatType = '14p' }: BookOnlineProps) {
   const [activeTab, setActiveTab] = useState<string>(defaultBoatType);
-  const [activeDiscoPackage, setActiveDiscoPackage] = useState<string>('super-sparkle');
+  const [activeDiscoTimeSlot, setActiveDiscoTimeSlot] = useState<string>('saturday-330-730pm');
   const [xolaLoaded, setXolaLoaded] = useState(false);
 
   // Ensure page loads at top
@@ -56,9 +57,9 @@ export default function BookOnline({ defaultBoatType = '14p' }: BookOnlineProps)
       '14p': '64c7d0012c2afc7d8d70e285',
       '25p': '64c7d2b74e1de53cee29395e',
       '50p': '64c7d4f01be574411500cf62',
-      'basic-bach': '676fe4a7ff119f53c4063c1b',
-      'disco-queen': '676f0bc68ff6dfb29009b5ad',
-      'super-sparkle': '676f0ceaa3744b05ae09e9de',
+      'friday-12-4pm': '676fe4a7ff119f53c4063c1b',
+      'saturday-11am-3pm': '676f0bc68ff6dfb29009b5ad',
+      'saturday-330-730pm': '676f0ceaa3744b05ae09e9de',
     }
   };
 
@@ -160,42 +161,24 @@ export default function BookOnline({ defaultBoatType = '14p' }: BookOnlineProps)
               </button>
             </div>
 
-            {/* Disco Package Sub-tabs */}
+            {/* Disco Time Slot Sub-tabs */}
             {activeTab === 'disco' && (
               <div className="flex flex-wrap gap-3">
-                <button
-                  onClick={() => setActiveDiscoPackage('basic-bach')}
-                  className={`flex-1 min-w-[160px] px-6 py-3 rounded-lg font-semibold transition-all ${
-                    activeDiscoPackage === 'basic-bach'
-                      ? 'bg-purple-600 text-white shadow-lg'
-                      : 'bg-purple-100 text-purple-700 hover:bg-purple-200 shadow'
-                  }`}
-                  data-testid="tab-disco-basic"
-                >
-                  Basic Bach Package
-                </button>
-                <button
-                  onClick={() => setActiveDiscoPackage('disco-queen')}
-                  className={`flex-1 min-w-[160px] px-6 py-3 rounded-lg font-semibold transition-all ${
-                    activeDiscoPackage === 'disco-queen'
-                      ? 'bg-purple-600 text-white shadow-lg'
-                      : 'bg-purple-100 text-purple-700 hover:bg-purple-200 shadow'
-                  }`}
-                  data-testid="tab-disco-queen"
-                >
-                  Disco Queen Package
-                </button>
-                <button
-                  onClick={() => setActiveDiscoPackage('super-sparkle')}
-                  className={`flex-1 min-w-[160px] px-6 py-3 rounded-lg font-semibold transition-all ${
-                    activeDiscoPackage === 'super-sparkle'
-                      ? 'bg-purple-600 text-white shadow-lg'
-                      : 'bg-purple-100 text-purple-700 hover:bg-purple-200 shadow'
-                  }`}
-                  data-testid="tab-disco-sparkle"
-                >
-                  Super Sparkle Platinum
-                </button>
+                {DISCO_TIME_SLOTS.map((slot) => (
+                  <button
+                    key={slot.id}
+                    onClick={() => setActiveDiscoTimeSlot(slot.id)}
+                    className={`flex-1 min-w-[160px] px-6 py-3 rounded-lg font-semibold transition-all ${
+                      activeDiscoTimeSlot === slot.id
+                        ? 'bg-purple-600 text-white shadow-lg'
+                        : 'bg-purple-100 text-purple-700 hover:bg-purple-200 shadow'
+                    }`}
+                    data-testid={`tab-disco-${slot.id}`}
+                  >
+                    {slot.label}
+                    {slot.badge && <span className="block text-xs mt-1">{slot.badge}</span>}
+                  </button>
+                ))}
               </div>
             )}
 
@@ -237,39 +220,39 @@ export default function BookOnline({ defaultBoatType = '14p' }: BookOnlineProps)
                 />
               </div>
 
-              {/* Basic Bach Package - Visible initially for Xola init, then toggled */}
-              <div style={{ display: !xolaLoaded || (activeTab === 'disco' && activeDiscoPackage === 'basic-bach') ? 'block' : 'none' }}>
+              {/* Friday 12-4pm Time Slot - Visible initially for Xola init, then toggled */}
+              <div style={{ display: !xolaLoaded || (activeTab === 'disco' && activeDiscoTimeSlot === 'friday-12-4pm') ? 'block' : 'none' }}>
                 <div
                   className="xola-embedded-checkout"
                   data-seller={xolaConfig.seller}
                   data-version="2"
-                  data-experience={xolaConfig.experiences['basic-bach']}
+                  data-experience={xolaConfig.experiences['friday-12-4pm']}
                   style={{ minHeight: '600px' }}
-                  data-testid="widget-disco-basic"
+                  data-testid="widget-disco-friday"
                 />
               </div>
 
-              {/* Disco Queen Package - Visible initially for Xola init, then toggled */}
-              <div style={{ display: !xolaLoaded || (activeTab === 'disco' && activeDiscoPackage === 'disco-queen') ? 'block' : 'none' }}>
+              {/* Saturday 11am-3pm Time Slot - Visible initially for Xola init, then toggled */}
+              <div style={{ display: !xolaLoaded || (activeTab === 'disco' && activeDiscoTimeSlot === 'saturday-11am-3pm') ? 'block' : 'none' }}>
                 <div
                   className="xola-embedded-checkout"
                   data-seller={xolaConfig.seller}
                   data-version="2"
-                  data-experience={xolaConfig.experiences['disco-queen']}
+                  data-experience={xolaConfig.experiences['saturday-11am-3pm']}
                   style={{ minHeight: '600px' }}
-                  data-testid="widget-disco-queen"
+                  data-testid="widget-disco-saturday-morning"
                 />
               </div>
 
-              {/* Super Sparkle Platinum - Visible initially for Xola init, then toggled */}
-              <div style={{ display: !xolaLoaded || (activeTab === 'disco' && activeDiscoPackage === 'super-sparkle') ? 'block' : 'none' }}>
+              {/* Saturday 3:30-7:30pm Time Slot - Visible initially for Xola init, then toggled */}
+              <div style={{ display: !xolaLoaded || (activeTab === 'disco' && activeDiscoTimeSlot === 'saturday-330-730pm') ? 'block' : 'none' }}>
                 <div
                   className="xola-embedded-checkout"
                   data-seller={xolaConfig.seller}
                   data-version="2"
-                  data-experience={xolaConfig.experiences['super-sparkle']}
+                  data-experience={xolaConfig.experiences['saturday-330-730pm']}
                   style={{ minHeight: '600px' }}
-                  data-testid="widget-disco-sparkle"
+                  data-testid="widget-disco-saturday-afternoon"
                 />
               </div>
             </div>

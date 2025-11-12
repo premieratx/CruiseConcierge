@@ -13,37 +13,37 @@
     "Texas",
     "United States"
   ],
-  "description": "Join the BEST party on Lake Travis! Our signature ATX Disco Cruise features a professional DJ, photographer, disco dance floor, giant floats, and an incredible party atmosphere. Three package levels available: Basic Bach ($85), Disco Queen/King ($95), and Super Sparkle Platinum ($105). Every disco cruise includes professional entertainment, photo delivery, party supplies, and an unforgettable experience with multiple bachelor and bachelorette groups celebrating together.",
+  "description": "Join the BEST party on Lake Travis! Our signature ATX Disco Cruise features a professional DJ, photographer, disco dance floor, giant floats, and an incredible party atmosphere. Three time slots available with different pricing options to fit your schedule. Every disco cruise includes professional entertainment, photo delivery, party supplies, and an unforgettable experience with multiple bachelor and bachelorette groups celebrating together.",
   "offers": [
     {
       "@type": "Offer",
-      "name": "Basic Bach Package",
-      "price": "85.00",
-      "priceCurrency": "USD",
-      "priceValidUntil": "2099-12-31",
-      "availability": "https://schema.org/InStock",
-      "url": "https://premierpartycruises.com/atx-disco-cruise",
-      "description": "Includes all cruise amenities, DJ, photographer, and party atmosphere"
-    },
-    {
-      "@type": "Offer",
-      "name": "Disco Queen/King Package",
+      "name": "Friday 12-4pm Time Slot",
       "price": "95.00",
       "priceCurrency": "USD",
       "priceValidUntil": "2099-12-31",
       "availability": "https://schema.org/InStock",
       "url": "https://premierpartycruises.com/atx-disco-cruise",
-      "description": "Enhanced package with bride/groom FREE for 16+ guests, plus all amenities"
+      "description": "$95 per person ($124.88 with tax and gratuity). Includes all cruise amenities, DJ, photographer, and party atmosphere"
     },
     {
       "@type": "Offer",
-      "name": "Super Sparkle Platinum Package",
+      "name": "Saturday 11am-3pm Time Slot - BEST",
       "price": "105.00",
       "priceCurrency": "USD",
       "priceValidUntil": "2099-12-31",
       "availability": "https://schema.org/InStock",
       "url": "https://premierpartycruises.com/atx-disco-cruise",
-      "description": "Premium package with bride/groom FREE for 16+ guests, VIP treatment, and all amenities"
+      "description": "$105 per person ($137.81 with tax and gratuity). Most popular time slot with all amenities"
+    },
+    {
+      "@type": "Offer",
+      "name": "Saturday 3:30-7:30pm Time Slot - FUN!",
+      "price": "85.00",
+      "priceCurrency": "USD",
+      "priceValidUntil": "2099-12-31",
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/atx-disco-cruise",
+      "description": "$85 per person ($111.56 with tax and gratuity). Evening party atmosphere with all amenities"
     }
   ],
   "additionalProperty": [
@@ -61,11 +61,6 @@
       "@type": "PropertyValue",
       "name": "Party Floats",
       "value": "Giant unicorn floats and lily pads included"
-    },
-    {
-      "@type": "PropertyValue",
-      "name": "Bride/Groom Free",
-      "value": "Yes - On Disco Queen/King & Platinum packages with 16+ guests"
     }
   ]
 }

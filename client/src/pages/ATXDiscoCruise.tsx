@@ -12,8 +12,17 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { cn } from '@/lib/utils';
 import { formatCurrency } from '@shared/formatters';
 import SEOHead from '@/components/SEOHead';
-import { DISCO_PRICING } from '@shared/constants';
+import { 
+  DISCO_TIME_SLOTS, 
+  DISCO_BASE_INCLUSIONS, 
+  DISCO_ADD_ONS, 
+  DISCO_PARTY_TYPES,
+  getDiscoNecklaceText,
+  getPartyAddOns,
+  type DiscoPartyType 
+} from '@shared/constants';
 import PartyPlanningChecklist from '@/components/PartyPlanningChecklist';
+import { DiscoCruisePricing } from '@/components/DiscoCruisePricing';
 import DiscoVsPrivateComparison from '@/components/DiscoVsPrivateComparison';
 import DiscoVsPrivateValueCalculator from '@/components/DiscoVsPrivateValueCalculator';
 import { SectionReveal } from '@/components/SectionReveal';
@@ -74,67 +83,6 @@ const staggerChildren = {
     transition: { staggerChildren: 0.15 }
   }
 };
-
-const discoPackages = [
-  {
-    id: 'basic',
-    name: 'Basic Bach',
-    price: 85,
-    originalPrice: null,
-    description: 'Join the BEST Party on Lake Travis - Exclusively for Bach Parties!',
-    subtitle: '$85/person ($111 with tax & tip) - BYOB & Keep it Cheap',
-    features: [
-      'Full 4-hour Lake Travis cruise experience',
-      'Professional DJ entertainment all day',
-      'Professional photographer capturing memories',
-      'Digital photo delivery after the event',
-      'Giant unicorn float access',
-      'Multi-group party atmosphere (50-100+ people)',
-      'BYOB with shared coolers (no private ice)',
-      'We can coordinate alcohol delivery to boat'
-    ],
-    popular: false,
-    icon: Disc3,
-    badge: 'Great Value'
-  },
-  {
-    id: 'disco_queen',
-    name: 'Disco Queen',
-    price: 95,
-    originalPrice: null,
-    description: 'Enhanced party experience with private cooler and reserved spot',
-    subtitle: '$95/person ($124 with tax & tip) - Private Cooler for Your Group',
-    features: [
-      'Everything in Basic Bach Package',
-      'Private cooler with ice & storage bin for your group',
-      'Reserved spot for your group on the boat',
-      'Disco ball cup & bubble gun for guest of honor',
-      'We can coordinate alcohol delivery direct to boat',
-      '25% discount on round-trip transportation'
-    ],
-    popular: true,
-    icon: Crown,
-    badge: 'Most Popular'
-  },
-  {
-    id: 'platinum',
-    name: 'Super Sparkle',
-    price: 105,
-    originalPrice: null,
-    description: 'Ultimate all-inclusive party experience with maximum celebration',
-    subtitle: '$105/person ($137 with tax & tip) - Nothing to Carry!',
-    features: [
-      'Everything in Disco Queen Package',
-      'Personal unicorn float for guest of honor',
-      'Mimosa setup with champagne flutes, 3 juices & chambong',
-      'Towel service & SPF-50 spray sunscreen provided',
-      'Nothing to carry - cooler pre-stocked with drinks when you arrive'
-    ],
-    popular: false,
-    icon: Trophy,
-    badge: 'All-Inclusive'
-  }
-];
 
 const whatsIncluded = [
   {
@@ -249,7 +197,7 @@ const faqItems = [
   {
     id: 'ticket-prices',
     question: 'How much are tickets?',
-    answer: '$85 Basic, $95 Queen/King, $105 Platinum.'
+    answer: 'Tickets are priced by time slot: Friday 12-4pm ($95/person), Saturday 11am-3pm ($105/person - most popular), and Saturday 3:30-7:30pm ($85/person). Optional add-on packages are available based on your party type.'
   },
   {
     id: 'weather-policy',
@@ -302,6 +250,7 @@ const tocSections = [
 export default function ATXDiscoCruise() {
   const [, navigate] = useLocation();
   const [currentHeroImage, setCurrentHeroImage] = useState(0);
+  const [selectedPartyType, setSelectedPartyType] = useState<DiscoPartyType>(DISCO_PARTY_TYPES.bachelorette);
   const reducedMotion = useReducedMotion();
   const { toast } = useToast();
 
@@ -377,11 +326,11 @@ export default function ATXDiscoCruise() {
             },
             { 
               question: "How much does ATX Disco Cruise cost?", 
-              answer: "ATX Disco Cruise packages start at $85 per person for the Basic Bach Package, $105 for the Disco Queen Package (most popular), and $125 for the Super Sparkle Platinum package. All packages include DJ, photographer, and floats." 
+              answer: "ATX Disco Cruise pricing is based on time slot: Friday 12-4pm costs $95 per person, Saturday 11am-3pm costs $105 per person (most popular), and Saturday 3:30-7:30pm costs $85 per person. All tickets include DJ, photographer, and floats. Optional add-on packages are available based on your party type." 
             },
             { 
               question: "When does ATX Disco Cruise run?", 
-              answer: "ATX Disco Cruises run on Saturdays from 11:00 AM - 3:00 PM or 3:30 PM - 7:30 PM during the season (March through October). Each cruise is 4 hours long on Lake Travis." 
+              answer: "ATX Disco Cruises run on Fridays from 12:00 PM - 4:00 PM and Saturdays from 11:00 AM - 3:00 PM or 3:30 PM - 7:30 PM during the season (March through October). Each cruise is 4 hours long on Lake Travis." 
             },
             { 
               question: "What's included in ATX Disco Cruise?", 
@@ -502,126 +451,45 @@ export default function ATXDiscoCruise() {
         {/* Quote Builder Section */}
         <QuoteBuilderSection />
 
-        {/* Summary Chart Section */}
+        {/* Party Type Selector Section */}
         <SectionReveal>
-          <section className="py-12 md:py-20 bg-white">
+          <section className="py-12 md:py-16 bg-gradient-to-br from-purple-50 to-pink-50">
             <div className="max-w-7xl mx-auto px-4 sm:px-6">
-              <div className="text-center mb-16">
-                <Badge className="mb-6 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-4 sm:px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
-                  <Package className="h-4 w-4 mr-2 inline" />
-                  Compare Packages
-                </Badge>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-yellow-400 leading-tight">
-                  ATX Disco Cruise Packages at a Glance
+              <div className="text-center mb-8">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-playfair text-center mb-4 text-gray-900 leading-tight">
+                  Select Your Party Type
                 </h2>
-                <p className="text-xl text-blue-600 max-w-3xl mx-auto leading-relaxed font-medium">
-                  <strong>Fridays & Saturdays, March-October</strong> • Choose your perfect party package
+                <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
+                  Choose your party type to see pricing and available add-on packages
                 </p>
               </div>
 
-              <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-                {/* Basic Bach Package */}
-                <Card className="border-2 hover:shadow-xl transition-all">
-                  <CardHeader className="bg-gradient-to-br from-purple-50 to-pink-50">
-                    <CardTitle className="text-xl font-bold text-center">Basic Bach</CardTitle>
-                    <div className="text-center">
-                      <span className="text-3xl font-bold text-purple-600">$85</span>
-                      <span className="text-gray-600">/person</span>
-                    </div>
-                  </CardHeader>
-                  <CardContent className="pt-6">
-                    <ul className="space-y-3 text-sm">
-                      <li className="flex items-start gap-2">
-                        <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
-                        <span>Professional DJ (4 hours)</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
-                        <span>Professional Photographer</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
-                        <span>Giant Floats</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
-                        <span>Ice & Water Stations</span>
-                      </li>
-                    </ul>
-                  </CardContent>
-                </Card>
-
-                {/* Disco Queen Package */}
-                <Card className="border-2 border-purple-400 hover:shadow-xl transition-all transform scale-105">
-                  <CardHeader className="bg-gradient-to-br from-purple-100 to-pink-100">
-                    <Badge className="mb-2 bg-purple-600 text-white mx-auto">MOST POPULAR</Badge>
-                    <CardTitle className="text-xl font-bold text-center">Disco Queen</CardTitle>
-                    <div className="text-center">
-                      <span className="text-3xl font-bold text-purple-600">$95</span>
-                      <span className="text-gray-600">/person</span>
-                    </div>
-                  </CardHeader>
-                  <CardContent className="pt-6">
-                    <p className="font-semibold text-sm mb-3">Everything in Basic PLUS:</p>
-                    <ul className="space-y-3 text-sm">
-                      <li className="flex items-start gap-2">
-                        <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
-                        <span>Reserved Spot on Boat</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
-                        <span>Private Cooler</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
-                        <span>Bride/Groom Gifts</span>
-                      </li>
-                    </ul>
-                  </CardContent>
-                </Card>
-
-                {/* Super Sparkle Package */}
-                <Card className="border-2 hover:shadow-xl transition-all">
-                  <CardHeader className="bg-gradient-to-br from-yellow-50 to-orange-50">
-                    <CardTitle className="text-xl font-bold text-center">Super Sparkle</CardTitle>
-                    <div className="text-center">
-                      <span className="text-3xl font-bold text-purple-600">$105</span>
-                      <span className="text-gray-600">/person</span>
-                    </div>
-                  </CardHeader>
-                  <CardContent className="pt-6">
-                    <p className="font-semibold text-sm mb-3">Everything in Disco Queen PLUS:</p>
-                    <ul className="space-y-3 text-sm">
-                      <li className="flex items-start gap-2">
-                        <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
-                        <span>Personal Float</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
-                        <span>Mimosa Setup</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
-                        <span>Towel Service</span>
-                      </li>
-                    </ul>
-                  </CardContent>
-                </Card>
-              </div>
-
-              <div className="text-center mt-12">
-                <Button
-                  size="lg"
-                  onClick={() => {
-                    const element = document.getElementById('pricing');
-                    if (element) {
-                      element.scrollIntoView({ behavior: 'smooth' });
-                    }
-                  }}
-                  className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold px-8 py-4"
-                >
-                  See Full Package Details <ArrowRight className="ml-2" />
-                </Button>
+              <div className="max-w-2xl mx-auto mb-12">
+                <Tabs value={selectedPartyType} onValueChange={(value) => setSelectedPartyType(value as DiscoPartyType)} className="w-full">
+                  <TabsList className="grid w-full grid-cols-3 h-auto" data-testid="tabs-party-type">
+                    <TabsTrigger 
+                      value={DISCO_PARTY_TYPES.bachelor} 
+                      className="py-4 px-6 text-base font-semibold data-[state=active]:bg-blue-600 data-[state=active]:text-white"
+                      data-testid="tab-bachelor"
+                    >
+                      🎉 Bachelor
+                    </TabsTrigger>
+                    <TabsTrigger 
+                      value={DISCO_PARTY_TYPES.bachelorette} 
+                      className="py-4 px-6 text-base font-semibold data-[state=active]:bg-pink-600 data-[state=active]:text-white"
+                      data-testid="tab-bachelorette"
+                    >
+                      💃 Bachelorette
+                    </TabsTrigger>
+                    <TabsTrigger 
+                      value={DISCO_PARTY_TYPES.combined} 
+                      className="py-4 px-6 text-base font-semibold data-[state=active]:bg-purple-600 data-[state=active]:text-white"
+                      data-testid="tab-combined"
+                    >
+                      💑 Combined
+                    </TabsTrigger>
+                  </TabsList>
+                </Tabs>
               </div>
             </div>
           </section>
@@ -806,20 +674,20 @@ export default function ATXDiscoCruise() {
           </section>
         </SectionReveal>
 
-        {/* 3. PRICING - Packages Section */}
+        {/* 3. PRICING - Time Slot & Add-Ons Section */}
         <SectionReveal>
           <section className="py-12 md:py-20 bg-white" id="packages" data-testid="section-packages">
             <div className="max-w-7xl mx-auto px-4 sm:px-6">
               <div className="text-center mb-16">
                 <Badge className="mb-6 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-4 sm:px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
                   <Package className="h-4 w-4 mr-2 inline" />
-                  Packages & Pricing
+                  Pricing & Time Slots
                 </Badge>
                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
-                  Choose Your Perfect Package
+                  ATX Disco Cruise Pricing
                 </h2>
                 <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed mb-4">
-                  From budget-friendly to all-inclusive VIP - we've got the perfect party package for every group. Looking for exclusive privacy? <InternalLinkHighlight href="/private-cruises" title="Private Cruises">Check out our private charter options</InternalLinkHighlight>
+                  Choose your time slot and add optional party packages. Looking for exclusive privacy? <InternalLinkHighlight href="/private-cruises" title="Private Cruises">Check out our private charter options</InternalLinkHighlight>
                 </p>
                 {/* Scarcity Indicator */}
                 <Badge className="bg-orange-600 text-white px-6 py-3 text-base font-bold animate-bounce">
@@ -828,79 +696,11 @@ export default function ATXDiscoCruise() {
                 </Badge>
               </div>
 
-              <div className="grid md:grid-cols-3 gap-8 mb-12">
-                {discoPackages.map((pkg, index) => (
-                  <Card 
-                    key={pkg.id} 
-                    className={cn(
-                      "relative overflow-hidden rounded-xl border-2 hover:shadow-2xl transition-all",
-                      pkg.popular ? "ring-4 ring-purple-600 border-purple-600" : "border-gray-200 hover:border-purple-300"
-                    )}
-                    data-testid={`card-package-${pkg.id}`}
-                  >
-                    {pkg.popular && (
-                      <div className="absolute top-0 left-0 right-0 bg-gradient-to-r from-purple-600 to-pink-600 text-white text-center py-2">
-                        <Badge className="font-sans tracking-wider bg-white text-purple-600">
-                          {pkg.badge}
-                        </Badge>
-                      </div>
-                    )}
-                    <CardHeader className={cn(pkg.popular && "pt-14")}>
-                      <div className="flex justify-center mb-4">
-                        <div className="p-4 rounded-full bg-gradient-to-br from-purple-500 to-pink-500">
-                          <pkg.icon className="w-8 h-8 text-white" />
-                        </div>
-                      </div>
-                      <CardTitle className="text-2xl text-center font-bold">{pkg.name}</CardTitle>
-                      <div className="text-center space-y-2">
-                        <div className="flex items-center justify-center gap-2">
-                          {pkg.originalPrice && (
-                            <span className="text-xl text-gray-500 line-through">
-                              ${pkg.originalPrice}
-                            </span>
-                          )}
-                          <span className="text-4xl font-bold text-purple-600">
-                            ${pkg.price}
-                          </span>
-                          <span className="text-base text-gray-700 dark:text-gray-300">/person</span>
-                        </div>
-                      </div>
-                      <CardDescription className="text-center text-base mt-2">
-                        {pkg.subtitle}
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent className="space-y-4">
-                      <p className="text-base text-gray-700 dark:text-gray-300 text-center">
-                        {pkg.description}
-                      </p>
-                      <ul className="space-y-3">
-                        {pkg.features.map((feature, idx) => (
-                          <li key={idx} className="flex items-start gap-2 text-base">
-                            <CheckCircle className="w-5 h-5 text-purple-600 mt-0.5 flex-shrink-0" />
-                            <span>{feature}</span>
-                          </li>
-                        ))}
-                      </ul>
-                      <Button
-                        onClick={handleBookNow}
-                        className={cn(
-                          "w-full",
-                          pkg.popular 
-                            ? "bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white" 
-                            : "bg-purple-100 text-purple-700 hover:bg-purple-200"
-                        )}
-                        data-testid={`button-select-${pkg.id}`}
-                      >
-                        Select {pkg.name}
-                      </Button>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
+              <DiscoCruisePricing partyType={selectedPartyType} />
 
-              <div className="text-center bg-white rounded-2xl p-8 max-w-4xl mx-auto border-2 border-purple-200">
+              <div className="text-center bg-white rounded-2xl p-8 max-w-4xl mx-auto border-2 border-purple-200 mt-12">
                 <p className="text-lg text-gray-700 mb-4 leading-relaxed">
-                  <strong>All packages include:</strong> Professional DJ, Professional Photographer, Giant Floats, Party Supplies & More!
+                  <strong>Every ticket includes:</strong> Professional DJ, Professional Photographer, Giant Floats, Party Supplies & More!
                 </p>
                 <Badge className="bg-green-600 text-white font-sans tracking-wider font-bold uppercase text-sm px-6 py-3">
                   <TrendingUp className="h-4 w-4 mr-2 inline" />
@@ -1206,7 +1006,7 @@ export default function ATXDiscoCruise() {
 
                   <h3 className="text-2xl font-bold text-gray-900 mb-4 mt-8">What to Expect on Your Party Boat Austin Experience</h3>
                   <p className="text-lg text-gray-700 leading-relaxed mb-4">
-                    Your <strong>party boat austin</strong> adventure begins at Anderson Mill Marina on Lake Travis. After checking in and loading your coolers with your favorite BYOB beverages, you'll board our professionally maintained vessel and find your group's reserved area (Disco Queen/Super Sparkle packages). As we cruise out on the lake, our professional DJ starts spinning tracks while groups begin mingling and the photographer captures those early moments of excitement.
+                    Your <strong>party boat austin</strong> adventure begins at Anderson Mill Marina on Lake Travis. After checking in and loading your coolers with your favorite BYOB beverages, you'll board our professionally maintained vessel and find your group's reserved area (add-on packages available). As we cruise out on the lake, our professional DJ starts spinning tracks while groups begin mingling and the photographer captures those early moments of excitement.
                   </p>
 
                   <div className="bg-white border-2 border-purple-200 p-6 my-8 rounded-lg shadow-md">
@@ -1983,7 +1783,7 @@ export default function ATXDiscoCruise() {
                   data={[
                     {
                       title: "Small Bach Parties (6-10 people)",
-                      description: "Perfect for intimate celebrations. Book Disco Queen or Platinum packages for private cooler and reserved spot. Still enjoy the multi-group party atmosphere!",
+                      description: "Perfect for intimate celebrations. Consider add-on packages for private cooler and reserved spot. Still enjoy the multi-group party atmosphere!",
                       icon: <Users className="w-5 h-5" />,
                       badge: "Intimate Vibe"
                     },
@@ -2121,7 +1921,7 @@ export default function ATXDiscoCruise() {
 
                 <FeaturedSnippet
                   question="How much does the ATX Disco Cruise cost?"
-                  answer="ATX Disco Cruise pricing: Basic Bach Package $85/person, Disco Queen/King Package $95/person (most popular), and Super Sparkle Platinum $105/person. All packages include professional DJ, photographer, giant floats, and party supplies. The shared format makes it significantly cheaper than private boat rentals for bachelor and bachelorette parties."
+                  answer="ATX Disco Cruise pricing is based on time slot: Friday 12-4pm costs $95/person, Saturday 11am-3pm costs $105/person (most popular), and Saturday 3:30-7:30pm costs $85/person. All tickets include professional DJ, photographer, giant floats, and party supplies. Optional add-on packages available based on your party type. The shared format makes it significantly cheaper than private boat rentals for bachelor and bachelorette parties."
                   featured={false}
                 />
 
@@ -2160,14 +1960,14 @@ export default function ATXDiscoCruise() {
           <p>Meet bachelor and bachelorette parties from across America</p>
           <p>Anderson Mill Marina departure location</p>
           
-          <h2>ATX Disco Cruise Packages and Pricing</h2>
+          <h2>ATX Disco Cruise Time Slots and Pricing</h2>
           
           <div itemScope itemType="https://schema.org/Offer">
-            <h3 itemProp="name">Basic Bach Package</h3>
-            <meta itemProp="price" content="85" />
+            <h3 itemProp="name">Friday 12-4pm Cruise</h3>
+            <meta itemProp="price" content="95" />
             <meta itemProp="priceCurrency" content="USD" />
-            <p itemProp="description">$85 per person - Join the BEST Party on Lake Travis, Exclusively for Bach Parties!</p>
-            <p>BYOB & Keep it Cheap - ALWAYS Cheaper than a Private Cruise</p>
+            <p itemProp="description">$95 per person - Friday afternoon party cruise on Lake Travis</p>
+            <p>4-hour cruise experience with DJ, photographer, and giant floats</p>
             <ul>
               <li>Full 4-hour Lake Travis cruise experience</li>
               <li>Professional DJ entertainment all day</li>
@@ -2176,38 +1976,43 @@ export default function ATXDiscoCruise() {
               <li>Giant unicorn float access</li>
               <li>Multi-group party atmosphere</li>
               <li>BYOB with shared coolers & ice</li>
-              <li>We can help coordinate alcohol delivery through Party On Delivery</li>
+              <li>Optional add-on packages available</li>
             </ul>
           </div>
 
           <div itemScope itemType="https://schema.org/Offer">
-            <h3 itemProp="name">Disco Queen Package</h3>
-            <meta itemProp="price" content="95" />
-            <meta itemProp="priceCurrency" content="USD" />
-            <p itemProp="description">$95 per person - Enhanced party experience with private cooler and reserved spot</p>
-            <p>Private Cooler & Reserved Spot for Your Group</p>
-            <ul>
-              <li>Everything in Basic Bach Package</li>
-              <li>Private cooler with ice & storage bin for your group</li>
-              <li>Reserved spot for your group on the boat</li>
-              <li>Disco ball cup & bubble gun for guest of honor</li>
-              <li>We can coordinate alcohol delivery direct to boat</li>
-              <li>25% discount on round-trip transportation</li>
-            </ul>
-          </div>
-
-          <div itemScope itemType="https://schema.org/Offer">
-            <h3 itemProp="name">Super Sparkle Platinum Disco Package</h3>
+            <h3 itemProp="name">Saturday 11am-3pm Cruise</h3>
             <meta itemProp="price" content="105" />
             <meta itemProp="priceCurrency" content="USD" />
-            <p itemProp="description">$105 per person - Ultimate all-inclusive party experience with maximum celebration</p>
-            <p>Nothing to Carry, Cooler Stocked When You Arrive!</p>
+            <p itemProp="description">$105 per person - Saturday morning cruise, most popular time slot</p>
+            <p>Prime Saturday morning slot - books fastest!</p>
             <ul>
-              <li>Everything in Disco Queen Package</li>
-              <li>Personal unicorn float for guest of honor</li>
-              <li>Mimosa setup with champagne flutes, 3 juices & chambong</li>
-              <li>Towel service & SPF-50 spray sunscreen provided</li>
-              <li>Nothing to carry - cooler pre-stocked with drinks when you arrive</li>
+              <li>Full 4-hour Lake Travis cruise experience</li>
+              <li>Professional DJ entertainment all day</li>
+              <li>Professional photographer capturing memories</li>
+              <li>Digital photo delivery after the event</li>
+              <li>Giant unicorn float access</li>
+              <li>Multi-group party atmosphere</li>
+              <li>BYOB with shared coolers & ice</li>
+              <li>Optional add-on packages available</li>
+            </ul>
+          </div>
+
+          <div itemScope itemType="https://schema.org/Offer">
+            <h3 itemProp="name">Saturday 3:30-7:30pm Cruise</h3>
+            <meta itemProp="price" content="85" />
+            <meta itemProp="priceCurrency" content="USD" />
+            <p itemProp="description">$85 per person - Saturday sunset cruise, best value</p>
+            <p>Perfect sunset timing and great value!</p>
+            <ul>
+              <li>Full 4-hour Lake Travis cruise experience</li>
+              <li>Professional DJ entertainment all day</li>
+              <li>Professional photographer capturing memories</li>
+              <li>Digital photo delivery after the event</li>
+              <li>Giant unicorn float access</li>
+              <li>Multi-group party atmosphere</li>
+              <li>BYOB with shared coolers & ice</li>
+              <li>Optional add-on packages available</li>
             </ul>
           </div>
 
@@ -2241,28 +2046,28 @@ export default function ATXDiscoCruise() {
             "offers": [
               {
                 "@type": "Offer",
-                "name": "Basic Bach Package",
-                "price": "85",
-                "priceCurrency": "USD",
-                "description": "Full 4-hour Lake Travis cruise with DJ, photographer, and giant floats",
-                "availability": "https://schema.org/InStock",
-                "validFrom": "2024-01-01"
-              },
-              {
-                "@type": "Offer",
-                "name": "Disco Queen Package",
+                "name": "Friday 12-4pm Time Slot",
                 "price": "95",
                 "priceCurrency": "USD",
-                "description": "Enhanced experience with private cooler, reserved spot, and VIP perks",
+                "description": "Friday afternoon 4-hour Lake Travis cruise with DJ, photographer, and giant floats",
                 "availability": "https://schema.org/InStock",
                 "validFrom": "2024-01-01"
               },
               {
                 "@type": "Offer",
-                "name": "Super Sparkle Platinum Disco",
+                "name": "Saturday 11am-3pm Time Slot",
                 "price": "105",
                 "priceCurrency": "USD",
-                "description": "Ultimate all-inclusive VIP experience with personal float and premium amenities",
+                "description": "Saturday morning 4-hour cruise - most popular time slot with full party experience",
+                "availability": "https://schema.org/InStock",
+                "validFrom": "2024-01-01"
+              },
+              {
+                "@type": "Offer",
+                "name": "Saturday 3:30-7:30pm Time Slot",
+                "price": "85",
+                "priceCurrency": "USD",
+                "description": "Saturday sunset 4-hour cruise - best value time slot with amazing sunset views",
                 "availability": "https://schema.org/InStock",
                 "validFrom": "2024-01-01"
               }

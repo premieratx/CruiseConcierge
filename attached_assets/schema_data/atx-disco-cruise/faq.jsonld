@@ -23,7 +23,7 @@
       "name": "How much are tickets?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "$85 Basic, $95 Queen/King, $105 Platinum."
+        "text": "Friday 12-4pm: $95/person. Saturday 11am-3pm: $105/person. Saturday 3:30-7:30pm: $85/person."
       }
     },
     {
@@ -80,14 +80,6 @@
       "acceptedAnswer": {
         "@type": "Answer",
         "text": "Yes, when conditions are safe at captain's discretion. Life jackets required in water, provided for adults."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Does bride/groom cruise free?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes! On Disco Queen and Platinum packages with 16+ paying guests, bride OR groom cruises absolutely FREE."
       }
     }
   ]

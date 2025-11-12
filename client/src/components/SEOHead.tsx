@@ -263,7 +263,7 @@ export function generateBusinessSchema() {
           "itemOffered": {
             "@type": "Service",
             "name": "Bachelorette Packages",
-            "description": "Specialized bachelorette party packages including Basic Bach, Disco Queen, and Platinum options"
+            "description": "Specialized bachelorette party experiences on ATX Disco Cruise with flexible time slots and optional add-ons"
           }
         }
       ]

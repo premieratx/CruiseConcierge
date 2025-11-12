@@ -1,153 +1,152 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { CheckCircle2, Sparkles, Crown, Star } from 'lucide-react';
+import { CheckCircle2, Clock, Sparkles } from 'lucide-react';
 import { Link } from 'wouter';
+import {
+  DISCO_TIME_SLOTS,
+  DISCO_BASE_INCLUSIONS,
+  getPartyAddOns,
+  getDiscoNecklaceText,
+  type DiscoPartyType,
+} from '@shared/constants';
 
 interface DiscoCruisePricingProps {
   className?: string;
+  partyType: DiscoPartyType;
+  showAddOns?: boolean;
 }
 
-// EXACT disco package details from knowledge base - NO BULLSHIT
-const DISCO_PACKAGES = {
-  basic: {
-    name: 'Basic Bach Package',
-    price: '$85',
-    priceWithTax: '$111',
-    description: 'Join the BEST Party on Lake Travis, Exclusively for Bach Parties!',
-    icon: Star,
-    popular: false,
-    features: [
-      'GIANT 25-ft Inflatable Unicorn Float - Biggest in the Country!',
-      'Incredible DJ spinnin\' all day',
-      'Pro Photographer & Free Photos',
-      '3 Giant Lily Pads + Floaties',
-      'Cups, Koozies, Bubbles, Name Tags',
-      'Shared Community Coolers with Ice',
-      'BYOB & Carry Drinks to the Boat',
-      'Always cheaper than a Private Cruise'
-    ]
-  },
-  queen: {
-    name: 'Disco Queen Package',
-    price: '$95',
-    priceWithTax: '$124',
-    description: 'Everything in Basic Bach PLUS Premium Upgrades',
-    icon: Crown,
-    popular: true,
-    features: [
-      'Everything in Basic Bach Package',
-      'Private Cooler with Ice + Storage Bin',
-      'Reserved Spot for Your Group',
-      'Disco Ball Cup & Bubble Gun for the Bride',
-      'Disco Visor & Necklace for the Groom',
-      'Direct-to-Boat Alcohol Delivery Service Available',
-      '25% Discount on Round-Trip Transportation'
-    ]
-  },
-  sparkle: {
-    name: 'Super Sparkle Platinum Package',
-    price: '$105',
-    priceWithTax: '$137',
-    description: 'Everything in Disco Queen PLUS Ultimate VIP Experience',
-    icon: Sparkles,
-    popular: false,
-    features: [
-      'Everything in Disco Queen Package',
-      'Personal Unicorn Float for Bride or Groom',
-      'Mimosa Setup (w/ Champagne Flutes, 3 Juices, Chambong)',
-      'Direct-to-Boat Alcohol Delivery Service Available',
-      'Towel Service & SPF-50 Sunscreen Provided',
-      'Cooler Stocked w/ Drinks When You Arrive — Nothing to Carry'
-    ]
-  }
-};
-
-export function DiscoCruisePricing({ className = '' }: DiscoCruisePricingProps) {
+export function DiscoCruisePricing({ 
+  className = '', 
+  partyType,
+  showAddOns = true 
+}: DiscoCruisePricingProps) {
+  const addOns = getPartyAddOns(partyType);
+  const necklaceText = getDiscoNecklaceText(partyType);
+  
   return (
     <div className={className}>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {Object.entries(DISCO_PACKAGES).map(([key, pkg]) => {
-          const Icon = pkg.icon;
-          
-          return (
-            <Card
-              key={key}
-              className={`relative transition-all hover:shadow-xl ${
-                pkg.popular ? 'ring-2 ring-primary shadow-lg' : ''
-              }`}
-              data-testid={`card-disco-${key}`}
-            >
-              {pkg.popular && (
-                <div className="absolute top-0 right-0 bg-gradient-to-l from-primary to-primary/80 text-white px-3 py-1 rounded-bl-lg text-sm">
-                  Most Popular
-                </div>
-              )}
-              
-              <CardHeader className="pb-4">
-                <div className="flex items-center gap-2 mb-2">
-                  <Icon className="h-6 w-6 text-primary" />
-                  <CardTitle className="text-xl">{pkg.name}</CardTitle>
-                </div>
-                <p className="text-sm text-gray-600 dark:text-gray-400">{pkg.description}</p>
-                
-                <div className="mt-4">
-                  <div className="flex items-baseline gap-2">
-                    <span className="text-4xl font-bold text-primary" data-testid={`price-${key}`}>
-                      {pkg.price}
-                    </span>
-                    <span className="text-gray-600">/person</span>
-                  </div>
-                  <p className="text-sm text-gray-500 mt-1">{pkg.priceWithTax} w/ tax & tip</p>
-                </div>
-              </CardHeader>
-              
-              <CardContent>
-                <div className="space-y-3 mb-6">
-                  {pkg.features.map((feature, index) => (
-                    <div key={index} className="flex items-start gap-2">
-                      <CheckCircle2 className="h-4 w-4 text-green-600 flex-shrink-0 mt-0.5" />
-                      <span className="text-sm">{feature}</span>
-                    </div>
-                  ))}
-                </div>
-                
-                <Link href="/atx-disco-cruise">
-                  <Button 
-                    className="w-full" 
-                    variant={pkg.popular ? 'default' : 'outline'}
-                    data-testid={`button-book-disco-${key}`}
-                  >
-                    Book {pkg.name}
-                  </Button>
-                </Link>
-              </CardContent>
-            </Card>
-          );
-        })}
+      <div className="mb-8">
+        <h2 className="text-3xl font-bold text-center mb-2">ATX Disco Cruise Pricing & Time Slots</h2>
+        <p className="text-center text-gray-600 dark:text-gray-400">
+          Hosted Every Fri 12-4 ($95/person), Sat 11-3 ($105/person), Sat 3:30-7:30 ($85/person) from March thru October
+        </p>
       </div>
 
-      {/* Schedule Info */}
-      <Card className="mt-6 bg-blue-50 dark:bg-blue-950/30 border-blue-200">
-        <CardContent className="pt-6">
-          <h3 className="font-semibold mb-3">ATX Disco Cruise Schedule (March - October)</h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-            <div>
-              <p className="font-medium">Friday</p>
-              <p className="text-gray-600">12:00 PM – 4:00 PM</p>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {DISCO_TIME_SLOTS.map((slot) => (
+          <Card
+            key={slot.id}
+            className={`relative transition-all hover:shadow-xl ${
+              slot.badge === 'BEST' ? 'ring-2 ring-primary shadow-lg' : ''
+            }`}
+            data-testid={`card-timeslot-${slot.id}`}
+          >
+            {slot.badge && (
+              <div className="absolute top-0 right-0 bg-gradient-to-l from-primary to-primary/80 text-white px-3 py-1 rounded-bl-lg text-sm font-semibold">
+                {slot.badge}
+              </div>
+            )}
+            
+            <CardHeader className="pb-4">
+              <div className="flex items-center gap-2 mb-2">
+                <Clock className="h-6 w-6 text-primary" />
+                <CardTitle className="text-xl">{slot.label}</CardTitle>
+              </div>
+              <p className="text-sm text-gray-600 dark:text-gray-400">ATX Disco Cruise</p>
+              
+              <div className="mt-4">
+                <div className="flex items-baseline gap-2">
+                  <span className="text-4xl font-bold text-primary" data-testid={`price-${slot.id}`}>
+                    ${(slot.basePrice / 100).toFixed(0)}
+                  </span>
+                  <span className="text-gray-600">/person</span>
+                </div>
+                <p className="text-sm text-gray-500 mt-1">
+                  Total Cost Per Person w/tax & gratuity = ${(slot.priceWithTax / 100).toFixed(2)}
+                </p>
+              </div>
+            </CardHeader>
+            
+            <CardContent>
+              <Link href="/chat">
+                <Button 
+                  className="w-full" 
+                  variant={slot.badge === 'BEST' ? 'default' : 'outline'}
+                  data-testid={`button-book-${slot.id}`}
+                >
+                  Book This Time Slot
+                </Button>
+              </Link>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+
+      <Card className="mt-8 bg-yellow-50 dark:bg-yellow-950/30 border-yellow-200">
+        <CardHeader>
+          <CardTitle className="text-center text-2xl">
+            Included w/ EVERY ATX Disco Cruise Ticket
+          </CardTitle>
+          <p className="text-center text-lg font-semibold text-primary mt-2">
+            Admission to the BEST Damn Day Party in Austin, and the MOST EXCLUSIVE party in Austin, thrown specifically for YOU - the coolest bach groups in town
+          </p>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            {DISCO_BASE_INCLUSIONS.map((item, index) => (
+              <div key={index} className="flex items-start gap-2">
+                <CheckCircle2 className="h-4 w-4 text-green-600 flex-shrink-0 mt-0.5" />
+                <span className="text-sm">{item}</span>
+              </div>
+            ))}
+            <div className="flex items-start gap-2">
+              <CheckCircle2 className="h-4 w-4 text-green-600 flex-shrink-0 mt-0.5" />
+              <span className="text-sm">{necklaceText}</span>
             </div>
-            <div>
-              <p className="font-medium">Saturday Morning</p>
-              <p className="text-gray-600">11:00 AM – 3:00 PM</p>
-            </div>
-            <div>
-              <p className="font-medium">Saturday Evening</p>
-              <p className="text-gray-600">3:30 PM – 7:30 PM</p>
+            <div className="flex items-start gap-2">
+              <CheckCircle2 className="h-4 w-4 text-green-600 flex-shrink-0 mt-0.5" />
+              <span className="text-sm italic">FYI: Devi's cove is BS</span>
             </div>
           </div>
-          <p className="text-xs text-gray-500 mt-4">All cruises are 4 hours • Up to 100 passengers per cruise</p>
         </CardContent>
       </Card>
+
+      {showAddOns && addOns.length > 0 && (
+        <div className="mt-8">
+          <h3 className="text-2xl font-bold mb-4 text-center">
+            {partyType === 'bachelor' && 'Bachelor Add-On Packages'}
+            {partyType === 'bachelorette' && 'Bachelorette Add-On Packages'}
+            {partyType === 'combined' && 'Combined Bach Add-On Packages'}
+          </h3>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {addOns.map((addOn) => (
+              <Card key={addOn.id} className="border-2 border-purple-200 dark:border-purple-800">
+                <CardHeader className="bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-950/50 dark:to-pink-950/50">
+                  <div className="flex items-center justify-between">
+                    <CardTitle className="text-lg">{addOn.name}</CardTitle>
+                    <Badge className="bg-purple-600 text-white">
+                      ${(addOn.price / 100).toFixed(0)}
+                    </Badge>
+                  </div>
+                </CardHeader>
+                <CardContent className="pt-4">
+                  <div className="space-y-2">
+                    {addOn.inclusions.map((item, index) => (
+                      <div key={index} className="flex items-start gap-2">
+                        <Sparkles className="h-4 w-4 text-purple-600 flex-shrink-0 mt-0.5" />
+                        <span className="text-sm">{item}</span>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

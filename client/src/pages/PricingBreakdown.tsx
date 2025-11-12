@@ -20,7 +20,7 @@ import { ComparisonTable2, type ComparisonColumn, type ComparisonRow } from '@/c
 import DiscoVsPrivateComparison2 from '@/components/DiscoVsPrivateComparison2';
 import DiscoVsPrivateValueCalculator2 from '@/components/DiscoVsPrivateValueCalculator2';
 import Breadcrumb from '@/components/Breadcrumb';
-import { DISCO_PRICING, PRIVATE_CRUISE_PRICING, BOATS } from '@shared/constants';
+import { DISCO_PRICING, DISCO_TIME_SLOTS, PRIVATE_CRUISE_PRICING, BOATS } from '@shared/constants';
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
@@ -31,72 +31,31 @@ const fadeInUp = {
   }
 };
 
-// Disco Cruise Packages
-const discoPackages = [
-  {
-    id: 'basic',
-    name: 'Basic Bach Package',
-    price: DISCO_PRICING.basic / 100,
-    originalPrice: null,
-    description: 'Join the ultimate bachelor party cruise',
-    subtitle: 'BYOB & Keep it Cheap - ALWAYS Cheaper than a Private Cruise',
-    features: [
-      'Full 4-hour Lake Travis cruise experience',
-      'Professional DJ entertainment all day',
-      'Professional photographer capturing memories',
-      'Digital photo delivery after the event',
-      'Giant unicorn float access',
-      'Multi-group party atmosphere',
-      'BYOB with shared coolers (no private ice)',
-      'We can help coordinate alcohol delivery through Party On Delivery'
-    ],
-    popular: false,
-    icon: Disc3,
-    badge: 'Great Value'
-  },
-  {
-    id: 'disco_queen',
-    name: 'Disco Queen Package',
-    price: DISCO_PRICING.disco_queen / 100,
-    originalPrice: 110,
-    description: 'Enhanced party experience with premium perks',
-    subtitle: 'Private Cooler & Reserved Spot for Your Group',
-    features: [
-      'Everything in Basic Bach Package',
-      'Private cooler with ice & storage bin for your group',
-      'Reserved spot for your group on the boat',
-      'Disco ball cup & bubble gun for guest of honor',
-      'Complimentary direct-to-boat alcohol delivery',
-      '25% discount on round-trip transportation',
-      '$50-$100 voucher for Airbnb booze delivery',
-      'Premium positioning on the boat'
-    ],
-    popular: true,
-    icon: Crown,
-    badge: 'Most Popular'
-  },
-  {
-    id: 'platinum',
-    name: 'Super Sparkle Platinum',
-    price: DISCO_PRICING.platinum / 100,
-    originalPrice: 125,
-    description: 'Ultimate all-inclusive party luxury',
-    subtitle: 'Nothing to Carry, Cooler Stocked When You Arrive!',
-    features: [
-      'Everything in Disco Queen Package',
-      'Personal unicorn float for guest of honor',
-      'Mimosa setup with champagne flutes, 3 juices & chambong',
-      '$100 voucher for Airbnb concierge services',
-      'Towel service & SPF-50 spray sunscreen provided',
-      'Nothing to carry - cooler pre-stocked with drinks',
-      'Ultimate luxury bachelor/bachelorette experience',
-      'Maximum celebration, minimum effort'
-    ],
-    popular: false,
-    icon: Sparkles,
-    badge: 'Ultimate Luxury'
-  }
-];
+// Disco Cruise Time Slots
+const discoTimeSlots = DISCO_TIME_SLOTS.map((slot) => ({
+  id: slot.id,
+  name: slot.label,
+  price: slot.basePrice / 100,
+  priceWithTax: slot.priceWithTax / 100,
+  day: slot.day,
+  timeRange: slot.timeRange,
+  description: 'ATX Disco Cruise - 4-hour party experience',
+  subtitle: `Includes DJ, photographer, floats & party supplies`,
+  features: [
+    'Full 4-hour Lake Travis cruise experience',
+    'Professional DJ entertainment all cruise',
+    'Professional photographer capturing memories',
+    'Digital photo delivery after the event',
+    'Giant unicorn and lily pad floats',
+    'Multi-group party atmosphere',
+    'Disco decorations and party supplies',
+    'BYOB with coolers and ice provided',
+    'Clean restrooms and shaded areas'
+  ],
+  popular: slot.badge === 'BEST',
+  icon: slot.badge === 'BEST' ? Crown : (slot.badge === 'FUN!' ? Sparkles : Disc3),
+  badge: slot.badge || 'Great Value'
+}));
 
 // Private Cruise Packages - 14-person boat (using PRIVATE_CRUISE_PRICING for accurate pricing)
 const privateCruisePackages = [
@@ -336,22 +295,29 @@ export default function PricingBreakdown() {
                     <div className="space-y-3">
                       <h3 className="font-semibold text-lg flex items-center gap-2">
                         <Disc3 className="h-5 w-5 text-blue-600" />
-                        ATX Disco Cruise
+                        ATX Disco Cruise Time Slots
                       </h3>
                       <div className="space-y-2 text-sm">
                         <div className="flex justify-between">
-                          <span>Basic Bach Package:</span>
-                          <span className="font-semibold">{formatCurrency(DISCO_PRICING.basic)}</span>
+                          <span>Friday 12-4pm:</span>
+                          <span className="font-semibold">{formatCurrency(DISCO_TIME_SLOTS[0].basePrice)}/person</span>
                         </div>
-                        <div className="flex justify-between">
-                          <span>Disco Queen Package:</span>
-                          <span className="font-semibold">{formatCurrency(DISCO_PRICING.disco_queen)}</span>
+                        <div className="flex justify-between items-center">
+                          <span>Saturday 11am-3pm:</span>
+                          <div className="flex items-center gap-2">
+                            <Badge className="bg-blue-600 text-white text-xs px-2 py-0">BEST</Badge>
+                            <span className="font-semibold">{formatCurrency(DISCO_TIME_SLOTS[1].basePrice)}/person</span>
+                          </div>
                         </div>
-                        <div className="flex justify-between">
-                          <span>Super Sparkle Platinum:</span>
-                          <span className="font-semibold">{formatCurrency(DISCO_PRICING.platinum)}</span>
+                        <div className="flex justify-between items-center">
+                          <span>Saturday 3:30-7:30pm:</span>
+                          <div className="flex items-center gap-2">
+                            <Badge className="bg-purple-600 text-white text-xs px-2 py-0">FUN!</Badge>
+                            <span className="font-semibold">{formatCurrency(DISCO_TIME_SLOTS[2].basePrice)}/person</span>
+                          </div>
                         </div>
                       </div>
+                      <p className="text-xs text-gray-500 mt-2">Prices include DJ, photographer, floats & party supplies</p>
                     </div>
                     
                     <div className="space-y-3">
@@ -387,49 +353,49 @@ export default function PricingBreakdown() {
               animate="visible"
               variants={fadeInUp}
             >
-              {/* 3-Package Display */}
+              {/* Time Slot Display */}
               <div className="mb-8">
-                <h2 className="text-3xl font-bold mb-6 text-center">ATX Disco Cruise Packages</h2>
+                <h2 className="text-3xl font-bold mb-6 text-center">ATX Disco Cruise Time Slots</h2>
+                <p className="text-center text-gray-600 mb-8">Choose your preferred time slot - all include DJ, photographer, floats & party supplies</p>
                 <div className="grid md:grid-cols-3 gap-6">
-                  {discoPackages.map((pkg, index) => {
-                    const Icon = pkg.icon;
+                  {discoTimeSlots.map((slot, index) => {
+                    const Icon = slot.icon;
                     return (
                       <Card 
-                        key={pkg.id} 
+                        key={slot.id} 
                         className={cn(
                           "relative overflow-hidden transition-all hover:shadow-xl",
-                          pkg.popular && "border-2 border-blue-500 shadow-lg scale-105"
+                          slot.popular && "border-2 border-blue-500 shadow-lg scale-105"
                         )}
-                        data-testid={`package-disco-${pkg.id}`}
+                        data-testid={`timeslot-disco-${slot.id}`}
                       >
-                        {pkg.popular && (
+                        {slot.badge && (
                           <Badge className="absolute top-4 right-4 bg-blue-600 text-white">
-                            {pkg.badge}
+                            {slot.badge}
                           </Badge>
                         )}
                         <CardHeader>
                           <div className="flex items-center gap-3 mb-2">
-                            <Icon className="h-8 w-8 text-blue-600" />
-                            <CardTitle className="text-2xl">{pkg.name}</CardTitle>
+                            <Clock className="h-8 w-8 text-blue-600" />
+                            <CardTitle className="text-2xl">{slot.name}</CardTitle>
                           </div>
                           <div className="space-y-2">
                             <div className="flex items-baseline gap-2">
                               <span className="text-4xl font-bold text-blue-600">
-                                {formatCurrency(pkg.price * 100)}
+                                {formatCurrency(slot.price * 100)}
                               </span>
-                              {pkg.originalPrice && (
-                                <span className="text-lg text-gray-400 line-through">
-                                  {formatCurrency(pkg.originalPrice * 100)}
-                                </span>
-                              )}
+                              <span className="text-gray-600">/person</span>
                             </div>
-                            <p className="text-sm text-gray-600">{pkg.subtitle}</p>
+                            <p className="text-sm text-gray-600">
+                              Total w/tax & gratuity: {formatCurrency(slot.priceWithTax * 100)}
+                            </p>
+                            <p className="text-sm font-semibold text-blue-600">{slot.subtitle}</p>
                           </div>
-                          <CardDescription>{pkg.description}</CardDescription>
+                          <CardDescription>{slot.description}</CardDescription>
                         </CardHeader>
                         <CardContent>
                           <ul className="space-y-2">
-                            {pkg.features.map((feature, i) => (
+                            {slot.features.map((feature, i) => (
                               <li key={i} className="flex items-start gap-2 text-sm">
                                 <CheckCircle className="h-4 w-4 text-green-600 mt-0.5 flex-shrink-0" />
                                 <span>{feature}</span>
@@ -438,7 +404,7 @@ export default function PricingBreakdown() {
                           </ul>
                           <Button className="w-full mt-6" asChild>
                             <Link href="/atx-disco-cruise">
-                              View Details <ArrowRight className="ml-2 h-4 w-4" />
+                              View Details & Book <ArrowRight className="ml-2 h-4 w-4" />
                             </Link>
                           </Button>
                         </CardContent>
@@ -446,18 +412,46 @@ export default function PricingBreakdown() {
                     );
                   })}
                 </div>
+                <p className="text-center text-sm text-gray-600 mt-6">
+                  All time slots run March through October. Optional add-on packages available for bachelor, bachelorette, and combined parties.
+                </p>
               </div>
 
-              {/* Disco Pricing Table */}
-              <Card>
+              {/* Additional Info Card */}
+              <Card className="bg-blue-50 border-blue-200">
                 <CardHeader>
-                  <CardTitle>Detailed Disco Cruise Pricing</CardTitle>
+                  <CardTitle>What's Included with Every Time Slot</CardTitle>
                   <CardDescription>
-                    Complete breakdown of all package features and pricing
+                    All ATX Disco Cruise tickets include these amazing features
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <PricingTable2 variant="disco" />
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div className="flex items-start gap-2">
+                      <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
+                      <span>Professional DJ playing all cruise</span>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
+                      <span>Professional photographer with digital photos</span>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
+                      <span>Giant unicorn and lily pad floats</span>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
+                      <span>Disco decorations and party supplies</span>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
+                      <span>BYOB with coolers and ice provided</span>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
+                      <span>Multi-group party atmosphere</span>
+                    </div>
+                  </div>
                 </CardContent>
               </Card>
             </motion.div>

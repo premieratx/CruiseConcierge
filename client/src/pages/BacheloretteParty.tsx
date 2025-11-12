@@ -13,8 +13,8 @@ import { formatCurrency } from '@shared/formatters';
 import SEOHead from '@/components/SEOHead';
 import { useInlineEdit } from '@/hooks/useInlineEdit';
 import { useReducedMotion } from '@/hooks/use-reduced-motion';
-import { DISCO_PRICING } from '@shared/constants';
 import PartyPlanningChecklist from '@/components/PartyPlanningChecklist';
+import { DiscoCruisePricing } from '@/components/DiscoCruisePricing';
 import DiscoVsPrivateValueCalculator from '@/components/DiscoVsPrivateValueCalculator';
 import { SectionReveal } from '@/components/SectionReveal';
 import { ScrollReveal } from '@/components/ScrollReveal';
@@ -83,76 +83,6 @@ const staggerChildren = {
     transition: { staggerChildren: 0.15 }
   }
 };
-
-// ATX Disco Cruise packages - CORRECTED PRICING
-const atxDiscoPackages = [
-  {
-    id: 'basic_bach',
-    name: 'Basic Bach Package',
-    price: 85,
-    priceWithTaxTip: 111,
-    originalPrice: null,
-    description: 'Join the ultimate multi-group bachelorette party on Lake Travis',
-    subtitle: 'Party with other bachelorette groups - social & fun!',
-    features: [
-      '4-hour party cruise with other bachelorette groups',
-      'Professional DJ spinning all day',
-      'Professional photographer capturing memories',
-      'Access to giant lily pad floats',
-      'BYOB with coolers and ice provided',
-      'Meet and party with other bride tribes',
-      'Digital photos delivered after cruise'
-    ],
-    popular: false,
-    icon: Disc3,
-    badge: 'Best Value',
-    brideSpecial: false
-  },
-  {
-    id: 'disco_queen',
-    name: 'Disco Queen Package',
-    price: 95,
-    priceWithTaxTip: 124,
-    originalPrice: null,
-    description: 'Our most popular package with extra perks for your group',
-    subtitle: 'VIP treatment while partying with other groups',
-    features: [
-      'Private cooler with ice just for your group',
-      'Reserved seating area for your tribe',
-      'Disco ball cup & bubble gun for bride',
-      'Alcohol delivery coordination available',
-      '25% discount on round-trip transportation',
-      'Priority boarding for your group',
-      'Everything from Basic Bach Package'
-    ],
-    popular: true,
-    icon: Crown,
-    badge: 'Most Popular',
-    brideSpecial: false
-  },
-  {
-    id: 'super_sparkle',
-    name: 'Super Sparkle Package',
-    price: 105,
-    priceWithTaxTip: 137,
-    originalPrice: null,
-    description: 'VIP treatment with all the extras',
-    subtitle: 'The ultimate ATX Disco experience',
-    features: [
-      'Personal unicorn float for the bride',
-      'Mimosa bar setup with supplies',
-      'SPF-50 spray sunscreen provided',
-      'Towel service for your group',
-      'Premium reserved area',
-      'VIP boarding and departure',
-      'Everything from Disco Queen Package'
-    ],
-    popular: false,
-    icon: Trophy,
-    badge: 'VIP Experience',
-    brideSpecial: false
-  }
-];
 
 // Private Cruise options for bachelorettes
 const privateCruiseOptions = [
@@ -465,9 +395,9 @@ export default function BacheloretteParty() {
             serviceType: "Bachelorette Party Cruise",
             areaServed: "Austin",
             hasOfferCatalog: [
-              { name: "Basic Bach Package", description: "BYOB party cruise with DJ and photographer", price: 85 },
-              { name: "Disco Queen Package", description: "Private cooler, reserved spot, VIP treatment", price: 105 },
-              { name: "Platinum Package", description: "All-inclusive luxury with mimosa bar", price: 125 }
+              { name: "Friday 12-4pm ATX Disco Cruise", description: "4-hour bachelorette party cruise with DJ, photographer, and floats", price: 95 },
+              { name: "Saturday 11am-3pm ATX Disco Cruise", description: "Premium Saturday time slot with DJ, photographer, and floats", price: 105 },
+              { name: "Saturday 3:30-7:30pm ATX Disco Cruise", description: "Evening bachelorette party cruise with DJ, photographer, and floats", price: 85 }
             ],
             aggregateRating: {
               ratingValue: "4.9",
@@ -481,7 +411,7 @@ export default function BacheloretteParty() {
             },
             { 
               question: "How much does a bachelorette party cruise cost in Austin?", 
-              answer: "Austin bachelorette party cruises start at $85 per person for the Basic Bach Package. The most popular Disco Queen Package is $95 per person, and the all-inclusive Super Sparkle Package is $105 per person." 
+              answer: "Austin bachelorette party cruises range from $85-$105 per person depending on the day and time slot. Friday 12-4pm is $95/person ($124.88 w/tax & gratuity), Saturday 11am-3pm is $105/person ($137.81 w/tax & gratuity), and Saturday 3:30-7:30pm is $85/person ($111.56 w/tax & gratuity). All time slots include DJ, photographer, floats, and party supplies." 
             },
             { 
               question: "What's included in an Austin bachelorette party boat cruise?", 
@@ -489,7 +419,7 @@ export default function BacheloretteParty() {
             },
             { 
               question: "When should I book a bachelorette party cruise in Austin?", 
-              answer: "Book your Austin bachelorette party cruise 8-12 weeks for priority time slots - once they book they\'re gone! This is crucial for peak season (March-October) weekends. Popular Saturdays sell out quickly. ATX Disco Cruises run Saturdays at 11am-3pm or 3:30pm-7:30pm." 
+              answer: "Book your Austin bachelorette party cruise 8-12 weeks for priority time slots - once they book they\'re gone! This is crucial for peak season (March-October) weekends. Popular Saturdays sell out quickly. ATX Disco Cruises run Friday 12-4pm, Saturday 11am-3pm, or Saturday 3:30-7:30pm." 
             }
           ])
         ]}
@@ -856,7 +786,7 @@ export default function BacheloretteParty() {
                   <div className="text-center mt-8">
                     <Button
                       size="lg"
-                      onClick={() => handleGetQuote('disco_queen')}
+                      onClick={() => handleGetQuote()}
                       className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white font-bold text-xl px-12 py-6 transform hover:scale-105 transition-all"
                     >
                       <Sparkles className="mr-2 h-6 w-6" />
@@ -922,7 +852,7 @@ export default function BacheloretteParty() {
                     </li>
                   </ul>
                   <Button
-                    onClick={() => handleGetQuote('disco_queen')}
+                    onClick={() => handleGetQuote()}
                     className="w-full bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white font-bold"
                   >
                     Book Disco Cruise
@@ -1084,7 +1014,7 @@ export default function BacheloretteParty() {
                   <div className="flex flex-col sm:flex-row gap-4 justify-center">
                     <Button
                       size="lg"
-                      onClick={() => handleGetQuote('disco_queen')}
+                      onClick={() => handleGetQuote()}
                       className="bg-white text-pink-600 hover:bg-gray-100 font-bold text-lg px-10 py-6"
                     >
                       <Sparkles className="mr-2 h-6 w-6" />
@@ -1134,69 +1064,7 @@ export default function BacheloretteParty() {
                 <p className="text-lg text-gray-700">Multi-group party with other bachelorette parties</p>
               </div>
               
-              <div className="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto mb-8">
-                {atxDiscoPackages.map((pkg, index) => (
-                  <Card 
-                    key={pkg.id}
-                    className={cn(
-                      "relative h-full bg-white transition-all duration-300",
-                      pkg.popular && "border-4 border-pink-500 shadow-2xl scale-105",
-                      !pkg.popular && "border-2 border-gray-200 hover:border-pink-400 hover:shadow-lg"
-                    )}
-                  >
-                    {pkg.popular && (
-                      <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-10">
-                        <Badge className="bg-gradient-to-r from-pink-600 to-purple-600 text-white font-sans tracking-wider font-bold uppercase text-sm px-6 py-2">
-                          MOST POPULAR
-                        </Badge>
-                      </div>
-                    )}
-                    
-                    
-                    <CardHeader className="text-center pb-4 pt-10">
-                      <div className="flex justify-center mb-4">
-                        <div className="w-16 h-16 bg-pink-100 rounded-full flex items-center justify-center">
-                          <pkg.icon className="h-8 w-8 text-pink-600" />
-                        </div>
-                      </div>
-                      <CardTitle className="text-2xl font-playfair mb-2">{pkg.name}</CardTitle>
-                      <CardDescription className="text-base">
-                        {pkg.subtitle}
-                      </CardDescription>
-                    </CardHeader>
-                    
-                    <CardContent className="space-y-6">
-                      <div className="text-center py-4 bg-gradient-to-r from-pink-50 to-purple-50 rounded-lg">
-                        <div className="text-4xl font-bold text-gray-900 mb-1">
-                          ${pkg.price}
-                          <span className="text-xl text-gray-600">/person</span>
-                        </div>
-                        <div className="text-base text-green-600 font-semibold">
-                          ${pkg.priceWithTaxTip} with tax & tip
-                        </div>
-                      </div>
-                      
-                      <ul className="space-y-3">
-                        {pkg.features.map((feature, i) => (
-                          <li key={i} className="flex items-start gap-3">
-                            <Check className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
-                            <span className="text-gray-700 text-sm leading-relaxed">{feature}</span>
-                          </li>
-                        ))}
-                      </ul>
-                      
-                      <Button
-                        className="w-full bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white font-bold py-6"
-                        onClick={() => navigate('/atx-disco-cruise')}
-                        data-testid={`button-atx-package-${pkg.id}`}
-                      >
-                        Book ATX Disco Cruise
-                        <ArrowRight className="ml-2 h-5 w-5" />
-                      </Button>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
+              <DiscoCruisePricing partyType="bachelorette" showAddOns={true} />
             </div>
 
             {/* PRIVATE CRUISE OPTION */}
@@ -2265,7 +2133,7 @@ export default function BacheloretteParty() {
 
               <FeaturedSnippet
                 question="How much does an Austin bachelorette party boat cost?"
-                answer="Austin bachelorette party boat cruises start at $85/person for the Basic Bach Package ($111 with tax & tip). The most popular Disco Queen Package is $95/person ($124 with tax & tip). The all-inclusive Super Sparkle package is $105/person ($137 with tax & tip) and includes a personal unicorn float, pre-stocked cooler, and full concierge service."
+                answer="Austin bachelorette party boat cruises range from $85-$105 per person depending on the day and time slot. Saturday 3:30-7:30pm is $85/person ($111.56 with tax & gratuity), Friday 12-4pm is $95/person ($124.88 with tax & gratuity), and Saturday 11am-3pm is $105/person ($137.81 with tax & gratuity). All time slots include professional DJ, photographer, giant floats, party supplies, and BYOB with coolers and ice."
                 format="paragraph"
               />
             </div>

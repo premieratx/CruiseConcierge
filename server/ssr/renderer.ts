@@ -204,7 +204,7 @@ const EVENT_SCHEMA = {
   "@type": "Event",
   "@id": "https://premierpartycruises.com/atx-disco-cruise/#event",
   "name": "ATX Disco Cruise",
-  "description": "Join the BEST party on Lake Travis! Austin's exclusive ATX Disco Cruise features professional DJ entertainment, photographer, dance floor, giant floats, and incredible party atmosphere. Perfect for bachelor and bachelorette parties celebrating together. 4-hour cruise experience with multiple groups, BYOB friendly.",
+  "description": "Join the BEST party on Lake Travis! Austin's exclusive ATX Disco Cruise features professional DJ entertainment, photographer, dance floor, giant floats, and incredible party atmosphere. Perfect for bachelor and bachelorette parties celebrating together. 4-hour cruise experience with multiple groups, BYOB friendly. Three time slots available.",
   "startDate": "2025-03-01T12:00:00-06:00",
   "endDate": "2025-10-31T19:30:00-06:00",
   "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
@@ -237,8 +237,9 @@ const EVENT_SCHEMA = {
     {
       "@type": "Offer",
       "priceCurrency": "USD",
-      "price": "85.00",
-      "category": "Basic Batch",
+      "price": "111.56",
+      "name": "Saturday 3:30-7:30pm Time Slot",
+      "description": "$85 per person base price, $111.56 total with tax and gratuity included",
       "url": "https://premierpartycruises.com/atx-disco-cruise",
       "availability": "https://schema.org/InStock",
       "validFrom": "2025-01-01T00:00:00-06:00"
@@ -246,8 +247,9 @@ const EVENT_SCHEMA = {
     {
       "@type": "Offer",
       "priceCurrency": "USD",
-      "price": "95.00",
-      "category": "Disco Queen/King",
+      "price": "124.88",
+      "name": "Friday 12-4pm Time Slot",
+      "description": "$95 per person base price, $124.88 total with tax and gratuity included",
       "url": "https://premierpartycruises.com/atx-disco-cruise",
       "availability": "https://schema.org/InStock",
       "validFrom": "2025-01-01T00:00:00-06:00"
@@ -255,8 +257,9 @@ const EVENT_SCHEMA = {
     {
       "@type": "Offer",
       "priceCurrency": "USD",
-      "price": "105.00",
-      "category": "Super Sparkle Platinum",
+      "price": "137.81",
+      "name": "Saturday 11am-3pm Time Slot",
+      "description": "$105 per person base price, $137.81 total with tax and gratuity included - Most Popular!",
       "url": "https://premierpartycruises.com/atx-disco-cruise",
       "availability": "https://schema.org/InStock",
       "validFrom": "2025-01-01T00:00:00-06:00"
@@ -272,29 +275,32 @@ const BACHELOR_PARTY_SERVICE_SCHEMA = {
   "name": "Bachelor Party Boat Cruises on Lake Travis",
   "provider": { "@id": "https://premierpartycruises.com/#organization" },
   "areaServed": ["Austin TX", "Texas", "United States"],
-  "description": "Exclusive bachelor party cruises on Lake Travis with BYOB, professional DJ, photographer, and all-inclusive packages. Join the best party boat experience for bachelor groups.",
+  "description": "Exclusive bachelor party cruises on Lake Travis with BYOB, professional DJ, photographer, and time-slot pricing. Join the best party boat experience for bachelor groups.",
   "offers": [
     {
       "@type": "Offer",
       "priceCurrency": "USD",
-      "price": "85.00",
-      "name": "Basic Bach Package",
+      "price": "111.56",
+      "name": "Saturday 3:30-7:30pm Time Slot",
+      "description": "$85 base price, $111.56 with tax and gratuity",
       "url": "https://premierpartycruises.com/bachelor-party-austin",
       "availability": "https://schema.org/InStock"
     },
     {
       "@type": "Offer",
       "priceCurrency": "USD",
-      "price": "95.00",
-      "name": "Disco King Package",
+      "price": "124.88",
+      "name": "Friday 12-4pm Time Slot",
+      "description": "$95 base price, $124.88 with tax and gratuity",
       "url": "https://premierpartycruises.com/bachelor-party-austin",
       "availability": "https://schema.org/InStock"
     },
     {
       "@type": "Offer",
       "priceCurrency": "USD",
-      "price": "105.00",
-      "name": "Super Sparkle Platinum Disco",
+      "price": "137.81",
+      "name": "Saturday 11am-3pm Time Slot",
+      "description": "$105 base price, $137.81 with tax and gratuity - Most Popular!",
       "url": "https://premierpartycruises.com/bachelor-party-austin",
       "availability": "https://schema.org/InStock"
     }
@@ -309,29 +315,32 @@ const BACHELORETTE_PARTY_SERVICE_SCHEMA = {
   "name": "Bachelorette Party Boat Cruises on Lake Travis",
   "provider": { "@id": "https://premierpartycruises.com/#organization" },
   "areaServed": ["Austin TX", "Texas", "United States"],
-  "description": "Exclusive bachelorette party cruises on Lake Travis with BYOB, professional DJ, photographer, and VIP packages.",
+  "description": "Exclusive bachelorette party cruises on Lake Travis with BYOB, professional DJ, photographer, and time-slot pricing.",
   "offers": [
     {
       "@type": "Offer",
       "priceCurrency": "USD",
-      "price": "85.00",
-      "name": "Basic Bach Package",
+      "price": "111.56",
+      "name": "Saturday 3:30-7:30pm Time Slot",
+      "description": "$85 base price, $111.56 with tax and gratuity",
       "url": "https://premierpartycruises.com/bachelorette-party-austin",
       "availability": "https://schema.org/InStock"
     },
     {
       "@type": "Offer",
       "priceCurrency": "USD",
-      "price": "95.00",
-      "name": "Disco Queen Package",
+      "price": "124.88",
+      "name": "Friday 12-4pm Time Slot",
+      "description": "$95 base price, $124.88 with tax and gratuity",
       "url": "https://premierpartycruises.com/bachelorette-party-austin",
       "availability": "https://schema.org/InStock"
     },
     {
       "@type": "Offer",
       "priceCurrency": "USD",
-      "price": "105.00",
-      "name": "Super Sparkle Platinum Disco",
+      "price": "137.81",
+      "name": "Saturday 11am-3pm Time Slot",
+      "description": "$105 base price, $137.81 with tax and gratuity - Most Popular!",
       "url": "https://premierpartycruises.com/bachelorette-party-austin",
       "availability": "https://schema.org/InStock"
     }
@@ -351,24 +360,27 @@ const COMBINED_BACH_SERVICE_SCHEMA = {
     {
       "@type": "Offer",
       "priceCurrency": "USD",
-      "price": "85.00",
-      "name": "Basic Bach",
+      "price": "111.56",
+      "name": "Saturday 3:30-7:30pm Time Slot",
+      "description": "$85 base price, $111.56 with tax and gratuity",
       "url": "https://premierpartycruises.com/combined-bachelor-bachelorette-austin",
       "availability": "https://schema.org/InStock"
     },
     {
       "@type": "Offer",
       "priceCurrency": "USD",
-      "price": "95.00",
-      "name": "Disco Queen",
+      "price": "124.88",
+      "name": "Friday 12-4pm Time Slot",
+      "description": "$95 base price, $124.88 with tax and gratuity",
       "url": "https://premierpartycruises.com/combined-bachelor-bachelorette-austin",
       "availability": "https://schema.org/InStock"
     },
     {
       "@type": "Offer",
       "priceCurrency": "USD",
-      "price": "105.00",
-      "name": "Super Sparkle Platinum",
+      "price": "137.81",
+      "name": "Saturday 11am-3pm Time Slot",
+      "description": "$105 base price, $137.81 with tax and gratuity - Most Popular!",
       "url": "https://premierpartycruises.com/combined-bachelor-bachelorette-austin",
       "availability": "https://schema.org/InStock"
     }
@@ -425,7 +437,7 @@ const BACHELOR_FAQ_SCHEMA = {
       "name": "How much does a bachelor party boat cost in Austin?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Bachelor party boat rentals start at $85 per person for our ATX Disco Cruise packages, or from $195/hour for private charters with a 4-hour minimum. Packages include DJ, photographer, floats, and all amenities."
+        "text": "Bachelor party boat rentals on our ATX Disco Cruise start at $85 per person base price ($111.56 with tax and gratuity included), or from $195/hour for private charters with a 4-hour minimum. Time slots include Friday 12-4pm ($95 base, $124.88 total) and Saturday 11am-3pm ($105 base, $137.81 total). All include DJ, photographer, floats, and all amenities."
       }
     },
     {
@@ -454,10 +466,10 @@ const BACHELORETTE_FAQ_SCHEMA = {
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "What bachelorette party packages do you offer?",
+      "name": "What bachelorette party time slots do you offer?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "We offer three bachelorette packages: Basic Bach ($85/person), Disco Queen ($95/person), and Super Sparkle Platinum ($105/person). All include DJ, photographer, floats, and full amenities."
+        "text": "We offer three time slots for bachelorette parties: Saturday 3:30-7:30pm ($85 base, $111.56 with tax and gratuity), Friday 12-4pm ($95 base, $124.88 with tax and gratuity), and Saturday 11am-3pm ($105 base, $137.81 with tax and gratuity - most popular!). All include DJ, photographer, floats, and full amenities."
       }
     }
   ]
