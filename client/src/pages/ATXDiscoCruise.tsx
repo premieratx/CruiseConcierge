@@ -373,29 +373,21 @@ export default function ATXDiscoCruise() {
 
           <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 text-center flex-grow flex items-center">
             <motion.div variants={fadeInUp} className="w-full">
-              <h1 className="font-playfair text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-4 md:mb-6 text-center leading-tight" data-testid="text-hero-headline">
-                ATX Disco Cruise - Austin Party Cruise on Lake Travis
+              <h1 className="font-playfair text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white mb-6 md:mb-8 text-center leading-tight drop-shadow-2xl" data-testid="text-hero-headline">
+                ATX Disco Cruise
               </h1>
-              <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-pink-400 to-purple-400 mt-3 md:mt-4 mb-3 md:mb-4 font-bold text-center">
+              <p className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 via-pink-300 to-purple-300 mb-8 md:mb-10 font-bold text-center drop-shadow-lg">
                 The Country's Only Multi-Group Bach Party Cruise
-              </p>
-              <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-white/90 mb-3 md:mb-4 max-w-3xl mx-auto font-semibold text-center px-2" data-testid="text-hero-subheadline">
-                The single most unique and comprehensive <InternalLinkHighlight href="/bachelor-party-austin" title="Bachelor Parties">bachelor</InternalLinkHighlight>/<InternalLinkHighlight href="/bachelorette-party-austin" title="Bachelorette Parties">bachelorette party</InternalLinkHighlight> experience in the United States
-              </p>
-              
-              {/* Important Notice - Moved from above */}
-              <p className="text-sm sm:text-base md:text-lg text-white/80 mb-6 md:mb-8 max-w-3xl mx-auto text-center px-2" data-testid="text-hero-description">
-                <strong>NOT a private cruise - this is a shared multi-group celebration!</strong> Join 50-100+ people from different bachelor & bachelorette parties for an unforgettable 4-hour Lake Travis party with professional DJ, photographer, and giant floats! <InternalLinkHighlightWithArrow href="/private-cruises" title="Private Cruises">Want exclusivity? Book a private charter instead</InternalLinkHighlightWithArrow>
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button 
                   size="lg" 
                   onClick={() => navigate('/contact')}
-                  className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white font-bold text-base px-8 py-6 shadow-2xl transform hover:scale-105 transition-all"
+                  className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white font-bold text-lg px-10 py-7 shadow-2xl transform hover:scale-105 transition-all"
                   data-testid="button-learn-more"
                 >
-                  <Phone className="mr-2" /> Talk to an Expert
+                  <Phone className="mr-2 h-5 w-5" /> Talk to an Expert
                 </Button>
                 <Button 
                   size="lg" 
@@ -405,23 +397,39 @@ export default function ATXDiscoCruise() {
                       element.scrollIntoView({ behavior: 'smooth' });
                     }
                   }}
-                  className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-base px-8 py-6 shadow-2xl transform hover:scale-105 transition-all"
+                  className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-lg px-10 py-7 shadow-2xl transform hover:scale-105 transition-all"
                   data-testid="button-book-now"
                 >
-                  Get a Quote <ArrowRight className="ml-2" />
+                  Get a Quote <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </div>
             </motion.div>
           </div>
+        </motion.section>
 
-          <div className="relative z-30 w-full bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm py-4 px-4 sm:px-6">
-            <div className="container mx-auto">
-              <p className="text-center text-gray-900 dark:text-white text-base md:text-lg font-semibold">
-                🎉 <span className="text-purple-600">All-Inclusive</span> • Professional DJ & Photographer • <span className="text-pink-600">Fridays & Saturdays</span> 🎉
+        {/* Hero Details Section - Moved from above for better video visibility */}
+        <section className="py-8 md:py-12 bg-gradient-to-br from-purple-900 via-pink-900 to-blue-900 text-white">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6">
+            <div className="text-center space-y-6">
+              <p className="text-xl sm:text-2xl md:text-3xl font-bold">
+                Austin Party Cruise on Lake Travis
               </p>
+              <p className="text-lg sm:text-xl md:text-2xl text-white/90 max-w-4xl mx-auto leading-relaxed">
+                The single most unique and comprehensive <InternalLinkHighlight href="/bachelor-party-austin" title="Bachelor Parties">bachelor</InternalLinkHighlight>/<InternalLinkHighlight href="/bachelorette-party-austin" title="Bachelorette Parties">bachelorette party</InternalLinkHighlight> experience in the United States
+              </p>
+              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 md:p-8 max-w-4xl mx-auto border border-white/20">
+                <p className="text-base sm:text-lg md:text-xl text-white/95 leading-relaxed">
+                  <strong className="text-yellow-300">NOT a private cruise - this is a shared multi-group celebration!</strong> Join 50-100+ people from different bachelor & bachelorette parties for an unforgettable 4-hour Lake Travis party with professional DJ, photographer, and giant floats! <InternalLinkHighlightWithArrow href="/private-cruises" title="Private Cruises">Want exclusivity? Book a private charter instead</InternalLinkHighlightWithArrow>
+                </p>
+              </div>
+              <div className="pt-4">
+                <p className="text-base md:text-lg font-semibold">
+                  🎉 <span className="text-yellow-300">All-Inclusive</span> • Professional DJ & Photographer • <span className="text-pink-300">Fridays & Saturdays</span> 🎉
+                </p>
+              </div>
             </div>
           </div>
-        </motion.section>
+        </section>
 
         {/* Subtle Tagline Section - Below Hero */}
         <section className="py-6 md:py-8 bg-gradient-to-b from-gray-50 to-white">
