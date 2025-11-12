@@ -776,18 +776,12 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
     res.redirect(301, '/birthday-parties');
   });
   
-  // Redirect old WordPress blog URL to new React page (SEO preservation)
-  app.get('/blogs/must-haves-for-the-perfect-austin-bachelorette-weekend', (req, res) => {
-    res.redirect(301, '/must-haves-austin-bachelorette-weekend');
-  });
-  
   // React blog pages - skip WordPress SSR, let React handle them (must be BEFORE generic blog SSR handler)
   const reactBlogRoutes = [
     '/blogs/first-time-lake-travis-boat-rental-essential-tips-for-austin-party-planning',
     '/blog/birthday-party-alcohol-delivery-austin-milestone-celebrations-made-easy',
     '/blog/lake-travis-party-boat-rentals-ultimate-guide-for-large-group-events-20-guests',
-    '/blog/lake-travis-weather-planning-seasonal-considerations-for-perfect-boat-parties',
-    '/must-haves-austin-bachelorette-weekend'
+    '/blog/lake-travis-weather-planning-seasonal-considerations-for-perfect-boat-parties'
   ];
   
   reactBlogRoutes.forEach(route => {

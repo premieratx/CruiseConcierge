@@ -133,7 +133,6 @@ const BirthdayPartyAustinGuide = lazy(() => import("./pages/BirthdayPartyAustinG
 const LakeTravisLargeGroupsGuide = lazy(() => import("./pages/LakeTravisLargeGroupsGuide"));
 const LakeTravisWeatherGuide = lazy(() => import("./pages/LakeTravisWeatherGuide"));
 const UltimateAustinBacheloretteWeekend = lazy(() => import("./pages/UltimateAustinBacheloretteWeekend"));
-const MustHavesAustinBacheloretteWeekend = lazy(() => import("./pages/MustHavesAustinBacheloretteWeekend"));
 const Top10AustinBacheloretteIdeas = lazy(() => import("./pages/Top10AustinBacheloretteIdeas"));
 const ThreeDayAustinBacheloretteItinerary = lazy(() => import("./pages/ThreeDayAustinBacheloretteItinerary"));
 const BudgetAustinBachelorette = lazy(() => import("./pages/BudgetAustinBachelorette"));
@@ -287,7 +286,6 @@ function Router() {
       {/* Blog Content Pages */}
       <Route path="/first-time-lake-travis-boat-rental-guide" component={LakeTravisBoatRentalGuide} />
       <Route path="/ultimate-austin-bachelorette-weekend" component={UltimateAustinBacheloretteWeekend} />
-      <Route path="/must-haves-austin-bachelorette-weekend" component={MustHavesAustinBacheloretteWeekend} />
       <Route path="/top-10-austin-bachelorette-ideas" component={Top10AustinBacheloretteIdeas} />
       <Route path="/3-day-austin-bachelorette-itinerary" component={ThreeDayAustinBacheloretteItinerary} />
       <Route path="/budget-austin-bachelorette" component={BudgetAustinBachelorette} />
