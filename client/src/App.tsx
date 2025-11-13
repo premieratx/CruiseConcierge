@@ -58,6 +58,7 @@ const BlogAuthor = lazy(() => import("./pages/BlogAuthor"));
 // New SEO-Optimized Blog Pages - Lazy loaded
 const AustinBachelorPartyIdeas = lazy(() => import("./pages/blog/AustinBachelorPartyIdeas"));
 const LakeTravisBachelorPartyBoats = lazy(() => import("./pages/blog/LakeTravisBachelorPartyBoats"));
+const WeddingAnniversaryCelebrationIdeas = lazy(() => import("./pages/blog/WeddingAnniversaryCelebrationIdeas"));
 
 // Admin Blog Pages - Lazy loaded
 const BlogManagement = lazy(() => import("./pages/admin/BlogManagement"));
@@ -309,6 +310,9 @@ function Router() {
       {/* New SEO-Optimized Bachelor Party Blog Pages */}
       <Route path="/austin-bachelor-party-ideas" component={AustinBachelorPartyIdeas} />
       <Route path="/lake-travis-bachelor-party-boats" component={LakeTravisBachelorPartyBoats} />
+      
+      {/* Wedding Anniversary Blog Page */}
+      <Route path="/wedding-anniversary-celebration-ideas" component={WeddingAnniversaryCelebrationIdeas} />
       
       {/* Redirect /blog/ version to /blogs/ React page */}
       <Route path="/blog/top-spots-tips-for-an-unforgettable-austin-bachelorette-party-experience">
