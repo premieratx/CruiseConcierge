@@ -4,7 +4,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Check, X, DollarSign, TrendingDown, Sparkles, Users, Music, Camera, PartyPopper, Heart, Infinity } from 'lucide-react';
 import { formatCurrency } from '@shared/formatters';
-import { DISCO_TIME_SLOTS, PRICING_DEFAULTS } from '@shared/constants';
+import { DISCO_TIME_SLOTS, PRICING_DEFAULTS, PRIVATE_CRUISE_PRICING } from '@shared/constants';
 
 interface PricingCalculation {
   subtotal: number;
@@ -48,36 +48,33 @@ const DJ_PHOTOGRAPHER_BARTENDER_COST = 60000; // $600 in cents
 const PARTY_SUPPLIES_COST = 20000; // $200 in cents
 const PREPARTYTODO_SETUP_HOSTING_COST = 20000; // $200 in cents
 
-// Base boat pricing (4-hour minimum)
+// Helper to get boat capacity tier
+function getBoatTier(groupSize: number): 14 | 25 | 30 | 50 | 75 {
+  if (groupSize <= 14) return 14;
+  if (groupSize <= 25) return 25;
+  if (groupSize <= 30) return 30;
+  if (groupSize <= 50) return 50;
+  return 75;
+}
+
+// Base boat pricing using PRIVATE_CRUISE_PRICING constants
 function getBoatBasePricing(groupSize: number, dayType: 'FRIDAY' | 'SATURDAY'): number {
-  // 14-person boat: $195/hr Friday, $195/hr Saturday
-  // 25-person boat: $295/hr Friday, $295/hr Saturday
-  // 50-person boat: $495/hr Friday, $495/hr Saturday
-  
+  const boatTier = getBoatTier(groupSize);
+  const hourlyRate = PRIVATE_CRUISE_PRICING[boatTier].baseHourlyRates[dayType];
   const hours = 4;
-  let hourlyRate = 19500; // Start with 14-person boat ($195/hr)
-  
-  if (groupSize > 14 && groupSize <= 25) {
-    hourlyRate = 29500; // 25-person boat ($295/hr)
-  } else if (groupSize > 25) {
-    hourlyRate = 49500; // 50-person boat ($495/hr)
-  }
-  
   return hourlyRate * hours;
 }
 
-// Essentials package add-on pricing
+// Essentials package add-on pricing from PRIVATE_CRUISE_PRICING
 function getEssentialsPackageFee(groupSize: number): number {
-  if (groupSize <= 14) return 10000; // $100
-  if (groupSize <= 25) return 15000; // $150
-  return 20000; // $200
+  const boatTier = getBoatTier(groupSize);
+  return PRIVATE_CRUISE_PRICING[boatTier].packages.essentials.addOn;
 }
 
-// Ultimate package add-on pricing
+// Ultimate package add-on pricing from PRIVATE_CRUISE_PRICING
 function getUltimatePackageFee(groupSize: number): number {
-  if (groupSize <= 14) return 25000; // $250
-  if (groupSize <= 25) return 30000; // $300
-  return 35000; // $350
+  const boatTier = getBoatTier(groupSize);
+  return PRIVATE_CRUISE_PRICING[boatTier].packages.ultimate.addOn;
 }
 
 function calculateDiscoPricing(pricePerPerson: number, groupSize: number): PricingCalculation {
@@ -119,9 +116,11 @@ function calculateBuildItYourself(groupSize: number, dayType: 'FRIDAY' | 'SATURD
   const baseGratuity = Math.floor(buildYourselfBase * (PRICING_DEFAULTS.GRATUITY_PERCENT / 100));
   const baseTotal = buildYourselfBase + baseTax + baseGratuity;
   
-  // With extras = base + Ultimate package (to match disco atmosphere)
+  // With extras = base + Essentials package + Ultimate package (to match full disco experience)
+  // Disco includes ice/water (Essentials) AND floats (Ultimate), so both are needed for fair comparison
+  const essentialsPackageFee = getEssentialsPackageFee(groupSize);
   const ultimatePackageFee = getUltimatePackageFee(groupSize);
-  const withExtrasSubtotal = buildYourselfBase + ultimatePackageFee;
+  const withExtrasSubtotal = buildYourselfBase + essentialsPackageFee + ultimatePackageFee;
   const extrasTax = Math.floor(withExtrasSubtotal * (PRICING_DEFAULTS.TAX_RATE_BASIS_POINTS / 10000));
   const extrasGratuity = Math.floor(withExtrasSubtotal * (PRICING_DEFAULTS.GRATUITY_PERCENT / 100));
   const extrasTotal = withExtrasSubtotal + extrasTax + extrasGratuity;
@@ -153,7 +152,7 @@ function calculateGroupComparison(groupSize: number): GroupSizeComparison {
   const privateBoatFriday = calculatePrivateBoatOnly(groupSize, 'FRIDAY');
   const privateBoatSaturday = calculatePrivateBoatOnly(groupSize, 'SATURDAY');
   
-  // Build it yourself pricing (Friday & Saturday)
+  // Build it yourself pricing (Friday & Saturday) - calculate separately for accurate day-based pricing
   const buildItYourselfFriday = calculateBuildItYourself(groupSize, 'FRIDAY');
   const buildItYourselfSaturday = calculateBuildItYourself(groupSize, 'SATURDAY');
   
@@ -166,7 +165,7 @@ function calculateGroupComparison(groupSize: number): GroupSizeComparison {
     },
     buildItYourself: {
       friday: buildItYourselfFriday,
-      saturday: buildItYourselfFriday
+      saturday: buildItYourselfSaturday  // Fixed: was incorrectly using Friday calculation
     },
     savings: {
       friday: {
@@ -396,6 +395,10 @@ export default function DiscoVsPrivateValueCalculator() {
               <div className="flex justify-between text-sm">
                 <span>Pre-party setup & hosting</span>
                 <span>{formatCurrency(PREPARTYTODO_SETUP_HOSTING_COST)}</span>
+              </div>
+              <div className="flex justify-between text-sm">
+                <span>Essentials Package (ice/cups)</span>
+                <span>{formatCurrency(getEssentialsPackageFee(selectedSize))}</span>
               </div>
               <div className="flex justify-between text-sm">
                 <span>Ultimate Package (floats)</span>
