@@ -4,34 +4,58 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Do you provide team building activities?",
+      "name": "What's included?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes! We offer both structured and relaxed formats based on your team building goals. Activities include icebreaker activities on the water, problem-solving challenges and games, team communication exercises, relaxed networking and bonding time, swimming and floating (weather permitting), group meals and refreshments. Professional facilitation is available, and we can create custom activities tailored to your specific objectives. Our flexible 3-6 hour formats allow for comprehensive team building experiences including debrief and reflection time."
+        "text": "Every cruise includes a licensed, experienced captain and crew, premium Bluetooth sound system, coolers (Standard Package has empty coolers, Essentials and Ultimate have ice-stocked coolers), clean private restroom facilities, sun and shade seating areas, and all required safety equipment. Essentials Package adds ice, water dispenser, cups, and table. Ultimate Package adds floats, disco ball cups, bubbles, sunscreen, and party supplies."
       }
     },
     {
       "@type": "Question",
-      "name": "What group sizes can you host?",
+      "name": "Can we bring food and drinks?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "We accommodate 14-75 guests across our three-boat fleet. Day Tripper hosts 14 guests, Meeseeks and The Irony accommodates 25 guests, and Clever Girl can host 50+ guests. For larger groups, we can coordinate multiple boats. Volume discounts are available for regular corporate clients who book multiple events throughout the year."
+        "text": "Yes. For food, you have two options: (1) Bring your own - easy items that won't make a mess, or (2) We can help arrange full catering and setup from Austin vendors. BYOB (21+), cans and plastic containers only. We provide coolers with ice (Essentials and Ultimate packages) and cups."
       }
     },
     {
       "@type": "Question",
-      "name": "Can we bring catering?",
+      "name": "What group sizes can you accommodate?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes! You can bring your own catering, or we'll coordinate with your preferred caterer or restaurant to ensure seamless delivery and setup. Full bar setups are available, or you can bring your own beverages (BYOB for guests 21+). We can provide recommendations for local catering partners who specialize in corporate events if needed."
+        "text": "We accommodate 14-75 guests across our three-boat fleet. Day Tripper hosts up to 14 guests, Meeseeks and The Irony accommodate up to 25 guests each, and Clever Girl can host 30-50+ guests. For larger groups, we can coordinate multiple boats departing together."
       }
     },
     {
       "@type": "Question",
-      "name": "How much does team building cost?",
+      "name": "How much does it cost?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Team building cruises start at $200/hour for our Day Tripper boat. Most team building events run 3-6 hours. Package upgrades include Essentials (+$100-200/hour) and Ultimate (+$250-350/hour) with additional amenities. Additional crew fees apply: $50/hour for groups of 26-30 guests, and $100/hour for 51-75 guests. Volume discounts are available for companies booking multiple team building events."
+        "text": "Team building cruises start at $195/hour for our 14-person Day Tripper boat with Standard Package. Most events run 4-6 hours (4-hour minimum). Package add-ons: Essentials Package adds $100-150/hour depending on boat size, Ultimate Package adds $250-350/hour. Additional crew fees: $50/hour for groups of 26-30 guests, and $100/hour for 51-75 guests."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do deposits and payments work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "If booking 14+ days before cruise: 25% deposit required, remaining balance due 14 days before cruise. If booking less than 14 days before cruise: 50% deposit required, remaining balance due within 48 hours of booking (or 3 days after booking)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's your cancellation policy?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "48-hour full refund window after booking. After that, cancellations are weather-dependent at the captain's discretion. Pro-rated refunds if weather shortens the cruise."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is swimming allowed?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, when conditions are safe and at the captain's discretion. Life jackets are required for anyone in the water. Adult life jackets are provided. Infant and child life jackets must be brought by guests."
       }
     },
     {
@@ -39,7 +63,7 @@
       "name": "Where do we depart?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "All team building cruises depart from Anderson Mill Marina, located at 13993 FM 2769, Leander, TX 78641. Free parking is available for all guests. The marina is conveniently located about 30 minutes from downtown Austin, making it easily accessible for corporate groups."
+        "text": "All cruises depart from Anderson Mill Marina, located at 13993 FM 2769, Leander, TX 78641. Free parking is available for all guests. The marina is conveniently located about 30 minutes from downtown Austin."
       }
     },
     {
@@ -47,7 +71,7 @@
       "name": "What's the weather policy?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Our cruises operate rain or shine, as our boats feature both covered and open areas. In cases of severe weather (lightning, dangerous storms), adjustments will be made at the captain's discretion for safety. We offer flexible rescheduling options to accommodate weather-related changes to ensure your team building event is a success."
+        "text": "Our cruises operate rain or shine, as our boats feature both covered and open areas. In cases of severe weather (lightning, dangerous storms), adjustments will be made at the captain's discretion for safety. We offer flexible rescheduling options to accommodate weather-related changes."
       }
     },
     {
@@ -55,15 +79,7 @@
       "name": "How far in advance should we book?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Team building dates fill quickly, especially during spring and fall months when weather is ideal. We recommend booking 6-8 weeks in advance to secure your preferred date and boat. For peak season (April-October) or large groups, even earlier booking is advisable."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What's included in all cruises?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Every team building cruise includes a Coast Guard certified captain, professional crew, premium Bluetooth sound system, clean restrooms, sun and shade seating areas, and all required safety equipment. Essentials and Ultimate packages add coolers with ice, additional amenities, and enhanced services. All cruises feature flexible route customization to match your team building objectives."
+        "text": "Team building dates fill quickly, especially during spring and fall months when weather is ideal. We recommend booking 4-8 weeks in advance to secure your preferred date and boat. For peak season (April-October) or large groups, even earlier booking is advisable."
       }
     },
     {
@@ -71,31 +87,15 @@
       "name": "Can we customize the experience?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes! We work closely with you to create the perfect team building experience aligned with your schedule and objectives. Popular formats include half-day morning cruises (9am-1pm), afternoon sessions (1pm-5pm), and full-day team retreats. We can customize activities, timing, routes, and services to meet your specific team development goals."
+        "text": "Yes! We work closely with you to create the perfect experience for your team. You choose the package (Standard, Essentials, or Ultimate), duration (4-6 hours is typical), and we can help coordinate food and alcohol delivery. Popular formats include half-day morning cruises (9am-1pm) or afternoon sessions (1pm-5pm). Your team creates the experience - we provide the boat, captain, and Lake Travis setting."
       }
     },
     {
       "@type": "Question",
-      "name": "Is this tax deductible?",
+      "name": "Why is Lake Travis good for team building?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Generally yes—team building expenses are typically tax-deductible as legitimate business expenses for employee development and morale. We provide detailed invoices and documentation for your accounting needs. We recommend consulting with your accountant or tax advisor for specific guidance on your company's situation."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Do you provide facilitators?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Professional facilitation services are available for teams wanting structured team building activities with expert guidance. Our facilitators can design and lead activities tailored to your objectives, whether focused on communication, problem-solving, or leadership development. Alternatively, we can keep the experience purely social and relaxed based on your team's needs."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What makes Lake Travis ideal for team building?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Lake Travis provides the perfect team building environment—away from office distractions in a relaxed outdoor setting where teams naturally open up and connect on a personal level. The shared experience of being on the water, trying new activities together, and enjoying Austin's natural beauty creates lasting bonds that translate to improved workplace relationships. Many companies report enhanced communication, collaboration, and team cohesion after Lake Travis team building cruises."
+        "text": "Lake Travis provides a unique setting for team events - away from office distractions in a relaxed outdoor environment where teams naturally connect on a personal level. The shared experience of being on the water, swimming together (when conditions are safe), and enjoying Austin's natural beauty creates lasting bonds. Plus, everything is delivered and set up for you, making it easy for office administrators to plan a memorable team outing."
       }
     }
   ]
