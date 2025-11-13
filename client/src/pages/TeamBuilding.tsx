@@ -102,52 +102,52 @@ const teamBuildingPackages = [
   }
 ];
 
-// What's included
+// What's included - REAL benefits only
 const whatsIncluded = [
   {
-    icon: Target,
-    title: 'Goal-Oriented Activities',
-    description: 'Challenges designed to improve team collaboration'
-  },
-  {
-    icon: Lightbulb,
-    title: 'Problem Solving',
-    description: 'Interactive exercises that build critical thinking'
-  },
-  {
-    icon: Handshake,
-    title: 'Trust Building',
-    description: 'Activities that strengthen team bonds'
-  },
-  {
-    icon: Trophy,
-    title: 'Competitions',
-    description: 'Fun team challenges with prizes and recognition'
-  },
-  {
-    icon: Award,
-    title: 'Awards Ceremony',
-    description: 'Celebrate team achievements and MVPs'
-  },
-  {
-    icon: Building,
-    title: 'Company Culture',
-    description: 'Reinforce values and build stronger culture'
-  },
-  {
     icon: Sun,
-    title: 'Relaxation Time',
-    description: 'Balance activities with scenic relaxation'
+    title: 'Private Time on Lake Travis',
+    description: 'Get your team outside and away from the office with dedicated time together on the water'
+  },
+  {
+    icon: Users,
+    title: 'Team Bonding Environment',
+    description: 'The lake setting naturally brings people together - perfect for building stronger connections'
+  },
+  {
+    icon: Anchor,
+    title: 'Swimming & Water Activities',
+    description: 'When conditions are safe, your team can swim, relax on floats, and enjoy the water'
+  },
+  {
+    icon: Calendar,
+    title: 'Easy for Administrators',
+    description: 'Everything delivered and set up - no venue hunting, no setup stress, just show up and enjoy'
   },
   {
     icon: Shield,
-    title: 'Professional Facilitation',
-    description: 'Expert guidance throughout your event'
+    title: 'Alcohol Delivery Available',
+    description: 'We can coordinate alcohol delivery through Party On Delivery - one less thing to worry about'
   },
   {
-    icon: Zap,
-    title: 'Energy Boost',
-    description: 'Reinvigorate your team\'s motivation'
+    icon: Sun,
+    title: 'Shade & Comfort',
+    description: 'Plenty of shaded seating areas to stay comfortable throughout your cruise'
+  },
+  {
+    icon: Ship,
+    title: 'Clean Facilities',
+    description: 'Private, clean restroom facilities on board for your team\'s comfort'
+  },
+  {
+    icon: Sparkles,
+    title: 'Hassle-Free Setup',
+    description: 'Choose your party package and we\'ll have everything ready - coolers with ice, cups, tables, and more'
+  },
+  {
+    icon: MapPin,
+    title: 'Experienced Captain & Crew',
+    description: 'Licensed, fun captains who know the lake and keep your group safe while you enjoy your time together'
   }
 ];
 
@@ -204,14 +204,14 @@ export default function TeamBuilding() {
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
       <SEOHead 
         pageRoute="/team-building"
-        defaultTitle="Team Building Cruises | Lake Travis"
-        defaultDescription="Transform your team on Lake Travis! Interactive challenges, professional facilitation. Build stronger bonds on the water!"
+        defaultTitle="Corporate Team Building Boat Cruises | Lake Travis Austin"
+        defaultDescription="Get your team outside and on Lake Travis! Private boat cruises with swimming, shade, clean facilities, and easy planning. Perfect for corporate events and team bonding."
         defaultKeywords={[
           'corporate team building austin',
           'lake travis team building',
           'team building boat cruise',
           'corporate retreat austin',
-          'team building activities lake travis'
+          'corporate boat rental lake travis'
         ]}
       />
 
@@ -237,22 +237,22 @@ export default function TeamBuilding() {
         <div className="relative z-10 max-w-7xl mx-auto px-6 flex-grow flex items-center w-full">
           <div className="max-w-4xl mx-auto text-center w-full">
             <Badge className="mb-6 px-6 py-3 text-base font-sans tracking-wider bg-blue-100 text-gray-900 border-blue-300 shadow-lg">
-              <Target className="mr-2 h-5 w-5" />
-              Build Stronger Teams on the Water
+              <Ship className="mr-2 h-5 w-5" />
+              Corporate Team Events on Lake Travis
             </Badge>
 
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-playfair font-extrabold mb-6 text-center text-gray-900 drop-shadow-sm">
-              Team Building Adventures
+              Corporate Team Building Cruises
             </h1>
 
             <p className="text-xl sm:text-2xl md:text-3xl text-gray-900 mb-6 md:mb-8 font-bold drop-shadow-sm max-w-3xl mx-auto text-center">
-              Build Stronger Teams on the Water
+              Get Your Team Outside and on the Water
             </p>
 
             <div className="inline-block bg-white/90 backdrop-blur-sm rounded-2xl px-6 sm:px-8 py-4 sm:py-6 shadow-xl max-w-5xl mx-auto mb-8">
               <p className="text-lg sm:text-xl md:text-2xl text-gray-900 font-semibold leading-relaxed">
-                Transform your team with interactive challenges, professional facilitation, 
-                and unforgettable experiences on Lake Travis
+                Private Lake Travis cruises where your team can bond, swim, and relax together. 
+                Everything delivered and set up - easy for administrators, unforgettable for your team.
               </p>
             </div>
 
@@ -282,16 +282,16 @@ export default function TeamBuilding() {
 
             <div className="grid grid-cols-3 gap-8 mt-12 max-w-2xl mx-auto">
               <div className="text-center">
-                <div className="text-3xl font-bold text-blue-400">500+</div>
-                <div className="text-sm text-white/80">Teams Built</div>
+                <div className="text-3xl font-bold text-blue-400">15+</div>
+                <div className="text-sm text-white/80">Years Experience</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-blue-400">98%</div>
-                <div className="text-sm text-white/80">Satisfaction Rate</div>
+                <div className="text-3xl font-bold text-blue-400">4.9★</div>
+                <div className="text-sm text-white/80">Google Rating</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-blue-400">15-75</div>
-                <div className="text-sm text-white/80">Team Size</div>
+                <div className="text-3xl font-bold text-blue-400">14-75</div>
+                <div className="text-sm text-white/80">Group Capacity</div>
               </div>
             </div>
           </div>
@@ -300,7 +300,7 @@ export default function TeamBuilding() {
         <div className="relative z-20 w-full bg-white/90 backdrop-blur-sm py-4 px-6">
           <div className="max-w-7xl mx-auto">
             <p className="text-center text-gray-900 text-base md:text-lg font-semibold">
-              🎯 <span className="text-blue-600">Build Stronger Teams</span> • Interactive Challenges • <span className="text-blue-600">Professional Facilitation</span> 🎯
+              ⚓ <span className="text-blue-600">Private Lake Setting</span> • Swimming & Relaxation • <span className="text-blue-600">Easy Planning</span> ⚓
             </p>
           </div>
         </div>
@@ -380,11 +380,11 @@ export default function TeamBuilding() {
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-4 text-center">
-                Team Building Packages
+                Choose Your Party Package
               </h2>
               <p className="text-xl text-base text-gray-600 max-w-3xl mx-auto text-center">
-                Choose the perfect package for your team's goals. 
-                All packages include activities, facilitation, and Lake Travis experience.
+                Select the package that fits your team's needs. 
+                All packages include the boat, captain, and Lake Travis cruise - you bring the team, we handle the rest.
               </p>
             </div>
 
@@ -457,10 +457,10 @@ export default function TeamBuilding() {
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-4 text-center">
-                Building Teams, Creating Success
+                Why Teams Love Lake Travis Cruises
               </h2>
               <p className="text-xl text-base text-gray-600 text-center">
-                Everything you need for impactful team development
+                Everything you need for a memorable team outing on the water
               </p>
             </div>
 
