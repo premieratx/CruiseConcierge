@@ -101,7 +101,7 @@ export function TableOfContents({ sections, className }: TableOfContentsProps) {
                     ? "bg-brand-blue text-white shadow-md"
                     : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-brand-blue/10 dark:hover:bg-brand-blue/20 hover:text-brand-blue dark:hover:text-brand-blue"
                 )}
-                data-testid={`toc-${section.id}`}
+                data-testid={`toc-link-${section.id}`}
               >
                 {section.icon && <span className="flex-shrink-0 text-base">{section.icon}</span>}
                 <span>{section.title}</span>

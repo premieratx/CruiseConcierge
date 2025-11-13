@@ -55,6 +55,10 @@ const BlogCategory = lazy(() => import("./pages/BlogCategory"));
 const BlogTag = lazy(() => import("./pages/BlogTag"));
 const BlogAuthor = lazy(() => import("./pages/BlogAuthor"));
 
+// New SEO-Optimized Blog Pages - Lazy loaded
+const AustinBachelorPartyIdeas = lazy(() => import("./pages/blog/AustinBachelorPartyIdeas"));
+const LakeTravisBachelorPartyBoats = lazy(() => import("./pages/blog/LakeTravisBachelorPartyBoats"));
+
 // Admin Blog Pages - Lazy loaded
 const BlogManagement = lazy(() => import("./pages/admin/BlogManagement"));
 const BlogPostEditor = lazy(() => import("./pages/admin/BlogPostEditor"));
@@ -301,6 +305,10 @@ function Router() {
       <Route path="/blogs/lake-travis-wedding-boat-rentals-unique-venues-for-austin-celebrations" component={LakeTravisWeddingBoatRentals} />
       <Route path="/blogs/must-haves-for-the-perfect-austin-bachelorette-weekend" component={MustHavesAustinBacheloretteWeekend} />
       <Route path="/blogs/top-spots-tips-for-an-unforgettable-austin-bachelorette-party-experience" component={TopSpotsAustinBacheloretteParty} />
+      
+      {/* New SEO-Optimized Bachelor Party Blog Pages */}
+      <Route path="/austin-bachelor-party-ideas" component={AustinBachelorPartyIdeas} />
+      <Route path="/lake-travis-bachelor-party-boats" component={LakeTravisBachelorPartyBoats} />
       
       {/* Redirect /blog/ version to /blogs/ React page */}
       <Route path="/blog/top-spots-tips-for-an-unforgettable-austin-bachelorette-party-experience">
