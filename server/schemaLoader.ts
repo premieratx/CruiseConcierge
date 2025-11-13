@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { isStaticBlogRoute } from './staticBlogMetadata';
+import { getBaseDomain } from './utils/domain';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -101,15 +102,19 @@ export function generateArticleSchema(blogPost: {
     ? new Date(blogPost.publishedAt).toISOString()
     : new Date().toISOString();
 
-  const defaultUrl = `https://premierpartycruises.com/blogs/${blogPost.slug}`;
+  const baseDomain = getBaseDomain();
+  const defaultUrl = `${baseDomain}/blogs/${blogPost.slug}`;
   const schemaUrl = canonicalUrl || defaultUrl;
+
+  const organizationId = `${baseDomain}/#organization`;
+  const defaultImage = `${baseDomain}/media/schema/hero-boat-1.jpg`;
 
   return {
     "@context": "https://schema.org",
     "@type": "Article",
     "headline": blogPost.title,
     "description": blogPost.excerpt || blogPost.content?.substring(0, 160) || '',
-    "image": blogPost.featuredImage || "https://premierpartycruises.com/media/schema/hero-boat-1.jpg",
+    "image": blogPost.featuredImage || defaultImage,
     "datePublished": publishDate,
     "dateModified": publishDate,
     "author": {
@@ -117,7 +122,7 @@ export function generateArticleSchema(blogPost: {
       "name": blogPost.author?.name || "Premier Party Cruises"
     },
     "publisher": {
-      "@id": "https://premierpartycruises.com/#organization"
+      "@id": organizationId
     },
     "url": schemaUrl,
     "mainEntityOfPage": {

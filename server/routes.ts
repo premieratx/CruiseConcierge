@@ -9,6 +9,8 @@ import passport from "passport";
 import { setupAuth, PasswordService } from "./auth";
 import { requireAuth, requireAdmin } from "./middleware/auth";
 import { randomBytes } from "crypto";
+import { getBaseDomain } from "./utils/domain";
+import { isStaticBlogRoute } from "./staticBlogMetadata";
 
 // Augment Express Request type to include our custom properties
 declare module 'express-serve-static-core' {
@@ -609,6 +611,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       const { slug } = req.params;
       
+      // Check if this is a static blog accessed via /blogs/ prefix
+      const staticBlogPath = `/${slug}`;
+      if (isStaticBlogRoute(staticBlogPath)) {
+        // Redirect /blogs/slug → /slug (301 permanent)
+        return res.redirect(301, staticBlogPath);
+      }
+      
       // Try PostgreSQL first
       let post = await storageInstance.getBlogPostBySlug(slug);
       let isWordPress = false;
@@ -665,26 +674,29 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return next();
       }
       
+      // Get environment-based domain for schemas
+      const baseDomain = getBaseDomain(req);
+      
       // Generate unique Article schema for this blog post (works for both sources)
       const articleSchema = {
         "@context": "https://schema.org",
         "@type": "Article",
         "headline": post.title || "",
         "description": post.metaDescription || post.excerpt || "",
-        "image": post.featuredImageUrl || post.featuredImage || "https://premierpartycruises.com/media/schema/hero-boat-1.jpg",
+        "image": post.featuredImageUrl || post.featuredImage || `${baseDomain}/media/schema/hero-boat-1.jpg`,
         "author": {
           "@type": "Person",
           "name": post.author?.name || "Premier Party Cruises Team"
         },
         "publisher": {
-          "@id": "https://premierpartycruises.com/#organization"
+          "@id": `${baseDomain}/#organization`
         },
         "datePublished": post.publishedAt ? new Date(post.publishedAt).toISOString() : new Date(post.createdAt).toISOString(),
         "dateModified": post.updatedAt ? new Date(post.updatedAt).toISOString() : new Date(post.createdAt).toISOString(),
-        "url": `https://premierpartycruises.com/blogs/${slug}`,
+        "url": `${baseDomain}/blogs/${slug}`,
         "mainEntityOfPage": {
           "@type": "WebPage",
-          "@id": `https://premierpartycruises.com/blogs/${slug}`
+          "@id": `${baseDomain}/blogs/${slug}`
         }
       };
       
@@ -705,13 +717,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
             "@type": "ListItem",
             "position": 1,
             "name": "Home",
-            "item": "https://premierpartycruises.com/"
+            "item": `${baseDomain}/`
           },
           {
             "@type": "ListItem",
             "position": 2,
             "name": breadcrumbName,
-            "item": `https://premierpartycruises.com/blogs/${slug}`
+            "item": `${baseDomain}/blogs/${slug}`
           }
         ]
       };
@@ -728,7 +740,7 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
     </script>`;
       
       // Inject canonical tag (always use /blogs/ format for blog posts)
-      const canonicalUrl = `https://premierpartycruises.com/blogs/${slug}`;
+      const canonicalUrl = `${baseDomain}/blogs/${slug}`;
       const canonicalTag = `  <link rel="canonical" href="${canonicalUrl}" />`;
       
       // Inject both schemas and canonical tag before </head>

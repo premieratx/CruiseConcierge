@@ -7,6 +7,7 @@ import { PAGE_CONTENT, PageContent, PageSection, LINK_CATALOG } from './pageCont
 import { getSchemaForRoute, generateArticleSchema, isBlogPostRoute } from '../schemaLoader';
 import { isStaticBlogRoute, getStaticBlogMetadata } from '../staticBlogMetadata';
 import { storage } from '../storage';
+import { getCanonicalUrl } from '../utils/domain';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -1161,6 +1162,9 @@ ${JSON.stringify(schema, null, 2)}
     
     // Add Article schema for blog posts (excluding list/category/author pages)
     if (isBlogPostRoute(pathname) && blogData && blogData.post) {
+      // Use environment-based canonical URL for database blogs
+      const blogCanonicalUrl = getCanonicalUrl(pathname, req);
+      
       const articleSchema = generateArticleSchema({
         title: blogData.post.title,
         slug: blogData.post.slug,
@@ -1169,7 +1173,7 @@ ${JSON.stringify(schema, null, 2)}
         featuredImage: blogData.post.featuredImage,
         publishedAt: blogData.post.publishedAt,
         author: blogData.post.author
-      });
+      }, blogCanonicalUrl);
       
       schemaScripts += `
   <script type="application/ld+json">
@@ -1181,9 +1185,8 @@ ${JSON.stringify(articleSchema, null, 2)}
     if (isStaticBlogRoute(pathname)) {
       const staticBlogMeta = getStaticBlogMetadata(pathname);
       if (staticBlogMeta) {
-        const protocol = req.secure ? 'https' : 'http';
-        const host = req.get('host') || 'premierpartycruises.com';
-        const canonicalUrl = `${protocol}://${host}${pathname}`;
+        // Use environment-based canonical URL (production domain in prod, request host in dev)
+        const canonicalUrl = getCanonicalUrl(pathname, req);
         
         const articleSchema = generateArticleSchema({
           title: staticBlogMeta.title,
@@ -1230,10 +1233,8 @@ ${JSON.stringify(reviewSchema, null, 2)}
     );
     
     // Inject canonical tag, critical CSS, and schemas at end of head
-    // Derive canonical URL from request host/protocol instead of hard-coding
-    const protocol = req.secure ? 'https' : 'http';
-    const host = req.get('host') || 'premierpartycruises.com';
-    const canonicalUrl = `${protocol}://${host}${pathname}`;
+    // Use environment-based canonical URL (production domain in prod, request host in dev)
+    const canonicalUrl = getCanonicalUrl(pathname, req);
     
     // Build head injection with critical CSS and React Refresh preamble (dev only)
     const reactPreamble = isDevelopment ? `  <script type="module">
