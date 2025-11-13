@@ -77,7 +77,7 @@ export default function AustinBachelorPartyIdeas() {
 
           <p className="text-lg mb-4 text-gray-700 dark:text-gray-300">
             From daytime lake excursions to downtown bar crawls, here are the must-do activities and hotspots 
-            to craft the ultimate <Link href="/bachelor-party" className="text-brand-blue hover:underline font-semibold" data-testid="link-bachelor-party">
+            to craft the ultimate <Link href="/bachelor-party-austin" className="text-brand-blue hover:underline font-semibold" data-testid="link-bachelor-party">
             bachelor weekend in Austin, TX</Link> (cue the FOMO!).
           </p>
         </section>
@@ -207,7 +207,7 @@ export default function AustinBachelorPartyIdeas() {
           </p>
 
           <p className="text-lg mb-4 text-gray-700 dark:text-gray-300">
-            By 11 PM, 6th Street is buzzing with bachelor and <Link href="/bachelorette-party" className="text-brand-blue hover:underline font-semibold" data-testid="link-bachelorette-party-1">
+            By 11 PM, 6th Street is buzzing with bachelor and <Link href="/bachelorette-party-austin" className="text-brand-blue hover:underline font-semibold" data-testid="link-bachelorette-party-1">
             bachelorette parties</Link>, college students, tourists – basically a huge street party. Expect 
             packed bars, live bands or DJs blasting, shots flowing, and lots of memorable people-watching.
           </p>
@@ -517,8 +517,8 @@ export default function AustinBachelorPartyIdeas() {
             One day you're living it up on a <Link href="/atx-disco-cruise" className="text-brand-blue hover:underline font-bold" data-testid="link-atx-disco-cruise-7">
             disco party barge</Link>, the next you're tearing into brisket, then you're catching live music and 
             raising a toast on a rooftop bar. Austin manages to be outdoorsy and chill by day, and absolutely 
-            electric by night. No wonder so many <Link href="/bachelor-party" className="text-brand-blue hover:underline font-semibold" data-testid="link-bachelor-party-2">
-            bachelor</Link> and <Link href="/bachelorette-party" className="text-brand-blue hover:underline font-semibold" data-testid="link-bachelorette-party-2">
+            electric by night. No wonder so many <Link href="/bachelor-party-austin" className="text-brand-blue hover:underline font-semibold" data-testid="link-bachelor-party-2">
+            bachelor</Link> and <Link href="/bachelorette-party-austin" className="text-brand-blue hover:underline font-semibold" data-testid="link-bachelorette-party-2">
             bachelorette</Link> groups flock here year-round.
           </p>
 
@@ -569,7 +569,7 @@ export default function AustinBachelorPartyIdeas() {
               14+ years of epic parties | 125,000+ happy guests | Perfect safety record
             </p>
             <div className="flex justify-center gap-4 flex-wrap">
-              <Link href="/bachelor-party" className="text-brand-blue hover:underline font-bold text-lg" data-testid="link-bachelor-party-packages">
+              <Link href="/bachelor-party-austin" className="text-brand-blue hover:underline font-bold text-lg" data-testid="link-bachelor-party-packages">
                 View Bachelor Party Packages →
               </Link>
               <Link href="/gallery" className="text-brand-blue hover:underline font-bold text-lg" data-testid="link-gallery">

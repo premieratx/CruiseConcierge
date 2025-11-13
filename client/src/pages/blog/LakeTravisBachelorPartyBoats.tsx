@@ -80,7 +80,7 @@ export default function LakeTravisBachelorPartyBoats() {
 
           <p className="text-lg mb-4 text-gray-700 dark:text-gray-300">
             It's the perfect escape from the city without actually leaving Austin – and it has become the go-to 
-            for daytime <Link href="/bachelor-party" className="text-brand-blue hover:underline font-semibold" data-testid="link-bachelor-party-1">
+            for daytime <Link href="/bachelor-party-austin" className="text-brand-blue hover:underline font-semibold" data-testid="link-bachelor-party-1">
             bachelor party</Link> festivities.
           </p>
 
@@ -195,7 +195,7 @@ export default function LakeTravisBachelorPartyBoats() {
             <p className="text-lg font-semibold text-gray-900 dark:text-white">
               🎉 Social Scene: The ATX Disco Cruise is a multi-group party, meaning your bachelor crew will be 
               partying alongside other groups – often a mix of bachelor and{' '}
-              <Link href="/bachelorette-party" className="text-brand-blue hover:underline font-semibold" data-testid="link-bachelorette-party-1">
+              <Link href="/bachelorette-party-austin" className="text-brand-blue hover:underline font-semibold" data-testid="link-bachelorette-party-1">
               bachelorette parties</Link> from around the country!
             </p>
           </div>
@@ -267,7 +267,7 @@ export default function LakeTravisBachelorPartyBoats() {
 
           <p className="text-lg mb-4 text-gray-700 dark:text-gray-300">
             As the only integrated boat + bev service in Austin, this combo of Premier's cruises and Party On 
-            Delivery's service is a <Link href="/bachelor-party" className="text-brand-blue hover:underline font-semibold" data-testid="link-bachelor-party-2">
+            Delivery's service is a <Link href="/bachelor-party-austin" className="text-brand-blue hover:underline font-semibold" data-testid="link-bachelor-party-2">
             bachelor party</Link> planner's dream.
           </p>
 
@@ -497,7 +497,7 @@ export default function LakeTravisBachelorPartyBoats() {
 
           <p className="text-lg mb-4 text-gray-700 dark:text-gray-300">
             Want to see how a <strong>Lake Travis party boat</strong> fits into the ultimate{' '}
-            <Link href="/bachelor-party" className="text-brand-blue hover:underline font-semibold" data-testid="link-bachelor-party-3">
+            <Link href="/bachelor-party-austin" className="text-brand-blue hover:underline font-semibold" data-testid="link-bachelor-party-3">
             Austin bachelor weekend</Link>? Here's a sample itinerary:
           </p>
 
@@ -587,7 +587,7 @@ export default function LakeTravisBachelorPartyBoats() {
                 <li className="flex items-start gap-2">
                   <CheckCircle className="h-5 w-5 text-green-600 flex-shrink-0 mt-1" />
                   <span><strong>Make friends:</strong> Chat with other bachelor and{' '}
-                  <Link href="/bachelorette-party" className="text-brand-blue hover:underline" data-testid="link-bachelorette-party-2">bachelorette parties</Link> on 
+                  <Link href="/bachelorette-party-austin" className="text-brand-blue hover:underline" data-testid="link-bachelorette-party-2">bachelorette parties</Link> on 
                   the boat. Form a supergroup for the after-party!</span>
                 </li>
                 <li className="flex items-start gap-2">
@@ -667,7 +667,7 @@ export default function LakeTravisBachelorPartyBoats() {
           </div>
 
           <div className="flex justify-center gap-6 flex-wrap text-sm">
-            <Link href="/bachelor-party" className="text-brand-blue hover:underline font-semibold" data-testid="link-bachelor-party-packages">
+            <Link href="/bachelor-party-austin" className="text-brand-blue hover:underline font-semibold" data-testid="link-bachelor-party-packages">
               Bachelor Party Packages →
             </Link>
             <Link href="/combined-bachelor-bachelorette" className="text-brand-blue hover:underline font-semibold" data-testid="link-combined-parties">
