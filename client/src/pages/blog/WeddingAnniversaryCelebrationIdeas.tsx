@@ -893,11 +893,11 @@ export default function WeddingAnniversaryCelebrationIdeas() {
             </h4>
             <ul className="space-y-2 text-gray-700 dark:text-gray-300">
               <li>
-                • <Link href="/lake-travis-wedding-boat-rentals" className="text-brand-blue hover:underline" data-testid="link-lake-travis-wedding-boat-rentals">
+                • <Link href="/blogs/lake-travis-wedding-boat-rentals-unique-venues-for-austin-celebrations" className="text-brand-blue hover:underline" data-testid="link-lake-travis-wedding-boat-rentals">
                 Lake Travis Wedding Boat Rentals</Link> - Planning a wedding? Learn about our wedding packages
               </li>
               <li>
-                • <Link href="/holiday-celebrations-lake-travis" className="text-brand-blue hover:underline" data-testid="link-holiday-celebrations-lake-travis">
+                • <Link href="/blogs/holiday-celebrations-on-lake-travis-seasonal-boat-party-planning-and-coordination" className="text-brand-blue hover:underline" data-testid="link-holiday-celebrations-lake-travis">
                 Holiday Celebrations on Lake Travis</Link> - Celebrate other special occasions on the water
               </li>
               <li>
