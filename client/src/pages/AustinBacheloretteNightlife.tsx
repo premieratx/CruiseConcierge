@@ -183,7 +183,7 @@ export default function AustinBacheloretteNightlife() {
               </p>
 
               <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                Pro tip for your <strong>bachelorette party in austin</strong>: Sixth Street bars don't typically require cover charges on weekdays, but Friday and Saturday nights may have $5-10 covers per person. The bride usually gets in free when wearing her sash! Many bars will even give free drinks to brides, so make sure she's decked out in full <strong>austin bachelorette party</strong> regalia. And if you spent the day on a <strong>bachelorette boat rental austin</strong>, you'll already have the perfect party momentum going.
+                Pro tip for your <strong>bachelorette party in austin</strong>: Sixth Street bars don't typically require cover charges on weekdays, but Friday and Saturday nights may have $5-10 covers per person. Make sure the bride is decked out in full <strong>austin bachelorette party</strong> regalia with sash and tiara! And if you spent the day on a <strong>bachelorette boat rental austin</strong>, you'll already have the perfect party momentum going.
               </p>
             </div>
 

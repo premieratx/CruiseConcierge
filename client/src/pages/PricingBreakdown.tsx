@@ -765,10 +765,6 @@ export default function PricingBreakdown() {
                     values: ['Available', 'Available', 'Available']
                   },
                   {
-                    feature: 'Bride Cruises Free',
-                    values: ['With 16+ guests', 'With 16+ guests', 'With 16+ guests']
-                  },
-                  {
                     feature: 'Best For',
                     values: [
                       'Sunset vibes & budget',

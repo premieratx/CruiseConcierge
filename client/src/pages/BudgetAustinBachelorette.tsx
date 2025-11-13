@@ -567,7 +567,7 @@ export default function BudgetAustinBachelorette() {
 
             <div className="prose prose-lg max-w-none dark:prose-invert">
               <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
-                Always ask about group rates for your <strong>bachelorette party in austin</strong> – many tour companies, boat rentals, or activities will offer a discount if you have a big group for your <strong>austin bachelorette weekend</strong>. For example, a private party bus might give you an hourly discount if you book multiple hours, or a boutique might give the bride a free item if bridesmaids all buy something during your <strong>austin bachelorette party</strong>!
+                Always ask about group rates for your <strong>bachelorette party in austin</strong> – many tour companies, boat rentals, or activities will offer a discount if you have a big group for your <strong>austin bachelorette weekend</strong>. For example, a private party bus might give you an hourly discount if you book multiple hours during your <strong>austin bachelorette party</strong>!
               </p>
               
               <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
@@ -832,7 +832,7 @@ export default function BudgetAustinBachelorette() {
 
             <div className="prose prose-lg max-w-none dark:prose-invert">
               <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
-                Austinites are friendly, and the city is used to <strong>bachelorette parties in austin</strong>! Don't shy away from mentioning it's your <strong>austin bachelorette weekend</strong> – you might be surprised with freebies and VIP treatment just for being a celebratory bunch. Sometimes bars will offer a round of free shots for the bride during your <strong>austin bachelorette party</strong>, or a band will play a special song if they know it's her party during your <strong>bachelorette party in austin</strong>!
+                Austinites are friendly, and the city is used to <strong>bachelorette parties in austin</strong>! Don't shy away from mentioning it's your <strong>austin bachelorette weekend</strong> – you might be surprised with freebies and VIP treatment just for being a celebratory bunch. Sometimes bars will offer special shout-outs during your <strong>austin bachelorette party</strong>, or a band will play a special song if they know it's a celebration during your <strong>bachelorette party in austin</strong>!
               </p>
               
               <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
@@ -847,19 +847,15 @@ export default function BudgetAustinBachelorette() {
                 <ul className="space-y-2 text-gray-700 dark:text-gray-300">
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-5 w-5 text-yellow-600 flex-shrink-0 mt-0.5" />
-                    <span>Free shots for the bride at bars during <strong>austin bachelorette party</strong></span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle2 className="h-5 w-5 text-yellow-600 flex-shrink-0 mt-0.5" />
                     <span>Special song requests from bands for <strong>austin bachelorette weekend</strong></span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-5 w-5 text-yellow-600 flex-shrink-0 mt-0.5" />
-                    <span>Free dessert at restaurants for <strong>bachelorette party in austin</strong></span>
+                    <span>Group discounts on activities for your <strong>austin bachelorette</strong></span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-5 w-5 text-yellow-600 flex-shrink-0 mt-0.5" />
-                    <span>Group discounts on activities for your <strong>austin bachelorette</strong></span>
+                    <span>VIP treatment at local venues during <strong>austin bachelorette party</strong></span>
                   </li>
                 </ul>
               </div>

@@ -498,7 +498,7 @@ export default function UltimateAustinBacheloretteWeekend() {
                 For your <strong>austin bachelorette weekend</strong>, we recommend starting with a celebratory dinner after your <Link href="/atx-disco-cruise" className="text-purple-600 hover:text-purple-700 font-semibold">ATX Disco Cruise</Link>, then hitting the bars around 10 PM. Many <strong>austin bachelorette party</strong> groups do a combination: start at Rainey Street for craft cocktails, then migrate to Sixth Street for late-night dancing.
               </p>
               <p className="text-gray-700 dark:text-gray-300">
-                <strong>Pro Tip:</strong> Don't be shy about letting bartenders know you're a <strong>bachelorette party in austin</strong>—many will give the bride free shots or special shout-outs! And if you're planning to party hard after your <strong>bachelorette boat rental austin</strong> adventure, consider booking a party bus for safe transportation.
+                <strong>Pro Tip:</strong> Don't be shy about letting bartenders know you're a <strong>bachelorette party in austin</strong>—many will give special shout-outs to bachelorette groups! And if you're planning to party hard after your <strong>bachelorette boat rental austin</strong> adventure, consider booking a party bus for safe transportation.
               </p>
             </div>
           </div>

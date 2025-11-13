@@ -1973,7 +1973,7 @@ export default function BacheloretteParty() {
                   {
                     time: "11:45 AM",
                     title: "Arrival at Anderson Mill Marina",
-                    description: "Check in at the dock, meet your captain, load coolers onto the boat. Free parking available. Bachelorette groups gather and get ready to celebrate the bride.",
+                    description: "Check in at the dock, meet your captain, load coolers onto the boat. Free parking available. Groups gather and get ready to celebrate!",
                     icon: <MapPin className="w-4 h-4 text-white" />,
                     duration: "15 min"
                   },
