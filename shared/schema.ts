@@ -101,6 +101,28 @@ export const adminChatMessages = pgTable("admin_chat_messages", {
 });
 
 // ==========================================
+// AGENT CHAT SESSIONS AND MESSAGES (for QuickAgentService)
+// ==========================================
+
+export const agentChatSessions = pgTable("agent_chat_sessions", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  userId: text("user_id").notNull(),
+  title: text("title").notNull(),
+  status: text("status").notNull().default('active'),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+export const agentChatMessages = pgTable("agent_chat_messages", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  sessionId: varchar("session_id").notNull(),
+  role: varchar("role").notNull(),
+  content: text("content").notNull(),
+  metadata: jsonb("metadata").$type<Record<string, any>>().default({}),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// ==========================================
 // PRICING SETTINGS
 // ==========================================
 
@@ -616,6 +638,17 @@ export const insertAdminChatMessageSchema = createInsertSchema(adminChatMessages
   createdAt: true,
 });
 
+export const insertAgentChatSessionSchema = createInsertSchema(agentChatSessions).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertAgentChatMessageSchema = createInsertSchema(agentChatMessages).omit({
+  id: true,
+  createdAt: true,
+});
+
 export const insertPricingSettingsSchema = createInsertSchema(pricingSettings).omit({
   id: true,
   updatedAt: true,
@@ -864,6 +897,8 @@ export type User = typeof users.$inferSelect;
 export type Invite = typeof invites.$inferSelect;
 export type AdminChatSession = typeof adminChatSessions.$inferSelect;
 export type AdminChatMessage = typeof adminChatMessages.$inferSelect;
+export type SelectAgentChatSession = typeof agentChatSessions.$inferSelect;
+export type SelectAgentChatMessage = typeof agentChatMessages.$inferSelect;
 export type PricingSettings = typeof pricingSettings.$inferSelect;
 export type Affiliate = typeof affiliates.$inferSelect;
 export type PartnerApplication = typeof partnerApplications.$inferSelect;
@@ -891,6 +926,8 @@ export type InsertUser = z.infer<typeof insertUserSchema>;
 export type InsertInvite = z.infer<typeof insertInviteSchema>;
 export type InsertAdminChatSession = z.infer<typeof insertAdminChatSessionSchema>;
 export type InsertAdminChatMessage = z.infer<typeof insertAdminChatMessageSchema>;
+export type InsertAgentChatSession = z.infer<typeof insertAgentChatSessionSchema>;
+export type InsertAgentChatMessage = z.infer<typeof insertAgentChatMessageSchema>;
 export type InsertPricingSettings = z.infer<typeof insertPricingSettingsSchema>;
 export type InsertAffiliate = z.infer<typeof insertAffiliateSchema>;
 export type InsertPartnerApplication = z.infer<typeof insertPartnerApplicationSchema>;
