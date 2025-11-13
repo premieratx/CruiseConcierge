@@ -237,7 +237,7 @@ export default function LakeTravisWeatherGuide() {
                       <li>• Swimming & water activities</li>
                       <li>• High-energy celebrations</li>
                       <li>• <Link href="/atx-disco-cruise" className="text-blue-600 hover:underline font-medium">ATX Disco Cruise</Link> (Fri/Sat)</li>
-                      <li>• Family reunions, <Link href="/lake-travis-large-groups-guide" className="text-blue-600 hover:underline font-medium">large group events</Link></li>
+                      <li>• Family reunions, <Link href="/blog/lake-travis-party-boat-rentals-ultimate-guide-for-large-group-events-20-guests" className="text-blue-600 hover:underline font-medium">large group events</Link></li>
                     </ul>
                     <div className="mt-4 p-4 bg-orange-100 dark:bg-orange-900/20 rounded-lg">
                       <p className="text-sm font-semibold text-orange-800 dark:text-orange-300">

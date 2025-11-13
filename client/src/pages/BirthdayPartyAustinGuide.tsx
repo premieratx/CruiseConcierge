@@ -274,7 +274,7 @@ export default function BirthdayPartyAustinGuide() {
                     </li>
                   </ul>
                   <p className="text-sm text-gray-600 dark:text-gray-400 italic">
-                    Best for: Epic 60th, 70th birthday bashes, <Link href="/graduation-party" className="text-blue-600 hover:underline font-medium">graduation parties</Link>, <Link href="/lake-travis-large-groups-guide" className="text-blue-600 hover:underline font-medium">large group celebrations</Link>
+                    Best for: Epic 60th, 70th birthday bashes, <Link href="/graduation-party" className="text-blue-600 hover:underline font-medium">graduation parties</Link>, <Link href="/blog/lake-travis-party-boat-rentals-ultimate-guide-for-large-group-events-20-guests" className="text-blue-600 hover:underline font-medium">large group celebrations</Link>
                   </p>
                 </CardContent>
               </Card>
@@ -453,7 +453,7 @@ export default function BirthdayPartyAustinGuide() {
                     What's the best time of year for a birthday boat party?
                   </h3>
                   <p className="text-gray-700 dark:text-gray-300">
-                    We cruise year-round! Spring (March-May) and Fall (September-November) offer perfect weather. Summer (June-August) is great for swimming and water activities. Even winter has sunny days perfect for intimate celebrations. <Link href="/lake-travis-weather-guide" className="text-blue-600 hover:underline font-medium">Check our seasonal weather guide</Link> to help you choose the best timing!
+                    We cruise year-round! Spring (March-May) and Fall (September-November) offer perfect weather. Summer (June-August) is great for swimming and water activities. Even winter has sunny days perfect for intimate celebrations. <Link href="/blog/lake-travis-weather-planning-seasonal-considerations-for-perfect-boat-parties" className="text-blue-600 hover:underline font-medium">Check our seasonal weather guide</Link> to help you choose the best timing!
                   </p>
                 </CardContent>
               </Card>
