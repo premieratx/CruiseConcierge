@@ -12,6 +12,25 @@ Premier Party Cruises offers party boat rentals on Lake Travis, Austin, with two
 - Server-side enforcement of all rules
 - Identical time slot definitions across all components
 - Real information only - no made-up details or "AI slop"
+- **100% FACTUAL ACCURACY**: No made-up activities, services, or features. Only describe what Premier Party Cruises actually provides: boat, captain, lake setting, and amenities. Customers create their own experience.
+
+## Recent Accuracy Fixes (November 2024)
+**Comprehensive Site-Wide Accuracy Audit Completed:**
+1. **Life Jacket Policy** (19 files updated):
+   - Changed from "life jackets required" to "available for swimming - encouraged for safety"
+   - Updated 8 schema files + 11 page components for consistency
+2. **Disco Cruise Food Options** (3 schema files):
+   - Removed incorrect "lunch delivery" claims
+   - Clarified: Alcohol delivery available only (NOT lunch)
+3. **Comparison Tables** (2 files):
+   - Disco: "Alcohol delivery available"
+   - Private: "Bring your own, coordinate catering, or we can help"
+4. **DiscoVsPrivateValueCalculator** (complete rebuild):
+   - Now uses PRIVATE_CRUISE_PRICING constants for accurate boat hourly rates
+   - Correctly differentiates Friday vs Saturday pricing (e.g., 14p boat: Friday $225/hr, Saturday $350/hr)
+   - "Build It Yourself" includes all real costs: boat base + DJ/Photo/Bartender ($600) + Party Supplies ($200) + Setup/hosting ($200) + Essentials Package ($100-200) + Ultimate Package ($250-350)
+   - Added "PRICELESS" messaging for multi-group party atmosphere experience
+   - All pricing calculations verified against authoritative PRIVATE_CRUISE_PRICING constants
 
 ## System Architecture
 The system utilizes a modern web architecture featuring a **React + TypeScript + Vite** frontend, styled with **Tailwind CSS** and **shadcn/ui** components, and **Wouter** for routing. The backend is powered by **Express + Node.js** with **PostgreSQL** for data persistence.
