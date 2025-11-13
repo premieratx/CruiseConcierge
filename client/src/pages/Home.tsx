@@ -447,16 +447,16 @@ export default function Home() {
 
   // Update page title for SEO
   useEffect(() => {
-    document.title = 'Premier Party Cruises | Disco Cruise Austin & Lake Travis Boat Rentals | Reviews';
+    document.title = 'Premier Party Cruises | Austin Party Boat Rentals on Lake Travis | 150K+ Reviews';
     
     // Add meta description
     const existingDesc = document.querySelector('meta[name="description"]');
     if (existingDesc) {
-      existingDesc.setAttribute('content', 'Austin\'s #1 disco boat cruise & party rentals on Lake Travis since 2009. Read reviews from 150K+ happy customers. Book your disco cruise Austin experience today!');
+      existingDesc.setAttribute('content', 'Austin\'s favorite party boat rentals on Lake Travis since 2009. Captained cruises for 5-75 people with all-inclusive packages. Read reviews from 150K+ happy customers!');
     } else {
       const metaDesc = document.createElement('meta');
       metaDesc.name = 'description';
-      metaDesc.content = 'Austin\'s #1 disco boat cruise & party rentals on Lake Travis since 2009. Read reviews from 150K+ happy customers. Book your disco cruise Austin experience today!';
+      metaDesc.content = 'Austin\'s favorite party boat rentals on Lake Travis since 2009. Captained cruises for 5-75 people with all-inclusive packages. Read reviews from 150K+ happy customers!';
       document.head.appendChild(metaDesc);
     }
   }, []);
@@ -537,7 +537,7 @@ export default function Home() {
       <SEOHead
         pageRoute="/"
         defaultTitle="Party Boat Austin"
-        defaultDescription="Lake Travis party boats since 2009. ATX Disco Cruise, bachelor parties, private charters. 150K+ guests. Call (512) 488-5892."
+        defaultDescription="Austin's favorite party boat rentals on Lake Travis since 2009. Captained cruises for 5-75 people with all-inclusive packages. 150K+ guests. Call (512) 488-5892."
         defaultKeywords={['party boat Austin', 'bachelorette party Austin', 'Austin boat rental', 'Lake Travis party boat', 'bachelor party Austin']}
         schemaType="organization"
       />
@@ -585,10 +585,10 @@ export default function Home() {
             {/* Main Headline */}
             <motion.div variants={reducedMotion ? undefined : fadeInUp} className="mb-8 md:mb-10">
               <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold font-playfair mb-6 leading-tight" data-editable data-editable-id="hero-title">
-                Premier Party Cruises - Disco Cruise Austin & Lake Travis Reviews
+                Austin's Favorite Party Boat Rentals on Lake Travis
               </h1>
               <h2 className="text-xl sm:text-2xl md:text-3xl text-brand-yellow font-semibold leading-relaxed" data-editable data-editable-id="hero-tagline">
-                Austin's #1 Disco Boat Cruise - Trusted by 150K+ Customers Since 2009
+                Captained party cruises on Lake Travis for 5-75 People, Offering All-Inclusive Party Packages & Pre-Party Setup
               </h2>
             </motion.div>
 
@@ -685,11 +685,11 @@ export default function Home() {
               Austin's Premier Party Cruise Experience
             </h2>
             <p className="text-base md:text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
-              Experience the ultimate <InternalLinkHighlight href="/atx-disco-cruise" title="ATX Disco Cruise">disco cruise Austin</InternalLinkHighlight> adventure on Lake Travis! Our legendary <strong>disco boat cruise</strong> parties and <InternalLinkHighlight href="/private-cruises" title="Private Cruises">intimate 14-person private cruises</InternalLinkHighlight> on "Day Tripper" to epic 75-person celebrations on flagship "Clever Girl" have been the most trusted party cruise experience since 2009. 
+              Experience the ultimate Lake Travis party boat adventure! From <InternalLinkHighlight href="/private-cruises" title="Private Cruises">intimate 14-person private cruises</InternalLinkHighlight> on "Day Tripper" to epic 75-person celebrations on flagship "Clever Girl", we've been Austin's most trusted party cruise company since 2009. 
               Perfect for <InternalLinkHighlight href="/bachelor-party-austin" title="Bachelor Parties">bachelor parties</InternalLinkHighlight>, <InternalLinkHighlight href="/bachelorette-party-austin" title="Bachelorette Parties">bachelorette celebrations</InternalLinkHighlight>, and <InternalLinkHighlight href="/corporate-events" title="Corporate Events">corporate team building</InternalLinkHighlight> - read our <InternalLinkHighlight href="/testimonials-faq" title="Customer Reviews">customer reviews</InternalLinkHighlight> to see why 150K+ guests love us!
             </p>
             <p className="text-base md:text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
-              Operating from Anderson Mill Marina on beautiful Lake Travis, our experienced licensed captains and pristine fleet provide unforgettable disco cruise Austin experiences for groups of all sizes. With transparent pricing, no hidden fees, and unmatched service backed by thousands of 5-star reviews, we make your Lake Travis celebration effortless and extraordinary.
+              Operating from Anderson Mill Marina on beautiful Lake Travis, our experienced licensed captains and pristine fleet provide unforgettable party boat experiences for groups of all sizes. With transparent pricing, no hidden fees, and unmatched service backed by thousands of 5-star reviews, we make your Lake Travis celebration effortless and extraordinary.
             </p>
           </div>
         </div>
@@ -798,7 +798,7 @@ export default function Home() {
                 Choose Your Perfect Experience
               </h2>
               <p className="text-base text-gray-700 dark:text-gray-300 max-w-3xl mx-auto" data-editable data-editable-id="services-description">
-                From intimate celebrations to epic disco parties, we have the perfect cruise experience 
+                From intimate celebrations to epic parties, we have the perfect cruise experience 
                 for every group size and occasion.
               </p>
             </div>
