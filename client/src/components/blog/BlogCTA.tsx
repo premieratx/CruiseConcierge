@@ -23,7 +23,7 @@ export function BlogCTA({
   text,
   href,
   className,
-  external = false,
+  external,
 }: BlogCTAProps) {
   const isPrimary = variant === 'primary';
   
@@ -33,7 +33,7 @@ export function BlogCTA({
 
   const finalText = text || defaultText;
   const finalHref = href || defaultHref;
-  const finalExternal = external || defaultExternal;
+  const finalExternal = external ?? defaultExternal;
 
   const icon = isPrimary ? <Calendar className="h-5 w-5 mr-2" /> : <MessageSquare className="h-5 w-5 mr-2" />;
 

@@ -92,13 +92,10 @@ export default function ATXDiscoCruiseExperience() {
       </SectionReveal>
 
       {/* Primary CTA after introduction */}
-      <BlogCTA
-        title="Ready to Book Your ATX Disco Cruise?"
-        description="Join America's #1 bachelor and bachelorette party cruise experience!"
-        buttonText="See Packages & Pricing"
-        buttonLink="/atx-disco-cruise"
-        data-testid="cta-intro"
-      />
+      <div className="my-8 flex justify-center gap-4">
+        <BlogCTA variant="primary" text="Book ATX Disco Cruise" href="/atx-disco-cruise" external={false} />
+        <BlogCTA variant="secondary" text="Get Free Quote" external={false} />
+      </div>
 
       {/* DO: Dress to Impress */}
       <SectionReveal>
@@ -361,13 +358,10 @@ export default function ATXDiscoCruiseExperience() {
       </SectionReveal>
 
       {/* High-intent CTA after DO's section */}
-      <BlogCTA
-        title="Experience the ATX Disco Cruise"
-        description="Join 125,000+ happy customers who've made unforgettable memories on Lake Travis"
-        buttonText="View Packages"
-        buttonLink="/atx-disco-cruise"
-        data-testid="cta-after-dos"
-      />
+      <div className="my-8 flex justify-center gap-4">
+        <BlogCTA variant="primary" text="View Disco Cruise Packages" href="/atx-disco-cruise" external={false} />
+        <BlogCTA variant="secondary" text="Contact Us" href="/contact" external={false} />
+      </div>
 
       {/* DON'T: Liquor/Shots */}
       <SectionReveal>
@@ -620,13 +614,10 @@ export default function ATXDiscoCruiseExperience() {
       </SectionReveal>
 
       {/* Final CTA */}
-      <BlogCTA
-        title="Ready to Book Your Epic ATX Disco Cruise?"
-        description="Join the 125,000+ happy customers who've experienced America's #1 bachelor and bachelorette party cruise!"
-        buttonText="View Packages & Availability"
-        buttonLink="/atx-disco-cruise"
-        data-testid="cta-final"
-      />
+      <div className="my-8 flex justify-center gap-4 flex-wrap">
+        <BlogCTA variant="primary" text="Book Your Party Cruise Now" href="/atx-disco-cruise" external={false} />
+        <BlogCTA variant="secondary" text="Get Custom Quote" external={false} />
+      </div>
     </BlogPostLayout>
   );
 }
