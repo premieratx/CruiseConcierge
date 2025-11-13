@@ -794,6 +794,10 @@ const SSR_ROUTES = [
   '/3-day-austin-bachelorette-itinerary',
   '/first-time-lake-travis-boat-rental-guide',
   '/adventure-austin-bachelorette',
+  // New static blog pages (React components with BlogPostLayout) - SEO-critical
+  '/austin-bachelor-party-ideas',
+  '/lake-travis-bachelor-party-boats',
+  '/wedding-anniversary-celebration-ideas',
 ];
 
 // Page metadata for SEO
