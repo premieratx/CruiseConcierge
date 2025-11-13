@@ -5,6 +5,7 @@ import { fileURLToPath } from "url";
 import { resolveAsset } from "../utils/viteManifest";
 import { PAGE_CONTENT, PageContent, PageSection, LINK_CATALOG } from './pageContent';
 import { getSchemaForRoute, generateArticleSchema, isBlogPostRoute } from '../schemaLoader';
+import { isStaticBlogRoute, getStaticBlogMetadata } from '../staticBlogMetadata';
 import { storage } from '../storage';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -1174,6 +1175,30 @@ ${JSON.stringify(schema, null, 2)}
   <script type="application/ld+json">
 ${JSON.stringify(articleSchema, null, 2)}
   </script>`;
+    }
+    
+    // Add Article schema for static blog pages
+    if (isStaticBlogRoute(pathname)) {
+      const staticBlogMeta = getStaticBlogMetadata(pathname);
+      if (staticBlogMeta) {
+        const protocol = req.secure ? 'https' : 'http';
+        const host = req.get('host') || 'premierpartycruises.com';
+        const canonicalUrl = `${protocol}://${host}${pathname}`;
+        
+        const articleSchema = generateArticleSchema({
+          title: staticBlogMeta.title,
+          slug: staticBlogMeta.slug,
+          excerpt: staticBlogMeta.description,
+          featuredImage: staticBlogMeta.heroImage,
+          publishedAt: staticBlogMeta.publishDate,
+          author: { name: staticBlogMeta.author }
+        }, canonicalUrl);
+        
+        schemaScripts += `
+  <script type="application/ld+json">
+${JSON.stringify(articleSchema, null, 2)}
+  </script>`;
+      }
     }
     
     // Add Review schemas for Testimonials page (enhances AggregateRating in rich results)

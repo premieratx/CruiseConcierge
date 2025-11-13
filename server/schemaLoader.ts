@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { isStaticBlogRoute } from './staticBlogMetadata';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -95,10 +96,13 @@ export function generateArticleSchema(blogPost: {
   author?: {
     name: string;
   };
-}): object {
+}, canonicalUrl?: string): object {
   const publishDate = blogPost.publishedAt 
     ? new Date(blogPost.publishedAt).toISOString()
     : new Date().toISOString();
+
+  const defaultUrl = `https://premierpartycruises.com/blogs/${blogPost.slug}`;
+  const schemaUrl = canonicalUrl || defaultUrl;
 
   return {
     "@context": "https://schema.org",
@@ -115,10 +119,10 @@ export function generateArticleSchema(blogPost: {
     "publisher": {
       "@id": "https://premierpartycruises.com/#organization"
     },
-    "url": `https://premierpartycruises.com/blogs/${blogPost.slug}`,
+    "url": schemaUrl,
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": `https://premierpartycruises.com/blogs/${blogPost.slug}`
+      "@id": schemaUrl
     }
   };
 }
@@ -135,4 +139,8 @@ export function isBlogPostRoute(pathname: string): boolean {
   }
   
   return true;
+}
+
+export function isAnyBlogRoute(pathname: string): boolean {
+  return isBlogPostRoute(pathname) || isStaticBlogRoute(pathname);
 }

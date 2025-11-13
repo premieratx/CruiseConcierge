@@ -1,7 +1,6 @@
 import { ReactNode } from 'react';
 import Layout from '@/components/Layout';
 import SEOHead from '@/components/SEOHead';
-import { BlogArticleSchema } from '@/components/schema/BlogArticleSchema';
 import { TableOfContents } from '@/components/TableOfContents';
 import { StickyCTA } from '@/components/StickyCTA';
 import { LazyImage } from '@/components/LazyImage';
@@ -43,8 +42,6 @@ export function BlogPostLayout({
   pageRoute,
   className,
 }: BlogPostLayoutProps) {
-  const articleImages = [heroImage];
-
   return (
     <Layout>
       <SEOHead
@@ -60,17 +57,6 @@ export function BlogPostLayout({
           section: 'Blog',
           tags: keywords,
         }}
-      />
-
-      <BlogArticleSchema
-        headline={title}
-        description={metaDescription}
-        datePublished={publishDate}
-        dateModified={modifiedDate}
-        author={author}
-        keywords={keywords}
-        images={articleImages}
-        url={pageRoute}
       />
 
       <TableOfContents sections={sections} />
