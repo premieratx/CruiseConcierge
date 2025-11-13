@@ -279,7 +279,7 @@ export default function Top10AustinBacheloretteIdeas() {
               </p>
 
               <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                Pro tip for your <strong>austin bachelorette party</strong>: Make sure the bride wears her sash or tiara on Sixth Street. DJs love giving shout-outs when they see an <strong>austin bachelorette</strong> crew celebrating! This is the kind of unforgettable night that makes your <strong>austin bachelorette weekend</strong> truly special.
+                Pro tip for your <strong>austin bachelorette party</strong>: Make sure the bride wears her sash or tiara on Sixth Street. Many bars will give free drinks to bachelorette groups, and DJs love giving shout-outs when they see an <strong>austin bachelorette</strong> crew celebrating! This is the kind of unforgettable night that makes your <strong>austin bachelorette weekend</strong> truly special.
               </p>
             </div>
           </div>
@@ -510,7 +510,7 @@ export default function Top10AustinBacheloretteIdeas() {
               </p>
 
               <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
-                Hire a local photographer for an hour if you want professional shots for your <strong>bachelorette party in austin</strong>! Then hit the town in theme for your <strong>austin bachelorette party</strong> – you'll turn heads and get tons of attention due to your squad's epic style. The themed approach adds a creative twist to the typical <strong>austin bachelorette</strong> bar night and makes for unforgettable memories and photos from your <strong>austin bachelorette weekend</strong>.
+                Hire a local photographer for an hour if you want professional shots for your <strong>bachelorette party in austin</strong>! Then hit the town in theme for your <strong>austin bachelorette party</strong> – you'll turn heads and likely score the bride some free drinks due to your squad's epic style. The themed approach adds a creative twist to the typical <strong>austin bachelorette</strong> bar night and makes for unforgettable memories and photos from your <strong>austin bachelorette weekend</strong>.
               </p>
 
               <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
