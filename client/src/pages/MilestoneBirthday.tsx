@@ -217,7 +217,7 @@ const faqItems = [
   {
     id: 'swimming',
     question: 'Is swimming allowed?',
-    answer: "Yes, when conditions are safe and at the captain's discretion. Life jackets required in the water."
+    answer: "Yes, when conditions are safe and at the captain's discretion. Life jackets are on board and available for swimming - we encourage guests to wear them for safety."
   },
   {
     id: 'life-jackets',

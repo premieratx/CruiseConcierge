@@ -772,7 +772,7 @@ export default function PrivateCruises() {
                   {
                     id: 'life-jackets',
                     question: 'Are life jackets provided?',
-                    answer: 'Yes, approved life jackets provided for all guests in various sizes including children and adults. Safety is our top priority with licensed, fun, experienced captains to take your group safely around the lake in style. Life jackets available but not required while seated. Swimming areas supervised by experienced crew.',
+                    answer: 'Yes, life jackets are on board and available for swimming - we encourage guests to wear them for safety. Approved life jackets provided for all guests in various sizes including children and adults. Safety is our top priority with licensed, fun, experienced captains to take your group safely around the lake in style. Swimming areas supervised by experienced crew.',
                     keywords: ['life jackets', 'safety', 'licensed captains'],
                     icon: LifeBuoy,
                     relatedLink: {

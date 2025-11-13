@@ -130,7 +130,7 @@ const allFAQs = {
           },
           {
             question: 'Do you provide life jackets?',
-            answer: 'Yes, we provide Coast Guard approved life jackets in all sizes, including infant and child sizes. While not required to be worn at all times on our large, stable boats, life jackets are mandatory when swimming or during rough weather conditions. Our crew will brief everyone on safety procedures before departure.'
+            answer: 'Yes, life jackets are on board and available for swimming - we encourage guests to wear them for safety. We provide Coast Guard approved life jackets in all sizes, including infant and child sizes. Our crew will brief everyone on safety procedures before departure.'
           },
           {
             question: 'What are your capacity limits?',
@@ -138,7 +138,7 @@ const allFAQs = {
           },
           {
             question: 'What is your policy on swimming?',
-            answer: 'Swimming is allowed in designated areas when conditions are safe. Life jackets are required while in the water, and our crew supervises all swimming activities. We only allow swimming when anchored in calm, deep water away from boat traffic. The captain makes the final decision on swimming safety based on current conditions.'
+            answer: 'Swimming is allowed in designated areas when conditions are safe. Life jackets are on board and available for swimming - we encourage guests to wear them for safety. Our crew supervises all swimming activities. We only allow swimming when anchored in calm, deep water away from boat traffic. The captain makes the final decision on swimming safety based on current conditions.'
           },
           {
             question: 'Do you have insurance coverage?',

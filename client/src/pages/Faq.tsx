@@ -164,12 +164,12 @@ const faqCategories: FAQCategory[] = [
       {
         id: 'age-requirements',
         question: 'What are the age requirements for Lake Travis boat rentals?',
-        answer: 'All ages are welcome on private charters with adult supervision. The ATX Disco Cruise is 21+ only as it\'s a party atmosphere. Children under 12 must wear life jackets at all times. Infants require appropriate safety equipment. Valid ID required for all adults consuming alcohol.'
+        answer: 'All ages are welcome on private charters with adult supervision. The ATX Disco Cruise is 21+ only as it\'s a party atmosphere. Life jackets are on board and available for swimming - we encourage guests to wear them for safety. Infants require appropriate safety equipment. Valid ID required for all adults consuming alcohol.'
       },
       {
         id: 'swimming',
         question: 'Can we swim during the Lake Travis cruise?',
-        answer: 'Yes! After cruising for 30-45 minutes, we tie up along the cliffs of a beautiful Lake Travis nature preserve with crystal clear water. We typically anchor for swimming 1.5-2 hours. Life jackets are required for all swimmers and provided free. The captain chooses safe locations based on weather and water conditions.'
+        answer: 'Yes! After cruising for 30-45 minutes, we tie up along the cliffs of a beautiful Lake Travis nature preserve with crystal clear water. We typically anchor for swimming 1.5-2 hours. Life jackets are on board and available for swimming - we encourage guests to wear them for safety. The captain chooses safe locations based on weather and water conditions.'
       },
       {
         id: 'what-to-bring',

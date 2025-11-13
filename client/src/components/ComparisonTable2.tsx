@@ -311,8 +311,8 @@ export const DiscoVsPrivateComparison: ComparisonRow[] = [
   {
     feature: "Food Options",
     values: [
-      "Delivery available",
-      "Bring your own"
+      "Alcohol delivery available",
+      "Bring your own, coordinate catering, or we can help"
     ]
   },
   {
