@@ -146,6 +146,132 @@ export default function HolidayCelebrationsLakeTravis() {
       </SectionReveal>
 
       <SectionReveal>
+        <section className="py-16 bg-gradient-to-b from-white to-blue-50 dark:from-gray-900 dark:to-gray-800">
+          <div className="max-w-6xl mx-auto px-6">
+            <div className="text-center mb-12">
+              <Badge className="mb-4 bg-brand-yellow text-black font-bold px-4 py-2">
+                OUR FLEET
+              </Badge>
+              <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-4 text-gray-900 dark:text-white">
+                Choose Your Perfect Boat for Holiday Celebrations
+              </h2>
+              <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+                From intimate gatherings to grand celebrations, we have the perfect vessel for your holiday party
+              </p>
+            </div>
+            
+            <div className="grid md:grid-cols-3 gap-8 mb-12">
+              <Card className="overflow-hidden hover:shadow-2xl transition-all duration-300">
+                <div className="relative h-64">
+                  <LazyImage
+                    src="/attached_assets/day-tripper-14-person-boat.webp"
+                    alt="Day Tripper 14-person party boat for holiday celebrations"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <CardContent className="p-6">
+                  <h3 className="text-2xl font-bold mb-2 text-gray-900 dark:text-white">Day Tripper</h3>
+                  <p className="text-brand-blue font-bold mb-3">Perfect for 1-14 guests</p>
+                  <p className="text-gray-600 dark:text-gray-400 mb-4">
+                    Ideal for intimate holiday gatherings, office teams, or family celebrations
+                  </p>
+                  <ul className="space-y-2 text-sm text-gray-700 dark:text-gray-300">
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="h-4 w-4 text-brand-blue flex-shrink-0 mt-0.5" />
+                      <span>Premium sound system</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="h-4 w-4 text-brand-blue flex-shrink-0 mt-0.5" />
+                      <span>BYOB coolers with ice</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="h-4 w-4 text-brand-blue flex-shrink-0 mt-0.5" />
+                      <span>Licensed captain included</span>
+                    </li>
+                  </ul>
+                </CardContent>
+              </Card>
+
+              <Card className="overflow-hidden hover:shadow-2xl transition-all duration-300 ring-2 ring-brand-yellow">
+                <Badge className="absolute top-4 right-4 bg-brand-yellow text-black font-bold z-10">
+                  MOST POPULAR
+                </Badge>
+                <div className="relative h-64">
+                  <LazyImage
+                    src="/attached_assets/meeseeks-25-person-boat.webp"
+                    alt="Me Seeks 25-person party boat for holiday parties"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <CardContent className="p-6">
+                  <h3 className="text-2xl font-bold mb-2 text-gray-900 dark:text-white">Me Seeks / The Irony</h3>
+                  <p className="text-brand-blue font-bold mb-3">Perfect for 15-30 guests</p>
+                  <p className="text-gray-600 dark:text-gray-400 mb-4">
+                    Best for corporate holiday parties, team celebrations, and medium-sized events
+                  </p>
+                  <ul className="space-y-2 text-sm text-gray-700 dark:text-gray-300">
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="h-4 w-4 text-brand-blue flex-shrink-0 mt-0.5" />
+                      <span>Spacious deck areas</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="h-4 w-4 text-brand-blue flex-shrink-0 mt-0.5" />
+                      <span>Multiple seating zones</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="h-4 w-4 text-brand-blue flex-shrink-0 mt-0.5" />
+                      <span>2 boats available</span>
+                    </li>
+                  </ul>
+                </CardContent>
+              </Card>
+
+              <Card className="overflow-hidden hover:shadow-2xl transition-all duration-300">
+                <div className="relative h-64">
+                  <LazyImage
+                    src="/attached_assets/clever-girl-50-person-boat.webp"
+                    alt="Clever Girl 50-person flagship boat for large holiday events"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <CardContent className="p-6">
+                  <h3 className="text-2xl font-bold mb-2 text-gray-900 dark:text-white">Clever Girl</h3>
+                  <p className="text-brand-blue font-bold mb-3">Perfect for 31-75 guests</p>
+                  <p className="text-gray-600 dark:text-gray-400 mb-4">
+                    Our flagship vessel with 14 disco balls - perfect for large corporate events
+                  </p>
+                  <ul className="space-y-2 text-sm text-gray-700 dark:text-gray-300">
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="h-4 w-4 text-brand-blue flex-shrink-0 mt-0.5" />
+                      <span>14 disco balls included</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="h-4 w-4 text-brand-blue flex-shrink-0 mt-0.5" />
+                      <span>Giant Texas flag display</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="h-4 w-4 text-brand-blue flex-shrink-0 mt-0.5" />
+                      <span>Premium sound & lighting</span>
+                    </li>
+                  </ul>
+                </CardContent>
+              </Card>
+            </div>
+
+            <div className="text-center">
+              <Button 
+                onClick={() => window.location.href = '/chat'}
+                className="bg-brand-blue hover:bg-brand-blue/90 text-white text-lg px-8 py-6 rounded-xl shadow-lg hover:shadow-xl transition-all"
+              >
+                <Calendar className="h-5 w-5 mr-2" />
+                Get Your Custom Holiday Quote
+              </Button>
+            </div>
+          </div>
+        </section>
+      </SectionReveal>
+
+      <SectionReveal>
         <section id="why-lake-travis" className="py-16 bg-gradient-to-b from-white to-blue-50 dark:from-gray-950 dark:to-gray-900">
           <div className="max-w-4xl mx-auto px-6">
             <h2 className="text-3xl md:text-4xl font-playfair font-bold text-center mb-12 text-gray-900 dark:text-white">
@@ -296,6 +422,7 @@ export default function HolidayCelebrationsLakeTravis() {
                 </div>
               </CardContent>
             </Card>
+
           </div>
         </section>
       </SectionReveal>
@@ -374,6 +501,18 @@ export default function HolidayCelebrationsLakeTravis() {
                 </CardContent>
               </Card>
             </div>
+
+            <div className="my-12">
+              <LazyImage 
+                src="/attached_assets/giant-unicorn-float.webp"
+                alt="Giant unicorn float on Lake Travis 4th of July party boat celebration"
+                className="w-full rounded-2xl shadow-2xl"
+              />
+              <p className="text-center text-sm text-gray-600 dark:text-gray-400 mt-4">
+                Make a splash with giant floats and water toys during your 4th of July celebration!
+              </p>
+            </div>
+
           </div>
         </section>
       </SectionReveal>
@@ -520,6 +659,30 @@ export default function HolidayCelebrationsLakeTravis() {
                 </div>
               </CardContent>
             </Card>
+
+            <div className="my-12">
+              <LazyImage 
+                src="/attached_assets/atx-disco-cruise-party.webp"
+                alt="Corporate Christmas party celebration on Lake Travis boat"
+                className="w-full rounded-2xl shadow-2xl"
+              />
+              <p className="text-center text-sm text-gray-600 dark:text-gray-400 mt-4">
+                Your team will love celebrating the holidays on Lake Travis - it beats any hotel ballroom!
+              </p>
+            </div>
+
+            <div className="mt-12 text-center">
+              <Button 
+                onClick={() => window.location.href = '/chat'}
+                className="bg-green-600 hover:bg-green-700 text-white text-lg px-8 py-6 rounded-xl shadow-lg hover:shadow-xl transition-all"
+              >
+                <TreePine className="h-5 w-5 mr-2" />
+                Plan Your Corporate Holiday Party
+              </Button>
+              <p className="text-gray-600 dark:text-gray-400 mt-4">
+                December books up quickly! Contact us for <Link href="/corporate-events" className="text-green-600 hover:text-green-700 font-semibold">corporate event packages</Link> and group rates.
+              </p>
+            </div>
           </div>
         </section>
       </SectionReveal>
@@ -530,6 +693,17 @@ export default function HolidayCelebrationsLakeTravis() {
             <h2 className="text-3xl md:text-4xl font-playfair font-bold text-center mb-12 text-gray-900 dark:text-white">
               Holiday Party Planning Tips
             </h2>
+
+            <div className="mb-8">
+              <LazyImage 
+                src="/attached_assets/bachelor-party-group-guys.webp"
+                alt="Group celebrating holiday party on Lake Travis boat"
+                className="w-full rounded-2xl shadow-2xl"
+              />
+              <p className="text-center text-sm text-gray-600 dark:text-gray-400 mt-4">
+                Whether it's your team, family, or friends - holiday celebrations on Lake Travis create lasting memories!
+              </p>
+            </div>
             
             <div className="prose prose-lg max-w-none dark:prose-invert mb-8">
               <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
@@ -836,20 +1010,6 @@ export default function HolidayCelebrationsLakeTravis() {
               <p className="text-gray-700 dark:text-gray-300 mb-6">
                 Don't settle for another ordinary holiday party! Transform your <strong>austin holiday celebration</strong> into something extraordinary with a <strong>lake travis holiday party</strong> on the water. Contact us today to check availability for your preferred date and start planning the perfect seasonal celebration your guests will remember for years to come.
               </p>
-              <div className="flex flex-wrap gap-4 justify-center">
-                <Link href="/chat">
-                  <Button size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold">
-                    <Calendar className="h-5 w-5 mr-2" />
-                    Start Planning Your Holiday Party
-                  </Button>
-                </Link>
-                <Link href="/private-cruises">
-                  <Button size="lg" variant="outline" className="border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white font-bold">
-                    <Ship className="h-5 w-5 mr-2" />
-                    View Private Cruise Options
-                  </Button>
-                </Link>
-              </div>
             </div>
           </div>
         </section>

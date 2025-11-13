@@ -148,6 +148,132 @@ export default function LakeTravisWeddingBoatRentals() {
       </SectionReveal>
 
       <SectionReveal>
+        <section className="py-16 bg-gradient-to-b from-white to-pink-50 dark:from-gray-900 dark:to-gray-800">
+          <div className="max-w-6xl mx-auto px-6">
+            <div className="text-center mb-12">
+              <Badge className="mb-4 bg-pink-500 text-white font-bold px-4 py-2">
+                OUR WEDDING FLEET
+              </Badge>
+              <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-4 text-gray-900 dark:text-white">
+                Choose Your Perfect Boat for Your Wedding Event
+              </h2>
+              <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+                From intimate elopements to grand celebrations, we have the perfect vessel for every wedding moment
+              </p>
+            </div>
+            
+            <div className="grid md:grid-cols-3 gap-8 mb-12">
+              <Card className="overflow-hidden hover:shadow-2xl transition-all duration-300">
+                <div className="relative h-64">
+                  <LazyImage
+                    src="/attached_assets/day-tripper-14-person-boat.webp"
+                    alt="Day Tripper 14-person boat perfect for intimate wedding ceremonies"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <CardContent className="p-6">
+                  <h3 className="text-2xl font-bold mb-2 text-gray-900 dark:text-white">Day Tripper</h3>
+                  <p className="text-pink-600 font-bold mb-3">Perfect for 1-14 guests</p>
+                  <p className="text-gray-600 dark:text-gray-400 mb-4">
+                    Ideal for intimate elopements, small ceremonies, or bridal party celebrations
+                  </p>
+                  <ul className="space-y-2 text-sm text-gray-700 dark:text-gray-300">
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="h-4 w-4 text-pink-600 flex-shrink-0 mt-0.5" />
+                      <span>Intimate ceremony space</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="h-4 w-4 text-pink-600 flex-shrink-0 mt-0.5" />
+                      <span>Premium sound system</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="h-4 w-4 text-pink-600 flex-shrink-0 mt-0.5" />
+                      <span>Perfect for elopements</span>
+                    </li>
+                  </ul>
+                </CardContent>
+              </Card>
+
+              <Card className="overflow-hidden hover:shadow-2xl transition-all duration-300 ring-2 ring-pink-500">
+                <Badge className="absolute top-4 right-4 bg-pink-500 text-white font-bold z-10">
+                  MOST POPULAR
+                </Badge>
+                <div className="relative h-64">
+                  <LazyImage
+                    src="/attached_assets/meeseeks-25-person-boat.webp"
+                    alt="Me Seeks 25-person boat for wedding parties and rehearsal dinners"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <CardContent className="p-6">
+                  <h3 className="text-2xl font-bold mb-2 text-gray-900 dark:text-white">Me Seeks / The Irony</h3>
+                  <p className="text-pink-600 font-bold mb-3">Perfect for 15-30 guests</p>
+                  <p className="text-gray-600 dark:text-gray-400 mb-4">
+                    Best for wedding ceremonies, rehearsal dinners, and bridal showers
+                  </p>
+                  <ul className="space-y-2 text-sm text-gray-700 dark:text-gray-300">
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="h-4 w-4 text-pink-600 flex-shrink-0 mt-0.5" />
+                      <span>Ceremony & reception space</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="h-4 w-4 text-pink-600 flex-shrink-0 mt-0.5" />
+                      <span>Multiple photo locations</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="h-4 w-4 text-pink-600 flex-shrink-0 mt-0.5" />
+                      <span>2 boats available</span>
+                    </li>
+                  </ul>
+                </CardContent>
+              </Card>
+
+              <Card className="overflow-hidden hover:shadow-2xl transition-all duration-300">
+                <div className="relative h-64">
+                  <LazyImage
+                    src="/attached_assets/clever-girl-50-person-boat.webp"
+                    alt="Clever Girl 50-person flagship boat for large weddings and receptions"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <CardContent className="p-6">
+                  <h3 className="text-2xl font-bold mb-2 text-gray-900 dark:text-white">Clever Girl</h3>
+                  <p className="text-pink-600 font-bold mb-3">Perfect for 31-75 guests</p>
+                  <p className="text-gray-600 dark:text-gray-400 mb-4">
+                    Our flagship vessel - perfect for large ceremonies and wedding receptions
+                  </p>
+                  <ul className="space-y-2 text-sm text-gray-700 dark:text-gray-300">
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="h-4 w-4 text-pink-600 flex-shrink-0 mt-0.5" />
+                      <span>Full reception capabilities</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="h-4 w-4 text-pink-600 flex-shrink-0 mt-0.5" />
+                      <span>Dancing & entertainment space</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="h-4 w-4 text-pink-600 flex-shrink-0 mt-0.5" />
+                      <span>Premium lighting & sound</span>
+                    </li>
+                  </ul>
+                </CardContent>
+              </Card>
+            </div>
+
+            <div className="text-center">
+              <Button 
+                onClick={() => window.location.href = '/chat'}
+                className="bg-pink-600 hover:bg-pink-700 text-white text-lg px-8 py-6 rounded-xl shadow-lg hover:shadow-xl transition-all"
+              >
+                <Heart className="h-5 w-5 mr-2" />
+                Get Your Custom Wedding Quote
+              </Button>
+            </div>
+          </div>
+        </section>
+      </SectionReveal>
+
+      <SectionReveal>
         <section id="why-wedding-boat" className="py-16 bg-gradient-to-b from-white to-blue-50 dark:from-gray-950 dark:to-gray-900">
           <div className="max-w-4xl mx-auto px-6">
             <h2 className="text-3xl md:text-4xl font-playfair font-bold text-center mb-12 text-gray-900 dark:text-white">
@@ -349,6 +475,30 @@ export default function LakeTravisWeddingBoatRentals() {
                 </div>
               </CardContent>
             </Card>
+
+            <div className="my-12">
+              <LazyImage 
+                src="/attached_assets/giant-unicorn-float.webp"
+                alt="Wedding party having fun on Lake Travis with water toys"
+                className="w-full rounded-2xl shadow-2xl"
+              />
+              <p className="text-center text-sm text-gray-600 dark:text-gray-400 mt-4">
+                Many couples add fun water activities after the ceremony - creating memorable moments for guests!
+              </p>
+            </div>
+
+            <div className="mt-12 text-center">
+              <Button 
+                onClick={() => window.location.href = '/chat'}
+                className="bg-pink-600 hover:bg-pink-700 text-white text-lg px-8 py-6 rounded-xl shadow-lg hover:shadow-xl transition-all"
+              >
+                <Heart className="h-5 w-5 mr-2" />
+                Plan Your Boat Wedding Ceremony
+              </Button>
+              <p className="text-gray-600 dark:text-gray-400 mt-4">
+                Talk to our wedding specialists about <Link href="/wedding-parties" className="text-pink-600 hover:text-pink-700 font-semibold">wedding party packages</Link> and availability
+              </p>
+            </div>
           </div>
         </section>
       </SectionReveal>
@@ -507,6 +657,18 @@ export default function LakeTravisWeddingBoatRentals() {
                 </CardContent>
               </Card>
             </div>
+
+            <div className="my-12">
+              <LazyImage 
+                src="/attached_assets/bachelor-party-group-guys.webp"
+                alt="Wedding party celebrating rehearsal dinner on Lake Travis boat"
+                className="w-full rounded-2xl shadow-2xl"
+              />
+              <p className="text-center text-sm text-gray-600 dark:text-gray-400 mt-4">
+                Your rehearsal dinner sets the tone for an amazing wedding weekend - celebrate in style on Lake Travis!
+              </p>
+            </div>
+
           </div>
         </section>
       </SectionReveal>
@@ -585,6 +747,18 @@ export default function LakeTravisWeddingBoatRentals() {
                 </CardContent>
               </Card>
             </div>
+
+            <div className="my-12">
+              <LazyImage 
+                src="/attached_assets/atx-disco-cruise-party.webp"
+                alt="Wedding welcome party and after-party celebration on Lake Travis"
+                className="w-full rounded-2xl shadow-2xl"
+              />
+              <p className="text-center text-sm text-gray-600 dark:text-gray-400 mt-4">
+                Welcome parties and after-parties on Lake Travis create unforgettable memories for your wedding weekend!
+              </p>
+            </div>
+
           </div>
         </section>
       </SectionReveal>
@@ -1025,20 +1199,6 @@ export default function LakeTravisWeddingBoatRentals() {
               <p className="text-gray-700 dark:text-gray-300 mb-6">
                 Contact us today to start planning your <strong>austin lake wedding</strong> on the water. Popular wedding season dates book up quickly, so reach out now to secure your preferred date for your <strong>boat reception venue</strong> celebration. Let's create the wedding of your dreams on beautiful Lake Travis!
               </p>
-              <div className="flex flex-wrap gap-4 justify-center">
-                <Link href="/chat">
-                  <Button size="lg" className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white font-bold">
-                    <Calendar className="h-5 w-5 mr-2" />
-                    Plan Your Wedding on the Water
-                  </Button>
-                </Link>
-                <Link href="/wedding-parties">
-                  <Button size="lg" variant="outline" className="border-2 border-pink-600 text-pink-600 hover:bg-pink-600 hover:text-white font-bold">
-                    <Heart className="h-5 w-5 mr-2" />
-                    View Wedding Options
-                  </Button>
-                </Link>
-              </div>
             </div>
           </div>
         </section>
