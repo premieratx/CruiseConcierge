@@ -348,7 +348,7 @@ export default function ThreeDayAustinBacheloretteItinerary() {
               </h3>
 
               <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
-                Time to experience another fantastic side of Austin's nightlife for your <strong>austin bachelorette party</strong>! Start with a delicious group dinner to recharge after your epic <strong>bachelorette boat rental austin</strong> adventure. For your <strong>bachelorette party in austin</strong>, book a table at upscale spots like Suerte (trendy Mexican) or Eberly (New American with a stylish vibe). Make sure to mention it's an <strong>austin bachelorette</strong> celebration for great service!
+                Time to experience another fantastic side of Austin's nightlife for your <strong>austin bachelorette party</strong>! Start with a delicious group dinner to recharge after your epic <strong>bachelorette boat rental austin</strong> adventure. For your <strong>bachelorette party in austin</strong>, book a table at upscale spots like Suerte (trendy Mexican) or Eberly (New American with a stylish vibe). Make sure to mention it's an <strong>austin bachelorette</strong> celebration – you might get a complimentary celebratory dessert for the bride!
               </p>
 
               <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
