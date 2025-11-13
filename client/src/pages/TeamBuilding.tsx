@@ -42,16 +42,16 @@ const teamBuildingPackages = [
     id: 'standard',
     name: 'Standard Package',
     flatFee: { 14: 0, 25: 0, 30: 0, 50: 0, 75: 0 },
-    description: 'Basic cruise experience',
-    subtitle: 'The boat, the captain, and the lake - strengthen bonds outside the office',
+    description: 'The boat, the captain, and the lake',
+    subtitle: 'Everything you need for a great time on Lake Travis',
     features: [
-      'Licensed, fun, experienced captains to take your group safely around the lake in style',
-      'Large empty coolers (plenty of cooler space - bring your own ice & drinks, or order ahead from Party On Delivery)',
+      'Licensed, experienced captain to navigate the lake safely',
+      'Large empty coolers (bring your own ice & drinks, or order ahead from Party On Delivery)',
       'Premium Bluetooth sound system',
-      'Clean restroom facilities',
+      'Private, clean restroom facilities',
       'Sun and shade seating areas',
       'BYOB friendly (cans/plastic only)',
-      'Basic cruise experience'
+      'Life jackets and safety equipment'
     ],
     popular: false,
     icon: Ship,
@@ -62,16 +62,16 @@ const teamBuildingPackages = [
     id: 'essentials',
     name: 'Essentials Package',
     flatFee: PACKAGE_FLAT_FEES.ESSENTIALS,
-    description: 'Enhanced convenience',
-    subtitle: 'Everything from Standard Package + Enhanced Convenience',
+    description: 'Everything set up and ready',
+    subtitle: 'Everything from Standard + convenience items delivered and ready',
     features: [
       'Everything from Standard Package',
       'Coolers pre-stocked with ice',
-      '5-gallon insulated water dispenser',
-      'Solo cups and ice water',
+      '5-gallon insulated water dispenser with ice water',
+      'Solo cups',
       '6-foot folding table for food & drinks',
-      'We can help coordinate alcohol delivery through Party On Delivery',
-      'Enhanced convenience'
+      'We can help coordinate alcohol delivery',
+      'No setup stress - just show up'
     ],
     popular: true,
     icon: Sparkles,
@@ -82,22 +82,22 @@ const teamBuildingPackages = [
     id: 'ultimate',
     name: 'Ultimate Package',
     flatFee: PACKAGE_FLAT_FEES.ULTIMATE,
-    description: 'Full party atmosphere setup',
-    subtitle: 'Everything from Essentials Package + Full Party Atmosphere',
+    description: 'Full party setup with floats and extras',
+    subtitle: 'Everything from Essentials + party atmosphere extras',
     features: [
       'Everything from Essentials Package',
-      'Giant lily pad float',
+      'Giant lily pad float for swimming',
       'Guest of honor float (unicorn or ring)',
-      'Disco ball cups for party vibes',
+      'Disco ball cups',
       'Bubble guns and bubble wands',
       'Champagne flutes and fruit juices',
       'SPF-50 spray sunscreen',
       'Plates, plasticware, paper towels',
-      'Full party atmosphere setup'
+      'Complete party setup'
     ],
     popular: false,
     icon: Crown,
-    badge: 'All-Inclusive VIP',
+    badge: 'All-Inclusive',
     color: 'purple'
   }
 ];
@@ -406,18 +406,10 @@ export default function TeamBuilding() {
                     <div className="w-16 h-16 mx-auto mb-4 bg-blue-100 rounded-full flex items-center justify-center">
                       <pkg.icon className="h-8 w-8 text-blue-600" />
                     </div>
-                    <CardTitle className="text-2xl font-bold text-center">{pkg.name}</CardTitle>
-                    
-                    <div className="mt-4 text-center">
-                      <div className="text-3xl font-bold text-blue-600">
-                        {pkg.basePrice === 200 && '$1,050-$1,838'}
-                        {pkg.basePrice === 225 && '$1,181-$1,969'}
-                        {pkg.basePrice === 250 && '$1,413-$2,260'}
-                      </div>
-                      <p className="text-sm text-gray-600 mt-1">
-                        for 4-hour cruise
-                      </p>
-                    </div>
+                    <CardTitle className="text-2xl font-bold text-center mb-2">{pkg.name}</CardTitle>
+                    <CardDescription className="text-lg text-gray-600 text-center">
+                      {pkg.subtitle}
+                    </CardDescription>
                   </CardHeader>
 
                   <CardContent>
