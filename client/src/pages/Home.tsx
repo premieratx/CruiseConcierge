@@ -85,6 +85,7 @@ import { InternalLinkHighlight, InternalLinkHighlightWithArrow } from '@/compone
 import { RelatedServicesSection } from '@/components/RelatedServicesSection';
 import AIOptimizedSection from '@/components/AIOptimizedSection';
 import { SectionReveal } from '@/components/SectionReveal';
+import FleetSection from '@/components/FleetSection';
 
 // Lazy load heavy components to improve FCP
 const PartyPlanningChecklist = lazy(() => import('@/components/PartyPlanningChecklist'));
@@ -694,8 +695,11 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Fleet Section */}
+      <FleetSection />
+
       {/* Build My Quote Now Section */}
-      <section className="py-16 bg-gradient-to-br from-brand-blue via-purple-600 to-blue-700">
+      <section id="quote-builder" className="py-16 bg-gradient-to-br from-brand-blue via-purple-600 to-blue-700">
         <div className="container mx-auto px-0 sm:px-4 md:px-6">
           <motion.div
             initial="hidden"

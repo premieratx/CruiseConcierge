@@ -1,0 +1,411 @@
+import { useState } from 'react';
+import { motion } from 'framer-motion';
+import { Card, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { LazyImage } from '@/components/LazyImage';
+import Lightbox from '@/components/Lightbox';
+import { 
+  Ship, Users, DollarSign, Package, ArrowRight, Eye
+} from 'lucide-react';
+import { formatCurrency } from '@shared/formatters';
+import { HOURLY_RATES, PACKAGE_FLAT_FEES, CREW_FEES } from '@shared/constants';
+
+interface LightboxImage {
+  id: string;
+  src: string;
+  alt: string;
+  title?: string;
+  description?: string;
+}
+
+interface BoatDetails {
+  id: string;
+  name: string;
+  displayName: string;
+  capacity: string;
+  seatingCapacity: number;
+  maxCapacity: number;
+  baseRate4Hr: {
+    weekday: number;
+    friday: number;
+    saturday: number;
+    sunday: number;
+  };
+  startingPrice: string;
+  description: string;
+  features: string[];
+  heroImage: string;
+  galleryImages: LightboxImage[];
+  packages: {
+    standard: boolean;
+    essentials: number;
+    ultimate: number;
+  };
+  highlighted?: boolean;
+  availabilityNote?: string;
+  crewFeeNote?: string;
+}
+
+const boats: BoatDetails[] = [
+  {
+    id: 'day-tripper',
+    name: 'Day Tripper',
+    displayName: 'Day Tripper',
+    capacity: '1-14 guests',
+    seatingCapacity: 14,
+    maxCapacity: 14,
+    baseRate4Hr: {
+      weekday: HOURLY_RATES.MON_THU[14] * 4,
+      friday: HOURLY_RATES.FRIDAY[14] * 4,
+      saturday: HOURLY_RATES.SATURDAY[14] * 4,
+      sunday: HOURLY_RATES.SUNDAY[14] * 4,
+    },
+    startingPrice: formatCurrency(HOURLY_RATES.MON_THU[14] * 4),
+    description: 'Perfect for intimate gatherings and small celebrations',
+    features: [
+      'Licensed, fun, experienced captain',
+      'Premium Bluetooth sound system',
+      'Empty coolers (BYOB friendly)',
+      'Comfortable seating for 14',
+      'Sun and shade areas',
+      'Clean restroom facilities',
+      '4-hour cruise duration'
+    ],
+    heroImage: '/attached_assets/day-tripper-14-person-boat.webp',
+    galleryImages: [
+      {
+        id: 'day-tripper-1',
+        src: '/attached_assets/day-tripper-14-person-boat.webp',
+        alt: 'Day Tripper 14-person party boat on Lake Travis',
+        title: 'Day Tripper',
+        description: 'Our intimate 14-person boat perfect for small gatherings'
+      },
+      {
+        id: 'day-tripper-2',
+        src: '/attached_assets/party-atmosphere-1.webp',
+        alt: 'Party atmosphere on Lake Travis boat',
+        title: 'Day Tripper Party Vibes',
+        description: 'Create unforgettable memories with your small group'
+      }
+    ],
+    packages: {
+      standard: true,
+      essentials: PACKAGE_FLAT_FEES.ESSENTIALS[14],
+      ultimate: PACKAGE_FLAT_FEES.ULTIMATE[14],
+    }
+  },
+  {
+    id: 'me-seeks-the-irony',
+    name: 'Me Seeks The Irony',
+    displayName: 'Me Seeks / The Irony',
+    capacity: '15-30 guests',
+    seatingCapacity: 25,
+    maxCapacity: 30,
+    baseRate4Hr: {
+      weekday: HOURLY_RATES.MON_THU[25] * 4,
+      friday: HOURLY_RATES.FRIDAY[25] * 4,
+      saturday: HOURLY_RATES.SATURDAY[25] * 4,
+      sunday: HOURLY_RATES.SUNDAY[25] * 4,
+    },
+    startingPrice: formatCurrency(HOURLY_RATES.MON_THU[25] * 4),
+    description: 'Ideal for medium groups and popular bachelor/bachelorette parties',
+    features: [
+      'Licensed, fun, experienced captain',
+      'Premium Bluetooth sound system',
+      'Spacious deck with multiple seating areas',
+      'Large cooler space (BYOB friendly)',
+      'Sun and shade coverage',
+      'Clean restroom facilities',
+      '4-hour cruise duration'
+    ],
+    heroImage: '/attached_assets/meeseeks-25-person-boat.webp',
+    galleryImages: [
+      {
+        id: 'meeseeks-1',
+        src: '/attached_assets/meeseeks-25-person-boat.webp',
+        alt: 'Me Seeks 25-person party boat on Lake Travis',
+        title: 'Me Seeks / The Irony',
+        description: 'Our twin 25-person boats - 2 boats available for maximum flexibility'
+      },
+      {
+        id: 'meeseeks-2',
+        src: '/attached_assets/party-atmosphere-2.webp',
+        alt: 'Bachelorette party on Lake Travis boat',
+        title: 'Perfect for Bachelor/Bachelorette Parties',
+        description: 'The most popular choice for medium-sized celebrations'
+      },
+      {
+        id: 'meeseeks-3',
+        src: '/attached_assets/party-atmosphere-3.webp',
+        alt: 'Group celebration on Lake Travis party boat',
+        title: 'Create Amazing Memories',
+        description: 'Room for everyone to have a great time'
+      }
+    ],
+    packages: {
+      standard: true,
+      essentials: PACKAGE_FLAT_FEES.ESSENTIALS[25],
+      ultimate: PACKAGE_FLAT_FEES.ULTIMATE[25],
+    },
+    highlighted: true,
+    availabilityNote: '2 boats available',
+    crewFeeNote: `Groups of 26-30: add ${formatCurrency(CREW_FEES.HOURLY_RATES.SMALL_BOAT_EXTRA)}/hr extra crew fee (${formatCurrency(CREW_FEES.HOURLY_RATES.SMALL_BOAT_EXTRA * 4)} for 4hr cruise)`
+  },
+  {
+    id: 'clever-girl',
+    name: 'Clever Girl',
+    displayName: 'Clever Girl',
+    capacity: '31-75 guests',
+    seatingCapacity: 50,
+    maxCapacity: 75,
+    baseRate4Hr: {
+      weekday: HOURLY_RATES.MON_THU[50] * 4,
+      friday: HOURLY_RATES.FRIDAY[50] * 4,
+      saturday: HOURLY_RATES.SATURDAY[50] * 4,
+      sunday: HOURLY_RATES.SUNDAY[50] * 4,
+    },
+    startingPrice: formatCurrency(HOURLY_RATES.MON_THU[50] * 4),
+    description: 'Our flagship vessel with 14 disco balls and giant Texas flag',
+    features: [
+      'Licensed, fun, experienced captain & crew',
+      '14 disco balls for ultimate party vibes',
+      'Giant Texas flag display',
+      'Premium Bluetooth sound system',
+      'Multiple seating and standing areas',
+      'Massive cooler space (BYOB friendly)',
+      'Extensive sun and shade coverage',
+      'Clean restroom facilities',
+      '4-hour cruise duration'
+    ],
+    heroImage: '/attached_assets/clever-girl-50-person-boat.webp',
+    galleryImages: [
+      {
+        id: 'clever-girl-1',
+        src: '/attached_assets/clever-girl-50-person-boat.webp',
+        alt: 'Clever Girl 50-person flagship party boat on Lake Travis',
+        title: 'Clever Girl - Our Flagship',
+        description: 'Custom-built high-end single-deck party boat with 14 disco balls'
+      },
+      {
+        id: 'clever-girl-2',
+        src: '/attached_assets/party-atmosphere-1.webp',
+        alt: 'Large celebration on Clever Girl boat',
+        title: 'Perfect for Large Celebrations',
+        description: 'Comfortably accommodates up to 75 guests'
+      },
+      {
+        id: 'clever-girl-3',
+        src: '/attached_assets/party-atmosphere-3.webp',
+        alt: 'Corporate event on Clever Girl party boat',
+        title: 'Corporate Events & Weddings',
+        description: 'The ideal choice for major celebrations and corporate events'
+      }
+    ],
+    packages: {
+      standard: true,
+      essentials: PACKAGE_FLAT_FEES.ESSENTIALS[50],
+      ultimate: PACKAGE_FLAT_FEES.ULTIMATE[50],
+    },
+    crewFeeNote: `Groups of 51-75: add ${formatCurrency(CREW_FEES.HOURLY_RATES.LARGE_BOAT_EXTRA)}/hr extra crew fee (${formatCurrency(CREW_FEES.HOURLY_RATES.LARGE_BOAT_EXTRA * 4)} for 4hr cruise)`
+  }
+];
+
+export default function FleetSection() {
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [selectedBoatGallery, setSelectedBoatGallery] = useState<LightboxImage[]>([]);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const openLightbox = (boat: BoatDetails, startIndex: number = 0) => {
+    setSelectedBoatGallery(boat.galleryImages);
+    setCurrentImageIndex(startIndex);
+    setLightboxOpen(true);
+  };
+
+  const handleNext = () => {
+    setCurrentImageIndex((prev) => 
+      prev === selectedBoatGallery.length - 1 ? 0 : prev + 1
+    );
+  };
+
+  const handlePrevious = () => {
+    setCurrentImageIndex((prev) => 
+      prev === 0 ? selectedBoatGallery.length - 1 : prev - 1
+    );
+  };
+
+  return (
+    <>
+      <section className="py-20 bg-gradient-to-b from-white to-blue-50 dark:from-gray-900 dark:to-gray-800">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-16"
+          >
+            <Badge 
+              className="mb-4 bg-brand-yellow text-black font-bold px-4 py-2"
+              data-testid="badge-fleet-section"
+            >
+              OUR FLEET
+            </Badge>
+            <h2 
+              className="text-4xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white"
+              data-testid="heading-fleet-section"
+            >
+              Choose Your Perfect Boat
+            </h2>
+            <p 
+              className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto"
+              data-testid="text-fleet-intro"
+            >
+              Custom-built high-end single-deck party boats for groups from 1-75 guests
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+            {boats.map((boat, index) => (
+              <motion.div
+                key={boat.id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+              >
+                <Card className={`relative overflow-hidden h-full hover:shadow-2xl transition-all duration-300 ${boat.highlighted ? 'ring-2 ring-brand-yellow' : ''}`}>
+                  <div className="relative h-64 overflow-hidden">
+                    <LazyImage
+                      src={boat.heroImage}
+                      alt={`${boat.name} party boat Lake Travis`}
+                      className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
+                    />
+                    {boat.highlighted && (
+                      <Badge 
+                        className="absolute top-4 right-4 bg-brand-yellow text-black font-bold"
+                        data-testid={`badge-popular-${boat.id}`}
+                      >
+                        MOST POPULAR
+                      </Badge>
+                    )}
+                    {boat.availabilityNote && (
+                      <Badge 
+                        className="absolute top-4 left-4 bg-green-600 text-white font-bold"
+                        data-testid={`badge-availability-${boat.id}`}
+                      >
+                        {boat.availabilityNote}
+                      </Badge>
+                    )}
+                    <button
+                      onClick={() => openLightbox(boat, 0)}
+                      className="absolute bottom-4 right-4 bg-black/70 hover:bg-black/90 text-white text-sm px-3 py-2 rounded-lg flex items-center gap-2 transition-all"
+                      data-testid={`button-view-${boat.id}-gallery`}
+                    >
+                      <Eye className="h-4 w-4" />
+                      <span>Click to view more pics</span>
+                    </button>
+                  </div>
+
+                  <CardContent className="p-6">
+                    <h3 className="text-2xl font-bold mb-2 text-gray-900 dark:text-white" data-testid={`text-boat-name-${boat.id}`}>
+                      {boat.displayName}
+                    </h3>
+                    <p className="text-gray-600 dark:text-gray-400 mb-4">{boat.description}</p>
+
+                    <div className="space-y-3 mb-6">
+                      <div className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+                        <Users className="h-5 w-5 text-brand-blue flex-shrink-0" />
+                        <span data-testid={`text-capacity-${boat.id}`}><strong>Capacity:</strong> {boat.capacity}</span>
+                      </div>
+
+                      <div className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+                        <Ship className="h-5 w-5 text-brand-blue flex-shrink-0" />
+                        <span data-testid={`text-seats-${boat.id}`}><strong>Seats:</strong> {boat.seatingCapacity} comfortably</span>
+                      </div>
+
+                      <div className="flex items-start gap-2 text-gray-700 dark:text-gray-300">
+                        <DollarSign className="h-5 w-5 text-brand-blue mt-0.5 flex-shrink-0" />
+                        <div>
+                          <div className="font-semibold mb-1">Pricing (4hr cruise):</div>
+                          <div className="text-sm space-y-1">
+                            <div data-testid={`text-price-weekday-${boat.id}`}>Mon-Thu: {formatCurrency(boat.baseRate4Hr.weekday)}</div>
+                            <div data-testid={`text-price-friday-${boat.id}`}>Friday: {formatCurrency(boat.baseRate4Hr.friday)}</div>
+                            <div data-testid={`text-price-saturday-${boat.id}`}>Saturday: {formatCurrency(boat.baseRate4Hr.saturday)}</div>
+                            <div data-testid={`text-price-sunday-${boat.id}`}>Sunday: {formatCurrency(boat.baseRate4Hr.sunday)}</div>
+                          </div>
+                          {boat.crewFeeNote && (
+                            <p 
+                              className="text-xs text-gray-500 dark:text-gray-400 mt-2 italic"
+                              data-testid={`text-crew-fee-${boat.id}`}
+                            >
+                              *{boat.crewFeeNote}
+                            </p>
+                          )}
+                        </div>
+                      </div>
+
+                      <div className="flex items-start gap-2 text-gray-700 dark:text-gray-300">
+                        <Package className="h-5 w-5 text-brand-blue mt-0.5 flex-shrink-0" />
+                        <div>
+                          <div className="font-semibold mb-1">Packages Available:</div>
+                          <div className="text-sm space-y-1">
+                            <div data-testid={`text-package-standard-${boat.id}`}>✓ Standard (included)</div>
+                            <div data-testid={`text-package-essentials-${boat.id}`}>✓ Essentials (+{formatCurrency(boat.packages.essentials)})</div>
+                            <div data-testid={`text-package-ultimate-${boat.id}`}>✓ Ultimate (+{formatCurrency(boat.packages.ultimate)})</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <Button
+                      onClick={() => openLightbox(boat, 0)}
+                      className="w-full bg-brand-blue hover:bg-brand-blue/90 text-white"
+                      data-testid={`button-view-${boat.id}-details`}
+                    >
+                      View Photos & Details
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Button>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* CTA to Quote Builder */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="text-center mt-12"
+          >
+            <p className="text-lg text-gray-600 dark:text-gray-300 mb-4">
+              Ready to book your Lake Travis adventure?
+            </p>
+            <a href="#quote-builder">
+              <Button
+                size="lg"
+                className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-lg px-8 py-6"
+                data-testid="button-fleet-to-quote"
+              >
+                Get Instant Quote
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+            </a>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Lightbox Gallery */}
+      <Lightbox
+        images={selectedBoatGallery}
+        isOpen={lightboxOpen}
+        currentIndex={currentImageIndex}
+        onClose={() => setLightboxOpen(false)}
+        onNext={handleNext}
+        onPrevious={handlePrevious}
+      />
+    </>
+  );
+}
