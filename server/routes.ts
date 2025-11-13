@@ -11,6 +11,7 @@ import { requireAuth, requireAdmin } from "./middleware/auth";
 import { randomBytes } from "crypto";
 import { getBaseDomain } from "./utils/domain";
 import { isStaticBlogRoute } from "./staticBlogMetadata";
+import { generateArticleSchema } from "./schemaLoader";
 
 // Augment Express Request type to include our custom properties
 declare module 'express-serve-static-core' {
@@ -674,31 +675,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return next();
       }
       
-      // Get environment-based domain for schemas
+      // Get environment-based domain for schemas and canonical URL
       const baseDomain = getBaseDomain(req);
+      const canonicalUrl = `${baseDomain}/blogs/${slug}`;
       
-      // Generate unique Article schema for this blog post (works for both sources)
-      const articleSchema = {
-        "@context": "https://schema.org",
-        "@type": "Article",
-        "headline": post.title || "",
-        "description": post.metaDescription || post.excerpt || "",
-        "image": post.featuredImageUrl || post.featuredImage || `${baseDomain}/media/schema/hero-boat-1.jpg`,
-        "author": {
-          "@type": "Person",
-          "name": post.author?.name || "Premier Party Cruises Team"
-        },
-        "publisher": {
-          "@id": `${baseDomain}/#organization`
-        },
-        "datePublished": post.publishedAt ? new Date(post.publishedAt).toISOString() : new Date(post.createdAt).toISOString(),
-        "dateModified": post.updatedAt ? new Date(post.updatedAt).toISOString() : new Date(post.createdAt).toISOString(),
-        "url": `${baseDomain}/blogs/${slug}`,
-        "mainEntityOfPage": {
-          "@type": "WebPage",
-          "@id": `${baseDomain}/blogs/${slug}`
-        }
-      };
+      // Generate unique Article schema for this blog post using shared schema generator
+      const articleSchema = generateArticleSchema({
+        title: post.title || "",
+        slug: slug,
+        excerpt: post.metaDescription || post.excerpt || "",
+        content: post.content,
+        featuredImage: post.featuredImageUrl || post.featuredImage,
+        publishedAt: post.publishedAt || post.createdAt,
+        author: post.author
+      }, canonicalUrl, req);
       
       // Read index.html template
       const fs = await import('fs');
@@ -739,8 +729,7 @@ ${JSON.stringify(articleSchema, null, 2)}
 ${JSON.stringify(breadcrumbSchema, null, 2)}
     </script>`;
       
-      // Inject canonical tag (always use /blogs/ format for blog posts)
-      const canonicalUrl = `${baseDomain}/blogs/${slug}`;
+      // Inject canonical tag (already defined canonicalUrl above)
       const canonicalTag = `  <link rel="canonical" href="${canonicalUrl}" />`;
       
       // Inject both schemas and canonical tag before </head>

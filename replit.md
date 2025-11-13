@@ -22,13 +22,41 @@ Key technical implementations include:
 - **Admin Dashboard**: Facilitates lead management, booking, and quote generation.
 - **Real-time Availability**: Managed through Google Sheets integration.
 - **Pricing Validation**: Server-side enforcement of private cruise package add-on flat fees.
-- **Schema Markup**: Extensive SEO support with 28 schema files.
+- **Schema Markup**: Extensive SEO support with 41+ schema files loaded via single-source file-based pipeline (`server/schemaLoader.ts` + `attached_assets/schema_data/`).
 - **Authentication**: Handled by Passport.js using a PostgreSQL session store.
 - **Server-Side Rendering (SSR)**: Implemented to ensure content is visible to crawlers for improved SEO.
+- **Static Blog SSR**: React blog pages (`/austin-bachelor-party-ideas`, `/lake-travis-bachelor-party-boats`, `/wedding-anniversary-celebration-ideas`) with server-side Article schemas using `server/staticBlogMetadata.ts` for centralized metadata and environment-aware canonical URLs via `server/utils/domain.ts`.
 - **Internal Linking System**: A hybrid contextual and structured system using a master link catalog and token-based replacement for enhanced SEO and navigation.
-- **Server-Side Redirects**: 301 permanent redirects for legacy and broken URLs to manage SEO effectively.
+- **Server-Side Redirects**: 301 permanent redirects for legacy and broken URLs to manage SEO effectively, including static blog redirects (`/blogs/slug` → `/slug`).
 
 UI/UX design prioritizes clear navigation and responsive design, incorporating components like `TableOfContents`, `StickyCTA`, `LazyImage`, and `CollapsibleSection`. Video testimonials and a `TransportationGuide` enhance the user experience. Hero sections incorporate video backgrounds with optimized typography for readability.
+
+### Structured Data Architecture
+
+**Schema Management:**
+- Single-source file-based pipeline via `server/schemaLoader.ts` and `attached_assets/schema_data/`
+- NO hardcoded schemas in components (except SSR-generated Article schemas)
+- All 41+ schema files validated for errors, duplicates, and format issues
+- `scripts/validate-schemas.ts` provides automated validation
+
+**Static Blog SSR Implementation:**
+- Metadata centralized in `server/staticBlogMetadata.ts` with `isStaticBlogRoute()` and `getStaticBlogMetadata()` helpers
+- SSR generates Article schemas server-side in `server/ssr/renderer.ts`
+- Client-side `BlogPostLayout` does NOT emit duplicate schemas
+- 301 redirects in `server/routes.ts` ensure static blogs are ONLY accessible at top-level paths (`/slug`), not `/blogs/slug`
+
+**Environment-Aware Domain Utilities:**
+- `server/utils/domain.ts` provides `getBaseDomain(req)` and `getCanonicalUrl(pathname, req)`
+- Prefers request host (works in dev, staging, preview, production)
+- Falls back to hardcoded production domain only when no request available
+- Used by `generateArticleSchema(blogPost, canonicalUrl, req)` in `server/schemaLoader.ts`
+
+**Adding New Static Blog Pages:**
+1. Create React component in `client/src/pages/blog/`
+2. Add route to `client/src/App.tsx`
+3. Add metadata to `server/staticBlogMetadata.ts`
+4. Add route to `SSR_ROUTES` array in `server/ssr/renderer.ts`
+5. Use `BlogPostLayout` component (NO BlogArticleSchema needed - SSR handles it)
 
 ## External Dependencies
 - **Stripe**: Payment processing.

@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { Request } from 'express';
 import { isStaticBlogRoute } from './staticBlogMetadata';
 import { getBaseDomain } from './utils/domain';
 
@@ -97,12 +98,12 @@ export function generateArticleSchema(blogPost: {
   author?: {
     name: string;
   };
-}, canonicalUrl?: string): object {
+}, canonicalUrl?: string, req?: Request): object {
   const publishDate = blogPost.publishedAt 
     ? new Date(blogPost.publishedAt).toISOString()
     : new Date().toISOString();
 
-  const baseDomain = getBaseDomain();
+  const baseDomain = getBaseDomain(req);
   const defaultUrl = `${baseDomain}/blogs/${blogPost.slug}`;
   const schemaUrl = canonicalUrl || defaultUrl;
 

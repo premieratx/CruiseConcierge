@@ -1173,7 +1173,7 @@ ${JSON.stringify(schema, null, 2)}
         featuredImage: blogData.post.featuredImage,
         publishedAt: blogData.post.publishedAt,
         author: blogData.post.author
-      }, blogCanonicalUrl);
+      }, blogCanonicalUrl, req);
       
       schemaScripts += `
   <script type="application/ld+json">
@@ -1195,7 +1195,7 @@ ${JSON.stringify(articleSchema, null, 2)}
           featuredImage: staticBlogMeta.heroImage,
           publishedAt: staticBlogMeta.publishDate,
           author: { name: staticBlogMeta.author }
-        }, canonicalUrl);
+        }, canonicalUrl, req);
         
         schemaScripts += `
   <script type="application/ld+json">
