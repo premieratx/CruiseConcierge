@@ -36,7 +36,7 @@ Premier Party Cruises offers party boat rentals on Lake Travis, Austin, with two
 The system utilizes a modern web architecture featuring a **React + TypeScript + Vite** frontend, styled with **Tailwind CSS** and **shadcn/ui** components, and **Wouter** for routing. The backend is powered by **Express + Node.js** with **PostgreSQL** for data persistence.
 
 Key technical implementations include:
-- **Xola Integration**: Embedded booking widgets for various products.
+- **Xola Integration**: Direct popup link approach - all "Book Now" buttons (desktop header, mobile header, mobile bottom nav, mobile menu) open Xola booking flow in popup window via `window.open()` to: https://x2-checkout.xola.app/flows/mvp?button=691574bd162501edc00f151a&view=grid
 - **Quote Builder**: An embedded widget for generating quotes with source tracking and dynamic resizing.
 - **Admin Dashboard**: Facilitates lead management, booking, and quote generation.
 - **Real-time Availability**: Managed through Google Sheets integration.
