@@ -14,12 +14,10 @@ const __dirname = path.dirname(__filename);
 
 // Cache template at module level to avoid repeated disk I/O
 let cachedTemplate: string | null = null;
-// CRITICAL FIX: Reliable environment detection using Replit's deployment flag
-// REPLIT_DEPLOYMENT=1 when published, undefined in dev workspace
-// This prevents React Refresh from running in production deployments
-const isDeployment = process.env.REPLIT_DEPLOYMENT === '1';
-const isDevelopment = process.env.NODE_ENV === 'development' && !isDeployment;
+// CRITICAL FIX: Use same production detection as server/index.ts
+// Check if production build exists - this works in both dev preview and production deployment
 const productionBuildExists = fs.existsSync(path.resolve(process.cwd(), 'dist/public/index.html'));
+const isDevelopment = !productionBuildExists;
 const templatePath = isDevelopment 
   ? path.resolve(__dirname, '../../client/index.html')
   : path.resolve(process.cwd(), 'dist/public/index.html');
