@@ -1,5 +1,5 @@
-/* PPC Public Navigation - Production-Safe Styles with !important overrides */
-/* These styles ensure navigation works correctly even when host CSS interferes */
+/* PPC Public Navigation - Minimal Production-Safe Styles */
+/* Only essential overrides - let Tailwind handle responsive behavior */
 
 .ppc-public-nav {
   /* CRITICAL: Force sticky header behavior in production */
@@ -8,72 +8,6 @@
   left: 0 !important;
   right: 0 !important;
   z-index: 50 !important;
-}
-
-.ppc-public-nav-container {
-  /* Replace Tailwind's .container to avoid Bootstrap/WordPress conflicts */
-  width: 100% !important;
-  max-width: 1280px !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
-  padding-left: 1.5rem !important;
-  padding-right: 1.5rem !important;
-}
-
-.ppc-public-nav-flex {
-  /* Force proper flex layout for Logo | Navigation | CTA buttons */
-  display: flex !important;
-  align-items: center !important;
-  height: 5rem !important;
-}
-
-/* CRITICAL: Only apply display:flex at desktop breakpoint to preserve Tailwind's hidden/lg:flex */
-@media (min-width: 1024px) {
-  .ppc-public-nav-center {
-    /* Force navigation to center in production - desktop only */
-    display: flex !important;
-    flex: 1 1 0% !important;
-    justify-content: center !important;
-    align-items: center !important;
-  }
-
-  .ppc-public-nav-cta {
-    /* Keep CTA buttons on the right without shrinking - desktop only */
-    display: flex !important;
-    align-items: center !important;
-    gap: 0.5rem !important;
-    flex-shrink: 0 !important;
-  }
-}
-
-/* Override any host theme nav ul styles - ONLY target top-level nav list at desktop */
-/* Use more specific selector to avoid breaking dropdown grids */
-@media (min-width: 1024px) {
-  .ppc-public-nav-center > nav > ul {
-    list-style: none !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-  }
-
-  .ppc-public-nav-center > nav > ul > li {
-    margin: 0 !important;
-    padding: 0 !important;
-  }
-}
-
-/* Mobile responsiveness */
-@media (max-width: 1023px) {
-  .ppc-public-nav-flex {
-    height: 4rem !important;
-  }
-  
-  .ppc-public-nav-container {
-    padding-left: 0.75rem !important;
-    padding-right: 0.75rem !important;
-  }
 }
 
 /* Ensure content doesn't hide behind sticky header */

@@ -295,8 +295,16 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
               Get My Quote
             </Button>
             
-            {/* Mobile Book Now Button - Xola Embedded Checkout */}
-            <div className="xola-embedded-checkout" data-button-id="691574bd162501edc00f151a" style={{minWidth: '70px', minHeight: '36px'}}></div>
+            {/* Mobile Book Now Button */}
+            <Button
+              size="sm"
+              onClick={() => window.open('https://x2-checkout.xola.app/flows/mvp?button=691574bd162501edc00f151a&view=grid', '_blank')}
+              className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold px-2 py-1.5 text-xs whitespace-nowrap h-9 shadow-md"
+              data-testid="button-mobile-header-book-now"
+            >
+              <Calendar className="h-3.5 w-3.5 mr-1" />
+              Book Now
+            </Button>
 
             {/* Hamburger Menu Button */}
             <button
@@ -416,11 +424,18 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
                 data-testid="button-header-get-quote"
               >
                 <MessageSquare className="mr-1.5 h-4 w-4" />
-                <span data-editable data-editable-id="header-get-quote-button">GET QUOTE</span>
+                <span data-editable data-editable-id="header-get-quote-button">Get My Quote</span>
               </Button>
               
-              {/* Desktop Book Now Button - Xola Embedded Checkout */}
-              <div className="xola-embedded-checkout" data-button-id="691574bd162501edc00f151a" style={{minWidth: '120px', minHeight: '40px'}}></div>
+              {/* Desktop Book Now Button */}
+              <Button
+                onClick={() => window.open('https://x2-checkout.xola.app/flows/mvp?button=691574bd162501edc00f151a&view=grid', '_blank')}
+                className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold px-4 py-2 tracking-wide text-sm whitespace-nowrap shadow-md"
+                data-testid="button-header-book-now"
+              >
+                <Calendar className="mr-1.5 h-4 w-4" />
+                Book Now
+              </Button>
           </div>
         </div>
       </header>
@@ -525,8 +540,18 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
             <span className="text-[10px] font-medium">Quote</span>
           </button>
 
-          {/* Book Now Button - Xola Embedded Checkout */}
-          <div className="xola-embedded-checkout" data-button-id="691574bd162501edc00f151a" style={{minWidth: '50px', minHeight: '44px'}}></div>
+          {/* Book Now Button */}
+          <button
+            onClick={() => window.open('https://x2-checkout.xola.app/flows/mvp?button=691574bd162501edc00f151a&view=grid', '_blank')}
+            className={cn(
+              "flex flex-col items-center justify-center min-h-[44px] px-2 py-1 rounded-lg transition-all duration-200",
+              "text-gray-600 dark:text-gray-400 hover:text-brand-blue hover:bg-brand-blue/5"
+            )}
+            data-testid="button-bottom-nav-book-now"
+          >
+            <Calendar className="h-5 w-5 mb-0.5" />
+            <span className="text-[10px] font-medium">Book</span>
+          </button>
         </div>
       </nav>
 
@@ -539,6 +564,21 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
           <SheetHeader>
             <SheetTitle>Menu</SheetTitle>
           </SheetHeader>
+
+          {/* Book Now Button at Top of Mobile Menu */}
+          <div className="mt-4 px-3">
+            <Button
+              onClick={() => {
+                window.open('https://x2-checkout.xola.app/flows/mvp?button=691574bd162501edc00f151a&view=grid', '_blank');
+                setMobileMenuOpen(false);
+              }}
+              className="w-full bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold py-3 shadow-md"
+              data-testid="button-mobile-menu-book-now"
+            >
+              <Calendar className="mr-2 h-5 w-5" />
+              Book Now
+            </Button>
+          </div>
           
           <nav className="mt-6 space-y-1" data-testid="mobile-menu-nav">
             {navigationItems.map((item) => {
