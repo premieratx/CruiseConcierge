@@ -49,18 +49,43 @@ export function loadXolaScript(): Promise<void> {
 
 /**
  * Re-initialize Xola embeds within a specific container or entire document
- * Call this after React renders new .xola-embedded-checkout divs
+ * Call this after React renders new .xola-embedded-checkout or .xola-checkout divs
  */
 export function initXolaEmbeds(container?: HTMLElement): void {
-  // Try multiple possible API methods
+  if (typeof window === 'undefined') return;
+  
+  // Xola's checkout.js automatically scans for elements with xola-checkout and xola-embedded-checkout classes
+  // We just need to trigger a re-scan after React renders new elements
+  
+  // Method 1: Try Controls.reload() if available (production Xola build)
+  if (window.Xola?.Controls?.reload) {
+    window.Xola.Controls.reload();
+    return;
+  }
+  
+  // Method 2: Try XolaCheckout.init() for older versions
   if (window.XolaCheckout?.init) {
     window.XolaCheckout.init();
-  } else if (window.Xola?.Controls?.reload) {
-    window.Xola.Controls.reload();
+    return;
+  }
+  
+  // Method 3: Manually register each Xola element by calling onClick
+  // This ensures embedded checkout elements get properly initialized
+  const searchContainer = container || document;
+  const xolaElements = searchContainer.querySelectorAll('.xola-embedded-checkout, .xola-checkout');
+  
+  if (window.Xola?.onClick && xolaElements.length > 0) {
+    console.log(`Manually initializing ${xolaElements.length} Xola checkout elements`);
+    xolaElements.forEach(el => {
+      // Register click handler for each element
+      el.addEventListener('click', () => {
+        window.Xola?.onClick(el);
+      });
+    });
   } else if (window.XolaCheckout) {
-    // Some versions auto-scan on any call
+    // Final fallback: call XolaCheckout as a function to trigger initialization
     try {
-      window.XolaCheckout();
+      (window.XolaCheckout as any)();
     } catch (e) {
       console.warn('Xola initialization attempt failed:', e);
     }
