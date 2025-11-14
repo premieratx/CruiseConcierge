@@ -22,6 +22,7 @@ import {
   CollapsibleTrigger,
 } from '@/components/ui/collapsible';
 import { cn } from '@/lib/utils';
+import { loadXolaScript, initXolaEmbeds } from '@/services/xola';
 // Fix for SSR: Use path string instead of import for logo (removed CSS import - breaks SSR)
 const logoPath = '/attached_assets/PPC-Logo-48x48.webp';
 import { 
@@ -205,6 +206,27 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  // Load Xola checkout script on mount
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      loadXolaScript()
+        .then(() => {
+          // Initialize Xola to find checkout buttons
+          setTimeout(() => initXolaEmbeds(), 100);
+        })
+        .catch((err) => {
+          console.error('Failed to load Xola checkout script:', err);
+        });
+    }
+  }, []);
+
+  // Re-initialize Xola when mobile menu opens (to catch newly rendered buttons)
+  useEffect(() => {
+    if (typeof window !== 'undefined' && mobileMenuOpen) {
+      setTimeout(() => initXolaEmbeds(), 100);
+    }
+  }, [mobileMenuOpen]);
+
   // Handle scroll effect
   useEffect(() => {
     const handleScroll = () => {
@@ -229,11 +251,6 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
 
   const handleGetQuote = () => {
     // Always route to /chat using wouter navigation
-    navigate('/chat');
-  };
-
-  const handleBookNow = () => {
-    // Navigate to /chat for booking
     navigate('/chat');
   };
 
@@ -278,16 +295,14 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
               QUOTE
             </Button>
             
-            {/* Mobile Book Now Button */}
-            <Button
-              size="sm"
-              onClick={handleBookNow}
-              className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold px-2 py-1.5 text-xs whitespace-nowrap h-9 shadow-md"
+            {/* Mobile Book Now Button - Xola Checkout Widget */}
+            <div className="xola-checkout inline-flex items-center justify-center rounded-md bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold px-2 py-1.5 text-xs whitespace-nowrap h-9 shadow-md cursor-pointer"
+              data-button-id="691574bd162501edc00f151a"
               data-testid="button-mobile-header-book-now"
             >
               <Calendar className="h-3.5 w-3.5 mr-1" />
               BOOK
-            </Button>
+            </div>
 
             {/* Hamburger Menu Button */}
             <button
@@ -410,15 +425,15 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
                 <span data-editable data-editable-id="header-get-quote-button">GET QUOTE</span>
               </Button>
               
-              <Button
-                onClick={handleBookNow}
-                className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold px-3 lg:px-4 py-2 tracking-wide shadow-lg hover:shadow-xl transition-all duration-300 text-sm whitespace-nowrap"
+              {/* Xola Checkout Widget - Desktop */}
+              <div className="xola-checkout inline-flex items-center justify-center rounded-md bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold px-3 lg:px-4 py-2 tracking-wide shadow-lg hover:shadow-xl transition-all duration-300 text-sm whitespace-nowrap cursor-pointer"
+                data-button-id="691574bd162501edc00f151a"
                 data-testid="button-header-book-now"
               >
                 <Calendar className="mr-1.5 h-4 w-4" />
                 <span data-editable data-editable-id="header-book-now-button">BOOK NOW</span>
                 <ArrowRight className="ml-1.5 h-4 w-4" />
-            </Button>
+            </div>
           </div>
         </div>
       </header>
@@ -525,18 +540,18 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
             <span className="text-[10px] font-medium">Quote</span>
           </button>
 
-          {/* Book Now */}
-          <button
-            onClick={handleBookNow}
+          {/* Book Now - Xola Checkout Widget */}
+          <div
             className={cn(
-              "flex flex-col items-center justify-center min-h-[44px] px-2 py-1 rounded-lg transition-all duration-200",
-              "text-brand-yellow hover:text-brand-yellow/80"
+              "xola-checkout flex flex-col items-center justify-center min-h-[44px] px-2 py-1 rounded-lg transition-all duration-200",
+              "text-brand-yellow hover:text-brand-yellow/80 cursor-pointer"
             )}
+            data-button-id="691574bd162501edc00f151a"
             data-testid="button-bottom-nav-book-now"
           >
             <Calendar className="h-5 w-5 mb-0.5" />
             <span className="text-[10px] font-medium font-bold">Book</span>
-          </button>
+          </div>
         </div>
       </nav>
 
@@ -643,18 +658,16 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
               GET QUOTE
             </Button>
             
-            <Button
-              onClick={() => {
-                setMobileMenuOpen(false);
-                handleBookNow();
-              }}
-              className="w-full bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold"
+            {/* Xola Checkout Widget - Mobile Menu */}
+            <div
+              className="xola-checkout w-full inline-flex items-center justify-center rounded-md bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold px-4 py-2 cursor-pointer"
+              data-button-id="691574bd162501edc00f151a"
               data-testid="button-mobile-menu-book-now"
             >
               <Calendar className="mr-2 h-4 w-4" />
               BOOK NOW
               <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
+            </div>
           </div>
         </SheetContent>
       </Sheet>
