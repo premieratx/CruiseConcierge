@@ -13,6 +13,7 @@ let scriptPromise: Promise<void> | null = null;
 
 /**
  * Load Xola checkout.js script and return a promise when ready
+ * NOTE: Script is already loaded in index.html - this just waits for it to be ready
  */
 export function loadXolaScript(): Promise<void> {
   if (scriptPromise) {
@@ -20,28 +21,31 @@ export function loadXolaScript(): Promise<void> {
   }
 
   scriptPromise = new Promise((resolve, reject) => {
-    if (scriptLoaded && window.XolaCheckout) {
+    // Check if Xola is already loaded
+    if (window.XolaCheckout || window.Xola) {
+      scriptLoaded = true;
+      console.log('[Xola] Already loaded');
       resolve();
       return;
     }
 
-    const script = document.createElement('script');
-    script.type = 'text/javascript';
-    script.async = true;
-    script.src = 'https://xola.com/checkout.js';
-    
-    script.onload = () => {
-      scriptLoaded = true;
-      // Give Xola a moment to initialize
-      setTimeout(() => resolve(), 100);
-    };
-    
-    script.onerror = () => {
-      reject(new Error('Failed to load Xola checkout.js'));
-    };
-
-    const firstScript = document.getElementsByTagName('script')[0];
-    firstScript.parentNode?.insertBefore(script, firstScript);
+    // Wait for Xola to load (script is injected in HTML)
+    let attempts = 0;
+    const maxAttempts = 50; // 5 seconds max
+    const checkInterval = setInterval(() => {
+      attempts++;
+      
+      if (window.XolaCheckout || window.Xola) {
+        clearInterval(checkInterval);
+        scriptLoaded = true;
+        console.log('[Xola] Script ready after', attempts * 100, 'ms');
+        resolve();
+      } else if (attempts >= maxAttempts) {
+        clearInterval(checkInterval);
+        console.warn('[Xola] Script load timeout after 5 seconds');
+        reject(new Error('Xola script load timeout'));
+      }
+    }, 100);
   });
 
   return scriptPromise;
@@ -59,35 +63,17 @@ export function initXolaEmbeds(container?: HTMLElement): void {
   
   // Method 1: Try Controls.reload() if available (production Xola build)
   if (window.Xola?.Controls?.reload) {
+    console.log('[Xola] Calling Controls.reload()');
     window.Xola.Controls.reload();
     return;
   }
   
   // Method 2: Try XolaCheckout.init() for older versions
   if (window.XolaCheckout?.init) {
+    console.log('[Xola] Calling XolaCheckout.init()');
     window.XolaCheckout.init();
     return;
   }
   
-  // Method 3: Manually register each Xola element by calling onClick
-  // This ensures embedded checkout elements get properly initialized
-  const searchContainer = container || document;
-  const xolaElements = searchContainer.querySelectorAll('.xola-embedded-checkout, .xola-checkout');
-  
-  if (window.Xola?.onClick && xolaElements.length > 0) {
-    console.log(`Manually initializing ${xolaElements.length} Xola checkout elements`);
-    xolaElements.forEach(el => {
-      // Register click handler for each element
-      el.addEventListener('click', () => {
-        window.Xola?.onClick(el);
-      });
-    });
-  } else if (window.XolaCheckout) {
-    // Final fallback: call XolaCheckout as a function to trigger initialization
-    try {
-      (window.XolaCheckout as any)();
-    } catch (e) {
-      console.warn('Xola initialization attempt failed:', e);
-    }
-  }
+  console.warn('[Xola] No init method available - Xola may not be fully loaded');
 }

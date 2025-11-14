@@ -296,14 +296,7 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
             </Button>
             
             {/* Mobile Book Now Button - Xola Embedded Checkout */}
-            <div
-              className="xola-embedded-checkout inline-flex items-center justify-center rounded-md bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold px-2 py-1.5 text-xs whitespace-nowrap h-9 shadow-md cursor-pointer"
-              data-button-id="691574bd162501edc00f151a"
-              data-testid="button-mobile-header-book-now"
-            >
-              <Calendar className="h-3.5 w-3.5 mr-1" />
-              BOOK
-            </div>
+            <div className="xola-embedded-checkout" data-button-id="691574bd162501edc00f151a"></div>
 
             {/* Hamburger Menu Button */}
             <button
@@ -427,15 +420,7 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
               </Button>
               
               {/* Desktop Book Now Button - Xola Embedded Checkout */}
-              <div
-                className="xola-embedded-checkout inline-flex items-center justify-center rounded-md bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold px-3 lg:px-4 py-2 tracking-wide shadow-lg hover:shadow-xl transition-all duration-300 text-sm whitespace-nowrap cursor-pointer"
-                data-button-id="691574bd162501edc00f151a"
-                data-testid="button-header-book-now"
-              >
-                <Calendar className="mr-1.5 h-4 w-4" />
-                <span data-editable data-editable-id="header-book-now-button">BOOK NOW</span>
-                <ArrowRight className="ml-1.5 h-4 w-4" />
-              </div>
+              <div className="xola-embedded-checkout" data-button-id="691574bd162501edc00f151a"></div>
           </div>
         </div>
       </header>
@@ -543,17 +528,7 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
           </button>
 
           {/* Book Now Button - Xola Embedded Checkout */}
-          <div
-            className={cn(
-              "xola-embedded-checkout flex flex-col items-center justify-center min-h-[44px] px-2 py-1 rounded-lg transition-all duration-200",
-              "text-brand-yellow hover:text-brand-yellow/80 cursor-pointer"
-            )}
-            data-button-id="691574bd162501edc00f151a"
-            data-testid="button-bottom-nav-book-now"
-          >
-            <Calendar className="h-5 w-5 mb-0.5" />
-            <span className="text-[10px] font-medium font-bold">Book</span>
-          </div>
+          <div className="xola-embedded-checkout" data-button-id="691574bd162501edc00f151a"></div>
         </div>
       </nav>
 
@@ -661,15 +636,7 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
             </Button>
             
             {/* Mobile Menu Book Now Button - Xola Embedded Checkout */}
-            <div
-              className="xola-embedded-checkout w-full inline-flex items-center justify-center rounded-md bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold px-4 py-2 cursor-pointer"
-              data-button-id="691574bd162501edc00f151a"
-              data-testid="button-mobile-menu-book-now"
-            >
-              <Calendar className="mr-2 h-4 w-4" />
-              BOOK NOW
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </div>
+            <div className="xola-embedded-checkout" data-button-id="691574bd162501edc00f151a"></div>
           </div>
         </SheetContent>
       </Sheet>
