@@ -292,7 +292,7 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
               data-testid="button-mobile-header-get-quote"
             >
               <MessageSquare className="h-3.5 w-3.5 mr-1" />
-              QUOTE
+              Get My Quote
             </Button>
             
             {/* Mobile Book Now Button - Xola Embedded Checkout */}
@@ -425,8 +425,6 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
         </div>
       </header>
 
-      {/* Spacer to prevent content from hiding behind sticky header */}
-      <div style={{ height: '5rem' }} />
 
       {/* Mobile Bottom Navigation Bar */}
       <nav 
