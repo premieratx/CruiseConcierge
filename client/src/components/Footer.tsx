@@ -11,9 +11,18 @@ import { loadXolaScript } from '@/services/xola';
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
-  // Load Xola checkout.js once via centralized service
+  // Load Xola checkout.js - EXACT CODE FROM XOLA
   useEffect(() => {
-    loadXolaScript().catch(console.error);
+    if (typeof window !== 'undefined') {
+      const co = document.createElement("script");
+      co.type = "text/javascript";
+      co.async = true;
+      co.src = "https://xola.com/checkout.js";
+      const s = document.getElementsByTagName("script")[0];
+      if (s && s.parentNode) {
+        s.parentNode.insertBefore(co, s);
+      }
+    }
   }, []);
 
   return (

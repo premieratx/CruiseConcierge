@@ -96,11 +96,11 @@ export default function Gallery() {
 
   // Set initial filtered photos when data loads, filtering out broken images
   useEffect(() => {
-    if (photos.length > 0) {
+    if (photos && photos.length > 0) {
       const validPhotos = photos.filter(p => !brokenImageIds.has(p.id));
       setFilteredPhotos(validPhotos);
     }
-  }, [photos.length, brokenImageIds]);
+  }, [photos, brokenImageIds]);
 
   const filterByCategory = (categoryId: string) => {
     setSelectedCategory(categoryId);

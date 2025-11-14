@@ -13,42 +13,13 @@ let scriptPromise: Promise<void> | null = null;
 
 /**
  * Load Xola checkout.js script and return a promise when ready
- * NOTE: Script is already loaded in index.html - this just waits for it to be ready
+ * NOTE: Script is already loaded in index.html - Xola handles initialization automatically
  */
 export function loadXolaScript(): Promise<void> {
-  if (scriptPromise) {
-    return scriptPromise;
-  }
-
-  scriptPromise = new Promise((resolve, reject) => {
-    // Check if Xola is already loaded
-    if (window.XolaCheckout || window.Xola) {
-      scriptLoaded = true;
-      console.log('[Xola] Already loaded');
-      resolve();
-      return;
-    }
-
-    // Wait for Xola to load (script is injected in HTML)
-    let attempts = 0;
-    const maxAttempts = 50; // 5 seconds max
-    const checkInterval = setInterval(() => {
-      attempts++;
-      
-      if (window.XolaCheckout || window.Xola) {
-        clearInterval(checkInterval);
-        scriptLoaded = true;
-        console.log('[Xola] Script ready after', attempts * 100, 'ms');
-        resolve();
-      } else if (attempts >= maxAttempts) {
-        clearInterval(checkInterval);
-        console.warn('[Xola] Script load timeout after 5 seconds');
-        reject(new Error('Xola script load timeout'));
-      }
-    }, 100);
-  });
-
-  return scriptPromise;
+  // Xola script loads automatically via index.html
+  // No need to wait or check - Xola will scan the DOM when ready
+  console.log('[Xola] Script loading automatically - divs will activate when ready');
+  return Promise.resolve();
 }
 
 /**

@@ -296,7 +296,7 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
             </Button>
             
             {/* Mobile Book Now Button - Xola Embedded Checkout */}
-            <div className="xola-embedded-checkout" data-button-id="691574bd162501edc00f151a"></div>
+            <div className="xola-embedded-checkout" data-button-id="691574bd162501edc00f151a" style={{minWidth: '70px', minHeight: '36px'}}></div>
 
             {/* Hamburger Menu Button */}
             <button
@@ -420,7 +420,7 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
               </Button>
               
               {/* Desktop Book Now Button - Xola Embedded Checkout */}
-              <div className="xola-embedded-checkout" data-button-id="691574bd162501edc00f151a"></div>
+              <div className="xola-embedded-checkout" data-button-id="691574bd162501edc00f151a" style={{minWidth: '120px', minHeight: '40px'}}></div>
           </div>
         </div>
       </header>
@@ -528,7 +528,7 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
           </button>
 
           {/* Book Now Button - Xola Embedded Checkout */}
-          <div className="xola-embedded-checkout" data-button-id="691574bd162501edc00f151a"></div>
+          <div className="xola-embedded-checkout" data-button-id="691574bd162501edc00f151a" style={{minWidth: '50px', minHeight: '44px'}}></div>
         </div>
       </nav>
 
@@ -636,7 +636,7 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
             </Button>
             
             {/* Mobile Menu Book Now Button - Xola Embedded Checkout */}
-            <div className="xola-embedded-checkout" data-button-id="691574bd162501edc00f151a"></div>
+            <div className="xola-embedded-checkout" data-button-id="691574bd162501edc00f151a" style={{width: '100%', minHeight: '40px'}}></div>
           </div>
         </SheetContent>
       </Sheet>
