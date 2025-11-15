@@ -326,7 +326,7 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
                     <NavigationMenuItem key={item.href}>
                       <NavigationMenuTrigger 
                         className={cn(
-                          "flex items-center space-x-1 px-2 py-2 font-semibold text-sm",
+                          "flex items-center px-2 py-2 font-semibold text-sm",
                           (location.startsWith('/private-cruises') || 
                           location.startsWith('/corporate-events') ||
                           location.startsWith('/birthday-parties') ||
@@ -336,7 +336,6 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
                             : "text-gray-700 dark:text-gray-300"
                         )}
                       >
-                        <item.icon className="h-4 w-4" />
                         <span 
                           data-editable 
                           data-editable-id={`nav-dropdown-${safeSlug(item.title)}`}
@@ -393,14 +392,13 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
                         href={item.href}
                         className={cn(
                           navigationMenuTriggerStyle(),
-                          "flex items-center space-x-1 font-semibold text-sm px-2",
+                          "flex items-center font-semibold text-sm px-2",
                           location === item.href
                             ? "text-brand-blue bg-brand-blue/10"
                             : "text-gray-700 dark:text-gray-300"
                         )}
                         data-testid={`link-nav-${safeSlug(item.title)}`}
                       >
-                        <item.icon className="h-4 w-4" />
                         <span data-editable data-editable-id={`nav-simple-${safeSlug(item.title)}`}>{item.title}</span>
                         {item.badge && (
                           <span className="ml-2 px-2 py-1 text-xs font-bold bg-brand-yellow text-black rounded-full" data-editable data-editable-id={`nav-badge-${safeSlug(item.title)}`}>
@@ -415,26 +413,26 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
               </NavigationMenu>
             </div>
 
-          {/* Desktop CTA Buttons - Right Section (fixed width, text wraps when needed) */}
+          {/* Desktop CTA Buttons - Right Section (fixed width, never shrinks) */}
           <div className="ppc-public-nav-cta hidden lg:flex lg:flex-none lg:flex-shrink-0 lg:justify-end gap-2">
               <Button
                 variant="outline"
                 onClick={handleGetQuote}
-                className="border-2 border-brand-blue text-brand-blue hover:bg-brand-blue hover:text-white font-bold px-3 py-1.5 tracking-wide text-xs leading-tight min-w-[80px] max-w-[100px]"
+                className="border-2 border-brand-blue text-brand-blue hover:bg-brand-blue hover:text-white font-bold px-3 lg:px-4 py-2 tracking-wide text-sm whitespace-nowrap"
                 data-testid="button-header-get-quote"
               >
-                <MessageSquare className="mr-1 h-4 w-4 flex-shrink-0" />
-                <span className="text-center leading-tight" data-editable data-editable-id="header-get-quote-button">Get My Quote</span>
+                <MessageSquare className="mr-1.5 h-4 w-4" />
+                <span data-editable data-editable-id="header-get-quote-button">Get My Quote</span>
               </Button>
               
               {/* Desktop Book Now Button */}
               <Button
                 onClick={() => window.open('https://x2-checkout.xola.app/flows/mvp?button=691574bd162501edc00f151a&view=grid', '_blank')}
-                className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold px-3 py-1.5 tracking-wide text-xs leading-tight shadow-md min-w-[70px] max-w-[90px]"
+                className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold px-4 py-2 tracking-wide text-sm whitespace-nowrap shadow-md"
                 data-testid="button-header-book-now"
               >
-                <Calendar className="mr-1 h-4 w-4 flex-shrink-0" />
-                <span className="text-center leading-tight">Book Now</span>
+                <Calendar className="mr-1.5 h-4 w-4" />
+                Book Now
               </Button>
           </div>
         </div>
