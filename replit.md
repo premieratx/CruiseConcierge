@@ -14,6 +14,24 @@ Premier Party Cruises offers party boat rentals on Lake Travis, Austin, with two
 - Real information only - no made-up details or "AI slop"
 - **100% FACTUAL ACCURACY**: No made-up activities, services, or features. Only describe what Premier Party Cruises actually provides: boat, captain, lake setting, and amenities. Customers create their own experience.
 
+## Photo Gallery Architecture (November 2024)
+**CRITICAL FIX:** Files named `party-atmosphere-1/2/3.jpg/webp` were MISLABELED and actually contained FLEET/EMPTY BOAT photos (not party photos).
+
+**AnimatedPhotoGallery Component:**
+- Used by: Bachelorette, Bachelor, Combined, and ATX Disco Cruise pages
+- Shows 6 verified party photos in rotating sets (3 photos each, 5-second transitions)
+- Uses party collage images showing PEOPLE CELEBRATING (no empty boats)
+
+**Verified Party Photos:**
+1. `disco photo collage_1759401302941.png`
+2. `disco unicorn collage - web_1759401302953.png`
+3. `father's day_family party collage_1759401302954.png`
+4. `non-bach collage compressed_1759401302954.png`
+5. `atx-disco-cruise-party.jpg`
+6. `bachelor-party-group-guys.jpg`
+
+**DO NOT USE:** `party-atmosphere-1/2/3.jpg/webp`, `dancing-party-scene.jpg/webp` - These files contain EMPTY BOAT photos despite their names.
+
 ## Recent Accuracy Fixes (November 2024)
 **Comprehensive Site-Wide Accuracy Audit Completed:**
 1. **Life Jacket Policy** (19 files updated):
