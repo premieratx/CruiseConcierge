@@ -415,25 +415,25 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
               </NavigationMenu>
             </div>
 
-          {/* Desktop CTA Buttons - Right Section (fixed width, never shrinks/cuts off) */}
-          <div className="ppc-public-nav-cta hidden lg:flex lg:flex-none lg:flex-shrink-0 lg:justify-end gap-2">
+          {/* Desktop CTA Buttons - Right Section (stacked vertically to save space) */}
+          <div className="ppc-public-nav-cta hidden lg:flex lg:flex-col lg:flex-none lg:flex-shrink-0 lg:justify-center gap-1.5 ml-2">
               <Button
                 variant="outline"
                 onClick={handleGetQuote}
-                className="border-2 border-brand-blue text-brand-blue hover:bg-brand-blue hover:text-white font-bold px-3 lg:px-4 py-2 tracking-wide text-sm whitespace-nowrap"
+                className="border-2 border-brand-blue text-brand-blue hover:bg-brand-blue hover:text-white font-bold px-3 py-1.5 text-xs whitespace-nowrap h-auto"
                 data-testid="button-header-get-quote"
               >
-                <MessageSquare className="mr-1.5 h-4 w-4" />
+                <MessageSquare className="mr-1 h-3.5 w-3.5" />
                 <span data-editable data-editable-id="header-get-quote-button">Get My Quote</span>
               </Button>
               
               {/* Desktop Book Now Button */}
               <Button
                 onClick={() => window.open('https://x2-checkout.xola.app/flows/mvp?button=691574bd162501edc00f151a&view=grid', '_blank')}
-                className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold px-4 py-2 tracking-wide text-sm whitespace-nowrap shadow-md"
+                className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold px-3 py-1.5 text-xs whitespace-nowrap shadow-md h-auto"
                 data-testid="button-header-book-now"
               >
-                <Calendar className="mr-1.5 h-4 w-4" />
+                <Calendar className="mr-1 h-3.5 w-3.5" />
                 Book Now
               </Button>
           </div>
