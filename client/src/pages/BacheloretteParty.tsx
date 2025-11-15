@@ -295,16 +295,16 @@ import { bacheloretteReviews, combinedBachReviews, type Review } from '@shared/r
 // Use bacheloretteReviews + combinedBachReviews for Bachelorette Party page
 const brideTestimonials: Review[] = [...bacheloretteReviews, ...combinedBachReviews];
 
-// Photo gallery items
+// Photo gallery items - PARTY PHOTOS ONLY (no fleet boats)
 const galleryPhotos = [
-  { id: 1, src: heroImage2, alt: 'Bachelorette Party Austin ATX Disco Cruise on Party Boat Lake Travis' },
-  { id: 2, src: heroImage3, alt: 'Austin Bachelorette Party Boat dancing on Lake Travis cruise' },
-  { id: 3, src: galleryImage1, alt: 'Bachelorette Party Austin vibes on Lake Travis party boat' },
-  { id: 4, src: floatImage, alt: 'Lake Travis Bachelorette Party giant unicorn float on Party Boat Austin' },
+  { id: 1, src: heroImage1, alt: 'Bachelorette party group celebrating on Lake Travis' },
+  { id: 2, src: heroImage2, alt: 'Bachelorette Party Austin ATX Disco Cruise on Party Boat Lake Travis' },
+  { id: 3, src: heroImage3, alt: 'Austin Bachelorette Party Boat dancing on Lake Travis cruise' },
+  { id: 4, src: galleryImage1, alt: 'Bachelorette Party Austin vibes on Lake Travis party boat' },
   { id: 5, src: galleryImage2, alt: 'Austin Bachelorette Party Boat atmosphere on Lake Travis' },
-  { id: 6, src: boatImage1, alt: 'Lake Travis Bachelorette Party Day Tripper boat cruise' },
-  { id: 7, src: galleryImage3, alt: 'Bachelorette Party Austin on Lake Travis party boat' },
-  { id: 8, src: boatImage2, alt: 'Austin Bachelorette Party Boat Meeseeks on Lake Travis' }
+  { id: 6, src: galleryImage3, alt: 'Bachelorette Party Austin on Lake Travis party boat' },
+  { id: 7, src: floatImage, alt: 'Lake Travis Bachelorette Party giant unicorn float on Party Boat Austin' },
+  { id: 8, src: heroImage1, alt: 'Bachelor and bachelorette groups celebrating together on Lake Travis' }
 ];
 
 // Table of Contents sections - Updated with comparison

@@ -300,15 +300,15 @@ import { bachelorReviews, combinedBachReviews, type Review } from '@shared/revie
 // Use bachelorReviews + combinedBachReviews for Bachelor Party page
 const groomTestimonials: Review[] = [...bachelorReviews, ...combinedBachReviews];
 
-// Photo gallery items
+// Photo gallery items - PARTY PHOTOS ONLY (no fleet boats)
 const galleryPhotos = [
   { id: 1, src: heroImage1, alt: 'Bachelor Party Austin group celebrating on Lake Travis party boat' },
   { id: 2, src: discoImage1, alt: 'Austin Bachelor Party ATX Disco Cruise on Party Boat Lake Travis' },
-  { id: 3, src: galleryImage1, alt: 'Lake Travis Bachelor Party Day Tripper boat cruise' },
+  { id: 3, src: galleryImage1, alt: 'Lake Travis Bachelor Party atmosphere and celebration vibes' },
   { id: 4, src: discoImage2, alt: 'Bachelor Party Austin dancing on Party Boat Lake Travis cruise' },
-  { id: 5, src: galleryImage2, alt: 'Austin Bachelor Party Boat Meeseeks on Lake Travis' },
-  { id: 6, src: floatImage, alt: 'Lake Travis Bachelor Party giant unicorn float on Party Boat Austin' },
-  { id: 7, src: galleryImage3, alt: 'Bachelor Party Austin Clever Girl boat on Lake Travis' },
+  { id: 5, src: galleryImage2, alt: 'Austin Bachelor Party ATX Disco Cruise party atmosphere' },
+  { id: 6, src: galleryImage3, alt: 'Bachelor Party Austin dancing and celebrating on Lake Travis' },
+  { id: 7, src: floatImage, alt: 'Lake Travis Bachelor Party giant unicorn float on Party Boat Austin' },
   { id: 8, src: heroImage2, alt: 'Austin Bachelor Party Boat atmosphere on Lake Travis' }
 ];
 

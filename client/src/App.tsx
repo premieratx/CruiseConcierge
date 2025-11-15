@@ -192,7 +192,7 @@ function Router() {
       {/* Landing Pages */}
       <Route path="/bachelor-party-austin" component={BachelorParty} />
       <Route path="/bachelorette-party-austin" component={BacheloretteParty} />
-      <Route path="/combined-bachelor-bachelorette" component={CombinedBachelorBachelorette} />
+      <Route path="/combined-bachelor-bachelorette-austin" component={CombinedBachelorBachelorette} />
       <Route path="/atx-disco-cruise" component={ATXDiscoCruise} />
       
       {/* Legacy URL Redirects - SEO & User Experience */}
@@ -218,7 +218,16 @@ function Router() {
         {() => {
           const [, navigate] = useLocation();
           useEffect(() => {
-            navigate('/combined-bachelor-bachelorette', { replace: true });
+            navigate('/combined-bachelor-bachelorette-austin', { replace: true });
+          }, [navigate]);
+          return null;
+        }}
+      </Route>
+      <Route path="/combined-bachelor-bachelorette">
+        {() => {
+          const [, navigate] = useLocation();
+          useEffect(() => {
+            navigate('/combined-bachelor-bachelorette-austin', { replace: true });
           }, [navigate]);
           return null;
         }}
@@ -229,7 +238,7 @@ function Router() {
         {() => {
           const [, navigate] = useLocation();
           useEffect(() => {
-            navigate('/combined-bachelor-bachelorette', { replace: true });
+            navigate('/combined-bachelor-bachelorette-austin', { replace: true });
           }, [navigate]);
           return null;
         }}
