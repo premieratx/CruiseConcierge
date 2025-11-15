@@ -282,7 +282,7 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
           </div>
 
           {/* Mobile Header Controls - flex-1 to push to right */}
-          <div className="flex lg:hidden flex-1 items-center justify-end gap-2">
+          <div className="lg:!hidden flex flex-1 items-center justify-end gap-2">
             {/* Mobile Get Quote Button */}
             <Button
               variant="outline"

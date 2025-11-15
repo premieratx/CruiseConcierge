@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
-import { Camera, X, ChevronLeft, ChevronRight, Ship, Sparkles, Users, Video as VideoIcon } from 'lucide-react';
+import { Camera, X, ChevronLeft, ChevronRight, Ship, Sparkles, Users, Video as VideoIcon, Calendar } from 'lucide-react';
 import { useLocation } from 'wouter';
 
 // Media Item type from Media Library
