@@ -34,14 +34,15 @@ import { combinedBachReviews } from '@shared/reviews-data';
 import { YouTubeVideoBackground } from '@/components/YouTubeVideoBackground';
 import AnimatedPhotoGallery from '@/components/AnimatedPhotoGallery';
 import { PARTY_PHOTOS, OTHER_ASSETS } from '@/lib/media';
+import { initXolaEmbeds } from '@/services/xola';
 
 // Hero and gallery images - ALL PARTY PHOTOS (no fleet boats)
 const heroImage1 = PARTY_PHOTOS.bachelorPartyGroup;
 const heroImage2 = PARTY_PHOTOS.atxDiscoCruiseParty;
-const heroImage3 = PARTY_PHOTOS.dancingPartyScene;
-const galleryImage1 = PARTY_PHOTOS.partyAtmosphere1;
-const galleryImage2 = PARTY_PHOTOS.partyAtmosphere2;
-const galleryImage3 = PARTY_PHOTOS.partyAtmosphere3;
+const heroImage3 = PARTY_PHOTOS.discoPhotoCollage1;
+const galleryImage1 = PARTY_PHOTOS.discoUnicornCollage;
+const galleryImage2 = PARTY_PHOTOS.familyPartyCollage;
+const galleryImage3 = PARTY_PHOTOS.nonBachCollage;
 const floatImage = OTHER_ASSETS.giantUnicornFloat;
 
 // Combined party packages - gender-neutral
@@ -249,6 +250,13 @@ export default function CombinedBachelorBachelorette() {
     return () => window.removeEventListener('message', handleMessage);
   }, [navigate, toast]);
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      initXolaEmbeds();
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, []);
+
   const handleGetQuote = (packageId?: string) => {
     const params = new URLSearchParams({ cruiseType: 'combined' });
     if (packageId) {
@@ -297,15 +305,15 @@ export default function CombinedBachelorBachelorette() {
             </Badge>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-              <Button
-                size="lg"
-                onClick={() => handleGetQuote()}
-                className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold text-lg px-8 py-6"
+              <div 
+                className="xola-embedded-checkout bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold text-lg px-8 py-6 rounded-md inline-flex items-center justify-center cursor-pointer transition-colors shadow-lg"
+                data-button-id="6915747a162501edc00f1519"
                 data-testid="button-hero-book-combined"
+                style={{minHeight: '56px'}}
               >
                 <Calendar className="mr-2 h-6 w-6" />
                 Book Your Combined Celebration!
-              </Button>
+              </div>
             </div>
           </div>
         </div>

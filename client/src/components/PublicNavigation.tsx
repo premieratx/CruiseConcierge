@@ -668,7 +668,7 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
             </Button>
             
             {/* Mobile Menu Book Now Button - Xola Embedded Checkout */}
-            <div className="xola-embedded-checkout" data-button-id="691574bd162501edc00f151a" style={{width: '100%', minHeight: '40px'}}></div>
+            <div className="xola-embedded-checkout" data-button-id="6915747a162501edc00f1519" style={{width: '100%', minHeight: '40px'}}></div>
           </div>
         </SheetContent>
       </Sheet>

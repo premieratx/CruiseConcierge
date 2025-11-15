@@ -46,5 +46,22 @@ export function initXolaEmbeds(container?: HTMLElement): void {
     return;
   }
   
+  // Method 3: Manual fallback - attach click handlers to all xola-embedded-checkout elements
+  if (window.Xola?.onClick) {
+    console.log('[Xola] Using manual onClick fallback');
+    const elements = (container || document).querySelectorAll('.xola-embedded-checkout');
+    elements.forEach(element => {
+      if (!element.hasAttribute('data-xola-initialized')) {
+        element.addEventListener('click', function(e) {
+          e.preventDefault();
+          console.log('[Xola] Manual click handler triggered');
+          window.Xola!.onClick(element);
+        });
+        element.setAttribute('data-xola-initialized', 'true');
+      }
+    });
+    return;
+  }
+  
   console.warn('[Xola] No init method available - Xola may not be fully loaded');
 }

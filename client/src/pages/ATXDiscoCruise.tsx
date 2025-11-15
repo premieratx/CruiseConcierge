@@ -62,11 +62,11 @@ import AnimatedPhotoGallery from '@/components/AnimatedPhotoGallery';
 import { PARTY_PHOTOS, OTHER_ASSETS } from '@/lib/media';
 
 const heroImage1 = PARTY_PHOTOS.atxDiscoCruiseParty;
-const heroImage2 = PARTY_PHOTOS.dancingPartyScene;
+const heroImage2 = PARTY_PHOTOS.discoPhotoCollage1;
 const heroImage3 = PARTY_PHOTOS.bachelorPartyGroup;
-const galleryImage1 = PARTY_PHOTOS.partyAtmosphere1;
-const galleryImage2 = PARTY_PHOTOS.partyAtmosphere2;
-const galleryImage3 = PARTY_PHOTOS.partyAtmosphere3;
+const galleryImage1 = PARTY_PHOTOS.discoUnicornCollage;
+const galleryImage2 = PARTY_PHOTOS.familyPartyCollage;
+const galleryImage3 = PARTY_PHOTOS.nonBachCollage;
 const floatImage = OTHER_ASSETS.giantUnicornFloat;
 
 const fadeInUp = {
