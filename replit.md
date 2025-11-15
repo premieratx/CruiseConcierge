@@ -53,6 +53,11 @@ Premier Party Cruises offers party boat rentals on Lake Travis, Austin, with two
    - Changed from scarcity messaging ("100 spots per cruise, 73% already booked") to promotional messaging
    - New text: "Book Now for early bird pricing and special deals"
    - Located in pricing section of ATX Disco Cruise page
+6. **ATX Disco Cruise Page Reorganization** (November 15, 2024):
+   - Moved party type tabs (Bachelor/Bachelorette/Combined) to appear AFTER "Included w/ EVERY ATX Disco Cruise Ticket" section
+   - Tabs now positioned directly above add-on packages section
+   - Tab selection dynamically updates add-on packages displayed
+   - Improved user flow: pricing → included items → select party type → view relevant packages
 
 ## System Architecture
 The system utilizes a modern web architecture featuring a **React + TypeScript + Vite** frontend, styled with **Tailwind CSS** and **shadcn/ui** components, and **Wouter** for routing. The backend is powered by **Express + Node.js** with **PostgreSQL** for data persistence.

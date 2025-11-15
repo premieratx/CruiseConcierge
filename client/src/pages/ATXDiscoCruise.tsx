@@ -480,8 +480,10 @@ export default function ATXDiscoCruise() {
                 </Badge>
               </div>
 
-              {/* Party Type Selector Tabs (MOVED HERE - ABOVE PRICING) */}
-              <div className="max-w-2xl mx-auto mb-12">
+              <DiscoCruisePricing partyType={selectedPartyType} showAddOns={false} />
+
+              {/* Party Type Selector Tabs - Below "Included w/ EVERY ATX Disco Cruise Ticket", Above Add-On Packages */}
+              <div className="max-w-2xl mx-auto mb-8 mt-12">
                 <Tabs value={selectedPartyType} onValueChange={(value) => setSelectedPartyType(value as DiscoPartyType)} className="w-full">
                   <TabsList className="grid w-full grid-cols-3 h-auto" data-testid="tabs-party-type">
                     <TabsTrigger 
@@ -509,9 +511,41 @@ export default function ATXDiscoCruise() {
                 </Tabs>
               </div>
 
-              <DiscoCruisePricing partyType={selectedPartyType} />
+              {/* Add-On Packages Section */}
+              <div className="mt-8">
+                <h3 className="text-2xl font-bold mb-4 text-center">
+                  {selectedPartyType === 'bachelor' && 'Bachelor Add-On Packages'}
+                  {selectedPartyType === 'bachelorette' && 'Bachelorette Add-On Packages'}
+                  {selectedPartyType === 'combined' && 'Combined Bach Add-On Packages'}
+                </h3>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {getPartyAddOns(selectedPartyType).map((addOn) => (
+                    <Card key={addOn.id} className="border-2 border-purple-200 dark:border-purple-800">
+                      <CardHeader className="bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-950/50 dark:to-pink-950/50">
+                        <div className="flex items-center justify-between">
+                          <CardTitle className="text-lg">{addOn.name}</CardTitle>
+                          <Badge className="bg-purple-600 text-white">
+                            ${(addOn.price / 100).toFixed(0)}
+                          </Badge>
+                        </div>
+                      </CardHeader>
+                      <CardContent className="pt-4">
+                        <div className="space-y-2">
+                          {addOn.inclusions.map((item, index) => (
+                            <div key={index} className="flex items-start gap-2">
+                              <Sparkles className="h-4 w-4 text-purple-600 flex-shrink-0 mt-0.5" />
+                              <span className="text-sm">{item}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </div>
 
-              {/* 2. QUOTE INCLUDED SECTION (What's Included With Every Ticket) */}
+              {/* Summary section moved after packages */}
               <div className="text-center bg-white rounded-2xl p-8 max-w-4xl mx-auto border-2 border-purple-200 mt-12">
                 <p className="text-lg text-gray-700 mb-4 leading-relaxed">
                   <strong>Every ticket includes:</strong> Professional DJ, Professional Photographer, Giant Floats, Party Supplies & More!
