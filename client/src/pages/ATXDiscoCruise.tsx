@@ -473,10 +473,10 @@ export default function ATXDiscoCruise() {
                 <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed mb-4">
                   Choose your time slot and add optional party packages. Looking for exclusive privacy? <InternalLinkHighlight href="/private-cruises" title="Private Cruises">Check out our private charter options</InternalLinkHighlight>
                 </p>
-                {/* Scarcity Indicator */}
+                {/* Early Bird Pricing Indicator */}
                 <Badge className="bg-orange-600 text-white px-6 py-3 text-base font-bold animate-bounce">
                   <Users className="h-4 w-4 mr-2 inline" />
-                  Only 100 Spots Per Cruise - 73% Already Booked for Peak Season
+                  Book Now for early bird pricing and special deals
                 </Badge>
               </div>
 

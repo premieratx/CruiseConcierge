@@ -49,6 +49,10 @@ Premier Party Cruises offers party boat rentals on Lake Travis, Austin, with two
    - "Build It Yourself" includes all real costs: boat base + DJ/Photo/Bartender ($600) + Party Supplies ($200) + Setup/hosting ($200) + Essentials Package ($100-200) + Ultimate Package ($250-350)
    - Added "PRICELESS" messaging for multi-group party atmosphere experience
    - All pricing calculations verified against authoritative PRIVATE_CRUISE_PRICING constants
+5. **ATX Disco Cruise Bouncing Badge** (November 15, 2024):
+   - Changed from scarcity messaging ("100 spots per cruise, 73% already booked") to promotional messaging
+   - New text: "Book Now for early bird pricing and special deals"
+   - Located in pricing section of ATX Disco Cruise page
 
 ## System Architecture
 The system utilizes a modern web architecture featuring a **React + TypeScript + Vite** frontend, styled with **Tailwind CSS** and **shadcn/ui** components, and **Wouter** for routing. The backend is powered by **Express + Node.js** with **PostgreSQL** for data persistence.
