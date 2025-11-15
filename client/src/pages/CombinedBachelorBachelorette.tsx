@@ -33,18 +33,16 @@ import Footer from '@/components/Footer';
 import { combinedBachReviews } from '@shared/reviews-data';
 import { YouTubeVideoBackground } from '@/components/YouTubeVideoBackground';
 import AnimatedPhotoGallery from '@/components/AnimatedPhotoGallery';
+import { PARTY_PHOTOS, OTHER_ASSETS } from '@/lib/media';
 
-// Hero and gallery images
-const heroImage1 = '/attached_assets/bachelor-party-group-guys.jpg';
-const heroImage2 = '/attached_assets/atx-disco-cruise-party.jpg';
-const heroImage3 = '/attached_assets/dancing-party-scene.jpg';
-const galleryImage1 = '/attached_assets/party-atmosphere-1.jpg';
-const galleryImage2 = '/attached_assets/party-atmosphere-2.jpg';
-const galleryImage3 = '/attached_assets/party-atmosphere-3.jpg';
-const boatImage1 = '/attached_assets/day-tripper-14-person-boat.jpg';
-const boatImage2 = '/attached_assets/meeseeks-25-person-boat.jpg';
-const boatImage3 = '/attached_assets/clever-girl-50-person-boat.jpg';
-const floatImage = '/attached_assets/giant-unicorn-float.jpg';
+// Hero and gallery images - ALL PARTY PHOTOS (no fleet boats)
+const heroImage1 = PARTY_PHOTOS.bachelorPartyGroup;
+const heroImage2 = PARTY_PHOTOS.atxDiscoCruiseParty;
+const heroImage3 = PARTY_PHOTOS.dancingPartyScene;
+const galleryImage1 = PARTY_PHOTOS.partyAtmosphere1;
+const galleryImage2 = PARTY_PHOTOS.partyAtmosphere2;
+const galleryImage3 = PARTY_PHOTOS.partyAtmosphere3;
+const floatImage = OTHER_ASSETS.giantUnicornFloat;
 
 // Combined party packages - gender-neutral
 // Prices stored in cents to match DISCO_TIME_SLOTS pattern
@@ -202,16 +200,16 @@ const faqItems = [
 ];
 
 
-// Photo gallery items
+// Photo gallery items - PARTY PHOTOS ONLY (no fleet boats)
 const galleryPhotos = [
-  { id: 1, src: heroImage2, alt: 'Combined Bachelor Bachelorette Austin party on Lake Travis party boat' },
-  { id: 2, src: heroImage3, alt: 'Party Boat Austin friends dancing on Lake Travis cruise' },
-  { id: 3, src: galleryImage1, alt: 'Combined Bachelor Bachelorette Austin mixed group party vibes on Lake Travis' },
-  { id: 4, src: floatImage, alt: 'Lake Travis Party floats on Party Boat Austin' },
+  { id: 1, src: heroImage1, alt: 'Combined Bachelor Bachelorette Austin party group on Lake Travis' },
+  { id: 2, src: heroImage2, alt: 'ATX Disco Cruise party atmosphere on Lake Travis' },
+  { id: 3, src: heroImage3, alt: 'Party Boat Austin friends dancing on Lake Travis cruise' },
+  { id: 4, src: galleryImage1, alt: 'Combined Bachelor Bachelorette Austin mixed group party vibes on Lake Travis' },
   { id: 5, src: galleryImage2, alt: 'Combined Bachelor Bachelorette Austin party atmosphere on Lake Travis' },
-  { id: 6, src: boatImage1, alt: 'Party Boat Austin Day Tripper on Lake Travis' },
-  { id: 7, src: galleryImage3, alt: 'Lake Travis Party celebration on Party Boat Austin' },
-  { id: 8, src: boatImage2, alt: 'Combined Bachelor Bachelorette Austin Meeseeks boat on Lake Travis' }
+  { id: 6, src: galleryImage3, alt: 'Lake Travis Party celebration on Party Boat Austin' },
+  { id: 7, src: floatImage, alt: 'Lake Travis Party floats on Party Boat Austin' },
+  { id: 8, src: heroImage1, alt: 'Bachelor and bachelorette groups celebrating together on Lake Travis' }
 ];
 
 export default function CombinedBachelorBachelorette() {

@@ -55,17 +55,18 @@ import { SchemaMarkup, generateEventSchema, generateProductSchema, generateFAQSc
 import { YouTubeVideoBackground } from '@/components/YouTubeVideoBackground';
 import { DiscoCruisePricing } from '@/components/DiscoCruisePricing';
 import AnimatedPhotoGallery from '@/components/AnimatedPhotoGallery';
+import { PARTY_PHOTOS, OTHER_ASSETS } from '@/lib/media';
 
-// Hero and gallery images
-const heroImage1 = '/attached_assets/bachelor-party-group-guys.webp';
-const heroImage2 = '/attached_assets/party-atmosphere-1.webp';
-const heroImage3 = '/attached_assets/party-atmosphere-2.webp';
-const galleryImage1 = '/attached_assets/day-tripper-14-person-boat.webp';
-const galleryImage2 = '/attached_assets/meeseeks-25-person-boat.webp';
-const galleryImage3 = '/attached_assets/clever-girl-50-person-boat.webp';
-const discoImage1 = '/attached_assets/atx-disco-cruise-party.webp';
-const discoImage2 = '/attached_assets/dancing-party-scene.webp';
-const floatImage = '/attached_assets/giant-unicorn-float.webp';
+// Hero and gallery images - ALL PARTY PHOTOS (no fleet boats)
+const heroImage1 = PARTY_PHOTOS.bachelorPartyGroup;
+const heroImage2 = PARTY_PHOTOS.partyAtmosphere1;
+const heroImage3 = PARTY_PHOTOS.partyAtmosphere2;
+const galleryImage1 = PARTY_PHOTOS.partyAtmosphere3;
+const galleryImage2 = PARTY_PHOTOS.atxDiscoCruiseParty;
+const galleryImage3 = PARTY_PHOTOS.dancingPartyScene;
+const discoImage1 = PARTY_PHOTOS.atxDiscoCruiseParty;
+const discoImage2 = PARTY_PHOTOS.dancingPartyScene;
+const floatImage = OTHER_ASSETS.giantUnicornFloat;
 
 // Animation variants
 const fadeInUp = {
