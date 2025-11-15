@@ -4,43 +4,18 @@ import { LazyImage } from '@/components/LazyImage';
 import Lightbox from '@/components/Lightbox';
 import { cn } from '@/lib/utils';
 
-// Party atmosphere photos with ATX Disco Cruise logo watermark
+// Party atmosphere photos with ATX Disco Cruise logo watermark - NO DUPLICATES
+// CRITICAL: Only party photos (NO empty boat/fleet photos!)
 const setA = [
   '/attached_assets/bachelor-party-group-guys.webp',
-  '/attached_assets/party-atmosphere-1.webp',
-  '/attached_assets/party-atmosphere-2.webp',
-  '/attached_assets/party-atmosphere-3.webp',
   '/attached_assets/atx-disco-cruise-party.webp',
   '/attached_assets/dancing-party-scene.webp',
-  '/attached_assets/bachelor-party-group-guys.webp',
-  '/attached_assets/party-atmosphere-1.webp',
-  '/attached_assets/party-atmosphere-2.webp',
-  '/attached_assets/party-atmosphere-3.webp',
-  '/attached_assets/atx-disco-cruise-party.webp',
-  '/attached_assets/dancing-party-scene.webp',
-  '/attached_assets/bachelor-party-group-guys.webp',
-  '/attached_assets/party-atmosphere-1.webp',
-  '/attached_assets/party-atmosphere-2.webp',
-  '/attached_assets/party-atmosphere-3.webp',
 ];
 
 const setB = [
-  '/attached_assets/atx-disco-cruise-party.webp',
-  '/attached_assets/dancing-party-scene.webp',
-  '/attached_assets/bachelor-party-group-guys.webp',
   '/attached_assets/party-atmosphere-1.webp',
   '/attached_assets/party-atmosphere-2.webp',
   '/attached_assets/party-atmosphere-3.webp',
-  '/attached_assets/atx-disco-cruise-party.webp',
-  '/attached_assets/dancing-party-scene.webp',
-  '/attached_assets/bachelor-party-group-guys.webp',
-  '/attached_assets/party-atmosphere-1.webp',
-  '/attached_assets/party-atmosphere-2.webp',
-  '/attached_assets/party-atmosphere-3.webp',
-  '/attached_assets/atx-disco-cruise-party.webp',
-  '/attached_assets/dancing-party-scene.webp',
-  '/attached_assets/bachelor-party-group-guys.webp',
-  '/attached_assets/party-atmosphere-1.webp',
 ];
 
 interface LightboxImage {
@@ -67,13 +42,13 @@ export default function AnimatedPhotoGallery() {
   useEffect(() => {
     const interval = setInterval(() => {
       setShowSetA((prev) => !prev);
-    }, 3000);
+    }, 5000); // 5 seconds between photo switches
 
     return () => clearInterval(interval);
   }, []);
 
   const handlePhotoClick = (photoIndex: number) => {
-    const globalIndex = showSetA ? photoIndex : photoIndex + 16;
+    const globalIndex = showSetA ? photoIndex : photoIndex + 3;
     setLightboxIndex(globalIndex);
     setLightboxOpen(true);
   };
@@ -103,7 +78,7 @@ export default function AnimatedPhotoGallery() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.5 }}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6"
             data-testid="photo-grid"
           >
             {currentSet.map((photo, index) => (
@@ -120,7 +95,7 @@ export default function AnimatedPhotoGallery() {
               >
                 <LazyImage
                   src={photo}
-                  alt={`Premier Party Cruises - Lake Travis Party Photo ${showSetA ? index + 1 : index + 17}`}
+                  alt={`Premier Party Cruises - Lake Travis Party Photo ${showSetA ? index + 1 : index + 4}`}
                   className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
