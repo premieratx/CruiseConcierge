@@ -266,8 +266,8 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
         )}
       >
         <div className="mx-auto flex max-w-7xl items-center gap-4 px-6 lg:px-10" style={{ height: '5rem' }}>
-          {/* Logo - Left Section (equal flex for proper centering) */}
-          <div className="flex items-center lg:flex-1">
+          {/* Logo - Left Section (fixed width, no growth) */}
+          <div className="flex items-center lg:flex-none">
             <a 
               href="/"
               className="flex items-center group"
@@ -317,8 +317,8 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
             </button>
           </div>
 
-          {/* Desktop Navigation - Flexbox centered */}
-          <div className="ppc-public-nav-center hidden lg:flex flex-1 justify-center items-center">
+          {/* Desktop Navigation - Flexbox centered (takes remaining space, can shrink) */}
+          <div className="ppc-public-nav-center hidden lg:flex flex-1 min-w-0 justify-center items-center">
               <NavigationMenu className="overflow-visible">
                 <NavigationMenuList className="flex items-center space-x-0 overflow-visible">
                 {navigationItems.map((item) => (
@@ -326,7 +326,7 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
                     <NavigationMenuItem key={item.href}>
                       <NavigationMenuTrigger 
                         className={cn(
-                          "flex items-center space-x-1 px-2 lg:px-3 py-2 font-semibold text-sm",
+                          "flex items-center space-x-1 px-2 py-2 font-semibold text-sm",
                           (location.startsWith('/private-cruises') || 
                           location.startsWith('/corporate-events') ||
                           location.startsWith('/birthday-parties') ||
@@ -393,7 +393,7 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
                         href={item.href}
                         className={cn(
                           navigationMenuTriggerStyle(),
-                          "flex items-center space-x-1 font-semibold text-sm px-2 lg:px-3",
+                          "flex items-center space-x-1 font-semibold text-sm px-2",
                           location === item.href
                             ? "text-brand-blue bg-brand-blue/10"
                             : "text-gray-700 dark:text-gray-300"
@@ -415,8 +415,8 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
               </NavigationMenu>
             </div>
 
-          {/* Desktop CTA Buttons - Right Section (equal flex for proper centering) */}
-          <div className="ppc-public-nav-cta hidden lg:flex lg:flex-1 lg:justify-end gap-2">
+          {/* Desktop CTA Buttons - Right Section (fixed width, never shrinks/cuts off) */}
+          <div className="ppc-public-nav-cta hidden lg:flex lg:flex-none lg:flex-shrink-0 lg:justify-end gap-2">
               <Button
                 variant="outline"
                 onClick={handleGetQuote}
