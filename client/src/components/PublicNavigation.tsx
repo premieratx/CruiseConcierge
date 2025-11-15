@@ -415,26 +415,26 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
               </NavigationMenu>
             </div>
 
-          {/* Desktop CTA Buttons - Right Section (stacked vertically to save space) */}
-          <div className="ppc-public-nav-cta hidden lg:flex lg:flex-col lg:flex-none lg:flex-shrink-0 lg:justify-center gap-1.5 ml-2">
+          {/* Desktop CTA Buttons - Right Section (fixed width, text wraps when needed) */}
+          <div className="ppc-public-nav-cta hidden lg:flex lg:flex-none lg:flex-shrink-0 lg:justify-end gap-2">
               <Button
                 variant="outline"
                 onClick={handleGetQuote}
-                className="border-2 border-brand-blue text-brand-blue hover:bg-brand-blue hover:text-white font-bold px-3 py-1.5 text-xs whitespace-nowrap h-auto"
+                className="border-2 border-brand-blue text-brand-blue hover:bg-brand-blue hover:text-white font-bold px-3 py-1.5 tracking-wide text-xs leading-tight min-w-[80px] max-w-[100px]"
                 data-testid="button-header-get-quote"
               >
-                <MessageSquare className="mr-1 h-3.5 w-3.5" />
-                <span data-editable data-editable-id="header-get-quote-button">Get My Quote</span>
+                <MessageSquare className="mr-1 h-4 w-4 flex-shrink-0" />
+                <span className="text-center leading-tight" data-editable data-editable-id="header-get-quote-button">Get My Quote</span>
               </Button>
               
               {/* Desktop Book Now Button */}
               <Button
                 onClick={() => window.open('https://x2-checkout.xola.app/flows/mvp?button=691574bd162501edc00f151a&view=grid', '_blank')}
-                className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold px-3 py-1.5 text-xs whitespace-nowrap shadow-md h-auto"
+                className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold px-3 py-1.5 tracking-wide text-xs leading-tight shadow-md min-w-[70px] max-w-[90px]"
                 data-testid="button-header-book-now"
               >
-                <Calendar className="mr-1 h-3.5 w-3.5" />
-                Book Now
+                <Calendar className="mr-1 h-4 w-4 flex-shrink-0" />
+                <span className="text-center leading-tight">Book Now</span>
               </Button>
           </div>
         </div>
