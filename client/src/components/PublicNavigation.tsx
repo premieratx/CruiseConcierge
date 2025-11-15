@@ -265,9 +265,9 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
             : "bg-white/90 dark:bg-gray-950/90 backdrop-blur-sm"
         )}
       >
-        <div className="mx-auto flex max-w-7xl items-center gap-4 px-6 lg:px-10" style={{ height: '5rem' }}>
-          {/* Logo - Left Section (fixed width, no growth) */}
-          <div className="flex items-center lg:flex-none">
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-2 px-6 lg:px-10" style={{ height: '5rem' }}>
+          {/* Logo - Left */}
+          <div className="flex items-center flex-shrink-0">
             <a 
               href="/"
               className="flex items-center group"
@@ -317,10 +317,10 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
             </button>
           </div>
 
-          {/* Desktop Navigation - Flexbox centered (takes remaining space, can shrink) */}
-          <div className="ppc-public-nav-center hidden lg:flex flex-1 min-w-0 justify-center items-center">
+          {/* Desktop Navigation - Left-to-right flow */}
+          <div className="ppc-public-nav-center hidden lg:flex items-center">
               <NavigationMenu className="overflow-visible">
-                <NavigationMenuList className="flex items-center space-x-0 overflow-visible">
+                <NavigationMenuList className="flex items-center space-x-1 overflow-visible">
                 {navigationItems.map((item) => (
                   item.hasDropdown ? (
                     <NavigationMenuItem key={item.href}>
@@ -413,8 +413,8 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
               </NavigationMenu>
             </div>
 
-          {/* Desktop CTA Buttons - Right Section (fixed width, never shrinks) */}
-          <div className="ppc-public-nav-cta hidden lg:flex lg:flex-none lg:flex-shrink-0 lg:justify-end gap-2">
+          {/* Desktop CTA Buttons - Right */}
+          <div className="ppc-public-nav-cta hidden lg:flex flex-shrink-0 items-center gap-2">
               <Button
                 variant="outline"
                 onClick={handleGetQuote}
