@@ -13,12 +13,17 @@ export interface PhotoAsset {
 export type PhotoCategory = 'party' | 'fleet';
 
 /**
- * PARTY ATMOSPHERE PHOTOS - Photos with ATX Disco Cruise logo
- * These show the party vibe, NOT the boats themselves
+ * PARTY ATMOSPHERE PHOTOS - Photos showing people celebrating (NOT empty boats)
+ * VERIFIED PARTY COLLAGES - These show REAL party scenes with people
  */
 export const PARTY_PHOTOS = {
   bachelorPartyGroup: '/attached_assets/bachelor-party-group-guys.webp',
-  atxDiscoCruiseParty: '/attached_assets/atx-disco-cruise-party.webp',
+  atxDiscoCruiseParty: '/attached_assets/atx-disco-cruise-party.jpg',
+  discoPhotoCollage1: '/attached_assets/disco photo collage_1759401302941.png',
+  discoUnicornCollage: '/attached_assets/disco unicorn collage - web_1759401302953.png',
+  familyPartyCollage: '/attached_assets/father\'s day_family party collage_1759401302954.png',
+  nonBachCollage: '/attached_assets/non-bach collage compressed_1759401302954.png',
+  // DEPRECATED - These files are MISLABELED and contain EMPTY BOAT photos (not party scenes)
   dancingPartyScene: '/attached_assets/dancing-party-scene.webp',
   partyAtmosphere1: '/attached_assets/party-atmosphere-1.webp',
   partyAtmosphere2: '/attached_assets/party-atmosphere-2.webp',
@@ -50,10 +55,10 @@ export function getPartyGallery(limit?: number): PhotoAsset[] {
   const allPhotos: PhotoAsset[] = [
     { src: PARTY_PHOTOS.bachelorPartyGroup, alt: 'Bachelor and bachelorette party group celebrating on Lake Travis cruise' },
     { src: PARTY_PHOTOS.atxDiscoCruiseParty, alt: 'ATX Disco Cruise party atmosphere on Lake Travis' },
-    { src: PARTY_PHOTOS.dancingPartyScene, alt: 'Dancing and celebration on party boat cruise' },
-    { src: PARTY_PHOTOS.partyAtmosphere1, alt: 'Party vibes and celebration on Lake Travis' },
-    { src: PARTY_PHOTOS.partyAtmosphere2, alt: 'Friends celebrating on Austin party boat' },
-    { src: PARTY_PHOTOS.partyAtmosphere3, alt: 'Lake Travis party atmosphere and festivities' },
+    { src: PARTY_PHOTOS.discoPhotoCollage1, alt: 'Disco cruise party collage with guests celebrating' },
+    { src: PARTY_PHOTOS.discoUnicornCollage, alt: 'Disco party celebration with unicorn float' },
+    { src: PARTY_PHOTOS.familyPartyCollage, alt: 'Family party celebration on Lake Travis' },
+    { src: PARTY_PHOTOS.nonBachCollage, alt: 'Party atmosphere and celebration on Lake Travis cruise' },
   ];
   
   return limit ? allPhotos.slice(0, limit) : allPhotos;

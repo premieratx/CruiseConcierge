@@ -458,37 +458,29 @@ export default function ATXDiscoCruise() {
         {/* Table of Contents */}
         <TableOfContents sections={tocSections} />
 
-        {/* Quote Builder Section */}
-        <QuoteBuilderSection />
-
-        {/* Photo Gallery Section */}
+        {/* 1. PRICING - Friday/Saturday Time Slots (MOVED TO TOP) */}
         <SectionReveal>
-          <section className="py-16 bg-white dark:bg-gray-950">
-            <div className="container mx-auto px-4">
-              <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">
-                Real ATX Disco Cruise Party Photos
-              </h2>
-              <p className="text-center text-gray-600 dark:text-gray-400 mb-12 max-w-2xl mx-auto">
-                See what past groups experienced on Lake Travis! Click any photo to view full gallery.
-              </p>
-              <AnimatedPhotoGallery />
-            </div>
-          </section>
-        </SectionReveal>
-
-        {/* Party Type Selector Section */}
-        <SectionReveal>
-          <section className="py-12 md:py-16 bg-gradient-to-br from-purple-50 to-pink-50">
+          <section className="py-12 md:py-20 bg-white" id="packages" data-testid="section-packages">
             <div className="max-w-7xl mx-auto px-4 sm:px-6">
-              <div className="text-center mb-8">
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-playfair text-center mb-4 text-gray-900 leading-tight">
-                  Select Your Party Type
+              <div className="text-center mb-16">
+                <Badge className="mb-6 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-4 sm:px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
+                  <Package className="h-4 w-4 mr-2 inline" />
+                  Pricing & Time Slots
+                </Badge>
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
+                  ATX Disco Cruise Pricing
                 </h2>
-                <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
-                  Choose your party type to see pricing and available add-on packages
+                <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed mb-4">
+                  Choose your time slot and add optional party packages. Looking for exclusive privacy? <InternalLinkHighlight href="/private-cruises" title="Private Cruises">Check out our private charter options</InternalLinkHighlight>
                 </p>
+                {/* Scarcity Indicator */}
+                <Badge className="bg-orange-600 text-white px-6 py-3 text-base font-bold animate-bounce">
+                  <Users className="h-4 w-4 mr-2 inline" />
+                  Only 100 Spots Per Cruise - 73% Already Booked for Peak Season
+                </Badge>
               </div>
 
+              {/* Party Type Selector Tabs (MOVED HERE - ABOVE PRICING) */}
               <div className="max-w-2xl mx-auto mb-12">
                 <Tabs value={selectedPartyType} onValueChange={(value) => setSelectedPartyType(value as DiscoPartyType)} className="w-full">
                   <TabsList className="grid w-full grid-cols-3 h-auto" data-testid="tabs-party-type">
@@ -516,6 +508,37 @@ export default function ATXDiscoCruise() {
                   </TabsList>
                 </Tabs>
               </div>
+
+              <DiscoCruisePricing partyType={selectedPartyType} />
+
+              {/* 2. QUOTE INCLUDED SECTION (What's Included With Every Ticket) */}
+              <div className="text-center bg-white rounded-2xl p-8 max-w-4xl mx-auto border-2 border-purple-200 mt-12">
+                <p className="text-lg text-gray-700 mb-4 leading-relaxed">
+                  <strong>Every ticket includes:</strong> Professional DJ, Professional Photographer, Giant Floats, Party Supplies & More!
+                </p>
+                <Badge className="bg-green-600 text-white font-sans tracking-wider font-bold uppercase text-sm px-6 py-3">
+                  <TrendingUp className="h-4 w-4 mr-2 inline" />
+                  Best Value for Bachelor & Bachelorette Parties
+                </Badge>
+              </div>
+            </div>
+          </section>
+        </SectionReveal>
+
+        {/* Quote Builder Section */}
+        <QuoteBuilderSection />
+
+        {/* Photo Gallery Section */}
+        <SectionReveal>
+          <section className="py-16 bg-white dark:bg-gray-950">
+            <div className="container mx-auto px-4">
+              <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">
+                Real ATX Disco Cruise Party Photos
+              </h2>
+              <p className="text-center text-gray-600 dark:text-gray-400 mb-12 max-w-2xl mx-auto">
+                See what past groups experienced on Lake Travis! Click any photo to view full gallery.
+              </p>
+              <AnimatedPhotoGallery />
             </div>
           </section>
         </SectionReveal>
@@ -699,43 +722,6 @@ export default function ATXDiscoCruise() {
           </section>
         </SectionReveal>
 
-        {/* 3. PRICING - Time Slot & Add-Ons Section */}
-        <SectionReveal>
-          <section className="py-12 md:py-20 bg-white" id="packages" data-testid="section-packages">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6">
-              <div className="text-center mb-16">
-                <Badge className="mb-6 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-4 sm:px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
-                  <Package className="h-4 w-4 mr-2 inline" />
-                  Pricing & Time Slots
-                </Badge>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
-                  ATX Disco Cruise Pricing
-                </h2>
-                <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed mb-4">
-                  Choose your time slot and add optional party packages. Looking for exclusive privacy? <InternalLinkHighlight href="/private-cruises" title="Private Cruises">Check out our private charter options</InternalLinkHighlight>
-                </p>
-                {/* Scarcity Indicator */}
-                <Badge className="bg-orange-600 text-white px-6 py-3 text-base font-bold animate-bounce">
-                  <Users className="h-4 w-4 mr-2 inline" />
-                  Only 100 Spots Per Cruise - 73% Already Booked for Peak Season
-                </Badge>
-              </div>
-
-              <DiscoCruisePricing partyType={selectedPartyType} />
-
-              <div className="text-center bg-white rounded-2xl p-8 max-w-4xl mx-auto border-2 border-purple-200 mt-12">
-                <p className="text-lg text-gray-700 mb-4 leading-relaxed">
-                  <strong>Every ticket includes:</strong> Professional DJ, Professional Photographer, Giant Floats, Party Supplies & More!
-                </p>
-                <Badge className="bg-green-600 text-white font-sans tracking-wider font-bold uppercase text-sm px-6 py-3">
-                  <TrendingUp className="h-4 w-4 mr-2 inline" />
-                  Best Value for Bachelor & Bachelorette Parties
-                </Badge>
-              </div>
-            </div>
-          </section>
-        </SectionReveal>
-
         {/* 4. AVAILABILITY / BOOKING */}
         <SectionReveal>
           <section id="availability" className="py-12 md:py-20 bg-gradient-to-br from-purple-50 to-pink-50">
@@ -763,7 +749,7 @@ export default function ATXDiscoCruise() {
                   </CardHeader>
                   <CardContent className="text-center">
                     <p className="text-gray-700 leading-relaxed mb-4">
-                      ATX Disco Cruises run <strong>Saturdays</strong> from 11:00 AM - 3:00 PM or 3:30 PM - 7:30 PM during season (March-October).
+                      ATX Disco Cruises run <strong>Fridays 12–4 PM</strong> and <strong>Saturdays</strong> from 11:00 AM - 3:00 PM or 3:30 PM - 7:30 PM during season (March-October).
                     </p>
                     <Badge className="bg-purple-600 text-white">
                       4-Hour Party Experience
