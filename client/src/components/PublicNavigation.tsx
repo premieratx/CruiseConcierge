@@ -576,6 +576,7 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
               className="xola-custom xola-checkout w-full"
               data-button-id="691574bd162501edc00f151a"
               data-testid="button-mobile-menu-book-now"
+              onClick={() => setMobileMenuOpen(false)}
             >
               <button className="w-full bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold py-3 shadow-md rounded-md inline-flex items-center justify-center transition-colors">
                 <Calendar className="mr-2 h-5 w-5" />
@@ -682,6 +683,7 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
               className="xola-custom xola-checkout w-full"
               data-button-id="691574bd162501edc00f151a"
               data-testid="button-mobile-menu-book-now-bottom"
+              onClick={() => setMobileMenuOpen(false)}
             >
               <button className="w-full bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold py-3 shadow-md rounded-md inline-flex items-center justify-center transition-colors">
                 <Calendar className="mr-2 h-5 w-5" />
