@@ -24,12 +24,12 @@ export function loadXolaScript(): Promise<void> {
 
 /**
  * Re-initialize Xola embeds within a specific container or entire document
- * Call this after React renders new .xola-embedded-checkout or .xola-checkout divs
+ * Call this after React renders new .xola-checkout divs
  */
 export function initXolaEmbeds(container?: HTMLElement): void {
   if (typeof window === 'undefined') return;
   
-  // Xola's checkout.js automatically scans for elements with xola-checkout and xola-embedded-checkout classes
+  // Xola's checkout.js automatically scans for elements with xola-checkout class
   // We just need to trigger a re-scan after React renders new elements
   
   // Method 1: Try Controls.reload() if available (production Xola build)
@@ -46,10 +46,10 @@ export function initXolaEmbeds(container?: HTMLElement): void {
     return;
   }
   
-  // Method 3: Manual fallback - attach click handlers to all xola-embedded-checkout elements
+  // Method 3: Manual fallback - attach click handlers to all xola-checkout elements
   if (window.Xola?.onClick) {
     console.log('[Xola] Using manual onClick fallback');
-    const elements = (container || document).querySelectorAll('.xola-embedded-checkout');
+    const elements = (container || document).querySelectorAll('.xola-checkout');
     elements.forEach(element => {
       if (!element.hasAttribute('data-xola-initialized')) {
         element.addEventListener('click', function(e) {

@@ -295,15 +295,17 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
               Get My Quote
             </Button>
             
-            {/* Mobile Book Now Button - Xola Embedded Checkout Slide-out */}
-            <button
-              className="xola-embedded-checkout bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold px-2 py-1.5 text-xs whitespace-nowrap h-9 shadow-md rounded-md inline-flex items-center justify-center transition-colors"
+            {/* Mobile Book Now Button - Xola Checkout */}
+            <div
+              className="xola-custom xola-checkout inline-block"
               data-button-id="691574bd162501edc00f151a"
               data-testid="button-mobile-header-book-now"
             >
-              <Calendar className="h-3.5 w-3.5 mr-1" />
-              Book Now
-            </button>
+              <button className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold px-2 py-1.5 text-xs whitespace-nowrap h-9 shadow-md rounded-md inline-flex items-center justify-center transition-colors">
+                <Calendar className="h-3.5 w-3.5 mr-1" />
+                Book Now
+              </button>
+            </div>
 
             {/* Hamburger Menu Button */}
             <button
@@ -424,15 +426,17 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
                 <span data-editable data-editable-id="header-get-quote-button">Get My Quote</span>
               </Button>
               
-              {/* Desktop Book Now Button - Xola Embedded Checkout Slide-out */}
-              <button
-                className="xola-embedded-checkout bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold px-4 py-2 tracking-wide text-sm whitespace-nowrap shadow-md rounded-md inline-flex items-center justify-center transition-colors"
+              {/* Desktop Book Now Button - Xola Checkout */}
+              <div
+                className="xola-custom xola-checkout"
                 data-button-id="691574bd162501edc00f151a"
                 data-testid="button-header-book-now"
               >
-                <Calendar className="mr-1.5 h-4 w-4" />
-                Book Now
-              </button>
+                <button className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold px-4 py-2 tracking-wide text-sm whitespace-nowrap shadow-md rounded-md inline-flex items-center justify-center transition-colors">
+                  <Calendar className="mr-1.5 h-4 w-4" />
+                  Book Now
+                </button>
+              </div>
           </div>
         </div>
       </header>
@@ -537,18 +541,22 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
             <span className="text-[10px] font-medium">Quote</span>
           </button>
 
-          {/* Book Now Button - Xola Embedded Checkout Slide-out */}
-          <button
-            className={cn(
-              "xola-embedded-checkout flex flex-col items-center justify-center min-h-[44px] px-2 py-1 rounded-lg transition-all duration-200",
-              "text-gray-600 dark:text-gray-400 hover:text-brand-blue hover:bg-brand-blue/5"
-            )}
+          {/* Book Now Button - Xola Checkout */}
+          <div
+            className="xola-custom xola-checkout"
             data-button-id="691574bd162501edc00f151a"
             data-testid="button-bottom-nav-book-now"
           >
-            <Calendar className="h-5 w-5 mb-0.5" />
-            <span className="text-[10px] font-medium">Book</span>
-          </button>
+            <button
+              className={cn(
+                "flex flex-col items-center justify-center min-h-[44px] px-2 py-1 rounded-lg transition-all duration-200",
+                "text-gray-600 dark:text-gray-400 hover:text-brand-blue hover:bg-brand-blue/5"
+              )}
+            >
+              <Calendar className="h-5 w-5 mb-0.5" />
+              <span className="text-[10px] font-medium">Book</span>
+            </button>
+          </div>
         </div>
       </nav>
 
@@ -562,16 +570,18 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
             <SheetTitle>Menu</SheetTitle>
           </SheetHeader>
 
-          {/* Book Now Button at Top of Mobile Menu - Xola Embedded Checkout Slide-out */}
+          {/* Book Now Button at Top of Mobile Menu - Xola Checkout */}
           <div className="mt-4 px-3">
-            <button
-              className="xola-embedded-checkout w-full bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold py-3 shadow-md rounded-md inline-flex items-center justify-center transition-colors"
+            <div
+              className="xola-custom xola-checkout w-full"
               data-button-id="691574bd162501edc00f151a"
               data-testid="button-mobile-menu-book-now"
             >
-              <Calendar className="mr-2 h-5 w-5" />
-              Book Now
-            </button>
+              <button className="w-full bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold py-3 shadow-md rounded-md inline-flex items-center justify-center transition-colors">
+                <Calendar className="mr-2 h-5 w-5" />
+                Book Now
+              </button>
+            </div>
           </div>
           
           <nav className="mt-6 space-y-1" data-testid="mobile-menu-nav">
@@ -667,15 +677,17 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
               GET QUOTE
             </Button>
             
-            {/* Mobile Menu Book Now Button - Xola Embedded Checkout Slide-out */}
-            <button
-              className="xola-embedded-checkout w-full bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold py-3 shadow-md rounded-md inline-flex items-center justify-center transition-colors"
+            {/* Mobile Menu Book Now Button - Xola Checkout */}
+            <div
+              className="xola-custom xola-checkout w-full"
               data-button-id="691574bd162501edc00f151a"
               data-testid="button-mobile-menu-book-now-bottom"
             >
-              <Calendar className="mr-2 h-5 w-5" />
-              Book Now
-            </button>
+              <button className="w-full bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold py-3 shadow-md rounded-md inline-flex items-center justify-center transition-colors">
+                <Calendar className="mr-2 h-5 w-5" />
+                Book Now
+              </button>
+            </div>
           </div>
         </SheetContent>
       </Sheet>
