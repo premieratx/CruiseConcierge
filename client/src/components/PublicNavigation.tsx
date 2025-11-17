@@ -259,7 +259,7 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
       {/* Sticky Header - Flexbox Layout */}
       <header 
         className={cn(
-          "ppc-public-nav sticky top-0 inset-x-0 z-[1100] w-full transition-all duration-300",
+          "ppc-public-nav sticky top-0 inset-x-0 z-50 w-full transition-all duration-300",
           isScrolled 
             ? "bg-white/95 dark:bg-gray-950/95 backdrop-blur-lg shadow-lg border-b border-gray-200 dark:border-gray-800" 
             : "bg-white/90 dark:bg-gray-950/90 backdrop-blur-sm"
