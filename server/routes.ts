@@ -621,10 +621,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       // List of React blog routes that should skip database lookup
       // These are full React components served client-side
-      const reactBlogSlugs = [
-        'atx-disco-cruise-experience',
-        'first-time-lake-travis-boat-rental-essential-tips-for-austin-party-planning',
-      ];
+      // REMOVED: All blog routes now go through SSR for proper Article schema generation
+      const reactBlogSlugs: string[] = [];
       
       if (reactBlogSlugs.includes(slug)) {
         console.log(`✅ [Blog SSR] React blog route detected, skipping DB: ${slug}`);

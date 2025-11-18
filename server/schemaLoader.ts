@@ -95,6 +95,7 @@ export function generateArticleSchema(blogPost: {
   content?: string;
   featuredImage?: string;
   publishedAt?: Date | string;
+  modifiedAt?: Date | string;
   author?: {
     name: string;
   };
@@ -102,6 +103,10 @@ export function generateArticleSchema(blogPost: {
   const publishDate = blogPost.publishedAt 
     ? new Date(blogPost.publishedAt).toISOString()
     : new Date().toISOString();
+  
+  const modifiedDate = blogPost.modifiedAt 
+    ? new Date(blogPost.modifiedAt).toISOString()
+    : publishDate;
 
   const baseDomain = getBaseDomain(req);
   const defaultUrl = `${baseDomain}/blogs/${blogPost.slug}`;
@@ -117,7 +122,7 @@ export function generateArticleSchema(blogPost: {
     "description": blogPost.excerpt || blogPost.content?.substring(0, 160) || '',
     "image": blogPost.featuredImage || defaultImage,
     "datePublished": publishDate,
-    "dateModified": publishDate,
+    "dateModified": modifiedDate,
     "author": {
       "@type": "Person",
       "name": blogPost.author?.name || "Premier Party Cruises"

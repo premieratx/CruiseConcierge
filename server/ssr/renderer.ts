@@ -6,6 +6,7 @@ import { resolveAsset } from "../utils/viteManifest";
 import { PAGE_CONTENT, PageContent, PageSection, LINK_CATALOG } from './pageContent';
 import { getSchemaForRoute, generateArticleSchema, isBlogPostRoute } from '../schemaLoader';
 import { isStaticBlogRoute, getStaticBlogMetadata } from '../staticBlogMetadata';
+import { getBlogMetadata } from '../blogMetadataRegistry';
 import { storage } from '../storage';
 import { getCanonicalUrl } from '../utils/domain';
 
@@ -1010,19 +1011,29 @@ async function renderPage(url: string, req: Request): Promise<string> {
     
     // Check if it's a blog post (only /blogs/ - /blog/ redirects to /blogs/)
     if (pathname.startsWith('/blogs/')) {
-      const slug = pathname.slice('/blogs/'.length);
-      blogData = await fetchBlogPost(slug);
-      
-      if (blogData && blogData.post) {
-        h1 = blogData.post.title;
-        // CRITICAL FIX: Inject FULL blog content for SEO (not just excerpt)
-        content = blogData.post.content || blogData.post.excerpt || '';
-        metaTitle = `${blogData.post.title} | Premier Party Cruises Blog`;
-        // Generate unique meta description from content if not set
-        const uniqueDescription = blogData.post.metaDescription || 
-                                  blogData.post.excerpt || 
-                                  (blogData.post.content ? blogData.post.content.substring(0, 160) : '');
-        metaDescription = uniqueDescription;
+      // First check blog registry for React component blogs
+      const blogMeta = getBlogMetadata(pathname);
+      if (blogMeta) {
+        h1 = blogMeta.title;
+        content = blogMeta.description;
+        metaTitle = blogMeta.title;
+        metaDescription = blogMeta.description;
+      } else {
+        // Fallback to database for CMS blogs
+        const slug = pathname.slice('/blogs/'.length);
+        blogData = await fetchBlogPost(slug);
+        
+        if (blogData && blogData.post) {
+          h1 = blogData.post.title;
+          // CRITICAL FIX: Inject FULL blog content for SEO (not just excerpt)
+          content = blogData.post.content || blogData.post.excerpt || '';
+          metaTitle = `${blogData.post.title} | Premier Party Cruises Blog`;
+          // Generate unique meta description from content if not set
+          const uniqueDescription = blogData.post.metaDescription || 
+                                    blogData.post.excerpt || 
+                                    (blogData.post.content ? blogData.post.content.substring(0, 160) : '');
+          metaDescription = uniqueDescription;
+        }
       }
     } else if (pathname === '/blogs') {
       // Main blog listing page (canonical URL)
@@ -1071,21 +1082,30 @@ async function renderPage(url: string, req: Request): Promise<string> {
         content = `<p style="font-size: 1.125rem; line-height: 1.75; color: #374151; margin-bottom: 2rem;">${intro}</p>`;
       }
     } else {
-      // Use predefined metadata for marketing pages
-      const pageData = PAGE_METADATA[pathname];
-      if (pageData) {
-        h1 = pageData.h1;
-        content = pageData.content;
-      }
-      
-      // Fetch SEO metadata from API
-      const seoData = await fetchSEOMetadata(pathname);
-      if (seoData) {
-        metaTitle = seoData.metaTitle || h1;
-        metaDescription = seoData.metaDescription || content;
+      // Check if it's a blog page in the registry
+      const blogMeta = getBlogMetadata(pathname);
+      if (blogMeta) {
+        h1 = blogMeta.title;
+        content = blogMeta.description;
+        metaTitle = blogMeta.title;
+        metaDescription = blogMeta.description;
       } else {
-        metaTitle = h1;
-        metaDescription = content;
+        // Use predefined metadata for marketing pages
+        const pageData = PAGE_METADATA[pathname];
+        if (pageData) {
+          h1 = pageData.h1;
+          content = pageData.content;
+        }
+        
+        // Fetch SEO metadata from API
+        const seoData = await fetchSEOMetadata(pathname);
+        if (seoData) {
+          metaTitle = seoData.metaTitle || h1;
+          metaDescription = seoData.metaDescription || content;
+        } else {
+          metaTitle = h1;
+          metaDescription = content;
+        }
       }
     }
     
@@ -1200,6 +1220,27 @@ ${JSON.stringify(articleSchema, null, 2)}
 ${JSON.stringify(articleSchema, null, 2)}
   </script>`;
       }
+    }
+    
+    // Add Article schema for blog registry pages (comprehensive coverage for all blog pages)
+    const blogRegistryMeta = getBlogMetadata(pathname);
+    if (blogRegistryMeta) {
+      const canonicalUrl = getCanonicalUrl(pathname, req);
+      
+      const articleSchema = generateArticleSchema({
+        title: blogRegistryMeta.title,
+        slug: blogRegistryMeta.slug,
+        excerpt: blogRegistryMeta.description,
+        featuredImage: blogRegistryMeta.heroImage,
+        publishedAt: blogRegistryMeta.publishDate,
+        modifiedAt: blogRegistryMeta.modifiedDate,
+        author: { name: blogRegistryMeta.author }
+      }, canonicalUrl, req);
+      
+      schemaScripts += `
+  <script type="application/ld+json">
+${JSON.stringify(articleSchema, null, 2)}
+  </script>`;
     }
     
     // Add Review schemas for Testimonials page (enhances AggregateRating in rich results)

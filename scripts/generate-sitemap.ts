@@ -1,6 +1,9 @@
 import { writeFileSync } from 'fs';
 import { join } from 'path';
 
+// Import blog metadata registry for accurate lastmod dates
+import { getBlogMetadata } from '../server/blogMetadataRegistry';
+
 // Production domain
 const DOMAIN = 'https://premierpartycruises.com';
 
@@ -115,6 +118,15 @@ function generateSitemapUrls(): SitemapUrl[] {
     // Determine priority based on page type
     let priority = 0.5; // Default
     let changefreq: SitemapUrl['changefreq'] = 'weekly';
+    let lastmod = currentDate; // Default to current date
+    
+    // Check if this path is in the blog metadata registry
+    const blogMeta = getBlogMetadata(path);
+    if (blogMeta) {
+      // Use modifiedDate or publishDate from blog registry for accurate lastmod
+      const dateToUse = blogMeta.modifiedDate || blogMeta.publishDate;
+      lastmod = new Date(dateToUse).toISOString().split('T')[0];
+    }
     
     if (path === '/') {
       // Homepage - highest priority
@@ -154,7 +166,7 @@ function generateSitemapUrls(): SitemapUrl[] {
     
     return {
       loc: `${DOMAIN}${path}`,
-      lastmod: currentDate,
+      lastmod,
       changefreq,
       priority
     };
