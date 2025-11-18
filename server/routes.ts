@@ -749,9 +749,11 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
       const metaTitle = post.metaTitle || post.title || "Blog Post";
       const metaDescription = post.metaDescription || post.excerpt || "";
       
+      // SEO FIX: Remove "| Premier Party Cruises" suffix to keep titles under 60 chars
+      // Google automatically appends site name in search results
       html = html.replace(
         /<title>.*?<\/title>/,
-        `<title>${metaTitle} | Premier Party Cruises</title>`
+        `<title>${metaTitle}</title>`
       );
       html = html.replace(
         /<meta name="description" content=".*?"\s*\/>/,

@@ -1,0 +1,420 @@
+Found 123 URLs in sitemap
+
+❌ FAIL (64 chars): /3-day-austin-bachelorette-itinerary
+   Title: "3-Day Austin Bachelorette Itinerary | The Ultimate Weekend Guide"
+
+❌ FAIL (70 chars): /adventure-austin-bachelorette
+   Title: "Adventure Austin Bachelorette Party | Outdoor Activities & Lake Travis"
+
+❌ FAIL (64 chars): /austin-bachelorette-nightlife
+   Title: "Austin Bachelorette Nightlife Guide | 6th Street & Rainey Street"
+
+❌ FAIL (67 chars): /budget-austin-bachelorette
+   Title: "Budget Austin Bachelorette Party Guide | Affordable Lake Travis Fun"
+
+❌ FAIL (79 chars): /first-time-lake-travis-boat-rental-guide
+   Title: "First-Time Lake Travis Boat Rental Guide | Essential Austin Party Planning Tips"
+
+❌ FAIL (65 chars): /luxury-austin-bachelorette
+   Title: "Luxury Austin Bachelorette Party | Premium Lake Travis Experience"
+
+❌ FAIL (100 chars): /blogs/accessible-lake-travis-boat-parties-inclusive-event-planning-for-all-guests
+   Title: "Accessible Lake Travis Boat Parties: Inclusive Event Planning for All Guests | Premier Party Cruises"
+
+❌ FAIL (83 chars): /blogs/atx-disco-cruise-experience
+   Title: "ATX Disco Cruise Do's and Don'ts: Epic Bachelor Party Guide | Premier Party Cruises"
+
+❌ FAIL (74 chars): /blogs/austin-bachelor-party-january
+   Title: "Austin Bachelor Party in January | Weather & Guide | Premier Party Cruises"
+
+❌ FAIL (71 chars): /blogs/austin-bachelor-party-july
+   Title: "Austin Bachelor Party in July | Weather & Guide | Premier Party Cruises"
+
+❌ FAIL (72 chars): /blogs/austin-bachelor-party-march
+   Title: "Austin Bachelor Party in March | Weather & Guide | Premier Party Cruises"
+
+❌ FAIL (70 chars): /blogs/austin-bachelor-party-may
+   Title: "Austin Bachelor Party in May | Weather & Guide | Premier Party Cruises"
+
+❌ FAIL (75 chars): /blogs/austin-bachelor-party-november
+   Title: "Austin Bachelor Party in November | Weather & Guide | Premier Party Cruises"
+
+❌ FAIL (76 chars): /blogs/austin-bachelor-party-september
+   Title: "Austin Bachelor Party in September | Weather & Guide | Premier Party Cruises"
+
+❌ FAIL (97 chars): /blogs/austin-bachelorette-bliss-spa-retreats-disco-cruises-alcohol-delivery
+   Title: "Austin Bachelorette Bliss: Spa Retreats, Disco Cruises & Alcohol Delivery | Premier Party Cruises"
+
+❌ FAIL (76 chars): /blogs/austin-bachelorette-party-april
+   Title: "Austin Bachelorette Party in April | Weather & Guide | Premier Party Cruises"
+
+❌ FAIL (77 chars): /blogs/austin-bachelorette-party-august
+   Title: "Austin Bachelorette Party in August | Weather & Guide | Premier Party Cruises"
+
+❌ FAIL (110 chars): /blogs/austin-bachelorette-party-boats-lake-travis-adventures-for-unforgettable-celebrations
+   Title: "Austin Bachelorette Party Boats: Lake Travis Adventures for Unforgettable Celebrations | Premier Party Cruises"
+
+❌ FAIL (79 chars): /blogs/austin-bachelorette-party-december
+   Title: "Austin Bachelorette Party in December | Weather & Guide | Premier Party Cruises"
+
+❌ FAIL (79 chars): /blogs/austin-bachelorette-party-february
+   Title: "Austin Bachelorette Party in February | Weather & Guide | Premier Party Cruises"
+
+❌ FAIL (75 chars): /blogs/austin-bachelorette-party-june
+   Title: "Austin Bachelorette Party in June | Weather & Guide | Premier Party Cruises"
+
+❌ FAIL (78 chars): /blogs/austin-bachelorette-party-october
+   Title: "Austin Bachelorette Party in October | Weather & Guide | Premier Party Cruises"
+
+❌ FAIL (125 chars): /blogs/austin-bachelorette-weekend-alcohol-timeline-day-by-day-drinking-strategy-for-multi-day-celebrations
+   Title: "Austin Bachelorette Weekend Alcohol Timeline: Day-by-Day Drinking Strategy for Multi-Day Celebrations | Premier Party Cruises"
+
+❌ FAIL (94 chars): /blogs/austin-party-venue-alcohol-delivery-navigating-policies-and-logistics
+   Title: "Austin Party Venue Alcohol Delivery: Navigating Policies and Logistics | Premier Party Cruises"
+
+❌ FAIL (100 chars): /blogs/austin-wedding-venue-alcohol-policies-delivery-solutions-for-every-location
+   Title: "Austin Wedding Venue Alcohol Policies: Delivery Solutions for Every Location | Premier Party Cruises"
+
+❌ FAIL (96 chars): /blogs/bachelorette-party-alcohol-emergency-kit-last-minute-delivery-solutions
+   Title: "Bachelorette Party Alcohol Emergency Kit: Last-Minute Delivery Solutions | Premier Party Cruises"
+
+❌ FAIL (96 chars): /blogs/birthday-party-alcohol-delivery-austin-milestone-celebrations-made-easy
+   Title: "Birthday Party Alcohol Delivery Austin: Milestone Celebrations Made Easy | Premier Party Cruises"
+
+❌ FAIL (102 chars): /blogs/birthday-party-boat-rentals-on-lake-travis-milestone-celebrations-with-a-view
+   Title: "Birthday Party Boat Rentals on Lake Travis: Milestone Celebrations with a View | Premier Party Cruises"
+
+❌ FAIL (105 chars): /blogs/budget-friendly-bachelorette-party-alcohol-maximum-fun-without-breaking-the-bank
+   Title: "Budget-Friendly Bachelorette Party Alcohol: Maximum Fun Without Breaking the Bank | Premier Party Cruises"
+
+❌ FAIL (94 chars): /blogs/client-entertainment-alcohol-strategy-impressing-without-overdoing-it
+   Title: "Client Entertainment Alcohol Strategy: Impressing Without Overdoing It | Premier Party Cruises"
+
+❌ FAIL (107 chars): /blogs/cocktail-kits-vs-individual-bottles-the-smart-bachelorette-party-alcohol-strategy
+   Title: "Cocktail Kits vs. Individual Bottles: The Smart Bachelorette Party Alcohol Strategy | Premier Party Cruises"
+
+❌ FAIL (108 chars): /blogs/conference-after-party-alcohol-coordination-sxsw-acl-and-austin-event-integration
+   Title: "Conference After-Party Alcohol Coordination: SXSW, ACL, and Austin Event Integration | Premier Party Cruises"
+
+❌ FAIL (108 chars): /blogs/corporate-team-building-on-lake-travis-alcohol-coordination-for-professional-events
+   Title: "Corporate Team Building on Lake Travis: Alcohol Coordination for Professional Events | Premier Party Cruises"
+
+❌ FAIL (98 chars): /blogs/corporate-team-building-on-lake-travis-professional-boat-rental-solutions
+   Title: "Corporate Team Building on Lake Travis: Professional Boat Rental Solutions | Premier Party Cruises"
+
+❌ FAIL (103 chars): /blogs/creative-lake-travis-boat-party-themes-unique-ideas-for-memorable-celebrations
+   Title: "Creative Lake Travis Boat Party Themes: Unique Ideas for Memorable Celebrations | Premier Party Cruises"
+
+❌ FAIL (102 chars): /blogs/executive-retreat-alcohol-planning-balancing-professionalism-and-team-bonding
+   Title: "Executive Retreat Alcohol Planning: Balancing Professionalism and Team Bonding | Premier Party Cruises"
+
+❌ FAIL (100 chars): /blogs/first-time-lake-travis-boat-rental-essential-tips-for-austin-party-planning
+   Title: "First-Time Lake Travis Boat Rental: Essential Tips for Austin Party Planning | Premier Party Cruises"
+
+❌ FAIL (93 chars): /blogs/graduation-party-alcohol-planning-ut-and-austin-college-celebrations
+   Title: "Graduation Party Alcohol Planning: UT and Austin College Celebrations | Premier Party Cruises"
+
+❌ FAIL (106 chars): /blogs/holiday-celebrations-on-lake-travis-seasonal-boat-party-planning-and-coordination
+   Title: "Holiday Celebrations on Lake Travis: Seasonal Boat Party Planning and Coordination | Premier Party Cruises"
+
+❌ FAIL (105 chars): /blogs/holiday-office-party-alcohol-delivery-stress-free-corporate-celebration-planning
+   Title: "Holiday Office Party Alcohol Delivery: Stress-Free Corporate Celebration Planning | Premier Party Cruises"
+
+❌ FAIL (106 chars): /blogs/holiday-party-alcohol-themes-new-years-fourth-of-july-and-austin-celebrations
+   Title: "Holiday Party Alcohol Themes: New Year\'s, Fourth of July, and Austin Celebrations | Premier Party Cruises"
+
+❌ FAIL (84 chars): /blogs/how-to-throw-great-bachelor-party-austin
+   Title: "Austin Bachelor Party Guide | Lake Travis Boats & Activities | Premier Party Cruises"
+
+❌ FAIL (104 chars): /blogs/instagram-worthy-bachelorette-party-cocktails-recipes-and-delivery-coordination
+   Title: "Instagram-Worthy Bachelorette Party Cocktails: Recipes and Delivery Coordination | Premier Party Cruises"
+
+❌ FAIL (126 chars): /blogs/integrated-austin-event-services-combining-alcohol-delivery-and-boat-rentals-for-perfect-celebrations
+   Title: "Integrated Austin Event Services: Combining Alcohol Delivery and Boat Rentals for Perfect Celebrations | Premier Party Cruises"
+
+❌ FAIL (86 chars): /blogs/joint-bachelor-bachelorette-parties-with-premier-party-cruises
+   Title: "Joint Bachelor/Bachelorette Parties With Premier Party Cruises | Premier Party Cruises"
+
+❌ FAIL (113 chars): /blogs/lake-travis-bachelor-party-alcohol-delivery-complete-coordination-guide-for-boat-parties
+   Title: "Lake Travis Bachelor Party Alcohol Delivery: Complete Coordination Guide for Boat Parties | Premier Party Cruises"
+
+❌ FAIL (104 chars): /blogs/lake-travis-bachelor-party-boat-rentals-the-ultimate-guide-to-epic-celebrations
+   Title: "Lake Travis Bachelor Party Boat Rentals: The Ultimate Guide to Epic Celebrations | Premier Party Cruises"
+
+❌ FAIL (106 chars): /blogs/lake-travis-bachelorette-party-alcohol-laws-what-you-can-and-cant-bring-on-boats
+   Title: "Lake Travis Bachelorette Party Alcohol Laws: What You Can and Can't Bring on Boats | Premier Party Cruises"
+
+❌ FAIL (106 chars): /blogs/lake-travis-boat-party-catering-food-and-beverage-coordination-for-perfect-events
+   Title: "Lake Travis Boat Party Catering: Food and Beverage Coordination for Perfect Events | Premier Party Cruises"
+
+❌ FAIL (96 chars): /blogs/lake-travis-boat-party-costs-complete-pricing-guide-and-budget-planning
+   Title: "Lake Travis Boat Party Costs: Complete Pricing Guide and Budget Planning | Premier Party Cruises"
+
+❌ FAIL (111 chars): /blogs/lake-travis-boat-party-entertainment-activities-and-amenities-for-unforgettable-events
+   Title: "Lake Travis Boat Party Entertainment: Activities and Amenities for Unforgettable Events | Premier Party Cruises"
+
+❌ FAIL (105 chars): /blogs/lake-travis-boat-party-insurance-understanding-coverage-and-liability-for-events
+   Title: "Lake Travis Boat Party Insurance: Understanding Coverage and Liability for Events | Premier Party Cruises"
+
+❌ FAIL (98 chars): /blogs/lake-travis-boat-party-logistics-complete-planning-and-coordination-guide
+   Title: "Lake Travis Boat Party Logistics: Complete Planning and Coordination Guide | Premier Party Cruises"
+
+❌ FAIL (98 chars): /blogs/lake-travis-boat-party-music-sound-systems-and-entertainment-coordination
+   Title: "Lake Travis Boat Party Music: Sound Systems and Entertainment Coordination | Premier Party Cruises"
+
+❌ FAIL (99 chars): /blogs/lake-travis-boat-party-packages-comprehensive-guide-to-options-and-pricing
+   Title: "Lake Travis Boat Party Packages: Comprehensive Guide to Options and Pricing | Premier Party Cruises"
+
+❌ FAIL (99 chars): /blogs/lake-travis-boat-party-photography-capturing-perfect-memories-on-the-water
+   Title: "Lake Travis Boat Party Photography: Capturing Perfect Memories on the Water | Premier Party Cruises"
+
+❌ FAIL (99 chars): /blogs/lake-travis-boat-party-regulations-legal-requirements-and-compliance-guide
+   Title: "Lake Travis Boat Party Regulations: Legal Requirements and Compliance Guide | Premier Party Cruises"
+
+❌ FAIL (98 chars): /blogs/lake-travis-boat-party-reviews-real-customer-experiences-and-testimonials
+   Title: "Lake Travis Boat Party Reviews: Real Customer Experiences and Testimonials | Premier Party Cruises"
+
+❌ FAIL (100 chars): /blogs/lake-travis-boat-safety-and-maintenance-quality-standards-for-party-cruises
+   Title: "Lake Travis Boat Safety and Maintenance: Quality Standards for Party Cruises | Premier Party Cruises"
+
+❌ FAIL (92 chars): /blogs/lake-travis-boat-safety-essential-guidelines-for-safe-party-cruises
+   Title: "Lake Travis Boat Safety: Essential Guidelines for Safe Party Cruises | Premier Party Cruises"
+
+❌ FAIL (106 chars): /blogs/lake-travis-party-boat-rentals-ultimate-guide-for-large-group-events-20-guests
+   Title: "Lake Travis Party Boat Rentals: Ultimate Guide for Large Group Events (20+ Guests) | Premier Party Cruises"
+
+❌ FAIL (103 chars): /blogs/lake-travis-sunset-cruises-romantic-and-celebration-options-for-every-occasion
+   Title: "Lake Travis Sunset Cruises: Romantic and Celebration Options for Every Occasion | Premier Party Cruises"
+
+❌ FAIL (102 chars): /blogs/lake-travis-weather-planning-seasonal-considerations-for-perfect-boat-parties
+   Title: "Lake Travis Weather Planning: Seasonal Considerations for Perfect Boat Parties | Premier Party Cruises"
+
+❌ FAIL (95 chars): /blogs/lake-travis-wedding-boat-rentals-unique-venues-for-austin-celebrations
+   Title: "Lake Travis Wedding Boat Rentals: Unique Venues for Austin Celebrations | Premier Party Cruises"
+
+❌ FAIL (110 chars): /blogs/must-haves-for-the-perfect-austin-bachelorette-weekend
+   Title: "Must-Haves for the Perfect Austin Bachelorette Weekend in Texas | Party Planning Guide | Premier Party Cruises"
+
+❌ FAIL (100 chars): /blogs/outdoor-wedding-alcohol-logistics-hill-country-and-lake-travis-coordination
+   Title: "Outdoor Wedding Alcohol Logistics: Hill Country and Lake Travis Coordination | Premier Party Cruises"
+
+❌ FAIL (96 chars): /blogs/party-alcohol-safety-in-austin-responsible-service-and-guest-well-being
+   Title: "Party Alcohol Safety in Austin: Responsible Service and Guest Well-being | Premier Party Cruises"
+
+❌ FAIL (77 chars): /blogs/perfect-bachelor-party-itinerary-austin
+   Title: "Perfect Austin Bachelor Party Itinerary | 3-Day Guide | Premier Party Cruises"
+
+❌ FAIL (93 chars): /blogs/pool-party-alcohol-coordination-summer-event-planning-in-austin-heat
+   Title: "Pool Party Alcohol Coordination: Summer Event Planning in Austin Heat | Premier Party Cruises"
+
+❌ FAIL (98 chars): /blogs/rehearsal-dinner-boat-alcohol-delivery-unique-wedding-weekend-experiences
+   Title: "Rehearsal Dinner Boat Alcohol Delivery: Unique Wedding Weekend Experiences | Premier Party Cruises"
+
+❌ FAIL (108 chars): /blogs/startup-celebration-alcohol-packages-funding-rounds-launches-and-milestone-events
+   Title: "Startup Celebration Alcohol Packages: Funding Rounds, Launches, and Milestone Events | Premier Party Cruises"
+
+❌ FAIL (66 chars): /blogs/the-recipe-for-the-chillest-atx-bach-party
+   Title: "The Recipe for the CHILLEST ATX Bach Party | Premier Party Cruises"
+
+❌ FAIL (109 chars): /blogs/the-top-dos-and-dont-for-success-on-the-atx-disco-cruise-with-premier-party-cruises
+   Title: "The Top Do’s and Don’t For Success on the ATX Disco Cruise with Premier Party Cruises | Premier Party Cruises"
+
+❌ FAIL (73 chars): /blogs/the-top-five-celebrities-at-our-dream-party-barge
+   Title: "The Top Five Celebrities at Our Dream Party Barge | Premier Party Cruises"
+
+❌ FAIL (138 chars): /blogs/the-ultimate-austin-bachelorette-party-alcohol-guide-what-to-order-when-to-order-and-how-much-you-actually-need
+   Title: "The Ultimate Austin Bachelorette Party Alcohol Guide: What to Order, When to Order, and How Much You Actually Need | Premier Party Cruises"
+
+❌ FAIL (87 chars): /blogs/top-spots-tips-for-an-unforgettable-austin-bachelorette-party-experience
+   Title: "Top Spots & Tips for an Unforgettable Austin Bachelorette Party | Premier Party Cruises"
+
+❌ FAIL (121 chars): /blogs/wedding-anniversary-celebration-ideas-recreating-your-special-day-with-boat-and-alcohol-packages
+   Title: "Wedding Anniversary Celebration Ideas: Recreating Your Special Day with Boat and Alcohol Packages | Premier Party Cruises"
+
+❌ FAIL (111 chars): /blogs/wedding-party-alcohol-coordination-getting-ready-bachelor-bachelorette-and-reception
+   Title: "Wedding Party Alcohol Coordination: Getting Ready, Bachelor/Bachelorette, and Reception | Premier Party Cruises"
+
+❌ FAIL (79 chars): /blogs/why-choose-austin-bachelor-party
+   Title: "Why Choose Austin for Bachelor Parties | Top 10 Reasons | Premier Party Cruises"
+
+❌ FAIL (76 chars): /blogs/why-choose-austin-bachelorette-party
+   Title: "Why Austin for Bachelorette Parties | Top 10 Reasons | Premier Party Cruises"
+
+❌ FAIL (101 chars): /blogs/why-choose-integrated-event-services-comparing-austin-party-planning-options
+   Title: "Why Choose Integrated Event Services: Comparing Austin Party Planning Options | Premier Party Cruises"
+
+
+================================================================================
+VALIDATION SUMMARY
+================================================================================
+Total URLs checked: 123
+✅ PASS (≤60 chars): 42
+❌ FAIL (>60 chars): 81
+================================================================================
+
+FAILED PAGES (titles >60 characters):
+--------------------------------------------------------------------------------
+/3-day-austin-bachelorette-itinerary (64 chars)
+  "3-Day Austin Bachelorette Itinerary | The Ultimate Weekend Guide"
+/adventure-austin-bachelorette (70 chars)
+  "Adventure Austin Bachelorette Party | Outdoor Activities & Lake Travis"
+/austin-bachelorette-nightlife (64 chars)
+  "Austin Bachelorette Nightlife Guide | 6th Street & Rainey Street"
+/budget-austin-bachelorette (67 chars)
+  "Budget Austin Bachelorette Party Guide | Affordable Lake Travis Fun"
+/first-time-lake-travis-boat-rental-guide (79 chars)
+  "First-Time Lake Travis Boat Rental Guide | Essential Austin Party Planning Tips"
+/luxury-austin-bachelorette (65 chars)
+  "Luxury Austin Bachelorette Party | Premium Lake Travis Experience"
+/blogs/accessible-lake-travis-boat-parties-inclusive-event-planning-for-all-guests (100 chars)
+  "Accessible Lake Travis Boat Parties: Inclusive Event Planning for All Guests | Premier Party Cruises"
+/blogs/atx-disco-cruise-experience (83 chars)
+  "ATX Disco Cruise Do's and Don'ts: Epic Bachelor Party Guide | Premier Party Cruises"
+/blogs/austin-bachelor-party-january (74 chars)
+  "Austin Bachelor Party in January | Weather & Guide | Premier Party Cruises"
+/blogs/austin-bachelor-party-july (71 chars)
+  "Austin Bachelor Party in July | Weather & Guide | Premier Party Cruises"
+/blogs/austin-bachelor-party-march (72 chars)
+  "Austin Bachelor Party in March | Weather & Guide | Premier Party Cruises"
+/blogs/austin-bachelor-party-may (70 chars)
+  "Austin Bachelor Party in May | Weather & Guide | Premier Party Cruises"
+/blogs/austin-bachelor-party-november (75 chars)
+  "Austin Bachelor Party in November | Weather & Guide | Premier Party Cruises"
+/blogs/austin-bachelor-party-september (76 chars)
+  "Austin Bachelor Party in September | Weather & Guide | Premier Party Cruises"
+/blogs/austin-bachelorette-bliss-spa-retreats-disco-cruises-alcohol-delivery (97 chars)
+  "Austin Bachelorette Bliss: Spa Retreats, Disco Cruises & Alcohol Delivery | Premier Party Cruises"
+/blogs/austin-bachelorette-party-april (76 chars)
+  "Austin Bachelorette Party in April | Weather & Guide | Premier Party Cruises"
+/blogs/austin-bachelorette-party-august (77 chars)
+  "Austin Bachelorette Party in August | Weather & Guide | Premier Party Cruises"
+/blogs/austin-bachelorette-party-boats-lake-travis-adventures-for-unforgettable-celebrations (110 chars)
+  "Austin Bachelorette Party Boats: Lake Travis Adventures for Unforgettable Celebrations | Premier Party Cruises"
+/blogs/austin-bachelorette-party-december (79 chars)
+  "Austin Bachelorette Party in December | Weather & Guide | Premier Party Cruises"
+/blogs/austin-bachelorette-party-february (79 chars)
+  "Austin Bachelorette Party in February | Weather & Guide | Premier Party Cruises"
+/blogs/austin-bachelorette-party-june (75 chars)
+  "Austin Bachelorette Party in June | Weather & Guide | Premier Party Cruises"
+/blogs/austin-bachelorette-party-october (78 chars)
+  "Austin Bachelorette Party in October | Weather & Guide | Premier Party Cruises"
+/blogs/austin-bachelorette-weekend-alcohol-timeline-day-by-day-drinking-strategy-for-multi-day-celebrations (125 chars)
+  "Austin Bachelorette Weekend Alcohol Timeline: Day-by-Day Drinking Strategy for Multi-Day Celebrations | Premier Party Cruises"
+/blogs/austin-party-venue-alcohol-delivery-navigating-policies-and-logistics (94 chars)
+  "Austin Party Venue Alcohol Delivery: Navigating Policies and Logistics | Premier Party Cruises"
+/blogs/austin-wedding-venue-alcohol-policies-delivery-solutions-for-every-location (100 chars)
+  "Austin Wedding Venue Alcohol Policies: Delivery Solutions for Every Location | Premier Party Cruises"
+/blogs/bachelorette-party-alcohol-emergency-kit-last-minute-delivery-solutions (96 chars)
+  "Bachelorette Party Alcohol Emergency Kit: Last-Minute Delivery Solutions | Premier Party Cruises"
+/blogs/birthday-party-alcohol-delivery-austin-milestone-celebrations-made-easy (96 chars)
+  "Birthday Party Alcohol Delivery Austin: Milestone Celebrations Made Easy | Premier Party Cruises"
+/blogs/birthday-party-boat-rentals-on-lake-travis-milestone-celebrations-with-a-view (102 chars)
+  "Birthday Party Boat Rentals on Lake Travis: Milestone Celebrations with a View | Premier Party Cruises"
+/blogs/budget-friendly-bachelorette-party-alcohol-maximum-fun-without-breaking-the-bank (105 chars)
+  "Budget-Friendly Bachelorette Party Alcohol: Maximum Fun Without Breaking the Bank | Premier Party Cruises"
+/blogs/client-entertainment-alcohol-strategy-impressing-without-overdoing-it (94 chars)
+  "Client Entertainment Alcohol Strategy: Impressing Without Overdoing It | Premier Party Cruises"
+/blogs/cocktail-kits-vs-individual-bottles-the-smart-bachelorette-party-alcohol-strategy (107 chars)
+  "Cocktail Kits vs. Individual Bottles: The Smart Bachelorette Party Alcohol Strategy | Premier Party Cruises"
+/blogs/conference-after-party-alcohol-coordination-sxsw-acl-and-austin-event-integration (108 chars)
+  "Conference After-Party Alcohol Coordination: SXSW, ACL, and Austin Event Integration | Premier Party Cruises"
+/blogs/corporate-team-building-on-lake-travis-alcohol-coordination-for-professional-events (108 chars)
+  "Corporate Team Building on Lake Travis: Alcohol Coordination for Professional Events | Premier Party Cruises"
+/blogs/corporate-team-building-on-lake-travis-professional-boat-rental-solutions (98 chars)
+  "Corporate Team Building on Lake Travis: Professional Boat Rental Solutions | Premier Party Cruises"
+/blogs/creative-lake-travis-boat-party-themes-unique-ideas-for-memorable-celebrations (103 chars)
+  "Creative Lake Travis Boat Party Themes: Unique Ideas for Memorable Celebrations | Premier Party Cruises"
+/blogs/executive-retreat-alcohol-planning-balancing-professionalism-and-team-bonding (102 chars)
+  "Executive Retreat Alcohol Planning: Balancing Professionalism and Team Bonding | Premier Party Cruises"
+/blogs/first-time-lake-travis-boat-rental-essential-tips-for-austin-party-planning (100 chars)
+  "First-Time Lake Travis Boat Rental: Essential Tips for Austin Party Planning | Premier Party Cruises"
+/blogs/graduation-party-alcohol-planning-ut-and-austin-college-celebrations (93 chars)
+  "Graduation Party Alcohol Planning: UT and Austin College Celebrations | Premier Party Cruises"
+/blogs/holiday-celebrations-on-lake-travis-seasonal-boat-party-planning-and-coordination (106 chars)
+  "Holiday Celebrations on Lake Travis: Seasonal Boat Party Planning and Coordination | Premier Party Cruises"
+/blogs/holiday-office-party-alcohol-delivery-stress-free-corporate-celebration-planning (105 chars)
+  "Holiday Office Party Alcohol Delivery: Stress-Free Corporate Celebration Planning | Premier Party Cruises"
+/blogs/holiday-party-alcohol-themes-new-years-fourth-of-july-and-austin-celebrations (106 chars)
+  "Holiday Party Alcohol Themes: New Year\'s, Fourth of July, and Austin Celebrations | Premier Party Cruises"
+/blogs/how-to-throw-great-bachelor-party-austin (84 chars)
+  "Austin Bachelor Party Guide | Lake Travis Boats & Activities | Premier Party Cruises"
+/blogs/instagram-worthy-bachelorette-party-cocktails-recipes-and-delivery-coordination (104 chars)
+  "Instagram-Worthy Bachelorette Party Cocktails: Recipes and Delivery Coordination | Premier Party Cruises"
+/blogs/integrated-austin-event-services-combining-alcohol-delivery-and-boat-rentals-for-perfect-celebrations (126 chars)
+  "Integrated Austin Event Services: Combining Alcohol Delivery and Boat Rentals for Perfect Celebrations | Premier Party Cruises"
+/blogs/joint-bachelor-bachelorette-parties-with-premier-party-cruises (86 chars)
+  "Joint Bachelor/Bachelorette Parties With Premier Party Cruises | Premier Party Cruises"
+/blogs/lake-travis-bachelor-party-alcohol-delivery-complete-coordination-guide-for-boat-parties (113 chars)
+  "Lake Travis Bachelor Party Alcohol Delivery: Complete Coordination Guide for Boat Parties | Premier Party Cruises"
+/blogs/lake-travis-bachelor-party-boat-rentals-the-ultimate-guide-to-epic-celebrations (104 chars)
+  "Lake Travis Bachelor Party Boat Rentals: The Ultimate Guide to Epic Celebrations | Premier Party Cruises"
+/blogs/lake-travis-bachelorette-party-alcohol-laws-what-you-can-and-cant-bring-on-boats (106 chars)
+  "Lake Travis Bachelorette Party Alcohol Laws: What You Can and Can't Bring on Boats | Premier Party Cruises"
+/blogs/lake-travis-boat-party-catering-food-and-beverage-coordination-for-perfect-events (106 chars)
+  "Lake Travis Boat Party Catering: Food and Beverage Coordination for Perfect Events | Premier Party Cruises"
+/blogs/lake-travis-boat-party-costs-complete-pricing-guide-and-budget-planning (96 chars)
+  "Lake Travis Boat Party Costs: Complete Pricing Guide and Budget Planning | Premier Party Cruises"
+/blogs/lake-travis-boat-party-entertainment-activities-and-amenities-for-unforgettable-events (111 chars)
+  "Lake Travis Boat Party Entertainment: Activities and Amenities for Unforgettable Events | Premier Party Cruises"
+/blogs/lake-travis-boat-party-insurance-understanding-coverage-and-liability-for-events (105 chars)
+  "Lake Travis Boat Party Insurance: Understanding Coverage and Liability for Events | Premier Party Cruises"
+/blogs/lake-travis-boat-party-logistics-complete-planning-and-coordination-guide (98 chars)
+  "Lake Travis Boat Party Logistics: Complete Planning and Coordination Guide | Premier Party Cruises"
+/blogs/lake-travis-boat-party-music-sound-systems-and-entertainment-coordination (98 chars)
+  "Lake Travis Boat Party Music: Sound Systems and Entertainment Coordination | Premier Party Cruises"
+/blogs/lake-travis-boat-party-packages-comprehensive-guide-to-options-and-pricing (99 chars)
+  "Lake Travis Boat Party Packages: Comprehensive Guide to Options and Pricing | Premier Party Cruises"
+/blogs/lake-travis-boat-party-photography-capturing-perfect-memories-on-the-water (99 chars)
+  "Lake Travis Boat Party Photography: Capturing Perfect Memories on the Water | Premier Party Cruises"
+/blogs/lake-travis-boat-party-regulations-legal-requirements-and-compliance-guide (99 chars)
+  "Lake Travis Boat Party Regulations: Legal Requirements and Compliance Guide | Premier Party Cruises"
+/blogs/lake-travis-boat-party-reviews-real-customer-experiences-and-testimonials (98 chars)
+  "Lake Travis Boat Party Reviews: Real Customer Experiences and Testimonials | Premier Party Cruises"
+/blogs/lake-travis-boat-safety-and-maintenance-quality-standards-for-party-cruises (100 chars)
+  "Lake Travis Boat Safety and Maintenance: Quality Standards for Party Cruises | Premier Party Cruises"
+/blogs/lake-travis-boat-safety-essential-guidelines-for-safe-party-cruises (92 chars)
+  "Lake Travis Boat Safety: Essential Guidelines for Safe Party Cruises | Premier Party Cruises"
+/blogs/lake-travis-party-boat-rentals-ultimate-guide-for-large-group-events-20-guests (106 chars)
+  "Lake Travis Party Boat Rentals: Ultimate Guide for Large Group Events (20+ Guests) | Premier Party Cruises"
+/blogs/lake-travis-sunset-cruises-romantic-and-celebration-options-for-every-occasion (103 chars)
+  "Lake Travis Sunset Cruises: Romantic and Celebration Options for Every Occasion | Premier Party Cruises"
+/blogs/lake-travis-weather-planning-seasonal-considerations-for-perfect-boat-parties (102 chars)
+  "Lake Travis Weather Planning: Seasonal Considerations for Perfect Boat Parties | Premier Party Cruises"
+/blogs/lake-travis-wedding-boat-rentals-unique-venues-for-austin-celebrations (95 chars)
+  "Lake Travis Wedding Boat Rentals: Unique Venues for Austin Celebrations | Premier Party Cruises"
+/blogs/must-haves-for-the-perfect-austin-bachelorette-weekend (110 chars)
+  "Must-Haves for the Perfect Austin Bachelorette Weekend in Texas | Party Planning Guide | Premier Party Cruises"
+/blogs/outdoor-wedding-alcohol-logistics-hill-country-and-lake-travis-coordination (100 chars)
+  "Outdoor Wedding Alcohol Logistics: Hill Country and Lake Travis Coordination | Premier Party Cruises"
+/blogs/party-alcohol-safety-in-austin-responsible-service-and-guest-well-being (96 chars)
+  "Party Alcohol Safety in Austin: Responsible Service and Guest Well-being | Premier Party Cruises"
+/blogs/perfect-bachelor-party-itinerary-austin (77 chars)
+  "Perfect Austin Bachelor Party Itinerary | 3-Day Guide | Premier Party Cruises"
+/blogs/pool-party-alcohol-coordination-summer-event-planning-in-austin-heat (93 chars)
+  "Pool Party Alcohol Coordination: Summer Event Planning in Austin Heat | Premier Party Cruises"
+/blogs/rehearsal-dinner-boat-alcohol-delivery-unique-wedding-weekend-experiences (98 chars)
+  "Rehearsal Dinner Boat Alcohol Delivery: Unique Wedding Weekend Experiences | Premier Party Cruises"
+/blogs/startup-celebration-alcohol-packages-funding-rounds-launches-and-milestone-events (108 chars)
+  "Startup Celebration Alcohol Packages: Funding Rounds, Launches, and Milestone Events | Premier Party Cruises"
+/blogs/the-recipe-for-the-chillest-atx-bach-party (66 chars)
+  "The Recipe for the CHILLEST ATX Bach Party | Premier Party Cruises"
+/blogs/the-top-dos-and-dont-for-success-on-the-atx-disco-cruise-with-premier-party-cruises (109 chars)
+  "The Top Do’s and Don’t For Success on the ATX Disco Cruise with Premier Party Cruises | Premier Party Cruises"
+/blogs/the-top-five-celebrities-at-our-dream-party-barge (73 chars)
+  "The Top Five Celebrities at Our Dream Party Barge | Premier Party Cruises"
+/blogs/the-ultimate-austin-bachelorette-party-alcohol-guide-what-to-order-when-to-order-and-how-much-you-actually-need (138 chars)
+  "The Ultimate Austin Bachelorette Party Alcohol Guide: What to Order, When to Order, and How Much You Actually Need | Premier Party Cruises"
+/blogs/top-spots-tips-for-an-unforgettable-austin-bachelorette-party-experience (87 chars)
+  "Top Spots & Tips for an Unforgettable Austin Bachelorette Party | Premier Party Cruises"
+/blogs/wedding-anniversary-celebration-ideas-recreating-your-special-day-with-boat-and-alcohol-packages (121 chars)
+  "Wedding Anniversary Celebration Ideas: Recreating Your Special Day with Boat and Alcohol Packages | Premier Party Cruises"
+/blogs/wedding-party-alcohol-coordination-getting-ready-bachelor-bachelorette-and-reception (111 chars)
+  "Wedding Party Alcohol Coordination: Getting Ready, Bachelor/Bachelorette, and Reception | Premier Party Cruises"
+/blogs/why-choose-austin-bachelor-party (79 chars)
+  "Why Choose Austin for Bachelor Parties | Top 10 Reasons | Premier Party Cruises"
+/blogs/why-choose-austin-bachelorette-party (76 chars)
+  "Why Austin for Bachelorette Parties | Top 10 Reasons | Premier Party Cruises"
+/blogs/why-choose-integrated-event-services-comparing-austin-party-planning-options (101 chars)
+  "Why Choose Integrated Event Services: Comparing Austin Party Planning Options | Premier Party Cruises"
+
+📄 Detailed report saved to: attached_assets/title-validation-report.json

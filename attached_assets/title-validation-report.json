@@ -1,0 +1,746 @@
+{
+  "timestamp": "2025-11-18T07:36:24.631Z",
+  "totalUrls": 123,
+  "passes": 42,
+  "failures": 81,
+  "results": [
+    {
+      "url": "/",
+      "title": "Austin Party Boat Rentals | Lake Travis Cruises",
+      "length": 47,
+      "status": "PASS"
+    },
+    {
+      "url": "/after-party",
+      "title": "Wedding After Party Boats | Lake Travis Cruises Austin",
+      "length": 54,
+      "status": "PASS"
+    },
+    {
+      "url": "/atx-disco-cruise",
+      "title": "ATX Disco Cruise | Lake Travis Party Boat",
+      "length": 41,
+      "status": "PASS"
+    },
+    {
+      "url": "/bachelor-party-austin",
+      "title": "Austin Bachelor Party Boats | Lake Travis Cruises",
+      "length": 49,
+      "status": "PASS"
+    },
+    {
+      "url": "/bachelorette-party-austin",
+      "title": "Austin Bachelorette Party Boats | Lake Travis",
+      "length": 45,
+      "status": "PASS"
+    },
+    {
+      "url": "/birthday-parties",
+      "title": "Birthday Party Boats Austin | Lake Travis",
+      "length": 41,
+      "status": "PASS"
+    },
+    {
+      "url": "/client-entertainment",
+      "title": "Corporate Client Entertainment | Austin Boat Cruises",
+      "length": 52,
+      "status": "PASS"
+    },
+    {
+      "url": "/combined-bachelor-bachelorette-austin",
+      "title": "Joint Bachelor/Bachelorette Parties | Lake Travis Austin",
+      "length": 56,
+      "status": "PASS"
+    },
+    {
+      "url": "/company-milestone",
+      "title": "Company Milestone Celebrations | Austin Corporate Cruises",
+      "length": 57,
+      "status": "PASS"
+    },
+    {
+      "url": "/corporate-events",
+      "title": "Corporate Event Cruises | Lake Travis Austin",
+      "length": 44,
+      "status": "PASS"
+    },
+    {
+      "url": "/graduation-party",
+      "title": "Graduation Party Boats | Austin Lake Travis Celebrations",
+      "length": 56,
+      "status": "PASS"
+    },
+    {
+      "url": "/milestone-birthday",
+      "title": "Milestone Birthday Cruises | Lake Travis Austin Parties",
+      "length": 55,
+      "status": "PASS"
+    },
+    {
+      "url": "/private-cruises",
+      "title": "Private Boat Rentals Austin | Lake Travis",
+      "length": 41,
+      "status": "PASS"
+    },
+    {
+      "url": "/rehearsal-dinner",
+      "title": "Rehearsal Dinner Cruises | Lake Travis",
+      "length": 38,
+      "status": "PASS"
+    },
+    {
+      "url": "/sweet-16",
+      "title": "Sweet 16 Party Boats | Lake Travis Austin",
+      "length": 41,
+      "status": "PASS"
+    },
+    {
+      "url": "/team-building",
+      "title": "Team Building Cruises Austin | Lake Travis",
+      "length": 42,
+      "status": "PASS"
+    },
+    {
+      "url": "/wedding-parties",
+      "title": "Wedding Party Boats | Lake Travis Austin Celebrations",
+      "length": 53,
+      "status": "PASS"
+    },
+    {
+      "url": "/welcome-party",
+      "title": "Wedding Welcome Party Boats | Austin Lake Travis",
+      "length": 48,
+      "status": "PASS"
+    },
+    {
+      "url": "/book-now",
+      "title": "Austin Party Boat Rentals | Lake Travis Cruises",
+      "length": 47,
+      "status": "PASS"
+    },
+    {
+      "url": "/book-online",
+      "title": "Austin Party Boat Rentals | Lake Travis Cruises",
+      "length": 47,
+      "status": "PASS"
+    },
+    {
+      "url": "/chat",
+      "title": "Austin Party Boat Rentals | Lake Travis Cruises",
+      "length": 47,
+      "status": "PASS"
+    },
+    {
+      "url": "/contact",
+      "title": "Contact Premier Party Cruises | Austin Boats",
+      "length": 44,
+      "status": "PASS"
+    },
+    {
+      "url": "/faq",
+      "title": "FAQs | Austin Lake Travis Boat Rentals",
+      "length": 38,
+      "status": "PASS"
+    },
+    {
+      "url": "/gallery",
+      "title": "Photo Gallery | Austin Lake Travis Cruises",
+      "length": 42,
+      "status": "PASS"
+    },
+    {
+      "url": "/pricing-breakdown",
+      "title": "Pricing Breakdown | Premier Party Cruises Austin",
+      "length": 48,
+      "status": "PASS"
+    },
+    {
+      "url": "/testimonials-faq",
+      "title": "Reviews & FAQ | Premier Party Cruises Lake Travis",
+      "length": 49,
+      "status": "PASS"
+    },
+    {
+      "url": "/3-day-austin-bachelorette-itinerary",
+      "title": "3-Day Austin Bachelorette Itinerary | The Ultimate Weekend Guide",
+      "length": 64,
+      "status": "FAIL"
+    },
+    {
+      "url": "/adventure-austin-bachelorette",
+      "title": "Adventure Austin Bachelorette Party | Outdoor Activities & Lake Travis",
+      "length": 70,
+      "status": "FAIL"
+    },
+    {
+      "url": "/austin-bachelor-party-ideas",
+      "title": "Austin Party Boat Rentals | Lake Travis Cruises",
+      "length": 47,
+      "status": "PASS"
+    },
+    {
+      "url": "/austin-bachelorette-nightlife",
+      "title": "Austin Bachelorette Nightlife Guide | 6th Street & Rainey Street",
+      "length": 64,
+      "status": "FAIL"
+    },
+    {
+      "url": "/blog",
+      "title": "Austin Party Boat Blog | Bachelor & Bachelorette Tips",
+      "length": 53,
+      "status": "PASS"
+    },
+    {
+      "url": "/blogs",
+      "title": "Austin Party Boat Blog | Bachelor & Bachelorette Tips",
+      "length": 53,
+      "status": "PASS"
+    },
+    {
+      "url": "/budget-austin-bachelorette",
+      "title": "Budget Austin Bachelorette Party Guide | Affordable Lake Travis Fun",
+      "length": 67,
+      "status": "FAIL"
+    },
+    {
+      "url": "/first-time-lake-travis-boat-rental-guide",
+      "title": "First-Time Lake Travis Boat Rental Guide | Essential Austin Party Planning Tips",
+      "length": 79,
+      "status": "FAIL"
+    },
+    {
+      "url": "/lake-travis-bachelor-party-boats",
+      "title": "Austin Party Boat Rentals | Lake Travis Cruises",
+      "length": 47,
+      "status": "PASS"
+    },
+    {
+      "url": "/luxury-austin-bachelorette",
+      "title": "Luxury Austin Bachelorette Party | Premium Lake Travis Experience",
+      "length": 65,
+      "status": "FAIL"
+    },
+    {
+      "url": "/party-boat-austin",
+      "title": "Austin Party Boats | Premier Lake Travis Cruise Experience",
+      "length": 58,
+      "status": "PASS"
+    },
+    {
+      "url": "/party-boat-lake-travis",
+      "title": "Lake Travis Party Boats | Austin Premier Cruise Rentals",
+      "length": 55,
+      "status": "PASS"
+    },
+    {
+      "url": "/top-10-austin-bachelorette-ideas",
+      "title": "Top 10 Austin Bachelorette Ideas | Ultimate Party Guide 2025",
+      "length": 60,
+      "status": "PASS"
+    },
+    {
+      "url": "/ultimate-austin-bachelorette-weekend",
+      "title": "Ultimate Austin Bachelorette Weekend | Premier Party Guide",
+      "length": 58,
+      "status": "PASS"
+    },
+    {
+      "url": "/blogs/accessible-lake-travis-boat-parties-inclusive-event-planning-for-all-guests",
+      "title": "Accessible Lake Travis Boat Parties: Inclusive Event Planning for All Guests | Premier Party Cruises",
+      "length": 100,
+      "status": "FAIL"
+    },
+    {
+      "url": "/blogs/atx-disco-cruise-experience",
+      "title": "ATX Disco Cruise Do's and Don'ts: Epic Bachelor Party Guide | Premier Party Cruises",
+      "length": 83,
+      "status": "FAIL"
+    },
+    {
+      "url": "/blogs/austin-bachelor-party-january",
+      "title": "Austin Bachelor Party in January | Weather & Guide | Premier Party Cruises",
+      "length": 74,
+      "status": "FAIL"
+    },
+    {
+      "url": "/blogs/austin-bachelor-party-july",
+      "title": "Austin Bachelor Party in July | Weather & Guide | Premier Party Cruises",
+      "length": 71,
+      "status": "FAIL"
+    },
+    {
+      "url": "/blogs/austin-bachelor-party-march",
+      "title": "Austin Bachelor Party in March | Weather & Guide | Premier Party Cruises",
+      "length": 72,
+      "status": "FAIL"
+    },
+    {
+      "url": "/blogs/austin-bachelor-party-may",
+      "title": "Austin Bachelor Party in May | Weather & Guide | Premier Party Cruises",
+      "length": 70,
+      "status": "FAIL"
+    },
+    {
+      "url": "/blogs/austin-bachelor-party-november",
+      "title": "Austin Bachelor Party in November | Weather & Guide | Premier Party Cruises",
+      "length": 75,
+      "status": "FAIL"
+    },
+    {
+      "url": "/blogs/austin-bachelor-party-september",
+      "title": "Austin Bachelor Party in September | Weather & Guide | Premier Party Cruises",
+      "length": 76,
+      "status": "FAIL"
+    },
+    {
+      "url": "/blogs/austin-bachelorette-bliss-spa-retreats-disco-cruises-alcohol-delivery",
+      "title": "Austin Bachelorette Bliss: Spa Retreats, Disco Cruises & Alcohol Delivery | Premier Party Cruises",
+      "length": 97,
+      "status": "FAIL"
+    },
+    {
+      "url": "/blogs/austin-bachelorette-party-april",
+      "title": "Austin Bachelorette Party in April | Weather & Guide | Premier Party Cruises",
+      "length": 76,
+      "status": "FAIL"
+    },
+    {
+      "url": "/blogs/austin-bachelorette-party-august",
+      "title": "Austin Bachelorette Party in August | Weather & Guide | Premier Party Cruises",
+      "length": 77,
+      "status": "FAIL"
+    },
+    {
+      "url": "/blogs/austin-bachelorette-party-boats-lake-travis-adventures-for-unforgettable-celebrations",
+      "title": "Austin Bachelorette Party Boats: Lake Travis Adventures for Unforgettable Celebrations | Premier Party Cruises",
+      "length": 110,
+      "status": "FAIL"
+    },
+    {
+      "url": "/blogs/austin-bachelorette-party-december",
+      "title": "Austin Bachelorette Party in December | Weather & Guide | Premier Party Cruises",
+      "length": 79,
+      "status": "FAIL"
+    },
+    {
+      "url": "/blogs/austin-bachelorette-party-february",
+      "title": "Austin Bachelorette Party in February | Weather & Guide | Premier Party Cruises",
+      "length": 79,
+      "status": "FAIL"
+    },
+    {
+      "url": "/blogs/austin-bachelorette-party-june",
+      "title": "Austin Bachelorette Party in June | Weather & Guide | Premier Party Cruises",
+      "length": 75,
+      "status": "FAIL"
+    },
+    {
+      "url": "/blogs/austin-bachelorette-party-october",
+      "title": "Austin Bachelorette Party in October | Weather & Guide | Premier Party Cruises",
+      "length": 78,
+      "status": "FAIL"
+    },
+    {
+      "url": "/blogs/austin-bachelorette-weekend-alcohol-timeline-day-by-day-drinking-strategy-for-multi-day-celebrations",
+      "title": "Austin Bachelorette Weekend Alcohol Timeline: Day-by-Day Drinking Strategy for Multi-Day Celebrations | Premier Party Cruises",
+      "length": 125,
+      "status": "FAIL"
+    },
+    {
+      "url": "/blogs/austin-party-venue-alcohol-delivery-navigating-policies-and-logistics",
+      "title": "Austin Party Venue Alcohol Delivery: Navigating Policies and Logistics | Premier Party Cruises",
+      "length": 94,
+      "status": "FAIL"
+    },
+    {
+      "url": "/blogs/austin-wedding-venue-alcohol-policies-delivery-solutions-for-every-location",
+      "title": "Austin Wedding Venue Alcohol Policies: Delivery Solutions for Every Location | Premier Party Cruises",
+      "length": 100,
+      "status": "FAIL"
+    },
+    {
+      "url": "/blogs/bachelorette-party-alcohol-emergency-kit-last-minute-delivery-solutions",
+      "title": "Bachelorette Party Alcohol Emergency Kit: Last-Minute Delivery Solutions | Premier Party Cruises",
+      "length": 96,
+      "status": "FAIL"
+    },
+    {
+      "url": "/blogs/birthday-party-alcohol-delivery-austin-milestone-celebrations-made-easy",
+      "title": "Birthday Party Alcohol Delivery Austin: Milestone Celebrations Made Easy | Premier Party Cruises",
+      "length": 96,
+      "status": "FAIL"
+    },
+    {
+      "url": "/blogs/birthday-party-boat-rentals-on-lake-travis-milestone-celebrations-with-a-view",
+      "title": "Birthday Party Boat Rentals on Lake Travis: Milestone Celebrations with a View | Premier Party Cruises",
+      "length": 102,
+      "status": "FAIL"
+    },
+    {
+      "url": "/blogs/budget-friendly-bachelorette-party-alcohol-maximum-fun-without-breaking-the-bank",
+      "title": "Budget-Friendly Bachelorette Party Alcohol: Maximum Fun Without Breaking the Bank | Premier Party Cruises",
+      "length": 105,
+      "status": "FAIL"
+    },
+    {
+      "url": "/blogs/client-entertainment-alcohol-strategy-impressing-without-overdoing-it",
+      "title": "Client Entertainment Alcohol Strategy: Impressing Without Overdoing It | Premier Party Cruises",
+      "length": 94,
+      "status": "FAIL"
+    },
+    {
+      "url": "/blogs/cocktail-kits-vs-individual-bottles-the-smart-bachelorette-party-alcohol-strategy",
+      "title": "Cocktail Kits vs. Individual Bottles: The Smart Bachelorette Party Alcohol Strategy | Premier Party Cruises",
+      "length": 107,
+      "status": "FAIL"
+    },
+    {
+      "url": "/blogs/conference-after-party-alcohol-coordination-sxsw-acl-and-austin-event-integration",
+      "title": "Conference After-Party Alcohol Coordination: SXSW, ACL, and Austin Event Integration | Premier Party Cruises",
+      "length": 108,
+      "status": "FAIL"
+    },
+    {
+      "url": "/blogs/corporate-team-building-on-lake-travis-alcohol-coordination-for-professional-events",
+      "title": "Corporate Team Building on Lake Travis: Alcohol Coordination for Professional Events | Premier Party Cruises",
+      "length": 108,
+      "status": "FAIL"
+    },
+    {
+      "url": "/blogs/corporate-team-building-on-lake-travis-professional-boat-rental-solutions",
+      "title": "Corporate Team Building on Lake Travis: Professional Boat Rental Solutions | Premier Party Cruises",
+      "length": 98,
+      "status": "FAIL"
+    },
+    {
+      "url": "/blogs/creative-lake-travis-boat-party-themes-unique-ideas-for-memorable-celebrations",
+      "title": "Creative Lake Travis Boat Party Themes: Unique Ideas for Memorable Celebrations | Premier Party Cruises",
+      "length": 103,
+      "status": "FAIL"
+    },
+    {
+      "url": "/blogs/disco-cruise-fashion-part-1",
+      "title": "Disco Cruise Fashion- Part 1 | Premier Party Cruises",
+      "length": 52,
+      "status": "PASS"
+    },
+    {
+      "url": "/blogs/executive-retreat-alcohol-planning-balancing-professionalism-and-team-bonding",
+      "title": "Executive Retreat Alcohol Planning: Balancing Professionalism and Team Bonding | Premier Party Cruises",
+      "length": 102,
+      "status": "FAIL"
+    },
+    {
+      "url": "/blogs/first-time-lake-travis-boat-rental-essential-tips-for-austin-party-planning",
+      "title": "First-Time Lake Travis Boat Rental: Essential Tips for Austin Party Planning | Premier Party Cruises",
+      "length": 100,
+      "status": "FAIL"
+    },
+    {
+      "url": "/blogs/graduation-party-alcohol-planning-ut-and-austin-college-celebrations",
+      "title": "Graduation Party Alcohol Planning: UT and Austin College Celebrations | Premier Party Cruises",
+      "length": 93,
+      "status": "FAIL"
+    },
+    {
+      "url": "/blogs/hello-world",
+      "title": "Hello world! | Premier Party Cruises",
+      "length": 36,
+      "status": "PASS"
+    },
+    {
+      "url": "/blogs/holiday-celebrations-on-lake-travis-seasonal-boat-party-planning-and-coordination",
+      "title": "Holiday Celebrations on Lake Travis: Seasonal Boat Party Planning and Coordination | Premier Party Cruises",
+      "length": 106,
+      "status": "FAIL"
+    },
+    {
+      "url": "/blogs/holiday-office-party-alcohol-delivery-stress-free-corporate-celebration-planning",
+      "title": "Holiday Office Party Alcohol Delivery: Stress-Free Corporate Celebration Planning | Premier Party Cruises",
+      "length": 105,
+      "status": "FAIL"
+    },
+    {
+      "url": "/blogs/holiday-party-alcohol-themes-new-years-fourth-of-july-and-austin-celebrations",
+      "title": "Holiday Party Alcohol Themes: New Year\\'s, Fourth of July, and Austin Celebrations | Premier Party Cruises",
+      "length": 106,
+      "status": "FAIL"
+    },
+    {
+      "url": "/blogs/how-to-throw-great-bachelor-party-austin",
+      "title": "Austin Bachelor Party Guide | Lake Travis Boats & Activities | Premier Party Cruises",
+      "length": 84,
+      "status": "FAIL"
+    },
+    {
+      "url": "/blogs/how-to-throw-great-bachelorette-party-austin",
+      "title": "Austin Bachelorette Party Guide | Premier Party Cruises",
+      "length": 55,
+      "status": "PASS"
+    },
+    {
+      "url": "/blogs/instagram-worthy-bachelorette-party-cocktails-recipes-and-delivery-coordination",
+      "title": "Instagram-Worthy Bachelorette Party Cocktails: Recipes and Delivery Coordination | Premier Party Cruises",
+      "length": 104,
+      "status": "FAIL"
+    },
+    {
+      "url": "/blogs/integrated-austin-event-services-combining-alcohol-delivery-and-boat-rentals-for-perfect-celebrations",
+      "title": "Integrated Austin Event Services: Combining Alcohol Delivery and Boat Rentals for Perfect Celebrations | Premier Party Cruises",
+      "length": 126,
+      "status": "FAIL"
+    },
+    {
+      "url": "/blogs/joint-bachelor-bachelorette-parties-with-premier-party-cruises",
+      "title": "Joint Bachelor/Bachelorette Parties With Premier Party Cruises | Premier Party Cruises",
+      "length": 86,
+      "status": "FAIL"
+    },
+    {
+      "url": "/blogs/lake-travis-bachelor-party-alcohol-delivery-complete-coordination-guide-for-boat-parties",
+      "title": "Lake Travis Bachelor Party Alcohol Delivery: Complete Coordination Guide for Boat Parties | Premier Party Cruises",
+      "length": 113,
+      "status": "FAIL"
+    },
+    {
+      "url": "/blogs/lake-travis-bachelor-party-boat-rentals-the-ultimate-guide-to-epic-celebrations",
+      "title": "Lake Travis Bachelor Party Boat Rentals: The Ultimate Guide to Epic Celebrations | Premier Party Cruises",
+      "length": 104,
+      "status": "FAIL"
+    },
+    {
+      "url": "/blogs/lake-travis-bachelorette-party-alcohol-laws-what-you-can-and-cant-bring-on-boats",
+      "title": "Lake Travis Bachelorette Party Alcohol Laws: What You Can and Can't Bring on Boats | Premier Party Cruises",
+      "length": 106,
+      "status": "FAIL"
+    },
+    {
+      "url": "/blogs/lake-travis-boat-party-catering-food-and-beverage-coordination-for-perfect-events",
+      "title": "Lake Travis Boat Party Catering: Food and Beverage Coordination for Perfect Events | Premier Party Cruises",
+      "length": 106,
+      "status": "FAIL"
+    },
+    {
+      "url": "/blogs/lake-travis-boat-party-costs-complete-pricing-guide-and-budget-planning",
+      "title": "Lake Travis Boat Party Costs: Complete Pricing Guide and Budget Planning | Premier Party Cruises",
+      "length": 96,
+      "status": "FAIL"
+    },
+    {
+      "url": "/blogs/lake-travis-boat-party-entertainment-activities-and-amenities-for-unforgettable-events",
+      "title": "Lake Travis Boat Party Entertainment: Activities and Amenities for Unforgettable Events | Premier Party Cruises",
+      "length": 111,
+      "status": "FAIL"
+    },
+    {
+      "url": "/blogs/lake-travis-boat-party-insurance-understanding-coverage-and-liability-for-events",
+      "title": "Lake Travis Boat Party Insurance: Understanding Coverage and Liability for Events | Premier Party Cruises",
+      "length": 105,
+      "status": "FAIL"
+    },
+    {
+      "url": "/blogs/lake-travis-boat-party-logistics-complete-planning-and-coordination-guide",
+      "title": "Lake Travis Boat Party Logistics: Complete Planning and Coordination Guide | Premier Party Cruises",
+      "length": 98,
+      "status": "FAIL"
+    },
+    {
+      "url": "/blogs/lake-travis-boat-party-music-sound-systems-and-entertainment-coordination",
+      "title": "Lake Travis Boat Party Music: Sound Systems and Entertainment Coordination | Premier Party Cruises",
+      "length": 98,
+      "status": "FAIL"
+    },
+    {
+      "url": "/blogs/lake-travis-boat-party-packages-comprehensive-guide-to-options-and-pricing",
+      "title": "Lake Travis Boat Party Packages: Comprehensive Guide to Options and Pricing | Premier Party Cruises",
+      "length": 99,
+      "status": "FAIL"
+    },
+    {
+      "url": "/blogs/lake-travis-boat-party-photography-capturing-perfect-memories-on-the-water",
+      "title": "Lake Travis Boat Party Photography: Capturing Perfect Memories on the Water | Premier Party Cruises",
+      "length": 99,
+      "status": "FAIL"
+    },
+    {
+      "url": "/blogs/lake-travis-boat-party-regulations-legal-requirements-and-compliance-guide",
+      "title": "Lake Travis Boat Party Regulations: Legal Requirements and Compliance Guide | Premier Party Cruises",
+      "length": 99,
+      "status": "FAIL"
+    },
+    {
+      "url": "/blogs/lake-travis-boat-party-reviews-real-customer-experiences-and-testimonials",
+      "title": "Lake Travis Boat Party Reviews: Real Customer Experiences and Testimonials | Premier Party Cruises",
+      "length": 98,
+      "status": "FAIL"
+    },
+    {
+      "url": "/blogs/lake-travis-boat-safety-and-maintenance-quality-standards-for-party-cruises",
+      "title": "Lake Travis Boat Safety and Maintenance: Quality Standards for Party Cruises | Premier Party Cruises",
+      "length": 100,
+      "status": "FAIL"
+    },
+    {
+      "url": "/blogs/lake-travis-boat-safety-essential-guidelines-for-safe-party-cruises",
+      "title": "Lake Travis Boat Safety: Essential Guidelines for Safe Party Cruises | Premier Party Cruises",
+      "length": 92,
+      "status": "FAIL"
+    },
+    {
+      "url": "/blogs/lake-travis-party-boat-rentals-ultimate-guide-for-large-group-events-20-guests",
+      "title": "Lake Travis Party Boat Rentals: Ultimate Guide for Large Group Events (20+ Guests) | Premier Party Cruises",
+      "length": 106,
+      "status": "FAIL"
+    },
+    {
+      "url": "/blogs/lake-travis-sunset-cruises-romantic-and-celebration-options-for-every-occasion",
+      "title": "Lake Travis Sunset Cruises: Romantic and Celebration Options for Every Occasion | Premier Party Cruises",
+      "length": 103,
+      "status": "FAIL"
+    },
+    {
+      "url": "/blogs/lake-travis-weather-planning-seasonal-considerations-for-perfect-boat-parties",
+      "title": "Lake Travis Weather Planning: Seasonal Considerations for Perfect Boat Parties | Premier Party Cruises",
+      "length": 102,
+      "status": "FAIL"
+    },
+    {
+      "url": "/blogs/lake-travis-wedding-boat-rentals-unique-venues-for-austin-celebrations",
+      "title": "Lake Travis Wedding Boat Rentals: Unique Venues for Austin Celebrations | Premier Party Cruises",
+      "length": 95,
+      "status": "FAIL"
+    },
+    {
+      "url": "/blogs/must-haves-for-the-perfect-austin-bachelorette-weekend",
+      "title": "Must-Haves for the Perfect Austin Bachelorette Weekend in Texas | Party Planning Guide | Premier Party Cruises",
+      "length": 110,
+      "status": "FAIL"
+    },
+    {
+      "url": "/blogs/outdoor-wedding-alcohol-logistics-hill-country-and-lake-travis-coordination",
+      "title": "Outdoor Wedding Alcohol Logistics: Hill Country and Lake Travis Coordination | Premier Party Cruises",
+      "length": 100,
+      "status": "FAIL"
+    },
+    {
+      "url": "/blogs/party-alcohol-safety-in-austin-responsible-service-and-guest-well-being",
+      "title": "Party Alcohol Safety in Austin: Responsible Service and Guest Well-being | Premier Party Cruises",
+      "length": 96,
+      "status": "FAIL"
+    },
+    {
+      "url": "/blogs/perfect-bachelor-party-itinerary-austin",
+      "title": "Perfect Austin Bachelor Party Itinerary | 3-Day Guide | Premier Party Cruises",
+      "length": 77,
+      "status": "FAIL"
+    },
+    {
+      "url": "/blogs/pool-party-alcohol-coordination-summer-event-planning-in-austin-heat",
+      "title": "Pool Party Alcohol Coordination: Summer Event Planning in Austin Heat | Premier Party Cruises",
+      "length": 93,
+      "status": "FAIL"
+    },
+    {
+      "url": "/blogs/rehearsal-dinner-boat-alcohol-delivery-unique-wedding-weekend-experiences",
+      "title": "Rehearsal Dinner Boat Alcohol Delivery: Unique Wedding Weekend Experiences | Premier Party Cruises",
+      "length": 98,
+      "status": "FAIL"
+    },
+    {
+      "url": "/blogs/startup-celebration-alcohol-packages-funding-rounds-launches-and-milestone-events",
+      "title": "Startup Celebration Alcohol Packages: Funding Rounds, Launches, and Milestone Events | Premier Party Cruises",
+      "length": 108,
+      "status": "FAIL"
+    },
+    {
+      "url": "/blogs/the-recipe-for-the-chillest-atx-bach-party",
+      "title": "The Recipe for the CHILLEST ATX Bach Party | Premier Party Cruises",
+      "length": 66,
+      "status": "FAIL"
+    },
+    {
+      "url": "/blogs/the-top-dos-and-dont-for-success-on-the-atx-disco-cruise-with-premier-party-cruises",
+      "title": "The Top Do’s and Don’t For Success on the ATX Disco Cruise with Premier Party Cruises | Premier Party Cruises",
+      "length": 109,
+      "status": "FAIL"
+    },
+    {
+      "url": "/blogs/the-top-five-celebrities-at-our-dream-party-barge",
+      "title": "The Top Five Celebrities at Our Dream Party Barge | Premier Party Cruises",
+      "length": 73,
+      "status": "FAIL"
+    },
+    {
+      "url": "/blogs/the-ultimate-austin-bachelorette-party-alcohol-guide-what-to-order-when-to-order-and-how-much-you-actually-need",
+      "title": "The Ultimate Austin Bachelorette Party Alcohol Guide: What to Order, When to Order, and How Much You Actually Need | Premier Party Cruises",
+      "length": 138,
+      "status": "FAIL"
+    },
+    {
+      "url": "/blogs/top-spots-tips-for-an-unforgettable-austin-bachelorette-party-experience",
+      "title": "Top Spots & Tips for an Unforgettable Austin Bachelorette Party | Premier Party Cruises",
+      "length": 87,
+      "status": "FAIL"
+    },
+    {
+      "url": "/blogs/wedding-anniversary-celebration-ideas-recreating-your-special-day-with-boat-and-alcohol-packages",
+      "title": "Wedding Anniversary Celebration Ideas: Recreating Your Special Day with Boat and Alcohol Packages | Premier Party Cruises",
+      "length": 121,
+      "status": "FAIL"
+    },
+    {
+      "url": "/blogs/wedding-party-alcohol-coordination-getting-ready-bachelor-bachelorette-and-reception",
+      "title": "Wedding Party Alcohol Coordination: Getting Ready, Bachelor/Bachelorette, and Reception | Premier Party Cruises",
+      "length": 111,
+      "status": "FAIL"
+    },
+    {
+      "url": "/blogs/why-choose-austin-bachelor-party",
+      "title": "Why Choose Austin for Bachelor Parties | Top 10 Reasons | Premier Party Cruises",
+      "length": 79,
+      "status": "FAIL"
+    },
+    {
+      "url": "/blogs/why-choose-austin-bachelorette-party",
+      "title": "Why Austin for Bachelorette Parties | Top 10 Reasons | Premier Party Cruises",
+      "length": 76,
+      "status": "FAIL"
+    },
+    {
+      "url": "/blogs/why-choose-integrated-event-services-comparing-austin-party-planning-options",
+      "title": "Why Choose Integrated Event Services: Comparing Austin Party Planning Options | Premier Party Cruises",
+      "length": 101,
+      "status": "FAIL"
+    },
+    {
+      "url": "/ai-endorsement",
+      "title": "AI Endorsement | Premier Party Cruises Technology",
+      "length": 49,
+      "status": "PASS"
+    },
+    {
+      "url": "/golden-ticket",
+      "title": "Austin Party Boat Rentals | Lake Travis Cruises",
+      "length": 47,
+      "status": "PASS"
+    },
+    {
+      "url": "/golden-ticket-private",
+      "title": "Austin Party Boat Rentals | Lake Travis Cruises",
+      "length": 47,
+      "status": "PASS"
+    },
+    {
+      "url": "/partners",
+      "title": "Austin Party Boat Rentals | Lake Travis Cruises",
+      "length": 47,
+      "status": "PASS"
+    },
+    {
+      "url": "/wedding-anniversary-celebration-ideas",
+      "title": "Austin Party Boat Rentals | Lake Travis Cruises",
+      "length": 47,
+      "status": "PASS"
+    }
+  ]
+}

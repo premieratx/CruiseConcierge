@@ -1,0 +1,466 @@
+Google Sheets API initialized with Service Account authentication
+✅ Google Sheets Service initialized with production credentials - no fallbacks available
+🔐 QUOTE_TOKEN_SECRET configured securely from environment
+Google Sheets API initialized with Service Account authentication
+✅ Google Sheets Service initialized with production credentials - no fallbacks available
+Fetching all published blog posts...
+
+Found 78 published posts
+
+⚠️  Still long after removing suffix (63 chars):
+   top-spots-tips-for-an-unforgettable-austin-bachelorette-party-experience
+   "Top Spots & Tips for an Unforgettable Austin Bachelorette Party"
+
+⚠️  No suffix found but title is long (63 chars):
+   top-spots-tips-for-an-unforgettable-austin-bachelorette-party-experience
+   "Top Spots & Tips for an Unforgettable Austin Bachelorette Party"
+
+⚠️  Still long after removing suffix (77 chars):
+   why-choose-integrated-event-services-comparing-austin-party-planning-options
+   "Why Choose Integrated Event Services: Comparing Austin Party Planning Options"
+
+⚠️  No suffix found but title is long (77 chars):
+   why-choose-integrated-event-services-comparing-austin-party-planning-options
+   "Why Choose Integrated Event Services: Comparing Austin Party Planning Options"
+
+⚠️  Still long after removing suffix (102 chars):
+   integrated-austin-event-services-combining-alcohol-delivery-and-boat-rentals-for-perfect-celebrations
+   "Integrated Austin Event Services: Combining Alcohol Delivery and Boat Rentals for Perfect Celebrations"
+
+⚠️  No suffix found but title is long (102 chars):
+   integrated-austin-event-services-combining-alcohol-delivery-and-boat-rentals-for-perfect-celebrations
+   "Integrated Austin Event Services: Combining Alcohol Delivery and Boat Rentals for Perfect Celebrations"
+
+⚠️  Still long after removing suffix (76 chars):
+   lake-travis-boat-safety-and-maintenance-quality-standards-for-party-cruises
+   "Lake Travis Boat Safety and Maintenance: Quality Standards for Party Cruises"
+
+⚠️  No suffix found but title is long (76 chars):
+   lake-travis-boat-safety-and-maintenance-quality-standards-for-party-cruises
+   "Lake Travis Boat Safety and Maintenance: Quality Standards for Party Cruises"
+
+⚠️  Still long after removing suffix (75 chars):
+   lake-travis-boat-party-regulations-legal-requirements-and-compliance-guide
+   "Lake Travis Boat Party Regulations: Legal Requirements and Compliance Guide"
+
+⚠️  No suffix found but title is long (75 chars):
+   lake-travis-boat-party-regulations-legal-requirements-and-compliance-guide
+   "Lake Travis Boat Party Regulations: Legal Requirements and Compliance Guide"
+
+⚠️  Still long after removing suffix (72 chars):
+   lake-travis-boat-party-costs-complete-pricing-guide-and-budget-planning
+   "Lake Travis Boat Party Costs: Complete Pricing Guide and Budget Planning"
+
+⚠️  No suffix found but title is long (72 chars):
+   lake-travis-boat-party-costs-complete-pricing-guide-and-budget-planning
+   "Lake Travis Boat Party Costs: Complete Pricing Guide and Budget Planning"
+
+⚠️  Still long after removing suffix (74 chars):
+   lake-travis-boat-party-reviews-real-customer-experiences-and-testimonials
+   "Lake Travis Boat Party Reviews: Real Customer Experiences and Testimonials"
+
+⚠️  No suffix found but title is long (74 chars):
+   lake-travis-boat-party-reviews-real-customer-experiences-and-testimonials
+   "Lake Travis Boat Party Reviews: Real Customer Experiences and Testimonials"
+
+⚠️  Still long after removing suffix (76 chars):
+   accessible-lake-travis-boat-parties-inclusive-event-planning-for-all-guests
+   "Accessible Lake Travis Boat Parties: Inclusive Event Planning for All Guests"
+
+⚠️  No suffix found but title is long (76 chars):
+   accessible-lake-travis-boat-parties-inclusive-event-planning-for-all-guests
+   "Accessible Lake Travis Boat Parties: Inclusive Event Planning for All Guests"
+
+⚠️  Still long after removing suffix (81 chars):
+   lake-travis-boat-party-insurance-understanding-coverage-and-liability-for-events
+   "Lake Travis Boat Party Insurance: Understanding Coverage and Liability for Events"
+
+⚠️  No suffix found but title is long (81 chars):
+   lake-travis-boat-party-insurance-understanding-coverage-and-liability-for-events
+   "Lake Travis Boat Party Insurance: Understanding Coverage and Liability for Events"
+
+⚠️  Still long after removing suffix (79 chars):
+   creative-lake-travis-boat-party-themes-unique-ideas-for-memorable-celebrations
+   "Creative Lake Travis Boat Party Themes: Unique Ideas for Memorable Celebrations"
+
+⚠️  No suffix found but title is long (79 chars):
+   creative-lake-travis-boat-party-themes-unique-ideas-for-memorable-celebrations
+   "Creative Lake Travis Boat Party Themes: Unique Ideas for Memorable Celebrations"
+
+⚠️  Still long after removing suffix (74 chars):
+   lake-travis-boat-party-logistics-complete-planning-and-coordination-guide
+   "Lake Travis Boat Party Logistics: Complete Planning and Coordination Guide"
+
+⚠️  No suffix found but title is long (74 chars):
+   lake-travis-boat-party-logistics-complete-planning-and-coordination-guide
+   "Lake Travis Boat Party Logistics: Complete Planning and Coordination Guide"
+
+⚠️  Still long after removing suffix (82 chars):
+   holiday-celebrations-on-lake-travis-seasonal-boat-party-planning-and-coordination
+   "Holiday Celebrations on Lake Travis: Seasonal Boat Party Planning and Coordination"
+
+⚠️  No suffix found but title is long (82 chars):
+   holiday-celebrations-on-lake-travis-seasonal-boat-party-planning-and-coordination
+   "Holiday Celebrations on Lake Travis: Seasonal Boat Party Planning and Coordination"
+
+⚠️  Still long after removing suffix (74 chars):
+   lake-travis-boat-party-music-sound-systems-and-entertainment-coordination
+   "Lake Travis Boat Party Music: Sound Systems and Entertainment Coordination"
+
+⚠️  No suffix found but title is long (74 chars):
+   lake-travis-boat-party-music-sound-systems-and-entertainment-coordination
+   "Lake Travis Boat Party Music: Sound Systems and Entertainment Coordination"
+
+⚠️  Still long after removing suffix (82 chars):
+   lake-travis-party-boat-rentals-ultimate-guide-for-large-group-events-20-guests
+   "Lake Travis Party Boat Rentals: Ultimate Guide for Large Group Events (20+ Guests)"
+
+⚠️  No suffix found but title is long (82 chars):
+   lake-travis-party-boat-rentals-ultimate-guide-for-large-group-events-20-guests
+   "Lake Travis Party Boat Rentals: Ultimate Guide for Large Group Events (20+ Guests)"
+
+⚠️  Still long after removing suffix (75 chars):
+   lake-travis-boat-party-photography-capturing-perfect-memories-on-the-water
+   "Lake Travis Boat Party Photography: Capturing Perfect Memories on the Water"
+
+⚠️  No suffix found but title is long (75 chars):
+   lake-travis-boat-party-photography-capturing-perfect-memories-on-the-water
+   "Lake Travis Boat Party Photography: Capturing Perfect Memories on the Water"
+
+⚠️  Still long after removing suffix (76 chars):
+   first-time-lake-travis-boat-rental-essential-tips-for-austin-party-planning
+   "First-Time Lake Travis Boat Rental: Essential Tips for Austin Party Planning"
+
+⚠️  No suffix found but title is long (76 chars):
+   first-time-lake-travis-boat-rental-essential-tips-for-austin-party-planning
+   "First-Time Lake Travis Boat Rental: Essential Tips for Austin Party Planning"
+
+⚠️  Still long after removing suffix (87 chars):
+   lake-travis-boat-party-entertainment-activities-and-amenities-for-unforgettable-events
+   "Lake Travis Boat Party Entertainment: Activities and Amenities for Unforgettable Events"
+
+⚠️  No suffix found but title is long (87 chars):
+   lake-travis-boat-party-entertainment-activities-and-amenities-for-unforgettable-events
+   "Lake Travis Boat Party Entertainment: Activities and Amenities for Unforgettable Events"
+
+⚠️  Still long after removing suffix (79 chars):
+   lake-travis-sunset-cruises-romantic-and-celebration-options-for-every-occasion
+   "Lake Travis Sunset Cruises: Romantic and Celebration Options for Every Occasion"
+
+⚠️  No suffix found but title is long (79 chars):
+   lake-travis-sunset-cruises-romantic-and-celebration-options-for-every-occasion
+   "Lake Travis Sunset Cruises: Romantic and Celebration Options for Every Occasion"
+
+⚠️  Still long after removing suffix (82 chars):
+   lake-travis-boat-party-catering-food-and-beverage-coordination-for-perfect-events
+   "Lake Travis Boat Party Catering: Food and Beverage Coordination for Perfect Events"
+
+⚠️  No suffix found but title is long (82 chars):
+   lake-travis-boat-party-catering-food-and-beverage-coordination-for-perfect-events
+   "Lake Travis Boat Party Catering: Food and Beverage Coordination for Perfect Events"
+
+⚠️  Still long after removing suffix (75 chars):
+   lake-travis-boat-party-packages-comprehensive-guide-to-options-and-pricing
+   "Lake Travis Boat Party Packages: Comprehensive Guide to Options and Pricing"
+
+⚠️  No suffix found but title is long (75 chars):
+   lake-travis-boat-party-packages-comprehensive-guide-to-options-and-pricing
+   "Lake Travis Boat Party Packages: Comprehensive Guide to Options and Pricing"
+
+⚠️  Still long after removing suffix (78 chars):
+   lake-travis-weather-planning-seasonal-considerations-for-perfect-boat-parties
+   "Lake Travis Weather Planning: Seasonal Considerations for Perfect Boat Parties"
+
+⚠️  No suffix found but title is long (78 chars):
+   lake-travis-weather-planning-seasonal-considerations-for-perfect-boat-parties
+   "Lake Travis Weather Planning: Seasonal Considerations for Perfect Boat Parties"
+
+⚠️  Still long after removing suffix (68 chars):
+   lake-travis-boat-safety-essential-guidelines-for-safe-party-cruises
+   "Lake Travis Boat Safety: Essential Guidelines for Safe Party Cruises"
+
+⚠️  No suffix found but title is long (68 chars):
+   lake-travis-boat-safety-essential-guidelines-for-safe-party-cruises
+   "Lake Travis Boat Safety: Essential Guidelines for Safe Party Cruises"
+
+⚠️  Still long after removing suffix (78 chars):
+   birthday-party-boat-rentals-on-lake-travis-milestone-celebrations-with-a-view
+   "Birthday Party Boat Rentals on Lake Travis: Milestone Celebrations with a View"
+
+⚠️  No suffix found but title is long (78 chars):
+   birthday-party-boat-rentals-on-lake-travis-milestone-celebrations-with-a-view
+   "Birthday Party Boat Rentals on Lake Travis: Milestone Celebrations with a View"
+
+⚠️  Still long after removing suffix (71 chars):
+   lake-travis-wedding-boat-rentals-unique-venues-for-austin-celebrations
+   "Lake Travis Wedding Boat Rentals: Unique Venues for Austin Celebrations"
+
+⚠️  No suffix found but title is long (71 chars):
+   lake-travis-wedding-boat-rentals-unique-venues-for-austin-celebrations
+   "Lake Travis Wedding Boat Rentals: Unique Venues for Austin Celebrations"
+
+⚠️  Still long after removing suffix (74 chars):
+   corporate-team-building-on-lake-travis-professional-boat-rental-solutions
+   "Corporate Team Building on Lake Travis: Professional Boat Rental Solutions"
+
+⚠️  No suffix found but title is long (74 chars):
+   corporate-team-building-on-lake-travis-professional-boat-rental-solutions
+   "Corporate Team Building on Lake Travis: Professional Boat Rental Solutions"
+
+⚠️  Still long after removing suffix (86 chars):
+   austin-bachelorette-party-boats-lake-travis-adventures-for-unforgettable-celebrations
+   "Austin Bachelorette Party Boats: Lake Travis Adventures for Unforgettable Celebrations"
+
+⚠️  No suffix found but title is long (86 chars):
+   austin-bachelorette-party-boats-lake-travis-adventures-for-unforgettable-celebrations
+   "Austin Bachelorette Party Boats: Lake Travis Adventures for Unforgettable Celebrations"
+
+⚠️  Still long after removing suffix (80 chars):
+   lake-travis-bachelor-party-boat-rentals-the-ultimate-guide-to-epic-celebrations
+   "Lake Travis Bachelor Party Boat Rentals: The Ultimate Guide to Epic Celebrations"
+
+⚠️  No suffix found but title is long (80 chars):
+   lake-travis-bachelor-party-boat-rentals-the-ultimate-guide-to-epic-celebrations
+   "Lake Travis Bachelor Party Boat Rentals: The Ultimate Guide to Epic Celebrations"
+
+⚠️  Still long after removing suffix (72 chars):
+   party-alcohol-safety-in-austin-responsible-service-and-guest-well-being
+   "Party Alcohol Safety in Austin: Responsible Service and Guest Well-being"
+
+⚠️  No suffix found but title is long (72 chars):
+   party-alcohol-safety-in-austin-responsible-service-and-guest-well-being
+   "Party Alcohol Safety in Austin: Responsible Service and Guest Well-being"
+
+⚠️  Still long after removing suffix (82 chars):
+   holiday-party-alcohol-themes-new-years-fourth-of-july-and-austin-celebrations
+   "Holiday Party Alcohol Themes: New Year\'s, Fourth of July, and Austin Celebrations"
+
+⚠️  No suffix found but title is long (82 chars):
+   holiday-party-alcohol-themes-new-years-fourth-of-july-and-austin-celebrations
+   "Holiday Party Alcohol Themes: New Year\'s, Fourth of July, and Austin Celebrations"
+
+⚠️  Still long after removing suffix (69 chars):
+   graduation-party-alcohol-planning-ut-and-austin-college-celebrations
+   "Graduation Party Alcohol Planning: UT and Austin College Celebrations"
+
+⚠️  No suffix found but title is long (69 chars):
+   graduation-party-alcohol-planning-ut-and-austin-college-celebrations
+   "Graduation Party Alcohol Planning: UT and Austin College Celebrations"
+
+⚠️  Still long after removing suffix (70 chars):
+   austin-party-venue-alcohol-delivery-navigating-policies-and-logistics
+   "Austin Party Venue Alcohol Delivery: Navigating Policies and Logistics"
+
+⚠️  No suffix found but title is long (70 chars):
+   austin-party-venue-alcohol-delivery-navigating-policies-and-logistics
+   "Austin Party Venue Alcohol Delivery: Navigating Policies and Logistics"
+
+⚠️  Still long after removing suffix (69 chars):
+   pool-party-alcohol-coordination-summer-event-planning-in-austin-heat
+   "Pool Party Alcohol Coordination: Summer Event Planning in Austin Heat"
+
+⚠️  No suffix found but title is long (69 chars):
+   pool-party-alcohol-coordination-summer-event-planning-in-austin-heat
+   "Pool Party Alcohol Coordination: Summer Event Planning in Austin Heat"
+
+⚠️  Still long after removing suffix (72 chars):
+   birthday-party-alcohol-delivery-austin-milestone-celebrations-made-easy
+   "Birthday Party Alcohol Delivery Austin: Milestone Celebrations Made Easy"
+
+⚠️  No suffix found but title is long (72 chars):
+   birthday-party-alcohol-delivery-austin-milestone-celebrations-made-easy
+   "Birthday Party Alcohol Delivery Austin: Milestone Celebrations Made Easy"
+
+⚠️  Still long after removing suffix (97 chars):
+   wedding-anniversary-celebration-ideas-recreating-your-special-day-with-boat-and-alcohol-packages
+   "Wedding Anniversary Celebration Ideas: Recreating Your Special Day with Boat and Alcohol Packages"
+
+⚠️  No suffix found but title is long (97 chars):
+   wedding-anniversary-celebration-ideas-recreating-your-special-day-with-boat-and-alcohol-packages
+   "Wedding Anniversary Celebration Ideas: Recreating Your Special Day with Boat and Alcohol Packages"
+
+⚠️  Still long after removing suffix (76 chars):
+   outdoor-wedding-alcohol-logistics-hill-country-and-lake-travis-coordination
+   "Outdoor Wedding Alcohol Logistics: Hill Country and Lake Travis Coordination"
+
+⚠️  No suffix found but title is long (76 chars):
+   outdoor-wedding-alcohol-logistics-hill-country-and-lake-travis-coordination
+   "Outdoor Wedding Alcohol Logistics: Hill Country and Lake Travis Coordination"
+
+⚠️  Still long after removing suffix (76 chars):
+   austin-wedding-venue-alcohol-policies-delivery-solutions-for-every-location
+   "Austin Wedding Venue Alcohol Policies: Delivery Solutions for Every Location"
+
+⚠️  No suffix found but title is long (76 chars):
+   austin-wedding-venue-alcohol-policies-delivery-solutions-for-every-location
+   "Austin Wedding Venue Alcohol Policies: Delivery Solutions for Every Location"
+
+⚠️  Still long after removing suffix (87 chars):
+   wedding-party-alcohol-coordination-getting-ready-bachelor-bachelorette-and-reception
+   "Wedding Party Alcohol Coordination: Getting Ready, Bachelor/Bachelorette, and Reception"
+
+⚠️  No suffix found but title is long (87 chars):
+   wedding-party-alcohol-coordination-getting-ready-bachelor-bachelorette-and-reception
+   "Wedding Party Alcohol Coordination: Getting Ready, Bachelor/Bachelorette, and Reception"
+
+⚠️  Still long after removing suffix (74 chars):
+   rehearsal-dinner-boat-alcohol-delivery-unique-wedding-weekend-experiences
+   "Rehearsal Dinner Boat Alcohol Delivery: Unique Wedding Weekend Experiences"
+
+⚠️  No suffix found but title is long (74 chars):
+   rehearsal-dinner-boat-alcohol-delivery-unique-wedding-weekend-experiences
+   "Rehearsal Dinner Boat Alcohol Delivery: Unique Wedding Weekend Experiences"
+
+⚠️  Still long after removing suffix (84 chars):
+   conference-after-party-alcohol-coordination-sxsw-acl-and-austin-event-integration
+   "Conference After-Party Alcohol Coordination: SXSW, ACL, and Austin Event Integration"
+
+⚠️  No suffix found but title is long (84 chars):
+   conference-after-party-alcohol-coordination-sxsw-acl-and-austin-event-integration
+   "Conference After-Party Alcohol Coordination: SXSW, ACL, and Austin Event Integration"
+
+⚠️  Still long after removing suffix (84 chars):
+   startup-celebration-alcohol-packages-funding-rounds-launches-and-milestone-events
+   "Startup Celebration Alcohol Packages: Funding Rounds, Launches, and Milestone Events"
+
+⚠️  No suffix found but title is long (84 chars):
+   startup-celebration-alcohol-packages-funding-rounds-launches-and-milestone-events
+   "Startup Celebration Alcohol Packages: Funding Rounds, Launches, and Milestone Events"
+
+⚠️  Still long after removing suffix (81 chars):
+   holiday-office-party-alcohol-delivery-stress-free-corporate-celebration-planning
+   "Holiday Office Party Alcohol Delivery: Stress-Free Corporate Celebration Planning"
+
+⚠️  No suffix found but title is long (81 chars):
+   holiday-office-party-alcohol-delivery-stress-free-corporate-celebration-planning
+   "Holiday Office Party Alcohol Delivery: Stress-Free Corporate Celebration Planning"
+
+⚠️  Still long after removing suffix (78 chars):
+   executive-retreat-alcohol-planning-balancing-professionalism-and-team-bonding
+   "Executive Retreat Alcohol Planning: Balancing Professionalism and Team Bonding"
+
+⚠️  No suffix found but title is long (78 chars):
+   executive-retreat-alcohol-planning-balancing-professionalism-and-team-bonding
+   "Executive Retreat Alcohol Planning: Balancing Professionalism and Team Bonding"
+
+⚠️  Still long after removing suffix (70 chars):
+   client-entertainment-alcohol-strategy-impressing-without-overdoing-it
+   "Client Entertainment Alcohol Strategy: Impressing Without Overdoing It"
+
+⚠️  No suffix found but title is long (70 chars):
+   client-entertainment-alcohol-strategy-impressing-without-overdoing-it
+   "Client Entertainment Alcohol Strategy: Impressing Without Overdoing It"
+
+⚠️  Still long after removing suffix (84 chars):
+   corporate-team-building-on-lake-travis-alcohol-coordination-for-professional-events
+   "Corporate Team Building on Lake Travis: Alcohol Coordination for Professional Events"
+
+⚠️  No suffix found but title is long (84 chars):
+   corporate-team-building-on-lake-travis-alcohol-coordination-for-professional-events
+   "Corporate Team Building on Lake Travis: Alcohol Coordination for Professional Events"
+
+⚠️  Still long after removing suffix (72 chars):
+   bachelorette-party-alcohol-emergency-kit-last-minute-delivery-solutions
+   "Bachelorette Party Alcohol Emergency Kit: Last-Minute Delivery Solutions"
+
+⚠️  No suffix found but title is long (72 chars):
+   bachelorette-party-alcohol-emergency-kit-last-minute-delivery-solutions
+   "Bachelorette Party Alcohol Emergency Kit: Last-Minute Delivery Solutions"
+
+⚠️  Still long after removing suffix (81 chars):
+   budget-friendly-bachelorette-party-alcohol-maximum-fun-without-breaking-the-bank
+   "Budget-Friendly Bachelorette Party Alcohol: Maximum Fun Without Breaking the Bank"
+
+⚠️  No suffix found but title is long (81 chars):
+   budget-friendly-bachelorette-party-alcohol-maximum-fun-without-breaking-the-bank
+   "Budget-Friendly Bachelorette Party Alcohol: Maximum Fun Without Breaking the Bank"
+
+⚠️  Still long after removing suffix (80 chars):
+   instagram-worthy-bachelorette-party-cocktails-recipes-and-delivery-coordination
+   "Instagram-Worthy Bachelorette Party Cocktails: Recipes and Delivery Coordination"
+
+⚠️  No suffix found but title is long (80 chars):
+   instagram-worthy-bachelorette-party-cocktails-recipes-and-delivery-coordination
+   "Instagram-Worthy Bachelorette Party Cocktails: Recipes and Delivery Coordination"
+
+⚠️  Still long after removing suffix (82 chars):
+   lake-travis-bachelorette-party-alcohol-laws-what-you-can-and-cant-bring-on-boats
+   "Lake Travis Bachelorette Party Alcohol Laws: What You Can and Can't Bring on Boats"
+
+⚠️  No suffix found but title is long (82 chars):
+   lake-travis-bachelorette-party-alcohol-laws-what-you-can-and-cant-bring-on-boats
+   "Lake Travis Bachelorette Party Alcohol Laws: What You Can and Can't Bring on Boats"
+
+⚠️  Still long after removing suffix (83 chars):
+   cocktail-kits-vs-individual-bottles-the-smart-bachelorette-party-alcohol-strategy
+   "Cocktail Kits vs. Individual Bottles: The Smart Bachelorette Party Alcohol Strategy"
+
+⚠️  No suffix found but title is long (83 chars):
+   cocktail-kits-vs-individual-bottles-the-smart-bachelorette-party-alcohol-strategy
+   "Cocktail Kits vs. Individual Bottles: The Smart Bachelorette Party Alcohol Strategy"
+
+⚠️  Still long after removing suffix (101 chars):
+   austin-bachelorette-weekend-alcohol-timeline-day-by-day-drinking-strategy-for-multi-day-celebrations
+   "Austin Bachelorette Weekend Alcohol Timeline: Day-by-Day Drinking Strategy for Multi-Day Celebrations"
+
+⚠️  No suffix found but title is long (101 chars):
+   austin-bachelorette-weekend-alcohol-timeline-day-by-day-drinking-strategy-for-multi-day-celebrations
+   "Austin Bachelorette Weekend Alcohol Timeline: Day-by-Day Drinking Strategy for Multi-Day Celebrations"
+
+⚠️  Still long after removing suffix (89 chars):
+   lake-travis-bachelor-party-alcohol-delivery-complete-coordination-guide-for-boat-parties
+   "Lake Travis Bachelor Party Alcohol Delivery: Complete Coordination Guide for Boat Parties"
+
+⚠️  No suffix found but title is long (89 chars):
+   lake-travis-bachelor-party-alcohol-delivery-complete-coordination-guide-for-boat-parties
+   "Lake Travis Bachelor Party Alcohol Delivery: Complete Coordination Guide for Boat Parties"
+
+⚠️  Still long after removing suffix (114 chars):
+   the-ultimate-austin-bachelorette-party-alcohol-guide-what-to-order-when-to-order-and-how-much-you-actually-need
+   "The Ultimate Austin Bachelorette Party Alcohol Guide: What to Order, When to Order, and How Much You Actually Need"
+
+⚠️  No suffix found but title is long (114 chars):
+   the-ultimate-austin-bachelorette-party-alcohol-guide-what-to-order-when-to-order-and-how-much-you-actually-need
+   "The Ultimate Austin Bachelorette Party Alcohol Guide: What to Order, When to Order, and How Much You Actually Need"
+
+⚠️  Still long after removing suffix (73 chars):
+   austin-bachelorette-bliss-spa-retreats-disco-cruises-alcohol-delivery
+   "Austin Bachelorette Bliss: Spa Retreats, Disco Cruises & Alcohol Delivery"
+
+⚠️  No suffix found but title is long (73 chars):
+   austin-bachelorette-bliss-spa-retreats-disco-cruises-alcohol-delivery
+   "Austin Bachelorette Bliss: Spa Retreats, Disco Cruises & Alcohol Delivery"
+
+⚠️  Still long after removing suffix (86 chars):
+   must-haves-for-the-perfect-austin-bachelorette-weekend
+   "Must-Haves for the Perfect Austin Bachelorette Weekend in Texas | Party Planning Guide"
+
+⚠️  No suffix found but title is long (86 chars):
+   must-haves-for-the-perfect-austin-bachelorette-weekend
+   "Must-Haves for the Perfect Austin Bachelorette Weekend in Texas | Party Planning Guide"
+
+⚠️  Still long after removing suffix (85 chars):
+   the-top-dos-and-dont-for-success-on-the-atx-disco-cruise-with-premier-party-cruises
+   "The Top Do’s and Don’t For Success on the ATX Disco Cruise with Premier Party Cruises"
+
+⚠️  No suffix found but title is long (85 chars):
+   the-top-dos-and-dont-for-success-on-the-atx-disco-cruise-with-premier-party-cruises
+   "The Top Do’s and Don’t For Success on the ATX Disco Cruise with Premier Party Cruises"
+
+⚠️  Still long after removing suffix (62 chars):
+   joint-bachelor-bachelorette-parties-with-premier-party-cruises
+   "Joint Bachelor/Bachelorette Parties With Premier Party Cruises"
+
+⚠️  No suffix found but title is long (62 chars):
+   joint-bachelor-bachelorette-parties-with-premier-party-cruises
+   "Joint Bachelor/Bachelorette Parties With Premier Party Cruises"
+
+
+================================================================================
+SUMMARY
+================================================================================
+Total posts processed: 78
+✅ Updated with suffix removed: 0
+✅ Already under 60 chars: 22
+⚠️  May need manual attention: 56
+================================================================================

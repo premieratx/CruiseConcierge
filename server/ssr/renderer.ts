@@ -854,7 +854,7 @@ const PAGE_METADATA: Record<string, { h1: string; content: string }> = {
     content: 'Experience the ultimate party cruise on Lake Travis. Private charters, disco cruises, bachelor parties, bachelorette parties, and corporate events. Book your Austin boat rental today!'
   },
   '/blog': {
-    h1: 'Austin Party Boat Blog | Bachelor & Bachelorette Party Tips | Premier Party Cruises',
+    h1: 'Austin Party Boat Blog | Bachelor & Bachelorette Tips',
     content: 'Expert tips for planning bachelor and bachelorette parties in Austin. Lake Travis party boat guides, itineraries, and Austin party planning advice from Premier Party Cruises experts.'
   },
   '/bachelor-party-austin': {
@@ -942,7 +942,7 @@ const PAGE_METADATA: Record<string, { h1: string; content: string }> = {
     content: 'Perfect wedding events on Lake Travis. Rehearsal dinners, welcome parties, after parties, and unique wedding celebrations on private boat charters.'
   },
   '/combined-bachelor-bachelorette-austin': {
-    h1: 'Combined Bachelor Bachelorette Parties | Austin Lake Travis Cruises',
+    h1: 'Joint Bachelor/Bachelorette Parties | Lake Travis Austin',
     content: 'Celebrate together with combined bachelor and bachelorette party cruises on Lake Travis. Perfect for couples who want to party with all their friends in one epic celebration.'
   },
   '/ai-endorsement': {
@@ -1078,7 +1078,8 @@ async function renderPage(url: string, req: Request): Promise<string> {
           h1 = blogData.post.title;
           // CRITICAL FIX: Inject FULL blog content for SEO (not just excerpt)
           content = blogData.post.content || blogData.post.excerpt || '';
-          metaTitle = `${blogData.post.title} | Premier Party Cruises Blog`;
+          // SEO FIX: Remove suffix to keep titles under 60 chars - Google adds site name automatically
+          metaTitle = blogData.post.metaTitle || blogData.post.title;
           // Generate unique meta description from content if not set
           const uniqueDescription = blogData.post.metaDescription || 
                                     blogData.post.excerpt || 
@@ -1088,7 +1089,8 @@ async function renderPage(url: string, req: Request): Promise<string> {
       }
     } else if (pathname === '/blog' || pathname === '/blogs') {
       // Main blog listing page (/blog is primary, /blogs is canonical URL)
-      h1 = 'Austin Party Boat Blog | Bachelor & Bachelorette Party Tips | Premier Party Cruises';
+      // SEO FIX: Shortened to <60 chars for Ubersuggest compliance
+      h1 = 'Austin Party Boat Blog | Bachelor & Bachelorette Tips';
       const intro = 'Expert tips for planning bachelor and bachelorette parties in Austin. Lake Travis party boat guides, itineraries, and Austin party planning advice.';
       metaTitle = h1;
       metaDescription = intro;
