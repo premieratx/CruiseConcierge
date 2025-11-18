@@ -139,15 +139,17 @@ const PORT = process.env.PORT || '5000';
   }
 
   // Serve attached_assets folder for videos and media
+  // PAGESPEED FIX: 1 year cache for static media assets (was 7 days)
   const attachedAssetsDir = path.join(process.cwd(), 'attached_assets');
   if (fs.existsSync(attachedAssetsDir)) {
     app.use('/attached_assets', express.static(attachedAssetsDir, {
-      maxAge: '7d',
+      maxAge: '365d', // 1 year for all assets
       etag: true,
       lastModified: true,
       setHeaders: (res, filepath) => {
-        if (filepath.match(/\.(mp4|webm|mov)$/)) {
-          res.setHeader('Cache-Control', 'public, max-age=604800'); // 7 days for videos
+        // 1 year cache for images and videos (PageSpeed optimization)
+        if (filepath.match(/\.(mp4|webm|mov|webp|jpg|jpeg|png|gif|svg)$/)) {
+          res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
         }
       }
     }));

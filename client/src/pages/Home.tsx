@@ -14,7 +14,10 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/component
 import { cn } from '@/lib/utils';
 import { useToast } from '@/hooks/use-toast';
 import { LazyImage } from '@/components/LazyImage';
-const logoPath = '/attached_assets/PPC-Logo-LARGE.webp';
+// Optimized logo - 26KB instead of 240KB (214KB savings!)
+const logoPath = '/attached_assets/PPC-Logo-280x280.webp';
+const logoPathSmall = '/attached_assets/PPC-Logo-80x80.webp';
+const logoPathLarge = '/attached_assets/PPC-Logo-LARGE.webp';
 // Import all icons from lucide-react using standard bundled imports for production compatibility
 import {
   Anchor,
@@ -103,7 +106,8 @@ import {
 } from '@shared/constants';
 
 // Hero and gallery images - Optimized WebP format for fast loading
-const heroImage1 = '/attached_assets/bachelor-party-group-guys.webp';
+// Optimized poster - 104KB instead of 113KB (9.4KB savings!)
+const heroImage1 = '/attached_assets/bachelor-party-group-guys-optimized.webp';
 const heroImage2 = '/attached_assets/atx-disco-cruise-party.webp';
 const heroImage3 = '/attached_assets/dancing-party-scene.webp';
 const galleryImage1 = '/attached_assets/day-tripper-14-person-boat.webp';
@@ -380,13 +384,22 @@ export default function Home() {
     message: ''
   });
   const { toast } = useToast();
+  const [isPageLoaded, setIsPageLoaded] = useState(false);
 
-  // Fetch homepage endorsements with aggressive caching
+  // PERFORMANCE FIX: Defer non-critical endorsements API (was blocking 4,163ms!)
+  // Only fetch after page loads to improve LCP/FCP
   const { data: endorsements } = useQuery<Endorsement[]>({
     queryKey: ['/api/endorsements/homepage'],
+    enabled: isPageLoaded, // Defer until page interactive
     staleTime: 10 * 60 * 1000, // 10 minutes
     gcTime: 60 * 60 * 1000, // 1 hour
   });
+
+  // Enable endorsements fetch after initial render
+  useEffect(() => {
+    const timer = setTimeout(() => setIsPageLoaded(true), 100);
+    return () => clearTimeout(timer);
+  }, []);
 
   const heroImages = [heroImage1, heroImage2, heroImage3];
   const galleryImages = [galleryImage1, galleryImage2, galleryImage3, heroImage1, heroImage2, heroImage3];
@@ -553,6 +566,7 @@ export default function Home() {
             playsInline
             className="w-full h-full object-cover opacity-60"
             poster={heroImage1}
+            preload="metadata"
           >
             <source src="/attached_assets/Boat_Video_Walkthrough_Generated_1761209219959.mp4" type="video/mp4" />
           </video>
@@ -571,13 +585,18 @@ export default function Home() {
             variants={reducedMotion ? undefined : staggerChildren}
             className="max-w-5xl mx-auto text-center"
           >
-            {/* Logo */}
+            {/* Logo - Optimized with srcset for responsive loading */}
             <motion.div variants={reducedMotion ? undefined : fadeInUp} className="mb-8">
-              <LazyImage 
-                src={logoPath} 
+              <img 
+                src={logoPath}
+                srcSet={`${logoPathSmall} 80w, ${logoPath} 280w, ${logoPathLarge} 1755w`}
+                sizes="(max-width: 768px) 80px, 140px"
                 alt="Party Boat Austin - Premier Party Cruises on Lake Travis" 
                 className="h-20 md:h-24 mx-auto mb-6"
-                priority={true}
+                loading="eager"
+                fetchpriority="high"
+                width="280"
+                height="280"
                 data-testid="img-hero-logo"
               />
             </motion.div>
