@@ -1,3 +1,30 @@
+/**
+ * SITEMAP GENERATOR
+ * 
+ * Generates a complete sitemap.xml with all public pages and blog posts.
+ * 
+ * USAGE:
+ *   1. Make sure the server is running: npm run dev
+ *   2. Run the generator: npx tsx scripts/generate-sitemap.ts
+ *   3. Sitemap will be created at: public/sitemap.xml
+ * 
+ * WHEN TO REGENERATE:
+ *   - After publishing new blog posts
+ *   - After adding new pages to the site
+ *   - Before deploying to production
+ *   - After making significant content updates
+ * 
+ * SAFETY FEATURES:
+ *   - Fails hard if API is unreachable (prevents incomplete sitemaps)
+ *   - Validates minimum blog post count (currently 50+)
+ *   - Shows clear error messages with troubleshooting steps
+ * 
+ * AUTOMATIC UPDATES:
+ *   - Fetches ALL published blog posts from database dynamically
+ *   - Uses accurate lastmod dates from blog metadata
+ *   - Properly prioritizes pages (homepage=1.0, service pages=0.9, blogs=0.7)
+ */
+
 import { writeFileSync } from 'fs';
 import { join } from 'path';
 
@@ -103,16 +130,22 @@ ${urlElements}
 
 async function fetchAllPublishedBlogPosts() {
   try {
+    console.log(`🌐 Fetching blog posts from: ${SERVER_URL}/api/blog/public/posts`);
+    
     // Fetch ALL published blog posts from API
     const response = await fetch(`${SERVER_URL}/api/blog/public/posts?limit=1000&offset=0`);
     
     if (!response.ok) {
-      console.warn(`⚠️  Failed to fetch blog posts from API (${response.status})`);
-      return [];
+      throw new Error(`Failed to fetch blog posts from API (HTTP ${response.status}). Make sure the server is running at ${SERVER_URL}`);
     }
     
     const data = await response.json();
     const posts = data.posts || [];
+    
+    // CRITICAL: Ensure we got blog posts - fail hard if not
+    if (posts.length === 0) {
+      throw new Error('No blog posts returned from API - this would create an incomplete sitemap!');
+    }
     
     // Map to the format we need
     const mappedPosts = posts.map((post: any) => ({
@@ -124,8 +157,13 @@ async function fetchAllPublishedBlogPosts() {
     console.log(`📝 Fetched ${mappedPosts.length} published blog posts from API`);
     return mappedPosts;
   } catch (error) {
-    console.error('❌ Error fetching blog posts:', error);
-    return [];
+    console.error('\n❌ FATAL ERROR: Failed to fetch blog posts from API');
+    console.error(`   ${error instanceof Error ? error.message : String(error)}`);
+    console.error('\n💡 Make sure:');
+    console.error(`   1. The server is running (npm run dev)`);
+    console.error(`   2. The API is accessible at ${SERVER_URL}`);
+    console.error('   3. Blog posts exist in the database\n');
+    throw error; // Re-throw to stop sitemap generation
   }
 }
 
@@ -184,6 +222,17 @@ async function generateSitemapUrls(): Promise<SitemapUrl[]> {
   
   // Fetch and add ALL database blog posts
   const dbBlogPosts = await fetchAllPublishedBlogPosts();
+  
+  // CRITICAL SAFETY CHECK: Ensure we have a reasonable number of blog posts
+  // If we have fewer than 50 posts, something is wrong - fail hard to prevent incomplete sitemap
+  const MIN_EXPECTED_BLOG_POSTS = 50;
+  if (dbBlogPosts.length < MIN_EXPECTED_BLOG_POSTS) {
+    throw new Error(
+      `SAFETY CHECK FAILED: Only ${dbBlogPosts.length} blog posts fetched (expected at least ${MIN_EXPECTED_BLOG_POSTS}). ` +
+      `This would create an incomplete sitemap and could remove pages from Google's index!`
+    );
+  }
+  
   const blogUrls: SitemapUrl[] = dbBlogPosts.map(post => {
     // Use updated_at if available, otherwise published_at
     const dateToUse = post.updatedAt || post.publishedAt || new Date();
