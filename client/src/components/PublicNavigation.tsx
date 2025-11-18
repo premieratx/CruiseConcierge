@@ -241,10 +241,18 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
     }
   }, []);
 
-  // Scroll to top when location changes
+  // Scroll to top AND re-initialize Xola when location changes
   useEffect(() => {
     if (typeof window !== 'undefined') {
       window.scrollTo(0, 0);
+      // Ensure Xola script is loaded, then re-initialize to find Book Now buttons on the new page
+      loadXolaScript()
+        .then(() => {
+          setTimeout(() => initXolaEmbeds(), 100);
+        })
+        .catch((err) => {
+          console.error('Failed to reinitialize Xola on navigation:', err);
+        });
     }
   }, [location]);
 
