@@ -19,7 +19,7 @@ export default function LakeTravisBoatRentalGuide() {
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white dark:from-gray-900 dark:to-gray-950">
       <SEOHead 
         pageRoute="/first-time-lake-travis-boat-rental-guide"
-        defaultTitle="First-Time Lake Travis Boat Rental: Essential Tips for Austin Party Planning"
+        defaultTitle="Lake Travis Boat Rental Guide | Austin Party"
         defaultDescription="First-time Lake Travis boat rental? Get essential tips for successful Austin party planning. Everything you need to know for your event on Lake Travis."
         defaultKeywords={[
           'Lake Travis boat rental',

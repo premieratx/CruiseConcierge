@@ -441,10 +441,11 @@ export default function PrivateCruises() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
       <SEOHead 
-        title="Private Boat Rental Austin | Lake Travis"
-        description="Book private boat rentals on Lake Travis Austin. BYOB friendly, 14-75 person boats with licensed captains. Perfect for austin party cruises, corporate events, weddings. Starting at $1,050 for 4-hour cruise."
-        keywords="private boat rental Austin, Lake Travis private cruise, austin party cruises, party boat austin, Austin boat charter, private party boat Austin, Lake Travis boat rental, Austin yacht rental, lake travis party boat"
-        canonicalUrl="/private-cruises"
+        pageRoute="/private-cruises"
+        defaultTitle="Private Boat Rental Austin | Lake Travis"
+        defaultDescription="Private boat rentals on Lake Travis Austin. BYOB friendly, 14-75 person boats with licensed captains. Perfect for parties, corporate events from $1,050."
+        defaultKeywords={["private boat rental Austin", "Lake Travis private cruise", "austin party cruises", "party boat austin", "Austin boat charter", "private party boat Austin", "Lake Travis boat rental", "Austin yacht rental", "lake travis party boat"]}
+        schemaType="service"
       />
       
       {/* Comprehensive Schema Markup for SEO */}

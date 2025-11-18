@@ -33,7 +33,7 @@ export default function LakeTravisWeddingBoatRentals() {
     <div className="min-h-screen bg-gradient-to-b from-blue-50 via-pink-50 to-purple-50 dark:from-gray-900 dark:to-gray-950">
       <SEOHead 
         pageRoute="/blogs/lake-travis-wedding-boat-rentals-unique-venues-for-austin-celebrations"
-        defaultTitle="Lake Travis Wedding Boat Rentals: Unique Venues for Austin Celebrations"
+        defaultTitle="Lake Travis Wedding Boats | Austin Venues"
         defaultDescription="Discover unique Lake Travis wedding boat rentals for ceremonies, rehearsal dinners & receptions. Create unforgettable Austin wedding celebrations on the water!"
         defaultKeywords={[
           'lake travis wedding boat',

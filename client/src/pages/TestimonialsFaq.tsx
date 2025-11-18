@@ -269,7 +269,7 @@ export default function TestimonialsFaq() {
     <>
       <SEOHead
         pageRoute="/testimonials-faq"
-        defaultTitle="Customer Reviews & Testimonials | Premier Party Cruises | Lake Travis"
+        defaultTitle="Reviews & Testimonials | Premier Cruises"
         defaultDescription="Read authentic reviews from 150,000+ happy customers. 5-star rated Lake Travis party boat cruises. Bachelor parties, bachelorette parties, corporate events."
         defaultKeywords={[
           'premier party cruises reviews',

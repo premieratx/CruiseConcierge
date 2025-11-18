@@ -277,10 +277,11 @@ export default function ATXDiscoCruise() {
   return (
     <>
       <SEOHead
-        title="ATX Disco Cruise | Austin Party Boat Lake Travis"
-        description="Join America's only multi-group austin party cruise on Lake Travis. 4-hour celebration with professional DJ, photographer, giant floats. Party boat austin starting at $85/person."
-        keywords="ATX Disco Cruise, austin party cruises, lake travis party boat, party boat austin, austin party cruise, Austin bachelor party, Austin bachelorette party, party cruises, Lake Travis bachelor party, Lake Travis bachelorette party, Austin boat party"
-        canonicalUrl="/atx-disco-cruise"
+        pageRoute="/atx-disco-cruise"
+        defaultTitle="ATX Disco Cruise | Party Boat Austin"
+        defaultDescription="America's only multi-group party cruise on Lake Travis. Professional DJ, photographer, giant floats included. Austin's best party boat from $85/person."
+        defaultKeywords={["ATX Disco Cruise", "austin party cruises", "lake travis party boat", "party boat austin", "austin party cruise", "Austin bachelor party", "Austin bachelorette party", "party cruises", "Lake Travis bachelor party", "Lake Travis bachelorette party", "Austin boat party"]}
+        schemaType="event"
       />
 
       {/* Comprehensive Schema Markup for SEO */}

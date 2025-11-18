@@ -173,7 +173,7 @@ export default function Blogs() {
       <Breadcrumb />
       <SEOHead 
         pageRoute="/blogs"
-        defaultTitle="Austin Party Boat Blog | Bachelor & Bachelorette Party Tips"
+        defaultTitle="Austin Party Boat Blog | Bachelor Party Tips"
         defaultDescription="Expert tips for planning bachelor and bachelorette parties in Austin. Lake Travis party boat guides, itineraries, and Austin party planning advice."
         defaultKeywords={[
           "Austin party boat blog",

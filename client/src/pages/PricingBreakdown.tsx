@@ -195,8 +195,11 @@ export default function PricingBreakdown() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
       <SEOHead 
-        title="Pricing Breakdown | Premier Party Cruises Austin"
-        description="Complete pricing breakdown for ATX Disco Cruise packages and Private Boat Rentals. Compare side-by-side, calculate costs, and find the best deal for your Lake Travis party."
+        pageRoute="/pricing-breakdown"
+        defaultTitle="Pricing Guide | ATX Disco vs Private Cruises"
+        defaultDescription="Complete pricing for ATX Disco Cruise and Private Boats. Compare packages side-by-side and find the best deal for your Lake Travis party."
+        defaultKeywords={['Lake Travis boat rental pricing', 'Austin party cruise cost', 'disco cruise pricing', 'private boat rental rates']}
+        schemaType="webpage"
       />
       
       <PublicNavigation />

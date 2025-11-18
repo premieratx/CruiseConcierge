@@ -374,10 +374,11 @@ export default function BachelorParty() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
       <SEOHead
-        title="Austin Bachelor Party Boat | Lake Travis"
-        description="Book the ultimate Austin bachelor party cruise on Lake Travis. Professional DJ, photographer, giant floats included. ATX Disco Cruise from $85-$105/person with 3 time slots available."
-        keywords="Austin bachelor party, Lake Travis bachelor party, party boat Austin, austin party cruise, bachelor party boat Austin, ATX Disco Cruise bachelor, Austin bachelor ideas, Lake Travis party boat, party cruises"
-        canonicalUrl="/bachelor-party"
+        pageRoute="/bachelor-party-austin"
+        defaultTitle="Austin Bachelor Party Boat | Lake Travis"
+        defaultDescription="Ultimate Austin bachelor party cruises on Lake Travis. Professional DJ, photographer, giant floats. ATX Disco Cruise from $85/person with 3 time slots."
+        defaultKeywords={["Austin bachelor party", "Lake Travis bachelor party", "party boat Austin", "austin party cruise", "bachelor party boat Austin", "ATX Disco Cruise bachelor", "Austin bachelor ideas", "Lake Travis party boat", "party cruises"]}
+        schemaType="service"
       />
       
       {/* Comprehensive Schema Markup for SEO */}

@@ -134,9 +134,11 @@ export default function Partners() {
   return (
     <>
       <SEOHead
-        title="Partner Program - Premier Party Cruises"
-        description="Join the Premier Party Cruises partner program. Earn 10% commission on boat bookings, get personal discounts, and receive monthly payouts via Venmo. Partner with Austin's premier party boat rental service."
-        canonicalUrl="https://premierpartycruises.com/partners"
+        pageRoute="/partners"
+        defaultTitle="Partner Program | Premier Party Cruises"
+        defaultDescription="Earn 10% commission on boat bookings. Get personal discounts and monthly Venmo payouts. Join Austin's premier party boat partner program."
+        defaultKeywords={['party boat partner program', 'Austin boat rental affiliate', 'Lake Travis referral program', 'party cruise commission']}
+        schemaType="webpage"
       />
 
       <PublicNavigation />

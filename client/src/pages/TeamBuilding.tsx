@@ -204,8 +204,8 @@ export default function TeamBuilding() {
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
       <SEOHead 
         pageRoute="/team-building"
-        defaultTitle="Corporate Team Building Boat Cruises | Lake Travis Austin"
-        defaultDescription="Get your team outside and on Lake Travis! Private boat cruises with swimming, shade, clean facilities, and easy planning. Perfect for corporate events and team bonding."
+        defaultTitle="Team Building Cruises | Lake Travis Austin"
+        defaultDescription="Get your team outside and on Lake Travis! Private boat cruises with swimming, shade, clean facilities, and easy planning. Perfect for corporate team bonding."
         defaultKeywords={[
           'corporate team building austin',
           'lake travis team building',
