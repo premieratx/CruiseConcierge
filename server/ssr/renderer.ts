@@ -845,6 +845,13 @@ const SSR_ROUTES = [
   '/austin-bachelor-party-ideas',
   '/lake-travis-bachelor-party-boats',
   '/wedding-anniversary-celebration-ideas',
+  // Booking and conversion pages - SEO-critical for showing H1s to crawlers
+  '/book-now',
+  '/book-online',
+  '/chat',
+  '/golden-ticket',
+  '/golden-ticket-private',
+  '/partners',
 ];
 
 // Page metadata for SEO
@@ -988,6 +995,30 @@ const PAGE_METADATA: Record<string, { h1: string; content: string }> = {
   '/adventure-austin-bachelorette': {
     h1: 'Adventurous Austin Bachelorette Party Activities',
     content: 'Plan an action-packed bachelorette party with outdoor adventures! Combine hiking, kayaking, ziplining, and disco cruise boat parties for active brides.'
+  },
+  '/book-now': {
+    h1: 'Book Your Cruise Online',
+    content: 'Book Austin party boat instantly! Choose 14, 25, or 50-person boats plus ATX Disco Cruise. Secure online booking for Lake Travis cruises with instant confirmation.'
+  },
+  '/book-online': {
+    h1: 'Book Your Cruise Online',
+    content: 'Book Lake Travis party boats online! Select 14, 25, or 50-person boats or ATX Disco Cruise. Instant confirmation for Austin cruises with secure online booking.'
+  },
+  '/chat': {
+    h1: 'Welcome Aboard!',
+    content: 'Get instant quote for Lake Travis boat rentals. Austin party cruises for bachelor/bachelorette parties & events. Quick online booking with personalized service!'
+  },
+  '/golden-ticket': {
+    h1: '🎉 Golden Ticket Winner! 🎉',
+    content: 'Exclusive ATX Disco Cruise promotional offer! Get $300 gift card plus 5 friend cards. Limited time Golden Ticket deal for Austin party cruises.'
+  },
+  '/golden-ticket-private': {
+    h1: '🎉 Golden Ticket Winner! 🎉',
+    content: 'Exclusive private cruise promotional offer! Get $300 gift card for Lake Travis boat rental. Limited Golden Ticket deal for Austin private cruises.'
+  },
+  '/partners': {
+    h1: 'Premier Partnership Details',
+    content: 'Join the Premier Party Cruises partner program. Earn 10% commission on boat bookings, get personal discounts, and receive monthly payouts via Venmo. Partner with Austin\'s premier party boat rental service.'
   }
 };
 
@@ -1416,7 +1447,6 @@ window.__vite_plugin_react_preamble_installed__ = true
 
 // Valid SPA routes that should be handled by React Router (not SSR)
 const VALID_SPA_ROUTES = [
-  '/chat',
   '/admin',
   '/admin/leads',
   '/admin/calendar',
