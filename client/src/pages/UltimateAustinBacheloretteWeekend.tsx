@@ -750,8 +750,8 @@ export default function UltimateAustinBacheloretteWeekend() {
                   <div className="bg-blue-50 dark:bg-gray-800 p-4 rounded-lg mb-4">
                     <h4 className="font-bold mb-2 text-gray-900 dark:text-white">Recommended Activities:</h4>
                     <ul className="space-y-2 text-gray-700 dark:text-gray-300">
-                      <li>• <Link href="/atx-disco-cruise" className="text-blue-600 hover:underline">ATX Disco Cruise</Link> Saturday 11am-3pm "BEST" time slot ($137.81/person) + Bride Sparkle Package for VIP treatment</li>
-                      <li>• OR rent a <Link href="/combined-bachelor-bachelorette" className="text-blue-600 hover:underline">private party boat</Link> (Clever Girl holds 30-50 people!)</li>
+                      <li>• <Link href="/atx-disco-cruise" className="text-blue-600 hover:underline">ATX Disco Cruise</Link> Saturday 11am-3pm "BEST" time slot ($137.81/person) + Bride Sparkle Package - includes DJ, photographer, party supplies & multi-group energy!</li>
+                      <li>• Private boat option available if you need complete privacy (but you'll need to add DJ $600 + photographer $600 + party supplies $200+ to match the disco experience)</li>
                       <li>• Reserve bottle service at West 6th clubs</li>
                       <li>• Split into smaller groups for some activities, reunite for others</li>
                     </ul>
@@ -1085,10 +1085,10 @@ export default function UltimateAustinBacheloretteWeekend() {
                 </CardHeader>
                 <CardContent>
                   <p className="text-gray-700 dark:text-gray-300 mb-4">
-                    For your <strong>bachelorette boat rental austin</strong>, both options are fantastic! The <Link href="/atx-disco-cruise" className="text-yellow-700 hover:text-yellow-800 font-semibold">ATX Disco Cruise</Link> offers an all-inclusive <strong>bachelorette party lake travis</strong> party atmosphere where you'll meet other fun groups, with professional DJ and photographer included. It's perfect for groups of 4-12 looking for high energy and social vibes during their <strong>austin bachelorette party boat</strong> adventure.
+                    The <Link href="/atx-disco-cruise" className="text-yellow-700 hover:text-yellow-800 font-semibold">ATX Disco Cruise</Link> delivers unmatched value for <strong>bachelorette boat rental austin</strong> celebrations of any size! You get an all-inclusive <strong>bachelorette party lake travis</strong> party atmosphere with professional DJ ($600 value), photographer ($600 value), party supplies ($200 value), and legendary multi-group energy. Perfect for groups looking for the complete package during their <strong>austin bachelorette party boat</strong> adventure.
                   </p>
                   <p className="text-gray-700 dark:text-gray-300 mb-4">
-                    For larger groups (14+) or those wanting complete privacy, consider a <Link href="/combined-bachelor-bachelorette" className="text-yellow-700 hover:text-yellow-800 font-semibold">private boat rental</Link> for your <strong>bachelorette party lake travis</strong> celebration. Private <strong>austin bachelorette party boat</strong> charters let you control every aspect—music, itinerary, decorations, and timing—for your <strong>bachelorette boat rental austin</strong> experience.
+                    While a private boat rental may appear cheaper per person for larger groups, you're only getting the bare-bones boat. To recreate the disco experience, you'd need to add DJ ($600) + photographer ($600) + party supplies ($200+) + setup/hosting ($200) to the base rate. <Link href="/combined-bachelor-bachelorette" className="text-yellow-700 hover:text-yellow-800 font-semibold">Private charters</Link> are great if you specifically need complete privacy, but the ATX Disco Cruise gives you way more bang for your buck!
                   </p>
                   <p className="text-gray-700 dark:text-gray-300">
                     Both options can be enhanced with <a href="https://partyondelivery.com" target="_blank" rel="noopener noreferrer" className="text-yellow-700 hover:text-yellow-800 font-semibold">Party On Delivery</a> beverage service, making your <strong>austin bachelorette party boat</strong> completely hassle-free. Check out all <Link href="/bachelorette-party-austin" className="text-yellow-700 hover:text-yellow-800 font-semibold">bachelorette party options</Link> to compare and choose what works best for your group.
