@@ -177,16 +177,46 @@ async function generateSitemapUrls(): Promise<SitemapUrl[]> {
     let lastmod = currentDate;
     
     if (path === '/') {
-      // Homepage - highest priority
+      // Homepage - highest priority, crawl daily
       priority = 1.0;
       changefreq = 'daily';
     } else if (
+      // PRIORITY 1.0: All main service pages
       path === '/bachelor-party-austin' ||
       path === '/bachelorette-party-austin' ||
+      path === '/combined-bachelor-bachelorette-austin' ||
       path === '/atx-disco-cruise' ||
-      path === '/private-cruises'
+      path === '/private-cruises' ||
+      // Corporate event pages
+      path === '/corporate-events' ||
+      path === '/team-building' ||
+      path === '/client-entertainment' ||
+      path === '/company-milestone' ||
+      // Wedding event pages
+      path === '/wedding-parties' ||
+      path === '/rehearsal-dinner' ||
+      path === '/welcome-party' ||
+      path === '/after-party' ||
+      // Birthday/occasion event pages
+      path === '/birthday-parties' ||
+      path === '/milestone-birthday' ||
+      path === '/sweet-16' ||
+      path === '/graduation-party'
     ) {
-      // Main service pages
+      // Main service/event pages - highest priority, weekly crawl
+      priority = 1.0;
+      changefreq = 'weekly';
+    } else if (
+      path === '/contact' ||
+      path === '/faq' ||
+      path === '/testimonials-faq' ||
+      path === '/chat' ||
+      path === '/book-online' ||
+      path === '/book-now' ||
+      path === '/gallery' ||
+      path === '/pricing-breakdown'
+    ) {
+      // Important action pages - high priority, weekly crawl
       priority = 0.9;
       changefreq = 'weekly';
     } else if (
@@ -196,18 +226,7 @@ async function generateSitemapUrls(): Promise<SitemapUrl[]> {
       path.includes('lake-travis') ||
       path.includes('austin')
     ) {
-      // Blog pages and content pages
-      priority = 0.7;
-      changefreq = 'monthly';
-    } else if (
-      path === '/contact' ||
-      path === '/faq' ||
-      path === '/testimonials-faq' ||
-      path === '/chat' ||
-      path === '/book-online' ||
-      path === '/book-now'
-    ) {
-      // Important pages
+      // Blog pages and content pages - weekly crawl (was monthly)
       priority = 0.8;
       changefreq = 'weekly';
     }
@@ -241,7 +260,7 @@ async function generateSitemapUrls(): Promise<SitemapUrl[]> {
     return {
       loc: `${DOMAIN}/blogs/${post.slug}`,
       lastmod,
-      changefreq: 'monthly' as const,
+      changefreq: 'weekly' as const, // Changed from monthly to weekly for faster Google recrawls
       priority: 0.7
     };
   });
