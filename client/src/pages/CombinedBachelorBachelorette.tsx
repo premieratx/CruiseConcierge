@@ -14,6 +14,7 @@ import SEOHead from '@/components/SEOHead';
 import { useInlineEdit } from '@/hooks/useInlineEdit';
 import PartyPlanningChecklist from '@/components/PartyPlanningChecklist';
 import { SectionReveal } from '@/components/SectionReveal';
+import { DISCO_TIME_SLOTS, DISCO_BASE_INCLUSIONS, DISCO_ADD_ONS, getDiscoNecklaceText } from '@shared/constants';
 import { 
   Users, Clock, Star, Calendar, MapPin, Ship, Phone,
   ArrowRight, CheckCircle, Sparkles, Crown, Music, 
@@ -45,120 +46,13 @@ const galleryImage2 = PARTY_PHOTOS.familyPartyCollage;
 const galleryImage3 = PARTY_PHOTOS.nonBachCollage;
 const floatImage = OTHER_ASSETS.giantUnicornFloat;
 
-// Combined party packages - gender-neutral
-// Prices stored in cents to match DISCO_TIME_SLOTS pattern
-const combinedPartyPackages = [
-  {
-    id: 'basic_combined',
-    name: 'Basic Combined Package',
-    price: 8500, // $85.00 per person in cents
-    priceWithTax: 11156, // $111.56 w/tax & gratuity
-    originalPrice: null,
-    description: 'Join the BEST Party on Lake Travis - Guys & Girls Together!',
-    subtitle: 'BYOB & Keep it Affordable - Perfect for Budget-Conscious Groups',
-    features: [
-      'Join the ultimate party cruise with friends from both sides!',
-      'BYOB, shared cooler with ice for everyone',
-      'Alcohol delivery available to the boat',
-      'ALWAYS more affordable than separate parties',
-      'Perfect for groups who want to celebrate together'
-    ],
-    popular: false,
-    icon: Disc3,
-    badge: 'Great Value',
-    coupleSpecial: false
-  },
-  {
-    id: 'party_squad',
-    name: 'Party Squad Package',
-    price: 9500, // $95.00 per person in cents
-    priceWithTax: 12488, // $124.88 w/tax & gratuity
-    originalPrice: 125,
-    description: 'Our signature combined party experience - The Ultimate Group Celebration!',
-    subtitle: 'Private Cooler & Reserved Area for Your Entire Crew',
-    features: [
-      'Private Cooler w/Ice & Storage for Your Entire Group',
-      'Reserved Spot for Your Combined Party',
-      'Special Celebration Items for the Happy Couple',
-      'Complimentary Direct-to-Boat Alcohol Delivery',
-      '25% Discount on Round-Trip Transportation',
-      '$50-$100 Voucher for Airbnb Delivery Services'
-    ],
-    popular: true,
-    icon: Crown,
-    badge: 'Most Popular',
-    coupleSpecial: true
-  },
-  {
-    id: 'ultimate_celebration',
-    name: 'Ultimate Celebration Package',
-    price: 10500, // $105.00 per person in cents
-    priceWithTax: 13781, // $137.81 w/tax & gratuity
-    originalPrice: 140,
-    description: 'All-inclusive luxury for the ultimate combined bachelor/bachelorette party',
-    subtitle: 'Everything Ready When You Arrive - Just Show Up & Party!',
-    features: [
-      'Everything in the Party Squad Package',
-      'Premium Party Floats for the Entire Group',
-      'Mixology Setup w/Champagne, Juices & Party Supplies',
-      '$100 Voucher for Airbnb Concierge Services',
-      'Towel Service & SPF-50 Spray Sunscreen for Everyone',
-      'Completely Turnkey - Cooler Stocked, Everything Ready!'
-    ],
-    popular: false,
-    icon: Trophy,
-    badge: 'All-Inclusive VIP',
-    coupleSpecial: true
-  }
-];
+// Combined party add-ons from constants
+const combinedAddOns = DISCO_ADD_ONS.combined;
 
-// What's included for combined parties
-const whatsIncluded = [
-  {
-    icon: Music,
-    title: 'Professional DJ',
-    description: 'Playing music everyone loves - guys and girls both enjoy the vibe!'
-  },
-  {
-    icon: Camera,
-    title: 'Professional Photographer',
-    description: 'Capture epic group photos with all your friends together'
-  },
-  {
-    icon: Anchor,
-    title: 'Private Group Cooler',
-    description: 'Dedicated cooler space for your combined group, fully iced'
-  },
-  {
-    icon: GlassWater,
-    title: 'Party Supplies',
-    description: 'Mixers, cups, ice - everything both guys and girls need'
-  },
-  {
-    icon: Waves,
-    title: 'Multiple Party Floats',
-    description: 'Giant floats everyone can enjoy on the water'
-  },
-  {
-    icon: Gift,
-    title: 'Celebration Essentials',
-    description: 'Cups, koozies, party supplies for the entire crew!'
-  },
-  {
-    icon: Droplets,
-    title: 'Ice Water Stations',
-    description: 'Keep everyone hydrated throughout the party'
-  },
-  {
-    icon: Shield,
-    title: 'Clean Restrooms',
-    description: 'Full facilities on board for everyone'
-  },
-  {
-    icon: Sun,
-    title: 'Shaded Areas',
-    description: 'Plenty of covered space to escape the sun'
-  }
+// What's included for combined parties - base disco cruise inclusions + combined-specific necklaces
+const whatsIncludedText = [
+  ...DISCO_BASE_INCLUSIONS,
+  getDiscoNecklaceText('combined')
 ];
 
 // FAQs for combined parties
@@ -370,65 +264,63 @@ export default function CombinedBachelorBachelorette() {
         </section>
       </SectionReveal>
 
-      {/* Packages Section */}
+      {/* Time Slot Pricing Section */}
       <SectionReveal>
         <section className="py-24 bg-gradient-to-b from-blue-50 to-white">
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
               <span className="text-6xl font-black text-gray-100 opacity-30 absolute -mt-8">02</span>
               <h2 className="font-playfair text-3xl md:text-4xl font-bold mb-6 text-center relative">
-                Combined Party Packages
+                Choose Your Time Slot
               </h2>
               <p className="text-base text-gray-600 max-w-3xl mx-auto text-center">
-                Choose the perfect package for your combined celebration - from budget-friendly to all-inclusive luxury
+                Select the perfect time for your combined celebration - pricing varies by day and time
               </p>
             </div>
 
             <div className="grid md:grid-cols-3 gap-8">
-              {combinedPartyPackages.map((pkg, idx) => (
+              {DISCO_TIME_SLOTS.map((slot, idx) => (
                 <Card 
-                  key={pkg.id} 
+                  key={slot.id} 
                   className={cn(
-                    "rounded-xl",
-                    pkg.popular ? "border-4 border-purple-600 shadow-2xl" : "border-2"
+                    "rounded-xl relative",
+                    slot.badge === 'BEST' ? "border-4 border-purple-600 shadow-2xl" : "border-2"
                   )}
                 >
-                  {pkg.popular && (
+                  {slot.badge && (
                     <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-sans tracking-wider">
-                      {pkg.badge}
+                      {slot.badge === 'BEST' ? 'MOST POPULAR' : slot.badge}
                     </Badge>
                   )}
                   <CardHeader className="text-center pb-4">
-                    <pkg.icon className="h-16 w-16 mx-auto mb-4 text-purple-600" />
-                    <CardTitle className="font-playfair text-2xl mb-2 text-center">{pkg.name}</CardTitle>
+                    <Clock className="h-16 w-16 mx-auto mb-4 text-purple-600" />
+                    <CardTitle className="font-playfair text-2xl mb-2 text-center">
+                      {slot.label}
+                    </CardTitle>
                     <div className="mb-2">
-                      <div className="text-3xl font-black text-purple-600">
-                        ${pkg.price / 100}/person
+                      <div className="text-4xl font-black text-purple-600">
+                        ${(slot.basePrice / 100).toFixed(2)}
                       </div>
+                      <p className="text-lg font-semibold text-gray-700">per person</p>
                       <p className="text-sm text-gray-500 mt-1">
-                        ${(pkg.priceWithTax / 100).toFixed(2)} with tax & gratuity
+                        ${(slot.priceWithTax / 100).toFixed(2)} with tax & gratuity
                       </p>
                     </div>
-                    <CardDescription className="text-center">{pkg.description}</CardDescription>
+                    <CardDescription className="text-center text-base">
+                      {slot.day} • {slot.timeRange}
+                    </CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <ul className="space-y-3">
-                      {pkg.features.map((feature, i) => (
-                        <li key={i} className="flex items-start gap-2 text-base">
-                          <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
-                          <span>{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
                     <div
                       className="xola-custom xola-checkout"
                       data-button-id="691574bd162501edc00f151a"
                     >
                       <Button
-                        className="w-full mt-6 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
-                        data-testid={`button-package-${pkg.id}`}
+                        className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
+                        data-testid={`button-timeslot-${slot.id}`}
                       >
-                        Select Package
+                        <Calendar className="mr-2 h-5 w-5" />
+                        Book {slot.day}
                       </Button>
                     </div>
                   </CardContent>
@@ -453,15 +345,55 @@ export default function CombinedBachelorBachelorette() {
               </p>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-6">
-              {whatsIncluded.map((item, idx) => (
-                <div key={idx} className="flex items-start gap-4 p-6 rounded-xl bg-blue-50">
-                  <item.icon className="h-8 w-8 text-purple-600 flex-shrink-0 mt-1" />
-                  <div>
-                    <h3 className="font-bold text-lg mb-2">{item.title}</h3>
-                    <p className="text-base text-gray-600">{item.description}</p>
-                  </div>
+            <div className="grid md:grid-cols-2 gap-4 max-w-4xl mx-auto">
+              {whatsIncludedText.map((item, idx) => (
+                <div key={idx} className="flex items-start gap-3 p-4 rounded-xl bg-blue-50">
+                  <CheckCircle className="h-6 w-6 text-green-600 flex-shrink-0 mt-1" />
+                  <p className="text-base text-gray-700">{item}</p>
                 </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      </SectionReveal>
+
+      {/* Add-Ons Section */}
+      <SectionReveal>
+        <section className="py-24 bg-gradient-to-b from-blue-50 to-white">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="text-center mb-16">
+              <span className="text-6xl font-black text-gray-100 opacity-30 absolute -mt-8">04</span>
+              <h2 className="font-playfair text-3xl md:text-4xl font-bold mb-6 text-center relative">
+                Optional Add-Ons for Combined Parties
+              </h2>
+              <p className="text-base text-gray-600 max-w-3xl mx-auto text-center">
+                Take your celebration to the next level with these premium add-on packages
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+              {combinedAddOns.map((addon) => (
+                <Card key={addon.id} className="rounded-xl border-2 hover:shadow-xl transition-all">
+                  <CardHeader className="text-center pb-4">
+                    <Package className="h-16 w-16 mx-auto mb-4 text-purple-600" />
+                    <CardTitle className="font-playfair text-2xl mb-2 text-center">
+                      {addon.name}
+                    </CardTitle>
+                    <div className="text-3xl font-black text-purple-600">
+                      ${addon.price / 100}
+                    </div>
+                  </CardHeader>
+                  <CardContent>
+                    <ul className="space-y-3">
+                      {addon.inclusions.map((inclusion, idx) => (
+                        <li key={idx} className="flex items-start gap-2 text-base">
+                          <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
+                          <span>{inclusion}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </CardContent>
+                </Card>
               ))}
             </div>
           </div>
@@ -470,10 +402,10 @@ export default function CombinedBachelorBachelorette() {
 
       {/* Reviews Section */}
       <SectionReveal>
-        <section className="py-24 bg-gradient-to-b from-blue-50 to-white">
+        <section className="py-24 bg-white">
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-12">
-              <span className="text-6xl font-black text-gray-100 opacity-30 absolute -mt-8">04</span>
+              <span className="text-6xl font-black text-gray-100 opacity-30 absolute -mt-8">05</span>
               <h2 className="font-playfair text-3xl md:text-4xl font-bold mb-6 text-center relative">
                 What Real Customers Are Saying
               </h2>
@@ -515,10 +447,10 @@ export default function CombinedBachelorBachelorette() {
 
       {/* FAQs Section */}
       <SectionReveal>
-        <section className="py-24 bg-white">
+        <section className="py-24 bg-gradient-to-b from-blue-50 to-white">
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
-              <span className="text-6xl font-black text-gray-100 opacity-30 absolute -mt-8">05</span>
+              <span className="text-6xl font-black text-gray-100 opacity-30 absolute -mt-8">06</span>
               <h2 className="font-playfair text-3xl md:text-4xl font-bold mb-6 text-center relative">
                 Combined Party FAQs
               </h2>
