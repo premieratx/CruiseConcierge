@@ -650,7 +650,11 @@ export default function BacheloretteParty() {
                     </li>
                     <li className="flex items-start gap-3">
                       <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
-                      <span>Add DJ/photographer for $600 each</span>
+                      <span>Add DJ for $600</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
+                      <span>Add Photographer for $600</span>
                     </li>
                   </ul>
                   <div className="bg-purple-50 p-4 rounded-lg mb-4">

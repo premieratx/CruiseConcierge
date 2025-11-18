@@ -649,7 +649,11 @@ export default function BachelorParty() {
                     </li>
                     <li className="flex items-start gap-3">
                       <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
-                      <span>Add DJ/photographer for $600 each</span>
+                      <span>Add DJ for $600</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
+                      <span>Add Photographer for $600</span>
                     </li>
                   </ul>
                   <div className="bg-purple-50 p-4 rounded-lg mb-4">
@@ -936,7 +940,7 @@ export default function BachelorParty() {
 
                   <div className="mt-10 p-6 bg-purple-50 rounded-lg">
                     <p className="text-center font-bold text-lg">Result: Exclusive experience customized your way</p>
-                    <p className="text-center text-gray-600 mt-2">Note: No DJ/photographer unless you add them ($600 each)</p>
+                    <p className="text-center text-gray-600 mt-2">Note: DJ ($600) and Photographer ($600) available as add-ons</p>
                   </div>
                 </div>
               </TabsContent>

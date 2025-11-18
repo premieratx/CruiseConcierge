@@ -44,7 +44,8 @@ interface GroupSizeComparison {
 }
 
 // Real costs for building it yourself
-const DJ_PHOTOGRAPHER_BARTENDER_COST = 60000; // $600 in cents
+const DJ_COST = 60000; // $600 in cents
+const PHOTOGRAPHER_COST = 60000; // $600 in cents
 const PARTY_SUPPLIES_COST = 20000; // $200 in cents
 const PREPARTYTODO_SETUP_HOSTING_COST = 20000; // $200 in cents
 
@@ -110,8 +111,8 @@ function calculatePrivateBoatOnly(groupSize: number, dayType: 'FRIDAY' | 'SATURD
 function calculateBuildItYourself(groupSize: number, dayType: 'FRIDAY' | 'SATURDAY'): { base: PricingCalculation; withExtras: PricingCalculation } {
   const baseBoatCost = getBoatBasePricing(groupSize, dayType);
   
-  // Build it yourself base = boat + DJ/Photo/Bartender + Party Supplies + Pre-party Setup
-  const buildYourselfBase = baseBoatCost + DJ_PHOTOGRAPHER_BARTENDER_COST + PARTY_SUPPLIES_COST + PREPARTYTODO_SETUP_HOSTING_COST;
+  // Build it yourself base = boat + DJ + Photographer + Party Supplies + Pre-party Setup
+  const buildYourselfBase = baseBoatCost + DJ_COST + PHOTOGRAPHER_COST + PARTY_SUPPLIES_COST + PREPARTYTODO_SETUP_HOSTING_COST;
   const baseTax = Math.floor(buildYourselfBase * (PRICING_DEFAULTS.TAX_RATE_BASIS_POINTS / 10000));
   const baseGratuity = Math.floor(buildYourselfBase * (PRICING_DEFAULTS.GRATUITY_PERCENT / 100));
   const baseTotal = buildYourselfBase + baseTax + baseGratuity;
@@ -385,8 +386,12 @@ export default function DiscoVsPrivateValueCalculator() {
                 <span>{formatCurrency(comparison.privateBoatOnly[selectedDay].subtotal)}</span>
               </div>
               <div className="flex justify-between text-sm">
-                <span>DJ/Photographer/Bartender</span>
-                <span>{formatCurrency(DJ_PHOTOGRAPHER_BARTENDER_COST)}</span>
+                <span>DJ</span>
+                <span>{formatCurrency(DJ_COST)}</span>
+              </div>
+              <div className="flex justify-between text-sm">
+                <span>Photographer</span>
+                <span>{formatCurrency(PHOTOGRAPHER_COST)}</span>
               </div>
               <div className="flex justify-between text-sm">
                 <span>Party supplies</span>
@@ -536,14 +541,14 @@ export default function DiscoVsPrivateValueCalculator() {
             <DollarSign className="w-5 h-5 text-blue-600 mt-1 flex-shrink-0" />
             <div>
               <p className="font-semibold">All-Inclusive Value:</p>
-              <p className="text-sm text-muted-foreground">Disco cruise includes professional DJ ($200), photographer ($200), bartender service ($200), party supplies ($200), setup/hosting ($200), floats ($250-350), AND the boat - all for $105/person</p>
+              <p className="text-sm text-muted-foreground">Disco cruise includes professional DJ, photographer, party supplies, setup/hosting, giant floats, AND the boat - all for $105/person. Compare this to hiring a DJ ($600) and photographer ($600) separately!</p>
             </div>
           </div>
           <div className="flex items-start gap-3">
             <Users className="w-5 h-5 text-blue-600 mt-1 flex-shrink-0" />
             <div>
               <p className="font-semibold">Per-Person Economics:</p>
-              <p className="text-sm text-muted-foreground">Larger groups save even more - the $600 DJ/photographer/bartender fee and $400 in setup/supplies gets split among more people on the disco cruise</p>
+              <p className="text-sm text-muted-foreground">Larger groups save even more - costs like DJ ($600), photographer ($600), party supplies ($200), and setup/hosting ($200) are already built into your per-person price on the disco cruise</p>
             </div>
           </div>
           <div className="flex items-start gap-3">
