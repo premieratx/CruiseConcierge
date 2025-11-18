@@ -391,6 +391,51 @@ const COMBINED_BACH_SERVICE_SCHEMA = {
 // NOTE: FAQPage schemas are loaded from attached_assets/schema_data/ via schemaLoader.ts
 // Removed hardcoded FAQ schemas to prevent Google Search Console "Duplicate field 'FAQPage'" errors
 
+// BlogCollectionPage schema generator - creates schema dynamically with actual blog posts
+function generateBlogCollectionPageSchema(blogPosts: any[]): object {
+  const itemListElements = blogPosts.map((post, index) => ({
+    "@type": "ListItem",
+    "position": index + 1,
+    "url": `https://premierpartycruises.com/blogs/${post.slug}`,
+    "name": post.title,
+    "description": post.excerpt || post.title
+  }));
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "@id": "https://premierpartycruises.com/blog/#collection",
+    "name": "Austin Party Boat Blog | Bachelor & Bachelorette Party Tips",
+    "description": "Expert tips for planning bachelor and bachelorette parties in Austin. Lake Travis party boat guides, itineraries, and Austin party planning advice.",
+    "url": "https://premierpartycruises.com/blog",
+    "publisher": {
+      "@id": "https://premierpartycruises.com/#organization"
+    },
+    "mainEntity": {
+      "@type": "ItemList",
+      "itemListElement": itemListElements,
+      "numberOfItems": blogPosts.length
+    },
+    "breadcrumb": {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://premierpartycruises.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Blog",
+          "item": "https://premierpartycruises.com/blog"
+        }
+      ]
+    }
+  };
+}
+
 // Boat Product Schemas for Fleet
 const DAY_TRIPPER_PRODUCT_SCHEMA = {
   "@context": "https://schema.org",
@@ -761,6 +806,7 @@ async function getTemplate(): Promise<string> {
 // DO NOT REMOVE PAGES FROM THIS LIST - SEO visibility is the top priority
 const SSR_ROUTES = [
   '/', // REQUIRED FOR SEO - Homepage MUST be server-rendered for search engine visibility
+  '/blog', // REQUIRED FOR SEO - Blog listing page MUST be server-rendered for search engine visibility
   '/blogs', // REQUIRED FOR SEO - Must have SSR for search engines to see blog listing content
   '/bachelor-party-austin',
   '/bachelorette-party-austin',
@@ -806,6 +852,10 @@ const PAGE_METADATA: Record<string, { h1: string; content: string }> = {
   '/': {
     h1: 'Premier Party Cruises - Austin Lake Travis Boat Rentals',
     content: 'Experience the ultimate party cruise on Lake Travis. Private charters, disco cruises, bachelor parties, bachelorette parties, and corporate events. Book your Austin boat rental today!'
+  },
+  '/blog': {
+    h1: 'Austin Party Boat Blog | Bachelor & Bachelorette Party Tips | Premier Party Cruises',
+    content: 'Expert tips for planning bachelor and bachelorette parties in Austin. Lake Travis party boat guides, itineraries, and Austin party planning advice from Premier Party Cruises experts.'
   },
   '/bachelor-party-austin': {
     h1: 'Austin Bachelor Party Boat Rentals | Private Lake Travis Cruises',
@@ -1008,6 +1058,7 @@ async function renderPage(url: string, req: Request): Promise<string> {
     let metaTitle = '';
     let metaDescription = '';
     let blogData: any = null;
+    let blogListingPosts: any[] = []; // Store blog posts for schema generation
     
     // Check if it's a blog post (only /blogs/ - /blog/ redirects to /blogs/)
     if (pathname.startsWith('/blogs/')) {
@@ -1035,8 +1086,8 @@ async function renderPage(url: string, req: Request): Promise<string> {
           metaDescription = uniqueDescription;
         }
       }
-    } else if (pathname === '/blogs') {
-      // Main blog listing page (canonical URL)
+    } else if (pathname === '/blog' || pathname === '/blogs') {
+      // Main blog listing page (/blog is primary, /blogs is canonical URL)
       h1 = 'Austin Party Boat Blog | Bachelor & Bachelorette Party Tips | Premier Party Cruises';
       const intro = 'Expert tips for planning bachelor and bachelorette parties in Austin. Lake Travis party boat guides, itineraries, and Austin party planning advice.';
       metaTitle = h1;
@@ -1051,6 +1102,9 @@ async function renderPage(url: string, req: Request): Promise<string> {
           sortBy: 'publishedAt',
           sortOrder: 'desc'
         });
+        
+        // Store blog posts for schema generation
+        blogListingPosts = blogPosts?.posts || [];
         
         // Build blog listing HTML for SEO crawlers
         let blogListingHTML = `<p style="font-size: 1.125rem; line-height: 1.75; color: #374151; margin-bottom: 2rem;">${intro}</p>`;
@@ -1253,6 +1307,15 @@ ${JSON.stringify(reviewSchema, null, 2)}
       });
     }
     
+    // Add BlogCollectionPage schema for /blog listing page
+    if ((pathname === '/blog' || pathname === '/blogs') && blogListingPosts.length > 0) {
+      const blogCollectionSchema = generateBlogCollectionPageSchema(blogListingPosts);
+      schemaScripts += `
+  <script type="application/ld+json">
+${JSON.stringify(blogCollectionSchema, null, 2)}
+  </script>`;
+    }
+    
     // Inject preconnect tags EARLY in head (right after viewport) for optimal performance
     const preconnectTags = generatePreconnectTags();
     template = template.replace(
@@ -1302,6 +1365,7 @@ window.__vite_plugin_react_preamble_installed__ = true
 
     // Blog posts need special handling: empty root + hidden SEO content after
     const isBlogPost = pathname.startsWith('/blogs/') && pathname.length > 7;
+    const isBlogListing = pathname === '/blog' || pathname === '/blogs';
     
     if (isBlogPost) {
       // Blog posts: empty root div + hidden SEO content for crawlers
@@ -1313,6 +1377,14 @@ window.__vite_plugin_react_preamble_installed__ = true
           <div style="font-size: 1.125rem; line-height: 1.75; color: #374151;">${content}</div>
         </article>
       </noscript>`;
+    } else if (isBlogListing) {
+      // Blog listing page: Inject full blog listing HTML directly (contains <article> tags)
+      ssrContent = `
+      <div id="root"></div>
+      <div class="ssr-content" style="padding: 2rem; max-width: 1200px; margin: 0 auto;">
+        <h1 style="font-size: 2.5rem; font-weight: bold; margin-bottom: 1rem; color: #000;">${h1}</h1>
+        ${content}
+      </div>`;
     } else if (pageContent) {
       // Marketing pages: Inject both root div and SSR content (SSR visible until React sets data-hydrated)
       ssrContent = `

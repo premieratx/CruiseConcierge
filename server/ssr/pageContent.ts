@@ -42,7 +42,8 @@ export const LINK_CATALOG: Record<string, {url: string; text: string}> = {
   'company-milestone': {url: '/company-milestone', text: 'Company Milestones'},
   'party-boat-austin': {url: '/party-boat-austin', text: 'Austin Party Boats'},
   'party-boat-lake-travis': {url: '/party-boat-lake-travis', text: 'Lake Travis Party Boats'},
-  'gallery': {url: '/gallery', text: 'Photo Gallery'}
+  'gallery': {url: '/gallery', text: 'Photo Gallery'},
+  'blog': {url: '/blog', text: 'Blog'}
 };
 
 export const PAGE_CONTENT: Record<string, PageContent> = {
