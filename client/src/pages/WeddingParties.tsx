@@ -291,16 +291,20 @@ export default function WeddingParties() {
           </div>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button
-              onClick={handleGetQuote}
-              size="lg"
-              className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold px-8 py-6 text-lg"
-              data-testid="button-hero-get-quote"
+            <div
+              className="xola-custom xola-checkout"
+              data-button-id="691574bd162501edc00f151a"
             >
-              <Heart className="mr-2 h-5 w-5" />
-              BOOK NOW
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
+              <Button
+                size="lg"
+                className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold px-8 py-6 text-lg"
+                data-testid="button-hero-get-quote"
+              >
+                <Heart className="mr-2 h-5 w-5" />
+                BOOK NOW
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+            </div>
           </div>
         </div>
       </section>
@@ -422,13 +426,17 @@ export default function WeddingParties() {
                         </li>
                       ))}
                     </ul>
-                    <Button
-                      onClick={handleGetQuote}
-                      className="w-full mt-6 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
-                      data-testid={`button-package-${idx}`}
+                    <div
+                      className="xola-custom xola-checkout"
+                      data-button-id="691574bd162501edc00f151a"
                     >
-                      Select Package
-                    </Button>
+                      <Button
+                        className="w-full mt-6 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
+                        data-testid={`button-package-${idx}`}
+                      >
+                        Select Package
+                      </Button>
+                    </div>
                   </CardContent>
                 </Card>
               ))}
@@ -582,16 +590,20 @@ export default function WeddingParties() {
             <p className="text-base text-gray-600 max-w-2xl mx-auto mb-8 text-center">
               Create unforgettable memories for your wedding weekend on Lake Travis
             </p>
-            <Button
-              size="lg"
-              onClick={handleGetQuote}
-              className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold text-xl px-12 py-8"
-              data-testid="button-final-cta"
+            <div
+              className="xola-custom xola-checkout"
+              data-button-id="691574bd162501edc00f151a"
             >
-              <Sparkles className="mr-2 h-6 w-6" />
-              Start Planning Today
-              <ArrowRight className="ml-2 h-6 w-6" />
-            </Button>
+              <Button
+                size="lg"
+                className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold text-xl px-12 py-8"
+                data-testid="button-final-cta"
+              >
+                <Sparkles className="mr-2 h-6 w-6" />
+                Start Planning Today
+                <ArrowRight className="ml-2 h-6 w-6" />
+              </Button>
+            </div>
           </div>
         </section>
       </SectionReveal>

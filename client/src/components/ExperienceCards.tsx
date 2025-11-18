@@ -632,14 +632,18 @@ function ExperienceCard({ experience }: { experience: Experience }) {
               </Button>
             </DialogTrigger>
             
-            <Button
-              onClick={() => navigate('/chat')}
-              className="flex-1 bg-brand-yellow hover:bg-brand-yellow/90 text-black font-semibold"
-              data-testid={`button-book-now-${experience.id}`}
+            <div
+              className="xola-custom xola-checkout flex-1"
+              data-button-id="691574bd162501edc00f151a"
             >
-              Book Now
-              <ArrowRight className="ml-1 h-4 w-4" />
-            </Button>
+              <Button
+                className="w-full bg-brand-yellow hover:bg-brand-yellow/90 text-black font-semibold"
+                data-testid={`button-book-now-${experience.id}`}
+              >
+                Book Now
+                <ArrowRight className="ml-1 h-4 w-4" />
+              </Button>
+            </div>
           </div>
         </CardContent>
       </Card>

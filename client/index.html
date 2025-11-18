@@ -172,17 +172,12 @@
         });
       }
     </script>
-    <!-- Xola Checkout Script - CRITICAL: Load before React so widgets can initialize -->
-    <script type="text/javascript">
-      (function() {
-        var co = document.createElement("script");
-        co.type = "text/javascript";
-        co.async = true;
-        co.src = "https://xola.com/checkout.js";
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(co, s);
-      })();
-    </script>
+    <!-- Xola Checkout Script - CRITICAL: Load synchronously before React -->
+    <script 
+      type="text/javascript" 
+      src="https://xola.com/checkout.js"
+      crossorigin="anonymous"
+    ></script>
     
     <script type="module" src="/src/main.tsx"></script>
   </body>

@@ -503,15 +503,19 @@ export default function BacheloretteParty() {
                 <ArrowRight className="ml-2 h-6 w-6" />
               </Button>
               
-              <Button
-                size="lg"
-                onClick={() => handleGetQuote()}
-                className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-lg px-10 py-7 whitespace-normal min-h-[4rem]"
-                data-testid="button-hero-book-now-bachelorette"
+              <div
+                className="xola-custom xola-checkout"
+                data-button-id="691574bd162501edc00f151a"
               >
-                <Calendar className="mr-2 h-6 w-6 flex-shrink-0" />
-                <span className="text-center leading-tight">BOOK NOW - Be the Hero!</span>
-              </Button>
+                <Button
+                  size="lg"
+                  className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-lg px-10 py-7 whitespace-normal min-h-[4rem]"
+                  data-testid="button-hero-book-now-bachelorette"
+                >
+                  <Calendar className="mr-2 h-6 w-6 flex-shrink-0" />
+                  <span className="text-center leading-tight">BOOK NOW - Be the Hero!</span>
+                </Button>
+              </div>
             </motion.div>
           </motion.div>
         </div>
@@ -802,14 +806,18 @@ export default function BacheloretteParty() {
 
                   {/* CTA */}
                   <div className="text-center mt-8">
-                    <Button
-                      size="lg"
-                      onClick={() => handleGetQuote()}
-                      className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white font-bold text-xl px-12 py-6 transform hover:scale-105 transition-all"
+                    <div
+                      className="xola-custom xola-checkout"
+                      data-button-id="691574bd162501edc00f151a"
                     >
-                      <Sparkles className="mr-2 h-6 w-6" />
-                      Reserve Your Bride Tribe's Spot
-                    </Button>
+                      <Button
+                        size="lg"
+                        className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white font-bold text-xl px-12 py-6 transform hover:scale-105 transition-all"
+                      >
+                        <Sparkles className="mr-2 h-6 w-6" />
+                        Reserve Your Bride Tribe's Spot
+                      </Button>
+                    </div>
                     <p className="text-sm text-gray-600 mt-4">
                       <AlertCircle className="h-4 w-4 inline mr-1" />
                       Peak weekends book 8-12 weeks for priority time slots - once they book they\'re gone!
@@ -869,13 +877,17 @@ export default function BacheloretteParty() {
                       <span className="text-gray-700"><strong>Party with bachelorette groups</strong> from across America</span>
                     </li>
                   </ul>
-                  <Button
-                    onClick={() => handleGetQuote()}
-                    className="w-full bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white font-bold"
+                  <div
+                    className="xola-custom xola-checkout"
+                    data-button-id="691574bd162501edc00f151a"
                   >
-                    Book Disco Cruise
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </Button>
+                    <Button
+                      className="w-full bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white font-bold"
+                    >
+                      Book Disco Cruise
+                      <ArrowRight className="ml-2 h-5 w-5" />
+                    </Button>
+                  </div>
                 </CardContent>
               </Card>
 
@@ -1030,14 +1042,18 @@ export default function BacheloretteParty() {
                     Where every detail is handled, every friend has a blast, and you feel like the absolute queen you are.
                   </p>
                   <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                    <Button
-                      size="lg"
-                      onClick={() => handleGetQuote()}
-                      className="bg-white text-pink-600 hover:bg-gray-100 font-bold text-lg px-10 py-6"
+                    <div
+                      className="xola-custom xola-checkout"
+                      data-button-id="691574bd162501edc00f151a"
                     >
-                      <Sparkles className="mr-2 h-6 w-6" />
-                      Plan The Perfect Bachelorette
-                    </Button>
+                      <Button
+                        size="lg"
+                        className="bg-white text-pink-600 hover:bg-gray-100 font-bold text-lg px-10 py-6"
+                      >
+                        <Sparkles className="mr-2 h-6 w-6" />
+                        Plan The Perfect Bachelorette
+                      </Button>
+                    </div>
                     <Button
                       size="lg"
                       variant="outline"
@@ -1641,14 +1657,18 @@ export default function BacheloretteParty() {
                 Check availability and get instant pricing for your girls' weekend on Lake Travis
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button
-                  size="lg"
-                  onClick={() => handleGetQuote()}
-                  className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white font-bold text-lg px-10 py-6"
+                <div
+                  className="xola-custom xola-checkout"
+                  data-button-id="691574bd162501edc00f151a"
                 >
-                  <Calendar className="mr-2 h-6 w-6" />
-                  Check Availability Now
-                </Button>
+                  <Button
+                    size="lg"
+                    className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white font-bold text-lg px-10 py-6"
+                  >
+                    <Calendar className="mr-2 h-6 w-6" />
+                    Check Availability Now
+                  </Button>
+                </div>
                 <Button
                   size="lg"
                   variant="outline"
@@ -1841,14 +1861,18 @@ export default function BacheloretteParty() {
             </div>
 
             <div className="text-center">
-              <Button
-                size="lg"
-                onClick={() => handleGetQuote()}
-                className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-lg px-12 py-7"
+              <div
+                className="xola-custom xola-checkout"
+                data-button-id="691574bd162501edc00f151a"
               >
-                <Calendar className="mr-2 h-6 w-6" />
-                Book Your Bachelorette Party Today
-              </Button>
+                <Button
+                  size="lg"
+                  className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-lg px-12 py-7"
+                >
+                  <Calendar className="mr-2 h-6 w-6" />
+                  Book Your Bachelorette Party Today
+                </Button>
+              </div>
             </div>
           </div>
         </section>
@@ -1933,14 +1957,18 @@ export default function BacheloretteParty() {
               </div>
 
               <div className="text-center mt-12">
-                <Button
-                  size="lg"
-                  onClick={() => handleGetQuote()}
-                  className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white font-bold text-lg px-12 py-6"
+                <div
+                  className="xola-custom xola-checkout"
+                  data-button-id="691574bd162501edc00f151a"
                 >
-                  Book Your Bachelorette Party Today
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
+                  <Button
+                    size="lg"
+                    className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white font-bold text-lg px-12 py-6"
+                  >
+                    Book Your Bachelorette Party Today
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </Button>
+                </div>
               </div>
             </div>
           </div>
@@ -1987,14 +2015,18 @@ export default function BacheloretteParty() {
                 Our bachelorette party experts are here to help you plan the perfect Lake Travis celebration
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button
-                  size="lg"
-                  onClick={() => handleGetQuote()}
-                  className="bg-pink-600 hover:bg-pink-700 text-white font-bold"
+                <div
+                  className="xola-custom xola-checkout"
+                  data-button-id="691574bd162501edc00f151a"
                 >
-                  <MessageCircle className="mr-2 h-5 w-5" />
-                  Start a Conversation
-                </Button>
+                  <Button
+                    size="lg"
+                    className="bg-pink-600 hover:bg-pink-700 text-white font-bold"
+                  >
+                    <MessageCircle className="mr-2 h-5 w-5" />
+                    Start a Conversation
+                  </Button>
+                </div>
                 <Button
                   size="lg"
                   variant="outline"

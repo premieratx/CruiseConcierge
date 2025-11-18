@@ -487,16 +487,20 @@ export default function CorporateEvents() {
               <Briefcase className="mr-2 h-5 w-5" />
               VIEW PACKAGES
             </Button>
-            <Button
-              onClick={handleGetQuote}
-              size="lg"
-              className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold px-8 py-6 text-lg shadow-xl hover:shadow-2xl transition-all duration-300"
-              data-testid="button-hero-get-quote"
+            <div
+              className="xola-custom xola-checkout"
+              data-button-id="691574bd162501edc00f151a"
             >
-              <MessageSquare className="mr-2 h-5 w-5" />
-              BOOK NOW
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
+              <Button
+                size="lg"
+                className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold px-8 py-6 text-lg shadow-xl hover:shadow-2xl transition-all duration-300"
+                data-testid="button-hero-get-quote"
+              >
+                <MessageSquare className="mr-2 h-5 w-5" />
+                BOOK NOW
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+            </div>
           </div>
 
           {/* Quick stats */}
@@ -643,14 +647,18 @@ export default function CorporateEvents() {
                     <div className="p-4 bg-blue-50 rounded-lg">
                       <p className="text-sm text-gray-700 font-semibold">{pkg.ideal}</p>
                     </div>
-                    <Button 
-                      className="w-full mt-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
-                      onClick={handleGetQuote}
-                      data-testid={`button-package-${index}`}
+                    <div
+                      className="xola-custom xola-checkout"
+                      data-button-id="691574bd162501edc00f151a"
                     >
-                      Get Quote
-                      <ArrowRight className="ml-2 h-4 w-4" />
-                    </Button>
+                      <Button 
+                        className="w-full mt-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+                        data-testid={`button-package-${index}`}
+                      >
+                        Get Quote
+                        <ArrowRight className="ml-2 h-4 w-4" />
+                      </Button>
+                    </div>
                   </CardContent>
                 </Card>
               ))}
@@ -715,15 +723,19 @@ export default function CorporateEvents() {
                   <p className="text-base text-gray-700 mb-6">
                     Contact us with your preferred date, group size, and event details for real-time availability and pricing.
                   </p>
-                  <Button
-                    onClick={handleGetQuote}
-                    size="lg"
-                    className="bg-gradient-to-r from-orange-600 to-orange-700 hover:from-orange-700 hover:to-orange-800 text-white font-bold"
+                  <div
+                    className="xola-custom xola-checkout"
+                    data-button-id="691574bd162501edc00f151a"
                   >
-                    <MessageSquare className="mr-2 h-5 w-5" />
-                    Check Availability Now
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </Button>
+                    <Button
+                      size="lg"
+                      className="bg-gradient-to-r from-orange-600 to-orange-700 hover:from-orange-700 hover:to-orange-800 text-white font-bold"
+                    >
+                      <MessageSquare className="mr-2 h-5 w-5" />
+                      Check Availability Now
+                      <ArrowRight className="ml-2 h-5 w-5" />
+                    </Button>
+                  </div>
                 </CardContent>
               </Card>
             </div>
@@ -860,16 +872,20 @@ export default function CorporateEvents() {
             </div>
 
             <div className="mt-12 text-center">
-              <Button
-                onClick={handleGetQuote}
-                size="lg"
-                className="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-bold px-8 py-6"
-                data-testid="button-case-studies-cta"
+              <div
+                className="xola-custom xola-checkout"
+                data-button-id="691574bd162501edc00f151a"
               >
-                <Trophy className="mr-2 h-5 w-5" />
-                Create Your Success Story
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
+                <Button
+                  size="lg"
+                  className="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-bold px-8 py-6"
+                  data-testid="button-case-studies-cta"
+                >
+                  <Trophy className="mr-2 h-5 w-5" />
+                  Create Your Success Story
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+              </div>
             </div>
           </div>
         </section>
@@ -986,26 +1002,34 @@ export default function CorporateEvents() {
               Get a custom quote for your team building, client entertainment, or corporate celebration
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button
-                onClick={handleGetQuote}
-                size="lg"
-                className="bg-white text-blue-600 hover:bg-gray-100 font-bold px-8 py-6 text-lg"
-                data-testid="button-cta-quote"
+              <div
+                className="xola-custom xola-checkout"
+                data-button-id="691574bd162501edc00f151a"
               >
-                <MessageSquare className="mr-2 h-5 w-5" />
-                GET YOUR QUOTE
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-              <Button
-                onClick={handleBookNow}
-                size="lg"
-                variant="outline"
-                className="border-2 border-white text-white hover:bg-white hover:text-blue-600 font-bold px-8 py-6 text-lg"
-                data-testid="button-cta-book"
+                <Button
+                  size="lg"
+                  className="bg-white text-blue-600 hover:bg-gray-100 font-bold px-8 py-6 text-lg"
+                  data-testid="button-cta-quote"
+                >
+                  <MessageSquare className="mr-2 h-5 w-5" />
+                  GET YOUR QUOTE
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+              </div>
+              <div
+                className="xola-custom xola-checkout"
+                data-button-id="691574bd162501edc00f151a"
               >
-                <Calendar className="mr-2 h-5 w-5" />
-                BOOK NOW
-              </Button>
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="border-2 border-white text-white hover:bg-white hover:text-blue-600 font-bold px-8 py-6 text-lg"
+                  data-testid="button-cta-book"
+                >
+                  <Calendar className="mr-2 h-5 w-5" />
+                  BOOK NOW
+                </Button>
+              </div>
             </div>
           </div>
         </section>

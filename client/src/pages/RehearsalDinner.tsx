@@ -306,16 +306,20 @@ export default function RehearsalDinner() {
               className="flex flex-col sm:flex-row gap-4 justify-center"
               variants={fadeInUp}
             >
-              <Button
-                size="lg"
-                onClick={handleGetQuote}
-                className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold text-base sm:text-lg px-8 py-6 shadow-xl"
-                data-testid="button-hero-get-quote"
+              <div
+                className="xola-custom xola-checkout"
+                data-button-id="691574bd162501edc00f151a"
               >
-                <MessageSquare className="mr-2 h-5 w-5" />
-                Get Custom Quote
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
+                <Button
+                  size="lg"
+                  className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold text-base sm:text-lg px-8 py-6 shadow-xl"
+                  data-testid="button-hero-get-quote"
+                >
+                  <MessageSquare className="mr-2 h-5 w-5" />
+                  Get Custom Quote
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+              </div>
 
               <Button
                 size="lg"
@@ -520,15 +524,19 @@ export default function RehearsalDinner() {
                       ))}
                     </ul>
 
-                    <Button 
-                      className="w-full"
-                      variant={pkg.popular ? "default" : "outline"}
-                      onClick={handleGetQuote}
-                      data-testid={`button-package-${pkg.id}`}
+                    <div
+                      className="xola-custom xola-checkout"
+                      data-button-id="691574bd162501edc00f151a"
                     >
-                      Get Quote
-                      <ArrowRight className="ml-2 h-4 w-4" />
-                    </Button>
+                      <Button 
+                        className="w-full"
+                        variant={pkg.popular ? "default" : "outline"}
+                        data-testid={`button-package-${pkg.id}`}
+                      >
+                        Get Quote
+                        <ArrowRight className="ml-2 h-4 w-4" />
+                      </Button>
+                    </div>
                   </CardContent>
                 </Card>
               </motion.div>
@@ -691,16 +699,20 @@ export default function RehearsalDinner() {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button
-                size="lg"
-                onClick={handleGetQuote}
-                className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-lg px-8 py-6 shadow-xl"
-                data-testid="button-cta-get-quote"
+              <div
+                className="xola-custom xola-checkout"
+                data-button-id="691574bd162501edc00f151a"
               >
-                <MessageSquare className="mr-2 h-5 w-5" />
-                Get Custom Quote
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
+                <Button
+                  size="lg"
+                  className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-lg px-8 py-6 shadow-xl"
+                  data-testid="button-cta-get-quote"
+                >
+                  <MessageSquare className="mr-2 h-5 w-5" />
+                  Get Custom Quote
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+              </div>
 
               <Button
                 size="lg"

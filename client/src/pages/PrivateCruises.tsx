@@ -564,15 +564,19 @@ export default function PrivateCruises() {
                   View Elite Packages
                   <Gem className="ml-3 h-6 w-6" />
                 </Button>
-                <Button
-                  size="lg"
-                  onClick={handleGetQuote}
-                  className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-xl px-12 py-8 shadow-2xl transition-all transform hover:scale-105"
-                  data-testid="button-hero-get-quote"
+                <div
+                  className="xola-custom xola-checkout"
+                  data-button-id="691574bd162501edc00f151a"
                 >
-                  Reserve Your Private Charter
-                  <ArrowRight className="ml-3 h-6 w-6" />
-                </Button>
+                  <Button
+                    size="lg"
+                    className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-xl px-12 py-8 shadow-2xl transition-all transform hover:scale-105"
+                    data-testid="button-hero-get-quote"
+                  >
+                    Reserve Your Private Charter
+                    <ArrowRight className="ml-3 h-6 w-6" />
+                  </Button>
+                </div>
               </div>
 
               <div className="flex flex-wrap justify-center gap-8 text-base text-gray-700">
@@ -946,15 +950,19 @@ export default function PrivateCruises() {
               </Tabs>
 
               <div className="mt-16 text-center">
-                <Button
-                  size="lg"
-                  onClick={handleGetQuote}
-                  className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold text-xl px-12 py-8"
-                  data-testid="button-pricing-get-quote"
+                <div
+                  className="xola-custom xola-checkout"
+                  data-button-id="691574bd162501edc00f151a"
                 >
-                  Get Custom Quote for Your Date
-                  <ArrowRight className="ml-3 h-6 w-6" />
-                </Button>
+                  <Button
+                    size="lg"
+                    className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold text-xl px-12 py-8"
+                    data-testid="button-pricing-get-quote"
+                  >
+                    Get Custom Quote for Your Date
+                    <ArrowRight className="ml-3 h-6 w-6" />
+                  </Button>
+                </div>
               </div>
             </div>
           </div>
@@ -1068,15 +1076,19 @@ export default function PrivateCruises() {
                     <p className="text-xl mb-8 text-white/90">
                       Get your custom quote and check availability for your preferred date
                     </p>
-                    <Button
-                      size="lg"
-                      onClick={handleGetQuote}
-                      className="bg-white text-blue-600 hover:bg-gray-100 font-bold text-xl px-12 py-8"
-                      data-testid="button-availability-get-quote"
+                    <div
+                      className="xola-custom xola-checkout inline-block"
+                      data-button-id="691574bd162501edc00f151a"
                     >
-                      Check Availability & Get Quote
-                      <ArrowRight className="ml-3 h-6 w-6" />
-                    </Button>
+                      <Button
+                        size="lg"
+                        className="bg-white text-blue-600 hover:bg-gray-100 font-bold text-xl px-12 py-8"
+                        data-testid="button-availability-get-quote"
+                      >
+                        Check Availability & Get Quote
+                        <ArrowRight className="ml-3 h-6 w-6" />
+                      </Button>
+                    </div>
                   </CardContent>
                 </Card>
               </div>
@@ -1574,14 +1586,18 @@ export default function PrivateCruises() {
                   <span className="font-bold text-yellow-400"> Trusted by Austin's top companies</span> | 
                   <span className="font-bold text-blue-400"> Professional invoicing available</span>
                 </p>
-                <Button
-                  size="lg"
-                  onClick={handleGetQuote}
-                  className="bg-gradient-to-r from-yellow-500 to-yellow-400 hover:from-yellow-400 hover:to-yellow-300 text-black font-bold text-xl px-12 py-8 shadow-2xl"
+                <div
+                  className="xola-custom xola-checkout"
+                  data-button-id="691574bd162501edc00f151a"
                 >
-                  Get Custom Corporate Quote
-                  <Briefcase className="ml-3 h-6 w-6" />
-                </Button>
+                  <Button
+                    size="lg"
+                    className="bg-gradient-to-r from-yellow-500 to-yellow-400 hover:from-yellow-400 hover:to-yellow-300 text-black font-bold text-xl px-12 py-8 shadow-2xl"
+                  >
+                    Get Custom Corporate Quote
+                    <Briefcase className="ml-3 h-6 w-6" />
+                  </Button>
+                </div>
               </div>
             </div>
           </div>
@@ -1622,15 +1638,19 @@ export default function PrivateCruises() {
               </div>
 
               <div className="mt-16 text-center">
-                <Button
-                  size="lg"
-                  onClick={handleGetQuote}
-                  className="bg-white text-blue-600 hover:bg-gray-100 font-bold text-xl px-12 py-8"
-                  data-testid="button-why-choose-get-quote"
+                <div
+                  className="xola-custom xola-checkout"
+                  data-button-id="691574bd162501edc00f151a"
                 >
-                  Book Your Private Charter Now
-                  <ArrowRight className="ml-3 h-6 w-6" />
-                </Button>
+                  <Button
+                    size="lg"
+                    className="bg-white text-blue-600 hover:bg-gray-100 font-bold text-xl px-12 py-8"
+                    data-testid="button-why-choose-get-quote"
+                  >
+                    Book Your Private Charter Now
+                    <ArrowRight className="ml-3 h-6 w-6" />
+                  </Button>
+                </div>
               </div>
             </div>
           </div>
@@ -1818,14 +1838,18 @@ export default function PrivateCruises() {
                 <h3 className="text-2xl font-bold mb-4">Still Have Questions?</h3>
                 <p className="text-gray-700 mb-6">Our team is here to help you plan the perfect private charter</p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Button
-                    size="lg"
-                    onClick={handleGetQuote}
-                    className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold"
+                  <div
+                    className="xola-custom xola-checkout"
+                    data-button-id="691574bd162501edc00f151a"
                   >
-                    Get Custom Quote
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </Button>
+                    <Button
+                      size="lg"
+                      className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold"
+                    >
+                      Get Custom Quote
+                      <ArrowRight className="ml-2 h-5 w-5" />
+                    </Button>
+                  </div>
                   <Button
                     size="lg"
                     variant="outline"

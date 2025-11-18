@@ -620,14 +620,18 @@ export default function ATXDiscoCruise() {
               </div>
 
               <div className="text-center mt-12">
-                <Button
-                  size="lg"
-                  onClick={handleBookNow}
-                  className="btn-primary-hero bg-yellow-500 hover:bg-yellow-600 text-black font-bold text-base px-12 py-6 shadow-2xl transform hover:scale-105 transition-all"
-                  data-testid="button-experience-cta"
+                <div
+                  className="xola-custom xola-checkout"
+                  data-button-id="691574bd162501edc00f151a"
                 >
-                  Claim Your Spot Before It Sells Out <ArrowRight className="ml-2" />
-                </Button>
+                  <Button
+                    size="lg"
+                    className="btn-primary-hero bg-yellow-500 hover:bg-yellow-600 text-black font-bold text-base px-12 py-6 shadow-2xl transform hover:scale-105 transition-all"
+                    data-testid="button-experience-cta"
+                  >
+                    Claim Your Spot Before It Sells Out <ArrowRight className="ml-2" />
+                  </Button>
+                </div>
               </div>
             </div>
           </section>
@@ -743,14 +747,18 @@ export default function ATXDiscoCruise() {
                 <p className="text-lg text-gray-700 mb-6 leading-relaxed max-w-3xl mx-auto">
                   Looking for exclusivity? <InternalLinkHighlight href="/private-cruises" title="Private Cruises">We also offer private boat charters</InternalLinkHighlight> for groups wanting their own boat. But for the ultimate party experience with unmatched energy, ATX Disco Cruise is THE choice!
                 </p>
-                <Button
-                  size="lg"
-                  onClick={() => handleGetQuote()}
-                  className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold text-lg px-12 py-6"
-                  data-testid="button-why-book-cta"
+                <div
+                  className="xola-custom xola-checkout"
+                  data-button-id="691574bd162501edc00f151a"
                 >
-                  Join the Party - Book ATX Disco Now!
-                </Button>
+                  <Button
+                    size="lg"
+                    className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-purple-700 text-white font-bold text-lg px-12 py-6"
+                    data-testid="button-why-book-cta"
+                  >
+                    Join the Party - Book ATX Disco Now!
+                  </Button>
+                </div>
               </div>
             </div>
           </section>
@@ -832,14 +840,18 @@ export default function ATXDiscoCruise() {
                   Check availability and get instant pricing for your Lake Travis celebration
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Button
-                    size="lg"
-                    onClick={() => handleGetQuote()}
-                    className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold text-lg px-10 py-6"
+                  <div
+                    className="xola-custom xola-checkout"
+                    data-button-id="691574bd162501edc00f151a"
                   >
-                    <Calendar className="mr-2 h-6 w-6" />
-                    Check Availability Now
-                  </Button>
+                    <Button
+                      size="lg"
+                      className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold text-lg px-10 py-6"
+                    >
+                      <Calendar className="mr-2 h-6 w-6" />
+                      Check Availability Now
+                    </Button>
+                  </div>
                   <Button
                     size="lg"
                     variant="outline"
@@ -1208,14 +1220,18 @@ export default function ATXDiscoCruise() {
               </div>
 
               <div className="text-center">
-                <Button
-                  size="lg"
-                  onClick={() => handleGetQuote()}
-                  className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-lg px-12 py-7"
+                <div
+                  className="xola-custom xola-checkout"
+                  data-button-id="691574bd162501edc00f151a"
                 >
-                  <Calendar className="mr-2 h-6 w-6" />
-                  Book Your ATX Disco Cruise Today
-                </Button>
+                  <Button
+                    size="lg"
+                    className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-lg px-12 py-7"
+                  >
+                    <Calendar className="mr-2 h-6 w-6" />
+                    Book Your ATX Disco Cruise Today
+                  </Button>
+                </div>
               </div>
             </div>
           </section>
@@ -1255,14 +1271,18 @@ export default function ATXDiscoCruise() {
               </div>
 
               <div className="text-center mt-12">
-                <Button
-                  size="lg"
-                  onClick={() => handleGetQuote()}
-                  className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold text-lg px-12 py-6"
+                <div
+                  className="xola-custom xola-checkout"
+                  data-button-id="691574bd162501edc00f151a"
                 >
-                  <Camera className="mr-2 h-5 w-5" />
-                  Book Your Photo-Perfect Party
-                </Button>
+                  <Button
+                    size="lg"
+                    className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold text-lg px-12 py-6"
+                  >
+                    <Camera className="mr-2 h-5 w-5" />
+                    Book Your Photo-Perfect Party
+                  </Button>
+                </div>
               </div>
             </div>
           </section>
@@ -1415,14 +1435,18 @@ export default function ATXDiscoCruise() {
               </div>
 
               <div className="text-center mt-12">
-                <Button
-                  size="lg"
-                  onClick={() => handleGetQuote()}
-                  className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold text-lg px-12 py-6"
+                <div
+                  className="xola-custom xola-checkout"
+                  data-button-id="691574bd162501edc00f151a"
                 >
-                  Book Your Legendary Party Today
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
+                  <Button
+                    size="lg"
+                    className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold text-lg px-12 py-6"
+                  >
+                    Book Your Legendary Party Today
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </Button>
+                </div>
               </div>
             </div>
           </section>
@@ -1564,13 +1588,17 @@ export default function ATXDiscoCruise() {
                     <p className="text-xl text-gray-700 mb-6">
                       This is THE bachelor/bachelorette party experience everyone talks about. Don't settle for a boring private boat when you could have the <strong>party of a lifetime</strong> for less money.
                     </p>
-                    <Button 
-                      size="lg" 
-                      onClick={handleBookNow}
-                      className="btn-primary-hero bg-yellow-500 hover:bg-yellow-600 text-black font-bold text-xl px-12 py-7 shadow-2xl transform hover:scale-105 transition-all"
+                    <div
+                      className="xola-custom xola-checkout"
+                      data-button-id="691574bd162501edc00f151a"
                     >
-                      Don't Miss Out - Book ATX Disco Now <ArrowRight className="ml-2" />
-                    </Button>
+                      <Button 
+                        size="lg" 
+                        className="btn-primary-hero bg-yellow-500 hover:bg-yellow-600 text-black font-bold text-xl px-12 py-7 shadow-2xl transform hover:scale-105 transition-all"
+                      >
+                        Don't Miss Out - Book ATX Disco Now <ArrowRight className="ml-2" />
+                      </Button>
+                    </div>
                   </CardContent>
                 </Card>
               </div>
@@ -1618,14 +1646,18 @@ export default function ATXDiscoCruise() {
                   Our party experts are here to help you plan the perfect Lake Travis celebration
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Button
-                    size="lg"
-                    onClick={() => handleGetQuote()}
-                    className="bg-purple-600 hover:bg-purple-700 text-white font-bold"
+                  <div
+                    className="xola-custom xola-checkout"
+                    data-button-id="691574bd162501edc00f151a"
                   >
-                    <MessageCircle className="mr-2 h-5 w-5" />
-                    Start a Conversation
-                  </Button>
+                    <Button
+                      size="lg"
+                      className="bg-purple-600 hover:bg-purple-700 text-white font-bold"
+                    >
+                      <MessageCircle className="mr-2 h-5 w-5" />
+                      Start a Conversation
+                    </Button>
+                  </div>
                   <Button
                     size="lg"
                     variant="outline"

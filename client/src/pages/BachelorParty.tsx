@@ -507,15 +507,19 @@ export default function BachelorParty() {
                 <ArrowRight className="ml-2 h-6 w-6" />
               </Button>
               
-              <Button
-                size="lg"
-                onClick={() => handleGetQuote()}
-                className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-lg px-10 py-7 whitespace-normal min-h-[4rem]"
-                data-testid="button-hero-book-now-bachelor"
+              <div
+                className="xola-custom xola-checkout"
+                data-button-id="691574bd162501edc00f151a"
               >
-                <Calendar className="mr-2 h-6 w-6 flex-shrink-0" />
-                <span className="text-center leading-tight">BOOK NOW - Be the Hero!</span>
-              </Button>
+                <Button
+                  size="lg"
+                  className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-lg px-10 py-7 whitespace-normal min-h-[4rem]"
+                  data-testid="button-hero-book-now-bachelor"
+                >
+                  <Calendar className="mr-2 h-6 w-6 flex-shrink-0" />
+                  <span className="text-center leading-tight">BOOK NOW - Be the Hero!</span>
+                </Button>
+              </div>
             </motion.div>
           </motion.div>
         </div>
@@ -1261,14 +1265,18 @@ export default function BachelorParty() {
               </div>
 
               <div className="mt-10 text-center">
-                <Button
-                  size="lg"
-                  onClick={() => handleGetQuote()}
-                  className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold text-lg px-12 py-6"
+                <div
+                  className="xola-custom xola-checkout inline-block"
+                  data-button-id="691574bd162501edc00f151a"
                 >
-                  <Calendar className="mr-2 h-6 w-6" />
-                  Check Availability & Book Now
-                </Button>
+                  <Button
+                    size="lg"
+                    className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold text-lg px-12 py-6"
+                  >
+                    <Calendar className="mr-2 h-6 w-6" />
+                    Check Availability & Book Now
+                  </Button>
+                </div>
               </div>
             </div>
           </div>
@@ -1467,14 +1475,18 @@ export default function BachelorParty() {
             </div>
 
             <div className="text-center">
-              <Button
-                size="lg"
-                onClick={() => handleGetQuote()}
-                className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-black font-bold text-lg px-12 py-7"
+              <div
+                className="xola-custom xola-checkout"
+                data-button-id="691574bd162501edc00f151a"
               >
-                <Calendar className="mr-2 h-6 w-6" />
-                Lock In Your Legendary Send-Off
-              </Button>
+                <Button
+                  size="lg"
+                  className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-black font-bold text-lg px-12 py-7"
+                >
+                  <Calendar className="mr-2 h-6 w-6" />
+                  Lock In Your Legendary Send-Off
+                </Button>
+              </div>
               <p className="text-white/90 text-sm mt-4">
                 Professional crew keeps things smooth • BYOB - bring whatever you want
               </p>
@@ -1610,14 +1622,18 @@ export default function BachelorParty() {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <Button
-              size="lg"
-              onClick={() => handleGetQuote()}
-              className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-black font-bold text-xl px-12 py-7"
+            <div
+              className="xola-custom xola-checkout"
+              data-button-id="691574bd162501edc00f151a"
             >
-              <Calendar className="mr-2 h-6 w-6" />
-              Book ATX Disco Cruise
-            </Button>
+              <Button
+                size="lg"
+                className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-black font-bold text-xl px-12 py-7"
+              >
+                <Calendar className="mr-2 h-6 w-6" />
+                Book ATX Disco Cruise
+              </Button>
+            </div>
             
             <Button
               size="lg"

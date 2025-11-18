@@ -623,26 +623,34 @@ export default function Home() {
               variants={reducedMotion ? undefined : fadeInUp}
               className="flex flex-col sm:flex-row gap-6 justify-center items-center"
             >
-              <Button
-                size="lg"
-                onClick={() => handleGetQuote()}
-                className="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold text-lg px-12 py-7 rounded-xl shadow-2xl transform hover:scale-105 transition-all duration-300"
-                data-testid="button-hero-get-quote"
+              <div
+                className="xola-custom xola-checkout"
+                data-button-id="691574bd162501edc00f151a"
               >
-                <Calendar className="mr-3 h-6 w-6" />
-                <span data-editable data-editable-id="hero-cta-quote">Check Availability</span>
-              </Button>
+                <Button
+                  size="lg"
+                  className="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold text-lg px-12 py-7 rounded-xl shadow-2xl transform hover:scale-105 transition-all duration-300"
+                  data-testid="button-hero-get-quote"
+                >
+                  <Calendar className="mr-3 h-6 w-6" />
+                  <span data-editable data-editable-id="hero-cta-quote">Check Availability</span>
+                </Button>
+              </div>
               
-              <Button
-                size="lg"
-                variant="outline"
-                onClick={() => handleGetQuote()}
-                className="w-full sm:w-auto bg-white hover:bg-gray-50 text-gray-900 font-bold text-lg px-12 py-7 rounded-xl shadow-2xl transform hover:scale-105 transition-all duration-300 border-2 border-white"
-                data-testid="button-hero-book-now"
+              <div
+                className="xola-custom xola-checkout"
+                data-button-id="691574bd162501edc00f151a"
               >
-                <MessageSquare className="mr-3 h-6 w-6" />
-                <span data-editable data-editable-id="hero-cta-book">Get Custom Quote</span>
-              </Button>
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="w-full sm:w-auto bg-white hover:bg-gray-50 text-gray-900 font-bold text-lg px-12 py-7 rounded-xl shadow-2xl transform hover:scale-105 transition-all duration-300 border-2 border-white"
+                  data-testid="button-hero-book-now"
+                >
+                  <MessageSquare className="mr-3 h-6 w-6" />
+                  <span data-editable data-editable-id="hero-cta-book">Get Custom Quote</span>
+                </Button>
+              </div>
             </motion.div>
           </motion.div>
         </div>
@@ -905,31 +913,20 @@ export default function Home() {
                         {service.hourlyNote || service.priceNote || ''}
                       </div>
                       
-                      <Button 
-                        className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-3 rounded-xl"
-                        onClick={() => {
-                          // Handle specific service booking with package context
-                          switch(service.id) {
-                            case 'private':
-                              handleGetQuote('private-cruise', 'general');
-                              break;
-                            case 'wedding':
-                              handleGetQuote('private-cruise', 'wedding');
-                              break;
-                            case 'corporate':
-                              handleGetQuote('private-cruise', 'corporate');
-                              break;
-                            default:
-                              handleGetQuote();
-                          }
-                        }}
-                        data-testid={`button-service-${service.id}`}
+                      <div
+                        className="xola-custom xola-checkout"
+                        data-button-id="691574bd162501edc00f151a"
                       >
-                        <span data-editable data-editable-id={`service-${service.id}-cta-button`}>
-                          {service.id === 'private' ? 'BOOK PRIVATE CRUISE' : service.id === 'wedding' ? 'PLAN WEDDING EVENT' : 'GET QUOTE'}
-                        </span>
-                        <ArrowRight className="ml-2 h-5 w-5" />
-                      </Button>
+                        <Button 
+                          className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-3 rounded-xl"
+                          data-testid={`button-service-${service.id}`}
+                        >
+                          <span data-editable data-editable-id={`service-${service.id}-cta-button`}>
+                            {service.id === 'private' ? 'BOOK PRIVATE CRUISE' : service.id === 'wedding' ? 'PLAN WEDDING EVENT' : 'GET QUOTE'}
+                          </span>
+                          <ArrowRight className="ml-2 h-5 w-5" />
+                        </Button>
+                      </div>
                     </div>
                   </CardContent>
                 </Card>
@@ -1187,15 +1184,19 @@ export default function Home() {
 
             {/* Call to Action */}
             <div className="text-center mt-12">
-              <Button
-                size="lg"
-                onClick={() => handleGetQuote()}
-                className="bg-gradient-to-r from-yellow-400 via-yellow-500 to-orange-500 hover:from-yellow-500 hover:via-orange-500 hover:to-orange-600 text-black font-bold px-8 py-4 rounded-xl shadow-xl transform hover:scale-105 transition-all duration-300"
+              <div
+                className="xola-custom xola-checkout"
+                data-button-id="691574bd162501edc00f151a"
               >
-                <Star className="mr-2 h-5 w-5" />
-                Join 150,000+ Happy Customers
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
+                <Button
+                  size="lg"
+                  className="bg-gradient-to-r from-yellow-400 via-yellow-500 to-orange-500 hover:from-yellow-500 hover:via-orange-500 hover:to-orange-600 text-black font-bold px-8 py-4 rounded-xl shadow-xl transform hover:scale-105 transition-all duration-300"
+                >
+                  <Star className="mr-2 h-5 w-5" />
+                  Join 150,000+ Happy Customers
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+              </div>
             </div>
           </div>
         </section>
@@ -1307,15 +1308,19 @@ export default function Home() {
                         <span data-editable data-editable-id={`lightbox-${selectedService.id}-continue-button`}>Continue Browsing</span>
                       </Button>
                       
-                      <Button 
-                        onClick={handleLightboxBookNow}
-                        className="bg-brand-blue hover:bg-brand-blue/90 text-white px-8 py-3 text-base font-bold"
-                        data-testid={`button-lightbox-book-${selectedService.id}`}
+                      <div
+                        className="xola-custom xola-checkout"
+                        data-button-id="691574bd162501edc00f151a"
                       >
-                        <Calendar className="mr-2 h-5 w-5" />
-                        <span data-editable data-editable-id={`lightbox-${selectedService.id}-book-button`}>Book Now</span>
-                        <ArrowRight className="ml-2 h-5 w-5" />
-                      </Button>
+                        <Button 
+                          className="bg-brand-blue hover:bg-brand-blue/90 text-white px-8 py-3 text-base font-bold"
+                          data-testid={`button-lightbox-book-${selectedService.id}`}
+                        >
+                          <Calendar className="mr-2 h-5 w-5" />
+                          <span data-editable data-editable-id={`lightbox-${selectedService.id}-book-button`}>Book Now</span>
+                          <ArrowRight className="ml-2 h-5 w-5" />
+                        </Button>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -1555,16 +1560,20 @@ export default function Home() {
 
             {/* CTA Section */}
             <div className="text-center mt-12">
-              <Button
-                size="lg"
-                onClick={() => handleGetQuote()}
-                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-6 text-lg font-bold shadow-lg hover:shadow-xl transition-all"
-                data-testid="button-check-availability"
+              <div
+                className="xola-custom xola-checkout inline-block"
+                data-button-id="691574bd162501edc00f151a"
               >
-                <Calendar className="mr-2 h-6 w-6" />
-                Check Availability & Book Now
-                <ArrowRight className="ml-2 h-6 w-6" />
-              </Button>
+                <Button
+                  size="lg"
+                  className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-6 text-lg font-bold shadow-lg hover:shadow-xl transition-all"
+                  data-testid="button-check-availability"
+                >
+                  <Calendar className="mr-2 h-6 w-6" />
+                  Check Availability & Book Now
+                  <ArrowRight className="ml-2 h-6 w-6" />
+                </Button>
+              </div>
               <p className="mt-4 text-gray-600 dark:text-gray-400">
                 <Phone className="inline h-4 w-4 mr-1" />
                 Or call us at <a href="tel:+15124885892" className="font-bold text-blue-600 dark:text-blue-400 hover:underline">(512) 488-5892</a>
@@ -2881,15 +2890,19 @@ export default function Home() {
 
           {/* Final CTA */}
           <div className="text-center mt-12">
-            <Button
-              size="lg"
-              onClick={() => handleGetQuote()}
-              className="bg-gradient-to-r from-yellow-400 via-yellow-500 to-orange-500 hover:from-yellow-500 hover:via-orange-500 hover:to-orange-600 text-black font-extrabold px-10 py-6 rounded-xl shadow-2xl transform hover:scale-110 transition-all duration-300 animate-pulse"
+            <div
+              className="xola-custom xola-checkout"
+              data-button-id="691574bd162501edc00f151a"
             >
-              <Calendar className="mr-3 h-6 w-6" />
-              BOOK YOUR PARTY NOW
-              <ArrowRight className="ml-3 h-6 w-6 animate-bounce-horizontal" />
-            </Button>
+              <Button
+                size="lg"
+                className="bg-gradient-to-r from-yellow-400 via-yellow-500 to-orange-500 hover:from-yellow-500 hover:via-orange-500 hover:to-orange-600 text-black font-extrabold px-10 py-6 rounded-xl shadow-2xl transform hover:scale-110 transition-all duration-300 animate-pulse"
+              >
+                <Calendar className="mr-3 h-6 w-6" />
+                BOOK YOUR PARTY NOW
+                <ArrowRight className="ml-3 h-6 w-6 animate-bounce-horizontal" />
+              </Button>
+            </div>
             <p className="text-sm mt-4 opacity-90">
               ⚠️ Weekend spots fill up - book 8-12 weeks for priority time slots - once they book they're gone!
             </p>

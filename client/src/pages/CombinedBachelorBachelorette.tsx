@@ -417,13 +417,17 @@ export default function CombinedBachelorBachelorette() {
                         </li>
                       ))}
                     </ul>
-                    <Button
-                      onClick={() => handleGetQuote(pkg.id)}
-                      className="w-full mt-6 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
-                      data-testid={`button-package-${pkg.id}`}
+                    <div
+                      className="xola-custom xola-checkout"
+                      data-button-id="691574bd162501edc00f151a"
                     >
-                      Select Package
-                    </Button>
+                      <Button
+                        className="w-full mt-6 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
+                        data-testid={`button-package-${pkg.id}`}
+                      >
+                        Select Package
+                      </Button>
+                    </div>
                   </CardContent>
                 </Card>
               ))}
@@ -585,16 +589,20 @@ export default function CombinedBachelorBachelorette() {
             <p className="text-base text-gray-600 max-w-2xl mx-auto mb-8 text-center">
               Join the modern trend - bring everyone together for one epic party on Lake Travis
             </p>
-            <Button
-              size="lg"
-              onClick={() => handleGetQuote()}
-              className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold text-xl px-12 py-8"
-              data-testid="button-final-cta"
+            <div
+              className="xola-custom xola-checkout"
+              data-button-id="691574bd162501edc00f151a"
             >
-              <Sparkles className="mr-2 h-6 w-6" />
-              Start Planning Today
-              <ArrowRight className="ml-2 h-6 w-6" />
-            </Button>
+              <Button
+                size="lg"
+                className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold text-xl px-12 py-8"
+                data-testid="button-final-cta"
+              >
+                <Sparkles className="mr-2 h-6 w-6" />
+                Start Planning Today
+                <ArrowRight className="ml-2 h-6 w-6" />
+              </Button>
+            </div>
           </div>
         </section>
       </SectionReveal>

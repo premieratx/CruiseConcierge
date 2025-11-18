@@ -240,12 +240,15 @@ function DiscoPricingTable({ packages, showTaxAndGratuity = true, showDeposit = 
                 </div>
               )}
               
-              <Link href={pkg.ctaLink || '/chat'}>
+              <div
+                className="xola-custom xola-checkout"
+                data-button-id="691574bd162501edc00f151a"
+              >
                 <Button className="w-full mt-4" variant={pkg.popular ? "default" : "outline"}>
                   {pkg.cta || 'Book Now'}
                   <ArrowRight className="h-4 w-4 ml-2" />
                 </Button>
-              </Link>
+              </div>
             </CardContent>
           </Card>
         );
@@ -683,11 +686,14 @@ export function PricingTable2({
                     );
                   })}
                 </ul>
-                <Link href={pkg.ctaLink || '/chat'}>
+                <div
+                  className="xola-custom xola-checkout"
+                  data-button-id="691574bd162501edc00f151a"
+                >
                   <Button className="w-full mt-4" variant={pkg.popular ? 'default' : 'outline'}>
                     {pkg.cta || 'Book Now'}
                   </Button>
-                </Link>
+                </div>
               </CardContent>
             </Card>
           ))}
