@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useParams } from "wouter";
 import { useQuery } from "@tanstack/react-query";
-import Layout from "@/components/Layout";
+import PublicNavigation from "@/components/PublicNavigation";
+import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import { BlogCard } from "@/components/blog/BlogCard";
 import { Button } from "@/components/ui/button";
@@ -87,7 +88,8 @@ export default function BlogAuthorPage() {
 
   if (error) {
     return (
-      <Layout>
+      <div className="min-h-screen bg-background">
+        <PublicNavigation />
         <div className="container mx-auto px-4 py-8">
           <Alert variant="destructive">
             <AlertDescription>
@@ -103,13 +105,15 @@ export default function BlogAuthorPage() {
             </Link>
           </div>
         </div>
-      </Layout>
+        <Footer />
+      </div>
     );
   }
 
   if (isLoading) {
     return (
-      <Layout>
+      <div className="min-h-screen bg-background">
+        <PublicNavigation />
         <div className="container mx-auto px-4 py-8">
           <Skeleton className="h-8 w-32 mb-6" />
           <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-8 mb-8">
@@ -132,7 +136,8 @@ export default function BlogAuthorPage() {
             ))}
           </div>
         </div>
-      </Layout>
+        <Footer />
+      </div>
     );
   }
 
@@ -141,7 +146,8 @@ export default function BlogAuthorPage() {
   const { author, posts, totalCount, totalPages, totalViews, totalComments } = data;
 
   return (
-    <Layout>
+    <div className="min-h-screen bg-background">
+      <PublicNavigation />
       <SEOHead 
         pageRoute={`/blog/author/${id}`}
         defaultTitle={`${author?.name || 'Author'} - Premier Party Cruises Blog`}
@@ -372,6 +378,7 @@ export default function BlogAuthorPage() {
           )}
         </div>
       </div>
-    </Layout>
+      <Footer />
+    </div>
   );
 }

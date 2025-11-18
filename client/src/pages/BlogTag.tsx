@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useParams } from "wouter";
 import { useQuery } from "@tanstack/react-query";
-import Layout from "@/components/Layout";
+import PublicNavigation from "@/components/PublicNavigation";
+import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import { BlogCard } from "@/components/blog/BlogCard";
 import { TagBadge } from "@/components/blog/TagBadge";
@@ -76,7 +77,8 @@ export default function BlogTagPage() {
 
   if (error) {
     return (
-      <Layout>
+      <div className="min-h-screen bg-background">
+        <PublicNavigation />
         <div className="container mx-auto px-4 py-8">
           <Alert variant="destructive">
             <AlertDescription>
@@ -92,13 +94,15 @@ export default function BlogTagPage() {
             </Link>
           </div>
         </div>
-      </Layout>
+        <Footer />
+      </div>
     );
   }
 
   if (isLoading) {
     return (
-      <Layout>
+      <div className="min-h-screen bg-background">
+        <PublicNavigation />
         <div className="container mx-auto px-4 py-8">
           <Skeleton className="h-8 w-32 mb-6" />
           <Skeleton className="h-12 w-64 mb-4" />
@@ -113,7 +117,8 @@ export default function BlogTagPage() {
             ))}
           </div>
         </div>
-      </Layout>
+        <Footer />
+      </div>
     );
   }
 
@@ -122,7 +127,8 @@ export default function BlogTagPage() {
   const { tag, posts, totalCount, totalPages, relatedTags } = data;
 
   return (
-    <Layout>
+    <div className="min-h-screen bg-background">
+      <PublicNavigation />
       <SEOHead 
         pageRoute={`/blog/tag/${slug}`}
         defaultTitle={`#${tag?.name || 'Tag'} - Premier Party Cruises Blog`}
@@ -306,6 +312,7 @@ export default function BlogTagPage() {
           </div>
         )}
       </div>
-    </Layout>
+      <Footer />
+    </div>
   );
 }
