@@ -1,4 +1,4 @@
-import { Switch, Route, useLocation } from "wouter";
+import { Switch, Route, useLocation, Redirect } from "wouter";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
@@ -197,78 +197,30 @@ function Router() {
       
       {/* Legacy URL Redirects - SEO & User Experience */}
       <Route path="/bachelor-party">
-        {() => {
-          const [, navigate] = useLocation();
-          useEffect(() => {
-            navigate('/bachelor-party-austin', { replace: true });
-          }, [navigate]);
-          return null;
-        }}
+        <Redirect to="/bachelor-party-austin" />
       </Route>
       <Route path="/bachelorette-party">
-        {() => {
-          const [, navigate] = useLocation();
-          useEffect(() => {
-            navigate('/bachelorette-party-austin', { replace: true });
-          }, [navigate]);
-          return null;
-        }}
+        <Redirect to="/bachelorette-party-austin" />
       </Route>
       <Route path="/combined-parties-austin">
-        {() => {
-          const [, navigate] = useLocation();
-          useEffect(() => {
-            navigate('/combined-bachelor-bachelorette-austin', { replace: true });
-          }, [navigate]);
-          return null;
-        }}
+        <Redirect to="/combined-bachelor-bachelorette-austin" />
       </Route>
       <Route path="/combined-bachelor-bachelorette">
-        {() => {
-          const [, navigate] = useLocation();
-          useEffect(() => {
-            navigate('/combined-bachelor-bachelorette-austin', { replace: true });
-          }, [navigate]);
-          return null;
-        }}
+        <Redirect to="/combined-bachelor-bachelorette-austin" />
       </Route>
       
       {/* Phase 3: Phantom URL Redirects (301 permanent via server + client-side fallback) */}
       <Route path="/bachelor-bachelorette-party-boat-austin">
-        {() => {
-          const [, navigate] = useLocation();
-          useEffect(() => {
-            navigate('/combined-bachelor-bachelorette-austin', { replace: true });
-          }, [navigate]);
-          return null;
-        }}
+        <Redirect to="/combined-bachelor-bachelorette-austin" />
       </Route>
       <Route path="/testimonials">
-        {() => {
-          const [, navigate] = useLocation();
-          useEffect(() => {
-            navigate('/testimonials-faq', { replace: true });
-          }, [navigate]);
-          return null;
-        }}
+        <Redirect to="/testimonials-faq" />
       </Route>
       <Route path="/three-day-austin-bachelorette-itinerary">
-        {() => {
-          const [, navigate] = useLocation();
-          useEffect(() => {
-            navigate('/3-day-austin-bachelorette-itinerary', { replace: true });
-          }, [navigate]);
-          return null;
-        }}
+        <Redirect to="/3-day-austin-bachelorette-itinerary" />
       </Route>
       <Route path="/about">
-        {() => {
-          const [, navigate] = useLocation();
-          useEffect(() => {
-            navigate('/', { replace: true });
-          }, [navigate]);
-          return null;
-        }}
+        <Redirect to="/" />
       </Route>
       
       <Route path="/private-cruises" component={PrivateCruises} />
