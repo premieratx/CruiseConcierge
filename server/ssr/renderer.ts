@@ -1177,21 +1177,30 @@ async function renderPage(url: string, req: Request): Promise<string> {
         metaTitle = blogMeta.title;
         metaDescription = blogMeta.description;
       } else {
-        // Use predefined metadata for marketing pages
-        const pageData = PAGE_METADATA[pathname];
-        if (pageData) {
-          h1 = pageData.h1;
-          content = pageData.content;
-        }
-        
-        // Fetch SEO metadata from API
-        const seoData = await fetchSEOMetadata(pathname);
-        if (seoData) {
-          metaTitle = seoData.metaTitle || h1;
-          metaDescription = seoData.metaDescription || content;
+        // Check if it's a static React blog
+        const staticBlogMeta = getStaticBlogMetadata(pathname);
+        if (staticBlogMeta) {
+          h1 = staticBlogMeta.title;
+          content = staticBlogMeta.description;
+          metaTitle = staticBlogMeta.title;
+          metaDescription = staticBlogMeta.description;
         } else {
-          metaTitle = h1;
-          metaDescription = content;
+          // Use predefined metadata for marketing pages
+          const pageData = PAGE_METADATA[pathname];
+          if (pageData) {
+            h1 = pageData.h1;
+            content = pageData.content;
+          }
+          
+          // Fetch SEO metadata from API
+          const seoData = await fetchSEOMetadata(pathname);
+          if (seoData) {
+            metaTitle = seoData.metaTitle || h1;
+            metaDescription = seoData.metaDescription || content;
+          } else {
+            metaTitle = h1;
+            metaDescription = content;
+          }
         }
       }
     }
@@ -1398,10 +1407,11 @@ window.__vite_plugin_react_preamble_installed__ = true
 
     // Blog posts need special handling: empty root + hidden SEO content after
     const isBlogPost = pathname.startsWith('/blogs/') && pathname.length > 7;
+    const isStaticBlog = isStaticBlogRoute(pathname);
     const isBlogListing = pathname === '/blog' || pathname === '/blogs';
     
-    if (isBlogPost) {
-      // Blog posts: empty root div + hidden SEO content for crawlers
+    if (isBlogPost || isStaticBlog) {
+      // Blog posts (WordPress + static React): empty root div + hidden SEO content for crawlers
       // noscript ensures content is visible to bots but hidden from React hydration
       ssrContent = `<div id="root"></div>
       <noscript>

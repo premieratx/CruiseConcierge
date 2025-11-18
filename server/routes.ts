@@ -773,7 +773,7 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
         // Fallback to plain content if SSR fails
         const h1Content = post.title || "";
         const bodyContent = post.content || post.excerpt || "";
-        appHtml = `<div style="max-width: 56rem; margin: 0 auto; padding: 2rem 1rem;">
+        appHtml = `<article style="max-width: 56rem; margin: 0 auto; padding: 2rem 1rem;">
           <h1 style="text-align: center; font-size: 2.5rem; font-weight: 800; margin-bottom: 2rem; color: #111827;">${h1Content}</h1>
           <style>
             .blog-content h2 { text-align: center; font-size: 2rem; font-weight: 800; margin-top: 4rem; margin-bottom: 2rem; color: #111827; }
@@ -786,7 +786,7 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
             .blog-content li { margin: 0.75rem 0; font-size: 1.125rem; line-height: 1.75; }
           </style>
           <div class="blog-content">${bodyContent}</div>
-        </div>`;
+        </article>`;
       }
       
       // Inject the full React app HTML into root div
