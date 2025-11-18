@@ -58,6 +58,15 @@ Premier Party Cruises offers party boat rentals on Lake Travis, Austin, with two
    - Tabs now positioned directly above add-on packages section
    - Tab selection dynamically updates add-on packages displayed
    - Improved user flow: pricing → included items → select party type → view relevant packages
+7. **Blog Navigation Fix** (November 18, 2024):
+   - **CRITICAL**: Fixed all blog-related public pages showing admin navigation instead of public navigation
+   - Fixed BlogPostLayout.tsx (shared by all React blog components)
+   - Fixed BlogCategory.tsx (category archive pages)
+   - Fixed BlogTag.tsx (tag archive pages)
+   - Fixed BlogAuthor.tsx (author profile pages)
+   - All 4 files now use PublicNavigation + Footer instead of admin Layout component
+   - Affects all blog routes: React blog components + category/tag/author archive pages
+   - Public visitors now see proper public navigation (Home, ATX Disco Cruise, etc.) instead of admin links (Dashboard, Blog, SEO, etc.)
 
 ## System Architecture
 The system utilizes a modern web architecture featuring a **React + TypeScript + Vite** frontend, styled with **Tailwind CSS** and **shadcn/ui** components, and **Wouter** for routing. The backend is powered by **Express + Node.js** with **PostgreSQL** for data persistence.
