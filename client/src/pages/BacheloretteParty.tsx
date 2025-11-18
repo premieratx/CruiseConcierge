@@ -1429,21 +1429,56 @@ export default function BacheloretteParty() {
                   </ul>
                 </div>
 
-                <h3 className="text-2xl font-bold text-gray-900 mb-4 mt-8">Lake Travis Party Boat vs. Traditional Venues</h3>
+                <h3 className="text-2xl font-bold text-gray-900 mb-4 mt-8">ATX Disco Cruise vs Private Charter: What's the Best Value?</h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-4">
-                  Why settle for a crowded bar or expensive restaurant when you can have your own <strong>party boat austin</strong> experience? Our Lake Travis cruises offer exclusive advantages that traditional bachelorette venues simply can't match. You'll enjoy fresh air, stunning scenery, and the freedom to celebrate exactly how you want - all while creating unique memories your bride tribe will talk about for years.
+                  When choosing your <strong>party boat austin</strong> experience, the ATX Disco Cruise delivers unmatched value for bachelorette parties of any size. While a bare-bones private boat rental may appear cheaper per person for larger groups, you'd be missing everything that makes a bachelorette party legendary!
                 </p>
                 
+                <div className="bg-gradient-to-br from-pink-50 to-purple-50 border-2 border-pink-300 p-6 my-6 rounded-lg">
+                  <h4 className="text-xl font-bold text-gray-900 mb-3">What's Included in Your ATX Disco Cruise Ticket:</h4>
+                  <div className="grid md:grid-cols-2 gap-3 text-gray-700">
+                    <div className="flex items-start gap-2">
+                      <CheckCircle className="h-5 w-5 text-pink-600 mt-1 flex-shrink-0" />
+                      <span><strong>Professional DJ</strong> ($600 value)</span>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <CheckCircle className="h-5 w-5 text-pink-600 mt-1 flex-shrink-0" />
+                      <span><strong>Pro Photographer</strong> ($600 value)</span>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <CheckCircle className="h-5 w-5 text-pink-600 mt-1 flex-shrink-0" />
+                      <span><strong>Giant Floats & Party Supplies</strong> ($200 value)</span>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <CheckCircle className="h-5 w-5 text-pink-600 mt-1 flex-shrink-0" />
+                      <span><strong>Setup & Party Hosting</strong> ($200 value)</span>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <CheckCircle className="h-5 w-5 text-pink-600 mt-1 flex-shrink-0" />
+                      <span><strong>Multi-Group Party Energy</strong> (Priceless!)</span>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <CheckCircle className="h-5 w-5 text-pink-600 mt-1 flex-shrink-0" />
+                      <span><strong>Curated Bachelorette Experience</strong></span>
+                    </div>
+                  </div>
+                  <p className="text-sm text-gray-600 mt-4 italic">
+                    To recreate the ATX Disco Cruise experience on a private boat, you'd need to add DJ ($600) + Photographer ($600) + Party Supplies ($200) + Setup/Hosting ($200) to the base boat rate - making the Disco Cruise the clear winner for value AND experience.
+                  </p>
+                </div>
+                
                 <div className="grid md:grid-cols-2 gap-6 my-8">
-                  <Card className="border-2 border-pink-200">
-                    <CardHeader className="bg-pink-50">
+                  <Card className="border-2 border-pink-200 shadow-lg">
+                    <CardHeader className="bg-gradient-to-br from-pink-50 to-pink-100">
                       <CardTitle className="text-lg flex items-center gap-2">
                         <Heart className="h-5 w-5 text-pink-600" />
-                        Perfect for Small Groups (8-15)
+                        ATX Disco Cruise (Best Value!)
                       </CardTitle>
                     </CardHeader>
                     <CardContent className="pt-4">
-                      <p className="text-gray-700">Our ATX Disco Cruise provides the best value for smaller bachelorette parties. Get professional entertainment, photography, and floats included - often cheaper than renting a private boat!</p>
+                      <p className="text-gray-700 mb-3">All-inclusive bachelorette party experience with legendary multi-group energy. Everything you need for an epic celebration is included - no hidden costs!</p>
+                      <p className="font-bold text-pink-600 text-xl">$85-$105/person</p>
+                      <p className="text-sm text-gray-600 mt-2">Includes DJ, photographer, floats, party supplies & more</p>
                     </CardContent>
                   </Card>
                   
@@ -1451,11 +1486,13 @@ export default function BacheloretteParty() {
                     <CardHeader className="bg-purple-50">
                       <CardTitle className="text-lg flex items-center gap-2">
                         <Users className="h-5 w-5 text-purple-600" />
-                        Large Groups (15+)
+                        Private Charter (Want Privacy?)
                       </CardTitle>
                     </CardHeader>
                     <CardContent className="pt-4">
-                      <p className="text-gray-700">Private cruises give you exclusive access to the entire boat. Customize your itinerary, bring your own DJ, and create a completely personalized Austin party boat experience.</p>
+                      <p className="text-gray-700 mb-3">Exclusive boat for your crew only. Bring your own entertainment and supplies. Good for very specific needs or complete privacy.</p>
+                      <p className="font-bold text-purple-600">From $1,050 base rate</p>
+                      <p className="text-sm text-gray-600 mt-2">Add $1,600+ for DJ, photographer & party essentials</p>
                     </CardContent>
                   </Card>
                 </div>

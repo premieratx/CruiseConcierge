@@ -986,22 +986,56 @@ export default function BachelorParty() {
                   </ul>
                 </div>
 
-                <h3 className="text-2xl font-bold text-gray-900 mb-4 mt-8">Party Boat Austin: Choosing the Right Experience</h3>
+                <h3 className="text-2xl font-bold text-gray-900 mb-4 mt-8">Party Boat Austin: ATX Disco Cruise vs Private Charter</h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-4">
-                  When selecting your <strong>party boat austin</strong> experience, consider your group size and budget. For crews under 15 people, our ATX Disco Cruise typically offers the best value - you'll get professional entertainment, photography, and floats included for less than the cost of renting a private boat. For larger groups of 15+ or those wanting complete privacy, our <strong>lake travis party boat</strong> rentals provide exclusive access and customizable itineraries.
+                  When selecting your <strong>party boat austin</strong> experience, the ATX Disco Cruise delivers unmatched value for bachelor parties of any size. While a bare-bones private boat rental may appear cheaper per person for larger groups, you'd be missing everything that makes a bachelor party legendary.
                 </p>
                 
+                <div className="bg-gradient-to-br from-blue-50 to-purple-50 border-2 border-blue-300 p-6 my-6 rounded-lg">
+                  <h4 className="text-xl font-bold text-gray-900 mb-3">What's Included in Your ATX Disco Cruise Ticket:</h4>
+                  <div className="grid md:grid-cols-2 gap-3 text-gray-700">
+                    <div className="flex items-start gap-2">
+                      <CheckCircle className="h-5 w-5 text-blue-600 mt-1 flex-shrink-0" />
+                      <span><strong>Professional DJ</strong> ($600 value)</span>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <CheckCircle className="h-5 w-5 text-blue-600 mt-1 flex-shrink-0" />
+                      <span><strong>Pro Photographer</strong> ($600 value)</span>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <CheckCircle className="h-5 w-5 text-blue-600 mt-1 flex-shrink-0" />
+                      <span><strong>Giant Floats & Party Supplies</strong> ($200 value)</span>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <CheckCircle className="h-5 w-5 text-blue-600 mt-1 flex-shrink-0" />
+                      <span><strong>Setup & Party Hosting</strong> ($200 value)</span>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <CheckCircle className="h-5 w-5 text-blue-600 mt-1 flex-shrink-0" />
+                      <span><strong>Multi-Group Party Energy</strong> (Priceless!)</span>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <CheckCircle className="h-5 w-5 text-blue-600 mt-1 flex-shrink-0" />
+                      <span><strong>Curated Bachelor Experience</strong></span>
+                    </div>
+                  </div>
+                  <p className="text-sm text-gray-600 mt-4 italic">
+                    To recreate the ATX Disco Cruise experience on a private boat, you'd need to add DJ ($600) + Photographer ($600) + Party Supplies ($200) + Setup/Hosting ($200) to the base boat rate - making the Disco Cruise the clear winner for value AND experience.
+                  </p>
+                </div>
+                
                 <div className="grid md:grid-cols-2 gap-6 my-8">
-                  <Card className="border-2 border-blue-200">
-                    <CardHeader className="bg-blue-50">
+                  <Card className="border-2 border-blue-200 shadow-lg">
+                    <CardHeader className="bg-gradient-to-br from-blue-50 to-blue-100">
                       <CardTitle className="text-lg flex items-center gap-2">
                         <Users className="h-5 w-5 text-blue-600" />
-                        ATX Disco Cruise (Best for 8-14 guys)
+                        ATX Disco Cruise (Best Value!)
                       </CardTitle>
                     </CardHeader>
                     <CardContent className="pt-4">
-                      <p className="text-gray-700 mb-3">Social experience with other bachelor parties. All-inclusive entertainment and legendary multi-group energy.</p>
-                      <p className="font-bold text-blue-600">$85-$105/person</p>
+                      <p className="text-gray-700 mb-3">All-inclusive bachelor party experience with legendary multi-group energy. Everything you need for an epic celebration is included - no hidden costs!</p>
+                      <p className="font-bold text-blue-600 text-xl">$85-$105/person</p>
+                      <p className="text-sm text-gray-600 mt-2">Includes DJ, photographer, floats, party supplies & more</p>
                     </CardContent>
                   </Card>
                   
@@ -1009,12 +1043,13 @@ export default function BachelorParty() {
                     <CardHeader className="bg-purple-50">
                       <CardTitle className="text-lg flex items-center gap-2">
                         <Ship className="h-5 w-5 text-purple-600" />
-                        Private Charter (Best for 15+)
+                        Private Charter (Want Privacy?)
                       </CardTitle>
                     </CardHeader>
                     <CardContent className="pt-4">
-                      <p className="text-gray-700 mb-3">Exclusive boat just for your crew. Custom timing, your own music, complete privacy. Perfect for surprises or specific bachelor traditions.</p>
-                      <p className="font-bold text-purple-600">From $1,050 for 4 hours</p>
+                      <p className="text-gray-700 mb-3">Exclusive boat for your crew only. Bring your own entertainment and supplies. Good for very specific needs or complete privacy.</p>
+                      <p className="font-bold text-purple-600">From $1,050 base rate</p>
+                      <p className="text-sm text-gray-600 mt-2">Add $1,600+ for DJ, photographer & party essentials</p>
                     </CardContent>
                   </Card>
                 </div>
