@@ -178,6 +178,27 @@ const PORT = process.env.PORT || '5000';
 
   log('✅ Legacy URL redirects configured (301 permanent)', 'redirect');
 
+  // CRITICAL FOR GOOGLE SEARCH CONSOLE: Serve sitemap.xml with correct XML content-type
+  // This MUST be BEFORE SSR middleware to prevent HTML serving
+  app.get('/sitemap.xml', (req, res) => {
+    const sitemapPath = path.join(process.cwd(), 'public', 'sitemap.xml');
+    
+    if (!fs.existsSync(sitemapPath)) {
+      log('⚠️ sitemap.xml not found - run: npx tsx scripts/generate-sitemap.ts', 'sitemap');
+      return res.status(404).send('Sitemap not found');
+    }
+    
+    log('📍 Serving sitemap.xml with application/xml content-type', 'sitemap');
+    
+    // Set correct XML content-type and cache headers
+    res.setHeader('Content-Type', 'application/xml; charset=utf-8');
+    res.setHeader('Cache-Control', 'public, max-age=86400'); // 24 hours
+    res.setHeader('X-Content-Type-Options', 'nosniff');
+    
+    res.sendFile(sitemapPath);
+  });
+  log('✅ Sitemap.xml route registered with XML content-type', 'sitemap');
+
   // CRITICAL FOR SEO: Register SSR middleware BEFORE static files
   // This ensures crawlers get fully-rendered HTML with H1 tags, content, and schemas
   app.use(ssrMiddleware());
@@ -200,7 +221,11 @@ const PORT = process.env.PORT || '5000';
         etag: true,
         lastModified: true,
         setHeaders: (res, filepath) => {
-          if (filepath.endsWith('.html')) {
+          // Set correct content-type for XML files (sitemap, RSS feeds)
+          if (filepath.endsWith('.xml')) {
+            res.setHeader('Content-Type', 'application/xml; charset=utf-8');
+            res.setHeader('Cache-Control', 'public, max-age=86400'); // 24 hours
+          } else if (filepath.endsWith('.html')) {
             res.setHeader('Cache-Control', 'no-cache, must-revalidate');
           } else if (filepath.match(/\.(js|css|woff2?|ttf|eot|svg|png|jpg|jpeg|gif|webp)$/)) {
             res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
