@@ -1,4 +1,5 @@
 import { useState, useRef } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { useXolaEmbed } from '@/hooks/useXolaEmbed';
 import { DISCO_TIME_SLOTS } from '@shared/constants';
 
@@ -18,12 +19,18 @@ export default function BookNow() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-yellow-50">
-      <div className="container mx-auto px-4 py-12">
-        
-        <h1 className="text-4xl font-bold text-center mb-8 text-gray-900">
-          Book Your Cruise Online
-        </h1>
+    <>
+      <Helmet>
+        <title>Book Now | Lake Travis Party Boats Austin</title>
+        <meta name="description" content="Book Austin party boat instantly! Choose 14, 25, or 50-person boats plus ATX Disco Cruise. Secure online booking for Lake Travis cruises." />
+      </Helmet>
+      
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-yellow-50">
+        <div className="container mx-auto px-4 py-12">
+          
+          <h1 className="text-4xl font-bold text-center mb-8 text-gray-900">
+            Book Your Cruise Online
+          </h1>
 
         {/* Main Tabs */}
         <div className="flex flex-wrap gap-2 justify-center mb-6">
@@ -94,5 +101,6 @@ export default function BookNow() {
         </div>
       </div>
     </div>
+    </>
   );
 }

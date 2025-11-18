@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
+import { Helmet } from 'react-helmet-async';
 const logoPath = '/attached_assets/PPC Logo LARGE_1757881944449.png';
 import { Ship, Star, CheckCircle, Clock } from 'lucide-react';
 import Footer from '@/components/Footer';
@@ -64,15 +65,21 @@ export default function BookOnline({ defaultBoatType = '14p' }: BookOnlineProps)
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-yellow-50">
-      <div className="container mx-auto px-4 py-8 max-w-7xl">
-        <motion.div
-          variants={fadeInUp}
-          initial="hidden"
-          animate="visible"
-          className="space-y-8"
-        >
-          {/* Header */}
+    <>
+      <Helmet>
+        <title>Book Online | Austin Lake Travis Boats</title>
+        <meta name="description" content="Book Lake Travis party boats online! Select 14, 25, or 50-person boats or ATX Disco Cruise. Instant confirmation for Austin cruises." />
+      </Helmet>
+      
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-yellow-50">
+        <div className="container mx-auto px-4 py-8 max-w-7xl">
+          <motion.div
+            variants={fadeInUp}
+            initial="hidden"
+            animate="visible"
+            className="space-y-8"
+          >
+            {/* Header */}
           <div className="text-center space-y-4">
             <img
               src={logoPath}
@@ -273,7 +280,7 @@ export default function BookOnline({ defaultBoatType = '14p' }: BookOnlineProps)
       </div>
       
       <Footer />
-    </div>
+    </>
   );
 }
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Helmet } from 'react-helmet-async';
 const logoPath = '/attached_assets/PPC Logo LARGE_1757881944449.png';
 import { Ship, Star, CheckCircle, Clock } from 'lucide-react';
 import ClaudeInsight from '@/components/ClaudeInsight';
@@ -65,8 +66,14 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-yellow-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
-      {/* Main Content Area */}
+    <>
+      <Helmet>
+        <title>Get Quote | Austin Party Boat Rentals</title>
+        <meta name="description" content="Get instant quote for Lake Travis boat rentals. Austin party cruises for bachelor/bachelorette parties & events. Quick online booking!" />
+      </Helmet>
+      
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-yellow-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
+        {/* Main Content Area */}
       <div className="flex flex-col items-center justify-start pt-4 pb-12">
         <div className="w-full max-w-6xl">
           <motion.div
@@ -185,5 +192,6 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
         </div>
       </div>
     </div>
+    </>
   );
 }

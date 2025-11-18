@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Helmet } from 'react-helmet-async';
 const logoPath = '/attached_assets/PPC Logo LARGE_1757881944449.png';
 import { Ship, Star, CheckCircle, Clock, Gift, Calendar, DollarSign, Tag, Package, Truck, Sparkles, Users, AlertCircle, Crown } from 'lucide-react';
 
@@ -72,7 +73,13 @@ export default function GoldenTicketPrivate() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-yellow-50 via-white to-amber-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
+    <>
+      <Helmet>
+        <title>Golden Ticket | Private Cruise Special</title>
+        <meta name="description" content="Exclusive private cruise promotional offer! Get $300 gift card for Lake Travis boat rental. Limited Golden Ticket deal for Austin private cruises." />
+      </Helmet>
+      
+      <div className="min-h-screen bg-gradient-to-br from-yellow-50 via-white to-amber-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
       {/* Main Content Area */}
       <div className="flex flex-col items-center justify-start pt-4 pb-12">
         <div className="w-full max-w-6xl px-4">
@@ -508,5 +515,6 @@ export default function GoldenTicketPrivate() {
         </div>
       </div>
     </div>
+    </>
   );
 }
