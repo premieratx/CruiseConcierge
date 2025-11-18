@@ -23,15 +23,23 @@ const fadeInUp = {
 };
 
 export default function Chat({ defaultEventType }: ChatProps = {}) {
-  // Build iframe URL immediately for instant loading - NO DELAYS
-  const currentUrl = typeof window !== 'undefined' ? encodeURIComponent(window.location.href) : '';
-  const baseUrl = 'https://booking.premierpartycruises.com/quote-v2';
-  const iframeUrl = `${baseUrl}?sourceUrl=${currentUrl}&sourceType=embedded_quote_v2&autoResize=1`;
+  // FIXED: Build iframe URL client-side only to avoid SSR/client mismatch
+  // Using state initialized in useLayoutEffect runs BEFORE paint (no delay visible to user)
+  const [iframeUrl, setIframeUrl] = React.useState<string | null>(null);
 
-  // Setup auto-resize and scroll on mount (keeping existing functionality)
+  // Initialize URL as early as possible (before paint) to minimize any delay
+  React.useLayoutEffect(() => {
+    if (typeof window !== 'undefined') {
+      const currentUrl = encodeURIComponent(window.location.href);
+      const baseUrl = 'https://booking.premierpartycruises.com/quote-v2';
+      setIframeUrl(`${baseUrl}?sourceUrl=${currentUrl}&sourceType=embedded_quote_v2&autoResize=1`);
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    }
+  }, []);
+
+  // Setup auto-resize handler
   React.useEffect(() => {
     if (typeof window !== 'undefined') {
-      window.scrollTo({ top: 0, behavior: 'instant' });
       
       // Auto-resize iframe based on content height
       const handleMessage = (event: MessageEvent) => {
@@ -135,7 +143,7 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
               </div>
             </motion.div>
             
-            {/* Quote V2 Widget Iframe - INSTANT LOADING (NO DELAYS) */}
+            {/* Quote V2 Widget Iframe - INSTANT LOADING with proper SSR handling */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -149,26 +157,28 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
               }}
             >
               <div className="w-full max-w-6xl mx-auto">
-                <iframe 
-                  id="quote-v2-widget-iframe"
-                  src={iframeUrl}
-                  title="Get Your Quote - Premier Party Cruises"
-                  className="w-full"
-                  style={{ 
-                    height: '800px',
-                    border: 'none',
-                    display: 'block',
-                    borderRadius: '8px',
-                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-                    position: 'relative',
-                    zIndex: 1
-                  }}
-                  allow="payment"
-                  loading="eager"
-                  onLoad={(e) => {
-                    (e.target as HTMLIFrameElement).style.height = '800px';
-                  }}
-                />
+                {iframeUrl && (
+                  <iframe 
+                    id="quote-v2-widget-iframe"
+                    src={iframeUrl}
+                    title="Get Your Quote - Premier Party Cruises"
+                    className="w-full"
+                    style={{ 
+                      height: '800px',
+                      border: 'none',
+                      display: 'block',
+                      borderRadius: '8px',
+                      boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+                      position: 'relative',
+                      zIndex: 1
+                    }}
+                    allow="payment"
+                    loading="eager"
+                    onLoad={(e) => {
+                      (e.target as HTMLIFrameElement).style.height = '800px';
+                    }}
+                  />
+                )}
               </div>
             </motion.div>
           </motion.div>

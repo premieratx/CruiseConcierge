@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Sparkles } from 'lucide-react';
 
@@ -12,14 +12,22 @@ const fadeInUp = {
 };
 
 export default function QuoteBuilderSection() {
-  // Build iframe URL immediately for instant loading - NO DELAYS
-  const currentUrl = typeof window !== 'undefined' ? encodeURIComponent(window.location.href) : '';
-  const baseUrl = 'https://booking.premierpartycruises.com/quote-v2';
-  const iframeUrl = `${baseUrl}?sourceUrl=${currentUrl}&sourceType=embedded_quote_v2`;
-  
+  // FIXED: Build iframe URL client-side only to avoid SSR/client mismatch
+  // Using state initialized in useLayoutEffect runs BEFORE paint (no delay visible to user)
+  const [iframeUrl, setIframeUrl] = useState<string | null>(null);
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
+  // Initialize URL as early as possible (before paint) to minimize any delay
+  useLayoutEffect(() => {
+    if (typeof window !== 'undefined') {
+      const currentUrl = encodeURIComponent(window.location.href);
+      const baseUrl = 'https://booking.premierpartycruises.com/quote-v2';
+      setIframeUrl(`${baseUrl}?sourceUrl=${currentUrl}&sourceType=embedded_quote_v2`);
+    }
+  }, []);
+
+  // Setup auto-resize handler
   useEffect(() => {
     if (typeof window !== 'undefined') {
       // Auto-resize iframe based on content height
@@ -80,28 +88,30 @@ export default function QuoteBuilderSection() {
                 margin: '2rem 0'
               }}
             >
-              <iframe 
-                ref={iframeRef}
-                id="quote-v2-widget-iframe"
-                src={iframeUrl}
-                title="Get Your Quote - Premier Party Cruises"
-                className="w-full"
-                style={{ 
-                  height: '800px',
-                  border: 'none',
-                  display: 'block',
-                  borderRadius: '8px',
-                  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-                  position: 'relative',
-                  zIndex: 1
-                }}
-                allow="payment"
-                loading="eager"
-                data-testid="iframe-quote-builder"
-                onLoad={(e) => {
-                  (e.target as HTMLIFrameElement).style.height = '800px';
-                }}
-              />
+              {iframeUrl && (
+                <iframe 
+                  ref={iframeRef}
+                  id="quote-v2-widget-iframe"
+                  src={iframeUrl}
+                  title="Get Your Quote - Premier Party Cruises"
+                  className="w-full"
+                  style={{ 
+                    height: '800px',
+                    border: 'none',
+                    display: 'block',
+                    borderRadius: '8px',
+                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+                    position: 'relative',
+                    zIndex: 1
+                  }}
+                  allow="payment"
+                  loading="eager"
+                  data-testid="iframe-quote-builder"
+                  onLoad={(e) => {
+                    (e.target as HTMLIFrameElement).style.height = '800px';
+                  }}
+                />
+              )}
             </div>
           </div>
         </motion.div>
