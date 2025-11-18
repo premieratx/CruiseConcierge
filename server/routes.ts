@@ -37,7 +37,7 @@ let generateQuoteDescription: any = null;
 let openaiService: any = null;
 let quickAgentService: any = null;
 type LeadWebhookPayload = any;
-import { insertContactSchema, insertProjectSchema, insertChatMessageSchema, insertAdminChatSessionSchema, insertAdminChatMessageSchema, insertUserSchema, insertInviteSchema, insertQuoteTemplateSchema, insertTemplateRuleSchema, insertDiscountRuleSchema, insertPricingSettingsSchema, insertPricingAdjustmentSchema, insertProductSchema, insertAffiliateSchema, insertPartnerApplicationSchema, insertDiscoSlotSchema, insertTimeframeSchema, insertSmsAuthTokenSchema, insertCustomerSessionSchema, insertPortalActivityLogSchema, insertPartialLeadSchema, insertBlogPostSchema, insertBlogAuthorSchema, insertBlogCategorySchema, insertBlogTagSchema, insertBlogCommentSchema, insertBlogAnalyticsSchema, insertSeoPageSchema, insertSeoCompetitorSchema, insertContentBlockSchema, insertPromptsLibrarySchema, endorsements, blogPosts, type LeadData, type LeadUpdateData, type CreateLeadRequest, type PartialLeadFilters, type SEOOptimizationRequest, type SEOBulkOperation, type AdminChatSession, type AdminChatMessage, type Endorsement, type PartnerApplication, type InsertPartnerApplication } from "@shared/schema";
+import { insertContactSchema, insertProjectSchema, insertChatMessageSchema, insertAdminChatSessionSchema, insertAdminChatMessageSchema, insertUserSchema, insertInviteSchema, insertQuoteTemplateSchema, insertTemplateRuleSchema, insertDiscountRuleSchema, insertPricingSettingsSchema, insertPricingAdjustmentSchema, insertProductSchema, insertAffiliateSchema, insertPartnerApplicationSchema, insertDiscoSlotSchema, insertTimeframeSchema, insertSmsAuthTokenSchema, insertCustomerSessionSchema, insertPortalActivityLogSchema, insertPartialLeadSchema, insertBlogPostSchema, insertBlogAuthorSchema, insertBlogCategorySchema, insertBlogTagSchema, insertBlogCommentSchema, insertBlogAnalyticsSchema, insertSeoPageSchema, insertSeoCompetitorSchema, insertContentBlockSchema, insertPromptsLibrarySchema, insertPageStatusPageSchema, endorsements, blogPosts, type LeadData, type LeadUpdateData, type CreateLeadRequest, type PartialLeadFilters, type SEOOptimizationRequest, type SEOBulkOperation, type AdminChatSession, type AdminChatMessage, type Endorsement, type PartnerApplication, type InsertPartnerApplication } from "@shared/schema";
 import { calculateServerPricing, type ServerPricingRequest } from './serverPricing';
 import { PRICING_DEFAULTS } from "@shared/constants";
 import { getPrivateTimeSlotsForDate, getDiscoTimeSlotsForDate, parseTimeToDate, getTimeSlotById } from "@shared/timeSlots";
@@ -95,6 +95,8 @@ let quoteTokenService: any = null;
 let seedQuoteTemplates: any = null;
 let agenticAIService: any = null;
 let toolExecutor: any = null;
+let pageTestingService: any = null;
+let sitemapIngestionService: any = null;
 import { getFullUrl, getPublicUrl, getQuoteUrl } from "./utils";
 import { insertMediaSchema, insertAgentTaskSchema, insertAgentToolSchema, insertAgentExecutionSchema } from "@shared/schema";
 import sanitizeHtml from 'sanitize-html';
@@ -2647,6 +2649,176 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
       console.error('Error bulk optimizing SEO pages:', error);
       res.status(500).json({ 
         error: 'Failed to bulk optimize SEO pages',
+        message: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+  });
+
+  // ==========================================
+  // PAGE STATUS ROUTES
+  // ==========================================
+
+  // Get all pages
+  app.get('/api/page-status/pages', requireAdmin, async (req, res) => {
+    try {
+      const pages = await storage.getPageStatusPages();
+      res.json(pages);
+    } catch (error) {
+      console.error('Error fetching page status pages:', error);
+      res.status(500).json({ 
+        error: 'Failed to fetch pages',
+        message: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+  });
+
+  // Get single page
+  app.get('/api/page-status/pages/:id', requireAdmin, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      const page = await storage.getPageStatusPageById(id);
+      
+      if (!page) {
+        return res.status(404).json({ error: 'Page not found' });
+      }
+      
+      res.json(page);
+    } catch (error) {
+      console.error('Error fetching page:', error);
+      res.status(500).json({ 
+        error: 'Failed to fetch page',
+        message: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+  });
+
+  // Create new page
+  app.post('/api/page-status/pages', requireAdmin, async (req, res) => {
+    try {
+      const pageData = insertPageStatusPageSchema.parse(req.body);
+      const page = await storage.createPageStatusPage(pageData);
+      res.json(page);
+    } catch (error) {
+      console.error('Error creating page:', error);
+      res.status(500).json({ 
+        error: 'Failed to create page',
+        message: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+  });
+
+  // Update page
+  app.patch('/api/page-status/pages/:id', requireAdmin, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      const updates = req.body;
+      const page = await storage.updatePageStatusPage(id, updates);
+      res.json(page);
+    } catch (error) {
+      console.error('Error updating page:', error);
+      res.status(500).json({ 
+        error: 'Failed to update page',
+        message: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+  });
+
+  // Delete page
+  app.delete('/api/page-status/pages/:id', requireAdmin, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      await storage.deletePageStatusPage(id);
+      res.json({ success: true });
+    } catch (error) {
+      console.error('Error deleting page:', error);
+      res.status(500).json({ 
+        error: 'Failed to delete page',
+        message: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+  });
+
+  // Test single page
+  app.post('/api/page-status/pages/:id/test', requireAdmin, async (req, res) => {
+    try {
+      if (!pageTestingService) {
+        pageTestingService = (await import('./services/pageTestingService')).pageTestingService;
+      }
+      
+      const id = parseInt(req.params.id);
+      const page = await storage.getPageStatusPageById(id);
+      
+      if (!page) {
+        return res.status(404).json({ error: 'Page not found' });
+      }
+      
+      await pageTestingService.testAndStorePage(page, 'manual');
+      
+      // Return updated page
+      const updatedPage = await storage.getPageStatusPageById(id);
+      res.json(updatedPage);
+    } catch (error) {
+      console.error('Error testing page:', error);
+      res.status(500).json({ 
+        error: 'Failed to test page',
+        message: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+  });
+
+  // Bulk test pages
+  app.post('/api/page-status/tests/bulk', requireAdmin, async (req, res) => {
+    try {
+      if (!pageTestingService) {
+        pageTestingService = (await import('./services/pageTestingService')).pageTestingService;
+      }
+      
+      const { pageIds } = req.body;
+      
+      if (!pageIds || !Array.isArray(pageIds)) {
+        return res.status(400).json({ error: 'pageIds array is required' });
+      }
+      
+      await pageTestingService.bulkTestPages(pageIds, 'manual');
+      
+      res.json({ success: true, tested: pageIds.length });
+    } catch (error) {
+      console.error('Error bulk testing pages:', error);
+      res.status(500).json({ 
+        error: 'Failed to bulk test pages',
+        message: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+  });
+
+  // Get test history
+  app.get('/api/page-status/tests', requireAdmin, async (req, res) => {
+    try {
+      const pageId = req.query.pageId ? parseInt(req.query.pageId as string) : undefined;
+      const tests = await storage.getPageStatusTestRuns(pageId);
+      res.json(tests);
+    } catch (error) {
+      console.error('Error fetching test history:', error);
+      res.status(500).json({ 
+        error: 'Failed to fetch test history',
+        message: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+  });
+
+  // Ingest sitemap
+  app.post('/api/page-status/ingest-sitemap', requireAdmin, async (req, res) => {
+    try {
+      if (!sitemapIngestionService) {
+        sitemapIngestionService = (await import('./services/sitemapIngestionService')).sitemapIngestionService;
+      }
+      
+      const result = await sitemapIngestionService.ingestSitemap();
+      res.json(result);
+    } catch (error) {
+      console.error('Error ingesting sitemap:', error);
+      res.status(500).json({ 
+        error: 'Failed to ingest sitemap',
         message: error instanceof Error ? error.message : 'Unknown error'
       });
     }

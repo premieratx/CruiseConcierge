@@ -888,6 +888,65 @@ export const insertPromptsLibrarySchema = createInsertSchema(promptsLibrary).omi
 });
 
 // ==========================================
+// PAGE STATUS TRACKING
+// ==========================================
+
+export const pageStatusPages = pgTable("page_status_pages", {
+  id: serial("id").primaryKey(),
+  url: text("url").notNull().unique(),
+  slug: text("slug").notNull(),
+  sourceType: varchar("source_type", { length: 50 }).notNull(), // 'react', 'wordpress', 'html'
+  isReactRoute: boolean("is_react_route").notNull().default(false),
+  isWordPress: boolean("is_word_press").notNull().default(false),
+  sitemapPath: text("sitemap_path"),
+  lastEditedAt: timestamp("last_edited_at"),
+  lastPublishedAt: timestamp("last_published_at"),
+  lastConfirmedLiveAt: timestamp("last_confirmed_live_at"),
+  status: varchar("status", { length: 50 }).notNull().default('unknown'), // 'live', 'broken', 'unknown'
+  hasSchema: boolean("has_schema").notNull().default(false),
+  isIndexable: boolean("is_indexable").notNull().default(false),
+  onSitemap: boolean("on_sitemap").notNull().default(false),
+  notes: text("notes"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+export const pageStatusTestRuns = pgTable("page_status_test_runs", {
+  id: serial("id").primaryKey(),
+  pageId: integer("page_id").notNull().references(() => pageStatusPages.id),
+  initiatedBy: varchar("initiated_by", { length: 50 }).notNull().default('automated'), // 'automated', 'manual'
+  triggerRef: text("trigger_ref"),
+  startedAt: timestamp("started_at").notNull().defaultNow(),
+  completedAt: timestamp("completed_at"),
+  testStatus: varchar("test_status", { length: 50 }).notNull().default('pending'), // 'pending', 'running', 'success', 'failed'
+  httpStatus: integer("http_status"),
+  responseTimeMs: integer("response_time_ms"),
+  contentHash: text("content_hash"),
+  seoChecks: jsonb("seo_checks").$type<{
+    hasH1?: boolean;
+    hasMetaDescription?: boolean;
+    hasTitle?: boolean;
+    hasCanonical?: boolean;
+    hasSchema?: boolean;
+    robotsIndexable?: boolean;
+  }>().default({}),
+  lighthouseScore: integer("lighthouse_score"),
+  errorMessage: text("error_message"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+export const insertPageStatusPageSchema = createInsertSchema(pageStatusPages).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertPageStatusTestRunSchema = createInsertSchema(pageStatusTestRuns).omit({
+  id: true,
+  createdAt: true,
+});
+
+// ==========================================
 // SELECT TYPES
 // ==========================================
 
@@ -915,6 +974,8 @@ export type MediaItem = typeof mediaItems.$inferSelect;
 export type PhotoEdit = typeof photoEdits.$inferSelect;
 export type ContentBlock = typeof contentBlocks.$inferSelect;
 export type PromptsLibrary = typeof promptsLibrary.$inferSelect;
+export type PageStatusPage = typeof pageStatusPages.$inferSelect;
+export type PageStatusTestRun = typeof pageStatusTestRuns.$inferSelect;
 
 // ==========================================
 // INSERT TYPES
@@ -944,3 +1005,5 @@ export type InsertMediaItem = z.infer<typeof insertMediaItemSchema>;
 export type InsertPhotoEdit = z.infer<typeof insertPhotoEditSchema>;
 export type InsertContentBlock = z.infer<typeof insertContentBlockSchema>;
 export type InsertPromptsLibrary = z.infer<typeof insertPromptsLibrarySchema>;
+export type InsertPageStatusPage = z.infer<typeof insertPageStatusPageSchema>;
+export type InsertPageStatusTestRun = z.infer<typeof insertPageStatusTestRunSchema>;

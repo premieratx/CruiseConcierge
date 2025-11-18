@@ -16,9 +16,10 @@ import {
   TrendingUp, Calendar, LayoutDashboard, FileText, 
   MessageCircle, Save, Ship, Users, BarChart3, Anchor,
   Bell, BellOff, Wifi, WifiOff, Check, X, Quote,
-  DollarSign, UserPlus, Activity, Globe
+  DollarSign, UserPlus, Activity, Globe, ClipboardCheck
 } from "lucide-react";
 import UptimeMonitoring from "@/pages/admin/UptimeMonitoring";
+import PageStatus from "@/pages/admin/PageStatus";
 
 export default function Dashboard() {
   const { toast } = useToast();
@@ -160,7 +161,7 @@ export default function Dashboard() {
       {/* Main Dashboard Content */}
       <div className="container mx-auto px-4 py-6">
         <Tabs defaultValue="overview" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-4">
+          <TabsList className="grid w-full grid-cols-5">
             <TabsTrigger value="overview" className="flex items-center gap-2">
               <LayoutDashboard className="h-4 w-4" />
               Overview
@@ -176,6 +177,10 @@ export default function Dashboard() {
             <TabsTrigger value="uptime" className="flex items-center gap-2" data-testid="tab-uptime">
               <Globe className="h-4 w-4" />
               Uptime
+            </TabsTrigger>
+            <TabsTrigger value="page-status" className="flex items-center gap-2" data-testid="tab-page-status">
+              <ClipboardCheck className="h-4 w-4" />
+              Page Status
             </TabsTrigger>
           </TabsList>
 
@@ -381,6 +386,10 @@ export default function Dashboard() {
 
           <TabsContent value="uptime" className="space-y-6" data-testid="tab-content-uptime">
             <UptimeMonitoring />
+          </TabsContent>
+
+          <TabsContent value="page-status" className="space-y-6" data-testid="tab-content-page-status">
+            <PageStatus />
           </TabsContent>
         </Tabs>
       </div>

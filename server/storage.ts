@@ -1054,6 +1054,18 @@ export interface IStorage {
   }): Promise<{ media: any[]; total: number }>;
   updateMedia(id: string, updates: Partial<any>): Promise<any>;
   deleteMedia(id: string): Promise<boolean>;
+
+  // Page Status Pages
+  getPageStatusPages(): Promise<PageStatusPage[]>;
+  getPageStatusPageById(id: number): Promise<PageStatusPage | null>;
+  createPageStatusPage(page: InsertPageStatusPage): Promise<PageStatusPage>;
+  updatePageStatusPage(id: number, updates: Partial<InsertPageStatusPage>): Promise<PageStatusPage>;
+  deletePageStatusPage(id: number): Promise<void>;
+
+  // Page Status Test Runs
+  getPageStatusTestRuns(pageId?: number): Promise<PageStatusTestRun[]>;
+  createPageStatusTestRun(run: InsertPageStatusTestRun): Promise<PageStatusTestRun>;
+  updatePageStatusTestRun(id: number, updates: Partial<InsertPageStatusTestRun>): Promise<PageStatusTestRun>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -6892,6 +6904,76 @@ Crawl-delay: 1`;
   }
 
   // ===== END SYSTEM BLOCKOUTS AND AVAILABILITY SLOTS =====
+
+  // ===== PAGE STATUS TRACKING =====
+
+  async getPageStatusPages(): Promise<PageStatusPage[]> {
+    return await db.select().from(pageStatusPages).orderBy(pageStatusPages.url);
+  }
+
+  async getPageStatusPageById(id: number): Promise<PageStatusPage | null> {
+    const result = await db.select().from(pageStatusPages).where(eq(pageStatusPages.id, id)).limit(1);
+    return result[0] || null;
+  }
+
+  async createPageStatusPage(page: InsertPageStatusPage): Promise<PageStatusPage> {
+    const result = await db.insert(pageStatusPages).values(page).returning();
+    return result[0];
+  }
+
+  async updatePageStatusPage(id: number, updates: Partial<InsertPageStatusPage>): Promise<PageStatusPage> {
+    const updateData = {
+      ...updates,
+      updatedAt: new Date()
+    };
+    
+    const result = await db.update(pageStatusPages)
+      .set(updateData)
+      .where(eq(pageStatusPages.id, id))
+      .returning();
+    
+    if (result.length === 0) {
+      throw new Error(`Page status page with id ${id} not found`);
+    }
+    
+    return result[0];
+  }
+
+  async deletePageStatusPage(id: number): Promise<void> {
+    await db.delete(pageStatusPages).where(eq(pageStatusPages.id, id));
+  }
+
+  async getPageStatusTestRuns(pageId?: number): Promise<PageStatusTestRun[]> {
+    if (pageId) {
+      return await db.select()
+        .from(pageStatusTestRuns)
+        .where(eq(pageStatusTestRuns.pageId, pageId))
+        .orderBy(desc(pageStatusTestRuns.startedAt));
+    }
+    return await db.select()
+      .from(pageStatusTestRuns)
+      .orderBy(desc(pageStatusTestRuns.startedAt));
+  }
+
+  async createPageStatusTestRun(run: InsertPageStatusTestRun): Promise<PageStatusTestRun> {
+    const result = await db.insert(pageStatusTestRuns).values(run).returning();
+    return result[0];
+  }
+
+  async updatePageStatusTestRun(id: number, updates: Partial<InsertPageStatusTestRun>): Promise<PageStatusTestRun> {
+    const result = await db.update(pageStatusTestRuns)
+      .set(updates)
+      .where(eq(pageStatusTestRuns.id, id))
+      .returning();
+    
+    if (result.length === 0) {
+      throw new Error(`Page status test run with id ${id} not found`);
+    }
+    
+    return result[0];
+  }
+
+  // ===== END PAGE STATUS TRACKING =====
 }
 
 export const storage = new DatabaseStorage();
