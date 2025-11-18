@@ -1096,7 +1096,7 @@ export default function ATXDiscoCruise() {
                   </CardHeader>
                   <CardContent className="text-center">
                     <p className="text-gray-700 leading-relaxed">
-                      From $85/person with DJ, photographer & floats included. Always cheaper than private boat for smaller groups!
+                      From $85/person with DJ, photographer, floats & party supplies included. Private boats cost $1,050+ base rate, then add $1,600+ for the same experience!
                     </p>
                   </CardContent>
                 </Card>
