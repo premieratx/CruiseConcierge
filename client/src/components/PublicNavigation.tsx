@@ -23,6 +23,7 @@ import {
 } from '@/components/ui/collapsible';
 import { cn } from '@/lib/utils';
 import { loadXolaScript, initXolaEmbeds } from '@/services/xola';
+import GHLFormModal from '@/components/GHLFormModal';
 // Fix for SSR: Use path string instead of import for logo (removed CSS import - breaks SSR)
 const logoPath = '/attached_assets/PPC-Logo-48x48.webp';
 import { 
@@ -205,6 +206,7 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
   
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [ghlFormOpen, setGhlFormOpen] = useState(false);
 
   // Load Xola checkout script on mount
   useEffect(() => {
