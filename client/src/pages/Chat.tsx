@@ -23,15 +23,14 @@ const fadeInUp = {
 };
 
 export default function Chat({ defaultEventType }: ChatProps = {}) {
-  // Initialize with empty string to avoid SSR issues
-  const [iframeUrl, setIframeUrl] = React.useState('');
+  // Build iframe URL immediately for instant loading - NO DELAYS
+  const currentUrl = typeof window !== 'undefined' ? encodeURIComponent(window.location.href) : '';
+  const baseUrl = 'https://booking.premierpartycruises.com/quote-v2';
+  const iframeUrl = `${baseUrl}?sourceUrl=${currentUrl}&sourceType=embedded_quote_v2&autoResize=1`;
 
-  // Build iframe URL with source tracking on client-side only
+  // Setup auto-resize and scroll on mount (keeping existing functionality)
   React.useEffect(() => {
     if (typeof window !== 'undefined') {
-      const currentUrl = encodeURIComponent(window.location.href);
-      const baseUrl = 'https://booking.premierpartycruises.com/quote-v2';
-      setIframeUrl(`${baseUrl}?sourceUrl=${currentUrl}&sourceType=embedded_quote_v2&autoResize=1`);
       window.scrollTo({ top: 0, behavior: 'instant' });
       
       // Auto-resize iframe based on content height
@@ -136,11 +135,11 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
               </div>
             </motion.div>
             
-            {/* Quote V2 Widget Iframe */}
+            {/* Quote V2 Widget Iframe - INSTANT LOADING (NO DELAYS) */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5, duration: 0.5 }}
+              transition={{ delay: 0, duration: 0.3 }}
               className="w-full mb-8"
               id="quote-v2-widget-container"
               style={{ 
@@ -165,6 +164,7 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
                     zIndex: 1
                   }}
                   allow="payment"
+                  loading="eager"
                   onLoad={(e) => {
                     (e.target as HTMLIFrameElement).style.height = '800px';
                   }}
