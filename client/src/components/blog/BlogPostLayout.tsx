@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
-import Layout from '@/components/Layout';
+import PublicNavigation from '@/components/PublicNavigation';
+import Footer from '@/components/Footer';
 import SEOHead from '@/components/SEOHead';
 import { TableOfContents } from '@/components/TableOfContents';
 import { StickyCTA } from '@/components/StickyCTA';
@@ -43,7 +44,9 @@ export function BlogPostLayout({
   className,
 }: BlogPostLayoutProps) {
   return (
-    <Layout>
+    <div className="min-h-screen bg-background">
+      <PublicNavigation />
+      
       <SEOHead
         pageRoute={pageRoute}
         defaultTitle={title}
@@ -109,6 +112,8 @@ export function BlogPostLayout({
         secondaryText="Get Free Quote"
         secondaryHref="/contact"
       />
-    </Layout>
+      
+      <Footer />
+    </div>
   );
 }
