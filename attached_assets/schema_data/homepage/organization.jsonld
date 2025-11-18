@@ -79,6 +79,10 @@
   "priceRange": "$$",
   "aggregateRating": {
     "@type": "AggregateRating",
+    "itemReviewed": {
+      "@type": "LocalBusiness",
+      "name": "Premier Party Cruises"
+    },
     "ratingValue": "4.9",
     "reviewCount": "500",
     "bestRating": "5",
