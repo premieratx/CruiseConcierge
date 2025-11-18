@@ -219,7 +219,6 @@ export default function CombinedBachelorBachelorette() {
   const reducedMotion = useReducedMotion();
   const { toast } = useToast();
   const [currentHeroImage, setCurrentHeroImage] = useState(0);
-  const [showQuoteBuilder, setShowQuoteBuilder] = useState(false);
   const heroImages = [heroImage2, heroImage3, galleryImage1];
 
   useEffect(() => {
@@ -305,14 +304,18 @@ export default function CombinedBachelorBachelorette() {
             </Badge>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-              <div 
-                className="xola-embedded-checkout bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold text-lg px-8 py-6 rounded-md inline-flex items-center justify-center cursor-pointer transition-colors shadow-lg"
-                data-button-id="6915747a162501edc00f1519"
+              <div
+                className="xola-custom xola-checkout"
+                data-button-id="691574bd162501edc00f151a"
                 data-testid="button-hero-book-combined"
-                style={{minHeight: '56px'}}
               >
-                <Calendar className="mr-2 h-6 w-6" />
-                Book Your Combined Celebration!
+                <button 
+                  className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold text-lg px-8 py-6 rounded-md inline-flex items-center justify-center cursor-pointer transition-colors shadow-lg"
+                  style={{minHeight: '56px'}}
+                >
+                  <Calendar className="mr-2 h-6 w-6" />
+                  Book Now
+                </button>
               </div>
             </div>
           </div>
