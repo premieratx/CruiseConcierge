@@ -15,7 +15,7 @@
     "https://premierpartycruises.com/media/schema/disco-dance-floor.jpg",
     "https://premierpartycruises.com/media/schema/group-swimming-lilypad.jpg"
   ],
-  "description": "Austin\u2019s original Lake Travis party boat company offering private cruises, the ATX Disco Cruise, and full\u2011service planning for bachelor/bachelorette, corporate, birthday, and family events.",
+  "description": "Austin’s original Lake Travis party boat company offering private cruises, the ATX Disco Cruise, and full‑service planning for bachelor/bachelorette, corporate, birthday, and family events.",
   "foundingDate": "2009",
   "slogan": "Creating the perfect party cruise experience on Lake Travis",
   "founder": {
@@ -83,9 +83,9 @@
       "@type": "LocalBusiness",
       "name": "Premier Party Cruises"
     },
-    "ratingValue": "4.9",
-    "reviewCount": "500",
-    "bestRating": "5",
-    "worstRating": "1"
+    "ratingValue": 4.9,
+    "reviewCount": 500,
+    "bestRating": 5,
+    "worstRating": 1
   }
 }

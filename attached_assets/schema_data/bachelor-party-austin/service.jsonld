@@ -48,6 +48,7 @@
     {
       "@type": "Offer",
       "name": "Private Bachelor Party Boat - 14 Person",
+      "price": "200.00",
       "priceCurrency": "USD",
       "priceSpecification": {
         "@type": "UnitPriceSpecification",
@@ -63,6 +64,7 @@
     {
       "@type": "Offer",
       "name": "Private Bachelor Party Boat - 25 Person",
+      "price": "225.00",
       "priceCurrency": "USD",
       "priceSpecification": {
         "@type": "UnitPriceSpecification",
@@ -78,6 +80,7 @@
     {
       "@type": "Offer",
       "name": "Private Bachelor Party Boat - 50 Person Flagship",
+      "price": "250.00",
       "priceCurrency": "USD",
       "priceSpecification": {
         "@type": "UnitPriceSpecification",
@@ -119,9 +122,9 @@
       "@type": "Service",
       "name": "Lake Travis Bachelor Party Boat Cruises in Austin"
     },
-    "ratingValue": "4.9",
-    "reviewCount": "500",
-    "bestRating": "5",
-    "worstRating": "1"
+    "ratingValue": 4.9,
+    "reviewCount": 500,
+    "bestRating": 5,
+    "worstRating": 1
   }
 }
