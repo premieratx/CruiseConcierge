@@ -278,8 +278,9 @@ export default function BookOnline({ defaultBoatType = '14p' }: BookOnlineProps)
           )}
         </motion.div>
       </div>
+    </div>
       
-      <Footer />
+    <Footer />
     </>
   );
 }
