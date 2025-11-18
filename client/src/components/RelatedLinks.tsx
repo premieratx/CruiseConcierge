@@ -45,7 +45,7 @@ const standardLinks = [
   },
   {
     title: 'Safety Guidelines',
-    href: '/blogs/lake-travis-boat-safety-essential-guidelines-for-safe-party-cruises',
+    href: '/testimonials-faq#safety',
     icon: Shield,
     description: 'Lake Travis boat safety tips'
   },

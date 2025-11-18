@@ -1,0 +1,506 @@
+{
+  "total": 105,
+  "passedSEO": 45,
+  "failedSEO": 60,
+  "missingSEOHead": [
+    {
+      "file": "Affiliates.tsx",
+      "hasImport": false,
+      "hasUsage": false
+    },
+    {
+      "file": "AuthPage.tsx",
+      "hasImport": false,
+      "hasUsage": false
+    },
+    {
+      "file": "BirthdayPartyAustinGuide.tsx",
+      "hasImport": false,
+      "hasUsage": false
+    },
+    {
+      "file": "BookNow.tsx",
+      "hasImport": false,
+      "hasUsage": false
+    },
+    {
+      "file": "BookOnline.tsx",
+      "hasImport": false,
+      "hasUsage": false
+    },
+    {
+      "file": "BookOnlinePopUp.tsx",
+      "hasImport": false,
+      "hasUsage": false
+    },
+    {
+      "file": "BookingFlow.tsx",
+      "hasImport": false,
+      "hasUsage": false
+    },
+    {
+      "file": "BookingSuccess.tsx",
+      "hasImport": false,
+      "hasUsage": false
+    },
+    {
+      "file": "Chat.tsx",
+      "hasImport": false,
+      "hasUsage": false
+    },
+    {
+      "file": "CustomerProfile.tsx",
+      "hasImport": false,
+      "hasUsage": false
+    },
+    {
+      "file": "Dashboard.tsx",
+      "hasImport": false,
+      "hasUsage": false
+    },
+    {
+      "file": "DemoContentPage.tsx",
+      "hasImport": false,
+      "hasUsage": false
+    },
+    {
+      "file": "Discounts.tsx",
+      "hasImport": false,
+      "hasUsage": false
+    },
+    {
+      "file": "Documentation.tsx",
+      "hasImport": false,
+      "hasUsage": false
+    },
+    {
+      "file": "FirstTimeLakeTravisGuide.tsx",
+      "hasImport": false,
+      "hasUsage": false
+    },
+    {
+      "file": "GoldenTicket.tsx",
+      "hasImport": false,
+      "hasUsage": false
+    },
+    {
+      "file": "GoldenTicketPrivate.tsx",
+      "hasImport": false,
+      "hasUsage": false
+    },
+    {
+      "file": "InvoiceViewer.tsx",
+      "hasImport": false,
+      "hasUsage": false
+    },
+    {
+      "file": "LakeTravisLargeGroupsGuide.tsx",
+      "hasImport": false,
+      "hasUsage": false
+    },
+    {
+      "file": "LakeTravisWeatherGuide.tsx",
+      "hasImport": false,
+      "hasUsage": false
+    },
+    {
+      "file": "MediaLibrary.tsx",
+      "hasImport": false,
+      "hasUsage": false
+    },
+    {
+      "file": "MustHavesAustinBacheloretteWeekend.tsx",
+      "hasImport": false,
+      "hasUsage": false
+    },
+    {
+      "file": "PartialLeads.tsx",
+      "hasImport": false,
+      "hasUsage": false
+    },
+    {
+      "file": "PortalDashboard.tsx",
+      "hasImport": false,
+      "hasUsage": false
+    },
+    {
+      "file": "PortalLogin.tsx",
+      "hasImport": false,
+      "hasUsage": false
+    },
+    {
+      "file": "PortalProfile.tsx",
+      "hasImport": false,
+      "hasUsage": false
+    },
+    {
+      "file": "PortalVerify.tsx",
+      "hasImport": false,
+      "hasUsage": false
+    },
+    {
+      "file": "Products.tsx",
+      "hasImport": false,
+      "hasUsage": false
+    },
+    {
+      "file": "Projects.tsx",
+      "hasImport": false,
+      "hasUsage": false
+    },
+    {
+      "file": "QuoteBuilder.tsx",
+      "hasImport": false,
+      "hasUsage": false
+    },
+    {
+      "file": "QuoteBuilderEmbed.tsx",
+      "hasImport": false,
+      "hasUsage": false
+    },
+    {
+      "file": "QuoteEditor.tsx",
+      "hasImport": false,
+      "hasUsage": false
+    },
+    {
+      "file": "QuoteViewer.tsx",
+      "hasImport": false,
+      "hasUsage": false
+    },
+    {
+      "file": "Settings.tsx",
+      "hasImport": false,
+      "hasUsage": false
+    },
+    {
+      "file": "Templates.tsx",
+      "hasImport": false,
+      "hasUsage": false
+    },
+    {
+      "file": "TopSpotsAustinBacheloretteParty.tsx",
+      "hasImport": false,
+      "hasUsage": false
+    },
+    {
+      "file": "admin/AIAssistant.tsx",
+      "hasImport": false,
+      "hasUsage": false
+    },
+    {
+      "file": "admin/AgentChat.tsx",
+      "hasImport": false,
+      "hasUsage": false
+    },
+    {
+      "file": "admin/AgenticAI.tsx",
+      "hasImport": false,
+      "hasUsage": false
+    },
+    {
+      "file": "admin/BlogConversionTracker.tsx",
+      "hasImport": false,
+      "hasUsage": false
+    },
+    {
+      "file": "admin/BlogFormatter.tsx",
+      "hasImport": false,
+      "hasUsage": false
+    },
+    {
+      "file": "admin/BlogManagement.tsx",
+      "hasImport": false,
+      "hasUsage": false
+    },
+    {
+      "file": "admin/BlogPostEditor.tsx",
+      "hasImport": false,
+      "hasUsage": false
+    },
+    {
+      "file": "admin/BusinessSummary.tsx",
+      "hasImport": false,
+      "hasUsage": false
+    },
+    {
+      "file": "admin/ContentBlocksManagement.tsx",
+      "hasImport": false,
+      "hasUsage": false
+    },
+    {
+      "file": "admin/FAQReview.tsx",
+      "hasImport": false,
+      "hasUsage": false
+    },
+    {
+      "file": "admin/GalleryManager.tsx",
+      "hasImport": false,
+      "hasUsage": false
+    },
+    {
+      "file": "admin/InventoryManagement.tsx",
+      "hasImport": false,
+      "hasUsage": false
+    },
+    {
+      "file": "admin/MediaLibrary.tsx",
+      "hasImport": false,
+      "hasUsage": false
+    },
+    {
+      "file": "admin/PageStatus.tsx",
+      "hasImport": false,
+      "hasUsage": false
+    },
+    {
+      "file": "admin/Pricing.tsx",
+      "hasImport": false,
+      "hasUsage": false
+    },
+    {
+      "file": "admin/PricingRules.tsx",
+      "hasImport": false,
+      "hasUsage": false
+    },
+    {
+      "file": "admin/SEOManagement.tsx",
+      "hasImport": false,
+      "hasUsage": false
+    },
+    {
+      "file": "admin/UptimeMonitoring.tsx",
+      "hasImport": false,
+      "hasUsage": false
+    },
+    {
+      "file": "blog/ATXDiscoCruiseExperience.tsx",
+      "hasImport": false,
+      "hasUsage": false
+    },
+    {
+      "file": "blog/AustinBachelorPartyIdeas.tsx",
+      "hasImport": false,
+      "hasUsage": false
+    },
+    {
+      "file": "blog/FirstTimeLakeTravisGuide.tsx",
+      "hasImport": false,
+      "hasUsage": false
+    },
+    {
+      "file": "blog/LakeTravisBachelorPartyBoats.tsx",
+      "hasImport": false,
+      "hasUsage": false
+    },
+    {
+      "file": "blog/WeddingAnniversaryCelebrationIdeas.tsx",
+      "hasImport": false,
+      "hasUsage": false
+    },
+    {
+      "file": "not-found.tsx",
+      "hasImport": false,
+      "hasUsage": false
+    }
+  ],
+  "invalidTitles": [
+    {
+      "file": "AIEndorsement.tsx",
+      "title": "AI SEO Endorsement",
+      "length": 18,
+      "issue": "Too short"
+    },
+    {
+      "file": "AdventureAustinBachelorette.tsx",
+      "title": "Adventurous Austin Bachelorette Party | Outdoor Activities & Lake Fun",
+      "length": 69,
+      "issue": "Too long"
+    },
+    {
+      "file": "AustinBacheloretteNightlife.tsx",
+      "title": "Austin Bachelorette Nightlife Guide | Sixth Street, Rainey Street & Bars",
+      "length": 72,
+      "issue": "Too long"
+    },
+    {
+      "file": "BudgetAustinBachelorette.tsx",
+      "title": "Budget-Friendly Austin Bachelorette Party | Affordable Party Boat Ideas",
+      "length": 71,
+      "issue": "Too long"
+    },
+    {
+      "file": "Gallery.tsx",
+      "title": "Gallery",
+      "length": 7,
+      "issue": "Too short"
+    },
+    {
+      "file": "HolidayCelebrationsLakeTravis.tsx",
+      "title": "Holiday Celebrations on Lake Travis: Seasonal Boat Party Planning",
+      "length": 65,
+      "issue": "Too long"
+    },
+    {
+      "file": "Home-New.tsx",
+      "title": "Austin Party Boat Rentals & Bachelor/Bachelorette Cruises | Premier Party Cruises",
+      "length": 81,
+      "issue": "Too long"
+    },
+    {
+      "file": "Home.tsx",
+      "title": "Party Boat Austin",
+      "length": 17,
+      "issue": "Too short"
+    },
+    {
+      "file": "JointBachelorBacheloretteParties.tsx",
+      "title": "Joint Bachelor/Bachelorette Parties With Premier Party Cruises",
+      "length": 62,
+      "issue": "Too long"
+    },
+    {
+      "file": "LuxuryAustinBachelorette.tsx",
+      "title": "Luxury Austin Bachelorette Weekend | VIP Boats & Upscale Experiences",
+      "length": 68,
+      "issue": "Too long"
+    },
+    {
+      "file": "ThreeDayAustinBacheloretteItinerary.tsx",
+      "title": "Perfect 3-Day Austin Bachelorette Itinerary | Day-by-Day Guide",
+      "length": 62,
+      "issue": "Too long"
+    },
+    {
+      "file": "Top10AustinBacheloretteIdeas.tsx",
+      "title": "Top 10 Austin Bachelorette Party Ideas | Lake Travis Boats & Bars",
+      "length": 65,
+      "issue": "Too long"
+    },
+    {
+      "file": "UltimateAustinBacheloretteWeekend.tsx",
+      "title": "Ultimate Austin Bachelorette Weekend Guide | Party Boat & Nightlife",
+      "length": 67,
+      "issue": "Too long"
+    }
+  ],
+  "invalidDescriptions": [
+    {
+      "file": "ATXDiscoCruise.tsx",
+      "description": "America...",
+      "length": 7,
+      "issue": "Too short"
+    },
+    {
+      "file": "BacheloretteParty.tsx",
+      "description": "Austin...",
+      "length": 6,
+      "issue": "Too short"
+    },
+    {
+      "file": "BudgetAustinBachelorette.tsx",
+      "description": "Plan an affordable austin bachelorette party! Budg...",
+      "length": 164,
+      "issue": "Too long"
+    },
+    {
+      "file": "Faq.tsx",
+      "description": "Find answers to common questions about boat rental...",
+      "length": 211,
+      "issue": "Too long"
+    },
+    {
+      "file": "GraduationParty.tsx",
+      "description": "Celebrate graduation on Lake Travis! High school &...",
+      "length": 114,
+      "issue": "Too short"
+    },
+    {
+      "file": "HolidayCelebrationsLakeTravis.tsx",
+      "description": "Plan unforgettable holiday celebrations on Lake Tr...",
+      "length": 64,
+      "issue": "Too short"
+    },
+    {
+      "file": "Home-New.tsx",
+      "description": "Austin...",
+      "length": 6,
+      "issue": "Too short"
+    },
+    {
+      "file": "Home.tsx",
+      "description": "Austin...",
+      "length": 6,
+      "issue": "Too short"
+    },
+    {
+      "file": "JointBachelorBacheloretteParties.tsx",
+      "description": "Plan the perfect combined bachelor bachelorette pa...",
+      "length": 170,
+      "issue": "Too long"
+    },
+    {
+      "file": "Partners.tsx",
+      "description": "Earn 10% commission on boat bookings. Get personal...",
+      "length": 99,
+      "issue": "Too short"
+    },
+    {
+      "file": "Sweet16.tsx",
+      "description": "Instagram-worthy Sweet 16 cruises on Lake Travis! ...",
+      "length": 117,
+      "issue": "Too short"
+    },
+    {
+      "file": "UltimateAustinBacheloretteWeekend.tsx",
+      "description": "Discover the ultimate austin bachelorette weekend ...",
+      "length": 174,
+      "issue": "Too long"
+    }
+  ],
+  "missingH1": [
+    {
+      "file": "BachelorParty.tsx",
+      "note": "No H1 tags found in component"
+    },
+    {
+      "file": "BacheloretteParty.tsx",
+      "note": "No H1 tags found in component"
+    },
+    {
+      "file": "Blog.tsx",
+      "note": "No H1 tags found in component"
+    },
+    {
+      "file": "GraduationParty.tsx",
+      "note": "No H1 tags found in component"
+    },
+    {
+      "file": "MilestoneBirthday.tsx",
+      "note": "No H1 tags found in component"
+    },
+    {
+      "file": "PartyBoatAustin.tsx",
+      "note": "No H1 tags found in component"
+    },
+    {
+      "file": "PartyBoatLakeTravis.tsx",
+      "note": "No H1 tags found in component"
+    },
+    {
+      "file": "RehearsalDinner.tsx",
+      "note": "No H1 tags found in component"
+    },
+    {
+      "file": "Sweet16.tsx",
+      "note": "No H1 tags found in component"
+    },
+    {
+      "file": "WelcomeParty.tsx",
+      "note": "No H1 tags found in component"
+    }
+  ],
+  "noindexPages": [],
+  "schemaIssues": [],
+  "warnings": []
+}
