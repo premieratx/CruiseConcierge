@@ -197,7 +197,7 @@ export function VideoTestimonials({
           <Button 
             size="lg"
             className="bg-gradient-to-r from-brand-blue to-purple-600 hover:from-brand-blue/90 hover:to-purple-600/90 text-white font-bold px-8 py-6 text-lg"
-            onClick={() => navigate('/chat')}
+            onClick={() => window.open('https://events.premierpartycruises.com/widget/form/X1zEKdfbmjqs2hBHWNN1', '_blank')}
             data-testid="button-book-after-testimonials"
           >
             Book Your Cruise Now

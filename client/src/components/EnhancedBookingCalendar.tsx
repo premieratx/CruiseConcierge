@@ -385,7 +385,7 @@ export function EnhancedBookingCalendar({
     });
 
     // Navigate to chat with pre-filled selections
-    navigate('/chat');
+    window.open('https://events.premierpartycruises.com/widget/form/X1zEKdfbmjqs2hBHWNN1', '_blank');
     setShowSlotPopup(false);
     
     toast({

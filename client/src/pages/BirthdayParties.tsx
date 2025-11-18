@@ -186,11 +186,11 @@ export default function BirthdayParties() {
   const [showQuoteBuilder, setShowQuoteBuilder] = useState(false);
 
   const handleGetQuote = () => {
-    navigate('/chat');
+    window.open('https://events.premierpartycruises.com/widget/form/X1zEKdfbmjqs2hBHWNN1', '_blank');
   };
 
   const handleBookNow = () => {
-    navigate('/chat');
+    window.open('https://events.premierpartycruises.com/widget/form/X1zEKdfbmjqs2hBHWNN1', '_blank');
   };
 
   return (

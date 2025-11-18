@@ -407,7 +407,7 @@ export default function Gallery() {
             </p>
             <Button
               size="lg"
-              onClick={() => navigate('/chat')}
+              onClick={() => window.open('https://events.premierpartycruises.com/widget/form/X1zEKdfbmjqs2hBHWNN1', '_blank')}
               className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold text-base px-12 py-6 rounded-xl"
             >
               <Calendar className="mr-3 h-6 w-6" />

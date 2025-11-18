@@ -260,8 +260,8 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
 
 
   const handleGetQuote = () => {
-    // Always route to /chat using wouter navigation
-    navigate('/chat');
+    // Open GHL form in new tab
+    window.open('https://events.premierpartycruises.com/widget/form/X1zEKdfbmjqs2hBHWNN1', '_blank');
   };
 
   return (

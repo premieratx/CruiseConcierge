@@ -283,7 +283,7 @@ export default function BoatDetailsModal({ boatId, isOpen, onClose }: BoatDetail
               Close
             </Button>
             <Button 
-              onClick={() => navigate('/chat')}
+              onClick={() => window.open('https://events.premierpartycruises.com/widget/form/X1zEKdfbmjqs2hBHWNN1', '_blank')}
               className="bg-brand-blue hover:bg-brand-blue/90"
               data-testid="button-book-boat"
             >

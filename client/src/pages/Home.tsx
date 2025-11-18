@@ -418,7 +418,7 @@ export default function Home() {
       // Handle quote submission completion
       if (event.data && event.data.type === 'quote-submitted') {
         // Navigate to /chat page to show results
-        navigate('/chat');
+        window.open('https://events.premierpartycruises.com/widget/form/X1zEKdfbmjqs2hBHWNN1', '_blank');
         
         toast({
           title: "Quote Submitted!",
@@ -529,7 +529,7 @@ export default function Home() {
     setShowLightbox(false);
     
     // Navigate to chat page
-    navigate('/chat');
+    window.open('https://events.premierpartycruises.com/widget/form/X1zEKdfbmjqs2hBHWNN1', '_blank');
   };
 
   return (

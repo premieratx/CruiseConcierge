@@ -193,7 +193,7 @@ export default function PartyPlanningChecklist({
               <div className="flex flex-wrap gap-4 justify-center">
                 <Button 
                   size="lg"
-                  onClick={() => navigate('/chat')}
+                  onClick={() => window.open('https://events.premierpartycruises.com/widget/form/X1zEKdfbmjqs2hBHWNN1', '_blank')}
                   className="bg-white text-brand-blue hover:bg-gray-100 font-bold"
                   data-testid="checklist-cta-quote"
                 >

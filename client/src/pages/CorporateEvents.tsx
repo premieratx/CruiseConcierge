@@ -400,7 +400,7 @@ export default function CorporateEvents() {
       }
       
       if (event.data && event.data.type === 'quote-submitted') {
-        navigate('/chat');
+        window.open('https://events.premierpartycruises.com/widget/form/X1zEKdfbmjqs2hBHWNN1', '_blank');
         toast({
           title: "Quote Submitted!",
           description: "Redirecting you to view your quote details...",
@@ -413,11 +413,11 @@ export default function CorporateEvents() {
   }, [navigate, toast]);
 
   const handleGetQuote = () => {
-    navigate('/chat');
+    window.open('https://events.premierpartycruises.com/widget/form/X1zEKdfbmjqs2hBHWNN1', '_blank');
   };
 
   const handleBookNow = () => {
-    navigate('/chat');
+    window.open('https://events.premierpartycruises.com/widget/form/X1zEKdfbmjqs2hBHWNN1', '_blank');
   };
 
   return (
@@ -478,7 +478,7 @@ export default function CorporateEvents() {
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
-              onClick={() => navigate('/chat')}
+              onClick={() => window.open('https://events.premierpartycruises.com/widget/form/X1zEKdfbmjqs2hBHWNN1', '_blank')}
               size="lg"
               variant="outline"
               className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white font-bold px-8 py-6 text-lg"
