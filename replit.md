@@ -87,12 +87,14 @@ Premier Party Cruises offers party boat rentals on Lake Travis, Austin, with two
    - Tested on: homepage (8 schemas), /atx-disco-cruise (5 schemas), /bachelorette-party-austin (5 schemas)
    - **RESUBMISSION**: Resubmit sitemap.xml in Google Search Console (same URL) to trigger immediate re-crawl and schema validation
 10. **Quote Builder Instant Loading Optimization** (November 18, 2024):
-   - **CRITICAL FIX**: Eliminated ALL loading delays from quote builder widgets to prevent lead loss
-   - Fixed Chat.tsx (/chat page): Removed useEffect delay, iframe URL built immediately, reduced animation delay from 0.5s to 0s
-   - Fixed QuoteBuilderSection.tsx (embedded widgets): Removed conditional rendering and useEffect delays, added loading="eager"
-   - Fixed QuoteBuilderEmbed.tsx: Set iframe src immediately instead of in useEffect
+   - **CRITICAL FIX**: Eliminated ALL loading delays from quote builder widgets to prevent lead loss while maintaining proper SSR/client hydration
+   - **Technical Implementation**: Uses `useLayoutEffect` (not `useEffect`) to set iframe URL after mount but BEFORE browser paint
+   - Fixed Chat.tsx (/chat page): Iframe URL set via useLayoutEffect + state (runs before paint, no visible delay)
+   - Fixed QuoteBuilderSection.tsx (embedded widgets): Same useLayoutEffect pattern for instant client-side rendering
+   - Fixed QuoteBuilderEmbed.tsx: Same useLayoutEffect pattern for proper SSR handling
    - Added preconnect/dns-prefetch resource hints for booking.premierpartycruises.com in client/index.html
-   - Result: Quote builder widgets now load INSTANTLY on all pages with zero delay
+   - **Result**: Quote builder widgets load INSTANTLY with single iframe request and proper sourceUrl attribution
+   - **SSR Safety**: Server renders without iframe (no SSR/client mismatch), client renders iframe before paint (no double-load)
 11. **Comprehensive SEO Audit** (November 18, 2024):
    - **AUTOMATED TESTING**: Created comprehensive audit script (`scripts/seo-audit.ts`) testing ALL 123 sitemap URLs
    - **OVERALL SCORE: 92% SEO HEALTH** - Excellent status with minor issues only
