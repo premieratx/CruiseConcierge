@@ -1,13 +1,13 @@
 import { writeFileSync } from 'fs';
 import { join } from 'path';
 
-// Import blog metadata registry for accurate lastmod dates
-import { getBlogMetadata } from '../server/blogMetadataRegistry';
-
 // Production domain
 const DOMAIN = 'https://premierpartycruises.com';
 
-// All public-facing routes (excluding admin, auth, redirects)
+// Server URL for fetching blog posts (use localhost when server is running)
+const SERVER_URL = process.env.SERVER_URL || 'http://localhost:5000';
+
+// All public-facing NON-BLOG routes (excluding admin, auth, redirects, blog posts)
 const PUBLIC_ROUTES = [
   // Main pages
   '/',
@@ -51,26 +51,12 @@ const PUBLIC_ROUTES = [
   '/faq',
   '/pricing-breakdown',
   
-  // Static SSR Blog Pages (top-level paths)
+  // Static SSR Blog Pages (React components with top-level paths - NOT in database)
   '/austin-bachelor-party-ideas',
   '/lake-travis-bachelor-party-boats',
   '/wedding-anniversary-celebration-ideas',
   
-  // React Blog Pages with /blogs/ prefix
-  '/blogs/atx-disco-cruise-experience',
-  '/blogs/holiday-celebrations-on-lake-travis-seasonal-boat-party-planning-and-coordination',
-  '/blogs/joint-bachelor-bachelorette-parties-with-premier-party-cruises',
-  '/blogs/lake-travis-wedding-boat-rentals-unique-venues-for-austin-celebrations',
-  '/blogs/must-haves-for-the-perfect-austin-bachelorette-weekend',
-  '/blogs/top-spots-tips-for-an-unforgettable-austin-bachelorette-party-experience',
-  '/blogs/first-time-lake-travis-boat-rental-essential-tips-for-austin-party-planning',
-  
-  // React Blog Pages with /blog/ prefix
-  '/blog/birthday-party-alcohol-delivery-austin-milestone-celebrations-made-easy',
-  '/blog/lake-travis-party-boat-rentals-ultimate-guide-for-large-group-events-20-guests',
-  '/blog/lake-travis-weather-planning-seasonal-considerations-for-perfect-boat-parties',
-  
-  // React Blog Pages with custom paths
+  // React Blog Pages with custom paths (NOT in database)
   '/first-time-lake-travis-boat-rental-guide',
   '/ultimate-austin-bachelorette-weekend',
   '/top-10-austin-bachelorette-ideas',
@@ -79,6 +65,10 @@ const PUBLIC_ROUTES = [
   '/luxury-austin-bachelorette',
   '/adventure-austin-bachelorette',
   '/austin-bachelorette-nightlife',
+  
+  // Blog listing pages
+  '/blog',
+  '/blogs',
 ];
 
 interface SitemapUrl {
@@ -111,22 +101,42 @@ ${urlElements}
 </urlset>`;
 }
 
-function generateSitemapUrls(): SitemapUrl[] {
+async function fetchAllPublishedBlogPosts() {
+  try {
+    // Fetch ALL published blog posts from API
+    const response = await fetch(`${SERVER_URL}/api/blog/public/posts?limit=1000&offset=0`);
+    
+    if (!response.ok) {
+      console.warn(`⚠️  Failed to fetch blog posts from API (${response.status})`);
+      return [];
+    }
+    
+    const data = await response.json();
+    const posts = data.posts || [];
+    
+    // Map to the format we need
+    const mappedPosts = posts.map((post: any) => ({
+      slug: post.slug,
+      publishedAt: post.publishedAt || post.published_at,
+      updatedAt: post.updatedAt || post.updated_at,
+    }));
+    
+    console.log(`📝 Fetched ${mappedPosts.length} published blog posts from API`);
+    return mappedPosts;
+  } catch (error) {
+    console.error('❌ Error fetching blog posts:', error);
+    return [];
+  }
+}
+
+async function generateSitemapUrls(): Promise<SitemapUrl[]> {
   const currentDate = new Date().toISOString().split('T')[0]; // YYYY-MM-DD format
   
-  const urls: SitemapUrl[] = PUBLIC_ROUTES.map(path => {
-    // Determine priority based on page type
+  // Generate URLs for static routes
+  const staticUrls: SitemapUrl[] = PUBLIC_ROUTES.map(path => {
     let priority = 0.5; // Default
     let changefreq: SitemapUrl['changefreq'] = 'weekly';
-    let lastmod = currentDate; // Default to current date
-    
-    // Check if this path is in the blog metadata registry
-    const blogMeta = getBlogMetadata(path);
-    if (blogMeta) {
-      // Use modifiedDate or publishDate from blog registry for accurate lastmod
-      const dateToUse = blogMeta.modifiedDate || blogMeta.publishDate;
-      lastmod = new Date(dateToUse).toISOString().split('T')[0];
-    }
+    let lastmod = currentDate;
     
     if (path === '/') {
       // Homepage - highest priority
@@ -172,13 +182,39 @@ function generateSitemapUrls(): SitemapUrl[] {
     };
   });
   
-  return urls;
+  // Fetch and add ALL database blog posts
+  const dbBlogPosts = await fetchAllPublishedBlogPosts();
+  const blogUrls: SitemapUrl[] = dbBlogPosts.map(post => {
+    // Use updated_at if available, otherwise published_at
+    const dateToUse = post.updatedAt || post.publishedAt || new Date();
+    const lastmod = new Date(dateToUse).toISOString().split('T')[0];
+    
+    return {
+      loc: `${DOMAIN}/blogs/${post.slug}`,
+      lastmod,
+      changefreq: 'monthly' as const,
+      priority: 0.7
+    };
+  });
+  
+  // Combine static routes and blog posts
+  const allUrls = [...staticUrls, ...blogUrls];
+  
+  // Sort by priority (highest first), then by path
+  allUrls.sort((a, b) => {
+    if (b.priority !== a.priority) {
+      return (b.priority || 0) - (a.priority || 0);
+    }
+    return a.loc.localeCompare(b.loc);
+  });
+  
+  return allUrls;
 }
 
-function main() {
+async function main() {
   console.log('🗺️  Generating sitemap.xml...\n');
   
-  const sitemapUrls = generateSitemapUrls();
+  const sitemapUrls = await generateSitemapUrls();
   const sitemap = generateSitemap(sitemapUrls);
   
   const publicDir = join(process.cwd(), 'public');
@@ -214,4 +250,7 @@ function main() {
   console.log('\n🚀 Ready for Google Search Console submission!');
 }
 
-main();
+main().catch(error => {
+  console.error('❌ Fatal error:', error);
+  process.exit(1);
+});
