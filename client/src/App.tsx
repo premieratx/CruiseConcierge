@@ -135,7 +135,7 @@ const PricingBreakdown = lazy(() => import("./pages/PricingBreakdown"));
 
 // Blog Content Pages - Lazy loaded
 const LakeTravisBoatRentalGuide = lazy(() => import("./pages/LakeTravisBoatRentalGuide"));
-const FirstTimeLakeTravisGuide = lazy(() => import("./pages/FirstTimeLakeTravisGuide"));
+const FirstTimeLakeTravisGuide = lazy(() => import("./pages/blog/FirstTimeLakeTravisGuide"));
 const BirthdayPartyAustinGuide = lazy(() => import("./pages/BirthdayPartyAustinGuide"));
 const LakeTravisLargeGroupsGuide = lazy(() => import("./pages/LakeTravisLargeGroupsGuide"));
 const LakeTravisWeatherGuide = lazy(() => import("./pages/LakeTravisWeatherGuide"));

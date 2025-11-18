@@ -619,6 +619,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.redirect(301, staticBlogPath);
       }
       
+      // List of React blog routes that should skip database lookup
+      // These are full React components served client-side
+      const reactBlogSlugs = [
+        'atx-disco-cruise-experience',
+        'first-time-lake-travis-boat-rental-essential-tips-for-austin-party-planning',
+      ];
+      
+      if (reactBlogSlugs.includes(slug)) {
+        console.log(`✅ [Blog SSR] React blog route detected, skipping DB: ${slug}`);
+        return next(); // Let Vite/React handle it
+      }
+      
       // Try PostgreSQL first
       let post = await storageInstance.getBlogPostBySlug(slug);
       let isWordPress = false;
