@@ -271,6 +271,106 @@ export default function Gallery() {
         </section>
       </SectionReveal>
 
+      {/* Fleet Photos Section */}
+      <section className="py-24 bg-gradient-to-b from-blue-50 to-white dark:from-gray-900 dark:to-gray-950">
+        <div className="max-w-7xl mx-auto px-6">
+          <SectionReveal>
+            <div className="text-center mb-16">
+              <Ship className="h-16 w-16 text-blue-600 mx-auto mb-6" />
+              <h2 className="text-4xl font-playfair font-bold text-gray-900 dark:text-white mb-4">
+                Fleet Photos
+              </h2>
+              <p className="text-lg text-gray-600 dark:text-gray-300">
+                Explore our custom-built party boats - See every detail before you book
+              </p>
+            </div>
+          </SectionReveal>
+
+          {/* Clever Girl Subsection */}
+          <SectionReveal>
+            <div className="mb-20">
+              <div className="text-center mb-8">
+                <h3 className="text-3xl font-playfair font-bold text-gray-900 dark:text-white mb-2">Clever Girl</h3>
+                <p className="text-base text-gray-600 dark:text-gray-400">Our flagship 50-person party boat with 14 disco balls</p>
+              </div>
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                {[
+                  { src: '/attached_assets/clever girl-1 lake travis party boat rental_1763966476656.jpg', alt: 'Clever Girl deck with Texas star' },
+                  { src: '/attached_assets/clever girl-2 party boat rental austin_1763966476657.jpg', alt: 'Clever Girl main deck view' },
+                  { src: '/attached_assets/clever girl-3 bachelorette party boat austin_1763966476657.jpg', alt: 'Clever Girl disco balls' },
+                  { src: '/attached_assets/clever girl-4 party boat rental austin_1763966476657.jpg', alt: 'Clever Girl seating area' },
+                  { src: '/attached_assets/clever girl-6 party boat lake travis_1763966476657.jpg', alt: 'Clever Girl shaded deck' },
+                  { src: '/attached_assets/clever girl-8 party boat rental austin_1763966476658.jpg', alt: 'Clever Girl lake views' },
+                  { src: '/attached_assets/clever girl-9 party boat austin_1763966476658.jpg', alt: 'Clever Girl bow area' },
+                  { src: '/attached_assets/clever girl-10 austin bachelorette party_1763966476658.jpg', alt: 'Clever Girl on water' },
+                ].map((photo, idx) => (
+                  <Card
+                    key={idx}
+                    className="group cursor-pointer overflow-hidden hover:shadow-xl transition-all duration-300 p-0 rounded-xl"
+                  >
+                    <div className="aspect-square relative overflow-hidden">
+                      <img
+                        src={photo.src}
+                        alt={photo.alt}
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                        loading="lazy"
+                      />
+                      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <Camera className="h-6 w-6 text-white" />
+                      </div>
+                    </div>
+                  </Card>
+                ))}
+              </div>
+            </div>
+          </SectionReveal>
+
+          {/* Day Tripper Subsection - Placeholder */}
+          <SectionReveal>
+            <div className="mb-20">
+              <div className="text-center mb-8">
+                <h3 className="text-3xl font-playfair font-bold text-gray-900 dark:text-white mb-2">Day Tripper</h3>
+                <p className="text-base text-gray-600 dark:text-gray-400">Perfect for intimate gatherings up to 14 guests</p>
+              </div>
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                <Card className="group cursor-pointer overflow-hidden hover:shadow-xl transition-all duration-300 p-0 rounded-xl">
+                  <div className="aspect-square relative overflow-hidden">
+                    <img
+                      src="/attached_assets/day-tripper-14-person-boat.webp"
+                      alt="Day Tripper party boat"
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                      loading="lazy"
+                    />
+                  </div>
+                </Card>
+              </div>
+            </div>
+          </SectionReveal>
+
+          {/* Me Seeks / The Irony Subsection - Placeholder */}
+          <SectionReveal>
+            <div className="mb-20">
+              <div className="text-center mb-8">
+                <h3 className="text-3xl font-playfair font-bold text-gray-900 dark:text-white mb-2">Me Seeks / The Irony</h3>
+                <p className="text-base text-gray-600 dark:text-gray-400">Twin 25-person boats for medium-sized celebrations</p>
+              </div>
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                <Card className="group cursor-pointer overflow-hidden hover:shadow-xl transition-all duration-300 p-0 rounded-xl">
+                  <div className="aspect-square relative overflow-hidden">
+                    <img
+                      src="/attached_assets/meeseeks-25-person-boat.webp"
+                      alt="Me Seeks party boat"
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                      loading="lazy"
+                    />
+                  </div>
+                </Card>
+              </div>
+            </div>
+          </SectionReveal>
+        </div>
+      </section>
+
       {/* Category Sections */}
       <section className="py-24 bg-gradient-to-b from-white to-blue-50 dark:from-gray-950 dark:to-gray-900">
         <div className="max-w-7xl mx-auto px-6">

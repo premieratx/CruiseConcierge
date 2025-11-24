@@ -161,10 +161,59 @@ const boats: BoatDetails[] = [
     galleryImages: [
       {
         id: 'clever-girl-1',
-        src: '/attached_assets/clever-girl-50-person-boat.webp',
-        alt: 'Clever Girl 50-person flagship party boat on Lake Travis',
-        title: 'Clever Girl - Our Flagship',
-        description: 'Custom-built high-end single-deck party boat with 14 disco balls'
+        src: '/attached_assets/clever girl-1 lake travis party boat rental_1763966476656.jpg',
+        alt: 'Clever Girl deck with disco balls and Texas star',
+        title: 'Clever Girl - Giant Texas Star Deck',
+        description: 'Custom-built deck featuring the iconic giant Texas star and disco ball canopy'
+      },
+      {
+        id: 'clever-girl-2',
+        src: '/attached_assets/clever girl-2 party boat rental austin_1763966476657.jpg',
+        alt: 'Clever Girl party boat main deck view',
+        title: 'Main Deck - 14 Disco Balls',
+        description: 'Spacious main deck with seating for up to 50 guests comfortably'
+      },
+      {
+        id: 'clever-girl-3',
+        src: '/attached_assets/clever girl-3 bachelorette party boat austin_1763966476657.jpg',
+        alt: 'Clever Girl disco balls close-up view',
+        title: 'Disco Ball Canopy',
+        description: 'Our famous 14 disco balls create the ultimate party atmosphere'
+      },
+      {
+        id: 'clever-girl-4',
+        src: '/attached_assets/clever girl-4 party boat rental austin_1763966476657.jpg',
+        alt: 'Clever Girl deck seating area',
+        title: 'Comfortable Seating Areas',
+        description: 'Multiple seating zones with shade coverage and lake views'
+      },
+      {
+        id: 'clever-girl-6',
+        src: '/attached_assets/clever girl-6 party boat lake travis_1763966476657.jpg',
+        alt: 'Clever Girl covered deck with disco balls',
+        title: 'Shaded Deck Area',
+        description: 'Perfect blend of sun and shade for all-day comfort'
+      },
+      {
+        id: 'clever-girl-8',
+        src: '/attached_assets/clever girl-8 party boat rental austin_1763966476658.jpg',
+        alt: 'Clever Girl side deck view Lake Travis',
+        title: 'Panoramic Lake Views',
+        description: 'Enjoy stunning Lake Travis views from every angle'
+      },
+      {
+        id: 'clever-girl-9',
+        src: '/attached_assets/clever girl-9 party boat austin_1763966476658.jpg',
+        alt: 'Clever Girl bow seating and coolers',
+        title: 'Front Deck & Cooler Space',
+        description: 'Massive cooler capacity for your BYOB party essentials'
+      },
+      {
+        id: 'clever-girl-10',
+        src: '/attached_assets/clever girl-10 austin bachelorette party_1763966476658.jpg',
+        alt: 'Clever Girl party boat exterior on Lake Travis',
+        title: 'Clever Girl on the Water',
+        description: 'Our flagship 50-person party boat cruising Lake Travis'
       }
     ],
     packages: {
