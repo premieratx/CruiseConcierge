@@ -310,15 +310,18 @@ export default function Gallery() {
       </SectionReveal>
 
       {/* Fleet Photos Section */}
-      <section className="py-24 bg-gradient-to-b from-blue-50 to-white dark:from-gray-900 dark:to-gray-950">
+      <section className="py-6 bg-gradient-to-b from-blue-50 to-white dark:from-gray-900 dark:to-gray-950">
         <div className="max-w-7xl mx-auto px-6">
           <SectionReveal>
-            <div className="text-center mb-16">
-              <Ship className="h-16 w-16 text-blue-600 mx-auto mb-6" />
-              <h2 className="text-4xl font-playfair font-bold text-gray-900 dark:text-white mb-4">
-                Fleet Photos
-              </h2>
-              <p className="text-lg text-gray-600 dark:text-gray-300">
+            <div className="text-center mb-4">
+              <div className="flex items-center justify-center gap-4 mb-2">
+                <Ship className="h-10 w-10 text-blue-600" />
+                <h2 className="text-4xl font-playfair font-bold text-gray-900 dark:text-white">
+                  Fleet Photos
+                </h2>
+                <Ship className="h-10 w-10 text-blue-600" />
+              </div>
+              <p className="text-base text-gray-600 dark:text-gray-300">
                 Explore our custom-built party boats - See every detail before you book
               </p>
             </div>
