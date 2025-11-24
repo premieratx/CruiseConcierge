@@ -159,9 +159,9 @@ const boats: BoatDetails[] = [
       {
         id: 'meeseeks-1',
         src: '/attached_assets/meeseeks-25-person-boat.webp',
-        alt: 'Meeseeks 20-person party boat on Lake Travis',
+        alt: 'Meeseeks 25-30 person party boat on Lake Travis',
         title: 'Meeseeks / The Irony',
-        description: 'Our twin 20-person boats - 2 boats available for maximum flexibility'
+        description: 'Our twin 25-30 person boats - 2 boats available for maximum flexibility'
       },
       {
         id: 'meeseeks-2',
@@ -202,8 +202,8 @@ const boats: BoatDetails[] = [
         id: 'irony-1',
         src: '/attached_assets/the irony -3 party boat rental austin_1763968010090.jpg',
         alt: 'The Irony boat full view on water',
-        title: 'The Irony Twin Boat',
-        description: 'Sister ship with identical 20-person capacity'
+        title: 'The Irony Twin Vessel',
+        description: 'Sister vessel with identical 25-30 person capacity'
       },
       {
         id: 'irony-2',
