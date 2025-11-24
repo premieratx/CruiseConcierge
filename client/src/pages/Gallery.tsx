@@ -33,6 +33,38 @@ interface CategorySection {
   description: string;
 }
 
+// Static fleet photos consolidated from all boats (Clever Girl → Meeseeks/The Irony → Day Tripper)
+const staticFleetPhotos: MediaItem[] = [
+  // Clever Girl - 8 photos
+  { id: 'fleet-clever-1', filename: 'clever-girl-1.jpg', originalName: 'Clever Girl deck with Texas star', altText: 'Clever Girl deck with disco balls and Texas star', fileType: 'photo', filePath: '/attached_assets/clever girl-1 lake travis party boat rental_1763966476656.jpg', uploadDate: new Date().toISOString(), manualTags: ['boats', 'fleet'] },
+  { id: 'fleet-clever-2', filename: 'clever-girl-2.jpg', originalName: 'Clever Girl main deck view', altText: 'Clever Girl party boat main deck view', fileType: 'photo', filePath: '/attached_assets/clever girl-2 party boat rental austin_1763966476657.jpg', uploadDate: new Date().toISOString(), manualTags: ['boats', 'fleet'] },
+  { id: 'fleet-clever-3', filename: 'clever-girl-3.jpg', originalName: 'Clever Girl disco balls', altText: 'Clever Girl disco balls close-up view', fileType: 'photo', filePath: '/attached_assets/clever girl-3 bachelorette party boat austin_1763966476657.jpg', uploadDate: new Date().toISOString(), manualTags: ['boats', 'fleet'] },
+  { id: 'fleet-clever-4', filename: 'clever-girl-4.jpg', originalName: 'Clever Girl seating area', altText: 'Clever Girl deck seating area', fileType: 'photo', filePath: '/attached_assets/clever girl-4 party boat rental austin_1763966476657.jpg', uploadDate: new Date().toISOString(), manualTags: ['boats', 'fleet'] },
+  { id: 'fleet-clever-6', filename: 'clever-girl-6.jpg', originalName: 'Clever Girl shaded deck', altText: 'Clever Girl covered deck with disco balls', fileType: 'photo', filePath: '/attached_assets/clever girl-6 party boat lake travis_1763966476657.jpg', uploadDate: new Date().toISOString(), manualTags: ['boats', 'fleet'] },
+  { id: 'fleet-clever-8', filename: 'clever-girl-8.jpg', originalName: 'Clever Girl lake views', altText: 'Clever Girl side deck view Lake Travis', fileType: 'photo', filePath: '/attached_assets/clever girl-8 party boat rental austin_1763966476658.jpg', uploadDate: new Date().toISOString(), manualTags: ['boats', 'fleet'] },
+  { id: 'fleet-clever-9', filename: 'clever-girl-9.jpg', originalName: 'Clever Girl bow area', altText: 'Clever Girl bow seating and coolers', fileType: 'photo', filePath: '/attached_assets/clever girl-9 party boat austin_1763966476658.jpg', uploadDate: new Date().toISOString(), manualTags: ['boats', 'fleet'] },
+  { id: 'fleet-clever-10', filename: 'clever-girl-10.jpg', originalName: 'Clever Girl on water', altText: 'Clever Girl party boat exterior on Lake Travis', fileType: 'photo', filePath: '/attached_assets/clever girl-10 austin bachelorette party_1763966476658.jpg', uploadDate: new Date().toISOString(), manualTags: ['boats', 'fleet'] },
+  
+  // Meeseeks / The Irony - 8 photos
+  { id: 'fleet-meeseeks-1', filename: 'meeseeks-1.webp', originalName: 'Meeseeks party boat', altText: 'Meeseeks 20-person party boat on Lake Travis', fileType: 'photo', filePath: '/attached_assets/meeseeks-25-person-boat.webp', uploadDate: new Date().toISOString(), manualTags: ['boats', 'fleet'] },
+  { id: 'fleet-meeseeks-2', filename: 'meeseeks-2.jpg', originalName: 'Meeseeks seating area', altText: 'Meeseeks boat seating area with Lake Travis views', fileType: 'photo', filePath: '/attached_assets/meeseeks-1_1763968010088.jpg', uploadDate: new Date().toISOString(), manualTags: ['boats', 'fleet'] },
+  { id: 'fleet-meeseeks-3', filename: 'meeseeks-3.jpg', originalName: 'Meeseeks covered deck', altText: 'Meeseeks boat covered deck on Lake Travis', fileType: 'photo', filePath: '/attached_assets/meeseeks-2_1763968010089.jpg', uploadDate: new Date().toISOString(), manualTags: ['boats', 'fleet'] },
+  { id: 'fleet-meeseeks-4', filename: 'meeseeks-4.jpg', originalName: 'Meeseeks full deck view', altText: 'Meeseeks boat interior deck view', fileType: 'photo', filePath: '/attached_assets/meeseeks-3 lake travis party boat_1763968010089.jpg', uploadDate: new Date().toISOString(), manualTags: ['boats', 'fleet'] },
+  { id: 'fleet-meeseeks-5', filename: 'meeseeks-5.jpg', originalName: 'Meeseeks cabin and seating', altText: 'Meeseeks boat cabin and seating', fileType: 'photo', filePath: '/attached_assets/meeseeks-4 austin party boat rental_1763968010090.jpg', uploadDate: new Date().toISOString(), manualTags: ['boats', 'fleet'] },
+  { id: 'fleet-meeseeks-6', filename: 'meeseeks-6.jpg', originalName: 'Meeseeks open air deck', altText: 'Meeseeks boat outdoor deck area', fileType: 'photo', filePath: '/attached_assets/meeseeks-5 austin party barge rental_1763968010090.jpg', uploadDate: new Date().toISOString(), manualTags: ['boats', 'fleet'] },
+  { id: 'fleet-irony-1', filename: 'irony-1.jpg', originalName: 'The Irony twin boat full view', altText: 'The Irony boat full view on water', fileType: 'photo', filePath: '/attached_assets/the irony -3 party boat rental austin_1763968010090.jpg', uploadDate: new Date().toISOString(), manualTags: ['boats', 'fleet'] },
+  { id: 'fleet-irony-2', filename: 'irony-2.jpg', originalName: 'The Irony deck view', altText: 'The Irony boat stern view with seating', fileType: 'photo', filePath: '/attached_assets/the irony-2 party boat rental austin_1763968010090.jpg', uploadDate: new Date().toISOString(), manualTags: ['boats', 'fleet'] },
+  
+  // Day Tripper - 7 photos
+  { id: 'fleet-day-1', filename: 'day-tripper-1.webp', originalName: 'Day Tripper party boat', altText: 'Day Tripper 14-person party boat on Lake Travis', fileType: 'photo', filePath: '/attached_assets/day-tripper-14-person-boat.webp', uploadDate: new Date().toISOString(), manualTags: ['boats', 'fleet'] },
+  { id: 'fleet-day-2', filename: 'day-tripper-2.jpg', originalName: 'Day Tripper shaded seating', altText: 'Day Tripper deck with blue canopy shade', fileType: 'photo', filePath: '/attached_assets/day tripper - party boat rental austin_1763968078448.jpg', uploadDate: new Date().toISOString(), manualTags: ['boats', 'fleet'] },
+  { id: 'fleet-day-3', filename: 'day-tripper-3.jpg', originalName: 'Day Tripper rear view', altText: 'Day Tripper boat rear view on water', fileType: 'photo', filePath: '/attached_assets/day tripper-1 party boat with captain austin_1763968078449.jpg', uploadDate: new Date().toISOString(), manualTags: ['boats', 'fleet'] },
+  { id: 'fleet-day-4', filename: 'day-tripper-4.jpg', originalName: 'Day Tripper deck layout', altText: 'Day Tripper interior deck layout', fileType: 'photo', filePath: '/attached_assets/day tripper-2 party boat austin lake travis_1763968078449.jpg', uploadDate: new Date().toISOString(), manualTags: ['boats', 'fleet'] },
+  { id: 'fleet-day-5', filename: 'day-tripper-5.jpg', originalName: 'Day Tripper bow view', altText: 'Day Tripper open water view from bow', fileType: 'photo', filePath: '/attached_assets/day tripper-3 party boat austin_1763968078451.jpg', uploadDate: new Date().toISOString(), manualTags: ['boats', 'fleet'] },
+  { id: 'fleet-day-6', filename: 'day-tripper-6.jpg', originalName: 'Day Tripper cabin and deck', altText: 'Day Tripper cabin and deck view', fileType: 'photo', filePath: '/attached_assets/day tripper-5 party barge lake travis_1763968078452.jpg', uploadDate: new Date().toISOString(), manualTags: ['boats', 'fleet'] },
+  { id: 'fleet-day-7', filename: 'day-tripper-7.jpg', originalName: 'Day Tripper safety features', altText: 'Day Tripper front view with lifeboat', fileType: 'photo', filePath: '/attached_assets/day tripper-6 party boat austin_1763968078452.jpg', uploadDate: new Date().toISOString(), manualTags: ['boats', 'fleet'] },
+];
+
 const categories: CategorySection[] = [
   {
     id: 'all',
@@ -92,7 +124,9 @@ export default function Gallery() {
     gcTime: 30 * 60 * 1000,
   });
 
-  const photos = mediaLibraryPhotos;
+  // Combine media library photos with static fleet photos
+  const allPhotos = [...staticFleetPhotos, ...mediaLibraryPhotos];
+  const photos = allPhotos;
 
   // Set initial filtered photos when data loads, filtering out broken images
   useEffect(() => {
@@ -109,6 +143,9 @@ export default function Gallery() {
       setFilteredPhotos(validPhotos);
     } else if (categoryId === 'videos') {
       setFilteredPhotos(validPhotos.filter(p => p.fileType === 'video' || p.fileType === 'generated_video'));
+    } else if (categoryId === 'boats') {
+      // Show static fleet photos (already tagged and ordered correctly)
+      setFilteredPhotos(staticFleetPhotos.filter(p => !brokenImageIds.has(p.id)));
     } else {
       const category = categories.find(c => c.id === categoryId);
       if (category) {
@@ -136,6 +173,7 @@ export default function Gallery() {
     const validPhotos = photos.filter(p => !brokenImageIds.has(p.id));
     if (categoryId === 'all') return validPhotos.length;
     if (categoryId === 'videos') return validPhotos.filter(p => p.fileType === 'video' || p.fileType === 'generated_video').length;
+    if (categoryId === 'boats') return staticFleetPhotos.filter(p => !brokenImageIds.has(p.id)).length;
     const category = categories.find(c => c.id === categoryId);
     if (!category) return 0;
     return validPhotos.filter(p => p.manualTags?.some(tag => category.tags.includes(tag))).length;
