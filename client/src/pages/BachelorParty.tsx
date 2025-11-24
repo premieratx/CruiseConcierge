@@ -688,7 +688,7 @@ export default function BachelorParty() {
                 <Package className="h-4 w-4 mr-2 inline" />
                 ATX Disco Cruise Packages
               </Badge>
-              <h2 className="text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-yellow-400 leading-tight">
+              <h2 className="text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
                 Choose Your Bachelor Party Time Slot
               </h2>
               <p className="text-xl text-blue-600 max-w-3xl mx-auto leading-relaxed font-medium">
