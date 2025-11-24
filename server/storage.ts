@@ -1143,7 +1143,7 @@ export class DatabaseStorage implements IStorage {
   /**
    * Get available boats for a group size
    * FIXED: Check that group size is within BOTH min and max capacity
-   * A group of 27 should get Me Seeks/The Irony (25-30), NOT Clever Girl (50-75)
+   * A group of 27 should get Meeseeks/The Irony (25-30), NOT Clever Girl (50-75)
    */
   async getAvailableBoatsForGroupSize(groupSize: number): Promise<Boat[]> {
     return await db.select().from(boats)
@@ -2056,7 +2056,7 @@ export class DatabaseStorage implements IStorage {
     if (groupSize > capacityTier) {
       // Apply crew fees only when group exceeds boat's base capacity
       if (capacityTier === 25 && groupSize <= 30) {
-        // Me Seeks The Irony: +$50/hr for 26-30 people
+        // Meeseeks The Irony: +$50/hr for 26-30 people
         crewFee = 5000 * duration; // $50/hr * duration
       } else if (capacityTier === 50 && groupSize <= 75) {
         // Clever Girl: +$100/hr for 51-75 people
@@ -3682,7 +3682,7 @@ export class DatabaseStorage implements IStorage {
           // Find suitable boats for the group size
           // Apply strict filtering based on group size ranges:
           // - 14 or less: Day Tripper only
-          // - 15-25: Me Seeks The Irony only  
+          // - 15-25: Meeseeks The Irony only  
           // - 26-50: Clever Girl only
           // - 51-75: Clever Girl with extra crew fee
           const suitableBoats = allBoats.filter(boat => {
@@ -6582,7 +6582,7 @@ Crawl-delay: 1`;
     
     const expectedBoats = [
       { id: 'boat_day_tripper', name: 'Day Tripper', capacity: 14, maxCapacity: 14, extraCrewThreshold: null },
-      { id: 'boat_me_seeks_the_irony', name: 'Me Seeks The Irony', capacity: 25, maxCapacity: 30, extraCrewThreshold: 26 },
+      { id: 'boat_me_seeks_the_irony', name: 'Meeseeks The Irony', capacity: 25, maxCapacity: 30, extraCrewThreshold: 26 },
       { id: 'boat_clever_girl', name: 'Clever Girl', capacity: 50, maxCapacity: 75, extraCrewThreshold: 51 },
       { id: 'boat_atx_disco', name: 'ATX Disco Cruise', capacity: 100, maxCapacity: 100, extraCrewThreshold: null }
     ];

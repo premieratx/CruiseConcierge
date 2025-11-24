@@ -529,7 +529,7 @@ export const PRICING_DEFAULTS = {
   URGENCY_THRESHOLD_DAYS: 14, // Changed from 30 to 14 days
   FULL_PAYMENT_THRESHOLD_DAYS: 14,
   BASE_HOURLY_RATE: 20000, // $200.00 in cents (minimum rate)
-  CREW_FEE_26_30: 20000, // $200 crew fee for 16+ people on Me Seeks The Irony (25-30 boat)
+  CREW_FEE_26_30: 20000, // $200 crew fee for 16+ people on Meeseeks The Irony (25-30 boat)
   CREW_FEE_51_75: 30000, // $300 crew fee for 40+ people on Clever Girl (50-75 boat)
 } as const;
 
@@ -611,8 +611,8 @@ export const BOATS = {
   },
   ME_SEEKS_THE_IRONY: {
     id: 'boat_me_seeks_the_irony', 
-    name: 'Me Seeks The Irony',
-    displayName: 'Me Seeks The Irony',
+    name: 'Meeseeks The Irony',
+    displayName: 'Meeseeks The Irony',
     capacity: 30, // Can handle up to 30 people
     seatingCapacity: 25,
     description: 'Ideal for medium groups of 15-30 people',
@@ -719,32 +719,32 @@ export const HOURLY_RATES = {
   // Capacity-based rates for Monday-Thursday (4 hours)
   MON_THU: {
     14: 20000,  // $200/hour - Day Tripper
-    25: 22500,  // $225/hour - Me Seeks The Irony
-    30: 22500,  // $225/hour - Me Seeks The Irony (same as 25p + crew fee)
+    25: 22500,  // $225/hour - Meeseeks The Irony
+    30: 22500,  // $225/hour - Meeseeks The Irony (same as 25p + crew fee)
     50: 25000,  // $250/hour - Clever Girl
     75: 25000,  // $250/hour - Clever Girl (same as 50p + crew fee)
   },
   // Capacity-based rates for Friday (4 hours)
   FRIDAY: {
     14: 22500,  // $225/hour - Day Tripper
-    25: 25000,  // $250/hour - Me Seeks The Irony
-    30: 25000,  // $250/hour - Me Seeks The Irony (same as 25p + crew fee)
+    25: 25000,  // $250/hour - Meeseeks The Irony
+    30: 25000,  // $250/hour - Meeseeks The Irony (same as 25p + crew fee)
     50: 27500,  // $275/hour - Clever Girl
     75: 27500,  // $275/hour - Clever Girl (same as 50p + crew fee)
   },
   // Capacity-based rates for Saturday only (4 hours) - PREMIUM PRICING
   SATURDAY: {
     14: 35000,  // $350/hour - Day Tripper
-    25: 37500,  // $375/hour - Me Seeks The Irony
-    30: 37500,  // $375/hour - Me Seeks The Irony (same as 25p + crew fee)
+    25: 37500,  // $375/hour - Meeseeks The Irony
+    30: 37500,  // $375/hour - Meeseeks The Irony (same as 25p + crew fee)
     50: 40000,  // $400/hour - Clever Girl
     75: 40000,  // $400/hour - Clever Girl (same as 50p + crew fee)
   },
   // Capacity-based rates for Sunday (4 hours)
   SUNDAY: {
     14: 25000,  // $250/hour - Day Tripper
-    25: 27500,  // $275/hour - Me Seeks The Irony
-    30: 27500,  // $275/hour - Me Seeks The Irony (same as 25p + crew fee)
+    25: 27500,  // $275/hour - Meeseeks The Irony
+    30: 27500,  // $275/hour - Meeseeks The Irony (same as 25p + crew fee)
     50: 30000,  // $300/hour - Clever Girl
     75: 30000,  // $300/hour - Clever Girl (same as 50p + crew fee)
   },
@@ -759,15 +759,15 @@ export const HOURLY_RATES = {
   // Legacy aliases for backward compatibility
   WEEKDAY: {
     14: 20000,  // $200/hour - Day Tripper (Mon-Thu rate)
-    25: 22500,  // $225/hour - Me Seeks The Irony
-    30: 22500,  // $225/hour - Me Seeks The Irony
+    25: 22500,  // $225/hour - Meeseeks The Irony
+    30: 22500,  // $225/hour - Meeseeks The Irony
     50: 25000,  // $250/hour - Clever Girl
     75: 25000,  // $250/hour - Clever Girl
   },
   WEEKEND: {
     14: 35000,  // $350/hour - Day Tripper (Saturday rate for compatibility)
-    25: 37500,  // $375/hour - Me Seeks The Irony  
-    30: 37500,  // $375/hour - Me Seeks The Irony
+    25: 37500,  // $375/hour - Meeseeks The Irony  
+    30: 37500,  // $375/hour - Meeseeks The Irony
     50: 40000,  // $400/hour - Clever Girl
     75: 40000,  // $400/hour - Clever Girl
   }

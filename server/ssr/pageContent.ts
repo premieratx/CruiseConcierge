@@ -54,7 +54,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Private Charters - Your Exclusive Boat Experience',
         paragraphs: [
-          'Choose from our fleet of premium party boats: "Day Tripper" (1-14 people), "Me Seeks the Irony" (15-30 people), or flagship "Clever Girl" (31-75 people) with giant Texas flag and 14 disco balls. Every [[private-cruises]] includes licensed captains, premium Bluetooth sound systems, large coolers with ice, and all the amenities for an unforgettable celebration.',
+          'Choose from our fleet of premium party boats: "Day Tripper" (1-14 people), "Meeseeks / The Irony" (15-30 people), or flagship "Clever Girl" (31-75 people) with giant Texas flag and 14 disco balls. Every [[private-cruises]] includes licensed captains, premium Bluetooth sound systems, large coolers with ice, and all the amenities for an unforgettable celebration.',
           'Perfect for [[wedding-party]], [[corporate-events]], [[birthday-party]], and any special celebration. Starting at $200 per hour with a 4-hour minimum. Fully customizable packages to match your event needs.'
         ],
         lists: [
@@ -147,7 +147,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Frequently Asked Questions',
         paragraphs: [
           'What types of party boat rentals do you offer? We offer two main types of party boat experiences: Private Charters (exclusive boat rental for your group of 1-75 guests, starting at $200/hour with 4-hour minimum) and the ATX Disco Cruise (join other groups on our signature party cruise with DJ, photographer, and all amenities included). Disco cruises run Fridays 12-4pm ($95/person) and Saturdays 11am-3pm ($105/person) or 3:30-7:30pm ($85/person), with all prices including tax and gratuity. Perfect for bachelor parties, bachelorette parties, corporate events, birthdays, weddings, and any special celebration.',
-          'How much does it cost to rent a party boat on Lake Travis? Private charters start at $200 per hour with a 4-hour minimum. We have three boats available: Day Tripper (1-14 people, $200-350/hr), Meeseeks and The Irony (15-30 people, $225-425/hr), and Clever Girl (31-75 people with 14 disco balls, $250-500/hr). Crew fees are included in these price ranges. ATX Disco Cruise time slots are Friday 12-4pm ($95/person), Saturday 11am-3pm ($105/person), or Saturday 3:30-7:30pm ($85/person), with all prices including tax and gratuity, plus professional DJ, photographer, floats, and all amenities.',
+          'How much does it cost to rent a party boat on Lake Travis? Private charters start at $200 per hour with a 4-hour minimum. We have three boats available: Day Tripper (1-14 people, $200-350/hr), Meeseeks / The Irony (15-30 people, $225-425/hr), and Clever Girl (31-75 people with 14 disco balls, $250-500/hr). Crew fees are included in these price ranges. ATX Disco Cruise time slots are Friday 12-4pm ($95/person), Saturday 11am-3pm ($105/person), or Saturday 3:30-7:30pm ($85/person), with all prices including tax and gratuity, plus professional DJ, photographer, floats, and all amenities.',
           'Can we bring food and drinks on the boat? Yes! All cruises are fully BYOB friendly (21+ with valid ID required). You can bring your own beer, wine, seltzers, and non-alcoholic beverages in cans or plastic containers - no glass allowed for safety. We provide large coolers with ice. You can also bring snacks and meals, or we can coordinate alcohol delivery directly to the boat for your convenience.',
           'When does the ATX Disco Cruise run? The disco cruise operates Fridays 12-4pm and Saturdays with two time slots: 11am-3pm (most popular!) or 3:30-7:30pm. Pricing varies by time slot, with all prices including tax and gratuity for a complete, transparent experience.',
           'Where do you depart from on Lake Travis? We depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641. We\'re the closest marina to downtown Austin, approximately 30 minutes away, making us convenient for all your guests.',
@@ -842,7 +842,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           'Is swimming allowed during late-night after party cruises? Yes! Weather and lake conditions permitting, swimming and floating under the stars is a highlight of after party cruises. We provide floats and water toys. Many newlyweds love jumping in the lake in wedding attire for epic photos.',
           'What is the alcohol policy for wedding after parties? After party cruises are BYOB (bring your own beer, wine, champagne, and spirits). Many couples bring leftover alcohol from the reception. We provide ice, coolers, cups, and openers.',
           'What group size works best for after party cruises? After parties typically host 14-50+ of your closest friends and family - those who want to keep celebrating after the reception ends. Most couples invite 20-30 people who truly want to party late into the night.',
-          'How much does a wedding after party cruise cost? After party pricing depends on boat and package. Base rates: Day Tripper $195/hr (14 guests), Me Seeks the Irony $295/hr (25 guests), Clever Girl $495/hr (50+ guests). Most 2-3 hour after parties cost $890-$2,535 total.',
+          'How much does a wedding after party cruise cost? After party pricing depends on boat and package. Base rates: Day Tripper $195/hr (14 guests), Meeseeks the Irony $295/hr (25 guests), Clever Girl $495/hr (50+ guests). Most 2-3 hour after parties cost $890-$2,535 total.',
           'How far in advance should we book the wedding after party? Book your after party cruise when you book your wedding venue to secure your date. Peak wedding season (April-October) and Saturday night slots fill quickly, often 3-6 months in advance.'
         ]
       }
@@ -1331,13 +1331,13 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Frequently Asked Questions',
         paragraphs: [
-          'What group size works for graduation parties? Graduation cruises accommodate 14-75 guests depending on celebration style. Day Tripper (14 guests) works for intimate family celebrations, Me Seeks the Irony (25 guests) suits typical graduation parties with close friends and family, and Clever Girl (50-75 guests) handles larger class celebrations and combined graduation parties.',
+          'What group size works for graduation parties? Graduation cruises accommodate 14-75 guests depending on celebration style. Day Tripper (14 guests) works for intimate family celebrations, Meeseeks the Irony (25 guests) suits typical graduation parties with close friends and family, and Clever Girl (50-75 guests) handles larger class celebrations and combined graduation parties.',
           'Can we bring graduation decorations? Absolutely! Graduation parties can be fully customized with school colors, banners, balloons, and celebratory decorations. The crew assists with setup when you book Essentials or Ultimate packages. Many families bring photos, diplomas for display, and class memorabilia.',
           'Do you accommodate both family and friend groups? Yes! Graduation cruises are perfect for combined celebrations with both family members who traveled for the ceremony and the graduate\'s friend group. The boat setting provides natural spaces for both groups to celebrate together and separately.',
           'Can we bring food and cake? Absolutely! We coordinate with your preferred caterer or restaurant for delivery. Popular choices include pizza, BBQ, tacos, or upscale catering. Birthday-style graduation cakes are welcome - our crew provides space and service for cake cutting ceremony.',
           'What\'s the best timing for graduation parties? Most graduation parties run 3-4 hours in late afternoon or evening (4pm-8pm or 6pm-10pm). May and June weekend dates book 6-8 weeks in advance, so reserve early! Consider the ceremony schedule and travel plans of out-of-town family.',
           'Is alcohol allowed at graduation parties? BYOB is allowed for guests 21+ with valid ID. Many graduation parties are family-friendly with non-alcoholic beverages. We provide coolers, ice, cups, and openers. Responsible consumption required with crew discretion.',
-          'How much does a graduation party cruise cost? Graduation party pricing depends on boat size. Day Tripper starts at $195/hour (14 guests), Me Seeks the Irony at $295/hour (25 guests), Clever Girl at $495/hour (50-75 guests). Ultimate package (+$250-350/hr) recommended for full graduation celebration experience. Most 3-4 hour parties range from $585-$3,380 total.'
+          'How much does a graduation party cruise cost? Graduation party pricing depends on boat size. Day Tripper starts at $195/hour (14 guests), Meeseeks the Irony at $295/hour (25 guests), Clever Girl at $495/hour (50-75 guests). Ultimate package (+$250-350/hr) recommended for full graduation celebration experience. Most 3-4 hour parties range from $585-$3,380 total.'
         ]
       }
     ],
@@ -1408,8 +1408,8 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           'What\'s included in a Sweet 16 party cruise? All Sweet 16 cruises include licensed captain and professional crew, premium Bluetooth sound system for teen playlists, swimming and floating access (weather permitting), comfortable seating, climate-controlled restrooms, and ice/coolers. Ultimate package (+$250-350/hr) adds giant floats, decorations, water toys, and premium entertainment setup.',
           'Is swimming safe during Sweet 16 parties? Yes, swimming is safe with proper precautions. All swimmers must wear provided life jackets. Crew monitors water activities and weather conditions constantly. Swimming occurs in designated safe areas of Lake Travis with crew oversight.',
           'What music and entertainment options are available? Sweet 16 parties feature premium Bluetooth sound systems for streaming teen playlists. The birthday girl can be DJ with her own Spotify or Apple Music. Ultimate package includes enhanced sound and party lighting for dance vibes.',
-          'What group size is ideal for Sweet 16 parties? Sweet 16 cruises accommodate 14-50 guests. Day Tripper (14 guests) suits intimate celebrations with closest friends, Me Seeks the Irony (25 guests) works for typical friend groups plus a few family members, and Clever Girl (50+ guests) handles big celebrations.',
-          'How much does a Sweet 16 party cruise cost? Sweet 16 pricing varies by boat size and package. Base rates: Day Tripper $195/hr (14 guests), Me Seeks the Irony $295/hr (25 guests), Clever Girl $495/hr (50+ guests). Ultimate (+$250-350/hr) includes floats, decorations, water toys, and premium party package. Most 3-4 hour Sweet 16 parties range from $585-$3,380.'
+          'What group size is ideal for Sweet 16 parties? Sweet 16 cruises accommodate 14-50 guests. Day Tripper (14 guests) suits intimate celebrations with closest friends, Meeseeks the Irony (25 guests) works for typical friend groups plus a few family members, and Clever Girl (50+ guests) handles big celebrations.',
+          'How much does a Sweet 16 party cruise cost? Sweet 16 pricing varies by boat size and package. Base rates: Day Tripper $195/hr (14 guests), Meeseeks the Irony $295/hr (25 guests), Clever Girl $495/hr (50+ guests). Ultimate (+$250-350/hr) includes floats, decorations, water toys, and premium party package. Most 3-4 hour Sweet 16 parties range from $585-$3,380.'
         ]
       }
     ],
@@ -1492,11 +1492,11 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Frequently Asked Questions',
         paragraphs: [
           'Which milestone birthdays do you celebrate? We celebrate all milestone birthdays: 21st (finally legal!), 30th (new decade), 40th (fabulous at forty), 50th (golden celebration), 60th, 70th, 80th and beyond! Each milestone deserves unique celebration reflecting the honoree\'s personality and life stage.',
-          'What group size is ideal for milestone birthday cruises? Milestone birthday cruises accommodate 14-75 guests depending on celebration style. Day Tripper (14 guests) creates intimate gatherings with closest friends and family, Me Seeks the Irony (25 guests) suits most milestone celebrations, and Clever Girl (50-75 guests) handles big bash celebrations.',
+          'What group size is ideal for milestone birthday cruises? Milestone birthday cruises accommodate 14-75 guests depending on celebration style. Day Tripper (14 guests) creates intimate gatherings with closest friends and family, Meeseeks the Irony (25 guests) suits most milestone celebrations, and Clever Girl (50-75 guests) handles big bash celebrations.',
           'Can you help coordinate surprise birthday parties? Yes! We love surprise parties and coordinate timing perfectly for the big reveal. Work with our team to plan guest arrival before the birthday honoree. We\'ll position the boat for maximum surprise impact and help coordinate the \'surprise!\' moment.',
           'What catering and birthday cake options are available? Milestone birthdays deserve special catering! Options include upscale appetizers, seated dinners, BBQ feasts, or the honoree\'s favorite cuisines. We coordinate with Austin\'s finest caterers for delivery and setup. Birthday cakes are welcome - crew provides space for cake cutting ceremony.',
           'Do you provide champagne service for milestone birthdays? Milestone birthdays are perfect for champagne toasts! Cruises are BYOB - bring your favorite champagne, wine, and spirits. We provide ice, coolers, champagne flutes, and crew assistance with serving.',
-          'How much does a milestone birthday cruise cost? Milestone birthday pricing depends on boat size and package level. Base rates: Day Tripper $195/hr (14 guests), Me Seeks the Irony $295/hr (25 guests), Clever Girl $495/hr (50-75 guests). Ultimate (+$250-350/hr recommended for milestones) includes complete premium experience. Most 3-4 hour milestone celebrations cost $885-$3,380.',
+          'How much does a milestone birthday cruise cost? Milestone birthday pricing depends on boat size and package level. Base rates: Day Tripper $195/hr (14 guests), Meeseeks the Irony $295/hr (25 guests), Clever Girl $495/hr (50-75 guests). Ultimate (+$250-350/hr recommended for milestones) includes complete premium experience. Most 3-4 hour milestone celebrations cost $885-$3,380.',
           'What\'s the best timing for milestone birthday cruises? Milestone birthdays typically run 3-4 hours for complete celebration experience. Popular timing includes sunset cruises for romantic atmosphere, afternoon parties for swimming and activities, or evening celebrations for dinner and toasts.'
         ]
       }
@@ -2259,7 +2259,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
               'Birthday party celebrations',
               'Wedding parties and rehearsal dinners',
               'Lake Travis scenic sunset views',
-              'Fleet showcase - Day Tripper, Me Seeks, Clever Girl',
+              'Fleet showcase - Day Tripper, Meeseeks, Clever Girl',
               'Summer fun with lily pads and floats',
               'Party atmosphere and group celebrations'
             ]
@@ -2277,7 +2277,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
             title: 'Our Premium Fleet',
             items: [
               'Day Tripper - 14 person luxury pontoon boat',
-              'Me Seeks the Irony - 25 person party boat',
+              'Meeseeks the Irony - 25 person party boat',
               'Clever Girl - 50-75 person flagship vessel',
               'Professional sound systems on every boat',
               'Lily pads and floating mats included',

@@ -254,7 +254,7 @@ export function getDayType(date: Date): DayType {
  * Maps group size to the appropriate capacity tier
  * FINAL RULES:
  * - 1-14 people: Use 14-person boat (Day Tripper)
- * - 15-25 people: Use 25-person boat (Me Seeks The Irony)
+ * - 15-25 people: Use 25-person boat (Meeseeks The Irony)
  * - 26-30 people: Use 25-person boat + extra crew fee (tier 30)
  * - 31-50 people: Use 50-person boat (Clever Girl)
  * - 51-75 people: Use 50-person boat + extra crew fee (tier 75)
@@ -324,7 +324,7 @@ export function calculateBaseCruiseCost(date: Date, groupSize: number, duration?
   let crewFee = 0;
   
   // Additional FLAT crew fees for larger boats:
-  // - 16-30 person groups (Me Seeks The Irony): $200 flat crew fee
+  // - 16-30 person groups (Meeseeks The Irony): $200 flat crew fee
   // - 40-75 person groups (Clever Girl): $300 flat crew fee  
   if (groupSize >= 16 && groupSize <= 30) {
     crewFee = PRICING_DEFAULTS.CREW_FEE_26_30; // $200 flat fee
@@ -602,9 +602,9 @@ export const filterBoatsForGroupSize = (boats: any[], groupSize: number) => {
       boat.id === 'boat_day_tripper' || boat.name === 'Day Tripper'
     );
   } else if (groupSize <= 30) {
-    // 15-30 people: Me Seeks The Irony (unified option)
+    // 15-30 people: Meeseeks The Irony (unified option)
     return privateBoats.filter(boat => 
-      boat.id === 'boat_me_seeks_the_irony' || boat.name === 'Me Seeks The Irony'
+      boat.id === 'boat_me_seeks_the_irony' || boat.name === 'Meeseeks The Irony'
     );
   } else if (groupSize <= 75) {
     // 31-75 people: Clever Girl

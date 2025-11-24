@@ -467,7 +467,7 @@ const DAY_TRIPPER_PRODUCT_SCHEMA = {
 const ME_SEEKS_THE_IRONY_PRODUCT_SCHEMA = {
   "@context": "https://schema.org",
   "@type": "Product",
-  "name": "Me Seeks the Irony - 25 Person Party Boat",
+  "name": "Meeseeks the Irony - 25 Person Party Boat",
   "description": "Popular 25-person (18-25 seating) party boat ideal for medium-sized celebrations on Lake Travis. Premium amenities, professional crew, and excellent entertainment capabilities.",
   "image": "https://premierpartycruises.com/media/schema/me-seeks-irony-boat.jpg",
   "url": "https://premierpartycruises.com/",

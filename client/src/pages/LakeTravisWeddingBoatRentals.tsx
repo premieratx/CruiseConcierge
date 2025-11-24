@@ -201,12 +201,12 @@ export default function LakeTravisWeddingBoatRentals() {
                 <div className="relative h-64">
                   <LazyImage
                     src="/attached_assets/meeseeks-25-person-boat.webp"
-                    alt="Me Seeks 25-person boat for wedding parties and rehearsal dinners"
+                    alt="Meeseeks 20-person boat for wedding parties and rehearsal dinners"
                     className="w-full h-full object-cover"
                   />
                 </div>
                 <CardContent className="p-6">
-                  <h3 className="text-2xl font-bold mb-2 text-gray-900 dark:text-white">Me Seeks / The Irony</h3>
+                  <h3 className="text-2xl font-bold mb-2 text-gray-900 dark:text-white">Meeseeks / The Irony</h3>
                   <p className="text-pink-600 font-bold mb-3">Perfect for 15-30 guests</p>
                   <p className="text-gray-600 dark:text-gray-400 mb-4">
                     Best for wedding ceremonies, rehearsal dinners, and bridal showers

@@ -297,7 +297,7 @@ export class GoogleSheetsService {
     const availability: AvailabilityData[] = [];
     const boats = [
       { name: "boat_day_tripper", displayName: "Day Tripper", capacity: 14, weekdayRate: 200, fridayRate: 250, weekendRate: 300 },
-      { name: "boat_me_seeks_the_irony", displayName: "Me Seeks The Irony", capacity: 30, weekdayRate: 250, fridayRate: 300, weekendRate: 350 },
+      { name: "boat_me_seeks_the_irony", displayName: "Meeseeks The Irony", capacity: 30, weekdayRate: 250, fridayRate: 300, weekendRate: 350 },
       { name: "boat_clever_girl", displayName: "Clever Girl", capacity: 75, weekdayRate: 300, fridayRate: 350, weekendRate: 400 },
       { name: "boat_atx_disco", displayName: "ATX Disco Cruise", capacity: 100, weekdayRate: 85, fridayRate: 85, weekendRate: 85 }
     ];
@@ -2344,7 +2344,7 @@ export class GoogleSheetsService {
           title: 'Blackout Dates',
           headers: ['Date', 'Reason', 'Affected Boats', 'Affected Time Slots', 'Notes'],
           exampleData: [
-            ['2025-04-15', 'Maintenance', 'Day Tripper, Me Seeks The Irony', 'All', 'Annual maintenance for smaller boats'],
+            ['2025-04-15', 'Maintenance', 'Day Tripper, Meeseeks The Irony', 'All', 'Annual maintenance for smaller boats'],
             ['2025-05-20', 'Private Event', 'All', '2:00 PM, 6:00 PM', 'Lake reserved for private corporate event']
           ]
         }
