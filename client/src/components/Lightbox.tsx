@@ -215,24 +215,26 @@ export default function Lightbox({
         <div className="absolute inset-0 flex items-center justify-center p-6">
           <motion.div
             className={cn(
-              "relative max-w-full max-h-full transition-transform duration-300 cursor-pointer",
+              "relative flex items-center justify-center transition-transform duration-300 cursor-pointer",
               isZoomed ? "scale-150" : "scale-100"
             )}
+            style={{ maxWidth: '90vw', maxHeight: '90vh' }}
             onClick={() => setIsZoomed(!isZoomed)}
             data-testid="lightbox-image-container"
           >
             <img
               src={currentImage.src}
               alt={currentImage.alt}
-              className="max-w-full max-h-full object-contain"
+              className="w-full h-full object-contain"
+              style={{ maxWidth: '90vw', maxHeight: '90vh' }}
               onLoad={() => setIsLoading(false)}
               onLoadStart={() => setIsLoading(true)}
               data-testid={`lightbox-image-${currentImage.id}`}
             />
             
             {isLoading && (
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="animate-spin rounded-full h-8 w-8 border-2 border-white border-t-transparent" />
+              <div className="absolute inset-0 flex items-center justify-center bg-black/50">
+                <div className="animate-spin rounded-full h-12 w-12 border-4 border-white border-t-transparent" />
               </div>
             )}
           </motion.div>

@@ -592,7 +592,7 @@ export default function Home() {
                 srcSet={`${logoPathSmall} 80w, ${logoPath} 280w, ${logoPathLarge} 1755w`}
                 sizes="(max-width: 768px) 80px, 140px"
                 alt="Party Boat Austin - Premier Party Cruises on Lake Travis" 
-                className="h-20 md:h-24 mx-auto mb-6"
+                className="h-20 md:h-24 w-auto mx-auto mb-6"
                 loading="eager"
                 fetchpriority="high"
                 width="280"
@@ -603,7 +603,7 @@ export default function Home() {
 
             {/* Main Headline */}
             <motion.div variants={reducedMotion ? undefined : fadeInUp} className="mb-8 md:mb-10">
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold font-playfair mb-6 leading-tight" data-editable data-editable-id="hero-title">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold font-playfair mb-6 leading-tight" data-editable data-editable-id="hero-title">
                 Austin's Favorite Party Boat Rentals on Lake Travis
               </h1>
               <h2 className="text-xl sm:text-2xl md:text-3xl text-brand-yellow font-semibold leading-relaxed" data-editable data-editable-id="hero-tagline">
