@@ -1953,13 +1953,13 @@ export default function Home() {
                     See our real-time availability and book your perfect cruise date instantly.
                   </p>
                   <Button 
-                    onClick={() => navigate('/chat?type=general')}
+                    onClick={() => scrollToSection('quote-builder')}
                     size="lg"
                     className="w-full bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold py-4 text-base rounded-xl tracking-wide"
                     data-testid="button-quick-book"
                   >
-                    <span data-editable data-editable-id="quick-book-button">VIEW AVAILABILITY</span>
-                    <ExternalLink className="ml-2 h-5 w-5" />
+                    <span data-editable data-editable-id="quick-book-button">GET MY QUOTE</span>
+                    <ArrowRight className="ml-2 h-5 w-5" />
                   </Button>
                 </CardContent>
               </Card>
