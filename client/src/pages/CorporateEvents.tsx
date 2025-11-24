@@ -395,12 +395,12 @@ export default function CorporateEvents() {
 
   useEffect(() => {
     const handleMessage = (event: MessageEvent) => {
-      if (event.origin !== 'https://ppc-quote-builder.lovable.app') {
+      if (event.origin !== 'https://booking.premierpartycruises.com/quote-v2') {
         return;
       }
       
       if (event.data && event.data.type === 'quote-submitted') {
-        window.open('https://events.premierpartycruises.com/widget/form/X1zEKdfbmjqs2hBHWNN1', '_blank');
+        window.open('https://booking.premierpartycruises.com/quote-v2', '_blank');
         toast({
           title: "Quote Submitted!",
           description: "Redirecting you to view your quote details...",
@@ -413,11 +413,11 @@ export default function CorporateEvents() {
   }, [navigate, toast]);
 
   const handleGetQuote = () => {
-    window.open('https://events.premierpartycruises.com/widget/form/X1zEKdfbmjqs2hBHWNN1', '_blank');
+    window.open('https://booking.premierpartycruises.com/quote-v2', '_blank');
   };
 
   const handleBookNow = () => {
-    window.open('https://events.premierpartycruises.com/widget/form/X1zEKdfbmjqs2hBHWNN1', '_blank');
+    window.open('https://booking.premierpartycruises.com/quote-v2', '_blank');
   };
 
   return (
@@ -478,7 +478,7 @@ export default function CorporateEvents() {
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
-              onClick={() => window.open('https://events.premierpartycruises.com/widget/form/X1zEKdfbmjqs2hBHWNN1', '_blank')}
+              onClick={() => window.open('https://booking.premierpartycruises.com/quote-v2', '_blank')}
               size="lg"
               variant="outline"
               className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white font-bold px-8 py-6 text-lg"

@@ -89,6 +89,7 @@ import { RelatedServicesSection } from '@/components/RelatedServicesSection';
 import AIOptimizedSection from '@/components/AIOptimizedSection';
 import { SectionReveal } from '@/components/SectionReveal';
 import FleetSection from '@/components/FleetSection';
+import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 
 // Lazy load heavy components to improve FCP
 const PartyPlanningChecklist = lazy(() => import('@/components/PartyPlanningChecklist'));
@@ -371,9 +372,6 @@ export default function Home() {
   const [selectedService, setSelectedService] = useState<typeof services[0] | null>(null);
   const [quickPricingGroupSize, setQuickPricingGroupSize] = useState(20);
   const [quickPricingDayOfWeek, setQuickPricingDayOfWeek] = useState(6); // Saturday
-  const [showQuoteBuilder, setShowQuoteBuilder] = useState(false);
-  const [iframeHeight, setIframeHeight] = useState(3000); // Very large height to prevent any internal scrolling
-  const iframeRef = useRef<HTMLIFrameElement>(null);
   const [contactForm, setContactForm] = useState({
     name: '',
     email: '',
@@ -413,49 +411,6 @@ export default function Home() {
     }, 6000);
     return () => clearInterval(interval);
   }, [reducedMotion]);
-
-  // Listen for quote builder messages (height changes and completion)
-  useEffect(() => {
-    const handleMessage = (event: MessageEvent) => {
-      // Verify origin for security
-      if (event.origin !== 'https://ppc-quote-builder.lovable.app') {
-        return;
-      }
-      
-      // Handle iframe height changes for dynamic resizing
-      if (event.data && event.data.type === 'resize' && event.data.height) {
-        const newHeight = Math.max(event.data.height + 100, 1200); // Add padding, minimum 1200px
-        setIframeHeight(newHeight);
-      }
-      
-      // Handle quote submission completion
-      if (event.data && event.data.type === 'quote-submitted') {
-        // Navigate to /chat page to show results
-        window.open('https://events.premierpartycruises.com/widget/form/X1zEKdfbmjqs2hBHWNN1', '_blank');
-        
-        toast({
-          title: "Quote Submitted!",
-          description: "Redirecting you to view your quote details...",
-        });
-      }
-    };
-
-    window.addEventListener('message', handleMessage);
-    return () => window.removeEventListener('message', handleMessage);
-  }, [navigate, toast]);
-
-  // Adjust iframe height based on viewport for optimal display
-  useEffect(() => {
-    const updateHeight = () => {
-      // Set height to 2x viewport height to ensure no scrolling needed
-      const viewportHeight = window.innerHeight;
-      setIframeHeight(Math.max(viewportHeight * 2, 3000));
-    };
-
-    updateHeight();
-    window.addEventListener('resize', updateHeight);
-    return () => window.removeEventListener('resize', updateHeight);
-  }, []);
 
 
   // Update page title for SEO
@@ -721,95 +676,8 @@ export default function Home() {
       {/* Fleet Section */}
       <FleetSection />
 
-      {/* Build My Quote Now Section */}
-      <section id="quote-builder" className="py-16 bg-gradient-to-br from-brand-blue via-purple-600 to-blue-700">
-        <div className="container mx-auto px-0 sm:px-4 md:px-6">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeInUp}
-            className="text-center"
-          >
-            <h2 
-              className="text-3xl font-semibold font-playfair text-center mb-6 text-white"
-              data-editable 
-              data-editable-id="quote-builder-heading"
-            >
-              BUILD MY QUOTE NOW
-            </h2>
-            <p 
-              className="text-xl text-white/90 mb-8 max-w-2xl mx-auto"
-              data-editable 
-              data-editable-id="quote-builder-subheading"
-            >
-              Get instant pricing for your Lake Travis celebration in minutes
-            </p>
-            
-            {!showQuoteBuilder ? (
-              <Button
-                size="lg"
-                onClick={() => setShowQuoteBuilder(true)}
-                className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-base sm:text-lg md:text-xl lg:text-2xl px-6 sm:px-10 md:px-12 lg:px-16 py-4 sm:py-5 md:py-6 lg:py-8 rounded-2xl shadow-2xl transform hover:scale-105 transition-all duration-300 tracking-wide whitespace-normal min-h-[3.5rem] sm:min-h-[4rem]"
-                data-testid="button-build-quote"
-              >
-                <Sparkles className="mr-2 sm:mr-2 md:mr-3 h-5 sm:h-6 md:h-7 w-5 sm:w-6 md:w-7 flex-shrink-0" />
-                <span data-editable data-editable-id="quote-builder-button" className="text-center leading-tight">Start Building Your Quote</span>
-                <ArrowRight className="ml-2 sm:ml-2 md:ml-3 h-5 sm:h-6 md:h-7 w-5 sm:w-6 md:w-7 flex-shrink-0" />
-              </Button>
-            ) : (
-              <Button
-                size="lg"
-                variant="outline"
-                onClick={() => setShowQuoteBuilder(false)}
-                className="bg-brand-blue border-3 border-white text-white hover:bg-white hover:text-black font-bold text-lg px-12 py-6 rounded-2xl mb-8"
-                data-testid="button-hide-quote"
-              >
-                <X className="mr-2 h-5 w-5" />
-                <span data-editable data-editable-id="quote-builder-hide-button">Hide Quote Builder</span>
-              </Button>
-            )}
-          </motion.div>
-
-          {/* Expandable Quote Builder Iframe */}
-          <AnimatePresence>
-            {showQuoteBuilder && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: 'auto' }}
-                exit={{ opacity: 0, height: 0 }}
-                transition={{ duration: 0.5, ease: "easeInOut" }}
-                className="mt-12 overflow-hidden"
-              >
-                <div className="w-full md:max-w-6xl mx-auto">
-                  <motion.div
-                    initial={{ y: 20, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ delay: 0.2, duration: 0.4 }}
-                    className="bg-white rounded-none md:rounded-2xl shadow-2xl overflow-hidden"
-                  >
-                    <iframe 
-                      ref={iframeRef}
-                      src="https://ppc-quote-builder.lovable.app/"
-                      title="Build Your Quote - Premier Party Cruises"
-                      className="w-full"
-                      style={{ 
-                        height: `${iframeHeight}px`,
-                        border: 'none',
-                        overflow: 'hidden'
-                      }}
-                      scrolling="no"
-                      allow="payment; geolocation"
-                      allowFullScreen
-                      data-testid="iframe-quote-builder"
-                    />
-                  </motion.div>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
-      </section>
+      {/* Quote Builder Section */}
+      <QuoteBuilderSection />
 
       {/* Services Section */}
       <SectionReveal>

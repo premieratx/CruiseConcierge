@@ -260,8 +260,8 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
 
 
   const handleGetQuote = () => {
-    // Open GHL form in new tab
-    window.open('https://events.premierpartycruises.com/widget/form/X1zEKdfbmjqs2hBHWNN1', '_blank');
+    // Open quote builder in new tab
+    window.open('https://booking.premierpartycruises.com/quote-v2', '_blank');
   };
 
   return (

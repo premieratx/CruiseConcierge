@@ -131,7 +131,7 @@ export default function CombinedBachelorBachelorette() {
       }
       
       if (event.data && event.data.type === 'quote-submitted') {
-        window.open('https://events.premierpartycruises.com/widget/form/X1zEKdfbmjqs2hBHWNN1', '_blank');
+        window.open('https://booking.premierpartycruises.com/quote-v2', '_blank');
         toast({
           title: "Quote Submitted!",
           description: "Redirecting you to view your quote details...",

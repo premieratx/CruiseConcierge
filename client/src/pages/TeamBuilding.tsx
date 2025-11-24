@@ -197,7 +197,7 @@ export default function TeamBuilding() {
   };
 
   const handleBookNow = () => {
-    window.open('https://events.premierpartycruises.com/widget/form/X1zEKdfbmjqs2hBHWNN1', '_blank');
+    window.open('https://booking.premierpartycruises.com/quote-v2', '_blank');
   };
 
   return (
@@ -358,7 +358,7 @@ export default function TeamBuilding() {
                 >
                   <div className="bg-white rounded-xl shadow-2xl overflow-hidden">
                     <iframe 
-                      src="https://ppc-quote-builder.lovable.app/"
+                      src="https://booking.premierpartycruises.com/quote-v2/"
                       title="Build Your Quote - Premier Party Cruises"
                       className="w-full"
                       style={{ 
