@@ -80,6 +80,48 @@ const boats: BoatDetails[] = [
         alt: 'Day Tripper 14-person party boat on Lake Travis',
         title: 'Day Tripper',
         description: 'Our intimate 14-person boat perfect for small gatherings'
+      },
+      {
+        id: 'day-tripper-2',
+        src: '/attached_assets/day tripper - party boat rental austin_1763968078448.jpg',
+        alt: 'Day Tripper deck with blue canopy shade',
+        title: 'Shaded Seating',
+        description: 'Comfortable benches with full sun protection'
+      },
+      {
+        id: 'day-tripper-3',
+        src: '/attached_assets/day tripper-1 party boat with captain austin_1763968078449.jpg',
+        alt: 'Day Tripper boat rear view on water',
+        title: 'Rear Deck View',
+        description: 'Classic party boat design with modern amenities'
+      },
+      {
+        id: 'day-tripper-4',
+        src: '/attached_assets/day tripper-2 party boat austin lake travis_1763968078449.jpg',
+        alt: 'Day Tripper interior deck layout',
+        title: 'Spacious Deck Layout',
+        description: 'Well-organized seating arrangement for 14 guests'
+      },
+      {
+        id: 'day-tripper-5',
+        src: '/attached_assets/day tripper-3 party boat austin_1763968078451.jpg',
+        alt: 'Day Tripper open water view from bow',
+        title: 'Bow View',
+        description: 'Scenic views from the front of the boat'
+      },
+      {
+        id: 'day-tripper-6',
+        src: '/attached_assets/day tripper-5 party barge lake travis_1763968078452.jpg',
+        alt: 'Day Tripper cabin and deck view',
+        title: 'Captain Cabin',
+        description: 'Premium navigation station with cooler storage'
+      },
+      {
+        id: 'day-tripper-7',
+        src: '/attached_assets/day tripper-6 party boat austin_1763968078452.jpg',
+        alt: 'Day Tripper front view with lifeboat',
+        title: 'Safety Features',
+        description: 'Professional safety equipment and captain station'
       }
     ],
     packages: {
@@ -120,6 +162,55 @@ const boats: BoatDetails[] = [
         alt: 'Meeseeks 20-person party boat on Lake Travis',
         title: 'Meeseeks / The Irony',
         description: 'Our twin 20-person boats - 2 boats available for maximum flexibility'
+      },
+      {
+        id: 'meeseeks-2',
+        src: '/attached_assets/meeseeks-1_1763968010088.jpg',
+        alt: 'Meeseeks boat seating area with Lake Travis views',
+        title: 'Comfortable Seating',
+        description: 'Spacious deck with comfortable wicker seating'
+      },
+      {
+        id: 'meeseeks-3',
+        src: '/attached_assets/meeseeks-2_1763968010089.jpg',
+        alt: 'Meeseeks boat covered deck on Lake Travis',
+        title: 'Shaded Deck Area',
+        description: 'Generous shade coverage with scenic lake views'
+      },
+      {
+        id: 'meeseeks-4',
+        src: '/attached_assets/meeseeks-3 lake travis party boat_1763968010089.jpg',
+        alt: 'Meeseeks boat interior deck view',
+        title: 'Full Deck View',
+        description: 'Wide open deck space for your group'
+      },
+      {
+        id: 'meeseeks-5',
+        src: '/attached_assets/meeseeks-4 austin party boat rental_1763968010090.jpg',
+        alt: 'Meeseeks boat cabin and seating',
+        title: 'Captain Station',
+        description: 'Modern cabin with premium navigation equipment'
+      },
+      {
+        id: 'meeseeks-6',
+        src: '/attached_assets/meeseeks-5 austin party barge rental_1763968010090.jpg',
+        alt: 'Meeseeks boat outdoor deck area',
+        title: 'Open Air Deck',
+        description: 'Perfect layout for group celebrations'
+      },
+      {
+        id: 'irony-1',
+        src: '/attached_assets/the irony -3 party boat rental austin_1763968010090.jpg',
+        alt: 'The Irony boat full view on water',
+        title: 'The Irony Twin Boat',
+        description: 'Sister ship with identical 20-person capacity'
+      },
+      {
+        id: 'irony-2',
+        src: '/attached_assets/the irony-2 party boat rental austin_1763968010090.jpg',
+        alt: 'The Irony boat stern view with seating',
+        title: 'The Irony Deck View',
+        description: 'Perfect viewing angle of Lake Travis'
       }
     ],
     packages: {

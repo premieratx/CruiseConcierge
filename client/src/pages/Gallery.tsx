@@ -325,7 +325,7 @@ export default function Gallery() {
             </div>
           </SectionReveal>
 
-          {/* Day Tripper Subsection - Placeholder */}
+          {/* Day Tripper Subsection */}
           <SectionReveal>
             <div className="mb-20">
               <div className="text-center mb-8">
@@ -333,21 +333,37 @@ export default function Gallery() {
                 <p className="text-base text-gray-600 dark:text-gray-400">Perfect for intimate gatherings up to 14 guests</p>
               </div>
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                <Card className="group cursor-pointer overflow-hidden hover:shadow-xl transition-all duration-300 p-0 rounded-xl">
-                  <div className="aspect-square relative overflow-hidden">
-                    <img
-                      src="/attached_assets/day-tripper-14-person-boat.webp"
-                      alt="Day Tripper party boat"
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                      loading="lazy"
-                    />
-                  </div>
-                </Card>
+                {[
+                  { src: '/attached_assets/day-tripper-14-person-boat.webp', alt: 'Day Tripper party boat' },
+                  { src: '/attached_assets/day tripper - party boat rental austin_1763968078448.jpg', alt: 'Day Tripper shaded seating area' },
+                  { src: '/attached_assets/day tripper-1 party boat with captain austin_1763968078449.jpg', alt: 'Day Tripper rear deck view' },
+                  { src: '/attached_assets/day tripper-2 party boat austin lake travis_1763968078449.jpg', alt: 'Day Tripper interior deck layout' },
+                  { src: '/attached_assets/day tripper-3 party boat austin_1763968078451.jpg', alt: 'Day Tripper bow view' },
+                  { src: '/attached_assets/day tripper-5 party barge lake travis_1763968078452.jpg', alt: 'Day Tripper cabin and deck' },
+                  { src: '/attached_assets/day tripper-6 party boat austin_1763968078452.jpg', alt: 'Day Tripper safety features' },
+                ].map((photo, idx) => (
+                  <Card
+                    key={idx}
+                    className="group cursor-pointer overflow-hidden hover:shadow-xl transition-all duration-300 p-0 rounded-xl"
+                  >
+                    <div className="aspect-square relative overflow-hidden">
+                      <img
+                        src={photo.src}
+                        alt={photo.alt}
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                        loading="lazy"
+                      />
+                      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <Camera className="h-6 w-6 text-white" />
+                      </div>
+                    </div>
+                  </Card>
+                ))}
               </div>
             </div>
           </SectionReveal>
 
-          {/* Meeseeks / The Irony Subsection - Placeholder */}
+          {/* Meeseeks / The Irony Subsection */}
           <SectionReveal>
             <div className="mb-20">
               <div className="text-center mb-8">
@@ -355,16 +371,33 @@ export default function Gallery() {
                 <p className="text-base text-gray-600 dark:text-gray-400">Twin 20-person boats for medium-sized celebrations</p>
               </div>
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                <Card className="group cursor-pointer overflow-hidden hover:shadow-xl transition-all duration-300 p-0 rounded-xl">
-                  <div className="aspect-square relative overflow-hidden">
-                    <img
-                      src="/attached_assets/meeseeks-25-person-boat.webp"
-                      alt="Meeseeks party boat"
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                      loading="lazy"
-                    />
-                  </div>
-                </Card>
+                {[
+                  { src: '/attached_assets/meeseeks-25-person-boat.webp', alt: 'Meeseeks party boat' },
+                  { src: '/attached_assets/meeseeks-1_1763968010088.jpg', alt: 'Meeseeks seating area with lake views' },
+                  { src: '/attached_assets/meeseeks-2_1763968010089.jpg', alt: 'Meeseeks covered deck' },
+                  { src: '/attached_assets/meeseeks-3 lake travis party boat_1763968010089.jpg', alt: 'Meeseeks full deck view' },
+                  { src: '/attached_assets/meeseeks-4 austin party boat rental_1763968010090.jpg', alt: 'Meeseeks cabin and seating' },
+                  { src: '/attached_assets/meeseeks-5 austin party barge rental_1763968010090.jpg', alt: 'Meeseeks open air deck' },
+                  { src: '/attached_assets/the irony -3 party boat rental austin_1763968010090.jpg', alt: 'The Irony twin boat full view' },
+                  { src: '/attached_assets/the irony-2 party boat rental austin_1763968010090.jpg', alt: 'The Irony deck view' },
+                ].map((photo, idx) => (
+                  <Card
+                    key={idx}
+                    className="group cursor-pointer overflow-hidden hover:shadow-xl transition-all duration-300 p-0 rounded-xl"
+                  >
+                    <div className="aspect-square relative overflow-hidden">
+                      <img
+                        src={photo.src}
+                        alt={photo.alt}
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                        loading="lazy"
+                      />
+                      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <Camera className="h-6 w-6 text-white" />
+                      </div>
+                    </div>
+                  </Card>
+                ))}
               </div>
             </div>
           </SectionReveal>
