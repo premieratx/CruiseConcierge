@@ -38,7 +38,8 @@ export default function QuoteBuilderSection() {
           const iframe = document.getElementById('quote-v2-widget-iframe') as HTMLIFrameElement;
           const container = document.getElementById('quote-v2-widget-container');
           if (iframe && event.data.height) {
-            const newHeight = Math.max(event.data.height + 50, 800);
+            // Add max 100px padding to content height, no minimum
+            const newHeight = event.data.height + 100;
             iframe.style.transition = 'height 0.3s ease-in-out';
             iframe.style.height = newHeight + 'px';
             if (container) {
@@ -82,9 +83,9 @@ export default function QuoteBuilderSection() {
               className="bg-white rounded-none md:rounded-2xl shadow-2xl"
               style={{ 
                 width: '100%', 
-                minHeight: '800px', 
+                minHeight: '600px', 
                 position: 'relative',
-                margin: '2rem 0'
+                margin: '0'
               }}
             >
               {iframeUrl && (
@@ -95,7 +96,7 @@ export default function QuoteBuilderSection() {
                   title="Get Your Quote - Premier Party Cruises"
                   className="w-full"
                   style={{ 
-                    height: '800px',
+                    height: '600px',
                     border: 'none',
                     display: 'block',
                     borderRadius: '8px',
@@ -107,7 +108,9 @@ export default function QuoteBuilderSection() {
                   loading="eager"
                   data-testid="iframe-quote-builder"
                   onLoad={(e) => {
-                    (e.target as HTMLIFrameElement).style.height = '800px';
+                    const iframe = e.target as HTMLIFrameElement;
+                    // Start with a reasonable height, will auto-adjust via postMessage
+                    iframe.style.height = '600px';
                   }}
                 />
               )}
