@@ -951,19 +951,16 @@ export default function PrivateCruises() {
               </Tabs>
 
               <div className="mt-16 text-center">
-                <div
-                  className="xola-custom xola-checkout"
-                  data-button-id="691574bd162501edc00f151a"
+                <a
+                  href="https://booking.premierpartycruises.com/quote-v2"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold text-xl px-12 py-8 rounded-md transition-all"
+                  data-testid="button-pricing-get-quote"
                 >
-                  <Button
-                    size="lg"
-                    className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold text-xl px-12 py-8"
-                    data-testid="button-pricing-get-quote"
-                  >
-                    Get Custom Quote for Your Date
-                    <ArrowRight className="ml-3 h-6 w-6" />
-                  </Button>
-                </div>
+                  Get Custom Quote for Your Date
+                  <ArrowRight className="ml-3 h-6 w-6" />
+                </a>
               </div>
             </div>
           </div>
@@ -1839,18 +1836,15 @@ export default function PrivateCruises() {
                 <h3 className="text-2xl font-bold mb-4">Still Have Questions?</h3>
                 <p className="text-gray-700 mb-6">Our team is here to help you plan the perfect private charter</p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <div
-                    className="xola-custom xola-checkout"
-                    data-button-id="691574bd162501edc00f151a"
+                  <a
+                    href="https://booking.premierpartycruises.com/quote-v2"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold px-8 py-6 rounded-md transition-all"
                   >
-                    <Button
-                      size="lg"
-                      className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold"
-                    >
-                      Get Custom Quote
-                      <ArrowRight className="ml-2 h-5 w-5" />
-                    </Button>
-                  </div>
+                    Get Custom Quote
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </a>
                   <Button
                     size="lg"
                     variant="outline"

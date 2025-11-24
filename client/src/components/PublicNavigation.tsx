@@ -294,16 +294,16 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
           {/* Mobile Header Controls - flex-1 to push to right */}
           <div className="lg:!hidden flex flex-1 items-center justify-end gap-2">
             {/* Mobile Get Quote Button */}
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={handleGetQuote}
-              className="border-2 border-brand-blue text-brand-blue hover:bg-brand-blue hover:text-white font-bold px-2 py-1.5 text-xs whitespace-nowrap h-9"
+            <a
+              href="https://booking.premierpartycruises.com/quote-v2"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center border-2 border-brand-blue text-brand-blue hover:bg-brand-blue hover:text-white font-bold px-2 py-1.5 text-xs whitespace-nowrap h-9 rounded-md transition-colors"
               data-testid="button-mobile-header-get-quote"
             >
               <MessageSquare className="h-3.5 w-3.5 mr-1" />
               Get My Quote
-            </Button>
+            </a>
             
             {/* Mobile Book Now Button - Xola Checkout */}
             <div
@@ -426,15 +426,16 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
 
           {/* Desktop CTA Buttons - Right */}
           <div className="ppc-public-nav-cta hidden lg:flex flex-shrink-0 items-center gap-2">
-              <Button
-                variant="outline"
-                onClick={handleGetQuote}
-                className="border-2 border-brand-blue text-brand-blue hover:bg-brand-blue hover:text-white font-bold px-3 lg:px-4 py-2 tracking-wide text-sm whitespace-nowrap"
+              <a
+                href="https://booking.premierpartycruises.com/quote-v2"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center border-2 border-brand-blue text-brand-blue hover:bg-brand-blue hover:text-white font-bold px-3 lg:px-4 py-2 tracking-wide text-sm whitespace-nowrap rounded-md transition-colors"
                 data-testid="button-header-get-quote"
               >
                 <MessageSquare className="mr-1.5 h-4 w-4" />
                 <span data-editable data-editable-id="header-get-quote-button">Get My Quote</span>
-              </Button>
+              </a>
               
               {/* Desktop Book Now Button - Xola Checkout */}
               <div

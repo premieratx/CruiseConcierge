@@ -63,10 +63,9 @@ export default function QuoteBuilderSection() {
           variants={fadeInUp}
           className="text-center mb-8"
         >
-          <div className="inline-flex items-center justify-center bg-brand-yellow hover:bg-brand-yellow text-black font-bold text-xl sm:text-2xl md:text-3xl lg:text-4xl px-8 sm:px-12 md:px-16 lg:px-20 py-6 sm:py-7 md:py-8 lg:py-10 rounded-2xl shadow-2xl tracking-wide">
-            <Sparkles className="mr-3 sm:mr-3 md:mr-4 h-6 sm:h-7 md:h-8 w-6 sm:w-7 md:w-8 flex-shrink-0" />
-            <span data-editable data-editable-id="quote-builder-button" className="text-center leading-tight">Build My Quote Now</span>
-          </div>
+          <h2 className="text-white font-bold text-xl sm:text-2xl md:text-3xl lg:text-4xl tracking-wide border-b-4 border-brand-yellow inline-block pb-3" data-editable data-editable-id="quote-builder-button">
+            Start Building Your Quote
+          </h2>
         </motion.div>
 
         <motion.div

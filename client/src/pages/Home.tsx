@@ -656,20 +656,16 @@ export default function Home() {
                 </Button>
               </div>
               
-              <div
-                className="xola-custom xola-checkout"
-                data-button-id="691574bd162501edc00f151a"
+              <a
+                href="https://booking.premierpartycruises.com/quote-v2"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full sm:w-auto bg-white hover:bg-gray-50 text-gray-900 font-bold text-lg px-12 py-7 rounded-xl shadow-2xl transform hover:scale-105 transition-all duration-300 border-2 border-white inline-flex items-center justify-center"
+                data-testid="button-hero-book-now"
               >
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="w-full sm:w-auto bg-white hover:bg-gray-50 text-gray-900 font-bold text-lg px-12 py-7 rounded-xl shadow-2xl transform hover:scale-105 transition-all duration-300 border-2 border-white"
-                  data-testid="button-hero-book-now"
-                >
-                  <MessageSquare className="mr-3 h-6 w-6" />
-                  <span data-editable data-editable-id="hero-cta-book">Get Custom Quote</span>
-                </Button>
-              </div>
+                <MessageSquare className="mr-3 h-6 w-6" />
+                <span data-editable data-editable-id="hero-cta-book">Get Custom Quote</span>
+              </a>
             </motion.div>
           </motion.div>
         </div>

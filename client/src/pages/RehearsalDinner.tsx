@@ -306,20 +306,17 @@ export default function RehearsalDinner() {
               className="flex flex-col sm:flex-row gap-4 justify-center"
               variants={fadeInUp}
             >
-              <div
-                className="xola-custom xola-checkout"
-                data-button-id="691574bd162501edc00f151a"
+              <a
+                href="https://booking.premierpartycruises.com/quote-v2"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold text-base sm:text-lg px-8 py-6 shadow-xl rounded-md transition-all"
+                data-testid="button-hero-get-quote"
               >
-                <Button
-                  size="lg"
-                  className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold text-base sm:text-lg px-8 py-6 shadow-xl"
-                  data-testid="button-hero-get-quote"
-                >
-                  <MessageSquare className="mr-2 h-5 w-5" />
-                  Get Custom Quote
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
-              </div>
+                <MessageSquare className="mr-2 h-5 w-5" />
+                Get Custom Quote
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </a>
 
               <Button
                 size="lg"
@@ -699,20 +696,17 @@ export default function RehearsalDinner() {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <div
-                className="xola-custom xola-checkout"
-                data-button-id="691574bd162501edc00f151a"
+              <a
+                href="https://booking.premierpartycruises.com/quote-v2"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-lg px-8 py-6 shadow-xl rounded-md transition-all"
+                data-testid="button-cta-get-quote"
               >
-                <Button
-                  size="lg"
-                  className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-lg px-8 py-6 shadow-xl"
-                  data-testid="button-cta-get-quote"
-                >
-                  <MessageSquare className="mr-2 h-5 w-5" />
-                  Get Custom Quote
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
-              </div>
+                <MessageSquare className="mr-2 h-5 w-5" />
+                Get Custom Quote
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </a>
 
               <Button
                 size="lg"

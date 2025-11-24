@@ -392,19 +392,15 @@ export default function ATXDiscoCruise() {
                 >
                   <Phone className="mr-2 h-5 w-5" /> Talk to an Expert
                 </Button>
-                <Button 
-                  size="lg" 
-                  onClick={() => {
-                    const element = document.getElementById('quote-builder');
-                    if (element) {
-                      element.scrollIntoView({ behavior: 'smooth' });
-                    }
-                  }}
-                  className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-lg px-10 py-7 shadow-2xl transform hover:scale-105 transition-all"
+                <a
+                  href="https://booking.premierpartycruises.com/quote-v2"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-lg px-10 py-7 shadow-2xl transform hover:scale-105 transition-all rounded-md inline-flex items-center justify-center"
                   data-testid="button-book-now"
                 >
                   Get a Quote <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
+                </a>
               </div>
             </motion.div>
           </div>
