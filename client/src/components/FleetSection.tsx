@@ -4,9 +4,9 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { LazyImage } from '@/components/LazyImage';
-import Lightbox from '@/components/Lightbox';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { 
-  Ship, Users, DollarSign, Package, ArrowRight, Eye
+  Ship, Users, DollarSign, Package, ArrowRight, Eye, ChevronLeft, ChevronRight
 } from 'lucide-react';
 import { formatCurrency } from '@shared/formatters';
 import { HOURLY_RATES, PACKAGE_FLAT_FEES, CREW_FEES } from '@shared/constants';
@@ -212,26 +212,30 @@ const boats: BoatDetails[] = [
 ];
 
 export default function FleetSection() {
-  const [lightboxOpen, setLightboxOpen] = useState(false);
-  const [selectedBoatGallery, setSelectedBoatGallery] = useState<LightboxImage[]>([]);
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [selectedBoat, setSelectedBoat] = useState<BoatDetails | null>(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  const openLightbox = (boat: BoatDetails, startIndex: number = 0) => {
-    setSelectedBoatGallery(boat.galleryImages);
-    setCurrentImageIndex(startIndex);
-    setLightboxOpen(true);
+  const openDialog = (boat: BoatDetails) => {
+    setSelectedBoat(boat);
+    setCurrentImageIndex(0);
+    setDialogOpen(true);
   };
 
   const handleNext = () => {
-    setCurrentImageIndex((prev) => 
-      prev === selectedBoatGallery.length - 1 ? 0 : prev + 1
-    );
+    if (selectedBoat) {
+      setCurrentImageIndex((prev) => 
+        prev === selectedBoat.galleryImages.length - 1 ? 0 : prev + 1
+      );
+    }
   };
 
   const handlePrevious = () => {
-    setCurrentImageIndex((prev) => 
-      prev === 0 ? selectedBoatGallery.length - 1 : prev - 1
-    );
+    if (selectedBoat) {
+      setCurrentImageIndex((prev) => 
+        prev === 0 ? selectedBoat.galleryImages.length - 1 : prev - 1
+      );
+    }
   };
 
   return (
@@ -298,7 +302,7 @@ export default function FleetSection() {
                       </Badge>
                     )}
                     <button
-                      onClick={() => openLightbox(boat, 0)}
+                      onClick={() => openDialog(boat)}
                       className="absolute bottom-4 right-4 bg-black/70 hover:bg-black/90 text-white text-sm px-3 py-2 rounded-lg flex items-center gap-2 transition-all"
                       data-testid={`button-view-${boat.id}-gallery`}
                     >
@@ -359,7 +363,7 @@ export default function FleetSection() {
                     </div>
 
                     <Button
-                      onClick={() => openLightbox(boat, 0)}
+                      onClick={() => openDialog(boat)}
                       className="w-full bg-brand-blue hover:bg-brand-blue/90 text-white"
                       data-testid={`button-view-${boat.id}-details`}
                     >
@@ -397,15 +401,123 @@ export default function FleetSection() {
         </div>
       </section>
 
-      {/* Lightbox Gallery */}
-      <Lightbox
-        images={selectedBoatGallery}
-        isOpen={lightboxOpen}
-        currentIndex={currentImageIndex}
-        onClose={() => setLightboxOpen(false)}
-        onNext={handleNext}
-        onPrevious={handlePrevious}
-      />
+      {/* Boat Details Dialog */}
+      <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+          {selectedBoat && (
+            <>
+              <DialogHeader>
+                <DialogTitle className="text-3xl font-bold">{selectedBoat.displayName}</DialogTitle>
+              </DialogHeader>
+              
+              {/* Image Gallery */}
+              <div className="relative w-full aspect-video bg-gray-100 rounded-lg overflow-hidden">
+                <img
+                  src={selectedBoat.galleryImages[currentImageIndex]?.src}
+                  alt={selectedBoat.galleryImages[currentImageIndex]?.alt}
+                  className="w-full h-full object-cover"
+                />
+                
+                {/* Navigation Arrows */}
+                {selectedBoat.galleryImages.length > 1 && (
+                  <>
+                    <button
+                      onClick={handlePrevious}
+                      className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-all"
+                      data-testid="button-previous-image"
+                    >
+                      <ChevronLeft className="h-6 w-6" />
+                    </button>
+                    <button
+                      onClick={handleNext}
+                      className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-all"
+                      data-testid="button-next-image"
+                    >
+                      <ChevronRight className="h-6 w-6" />
+                    </button>
+                    
+                    {/* Image Counter */}
+                    <div className="absolute bottom-4 right-4 bg-black/70 text-white px-3 py-1 rounded-full text-sm">
+                      {currentImageIndex + 1} / {selectedBoat.galleryImages.length}
+                    </div>
+                  </>
+                )}
+                
+                {/* Image Title */}
+                {selectedBoat.galleryImages[currentImageIndex]?.title && (
+                  <div className="absolute bottom-4 left-4 bg-black/70 text-white px-4 py-2 rounded-lg">
+                    <p className="font-semibold">{selectedBoat.galleryImages[currentImageIndex]?.title}</p>
+                    {selectedBoat.galleryImages[currentImageIndex]?.description && (
+                      <p className="text-sm text-gray-300">{selectedBoat.galleryImages[currentImageIndex]?.description}</p>
+                    )}
+                  </div>
+                )}
+              </div>
+              
+              {/* Boat Details */}
+              <div className="space-y-4 mt-4">
+                <p className="text-gray-700 dark:text-gray-300">{selectedBoat.description}</p>
+                
+                {/* Capacity */}
+                <div className="flex items-center gap-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+                  <Users className="h-6 w-6 text-brand-blue" />
+                  <div>
+                    <p className="font-semibold text-gray-900 dark:text-white">Capacity: {selectedBoat.capacity}</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">Seats {selectedBoat.seatingCapacity} comfortably</p>
+                  </div>
+                </div>
+                
+                {/* Pricing */}
+                <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                  <div className="flex items-start gap-3 mb-2">
+                    <DollarSign className="h-6 w-6 text-brand-blue mt-1" />
+                    <div className="flex-1">
+                      <p className="font-semibold text-gray-900 dark:text-white mb-2">Pricing (4hr cruise):</p>
+                      <div className="grid grid-cols-2 gap-2 text-sm">
+                        <div><span className="font-medium">Mon-Thu:</span> {formatCurrency(selectedBoat.baseRate4Hr.weekday)}</div>
+                        <div><span className="font-medium">Friday:</span> {formatCurrency(selectedBoat.baseRate4Hr.friday)}</div>
+                        <div><span className="font-medium">Saturday:</span> {formatCurrency(selectedBoat.baseRate4Hr.saturday)}</div>
+                        <div><span className="font-medium">Sunday:</span> {formatCurrency(selectedBoat.baseRate4Hr.sunday)}</div>
+                      </div>
+                      {selectedBoat.crewFeeNote && (
+                        <p className="text-xs text-gray-500 dark:text-gray-400 mt-2 italic">*{selectedBoat.crewFeeNote}</p>
+                      )}
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Features */}
+                <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                  <p className="font-semibold text-gray-900 dark:text-white mb-2">Features:</p>
+                  <ul className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm text-gray-700 dark:text-gray-300">
+                    {selectedBoat.features.map((feature, index) => (
+                      <li key={index} className="flex items-start gap-2">
+                        <span className="text-brand-blue mt-1">✓</span>
+                        <span>{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                
+                {/* Packages */}
+                <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                  <div className="flex items-start gap-3">
+                    <Package className="h-6 w-6 text-brand-blue mt-1" />
+                    <div className="flex-1">
+                      <p className="font-semibold text-gray-900 dark:text-white mb-2">Packages Available:</p>
+                      <div className="space-y-1 text-sm">
+                        <div>✓ Standard (included)</div>
+                        <div>✓ Essentials (+{formatCurrency(selectedBoat.packages.essentials)})</div>
+                        <div>✓ Ultimate (+{formatCurrency(selectedBoat.packages.ultimate)})</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
     </>
   );
 }
