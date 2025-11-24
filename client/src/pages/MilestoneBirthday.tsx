@@ -415,7 +415,7 @@ export default function MilestoneBirthday() {
             className="text-center"
           >
             <h2 
-              className="text-5xl md:text-6xl font-heading font-bold mb-6 text-white tracking-wider"
+              className="text-2xl md:text-3xl font-heading font-bold mb-6 text-white tracking-wider"
               data-editable 
               data-editable-id="quote-builder-heading"
             >

@@ -64,7 +64,7 @@ export default function QuoteBuilderSection() {
           variants={fadeInUp}
           className="text-center mb-8"
         >
-          <h2 className="text-white font-bold text-xl sm:text-2xl md:text-3xl lg:text-4xl tracking-wide border-b-4 border-brand-yellow inline-block pb-3" data-editable data-editable-id="quote-builder-button">
+          <h2 className="text-white font-bold text-sm sm:text-base md:text-lg lg:text-xl tracking-wide border-b-4 border-brand-yellow inline-block pb-3" data-editable data-editable-id="quote-builder-button">
             Start Building Your Quote
           </h2>
         </motion.div>

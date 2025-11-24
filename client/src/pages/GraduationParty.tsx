@@ -394,7 +394,7 @@ export default function GraduationParty() {
         <section className="py-24 bg-gradient-to-r from-purple-600 to-pink-600">
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center">
-              <h2 className="text-5xl md:text-6xl font-playfair font-bold mb-6 text-white text-center tracking-wider">
+              <h2 className="text-2xl md:text-3xl font-playfair font-bold mb-6 text-white text-center tracking-wider">
                 BUILD MY QUOTE NOW
               </h2>
               <p className="text-xl text-base text-white/90 mb-8 max-w-2xl mx-auto text-center">
