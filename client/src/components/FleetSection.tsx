@@ -80,13 +80,6 @@ const boats: BoatDetails[] = [
         alt: 'Day Tripper 14-person party boat on Lake Travis',
         title: 'Day Tripper',
         description: 'Our intimate 14-person boat perfect for small gatherings'
-      },
-      {
-        id: 'day-tripper-2',
-        src: '/attached_assets/party-atmosphere-1.webp',
-        alt: 'Party atmosphere on Lake Travis boat',
-        title: 'Day Tripper Party Vibes',
-        description: 'Create unforgettable memories with your small group'
       }
     ],
     packages: {
@@ -127,20 +120,6 @@ const boats: BoatDetails[] = [
         alt: 'Me Seeks 25-person party boat on Lake Travis',
         title: 'Me Seeks / The Irony',
         description: 'Our twin 25-person boats - 2 boats available for maximum flexibility'
-      },
-      {
-        id: 'meeseeks-2',
-        src: '/attached_assets/party-atmosphere-2.webp',
-        alt: 'Bachelorette party on Lake Travis boat',
-        title: 'Perfect for Bachelor/Bachelorette Parties',
-        description: 'The most popular choice for medium-sized celebrations'
-      },
-      {
-        id: 'meeseeks-3',
-        src: '/attached_assets/party-atmosphere-3.webp',
-        alt: 'Group celebration on Lake Travis party boat',
-        title: 'Create Amazing Memories',
-        description: 'Room for everyone to have a great time'
       }
     ],
     packages: {
@@ -186,20 +165,6 @@ const boats: BoatDetails[] = [
         alt: 'Clever Girl 50-person flagship party boat on Lake Travis',
         title: 'Clever Girl - Our Flagship',
         description: 'Custom-built high-end single-deck party boat with 14 disco balls'
-      },
-      {
-        id: 'clever-girl-2',
-        src: '/attached_assets/party-atmosphere-1.webp',
-        alt: 'Large celebration on Clever Girl boat',
-        title: 'Perfect for Large Celebrations',
-        description: 'Comfortably accommodates up to 75 guests'
-      },
-      {
-        id: 'clever-girl-3',
-        src: '/attached_assets/party-atmosphere-3.webp',
-        alt: 'Corporate event on Clever Girl party boat',
-        title: 'Corporate Events & Weddings',
-        description: 'The ideal choice for major celebrations and corporate events'
       }
     ],
     packages: {
