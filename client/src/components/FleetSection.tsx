@@ -90,10 +90,10 @@ const boats: BoatDetails[] = [
   },
   {
     id: 'me-seeks-the-irony',
-    name: 'Me Seeks The Irony',
-    displayName: 'Me Seeks / The Irony',
+    name: 'Meeseeks The Irony',
+    displayName: 'Meeseeks / The Irony',
     capacity: '15-30 guests',
-    seatingCapacity: 25,
+    seatingCapacity: 20,
     maxCapacity: 30,
     baseRate4Hr: {
       weekday: HOURLY_RATES.MON_THU[25] * 4,
@@ -117,9 +117,9 @@ const boats: BoatDetails[] = [
       {
         id: 'meeseeks-1',
         src: '/attached_assets/meeseeks-25-person-boat.webp',
-        alt: 'Me Seeks 25-person party boat on Lake Travis',
-        title: 'Me Seeks / The Irony',
-        description: 'Our twin 25-person boats - 2 boats available for maximum flexibility'
+        alt: 'Meeseeks 20-person party boat on Lake Travis',
+        title: 'Meeseeks / The Irony',
+        description: 'Our twin 20-person boats - 2 boats available for maximum flexibility'
       }
     ],
     packages: {
@@ -136,7 +136,7 @@ const boats: BoatDetails[] = [
     name: 'Clever Girl',
     displayName: 'Clever Girl',
     capacity: '31-75 guests',
-    seatingCapacity: 50,
+    seatingCapacity: 30,
     maxCapacity: 75,
     baseRate4Hr: {
       weekday: HOURLY_RATES.MON_THU[50] * 4,
@@ -171,7 +171,7 @@ const boats: BoatDetails[] = [
         src: '/attached_assets/clever girl-2 party boat rental austin_1763966476657.jpg',
         alt: 'Clever Girl party boat main deck view',
         title: 'Main Deck - 14 Disco Balls',
-        description: 'Spacious main deck with seating for up to 50 guests comfortably'
+        description: 'Spacious main deck with seating for up to 30 guests comfortably'
       },
       {
         id: 'clever-girl-3',

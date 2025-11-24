@@ -14,6 +14,12 @@ Premier Party Cruises offers party boat rentals on Lake Travis, Austin, speciali
 - Real information only - no made-up details or "AI slop"
 - **100% FACTUAL ACCURACY**: No made-up activities, services, or features. Only describe what Premier Party Cruises actually provides: boat, captain, lake setting, and amenities. Customers create their own experience.
 
+## Fleet Information
+- **Day Tripper**: 14 seats comfortably, max capacity 14 guests
+- **Meeseeks / The Irony**: 20 seats comfortably, max capacity 30 guests (2 identical boats available)
+  - IMPORTANT: Always spell as "Meeseeks" (not "Me Seeks", "MeSeeks", etc.)
+- **Clever Girl**: 30 seats comfortably, max capacity 75 guests (flagship boat with 14 disco balls)
+
 ## System Architecture
 The system employs a **React + TypeScript + Vite** frontend with **Tailwind CSS** and **shadcn/ui**, using **Wouter** for routing. The backend is built with **Express + Node.js** and **PostgreSQL**.
 

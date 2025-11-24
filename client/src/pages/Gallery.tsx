@@ -347,19 +347,19 @@ export default function Gallery() {
             </div>
           </SectionReveal>
 
-          {/* Me Seeks / The Irony Subsection - Placeholder */}
+          {/* Meeseeks / The Irony Subsection - Placeholder */}
           <SectionReveal>
             <div className="mb-20">
               <div className="text-center mb-8">
-                <h3 className="text-3xl font-playfair font-bold text-gray-900 dark:text-white mb-2">Me Seeks / The Irony</h3>
-                <p className="text-base text-gray-600 dark:text-gray-400">Twin 25-person boats for medium-sized celebrations</p>
+                <h3 className="text-3xl font-playfair font-bold text-gray-900 dark:text-white mb-2">Meeseeks / The Irony</h3>
+                <p className="text-base text-gray-600 dark:text-gray-400">Twin 20-person boats for medium-sized celebrations</p>
               </div>
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 <Card className="group cursor-pointer overflow-hidden hover:shadow-xl transition-all duration-300 p-0 rounded-xl">
                   <div className="aspect-square relative overflow-hidden">
                     <img
                       src="/attached_assets/meeseeks-25-person-boat.webp"
-                      alt="Me Seeks party boat"
+                      alt="Meeseeks party boat"
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                       loading="lazy"
                     />
