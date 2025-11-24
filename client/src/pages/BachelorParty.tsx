@@ -567,7 +567,7 @@ export default function BachelorParty() {
 
       {/* YOUR TWO OPTIONS SECTION */}
       <SectionReveal>
-        <section id="your-options" className="py-12 md:py-20 bg-gradient-to-br from-blue-50 to-purple-50">
+        <section id="your-options" className="pt-12 pb-8 md:pt-20 md:pb-12 bg-gradient-to-br from-blue-50 to-purple-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="text-center mb-16">
               <Badge className="mb-6 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
@@ -681,7 +681,7 @@ export default function BachelorParty() {
 
       {/* 3. PACKAGES & PRICING */}
       <SectionReveal>
-        <section id="packages" className="py-12 md:py-20 bg-gradient-to-br from-gray-50 to-white">
+        <section id="packages" className="pt-12 pb-12 md:pt-16 md:pb-20 bg-gradient-to-br from-gray-50 to-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="text-center mb-16">
               <Badge className="mb-6 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
@@ -774,7 +774,7 @@ export default function BachelorParty() {
             </Tabs>
 
             {/* Comparison Calculator */}
-            <div className="mt-16 max-w-5xl mx-auto">
+            <div className="mt-8 max-w-5xl mx-auto">
               <DiscoVsPrivateValueCalculator variant="bachelor" />
             </div>
           </div>
@@ -783,7 +783,7 @@ export default function BachelorParty() {
 
       {/* 4. WHAT TO EXPECT */}
       <SectionReveal>
-        <section id="what-to-expect" className="py-12 md:py-20 bg-white">
+        <section id="what-to-expect" className="pt-8 pb-12 md:pt-12 md:pb-20 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="text-center mb-16">
               <Badge className="mb-6 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
