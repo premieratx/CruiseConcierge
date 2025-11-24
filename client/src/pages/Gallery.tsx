@@ -278,7 +278,7 @@ export default function Gallery() {
                       {photo.fileType === 'video' || photo.fileType === 'generated_video' ? (
                         <>
                           <video
-                            src={`/api/media/view/${photo.id}`}
+                            src={photo.filePath || `/api/media/view/${photo.id}`}
                             className="w-full h-full object-cover"
                             muted
                           />
@@ -289,7 +289,7 @@ export default function Gallery() {
                       ) : (
                         <>
                           <img
-                            src={`/api/media/view/${photo.id}`}
+                            src={photo.filePath || `/api/media/view/${photo.id}`}
                             alt={photo.altText || photo.originalName}
                             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                             loading="lazy"
@@ -363,22 +363,23 @@ export default function Gallery() {
             </div>
           </SectionReveal>
 
-          {/* Day Tripper Subsection */}
+          {/* Meeseeks / The Irony Subsection */}
           <SectionReveal>
             <div className="mb-20">
               <div className="text-center mb-8">
-                <h3 className="text-3xl font-playfair font-bold text-gray-900 dark:text-white mb-2">Day Tripper</h3>
-                <p className="text-base text-gray-600 dark:text-gray-400">Perfect for intimate gatherings up to 14 guests</p>
+                <h3 className="text-3xl font-playfair font-bold text-gray-900 dark:text-white mb-2">Meeseeks / The Irony</h3>
+                <p className="text-base text-gray-600 dark:text-gray-400">Twin 20-person boats for medium-sized celebrations</p>
               </div>
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 {[
-                  { src: '/attached_assets/day-tripper-14-person-boat.webp', alt: 'Day Tripper party boat' },
-                  { src: '/attached_assets/day tripper - party boat rental austin_1763968078448.jpg', alt: 'Day Tripper shaded seating area' },
-                  { src: '/attached_assets/day tripper-1 party boat with captain austin_1763968078449.jpg', alt: 'Day Tripper rear deck view' },
-                  { src: '/attached_assets/day tripper-2 party boat austin lake travis_1763968078449.jpg', alt: 'Day Tripper interior deck layout' },
-                  { src: '/attached_assets/day tripper-3 party boat austin_1763968078451.jpg', alt: 'Day Tripper bow view' },
-                  { src: '/attached_assets/day tripper-5 party barge lake travis_1763968078452.jpg', alt: 'Day Tripper cabin and deck' },
-                  { src: '/attached_assets/day tripper-6 party boat austin_1763968078452.jpg', alt: 'Day Tripper safety features' },
+                  { src: '/attached_assets/meeseeks-25-person-boat.webp', alt: 'Meeseeks party boat' },
+                  { src: '/attached_assets/meeseeks-1_1763968010088.jpg', alt: 'Meeseeks seating area with lake views' },
+                  { src: '/attached_assets/meeseeks-2_1763968010089.jpg', alt: 'Meeseeks covered deck' },
+                  { src: '/attached_assets/meeseeks-3 lake travis party boat_1763968010089.jpg', alt: 'Meeseeks full deck view' },
+                  { src: '/attached_assets/meeseeks-4 austin party boat rental_1763968010090.jpg', alt: 'Meeseeks cabin and seating' },
+                  { src: '/attached_assets/meeseeks-5 austin party barge rental_1763968010090.jpg', alt: 'Meeseeks open air deck' },
+                  { src: '/attached_assets/the irony -3 party boat rental austin_1763968010090.jpg', alt: 'The Irony twin boat full view' },
+                  { src: '/attached_assets/the irony-2 party boat rental austin_1763968010090.jpg', alt: 'The Irony deck view' },
                 ].map((photo, idx) => (
                   <Card
                     key={idx}
@@ -401,23 +402,22 @@ export default function Gallery() {
             </div>
           </SectionReveal>
 
-          {/* Meeseeks / The Irony Subsection */}
+          {/* Day Tripper Subsection */}
           <SectionReveal>
             <div className="mb-20">
               <div className="text-center mb-8">
-                <h3 className="text-3xl font-playfair font-bold text-gray-900 dark:text-white mb-2">Meeseeks / The Irony</h3>
-                <p className="text-base text-gray-600 dark:text-gray-400">Twin 20-person boats for medium-sized celebrations</p>
+                <h3 className="text-3xl font-playfair font-bold text-gray-900 dark:text-white mb-2">Day Tripper</h3>
+                <p className="text-base text-gray-600 dark:text-gray-400">Perfect for intimate gatherings up to 14 guests</p>
               </div>
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 {[
-                  { src: '/attached_assets/meeseeks-25-person-boat.webp', alt: 'Meeseeks party boat' },
-                  { src: '/attached_assets/meeseeks-1_1763968010088.jpg', alt: 'Meeseeks seating area with lake views' },
-                  { src: '/attached_assets/meeseeks-2_1763968010089.jpg', alt: 'Meeseeks covered deck' },
-                  { src: '/attached_assets/meeseeks-3 lake travis party boat_1763968010089.jpg', alt: 'Meeseeks full deck view' },
-                  { src: '/attached_assets/meeseeks-4 austin party boat rental_1763968010090.jpg', alt: 'Meeseeks cabin and seating' },
-                  { src: '/attached_assets/meeseeks-5 austin party barge rental_1763968010090.jpg', alt: 'Meeseeks open air deck' },
-                  { src: '/attached_assets/the irony -3 party boat rental austin_1763968010090.jpg', alt: 'The Irony twin boat full view' },
-                  { src: '/attached_assets/the irony-2 party boat rental austin_1763968010090.jpg', alt: 'The Irony deck view' },
+                  { src: '/attached_assets/day-tripper-14-person-boat.webp', alt: 'Day Tripper party boat' },
+                  { src: '/attached_assets/day tripper - party boat rental austin_1763968078448.jpg', alt: 'Day Tripper shaded seating area' },
+                  { src: '/attached_assets/day tripper-1 party boat with captain austin_1763968078449.jpg', alt: 'Day Tripper rear deck view' },
+                  { src: '/attached_assets/day tripper-2 party boat austin lake travis_1763968078449.jpg', alt: 'Day Tripper interior deck layout' },
+                  { src: '/attached_assets/day tripper-3 party boat austin_1763968078451.jpg', alt: 'Day Tripper bow view' },
+                  { src: '/attached_assets/day tripper-5 party barge lake travis_1763968078452.jpg', alt: 'Day Tripper cabin and deck' },
+                  { src: '/attached_assets/day tripper-6 party boat austin_1763968078452.jpg', alt: 'Day Tripper safety features' },
                 ].map((photo, idx) => (
                   <Card
                     key={idx}
@@ -479,7 +479,7 @@ export default function Gallery() {
                     >
                       <div className="aspect-square relative overflow-hidden">
                         <img
-                          src={`/api/media/view/${photo.id}`}
+                          src={photo.filePath || `/api/media/view/${photo.id}`}
                           alt={photo.altText || photo.originalName}
                           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                           loading="lazy"
@@ -515,7 +515,7 @@ export default function Gallery() {
                     >
                       <div className="aspect-square relative overflow-hidden">
                         <img
-                          src={`/api/media/view/${photo.id}`}
+                          src={photo.filePath || `/api/media/view/${photo.id}`}
                           alt={photo.altText || photo.originalName}
                           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                           loading="lazy"
@@ -551,7 +551,7 @@ export default function Gallery() {
                     >
                       <div className="aspect-square relative overflow-hidden">
                         <img
-                          src={`/api/media/view/${photo.id}`}
+                          src={photo.filePath || `/api/media/view/${photo.id}`}
                           alt={photo.altText || photo.originalName}
                           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                           loading="lazy"
@@ -603,7 +603,7 @@ export default function Gallery() {
             <>
               <div className="relative w-full h-[80vh] flex items-center justify-center">
                 <img
-                  src={`/api/media/view/${filteredPhotos[selectedIndex].id}`}
+                  src={filteredPhotos[selectedIndex].filePath || `/api/media/view/${filteredPhotos[selectedIndex].id}`}
                   alt={filteredPhotos[selectedIndex].altText || filteredPhotos[selectedIndex].originalName}
                   className="max-w-full max-h-full object-contain"
                 />
