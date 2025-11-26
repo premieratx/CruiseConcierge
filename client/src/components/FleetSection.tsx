@@ -345,36 +345,36 @@ export default function FleetSection() {
 
   return (
     <>
-      <section className="py-20 bg-gradient-to-b from-white to-blue-50 dark:from-gray-900 dark:to-gray-800">
-        <div className="container mx-auto px-4">
+      <section className="py-10 sm:py-16 bg-gradient-to-b from-white to-blue-50 dark:from-gray-900 dark:to-gray-800">
+        <div className="container mx-auto px-3 sm:px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="text-center mb-16"
+            className="text-center mb-6 sm:mb-12"
           >
             <Badge 
-              className="mb-4 bg-brand-yellow text-black font-bold px-4 py-2"
+              className="mb-2 sm:mb-4 bg-brand-yellow text-black font-bold px-3 py-1 text-xs sm:text-sm"
               data-testid="badge-fleet-section"
             >
               OUR FLEET
             </Badge>
             <h2 
-              className="text-4xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white"
+              className="text-2xl sm:text-4xl md:text-5xl font-bold mb-2 sm:mb-4 text-gray-900 dark:text-white"
               data-testid="heading-fleet-section"
             >
               Choose Your Perfect Boat
             </h2>
             <p 
-              className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto"
+              className="text-sm sm:text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto"
               data-testid="text-fleet-intro"
             >
-              Custom-built high-end single-deck party boats for groups from 1-75 guests
+              Custom-built party boats for 1-75 guests
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-7xl mx-auto">
             {boats.map((boat, index) => (
               <motion.div
                 key={boat.id}
@@ -383,24 +383,24 @@ export default function FleetSection() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
-                <Card className={`relative overflow-hidden h-full hover:shadow-2xl transition-all duration-300 ${boat.highlighted ? 'ring-2 ring-brand-yellow' : ''}`}>
-                  <div className="relative h-64 overflow-hidden">
+                <Card className={`relative overflow-hidden h-full hover:shadow-xl transition-all duration-300 ${boat.highlighted ? 'ring-2 ring-brand-yellow' : ''}`}>
+                  <div className="relative h-40 sm:h-52 overflow-hidden">
                     <LazyImage
                       src={boat.heroImage}
                       alt={`${boat.name} party boat Lake Travis`}
-                      className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
+                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                     />
                     {boat.highlighted && (
                       <Badge 
-                        className="absolute top-4 right-4 bg-brand-yellow text-black font-bold"
+                        className="absolute top-2 right-2 bg-brand-yellow text-black font-bold text-[10px] sm:text-xs px-1.5 py-0.5"
                         data-testid={`badge-popular-${boat.id}`}
                       >
-                        MOST POPULAR
+                        POPULAR
                       </Badge>
                     )}
                     {boat.availabilityNote && (
                       <Badge 
-                        className="absolute top-4 left-4 bg-green-600 text-white font-bold"
+                        className="absolute top-2 left-2 bg-green-600 text-white font-bold text-[10px] sm:text-xs px-1.5 py-0.5"
                         data-testid={`badge-availability-${boat.id}`}
                       >
                         {boat.availabilityNote}
@@ -408,72 +408,89 @@ export default function FleetSection() {
                     )}
                     <button
                       onClick={() => openDialog(boat)}
-                      className="absolute bottom-4 right-4 bg-black/70 hover:bg-black/90 text-white text-sm px-3 py-2 rounded-lg flex items-center gap-2 transition-all"
+                      className="absolute bottom-2 right-2 bg-black/70 hover:bg-black/90 text-white text-[10px] sm:text-xs px-2 py-1 rounded flex items-center gap-1 transition-all"
                       data-testid={`button-view-${boat.id}-gallery`}
                     >
-                      <Eye className="h-4 w-4" />
-                      <span>Click to view more pics</span>
+                      <Eye className="h-3 w-3" />
+                      <span>More pics</span>
                     </button>
                   </div>
 
-                  <CardContent className="p-6">
-                    <h3 className="text-2xl font-bold mb-2 text-gray-900 dark:text-white" data-testid={`text-boat-name-${boat.id}`}>
+                  <CardContent className="p-3 sm:p-4">
+                    <h3 className="text-lg sm:text-xl font-bold mb-1 text-gray-900 dark:text-white" data-testid={`text-boat-name-${boat.id}`}>
                       {boat.displayName}
                     </h3>
-                    <p className="text-gray-600 dark:text-gray-400 mb-4">{boat.description}</p>
+                    <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mb-2 line-clamp-2">{boat.description}</p>
 
-                    <div className="space-y-3 mb-6">
-                      <div className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
-                        <Users className="h-5 w-5 text-brand-blue flex-shrink-0" />
-                        <span data-testid={`text-capacity-${boat.id}`}><strong>Capacity:</strong> {boat.capacity}</span>
+                    {/* Compact Info Grid */}
+                    <div className="grid grid-cols-2 gap-x-2 gap-y-1 text-xs sm:text-sm mb-2 pb-2 border-b border-gray-200 dark:border-gray-700">
+                      <div className="flex items-center gap-1" data-testid={`text-capacity-${boat.id}`}>
+                        <Users className="h-3 w-3 sm:h-4 sm:w-4 text-brand-blue flex-shrink-0" />
+                        <span className="text-gray-700 dark:text-gray-300"><strong>{boat.capacity}</strong></span>
                       </div>
-
-                      <div className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
-                        <Ship className="h-5 w-5 text-brand-blue flex-shrink-0" />
-                        <span data-testid={`text-seats-${boat.id}`}><strong>Seats:</strong> {boat.seatingCapacity} comfortably</span>
+                      <div className="flex items-center gap-1" data-testid={`text-seats-${boat.id}`}>
+                        <Ship className="h-3 w-3 sm:h-4 sm:w-4 text-brand-blue flex-shrink-0" />
+                        <span className="text-gray-700 dark:text-gray-300"><strong>{boat.seatingCapacity}</strong> seats</span>
                       </div>
+                    </div>
 
-                      <div className="flex items-start gap-2 text-gray-700 dark:text-gray-300">
-                        <DollarSign className="h-5 w-5 text-brand-blue mt-0.5 flex-shrink-0" />
-                        <div>
-                          <div className="font-semibold mb-1">Pricing (4hr cruise):</div>
-                          <div className="text-sm space-y-1">
-                            <div data-testid={`text-price-weekday-${boat.id}`}>Mon-Thu: {formatCurrency(boat.baseRate4Hr.weekday)}</div>
-                            <div data-testid={`text-price-friday-${boat.id}`}>Friday: {formatCurrency(boat.baseRate4Hr.friday)}</div>
-                            <div data-testid={`text-price-saturday-${boat.id}`}>Saturday: {formatCurrency(boat.baseRate4Hr.saturday)}</div>
-                            <div data-testid={`text-price-sunday-${boat.id}`}>Sunday: {formatCurrency(boat.baseRate4Hr.sunday)}</div>
-                          </div>
-                          {boat.crewFeeNote && (
-                            <p 
-                              className="text-xs text-gray-500 dark:text-gray-400 mt-2 italic"
-                              data-testid={`text-crew-fee-${boat.id}`}
-                            >
-                              *{boat.crewFeeNote}
-                            </p>
-                          )}
+                    {/* Compact Pricing Table */}
+                    <div className="mb-2">
+                      <div className="flex items-center gap-1 mb-1">
+                        <DollarSign className="h-3 w-3 sm:h-4 sm:w-4 text-brand-blue" />
+                        <span className="text-xs font-semibold text-gray-900 dark:text-white">4hr Pricing</span>
+                      </div>
+                      <div className="grid grid-cols-2 gap-x-2 gap-y-0.5 text-[11px] sm:text-xs text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-gray-800 rounded p-1.5">
+                        <div className="flex justify-between" data-testid={`text-price-weekday-${boat.id}`}>
+                          <span>Mon-Thu</span>
+                          <span className="font-semibold">{formatCurrency(boat.baseRate4Hr.weekday)}</span>
+                        </div>
+                        <div className="flex justify-between" data-testid={`text-price-friday-${boat.id}`}>
+                          <span>Friday</span>
+                          <span className="font-semibold">{formatCurrency(boat.baseRate4Hr.friday)}</span>
+                        </div>
+                        <div className="flex justify-between" data-testid={`text-price-saturday-${boat.id}`}>
+                          <span>Saturday</span>
+                          <span className="font-semibold">{formatCurrency(boat.baseRate4Hr.saturday)}</span>
+                        </div>
+                        <div className="flex justify-between" data-testid={`text-price-sunday-${boat.id}`}>
+                          <span>Sunday</span>
+                          <span className="font-semibold">{formatCurrency(boat.baseRate4Hr.sunday)}</span>
                         </div>
                       </div>
+                      {boat.crewFeeNote && (
+                        <p className="text-[10px] text-gray-500 dark:text-gray-400 mt-1 italic" data-testid={`text-crew-fee-${boat.id}`}>
+                          *{boat.crewFeeNote}
+                        </p>
+                      )}
+                    </div>
 
-                      <div className="flex items-start gap-2 text-gray-700 dark:text-gray-300">
-                        <Package className="h-5 w-5 text-brand-blue mt-0.5 flex-shrink-0" />
-                        <div>
-                          <div className="font-semibold mb-1">Packages Available:</div>
-                          <div className="text-sm space-y-1">
-                            <div data-testid={`text-package-standard-${boat.id}`}>✓ Standard (included)</div>
-                            <div data-testid={`text-package-essentials-${boat.id}`}>✓ Essentials (+{formatCurrency(boat.packages.essentials)})</div>
-                            <div data-testid={`text-package-ultimate-${boat.id}`}>✓ Ultimate (+{formatCurrency(boat.packages.ultimate)})</div>
-                          </div>
-                        </div>
+                    {/* Compact Packages Row */}
+                    <div className="mb-3">
+                      <div className="flex items-center gap-1 mb-1">
+                        <Package className="h-3 w-3 sm:h-4 sm:w-4 text-brand-blue" />
+                        <span className="text-xs font-semibold text-gray-900 dark:text-white">Packages</span>
+                      </div>
+                      <div className="flex flex-wrap gap-1 text-[10px] sm:text-xs">
+                        <span className="bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 px-1.5 py-0.5 rounded" data-testid={`text-package-standard-${boat.id}`}>
+                          Standard
+                        </span>
+                        <span className="bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 px-1.5 py-0.5 rounded" data-testid={`text-package-essentials-${boat.id}`}>
+                          Essentials +{formatCurrency(boat.packages.essentials)}
+                        </span>
+                        <span className="bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-300 px-1.5 py-0.5 rounded" data-testid={`text-package-ultimate-${boat.id}`}>
+                          Ultimate +{formatCurrency(boat.packages.ultimate)}
+                        </span>
                       </div>
                     </div>
 
                     <Button
                       onClick={() => openDialog(boat)}
-                      className="w-full bg-brand-blue hover:bg-brand-blue/90 text-white"
+                      className="w-full bg-brand-blue hover:bg-brand-blue/90 text-white text-xs sm:text-sm py-2"
                       data-testid={`button-view-${boat.id}-details`}
                     >
                       View Photos & Details
-                      <ArrowRight className="ml-2 h-4 w-4" />
+                      <ArrowRight className="ml-1 h-3 w-3 sm:h-4 sm:w-4" />
                     </Button>
                   </CardContent>
                 </Card>
@@ -487,19 +504,19 @@ export default function FleetSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="text-center mt-12"
+            className="text-center mt-6 sm:mt-10"
           >
-            <p className="text-lg text-gray-600 dark:text-gray-300 mb-4">
+            <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 mb-2 sm:mb-4">
               Ready to book your Lake Travis adventure?
             </p>
             <a href="#quote-builder">
               <Button
-                size="lg"
-                className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-lg px-8 py-6"
+                size="default"
+                className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-sm sm:text-base px-6 py-3 sm:px-8 sm:py-4"
                 data-testid="button-fleet-to-quote"
               >
                 Get Instant Quote
-                <ArrowRight className="ml-2 h-5 w-5" />
+                <ArrowRight className="ml-1 sm:ml-2 h-4 w-4 sm:h-5 sm:w-5" />
               </Button>
             </a>
           </motion.div>
