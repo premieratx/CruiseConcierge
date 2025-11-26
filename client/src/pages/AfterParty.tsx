@@ -225,8 +225,8 @@ export default function AfterParty() {
             style={{ border: 'none' }}
             data-testid="youtube-background-video"
           />
-          {/* White Overlay for contrast - 75% opacity */}
-          <div className="absolute inset-0 bg-white/75"></div>
+          {/* Gradient overlay for contrast */}
+          <div className="absolute inset-0 bg-gradient-to-b from-white/50 via-white/30 to-white/50"></div>
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-6 flex-grow flex items-center w-full">

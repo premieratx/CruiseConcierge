@@ -272,8 +272,8 @@ export default function Sweet16() {
             style={{ border: 'none' }}
             data-testid="youtube-background-video"
           />
-          {/* White Overlay for contrast - 75% opacity */}
-          <div className="absolute inset-0 bg-white/75"></div>
+          {/* Gradient overlay for contrast */}
+          <div className="absolute inset-0 bg-gradient-to-b from-white/50 via-white/30 to-white/50"></div>
         </div>
 
         {/* Main Hero Content */}

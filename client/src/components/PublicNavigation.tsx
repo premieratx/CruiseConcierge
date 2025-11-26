@@ -574,9 +574,10 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
       {/* Bottom spacer for mobile bottom nav */}
       <div className="h-16 lg:hidden" />
 
-      {/* Mobile Menu Sheet */}
-      <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
-        <SheetContent side="left" className="w-[300px] sm:w-[350px] overflow-y-auto">
+      {/* Mobile Menu Sheet - Only render when open to prevent overlay issues */}
+      {mobileMenuOpen && (
+        <Sheet open={true} onOpenChange={setMobileMenuOpen}>
+          <SheetContent side="left" className="w-[300px] sm:w-[350px] overflow-y-auto">
           <SheetHeader>
             <SheetTitle>Menu</SheetTitle>
           </SheetHeader>
@@ -702,8 +703,9 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
               </button>
             </div>
           </div>
-        </SheetContent>
-      </Sheet>
+          </SheetContent>
+        </Sheet>
+      )}
     </>
   );
 }
