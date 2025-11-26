@@ -17,26 +17,6 @@
   background: transparent;
 }
 
-/* CRITICAL: Prevent external script overlays (Xola, etc.) from blocking mobile content */
-/* These selectors target common overlay patterns used by third-party widgets */
-body > div[style*="position: fixed"][style*="inset"],
-body > div[style*="position: fixed"][style*="z-index"],
-body > div[style*="position:fixed"][style*="background"],
-body > div[class*="overlay"]:not(#root *),
-body > div[class*="modal"]:not(#root *),
-body > div[class*="backdrop"]:not(#root *) {
-  /* Only show if they contain actual visible content */
-  pointer-events: none;
-}
-
-/* Xola checkout slide-out - ensure it doesn't block page accidentally */
-.xola-checkout-container,
-.xola-overlay,
-[data-xola-container] {
-  /* Allow Xola to function normally but prevent blocking page load */
-  z-index: 9999 !important;
-}
-
 /* CRITICAL CLS FIX: Font loading optimization with size-adjust to prevent layout shift */
 @font-face {
   font-family: 'DM Sans Fallback';
