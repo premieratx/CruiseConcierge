@@ -201,11 +201,12 @@
         });
       }
     </script>
-    <!-- Xola Checkout Script - CRITICAL: Load synchronously before React -->
+    <!-- Xola Checkout Script - Load asynchronously to prevent blocking -->
     <script 
       type="text/javascript" 
       src="https://xola.com/checkout.js"
       crossorigin="anonymous"
+      async
     ></script>
     
     <script type="module" src="/src/main.tsx"></script>
