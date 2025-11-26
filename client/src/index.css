@@ -339,11 +339,9 @@
     hyphens: auto;
   }
   
-  /* CRITICAL CLS FIX: Ensure #root has stable dimensions during hydration */
+  /* Ensure #root has stable dimensions during hydration */
   #root {
     min-height: 100vh;
-    /* Prevent content from shifting during React hydration */
-    contain: layout style paint;
   }
   
   /* ============================================ */
