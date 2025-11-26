@@ -14,7 +14,6 @@
 /* Min-height for #root to prevent layout shift during hydration */
 #root {
   min-height: 600px;
-  contain: layout style paint;
 }
 
 /* CRITICAL CLS FIX: Font loading optimization with size-adjust to prevent layout shift */
