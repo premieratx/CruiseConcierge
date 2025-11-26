@@ -488,9 +488,9 @@ export default function Settings() {
                       <div className="bg-gray-50 border rounded-lg p-3">
                         <h4 className="font-semibold text-sm mb-2">💳 Payment Integration</h4>
                         <ul className="text-xs text-gray-600 space-y-1">
-                          <li>✅ Stripe payment processing</li>
+                          <li>✅ Xola payment processing</li>
                           <li>✅ Deposit and full payment options</li>
-                          <li>✅ Payment intent validation</li>
+                          <li>✅ Secure checkout flow</li>
                           <li>✅ Atomic booking creation</li>
                         </ul>
                       </div>
@@ -559,7 +559,7 @@ export default function Settings() {
                       <div>
                         <h5 className="font-semibold text-red-700">💰 Payment Processing</h5>
                         <ul className="text-xs text-red-600 list-disc list-inside">
-                          <li>Stripe integration</li>
+                          <li>Xola integration</li>
                           <li>Deposit vs full payment</li>
                           <li>Payment confirmation flow</li>
                         </ul>
@@ -959,7 +959,7 @@ export default function Settings() {
                       </div>
                       <div className="p-3 border rounded-lg bg-green-50 dark:bg-green-900/20">
                         <div className="font-medium">Payment Processing</div>
-                        <div className="text-sm text-muted-foreground">Stripe integration, deposits, full payments - EXISTING SYSTEM</div>
+                        <div className="text-sm text-muted-foreground">Xola integration, deposits, full payments - EXISTING SYSTEM</div>
                       </div>
                       <div className="p-3 border rounded-lg bg-blue-50 dark:bg-blue-900/20">
                         <div className="font-medium">Website Builder</div>

@@ -1253,7 +1253,7 @@ export const PRICING_POLICIES = {
       bankTransfer: '1-3 business days',
       check: '5-7 business days to clear'
     },
-    securityNote: 'All payments are processed securely through Stripe'
+    securityNote: 'All payments are processed securely'
   },
   cancellation: {
     policy: 'Cancellation and refund terms vary by booking date and circumstances',

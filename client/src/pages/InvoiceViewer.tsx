@@ -53,7 +53,7 @@ export default function InvoiceViewer() {
       return res.json();
     },
     onSuccess: (data) => {
-      // Redirect to Stripe checkout
+      // Redirect to checkout
       window.location.href = data.url;
     },
     onError: (error: any) => {
@@ -553,7 +553,7 @@ export default function InvoiceViewer() {
                 <div className="space-y-3">
                   <div className="bg-blue-50 p-4 rounded-lg">
                     <p className="text-sm text-blue-800">
-                      🔒 <strong>Secure Payment:</strong> All transactions are processed securely through Stripe. 
+                      🔒 <strong>Secure Payment:</strong> All transactions are processed securely. 
                       Your payment information is encrypted and never stored on our servers.
                     </p>
                   </div>

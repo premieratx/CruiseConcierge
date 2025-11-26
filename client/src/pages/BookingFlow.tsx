@@ -400,7 +400,7 @@ export default function BookingFlow() {
       });
       
       if (response.checkoutUrl) {
-        // Redirect to Stripe checkout
+        // Redirect to checkout
         window.location.href = response.checkoutUrl;
         return response;
       } else {
@@ -408,7 +408,7 @@ export default function BookingFlow() {
       }
     },
     onSuccess: (data: any) => {
-      // This will redirect to Stripe, so we don't need to handle success here
+      // This will redirect to checkout, so we don't need to handle success here
     },
     onError: (error: any) => {
       setIsProcessing(false);
@@ -1206,7 +1206,7 @@ export default function BookingFlow() {
                         <CreditCard className="h-16 w-16 text-blue-500 mx-auto mb-4" />
                         <h3 className="text-lg font-semibold mb-2" data-testid="text-payment-ready-title">Ready to Complete Your Booking</h3>
                         <p className="text-gray-600 dark:text-gray-300 mb-6" data-testid="text-payment-ready-description">
-                          Click below to proceed to our secure payment page powered by Stripe
+                          Click below to proceed to our secure payment page
                         </p>
                         {pricing && (
                           <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg mb-6">

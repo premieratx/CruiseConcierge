@@ -35,11 +35,11 @@ export function IntegrationStatus() {
         lastSync: new Date(Date.now() - 5 * 60 * 1000), // 5 minutes ago
       },
       {
-        id: 'stripe',
-        name: 'Stripe Payments',
-        icon: 'fab fa-stripe',
-        status: (import.meta.env.VITE_STRIPE_PUBLIC_KEY || import.meta.env.TESTING_VITE_STRIPE_PUBLIC_KEY) ? 'connected' : 'disconnected',
-        description: 'Payment processing',
+        id: 'xola',
+        name: 'Xola Bookings',
+        icon: 'fas fa-calendar-check',
+        status: 'connected',
+        description: 'Online booking system',
         lastSync: new Date(Date.now() - 2 * 60 * 1000), // 2 minutes ago
       },
       {

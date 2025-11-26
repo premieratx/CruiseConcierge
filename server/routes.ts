@@ -1,6 +1,5 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
-import Stripe from "stripe";
 import path from "path";
 import { createReadStream, existsSync, statSync } from "fs";
 import { db } from "./db";
@@ -4560,26 +4559,6 @@ async function calculateInvoiceTotalsWithPricingSettings(items: any[], quoteId?:
   };
 }
 
-// Lazy Stripe initialization - only create when needed for payment operations
-let stripe: Stripe | null = null;
-
-const getStripe = () => {
-  if (!stripe && process.env.STRIPE_SECRET_KEY) {
-    try {
-      stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-        apiVersion: '2024-06-20',
-      });
-      console.log('✅ Stripe initialized on-demand');
-    } catch (error) {
-      console.error('Failed to initialize Stripe:', error);
-      throw new Error('Payment service initialization failed');
-    }
-  } else if (!process.env.STRIPE_SECRET_KEY) {
-    console.warn('STRIPE_SECRET_KEY not configured. Payment functionality will be mocked.');
-    return null;
-  }
-  return stripe;
-};
 
 // Helper functions for sending quotes
 async function sendQuoteEmail(quoteId: string, email: string, personalMessage?: string) {

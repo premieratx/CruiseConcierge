@@ -23,7 +23,7 @@ export interface SSEConnection {
 /**
  * Custom hook for Server-Sent Events (SSE) cache invalidation
  * Connects to the backend SSE endpoint and invalidates TanStack Query keys
- * when real-time booking events occur (Stripe payments, admin bookings, disco tickets)
+ * when real-time booking events occur (admin bookings, disco tickets)
  */
 export const useSSE = (): SSEConnection => {
   const queryClient = useQueryClient();

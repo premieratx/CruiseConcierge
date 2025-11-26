@@ -461,7 +461,7 @@ export default function Documentation() {
                   <div className="flex-1">
                     <h4 className="font-semibold">Payment Processing</h4>
                     <p className="text-sm text-muted-foreground mt-1">
-                      Stripe integration for deposit/full payment collection
+                      Xola integration for deposit/full payment collection
                     </p>
                   </div>
                 </div>
