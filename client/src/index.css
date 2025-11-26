@@ -11,9 +11,10 @@
   display: none !important;
 }
 
-/* Min-height for #root to prevent layout shift during hydration */
+/* Root element - no min-height to prevent white flash on mobile */
 #root {
-  min-height: 600px;
+  min-height: 0;
+  background: transparent;
 }
 
 /* CRITICAL CLS FIX: Font loading optimization with size-adjust to prevent layout shift */
