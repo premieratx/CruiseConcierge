@@ -566,28 +566,28 @@ export default function Home() {
               </h2>
             </motion.div>
 
-            {/* Pricing Value Proposition */}
+            {/* Pricing Value Proposition - Smaller & 60% opacity on mobile */}
             <motion.div 
               variants={reducedMotion ? undefined : fadeInUp}
-              className="bg-white border border-gray-200 rounded-xl p-3 sm:p-4 max-w-2xl mx-auto mb-8 md:mb-12"
+              className="bg-white/60 sm:bg-white border border-gray-200/60 sm:border-gray-200 rounded-lg sm:rounded-xl p-2 sm:p-4 max-w-xs sm:max-w-2xl mx-auto mb-6 md:mb-12 backdrop-blur-sm sm:backdrop-blur-none"
             >
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 text-center">
+              <div className="grid grid-cols-2 sm:grid-cols-2 gap-2 sm:gap-4 text-center">
                 <div>
-                  <div className="font-sans tracking-wider font-bold uppercase text-xs text-blue-600 mb-1" data-editable data-editable-id="pricing-overlay-private-label">PRIVATE CRUISES FROM</div>
-                  <div className="text-xl sm:text-2xl font-bold text-gray-900 mb-1" data-editable data-editable-id="pricing-overlay-private-price">
-                    $1,050 for 4 hours
+                  <div className="font-sans tracking-wider font-bold uppercase text-[10px] sm:text-xs text-blue-600 mb-0.5 sm:mb-1" data-editable data-editable-id="pricing-overlay-private-label">PRIVATE FROM</div>
+                  <div className="text-base sm:text-2xl font-bold text-gray-900 mb-0.5 sm:mb-1" data-editable data-editable-id="pricing-overlay-private-price">
+                    $1,050
                   </div>
-                  <div className="text-xs text-gray-700" data-editable data-editable-id="pricing-overlay-private-subtitle">Weekdays • 14+ people</div>
+                  <div className="text-[10px] sm:text-xs text-gray-700" data-editable data-editable-id="pricing-overlay-private-subtitle">4 hrs • 14+ ppl</div>
                 </div>
                 <div>
-                  <div className="font-sans tracking-wider font-bold uppercase text-xs text-blue-600 mb-1" data-editable data-editable-id="pricing-overlay-disco-label">ATX DISCO CRUISES</div>
-                  <div className="text-xl sm:text-2xl font-bold text-gray-900 mb-1" data-editable data-editable-id="pricing-overlay-disco-price">
+                  <div className="font-sans tracking-wider font-bold uppercase text-[10px] sm:text-xs text-blue-600 mb-0.5 sm:mb-1" data-editable data-editable-id="pricing-overlay-disco-label">DISCO CRUISE</div>
+                  <div className="text-base sm:text-2xl font-bold text-gray-900 mb-0.5 sm:mb-1" data-editable data-editable-id="pricing-overlay-disco-price">
                     $85/person
                   </div>
-                  <div className="text-xs text-gray-700" data-editable data-editable-id="pricing-overlay-disco-subtitle">Friday & Saturday</div>
+                  <div className="text-[10px] sm:text-xs text-gray-700" data-editable data-editable-id="pricing-overlay-disco-subtitle">Fri & Sat</div>
                 </div>
               </div>
-              <div className="text-center mt-2 md:mt-3 text-xs text-blue-600 font-medium" data-editable data-editable-id="pricing-overlay-tagline">
+              <div className="text-center mt-1.5 sm:mt-3 text-[10px] sm:text-xs text-blue-600 font-medium hidden sm:block" data-editable data-editable-id="pricing-overlay-tagline">
                 ✨ Transparent pricing • No hidden fees • Best value guaranteed
               </div>
             </motion.div>
