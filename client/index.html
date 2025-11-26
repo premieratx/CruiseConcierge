@@ -82,14 +82,22 @@
         position: relative;
       }
       
-      /* Navigation bar critical styles */
-      nav {
+      /* Navigation bar critical styles - target ONLY header nav, not mobile bottom nav */
+      header nav,
+      nav[data-testid="main-nav"] {
         position: fixed;
         top: 0;
         width: 100%;
         z-index: 50;
         background: rgba(255, 255, 255, 0.95);
         backdrop-filter: blur(10px);
+      }
+      
+      /* Ensure mobile bottom nav stays at bottom */
+      nav[data-testid="mobile-bottom-nav"] {
+        position: fixed !important;
+        top: auto !important;
+        bottom: 0 !important;
       }
       
       /* Hero content critical styles to prevent CLS */
