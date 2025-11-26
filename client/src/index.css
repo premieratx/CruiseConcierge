@@ -340,9 +340,10 @@
     hyphens: auto;
   }
   
-  /* Ensure #root has stable dimensions during hydration */
+  /* Root element - no min-height to prevent white flash on mobile */
   #root {
-    min-height: 100vh;
+    min-height: 0;
+    background: transparent;
   }
   
   /* ============================================ */
