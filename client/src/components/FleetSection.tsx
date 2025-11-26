@@ -523,116 +523,125 @@ export default function FleetSection() {
         </div>
       </section>
 
-      {/* Boat Details Dialog */}
+      {/* Boat Details Dialog - Mobile Optimized */}
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+        <DialogContent className="w-[95vw] max-w-4xl max-h-[85vh] overflow-y-auto p-3 sm:p-6">
           {selectedBoat && (
             <>
-              <DialogHeader>
-                <DialogTitle className="text-3xl font-bold">{selectedBoat.displayName}</DialogTitle>
+              <DialogHeader className="pb-2">
+                <DialogTitle className="text-xl sm:text-2xl font-bold pr-8">{selectedBoat.displayName}</DialogTitle>
               </DialogHeader>
               
-              {/* Image Gallery */}
-              <div className="relative w-full aspect-video bg-gray-100 rounded-lg overflow-hidden">
+              {/* Image Gallery - Mobile Optimized */}
+              <div className="relative w-full aspect-[4/3] sm:aspect-video bg-gray-100 rounded-lg overflow-hidden">
                 <img
                   src={selectedBoat.galleryImages[currentImageIndex]?.src}
                   alt={selectedBoat.galleryImages[currentImageIndex]?.alt}
                   className="w-full h-full object-cover"
                 />
                 
-                {/* Navigation Arrows */}
+                {/* Navigation Arrows - Touch Friendly */}
                 {selectedBoat.galleryImages.length > 1 && (
                   <>
                     <button
                       onClick={handlePrevious}
-                      className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-all"
+                      className="absolute left-1 sm:left-3 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/80 active:bg-black/90 text-white p-2 sm:p-3 rounded-full transition-all touch-manipulation"
                       data-testid="button-previous-image"
                     >
-                      <ChevronLeft className="h-6 w-6" />
+                      <ChevronLeft className="h-5 w-5 sm:h-6 sm:w-6" />
                     </button>
                     <button
                       onClick={handleNext}
-                      className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-all"
+                      className="absolute right-1 sm:right-3 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/80 active:bg-black/90 text-white p-2 sm:p-3 rounded-full transition-all touch-manipulation"
                       data-testid="button-next-image"
                     >
-                      <ChevronRight className="h-6 w-6" />
+                      <ChevronRight className="h-5 w-5 sm:h-6 sm:w-6" />
                     </button>
                     
                     {/* Image Counter */}
-                    <div className="absolute bottom-4 right-4 bg-black/70 text-white px-3 py-1 rounded-full text-sm">
+                    <div className="absolute top-2 right-2 sm:bottom-3 sm:right-3 sm:top-auto bg-black/70 text-white px-2 py-1 rounded-full text-xs sm:text-sm">
                       {currentImageIndex + 1} / {selectedBoat.galleryImages.length}
                     </div>
                   </>
                 )}
                 
-                {/* Image Title */}
+                {/* Image Title - Hidden on mobile, shown on desktop */}
                 {selectedBoat.galleryImages[currentImageIndex]?.title && (
-                  <div className="absolute bottom-4 left-4 bg-black/70 text-white px-4 py-2 rounded-lg">
-                    <p className="font-semibold">{selectedBoat.galleryImages[currentImageIndex]?.title}</p>
+                  <div className="hidden sm:block absolute bottom-3 left-3 bg-black/70 text-white px-3 py-2 rounded-lg max-w-[60%]">
+                    <p className="font-semibold text-sm">{selectedBoat.galleryImages[currentImageIndex]?.title}</p>
                     {selectedBoat.galleryImages[currentImageIndex]?.description && (
-                      <p className="text-sm text-gray-300">{selectedBoat.galleryImages[currentImageIndex]?.description}</p>
+                      <p className="text-xs text-gray-300 line-clamp-2">{selectedBoat.galleryImages[currentImageIndex]?.description}</p>
                     )}
                   </div>
                 )}
               </div>
+
+              {/* Image Title - Mobile Only (Below Image) */}
+              {selectedBoat.galleryImages[currentImageIndex]?.title && (
+                <div className="sm:hidden text-center py-2 border-b border-gray-200 dark:border-gray-700">
+                  <p className="font-semibold text-sm text-gray-900 dark:text-white">{selectedBoat.galleryImages[currentImageIndex]?.title}</p>
+                </div>
+              )}
               
-              {/* Boat Details */}
-              <div className="space-y-4 mt-4">
-                <p className="text-gray-700 dark:text-gray-300">{selectedBoat.description}</p>
+              {/* Boat Details - Compact Mobile Layout */}
+              <div className="space-y-3 mt-3">
+                <p className="text-sm text-gray-700 dark:text-gray-300">{selectedBoat.description}</p>
                 
-                {/* Capacity */}
-                <div className="flex items-center gap-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
-                  <Users className="h-6 w-6 text-brand-blue" />
-                  <div>
-                    <p className="font-semibold text-gray-900 dark:text-white">Capacity: {selectedBoat.capacity}</p>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">Seats {selectedBoat.seatingCapacity} comfortably</p>
+                {/* Capacity - Compact */}
+                <div className="flex items-center gap-2 p-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+                  <Users className="h-5 w-5 text-brand-blue flex-shrink-0" />
+                  <div className="flex flex-wrap gap-x-3 text-sm">
+                    <span className="font-semibold text-gray-900 dark:text-white">{selectedBoat.capacity}</span>
+                    <span className="text-gray-600 dark:text-gray-400">• {selectedBoat.seatingCapacity} seats</span>
                   </div>
                 </div>
                 
-                {/* Pricing */}
-                <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                  <div className="flex items-start gap-3 mb-2">
-                    <DollarSign className="h-6 w-6 text-brand-blue mt-1" />
-                    <div className="flex-1">
-                      <p className="font-semibold text-gray-900 dark:text-white mb-2">Pricing (4hr cruise):</p>
-                      <div className="grid grid-cols-2 gap-2 text-sm">
-                        <div><span className="font-medium">Mon-Thu:</span> {formatCurrency(selectedBoat.baseRate4Hr.weekday)}</div>
-                        <div><span className="font-medium">Friday:</span> {formatCurrency(selectedBoat.baseRate4Hr.friday)}</div>
-                        <div><span className="font-medium">Saturday:</span> {formatCurrency(selectedBoat.baseRate4Hr.saturday)}</div>
-                        <div><span className="font-medium">Sunday:</span> {formatCurrency(selectedBoat.baseRate4Hr.sunday)}</div>
-                      </div>
-                      {selectedBoat.crewFeeNote && (
-                        <p className="text-xs text-gray-500 dark:text-gray-400 mt-2 italic">*{selectedBoat.crewFeeNote}</p>
-                      )}
-                    </div>
+                {/* Pricing - Compact Grid */}
+                <div className="p-2 sm:p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                  <div className="flex items-center gap-2 mb-2">
+                    <DollarSign className="h-4 w-4 text-brand-blue" />
+                    <span className="font-semibold text-sm text-gray-900 dark:text-white">4hr Pricing</span>
                   </div>
+                  <div className="grid grid-cols-2 gap-x-3 gap-y-1 text-xs sm:text-sm">
+                    <div className="flex justify-between"><span>Mon-Thu</span><span className="font-semibold">{formatCurrency(selectedBoat.baseRate4Hr.weekday)}</span></div>
+                    <div className="flex justify-between"><span>Friday</span><span className="font-semibold">{formatCurrency(selectedBoat.baseRate4Hr.friday)}</span></div>
+                    <div className="flex justify-between"><span>Saturday</span><span className="font-semibold">{formatCurrency(selectedBoat.baseRate4Hr.saturday)}</span></div>
+                    <div className="flex justify-between"><span>Sunday</span><span className="font-semibold">{formatCurrency(selectedBoat.baseRate4Hr.sunday)}</span></div>
+                  </div>
+                  {selectedBoat.crewFeeNote && (
+                    <p className="text-[10px] sm:text-xs text-gray-500 dark:text-gray-400 mt-2 italic">*{selectedBoat.crewFeeNote}</p>
+                  )}
                 </div>
                 
-                {/* Features */}
-                <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                  <p className="font-semibold text-gray-900 dark:text-white mb-2">Features:</p>
-                  <ul className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm text-gray-700 dark:text-gray-300">
-                    {selectedBoat.features.map((feature, index) => (
-                      <li key={index} className="flex items-start gap-2">
-                        <span className="text-brand-blue mt-1">✓</span>
-                        <span>{feature}</span>
+                {/* Features - Compact 2-Column */}
+                <div className="p-2 sm:p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                  <p className="font-semibold text-sm text-gray-900 dark:text-white mb-2">Features</p>
+                  <ul className="grid grid-cols-1 sm:grid-cols-2 gap-1 text-xs sm:text-sm text-gray-700 dark:text-gray-300">
+                    {selectedBoat.features.slice(0, 6).map((feature, index) => (
+                      <li key={index} className="flex items-start gap-1">
+                        <span className="text-brand-blue">✓</span>
+                        <span className="line-clamp-1">{feature}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
                 
-                {/* Packages */}
-                <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                  <div className="flex items-start gap-3">
-                    <Package className="h-6 w-6 text-brand-blue mt-1" />
-                    <div className="flex-1">
-                      <p className="font-semibold text-gray-900 dark:text-white mb-2">Packages Available:</p>
-                      <div className="space-y-1 text-sm">
-                        <div>✓ Standard (included)</div>
-                        <div>✓ Essentials (+{formatCurrency(selectedBoat.packages.essentials)})</div>
-                        <div>✓ Ultimate (+{formatCurrency(selectedBoat.packages.ultimate)})</div>
-                      </div>
-                    </div>
+                {/* Packages - Inline Badges */}
+                <div className="p-2 sm:p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Package className="h-4 w-4 text-brand-blue" />
+                    <span className="font-semibold text-sm text-gray-900 dark:text-white">Packages</span>
+                  </div>
+                  <div className="flex flex-wrap gap-1.5 text-xs">
+                    <span className="bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 px-2 py-1 rounded">
+                      Standard (included)
+                    </span>
+                    <span className="bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 px-2 py-1 rounded">
+                      Essentials +{formatCurrency(selectedBoat.packages.essentials)}
+                    </span>
+                    <span className="bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-300 px-2 py-1 rounded">
+                      Ultimate +{formatCurrency(selectedBoat.packages.ultimate)}
+                    </span>
                   </div>
                 </div>
               </div>
