@@ -63,6 +63,19 @@ export default function SEOHead({
     return `${baseUrl}${url.startsWith('/') ? url : `/${url}`}`;
   };
 
+  // Generate canonical URL - ALWAYS use production domain, strip query params
+  // This prevents "duplicate without user-selected canonical" errors in Google Search Console
+  const getCanonicalUrl = (path: string): string => {
+    const productionDomain = 'https://premierpartycruises.com';
+    // Strip query parameters
+    let cleanPath = path.split('?')[0];
+    // Remove trailing slash (except for root)
+    if (cleanPath.endsWith('/') && cleanPath !== '/') {
+      cleanPath = cleanPath.slice(0, -1);
+    }
+    return `${productionDomain}${cleanPath}`;
+  };
+
   // Prepare the SEO values (SEO data takes precedence over defaults)
   const title = seoData?.metaTitle || defaultTitle;
   const description = seoData?.metaDescription || defaultDescription;
@@ -75,7 +88,8 @@ export default function SEOHead({
   const twitterDescription = seoData?.twitterDescription || ogDescription;
   const twitterImage = ensureAbsoluteUrl(seoData?.twitterImage || image || '/og-default.jpg');
   const twitterCard = seoData?.twitterCard || 'summary_large_image';
-  const canonical = seoData?.canonicalUrl || `${typeof window !== 'undefined' ? window.location.origin : ''}${pageRoute}`;
+  // CRITICAL: Use production domain for canonical, strip query params
+  const canonical = seoData?.canonicalUrl || getCanonicalUrl(pageRoute);
   const robots = seoData?.robotsDirective || 'index, follow';
 
   // SCHEMAS REMOVED: SSR already provides all schema markup on every page
