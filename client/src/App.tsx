@@ -15,6 +15,7 @@ import { ProtectedRoute } from "@/lib/protected-route";
 import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { GlobalInlineEditor } from "@/components/GlobalInlineEditor";
+import { XolaMobileCloseButton } from "@/components/XolaMobileCloseButton";
 
 // Home eagerly loaded for optimal LCP performance
 import Home from "./pages/Home";
@@ -684,6 +685,7 @@ function App() {
                 <GoogleAnalytics />
                 <Toaster />
                 <GlobalInlineEditor />
+                <XolaMobileCloseButton />
                 <ErrorBoundary>
                   <Router />
                 </ErrorBoundary>
