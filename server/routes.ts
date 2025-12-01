@@ -743,8 +743,11 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
       // Inject canonical tag (already defined canonicalUrl above)
       const canonicalTag = `  <link rel="canonical" href="${canonicalUrl}" />`;
       
-      // Inject both schemas and canonical tag before </head>
-      html = html.replace('</head>', `${schemaScript}\n${canonicalTag}\n  </head>`);
+      // AI & Search Engine Indexing - Explicitly allow all crawlers (fixes Semrush AI blocking issue)
+      const robotsMetaTag = `  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />`;
+      
+      // Inject schemas, canonical tag, and robots meta before </head>
+      html = html.replace('</head>', `${schemaScript}\n${canonicalTag}\n${robotsMetaTag}\n  </head>`);
       
       // Update meta tags with post-specific data
       const metaTitle = post.metaTitle || post.title || "Blog Post";
