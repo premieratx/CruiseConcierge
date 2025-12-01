@@ -350,19 +350,6 @@ export default function ATXDiscoCruise() {
       <div className="min-h-screen bg-white dark:bg-gray-950">
         <PublicNavigation />
 
-        {/* Breadcrumbs */}
-        <div className="bg-gray-50 dark:bg-gray-900 py-3">
-          <div className="max-w-7xl mx-auto px-6">
-            <Breadcrumb 
-              items={[
-                { label: 'Home', href: '/' },
-                { label: 'Services', href: '/#services' },
-                { label: 'ATX Disco Cruise' }
-              ]}
-            />
-          </div>
-        </div>
-
         {/* 1. HERO SECTION */}
         <motion.section 
           id="hero"
@@ -451,9 +438,6 @@ export default function ATXDiscoCruise() {
             </div>
           </div>
         </section>
-
-        {/* Table of Contents */}
-        <TableOfContents sections={tocSections} />
 
         {/* 1. PRICING - Friday/Saturday Time Slots (MOVED TO TOP) */}
         <SectionReveal>
