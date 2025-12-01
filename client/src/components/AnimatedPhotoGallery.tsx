@@ -4,14 +4,10 @@ import { LazyImage } from '@/components/LazyImage';
 import Lightbox from '@/components/Lightbox';
 import { cn } from '@/lib/utils';
 
-// PARTY ATMOSPHERE PHOTOS - Only actual party photos with people celebrating
-// Verified: No empty boats, no family photos with children
+// PARTY PHOTOS WITH ATX DISCO CRUISE LOGO - Professional photos by @capitalcityshots
+// VERIFIED: Only bachelor/bachelorette party photos with people celebrating
+// NO collages, NO family photos with children, NO empty boats
 const allPartyPhotos = [
-  '/attached_assets/disco photo collage_1759401302941.png',
-  '/attached_assets/disco unicorn collage - web_1759401302953.png',
-  '/attached_assets/non-bach collage compressed_1759401302954.png',
-  '/attached_assets/atx-disco-cruise-party.jpg',
-  '/attached_assets/bachelor-party-group-guys.jpg',
   '/attached_assets/@capitalcityshots-1_1760080740012.jpg',
   '/attached_assets/@capitalcityshots-2_1760080740017.jpg',
   '/attached_assets/@capitalcityshots-3_1760080740017.jpg',
@@ -19,6 +15,11 @@ const allPartyPhotos = [
   '/attached_assets/@capitalcityshots-5_1760080740018.jpg',
   '/attached_assets/@capitalcityshots-21_1760080807864.jpg',
   '/attached_assets/@capitalcityshots-22_1760080807865.jpg',
+  '/attached_assets/@capitalcityshots-24_1760080807866.jpg',
+  '/attached_assets/@capitalcityshots-25_1760080807866.jpg',
+  '/attached_assets/@capitalcityshots-26_1760080807866.jpg',
+  '/attached_assets/@capitalcityshots-28_1760080807867.jpg',
+  '/attached_assets/@capitalcityshots-29_1760080807867.jpg',
 ];
 
 // Split into rotating sets (6 photos per set for grid display)
