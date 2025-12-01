@@ -35,7 +35,6 @@ import { useToast } from '@/hooks/use-toast';
 import Footer from '@/components/Footer';
 import RelatedLinks from '@/components/RelatedLinks';
 import { ComparisonTable, type ComparisonColumn, type ComparisonRow } from '@/components/ComparisonTable';
-import Breadcrumb from '@/components/Breadcrumb';
 import { FeaturedSnippet, FeaturedSnippetHowTo } from '@/components/FeaturedSnippet';
 import { QuickAnswerBox, QuickAnswerBoxGroup } from '@/components/QuickAnswerBox';
 import { InternalLinkHighlight, InternalLinkHighlightWithArrow } from '@/components/InternalLinkHighlight';
@@ -43,7 +42,6 @@ import { RelatedServicesSection } from '@/components/RelatedServicesSection';
 import { WhatToBring } from '@/components/WhatToBring';
 import { PricingTable } from '@/components/PricingTable';
 import AIOptimizedSection from '@/components/AIOptimizedSection';
-import { TableOfContents } from '@/components/TableOfContents';
 import { StickyCTA } from '@/components/StickyCTA';
 import { VideoTestimonials } from '@/components/VideoTestimonials';
 import { TransportationGuide } from '@/components/TransportationGuide';
@@ -307,21 +305,6 @@ const galleryPhotos = [
   { id: 8, src: heroImage1, alt: 'Bachelor and bachelorette groups celebrating together on Lake Travis' }
 ];
 
-// Table of Contents sections - Updated with comparison
-const tocSections = [
-  { id: 'hero', title: 'Overview', icon: <Sparkles className="h-4 w-4" /> },
-  { id: 'your-options', title: 'Your Two Options', icon: <Target className="h-4 w-4" /> },
-  { id: 'packages', title: 'Packages & Pricing', icon: <Package className="h-4 w-4" /> },
-  { id: 'what-to-expect', title: 'What to Expect', icon: <Star className="h-4 w-4" /> },
-  { id: 'availability', title: 'Availability', icon: <Calendar className="h-4 w-4" /> },
-  { id: 'benefits', title: 'Benefits', icon: <Trophy className="h-4 w-4" /> },
-  { id: 'whats-included', title: "What's Included", icon: <CheckCircle className="h-4 w-4" /> },
-  { id: 'why-choose', title: 'Why Choose Us', icon: <Shield className="h-4 w-4" /> },
-  { id: 'photos', title: 'Photos', icon: <Camera className="h-4 w-4" /> },
-  { id: 'testimonials', title: 'Reviews', icon: <Quote className="h-4 w-4" /> },
-  { id: 'faqs', title: 'FAQs', icon: <HelpCircle className="h-4 w-4" /> }
-];
-
 export default function BacheloretteParty() {
   const [, navigate] = useLocation();
   const { isEditMode } = useInlineEdit();
@@ -426,10 +409,6 @@ export default function BacheloretteParty() {
       />
       
       <PublicNavigation />
-      <Breadcrumb />
-      
-      {/* Table of Contents - Sticky Sidebar */}
-      <TableOfContents sections={tocSections} />
       
       {/* Sticky CTA */}
       <StickyCTA
