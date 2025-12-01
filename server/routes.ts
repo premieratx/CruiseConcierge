@@ -886,6 +886,22 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
     res.redirect(301, '/');
   });
   
+  // SEO: Consolidate duplicate routes to canonical URLs
+  // /blog → /blogs (canonical blog listing)
+  app.get('/blog', (req, res) => {
+    res.redirect(301, '/blogs');
+  });
+  
+  // /book-online → /book-now (canonical booking page)
+  app.get('/book-online', (req, res) => {
+    res.redirect(301, '/book-now');
+  });
+  
+  // /book-online-popup → /book-now (same canonical)
+  app.get('/book-online-popup', (req, res) => {
+    res.redirect(301, '/book-now');
+  });
+  
   // ==========================================
   // SITEMAP.XML - MOVED TO server/index.ts
   // ==========================================

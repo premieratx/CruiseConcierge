@@ -345,14 +345,14 @@ function Router() {
         <Chat />
       </Route>
       
-      {/* Book Online with Xola Widgets - No auth required */}
+      {/* Book Online redirects to /book-now (SEO canonical) */}
       <Route path="/book-online">
-        <BookOnline />
+        <Redirect to="/book-now" />
       </Route>
       
-      {/* Book Online Pop-Up with Xola Widgets - No auth required */}
+      {/* Book Online Pop-Up redirects to /book-now (SEO canonical) */}
       <Route path="/book-online-popup">
-        <BookOnlinePopUp />
+        <Redirect to="/book-now" />
       </Route>
       
       {/* Book Now - FRESH Xola Integration - No auth required */}
@@ -625,12 +625,22 @@ function Router() {
         </ProtectedRoute>
       </Route>
       
-      {/* Public Blog Routes - Specific routes must come before generic ones */}
-      <Route path="/blog" component={Blog} />
-      <Route path="/blog/category/:slug" component={BlogCategory} />
-      <Route path="/blog/tag/:slug" component={BlogTag} />
-      <Route path="/blog/author/:id" component={BlogAuthor} />
-      <Route path="/blog/:slug" component={BlogPost} />
+      {/* Public Blog Routes - /blogs is canonical, /blog redirects to /blogs */}
+      <Route path="/blog">
+        <Redirect to="/blogs" />
+      </Route>
+      <Route path="/blog/category/:slug">
+        {(params) => <Redirect to={`/blogs/category/${params.slug}`} />}
+      </Route>
+      <Route path="/blog/tag/:slug">
+        {(params) => <Redirect to={`/blogs/tag/${params.slug}`} />}
+      </Route>
+      <Route path="/blog/author/:id">
+        {(params) => <Redirect to={`/blogs/author/${params.id}`} />}
+      </Route>
+      <Route path="/blog/:slug">
+        {(params) => <Redirect to={`/blogs/${params.slug}`} />}
+      </Route>
       <Route path="/blogs" component={Blogs} />
       <Route path="/blogs/category/:slug" component={BlogCategory} />
       <Route path="/blogs/tag/:slug" component={BlogTag} />
