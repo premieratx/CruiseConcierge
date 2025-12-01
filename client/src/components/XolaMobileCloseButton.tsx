@@ -1,60 +1,67 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, useRef } from 'react';
 import { X } from 'lucide-react';
 
 export function XolaMobileCloseButton() {
   const [showCloseButton, setShowCloseButton] = useState(false);
+  const showTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const overlayDetectedRef = useRef(false);
 
   const checkForXolaOverlay = useCallback(() => {
-    // Check for any fixed position overlays that might be Xola
-    const allDivs = document.querySelectorAll('div');
     let hasVisibleOverlay = false;
 
-    allDivs.forEach(el => {
-      const style = window.getComputedStyle(el);
-      const zIndex = parseInt(style.zIndex) || 0;
-      const position = style.position;
-      const display = style.display;
-      const visibility = style.visibility;
-      
-      // Check for high z-index fixed/absolute elements (likely overlays)
-      if (
-        (position === 'fixed' || position === 'absolute') &&
-        zIndex > 1000 &&
-        display !== 'none' &&
-        visibility !== 'hidden'
-      ) {
-        // Check if it covers a significant portion of screen
-        const rect = el.getBoundingClientRect();
-        if (rect.width > window.innerWidth * 0.5 && rect.height > window.innerHeight * 0.3) {
-          hasVisibleOverlay = true;
-        }
-      }
-    });
-
-    // Also check for iframes which might be Xola
+    // Check for iframes (Xola uses iframes)
     const iframes = document.querySelectorAll('iframe');
     iframes.forEach(iframe => {
-      const parent = iframe.parentElement;
-      if (parent) {
-        const style = window.getComputedStyle(parent);
-        if (style.position === 'fixed' && style.display !== 'none') {
+      const src = iframe.src || '';
+      if (src.includes('xola') || src.includes('checkout')) {
+        const rect = iframe.getBoundingClientRect();
+        if (rect.width > 100 && rect.height > 100) {
           hasVisibleOverlay = true;
         }
       }
     });
 
-    // Check body overflow - if scrolling is locked, an overlay is likely open
-    if (document.body.style.overflow === 'hidden') {
+    // Check for fixed position elements with high z-index
+    const allElements = document.querySelectorAll('*');
+    allElements.forEach(el => {
+      const style = window.getComputedStyle(el);
+      const zIndex = parseInt(style.zIndex) || 0;
+      
+      if (style.position === 'fixed' && zIndex > 10000) {
+        const rect = el.getBoundingClientRect();
+        if (rect.width > window.innerWidth * 0.4 && rect.height > window.innerHeight * 0.4) {
+          hasVisibleOverlay = true;
+        }
+      }
+    });
+
+    // Check body overflow
+    const bodyStyle = window.getComputedStyle(document.body);
+    if (bodyStyle.overflow === 'hidden' || document.body.style.overflow === 'hidden') {
       hasVisibleOverlay = true;
     }
 
-    setShowCloseButton(hasVisibleOverlay);
+    // If overlay just appeared, wait 800ms before showing button
+    // This ensures Xola slide-out is fully rendered first
+    if (hasVisibleOverlay && !overlayDetectedRef.current) {
+      overlayDetectedRef.current = true;
+      if (showTimeoutRef.current) {
+        clearTimeout(showTimeoutRef.current);
+      }
+      showTimeoutRef.current = setTimeout(() => {
+        setShowCloseButton(true);
+      }, 800);
+    } else if (!hasVisibleOverlay) {
+      overlayDetectedRef.current = false;
+      if (showTimeoutRef.current) {
+        clearTimeout(showTimeoutRef.current);
+      }
+      setShowCloseButton(false);
+    }
   }, []);
 
   useEffect(() => {
-    let observer: MutationObserver | null = null;
-
-    observer = new MutationObserver(() => {
+    const observer = new MutationObserver(() => {
       checkForXolaOverlay();
     });
 
@@ -65,17 +72,15 @@ export function XolaMobileCloseButton() {
       attributeFilter: ['style', 'class']
     });
 
-    // Initial check
     checkForXolaOverlay();
-
-    // Also check periodically in case mutations are missed
-    const interval = setInterval(checkForXolaOverlay, 500);
+    const interval = setInterval(checkForXolaOverlay, 300);
 
     return () => {
-      if (observer) {
-        observer.disconnect();
-      }
+      observer.disconnect();
       clearInterval(interval);
+      if (showTimeoutRef.current) {
+        clearTimeout(showTimeoutRef.current);
+      }
     };
   }, [checkForXolaOverlay]);
 
@@ -119,21 +124,36 @@ export function XolaMobileCloseButton() {
 
   if (!showCloseButton) return null;
 
+  // Only show on mobile (screen width <= 768px)
+  if (typeof window !== 'undefined' && window.innerWidth > 768) {
+    return null;
+  }
+
   return (
     <button
       onClick={handleClose}
-      className="fixed top-4 right-4 z-[99999] bg-black/90 hover:bg-black text-white rounded-full p-3 shadow-2xl transition-all md:hidden"
+      aria-label="Close booking popup"
+      data-testid="xola-mobile-close-button"
       style={{ 
+        position: 'fixed',
+        top: '16px',
+        right: '16px',
+        zIndex: 2147483647, // Maximum possible z-index
         width: '56px', 
         height: '56px',
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        backgroundColor: 'rgba(0, 0, 0, 0.95)',
+        color: 'white',
+        borderRadius: '50%',
+        border: '3px solid white',
+        boxShadow: '0 4px 20px rgba(0, 0, 0, 0.5)',
+        cursor: 'pointer',
+        padding: 0
       }}
-      aria-label="Close booking popup"
-      data-testid="xola-mobile-close-button"
     >
-      <X className="h-8 w-8" strokeWidth={3} />
+      <X style={{ width: '32px', height: '32px', strokeWidth: 3 }} />
     </button>
   );
 }
