@@ -19,10 +19,25 @@ export function getBaseDomain(req?: Request): string {
   return 'http://localhost:5000';
 }
 
+/**
+ * Get the canonical URL for a given pathname.
+ * CRITICAL: Canonical URLs ALWAYS use the production domain for SEO consistency.
+ * This prevents "duplicate without user-selected canonical" errors in Google Search Console.
+ * 
+ * Query parameters (gclid, utm_*, etc.) are stripped.
+ * Trailing slashes are normalized (removed except for root).
+ */
 export function getCanonicalUrl(pathname: string, req?: Request): string {
-  const baseDomain = getBaseDomain(req);
-  const normalizedPath = pathname.endsWith('/') && pathname !== '/' 
-    ? pathname.slice(0, -1) 
-    : pathname;
-  return `${baseDomain}${normalizedPath}`;
+  // ALWAYS use production domain for canonical URLs (SEO best practice)
+  const canonicalDomain = 'https://premierpartycruises.com';
+  
+  // Strip query parameters (gclid, utm_source, etc.)
+  let cleanPath = pathname.split('?')[0];
+  
+  // Remove trailing slash (except for root)
+  if (cleanPath.endsWith('/') && cleanPath !== '/') {
+    cleanPath = cleanPath.slice(0, -1);
+  }
+  
+  return `${canonicalDomain}${cleanPath}`;
 }

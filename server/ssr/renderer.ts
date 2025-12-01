@@ -1533,39 +1533,42 @@ export function ssrMiddleware() {
     
     // Check if this route should use SSR
     if (!shouldUseSSR(req.url)) {
-      // If we have schemas but no SSR, inject schemas only
+      // If we have schemas but no SSR, inject schemas AND canonical tag
       if (schemas.length > 0) {
         try {
-          console.log(`[Schema-Only] Injecting ${schemas.length} schemas for: ${pathname}`);
+          console.log(`[Schema-Only] Injecting ${schemas.length} schemas + canonical for: ${pathname}`);
           let template = await getTemplate();
           
+          // CRITICAL: Generate canonical URL (strips query params, uses production domain)
+          const canonicalUrl = getCanonicalUrl(pathname, req);
+          
           // Add sitewide schemas (Organization on non-homepage pages + WebSite)
-          let schemaScripts = '';
+          let headInjection = `  <link rel="canonical" href="${canonicalUrl}" />\n`;
           
           if (pathname !== '/') {
-            schemaScripts = `  <script type="application/ld+json">
+            headInjection += `  <script type="application/ld+json">
 ${JSON.stringify(ORGANIZATION_SCHEMA, null, 2)}
   </script>`;
           }
           
-          schemaScripts += `  <script type="application/ld+json">
+          headInjection += `  <script type="application/ld+json">
 ${JSON.stringify(WEBSITE_SCHEMA, null, 2)}
   </script>`;
           
           // Add route-specific schemas
           schemas.forEach(schema => {
-            schemaScripts += `
+            headInjection += `
   <script type="application/ld+json">
 ${JSON.stringify(schema, null, 2)}
   </script>`;
           });
           
-          // Inject schemas before </head>
-          template = template.replace('</head>', `\n${schemaScripts}\n  </head>`);
+          // Inject canonical + schemas before </head>
+          template = template.replace('</head>', `\n${headInjection}\n  </head>`);
           
           return res.status(200).set({ 'Content-Type': 'text/html' }).send(template);
         } catch (error) {
-          console.error(`[Schema-Only] Error injecting schemas for ${pathname}:`, error);
+          console.error(`[Schema-Only] Error injecting for ${pathname}:`, error);
         }
       }
       // Unknown route - pass to next middleware (Vite will handle or 404)
