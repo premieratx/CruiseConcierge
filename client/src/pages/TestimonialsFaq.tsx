@@ -383,7 +383,7 @@ export default function TestimonialsFaq() {
             </div>
 
             <Tabs defaultValue="corporate" className="w-full">
-              <TabsList className="grid w-full grid-cols-2 lg:grid-cols-6 mb-8 bg-gradient-to-r from-blue-600 to-purple-600 p-2 rounded-xl gap-2">
+              <TabsList className="grid w-full grid-cols-2 lg:grid-cols-6 mb-12 bg-gradient-to-r from-blue-600 to-purple-600 p-2 rounded-xl gap-2">
                 <TabsTrigger 
                   value="corporate" 
                   className="flex flex-col items-center gap-1 py-3 rounded-xl data-[state=active]:bg-yellow-400 data-[state=active]:text-black data-[state=active]:font-bold data-[state=inactive]:bg-white/20 data-[state=inactive]:text-white hover:bg-white/30 transition-all"
@@ -446,7 +446,7 @@ export default function TestimonialsFaq() {
               </TabsList>
 
               {/* Corporate Reviews */}
-              <TabsContent value="corporate" className="mt-8">
+              <TabsContent value="corporate" className="mt-12">
                 <div className="mb-6">
                   <h3 className="text-2xl font-playfair font-bold text-gray-900 dark:text-white flex items-center justify-center mb-2">
                     <Building2 className="h-6 w-6 mr-3 text-blue-600" />
@@ -470,7 +470,7 @@ export default function TestimonialsFaq() {
               </TabsContent>
 
               {/* Wedding Reviews */}
-              <TabsContent value="wedding" className="mt-8">
+              <TabsContent value="wedding" className="mt-12">
                 <div className="mb-6">
                   <h3 className="text-2xl font-playfair font-bold text-gray-900 dark:text-white flex items-center justify-center mb-2">
                     <Heart className="h-6 w-6 mr-3 text-pink-600" />
@@ -494,7 +494,7 @@ export default function TestimonialsFaq() {
               </TabsContent>
 
               {/* Birthday Reviews */}
-              <TabsContent value="birthday" className="mt-8">
+              <TabsContent value="birthday" className="mt-12">
                 <div className="mb-6">
                   <h3 className="text-2xl font-playfair font-bold text-gray-900 dark:text-white flex items-center justify-center mb-2">
                     <PartyPopper className="h-6 w-6 mr-3 text-purple-600" />
@@ -518,7 +518,7 @@ export default function TestimonialsFaq() {
               </TabsContent>
 
               {/* Combined Bach Reviews */}
-              <TabsContent value="combined" className="mt-8">
+              <TabsContent value="combined" className="mt-12">
                 <div className="mb-6">
                   <h3 className="text-2xl font-playfair font-bold text-gray-900 dark:text-white flex items-center justify-center mb-2">
                     <Users className="h-6 w-6 mr-3 text-orange-600" />
@@ -542,7 +542,7 @@ export default function TestimonialsFaq() {
               </TabsContent>
 
               {/* Bachelorette Reviews */}
-              <TabsContent value="bachelorette" className="mt-8">
+              <TabsContent value="bachelorette" className="mt-12">
                 <div className="mb-6">
                   <h3 className="text-2xl font-playfair font-bold text-gray-900 dark:text-white flex items-center justify-center mb-2">
                     <Gem className="h-6 w-6 mr-3 text-pink-600" />
@@ -566,7 +566,7 @@ export default function TestimonialsFaq() {
               </TabsContent>
 
               {/* Bachelor Reviews */}
-              <TabsContent value="bachelor" className="mt-8">
+              <TabsContent value="bachelor" className="mt-12">
                 <div className="mb-6">
                   <h3 className="text-2xl font-playfair font-bold text-gray-900 dark:text-white flex items-center justify-center mb-2">
                     <Beer className="h-6 w-6 mr-3 text-amber-600" />
