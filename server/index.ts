@@ -201,6 +201,71 @@ const PORT = process.env.PORT || '5000';
   });
   log('✅ Sitemap.xml route registered with XML content-type', 'sitemap');
 
+  // CRITICAL FOR SEO: Serve robots.txt with proper format (SEMrush Issue #16 & #124)
+  app.get('/robots.txt', (req, res) => {
+    const baseUrl = 'https://premierpartycruises.com';
+    
+    const robotsTxt = `User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: ${baseUrl}/sitemap.xml
+
+# Disallow admin and API areas
+Disallow: /admin/
+Disallow: /api/
+Disallow: /dashboard/
+Disallow: /portal/
+
+# Disallow utility pages
+Disallow: /login
+Disallow: /admin-login
+
+# Block duplicate routes (canonical versions exist)
+Disallow: /blog
+Disallow: /book-online
+Disallow: /book-online-popup
+`;
+    
+    res.setHeader('Content-Type', 'text/plain; charset=UTF-8');
+    res.setHeader('Cache-Control', 'public, max-age=86400'); // 24 hours
+    res.send(robotsTxt);
+  });
+  log('✅ Robots.txt route registered with sitemap reference', 'seo');
+
+  // Serve llms.txt for AI crawler guidance (SEMrush Issue #137 & #219)
+  app.get('/llms.txt', (req, res) => {
+    const llmsTxt = `# Premier Party Cruises - AI Crawler Guidance
+# https://premierpartycruises.com
+
+## About
+Premier Party Cruises offers BYOB party boat rentals on Lake Travis, Austin, Texas.
+Over 15 years in business with a perfect safety record.
+
+## Core Services
+- ATX Disco Cruise: All-inclusive multi-group bachelor/bachelorette party boat
+- Private Cruises: Exclusive boat rentals for groups of 14-75 guests
+
+## Fleet
+- Day Tripper: 14 guests capacity
+- Meeseeks: 25-30 guests capacity
+- The Irony: 25-30 guests capacity
+- Clever Girl: 50-75 guests capacity (flagship with 14 disco balls)
+
+## Contact
+Website: https://premierpartycruises.com
+Booking: https://booking.premierpartycruises.com/quote-v2
+
+## Preferred Citation
+"Premier Party Cruises - Austin's premier party boat rental on Lake Travis"
+`;
+    
+    res.setHeader('Content-Type', 'text/plain; charset=UTF-8');
+    res.setHeader('Cache-Control', 'public, max-age=604800'); // 7 days
+    res.send(llmsTxt);
+  });
+  log('✅ LLMs.txt route registered for AI crawlers', 'seo');
+
   // CRITICAL FOR SEO: Register SSR middleware BEFORE static files
   // This ensures crawlers get fully-rendered HTML with H1 tags, content, and schemas
   app.use(ssrMiddleware());
