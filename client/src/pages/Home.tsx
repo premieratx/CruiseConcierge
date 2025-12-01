@@ -573,18 +573,19 @@ export default function Home() {
             >
               <div className="grid grid-cols-2 sm:grid-cols-2 gap-2 sm:gap-4 text-center">
                 <div>
-                  <div className="font-sans tracking-wider font-bold uppercase text-[10px] sm:text-xs text-blue-600 mb-0.5 sm:mb-1" data-editable data-editable-id="pricing-overlay-private-label">PRIVATE FROM</div>
+                  <div className="font-sans tracking-wider font-bold uppercase text-[10px] sm:text-xs text-blue-600 mb-0.5 sm:mb-1" data-editable data-editable-id="pricing-overlay-private-label">PRIVATE CRUISES FROM:</div>
                   <div className="text-base sm:text-2xl font-bold text-gray-900 mb-0.5 sm:mb-1" data-editable data-editable-id="pricing-overlay-private-price">
-                    $1,050
+                    $200+/hr
                   </div>
-                  <div className="text-[10px] sm:text-xs text-gray-700" data-editable data-editable-id="pricing-overlay-private-subtitle">4 hrs • 14+ ppl</div>
+                  <div className="text-[10px] sm:text-xs text-gray-700" data-editable data-editable-id="pricing-overlay-private-subtitle">Starting price for Up to 14ppl • Private Cruises for 14 to 75 ppl</div>
                 </div>
                 <div>
-                  <div className="font-sans tracking-wider font-bold uppercase text-[10px] sm:text-xs text-blue-600 mb-0.5 sm:mb-1" data-editable data-editable-id="pricing-overlay-disco-label">DISCO CRUISE</div>
+                  <div className="font-sans tracking-wider font-bold uppercase text-[10px] sm:text-xs text-blue-600 mb-0.5 sm:mb-1" data-editable data-editable-id="pricing-overlay-disco-label">ATX DISCO CRUISE</div>
                   <div className="text-base sm:text-2xl font-bold text-gray-900 mb-0.5 sm:mb-1" data-editable data-editable-id="pricing-overlay-disco-price">
-                    $85/person
+                    $85+ per person
                   </div>
-                  <div className="text-[10px] sm:text-xs text-gray-700" data-editable data-editable-id="pricing-overlay-disco-subtitle">Fri & Sat</div>
+                  <div className="text-[10px] sm:text-xs text-gray-700" data-editable data-editable-id="pricing-overlay-disco-subtitle">Friday and Saturdays</div>
+                  <div className="text-[10px] sm:text-xs text-gray-600 mt-0.5" data-editable data-editable-id="pricing-overlay-disco-restriction">Bachelorette and Bachelor parties only</div>
                 </div>
               </div>
               <div className="text-center mt-1.5 sm:mt-3 text-[10px] sm:text-xs text-blue-600 font-medium hidden sm:block" data-editable data-editable-id="pricing-overlay-tagline">
