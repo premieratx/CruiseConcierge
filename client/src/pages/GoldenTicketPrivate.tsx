@@ -153,20 +153,20 @@ export default function GoldenTicketPrivate() {
               transition={{ delay: 0.4, duration: 0.5 }}
             >
               <div className="flex items-center gap-2 text-slate-600 dark:text-slate-400">
-                <Ship className="h-5 w-5 text-blue-600" />
-                <span>Premium Fleet</span>
-              </div>
-              <div className="flex items-center gap-2 text-slate-600 dark:text-slate-400">
-                <Star className="h-5 w-5 text-yellow-500" />
-                <span>500+ 5-Star Reviews</span>
+                <Clock className="h-5 w-5 text-purple-600" />
+                <span>16 Years of Excellence</span>
               </div>
               <div className="flex items-center gap-2 text-slate-600 dark:text-slate-400">
                 <CheckCircle className="h-5 w-5 text-green-500" />
-                <span>Licensed & Insured</span>
+                <span>150,000 Happy Customers</span>
               </div>
               <div className="flex items-center gap-2 text-slate-600 dark:text-slate-400">
-                <Clock className="h-5 w-5 text-purple-600" />
-                <span>7 Years Excellence</span>
+                <Star className="h-5 w-5 text-yellow-500" />
+                <span>Hundreds of 5-Star Reviews</span>
+              </div>
+              <div className="flex items-center gap-2 text-slate-600 dark:text-slate-400">
+                <Ship className="h-5 w-5 text-blue-600" />
+                <span>Captained Boats for 14-75 Guests</span>
               </div>
             </motion.div>
             

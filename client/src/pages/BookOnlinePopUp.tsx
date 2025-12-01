@@ -84,20 +84,20 @@ export default function BookOnlinePopUp({ defaultBoatType = '14p' }: BookOnlineP
                 {/* Features */}
                 <div className="flex flex-wrap items-center justify-center gap-6 text-sm md:text-base pt-4">
                   <div className="flex items-center gap-2 text-slate-700">
-                    <Ship className="h-5 w-5 text-blue-600" />
-                    <span>Premium Fleet</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-slate-700">
-                    <Star className="h-5 w-5 text-yellow-500" />
-                    <span>300+ 5-Star Reviews</span>
+                    <Clock className="h-5 w-5 text-purple-600" />
+                    <span>16 Years of Excellence</span>
                   </div>
                   <div className="flex items-center gap-2 text-slate-700">
                     <CheckCircle className="h-5 w-5 text-green-500" />
-                    <span>Licensed & Insured</span>
+                    <span>150,000 Happy Customers</span>
                   </div>
                   <div className="flex items-center gap-2 text-slate-700">
-                    <Clock className="h-5 w-5 text-purple-600" />
-                    <span>15 Years Excellence</span>
+                    <Star className="h-5 w-5 text-yellow-500" />
+                    <span>Hundreds of 5-Star Reviews</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-slate-700">
+                    <Ship className="h-5 w-5 text-blue-600" />
+                    <span>Captained Boats for 14-75 Guests</span>
                   </div>
                 </div>
               </div>
