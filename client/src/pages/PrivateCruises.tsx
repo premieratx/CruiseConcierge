@@ -25,9 +25,10 @@ import {
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import Footer from '@/components/Footer';
-import YouTubeHeroEmbed from '@/components/YouTubeHeroEmbed';
 import VideoGallerySection from '@/components/VideoGallerySection';
 import RelatedLinks from '@/components/RelatedLinks';
+import FleetSection from '@/components/FleetSection';
+import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import { ComparisonTable, type ComparisonColumn, type ComparisonRow } from '@/components/ComparisonTable';
 import Breadcrumb from '@/components/Breadcrumb';
 import { FeaturedSnippet, FeaturedSnippetHowTo } from '@/components/FeaturedSnippet';
@@ -43,7 +44,6 @@ import { SectionReveal } from '@/components/SectionReveal';
 import { TableOfContents } from '@/components/TableOfContents';
 import { StickyCTA } from '@/components/StickyCTA';
 import { LazyImage } from '@/components/LazyImage';
-import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import { SchemaMarkup, generateEventSchema, generateProductSchema, generateFAQSchema, 
          generateLocalBusinessSchema, generateServiceSchema, generateAggregateRatingSchema, 
          generateBreadcrumbSchema, generateHowToSchema } from '@/components/SEOSchemaMarkup';
@@ -522,80 +522,83 @@ export default function PrivateCruises() {
       <TableOfContents sections={tocSections} />
 
       {/* Hero Section */}
-      <section id="hero" className="relative min-h-[80vh] flex flex-col justify-center overflow-hidden ">
-        {/* YouTube Video Background */}
+      <section id="hero" className="relative min-h-[80vh] flex flex-col justify-center overflow-hidden bg-gray-900">
+        {/* Local Video Background - matches homepage */}
         <div className="absolute inset-0 z-0">
-          <iframe
-            src="https://www.youtube.com/embed/FABtEDZZBA0?autoplay=1&mute=1&loop=1&playlist=FABtEDZZBA0&controls=0&modestbranding=1&rel=0&showinfo=0&disablekb=1&fs=0&playsinline=1"
-            title="Premier Party Cruises Drone Video Background"
-            allow="autoplay; encrypted-media"
-            className="absolute top-1/2 left-1/2 w-[177.77vh] h-[56.25vw] min-w-full min-h-full -translate-x-1/2 -translate-y-1/2 pointer-events-none"
-            style={{ border: 'none' }}
-            data-testid="youtube-background-video"
-          />
-          {/* White Overlay for contrast - 75% opacity */}
-          <div className="absolute inset-0 bg-white/75"></div>
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="w-full h-full object-cover opacity-60"
+            poster={heroImage1}
+            preload="metadata"
+          >
+            <source src="/attached_assets/Boat_Video_Walkthrough_Generated_1761209219959.mp4" type="video/mp4" />
+          </video>
+          {/* Gradient overlay for text contrast */}
+          <div className="absolute inset-0 bg-gradient-to-br from-black/20 via-black/10 to-black/20" />
         </div>
         
-        <div className="max-w-7xl mx-auto relative z-10 px-4">
+        <div className="max-w-7xl mx-auto relative z-10 px-4 text-white">
           <ScrollReveal delay={0}>
-            <div className="text-center mb-12 md:mb-16">
+            <div className="text-center mb-8 md:mb-12">
               <Badge className="mb-4 md:mb-6 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-sm sm:text-base px-6 sm:px-8 py-2.5 border-0 font-sans tracking-wider font-bold uppercase shadow-lg">
                 Private Boat Charters
               </Badge>
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold font-playfair mb-6 md:mb-8 text-gray-900 leading-tight drop-shadow-sm">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold font-playfair mb-4 md:mb-6 text-white leading-tight drop-shadow-lg">
                 Private Boat Rentals on Lake Travis Austin
               </h1>
-              <p className="text-xl sm:text-2xl md:text-3xl text-gray-900 mb-6 md:mb-8 font-bold drop-shadow-sm">
+              <p className="text-lg sm:text-xl md:text-2xl text-brand-yellow mb-4 md:mb-6 font-bold drop-shadow-md">
                 Your Private Boat. Your Rules. Your Lake Travis Adventure.
               </p>
-              <div className="inline-block bg-white/90 backdrop-blur-sm rounded-2xl px-6 sm:px-8 py-4 sm:py-6 shadow-xl max-w-5xl mx-auto">
-                <p className="text-lg sm:text-xl md:text-2xl text-gray-900 font-semibold leading-relaxed">
-                  Exclusive boat charters for 14-75 guests. BYOB friendly. Choose your schedule, play your music, create your perfect day on the lake. Perfect for <InternalLinkHighlight href="/team-building" title="Corporate Events">corporate events</InternalLinkHighlight>, <InternalLinkHighlight href="/rehearsal-dinner" title="Special Occasions">weddings & birthdays</InternalLinkHighlight>, and any celebration.
+              <div className="inline-block bg-white/90 backdrop-blur-sm rounded-xl px-4 sm:px-6 py-3 sm:py-4 shadow-xl max-w-4xl mx-auto">
+                <p className="text-sm sm:text-base md:text-lg text-gray-900 font-semibold leading-relaxed">
+                  Exclusive boat charters for 14-75 guests. BYOB friendly. Choose your schedule, play your music, create your perfect day on the lake.
                 </p>
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-12">
+              <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center mt-6 sm:mt-8">
                 <Button
                   size="lg"
                   onClick={() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })}
-                  className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white font-bold text-xl px-12 py-8 shadow-2xl transition-all transform hover:scale-105"
+                  className="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold text-base sm:text-lg px-6 sm:px-10 py-4 sm:py-5 shadow-2xl transition-all transform hover:scale-105"
                   data-testid="button-hero-view-packages"
                 >
-                  View Elite Packages
-                  <Gem className="ml-3 h-6 w-6" />
+                  View Packages & Pricing
+                  <Gem className="ml-2 sm:ml-3 h-5 w-5 sm:h-6 sm:w-6" />
                 </Button>
                 <div
-                  className="xola-custom xola-checkout"
+                  className="xola-custom xola-checkout w-full sm:w-auto"
                   data-button-id="691574bd162501edc00f151a"
                 >
                   <Button
                     size="lg"
-                    className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-xl px-12 py-8 shadow-2xl transition-all transform hover:scale-105"
+                    className="w-full sm:w-auto bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-base sm:text-lg px-6 sm:px-10 py-4 sm:py-5 shadow-2xl transition-all transform hover:scale-105"
                     data-testid="button-hero-get-quote"
                   >
                     Reserve Your Private Charter
-                    <ArrowRight className="ml-3 h-6 w-6" />
+                    <ArrowRight className="ml-2 sm:ml-3 h-5 w-5 sm:h-6 sm:w-6" />
                   </Button>
                 </div>
               </div>
 
-              <div className="flex flex-wrap justify-center gap-8 text-base text-gray-700">
-                <div className="flex items-center gap-3">
-                  <Ship className="h-6 w-6 text-blue-600" />
-                  <span className="text-gray-900 font-medium">Private Charter</span>
+              <div className="flex flex-wrap justify-center gap-4 sm:gap-8 text-sm sm:text-base mt-6 sm:mt-8">
+                <div className="flex items-center gap-2">
+                  <Ship className="h-5 w-5 text-brand-yellow" />
+                  <span className="text-white font-medium">Private Charter</span>
                 </div>
-                <div className="flex items-center gap-3">
-                  <Users className="h-6 w-6 text-purple-600" />
-                  <span className="text-gray-900 font-medium">14-75 Guests</span>
+                <div className="flex items-center gap-2">
+                  <Users className="h-5 w-5 text-brand-yellow" />
+                  <span className="text-white font-medium">14-75 Guests</span>
                 </div>
-                <div className="flex items-center gap-3">
-                  <Clock className="h-6 w-6 text-yellow-600" />
-                  <span className="text-gray-900 font-medium">Flexible Schedule</span>
+                <div className="flex items-center gap-2">
+                  <Clock className="h-5 w-5 text-brand-yellow" />
+                  <span className="text-white font-medium">Flexible Schedule</span>
                 </div>
-                <div className="flex items-center gap-3">
-                  <Wine className="h-6 w-6 text-blue-600" />
-                  <span className="text-gray-900 font-medium">BYOB Friendly</span>
+                <div className="flex items-center gap-2">
+                  <Wine className="h-5 w-5 text-brand-yellow" />
+                  <span className="text-white font-medium">BYOB Friendly</span>
                 </div>
               </div>
             </div>
@@ -630,6 +633,32 @@ export default function PrivateCruises() {
           </div>
         </div>
       </section>
+
+      {/* Trust Badges - Matching Homepage */}
+      <section className="py-6 bg-gray-50 dark:bg-gray-900 border-y border-gray-200 dark:border-gray-800">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="flex flex-wrap justify-center gap-4 md:gap-6 max-w-3xl mx-auto">
+            <div className="flex items-center gap-2 text-sm md:text-base text-gray-700 dark:text-gray-300">
+              <UserCheck className="w-4 h-4 text-blue-600" />
+              <span className="font-medium">150K+ Customers</span>
+            </div>
+            <div className="flex items-center gap-2 text-sm md:text-base text-gray-700 dark:text-gray-300">
+              <Trophy className="w-4 h-4 text-blue-600" />
+              <span className="font-medium">16+ Years</span>
+            </div>
+            <div className="flex items-center gap-2 text-sm md:text-base text-gray-700 dark:text-gray-300">
+              <Shield className="w-4 h-4 text-blue-600" />
+              <span className="font-medium">Perfect Safety Record</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Fleet Section - Reused Component */}
+      <FleetSection />
+
+      {/* Quote Builder Section - Embedded Get-A-Quote */}
+      <QuoteBuilderSection />
 
       {/* Premium Emotional Benefits Section - NEW */}
       <SectionReveal>
@@ -666,9 +695,9 @@ export default function PrivateCruises() {
 
               <div className="mt-12 text-center">
                 <p className="text-lg text-gray-700 mb-6">
-                  <InternalLinkHighlight href="/atx-disco-cruise" title="ATX Disco Cruise">Looking for a party atmosphere? Check our ATX Disco Cruise</InternalLinkHighlight> | 
-                  <InternalLinkHighlight href="/team-building" title="Team Building"> Corporate team building</InternalLinkHighlight> | 
-                  <InternalLinkHighlight href="/wedding-parties" title="Wedding Parties"> Wedding celebrations</InternalLinkHighlight>
+                  <InternalLinkHighlight href="/team-building" title="Team Building">Corporate team building</InternalLinkHighlight> | 
+                  <InternalLinkHighlight href="/wedding-parties" title="Wedding Parties">Wedding celebrations</InternalLinkHighlight> | 
+                  <InternalLinkHighlight href="/birthday-parties" title="Birthday Parties">Birthday parties</InternalLinkHighlight>
                 </p>
               </div>
             </div>
@@ -950,16 +979,16 @@ export default function PrivateCruises() {
                 </TabsContent>
               </Tabs>
 
-              <div className="mt-16 text-center">
+              <div className="mt-12 sm:mt-16 text-center px-4">
                 <a
                   href="https://booking.premierpartycruises.com/quote-v2"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold text-xl px-12 py-8 rounded-md transition-all"
+                  className="inline-flex items-center justify-center w-full sm:w-auto bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold text-base sm:text-xl px-6 sm:px-12 py-4 sm:py-6 rounded-md transition-all"
                   data-testid="button-pricing-get-quote"
                 >
                   Get Custom Quote for Your Date
-                  <ArrowRight className="ml-3 h-6 w-6" />
+                  <ArrowRight className="ml-2 sm:ml-3 h-5 w-5 sm:h-6 sm:w-6" />
                 </a>
               </div>
             </div>
@@ -1075,16 +1104,16 @@ export default function PrivateCruises() {
                       Get your custom quote and check availability for your preferred date
                     </p>
                     <div
-                      className="xola-custom xola-checkout inline-block"
+                      className="xola-custom xola-checkout inline-block w-full sm:w-auto"
                       data-button-id="691574bd162501edc00f151a"
                     >
                       <Button
                         size="lg"
-                        className="bg-white text-blue-600 hover:bg-gray-100 font-bold text-xl px-12 py-8"
+                        className="w-full sm:w-auto bg-white text-blue-600 hover:bg-gray-100 font-bold text-base sm:text-xl px-6 sm:px-12 py-4 sm:py-6"
                         data-testid="button-availability-get-quote"
                       >
                         Check Availability & Get Quote
-                        <ArrowRight className="ml-3 h-6 w-6" />
+                        <ArrowRight className="ml-2 sm:ml-3 h-5 w-5 sm:h-6 sm:w-6" />
                       </Button>
                     </div>
                   </CardContent>
@@ -1585,15 +1614,15 @@ export default function PrivateCruises() {
                   <span className="font-bold text-blue-400"> Professional invoicing available</span>
                 </p>
                 <div
-                  className="xola-custom xola-checkout"
+                  className="xola-custom xola-checkout w-full sm:w-auto"
                   data-button-id="691574bd162501edc00f151a"
                 >
                   <Button
                     size="lg"
-                    className="bg-gradient-to-r from-yellow-500 to-yellow-400 hover:from-yellow-400 hover:to-yellow-300 text-black font-bold text-xl px-12 py-8 shadow-2xl"
+                    className="w-full sm:w-auto bg-gradient-to-r from-yellow-500 to-yellow-400 hover:from-yellow-400 hover:to-yellow-300 text-black font-bold text-base sm:text-xl px-6 sm:px-12 py-4 sm:py-6 shadow-2xl"
                   >
                     Get Custom Corporate Quote
-                    <Briefcase className="ml-3 h-6 w-6" />
+                    <Briefcase className="ml-2 sm:ml-3 h-5 w-5 sm:h-6 sm:w-6" />
                   </Button>
                 </div>
               </div>
@@ -1635,18 +1664,18 @@ export default function PrivateCruises() {
                 })}
               </div>
 
-              <div className="mt-16 text-center">
+              <div className="mt-12 sm:mt-16 text-center px-4">
                 <div
-                  className="xola-custom xola-checkout"
+                  className="xola-custom xola-checkout w-full sm:w-auto inline-block"
                   data-button-id="691574bd162501edc00f151a"
                 >
                   <Button
                     size="lg"
-                    className="bg-white text-blue-600 hover:bg-gray-100 font-bold text-xl px-12 py-8"
+                    className="w-full sm:w-auto bg-white text-blue-600 hover:bg-gray-100 font-bold text-base sm:text-xl px-6 sm:px-12 py-4 sm:py-6"
                     data-testid="button-why-choose-get-quote"
                   >
                     Book Your Private Charter Now
-                    <ArrowRight className="ml-3 h-6 w-6" />
+                    <ArrowRight className="ml-2 sm:ml-3 h-5 w-5 sm:h-6 sm:w-6" />
                   </Button>
                 </div>
               </div>
@@ -1835,12 +1864,12 @@ export default function PrivateCruises() {
               <div className="mt-16 text-center bg-blue-50 rounded-xl p-8">
                 <h3 className="text-2xl font-bold mb-4">Still Have Questions?</h3>
                 <p className="text-gray-700 mb-6">Our team is here to help you plan the perfect private charter</p>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <div className="flex flex-col sm:flex-row gap-4 justify-center px-4">
                   <a
                     href="https://booking.premierpartycruises.com/quote-v2"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold px-8 py-6 rounded-md transition-all"
+                    className="inline-flex items-center justify-center w-full sm:w-auto bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold text-base sm:text-lg px-6 sm:px-8 py-4 sm:py-5 rounded-md transition-all"
                   >
                     Get Custom Quote
                     <ArrowRight className="ml-2 h-5 w-5" />
