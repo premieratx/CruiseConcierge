@@ -383,11 +383,11 @@ export default function ATXDiscoCruise() {
                 The Country's Only Multi-Group Bach Party Cruise
               </p>
               
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <div className="flex flex-col sm:flex-row gap-4 justify-center px-4">
                 <Button 
                   size="lg" 
                   onClick={() => navigate('/contact')}
-                  className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white font-bold text-lg px-10 py-7 shadow-2xl transform hover:scale-105 transition-all"
+                  className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white font-bold text-sm sm:text-lg px-6 sm:px-10 py-4 sm:py-7 shadow-2xl transform hover:scale-105 transition-all"
                   data-testid="button-learn-more"
                 >
                   <Phone className="mr-2 h-5 w-5" /> Talk to an Expert
@@ -396,7 +396,7 @@ export default function ATXDiscoCruise() {
                   href="https://booking.premierpartycruises.com/quote-v2"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-lg px-10 py-7 shadow-2xl transform hover:scale-105 transition-all rounded-md inline-flex items-center justify-center"
+                  className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-sm sm:text-lg px-6 sm:px-10 py-4 sm:py-7 shadow-2xl transform hover:scale-105 transition-all rounded-md inline-flex items-center justify-center"
                   data-testid="button-book-now"
                 >
                   Get a Quote <ArrowRight className="ml-2 h-5 w-5" />

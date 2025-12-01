@@ -4,21 +4,26 @@ import { LazyImage } from '@/components/LazyImage';
 import Lightbox from '@/components/Lightbox';
 import { cn } from '@/lib/utils';
 
-// PARTY ATMOSPHERE PHOTOS - Using verified party collages
-// NOTE: party-atmosphere-1/2/3 files are actually FLEET PHOTOS (mislabeled)
-// Using collage images which show actual parties with people
+// PARTY ATMOSPHERE PHOTOS - Only actual party photos with people celebrating
+// Verified: No empty boats, no family photos with children
 const allPartyPhotos = [
   '/attached_assets/disco photo collage_1759401302941.png',
   '/attached_assets/disco unicorn collage - web_1759401302953.png',
-  '/attached_assets/father\'s day_family party collage_1759401302954.png',
   '/attached_assets/non-bach collage compressed_1759401302954.png',
   '/attached_assets/atx-disco-cruise-party.jpg',
   '/attached_assets/bachelor-party-group-guys.jpg',
+  '/attached_assets/@capitalcityshots-1_1760080740012.jpg',
+  '/attached_assets/@capitalcityshots-2_1760080740017.jpg',
+  '/attached_assets/@capitalcityshots-3_1760080740017.jpg',
+  '/attached_assets/@capitalcityshots-4_1760080740017.jpg',
+  '/attached_assets/@capitalcityshots-5_1760080740018.jpg',
+  '/attached_assets/@capitalcityshots-21_1760080807864.jpg',
+  '/attached_assets/@capitalcityshots-22_1760080807865.jpg',
 ];
 
-// Split into rotating sets (3 photos per set for smooth transitions)
-const setA = allPartyPhotos.slice(0, 3);
-const setB = allPartyPhotos.slice(3, 6);
+// Split into rotating sets (6 photos per set for grid display)
+const setA = allPartyPhotos.slice(0, 6);
+const setB = allPartyPhotos.slice(6, 12);
 
 interface LightboxImage {
   id: string;
@@ -50,7 +55,7 @@ export default function AnimatedPhotoGallery() {
   }, []);
 
   const handlePhotoClick = (photoIndex: number) => {
-    const globalIndex = showSetA ? photoIndex : photoIndex + 3;
+    const globalIndex = showSetA ? photoIndex : photoIndex + 6;
     setLightboxIndex(globalIndex);
     setLightboxOpen(true);
   };
@@ -80,7 +85,7 @@ export default function AnimatedPhotoGallery() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.5 }}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6"
+            className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4 lg:gap-6"
             data-testid="photo-grid"
           >
             {currentSet.map((photo, index) => (
@@ -97,7 +102,7 @@ export default function AnimatedPhotoGallery() {
               >
                 <LazyImage
                   src={photo}
-                  alt={`Premier Party Cruises - Lake Travis Party Photo ${showSetA ? index + 1 : index + 4}`}
+                  alt={`Premier Party Cruises - Lake Travis Party Photo ${showSetA ? index + 1 : index + 7}`}
                   className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />

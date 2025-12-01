@@ -492,16 +492,16 @@ export default function BacheloretteParty() {
 
             <motion.div 
               variants={fadeInUp}
-              className="flex flex-col sm:flex-row gap-4 justify-center"
+              className="flex flex-col sm:flex-row gap-4 justify-center px-4"
             >
               <Button
                 size="lg"
                 onClick={() => document.getElementById('packages')?.scrollIntoView({ behavior: 'smooth' })}
-                className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white font-bold text-lg px-10 py-7"
+                className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white font-bold text-sm sm:text-lg px-6 sm:px-10 py-4 sm:py-7"
                 data-testid="button-hero-see-packages"
               >
                 See Packages & Pricing
-                <ArrowRight className="ml-2 h-6 w-6" />
+                <ArrowRight className="ml-2 h-5 w-5 sm:h-6 sm:w-6" />
               </Button>
               
               <div
@@ -510,11 +510,11 @@ export default function BacheloretteParty() {
               >
                 <Button
                   size="lg"
-                  className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-lg px-10 py-7 whitespace-normal min-h-[4rem]"
+                  className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-sm sm:text-lg px-6 sm:px-10 py-4 sm:py-7 whitespace-normal"
                   data-testid="button-hero-book-now-bachelorette"
                 >
-                  <Calendar className="mr-2 h-6 w-6 flex-shrink-0" />
-                  <span className="text-center leading-tight">BOOK NOW - Be the Hero!</span>
+                  <Calendar className="mr-2 h-5 w-5 sm:h-6 sm:w-6 flex-shrink-0" />
+                  <span className="text-center leading-tight">BOOK NOW</span>
                 </Button>
               </div>
             </motion.div>

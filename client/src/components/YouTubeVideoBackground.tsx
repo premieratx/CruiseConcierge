@@ -5,20 +5,20 @@ interface YouTubeVideoBackgroundProps {
 
 export function YouTubeVideoBackground({ videoId, posterImage }: YouTubeVideoBackgroundProps) {
   return (
-    <div className="absolute inset-0 z-0">
+    <div className="absolute inset-0 z-0 overflow-hidden">
       {/* Poster image as guaranteed fallback */}
       {posterImage && (
         <img
           src={posterImage}
           alt="Hero background"
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover absolute inset-0"
           loading="eager"
         />
       )}
       
-      {/* YouTube iframe as enhancement */}
+      {/* YouTube iframe as enhancement - full coverage on all devices */}
       <iframe
-        className="w-full h-full object-cover absolute inset-0"
+        className="absolute inset-0 w-full h-full"
         src={`https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}&controls=0&showinfo=0&modestbranding=1&playsinline=1&rel=0&enablejsapi=1`}
         title="Hero background video"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -26,11 +26,12 @@ export function YouTubeVideoBackground({ videoId, posterImage }: YouTubeVideoBac
           position: 'absolute',
           top: '50%',
           left: '50%',
-          width: '100vw',
-          height: '100vh',
+          width: '177.78vh',
+          height: '56.25vw',
+          minWidth: '100%',
+          minHeight: '100%',
           transform: 'translate(-50%, -50%)',
-          pointerEvents: 'none',
-          objectFit: 'cover'
+          pointerEvents: 'none'
         }}
       />
       

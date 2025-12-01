@@ -17,6 +17,25 @@
   background: transparent;
 }
 
+/* CRITICAL: Prevent horizontal scroll on all devices */
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+/* Extra safety for mobile - prevent any horizontal scrolling */
+@media (max-width: 768px) {
+  html, body, #root {
+    overflow-x: hidden !important;
+    max-width: 100vw !important;
+  }
+  
+  /* Ensure all sections stay within viewport */
+  section, div, main, article {
+    max-width: 100vw;
+  }
+}
+
 /* CRITICAL CLS FIX: Font loading optimization with size-adjust to prevent layout shift */
 @font-face {
   font-family: 'DM Sans Fallback';

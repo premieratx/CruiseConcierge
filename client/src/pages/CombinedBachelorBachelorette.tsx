@@ -413,12 +413,12 @@ export default function CombinedBachelorBachelorette() {
                 Don't just take our word for it - read hundreds of 5-star reviews from real customers on Google and Facebook
               </p>
               
-              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center px-4">
                 <Button
                   size="lg"
                   variant="outline"
                   asChild
-                  className="border-2 border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white font-bold text-lg px-10 py-6"
+                  className="border-2 border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white font-bold text-sm sm:text-lg px-6 sm:px-10 py-4 sm:py-6"
                   data-testid="button-google-reviews"
                 >
                   <a href="https://www.google.com/search?q=premier+party+cruises+austin" target="_blank" rel="noopener noreferrer">
@@ -431,7 +431,7 @@ export default function CombinedBachelorBachelorette() {
                   size="lg"
                   variant="outline"
                   asChild
-                  className="border-2 border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white font-bold text-lg px-10 py-6"
+                  className="border-2 border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white font-bold text-sm sm:text-lg px-6 sm:px-10 py-4 sm:py-6"
                   data-testid="button-facebook-reviews"
                 >
                   <a href="https://www.facebook.com/premierpartycruises" target="_blank" rel="noopener noreferrer">
