@@ -85,64 +85,54 @@ export function XolaMobileCloseButton() {
   }, [checkForXolaOverlay]);
 
   const handleClose = () => {
-    // Strategy: Find and REMOVE all overlay elements from DOM
+    // Strategy: HIDE (not remove) Xola overlay elements so they can be reopened
     
-    // 1. Remove any iframes (Xola uses iframes)
-    const iframes = document.querySelectorAll('iframe');
-    iframes.forEach(iframe => {
-      const src = iframe.src || '';
-      // Find the top-level container of the iframe and remove it
+    // 1. Find and HIDE Xola-specific containers
+    const xolaSelectors = [
+      '[id^="xola"]',
+      '.xola-checkout-frame',
+      '.xola-modal',
+      '.xola-overlay',
+      '[class*="xola"]'
+    ];
+    
+    xolaSelectors.forEach(selector => {
+      document.querySelectorAll(selector).forEach(el => {
+        (el as HTMLElement).style.display = 'none';
+      });
+    });
+
+    // 2. Hide any fixed-position iframes (likely Xola checkout)
+    document.querySelectorAll('iframe').forEach(iframe => {
       let element: HTMLElement | null = iframe;
       while (element && element !== document.body) {
-        const parent = element.parentElement;
         const style = window.getComputedStyle(element);
-        if (style.position === 'fixed' || parseInt(style.zIndex) > 1000) {
-          element.remove();
+        if (style.position === 'fixed') {
+          element.style.display = 'none';
           break;
         }
-        element = parent;
+        element = element.parentElement;
       }
     });
 
-    // 2. Remove any fixed/absolute overlays with high z-index
-    const allElements = document.querySelectorAll('body > *');
-    allElements.forEach(el => {
-      if (el.id === 'root') return; // Don't remove our React app
+    // 3. Hide other fixed overlays with high z-index (but don't touch #root)
+    document.querySelectorAll('body > div:not(#root)').forEach(el => {
       const style = window.getComputedStyle(el);
       const zIndex = parseInt(style.zIndex) || 0;
       
-      if ((style.position === 'fixed' || style.position === 'absolute') && zIndex > 100) {
-        const rect = el.getBoundingClientRect();
-        if (rect.width > 50 && rect.height > 50) {
-          (el as HTMLElement).remove();
-        }
+      if (style.position === 'fixed' && zIndex > 1000) {
+        (el as HTMLElement).style.display = 'none';
       }
     });
 
-    // 3. Also check for dynamically added divs anywhere
-    document.querySelectorAll('div').forEach(el => {
-      const style = window.getComputedStyle(el);
-      const zIndex = parseInt(style.zIndex) || 0;
-      
-      if (style.position === 'fixed' && zIndex > 10000) {
-        el.remove();
-      }
-    });
-
-    // 4. Restore scrolling
+    // 4. Restore scrolling - only reset Xola-applied properties
     document.body.style.overflow = '';
-    document.body.style.overflowX = '';
-    document.body.style.overflowY = '';
-    document.documentElement.style.overflow = '';
     document.body.style.position = '';
     document.body.style.top = '';
-    document.body.style.left = '';
-    document.body.style.right = '';
-    document.body.style.width = '';
-    document.body.style.height = '';
+    document.documentElement.style.overflow = '';
     document.body.classList.remove('xola-modal-open', 'modal-open', 'overflow-hidden');
     
-    // 5. Reset refs and state
+    // 5. Reset state so button hides
     overlayDetectedRef.current = false;
     setShowCloseButton(false);
   };
