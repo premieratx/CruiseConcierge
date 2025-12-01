@@ -680,152 +680,26 @@ export default function BacheloretteParty() {
         </section>
       </SectionReveal>
 
-      {/* VALUE STACKING SECTION - HORMOZI/MCDOWELL */}
+      {/* REAL PRICING COMPARISON SECTION */}
       <SectionReveal>
-        <section id="value-stack" className="py-20 bg-white">
+        <section id="value-stack" className="py-20 bg-gradient-to-br from-pink-50 to-purple-50">
           <div className="max-w-7xl mx-auto px-6">
-            <div className="text-center mb-16">
+            <div className="text-center mb-12">
               <Badge className="mb-6 bg-gradient-to-r from-pink-600 to-purple-600 text-white px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
                 <Gem className="h-4 w-4 mr-2 inline" />
-                Create Your Dream Bachelorette Weekend
+                Real Pricing Calculator
               </Badge>
-              <h2 className="text-4xl md:text-5xl font-bold font-playfair text-center mb-6 text-yellow-400 leading-tight">
-                The Real Value of Your Bachelorette Party
+              <h2 className="text-4xl md:text-5xl font-bold font-playfair text-center mb-6 text-gray-900 leading-tight">
+                Compare Your Options
               </h2>
               <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
-                What you're really getting vs. what you pay
+                See exactly what you'll pay - ATX Disco Cruise vs Private Cruise with real pricing
               </p>
             </div>
 
-            <div className="max-w-4xl mx-auto">
-              <Card className="border-4 border-pink-300 shadow-2xl overflow-hidden">
-                <CardHeader className="bg-gradient-to-r from-pink-600 to-purple-600 text-white p-8">
-                  <CardTitle className="text-3xl font-bold text-center">Your Complete Bachelorette Experience</CardTitle>
-                  <CardDescription className="text-white text-center text-lg mt-2">Everything you need for the perfect celebration</CardDescription>
-                </CardHeader>
-                <CardContent className="p-8 space-y-6">
-                  {/* Value Stack Items */}
-                  <div className="space-y-4">
-                    <div className="flex items-center justify-between p-4 bg-pink-50 rounded-lg">
-                      <div className="flex items-center gap-4">
-                        <CheckCircle className="h-8 w-8 text-pink-600 flex-shrink-0" />
-                        <div>
-                          <p className="font-bold text-lg">Professional Party Planning</p>
-                          <p className="text-gray-600">Expert coordination & logistics handled</p>
-                        </div>
-                      </div>
-                      <div className="text-right">
-                        <p className="text-2xl font-bold text-gray-500 line-through">$500</p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center justify-between p-4 bg-purple-50 rounded-lg">
-                      <div className="flex items-center gap-4">
-                        <CheckCircle className="h-8 w-8 text-purple-600 flex-shrink-0" />
-                        <div>
-                          <p className="font-bold text-lg">Stress-Free Group Coordination</p>
-                          <p className="text-gray-600">No herding cats or planning nightmares</p>
-                        </div>
-                      </div>
-                      <div className="text-right">
-                        <p className="text-2xl font-bold text-gray-500 line-through">$300</p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center justify-between p-4 bg-pink-50 rounded-lg">
-                      <div className="flex items-center gap-4">
-                        <CheckCircle className="h-8 w-8 text-pink-600 flex-shrink-0" />
-                        <div>
-                          <p className="font-bold text-lg">Professional DJ & Photography</p>
-                          <p className="text-gray-600">Dancing & memories captured forever</p>
-                        </div>
-                      </div>
-                      <div className="text-right">
-                        <p className="text-2xl font-bold text-gray-500 line-through">$800</p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center justify-between p-4 bg-purple-50 rounded-lg">
-                      <div className="flex items-center gap-4">
-                        <CheckCircle className="h-8 w-8 text-purple-600 flex-shrink-0" />
-                        <div>
-                          <p className="font-bold text-lg">Premium Lake Travis Location</p>
-                          <p className="text-gray-600">Access to exclusive party spots</p>
-                        </div>
-                      </div>
-                      <div className="text-right">
-                        <p className="text-2xl font-bold text-gray-500 line-through">$400</p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center justify-between p-4 bg-pink-50 rounded-lg">
-                      <div className="flex items-center gap-4">
-                        <CheckCircle className="h-8 w-8 text-pink-600 flex-shrink-0" />
-                        <div>
-                          <p className="font-bold text-lg">All Party Equipment & Supplies</p>
-                          <p className="text-gray-600">Floats, coolers, decorations included</p>
-                        </div>
-                      </div>
-                      <div className="text-right">
-                        <p className="text-2xl font-bold text-gray-500 line-through">$350</p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center justify-between p-4 bg-gradient-to-r from-pink-100 to-purple-100 rounded-lg border-2 border-pink-400">
-                      <div className="flex items-center gap-4">
-                        <Heart className="h-8 w-8 text-pink-600 flex-shrink-0" />
-                        <div>
-                          <p className="font-bold text-lg">Instagram-Worthy Moments</p>
-                          <p className="text-gray-600">The memories that last forever</p>
-                        </div>
-                      </div>
-                      <div className="text-right">
-                        <p className="text-2xl font-bold bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">PRICELESS</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Total Value */}
-                  <div className="border-t-2 border-gray-200 pt-6 mt-6">
-                    <div className="flex items-center justify-between mb-4">
-                      <p className="text-xl font-bold">Total Real Value:</p>
-                      <p className="text-3xl font-bold text-gray-500 line-through">$2,350+</p>
-                    </div>
-                    <div className="bg-gradient-to-r from-pink-600 to-purple-600 rounded-lg p-6 text-white">
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <p className="text-xl font-bold">Your Price Today:</p>
-                          <p className="text-sm opacity-90">Per person, all-inclusive</p>
-                        </div>
-                        <div className="text-right">
-                          <p className="text-5xl font-bold">$85</p>
-                          <p className="text-sm opacity-90">Group savings available!</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* CTA */}
-                  <div className="text-center mt-8">
-                    <div
-                      className="xola-custom xola-checkout"
-                      data-button-id="691574bd162501edc00f151a"
-                    >
-                      <Button
-                        size="lg"
-                        className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white font-bold text-xl px-12 py-6 transform hover:scale-105 transition-all"
-                      >
-                        <Sparkles className="mr-2 h-6 w-6" />
-                        Reserve Your Bride Tribe's Spot
-                      </Button>
-                    </div>
-                    <p className="text-sm text-gray-600 mt-4">
-                      <AlertCircle className="h-4 w-4 inline mr-1" />
-                      Peak weekends book 8-12 weeks for priority time slots - once they book they\'re gone!
-                    </p>
-                  </div>
-                </CardContent>
-              </Card>
+            {/* Real Pricing Calculator Component */}
+            <div className="max-w-5xl mx-auto">
+              <DiscoVsPrivateValueCalculator />
             </div>
           </div>
         </section>
