@@ -615,10 +615,14 @@ export default function Home() {
                 href="https://booking.premierpartycruises.com/quote-v2"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-gradient-to-r from-yellow-400 to-amber-500 hover:from-yellow-500 hover:to-amber-600 text-gray-900 font-bold text-base sm:text-lg px-8 sm:px-12 py-4 sm:py-7 rounded-xl shadow-2xl transform hover:scale-105 transition-all duration-300 inline-flex items-center justify-center"
+                className="font-bold text-sm sm:text-base px-6 sm:px-10 py-3 sm:py-5 rounded-xl shadow-2xl transform hover:scale-105 transition-all duration-300 inline-flex items-center justify-center"
+                style={{
+                  background: 'linear-gradient(to right, #facc15, #f59e0b)',
+                  color: '#1f2937'
+                }}
                 data-testid="button-hero-book-now"
               >
-                <MessageSquare className="mr-2 sm:mr-3 h-5 w-5 sm:h-6 sm:w-6" />
+                <MessageSquare className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
                 <span data-editable data-editable-id="hero-cta-book">Get Custom Quote</span>
               </a>
             </motion.div>

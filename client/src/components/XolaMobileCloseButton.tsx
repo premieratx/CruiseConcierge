@@ -1,41 +1,58 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { X } from 'lucide-react';
 
 export function XolaMobileCloseButton() {
   const [showCloseButton, setShowCloseButton] = useState(false);
 
+  const checkForXolaOverlay = useCallback(() => {
+    // Check for any fixed position overlays that might be Xola
+    const allDivs = document.querySelectorAll('div');
+    let hasVisibleOverlay = false;
+
+    allDivs.forEach(el => {
+      const style = window.getComputedStyle(el);
+      const zIndex = parseInt(style.zIndex) || 0;
+      const position = style.position;
+      const display = style.display;
+      const visibility = style.visibility;
+      
+      // Check for high z-index fixed/absolute elements (likely overlays)
+      if (
+        (position === 'fixed' || position === 'absolute') &&
+        zIndex > 1000 &&
+        display !== 'none' &&
+        visibility !== 'hidden'
+      ) {
+        // Check if it covers a significant portion of screen
+        const rect = el.getBoundingClientRect();
+        if (rect.width > window.innerWidth * 0.5 && rect.height > window.innerHeight * 0.3) {
+          hasVisibleOverlay = true;
+        }
+      }
+    });
+
+    // Also check for iframes which might be Xola
+    const iframes = document.querySelectorAll('iframe');
+    iframes.forEach(iframe => {
+      const parent = iframe.parentElement;
+      if (parent) {
+        const style = window.getComputedStyle(parent);
+        if (style.position === 'fixed' && style.display !== 'none') {
+          hasVisibleOverlay = true;
+        }
+      }
+    });
+
+    // Check body overflow - if scrolling is locked, an overlay is likely open
+    if (document.body.style.overflow === 'hidden') {
+      hasVisibleOverlay = true;
+    }
+
+    setShowCloseButton(hasVisibleOverlay);
+  }, []);
+
   useEffect(() => {
     let observer: MutationObserver | null = null;
-
-    const checkForXolaOverlay = () => {
-      const xolaOverlays = document.querySelectorAll(
-        'iframe[src*="xola"], ' +
-        '[class*="xola-modal"], ' +
-        '[class*="xola-overlay"], ' +
-        '[class*="xola-popup"], ' +
-        '.xola-checkout-modal, ' +
-        'div[style*="position: fixed"][style*="z-index: 99"]'
-      );
-      
-      let hasVisibleOverlay = false;
-      xolaOverlays.forEach(el => {
-        const style = window.getComputedStyle(el);
-        if (style.display !== 'none' && style.visibility !== 'hidden' && style.opacity !== '0') {
-          hasVisibleOverlay = true;
-        }
-      });
-
-      const fixedDivs = document.querySelectorAll('body > div[style*="position: fixed"]');
-      fixedDivs.forEach(el => {
-        const style = window.getComputedStyle(el);
-        const zIndex = parseInt(style.zIndex) || 0;
-        if (zIndex > 9000 && style.display !== 'none') {
-          hasVisibleOverlay = true;
-        }
-      });
-
-      setShowCloseButton(hasVisibleOverlay);
-    };
 
     observer = new MutationObserver(() => {
       checkForXolaOverlay();
@@ -48,59 +65,54 @@ export function XolaMobileCloseButton() {
       attributeFilter: ['style', 'class']
     });
 
+    // Initial check
     checkForXolaOverlay();
+
+    // Also check periodically in case mutations are missed
+    const interval = setInterval(checkForXolaOverlay, 500);
 
     return () => {
       if (observer) {
         observer.disconnect();
       }
+      clearInterval(interval);
     };
-  }, []);
+  }, [checkForXolaOverlay]);
 
   const handleClose = () => {
-    const xolaCloseButtons = document.querySelectorAll(
-      '[class*="xola"] button[class*="close"], ' +
-      '[class*="xola"] .close, ' +
-      '[class*="xola"] [aria-label="Close"], ' +
-      '[class*="xola"] [aria-label="close"], ' +
-      'button.xola-close, ' +
-      '.xola-modal button:first-child, ' +
-      '[class*="modal"] [class*="close"]'
-    );
-    
-    xolaCloseButtons.forEach(btn => {
-      if (btn instanceof HTMLElement) {
-        btn.click();
-      }
-    });
-
-    const fixedDivs = document.querySelectorAll('body > div[style*="position: fixed"]');
-    fixedDivs.forEach(el => {
+    // Hide ALL high z-index fixed overlays
+    const allDivs = document.querySelectorAll('div');
+    allDivs.forEach(el => {
       const style = window.getComputedStyle(el);
       const zIndex = parseInt(style.zIndex) || 0;
-      if (zIndex > 9000) {
-        (el as HTMLElement).style.display = 'none';
+      const position = style.position;
+      
+      if ((position === 'fixed' || position === 'absolute') && zIndex > 1000) {
+        const rect = el.getBoundingClientRect();
+        if (rect.width > window.innerWidth * 0.3 && rect.height > window.innerHeight * 0.2) {
+          (el as HTMLElement).style.display = 'none';
+        }
       }
     });
 
-    const xolaIframes = document.querySelectorAll('iframe[src*="xola"]');
-    xolaIframes.forEach(iframe => {
+    // Hide any iframes that might be Xola
+    const iframes = document.querySelectorAll('iframe');
+    iframes.forEach(iframe => {
       const parent = iframe.parentElement;
-      if (parent && parent.style.position === 'fixed') {
-        parent.style.display = 'none';
+      if (parent) {
+        const style = window.getComputedStyle(parent);
+        if (style.position === 'fixed') {
+          parent.style.display = 'none';
+        }
       }
     });
 
-    const xolaOverlays = document.querySelectorAll(
-      '.xola-modal, .xola-overlay, .xola-popup, .xola-checkout-modal, ' +
-      '[class*="xola-modal"], [class*="xola-overlay"], [class*="xola-popup"]'
-    );
-    xolaOverlays.forEach(el => {
-      (el as HTMLElement).style.display = 'none';
-    });
-
+    // Restore scrolling
     document.body.style.overflow = '';
     document.documentElement.style.overflow = '';
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.width = '';
     
     setShowCloseButton(false);
   };
