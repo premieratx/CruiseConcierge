@@ -1019,6 +1019,19 @@ const PAGE_METADATA: Record<string, { h1: string; content: string }> = {
   '/partners': {
     h1: 'Premier Partnership Details',
     content: 'Join the Premier Party Cruises partner program. Earn 10% commission on boat bookings, get personal discounts, and receive monthly payouts via Venmo. Partner with Austin\'s premier party boat rental service.'
+  },
+  // Static blog pages with BlogPostLayout - H1 for SSR SEO
+  '/austin-bachelor-party-ideas': {
+    h1: "Austin Bachelor Party Ideas: Top Things to Do for an Epic Guys' Weekend",
+    content: 'Discover the ultimate Austin bachelor party ideas! From Lake Travis party boats to 6th Street bars, BBQ joints, and outdoor adventures - plan the perfect Austin bachelor weekend.'
+  },
+  '/lake-travis-bachelor-party-boats': {
+    h1: 'Lake Travis Bachelor Party Boats: The Ultimate Austin Party Cruise Experience',
+    content: 'Discover why Lake Travis party boats are perfect for bachelor parties in Austin. Learn about the ATX Disco Cruise, private charters, BYOB options, and pro tips for an epic lake party.'
+  },
+  '/wedding-anniversary-celebration-ideas': {
+    h1: 'Wedding Anniversary Celebration Ideas: Recreating Your Special Day with Boat and Alcohol Packages',
+    content: 'Celebrate your wedding anniversary on Lake Travis with romantic boat rentals and BYOB packages. Intimate cruises or group celebrations for milestone anniversaries.'
   }
 };
 
