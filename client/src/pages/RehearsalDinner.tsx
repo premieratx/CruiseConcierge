@@ -310,7 +310,7 @@ export default function RehearsalDinner() {
                 href="https://booking.premierpartycruises.com/quote-v2"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold text-base sm:text-lg px-8 py-6 shadow-xl rounded-md transition-all"
+                className="inline-flex items-center justify-center bg-gradient-to-r from-yellow-400 to-amber-500 hover:from-yellow-500 hover:to-amber-600 text-gray-900 font-bold text-base sm:text-lg px-8 py-6 shadow-xl rounded-md transition-all"
                 data-testid="button-hero-get-quote"
               >
                 <MessageSquare className="mr-2 h-5 w-5" />

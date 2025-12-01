@@ -984,7 +984,7 @@ export default function PrivateCruises() {
                   href="https://booking.premierpartycruises.com/quote-v2"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center w-full sm:w-auto bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold text-base sm:text-xl px-6 sm:px-12 py-4 sm:py-6 rounded-md transition-all"
+                  className="inline-flex items-center justify-center w-full sm:w-auto bg-gradient-to-r from-yellow-400 to-amber-500 hover:from-yellow-500 hover:to-amber-600 text-gray-900 font-bold text-base sm:text-xl px-6 sm:px-12 py-4 sm:py-6 rounded-md transition-all"
                   data-testid="button-pricing-get-quote"
                 >
                   Get Custom Quote for Your Date
@@ -1869,7 +1869,7 @@ export default function PrivateCruises() {
                     href="https://booking.premierpartycruises.com/quote-v2"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center w-full sm:w-auto bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold text-base sm:text-lg px-6 sm:px-8 py-4 sm:py-5 rounded-md transition-all"
+                    className="inline-flex items-center justify-center w-full sm:w-auto bg-gradient-to-r from-yellow-400 to-amber-500 hover:from-yellow-500 hover:to-amber-600 text-gray-900 font-bold text-base sm:text-lg px-6 sm:px-8 py-4 sm:py-5 rounded-md transition-all"
                   >
                     Get Custom Quote
                     <ArrowRight className="ml-2 h-5 w-5" />

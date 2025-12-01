@@ -615,7 +615,7 @@ export default function Home() {
                 href="https://booking.premierpartycruises.com/quote-v2"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full sm:w-auto bg-white hover:bg-gray-50 text-gray-900 font-bold text-lg px-12 py-7 rounded-xl shadow-2xl transform hover:scale-105 transition-all duration-300 border-2 border-white inline-flex items-center justify-center"
+                className="w-full sm:w-auto bg-gradient-to-r from-yellow-400 to-amber-500 hover:from-yellow-500 hover:to-amber-600 text-gray-900 font-bold text-lg px-12 py-7 rounded-xl shadow-2xl transform hover:scale-105 transition-all duration-300 inline-flex items-center justify-center"
                 data-testid="button-hero-book-now"
               >
                 <MessageSquare className="mr-3 h-6 w-6" />

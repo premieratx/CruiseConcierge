@@ -396,7 +396,7 @@ export default function LakeTravisBoatRentalGuide() {
                 A well-planned party is a stress-free party. With Premier Party Cruises and Party On Delivery, you have everything needed for an unforgettable Austin adventure on Lake Travis!
               </p>
               <Link href="/chat">
-                <Button size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold text-lg px-8 py-6 rounded-xl" data-testid="button-build-quote">
+                <Button size="lg" className="bg-gradient-to-r from-yellow-400 to-amber-500 hover:from-yellow-500 hover:to-amber-600 text-gray-900 font-bold text-lg px-8 py-6 rounded-xl" data-testid="button-build-quote">
                   <Sparkles className="mr-2 h-5 w-5" />
                   Build My Quote Now
                 </Button>
