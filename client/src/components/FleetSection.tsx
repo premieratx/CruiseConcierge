@@ -509,16 +509,15 @@ export default function FleetSection() {
             <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 mb-2 sm:mb-4">
               Ready to book your Lake Travis adventure?
             </p>
-            <a href="#quote-builder">
-              <Button
-                size="default"
-                className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-sm sm:text-base px-6 py-3 sm:px-8 sm:py-4"
-                data-testid="button-fleet-to-quote"
-              >
-                Get Instant Quote
-                <ArrowRight className="ml-1 sm:ml-2 h-4 w-4 sm:h-5 sm:w-5" />
-              </Button>
-            </a>
+            <Button
+              size="default"
+              onClick={() => document.getElementById('quote-builder')?.scrollIntoView({ behavior: 'smooth' })}
+              className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-sm sm:text-base px-6 py-3 sm:px-8 sm:py-4"
+              data-testid="button-fleet-to-quote"
+            >
+              Get Instant Quote
+              <ArrowRight className="ml-1 sm:ml-2 h-4 w-4 sm:h-5 sm:w-5" />
+            </Button>
           </motion.div>
         </div>
       </section>
