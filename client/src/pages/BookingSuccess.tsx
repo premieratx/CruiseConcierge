@@ -28,25 +28,11 @@ const fadeInUp = {
 
 export default function BookingSuccess() {
   const [, params] = useRoute("/booking-success");
-  const sessionId = new URLSearchParams(window.location.search).get('session_id');
   const quoteId = new URLSearchParams(window.location.search).get('quote_id');
+  const bookingRef = new URLSearchParams(window.location.search).get('booking_ref');
   
-  // Fetch booking details from Stripe session
-  const { data: stripeSession, isLoading: sessionLoading, error: sessionError } = useQuery({
-    queryKey: [`/api/stripe/session/${sessionId}`],
-    queryFn: async () => {
-      if (!sessionId) return null;
-      const response = await fetch(`/api/stripe/session/${sessionId}`);
-      if (!response.ok) throw new Error('Failed to fetch stripe session');
-      return await response.json();
-    },
-    enabled: !!sessionId,
-    retry: 3,
-    staleTime: 5 * 60 * 1000, // 5 minutes
-  });
-
   // Fetch quote details if available
-  const { data: quote, isLoading: quoteLoading } = useQuery({
+  const { data: quote, isLoading: quoteLoading, error: quoteError } = useQuery({
     queryKey: [`/api/quotes/${quoteId}`],
     queryFn: async () => {
       if (!quoteId) return null;
@@ -93,42 +79,39 @@ export default function BookingSuccess() {
 
   // Extract booking details from available data
   const bookingDetails = useMemo(() => {
-    // Extract data from Stripe session metadata if available
-    const metadata = stripeSession?.metadata || {};
     const project = projectData?.project;
     const contact = projectData?.contact;
     
-    // Generate booking ID from session or quote
-    const bookingId = metadata.bookingId || 
-                     sessionId ? `BOOK-${sessionId.slice(-8).toUpperCase()}` : 
-                     `BOOK-${Date.now().toString().slice(-8)}`;
+    // Generate booking ID from quote or booking reference
+    const bookingId = bookingRef || 
+                     (quoteId ? `BOOK-${quoteId.slice(-8).toUpperCase()}` : 
+                     `BOOK-${Date.now().toString().slice(-8)}`);
     
     return {
       id: bookingId,
-      quoteId: quoteId || metadata.quoteId || "N/A",
-      customerName: metadata.customerName || contact?.name || "Valued Customer",
-      customerEmail: contact?.email || metadata.customerEmail || "",
+      quoteId: quoteId || "N/A",
+      customerName: contact?.name || "Valued Customer",
+      customerEmail: contact?.email || "",
       customerPhone: contact?.phone || "",
-      eventType: metadata.eventType || project?.eventType || "Cruise Event",
+      eventType: project?.eventType || "Cruise Event",
       date: project?.projectDate ? new Date(project.projectDate).toISOString().split('T')[0] : 
-            metadata.eventDate || new Date().toISOString().split('T')[0],
-      startTime: metadata.startTime || "14:00",
-      endTime: metadata.endTime || "18:00",
-      groupSize: metadata.groupSize || project?.groupSize || 20,
-      boatName: metadata.boatName || "Premier Cruise Vessel",
-      // CRITICAL FIX: Always use Stripe session amount (actual amount paid) over quote fallbacks
-      totalAmount: quote?.total || 150000, // Keep original quote total for balance calculation
-      depositPaid: stripeSession?.amount_total || quote?.depositAmount || 37500, // Use ACTUAL amount paid from Stripe
-      actualAmountPaid: stripeSession?.amount_total || 37500, // Track actual payment from Stripe
-      status: stripeSession?.payment_status === 'paid' ? 'confirmed' : 'processing',
-      cruiseType: metadata.cruiseType || 'private',
-      sessionId: sessionId,
-      paymentStatus: stripeSession?.payment_status || 'unknown'
+            new Date().toISOString().split('T')[0],
+      startTime: quote?.startTime || "14:00",
+      endTime: quote?.endTime || "18:00",
+      groupSize: project?.groupSize || 20,
+      boatName: quote?.boatName || "Premier Cruise Vessel",
+      totalAmount: quote?.total || 150000,
+      depositPaid: quote?.depositAmount || 37500,
+      actualAmountPaid: quote?.depositAmount || 37500,
+      status: 'confirmed',
+      cruiseType: quote?.cruiseType || 'private',
+      bookingRef: bookingRef,
+      paymentStatus: 'completed'
     };
-  }, [stripeSession, quote, projectData, sessionId, quoteId]);
+  }, [quote, projectData, quoteId, bookingRef]);
 
-  const isLoading = sessionLoading || quoteLoading || projectLoading;
-  const hasError = sessionError && sessionId; // Only show error if we have sessionId but failed to fetch
+  const isLoading = quoteLoading || projectLoading;
+  const hasError = quoteError && quoteId; // Only show error if we have quoteId but failed to fetch
 
   // Show loading state while fetching data
   if (isLoading) {
@@ -210,12 +193,14 @@ export default function BookingSuccess() {
               </p>
               
               <div className="bg-white dark:bg-gray-800 p-4 rounded-lg mb-6">
-                <p className="text-sm text-gray-600 dark:text-gray-300">
-                  <strong>Session ID:</strong> {sessionId}
-                </p>
                 {quoteId && (
                   <p className="text-sm text-gray-600 dark:text-gray-300">
                     <strong>Quote ID:</strong> {quoteId}
+                  </p>
+                )}
+                {bookingRef && (
+                  <p className="text-sm text-gray-600 dark:text-gray-300">
+                    <strong>Booking Reference:</strong> {bookingRef}
                   </p>
                 )}
               </div>
@@ -229,7 +214,7 @@ export default function BookingSuccess() {
                   Try Again
                 </Button>
                 <Button 
-                  onClick={() => window.location.href = 'mailto:clientservices@premierpartycruises.com?subject=Booking Confirmation Issue&body=Please help me with my booking confirmation. Session ID: ' + sessionId}
+                  onClick={() => window.location.href = `mailto:clientservices@premierpartycruises.com?subject=Booking Confirmation Issue&body=Please help me with my booking confirmation. Quote ID: ${quoteId || 'N/A'}`}
                   data-testid="button-contact"
                 >
                   Contact Support

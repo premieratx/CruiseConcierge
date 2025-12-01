@@ -59,7 +59,6 @@ startServer().catch(console.error);
     --external:multer \
     --external:compression \
     --external:@sendgrid/mail \
-    --external:stripe \
     --external:googleapis \
     --external:@google-cloud/storage \
     --external:openai \

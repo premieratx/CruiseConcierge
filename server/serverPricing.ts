@@ -24,7 +24,7 @@ export interface ServerPricingResponse {
   dayType: 'weekday' | 'friday' | 'weekend';
   durationHours: number;
   
-  // Pricing Breakdown (ALL IN CENTS for Stripe compatibility)
+  // Pricing Breakdown (ALL IN CENTS for precision)
   baseRateCents: number; // hourly rate in cents
   subtotalCents: number; // base rate × hours in cents
   crewFeeHourlyCents: number; // crew surcharge per hour in cents
@@ -40,7 +40,7 @@ export interface ServerPricingResponse {
   gratuityRate: number; // 20%
   gratuityAmountCents: number;
   
-  // Totals (in cents for Stripe)
+  // Totals (in cents for precision)
   totalAmountCents: number; // final amount due in cents
   
   // Deposit Logic (in cents)
@@ -403,7 +403,7 @@ export async function calculateServerPricing(request: ServerPricingRequest): Pro
     dayType,
     durationHours: request.duration,
     
-    // Pricing Breakdown (in cents for Stripe)
+    // Pricing Breakdown (in cents for precision)
     baseRateCents,
     subtotalCents,
     crewFeeHourlyCents,
@@ -419,7 +419,7 @@ export async function calculateServerPricing(request: ServerPricingRequest): Pro
     gratuityRate: PRICING_CONFIG.GRATUITY_RATE,
     gratuityAmountCents,
     
-    // Totals (in cents for Stripe)
+    // Totals (in cents for precision)
     totalAmountCents,
     
     // Deposit Logic (in cents)
