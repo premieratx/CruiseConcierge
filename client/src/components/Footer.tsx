@@ -66,11 +66,11 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Experiences Section */}
+          {/* Main Experiences Section */}
           <div className="space-y-4" data-testid="footer-experiences-section">
             <h3 className="text-lg font-bold text-white mb-4 flex items-center space-x-2">
               <Ship className="h-5 w-5 text-brand-blue" />
-              <span>Experiences</span>
+              <span>Cruises</span>
             </h3>
             <ul className="space-y-2">
               <li>
@@ -80,43 +80,79 @@ export default function Footer() {
                   data-testid="link-footer-disco-cruises"
                 >
                   <span className="text-yellow-400">⭐</span>
-                  <span>ATX Disco Cruise - Featured</span>
+                  <span>ATX Disco Cruise</span>
                 </Link>
               </li>
               <li>
-                <Link 
-                  href="/bachelor-party-austin" 
-                  className="text-gray-300 hover:text-brand-yellow transition-colors text-sm block"
-                  data-testid="link-footer-bachelor-party"
-                >
-                  Bachelor Party Austin
-                </Link>
-              </li>
-              <li>
-                <Link 
-                  href="/bachelorette-party-austin" 
-                  className="text-gray-300 hover:text-brand-yellow transition-colors text-sm block"
-                  data-testid="link-footer-bachelorette-party"
-                >
-                  Bachelorette Party Austin
-                </Link>
-              </li>
-              <li>
-                <Link 
-                  href="/atx-disco-cruise" 
-                  className="text-gray-300 hover:text-brand-yellow transition-colors text-sm block"
-                  data-testid="link-footer-atx-disco-cruise"
-                >
-                  ATX Disco Cruise
-                </Link>
-              </li>
-              <li>
-                <Link 
-                  href="/private-cruises" 
-                  className="text-gray-300 hover:text-brand-yellow transition-colors text-sm block"
-                  data-testid="link-footer-private-cruises"
-                >
+                <Link href="/private-cruises" className="text-gray-300 hover:text-brand-yellow transition-colors text-sm block" data-testid="link-footer-private-cruises">
                   Private Cruises
+                </Link>
+              </li>
+              <li>
+                <Link href="/bachelor-party-austin" className="text-gray-300 hover:text-brand-yellow transition-colors text-sm block" data-testid="link-footer-bachelor-party">
+                  Bachelor Party
+                </Link>
+              </li>
+              <li>
+                <Link href="/bachelorette-party-austin" className="text-gray-300 hover:text-brand-yellow transition-colors text-sm block" data-testid="link-footer-bachelorette-party">
+                  Bachelorette Party
+                </Link>
+              </li>
+              <li>
+                <Link href="/combined-bachelor-bachelorette-austin" className="text-gray-300 hover:text-brand-yellow transition-colors text-sm block" data-testid="link-footer-combined">
+                  Combined Bachelor/Bachelorette
+                </Link>
+              </li>
+              <li>
+                <Link href="/party-boat-austin" className="text-gray-300 hover:text-brand-yellow transition-colors text-sm block" data-testid="link-footer-party-boat-austin">
+                  Party Boat Austin
+                </Link>
+              </li>
+              <li>
+                <Link href="/party-boat-lake-travis" className="text-gray-300 hover:text-brand-yellow transition-colors text-sm block" data-testid="link-footer-party-boat-lake-travis">
+                  Party Boat Lake Travis
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Occasions Section */}
+          <div className="space-y-4" data-testid="footer-occasions-section">
+            <h3 className="text-lg font-bold text-white mb-4">Occasions</h3>
+            <ul className="space-y-2">
+              <li>
+                <Link href="/birthday-parties" className="text-gray-300 hover:text-brand-yellow transition-colors text-sm block" data-testid="link-footer-birthday">
+                  Birthday Parties
+                </Link>
+              </li>
+              <li>
+                <Link href="/corporate-events" className="text-gray-300 hover:text-brand-yellow transition-colors text-sm block" data-testid="link-footer-corporate">
+                  Corporate Events
+                </Link>
+              </li>
+              <li>
+                <Link href="/wedding-parties" className="text-gray-300 hover:text-brand-yellow transition-colors text-sm block" data-testid="link-footer-wedding">
+                  Wedding Parties
+                </Link>
+              </li>
+              <li>
+                <Link href="/team-building" className="text-gray-300 hover:text-brand-yellow transition-colors text-sm block" data-testid="link-footer-team-building">
+                  Team Building
+                </Link>
+              </li>
+              <li>
+                <Link href="/milestone-birthday" className="text-gray-300 hover:text-brand-yellow transition-colors text-sm block" data-testid="link-footer-milestone">
+                  Milestone Birthday
+                </Link>
+              </li>
+              <li>
+                <Link href="/graduation-party" className="text-gray-300 hover:text-brand-yellow transition-colors text-sm block" data-testid="link-footer-graduation">
+                  Graduation Party
+                </Link>
+              </li>
+              <li>
+                <Link href="/sweet-16" className="text-gray-300 hover:text-brand-yellow transition-colors text-sm block" data-testid="link-footer-sweet16">
+                  Sweet 16
                 </Link>
               </li>
             </ul>
@@ -153,39 +189,48 @@ export default function Footer() {
             <h3 className="text-lg font-bold text-white mb-4">Resources</h3>
             <ul className="space-y-2 mb-6">
               <li>
-                <Link 
-                  href="/blogs" 
-                  className="text-gray-300 hover:text-brand-yellow transition-colors text-sm block"
-                  data-testid="link-footer-blogs"
-                >
+                <Link href="/book-now" className="text-gray-300 hover:text-brand-yellow transition-colors text-sm block font-semibold" data-testid="link-footer-book-now">
+                  Book Now
+                </Link>
+              </li>
+              <li>
+                <Link href="/chat" className="text-gray-300 hover:text-brand-yellow transition-colors text-sm block" data-testid="link-footer-get-quote">
+                  Get a Quote
+                </Link>
+              </li>
+              <li>
+                <Link href="/pricing-breakdown" className="text-gray-300 hover:text-brand-yellow transition-colors text-sm block" data-testid="link-footer-pricing">
+                  Pricing
+                </Link>
+              </li>
+              <li>
+                <Link href="/blogs" className="text-gray-300 hover:text-brand-yellow transition-colors text-sm block" data-testid="link-footer-blogs">
                   Blog
                 </Link>
               </li>
               <li>
-                <Link 
-                  href="/gallery" 
-                  className="text-gray-300 hover:text-brand-yellow transition-colors text-sm block"
-                  data-testid="link-footer-gallery"
-                >
+                <Link href="/gallery" className="text-gray-300 hover:text-brand-yellow transition-colors text-sm block" data-testid="link-footer-gallery">
                   Gallery
                 </Link>
               </li>
               <li>
-                <Link 
-                  href="/testimonials-faq" 
-                  className="text-gray-300 hover:text-brand-yellow transition-colors text-sm block"
-                  data-testid="link-footer-reviews-faq"
-                >
+                <Link href="/testimonials-faq" className="text-gray-300 hover:text-brand-yellow transition-colors text-sm block" data-testid="link-footer-reviews-faq">
                   Reviews & FAQ
                 </Link>
               </li>
               <li>
-                <Link 
-                  href="/contact" 
-                  className="text-gray-300 hover:text-brand-yellow transition-colors text-sm block"
-                  data-testid="link-footer-contact"
-                >
+                <Link href="/faq" className="text-gray-300 hover:text-brand-yellow transition-colors text-sm block" data-testid="link-footer-faq">
+                  FAQ
+                </Link>
+              </li>
+              <li>
+                <Link href="/contact" className="text-gray-300 hover:text-brand-yellow transition-colors text-sm block" data-testid="link-footer-contact">
                   Contact
+                </Link>
+              </li>
+              <li>
+                <Link href="/partners" className="text-gray-300 hover:text-brand-yellow transition-colors text-sm block" data-testid="link-footer-partners">
+                  Partner Program
                 </Link>
               </li>
             </ul>
@@ -242,6 +287,51 @@ export default function Footer() {
               >
                 <Linkedin className="h-6 w-6" />
               </a>
+            </div>
+          </div>
+        </div>
+
+        {/* Additional Internal Links - SEO Enhancement */}
+        <div className="border-t border-gray-800 mt-12 pt-8" data-testid="footer-additional-links">
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 text-center">
+            <div>
+              <h4 className="text-sm font-semibold text-gray-400 mb-2">Wedding Events</h4>
+              <ul className="space-y-1">
+                <li><Link href="/welcome-party" className="text-gray-500 hover:text-brand-yellow text-xs" data-testid="link-footer-welcome-party">Welcome Party</Link></li>
+                <li><Link href="/rehearsal-dinner" className="text-gray-500 hover:text-brand-yellow text-xs" data-testid="link-footer-rehearsal-dinner">Rehearsal Dinner</Link></li>
+                <li><Link href="/after-party" className="text-gray-500 hover:text-brand-yellow text-xs" data-testid="link-footer-after-party">After Party</Link></li>
+                <li><Link href="/client-entertainment" className="text-gray-500 hover:text-brand-yellow text-xs" data-testid="link-footer-client-entertainment">Client Entertainment</Link></li>
+                <li><Link href="/company-milestone" className="text-gray-500 hover:text-brand-yellow text-xs" data-testid="link-footer-company-milestone">Company Milestone</Link></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="text-sm font-semibold text-gray-400 mb-2">Bachelorette Guides</h4>
+              <ul className="space-y-1">
+                <li><Link href="/3-day-austin-bachelorette-itinerary" className="text-gray-500 hover:text-brand-yellow text-xs" data-testid="link-footer-3day-itinerary">3-Day Itinerary</Link></li>
+                <li><Link href="/austin-bachelorette-nightlife" className="text-gray-500 hover:text-brand-yellow text-xs" data-testid="link-footer-nightlife">Nightlife Guide</Link></li>
+                <li><Link href="/budget-austin-bachelorette" className="text-gray-500 hover:text-brand-yellow text-xs" data-testid="link-footer-budget">Budget Planning</Link></li>
+                <li><Link href="/luxury-austin-bachelorette" className="text-gray-500 hover:text-brand-yellow text-xs" data-testid="link-footer-luxury">Luxury Experience</Link></li>
+                <li><Link href="/adventure-austin-bachelorette" className="text-gray-500 hover:text-brand-yellow text-xs" data-testid="link-footer-adventure">Adventure Options</Link></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="text-sm font-semibold text-gray-400 mb-2">More Guides</h4>
+              <ul className="space-y-1">
+                <li><Link href="/ultimate-austin-bachelorette-weekend" className="text-gray-500 hover:text-brand-yellow text-xs" data-testid="link-footer-ultimate-weekend">Ultimate Weekend</Link></li>
+                <li><Link href="/top-10-austin-bachelorette-ideas" className="text-gray-500 hover:text-brand-yellow text-xs" data-testid="link-footer-top10">Top 10 Ideas</Link></li>
+                <li><Link href="/first-time-lake-travis-boat-rental-guide" className="text-gray-500 hover:text-brand-yellow text-xs" data-testid="link-footer-first-time-guide">First Time Guide</Link></li>
+                <li><Link href="/austin-bachelor-party-ideas" className="text-gray-500 hover:text-brand-yellow text-xs" data-testid="link-footer-bachelor-ideas">Bachelor Party Ideas</Link></li>
+                <li><Link href="/lake-travis-bachelor-party-boats" className="text-gray-500 hover:text-brand-yellow text-xs" data-testid="link-footer-lake-travis-boats">Lake Travis Boats</Link></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="text-sm font-semibold text-gray-400 mb-2">Special Events</h4>
+              <ul className="space-y-1">
+                <li><Link href="/wedding-anniversary-celebration-ideas" className="text-gray-500 hover:text-brand-yellow text-xs" data-testid="link-footer-anniversary">Anniversary Ideas</Link></li>
+                <li><Link href="/golden-ticket" className="text-gray-500 hover:text-brand-yellow text-xs" data-testid="link-footer-golden-ticket">Golden Ticket Offer</Link></li>
+                <li><Link href="/golden-ticket-private" className="text-gray-500 hover:text-brand-yellow text-xs" data-testid="link-footer-golden-ticket-private">Private Golden Ticket</Link></li>
+                <li><Link href="/ai-endorsement" className="text-gray-500 hover:text-brand-yellow text-xs" data-testid="link-footer-ai-endorsement">AI Endorsement</Link></li>
+              </ul>
             </div>
           </div>
         </div>
