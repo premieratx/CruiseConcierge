@@ -85,40 +85,65 @@ export function XolaMobileCloseButton() {
   }, [checkForXolaOverlay]);
 
   const handleClose = () => {
-    // Hide ALL high z-index fixed overlays
-    const allDivs = document.querySelectorAll('div');
-    allDivs.forEach(el => {
-      const style = window.getComputedStyle(el);
-      const zIndex = parseInt(style.zIndex) || 0;
-      const position = style.position;
-      
-      if ((position === 'fixed' || position === 'absolute') && zIndex > 1000) {
-        const rect = el.getBoundingClientRect();
-        if (rect.width > window.innerWidth * 0.3 && rect.height > window.innerHeight * 0.2) {
-          (el as HTMLElement).style.display = 'none';
-        }
-      }
-    });
-
-    // Hide any iframes that might be Xola
+    // Strategy: Find and REMOVE all overlay elements from DOM
+    
+    // 1. Remove any iframes (Xola uses iframes)
     const iframes = document.querySelectorAll('iframe');
     iframes.forEach(iframe => {
-      const parent = iframe.parentElement;
-      if (parent) {
-        const style = window.getComputedStyle(parent);
-        if (style.position === 'fixed') {
-          parent.style.display = 'none';
+      const src = iframe.src || '';
+      // Find the top-level container of the iframe and remove it
+      let element: HTMLElement | null = iframe;
+      while (element && element !== document.body) {
+        const parent = element.parentElement;
+        const style = window.getComputedStyle(element);
+        if (style.position === 'fixed' || parseInt(style.zIndex) > 1000) {
+          element.remove();
+          break;
+        }
+        element = parent;
+      }
+    });
+
+    // 2. Remove any fixed/absolute overlays with high z-index
+    const allElements = document.querySelectorAll('body > *');
+    allElements.forEach(el => {
+      if (el.id === 'root') return; // Don't remove our React app
+      const style = window.getComputedStyle(el);
+      const zIndex = parseInt(style.zIndex) || 0;
+      
+      if ((style.position === 'fixed' || style.position === 'absolute') && zIndex > 100) {
+        const rect = el.getBoundingClientRect();
+        if (rect.width > 50 && rect.height > 50) {
+          (el as HTMLElement).remove();
         }
       }
     });
 
-    // Restore scrolling
+    // 3. Also check for dynamically added divs anywhere
+    document.querySelectorAll('div').forEach(el => {
+      const style = window.getComputedStyle(el);
+      const zIndex = parseInt(style.zIndex) || 0;
+      
+      if (style.position === 'fixed' && zIndex > 10000) {
+        el.remove();
+      }
+    });
+
+    // 4. Restore scrolling
     document.body.style.overflow = '';
+    document.body.style.overflowX = '';
+    document.body.style.overflowY = '';
     document.documentElement.style.overflow = '';
     document.body.style.position = '';
     document.body.style.top = '';
+    document.body.style.left = '';
+    document.body.style.right = '';
     document.body.style.width = '';
+    document.body.style.height = '';
+    document.body.classList.remove('xola-modal-open', 'modal-open', 'overflow-hidden');
     
+    // 5. Reset refs and state
+    overlayDetectedRef.current = false;
     setShowCloseButton(false);
   };
 
