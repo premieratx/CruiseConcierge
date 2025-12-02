@@ -1949,55 +1949,30 @@ export default function BacheloretteParty() {
                 {
                   value: "4 Hours",
                   label: "Cruise Duration",
-                  icon: <Clock className="w-8 h-8" />,
-                  itemProp: "duration"
+                  icon: <Clock className="w-8 h-8" />
                 },
                 {
                   value: "$85-$105",
                   label: "Per Person Range",
-                  icon: <DollarSign className="w-8 h-8" />,
-                  itemProp: "priceRange"
+                  icon: <DollarSign className="w-8 h-8" />
                 },
                 {
                   value: "14-75",
                   label: "Guest Capacity",
-                  icon: <Users className="w-8 h-8" />,
-                  itemProp: "capacity"
+                  icon: <Users className="w-8 h-8" />
                 },
                 {
                   value: "DJ + Photo",
                   label: "Included Pros",
-                  icon: <Music className="w-8 h-8" />,
-                  itemProp: "entertainment"
+                  icon: <Music className="w-8 h-8" />
                 },
                 {
                   value: "5 Stars",
                   label: "Average Rating",
-                  icon: <Star className="w-8 h-8" />,
-                  itemProp: "rating"
+                  icon: <Star className="w-8 h-8" />
                 }
               ]}
               className="max-w-6xl mx-auto"
-              schemaType="Event"
-              structuredData={{
-                "@context": "https://schema.org",
-                "@type": "Event",
-                "name": "Austin Bachelorette Party Boat Cruise",
-                "description": "Bachelorette party boat cruises on Lake Travis, Austin Texas",
-                "location": {
-                  "@type": "Place",
-                  "name": "Lake Travis",
-                  "address": {
-                    "@type": "PostalAddress",
-                    "addressLocality": "Austin",
-                    "addressRegion": "Texas"
-                  }
-                },
-                "organizer": {
-                  "@type": "Organization",
-                  "name": "Premier Party Cruises"
-                }
-              }}
             />
           </div>
         </section>
