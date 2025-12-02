@@ -757,6 +757,8 @@ function generateFontPreloadTags(): string {
 }
 
 // Generate BreadcrumbList schema for interior pages
+// IMPORTANT: Per Google guidelines, the LAST breadcrumb item should NOT have an "item" property
+// because it represents the current page. Only non-terminal items need the "item" URL.
 function generateBreadcrumbSchema(pathname: string, h1: string): object | null {
   // Don't generate breadcrumbs for homepage
   if (pathname === '/') {
@@ -770,7 +772,7 @@ function generateBreadcrumbSchema(pathname: string, h1: string): object | null {
   pageName = pageName.replace(/\s*\|\s*Premier Party Cruises.*$/i, '');
   pageName = pageName.trim();
   
-  // Build breadcrumb list
+  // Build breadcrumb list - LAST item has NO "item" property (Google requirement)
   const breadcrumbList = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -784,8 +786,8 @@ function generateBreadcrumbSchema(pathname: string, h1: string): object | null {
       {
         "@type": "ListItem",
         "position": 2,
-        "name": pageName,
-        "item": `https://premierpartycruises.com${pathname}`
+        "name": pageName
+        // NOTE: No "item" property on last breadcrumb per Google's guidelines
       }
     ]
   };
