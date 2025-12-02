@@ -30,14 +30,14 @@ const tableOfContents = [
 ];
 
 const cleverGirlPhotos = [
-  { src: '/attached_assets/clever girl-1 lake travis party boat rental_1763966476656.jpg', alt: 'Clever Girl party boat on Lake Travis - 75 guest capacity for weddings' },
-  { src: '/attached_assets/clever girl-2 party boat rental austin_1763966476657.jpg', alt: 'Clever Girl wedding venue boat - spacious deck for ceremonies' },
-  { src: '/attached_assets/clever girl-3 bachelorette party boat austin_1763966476657.jpg', alt: 'Clever Girl boat celebration - perfect for wedding parties' },
-  { src: '/attached_assets/clever girl-4 party boat rental austin_1763966476657.jpg', alt: 'Clever Girl Lake Travis boat - elegant wedding setting' },
-  { src: '/attached_assets/clever girl-6 party boat lake travis_1763966476657.jpg', alt: 'Clever Girl party boat - dancing and entertainment space' },
-  { src: '/attached_assets/clever girl-8 party boat rental austin_1763966476658.jpg', alt: 'Clever Girl boat interior - seating for wedding guests' },
-  { src: '/attached_assets/clever girl-9 party boat austin_1763966476658.jpg', alt: 'Clever Girl flagship boat - premium wedding venue on Lake Travis' },
-  { src: '/attached_assets/clever girl-10 austin bachelorette party_1763966476658.jpg', alt: 'Clever Girl party boat celebration - wedding reception space' },
+  { src: '/attached_assets/clever-girl-1-lake-travis-party-boat.jpg', alt: 'Clever Girl party boat on Lake Travis - 75 guest capacity for weddings' },
+  { src: '/attached_assets/clever-girl-2-party-boat-austin.jpg', alt: 'Clever Girl wedding venue boat - spacious deck for ceremonies' },
+  { src: '/attached_assets/clever-girl-3-bachelorette-boat.jpg', alt: 'Clever Girl boat celebration - perfect for wedding parties' },
+  { src: '/attached_assets/clever-girl-4-wedding-venue.jpg', alt: 'Clever Girl Lake Travis boat - elegant wedding setting' },
+  { src: '/attached_assets/clever-girl-5-dance-floor.jpg', alt: 'Clever Girl party boat - dancing and entertainment space' },
+  { src: '/attached_assets/clever-girl-6-interior-seating.jpg', alt: 'Clever Girl boat interior - seating for wedding guests' },
+  { src: '/attached_assets/clever-girl-7-flagship-boat.jpg', alt: 'Clever Girl flagship boat - premium wedding venue on Lake Travis' },
+  { src: '/attached_assets/clever-girl-8-wedding-reception.jpg', alt: 'Clever Girl party boat celebration - wedding reception space' },
 ];
 
 export default function LakeTravisWeddingBoatRentals() {
