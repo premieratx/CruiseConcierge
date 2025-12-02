@@ -68,18 +68,14 @@ interface AIOptimizedSectionProps {
 }
 
 // Statistics Block Component
+// NOTE: Removed itemScope/itemType for AggregateRating - SSR handles schemas to avoid Google Search Console errors
 const StatisticsBlock = ({ items, title }: { items: StatisticItem[], title?: string }) => {
   return (
-    <div 
-      className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4"
-      itemScope 
-      itemType="https://schema.org/AggregateRating"
-    >
+    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
       {items.map((stat, index) => (
         <div 
           key={index} 
           className="bg-white dark:bg-gray-800 rounded-lg p-4 text-center shadow-sm hover:shadow-md transition-shadow"
-          itemProp={stat.itemProp}
         >
           <div className="flex justify-center mb-2 text-purple-600">
             {stat.icon}
@@ -137,23 +133,22 @@ const StructuredListBlock = ({ items }: { items: StructuredListItem[] }) => {
 };
 
 // Timeline Block Component  
+// NOTE: Removed itemScope/itemType for Event - SSR handles schemas to avoid Google Search Console errors
 const TimelineBlock = ({ items }: { items: TimelineItem[] }) => {
   return (
-    <div className="relative" itemScope itemType="https://schema.org/Schedule">
+    <div className="relative">
       <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-gray-300 dark:bg-gray-600"></div>
       {items.map((item, index) => (
         <div 
           key={index} 
           className="relative flex items-start mb-8"
-          itemScope
-          itemType="https://schema.org/Event"
         >
           <div className="absolute left-0 w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center">
             {item.icon || <Clock className="w-4 h-4 text-white" />}
           </div>
           <div className="ml-12">
             <div className="flex items-center gap-3 mb-1">
-              <span className="text-sm font-medium text-purple-600" itemProp="startTime">
+              <span className="text-sm font-medium text-purple-600">
                 {item.time}
               </span>
               {item.duration && (
@@ -162,10 +157,10 @@ const TimelineBlock = ({ items }: { items: TimelineItem[] }) => {
                 </Badge>
               )}
             </div>
-            <h4 className="font-semibold text-gray-900 dark:text-white mb-1" itemProp="name">
+            <h4 className="font-semibold text-gray-900 dark:text-white mb-1">
               {item.title}
             </h4>
-            <p className="text-gray-600 dark:text-gray-400" itemProp="description">
+            <p className="text-gray-600 dark:text-gray-400">
               {item.description}
             </p>
           </div>
@@ -176,29 +171,22 @@ const TimelineBlock = ({ items }: { items: TimelineItem[] }) => {
 };
 
 // Q&A Block Component
+// NOTE: Removed itemScope/itemType for FAQPage - SSR handles schemas to avoid Google Search Console "Duplicate field FAQPage" errors
 const QABlock = ({ items }: { items: QuestionAnswer[] }) => {
   return (
-    <div className="space-y-4" itemScope itemType="https://schema.org/FAQPage">
+    <div className="space-y-4">
       {items.map((qa, index) => (
         <div 
           key={index}
           className="bg-white dark:bg-gray-800 rounded-lg p-5"
-          itemScope 
-          itemProp="mainEntity" 
-          itemType="https://schema.org/Question"
         >
           <h4 className="font-semibold text-gray-900 dark:text-white mb-2 flex items-start">
             <span className="text-purple-600 mr-2">Q:</span>
-            <span itemProp="name">{qa.question}</span>
+            <span>{qa.question}</span>
           </h4>
-          <div 
-            className="text-gray-600 dark:text-gray-400 flex items-start"
-            itemScope 
-            itemProp="acceptedAnswer" 
-            itemType="https://schema.org/Answer"
-          >
+          <div className="text-gray-600 dark:text-gray-400 flex items-start">
             <span className="text-purple-600 mr-2">A:</span>
-            <span itemProp="text">{qa.answer}</span>
+            <span>{qa.answer}</span>
           </div>
           {qa.category && (
             <Badge variant="outline" className="mt-2 text-xs">
