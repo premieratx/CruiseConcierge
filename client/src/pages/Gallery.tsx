@@ -188,7 +188,7 @@ export default function Gallery() {
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white dark:from-gray-900 dark:to-gray-950">
       <SEOHead 
         pageRoute="/gallery"
-        defaultTitle="Gallery"
+        defaultTitle="Lake Travis Party Boats Photo Gallery | Austin Cruises"
         defaultDescription="View stunning Lake Travis party boat photos. Real celebrations, fleet tours, bachelor parties. See the fun before you book!"
         defaultKeywords={[
           'premier party cruises photos',
@@ -209,7 +209,7 @@ export default function Gallery() {
         <section className="relative py-6 px-4 md:px-6">
           <div className="max-w-7xl mx-auto text-center">
             <h1 className="text-5xl font-playfair font-bold text-gray-900 dark:text-white">
-              Photo Gallery
+              Lake Travis Party Boats Photo Gallery
             </h1>
           </div>
         </section>

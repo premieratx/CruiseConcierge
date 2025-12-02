@@ -278,7 +278,7 @@ export default function ATXDiscoCruise() {
     <>
       <SEOHead
         pageRoute="/atx-disco-cruise"
-        defaultTitle="ATX Disco Cruise | Party Boat Austin"
+        defaultTitle="ATX Disco Cruise | Lake Travis Bachelorette Party Boat Austin"
         defaultDescription="America's only multi-group party cruise on Lake Travis. Professional DJ, photographer, giant floats included. Austin's best party boat from $85/person."
         defaultKeywords={["ATX Disco Cruise", "austin party cruises", "lake travis party boat", "party boat austin", "austin party cruise", "Austin bachelor party", "Austin bachelorette party", "party cruises", "Lake Travis bachelor party", "Lake Travis bachelorette party", "Austin boat party"]}
         schemaType="event"
@@ -364,7 +364,7 @@ export default function ATXDiscoCruise() {
           <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 text-center flex-grow flex items-center">
             <motion.div variants={fadeInUp} className="w-full">
               <h1 className="font-playfair text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white mb-6 md:mb-8 text-center leading-tight drop-shadow-2xl" data-testid="text-hero-headline">
-                ATX Disco Cruise
+                ATX Disco Cruise: Lake Travis Bachelorette Party Boat
               </h1>
               <p className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 via-pink-300 to-purple-300 mb-8 md:mb-10 font-bold text-center drop-shadow-lg">
                 The Country's Only Multi-Group Bach Party Cruise

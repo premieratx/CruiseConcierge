@@ -42,7 +42,7 @@ export default function FirstTimeLakeTravisGuide() {
     <div className="min-h-screen bg-gradient-to-b from-blue-50 via-white to-blue-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950">
       <SEOHead 
         pageRoute="/blogs/first-time-lake-travis-boat-rental-essential-tips-for-austin-party-planning"
-        defaultTitle="First-Time Lake Travis Boat Rental Guide | Essential Austin Party Planning Tips"
+        defaultTitle="Lake Travis Boat Rental Guide | Austin Party Boat Tips for First-Timers"
         defaultDescription="Planning your first Lake Travis boat rental? Expert guide to choosing boats, safety, pricing, and Austin party planning. 15+ years experience, 125,000+ guests."
         defaultKeywords={[
           'lake travis boat rental',
@@ -85,11 +85,11 @@ export default function FirstTimeLakeTravisGuide() {
               </div>
               
               <h1 className="text-4xl md:text-6xl font-black mb-6 leading-tight">
-                First-Time Lake Travis<br />
+                Lake Travis Boat Rental Guide:<br />
                 <span className="bg-gradient-to-r from-brand-yellow via-yellow-300 to-brand-yellow bg-clip-text text-transparent">
-                  Boat Rental Guide
+                  Austin Party Boat Tips
                 </span>
-                <br />for Austin Parties
+                <br />for First-Timers
               </h1>
               
               <p className="text-xl md:text-2xl text-blue-100 mb-8 leading-relaxed">
