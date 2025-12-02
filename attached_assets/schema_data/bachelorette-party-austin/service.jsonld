@@ -115,16 +115,5 @@
       "name": "Group Size",
       "value": "20-40+ guests on Disco Cruise, 14-75 on private boats"
     }
-  ],
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "itemReviewed": {
-      "@type": "Service",
-      "name": "Lake Travis Bachelorette Party Boat Cruises in Austin"
-    },
-    "ratingValue": 4.9,
-    "reviewCount": 500,
-    "bestRating": 5,
-    "worstRating": 1
-  }
+  ]
 }

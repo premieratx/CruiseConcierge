@@ -63,16 +63,5 @@
       "url": "https://premierpartycruises.com/atx-disco-cruise",
       "availability": "https://schema.org/InStock"
     }
-  ],
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "itemReviewed": {
-      "@type": "Event",
-      "name": "ATX Disco Cruise"
-    },
-    "ratingValue": 4.9,
-    "reviewCount": 500,
-    "bestRating": 5,
-    "worstRating": 1
-  }
+  ]
 }
