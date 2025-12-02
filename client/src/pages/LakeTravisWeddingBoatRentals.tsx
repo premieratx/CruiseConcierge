@@ -18,6 +18,7 @@ import {
 import { Link } from 'wouter';
 
 const tableOfContents = [
+  { id: 'clever-girl-gallery', title: 'Clever Girl - Our Flagship Wedding Boat' },
   { id: 'why-wedding-boat', title: 'Why Choose a Wedding Boat on Lake Travis' },
   { id: 'ceremony-boats', title: 'Boat Wedding Ceremonies' },
   { id: 'rehearsal-dinners', title: 'Rehearsal Dinners on the Water' },
@@ -26,6 +27,17 @@ const tableOfContents = [
   { id: 'planning-guide', title: 'Wedding Boat Planning Guide' },
   { id: 'pricing-packages', title: 'Wedding Package Pricing' },
   { id: 'real-weddings', title: 'Real Wedding Stories' }
+];
+
+const cleverGirlPhotos = [
+  { src: '/attached_assets/clever girl-1 lake travis party boat rental_1763966476656.jpg', alt: 'Clever Girl party boat on Lake Travis - 75 guest capacity for weddings' },
+  { src: '/attached_assets/clever girl-2 party boat rental austin_1763966476657.jpg', alt: 'Clever Girl wedding venue boat - spacious deck for ceremonies' },
+  { src: '/attached_assets/clever girl-3 bachelorette party boat austin_1763966476657.jpg', alt: 'Clever Girl boat celebration - perfect for wedding parties' },
+  { src: '/attached_assets/clever girl-4 party boat rental austin_1763966476657.jpg', alt: 'Clever Girl Lake Travis boat - elegant wedding setting' },
+  { src: '/attached_assets/clever girl-6 party boat lake travis_1763966476657.jpg', alt: 'Clever Girl party boat - dancing and entertainment space' },
+  { src: '/attached_assets/clever girl-8 party boat rental austin_1763966476658.jpg', alt: 'Clever Girl boat interior - seating for wedding guests' },
+  { src: '/attached_assets/clever girl-9 party boat austin_1763966476658.jpg', alt: 'Clever Girl flagship boat - premium wedding venue on Lake Travis' },
+  { src: '/attached_assets/clever girl-10 austin bachelorette party_1763966476658.jpg', alt: 'Clever Girl party boat celebration - wedding reception space' },
 ];
 
 export default function LakeTravisWeddingBoatRentals() {
@@ -267,6 +279,104 @@ export default function LakeTravisWeddingBoatRentals() {
               >
                 <Heart className="h-5 w-5 mr-2" />
                 Get Your Custom Wedding Quote
+              </Button>
+            </div>
+          </div>
+        </section>
+      </SectionReveal>
+
+      {/* Clever Girl Photo Gallery - Flagship Wedding Boat */}
+      <SectionReveal>
+        <section id="clever-girl-gallery" className="py-16 bg-gradient-to-b from-purple-50 to-pink-50 dark:from-gray-900 dark:to-gray-800">
+          <div className="max-w-6xl mx-auto px-6">
+            <div className="text-center mb-12">
+              <Badge className="mb-4 bg-purple-600 text-white font-bold px-4 py-2">
+                FLAGSHIP WEDDING VENUE
+              </Badge>
+              <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-4 text-gray-900 dark:text-white">
+                Clever Girl: Our Premium 75-Guest Wedding Boat
+              </h2>
+              <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-4">
+                Austin's largest and most elegant party boat features 14 disco balls, premium sound system, 
+                spacious dance floors, and stunning views from every angle. Perfect for wedding ceremonies, 
+                receptions, and unforgettable celebrations on Lake Travis.
+              </p>
+              <div className="flex flex-wrap justify-center gap-4 text-sm">
+                <span className="flex items-center gap-1 text-purple-600 font-medium">
+                  <Users className="h-4 w-4" /> 30 seats comfortably, 75 max capacity
+                </span>
+                <span className="flex items-center gap-1 text-purple-600 font-medium">
+                  <Sparkles className="h-4 w-4" /> 14 Disco Balls
+                </span>
+                <span className="flex items-center gap-1 text-purple-600 font-medium">
+                  <Music className="h-4 w-4" /> Premium DJ Sound System
+                </span>
+              </div>
+            </div>
+
+            {/* Photo Gallery Grid */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+              {cleverGirlPhotos.map((photo, index) => (
+                <div 
+                  key={index}
+                  className={`relative overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer group ${
+                    index === 0 ? 'col-span-2 row-span-2' : ''
+                  }`}
+                >
+                  <LazyImage
+                    src={photo.src}
+                    alt={photo.alt}
+                    className="w-full h-full object-cover aspect-square group-hover:scale-110 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className="absolute bottom-4 left-4 right-4">
+                      <p className="text-white text-sm font-medium">{photo.alt}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Clever Girl Features */}
+            <div className="grid md:grid-cols-3 gap-6 mb-8">
+              <Card className="bg-white/80 dark:bg-gray-800/80 backdrop-blur border-2 border-purple-200">
+                <CardContent className="p-6 text-center">
+                  <Crown className="h-10 w-10 text-purple-600 mx-auto mb-3" />
+                  <h4 className="font-bold text-lg mb-2 text-gray-900 dark:text-white">Largest Capacity</h4>
+                  <p className="text-gray-600 dark:text-gray-400 text-sm">
+                    Host up to 75 guests for your wedding ceremony and reception - the biggest wedding venue on Lake Travis
+                  </p>
+                </CardContent>
+              </Card>
+              
+              <Card className="bg-white/80 dark:bg-gray-800/80 backdrop-blur border-2 border-pink-200">
+                <CardContent className="p-6 text-center">
+                  <Sparkles className="h-10 w-10 text-pink-600 mx-auto mb-3" />
+                  <h4 className="font-bold text-lg mb-2 text-gray-900 dark:text-white">14 Disco Balls</h4>
+                  <p className="text-gray-600 dark:text-gray-400 text-sm">
+                    Create magical lighting for your first dance and wedding reception - truly unforgettable ambiance
+                  </p>
+                </CardContent>
+              </Card>
+              
+              <Card className="bg-white/80 dark:bg-gray-800/80 backdrop-blur border-2 border-blue-200">
+                <CardContent className="p-6 text-center">
+                  <Camera className="h-10 w-10 text-blue-600 mx-auto mb-3" />
+                  <h4 className="font-bold text-lg mb-2 text-gray-900 dark:text-white">Photo-Perfect Views</h4>
+                  <p className="text-gray-600 dark:text-gray-400 text-sm">
+                    Multiple decks with stunning Lake Travis and Hill Country backdrops for your wedding photography
+                  </p>
+                </CardContent>
+              </Card>
+            </div>
+
+            <div className="text-center">
+              <Button 
+                onClick={() => window.location.href = '/chat'}
+                className="bg-purple-600 hover:bg-purple-700 text-white text-lg px-8 py-6 rounded-xl shadow-lg hover:shadow-xl transition-all"
+              >
+                <Ship className="h-5 w-5 mr-2" />
+                Book Clever Girl for Your Wedding
               </Button>
             </div>
           </div>
