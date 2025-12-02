@@ -47,9 +47,6 @@ import { VideoTestimonials } from '@/components/VideoTestimonials';
 import { TransportationGuide } from '@/components/TransportationGuide';
 import { LazyImage } from '@/components/LazyImage';
 import QuoteBuilderSection from '@/components/QuoteBuilderSection';
-import { SchemaMarkup, generateEventSchema, generateProductSchema, generateFAQSchema, 
-         generateLocalBusinessSchema, generateServiceSchema, generateAggregateRatingSchema, 
-         generateBreadcrumbSchema, generateHowToSchema } from '@/components/SEOSchemaMarkup';
 import { YouTubeVideoBackground } from '@/components/YouTubeVideoBackground';
 import AnimatedPhotoGallery from '@/components/AnimatedPhotoGallery';
 import { PARTY_PHOTOS, OTHER_ASSETS } from '@/lib/media';
@@ -359,54 +356,8 @@ export default function BacheloretteParty() {
         schemaType="service"
       />
       
-      {/* Comprehensive Schema Markup for SEO */}
-      <SchemaMarkup 
-        schemas={[
-          generateLocalBusinessSchema({
-            name: "Premier Party Cruises - Bachelorette Parties",
-            description: "Austin's premier bachelorette party boat service on Lake Travis with professional DJ, photographer, and all-inclusive packages.",
-            url: "https://premierpartycruises.com/bachelorette-party",
-            priceRange: "$85-$125",
-            aggregateRating: {
-              ratingValue: "4.9",
-              reviewCount: "130"
-            }
-          }),
-          generateServiceSchema({
-            name: "Austin Bachelorette Party Boat Service",
-            description: "All-inclusive bachelorette party packages on Lake Travis with professional entertainment, photography, and party supplies.",
-            serviceType: "Bachelorette Party Cruise",
-            areaServed: "Austin",
-            hasOfferCatalog: [
-              { name: "Friday 12-4pm ATX Disco Cruise", description: "4-hour bachelorette party cruise with DJ, photographer, and floats", price: 95 },
-              { name: "Saturday 11am-3pm ATX Disco Cruise", description: "Premium Saturday time slot with DJ, photographer, and floats", price: 105 },
-              { name: "Saturday 3:30-7:30pm ATX Disco Cruise", description: "Evening bachelorette party cruise with DJ, photographer, and floats", price: 85 }
-            ],
-            aggregateRating: {
-              ratingValue: "4.9",
-              reviewCount: "130"
-            }
-          }),
-          generateFAQSchema([
-            { 
-              question: "What is the best bachelorette party boat in Austin?", 
-              answer: "Premier Party Cruises offers Austin's #1 rated bachelorette party boat experience on Lake Travis. The ATX Disco Cruise includes professional DJ, photographer, giant floats, and 4 hours of celebration with packages starting at $85 per person." 
-            },
-            { 
-              question: "How much does a bachelorette party cruise cost in Austin?", 
-              answer: "Austin bachelorette party cruises range from $85-$105 per person depending on the day and time slot. Friday 12-4pm is $95/person ($124.88 w/tax & gratuity), Saturday 11am-3pm is $105/person ($137.81 w/tax & gratuity), and Saturday 3:30-7:30pm is $85/person ($111.56 w/tax & gratuity). All time slots include DJ, photographer, floats, and party supplies." 
-            },
-            { 
-              question: "What's included in an Austin bachelorette party boat cruise?", 
-              answer: "Every bachelorette party cruise includes: 4-hour Lake Travis cruise, professional DJ entertainment, professional photographer with digital photos, access to giant floats, BYOB with coolers and ice, and the unique multi-group party atmosphere where you celebrate with other bachelorette parties." 
-            },
-            { 
-              question: "When should I book a bachelorette party cruise in Austin?", 
-              answer: "Book your Austin bachelorette party cruise 8-12 weeks for priority time slots - once they book they\'re gone! This is crucial for peak season (March-October) weekends. Popular Saturdays sell out quickly. ATX Disco Cruises run Friday 12-4pm, Saturday 11am-3pm, or Saturday 3:30-7:30pm." 
-            }
-          ])
-        ]}
-      />
+      {/* NOTE: Schema markup is handled by SSR via schemaLoader.ts to avoid duplicates */}
+      {/* Schemas loaded from: attached_assets/schema_data/bachelorette-party-austin/ */}
       
       <PublicNavigation />
       
