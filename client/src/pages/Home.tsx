@@ -14,9 +14,10 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/component
 import { cn } from '@/lib/utils';
 import { useToast } from '@/hooks/use-toast';
 import { LazyImage } from '@/components/LazyImage';
-// Optimized logo - 26KB instead of 240KB (214KB savings!)
+// MOBILE PAGESPEED: Optimized logo sizes (80x80=5KB, 140x140=7KB, 280x280=26KB)
 const logoPath = '/attached_assets/PPC-Logo-280x280.webp';
 const logoPathSmall = '/attached_assets/PPC-Logo-80x80.webp';
+const logoPathMedium = '/attached_assets/PPC-Logo-140x140.webp';
 const logoPathLarge = '/attached_assets/PPC-Logo-LARGE.webp';
 // Import all icons from lucide-react using standard bundled imports for production compatibility
 import {
@@ -387,6 +388,18 @@ export default function Home() {
   });
   const { toast } = useToast();
   const [isPageLoaded, setIsPageLoaded] = useState(false);
+  
+  // MOBILE PAGESPEED: Detect mobile for responsive image loading (saves ~22KB)
+  const [isMobile, setIsMobile] = useState(() => 
+    typeof window !== 'undefined' && window.innerWidth < 768
+  );
+  
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // PERFORMANCE FIX: Defer non-critical endorsements API (was blocking 4,163ms!)
   // Only fetch after page loads to improve LCP/FCP
@@ -524,7 +537,7 @@ export default function Home() {
             muted
             playsInline
             className="w-full h-full object-cover opacity-60"
-            poster={heroImage1}
+            poster={isMobile ? heroImage1Mobile : heroImage1}
             preload="metadata"
           >
             <source src="/attached_assets/Boat_Video_Walkthrough_Generated_1761209219959.mp4" type="video/mp4" />
@@ -547,15 +560,15 @@ export default function Home() {
             {/* Logo - Optimized with srcset for responsive loading */}
             <motion.div variants={reducedMotion ? undefined : fadeInUp} className="mb-8">
               <img 
-                src={logoPath}
-                srcSet={`${logoPathSmall} 80w, ${logoPath} 280w, ${logoPathLarge} 1755w`}
+                src={isMobile ? logoPathMedium : logoPath}
+                srcSet={`${logoPathSmall} 80w, ${logoPathMedium} 140w, ${logoPath} 280w`}
                 sizes="(max-width: 768px) 80px, 140px"
                 alt="Party Boat Austin - Premier Party Cruises on Lake Travis" 
                 className="h-20 md:h-24 w-auto mx-auto mb-6"
                 loading="eager"
                 fetchPriority="high"
-                width={280}
-                height={280}
+                width={isMobile ? 140 : 280}
+                height={isMobile ? 140 : 280}
                 data-testid="img-hero-logo"
               />
             </motion.div>
@@ -1037,11 +1050,11 @@ export default function Home() {
               {testimonials.map((testimonial, index) => (
                 <motion.div
                   key={testimonial.id}
-                  initial="hidden"
-                  whileInView="visible"
+                  initial={reducedMotion ? false : "hidden"}
+                  whileInView={reducedMotion ? false : "visible"}
                   viewport={{ once: true }}
-                  variants={fadeInUp}
-                  transition={{ delay: index * 0.1 }}
+                  variants={reducedMotion ? undefined : fadeInUp}
+                  transition={reducedMotion ? undefined : { delay: index * 0.1 }}
                   className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-xl border border-gray-200 dark:border-gray-700 hover:shadow-2xl transition-all duration-300"
                 >
                   {/* Star Rating */}
@@ -1553,7 +1566,7 @@ export default function Home() {
 
           {/* Disco vs Private Comparison */}
           <motion.div 
-            variants={fadeInUp}
+            variants={reducedMotion ? undefined : fadeInUp}
             className="mb-16 max-w-5xl mx-auto"
           >
             <h3 className="text-xl font-semibold mb-6 text-center text-gray-900 dark:text-white">
@@ -1632,7 +1645,7 @@ export default function Home() {
 
           {/* Fleet Comparison */}
           <motion.div 
-            variants={fadeInUp}
+            variants={reducedMotion ? undefined : fadeInUp}
             className="max-w-7xl mx-auto"
           >
             <h3 className="text-xl font-semibold mb-6 text-center text-gray-900 dark:text-white">

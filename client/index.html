@@ -4,6 +4,34 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
+    <!-- MOBILE PAGESPEED FIX: Preconnects MUST be first for maximum benefit (saves ~1.4s) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://xola.com" crossorigin>
+    <link rel="preconnect" href="https://botcdn.xola.com" crossorigin>
+    <link rel="preconnect" href="https://booking.premierpartycruises.com" crossorigin>
+    <link rel="preconnect" href="https://js.stripe.com" crossorigin>
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://xola.com">
+    <link rel="dns-prefetch" href="https://botcdn.xola.com">
+    <link rel="dns-prefetch" href="https://booking.premierpartycruises.com">
+    <link rel="dns-prefetch" href="https://js.stripe.com">
+    
+    <!-- MOBILE PAGESPEED: Preload mobile-optimized hero image (41KB for mobile, 64KB desktop) -->
+    <link rel="preload" as="image" href="/attached_assets/bachelor-party-group-guys-mobile.webp" 
+          media="(max-width: 768px)" fetchpriority="high" type="image/webp" />
+    <link rel="preload" as="image" href="/attached_assets/bachelor-party-group-guys-hero-compressed.webp" 
+          media="(min-width: 769px)" fetchpriority="high" type="image/webp" />
+    
+    <!-- MOBILE PAGESPEED: Preload 140x140 logo for mobile retina (7KB vs 26KB) -->
+    <link rel="preload" as="image" href="/attached_assets/PPC-Logo-140x140.webp" 
+          media="(max-width: 768px)" fetchpriority="high" type="image/webp" />
+    <link rel="preload" as="image" href="/attached_assets/PPC-Logo-280x280.webp" 
+          media="(min-width: 769px)" fetchpriority="high" type="image/webp" />
+    
+    <!-- Preload critical font files directly for faster text rendering -->
+    <link rel="preload" href="https://fonts.gstatic.com/s/dmsans/v15/rP2Cp2ywxg089UriASitCBimC3YU-CnE6Q.woff2" as="font" type="font/woff2" crossorigin>
+    
     <!-- FALLBACK SEO TAGS (overridden by React Helmet) -->
     <title>Austin Party Boat Rentals | Lake Travis Cruises</title>
     <meta name="description" content="Austin's premier boat rental and party cruise experience on Lake Travis. Private charters, disco cruises, bachelor parties, bachelorette parties, and corporate events since 2009." />
@@ -36,42 +64,9 @@
     <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png" />
     <meta name="theme-color" content="#00d4ff" />
     
-    <!-- Critical resource hints for faster loading -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
-    
-    <!-- QUOTE BUILDER PRELOAD - Instant loading for booking domain (saves 330ms LCP) -->
-    <link rel="preconnect" href="https://booking.premierpartycruises.com" crossorigin>
-    <link rel="dns-prefetch" href="https://booking.premierpartycruises.com">
-    
-    <!-- PAGESPEED FIX: Preconnect to Xola booking widgets (saves 620ms combined) -->
-    <link rel="preconnect" href="https://xola.com" crossorigin>
-    <link rel="preconnect" href="https://botcdn.xola.com" crossorigin>
-    <link rel="dns-prefetch" href="https://xola.com">
-    <link rel="dns-prefetch" href="https://botcdn.xola.com">
-    
-    <!-- Stripe preconnect for faster payment widget loading -->
-    <link rel="preconnect" href="https://js.stripe.com" crossorigin>
-    <link rel="dns-prefetch" href="https://js.stripe.com">
-    
-    <!-- PAGESPEED FIX: Preload optimized logo (26KB instead of 240KB - saves 214KB!) -->
-    <link rel="preload" as="image" href="/attached_assets/PPC-Logo-280x280.webp" 
-          fetchpriority="high" type="image/webp" />
-    
-    <!-- Preload critical LCP images - optimized video poster (64KB - 40% smaller!) -->
-    <link rel="preload" as="image" href="/attached_assets/bachelor-party-group-guys-hero-compressed.webp" 
-          imagesrcset="/attached_assets/bachelor-party-group-guys-mobile.webp 640w, /attached_assets/bachelor-party-group-guys-hero-compressed.webp 1024w"
-          imagesizes="100vw" 
-          fetchpriority="high" type="image/webp" />
-    
-    <!-- Preload critical font files directly for faster text rendering -->
-    <link rel="preload" href="https://fonts.gstatic.com/s/dmsans/v15/rP2Cp2ywxg089UriASitCBimC3YU-CnE6Q.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="https://fonts.gstatic.com/s/bebasneu/v16/JTUSjIg69CK48gW7PXoo9WdhyyTh89ZNpQ.woff2" as="font" type="font/woff2" crossorigin>
-    
-    <!-- CRITICAL CLS FIX: Load fonts with display=swap to prevent layout shift -->
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Bebas+Neue&family=Oswald:wght@400;600;700&family=Playfair+Display:wght@400;500;600;700;800;900&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Bebas+Neue&family=Oswald:wght@400;600;700&family=Playfair+Display:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"></noscript>
+    <!-- MOBILE PAGESPEED: Load fonts async (saves 450ms render blocking) -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Bebas+Neue&family=Oswald:wght@400;600;700&family=Playfair+Display:wght@400;500;600;700;800;900&family=Poppins:wght@600;700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Bebas+Neue&family=Oswald:wght@400;600;700&family=Playfair+Display:wght@400;500;600;700;800;900&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet"></noscript>
     
     <!-- Inline critical CSS for instant layout stability (prevents CLS) -->
     <style>

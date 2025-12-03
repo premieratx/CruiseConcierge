@@ -652,13 +652,10 @@ function renderPageContent(content: PageContent): string {
   return html;
 }
 
-// Preconnect URLs for external resources to establish early connections
-const PRECONNECT_URLS = [
-  'https://fonts.googleapis.com',
-  'https://fonts.gstatic.com',
-  'https://www.googletagmanager.com',
-  'https://www.google-analytics.com'
-];
+// MOBILE PAGESPEED: Preconnects now handled by index.html at the very top of <head>
+// Removed duplicate SSR preconnects to prevent interference with browser's early connection logic
+// See client/index.html for the consolidated preconnect setup
+const PRECONNECT_URLS: string[] = [];
 
 // Hero images map for LCP optimization via preload tags
 // Maps route pathname to hero image path (production fingerprinting handled via manifest)
