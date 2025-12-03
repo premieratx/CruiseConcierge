@@ -107,8 +107,9 @@ import {
 } from '@shared/constants';
 
 // Hero and gallery images - Optimized WebP format for fast loading
-// Optimized poster - 104KB instead of 113KB (9.4KB savings!)
-const heroImage1 = '/attached_assets/bachelor-party-group-guys-optimized.webp';
+// PAGESPEED FIX: Hero poster compressed to 64KB (40% smaller!) with mobile variant (41KB)
+const heroImage1 = '/attached_assets/bachelor-party-group-guys-hero-compressed.webp';
+const heroImage1Mobile = '/attached_assets/bachelor-party-group-guys-mobile.webp';
 const heroImage2 = '/attached_assets/atx-disco-cruise-party.webp';
 const heroImage3 = '/attached_assets/dancing-party-scene.webp';
 const galleryImage1 = '/attached_assets/day-tripper-14-person-boat.webp';
