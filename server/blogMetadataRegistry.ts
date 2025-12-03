@@ -335,6 +335,25 @@ export const blogMetadataRegistry: Record<string, BlogMetadata> = {
       'bachelor party Lake Travis',
       'bachelorette party Austin'
     ]
+  },
+  
+  'blogs/lake-travis-bachelor-party-austin-celebrations': {
+    slug: 'blogs/lake-travis-bachelor-party-austin-celebrations',
+    title: 'Lake Travis Bachelor Party: Ultimate Austin Adventure Guide',
+    description: 'Plan the ultimate lake travis bachelor party with boat rentals, adventure activities, and vibrant Austin nightlife, ensuring unforgettable celebrations.',
+    publishDate: '2025-01-20',
+    modifiedDate: '2025-12-03',
+    author: 'Premier Party Cruises',
+    heroImage: 'https://premierpartycruises.com/attached_assets/lake-travis-bachelor-party-scenic.jpg',
+    keywords: [
+      'lake travis bachelor party',
+      'austin bachelor party',
+      'bachelor party lake travis',
+      'lake travis boat rental bachelor party',
+      'party boat rentals',
+      'lake travis fun',
+      'adventure activities'
+    ]
   }
 };
 

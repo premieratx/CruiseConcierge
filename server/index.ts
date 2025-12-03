@@ -211,6 +211,10 @@ Allow: /
 # Sitemap location
 Sitemap: ${baseUrl}/sitemap.xml
 
+# AI Crawler Guidance (llms.txt for ChatGPT, Perplexity, etc.)
+# See: https://llmstxt.org/
+LLMs-txt: ${baseUrl}/llms.txt
+
 # Disallow admin and API areas
 Disallow: /admin/
 Disallow: /api/

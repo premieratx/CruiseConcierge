@@ -634,8 +634,89 @@ export async function registerRoutes(app: Express): Promise<Server> {
       ];
       
       if (reactBlogSlugs.includes(slug)) {
-        console.log(`✅ [Blog SSR] React blog route detected, skipping DB: ${slug}`);
-        return next(); // Let Vite/React handle it
+        console.log(`✅ [Blog SSR] React blog route detected, rendering SSR: ${slug}`);
+        // SSR render React blog pages (don't skip - crawlers need content!)
+        const { getBlogMetadata } = await import('./blogMetadataRegistry');
+        // Registry keys include blogs/ prefix
+        const metadata = getBlogMetadata(`blogs/${slug}`) || getBlogMetadata(slug);
+        
+        // Get environment-based domain for schemas and canonical URL
+        const baseDomain = getBaseDomain(req);
+        const canonicalUrl = `${baseDomain}/blogs/${slug}`;
+        
+        // Generate Article schema for React blog using metadata
+        const articleSchema = generateArticleSchema({
+          title: metadata?.title || slug.replace(/-/g, ' '),
+          slug: slug,
+          excerpt: metadata?.description || '',
+          content: '', // React blogs don't have raw content
+          featuredImage: metadata?.heroImage,
+          publishedAt: metadata?.publishDate || new Date().toISOString(),
+          author: { name: metadata?.author || 'Premier Party Cruises' }
+        }, canonicalUrl, req);
+        
+        // Read index.html template  
+        const fs = await import('fs');
+        const productionBuildExists = fs.existsSync(path.join(process.cwd(), 'dist/public/index.html'));
+        const htmlPath = productionBuildExists 
+          ? path.join(process.cwd(), 'dist/public/index.html')
+          : path.join(process.cwd(), 'client', 'index.html');
+        let html = await fs.promises.readFile(htmlPath, 'utf-8');
+        
+        // Generate BreadcrumbList schema
+        const breadcrumbSchema = {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": `${baseDomain}/` },
+            { "@type": "ListItem", "position": 2, "name": "Blog", "item": `${baseDomain}/blogs` },
+            { "@type": "ListItem", "position": 3, "name": metadata?.title || slug, "item": canonicalUrl }
+          ]
+        };
+        
+        // Inject schemas before </head>
+        const schemaScript = `
+    <!-- Article Schema for SEO (Server-Side Injected) -->
+    <script type="application/ld+json">
+${JSON.stringify(articleSchema, null, 2)}
+    </script>
+    <!-- BreadcrumbList Schema for SEO (Server-Side Injected) -->
+    <script type="application/ld+json">
+${JSON.stringify(breadcrumbSchema, null, 2)}
+    </script>`;
+        
+        const canonicalTag = `  <link rel="canonical" href="${canonicalUrl}" />`;
+        const robotsMetaTag = `  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />`;
+        
+        html = html.replace('</head>', `${schemaScript}\n${canonicalTag}\n${robotsMetaTag}\n  </head>`);
+        
+        // Update meta tags
+        const metaTitle = metadata?.title || slug.replace(/-/g, ' ');
+        const metaDescription = metadata?.description || '';
+        html = html.replace(/<title>.*?<\/title>/, `<title>${metaTitle}</title>`);
+        html = html.replace(/<meta name="description" content=".*?"\s*\/>/, `<meta name="description" content="${metaDescription}" />`);
+        
+        // Render full React app server-side for visible content
+        let appHtml = '';
+        try {
+          const entryServer = await import('../client/src/entry-server.tsx');
+          const rendered = entryServer.render(`/blogs/${slug}`);
+          appHtml = rendered.html;
+          console.log(`✅ [Blog SSR] Rendered React blog with entry-server: ${slug}`);
+        } catch (renderError) {
+          console.error('❌ [Blog SSR] React render failed for React blog:', renderError);
+          // Fallback SSR content for crawlers
+          appHtml = `<article style="max-width: 56rem; margin: 0 auto; padding: 2rem 1rem;">
+            <h1 style="text-align: center; font-size: 2.5rem; font-weight: 800; margin-bottom: 2rem; color: #111827;">${metaTitle}</h1>
+            <p style="font-size: 1.125rem; line-height: 1.75; color: #374151;">${metaDescription}</p>
+          </article>`;
+        }
+        
+        // Inject SSR content into root div
+        html = html.replace(/<div id="root"><\/div>/, `<div id="root">${appHtml}</div>`);
+        
+        console.log(`✅ [Blog SSR] Injected SSR content for React blog: ${slug}`);
+        return res.status(200).set({ 'Content-Type': 'text/html' }).send(html);
       }
       
       // Try PostgreSQL first

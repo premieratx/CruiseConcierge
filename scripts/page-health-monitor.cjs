@@ -49,17 +49,17 @@ const CRITICAL_PAGES = [
   { path: '/blogs', name: 'Blogs Index', h1Contains: ['Blog'], schemaRequired: false },
   { path: '/first-time-lake-travis-boat-rental-guide', name: 'Boat Rental Guide', h1Contains: ['Boat', 'Rental', 'Guide', 'Lake Travis'], schemaRequired: false },
   { path: '/blog/lake-travis-weather-planning-seasonal-considerations-for-perfect-boat-parties', name: 'Weather Guide', h1Contains: ['Weather', 'Lake Travis', 'Seasonal'], schemaRequired: false },
-  { path: '/blogs/lake-travis-boat-party-planning-for-large-groups', name: 'Large Groups Guide', h1Contains: ['Large', 'Groups', 'Lake Travis'], schemaRequired: false },
+  { path: '/blog/lake-travis-party-boat-rentals-ultimate-guide-for-large-group-events-20-guests', name: 'Large Groups Guide', h1Contains: ['Large', 'Group', 'Lake Travis'], schemaRequired: false },
   { path: '/top-10-austin-bachelorette-ideas', name: 'Top 10 Bachelorette Ideas', h1Contains: ['Top', 'Bachelorette', 'Ideas'], schemaRequired: false },
   { path: '/adventure-austin-bachelorette', name: 'Adventure Bachelorette', h1Contains: ['Adventure', 'Bachelorette'], schemaRequired: false },
   { path: '/blogs/must-haves-for-the-perfect-austin-bachelorette-weekend', name: 'Must Haves Bachelorette', h1Contains: ['Must', 'Bachelorette', 'Perfect'], schemaRequired: false },
-  { path: '/blogs/lake-travis-wedding-celebration-boat-rentals-for-your-special-day', name: 'Wedding Boat Rentals', h1Contains: ['Wedding', 'Boat', 'Lake Travis'], schemaRequired: false },
+  { path: '/blogs/lake-travis-wedding-boat-rentals-unique-venues-for-austin-celebrations', name: 'Wedding Boat Rentals', h1Contains: ['Wedding', 'Boat', 'Lake Travis'], schemaRequired: false },
   { path: '/blogs/holiday-celebrations-on-lake-travis-seasonal-boat-party-planning-and-coordination', name: 'Holiday Celebrations', h1Contains: ['Holiday', 'Lake Travis', 'Seasonal'], schemaRequired: false },
   { path: '/3-day-austin-bachelorette-itinerary', name: '3 Day Itinerary', h1Contains: ['Day', 'Itinerary', 'Bachelorette'], schemaRequired: false },
   { path: '/ultimate-austin-bachelorette-weekend', name: 'Ultimate Weekend', h1Contains: ['Ultimate', 'Bachelorette', 'Weekend'], schemaRequired: false },
   { path: '/blogs/top-spots-tips-for-an-unforgettable-austin-bachelorette-party-experience', name: 'Top Spots Bachelorette', h1Contains: ['Top', 'Bachelorette', 'Austin'], schemaRequired: false },
   { path: '/blogs/joint-bachelor-bachelorette-parties-with-premier-party-cruises', name: 'Joint Parties', h1Contains: ['Joint', 'Bachelor', 'Bachelorette'], schemaRequired: false },
-  { path: '/blogs/birthday-party-lake-travis-austin-guide', name: 'Birthday Party Guide', h1Contains: ['Birthday', 'Lake Travis', 'Austin'], schemaRequired: false },
+  { path: '/blog/birthday-party-alcohol-delivery-austin-milestone-celebrations-made-easy', name: 'Birthday Party Guide', h1Contains: ['Birthday', 'Austin', 'Milestone'], schemaRequired: false },
   { path: '/ai-endorsement', name: 'AI Endorsement', h1Contains: ['AI', 'Search', 'Google'], schemaRequired: false },
   { path: '/book-now', name: 'Book Now', h1Contains: ['Book'], schemaRequired: false },
 ];
@@ -81,10 +81,20 @@ async function fetchPage(url) {
 }
 
 function checkH1InSSR(html, h1Contains) {
+  // First try ssr-content wrapper (traditional SSR)
   const ssrMatch = html.match(/<div class="ssr-content"[^>]*>([\s\S]*?)<\/div>/);
-  if (!ssrMatch) return { found: false, inSSR: false };
+  let ssrContent = ssrMatch ? ssrMatch[1] : null;
   
-  const ssrContent = ssrMatch[1];
+  // If no ssr-content, check for SSR in root div (React blogs)
+  if (!ssrContent) {
+    const rootMatch = html.match(/<div id="root"[^>]*>([\s\S]*?)<\/div>/);
+    if (rootMatch && rootMatch[1].trim().length > 100) {
+      ssrContent = rootMatch[1];
+    }
+  }
+  
+  if (!ssrContent) return { found: false, inSSR: false };
+  
   const h1Match = ssrContent.match(/<h1[^>]*>([\s\S]*?)<\/h1>/i);
   if (!h1Match) return { found: false, inSSR: true };
   
