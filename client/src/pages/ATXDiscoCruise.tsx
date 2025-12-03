@@ -287,7 +287,7 @@ export default function ATXDiscoCruise() {
           SSR schemas loaded: atx-disco-cruise/event.jsonld, atx-disco-cruise/faq.jsonld
           This avoids duplicate/conflicting schemas and Google Search Console errors. */}
 
-      <div className="min-h-screen bg-white dark:bg-gray-950">
+      <div className="min-h-screen bg-white dark:bg-gray-950" data-page-ready="atx-disco-cruise">
         <PublicNavigation />
 
         {/* 1. HERO SECTION */}
