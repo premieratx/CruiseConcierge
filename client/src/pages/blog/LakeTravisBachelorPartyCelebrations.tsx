@@ -193,12 +193,11 @@ export default function LakeTravisBachelorPartyCelebrations() {
             Austin's premier multi-group party boat with DJ, photographer, and incredible energy.
           </p>
 
-          <BlogCTA 
-            headline="Ready to Book Your Lake Travis Party Boat?"
-            description="Experience the ATX Disco Cruise - Austin's #1 bachelor party boat experience with DJ, photographer, and unforgettable energy!"
-            buttonText="Check Availability"
-            buttonLink="/atx-disco-cruise"
-          />
+          <div className="my-8 p-6 bg-gradient-to-r from-brand-blue/10 to-purple-500/10 rounded-xl border border-brand-blue/20">
+            <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-white">Ready to Book Your Lake Travis Party Boat?</h3>
+            <p className="text-gray-700 dark:text-gray-300 mb-4">Experience the ATX Disco Cruise - Austin's #1 bachelor party boat experience with DJ, photographer, and unforgettable energy!</p>
+            <BlogCTA variant="primary" text="Check Availability" href="/atx-disco-cruise" external={false} />
+          </div>
         </section>
       </SectionReveal>
 
@@ -412,12 +411,11 @@ export default function LakeTravisBachelorPartyCelebrations() {
             </ul>
           </div>
 
-          <BlogCTA 
-            headline="Start Planning Your Lake Travis Bachelor Party"
-            description="Get a personalized quote for your group and lock in your dates before they fill up!"
-            buttonText="Get Your Free Quote"
-            buttonLink="/chat"
-          />
+          <div className="my-8 p-6 bg-gradient-to-r from-brand-blue/10 to-purple-500/10 rounded-xl border border-brand-blue/20">
+            <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-white">Start Planning Your Lake Travis Bachelor Party</h3>
+            <p className="text-gray-700 dark:text-gray-300 mb-4">Get a personalized quote for your group and lock in your dates before they fill up!</p>
+            <BlogCTA variant="secondary" text="Get Your Free Quote" href="/contact" external={false} />
+          </div>
         </section>
       </SectionReveal>
 
@@ -463,13 +461,10 @@ export default function LakeTravisBachelorPartyCelebrations() {
             </div>
           </div>
 
-          <div className="mt-8">
-            <BlogCTA 
-              headline="Ready to Book Your Lake Travis Adventure?"
-              description="Join thousands of bachelor parties who've celebrated with Premier Party Cruises!"
-              buttonText="Book Your Cruise"
-              buttonLink="/atx-disco-cruise"
-            />
+          <div className="mt-8 p-6 bg-gradient-to-r from-brand-blue/10 to-purple-500/10 rounded-xl border border-brand-blue/20">
+            <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-white">Ready to Book Your Lake Travis Adventure?</h3>
+            <p className="text-gray-700 dark:text-gray-300 mb-4">Join thousands of bachelor parties who've celebrated with Premier Party Cruises!</p>
+            <BlogCTA variant="primary" text="Book Your Cruise" href="/atx-disco-cruise" external={false} />
           </div>
         </section>
       </SectionReveal>
