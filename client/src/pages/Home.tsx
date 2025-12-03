@@ -501,7 +501,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white dark:bg-gray-950">
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white dark:bg-gray-950" data-page-ready="home">
       <SEOHead
         pageRoute="/"
         defaultTitle="Party Boat Austin"

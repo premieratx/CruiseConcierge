@@ -347,7 +347,7 @@ export default function BacheloretteParty() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white" data-page-ready="bachelorette-party">
       <SEOHead
         pageRoute="/bachelorette-party-austin"
         defaultTitle="Austin Bachelorette Boat | Lake Travis Party"

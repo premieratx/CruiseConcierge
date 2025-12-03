@@ -234,7 +234,7 @@ export default function WeddingParties() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white" data-page-ready="wedding-parties">
       <SEOHead 
         pageRoute="/wedding-parties"
         defaultTitle="Wedding Party Boat | Lake Travis Austin"

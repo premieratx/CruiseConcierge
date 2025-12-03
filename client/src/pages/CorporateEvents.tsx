@@ -421,7 +421,7 @@ export default function CorporateEvents() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white" data-page-ready="corporate-events">
       <SEOHead 
         pageRoute="/corporate-events"
         defaultTitle="Corporate Events | Lake Travis Austin"

@@ -194,7 +194,7 @@ export default function BirthdayParties() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white" data-page-ready="birthday-parties">
       <SEOHead 
         pageRoute="/birthday-parties"
         defaultTitle="Birthday Party Boat | Lake Travis Austin"

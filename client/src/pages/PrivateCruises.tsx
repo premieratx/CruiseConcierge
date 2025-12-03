@@ -439,7 +439,7 @@ export default function PrivateCruises() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white" data-page-ready="private-cruises">
       <SEOHead 
         pageRoute="/private-cruises"
         defaultTitle="Private Boat Rental Austin | Lake Travis"

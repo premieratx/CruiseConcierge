@@ -372,7 +372,7 @@ export default function BachelorParty() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white" data-page-ready="bachelor-party">
       <SEOHead
         pageRoute="/bachelor-party-austin"
         defaultTitle="Austin Bachelor Party Boat | Lake Travis"

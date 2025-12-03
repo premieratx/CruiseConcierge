@@ -39,7 +39,7 @@ const fleetPhotos = [
 
 export default function FirstTimeLakeTravisGuide() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 via-white to-blue-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950">
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 via-white to-blue-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950" data-page-ready="first-time-guide">
       <SEOHead 
         pageRoute="/blogs/first-time-lake-travis-boat-rental-essential-tips-for-austin-party-planning"
         defaultTitle="Lake Travis Boat Rental Guide | Austin Party Boat Tips for First-Timers"

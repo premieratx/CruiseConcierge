@@ -227,7 +227,7 @@ export default function PartyBoatLakeTravis() {
   }, [reducedMotion]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white" data-page-ready="party-boat-lake-travis">
       <SEOHead
         pageRoute="/party-boat-lake-travis"
         defaultTitle="Party Boat Lake Travis | Austin Cruises"

@@ -218,7 +218,7 @@ export default function PartyBoatAustin() {
   }, [navigate, toast]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white" data-page-ready="party-boat-austin">
       <SEOHead
         pageRoute="/party-boat-austin"
         defaultTitle="Party Boat Austin | Premier Lake Travis"

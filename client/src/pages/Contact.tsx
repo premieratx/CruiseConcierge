@@ -18,7 +18,7 @@ export default function Contact() {
   const { isEditMode } = useInlineEdit();
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white dark:from-gray-900 dark:to-gray-950">
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white dark:from-gray-900 dark:to-gray-950" data-page-ready="contact">
       <SEOHead 
         pageRoute="/contact"
         defaultTitle="Contact | Premier Party Cruises Austin"
