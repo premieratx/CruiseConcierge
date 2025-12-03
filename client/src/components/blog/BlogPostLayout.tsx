@@ -43,8 +43,9 @@ export function BlogPostLayout({
   pageRoute,
   className,
 }: BlogPostLayoutProps) {
+  const pageId = pageRoute.replace(/^\//, '').replace(/\//g, '-') || 'blog';
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background" data-page-ready={`blog-${pageId}`}>
       <PublicNavigation />
       
       <SEOHead

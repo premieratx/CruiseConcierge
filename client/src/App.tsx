@@ -61,6 +61,7 @@ const AustinBachelorPartyIdeas = lazy(() => import("./pages/blog/AustinBachelorP
 const LakeTravisBachelorPartyBoats = lazy(() => import("./pages/blog/LakeTravisBachelorPartyBoats"));
 const WeddingAnniversaryCelebrationIdeas = lazy(() => import("./pages/blog/WeddingAnniversaryCelebrationIdeas"));
 const ATXDiscoCruiseExperience = lazy(() => import("./pages/blog/ATXDiscoCruiseExperience"));
+const LakeTravisBachelorPartyCelebrations = lazy(() => import("./pages/blog/LakeTravisBachelorPartyCelebrations"));
 
 // Admin Blog Pages - Lazy loaded
 const BlogManagement = lazy(() => import("./pages/admin/BlogManagement"));
@@ -267,6 +268,7 @@ function Router() {
       <Route path="/austin-bachelor-party-ideas" component={AustinBachelorPartyIdeas} />
       <Route path="/lake-travis-bachelor-party-boats" component={LakeTravisBachelorPartyBoats} />
       <Route path="/blogs/atx-disco-cruise-experience" component={ATXDiscoCruiseExperience} />
+      <Route path="/blogs/lake-travis-bachelor-party-austin-celebrations" component={LakeTravisBachelorPartyCelebrations} />
       
       {/* Wedding Anniversary Blog Page */}
       <Route path="/wedding-anniversary-celebration-ideas" component={WeddingAnniversaryCelebrationIdeas} />
