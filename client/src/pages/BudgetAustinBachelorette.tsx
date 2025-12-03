@@ -69,7 +69,7 @@ export default function BudgetAustinBachelorette() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-green-50 via-blue-50 to-white dark:from-gray-900 dark:to-gray-950">
+    <div className="min-h-screen bg-gradient-to-b from-green-50 via-blue-50 to-white dark:from-gray-900 dark:to-gray-950" data-page-ready="budget-austin-bachelorette">
       <SEOHead 
         pageRoute="/budget-austin-bachelorette"
         defaultTitle="Budget-Friendly Austin Bachelorette Party | Affordable Party Boat Ideas"

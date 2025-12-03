@@ -229,7 +229,7 @@ export default function RehearsalDinner() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white" data-page-ready="rehearsal-dinner">
       <SEOHead 
         pageRoute="/rehearsal-dinner"
         defaultTitle="Rehearsal Dinner Cruises | Lake Travis"

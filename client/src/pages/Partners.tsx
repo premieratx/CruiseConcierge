@@ -132,7 +132,7 @@ export default function Partners() {
   };
 
   return (
-    <>
+    <div data-page-ready="partners">
       <SEOHead
         pageRoute="/partners"
         defaultTitle="Partner Program | Premier Party Cruises"
@@ -490,6 +490,6 @@ export default function Partners() {
       </SectionReveal>
 
       <Footer />
-    </>
+    </div>
   );
 }

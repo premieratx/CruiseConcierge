@@ -62,7 +62,7 @@ export default function ThreeDayAustinBacheloretteItinerary() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-pink-50 via-purple-50 to-white dark:from-gray-900 dark:to-gray-950">
+    <div className="min-h-screen bg-gradient-to-b from-pink-50 via-purple-50 to-white dark:from-gray-900 dark:to-gray-950" data-page-ready="three-day-bachelorette-itinerary">
       <SEOHead 
         pageRoute="/3-day-austin-bachelorette-itinerary"
         defaultTitle="Perfect 3-Day Austin Bachelorette Itinerary | Day-by-Day Guide"

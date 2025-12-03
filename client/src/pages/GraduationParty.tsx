@@ -246,7 +246,7 @@ export default function GraduationParty() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white" data-page-ready="graduation-party">
       <SEOHead 
         pageRoute="/graduation-party"
         defaultTitle="Graduation Party Cruises | Lake Travis"

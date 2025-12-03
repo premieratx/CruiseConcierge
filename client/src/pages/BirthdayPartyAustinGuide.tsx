@@ -6,7 +6,7 @@ import { Link } from 'wouter';
 
 export default function BirthdayPartyAustinGuide() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-purple-50 via-white to-pink-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950">
+    <div className="min-h-screen bg-gradient-to-b from-purple-50 via-white to-pink-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950" data-page-ready="birthday-party-austin-guide">
       <Helmet>
         <title>Birthday Party Boat Austin | Milestone Celebrations on Lake Travis</title>
         <meta 

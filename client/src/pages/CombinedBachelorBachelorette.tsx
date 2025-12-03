@@ -159,7 +159,7 @@ export default function CombinedBachelorBachelorette() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white" data-page-ready="combined-bach-party">
       <SEOHead
         pageRoute="/combined-bachelor-bachelorette-austin"
         defaultTitle="Combined Bachelor/Bachelorette | Lake Travis"

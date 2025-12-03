@@ -255,7 +255,7 @@ export default function MilestoneBirthday() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white" data-page-ready="milestone-birthday">
       <SEOHead 
         pageRoute="/milestone-birthday"
         defaultTitle="Milestone Birthday | Lake Travis Cruises"

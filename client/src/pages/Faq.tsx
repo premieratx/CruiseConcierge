@@ -332,7 +332,7 @@ export default function Faq() {
       <PublicNavigation />
       <Breadcrumb />
       
-      <main className="min-h-screen bg-gradient-to-b from-blue-50 to-white dark:from-gray-900 dark:to-gray-950">
+      <main className="min-h-screen bg-gradient-to-b from-blue-50 to-white dark:from-gray-900 dark:to-gray-950" data-page-ready="faq">
         {/* Hero Section */}
         <SectionReveal>
           <section className="relative py-24 px-6">

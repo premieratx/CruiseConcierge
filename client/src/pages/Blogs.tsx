@@ -185,7 +185,7 @@ export default function Blogs() {
         ]}
       />
       
-      <div className="min-h-screen bg-background">
+      <div data-page-ready="blogs" className="min-h-screen bg-background">
         {/* Hero Section */}
         <section
           className="bg-gradient-to-br from-brand-blue to-blue-600 text-white py-16 md:py-24 animate-in fade-in slide-in-from-top-4 duration-500"

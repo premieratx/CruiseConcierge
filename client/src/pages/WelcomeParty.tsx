@@ -267,7 +267,7 @@ export default function WelcomeParty() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white" data-page-ready="welcome-party">
       <SEOHead 
         pageRoute="/welcome-party"
         defaultTitle="Wedding Welcome Party | Lake Travis"

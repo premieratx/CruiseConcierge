@@ -197,7 +197,7 @@ export default function CompanyMilestone() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white" data-page-ready="company-milestone">
       <SEOHead 
         pageRoute="/company-milestone"
         defaultTitle="Company Milestones | Lake Travis Cruises"

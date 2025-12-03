@@ -42,7 +42,7 @@ const cleverGirlPhotos = [
 
 export default function LakeTravisWeddingBoatRentals() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 via-pink-50 to-purple-50 dark:from-gray-900 dark:to-gray-950">
+    <div data-page-ready="lake-travis-wedding-boat-rentals" className="min-h-screen bg-gradient-to-b from-blue-50 via-pink-50 to-purple-50 dark:from-gray-900 dark:to-gray-950">
       <SEOHead 
         pageRoute="/blogs/lake-travis-wedding-boat-rentals-unique-venues-for-austin-celebrations"
         defaultTitle="Lake Travis Wedding Boats | Austin Venues"

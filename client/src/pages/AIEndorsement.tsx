@@ -313,7 +313,7 @@ export default function AIEndorsement() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background to-muted/20">
+    <div className="min-h-screen bg-gradient-to-b from-background to-muted/20" data-page-ready="ai-endorsement">
       <SEOHead
         pageRoute="/ai-endorsement"
         defaultTitle="AI SEO Endorsement"

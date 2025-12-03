@@ -244,7 +244,7 @@ export default function Sweet16() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white" data-page-ready="sweet-16">
       <SEOHead 
         pageRoute="/sweet-16"
         defaultTitle="Sweet 16 Cruises | Lake Travis Austin"

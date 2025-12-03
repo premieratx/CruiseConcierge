@@ -30,7 +30,7 @@ const tableOfContents = [
 
 export default function HolidayCelebrationsLakeTravis() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 via-purple-50 to-white dark:from-gray-900 dark:to-gray-950">
+    <div data-page-ready="holiday-celebrations-lake-travis" className="min-h-screen bg-gradient-to-b from-blue-50 via-purple-50 to-white dark:from-gray-900 dark:to-gray-950">
       <SEOHead 
         pageRoute="/blogs/holiday-celebrations-on-lake-travis-seasonal-boat-party-planning-and-coordination"
         defaultTitle="Holiday Celebrations on Lake Travis: Seasonal Boat Party Planning"

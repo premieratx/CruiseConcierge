@@ -31,7 +31,7 @@ const tableOfContents = [
 
 export default function JointBachelorBacheloretteParties() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-pink-50 via-purple-50 to-blue-50 dark:from-gray-900 dark:to-gray-950">
+    <div className="min-h-screen bg-gradient-to-b from-pink-50 via-purple-50 to-blue-50 dark:from-gray-900 dark:to-gray-950" data-page-ready="joint-bach-party">
       <SEOHead 
         pageRoute="/blogs/joint-bachelor-bachelorette-parties-with-premier-party-cruises"
         defaultTitle="Joint Bachelor/Bachelorette Parties With Premier Party Cruises"

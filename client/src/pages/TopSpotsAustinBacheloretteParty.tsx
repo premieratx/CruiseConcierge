@@ -8,7 +8,7 @@ import Footer from '@/components/Footer';
 
 export default function TopSpotsAustinBacheloretteParty() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 via-white to-blue-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950">
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 via-white to-blue-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950" data-page-ready="top-spots-bachelorette">
       <Helmet>
         <title>Top Spots & Tips for an Unforgettable Austin Bachelorette Party Experience | Premier Party Cruises</title>
         <meta 

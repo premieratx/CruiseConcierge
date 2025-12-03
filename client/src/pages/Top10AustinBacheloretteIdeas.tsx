@@ -65,7 +65,7 @@ export default function Top10AustinBacheloretteIdeas() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-pink-50 via-purple-50 to-white dark:from-gray-900 dark:to-gray-950">
+    <div data-page-ready="top-10-bachelorette-ideas" className="min-h-screen bg-gradient-to-b from-pink-50 via-purple-50 to-white dark:from-gray-900 dark:to-gray-950">
       <SEOHead 
         pageRoute="/top-10-austin-bachelorette-ideas"
         defaultTitle="Top 10 Austin Bachelorette Party Ideas | Lake Travis Boats & Bars"

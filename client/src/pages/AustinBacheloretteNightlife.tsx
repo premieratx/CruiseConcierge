@@ -31,7 +31,7 @@ const tableOfContents = [
 
 export default function AustinBacheloretteNightlife() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-purple-50 via-pink-50 to-white dark:from-gray-900 dark:to-gray-950">
+    <div className="min-h-screen bg-gradient-to-b from-purple-50 via-pink-50 to-white dark:from-gray-900 dark:to-gray-950" data-page-ready="austin-bachelorette-nightlife">
       <SEOHead 
         pageRoute="/austin-bachelorette-nightlife"
         defaultTitle="Austin Bachelorette Nightlife Guide | Sixth Street, Rainey Street & Bars"

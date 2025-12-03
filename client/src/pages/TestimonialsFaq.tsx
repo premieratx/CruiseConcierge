@@ -266,7 +266,7 @@ export default function TestimonialsFaq() {
   const combinedSchema = useMemo(() => [faqSchema, productReviewSchema], [faqSchema, productReviewSchema]);
 
   return (
-    <>
+    <div data-page-ready="testimonials-faq">
       <SEOHead
         pageRoute="/testimonials-faq"
         defaultTitle="Reviews & Testimonials | Premier Cruises"
@@ -718,6 +718,6 @@ export default function TestimonialsFaq() {
       />
 
       <Footer />
-    </>
+    </div>
   );
 }

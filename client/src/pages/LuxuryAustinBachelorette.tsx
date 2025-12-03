@@ -67,7 +67,7 @@ export default function LuxuryAustinBachelorette() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-purple-50 via-pink-50 to-white dark:from-gray-900 dark:to-gray-950">
+    <div data-page-ready="luxury-austin-bachelorette" className="min-h-screen bg-gradient-to-b from-purple-50 via-pink-50 to-white dark:from-gray-900 dark:to-gray-950">
       <SEOHead 
         pageRoute="/luxury-austin-bachelorette"
         defaultTitle="Luxury Austin Bachelorette Weekend | VIP Boats & Upscale Experiences"

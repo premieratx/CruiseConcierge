@@ -6,7 +6,7 @@ import { Link } from 'wouter';
 
 export default function LakeTravisWeatherGuide() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-sky-50 via-white to-blue-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950">
+    <div className="min-h-screen bg-gradient-to-b from-sky-50 via-white to-blue-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950" data-page-ready="lake-travis-weather-guide">
       <Helmet>
         <title>Lake Travis Weather Planning | Seasonal Guide for Perfect Boat Parties</title>
         <meta 

@@ -31,7 +31,7 @@ const tableOfContents = [
 
 export default function AdventureAustinBachelorette() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-green-50 via-blue-50 to-white dark:from-gray-900 dark:to-gray-950">
+    <div data-page-ready="adventure-austin-bachelorette" className="min-h-screen bg-gradient-to-b from-green-50 via-blue-50 to-white dark:from-gray-900 dark:to-gray-950">
       <SEOHead 
         pageRoute="/adventure-austin-bachelorette"
         defaultTitle="Adventurous Austin Bachelorette Party | Outdoor Activities & Lake Fun"

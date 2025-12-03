@@ -30,7 +30,7 @@ const tableOfContents = [
 
 export default function UltimateAustinBacheloretteWeekend() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-pink-50 via-purple-50 to-white dark:from-gray-900 dark:to-gray-950">
+    <div className="min-h-screen bg-gradient-to-b from-pink-50 via-purple-50 to-white dark:from-gray-900 dark:to-gray-950" data-page-ready="ultimate-bachelorette-weekend">
       <SEOHead 
         pageRoute="/ultimate-austin-bachelorette-weekend"
         defaultTitle="Ultimate Austin Bachelorette Weekend Guide | Party Boat & Nightlife"

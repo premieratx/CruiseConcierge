@@ -79,7 +79,7 @@ export default function GoldenTicket() {
         <meta name="description" content="Exclusive ATX Disco Cruise promotional offer! Get $300 gift card plus 5 friend cards. Limited time Golden Ticket deal for Austin party cruises." />
       </Helmet>
       
-      <div className="min-h-screen bg-gradient-to-br from-yellow-50 via-white to-amber-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
+      <div data-page-ready="golden-ticket" className="min-h-screen bg-gradient-to-br from-yellow-50 via-white to-amber-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
       {/* Main Content Area */}
       <div className="flex flex-col items-center justify-start pt-4 pb-12">
         <div className="w-full max-w-6xl px-4">

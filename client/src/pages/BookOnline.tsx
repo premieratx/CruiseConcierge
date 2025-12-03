@@ -71,7 +71,7 @@ export default function BookOnline({ defaultBoatType = '14p' }: BookOnlineProps)
         <meta name="description" content="Book Lake Travis party boats online! Select 14, 25, or 50-person boats or ATX Disco Cruise. Instant confirmation for Austin cruises." />
       </Helmet>
       
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-yellow-50">
+      <div data-page-ready="book-online" className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-yellow-50">
         <div className="container mx-auto px-4 py-8 max-w-7xl">
           <motion.div
             variants={fadeInUp}

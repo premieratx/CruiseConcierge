@@ -197,7 +197,7 @@ export default function AfterParty() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white" data-page-ready="after-party">
       <SEOHead 
         pageRoute="/after-party"
         defaultTitle="Day After Wedding Cruise | Lake Travis After Party"
