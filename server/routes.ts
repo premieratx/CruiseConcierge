@@ -629,7 +629,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
         'joint-bachelor-bachelorette-parties-with-premier-party-cruises',
         'must-haves-for-the-perfect-austin-bachelorette-weekend',
         'top-spots-tips-for-an-unforgettable-austin-bachelorette-party-experience',
-        'atx-disco-cruise-experience'
+        'atx-disco-cruise-experience',
+        'lake-travis-bachelor-party-austin-celebrations'
       ];
       
       if (reactBlogSlugs.includes(slug)) {
@@ -833,7 +834,8 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
     '/blogs/first-time-lake-travis-boat-rental-essential-tips-for-austin-party-planning',
     '/blog/birthday-party-alcohol-delivery-austin-milestone-celebrations-made-easy',
     '/blog/lake-travis-party-boat-rentals-ultimate-guide-for-large-group-events-20-guests',
-    '/blog/lake-travis-weather-planning-seasonal-considerations-for-perfect-boat-parties'
+    '/blog/lake-travis-weather-planning-seasonal-considerations-for-perfect-boat-parties',
+    '/blogs/lake-travis-bachelor-party-austin-celebrations'
   ];
   
   reactBlogRoutes.forEach(route => {

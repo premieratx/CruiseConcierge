@@ -7,10 +7,7 @@ import {
   Ship, Music, Beer, Utensils, Mountain, MapPin, 
   Star, Users, Calendar, Sparkles, Home, Waves, Sun
 } from 'lucide-react';
-import scenicLakeTravis from '@assets/lake-travis-bachelor-party-scenic.jpg';
-import panoramicLakeTravis from '@assets/lake-travis-panoramic-hills.jpg';
-import lakesideRestaurant from '@assets/lakeside-restaurant-sunset.jpg';
-import austinLiveMusic from '@assets/austin-live-music-venue.jpg';
+import { lakeTravisBachelorPartyImages } from '@/lib/blogImages';
 
 const sections: TOCSection[] = [
   { id: 'introduction', title: 'Introduction', icon: <Star /> },
@@ -33,8 +30,8 @@ export default function LakeTravisBachelorPartyCelebrations() {
       metaDescription="Plan the ultimate lake travis bachelor party with boat rentals, adventure activities, and vibrant Austin nightlife, ensuring unforgettable celebrations."
       publishDate="2025-01-20"
       author="Premier Party Cruises"
-      heroImage={scenicLakeTravis}
-      heroImageAlt="A scenic view of Lake Travis with boats and clear blue water"
+      heroImage={lakeTravisBachelorPartyImages[0].src}
+      heroImageAlt={lakeTravisBachelorPartyImages[0].alt}
       keywords={[
         'lake travis bachelor party',
         'austin bachelor party',
@@ -96,8 +93,8 @@ export default function LakeTravisBachelorPartyCelebrations() {
 
           <div className="my-8">
             <LazyImage
-              src={panoramicLakeTravis}
-              alt="Panoramic view of Lake Travis with rolling hills in the background"
+              src={lakeTravisBachelorPartyImages[1].src}
+              alt={lakeTravisBachelorPartyImages[1].alt}
               className="rounded-lg shadow-lg w-full h-auto"
               data-testid="image-panoramic-lake-travis"
             />
@@ -316,8 +313,8 @@ export default function LakeTravisBachelorPartyCelebrations() {
 
           <div className="my-8">
             <LazyImage
-              src={lakesideRestaurant}
-              alt="Lakeside restaurant with outdoor seating at sunset"
+              src={lakeTravisBachelorPartyImages[2].src}
+              alt={lakeTravisBachelorPartyImages[2].alt}
               className="rounded-lg shadow-lg w-full h-auto"
               data-testid="image-lakeside-restaurant"
             />
@@ -359,8 +356,8 @@ export default function LakeTravisBachelorPartyCelebrations() {
 
           <div className="my-8">
             <LazyImage
-              src={austinLiveMusic}
-              alt="Live music venue in Austin with a band performing"
+              src={lakeTravisBachelorPartyImages[3].src}
+              alt={lakeTravisBachelorPartyImages[3].alt}
               className="rounded-lg shadow-lg w-full h-auto"
               data-testid="image-austin-live-music"
             />

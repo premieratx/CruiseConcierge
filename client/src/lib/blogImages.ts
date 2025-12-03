@@ -62,6 +62,25 @@ export const bachelorPartyBlogImages: BlogImage[] = [
   },
 ];
 
+export const lakeTravisBachelorPartyImages: BlogImage[] = [
+  {
+    src: '/attached_assets/lake-travis-bachelor-party-scenic.jpg',
+    alt: 'A scenic view of Lake Travis with boats and clear blue water',
+  },
+  {
+    src: '/attached_assets/lake-travis-panoramic-hills.jpg',
+    alt: 'Panoramic view of Lake Travis with rolling hills in the background',
+  },
+  {
+    src: '/attached_assets/lakeside-restaurant-sunset.jpg',
+    alt: 'Lakeside restaurant with outdoor seating at sunset',
+  },
+  {
+    src: '/attached_assets/austin-live-music-venue.jpg',
+    alt: 'Live music venue in Austin with a band performing',
+  },
+];
+
 export const lakeTravisBachelorBoatImages: BlogImage[] = [
   {
     src: '/attached_assets/atx-disco-cruise-party.webp',
