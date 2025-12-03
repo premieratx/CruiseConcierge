@@ -78,7 +78,7 @@ export function LazyImage({
         src={isInView ? (error && fallbackSrc ? fallbackSrc : src) : undefined}
         alt={alt}
         loading={priority ? "eager" : "lazy"}
-        fetchpriority={priority ? "high" : undefined}
+        fetchPriority={priority ? "high" : undefined}
         onLoad={handleLoad}
         onError={handleError}
         className={cn(

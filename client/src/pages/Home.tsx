@@ -550,9 +550,9 @@ export default function Home() {
                 alt="Party Boat Austin - Premier Party Cruises on Lake Travis" 
                 className="h-20 md:h-24 w-auto mx-auto mb-6"
                 loading="eager"
-                fetchpriority="high"
-                width="280"
-                height="280"
+                fetchPriority="high"
+                width={280}
+                height={280}
                 data-testid="img-hero-logo"
               />
             </motion.div>

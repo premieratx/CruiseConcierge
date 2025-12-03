@@ -222,13 +222,27 @@
         });
       }
     </script>
-    <!-- Xola Checkout Script - Load asynchronously to prevent blocking -->
-    <script 
-      type="text/javascript" 
-      src="https://xola.com/checkout.js"
-      crossorigin="anonymous"
-      async
-    ></script>
+    <!-- Xola Checkout Script - Deferred loading to minimize TBT impact -->
+    <script>
+      // PAGESPEED FIX: Lazy load Xola only when needed (saves ~500ms TBT)
+      window.loadXolaCheckout = function() {
+        if (window.xolaLoaded) return;
+        window.xolaLoaded = true;
+        var script = document.createElement('script');
+        script.src = 'https://xola.com/checkout.js';
+        script.async = true;
+        script.crossOrigin = 'anonymous';
+        document.body.appendChild(script);
+      };
+      // Load Xola after initial page interaction or after 3 seconds (whichever comes first)
+      var xolaLoadTimer = setTimeout(window.loadXolaCheckout, 3000);
+      ['click', 'touchstart', 'scroll'].forEach(function(event) {
+        document.addEventListener(event, function() {
+          clearTimeout(xolaLoadTimer);
+          window.loadXolaCheckout();
+        }, { once: true, passive: true });
+      });
+    </script>
     
     <script type="module" src="/src/main.tsx"></script>
   </body>

@@ -68,7 +68,7 @@ export function ResponsiveImage({
         alt={alt}
         className={className}
         loading={loading}
-        fetchpriority={fetchpriority}
+        fetchPriority={fetchpriority}
         width={width}
         height={height}
         decoding={fetchpriority === 'high' ? 'sync' : 'async'}
