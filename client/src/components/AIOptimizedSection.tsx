@@ -93,9 +93,10 @@ const StatisticsBlock = ({ items, title }: { items: StatisticItem[], title?: str
 };
 
 // Structured List Block Component
+// NOTE: Removed itemScope/itemType for ItemList - SSR handles schemas to avoid Google Search Console errors
 const StructuredListBlock = ({ items }: { items: StructuredListItem[] }) => {
   return (
-    <div className="space-y-4" itemScope itemType="https://schema.org/ItemList">
+    <div className="space-y-4">
       {items.map((item, index) => (
         <div 
           key={index}
@@ -104,16 +105,13 @@ const StructuredListBlock = ({ items }: { items: StructuredListItem[] }) => {
             "bg-white dark:bg-gray-800",
             item.highlighted && "border-2 border-purple-500 shadow-md"
           )}
-          itemScope
-          itemType="https://schema.org/ListItem"
         >
-          <meta itemProp="position" content={String(index + 1)} />
           <div className="flex-shrink-0 text-purple-600">
             {item.icon || <Check className="w-5 h-5" />}
           </div>
           <div className="flex-grow">
             <div className="flex items-start justify-between">
-              <h4 className="font-semibold text-gray-900 dark:text-white" itemProp="name">
+              <h4 className="font-semibold text-gray-900 dark:text-white">
                 {item.title}
               </h4>
               {item.badge && (
@@ -122,7 +120,7 @@ const StructuredListBlock = ({ items }: { items: StructuredListItem[] }) => {
                 </Badge>
               )}
             </div>
-            <p className="text-gray-600 dark:text-gray-400 mt-1" itemProp="description">
+            <p className="text-gray-600 dark:text-gray-400 mt-1">
               {item.description}
             </p>
           </div>
@@ -200,6 +198,7 @@ const QABlock = ({ items }: { items: QuestionAnswer[] }) => {
 };
 
 // Pricing Block Component
+// NOTE: Removed itemScope/itemType for Offer - SSR handles schemas to avoid Google Search Console errors
 const PricingBlock = ({ items }: { items: PricingTier[] }) => {
   return (
     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -210,8 +209,6 @@ const PricingBlock = ({ items }: { items: PricingTier[] }) => {
             "relative",
             tier.recommended && "border-purple-500 border-2"
           )}
-          itemScope
-          itemType="https://schema.org/Offer"
         >
           {tier.recommended && (
             <Badge className="absolute -top-3 left-1/2 transform -translate-x-1/2">
@@ -219,11 +216,11 @@ const PricingBlock = ({ items }: { items: PricingTier[] }) => {
             </Badge>
           )}
           <CardHeader>
-            <CardTitle itemProp="name">{tier.name}</CardTitle>
-            <div className="text-2xl font-bold text-purple-600" itemProp="price">
+            <CardTitle>{tier.name}</CardTitle>
+            <div className="text-2xl font-bold text-purple-600">
               {tier.price}
             </div>
-            <CardDescription itemProp="description">{tier.description}</CardDescription>
+            <CardDescription>{tier.description}</CardDescription>
           </CardHeader>
           <CardContent>
             <ul className="space-y-2">
@@ -242,20 +239,19 @@ const PricingBlock = ({ items }: { items: PricingTier[] }) => {
 };
 
 // Definition Block Component
+// NOTE: Removed itemScope/itemType for DefinedTerm - SSR handles schemas to avoid Google Search Console errors
 const DefinitionBlock = ({ term, definition, context }: { term: string; definition: string; context?: string }) => {
   return (
     <div 
       className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-6 border-l-4 border-blue-500"
-      itemScope
-      itemType="https://schema.org/DefinedTerm"
     >
       <div className="flex items-start">
         <Info className="w-5 h-5 text-blue-500 mr-3 mt-1 flex-shrink-0" />
         <div>
           <h4 className="font-semibold text-gray-900 dark:text-white mb-2">
-            <span itemProp="name">{term}</span>
+            <span>{term}</span>
           </h4>
-          <p className="text-gray-700 dark:text-gray-300" itemProp="description">
+          <p className="text-gray-700 dark:text-gray-300">
             {definition}
           </p>
           {context && (

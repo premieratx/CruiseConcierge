@@ -1,6 +1,5 @@
 import { Link, useLocation } from 'wouter';
 import { useEffect, useState, Fragment } from 'react';
-import { Helmet } from 'react-helmet-async';
 import { 
   Breadcrumb as BreadcrumbNav,
   BreadcrumbList,
@@ -113,40 +112,12 @@ export default function Breadcrumb({ customSegments, hideOnMobile = false, class
     return null;
   }
 
-  // Generate Schema.org BreadcrumbList structured data
-  const schemaData = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": segments.map((segment, index) => {
-      const isLastItem = index === segments.length - 1;
-      const fullUrl = segment.href ? `https://premierpartycruises.com${segment.href}` : undefined;
-      
-      const item: any = {
-        "@type": "ListItem",
-        "position": index + 1,
-        "name": segment.label
-      };
-      
-      // Last item shouldn't have item property, others should have proper @id
-      if (!isLastItem && fullUrl) {
-        item.item = {
-          "@id": fullUrl,
-          "name": segment.label
-        };
-      }
-      
-      return item;
-    })
-  };
+  // NOTE: Schema.org BreadcrumbList is handled by SSR (server/ssr/renderer.ts)
+  // to avoid duplicate/conflicting schemas and "Missing field 'item'" errors
+  // This component only renders the visual breadcrumb navigation
 
   return (
     <>
-      <Helmet>
-        <script type="application/ld+json">
-          {JSON.stringify(schemaData)}
-        </script>
-      </Helmet>
-      
       <BreadcrumbNav 
         className={`bg-gray-50 dark:bg-gray-900 border-b px-4 py-3 ${hideOnMobile ? 'hidden sm:block' : ''} ${className || ''}`}
         aria-label="Breadcrumb navigation"
