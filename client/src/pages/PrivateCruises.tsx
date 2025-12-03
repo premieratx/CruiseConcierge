@@ -44,9 +44,9 @@ import { SectionReveal } from '@/components/SectionReveal';
 import { TableOfContents } from '@/components/TableOfContents';
 import { StickyCTA } from '@/components/StickyCTA';
 import { LazyImage } from '@/components/LazyImage';
-import { SchemaMarkup, generateEventSchema, generateProductSchema, generateFAQSchema, 
-         generateLocalBusinessSchema, generateServiceSchema, generateAggregateRatingSchema, 
-         generateBreadcrumbSchema, generateHowToSchema } from '@/components/SEOSchemaMarkup';
+// NOTE: Schema imports removed - all structured data is now handled by SSR via schemaLoader.ts
+// to avoid duplicate/conflicting schemas and Google Search Console errors
+// SSR schemas loaded: private-cruises/faq.jsonld, private-cruises/service.jsonld
 
 // Hero images
 const heroImage1 = '/attached_assets/clever-girl-50-person-boat.webp';
@@ -448,73 +448,10 @@ export default function PrivateCruises() {
         schemaType="service"
       />
       
-      {/* Comprehensive Schema Markup for SEO */}
-      <SchemaMarkup 
-        schemas={[
-          generateLocalBusinessSchema({
-            name: "Premier Party Cruises - Private Charters",
-            description: "Private boat rental service on Lake Travis Austin. Licensed, fun, experienced captains, luxury boats from 14-75 passengers, perfect for any celebration.",
-            url: "https://premierpartycruises.com/private-cruises",
-            priceRange: "$1,050-$2,660 per cruise",
-            aggregateRating: {
-              ratingValue: "4.9",
-              reviewCount: "130"
-            }
-          }),
-          generateServiceSchema({
-            name: "Lake Travis Private Boat Rental Service",
-            description: "Exclusive private boat charters on Lake Travis for corporate events, weddings, birthdays, and special celebrations. Professional crew and customizable packages.",
-            serviceType: "Private Boat Charter",
-            areaServed: "Austin",
-            hasOfferCatalog: [
-              { name: "Standard Package", description: "Basic private cruise with captain and crew", price: 200 },
-              { name: "Essentials Package", description: "Enhanced with ice, water, and setup", price: 300 },
-              { name: "Ultimate Package", description: "All-inclusive luxury with floats and party supplies", price: 450 }
-            ],
-            aggregateRating: {
-              ratingValue: "4.9",
-              reviewCount: "130"
-            }
-          }),
-          generateProductSchema({
-            name: "Private Boat Charter Lake Travis",
-            description: "Exclusive private boat rental on Lake Travis with licensed, fun, experienced captains to take your group safely around the lake in style, customizable packages, and luxury amenities.",
-            brand: "Premier Party Cruises",
-            offers: {
-              price: 200,
-              priceCurrency: "USD",
-              availability: "https://schema.org/InStock"
-            },
-            aggregateRating: {
-              ratingValue: "4.9",
-              reviewCount: "130"
-            }
-          }),
-          generateFAQSchema([
-            { 
-              question: "How much does it cost to rent a private boat on Lake Travis?", 
-              answer: "Private boat rentals on Lake Travis range from $1,050-$2,660 for 4-hour cruises depending on boat size (14-75 passengers) and day of week. This is the total cruise price, not an hourly rate. Packages and add-ons may increase the total." 
-            },
-            { 
-              question: "What is included in a private boat rental Austin?", 
-              answer: "Every private boat rental includes: licensed, fun, experienced captains to take your group safely around the lake in style, fuel, coolers, Bluetooth sound system, and clean restroom facilities. Enhanced packages add ice, water, tables, floats, and party supplies." 
-            },
-            { 
-              question: "Can you bring alcohol on private boat rentals?", 
-              answer: "Yes! All private boat rentals are BYOB friendly. You can bring your own alcohol (cans/plastic only for safety). We provide coolers and enhanced packages include ice. We can also coordinate alcohol delivery to the boat." 
-            },
-            { 
-              question: "What size boats are available for private rental on Lake Travis?", 
-              answer: "Private boats range from intimate 14-person pontoons to high-end 75-person party boats. Popular sizes include: Day Tripper (14 passengers), Meeseeks (25 passengers), Clever Girl (30-50 passengers), and larger party boats up to 75 passengers." 
-            },
-            { 
-              question: "How far in advance should I book a private boat rental?", 
-              answer: "Book private boat rentals 8-12 weeks for priority time slots - once they book they\'re gone! This is especially important for weekends during peak season (April-October). Holiday weekends and special events book even further out. Off-season may have more flexibility." 
-            }
-          ])
-        ]}
-      />
-      
+      {/* NOTE: All structured data (Service, FAQ, LocalBusiness, Product) is handled by SSR via schemaLoader.ts
+          SSR schemas loaded: private-cruises/faq.jsonld, private-cruises/service.jsonld
+          This avoids duplicate/conflicting schemas and Google Search Console errors. */}
+
       <PublicNavigation />
       <Breadcrumb />
 
