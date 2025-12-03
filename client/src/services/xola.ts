@@ -32,27 +32,39 @@ export function loadXolaScript(): Promise<void> {
     }
 
     // PAGESPEED FIX: Trigger deferred script loading from index.html
-    if (window.loadXolaCheckout && !window.xolaLoaded) {
-      console.log('[Xola] Triggering deferred script load...');
-      window.loadXolaCheckout();
-    }
+    const triggerLoad = () => {
+      if (window.loadXolaCheckout && !window.xolaLoaded) {
+        console.log('[Xola] Triggering deferred script load...');
+        window.loadXolaCheckout();
+      }
+    };
     
-    // Poll for Xola object to become available (max 10 seconds)
+    triggerLoad();
+    
+    // Poll for Xola object to become available (max 15 seconds with retries)
     let attempts = 0;
-    const maxAttempts = 100; // 100 attempts * 100ms = 10 seconds
+    const maxAttempts = 150; // 150 attempts * 100ms = 15 seconds
     
     const checkXola = setInterval(() => {
       attempts++;
       
       if (window.Xola || window.XolaCheckout) {
-        console.log('[Xola] Script loaded successfully after', attempts * 100, 'ms');
+        console.log('[Xola] Script loaded after', attempts * 100, 'ms');
         scriptLoaded = true;
         clearInterval(checkXola);
         resolve();
-      } else if (attempts >= maxAttempts) {
-        console.warn('[Xola] Script timeout - booking may be affected');
-        clearInterval(checkXola);
-        resolve(); // Resolve anyway to prevent blocking
+      } else {
+        // Retry trigger every 3 seconds if not loaded
+        if (attempts % 30 === 0 && !window.xolaLoaded) {
+          console.log('[Xola] Retrying script load...');
+          triggerLoad();
+        }
+        
+        if (attempts >= maxAttempts) {
+          console.warn('[Xola] Script timeout after 15s - booking functionality may be limited');
+          clearInterval(checkXola);
+          resolve(); // Resolve anyway to prevent blocking
+        }
       }
     }, 100);
   });
