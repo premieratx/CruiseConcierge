@@ -54,9 +54,8 @@ import { TableOfContents } from '@/components/TableOfContents';
 import { StickyCTA } from '@/components/StickyCTA';
 import { LazyImage } from '@/components/LazyImage';
 import QuoteBuilderSection from '@/components/QuoteBuilderSection';
-import { SchemaMarkup, generateEventSchema, generateProductSchema, generateFAQSchema, 
-         generateLocalBusinessSchema, generateServiceSchema, generateAggregateRatingSchema, 
-         generateBreadcrumbSchema, generateHowToSchema } from '@/components/SEOSchemaMarkup';
+// NOTE: Schema imports removed - all structured data is now handled by SSR via schemaLoader.ts
+// to avoid duplicate/conflicting schemas and Google Search Console errors
 import { YouTubeVideoBackground } from '@/components/YouTubeVideoBackground';
 import AnimatedPhotoGallery from '@/components/AnimatedPhotoGallery';
 import { PARTY_PHOTOS, OTHER_ASSETS } from '@/lib/media';
@@ -284,68 +283,9 @@ export default function ATXDiscoCruise() {
         schemaType="event"
       />
 
-      {/* Comprehensive Schema Markup for SEO */}
-      <SchemaMarkup 
-        schemas={[
-          generateLocalBusinessSchema({
-            name: "Premier Party Cruises - ATX Disco Cruise",
-            description: "Austin's premier Lake Travis party cruise featuring multi-group bachelor and bachelorette parties with professional DJ, photographer, and giant floats.",
-            url: "https://premierpartycruises.com/atx-disco-cruise",
-            priceRange: "$85-$125",
-            aggregateRating: {
-              ratingValue: "4.9",
-              reviewCount: "130"
-            }
-          }),
-          generateEventSchema({
-            name: "ATX Disco Cruise - Lake Travis Party Boat",
-            description: "4-hour multi-group bachelor and bachelorette party cruise on Lake Travis with professional DJ, photographer, giant floats, and party atmosphere.",
-            location: "Anderson Mill Marina, Lake Travis",
-            offers: {
-              price: 85,
-              priceCurrency: "USD",
-              availability: "https://schema.org/InStock",
-              url: "https://premierpartycruises.com/atx-disco-cruise"
-            },
-            organizer: {
-              name: "Premier Party Cruises",
-              url: "https://premierpartycruises.com"
-            }
-          }),
-          generateServiceSchema({
-            name: "ATX Disco Cruise Lake Travis Party Service",
-            description: "Multi-group party boat cruise service on Lake Travis for bachelor parties, bachelorette parties, and group celebrations.",
-            serviceType: "Party Boat Cruise",
-            areaServed: "Austin",
-            aggregateRating: {
-              ratingValue: "4.9",
-              reviewCount: "130"
-            }
-          }),
-          generateFAQSchema([
-            { 
-              question: "What is ATX Disco Cruise?", 
-              answer: "ATX Disco Cruise is America's only multi-group bachelor and bachelorette party cruise on Lake Travis. It's a 4-hour celebration featuring professional DJ entertainment, photographer, giant floats, and a high-energy party atmosphere with multiple groups celebrating together." 
-            },
-            { 
-              question: "How much does ATX Disco Cruise cost?", 
-              answer: "ATX Disco Cruise pricing is based on time slot: Friday 12-4pm costs $95 per person, Saturday 11am-3pm costs $105 per person (most popular), and Saturday 3:30-7:30pm costs $85 per person. All tickets include DJ, photographer, and floats. Optional add-on packages are available based on your party type." 
-            },
-            { 
-              question: "When does ATX Disco Cruise run?", 
-              answer: "ATX Disco Cruises run on Fridays from 12:00 PM - 4:00 PM and Saturdays from 11:00 AM - 3:00 PM or 3:30 PM - 7:30 PM during the season (March through October). Each cruise is 4 hours long on Lake Travis." 
-            },
-            { 
-              question: "What's included in ATX Disco Cruise?", 
-              answer: "Every ATX Disco Cruise includes: professional DJ entertainment, professional photographer with digital photos, access to giant floats, BYOB capability with shared coolers and ice, and the unique multi-group party atmosphere." 
-            },
-            { 
-              question: "How many people are on ATX Disco Cruise?", 
-              answer: "ATX Disco Cruise typically hosts 40-80 guests total, with multiple bachelor and bachelorette groups celebrating together. This creates an electric party atmosphere unique to Austin." 
-            }
-          ])
-        ]}
-      />
+      {/* NOTE: All structured data (Event, FAQ, LocalBusiness, Service) is handled by SSR via schemaLoader.ts
+          SSR schemas loaded: atx-disco-cruise/event.jsonld, atx-disco-cruise/faq.jsonld
+          This avoids duplicate/conflicting schemas and Google Search Console errors. */}
 
       <div className="min-h-screen bg-white dark:bg-gray-950">
         <PublicNavigation />
@@ -1900,181 +1840,8 @@ export default function ATXDiscoCruise() {
           </section>
         </SectionReveal>
 
-        {/* SEO-Optimized Hidden Content for Search Engines */}
-        <div className="sr-only" itemScope itemType="https://schema.org/Event">
-          <h2 itemProp="name">ATX Disco Cruise - Lake Travis Party Cruise</h2>
-          <p itemProp="description">
-            The ATX Disco Cruise is Austin's premier multi-group bachelor and bachelorette party cruise and Lake Travis party experience. 
-            Join bachelor and bachelorette parties from across the country for an unforgettable 4-hour cruise 
-            on beautiful Lake Travis. Professional DJ, photographer, giant floats, and the ultimate party atmosphere.
-          </p>
-          
-          <div itemProp="location" itemScope itemType="https://schema.org/Place">
-            <span itemProp="name">Lake Travis, Austin, Texas</span>
-            <div itemProp="address" itemScope itemType="https://schema.org/PostalAddress">
-              <span itemProp="addressLocality">Austin</span>,
-              <span itemProp="addressRegion">TX</span>
-            </div>
-          </div>
-
-          <h2>ATX Disco Cruise Event Details</h2>
-          <p>4-hour multi-group party cruise on Lake Travis with professional DJ and photographer</p>
-          <p>BYOB options with shared coolers and ice provided</p>
-          <p>Giant unicorn floats and party supplies included</p>
-          <p>Perfect for bachelor party Austin and bachelorette party Austin celebrations</p>
-          <p>Meet bachelor and bachelorette parties from across America</p>
-          <p>Anderson Mill Marina departure location</p>
-          
-          <h2>ATX Disco Cruise Time Slots and Pricing</h2>
-          
-          <div itemScope itemType="https://schema.org/Offer">
-            <h3 itemProp="name">Friday 12-4pm Cruise</h3>
-            <meta itemProp="price" content="95" />
-            <meta itemProp="priceCurrency" content="USD" />
-            <p itemProp="description">$95 per person - Friday afternoon party cruise on Lake Travis</p>
-            <p>4-hour cruise experience with DJ, photographer, and giant floats</p>
-            <ul>
-              <li>Full 4-hour Lake Travis cruise experience</li>
-              <li>Professional DJ entertainment all day</li>
-              <li>Professional photographer capturing memories</li>
-              <li>Digital photo delivery after the event</li>
-              <li>Giant unicorn float access</li>
-              <li>Multi-group party atmosphere</li>
-              <li>BYOB with shared coolers & ice</li>
-              <li>Optional add-on packages available</li>
-            </ul>
-          </div>
-
-          <div itemScope itemType="https://schema.org/Offer">
-            <h3 itemProp="name">Saturday 11am-3pm Cruise</h3>
-            <meta itemProp="price" content="105" />
-            <meta itemProp="priceCurrency" content="USD" />
-            <p itemProp="description">$105 per person - Saturday morning cruise, most popular time slot</p>
-            <p>Prime Saturday morning slot - books fastest!</p>
-            <ul>
-              <li>Full 4-hour Lake Travis cruise experience</li>
-              <li>Professional DJ entertainment all day</li>
-              <li>Professional photographer capturing memories</li>
-              <li>Digital photo delivery after the event</li>
-              <li>Giant unicorn float access</li>
-              <li>Multi-group party atmosphere</li>
-              <li>BYOB with shared coolers & ice</li>
-              <li>Optional add-on packages available</li>
-            </ul>
-          </div>
-
-          <div itemScope itemType="https://schema.org/Offer">
-            <h3 itemProp="name">Saturday 3:30-7:30pm Cruise</h3>
-            <meta itemProp="price" content="85" />
-            <meta itemProp="priceCurrency" content="USD" />
-            <p itemProp="description">$85 per person - Saturday sunset cruise, best value</p>
-            <p>Perfect sunset timing and great value!</p>
-            <ul>
-              <li>Full 4-hour Lake Travis cruise experience</li>
-              <li>Professional DJ entertainment all day</li>
-              <li>Professional photographer capturing memories</li>
-              <li>Digital photo delivery after the event</li>
-              <li>Giant unicorn float access</li>
-              <li>Multi-group party atmosphere</li>
-              <li>BYOB with shared coolers & ice</li>
-              <li>Optional add-on packages available</li>
-            </ul>
-          </div>
-
-          <h2>Lake Travis Party Cruise Keywords</h2>
-          <p>ATX Disco Cruise, Lake Travis party cruise, bachelorette party Austin, bachelor party Austin, 
-             Austin party boat, Lake Travis bachelor party, Lake Travis bachelorette party, Austin boat party, 
-             party cruise Austin, disco cruise Lake Travis, Austin bachelorette cruise, Lake Travis party boat, 
-             multi-group bachelor party, multi-group bachelorette party, Austin party cruise, Saturday party cruise</p>
-        </div>
-
-        {/* JSON-LD Structured Data for Event */}
-        <script type="application/ld+json" dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Event",
-            "name": "ATX Disco Cruise",
-            "description": "Austin's premier multi-group bachelor and bachelorette party cruise on Lake Travis. 4-hour party experience with professional DJ, photographer, and multi-group celebration atmosphere. BYOB options available.",
-            "image": "https://premierpartycruises.com/assets/atx-disco-cruise-party.jpg",
-            "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
-            "eventStatus": "https://schema.org/EventScheduled",
-            "location": {
-              "@type": "Place",
-              "name": "Anderson Mill Marina, Lake Travis",
-              "address": {
-                "@type": "PostalAddress",
-                "addressLocality": "Austin",
-                "addressRegion": "TX",
-                "addressCountry": "US"
-              }
-            },
-            "offers": [
-              {
-                "@type": "Offer",
-                "name": "Friday 12-4pm Time Slot",
-                "price": "95",
-                "priceCurrency": "USD",
-                "description": "Friday afternoon 4-hour Lake Travis cruise with DJ, photographer, and giant floats",
-                "availability": "https://schema.org/InStock",
-                "validFrom": "2024-01-01"
-              },
-              {
-                "@type": "Offer",
-                "name": "Saturday 11am-3pm Time Slot",
-                "price": "105",
-                "priceCurrency": "USD",
-                "description": "Saturday morning 4-hour cruise - most popular time slot with full party experience",
-                "availability": "https://schema.org/InStock",
-                "validFrom": "2024-01-01"
-              },
-              {
-                "@type": "Offer",
-                "name": "Saturday 3:30-7:30pm Time Slot",
-                "price": "85",
-                "priceCurrency": "USD",
-                "description": "Saturday sunset 4-hour cruise - best value time slot with amazing sunset views",
-                "availability": "https://schema.org/InStock",
-                "validFrom": "2024-01-01"
-              }
-            ],
-            "performer": {
-              "@type": "Organization",
-              "name": "Premier Party Cruises"
-            },
-            "organizer": {
-              "@type": "Organization",
-              "name": "Premier Party Cruises",
-              "url": "https://premierpartycruises.com"
-            }
-          })
-        }} />
-
-        {/* JSON-LD Structured Data for LocalBusiness */}
-        <script type="application/ld+json" dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "LocalBusiness",
-            "name": "Premier Party Cruises - ATX Disco Cruise",
-            "image": "https://premierpartycruises.com/assets/atx-disco-cruise-party.jpg",
-            "description": "Premier multi-group bachelor and bachelorette party cruises on Lake Travis. ATX Disco Cruise features professional DJ, photographer, giant floats, and the ultimate party atmosphere for celebrations.",
-            "address": {
-              "@type": "PostalAddress",
-              "addressLocality": "Austin",
-              "addressRegion": "TX",
-              "addressCountry": "US"
-            },
-            "telephone": "+1-512-488-5892",
-            "url": "https://premierpartycruises.com/atx-disco-cruise",
-            "priceRange": "$85-$105",
-            "servesCuisine": "Party Cruises",
-            "paymentAccepted": "Cash, Credit Card, Debit Card",
-            "openingHours": "Mo-Su 09:00-21:00",
-            "sameAs": [
-              "https://www.facebook.com/premierpartycruises",
-              "https://www.instagram.com/premierpartycruises"
-            ]
-          })
-        }} />
+        {/* NOTE: All structured data (Event, LocalBusiness, etc.) is handled by SSR via schemaLoader.ts
+            to avoid duplicate/conflicting schemas and Google Search Console errors. */}
 
         {/* Related Services Section */}
         <RelatedServicesSection currentPath="/atx-disco-cruise" />
