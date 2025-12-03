@@ -5,6 +5,8 @@ declare global {
   interface Window {
     XolaCheckout?: any;
     Xola?: any;
+    loadXolaCheckout?: () => void;
+    xolaLoaded?: boolean;
   }
 }
 
@@ -13,7 +15,7 @@ let scriptPromise: Promise<void> | null = null;
 
 /**
  * Load Xola checkout.js script and return a promise when ready
- * Script is loaded in index.html - this function waits for Xola to be available
+ * PAGESPEED: Triggers deferred script loading from index.html
  */
 export function loadXolaScript(): Promise<void> {
   if (scriptPromise) {
@@ -29,7 +31,11 @@ export function loadXolaScript(): Promise<void> {
       return;
     }
 
-    console.log('[Xola] Waiting for Xola script to load...');
+    // PAGESPEED FIX: Trigger deferred script loading from index.html
+    if (window.loadXolaCheckout && !window.xolaLoaded) {
+      console.log('[Xola] Triggering deferred script load...');
+      window.loadXolaCheckout();
+    }
     
     // Poll for Xola object to become available (max 10 seconds)
     let attempts = 0;
@@ -44,7 +50,7 @@ export function loadXolaScript(): Promise<void> {
         clearInterval(checkXola);
         resolve();
       } else if (attempts >= maxAttempts) {
-        console.warn('[Xola] Script failed to load after 10 seconds - continuing anyway');
+        console.warn('[Xola] Script timeout - booking may be affected');
         clearInterval(checkXola);
         resolve(); // Resolve anyway to prevent blocking
       }
