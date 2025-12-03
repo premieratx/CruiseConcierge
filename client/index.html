@@ -41,9 +41,19 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="dns-prefetch" href="https://fonts.googleapis.com">
     
-    <!-- QUOTE BUILDER PRELOAD - Instant loading for booking domain (NO DELAYS) -->
-    <link rel="preconnect" href="https://booking.premierpartycruises.com">
+    <!-- QUOTE BUILDER PRELOAD - Instant loading for booking domain (saves 330ms LCP) -->
+    <link rel="preconnect" href="https://booking.premierpartycruises.com" crossorigin>
     <link rel="dns-prefetch" href="https://booking.premierpartycruises.com">
+    
+    <!-- PAGESPEED FIX: Preconnect to Xola booking widgets (saves 620ms combined) -->
+    <link rel="preconnect" href="https://xola.com" crossorigin>
+    <link rel="preconnect" href="https://botcdn.xola.com" crossorigin>
+    <link rel="dns-prefetch" href="https://xola.com">
+    <link rel="dns-prefetch" href="https://botcdn.xola.com">
+    
+    <!-- Stripe preconnect for faster payment widget loading -->
+    <link rel="preconnect" href="https://js.stripe.com" crossorigin>
+    <link rel="dns-prefetch" href="https://js.stripe.com">
     
     <!-- PAGESPEED FIX: Preload optimized logo (26KB instead of 240KB - saves 214KB!) -->
     <link rel="preload" as="image" href="/attached_assets/PPC-Logo-280x280.webp" 
