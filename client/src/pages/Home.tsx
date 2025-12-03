@@ -75,24 +75,27 @@ import {
 } from 'lucide-react';
 import Footer from '@/components/Footer';
 import { formatCurrency } from '@shared/formatters';
-import { PricingTable } from '@/components/PricingTable';
-import { TabbedPrivateCruisePricing } from '@/components/TabbedPrivateCruisePricing';
+// PricingTable and TabbedPrivateCruisePricing are now lazy-loaded above
 import SEOHead from '@/components/SEOHead';
 import { Endorsement } from '@shared/schema';
 import { useInlineEdit } from '@/hooks/useInlineEdit';
 import { useReducedMotion } from '@/hooks/use-reduced-motion';
-import { ComparisonTable, type ComparisonColumn, type ComparisonRow } from '@/components/ComparisonTable';
+// ComparisonTable is now lazy-loaded above
+import { type ComparisonColumn, type ComparisonRow } from '@/components/ComparisonTable';
 import { FeaturedSnippet } from '@/components/FeaturedSnippet';
 import { QuickAnswerBox, QuickAnswerBoxGroup } from '@/components/QuickAnswerBox';
 import { InternalLinkHighlight, InternalLinkHighlightWithArrow } from '@/components/InternalLinkHighlight';
 import { RelatedServicesSection } from '@/components/RelatedServicesSection';
 import AIOptimizedSection from '@/components/AIOptimizedSection';
 import { SectionReveal } from '@/components/SectionReveal';
-import FleetSection from '@/components/FleetSection';
-import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 
-// Lazy load heavy components to improve FCP
+// PAGESPEED FIX: Lazy load ALL heavy below-fold components to reduce TBT and improve FCP
 const PartyPlanningChecklist = lazy(() => import('@/components/PartyPlanningChecklist'));
+const FleetSection = lazy(() => import('@/components/FleetSection'));
+const QuoteBuilderSection = lazy(() => import('@/components/QuoteBuilderSection'));
+const TabbedPrivateCruisePricingLazy = lazy(() => import('@/components/TabbedPrivateCruisePricing').then(m => ({ default: m.TabbedPrivateCruisePricing })));
+const ComparisonTableLazy = lazy(() => import('@/components/ComparisonTable').then(m => ({ default: m.ComparisonTable })));
+const PricingTableLazy = lazy(() => import('@/components/PricingTable').then(m => ({ default: m.PricingTable })));
 import { 
   calculatePackagePricing, 
   getCapacityTier, 
@@ -679,11 +682,15 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Fleet Section */}
-      <FleetSection />
+      {/* Fleet Section - Lazy loaded for better FCP */}
+      <Suspense fallback={<div className="py-16 bg-gray-50"></div>}>
+        <FleetSection />
+      </Suspense>
 
-      {/* Quote Builder Section */}
-      <QuoteBuilderSection />
+      {/* Quote Builder Section - Lazy loaded for better FCP */}
+      <Suspense fallback={<div className="py-16 bg-white"></div>}>
+        <QuoteBuilderSection />
+      </Suspense>
 
       {/* Services Section */}
       <SectionReveal>
@@ -858,7 +865,9 @@ export default function Home() {
                   Choose your boat size and package level. All packages include licensed, fun, experienced captains to take your group safely around the lake in style, premium sound system, and cooler space (bring your own ice, or add Essentials/Ultimate for ice included, or order from Party On Delivery).
                 </p>
               </div>
-              <TabbedPrivateCruisePricing />
+              <Suspense fallback={<div className="py-8 bg-gray-50 rounded-xl animate-pulse"></div>}>
+                <TabbedPrivateCruisePricingLazy />
+              </Suspense>
             </div>
 
 
@@ -867,7 +876,8 @@ export default function Home() {
               <h3 className="text-3xl font-semibold font-playfair text-center mb-8 text-gray-900 dark:text-white">
                 Compare All Our Services
               </h3>
-              <PricingTable
+              <Suspense fallback={<div className="py-8 bg-gray-50 rounded-xl animate-pulse"></div>}>
+              <PricingTableLazy
                 title="All Services Overview"
                 items={[
                   {
@@ -927,6 +937,7 @@ export default function Home() {
                   }
                 ]}
               />
+              </Suspense>
             </div>
 
             {/* Complete Pricing Information Table */}
@@ -1548,7 +1559,8 @@ export default function Home() {
             <h3 className="text-xl font-semibold mb-6 text-center text-gray-900 dark:text-white">
               ATX Disco Cruise vs Private Charter
             </h3>
-            <ComparisonTable
+            <Suspense fallback={<div className="py-8 bg-gray-50 rounded-xl animate-pulse"></div>}>
+            <ComparisonTableLazy
               columns={[
                 {
                   id: 'disco',
@@ -1615,6 +1627,7 @@ export default function Home() {
               ariaLabel="Comparison of ATX Disco Cruise and Private Charter options"
               highlightBest={true}
             />
+            </Suspense>
           </motion.div>
 
           {/* Fleet Comparison */}
@@ -1625,7 +1638,8 @@ export default function Home() {
             <h3 className="text-xl font-semibold mb-6 text-center text-gray-900 dark:text-white">
               Our Lake Travis Fleet
             </h3>
-            <ComparisonTable
+            <Suspense fallback={<div className="py-8 bg-gray-50 rounded-xl animate-pulse"></div>}>
+            <ComparisonTableLazy
               columns={[
                 {
                   id: 'daytripper',
@@ -1697,6 +1711,7 @@ export default function Home() {
               schemaType="Product"
               ariaLabel="Comparison of Premier Party Cruises boat fleet"
             />
+            </Suspense>
           </motion.div>
           </div>
         </section>
