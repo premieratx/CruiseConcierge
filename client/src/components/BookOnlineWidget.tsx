@@ -41,6 +41,9 @@ export default function BookOnlineWidget({ defaultBoatType = '14p' }: BookOnline
               src={logoPath}
               alt="Premier Party Cruises"
               className="h-20 w-auto mx-auto"
+              loading="eager"
+              width={80}
+              height={80}
               data-testid="img-ppc-logo"
             />
             

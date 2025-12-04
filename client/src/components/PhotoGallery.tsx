@@ -68,6 +68,8 @@ function LazyImage({ src, alt, className = "", onClick }: LazyImageProps) {
           }`}
           onLoad={() => setIsLoaded(true)}
           loading="lazy"
+          width={400}
+          height={300}
         />
       )}
     </div>
@@ -237,6 +239,8 @@ export default function PhotoGallery({
                     src={selectedImage.publicUrl}
                     alt={selectedImage.alt}
                     className="max-w-full max-h-full object-contain"
+                    width={800}
+                    height={600}
                     data-testid="lightbox-image"
                   />
                   {selectedImage.title && (

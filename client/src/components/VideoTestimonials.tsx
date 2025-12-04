@@ -119,6 +119,9 @@ export function VideoTestimonials({
                           src={testimonial.thumbnailUrl}
                           alt={`${testimonial.name} - ${testimonial.event}`}
                           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                          loading="lazy"
+                          width={400}
+                          height={225}
                         />
                         {/* Play Button Overlay */}
                         <div className="absolute inset-0 flex items-center justify-center bg-black/40 group-hover:bg-black/50 transition-colors">

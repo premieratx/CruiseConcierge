@@ -41,6 +41,8 @@ export function BlogCard({
             alt={post.featuredImageAlt || post.title}
             className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
             loading="lazy"
+            width={400}
+            height={225}
             data-testid={`img-featured-${post.id}`}
           />
           {post.featured && (
