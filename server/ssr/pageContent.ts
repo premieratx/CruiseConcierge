@@ -246,6 +246,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         lists: [
           {
             items: [
+              'Austin\'s original Lake Travis party boat company since 2009',
               'Always more affordable than other options',
               'Professional entertainment included',
               'BYOB friendly with cooler service',
@@ -254,6 +255,72 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
               'Easy booking and planning process',
               'Flexible group sizes from 10-100+ guests',
               'Perfect safety record maintained'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Lake Travis Bachelor Party Experience',
+        paragraphs: [
+          'Your bachelor party cruise departs from Anderson Mill Marina on Lake Travis, about 30 minutes from downtown Austin. Cruise the beautiful Texas Hill Country scenery, anchor near Devil\'s Cove for swimming, and enjoy the ultimate guys\' day out on the water.',
+          'Lake Travis is Texas\'s premier party destination with calm, clear waters perfect for swimming and floating on giant lily pads. The lake offers stunning cliff views and hidden coves that provide the perfect backdrop for your bachelor celebration.'
+        ],
+        lists: [
+          {
+            title: 'Lake Travis Features for Bachelor Parties',
+            items: [
+              'Devil\'s Cove - Popular swimming and party spot with cliff diving',
+              'Crystal clear water ideal for cooling off',
+              'Texas Hill Country views from every angle',
+              'Perfect weather April through October',
+              'Multiple coves and anchor spots to explore',
+              'Easy access from downtown Austin (30 min)'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'ATX Disco Cruise vs Private Charter for Bachelor Parties',
+        paragraphs: [
+          'Not sure which option is best for your bachelor party? Here\'s a quick comparison to help you choose:'
+        ],
+        lists: [
+          {
+            title: 'ATX Disco Cruise ($85-$105/person)',
+            items: [
+              'Great for groups of 6-30 guys',
+              'DJ, photographer, floats all included',
+              'Meet other bachelor groups',
+              'Three time slots: Friday 12-4pm, Saturday 11am-3pm, Saturday 3:30-7:30pm',
+              'BYOB with coolers and ice provided',
+              'Most budget-friendly option'
+            ]
+          },
+          {
+            title: 'Private Charter ($200-$250/hour)',
+            items: [
+              'Your group has the entire boat',
+              'Day Tripper (14), Meeseeks (25), or Clever Girl (75 guests)',
+              'Choose your own music and route',
+              'Captain and crew handle everything',
+              'BYOB with extra-large coolers',
+              'Best for larger groups or privacy'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Our Party Boat Fleet',
+        paragraphs: [
+          'Premier Party Cruises operates Austin\'s newest fleet of premium party boats on Lake Travis:'
+        ],
+        lists: [
+          {
+            items: [
+              'Day Tripper - Perfect for smaller bachelor groups of 14 guests max',
+              'Meeseeks / The Irony - Two identical boats with 25-guest capacity',
+              'Clever Girl - Flagship 75-guest boat with giant Texas flag and 14 disco balls',
+              'All boats: USCG certified captains, premium Bluetooth sound, coolers with ice'
             ]
           }
         ]
@@ -357,7 +424,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         lists: [
           {
             items: [
-              '',
+              'Austin\'s original Lake Travis party boat company since 2009',
               'Most Instagram-worthy party boat experience',
               'Professional photos delivered after cruise',
               'BYOB friendly with full cooler service',
@@ -365,6 +432,72 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
               'Easy planning and coordination',
               'Perfect for groups of 10-100+ guests',
               'Coast Guard certified captains'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Lake Travis Bachelorette Cruise Experience',
+        paragraphs: [
+          'Your bachelorette cruise departs from Anderson Mill Marina on Lake Travis, just 30 minutes from downtown Austin. Cruise past stunning Texas Hill Country scenery, anchor near Devil\'s Cove for swimming, and enjoy the perfect combination of party vibes and natural beauty.',
+          'Lake Travis offers calm, clear waters perfect for swimming, floating on giant lily pads, and capturing incredible photos with the cliffs and coves as your backdrop. Water temperatures are perfect from April through October.'
+        ],
+        lists: [
+          {
+            title: 'Lake Travis Highlights Your Group Will Love',
+            items: [
+              'Crystal clear water perfect for swimming',
+              'Devil\'s Cove - popular anchor spot with beautiful cliffs',
+              'Texas Hill Country views from the water',
+              'Perfect selfie backdrops everywhere',
+              'Calm waters ideal for floating and socializing',
+              'Close to Austin - easy transportation from downtown'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'ATX Disco Cruise vs Private Charter - Which Is Right for You?',
+        paragraphs: [
+          'Choosing between the ATX Disco Cruise and a private charter? Here\'s a quick comparison to help you decide which option fits your bachelorette party best:'
+        ],
+        lists: [
+          {
+            title: 'ATX Disco Cruise ($85-$105/person)',
+            items: [
+              'Best for groups of 6-30 guests',
+              'All-inclusive: DJ, photographer, floats included',
+              'Fun party atmosphere with other groups',
+              'Three time slots available',
+              'BYOB - bring your own drinks',
+              'Perfect for budget-conscious groups'
+            ]
+          },
+          {
+            title: 'Private Charter ($200-$250/hour)',
+            items: [
+              'Exclusive boat for your group only',
+              'Choose Day Tripper (14 guests), Meeseeks (25), or Clever Girl (75)',
+              'Customize your route and schedule',
+              'Captain and crew included',
+              'BYOB with large coolers and ice',
+              'Perfect for larger groups or those wanting privacy'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Our Fleet - Premium Party Boats on Lake Travis',
+        paragraphs: [
+          'Premier Party Cruises operates Austin\'s newest fleet of party boats, each designed for the ultimate celebration experience:'
+        ],
+        lists: [
+          {
+            items: [
+              'Day Tripper - Intimate 14-guest capacity, perfect for smaller bachelorette groups',
+              'Meeseeks / The Irony - Two identical boats with 25-guest capacity and premium sound',
+              'Clever Girl - Our flagship 75-guest boat with giant Texas flag and 14 disco balls',
+              'All boats feature USCG certified captains, Bluetooth speakers, coolers with ice'
             ]
           }
         ]
@@ -555,14 +688,35 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         lists: [
           {
             items: [
-              'Most affordable Lake Travis party option',
-              'Professional entertainment included',
-              'Multi-group party atmosphere',
+              'Austin\'s original Lake Travis party boat experience since 2009',
+              'Most affordable Lake Travis party option - always cheaper than private charters',
+              'Professional DJ and photographer included in every ticket',
+              'Multi-group party atmosphere with incredible energy',
               'No planning required - we handle everything',
-              'BYOB friendly with full cooler service',
+              'BYOB friendly with full cooler service and ice',
               'Perfect for groups of 10-40 guests',
-              'Book last minute - availability most weekends',
-              ''
+              'Book last minute - availability most weekends'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Lake Travis - The Perfect Party Destination',
+        paragraphs: [
+          'Lake Travis is Austin\'s premier party destination and the setting for the ATX Disco Cruise. Located in the Texas Hill Country, about 30 minutes from downtown Austin, Lake Travis offers stunning scenery, crystal clear water, and perfect weather from April through October.',
+          'Your disco cruise experience includes cruising past beautiful cliffs, anchoring near Devil\'s Cove for swimming, and enjoying the best party atmosphere on the water. The combination of incredible views, perfect weather, and high-energy entertainment makes the ATX Disco Cruise unforgettable.'
+        ],
+        lists: [
+          {
+            title: 'Why Lake Travis is Perfect for Party Cruises',
+            items: [
+              'Crystal clear water perfect for swimming and floating',
+              'Devil\'s Cove - popular swimming destination with stunning cliffs',
+              'Texas Hill Country scenery as your backdrop',
+              'Calm waters ideal for dancing and socializing',
+              'Perfect weather from April through October',
+              'Just 30 minutes from downtown Austin',
+              'Anderson Mill Marina - easy access with free parking'
             ]
           }
         ]
@@ -695,6 +849,26 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
               'Client entertainment',
               'Graduation parties',
               'Any occasion requiring exclusivity'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Lake Travis Private Cruise Experience',
+        paragraphs: [
+          'Your private cruise departs from Anderson Mill Marina on Lake Travis, conveniently located about 30 minutes from downtown Austin. The Texas Hill Country provides a stunning backdrop as you cruise the calm, crystal-clear waters of Lake Travis.',
+          'Typical private cruises include 30-45 minutes of scenic cruising, followed by 1.5-2 hours anchored near Devil\'s Cove or other beautiful spots for swimming and floating. The captain can customize your route to include the most scenic areas and best swimming spots based on conditions.'
+        ],
+        lists: [
+          {
+            title: 'Lake Travis Highlights',
+            items: [
+              'Devil\'s Cove - popular anchor spot with beautiful cliffs',
+              'Crystal clear water perfect for swimming',
+              'Texas Hill Country scenery from the water',
+              'Multiple coves and scenic cruise routes',
+              'Perfect weather April through October',
+              'Anderson Mill Marina - free parking, easy access'
             ]
           }
         ]

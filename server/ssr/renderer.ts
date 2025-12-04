@@ -864,20 +864,20 @@ const PAGE_METADATA: Record<string, { h1: string; content: string }> = {
     content: 'Expert tips for planning bachelor and bachelorette parties in Austin. Lake Travis party boat guides, itineraries, and Austin party planning advice from Premier Party Cruises experts.'
   },
   '/bachelor-party-austin': {
-    h1: 'Austin Bachelor Party Boat Rentals | Private Lake Travis Cruises',
-    content: 'Plan the perfect bachelor party on Lake Travis with our private boat rentals. Custom packages, professional crew, and unforgettable experiences for your celebration.'
+    h1: 'Austin Bachelor Party Boats | Lake Travis | Premier Party Cruises',
+    content: 'Plan the ultimate bachelor party on Lake Travis from Anderson Mill Marina. ATX Disco Cruise ($85-$105/person with DJ & photographer) or private charters on Day Tripper, Meeseeks, or Clever Girl. BYOB friendly, 4-hour cruises, 14+ years experience.'
   },
   '/bachelorette-party-austin': {
-    h1: 'Austin Bachelorette Party Boats | Lake Travis Party Cruises',
-    content: 'Create lasting memories with our bachelorette party boat rentals on Lake Travis. Disco cruises, private charters, and customizable packages for the perfect celebration.'
+    h1: 'Austin Bachelorette Party Boats | Lake Travis | Premier Party Cruises',
+    content: 'Create lasting memories with our bachelorette party boat rentals on Lake Travis near Anderson Mill Marina. Choose the ATX Disco Cruise ($85-$105/person) or private charters on Day Tripper, Meeseeks, or Clever Girl. 14+ years experience, 125,000+ happy customers.'
   },
   '/atx-disco-cruise': {
-    h1: 'ATX Disco Cruise - The Ultimate Party Boat Experience',
-    content: 'Join Austin\'s most popular disco cruise on Lake Travis. Dance, celebrate, and enjoy the ultimate party boat experience with DJ, lights, and incredible views.'
+    h1: 'ATX Disco Cruise | Austin Bachelor & Bachelorette Party Boat | Premier Party Cruises',
+    content: 'Join Austin\'s most popular party cruise on Lake Travis from Anderson Mill Marina. 4-hour BYOB experience with DJ, photographer, dance floor, giant floats. Time slots: Friday $95, Saturday 11am $105, Saturday 3:30pm $85. Tax and gratuity included.'
   },
   '/private-cruises': {
-    h1: 'Private Boat Cruises on Lake Travis | Custom Charter Packages',
-    content: 'Book a private cruise on Lake Travis for your special event. Customizable packages, professional service, and boats ranging from 14 to 75+ passengers.'
+    h1: 'Private Boat Charters Lake Travis | Day Tripper, Meeseeks & Clever Girl | Premier Party Cruises',
+    content: 'Book a private boat cruise on Lake Travis near Devil\'s Cove. Fleet includes Day Tripper (14 guests), Meeseeks/The Irony (25 guests), and Clever Girl (75 guests with 14 disco balls). Starting at $200/hour. Captain, crew, ice, and sound system included.'
   },
   '/team-building': {
     h1: 'Corporate Team Building Events on Lake Travis',
