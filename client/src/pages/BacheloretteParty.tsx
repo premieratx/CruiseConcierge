@@ -1102,7 +1102,7 @@ export default function BacheloretteParty() {
                       <span className="flex-shrink-0 w-8 h-8 bg-pink-600 text-white rounded-full flex items-center justify-center font-bold">1</span>
                       <div>
                         <p className="font-bold">Arrive at Marina (11:45 AM)</p>
-                        <p className="text-sm text-gray-600">Check-in at Hula Hut, get your wristbands</p>
+                        <p className="text-sm text-gray-600">Check-in at Anderson Mill Marina, get your wristbands</p>
                       </div>
                     </li>
                     <li className="flex gap-4">
@@ -1143,7 +1143,7 @@ export default function BacheloretteParty() {
                   </ol>
                   <div className="mt-6 bg-pink-50 p-4 rounded-lg">
                     <p className="text-sm font-bold mb-2">✨ Everything Provided:</p>
-                    <p className="text-sm">DJ, photographer, floats, coolers, ice, party supplies - just bring your drinks!</p>
+                    <p className="text-sm">DJ, photographer, floats, coolers stocked with ice, party supplies. Order drinks from Party On Delivery to have them waiting on the boat!</p>
                   </div>
                 </CardContent>
               </Card>
@@ -1199,8 +1199,8 @@ export default function BacheloretteParty() {
                     </li>
                   </ol>
                   <div className="mt-6 bg-purple-50 p-4 rounded-lg">
-                    <p className="text-sm font-bold mb-2">⚡ You Provide Everything:</p>
-                    <p className="text-sm">Bring your own food, drinks, decorations, music. Optional add-ons available.</p>
+                    <p className="text-sm font-bold mb-2">⚡ Coolers & Drinks:</p>
+                    <p className="text-sm">Empty coolers provided on board. Add ice with our Essentials or Ultimate package. Order drinks from Party On Delivery to have them stocked on the boat!</p>
                   </div>
                 </CardContent>
               </Card>
