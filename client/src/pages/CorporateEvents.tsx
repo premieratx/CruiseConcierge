@@ -1022,8 +1022,8 @@ export default function CorporateEvents() {
               >
                 <Button
                   size="lg"
-                  variant="outline"
-                  className="border-2 border-white text-white hover:bg-white hover:text-blue-600 font-bold px-8 py-6 text-lg"
+                  variant="outlineLight"
+                  className="px-8 py-6 text-lg"
                   data-testid="button-cta-book"
                 >
                   <Calendar className="mr-2 h-5 w-5" />

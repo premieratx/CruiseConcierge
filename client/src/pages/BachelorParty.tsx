@@ -1640,9 +1640,9 @@ export default function BachelorParty() {
             
             <Button
               size="lg"
-              variant="outline"
+              variant="outlineLight"
               onClick={() => navigate('/private-cruises')}
-              className="border-2 border-white text-white hover:bg-white hover:text-black font-bold text-xl px-12 py-7"
+              className="text-xl px-12 py-7"
             >
               <Ship className="mr-2 h-6 w-6" />
               Book Private Cruise

@@ -211,8 +211,8 @@ export default function RehearsalDinnerBoatAlcoholDelivery() {
               <Link href="/private-cruises">
                 <Button 
                   size="lg" 
-                  variant="outline" 
-                  className="bg-white/10 border-white text-white hover:bg-white hover:text-gray-900 font-bold text-lg px-8 py-6"
+                  variant="outlineLight" 
+                  className="text-lg px-8 py-6"
                   data-testid="button-hero-boats"
                 >
                   <Ship className="mr-2 h-5 w-5" />
@@ -491,8 +491,8 @@ export default function RehearsalDinnerBoatAlcoholDelivery() {
                 </Link>
                 <Button 
                   size="lg" 
-                  variant="outline"
-                  className="border-2 border-white text-white hover:bg-white hover:text-purple-600 font-bold text-lg px-10 py-6"
+                  variant="outlineLight"
+                  className="text-lg px-10 py-6"
                   asChild
                 >
                   <a href="tel:5128794462" data-testid="button-call-now">

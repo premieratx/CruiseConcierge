@@ -331,9 +331,9 @@ export default function ClientEntertainment() {
               ) : (
                 <Button
                   size="lg"
-                  variant="outline"
+                  variant="outlineLight"
                   onClick={() => setShowQuoteBuilder(false)}
-                  className="border-3 border-white text-white hover:bg-white hover:text-blue-600 font-bold text-base px-12 py-6 rounded-xl backdrop-blur-sm mb-8"
+                  className="text-base px-12 py-6 rounded-xl backdrop-blur-sm mb-8"
                   data-testid="button-hide-quote"
                 >
                   <X className="mr-2 h-5 w-5" />
@@ -644,9 +644,9 @@ export default function ClientEntertainment() {
               </div>
               <Button
                 size="lg"
-                variant="outline"
+                variant="outlineLight"
                 asChild
-                className="border-white text-white hover:bg-white hover:text-blue-600 font-bold text-lg px-8 py-6"
+                className="text-lg px-8 py-6"
                 data-testid="button-call-now"
               >
                 <a href="tel:+15124885892">

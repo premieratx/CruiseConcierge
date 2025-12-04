@@ -415,9 +415,9 @@ export default function GraduationParty() {
             ) : (
               <Button
                 size="lg"
-                variant="outline"
+                variant="outlineLight"
                 onClick={() => setShowQuoteBuilder(false)}
-                className="border-3 border-white text-white hover:bg-white hover:text-black font-bold text-lg px-12 py-6 rounded-2xl backdrop-blur-sm mb-8"
+                className="text-lg px-12 py-6 rounded-2xl backdrop-blur-sm mb-8"
                 data-testid="button-hide-quote"
               >
                 <X className="mr-2 h-5 w-5" />

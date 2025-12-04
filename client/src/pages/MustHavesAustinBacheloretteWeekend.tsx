@@ -106,8 +106,8 @@ export default function MustHavesAustinBacheloretteWeekend() {
               <a href="tel:5124885892">
                 <Button 
                   size="lg" 
-                  variant="outline" 
-                  className="border-2 border-white text-white hover:bg-white hover:text-purple-600 font-bold text-lg px-8 py-6"
+                  variant="outlineLight" 
+                  className="text-lg px-8 py-6"
                   data-testid="button-hero-call"
                 >
                   <Phone className="mr-2 h-5 w-5" />

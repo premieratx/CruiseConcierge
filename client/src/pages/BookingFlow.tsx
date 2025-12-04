@@ -925,7 +925,7 @@ export default function BookingFlow() {
                                   </FormControl>
                                   <div className="space-y-1 leading-none">
                                     <FormLabel className="text-sm">
-                                      I agree to the <a href="/terms" className="text-blue-600 hover:underline" data-testid="link-terms">Terms & Conditions</a> and <a href="/privacy" className="text-blue-600 hover:underline" data-testid="link-privacy">Privacy Policy</a>
+                                      I agree to the <a href="/contact" className="text-blue-600 hover:underline" data-testid="link-terms">Terms & Conditions</a> and <a href="/contact" className="text-blue-600 hover:underline" data-testid="link-privacy">Privacy Policy</a>
                                     </FormLabel>
                                     <FormMessage />
                                   </div>

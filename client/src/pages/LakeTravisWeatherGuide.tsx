@@ -99,8 +99,8 @@ export default function LakeTravisWeatherGuide() {
               <a href="tel:5124885892">
                 <Button 
                   size="lg" 
-                  variant="outline" 
-                  className="border-2 border-white text-white hover:bg-white hover:text-sky-600 font-bold text-lg px-8 py-6"
+                  variant="outlineLight" 
+                  className="text-lg px-8 py-6"
                   data-testid="button-hero-call"
                 >
                   <Phone className="mr-2 h-5 w-5" />
@@ -518,8 +518,8 @@ export default function LakeTravisWeatherGuide() {
               <a href="tel:5124885892">
                 <Button 
                   size="lg" 
-                  variant="outline" 
-                  className="border-2 border-white text-white hover:bg-white hover:text-sky-600 font-bold text-lg px-10 py-7"
+                  variant="outlineLight" 
+                  className="text-lg px-10 py-7"
                   data-testid="button-final-cta-call"
                 >
                   <Phone className="mr-2 h-6 w-6" />
