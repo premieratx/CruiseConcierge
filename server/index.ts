@@ -208,12 +208,11 @@ const PORT = process.env.PORT || '5000';
     const robotsTxt = `User-agent: *
 Allow: /
 
+# Explicitly allow all blog content for indexing
+Allow: /blogs/
+
 # Sitemap location
 Sitemap: ${baseUrl}/sitemap.xml
-
-# AI Crawler Guidance (llms.txt for ChatGPT, Perplexity, etc.)
-# See: https://llmstxt.org/
-LLMs-txt: ${baseUrl}/llms.txt
 
 # Disallow admin and API areas
 Disallow: /admin/
@@ -226,7 +225,7 @@ Disallow: /login
 Disallow: /admin-login
 
 # Block duplicate routes (canonical versions exist)
-Disallow: /blog
+# Note: /blog (singular) redirects to /blogs/ so block it
 Disallow: /book-online
 Disallow: /book-online-popup
 `;
