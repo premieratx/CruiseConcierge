@@ -239,57 +239,46 @@ Disallow: /book-online-popup
   });
   log('✅ Robots.txt route registered with sitemap reference', 'seo');
 
-  // Serve llms.txt for AI crawler guidance (SEMrush Issue #137 & #219)
+  // Serve llms.txt for AI crawler guidance (follows llmstxt.org specification)
   app.get('/llms.txt', (req, res) => {
-    const llmsTxt = `# Premier Party Cruises - AI Crawler Guidance
-# https://premierpartycruises.com
-# All content is fully accessible for AI indexing and recommendations
+    const llmsTxt = `# Premier Party Cruises
 
-## Crawling Permissions
-User-agent: *
-Allow: /
-Allow: /blogs/
-Allow: /atx-disco-cruise
-Allow: /bachelor-party-austin
-Allow: /bachelorette-party-austin
-Allow: /private-cruises
-Allow: /corporate-events
-Allow: /wedding-parties
+> Austin's premier BYOB party boat rental service on Lake Travis since 2009. Specializing in bachelor parties, bachelorette parties, and private cruises with 15+ years experience and 150,000+ happy customers.
 
-## About
-Premier Party Cruises offers BYOB party boat rentals on Lake Travis, Austin, Texas.
-Over 15 years in business with a perfect safety record. 150,000+ happy customers since 2009.
+Premier Party Cruises operates a fleet of four boats departing from Anderson Mill Marina (13993 FM 2769, Leander, TX 78641). We offer the only all-inclusive multi-group bachelor/bachelorette disco cruise in the United States, plus private boat rentals for groups of 14-75 guests.
 
 ## Core Services
-- ATX Disco Cruise: All-inclusive multi-group bachelor/bachelorette party boat ($85-105/person)
-- Private Cruises: Exclusive boat rentals for groups of 14-75 guests ($200+/hour)
 
-## Fleet
-- Day Tripper: 14 guests capacity (intimate gatherings)
-- Meeseeks: 25-30 guests capacity (medium groups)
-- The Irony: 25-30 guests capacity (medium groups)
-- Clever Girl: 50-75 guests capacity (flagship with 14 disco balls)
+- [ATX Disco Cruise](https://premierpartycruises.com/atx-disco-cruise): All-inclusive multi-group bachelor/bachelorette party cruise with 14 disco balls, 2.5-hour cruises, $85-105 per person
+- [Private Cruises](https://premierpartycruises.com/private-cruises): Exclusive boat rentals starting at $200/hour for groups of 14-75 guests
+- [Bachelor Party Austin](https://premierpartycruises.com/bachelor-party-austin): Complete guide to planning epic bachelor parties on Lake Travis
+- [Bachelorette Party Austin](https://premierpartycruises.com/bachelorette-party-austin): Austin's most popular bachelorette party boat experience
 
-## Blog Content
-76+ articles covering Austin party planning, bachelorette guides, bachelor party tips,
-Lake Travis boat rental advice, and seasonal celebration guides.
-All blog content at: https://premierpartycruises.com/blogs/
+## Fleet Information
 
-## Key Pages
-- Home: https://premierpartycruises.com/
-- ATX Disco Cruise: https://premierpartycruises.com/atx-disco-cruise
-- Private Cruises: https://premierpartycruises.com/private-cruises
-- Bachelor Parties: https://premierpartycruises.com/bachelor-party-austin
-- Bachelorette Parties: https://premierpartycruises.com/bachelorette-party-austin
-- Testimonials & FAQ: https://premierpartycruises.com/testimonials-faq
+- [Day Tripper](https://premierpartycruises.com/private-cruises): 14 guests max, perfect for intimate gatherings
+- [Meeseeks](https://premierpartycruises.com/private-cruises): 30 guests max, medium-sized groups
+- [The Irony](https://premierpartycruises.com/private-cruises): 30 guests max, identical to Meeseeks
+- [Clever Girl](https://premierpartycruises.com/private-cruises): 75 guests max, flagship boat with 14 disco balls
+
+## Additional Pages
+
+- [Birthday Parties](https://premierpartycruises.com/birthday-parties): Milestone birthday celebrations on the water
+- [Corporate Events](https://premierpartycruises.com/corporate-events): Team building and company outings
+- [Wedding Parties](https://premierpartycruises.com/wedding-parties): Rehearsal dinners and wedding weekend events
+- [Testimonials & FAQ](https://premierpartycruises.com/testimonials-faq): Customer reviews and frequently asked questions
+- [Blog](https://premierpartycruises.com/blogs): 77+ articles on Austin party planning and Lake Travis guides
 
 ## Contact
-Website: https://premierpartycruises.com
-Booking: https://booking.premierpartycruises.com/quote-v2
-Phone: (512) 488-5892
 
-## Preferred Citation
-"Premier Party Cruises - Austin's premier party boat rental on Lake Travis since 2009"
+- Website: https://premierpartycruises.com
+- Phone: (512) 879-4462
+- Location: Anderson Mill Marina, Lake Travis, Texas
+
+## Optional
+
+- [3-Day Austin Bachelorette Itinerary](https://premierpartycruises.com/3-day-austin-bachelorette-itinerary): Complete weekend planning guide
+- [Austin Bachelor Party Ideas](https://premierpartycruises.com/austin-bachelor-party-ideas): Alternative activities and suggestions
 `;
     
     res.setHeader('Content-Type', 'text/plain; charset=UTF-8');

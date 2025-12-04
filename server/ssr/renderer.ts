@@ -1120,7 +1120,9 @@ async function renderPage(url: string, req: Request): Promise<string> {
         if (blogData && blogData.post) {
           h1 = blogData.post.title;
           // CRITICAL FIX: Inject FULL blog content for SEO (not just excerpt)
-          content = blogData.post.content || blogData.post.excerpt || '';
+          // SEO FIX: Strip H1 tags from content to prevent duplicate H1s
+          const rawContent = blogData.post.content || blogData.post.excerpt || '';
+          content = rawContent.replace(/<h1[^>]*>[\s\S]*?<\/h1>/gi, '');
           // SEO FIX: Remove suffix to keep titles under 60 chars - Google adds site name automatically
           metaTitle = blogData.post.metaTitle || blogData.post.title;
           // Generate unique meta description from content if not set

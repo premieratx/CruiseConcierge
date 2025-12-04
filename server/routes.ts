@@ -865,7 +865,9 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
         console.error('❌ [Blog SSR] React render failed, using fallback:', renderError);
         // Fallback to plain content if SSR fails
         const h1Content = post.title || "";
-        const bodyContent = post.content || post.excerpt || "";
+        // SEO FIX: Strip H1 tags from content to prevent duplicate H1s (keep only our one H1)
+        const rawBodyContent = post.content || post.excerpt || "";
+        const bodyContent = rawBodyContent.replace(/<h1[^>]*>[\s\S]*?<\/h1>/gi, '');
         appHtml = `<article style="max-width: 56rem; margin: 0 auto; padding: 2rem 1rem;">
           <h1 style="text-align: center; font-size: 2.5rem; font-weight: 800; margin-bottom: 2rem; color: #111827;">${h1Content}</h1>
           <style>

@@ -243,11 +243,11 @@ export default function BlogPostPage() {
     return plainText.substring(0, 300) + (plainText.length > 300 ? '...' : '');
   };
 
-  // Strip the first H1 tag from content to prevent double titles
+  // Strip ALL H1 tags from content to prevent duplicate H1s (SEO fix)
   const getProcessedContent = () => {
-    // Remove first H1 tag and its content (to avoid double title)
-    // Use multiline-safe regex with dotall flag simulation
-    return post.content.replace(/<h1[^>]*>[\s\S]*?<\/h1>/i, '').trim();
+    // Remove ALL H1 tags and their content (only ONE H1 allowed per page for SEO)
+    // Use multiline-safe regex with global and case-insensitive flags
+    return post.content.replace(/<h1[^>]*>[\s\S]*?<\/h1>/gi, '').trim();
   };
 
   // Enhanced BlogPosting schema with comprehensive metadata
