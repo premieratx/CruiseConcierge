@@ -3,64 +3,58 @@ import { X } from 'lucide-react';
 
 export function XolaMobileCloseButton() {
   const [showCloseButton, setShowCloseButton] = useState(false);
-  const showTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const overlayDetectedRef = useRef(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Check if we're on mobile
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const checkForXolaOverlay = useCallback(() => {
-    let hasVisibleOverlay = false;
-
-    // Check for iframes (Xola uses iframes)
-    const iframes = document.querySelectorAll('iframe');
-    iframes.forEach(iframe => {
-      const src = iframe.src || '';
-      if (src.includes('xola') || src.includes('checkout')) {
-        const rect = iframe.getBoundingClientRect();
-        if (rect.width > 100 && rect.height > 100) {
-          hasVisibleOverlay = true;
-        }
-      }
-    });
-
-    // Check for fixed position elements with high z-index
-    const allElements = document.querySelectorAll('*');
-    allElements.forEach(el => {
+    // Simple, reliable detection using Xola's actual DOM elements
+    const hasXolaElements = !!(
+      document.querySelector('.xola-overlay') ||
+      document.querySelector('.xola-modal') ||
+      document.querySelector('.xola-checkout-frame') ||
+      document.querySelector('[id^="xola"]') ||
+      document.querySelector('iframe[src*="xola"]') ||
+      document.querySelector('iframe[src*="checkout"]')
+    );
+    
+    // Also check for body scroll lock (Xola adds this when modal opens)
+    const hasBodyLock = 
+      document.body.classList.contains('xola-modal-open') ||
+      document.body.classList.contains('modal-open') ||
+      document.body.style.overflow === 'hidden';
+    
+    // Check for any fixed overlay that covers most of the screen
+    let hasFixedOverlay = false;
+    const fixedElements = document.querySelectorAll('body > div:not(#root)');
+    fixedElements.forEach(el => {
       const style = window.getComputedStyle(el);
-      const zIndex = parseInt(style.zIndex) || 0;
+      const rect = el.getBoundingClientRect();
       
-      if (style.position === 'fixed' && zIndex > 10000) {
-        const rect = el.getBoundingClientRect();
-        if (rect.width > window.innerWidth * 0.4 && rect.height > window.innerHeight * 0.4) {
-          hasVisibleOverlay = true;
-        }
+      if (
+        style.position === 'fixed' && 
+        rect.width > window.innerWidth * 0.5 &&
+        rect.height > window.innerHeight * 0.3
+      ) {
+        hasFixedOverlay = true;
       }
     });
 
-    // Check body overflow
-    const bodyStyle = window.getComputedStyle(document.body);
-    if (bodyStyle.overflow === 'hidden' || document.body.style.overflow === 'hidden') {
-      hasVisibleOverlay = true;
-    }
-
-    // If overlay just appeared, wait 800ms before showing button
-    // This ensures Xola slide-out is fully rendered first
-    if (hasVisibleOverlay && !overlayDetectedRef.current) {
-      overlayDetectedRef.current = true;
-      if (showTimeoutRef.current) {
-        clearTimeout(showTimeoutRef.current);
-      }
-      showTimeoutRef.current = setTimeout(() => {
-        setShowCloseButton(true);
-      }, 800);
-    } else if (!hasVisibleOverlay) {
-      overlayDetectedRef.current = false;
-      if (showTimeoutRef.current) {
-        clearTimeout(showTimeoutRef.current);
-      }
-      setShowCloseButton(false);
-    }
+    const shouldShow = hasXolaElements || hasBodyLock || hasFixedOverlay;
+    setShowCloseButton(shouldShow);
   }, []);
 
   useEffect(() => {
+    // Monitor for Xola overlay appearing
     const observer = new MutationObserver(() => {
       checkForXolaOverlay();
     });
@@ -72,15 +66,15 @@ export function XolaMobileCloseButton() {
       attributeFilter: ['style', 'class']
     });
 
+    // Initial check
     checkForXolaOverlay();
-    const interval = setInterval(checkForXolaOverlay, 300);
+    
+    // Periodic check as backup
+    const interval = setInterval(checkForXolaOverlay, 200);
 
     return () => {
       observer.disconnect();
       clearInterval(interval);
-      if (showTimeoutRef.current) {
-        clearTimeout(showTimeoutRef.current);
-      }
     };
   }, [checkForXolaOverlay]);
 
@@ -133,14 +127,11 @@ export function XolaMobileCloseButton() {
     document.body.classList.remove('xola-modal-open', 'modal-open', 'overflow-hidden');
     
     // 5. Reset state so button hides
-    overlayDetectedRef.current = false;
     setShowCloseButton(false);
   };
 
-  if (!showCloseButton) return null;
-
-  // Only show on mobile (screen width <= 768px)
-  if (typeof window !== 'undefined' && window.innerWidth > 768) {
+  // Only render on mobile when overlay is detected
+  if (!isMobile || !showCloseButton) {
     return null;
   }
 
@@ -151,24 +142,25 @@ export function XolaMobileCloseButton() {
       data-testid="xola-mobile-close-button"
       style={{ 
         position: 'fixed',
-        top: '16px',
-        right: '16px',
-        zIndex: 2147483647, // Maximum possible z-index
-        width: '56px', 
-        height: '56px',
+        top: '12px',
+        right: '12px',
+        zIndex: 2147483647,
+        width: '48px', 
+        height: '48px',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: 'rgba(0, 0, 0, 0.95)',
+        backgroundColor: 'rgba(0, 0, 0, 0.9)',
         color: 'white',
         borderRadius: '50%',
-        border: '3px solid white',
-        boxShadow: '0 4px 20px rgba(0, 0, 0, 0.5)',
+        border: '2px solid white',
+        boxShadow: '0 4px 20px rgba(0, 0, 0, 0.6)',
         cursor: 'pointer',
-        padding: 0
+        padding: 0,
+        touchAction: 'manipulation'
       }}
     >
-      <X style={{ width: '32px', height: '32px', strokeWidth: 3 }} />
+      <X style={{ width: '28px', height: '28px', strokeWidth: 2.5 }} />
     </button>
   );
 }
