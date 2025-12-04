@@ -871,8 +871,9 @@ export default function BachelorParty() {
                   </div>
 
                   <div className="mt-10 p-6 bg-blue-50 rounded-lg">
-                    <p className="text-center font-bold text-lg">Result: Epic send-off with zero stress</p>
-                    <p className="text-center text-gray-600 mt-2">Digital photos delivered within 48 hours</p>
+                    <p className="text-center font-bold text-lg mb-3">Everything Provided:</p>
+                    <p className="text-center text-gray-700">DJ, photographer, floats, coolers stocked with ice, party supplies. Order drinks from Party On Delivery to have them waiting on the boat!</p>
+                    <p className="text-center text-gray-600 mt-3">Digital photos delivered within 48 hours</p>
                   </div>
                 </div>
               </TabsContent>
@@ -944,8 +945,9 @@ export default function BachelorParty() {
                   </div>
 
                   <div className="mt-10 p-6 bg-purple-50 rounded-lg">
-                    <p className="text-center font-bold text-lg">Result: Exclusive experience customized your way</p>
-                    <p className="text-center text-gray-600 mt-2">Note: DJ ($600) and Photographer ($600) available as add-ons</p>
+                    <p className="text-center font-bold text-lg mb-3">Coolers & Drinks:</p>
+                    <p className="text-center text-gray-700">Empty coolers provided on board. Add ice with our Essentials or Ultimate package. Order drinks from Party On Delivery to have them stocked on the boat!</p>
+                    <p className="text-center text-gray-600 mt-3">Note: DJ ($600) and Photographer ($600) available as add-ons</p>
                   </div>
                 </div>
               </TabsContent>

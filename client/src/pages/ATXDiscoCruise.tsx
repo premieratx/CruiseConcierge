@@ -144,14 +144,14 @@ const experienceTimeline = [
   {
     time: 'Step 2: Check-In & Board',
     title: 'Party Starts When You Arrive!',
-    description: 'Crew setting up your private cooler, DJ warming up and ready, photographer capturing arrival moments. Ice water, cups, koozies, bubbles, name tags all set up. Giant unicorn being inflated!',
+    description: 'Check-in at Anderson Mill Marina. Crew setting up your private cooler stocked with ice, DJ warming up and ready, photographer capturing arrival moments. Ice water, cups, koozies, bubbles, name tags all set up. Giant unicorn being inflated!',
     icon: Ship,
     color: 'from-pink-500 to-orange-500'
   },
   {
     time: 'Step 3: Find Your Party Cooler',
     title: 'Get Settled & Start Celebrating',
-    description: 'DJ is spinning, photographer taking group pictures. Crew helps find your cooler with your name on it. Get settled, grab a drink, make yourself at home!',
+    description: 'DJ is spinning, photographer taking group pictures. Crew helps find your cooler stocked with ice - and if you ordered from Party On Delivery, your drinks are waiting! Get settled, grab a drink, make yourself at home!',
     icon: Music,
     color: 'from-orange-500 to-yellow-500'
   },
@@ -208,7 +208,7 @@ const faqItems = [
   {
     id: 'alcohol-policy',
     question: 'What\'s the alcohol policy?',
-    answer: 'BYOB for 21+; cans/plastic only; coolers with ice and cups provided.'
+    answer: 'BYOB for 21+; cans/plastic only; coolers stocked with ice provided. Order drinks from Party On Delivery to have them waiting on the boat!'
   },
   {
     id: 'photos',
