@@ -96,6 +96,9 @@ export default function PhotoCard({
                 !isLoaded && "opacity-0"
               )}
               onLoad={() => setIsLoaded(true)}
+              loading="lazy"
+              width={400}
+              height={300}
               data-testid={`photo-image-${id}`}
             />
             

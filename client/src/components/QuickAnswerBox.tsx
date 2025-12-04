@@ -173,6 +173,8 @@ export function QuickAnswerBox({
                     alt={imageAlt || 'Related image'}
                     className="rounded-lg w-full max-w-xs h-auto"
                     loading="lazy"
+                    width={320}
+                    height={180}
                   />
                 </div>
               )}

@@ -344,7 +344,7 @@ export function EmbeddedQuoteBuilder({ pageContext, className }: EmbeddedQuoteBu
       {/* Header */}
       <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
         <div className="flex items-center gap-3">
-          <img src={logoPath} alt="Premier Party Cruises" className="w-8 h-8" />
+          <img src={logoPath} alt="Premier Party Cruises" className="w-8 h-8" width={32} height={32} loading="eager" />
           <div>
             <h3 className="font-heading font-bold text-brand-black dark:text-brand-white">
               {config.title}

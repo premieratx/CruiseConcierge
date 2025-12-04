@@ -210,7 +210,7 @@ export function CorporateBookingDialog({
       <DialogContent className="max-w-4xl max-h-[90vh] overflow-hidden">
         <DialogHeader className="pb-4">
           <div className="flex items-center gap-3">
-            <img src={logoPath} alt="PPC" className="h-8 w-8" />
+            <img src={logoPath} alt="PPC" className="h-8 w-8" width={32} height={32} loading="eager" />
             <div>
               <DialogTitle className="text-xl font-bold">
                 {title}

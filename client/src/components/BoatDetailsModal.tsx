@@ -176,6 +176,9 @@ export default function BoatDetailsModal({ boatId, isOpen, onClose }: BoatDetail
                   src={currentPhoto!.url}
                   alt={currentPhoto!.alt}
                   className="w-full h-full object-cover"
+                  loading="lazy"
+                  width={800}
+                  height={450}
                 />
                 
                 {boat.photos.length > 1 && (
@@ -227,6 +230,9 @@ export default function BoatDetailsModal({ boatId, isOpen, onClose }: BoatDetail
                         src={photo.url}
                         alt={`Thumbnail ${index + 1}`}
                         className="w-full h-full object-cover"
+                        loading="lazy"
+                        width={80}
+                        height={80}
                       />
                     </button>
                   ))}

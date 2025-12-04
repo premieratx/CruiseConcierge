@@ -466,6 +466,9 @@ export default function UniversalCalendar({
                 src={logoPath} 
                 alt="Premier Party Cruises" 
                 className="h-12 w-auto"
+                loading="eager"
+                width={48}
+                height={48}
               />
               <div>
                 <h1 className="text-xl font-bold text-gray-900 dark:text-white">Premier Party Cruises</h1>

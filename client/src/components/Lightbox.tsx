@@ -229,6 +229,8 @@ export default function Lightbox({
               style={{ maxWidth: '90vw', maxHeight: '90vh' }}
               onLoad={() => setIsLoading(false)}
               onLoadStart={() => setIsLoading(true)}
+              width={1200}
+              height={800}
               data-testid={`lightbox-image-${currentImage.id}`}
             />
             

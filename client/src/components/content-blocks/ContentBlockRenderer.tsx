@@ -278,6 +278,9 @@ function ContentBlockDisplay({ block }: ContentBlockDisplayProps) {
               imageData.className
             )}
             style={imageData.style}
+            loading="lazy"
+            width={800}
+            height={450}
           />
           {block.title && (
             <div className="mt-2 text-sm text-muted-foreground text-center">

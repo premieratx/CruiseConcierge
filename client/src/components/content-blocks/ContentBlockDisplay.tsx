@@ -33,6 +33,8 @@ export function ContentBlockDisplay({ block }: ContentBlockDisplayProps) {
             )}
             style={imageData.style}
             loading="lazy"
+            width={800}
+            height={450}
           />
           {(imageData.caption || block.title) && (
             <div className="mt-2 text-sm text-muted-foreground text-center">
