@@ -244,51 +244,56 @@ export default function Footer() {
                 href={SOCIAL_MEDIA.facebook} 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="text-gray-300 hover:text-brand-blue transition-colors"
+                className="text-gray-300 hover:text-brand-blue transition-colors inline-flex items-center gap-1"
                 data-testid="link-footer-facebook"
                 aria-label="Facebook"
               >
                 <Facebook className="h-6 w-6" />
+                <span className="sr-only">Facebook</span>
               </a>
               <a 
                 href={SOCIAL_MEDIA.instagram} 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="text-gray-300 hover:text-brand-blue transition-colors"
+                className="text-gray-300 hover:text-brand-blue transition-colors inline-flex items-center gap-1"
                 data-testid="link-footer-instagram"
                 aria-label="Instagram"
               >
                 <Instagram className="h-6 w-6" />
+                <span className="sr-only">Instagram</span>
               </a>
               <a 
                 href={SOCIAL_MEDIA.tiktok} 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="text-gray-300 hover:text-brand-blue transition-colors"
+                className="text-gray-300 hover:text-brand-blue transition-colors inline-flex items-center gap-1"
                 data-testid="link-footer-tiktok"
                 aria-label="TikTok"
               >
                 <MessageCircle className="h-6 w-6" />
+                <span className="sr-only">TikTok</span>
               </a>
               <a 
                 href={SOCIAL_MEDIA.youtube} 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="text-gray-300 hover:text-brand-blue transition-colors"
+                className="text-gray-300 hover:text-brand-blue transition-colors inline-flex items-center gap-1"
                 data-testid="link-footer-youtube"
                 aria-label="YouTube"
               >
                 <Youtube className="h-6 w-6" />
+                <span className="sr-only">YouTube</span>
               </a>
               <a 
                 href={SOCIAL_MEDIA.linkedin} 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="text-gray-300 hover:text-brand-blue transition-colors"
+                className="text-gray-300 hover:text-brand-blue transition-colors inline-flex items-center gap-1"
                 data-testid="link-footer-linkedin"
                 aria-label="LinkedIn"
               >
                 <Linkedin className="h-6 w-6" />
+                <span className="sr-only">LinkedIn</span>
               </a>
             </div>
           </div>
