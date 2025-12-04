@@ -4600,14 +4600,61 @@ export class DatabaseStorage implements IStorage {
   }
 
   async getRelatedBlogPosts(postId: string, limit = 5): Promise<BlogPost[]> {
-    // Simple implementation: return latest published posts excluding current post
-    // In a full implementation, this would find posts with shared categories/tags
+    // Get the current post's categories
+    const postCategories = await this.getBlogPostCategories(postId);
+    const categoryIds = postCategories.map(c => c.id);
+    
+    if (categoryIds.length === 0) {
+      // No categories - fall back to latest posts
+      const relatedPosts = await db.select()
+        .from(blogPosts)
+        .where(
+          and(
+            eq(blogPosts.status, 'published'),
+            sql`${blogPosts.id} != ${postId}`
+          )
+        )
+        .limit(limit)
+        .orderBy(desc(blogPosts.publishedAt));
+      
+      return relatedPosts;
+    }
+    
+    // Find posts that share at least one category with the current post
+    const relatedPostIds = await db.selectDistinct({ postId: blogPostCategories.postId })
+      .from(blogPostCategories)
+      .where(
+        and(
+          inArray(blogPostCategories.categoryId, categoryIds),
+          sql`${blogPostCategories.postId} != ${postId}`
+        )
+      );
+    
+    const relatedIds = relatedPostIds.map(r => r.postId);
+    
+    if (relatedIds.length === 0) {
+      // No related posts by category - fall back to latest posts
+      const relatedPosts = await db.select()
+        .from(blogPosts)
+        .where(
+          and(
+            eq(blogPosts.status, 'published'),
+            sql`${blogPosts.id} != ${postId}`
+          )
+        )
+        .limit(limit)
+        .orderBy(desc(blogPosts.publishedAt));
+      
+      return relatedPosts;
+    }
+    
+    // Get the full post data for related posts, prioritizing same-category posts
     const relatedPosts = await db.select()
       .from(blogPosts)
       .where(
         and(
           eq(blogPosts.status, 'published'),
-          sql`${blogPosts.id} != ${postId}`
+          inArray(blogPosts.id, relatedIds)
         )
       )
       .limit(limit)
