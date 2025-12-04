@@ -271,14 +271,15 @@ Premier Party Cruises operates a fleet of four boats departing from Anderson Mil
 
 ## Contact
 
-- Website: https://premierpartycruises.com
-- Phone: (512) 879-4462
-- Location: Anderson Mill Marina, Lake Travis, Texas
+- [Contact Us](https://premierpartycruises.com/contact): Get in touch, call (512) 879-4462, or visit Anderson Mill Marina
 
-## Optional
+## More Resources
 
 - [3-Day Austin Bachelorette Itinerary](https://premierpartycruises.com/3-day-austin-bachelorette-itinerary): Complete weekend planning guide
 - [Austin Bachelor Party Ideas](https://premierpartycruises.com/austin-bachelor-party-ideas): Alternative activities and suggestions
+- [Gallery](https://premierpartycruises.com/gallery): Photos from real parties on Lake Travis
+- [Pricing](https://premierpartycruises.com/pricing): View rates and package options
+- [Get a Quote](https://premierpartycruises.com/chat): Start planning your party today
 `;
     
     res.setHeader('Content-Type', 'text/plain; charset=UTF-8');
