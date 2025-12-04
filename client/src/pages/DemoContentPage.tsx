@@ -33,7 +33,7 @@ export default function DemoContentPage() {
           <div className="container mx-auto px-4 py-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-8">
-                <h1 className="text-2xl font-bold">Content Demo</h1>
+                <span className="text-2xl font-bold">Content Demo</span>
                 <div className="hidden md:flex items-center space-x-6">
                   <a href="/" className="text-sm font-medium hover:text-primary">Home</a>
                   <a href="/" className="text-sm font-medium hover:text-primary">Home</a>

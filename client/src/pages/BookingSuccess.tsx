@@ -127,9 +127,9 @@ export default function BookingSuccess() {
                 data-testid="img-logo"
               />
               <div>
-                <h1 className="text-2xl font-bold text-green-600 dark:text-green-400">
+                <h2 className="text-2xl font-bold text-green-600 dark:text-green-400">
                   Loading Booking Details...
-                </h1>
+                </h2>
                 <p className="text-gray-600 dark:text-gray-300 text-sm">
                   Please wait while we retrieve your confirmation
                 </p>
@@ -166,9 +166,9 @@ export default function BookingSuccess() {
                 data-testid="img-logo"
               />
               <div>
-                <h1 className="text-2xl font-bold text-red-600 dark:text-red-400">
+                <h2 className="text-2xl font-bold text-red-600 dark:text-red-400">
                   Booking Confirmation Issue
-                </h1>
+                </h2>
                 <p className="text-gray-600 dark:text-gray-300 text-sm">
                   Having trouble retrieving your booking details
                 </p>
