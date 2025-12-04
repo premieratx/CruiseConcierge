@@ -383,64 +383,65 @@ export default function TestimonialsFaq() {
             </div>
 
             <Tabs defaultValue="corporate" className="w-full">
-              <TabsList className="grid w-full grid-cols-2 lg:grid-cols-6 mb-12 bg-gradient-to-r from-blue-600 to-purple-600 p-2 rounded-xl gap-2">
+              {/* FIXED: All tabs now fully visible - removed overflow clipping, all tabs same height */}
+              <TabsList className="flex flex-wrap justify-center w-full mb-12 bg-gradient-to-r from-blue-600 to-purple-600 p-3 rounded-xl gap-2 h-auto overflow-visible">
                 <TabsTrigger 
                   value="corporate" 
-                  className="flex flex-col items-center gap-1 py-3 rounded-xl data-[state=active]:bg-yellow-400 data-[state=active]:text-black data-[state=active]:font-bold data-[state=inactive]:bg-white/20 data-[state=inactive]:text-white hover:bg-white/30 transition-all"
+                  className="flex flex-col items-center gap-1 py-3 px-4 min-w-[120px] rounded-xl bg-white/20 text-white hover:bg-white/30 transition-all data-[state=active]:bg-yellow-400 data-[state=active]:text-black data-[state=active]:font-bold"
                   data-testid="tab-corporate"
                 >
                   <Building2 className="h-5 w-5" />
-                  <span className="text-xs font-semibold">Corporate Events</span>
+                  <span className="text-xs font-semibold whitespace-nowrap">Corporate Events</span>
                   <span className="text-xs opacity-70">{corporateReviews.length} reviews</span>
                 </TabsTrigger>
                 
                 <TabsTrigger 
                   value="wedding"
-                  className="flex flex-col items-center gap-1 py-3 rounded-xl data-[state=active]:bg-yellow-400 data-[state=active]:text-black data-[state=active]:font-bold data-[state=inactive]:bg-white/20 data-[state=inactive]:text-white hover:bg-white/30 transition-all"
+                  className="flex flex-col items-center gap-1 py-3 px-4 min-w-[120px] rounded-xl bg-white/20 text-white hover:bg-white/30 transition-all data-[state=active]:bg-yellow-400 data-[state=active]:text-black data-[state=active]:font-bold"
                   data-testid="tab-wedding"
                 >
                   <Heart className="h-5 w-5" />
-                  <span className="text-xs font-semibold">Weddings</span>
+                  <span className="text-xs font-semibold whitespace-nowrap">Weddings</span>
                   <span className="text-xs opacity-70">{weddingReviews.length} reviews</span>
                 </TabsTrigger>
                 
                 <TabsTrigger 
                   value="birthday"
-                  className="flex flex-col items-center gap-1 py-3 rounded-xl data-[state=active]:bg-yellow-400 data-[state=active]:text-black data-[state=active]:font-bold data-[state=inactive]:bg-white/20 data-[state=inactive]:text-white hover:bg-white/30 transition-all"
+                  className="flex flex-col items-center gap-1 py-3 px-4 min-w-[120px] rounded-xl bg-white/20 text-white hover:bg-white/30 transition-all data-[state=active]:bg-yellow-400 data-[state=active]:text-black data-[state=active]:font-bold"
                   data-testid="tab-birthday"
                 >
                   <PartyPopper className="h-5 w-5" />
-                  <span className="text-xs font-semibold">Birthdays</span>
+                  <span className="text-xs font-semibold whitespace-nowrap">Birthdays</span>
                   <span className="text-xs opacity-70">{birthdayReviews.length} reviews</span>
                 </TabsTrigger>
                 
                 <TabsTrigger 
                   value="combined"
-                  className="flex flex-col items-center gap-1 py-3 rounded-xl data-[state=active]:bg-yellow-400 data-[state=active]:text-black data-[state=active]:font-bold data-[state=inactive]:bg-white/20 data-[state=inactive]:text-white hover:bg-white/30 transition-all"
+                  className="flex flex-col items-center gap-1 py-3 px-4 min-w-[120px] rounded-xl bg-white/20 text-white hover:bg-white/30 transition-all data-[state=active]:bg-yellow-400 data-[state=active]:text-black data-[state=active]:font-bold"
                   data-testid="tab-combined"
                 >
                   <Users className="h-5 w-5" />
-                  <span className="text-xs font-semibold">Combined Bach</span>
+                  <span className="text-xs font-semibold whitespace-nowrap">Combined Bach</span>
                   <span className="text-xs opacity-70">{combinedBachReviews.length} reviews</span>
                 </TabsTrigger>
                 
                 <TabsTrigger 
                   value="bachelorette"
-                  className="flex flex-col items-center gap-1 py-3 rounded-xl data-[state=active]:bg-yellow-400 data-[state=active]:text-black data-[state=active]:font-bold data-[state=inactive]:bg-white/20 data-[state=inactive]:text-white hover:bg-white/30 transition-all"
+                  className="flex flex-col items-center gap-1 py-3 px-4 min-w-[120px] rounded-xl bg-white/20 text-white hover:bg-white/30 transition-all data-[state=active]:bg-yellow-400 data-[state=active]:text-black data-[state=active]:font-bold"
                   data-testid="tab-bachelorette"
                 >
                   <Gem className="h-5 w-5" />
-                  <span className="text-xs font-semibold">Bachelorette</span>
+                  <span className="text-xs font-semibold whitespace-nowrap">Bachelorette</span>
                   <span className="text-xs opacity-70">{bacheloretteReviews.length} reviews</span>
                 </TabsTrigger>
                 
                 <TabsTrigger 
                   value="bachelor"
-                  className="flex flex-col items-center gap-1 py-3 rounded-xl data-[state=active]:bg-yellow-400 data-[state=active]:text-black data-[state=active]:font-bold data-[state=inactive]:bg-white/20 data-[state=inactive]:text-white hover:bg-white/30 transition-all"
+                  className="flex flex-col items-center gap-1 py-3 px-4 min-w-[120px] rounded-xl bg-white/20 text-white hover:bg-white/30 transition-all data-[state=active]:bg-yellow-400 data-[state=active]:text-black data-[state=active]:font-bold"
                   data-testid="tab-bachelor"
                 >
                   <Beer className="h-5 w-5" />
-                  <span className="text-xs font-semibold">Bachelor</span>
+                  <span className="text-xs font-semibold whitespace-nowrap">Bachelor</span>
                   <span className="text-xs opacity-70">{bachelorReviews.length} reviews</span>
                 </TabsTrigger>
               </TabsList>
