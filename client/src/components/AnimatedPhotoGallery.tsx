@@ -4,21 +4,21 @@ import { LazyImage } from '@/components/LazyImage';
 import Lightbox from '@/components/Lightbox';
 import { cn } from '@/lib/utils';
 
-// VERIFIED PARTY PHOTOS WITH PEOPLE CELEBRATING - from live_website_photos
-// NO collages, NO family photos with children, NO empty boats
+// VERIFIED PARTY PHOTOS WITH PEOPLE CELEBRATING
+// NO collages, NO family photos with children, NO empty boats, NO stock images
 const allPartyPhotos = [
-  '/live_website_photos/atx-disco-cruise-party.jpg',
-  '/live_website_photos/bachelor-party-group-guys.jpg',
-  '/live_website_photos/dancing-party-scene.jpg',
-  '/live_website_photos/party-atmosphere-1.jpg',
-  '/live_website_photos/party-atmosphere-2.jpg',
-  '/live_website_photos/party-atmosphere-3.jpg',
-  '/live_website_photos/giant-unicorn-float.jpg',
-  '/live_website_photos/clever-girl-50-person-boat.jpg',
-  '/live_website_photos/meeseeks-25-person-boat.jpg',
-  '/live_website_photos/day-tripper-14-person-boat.jpg',
-  '/attached_assets/stock_images/party_boat_on_lake_w_a2794c93.jpg',
-  '/live_website_photos/dancing-party-scene.jpg',
+  '/attached_assets/atx-disco-cruise-party.webp',
+  '/attached_assets/bachelor-party-group-guys.webp',
+  '/attached_assets/dancing-party-scene.webp',
+  '/attached_assets/party-atmosphere-1.webp',
+  '/attached_assets/party-atmosphere-2.webp',
+  '/attached_assets/party-atmosphere-3.webp',
+  '/attached_assets/giant-unicorn-float.webp',
+  '/attached_assets/clever-girl-50-person-boat.webp',
+  '/attached_assets/meeseeks-25-person-boat.webp',
+  '/attached_assets/day-tripper-14-person-boat.webp',
+  '/attached_assets/clever-girl-1-lake-travis-party-boat.jpg',
+  '/attached_assets/clever-girl-3-bachelorette-boat.jpg',
 ];
 
 // Split into rotating sets (6 photos per set for grid display)
