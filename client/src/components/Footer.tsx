@@ -36,6 +36,9 @@ export default function Footer() {
                 src={logoPath} 
                 alt="Premier Party Cruises Logo" 
                 className="h-16 w-auto mb-4 hover:opacity-80 transition-opacity"
+                width={80}
+                height={80}
+                loading="lazy"
               />
             </Link>
             <p className="text-gray-300 text-sm leading-relaxed" data-testid="text-footer-tagline">
