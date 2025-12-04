@@ -1765,27 +1765,10 @@ export default function ATXDiscoCruise() {
                   }
                 ]}
                 className="max-w-6xl mx-auto"
-                schemaType="Event"
-                structuredData={{
-                  "@context": "https://schema.org",
-                  "@type": "Event",
-                  "name": "ATX Disco Cruise",
-                  "description": "Multi-group bachelor and bachelorette party cruise on Lake Travis, Austin Texas",
-                  "location": {
-                    "@type": "Place",
-                    "name": "Lake Travis",
-                    "address": {
-                      "@type": "PostalAddress",
-                      "addressLocality": "Austin",
-                      "addressRegion": "Texas"
-                    }
-                  },
-                  "organizer": {
-                    "@type": "Organization",
-                    "name": "Premier Party Cruises"
-                  }
-                }}
               />
+              {/* NOTE: Event schema is handled by SSR via schemaLoader.ts (atx-disco-cruise/event.jsonld)
+                  with complete startDate, endDate, eventStatus, offers, image, and location fields.
+                  Removed duplicate client-side schema that was missing required fields. */}
             </div>
           </section>
         </SectionReveal>
