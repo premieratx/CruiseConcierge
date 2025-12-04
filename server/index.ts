@@ -231,7 +231,10 @@ Disallow: /book-online-popup
 `;
     
     res.setHeader('Content-Type', 'text/plain; charset=UTF-8');
-    res.setHeader('Cache-Control', 'public, max-age=86400'); // 24 hours
+    // CRITICAL: No caching so Google always gets fresh robots.txt
+    res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0');
+    res.setHeader('Pragma', 'no-cache');
+    res.setHeader('Expires', '0');
     res.send(robotsTxt);
   });
   log('✅ Robots.txt route registered with sitemap reference', 'seo');
