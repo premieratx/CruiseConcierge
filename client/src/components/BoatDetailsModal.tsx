@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Ship, Users, Calendar, ChevronLeft, ChevronRight, X } from 'lucide-react';
+import { Ship, Users, Calendar, ChevronLeft, ChevronRight, X, MessageSquare, ArrowRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 // Import boat photos - Meeseeks The Irony
@@ -283,19 +283,40 @@ export default function BoatDetailsModal({ boatId, isOpen, onClose }: BoatDetail
             </div>
           )}
 
-          {/* CTA Button */}
-          <div className="flex justify-end gap-3 pt-4 border-t">
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row justify-end gap-3 pt-4 border-t">
             <Button variant="outline" onClick={onClose} data-testid="button-close-modal">
               Close
             </Button>
             <Button 
-              onClick={() => window.open('https://events.premierpartycruises.com/widget/form/X1zEKdfbmjqs2hBHWNN1', '_blank')}
-              className="bg-brand-blue hover:bg-brand-blue/90"
-              data-testid="button-book-boat"
+              variant="outline"
+              onClick={() => {
+                const quoteSection = document.getElementById('quote-builder') || document.getElementById('quote') || document.querySelector('[data-quote-builder]');
+                if (quoteSection) {
+                  quoteSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                } else {
+                  window.location.href = '/chat';
+                }
+              }}
+              className="border-brand-blue text-brand-blue hover:bg-brand-blue hover:text-white"
+              data-testid="button-get-quote"
             >
-              <Calendar className="h-4 w-4 mr-2" />
-              Book This Boat
+              <MessageSquare className="h-4 w-4 mr-2" />
+              Get a Quote
             </Button>
+            <div
+              className="xola-custom xola-checkout inline-block"
+              data-button-id="691574bd162501edc00f151a"
+            >
+              <Button 
+                className="w-full sm:w-auto bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold"
+                data-testid="button-book-now"
+              >
+                <Calendar className="h-4 w-4 mr-2" />
+                Book Now
+                <ArrowRight className="h-4 w-4 ml-2" />
+              </Button>
+            </div>
           </div>
         </div>
       </DialogContent>

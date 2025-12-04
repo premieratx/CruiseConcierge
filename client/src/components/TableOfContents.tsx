@@ -82,7 +82,7 @@ export function TableOfContents({ sections, className }: TableOfContentsProps) {
   return (
     <div 
       className={cn(
-        "fixed top-16 left-0 right-0 z-40 bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm border-b border-gray-200 dark:border-gray-700 shadow-md transition-transform duration-300",
+        "fixed top-20 left-0 right-0 z-40 bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm border-b border-gray-200 dark:border-gray-700 shadow-md transition-transform duration-300",
         isVisible ? "translate-y-0" : "-translate-y-full",
         className
       )}
