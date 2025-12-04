@@ -861,9 +861,9 @@ export default function BacheloretteParty() {
                     </div>
                     <Button
                       size="lg"
-                      variant="outline"
+                      variant="outlineLight"
                       onClick={() => navigate('/atx-disco-cruise')}
-                      className="border-2 border-white text-white hover:bg-white/10 font-bold text-lg px-10 py-6"
+                      className="text-lg px-10 py-6"
                     >
                       See Party Details
                       <ArrowRight className="ml-2 h-5 w-5" />

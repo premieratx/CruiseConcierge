@@ -846,7 +846,7 @@ export default function ThreeDayAustinBacheloretteItinerary() {
               <Button asChild size="lg" className="bg-white text-purple-600 hover:bg-pink-50">
                 <Link href="/chat">Start Planning Your Austin Bachelorette</Link>
               </Button>
-              <Button asChild size="lg" variant="outline" className="border-white text-white hover:bg-white/10">
+              <Button asChild size="lg" variant="outlineLight">
                 <a href="tel:+15124885892">Call (512) 488-5892</a>
               </Button>
             </div>
