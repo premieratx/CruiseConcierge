@@ -163,6 +163,8 @@ const PORT = process.env.PORT || '5000';
     // Blog redirects from /blog/ to /blogs/ (canonical URLs)
     '/blog/top-spots-tips-for-an-unforgettable-austin-bachelorette-party-experience': '/blogs/top-spots-tips-for-an-unforgettable-austin-bachelorette-party-experience',
     '/blog/must-haves-for-the-perfect-austin-bachelorette-weekend': '/blogs/must-haves-for-the-perfect-austin-bachelorette-weekend',
+    // Blog converted to full React page
+    '/blog/rehearsal-dinner-boat-alcohol-delivery-unique-wedding-weekend-experiences': '/rehearsal-dinner-boat-alcohol-delivery',
   };
 
   Object.entries(LEGACY_REDIRECTS).forEach(([from, to]) => {

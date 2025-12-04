@@ -153,6 +153,7 @@ const JointBachelorBacheloretteParties = lazy(() => import("./pages/JointBachelo
 const LakeTravisWeddingBoatRentals = lazy(() => import("./pages/LakeTravisWeddingBoatRentals"));
 const MustHavesAustinBacheloretteWeekend = lazy(() => import("./pages/MustHavesAustinBacheloretteWeekend"));
 const TopSpotsAustinBacheloretteParty = lazy(() => import("./pages/TopSpotsAustinBacheloretteParty"));
+const RehearsalDinnerBoatAlcoholDelivery = lazy(() => import("./pages/RehearsalDinnerBoatAlcoholDelivery"));
 
 // Customer Portal Pages - Lazy loaded
 const PortalLogin = lazy(() => import("./pages/PortalLogin"));
@@ -272,6 +273,9 @@ function Router() {
       
       {/* Wedding Anniversary Blog Page */}
       <Route path="/wedding-anniversary-celebration-ideas" component={WeddingAnniversaryCelebrationIdeas} />
+      
+      {/* Rehearsal Dinner Boat + Alcohol Delivery - Full React Page */}
+      <Route path="/rehearsal-dinner-boat-alcohol-delivery" component={RehearsalDinnerBoatAlcoholDelivery} />
       
       {/* Redirect /blog/ version to /blogs/ React page */}
       <Route path="/blog/top-spots-tips-for-an-unforgettable-austin-bachelorette-party-experience">
