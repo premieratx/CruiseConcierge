@@ -4,18 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
-    <!-- MOBILE PAGESPEED FIX: Preconnects MUST be first for maximum benefit (saves ~1.4s) -->
+    <!-- PAGESPEED: Only preconnect to fonts (critical for render) - defer third-party scripts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://xola.com" crossorigin>
-    <link rel="preconnect" href="https://botcdn.xola.com" crossorigin>
-    <link rel="preconnect" href="https://booking.premierpartycruises.com" crossorigin>
-    <link rel="preconnect" href="https://js.stripe.com" crossorigin>
-    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <!-- DNS prefetch for non-critical resources (much lighter than preconnect) -->
     <link rel="dns-prefetch" href="https://xola.com">
-    <link rel="dns-prefetch" href="https://botcdn.xola.com">
-    <link rel="dns-prefetch" href="https://booking.premierpartycruises.com">
-    <link rel="dns-prefetch" href="https://js.stripe.com">
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com">
     
     <!-- MOBILE PAGESPEED: Preload mobile-optimized hero image (41KB for mobile, 64KB desktop) -->
     <link rel="preload" as="image" href="/attached_assets/bachelor-party-group-guys-mobile.webp" 
@@ -217,9 +211,9 @@
         });
       }
     </script>
-    <!-- Xola Checkout Script - Deferred loading to minimize TBT impact -->
+    <!-- Xola Checkout Script - Deferred loading ONLY on user interaction -->
     <script>
-      // PAGESPEED FIX: Lazy load Xola only when needed (saves ~500ms TBT)
+      // PAGESPEED FIX: Load Xola ONLY on user interaction (saves ~500ms TBT)
       window.loadXolaCheckout = function() {
         if (window.xolaLoaded) return;
         window.xolaLoaded = true;
@@ -229,13 +223,9 @@
         script.crossOrigin = 'anonymous';
         document.body.appendChild(script);
       };
-      // Load Xola after initial page interaction or after 3 seconds (whichever comes first)
-      var xolaLoadTimer = setTimeout(window.loadXolaCheckout, 3000);
-      ['click', 'touchstart', 'scroll'].forEach(function(event) {
-        document.addEventListener(event, function() {
-          clearTimeout(xolaLoadTimer);
-          window.loadXolaCheckout();
-        }, { once: true, passive: true });
+      // Load Xola ONLY on user interaction - no timer (saves TBT)
+      ['click', 'touchstart'].forEach(function(event) {
+        document.addEventListener(event, window.loadXolaCheckout, { once: true, passive: true });
       });
     </script>
     

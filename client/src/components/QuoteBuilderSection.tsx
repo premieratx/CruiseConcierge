@@ -1,31 +1,44 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { motion } from 'framer-motion';
 import { Sparkles } from 'lucide-react';
 
-const fadeInUp = {
-  hidden: { opacity: 0, y: 40 },
-  visible: { 
-    opacity: 1, 
-    y: 0,
-    transition: { duration: 0.6, ease: "easeOut" }
-  }
-};
-
 export default function QuoteBuilderSection() {
-  // FIXED: Build iframe URL client-side only to avoid SSR/client mismatch
-  // Using state initialized in useLayoutEffect runs BEFORE paint (no delay visible to user)
   const [iframeUrl, setIframeUrl] = useState<string | null>(null);
+  const [isVisible, setIsVisible] = useState(false);
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
 
-  // Initialize URL as early as possible (before paint) to minimize any delay
+  // PAGESPEED: Use IntersectionObserver to lazy load iframe only when in viewport
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsVisible(true);
+            observer.disconnect();
+          }
+        });
+      },
+      { rootMargin: '200px' } // Start loading 200px before section is visible
+    );
+    
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+    
+    return () => observer.disconnect();
+  }, []);
+
+  // Initialize URL only when section becomes visible
   useLayoutEffect(() => {
-    if (typeof window !== 'undefined') {
+    if (typeof window !== 'undefined' && isVisible) {
       const currentUrl = encodeURIComponent(window.location.href);
       const baseUrl = 'https://booking.premierpartycruises.com/quote-v2';
       setIframeUrl(`${baseUrl}?sourceUrl=${currentUrl}&sourceType=embedded_quote_v2`);
     }
-  }, []);
+  }, [isVisible]);
 
   // Setup auto-resize handler
   useEffect(() => {
@@ -55,27 +68,15 @@ export default function QuoteBuilderSection() {
   }, []);
 
   return (
-    <section id="quote-builder" className="py-16 bg-gradient-to-br from-brand-blue via-purple-600 to-blue-700" style={{ position: 'relative', zIndex: 0 }}>
+    <section ref={sectionRef} id="quote-builder" className="py-16 bg-gradient-to-br from-brand-blue via-purple-600 to-blue-700" style={{ position: 'relative', zIndex: 0 }}>
       <div className="container mx-auto px-0 md:px-6">
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={fadeInUp}
-          className="text-center mb-8"
-        >
+        <div className="text-center mb-8">
           <h2 className="text-white font-bold text-sm sm:text-base md:text-lg lg:text-xl tracking-wide border-b-4 border-brand-yellow inline-block pb-3" data-editable data-editable-id="quote-builder-button">
             Start Building Your Quote
           </h2>
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={fadeInUp}
-          className="overflow-visible"
-        >
+        <div className="overflow-visible">
           <div className="w-full md:max-w-6xl mx-auto">
             <div 
               ref={containerRef}
@@ -88,6 +89,15 @@ export default function QuoteBuilderSection() {
                 margin: '0'
               }}
             >
+              {/* Loading placeholder shown while iframe loads */}
+              {!iframeUrl && (
+                <div className="flex items-center justify-center h-[660px] text-gray-500">
+                  <div className="text-center">
+                    <Sparkles className="h-12 w-12 mx-auto mb-4 animate-pulse text-brand-blue" />
+                    <p className="text-lg font-medium">Loading Quote Builder...</p>
+                  </div>
+                </div>
+              )}
               {iframeUrl && (
                 <iframe 
                   ref={iframeRef}
@@ -105,7 +115,7 @@ export default function QuoteBuilderSection() {
                     zIndex: 1
                   }}
                   allow="payment"
-                  loading="eager"
+                  loading="lazy"
                   data-testid="iframe-quote-builder"
                   onLoad={(e) => {
                     const iframe = e.target as HTMLIFrameElement;
@@ -116,7 +126,7 @@ export default function QuoteBuilderSection() {
               )}
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
