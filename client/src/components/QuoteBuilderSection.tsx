@@ -83,7 +83,7 @@ export default function QuoteBuilderSection() {
               className="bg-white rounded-none md:rounded-2xl shadow-2xl"
               style={{ 
                 width: '100%', 
-                minHeight: '600px', 
+                minHeight: '660px', 
                 position: 'relative',
                 margin: '0'
               }}
@@ -96,7 +96,7 @@ export default function QuoteBuilderSection() {
                   title="Get Your Quote - Premier Party Cruises"
                   className="w-full"
                   style={{ 
-                    height: '600px',
+                    height: '660px',
                     border: 'none',
                     display: 'block',
                     borderRadius: '8px',
@@ -110,7 +110,7 @@ export default function QuoteBuilderSection() {
                   onLoad={(e) => {
                     const iframe = e.target as HTMLIFrameElement;
                     // Start with a reasonable height, will auto-adjust via postMessage
-                    iframe.style.height = '600px';
+                    iframe.style.height = '660px';
                   }}
                 />
               )}
