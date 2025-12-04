@@ -1,12 +1,42 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { CheckCircle2, Ship, Info, Calendar } from 'lucide-react';
+import { CheckCircle2, Ship, Info, Calendar, Camera, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Link } from 'wouter';
 import { formatCurrency } from '@shared/formatters';
 import { PRIVATE_CRUISE_PRICING } from '@shared/constants';
+import BoatDetailsModal from './BoatDetailsModal';
+
+// Boat photos for inline display
+const BOAT_PHOTOS: Record<string, { url: string; alt: string }[]> = {
+  '14': [
+    { url: '/attached_assets/@capitalcityshots-32_1760073243497.jpg', alt: 'Day Tripper - Bow seating area' },
+    { url: '/attached_assets/@capitalcityshots-33_1760073243499.jpg', alt: 'Day Tripper - Stern view' },
+    { url: '/attached_assets/@capitalcityshots-34_1760073243499.jpg', alt: 'Day Tripper - Full deck' },
+    { url: '/attached_assets/@capitalcityshots-36_1760073243500.jpg', alt: 'Day Tripper - Bow seating' },
+  ],
+  '25': [
+    { url: '/attached_assets/@capitalcityshots-1_1760072938922.jpg', alt: 'Meeseeks The Irony - Bow seating' },
+    { url: '/attached_assets/@capitalcityshots-2_1760072938923.jpg', alt: 'Meeseeks The Irony - Spacious deck' },
+    { url: '/attached_assets/@capitalcityshots-3_1760072938923.jpg', alt: 'Meeseeks The Irony - Covered deck' },
+    { url: '/attached_assets/@capitalcityshots-8_1760073115406.jpg', alt: 'Meeseeks The Irony - Exterior view' },
+  ],
+  '50': [
+    { url: '/attached_assets/@capitalcityshots-9_1760073172208.jpg', alt: 'Clever Girl - Full deck view' },
+    { url: '/attached_assets/@capitalcityshots-10_1760073205050.jpg', alt: 'Clever Girl - Texas star dance floor' },
+    { url: '/attached_assets/@capitalcityshots-11_1760073205050.jpg', alt: 'Clever Girl - Side view' },
+    { url: '/attached_assets/@capitalcityshots-14_1760073205050.jpg', alt: 'Clever Girl - Bow section' },
+  ],
+};
+
+// Map boat size to modal ID
+const BOAT_MODAL_ID: Record<string, string> = {
+  '14': 'DAY_TRIPPER',
+  '25': 'ME_SEEKS_THE_IRONY',
+  '50': 'CLEVER_GIRL',
+};
 
 interface TabbedPrivateCruisePricingProps {
   className?: string;
@@ -150,6 +180,25 @@ const PACKAGE_DETAILS = {
 export function TabbedPrivateCruisePricing({ className = '' }: TabbedPrivateCruisePricingProps) {
   const [selectedBoat, setSelectedBoat] = useState<'14' | '25' | '50'>('14');
   const [selectedDay, setSelectedDay] = useState<'mon-thu' | 'fri' | 'sat' | 'sun'>('mon-thu');
+  const [mobilePhotoIndex, setMobilePhotoIndex] = useState(0);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  
+  // Auto-scroll mobile photos every 1 second
+  useEffect(() => {
+    const photos = BOAT_PHOTOS[selectedBoat];
+    if (!photos || photos.length <= 1) return;
+    
+    const interval = setInterval(() => {
+      setMobilePhotoIndex((prev) => (prev + 1) % photos.length);
+    }, 1000);
+    
+    return () => clearInterval(interval);
+  }, [selectedBoat]);
+  
+  // Reset photo index when boat changes
+  useEffect(() => {
+    setMobilePhotoIndex(0);
+  }, [selectedBoat]);
   
   // Boat configurations - REAL NAMES AND CAPACITIES
   const boats = {
@@ -194,10 +243,11 @@ export function TabbedPrivateCruisePricing({ className = '' }: TabbedPrivateCrui
         </TabsList>
 
         <TabsContent value={selectedBoat} className="space-y-6">
-          {/* Boat Info Card */}
+          {/* Boat Info Card with Photos */}
           <Card className="bg-blue-50 dark:bg-blue-950/30 border-blue-200">
             <CardContent className="pt-6">
-              <div className="flex items-center justify-between flex-wrap gap-4">
+              <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                {/* Boat Name & Capacity */}
                 <div className="flex items-center gap-3">
                   <Ship className="h-6 w-6 text-blue-600" />
                   <div>
@@ -205,9 +255,80 @@ export function TabbedPrivateCruisePricing({ className = '' }: TabbedPrivateCrui
                     <p className="text-sm text-gray-600" data-testid="boat-capacity">{boat.capacity}</p>
                   </div>
                 </div>
+                
+                {/* Photo Gallery - Desktop: 4 photos inline, Mobile: single auto-scroll */}
+                {BOAT_PHOTOS[selectedBoat] && (
+                  <>
+                    {/* Desktop: Show all 4 photos */}
+                    <div className="hidden md:flex gap-2 items-center">
+                      {BOAT_PHOTOS[selectedBoat].map((photo, index) => (
+                        <button
+                          key={index}
+                          onClick={() => setIsModalOpen(true)}
+                          className="relative w-20 h-14 rounded-lg overflow-hidden border-2 border-white shadow-md hover:border-blue-400 transition-all hover:scale-105 cursor-pointer"
+                          data-testid={`button-desktop-photo-${index}`}
+                        >
+                          <img
+                            src={photo.url}
+                            alt={photo.alt}
+                            className="w-full h-full object-cover"
+                            loading="lazy"
+                          />
+                        </button>
+                      ))}
+                      <button 
+                        onClick={() => setIsModalOpen(true)}
+                        className="flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm font-medium ml-2"
+                        data-testid="button-view-all-photos"
+                      >
+                        <Camera className="h-4 w-4" />
+                        View All
+                      </button>
+                    </div>
+                    
+                    {/* Mobile: Single photo with auto-scroll + tap to view all */}
+                    <button
+                      onClick={() => setIsModalOpen(true)}
+                      className="md:hidden relative w-full h-32 rounded-lg overflow-hidden border-2 border-white shadow-md cursor-pointer group"
+                      data-testid="button-mobile-photo-gallery"
+                    >
+                      <img
+                        src={BOAT_PHOTOS[selectedBoat][mobilePhotoIndex]?.url}
+                        alt={BOAT_PHOTOS[selectedBoat][mobilePhotoIndex]?.alt}
+                        className="w-full h-full object-cover transition-opacity duration-300"
+                        loading="lazy"
+                      />
+                      {/* Photo counter dots */}
+                      <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5">
+                        {BOAT_PHOTOS[selectedBoat].map((_, index) => (
+                          <div 
+                            key={index} 
+                            className={`w-1.5 h-1.5 rounded-full transition-all ${
+                              index === mobilePhotoIndex ? 'bg-white w-3' : 'bg-white/50'
+                            }`}
+                          />
+                        ))}
+                      </div>
+                      {/* Tap to view overlay */}
+                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center">
+                        <span className="opacity-0 group-hover:opacity-100 text-white text-sm font-medium bg-black/50 px-3 py-1 rounded-full flex items-center gap-1 transition-opacity">
+                          <Camera className="h-4 w-4" />
+                          Tap to view all photos
+                        </span>
+                      </div>
+                    </button>
+                  </>
+                )}
               </div>
             </CardContent>
           </Card>
+          
+          {/* Boat Details Modal */}
+          <BoatDetailsModal 
+            boatId={BOAT_MODAL_ID[selectedBoat]} 
+            isOpen={isModalOpen} 
+            onClose={() => setIsModalOpen(false)} 
+          />
 
           {/* INNER TABS: Day of Week */}
           <Tabs value={selectedDay} onValueChange={(val) => setSelectedDay(val as 'mon-thu' | 'fri' | 'sat' | 'sun')}>
