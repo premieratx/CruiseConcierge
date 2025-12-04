@@ -2111,6 +2111,112 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       'birthday-party', 'graduation-party', 'testimonials', 'faq', 'contact'
     ]
   },
+  '/rehearsal-dinner-boat-alcohol-delivery': {
+    h1: 'Rehearsal Dinner Boat & Alcohol Delivery | Unique Wedding Weekend Experiences',
+    introduction: 'Create unforgettable [[rehearsal-dinner]] experiences on Lake Travis with boat parties and seamless alcohol delivery. Premier Party Cruises partners with Party On Delivery to make your wedding weekend in Austin truly memorable. From intimate family gatherings to elegant [[welcome-party]] events, we handle everything so you can focus on celebrating.',
+    sections: [
+      {
+        heading: 'Why Lake Travis for Your Rehearsal Dinner?',
+        paragraphs: [
+          'Planning a wedding in Austin is exciting, and every detail contributes to your special day. The rehearsal dinner sets the tone for the entire wedding weekend, offering a relaxed atmosphere for close family and friends to gather before the big day.',
+          'Lake Travis, a jewel of the Texas Hill Country, provides a breathtaking setting unlike any restaurant or hotel ballroom. A [[private-cruises]] allows for an intimate gathering where guests can truly connect without the distractions of a crowded venue.'
+        ],
+        lists: [
+          {
+            title: 'Lake Travis Advantages',
+            items: [
+              'Breathtaking sunset views for perfect photo opportunities',
+              'Intimate gathering space away from crowded restaurants',
+              'Texas Hill Country beauty with serene waters',
+              '15+ years experience hosting wedding events',
+              '125,000+ satisfied customers with perfect safety record'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Seamless Alcohol Delivery with Party On Delivery',
+        paragraphs: [
+          'Forget the hassle of coordinating multiple vendors. Party On Delivery ensures your drinks, ice, and cocktail kits are delivered directly to your boat on Lake Travis. Their 1-hour delivery windows, free consultations, and 100% buyback policy on unopened bottles make beverage planning stress-free.'
+        ],
+        lists: [
+          {
+            title: 'Party On Delivery Benefits',
+            items: [
+              '1-hour delivery windows directly to the marina',
+              'Free order consultations for quantity recommendations',
+              '100% buyback on unopened bottles - no waste',
+              'Curated cocktail kits and pre-mixed options',
+              'Ice, mixers, and all supplies included',
+              'Coordinates timing directly with Premier Party Cruises'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Wedding Weekend Event Options',
+        paragraphs: [
+          'Lake Travis cruises work perfectly for multiple events throughout your wedding weekend. Each event type offers unique benefits for your celebration:'
+        ],
+        lists: [
+          {
+            title: 'Rehearsal Dinner Cruises',
+            items: [
+              'Sunset cruise timing for perfect toasts',
+              'Intimate setting for close family and friends',
+              'Stunning backdrop for speeches and photos',
+              'Private space for heartfelt moments'
+            ]
+          },
+          {
+            title: 'Welcome Party Cruises',
+            items: [
+              'Casual meet and greet on the water',
+              'Austin skyline views to impress visitors',
+              'Perfect ice-breaker activity',
+              'Memorable first impression of Austin'
+            ]
+          },
+          {
+            title: 'After Party Cruises',
+            items: [
+              'Late-night party cruise option',
+              'Dance floor on the water',
+              'Continuation of reception energy',
+              'Perfect send-off to honeymoon'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Our Wedding Fleet Options',
+        paragraphs: [
+          'Choose the perfect boat for your wedding weekend event. Our fleet accommodates groups from intimate family gatherings to large celebrations:'
+        ],
+        lists: [
+          {
+            items: [
+              'Day Tripper: Up to 14 guests - perfect for intimate rehearsal dinners',
+              'Meeseeks: Up to 30 guests - ideal for medium-sized wedding parties',
+              'Clever Girl: Up to 75 guests - our flagship with 14 disco balls for grand celebrations'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Rehearsal Dinner FAQs',
+        paragraphs: [
+          'Party On Delivery delivers to most marinas on Lake Travis, coordinating directly with Premier Party Cruises to ensure your order arrives at your boat. We recommend booking 3-6 months in advance for wedding weekend events, especially during peak season (April-October).',
+          'Our boats are BYOB and catering-friendly - many couples work with Austin caterers who prepare food for boat delivery. We provide tables and cooler space for your setup. For weather concerns, we monitor conditions closely and work with you to reschedule if needed. Safety is our top priority.',
+          'Sunset cruises are our most popular option for rehearsal dinners. We time departures so you are on the water during golden hour, typically 2-3 hours before sunset. The Lake Travis sunset views create absolutely stunning photo opportunities for your wedding weekend.'
+        ]
+      }
+    ],
+    relatedPages: [
+      'wedding-party', 'rehearsal-dinner', 'welcome-party', 'after-party',
+      'private-cruises', 'bachelor-party', 'bachelorette-party', 'contact'
+    ]
+  },
   '/testimonials-faq': {
     h1: 'Testimonials & FAQ | Premier Party Cruises Lake Travis',
     introduction: 'Read what our customers say about their Lake Travis [[testimonials]] experiences! Over 125,000 happy guests, 5-star reviews, and answers to all your questions about Premier Party Cruises. See why we\'re Austin\'s #1 [[party-boat-austin]] company!',

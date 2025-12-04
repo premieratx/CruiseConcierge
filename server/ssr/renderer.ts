@@ -844,6 +844,7 @@ const SSR_ROUTES = [
   '/austin-bachelor-party-ideas',
   '/lake-travis-bachelor-party-boats',
   '/wedding-anniversary-celebration-ideas',
+  '/rehearsal-dinner-boat-alcohol-delivery',  // Full React page for wedding weekend experiences
   // Booking and conversion pages - SEO-critical for showing H1s to crawlers
   '/book-now',
   '/book-online',
@@ -1031,6 +1032,10 @@ const PAGE_METADATA: Record<string, { h1: string; content: string }> = {
   '/wedding-anniversary-celebration-ideas': {
     h1: 'Wedding Anniversary Celebration Ideas: Recreating Your Special Day with Boat and Alcohol Packages',
     content: 'Celebrate your wedding anniversary on Lake Travis with romantic boat rentals and BYOB packages. Intimate cruises or group celebrations for milestone anniversaries.'
+  },
+  '/rehearsal-dinner-boat-alcohol-delivery': {
+    h1: 'Rehearsal Dinner Boat & Alcohol Delivery | Unique Wedding Weekend Experiences',
+    content: 'Create unforgettable rehearsal dinner experiences on Lake Travis with boat parties and seamless alcohol delivery. Premier Party Cruises partners with Party On Delivery for memorable wedding weekends in Austin.'
   }
 };
 
