@@ -549,16 +549,11 @@ export default function Home() {
         </div>
 
 
-        {/* Hero Content */}
+        {/* Hero Content - PAGESPEED: No motion.div above fold */}
         <div className="relative z-10 container mx-auto px-4 sm:px-6 text-white flex-grow flex items-center">
-          <motion.div
-            initial={reducedMotion ? false : "hidden"}
-            animate={reducedMotion ? false : "visible"}
-            variants={reducedMotion ? undefined : staggerChildren}
-            className="max-w-5xl mx-auto text-center"
-          >
+          <div className="max-w-5xl mx-auto text-center">
             {/* Logo - Optimized with srcset for responsive loading */}
-            <motion.div variants={reducedMotion ? undefined : fadeInUp} className="mb-8">
+            <div className="mb-8">
               <img 
                 src={isMobile ? logoPathMedium : logoPath}
                 srcSet={`${logoPathSmall} 80w, ${logoPathMedium} 140w, ${logoPath} 280w`}
@@ -571,23 +566,20 @@ export default function Home() {
                 height={isMobile ? 140 : 280}
                 data-testid="img-hero-logo"
               />
-            </motion.div>
+            </div>
 
             {/* Main Headline */}
-            <motion.div variants={reducedMotion ? undefined : fadeInUp} className="mb-8 md:mb-10">
+            <div className="mb-8 md:mb-10">
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold font-playfair mb-6 leading-tight" data-editable data-editable-id="hero-title">
                 Austin's Favorite Party Boat Rentals on Lake Travis
               </h1>
               <h2 className="text-xl sm:text-2xl md:text-3xl text-brand-yellow font-semibold leading-relaxed" data-editable data-editable-id="hero-tagline">
                 Captained party cruises on Lake Travis for 5-75 People, Offering All-Inclusive Party Packages & Pre-Party Setup
               </h2>
-            </motion.div>
+            </div>
 
             {/* Pricing Value Proposition - Smaller & 60% opacity on mobile */}
-            <motion.div 
-              variants={reducedMotion ? undefined : fadeInUp}
-              className="bg-white/60 sm:bg-white border border-gray-200/60 sm:border-gray-200 rounded-lg sm:rounded-xl p-2 sm:p-4 max-w-xs sm:max-w-2xl mx-auto mb-6 md:mb-12 backdrop-blur-sm sm:backdrop-blur-none"
-            >
+            <div className="bg-white/60 sm:bg-white border border-gray-200/60 sm:border-gray-200 rounded-lg sm:rounded-xl p-2 sm:p-4 max-w-xs sm:max-w-2xl mx-auto mb-6 md:mb-12 backdrop-blur-sm sm:backdrop-blur-none">
               <div className="grid grid-cols-2 sm:grid-cols-2 gap-2 sm:gap-4 text-center">
                 <div>
                   <div className="font-sans tracking-wider font-bold uppercase text-[10px] sm:text-xs text-blue-600 mb-0.5 sm:mb-1" data-editable data-editable-id="pricing-overlay-private-label">PRIVATE CRUISES FROM:</div>
@@ -608,13 +600,10 @@ export default function Home() {
               <div className="text-center mt-1.5 sm:mt-3 text-[10px] sm:text-xs text-blue-600 font-medium hidden sm:block" data-editable data-editable-id="pricing-overlay-tagline">
                 ✨ Transparent pricing • No hidden fees • Best value guaranteed
               </div>
-            </motion.div>
+            </div>
 
-            {/* CTA Buttons */}
-            <motion.div 
-              variants={reducedMotion ? undefined : fadeInUp}
-              className="flex flex-col sm:flex-row gap-6 justify-center items-center"
-            >
+            {/* CTA Buttons - PAGESPEED: No motion.div above fold */}
+            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
               <div
                 className="xola-custom xola-checkout"
                 data-button-id="691574bd162501edc00f151a"
@@ -643,8 +632,8 @@ export default function Home() {
                 <MessageSquare className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
                 <span data-editable data-editable-id="hero-cta-book">Get Custom Quote</span>
               </a>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
         </div>
 
         {/* Bottom Feature Bar */}
@@ -752,6 +741,8 @@ export default function Home() {
                       src={service.image} 
                       alt={service.title}
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      width={400}
+                      height={192}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent group-hover:from-black/60" />
                     <service.icon className="absolute bottom-4 right-4 h-8 w-8 text-white" />
@@ -1156,6 +1147,8 @@ export default function Home() {
                         src={image}
                         alt={`${selectedService.title} gallery ${index + 1}`}
                         className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                        width={200}
+                        height={200}
                       />
                       <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
                       <div className="absolute bottom-2 right-2 bg-black/70 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -1538,6 +1531,8 @@ export default function Home() {
                       src={image}
                       alt={altTexts[index]}
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      width={300}
+                      height={300}
                     />
                     <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center">
                       <Play className="h-12 w-12 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -2062,6 +2057,8 @@ export default function Home() {
                   "Party Boat Austin guests dancing and celebrating on Lake Travis"
                 ][selectedImageIndex]}
                 className="w-full h-auto max-h-[80vh] object-contain rounded-xl"
+                width={800}
+                height={600}
               />
               <div className="absolute top-4 right-4 bg-black/50 text-white px-3 py-1 rounded-full text-sm">
                 {selectedImageIndex + 1} / {galleryImages.length}

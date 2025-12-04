@@ -389,6 +389,8 @@ export default function FleetSection() {
                       src={boat.heroImage}
                       alt={`${boat.name} party boat Lake Travis`}
                       className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                      width={400}
+                      height={208}
                     />
                     {boat.highlighted && (
                       <Badge 
@@ -537,6 +539,10 @@ export default function FleetSection() {
                   src={selectedBoat.galleryImages[currentImageIndex]?.src}
                   alt={selectedBoat.galleryImages[currentImageIndex]?.alt}
                   className="w-full h-full object-cover"
+                  loading="lazy"
+                  decoding="async"
+                  width={800}
+                  height={450}
                 />
                 
                 {/* Navigation Arrows - Touch Friendly */}

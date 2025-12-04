@@ -477,8 +477,9 @@ export default function PrivateCruises() {
           <div className="absolute inset-0 bg-gradient-to-br from-black/20 via-black/10 to-black/20" />
         </div>
         
+        {/* PAGESPEED: No motion/ScrollReveal above fold */}
         <div className="max-w-7xl mx-auto relative z-10 px-4 text-white">
-          <ScrollReveal delay={0}>
+          <div>
             <div className="text-center mb-8 md:mb-12">
               <Badge className="mb-4 md:mb-6 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-sm sm:text-base px-6 sm:px-8 py-2.5 border-0 font-sans tracking-wider font-bold uppercase shadow-lg">
                 Private Boat Charters
@@ -539,34 +540,40 @@ export default function PrivateCruises() {
                 </div>
               </div>
             </div>
-          </ScrollReveal>
+          </div>
 
-          {/* Hero Image Grid */}
+          {/* Hero Image Grid - PAGESPEED: No motion/ScrollReveal above fold */}
           <div className="grid md:grid-cols-3 gap-6 mt-16">
-            <ScrollReveal delay={0.1}>
+            <div>
               <LazyImage
                 src={heroImage1}
                 alt="Clever Girl 50+ person private boat charter Lake Travis"
                 className="rounded-2xl shadow-2xl w-full h-72 object-cover ring-2 ring-blue-500/50 hover:ring-blue-400 transition-all"
                 priority={true}
+                width={400}
+                height={288}
               />
-            </ScrollReveal>
-            <ScrollReveal delay={0.2}>
+            </div>
+            <div>
               <LazyImage
                 src={heroImage2}
                 alt="Meeseeks The Irony 25 person private boat Lake Travis"
                 className="rounded-2xl shadow-2xl w-full h-72 object-cover ring-2 ring-purple-500/50 hover:ring-purple-400 transition-all"
                 priority={true}
+                width={400}
+                height={288}
               />
-            </ScrollReveal>
-            <ScrollReveal delay={0.3}>
+            </div>
+            <div>
               <LazyImage
                 src={heroImage3}
                 alt="Day Tripper 14 person intimate private boat charter"
                 className="rounded-2xl shadow-2xl w-full h-72 object-cover ring-2 ring-pink-500/50 hover:ring-pink-400 transition-all"
                 priority={true}
+                width={400}
+                height={288}
               />
-            </ScrollReveal>
+            </div>
           </div>
         </div>
       </section>

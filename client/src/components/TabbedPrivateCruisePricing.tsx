@@ -273,6 +273,9 @@ export function TabbedPrivateCruisePricing({ className = '' }: TabbedPrivateCrui
                             alt={photo.alt}
                             className="w-full h-full object-cover"
                             loading="lazy"
+                            decoding="async"
+                            width={80}
+                            height={56}
                           />
                         </button>
                       ))}
@@ -297,6 +300,9 @@ export function TabbedPrivateCruisePricing({ className = '' }: TabbedPrivateCrui
                         alt={BOAT_PHOTOS[selectedBoat][mobilePhotoIndex]?.alt}
                         className="w-full h-full object-cover transition-opacity duration-300"
                         loading="lazy"
+                        decoding="async"
+                        width={400}
+                        height={128}
                       />
                       {/* Photo counter dots */}
                       <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5">

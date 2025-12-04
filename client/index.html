@@ -23,8 +23,6 @@
     <link rel="preload" as="image" href="/attached_assets/PPC-Logo-280x280.webp" 
           media="(min-width: 769px)" fetchpriority="high" type="image/webp" />
     
-    <!-- Preload critical font files directly for faster text rendering -->
-    <link rel="preload" href="https://fonts.gstatic.com/s/dmsans/v15/rP2Cp2ywxg089UriASitCBimC3YU-CnE6Q.woff2" as="font" type="font/woff2" crossorigin>
     
     <!-- FALLBACK SEO TAGS (overridden by React Helmet) -->
     <title>Austin Party Boat Rentals | Lake Travis Cruises</title>
@@ -58,9 +56,9 @@
     <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png" />
     <meta name="theme-color" content="#00d4ff" />
     
-    <!-- MOBILE PAGESPEED: Load fonts async (saves 450ms render blocking) -->
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Bebas+Neue&family=Oswald:wght@400;600;700&family=Playfair+Display:wght@400;500;600;700;800;900&family=Poppins:wght@600;700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Bebas+Neue&family=Oswald:wght@400;600;700&family=Playfair+Display:wght@400;500;600;700;800;900&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet"></noscript>
+    <!-- PAGESPEED: Minimal font loading - only essential weights with display=swap -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700&family=Bebas+Neue&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700&family=Bebas+Neue&display=swap" rel="stylesheet"></noscript>
     
     <!-- Inline critical CSS for instant layout stability (prevents CLS) -->
     <style>
