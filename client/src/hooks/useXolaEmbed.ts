@@ -1,8 +1,15 @@
 import { useEffect, RefObject } from 'react';
-import { loadXolaScript, initXolaEmbeds } from '@/services/xola';
+import { initXolaEmbeds } from '@/services/xola';
+
+declare global {
+  interface Window {
+    xolaLoaded?: boolean;
+  }
+}
 
 /**
  * Hook to initialize Xola embedded checkout widgets in React components
+ * PAGESPEED: Only initializes if Xola is already loaded (user has interacted)
  * 
  * @param containerRef - Ref to the container with .xola-embedded-checkout divs
  * @param deps - Dependencies that trigger re-initialization (e.g., active tab)
@@ -18,25 +25,15 @@ export function useXolaEmbed(
   useEffect(() => {
     let mounted = true;
 
-    async function initEmbed() {
-      try {
-        // Wait for Xola script to load
-        await loadXolaScript();
-        
-        if (!mounted) return;
-
-        // Small delay to ensure DOM is ready
-        setTimeout(() => {
-          if (mounted && containerRef.current) {
-            initXolaEmbeds(containerRef.current);
-          }
-        }, 200);
-      } catch (error) {
-        console.error('Failed to initialize Xola embed:', error);
-      }
+    // PAGESPEED: Only initialize if Xola is already loaded (user has clicked)
+    // Xola loads on first user interaction via index.html
+    if (typeof window !== 'undefined' && window.xolaLoaded) {
+      setTimeout(() => {
+        if (mounted && containerRef.current) {
+          initXolaEmbeds(containerRef.current);
+        }
+      }, 200);
     }
-
-    initEmbed();
 
     return () => {
       mounted = false;

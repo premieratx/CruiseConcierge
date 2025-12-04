@@ -208,23 +208,12 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [ghlFormOpen, setGhlFormOpen] = useState(false);
 
-  // Load Xola checkout script on mount
+  // PAGESPEED: Xola now loads only on user interaction (click/touch)
+  // No auto-loading on mount or navigation - handled by index.html click listener
+  
+  // Re-initialize Xola embeds when needed (only if already loaded)
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      loadXolaScript()
-        .then(() => {
-          // Initialize Xola to find embedded checkout elements
-          setTimeout(() => initXolaEmbeds(), 100);
-        })
-        .catch((err) => {
-          console.error('Failed to load Xola checkout script:', err);
-        });
-    }
-  }, []);
-
-  // Re-initialize Xola when mobile menu opens (to catch newly rendered elements)
-  useEffect(() => {
-    if (typeof window !== 'undefined' && mobileMenuOpen) {
+    if (typeof window !== 'undefined' && mobileMenuOpen && window.xolaLoaded) {
       setTimeout(() => initXolaEmbeds(), 100);
     }
   }, [mobileMenuOpen]);
@@ -243,18 +232,14 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
     }
   }, []);
 
-  // Scroll to top AND re-initialize Xola when location changes
+  // Scroll to top on navigation (no Xola auto-load)
   useEffect(() => {
     if (typeof window !== 'undefined') {
       window.scrollTo(0, 0);
-      // Ensure Xola script is loaded, then re-initialize to find Book Now buttons on the new page
-      loadXolaScript()
-        .then(() => {
-          setTimeout(() => initXolaEmbeds(), 100);
-        })
-        .catch((err) => {
-          console.error('Failed to reinitialize Xola on navigation:', err);
-        });
+      // Only re-init Xola if already loaded (user has interacted)
+      if (window.xolaLoaded) {
+        setTimeout(() => initXolaEmbeds(), 100);
+      }
     }
   }, [location]);
 
