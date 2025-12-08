@@ -55,20 +55,17 @@ import { SchemaMarkup, generateEventSchema, generateProductSchema, generateFAQSc
 import { YouTubeVideoBackground } from '@/components/YouTubeVideoBackground';
 import { DiscoCruisePricing } from '@/components/DiscoCruisePricing';
 import AnimatedPhotoGallery from '@/components/AnimatedPhotoGallery';
-import { CAPITAL_CITY_SHOTS, OTHER_ASSETS } from '@/lib/media';
+import { PARTY_PHOTOS_WITH_PEOPLE } from '@/lib/media';
 
-// PARTY PHOTOS WITH PEOPLE - Capital City Shots (verified party photos with real guests)
-const heroImage1 = CAPITAL_CITY_SHOTS.party1;
-const heroImage2 = CAPITAL_CITY_SHOTS.party2;
-const heroImage3 = CAPITAL_CITY_SHOTS.party3;
-const galleryImage1 = CAPITAL_CITY_SHOTS.party4;
-const galleryImage2 = CAPITAL_CITY_SHOTS.party5;
-const galleryImage3 = CAPITAL_CITY_SHOTS.party6;
-const discoImage1 = CAPITAL_CITY_SHOTS.party7;
-const discoImage2 = CAPITAL_CITY_SHOTS.party8;
-const partyImage9 = CAPITAL_CITY_SHOTS.party9;
-const partyImage10 = CAPITAL_CITY_SHOTS.party10;
-const floatImage = OTHER_ASSETS.giantUnicornFloat;
+// BACHELOR PARTY PHOTOS - Unique party photos with people (no duplicates)
+const heroImage1 = PARTY_PHOTOS_WITH_PEOPLE.bach1;
+const heroImage2 = PARTY_PHOTOS_WITH_PEOPLE.bach2;
+const heroImage3 = PARTY_PHOTOS_WITH_PEOPLE.bach3;
+const galleryImage1 = PARTY_PHOTOS_WITH_PEOPLE.bach4;
+const galleryImage2 = PARTY_PHOTOS_WITH_PEOPLE.bach5;
+const galleryImage3 = PARTY_PHOTOS_WITH_PEOPLE.bach6;
+const discoImage1 = PARTY_PHOTOS_WITH_PEOPLE.bach7;
+const discoImage2 = PARTY_PHOTOS_WITH_PEOPLE.bach8;
 
 // Animation variants
 const fadeInUp = {
@@ -304,14 +301,14 @@ const groomTestimonials: Review[] = [...bachelorReviews, ...combinedBachReviews]
 
 // Photo gallery items - PARTY PHOTOS ONLY (no fleet boats)
 const galleryPhotos = [
-  { id: 1, src: heroImage1, alt: 'Bachelor Party Austin group celebrating on Lake Travis party boat' },
-  { id: 2, src: discoImage1, alt: 'Austin Bachelor Party ATX Disco Cruise on Party Boat Lake Travis' },
-  { id: 3, src: galleryImage1, alt: 'Lake Travis Bachelor Party atmosphere and celebration vibes' },
-  { id: 4, src: discoImage2, alt: 'Bachelor Party Austin dancing on Party Boat Lake Travis cruise' },
-  { id: 5, src: galleryImage2, alt: 'Austin Bachelor Party ATX Disco Cruise party atmosphere' },
-  { id: 6, src: galleryImage3, alt: 'Bachelor Party Austin dancing and celebrating on Lake Travis' },
-  { id: 7, src: floatImage, alt: 'Lake Travis Bachelor Party giant unicorn float on Party Boat Austin' },
-  { id: 8, src: heroImage2, alt: 'Austin Bachelor Party Boat atmosphere on Lake Travis' }
+  { id: 1, src: heroImage1, alt: 'Bachelor Party Austin group celebrating on Lake Travis' },
+  { id: 2, src: heroImage2, alt: 'Bachelor party group photo on the boat' },
+  { id: 3, src: heroImage3, alt: 'Guests jumping into Lake Travis' },
+  { id: 4, src: galleryImage1, alt: 'Friends posing on party boat' },
+  { id: 5, src: galleryImage2, alt: 'ATX Disco Cruise party atmosphere' },
+  { id: 6, src: galleryImage3, alt: 'Party guests dancing on cruise' },
+  { id: 7, src: discoImage1, alt: 'Lake Travis Bachelor Party celebration' },
+  { id: 8, src: discoImage2, alt: 'Austin Bachelor Party Boat atmosphere' }
 ];
 
 // Table of Contents sections - Updated with comparison

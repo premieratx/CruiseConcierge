@@ -13,49 +13,88 @@ export interface PhotoAsset {
 export type PhotoCategory = 'party' | 'fleet';
 
 /**
- * REAL PARTY PHOTOS WITH PEOPLE - Verified photos showing guests celebrating
- * These photos actually have people in them - NOT empty boat photos
+ * REAL PARTY PHOTOS WITH PEOPLE - All verified photos showing guests celebrating
+ * DISCO_FUN photos - New photos with people having fun on the cruise
  */
+export const DISCO_FUN_PHOTOS = {
+  jumping: '/attached_assets/disco_fun_28_1765193453540.jpg',
+  groupFloat: '/attached_assets/disco_fun_best2_1765193453547.jpg',
+  brideGroup: '/attached_assets/disco_fun_first_1765193453547.jpg',
+  champagnePop: '/attached_assets/disco_fun_1765193453547.jpg',
+  sunHatsGroup: '/attached_assets/disco_fun2_1765193453547.jpg',
+  heartSunglasses: '/attached_assets/disco_fun3_1765193453548.jpg',
+  champagneSpray: '/attached_assets/disco_fun5_1765193453548.jpg',
+  girlsOnBoat: '/attached_assets/disco_fun6_1765193453548.jpg',
+  tropicalGroup: '/attached_assets/disco_fun7_1765193453548.jpg',
+  blackCapsGroup: '/attached_assets/disco_fun9_1765193453548.jpg',
+} as const;
+
+/**
+ * ALL PARTY PHOTOS WITH PEOPLE - Use for galleries
+ * Each page gets a unique set - NO duplicates between pages
+ */
+export const PARTY_PHOTOS_WITH_PEOPLE = {
+  // ATX DISCO CRUISE PAGE (photos 1-8)
+  disco1: DISCO_FUN_PHOTOS.groupFloat,
+  disco2: DISCO_FUN_PHOTOS.champagneSpray,
+  disco3: DISCO_FUN_PHOTOS.sunHatsGroup,
+  disco4: DISCO_FUN_PHOTOS.heartSunglasses,
+  disco5: DISCO_FUN_PHOTOS.tropicalGroup,
+  disco6: DISCO_FUN_PHOTOS.blackCapsGroup,
+  disco7: DISCO_FUN_PHOTOS.brideGroup,
+  disco8: DISCO_FUN_PHOTOS.champagnePop,
+  
+  // BACHELOR PARTY PAGE (photos 9-16)
+  bach1: '/attached_assets/bachelor-party-group-guys.webp',
+  bach2: '/attached_assets/bachelor-party-group-guys.jpg',
+  bach3: DISCO_FUN_PHOTOS.jumping,
+  bach4: DISCO_FUN_PHOTOS.girlsOnBoat,
+  bach5: '/attached_assets/atx-disco-cruise-party.jpg',
+  bach6: '/attached_assets/dancing-party-scene.jpg',
+  bach7: '/attached_assets/party-atmosphere-1.jpg',
+  bach8: '/attached_assets/party-atmosphere-2.jpg',
+  
+  // BACHELORETTE PARTY PAGE (photos 17-24)
+  bachelorette1: DISCO_FUN_PHOTOS.heartSunglasses,
+  bachelorette2: DISCO_FUN_PHOTOS.tropicalGroup,
+  bachelorette3: DISCO_FUN_PHOTOS.sunHatsGroup,
+  bachelorette4: DISCO_FUN_PHOTOS.blackCapsGroup,
+  bachelorette5: '/attached_assets/clever girl-10 austin bachelorette party_1763966476658.jpg',
+  bachelorette6: '/attached_assets/clever-girl-3-bachelorette-boat.jpg',
+  bachelorette7: '/attached_assets/party-atmosphere-3.jpg',
+  bachelorette8: DISCO_FUN_PHOTOS.brideGroup,
+  
+  // COMBINED BACHELOR/BACHELORETTE PAGE (photos 25-32)
+  combined1: DISCO_FUN_PHOTOS.groupFloat,
+  combined2: DISCO_FUN_PHOTOS.champagneSpray,
+  combined3: DISCO_FUN_PHOTOS.jumping,
+  combined4: '/attached_assets/clever-girl-8-wedding-reception.jpg',
+  combined5: DISCO_FUN_PHOTOS.girlsOnBoat,
+  combined6: DISCO_FUN_PHOTOS.champagnePop,
+  combined7: '/attached_assets/atx-disco-cruise-party.webp',
+  combined8: '/attached_assets/dancing-party-scene.webp',
+} as const;
+
+// Legacy alias for backward compatibility
 export const CAPITAL_CITY_SHOTS = {
-  // VERIFIED PHOTOS WITH PEOPLE CELEBRATING
-  party1: '/attached_assets/bachelor-party-group-guys.webp',
-  party2: '/attached_assets/atx-disco-cruise-party.jpg',
-  party3: '/attached_assets/dancing-party-scene.jpg',
-  party4: '/attached_assets/party-atmosphere-1.jpg',
-  party5: '/attached_assets/party-atmosphere-2.jpg',
-  party6: '/attached_assets/party-atmosphere-3.jpg',
-  party7: '/attached_assets/clever girl-10 austin bachelorette party_1763966476658.jpg',
-  party8: '/attached_assets/clever-girl-8-wedding-reception.jpg',
-  party9: '/attached_assets/clever-girl-3-bachelorette-boat.jpg',
-  party10: '/attached_assets/bachelor-party-group-guys.jpg',
-  party11: '/attached_assets/atx-disco-cruise-party.webp',
-  party12: '/attached_assets/dancing-party-scene.webp',
-  party13: '/attached_assets/party-atmosphere-1.webp',
-  party14: '/attached_assets/party-atmosphere-2.webp',
-  party15: '/attached_assets/party-atmosphere-3.webp',
-  party16: '/attached_assets/bachelor-party-group-guys-hero.webp',
-  party17: '/attached_assets/bachelor-party-group-guys-hero-compressed.webp',
-  party18: '/attached_assets/bachelor-party-group-guys-optimized.webp',
-  // Duplicate references to ensure enough photos for galleries
-  party19: '/attached_assets/bachelor-party-group-guys.webp',
-  party20: '/attached_assets/atx-disco-cruise-party.jpg',
-  party21: '/attached_assets/dancing-party-scene.jpg',
-  party22: '/attached_assets/party-atmosphere-1.jpg',
-  party23: '/attached_assets/party-atmosphere-2.jpg',
-  party24: '/attached_assets/party-atmosphere-3.jpg',
-  party25: '/attached_assets/clever girl-10 austin bachelorette party_1763966476658.jpg',
-  party26: '/attached_assets/clever-girl-8-wedding-reception.jpg',
-  party27: '/attached_assets/clever-girl-3-bachelorette-boat.jpg',
-  party28: '/attached_assets/bachelor-party-group-guys.jpg',
-  party29: '/attached_assets/atx-disco-cruise-party.webp',
-  party30: '/attached_assets/dancing-party-scene.webp',
-  party31: '/attached_assets/party-atmosphere-1.webp',
-  party32: '/attached_assets/party-atmosphere-2.webp',
-  party33: '/attached_assets/party-atmosphere-3.webp',
-  party34: '/attached_assets/bachelor-party-group-guys-hero.webp',
-  party35: '/attached_assets/bachelor-party-group-guys-hero-compressed.webp',
-  party36: '/attached_assets/bachelor-party-group-guys-optimized.webp',
-  party37: '/attached_assets/clever girl-10 austin bachelorette party_1763966476658.jpg',
+  party1: DISCO_FUN_PHOTOS.groupFloat,
+  party2: DISCO_FUN_PHOTOS.champagneSpray,
+  party3: DISCO_FUN_PHOTOS.sunHatsGroup,
+  party4: DISCO_FUN_PHOTOS.heartSunglasses,
+  party5: DISCO_FUN_PHOTOS.tropicalGroup,
+  party6: DISCO_FUN_PHOTOS.blackCapsGroup,
+  party7: DISCO_FUN_PHOTOS.brideGroup,
+  party8: DISCO_FUN_PHOTOS.champagnePop,
+  party9: DISCO_FUN_PHOTOS.jumping,
+  party10: DISCO_FUN_PHOTOS.girlsOnBoat,
+  party11: '/attached_assets/bachelor-party-group-guys.webp',
+  party12: '/attached_assets/atx-disco-cruise-party.jpg',
+  party13: '/attached_assets/dancing-party-scene.jpg',
+  party14: '/attached_assets/party-atmosphere-1.jpg',
+  party15: '/attached_assets/party-atmosphere-2.jpg',
+  party16: '/attached_assets/party-atmosphere-3.jpg',
+  party17: '/attached_assets/clever girl-10 austin bachelorette party_1763966476658.jpg',
+  party18: '/attached_assets/clever-girl-8-wedding-reception.jpg',
 } as const;
 
 /**

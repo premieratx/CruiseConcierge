@@ -58,15 +58,15 @@ import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 // to avoid duplicate/conflicting schemas and Google Search Console errors
 import { YouTubeVideoBackground } from '@/components/YouTubeVideoBackground';
 import AnimatedPhotoGallery from '@/components/AnimatedPhotoGallery';
-import { CAPITAL_CITY_SHOTS } from '@/lib/media';
+import { PARTY_PHOTOS_WITH_PEOPLE } from '@/lib/media';
 
-// PARTY PHOTOS WITH PEOPLE - Capital City Shots (verified party photos with real guests)
-const heroImage1 = CAPITAL_CITY_SHOTS.party1;
-const heroImage2 = CAPITAL_CITY_SHOTS.party2;
-const heroImage3 = CAPITAL_CITY_SHOTS.party3;
-const galleryImage1 = CAPITAL_CITY_SHOTS.party4;
-const galleryImage2 = CAPITAL_CITY_SHOTS.party5;
-const galleryImage3 = CAPITAL_CITY_SHOTS.party6;
+// DISCO CRUISE PHOTOS - Unique party photos with people (no duplicates)
+const heroImage1 = PARTY_PHOTOS_WITH_PEOPLE.disco1;
+const heroImage2 = PARTY_PHOTOS_WITH_PEOPLE.disco2;
+const heroImage3 = PARTY_PHOTOS_WITH_PEOPLE.disco3;
+const galleryImage1 = PARTY_PHOTOS_WITH_PEOPLE.disco4;
+const galleryImage2 = PARTY_PHOTOS_WITH_PEOPLE.disco5;
+const galleryImage3 = PARTY_PHOTOS_WITH_PEOPLE.disco6;
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
@@ -224,13 +224,13 @@ const faqItems = [
 
 const galleryPhotos = [
   { id: 1, src: heroImage1, alt: 'ATX Disco Cruise party guests celebrating on Lake Travis' },
-  { id: 2, src: heroImage2, alt: 'Bachelor bachelorette party group on disco cruise' },
-  { id: 3, src: heroImage3, alt: 'Party guests dancing on Lake Travis cruise' },
-  { id: 4, src: galleryImage1, alt: 'Groups celebrating on party boat' },
-  { id: 5, src: galleryImage2, alt: 'Party atmosphere with friends on the water' },
-  { id: 6, src: galleryImage3, alt: 'Guests having fun on Lake Travis cruise' },
-  { id: 7, src: CAPITAL_CITY_SHOTS.party7, alt: 'Bachelor party group on disco cruise' },
-  { id: 8, src: CAPITAL_CITY_SHOTS.party8, alt: 'Bachelorette party celebration' }
+  { id: 2, src: heroImage2, alt: 'Champagne spray celebration on the cruise' },
+  { id: 3, src: heroImage3, alt: 'Bachelorette group with sun hats on party boat' },
+  { id: 4, src: galleryImage1, alt: 'Groups in heart sunglasses celebrating' },
+  { id: 5, src: galleryImage2, alt: 'Tropical themed party group on Lake Travis' },
+  { id: 6, src: galleryImage3, alt: 'Party crew with matching hats having fun' },
+  { id: 7, src: PARTY_PHOTOS_WITH_PEOPLE.disco7, alt: 'Bride and friends celebrating on the boat' },
+  { id: 8, src: PARTY_PHOTOS_WITH_PEOPLE.disco8, alt: 'Captain popping champagne at party' }
 ];
 
 // Table of Contents sections

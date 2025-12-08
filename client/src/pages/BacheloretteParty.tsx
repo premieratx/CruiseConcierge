@@ -49,20 +49,17 @@ import { LazyImage } from '@/components/LazyImage';
 import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import { YouTubeVideoBackground } from '@/components/YouTubeVideoBackground';
 import AnimatedPhotoGallery from '@/components/AnimatedPhotoGallery';
-import { CAPITAL_CITY_SHOTS, OTHER_ASSETS } from '@/lib/media';
+import { PARTY_PHOTOS_WITH_PEOPLE } from '@/lib/media';
 
-// PARTY PHOTOS WITH PEOPLE - Capital City Shots (verified party photos with real guests)
-const heroImage1 = CAPITAL_CITY_SHOTS.party11;
-const heroImage2 = CAPITAL_CITY_SHOTS.party12;
-const heroImage3 = CAPITAL_CITY_SHOTS.party13;
-const galleryImage1 = CAPITAL_CITY_SHOTS.party14;
-const galleryImage2 = CAPITAL_CITY_SHOTS.party15;
-const galleryImage3 = CAPITAL_CITY_SHOTS.party16;
-const partyImage17 = CAPITAL_CITY_SHOTS.party17;
-const partyImage18 = CAPITAL_CITY_SHOTS.party18;
-const partyImage19 = CAPITAL_CITY_SHOTS.party19;
-const partyImage20 = CAPITAL_CITY_SHOTS.party20;
-const floatImage = OTHER_ASSETS.giantUnicornFloat;
+// BACHELORETTE PARTY PHOTOS - Unique party photos with people (no duplicates)
+const heroImage1 = PARTY_PHOTOS_WITH_PEOPLE.bachelorette1;
+const heroImage2 = PARTY_PHOTOS_WITH_PEOPLE.bachelorette2;
+const heroImage3 = PARTY_PHOTOS_WITH_PEOPLE.bachelorette3;
+const galleryImage1 = PARTY_PHOTOS_WITH_PEOPLE.bachelorette4;
+const galleryImage2 = PARTY_PHOTOS_WITH_PEOPLE.bachelorette5;
+const galleryImage3 = PARTY_PHOTOS_WITH_PEOPLE.bachelorette6;
+const partyImage17 = PARTY_PHOTOS_WITH_PEOPLE.bachelorette7;
+const partyImage18 = PARTY_PHOTOS_WITH_PEOPLE.bachelorette8;
 
 // Animation variants
 const fadeInUp = {
@@ -296,14 +293,14 @@ const brideTestimonials: Review[] = [...bacheloretteReviews, ...combinedBachRevi
 
 // Photo gallery items - PARTY PHOTOS ONLY (no fleet boats)
 const galleryPhotos = [
-  { id: 1, src: heroImage1, alt: 'Bachelorette party group celebrating on Lake Travis' },
-  { id: 2, src: heroImage2, alt: 'Bachelorette Party Austin ATX Disco Cruise on Party Boat Lake Travis' },
-  { id: 3, src: heroImage3, alt: 'Austin Bachelorette Party Boat dancing on Lake Travis cruise' },
-  { id: 4, src: galleryImage1, alt: 'Bachelorette Party Austin vibes on Lake Travis party boat' },
-  { id: 5, src: galleryImage2, alt: 'Austin Bachelorette Party Boat atmosphere on Lake Travis' },
-  { id: 6, src: galleryImage3, alt: 'Bachelorette Party Austin on Lake Travis party boat' },
-  { id: 7, src: floatImage, alt: 'Lake Travis Bachelorette Party giant unicorn float on Party Boat Austin' },
-  { id: 8, src: heroImage1, alt: 'Bachelor and bachelorette groups celebrating together on Lake Travis' }
+  { id: 1, src: heroImage1, alt: 'Bachelorette party group with heart sunglasses' },
+  { id: 2, src: heroImage2, alt: 'Tropical themed bachelorette group on Lake Travis' },
+  { id: 3, src: heroImage3, alt: 'Bachelorette group with sun hats on party boat' },
+  { id: 4, src: galleryImage1, alt: 'Party crew with matching hats celebrating' },
+  { id: 5, src: galleryImage2, alt: 'Austin bachelorette party celebration' },
+  { id: 6, src: galleryImage3, alt: 'Bachelorette group on party boat' },
+  { id: 7, src: partyImage17, alt: 'Party atmosphere on Lake Travis' },
+  { id: 8, src: partyImage18, alt: 'Bride and friends celebrating on the boat' }
 ];
 
 export default function BacheloretteParty() {

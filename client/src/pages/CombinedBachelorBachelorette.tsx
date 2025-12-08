@@ -34,21 +34,18 @@ import Footer from '@/components/Footer';
 import { combinedBachReviews } from '@shared/reviews-data';
 import { YouTubeVideoBackground } from '@/components/YouTubeVideoBackground';
 import AnimatedPhotoGallery from '@/components/AnimatedPhotoGallery';
-import { CAPITAL_CITY_SHOTS, OTHER_ASSETS } from '@/lib/media';
+import { PARTY_PHOTOS_WITH_PEOPLE } from '@/lib/media';
 import { initXolaEmbeds } from '@/services/xola';
 
-// PARTY PHOTOS WITH PEOPLE - Capital City Shots (verified party photos with real guests)
-const heroImage1 = CAPITAL_CITY_SHOTS.party21;
-const heroImage2 = CAPITAL_CITY_SHOTS.party22;
-const heroImage3 = CAPITAL_CITY_SHOTS.party23;
-const galleryImage1 = CAPITAL_CITY_SHOTS.party24;
-const galleryImage2 = CAPITAL_CITY_SHOTS.party25;
-const galleryImage3 = CAPITAL_CITY_SHOTS.party26;
-const partyImage27 = CAPITAL_CITY_SHOTS.party27;
-const partyImage28 = CAPITAL_CITY_SHOTS.party28;
-const partyImage29 = CAPITAL_CITY_SHOTS.party29;
-const partyImage30 = CAPITAL_CITY_SHOTS.party30;
-const floatImage = OTHER_ASSETS.giantUnicornFloat;
+// COMBINED PARTY PHOTOS - Unique party photos with people (no duplicates)
+const heroImage1 = PARTY_PHOTOS_WITH_PEOPLE.combined1;
+const heroImage2 = PARTY_PHOTOS_WITH_PEOPLE.combined2;
+const heroImage3 = PARTY_PHOTOS_WITH_PEOPLE.combined3;
+const galleryImage1 = PARTY_PHOTOS_WITH_PEOPLE.combined4;
+const galleryImage2 = PARTY_PHOTOS_WITH_PEOPLE.combined5;
+const galleryImage3 = PARTY_PHOTOS_WITH_PEOPLE.combined6;
+const partyImage27 = PARTY_PHOTOS_WITH_PEOPLE.combined7;
+const partyImage28 = PARTY_PHOTOS_WITH_PEOPLE.combined8;
 
 // Combined party add-ons from constants
 const combinedAddOns = DISCO_ADD_ONS.combined;
@@ -102,15 +99,13 @@ const faqItems = [
 // Photo gallery items - PARTY PHOTOS WITH REAL PEOPLE CELEBRATING
 const galleryPhotos = [
   { id: 1, src: heroImage1, alt: 'Combined Bachelor Bachelorette Austin party group on Lake Travis' },
-  { id: 2, src: heroImage2, alt: 'ATX Disco Cruise party atmosphere on Lake Travis' },
-  { id: 3, src: heroImage3, alt: 'Party Boat Austin friends dancing on Lake Travis cruise' },
-  { id: 4, src: galleryImage1, alt: 'Combined Bachelor Bachelorette Austin mixed group party vibes on Lake Travis' },
-  { id: 5, src: galleryImage2, alt: 'Combined Bachelor Bachelorette Austin party atmosphere on Lake Travis' },
-  { id: 6, src: galleryImage3, alt: 'Lake Travis Party celebration on Party Boat Austin' },
+  { id: 2, src: heroImage2, alt: 'Champagne spray celebration on the cruise' },
+  { id: 3, src: heroImage3, alt: 'Party Boat Austin friends jumping into the lake' },
+  { id: 4, src: galleryImage1, alt: 'Wedding reception party on Lake Travis' },
+  { id: 5, src: galleryImage2, alt: 'Friends posing on party boat' },
+  { id: 6, src: galleryImage3, alt: 'Captain popping champagne at party' },
   { id: 7, src: partyImage27, alt: 'Lake Travis Party guests celebrating on cruise' },
-  { id: 8, src: partyImage28, alt: 'Bachelor and bachelorette groups celebrating together on Lake Travis' },
-  { id: 9, src: partyImage29, alt: 'Party cruise celebration with real guests on Lake Travis' },
-  { id: 10, src: partyImage30, alt: 'Combined bach party having fun on Lake Travis boat' }
+  { id: 8, src: partyImage28, alt: 'Bachelor and bachelorette groups dancing together' }
 ];
 
 export default function CombinedBachelorBachelorette() {
