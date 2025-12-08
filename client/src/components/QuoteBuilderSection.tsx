@@ -3,42 +3,18 @@ import { Sparkles } from 'lucide-react';
 
 export default function QuoteBuilderSection() {
   const [iframeUrl, setIframeUrl] = useState<string | null>(null);
-  const [isVisible, setIsVisible] = useState(false);
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
 
-  // PAGESPEED: Use IntersectionObserver to lazy load iframe only when in viewport
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-    
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setIsVisible(true);
-            observer.disconnect();
-          }
-        });
-      },
-      { rootMargin: '200px' } // Start loading 200px before section is visible
-    );
-    
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-    
-    return () => observer.disconnect();
-  }, []);
-
-  // Initialize URL only when section becomes visible
+  // INSTANT LOAD: Initialize URL immediately on mount (no lazy loading)
   useLayoutEffect(() => {
-    if (typeof window !== 'undefined' && isVisible) {
+    if (typeof window !== 'undefined') {
       const currentUrl = encodeURIComponent(window.location.href);
       const baseUrl = 'https://booking.premierpartycruises.com/quote-v2';
       setIframeUrl(`${baseUrl}?sourceUrl=${currentUrl}&sourceType=embedded_quote_v2`);
     }
-  }, [isVisible]);
+  }, []);
 
   // Setup auto-resize handler
   useEffect(() => {
@@ -115,7 +91,7 @@ export default function QuoteBuilderSection() {
                     zIndex: 1
                   }}
                   allow="payment"
-                  loading="lazy"
+                  loading="eager"
                   data-testid="iframe-quote-builder"
                   onLoad={(e) => {
                     const iframe = e.target as HTMLIFrameElement;
