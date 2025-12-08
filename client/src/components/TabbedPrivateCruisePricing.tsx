@@ -56,6 +56,13 @@ const getHourlyRate = (dayType: 'mon-thu' | 'fri' | 'sat' | 'sun', capacity: 14 
   return PRIVATE_CRUISE_PRICING[tier].baseHourlyRates[dayKey] / 100; // Convert cents to dollars
 };
 
+// Helper to parse add-on fee from string like "+$150 flat fee (per cruise)"
+const parseAddOnFee = (addOnString?: string): number => {
+  if (!addOnString) return 0;
+  const match = addOnString.match(/\+\$(\d+)/);
+  return match ? parseInt(match[1], 10) : 0;
+};
+
 // EXACT package definitions from knowledge base
 const PACKAGE_DETAILS = {
   14: {
@@ -410,9 +417,11 @@ export function TabbedPrivateCruisePricing({ className = '' }: TabbedPrivateCrui
                         {formatCurrency(hourlyRate * 100)}/hour × 4 hours
                       </div>
                       <div className="text-3xl font-bold text-primary mt-2">
-                        = {formatCurrency(hourlyRate * 4 * 100)}
+                        = {formatCurrency((hourlyRate * 4 + parseAddOnFee(packages.essentials.addOn)) * 100)}
                       </div>
-                      <p className="text-sm font-bold text-gray-900 dark:text-gray-100 mt-2">{packages.essentials.addOn} package add-on</p>
+                      <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                        (includes {packages.essentials.addOn?.split(' ')[0]} Essentials package)
+                      </p>
                       <p className="text-xs text-gray-500 mt-1">Subject to tax & tip</p>
                     </div>
                   </CardHeader>
@@ -447,9 +456,11 @@ export function TabbedPrivateCruisePricing({ className = '' }: TabbedPrivateCrui
                         {formatCurrency(hourlyRate * 100)}/hour × 4 hours
                       </div>
                       <div className="text-3xl font-bold text-primary mt-2">
-                        = {formatCurrency(hourlyRate * 4 * 100)}
+                        = {formatCurrency((hourlyRate * 4 + parseAddOnFee(packages.ultimate.addOn)) * 100)}
                       </div>
-                      <p className="text-sm font-bold text-gray-900 dark:text-gray-100 mt-2">{packages.ultimate.addOn} package add-on</p>
+                      <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                        (includes {packages.ultimate.addOn?.split(' ')[0]} Ultimate package)
+                      </p>
                       <p className="text-xs text-gray-500 mt-1">Subject to tax & tip</p>
                     </div>
                   </CardHeader>
