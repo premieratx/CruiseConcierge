@@ -12,7 +12,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import PublicNavigation from '@/components/PublicNavigation';
 import Footer from '@/components/Footer';
-import { AnimatedPhotoGallery } from '@/components/AnimatedPhotoGallery';
+import AnimatedPhotoGallery from '@/components/AnimatedPhotoGallery';
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 20 },
@@ -27,15 +27,6 @@ const heroImages = [
   '/attached_assets/bachelor-party-group-guys-hero-compressed.webp',
   '/attached_assets/meeseeks-25-person-boat.webp',
   '/attached_assets/clever-girl-disco-party.webp'
-];
-
-const galleryImages = [
-  '/attached_assets/bachelor-party-group-guys-hero-compressed.webp',
-  '/attached_assets/meeseeks-25-person-boat.webp',
-  '/attached_assets/clever-girl-disco-party.webp',
-  '/attached_assets/lake-travis-sunset-party.webp',
-  '/attached_assets/party-boat-floats.webp',
-  '/attached_assets/disco-ball-party.webp'
 ];
 
 const whyLakeTravis = [
@@ -298,11 +289,7 @@ export default function LakeTravisBachelorPartyBoatRentalsGuide() {
               </p>
             </motion.div>
 
-            <AnimatedPhotoGallery 
-              images={galleryImages}
-              columns={3}
-              className="gap-4"
-            />
+            <AnimatedPhotoGallery />
           </div>
         </section>
 

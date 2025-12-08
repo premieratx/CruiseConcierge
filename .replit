@@ -8,8 +8,8 @@ packages = ["glibcLocales", "imagemagick", "jq"]
 
 [deployment]
 deploymentTarget = "autoscale"
-build = ["sh", "-c", "node deployment-build-working.js"]
-run = ["npm", "run", "start"]
+build = ["sh", "-c", "node build.js"]
+run = ["sh", "-c", "npm run start"]
 
 [env]
 PORT = "5000"
