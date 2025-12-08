@@ -309,6 +309,87 @@ export default function Gallery() {
         </section>
       </SectionReveal>
 
+      {/* Party Vibes Section - Real Party Photos */}
+      <section className="py-12 bg-gradient-to-b from-purple-50 to-white dark:from-purple-900/20 dark:to-gray-950">
+        <div className="max-w-7xl mx-auto px-6">
+          <SectionReveal>
+            <div className="text-center mb-8">
+              <div className="flex items-center justify-center gap-4 mb-2">
+                <Sparkles className="h-10 w-10 text-purple-600" />
+                <h2 className="text-4xl font-playfair font-bold text-gray-900 dark:text-white">
+                  Party Vibes
+                </h2>
+                <Sparkles className="h-10 w-10 text-purple-600" />
+              </div>
+              <p className="text-base text-gray-600 dark:text-gray-300">
+                Real photos from real parties - See the energy on Lake Travis
+              </p>
+            </div>
+          </SectionReveal>
+
+          <SectionReveal>
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+              {[
+                { src: '/attached_assets/@capitalcityshots-1_1760080740012.jpg', alt: 'Lake Travis party cruise celebration' },
+                { src: '/attached_assets/@capitalcityshots-2_1760080740017.jpg', alt: 'Party boat guests having fun' },
+                { src: '/attached_assets/@capitalcityshots-3_1760080740017.jpg', alt: 'Bachelorette party on the lake' },
+                { src: '/attached_assets/@capitalcityshots-4_1760080740017.jpg', alt: 'Group celebrating on party boat' },
+                { src: '/attached_assets/@capitalcityshots-5_1760080740018.jpg', alt: 'Lake Travis party atmosphere' },
+                { src: '/attached_assets/@capitalcityshots-6_1760080740018.jpg', alt: 'Guests dancing on the cruise' },
+                { src: '/attached_assets/@capitalcityshots-7_1760080740018.jpg', alt: 'Bachelor party celebration' },
+                { src: '/attached_assets/@capitalcityshots-8_1760080740018.jpg', alt: 'Party cruise fun moments' },
+                { src: '/attached_assets/@capitalcityshots-9_1760080740019.jpg', alt: 'Lake Travis sunset party' },
+                { src: '/attached_assets/@capitalcityshots-10_1760080740019.jpg', alt: 'Group photo on party boat' },
+                { src: '/attached_assets/@capitalcityshots-11_1760080740019.jpg', alt: 'Austin party cruise celebration' },
+                { src: '/attached_assets/@capitalcityshots-12_1760080740019.jpg', alt: 'Guests enjoying the cruise' },
+                { src: '/attached_assets/@capitalcityshots-13_1760080740020.jpg', alt: 'Party atmosphere on the water' },
+                { src: '/attached_assets/@capitalcityshots-14_1760080740020.jpg', alt: 'Friends celebrating together' },
+                { src: '/attached_assets/@capitalcityshots-15_1760080740020.jpg', alt: 'Lake Travis party vibes' },
+                { src: '/attached_assets/@capitalcityshots-16_1760080740020.jpg', alt: 'Bachelorette group celebration' },
+                { src: '/attached_assets/@capitalcityshots-17_1760080740020.jpg', alt: 'Party boat dance floor' },
+                { src: '/attached_assets/@capitalcityshots-18_1760080740021.jpg', alt: 'Austin bachelor party' },
+                { src: '/attached_assets/@capitalcityshots-19_1760080740021.jpg', alt: 'Sunset cruise party' },
+                { src: '/attached_assets/@capitalcityshots-20_1760080740021.jpg', alt: 'Group having fun on Lake Travis' },
+                { src: '/attached_assets/@capitalcityshots-21_1760080807864.jpg', alt: 'Party cruise celebration' },
+                { src: '/attached_assets/@capitalcityshots-22_1760080807865.jpg', alt: 'Lake Travis party moments' },
+                { src: '/attached_assets/@capitalcityshots-23_1760080807865.jpg', alt: 'Guests celebrating on the water' },
+                { src: '/attached_assets/@capitalcityshots-24_1760080807866.jpg', alt: 'Austin party boat experience' },
+                { src: '/attached_assets/@capitalcityshots-25_1760080807866.jpg', alt: 'Bachelor party on the lake' },
+                { src: '/attached_assets/@capitalcityshots-26_1760080807866.jpg', alt: 'Bachelorette celebration cruise' },
+                { src: '/attached_assets/@capitalcityshots-27_1760080807866.jpg', alt: 'Party vibes Lake Travis' },
+                { src: '/attached_assets/@capitalcityshots-28_1760080807867.jpg', alt: 'Friends on party cruise' },
+                { src: '/attached_assets/@capitalcityshots-29_1760080807867.jpg', alt: 'Lake Travis celebration' },
+                { src: '/attached_assets/@capitalcityshots-30_1760080807867.jpg', alt: 'Austin party boat fun' },
+                { src: '/attached_assets/@capitalcityshots-31_1760080807867.jpg', alt: 'Party cruise atmosphere' },
+                { src: '/attached_assets/@capitalcityshots-32_1760080807868.jpg', alt: 'Group celebration on boat' },
+                { src: '/attached_assets/@capitalcityshots-33_1760080807868.jpg', alt: 'Lake Travis party experience' },
+                { src: '/attached_assets/@capitalcityshots-34_1760080807868.jpg', alt: 'Bachelor bachelorette party' },
+                { src: '/attached_assets/@capitalcityshots-35_1760080807868.jpg', alt: 'Party boat celebration' },
+                { src: '/attached_assets/@capitalcityshots-36_1760080807868.jpg', alt: 'Austin Lake Travis party' },
+                { src: '/attached_assets/@capitalcityshots-37_1760080807869.jpg', alt: 'Premier Party Cruises celebration' },
+              ].map((photo, idx) => (
+                <Card
+                  key={idx}
+                  className="group cursor-pointer overflow-hidden hover:shadow-xl transition-all duration-300 p-0 rounded-xl"
+                >
+                  <div className="aspect-square relative overflow-hidden">
+                    <img
+                      src={photo.src}
+                      alt={photo.alt}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                      <Camera className="h-6 w-6 text-white" />
+                    </div>
+                  </div>
+                </Card>
+              ))}
+            </div>
+          </SectionReveal>
+        </div>
+      </section>
+
       {/* Fleet Photos Section */}
       <section className="py-6 bg-gradient-to-b from-blue-50 to-white dark:from-gray-900 dark:to-gray-950">
         <div className="max-w-7xl mx-auto px-6">
@@ -317,7 +398,7 @@ export default function Gallery() {
               <div className="flex items-center justify-center gap-4 mb-2">
                 <Ship className="h-10 w-10 text-blue-600" />
                 <h2 className="text-4xl font-playfair font-bold text-gray-900 dark:text-white">
-                  Fleet Photos
+                  Our Fleet
                 </h2>
                 <Ship className="h-10 w-10 text-blue-600" />
               </div>
@@ -445,129 +526,6 @@ export default function Gallery() {
         </div>
       </section>
 
-      {/* Category Sections */}
-      <section className="py-24 bg-gradient-to-b from-white to-blue-50 dark:from-gray-950 dark:to-gray-900">
-        <div className="max-w-7xl mx-auto px-6">
-          <SectionReveal>
-            <div className="text-center mb-16">
-              <h2 className="text-3xl font-playfair font-bold text-gray-900 dark:text-white mb-4">
-                Browse by Category
-              </h2>
-              <p className="text-base text-gray-600 dark:text-gray-300">
-                Explore our collection of boats, events, and celebrations
-              </p>
-            </div>
-          </SectionReveal>
-
-          {/* Our Fleet */}
-          {photos.filter(p => p.manualTags?.some(tag => ['boats', 'fleet'].includes(tag))).length > 0 && (
-            <SectionReveal>
-              <div className="mb-20">
-                <div className="text-center mb-12">
-                  <Ship className="h-12 w-12 text-blue-600 mx-auto mb-4" />
-                  <h3 className="text-3xl font-playfair font-bold text-gray-900 dark:text-white mb-3">Our Fleet</h3>
-                  <p className="text-base text-gray-600 dark:text-gray-400">Modern boats for every occasion</p>
-                </div>
-                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-                  {photos.filter(p => p.manualTags?.some(tag => ['boats', 'fleet'].includes(tag))).map((photo, idx) => (
-                    <Card
-                      key={photo.id}
-                      className="group cursor-pointer overflow-hidden hover:shadow-xl transition-all duration-300 p-0 rounded-xl"
-                      onClick={() => {
-                        const filtered = photos.filter(p => p.manualTags?.some(tag => ['boats', 'fleet'].includes(tag)));
-                        setFilteredPhotos(filtered);
-                        setSelectedIndex(idx);
-                        setLightboxOpen(true);
-                      }}
-                    >
-                      <div className="aspect-square relative overflow-hidden">
-                        <img
-                          src={photo.filePath || `/api/media/view/${photo.id}`}
-                          alt={photo.altText || photo.originalName}
-                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                          loading="lazy"
-                        />
-                      </div>
-                    </Card>
-                  ))}
-                </div>
-              </div>
-            </SectionReveal>
-          )}
-
-          {/* Party Atmosphere */}
-          {photos.filter(p => p.manualTags?.some(tag => ['party_atmosphere', 'party'].includes(tag))).length > 0 && (
-            <SectionReveal>
-              <div className="mb-20">
-                <div className="text-center mb-12">
-                  <Sparkles className="h-12 w-12 text-yellow-500 mx-auto mb-4" />
-                  <h3 className="text-3xl font-playfair font-bold text-gray-900 dark:text-white mb-3">Party Vibes</h3>
-                  <p className="text-base text-gray-600 dark:text-gray-400">Feel the energy on Lake Travis</p>
-                </div>
-                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-                  {photos.filter(p => p.manualTags?.some(tag => ['party_atmosphere', 'party'].includes(tag))).map((photo, idx) => (
-                    <Card
-                      key={photo.id}
-                      className="group cursor-pointer overflow-hidden hover:shadow-xl transition-all duration-300 p-0 rounded-xl"
-                      onClick={() => {
-                        const filtered = photos.filter(p => p.manualTags?.some(tag => ['party_atmosphere', 'party'].includes(tag)));
-                        setFilteredPhotos(filtered);
-                        setSelectedIndex(idx);
-                        setLightboxOpen(true);
-                      }}
-                    >
-                      <div className="aspect-square relative overflow-hidden">
-                        <img
-                          src={photo.filePath || `/api/media/view/${photo.id}`}
-                          alt={photo.altText || photo.originalName}
-                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                          loading="lazy"
-                        />
-                      </div>
-                    </Card>
-                  ))}
-                </div>
-              </div>
-            </SectionReveal>
-          )}
-
-          {/* Events */}
-          {photos.filter(p => p.manualTags?.some(tag => ['events', 'celebration'].includes(tag))).length > 0 && (
-            <SectionReveal>
-              <div className="mb-20">
-                <div className="text-center mb-12">
-                  <Users className="h-12 w-12 text-blue-600 mx-auto mb-4" />
-                  <h3 className="text-3xl font-playfair font-bold text-gray-900 dark:text-white mb-3">Events & Celebrations</h3>
-                  <p className="text-base text-gray-600 dark:text-gray-400">Unforgettable moments with loved ones</p>
-                </div>
-                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-                  {photos.filter(p => p.manualTags?.some(tag => ['events', 'celebration'].includes(tag))).map((photo, idx) => (
-                    <Card
-                      key={photo.id}
-                      className="group cursor-pointer overflow-hidden hover:shadow-xl transition-all duration-300 p-0 rounded-xl"
-                      onClick={() => {
-                        const filtered = photos.filter(p => p.manualTags?.some(tag => ['events', 'celebration'].includes(tag)));
-                        setFilteredPhotos(filtered);
-                        setSelectedIndex(idx);
-                        setLightboxOpen(true);
-                      }}
-                    >
-                      <div className="aspect-square relative overflow-hidden">
-                        <img
-                          src={photo.filePath || `/api/media/view/${photo.id}`}
-                          alt={photo.altText || photo.originalName}
-                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                          loading="lazy"
-                        />
-                      </div>
-                    </Card>
-                  ))}
-                </div>
-              </div>
-            </SectionReveal>
-          )}
-        </div>
-      </section>
 
       {/* CTA Section */}
       <SectionReveal>
