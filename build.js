@@ -12,6 +12,24 @@ async function build() {
     
     console.log('Building server with esbuild...');
     const externals = [
+      // Node.js built-in modules
+      'util',
+      'crypto',
+      'stream',
+      'path',
+      'fs',
+      'os',
+      'http',
+      'https',
+      'net',
+      'tls',
+      'events',
+      'buffer',
+      'url',
+      'querystring',
+      'zlib',
+      'child_process',
+      // Third-party packages
       'lightningcss',
       '@neondatabase/serverless',
       'drizzle-orm', 
@@ -19,6 +37,7 @@ async function build() {
       'express-session',
       'connect-pg-simple',
       'passport',
+      'passport-local',
       'multer',
       'compression',
       '@sendgrid/mail',
