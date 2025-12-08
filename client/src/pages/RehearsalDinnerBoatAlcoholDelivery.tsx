@@ -14,17 +14,22 @@ import {
   Wine, Heart, Users, Star, Calendar, Shield, Award,
   Clock, Sparkles, Gift, Camera, Ship, Anchor, Sun,
   ArrowRight, CheckCircle, Truck, Package, Phone,
-  MapPin, CreditCard, Sunset, GlassWater, Waves
+  MapPin, CreditCard, Waves, ExternalLink, MessageCircle
 } from 'lucide-react';
 
-const heroImage = '/attached_assets/clever-girl-50-person-boat.webp';
-const partyImage1 = '/attached_assets/party-atmosphere-1.webp';
-const partyImage2 = '/attached_assets/party-atmosphere-2.webp';
-const partyImage3 = '/attached_assets/dancing-party-scene.webp';
+const heroImage = '/attached_assets/clever-girl-4-wedding-venue.jpg';
+const sunsetBoatImage = '/attached_assets/clever-girl-1-lake-travis-party-boat.jpg';
+const partySceneImage = '/attached_assets/atx-disco-cruise-party.webp';
+const danceFloorImage = '/attached_assets/clever-girl-5-dance-floor.jpg';
+const interiorImage = '/attached_assets/clever-girl-6-interior-seating.jpg';
+const flagshipImage = '/attached_assets/clever-girl-7-flagship-boat.jpg';
+const weddingReceptionImage = '/attached_assets/clever-girl-8-wedding-reception.jpg';
+const bacheloretteImage = '/attached_assets/clever-girl-3-bachelorette-boat.jpg';
+const dancingPartyImage = '/attached_assets/dancing-party-scene.webp';
 
 const whyLakeTravis = [
   {
-    icon: Sunset,
+    icon: Sun,
     title: 'Breathtaking Sunset Views',
     description: 'Lake Travis offers stunning golden hour backdrops for your rehearsal dinner photos'
   },
@@ -73,6 +78,7 @@ const weddingWeekendEvents = [
     name: 'Rehearsal Dinner',
     icon: Wine,
     description: 'The night before the wedding',
+    image: weddingReceptionImage,
     features: [
       'Sunset cruise timing for perfect toasts',
       'Intimate setting for close family & friends',
@@ -85,6 +91,7 @@ const weddingWeekendEvents = [
     name: 'Welcome Party',
     icon: Users,
     description: 'Greet out-of-town guests',
+    image: partySceneImage,
     features: [
       'Casual meet & greet on the water',
       'Austin skyline views to impress visitors',
@@ -97,6 +104,7 @@ const weddingWeekendEvents = [
     name: 'After Party',
     icon: Sparkles,
     description: 'Keep celebrating post-reception',
+    image: danceFloorImage,
     features: [
       'Late-night party cruise option',
       'Dance floor on the water',
@@ -112,19 +120,22 @@ const fleetOptions = [
     name: 'Day Tripper',
     capacity: '14 guests max',
     ideal: 'Intimate rehearsal dinners',
-    description: 'Perfect for small wedding parties and close family gatherings'
+    description: 'Perfect for small wedding parties and close family gatherings',
+    image: '/attached_assets/day-tripper-14-person-boat.webp'
   },
   {
     name: 'Meeseeks',
     capacity: '30 guests max',
     ideal: 'Medium-sized wedding parties',
-    description: 'Great for rehearsal dinners with extended family and wedding party'
+    description: 'Great for rehearsal dinners with extended family and wedding party',
+    image: '/attached_assets/meeseeks-20-person-boat.webp'
   },
   {
     name: 'Clever Girl',
     capacity: '75 guests max',
     ideal: 'Large wedding celebrations',
-    description: 'Our flagship vessel with 14 disco balls - perfect for grand celebrations'
+    description: 'Our flagship vessel with 14 disco balls - perfect for grand celebrations',
+    image: '/attached_assets/clever-girl-50-person-boat.webp'
   }
 ];
 
@@ -152,42 +163,48 @@ const faqs = [
   {
     question: 'Are sunset cruises available for rehearsal dinners?',
     answer: 'Yes! Sunset cruises are our most popular option for rehearsal dinners. We time departures so you\'re on the water during golden hour - typically 2-3 hours before sunset. The Lake Travis sunset views are absolutely stunning for photos.'
+  },
+  {
+    question: 'What makes Premier Party Cruises and Party On Delivery unique?',
+    answer: 'They are the ONLY integrated alcohol delivery + party boat service in Austin, offering a unique market position that provides unparalleled convenience and a truly seamless experience for any event on Lake Travis.'
   }
 ];
 
 const galleryImages = [
-  { src: partyImage1, alt: 'Wedding party celebration on Lake Travis' },
-  { src: partyImage2, alt: 'Sunset rehearsal dinner on party boat' },
-  { src: partyImage3, alt: 'Dancing and celebrating on the water' }
+  { src: sunsetBoatImage, alt: 'Lake Travis party boat at sunset' },
+  { src: dancingPartyImage, alt: 'Dancing and celebrating on the water' },
+  { src: bacheloretteImage, alt: 'Bachelorette celebration on boat' },
+  { src: interiorImage, alt: 'Elegant interior seating on party boat' },
+  { src: flagshipImage, alt: 'Clever Girl flagship party boat' },
+  { src: weddingReceptionImage, alt: 'Wedding reception celebration' }
 ];
 
 export default function RehearsalDinnerBoatAlcoholDelivery() {
-  const breadcrumbItems = [
+  const breadcrumbSegments = [
     { label: 'Home', href: '/' },
     { label: 'Wedding Parties', href: '/wedding-parties' },
-    { label: 'Rehearsal Dinner Boat & Alcohol Delivery' }
+    { label: 'Rehearsal Dinner Boat & Alcohol Delivery', current: true }
   ];
 
   return (
     <div className="min-h-screen bg-white">
       <SEOHead
-        title="Rehearsal Dinner Boat Alcohol Delivery | Unique Wedding Weekend Experiences"
-        description="Create unforgettable rehearsal dinner experiences with Lake Travis boat parties and seamless alcohol delivery. Premier Party Cruises + Party On Delivery partnership for memorable wedding weekends in Austin."
-        url="https://premierpartycruises.com/rehearsal-dinner-boat-alcohol-delivery"
-        image="https://premierpartycruises.com/attached_assets/clever-girl-50-person-boat.webp"
-        type="article"
+        pageRoute="/rehearsal-dinner-boat-alcohol-delivery"
+        defaultTitle="Rehearsal Dinner Boat Alcohol Delivery | Unique Wedding Weekend Experiences"
+        defaultDescription="Create unforgettable rehearsal dinner experiences with Lake Travis boat parties and seamless alcohol delivery. Premier Party Cruises + Party On Delivery partnership for memorable wedding weekends in Austin."
+        image="https://premierpartycruises.com/attached_assets/clever-girl-4-wedding-venue.jpg"
       />
 
       <PublicNavigation />
       
       <main>
         <section 
-          className="relative min-h-[70vh] flex items-center justify-center bg-cover bg-center"
-          style={{ backgroundImage: `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.6)), url(${heroImage})` }}
+          className="relative min-h-[80vh] flex items-center justify-center bg-cover bg-center"
+          style={{ backgroundImage: `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), url(${heroImage})` }}
         >
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/30" />
           <div className="relative z-10 text-center text-white px-6 max-w-5xl mx-auto">
-            <Badge className="mb-6 bg-purple-600/90 hover:bg-purple-600 text-white text-sm px-4 py-2">
+            <Badge className="mb-6 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white text-sm px-4 py-2 border-0">
               <Wine className="h-4 w-4 mr-2" />
               Wedding Weekend Experience
             </Badge>
@@ -197,43 +214,58 @@ export default function RehearsalDinnerBoatAlcoholDelivery() {
             <p className="text-xl md:text-2xl mb-8 text-gray-100 max-w-3xl mx-auto">
               Create unforgettable wedding weekend experiences on Lake Travis with seamless beverage delivery to your private party boat
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/contact">
-                <Button 
-                  size="lg" 
-                  className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold text-lg px-8 py-6"
-                  data-testid="button-hero-quote"
-                >
-                  <Gift className="mr-2 h-5 w-5" />
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+              <Button 
+                size="lg" 
+                className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold text-lg px-8 py-6"
+                asChild
+              >
+                <a href="https://premierpartycruises.com/chat" target="_blank" rel="noopener noreferrer" data-testid="button-hero-quote">
+                  <MessageCircle className="mr-2 h-5 w-5" />
                   Get Your Quote
-                </Button>
-              </Link>
-              <Link href="/private-cruises">
-                <Button 
-                  size="lg" 
-                  variant="outlineLight" 
-                  className="text-lg px-8 py-6"
-                  data-testid="button-hero-boats"
-                >
+                </a>
+              </Button>
+              <Button 
+                size="lg" 
+                variant="outlineLight" 
+                className="text-lg px-8 py-6"
+                asChild
+              >
+                <a href="https://premierpartycruises.com" target="_blank" rel="noopener noreferrer" data-testid="button-hero-website">
                   <Ship className="mr-2 h-5 w-5" />
                   View Our Boats
-                </Button>
-              </Link>
+                  <ExternalLink className="ml-2 h-4 w-4" />
+                </a>
+              </Button>
+            </div>
+            <div className="flex flex-col sm:flex-row gap-6 justify-center text-sm">
+              <div className="flex items-center justify-center gap-2">
+                <CheckCircle className="h-5 w-5 text-green-400" />
+                <span>15+ Years Experience</span>
+              </div>
+              <div className="flex items-center justify-center gap-2">
+                <CheckCircle className="h-5 w-5 text-green-400" />
+                <span>125,000+ Happy Guests</span>
+              </div>
+              <div className="flex items-center justify-center gap-2">
+                <CheckCircle className="h-5 w-5 text-green-400" />
+                <span>Perfect Safety Record</span>
+              </div>
             </div>
           </div>
         </section>
 
         <div className="max-w-7xl mx-auto px-6 py-4">
-          <Breadcrumb items={breadcrumbItems} />
+          <Breadcrumb customSegments={breadcrumbSegments} />
         </div>
 
         <SectionReveal>
-          <section className="py-20 bg-gradient-to-b from-white to-blue-50">
+          <section className="py-20 bg-gradient-to-b from-white to-purple-50">
             <div className="max-w-7xl mx-auto px-6">
               <div className="grid lg:grid-cols-2 gap-12 items-center">
                 <div>
-                  <span className="text-6xl font-black text-gray-100 opacity-30 absolute -mt-8">01</span>
-                  <h2 className="font-playfair text-3xl md:text-4xl font-bold mb-6 relative">
+                  <Badge className="mb-4 bg-purple-100 text-purple-700">Section 01</Badge>
+                  <h2 className="font-playfair text-3xl md:text-4xl font-bold mb-6">
                     Why Lake Travis for Your Rehearsal Dinner?
                   </h2>
                   <p className="text-lg text-gray-600 mb-6 leading-relaxed">
@@ -256,6 +288,16 @@ export default function RehearsalDinnerBoatAlcoholDelivery() {
                       <div className="text-sm text-gray-600">Safety Record</div>
                     </div>
                   </div>
+                  <Button 
+                    size="lg" 
+                    className="bg-purple-600 hover:bg-purple-700"
+                    asChild
+                  >
+                    <a href="https://premierpartycruises.com" target="_blank" rel="noopener noreferrer" data-testid="link-premier-main">
+                      Explore Premier Party Cruises
+                      <ExternalLink className="ml-2 h-4 w-4" />
+                    </a>
+                  </Button>
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   {whyLakeTravis.map((item, idx) => (
@@ -276,42 +318,121 @@ export default function RehearsalDinnerBoatAlcoholDelivery() {
         <SectionReveal>
           <section className="py-20 bg-white">
             <div className="max-w-7xl mx-auto px-6">
-              <div className="text-center mb-16">
-                <span className="text-6xl font-black text-gray-100 opacity-30 absolute -mt-8">02</span>
-                <h2 className="font-playfair text-3xl md:text-4xl font-bold mb-6 relative">
-                  Seamless Alcohol Delivery with Party On Delivery
-                </h2>
-                <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-                  Forget the hassle of coordinating multiple vendors. Party On Delivery ensures your drinks, ice, and cocktail kits are delivered directly to your boat on Lake Travis.
-                </p>
-              </div>
-
-              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-                {partyOnDeliveryBenefits.map((benefit, idx) => (
-                  <Card key={idx} className="border-2 border-purple-100 hover:border-purple-300 transition-colors" data-testid={`card-delivery-benefit-${idx}`}>
-                    <CardContent className="p-6 text-center">
-                      <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r from-purple-100 to-pink-100 flex items-center justify-center">
-                        <benefit.icon className="h-8 w-8 text-purple-600" />
+              <div className="grid lg:grid-cols-2 gap-12 items-center">
+                <div className="order-2 lg:order-1">
+                  <img
+                    src={sunsetBoatImage}
+                    alt="Lake Travis party boat at sunset - perfect for rehearsal dinners"
+                    className="w-full h-[500px] object-cover rounded-2xl shadow-2xl"
+                    loading="lazy"
+                    width="800"
+                    height="500"
+                    decoding="async"
+                    data-testid="image-sunset-boat"
+                  />
+                </div>
+                <div className="order-1 lg:order-2">
+                  <Badge className="mb-4 bg-purple-100 text-purple-700">Section 02</Badge>
+                  <h2 className="font-playfair text-3xl md:text-4xl font-bold mb-6">
+                    Seamless Alcohol Delivery with Party On Delivery
+                  </h2>
+                  <p className="text-lg text-gray-600 mb-6 leading-relaxed">
+                    One of the most significant advantages of choosing a Lake Travis party boat for your rehearsal dinner is the seamless integration of alcohol delivery, thanks to Party On Delivery.
+                  </p>
+                  <p className="text-lg text-gray-600 mb-8 leading-relaxed">
+                    Forget the hassle of coordinating multiple vendors or transporting beverages yourself. Party On Delivery, founded in 2023, specializes in event-focused alcohol delivery in Austin, ensuring that your chosen drinks, ice, and even cocktail kits are delivered directly to your boat.
+                  </p>
+                  <div className="grid grid-cols-2 gap-4 mb-8">
+                    {partyOnDeliveryBenefits.map((benefit, idx) => (
+                      <div key={idx} className="flex items-start gap-3" data-testid={`benefit-${idx}`}>
+                        <benefit.icon className="h-6 w-6 text-pink-600 mt-0.5 flex-shrink-0" />
+                        <div>
+                          <p className="font-semibold text-sm">{benefit.title}</p>
+                          <p className="text-xs text-gray-500">{benefit.description}</p>
+                        </div>
                       </div>
-                      <h3 className="font-bold text-lg mb-2">{benefit.title}</h3>
-                      <p className="text-sm text-gray-600">{benefit.description}</p>
-                    </CardContent>
-                  </Card>
-                ))}
+                    ))}
+                  </div>
+                  <div className="flex flex-col sm:flex-row gap-3">
+                    <Button 
+                      size="lg" 
+                      className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700"
+                      asChild
+                    >
+                      <a href="https://partyondelivery.com" target="_blank" rel="noopener noreferrer" data-testid="link-party-on-delivery">
+                        <Truck className="mr-2 h-5 w-5" />
+                        Visit Party On Delivery
+                        <ExternalLink className="ml-2 h-4 w-4" />
+                      </a>
+                    </Button>
+                    <Button 
+                      size="lg" 
+                      variant="outline"
+                      className="border-2 border-pink-600 text-pink-600 hover:bg-pink-600 hover:text-white"
+                      asChild
+                    >
+                      <a href="https://partyondelivery.com/lake-travis" target="_blank" rel="noopener noreferrer" data-testid="link-pod-lake-travis">
+                        Lake Travis Delivery
+                      </a>
+                    </Button>
+                  </div>
+                </div>
               </div>
+            </div>
+          </section>
+        </SectionReveal>
 
-              <div className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-2xl p-8 text-center">
-                <h3 className="font-playfair text-2xl font-bold mb-4">Ready to Order?</h3>
-                <p className="text-gray-600 mb-6">Visit Party On Delivery to explore packages and place your order</p>
+        <SectionReveal>
+          <section className="py-20 bg-gradient-to-r from-purple-600 to-pink-600 text-white">
+            <div className="max-w-4xl mx-auto px-6 text-center">
+              <h2 className="font-playfair text-3xl md:text-4xl font-bold mb-6">
+                The Only Integrated Alcohol Delivery + Party Boat Service in Austin
+              </h2>
+              <p className="text-xl mb-8 text-purple-100">
+                Premier Party Cruises and Party On Delivery offer a unique partnership that eliminates all logistical challenges for your wedding weekend
+              </p>
+              <div className="grid md:grid-cols-3 gap-8 mb-12">
+                <div className="text-center">
+                  <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-white/20 flex items-center justify-center">
+                    <Ship className="h-10 w-10 text-white" />
+                  </div>
+                  <h3 className="font-bold text-xl mb-2">Book Your Boat</h3>
+                  <p className="text-purple-100">Choose from our fleet for the perfect wedding weekend venue</p>
+                </div>
+                <div className="text-center">
+                  <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-white/20 flex items-center justify-center">
+                    <Package className="h-10 w-10 text-white" />
+                  </div>
+                  <h3 className="font-bold text-xl mb-2">Order Drinks</h3>
+                  <p className="text-purple-100">Party On Delivery brings everything to your boat</p>
+                </div>
+                <div className="text-center">
+                  <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-white/20 flex items-center justify-center">
+                    <Heart className="h-10 w-10 text-white" />
+                  </div>
+                  <h3 className="font-bold text-xl mb-2">Celebrate</h3>
+                  <p className="text-purple-100">Enjoy an unforgettable rehearsal dinner on Lake Travis</p>
+                </div>
+              </div>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button 
                   size="lg" 
-                  className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
+                  className="bg-white text-purple-600 hover:bg-gray-100 font-bold"
                   asChild
                 >
-                  <a href="https://partyondelivery.com" target="_blank" rel="noopener noreferrer" data-testid="link-party-on-delivery">
+                  <a href="https://premierpartycruises.com/chat" target="_blank" rel="noopener noreferrer" data-testid="button-cta-quote">
+                    <MessageCircle className="mr-2 h-5 w-5" />
+                    Start Planning
+                  </a>
+                </Button>
+                <Button 
+                  size="lg" 
+                  variant="outlineLight"
+                  asChild
+                >
+                  <a href="https://partyondelivery.com/order-now" target="_blank" rel="noopener noreferrer" data-testid="button-cta-order">
                     <Truck className="mr-2 h-5 w-5" />
-                    Visit Party On Delivery
-                    <ArrowRight className="ml-2 h-5 w-5" />
+                    Order Drinks Now
                   </a>
                 </Button>
               </div>
@@ -320,11 +441,11 @@ export default function RehearsalDinnerBoatAlcoholDelivery() {
         </SectionReveal>
 
         <SectionReveal>
-          <section className="py-20 bg-gradient-to-b from-blue-50 to-white">
+          <section className="py-20 bg-white">
             <div className="max-w-7xl mx-auto px-6">
               <div className="text-center mb-16">
-                <span className="text-6xl font-black text-gray-100 opacity-30 absolute -mt-8">03</span>
-                <h2 className="font-playfair text-3xl md:text-4xl font-bold mb-6 relative">
+                <Badge className="mb-4 bg-purple-100 text-purple-700">Section 03</Badge>
+                <h2 className="font-playfair text-3xl md:text-4xl font-bold mb-6">
                   Wedding Weekend Event Options
                 </h2>
                 <p className="text-lg text-gray-600 max-w-3xl mx-auto">
@@ -334,10 +455,21 @@ export default function RehearsalDinnerBoatAlcoholDelivery() {
 
               <div className="grid md:grid-cols-3 gap-8">
                 {weddingWeekendEvents.map((event, idx) => (
-                  <Card key={idx} className="border-0 shadow-xl hover:shadow-2xl transition-all hover:-translate-y-1" data-testid={`card-event-${idx}`}>
+                  <Card key={idx} className="border-0 shadow-xl hover:shadow-2xl transition-all hover:-translate-y-1 overflow-hidden" data-testid={`card-event-${idx}`}>
+                    <div className="h-48 overflow-hidden">
+                      <img
+                        src={event.image}
+                        alt={event.name}
+                        className="w-full h-full object-cover"
+                        loading="lazy"
+                        width="400"
+                        height="192"
+                        decoding="async"
+                      />
+                    </div>
                     <CardHeader className="text-center pb-4">
-                      <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 flex items-center justify-center">
-                        <event.icon className="h-10 w-10 text-white" />
+                      <div className="w-16 h-16 mx-auto -mt-12 mb-2 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 flex items-center justify-center shadow-lg border-4 border-white">
+                        <event.icon className="h-8 w-8 text-white" />
                       </div>
                       <CardTitle className="font-playfair text-2xl">{event.name}</CardTitle>
                       <CardDescription className="text-base">{event.description}</CardDescription>
@@ -347,7 +479,7 @@ export default function RehearsalDinnerBoatAlcoholDelivery() {
                         {event.features.map((feature, i) => (
                           <li key={i} className="flex items-start gap-3">
                             <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
-                            <span className="text-gray-700">{feature}</span>
+                            <span className="text-gray-700 text-sm">{feature}</span>
                           </li>
                         ))}
                       </ul>
@@ -360,11 +492,11 @@ export default function RehearsalDinnerBoatAlcoholDelivery() {
         </SectionReveal>
 
         <SectionReveal>
-          <section className="py-20 bg-white">
+          <section className="py-20 bg-gray-50">
             <div className="max-w-7xl mx-auto px-6">
               <div className="text-center mb-16">
-                <span className="text-6xl font-black text-gray-100 opacity-30 absolute -mt-8">04</span>
-                <h2 className="font-playfair text-3xl md:text-4xl font-bold mb-6 relative">
+                <Badge className="mb-4 bg-purple-100 text-purple-700">Section 04</Badge>
+                <h2 className="font-playfair text-3xl md:text-4xl font-bold mb-6">
                   Choose Your Perfect Vessel
                 </h2>
                 <p className="text-lg text-gray-600 max-w-3xl mx-auto">
@@ -374,38 +506,85 @@ export default function RehearsalDinnerBoatAlcoholDelivery() {
 
               <div className="grid md:grid-cols-3 gap-8">
                 {fleetOptions.map((boat, idx) => (
-                  <Card key={idx} className="border-2 hover:border-purple-300 transition-colors" data-testid={`card-fleet-${idx}`}>
+                  <Card key={idx} className="border-0 shadow-xl hover:shadow-2xl transition-all overflow-hidden" data-testid={`card-fleet-${idx}`}>
+                    <div className="h-56 overflow-hidden">
+                      <img
+                        src={boat.image}
+                        alt={boat.name}
+                        className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                        loading="lazy"
+                        width="400"
+                        height="224"
+                        decoding="async"
+                      />
+                    </div>
                     <CardHeader className="text-center">
-                      <Ship className="h-12 w-12 mx-auto mb-4 text-purple-600" />
                       <CardTitle className="font-playfair text-2xl">{boat.name}</CardTitle>
-                      <Badge className="mt-2 bg-purple-100 text-purple-700">{boat.capacity}</Badge>
+                      <Badge className="mt-2 bg-purple-100 text-purple-700 w-fit mx-auto">{boat.capacity}</Badge>
                     </CardHeader>
                     <CardContent className="text-center">
                       <p className="font-semibold text-purple-600 mb-2">{boat.ideal}</p>
-                      <p className="text-gray-600">{boat.description}</p>
+                      <p className="text-gray-600 text-sm">{boat.description}</p>
                     </CardContent>
                   </Card>
                 ))}
               </div>
 
               <div className="text-center mt-12">
-                <Link href="/private-cruises">
-                  <Button size="lg" variant="outline" className="border-2 border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white" data-testid="button-view-fleet">
+                <Button 
+                  size="lg" 
+                  className="bg-purple-600 hover:bg-purple-700"
+                  asChild
+                >
+                  <a href="https://premierpartycruises.com" target="_blank" rel="noopener noreferrer" data-testid="button-view-fleet">
                     View Full Fleet Details
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </Button>
-                </Link>
+                    <ExternalLink className="ml-2 h-4 w-4" />
+                  </a>
+                </Button>
               </div>
             </div>
           </section>
         </SectionReveal>
 
         <SectionReveal>
-          <section className="py-20 bg-gradient-to-b from-blue-50 to-white">
+          <section className="py-20 bg-white">
             <div className="max-w-7xl mx-auto px-6">
               <div className="text-center mb-16">
-                <span className="text-6xl font-black text-gray-100 opacity-30 absolute -mt-8">05</span>
-                <h2 className="font-playfair text-3xl md:text-4xl font-bold mb-6 relative">
+                <Badge className="mb-4 bg-purple-100 text-purple-700">Section 05</Badge>
+                <h2 className="font-playfair text-3xl md:text-4xl font-bold mb-6">
+                  Wedding Celebrations on the Water
+                </h2>
+                <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+                  See why couples choose Lake Travis for their wedding weekend celebrations
+                </p>
+              </div>
+
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {galleryImages.map((image, idx) => (
+                  <div key={idx} className="rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all group">
+                    <img
+                      src={image.src}
+                      alt={image.alt}
+                      className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
+                      loading="lazy"
+                      width="400"
+                      height="256"
+                      decoding="async"
+                      data-testid={`gallery-image-${idx}`}
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        </SectionReveal>
+
+        <SectionReveal>
+          <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
+            <div className="max-w-7xl mx-auto px-6">
+              <div className="text-center mb-16">
+                <Badge className="mb-4 bg-purple-100 text-purple-700">Section 06</Badge>
+                <h2 className="font-playfair text-3xl md:text-4xl font-bold mb-6">
                   Frequently Asked Questions
                 </h2>
                 <p className="text-lg text-gray-600 max-w-3xl mx-auto">
@@ -438,33 +617,6 @@ export default function RehearsalDinnerBoatAlcoholDelivery() {
           </section>
         </SectionReveal>
 
-        <SectionReveal>
-          <section className="py-20 bg-white">
-            <div className="max-w-7xl mx-auto px-6">
-              <div className="text-center mb-16">
-                <span className="text-6xl font-black text-gray-100 opacity-30 absolute -mt-8">06</span>
-                <h2 className="font-playfair text-3xl md:text-4xl font-bold mb-6 relative">
-                  Wedding Celebrations on the Water
-                </h2>
-              </div>
-
-              <div className="grid md:grid-cols-3 gap-6">
-                {galleryImages.map((image, idx) => (
-                  <div key={idx} className="rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all">
-                    <img
-                      src={image.src}
-                      alt={image.alt}
-                      className="w-full h-64 object-cover"
-                      loading="lazy"
-                      data-testid={`gallery-image-${idx}`}
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
-        </SectionReveal>
-
         <ClientOnly>
           <QuoteBuilderSection />
         </ClientOnly>
@@ -478,29 +630,76 @@ export default function RehearsalDinnerBoatAlcoholDelivery() {
               <p className="text-xl mb-8 text-purple-100">
                 Create extraordinary memories with a rehearsal dinner cruise and seamless alcohol delivery
               </p>
+              <div className="grid sm:grid-cols-2 gap-6 max-w-2xl mx-auto mb-12">
+                <Card className="bg-white/10 border-white/20 text-white">
+                  <CardContent className="p-6 text-center">
+                    <Ship className="h-10 w-10 mx-auto mb-3" />
+                    <h3 className="font-bold text-lg mb-2">Premier Party Cruises</h3>
+                    <a href="tel:5124885892" className="text-lg font-semibold hover:text-yellow-300 transition-colors">
+                      (512) 488-5892
+                    </a>
+                    <div className="mt-4">
+                      <Button 
+                        size="sm" 
+                        className="bg-white text-purple-600 hover:bg-gray-100"
+                        asChild
+                      >
+                        <a href="https://premierpartycruises.com" target="_blank" rel="noopener noreferrer" data-testid="button-premier-website">
+                          Visit Website
+                          <ExternalLink className="ml-2 h-4 w-4" />
+                        </a>
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+                <Card className="bg-white/10 border-white/20 text-white">
+                  <CardContent className="p-6 text-center">
+                    <Truck className="h-10 w-10 mx-auto mb-3" />
+                    <h3 className="font-bold text-lg mb-2">Party On Delivery</h3>
+                    <a href="tel:7373719700" className="text-lg font-semibold hover:text-yellow-300 transition-colors">
+                      (737) 371-9700
+                    </a>
+                    <div className="mt-4">
+                      <Button 
+                        size="sm" 
+                        className="bg-white text-purple-600 hover:bg-gray-100"
+                        asChild
+                      >
+                        <a href="https://partyondelivery.com" target="_blank" rel="noopener noreferrer" data-testid="button-pod-website">
+                          Visit Website
+                          <ExternalLink className="ml-2 h-4 w-4" />
+                        </a>
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link href="/contact">
-                  <Button 
-                    size="lg" 
-                    className="bg-white text-purple-600 hover:bg-gray-100 font-bold text-lg px-10 py-6"
-                    data-testid="button-final-cta"
-                  >
+                <Button 
+                  size="lg" 
+                  className="bg-white text-purple-600 hover:bg-gray-100 font-bold text-lg px-10 py-6"
+                  asChild
+                >
+                  <a href="https://premierpartycruises.com/chat" target="_blank" rel="noopener noreferrer" data-testid="button-final-cta">
                     <Gift className="mr-2 h-5 w-5" />
                     Get Your Free Quote
-                  </Button>
-                </Link>
+                  </a>
+                </Button>
                 <Button 
                   size="lg" 
                   variant="outlineLight"
                   className="text-lg px-10 py-6"
                   asChild
                 >
-                  <a href="tel:5128794462" data-testid="button-call-now">
+                  <a href="tel:5124885892" data-testid="button-call-now">
                     <Phone className="mr-2 h-5 w-5" />
-                    Call (512) 879-4462
+                    Call (512) 488-5892
                   </a>
                 </Button>
               </div>
+              <p className="mt-8 text-sm text-purple-200">
+                Contact both companies for seamless event coordination in Austin!
+              </p>
             </div>
           </section>
         </SectionReveal>
