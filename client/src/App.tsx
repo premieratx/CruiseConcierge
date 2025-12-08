@@ -16,6 +16,7 @@ import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { GlobalInlineEditor } from "@/components/GlobalInlineEditor";
 import { XolaMobileCloseButton } from "@/components/XolaMobileCloseButton";
+import { QuoteWidgetPreloader } from "@/components/QuoteWidgetPreloader";
 
 // Home eagerly loaded for optimal LCP performance
 import Home from "./pages/Home";
@@ -695,6 +696,7 @@ function App() {
                 <Toaster />
                 <GlobalInlineEditor />
                 <XolaMobileCloseButton />
+                <QuoteWidgetPreloader />
                 <ErrorBoundary>
                   <Router />
                 </ErrorBoundary>

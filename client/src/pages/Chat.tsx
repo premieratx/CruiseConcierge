@@ -1,68 +1,70 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import { useLayoutEffect, useEffect, useState, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
 const logoPath = '/attached_assets/PPC Logo LARGE_1757881944449.png';
 import { Ship, Star, CheckCircle, Clock } from 'lucide-react';
-import ClaudeInsight from '@/components/ClaudeInsight';
+
+declare global {
+  interface Window {
+    __quoteWidgetPreloaded?: boolean;
+    __quoteWidgetIframe?: HTMLIFrameElement;
+  }
+}
 
 interface ChatProps {
   defaultEventType?: string;
 }
 
-const fadeInUp = {
-  hidden: { opacity: 0, y: 60 },
-  visible: { 
-    opacity: 1, 
-    y: 0,
-    transition: { duration: 0.6, ease: "easeOut" }
-  },
-  exit: { 
-    opacity: 0, 
-    y: -60,
-    transition: { duration: 0.4, ease: "easeIn" }
-  }
-};
-
 export default function Chat({ defaultEventType }: ChatProps = {}) {
-  // FIXED: Build iframe URL client-side only to avoid SSR/client mismatch
-  // Using state initialized in useLayoutEffect runs BEFORE paint (no delay visible to user)
-  const [iframeUrl, setIframeUrl] = React.useState<string | null>(null);
+  const [iframeUrl, setIframeUrl] = useState<string | null>(null);
+  const [iframeReady, setIframeReady] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
 
-  // Initialize URL as early as possible (before paint) to minimize any delay
-  React.useLayoutEffect(() => {
-    if (typeof window !== 'undefined') {
-      const currentUrl = encodeURIComponent(window.location.href);
-      const baseUrl = 'https://booking.premierpartycruises.com/quote-v2';
-      setIframeUrl(`${baseUrl}?sourceUrl=${currentUrl}&sourceType=embedded_quote_v2&autoResize=1`);
-      window.scrollTo({ top: 0, behavior: 'instant' });
+  useLayoutEffect(() => {
+    if (typeof window === 'undefined') return;
+    
+    const currentUrl = encodeURIComponent(window.location.href);
+    const baseUrl = 'https://booking.premierpartycruises.com/quote-v2';
+    const fullUrl = `${baseUrl}?sourceUrl=${currentUrl}&sourceType=embedded_quote_v2&autoResize=1`;
+    
+    if (window.__quoteWidgetIframe && containerRef.current) {
+      const preloadedIframe = window.__quoteWidgetIframe;
+      preloadedIframe.src = fullUrl;
+      preloadedIframe.id = 'quote-v2-widget-iframe';
+      preloadedIframe.style.cssText = 'width:100%;height:700px;border:none;display:block;position:relative;z-index:1;';
+      preloadedIframe.removeAttribute('aria-hidden');
+      preloadedIframe.removeAttribute('tabindex');
+      containerRef.current.appendChild(preloadedIframe);
+      setIframeReady(true);
+      window.__quoteWidgetIframe = undefined;
+    } else {
+      setIframeUrl(fullUrl);
     }
+    
+    window.scrollTo({ top: 0, behavior: 'instant' });
   }, []);
 
-  // Setup auto-resize handler
-  React.useEffect(() => {
-    if (typeof window !== 'undefined') {
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    
+    const handleMessage = (event: MessageEvent) => {
+      if (event.origin !== 'https://booking.premierpartycruises.com') return;
       
-      // Auto-resize iframe based on content height
-      const handleMessage = (event: MessageEvent) => {
-        if (event.origin !== 'https://booking.premierpartycruises.com') return;
-        
-        if (event.data.type === 'quote-v2-resize') {
-          const iframe = document.getElementById('quote-v2-widget-iframe') as HTMLIFrameElement;
-          const container = document.getElementById('quote-v2-widget-container');
-          if (iframe && event.data.height) {
-            const newHeight = Math.max(event.data.height + 50, 800);
-            iframe.style.transition = 'height 0.3s ease-in-out';
-            iframe.style.height = newHeight + 'px';
-            if (container) {
-              (container as HTMLElement).style.minHeight = newHeight + 'px';
-            }
+      if (event.data.type === 'quote-v2-resize') {
+        const iframe = document.getElementById('quote-v2-widget-iframe') as HTMLIFrameElement;
+        const container = document.getElementById('quote-v2-widget-container');
+        if (iframe && event.data.height) {
+          const newHeight = Math.max(event.data.height + 50, 700);
+          iframe.style.transition = 'height 0.3s ease-in-out';
+          iframe.style.height = newHeight + 'px';
+          if (container) {
+            (container as HTMLElement).style.minHeight = newHeight + 'px';
           }
         }
-      };
-      
-      window.addEventListener('message', handleMessage);
-      return () => window.removeEventListener('message', handleMessage);
-    }
+      }
+    };
+    
+    window.addEventListener('message', handleMessage);
+    return () => window.removeEventListener('message', handleMessage);
   }, []);
 
   return (
@@ -73,125 +75,78 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
       </Helmet>
       
       <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-yellow-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
-        {/* Main Content Area */}
-      <div className="flex flex-col items-center justify-start pt-4 pb-12">
-        <div className="w-full max-w-6xl">
-          <motion.div
-            key="intro"
-            variants={fadeInUp}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-            className="space-y-8"
-          >
-            {/* Welcome Header */}
-            <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 0.6, ease: "easeOut" }}
-              className="text-center space-y-4"
-            >
-              {/* Logo */}
-              <div className="flex justify-center mb-6">
-                <motion.img
-                  src={logoPath}
-                  alt="Premier Party Cruises"
-                  className="h-24 w-auto"
-                  initial={{ y: -10, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ delay: 0.1, duration: 0.5 }}
-                />
-              </div>
-              
-              {/* Hero Text */}
-              <div className="space-y-3">
-                <motion.h1
-                  className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 bg-clip-text text-transparent"
-                  initial={{ y: 10, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ delay: 0.2, duration: 0.5 }}
-                >
-                  Welcome Aboard!
-                </motion.h1>
-                
-                <motion.p
-                  className="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto"
-                  initial={{ y: 10, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ delay: 0.3, duration: 0.5 }}
-                >
-                  Lake Travis's Premium Boat Charter Experience
-                </motion.p>
-              </div>
-            </motion.div>
+        {/* COMPACT Header - Half vertical space, minimal on mobile */}
+        <div className="w-full px-2 py-1 md:py-3">
+          <div className="text-center">
+            {/* Logo - Smaller on mobile */}
+            <div className="flex justify-center mb-1">
+              <img
+                src={logoPath}
+                alt="Premier Party Cruises"
+                className="h-10 md:h-14 w-auto"
+              />
+            </div>
             
-            {/* Features Row */}
-            <motion.div
-              className="flex items-center justify-center gap-8 flex-wrap text-sm"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.4, duration: 0.5 }}
-            >
-              <div className="flex items-center gap-2 text-slate-600 dark:text-slate-400">
-                <Clock className="h-5 w-5 text-purple-600" />
+            {/* Hero Text - Very compact */}
+            <h1 className="text-xl md:text-3xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 bg-clip-text text-transparent mb-0.5">
+              Welcome Aboard!
+            </h1>
+            
+            <p className="text-xs md:text-sm text-slate-600 dark:text-slate-400 mb-1">
+              Lake Travis's Premium Boat Charter Experience
+            </p>
+            
+            {/* Features Row - Hidden on mobile */}
+            <div className="hidden md:flex items-center justify-center gap-3 flex-wrap text-xs text-slate-600 dark:text-slate-400">
+              <div className="flex items-center gap-1">
+                <Clock className="h-3 w-3 text-purple-600" />
                 <span>16 Years of Excellence</span>
               </div>
-              <div className="flex items-center gap-2 text-slate-600 dark:text-slate-400">
-                <CheckCircle className="h-5 w-5 text-green-500" />
+              <div className="flex items-center gap-1">
+                <CheckCircle className="h-3 w-3 text-green-500" />
                 <span>150,000 Happy Customers</span>
               </div>
-              <div className="flex items-center gap-2 text-slate-600 dark:text-slate-400">
-                <Star className="h-5 w-5 text-yellow-500" />
+              <div className="flex items-center gap-1">
+                <Star className="h-3 w-3 text-yellow-500" />
                 <span>Hundreds of 5-Star Reviews</span>
               </div>
-              <div className="flex items-center gap-2 text-slate-600 dark:text-slate-400">
-                <Ship className="h-5 w-5 text-blue-600" />
+              <div className="flex items-center gap-1">
+                <Ship className="h-3 w-3 text-blue-600" />
                 <span>Captained Boats for 14-75 Guests</span>
               </div>
-            </motion.div>
-            
-            {/* Quote V2 Widget Iframe - INSTANT LOADING with proper SSR handling */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0, duration: 0.3 }}
-              className="w-full mb-8"
-              id="quote-v2-widget-container"
+            </div>
+          </div>
+        </div>
+        
+        {/* Quote Widget - FULL WIDTH viewport */}
+        <div
+          id="quote-v2-widget-container"
+          ref={containerRef}
+          className="w-screen relative left-1/2 right-1/2 -mx-[50vw]"
+          style={{ minHeight: '700px' }}
+        >
+          {!iframeReady && iframeUrl && (
+            <iframe 
+              id="quote-v2-widget-iframe"
+              src={iframeUrl}
+              title="Get Your Quote - Premier Party Cruises"
+              className="w-full"
               style={{ 
-                minHeight: '800px',
+                height: '700px',
+                border: 'none',
+                display: 'block',
                 position: 'relative',
-                margin: '2rem 0'
+                zIndex: 1
               }}
-            >
-              <div className="w-full max-w-6xl mx-auto">
-                {iframeUrl && (
-                  <iframe 
-                    id="quote-v2-widget-iframe"
-                    src={iframeUrl}
-                    title="Get Your Quote - Premier Party Cruises"
-                    className="w-full"
-                    style={{ 
-                      height: '800px',
-                      border: 'none',
-                      display: 'block',
-                      borderRadius: '8px',
-                      boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-                      position: 'relative',
-                      zIndex: 1
-                    }}
-                    allow="payment"
-                    loading="eager"
-                    onLoad={(e) => {
-                      (e.target as HTMLIFrameElement).style.height = '800px';
-                    }}
-                  />
-                )}
-              </div>
-            </motion.div>
-          </motion.div>
+              allow="payment"
+              loading="eager"
+              onLoad={(e) => {
+                (e.target as HTMLIFrameElement).style.height = '700px';
+              }}
+            />
+          )}
         </div>
       </div>
-    </div>
     </>
   );
 }
