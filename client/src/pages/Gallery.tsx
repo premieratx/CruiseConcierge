@@ -46,7 +46,7 @@ const staticFleetPhotos: MediaItem[] = [
   { id: 'fleet-clever-10', filename: 'clever-girl-10.jpg', originalName: 'Clever Girl on water', altText: 'Clever Girl party boat exterior on Lake Travis', fileType: 'photo', filePath: '/attached_assets/clever girl-10 austin bachelorette party_1763966476658.jpg', uploadDate: new Date().toISOString(), manualTags: ['boats', 'fleet'] },
   
   // Meeseeks / The Irony - 8 photos
-  { id: 'fleet-meeseeks-1', filename: 'meeseeks-1.webp', originalName: 'Meeseeks party boat', altText: 'Meeseeks 20-person party boat on Lake Travis', fileType: 'photo', filePath: '/attached_assets/meeseeks-25-person-boat.webp', uploadDate: new Date().toISOString(), manualTags: ['boats', 'fleet'] },
+  { id: 'fleet-meeseeks-1', filename: 'meeseeks-1.webp', originalName: 'Meeseeks party boat', altText: 'Meeseeks 25-person party boat on Lake Travis', fileType: 'photo', filePath: '/attached_assets/meeseeks-25-person-boat.webp', uploadDate: new Date().toISOString(), manualTags: ['boats', 'fleet'] },
   { id: 'fleet-meeseeks-2', filename: 'meeseeks-2.jpg', originalName: 'Meeseeks seating area', altText: 'Meeseeks boat seating area with Lake Travis views', fileType: 'photo', filePath: '/attached_assets/meeseeks-1_1763968010088.jpg', uploadDate: new Date().toISOString(), manualTags: ['boats', 'fleet'] },
   { id: 'fleet-meeseeks-3', filename: 'meeseeks-3.jpg', originalName: 'Meeseeks covered deck', altText: 'Meeseeks boat covered deck on Lake Travis', fileType: 'photo', filePath: '/attached_assets/meeseeks-2_1763968010089.jpg', uploadDate: new Date().toISOString(), manualTags: ['boats', 'fleet'] },
   { id: 'fleet-meeseeks-4', filename: 'meeseeks-4.jpg', originalName: 'Meeseeks full deck view', altText: 'Meeseeks boat interior deck view', fileType: 'photo', filePath: '/attached_assets/meeseeks-3 lake travis party boat_1763968010089.jpg', uploadDate: new Date().toISOString(), manualTags: ['boats', 'fleet'] },
@@ -452,7 +452,7 @@ export default function Gallery() {
             <div className="mb-20">
               <div className="text-center mb-8">
                 <h3 className="text-3xl font-playfair font-bold text-gray-900 dark:text-white mb-2">Meeseeks / The Irony</h3>
-                <p className="text-base text-gray-600 dark:text-gray-400">Twin 20-person boats for medium-sized celebrations</p>
+                <p className="text-base text-gray-600 dark:text-gray-400">Twin 25-person boats for medium-sized celebrations</p>
               </div>
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 {[
