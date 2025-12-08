@@ -55,17 +55,19 @@ import { SchemaMarkup, generateEventSchema, generateProductSchema, generateFAQSc
 import { YouTubeVideoBackground } from '@/components/YouTubeVideoBackground';
 import { DiscoCruisePricing } from '@/components/DiscoCruisePricing';
 import AnimatedPhotoGallery from '@/components/AnimatedPhotoGallery';
-import { PARTY_PHOTOS, OTHER_ASSETS } from '@/lib/media';
+import { CAPITAL_CITY_SHOTS, OTHER_ASSETS } from '@/lib/media';
 
-// Hero and gallery images - ALL PARTY PHOTOS (no fleet boats)
-const heroImage1 = PARTY_PHOTOS.bachelorPartyGroup;
-const heroImage2 = PARTY_PHOTOS.partyAtmosphere1;
-const heroImage3 = PARTY_PHOTOS.partyAtmosphere2;
-const galleryImage1 = PARTY_PHOTOS.partyAtmosphere3;
-const galleryImage2 = PARTY_PHOTOS.atxDiscoCruiseParty;
-const galleryImage3 = PARTY_PHOTOS.dancingPartyScene;
-const discoImage1 = PARTY_PHOTOS.atxDiscoCruiseParty;
-const discoImage2 = PARTY_PHOTOS.dancingPartyScene;
+// PARTY PHOTOS WITH PEOPLE - Capital City Shots (verified party photos with real guests)
+const heroImage1 = CAPITAL_CITY_SHOTS.party1;
+const heroImage2 = CAPITAL_CITY_SHOTS.party2;
+const heroImage3 = CAPITAL_CITY_SHOTS.party3;
+const galleryImage1 = CAPITAL_CITY_SHOTS.party4;
+const galleryImage2 = CAPITAL_CITY_SHOTS.party5;
+const galleryImage3 = CAPITAL_CITY_SHOTS.party6;
+const discoImage1 = CAPITAL_CITY_SHOTS.party7;
+const discoImage2 = CAPITAL_CITY_SHOTS.party8;
+const partyImage9 = CAPITAL_CITY_SHOTS.party9;
+const partyImage10 = CAPITAL_CITY_SHOTS.party10;
 const floatImage = OTHER_ASSETS.giantUnicornFloat;
 
 // Animation variants

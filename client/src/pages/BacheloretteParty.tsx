@@ -49,15 +49,19 @@ import { LazyImage } from '@/components/LazyImage';
 import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import { YouTubeVideoBackground } from '@/components/YouTubeVideoBackground';
 import AnimatedPhotoGallery from '@/components/AnimatedPhotoGallery';
-import { PARTY_PHOTOS, OTHER_ASSETS } from '@/lib/media';
+import { CAPITAL_CITY_SHOTS, OTHER_ASSETS } from '@/lib/media';
 
-// Hero and gallery images - ALL PARTY PHOTOS (no fleet boats)
-const heroImage1 = PARTY_PHOTOS.bachelorPartyGroup;
-const heroImage2 = PARTY_PHOTOS.atxDiscoCruiseParty;
-const heroImage3 = PARTY_PHOTOS.dancingPartyScene;
-const galleryImage1 = PARTY_PHOTOS.partyAtmosphere1;
-const galleryImage2 = PARTY_PHOTOS.partyAtmosphere2;
-const galleryImage3 = PARTY_PHOTOS.partyAtmosphere3;
+// PARTY PHOTOS WITH PEOPLE - Capital City Shots (verified party photos with real guests)
+const heroImage1 = CAPITAL_CITY_SHOTS.party11;
+const heroImage2 = CAPITAL_CITY_SHOTS.party12;
+const heroImage3 = CAPITAL_CITY_SHOTS.party13;
+const galleryImage1 = CAPITAL_CITY_SHOTS.party14;
+const galleryImage2 = CAPITAL_CITY_SHOTS.party15;
+const galleryImage3 = CAPITAL_CITY_SHOTS.party16;
+const partyImage17 = CAPITAL_CITY_SHOTS.party17;
+const partyImage18 = CAPITAL_CITY_SHOTS.party18;
+const partyImage19 = CAPITAL_CITY_SHOTS.party19;
+const partyImage20 = CAPITAL_CITY_SHOTS.party20;
 const floatImage = OTHER_ASSETS.giantUnicornFloat;
 
 // Animation variants

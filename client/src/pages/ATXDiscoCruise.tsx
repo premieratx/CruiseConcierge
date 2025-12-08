@@ -58,15 +58,15 @@ import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 // to avoid duplicate/conflicting schemas and Google Search Console errors
 import { YouTubeVideoBackground } from '@/components/YouTubeVideoBackground';
 import AnimatedPhotoGallery from '@/components/AnimatedPhotoGallery';
-import { PARTY_PHOTOS, OTHER_ASSETS } from '@/lib/media';
+import { CAPITAL_CITY_SHOTS } from '@/lib/media';
 
-const heroImage1 = PARTY_PHOTOS.atxDiscoCruiseParty;
-const heroImage2 = PARTY_PHOTOS.discoPhotoCollage1;
-const heroImage3 = PARTY_PHOTOS.bachelorPartyGroup;
-const galleryImage1 = PARTY_PHOTOS.discoUnicornCollage;
-const galleryImage2 = PARTY_PHOTOS.familyPartyCollage;
-const galleryImage3 = PARTY_PHOTOS.nonBachCollage;
-const floatImage = OTHER_ASSETS.giantUnicornFloat;
+// PARTY PHOTOS WITH PEOPLE - Capital City Shots (verified party photos with real guests)
+const heroImage1 = CAPITAL_CITY_SHOTS.party1;
+const heroImage2 = CAPITAL_CITY_SHOTS.party2;
+const heroImage3 = CAPITAL_CITY_SHOTS.party3;
+const galleryImage1 = CAPITAL_CITY_SHOTS.party4;
+const galleryImage2 = CAPITAL_CITY_SHOTS.party5;
+const galleryImage3 = CAPITAL_CITY_SHOTS.party6;
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
@@ -223,14 +223,14 @@ const faqItems = [
 ];
 
 const galleryPhotos = [
-  { id: 1, src: heroImage1, alt: 'ATX Disco Cruise party atmosphere on Lake Travis' },
-  { id: 2, src: heroImage2, alt: 'Dancing and celebration on the disco cruise' },
-  { id: 3, src: heroImage3, alt: 'Bachelor party group enjoying the cruise' },
-  { id: 4, src: galleryImage1, alt: 'Party atmosphere on the boat' },
-  { id: 5, src: galleryImage2, alt: 'DJ and party scene' },
-  { id: 6, src: galleryImage3, alt: 'Groups celebrating on Lake Travis' },
-  { id: 7, src: floatImage, alt: 'Giant unicorn float on the water' },
-  { id: 8, src: heroImage1, alt: 'Sunset party cruise' }
+  { id: 1, src: heroImage1, alt: 'ATX Disco Cruise party guests celebrating on Lake Travis' },
+  { id: 2, src: heroImage2, alt: 'Bachelor bachelorette party group on disco cruise' },
+  { id: 3, src: heroImage3, alt: 'Party guests dancing on Lake Travis cruise' },
+  { id: 4, src: galleryImage1, alt: 'Groups celebrating on party boat' },
+  { id: 5, src: galleryImage2, alt: 'Party atmosphere with friends on the water' },
+  { id: 6, src: galleryImage3, alt: 'Guests having fun on Lake Travis cruise' },
+  { id: 7, src: CAPITAL_CITY_SHOTS.party7, alt: 'Bachelor party group on disco cruise' },
+  { id: 8, src: CAPITAL_CITY_SHOTS.party8, alt: 'Bachelorette party celebration' }
 ];
 
 // Table of Contents sections
