@@ -11,49 +11,27 @@ async function build() {
     await execAsync('NODE_ENV=production vite build --mode production');
     
     console.log('Building server with esbuild...');
-    const externals = [
-      // Node.js built-in modules
-      'util',
-      'crypto',
-      'stream',
-      'path',
-      'fs',
-      'os',
-      'http',
-      'https',
-      'net',
-      'tls',
-      'events',
-      'buffer',
-      'url',
-      'querystring',
-      'zlib',
-      'child_process',
-      // Third-party packages
-      'lightningcss',
-      '@neondatabase/serverless',
-      'drizzle-orm', 
-      'express',
-      'express-session',
-      'connect-pg-simple',
-      'passport',
-      'passport-local',
-      'multer',
-      'compression',
-      '@sendgrid/mail',
-      'stripe',
-      'googleapis',
-      '@google-cloud/storage',
-      'openai',
-      '@google/genai',
-      'ws',
-      '@replit/database',
-      'fast-xml-parser'
-    ];
+    // Use --packages=external to externalize all node_modules
+    // Also externalize React-related packages to avoid ESM/CommonJS interop issues
+    const buildCommand = `esbuild server/index.ts \
+      --platform=node \
+      --format=esm \
+      --bundle \
+      --outfile=dist/index.js \
+      --target=node20 \
+      --packages=external \
+      --external:react \
+      --external:react-dom \
+      --external:react-helmet-async \
+      --external:@tanstack/react-query \
+      --external:wouter \
+      --external:*.tsx \
+      --external:*.jsx \
+      --loader:.ts=ts \
+      --loader:.js=js \
+      --conditions=node`;
     
-    const externalFlags = externals.map(e => `--external:${e}`).join(' ');
-    
-    await execAsync(`esbuild server/index.ts --platform=node --bundle --format=esm --outfile=dist/index.js ${externalFlags}`);
+    await execAsync(buildCommand);
     
     console.log('Build complete!');
   } catch (error) {
