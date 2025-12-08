@@ -3,27 +3,47 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { LazyImage } from '@/components/LazyImage';
 import Lightbox from '@/components/Lightbox';
 import { cn } from '@/lib/utils';
+import { CAPITAL_CITY_SHOTS, PARTY_PHOTOS } from '@/lib/media';
 
-// VERIFIED PARTY PHOTOS WITH PEOPLE CELEBRATING
-// NO collages, NO family photos with children, NO empty boats, NO stock images
+// VERIFIED PARTY PHOTOS WITH PEOPLE CELEBRATING - NO EMPTY BOATS
+// Using Capital City Shots - real party photos with actual guests
 const allPartyPhotos = [
-  '/attached_assets/atx-disco-cruise-party.webp',
-  '/attached_assets/bachelor-party-group-guys.webp',
-  '/attached_assets/dancing-party-scene.webp',
-  '/attached_assets/party-atmosphere-1.webp',
-  '/attached_assets/party-atmosphere-2.webp',
-  '/attached_assets/party-atmosphere-3.webp',
-  '/attached_assets/giant-unicorn-float.webp',
-  '/attached_assets/clever-girl-50-person-boat.webp',
-  '/attached_assets/meeseeks-25-person-boat.webp',
-  '/attached_assets/day-tripper-14-person-boat.webp',
-  '/attached_assets/clever-girl-1-lake-travis-party-boat.jpg',
-  '/attached_assets/clever-girl-3-bachelorette-boat.jpg',
+  // Best party shots first
+  PARTY_PHOTOS.bachelorPartyGroup,
+  PARTY_PHOTOS.atxDiscoCruiseParty,
+  // Capital City Shots - Real party photos
+  CAPITAL_CITY_SHOTS.party1,
+  CAPITAL_CITY_SHOTS.party2,
+  CAPITAL_CITY_SHOTS.party3,
+  CAPITAL_CITY_SHOTS.party4,
+  CAPITAL_CITY_SHOTS.party5,
+  CAPITAL_CITY_SHOTS.party6,
+  CAPITAL_CITY_SHOTS.party7,
+  CAPITAL_CITY_SHOTS.party8,
+  CAPITAL_CITY_SHOTS.party9,
+  CAPITAL_CITY_SHOTS.party10,
+  CAPITAL_CITY_SHOTS.party11,
+  CAPITAL_CITY_SHOTS.party12,
+  CAPITAL_CITY_SHOTS.party13,
+  CAPITAL_CITY_SHOTS.party14,
+  CAPITAL_CITY_SHOTS.party15,
+  CAPITAL_CITY_SHOTS.party16,
+  CAPITAL_CITY_SHOTS.party17,
+  CAPITAL_CITY_SHOTS.party18,
+  CAPITAL_CITY_SHOTS.party19,
+  CAPITAL_CITY_SHOTS.party20,
+  CAPITAL_CITY_SHOTS.party21,
+  CAPITAL_CITY_SHOTS.party22,
+  CAPITAL_CITY_SHOTS.party23,
+  CAPITAL_CITY_SHOTS.party24,
 ];
 
 // Split into rotating sets (6 photos per set for grid display)
 const setA = allPartyPhotos.slice(0, 6);
 const setB = allPartyPhotos.slice(6, 12);
+const setC = allPartyPhotos.slice(12, 18);
+const setD = allPartyPhotos.slice(18, 24);
+const allSets = [setA, setB, setC, setD];
 
 interface LightboxImage {
   id: string;
@@ -33,11 +53,11 @@ interface LightboxImage {
 }
 
 export default function AnimatedPhotoGallery() {
-  const [showSetA, setShowSetA] = useState(true);
+  const [currentSetIndex, setCurrentSetIndex] = useState(0);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
 
-  const currentSet = showSetA ? setA : setB;
+  const currentSet = allSets[currentSetIndex];
 
   const allPhotos: LightboxImage[] = allPartyPhotos.map((src, index) => ({
     id: `party-photo-${index + 1}`,
@@ -48,14 +68,14 @@ export default function AnimatedPhotoGallery() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setShowSetA((prev) => !prev);
+      setCurrentSetIndex((prev) => (prev + 1) % allSets.length);
     }, 5000); // 5 seconds between photo switches
 
     return () => clearInterval(interval);
   }, []);
 
   const handlePhotoClick = (photoIndex: number) => {
-    const globalIndex = showSetA ? photoIndex : photoIndex + 6;
+    const globalIndex = currentSetIndex * 6 + photoIndex;
     setLightboxIndex(globalIndex);
     setLightboxOpen(true);
   };
@@ -80,7 +100,7 @@ export default function AnimatedPhotoGallery() {
       >
         <AnimatePresence mode="wait">
           <motion.div
-            key={showSetA ? 'setA' : 'setB'}
+            key={`set-${currentSetIndex}`}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -102,7 +122,7 @@ export default function AnimatedPhotoGallery() {
               >
                 <LazyImage
                   src={photo}
-                  alt={`Premier Party Cruises - Lake Travis Party Photo ${showSetA ? index + 1 : index + 7}`}
+                  alt={`Premier Party Cruises - Lake Travis Party Photo ${currentSetIndex * 6 + index + 1}`}
                   className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
