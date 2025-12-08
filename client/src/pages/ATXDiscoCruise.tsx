@@ -269,6 +269,10 @@ export default function ATXDiscoCruise() {
     navigate('/chat');
   };
 
+  const handleBookNow = () => {
+    navigate('/chat');
+  };
+
   return (
     <>
       <SEOHead
