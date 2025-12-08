@@ -2117,6 +2117,27 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
     sections: [],
     relatedPages: ['rehearsal-dinner', 'welcome-party', 'after-party', 'private-cruises']
   },
+  '/blogs/lake-travis-bachelor-party-boat-rentals-the-ultimate-guide-to-epic-celebrations': {
+    h1: 'Lake Travis Bachelor Party Boat Rentals | The Ultimate Guide to Epic Celebrations',
+    introduction: 'Planning an Austin [[bachelor-party]]? Lake Travis party boat rentals offer the ultimate bachelor party experience with stunning scenery, crystal clear waters, and complete freedom to celebrate. Premier Party Cruises has hosted thousands of epic bachelor parties with our fleet of well-equipped party boats and 15+ years of experience.',
+    sections: [
+      {
+        heading: 'Why Lake Travis is the Ultimate Bachelor Party Destination',
+        paragraphs: [
+          'Lake Travis, a sprawling reservoir in the Texas Hill Country, offers the perfect backdrop for bachelor party celebrations. Crystal clear waters, stunning cliffs, and endless coves provide opportunities for swimming, sunbathing, and partying away from downtown crowds.',
+          'The lake transforms into a private playground where your group can blast favorite tunes, enjoy cold drinks, and create lasting memories. Just 30 minutes from downtown Austin nightlife, you get the best of both worlds.'
+        ]
+      },
+      {
+        heading: 'Choosing Your Perfect Party Boat',
+        paragraphs: [
+          'Our fleet accommodates any bachelor party size. The Day Tripper fits intimate groups of 14, while Meeseeks and The Irony handle 15-30 guests perfectly. For the ultimate experience, Clever Girl accommodates up to 75 guests with 14 disco balls and giant lily pad floats.',
+          'Every boat includes premium Bluetooth speakers, coolers stocked with ice, comfortable seating, and experienced captains. Book 2-3 months ahead for peak season dates.'
+        ]
+      }
+    ],
+    relatedPages: ['bachelor-party', 'atx-disco-cruise', 'private-cruises', 'combined-bach']
+  },
   '/rehearsal-dinner-boat-alcohol-delivery': {
     h1: 'Rehearsal Dinner Boat & Alcohol Delivery | Unique Wedding Weekend Experiences',
     introduction: 'Create unforgettable [[rehearsal-dinner]] experiences on Lake Travis with boat parties and seamless alcohol delivery. Premier Party Cruises partners with Party On Delivery to make your wedding weekend in Austin truly memorable. From intimate family gatherings to elegant [[welcome-party]] events, we handle everything so you can focus on celebrating.',

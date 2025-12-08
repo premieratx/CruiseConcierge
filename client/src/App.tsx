@@ -154,6 +154,7 @@ const LakeTravisWeddingBoatRentals = lazy(() => import("./pages/LakeTravisWeddin
 const MustHavesAustinBacheloretteWeekend = lazy(() => import("./pages/MustHavesAustinBacheloretteWeekend"));
 const TopSpotsAustinBacheloretteParty = lazy(() => import("./pages/TopSpotsAustinBacheloretteParty"));
 const RehearsalDinnerBoatAlcoholDelivery = lazy(() => import("./pages/RehearsalDinnerBoatAlcoholDelivery"));
+const LakeTravisBachelorPartyBoatRentalsGuide = lazy(() => import("./pages/LakeTravisBachelorPartyBoatRentalsGuide"));
 
 // Customer Portal Pages - Lazy loaded
 const PortalLogin = lazy(() => import("./pages/PortalLogin"));
@@ -301,6 +302,7 @@ function Router() {
       </Route>
       
       {/* Replace old static blogs with new React versions */}
+      <Route path="/blogs/lake-travis-bachelor-party-boat-rentals-the-ultimate-guide-to-epic-celebrations" component={LakeTravisBachelorPartyBoatRentalsGuide} />
       <Route path="/blogs/first-time-lake-travis-boat-rental-essential-tips-for-austin-party-planning" component={FirstTimeLakeTravisGuide} />
       <Route path="/blog/birthday-party-alcohol-delivery-austin-milestone-celebrations-made-easy" component={BirthdayPartyAustinGuide} />
       <Route path="/blog/lake-travis-party-boat-rentals-ultimate-guide-for-large-group-events-20-guests" component={LakeTravisLargeGroupsGuide} />
