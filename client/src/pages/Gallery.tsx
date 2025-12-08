@@ -537,14 +537,19 @@ export default function Gallery() {
             <p className="text-base text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
               Book your Lake Travis adventure today and join thousands of happy customers
             </p>
-            <Button
-              size="lg"
-              onClick={() => window.open('https://events.premierpartycruises.com/widget/form/X1zEKdfbmjqs2hBHWNN1', '_blank')}
-              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold text-base px-12 py-6 rounded-xl"
+            <div
+              className="xola-custom xola-checkout inline-block"
+              data-button-id="691574bd162501edc00f151a"
+              data-testid="button-gallery-book-now"
             >
-              <Calendar className="mr-3 h-6 w-6" />
-              BOOK YOUR CRUISE NOW
-            </Button>
+              <Button
+                size="lg"
+                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold text-base px-12 py-6 rounded-xl"
+              >
+                <Calendar className="mr-3 h-6 w-6" />
+                BOOK YOUR CRUISE NOW
+              </Button>
+            </div>
           </div>
         </section>
       </SectionReveal>

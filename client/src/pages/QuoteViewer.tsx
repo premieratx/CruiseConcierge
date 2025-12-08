@@ -171,7 +171,7 @@ export default function QuoteViewer({}: QuoteViewerProps) {
                 <p className="text-gray-600 dark:text-gray-300 mb-6">
                   This quote link appears to be invalid or expired. Please request a new quote.
                 </p>
-                <Button onClick={() => window.open('https://events.premierpartycruises.com/widget/form/X1zEKdfbmjqs2hBHWNN1', '_blank')} data-testid="button-request-new-quote">
+                <Button onClick={() => navigate('/chat')} data-testid="button-request-new-quote">
                   Request New Quote
                 </Button>
               </CardContent>
@@ -425,7 +425,7 @@ export default function QuoteViewer({}: QuoteViewerProps) {
           {/* Action Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button 
-              onClick={() => window.open('https://events.premierpartycruises.com/widget/form/X1zEKdfbmjqs2hBHWNN1', '_blank')} 
+              onClick={() => navigate('/chat')} 
               variant="outline"
               data-testid="button-modify-quote"
             >

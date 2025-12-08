@@ -265,12 +265,12 @@ export default function UniversalCalendar({
         selectedSlot: `${slot.startTime}-${slot.endTime}`
       });
 
-      window.open('https://events.premierpartycruises.com/widget/form/X1zEKdfbmjqs2hBHWNN1', '_blank');
+      navigate('/chat');
       setShowSlotPopup(false);
       
       toast({
         title: "Slot Reserved",
-        description: "Taking you to quote builder to complete your booking...",
+        description: "Taking you to chat to complete your booking...",
       });
     },
     onError: (error) => {

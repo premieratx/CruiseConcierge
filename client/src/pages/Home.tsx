@@ -514,7 +514,7 @@ export default function Home() {
     setShowLightbox(false);
     
     // Navigate to chat page
-    window.open('https://events.premierpartycruises.com/widget/form/X1zEKdfbmjqs2hBHWNN1', '_blank');
+    navigate('/chat');
   };
 
   return (

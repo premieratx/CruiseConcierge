@@ -205,7 +205,7 @@ export default function PartyBoatAustin() {
       }
       
       if (event.data && event.data.type === 'quote-submitted') {
-        window.open('https://events.premierpartycruises.com/widget/form/X1zEKdfbmjqs2hBHWNN1', '_blank');
+        navigate('/chat');
         toast({
           title: "Quote Submitted!",
           description: "Redirecting you to chat with our team...",
@@ -288,7 +288,7 @@ export default function PartyBoatAustin() {
             <Button 
               size="lg" 
               className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold text-lg px-8 py-6"
-              onClick={() => window.open('https://events.premierpartycruises.com/widget/form/X1zEKdfbmjqs2hBHWNN1', '_blank')}
+              onClick={() => navigate('/chat')}
               data-testid="button-instant-quote"
             >
               <MessageCircle className="w-5 h-5 mr-2" />
@@ -398,7 +398,7 @@ export default function PartyBoatAustin() {
                       <p className="text-sm text-gray-600 mb-4">Ideal for: {boat.ideal}</p>
                       <Button 
                         className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
-                        onClick={() => window.open('https://events.premierpartycruises.com/widget/form/X1zEKdfbmjqs2hBHWNN1', '_blank')}
+                        onClick={() => navigate('/chat')}
                         data-testid={`button-quote-${index}`}
                       >
                         Get Austin Quote

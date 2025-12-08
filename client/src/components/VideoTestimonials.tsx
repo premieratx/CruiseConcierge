@@ -197,14 +197,18 @@ export function VideoTestimonials({
           <p className="text-lg text-gray-700 dark:text-gray-300 mb-4">
             Ready to create your own unforgettable experience?
           </p>
-          <Button 
-            size="lg"
-            className="bg-gradient-to-r from-brand-blue to-purple-600 hover:from-brand-blue/90 hover:to-purple-600/90 text-white font-bold px-8 py-6 text-lg"
-            onClick={() => window.open('https://events.premierpartycruises.com/widget/form/X1zEKdfbmjqs2hBHWNN1', '_blank')}
-            data-testid="button-book-after-testimonials"
+          <div
+            className="xola-custom xola-checkout inline-block"
+            data-button-id="691574bd162501edc00f151a"
+            data-testid="button-testimonials-book-now"
           >
-            Book Your Cruise Now
-          </Button>
+            <Button 
+              size="lg"
+              className="bg-gradient-to-r from-brand-blue to-purple-600 hover:from-brand-blue/90 hover:to-purple-600/90 text-white font-bold px-8 py-6 text-lg"
+            >
+              Book Your Cruise Now
+            </Button>
+          </div>
         </motion.div>
       </div>
     </section>

@@ -265,12 +265,8 @@ export default function ATXDiscoCruise() {
     return () => clearInterval(interval);
   }, [reducedMotion, heroImages.length]);
 
-  const handleBookNow = () => {
-    window.open('https://events.premierpartycruises.com/widget/form/X1zEKdfbmjqs2hBHWNN1', '_blank');
-  };
-
   const handleGetQuote = () => {
-    window.open('https://events.premierpartycruises.com/widget/form/X1zEKdfbmjqs2hBHWNN1', '_blank');
+    navigate('/chat');
   };
 
   return (

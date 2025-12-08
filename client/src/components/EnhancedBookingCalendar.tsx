@@ -385,12 +385,12 @@ export function EnhancedBookingCalendar({
     });
 
     // Navigate to chat with pre-filled selections
-    window.open('https://events.premierpartycruises.com/widget/form/X1zEKdfbmjqs2hBHWNN1', '_blank');
+    navigate('/chat');
     setShowSlotPopup(false);
     
     toast({
       title: "Proceeding to Checkout",
-      description: "Taking you to secure booking...",
+      description: "Taking you to chat to complete your booking...",
     });
   };
 
