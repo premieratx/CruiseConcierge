@@ -619,9 +619,7 @@ export default function Home() {
               </div>
               
               <a
-                href="https://booking.premierpartycruises.com/quote-v2"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="/chat"
                 className="font-bold text-sm sm:text-base px-6 sm:px-10 py-3 sm:py-5 rounded-xl shadow-2xl transform hover:scale-105 transition-all duration-300 inline-flex items-center justify-center"
                 style={{
                   background: 'linear-gradient(to right, #facc15, #f59e0b)',

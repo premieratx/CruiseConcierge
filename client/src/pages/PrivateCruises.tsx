@@ -925,9 +925,7 @@ export default function PrivateCruises() {
 
               <div className="mt-12 sm:mt-16 text-center px-4">
                 <a
-                  href="https://booking.premierpartycruises.com/quote-v2"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="/chat"
                   className="inline-flex items-center justify-center w-full sm:w-auto bg-gradient-to-r from-yellow-400 to-amber-500 hover:from-yellow-500 hover:to-amber-600 text-gray-900 font-bold text-base sm:text-xl px-6 sm:px-12 py-4 sm:py-6 rounded-md transition-all"
                   data-testid="button-pricing-get-quote"
                 >
@@ -1810,9 +1808,7 @@ export default function PrivateCruises() {
                 <p className="text-gray-700 mb-6">Our team is here to help you plan the perfect private charter</p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center px-4">
                   <a
-                    href="https://booking.premierpartycruises.com/quote-v2"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    href="/chat"
                     className="inline-flex items-center justify-center w-full sm:w-auto bg-gradient-to-r from-yellow-400 to-amber-500 hover:from-yellow-500 hover:to-amber-600 text-gray-900 font-bold text-base sm:text-lg px-6 sm:px-8 py-4 sm:py-5 rounded-md transition-all"
                   >
                     Get Custom Quote

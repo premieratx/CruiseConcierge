@@ -345,7 +345,7 @@ export default function BachelorParty() {
       }
       
       if (event.data && event.data.type === 'quote-submitted') {
-        window.open('https://booking.premierpartycruises.com/quote-v2', '_blank');
+        navigate('/chat');
         toast({
           title: "Quote Submitted!",
           description: "Redirecting you to view your quote details...",

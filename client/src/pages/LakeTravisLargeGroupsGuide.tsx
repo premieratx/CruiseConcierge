@@ -359,7 +359,7 @@ export default function LakeTravisLargeGroupsGuide() {
                     Book Well in Advance
                   </h3>
                   <p className="text-gray-700 dark:text-gray-300">
-                    Large group events require 4-12 weeks advance booking, especially for peak season (April-September) and weekends. Our larger boats book out quickly for corporate events and major celebrations. For the best austin boat rental experience, <a href="https://booking.premierpartycruises.com/quote-v2" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline font-medium">get your quote</a> today to secure your preferred date!
+                    Large group events require 4-12 weeks advance booking, especially for peak season (April-September) and weekends. Our larger boats book out quickly for corporate events and major celebrations. For the best austin boat rental experience, <Link href="/chat" className="text-blue-600 hover:underline font-medium">get your quote</Link> today to secure your preferred date!
                   </p>
                 </CardContent>
               </Card>

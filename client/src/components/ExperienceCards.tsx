@@ -736,7 +736,7 @@ function ExperienceCard({ experience }: { experience: Experience }) {
             <ChevronRight className="ml-1 h-4 w-4" />
           </Button>
           <Button
-            onClick={() => window.open('https://booking.premierpartycruises.com/quote-v2', '_blank')}
+            onClick={() => navigate('/chat')}
             className="flex-1 bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold"
             data-testid={`button-get-quote-${experience.id}`}
           >

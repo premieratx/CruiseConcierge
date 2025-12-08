@@ -62,7 +62,7 @@ const faqCategories: FAQCategory[] = [
         question: 'How do I book a boat rental on Lake Travis?',
         answer: (
           <>
-            Booking is easy! Use our <a href="https://booking.premierpartycruises.com/quote-v2" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">instant quote builder</a> to 
+            Booking is easy! Use our <a href="/chat" className="text-primary hover:underline">instant quote builder</a> to 
             select your date, time, and package. You\'ll receive an immediate quote with availability. Secure your reservation 
             with a deposit, and pay the balance later. Our team is available at (512) 488-5892 for questions or custom requests.
           </>

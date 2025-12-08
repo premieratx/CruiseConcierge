@@ -307,9 +307,7 @@ export default function RehearsalDinner() {
               variants={fadeInUp}
             >
               <a
-                href="https://booking.premierpartycruises.com/quote-v2"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="/chat"
                 className="inline-flex items-center justify-center bg-gradient-to-r from-yellow-400 to-amber-500 hover:from-yellow-500 hover:to-amber-600 text-gray-900 font-bold text-base sm:text-lg px-8 py-6 shadow-xl rounded-md transition-all"
                 data-testid="button-hero-get-quote"
               >
@@ -697,9 +695,7 @@ export default function RehearsalDinner() {
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
-                href="https://booking.premierpartycruises.com/quote-v2"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="/chat"
                 className="inline-flex items-center justify-center bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-lg px-8 py-6 shadow-xl rounded-md transition-all"
                 data-testid="button-cta-get-quote"
               >

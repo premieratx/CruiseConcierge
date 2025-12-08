@@ -1003,7 +1003,7 @@ export default function Top10AustinBacheloretteIdeas() {
               </p>
               <div className="flex flex-wrap justify-center gap-4">
                 <Button asChild size="lg" className="bg-pink-600 hover:bg-pink-700">
-                  <a href="https://booking.premierpartycruises.com/quote-v2" target="_blank" rel="noopener noreferrer">Get Your Custom Quote</a>
+                  <Link href="/chat">Get Your Custom Quote</Link>
                 </Button>
                 <Button asChild size="lg" variant="outline">
                   <Link href="/">Explore All Services</Link>

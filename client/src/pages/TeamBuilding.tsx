@@ -197,7 +197,7 @@ export default function TeamBuilding() {
   };
 
   const handleBookNow = () => {
-    window.open('https://booking.premierpartycruises.com/quote-v2', '_blank');
+    navigate('/chat');
   };
 
   return (

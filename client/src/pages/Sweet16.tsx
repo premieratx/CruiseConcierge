@@ -240,7 +240,7 @@ export default function Sweet16() {
   };
 
   const handleBookNow = () => {
-    window.open('https://booking.premierpartycruises.com/quote-v2', '_blank');
+    navigate('/chat');
   };
 
   return (

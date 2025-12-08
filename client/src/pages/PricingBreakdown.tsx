@@ -666,7 +666,7 @@ export default function PricingBreakdown() {
                 Get a custom quote or book your cruise today. Our team is here to help you plan the perfect Lake Travis party experience.
               </p>
               <div className="flex flex-wrap gap-4 justify-center">
-                <a href="https://booking.premierpartycruises.com/quote-v2" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white font-bold px-8 py-6 rounded-md transition-colors" data-testid="button-get-quote">
+                <a href="/chat" className="inline-flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white font-bold px-8 py-6 rounded-md transition-colors" data-testid="button-get-quote">
                     Get Custom Quote
                   </a>
                 <Button size="lg" variant="outline" asChild data-testid="button-contact">

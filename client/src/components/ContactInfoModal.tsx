@@ -349,9 +349,7 @@ export function ContactInfoModal({
             </Alert>
 
             <a
-              href="https://booking.premierpartycruises.com/quote-v2"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/chat"
               className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md transition-colors inline-flex items-center justify-center"
               data-testid="button-submit"
             >
