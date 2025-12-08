@@ -245,8 +245,8 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
 
 
   const handleGetQuote = () => {
-    // Open quote builder in new tab
-    window.open('https://booking.premierpartycruises.com/quote-v2', '_blank');
+    // Navigate to /chat page with embedded quote builder
+    navigate('/chat');
   };
 
   return (
@@ -283,9 +283,7 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
           <div className="lg:!hidden flex flex-1 items-center justify-end gap-2">
             {/* Mobile Get Quote Button */}
             <a
-              href="https://booking.premierpartycruises.com/quote-v2"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/chat"
               className="inline-flex items-center border-2 border-brand-blue text-brand-blue hover:bg-brand-blue hover:text-white font-bold px-2 py-1.5 text-xs whitespace-nowrap h-9 rounded-md transition-colors"
               data-testid="button-mobile-header-get-quote"
             >
@@ -415,9 +413,7 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
           {/* Desktop CTA Buttons - Right */}
           <div className="ppc-public-nav-cta hidden lg:flex flex-shrink-0 items-center gap-2">
               <a
-                href="https://booking.premierpartycruises.com/quote-v2"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="/chat"
                 className="inline-flex items-center border-2 border-brand-blue text-brand-blue hover:bg-brand-blue hover:text-white font-bold px-3 lg:px-4 py-2 tracking-wide text-sm whitespace-nowrap rounded-md transition-colors"
                 data-testid="button-header-get-quote"
               >
