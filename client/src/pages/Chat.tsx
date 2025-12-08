@@ -1,7 +1,6 @@
 import { useLayoutEffect, useEffect, useState, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
 const logoPath = '/attached_assets/PPC Logo LARGE_1757881944449.png';
-import { Ship, Star, CheckCircle, Clock } from 'lucide-react';
 
 declare global {
   interface Window {
@@ -75,29 +74,41 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
       </Helmet>
       
       <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-yellow-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
-        {/* ULTRA COMPACT Header - Minimal space so date picker is above fold */}
-        <div className="w-full px-2 py-0.5 md:py-2">
-          <div className="flex items-center justify-center gap-2 md:gap-4">
-            {/* Logo - Tiny on mobile */}
+        {/* ULTRA COMPACT HEADER - Max 1/3 iPhone screen (~250px) */}
+        <div className="w-full max-h-[250px] md:max-h-none overflow-hidden">
+          {/* Mobile: Single row with logo + text. Desktop: Stacked layout */}
+          <div className="flex items-center justify-center gap-2 px-2 py-1 md:flex-col md:py-3 md:gap-1">
+            {/* Logo */}
             <img
               src={logoPath}
               alt="Premier Party Cruises"
-              className="h-8 md:h-12 w-auto"
+              className="h-9 w-auto md:h-14"
             />
             
-            {/* Text content inline */}
-            <div className="text-left">
-              <h1 className="text-lg md:text-2xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 bg-clip-text text-transparent leading-tight">
+            {/* Text - inline on mobile, stacked on desktop */}
+            <div className="text-left md:text-center">
+              <h1 className="text-base md:text-3xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 bg-clip-text text-transparent leading-tight tracking-tight">
                 Welcome Aboard!
               </h1>
-              <p className="text-[10px] md:text-xs text-slate-600 dark:text-slate-400">
-                Lake Travis's Premium Boat Charter Experience
+              <p className="text-[10px] md:text-sm text-slate-600 dark:text-slate-400 leading-tight">
+                Lake Travis Premium Boat Charters
               </p>
             </div>
           </div>
+          
+          {/* Features - Single compact line on mobile, expanded on desktop */}
+          <div className="flex items-center justify-center gap-2 px-2 pb-1 md:gap-4 md:pb-3 text-[10px] md:text-xs text-slate-500 flex-wrap">
+            <span>16 Years</span>
+            <span className="text-slate-300">•</span>
+            <span>150K Customers</span>
+            <span className="text-slate-300">•</span>
+            <span>5-Star Reviews</span>
+            <span className="text-slate-300">•</span>
+            <span>14-75 Guests</span>
+          </div>
         </div>
         
-        {/* Quote Widget - FULL WIDTH viewport */}
+        {/* Quote Widget - FULL WIDTH viewport, immediately after compact header */}
         <div
           id="quote-v2-widget-container"
           ref={containerRef}
