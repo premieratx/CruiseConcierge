@@ -75,45 +75,24 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
       </Helmet>
       
       <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-yellow-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
-        {/* COMPACT Header - Half vertical space, minimal on mobile */}
-        <div className="w-full px-2 py-1 md:py-3">
-          <div className="text-center">
-            {/* Logo - Smaller on mobile */}
-            <div className="flex justify-center mb-1">
-              <img
-                src={logoPath}
-                alt="Premier Party Cruises"
-                className="h-10 md:h-14 w-auto"
-              />
-            </div>
+        {/* ULTRA COMPACT Header - Minimal space so date picker is above fold */}
+        <div className="w-full px-2 py-0.5 md:py-2">
+          <div className="flex items-center justify-center gap-2 md:gap-4">
+            {/* Logo - Tiny on mobile */}
+            <img
+              src={logoPath}
+              alt="Premier Party Cruises"
+              className="h-8 md:h-12 w-auto"
+            />
             
-            {/* Hero Text - Very compact */}
-            <h1 className="text-xl md:text-3xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 bg-clip-text text-transparent mb-0.5">
-              Welcome Aboard!
-            </h1>
-            
-            <p className="text-xs md:text-sm text-slate-600 dark:text-slate-400 mb-1">
-              Lake Travis's Premium Boat Charter Experience
-            </p>
-            
-            {/* Features Row - Hidden on mobile */}
-            <div className="hidden md:flex items-center justify-center gap-3 flex-wrap text-xs text-slate-600 dark:text-slate-400">
-              <div className="flex items-center gap-1">
-                <Clock className="h-3 w-3 text-purple-600" />
-                <span>16 Years of Excellence</span>
-              </div>
-              <div className="flex items-center gap-1">
-                <CheckCircle className="h-3 w-3 text-green-500" />
-                <span>150,000 Happy Customers</span>
-              </div>
-              <div className="flex items-center gap-1">
-                <Star className="h-3 w-3 text-yellow-500" />
-                <span>Hundreds of 5-Star Reviews</span>
-              </div>
-              <div className="flex items-center gap-1">
-                <Ship className="h-3 w-3 text-blue-600" />
-                <span>Captained Boats for 14-75 Guests</span>
-              </div>
+            {/* Text content inline */}
+            <div className="text-left">
+              <h1 className="text-lg md:text-2xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 bg-clip-text text-transparent leading-tight">
+                Welcome Aboard!
+              </h1>
+              <p className="text-[10px] md:text-xs text-slate-600 dark:text-slate-400">
+                Lake Travis's Premium Boat Charter Experience
+              </p>
             </div>
           </div>
         </div>
