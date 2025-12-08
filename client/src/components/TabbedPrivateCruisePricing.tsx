@@ -368,7 +368,7 @@ export function TabbedPrivateCruisePricing({ className = '' }: TabbedPrivateCrui
               {/* Package Comparison Grid - 3 WIDE */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {/* STANDARD PACKAGE */}
-                <Card className="transition-all hover:shadow-xl" data-testid="card-standard">
+                <Card className="transition-all hover:shadow-xl h-full flex flex-col" data-testid="card-standard">
                   <CardHeader className="pb-4">
                     <CardTitle className="text-xl">{packages.standard.name}</CardTitle>
                     <div className="mt-4">
@@ -382,8 +382,8 @@ export function TabbedPrivateCruisePricing({ className = '' }: TabbedPrivateCrui
                     </div>
                   </CardHeader>
                   
-                  <CardContent>
-                    <div className="space-y-2 mb-6">
+                  <CardContent className="flex-grow flex flex-col">
+                    <div className="space-y-2 flex-grow">
                       {packages.standard.features.map((feature: string, index: number) => (
                         <div key={index} className="flex items-start gap-2">
                           <CheckCircle2 className="h-4 w-4 text-green-600 flex-shrink-0 mt-0.5" />
@@ -392,9 +392,9 @@ export function TabbedPrivateCruisePricing({ className = '' }: TabbedPrivateCrui
                       ))}
                     </div>
                     
-                    <Link href="/chat">
+                    <Link href="/chat" className="mt-6">
                       <Button 
-                        className="w-full mt-4" 
+                        className="w-full border-2 border-gray-300 bg-white text-gray-800 hover:bg-gray-50 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700" 
                         variant="outline"
                         data-testid="button-book-standard"
                       >
@@ -405,7 +405,7 @@ export function TabbedPrivateCruisePricing({ className = '' }: TabbedPrivateCrui
                 </Card>
 
                 {/* ESSENTIALS PACKAGE */}
-                <Card className="relative ring-2 ring-primary shadow-lg transition-all hover:shadow-xl" data-testid="card-essentials">
+                <Card className="relative ring-2 ring-primary shadow-lg transition-all hover:shadow-xl h-full flex flex-col" data-testid="card-essentials">
                   <div className="absolute top-0 right-0 bg-gradient-to-l from-primary to-primary/80 text-white px-3 py-1 rounded-bl-lg text-sm">
                     Most Popular
                   </div>
@@ -426,8 +426,8 @@ export function TabbedPrivateCruisePricing({ className = '' }: TabbedPrivateCrui
                     </div>
                   </CardHeader>
                   
-                  <CardContent>
-                    <div className="space-y-2 mb-6">
+                  <CardContent className="flex-grow flex flex-col">
+                    <div className="space-y-2 flex-grow">
                       {packages.essentials.features.map((feature: string, index: number) => (
                         <div key={index} className="flex items-start gap-2">
                           <CheckCircle2 className="h-4 w-4 text-green-600 flex-shrink-0 mt-0.5" />
@@ -436,9 +436,9 @@ export function TabbedPrivateCruisePricing({ className = '' }: TabbedPrivateCrui
                       ))}
                     </div>
                     
-                    <Link href="/chat">
+                    <Link href="/chat" className="mt-6">
                       <Button 
-                        className="w-full mt-4"
+                        className="w-full bg-primary hover:bg-primary/90 text-white"
                         data-testid="button-book-essentials"
                       >
                         Build My Quote
@@ -448,7 +448,7 @@ export function TabbedPrivateCruisePricing({ className = '' }: TabbedPrivateCrui
                 </Card>
 
                 {/* ULTIMATE PACKAGE */}
-                <Card className="transition-all hover:shadow-xl" data-testid="card-ultimate">
+                <Card className="transition-all hover:shadow-xl h-full flex flex-col" data-testid="card-ultimate">
                   <CardHeader className="pb-4">
                     <CardTitle className="text-xl">{packages.ultimate.name}</CardTitle>
                     <div className="mt-4">
@@ -465,8 +465,8 @@ export function TabbedPrivateCruisePricing({ className = '' }: TabbedPrivateCrui
                     </div>
                   </CardHeader>
                   
-                  <CardContent>
-                    <div className="space-y-2 mb-6">
+                  <CardContent className="flex-grow flex flex-col">
+                    <div className="space-y-2 flex-grow">
                       {packages.ultimate.features.map((feature: string, index: number) => (
                         <div key={index} className="flex items-start gap-2">
                           <CheckCircle2 className="h-4 w-4 text-green-600 flex-shrink-0 mt-0.5" />
@@ -475,9 +475,9 @@ export function TabbedPrivateCruisePricing({ className = '' }: TabbedPrivateCrui
                       ))}
                     </div>
                     
-                    <Link href="/chat">
+                    <Link href="/chat" className="mt-6">
                       <Button 
-                        className="w-full mt-4" 
+                        className="w-full border-2 border-gray-300 bg-white text-gray-800 hover:bg-gray-50 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700" 
                         variant="outline"
                         data-testid="button-book-ultimate"
                       >

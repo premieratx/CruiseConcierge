@@ -38,7 +38,7 @@ export function DiscoCruisePricing({
         {DISCO_TIME_SLOTS.map((slot) => (
           <Card
             key={slot.id}
-            className={`relative transition-all hover:shadow-xl ${
+            className={`relative transition-all hover:shadow-xl h-full flex flex-col ${
               slot.badge === 'BEST' ? 'ring-2 ring-primary shadow-lg' : ''
             }`}
             data-testid={`card-timeslot-${slot.id}`}
@@ -49,7 +49,7 @@ export function DiscoCruisePricing({
               </div>
             )}
             
-            <CardHeader className="pb-4">
+            <CardHeader className="pb-4 flex-grow">
               <div className="flex items-center gap-2 mb-2">
                 <Clock className="h-6 w-6 text-primary" />
                 <CardTitle className="text-xl">{slot.label}</CardTitle>
@@ -69,10 +69,10 @@ export function DiscoCruisePricing({
               </div>
             </CardHeader>
             
-            <CardContent>
+            <CardContent className="pt-0 mt-auto">
               <Link href="/chat">
                 <Button 
-                  className="w-full" 
+                  className={`w-full ${slot.badge === 'BEST' ? 'bg-primary hover:bg-primary/90 text-white' : 'border-2 border-gray-300 bg-white text-gray-800 hover:bg-gray-50 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700'}`}
                   variant={slot.badge === 'BEST' ? 'default' : 'outline'}
                   data-testid={`button-book-${slot.id}`}
                 >

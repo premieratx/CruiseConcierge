@@ -147,18 +147,18 @@ function DiscoPricingTable({ packages, showTaxAndGratuity = true, showDeposit = 
           <Card 
             key={pkg.id}
             className={cn(
-              "relative overflow-hidden transition-all hover:shadow-xl",
-              pkg.popular && "ring-2 ring-primary shadow-lg scale-105"
+              "relative overflow-hidden transition-all hover:shadow-xl h-full flex flex-col",
+              pkg.popular && "ring-2 ring-primary shadow-lg md:scale-105"
             )}
           >
             {pkg.popular && (
-              <div className="absolute top-0 right-0 bg-gradient-to-l from-primary to-primary/80 text-white px-4 py-1 rounded-bl-lg">
+              <div className="absolute top-0 right-0 bg-gradient-to-l from-primary to-primary/80 text-white px-4 py-1 rounded-bl-lg z-10">
                 <Star className="h-4 w-4 inline mr-1" />
                 Most Popular
               </div>
             )}
             
-            <CardHeader className="pb-4">
+            <CardHeader className="pb-4 flex-grow-0">
               <div className="flex items-center justify-between mb-2">
                 <Icon className="h-8 w-8 text-primary" />
                 {pkg.badge && (
@@ -181,8 +181,8 @@ function DiscoPricingTable({ packages, showTaxAndGratuity = true, showDeposit = 
               </div>
             </CardHeader>
             
-            <CardContent>
-              <div className="space-y-3 mb-6">
+            <CardContent className="flex-grow flex flex-col">
+              <div className="space-y-3 flex-grow">
                 {pkg.features.map((feature, index) => {
                   const isFeatureObj = typeof feature === 'object';
                   const text = isFeatureObj ? feature.text : feature;
@@ -241,10 +241,18 @@ function DiscoPricingTable({ packages, showTaxAndGratuity = true, showDeposit = 
               )}
               
               <div
-                className="xola-custom xola-checkout"
+                className="xola-custom xola-checkout mt-6"
                 data-button-id="691574bd162501edc00f151a"
               >
-                <Button className="w-full mt-4" variant={pkg.popular ? "default" : "outline"}>
+                <Button 
+                  className={cn(
+                    "w-full",
+                    pkg.popular 
+                      ? "bg-primary hover:bg-primary/90 text-white" 
+                      : "border-2 border-gray-300 bg-white text-gray-800 hover:bg-gray-50 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700"
+                  )}
+                  variant={pkg.popular ? "default" : "outline"}
+                >
                   {pkg.cta || 'Book Now'}
                   <ArrowRight className="h-4 w-4 ml-2" />
                 </Button>
