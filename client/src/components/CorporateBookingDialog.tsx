@@ -181,16 +181,11 @@ export function CorporateBookingDialog({
   };
 
   const handleContactSales = () => {
-    // Trigger embedded chat or contact form
+    // Trigger quote builder chat
     onClose();
     
-    // Scroll to contact section or open chat
-    const contactSection = document.getElementById('contact');
-    if (contactSection) {
-      contactSection.scrollIntoView({ behavior: 'smooth' });
-    } else {
-      navigate('/contact');
-    }
+    // Navigate to chat for quote building
+    navigate('/chat');
   };
 
   const resetDialog = () => {

@@ -673,7 +673,7 @@ export default function PartyBoatAustin() {
               <Button 
                 size="lg" 
                 className="bg-white text-blue-600 hover:bg-gray-100 text-lg px-8 py-6"
-                onClick={() => window.open('https://events.premierpartycruises.com/widget/form/X1zEKdfbmjqs2hBHWNN1', '_blank')}
+                onClick={() => navigate('/chat')}
                 data-testid="button-book-now"
               >
                 <PartyPopper className="w-5 h-5 mr-2" />
@@ -683,11 +683,11 @@ export default function PartyBoatAustin() {
                 size="lg" 
                 variant="outlineLight" 
                 className="text-lg px-8 py-6"
-                onClick={() => navigate('/contact')}
+                onClick={() => navigate('/chat')}
                 data-testid="button-contact"
               >
                 <Phone className="w-5 h-5 mr-2" />
-                Contact Us
+                Get a Quote
               </Button>
             </div>
           </div>

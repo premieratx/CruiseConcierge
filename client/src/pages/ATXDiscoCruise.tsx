@@ -313,7 +313,7 @@ export default function ATXDiscoCruise() {
               <div className="flex flex-col sm:flex-row gap-4 justify-center px-4">
                 <Button 
                   size="lg" 
-                  onClick={() => navigate('/contact')}
+                  onClick={() => navigate('/chat')}
                   className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white font-bold text-sm sm:text-lg px-6 sm:px-10 py-4 sm:py-7 shadow-2xl transform hover:scale-105 transition-all"
                   data-testid="button-learn-more"
                 >

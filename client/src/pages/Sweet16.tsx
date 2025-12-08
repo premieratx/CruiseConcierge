@@ -729,12 +729,12 @@ export default function Sweet16() {
               <Button
                 size="lg"
                 variant="outline"
-                onClick={() => navigate('/contact')}
+                onClick={() => navigate('/chat')}
                 className="bg-white/10 backdrop-blur-sm text-white border-white/30 hover:bg-white/20 font-bold text-lg px-8 py-6"
                 data-testid="button-cta-contact"
               >
                 <Phone className="mr-2 h-5 w-5" />
-                Call Us: 512-488-5892
+                Get a Quote
               </Button>
             </div>
           </motion.div>
