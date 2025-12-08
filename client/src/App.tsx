@@ -275,6 +275,7 @@ function Router() {
       <Route path="/wedding-anniversary-celebration-ideas" component={WeddingAnniversaryCelebrationIdeas} />
       
       {/* Rehearsal Dinner Boat + Alcohol Delivery - Full React Page */}
+      <Route path="/blog/rehearsal-dinner-boat-alcohol-delivery-unique-wedding-weekend-experiences" component={RehearsalDinnerBoatAlcoholDelivery} />
       <Route path="/rehearsal-dinner-boat-alcohol-delivery" component={RehearsalDinnerBoatAlcoholDelivery} />
       
       {/* Redirect /blog/ version to /blogs/ React page */}

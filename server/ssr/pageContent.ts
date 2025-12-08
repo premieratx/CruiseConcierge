@@ -2111,6 +2111,12 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       'birthday-party', 'graduation-party', 'testimonials', 'faq', 'contact'
     ]
   },
+  '/blog/rehearsal-dinner-boat-alcohol-delivery-unique-wedding-weekend-experiences': {
+    h1: 'Rehearsal Dinner Boat & Alcohol Delivery | Unique Wedding Weekend Experiences',
+    introduction: 'Create unforgettable [[rehearsal-dinner]] experiences on Lake Travis with boat parties and seamless alcohol delivery. Premier Party Cruises partners with Party On Delivery to make your wedding weekend in Austin truly memorable. From intimate family gatherings to elegant [[welcome-party]] events, we handle everything so you can focus on celebrating.',
+    sections: [],
+    relatedPages: ['rehearsal-dinner', 'welcome-party', 'after-party', 'private-cruises']
+  },
   '/rehearsal-dinner-boat-alcohol-delivery': {
     h1: 'Rehearsal Dinner Boat & Alcohol Delivery | Unique Wedding Weekend Experiences',
     introduction: 'Create unforgettable [[rehearsal-dinner]] experiences on Lake Travis with boat parties and seamless alcohol delivery. Premier Party Cruises partners with Party On Delivery to make your wedding weekend in Austin truly memorable. From intimate family gatherings to elegant [[welcome-party]] events, we handle everything so you can focus on celebrating.',
