@@ -3,15 +3,11 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { LazyImage } from '@/components/LazyImage';
 import Lightbox from '@/components/Lightbox';
 import { cn } from '@/lib/utils';
-import { CAPITAL_CITY_SHOTS, PARTY_PHOTOS } from '@/lib/media';
+import { CAPITAL_CITY_SHOTS } from '@/lib/media';
 
 // VERIFIED PARTY PHOTOS WITH PEOPLE CELEBRATING - NO EMPTY BOATS
-// Using Capital City Shots - real party photos with actual guests
+// Using Capital City Shots - real party photos with actual guests (24 photos for 4 sets of 6)
 const allPartyPhotos = [
-  // Best party shots first
-  PARTY_PHOTOS.bachelorPartyGroup,
-  PARTY_PHOTOS.atxDiscoCruiseParty,
-  // Capital City Shots - Real party photos
   CAPITAL_CITY_SHOTS.party1,
   CAPITAL_CITY_SHOTS.party2,
   CAPITAL_CITY_SHOTS.party3,
