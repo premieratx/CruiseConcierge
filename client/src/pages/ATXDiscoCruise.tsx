@@ -58,15 +58,15 @@ import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 // to avoid duplicate/conflicting schemas and Google Search Console errors
 import { YouTubeVideoBackground } from '@/components/YouTubeVideoBackground';
 import AnimatedPhotoGallery from '@/components/AnimatedPhotoGallery';
-import { PARTY_PHOTOS_WITH_PEOPLE } from '@/lib/media';
+import { DISCO_GALLERY } from '@/lib/media';
 
-// DISCO CRUISE PHOTOS - Unique party photos with people (no duplicates)
-const heroImage1 = PARTY_PHOTOS_WITH_PEOPLE.disco1;
-const heroImage2 = PARTY_PHOTOS_WITH_PEOPLE.disco2;
-const heroImage3 = PARTY_PHOTOS_WITH_PEOPLE.disco3;
-const galleryImage1 = PARTY_PHOTOS_WITH_PEOPLE.disco4;
-const galleryImage2 = PARTY_PHOTOS_WITH_PEOPLE.disco5;
-const galleryImage3 = PARTY_PHOTOS_WITH_PEOPLE.disco6;
+// DISCO CRUISE PHOTOS - Unique party photos alternating with boat photos
+const heroImage1 = DISCO_GALLERY[0].src;
+const heroImage2 = DISCO_GALLERY[2].src;
+const heroImage3 = DISCO_GALLERY[4].src;
+const galleryImage1 = DISCO_GALLERY[6].src;
+const galleryImage2 = DISCO_GALLERY[7].src;
+const galleryImage3 = DISCO_GALLERY[1].src;
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
@@ -222,16 +222,11 @@ const faqItems = [
   }
 ];
 
-const galleryPhotos = [
-  { id: 1, src: heroImage1, alt: 'ATX Disco Cruise party guests celebrating on Lake Travis' },
-  { id: 2, src: heroImage2, alt: 'Champagne spray celebration on the cruise' },
-  { id: 3, src: heroImage3, alt: 'Bachelorette group with sun hats on party boat' },
-  { id: 4, src: galleryImage1, alt: 'Groups in heart sunglasses celebrating' },
-  { id: 5, src: galleryImage2, alt: 'Tropical themed party group on Lake Travis' },
-  { id: 6, src: galleryImage3, alt: 'Party crew with matching hats having fun' },
-  { id: 7, src: PARTY_PHOTOS_WITH_PEOPLE.disco7, alt: 'Bride and friends celebrating on the boat' },
-  { id: 8, src: PARTY_PHOTOS_WITH_PEOPLE.disco8, alt: 'Captain popping champagne at party' }
-];
+const galleryPhotos = DISCO_GALLERY.map((photo, idx) => ({
+  id: idx + 1,
+  src: photo.src,
+  alt: photo.alt
+}));
 
 // Table of Contents sections
 const tocSections = [

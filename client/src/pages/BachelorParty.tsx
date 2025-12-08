@@ -55,17 +55,17 @@ import { SchemaMarkup, generateEventSchema, generateProductSchema, generateFAQSc
 import { YouTubeVideoBackground } from '@/components/YouTubeVideoBackground';
 import { DiscoCruisePricing } from '@/components/DiscoCruisePricing';
 import AnimatedPhotoGallery from '@/components/AnimatedPhotoGallery';
-import { PARTY_PHOTOS_WITH_PEOPLE } from '@/lib/media';
+import { BACHELOR_GALLERY } from '@/lib/media';
 
-// BACHELOR PARTY PHOTOS - Unique party photos with people (no duplicates)
-const heroImage1 = PARTY_PHOTOS_WITH_PEOPLE.bach1;
-const heroImage2 = PARTY_PHOTOS_WITH_PEOPLE.bach2;
-const heroImage3 = PARTY_PHOTOS_WITH_PEOPLE.bach3;
-const galleryImage1 = PARTY_PHOTOS_WITH_PEOPLE.bach4;
-const galleryImage2 = PARTY_PHOTOS_WITH_PEOPLE.bach5;
-const galleryImage3 = PARTY_PHOTOS_WITH_PEOPLE.bach6;
-const discoImage1 = PARTY_PHOTOS_WITH_PEOPLE.bach7;
-const discoImage2 = PARTY_PHOTOS_WITH_PEOPLE.bach8;
+// BACHELOR PARTY PHOTOS - Unique party photos alternating with boat photos
+const heroImage1 = BACHELOR_GALLERY[0].src;
+const heroImage2 = BACHELOR_GALLERY[2].src;
+const heroImage3 = BACHELOR_GALLERY[4].src;
+const galleryImage1 = BACHELOR_GALLERY[6].src;
+const galleryImage2 = BACHELOR_GALLERY[7].src;
+const galleryImage3 = BACHELOR_GALLERY[1].src;
+const discoImage1 = BACHELOR_GALLERY[3].src;
+const discoImage2 = BACHELOR_GALLERY[5].src;
 
 // Animation variants
 const fadeInUp = {
@@ -299,17 +299,12 @@ import { bachelorReviews, combinedBachReviews, type Review } from '@shared/revie
 // Use bachelorReviews + combinedBachReviews for Bachelor Party page
 const groomTestimonials: Review[] = [...bachelorReviews, ...combinedBachReviews];
 
-// Photo gallery items - PARTY PHOTOS ONLY (no fleet boats)
-const galleryPhotos = [
-  { id: 1, src: heroImage1, alt: 'Bachelor Party Austin group celebrating on Lake Travis' },
-  { id: 2, src: heroImage2, alt: 'Bachelor party group photo on the boat' },
-  { id: 3, src: heroImage3, alt: 'Guests jumping into Lake Travis' },
-  { id: 4, src: galleryImage1, alt: 'Friends posing on party boat' },
-  { id: 5, src: galleryImage2, alt: 'ATX Disco Cruise party atmosphere' },
-  { id: 6, src: galleryImage3, alt: 'Party guests dancing on cruise' },
-  { id: 7, src: discoImage1, alt: 'Lake Travis Bachelor Party celebration' },
-  { id: 8, src: discoImage2, alt: 'Austin Bachelor Party Boat atmosphere' }
-];
+// Photo gallery items - Alternating party and boat photos
+const galleryPhotos = BACHELOR_GALLERY.map((photo, idx) => ({
+  id: idx + 1,
+  src: photo.src,
+  alt: photo.alt
+}));
 
 // Table of Contents sections - Updated with comparison
 const tocSections = [

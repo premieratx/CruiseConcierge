@@ -49,17 +49,17 @@ import { LazyImage } from '@/components/LazyImage';
 import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import { YouTubeVideoBackground } from '@/components/YouTubeVideoBackground';
 import AnimatedPhotoGallery from '@/components/AnimatedPhotoGallery';
-import { PARTY_PHOTOS_WITH_PEOPLE } from '@/lib/media';
+import { BACHELORETTE_GALLERY } from '@/lib/media';
 
-// BACHELORETTE PARTY PHOTOS - Unique party photos with people (no duplicates)
-const heroImage1 = PARTY_PHOTOS_WITH_PEOPLE.bachelorette1;
-const heroImage2 = PARTY_PHOTOS_WITH_PEOPLE.bachelorette2;
-const heroImage3 = PARTY_PHOTOS_WITH_PEOPLE.bachelorette3;
-const galleryImage1 = PARTY_PHOTOS_WITH_PEOPLE.bachelorette4;
-const galleryImage2 = PARTY_PHOTOS_WITH_PEOPLE.bachelorette5;
-const galleryImage3 = PARTY_PHOTOS_WITH_PEOPLE.bachelorette6;
-const partyImage17 = PARTY_PHOTOS_WITH_PEOPLE.bachelorette7;
-const partyImage18 = PARTY_PHOTOS_WITH_PEOPLE.bachelorette8;
+// BACHELORETTE PARTY PHOTOS - Unique party photos alternating with boat photos
+const heroImage1 = BACHELORETTE_GALLERY[0].src;
+const heroImage2 = BACHELORETTE_GALLERY[2].src;
+const heroImage3 = BACHELORETTE_GALLERY[4].src;
+const galleryImage1 = BACHELORETTE_GALLERY[6].src;
+const galleryImage2 = BACHELORETTE_GALLERY[7].src;
+const galleryImage3 = BACHELORETTE_GALLERY[1].src;
+const partyImage17 = BACHELORETTE_GALLERY[3].src;
+const partyImage18 = BACHELORETTE_GALLERY[5].src;
 
 // Animation variants
 const fadeInUp = {
@@ -291,17 +291,12 @@ import { bacheloretteReviews, combinedBachReviews, type Review } from '@shared/r
 // Use bacheloretteReviews + combinedBachReviews for Bachelorette Party page
 const brideTestimonials: Review[] = [...bacheloretteReviews, ...combinedBachReviews];
 
-// Photo gallery items - PARTY PHOTOS ONLY (no fleet boats)
-const galleryPhotos = [
-  { id: 1, src: heroImage1, alt: 'Bachelorette party group with heart sunglasses' },
-  { id: 2, src: heroImage2, alt: 'Tropical themed bachelorette group on Lake Travis' },
-  { id: 3, src: heroImage3, alt: 'Bachelorette group with sun hats on party boat' },
-  { id: 4, src: galleryImage1, alt: 'Party crew with matching hats celebrating' },
-  { id: 5, src: galleryImage2, alt: 'Austin bachelorette party celebration' },
-  { id: 6, src: galleryImage3, alt: 'Bachelorette group on party boat' },
-  { id: 7, src: partyImage17, alt: 'Party atmosphere on Lake Travis' },
-  { id: 8, src: partyImage18, alt: 'Bride and friends celebrating on the boat' }
-];
+// Photo gallery items - Alternating party and boat photos
+const galleryPhotos = BACHELORETTE_GALLERY.map((photo, idx) => ({
+  id: idx + 1,
+  src: photo.src,
+  alt: photo.alt
+}));
 
 export default function BacheloretteParty() {
   const [, navigate] = useLocation();

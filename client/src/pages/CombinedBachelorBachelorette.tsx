@@ -34,18 +34,18 @@ import Footer from '@/components/Footer';
 import { combinedBachReviews } from '@shared/reviews-data';
 import { YouTubeVideoBackground } from '@/components/YouTubeVideoBackground';
 import AnimatedPhotoGallery from '@/components/AnimatedPhotoGallery';
-import { PARTY_PHOTOS_WITH_PEOPLE } from '@/lib/media';
+import { COMBINED_GALLERY } from '@/lib/media';
 import { initXolaEmbeds } from '@/services/xola';
 
-// COMBINED PARTY PHOTOS - Unique party photos with people (no duplicates)
-const heroImage1 = PARTY_PHOTOS_WITH_PEOPLE.combined1;
-const heroImage2 = PARTY_PHOTOS_WITH_PEOPLE.combined2;
-const heroImage3 = PARTY_PHOTOS_WITH_PEOPLE.combined3;
-const galleryImage1 = PARTY_PHOTOS_WITH_PEOPLE.combined4;
-const galleryImage2 = PARTY_PHOTOS_WITH_PEOPLE.combined5;
-const galleryImage3 = PARTY_PHOTOS_WITH_PEOPLE.combined6;
-const partyImage27 = PARTY_PHOTOS_WITH_PEOPLE.combined7;
-const partyImage28 = PARTY_PHOTOS_WITH_PEOPLE.combined8;
+// COMBINED PARTY PHOTOS - Unique party photos alternating with boat photos
+const heroImage1 = COMBINED_GALLERY[0].src;
+const heroImage2 = COMBINED_GALLERY[2].src;
+const heroImage3 = COMBINED_GALLERY[4].src;
+const galleryImage1 = COMBINED_GALLERY[6].src;
+const galleryImage2 = COMBINED_GALLERY[7].src;
+const galleryImage3 = COMBINED_GALLERY[1].src;
+const partyImage27 = COMBINED_GALLERY[3].src;
+const partyImage28 = COMBINED_GALLERY[5].src;
 
 // Combined party add-ons from constants
 const combinedAddOns = DISCO_ADD_ONS.combined;
@@ -96,17 +96,12 @@ const faqItems = [
 ];
 
 
-// Photo gallery items - PARTY PHOTOS WITH REAL PEOPLE CELEBRATING
-const galleryPhotos = [
-  { id: 1, src: heroImage1, alt: 'Combined Bachelor Bachelorette Austin party group on Lake Travis' },
-  { id: 2, src: heroImage2, alt: 'Champagne spray celebration on the cruise' },
-  { id: 3, src: heroImage3, alt: 'Party Boat Austin friends jumping into the lake' },
-  { id: 4, src: galleryImage1, alt: 'Wedding reception party on Lake Travis' },
-  { id: 5, src: galleryImage2, alt: 'Friends posing on party boat' },
-  { id: 6, src: galleryImage3, alt: 'Captain popping champagne at party' },
-  { id: 7, src: partyImage27, alt: 'Lake Travis Party guests celebrating on cruise' },
-  { id: 8, src: partyImage28, alt: 'Bachelor and bachelorette groups dancing together' }
-];
+// Photo gallery items - Alternating party and boat photos
+const galleryPhotos = COMBINED_GALLERY.map((photo, idx) => ({
+  id: idx + 1,
+  src: photo.src,
+  alt: photo.alt
+}));
 
 export default function CombinedBachelorBachelorette() {
   const [, navigate] = useLocation();

@@ -331,23 +331,23 @@ export default function Gallery() {
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
               {[
                 { src: '/attached_assets/disco_fun_best2_1765193453547.jpg', alt: 'Bachelorette group on rainbow float' },
-                { src: '/attached_assets/disco_fun5_1765193453548.jpg', alt: 'Champagne spray celebration on the cruise' },
+                { src: '/attached_assets/clever-girl-50-person-boat.webp', alt: 'Clever Girl 50-person party boat' },
+                { src: '/attached_assets/disco_fun5_1765193453548.jpg', alt: 'Champagne spray celebration' },
+                { src: '/attached_assets/day-tripper-14-person-boat.webp', alt: 'Day Tripper party boat' },
                 { src: '/attached_assets/disco_fun2_1765193453547.jpg', alt: 'Bachelorette group with sun hats' },
+                { src: '/attached_assets/meeseeks-25-person-boat.webp', alt: 'Meeseeks party boat' },
                 { src: '/attached_assets/disco_fun3_1765193453548.jpg', alt: 'Party group with heart sunglasses' },
+                { src: '/attached_assets/clever-girl-5-dance-floor.jpg', alt: 'Disco dance floor' },
                 { src: '/attached_assets/disco_fun7_1765193453548.jpg', alt: 'Tropical themed party group' },
+                { src: '/attached_assets/clever-girl-6-interior-seating.jpg', alt: 'Boat interior seating' },
                 { src: '/attached_assets/disco_fun9_1765193453548.jpg', alt: 'Party crew with matching caps' },
+                { src: '/attached_assets/clever-girl-7-flagship-boat.jpg', alt: 'Flagship party boat' },
                 { src: '/attached_assets/disco_fun_first_1765193453547.jpg', alt: 'Bride and friends celebrating' },
                 { src: '/attached_assets/disco_fun_1765193453547.jpg', alt: 'Captain popping champagne' },
                 { src: '/attached_assets/disco_fun_28_1765193453540.jpg', alt: 'Girls jumping into Lake Travis' },
                 { src: '/attached_assets/disco_fun6_1765193453548.jpg', alt: 'Friends posing on the boat' },
-                { src: '/attached_assets/bachelor-party-group-guys.webp', alt: 'Bachelor party group celebrating' },
+                { src: '/attached_assets/bachelor-party-group-guys.webp', alt: 'Bachelor party group' },
                 { src: '/attached_assets/atx-disco-cruise-party.jpg', alt: 'ATX Disco Cruise party' },
-                { src: '/attached_assets/dancing-party-scene.jpg', alt: 'Party guests dancing' },
-                { src: '/attached_assets/party-atmosphere-1.jpg', alt: 'Party atmosphere with friends' },
-                { src: '/attached_assets/party-atmosphere-2.jpg', alt: 'Guests having fun on Lake Travis' },
-                { src: '/attached_assets/party-atmosphere-3.jpg', alt: 'Party vibes on the water' },
-                { src: '/attached_assets/clever girl-10 austin bachelorette party_1763966476658.jpg', alt: 'Bachelorette party celebration' },
-                { src: '/attached_assets/clever-girl-8-wedding-reception.jpg', alt: 'Wedding reception party' },
               ].map((photo, idx) => (
                 <Card
                   key={idx}
