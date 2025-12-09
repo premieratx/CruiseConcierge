@@ -60,16 +60,47 @@ html, body {
 .aspect-4-3 { aspect-ratio: 4 / 3; }
 .aspect-3-2 { aspect-ratio: 3 / 2; }
 
-/* CLS FIX: Reserve space for specific gallery/card images */
+/* CLS FIX: Reserve space for hero section (above-the-fold stability) */
+#hero {
+  min-height: 100vh;
+  min-height: 100svh; /* Safe viewport height for mobile */
+  contain: layout style;
+}
+
+#hero video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* CLS FIX: Prevent layout shift from navigation */
+header, nav[data-testid="main-nav"] {
+  height: 64px;
+  contain: layout;
+}
+
+@media (max-width: 768px) {
+  header, nav[data-testid="main-nav"] {
+    height: 56px;
+  }
+}
+
+/* CLS FIX: Reserve space for lazy-loaded sections */
+.lazy-section {
+  min-height: 400px;
+}
+
+/* CLS FIX: Reserve space for quote builder iframe */
+#quote-builder {
+  min-height: 800px;
+}
+
+/* CLS FIX: Gallery card images reserve space */
 .gallery-image-container {
   aspect-ratio: 1 / 1;
   background-color: #f3f4f6;
-}
-
-.hero-image-container {
-  aspect-ratio: 16 / 9;
-  min-height: 300px;
-  background-color: #1f2937;
 }
 
 /* Prevent CLS from dialog/modal animations */

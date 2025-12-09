@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, lazy, Suspense, FormEvent } from 'react';
 import { Link, useLocation } from 'wouter';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence } from 'framer-motion';
+import { LazyMotionProvider, m } from '@/components/LazyMotion';
 import { useQuery } from '@tanstack/react-query';
 import PublicNavigation from '@/components/PublicNavigation';
 import { Button } from '@/components/ui/button';
@@ -526,6 +527,7 @@ export default function Home() {
         defaultKeywords={['party boat Austin', 'bachelorette party Austin', 'Austin boat rental', 'Lake Travis party boat', 'bachelor party Austin']}
         schemaType="organization"
       />
+      <LazyMotionProvider>
       <PublicNavigation />
       {/* Hero Section */}
       <section id="hero" className="relative min-h-screen flex flex-col justify-center overflow-hidden bg-gray-900">
@@ -549,7 +551,7 @@ export default function Home() {
         </div>
 
 
-        {/* Hero Content - PAGESPEED: No motion.div above fold */}
+        {/* Hero Content - PAGESPEED: No m.div above fold */}
         <div className="relative z-10 container mx-auto px-4 sm:px-6 text-white flex-grow flex items-center">
           <div className="max-w-5xl mx-auto text-center">
             {/* Logo - Optimized with srcset for responsive loading */}
@@ -602,7 +604,7 @@ export default function Home() {
               </div>
             </div>
 
-            {/* CTA Buttons - PAGESPEED: No motion.div above fold */}
+            {/* CTA Buttons - PAGESPEED: No m.div above fold */}
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
               <div
                 className="xola-custom xola-checkout"
@@ -709,7 +711,7 @@ export default function Home() {
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
             {services.map((service, index) => (
-              <motion.div
+              <m.div
                 key={service.id}
                 initial="hidden"
                 whileInView="visible"
@@ -828,7 +830,7 @@ export default function Home() {
                     </div>
                   </CardContent>
                 </Card>
-              </motion.div>
+              </m.div>
             ))}
           </div>
           </div>
@@ -1037,7 +1039,7 @@ export default function Home() {
             {/* Testimonial Cards Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
               {testimonials.map((testimonial, index) => (
-                <motion.div
+                <m.div
                   key={testimonial.id}
                   initial={reducedMotion ? false : "hidden"}
                   whileInView={reducedMotion ? false : "visible"}
@@ -1080,7 +1082,7 @@ export default function Home() {
                       </div>
                     </div>
                   </div>
-                </motion.div>
+                </m.div>
               ))}
             </div>
 
@@ -1129,7 +1131,7 @@ export default function Home() {
                 {/* Photo Gallery Grid */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   {selectedService.gallery?.map((image, index) => (
-                    <motion.div
+                    <m.div
                       key={index}
                       initial={{ opacity: 0, scale: 0.8 }}
                       animate={{ opacity: 1, scale: 1 }}
@@ -1152,7 +1154,7 @@ export default function Home() {
                       <div className="absolute bottom-2 right-2 bg-black/70 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                         <span data-editable data-editable-id={`lightbox-${selectedService.id}-gallery-view-full`}>View Full</span>
                       </div>
-                    </motion.div>
+                    </m.div>
                   ))}
                 </div>
 
@@ -1173,7 +1175,7 @@ export default function Home() {
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                     {selectedService.highlights?.map((highlight, index) => (
-                      <motion.div
+                      <m.div
                         key={index}
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
@@ -1184,7 +1186,7 @@ export default function Home() {
                         <span className="text-gray-700 dark:text-gray-300 font-medium" data-editable data-editable-id={`lightbox-${selectedService.id}-highlight-${index}`}>
                           {highlight}
                         </span>
-                      </motion.div>
+                      </m.div>
                     ))}
                   </div>
                 </div>
@@ -1558,7 +1560,7 @@ export default function Home() {
             </div>
 
           {/* Disco vs Private Comparison */}
-          <motion.div 
+          <m.div 
             variants={reducedMotion ? undefined : fadeInUp}
             className="mb-16 max-w-5xl mx-auto"
           >
@@ -1634,10 +1636,10 @@ export default function Home() {
               highlightBest={true}
             />
             </Suspense>
-          </motion.div>
+          </m.div>
 
           {/* Fleet Comparison */}
-          <motion.div 
+          <m.div 
             variants={reducedMotion ? undefined : fadeInUp}
             className="max-w-7xl mx-auto"
           >
@@ -1718,7 +1720,7 @@ export default function Home() {
               ariaLabel="Comparison of Premier Party Cruises boat fleet"
             />
             </Suspense>
-          </motion.div>
+          </m.div>
           </div>
         </section>
       </SectionReveal>
@@ -1829,7 +1831,7 @@ export default function Home() {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 max-w-6xl mx-auto">
             {/* Contact Form */}
-            <motion.div
+            <m.div
               initial={reducedMotion ? false : "hidden"}
               whileInView={reducedMotion ? undefined : "visible"}
               viewport={reducedMotion ? undefined : { once: true, margin: "-50px" }}
@@ -1961,10 +1963,10 @@ export default function Home() {
                   </form>
                 </CardContent>
               </Card>
-            </motion.div>
+            </m.div>
 
             {/* Contact Info & Quick Actions */}
-            <motion.div
+            <m.div
               initial={reducedMotion ? false : "hidden"}
               whileInView={reducedMotion ? undefined : "visible"}
               viewport={reducedMotion ? undefined : { once: true, margin: "-50px" }}
@@ -2027,7 +2029,7 @@ export default function Home() {
                 </Card>
               </div>
 
-            </motion.div>
+            </m.div>
           </div>
           </div>
         </section>
@@ -2289,7 +2291,7 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {/* Parties Hosted Counter */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -2297,21 +2299,21 @@ export default function Home() {
             >
               <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20">
                 <div className="text-4xl sm:text-5xl md:text-6xl font-bold mb-2">
-                  <motion.span
+                  <m.span
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     transition={{ duration: 0.5 }}
                   >
                     150,000+
-                  </motion.span>
+                  </m.span>
                 </div>
                 <div className="text-xl font-semibold">Parties Hosted</div>
                 <div className="text-sm opacity-80 mt-2">Since 2009</div>
               </div>
-            </motion.div>
+            </m.div>
 
             {/* Five-Star Reviews Counter */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -2320,22 +2322,22 @@ export default function Home() {
             >
               <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20">
                 <div className="text-4xl sm:text-5xl md:text-6xl font-bold mb-2 flex items-center justify-center gap-2">
-                  <motion.span
+                  <m.span
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     transition={{ duration: 0.5, delay: 0.1 }}
                   >
                     420+
-                  </motion.span>
+                  </m.span>
                   <Star className="h-10 w-10 fill-yellow-400 text-yellow-400" />
                 </div>
                 <div className="text-xl font-semibold">Five-Star Reviews</div>
                 <div className="text-sm opacity-80 mt-2">4.9/5 Average Rating</div>
               </div>
-            </motion.div>
+            </m.div>
 
             {/* Weather Guarantee Counter */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -2344,18 +2346,18 @@ export default function Home() {
             >
               <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20">
                 <div className="text-4xl sm:text-5xl md:text-6xl font-bold mb-2">
-                  <motion.span
+                  <m.span
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     transition={{ duration: 0.5, delay: 0.2 }}
                   >
                     100%
-                  </motion.span>
+                  </m.span>
                 </div>
                 <div className="text-xl font-semibold">Weather Guarantee</div>
                 <div className="text-sm opacity-80 mt-2">Full Refund Protection</div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
 
           {/* Final CTA */}
@@ -2428,6 +2430,7 @@ export default function Home() {
 
       {/* Footer */}
       <Footer />
+      </LazyMotionProvider>
     </div>
   );
 }
