@@ -471,13 +471,13 @@ export const blogMetadataRegistry: Record<string, BlogMetadata> = {
 
   'blogs/lake-travis-boat-safety-and-maintenance-quality-standards-for-party-cruises': {
     slug: 'blogs/lake-travis-boat-safety-and-maintenance-quality-standards-for-party-cruises',
-    title: 'Lake Travis Boat Safety & Maintenance: Quality Standards',
-    description: 'Discover Premier Party Cruises safety standards. Boat maintenance, captain expertise, and our perfect safety record on Lake Travis.',
+    title: 'Lake Travis Boat Safety & Maintenance Standards | Premier Party Cruises',
+    description: '15+ years. 125,000+ guests. Zero safety incidents. Discover our industry-leading boat safety and maintenance standards on Lake Travis.',
     publishDate: '2025-02-10',
     modifiedDate: '2025-12-09',
     author: 'Premier Party Cruises',
-    heroImage: 'https://premierpartycruises.com/attached_assets/@capitalcityshots-28_1760080807867.jpg',
-    keywords: ['Lake Travis boat safety', 'party cruise maintenance', 'boat captain credentials', 'Lake Travis quality standards']
+    heroImage: 'https://premierpartycruises.com/attached_assets/clever-girl-1-lake-travis-party-boat.jpg',
+    keywords: ['Lake Travis boat safety', 'party cruise maintenance', 'USCG licensed captains', 'boat safety inspections', 'Premier Party Cruises safety record']
   },
 
   'blogs/lake-travis-party-boat-rentals-ultimate-guide-for-large-group-events-20-guests': {
