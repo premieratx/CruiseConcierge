@@ -63,6 +63,8 @@ const LakeTravisBachelorPartyBoats = lazy(() => import("./pages/blog/LakeTravisB
 const WeddingAnniversaryCelebrationIdeas = lazy(() => import("./pages/blog/WeddingAnniversaryCelebrationIdeas"));
 const ATXDiscoCruiseExperience = lazy(() => import("./pages/blog/ATXDiscoCruiseExperience"));
 const LakeTravisBachelorPartyCelebrations = lazy(() => import("./pages/blog/LakeTravisBachelorPartyCelebrations"));
+const BirthdayPartyBoatRentalsLakeTravis = lazy(() => import("./pages/blog/BirthdayPartyBoatRentalsLakeTravis"));
+const CorporateTeamBuildingLakeTravis = lazy(() => import("./pages/blog/CorporateTeamBuildingLakeTravis"));
 
 // Admin Blog Pages - Lazy loaded
 const BlogManagement = lazy(() => import("./pages/admin/BlogManagement"));
@@ -158,6 +160,7 @@ const RehearsalDinnerBoatAlcoholDelivery = lazy(() => import("./pages/RehearsalD
 const LakeTravisBachelorPartyBoatRentalsGuide = lazy(() => import("./pages/LakeTravisBachelorPartyBoatRentalsGuide"));
 const AustinBacheloretteBlissGuide = lazy(() => import("./pages/AustinBacheloretteBlissGuide"));
 const AustinPartyVenueAlcoholDelivery = lazy(() => import("./pages/blog/AustinPartyVenueAlcoholDelivery"));
+const BirthdayPartyAlcoholDeliveryAustin = lazy(() => import("./pages/blog/BirthdayPartyAlcoholDeliveryAustin"));
 
 // Customer Portal Pages - Lazy loaded
 const PortalLogin = lazy(() => import("./pages/PortalLogin"));
@@ -307,11 +310,14 @@ function Router() {
       {/* Replace old static blogs with new React versions */}
       <Route path="/blogs/lake-travis-bachelor-party-boat-rentals-the-ultimate-guide-to-epic-celebrations" component={LakeTravisBachelorPartyBoatRentalsGuide} />
       <Route path="/blogs/austin-bachelorette-bliss-spa-retreats-disco-cruises-alcohol-delivery" component={AustinBacheloretteBlissGuide} />
+      <Route path="/blogs/birthday-party-alcohol-delivery-austin-milestone-celebrations-made-easy" component={BirthdayPartyAlcoholDeliveryAustin} />
       <Route path="/blogs/austin-party-venue-alcohol-delivery-navigating-policies-and-logistics" component={AustinPartyVenueAlcoholDelivery} />
       <Route path="/blogs/first-time-lake-travis-boat-rental-essential-tips-for-austin-party-planning" component={FirstTimeLakeTravisGuide} />
       <Route path="/blog/birthday-party-alcohol-delivery-austin-milestone-celebrations-made-easy" component={BirthdayPartyAustinGuide} />
       <Route path="/blog/lake-travis-party-boat-rentals-ultimate-guide-for-large-group-events-20-guests" component={LakeTravisLargeGroupsGuide} />
       <Route path="/blog/lake-travis-weather-planning-seasonal-considerations-for-perfect-boat-parties" component={LakeTravisWeatherGuide} />
+      <Route path="/blogs/birthday-party-boat-rentals-on-lake-travis-milestone-celebrations-with-a-view" component={BirthdayPartyBoatRentalsLakeTravis} />
+      <Route path="/blogs/corporate-team-building-on-lake-travis-professional-boat-rental-solutions" component={CorporateTeamBuildingLakeTravis} />
       
       {/* Public Booking - Commented out, using /chat instead */}
       {/* <Route path="/calendar" component={PublicCalendar} /> */}
