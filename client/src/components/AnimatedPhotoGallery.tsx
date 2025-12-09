@@ -8,30 +8,34 @@ import { CAPITAL_CITY_SHOTS } from '@/lib/media';
 // VERIFIED PARTY PHOTOS WITH PEOPLE CELEBRATING - NO EMPTY BOATS
 // Using Capital City Shots - real party photos with actual guests (24 photos for 4 sets of 6)
 const allPartyPhotos = [
-  CAPITAL_CITY_SHOTS.party1,
-  CAPITAL_CITY_SHOTS.party2,
-  CAPITAL_CITY_SHOTS.party3,
-  CAPITAL_CITY_SHOTS.party4,
-  CAPITAL_CITY_SHOTS.party5,
-  CAPITAL_CITY_SHOTS.party6,
-  CAPITAL_CITY_SHOTS.party7,
-  CAPITAL_CITY_SHOTS.party8,
-  CAPITAL_CITY_SHOTS.party9,
-  CAPITAL_CITY_SHOTS.party10,
-  CAPITAL_CITY_SHOTS.party11,
-  CAPITAL_CITY_SHOTS.party12,
-  CAPITAL_CITY_SHOTS.party13,
-  CAPITAL_CITY_SHOTS.party14,
-  CAPITAL_CITY_SHOTS.party15,
-  CAPITAL_CITY_SHOTS.party16,
-  CAPITAL_CITY_SHOTS.party17,
-  CAPITAL_CITY_SHOTS.party18,
-  CAPITAL_CITY_SHOTS.party19,
-  CAPITAL_CITY_SHOTS.party20,
-  CAPITAL_CITY_SHOTS.party21,
-  CAPITAL_CITY_SHOTS.party22,
-  CAPITAL_CITY_SHOTS.party23,
-  CAPITAL_CITY_SHOTS.party24,
+  // Set A - Disco photos
+  CAPITAL_CITY_SHOTS.disco1,
+  CAPITAL_CITY_SHOTS.disco2,
+  CAPITAL_CITY_SHOTS.disco3,
+  CAPITAL_CITY_SHOTS.disco4,
+  CAPITAL_CITY_SHOTS.disco5,
+  CAPITAL_CITY_SHOTS.disco6,
+  // Set B - Bachelor photos
+  CAPITAL_CITY_SHOTS.bach1,
+  CAPITAL_CITY_SHOTS.bach2,
+  CAPITAL_CITY_SHOTS.bach3,
+  CAPITAL_CITY_SHOTS.bach4,
+  CAPITAL_CITY_SHOTS.bach5,
+  CAPITAL_CITY_SHOTS.bach6,
+  // Set C - Bachelorette photos
+  CAPITAL_CITY_SHOTS.bachelorette1,
+  CAPITAL_CITY_SHOTS.bachelorette2,
+  CAPITAL_CITY_SHOTS.bachelorette3,
+  CAPITAL_CITY_SHOTS.bachelorette4,
+  CAPITAL_CITY_SHOTS.bachelorette5,
+  CAPITAL_CITY_SHOTS.bachelorette6,
+  // Set D - Combined photos
+  CAPITAL_CITY_SHOTS.combined1,
+  CAPITAL_CITY_SHOTS.combined2,
+  CAPITAL_CITY_SHOTS.combined3,
+  CAPITAL_CITY_SHOTS.combined4,
+  CAPITAL_CITY_SHOTS.combined5,
+  CAPITAL_CITY_SHOTS.combined6,
 ];
 
 // Split into rotating sets (6 photos per set for grid display)
