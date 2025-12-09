@@ -160,12 +160,8 @@ const PORT = process.env.PORT || '5000';
   const LEGACY_REDIRECTS: Record<string, string> = {
     '/party-cruises-2025': '/',
     '/salesvsl-page-page': '/',
-    // Blog redirects from /blog/ to /blogs/ (canonical URLs)
-    '/blog/top-spots-tips-for-an-unforgettable-austin-bachelorette-party-experience': '/blogs/top-spots-tips-for-an-unforgettable-austin-bachelorette-party-experience',
-    '/blog/must-haves-for-the-perfect-austin-bachelorette-weekend': '/blogs/must-haves-for-the-perfect-austin-bachelorette-weekend',
-    // Blog converted to full React page (handles both with and without trailing slash)
-    '/blog/rehearsal-dinner-boat-alcohol-delivery-unique-wedding-weekend-experiences': '/rehearsal-dinner-boat-alcohol-delivery',
-    '/blog/rehearsal-dinner-boat-alcohol-delivery-unique-wedding-weekend-experiences/': '/rehearsal-dinner-boat-alcohol-delivery',
+    // Note: Blog /blog/* routes are now handled by React components directly in routes.ts
+    // The blogRouteHandler checks reactBlogSlugs and skips WordPress SSR for React pages
   };
 
   Object.entries(LEGACY_REDIRECTS).forEach(([from, to]) => {

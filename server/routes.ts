@@ -926,26 +926,65 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
     res.redirect(301, '/blogs/must-haves-for-the-perfect-austin-bachelorette-weekend');
   });
   
-  // React blog pages - skip WordPress SSR, let React handle them (must be BEFORE generic blog SSR handler)
-  const reactBlogRoutes = [
-    '/blogs/first-time-lake-travis-boat-rental-essential-tips-for-austin-party-planning',
-    '/blog/birthday-party-alcohol-delivery-austin-milestone-celebrations-made-easy',
-    '/blog/lake-travis-party-boat-rentals-ultimate-guide-for-large-group-events-20-guests',
-    '/blog/lake-travis-weather-planning-seasonal-considerations-for-perfect-boat-parties',
-    '/blog/rehearsal-dinner-boat-alcohol-delivery-unique-wedding-weekend-experiences',
-    '/blogs/lake-travis-bachelor-party-austin-celebrations'
-  ];
+  // React blog slugs - these have dedicated React components, skip WordPress SSR
+  const reactBlogSlugs = new Set([
+    'first-time-lake-travis-boat-rental-essential-tips-for-austin-party-planning',
+    'birthday-party-alcohol-delivery-austin-milestone-celebrations-made-easy',
+    'lake-travis-party-boat-rentals-ultimate-guide-for-large-group-events-20-guests',
+    'lake-travis-weather-planning-seasonal-considerations-for-perfect-boat-parties',
+    'rehearsal-dinner-boat-alcohol-delivery-unique-wedding-weekend-experiences',
+    'lake-travis-bachelor-party-austin-celebrations',
+    'lake-travis-bachelor-party-boat-rentals-the-ultimate-guide-to-epic-celebrations',
+    'austin-bachelorette-bliss-spa-retreats-disco-cruises-alcohol-delivery',
+    'why-choose-integrated-event-services-comparing-austin-party-planning-options',
+    'austin-party-venue-alcohol-delivery-navigating-policies-and-logistics',
+    'lake-travis-boat-party-logistics-complete-planning-and-coordination-guide',
+    'birthday-party-boat-rentals-on-lake-travis-milestone-celebrations-with-a-view',
+    'corporate-team-building-on-lake-travis-professional-boat-rental-solutions',
+    'graduation-party-alcohol-planning-ut-and-austin-college-celebrations',
+    'lake-travis-boat-party-regulations-legal-requirements-and-compliance-guide',
+    'lake-travis-boat-safety-and-maintenance-quality-standards-for-party-cruises',
+    'party-alcohol-safety-in-austin-responsible-service-and-guest-well-being',
+    'why-choose-austin-bachelor-party',
+    'austin-bachelor-party-january',
+    'austin-bachelor-party-march',
+    'austin-bachelor-party-may',
+    'austin-bachelor-party-july',
+    'austin-bachelor-party-november',
+    'austin-bachelor-party-september',
+    'austin-bachelorette-party-february',
+    'austin-bachelorette-party-april',
+    'austin-bachelorette-party-june',
+    'austin-bachelorette-party-august',
+    'austin-bachelorette-party-october',
+    'austin-bachelorette-party-december',
+    'epic-bachelor-party-austin-ultimate-guide',
+    'epic-bachelorette-party-austin-ultimate-guide',
+    'holiday-celebrations-on-lake-travis-seasonal-boat-party-planning-and-coordination',
+    'joint-bachelor-bachelorette-parties-with-premier-party-cruises',
+    'lake-travis-wedding-boat-rentals-unique-venues-for-austin-celebrations',
+    'must-haves-for-the-perfect-austin-bachelorette-weekend',
+    'top-spots-tips-for-an-unforgettable-austin-bachelorette-party-experience',
+    'atx-disco-cruise-experience'
+  ]);
   
-  reactBlogRoutes.forEach(route => {
-    app.get(route, (req, res, next) => {
-      console.log(`🎯 [React Blog Route] Skipping WordPress SSR for React page: ${route}`);
-      next(); // Skip to Vite/React
-    });
-  });
+  // Wrapper handler that checks for React pages first
+  const blogRouteHandler: express.RequestHandler = (req, res, next) => {
+    const slug = req.params.slug;
+    
+    // If this slug has a React component, skip WordPress SSR and let Vite handle it
+    if (reactBlogSlugs.has(slug)) {
+      console.log(`🎯 [React Blog Route] Skipping WordPress SSR for React page: ${slug}`);
+      return next('route'); // Skip to next route (Vite will handle it)
+    }
+    
+    // Otherwise, use WordPress SSR handler
+    return blogSSRHandler(req, res, next);
+  };
   
-  // Register the same SSR handler for BOTH URL formats (for WordPress posts only)
-  app.get('/blog/:slug', blogSSRHandler);
-  app.get('/blogs/:slug', blogSSRHandler);
+  // Register the combined handler for BOTH URL formats
+  app.get('/blog/:slug', blogRouteHandler);
+  app.get('/blogs/:slug', blogRouteHandler);
   
   // ==========================================
   // NOINDEX HEADERS FOR ADMIN/PRIVATE ROUTES
