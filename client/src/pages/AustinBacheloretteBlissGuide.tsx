@@ -197,7 +197,7 @@ export default function AustinBacheloretteBlissGuide() {
                 </Button>
               </Link>
               <Link href="/atx-disco-cruise">
-                <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10 font-bold text-lg px-8 py-6">
+                <Button size="lg" variant="outline" className="bg-transparent border-white text-white hover:bg-white/10 font-bold text-lg px-8 py-6">
                   View Disco Cruise
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
@@ -549,7 +549,7 @@ export default function AustinBacheloretteBlissGuide() {
                   </Button>
                 </Link>
                 <Link href="/bachelorette-party-austin">
-                  <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10 font-bold text-lg px-8 py-6">
+                  <Button size="lg" variant="outline" className="bg-transparent border-white text-white hover:bg-white/10 font-bold text-lg px-8 py-6">
                     View Bachelorette Packages
                   </Button>
                 </Link>

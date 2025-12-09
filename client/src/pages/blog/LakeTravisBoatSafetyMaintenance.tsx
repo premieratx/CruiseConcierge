@@ -49,8 +49,8 @@ const safetyPillars = [
   },
   { 
     icon: Award, 
-    title: 'USCG Licensed Captains', 
-    description: 'All captains hold valid Coast Guard licenses. CPR and first aid certified.',
+    title: 'TPWD Licensed Captains', 
+    description: 'All captains hold valid Texas Parks and Wildlife Department licenses. CPR and first aid certified.',
     color: 'text-purple-600',
     bg: 'bg-purple-100',
     stat: '100% certified'
@@ -61,7 +61,7 @@ const safetyPillars = [
     description: 'Life jackets for all. First aid kits on every boat. Fire extinguishers ready.',
     color: 'text-red-600',
     bg: 'bg-red-100',
-    stat: 'Coast Guard approved'
+    stat: 'TPWD approved'
   }
 ];
 
@@ -105,7 +105,7 @@ const maintenanceSchedule = [
       'Safety gear replacement as needed',
       'Deep sanitizing and cleaning',
       'Upholstery and shade structure check',
-      'Coast Guard compliance review'
+      'TPWD compliance review'
     ]
   },
   {
@@ -114,7 +114,7 @@ const maintenanceSchedule = [
     frequency: 'Yearly',
     color: 'bg-orange-500',
     items: [
-      'Full Coast Guard inspection',
+      'Full TPWD inspection',
       'Marine surveyor evaluation',
       'Insurance compliance audit',
       'Complete safety equipment replacement',
@@ -125,7 +125,7 @@ const maintenanceSchedule = [
 ];
 
 const captainCredentials = [
-  { icon: Award, title: 'USCG Licensed', desc: 'U.S. Coast Guard certified' },
+  { icon: Award, title: 'TPWD Licensed', desc: 'Texas Parks and Wildlife certified' },
   { icon: LifeBuoy, title: 'CPR & First Aid', desc: 'Emergency response trained' },
   { icon: Clock, title: '5+ Years Experience', desc: 'Lake Travis experts' },
   { icon: Shield, title: 'Background Checked', desc: 'Verified and trusted' }
@@ -141,15 +141,15 @@ const fleetSafety = [
 const faqs = [
   {
     question: 'What safety equipment is on each boat?',
-    answer: 'Every boat carries Coast Guard-approved life jackets for all passengers plus extras. We also have first aid kits, fire extinguishers, throwable flotation devices, VHF radios, and emergency signaling equipment. Our flagship Clever Girl has a full first aid station.'
+    answer: 'Every boat carries TPWD-approved life jackets for all passengers plus extras. We also have first aid kits, fire extinguishers, throwable flotation devices, VHF radios, and emergency signaling equipment. Our flagship Clever Girl has a full first aid station.'
   },
   {
     question: 'How often do you service your boats?',
-    answer: 'We inspect every boat before every single cruise. Weekly deep inspections happen on maintenance days. Monthly, certified marine technicians perform full engine service. Annually, we undergo Coast Guard inspections and marine surveyor evaluations.'
+    answer: 'We inspect every boat before every single cruise. Weekly deep inspections happen on maintenance days. Monthly, certified marine technicians perform full engine service. Annually, we undergo TPWD inspections and marine surveyor evaluations.'
   },
   {
     question: 'Are all your captains licensed?',
-    answer: 'Yes. Every captain holds a valid U.S. Coast Guard license. They are also CPR and first aid certified. Most have 5+ years experience specifically on Lake Travis. All pass background checks before joining our crew.'
+    answer: 'Yes. Every captain holds a valid Texas Parks and Wildlife Department (TPWD) license. They are also CPR and first aid certified. Most have 5+ years experience specifically on Lake Travis. All pass background checks before joining our crew.'
   },
   {
     question: 'What happens if there is bad weather?',
@@ -176,7 +176,7 @@ const faqs = [
 const safetyStats = [
   { number: '0', label: 'Safety Incidents', subtext: '15+ years' },
   { number: '125K+', label: 'Happy Guests', subtext: 'Since 2009' },
-  { number: '100%', label: 'Licensed Captains', subtext: 'USCG certified' },
+  { number: '100%', label: 'Licensed Captains', subtext: 'TPWD certified' },
   { number: '24/7', label: 'Weather Watch', subtext: 'Real-time monitoring' }
 ];
 
@@ -189,8 +189,8 @@ export default function LakeTravisBoatSafetyMaintenance() {
     <>
       <Helmet>
         <title>Lake Travis Boat Safety & Maintenance Standards | Premier Party Cruises</title>
-        <meta name="description" content="Discover Premier Party Cruises' industry-leading boat safety and maintenance standards. USCG licensed captains, rigorous inspections, and a perfect 15-year safety record on Lake Travis." />
-        <meta name="keywords" content="Lake Travis boat safety, party boat maintenance, USCG licensed captains, Lake Travis party cruise safety, boat safety inspections, Premier Party Cruises safety record" />
+        <meta name="description" content="Discover Premier Party Cruises' industry-leading boat safety and maintenance standards. TPWD licensed captains, rigorous inspections, and a perfect 15-year safety record on Lake Travis." />
+        <meta name="keywords" content="Lake Travis boat safety, party boat maintenance, TPWD licensed captains, Lake Travis party cruise safety, boat safety inspections, Premier Party Cruises safety record" />
         <link rel="canonical" href="https://premierpartycruises.com/blogs/lake-travis-boat-safety-and-maintenance-quality-standards-for-party-cruises" />
         <meta property="og:title" content="Lake Travis Boat Safety & Maintenance Standards | Premier Party Cruises" />
         <meta property="og:description" content="15+ years. 125,000+ guests. Zero safety incidents. Learn about our industry-leading safety standards on Lake Travis." />
@@ -241,7 +241,7 @@ export default function LakeTravisBoatSafetyMaintenance() {
                 </Button>
               </Link>
               <Link href="/private-cruises">
-                <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10 font-bold text-lg px-8 py-6" data-testid="button-view-fleet">
+                <Button size="lg" variant="outline" className="bg-transparent border-white text-white hover:bg-white/10 font-bold text-lg px-8 py-6" data-testid="button-view-fleet">
                   View Our Fleet
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
@@ -328,10 +328,10 @@ export default function LakeTravisBoatSafetyMaintenance() {
               <div className="grid lg:grid-cols-2 gap-12 items-center">
                 <div>
                   <Badge className="mb-4 bg-purple-100 text-purple-700">EXPERT CREW</Badge>
-                  <h2 className="text-3xl md:text-4xl font-bold mb-6">USCG Licensed Captains</h2>
+                  <h2 className="text-3xl md:text-4xl font-bold mb-6">TPWD Licensed Captains</h2>
                   <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
                     Your safety starts with our crew. Every captain at Premier Party Cruises holds a valid 
-                    U.S. Coast Guard license. They know Lake Travis like the back of their hand.
+                    Texas Parks and Wildlife Department (TPWD) license. They know Lake Travis like the back of their hand.
                   </p>
                   <p className="text-lg text-gray-700 dark:text-gray-300 mb-8 leading-relaxed">
                     But a license is just the start. Our captains also hold CPR and first aid certifications. 
@@ -373,7 +373,7 @@ export default function LakeTravisBoatSafetyMaintenance() {
                     <div className="flex items-center gap-3">
                       <Award className="h-10 w-10 text-purple-600" />
                       <div>
-                        <p className="font-bold">USCG Licensed</p>
+                        <p className="font-bold">TPWD Licensed</p>
                         <p className="text-sm text-gray-500">All captains certified</p>
                       </div>
                     </div>
@@ -472,7 +472,7 @@ export default function LakeTravisBoatSafetyMaintenance() {
                     'Pre-cruise inspection every single trip',
                     'Weekly deep cleaning and mechanical checks',
                     'Monthly professional engine service',
-                    'Annual Coast Guard compliance audits',
+                    'Annual TPWD compliance audits',
                     'Immediate repair policy: if we find an issue, we fix it now',
                     'Brand new safety equipment replaced each season'
                   ].map((item, index) => (
@@ -507,7 +507,7 @@ export default function LakeTravisBoatSafetyMaintenance() {
               <Badge className="mb-4 bg-red-100 text-red-700">FLEET SAFETY</Badge>
               <h2 className="text-3xl md:text-4xl font-bold mb-4">Safety Equipment by Boat</h2>
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-                Every vessel exceeds Coast Guard requirements
+                Every vessel exceeds TPWD requirements
               </p>
             </motion.div>
 
@@ -668,7 +668,7 @@ export default function LakeTravisBoatSafetyMaintenance() {
                   </Button>
                 </Link>
                 <a href="tel:5124885892">
-                  <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10 font-bold text-lg px-8 py-6" data-testid="cta-call">
+                  <Button size="lg" variant="outline" className="bg-transparent border-white text-white hover:bg-white/10 font-bold text-lg px-8 py-6" data-testid="cta-call">
                     <Phone className="mr-2 h-5 w-5" />
                     (512) 488-5892
                   </Button>
@@ -678,7 +678,7 @@ export default function LakeTravisBoatSafetyMaintenance() {
               <div className="flex flex-wrap justify-center gap-6 text-sm text-white/80">
                 <span className="flex items-center gap-2">
                   <CheckCircle2 className="h-4 w-4 text-green-400" />
-                  USCG Licensed Captains
+                  TPWD Licensed Captains
                 </span>
                 <span className="flex items-center gap-2">
                   <CheckCircle2 className="h-4 w-4 text-green-400" />

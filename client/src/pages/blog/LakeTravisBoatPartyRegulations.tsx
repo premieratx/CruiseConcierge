@@ -39,7 +39,7 @@ const regulationCategories = [
   { 
     icon: Anchor, 
     title: 'Boating Rules', 
-    description: 'Coast Guard and TPWD rules apply. Our licensed captains know them all.',
+    description: 'TPWD rules apply. Our licensed captains know them all.',
     color: 'text-teal-600',
     bg: 'bg-teal-100'
   },
@@ -69,7 +69,7 @@ const tabcRules = [
 ];
 
 const safetyRequirements = [
-  'Coast Guard approved life jackets for every guest',
+  'TPWD-approved life jackets for every guest',
   'Working fire extinguisher on board',
   'First aid kit with required supplies',
   'Sound-producing device (horn or whistle)',
@@ -80,11 +80,11 @@ const safetyRequirements = [
 const whatWeHandle = [
   {
     title: 'Licensed Captains',
-    description: 'Every cruise has a USCG licensed captain. They know the lake and all the rules.'
+    description: 'Every cruise has a TPWD licensed captain. They know the lake and all the rules.'
   },
   {
     title: 'Current Permits',
-    description: 'Our boats pass annual Coast Guard inspections. All permits stay up to date.'
+    description: 'Our boats pass annual TPWD inspections. All permits stay up to date.'
   },
   {
     title: 'Safety Equipment',
@@ -127,7 +127,7 @@ const faqs = [
   },
   {
     question: 'Do we need to bring life jackets?',
-    answer: 'No. We provide Coast Guard approved life jackets for every passenger. Kids under 13 must wear them at all times. Adults should have them accessible.'
+    answer: 'No. We provide TPWD-approved life jackets for every passenger. Kids under 13 must wear them at all times. Adults should have them accessible.'
   },
   {
     question: 'Is smoking allowed on the boats?',
@@ -135,7 +135,7 @@ const faqs = [
   },
   {
     question: 'What documents do you have for compliance?',
-    answer: 'Every boat carries its Certificate of Documentation, Coast Guard inspection certificate, captain\'s license, and proof of insurance. Ask to see them anytime.'
+    answer: 'Every boat carries its Certificate of Documentation, TPWD inspection certificate, captain\'s license, and proof of insurance. Ask to see them anytime.'
   }
 ];
 
@@ -217,7 +217,7 @@ export default function LakeTravisBoatPartyRegulations() {
                 </Button>
               </Link>
               <Link href="/private-cruises">
-                <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10 font-bold text-lg px-8 py-6">
+                <Button size="lg" variant="outline" className="bg-transparent border-white text-white hover:bg-white/10 font-bold text-lg px-8 py-6">
                   View Our Boats
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
@@ -345,7 +345,7 @@ export default function LakeTravisBoatPartyRegulations() {
                   <Badge className="mb-4 bg-yellow-400 text-black">SAFETY FIRST</Badge>
                   <h2 className="text-3xl font-bold mb-6">Required Safety Equipment</h2>
                   <p className="text-lg text-white/90 mb-6 leading-relaxed">
-                    The Coast Guard and Texas Parks & Wildlife require specific safety gear on every boat. 
+                    Texas Parks & Wildlife (TPWD) requires specific safety gear on every boat. 
                     Missing equipment can result in fines. It can also put lives at risk.
                   </p>
                   
@@ -525,7 +525,7 @@ export default function LakeTravisBoatPartyRegulations() {
                   </Button>
                 </Link>
                 <Link href="/contact">
-                  <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10 font-bold text-lg px-8 py-6">
+                  <Button size="lg" variant="outline" className="bg-transparent border-white text-white hover:bg-white/10 font-bold text-lg px-8 py-6">
                     <Phone className="mr-2 h-5 w-5" />
                     Call Us: (512) 709-9806
                   </Button>

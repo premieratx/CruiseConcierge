@@ -225,7 +225,7 @@ export default function LakeTravisLargeGroupBoatRentals() {
                 </Button>
               </Link>
               <Link href="/private-cruises">
-                <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10 font-bold text-lg px-8 py-6">
+                <Button size="lg" variant="outline" className="bg-transparent border-white text-white hover:bg-white/10 font-bold text-lg px-8 py-6">
                   View Fleet Options
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
@@ -601,7 +601,7 @@ export default function LakeTravisLargeGroupBoatRentals() {
                   </Button>
                 </Link>
                 <a href="tel:5127504621">
-                  <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10 font-bold text-lg px-8 py-6">
+                  <Button size="lg" variant="outline" className="bg-transparent border-white text-white hover:bg-white/10 font-bold text-lg px-8 py-6">
                     <Phone className="mr-2 h-5 w-5" />
                     Call (512) 750-4621
                   </Button>

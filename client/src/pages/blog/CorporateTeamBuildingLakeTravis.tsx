@@ -198,7 +198,7 @@ export default function CorporateTeamBuildingLakeTravis() {
                 </Button>
               </Link>
               <Link href="/team-building">
-                <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10 font-bold text-lg px-8 py-6">
+                <Button size="lg" variant="outline" className="bg-transparent border-white text-white hover:bg-white/10 font-bold text-lg px-8 py-6">
                   View Team Building Packages
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
@@ -608,7 +608,7 @@ export default function CorporateTeamBuildingLakeTravis() {
                   </Button>
                 </Link>
                 <a href="tel:5127270422">
-                  <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10 font-bold text-lg px-8 py-6">
+                  <Button size="lg" variant="outline" className="bg-transparent border-white text-white hover:bg-white/10 font-bold text-lg px-8 py-6">
                     <Phone className="mr-2 h-5 w-5" />
                     Call (512) 727-0422
                   </Button>

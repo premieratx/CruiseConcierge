@@ -390,7 +390,7 @@ export default function FirstTimeLakeTravisGuide() {
 
               <div className="prose prose-lg max-w-none dark:prose-invert mb-8">
                 <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                  Safety is paramount on <strong>Lake Travis</strong>. Premier Party Cruises has maintained a <strong>perfect safety record</strong> over 15+ years serving 125,000+ guests. All our boats are fully equipped with Coast Guard approved safety equipment, and every cruise is led by a licensed, CPR-certified captain who prioritizes your group's wellbeing.
+                  Safety is paramount on <strong>Lake Travis</strong>. Premier Party Cruises has maintained a <strong>perfect safety record</strong> over 15+ years serving 125,000+ guests. All our boats are fully equipped with TPWD-approved safety equipment, and every cruise is led by a licensed, CPR-certified captain who prioritizes your group's wellbeing.
                 </p>
               </div>
 
@@ -399,7 +399,7 @@ export default function FirstTimeLakeTravisGuide() {
                   <CardContent className="p-6">
                     <LifeBuoy className="h-10 w-10 text-green-600 mb-4" />
                     <h4 className="font-bold text-lg mb-2 text-gray-900 dark:text-white">Life Jackets</h4>
-                    <p className="text-gray-600 dark:text-gray-400 text-sm">Coast Guard approved life jackets available for all passengers</p>
+                    <p className="text-gray-600 dark:text-gray-400 text-sm">TPWD-approved life jackets available for all passengers</p>
                   </CardContent>
                 </Card>
 
