@@ -224,6 +224,9 @@ function DiscoPricingTable({ packages, showTaxAndGratuity = true, showDeposit = 
                     <span>Total:</span>
                     <span className="text-primary">{formatCurrency(pricing.total / 100)}</span>
                   </div>
+                  <p className="text-[10px] text-green-600 dark:text-green-400 mt-1 font-medium">
+                    (all in: tax, tip & fees included)
+                  </p>
                 </div>
               )}
               
@@ -462,6 +465,9 @@ function PrivateCruisePricingTable({
                               <span>Total Estimated Cost:</span>
                               <span className="text-primary">{formatCurrency(pricing.total / 100)}</span>
                             </div>
+                            <p className="text-[10px] text-green-600 dark:text-green-400 mt-1 font-medium">
+                              (all in: tax, tip & fees included)
+                            </p>
                           </>
                         )}
                       </div>

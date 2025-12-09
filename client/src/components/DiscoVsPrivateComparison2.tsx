@@ -111,6 +111,9 @@ export function DiscoVsPrivateComparison2({
                 ${(bestDeal.primaryRecommendation.costPerPerson / 100).toFixed(0)}
               </div>
               <div className="text-sm text-gray-600">Per Person</div>
+              <p className="text-[10px] text-green-600 dark:text-green-400 mt-1 font-medium">
+                (all in: tax, tip & fees included)
+              </p>
             </div>
             <div className="text-center">
               <Badge className="text-sm bg-green-100 text-green-800">

@@ -264,6 +264,9 @@ export default function DiscoVsPrivateValueCalculator() {
               <div className="text-center text-xl font-bold text-green-600">
                 {formatCurrency(comparison.disco.perPerson)}/person
               </div>
+              <p className="text-[10px] text-green-600 dark:text-green-400 mt-1 font-medium text-center">
+                (all in: tax, tip & fees included)
+              </p>
             </div>
 
             <div className="space-y-2 pt-4 border-t">
@@ -332,6 +335,9 @@ export default function DiscoVsPrivateValueCalculator() {
               <div className="text-center text-xl font-bold text-orange-600">
                 {formatCurrency(comparison.privateBoatOnly[selectedDay].perPerson)}/person
               </div>
+              <p className="text-[10px] text-green-600 dark:text-green-400 mt-1 font-medium text-center">
+                (all in: tax, tip & fees included)
+              </p>
             </div>
 
             <div className="space-y-2 pt-4 border-t">
@@ -420,6 +426,9 @@ export default function DiscoVsPrivateValueCalculator() {
               <div className="text-center text-xl font-bold text-red-600">
                 {formatCurrency(comparison.buildItYourself[selectedDay].withExtras.perPerson)}/person
               </div>
+              <p className="text-[10px] text-green-600 dark:text-green-400 mt-1 font-medium text-center">
+                (all in: tax, tip & fees included)
+              </p>
             </div>
 
             <div className="space-y-2 pt-4 border-t">

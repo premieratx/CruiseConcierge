@@ -66,6 +66,9 @@ export function DiscoCruisePricing({
                 <p className="text-sm text-gray-500 mt-1">
                   Total Cost Per Person w/tax & gratuity = ${(slot.priceWithTax / 100).toFixed(2)}
                 </p>
+                <p className="text-[10px] text-green-600 dark:text-green-400 mt-1 font-medium">
+                  (all in: tax, tip & fees included)
+                </p>
               </div>
             </CardHeader>
             
