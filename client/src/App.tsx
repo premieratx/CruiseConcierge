@@ -80,6 +80,9 @@ const AustinBachelorettePartyAugust = lazy(() => import("./pages/blog/AustinBach
 const AustinBachelorettePartyOctober = lazy(() => import("./pages/blog/AustinBachelorettePartyOctober"));
 const AustinBachelorettePartyDecember = lazy(() => import("./pages/blog/AustinBachelorettePartyDecember"));
 
+// Site Directory Page - Lazy loaded
+const SiteDirectory = lazy(() => import("./pages/SiteDirectory"));
+
 // Admin Blog Pages - Lazy loaded
 const BlogManagement = lazy(() => import("./pages/admin/BlogManagement"));
 const BlogPostEditor = lazy(() => import("./pages/admin/BlogPostEditor"));
@@ -257,6 +260,7 @@ function Router() {
       <Route path="/testimonials-faq" component={TestimonialsFaq} />
       <Route path="/ai-endorsement" component={AIEndorsement} />
       <Route path="/partners" component={Partners} />
+      <Route path="/site-directory" component={SiteDirectory} />
       
       {/* Wedding Experience Pages */}
       <Route path="/rehearsal-dinner" component={RehearsalDinner} />
