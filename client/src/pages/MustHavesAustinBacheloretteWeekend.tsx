@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { Calendar, Phone, Sparkles, CheckCircle2, Users, Music, Ship, MapPin, Utensils, Camera, PartyPopper, Star, ChevronRight } from 'lucide-react';
+import { Calendar, Phone, Sparkles, CheckCircle2, Users, Music, Ship, MapPin, Utensils, Camera, PartyPopper, Star, ChevronRight, Waves } from 'lucide-react';
 import { Link } from 'wouter';
 import PublicNavigation from '@/components/PublicNavigation';
 import Footer from '@/components/Footer';

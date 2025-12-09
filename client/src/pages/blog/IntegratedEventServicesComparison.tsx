@@ -14,10 +14,10 @@ import PublicNavigation from '@/components/PublicNavigation';
 import Footer from '@/components/Footer';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
-import heroImage from '@assets/@capitalcityshots-40_1760080807869.jpg';
-import sectionImage1 from '@assets/@capitalcityshots-41_1760080807869.jpg';
-import sectionImage2 from '@assets/@capitalcityshots-42_1760080807870.jpg';
-import sectionImage3 from '@assets/@capitalcityshots-43_1760080807870.jpg';
+import heroImage from '@assets/@capitalcityshots-21_1760080807864.jpg';
+import sectionImage1 from '@assets/@capitalcityshots-22_1760080807865.jpg';
+import sectionImage2 from '@assets/@capitalcityshots-23_1760080807865.jpg';
+import sectionImage3 from '@assets/@capitalcityshots-24_1760080807866.jpg';
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 20 },

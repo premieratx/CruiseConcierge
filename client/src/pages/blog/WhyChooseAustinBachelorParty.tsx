@@ -16,9 +16,9 @@ import Footer from '@/components/Footer';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
 import heroImage from '@assets/bachelor-party-group-guys-hero-compressed.webp';
-import sectionImage1 from '@assets/@capitalcityshots-44_1760080807870.jpg';
-import sectionImage2 from '@assets/@capitalcityshots-45_1760080807870.jpg';
-import sectionImage3 from '@assets/@capitalcityshots-46_1760080807871.jpg';
+import sectionImage1 from '@assets/@capitalcityshots-30_1760080807867.jpg';
+import sectionImage2 from '@assets/@capitalcityshots-31_1760080807867.jpg';
+import sectionImage3 from '@assets/@capitalcityshots-32_1760073243497.jpg';
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 20 },

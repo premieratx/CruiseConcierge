@@ -15,7 +15,7 @@ import Footer from '@/components/Footer';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
 import heroImage from '@assets/@capitalcityshots-8_1760080740018.jpg';
-import sectionImage1 from '@assets/@capitalcityshots-9_1760080740018.jpg';
+import sectionImage1 from '@assets/@capitalcityshots-9_1760080740019.jpg';
 import sectionImage2 from '@assets/@capitalcityshots-10_1760080740019.jpg';
 import sectionImage3 from '@assets/@capitalcityshots-11_1760080740019.jpg';
 
