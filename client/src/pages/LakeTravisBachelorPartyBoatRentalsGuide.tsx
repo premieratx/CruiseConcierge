@@ -13,6 +13,7 @@ import { Badge } from '@/components/ui/badge';
 import PublicNavigation from '@/components/PublicNavigation';
 import Footer from '@/components/Footer';
 import AnimatedPhotoGallery from '@/components/AnimatedPhotoGallery';
+import { BlogImageBreak, BlogPhotoStrip, BlogPartyGallery, BLOG_BOAT_PHOTOS, BLOG_PARTY_PHOTOS } from '@/components/BlogImageBreak';
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 20 },
@@ -162,6 +163,12 @@ export default function LakeTravisBachelorPartyBoatRentalsGuide() {
                 15 years of experience and having hosted more than 150,000 satisfied customers. Our perfect safety 
                 record and dedication to unforgettable experiences make us the go-to choice for bachelor parties in Austin.
               </p>
+
+              <BlogImageBreak
+                src={BLOG_PARTY_PHOTOS.bachelor.src}
+                alt={BLOG_PARTY_PHOTOS.bachelor.alt}
+                caption="Bachelor party crew ready to celebrate on Lake Travis"
+              />
             </motion.div>
           </div>
         </section>
@@ -261,6 +268,15 @@ export default function LakeTravisBachelorPartyBoatRentalsGuide() {
                 </motion.div>
               ))}
             </div>
+
+            <BlogPhotoStrip
+              photos={[
+                { src: BLOG_BOAT_PHOTOS.small.src, alt: BLOG_BOAT_PHOTOS.small.alt, caption: 'Day Tripper: 6-14 guests' },
+                { src: BLOG_BOAT_PHOTOS.medium.src, alt: BLOG_BOAT_PHOTOS.medium.alt, caption: 'Meeseeks: 15-30 guests' },
+                { src: BLOG_BOAT_PHOTOS.large.src, alt: BLOG_BOAT_PHOTOS.large.alt, caption: 'Clever Girl: 30-75 guests' }
+              ]}
+              columns={3}
+            />
 
             <div className="text-center mt-8">
               <Link href="/private-cruises">
@@ -368,6 +384,12 @@ export default function LakeTravisBachelorPartyBoatRentalsGuide() {
                   </CardContent>
                 </Card>
               </div>
+
+              <BlogImageBreak
+                src={BLOG_PARTY_PHOTOS.dancing.src}
+                alt={BLOG_PARTY_PHOTOS.dancing.alt}
+                caption="Dance the night away on our party boats with disco lights and premium sound"
+              />
             </motion.div>
           </div>
         </section>
@@ -393,6 +415,8 @@ export default function LakeTravisBachelorPartyBoatRentalsGuide() {
                   </Card>
                 ))}
               </div>
+
+              <BlogPartyGallery title="Real Bachelor Party Action on Lake Travis" />
             </motion.div>
           </div>
         </section>

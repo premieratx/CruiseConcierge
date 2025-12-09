@@ -10,6 +10,7 @@ import { LazyImage } from '@/components/LazyImage';
 import { TableOfContents } from '@/components/TableOfContents';
 import { StickyCTA } from '@/components/StickyCTA';
 import QuoteBuilderSection from '@/components/QuoteBuilderSection';
+import { BlogImageBreak, BlogPhotoStrip, BlogPartyGallery, BLOG_BOAT_PHOTOS, BLOG_PARTY_PHOTOS } from '@/components/BlogImageBreak';
 import { 
   Heart, Ship, Users, Calendar, Music, Camera, Sparkles, 
   Sun, Wine, MapPin, Star, PartyPopper, Clock, Gift, 
@@ -470,6 +471,12 @@ export default function LakeTravisWeddingBoatRentals() {
                 Our boats include both open-air deck areas and climate-controlled indoor spaces, ensuring comfort regardless of weather during your <strong>wedding boat rental austin</strong> event. This flexibility means you can plan your <strong>boat reception venue</strong> celebration with confidence any month of the year!
               </p>
             </div>
+            
+            <BlogImageBreak 
+              src={BLOG_BOAT_PHOTOS.large.src}
+              alt={BLOG_BOAT_PHOTOS.large.alt}
+              caption="Clever Girl - Our flagship 75-guest wedding venue on Lake Travis, ideal for ceremonies and receptions"
+            />
           </div>
         </section>
       </SectionReveal>
@@ -998,6 +1005,14 @@ export default function LakeTravisWeddingBoatRentals() {
               </p>
             </div>
 
+            <BlogPhotoStrip 
+              photos={[
+                { src: BLOG_BOAT_PHOTOS.medium.src, alt: BLOG_BOAT_PHOTOS.medium.alt, caption: 'Meeseeks - Perfect for 15-30 guest wedding parties' },
+                { src: BLOG_BOAT_PHOTOS.large.src, alt: BLOG_BOAT_PHOTOS.large.alt, caption: 'Clever Girl - Our 75-guest flagship for large weddings' }
+              ]}
+              columns={2}
+            />
+
             <div className="grid md:grid-cols-2 gap-6 mb-8">
               <Card className="border-2 border-blue-200 rounded-xl">
                 <CardHeader>
@@ -1241,6 +1256,12 @@ export default function LakeTravisWeddingBoatRentals() {
             <h2 className="text-3xl md:text-4xl font-playfair font-bold text-center mb-12 text-gray-900 dark:text-white">
               Real Wedding Stories from Lake Travis
             </h2>
+
+            <BlogImageBreak 
+              src={BLOG_PARTY_PHOTOS.celebration.src}
+              alt={BLOG_PARTY_PHOTOS.celebration.alt}
+              caption="Celebrate your special day with champagne toasts on Lake Travis"
+            />
             
             <div className="space-y-6">
               <Card className="border-2 border-pink-300 rounded-xl">
@@ -1295,6 +1316,8 @@ export default function LakeTravisWeddingBoatRentals() {
       <SectionReveal>
         <section className="py-16 bg-gradient-to-b from-white to-pink-50 dark:from-gray-950 dark:to-gray-900">
           <div className="max-w-4xl mx-auto px-6">
+            <BlogPartyGallery title="Wedding Celebration Moments on Lake Travis" />
+            
             <div className="bg-gradient-to-br from-pink-100 to-purple-100 dark:from-gray-800 dark:to-gray-900 p-8 rounded-2xl border-2 border-pink-300">
               <h3 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white flex items-center gap-3">
                 <Heart className="h-8 w-8 text-pink-600" />

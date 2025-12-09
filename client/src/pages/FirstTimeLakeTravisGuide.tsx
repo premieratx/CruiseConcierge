@@ -10,6 +10,7 @@ import { LazyImage } from '@/components/LazyImage';
 import { TableOfContents } from '@/components/TableOfContents';
 import { StickyCTA } from '@/components/StickyCTA';
 import QuoteBuilderSection from '@/components/QuoteBuilderSection';
+import { BlogImageBreak, BlogPhotoStrip, BlogPartyGallery, BLOG_BOAT_PHOTOS, BLOG_PARTY_PHOTOS } from '@/components/BlogImageBreak';
 import { 
   Anchor, Ship, Users, Calendar, Shield, Music, Camera, Waves, 
   ChevronRight, Phone, Sparkles, CheckCircle2, Clock, MapPin,
@@ -155,6 +156,15 @@ export default function FirstTimeLakeTravisGuide() {
                   This comprehensive guide from <Link href="/" className="text-blue-600 hover:text-blue-700 font-semibold">Premier Party Cruises</Link> equips you with everything you need to know for your first <strong>Austin boat rental</strong>, ensuring confident planning and smooth party execution.
                 </p>
               </div>
+
+              <BlogPhotoStrip 
+                photos={[
+                  BLOG_BOAT_PHOTOS.small,
+                  BLOG_BOAT_PHOTOS.medium,
+                  BLOG_BOAT_PHOTOS.large
+                ]}
+                columns={3}
+              />
             </div>
           </div>
         </section>
@@ -369,6 +379,12 @@ export default function FirstTimeLakeTravisGuide() {
                   </CardContent>
                 </Card>
               </div>
+
+              <BlogImageBreak 
+                src={BLOG_PARTY_PHOTOS.celebration.src}
+                alt={BLOG_PARTY_PHOTOS.celebration.alt}
+                caption="Your captain makes every celebration special - champagne pop included!"
+              />
             </div>
           </div>
         </section>
@@ -660,6 +676,8 @@ export default function FirstTimeLakeTravisGuide() {
                   </CardContent>
                 </Card>
               </div>
+
+              <BlogPartyGallery title="See What Your Lake Travis Party Could Look Like" />
             </div>
           </div>
         </section>

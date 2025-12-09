@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { LazyImage } from '@/components/LazyImage';
 import { TableOfContents } from '@/components/TableOfContents';
+import { BlogImageBreak, BlogPhotoStrip, BlogPartyGallery, BLOG_BOAT_PHOTOS, BLOG_PARTY_PHOTOS } from '@/components/BlogImageBreak';
 import { StickyCTA } from '@/components/StickyCTA';
 import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import { DiscoCruisePricing } from '@/components/DiscoCruisePricing';
@@ -144,6 +145,12 @@ export default function JointBachelorBacheloretteParties() {
                 </CardContent>
               </Card>
             </div>
+
+            <BlogImageBreak
+              src={BLOG_BOAT_PHOTOS.large.src}
+              alt="Clever Girl - our flagship 50-person boat perfect for combined bachelor bachelorette parties"
+              caption="Clever Girl: Our flagship 50-person boat is ideal for large combined bachelor/bachelorette celebrations"
+            />
           </div>
         </section>
       </SectionReveal>
@@ -407,6 +414,14 @@ export default function JointBachelorBacheloretteParties() {
                 </CardContent>
               </Card>
             </div>
+
+            <BlogPhotoStrip
+              photos={[
+                { ...BLOG_BOAT_PHOTOS.medium, caption: 'Meeseeks: Perfect for 25-person combined parties' },
+                { ...BLOG_BOAT_PHOTOS.large, caption: 'Clever Girl: Our flagship for 50-75 guests' }
+              ]}
+              columns={2}
+            />
           </div>
         </section>
       </SectionReveal>
@@ -547,6 +562,14 @@ export default function JointBachelorBacheloretteParties() {
                 </CardContent>
               </Card>
             </div>
+
+            <BlogPhotoStrip
+              photos={[
+                { src: BLOG_PARTY_PHOTOS.bachelor.src, alt: BLOG_PARTY_PHOTOS.bachelor.alt, caption: 'Bachelor party groups love Lake Travis' },
+                { src: BLOG_PARTY_PHOTOS.bachelorette.src, alt: BLOG_PARTY_PHOTOS.bachelorette.alt, caption: 'Bachelorette celebrations on the water' }
+              ]}
+              columns={2}
+            />
           </div>
         </section>
       </SectionReveal>
@@ -736,6 +759,8 @@ export default function JointBachelorBacheloretteParties() {
             <h2 className="text-3xl md:text-4xl font-playfair font-bold text-center mb-12 text-gray-900 dark:text-white">
               Real Couple Experiences
             </h2>
+
+            <BlogPartyGallery title="Combined Celebration Moments on Lake Travis" />
             
             <div className="space-y-6">
               <Card className="border-2 border-pink-300 rounded-xl">

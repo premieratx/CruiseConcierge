@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { LazyImage } from '@/components/LazyImage';
 import { TableOfContents } from '@/components/TableOfContents';
+import { BlogImageBreak, BlogPhotoStrip, BlogPartyGallery, BLOG_BOAT_PHOTOS, BLOG_PARTY_PHOTOS } from '@/components/BlogImageBreak';
 import { StickyCTA } from '@/components/StickyCTA';
 import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import { 
@@ -267,6 +268,15 @@ export default function HolidayCelebrationsLakeTravis() {
                 Get Your Custom Holiday Quote
               </Button>
             </div>
+
+            <BlogPhotoStrip 
+              photos={[
+                { ...BLOG_BOAT_PHOTOS.small, caption: 'Day Tripper - Perfect for intimate holiday gatherings' },
+                { ...BLOG_BOAT_PHOTOS.medium, caption: 'Meeseeks - Great for corporate holiday parties' },
+                { ...BLOG_BOAT_PHOTOS.large, caption: 'Clever Girl - Flagship for grand celebrations' }
+              ]}
+              columns={3}
+            />
           </div>
         </section>
       </SectionReveal>
@@ -345,6 +355,12 @@ export default function HolidayCelebrationsLakeTravis() {
                 </CardContent>
               </Card>
             </div>
+
+            <BlogImageBreak
+              src={BLOG_PARTY_PHOTOS.group.src}
+              alt={BLOG_PARTY_PHOTOS.group.alt}
+              caption="Guests enjoying a festive celebration on Lake Travis"
+            />
           </div>
         </section>
       </SectionReveal>
@@ -910,6 +926,14 @@ export default function HolidayCelebrationsLakeTravis() {
                 </div>
               </div>
             </div>
+          </div>
+        </section>
+      </SectionReveal>
+
+      <SectionReveal>
+        <section className="py-16 bg-gradient-to-b from-blue-50 to-white dark:from-gray-900 dark:to-gray-950">
+          <div className="max-w-6xl mx-auto px-6">
+            <BlogPartyGallery title="Real Holiday Celebrations on Lake Travis" />
           </div>
         </section>
       </SectionReveal>

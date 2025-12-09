@@ -13,6 +13,7 @@ import { Badge } from '@/components/ui/badge';
 import PublicNavigation from '@/components/PublicNavigation';
 import Footer from '@/components/Footer';
 import AnimatedPhotoGallery from '@/components/AnimatedPhotoGallery';
+import { BlogImageBreak, BlogPhotoStrip, BlogPartyGallery, BLOG_BOAT_PHOTOS, BLOG_PARTY_PHOTOS } from '@/components/BlogImageBreak';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
 const fadeInUp = {
@@ -243,6 +244,12 @@ export default function AustinBacheloretteBlissGuide() {
                 </motion.div>
               ))}
             </div>
+
+            <BlogImageBreak
+              src={BLOG_PARTY_PHOTOS.bachelorette.src}
+              alt={BLOG_PARTY_PHOTOS.bachelorette.alt}
+              caption="Celebrate the bride-to-be on Lake Travis"
+            />
           </div>
         </section>
 
@@ -360,6 +367,20 @@ export default function AustinBacheloretteBlissGuide() {
                 </div>
               </div>
             </motion.div>
+
+            <BlogImageBreak
+              src={BLOG_BOAT_PHOTOS.large.src}
+              alt={BLOG_BOAT_PHOTOS.large.alt}
+              caption={BLOG_BOAT_PHOTOS.large.caption}
+            />
+
+            <BlogPhotoStrip
+              photos={[
+                { src: BLOG_PARTY_PHOTOS.dancing.src, alt: BLOG_PARTY_PHOTOS.dancing.alt, caption: "Dance floor action" },
+                { src: BLOG_PARTY_PHOTOS.hearts.src, alt: BLOG_PARTY_PHOTOS.hearts.alt, caption: "Fun with the crew" }
+              ]}
+              columns={2}
+            />
           </div>
         </section>
 
@@ -486,6 +507,8 @@ export default function AustinBacheloretteBlissGuide() {
             </motion.div>
 
             <AnimatedPhotoGallery />
+
+            <BlogPartyGallery title="More Bachelorette Celebration Moments" />
           </div>
         </section>
 

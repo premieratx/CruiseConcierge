@@ -5,6 +5,7 @@ import { Calendar, Phone, Sparkles, CheckCircle2, Users, Music, Ship, MapPin, Ut
 import { Link } from 'wouter';
 import PublicNavigation from '@/components/PublicNavigation';
 import Footer from '@/components/Footer';
+import { BlogImageBreak, BlogPhotoStrip, BlogPartyGallery, BLOG_BOAT_PHOTOS, BLOG_PARTY_PHOTOS } from '@/components/BlogImageBreak';
 
 export default function MustHavesAustinBacheloretteWeekend() {
   return (
@@ -155,6 +156,12 @@ export default function MustHavesAustinBacheloretteWeekend() {
                 How about this…we give you one itinerary that we believe in with our whole hearts, made by locals.
               </p>
             </div>
+            
+            <BlogImageBreak
+              src={BLOG_PARTY_PHOTOS.bachelorette.src}
+              alt={BLOG_PARTY_PHOTOS.bachelorette.alt}
+              caption="Bride and besties celebrating on Lake Travis"
+            />
           </div>
         </div>
       </section>
@@ -352,6 +359,14 @@ export default function MustHavesAustinBacheloretteWeekend() {
                     </Button>
                   </Link>
                 </div>
+                
+                <BlogPhotoStrip
+                  photos={[
+                    { src: BLOG_BOAT_PHOTOS.medium.src, alt: BLOG_BOAT_PHOTOS.medium.alt, caption: 'Perfect for bachelorette groups of 15-30' },
+                    { src: BLOG_BOAT_PHOTOS.large.src, alt: BLOG_BOAT_PHOTOS.large.alt, caption: 'Flagship boat for larger parties' }
+                  ]}
+                  columns={2}
+                />
               </CardContent>
             </Card>
 
@@ -545,6 +560,14 @@ export default function MustHavesAustinBacheloretteWeekend() {
                     </a>
                   </div>
                 </div>
+                
+                <BlogPhotoStrip
+                  photos={[
+                    { src: BLOG_PARTY_PHOTOS.float.src, alt: BLOG_PARTY_PHOTOS.float.alt, caption: 'Float party vibes on Lake Travis' },
+                    { src: BLOG_PARTY_PHOTOS.tropical.src, alt: BLOG_PARTY_PHOTOS.tropical.alt, caption: 'Tropical celebration with the crew' }
+                  ]}
+                  columns={2}
+                />
               </CardContent>
             </Card>
           </div>
@@ -585,6 +608,8 @@ export default function MustHavesAustinBacheloretteWeekend() {
                 </a>
               </CardContent>
             </Card>
+            
+            <BlogPartyGallery title="Your Austin Bachelorette Awaits" />
           </div>
         </div>
       </section>
