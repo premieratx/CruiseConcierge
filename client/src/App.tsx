@@ -67,6 +67,11 @@ const BirthdayPartyBoatRentalsLakeTravis = lazy(() => import("./pages/blog/Birth
 const CorporateTeamBuildingLakeTravis = lazy(() => import("./pages/blog/CorporateTeamBuildingLakeTravis"));
 const LakeTravisLargeGroupBoatRentals = lazy(() => import("./pages/blog/LakeTravisLargeGroupBoatRentals"));
 const WhyChooseAustinBachelorParty = lazy(() => import("./pages/blog/WhyChooseAustinBachelorParty"));
+const AustinBachelorPartyJanuary = lazy(() => import("./pages/blog/AustinBachelorPartyJanuary"));
+const AustinBachelorPartyMarch = lazy(() => import("./pages/blog/AustinBachelorPartyMarch"));
+const AustinBachelorPartyMay = lazy(() => import("./pages/blog/AustinBachelorPartyMay"));
+const AustinBachelorPartyJuly = lazy(() => import("./pages/blog/AustinBachelorPartyJuly"));
+const AustinBachelorPartyNovember = lazy(() => import("./pages/blog/AustinBachelorPartyNovember"));
 
 // Admin Blog Pages - Lazy loaded
 const BlogManagement = lazy(() => import("./pages/admin/BlogManagement"));
@@ -334,6 +339,11 @@ function Router() {
       <Route path="/blogs/lake-travis-party-boat-rentals-ultimate-guide-for-large-group-events-20-guests" component={LakeTravisLargeGroupBoatRentals} />
       <Route path="/blogs/party-alcohol-safety-in-austin-responsible-service-and-guest-well-being" component={PartyAlcoholSafetyAustin} />
       <Route path="/blogs/why-choose-austin-bachelor-party" component={WhyChooseAustinBachelorParty} />
+      <Route path="/blogs/austin-bachelor-party-january" component={AustinBachelorPartyJanuary} />
+      <Route path="/blogs/austin-bachelor-party-march" component={AustinBachelorPartyMarch} />
+      <Route path="/blogs/austin-bachelor-party-may" component={AustinBachelorPartyMay} />
+      <Route path="/blogs/austin-bachelor-party-july" component={AustinBachelorPartyJuly} />
+      <Route path="/blogs/austin-bachelor-party-november" component={AustinBachelorPartyNovember} />
       
       {/* Public Booking - Commented out, using /chat instead */}
       {/* <Route path="/calendar" component={PublicCalendar} /> */}
