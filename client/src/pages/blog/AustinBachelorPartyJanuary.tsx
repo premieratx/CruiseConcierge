@@ -5,7 +5,7 @@ import { Calendar, Phone, Sun, CheckCircle2, Users, Music, Ship, MapPin, Utensil
 import { Link } from 'wouter';
 import PublicNavigation from '@/components/PublicNavigation';
 import Footer from '@/components/Footer';
-import LazyImage from '@/components/LazyImage';
+import { LazyImage } from '@/components/LazyImage';
 
 import heroImage from '@assets/@capitalcityshots-5_1760080740018.jpg';
 import sectionImage1 from '@assets/@capitalcityshots-6_1760080740018.jpg';

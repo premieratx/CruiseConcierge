@@ -72,6 +72,13 @@ const AustinBachelorPartyMarch = lazy(() => import("./pages/blog/AustinBachelorP
 const AustinBachelorPartyMay = lazy(() => import("./pages/blog/AustinBachelorPartyMay"));
 const AustinBachelorPartyJuly = lazy(() => import("./pages/blog/AustinBachelorPartyJuly"));
 const AustinBachelorPartyNovember = lazy(() => import("./pages/blog/AustinBachelorPartyNovember"));
+const AustinBachelorPartySeptember = lazy(() => import("./pages/blog/AustinBachelorPartySeptember"));
+const AustinBachelorettePartyFebruary = lazy(() => import("./pages/blog/AustinBachelorettePartyFebruary"));
+const AustinBachelorettePartyApril = lazy(() => import("./pages/blog/AustinBachelorettePartyApril"));
+const AustinBachelorettePartyJune = lazy(() => import("./pages/blog/AustinBachelorettePartyJune"));
+const AustinBachelorettePartyAugust = lazy(() => import("./pages/blog/AustinBachelorettePartyAugust"));
+const AustinBachelorettePartyOctober = lazy(() => import("./pages/blog/AustinBachelorettePartyOctober"));
+const AustinBachelorettePartyDecember = lazy(() => import("./pages/blog/AustinBachelorettePartyDecember"));
 
 // Admin Blog Pages - Lazy loaded
 const BlogManagement = lazy(() => import("./pages/admin/BlogManagement"));
@@ -344,6 +351,13 @@ function Router() {
       <Route path="/blogs/austin-bachelor-party-may" component={AustinBachelorPartyMay} />
       <Route path="/blogs/austin-bachelor-party-july" component={AustinBachelorPartyJuly} />
       <Route path="/blogs/austin-bachelor-party-november" component={AustinBachelorPartyNovember} />
+      <Route path="/blogs/austin-bachelor-party-september" component={AustinBachelorPartySeptember} />
+      <Route path="/blogs/austin-bachelorette-party-february" component={AustinBachelorettePartyFebruary} />
+      <Route path="/blogs/austin-bachelorette-party-april" component={AustinBachelorettePartyApril} />
+      <Route path="/blogs/austin-bachelorette-party-june" component={AustinBachelorettePartyJune} />
+      <Route path="/blogs/austin-bachelorette-party-august" component={AustinBachelorettePartyAugust} />
+      <Route path="/blogs/austin-bachelorette-party-october" component={AustinBachelorettePartyOctober} />
+      <Route path="/blogs/austin-bachelorette-party-december" component={AustinBachelorettePartyDecember} />
       
       {/* Public Booking - Commented out, using /chat instead */}
       {/* <Route path="/calendar" component={PublicCalendar} /> */}
