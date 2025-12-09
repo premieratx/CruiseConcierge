@@ -630,7 +630,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
         'must-haves-for-the-perfect-austin-bachelorette-weekend',
         'top-spots-tips-for-an-unforgettable-austin-bachelorette-party-experience',
         'atx-disco-cruise-experience',
-        'lake-travis-bachelor-party-austin-celebrations'
+        'lake-travis-bachelor-party-austin-celebrations',
+        'lake-travis-bachelor-party-boat-rentals-the-ultimate-guide-to-epic-celebrations',
+        'austin-bachelorette-bliss-spa-retreats-disco-cruises-alcohol-delivery'
       ];
       
       if (reactBlogSlugs.includes(slug)) {

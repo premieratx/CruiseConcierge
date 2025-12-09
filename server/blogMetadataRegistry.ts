@@ -354,6 +354,42 @@ export const blogMetadataRegistry: Record<string, BlogMetadata> = {
       'lake travis fun',
       'adventure activities'
     ]
+  },
+  
+  'blogs/lake-travis-bachelor-party-boat-rentals-the-ultimate-guide-to-epic-celebrations': {
+    slug: 'blogs/lake-travis-bachelor-party-boat-rentals-the-ultimate-guide-to-epic-celebrations',
+    title: 'Lake Travis Bachelor Party Boat Rentals: Ultimate Epic Celebrations',
+    description: 'Plan epic Lake Travis bachelor party boat rentals! Complete guide to boats, pricing, activities, and nightlife. 15+ years experience, 125,000+ celebrations.',
+    publishDate: '2025-01-01',
+    modifiedDate: '2025-12-09',
+    author: 'Premier Party Cruises',
+    heroImage: 'https://premierpartycruises.com/attached_assets/bachelor-party-group-guys-hero-compressed.webp',
+    keywords: [
+      'Lake Travis bachelor party boat',
+      'bachelor party boat rentals Austin',
+      'epic bachelor party',
+      'Lake Travis celebrations',
+      'party boat Austin',
+      'bachelor party ideas'
+    ]
+  },
+  
+  'blogs/austin-bachelorette-bliss-spa-retreats-disco-cruises-alcohol-delivery': {
+    slug: 'blogs/austin-bachelorette-bliss-spa-retreats-disco-cruises-alcohol-delivery',
+    title: 'Austin Bachelorette Bliss: Spa, Disco Cruise & Alcohol Delivery',
+    description: 'Plan the perfect Austin bachelorette party with spa retreats, Lake Travis disco cruises, and seamless alcohol delivery. Your complete guide to bachelorette bliss.',
+    publishDate: '2025-01-15',
+    modifiedDate: '2025-12-09',
+    author: 'Premier Party Cruises',
+    heroImage: 'https://premierpartycruises.com/attached_assets/disco_fun_best2_1765193453547.jpg',
+    keywords: [
+      'Austin bachelorette party',
+      'Lake Travis bachelorette',
+      'ATX Disco Cruise',
+      'Austin spa bachelorette',
+      'Party On Delivery',
+      'bachelorette weekend Austin'
+    ]
   }
 };
 
