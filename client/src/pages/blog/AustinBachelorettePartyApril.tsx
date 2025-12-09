@@ -104,7 +104,7 @@ export default function AustinBachelorettePartyApril() {
                 <Button 
                   size="lg" 
                   variant="outline" 
-                  className="border-white text-white hover:bg-white/10 text-lg px-8 py-6"
+                  className="bg-transparent border-white text-white hover:bg-white/10 text-lg px-8 py-6"
                   data-testid="button-hero-call"
                 >
                   <Phone className="mr-2 h-5 w-5" />
