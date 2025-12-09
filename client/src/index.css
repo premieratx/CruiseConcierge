@@ -54,27 +54,22 @@ html, body {
   line-gap-override: 0%;
 }
 
-/* CLS FIX: Prevent layout shift from framer-motion animations */
-/* Use transform-only animations (GPU-accelerated, no reflow) */
-[style*="transform"] {
-  will-change: transform, opacity;
-}
-
-/* Reserve space for lazy-loaded images with common aspect ratios */
-img[loading="lazy"] {
-  min-height: 1px; /* Prevent 0-height collapse */
-  background-color: #f3f4f6;
-}
-
-/* Common image aspect ratio containers */
+/* CLS FIX: Common aspect ratio utilities for image containers */
 .aspect-video { aspect-ratio: 16 / 9; }
 .aspect-square { aspect-ratio: 1 / 1; }
 .aspect-4-3 { aspect-ratio: 4 / 3; }
 .aspect-3-2 { aspect-ratio: 3 / 2; }
 
-/* Contain intrinsic size for images (modern browsers) */
-img {
-  contain-intrinsic-size: auto 300px;
+/* CLS FIX: Reserve space for specific gallery/card images */
+.gallery-image-container {
+  aspect-ratio: 1 / 1;
+  background-color: #f3f4f6;
+}
+
+.hero-image-container {
+  aspect-ratio: 16 / 9;
+  min-height: 300px;
+  background-color: #1f2937;
 }
 
 /* Prevent CLS from dialog/modal animations */
