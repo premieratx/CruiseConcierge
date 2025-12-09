@@ -19,7 +19,7 @@ export default function AustinBachelorPartyMarch() {
         <title>Why Austin is Perfect for Bachelor Parties in March | Premier Party Cruises</title>
         <meta 
           name="description" 
-          content="Plan a March Austin bachelor party: 52°F-72°F weather, SXSW Festival energy, Lake Travis boats & complete guide. Spring Break vibes and epic celebrations!" 
+          content="Plan a March Austin bachelor party: 54°F-72°F weather, SXSW Festival energy, Lake Travis boats & complete guide. Rain or shine, Spring Break vibes and epic celebrations!" 
         />
         <meta 
           name="keywords" 
@@ -38,7 +38,7 @@ export default function AustinBachelorPartyMarch() {
             "@context": "https://schema.org",
             "@type": "Article",
             "headline": "Why Austin is Perfect for Bachelor Parties in March",
-            "description": "Plan a March Austin bachelor party: 52°F-72°F weather, SXSW Festival energy, Lake Travis boats & complete guide.",
+            "description": "Plan a March Austin bachelor party: 54°F-72°F weather, SXSW Festival energy, Lake Travis boats & complete guide. Rain or shine!",
             "image": "https://premierpartycruises.com/attached_assets/@capitalcityshots-9_1760080740019.jpg",
             "author": {
               "@type": "Organization",
@@ -144,7 +144,7 @@ export default function AustinBachelorPartyMarch() {
                 <div className="bg-gradient-to-br from-green-100 to-emerald-100 dark:from-green-900/30 dark:to-emerald-900/30 rounded-2xl p-6 mb-6">
                   <div className="grid grid-cols-2 gap-4 text-center">
                     <div>
-                      <p className="text-3xl font-black text-green-600">52°F-72°F</p>
+                      <p className="text-3xl font-black text-green-600">54°F-72°F</p>
                       <p className="text-sm text-gray-600 dark:text-gray-400">Average Temp</p>
                     </div>
                     <div>
@@ -156,6 +156,12 @@ export default function AustinBachelorPartyMarch() {
                 <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
                   March brings perfect spring weather to Austin. The bluebonnets start blooming, temperatures are ideal for outdoor activities, and Lake Travis is beautiful without the summer crowds. It's the sweet spot between winter chill and summer heat.
                 </p>
+                <div className="mt-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl p-4">
+                  <p className="font-bold text-blue-800 dark:text-blue-300 mb-2">We're Weather-Ready!</p>
+                  <p className="text-blue-700 dark:text-blue-400 text-sm">
+                    Our boats come equipped with cozy blankets, propane heaters, and even a fire pit on select vessels. Plus wind curtains and rain curtains mean your party goes on rain or shine!
+                  </p>
+                </div>
               </div>
               <div className="relative">
                 <LazyImage 

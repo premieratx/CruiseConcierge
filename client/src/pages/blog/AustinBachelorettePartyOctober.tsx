@@ -19,7 +19,7 @@ export default function AustinBachelorettePartyOctober() {
         <title>Why Austin is Perfect for Bachelorette Parties in October | Premier Party Cruises</title>
         <meta 
           name="description" 
-          content="Plan an October Austin bachelorette party: 56°F-78°F fall weather, ACL Festival vibes, Halloween celebrations, Lake Travis boats & complete girls' trip guide!" 
+          content="Plan an October Austin bachelorette party: 62°F-82°F fall weather, ACL Festival vibes, Halloween celebrations, Lake Travis boats & complete girls' trip guide! Rain or shine!" 
         />
         <meta 
           name="keywords" 
@@ -38,7 +38,7 @@ export default function AustinBachelorettePartyOctober() {
             "@context": "https://schema.org",
             "@type": "Article",
             "headline": "Why Austin is Perfect for Bachelorette Parties in October",
-            "description": "Plan an October Austin bachelorette party: 56°F-78°F fall weather, ACL Festival vibes, Halloween celebrations, Lake Travis boats & complete girls' trip guide.",
+            "description": "Plan an October Austin bachelorette party: 62°F-82°F fall weather, ACL Festival vibes, Halloween celebrations, Lake Travis boats & complete girls' trip guide. Rain or shine!",
             "image": "https://premierpartycruises.com/attached_assets/@capitalcityshots-1_1760080740012.jpg",
             "author": {
               "@type": "Organization",
@@ -144,7 +144,7 @@ export default function AustinBachelorettePartyOctober() {
                 <div className="bg-gradient-to-br from-orange-100 to-purple-100 dark:from-orange-900/30 dark:to-purple-900/30 rounded-2xl p-6 mb-6">
                   <div className="grid grid-cols-2 gap-4 text-center">
                     <div>
-                      <p className="text-3xl font-black text-orange-600">56°F-78°F</p>
+                      <p className="text-3xl font-black text-orange-600">62°F-82°F</p>
                       <p className="text-sm text-gray-600 dark:text-gray-400">Average Temp</p>
                     </div>
                     <div>
@@ -156,6 +156,12 @@ export default function AustinBachelorettePartyOctober() {
                 <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
                   October brings perfect fall weather to Austin - warm days ideal for Lake Travis boat cruises and cool evenings perfect for exploring 6th Street. It's the sweet spot between Texas summer heat and winter chill, making it one of the best months for a bachelorette celebration!
                 </p>
+                <div className="mt-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-xl p-4">
+                  <p className="font-bold text-green-800 dark:text-green-300 mb-2">Perfect Weather, Any Weather!</p>
+                  <p className="text-green-700 dark:text-green-400 text-sm">
+                    Our boats are fully weather-ready with wind curtains and rain curtains for any conditions. Cooler evening? We have blankets and propane heaters. Your party goes on rain or shine!
+                  </p>
+                </div>
               </div>
               <div className="relative">
                 <LazyImage 

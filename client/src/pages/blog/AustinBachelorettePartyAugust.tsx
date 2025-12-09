@@ -19,7 +19,7 @@ export default function AustinBachelorettePartyAugust() {
         <title>Why Austin is Perfect for Bachelorette Parties in August | Premier Party Cruises</title>
         <meta 
           name="description" 
-          content="Plan an August Austin bachelorette party: 76°F-98°F hot summer nights, Lake Travis pool parties, and the ultimate girls' weekend guide. Peak season excitement!" 
+          content="Plan an August Austin bachelorette party: 76°F-98°F hot summer nights, Lake Travis pool parties, and the ultimate girls' weekend guide. Rain or shine, peak season excitement!" 
         />
         <meta 
           name="keywords" 
@@ -38,7 +38,7 @@ export default function AustinBachelorettePartyAugust() {
             "@context": "https://schema.org",
             "@type": "Article",
             "headline": "Why Austin is Perfect for Bachelorette Parties in August",
-            "description": "Plan an August Austin bachelorette party: 76°F-98°F hot summer nights, Lake Travis pool parties, and the ultimate girls' weekend guide.",
+            "description": "Plan an August Austin bachelorette party: 76°F-98°F hot summer nights, Lake Travis pool parties, and the ultimate girls' weekend guide. Rain or shine!",
             "image": "https://premierpartycruises.com/attached_assets/@capitalcityshots-15_1760073205051.jpg",
             "author": {
               "@type": "Organization",
@@ -156,6 +156,12 @@ export default function AustinBachelorettePartyAugust() {
                 <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
                   August is Austin's hottest month - perfect for poolside celebrations and sunset boat cruises! The scorching days mean refreshing dips in Lake Travis are essential, and the warm evenings are ideal for rooftop bars and outdoor patios with your bride squad.
                 </p>
+                <div className="mt-4 bg-cyan-50 dark:bg-cyan-900/20 border border-cyan-200 dark:border-cyan-800 rounded-xl p-4">
+                  <p className="font-bold text-cyan-800 dark:text-cyan-300 mb-2">Beat the Heat on Lake Travis!</p>
+                  <p className="text-cyan-700 dark:text-cyan-400 text-sm">
+                    It's hot everywhere this time of year, but Lake Travis is one of the best places in the country to cool off! Jump in for a swim, enjoy the breeze on the water, and we have wind curtains for shade. Rain or shine, your party goes on!
+                  </p>
+                </div>
               </div>
               <div className="relative">
                 <LazyImage 

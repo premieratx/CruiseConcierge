@@ -19,7 +19,7 @@ export default function AustinBachelorPartyMay() {
         <title>Why Austin is Perfect for Bachelor Parties in May | Premier Party Cruises</title>
         <meta 
           name="description" 
-          content="Plan a May Austin bachelor party: 69°F-87°F weather, Memorial Day energy, Lake Travis boats & complete guide. Summer kickoff and pool party season!" 
+          content="Plan a May Austin bachelor party: 70°F-87°F weather, Memorial Day energy, Lake Travis boats & complete guide. Rain or shine, summer kickoff and pool party season!" 
         />
         <meta 
           name="keywords" 
@@ -38,7 +38,7 @@ export default function AustinBachelorPartyMay() {
             "@context": "https://schema.org",
             "@type": "Article",
             "headline": "Why Austin is Perfect for Bachelor Parties in May",
-            "description": "Plan a May Austin bachelor party: 69°F-87°F weather, Memorial Day vibe, Lake Travis boats & complete guide.",
+            "description": "Plan a May Austin bachelor party: 70°F-87°F weather, Memorial Day vibe, Lake Travis boats & complete guide. Rain or shine!",
             "image": "https://premierpartycruises.com/attached_assets/@capitalcityshots-13_1760080740020.jpg",
             "author": {
               "@type": "Organization",
@@ -144,7 +144,7 @@ export default function AustinBachelorPartyMay() {
                 <div className="bg-gradient-to-br from-yellow-100 to-amber-100 dark:from-yellow-900/30 dark:to-amber-900/30 rounded-2xl p-6 mb-6">
                   <div className="grid grid-cols-2 gap-4 text-center">
                     <div>
-                      <p className="text-3xl font-black text-yellow-600">69°F-87°F</p>
+                      <p className="text-3xl font-black text-yellow-600">70°F-87°F</p>
                       <p className="text-sm text-gray-600 dark:text-gray-400">Average Temp</p>
                     </div>
                     <div>
@@ -156,6 +156,12 @@ export default function AustinBachelorPartyMay() {
                 <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
                   May marks the start of summer in Austin! Warm temperatures perfect for Lake Travis party boats and pool parties. The water is warming up and conditions are ideal for outdoor celebrations. Get ready for the summer kickoff!
                 </p>
+                <div className="mt-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-xl p-4">
+                  <p className="font-bold text-green-800 dark:text-green-300 mb-2">Perfect Weather, Any Weather!</p>
+                  <p className="text-green-700 dark:text-green-400 text-sm">
+                    Our boats are fully weather-ready with wind curtains and rain curtains for any conditions. Cooler evening? We have blankets and propane heaters. Your party goes on rain or shine!
+                  </p>
+                </div>
               </div>
               <div className="relative">
                 <LazyImage 

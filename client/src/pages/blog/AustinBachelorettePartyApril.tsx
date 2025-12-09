@@ -19,7 +19,7 @@ export default function AustinBachelorettePartyApril() {
         <title>Why Austin is Perfect for Bachelorette Parties in April | Premier Party Cruises</title>
         <meta 
           name="description" 
-          content="Plan an April Austin bachelorette party: 58°F-78°F spring weather, bluebonnet season, Lake Travis boats & complete guide. Perfect spring celebration!" 
+          content="Plan an April Austin bachelorette party: 62°F-80°F spring weather, bluebonnet season, Lake Travis boats & complete guide. Rain or shine, perfect spring celebration!" 
         />
         <meta 
           name="keywords" 
@@ -38,7 +38,7 @@ export default function AustinBachelorettePartyApril() {
             "@context": "https://schema.org",
             "@type": "Article",
             "headline": "Why Austin is Perfect for Bachelorette Parties in April",
-            "description": "Plan an April Austin bachelorette party: 58°F-78°F spring weather, bluebonnet season, Lake Travis boats & complete guide.",
+            "description": "Plan an April Austin bachelorette party: 62°F-80°F spring weather, bluebonnet season, Lake Travis boats & complete guide. Rain or shine!",
             "image": "https://premierpartycruises.com/attached_assets/@capitalcityshots-5_1760072938923.jpg",
             "author": {
               "@type": "Organization",
@@ -144,7 +144,7 @@ export default function AustinBachelorettePartyApril() {
                 <div className="bg-gradient-to-br from-pink-100 to-purple-100 dark:from-pink-900/30 dark:to-purple-900/30 rounded-2xl p-6 mb-6">
                   <div className="grid grid-cols-2 gap-4 text-center">
                     <div>
-                      <p className="text-3xl font-black text-pink-600">58°F-78°F</p>
+                      <p className="text-3xl font-black text-pink-600">62°F-80°F</p>
                       <p className="text-sm text-gray-600 dark:text-gray-400">Average Temp</p>
                     </div>
                     <div>
@@ -156,6 +156,12 @@ export default function AustinBachelorettePartyApril() {
                 <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
                   April delivers the most beautiful spring weather in Austin. Perfect temperatures for outdoor patios, Lake Travis boat days, and exploring the Hill Country bluebonnets. Not too hot, not too cold—just right for your bride tribe!
                 </p>
+                <div className="mt-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-xl p-4">
+                  <p className="font-bold text-green-800 dark:text-green-300 mb-2">Perfect Weather, Any Weather!</p>
+                  <p className="text-green-700 dark:text-green-400 text-sm">
+                    Our boats are fully weather-ready with wind curtains and rain curtains for any conditions. Cooler evening? We have blankets and propane heaters. Your party goes on rain or shine!
+                  </p>
+                </div>
               </div>
               <div className="relative">
                 <LazyImage 

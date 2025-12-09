@@ -19,7 +19,7 @@ export default function AustinBachelorPartyJanuary() {
         <title>Why Austin is Perfect for Bachelor Parties in January | Premier Party Cruises</title>
         <meta 
           name="description" 
-          content="Plan a January Austin bachelor party: 41°F-62°F weather, off-season deals, Lake Travis boats & complete guide. 30-40% cheaper rates and fewer crowds!" 
+          content="Plan a January Austin bachelor party: 43°F-59°F weather, off-season deals, Lake Travis boats & complete guide. Rain or shine, 30-40% cheaper rates and fewer crowds!" 
         />
         <meta 
           name="keywords" 
@@ -38,7 +38,7 @@ export default function AustinBachelorPartyJanuary() {
             "@context": "https://schema.org",
             "@type": "Article",
             "headline": "Why Austin is Perfect for Bachelor Parties in January",
-            "description": "Plan a January Austin bachelor party: 41°F-62°F weather, off-season deals, Lake Travis boats & complete guide.",
+            "description": "Plan a January Austin bachelor party: 43°F-59°F weather, off-season deals, Lake Travis boats & complete guide. Rain or shine!",
             "image": "https://premierpartycruises.com/attached_assets/@capitalcityshots-5_1760080740018.jpg",
             "author": {
               "@type": "Organization",
@@ -144,7 +144,7 @@ export default function AustinBachelorPartyJanuary() {
                 <div className="bg-gradient-to-br from-blue-100 to-slate-100 dark:from-blue-900/30 dark:to-slate-900/30 rounded-2xl p-6 mb-6">
                   <div className="grid grid-cols-2 gap-4 text-center">
                     <div>
-                      <p className="text-3xl font-black text-blue-600">41°F-62°F</p>
+                      <p className="text-3xl font-black text-blue-600">43°F-59°F</p>
                       <p className="text-sm text-gray-600 dark:text-gray-400">Average Temp</p>
                     </div>
                     <div>
@@ -156,6 +156,12 @@ export default function AustinBachelorPartyJanuary() {
                 <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
                   January in Austin offers mild winter weather perfect for outdoor activities. Midday temperatures often reach the 60s, making afternoon lake cruises comfortable and enjoyable. The low rainfall means more sunny days for your bachelor party adventures.
                 </p>
+                <div className="mt-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl p-4">
+                  <p className="font-bold text-blue-800 dark:text-blue-300 mb-2">We're Weather-Ready!</p>
+                  <p className="text-blue-700 dark:text-blue-400 text-sm">
+                    Our boats come equipped with cozy blankets, propane heaters, and even a fire pit on select vessels. Plus wind curtains and rain curtains mean your party goes on rain or shine!
+                  </p>
+                </div>
               </div>
               <div className="relative">
                 <LazyImage 

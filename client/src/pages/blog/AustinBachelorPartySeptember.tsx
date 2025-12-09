@@ -19,7 +19,7 @@ export default function AustinBachelorPartySeptember() {
         <title>Why Austin is Perfect for Bachelor Parties in September | Premier Party Cruises</title>
         <meta 
           name="description" 
-          content="Plan a September Austin bachelor party: 71°F-91°F weather, Labor Day vibe, Lake Travis boats & complete guide. Great deals and perfect conditions!" 
+          content="Plan a September Austin bachelor party: 71°F-91°F weather, Labor Day vibe, Lake Travis boats & complete guide. Rain or shine, great deals and perfect conditions!" 
         />
         <meta 
           name="keywords" 
@@ -38,7 +38,7 @@ export default function AustinBachelorPartySeptember() {
             "@context": "https://schema.org",
             "@type": "Article",
             "headline": "Why Austin is Perfect for Bachelor Parties in September",
-            "description": "Plan a September Austin bachelor party: 71°F-91°F weather, Labor Day vibe, Lake Travis boats & complete guide.",
+            "description": "Plan a September Austin bachelor party: 71°F-91°F weather, Labor Day vibe, Lake Travis boats & complete guide. Rain or shine!",
             "image": "https://premierpartycruises.com/attached_assets/@capitalcityshots-1_1760080740012.jpg",
             "author": {
               "@type": "Organization",
@@ -156,6 +156,12 @@ export default function AustinBachelorPartySeptember() {
                 <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
                   September offers ideal conditions for Lake Travis party boats. The summer heat starts to break, creating comfortable temperatures perfect for both outdoor lake adventures and nightlife. Water temperatures remain warm and inviting.
                 </p>
+                <div className="mt-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-xl p-4">
+                  <p className="font-bold text-green-800 dark:text-green-300 mb-2">Perfect Weather, Any Weather!</p>
+                  <p className="text-green-700 dark:text-green-400 text-sm">
+                    Our boats are fully weather-ready with wind curtains and rain curtains for any conditions. Cooler evening? We have blankets and propane heaters. Your party goes on rain or shine!
+                  </p>
+                </div>
               </div>
               <div className="relative">
                 <LazyImage 

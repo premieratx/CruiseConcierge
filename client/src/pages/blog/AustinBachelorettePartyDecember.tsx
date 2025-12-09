@@ -19,7 +19,7 @@ export default function AustinBachelorettePartyDecember() {
         <title>Why Austin is Perfect for Bachelorette Parties in December | Premier Party Cruises</title>
         <meta 
           name="description" 
-          content="Plan a December Austin bachelorette party: 39°F-58°F weather, Trail of Lights, holiday celebrations, Lake Travis boats & complete guide. Festive fun awaits!" 
+          content="Plan a December Austin bachelorette party: 45°F-62°F weather, Trail of Lights, holiday celebrations, Lake Travis boats & complete guide. Rain or shine, festive fun awaits!" 
         />
         <meta 
           name="keywords" 
@@ -38,7 +38,7 @@ export default function AustinBachelorettePartyDecember() {
             "@context": "https://schema.org",
             "@type": "Article",
             "headline": "Why Austin is Perfect for Bachelorette Parties in December",
-            "description": "Plan a December Austin bachelorette party: 39°F-58°F weather, Trail of Lights, holiday celebrations, Lake Travis boats & complete guide.",
+            "description": "Plan a December Austin bachelorette party: 45°F-62°F weather, Trail of Lights, holiday celebrations, Lake Travis boats & complete guide. Rain or shine!",
             "image": "https://premierpartycruises.com/attached_assets/@capitalcityshots-5_1760080740018.jpg",
             "author": {
               "@type": "Organization",
@@ -144,7 +144,7 @@ export default function AustinBachelorettePartyDecember() {
                 <div className="bg-gradient-to-br from-red-100 to-green-100 dark:from-red-900/30 dark:to-green-900/30 rounded-2xl p-6 mb-6">
                   <div className="grid grid-cols-2 gap-4 text-center">
                     <div>
-                      <p className="text-3xl font-black text-red-600">39°F-58°F</p>
+                      <p className="text-3xl font-black text-red-600">45°F-62°F</p>
                       <p className="text-sm text-gray-600 dark:text-gray-400">Average Temp</p>
                     </div>
                     <div>
@@ -156,6 +156,12 @@ export default function AustinBachelorettePartyDecember() {
                 <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
                   December in Austin brings crisp, comfortable weather perfect for exploring festive holiday markets, Trail of Lights, and cozy rooftop bars. While cooler than other months, the mild Texas winter means you can still enjoy Lake Travis party boats with layers and warm drinks!
                 </p>
+                <div className="mt-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl p-4">
+                  <p className="font-bold text-blue-800 dark:text-blue-300 mb-2">We're Weather-Ready!</p>
+                  <p className="text-blue-700 dark:text-blue-400 text-sm">
+                    Our boats come equipped with cozy blankets, propane heaters, and even a fire pit on select vessels. Plus wind curtains and rain curtains mean your party goes on rain or shine!
+                  </p>
+                </div>
               </div>
               <div className="relative">
                 <LazyImage 

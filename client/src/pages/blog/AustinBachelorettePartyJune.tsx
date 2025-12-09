@@ -19,7 +19,7 @@ export default function AustinBachelorettePartyJune() {
         <title>Why Austin is Perfect for Bachelorette Parties in June | Premier Party Cruises</title>
         <meta 
           name="description" 
-          content="Plan a June Austin bachelorette party: 74°F-94°F weather, pool parties, pride month, Lake Travis boats & complete guide. Peak summer celebration awaits!" 
+          content="Plan a June Austin bachelorette party: 74°F-93°F weather, pool parties, pride month, Lake Travis boats & complete guide. Rain or shine, peak summer celebration awaits!" 
         />
         <meta 
           name="keywords" 
@@ -38,7 +38,7 @@ export default function AustinBachelorettePartyJune() {
             "@context": "https://schema.org",
             "@type": "Article",
             "headline": "Why Austin is Perfect for Bachelorette Parties in June",
-            "description": "Plan a June Austin bachelorette party: 74°F-94°F weather, pool parties, pride month, Lake Travis boats & complete guide.",
+            "description": "Plan a June Austin bachelorette party: 74°F-93°F weather, pool parties, pride month, Lake Travis boats & complete guide. Rain or shine!",
             "image": "https://premierpartycruises.com/attached_assets/@capitalcityshots-10_1760073205050.jpg",
             "author": {
               "@type": "Organization",
@@ -144,7 +144,7 @@ export default function AustinBachelorettePartyJune() {
                 <div className="bg-gradient-to-br from-yellow-100 to-pink-100 dark:from-yellow-900/30 dark:to-pink-900/30 rounded-2xl p-6 mb-6">
                   <div className="grid grid-cols-2 gap-4 text-center">
                     <div>
-                      <p className="text-3xl font-black text-orange-600">74°F-94°F</p>
+                      <p className="text-3xl font-black text-orange-600">74°F-93°F</p>
                       <p className="text-sm text-gray-600 dark:text-gray-400">Average Temp</p>
                     </div>
                     <div>
@@ -156,6 +156,12 @@ export default function AustinBachelorettePartyJune() {
                 <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
                   June kicks off peak summer in Austin! Expect hot, sunny days perfect for pool parties and Lake Travis boat cruises. The longest days of the year mean more time to celebrate with your bride squad. Water temperatures are ideal for swimming and all water activities.
                 </p>
+                <div className="mt-4 bg-cyan-50 dark:bg-cyan-900/20 border border-cyan-200 dark:border-cyan-800 rounded-xl p-4">
+                  <p className="font-bold text-cyan-800 dark:text-cyan-300 mb-2">Beat the Heat on Lake Travis!</p>
+                  <p className="text-cyan-700 dark:text-cyan-400 text-sm">
+                    It's hot everywhere this time of year, but Lake Travis is one of the best places in the country to cool off! Jump in for a swim, enjoy the breeze on the water, and we have wind curtains for shade. Rain or shine, your party goes on!
+                  </p>
+                </div>
               </div>
               <div className="relative">
                 <LazyImage 
