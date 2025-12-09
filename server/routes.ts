@@ -932,6 +932,7 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
     '/blog/birthday-party-alcohol-delivery-austin-milestone-celebrations-made-easy',
     '/blog/lake-travis-party-boat-rentals-ultimate-guide-for-large-group-events-20-guests',
     '/blog/lake-travis-weather-planning-seasonal-considerations-for-perfect-boat-parties',
+    '/blog/rehearsal-dinner-boat-alcohol-delivery-unique-wedding-weekend-experiences',
     '/blogs/lake-travis-bachelor-party-austin-celebrations'
   ];
   
