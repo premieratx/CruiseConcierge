@@ -373,7 +373,7 @@ export default function FirstTimeLakeTravisGuide() {
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle className="text-green-500 flex-shrink-0 mt-1" size={20} />
-                  <span><strong>Unlimited alcohol included</strong> (beer, wine, seltzers)</span>
+                  <span><strong>BYOB</strong> – order from Party On Delivery for drinks on ice when you arrive</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle className="text-green-500 flex-shrink-0 mt-1" size={20} />
@@ -543,8 +543,7 @@ export default function FirstTimeLakeTravisGuide() {
                 Q: Is alcohol allowed on Lake Travis boat rentals?
               </h3>
               <p className="text-gray-700 dark:text-gray-300">
-                <strong>A:</strong> Yes! Lake Travis is BYOB-friendly. Private cruises allow you to bring whatever you want. 
-                ATX Disco Cruise includes <strong>unlimited beer, wine, and seltzers</strong> in the all-inclusive price.
+                <strong>A:</strong> Yes! Lake Travis is BYOB-friendly. ALL cruises (including ATX Disco Cruise) are BYOB – bring your own beer, wine, seltzers in cans or plastic (no glass). Order from <a href="https://partyondelivery.com" target="_blank" rel="noopener noreferrer" className="text-brand-blue hover:underline font-semibold">Party On Delivery</a> to have drinks on ice ready when you arrive!
               </p>
             </div>
 
@@ -584,7 +583,7 @@ export default function FirstTimeLakeTravisGuide() {
               </h3>
               <p className="text-gray-700 dark:text-gray-300">
                 <strong>A:</strong> <strong>ATX Disco Cruise</strong> is a 4-hour all-inclusive multi-group party experience 
-                with unlimited alcohol and DJ (think party cruise). <strong>Private Cruise</strong> gives you exclusive use 
+                with professional DJ, photographer, and giant floats (BYOB – order from Party On Delivery). <strong>Private Cruise</strong> gives you exclusive use 
                 of a boat for your group only, with BYOB and complete customization.
               </p>
             </div>
