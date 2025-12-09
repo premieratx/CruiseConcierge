@@ -163,11 +163,10 @@ const privateCategories: WhatToBringCategory[] = [
     icon: Gift,
     color: 'text-purple-600',
     items: [
-      { icon: PartyPopper, text: 'Decorations (coordinate with us first)' },
+      { icon: Music, text: 'Custom playlist', tooltip: 'Bluetooth compatible sound system' },
       { icon: Utensils, text: 'Food & snacks', tooltip: 'Bring your own' },
-      { icon: Music, text: 'Custom playlist', tooltip: 'Bluetooth compatible' },
       { icon: Camera, text: 'Photography equipment' },
-      { icon: Gift, text: 'Special requests or themes' }
+      { icon: Gift, text: 'AV package available', tooltip: 'Microphone + projector/screen' }
     ]
   },
   {
@@ -175,7 +174,7 @@ const privateCategories: WhatToBringCategory[] = [
     icon: GlassWater,
     color: 'text-green-600',
     items: [
-      { icon: GlassWater, text: 'All beverages (BYOB)', tooltip: 'Cans/plastic only' },
+      { icon: GlassWater, text: 'BYOB via Party On Delivery', tooltip: 'Beer, seltzers, cocktail kits delivered to boat' },
       { icon: Package, text: 'Extra ice if needed', tooltip: 'Essentials package includes ice' },
       { icon: Utensils, text: 'Food and snacks' },
       { icon: Coffee, text: 'Non-alcoholic options' }

@@ -1300,7 +1300,7 @@ export default function PrivateCruises() {
                 </p>
               </div>
 
-              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div className="grid md:grid-cols-3 gap-6">
                 <Card className="bg-white border-gray-200 rounded-xl hover:border-blue-500 transition-all">
                   <CardHeader className="p-6">
                     <div className="flex items-center gap-3 mb-4">
@@ -1312,11 +1312,7 @@ export default function PrivateCruises() {
                     <ul className="space-y-2 text-base text-gray-700">
                       <li className="flex items-start gap-2">
                         <Check className="h-5 w-5 text-blue-600 shrink-0 mt-0.5" />
-                        <span>Bring your own food & snacks</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <Check className="h-5 w-5 text-blue-600 shrink-0 mt-0.5" />
-                        <span>We help coordinate alcohol delivery through Party On Delivery</span>
+                        <span>BYOB – Bring your own food & drinks</span>
                       </li>
                       <li className="flex items-start gap-2">
                         <Check className="h-5 w-5 text-blue-600 shrink-0 mt-0.5" />
@@ -1349,40 +1345,11 @@ export default function PrivateCruises() {
                       </li>
                       <li className="flex items-start gap-2">
                         <Check className="h-5 w-5 text-purple-600 shrink-0 mt-0.5" />
-                        <span>Karaoke equipment ($150)</span>
+                        <span>AV package: microphone + projector/screen</span>
                       </li>
                       <li className="flex items-start gap-2">
                         <Check className="h-5 w-5 text-purple-600 shrink-0 mt-0.5" />
-                        <span>Custom playlist setup</span>
-                      </li>
-                    </ul>
-                  </CardHeader>
-                </Card>
-
-                <Card className="bg-white border-gray-200 rounded-xl hover:border-blue-500 transition-all">
-                  <CardHeader className="p-6">
-                    <div className="flex items-center gap-3 mb-4">
-                      <div className="p-3 bg-pink-100 rounded-lg">
-                        <PartyPopper className="h-6 w-6 text-pink-600" />
-                      </div>
-                      <CardTitle className="text-xl font-semibold text-gray-900">Decorations</CardTitle>
-                    </div>
-                    <ul className="space-y-2 text-base text-gray-700">
-                      <li className="flex items-start gap-2">
-                        <Check className="h-5 w-5 text-pink-600 shrink-0 mt-0.5" />
-                        <span>Birthday banners & balloons</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <Check className="h-5 w-5 text-pink-600 shrink-0 mt-0.5" />
-                        <span>Wedding/anniversary themes</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <Check className="h-5 w-5 text-pink-600 shrink-0 mt-0.5" />
-                        <span>Corporate branding setup</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <Check className="h-5 w-5 text-pink-600 shrink-0 mt-0.5" />
-                        <span>Custom signage</span>
+                        <span>Premium Bluetooth sound system</span>
                       </li>
                     </ul>
                   </CardHeader>
@@ -1394,24 +1361,24 @@ export default function PrivateCruises() {
                       <div className="p-3 bg-yellow-100 rounded-lg">
                         <Wine className="h-6 w-6 text-yellow-600" />
                       </div>
-                      <CardTitle className="text-xl font-semibold text-gray-900">Beverages</CardTitle>
+                      <CardTitle className="text-xl font-semibold text-gray-900">Beverages via Party On Delivery</CardTitle>
                     </div>
                     <ul className="space-y-2 text-base text-gray-700">
                       <li className="flex items-start gap-2">
                         <Check className="h-5 w-5 text-yellow-600 shrink-0 mt-0.5" />
-                        <span>Pre-stocked bar setup</span>
+                        <span>Light beer & craft beer selection</span>
                       </li>
                       <li className="flex items-start gap-2">
                         <Check className="h-5 w-5 text-yellow-600 shrink-0 mt-0.5" />
-                        <span>Mimosa bar ingredients</span>
+                        <span>Hard seltzers & wine</span>
                       </li>
                       <li className="flex items-start gap-2">
                         <Check className="h-5 w-5 text-yellow-600 shrink-0 mt-0.5" />
-                        <span>Craft beer selection</span>
+                        <span>Lake-ready cocktail kits</span>
                       </li>
                       <li className="flex items-start gap-2">
                         <Check className="h-5 w-5 text-yellow-600 shrink-0 mt-0.5" />
-                        <span>Signature cocktail mixers</span>
+                        <span>Delivered on ice, ready when you arrive!</span>
                       </li>
                     </ul>
                   </CardHeader>
