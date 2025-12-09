@@ -8,6 +8,7 @@ interface LazyImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
   placeholderClassName?: string;
   fallbackSrc?: string;
   priority?: boolean;
+  aspectRatio?: string;
 }
 
 export function LazyImage({
@@ -17,15 +18,17 @@ export function LazyImage({
   placeholderClassName,
   fallbackSrc,
   priority = false,
+  aspectRatio,
+  width,
+  height,
   ...props
 }: LazyImageProps) {
   const [isLoaded, setIsLoaded] = useState(false);
-  const [isInView, setIsInView] = useState(priority); // If priority, load immediately
+  const [isInView, setIsInView] = useState(priority);
   const [error, setError] = useState(false);
   const imgRef = useRef<HTMLImageElement>(null);
 
   useEffect(() => {
-    // Skip Intersection Observer if priority is true
     if (priority) return;
 
     const observer = new IntersectionObserver(
@@ -38,7 +41,7 @@ export function LazyImage({
         });
       },
       {
-        rootMargin: '50px', // Start loading 50px before image enters viewport
+        rootMargin: '50px',
       }
     );
 
@@ -60,9 +63,22 @@ export function LazyImage({
     }
   };
 
+  const wrapperStyle: React.CSSProperties = aspectRatio ? {
+    aspectRatio: aspectRatio,
+    position: 'relative',
+    overflow: 'hidden'
+  } : {};
+
+  const imgStyle: React.CSSProperties = aspectRatio ? {
+    position: 'absolute',
+    inset: 0,
+    width: '100%',
+    height: '100%',
+    objectFit: 'cover'
+  } : {};
+
   return (
-    <div className={cn("relative overflow-hidden", className)}>
-      {/* Placeholder */}
+    <div className={cn("relative overflow-hidden", className)} style={wrapperStyle}>
       {!isLoaded && (
         <div
           className={cn(
@@ -72,20 +88,23 @@ export function LazyImage({
         />
       )}
 
-      {/* Actual Image */}
       <img
         ref={imgRef}
         src={isInView ? (error && fallbackSrc ? fallbackSrc : src) : undefined}
         alt={alt}
+        width={width}
+        height={height}
         loading={priority ? "eager" : "lazy"}
         fetchPriority={priority ? "high" : undefined}
+        decoding={priority ? "sync" : "async"}
         onLoad={handleLoad}
         onError={handleError}
         className={cn(
-          "transition-opacity duration-500",
+          "transition-opacity duration-300",
           isLoaded ? "opacity-100" : "opacity-0",
-          className
+          !aspectRatio && className
         )}
+        style={imgStyle}
         {...props}
       />
     </div>
