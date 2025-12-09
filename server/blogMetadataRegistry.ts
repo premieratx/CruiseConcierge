@@ -390,6 +390,138 @@ export const blogMetadataRegistry: Record<string, BlogMetadata> = {
       'Party On Delivery',
       'bachelorette weekend Austin'
     ]
+  },
+
+  'blogs/austin-party-venue-alcohol-delivery-navigating-policies-and-logistics': {
+    slug: 'blogs/austin-party-venue-alcohol-delivery-navigating-policies-and-logistics',
+    title: 'Austin Party Venue Alcohol Delivery: Policies & Logistics Guide',
+    description: 'Navigate Austin alcohol delivery policies with ease. TABC compliance, venue coordination, and Party On Delivery integration for stress-free events.',
+    publishDate: '2025-01-20',
+    modifiedDate: '2025-12-09',
+    author: 'Premier Party Cruises',
+    heroImage: 'https://premierpartycruises.com/attached_assets/atx-disco-cruise-party.webp',
+    keywords: ['Austin alcohol delivery', 'TABC compliance', 'venue coordination', 'Party On Delivery', 'event alcohol logistics']
+  },
+
+  'blogs/birthday-party-alcohol-delivery-austin-milestone-celebrations-made-easy': {
+    slug: 'blogs/birthday-party-alcohol-delivery-austin-milestone-celebrations-made-easy',
+    title: 'Birthday Party Alcohol Delivery Austin: Milestone Celebrations',
+    description: 'Make milestone birthdays easy with Party On Delivery in Austin. 21st, 30th, 40th, 50th celebrations with hassle-free alcohol delivery.',
+    publishDate: '2025-01-22',
+    modifiedDate: '2025-12-09',
+    author: 'Premier Party Cruises',
+    heroImage: 'https://premierpartycruises.com/attached_assets/@capitalcityshots-4_1760080740017.jpg',
+    keywords: ['birthday alcohol delivery Austin', 'milestone birthday party', '21st birthday Austin', 'Party On Delivery birthday']
+  },
+
+  'blogs/birthday-party-boat-rentals-on-lake-travis-milestone-celebrations-with-a-view': {
+    slug: 'blogs/birthday-party-boat-rentals-on-lake-travis-milestone-celebrations-with-a-view',
+    title: 'Birthday Party Boat Rentals Lake Travis: Milestone Celebrations',
+    description: 'Celebrate milestone birthdays on Lake Travis! Boat rentals for 21st, 30th, 40th, 50th birthdays. Scenic views, BYOB, perfect celebrations.',
+    publishDate: '2025-01-25',
+    modifiedDate: '2025-12-09',
+    author: 'Premier Party Cruises',
+    heroImage: 'https://premierpartycruises.com/attached_assets/@capitalcityshots-8_1760080740018.jpg',
+    keywords: ['birthday boat rental Lake Travis', 'milestone birthday cruise', 'Lake Travis birthday party', 'party boat Austin birthday']
+  },
+
+  'blogs/corporate-team-building-on-lake-travis-professional-boat-rental-solutions': {
+    slug: 'blogs/corporate-team-building-on-lake-travis-professional-boat-rental-solutions',
+    title: 'Corporate Team Building Lake Travis: Professional Boat Rentals',
+    description: 'Host professional corporate team building on Lake Travis. Private boat rentals for retreats, client events, and company celebrations.',
+    publishDate: '2025-01-28',
+    modifiedDate: '2025-12-09',
+    author: 'Premier Party Cruises',
+    heroImage: 'https://premierpartycruises.com/attached_assets/@capitalcityshots-12_1760080740019.jpg',
+    keywords: ['corporate team building Lake Travis', 'company boat rental Austin', 'professional event boat', 'corporate retreat Lake Travis']
+  },
+
+  'blogs/graduation-party-alcohol-planning-ut-and-austin-college-celebrations': {
+    slug: 'blogs/graduation-party-alcohol-planning-ut-and-austin-college-celebrations',
+    title: 'Graduation Party Alcohol Planning: UT & Austin Celebrations',
+    description: 'Plan the perfect UT graduation party! Alcohol delivery, Lake Travis cruises, and celebration tips for Austin college grads.',
+    publishDate: '2025-02-01',
+    modifiedDate: '2025-12-09',
+    author: 'Premier Party Cruises',
+    heroImage: 'https://premierpartycruises.com/attached_assets/@capitalcityshots-16_1760080740020.jpg',
+    keywords: ['UT graduation party', 'Austin college graduation', 'graduation alcohol delivery', 'Lake Travis graduation cruise']
+  },
+
+  'blogs/lake-travis-boat-party-logistics-complete-planning-and-coordination-guide': {
+    slug: 'blogs/lake-travis-boat-party-logistics-complete-planning-and-coordination-guide',
+    title: 'Lake Travis Boat Party Logistics: Complete Planning Guide',
+    description: 'Master Lake Travis boat party logistics! Complete planning checklist, coordination tips, and timeline for stress-free celebrations.',
+    publishDate: '2025-02-05',
+    modifiedDate: '2025-12-09',
+    author: 'Premier Party Cruises',
+    heroImage: 'https://premierpartycruises.com/attached_assets/@capitalcityshots-20_1760080740021.jpg',
+    keywords: ['Lake Travis party logistics', 'boat party planning', 'Lake Travis coordination', 'party boat checklist Austin']
+  },
+
+  'blogs/lake-travis-boat-party-regulations-legal-requirements-and-compliance-guide': {
+    slug: 'blogs/lake-travis-boat-party-regulations-legal-requirements-and-compliance-guide',
+    title: 'Lake Travis Boat Party Regulations: Legal Compliance Guide',
+    description: 'Understand Lake Travis boat party regulations. TABC compliance, safety requirements, and what Premier Party Cruises handles for you.',
+    publishDate: '2025-02-08',
+    modifiedDate: '2025-12-09',
+    author: 'Premier Party Cruises',
+    heroImage: 'https://premierpartycruises.com/attached_assets/@capitalcityshots-24_1760080807866.jpg',
+    keywords: ['Lake Travis regulations', 'boat party legal requirements', 'TABC compliance boat', 'Lake Travis safety rules']
+  },
+
+  'blogs/lake-travis-boat-safety-and-maintenance-quality-standards-for-party-cruises': {
+    slug: 'blogs/lake-travis-boat-safety-and-maintenance-quality-standards-for-party-cruises',
+    title: 'Lake Travis Boat Safety & Maintenance: Quality Standards',
+    description: 'Discover Premier Party Cruises safety standards. Boat maintenance, captain expertise, and our perfect safety record on Lake Travis.',
+    publishDate: '2025-02-10',
+    modifiedDate: '2025-12-09',
+    author: 'Premier Party Cruises',
+    heroImage: 'https://premierpartycruises.com/attached_assets/@capitalcityshots-28_1760080807867.jpg',
+    keywords: ['Lake Travis boat safety', 'party cruise maintenance', 'boat captain credentials', 'Lake Travis quality standards']
+  },
+
+  'blogs/lake-travis-party-boat-rentals-ultimate-guide-for-large-group-events-20-guests': {
+    slug: 'blogs/lake-travis-party-boat-rentals-ultimate-guide-for-large-group-events-20-guests',
+    title: 'Lake Travis Party Boat Rentals: Large Group Events Guide (20+)',
+    description: 'Plan large group boat parties on Lake Travis! Guide for 20-75 guests with boat options, pricing, and coordination tips.',
+    publishDate: '2025-02-12',
+    modifiedDate: '2025-12-09',
+    author: 'Premier Party Cruises',
+    heroImage: 'https://premierpartycruises.com/attached_assets/@capitalcityshots-32_1760080807868.jpg',
+    keywords: ['large group boat rental', 'Lake Travis 20+ guests', 'party boat big groups', 'Austin group events boat']
+  },
+
+  'blogs/party-alcohol-safety-in-austin-responsible-service-and-guest-well-being': {
+    slug: 'blogs/party-alcohol-safety-in-austin-responsible-service-and-guest-well-being',
+    title: 'Party Alcohol Safety Austin: Responsible Service Guide',
+    description: 'Ensure guest safety at Austin parties. Responsible alcohol service, BYOB boat tips, and guest well-being best practices.',
+    publishDate: '2025-02-15',
+    modifiedDate: '2025-12-09',
+    author: 'Premier Party Cruises',
+    heroImage: 'https://premierpartycruises.com/attached_assets/@capitalcityshots-36_1760080807868.jpg',
+    keywords: ['alcohol safety Austin', 'responsible service', 'BYOB safety tips', 'party guest well-being']
+  },
+
+  'blogs/why-choose-integrated-event-services-comparing-austin-party-planning-options': {
+    slug: 'blogs/why-choose-integrated-event-services-comparing-austin-party-planning-options',
+    title: 'Integrated Event Services: Austin Party Planning Comparison',
+    description: 'Compare DIY vs integrated event services in Austin. Save 10+ hours with Party On Delivery + Premier Party Cruises.',
+    publishDate: '2025-02-18',
+    modifiedDate: '2025-12-09',
+    author: 'Premier Party Cruises',
+    heroImage: 'https://premierpartycruises.com/attached_assets/@capitalcityshots-40_1760080807869.jpg',
+    keywords: ['integrated event services', 'Austin party planning comparison', 'DIY vs professional', 'Party On Delivery Premier']
+  },
+
+  'blogs/why-choose-austin-bachelor-party': {
+    slug: 'blogs/why-choose-austin-bachelor-party',
+    title: 'Why Choose Austin for Your Bachelor Party: Top 10 Reasons',
+    description: 'Discover the top 10 reasons Austin is perfect for bachelor parties. Lake Travis boats, world-class BBQ, epic nightlife, and more.',
+    publishDate: '2025-02-20',
+    modifiedDate: '2025-12-09',
+    author: 'Premier Party Cruises',
+    heroImage: 'https://premierpartycruises.com/attached_assets/bachelor-party-group-guys-hero-compressed.webp',
+    keywords: ['Austin bachelor party', 'why Austin bachelor party', 'Lake Travis bachelor', 'Austin BBQ bachelor party', 'Austin nightlife bachelor']
   }
 };
 

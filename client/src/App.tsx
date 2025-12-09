@@ -66,6 +66,7 @@ const LakeTravisBachelorPartyCelebrations = lazy(() => import("./pages/blog/Lake
 const BirthdayPartyBoatRentalsLakeTravis = lazy(() => import("./pages/blog/BirthdayPartyBoatRentalsLakeTravis"));
 const CorporateTeamBuildingLakeTravis = lazy(() => import("./pages/blog/CorporateTeamBuildingLakeTravis"));
 const LakeTravisLargeGroupBoatRentals = lazy(() => import("./pages/blog/LakeTravisLargeGroupBoatRentals"));
+const WhyChooseAustinBachelorParty = lazy(() => import("./pages/blog/WhyChooseAustinBachelorParty"));
 
 // Admin Blog Pages - Lazy loaded
 const BlogManagement = lazy(() => import("./pages/admin/BlogManagement"));
@@ -332,6 +333,7 @@ function Router() {
       <Route path="/blogs/lake-travis-boat-safety-and-maintenance-quality-standards-for-party-cruises" component={LakeTravisBoatSafetyMaintenance} />
       <Route path="/blogs/lake-travis-party-boat-rentals-ultimate-guide-for-large-group-events-20-guests" component={LakeTravisLargeGroupBoatRentals} />
       <Route path="/blogs/party-alcohol-safety-in-austin-responsible-service-and-guest-well-being" component={PartyAlcoholSafetyAustin} />
+      <Route path="/blogs/why-choose-austin-bachelor-party" component={WhyChooseAustinBachelorParty} />
       
       {/* Public Booking - Commented out, using /chat instead */}
       {/* <Route path="/calendar" component={PublicCalendar} /> */}

@@ -632,7 +632,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
         'atx-disco-cruise-experience',
         'lake-travis-bachelor-party-austin-celebrations',
         'lake-travis-bachelor-party-boat-rentals-the-ultimate-guide-to-epic-celebrations',
-        'austin-bachelorette-bliss-spa-retreats-disco-cruises-alcohol-delivery'
+        'austin-bachelorette-bliss-spa-retreats-disco-cruises-alcohol-delivery',
+        'austin-party-venue-alcohol-delivery-navigating-policies-and-logistics',
+        'birthday-party-alcohol-delivery-austin-milestone-celebrations-made-easy',
+        'birthday-party-boat-rentals-on-lake-travis-milestone-celebrations-with-a-view',
+        'corporate-team-building-on-lake-travis-professional-boat-rental-solutions',
+        'graduation-party-alcohol-planning-ut-and-austin-college-celebrations',
+        'lake-travis-boat-party-logistics-complete-planning-and-coordination-guide',
+        'lake-travis-boat-party-regulations-legal-requirements-and-compliance-guide',
+        'lake-travis-boat-safety-and-maintenance-quality-standards-for-party-cruises',
+        'lake-travis-party-boat-rentals-ultimate-guide-for-large-group-events-20-guests',
+        'party-alcohol-safety-in-austin-responsible-service-and-guest-well-being',
+        'why-choose-integrated-event-services-comparing-austin-party-planning-options',
+        'why-choose-austin-bachelor-party'
       ];
       
       if (reactBlogSlugs.includes(slug)) {
