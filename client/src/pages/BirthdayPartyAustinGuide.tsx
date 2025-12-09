@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Cake, Ship, Users, Calendar, Shield, Music, Camera, Sparkles, CheckCircle2, Phone, PartyPopper, Gift, Anchor } from 'lucide-react';
 import { Link } from 'wouter';
+import { BlogImageBreak, BlogPhotoStrip, BlogPartyGallery, BLOG_BOAT_PHOTOS, BLOG_PARTY_PHOTOS } from '@/components/BlogImageBreak';
 
 export default function BirthdayPartyAustinGuide() {
   return (
@@ -149,6 +150,12 @@ export default function BirthdayPartyAustinGuide() {
                 With 15+ years of experience and over 125,000 satisfied guests, Premier Party Cruises specializes in transforming <Link href="/milestone-birthday" className="text-blue-600 hover:underline font-medium">milestone birthdays</Link> into extraordinary Lake Travis adventures. Our austin boat rental services include custom-built, high-end single-deck party boats that offer the perfect blend of comfort, excitement, and scenic beauty for your special day. <Link href="/testimonials-faq" className="text-blue-600 hover:underline font-medium">Read our customer reviews</Link> to see why we're Austin's top choice.
               </p>
             </div>
+
+            <BlogImageBreak
+              src={BLOG_PARTY_PHOTOS.celebration.src}
+              alt={BLOG_PARTY_PHOTOS.celebration.alt}
+              caption="Milestone birthday celebrations on Lake Travis"
+            />
           </div>
         </div>
       </section>
@@ -166,6 +173,15 @@ export default function BirthdayPartyAustinGuide() {
                 All boats are BYOB with professional captains, coolers, floats & sound systems
               </p>
             </div>
+
+            <BlogPhotoStrip
+              photos={[
+                BLOG_BOAT_PHOTOS.small,
+                BLOG_BOAT_PHOTOS.medium,
+                BLOG_BOAT_PHOTOS.large,
+              ]}
+              columns={3}
+            />
 
             <div className="grid md:grid-cols-3 gap-8">
               {/* Intimate Celebration - 14 guests */}
@@ -279,6 +295,8 @@ export default function BirthdayPartyAustinGuide() {
                 </CardContent>
               </Card>
             </div>
+
+            <BlogPartyGallery title="Birthday Celebrations on Lake Travis" />
 
             {/* Premium Add-Ons */}
             <Card className="mt-8 bg-gradient-to-br from-purple-100 to-pink-100 dark:from-purple-900/20 dark:to-pink-900/20 border-2 border-purple-300 dark:border-purple-700">
@@ -458,6 +476,12 @@ export default function BirthdayPartyAustinGuide() {
                 </CardContent>
               </Card>
             </div>
+
+            <BlogImageBreak
+              src={BLOG_PARTY_PHOTOS.group.src}
+              alt={BLOG_PARTY_PHOTOS.group.alt}
+              caption="Join thousands of guests who have celebrated their milestones on Lake Travis"
+            />
           </div>
         </div>
       </section>

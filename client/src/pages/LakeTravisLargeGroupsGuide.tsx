@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Ship, Users, Calendar, Shield, Music, Camera, CheckCircle2, Phone, Sparkles, Anchor, Building2, Trophy, Heart } from 'lucide-react';
 import { Link } from 'wouter';
+import { BlogImageBreak, BlogPhotoStrip, BlogPartyGallery, BLOG_BOAT_PHOTOS, BLOG_PARTY_PHOTOS } from '@/components/BlogImageBreak';
 
 export default function LakeTravisLargeGroupsGuide() {
   return (
@@ -174,6 +175,14 @@ export default function LakeTravisLargeGroupsGuide() {
               </Card>
             </div>
 
+            {/* Large boat photo - Clever Girl flagship */}
+            <BlogImageBreak 
+              src={BLOG_BOAT_PHOTOS.large.src}
+              alt={BLOG_BOAT_PHOTOS.large.alt}
+              caption="Clever Girl: Our flagship party boat accommodates up to 75 guests with a massive dance floor"
+              className="max-w-3xl mx-auto"
+            />
+
             <div className="prose prose-lg max-w-none dark:prose-invert">
               <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
                 Lake Travis offers an unparalleled backdrop for large group events in Austin, Texas. The crystal-clear waters, scenic coves, and vibrant atmosphere create an ideal setting that traditional venues simply can't match. Premier Party Cruises operates custom-built, high-end <Link href="/private-cruises" className="text-blue-600 hover:underline font-medium">single-deck party boats</Link> on Lake Travis, providing a dynamic, exclusive environment that fosters camaraderie and creates unforgettable memories for groups of 20-75 people. Our lake travis boat rentals ensure everyone has a great time with professional crews and premium amenities. <Link href="/testimonials-faq" className="text-blue-600 hover:underline font-medium">Read our reviews</Link> from satisfied corporate clients and event planners who highly recommend our services.
@@ -285,6 +294,23 @@ export default function LakeTravisLargeGroupsGuide() {
                 </CardContent>
               </Card>
             </div>
+
+            {/* Photo Strip - Medium and Large boats */}
+            <BlogPhotoStrip 
+              photos={[
+                { 
+                  src: BLOG_BOAT_PHOTOS.medium.src, 
+                  alt: BLOG_BOAT_PHOTOS.medium.alt, 
+                  caption: 'Meeseeks: Perfect for 20-30 guests' 
+                },
+                { 
+                  src: BLOG_BOAT_PHOTOS.large.src, 
+                  alt: BLOG_BOAT_PHOTOS.large.alt, 
+                  caption: 'Clever Girl: Up to 75 guests' 
+                },
+              ]}
+              columns={2}
+            />
 
             {/* What's Included */}
             <Card className="bg-gradient-to-br from-brand-blue to-blue-700 text-white border-0">
@@ -404,6 +430,15 @@ export default function LakeTravisLargeGroupsGuide() {
         </div>
       </section>
 
+      {/* Real Party Moments Gallery */}
+      <section className="py-12 bg-gradient-to-br from-blue-50 to-cyan-50 dark:from-gray-800 dark:to-gray-900">
+        <div className="container mx-auto px-6">
+          <div className="max-w-5xl mx-auto">
+            <BlogPartyGallery title="Real Large Group Celebrations on Lake Travis" />
+          </div>
+        </div>
+      </section>
+
       {/* Premium Add-Ons */}
       <section className="py-16 bg-gradient-to-br from-cyan-50 to-blue-50 dark:from-gray-800 dark:to-gray-900">
         <div className="container mx-auto px-6">
@@ -483,6 +518,19 @@ export default function LakeTravisLargeGroupsGuide() {
                 </CardContent>
               </Card>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Dance Floor / Group Photo Break */}
+      <section className="py-8 bg-white dark:bg-gray-900">
+        <div className="container mx-auto px-6">
+          <div className="max-w-4xl mx-auto">
+            <BlogImageBreak 
+              src={BLOG_PARTY_PHOTOS.dancing.src}
+              alt={BLOG_PARTY_PHOTOS.dancing.alt}
+              caption="Our boats feature spacious dance floors perfect for large group celebrations"
+            />
           </div>
         </div>
       </section>

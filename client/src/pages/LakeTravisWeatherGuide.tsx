@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { CloudRain, Sun, Wind, Snowflake, Calendar, Shield, CheckCircle2, Phone, Thermometer, Umbrella, Sparkles } from 'lucide-react';
 import { Link } from 'wouter';
+import { BlogImageBreak, BlogPhotoStrip, BlogPartyGallery, BLOG_BOAT_PHOTOS, BLOG_PARTY_PHOTOS } from '@/components/BlogImageBreak';
 
 export default function LakeTravisWeatherGuide() {
   return (
@@ -139,6 +140,12 @@ export default function LakeTravisWeatherGuide() {
                 With 15+ years of experience and 125,000+ satisfied guests, Premier Party Cruises operates custom-built, high-end <Link href="/private-cruises" className="text-blue-600 hover:underline font-medium">single-deck party boats</Link> on Lake Travis. Our experienced team knows Lake Travis weather intimately and highly recommend checking seasonal conditions before booking your austin boat rental. This guide helps you plan the perfect cruise for any season, ensuring safety, comfort, and maximum fun on the water! <Link href="/testimonials-faq" className="text-blue-600 hover:underline font-medium">Read what our guests say</Link> about cruising in different seasons.
               </p>
             </div>
+            
+            <BlogImageBreak
+              src={BLOG_BOAT_PHOTOS.large.src}
+              alt="Clever Girl party boat cruising on Lake Travis - perfect for year-round celebrations"
+              caption="Our flagship Clever Girl cruises Lake Travis in every season"
+            />
           </div>
         </div>
       </section>
@@ -195,6 +202,13 @@ export default function LakeTravisWeatherGuide() {
                     </div>
                   </div>
                 </div>
+                
+                <BlogImageBreak
+                  src={BLOG_PARTY_PHOTOS.float.src}
+                  alt={BLOG_PARTY_PHOTOS.float.alt}
+                  caption="Spring is perfect for swimming and floating on Lake Travis"
+                  className="mt-6"
+                />
               </CardContent>
             </Card>
 
@@ -246,6 +260,13 @@ export default function LakeTravisWeatherGuide() {
                     </div>
                   </div>
                 </div>
+                
+                <BlogImageBreak
+                  src={BLOG_PARTY_PHOTOS.tropical.src}
+                  alt={BLOG_PARTY_PHOTOS.tropical.alt}
+                  caption="Summer on Lake Travis means tropical vibes and unforgettable parties"
+                  className="mt-6"
+                />
               </CardContent>
             </Card>
 
@@ -350,6 +371,20 @@ export default function LakeTravisWeatherGuide() {
                 </div>
               </CardContent>
             </Card>
+
+            <div className="mt-12">
+              <h3 className="text-2xl font-bold text-center text-gray-900 dark:text-white mb-6">
+                Our Fleet Cruises Year-Round
+              </h3>
+              <BlogPhotoStrip
+                photos={[
+                  { ...BLOG_BOAT_PHOTOS.small, caption: 'Day Tripper - 6-14 guests' },
+                  { ...BLOG_BOAT_PHOTOS.medium, caption: 'Meeseeks - 15-30 guests' },
+                  { ...BLOG_BOAT_PHOTOS.large, caption: 'Clever Girl - 30-75 guests' },
+                ]}
+                columns={3}
+              />
+            </div>
           </div>
         </div>
       </section>
@@ -486,6 +521,15 @@ export default function LakeTravisWeatherGuide() {
                 </CardContent>
               </Card>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Party Gallery - FOMO Section */}
+      <section className="py-12 bg-white dark:bg-gray-900">
+        <div className="container mx-auto px-6">
+          <div className="max-w-6xl mx-auto">
+            <BlogPartyGallery title="Year-Round Celebrations on Lake Travis" />
           </div>
         </div>
       </section>
