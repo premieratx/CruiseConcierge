@@ -262,22 +262,24 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
               Request a Quote to Lock in a 25% Discount thru End of December!
             </span>
             <span className="w-2 h-2 rounded-full bg-black flex-shrink-0" />
-            <Sparkles className="h-5 w-5 flex-shrink-0" />
+            <PartyPopper className="h-5 w-5 flex-shrink-0" />
           </div>
         </div>
         <style>{`
           @keyframes pulseText {
             0%, 100% {
-              font-weight: 600;
-              text-shadow: none;
+              opacity: 0.85;
+              transform: scale(1);
             }
             50% {
-              font-weight: 900;
-              text-shadow: -1px -1px 0 #3b82f6, 1px -1px 0 #3b82f6, -1px 1px 0 #3b82f6, 1px 1px 0 #3b82f6;
+              opacity: 1;
+              transform: scale(1.02);
             }
           }
           .animate-pulse-text {
-            animation: pulseText 1s ease-in-out infinite;
+            animation: pulseText 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+            display: inline-block;
+            font-weight: 800;
           }
         `}</style>
         {/* Navigation Header */}
