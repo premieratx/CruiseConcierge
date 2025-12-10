@@ -253,17 +253,17 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
     <>
       {/* Fixed Header Container - Always visible on scroll */}
       <div className="fixed top-0 inset-x-0 z-50 w-full">
-        {/* Promotional Banner */}
-        <div className="bg-brand-yellow text-center py-2 px-4">
-          <div className="flex items-center justify-center gap-3 text-black text-sm font-semibold">
-            <Ship className="h-5 w-5 flex-shrink-0" />
-            <span className="w-2 h-2 rounded-full bg-black flex-shrink-0" />
-            <div className="animate-pulse-text flex flex-col items-center">
-              <span>Request a Quote to Unlock a 25% Discount on Your Party Cruise!</span>
-              <span className="underline" style={{ fontSize: '0.8em' }}>Book by December 18th for Any 2026 Date!</span>
+        {/* Promotional Banner - sticky on all screens, compact on mobile */}
+        <div className="bg-brand-yellow text-center py-1.5 md:py-2 px-2 md:px-4">
+          <div className="flex items-center justify-center gap-2 md:gap-3 text-black text-xs md:text-sm font-semibold">
+            <Ship className="h-4 w-4 md:h-5 md:w-5 flex-shrink-0" />
+            <span className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-black flex-shrink-0" />
+            <div className="animate-pulse-text">
+              <div>Request a Quote to Unlock a 25% Discount on Your Party Cruise!</div>
+              <div className="underline" style={{ fontSize: '0.8em' }}>Book by December 18th for Any 2026 Date!</div>
             </div>
-            <span className="w-2 h-2 rounded-full bg-black flex-shrink-0" />
-            <PartyPopper className="h-5 w-5 flex-shrink-0" />
+            <span className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-black flex-shrink-0" />
+            <PartyPopper className="h-4 w-4 md:h-5 md:w-5 flex-shrink-0" />
           </div>
         </div>
         <style>{`
@@ -279,8 +279,8 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
           }
           .animate-pulse-text {
             animation: pulseText 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-            display: inline-block;
             font-weight: 800;
+            text-align: center;
           }
         `}</style>
         {/* Navigation Header */}
