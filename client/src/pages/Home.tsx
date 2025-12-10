@@ -529,21 +529,20 @@ export default function Home() {
       />
       <LazyMotionProvider>
       <PublicNavigation />
-      {/* Hero Section */}
-      <section id="hero" className="relative min-h-screen flex flex-col justify-center overflow-hidden bg-gray-900">
-        {/* Video Background */}
-        <div className="absolute inset-0 z-0">
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
+      {/* Hero Section - PAGESPEED: Fixed height prevents CLS, poster-first prevents LCP delay */}
+      <section id="hero" className="relative flex flex-col justify-center overflow-hidden bg-gray-900" style={{ minHeight: 'clamp(600px, 100vh, 1200px)', contain: 'layout paint' }}>
+        {/* PAGESPEED FIX: Static poster image as LCP element (not video) - loads instantly */}
+        <div className="absolute inset-0 z-0" style={{ aspectRatio: '16/9' }}>
+          <img
+            src={isMobile ? heroImage1Mobile : heroImage1}
+            alt="Lake Travis party boat cruise with happy guests celebrating"
             className="w-full h-full object-cover opacity-60"
-            poster={isMobile ? heroImage1Mobile : heroImage1}
-            preload="metadata"
-          >
-            <source src="/attached_assets/Boat_Video_Walkthrough_Generated_1761209219959.mp4" type="video/mp4" />
-          </video>
+            loading="eager"
+            fetchPriority="high"
+            width={1920}
+            height={1080}
+            decoding="async"
+          />
           {/* Lighter overlay for bright and happy feel */}
           <div className="absolute inset-0 bg-gradient-to-br from-black/15 via-black/15 to-black/15" />
           {/* Additional blue tint overlay for brand color */}
