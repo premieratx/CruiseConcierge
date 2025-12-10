@@ -9,6 +9,8 @@ interface LazyImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
   fallbackSrc?: string;
   priority?: boolean;
   aspectRatio?: string;
+  srcSet?: string;
+  sizes?: string;
 }
 
 export function LazyImage({
@@ -21,6 +23,8 @@ export function LazyImage({
   aspectRatio,
   width,
   height,
+  srcSet,
+  sizes,
   ...props
 }: LazyImageProps) {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -101,6 +105,8 @@ export function LazyImage({
       <img
         ref={imgRef}
         src={isInView ? (error && fallbackSrc ? fallbackSrc : src) : undefined}
+        srcSet={isInView ? srcSet : undefined}
+        sizes={sizes}
         alt={alt}
         width={width}
         height={height}
