@@ -31,7 +31,7 @@ import {
   Users, Camera, Heart, ArrowRight, Star,
   Building, GraduationCap,
   Trophy, Crown, Sparkles, Wine, Music, Gift,
-  Disc3, Menu, ChevronDown
+  Disc3, Menu, ChevronDown, PartyPopper
 } from 'lucide-react';
 
 // Type definitions
