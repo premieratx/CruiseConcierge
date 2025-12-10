@@ -251,15 +251,21 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
 
   return (
     <>
-      {/* Sticky Header - Flexbox Layout */}
-      <header 
-        className={cn(
-          "ppc-public-nav sticky top-0 inset-x-0 z-50 w-full transition-all duration-300",
-          isScrolled 
-            ? "bg-white/95 dark:bg-gray-950/95 backdrop-blur-lg shadow-lg border-b border-gray-200 dark:border-gray-800" 
-            : "bg-white/90 dark:bg-gray-950/90 backdrop-blur-sm"
-        )}
-      >
+      {/* Fixed Header Container - Always visible on scroll */}
+      <div className="fixed top-0 inset-x-0 z-50 w-full">
+        {/* Promotional Banner */}
+        <div className="bg-green-600 text-white text-center py-2 px-4 text-sm font-semibold">
+          Request a Quote to Lock in a 25% Discount thru End of December!
+        </div>
+        {/* Navigation Header */}
+        <header 
+          className={cn(
+            "ppc-public-nav w-full transition-all duration-300",
+            isScrolled 
+              ? "bg-white/95 dark:bg-gray-950/95 backdrop-blur-lg shadow-lg border-b border-gray-200 dark:border-gray-800" 
+              : "bg-white/90 dark:bg-gray-950/90 backdrop-blur-sm"
+          )}
+        >
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-2 px-6 lg:px-10" style={{ height: '5rem' }}>
           {/* Logo - Left */}
           <div className="flex items-center flex-shrink-0">
@@ -435,7 +441,10 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
           </div>
         </div>
       </header>
+      </div>
 
+      {/* Spacer for fixed header + banner */}
+      <div className="h-[calc(5rem+2.5rem)]" />
 
       {/* Mobile Bottom Navigation Bar */}
       <nav 
