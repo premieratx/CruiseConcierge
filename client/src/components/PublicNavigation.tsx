@@ -254,9 +254,32 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
       {/* Fixed Header Container - Always visible on scroll */}
       <div className="fixed top-0 inset-x-0 z-50 w-full">
         {/* Promotional Banner */}
-        <div className="bg-green-600 text-white text-center py-2 px-4 text-sm font-semibold">
-          Request a Quote to Lock in a 25% Discount thru End of December!
+        <div className="bg-brand-yellow text-center py-2 px-4">
+          <div className="flex items-center justify-center gap-3 text-black text-sm font-semibold">
+            <Ship className="h-5 w-5 flex-shrink-0" />
+            <span className="w-2 h-2 rounded-full bg-black flex-shrink-0" />
+            <span className="animate-pulse-text">
+              Request a Quote to Lock in a 25% Discount thru End of December!
+            </span>
+            <span className="w-2 h-2 rounded-full bg-black flex-shrink-0" />
+            <Sparkles className="h-5 w-5 flex-shrink-0" />
+          </div>
         </div>
+        <style>{`
+          @keyframes pulseText {
+            0%, 100% {
+              font-weight: 600;
+              text-shadow: none;
+            }
+            50% {
+              font-weight: 900;
+              text-shadow: -1px -1px 0 #3b82f6, 1px -1px 0 #3b82f6, -1px 1px 0 #3b82f6, 1px 1px 0 #3b82f6;
+            }
+          }
+          .animate-pulse-text {
+            animation: pulseText 1s ease-in-out infinite;
+          }
+        `}</style>
         {/* Navigation Header */}
         <header 
           className={cn(
