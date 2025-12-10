@@ -64,9 +64,9 @@
     <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png" />
     <meta name="theme-color" content="#00d4ff" />
     
-    <!-- PAGESPEED: Minimal font loading - only essential weights with display=swap -->
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700&family=Bebas+Neue&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700&family=Bebas+Neue&display=swap" rel="stylesheet"></noscript>
+    <!-- PAGESPEED: Non-blocking font loading using media="print" pattern (most reliable) -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700&family=Bebas+Neue&display=swap" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700&family=Bebas+Neue&display=swap"></noscript>
     
     <!-- Inline critical CSS for instant layout stability (prevents CLS) -->
     <style>
@@ -219,9 +219,8 @@
         });
       }
     </script>
-    <!-- Xola Checkout Script - Deferred loading ONLY on user interaction -->
+    <!-- Xola Checkout Script - Load ONLY when booking button clicked (reduces TBT) -->
     <script>
-      // PAGESPEED FIX: Load Xola ONLY on user interaction (saves ~500ms TBT)
       window.loadXolaCheckout = function() {
         if (window.xolaLoaded) return;
         window.xolaLoaded = true;
@@ -231,10 +230,25 @@
         script.crossOrigin = 'anonymous';
         document.body.appendChild(script);
       };
-      // Load Xola ONLY on user interaction - no timer (saves TBT)
-      ['click', 'touchstart'].forEach(function(event) {
-        document.addEventListener(event, window.loadXolaCheckout, { once: true, passive: true });
-      });
+      document.addEventListener('click', function(e) {
+        var target = e.target;
+        while (target && target !== document.body) {
+          if (target.hasAttribute && (
+            target.hasAttribute('data-xola-button') ||
+            target.hasAttribute('data-xola-checkout') ||
+            (target.className && typeof target.className === 'string' && (
+              target.className.includes('xola') ||
+              target.className.includes('book-now') ||
+              target.className.includes('booking-btn')
+            )) ||
+            (target.href && target.href.includes('xola.com'))
+          )) {
+            window.loadXolaCheckout();
+            return;
+          }
+          target = target.parentElement;
+        }
+      }, { passive: true });
     </script>
     
     <script type="module" src="/src/main.tsx"></script>

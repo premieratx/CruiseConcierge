@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef, lazy, Suspense, FormEvent } from 'react';
 import { Link, useLocation } from 'wouter';
-import { AnimatePresence } from 'framer-motion';
 import { LazyMotionProvider, m } from '@/components/LazyMotion';
 import { useQuery } from '@tanstack/react-query';
 import PublicNavigation from '@/components/PublicNavigation';
@@ -75,7 +74,7 @@ import {
   X,
   Zap
 } from 'lucide-react';
-import Footer from '@/components/Footer';
+// PAGESPEED FIX: Footer lazy loaded to reduce TBT
 import { formatCurrency } from '@shared/formatters';
 // PricingTable and TabbedPrivateCruisePricing are now lazy-loaded above
 import SEOHead from '@/components/SEOHead';
@@ -84,10 +83,8 @@ import { useInlineEdit } from '@/hooks/useInlineEdit';
 import { useReducedMotion } from '@/hooks/use-reduced-motion';
 // ComparisonTable is now lazy-loaded above
 import { type ComparisonColumn, type ComparisonRow } from '@/components/ComparisonTable';
-import { FeaturedSnippet } from '@/components/FeaturedSnippet';
-import { QuickAnswerBox, QuickAnswerBoxGroup } from '@/components/QuickAnswerBox';
+// PAGESPEED FIX: FeaturedSnippet removed (unused), QuickAnswerBox and RelatedServicesSection lazy loaded
 import { InternalLinkHighlight, InternalLinkHighlightWithArrow } from '@/components/InternalLinkHighlight';
-import { RelatedServicesSection } from '@/components/RelatedServicesSection';
 import AIOptimizedSection from '@/components/AIOptimizedSection';
 import { SectionReveal } from '@/components/SectionReveal';
 
@@ -98,6 +95,10 @@ const QuoteBuilderSection = lazy(() => import('@/components/QuoteBuilderSection'
 const TabbedPrivateCruisePricingLazy = lazy(() => import('@/components/TabbedPrivateCruisePricing').then(m => ({ default: m.TabbedPrivateCruisePricing })));
 const ComparisonTableLazy = lazy(() => import('@/components/ComparisonTable').then(m => ({ default: m.ComparisonTable })));
 const PricingTableLazy = lazy(() => import('@/components/PricingTable').then(m => ({ default: m.PricingTable })));
+// Additional lazy-loaded components for better TBT
+const Footer = lazy(() => import('@/components/Footer'));
+const QuickAnswerBoxGroup = lazy(() => import('@/components/QuickAnswerBox').then(m => ({ default: m.QuickAnswerBoxGroup })));
+const RelatedServicesSection = lazy(() => import('@/components/RelatedServicesSection').then(m => ({ default: m.RelatedServicesSection })));
 import { 
   calculatePackagePricing, 
   getCapacityTier, 
@@ -683,13 +684,13 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Fleet Section - Lazy loaded for better FCP */}
-      <Suspense fallback={<div className="py-16 bg-gray-50"></div>}>
+      {/* Fleet Section - Lazy loaded with min-height to prevent CLS */}
+      <Suspense fallback={<div className="min-h-[600px] animate-pulse bg-gray-100" />}>
         <FleetSection />
       </Suspense>
 
-      {/* Quote Builder Section - Lazy loaded for better FCP */}
-      <Suspense fallback={<div className="py-16 bg-white"></div>}>
+      {/* Quote Builder Section - Lazy loaded with min-height to prevent CLS */}
+      <Suspense fallback={<div className="min-h-[500px] animate-pulse bg-gray-100" />}>
         <QuoteBuilderSection />
       </Suspense>
 
@@ -868,7 +869,7 @@ export default function Home() {
                   Choose your boat size and package level. All packages include licensed, fun, experienced captains to take your group safely around the lake in style, premium sound system, and cooler space (bring your own ice, or add Essentials/Ultimate for ice included, or order from Party On Delivery).
                 </p>
               </div>
-              <Suspense fallback={<div className="py-8 bg-gray-50 rounded-xl animate-pulse"></div>}>
+              <Suspense fallback={<div className="min-h-[400px] animate-pulse bg-gray-100 rounded-xl" />}>
                 <TabbedPrivateCruisePricingLazy />
               </Suspense>
             </div>
@@ -879,7 +880,7 @@ export default function Home() {
               <h3 className="text-3xl font-semibold font-playfair text-center mb-8 text-gray-900 dark:text-white">
                 Compare All Our Services
               </h3>
-              <Suspense fallback={<div className="py-8 bg-gray-50 rounded-xl animate-pulse"></div>}>
+              <Suspense fallback={<div className="min-h-[500px] animate-pulse bg-gray-100 rounded-xl" />}>
               <PricingTableLazy
                 title="All Services Overview"
                 items={[
@@ -1566,7 +1567,7 @@ export default function Home() {
             <h3 className="text-xl font-semibold mb-6 text-center text-gray-900 dark:text-white">
               ATX Disco Cruise vs Private Charter
             </h3>
-            <Suspense fallback={<div className="py-8 bg-gray-50 rounded-xl animate-pulse"></div>}>
+            <Suspense fallback={<div className="min-h-[400px] animate-pulse bg-gray-100 rounded-xl" />}>
             <ComparisonTableLazy
               columns={[
                 {
@@ -1645,7 +1646,7 @@ export default function Home() {
             <h3 className="text-xl font-semibold mb-6 text-center text-gray-900 dark:text-white">
               Our Lake Travis Fleet
             </h3>
-            <Suspense fallback={<div className="py-8 bg-gray-50 rounded-xl animate-pulse"></div>}>
+            <Suspense fallback={<div className="min-h-[400px] animate-pulse bg-gray-100 rounded-xl" />}>
             <ComparisonTableLazy
               columns={[
                 {
@@ -1771,7 +1772,8 @@ export default function Home() {
         </section>
       </SectionReveal>
 
-      <Suspense fallback={<div className="py-12"></div>}>
+      {/* Party Planning Checklist - Lazy loaded with min-height to prevent CLS */}
+      <Suspense fallback={<div className="min-h-[300px] animate-pulse bg-gray-100" />}>
         <PartyPlanningChecklist partyType="Lake Travis Party" eventType="celebration" />
       </Suspense>
 
@@ -2267,8 +2269,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Related Services Section */}
-      <RelatedServicesSection currentPath="/" />
+      {/* Related Services Section - Lazy loaded */}
+      <Suspense fallback={<div className="min-h-[200px] animate-pulse bg-gray-100" />}>
+        <RelatedServicesSection currentPath="/" />
+      </Suspense>
 
       {/* Social Proof Counter Section - Hormozi/McDowell Style */}
       <section className="py-16 bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 text-white relative overflow-hidden">
@@ -2381,54 +2385,58 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Quick Answer Boxes Section */}
-      <section className="py-12 bg-white dark:bg-gray-900">
-        <div className="container mx-auto px-6">
-          <QuickAnswerBoxGroup
-            title="Quick Answers About Lake Travis"
-            boxes={[
-              {
-                id: 'parties-good',
-                question: 'Is Lake Travis good for parties?',
-                answer: 'Yes! Lake Travis offers the perfect setting for unforgettable parties with crystal-clear waters, scenic coves, and year-round sunshine. Our party boats feature premium sound systems, spacious decks, and professional crews ensuring safe, memorable celebrations on Austin\'s premier lake destination.',
-                keywords: ['Lake Travis', 'parties', 'party boats', 'Austin'],
-                icon: PartyPopper,
-                relatedLink: {
-                  href: '#services',
-                  text: 'View our party packages'
+      {/* Quick Answer Boxes Section - Lazy loaded */}
+      <Suspense fallback={<div className="min-h-[300px] animate-pulse bg-gray-100" />}>
+        <section className="py-12 bg-white dark:bg-gray-900">
+          <div className="container mx-auto px-6">
+            <QuickAnswerBoxGroup
+              title="Quick Answers About Lake Travis"
+              boxes={[
+                {
+                  id: 'parties-good',
+                  question: 'Is Lake Travis good for parties?',
+                  answer: 'Yes! Lake Travis offers the perfect setting for unforgettable parties with crystal-clear waters, scenic coves, and year-round sunshine. Our party boats feature premium sound systems, spacious decks, and professional crews ensuring safe, memorable celebrations on Austin\'s premier lake destination.',
+                  keywords: ['Lake Travis', 'parties', 'party boats', 'Austin'],
+                  icon: PartyPopper,
+                  relatedLink: {
+                    href: '#services',
+                    text: 'View our party packages'
+                  }
+                },
+                {
+                  id: 'alcohol-allowed',
+                  question: 'Can you bring alcohol on Lake Travis boats?',
+                  answer: 'Yes, BYOB is allowed on all our Lake Travis cruises! Bring your favorite beverages - we provide cooler space - bring your own ice, OR add Essentials/Ultimate packages for ice included, OR order stocked and ready from Party On Delivery. We also provide cups and all necessary supplies. Our crews help with loading/unloading, and we can arrange alcohol delivery directly to the boat for your convenience.',
+                  keywords: ['BYOB', 'alcohol', 'coolers', 'Lake Travis'],
+                  icon: Wine,
+                  relatedLink: {
+                    href: '/faq',
+                    text: 'See all FAQs'
+                  }
+                },
+                {
+                  id: 'distance-austin',
+                  question: 'How far is Lake Travis from downtown Austin?',
+                  answer: 'Lake Travis is 30-45 minutes from downtown Austin, located northwest of the city. We depart from Anderson Mill Marina (20 minutes closer than other marinas), making it convenient for locals and visitors. Round-trip transportation available from downtown hotels and Airbnbs.',
+                  keywords: ['downtown Austin', 'Anderson Mill Marina', 'transportation'],
+                  icon: MapPin,
+                  relatedLink: {
+                    href: '/contact',
+                    text: 'Get directions'
+                  }
                 }
-              },
-              {
-                id: 'alcohol-allowed',
-                question: 'Can you bring alcohol on Lake Travis boats?',
-                answer: 'Yes, BYOB is allowed on all our Lake Travis cruises! Bring your favorite beverages - we provide cooler space - bring your own ice, OR add Essentials/Ultimate packages for ice included, OR order stocked and ready from Party On Delivery. We also provide cups and all necessary supplies. Our crews help with loading/unloading, and we can arrange alcohol delivery directly to the boat for your convenience.',
-                keywords: ['BYOB', 'alcohol', 'coolers', 'Lake Travis'],
-                icon: Wine,
-                relatedLink: {
-                  href: '/faq',
-                  text: 'See all FAQs'
-                }
-              },
-              {
-                id: 'distance-austin',
-                question: 'How far is Lake Travis from downtown Austin?',
-                answer: 'Lake Travis is 30-45 minutes from downtown Austin, located northwest of the city. We depart from Anderson Mill Marina (20 minutes closer than other marinas), making it convenient for locals and visitors. Round-trip transportation available from downtown hotels and Airbnbs.',
-                keywords: ['downtown Austin', 'Anderson Mill Marina', 'transportation'],
-                icon: MapPin,
-                relatedLink: {
-                  href: '/contact',
-                  text: 'Get directions'
-                }
-              }
-            ]}
-            columns={3}
-            className="max-w-7xl mx-auto"
-          />
-        </div>
-      </section>
+              ]}
+              columns={3}
+              className="max-w-7xl mx-auto"
+            />
+          </div>
+        </section>
+      </Suspense>
 
-      {/* Footer */}
-      <Footer />
+      {/* Footer - Lazy loaded */}
+      <Suspense fallback={<div className="min-h-[400px] animate-pulse bg-gray-100" />}>
+        <Footer />
+      </Suspense>
       </LazyMotionProvider>
     </div>
   );

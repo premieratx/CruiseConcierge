@@ -63,19 +63,28 @@ export function LazyImage({
     }
   };
 
-  const wrapperStyle: React.CSSProperties = aspectRatio ? {
-    aspectRatio: aspectRatio,
-    position: 'relative',
-    overflow: 'hidden'
-  } : {};
+  const computedAspectRatio = aspectRatio || (width && height ? `${width}/${height}` : undefined);
 
-  const imgStyle: React.CSSProperties = aspectRatio ? {
+  const wrapperStyle: React.CSSProperties = {
+    position: 'relative',
+    overflow: 'hidden',
+    width: '100%',
+    ...(computedAspectRatio && { aspectRatio: computedAspectRatio })
+  };
+
+  const imgStyle: React.CSSProperties = computedAspectRatio ? {
     position: 'absolute',
     inset: 0,
     width: '100%',
     height: '100%',
     objectFit: 'cover'
   } : {};
+
+  const placeholderStyle: React.CSSProperties = {
+    aspectRatio: computedAspectRatio,
+    width: '100%',
+    height: computedAspectRatio ? '100%' : 'auto'
+  };
 
   return (
     <div className={cn("relative overflow-hidden", className)} style={wrapperStyle}>
@@ -85,6 +94,7 @@ export function LazyImage({
             "absolute inset-0 bg-gradient-to-br from-gray-200 to-gray-300 dark:from-gray-700 dark:to-gray-800 animate-pulse",
             placeholderClassName
           )}
+          style={placeholderStyle}
         />
       )}
 

@@ -30,14 +30,17 @@ export function BlogImageBreak({
       )}
       data-testid="blog-image-break"
     >
-      <div className={cn(
-        "overflow-hidden shadow-lg",
-        rounded && "rounded-xl"
-      )}>
+      <div 
+        className={cn(
+          "overflow-hidden shadow-lg",
+          rounded && "rounded-xl"
+        )}
+        style={{ aspectRatio }}
+      >
         <LazyImage
           src={src}
           alt={alt}
-          className="w-full h-auto object-cover"
+          className="w-full h-full object-cover"
           aspectRatio={aspectRatio}
         />
       </div>
