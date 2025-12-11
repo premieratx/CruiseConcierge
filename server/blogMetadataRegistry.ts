@@ -522,6 +522,182 @@ export const blogMetadataRegistry: Record<string, BlogMetadata> = {
     author: 'Premier Party Cruises',
     heroImage: 'https://premierpartycruises.com/attached_assets/bachelor-party-group-guys-hero-compressed.webp',
     keywords: ['Austin bachelor party', 'why Austin bachelor party', 'Lake Travis bachelor', 'Austin BBQ bachelor party', 'Austin nightlife bachelor']
+  },
+
+  'blogs/austin-bachelor-party-january': {
+    slug: 'blogs/austin-bachelor-party-january',
+    title: 'Austin Bachelor Party in January | Winter Lake Travis Guide',
+    description: 'Plan an Austin bachelor party in January. Winter Lake Travis boat rentals, mild weather tips, and off-season pricing advantages.',
+    publishDate: '2025-01-15',
+    modifiedDate: '2025-12-09',
+    author: 'Premier Party Cruises',
+    heroImage: 'https://premierpartycruises.com/attached_assets/bachelor-party-group-guys-hero-compressed.webp',
+    keywords: ['Austin bachelor party January', 'winter bachelor party', 'Lake Travis winter', 'off-season boat rental']
+  },
+
+  'blogs/austin-bachelor-party-march': {
+    slug: 'blogs/austin-bachelor-party-march',
+    title: 'Austin Bachelor Party in March | SXSW Season Lake Travis',
+    description: 'Plan an Austin bachelor party in March during SXSW. Spring Lake Travis boat rentals, live music, and perfect weather for celebrations.',
+    publishDate: '2025-01-15',
+    modifiedDate: '2025-12-09',
+    author: 'Premier Party Cruises',
+    heroImage: 'https://premierpartycruises.com/attached_assets/bachelor-party-group-guys-hero-compressed.webp',
+    keywords: ['Austin bachelor party March', 'SXSW bachelor party', 'spring Lake Travis', 'March boat rental Austin']
+  },
+
+  'blogs/austin-bachelor-party-may': {
+    slug: 'blogs/austin-bachelor-party-may',
+    title: 'Austin Bachelor Party in May | Peak Season Lake Travis',
+    description: 'Plan an Austin bachelor party in May. Perfect weather, peak season Lake Travis boat rentals, and unforgettable celebrations.',
+    publishDate: '2025-01-15',
+    modifiedDate: '2025-12-09',
+    author: 'Premier Party Cruises',
+    heroImage: 'https://premierpartycruises.com/attached_assets/bachelor-party-group-guys-hero-compressed.webp',
+    keywords: ['Austin bachelor party May', 'spring bachelor party', 'Lake Travis May', 'peak season boat rental']
+  },
+
+  'blogs/austin-bachelor-party-july': {
+    slug: 'blogs/austin-bachelor-party-july',
+    title: 'Austin Bachelor Party in July | Summer Lake Travis Guide',
+    description: 'Plan an Austin bachelor party in July. Summer Lake Travis boat parties, 4th of July celebrations, and hot weather party tips.',
+    publishDate: '2025-01-15',
+    modifiedDate: '2025-12-09',
+    author: 'Premier Party Cruises',
+    heroImage: 'https://premierpartycruises.com/attached_assets/bachelor-party-group-guys-hero-compressed.webp',
+    keywords: ['Austin bachelor party July', 'summer bachelor party', 'Lake Travis July', '4th of July boat party']
+  },
+
+  'blogs/austin-bachelor-party-september': {
+    slug: 'blogs/austin-bachelor-party-september',
+    title: 'Austin Bachelor Party in September | Fall Lake Travis',
+    description: 'Plan an Austin bachelor party in September. Fall Lake Travis boat rentals, cooler weather, and Labor Day weekend celebrations.',
+    publishDate: '2025-01-15',
+    modifiedDate: '2025-12-09',
+    author: 'Premier Party Cruises',
+    heroImage: 'https://premierpartycruises.com/attached_assets/bachelor-party-group-guys-hero-compressed.webp',
+    keywords: ['Austin bachelor party September', 'fall bachelor party', 'Lake Travis September', 'Labor Day boat party']
+  },
+
+  'blogs/austin-bachelor-party-november': {
+    slug: 'blogs/austin-bachelor-party-november',
+    title: 'Austin Bachelor Party in November | Fall Lake Travis Guide',
+    description: 'Plan an Austin bachelor party in November. Mild fall weather, off-peak Lake Travis pricing, and perfect celebration conditions.',
+    publishDate: '2025-01-15',
+    modifiedDate: '2025-12-09',
+    author: 'Premier Party Cruises',
+    heroImage: 'https://premierpartycruises.com/attached_assets/bachelor-party-group-guys-hero-compressed.webp',
+    keywords: ['Austin bachelor party November', 'fall bachelor party', 'Lake Travis November', 'Thanksgiving weekend boat']
+  },
+
+  'blogs/austin-bachelorette-party-february': {
+    slug: 'blogs/austin-bachelorette-party-february',
+    title: 'Austin Bachelorette Party in February | Valentine\'s Season',
+    description: 'Plan an Austin bachelorette party in February. Valentine\'s themed celebrations, mild weather Lake Travis boat rentals.',
+    publishDate: '2025-01-15',
+    modifiedDate: '2025-12-09',
+    author: 'Premier Party Cruises',
+    heroImage: 'https://premierpartycruises.com/attached_assets/disco_fun_best2_1765193453547.jpg',
+    keywords: ['Austin bachelorette party February', 'Valentine bachelorette', 'Lake Travis February', 'winter bachelorette Austin']
+  },
+
+  'blogs/austin-bachelorette-party-april': {
+    slug: 'blogs/austin-bachelorette-party-april',
+    title: 'Austin Bachelorette Party in April | Spring Wildflowers',
+    description: 'Plan an Austin bachelorette party in April. Spring wildflowers, perfect weather, and beautiful Lake Travis boat cruises.',
+    publishDate: '2025-01-15',
+    modifiedDate: '2025-12-09',
+    author: 'Premier Party Cruises',
+    heroImage: 'https://premierpartycruises.com/attached_assets/disco_fun_best2_1765193453547.jpg',
+    keywords: ['Austin bachelorette party April', 'spring bachelorette', 'Lake Travis April', 'wildflower season Austin']
+  },
+
+  'blogs/austin-bachelorette-party-june': {
+    slug: 'blogs/austin-bachelorette-party-june',
+    title: 'Austin Bachelorette Party in June | Summer Lake Travis',
+    description: 'Plan an Austin bachelorette party in June. Peak wedding season, summer Lake Travis cruises, and unforgettable celebrations.',
+    publishDate: '2025-01-15',
+    modifiedDate: '2025-12-09',
+    author: 'Premier Party Cruises',
+    heroImage: 'https://premierpartycruises.com/attached_assets/disco_fun_best2_1765193453547.jpg',
+    keywords: ['Austin bachelorette party June', 'summer bachelorette', 'Lake Travis June', 'wedding season Austin']
+  },
+
+  'blogs/austin-bachelorette-party-august': {
+    slug: 'blogs/austin-bachelorette-party-august',
+    title: 'Austin Bachelorette Party in August | Hot Summer Guide',
+    description: 'Plan an Austin bachelorette party in August. Beat the heat on Lake Travis, refreshing boat parties, and summer celebration tips.',
+    publishDate: '2025-01-15',
+    modifiedDate: '2025-12-09',
+    author: 'Premier Party Cruises',
+    heroImage: 'https://premierpartycruises.com/attached_assets/disco_fun_best2_1765193453547.jpg',
+    keywords: ['Austin bachelorette party August', 'summer bachelorette', 'Lake Travis August', 'hot weather boat party']
+  },
+
+  'blogs/austin-bachelorette-party-october': {
+    slug: 'blogs/austin-bachelorette-party-october',
+    title: 'Austin Bachelorette Party in October | Fall Celebration',
+    description: 'Plan an Austin bachelorette party in October. Beautiful fall weather, Lake Travis scenic cruises, and Halloween-themed fun.',
+    publishDate: '2025-01-15',
+    modifiedDate: '2025-12-09',
+    author: 'Premier Party Cruises',
+    heroImage: 'https://premierpartycruises.com/attached_assets/disco_fun_best2_1765193453547.jpg',
+    keywords: ['Austin bachelorette party October', 'fall bachelorette', 'Lake Travis October', 'Halloween bachelorette']
+  },
+
+  'blogs/austin-bachelorette-party-december': {
+    slug: 'blogs/austin-bachelorette-party-december',
+    title: 'Austin Bachelorette Party in December | Holiday Season',
+    description: 'Plan an Austin bachelorette party in December. Holiday-themed celebrations, mild winter weather, and festive Lake Travis cruises.',
+    publishDate: '2025-01-15',
+    modifiedDate: '2025-12-09',
+    author: 'Premier Party Cruises',
+    heroImage: 'https://premierpartycruises.com/attached_assets/disco_fun_best2_1765193453547.jpg',
+    keywords: ['Austin bachelorette party December', 'holiday bachelorette', 'Lake Travis December', 'winter bachelorette Austin']
+  },
+
+  'blogs/epic-bachelor-party-austin-ultimate-guide': {
+    slug: 'blogs/epic-bachelor-party-austin-ultimate-guide',
+    title: 'Epic Bachelor Party Austin TX | Ultimate Planning Guide',
+    description: 'Plan an epic bachelor party in Austin TX. Complete guide to Lake Travis boats, nightlife, BBQ, activities. 15+ years experience.',
+    publishDate: '2025-01-15',
+    modifiedDate: '2025-12-09',
+    author: 'Premier Party Cruises',
+    heroImage: 'https://premierpartycruises.com/attached_assets/bachelor-party-group-guys-hero-compressed.webp',
+    keywords: ['epic bachelor party Austin', 'ultimate bachelor party guide', 'Austin bachelor party planning', 'Lake Travis bachelor', 'Austin nightlife bachelor']
+  },
+
+  'blogs/epic-bachelorette-party-austin-ultimate-guide': {
+    slug: 'blogs/epic-bachelorette-party-austin-ultimate-guide',
+    title: 'Epic Bachelorette Party Austin TX | Ultimate Guide',
+    description: 'Plan an epic bachelorette party in Austin TX. Complete guide to Lake Travis cruises, spas, nightlife. 15+ years, 125,000+ guests.',
+    publishDate: '2025-01-15',
+    modifiedDate: '2025-12-09',
+    author: 'Premier Party Cruises',
+    heroImage: 'https://premierpartycruises.com/attached_assets/disco_fun_best2_1765193453547.jpg',
+    keywords: ['epic bachelorette party Austin', 'ultimate bachelorette guide', 'Austin bachelorette planning', 'Lake Travis bachelorette', 'Austin nightlife bachelorette']
+  },
+
+  'blogs/rehearsal-dinner-boat-alcohol-delivery-unique-wedding-weekend-experiences': {
+    slug: 'blogs/rehearsal-dinner-boat-alcohol-delivery-unique-wedding-weekend-experiences',
+    title: 'Rehearsal Dinner Boat Lake Travis | Wedding Weekend Guide',
+    description: 'Host your rehearsal dinner on Lake Travis. Unique wedding weekend experiences with private boat rentals and alcohol delivery options.',
+    publishDate: '2025-01-15',
+    modifiedDate: '2025-12-09',
+    author: 'Premier Party Cruises',
+    heroImage: 'https://premierpartycruises.com/attached_assets/clever-girl-1-lake-travis-party-boat.jpg',
+    keywords: ['rehearsal dinner boat', 'Lake Travis wedding', 'wedding weekend Austin', 'rehearsal dinner venue', 'unique wedding experiences']
+  },
+
+  'blogs/lake-travis-weather-planning-seasonal-considerations-for-perfect-boat-parties': {
+    slug: 'blogs/lake-travis-weather-planning-seasonal-considerations-for-perfect-boat-parties',
+    title: 'Lake Travis Weather Guide | Seasonal Boat Party Planning',
+    description: 'Plan perfect Lake Travis boat parties year-round. Seasonal weather guide, best months, and tips for all-weather celebrations.',
+    publishDate: '2025-01-15',
+    modifiedDate: '2025-12-09',
+    author: 'Premier Party Cruises',
+    heroImage: 'https://premierpartycruises.com/media/schema/group-swimming-lilypad.jpg',
+    keywords: ['Lake Travis weather', 'seasonal boat party', 'Austin weather planning', 'Lake Travis best months', 'year-round boating Austin']
   }
 };
 
