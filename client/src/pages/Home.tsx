@@ -530,8 +530,10 @@ export default function Home() {
       />
       <LazyMotionProvider>
       <PublicNavigation />
+      {/* CLS FIX: Reserve space for fixed header (promo banner ~48px + nav 80px = 128px) */}
+      <div style={{ paddingTop: '128px' }}>
       {/* Hero Section - PAGESPEED: Fixed height prevents CLS, poster-first prevents LCP delay */}
-      <section id="hero" className="relative flex flex-col justify-center overflow-hidden bg-gray-900" style={{ minHeight: 'clamp(600px, 100vh, 1200px)', contain: 'layout paint' }}>
+      <section id="hero" className="relative flex flex-col justify-center overflow-hidden bg-gray-900" style={{ minHeight: 'clamp(500px, calc(100vh - 128px), 1100px)', contain: 'layout paint' }}>
         {/* PAGESPEED FIX: Static poster image as LCP element (not video) - loads instantly */}
         <div className="absolute inset-0 z-0" style={{ aspectRatio: '16/9' }}>
           <img
@@ -2437,6 +2439,7 @@ export default function Home() {
       <Suspense fallback={<div className="min-h-[400px] animate-pulse bg-gray-100" />}>
         <Footer />
       </Suspense>
+      </div>{/* Close CLS fix wrapper */}
       </LazyMotionProvider>
     </div>
   );

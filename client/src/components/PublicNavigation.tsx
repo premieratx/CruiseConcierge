@@ -269,18 +269,17 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
         <style>{`
           @keyframes pulseText {
             0%, 100% {
-              opacity: 0.85;
-              transform: scale(1);
+              opacity: 0.7;
             }
             50% {
               opacity: 1;
-              transform: scale(1.02);
             }
           }
           .animate-pulse-text {
             animation: pulseText 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
             font-weight: 800;
             text-align: center;
+            will-change: opacity;
           }
         `}</style>
         {/* Navigation Header */}
