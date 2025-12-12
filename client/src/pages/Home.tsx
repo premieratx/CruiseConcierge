@@ -19,40 +19,24 @@ const logoPath = '/attached_assets/PPC-Logo-280x280.webp';
 const logoPathSmall = '/attached_assets/PPC-Logo-80x80.webp';
 const logoPathMedium = '/attached_assets/PPC-Logo-140x140.webp';
 const logoPathLarge = '/attached_assets/PPC-Logo-LARGE.webp';
-// Import all icons from lucide-react using standard bundled imports for production compatibility
+// PAGESPEED: Only import icons that are actually used (removed 18 unused icons to reduce bundle)
 import {
-  Anchor,
   ArrowRight,
-  Award,
-  BookOpen,
-  Bot,
   Calendar,
-  Camera,
-  Camera as CameraIcon,
-  Car,
   CheckCircle,
   ChevronDown,
-  ChevronRight,
   Clock,
-  Compass,
   Crown,
   DollarSign,
-  ExternalLink,
   Eye,
-  Facebook,
   Gift,
   Headphones,
   Heart,
   Image,
-  Instagram,
-  Leaf,
-  LifeBuoy,
   Mail,
   MapPin,
-  MessageCircle,
   MessageSquare,
   Music,
-  Navigation,
   PartyPopper,
   Phone,
   Play,
@@ -60,18 +44,14 @@ import {
   Shield,
   Ship,
   Snowflake,
-  Sparkles,
   Star,
   Sun,
   Target,
-  TrendingUp,
   Trophy,
-  Twitter,
   UserCheck,
   Users,
   Waves,
   Wine,
-  X,
   Zap
 } from 'lucide-react';
 // PAGESPEED FIX: Footer lazy loaded to reduce TBT
@@ -391,17 +371,7 @@ export default function Home() {
   const { toast } = useToast();
   const [isPageLoaded, setIsPageLoaded] = useState(false);
   
-  // MOBILE PAGESPEED: Detect mobile for responsive image loading (saves ~22KB)
-  const [isMobile, setIsMobile] = useState(() => 
-    typeof window !== 'undefined' && window.innerWidth < 768
-  );
-  
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
+  // PAGESPEED: Removed isMobile state - now using <picture> srcset for responsive images (browser-native, no JS needed)
 
   // PERFORMANCE FIX: Defer non-critical endorsements API (was blocking 4,163ms!)
   // Only fetch after page loads to improve LCP/FCP
@@ -534,18 +504,31 @@ export default function Home() {
       <div style={{ paddingTop: '128px' }}>
       {/* Hero Section - PAGESPEED: Fixed height prevents CLS, poster-first prevents LCP delay */}
       <section id="hero" className="relative flex flex-col justify-center overflow-hidden bg-gray-900" style={{ minHeight: 'clamp(500px, calc(100vh - 128px), 1100px)', contain: 'layout paint' }}>
-        {/* PAGESPEED FIX: Static poster image as LCP element (not video) - loads instantly */}
-        <div className="absolute inset-0 z-0" style={{ aspectRatio: '16/9' }}>
-          <img
-            src={isMobile ? heroImage1Mobile : heroImage1}
-            alt="Lake Travis party boat cruise with happy guests celebrating"
-            className="w-full h-full object-cover opacity-60"
-            loading="eager"
-            fetchPriority="high"
-            width={1920}
-            height={1080}
-            decoding="async"
-          />
+        {/* PAGESPEED FIX: <picture> element with srcset for optimal LCP - browser picks best image */}
+        <div className="absolute inset-0 z-0" style={{ aspectRatio: '16/9', minHeight: '100%' }}>
+          <picture>
+            <source 
+              media="(max-width: 768px)" 
+              srcSet={heroImage1Mobile}
+              type="image/webp"
+            />
+            <source 
+              media="(min-width: 769px)" 
+              srcSet={heroImage1}
+              type="image/webp"
+            />
+            <img
+              src={heroImage1}
+              alt="Lake Travis party boat cruise with happy guests celebrating"
+              className="w-full h-full object-cover opacity-60"
+              loading="eager"
+              fetchPriority="high"
+              width={1920}
+              height={1080}
+              decoding="async"
+              style={{ contentVisibility: 'auto' }}
+            />
+          </picture>
           {/* Lighter overlay for bright and happy feel */}
           <div className="absolute inset-0 bg-gradient-to-br from-black/15 via-black/15 to-black/15" />
           {/* Additional blue tint overlay for brand color */}
@@ -556,18 +539,18 @@ export default function Home() {
         {/* Hero Content - PAGESPEED: No m.div above fold */}
         <div className="relative z-10 container mx-auto px-4 sm:px-6 text-white flex-grow flex items-center">
           <div className="max-w-5xl mx-auto text-center">
-            {/* Logo - Optimized with srcset for responsive loading */}
-            <div className="mb-8">
+            {/* Logo - CLS FIX: Fixed dimensions with srcset, no JS-based sizing to prevent hydration shift */}
+            <div className="mb-8" style={{ minHeight: '80px' }}>
               <img 
-                src={isMobile ? logoPathMedium : logoPath}
+                src={logoPath}
                 srcSet={`${logoPathSmall} 80w, ${logoPathMedium} 140w, ${logoPath} 280w`}
                 sizes="(max-width: 768px) 80px, 140px"
                 alt="Party Boat Austin - Premier Party Cruises on Lake Travis" 
                 className="h-20 md:h-24 w-auto mx-auto mb-6"
                 loading="eager"
                 fetchPriority="high"
-                width={isMobile ? 140 : 280}
-                height={isMobile ? 140 : 280}
+                width={140}
+                height={140}
                 data-testid="img-hero-logo"
               />
             </div>
