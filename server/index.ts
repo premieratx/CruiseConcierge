@@ -160,6 +160,8 @@ const PORT = process.env.PORT || '5000';
   const LEGACY_REDIRECTS: Record<string, string> = {
     '/party-cruises-2025': '/',
     '/salesvsl-page-page': '/',
+    // Blog slug corrections (fix for GSC 404 errors from old/incorrect URLs)
+    '/blogs/party-alcohol-safety-austin-responsible-service-and-guest-well-being': '/blogs/party-alcohol-safety-in-austin-responsible-service-and-guest-well-being',
     // Note: Blog /blog/* routes are now handled by React components directly in routes.ts
     // The blogRouteHandler checks reactBlogSlugs and skips WordPress SSR for React pages
   };
