@@ -63,7 +63,7 @@ export default function BookOnlineWidget({ defaultBoatType = '14p' }: BookOnline
               </div>
               <div className="flex items-center gap-2 text-slate-700">
                 <CheckCircle className="h-5 w-5 text-green-500" />
-                <span>150,000 Happy Customers</span>
+                <span>Hundreds of 5-Star Reviews</span>
               </div>
               <div className="flex items-center gap-2 text-slate-700">
                 <Star className="h-5 w-5 text-yellow-500" />

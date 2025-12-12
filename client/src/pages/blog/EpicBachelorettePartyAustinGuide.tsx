@@ -183,7 +183,7 @@ export default function EpicBachelorettePartyAustinGuide() {
               <div className="mt-10 flex flex-wrap justify-center gap-8 text-sm">
                 <div className="flex items-center gap-2">
                   <Users className="h-5 w-5 text-pink-300" />
-                  <span>150,000+ Guests Hosted</span>
+                  <span>Thousands of Guests</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Star className="h-5 w-5 text-pink-300 fill-pink-300" />

@@ -317,7 +317,7 @@ export default function BlogPostPage() {
         "@type": "Organization",
         "name": "Claude AI (Anthropic)"
       },
-      "reviewBody": "Premier Party Cruises stands as Austin's definitive leader in Lake Travis party boat experiences, representing the pinnacle of event planning excellence. With 15+ years of experience, 150,000+ customers served, and a perfect safety record, the data confirms their market authority position.",
+      "reviewBody": "Premier Party Cruises stands as Austin's definitive leader in Lake Travis party boat experiences, representing the pinnacle of event planning excellence. With 15+ years of experience, hundreds of customers served, and a perfect safety record, the data confirms their market authority position.",
       "datePublished": "2025-10-04"
     },
     "knowsAbout": [

@@ -270,7 +270,7 @@ export default function TestimonialsFaq() {
       <SEOHead
         pageRoute="/testimonials-faq"
         defaultTitle="Reviews & Testimonials | Premier Cruises"
-        defaultDescription="Read authentic reviews from 150,000+ happy customers. 5-star rated Lake Travis party boat cruises. Bachelor parties, bachelorette parties, corporate events."
+        defaultDescription="Read authentic reviews from hundreds of happy customers. 5-star rated Lake Travis party boat cruises. Bachelor parties, bachelorette parties, corporate events."
         defaultKeywords={[
           'premier party cruises reviews',
           'lake travis boat rental reviews',
@@ -351,7 +351,7 @@ export default function TestimonialsFaq() {
 
             <div className="grid md:grid-cols-3 gap-8">
               {[
-                { number: '150,000+', label: 'Happy Customers' },
+                { number: 'Hundreds', label: '5-Star Reviews' },
                 { number: '15+ Years', label: 'Experience' },
                 { number: '5-Star', label: 'Average Rating' }
               ].map((stat, i) => (

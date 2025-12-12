@@ -31,7 +31,7 @@ export default function HomeNew() {
     {
       id: 'faq-1',
       question: 'What makes Premier Party Cruises different from other boat rentals?',
-      answer: 'We\'re Austin\'s ONLY all-inclusive party cruise operator with 15+ years of experience and 150,000+ happy customers. Our ATX Disco Cruise is the only multi-group bachelor/bachelorette cruise in the United States. We provide everything - DJ, photographer, giant floats, and more - so you just show up and party.'
+      answer: 'We\'re Austin\'s ONLY all-inclusive party cruise operator with 15+ years of experience and hundreds of happy customers. Our ATX Disco Cruise is the only multi-group bachelor/bachelorette cruise in the United States. We provide everything - DJ, photographer, giant floats, and more - so you just show up and party.'
     },
     {
       id: 'faq-2',
@@ -60,7 +60,7 @@ export default function HomeNew() {
       <SEOHead 
         pageRoute="/"
         defaultTitle="Austin Party Boat Rentals & Bachelor/Bachelorette Cruises | Premier Party Cruises"
-        defaultDescription="Austin's #1 party boat rental on Lake Travis. All-inclusive bachelor & bachelorette cruises from $85/person. Private boats from $200/hour. 150,000+ happy customers. Book now!"
+        defaultDescription="Austin's #1 party boat rental on Lake Travis. All-inclusive bachelor & bachelorette cruises from $85/person. Private boats from $200/hour. hundreds of happy customers. Book now!"
         defaultKeywords={['austin party boat', 'lake travis boat rental', 'austin bachelor party', 'austin bachelorette party', 'atx disco cruise', 'party boat rental austin']}
         image="/images/austin-party-boat-hero.jpg"
       />
@@ -81,7 +81,7 @@ export default function HomeNew() {
                   </Badge>
                   <Badge className="bg-blue-100 text-blue-800 border-blue-200">
                     <Users className="w-3 h-3 mr-1" />
-                    150,000+ Happy Customers
+                    Hundreds of 5-Star Reviews
                   </Badge>
                   <Badge className="bg-yellow-100 text-yellow-800 border-yellow-200">
                     <Star className="w-3 h-3 mr-1" />
@@ -179,7 +179,7 @@ export default function HomeNew() {
                   <ul className="space-y-2 text-sm">
                     <li className="flex items-start">
                       <CheckCircle className="w-4 h-4 text-green-600 mr-2 mt-0.5 flex-shrink-0" />
-                      <span>150,000+ customers since 2010</span>
+                      <span>hundreds of customers since 2010</span>
                     </li>
                     <li className="flex items-start">
                       <CheckCircle className="w-4 h-4 text-green-600 mr-2 mt-0.5 flex-shrink-0" />
@@ -356,7 +356,7 @@ export default function HomeNew() {
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
           <div className="max-w-5xl mx-auto">
-            <h2 className="section-h2">Join 150,000+ Happy Party Cruisers</h2>
+            <h2 className="section-h2">Join Our Happy Party Cruisers</h2>
             
             <div className="grid md:grid-cols-3 gap-6 mt-12">
               <div className="testimonial-card">
@@ -589,7 +589,7 @@ export default function HomeNew() {
               Ready To Create The Highlight Of Your Weekend?
             </h2>
             <p className="text-xl text-white/90 mb-8">
-              Join 150,000+ happy customers who chose Premier Party Cruises for their celebration
+              Join hundreds of happy customers who chose Premier Party Cruises for their celebration
             </p>
             
             <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 mb-8 max-w-2xl mx-auto">

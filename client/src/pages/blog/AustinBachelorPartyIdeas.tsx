@@ -152,7 +152,7 @@ export default function AustinBachelorPartyIdeas() {
 
           <p className="text-lg mb-4 text-gray-700 dark:text-gray-300">
             <strong>Premier Party Cruises</strong> has been hosting these epic lake parties for 14+ years and 
-            over 125,000 happy guests, so they know how to show bachelors a good time. They even have a perfect 
+            countless happy guests, so they know how to show bachelors a good time. They even have a perfect 
             safety record, so mom can relax.
           </p>
 
@@ -566,7 +566,7 @@ export default function AustinBachelorPartyIdeas() {
               Ready for the Ultimate Austin Bachelor Party?
             </h3>
             <p className="text-lg mb-6 text-gray-700 dark:text-gray-300">
-              14+ years of epic parties | 125,000+ happy guests | Perfect safety record
+              14+ years of epic parties | countless happy guests | Perfect safety record
             </p>
             <div className="flex justify-center gap-4 flex-wrap">
               <Link href="/bachelor-party-austin" className="text-brand-blue hover:underline font-bold text-lg" data-testid="link-bachelor-party-packages">

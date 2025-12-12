@@ -67,7 +67,7 @@ const scaleIn = {
 const faqData = [
   {
     question: 'What makes Premier Party Cruises Austin\'s best?',
-    answer: '15+ years in Austin, 150,000+ happy customers, perfect safety record.'
+    answer: '15+ years in Austin, hundreds of happy customers, perfect safety record.'
   },
   {
     question: 'How much does a party boat cost in Austin?',
@@ -107,8 +107,8 @@ const whyChooseAustin = [
   },
   {
     icon: Star,
-    title: '150,000+ Austin Guests',
-    description: 'Over 150,000 satisfied customers have celebrated on our Austin party boats, making memories on beautiful Lake Travis.'
+    title: 'Thousands of Happy Guests',
+    description: 'Countless satisfied customers have celebrated on our Austin party boats, making memories on beautiful Lake Travis.'
   },
   {
     icon: Shield,
@@ -667,7 +667,7 @@ export default function PartyBoatAustin() {
               className="text-base mb-8 max-w-3xl mx-auto" 
               data-testid="text-final-cta"
             >
-              Join over 150,000 happy customers who've celebrated on Austin's premier Lake Travis party boats. Book your unforgettable Austin party boat experience today!
+              Join countless happy customers who've celebrated on Austin's premier Lake Travis party boats. Book your unforgettable Austin party boat experience today!
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button 

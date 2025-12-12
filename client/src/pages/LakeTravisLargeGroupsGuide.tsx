@@ -118,7 +118,7 @@ export default function LakeTravisLargeGroupsGuide() {
               </div>
               <div className="flex items-center gap-2">
                 <Users className="h-5 w-5 text-brand-yellow" />
-                <span>125,000+ Guests Served</span>
+                <span>Thousands of Guests Served</span>
               </div>
               <div className="flex items-center gap-2">
                 <Trophy className="h-5 w-5 text-brand-yellow" />
@@ -602,7 +602,7 @@ export default function LakeTravisLargeGroupsGuide() {
               Ready to Plan Your<br />Large Group Event?
             </h2>
             <p className="text-xl md:text-2xl text-blue-100 mb-10 leading-relaxed">
-              15+ years experience • Perfect safety record • 125,000+ guests served<br />
+              15+ years experience • Perfect safety record • countless guests served<br />
               Austin's trusted choice for large group Lake Travis celebrations!
             </p>
             

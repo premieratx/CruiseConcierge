@@ -116,7 +116,7 @@ export default function AustinBachelorPartyJuly() {
             <div className="mt-8 flex flex-wrap justify-center gap-6 text-sm">
               <div className="flex items-center gap-2">
                 <Users className="h-5 w-5 text-white" />
-                <span>125,000+ Happy Guests</span>
+                <span>Hundreds of Happy Guests</span>
               </div>
               <div className="flex items-center gap-2">
                 <Star className="h-5 w-5 text-white fill-white" />

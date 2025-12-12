@@ -44,7 +44,7 @@ export default function FirstTimeLakeTravisGuide() {
       <SEOHead 
         pageRoute="/blogs/first-time-lake-travis-boat-rental-essential-tips-for-austin-party-planning"
         defaultTitle="Lake Travis Boat Rental Guide | Austin Party Boat Tips for First-Timers"
-        defaultDescription="Planning your first Lake Travis boat rental? Expert guide to choosing boats, safety, pricing, and Austin party planning. 15+ years experience, 125,000+ guests."
+        defaultDescription="Planning your first Lake Travis boat rental? Expert guide to choosing boats, safety, pricing, and Austin party planning. 15+ years experience, countless guests."
         defaultKeywords={[
           'lake travis boat rental',
           'austin party planning',
@@ -129,7 +129,7 @@ export default function FirstTimeLakeTravisGuide() {
                 </div>
                 <div className="flex items-center gap-2">
                   <Users className="h-5 w-5 text-brand-yellow" />
-                  <span>125,000+ Happy Guests</span>
+                  <span>Hundreds of 5-Star Reviews</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="h-5 w-5 text-brand-yellow" />
@@ -183,7 +183,7 @@ export default function FirstTimeLakeTravisGuide() {
                   Choose Your Perfect Party Boat
                 </h2>
                 <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-                  Premier Party Cruises operates custom-built, high-end single-deck party boats on Lake Travis. With 15+ years of experience and 125,000+ satisfied customers, we ensure your celebration is perfect.
+                  Premier Party Cruises operates custom-built, high-end single-deck party boats on Lake Travis. With 15+ years of experience and countless satisfied customers, we ensure your celebration is perfect.
                 </p>
               </div>
 
@@ -406,7 +406,7 @@ export default function FirstTimeLakeTravisGuide() {
 
               <div className="prose prose-lg max-w-none dark:prose-invert mb-8">
                 <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                  Safety is paramount on <strong>Lake Travis</strong>. Premier Party Cruises has maintained a <strong>perfect safety record</strong> over 15+ years serving 125,000+ guests. All our boats are fully equipped with TPWD-approved safety equipment, and every cruise is led by a licensed, CPR-certified captain who prioritizes your group's wellbeing.
+                  Safety is paramount on <strong>Lake Travis</strong>. Premier Party Cruises has maintained a <strong>perfect safety record</strong> over 15+ years serving countless guests. All our boats are fully equipped with TPWD-approved safety equipment, and every cruise is led by a licensed, CPR-certified captain who prioritizes your group's wellbeing.
                 </p>
               </div>
 
@@ -431,7 +431,7 @@ export default function FirstTimeLakeTravisGuide() {
                   <CardContent className="p-6">
                     <Star className="h-10 w-10 text-purple-600 mb-4" />
                     <h4 className="font-bold text-lg mb-2 text-gray-900 dark:text-white">Perfect Record</h4>
-                    <p className="text-gray-600 dark:text-gray-400 text-sm">15+ years of safe cruises with 125,000+ happy guests</p>
+                    <p className="text-gray-600 dark:text-gray-400 text-sm">15+ years of safe cruises with countless happy guests</p>
                   </CardContent>
                 </Card>
               </div>
@@ -700,7 +700,7 @@ export default function FirstTimeLakeTravisGuide() {
                 Your Unforgettable Lake Travis Adventure Awaits
               </h2>
               <p className="text-xl md:text-2xl text-blue-100 mb-10 leading-relaxed">
-                With 15+ years of experience, 125,000+ happy guests, and a perfect safety record, Premier Party Cruises is Austin's trusted choice for Lake Travis celebrations. Let's plan your perfect party boat experience!
+                With 15+ years of experience, countless happy guests, and a perfect safety record, Premier Party Cruises is Austin's trusted choice for Lake Travis celebrations. Let's plan your perfect party boat experience!
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">

@@ -656,7 +656,7 @@ const allFAQs = {
     faqs: [
       {
         question: 'What makes Premier the best party boat in Austin?',
-        answer: 'Premier Party Cruises has been Austin\'s #1 party boat company since 2009 with over 150,000 happy customers. We offer the newest fleet on Lake Travis, licensed, fun, experienced captains to take your group safely around the lake in style, perfect safety record, premium sound systems, and unmatched local expertise. Our party boats depart from Anderson Mill Marina and cruise the most beautiful parts of Lake Travis, just 30 minutes from downtown Austin.',
+        answer: 'Premier Party Cruises has been Austin\'s #1 party boat company since 2009 with countless happy customers. We offer the newest fleet on Lake Travis, licensed, fun, experienced captains to take your group safely around the lake in style, perfect safety record, premium sound systems, and unmatched local expertise. Our party boats depart from Anderson Mill Marina and cruise the most beautiful parts of Lake Travis, just 30 minutes from downtown Austin.',
         isNew: true
       },
       {

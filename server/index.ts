@@ -245,7 +245,7 @@ Disallow: /book-online-popup
   app.get('/llms.txt', (req, res) => {
     const llmsTxt = `# Premier Party Cruises
 
-> Austin's premier BYOB party boat rental service on Lake Travis since 2009. Specializing in bachelor parties, bachelorette parties, and private cruises with 15+ years experience and 150,000+ happy customers.
+> Austin's premier BYOB party boat rental service on Lake Travis since 2009. Specializing in bachelor parties, bachelorette parties, and private cruises with 15+ years experience and countless happy customers.
 
 Premier Party Cruises operates a fleet of four boats departing from Anderson Mill Marina (13993 FM 2769, Leander, TX 78641). We offer the only all-inclusive multi-group bachelor/bachelorette disco cruise in the United States, plus private boat rentals for groups of 14-75 guests.
 

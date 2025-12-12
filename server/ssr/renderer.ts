@@ -870,7 +870,7 @@ const PAGE_METADATA: Record<string, { h1: string; content: string }> = {
   },
   '/bachelorette-party-austin': {
     h1: 'Austin Bachelorette Party Boats | Lake Travis | Premier Party Cruises',
-    content: 'Create lasting memories with our bachelorette party boat rentals on Lake Travis near Anderson Mill Marina. Choose the ATX Disco Cruise ($85-$105/person) or private charters on Day Tripper, Meeseeks, or Clever Girl. 14+ years experience, 125,000+ happy customers.'
+    content: 'Create lasting memories with our bachelorette party boat rentals on Lake Travis near Anderson Mill Marina. Choose the ATX Disco Cruise ($85-$105/person) or private charters on Day Tripper, Meeseeks, or Clever Girl. 14+ years experience, countless happy customers.'
   },
   '/atx-disco-cruise': {
     h1: 'ATX Disco Cruise | Austin Bachelor & Bachelorette Party Boat | Premier Party Cruises',

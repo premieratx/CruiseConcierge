@@ -120,7 +120,7 @@ export default function TopSpotsAustinBacheloretteParty() {
             <div className="mt-8 flex flex-wrap justify-center gap-6 text-sm">
               <div className="flex items-center gap-2">
                 <Users className="h-5 w-5 text-brand-yellow" />
-                <span>150,000+ Happy Guests</span>
+                <span>Hundreds of 5-Star Reviews</span>
               </div>
               <div className="flex items-center gap-2">
                 <Star className="h-5 w-5 text-brand-yellow fill-brand-yellow" />
@@ -507,7 +507,7 @@ export default function TopSpotsAustinBacheloretteParty() {
               Why Choose Premier Party Cruises?
             </h2>
             <p className="text-xl text-gray-700 dark:text-gray-300 mb-8 text-center">
-              With 15+ years serving Austin and <strong>150,000+ happy customers</strong>, Premier Party Cruises knows how to throw an unforgettable bachelorette party on Lake Travis.
+              With 15+ years serving Austin and <strong>hundreds of happy customers</strong>, Premier Party Cruises knows how to throw an unforgettable bachelorette party on Lake Travis.
             </p>
 
             <div className="grid md:grid-cols-2 gap-6 mb-8">

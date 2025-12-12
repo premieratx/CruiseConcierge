@@ -161,7 +161,7 @@ const faqs = [
   },
   {
     question: 'What makes Premier Party Cruises safer than other companies?',
-    answer: 'Three things: (1) We maintain boats more frequently than required by law. (2) Our captains exceed licensing requirements with additional training. (3) We have a perfect safety record over 15+ years and 125,000+ guests. We never cut corners on safety.'
+    answer: 'Three things: (1) We maintain boats more frequently than required by law. (2) Our captains exceed licensing requirements with additional training. (3) We have a perfect safety record over 15+ years and countless guests. We never cut corners on safety.'
   },
   {
     question: 'Can I bring children on your boats?',
@@ -193,13 +193,13 @@ export default function LakeTravisBoatSafetyMaintenance() {
         <meta name="keywords" content="Lake Travis boat safety, party boat maintenance, TPWD licensed captains, Lake Travis party cruise safety, boat safety inspections, Premier Party Cruises safety record" />
         <link rel="canonical" href="https://premierpartycruises.com/blogs/lake-travis-boat-safety-and-maintenance-quality-standards-for-party-cruises" />
         <meta property="og:title" content="Lake Travis Boat Safety & Maintenance Standards | Premier Party Cruises" />
-        <meta property="og:description" content="15+ years. 125,000+ guests. Zero safety incidents. Learn about our industry-leading safety standards on Lake Travis." />
+        <meta property="og:description" content="15+ years. countless guests. Zero safety incidents. Learn about our industry-leading safety standards on Lake Travis." />
         <meta property="og:type" content="article" />
         <meta property="og:url" content="https://premierpartycruises.com/blogs/lake-travis-boat-safety-and-maintenance-quality-standards-for-party-cruises" />
         <meta property="og:image" content="https://premierpartycruises.com/attached_assets/clever-girl-1-lake-travis-party-boat.jpg" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Lake Travis Boat Safety & Maintenance Standards" />
-        <meta name="twitter:description" content="15+ years. 125,000+ guests. Zero safety incidents. Premier Party Cruises." />
+        <meta name="twitter:description" content="15+ years. countless guests. Zero safety incidents. Premier Party Cruises." />
       </Helmet>
 
       <div className="min-h-screen bg-white dark:bg-gray-950">
@@ -227,7 +227,7 @@ export default function LakeTravisBoatSafetyMaintenance() {
               Lake Travis Boat Safety<br />& Maintenance Standards
             </h1>
             <p className="text-xl md:text-2xl text-white/90 max-w-3xl mx-auto mb-4">
-              15+ Years. 125,000+ Guests. Zero Safety Incidents.
+              15+ Years. Thousands of Guests. Zero Safety Incidents.
             </p>
             <p className="text-lg text-white/80 max-w-2xl mx-auto mb-8">
               See why Premier Party Cruises is the safest choice on Lake Travis
@@ -657,7 +657,7 @@ export default function LakeTravisBoatSafetyMaintenance() {
                 Ready to Book the Safest Cruise on Lake Travis?
               </h2>
               <p className="text-xl text-white/90 mb-8">
-                15+ years. 125,000+ happy guests. Perfect safety record.
+                15+ years. countless happy guests. Perfect safety record.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">

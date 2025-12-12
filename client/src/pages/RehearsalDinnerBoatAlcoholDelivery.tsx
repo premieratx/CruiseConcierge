@@ -46,7 +46,7 @@ const whyLakeTravis = [
   {
     icon: Shield,
     title: '15+ Years Experience',
-    description: 'Premier Party Cruises has hosted 125,000+ satisfied customers with a perfect safety record'
+    description: 'Premier Party Cruises has hosted countless satisfied customers with a perfect safety record'
   }
 ];
 
@@ -245,7 +245,7 @@ export default function RehearsalDinnerBoatAlcoholDelivery() {
               </div>
               <div className="flex items-center justify-center gap-2">
                 <CheckCircle className="h-5 w-5 text-green-400" />
-                <span>125,000+ Happy Guests</span>
+                <span>Hundreds of Happy Guests</span>
               </div>
               <div className="flex items-center justify-center gap-2">
                 <CheckCircle className="h-5 w-5 text-green-400" />

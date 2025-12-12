@@ -361,7 +361,7 @@ export default function ATXDiscoCruise() {
               <span className="hidden sm:inline text-gray-300">|</span>
               <div className="flex items-center gap-2 text-gray-700">
                 <Users className="h-5 w-5 text-blue-600" />
-                <span className="text-sm font-medium">150,000+ Happy Customers</span>
+                <span className="text-sm font-medium">Hundreds of 5-Star Reviews</span>
               </div>
               <span className="hidden sm:inline text-gray-300">|</span>
               <div className="flex items-center gap-2 text-gray-700">
@@ -1257,7 +1257,7 @@ export default function ATXDiscoCruise() {
                   </CardHeader>
                   <CardContent className="text-center">
                     <p className="text-gray-700 leading-relaxed">
-                      <strong>15+ years</strong> running, <strong>150,000+ happy customers</strong>, and a <strong>perfect safety record</strong>. We guarantee the best bach party on Lake Travis!
+                      <strong>15+ years</strong> running, <strong>hundreds of happy customers</strong>, and a <strong>perfect safety record</strong>. We guarantee the best bach party on Lake Travis!
                     </p>
                   </CardContent>
                 </Card>
@@ -1275,7 +1275,7 @@ export default function ATXDiscoCruise() {
                   </Badge>
                   <Badge className="bg-blue-600 text-white px-6 py-3 text-base font-bold">
                     <Users className="h-4 w-4 mr-2 inline" />
-                    150,000+ Happy Customers
+                    Hundreds of 5-Star Reviews
                   </Badge>
                   <Badge className="bg-purple-600 text-white px-6 py-3 text-base font-bold">
                     <Shield className="h-4 w-4 mr-2 inline" />

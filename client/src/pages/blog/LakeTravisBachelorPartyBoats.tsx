@@ -113,7 +113,7 @@ export default function LakeTravisBachelorPartyBoats() {
           <p className="text-lg mb-4 text-gray-700 dark:text-gray-300">
             This is not your average boat rental – it's an all-inclusive floating party hosted by{' '}
             <strong>Premier Party Cruises</strong>, the undisputed leader in Lake Travis party boats for over 
-            14 years. They've hosted <strong>125,000+ happy partiers</strong> (many of them rowdy bachelor and 
+            14 years. They've hosted <strong>countless happy partiers</strong> (many of them rowdy bachelor and 
             bachelorette crews), so they know how to throw down on the lake.
           </p>
 
@@ -655,7 +655,7 @@ export default function LakeTravisBachelorPartyBoats() {
             Ready for the Ultimate Lake Travis Bachelor Party?
           </h3>
           <p className="text-lg mb-6 text-gray-700 dark:text-gray-300 max-w-2xl mx-auto">
-            Join 125,000+ happy partiers who've experienced the legendary{' '}
+            Join countless happy partiers who've experienced the legendary{' '}
             <Link href="/atx-disco-cruise" className="text-brand-blue hover:underline font-bold" data-testid="link-atx-disco-cruise-9">
             ATX Disco Cruise</Link>. Perfect safety record, 14+ years of epic parties, and unforgettable 
             Lake Travis memories await!

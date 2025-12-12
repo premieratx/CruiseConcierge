@@ -1318,7 +1318,7 @@ export default function BachelorParty() {
                   <div className="mx-auto mb-4 p-4 bg-green-100 rounded-full w-16 h-16 flex items-center justify-center">
                     <Users className="h-8 w-8 text-green-600" />
                   </div>
-                  <CardTitle className="text-xl font-bold">150,000+ Parties</CardTitle>
+                  <CardTitle className="text-xl font-bold">15+ Years of Parties</CardTitle>
                 </CardHeader>
                 <CardContent className="text-center">
                   <p className="text-gray-700 leading-relaxed">
@@ -1615,7 +1615,7 @@ export default function BachelorParty() {
             Ready for Your Legendary Bachelor Party?
           </h2>
           <p className="text-xl text-white/90 mb-10 max-w-3xl mx-auto">
-            Join 150,000+ happy customers who chose Premier Party Cruises for their Lake Travis send-off
+            Join hundreds of happy customers who chose Premier Party Cruises for their Lake Travis send-off
           </p>
           
           <div className="flex flex-col sm:flex-row gap-6 justify-center">

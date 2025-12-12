@@ -443,7 +443,7 @@ export default function LakeTravisBoatRentalGuide() {
                     Q: Is Lake Travis good for first-time boat renters?
                   </h3>
                   <p className="text-gray-700 dark:text-gray-300">
-                    Perfect for first-timers! Our licensed captains handle all navigation, safety, and logistics. You just bring your group and enjoy the experience. We've safely hosted 150,000+ guests over 15 years.
+                    Perfect for first-timers! Our licensed captains handle all navigation, safety, and logistics. You just bring your group and enjoy the experience. We've safely hosted thousands of guests over 15 years.
                   </p>
                 </CardContent>
               </Card>

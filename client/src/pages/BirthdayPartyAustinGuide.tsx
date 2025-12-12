@@ -12,7 +12,7 @@ export default function BirthdayPartyAustinGuide() {
         <title>Birthday Party Boat Austin | Milestone Celebrations on Lake Travis</title>
         <meta 
           name="description" 
-          content="Celebrate milestone birthdays on Lake Travis! Austin's premier party boat rentals with BYOB, crew, and floats. 15+ years, 125,000+ guests served." 
+          content="Celebrate milestone birthdays on Lake Travis! Austin's premier party boat rentals with BYOB, crew, and floats. 15+ years, countless guests served." 
         />
         <meta 
           name="keywords" 
@@ -114,7 +114,7 @@ export default function BirthdayPartyAustinGuide() {
             <div className="mt-8 flex flex-wrap justify-center gap-6 text-sm">
               <div className="flex items-center gap-2">
                 <Cake className="h-5 w-5 text-brand-yellow" />
-                <span>125,000+ Celebrations</span>
+                <span>Hundreds of Celebrations</span>
               </div>
               <div className="flex items-center gap-2">
                 <Shield className="h-5 w-5 text-brand-yellow" />
@@ -147,7 +147,7 @@ export default function BirthdayPartyAustinGuide() {
                 Austin, Texas boasts vibrant culture, live music, and stunning natural beauty, with Lake Travis standing out as the ultimate destination for milestone birthday celebrations. Unlike traditional party venues, a <Link href="/private-cruises" className="text-blue-600 hover:underline font-medium">private party boat</Link> on Lake Travis provides an exclusive, dynamic environment that creates unforgettable memories where guests have a great time celebrating together.
               </p>
               <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
-                With 15+ years of experience and over 125,000 satisfied guests, Premier Party Cruises specializes in transforming <Link href="/milestone-birthday" className="text-blue-600 hover:underline font-medium">milestone birthdays</Link> into extraordinary Lake Travis adventures. Our austin boat rental services include custom-built, high-end single-deck party boats that offer the perfect blend of comfort, excitement, and scenic beauty for your special day. <Link href="/testimonials-faq" className="text-blue-600 hover:underline font-medium">Read our customer reviews</Link> to see why we're Austin's top choice.
+                With 15+ years of experience and countless satisfied guests, Premier Party Cruises specializes in transforming <Link href="/milestone-birthday" className="text-blue-600 hover:underline font-medium">milestone birthdays</Link> into extraordinary Lake Travis adventures. Our austin boat rental services include custom-built, high-end single-deck party boats that offer the perfect blend of comfort, excitement, and scenic beauty for your special day. <Link href="/testimonials-faq" className="text-blue-600 hover:underline font-medium">Read our customer reviews</Link> to see why we're Austin's top choice.
               </p>
             </div>
 
@@ -496,7 +496,7 @@ export default function BirthdayPartyAustinGuide() {
               Ready to Plan Your<br />Milestone Birthday?
             </h2>
             <p className="text-xl md:text-2xl text-purple-100 mb-10 leading-relaxed">
-              15+ years of experience • 125,000+ celebrations • Perfect safety record<br />
+              15+ years of experience • countless celebrations • Perfect safety record<br />
               Make your birthday unforgettable on Lake Travis!
             </p>
             

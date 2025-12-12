@@ -152,7 +152,7 @@ export default function Contact() {
                   ))}
                 </div>
                 <span className="text-xl font-bold text-gray-900 dark:text-white" data-editable data-editable-id="reviews-rating-score">4.9/5</span>
-                <span className="text-gray-600 dark:text-gray-300" data-editable data-editable-id="reviews-rating-count">(150,000+ Reviews)</span>
+                <span className="text-gray-600 dark:text-gray-300" data-editable data-editable-id="reviews-rating-count">(Hundreds of Reviews)</span>
               </div>
             </div>
 

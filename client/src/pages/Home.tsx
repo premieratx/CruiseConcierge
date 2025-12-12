@@ -213,8 +213,8 @@ const whyChooseUs = [
   },
   {
     icon: UserCheck,
-    title: '150,000+ Happy Customers',
-    description: 'We\'ve created unforgettable memories for over 150,000 guests with 5-star service since 2009.'
+    title: 'Hundreds of 5-Star Reviews',
+    description: 'We\'ve created unforgettable memories for countless guests with 5-star service since 2009.'
   },
   {
     icon: Shield,
@@ -1082,7 +1082,7 @@ export default function Home() {
                   className="bg-gradient-to-r from-yellow-400 via-yellow-500 to-orange-500 hover:from-yellow-500 hover:via-orange-500 hover:to-orange-600 text-black font-bold px-8 py-4 rounded-xl shadow-xl transform hover:scale-105 transition-all duration-300"
                 >
                   <Star className="mr-2 h-5 w-5" />
-                  Join 150,000+ Happy Customers
+                  Join Our Happy Customers
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </div>
@@ -1486,7 +1486,7 @@ export default function Home() {
                 Experience the Premier Difference
               </h2>
               <p className="text-base text-gray-700 dark:text-gray-300 max-w-3xl mx-auto mb-6" data-editable data-editable-id="gallery-description">
-                See why 150,000+ customers choose Premier Party Cruises for their unforgettable Lake Travis experience.
+                See why customers choose Premier Party Cruises for their unforgettable Lake Travis experience.
               </p>
               <div className="mt-6">
                 <InternalLinkHighlightWithArrow href="/gallery" title="View Our Fleet" className="text-base">
@@ -2165,10 +2165,10 @@ export default function Home() {
           <AIOptimizedSection
             type="statistics"
             title="Premier Party Cruises By The Numbers"
-            description="Trusted by thousands of customers in Austin, Texas (ATX) and Lake Travis area since 2009"
+            description="Trusted by customers in Austin, Texas (ATX) and Lake Travis area since 2009"
             data={[
               { 
-                value: "150,000+", 
+                value: "Hundreds", 
                 label: "Happy Customers", 
                 icon: <Users className="w-8 h-8" />
               },
@@ -2270,7 +2270,7 @@ export default function Home() {
         <div className="container mx-auto px-6 relative z-10">
           <div className="text-center mb-12">
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
-              Join Thousands of Happy Cruisers
+              Join Our Happy Cruisers
             </h2>
             <p className="text-xl opacity-90">
               Austin's Most Trusted Party Boat Company Since 2009
@@ -2292,10 +2292,10 @@ export default function Home() {
                     whileInView={{ opacity: 1 }}
                     transition={{ duration: 0.5 }}
                   >
-                    150,000+
+                    1,000s
                   </m.span>
                 </div>
-                <div className="text-xl font-semibold">Parties Hosted</div>
+                <div className="text-xl font-semibold">Happy Guests</div>
                 <div className="text-sm opacity-80 mt-2">Since 2009</div>
               </div>
             </m.div>

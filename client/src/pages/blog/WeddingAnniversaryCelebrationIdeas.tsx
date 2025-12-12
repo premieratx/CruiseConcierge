@@ -802,7 +802,7 @@ export default function WeddingAnniversaryCelebrationIdeas() {
               <div className="text-gray-700 dark:text-gray-300">Years of Experience</div>
             </div>
             <div className="text-center p-4 bg-white dark:bg-gray-800 rounded-lg shadow">
-              <div className="text-4xl font-bold text-brand-blue mb-2">125,000+</div>
+              <div className="text-4xl font-bold text-brand-blue mb-2">Thousands</div>
               <div className="text-gray-700 dark:text-gray-300">Happy Guests</div>
             </div>
             <div className="text-center p-4 bg-white dark:bg-gray-800 rounded-lg shadow">
