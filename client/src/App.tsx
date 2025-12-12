@@ -196,6 +196,17 @@ const PortalDashboard = lazy(() => import("./pages/PortalDashboard"));
 const PortalProfile = lazy(() => import("./pages/PortalProfile"));
 
 
+function PageSkeleton() {
+  return (
+    <div className="min-h-screen bg-gray-900">
+      <div className="h-16 bg-white/95 fixed top-0 w-full z-50" />
+      <div className="pt-16 min-h-[600px] flex items-center justify-center">
+        <div className="w-8 h-8 border-2 border-cyan-400 border-t-transparent rounded-full animate-spin" />
+      </div>
+    </div>
+  );
+}
+
 function Router() {
   const [location] = useLocation();
 
@@ -210,7 +221,7 @@ function Router() {
   }, []);
 
   return (
-    <Suspense fallback={null}>
+    <Suspense fallback={<PageSkeleton />}>
       <Switch>
         {/* Public Homepage */}
         <Route path="/" component={Home} />
