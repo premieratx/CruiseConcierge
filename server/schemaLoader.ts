@@ -108,12 +108,15 @@ export function generateArticleSchema(blogPost: {
     ? new Date(blogPost.modifiedAt).toISOString()
     : publishDate;
 
-  const baseDomain = getBaseDomain(req);
-  const defaultUrl = `${baseDomain}/blogs/${blogPost.slug}`;
+  // CRITICAL SEO FIX: Always use production domain for schema references
+  // This ensures @id references match across all schemas (Organization, Article, etc.)
+  const productionDomain = 'https://premierpartycruises.com';
+  const defaultUrl = `${productionDomain}/blogs/${blogPost.slug}`;
   const schemaUrl = canonicalUrl || defaultUrl;
 
-  const organizationId = `${baseDomain}/#organization`;
-  const defaultImage = `${baseDomain}/media/schema/hero-boat-1.jpg`;
+  // Organization @id MUST match the one in ORGANIZATION_SCHEMA
+  const organizationId = `${productionDomain}/#organization`;
+  const defaultImage = `${productionDomain}/media/schema/hero-boat-1.jpg`;
 
   return {
     "@context": "https://schema.org",
