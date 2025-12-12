@@ -301,7 +301,7 @@ export default function EpicBachelorPartyAustinGuide() {
                 <CardContent className="p-8">
                   <p className="text-lg text-gray-700 dark:text-gray-300 mb-6">
                     Lake Travis is THE move for bachelor weekends. Premier Party Cruises is the #1 company bachelor groups trust, 
-                    with thousands of guests hosted and a perfect safety record. Choose between private party boats or the iconic 
+                    with 150,000+ guests hosted and a perfect safety record. Choose between private party boats or the iconic 
                     <strong> ATX Disco Cruise</strong>—Austin's only multi-group, all-inclusive bachelor/bachelorette lake party.
                   </p>
                   

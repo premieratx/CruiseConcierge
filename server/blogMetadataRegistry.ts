@@ -13,7 +13,7 @@ export const blogMetadataRegistry: Record<string, BlogMetadata> = {
   '3-day-austin-bachelorette-itinerary': {
     slug: '3-day-austin-bachelorette-itinerary',
     title: '3-Day Austin Bachelorette Itinerary | Weekend',
-    description: 'Plan the perfect 3-day Austin bachelorette party! Expert itinerary from Lake Travis boat parties to 6th Street nightlife. countless celebrations. Book now!',
+    description: 'Plan the perfect 3-day Austin bachelorette party! Expert itinerary from Lake Travis boat parties to 6th Street nightlife. 150,000+ celebrations. Book now!',
     publishDate: '2024-01-01',
     modifiedDate: '2024-12-18',
     author: 'Premier Party Cruises',
@@ -32,7 +32,7 @@ export const blogMetadataRegistry: Record<string, BlogMetadata> = {
   'ultimate-austin-bachelorette-weekend': {
     slug: 'ultimate-austin-bachelorette-weekend',
     title: 'Ultimate Austin Bachelorette Weekend | Premier Party Guide',
-    description: 'Create the ultimate Austin bachelorette weekend with our premier guide. Lake Travis boat parties, top nightlife, activities. 15+ years, countless guests.',
+    description: 'Create the ultimate Austin bachelorette weekend with our premier guide. Lake Travis boat parties, top nightlife, activities. 15+ years, 150,000+ guests.',
     publishDate: '2024-01-05',
     modifiedDate: '2024-12-20',
     author: 'Premier Party Cruises',
@@ -50,7 +50,7 @@ export const blogMetadataRegistry: Record<string, BlogMetadata> = {
   'top-10-austin-bachelorette-ideas': {
     slug: 'top-10-austin-bachelorette-ideas',
     title: 'Top 10 Austin Bachelorette Ideas | Ultimate Party Guide 2025',
-    description: 'Discover the top 10 Austin bachelorette party ideas! From Lake Travis boat cruises to 6th Street nightlife. 15+ years experience, countless celebrations.',
+    description: 'Discover the top 10 Austin bachelorette party ideas! From Lake Travis boat cruises to 6th Street nightlife. 15+ years experience, 150,000+ celebrations.',
     publishDate: '2024-01-10',
     modifiedDate: '2024-12-18',
     author: 'Premier Party Cruises',
@@ -86,7 +86,7 @@ export const blogMetadataRegistry: Record<string, BlogMetadata> = {
   'luxury-austin-bachelorette': {
     slug: 'luxury-austin-bachelorette',
     title: 'Luxury Austin Bachelorette | Lake Travis VIP',
-    description: 'Indulge in a luxury Austin bachelorette party with premium Lake Travis boat rentals, VIP service, and upscale experiences. 15+ years, countless guests.',
+    description: 'Indulge in a luxury Austin bachelorette party with premium Lake Travis boat rentals, VIP service, and upscale experiences. 15+ years, 150,000+ guests.',
     publishDate: '2024-01-20',
     modifiedDate: '2024-12-22',
     author: 'Premier Party Cruises',
@@ -104,7 +104,7 @@ export const blogMetadataRegistry: Record<string, BlogMetadata> = {
   'adventure-austin-bachelorette': {
     slug: 'adventure-austin-bachelorette',
     title: 'Adventure Austin Bachelorette | Lake Travis Fun',
-    description: 'Plan an adventure-filled Austin bachelorette party! Lake Travis water sports, outdoor activities, hiking. 15+ years experience, countless celebrations.',
+    description: 'Plan an adventure-filled Austin bachelorette party! Lake Travis water sports, outdoor activities, hiking. 15+ years experience, 150,000+ celebrations.',
     publishDate: '2024-01-25',
     modifiedDate: '2024-12-20',
     author: 'Premier Party Cruises',
@@ -140,7 +140,7 @@ export const blogMetadataRegistry: Record<string, BlogMetadata> = {
   'blogs/atx-disco-cruise-experience': {
     slug: 'blogs/atx-disco-cruise-experience',
     title: 'ATX Disco Cruise Experience: Austin\'s Ultimate Party Boat | Premier Party Cruises',
-    description: 'Experience the legendary ATX Disco Cruise on Lake Travis! All-inclusive party boat with DJ, photographer, giant floats, dance floor. BYOB. countless guests served. Book now!',
+    description: 'Experience the legendary ATX Disco Cruise on Lake Travis! All-inclusive party boat with DJ, photographer, giant floats, dance floor. BYOB. 150,000+ guests served. Book now!',
     publishDate: '2025-01-05',
     modifiedDate: '2025-01-10',
     author: 'Premier Party Cruises',
@@ -264,7 +264,7 @@ export const blogMetadataRegistry: Record<string, BlogMetadata> = {
   'blog/birthday-party-alcohol-delivery-austin-milestone-celebrations-made-easy': {
     slug: 'blog/birthday-party-alcohol-delivery-austin-milestone-celebrations-made-easy',
     title: 'Birthday Party Boat Austin | Lake Travis',
-    description: 'Celebrate milestone birthdays on Lake Travis! Austin\'s premier party boat rentals with BYOB, crew, and floats. 15+ years, countless guests served.',
+    description: 'Celebrate milestone birthdays on Lake Travis! Austin\'s premier party boat rentals with BYOB, crew, and floats. 15+ years, 150,000+ guests served.',
     publishDate: '2025-11-01',
     modifiedDate: '2025-11-12',
     author: 'Premier Party Cruises',
@@ -321,7 +321,7 @@ export const blogMetadataRegistry: Record<string, BlogMetadata> = {
   'first-time-lake-travis-boat-rental-guide': {
     slug: 'first-time-lake-travis-boat-rental-guide',
     title: 'First-Time Lake Travis Boat Rental Guide',
-    description: 'Planning your first Lake Travis boat rental? Expert guide to choosing boats, safety, pricing, and Austin party planning. 15+ years experience, countless guests.',
+    description: 'Planning your first Lake Travis boat rental? Expert guide to choosing boats, safety, pricing, and Austin party planning. 15+ years experience, 150,000+ guests.',
     publishDate: '2025-11-01',
     modifiedDate: '2025-11-12',
     author: 'Premier Party Cruises',
@@ -359,7 +359,7 @@ export const blogMetadataRegistry: Record<string, BlogMetadata> = {
   'blogs/lake-travis-bachelor-party-boat-rentals-the-ultimate-guide-to-epic-celebrations': {
     slug: 'blogs/lake-travis-bachelor-party-boat-rentals-the-ultimate-guide-to-epic-celebrations',
     title: 'Lake Travis Bachelor Party Boat Rentals Guide',
-    description: 'Plan epic Lake Travis bachelor party boat rentals! Complete guide to boats, pricing, activities, and nightlife. 15+ years experience, countless celebrations.',
+    description: 'Plan epic Lake Travis bachelor party boat rentals! Complete guide to boats, pricing, activities, and nightlife. 15+ years experience, 150,000+ celebrations.',
     publishDate: '2025-01-01',
     modifiedDate: '2025-12-09',
     author: 'Premier Party Cruises',
@@ -472,7 +472,7 @@ export const blogMetadataRegistry: Record<string, BlogMetadata> = {
   'blogs/lake-travis-boat-safety-and-maintenance-quality-standards-for-party-cruises': {
     slug: 'blogs/lake-travis-boat-safety-and-maintenance-quality-standards-for-party-cruises',
     title: 'Lake Travis Boat Safety & Maintenance Standards',
-    description: '15+ years. countless guests. Zero safety incidents. Discover our industry-leading boat safety and maintenance standards on Lake Travis.',
+    description: '15+ years. 150,000+ guests. Zero safety incidents. Discover our industry-leading boat safety and maintenance standards on Lake Travis.',
     publishDate: '2025-02-10',
     modifiedDate: '2025-12-09',
     author: 'Premier Party Cruises',
@@ -670,7 +670,7 @@ export const blogMetadataRegistry: Record<string, BlogMetadata> = {
   'blogs/epic-bachelorette-party-austin-ultimate-guide': {
     slug: 'blogs/epic-bachelorette-party-austin-ultimate-guide',
     title: 'Epic Bachelorette Party Austin TX | Ultimate Guide',
-    description: 'Plan an epic bachelorette party in Austin TX. Complete guide to Lake Travis cruises, spas, nightlife. 15+ years, countless guests.',
+    description: 'Plan an epic bachelorette party in Austin TX. Complete guide to Lake Travis cruises, spas, nightlife. 15+ years, 150,000+ guests.',
     publishDate: '2025-01-15',
     modifiedDate: '2025-12-09',
     author: 'Premier Party Cruises',

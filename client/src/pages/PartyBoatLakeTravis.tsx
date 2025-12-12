@@ -124,7 +124,7 @@ const whyChooseLakeTravis = [
   {
     icon: Star,
     title: '150K+ Lake Travis Guests',
-    description: 'Countless satisfied customers have celebrated on our Lake Travis party boats, making unforgettable memories on this stunning Central Texas treasure.'
+    description: '150,000+ satisfied customers have celebrated on our Lake Travis party boats, making unforgettable memories on this stunning Central Texas treasure.'
   },
   {
     icon: Shield,

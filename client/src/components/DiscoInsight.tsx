@@ -46,7 +46,7 @@ interface DiscoInsightProps {
 const highlightQuotes = [
   "Only all-inclusive, multi-group bachelor/bachelorette party cruise in the country",
   "Industry's only weather guarantee with Lemonade Disco backup plan",
-  "15+ years in operation with countless customers served",
+  "15+ years in operation with 150,000+ customers served",
   "Perfect safety record with zero incidents in 15+ years",
   "GIANT 25-ft inflatable unicorn float - biggest in the country",
   "Everything included except alcohol - just show up and get down"

@@ -361,7 +361,7 @@ export default function ATXDiscoCruise() {
               <span className="hidden sm:inline text-gray-300">|</span>
               <div className="flex items-center gap-2 text-gray-700">
                 <Users className="h-5 w-5 text-blue-600" />
-                <span className="text-sm font-medium">Hundreds of 5-Star Reviews</span>
+                <span className="text-sm font-medium">150,000+ Happy Customers</span>
               </div>
               <span className="hidden sm:inline text-gray-300">|</span>
               <div className="flex items-center gap-2 text-gray-700">
@@ -1275,7 +1275,7 @@ export default function ATXDiscoCruise() {
                   </Badge>
                   <Badge className="bg-blue-600 text-white px-6 py-3 text-base font-bold">
                     <Users className="h-4 w-4 mr-2 inline" />
-                    Hundreds of 5-Star Reviews
+                    150,000+ Happy Customers
                   </Badge>
                   <Badge className="bg-purple-600 text-white px-6 py-3 text-base font-bold">
                     <Shield className="h-4 w-4 mr-2 inline" />

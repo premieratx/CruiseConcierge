@@ -140,7 +140,7 @@ export default function FirstTimeLakeTravisGuide() {
           </div>
 
           <p className="text-lg mb-4 text-gray-700 dark:text-gray-300">
-            With <strong>14+ years of experience and countless satisfied customers</strong>, Premier Party Cruises 
+            With <strong>14+ years of experience and 150,000+ satisfied customers</strong>, Premier Party Cruises 
             maintains a <strong>perfect safety record</strong> while delivering unforgettable Lake Travis experiences. 
             Learn more about our <Link href="/private-cruises" className="text-brand-blue hover:underline font-semibold" data-testid="link-private-cruises">
             private cruise options</Link>.
@@ -599,7 +599,7 @@ export default function FirstTimeLakeTravisGuide() {
           the perfect vessel to seamless execution, every detail is handled by our experienced team.
         </p>
         <p className="text-lg mb-8">
-          <strong>14+ years of experience. countless happy customers. Perfect safety record.</strong>
+          <strong>14+ years of experience. 150,000+ happy customers. Perfect safety record.</strong>
         </p>
         <div className="flex justify-center gap-4 flex-wrap">
           <Link 

@@ -360,7 +360,7 @@ export function generateComprehensiveLocalBusinessSchema(options?: {
     "@type": "LocalBusiness",
     "name": "Premier Party Cruises",
     "image": `${baseUrl}/PPC Logo LARGE_1757881944449.png`,
-    "description": options?.pageDescription || "Austin's premier party boat rental service on Lake Travis. Specializing in bachelor parties, bachelorette parties, corporate events, and private cruises. 14+ years experience, countless customers served.",
+    "description": options?.pageDescription || "Austin's premier party boat rental service on Lake Travis. Specializing in bachelor parties, bachelorette parties, corporate events, and private cruises. 14+ years experience, 150,000+ customers served.",
     "url": baseUrl,
     "telephone": "(512) 488-5892",
     "priceRange": "$$",

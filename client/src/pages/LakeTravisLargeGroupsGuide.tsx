@@ -602,7 +602,7 @@ export default function LakeTravisLargeGroupsGuide() {
               Ready to Plan Your<br />Large Group Event?
             </h2>
             <p className="text-xl md:text-2xl text-blue-100 mb-10 leading-relaxed">
-              15+ years experience • Perfect safety record • countless guests served<br />
+              15+ years experience • Perfect safety record • 150,000+ guests served<br />
               Austin's trusted choice for large group Lake Travis celebrations!
             </p>
             

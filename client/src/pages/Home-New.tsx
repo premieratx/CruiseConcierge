@@ -81,7 +81,7 @@ export default function HomeNew() {
                   </Badge>
                   <Badge className="bg-blue-100 text-blue-800 border-blue-200">
                     <Users className="w-3 h-3 mr-1" />
-                    Hundreds of 5-Star Reviews
+                    150,000+ Happy Customers
                   </Badge>
                   <Badge className="bg-yellow-100 text-yellow-800 border-yellow-200">
                     <Star className="w-3 h-3 mr-1" />

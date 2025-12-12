@@ -89,11 +89,11 @@ export default function BookOnlinePopUp({ defaultBoatType = '14p' }: BookOnlineP
                   </div>
                   <div className="flex items-center gap-2 text-slate-700">
                     <CheckCircle className="h-5 w-5 text-green-500" />
-                    <span>Hundreds of 5-Star Reviews</span>
+                    <span>150,000+ Happy Customers</span>
                   </div>
                   <div className="flex items-center gap-2 text-slate-700">
                     <Star className="h-5 w-5 text-yellow-500" />
-                    <span>Hundreds of 5-Star Reviews</span>
+                    <span>150,000+ Happy Customers</span>
                   </div>
                   <div className="flex items-center gap-2 text-slate-700">
                     <Ship className="h-5 w-5 text-blue-600" />

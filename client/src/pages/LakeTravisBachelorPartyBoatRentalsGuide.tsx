@@ -160,7 +160,7 @@ export default function LakeTravisBachelorPartyBoatRentalsGuide() {
               </p>
               <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
                 <strong>Premier Party Cruises</strong> stands as the Lake Travis party boat leader, boasting over 
-                15 years of experience and having hosted countless satisfied customers. Our perfect safety 
+                15 years of experience and having hosted 150,000+ satisfied customers. Our perfect safety 
                 record and dedication to unforgettable experiences make us the go-to choice for bachelor parties in Austin.
               </p>
 
@@ -460,7 +460,7 @@ export default function LakeTravisBachelorPartyBoatRentalsGuide() {
                 </div>
                 <div className="flex items-center gap-2">
                   <Users className="h-5 w-5 text-yellow-400" />
-                  <span>Hundreds of 5-Star Reviews</span>
+                  <span>150,000+ Happy Customers</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Shield className="h-5 w-5 text-yellow-400" />

@@ -158,11 +158,11 @@ export default function GoldenTicket() {
               </div>
               <div className="flex items-center gap-2 text-slate-600 dark:text-slate-400">
                 <CheckCircle className="h-5 w-5 text-green-500" />
-                <span>Hundreds of 5-Star Reviews</span>
+                <span>150,000+ Happy Customers</span>
               </div>
               <div className="flex items-center gap-2 text-slate-600 dark:text-slate-400">
                 <Star className="h-5 w-5 text-yellow-500" />
-                <span>Hundreds of 5-Star Reviews</span>
+                <span>150,000+ Happy Customers</span>
               </div>
               <div className="flex items-center gap-2 text-slate-600 dark:text-slate-400">
                 <Ship className="h-5 w-5 text-blue-600" />

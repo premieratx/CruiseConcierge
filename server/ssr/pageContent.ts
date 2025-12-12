@@ -98,7 +98,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Bachelor & Bachelorette Parties',
         paragraphs: [
           'Plan the perfect [[bachelor-party]] or [[bachelorette-party]] on Lake Travis! Choose between our affordable [[atx-disco]] packages or rent a [[private-cruises]] exclusively for your group. ',
-          'We specialize in creating unforgettable [[bachelor-party]] and [[bachelorette-party]] experiences with professional entertainment, premium amenities, and dedicated service. Countless happy customers have celebrated with us! Learn more about [[combined-bach]] options too.'
+          'We specialize in creating unforgettable [[bachelor-party]] and [[bachelorette-party]] experiences with professional entertainment, premium amenities, and dedicated service. 150,000+ happy customers have celebrated with us! Learn more about [[combined-bach]] options too.'
         ],
         lists: [
           {
@@ -125,7 +125,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Why Choose Premier Party Cruises',
         paragraphs: [
-          'With 14+ years of experience and countless satisfied customers, we are Austin\'s longest-running and most trusted party cruise company. Our perfect safety record, Coast Guard certified captains, and newest fleet ensure an exceptional experience every time.'
+          'With 14+ years of experience and 150,000+ satisfied customers, we are Austin\'s longest-running and most trusted party cruise company. Our perfect safety record, Coast Guard certified captains, and newest fleet ensure an exceptional experience every time.'
         ],
         lists: [
           {
@@ -152,7 +152,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           'When does the ATX Disco Cruise run? The disco cruise operates Fridays 12-4pm and Saturdays with two time slots: 11am-3pm (most popular!) or 3:30-7:30pm. Pricing varies by time slot, with all prices including tax and gratuity for a complete, transparent experience.',
           'Where do you depart from on Lake Travis? We depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641. We\'re the closest marina to downtown Austin, approximately 30 minutes away, making us convenient for all your guests.',
           'What\'s included with the ATX Disco Cruise? Every ATX Disco Cruise includes a professional DJ playing all day, professional photographer with photo delivery, giant unicorn floats, multiple lily pad floats, disco dance floor, party supplies and mixers, ice water stations, clean restroom facilities, and an unforgettable party atmosphere with multiple bachelor and bachelorette groups celebrating together.',
-          'What makes Premier Party Cruises different from other Lake Travis boat rentals? With 14+ years of experience and countless satisfied customers, we are Austin\'s longest-running and most trusted party cruise company. We maintain a perfect safety record with Coast Guard certified captains, operate the newest fleet in Austin, and provide full-service experiences with professional crew and premium sound systems. We\'re the only company offering the signature ATX Disco Cruise party experience.',
+          'What makes Premier Party Cruises different from other Lake Travis boat rentals? With 14+ years of experience and 150,000+ satisfied customers, we are Austin\'s longest-running and most trusted party cruise company. We maintain a perfect safety record with Coast Guard certified captains, operate the newest fleet in Austin, and provide full-service experiences with professional crew and premium sound systems. We\'re the only company offering the signature ATX Disco Cruise party experience.',
           'Can you accommodate corporate events and team building activities? Absolutely! We specialize in corporate events and team building on Lake Travis. Our fleet accommodates groups from 14 to 75+ guests with professional service and premium amenities. Customizable packages include catering coordination, AV equipment, and dedicated event planning to ensure your corporate event is a complete success.'
         ]
       }
@@ -241,7 +241,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Why Bachelor Parties Love Premier Party Cruises',
         paragraphs: [
-          'Countless happy customers have celebrated with us, making us Austin\'s #1 choice for bachelor parties. With 14+ years of experience, perfect safety record, and the newest fleet on Lake Travis, your bachelor party is in expert hands.'
+          '150,000+ happy customers have celebrated with us, making us Austin\'s #1 choice for bachelor parties. With 14+ years of experience, perfect safety record, and the newest fleet on Lake Travis, your bachelor party is in expert hands.'
         ],
         lists: [
           {
@@ -419,7 +419,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Why Bachelorette Parties Choose Us',
         paragraphs: [
-          'With 14+ years specializing in [[bachelorette-party]], we know exactly how to create an unforgettable celebration. Countless happy customers, perfect safety record, and Austin\'s newest fleet make us the #1 choice for Lake Travis bachelorette parties.'
+          'With 14+ years specializing in [[bachelorette-party]], we know exactly how to create an unforgettable celebration. 150,000+ happy customers, perfect safety record, and Austin\'s newest fleet make us the #1 choice for Lake Travis bachelorette parties.'
         ],
         lists: [
           {
@@ -683,7 +683,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Why Groups Love The Disco Cruise',
         paragraphs: [
-          'Countless guests have experienced the ATX Disco Cruise. Here\'s why it\'s Austin\'s #1 party boat:'
+          'Over 150,000 guests have experienced the ATX Disco Cruise. Here\'s why it\'s Austin\'s #1 party boat:'
         ],
         lists: [
           {
@@ -1872,7 +1872,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Planning Your Lake Travis Party',
         paragraphs: [
-          'Lake Travis party boats are perfect for any celebration: bachelor/bachelorette parties, birthdays, corporate events, weddings, graduations, and more. We\'ve hosted thousands of guests with perfect safety record.',
+          'Lake Travis party boats are perfect for any celebration: bachelor/bachelorette parties, birthdays, corporate events, weddings, graduations, and more. We\'ve hosted 150,000+ guests with perfect safety record.',
           'Most parties run 3-4 hours, with options for longer adventures. Popular times include afternoon fun (2pm-6pm) or sunset cruises (6pm-9pm). Private boats offer complete flexibility on timing.',
           'BYOB friendly for guests 21+ with ID (cans/plastic containers only). Catering coordination available - many groups love having food delivered right to the boat on Lake Travis.',
           'Book 6-8 weeks in advance for weekend dates, especially during peak season (April-September). Weekday availability is better with less advance notice needed.',
@@ -1985,7 +1985,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           'Lake Travis provides the ideal setting for corporate events. Away from office distractions, teams and clients engage authentically in a relaxed yet professional environment.',
           'The unique Austin experience impresses clients and delights employees. It shows your company values quality experiences and invests in relationships. Many companies report improved morale, collaboration, and business results after Lake Travis events.',
           'Perfect location just 20 miles from downtown Austin, easily accessible for all attendees. Beautiful Hill Country scenery provides stunning backdrop for corporate photos and social media.',
-          '14+ years serving Austin businesses with perfect safety and service record. Countless guests have experienced our professional corporate events. We understand business needs and deliver exceptional results.'
+          '14+ years serving Austin businesses with perfect safety and service record. Over 150,000 guests have experienced our professional corporate events. We understand business needs and deliver exceptional results.'
         ]
       },
       {
@@ -2156,7 +2156,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
               'Intimate gathering space away from crowded restaurants',
               'Texas Hill Country beauty with serene waters',
               '15+ years experience hosting wedding events',
-              'Countless satisfied customers with perfect safety record'
+              '150,000+ satisfied customers with perfect safety record'
             ]
           }
         ]
@@ -2343,7 +2343,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Why Choose Premier Party Cruises',
         paragraphs: [
-          'With 14+ years of experience and countless satisfied customers, Premier Party Cruises is Austin\'s most trusted Lake Travis party boat company. Here\'s what sets us apart:'
+          'With 14+ years of experience and 150,000+ satisfied customers, Premier Party Cruises is Austin\'s most trusted Lake Travis party boat company. Here\'s what sets us apart:'
         ],
         lists: [
           {

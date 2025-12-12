@@ -77,7 +77,7 @@ export default function ATXDiscoCruiseExperience() {
               ⚓ Captain Brian's Golden Rule
             </p>
             <p className="text-gray-700 dark:text-gray-300">
-              At Premier Party Cruises, they've seen it all over <strong>14+ years and countless happy customers</strong>. 
+              At Premier Party Cruises, they've seen it all over <strong>14+ years and 150,000+ happy customers</strong>. 
               As Captain Brian famously puts it, the golden rule on the boat is: <strong>"Don't be a dick and don't die."</strong> 
               Succinct? Yes. But there's more to it if you want the best possible experience.
             </p>

@@ -213,8 +213,8 @@ const whyChooseUs = [
   },
   {
     icon: UserCheck,
-    title: 'Hundreds of 5-Star Reviews',
-    description: 'We\'ve created unforgettable memories for countless guests with 5-star service since 2009.'
+    title: '150,000+ Happy Customers',
+    description: 'We\'ve created unforgettable memories for 150,000+ guests with 5-star service since 2009.'
   },
   {
     icon: Shield,

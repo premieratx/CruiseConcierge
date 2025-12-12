@@ -12,7 +12,7 @@ export default function BirthdayPartyAustinGuide() {
         <title>Birthday Party Boat Austin | Milestone Celebrations on Lake Travis</title>
         <meta 
           name="description" 
-          content="Celebrate milestone birthdays on Lake Travis! Austin's premier party boat rentals with BYOB, crew, and floats. 15+ years, countless guests served." 
+          content="Celebrate milestone birthdays on Lake Travis! Austin's premier party boat rentals with BYOB, crew, and floats. 15+ years, 150,000+ guests served." 
         />
         <meta 
           name="keywords" 
@@ -480,7 +480,7 @@ export default function BirthdayPartyAustinGuide() {
             <BlogImageBreak
               src={BLOG_PARTY_PHOTOS.group.src}
               alt={BLOG_PARTY_PHOTOS.group.alt}
-              caption="Join thousands of guests who have celebrated their milestones on Lake Travis"
+              caption="Join 150,000+ guests who have celebrated their milestones on Lake Travis"
             />
           </div>
         </div>
@@ -496,7 +496,7 @@ export default function BirthdayPartyAustinGuide() {
               Ready to Plan Your<br />Milestone Birthday?
             </h2>
             <p className="text-xl md:text-2xl text-purple-100 mb-10 leading-relaxed">
-              15+ years of experience • countless celebrations • Perfect safety record<br />
+              15+ years of experience • 150,000+ celebrations • Perfect safety record<br />
               Make your birthday unforgettable on Lake Travis!
             </p>
             
