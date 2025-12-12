@@ -87,7 +87,6 @@ import { type ComparisonColumn, type ComparisonRow } from '@/components/Comparis
 import { InternalLinkHighlight, InternalLinkHighlightWithArrow } from '@/components/InternalLinkHighlight';
 import AIOptimizedSection from '@/components/AIOptimizedSection';
 import { SectionReveal } from '@/components/SectionReveal';
-import ViewportLazy from '@/components/ViewportLazy';
 
 // PAGESPEED FIX: Lazy load ALL heavy below-fold components to reduce TBT and improve FCP
 const PartyPlanningChecklist = lazy(() => import('@/components/PartyPlanningChecklist'));
@@ -687,15 +686,15 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Fleet Section - Viewport-aware lazy loading to reduce TBT and improve LCP */}
-      <ViewportLazy minHeight="600px" rootMargin="300px">
+      {/* Fleet Section */}
+      <Suspense fallback={<div className="animate-pulse bg-gray-100 dark:bg-gray-800 rounded-lg" style={{ minHeight: '600px' }} />}>
         <FleetSection />
-      </ViewportLazy>
+      </Suspense>
 
-      {/* Quote Builder Section - Viewport-aware lazy loading */}
-      <ViewportLazy minHeight="500px" rootMargin="300px">
+      {/* Quote Builder Section */}
+      <Suspense fallback={<div className="animate-pulse bg-gray-100 dark:bg-gray-800 rounded-lg" style={{ minHeight: '500px' }} />}>
         <QuoteBuilderSection />
-      </ViewportLazy>
+      </Suspense>
 
       {/* Services Section */}
       <SectionReveal>
@@ -1775,10 +1774,10 @@ export default function Home() {
         </section>
       </SectionReveal>
 
-      {/* Party Planning Checklist - Viewport-aware lazy loading */}
-      <ViewportLazy minHeight="300px" rootMargin="200px">
+      {/* Party Planning Checklist */}
+      <Suspense fallback={<div className="animate-pulse bg-gray-100 dark:bg-gray-800 rounded-lg" style={{ minHeight: '300px' }} />}>
         <PartyPlanningChecklist partyType="Lake Travis Party" eventType="celebration" />
-      </ViewportLazy>
+      </Suspense>
 
       {/* AI-Optimized Conversational Q&A Content */}
       <section className="py-16 bg-white dark:bg-gray-950">
@@ -2272,10 +2271,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Related Services Section - Viewport-aware lazy loading */}
-      <ViewportLazy minHeight="200px" rootMargin="200px">
+      {/* Related Services Section */}
+      <Suspense fallback={<div className="animate-pulse bg-gray-100 dark:bg-gray-800 rounded-lg" style={{ minHeight: '200px' }} />}>
         <RelatedServicesSection currentPath="/" />
-      </ViewportLazy>
+      </Suspense>
 
       {/* Social Proof Counter Section - Hormozi/McDowell Style */}
       <section className="py-16 bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 text-white relative overflow-hidden">
@@ -2388,8 +2387,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Quick Answer Boxes Section - Viewport-aware lazy loading */}
-      <ViewportLazy minHeight="300px" rootMargin="200px">
+      {/* Quick Answer Boxes Section */}
+      <Suspense fallback={<div className="animate-pulse bg-gray-100 dark:bg-gray-800 rounded-lg" style={{ minHeight: '300px' }} />}>
         <section className="py-12 bg-white dark:bg-gray-900">
           <div className="container mx-auto px-6">
             <QuickAnswerBoxGroup
@@ -2434,12 +2433,12 @@ export default function Home() {
             />
           </div>
         </section>
-      </ViewportLazy>
+      </Suspense>
 
-      {/* Footer - Viewport-aware lazy loading */}
-      <ViewportLazy minHeight="400px" rootMargin="200px">
+      {/* Footer */}
+      <Suspense fallback={<div className="animate-pulse bg-gray-100 dark:bg-gray-800 rounded-lg" style={{ minHeight: '400px' }} />}>
         <Footer />
-      </ViewportLazy>
+      </Suspense>
       </div>{/* Close CLS fix wrapper */}
       </LazyMotionProvider>
     </div>
