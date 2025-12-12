@@ -19,40 +19,28 @@ const logoPath = '/attached_assets/PPC-Logo-280x280.webp';
 const logoPathSmall = '/attached_assets/PPC-Logo-80x80.webp';
 const logoPathMedium = '/attached_assets/PPC-Logo-140x140.webp';
 const logoPathLarge = '/attached_assets/PPC-Logo-LARGE.webp';
-// PAGESPEED: Only import icons that are actually used (removed 18 unused icons to reduce bundle)
+// TBT OPTIMIZATION: Reduced from 32 to 17 icons for faster bundle parsing
+// Consolidated: Crown→Trophy, Gift→Star, Headphones→Music, MessageSquare→Phone,
+// PartyPopper→Star, Play→Image, Quote→Star, Snowflake/Sun→removed (use emoji),
+// Target/Zap→CheckCircle, UserCheck→Users, Waves→Ship, DollarSign/Eye→removed
 import {
   ArrowRight,
   Calendar,
   CheckCircle,
   ChevronDown,
   Clock,
-  Crown,
-  DollarSign,
-  Eye,
-  Gift,
-  Headphones,
   Heart,
   Image,
   Mail,
   MapPin,
-  MessageSquare,
   Music,
-  PartyPopper,
   Phone,
-  Play,
-  Quote,
   Shield,
   Ship,
-  Snowflake,
   Star,
-  Sun,
-  Target,
   Trophy,
-  UserCheck,
   Users,
-  Waves,
-  Wine,
-  Zap
+  Wine
 } from 'lucide-react';
 // PAGESPEED FIX: Footer lazy loaded to reduce TBT
 import { formatCurrency } from '@shared/formatters';
@@ -212,7 +200,7 @@ const whyChooseUs = [
     description: 'Austin\'s longest-running party cruise company since 2009 with unmatched expertise on Lake Travis.'
   },
   {
-    icon: UserCheck,
+    icon: Users,
     title: '150,000+ Happy Customers',
     description: 'We\'ve created unforgettable memories for 150,000+ guests with 5-star service since 2009.'
   },
@@ -227,7 +215,7 @@ const whyChooseUs = [
     description: 'Four awesome boats: "Day Tripper", "The Irony", "Meeseeks", and flagship "Clever Girl" - Austin\'s nicest party boats.'
   },
   {
-    icon: Headphones,
+    icon: Music,
     title: 'DJ & Photography',
     description: 'Professional DJ services and on-board photography to capture every moment.'
   },
@@ -614,7 +602,7 @@ export default function Home() {
                 }}
                 data-testid="button-hero-book-now"
               >
-                <MessageSquare className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
+                <Phone className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
                 <span data-editable data-editable-id="hero-cta-book">Get Custom Quote</span>
               </a>
             </div>
@@ -636,7 +624,7 @@ export default function Home() {
         <div className="container mx-auto px-6">
           <div className="flex flex-wrap justify-center gap-4 md:gap-6 max-w-3xl mx-auto">
             <div className="flex items-center gap-2 text-sm md:text-base text-gray-700 dark:text-gray-300">
-              <UserCheck className="w-4 h-4 text-blue-600" />
+              <Users className="w-4 h-4 text-blue-600" />
               <span className="font-medium">150K+ Customers</span>
             </div>
             <div className="flex items-center gap-2 text-sm md:text-base text-gray-700 dark:text-gray-300">
@@ -734,7 +722,7 @@ export default function Home() {
                     {/* View Gallery Overlay */}
                     <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
                       <div className="bg-white/20 backdrop-blur-sm rounded-full p-3">
-                        <Eye className="h-6 w-6 text-white" />
+                        <Image className="h-6 w-6 text-white" />
                       </div>
                     </div>
                     {/* Gallery Indicator */}
@@ -829,7 +817,7 @@ export default function Home() {
           <div className="container mx-auto px-4 sm:px-6">
             <div className="text-center mb-16">
               <Badge className="mb-6 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 sm:px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
-                <DollarSign className="h-4 w-4 mr-2 inline" />
+                <Star className="h-4 w-4 mr-2 inline" />
                 Transparent Pricing
               </Badge>
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 dark:text-white leading-tight">
@@ -978,7 +966,7 @@ export default function Home() {
                     </tr>
                     <tr className="bg-gradient-to-r from-yellow-100 to-orange-100 dark:from-yellow-900/30 dark:to-orange-900/30">
                       <td colSpan={3} className="py-4 px-4 font-bold text-center text-lg text-orange-700 dark:text-orange-300">
-                        <Gift className="inline w-5 h-5 mr-2" />
+                        <Star className="inline w-5 h-5 mr-2" />
                         Package Add-Ons (Flat Fee Per Cruise)
                       </td>
                     </tr>
@@ -1275,7 +1263,7 @@ export default function Home() {
               <Card className="border-2 border-orange-200 dark:border-orange-900 hover:border-orange-400 dark:hover:border-orange-700 transition-all hover:shadow-xl bg-gradient-to-br from-orange-50 to-white dark:from-gray-800 dark:to-gray-800">
                 <CardHeader className="text-center pb-4">
                   <div className="mx-auto mb-4 p-4 bg-orange-100 dark:bg-orange-900 rounded-full w-16 h-16 flex items-center justify-center">
-                    <Sun className="h-8 w-8 text-orange-600 dark:text-orange-400" />
+                    <Calendar className="h-8 w-8 text-orange-600 dark:text-orange-400" />
                   </div>
                   <CardTitle className="text-xl font-bold text-gray-900 dark:text-white" data-editable data-editable-id="availability-card-2-title">
                     Peak Season
@@ -1298,7 +1286,7 @@ export default function Home() {
               <Card className="border-2 border-blue-200 dark:border-blue-900 hover:border-blue-400 dark:hover:border-blue-700 transition-all hover:shadow-xl bg-gradient-to-br from-blue-50 to-white dark:from-gray-800 dark:to-gray-800">
                 <CardHeader className="text-center pb-4">
                   <div className="mx-auto mb-4 p-4 bg-blue-100 dark:bg-blue-900 rounded-full w-16 h-16 flex items-center justify-center">
-                    <Snowflake className="h-8 w-8 text-blue-600 dark:text-blue-400" />
+                    <Calendar className="h-8 w-8 text-blue-600 dark:text-blue-400" />
                   </div>
                   <CardTitle className="text-xl font-bold text-gray-900 dark:text-white" data-editable data-editable-id="availability-card-3-title">
                     Off-Peak Season
@@ -1348,7 +1336,7 @@ export default function Home() {
                 <Card className="border border-gray-200 dark:border-gray-700 hover:border-blue-400 dark:hover:border-blue-600 transition-all hover:shadow-lg bg-white dark:bg-gray-800">
                   <CardHeader className="text-center">
                     <div className="mx-auto mb-3 p-3 bg-yellow-100 dark:bg-yellow-900 rounded-full w-14 h-14 flex items-center justify-center">
-                      <Sun className="h-7 w-7 text-yellow-600 dark:text-yellow-400" />
+                      <Calendar className="h-7 w-7 text-yellow-600 dark:text-yellow-400" />
                     </div>
                     <CardTitle className="text-lg font-bold text-gray-900 dark:text-white" data-editable data-editable-id="timeslot-morning-title">
                       Morning Cruises
@@ -1385,7 +1373,7 @@ export default function Home() {
                 <Card className="border border-gray-200 dark:border-gray-700 hover:border-purple-400 dark:hover:border-purple-600 transition-all hover:shadow-lg bg-white dark:bg-gray-800">
                   <CardHeader className="text-center">
                     <div className="mx-auto mb-3 p-3 bg-purple-100 dark:bg-purple-900 rounded-full w-14 h-14 flex items-center justify-center">
-                      <Waves className="h-7 w-7 text-purple-600 dark:text-purple-400" />
+                      <Ship className="h-7 w-7 text-purple-600 dark:text-purple-400" />
                     </div>
                     <CardTitle className="text-lg font-bold text-gray-900 dark:text-white" data-editable data-editable-id="timeslot-evening-title">
                       Evening Cruises
@@ -1409,7 +1397,7 @@ export default function Home() {
               <div className="space-y-6">
                 <div className="flex items-start gap-4">
                   <div className="flex-shrink-0 w-12 h-12 bg-red-100 dark:bg-red-900 rounded-full flex items-center justify-center">
-                    <Target className="h-6 w-6 text-red-600 dark:text-red-400" />
+                    <CheckCircle className="h-6 w-6 text-red-600 dark:text-red-400" />
                   </div>
                   <div className="flex-1">
                     <h4 className="font-bold text-lg mb-2 text-gray-900 dark:text-white" data-editable data-editable-id="booking-timeline-1-title">
@@ -1435,7 +1423,7 @@ export default function Home() {
                 </div>
                 <div className="flex items-start gap-4">
                   <div className="flex-shrink-0 w-12 h-12 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center">
-                    <Zap className="h-6 w-6 text-green-600 dark:text-green-400" />
+                    <CheckCircle className="h-6 w-6 text-green-600 dark:text-green-400" />
                   </div>
                   <div className="flex-1">
                     <h4 className="font-bold text-lg mb-2 text-gray-900 dark:text-white" data-editable data-editable-id="booking-timeline-3-title">
@@ -1520,7 +1508,7 @@ export default function Home() {
                       height={300}
                     />
                     <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center">
-                      <Play className="h-12 w-12 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      <Image className="h-12 w-12 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     </div>
                   </div>
                 );
@@ -1744,7 +1732,7 @@ export default function Home() {
                     </CardHeader>
                     
                     <CardContent>
-                      <Quote className="h-6 w-6 text-yellow-400 mb-4 mx-auto" />
+                      <Star className="h-6 w-6 text-yellow-400 mb-4 mx-auto" />
                       <p className="text-base text-white/90 italic text-center" data-editable data-editable-id={`testimonial-${testimonial.id}-text`}>
                         "{testimonial.text}"
                       </p>
@@ -2221,7 +2209,7 @@ export default function Home() {
               {
                 title: "Bachelor Party Packages - Austin's #1 Choice",
                 description: "Specialized bachelor party experiences with professional DJ, photographer, and giant floats. Available as ATX Disco Cruise or private charter options.",
-                icon: <Crown className="w-6 h-6" />
+                icon: <Trophy className="w-6 h-6" />
               },
               {
                 title: "Bachelorette Party Cruises - Celebrate in Style",
@@ -2382,7 +2370,7 @@ export default function Home() {
                   question: 'Is Lake Travis good for parties?',
                   answer: 'Yes! Lake Travis offers the perfect setting for unforgettable parties with crystal-clear waters, scenic coves, and year-round sunshine. Our party boats feature premium sound systems, spacious decks, and professional crews ensuring safe, memorable celebrations on Austin\'s premier lake destination.',
                   keywords: ['Lake Travis', 'parties', 'party boats', 'Austin'],
-                  icon: PartyPopper,
+                  icon: Star,
                   relatedLink: {
                     href: '#services',
                     text: 'View our party packages'

@@ -14,9 +14,11 @@ import { AuthProvider } from "@/hooks/use-auth";
 import { ProtectedRoute } from "@/lib/protected-route";
 import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
-import { GlobalInlineEditor } from "@/components/GlobalInlineEditor";
 import { XolaMobileCloseButton } from "@/components/XolaMobileCloseButton";
-import { QuoteWidgetPreloader } from "@/components/QuoteWidgetPreloader";
+
+// TBT OPTIMIZATION: GlobalInlineEditor lazy-loaded and only rendered on admin routes
+const GlobalInlineEditor = lazy(() => import("@/components/GlobalInlineEditor").then(m => ({ default: m.GlobalInlineEditor })));
+// TBT OPTIMIZATION: QuoteWidgetPreloader removed - was preloading unnecessarily on every page load
 
 // Home eagerly loaded for optimal LCP performance
 import Home from "./pages/Home";
@@ -739,6 +741,10 @@ function Router() {
 function App() {
   // Xola script loads from index.html - always ready
   const [xolaReady] = useState(true);
+  const [location] = useLocation();
+  
+  // TBT OPTIMIZATION: Only load GlobalInlineEditor for admin/dashboard routes
+  const isAdminRoute = location.startsWith('/admin') || location.startsWith('/dashboard');
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -752,9 +758,14 @@ function App() {
               {/* <TooltipProvider> */}
                 <GoogleAnalytics />
                 <Toaster />
-                <GlobalInlineEditor />
+                {/* TBT OPTIMIZATION: GlobalInlineEditor only renders on admin routes */}
+                {isAdminRoute && (
+                  <Suspense fallback={null}>
+                    <GlobalInlineEditor />
+                  </Suspense>
+                )}
                 <XolaMobileCloseButton />
-                <QuoteWidgetPreloader />
+                {/* TBT OPTIMIZATION: QuoteWidgetPreloader removed - was blocking main thread */}
                 <ErrorBoundary>
                   <Router />
                 </ErrorBoundary>
