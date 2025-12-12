@@ -1525,14 +1525,10 @@ export function ssrMiddleware() {
       return next();
     }
     
-    // Skip individual blog post routes (with slugs) - they have custom SSR handler
-    // BUT allow /blogs listing page through for general SSR
-    // Custom handler: /blog/:slug and /blogs/:slug
-    // General SSR: /blogs (listing page)
-    if ((pathname.startsWith('/blog/') && pathname.length > 6) || 
-        (pathname.startsWith('/blogs/') && pathname.length > 7)) {
-      return next();
-    }
+    // CRITICAL SEO FIX: Blog posts MUST go through SSR for unique meta tags
+    // Previously this skipped blog posts, causing all 43+ pages to have duplicate titles/descriptions
+    // Now blog posts use full SSR rendering with metadata from blogMetadataRegistry
+    // The renderPage() function handles /blogs/* routes with proper H1, content, and meta injection
     
     // Check if we have schemas for this route (even if not SSR)
     const schemas = getSchemaForRoute(pathname);
