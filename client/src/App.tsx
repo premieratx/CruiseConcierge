@@ -69,6 +69,7 @@ const BirthdayPartyBoatRentalsLakeTravis = lazy(() => import("./pages/blog/Birth
 const CorporateTeamBuildingLakeTravis = lazy(() => import("./pages/blog/CorporateTeamBuildingLakeTravis"));
 const LakeTravisLargeGroupBoatRentals = lazy(() => import("./pages/blog/LakeTravisLargeGroupBoatRentals"));
 const WhyChooseAustinBachelorParty = lazy(() => import("./pages/blog/WhyChooseAustinBachelorParty"));
+const WhyChooseAustinBacheloretteParty = lazy(() => import("./pages/blog/WhyChooseAustinBacheloretteParty"));
 const AustinBachelorPartyJanuary = lazy(() => import("./pages/blog/AustinBachelorPartyJanuary"));
 const AustinBachelorPartyMarch = lazy(() => import("./pages/blog/AustinBachelorPartyMarch"));
 const AustinBachelorPartyMay = lazy(() => import("./pages/blog/AustinBachelorPartyMay"));
@@ -365,6 +366,7 @@ function Router() {
       <Route path="/blogs/lake-travis-party-boat-rentals-ultimate-guide-for-large-group-events-20-guests" component={LakeTravisLargeGroupBoatRentals} />
       <Route path="/blogs/party-alcohol-safety-in-austin-responsible-service-and-guest-well-being" component={PartyAlcoholSafetyAustin} />
       <Route path="/blogs/why-choose-austin-bachelor-party" component={WhyChooseAustinBachelorParty} />
+      <Route path="/blogs/why-choose-austin-bachelorette-party" component={WhyChooseAustinBacheloretteParty} />
       <Route path="/blogs/austin-bachelor-party-january" component={AustinBachelorPartyJanuary} />
       <Route path="/blogs/austin-bachelor-party-march" component={AustinBachelorPartyMarch} />
       <Route path="/blogs/austin-bachelor-party-may" component={AustinBachelorPartyMay} />
