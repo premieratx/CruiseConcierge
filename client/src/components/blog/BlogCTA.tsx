@@ -41,7 +41,7 @@ export function BlogCTA({
     "text-lg font-bold shadow-lg transition-all hover:scale-105",
     isPrimary
       ? "bg-gradient-to-r from-brand-blue to-purple-600 hover:from-brand-blue/90 hover:to-purple-600/90 text-white"
-      : "border-2 border-brand-blue text-brand-blue hover:bg-brand-blue hover:text-white",
+      : "bg-transparent border-2 border-brand-blue text-gray-900 dark:text-white hover:bg-brand-blue hover:text-white",
     className
   );
 
