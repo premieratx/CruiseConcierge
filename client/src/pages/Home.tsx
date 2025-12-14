@@ -686,11 +686,11 @@ export default function Home() {
             {services.map((service, index) => (
               <m.div
                 key={service.id}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: "-50px" }}
-                variants={scaleIn}
-                transition={{ delay: index * 0.2 }}
+                initial={reducedMotion ? undefined : "hidden"}
+                whileInView={reducedMotion ? undefined : "visible"}
+                viewport={reducedMotion ? undefined : { once: true, margin: "-50px" }}
+                variants={reducedMotion ? undefined : scaleIn}
+                transition={reducedMotion ? undefined : { delay: index * 0.2 }}
                 className={cn(
                   "group relative",
                   service.popular && "lg:scale-105"
@@ -2266,74 +2266,39 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            {/* Parties Hosted Counter */}
-            <m.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-center"
-            >
+            {/* Parties Hosted Counter - CLS FIX: No animations on mobile */}
+            <div className="text-center">
               <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20">
                 <div className="text-4xl sm:text-5xl md:text-6xl font-bold mb-2">
-                  <m.span
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    transition={{ duration: 0.5 }}
-                  >
-                    1,000s
-                  </m.span>
+                  1,000s
                 </div>
                 <div className="text-xl font-semibold">Happy Guests</div>
                 <div className="text-sm opacity-80 mt-2">Since 2009</div>
               </div>
-            </m.div>
+            </div>
 
             {/* Five-Star Reviews Counter */}
-            <m.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              className="text-center"
-            >
+            <div className="text-center">
               <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20">
                 <div className="text-4xl sm:text-5xl md:text-6xl font-bold mb-2 flex items-center justify-center gap-2">
-                  <m.span
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    transition={{ duration: 0.5, delay: 0.1 }}
-                  >
-                    420+
-                  </m.span>
+                  420+
                   <Star className="h-10 w-10 fill-yellow-400 text-yellow-400" />
                 </div>
                 <div className="text-xl font-semibold">Five-Star Reviews</div>
                 <div className="text-sm opacity-80 mt-2">4.9/5 Average Rating</div>
               </div>
-            </m.div>
+            </div>
 
             {/* Weather Guarantee Counter */}
-            <m.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              className="text-center"
-            >
+            <div className="text-center">
               <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20">
                 <div className="text-4xl sm:text-5xl md:text-6xl font-bold mb-2">
-                  <m.span
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    transition={{ duration: 0.5, delay: 0.2 }}
-                  >
-                    100%
-                  </m.span>
+                  100%
                 </div>
                 <div className="text-xl font-semibold">Weather Guarantee</div>
                 <div className="text-sm opacity-80 mt-2">Full Refund Protection</div>
               </div>
-            </m.div>
+            </div>
           </div>
 
           {/* Final CTA */}

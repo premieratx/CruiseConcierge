@@ -10,6 +10,7 @@ import {
 } from 'lucide-react';
 import { formatCurrency } from '@shared/formatters';
 import { HOURLY_RATES, PACKAGE_FLAT_FEES, CREW_FEES } from '@shared/constants';
+import { useReducedMotion } from '@/hooks/use-reduced-motion';
 
 interface LightboxImage {
   id: string;
@@ -320,6 +321,7 @@ export default function FleetSection() {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [selectedBoat, setSelectedBoat] = useState<BoatDetails | null>(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const reducedMotion = useReducedMotion();
 
   const openDialog = (boat: BoatDetails) => {
     setSelectedBoat(boat);
@@ -348,10 +350,10 @@ export default function FleetSection() {
       <section className="py-10 sm:py-16 bg-gradient-to-b from-white to-blue-50 dark:from-gray-900 dark:to-gray-800">
         <div className="container mx-auto px-3 sm:px-4">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            initial={reducedMotion ? undefined : { opacity: 0, y: 20 }}
+            whileInView={reducedMotion ? undefined : { opacity: 1, y: 0 }}
+            viewport={reducedMotion ? undefined : { once: true }}
+            transition={reducedMotion ? undefined : { duration: 0.6 }}
             className="text-center mb-6 sm:mb-12"
           >
             <Badge 
@@ -378,10 +380,10 @@ export default function FleetSection() {
             {boats.map((boat, index) => (
               <motion.div
                 key={boat.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                initial={reducedMotion ? undefined : { opacity: 0, y: 30 }}
+                whileInView={reducedMotion ? undefined : { opacity: 1, y: 0 }}
+                viewport={reducedMotion ? undefined : { once: true }}
+                transition={reducedMotion ? undefined : { duration: 0.5, delay: index * 0.1 }}
               >
                 <Card className={`relative overflow-hidden h-full hover:shadow-xl transition-all duration-300 ${boat.highlighted ? 'ring-2 ring-brand-yellow' : ''}`}>
                   <div className="relative h-40 sm:h-52 overflow-hidden">
@@ -505,10 +507,10 @@ export default function FleetSection() {
 
           {/* CTA to Quote Builder */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.3 }}
+            initial={reducedMotion ? undefined : { opacity: 0, y: 20 }}
+            whileInView={reducedMotion ? undefined : { opacity: 1, y: 0 }}
+            viewport={reducedMotion ? undefined : { once: true }}
+            transition={reducedMotion ? undefined : { duration: 0.6, delay: 0.3 }}
             className="text-center mt-6 sm:mt-10"
           >
             <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 mb-2 sm:mb-4">

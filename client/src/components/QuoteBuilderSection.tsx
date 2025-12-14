@@ -28,29 +28,9 @@ export default function QuoteBuilderSection() {
     return () => observer.disconnect();
   }, [isVisible]);
 
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const handleMessage = (event: MessageEvent) => {
-        if (event.origin !== 'https://booking.premierpartycruises.com') return;
-        
-        if (event.data.type === 'quote-v2-resize') {
-          const iframe = document.getElementById('quote-v2-widget-iframe') as HTMLIFrameElement;
-          const container = document.getElementById('quote-v2-widget-container');
-          if (iframe && event.data.height) {
-            const newHeight = event.data.height + 100;
-            iframe.style.transition = 'height 0.3s ease-in-out';
-            iframe.style.height = newHeight + 'px';
-            if (container) {
-              (container as HTMLElement).style.minHeight = newHeight + 'px';
-            }
-          }
-        }
-      };
-      
-      window.addEventListener('message', handleMessage);
-      return () => window.removeEventListener('message', handleMessage);
-    }
-  }, []);
+  // CLS FIX: Dynamic iframe resizing removed to prevent layout shifts
+  // The iframe uses a fixed height of 660px which accommodates all content
+  // Dynamic resizing was causing CLS score of 1.0 on mobile PageSpeed
 
   return (
     <section ref={sectionRef} id="quote-builder" className="py-16 bg-gradient-to-br from-brand-blue via-purple-600 to-blue-700" style={{ position: 'relative', zIndex: 0 }}>
