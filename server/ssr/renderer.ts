@@ -1429,7 +1429,17 @@ window.__vite_plugin_react_preamble_installed__ = true
     const isStaticBlog = isStaticBlogRoute(pathname);
     const isBlogListing = pathname === '/blog' || pathname === '/blogs';
     
-    if (isBlogPost || isStaticBlog) {
+    // PAGESPEED CLS FIX: Homepage should NOT have SSR fallback content
+    // The hero section has a completely different layout than the SSR content,
+    // causing massive CLS (1.0) when React hydrates. SEO metadata is already
+    // injected in <head> (title, description, schema), so we don't need body content.
+    const isHomepage = pathname === '/';
+    
+    if (isHomepage) {
+      // Homepage: Empty root div only - prevents CLS from SSR/React layout mismatch
+      // All SEO data (title, meta, schema) is already in <head>
+      ssrContent = '<div id="root"></div>';
+    } else if (isBlogPost || isStaticBlog) {
       // Blog posts (WordPress + static React): empty root div + hidden SEO content for crawlers
       // noscript ensures content is visible to bots but hidden from React hydration
       ssrContent = `<div id="root"></div>
