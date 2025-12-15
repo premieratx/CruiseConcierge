@@ -698,6 +698,28 @@ export const blogMetadataRegistry: Record<string, BlogMetadata> = {
     author: 'Premier Party Cruises',
     heroImage: 'https://premierpartycruises.com/media/schema/group-swimming-lilypad.jpg',
     keywords: ['Lake Travis weather', 'seasonal boat party', 'Austin weather planning', 'Lake Travis best months', 'year-round boating Austin']
+  },
+
+  'blogs/why-choose-austin-bachelorette-party': {
+    slug: 'blogs/why-choose-austin-bachelorette-party',
+    title: 'Why Choose Austin for Your Bachelorette Party: Top 10 Reasons',
+    description: 'Discover the top 10 reasons Austin is perfect for bachelorette parties. Lake Travis boats, world-class food, legendary nightlife, and more.',
+    publishDate: '2025-02-20',
+    modifiedDate: '2025-12-15',
+    author: 'Premier Party Cruises',
+    heroImage: 'https://premierpartycruises.com/attached_assets/clever girl-10 austin bachelorette party_1763966476658.jpg',
+    keywords: ['Austin bachelorette party', 'why Austin bachelorette', 'Lake Travis bachelorette', 'Austin nightlife bachelorette', 'bachelorette party ideas']
+  },
+
+  'blogs/integrated-austin-event-services-combining-alcohol-delivery-and-boat-rentals-for-perfect-celebrations': {
+    slug: 'blogs/integrated-austin-event-services-combining-alcohol-delivery-and-boat-rentals-for-perfect-celebrations',
+    title: 'Integrated Austin Event Services: Alcohol Delivery & Boat Rentals',
+    description: 'Planning an event in Austin? Discover how Premier Party Cruises offers seamless Lake Travis boat rentals for bachelor/bachelorette parties, corporate events, weddings, and more.',
+    publishDate: '2025-01-15',
+    modifiedDate: '2025-12-15',
+    author: 'Premier Party Cruises',
+    heroImage: 'https://premierpartycruises.com/attached_assets/atx-disco-cruise-party.webp',
+    keywords: ['Austin event services', 'Lake Travis party planning', 'Austin party boat rental', 'bachelor party Austin', 'bachelorette party Austin', 'corporate events Austin']
   }
 };
 

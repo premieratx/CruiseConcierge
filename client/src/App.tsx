@@ -163,6 +163,7 @@ const PricingBreakdown = lazy(() => import("./pages/PricingBreakdown"));
 // Blog Content Pages - Lazy loaded
 const LakeTravisBoatRentalGuide = lazy(() => import("./pages/LakeTravisBoatRentalGuide"));
 const FirstTimeLakeTravisGuide = lazy(() => import("./pages/blog/FirstTimeLakeTravisGuide"));
+const IntegratedAustinEventServices = lazy(() => import("./pages/blog/IntegratedAustinEventServices"));
 const BirthdayPartyAustinGuide = lazy(() => import("./pages/BirthdayPartyAustinGuide"));
 const LakeTravisLargeGroupsGuide = lazy(() => import("./pages/LakeTravisLargeGroupsGuide"));
 const LakeTravisWeatherGuide = lazy(() => import("./pages/LakeTravisWeatherGuide"));
@@ -355,6 +356,7 @@ function Router() {
       <Route path="/blogs/austin-party-venue-alcohol-delivery-navigating-policies-and-logistics" component={AustinPartyVenueAlcoholDelivery} />
       <Route path="/blogs/lake-travis-boat-party-logistics-complete-planning-and-coordination-guide" component={LakeTravisBoatPartyLogistics} />
       <Route path="/blogs/first-time-lake-travis-boat-rental-essential-tips-for-austin-party-planning" component={FirstTimeLakeTravisGuide} />
+      <Route path="/blogs/integrated-austin-event-services-combining-alcohol-delivery-and-boat-rentals-for-perfect-celebrations" component={IntegratedAustinEventServices} />
       <Route path="/blog/birthday-party-alcohol-delivery-austin-milestone-celebrations-made-easy" component={BirthdayPartyAustinGuide} />
       <Route path="/blog/lake-travis-party-boat-rentals-ultimate-guide-for-large-group-events-20-guests" component={LakeTravisLargeGroupsGuide} />
       <Route path="/blog/lake-travis-weather-planning-seasonal-considerations-for-perfect-boat-parties" component={LakeTravisWeatherGuide} />
