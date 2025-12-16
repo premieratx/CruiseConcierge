@@ -62,8 +62,8 @@ export function TableOfContents({ sections, className }: TableOfContentsProps) {
       )}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Horizontal Scroll Container */}
-        <div className="overflow-x-auto scrollbar-hide py-3">
+        {/* Horizontal Scroll Container - Height reduced 30% */}
+        <div className="overflow-x-auto scrollbar-hide py-2">
           <nav className="flex gap-2 min-w-max">
             {sections.map((section) => (
               <button

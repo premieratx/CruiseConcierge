@@ -7,7 +7,7 @@ interface LazyMotionProviderProps {
 
 export function LazyMotionProvider({ children }: LazyMotionProviderProps) {
   return (
-    <LazyMotion features={domAnimation} strict>
+    <LazyMotion features={domAnimation}>
       {children}
     </LazyMotion>
   );

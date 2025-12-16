@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { m } from '@/components/LazyMotion';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -349,7 +349,7 @@ export default function FleetSection() {
     <>
       <section className="py-10 sm:py-16 bg-gradient-to-b from-white to-blue-50 dark:from-gray-900 dark:to-gray-800">
         <div className="container mx-auto px-3 sm:px-4">
-          <motion.div
+          <m.div
             initial={reducedMotion ? undefined : { opacity: 0, y: 20 }}
             whileInView={reducedMotion ? undefined : { opacity: 1, y: 0 }}
             viewport={reducedMotion ? undefined : { once: true }}
@@ -374,11 +374,11 @@ export default function FleetSection() {
             >
               Custom-built party boats for 1-75 guests
             </p>
-          </motion.div>
+          </m.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-7xl mx-auto">
             {boats.map((boat, index) => (
-              <motion.div
+              <m.div
                 key={boat.id}
                 initial={reducedMotion ? undefined : { opacity: 0, y: 30 }}
                 whileInView={reducedMotion ? undefined : { opacity: 1, y: 0 }}
@@ -501,12 +501,12 @@ export default function FleetSection() {
                     </Button>
                   </CardContent>
                 </Card>
-              </motion.div>
+              </m.div>
             ))}
           </div>
 
           {/* CTA to Quote Builder */}
-          <motion.div
+          <m.div
             initial={reducedMotion ? undefined : { opacity: 0, y: 20 }}
             whileInView={reducedMotion ? undefined : { opacity: 1, y: 0 }}
             viewport={reducedMotion ? undefined : { once: true }}
@@ -525,7 +525,7 @@ export default function FleetSection() {
               Get Instant Quote
               <ArrowRight className="ml-1 sm:ml-2 h-4 w-4 sm:h-5 sm:w-5" />
             </Button>
-          </motion.div>
+          </m.div>
         </div>
       </section>
 

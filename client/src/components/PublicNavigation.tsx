@@ -468,8 +468,8 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
       </header>
       </div>
 
-      {/* Spacer for fixed header + banner */}
-      <div className="h-[calc(5rem+2.5rem)]" />
+      {/* Spacer for fixed header + banner - hidden on homepage where hero extends behind header */}
+      {location !== '/' && <div className="h-[calc(5rem+2.5rem)]" />}
 
       {/* Mobile Bottom Navigation Bar */}
       <nav 
