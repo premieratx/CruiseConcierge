@@ -20,7 +20,7 @@ import Lightbox from '@/components/Lightbox';
 import { EmbeddedQuoteBuilder } from '@/components/EmbeddedQuoteBuilder';
 import { BACHELORETTE_GALLERY, DISCO_FUN_PHOTOS, BOAT_SCENIC_PHOTOS } from '@/lib/media';
 
-import heroImage from '@assets/bachelorette-hero-compressed.webp';
+import heroImage from '@assets/dancing-party-scene.webp';
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 20 },
