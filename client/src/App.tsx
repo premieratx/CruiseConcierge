@@ -84,6 +84,8 @@ const AustinBachelorettePartyOctober = lazy(() => import("./pages/blog/AustinBac
 const AustinBachelorettePartyDecember = lazy(() => import("./pages/blog/AustinBachelorettePartyDecember"));
 const EpicBachelorPartyAustinGuide = lazy(() => import("./pages/blog/EpicBachelorPartyAustinGuide"));
 const EpicBachelorettePartyAustinGuide = lazy(() => import("./pages/blog/EpicBachelorettePartyAustinGuide"));
+const HowToThrowBachelorPartyAustin = lazy(() => import("./pages/blog/HowToThrowBachelorPartyAustin"));
+const HowToThrowBachelorettePartyAustin = lazy(() => import("./pages/blog/HowToThrowBachelorettePartyAustin"));
 
 // Site Directory Page - Lazy loaded
 const SiteDirectory = lazy(() => import("./pages/SiteDirectory"));
@@ -383,6 +385,8 @@ function Router() {
       <Route path="/blogs/austin-bachelorette-party-december" component={AustinBachelorettePartyDecember} />
       <Route path="/blogs/epic-bachelor-party-austin-ultimate-guide" component={EpicBachelorPartyAustinGuide} />
       <Route path="/blogs/epic-bachelorette-party-austin-ultimate-guide" component={EpicBachelorettePartyAustinGuide} />
+      <Route path="/blogs/how-to-throw-great-bachelor-party-austin" component={HowToThrowBachelorPartyAustin} />
+      <Route path="/blogs/how-to-throw-great-bachelorette-party-austin" component={HowToThrowBachelorettePartyAustin} />
       
       {/* Public Booking - Commented out, using /chat instead */}
       {/* <Route path="/calendar" component={PublicCalendar} /> */}
