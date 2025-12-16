@@ -1,8 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { CheckCircle2, Clock, Sparkles } from 'lucide-react';
-import { Link } from 'wouter';
+import { CheckCircle2, Clock, Sparkles, MessageSquare } from 'lucide-react';
 import {
   DISCO_TIME_SLOTS,
   DISCO_BASE_INCLUSIONS,
@@ -73,7 +72,11 @@ export function DiscoCruisePricing({
             </CardHeader>
             
             <CardContent className="pt-0 mt-auto">
-              <Link href="/chat">
+              <div
+                className="xola-custom xola-checkout w-full"
+                data-button-id="691574bd162501edc00f151a"
+                data-testid={`xola-wrapper-${slot.id}`}
+              >
                 <Button 
                   className={`w-full ${slot.badge === 'BEST' ? 'bg-primary hover:bg-primary/90 text-white' : 'border-2 border-gray-300 bg-white text-gray-800 hover:bg-gray-50 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700'}`}
                   variant={slot.badge === 'BEST' ? 'default' : 'outline'}
@@ -81,10 +84,29 @@ export function DiscoCruisePricing({
                 >
                   Book This Time Slot
                 </Button>
-              </Link>
+              </div>
             </CardContent>
           </Card>
         ))}
+      </div>
+
+      {/* Get a Quote Button */}
+      <div className="mt-6 text-center">
+        <a 
+          href="/chat" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          data-testid="button-get-quote-disco"
+        >
+          <Button 
+            variant="outline" 
+            size="lg"
+            className="border-2 border-primary text-primary hover:bg-primary hover:text-white transition-colors"
+          >
+            <MessageSquare className="mr-2 h-5 w-5" />
+            Get a Quote
+          </Button>
+        </a>
       </div>
 
       <Card className="mt-8 bg-yellow-50 dark:bg-yellow-950/30 border-yellow-200">
