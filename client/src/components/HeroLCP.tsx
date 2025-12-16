@@ -30,10 +30,10 @@ export function HeroLCP() {
               alt="Lake Travis party boat cruise with happy guests celebrating"
               className="w-full h-full object-cover opacity-60"
               loading="eager"
-              fetchPriority="high"
               decoding="sync"
               width={1920}
               height={1080}
+              {...{ fetchpriority: "high" }}
             />
           </picture>
           <div className="absolute inset-0 bg-gradient-to-br from-black/15 via-black/15 to-black/15" />
@@ -50,10 +50,10 @@ export function HeroLCP() {
                   alt="Party Boat Austin - Premier Party Cruises on Lake Travis" 
                   className="h-20 md:h-24 w-auto mx-auto mb-6"
                   loading="eager"
-                  fetchPriority="high"
                   decoding="sync"
                   width={280}
                   height={280}
+                  {...{ fetchpriority: "high" }}
                 />
               </picture>
             </div>

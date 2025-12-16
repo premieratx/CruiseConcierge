@@ -9,8 +9,15 @@ import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
+// TBT OPTIMIZATION: Dialog and Collapsible lazy loaded - not needed above fold
+const Dialog = lazy(() => import('@/components/ui/dialog').then(m => ({ default: m.Dialog })));
+const DialogContent = lazy(() => import('@/components/ui/dialog').then(m => ({ default: m.DialogContent })));
+const DialogHeader = lazy(() => import('@/components/ui/dialog').then(m => ({ default: m.DialogHeader })));
+const DialogTitle = lazy(() => import('@/components/ui/dialog').then(m => ({ default: m.DialogTitle })));
+const DialogDescription = lazy(() => import('@/components/ui/dialog').then(m => ({ default: m.DialogDescription })));
+const Collapsible = lazy(() => import('@/components/ui/collapsible').then(m => ({ default: m.Collapsible })));
+const CollapsibleContent = lazy(() => import('@/components/ui/collapsible').then(m => ({ default: m.CollapsibleContent })));
+const CollapsibleTrigger = lazy(() => import('@/components/ui/collapsible').then(m => ({ default: m.CollapsibleTrigger })));
 import { cn } from '@/lib/utils';
 import { useToast } from '@/hooks/use-toast';
 import { LazyImage } from '@/components/LazyImage';
@@ -52,9 +59,11 @@ import { useReducedMotion } from '@/hooks/use-reduced-motion';
 // ComparisonTable is now lazy-loaded above
 import { type ComparisonColumn, type ComparisonRow } from '@/components/ComparisonTable';
 // PAGESPEED FIX: FeaturedSnippet removed (unused), QuickAnswerBox and RelatedServicesSection lazy loaded
-import { InternalLinkHighlight, InternalLinkHighlightWithArrow } from '@/components/InternalLinkHighlight';
-import AIOptimizedSection from '@/components/AIOptimizedSection';
-import { SectionReveal } from '@/components/SectionReveal';
+// TBT OPTIMIZATION: InternalLinkHighlight, AIOptimizedSection, SectionReveal now lazy loaded
+const InternalLinkHighlight = lazy(() => import('@/components/InternalLinkHighlight').then(m => ({ default: m.InternalLinkHighlight })));
+const InternalLinkHighlightWithArrow = lazy(() => import('@/components/InternalLinkHighlight').then(m => ({ default: m.InternalLinkHighlightWithArrow })));
+const AIOptimizedSection = lazy(() => import('@/components/AIOptimizedSection'));
+const SectionReveal = lazy(() => import('@/components/SectionReveal').then(m => ({ default: m.SectionReveal })));
 
 // PAGESPEED FIX: Lazy load ALL heavy below-fold components to reduce TBT and improve FCP
 const PartyPlanningChecklist = lazy(() => import('@/components/PartyPlanningChecklist'));
@@ -508,11 +517,11 @@ export default function Home() {
               alt="Lake Travis party boat cruise with happy guests celebrating"
               className="w-full h-full object-cover opacity-60"
               loading="eager"
-              fetchPriority="high"
               width={1920}
               height={1080}
               decoding="async"
               style={{ contentVisibility: 'auto' }}
+              {...{ fetchpriority: "high" }}
             />
           </picture>
           {/* Lighter overlay for bright and happy feel */}
@@ -534,10 +543,10 @@ export default function Home() {
                 alt="Party Boat Austin - Premier Party Cruises on Lake Travis" 
                 className="h-20 md:h-24 w-auto mx-auto mb-6"
                 loading="eager"
-                fetchPriority="high"
                 width={140}
                 height={140}
                 data-testid="img-hero-logo"
+                {...{ fetchpriority: "high" }}
               />
             </div>
 

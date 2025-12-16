@@ -265,7 +265,7 @@ export default function RehearsalDinner() {
                 width={1920}
                 height={1080}
                 loading={index === 0 ? "eager" : "lazy"}
-                fetchPriority={index === 0 ? "high" : "low"}
+                {...(index === 0 ? { fetchpriority: "high" } : {})}
               />
               <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
             </motion.div>

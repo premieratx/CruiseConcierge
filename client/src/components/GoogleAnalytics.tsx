@@ -70,7 +70,7 @@ export function GoogleAnalytics() {
         }
       };
     } else {
-      timeoutId = window.setTimeout(loadAnalytics, 1);
+      timeoutId = window.setTimeout(loadAnalytics, 3000);
       return () => {
         clearTimeout(timeoutId);
         
