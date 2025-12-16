@@ -678,6 +678,28 @@ export const blogMetadataRegistry: Record<string, BlogMetadata> = {
     keywords: ['epic bachelorette party Austin', 'ultimate bachelorette guide', 'Austin bachelorette planning', 'Lake Travis bachelorette', 'Austin nightlife bachelorette']
   },
 
+  'blogs/how-to-throw-great-bachelor-party-austin': {
+    slug: 'blogs/how-to-throw-great-bachelor-party-austin',
+    title: 'How to Throw a Great Bachelor Party in Austin | Complete Guide',
+    description: 'Learn how to throw an unforgettable bachelor party in Austin. Complete planning guide with Lake Travis boats, nightlife, budget tips. 15+ years experience.',
+    publishDate: '2025-10-03',
+    modifiedDate: '2025-12-16',
+    author: 'Premier Party Cruises',
+    heroImage: 'https://premierpartycruises.com/attached_assets/bachelor-party-group-guys-hero-compressed.webp',
+    keywords: ['how to throw bachelor party Austin', 'Austin bachelor party guide', 'bachelor party planning', 'Lake Travis bachelor party', 'Austin bachelor weekend']
+  },
+
+  'blogs/how-to-throw-great-bachelorette-party-austin': {
+    slug: 'blogs/how-to-throw-great-bachelorette-party-austin',
+    title: 'How to Throw a Great Bachelorette Party in Austin | Complete Guide',
+    description: 'Learn how to throw an unforgettable bachelorette party in Austin. Complete planning guide with Lake Travis boats, nightlife, spa ideas. 15+ years experience.',
+    publishDate: '2025-10-03',
+    modifiedDate: '2025-12-16',
+    author: 'Premier Party Cruises',
+    heroImage: 'https://premierpartycruises.com/attached_assets/dancing-party-scene.webp',
+    keywords: ['how to throw bachelorette party Austin', 'Austin bachelorette party guide', 'bachelorette party planning', 'Lake Travis bachelorette', 'Austin bachelorette weekend']
+  },
+
   'blogs/rehearsal-dinner-boat-alcohol-delivery-unique-wedding-weekend-experiences': {
     slug: 'blogs/rehearsal-dinner-boat-alcohol-delivery-unique-wedding-weekend-experiences',
     title: 'Rehearsal Dinner Boat Lake Travis | Wedding Weekend Guide',

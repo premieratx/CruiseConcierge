@@ -960,6 +960,8 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
     'austin-bachelorette-party-december',
     'epic-bachelor-party-austin-ultimate-guide',
     'epic-bachelorette-party-austin-ultimate-guide',
+    'how-to-throw-great-bachelor-party-austin',
+    'how-to-throw-great-bachelorette-party-austin',
     'holiday-celebrations-on-lake-travis-seasonal-boat-party-planning-and-coordination',
     'joint-bachelor-bachelorette-parties-with-premier-party-cruises',
     'lake-travis-wedding-boat-rentals-unique-venues-for-austin-celebrations',
