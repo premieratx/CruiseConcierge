@@ -30,6 +30,9 @@ const NotFound = lazy(() => import("@/pages/not-found"));
 // Additional lazy-loaded routes
 const Dashboard = lazy(() => import("./pages/Dashboard"));
 const Chat = lazy(() => import("./pages/Chat"));
+
+// PERFORMANCE: Preload Chat page for instant navigation from "Get a Quote" buttons
+const preloadChat = () => import("./pages/Chat");
 const BookOnline = lazy(() => import("./pages/BookOnline"));
 const BookOnlinePopUp = lazy(() => import("./pages/BookOnlinePopUp"));
 const BookNow = lazy(() => import("./pages/BookNow"));
@@ -764,6 +767,19 @@ function App() {
   
   // TBT OPTIMIZATION: Only load GlobalInlineEditor for admin/dashboard routes
   const isAdminRoute = location.startsWith('/admin') || location.startsWith('/dashboard');
+  
+  // PERFORMANCE: Preload Chat page after initial paint for instant "Get a Quote" navigation
+  useEffect(() => {
+    const preload = () => {
+      preloadChat();
+    };
+    // Use requestIdleCallback for optimal timing, fallback to setTimeout
+    if ('requestIdleCallback' in window) {
+      (window as any).requestIdleCallback(preload, { timeout: 2000 });
+    } else {
+      setTimeout(preload, 100);
+    }
+  }, []);
 
   return (
     <QueryClientProvider client={queryClient}>
