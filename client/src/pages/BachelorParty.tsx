@@ -468,7 +468,7 @@ export default function BachelorParty() {
               data-editable 
               data-editable-id="bachelor-hero-title"
             >
-              Austin Bachelor Party Cruises on Lake Travis
+              Austin Bachelor Party Boat | Lake Travis Bachelor Party Cruises
             </motion.h1>
             
             <motion.div

@@ -396,7 +396,7 @@ export default function BacheloretteParty() {
               data-editable 
               data-editable-id="bachelorette-hero-title"
             >
-              Austin Bachelorette Party Boat Cruises on Lake Travis
+              Austin Bachelorette Party Boats | Bachelorette Party in Austin
             </motion.h1>
             
             <motion.div

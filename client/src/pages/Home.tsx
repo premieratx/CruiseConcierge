@@ -401,7 +401,7 @@ export default function Home() {
 
   // Update page title for SEO
   useEffect(() => {
-    document.title = 'Premier Party Cruises | Austin Party Boat Rentals on Lake Travis | 150K+ Reviews';
+    document.title = 'Party Boat Austin | Lake Travis Bachelor & Bachelorette Cruises';
     
     // Add meta description
     const existingDesc = document.querySelector('meta[name="description"]');
@@ -490,8 +490,8 @@ export default function Home() {
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white dark:bg-gray-950" data-page-ready="home">
       <SEOHead
         pageRoute="/"
-        defaultTitle="Party Boat Austin"
-        defaultDescription="Austin's favorite party boat rentals on Lake Travis since 2009. Captained cruises for 5-75 people with all-inclusive packages. 150K+ guests. Call (512) 488-5892."
+        defaultTitle="Party Boat Austin | Lake Travis Bachelor & Bachelorette Cruises"
+        defaultDescription="Austin party boat rentals on Lake Travis since 2009. Bachelor parties, bachelorette cruises, private charters for 5-75 guests. DJ, photographer, BYOB. Book now!"
         defaultKeywords={['party boat Austin', 'bachelorette party Austin', 'Austin boat rental', 'Lake Travis party boat', 'bachelor party Austin']}
         schemaType="organization"
       />

@@ -464,7 +464,7 @@ export default function CorporateEvents() {
           
           {/* CRITICAL: H1 with text-6xl and font-playfair - Largest text on page */}
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-playfair font-extrabold mb-6 tracking-tight text-gray-900 drop-shadow-sm" data-editable data-editable-id="h1-corporate-hero">
-            Corporate Event Cruises
+            Corporate Event Venue Austin | Lake Travis Team Building & Corporate Events
           </h1>
           
           <p className="text-xl sm:text-2xl md:text-3xl text-gray-900 mb-6 md:mb-8 font-bold drop-shadow-sm max-w-3xl mx-auto leading-relaxed" data-editable data-editable-id="corporate-hero-tagline">
