@@ -459,7 +459,7 @@ export default function PrivateCruises() {
       <TableOfContents sections={tocSections} />
 
       {/* Hero Section */}
-      <section id="hero" className="relative min-h-[80vh] flex flex-col justify-center overflow-hidden bg-gray-900">
+      <section id="hero" className="relative pb-12 overflow-hidden bg-gray-900">
         {/* Local Video Background - matches homepage */}
         <div className="absolute inset-0 z-0">
           <video

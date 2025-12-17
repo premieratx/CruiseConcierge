@@ -560,30 +560,6 @@ export default function Home() {
               </h2>
             </div>
 
-            {/* Pricing Value Proposition - Smaller & 60% opacity on mobile */}
-            <div className="bg-white/60 sm:bg-white border border-gray-200/60 sm:border-gray-200 rounded-lg sm:rounded-xl p-2 sm:p-4 max-w-xs sm:max-w-2xl mx-auto mb-6 md:mb-12 backdrop-blur-sm sm:backdrop-blur-none">
-              <div className="grid grid-cols-2 sm:grid-cols-2 gap-2 sm:gap-4 text-center">
-                <div>
-                  <div className="font-sans tracking-wider font-bold uppercase text-[10px] sm:text-xs text-blue-600 mb-0.5 sm:mb-1" data-editable data-editable-id="pricing-overlay-private-label">PRIVATE CRUISES FROM:</div>
-                  <div className="text-base sm:text-2xl font-bold text-gray-900 mb-0.5 sm:mb-1" data-editable data-editable-id="pricing-overlay-private-price">
-                    $200+/hr
-                  </div>
-                  <div className="text-[10px] sm:text-xs text-gray-700" data-editable data-editable-id="pricing-overlay-private-subtitle">Starting price for Up to 14ppl • Private Cruises for 14 to 75 ppl</div>
-                </div>
-                <div>
-                  <div className="font-sans tracking-wider font-bold uppercase text-[10px] sm:text-xs text-blue-600 mb-0.5 sm:mb-1" data-editable data-editable-id="pricing-overlay-disco-label">ATX DISCO CRUISE</div>
-                  <div className="text-base sm:text-2xl font-bold text-gray-900 mb-0.5 sm:mb-1" data-editable data-editable-id="pricing-overlay-disco-price">
-                    $85+ per person
-                  </div>
-                  <div className="text-[10px] sm:text-xs text-gray-700" data-editable data-editable-id="pricing-overlay-disco-subtitle">Friday and Saturdays</div>
-                  <div className="text-[10px] sm:text-xs text-gray-600 mt-0.5" data-editable data-editable-id="pricing-overlay-disco-restriction">Bachelorette and Bachelor parties only</div>
-                </div>
-              </div>
-              <div className="text-center mt-1.5 sm:mt-3 text-[10px] sm:text-xs text-blue-600 font-medium hidden sm:block" data-editable data-editable-id="pricing-overlay-tagline">
-                ✨ Transparent pricing • No hidden fees • Best value guaranteed
-              </div>
-            </div>
-
             {/* CTA Buttons - PAGESPEED: No m.div above fold */}
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
               <div
@@ -622,6 +598,32 @@ export default function Home() {
             <p className="text-center text-gray-900 dark:text-white text-sm md:text-base font-semibold">
               ✨ Transparent Pricing • No Hidden Fees • Best Value Guaranteed ✨
             </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Pricing Summary - Yellow Blocks */}
+      <section className="py-6 md:py-8 bg-brand-yellow">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="grid grid-cols-2 gap-4 sm:gap-8 max-w-2xl mx-auto text-center">
+            <div className="bg-yellow-400/80 rounded-xl p-4 sm:p-6 shadow-md">
+              <div className="font-sans tracking-wider font-bold uppercase text-xs sm:text-sm text-gray-900 mb-1 sm:mb-2" data-editable data-editable-id="pricing-overlay-private-label">PRIVATE CRUISES FROM:</div>
+              <div className="text-2xl sm:text-4xl font-bold text-gray-900 mb-1 sm:mb-2" data-editable data-editable-id="pricing-overlay-private-price">
+                $200+/hr
+              </div>
+              <div className="text-xs sm:text-sm text-gray-800" data-editable data-editable-id="pricing-overlay-private-subtitle">Starting price for Up to 14ppl • Private Cruises for 14 to 75 ppl</div>
+            </div>
+            <div className="bg-yellow-400/80 rounded-xl p-4 sm:p-6 shadow-md">
+              <div className="font-sans tracking-wider font-bold uppercase text-xs sm:text-sm text-gray-900 mb-1 sm:mb-2" data-editable data-editable-id="pricing-overlay-disco-label">ATX DISCO CRUISE</div>
+              <div className="text-2xl sm:text-4xl font-bold text-gray-900 mb-1 sm:mb-2" data-editable data-editable-id="pricing-overlay-disco-price">
+                $85+ per person
+              </div>
+              <div className="text-xs sm:text-sm text-gray-800" data-editable data-editable-id="pricing-overlay-disco-subtitle">Friday and Saturdays</div>
+              <div className="text-xs sm:text-sm text-gray-700 mt-1" data-editable data-editable-id="pricing-overlay-disco-restriction">Bachelorette and Bachelor parties only</div>
+            </div>
+          </div>
+          <div className="text-center mt-4 text-sm text-gray-900 font-semibold" data-editable data-editable-id="pricing-overlay-tagline">
+            ✨ Transparent pricing • No hidden fees • Best value guaranteed
           </div>
         </div>
       </section>
