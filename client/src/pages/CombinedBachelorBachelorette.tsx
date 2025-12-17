@@ -539,6 +539,67 @@ export default function CombinedBachelorBachelorette() {
       </SectionReveal>
 
       <PartyPlanningChecklist partyType="Combined Bachelor & Bachelorette Party" eventType="combined celebration" />
+
+      {/* Related Experiences Section - SEO Internal Linking */}
+      <SectionReveal>
+        <section className="py-16 bg-gradient-to-br from-purple-50 to-pink-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                Related Austin Party Experiences
+              </h2>
+              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                Explore individual party options on Lake Travis
+              </p>
+            </div>
+            <div className="grid md:grid-cols-3 gap-6">
+              <Card className="hover:shadow-xl transition-all border-2 hover:border-blue-300">
+                <CardContent className="pt-6 text-center">
+                  <Users className="h-12 w-12 mx-auto mb-4 text-blue-600" />
+                  <h3 className="font-bold text-xl mb-3">Austin Bachelor Party Boat</h3>
+                  <p className="text-gray-600 mb-4">
+                    Epic austin bachelor party boat cruises on Lake Travis with DJ, photographer, and legendary party vibes.
+                  </p>
+                  <Link href="/bachelor-party-austin">
+                    <Button variant="outline" className="w-full">
+                      View Bachelor Parties <ArrowRight className="ml-2 h-4 w-4" />
+                    </Button>
+                  </Link>
+                </CardContent>
+              </Card>
+              <Card className="hover:shadow-xl transition-all border-2 hover:border-pink-300">
+                <CardContent className="pt-6 text-center">
+                  <Crown className="h-12 w-12 mx-auto mb-4 text-pink-600" />
+                  <h3 className="font-bold text-xl mb-3">Lake Travis Bachelorette Party</h3>
+                  <p className="text-gray-600 mb-4">
+                    Celebrate the bride with a lake travis bachelorette party cruise - DJ, floats, and unforgettable memories.
+                  </p>
+                  <Link href="/bachelorette-party-austin">
+                    <Button variant="outline" className="w-full">
+                      View Bachelorette Parties <ArrowRight className="ml-2 h-4 w-4" />
+                    </Button>
+                  </Link>
+                </CardContent>
+              </Card>
+              <Card className="hover:shadow-xl transition-all border-2 hover:border-orange-300">
+                <CardContent className="pt-6 text-center">
+                  <Disc3 className="h-12 w-12 mx-auto mb-4 text-orange-600" />
+                  <h3 className="font-bold text-xl mb-3">ATX Disco Cruise</h3>
+                  <p className="text-gray-600 mb-4">
+                    Join the legendary austin party boat experience! DJ, photographer, and party atmosphere included.
+                  </p>
+                  <Link href="/atx-disco-cruise">
+                    <Button variant="outline" className="w-full">
+                      View ATX Disco Cruise <ArrowRight className="ml-2 h-4 w-4" />
+                    </Button>
+                  </Link>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </section>
+      </SectionReveal>
+
       <Footer />
     </div>
   );

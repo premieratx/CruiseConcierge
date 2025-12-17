@@ -2050,20 +2050,20 @@ export default function BacheloretteParty() {
               description="Explore more celebration options on Lake Travis"
               services={[
                 {
-                  title: "Bachelor Parties",
-                  description: "Epic bachelor party cruises on Lake Travis",
+                  title: "Combined Bachelor Bachelorette Party",
+                  description: "Celebrate together! Combined bachelor bachelorette party austin cruises bring everyone together for one epic Lake Travis experience",
+                  href: "/combined-bachelor-bachelorette",
+                  icon: <Heart className="h-8 w-8" />
+                },
+                {
+                  title: "Austin Bachelor Party Boat",
+                  description: "Epic austin bachelor party boat cruises on Lake Travis for the guys",
                   href: "/bachelor-party-austin",
                   icon: <Users className="h-8 w-8" />
                 },
                 {
-                  title: "Private Boat Rentals",
-                  description: "Book a private boat for your entire bride tribe",
-                  href: "/private-cruises",
-                  icon: <Ship className="h-8 w-8" />
-                },
-                {
                   title: "ATX Disco Cruise",
-                  description: "Join the legendary party boat experience",
+                  description: "Join the legendary austin party boat experience with DJ and photographer",
                   href: "/atx-disco-cruise",
                   icon: <Music className="h-8 w-8" />
                 }
@@ -2076,10 +2076,10 @@ export default function BacheloretteParty() {
       <RelatedLinks
         title="Other Party Options in Austin"
         links={[
-          { href: '/bachelor-party-austin', label: 'Bachelor Parties', description: 'Epic bachelor party cruises on Lake Travis' },
+          { href: '/combined-bachelor-bachelorette', label: 'Combined Bachelor Bachelorette Party Austin', description: 'Celebrate together with a combined bach party on Lake Travis' },
+          { href: '/bachelor-party-austin', label: 'Austin Bachelor Party Boat', description: 'Epic bachelor party cruises on Lake Travis' },
+          { href: '/atx-disco-cruise', label: 'ATX Disco Cruise', description: 'Join the legendary austin party boat experience' },
           { href: '/private-cruises', label: 'Private Boat Rentals', description: 'Book a private boat for your group' },
-          { href: '/atx-disco-cruise', label: 'ATX Disco Cruise', description: 'Join the legendary party boat experience' },
-          { href: '/team-building', label: 'Team Building Events', description: 'Corporate events on Lake Travis' },
         ]}
       />
 
