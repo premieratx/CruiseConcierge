@@ -621,9 +621,6 @@ export default function Home() {
               <div className="text-[10px] sm:text-xs text-gray-800" data-editable data-editable-id="pricing-overlay-disco-subtitle">Fri & Sat • Bach parties</div>
             </div>
           </div>
-          <div className="text-center mt-2 text-xs text-white font-medium" data-editable data-editable-id="pricing-overlay-tagline">
-            ✨ Transparent pricing • No hidden fees • Best value guaranteed
-          </div>
         </div>
       </section>
 
