@@ -647,6 +647,11 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Quote Builder Section - Moved up for visibility */}
+      <Suspense fallback={<div className="animate-pulse bg-gray-100 dark:bg-gray-800 rounded-lg" style={{ minHeight: '500px' }} />}>
+        <QuoteBuilderSection />
+      </Suspense>
+
       {/* Description Section - Welcome Text */}
       <section className="py-12 md:py-16 bg-white dark:bg-gray-900">
         <div className="container mx-auto px-6">
@@ -668,11 +673,6 @@ export default function Home() {
       {/* Fleet Section */}
       <Suspense fallback={<div className="animate-pulse bg-gray-100 dark:bg-gray-800 rounded-lg" style={{ minHeight: '600px' }} />}>
         <FleetSection />
-      </Suspense>
-
-      {/* Quote Builder Section */}
-      <Suspense fallback={<div className="animate-pulse bg-gray-100 dark:bg-gray-800 rounded-lg" style={{ minHeight: '500px' }} />}>
-        <QuoteBuilderSection />
       </Suspense>
 
       {/* Services Section */}
