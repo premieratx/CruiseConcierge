@@ -424,8 +424,8 @@ export default function CorporateEvents() {
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white" data-page-ready="corporate-events">
       <SEOHead 
         pageRoute="/corporate-events"
-        defaultTitle="Corporate Events | Lake Travis Austin"
-        defaultDescription="Lake Travis corporate cruises. Team building, client entertainment, company celebrations. Tax-deductible. Call (512) 488-5892."
+        defaultTitle="Corporate Event Venue Austin | Lake Travis Team Building"
+        defaultDescription="Corporate event venue Austin on Lake Travis. Team building cruises starting at $195/hr. Boat rentals for 14-75 guests. Impress clients on the water!"
         defaultKeywords={[
           'corporate cruise austin',
           'team building lake travis',

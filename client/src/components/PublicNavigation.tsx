@@ -96,7 +96,22 @@ const navigationItems: NavigationItem[] = [
   {
     title: 'Bachelorette Party',
     href: '/bachelorette-party-austin',
-    icon: Heart
+    icon: Heart,
+    hasDropdown: true,
+    dropdownItems: [
+      {
+        title: 'Austin Bachelorette Party',
+        href: '/bachelorette-party-austin',
+        description: 'Lake Travis bachelorette cruises',
+        icon: Heart
+      },
+      {
+        title: 'Combined Bach Party',
+        href: '/combined-bachelor-bachelorette',
+        description: 'Joint bachelor & bachelorette celebration',
+        icon: PartyPopper
+      }
+    ]
   },
   {
     title: 'Private Cruises',

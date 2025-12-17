@@ -369,8 +369,8 @@ export default function BachelorParty() {
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white" data-page-ready="bachelor-party">
       <SEOHead
         pageRoute="/bachelor-party-austin"
-        defaultTitle="Austin Bachelor Party Boat | Lake Travis"
-        defaultDescription="Ultimate Austin bachelor party cruises on Lake Travis. Professional DJ, photographer, giant floats. ATX Disco Cruise from $85/person with 3 time slots."
+        defaultTitle="Austin Bachelor Party Boats | Lake Travis Party Boat Rentals"
+        defaultDescription="Austin bachelor party boats on Lake Travis starting at $85. Professional DJ, photographer, giant floats. Party boat rentals for Lake Travis bachelor parties. Book today!"
         defaultKeywords={["Austin bachelor party", "Lake Travis bachelor party", "party boat Austin", "austin party cruise", "bachelor party boat Austin", "ATX Disco Cruise bachelor", "Austin bachelor ideas", "Lake Travis party boat", "party cruises"]}
         schemaType="service"
       />

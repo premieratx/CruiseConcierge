@@ -272,8 +272,8 @@ export default function ATXDiscoCruise() {
     <>
       <SEOHead
         pageRoute="/atx-disco-cruise"
-        defaultTitle="ATX Disco Cruise | Lake Travis Bachelorette Party Boat Austin"
-        defaultDescription="America's only multi-group party cruise on Lake Travis. Professional DJ, photographer, giant floats included. Austin's best party boat from $85/person."
+        defaultTitle="ATX Disco Cruise | Austin Bachelor Bachelorette Party Boat"
+        defaultDescription="ATX Disco Cruise on Lake Travis - Austin's premier bachelor and bachelorette party boat. All-inclusive with DJ, photographer, floats. Starting at $85/person. Book now!"
         defaultKeywords={["ATX Disco Cruise", "austin party cruises", "lake travis party boat", "party boat austin", "austin party cruise", "Austin bachelor party", "Austin bachelorette party", "party cruises", "Lake Travis bachelor party", "Lake Travis bachelorette party", "Austin boat party"]}
         schemaType="event"
       />

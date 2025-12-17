@@ -442,8 +442,8 @@ export default function PrivateCruises() {
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white" data-page-ready="private-cruises">
       <SEOHead 
         pageRoute="/private-cruises"
-        defaultTitle="Private Boat Rental Austin | Lake Travis"
-        defaultDescription="Private boat rentals on Lake Travis Austin. BYOB friendly, 14-75 person boats with licensed captains. Perfect for parties, corporate events from $1,050."
+        defaultTitle="Lake Travis Party Boat Rentals | Private Austin Boat Cruises"
+        defaultDescription="Private party boat rentals on Lake Travis starting at $195/hr. Captain included, BYOB, holds 14-75 guests. Austin's premier private cruise experience!"
         defaultKeywords={["private boat rental Austin", "Lake Travis private cruise", "austin party cruises", "party boat austin", "Austin boat charter", "private party boat Austin", "Lake Travis boat rental", "Austin yacht rental", "lake travis party boat"]}
         schemaType="service"
       />
