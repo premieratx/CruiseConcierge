@@ -3,30 +3,20 @@ import { Sparkles } from 'lucide-react';
 
 export default function QuoteBuilderSection() {
   const [iframeUrl, setIframeUrl] = useState<string | null>(null);
-  const [isVisible, setIsVisible] = useState(false);
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
 
+  // PERFORMANCE: Load iframe immediately on mount (no IntersectionObserver delay)
+  // This ensures the quote builder is ready when user scrolls to it
   useEffect(() => {
-    if (typeof window === 'undefined' || !sectionRef.current) return;
+    if (typeof window === 'undefined') return;
     
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting && !isVisible) {
-          setIsVisible(true);
-          const currentUrl = encodeURIComponent(window.location.href);
-          const baseUrl = 'https://booking.premierpartycruises.com/quote-v2';
-          setIframeUrl(`${baseUrl}?sourceUrl=${currentUrl}&sourceType=embedded_quote_v2`);
-          observer.disconnect();
-        }
-      },
-      { rootMargin: '200px', threshold: 0 }
-    );
-    
-    observer.observe(sectionRef.current);
-    return () => observer.disconnect();
-  }, [isVisible]);
+    // Set iframe URL immediately to start loading
+    const currentUrl = encodeURIComponent(window.location.href);
+    const baseUrl = 'https://booking.premierpartycruises.com/quote-v2';
+    setIframeUrl(`${baseUrl}?sourceUrl=${currentUrl}&sourceType=embedded_quote_v2`);
+  }, []);
 
   // CLS FIX: Dynamic iframe resizing removed to prevent layout shifts
   // The iframe uses a fixed height of 660px which accommodates all content
@@ -79,7 +69,7 @@ export default function QuoteBuilderSection() {
                     zIndex: 1
                   }}
                   allow="payment"
-                  loading="lazy"
+                  loading="eager"
                   data-testid="iframe-quote-builder"
                   onLoad={(e) => {
                     const iframe = e.target as HTMLIFrameElement;

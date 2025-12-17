@@ -68,7 +68,8 @@ const SectionReveal = lazy(() => import('@/components/SectionReveal').then(m => 
 // PAGESPEED FIX: Lazy load ALL heavy below-fold components to reduce TBT and improve FCP
 const PartyPlanningChecklist = lazy(() => import('@/components/PartyPlanningChecklist'));
 const FleetSection = lazy(() => import('@/components/FleetSection'));
-const QuoteBuilderSection = lazy(() => import('@/components/QuoteBuilderSection'));
+// PERFORMANCE: QuoteBuilderSection loaded eagerly (not lazy) so iframe starts loading immediately
+import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 const TabbedPrivateCruisePricingLazy = lazy(() => import('@/components/TabbedPrivateCruisePricing').then(m => ({ default: m.TabbedPrivateCruisePricing })));
 const ComparisonTableLazy = lazy(() => import('@/components/ComparisonTable').then(m => ({ default: m.ComparisonTable })));
 const PricingTableLazy = lazy(() => import('@/components/PricingTable').then(m => ({ default: m.PricingTable })));
@@ -644,10 +645,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Quote Builder Section - Moved up for visibility */}
-      <Suspense fallback={<div className="animate-pulse bg-gray-100 dark:bg-gray-800 rounded-lg" style={{ minHeight: '500px' }} />}>
-        <QuoteBuilderSection />
-      </Suspense>
+      {/* Quote Builder Section - Eagerly loaded for instant display */}
+      <QuoteBuilderSection />
 
       {/* Description Section - Welcome Text */}
       <section className="py-12 md:py-16 bg-white dark:bg-gray-900">
