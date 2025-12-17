@@ -498,7 +498,7 @@ export default function Home() {
       <LazyMotionProvider>
       <PublicNavigation />
       {/* Hero Section - PAGESPEED: Fixed height prevents CLS, poster-first prevents LCP delay */}
-      <section id="hero" className="relative flex flex-col justify-center overflow-hidden bg-gray-900" style={{ minHeight: 'clamp(500px, calc(100vh - 128px), 1100px)', contain: 'layout paint' }}>
+      <section id="hero" className="relative flex flex-col justify-center overflow-hidden bg-gray-900" style={{ minHeight: 'clamp(750px, calc(100vh - 64px), 1400px)', contain: 'layout paint' }}>
         {/* PAGESPEED FIX: <picture> element with srcset for optimal LCP - browser picks best image */}
         <div className="absolute inset-0 z-0" style={{ aspectRatio: '16/9', minHeight: '100%' }}>
           <picture>
