@@ -15,5 +15,13 @@
       "urlTemplate": "https://premierpartycruises.com/search?q={search_term_string}"
     },
     "query-input": "required name=search_term_string"
+  },
+  "speakable": {
+    "@type": "SpeakableSpecification",
+    "cssSelector": ["h1", ".hero-title", ".hero-subtitle", ".page-intro"],
+    "xpath": [
+      "/html/head/title",
+      "/html/head/meta[@name='description']/@content"
+    ]
   }
 }

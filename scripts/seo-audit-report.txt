@@ -6,8 +6,8 @@
 
 EXECUTIVE SUMMARY
 ─────────────────────────────────────────────────────────────
-Total URLs Tested:        141
-✓ Passed All Checks:      141
+Total URLs Tested:        117
+✓ Passed All Checks:      117
 ✗ Failed One or More:     0
 Overall SEO Health Score: 100%
 
@@ -17,287 +17,239 @@ Overall SEO Health Score: 100%
 DETAILED URL RESULTS
 ─────────────────────────────────────────────────────────────
 
-[1/141] ✓ PASS: https://premierpartycruises.com/
+[1/117] ✓ PASS: https://premierpartycruises.com/
 
-[2/141] ✓ PASS: https://premierpartycruises.com/after-party
+[2/117] ✓ PASS: https://premierpartycruises.com/after-party
 
-[3/141] ✓ PASS: https://premierpartycruises.com/atx-disco-cruise
+[3/117] ✓ PASS: https://premierpartycruises.com/atx-disco-cruise
 
-[4/141] ✓ PASS: https://premierpartycruises.com/bachelor-party-austin
+[4/117] ✓ PASS: https://premierpartycruises.com/bachelor-party-austin
 
-[5/141] ✓ PASS: https://premierpartycruises.com/bachelorette-party-austin
+[5/117] ✓ PASS: https://premierpartycruises.com/bachelorette-party-austin
 
-[6/141] ✓ PASS: https://premierpartycruises.com/birthday-parties
+[6/117] ✓ PASS: https://premierpartycruises.com/birthday-parties
 
-[7/141] ✓ PASS: https://premierpartycruises.com/client-entertainment
+[7/117] ✓ PASS: https://premierpartycruises.com/client-entertainment
 
-[8/141] ✓ PASS: https://premierpartycruises.com/combined-bachelor-bachelorette-austin
+[8/117] ✓ PASS: https://premierpartycruises.com/combined-bachelor-bachelorette-austin
 
-[9/141] ✓ PASS: https://premierpartycruises.com/company-milestone
+[9/117] ✓ PASS: https://premierpartycruises.com/company-milestone
 
-[10/141] ✓ PASS: https://premierpartycruises.com/corporate-events
+[10/117] ✓ PASS: https://premierpartycruises.com/corporate-events
 
-[11/141] ✓ PASS: https://premierpartycruises.com/graduation-party
+[11/117] ✓ PASS: https://premierpartycruises.com/graduation-party
 
-[12/141] ✓ PASS: https://premierpartycruises.com/milestone-birthday
+[12/117] ✓ PASS: https://premierpartycruises.com/milestone-birthday
 
-[13/141] ✓ PASS: https://premierpartycruises.com/private-cruises
+[13/117] ✓ PASS: https://premierpartycruises.com/private-cruises
 
-[14/141] ✓ PASS: https://premierpartycruises.com/rehearsal-dinner
+[14/117] ✓ PASS: https://premierpartycruises.com/rehearsal-dinner
 
-[15/141] ✓ PASS: https://premierpartycruises.com/sweet-16
+[15/117] ✓ PASS: https://premierpartycruises.com/sweet-16
 
-[16/141] ✓ PASS: https://premierpartycruises.com/team-building
+[16/117] ✓ PASS: https://premierpartycruises.com/team-building
 
-[17/141] ✓ PASS: https://premierpartycruises.com/wedding-parties
+[17/117] ✓ PASS: https://premierpartycruises.com/wedding-parties
 
-[18/141] ✓ PASS: https://premierpartycruises.com/welcome-party
+[18/117] ✓ PASS: https://premierpartycruises.com/welcome-party
 
-[19/141] ✓ PASS: https://premierpartycruises.com/book-now
+[19/117] ✓ PASS: https://premierpartycruises.com/book-now
 
-[20/141] ✓ PASS: https://premierpartycruises.com/chat
+[20/117] ✓ PASS: https://premierpartycruises.com/book-online
 
-[21/141] ✓ PASS: https://premierpartycruises.com/contact
+[21/117] ✓ PASS: https://premierpartycruises.com/chat
 
-[22/141] ✓ PASS: https://premierpartycruises.com/faq
+[22/117] ✓ PASS: https://premierpartycruises.com/contact
 
-[23/141] ✓ PASS: https://premierpartycruises.com/gallery
+[23/117] ✓ PASS: https://premierpartycruises.com/faq
 
-[24/141] ✓ PASS: https://premierpartycruises.com/pricing-breakdown
+[24/117] ✓ PASS: https://premierpartycruises.com/gallery
 
-[25/141] ✓ PASS: https://premierpartycruises.com/testimonials-faq
+[25/117] ✓ PASS: https://premierpartycruises.com/pricing-breakdown
 
-[26/141] ✓ PASS: https://premierpartycruises.com/rehearsal-dinner-boat-alcohol-delivery
+[26/117] ✓ PASS: https://premierpartycruises.com/testimonials-faq
 
-[27/141] ✓ PASS: https://premierpartycruises.com/3-day-austin-bachelorette-itinerary
+[27/117] ✓ PASS: https://premierpartycruises.com/3-day-austin-bachelorette-itinerary
 
-[28/141] ✓ PASS: https://premierpartycruises.com/adventure-austin-bachelorette
+[28/117] ✓ PASS: https://premierpartycruises.com/adventure-austin-bachelorette
 
-[29/141] ✓ PASS: https://premierpartycruises.com/austin-bachelor-party-ideas
+[29/117] ✓ PASS: https://premierpartycruises.com/austin-bachelor-party-ideas
 
-[30/141] ✓ PASS: https://premierpartycruises.com/austin-bachelorette-nightlife
+[30/117] ✓ PASS: https://premierpartycruises.com/austin-bachelorette-nightlife
 
-[31/141] ✓ PASS: https://premierpartycruises.com/blogs
+[31/117] ✓ PASS: https://premierpartycruises.com/blog
 
-[32/141] ✓ PASS: https://premierpartycruises.com/budget-austin-bachelorette
+[32/117] ✓ PASS: https://premierpartycruises.com/blogs
 
-[33/141] ✓ PASS: https://premierpartycruises.com/first-time-lake-travis-boat-rental-guide
+[33/117] ✓ PASS: https://premierpartycruises.com/budget-austin-bachelorette
 
-[34/141] ✓ PASS: https://premierpartycruises.com/blogs/first-time-lake-travis-boat-rental-essential-tips-for-austin-party-planning
+[34/117] ✓ PASS: https://premierpartycruises.com/first-time-lake-travis-boat-rental-guide
 
-[35/141] ✓ PASS: https://premierpartycruises.com/blog/birthday-party-alcohol-delivery-austin-milestone-celebrations-made-easy
+[35/117] ✓ PASS: https://premierpartycruises.com/lake-travis-bachelor-party-boats
 
-[36/141] ✓ PASS: https://premierpartycruises.com/blog/lake-travis-party-boat-rentals-ultimate-guide-for-large-group-events-20-guests
+[36/117] ✓ PASS: https://premierpartycruises.com/luxury-austin-bachelorette
 
-[37/141] ✓ PASS: https://premierpartycruises.com/blog/lake-travis-weather-planning-seasonal-considerations-for-perfect-boat-parties
+[37/117] ✓ PASS: https://premierpartycruises.com/party-boat-austin
 
-[38/141] ✓ PASS: https://premierpartycruises.com/blog/rehearsal-dinner-boat-alcohol-delivery-unique-wedding-weekend-experiences
+[38/117] ✓ PASS: https://premierpartycruises.com/party-boat-lake-travis
 
-[39/141] ✓ PASS: https://premierpartycruises.com/lake-travis-bachelor-party-boats
+[39/117] ✓ PASS: https://premierpartycruises.com/top-10-austin-bachelorette-ideas
 
-[40/141] ✓ PASS: https://premierpartycruises.com/luxury-austin-bachelorette
+[40/117] ✓ PASS: https://premierpartycruises.com/ultimate-austin-bachelorette-weekend
 
-[41/141] ✓ PASS: https://premierpartycruises.com/party-boat-austin
+[41/117] ✓ PASS: https://premierpartycruises.com/blogs/accessible-lake-travis-boat-parties-inclusive-event-planning-for-all-guests
 
-[42/141] ✓ PASS: https://premierpartycruises.com/party-boat-lake-travis
+[42/117] ✓ PASS: https://premierpartycruises.com/blogs/atx-disco-cruise-experience
 
-[43/141] ✓ PASS: https://premierpartycruises.com/top-10-austin-bachelorette-ideas
+[43/117] ✓ PASS: https://premierpartycruises.com/blogs/austin-bachelor-party-january
 
-[44/141] ✓ PASS: https://premierpartycruises.com/ultimate-austin-bachelorette-weekend
+[44/117] ✓ PASS: https://premierpartycruises.com/blogs/austin-bachelor-party-july
 
-[45/141] ✓ PASS: https://premierpartycruises.com/blogs/accessible-lake-travis-boat-parties-inclusive-event-planning-for-all-guests
+[45/117] ✓ PASS: https://premierpartycruises.com/blogs/austin-bachelor-party-march
 
-[46/141] ✓ PASS: https://premierpartycruises.com/blogs/atx-disco-cruise-experience
+[46/117] ✓ PASS: https://premierpartycruises.com/blogs/austin-bachelor-party-may
 
-[47/141] ✓ PASS: https://premierpartycruises.com/blogs/austin-bachelor-party-january
+[47/117] ✓ PASS: https://premierpartycruises.com/blogs/austin-bachelor-party-november
 
-[48/141] ✓ PASS: https://premierpartycruises.com/blogs/austin-bachelor-party-july
+[48/117] ✓ PASS: https://premierpartycruises.com/blogs/austin-bachelor-party-september
 
-[49/141] ✓ PASS: https://premierpartycruises.com/blogs/austin-bachelor-party-march
+[49/117] ✓ PASS: https://premierpartycruises.com/blogs/austin-bachelorette-bliss-spa-retreats-disco-cruises-alcohol-delivery
 
-[50/141] ✓ PASS: https://premierpartycruises.com/blogs/austin-bachelor-party-may
+[50/117] ✓ PASS: https://premierpartycruises.com/blogs/austin-bachelorette-party-april
 
-[51/141] ✓ PASS: https://premierpartycruises.com/blogs/austin-bachelor-party-november
+[51/117] ✓ PASS: https://premierpartycruises.com/blogs/austin-bachelorette-party-august
 
-[52/141] ✓ PASS: https://premierpartycruises.com/blogs/austin-bachelor-party-september
+[52/117] ✓ PASS: https://premierpartycruises.com/blogs/austin-bachelorette-party-boats-lake-travis-adventures-for-unforgettable-celebrations
 
-[53/141] ✓ PASS: https://premierpartycruises.com/blogs/austin-bachelorette-bliss-spa-retreats-disco-cruises-alcohol-delivery
+[53/117] ✓ PASS: https://premierpartycruises.com/blogs/austin-bachelorette-party-december
 
-[54/141] ✓ PASS: https://premierpartycruises.com/blogs/austin-bachelorette-party-april
+[54/117] ✓ PASS: https://premierpartycruises.com/blogs/austin-bachelorette-party-february
 
-[55/141] ✓ PASS: https://premierpartycruises.com/blogs/austin-bachelorette-party-august
+[55/117] ✓ PASS: https://premierpartycruises.com/blogs/austin-bachelorette-party-june
 
-[56/141] ✓ PASS: https://premierpartycruises.com/blogs/austin-bachelorette-party-boats-lake-travis-adventures-for-unforgettable-celebrations
+[56/117] ✓ PASS: https://premierpartycruises.com/blogs/austin-bachelorette-party-october
 
-[57/141] ✓ PASS: https://premierpartycruises.com/blogs/austin-bachelorette-party-december
+[57/117] ✓ PASS: https://premierpartycruises.com/blogs/austin-bachelorette-weekend-alcohol-timeline-day-by-day-drinking-strategy-for-multi-day-celebrations
 
-[58/141] ✓ PASS: https://premierpartycruises.com/blogs/austin-bachelorette-party-february
+[58/117] ✓ PASS: https://premierpartycruises.com/blogs/austin-party-venue-alcohol-delivery-navigating-policies-and-logistics
 
-[59/141] ✓ PASS: https://premierpartycruises.com/blogs/austin-bachelorette-party-june
+[59/117] ✓ PASS: https://premierpartycruises.com/blogs/austin-wedding-venue-alcohol-policies-delivery-solutions-for-every-location
 
-[60/141] ✓ PASS: https://premierpartycruises.com/blogs/austin-bachelorette-party-october
+[60/117] ✓ PASS: https://premierpartycruises.com/blogs/bachelorette-party-alcohol-emergency-kit-last-minute-delivery-solutions
 
-[61/141] ✓ PASS: https://premierpartycruises.com/blogs/austin-bachelorette-weekend-alcohol-timeline-day-by-day-drinking-strategy-for-multi-day-celebrations
+[61/117] ✓ PASS: https://premierpartycruises.com/blogs/birthday-party-alcohol-delivery-austin-milestone-celebrations-made-easy
 
-[62/141] ✓ PASS: https://premierpartycruises.com/blogs/austin-party-venue-alcohol-delivery-navigating-policies-and-logistics
+[62/117] ✓ PASS: https://premierpartycruises.com/blogs/birthday-party-boat-rentals-on-lake-travis-milestone-celebrations-with-a-view
 
-[63/141] ✓ PASS: https://premierpartycruises.com/blogs/austin-wedding-venue-alcohol-policies-delivery-solutions-for-every-location
+[63/117] ✓ PASS: https://premierpartycruises.com/blogs/budget-friendly-bachelorette-party-alcohol-maximum-fun-without-breaking-the-bank
 
-[64/141] ✓ PASS: https://premierpartycruises.com/blogs/bachelorette-party-alcohol-emergency-kit-last-minute-delivery-solutions
+[64/117] ✓ PASS: https://premierpartycruises.com/blogs/client-entertainment-alcohol-strategy-impressing-without-overdoing-it
 
-[65/141] ✓ PASS: https://premierpartycruises.com/blogs/birthday-party-alcohol-delivery-austin-milestone-celebrations-made-easy
+[65/117] ✓ PASS: https://premierpartycruises.com/blogs/cocktail-kits-vs-individual-bottles-the-smart-bachelorette-party-alcohol-strategy
 
-[66/141] ✓ PASS: https://premierpartycruises.com/blogs/birthday-party-boat-rentals-on-lake-travis-milestone-celebrations-with-a-view
+[66/117] ✓ PASS: https://premierpartycruises.com/blogs/conference-after-party-alcohol-coordination-sxsw-acl-and-austin-event-integration
 
-[67/141] ✓ PASS: https://premierpartycruises.com/blogs/budget-friendly-bachelorette-party-alcohol-maximum-fun-without-breaking-the-bank
+[67/117] ✓ PASS: https://premierpartycruises.com/blogs/corporate-team-building-on-lake-travis-alcohol-coordination-for-professional-events
 
-[68/141] ✓ PASS: https://premierpartycruises.com/blogs/client-entertainment-alcohol-strategy-impressing-without-overdoing-it
+[68/117] ✓ PASS: https://premierpartycruises.com/blogs/corporate-team-building-on-lake-travis-professional-boat-rental-solutions
 
-[69/141] ✓ PASS: https://premierpartycruises.com/blogs/cocktail-kits-vs-individual-bottles-the-smart-bachelorette-party-alcohol-strategy
+[69/117] ✓ PASS: https://premierpartycruises.com/blogs/creative-lake-travis-boat-party-themes-unique-ideas-for-memorable-celebrations
 
-[70/141] ✓ PASS: https://premierpartycruises.com/blogs/conference-after-party-alcohol-coordination-sxsw-acl-and-austin-event-integration
+[70/117] ✓ PASS: https://premierpartycruises.com/blogs/disco-cruise-fashion-part-1
 
-[71/141] ✓ PASS: https://premierpartycruises.com/blogs/corporate-team-building-on-lake-travis-alcohol-coordination-for-professional-events
+[71/117] ✓ PASS: https://premierpartycruises.com/blogs/executive-retreat-alcohol-planning-balancing-professionalism-and-team-bonding
 
-[72/141] ✓ PASS: https://premierpartycruises.com/blogs/corporate-team-building-on-lake-travis-professional-boat-rental-solutions
+[72/117] ✓ PASS: https://premierpartycruises.com/blogs/graduation-party-alcohol-planning-ut-and-austin-college-celebrations
 
-[73/141] ✓ PASS: https://premierpartycruises.com/blogs/creative-lake-travis-boat-party-themes-unique-ideas-for-memorable-celebrations
+[73/117] ✓ PASS: https://premierpartycruises.com/blogs/hello-world
 
-[74/141] ✓ PASS: https://premierpartycruises.com/blogs/disco-cruise-fashion-part-1
+[74/117] ✓ PASS: https://premierpartycruises.com/blogs/holiday-celebrations-on-lake-travis-seasonal-boat-party-planning-and-coordination
 
-[75/141] ✓ PASS: https://premierpartycruises.com/blogs/executive-retreat-alcohol-planning-balancing-professionalism-and-team-bonding
+[75/117] ✓ PASS: https://premierpartycruises.com/blogs/holiday-office-party-alcohol-delivery-stress-free-corporate-celebration-planning
 
-[76/141] ✓ PASS: https://premierpartycruises.com/blogs/graduation-party-alcohol-planning-ut-and-austin-college-celebrations
+[76/117] ✓ PASS: https://premierpartycruises.com/blogs/holiday-party-alcohol-themes-new-years-fourth-of-july-and-austin-celebrations
 
-[77/141] ✓ PASS: https://premierpartycruises.com/blogs/hello-world
+[77/117] ✓ PASS: https://premierpartycruises.com/blogs/how-to-throw-great-bachelor-party-austin
 
-[78/141] ✓ PASS: https://premierpartycruises.com/blogs/holiday-celebrations-on-lake-travis-seasonal-boat-party-planning-and-coordination
+[78/117] ✓ PASS: https://premierpartycruises.com/blogs/how-to-throw-great-bachelorette-party-austin
 
-[79/141] ✓ PASS: https://premierpartycruises.com/blogs/holiday-office-party-alcohol-delivery-stress-free-corporate-celebration-planning
+[79/117] ✓ PASS: https://premierpartycruises.com/blogs/instagram-worthy-bachelorette-party-cocktails-recipes-and-delivery-coordination
 
-[80/141] ✓ PASS: https://premierpartycruises.com/blogs/holiday-party-alcohol-themes-new-years-fourth-of-july-and-austin-celebrations
+[80/117] ✓ PASS: https://premierpartycruises.com/blogs/joint-bachelor-bachelorette-parties-with-premier-party-cruises
 
-[81/141] ✓ PASS: https://premierpartycruises.com/blogs/how-to-throw-great-bachelor-party-austin
+[81/117] ✓ PASS: https://premierpartycruises.com/blogs/lake-travis-bachelor-party-alcohol-delivery-complete-coordination-guide-for-boat-parties
 
-[82/141] ✓ PASS: https://premierpartycruises.com/blogs/how-to-throw-great-bachelorette-party-austin
+[82/117] ✓ PASS: https://premierpartycruises.com/blogs/lake-travis-bachelorette-party-alcohol-laws-what-you-can-and-cant-bring-on-boats
 
-[83/141] ✓ PASS: https://premierpartycruises.com/blogs/instagram-worthy-bachelorette-party-cocktails-recipes-and-delivery-coordination
+[83/117] ✓ PASS: https://premierpartycruises.com/blogs/lake-travis-boat-party-catering-food-and-beverage-coordination-for-perfect-events
 
-[84/141] ✓ PASS: https://premierpartycruises.com/blogs/integrated-austin-event-services-combining-alcohol-delivery-and-boat-rentals-for-perfect-celebrations
+[84/117] ✓ PASS: https://premierpartycruises.com/blogs/lake-travis-boat-party-costs-complete-pricing-guide-and-budget-planning
 
-[85/141] ✓ PASS: https://premierpartycruises.com/blogs/joint-bachelor-bachelorette-parties-with-premier-party-cruises
+[85/117] ✓ PASS: https://premierpartycruises.com/blogs/lake-travis-boat-party-entertainment-activities-and-amenities-for-unforgettable-events
 
-[86/141] ✓ PASS: https://premierpartycruises.com/blogs/lake-travis-bachelor-party-alcohol-delivery-complete-coordination-guide-for-boat-parties
+[86/117] ✓ PASS: https://premierpartycruises.com/blogs/lake-travis-boat-party-insurance-understanding-coverage-and-liability-for-events
 
-[87/141] ✓ PASS: https://premierpartycruises.com/blogs/lake-travis-bachelor-party-boat-rentals-the-ultimate-guide-to-epic-celebrations
+[87/117] ✓ PASS: https://premierpartycruises.com/blogs/lake-travis-boat-party-logistics-complete-planning-and-coordination-guide
 
-[88/141] ✓ PASS: https://premierpartycruises.com/blogs/lake-travis-bachelorette-party-alcohol-laws-what-you-can-and-cant-bring-on-boats
+[88/117] ✓ PASS: https://premierpartycruises.com/blogs/lake-travis-boat-party-music-sound-systems-and-entertainment-coordination
 
-[89/141] ✓ PASS: https://premierpartycruises.com/blogs/lake-travis-boat-party-catering-food-and-beverage-coordination-for-perfect-events
+[89/117] ✓ PASS: https://premierpartycruises.com/blogs/lake-travis-boat-party-packages-comprehensive-guide-to-options-and-pricing
 
-[90/141] ✓ PASS: https://premierpartycruises.com/blogs/lake-travis-boat-party-costs-complete-pricing-guide-and-budget-planning
+[90/117] ✓ PASS: https://premierpartycruises.com/blogs/lake-travis-boat-party-photography-capturing-perfect-memories-on-the-water
 
-[91/141] ✓ PASS: https://premierpartycruises.com/blogs/lake-travis-boat-party-entertainment-activities-and-amenities-for-unforgettable-events
+[91/117] ✓ PASS: https://premierpartycruises.com/blogs/lake-travis-boat-party-regulations-legal-requirements-and-compliance-guide
 
-[92/141] ✓ PASS: https://premierpartycruises.com/blogs/lake-travis-boat-party-insurance-understanding-coverage-and-liability-for-events
+[92/117] ✓ PASS: https://premierpartycruises.com/blogs/lake-travis-boat-party-reviews-real-customer-experiences-and-testimonials
 
-[93/141] ✓ PASS: https://premierpartycruises.com/blogs/lake-travis-boat-party-logistics-complete-planning-and-coordination-guide
+[93/117] ✓ PASS: https://premierpartycruises.com/blogs/lake-travis-boat-safety-and-maintenance-quality-standards-for-party-cruises
 
-[94/141] ✓ PASS: https://premierpartycruises.com/blogs/lake-travis-boat-party-music-sound-systems-and-entertainment-coordination
+[94/117] ✓ PASS: https://premierpartycruises.com/blogs/lake-travis-boat-safety-essential-guidelines-for-safe-party-cruises
 
-[95/141] ✓ PASS: https://premierpartycruises.com/blogs/lake-travis-boat-party-packages-comprehensive-guide-to-options-and-pricing
+[95/117] ✓ PASS: https://premierpartycruises.com/blogs/lake-travis-party-boat-rentals-ultimate-guide-for-large-group-events-20-guests
 
-[96/141] ✓ PASS: https://premierpartycruises.com/blogs/lake-travis-boat-party-photography-capturing-perfect-memories-on-the-water
+[96/117] ✓ PASS: https://premierpartycruises.com/blogs/lake-travis-sunset-cruises-romantic-and-celebration-options-for-every-occasion
 
-[97/141] ✓ PASS: https://premierpartycruises.com/blogs/lake-travis-boat-party-regulations-legal-requirements-and-compliance-guide
+[97/117] ✓ PASS: https://premierpartycruises.com/blogs/lake-travis-weather-planning-seasonal-considerations-for-perfect-boat-parties
 
-[98/141] ✓ PASS: https://premierpartycruises.com/blogs/lake-travis-boat-party-reviews-real-customer-experiences-and-testimonials
+[98/117] ✓ PASS: https://premierpartycruises.com/blogs/lake-travis-wedding-boat-rentals-unique-venues-for-austin-celebrations
 
-[99/141] ✓ PASS: https://premierpartycruises.com/blogs/lake-travis-boat-safety-and-maintenance-quality-standards-for-party-cruises
+[99/117] ✓ PASS: https://premierpartycruises.com/blogs/must-haves-for-the-perfect-austin-bachelorette-weekend
 
-[100/141] ✓ PASS: https://premierpartycruises.com/blogs/lake-travis-boat-safety-essential-guidelines-for-safe-party-cruises
+[100/117] ✓ PASS: https://premierpartycruises.com/blogs/outdoor-wedding-alcohol-logistics-hill-country-and-lake-travis-coordination
 
-[101/141] ✓ PASS: https://premierpartycruises.com/blogs/lake-travis-party-boat-rentals-ultimate-guide-for-large-group-events-20-guests
+[101/117] ✓ PASS: https://premierpartycruises.com/blogs/party-alcohol-safety-in-austin-responsible-service-and-guest-well-being
 
-[102/141] ✓ PASS: https://premierpartycruises.com/blogs/lake-travis-sunset-cruises-romantic-and-celebration-options-for-every-occasion
+[102/117] ✓ PASS: https://premierpartycruises.com/blogs/perfect-bachelor-party-itinerary-austin
 
-[103/141] ✓ PASS: https://premierpartycruises.com/blogs/lake-travis-weather-planning-seasonal-considerations-for-perfect-boat-parties
+[103/117] ✓ PASS: https://premierpartycruises.com/blogs/pool-party-alcohol-coordination-summer-event-planning-in-austin-heat
 
-[104/141] ✓ PASS: https://premierpartycruises.com/blogs/lake-travis-wedding-boat-rentals-unique-venues-for-austin-celebrations
+[104/117] ✓ PASS: https://premierpartycruises.com/blogs/startup-celebration-alcohol-packages-funding-rounds-launches-and-milestone-events
 
-[105/141] ✓ PASS: https://premierpartycruises.com/blogs/must-haves-for-the-perfect-austin-bachelorette-weekend
+[105/117] ✓ PASS: https://premierpartycruises.com/blogs/the-recipe-for-the-chillest-atx-bach-party
 
-[106/141] ✓ PASS: https://premierpartycruises.com/blogs/outdoor-wedding-alcohol-logistics-hill-country-and-lake-travis-coordination
+[106/117] ✓ PASS: https://premierpartycruises.com/blogs/the-top-dos-and-dont-for-success-on-the-atx-disco-cruise-with-premier-party-cruises
 
-[107/141] ✓ PASS: https://premierpartycruises.com/blogs/party-alcohol-safety-in-austin-responsible-service-and-guest-well-being
+[107/117] ✓ PASS: https://premierpartycruises.com/blogs/the-top-five-celebrities-at-our-dream-party-barge
 
-[108/141] ✓ PASS: https://premierpartycruises.com/blogs/perfect-bachelor-party-itinerary-austin
+[108/117] ✓ PASS: https://premierpartycruises.com/blogs/the-ultimate-austin-bachelorette-party-alcohol-guide-what-to-order-when-to-order-and-how-much-you-actually-need
 
-[109/141] ✓ PASS: https://premierpartycruises.com/blogs/pool-party-alcohol-coordination-summer-event-planning-in-austin-heat
+[109/117] ✓ PASS: https://premierpartycruises.com/blogs/top-spots-tips-for-an-unforgettable-austin-bachelorette-party-experience
 
-[110/141] ✓ PASS: https://premierpartycruises.com/blogs/rehearsal-dinner-boat-alcohol-delivery-unique-wedding-weekend-experiences
+[110/117] ✓ PASS: https://premierpartycruises.com/blogs/wedding-anniversary-celebration-ideas-recreating-your-special-day-with-boat-and-alcohol-packages
 
-[111/141] ✓ PASS: https://premierpartycruises.com/blogs/startup-celebration-alcohol-packages-funding-rounds-launches-and-milestone-events
+[111/117] ✓ PASS: https://premierpartycruises.com/blogs/wedding-party-alcohol-coordination-getting-ready-bachelor-bachelorette-and-reception
 
-[112/141] ✓ PASS: https://premierpartycruises.com/blogs/the-recipe-for-the-chillest-atx-bach-party
+[112/117] ✓ PASS: https://premierpartycruises.com/blogs/why-choose-integrated-event-services-comparing-austin-party-planning-options
 
-[113/141] ✓ PASS: https://premierpartycruises.com/blogs/the-top-dos-and-dont-for-success-on-the-atx-disco-cruise-with-premier-party-cruises
+[113/117] ✓ PASS: https://premierpartycruises.com/ai-endorsement
 
-[114/141] ✓ PASS: https://premierpartycruises.com/blogs/the-top-five-celebrities-at-our-dream-party-barge
+[114/117] ✓ PASS: https://premierpartycruises.com/golden-ticket
 
-[115/141] ✓ PASS: https://premierpartycruises.com/blogs/the-ultimate-austin-bachelorette-party-alcohol-guide-what-to-order-when-to-order-and-how-much-you-actually-need
+[115/117] ✓ PASS: https://premierpartycruises.com/golden-ticket-private
 
-[116/141] ✓ PASS: https://premierpartycruises.com/blogs/top-spots-tips-for-an-unforgettable-austin-bachelorette-party-experience
+[116/117] ✓ PASS: https://premierpartycruises.com/partners
 
-[117/141] ✓ PASS: https://premierpartycruises.com/blogs/wedding-party-alcohol-coordination-getting-ready-bachelor-bachelorette-and-reception
-
-[118/141] ✓ PASS: https://premierpartycruises.com/blogs/why-choose-austin-bachelor-party
-
-[119/141] ✓ PASS: https://premierpartycruises.com/blogs/epic-bachelor-party-austin-ultimate-guide
-
-[120/141] ✓ PASS: https://premierpartycruises.com/blogs/epic-bachelorette-party-austin-ultimate-guide
-
-[121/141] ✓ PASS: https://premierpartycruises.com/blogs/why-choose-austin-bachelorette-party
-
-[122/141] ✓ PASS: https://premierpartycruises.com/blogs/why-choose-integrated-event-services-comparing-austin-party-planning-options
-
-[123/141] ✓ PASS: https://premierpartycruises.com/ai-endorsement
-
-[124/141] ✓ PASS: https://premierpartycruises.com/golden-ticket
-
-[125/141] ✓ PASS: https://premierpartycruises.com/golden-ticket-private
-
-[126/141] ✓ PASS: https://premierpartycruises.com/partners
-
-[127/141] ✓ PASS: https://premierpartycruises.com/wedding-anniversary-celebration-ideas
-
-[128/141] ✓ PASS: https://premierpartycruises.com/site-directory
-
-[129/141] ✓ PASS: https://premierpartycruises.com/blogs/lake-travis-bachelor-party-austin-celebrations
-
-[130/141] ✓ PASS: https://premierpartycruises.com/blogs/austin-bachelor-party-january
-
-[131/141] ✓ PASS: https://premierpartycruises.com/blogs/austin-bachelor-party-march
-
-[132/141] ✓ PASS: https://premierpartycruises.com/blogs/austin-bachelor-party-may
-
-[133/141] ✓ PASS: https://premierpartycruises.com/blogs/austin-bachelor-party-july
-
-[134/141] ✓ PASS: https://premierpartycruises.com/blogs/austin-bachelor-party-september
-
-[135/141] ✓ PASS: https://premierpartycruises.com/blogs/austin-bachelor-party-november
-
-[136/141] ✓ PASS: https://premierpartycruises.com/blogs/austin-bachelorette-party-february
-
-[137/141] ✓ PASS: https://premierpartycruises.com/blogs/austin-bachelorette-party-april
-
-[138/141] ✓ PASS: https://premierpartycruises.com/blogs/austin-bachelorette-party-june
-
-[139/141] ✓ PASS: https://premierpartycruises.com/blogs/austin-bachelorette-party-august
-
-[140/141] ✓ PASS: https://premierpartycruises.com/blogs/austin-bachelorette-party-october
-
-[141/141] ✓ PASS: https://premierpartycruises.com/blogs/austin-bachelorette-party-december
+[117/117] ✓ PASS: https://premierpartycruises.com/wedding-anniversary-celebration-ideas
 
 ═══════════════════════════════════════════════════════════════
 END OF REPORT

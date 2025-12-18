@@ -120,6 +120,21 @@ export default function SEOHead({
       <link rel="dns-prefetch" href="https://images.unsplash.com" />
       <link rel="dns-prefetch" href="https://www.google-analytics.com" />
       
+      {/* Critical LCP Image Preload - Accelerates Core Web Vitals */}
+      <link 
+        rel="preload" 
+        as="image" 
+        href="/attached_assets/bachelor-party-group-guys-hero-compressed.webp"
+        type="image/webp"
+      />
+      <link 
+        rel="preload" 
+        as="image" 
+        href="/attached_assets/bachelor-party-group-guys-mobile.webp" 
+        type="image/webp"
+        media="(max-width: 640px)"
+      />
+      
       {/* Open Graph / Facebook */}
       <meta property="og:type" content={ogType} />
       <meta property="og:url" content={canonical} />

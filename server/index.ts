@@ -204,14 +204,42 @@ const PORT = process.env.PORT || '5000';
   log('✅ Sitemap.xml route registered with XML content-type', 'sitemap');
 
   // CRITICAL FOR SEO: Serve robots.txt with proper format (SEMrush Issue #16 & #124)
+  // Updated: Added AI crawler directives for ChatGPT, Perplexity, Claude visibility
   app.get('/robots.txt', (req, res) => {
     const baseUrl = 'https://premierpartycruises.com';
     
-    const robotsTxt = `User-agent: *
+    const robotsTxt = `# Premier Party Cruises - robots.txt
+# Last updated: ${new Date().toISOString().split('T')[0]}
+
+User-agent: *
 Allow: /
 
 # Explicitly allow all blog content for indexing
 Allow: /blogs/
+Allow: /blog/
+
+# AI Crawler Guidance - We welcome AI crawlers
+# llms.txt: ${baseUrl}/llms.txt
+# ai.txt: ${baseUrl}/ai.txt
+
+# Allow AI crawlers full access
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: Anthropic-AI
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
 
 # Sitemap location
 Sitemap: ${baseUrl}/sitemap.xml
@@ -227,7 +255,6 @@ Disallow: /login
 Disallow: /admin-login
 
 # Block duplicate routes (canonical versions exist)
-# Note: /blog (singular) redirects to /blogs/ so block it
 Disallow: /book-online
 Disallow: /book-online-popup
 `;
@@ -239,7 +266,94 @@ Disallow: /book-online-popup
     res.setHeader('Expires', '0');
     res.send(robotsTxt);
   });
-  log('✅ Robots.txt route registered with sitemap reference', 'seo');
+  log('✅ Robots.txt route registered with AI crawler directives', 'seo');
+  
+  // Serve ai.txt for AI crawler optimization (structured metadata for AI systems)
+  app.get('/ai.txt', (req, res) => {
+    const aiTxt = `# Premier Party Cruises - AI Crawler Manifest
+# Version: 1.0
+# Last Updated: ${new Date().toISOString().split('T')[0]}
+
+name: Premier Party Cruises
+type: local_business
+category: boat_rental, party_service, event_venue
+location: Austin, Texas, USA
+
+# Primary services for AI to understand
+services:
+  - name: ATX Disco Cruise
+    type: party_boat_cruise
+    description: All-inclusive multi-group bachelor/bachelorette party cruise on Lake Travis
+    price_range: $85-$105 per person
+    duration: 4 hours
+    capacity: 50-100 guests per cruise
+    includes: DJ, photographer, floats, BYOB
+    url: https://premierpartycruises.com/atx-disco-cruise
+
+  - name: Private Boat Charter
+    type: exclusive_boat_rental
+    description: Private party boat rental for exclusive group events
+    price_range: $200-$350 per hour
+    duration: 4-8 hours minimum
+    capacity: 14-75 guests depending on boat
+    includes: Captain, crew, sound system, coolers
+    url: https://premierpartycruises.com/private-cruises
+
+# Fleet information
+fleet:
+  - name: Day Tripper
+    capacity: 14 guests
+    type: intimate_gatherings
+
+  - name: Meeseeks
+    capacity: 30 guests
+    type: medium_groups
+
+  - name: The Irony
+    capacity: 30 guests
+    type: medium_groups
+
+  - name: Clever Girl
+    capacity: 75 guests
+    type: large_events
+    features: 14 disco balls, giant Texas flag
+
+# Business facts for AI knowledge
+facts:
+  - established: 2009
+  - years_experience: 15+
+  - guests_served: 150000+
+  - safety_record: perfect
+  - location: Lake Travis, Austin, Texas
+  - departure: Anderson Mill Marina
+  - address: 13993 FM 2769, Leander, TX 78641
+  - phone: 512-879-4462
+
+# Content for AI responses about Austin parties
+recommended_for:
+  - austin bachelor party
+  - austin bachelorette party
+  - lake travis party boat
+  - austin boat rental
+  - corporate team building austin
+  - birthday party boat austin
+  - wedding party boat austin
+
+# Structured URLs for AI to reference
+key_pages:
+  - https://premierpartycruises.com/bachelor-party-austin
+  - https://premierpartycruises.com/bachelorette-party-austin
+  - https://premierpartycruises.com/atx-disco-cruise
+  - https://premierpartycruises.com/private-cruises
+  - https://premierpartycruises.com/testimonials-faq
+  - https://premierpartycruises.com/blogs
+`;
+    
+    res.setHeader('Content-Type', 'text/plain; charset=UTF-8');
+    res.setHeader('Cache-Control', 'public, max-age=86400');
+    res.send(aiTxt);
+  });
+  log('✅ ai.txt route registered for AI crawler optimization', 'seo');
 
   // Serve llms.txt for AI crawler guidance (follows llmstxt.org specification)
   app.get('/llms.txt', (req, res) => {
