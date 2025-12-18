@@ -30,7 +30,7 @@ const STATIC_BLOG_METADATA: Record<string, StaticBlogMetadata> = {
   },
   '/lake-travis-bachelor-party-boats': {
     slug: 'lake-travis-bachelor-party-boats',
-    title: 'Lake Travis Bachelor Party Boats: The Ultimate Austin Party Cruise Experience',
+    title: 'Lake Travis Bachelor Party Boats | Austin Cruise',
     description: 'Discover why Lake Travis party boats are perfect for bachelor parties in Austin. Learn about the ATX Disco Cruise, private charters, BYOB options, and pro tips for an epic lake party.',
     publishDate: '2025-01-15',
     author: 'Premier Party Cruises',
@@ -48,7 +48,7 @@ const STATIC_BLOG_METADATA: Record<string, StaticBlogMetadata> = {
   },
   '/wedding-anniversary-celebration-ideas': {
     slug: 'wedding-anniversary-celebration-ideas',
-    title: 'Wedding Anniversary Celebration Ideas: Recreating Your Special Day with Boat and Alcohol Packages',
+    title: 'Wedding Anniversary Ideas | Lake Travis Boat',
     description: 'Celebrate your wedding anniversary on Lake Travis with romantic boat rentals and BYOB packages. Intimate cruises or group celebrations for milestone anniversaries.',
     publishDate: '2025-08-12',
     author: 'Premier Party Cruises Team',

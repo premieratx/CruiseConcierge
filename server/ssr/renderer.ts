@@ -882,11 +882,11 @@ const PAGE_METADATA: Record<string, { h1: string; content: string }> = {
     content: 'Create lasting memories with our bachelorette party boat rentals on Lake Travis near Anderson Mill Marina. Choose the ATX Disco Cruise ($85-$105/person) or private charters on Day Tripper, Meeseeks, or Clever Girl. 14+ years experience, 150,000+ happy customers.'
   },
   '/atx-disco-cruise': {
-    h1: 'ATX Disco Cruise | Austin Bachelor & Bachelorette Party Boat | Premier Party Cruises',
+    h1: 'ATX Disco Cruise | Austin Bachelor Bachelorette Party Boat',
     content: 'Join Austin\'s most popular party cruise on Lake Travis from Anderson Mill Marina. 4-hour BYOB experience with DJ, photographer, dance floor, giant floats. Time slots: Friday $95, Saturday 11am $105, Saturday 3:30pm $85. Tax and gratuity included.'
   },
   '/private-cruises': {
-    h1: 'Private Boat Charters Lake Travis | Day Tripper, Meeseeks & Clever Girl | Premier Party Cruises',
+    h1: 'Private Lake Travis Boat Charters | Austin Party Cruises',
     content: 'Book a private boat cruise on Lake Travis near Devil\'s Cove. Fleet includes Day Tripper (14 guests), Meeseeks/The Irony (25 guests), and Clever Girl (75 guests with 14 disco balls). Starting at $200/hour. Captain, crew, ice, and sound system included.'
   },
   '/team-building': {
@@ -1035,11 +1035,11 @@ const PAGE_METADATA: Record<string, { h1: string; content: string }> = {
     content: 'Discover the ultimate Austin bachelor party ideas! From Lake Travis party boats to 6th Street bars, BBQ joints, and outdoor adventures - plan the perfect Austin bachelor weekend.'
   },
   '/lake-travis-bachelor-party-boats': {
-    h1: 'Lake Travis Bachelor Party Boats: The Ultimate Austin Party Cruise Experience',
+    h1: 'Lake Travis Bachelor Party Boats | Austin Cruise',
     content: 'Discover why Lake Travis party boats are perfect for bachelor parties in Austin. Learn about the ATX Disco Cruise, private charters, BYOB options, and pro tips for an epic lake party.'
   },
   '/wedding-anniversary-celebration-ideas': {
-    h1: 'Wedding Anniversary Celebration Ideas: Recreating Your Special Day with Boat and Alcohol Packages',
+    h1: 'Wedding Anniversary Ideas | Lake Travis Boat',
     content: 'Celebrate your wedding anniversary on Lake Travis with romantic boat rentals and BYOB packages. Intimate cruises or group celebrations for milestone anniversaries.'
   },
   '/rehearsal-dinner-boat-alcohol-delivery': {
@@ -1126,6 +1126,7 @@ async function renderPage(url: string, req: Request): Promise<string> {
     let metaDescription = '';
     let blogData: any = null;
     let blogListingPosts: any[] = []; // Store blog posts for schema generation
+    let usedPageContent = false; // Track if renderPageContent was used (includes H1 already)
     
     // Check if it's a blog post (/blogs/ canonical or /blog/ legacy)
     // Both need SSR with full content for SEO
@@ -1164,8 +1165,10 @@ async function renderPage(url: string, req: Request): Promise<string> {
                           (blogData.post.content ? blogData.post.content.substring(0, 160) : '');
       } else if (blogPageContent) {
         // Use PAGE_CONTENT for React component blogs with insufficient database content
+        // NOTE: renderPageContent already includes H1, so we mark this to avoid duplicate H1
         h1 = blogPageContent.h1;
         content = renderPageContent(blogPageContent);
+        usedPageContent = true; // renderPageContent includes H1, don't add another
         metaTitle = blogMeta?.title || blogPageContent.h1;
         metaDescription = blogMeta?.description || blogPageContent.introduction.substring(0, 160);
       } else if (blogData && blogData.post) {
@@ -1515,6 +1518,14 @@ window.__vite_plugin_react_preamble_installed__ = true
       <div id="root"></div>
       <div class="ssr-content" style="${ssrFallbackStyle}" aria-hidden="true">
         ${renderPageContent(pageContent)}
+      </div>
+      ${hydrationCleanupScript}`;
+    } else if (isBlogPost && usedPageContent) {
+      // Blog posts using PAGE_CONTENT: renderPageContent already includes H1
+      // Don't add another H1 to prevent SEMRush "multiple H1" warning
+      ssrContent = `<div id="root"></div>
+      <div class="ssr-content" style="${ssrFallbackStyle}" aria-hidden="true">
+        ${content}
       </div>
       ${hydrationCleanupScript}`;
     } else if (isBlogPost) {

@@ -139,7 +139,7 @@ export const blogMetadataRegistry: Record<string, BlogMetadata> = {
   
   'blogs/atx-disco-cruise-experience': {
     slug: 'blogs/atx-disco-cruise-experience',
-    title: 'ATX Disco Cruise Experience: Austin\'s Ultimate Party Boat | Premier Party Cruises',
+    title: 'ATX Disco Cruise Experience | Austin Party Boat',
     description: 'Experience the legendary ATX Disco Cruise on Lake Travis! All-inclusive party boat with DJ, photographer, giant floats, dance floor. BYOB. 150,000+ guests served. Book now!',
     publishDate: '2025-01-05',
     modifiedDate: '2025-01-10',
