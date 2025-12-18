@@ -852,6 +852,7 @@ const SSR_ROUTES = [
   '/golden-ticket',
   '/golden-ticket-private',
   '/partners',
+  '/site-directory',  // Added for SEO - site directory must be crawlable
 ];
 
 // Page metadata for SEO
@@ -1036,6 +1037,10 @@ const PAGE_METADATA: Record<string, { h1: string; content: string }> = {
   '/rehearsal-dinner-boat-alcohol-delivery': {
     h1: 'Rehearsal Dinner Boat & Alcohol Delivery | Unique Wedding Weekend Experiences',
     content: 'Create unforgettable rehearsal dinner experiences on Lake Travis with boat parties and seamless alcohol delivery. Premier Party Cruises partners with Party On Delivery for memorable wedding weekends in Austin.'
+  },
+  '/site-directory': {
+    h1: 'Site Directory | Premier Party Cruises - Austin Lake Travis Boats',
+    content: 'Complete directory of Premier Party Cruises services. Find bachelor party boats, bachelorette cruises, ATX Disco Cruise, private charters, corporate events, and all Lake Travis party cruise options.'
   }
 };
 
@@ -1050,6 +1055,12 @@ function shouldUseSSR(url: string): boolean {
   
   // Handle /blogs/ routes (canonical URLs) with SSR for SEO
   if (pathname.startsWith('/blogs/') && pathname.length > 7) {
+    return true;
+  }
+  
+  // CRITICAL SEO FIX: Handle /blog/ routes (legacy URLs) with SSR
+  // These were showing duplicate meta descriptions because they bypassed SSR
+  if (pathname.startsWith('/blog/') && pathname.length > 6) {
     return true;
   }
   
@@ -1425,51 +1436,88 @@ window.__vite_plugin_react_preamble_installed__ = true
     let ssrContent;
 
     // Blog posts need special handling: empty root + hidden SEO content after
-    const isBlogPost = pathname.startsWith('/blogs/') && pathname.length > 7;
+    // Handle both /blogs/ (canonical) and /blog/ (legacy) URLs for SSR
+    const isBlogPost = (pathname.startsWith('/blogs/') && pathname.length > 7) || 
+                       (pathname.startsWith('/blog/') && pathname.length > 6);
     const isStaticBlog = isStaticBlogRoute(pathname);
     const isBlogListing = pathname === '/blog' || pathname === '/blogs';
     
-    // PAGESPEED CLS FIX: Homepage should NOT have SSR fallback content
-    // The hero section has a completely different layout than the SSR content,
-    // causing massive CLS (1.0) when React hydrates. SEO metadata is already
-    // injected in <head> (title, description, schema), so we don't need body content.
+    // CRITICAL SEO FIX: Homepage MUST have SSR content visible to crawlers
+    // Use "visually hidden" CSS technique to prevent CLS while keeping content accessible to:
+    // - Search engine crawlers (Google, Bing, Ubersuggest)
+    // - AI crawlers (ChatGPT, Claude, Perplexity)
+    // - Screen readers for accessibility
+    // This replaces the previous broken approach that showed 0 words to crawlers
     const isHomepage = pathname === '/';
     
-    if (isHomepage) {
-      // Homepage: Empty root div only - prevents CLS from SSR/React layout mismatch
-      // All SEO data (title, meta, schema) is already in <head>
-      ssrContent = '<div id="root"></div>';
-    } else if (isBlogPost || isStaticBlog) {
-      // Blog posts (WordPress + static React): empty root div + hidden SEO content for crawlers
-      // noscript ensures content is visible to bots but hidden from React hydration
-      ssrContent = `<div id="root"></div>
-      <noscript>
-        <article style="padding: 2rem; max-width: 1200px; margin: 0 auto;">
-          <h1 style="font-size: 2.5rem; font-weight: bold; margin-bottom: 1rem; color: #000;">${h1}</h1>
-          <div style="font-size: 1.125rem; line-height: 1.75; color: #374151;">${content}</div>
-        </article>
-      </noscript>`;
-    } else if (isBlogListing) {
-      // Blog listing page: Inject full blog listing HTML directly (contains <article> tags)
+    // SEO FALLBACK CSS: Content is invisible to sighted users, visible to crawlers
+    // aria-hidden="true" prevents screen readers from reading duplicate content
+    // The SSR content is removed by React after hydration via useEffect
+    // This is a standard progressive enhancement pattern for SSR with SPA hydration
+    const ssrFallbackStyle = 'position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;';
+    
+    // Script to remove SSR content after React hydrates (prevents duplicate content)
+    const hydrationCleanupScript = `<script>
+      // Remove SSR fallback content after React mounts to prevent duplicate content
+      // This runs after React hydration, so crawlers still see the SSR content
+      if (typeof window !== 'undefined') {
+        window.addEventListener('DOMContentLoaded', function() {
+          // Give React time to mount and hydrate
+          setTimeout(function() {
+            var ssrContent = document.querySelectorAll('.ssr-content');
+            ssrContent.forEach(function(el) { el.remove(); });
+          }, 100);
+        });
+      }
+    </script>`;
+    
+    if (isHomepage && pageContent) {
+      // Homepage: SSR content is visually hidden but crawlable for SEO
+      // aria-hidden="true" prevents screen readers from reading before React hydrates
+      // Content is removed by script after React mounts
       ssrContent = `
       <div id="root"></div>
-      <div class="ssr-content" style="padding: 2rem; max-width: 1200px; margin: 0 auto;">
+      <div class="ssr-content" style="${ssrFallbackStyle}" aria-hidden="true">
+        ${renderPageContent(pageContent)}
+      </div>
+      ${hydrationCleanupScript}`;
+    } else if (isBlogPost || isStaticBlog) {
+      // Blog posts (WordPress + static React): SSR content is visually hidden but crawlable
+      // aria-hidden="true" prevents screen readers from reading duplicate content
+      // Content is removed by script after React mounts
+      ssrContent = `<div id="root"></div>
+      <article class="ssr-content" style="${ssrFallbackStyle}" aria-hidden="true">
+        <h1 style="font-size: 2.5rem; font-weight: bold; margin-bottom: 1rem; color: #000;">${h1}</h1>
+        <div style="font-size: 1.125rem; line-height: 1.75; color: #374151;">${content}</div>
+      </article>
+      ${hydrationCleanupScript}`;
+    } else if (isBlogListing) {
+      // Blog listing page: SSR content is visually hidden but crawlable for SEO
+      ssrContent = `
+      <div id="root"></div>
+      <div class="ssr-content" style="${ssrFallbackStyle}" aria-hidden="true">
         <h1 style="font-size: 2.5rem; font-weight: bold; margin-bottom: 1rem; color: #000;">${h1}</h1>
         ${content}
-      </div>`;
+      </div>
+      ${hydrationCleanupScript}`;
     } else if (pageContent) {
-      // Marketing pages: Inject both root div and SSR content (SSR visible until React sets data-hydrated)
+      // Marketing pages: SSR content is visually hidden but crawlable for SEO
+      // aria-hidden="true" prevents screen readers from reading duplicate content
       ssrContent = `
       <div id="root"></div>
-      ${renderPageContent(pageContent)}`;
+      <div class="ssr-content" style="${ssrFallbackStyle}" aria-hidden="true">
+        ${renderPageContent(pageContent)}
+      </div>
+      ${hydrationCleanupScript}`;
     } else {
-      // Other pages: Simple fallback with SSR content
+      // Other pages: SSR fallback content is visually hidden but crawlable
       ssrContent = `
       <div id="root"></div>
-      <div class="ssr-content" style="padding: 2rem; max-width: 1200px; margin: 0 auto;">
+      <div class="ssr-content" style="${ssrFallbackStyle}" aria-hidden="true">
         <h1 style="font-size: 2.5rem; font-weight: bold; margin-bottom: 1rem; color: #000;">${h1}</h1>
         <p style="font-size: 1.125rem; line-height: 1.75; color: #374151; margin-bottom: 2rem;">${content}</p>
-      </div>`;
+      </div>
+      ${hydrationCleanupScript}`;
     }
     
     template = template.replace(

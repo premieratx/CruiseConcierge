@@ -3386,6 +3386,82 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       'faq', 'contact', 'home'
     ]
   },
+  '/site-directory': {
+    h1: 'Site Directory | Premier Party Cruises - Austin Lake Travis Boats',
+    introduction: 'Complete directory of Premier Party Cruises services and pages. Find [[bachelor-party]], [[bachelorette-party]], [[atx-disco]], [[private-cruises]], [[corporate-events]], and more on Lake Travis.',
+    sections: [
+      {
+        heading: 'Party Cruises & Events',
+        paragraphs: [
+          'Explore our complete range of party cruise options on Lake Travis near Austin, Texas.'
+        ],
+        lists: [
+          {
+            items: [
+              'Bachelor Party Boats - Epic lake cruises for the groom and his crew',
+              'Bachelorette Party Cruises - Unforgettable celebrations for the bride tribe',
+              'ATX Disco Cruise - All-inclusive party experience with DJ & photographer',
+              'Private Boat Rentals - Exclusive charters for groups of 14-75 guests',
+              'Combined Bachelor & Bachelorette Parties - Celebrate together on Lake Travis'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Corporate & Special Events',
+        paragraphs: [
+          'Professional event planning for corporate outings and milestone celebrations.'
+        ],
+        lists: [
+          {
+            items: [
+              'Corporate Events - Team building and company outings',
+              'Team Building - Unique Austin team building experiences',
+              'Client Entertainment - Impress clients on Lake Travis',
+              'Birthday Parties - Milestone celebrations on the water',
+              'Wedding Parties - Rehearsal dinners, welcome parties, after parties'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Our Fleet',
+        paragraphs: [
+          'Austin\'s premier fleet of party boats on Lake Travis.'
+        ],
+        lists: [
+          {
+            items: [
+              'Day Tripper - 14 guests, perfect for intimate groups',
+              'Meeseeks & The Irony - 30 guests max, medium groups',
+              'Clever Girl - 75 guests max, flagship boat with 14 disco balls'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Resources & Information',
+        paragraphs: [
+          'Helpful resources for planning your Lake Travis party cruise.'
+        ],
+        lists: [
+          {
+            items: [
+              'Blog - Party planning tips and Austin guides',
+              'FAQ - Frequently asked questions answered',
+              'Testimonials - Real reviews from happy customers',
+              'Contact Us - Get in touch with our team'
+            ]
+          }
+        ]
+      }
+    ],
+    relatedPages: [
+      'bachelor-party', 'bachelorette-party', 'atx-disco', 'private-cruises',
+      'corporate-events', 'wedding-party', 'birthday-party', 'team-building',
+      'faq', 'testimonials', 'contact', 'blog', 'home'
+    ]
+  },
   '/ai-endorsement': {
     h1: 'AI-Powered Boat Rental Experience | Premier Party Cruises',
     introduction: 'Premier Party Cruises leverages cutting-edge AI technology to enhance your booking experience. From intelligent chatbot assistance to personalized event planning, our AI-powered platform makes booking [[private-cruises]] and [[atx-disco]] packages faster, easier, and more customized to your needs.',
