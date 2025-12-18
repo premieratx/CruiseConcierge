@@ -3521,5 +3521,355 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       'corporate-events', 'wedding-party', 'birthday-party', 'pricing-breakdown',
       'faq', 'contact', 'home'
     ]
+  },
+  '/book-now': {
+    h1: 'Book Your Lake Travis Cruise Online | Premier Party Cruises',
+    introduction: 'Ready to book your unforgettable Lake Travis party cruise? Use our easy online booking system to reserve [[atx-disco]] packages or [[private-cruises]]. Instant confirmation, secure payment, and 15+ years of exceptional service make booking with Premier Party Cruises the smart choice for your celebration.',
+    sections: [
+      {
+        heading: 'Easy Online Booking Process',
+        paragraphs: [
+          'Our streamlined booking system lets you reserve your Lake Travis cruise in minutes. Select your date, choose your package, enter your details, and receive instant confirmation. No waiting, no hassle - just simple, secure booking for your [[bachelor-party]], [[bachelorette-party]], or special event.',
+          'Browse real-time availability across our entire fleet. See exactly which boats and time slots are open for your preferred date. Compare options side-by-side and book with confidence knowing your reservation is guaranteed.'
+        ]
+      },
+      {
+        heading: 'Secure Payment & Deposit',
+        paragraphs: [
+          'Book with a refundable deposit and pay the balance closer to your event date. All payments processed securely through industry-leading payment systems. Receive instant email confirmation with booking details, what to bring, and marina directions.',
+          'Flexible payment options available for larger groups and corporate events. Contact our team for custom payment plans on [[corporate-events]] or [[wedding-party]] packages.'
+        ]
+      }
+    ],
+    relatedPages: ['atx-disco', 'private-cruises', 'pricing-breakdown', 'faq', 'contact']
+  },
+  '/chat': {
+    h1: 'Get Your Instant Quote | Premier Party Cruises Austin',
+    introduction: 'Welcome to Premier Party Cruises! Get an instant personalized quote for your Lake Travis celebration. Our AI-powered assistant provides real-time pricing for [[atx-disco]] packages and [[private-cruises]]. Available 24/7 to answer questions about boats, packages, availability, and pricing.',
+    sections: [
+      {
+        heading: 'Instant Quote Builder',
+        paragraphs: [
+          'Tell us about your celebration and receive a customized quote instantly. Enter your group size, preferred date, and event type to see transparent pricing for all available options. Compare [[atx-disco]] packages versus [[private-cruises]] side-by-side.',
+          'Our intelligent quote system factors in group size, seasonal pricing, package level, and add-ons to provide accurate estimates. No hidden fees - what you see is what you pay.'
+        ]
+      },
+      {
+        heading: '24/7 Assistance',
+        paragraphs: [
+          'Questions about [[bachelor-party]] packages? Wondering about BYOB policies? Our chat assistant provides instant answers anytime. Get information about boat capacity, amenities, what to bring, marina location, and booking policies without waiting for business hours.',
+          'Complex requests connect you directly with our experienced event planners. Whether planning [[wedding-party]], [[corporate-events]], or large group celebrations, we provide personalized service to make your event exceptional.'
+        ]
+      }
+    ],
+    relatedPages: ['atx-disco', 'private-cruises', 'pricing-breakdown', 'bachelor-party', 'bachelorette-party', 'contact']
+  },
+  '/golden-ticket': {
+    h1: 'Golden Ticket Winner! | ATX Disco Cruise Special Offer',
+    introduction: 'Congratulations! You\'ve unlocked an exclusive Golden Ticket offer for the [[atx-disco]]! This special promotional offer includes a $300 gift card toward your booking plus 5 additional friend cards to share. Limited availability - claim your Golden Ticket reward before it expires.',
+    sections: [
+      {
+        heading: 'Your Exclusive Reward',
+        paragraphs: [
+          'As a Golden Ticket winner, you receive $300 off your [[atx-disco]] booking - one of our biggest promotional offers ever. This discount applies to any ATX Disco Cruise time slot: Friday afternoon, Saturday morning, or Saturday sunset cruise.',
+          'Plus, share the celebration with 5 friend cards worth additional discounts. Each friend who books using your referral code receives a special discount, and you earn bonus rewards for each booking.'
+        ]
+      },
+      {
+        heading: 'ATX Disco Cruise Experience',
+        paragraphs: [
+          'The [[atx-disco]] is Lake Travis\'s ultimate party experience. Professional DJ, photographer, disco dance floor, giant unicorn floats, lily pads, and incredible views. BYOB friendly with coolers and ice provided. Join multiple [[bachelor-party]] and [[bachelorette-party]] groups for the best party on the lake.',
+          'Three time slots available: Friday 12-4pm ($95), Saturday 11am-3pm ($105), Saturday 3:30-7:30pm ($85). Prices include tax, gratuity, DJ, photographer, floats, and all amenities.'
+        ]
+      }
+    ],
+    relatedPages: ['atx-disco', 'bachelor-party', 'bachelorette-party', 'pricing-breakdown']
+  },
+  '/golden-ticket-private': {
+    h1: 'Golden Ticket Winner! | Private Cruise Special Offer',
+    introduction: 'Congratulations! You\'ve won an exclusive Golden Ticket for [[private-cruises]] on Lake Travis! This special promotional offer includes a $300 gift card toward your private boat rental. Have your own boat with licensed captain for your [[bachelor-party]], [[bachelorette-party]], [[wedding-party]], or any celebration.',
+    sections: [
+      {
+        heading: 'Your Private Cruise Reward',
+        paragraphs: [
+          'As a Golden Ticket winner, you receive $300 off your private boat rental - one of our biggest promotional offers. This discount applies to any boat in our fleet: Day Tripper (14 guests), Meeseeks/The Irony (30 guests), or flagship Clever Girl (75 guests with 14 disco balls).',
+          'Your private cruise includes licensed captain, premium Bluetooth sound system, large coolers with ice, and complete privacy for your group. Fully customizable routes on Lake Travis - stop at sandy beaches, visit waterfront restaurants, or cruise scenic coves.'
+        ]
+      },
+      {
+        heading: 'Private Charter Benefits',
+        paragraphs: [
+          'Private charters offer exclusive use of your chosen boat for your group only. Perfect for [[corporate-events]], [[team-building]], [[birthday-party]], and celebrations requiring privacy. BYOB friendly with no outside groups aboard.',
+          'Starting at $200/hour with 4-hour minimum. Your Golden Ticket $300 discount applies to total rental cost. Book the Day Tripper for intimate gatherings or Clever Girl for large parties up to 75 guests.'
+        ]
+      }
+    ],
+    relatedPages: ['private-cruises', 'bachelor-party', 'bachelorette-party', 'corporate-events', 'wedding-party', 'pricing-breakdown']
+  },
+  '/partners': {
+    h1: 'Premier Party Cruises Partner Program | Earn 10% Commission',
+    introduction: 'Join the Premier Party Cruises partner program and earn money referring customers to Austin\'s best Lake Travis boat rentals. Earn 10% commission on every booking from your referrals. Perfect for event planners, hotels, bars, restaurants, bachelor/bachelorette party organizers, and influencers.',
+    sections: [
+      {
+        heading: 'Partner Benefits',
+        paragraphs: [
+          'Earn 10% commission on every [[atx-disco]] and [[private-cruises]] booking made through your unique referral link. Monthly payouts via Venmo make it easy to receive your earnings. No cap on earnings - the more referrals, the more you earn.',
+          'Partners also receive personal discounts on their own bookings. Planning a celebration? Enjoy partner-exclusive pricing on [[bachelor-party]], [[bachelorette-party]], and all cruise packages.'
+        ]
+      },
+      {
+        heading: 'How It Works',
+        paragraphs: [
+          'Sign up and receive your unique partner link and promotional materials. Share with your audience, guests, or clients. When they book using your link, you earn 10% of the booking value automatically tracked in our system.',
+          'Perfect for hotels recommending activities to guests, bars hosting bachelor/bachelorette groups, event planners organizing celebrations, and social media influencers sharing Austin experiences. Join dozens of successful partners earning passive income.'
+        ]
+      }
+    ],
+    relatedPages: ['atx-disco', 'private-cruises', 'bachelor-party', 'bachelorette-party', 'contact']
+  },
+  '/wedding-anniversary-celebration-ideas': {
+    h1: 'Wedding Anniversary Celebration Ideas | Lake Travis Boat Cruises',
+    introduction: 'Celebrate your wedding anniversary with a romantic Lake Travis cruise! From intimate sunset voyages to milestone celebration parties, Premier Party Cruises offers unforgettable [[private-cruises]] perfect for recreating your special day on the water.',
+    sections: [
+      {
+        heading: 'Romantic Anniversary Cruises',
+        paragraphs: [
+          'Surprise your spouse with a private sunset cruise on Lake Travis. Our Day Tripper boat (up to 14 guests) offers intimate settings perfect for romantic anniversaries. Add champagne, flowers, and personalized decorations for a truly special celebration.',
+          'Recreate wedding memories with a boat party featuring your wedding songs, photos displayed on board, and scenic views of the Texas Hill Country. BYOB friendly - bring your favorite wines or champagne to toast your years together.'
+        ]
+      },
+      {
+        heading: 'Milestone Anniversary Parties',
+        paragraphs: [
+          'Celebrating 10, 25, or 50 years? Host a milestone anniversary party aboard our larger boats. Meeseeks accommodates up to 30 guests, while Clever Girl hosts up to 75 for bigger celebrations with family and friends.',
+          'Include catered meals, DJ entertainment, or a simple elegant cruise - customize every detail to match your vision. Our team helps coordinate everything so you can focus on celebrating your love story.'
+        ]
+      }
+    ],
+    relatedPages: ['private-cruises', 'wedding-party', 'rehearsal-dinner', 'pricing-breakdown', 'gallery']
+  },
+  '/austin-bachelor-party-ideas': {
+    h1: 'Austin Bachelor Party Ideas: Top Things to Do for an Epic Guys\' Weekend',
+    introduction: 'Planning the ultimate [[bachelor-party]] in Austin? From Lake Travis boat parties to 6th Street adventures, Austin offers incredible options for an epic celebration. Our guide covers the best bachelor party activities, including the legendary [[atx-disco]] and [[private-cruises]].',
+    sections: [
+      {
+        heading: 'Lake Travis Boat Party',
+        paragraphs: [
+          'The crown jewel of any Austin bachelor party - a boat cruise on Lake Travis! Join the [[atx-disco]] with multiple groups for an all-inclusive party experience with DJ, photographer, giant floats, and disco dance floor. Or book a [[private-cruises]] for exclusive use with your crew.',
+          'BYOB friendly with coolers and ice provided. Spend 4 hours swimming, partying, and cruising scenic Lake Travis. The perfect daytime activity before hitting Austin nightlife.'
+        ]
+      },
+      {
+        heading: 'Downtown Austin Nightlife',
+        paragraphs: [
+          'After your lake adventure, explore 6th Street - Austin\'s famous entertainment district. Dozens of bars, live music venues, and clubs within walking distance. Rainey Street offers craft cocktails in converted bungalows. East Austin features speakeasies and trendy spots.',
+          'Pro tip: Book your boat party for daytime (12-4pm or 11am-3pm) to maximize both lake time and nightlife. Many bachelor groups do boat party, dinner, then 6th Street for the ultimate Austin experience.'
+        ]
+      },
+      {
+        heading: 'More Austin Activities',
+        paragraphs: [
+          'Austin bachelor parties also love Top Golf, axe throwing, BBQ tours (Franklin, Terry Black\'s), brewery hopping, and golf courses. The city offers something for every groom\'s interests - from outdoor adventures to gaming lounges.',
+          'We recommend combining our [[atx-disco]] or [[private-cruises]] with 2-3 other activities for a packed weekend. Our team can suggest itineraries and partner discounts for complete bachelor party planning.'
+        ]
+      }
+    ],
+    relatedPages: ['bachelor-party', 'atx-disco', 'private-cruises', 'combined-bach', 'pricing-breakdown']
+  },
+  '/lake-travis-bachelor-party-boats': {
+    h1: 'Lake Travis Bachelor Party Boats: The Ultimate Austin Party Cruise Experience',
+    introduction: 'Discover why Lake Travis party boats are the #1 choice for Austin [[bachelor-party]] celebrations! From the all-inclusive [[atx-disco]] to exclusive [[private-cruises]], Premier Party Cruises offers the best bachelor party boat experience in Texas with 15+ years and 150,000+ happy customers.',
+    sections: [
+      {
+        heading: 'ATX Disco Cruise - Most Popular Bachelor Party',
+        paragraphs: [
+          'The [[atx-disco]] is Austin\'s legendary party boat experience. Join multiple [[bachelor-party]] and [[bachelorette-party]] groups for 4 hours of non-stop fun. Professional DJ plays all your favorites, photographer captures every moment, giant unicorn floats and lily pads for swimming, and a disco dance floor that gets everyone moving.',
+          'All-inclusive pricing ($85-$105 per person) includes DJ, photographer, floats, party supplies, ice, and mixers. Just bring your own alcohol (BYOB) and we handle everything else. Three time slots: Friday 12-4pm, Saturday 11am-3pm (most popular!), Saturday 3:30-7:30pm.'
+        ]
+      },
+      {
+        heading: 'Private Charter - Your Own Boat',
+        paragraphs: [
+          'Want your bachelor party to have the boat to yourselves? Our [[private-cruises]] offer exclusive use of premium party boats. Day Tripper (14 guests), Meeseeks/The Irony (30 guests), or flagship Clever Girl (75 guests) with giant Texas flag and 14 disco balls.',
+          'Private charters include licensed captain, premium sound system, coolers with ice, and complete privacy. Customize your route - stop at sandy beaches, visit Devils Cove, or cruise scenic Lake Travis. Starting at $200/hour with 4-hour minimum. Perfect for bachelor parties wanting exclusive experience.'
+        ]
+      },
+      {
+        heading: 'Why Lake Travis Boat Parties?',
+        paragraphs: [
+          'Lake Travis offers crystal-clear water, stunning Hill Country views, and perfect Texas weather most of the year. Unlike indoor venues, our boats provide open-air celebration with swimming, sunbathing, and incredible photo opportunities.',
+          'Our boats are equipped with everything for the perfect party: premium sound systems, multiple seating areas, shade canopies, clean restrooms, and swimming ladders. BYOB friendly with no corkage fees. The ultimate Austin [[bachelor-party]] experience!'
+        ]
+      }
+    ],
+    relatedPages: ['bachelor-party', 'atx-disco', 'private-cruises', 'combined-bach', 'pricing-breakdown', 'faq', 'gallery']
+  },
+  '/blogs/atx-disco-cruise-experience': {
+    h1: "ATX Disco Cruise Experience: Austin's Ultimate Party Boat",
+    introduction: 'Experience the legendary ATX Disco Cruise on Lake Travis! Our all-inclusive party boat cruise features professional DJ entertainment, onboard photographer, giant floats, and a disco dance floor. BYOB friendly with 150,000+ guests served since 2009. The premier Lake Travis party boat experience.',
+    sections: [
+      {
+        heading: 'The Ultimate Lake Travis Party Experience',
+        paragraphs: [
+          'The ATX Disco Cruise is Austin\'s original and most popular Lake Travis party boat experience. For over 15 years, we\'ve been hosting [[bachelor-party]], [[bachelorette-party]], and celebration groups for unforgettable 4-hour cruises on crystal-clear Lake Travis waters.',
+          'Every cruise includes professional DJ playing today\'s hits and party classics, onboard photographer capturing your best moments, giant 20-foot lily pad floats for swimming and lounging, dance floor with disco vibes, ice-cold coolers for your drinks, and all the party supplies you need.'
+        ]
+      },
+      {
+        heading: 'All-Inclusive Party Boat Pricing',
+        paragraphs: [
+          'Our all-inclusive pricing makes planning easy. Friday cruises start at $85 per person, Saturday 11am-3pm cruises (most popular!) at $105 per person. All prices include tax and gratuity. BYOB - bring your own alcohol and we provide ice, coolers, cups, and mixers.',
+          'Three convenient time slots: Friday 12-4pm for casual celebrations, Saturday 11am-3pm for the peak party experience, and Saturday 3:30-7:30pm for sunset cruises. Book early as weekend slots fill quickly, especially for [[bachelor-party]] and [[bachelorette-party]] season.'
+        ]
+      },
+      {
+        heading: 'What Sets Us Apart',
+        paragraphs: [
+          'Premier Party Cruises operates Austin\'s newest fleet of party boats including our flagship Clever Girl with 14 disco balls and giant Texas flag. Coast Guard certified captains, spotless boats, and professional crew ensure safety while you focus on celebrating.',
+          'We specialize in bachelor and bachelorette parties with perfect party atmosphere. Join multiple celebration groups for maximum fun, or book [[private-cruises]] for exclusive use. Either way, expect an Instagram-worthy experience with incredible Lake Travis scenery as your backdrop.'
+        ]
+      }
+    ],
+    relatedPages: ['atx-disco', 'bachelor-party', 'bachelorette-party', 'private-cruises', 'faq', 'gallery']
+  },
+  '/blogs/why-choose-austin-bachelor-party': {
+    h1: 'Why Choose Austin for Your Bachelor Party: Top 10 Reasons',
+    introduction: 'Discover why Austin is the ultimate [[bachelor-party]] destination! From epic Lake Travis boat parties to world-class BBQ, legendary 6th Street nightlife, and outdoor adventures - Austin has everything for an unforgettable bachelor celebration.',
+    sections: [
+      {
+        heading: 'Top Reasons Austin Is Perfect for Bachelor Parties',
+        paragraphs: [
+          'Austin offers the perfect blend of adventure, nightlife, and celebration for bachelor parties. Lake Travis provides stunning Hill Country scenery and world-class party boats like the [[atx-disco]]. Our crystal-clear waters, sandy beaches, and floating options create the ultimate daytime party experience.',
+          'Beyond the lake, Austin boasts legendary BBQ at Franklin, Terry Black\'s, and La Barbecue. 6th Street and Rainey Street deliver diverse nightlife from honky-tonks to craft cocktail bars. Add Top Golf, breweries, and outdoor adventures for the complete bachelor experience.'
+        ]
+      },
+      {
+        heading: 'Lake Travis Boat Party Experience',
+        paragraphs: [
+          'The [[atx-disco]] is Austin\'s most popular bachelor party activity. Our 4-hour all-inclusive cruises feature professional DJ, photographer, giant floats for swimming, and BYOB friendly policies. Starting at $85 per person with everything included except your drinks.',
+          'For exclusive bachelor party experiences, our [[private-cruises]] give your group the entire boat. Choose from Day Tripper (14 guests), Meeseeks (30 guests), or flagship Clever Girl (75 guests). Customize your route, bring your own entertainment, and party your way.'
+        ]
+      },
+      {
+        heading: 'Austin Nightlife and Activities',
+        paragraphs: [
+          'After your lake adventure, Austin nightlife delivers. 6th Street has something for everyone - live music venues, dance clubs, and dive bars. Rainey Street features craft cocktails in converted bungalows. East Austin offers speakeasies and trendy spots.',
+          'Round out your bachelor weekend with Austin activities: Top Golf, axe throwing at Urban Axes, brewery tours, golf courses, or floating the San Marcos River. Austin truly has everything for the perfect bachelor celebration.'
+        ]
+      }
+    ],
+    relatedPages: ['bachelor-party', 'atx-disco', 'private-cruises', 'combined-bach', 'faq']
+  },
+  '/blogs/epic-bachelor-party-austin-ultimate-guide': {
+    h1: 'Epic Bachelor Party Austin TX | Ultimate Planning Guide',
+    introduction: 'Plan an epic [[bachelor-party]] in Austin with our ultimate guide! From Lake Travis boat parties to BBQ crawls, nightlife, and adventure activities - everything you need for an unforgettable Austin bachelor celebration. 15+ years experience hosting 150,000+ guests.',
+    sections: [
+      {
+        heading: 'Planning Your Austin Bachelor Party',
+        paragraphs: [
+          'Austin is the perfect bachelor party destination with something for every groom. Start planning 2-3 months ahead to secure the best [[atx-disco]] time slots and restaurant reservations. Peak season is March through October when Lake Travis is at its best.',
+          'Most bachelor groups spend 2-3 days in Austin. Day 1: Arrive, dinner, casual bar hopping. Day 2: Lake Travis boat party, dinner, 6th Street. Day 3: Brunch, Top Golf or brewery tour, depart. This itinerary maximizes Austin\'s best offerings.'
+        ]
+      },
+      {
+        heading: 'Lake Travis Boat Party - The Main Event',
+        paragraphs: [
+          'The [[atx-disco]] is Austin\'s legendary bachelor party experience. Our 4-hour cruises include professional DJ, photographer, giant floats, dance floor, and all party supplies. BYOB friendly - bring your own drinks and we handle everything else. Starting at $85 per person all-inclusive.',
+          'Prefer privacy? Our [[private-cruises]] give your group exclusive use of the boat. Day Tripper fits 14, Meeseeks holds 30, and Clever Girl accommodates 75 for larger bachelor parties. Captain and crew included, customize your route and vibe.'
+        ]
+      },
+      {
+        heading: 'Essential Austin Bachelor Activities',
+        paragraphs: [
+          'Beyond the lake, Austin offers incredible bachelor party activities. BBQ is a must - Franklin (arrive early), Terry Black\'s, and La Barbecue rank among America\'s best. Top Golf provides competitive fun with drinks. Urban Axes offers axe throwing. Brewery tours hit Austin Beerworks and Jester King.',
+          '6th Street nightlife ranges from Dirty 6th dive bars to upscale West 6th clubs. Rainey Street features cocktails in converted bungalows. East Austin has speakeasies and trendy spots. Whatever your crew\'s vibe, Austin nightlife delivers.'
+        ]
+      }
+    ],
+    relatedPages: ['bachelor-party', 'atx-disco', 'private-cruises', 'pricing-breakdown', 'faq', 'gallery']
+  },
+  '/blogs/epic-bachelorette-party-austin-ultimate-guide': {
+    h1: 'Epic Bachelorette Party Austin TX | Ultimate Guide',
+    introduction: 'Plan an epic [[bachelorette-party]] in Austin with our ultimate guide! From Lake Travis cruises to spas, brunch spots, and legendary nightlife - everything for an unforgettable celebration. 15+ years experience hosting 150,000+ happy guests.',
+    sections: [
+      {
+        heading: 'Planning Your Austin Bachelorette',
+        paragraphs: [
+          'Austin is the perfect bachelorette destination with incredible options for every bride squad. Start planning 2-3 months ahead to secure [[atx-disco]] spots and restaurant reservations. Peak season is March through October for optimal Lake Travis conditions.',
+          'Most bachelorette groups spend 2-3 days in Austin. Day 1: Arrive, welcome dinner, casual drinks. Day 2: Lake Travis boat party, spa treatments, Rainey Street. Day 3: Brunch at Perla\'s or Suerte, shopping, depart. This itinerary hits Austin\'s bachelorette highlights.'
+        ]
+      },
+      {
+        heading: 'Lake Travis Cruise - The Highlight',
+        paragraphs: [
+          'The [[atx-disco]] is Austin\'s premier bachelorette party experience. Our 4-hour cruises feature professional DJ, photographer capturing every moment, giant lily pad floats, mimosa setup options, and incredible Instagram opportunities. BYOB friendly - starting at $85 per person all-inclusive.',
+          'Want exclusive access? Our [[private-cruises]] give your bride tribe the entire boat. Choose Day Tripper (14 guests) for intimate groups, Meeseeks (30 guests), or Clever Girl (75 guests) for larger celebrations. Customize decorations, music, and your Lake Travis route.'
+        ]
+      },
+      {
+        heading: 'Beyond the Lake - Austin Bachelorette Activities',
+        paragraphs: [
+          'Austin offers amazing bachelorette activities beyond Lake Travis. Spa day at Milk + Honey or Lake Austin Spa. Brunch at Perla\'s, Suerte, or June\'s All Day. South Congress shopping for vintage finds and Austin souvenirs. Wine tasting in nearby Hill Country.',
+          'Austin nightlife is perfect for bachelorettes. Rainey Street has charming bungalow bars. 6th Street ranges from live music to dance clubs. Rooftop bars offer views and craft cocktails. Whatever your vibe, Austin delivers the perfect bachelorette celebration.'
+        ]
+      }
+    ],
+    relatedPages: ['bachelorette-party', 'atx-disco', 'private-cruises', 'combined-bach', 'faq', 'gallery']
+  },
+  '/blogs/why-choose-austin-bachelorette-party': {
+    h1: 'Why Choose Austin for Your Bachelorette Party: Top 10 Reasons',
+    introduction: 'Discover why Austin is the ultimate [[bachelorette-party]] destination! From stunning Lake Travis cruises to world-class dining, charming Rainey Street bars, and Instagram-perfect moments - Austin has everything for an unforgettable bachelorette celebration.',
+    sections: [
+      {
+        heading: 'Top Reasons Austin Is Perfect for Bachelorettes',
+        paragraphs: [
+          'Austin offers the perfect blend of adventure, relaxation, and celebration. Lake Travis provides crystal-clear waters and stunning Hill Country scenery for incredible photos. Our [[atx-disco]] creates the ultimate party atmosphere with DJ, photographer, floats, and BYOB-friendly policies.',
+          'Beyond the lake, Austin boasts amazing food scene from fine dining to legendary tacos. World-class spas for bride-tribe pampering. Rainey Street\'s charming bungalow bars. South Congress boutique shopping. And endless Instagram opportunities throughout the city.'
+        ]
+      },
+      {
+        heading: 'Lake Travis Bachelorette Experience',
+        paragraphs: [
+          'The [[atx-disco]] is Austin\'s most popular bachelorette activity. Our 4-hour cruises include professional DJ playing bachelorette favorites, onboard photographer, giant lily pads for floating, and optional mimosa setups. Starting at $85 per person all-inclusive.',
+          'For exclusive celebrations, [[private-cruises]] give your group the entire boat. Decorate for the bride, create your playlist, and cruise Lake Travis your way. Our crew handles everything while you celebrate. Perfect for bridal parties wanting privacy and personalization.'
+        ]
+      },
+      {
+        heading: 'Austin Activities for Bride Squads',
+        paragraphs: [
+          'Austin bachelorette weekends offer endless options. Morning yoga at Lady Bird Lake. Spa day at Milk + Honey or Lake Austin Spa. Shopping on South Congress. Wine tasting in Fredericksburg. Cooking classes at Sur La Table. Austin truly caters to every bride\'s preferences.',
+          'Austin nightlife delivers variety for every crew. Rainey Street for craft cocktails in charming settings. 6th Street for live music and dancing. Rooftop bars for sunset views. East Austin speakeasies for intimate gatherings. Whatever your vibe, Austin has the perfect venue.'
+        ]
+      }
+    ],
+    relatedPages: ['bachelorette-party', 'atx-disco', 'private-cruises', 'combined-bach', 'faq', 'gallery']
+  },
+  '/blogs/lake-travis-bachelor-party-austin-celebrations': {
+    h1: 'Lake Travis Bachelor Party: Ultimate Austin Adventure Guide',
+    introduction: 'Plan the ultimate Lake Travis [[bachelor-party]] with boat rentals, adventure activities, and vibrant Austin nightlife. Our comprehensive guide covers everything from [[atx-disco]] cruises to [[private-cruises]] for unforgettable bachelor celebrations.',
+    sections: [
+      {
+        heading: 'Lake Travis Party Boat Options',
+        paragraphs: [
+          'Lake Travis offers the best bachelor party boat experience in Texas. The [[atx-disco]] provides all-inclusive 4-hour cruises with DJ, photographer, giant floats, and party atmosphere. Join other bachelor and bachelorette groups for maximum energy. Starting at $85 per person with BYOB policies.',
+          'For exclusive bachelor party experiences, our [[private-cruises]] give your crew the entire boat. Day Tripper fits 14 for intimate groups, Meeseeks holds 30, and Clever Girl accommodates 75 for larger bachelor parties. Captain, crew, and premium sound system included. Customize your Lake Travis route and party style.'
+        ]
+      },
+      {
+        heading: 'Lake Travis Adventure Activities',
+        paragraphs: [
+          'Beyond party boats, Lake Travis offers incredible bachelor party activities. Swimming at Devil\'s Cove, jet ski rentals, wakeboarding, and cliff jumping for adrenaline seekers. Fishing charters for laid-back groups. Paddleboard and kayak rentals for active mornings.',
+          'Our boat cruises pass stunning Hill Country scenery and anchor near sandy beaches. Crystal-clear water temperatures are perfect from April through October. Lake Travis provides the ultimate bachelor party backdrop with incredible photo opportunities throughout your cruise.'
+        ]
+      },
+      {
+        heading: 'Combining Lake and Austin Nightlife',
+        paragraphs: [
+          'The best bachelor parties combine Lake Travis with Austin nightlife. Book an early time slot (Friday 12-4pm or Saturday 11am-3pm) to maximize both experiences. After your cruise, head downtown for dinner and 6th Street festivities.',
+          'Pro bachelor party itinerary: Lake Travis boat party in the afternoon, BBQ dinner at Terry Black\'s, then hit 6th Street or Rainey Street for the night. This combination gives you Austin\'s best experiences and creates legendary bachelor party memories.'
+        ]
+      }
+    ],
+    relatedPages: ['bachelor-party', 'atx-disco', 'private-cruises', 'combined-bach', 'pricing-breakdown', 'gallery']
   }
 };

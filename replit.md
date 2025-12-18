@@ -37,6 +37,8 @@ Key technical implementations and design decisions include:
 -   **UI/UX**: Prioritizes clear navigation, responsive design, and components like `TableOfContents`, `StickyCTA`, and `CollapsibleSection`. Video backgrounds in hero sections are used for engaging visuals.
 -   **Photo Gallery**: Utilizes an `AnimatedPhotoGallery` component displaying verified party photos, specifically excluding mislabeled images showing empty boats.
 -   **SEO Audit & Compliance**: Automated scripts and processes are in place to ensure ongoing SEO health, including title tag optimization, H1 visibility, sitemap accuracy, and structured data validation for Google Search Console compliance.
+-   **SSR Content Priority System**: For blog pages, content sources are prioritized: (1) Database content if 500+ chars, (2) PAGE_CONTENT entries in `pageContent.ts`, (3) blogMetadataRegistry short descriptions. This ensures all pages have sufficient crawlable content.
+-   **SEO Audit Script**: Run `npx tsx scripts/seo-audit.ts` to verify all sitemap URLs pass 8 critical SEO checks (H1, meta title/description, content length 500+, canonical URL, Open Graph, structured data, mobile viewport). Current score: 100% (141/141 pages passing).
 
 ## External Dependencies
 -   **Stripe**: Payment processing.

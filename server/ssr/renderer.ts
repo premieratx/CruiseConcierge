@@ -834,6 +834,14 @@ const SSR_ROUTES = [
   '/faq',
   '/austin-bachelorette-nightlife',
   '/budget-austin-bachelorette',
+  '/book-now',
+  '/chat',
+  '/golden-ticket',
+  '/golden-ticket-private',
+  '/partners',
+  '/wedding-anniversary-celebration-ideas',
+  '/austin-bachelor-party-ideas',
+  '/lake-travis-bachelor-party-boats',
   '/luxury-austin-bachelorette',
   '/ultimate-austin-bachelorette-weekend',
   '/top-10-austin-bachelorette-ideas',
@@ -1119,34 +1127,62 @@ async function renderPage(url: string, req: Request): Promise<string> {
     let blogData: any = null;
     let blogListingPosts: any[] = []; // Store blog posts for schema generation
     
-    // Check if it's a blog post (only /blogs/ - /blog/ redirects to /blogs/)
-    if (pathname.startsWith('/blogs/')) {
-      // First check blog registry for React component blogs
-      const blogMeta = getBlogMetadata(pathname);
-      if (blogMeta) {
+    // Check if it's a blog post (/blogs/ canonical or /blog/ legacy)
+    // Both need SSR with full content for SEO
+    if (pathname.startsWith('/blogs/') || pathname.startsWith('/blog/')) {
+      // Extract slug from either /blogs/ or /blog/ prefix
+      const slug = pathname.startsWith('/blogs/') 
+        ? pathname.slice('/blogs/'.length) 
+        : pathname.slice('/blog/'.length);
+      
+      // Get metadata for meta tags (title, description for SEO)
+      // Check both /blogs/slug and the pathname patterns in registry
+      const blogMeta = getBlogMetadata('/blogs/' + slug) || getBlogMetadata(pathname);
+      
+      // Check for PAGE_CONTENT first (rich SSR content for React component blogs)
+      const blogPageContent = PAGE_CONTENT['/blogs/' + slug] || PAGE_CONTENT[pathname];
+      
+      // CRITICAL SEO FIX: ALWAYS fetch full content from database for SSR body content
+      // Previously, blogMeta match would return early with only 150-char description
+      // Now we always fetch the 4000+ char full content for proper SEO crawling
+      blogData = await fetchBlogPost(slug);
+      
+      // Determine content source: database > PAGE_CONTENT > blogMeta
+      const dbContentLength = (blogData?.post?.content || '').length;
+      const MIN_CONTENT_LENGTH = 500;
+      
+      if (blogData && blogData.post && dbContentLength >= MIN_CONTENT_LENGTH) {
+        // Use database content (500+ chars) for SSR body
+        h1 = blogData.post.title;
+        // Strip H1 tags from content to prevent duplicate H1s
+        const rawContent = blogData.post.content || blogData.post.excerpt || '';
+        content = rawContent.replace(/<h1[^>]*>[\s\S]*?<\/h1>/gi, '');
+        // Use metadata for meta tags (shorter, optimized)
+        metaTitle = blogMeta?.title || blogData.post.metaTitle || blogData.post.title;
+        metaDescription = blogMeta?.description || blogData.post.metaDescription || 
+                          blogData.post.excerpt || 
+                          (blogData.post.content ? blogData.post.content.substring(0, 160) : '');
+      } else if (blogPageContent) {
+        // Use PAGE_CONTENT for React component blogs with insufficient database content
+        h1 = blogPageContent.h1;
+        content = renderPageContent(blogPageContent);
+        metaTitle = blogMeta?.title || blogPageContent.h1;
+        metaDescription = blogMeta?.description || blogPageContent.introduction.substring(0, 160);
+      } else if (blogData && blogData.post) {
+        // Use whatever database content exists (less than 500 chars)
+        h1 = blogData.post.title;
+        const rawContent = blogData.post.content || blogData.post.excerpt || '';
+        content = rawContent.replace(/<h1[^>]*>[\s\S]*?<\/h1>/gi, '');
+        metaTitle = blogMeta?.title || blogData.post.metaTitle || blogData.post.title;
+        metaDescription = blogMeta?.description || blogData.post.metaDescription || 
+                          blogData.post.excerpt || 
+                          (blogData.post.content ? blogData.post.content.substring(0, 160) : '');
+      } else if (blogMeta) {
+        // Fallback to registry metadata only if no other source available
         h1 = blogMeta.title;
         content = blogMeta.description;
         metaTitle = blogMeta.title;
         metaDescription = blogMeta.description;
-      } else {
-        // Fallback to database for CMS blogs
-        const slug = pathname.slice('/blogs/'.length);
-        blogData = await fetchBlogPost(slug);
-        
-        if (blogData && blogData.post) {
-          h1 = blogData.post.title;
-          // CRITICAL FIX: Inject FULL blog content for SEO (not just excerpt)
-          // SEO FIX: Strip H1 tags from content to prevent duplicate H1s
-          const rawContent = blogData.post.content || blogData.post.excerpt || '';
-          content = rawContent.replace(/<h1[^>]*>[\s\S]*?<\/h1>/gi, '');
-          // SEO FIX: Remove suffix to keep titles under 60 chars - Google adds site name automatically
-          metaTitle = blogData.post.metaTitle || blogData.post.title;
-          // Generate unique meta description from content if not set
-          const uniqueDescription = blogData.post.metaDescription || 
-                                    blogData.post.excerpt || 
-                                    (blogData.post.content ? blogData.post.content.substring(0, 160) : '');
-          metaDescription = uniqueDescription;
-        }
       }
     } else if (pathname === '/blog' || pathname === '/blogs') {
       // Main blog listing page (/blog is primary, /blogs is canonical URL)
@@ -1481,10 +1517,25 @@ window.__vite_plugin_react_preamble_installed__ = true
         ${renderPageContent(pageContent)}
       </div>
       ${hydrationCleanupScript}`;
-    } else if (isBlogPost || isStaticBlog) {
-      // Blog posts (WordPress + static React): SSR content is visually hidden but crawlable
+    } else if (isBlogPost) {
+      // Database blog posts: SSR content is visually hidden but crawlable
       // aria-hidden="true" prevents screen readers from reading duplicate content
-      // Content is removed by script after React mounts
+      ssrContent = `<div id="root"></div>
+      <article class="ssr-content" style="${ssrFallbackStyle}" aria-hidden="true">
+        <h1 style="font-size: 2.5rem; font-weight: bold; margin-bottom: 1rem; color: #000;">${h1}</h1>
+        <div style="font-size: 1.125rem; line-height: 1.75; color: #374151;">${content}</div>
+      </article>
+      ${hydrationCleanupScript}`;
+    } else if (isStaticBlog && pageContent) {
+      // Static blog pages WITH full PAGE_CONTENT: use the rich content
+      ssrContent = `
+      <div id="root"></div>
+      <div class="ssr-content" style="${ssrFallbackStyle}" aria-hidden="true">
+        ${renderPageContent(pageContent)}
+      </div>
+      ${hydrationCleanupScript}`;
+    } else if (isStaticBlog) {
+      // Static blog pages without PAGE_CONTENT: use short description
       ssrContent = `<div id="root"></div>
       <article class="ssr-content" style="${ssrFallbackStyle}" aria-hidden="true">
         <h1 style="font-size: 2.5rem; font-weight: bold; margin-bottom: 1rem; color: #000;">${h1}</h1>
