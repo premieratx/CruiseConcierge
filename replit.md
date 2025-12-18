@@ -39,6 +39,8 @@ Key technical implementations and design decisions include:
 -   **SEO Audit & Compliance**: Automated scripts and processes are in place to ensure ongoing SEO health, including title tag optimization, H1 visibility, sitemap accuracy, and structured data validation for Google Search Console compliance.
 -   **SSR Content Priority System**: For blog pages, content sources are prioritized: (1) Database content if 500+ chars, (2) PAGE_CONTENT entries in `pageContent.ts`, (3) blogMetadataRegistry short descriptions. This ensures all pages have sufficient crawlable content.
 -   **SEO Audit Script**: Run `npx tsx scripts/seo-audit.ts` to verify all sitemap URLs pass 8 critical SEO checks (H1, meta title/description, content length 500+, canonical URL, Open Graph, structured data, mobile viewport). Current score: 100% (141/141 pages passing).
+-   **Schema Validation**: Run `npx tsx scripts/schema-validator.ts` to validate GSC compliance on 8 key pages. Checks for duplicate schemas (except allowed Service type), missing required fields (price/priceSpecification, availability, priceCurrency for Offers), and conflicting microdata. CRITICAL: ALL structured data (JSON-LD) must be handled via SSR from `attached_assets/schema_data/` files - NEVER inject schemas from React components to avoid duplicates.
+-   **Pre-Deploy Check**: Run `npx tsx scripts/pre-deploy-seo-check.ts` before deployments - combines SEO audit + schema validation for comprehensive compliance verification.
 
 ## External Dependencies
 -   **Stripe**: Payment processing.
