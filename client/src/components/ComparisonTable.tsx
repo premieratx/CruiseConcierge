@@ -78,11 +78,9 @@ export function ComparisonTable({
       <table 
         className="w-full text-sm" 
         summary={summary}
-        itemScope 
-        itemType={`https://schema.org/${schemaType}`}
       >
         {caption && (
-          <caption className="sr-only" itemProp="name">{caption}</caption>
+          <caption className="sr-only">{caption}</caption>
         )}
         <thead className="bg-muted/50 border-b">
           <tr>
@@ -100,13 +98,10 @@ export function ComparisonTable({
                   "px-4 py-3 text-center font-medium",
                   column.recommended && "bg-primary/5"
                 )}
-                itemProp="offers"
-                itemScope
-                itemType="https://schema.org/Offer"
               >
                 <div className="space-y-1">
                   <div className="flex items-center justify-center gap-2">
-                    <span className="font-semibold text-foreground" itemProp="name">
+                    <span className="font-semibold text-foreground">
                       {column.title}
                     </span>
                     {column.recommended && highlightBest && (
@@ -114,7 +109,7 @@ export function ComparisonTable({
                     )}
                   </div>
                   {column.subtitle && (
-                    <div className="text-xs text-muted-foreground" itemProp="description">
+                    <div className="text-xs text-muted-foreground">
                       {column.subtitle}
                     </div>
                   )}
@@ -122,7 +117,6 @@ export function ComparisonTable({
                     <Badge 
                       variant={column.badge.variant || 'default'} 
                       className="text-xs"
-                      itemProp="award"
                     >
                       {column.badge.text}
                     </Badge>
@@ -140,16 +134,12 @@ export function ComparisonTable({
                 "border-b hover:bg-muted/30 transition-colors",
                 rowIndex % 2 === 0 ? "bg-background" : "bg-muted/10"
               )}
-              itemProp="additionalProperty"
-              itemScope
-              itemType="https://schema.org/PropertyValue"
             >
               <td 
                 className="px-4 py-3 font-medium text-left sticky left-0 z-10"
                 style={{
                   backgroundColor: rowIndex % 2 === 0 ? 'hsl(var(--background))' : 'hsl(var(--muted) / 0.1)'
                 }}
-                itemProp="name"
               >
                 <span className="flex items-center gap-2">
                   {row.feature}
@@ -171,7 +161,6 @@ export function ComparisonTable({
                     "px-4 py-3 text-center",
                     columns[colIndex]?.recommended && "bg-primary/5"
                   )}
-                  itemProp="value"
                 >
                   {renderCellValue(value)}
                 </td>
@@ -193,8 +182,6 @@ export function ComparisonTable({
             "relative overflow-hidden",
             column.recommended && "ring-2 ring-primary"
           )}
-          itemScope 
-          itemType={`https://schema.org/${schemaType}`}
         >
           {column.recommended && highlightBest && (
             <div className="absolute top-0 right-0 bg-primary text-primary-foreground px-3 py-1 text-xs font-semibold rounded-bl-lg">
@@ -203,14 +190,14 @@ export function ComparisonTable({
           )}
           <CardContent className="p-4">
             <div className="mb-4 text-center">
-              <h3 className="text-lg font-semibold flex items-center justify-center gap-2" itemProp="name">
+              <h3 className="text-lg font-semibold flex items-center justify-center gap-2">
                 {column.title}
                 {column.recommended && highlightBest && (
                   <Star className="w-4 h-4 text-yellow-500 fill-yellow-500" />
                 )}
               </h3>
               {column.subtitle && (
-                <p className="text-sm text-muted-foreground mt-1" itemProp="description">
+                <p className="text-sm text-muted-foreground mt-1">
                   {column.subtitle}
                 </p>
               )}
@@ -218,7 +205,6 @@ export function ComparisonTable({
                 <Badge 
                   variant={column.badge.variant || 'default'} 
                   className="mt-2"
-                  itemProp="award"
                 >
                   {column.badge.text}
                 </Badge>
@@ -232,14 +218,11 @@ export function ComparisonTable({
                     "flex justify-between items-center py-2 px-3 rounded",
                     rowIndex % 2 === 0 ? "bg-muted/20" : ""
                   )}
-                  itemProp="additionalProperty"
-                  itemScope
-                  itemType="https://schema.org/PropertyValue"
                 >
-                  <span className="text-sm font-medium text-muted-foreground" itemProp="name">
+                  <span className="text-sm font-medium text-muted-foreground">
                     {row.feature}
                   </span>
-                  <span className="text-sm font-medium" itemProp="value">
+                  <span className="text-sm font-medium">
                     {renderCellValue(row.values[colIndex])}
                   </span>
                 </div>

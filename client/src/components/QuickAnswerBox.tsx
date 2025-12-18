@@ -319,24 +319,9 @@ export function QuickAnswerBoxGroup({
         </div>
       )}
 
-      {/* Schema markup for FAQ Page */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'FAQPage',
-            mainEntity: boxes.map(box => ({
-              '@type': 'Question',
-              name: box.question,
-              acceptedAnswer: {
-                '@type': 'Answer',
-                text: box.answer
-              }
-            }))
-          })
-        }}
-      />
+      {/* NOTE: FAQPage schema removed to prevent GSC "Duplicate field 'FAQPage'" errors.
+          All FAQ schemas are now handled centrally via SSR from attached_assets/schema_data/ files.
+          See server/schemaLoader.ts for the single source of truth. */}
     </div>
   );
 }

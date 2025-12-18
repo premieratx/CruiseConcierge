@@ -32,28 +32,49 @@ ${BOLD}              PRE-DEPLOY SEO COMPLIANCE CHECK${RESET}
 ${BOLD}${BLUE}════════════════════════════════════════════════════════════════${RESET}
 `);
 
-console.log(`${YELLOW}Running comprehensive SEO audit...${RESET}\n`);
+console.log(`${YELLOW}Step 1/2: Running comprehensive SEO audit...${RESET}\n`);
+
+let seoResult: string;
+let schemaResult: string;
 
 try {
   // Run the SEO audit script and capture output
-  const result = execSync('npx tsx scripts/seo-audit.ts', {
+  seoResult = execSync('npx tsx scripts/seo-audit.ts', {
     encoding: 'utf-8',
     stdio: ['pipe', 'pipe', 'pipe'],
     timeout: 300000 // 5 minute timeout
   });
 
   // Check for success indicators
-  const passedAll = result.includes('SUCCESS: ALL PAGES SEO-READY');
-  const scoreMatch = result.match(/Overall SEO Health Score:\s*(\d+)%/);
+  const passedAll = seoResult.includes('SUCCESS: ALL PAGES SEO-READY');
+  const scoreMatch = seoResult.match(/Overall SEO Health Score:\s*(\d+)%/);
   const score = scoreMatch ? parseInt(scoreMatch[1]) : 0;
-  const passedMatch = result.match(/Passed All Checks:\s*(\d+)/);
-  const failedMatch = result.match(/Failed One or More:\s*(\d+)/);
+  const passedMatch = seoResult.match(/Passed All Checks:\s*(\d+)/);
+  const failedMatch = seoResult.match(/Failed One or More:\s*(\d+)/);
   const passed = passedMatch ? parseInt(passedMatch[1]) : 0;
   const failed = failedMatch ? parseInt(failedMatch[1]) : 0;
 
-  console.log(result);
+  console.log(seoResult);
 
-  if (passedAll && score === 100) {
+  // Step 2: Run Schema Validator
+  console.log(`\n${YELLOW}Step 2/2: Running Schema Validator (GSC Compliance)...${RESET}\n`);
+  
+  let schemaPassedAll = false;
+  try {
+    schemaResult = execSync('npx tsx scripts/schema-validator.ts', {
+      encoding: 'utf-8',
+      stdio: ['pipe', 'pipe', 'pipe'],
+      timeout: 60000
+    });
+    console.log(schemaResult);
+    schemaPassedAll = schemaResult.includes('ALL PAGES PASS SCHEMA VALIDATION');
+  } catch (schemaError: any) {
+    schemaResult = schemaError.stdout || schemaError.message;
+    console.log(schemaResult);
+    schemaPassedAll = false;
+  }
+
+  if (passedAll && score === 100 && schemaPassedAll) {
     console.log(`
 ${GREEN}${BOLD}════════════════════════════════════════════════════════════════${RESET}
 ${GREEN}${BOLD}✓ SEO CHECK PASSED - READY FOR DEPLOYMENT${RESET}
@@ -69,8 +90,8 @@ All pages meet SEO requirements:
   ✓ Content >= 500 characters
   ✓ Canonical URLs set
   ✓ Open Graph tags present
-  ✓ Structured data valid
   ✓ Mobile viewport configured
+  ✓ Schema validation (no duplicates, required fields present)
 
 ${BOLD}You may proceed with deployment.${RESET}
 `);
