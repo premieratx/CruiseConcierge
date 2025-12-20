@@ -89,7 +89,7 @@ const whatsIncluded = [
   {
     icon: Music,
     title: 'Professional DJ',
-    description: 'Playing your favorites ALL DAY - party starts when you arrive!'
+    description: 'Some of the best DJs in Austin playing an amazing selection of favorites - not all disco, just party vibes all day!'
   },
   {
     icon: Camera,
@@ -1036,7 +1036,7 @@ export default function ATXDiscoCruise() {
                   </CardHeader>
                   <CardContent className="text-center">
                     <p className="text-gray-700 leading-relaxed">
-                      Live DJ playing hits all 4 hours! Takes requests, reads the crowd perfectly, keeps the party energy HIGH!
+                      Some of the best DJs in Austin - they absolutely kill it! Amazing selection of favorites (not all disco). Might take requests if you ask nicely, but let the man work!
                     </p>
                   </CardContent>
                 </Card>
@@ -1610,12 +1610,23 @@ export default function ATXDiscoCruise() {
                   {
                     id: 'music-type',
                     question: 'What kind of music is played?',
-                    answer: 'Professional DJ plays crowd-pleasing hits all day! Mix of current top 40, throwback classics, hip-hop, country, and party anthems. DJ takes requests and reads the crowd perfectly. The dance floor energy is incredible with everyone singing along.',
-                    keywords: ['DJ', 'music', 'top 40', 'requests', 'dance floor'],
+                    answer: 'Some of the best DJs in Austin play an amazing selection of favorites - not all disco! Expect a mix of top 40, throwback classics, hip-hop, country, and party anthems. They might take requests if you ask nicely, but let the man work - these DJs absolutely kill it and know how to read a crowd!',
+                    keywords: ['DJ', 'music', 'top 40', 'requests', 'dance floor', 'Austin DJs'],
                     icon: Music,
                     relatedLink: {
                       href: '#whats-included',
                       text: 'See what\'s included'
+                    }
+                  },
+                  {
+                    id: 'transportation',
+                    question: 'How do I get to the marina?',
+                    answer: 'We have a 25% discount partnership with Fetii! They offer 12-14 passenger Sprinter vans so your entire group can ride together. Perfect for bachelor and bachelorette parties - no need to split up between multiple Ubers. Contact Fetii and mention Premier Party Cruises for the discount.',
+                    keywords: ['transportation', 'Fetii', 'Sprinter van', 'group transport', 'ride together'],
+                    icon: Navigation,
+                    relatedLink: {
+                      href: '#availability',
+                      text: 'Book your cruise'
                     }
                   }
                 ]}
