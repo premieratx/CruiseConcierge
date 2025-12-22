@@ -2991,6 +2991,91 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
   });
 
   // ==========================================
+  // PAGE METADATA (SEO) ROUTES
+  // ==========================================
+
+  // Get all page metadata
+  app.get('/api/page-metadata', requireAdmin, async (req, res) => {
+    try {
+      const metadata = await storage.getAllPageMetadata();
+      res.json(metadata);
+    } catch (error) {
+      console.error('Error fetching page metadata:', error);
+      res.status(500).json({ 
+        error: 'Failed to fetch page metadata',
+        message: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+  });
+
+  // Get single page metadata
+  app.get('/api/page-metadata/:route', requireAdmin, async (req, res) => {
+    try {
+      const route = decodeURIComponent(req.params.route);
+      const metadata = await storage.getPageMetadata(route);
+      
+      if (!metadata) {
+        return res.status(404).json({ error: 'Page metadata not found' });
+      }
+      
+      res.json(metadata);
+    } catch (error) {
+      console.error('Error fetching page metadata:', error);
+      res.status(500).json({ 
+        error: 'Failed to fetch page metadata',
+        message: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+  });
+
+  // Create or update page metadata
+  app.post('/api/page-metadata', requireAdmin, async (req, res) => {
+    try {
+      const { route, title, description, keywords, keywordFocus } = req.body;
+      
+      if (!route || !title || !description) {
+        return res.status(400).json({ error: 'route, title, and description are required' });
+      }
+      
+      const metadata = await storage.upsertPageMetadata({
+        route,
+        title,
+        description,
+        keywords: keywords || [],
+        keywordFocus: keywordFocus || null
+      });
+      
+      res.json(metadata);
+    } catch (error) {
+      console.error('Error saving page metadata:', error);
+      res.status(500).json({ 
+        error: 'Failed to save page metadata',
+        message: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+  });
+
+  // Delete page metadata
+  app.delete('/api/page-metadata/:route', requireAdmin, async (req, res) => {
+    try {
+      const route = decodeURIComponent(req.params.route);
+      const deleted = await storage.deletePageMetadata(route);
+      
+      if (!deleted) {
+        return res.status(404).json({ error: 'Page metadata not found' });
+      }
+      
+      res.json({ success: true });
+    } catch (error) {
+      console.error('Error deleting page metadata:', error);
+      res.status(500).json({ 
+        error: 'Failed to delete page metadata',
+        message: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+  });
+
+  // ==========================================
   // ENDORSEMENTS ROUTES
   // ==========================================
   
