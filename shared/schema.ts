@@ -583,8 +583,29 @@ export type HeadingStructure = {
 };
 
 // ==========================================
+// PAGE METADATA (SEO)
+// ==========================================
+
+export const pageMetadata = pgTable("page_metadata", {
+  route: varchar("route", { length: 255 }).primaryKey(), // e.g., "/bachelor-party-austin"
+  title: text("title").notNull(),
+  description: text("description").notNull(),
+  keywords: jsonb("keywords").$type<string[]>().default([]),
+  keywordFocus: text("keyword_focus"), // Primary focus keyword
+  lastModified: timestamp("last_modified").defaultNow().notNull(),
+});
+
+// ==========================================
 // INSERT SCHEMAS
 // ==========================================
+
+export const insertPageMetadataSchema = createInsertSchema(pageMetadata).extend({
+  keywords: z.array(z.string()).default([]),
+  keywordFocus: z.string().optional(),
+});
+
+export type InsertPageMetadata = z.infer<typeof insertPageMetadataSchema>;
+export type PageMetadata = typeof pageMetadata.$inferSelect;
 
 export const insertBoatSchema = createInsertSchema(boats).omit({
   id: true,
