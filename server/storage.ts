@@ -1,4 +1,4 @@
-import { type Contact, type InsertContact, type Project, type InsertProject, type Boat, type InsertBoat, type Product, type InsertProduct, type User, type InsertUser, type Invite, type InsertInvite, type Quote, type InsertQuote, type Invoice, type Payment, type ChatMessage, type InsertChatMessage, type AdminChatSession, type InsertAdminChatSession, type AdminChatMessage, type InsertAdminChatMessage, type AvailabilitySlot, type InsertAvailabilitySlot, type SystemBlockout, type InsertSystemBlockout, type QuoteTemplate, type InsertQuoteTemplate, type TemplateRule, type InsertTemplateRule, type DiscountRule, type InsertDiscountRule, type PricingSettings, type InsertPricingSettings, type PricingPreview, type PricingAdjustment, type InsertPricingAdjustment, type Affiliate, type InsertAffiliate, type PartnerApplication, type InsertPartnerApplication, type PaymentSchedule, type DiscountCondition, type DayOfWeekMultipliers, type SeasonalAdjustment, type Booking, type InsertBooking, type DiscoSlot, type InsertDiscoSlot, type Timeframe, type InsertTimeframe, type EmailTemplate, type InsertEmailTemplate, type MasterTemplate, type InsertMasterTemplate, type QuoteItem, type RadioSection, type TemplateVisual, type RuleCondition, type RuleAction, type TemplateComponent, type AdminCalendarSlot, type AdminBookingInfo, type BatchSlotOperation, type AdminCalendarFilters, type ComprehensiveAdminBooking, type RecurringPattern, type PartialLead, type InsertPartialLead, type PartialLeadFilters, type SmsAuthToken, type InsertSmsAuthToken, type CustomerSession, type InsertCustomerSession, type PortalActivityLog, type InsertPortalActivityLog, type PhoneRateLimit, type CustomerVerificationAttempts, type QuoteAnalytics, type InsertQuoteAnalytics, type FileSend, type InsertFileSend, type EmailTracking, type InsertEmailTracking, type CustomerLifecycle, type InsertCustomerLifecycle, type CustomerActivity, type InsertCustomerActivity, type CustomerProfile, type LifecycleStage, type ActivityType, type SlotHold, type InsertSlotHold, type NormalizedSlot, type BlogPost, type InsertBlogPost, type BlogAuthor, type InsertBlogAuthor, type BlogCategory, type InsertBlogCategory, type BlogTag, type InsertBlogTag, type BlogPostCategory, type InsertBlogPostCategory, type BlogPostTag, type InsertBlogPostTag, type BlogComment, type InsertBlogComment, type BlogAnalytics, type InsertBlogAnalytics, type GalleryImage, type InsertGalleryImage, type SeoPage, type InsertSeoPage, type SeoAuditLog, type InsertSeoAuditLog, type SeoCompetitor, type InsertSeoCompetitor, type SeoSettings, type InsertSeoSettings, type SEOAnalysisResult, type SEOOptimizationRequest, type SEOBulkOperation, type SEOIssue, type HeadingStructure, type WebhookNotification, type InsertWebhookNotification, type Media, type InsertMedia, type MediaItem, type InsertMediaItem, type ContentBlock, type InsertContentBlock, type PromptsLibrary, type InsertPromptsLibrary, type SelectAgentChatSession, type InsertAgentChatSession, type SelectAgentChatMessage, type InsertAgentChatMessage, type MasterAvailabilityRule, type InsertMasterAvailabilityRule, type HolidayException, type InsertHolidayException, type SpecialPricingRule, type InsertSpecialPricingRule, type BlackoutDate, type InsertBlackoutDate, boats, products, users, invites, adminChatSessions, adminChatMessages, pricingSettings, affiliates, partnerApplications, blogPosts, blogAuthors, blogCategories, blogTags, blogPostCategories, blogPostTags, galleryImages, seoPages, mediaItems, contentBlocks, promptsLibrary } from "@shared/schema";
+import { type Contact, type InsertContact, type Project, type InsertProject, type Boat, type InsertBoat, type Product, type InsertProduct, type User, type InsertUser, type Invite, type InsertInvite, type Quote, type InsertQuote, type Invoice, type Payment, type ChatMessage, type InsertChatMessage, type AdminChatSession, type InsertAdminChatSession, type AdminChatMessage, type InsertAdminChatMessage, type AvailabilitySlot, type InsertAvailabilitySlot, type SystemBlockout, type InsertSystemBlockout, type QuoteTemplate, type InsertQuoteTemplate, type TemplateRule, type InsertTemplateRule, type DiscountRule, type InsertDiscountRule, type PricingSettings, type InsertPricingSettings, type PricingPreview, type PricingAdjustment, type InsertPricingAdjustment, type Affiliate, type InsertAffiliate, type PartnerApplication, type InsertPartnerApplication, type PaymentSchedule, type DiscountCondition, type DayOfWeekMultipliers, type SeasonalAdjustment, type Booking, type InsertBooking, type DiscoSlot, type InsertDiscoSlot, type Timeframe, type InsertTimeframe, type EmailTemplate, type InsertEmailTemplate, type MasterTemplate, type InsertMasterTemplate, type QuoteItem, type RadioSection, type TemplateVisual, type RuleCondition, type RuleAction, type TemplateComponent, type AdminCalendarSlot, type AdminBookingInfo, type BatchSlotOperation, type AdminCalendarFilters, type ComprehensiveAdminBooking, type RecurringPattern, type PartialLead, type InsertPartialLead, type PartialLeadFilters, type SmsAuthToken, type InsertSmsAuthToken, type CustomerSession, type InsertCustomerSession, type PortalActivityLog, type InsertPortalActivityLog, type PhoneRateLimit, type CustomerVerificationAttempts, type QuoteAnalytics, type InsertQuoteAnalytics, type FileSend, type InsertFileSend, type EmailTracking, type InsertEmailTracking, type CustomerLifecycle, type InsertCustomerLifecycle, type CustomerActivity, type InsertCustomerActivity, type CustomerProfile, type LifecycleStage, type ActivityType, type SlotHold, type InsertSlotHold, type NormalizedSlot, type BlogPost, type InsertBlogPost, type BlogAuthor, type InsertBlogAuthor, type BlogCategory, type InsertBlogCategory, type BlogTag, type InsertBlogTag, type BlogPostCategory, type InsertBlogPostCategory, type BlogPostTag, type InsertBlogPostTag, type BlogComment, type InsertBlogComment, type BlogAnalytics, type InsertBlogAnalytics, type GalleryImage, type InsertGalleryImage, type SeoPage, type InsertSeoPage, type SeoAuditLog, type InsertSeoAuditLog, type SeoCompetitor, type InsertSeoCompetitor, type SeoSettings, type InsertSeoSettings, type SEOAnalysisResult, type SEOOptimizationRequest, type SEOBulkOperation, type SEOIssue, type HeadingStructure, type WebhookNotification, type InsertWebhookNotification, type Media, type InsertMedia, type MediaItem, type InsertMediaItem, type ContentBlock, type InsertContentBlock, type PromptsLibrary, type InsertPromptsLibrary, type SelectAgentChatSession, type InsertAgentChatSession, type SelectAgentChatMessage, type InsertAgentChatMessage, type MasterAvailabilityRule, type InsertMasterAvailabilityRule, type HolidayException, type InsertHolidayException, type SpecialPricingRule, type InsertSpecialPricingRule, type BlackoutDate, type InsertBlackoutDate, type PageMetadata, type InsertPageMetadata, pageMetadata, boats, products, users, invites, adminChatSessions, adminChatMessages, pricingSettings, affiliates, partnerApplications, blogPosts, blogAuthors, blogCategories, blogTags, blogPostCategories, blogPostTags, galleryImages, seoPages, mediaItems, contentBlocks, promptsLibrary } from "@shared/schema";
 import { db } from "./db";
 import { eq, and, gte, lte, desc, asc, isNull, isNotNull, or, inArray, sql, count, sum, between } from "drizzle-orm";
 import { randomUUID } from "crypto";
@@ -1066,6 +1066,12 @@ export interface IStorage {
   getPageStatusTestRuns(pageId?: number): Promise<PageStatusTestRun[]>;
   createPageStatusTestRun(run: InsertPageStatusTestRun): Promise<PageStatusTestRun>;
   updatePageStatusTestRun(id: number, updates: Partial<InsertPageStatusTestRun>): Promise<PageStatusTestRun>;
+
+  // Page Metadata (SEO)
+  getAllPageMetadata(): Promise<PageMetadata[]>;
+  getPageMetadata(route: string): Promise<PageMetadata | undefined>;
+  upsertPageMetadata(metadata: InsertPageMetadata): Promise<PageMetadata>;
+  deletePageMetadata(route: string): Promise<boolean>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -7021,6 +7027,47 @@ Crawl-delay: 1`;
   }
 
   // ===== END PAGE STATUS TRACKING =====
+
+  // ===== PAGE METADATA (SEO) =====
+
+  async getAllPageMetadata(): Promise<PageMetadata[]> {
+    return await db.select().from(pageMetadata).orderBy(pageMetadata.route);
+  }
+
+  async getPageMetadata(route: string): Promise<PageMetadata | undefined> {
+    const result = await db.select().from(pageMetadata).where(eq(pageMetadata.route, route)).limit(1);
+    return result[0];
+  }
+
+  async upsertPageMetadata(metadata: InsertPageMetadata): Promise<PageMetadata> {
+    const existing = await this.getPageMetadata(metadata.route);
+    
+    if (existing) {
+      const result = await db.update(pageMetadata)
+        .set({
+          ...metadata,
+          lastModified: new Date()
+        })
+        .where(eq(pageMetadata.route, metadata.route))
+        .returning();
+      return result[0];
+    } else {
+      const result = await db.insert(pageMetadata)
+        .values({
+          ...metadata,
+          lastModified: new Date()
+        })
+        .returning();
+      return result[0];
+    }
+  }
+
+  async deletePageMetadata(route: string): Promise<boolean> {
+    const result = await db.delete(pageMetadata).where(eq(pageMetadata.route, route)).returning();
+    return result.length > 0;
+  }
+
+  // ===== END PAGE METADATA =====
 }
 
 export const storage = new DatabaseStorage();
