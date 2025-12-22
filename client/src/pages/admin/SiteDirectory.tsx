@@ -278,7 +278,7 @@ export default function SiteDirectory() {
                     <Save className="h-4 w-4 mr-1" />
                     Save
                   </Button>
-                  <Button variant="outline" onClick={() => setShowAddNew(false)}>
+                  <Button variant="outline" onClick={() => setShowAddNew(false)} data-testid="button-cancel-new-page">
                     Cancel
                   </Button>
                 </div>
@@ -368,19 +368,20 @@ export default function SiteDirectory() {
                               onKeyDown={(e) => e.key === "Enter" && (e.preventDefault(), handleAddKeyword())}
                               data-testid={`input-add-keyword-${page.route.replace(/\//g, "-")}`}
                             />
-                            <Button variant="outline" size="sm" onClick={handleAddKeyword}>
+                            <Button variant="outline" size="sm" onClick={handleAddKeyword} data-testid={`button-add-keyword-${page.route.replace(/\//g, "-")}`}>
                               <Plus className="h-4 w-4" />
                             </Button>
                           </div>
                           {formData.keywords.length > 0 && (
                             <div className="flex flex-wrap gap-2 mt-2">
                               {formData.keywords.map((kw, idx) => (
-                                <Badge key={idx} variant="secondary" className="gap-1">
+                                <Badge key={idx} variant="secondary" className="gap-1" data-testid={`badge-keyword-${idx}`}>
                                   <Tag className="h-3 w-3" />
                                   {kw}
                                   <button
                                     onClick={() => handleRemoveKeyword(idx)}
                                     className="ml-1 hover:text-destructive"
+                                    data-testid={`button-remove-keyword-${idx}`}
                                   >
                                     ×
                                   </button>
@@ -404,6 +405,7 @@ export default function SiteDirectory() {
                               setEditingRoute(null);
                               setFormData(null);
                             }}
+                            data-testid={`button-cancel-edit-${page.route.replace(/\//g, "-")}`}
                           >
                             Cancel
                           </Button>
