@@ -47,7 +47,7 @@ export default function ATXDiscoCruiseExperience() {
       {/* Introduction */}
       <SectionReveal>
         <section id="introduction" className="mb-12" data-testid="section-introduction">
-          <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white" data-testid="heading-introduction">
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-6 text-gray-900 dark:text-white" data-testid="heading-introduction">
             Party Like a Pro on Lake Travis
           </h2>
           <p className="text-lg mb-4 text-gray-700 dark:text-gray-300">
@@ -100,8 +100,8 @@ export default function ATXDiscoCruiseExperience() {
       {/* DO: Dress to Impress */}
       <SectionReveal>
         <section id="dos-dress-to-impress" className="mb-12" data-testid="section-dos-dress-to-impress">
-          <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white flex items-center gap-3" data-testid="heading-dos-dress-to-impress">
-            <CheckCircle className="text-green-500" /> DO: Dress to Impress (and Amuse)
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-6 text-gray-900 dark:text-white flex flex-wrap items-center gap-2 sm:gap-3" data-testid="heading-dos-dress-to-impress">
+            <CheckCircle className="h-5 w-5 sm:h-6 sm:w-6 text-green-500 flex-shrink-0" /> DO: Dress to Impress (and Amuse)
           </h2>
           
           <p className="text-lg mb-4 text-gray-700 dark:text-gray-300">
@@ -155,8 +155,8 @@ export default function ATXDiscoCruiseExperience() {
       {/* DO: Hydrate */}
       <SectionReveal>
         <section id="dos-hydrate" className="mb-12" data-testid="section-dos-hydrate">
-          <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white flex items-center gap-3" data-testid="heading-dos-hydrate">
-            <CheckCircle className="text-green-500" /> DO: Hydrate Between Beers (Seriously)
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-6 text-gray-900 dark:text-white flex flex-wrap items-center gap-2 sm:gap-3" data-testid="heading-dos-hydrate">
+            <CheckCircle className="h-5 w-5 sm:h-6 sm:w-6 text-green-500 flex-shrink-0" /> DO: Hydrate Between Beers (Seriously)
           </h2>
           
           <p className="text-lg mb-4 text-gray-700 dark:text-gray-300">
@@ -208,8 +208,8 @@ export default function ATXDiscoCruiseExperience() {
       {/* DO: Make Friends */}
       <SectionReveal>
         <section id="dos-make-friends" className="mb-12" data-testid="section-dos-make-friends">
-          <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white flex items-center gap-3" data-testid="heading-dos-make-friends">
-            <CheckCircle className="text-green-500" /> DO: Make Friends & Form a Supergroup
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-6 text-gray-900 dark:text-white flex flex-wrap items-center gap-2 sm:gap-3" data-testid="heading-dos-make-friends">
+            <CheckCircle className="h-5 w-5 sm:h-6 sm:w-6 text-green-500 flex-shrink-0" /> DO: Make Friends & Form a Supergroup
           </h2>
           
           <p className="text-lg mb-4 text-gray-700 dark:text-gray-300">
@@ -256,8 +256,8 @@ export default function ATXDiscoCruiseExperience() {
       {/* DO: Bring Snacks */}
       <SectionReveal>
         <section id="dos-bring-snacks" className="mb-12" data-testid="section-dos-bring-snacks">
-          <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white flex items-center gap-3" data-testid="heading-dos-bring-snacks">
-            <CheckCircle className="text-green-500" /> DO: Bring Snacks (Eat, Party, Repeat)
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-6 text-gray-900 dark:text-white flex flex-wrap items-center gap-2 sm:gap-3" data-testid="heading-dos-bring-snacks">
+            <CheckCircle className="h-5 w-5 sm:h-6 sm:w-6 text-green-500 flex-shrink-0" /> DO: Bring Snacks (Eat, Party, Repeat)
           </h2>
           
           <p className="text-lg mb-4 text-gray-700 dark:text-gray-300">
@@ -311,8 +311,8 @@ export default function ATXDiscoCruiseExperience() {
       {/* DO: Party Smart */}
       <SectionReveal>
         <section id="dos-party-smart" className="mb-12" data-testid="section-dos-party-smart">
-          <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white flex items-center gap-3" data-testid="heading-dos-party-smart">
-            <CheckCircle className="text-green-500" /> DO: Party Hard and Party Smart
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-6 text-gray-900 dark:text-white flex flex-wrap items-center gap-2 sm:gap-3" data-testid="heading-dos-party-smart">
+            <CheckCircle className="h-5 w-5 sm:h-6 sm:w-6 text-green-500 flex-shrink-0" /> DO: Party Hard and Party Smart
           </h2>
           
           <p className="text-lg mb-4 text-gray-700 dark:text-gray-300">
@@ -366,8 +366,8 @@ export default function ATXDiscoCruiseExperience() {
       {/* DON'T: Liquor/Shots */}
       <SectionReveal>
         <section id="donts-liquor-shots" className="mb-12" data-testid="section-donts-liquor-shots">
-          <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white flex items-center gap-3" data-testid="heading-donts-liquor-shots">
-            <AlertTriangle className="text-red-500" /> DON'T: Overdo the Hard Liquor or Shots
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-6 text-gray-900 dark:text-white flex flex-wrap items-center gap-2 sm:gap-3" data-testid="heading-donts-liquor-shots">
+            <AlertTriangle className="h-5 w-5 sm:h-6 sm:w-6 text-red-500 flex-shrink-0" /> DON'T: Overdo the Hard Liquor or Shots
           </h2>
           
           <p className="text-lg mb-4 text-gray-700 dark:text-gray-300">
@@ -420,8 +420,8 @@ export default function ATXDiscoCruiseExperience() {
       {/* DON'T: Be Creepy */}
       <SectionReveal>
         <section id="donts-be-creepy" className="mb-12" data-testid="section-donts-be-creepy">
-          <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white flex items-center gap-3" data-testid="heading-donts-be-creepy">
-            <AlertTriangle className="text-red-500" /> DON'T: Be That Creepy or Rude Guy
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-6 text-gray-900 dark:text-white flex flex-wrap items-center gap-2 sm:gap-3" data-testid="heading-donts-be-creepy">
+            <AlertTriangle className="h-5 w-5 sm:h-6 sm:w-6 text-red-500 flex-shrink-0" /> DON'T: Be That Creepy or Rude Guy
           </h2>
           
           <p className="text-lg mb-4 text-gray-700 dark:text-gray-300">
@@ -476,8 +476,8 @@ export default function ATXDiscoCruiseExperience() {
       {/* DON'T: Forget Safety */}
       <SectionReveal>
         <section id="donts-forget-safety" className="mb-12" data-testid="section-donts-forget-safety">
-          <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white flex items-center gap-3" data-testid="heading-donts-forget-safety">
-            <AlertTriangle className="text-red-500" /> DON'T: Forget You're On a Boat (Safety & Rules)
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-6 text-gray-900 dark:text-white flex flex-wrap items-center gap-2 sm:gap-3" data-testid="heading-donts-forget-safety">
+            <AlertTriangle className="h-5 w-5 sm:h-6 sm:w-6 text-red-500 flex-shrink-0" /> DON'T: Forget You're On a Boat (Safety & Rules)
           </h2>
           
           <p className="text-lg mb-4 text-gray-700 dark:text-gray-300">
@@ -543,7 +543,7 @@ export default function ATXDiscoCruiseExperience() {
       {/* Conclusion */}
       <SectionReveal>
         <section id="conclusion" className="mb-12" data-testid="section-conclusion">
-          <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white" data-testid="heading-conclusion">
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-6 text-gray-900 dark:text-white" data-testid="heading-conclusion">
             Party On (Responsibly) Garth!
           </h2>
           

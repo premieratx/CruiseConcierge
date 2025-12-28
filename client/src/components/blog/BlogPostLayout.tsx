@@ -83,7 +83,7 @@ export function BlogPostLayout({
           {/* Article Header */}
           <SectionReveal>
             <header className="mb-12 text-center">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6 leading-tight" data-testid="blog-title">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-6 leading-tight break-words" data-testid="blog-title">
                 {title}
               </h1>
               <div className="flex items-center justify-center gap-4 text-gray-600 dark:text-gray-400" data-testid="blog-meta">
