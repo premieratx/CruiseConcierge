@@ -1,4 +1,5 @@
 import { useState, useEffect, startTransition } from "react";
+import AdminNoIndex from "@/components/AdminNoIndex";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -473,6 +474,7 @@ export default function MediaLibrary() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-yellow-50 p-6">
+      <AdminNoIndex />
       <div className="max-w-7xl mx-auto">
         <div className="flex items-center justify-between mb-8">
           <div>

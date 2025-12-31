@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
 import Layout from '@/components/Layout';
+import AdminNoIndex from "@/components/AdminNoIndex";
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -225,6 +226,7 @@ export default function SEOManagement() {
 
   return (
     <Layout>
+      <AdminNoIndex />
       <div className="space-y-6 p-6" data-testid="seo-management-page">
         {/* Header */}
         <motion.div

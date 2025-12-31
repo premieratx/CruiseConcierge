@@ -2,6 +2,7 @@ import { useState, useMemo } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { format, startOfMonth, endOfMonth, eachDayOfInterval, addMonths, isSameDay, isSameMonth, isToday, parseISO } from "date-fns";
 import Layout from "@/components/Layout";
+import AdminNoIndex from "@/components/AdminNoIndex";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -556,6 +557,7 @@ export default function Pricing() {
 
   return (
     <Layout>
+      <AdminNoIndex />
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">

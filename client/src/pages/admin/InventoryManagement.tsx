@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
+import AdminNoIndex from "@/components/AdminNoIndex";
 import { queryClient, apiRequest } from "@/lib/queryClient";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -238,6 +239,7 @@ export function InventoryManagement() {
 
   return (
     <div className="container mx-auto p-6 space-y-6">
+      <AdminNoIndex />
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Inventory Management</h1>

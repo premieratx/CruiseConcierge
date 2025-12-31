@@ -5,6 +5,7 @@
 
 import { useState, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import AdminNoIndex from "@/components/AdminNoIndex";
 import { 
   Bot, 
   Play, 
@@ -264,6 +265,7 @@ export default function AgenticAI() {
 
   return (
     <div className="container mx-auto p-6 space-y-6">
+      <AdminNoIndex />
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>

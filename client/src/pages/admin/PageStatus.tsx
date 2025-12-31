@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import AdminNoIndex from "@/components/AdminNoIndex";
 import { apiRequest } from "@/lib/queryClient";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -215,6 +216,7 @@ export default function PageStatus() {
 
   return (
     <div className="space-y-6">
+      <AdminNoIndex />
       <Card>
         <CardHeader>
           <CardTitle>Page Status Monitor</CardTitle>

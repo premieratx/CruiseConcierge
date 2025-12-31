@@ -1,5 +1,6 @@
 import { useState, useCallback, useRef } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
+import AdminNoIndex from "@/components/AdminNoIndex";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -355,6 +356,7 @@ export default function GalleryManager() {
 
   return (
     <div className="container mx-auto py-8 space-y-8">
+      <AdminNoIndex />
       <div>
         <h1 className="text-3xl font-bold">Photo Gallery Manager</h1>
         <p className="text-muted-foreground mt-2">

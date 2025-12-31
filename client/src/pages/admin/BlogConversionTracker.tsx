@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import AdminNoIndex from "@/components/AdminNoIndex";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -33,6 +34,7 @@ export default function BlogConversionTracker() {
 
   return (
     <div className="container mx-auto py-8 px-4">
+      <AdminNoIndex />
       <div className="mb-8">
         <h1 className="text-4xl font-bold mb-2">Blog Conversion Tracker</h1>
         <p className="text-muted-foreground">

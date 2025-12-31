@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import Layout from '@/components/Layout';
+import AdminNoIndex from "@/components/AdminNoIndex";
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -327,6 +328,7 @@ export default function AIAssistant() {
 
   return (
     <Layout>
+      <AdminNoIndex />
       <div className="min-h-screen bg-background">
         <div className="container mx-auto p-6 max-w-7xl">
           <div className="flex items-center justify-between mb-6">

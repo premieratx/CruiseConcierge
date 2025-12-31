@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useQuery, useMutation } from '@tanstack/react-query';
+import AdminNoIndex from "@/components/AdminNoIndex";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -113,6 +114,7 @@ export default function UptimeMonitoring() {
 
   return (
     <div className="space-y-6">
+      <AdminNoIndex />
       <div className="flex justify-between items-center">
         <div>
           <h2 className="text-3xl font-bold tracking-tight">Uptime Monitoring</h2>

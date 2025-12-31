@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import AdminNoIndex from "@/components/AdminNoIndex";
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
@@ -67,6 +68,7 @@ export default function BusinessSummary() {
 
   return (
     <div className="p-6">
+      <AdminNoIndex />
       <div className="mb-6">
         <h1 className="text-3xl font-bold mb-2">Business Summary Dashboard</h1>
         <p className="text-muted-foreground">

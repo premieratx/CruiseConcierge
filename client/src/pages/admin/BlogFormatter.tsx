@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import Layout from "@/components/Layout";
+import AdminNoIndex from "@/components/AdminNoIndex";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import {
@@ -78,6 +79,7 @@ export default function BlogFormatter() {
 
   return (
     <Layout>
+      <AdminNoIndex />
       <div className="container mx-auto py-8 px-4">
         <div className="max-w-4xl mx-auto">
           <div className="mb-8">

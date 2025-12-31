@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "wouter";
+import AdminNoIndex from "@/components/AdminNoIndex";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -58,6 +59,7 @@ export default function ContentBlocksManagement() {
 
   return (
     <>
+      <AdminNoIndex />
       <Helmet>
         <title>Content Blocks Management - Admin Dashboard</title>
         <meta name="description" content="Manage content blocks across your website with inline editing, drag-and-drop reordering, and advanced content management features." />

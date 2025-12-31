@@ -1,0 +1,58 @@
+# Premier Party Cruises - Robots.txt
+# Last updated: 2025-12-31
+
+User-agent: *
+
+# Allow crawling of all public content
+Allow: /
+
+# Block admin, auth, and private pages
+Disallow: /admin
+Disallow: /admin/
+Disallow: /auth
+Disallow: /auth/
+Disallow: /portal
+Disallow: /portal/
+Disallow: /api/
+Disallow: /quote/
+Disallow: /invoice/
+Disallow: /booking/
+Disallow: /booking-flow
+Disallow: /partial-leads
+Disallow: /dashboard
+Disallow: /settings
+Disallow: /customer-profile
+
+# Block utility/internal pages
+Disallow: /quote-builder-embed
+Disallow: /book-online-popup
+Disallow: /demo-content
+
+# Block AI crawlers from admin content (extra protection)
+User-agent: GPTBot
+Disallow: /admin
+Disallow: /admin/
+Disallow: /api/
+
+User-agent: ChatGPT-User
+Disallow: /admin
+Disallow: /admin/
+Disallow: /api/
+
+User-agent: Claude-Web
+Disallow: /admin
+Disallow: /admin/
+Disallow: /api/
+
+User-agent: CCBot
+Disallow: /admin
+Disallow: /admin/
+Disallow: /api/
+
+User-agent: anthropic-ai
+Disallow: /admin
+Disallow: /admin/
+Disallow: /api/
+
+# Sitemap location
+Sitemap: https://premierpartycruises.com/sitemap.xml

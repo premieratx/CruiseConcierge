@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams, useLocation } from "wouter";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import Layout from "@/components/Layout";
+import AdminNoIndex from "@/components/AdminNoIndex";
 import { RichTextEditor } from "@/components/blog/RichTextEditor";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -307,6 +308,7 @@ export default function BlogPostEditor() {
 
   return (
     <Layout>
+      <AdminNoIndex />
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="flex items-center justify-between mb-6">

@@ -3,6 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Separator } from "@/components/ui/separator";
 import Layout from "@/components/Layout";
+import AdminNoIndex from "@/components/AdminNoIndex";
 import { 
   Ship, 
   Users, 
@@ -25,6 +26,7 @@ import {
 export default function PricingRules() {
   return (
     <Layout>
+      <AdminNoIndex />
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="mb-8">
