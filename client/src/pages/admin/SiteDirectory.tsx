@@ -60,6 +60,12 @@ const DEFAULT_PAGES = [
   { route: "/faq", name: "FAQ" },
   { route: "/contact", name: "Contact" },
   { route: "/gallery", name: "Gallery" },
+  { route: "/blogs/austin-bachelor-party-ideas", name: "Austin Bachelor Party Ideas Blog" },
+  { route: "/blogs/lake-travis-bachelor-party-boats-guide", name: "Lake Travis Bachelor Party Boats Blog" },
+  { route: "/blogs/perfect-austin-bachelor-party-weekend", name: "Perfect Austin Bachelor Party Weekend Blog" },
+  { route: "/blogs/atx-disco-cruise-dos-and-donts-bachelor-party", name: "ATX Disco Cruise Do's and Don'ts Blog" },
+  { route: "/blogs/bachelor-party-outfit-ideas-atx-disco-cruise", name: "Bachelor Party Outfit Ideas Blog" },
+  { route: "/blogs/joint-bachelor-bachelorette-party-guide", name: "Joint Bachelor Bachelorette Party Blog" },
 ];
 
 export default function SiteDirectory() {
