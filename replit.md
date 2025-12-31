@@ -41,6 +41,7 @@ Key technical implementations and design decisions include:
 -   **SEO Audit Script**: Run `npx tsx scripts/seo-audit.ts` to verify all sitemap URLs pass 8 critical SEO checks (H1, meta title/description, content length 500+, canonical URL, Open Graph, structured data, mobile viewport). Current score: 100% (141/141 pages passing).
 -   **Schema Validation**: Run `npx tsx scripts/schema-validator.ts` to validate GSC compliance on 8 key pages. Checks for duplicate schemas (except allowed Service type), missing required fields (price/priceSpecification, availability, priceCurrency for Offers), and conflicting microdata. CRITICAL: ALL structured data (JSON-LD) must be handled via SSR from `attached_assets/schema_data/` files - NEVER inject schemas from React components to avoid duplicates.
 -   **Pre-Deploy Check**: Run `npx tsx scripts/pre-deploy-seo-check.ts` before deployments - combines SEO audit + schema validation for comprehensive compliance verification.
+-   **SSR Health Check**: Run `npx tsx scripts/ssr-health-check.ts` to validate 25 critical routes for soft 404 prevention. Checks H1 tags, meta descriptions (50+ chars), content length (10KB+), and soft 404 indicators. MUST pass before any deploy to prevent Google Search Console soft 404 errors.
 
 ## External Dependencies
 -   **Stripe**: Payment processing.
