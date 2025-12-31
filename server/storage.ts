@@ -5038,7 +5038,7 @@ export class DatabaseStorage implements IStorage {
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>${baseUrl}/blog</loc>
+    <loc>${baseUrl}/blogs</loc>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
