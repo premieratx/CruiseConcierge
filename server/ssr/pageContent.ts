@@ -3648,7 +3648,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
     ],
     relatedPages: ['private-cruises', 'wedding-party', 'rehearsal-dinner', 'pricing-breakdown', 'gallery']
   },
-  '/austin-bachelor-party-ideas': {
+  '/blogs/austin-bachelor-party-ideas': {
     h1: 'Austin Bachelor Party Ideas: Top Things to Do for an Epic Guys\' Weekend',
     introduction: 'Planning the ultimate [[bachelor-party]] in Austin? From Lake Travis boat parties to 6th Street adventures, Austin offers incredible options for an epic celebration. Our guide covers the best bachelor party activities, including the legendary [[atx-disco]] and [[private-cruises]].',
     sections: [

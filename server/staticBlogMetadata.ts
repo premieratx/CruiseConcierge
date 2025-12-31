@@ -10,8 +10,8 @@ export interface StaticBlogMetadata {
 }
 
 const STATIC_BLOG_METADATA: Record<string, StaticBlogMetadata> = {
-  '/austin-bachelor-party-ideas': {
-    slug: 'austin-bachelor-party-ideas',
+  '/blogs/austin-bachelor-party-ideas': {
+    slug: 'blogs/austin-bachelor-party-ideas',
     title: "Austin Bachelor Party Ideas: Top Things to Do for an Epic Guys' Weekend",
     description: "Discover the ultimate Austin bachelor party ideas! From Lake Travis party boats to 6th Street bars, BBQ joints, and outdoor adventures - plan the perfect Austin bachelor weekend.",
     publishDate: '2025-01-15',
