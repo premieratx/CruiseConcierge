@@ -2599,6 +2599,7 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
   const SEO_CACHE_TTL = 5 * 60 * 1000; // 5 minutes
   
   // Public endpoint: Get SEO meta data for a specific page route
+  // Priority: Site Directory (page_metadata) > seo_pages > defaults
   app.get('/api/seo/meta/:pageRoute(*)', async (req, res) => {
     try {
       const pageRoute = decodeURIComponent(req.params.pageRoute);
@@ -2610,6 +2611,37 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
       }
       
       const storage = await getStorage();
+      
+      // PRIORITY 1: Check Site Directory (page_metadata table) first
+      const pageMetadata = await storage.getPageMetadata(pageRoute);
+      
+      if (pageMetadata) {
+        // Site Directory has SEO data for this page - use it
+        const seoData = {
+          metaTitle: pageMetadata.title,
+          metaDescription: pageMetadata.description,
+          metaKeywords: pageMetadata.keywords || [],
+          openGraphTitle: pageMetadata.title,
+          openGraphDescription: pageMetadata.description,
+          openGraphImage: null,
+          openGraphType: 'website',
+          twitterTitle: pageMetadata.title,
+          twitterDescription: pageMetadata.description,
+          twitterImage: null,
+          twitterCard: 'summary_large_image',
+          canonicalUrl: null,
+          robotsDirective: 'index, follow',
+          schemaMarkup: null,
+          source: 'site_directory'
+        };
+        
+        // Cache the result
+        seoCache.set(pageRoute, { data: seoData, timestamp: Date.now() });
+        
+        return res.json(seoData);
+      }
+      
+      // PRIORITY 2: Fall back to seo_pages table
       const seoPage = await storage.getSeoPage(pageRoute);
       
       if (!seoPage) {
@@ -3045,6 +3077,9 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
         keywordFocus: keywordFocus || null
       });
       
+      // Clear SEO cache for this route so changes take effect immediately
+      seoCache.delete(route);
+      
       res.json(metadata);
     } catch (error) {
       console.error('Error saving page metadata:', error);
@@ -3064,6 +3099,9 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
       if (!deleted) {
         return res.status(404).json({ error: 'Page metadata not found' });
       }
+      
+      // Clear SEO cache for this route
+      seoCache.delete(route);
       
       res.json({ success: true });
     } catch (error) {
