@@ -80,7 +80,7 @@ export default function JointBachelorBachelorettePartyGuide() {
         <title>How to Plan an Amazing Joint Bachelor/Bachelorette Party in Austin | Premier Party Cruises</title>
         <meta name="description" content="Planning a joint bachelor bachelorette party in Austin? Discover the ultimate guide to combined bachelor bachelorette celebrations on Lake Travis. ATX Disco Cruise is PERFECT for co-ed groups mixing together. Book your Lake Travis party boat today!" />
         <meta name="keywords" content="joint bachelor bachelorette party, Austin bachelor party, combined bachelor bachelorette, ATX Disco Cruise, Lake Travis party boat, bachelor party in Austin, party boat Austin, co-ed bachelor party, joint bach party Austin, combined pre-wedding party" />
-        <link rel="canonical" href="https://premierpartycruises.com/blog/joint-bachelor-bachelorette-party-guide" />
+        <link rel="canonical" href="https://premierpartycruises.com/blogs/joint-bachelor-bachelorette-party-guide" />
         <meta property="og:title" content="How to Plan an Amazing Joint Bachelor/Bachelorette Party in Austin" />
         <meta property="og:description" content="The ultimate guide to planning a combined bachelor bachelorette party in Austin. ATX Disco Cruise on Lake Travis - perfect for co-ed groups!" />
         <meta property="og:type" content="article" />

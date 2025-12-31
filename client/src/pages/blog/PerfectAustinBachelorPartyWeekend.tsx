@@ -74,7 +74,7 @@ export default function PerfectAustinBachelorPartyWeekend() {
         <title>The Perfect Austin Bachelor Party Weekend: A 3-Day Itinerary | Premier Party Cruises</title>
         <meta name="description" content="Plan the perfect bachelor party in Austin with our complete 3-day itinerary. From the ATX Disco Cruise on Lake Travis to 6th Street bar crawls, Texas BBQ, and Rainey Street - discover the ultimate Austin bachelor party weekend guide." />
         <meta name="keywords" content="Austin bachelor party, bachelor party in Austin, Austin party boat, party boat Austin, Lake Travis party barge, ATX Disco Cruise, ideas for bachelor party in Austin, Austin bachelor party itinerary, 3 day bachelor party Austin, bachelor party weekend Austin TX" />
-        <link rel="canonical" href="https://premierpartycruises.com/blog/perfect-austin-bachelor-party-weekend" />
+        <link rel="canonical" href="https://premierpartycruises.com/blogs/perfect-austin-bachelor-party-weekend" />
         <meta property="og:title" content="The Perfect Austin Bachelor Party Weekend: A 3-Day Itinerary" />
         <meta property="og:description" content="Your complete guide to planning an epic 3-day bachelor party in Austin. Lake Travis party boats, 6th Street, BBQ, and more." />
         <meta property="og:type" content="article" />

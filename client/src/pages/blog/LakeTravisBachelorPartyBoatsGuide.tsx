@@ -91,11 +91,11 @@ export default function LakeTravisBachelorPartyBoatsGuide() {
         <title>Lake Travis Bachelor Party Boats: The Ultimate Austin Party Cruise Experience | Premier Party Cruises</title>
         <meta name="description" content="Plan the ultimate Lake Travis bachelor party on Austin's best party boats. Experience the famous ATX Disco Cruise where bachelor and bachelorette groups party together. BYOB-friendly with Party On Delivery coordination. Book your Austin party boat today!" />
         <meta name="keywords" content="Lake Travis bachelor party, Austin party boat, party boat Austin, Lake Travis party barge, Austin party barge, bachelor party in Austin, ATX Disco Cruise, Lake Travis boat rental, Austin bachelor party boats" />
-        <link rel="canonical" href="https://premierpartycruises.com/blog/lake-travis-bachelor-party-boats-guide" />
+        <link rel="canonical" href="https://premierpartycruises.com/blogs/lake-travis-bachelor-party-boats-guide" />
         <meta property="og:title" content="Lake Travis Bachelor Party Boats: The Ultimate Austin Party Cruise Experience" />
         <meta property="og:description" content="Experience the ultimate bachelor party on Lake Travis. The famous ATX Disco Cruise brings bachelor and bachelorette groups together for an unforgettable Austin party boat experience." />
         <meta property="og:type" content="article" />
-        <meta property="og:url" content="https://premierpartycruises.com/blog/lake-travis-bachelor-party-boats-guide" />
+        <meta property="og:url" content="https://premierpartycruises.com/blogs/lake-travis-bachelor-party-boats-guide" />
         <meta property="og:image" content="https://premierpartycruises.com/attached_assets/bachelor-party-group-guys.webp" />
       </Helmet>
 

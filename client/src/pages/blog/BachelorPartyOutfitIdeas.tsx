@@ -76,7 +76,7 @@ export default function BachelorPartyOutfitIdeas() {
         <title>Best Bachelor Party Outfit Ideas for the ATX Disco Cruise | Premier Party Cruises</title>
         <meta name="description" content="Planning outfits for your Austin bachelor party on Lake Travis? Discover the best costume and theme ideas for the ATX Disco Cruise. From Disco Cowboys to Nautical Bros, dress up to stand out and break the ice with bachelorette groups!" />
         <meta name="keywords" content="Austin bachelor party outfits, ATX Disco Cruise costumes, Lake Travis party boat outfits, bachelor party in Austin themes, party boat Austin costume ideas, bachelor party costume themes, disco cruise outfit ideas" />
-        <link rel="canonical" href="https://premierpartycruises.com/blog/bachelor-party-outfit-ideas-atx-disco-cruise" />
+        <link rel="canonical" href="https://premierpartycruises.com/blogs/bachelor-party-outfit-ideas-atx-disco-cruise" />
         <meta property="og:title" content="Best Bachelor Party Outfit Ideas for the ATX Disco Cruise" />
         <meta property="og:description" content="The ultimate guide to dressing up for your Austin bachelor party on Lake Travis. Stand out, break the ice, and party harder!" />
         <meta property="og:type" content="article" />

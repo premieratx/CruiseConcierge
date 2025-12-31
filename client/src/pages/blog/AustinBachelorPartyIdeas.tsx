@@ -59,7 +59,7 @@ export default function AustinBachelorPartyIdeas() {
         <title>Austin Bachelor Party Ideas: Top Things to Do for an Epic Guys' Weekend | Premier Party Cruises</title>
         <meta name="description" content="Planning a bachelor party in Austin? Discover the ultimate guide to Austin bachelor party ideas including the famous ATX Disco Cruise, 6th Street bar crawls, Lake Travis party boats, and Texas BBQ. Book the best bachelor party experience in Austin, Texas." />
         <meta name="keywords" content="Austin bachelor party ideas, bachelor party in Austin, bachelor party Austin, Austin party boat, party boat Austin, Lake Travis party barge, Austin party barge, ideas for bachelor party in Austin, ATX Disco Cruise, Lake Travis bachelor party, Austin bachelor party boats" />
-        <link rel="canonical" href="https://premierpartycruises.com/austin-bachelor-party-ideas" />
+        <link rel="canonical" href="https://premierpartycruises.com/blogs/austin-bachelor-party-ideas" />
         <meta property="og:title" content="Austin Bachelor Party Ideas: Epic Guys' Weekend Guide" />
         <meta property="og:description" content="The ultimate guide to planning an epic bachelor party in Austin. Lake Travis party boats, 6th Street, BBQ, and more." />
         <meta property="og:type" content="article" />

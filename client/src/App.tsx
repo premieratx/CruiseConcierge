@@ -324,8 +324,8 @@ function Router() {
       <Route path="/blogs/top-spots-tips-for-an-unforgettable-austin-bachelorette-party-experience" component={TopSpotsAustinBacheloretteParty} />
       
       {/* New SEO-Optimized Bachelor Party Blog Pages */}
-      <Route path="/austin-bachelor-party-ideas" component={AustinBachelorPartyIdeas} />
-      <Route path="/blog/perfect-austin-bachelor-party-weekend" component={PerfectAustinBachelorPartyWeekend} />
+      <Route path="/blogs/austin-bachelor-party-ideas" component={AustinBachelorPartyIdeas} />
+      <Route path="/blogs/perfect-austin-bachelor-party-weekend" component={PerfectAustinBachelorPartyWeekend} />
       <Route path="/lake-travis-bachelor-party-boats" component={LakeTravisBachelorPartyBoats} />
       <Route path="/blogs/atx-disco-cruise-experience" component={ATXDiscoCruiseExperience} />
       <Route path="/blogs/lake-travis-bachelor-party-austin-celebrations" component={LakeTravisBachelorPartyCelebrations} />
@@ -396,10 +396,10 @@ function Router() {
       <Route path="/blogs/epic-bachelorette-party-austin-ultimate-guide" component={EpicBachelorettePartyAustinGuide} />
       <Route path="/blogs/how-to-throw-great-bachelor-party-austin" component={HowToThrowBachelorPartyAustin} />
       <Route path="/blogs/how-to-throw-great-bachelorette-party-austin" component={HowToThrowBachelorettePartyAustin} />
-      <Route path="/blog/lake-travis-bachelor-party-boats-guide" component={LakeTravisBachelorPartyBoatsGuide} />
+      <Route path="/blogs/lake-travis-bachelor-party-boats-guide" component={LakeTravisBachelorPartyBoatsGuide} />
       <Route path="/blogs/atx-disco-cruise-dos-and-donts-bachelor-party" component={ATXDiscoCruiseDosAndDonts} />
-      <Route path="/blog/bachelor-party-outfit-ideas-atx-disco-cruise" component={BachelorPartyOutfitIdeas} />
-      <Route path="/blog/joint-bachelor-bachelorette-party-guide" component={JointBachelorBachelorettePartyGuide} />
+      <Route path="/blogs/bachelor-party-outfit-ideas-atx-disco-cruise" component={BachelorPartyOutfitIdeas} />
+      <Route path="/blogs/joint-bachelor-bachelorette-party-guide" component={JointBachelorBachelorettePartyGuide} />
       
       {/* Public Booking - Commented out, using /chat instead */}
       {/* <Route path="/calendar" component={PublicCalendar} /> */}
