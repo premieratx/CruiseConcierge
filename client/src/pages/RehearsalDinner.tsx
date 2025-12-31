@@ -521,7 +521,7 @@ export default function RehearsalDinner() {
 
                     <div
                       className="xola-custom xola-checkout"
-                      data-button-id="691574bd162501edc00f151a"
+                      data-button-id="695186923c261203770cc2e7"
                     >
                       <Button 
                         className="w-full"

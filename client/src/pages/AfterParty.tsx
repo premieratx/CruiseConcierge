@@ -254,7 +254,7 @@ export default function AfterParty() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <div
                 className="xola-custom xola-checkout"
-                data-button-id="691574bd162501edc00f151a"
+                data-button-id="695186923c261203770cc2e7"
               >
                 <Button
                   size="lg"
@@ -435,7 +435,7 @@ export default function AfterParty() {
 
                     <div
                       className="xola-custom xola-checkout"
-                      data-button-id="691574bd162501edc00f151a"
+                      data-button-id="695186923c261203770cc2e7"
                     >
                       <Button 
                         className="w-full"
@@ -630,7 +630,7 @@ export default function AfterParty() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <div
                 className="xola-custom xola-checkout"
-                data-button-id="691574bd162501edc00f151a"
+                data-button-id="695186923c261203770cc2e7"
               >
                 <Button
                   size="lg"

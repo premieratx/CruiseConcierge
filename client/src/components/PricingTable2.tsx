@@ -245,7 +245,7 @@ function DiscoPricingTable({ packages, showTaxAndGratuity = true, showDeposit = 
               
               <div
                 className="xola-custom xola-checkout mt-6"
-                data-button-id="691574bd162501edc00f151a"
+                data-button-id="695186923c261203770cc2e7"
               >
                 <Button 
                   className={cn(
@@ -702,7 +702,7 @@ export function PricingTable2({
                 </ul>
                 <div
                   className="xola-custom xola-checkout"
-                  data-button-id="691574bd162501edc00f151a"
+                  data-button-id="695186923c261203770cc2e7"
                 >
                   <Button className="w-full mt-4" variant={pkg.popular ? 'default' : 'outline'}>
                     {pkg.cta || 'Book Now'}

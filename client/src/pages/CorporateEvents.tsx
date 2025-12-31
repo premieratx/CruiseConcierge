@@ -489,7 +489,7 @@ export default function CorporateEvents() {
             </Button>
             <div
               className="xola-custom xola-checkout"
-              data-button-id="691574bd162501edc00f151a"
+              data-button-id="695186923c261203770cc2e7"
             >
               <Button
                 size="lg"
@@ -649,7 +649,7 @@ export default function CorporateEvents() {
                     </div>
                     <div
                       className="xola-custom xola-checkout"
-                      data-button-id="691574bd162501edc00f151a"
+                      data-button-id="695186923c261203770cc2e7"
                     >
                       <Button 
                         className="w-full mt-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
@@ -725,7 +725,7 @@ export default function CorporateEvents() {
                   </p>
                   <div
                     className="xola-custom xola-checkout"
-                    data-button-id="691574bd162501edc00f151a"
+                    data-button-id="695186923c261203770cc2e7"
                   >
                     <Button
                       size="lg"
@@ -874,7 +874,7 @@ export default function CorporateEvents() {
             <div className="mt-12 text-center">
               <div
                 className="xola-custom xola-checkout"
-                data-button-id="691574bd162501edc00f151a"
+                data-button-id="695186923c261203770cc2e7"
               >
                 <Button
                   size="lg"
@@ -1004,7 +1004,7 @@ export default function CorporateEvents() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <div
                 className="xola-custom xola-checkout"
-                data-button-id="691574bd162501edc00f151a"
+                data-button-id="695186923c261203770cc2e7"
               >
                 <Button
                   size="lg"
@@ -1018,7 +1018,7 @@ export default function CorporateEvents() {
               </div>
               <div
                 className="xola-custom xola-checkout"
-                data-button-id="691574bd162501edc00f151a"
+                data-button-id="695186923c261203770cc2e7"
               >
                 <Button
                   size="lg"

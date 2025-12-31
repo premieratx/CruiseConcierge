@@ -347,7 +347,7 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
             {/* Mobile Book Now Button - Xola Checkout */}
             <div
               className="xola-custom xola-checkout inline-block"
-              data-button-id="691574bd162501edc00f151a"
+              data-button-id="695186923c261203770cc2e7"
               data-testid="button-mobile-header-book-now"
             >
               <button className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold px-2 py-1.5 text-xs whitespace-nowrap h-9 shadow-md rounded-md inline-flex items-center justify-center transition-colors">
@@ -477,7 +477,7 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
               {/* Desktop Book Now Button - Xola Checkout */}
               <div
                 className="xola-custom xola-checkout"
-                data-button-id="691574bd162501edc00f151a"
+                data-button-id="695186923c261203770cc2e7"
                 data-testid="button-header-book-now"
               >
                 <button className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold px-4 py-2 tracking-wide text-sm whitespace-nowrap shadow-md rounded-md inline-flex items-center justify-center transition-colors">
@@ -595,7 +595,7 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
           {/* Book Now Button - Xola Checkout */}
           <div
             className="xola-custom xola-checkout"
-            data-button-id="691574bd162501edc00f151a"
+            data-button-id="695186923c261203770cc2e7"
             data-testid="button-bottom-nav-book-now"
           >
             <button
@@ -626,7 +626,7 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
           <div className="mt-4 px-3">
             <div
               className="xola-custom xola-checkout w-full"
-              data-button-id="691574bd162501edc00f151a"
+              data-button-id="695186923c261203770cc2e7"
               data-testid="button-mobile-menu-book-now"
               onClick={() => setMobileMenuOpen(false)}
             >
@@ -733,7 +733,7 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
             {/* Mobile Menu Book Now Button - Xola Checkout */}
             <div
               className="xola-custom xola-checkout w-full"
-              data-button-id="691574bd162501edc00f151a"
+              data-button-id="695186923c261203770cc2e7"
               data-testid="button-mobile-menu-book-now-bottom"
               onClick={() => setMobileMenuOpen(false)}
             >
