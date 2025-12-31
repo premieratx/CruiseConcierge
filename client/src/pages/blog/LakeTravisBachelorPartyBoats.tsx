@@ -59,13 +59,13 @@ export default function LakeTravisBachelorPartyBoats() {
           <div className="my-8 grid grid-cols-1 md:grid-cols-2 gap-4">
             <LazyImage
               src={lakeTravisBachelorBoatImages[1].src}
-              alt={lakeTravisBachelorBoatImages[1].alt}
+              alt="Lake Travis party boat rental perfect for Austin bachelor party celebrations"
               className="rounded-lg shadow-lg w-full h-auto"
               data-testid="image-lake-travis-1"
             />
             <LazyImage
               src={lakeTravisBachelorBoatImages[2].src}
-              alt={lakeTravisBachelorBoatImages[2].alt}
+              alt="Party boat Austin Texas cruising on Lake Travis with bachelor party group"
               className="rounded-lg shadow-lg w-full h-auto"
               data-testid="image-lake-travis-2"
             />
@@ -98,13 +98,13 @@ export default function LakeTravisBachelorPartyBoats() {
       <SectionReveal>
         <section id="atx-disco-cruise" className="mb-12" data-testid="section-atx-disco-cruise">
           <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white" data-testid="heading-atx-disco-cruise">
-            The ATX Disco Cruise: Bachelor Party Paradise
+            The ATX Disco Cruise: Austin Bachelor Party Paradise
           </h2>
 
           <div className="my-8">
             <LazyImage
               src={lakeTravisBachelorBoatImages[3].src}
-              alt={lakeTravisBachelorBoatImages[3].alt}
+              alt="ATX Disco Cruise party boat Austin bachelor party experience on Lake Travis"
               className="rounded-lg shadow-lg w-full h-auto"
               data-testid="image-disco-cruise"
             />
@@ -128,19 +128,19 @@ export default function LakeTravisBachelorPartyBoats() {
           <div className="my-8 grid grid-cols-1 md:grid-cols-3 gap-4">
             <LazyImage
               src={lakeTravisBachelorBoatImages[4].src}
-              alt={lakeTravisBachelorBoatImages[4].alt}
+              alt="Austin bachelor party group dancing on Lake Travis party boat"
               className="rounded-lg shadow-lg w-full h-auto"
               data-testid="image-party-boat-1"
             />
             <LazyImage
               src={lakeTravisBachelorBoatImages[5].src}
-              alt={lakeTravisBachelorBoatImages[5].alt}
+              alt="Party boat Austin DJ spinning music for bachelor party on Lake Travis"
               className="rounded-lg shadow-lg w-full h-auto"
               data-testid="image-party-boat-2"
             />
             <LazyImage
               src={lakeTravisBachelorBoatImages[6].src}
-              alt={lakeTravisBachelorBoatImages[6].alt}
+              alt="Lake Travis party boat with bachelor party guests enjoying the cruise"
               className="rounded-lg shadow-lg w-full h-auto"
               data-testid="image-party-boat-3"
             />
@@ -203,7 +203,7 @@ export default function LakeTravisBachelorPartyBoats() {
           <div className="my-8">
             <LazyImage
               src={lakeTravisBachelorBoatImages[7].src}
-              alt={lakeTravisBachelorBoatImages[7].alt}
+              alt="Austin bachelor party and bachelorette party groups mingling on Lake Travis party boat"
               className="rounded-lg shadow-lg w-full h-auto"
               data-testid="image-social-scene"
             />
@@ -233,13 +233,13 @@ export default function LakeTravisBachelorPartyBoats() {
           <div className="my-8 grid grid-cols-1 md:grid-cols-2 gap-4">
             <LazyImage
               src={lakeTravisBachelorBoatImages[8].src}
-              alt={lakeTravisBachelorBoatImages[8].alt}
+              alt="BYOB party boat Austin bachelor party with coolers on Lake Travis"
               className="rounded-lg shadow-lg w-full h-auto"
               data-testid="image-byob-1"
             />
             <LazyImage
               src={lakeTravisBachelorBoatImages[9].src}
-              alt={lakeTravisBachelorBoatImages[9].alt}
+              alt="Austin bachelor party group enjoying drinks on Lake Travis party boat rental"
               className="rounded-lg shadow-lg w-full h-auto"
               data-testid="image-byob-2"
             />
@@ -306,7 +306,7 @@ export default function LakeTravisBachelorPartyBoats() {
           <div className="my-8">
             <LazyImage
               src={lakeTravisBachelorBoatImages[10].src}
-              alt={lakeTravisBachelorBoatImages[10].alt}
+              alt="Private charter party boat Austin for exclusive bachelor party on Lake Travis"
               className="rounded-lg shadow-lg w-full h-auto"
               data-testid="image-private-charter"
             />
@@ -379,19 +379,19 @@ export default function LakeTravisBachelorPartyBoats() {
       <SectionReveal>
         <section id="party-tips" className="mb-12" data-testid="section-party-tips">
           <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white" data-testid="heading-party-tips">
-            Tips for a Legendary Lake Travis Boat Party
+            Tips for a Legendary Lake Travis Party Boat Experience
           </h2>
 
           <div className="my-8 grid grid-cols-1 md:grid-cols-2 gap-4">
             <LazyImage
               src={lakeTravisBachelorBoatImages[11].src}
-              alt={lakeTravisBachelorBoatImages[11].alt}
+              alt="Lake Travis party boat tips for Austin bachelor party planning"
               className="rounded-lg shadow-lg w-full h-auto"
               data-testid="image-party-tips-1"
             />
             <LazyImage
               src={lakeTravisBachelorBoatImages[12].src}
-              alt={lakeTravisBachelorBoatImages[12].alt}
+              alt="Bachelor party group celebrating on party boat Austin Lake Travis"
               className="rounded-lg shadow-lg w-full h-auto"
               data-testid="image-party-tips-2"
             />

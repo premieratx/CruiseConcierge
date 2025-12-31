@@ -116,7 +116,7 @@ export default function AustinBachelorPartyIdeas() {
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
               <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">Welcome to Austin, Bachelor Party Capital</h2>
               <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
-                Planning a <strong>bachelor party in Austin</strong> means gearing up for an unforgettable adventure in one of the nation's top party destinations. This city has it all: legendary live music, incredible BBQ and tacos, craft breweries, outdoor excitement, and a nightlife scene that's second to none. With so many <strong>Austin bachelor party ideas</strong> out there, how do you choose? We've got you covered.
+                Planning an <strong>austin bachelor party</strong> means gearing up for an unforgettable adventure in one of the nation's top party destinations. This city has it all: legendary live music, incredible BBQ and tacos, craft breweries, outdoor excitement, and a nightlife scene that's second to none. With so many <strong>Austin bachelor party ideas</strong> out there, how do you choose? The best way to celebrate is aboard a <strong>lake travis bachelor party boat</strong> – and we've got you covered with all the details.
               </p>
               <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
                 Whether your groom is an outdoor adventurer, a nightlife lover, or just wants to kick back with beers and buddies, Austin offers something for everyone. From daytime lake excursions on an <Link href="/party-boat-austin" className="text-blue-600 hover:underline font-semibold">Austin party boat</Link> to downtown bar crawls, here are the must-do activities and hotspots to craft the ultimate bachelor weekend in Austin, TX.
@@ -124,7 +124,7 @@ export default function AustinBachelorPartyIdeas() {
 
               <BlogImageBreak
                 src={bachelorHero}
-                alt="Bachelor party crew celebrating in Austin Texas"
+                alt="Austin bachelor party boat cruise on Lake Travis with guys celebrating"
                 caption="Your Austin bachelor party adventure starts here"
               />
             </motion.div>
@@ -141,7 +141,7 @@ export default function AustinBachelorPartyIdeas() {
               </div>
               
               <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
-                If there's one <strong>bachelor party idea in Austin</strong> you cannot skip, it's hitting <Link href="/party-boat-lake-travis" className="text-blue-600 hover:underline font-semibold">Lake Travis on a party boat</Link>. Lake Travis is the crown jewel of Austin's outdoor scene – picture clear blue waters, rolling Hill Country scenery, and plenty of space for a floating fiesta.
+                If there's one <strong>austin bachelor party</strong> idea you cannot skip, it's hitting <Link href="/party-boat-lake-travis" className="text-blue-600 hover:underline font-semibold">Lake Travis on a party boat</Link>. A <strong>lake travis bachelor party boat</strong> experience is the crown jewel of Austin's outdoor scene – picture clear blue waters, rolling Hill Country scenery, and plenty of space for a floating fiesta.
               </p>
 
               <div className="bg-yellow-50 dark:bg-yellow-900/20 border-l-4 border-yellow-500 p-6 rounded-r-lg mb-8">
@@ -159,7 +159,7 @@ export default function AustinBachelorPartyIdeas() {
 
               <BlogImageBreak
                 src={discoParty}
-                alt="ATX Disco Cruise party on Lake Travis with bachelor and bachelorette groups"
+                alt="Lake travis bachelor party boat experience on the ATX Disco Cruise"
                 caption="Bachelor and bachelorette parties celebrating together on the ATX Disco Cruise"
               />
 
@@ -244,7 +244,7 @@ export default function AustinBachelorPartyIdeas() {
               </div>
               
               <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
-                No <strong>Austin bachelor party</strong> is complete without a night on the notorious 6th Street. This downtown stretch of bars and live music clubs is often compared to Bourbon Street – it's rowdy, it's wild, and it's a rite of passage.
+                No <strong>austin bachelor party</strong> is complete without a night on the notorious 6th Street. After your <strong>lake travis bachelor party boat</strong> cruise, this downtown stretch of bars and live music clubs is the perfect after-party. It's often compared to Bourbon Street – it's rowdy, it's wild, and it's a rite of passage.
               </p>
               <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
                 Start at the west end and make your way east, popping into any bar that catches your eye. For a classic start, grab arcade games and drinks at Kung Fu Saloon, then hit up historic dive bars like Shakespeare's or Buckshot. By 11 PM, 6th Street is buzzing with bachelor and <Link href="/bachelorette-party-austin" className="text-blue-600 hover:underline font-semibold">bachelorette parties</Link>, college students, tourists – basically a huge street party.
@@ -255,7 +255,7 @@ export default function AustinBachelorPartyIdeas() {
 
               <BlogImageBreak
                 src={dancingScene}
-                alt="Austin 6th Street nightlife bachelor party celebration"
+                alt="Bachelor party austin texas nightlife on 6th Street"
                 caption="6th Street: Where Austin's legendary nightlife awaits your bachelor crew"
               />
             </motion.div>
@@ -348,7 +348,7 @@ export default function AustinBachelorPartyIdeas() {
 
               <BlogImageBreak
                 src={cleverGirl}
-                alt="Clever Girl 50-person party boat on Lake Travis Austin"
+                alt="Austin bachelor party boat rental - the Clever Girl 50-person party boat on Lake Travis"
                 caption="The Clever Girl - Perfect for large bachelor party groups on Lake Travis"
               />
             </motion.div>
@@ -444,12 +444,12 @@ export default function AustinBachelorPartyIdeas() {
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
-              <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">Final Thoughts: Austin Has It All</h2>
+              <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">Final Thoughts: Austin Has It All for Your Bachelor Party</h2>
               <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
-                From <Link href="/party-boat-lake-travis" className="text-blue-600 hover:underline font-semibold">Lake Travis party boats</Link> to bar-hopping on 6th Street, the range of <strong>Austin bachelor party ideas</strong> is off the charts. You can tailor the weekend to your groom's personality – or better yet, sample a little of everything for a well-rounded blowout.
+                From the ultimate <strong>lake travis bachelor party boat</strong> experience to bar-hopping on 6th Street, the range of <strong>austin bachelor party</strong> ideas is off the charts. You can tailor the weekend to your groom's personality – or better yet, sample a little of everything for a well-rounded blowout.
               </p>
               <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
-                One day you're living it up on the <Link href="/atx-disco-cruise" className="text-blue-600 hover:underline font-semibold">ATX Disco Cruise</Link> party barge with bachelors and bachelorettes mixing together, the next you're tearing into brisket, then you're catching live music and raising a toast on a rooftop bar. Austin manages to be outdoorsy and chill by day, and absolutely electric by night.
+                One day you're living it up on a <strong>lake travis bachelor party boat</strong> with bachelors and bachelorettes mixing together on the <Link href="/atx-disco-cruise" className="text-blue-600 hover:underline font-semibold">ATX Disco Cruise</Link>, the next you're tearing into brisket, then you're catching live music and raising a toast on a rooftop bar. Your <strong>austin bachelor party</strong> will be outdoorsy and chill by day, and absolutely electric by night.
               </p>
               <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
                 As you plan, remember that the best bachelor parties have a mix of structure and spontaneity. Lock in one or two big ticket activities (like that <Link href="/atx-disco-cruise" className="text-blue-600 hover:underline font-semibold">boat cruise</Link> or a special dinner) ahead of time – Austin is popular, things book up!
@@ -457,7 +457,7 @@ export default function AustinBachelorPartyIdeas() {
 
               <BlogImageBreak
                 src={unicornFloat}
-                alt="Giant unicorn float on Lake Travis bachelor party"
+                alt="Lake travis bachelor party boat with giant unicorn float for swimming"
                 caption="Make unforgettable memories on Lake Travis"
               />
 

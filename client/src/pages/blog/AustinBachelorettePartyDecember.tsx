@@ -154,7 +154,7 @@ export default function AustinBachelorettePartyDecember() {
                   </div>
                 </div>
                 <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
-                  December in Austin brings crisp, comfortable weather perfect for exploring festive holiday markets, Trail of Lights, and cozy rooftop bars. While cooler than other months, the mild Texas winter means you can still enjoy Lake Travis party boats with layers and warm drinks!
+                  December is perfect for an austin bachelorette party with crisp, comfortable weather for exploring festive holiday markets, Trail of Lights, and cozy rooftop bars. While cooler than other months, the mild Texas winter means you can still enjoy a lake travis bachelorette party boat with layers and warm drinks for your bachelorette party austin texas celebration!
                 </p>
                 <div className="mt-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl p-4">
                   <p className="font-bold text-blue-800 dark:text-blue-300 mb-2">We're Weather-Ready!</p>
@@ -166,7 +166,7 @@ export default function AustinBachelorettePartyDecember() {
               <div className="relative">
                 <LazyImage 
                   src={heroImage} 
-                  alt="December bachelorette party in Austin" 
+                  alt="Austin bachelorette party boat cruise on Lake Travis in December with bride squad enjoying holiday festivities" 
                   className="rounded-2xl shadow-2xl w-full h-80 object-cover"
                   aspectRatio="4/3"
                 />
@@ -258,7 +258,7 @@ export default function AustinBachelorettePartyDecember() {
               <div className="order-2 md:order-1">
                 <LazyImage 
                   src={sectionImage1} 
-                  alt="Bachelorette party boat on Lake Travis" 
+                  alt="Lake Travis bachelorette party boat rental with austin bachelorette party group enjoying holiday cruise" 
                   className="rounded-2xl shadow-2xl w-full h-80 object-cover"
                   aspectRatio="4/3"
                 />
@@ -269,7 +269,7 @@ export default function AustinBachelorettePartyDecember() {
                   <h2 className="text-3xl font-black text-gray-900 dark:text-white">Lake Travis Party Boats</h2>
                 </div>
                 <p className="text-lg text-gray-700 dark:text-gray-300 mb-6">
-                  December offers unique holiday-themed boat cruises with festive decorations! Book 2-3 weeks in advance for best availability. Our Austin bachelorette party boats accommodate 14-75 guests with captain, crew, premium sound system, and cozy cabin areas.
+                  December offers unique holiday-themed lake travis bachelorette party boat cruises with festive decorations! Book your austin bachelorette party 2-3 weeks in advance for best availability. Our bachelorette party austin texas boats accommodate 14-75 guests with captain, crew, premium sound system, and cozy cabin areas.
                 </p>
                 <ul className="space-y-3">
                   {[
@@ -387,7 +387,7 @@ export default function AustinBachelorettePartyDecember() {
               <div>
                 <LazyImage 
                   src={sectionImage2} 
-                  alt="Bachelorette party group celebrating" 
+                  alt="Bachelorette party austin texas group celebrating holidays on lake travis bachelorette party boat" 
                   className="rounded-2xl shadow-2xl w-full h-80 object-cover"
                   aspectRatio="4/3"
                 />
@@ -498,7 +498,7 @@ export default function AustinBachelorettePartyDecember() {
           <div className="max-w-4xl mx-auto text-center">
             <LazyImage 
               src={sectionImage3} 
-              alt="Bachelorette party celebration on Lake Travis" 
+              alt="Austin bachelorette party boat celebration on Lake Travis with holiday decorations and cozy bride squad" 
               className="rounded-2xl shadow-2xl w-full h-64 object-cover mb-8"
               aspectRatio="21/9"
             />
@@ -507,7 +507,7 @@ export default function AustinBachelorettePartyDecember() {
               Book Your December Bachelorette Party
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-400 mb-8">
-              December is magical for bachelorette parties in Austin. Festive holiday lights, Trail of Lights walks, cozy boat cruises, and incredible celebrations await. Reserve your Lake Travis party boat and create memories your bride tribe will cherish forever!
+              December is magical for an austin bachelorette party celebration. Festive holiday lights, Trail of Lights walks, cozy bachelorette party austin texas boat cruises, and incredible celebrations await. Reserve your lake travis bachelorette party boat and create memories your bride tribe will cherish forever!
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

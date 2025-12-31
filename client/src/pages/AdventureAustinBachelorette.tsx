@@ -64,7 +64,7 @@ export default function AdventureAustinBachelorette() {
           <div className="absolute inset-0 opacity-20">
             <LazyImage 
               src="/attached_assets/party-atmosphere-1.webp"
-              alt="Adventurous austin bachelorette party on Lake Travis"
+              alt="Adventurous austin bachelorette party boat celebration on Lake Travis with friends enjoying bachelorette party austin texas"
               className="w-full h-full object-cover"
             />
           </div>
@@ -150,7 +150,7 @@ export default function AdventureAustinBachelorette() {
         <section id="why-adventure" className="py-16 bg-gradient-to-b from-white to-green-50 dark:from-gray-950 dark:to-gray-900">
           <div className="max-w-4xl mx-auto px-6">
             <h2 className="text-3xl md:text-4xl font-playfair font-bold text-center mb-12 text-gray-900 dark:text-white">
-              Why Adventure Bachelorette Parties Rock in Austin
+              Why Adventure Bachelorette Parties Rock in Austin - Lake Travis Bachelorette Party Boat Edition
             </h2>
             
             <div className="prose prose-lg max-w-none dark:prose-invert mb-8">
@@ -185,7 +185,7 @@ export default function AdventureAustinBachelorette() {
                     <div>
                       <h4 className="text-xl font-bold mb-2 text-gray-900 dark:text-white">Amazing Water Adventures</h4>
                       <p className="text-gray-600 dark:text-gray-400">
-                        Lake Travis is the crown jewel for <strong>austin bachelorette party boat</strong> activities. The <Link href="/atx-disco-cruise" className="text-blue-600 hover:text-blue-700 font-semibold">ATX Disco Cruise</Link> offers the ultimate <strong>bachelorette party lake travis</strong> experience!
+                        Lake Travis is the crown jewel for <strong>austin bachelorette party boat</strong> activities. The <Link href="/atx-disco-cruise" className="text-blue-600 hover:text-blue-700 font-semibold">ATX Disco Cruise</Link> offers the ultimate <strong>lake travis bachelorette party boat</strong> experience for your <strong>austin bachelorette party</strong>!
                       </p>
                     </div>
                   </div>
@@ -227,7 +227,7 @@ export default function AdventureAustinBachelorette() {
                 Adventure + Party = Perfect Austin Bachelorette
               </h3>
               <p className="text-gray-700 dark:text-gray-300 mb-4">
-                The beauty of an <strong>austin bachelorette</strong> is that you don't have to choose between adventure and nightlife. Start your day hiking to panoramic views, continue with a <strong>bachelorette party lake travis</strong> boat party featuring the <Link href="/atx-disco-cruise" className="text-green-600 hover:text-green-700 font-semibold">ATX Disco Cruise</Link>, and finish with craft beers and live music downtown. <a href="https://partyondelivery.com" target="_blank" rel="noopener noreferrer" className="text-green-600 hover:text-green-700 font-semibold">Party On Delivery</a> can even stock your boat with refreshments, making your <strong>austin bachelorette party boat</strong> and <strong>bachelorette boat rental austin</strong> experience completely hassle-free! Our <Link href="/combined-bachelor-bachelorette" className="text-green-600 hover:text-green-700 font-semibold">specialized boat party services</Link> make planning easy.
+                The beauty of an <strong>austin bachelorette party</strong> is that you don't have to choose between adventure and nightlife. Start your day hiking to panoramic views, continue with a <strong>lake travis bachelorette party boat</strong> experience featuring the <Link href="/atx-disco-cruise" className="text-green-600 hover:text-green-700 font-semibold">ATX Disco Cruise</Link>, and finish with craft beers and live music downtown. <a href="https://partyondelivery.com" target="_blank" rel="noopener noreferrer" className="text-green-600 hover:text-green-700 font-semibold">Party On Delivery</a> can even stock your boat with refreshments, making your <strong>austin bachelorette party boat</strong> and <strong>bachelorette boat rental austin</strong> experience completely hassle-free! Our <Link href="/combined-bachelor-bachelorette" className="text-green-600 hover:text-green-700 font-semibold">specialized boat party services</Link> make planning easy.
               </p>
             </div>
           </div>
@@ -238,20 +238,20 @@ export default function AdventureAustinBachelorette() {
         <section id="hiking-trails" className="py-16 bg-white dark:bg-gray-950">
           <div className="max-w-4xl mx-auto px-6">
             <h2 className="text-3xl md:text-4xl font-playfair font-bold text-center mb-12 text-gray-900 dark:text-white">
-              Hit the Trails: Austin Hiking Adventures for Your Bachelorette
+              Hit the Trails: Austin Bachelorette Party Hiking Adventures
             </h2>
 
             <div className="mb-8">
               <LazyImage 
                 src="/attached_assets/party-atmosphere-2.webp"
-                alt="Austin bachelorette party outdoor adventure"
+                alt="Austin bachelorette party outdoor adventure hiking trails before lake travis bachelorette party boat experience"
                 className="w-full rounded-2xl shadow-2xl"
               />
             </div>
             
             <div className="prose prose-lg max-w-none dark:prose-invert mb-8">
               <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                Start one of your <strong>austin bachelorette weekend</strong> days with an early morning hike when the weather is cooler and your group has more energy. Austin offers beautiful trails perfect for your <strong>bachelorette party in austin</strong> that range from easy strolls to challenging climbs. After working up an appetite on the trails, you'll really appreciate that afternoon <strong>austin bachelorette party boat</strong> experience!
+                Start one of your <strong>austin bachelorette party</strong> days with an early morning hike when the weather is cooler and your group has more energy. Austin offers beautiful trails perfect for your <strong>bachelorette party austin texas</strong> that range from easy strolls to challenging climbs. After working up an appetite on the trails, you'll really appreciate that afternoon <strong>lake travis bachelorette party boat</strong> experience!
               </p>
             </div>
 
@@ -352,7 +352,7 @@ export default function AdventureAustinBachelorette() {
             <div className="mb-8">
               <LazyImage 
                 src="/attached_assets/atx-disco-cruise-party.webp"
-                alt="ATX Disco Cruise - Premier bachelorette party lake travis adventure"
+                alt="ATX Disco Cruise lake travis bachelorette party boat adventure with austin bachelorette party boat dancing and swimming"
                 className="w-full rounded-2xl shadow-2xl"
               />
             </div>
@@ -457,7 +457,7 @@ export default function AdventureAustinBachelorette() {
                 Why Every Austin Bachelorette Needs a Boat Day
               </h3>
               <p className="text-gray-700 dark:text-gray-300 mb-4">
-                The <strong>bachelorette party lake travis</strong> boat experience is truly the centerpiece of any adventurous <strong>austin bachelorette weekend</strong>. Whether you choose the high-energy <Link href="/atx-disco-cruise" className="text-blue-600 hover:text-blue-700 font-semibold">ATX Disco Cruise</Link> or a private <strong>austin bachelorette party boat</strong>, you're guaranteed an unforgettable day. The combination of Texas sunshine, crystal-clear water, your best friends, and unlimited fun creates memories that will last forever. Our <Link href="/bachelorette-party-austin" className="text-blue-600 hover:text-blue-700 font-semibold">bachelorette party experts</Link> can help you plan every detail of your <strong>bachelorette boat rental austin</strong> adventure!
+                The <strong>lake travis bachelorette party boat</strong> experience is truly the centerpiece of any adventurous <strong>austin bachelorette party</strong>. Whether you choose the high-energy <Link href="/atx-disco-cruise" className="text-blue-600 hover:text-blue-700 font-semibold">ATX Disco Cruise</Link> or a private <strong>austin bachelorette party boat</strong>, you're guaranteed an unforgettable day on the water. The combination of Texas sunshine, crystal-clear water, your best friends, and unlimited fun creates memories that will last forever. Our <Link href="/bachelorette-party-austin" className="text-blue-600 hover:text-blue-700 font-semibold">bachelorette party experts</Link> can help you plan every detail of your <strong>bachelorette boat rental austin</strong> adventure!
               </p>
               <p className="text-gray-700 dark:text-gray-300">
                 Book your <strong>bachelorette boat rental austin</strong> early—especially for peak season weekends! <Link href="/combined-bachelor-bachelorette" className="text-blue-600 hover:text-blue-700 font-semibold">Premier Party Cruises</Link> specializes in creating perfect <strong>bachelorette party in austin</strong> experiences and can help you plan every detail of your <strong>bachelorette boat rental austin</strong> adventure. We also offer amazing <Link href="/bachelor-party-austin" className="text-blue-600 hover:text-blue-700 font-semibold">bachelor party packages</Link> for grooms!
@@ -477,7 +477,7 @@ export default function AdventureAustinBachelorette() {
             <div className="mb-8">
               <LazyImage 
                 src="/attached_assets/giant-unicorn-float.webp"
-                alt="Fun activities for adventurous austin bachelorette party"
+                alt="Giant unicorn float on lake travis bachelorette party boat for bachelorette party austin texas celebrations"
                 className="w-full rounded-2xl shadow-2xl"
               />
             </div>
@@ -556,7 +556,7 @@ export default function AdventureAustinBachelorette() {
                 The great thing about planning an adventurous <strong>bachelorette party in austin</strong> is that Austin has activities for every comfort level. Maybe she's up for bungee jumping, or maybe a scenic horseback trail ride is more her speed for your <strong>austin bachelorette party</strong>. Austin likely has it all within reach!
               </p>
               <p className="text-gray-700 dark:text-gray-300">
-                Just remember to balance high-energy activities with the main event—your <strong>bachelorette party lake travis</strong> boat party! The <Link href="/atx-disco-cruise" className="text-red-600 hover:text-red-700 font-semibold">ATX Disco Cruise</Link> or private <strong>austin bachelorette party boat</strong> should be the centerpiece, with other adventures scheduled around it. <a href="https://partyondelivery.com" target="_blank" rel="noopener noreferrer" className="text-red-600 hover:text-red-700 font-semibold">Party On Delivery</a> can help ensure you're well-stocked for every activity!
+                Just remember to balance high-energy activities with the main event—your <strong>lake travis bachelorette party boat</strong> adventure! The <Link href="/atx-disco-cruise" className="text-red-600 hover:text-red-700 font-semibold">ATX Disco Cruise</Link> or private <strong>austin bachelorette party boat</strong> should be the centerpiece of your <strong>austin bachelorette party</strong>, with other adventures scheduled around it. <a href="https://partyondelivery.com" target="_blank" rel="noopener noreferrer" className="text-red-600 hover:text-red-700 font-semibold">Party On Delivery</a> can help ensure you're well-stocked for every activity!
               </p>
             </div>
           </div>

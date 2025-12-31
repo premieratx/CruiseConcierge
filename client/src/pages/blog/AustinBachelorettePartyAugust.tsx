@@ -154,7 +154,7 @@ export default function AustinBachelorettePartyAugust() {
                   </div>
                 </div>
                 <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
-                  August is Austin's hottest month - perfect for poolside celebrations and sunset boat cruises! The scorching days mean refreshing dips in Lake Travis are essential, and the warm evenings are ideal for rooftop bars and outdoor patios with your bride squad.
+                  August is Austin's hottest month - perfect for your austin bachelorette party with poolside celebrations and lake travis bachelorette party boat sunset cruises! The scorching days mean refreshing dips are essential, and warm evenings are ideal for bachelorette party austin texas rooftop bar hopping with your bride squad.
                 </p>
                 <div className="mt-4 bg-cyan-50 dark:bg-cyan-900/20 border border-cyan-200 dark:border-cyan-800 rounded-xl p-4">
                   <p className="font-bold text-cyan-800 dark:text-cyan-300 mb-2">Beat the Heat on Lake Travis!</p>
@@ -166,7 +166,7 @@ export default function AustinBachelorettePartyAugust() {
               <div className="relative">
                 <LazyImage 
                   src={heroImage} 
-                  alt="August bachelorette party on Lake Travis" 
+                  alt="Austin bachelorette party boat cruise on Lake Travis in August with bride squad cooling off" 
                   className="rounded-2xl shadow-2xl w-full h-80 object-cover"
                   aspectRatio="4/3"
                 />
@@ -257,7 +257,7 @@ export default function AustinBachelorettePartyAugust() {
               <div className="order-2 md:order-1">
                 <LazyImage 
                   src={sectionImage1} 
-                  alt="Bachelorette party boat on Lake Travis" 
+                  alt="Lake Travis bachelorette party boat rental with austin bachelorette party group enjoying summer water activities" 
                   className="rounded-2xl shadow-2xl w-full h-80 object-cover"
                   aspectRatio="4/3"
                 />
@@ -268,7 +268,7 @@ export default function AustinBachelorettePartyAugust() {
                   <h2 className="text-3xl font-black text-gray-900 dark:text-white">Lake Travis Party Boats</h2>
                 </div>
                 <p className="text-lg text-gray-700 dark:text-gray-300 mb-6">
-                  August is peak season on Lake Travis - book 4-6 weeks in advance for your bride tribe! Our Austin bachelorette party boats accommodate 14-75 guests with captain, crew, premium sound system, and water activities perfect for beating the heat.
+                  August is peak season for your austin bachelorette party on Lake Travis - book your lake travis bachelorette party boat 4-6 weeks in advance for your bride tribe! Our bachelorette party austin texas boats accommodate 14-75 guests with captain, crew, premium sound system, and water activities perfect for beating the heat.
                 </p>
                 <ul className="space-y-3">
                   {[
@@ -386,7 +386,7 @@ export default function AustinBachelorettePartyAugust() {
               <div>
                 <LazyImage 
                   src={sectionImage2} 
-                  alt="Bachelorette party group celebrating" 
+                  alt="Bachelorette party austin texas group celebrating summer on lake travis bachelorette party boat" 
                   className="rounded-2xl shadow-2xl w-full h-80 object-cover"
                   aspectRatio="4/3"
                 />
@@ -493,7 +493,7 @@ export default function AustinBachelorettePartyAugust() {
           <div className="max-w-4xl mx-auto text-center">
             <LazyImage 
               src={sectionImage3} 
-              alt="Bachelorette party celebration on Lake Travis" 
+              alt="Austin bachelorette party boat celebration on Lake Travis with sunset views and bride squad cooling off" 
               className="rounded-2xl shadow-2xl w-full h-64 object-cover mb-8"
               aspectRatio="21/9"
             />
@@ -503,7 +503,7 @@ export default function AustinBachelorettePartyAugust() {
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-400 mb-8">
               <Heart className="inline h-5 w-5 text-pink-500 mr-1" />
-              August is perfect for celebrating the bride-to-be in Austin. Hot summer nights, stunning sunsets, and unforgettable moments with your best friends await. Reserve your Lake Travis party boat and make her last fling before the ring legendary!
+              August is perfect for an austin bachelorette party celebrating the bride-to-be. Hot summer nights, stunning sunsets, and unforgettable bachelorette party austin texas moments await. Reserve your lake travis bachelorette party boat and make her last fling before the ring legendary!
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

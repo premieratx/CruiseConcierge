@@ -400,9 +400,9 @@ export default function WhyChooseAustinBacheloretteParty() {
                   <Badge className="mb-4 bg-pink-400 text-black font-bold">AUSTIN'S #1 BACHELORETTE EXPERIENCE</Badge>
                   <h2 className="text-3xl md:text-4xl font-bold mb-6">Lake Travis Party Boats</h2>
                   <p className="text-lg text-white/90 mb-6 leading-relaxed">
-                    This is it. The crown jewel of Austin bachelorette parties. 
-                    Picture your squad on a private boat, champagne in hand, 
-                    cruising across crystal-clear Lake Travis.
+                    This is it. The crown jewel of Austin bachelorette party experiences. 
+                    Picture your squad on a Lake Travis bachelorette party boat, champagne in hand, 
+                    cruising across crystal-clear waters for an unforgettable Austin bachelorette party celebration.
                   </p>
                   <p className="text-lg text-white/80 mb-8 leading-relaxed">
                     Premier Party Cruises runs the best boats on the lake. 
@@ -452,7 +452,7 @@ export default function WhyChooseAustinBacheloretteParty() {
                   <div className="aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl">
                     <img 
                       src={sectionImage1} 
-                      alt="Bachelorette party on Lake Travis party boat"
+                      alt="Lake Travis bachelorette party boat cruise with austin bachelorette party group"
                       className="w-full h-full object-cover"
                     />
                   </div>
@@ -485,7 +485,7 @@ export default function WhyChooseAustinBacheloretteParty() {
                   <div className="aspect-[4/3] rounded-2xl overflow-hidden shadow-xl">
                     <img 
                       src={sectionImage2}
-                      alt="Austin bachelorette party photo spots"
+                      alt="Austin bachelorette party photo spots on Lake Travis bachelorette party boat"
                       className="w-full h-full object-cover"
                     />
                   </div>
@@ -495,12 +495,12 @@ export default function WhyChooseAustinBacheloretteParty() {
                   <Badge className="mb-4 bg-rose-100 text-rose-700 font-bold">CONTENT FOR DAYS</Badge>
                   <h2 className="text-3xl md:text-4xl font-bold mb-6">Instagram-Worthy Austin</h2>
                   <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
-                    Austin is a photographer's dream. From iconic murals to stunning lake views, 
-                    your bachelorette party will have content for days.
+                    Austin is a photographer's dream for your Austin bachelorette party. From iconic murals to stunning lake views, 
+                    your bachelorette party austin texas adventure will have content for days.
                   </p>
                   <p className="text-lg text-gray-700 dark:text-gray-300 mb-8 leading-relaxed">
                     Capture the bride squad at these must-visit spots, and don't forget the 
-                    golden hour photos aboard your Lake Travis party boat.
+                    golden hour photos aboard your Lake Travis bachelorette party boat cruise.
                   </p>
                   
                   <div className="grid sm:grid-cols-2 gap-4">
@@ -565,7 +565,7 @@ export default function WhyChooseAustinBacheloretteParty() {
             <div className="aspect-video max-w-4xl mx-auto rounded-2xl overflow-hidden shadow-2xl">
               <img 
                 src={sectionImage3}
-                alt="Austin nightlife scene"
+                alt="Bachelorette party austin texas nightlife scene after Lake Travis party boat"
                 className="w-full h-full object-cover"
               />
             </div>
@@ -733,8 +733,8 @@ export default function WhyChooseAustinBacheloretteParty() {
                 Give the Bride the Celebration She Deserves
               </h2>
               <p className="text-xl text-white/80 mb-8 max-w-2xl mx-auto">
-                Lake Travis party boats. Incredible nightlife. Unforgettable memories. 
-                Austin delivers the bachelorette party of a lifetime.
+                Lake Travis bachelorette party boat cruises. Incredible nightlife. Unforgettable memories. 
+                Austin bachelorette party delivers the celebration of a lifetime.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">

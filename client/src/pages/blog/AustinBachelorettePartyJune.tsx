@@ -154,7 +154,7 @@ export default function AustinBachelorettePartyJune() {
                   </div>
                 </div>
                 <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
-                  June kicks off peak summer in Austin! Expect hot, sunny days perfect for pool parties and Lake Travis boat cruises. The longest days of the year mean more time to celebrate with your bride squad. Water temperatures are ideal for swimming and all water activities.
+                  June kicks off peak summer for your austin bachelorette party! Expect hot, sunny days perfect for pool parties and lake travis bachelorette party boat cruises. The longest days of the year mean more time to celebrate your bachelorette party austin texas style with your bride squad. Water temperatures are ideal for swimming and all water activities!
                 </p>
                 <div className="mt-4 bg-cyan-50 dark:bg-cyan-900/20 border border-cyan-200 dark:border-cyan-800 rounded-xl p-4">
                   <p className="font-bold text-cyan-800 dark:text-cyan-300 mb-2">Beat the Heat on Lake Travis!</p>
@@ -166,7 +166,7 @@ export default function AustinBachelorettePartyJune() {
               <div className="relative">
                 <LazyImage 
                   src={heroImage} 
-                  alt="June bachelorette party on Lake Travis" 
+                  alt="Austin bachelorette party boat cruise on Lake Travis in June with bride squad enjoying summer sun" 
                   className="rounded-2xl shadow-2xl w-full h-80 object-cover"
                   aspectRatio="4/3"
                 />
@@ -257,7 +257,7 @@ export default function AustinBachelorettePartyJune() {
               <div className="order-2 md:order-1">
                 <LazyImage 
                   src={sectionImage1} 
-                  alt="Bachelorette party boat on Lake Travis" 
+                  alt="Lake Travis bachelorette party boat rental with austin bachelorette party group enjoying summer cruise" 
                   className="rounded-2xl shadow-2xl w-full h-80 object-cover"
                   aspectRatio="4/3"
                 />
@@ -268,7 +268,7 @@ export default function AustinBachelorettePartyJune() {
                   <h2 className="text-3xl font-black text-gray-900 dark:text-white">Lake Travis Party Boats</h2>
                 </div>
                 <p className="text-lg text-gray-700 dark:text-gray-300 mb-6">
-                  June is peak season - book 2-3 months in advance for best selection! Our Austin bachelorette party boats accommodate 14-75 guests with captain, crew, premium sound system, and water activities. Perfect for the bride tribe!
+                  June is peak season for your austin bachelorette party - book your lake travis bachelorette party boat 2-3 months in advance for best selection! Our bachelorette party austin texas boats accommodate 14-75 guests with captain, crew, premium sound system, and water activities. Perfect for the bride tribe!
                 </p>
                 <ul className="space-y-3">
                   {[
@@ -386,7 +386,7 @@ export default function AustinBachelorettePartyJune() {
               <div>
                 <LazyImage 
                   src={sectionImage2} 
-                  alt="Bachelorette party group celebrating" 
+                  alt="Bachelorette party austin texas group celebrating summer fun on lake travis bachelorette party boat" 
                   className="rounded-2xl shadow-2xl w-full h-80 object-cover"
                   aspectRatio="4/3"
                 />
@@ -493,7 +493,7 @@ export default function AustinBachelorettePartyJune() {
           <div className="max-w-4xl mx-auto text-center">
             <LazyImage 
               src={sectionImage3} 
-              alt="Bachelorette party celebration on Lake Travis" 
+              alt="Austin bachelorette party boat celebration on Lake Travis with summer swimming and bride squad" 
               className="rounded-2xl shadow-2xl w-full h-64 object-cover mb-8"
               aspectRatio="21/9"
             />
@@ -502,7 +502,7 @@ export default function AustinBachelorettePartyJune() {
               Book Your June Bachelorette Party
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-400 mb-8">
-              June is the ultimate month for bachelorette parties in Austin. Pool parties, peak summer vibes, and epic celebrations await the bride-to-be. Reserve your Lake Travis party boat and make memories that will last forever!
+              June is the ultimate month for an austin bachelorette party celebration. Pool parties, peak summer vibes, and epic bachelorette party austin texas celebrations await the bride-to-be. Reserve your lake travis bachelorette party boat and make memories that will last forever!
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

@@ -148,7 +148,7 @@ export default function ATXDiscoCruiseDosAndDonts() {
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
-              <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">Welcome to the Ultimate Party Boat Experience</h2>
+              <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">Welcome to the Ultimate Austin Bachelor Party Boat Experience</h2>
               <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
                 So you've booked the <Link href="/atx-disco-cruise" className="text-blue-600 hover:underline font-semibold">ATX Disco Cruise</Link> for your <strong>bachelor party in Austin</strong> - smart move! This isn't your average <Link href="/party-boat-austin" className="text-blue-600 hover:underline font-semibold">party boat Austin</Link> rental. It's the only multi-group, all-inclusive party cruise in the U.S. where <strong>bachelor and bachelorette parties celebrate together</strong> on <Link href="/party-boat-lake-travis" className="text-blue-600 hover:underline font-semibold">Lake Travis</Link>.
               </p>
@@ -156,12 +156,12 @@ export default function ATXDiscoCruiseDosAndDonts() {
                 Think of it as a floating nightclub mixed with a co-ed mixer - you'll be dancing alongside other party groups, making new friends, and potentially forming a "supergroup" for after-party adventures on 6th Street. But to maximize your <strong>Lake Travis party boat</strong> experience, there are some crucial do's and don'ts you need to know.
               </p>
               <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
-                Captain Brian, who's been running these legendary cruises for 15+ years with over 150,000 happy guests, has one simple motto: <strong>"Don't be a dick and don't die."</strong> Follow that, plus these pro tips, and you're guaranteed an epic day on the water.
+                Captain Brian, who's been running these legendary <strong>lake travis bachelor party boat</strong> cruises for 15+ years with over 150,000 happy guests, has one simple motto: <strong>"Don't be a dick and don't die."</strong> Follow that, plus these pro tips, and you're guaranteed an epic <strong>austin bachelor party</strong> day on the water.
               </p>
 
               <BlogImageBreak
                 src={discoParty}
-                alt="ATX Disco Cruise bachelor and bachelorette parties celebrating together on Lake Travis"
+                alt="Austin bachelor party boat cruise with bachelorette parties celebrating together on Lake Travis"
                 caption="Bachelor and bachelorette groups mixing it up on the ATX Disco Cruise"
               />
             </motion.div>
@@ -176,7 +176,7 @@ export default function ATXDiscoCruiseDosAndDonts() {
                 <div className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center">
                   <ThumbsUp className="h-6 w-6 text-white" />
                 </div>
-                <h2 className="text-3xl font-bold text-gray-900 dark:text-white">The DO's: How to Crush Your ATX Disco Cruise</h2>
+                <h2 className="text-3xl font-bold text-gray-900 dark:text-white">The DO's: How to Crush Your Lake Travis Bachelor Party Boat Experience</h2>
               </div>
 
               {/* DO: Dress to Impress */}
@@ -219,7 +219,7 @@ export default function ATXDiscoCruiseDosAndDonts() {
 
               <BlogImageBreak
                 src={dancingScene}
-                alt="Groups dancing and partying together on ATX Disco Cruise"
+                alt="Lake Travis bachelor party boat with groups dancing on the ATX Disco Cruise"
                 caption="Stay hydrated and keep the dance floor energy going all cruise long"
               />
 
@@ -292,7 +292,7 @@ export default function ATXDiscoCruiseDosAndDonts() {
                 <div className="w-12 h-12 bg-red-500 rounded-full flex items-center justify-center">
                   <ThumbsDown className="h-6 w-6 text-white" />
                 </div>
-                <h2 className="text-3xl font-bold text-gray-900 dark:text-white">The DON'Ts: Avoid These ATX Disco Cruise Mistakes</h2>
+                <h2 className="text-3xl font-bold text-gray-900 dark:text-white">The DON'Ts: Avoid These Austin Bachelor Party Cruise Mistakes</h2>
               </div>
 
               {/* DON'T: Overdo the Hard Liquor */}
@@ -316,7 +316,7 @@ export default function ATXDiscoCruiseDosAndDonts() {
 
               <BlogImageBreak
                 src={cleverGirl}
-                alt="Clever Girl party boat on Lake Travis for Austin bachelor parties"
+                alt="Clever Girl lake travis bachelor party boat for bachelor party Austin Texas celebrations"
                 caption="The Clever Girl - One of our flagship Lake Travis party boats"
               />
 
@@ -381,7 +381,7 @@ export default function ATXDiscoCruiseDosAndDonts() {
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="text-center mb-12">
-              <h2 className="text-3xl font-bold mb-4 text-gray-900 dark:text-white">Why the ATX Disco Cruise is the Best Austin Bachelor Party</h2>
+              <h2 className="text-3xl font-bold mb-4 text-gray-900 dark:text-white">Why the ATX Disco Cruise is the Best Lake Travis Bachelor Party Boat Experience</h2>
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Everything included for an epic <strong>Lake Travis party boat</strong> experience - just bring your crew and BYOB drinks
               </p>
@@ -450,7 +450,7 @@ export default function ATXDiscoCruiseDosAndDonts() {
 
               <BlogImageBreak
                 src={unicornFloat}
-                alt="Giant unicorn float on Lake Travis party boat cruise"
+                alt="Giant unicorn float on lake travis bachelor party boat cruise in Austin Texas"
                 caption="Giant floats for swimming breaks - because even party animals need to cool off"
               />
             </motion.div>
@@ -514,9 +514,9 @@ export default function ATXDiscoCruiseDosAndDonts() {
           <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
               <Crown className="h-16 w-16 text-yellow-400 mx-auto mb-6" />
-              <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready for the Ultimate Austin Bachelor Party?</h2>
+              <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready for the Ultimate Austin Bachelor Party on Lake Travis?</h2>
               <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-                The <strong>ATX Disco Cruise</strong> is waiting. Bachelor groups, <Link href="/bachelorette-party-austin" className="text-yellow-400 hover:underline font-semibold">bachelorette parties</Link>, amazing memories, and potential supergroup formations. Book now and get ready to party on <Link href="/party-boat-lake-travis" className="text-yellow-400 hover:underline font-semibold">Lake Travis</Link>!
+                The <strong>ATX Disco Cruise</strong> is the premier <strong>lake travis bachelor party boat</strong> experience. Bachelor groups, <Link href="/bachelorette-party-austin" className="text-yellow-400 hover:underline font-semibold">bachelorette parties</Link>, amazing memories, and potential supergroup formations. Book your <strong>austin bachelor party</strong> now and get ready to party on <Link href="/party-boat-lake-travis" className="text-yellow-400 hover:underline font-semibold">Lake Travis</Link>!
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">

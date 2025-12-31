@@ -136,9 +136,9 @@ export default function JointBachelorBachelorettePartyGuide() {
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="section-introduction">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
-              <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">Double the Fun, Austin-Style</h2>
+              <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">Double the Fun with Your Austin Bachelor Party, Austin-Style</h2>
               <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
-                Planning a <strong>joint bachelor bachelorette party</strong> is the hottest trend in pre-wedding celebrations, and Austin, Texas is the perfect destination to make it happen. Why celebrate separately when you can double the fun with a <strong>combined bachelor bachelorette</strong> weekend that brings both crews together for an unforgettable experience?
+                Planning a <strong>joint bachelor bachelorette party</strong> is the hottest trend in pre-wedding celebrations, and Austin, Texas is the perfect destination to make it happen. Why celebrate separately when you can double the fun with a <strong>combined bachelor bachelorette</strong> weekend on a <strong>lake travis bachelor party boat</strong> that brings both crews together for an unforgettable experience?
               </p>
               <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
                 Austin offers everything you need for an epic <strong>bachelor party in Austin</strong> that includes the bride-to-be's squad too. From the legendary nightlife on 6th Street to the stunning waters of Lake Travis, this city is built for celebration. And when it comes to the ultimate activity for your <strong>joint bachelor bachelorette party</strong>, nothing beats the <Link href="/atx-disco-cruise" className="text-purple-600 hover:underline font-semibold">ATX Disco Cruise</Link> – specifically designed for co-ed groups partying together.
@@ -149,7 +149,7 @@ export default function JointBachelorBachelorettePartyGuide() {
 
               <BlogImageBreak
                 src={discoParty}
-                alt="Joint bachelor bachelorette party on ATX Disco Cruise Lake Travis"
+                alt="Austin bachelor party boat with joint bachelor bachelorette party on Lake Travis"
                 caption="Bachelor and bachelorette crews celebrating together on Lake Travis"
               />
             </motion.div>
@@ -162,7 +162,7 @@ export default function JointBachelorBachelorettePartyGuide() {
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
               <div className="flex items-center gap-3 mb-4">
                 <Heart className="h-8 w-8 text-pink-600" />
-                <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Why a Joint Party? The Perks of Combining Forces</h2>
+                <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Why a Joint Austin Bachelor Party? The Perks of Combining Forces</h2>
               </div>
               
               <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
@@ -182,7 +182,7 @@ export default function JointBachelorBachelorettePartyGuide() {
               </div>
 
               <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
-                When you book a <Link href="/party-boat-lake-travis" className="text-blue-600 hover:underline font-semibold">Lake Travis party boat</Link> experience, your bridesmaids and groomsmen get to know each other before the wedding day. No more awkward introductions at the rehearsal dinner – they'll already be friends! Plus, with <a href="https://www.partyondelivery.com" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline font-semibold">Party On Delivery</a> handling your drinks and supplies, coordinating for a larger <strong>combined bachelor bachelorette</strong> group has never been easier.
+                When you book a <strong>lake travis bachelor party boat</strong> experience, your bridesmaids and groomsmen get to know each other before the wedding day. No more awkward introductions at the rehearsal dinner – they'll already be friends at your <strong>austin bachelor party</strong>! Plus, with <a href="https://www.partyondelivery.com" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline font-semibold">Party On Delivery</a> handling your drinks and supplies, coordinating for a larger <strong>combined bachelor bachelorette</strong> group has never been easier.
               </p>
 
               <div className="bg-yellow-50 dark:bg-yellow-900/20 border-l-4 border-yellow-500 p-6 rounded-r-lg mb-8">
@@ -204,7 +204,7 @@ export default function JointBachelorBachelorettePartyGuide() {
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
               <div className="flex items-center gap-3 mb-4">
                 <Ship className="h-8 w-8 text-blue-600" />
-                <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Joint Activity Must-Do: The ATX Disco Cruise</h2>
+                <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Joint Activity Must-Do: The Lake Travis Bachelor Party Boat Cruise</h2>
               </div>
               
               <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
@@ -241,7 +241,7 @@ export default function JointBachelorBachelorettePartyGuide() {
 
               <BlogImageBreak
                 src={dancingScene}
-                alt="Dancing and celebrating on ATX Disco Cruise Lake Travis party boat"
+                alt="Lake travis bachelor party boat with groups dancing on Austin bachelor party cruise"
                 caption="Your combined crew will dance all day on the ATX Disco Cruise"
               />
 
@@ -258,7 +258,7 @@ export default function JointBachelorBachelorettePartyGuide() {
               </div>
 
               <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
-                The 4-hour <strong>Lake Travis party boat</strong> cruise includes everything you need for an epic day on the water. Your <strong>bachelor party in Austin</strong> and bachelorette crew will dance to hits from the 70s to today, take legendary photos with the professional photographer, and float on massive lily pads during swim breaks. Just bring your own drinks and snacks – <a href="https://www.partyondelivery.com" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline font-semibold">Party On Delivery</a> makes it easy by delivering everything you need directly to the marina before your cruise!
+                The 4-hour <strong>lake travis bachelor party boat</strong> cruise includes everything you need for an epic day on the water. Your <strong>austin bachelor party</strong> and bachelorette crew will dance to hits from the 70s to today, take legendary photos with the professional photographer, and float on massive lily pads during swim breaks. Just bring your own drinks and snacks – <a href="https://www.partyondelivery.com" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline font-semibold">Party On Delivery</a> makes it easy by delivering everything you need directly to the marina before your cruise!
               </p>
 
               <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
@@ -422,7 +422,7 @@ export default function JointBachelorBachelorettePartyGuide() {
 
               <BlogImageBreak
                 src={cleverGirl}
-                alt="Clever Girl 50-person party boat Lake Travis for large groups"
+                alt="Clever Girl lake travis bachelor party boat for bachelor party Austin Texas large groups"
                 caption="Clever Girl - our flagship vessel for large combined groups up to 50+ guests"
               />
 
@@ -598,7 +598,7 @@ export default function JointBachelorBachelorettePartyGuide() {
 
               <BlogImageBreak
                 src={unicornFloat}
-                alt="Giant unicorn float on Lake Travis party boat cruise"
+                alt="Giant unicorn float on austin bachelor party boat lake travis bachelor party cruise"
                 caption="Float like royalty on our giant lily pads during your combined celebration"
               />
             </motion.div>
@@ -665,11 +665,11 @@ export default function JointBachelorBachelorettePartyGuide() {
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
               <div className="flex items-center gap-3 mb-4">
                 <Trophy className="h-8 w-8 text-yellow-600" />
-                <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Conclusion: One for the Books</h2>
+                <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Conclusion: Your Austin Bachelor Party Adventure Awaits</h2>
               </div>
               
               <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
-                A <strong>joint bachelor bachelorette party</strong> in Austin isn't just a celebration – it's an experience that will define your wedding weekend. By combining forces, you'll create memories that both crews will talk about for years, save money, reduce planning stress, and most importantly, celebrate your love together with everyone who matters most.
+                A <strong>joint bachelor bachelorette party</strong> in Austin on a <strong>lake travis bachelor party boat</strong> isn't just a celebration – it's an experience that will define your wedding weekend. By combining forces for your <strong>austin bachelor party</strong>, you'll create memories that both crews will talk about for years, save money, reduce planning stress, and most importantly, celebrate your love together with everyone who matters most.
               </p>
 
               <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">

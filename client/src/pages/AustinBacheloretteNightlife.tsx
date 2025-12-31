@@ -64,7 +64,7 @@ export default function AustinBacheloretteNightlife() {
           <div className="absolute inset-0 opacity-20">
             <LazyImage 
               src="/attached_assets/dancing-party-scene.webp"
-              alt="Austin bachelorette party nightlife celebration"
+              alt="Austin bachelorette party boat nightlife celebration after lake travis bachelorette party boat experience"
               className="w-full h-full object-cover"
             />
           </div>
@@ -101,7 +101,7 @@ export default function AustinBacheloretteNightlife() {
           <div className="max-w-4xl mx-auto px-6">
             <div className="prose prose-lg max-w-none dark:prose-invert">
               <p className="text-xl text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
-                Planning your <strong>austin bachelorette</strong> nightlife adventure? Austin's legendary bar scene is the perfect complement to your daytime <strong>bachelorette party lake travis</strong> adventure! When it comes to a <strong>bachelorette party in austin</strong>, the nightlife options are absolutely incredible. From the iconic bars of Sixth Street to the trendy bungalows of Rainey Street, your <strong>austin bachelorette party</strong> will have unforgettable nights out.
+                Planning your <strong>austin bachelorette party</strong> nightlife adventure? Austin's legendary bar scene is the perfect complement to your daytime <strong>lake travis bachelorette party boat</strong> adventure! When it comes to a <strong>bachelorette party in austin</strong>, the nightlife options are absolutely incredible. From the iconic bars of Sixth Street to the trendy bungalows of Rainey Street, your <strong>austin bachelorette party</strong> will have unforgettable nights out.
               </p>
               
               <p className="text-xl text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
@@ -158,7 +158,7 @@ export default function AustinBacheloretteNightlife() {
             <div className="mb-8">
               <LazyImage 
                 src="/attached_assets/party-atmosphere-1.webp"
-                alt="Sixth Street bachelorette party in austin nightlife"
+                alt="Sixth Street austin bachelorette party nightlife after bachelorette party austin texas boat day"
                 className="w-full rounded-2xl shadow-2xl"
               />
             </div>
@@ -225,13 +225,13 @@ export default function AustinBacheloretteNightlife() {
         <section id="rainey-street" className="py-16 bg-white dark:bg-gray-950">
           <div className="max-w-4xl mx-auto px-6">
             <h2 className="text-3xl md:text-4xl font-playfair font-bold text-center mb-12 text-gray-900 dark:text-white">
-              Rainey Street - Bungalow Bars & Bachelorette Party Vibes
+              Rainey Street - Bungalow Bars & Austin Bachelorette Party Vibes
             </h2>
 
             <div className="mb-8">
               <LazyImage 
                 src="/attached_assets/party-atmosphere-2.webp"
-                alt="Rainey Street austin bachelorette weekend celebration"
+                alt="Rainey Street austin bachelorette party celebration after lake travis bachelorette party boat cruise"
                 className="w-full rounded-2xl shadow-2xl"
               />
             </div>
@@ -242,7 +242,7 @@ export default function AustinBacheloretteNightlife() {
               </p>
               
               <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                Rainey Street perfectly complements an <strong>austin bachelorette</strong> itinerary that includes a morning or afternoon <strong>bachelorette boat rental austin</strong> session. After cruising on the <Link href="/atx-disco-cruise" className="text-pink-600 hover:text-pink-700 font-semibold">ATX Disco Cruise</Link> and catching some sun on <strong>bachelorette party lake travis</strong>, your group will appreciate Rainey Street's outdoor patios, twinkling lights, and craft cocktails. Stock up on pregame drinks through <a href="https://partyondelivery.com" target="_blank" rel="noopener noreferrer" className="text-pink-600 hover:text-pink-700 font-semibold">Party On Delivery</a> before heading out!
+                Rainey Street perfectly complements an <strong>austin bachelorette party</strong> itinerary that includes a morning or afternoon <strong>lake travis bachelorette party boat</strong> session. After cruising on the <Link href="/atx-disco-cruise" className="text-pink-600 hover:text-pink-700 font-semibold">ATX Disco Cruise</Link> and catching some sun on your <strong>austin bachelorette party boat</strong>, your group will appreciate Rainey Street's outdoor patios, twinkling lights, and craft cocktails. Stock up on pregame drinks through <a href="https://partyondelivery.com" target="_blank" rel="noopener noreferrer" className="text-pink-600 hover:text-pink-700 font-semibold">Party On Delivery</a> before heading out!
               </p>
 
               <h3 className="text-2xl font-bold mt-8 mb-4 text-gray-900 dark:text-white">Must-Visit Rainey Street Venues for Your Bachelorette Party in Austin</h3>
@@ -252,7 +252,7 @@ export default function AustinBacheloretteNightlife() {
               </p>
 
               <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
-                Container Bar is a Rainey Street icon for your <strong>austin bachelorette weekend</strong>—literally built from shipping containers with a massive outdoor space. They host DJs on weekends, making it perfect for dancing under the stars during your <strong>austin bachelorette</strong> celebration. The outdoor vibe pairs perfectly with your daytime <strong>bachelorette party lake travis</strong> experience, keeping that outdoor party energy going all day and night.
+                Container Bar is a Rainey Street icon for your <strong>austin bachelorette party</strong>—literally built from shipping containers with a massive outdoor space. They host DJs on weekends, making it perfect for dancing under the stars during your <strong>bachelorette party austin texas</strong> celebration. The outdoor vibe pairs perfectly with your daytime <strong>lake travis bachelorette party boat</strong> experience, keeping that outdoor party energy going all day and night.
               </p>
 
               <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
@@ -316,7 +316,7 @@ export default function AustinBacheloretteNightlife() {
             <div className="mb-8">
               <LazyImage 
                 src="/attached_assets/party-atmosphere-3.webp"
-                alt="West 6th upscale austin bachelorette party nightlife"
+                alt="West 6th upscale austin bachelorette party boat nightlife for bachelorette party austin texas"
                 className="w-full rounded-2xl shadow-2xl"
               />
             </div>
@@ -515,18 +515,18 @@ export default function AustinBacheloretteNightlife() {
             <div className="mb-8">
               <LazyImage 
                 src="/attached_assets/atx-disco-cruise-party.webp"
-                alt="ATX Disco Cruise bachelorette party lake travis experience"
+                alt="ATX Disco Cruise lake travis bachelorette party boat experience with austin bachelorette party boat dancing"
                 className="w-full rounded-2xl shadow-2xl"
               />
             </div>
             
             <div className="prose prose-lg max-w-none dark:prose-invert mb-8">
               <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                The secret to the perfect <strong>austin bachelorette weekend</strong> is starting with the legendary <Link href="/atx-disco-cruise" className="text-pink-600 hover:text-pink-700 font-semibold">ATX Disco Cruise</Link>! This <strong>bachelorette party lake travis</strong> experience is the ultimate daytime party that sets the tone for your nightlife adventures. Every successful <strong>bachelorette party in austin</strong> combines a <strong>bachelorette boat rental austin</strong> day with evening bar-hopping for the complete <strong>austin bachelorette party</strong> experience.
+                The secret to the perfect <strong>austin bachelorette party</strong> is starting with the legendary <Link href="/atx-disco-cruise" className="text-pink-600 hover:text-pink-700 font-semibold">ATX Disco Cruise</Link>! This <strong>lake travis bachelorette party boat</strong> experience is the ultimate daytime party that sets the tone for your nightlife adventures. Every successful <strong>bachelorette party in austin</strong> combines a <strong>bachelorette boat rental austin</strong> day with evening bar-hopping for the complete <strong>austin bachelorette party</strong> experience.
               </p>
               
               <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                The <Link href="/atx-disco-cruise" className="text-pink-600 hover:text-pink-700 font-semibold">ATX Disco Cruise</Link> is Austin's #1 <strong>austin bachelorette party boat</strong> experience, featuring a DJ, professional photographer, floating disco dance floor, giant inflatable floats, and incredible Lake Travis scenery. Your <strong>austin bachelorette</strong> squad will party on the water from 2-6 PM, then head back to freshen up before hitting Austin's nightlife. This is the <strong>bachelorette boat rental austin</strong> experience that defines your <strong>austin bachelorette weekend</strong>!
+                The <Link href="/atx-disco-cruise" className="text-pink-600 hover:text-pink-700 font-semibold">ATX Disco Cruise</Link> is Austin's #1 <strong>lake travis bachelorette party boat</strong> experience, featuring a DJ, professional photographer, floating disco dance floor, giant inflatable floats, and incredible Lake Travis scenery. Your <strong>austin bachelorette party</strong> squad will party on the water from 2-6 PM, then head back to freshen up before hitting Austin's nightlife. This is the <strong>austin bachelorette party boat</strong> experience that defines your <strong>bachelorette party austin texas</strong> weekend!
               </p>
 
               <h3 className="text-2xl font-bold mt-8 mb-4 text-gray-900 dark:text-white">Why ATX Disco Cruise is Essential for Your Bachelorette Party in Austin</h3>
@@ -547,7 +547,7 @@ export default function AustinBacheloretteNightlife() {
             <div className="mb-8">
               <LazyImage 
                 src="/attached_assets/giant-unicorn-float.webp"
-                alt="Giant unicorn float on austin bachelorette party boat"
+                alt="Giant unicorn float on lake travis bachelorette party boat for bachelorette party austin texas celebrations"
                 className="w-full rounded-2xl shadow-2xl"
               />
             </div>

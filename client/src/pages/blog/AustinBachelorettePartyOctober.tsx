@@ -154,7 +154,7 @@ export default function AustinBachelorettePartyOctober() {
                   </div>
                 </div>
                 <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
-                  October brings perfect fall weather to Austin - warm days ideal for Lake Travis boat cruises and cool evenings perfect for exploring 6th Street. It's the sweet spot between Texas summer heat and winter chill, making it one of the best months for a bachelorette celebration!
+                  October brings perfect fall weather for your austin bachelorette party - warm days ideal for a lake travis bachelorette party boat cruise and cool evenings perfect for exploring 6th Street. It's the sweet spot between Texas summer heat and winter chill, making it one of the best months for a bachelorette party austin texas celebration!
                 </p>
                 <div className="mt-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-xl p-4">
                   <p className="font-bold text-green-800 dark:text-green-300 mb-2">Perfect Weather, Any Weather!</p>
@@ -166,7 +166,7 @@ export default function AustinBachelorettePartyOctober() {
               <div className="relative">
                 <LazyImage 
                   src={heroImage} 
-                  alt="October bachelorette party on Lake Travis" 
+                  alt="Austin bachelorette party boat cruise on Lake Travis in October with bride squad enjoying fall weather" 
                   className="rounded-2xl shadow-2xl w-full h-80 object-cover"
                   aspectRatio="4/3"
                 />
@@ -257,7 +257,7 @@ export default function AustinBachelorettePartyOctober() {
               <div className="order-2 md:order-1">
                 <LazyImage 
                   src={sectionImage1} 
-                  alt="Bachelorette party boat on Lake Travis" 
+                  alt="Lake Travis bachelorette party boat rental with austin bachelorette party group enjoying fall cruise" 
                   className="rounded-2xl shadow-2xl w-full h-80 object-cover"
                   aspectRatio="4/3"
                 />
@@ -268,7 +268,7 @@ export default function AustinBachelorettePartyOctober() {
                   <h2 className="text-3xl font-black text-gray-900 dark:text-white">Lake Travis Party Boats</h2>
                 </div>
                 <p className="text-lg text-gray-700 dark:text-gray-300 mb-6">
-                  October is peak season! Book 6-8 weeks in advance for ACL weekends. Our Austin bachelorette party boats accommodate 14-75 guests with captain, crew, premium sound system, and Instagram-worthy lake views. Perfect for the bride-to-be and her crew!
+                  October is peak season for your austin bachelorette party! Book your lake travis bachelorette party boat 6-8 weeks in advance for ACL weekends. Our bachelorette party austin texas boats accommodate 14-75 guests with captain, crew, premium sound system, and Instagram-worthy lake views. Perfect for the bride-to-be and her crew!
                 </p>
                 <ul className="space-y-3">
                   {[
@@ -386,7 +386,7 @@ export default function AustinBachelorettePartyOctober() {
               <div>
                 <LazyImage 
                   src={sectionImage2} 
-                  alt="Bachelorette party group celebrating" 
+                  alt="Bachelorette party austin texas group celebrating fall on lake travis bachelorette party boat" 
                   className="rounded-2xl shadow-2xl w-full h-80 object-cover"
                   aspectRatio="4/3"
                 />
@@ -493,7 +493,7 @@ export default function AustinBachelorettePartyOctober() {
           <div className="max-w-4xl mx-auto text-center">
             <LazyImage 
               src={sectionImage3} 
-              alt="Bachelorette party celebration on Lake Travis" 
+              alt="Austin bachelorette party boat celebration on Lake Travis with fall weather and bride squad enjoying ACL weekend" 
               className="rounded-2xl shadow-2xl w-full h-64 object-cover mb-8"
               aspectRatio="21/9"
             />
@@ -502,7 +502,7 @@ export default function AustinBachelorettePartyOctober() {
               Book Your October Bachelorette Party
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-400 mb-8">
-              October is perfect for bachelorette parties in Austin. ACL Festival vibes, Halloween celebrations, and gorgeous fall weather await. Reserve your Lake Travis party boat and give the bride-to-be a celebration she'll never forget!
+              October is perfect for an austin bachelorette party celebration. ACL Festival vibes, Halloween celebrations, and gorgeous fall weather for your bachelorette party austin texas getaway await. Reserve your lake travis bachelorette party boat and give the bride-to-be a celebration she'll never forget!
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

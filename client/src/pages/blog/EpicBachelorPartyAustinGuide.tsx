@@ -116,7 +116,7 @@ export default function EpicBachelorPartyAustinGuide() {
         <div className="absolute inset-0">
           <LazyImage 
             src={heroImage} 
-            alt="Bachelor party group celebrating in Austin" 
+            alt="Austin bachelor party group celebrating on Lake Travis bachelor party boat" 
             className="w-full h-full object-cover opacity-30"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-blue-900/80 via-slate-900/70 to-black/80"></div>
@@ -141,7 +141,7 @@ export default function EpicBachelorPartyAustinGuide() {
               </h1>
               
               <p className="text-xl md:text-2xl text-blue-100 mb-8 leading-relaxed max-w-3xl mx-auto">
-                The ultimate guide to planning an unforgettable weekend. Lake Travis boats, 
+                The ultimate guide to planning an unforgettable Austin bachelor party weekend. Lake Travis bachelor party boat rentals, 
                 legendary nightlife, world-class BBQ, and the iconic ATX Disco Cruise.
               </p>
               
@@ -218,7 +218,7 @@ export default function EpicBachelorPartyAustinGuide() {
               >
                 <LazyImage 
                   src={sectionImage1} 
-                  alt="Bachelor party on Lake Travis party boat" 
+                  alt="Austin bachelor party boat cruise on Lake Travis bachelor party boat" 
                   className="rounded-2xl shadow-2xl w-full h-80 object-cover"
                   aspectRatio="4/3"
                 />
@@ -230,12 +230,12 @@ export default function EpicBachelorPartyAustinGuide() {
                 variants={fadeInUp}
               >
                 <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-                  The #1 Bachelor Party Experience
+                  The #1 Austin Bachelor Party Experience
                 </h3>
                 <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
                   When it comes to <strong>Austin bachelor party ideas</strong>, one experience stands above everything else: 
-                  Premier Party Cruises and their legendary <strong>ATX Disco Cruise</strong>—a four-hour, high-energy, 
-                  all-inclusive lake party that bachelor groups say is the highlight of the entire trip.
+                  a Lake Travis bachelor party boat with Premier Party Cruises and their legendary <strong>ATX Disco Cruise</strong>—a four-hour, high-energy, 
+                  all-inclusive lake party that Austin bachelor party groups say is the highlight of the entire trip.
                 </p>
                 <div className="space-y-3">
                   {['No planning stress - everything included', 'Multi-group energy multiplies the fun', 'Professional DJ & photographer', 'Perfect for groups of any size'].map((item, i) => (
@@ -300,9 +300,9 @@ export default function EpicBachelorPartyAustinGuide() {
                 </div>
                 <CardContent className="p-8">
                   <p className="text-lg text-gray-700 dark:text-gray-300 mb-6">
-                    Lake Travis is THE move for bachelor weekends. Premier Party Cruises is the #1 company bachelor groups trust, 
+                    A Lake Travis bachelor party boat is THE move for Austin bachelor party weekends. Premier Party Cruises is the #1 company bachelor groups trust, 
                     with 150,000+ guests hosted and a perfect safety record. Choose between private party boats or the iconic 
-                    <strong> ATX Disco Cruise</strong>—Austin's only multi-group, all-inclusive bachelor/bachelorette lake party.
+                    <strong> ATX Disco Cruise</strong>—Austin's only multi-group, all-inclusive bachelor/bachelorette Lake Travis bachelor party boat experience.
                   </p>
                   
                   <h4 className="font-bold text-xl text-gray-900 dark:text-white mb-4">
@@ -413,8 +413,8 @@ export default function EpicBachelorPartyAustinGuide() {
                 </CardHeader>
                 <CardContent className="p-8">
                   <p className="text-lg text-gray-700 dark:text-gray-300 mb-6">
-                    Austin nightlife is unmatched. From the wild energy of Sixth Street to the upscale bungalow bars of Rainey Street, 
-                    your bachelor party has endless options for an epic night out.
+                    Austin bachelor party nightlife is unmatched. From the wild energy of Sixth Street to the upscale bungalow bars of Rainey Street, 
+                    your Austin bachelor party has endless options for an epic night out after your Lake Travis bachelor party boat adventure.
                   </p>
                   
                   <div className="grid md:grid-cols-3 gap-4">
@@ -834,16 +834,16 @@ export default function EpicBachelorPartyAustinGuide() {
             >
               <LazyImage 
                 src={sectionImage3} 
-                alt="Bachelor party celebration on Lake Travis" 
+                alt="Bachelor party Austin Texas celebration on Lake Travis bachelor party boat" 
                 className="rounded-2xl shadow-2xl w-full h-64 object-cover mb-8 mx-auto"
                 aspectRatio="21/9"
               />
               
               <h2 className="text-4xl font-black mb-6">
-                Ready to Plan the Best Bachelor Party in Austin?
+                Ready to Plan the Best Austin Bachelor Party?
               </h2>
               <p className="text-xl text-blue-200 mb-8">
-                Make it easy. Make it unforgettable. With Premier Party Cruises dialed in, 
+                Make it easy. Make it unforgettable. Book a Lake Travis bachelor party boat with Premier Party Cruises and 
                 the rest of your Austin bachelor party practically plans itself.
               </p>
               

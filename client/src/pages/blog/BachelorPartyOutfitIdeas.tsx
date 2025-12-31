@@ -131,12 +131,12 @@ export default function BachelorPartyOutfitIdeas() {
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
-              <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">Why Costumes Matter on the ATX Disco Cruise</h2>
+              <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">Why Costumes Matter for Your Austin Bachelor Party on Lake Travis</h2>
               <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
                 Listen up, best men and groomsmen – here's the secret sauce to an unforgettable <strong>bachelor party in Austin</strong>: GO ALL IN on a theme. The <Link href="/atx-disco-cruise" className="text-blue-600 hover:underline font-semibold">ATX Disco Cruise</Link> isn't your typical <Link href="/party-boat-austin" className="text-blue-600 hover:underline font-semibold">party boat in Austin</Link>. It's a floating nightclub where bachelor AND <Link href="/bachelorette-party-austin" className="text-blue-600 hover:underline font-semibold">bachelorette parties</Link> mix and mingle together.
               </p>
               <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
-                And you know what's the ultimate icebreaker? A crew of guys in matching Disco Cowboy outfits or 70s bell bottoms strutting onto that boat. The bachelorette groups LOVE it. They'll want photos with you. Conversations start naturally. Friendships form. Maybe even some after-party plans get made.
+                And you know what's the ultimate icebreaker on a <strong>lake travis bachelor party boat</strong>? A crew of guys in matching Disco Cowboy outfits or 70s bell bottoms strutting onto that boat. The bachelorette groups LOVE it. They'll want photos with you. Conversations start naturally. Friendships form at your <strong>austin bachelor party</strong>. Maybe even some after-party plans get made.
               </p>
               <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
                 <strong>Pro tip:</strong> Let <a href="https://www.partyondelivery.com" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline font-semibold">Party On Delivery</a> handle all your drinks, mixers, and party supplies – they'll deliver everything right to the marina so you can focus on looking fabulous and having fun!
@@ -144,7 +144,7 @@ export default function BachelorPartyOutfitIdeas() {
 
               <BlogImageBreak
                 src={bachelorHero}
-                alt="Bachelor party group in matching outfits ready for ATX Disco Cruise"
+                alt="Austin bachelor party boat group in matching outfits ready for Lake Travis party cruise"
                 caption="Groups that commit to themes become legends on the ATX Disco Cruise"
               />
             </motion.div>
@@ -227,7 +227,7 @@ export default function BachelorPartyOutfitIdeas() {
 
               <BlogImageBreak
                 src={cleverGirl}
-                alt="Party boat on Lake Travis perfect for nautical themed bachelor party"
+                alt="Lake travis bachelor party boat perfect for nautical themed bachelor party Austin Texas"
                 caption="Set sail on the ultimate Lake Travis party boat adventure"
               />
             </motion.div>
@@ -299,7 +299,7 @@ export default function BachelorPartyOutfitIdeas() {
 
               <BlogImageBreak
                 src={dancingScene}
-                alt="Party guests dancing on Lake Travis disco cruise"
+                alt="Austin bachelor party guests dancing on lake travis bachelor party boat disco cruise"
                 caption="The dance floor is where themed outfits really shine"
               />
             </motion.div>
@@ -409,7 +409,7 @@ export default function BachelorPartyOutfitIdeas() {
 
               <BlogImageBreak
                 src={partyAtmosphere1}
-                alt="Bachelor and bachelorette groups mixing on Lake Travis party cruise"
+                alt="Bachelor party Austin Texas groups mixing with bachelorettes on lake travis bachelor party boat"
                 caption="Costumes are the ultimate conversation starters between groups"
               />
             </motion.div>
@@ -493,7 +493,7 @@ export default function BachelorPartyOutfitIdeas() {
               <div className="flex items-center gap-3 mb-4">
                 <Users className="h-8 w-8 text-purple-600" />
                 <Heart className="h-8 w-8 text-pink-600" />
-                <h2 className="text-3xl font-bold text-gray-900 dark:text-white">The Social Advantage: Why Themes Break the Ice</h2>
+                <h2 className="text-3xl font-bold text-gray-900 dark:text-white">The Social Advantage: Why Themes Break the Ice on Your Lake Travis Bachelor Party Boat</h2>
               </div>
               
               <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
@@ -523,7 +523,7 @@ export default function BachelorPartyOutfitIdeas() {
               </div>
 
               <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
-                The groups that show up in basic shorts and t-shirts? They blend in. The groups that COMMIT to a theme? They become the stars of the cruise. Which one do you want your <strong>bachelor party in Austin</strong> to be?
+                The groups that show up in basic shorts and t-shirts? They blend in. The groups that COMMIT to a theme? They become the stars of the cruise. Which one do you want your <strong>austin bachelor party</strong> on the <strong>lake travis bachelor party boat</strong> to be?
               </p>
             </motion.div>
           </div>
@@ -539,7 +539,7 @@ export default function BachelorPartyOutfitIdeas() {
               </div>
               
               <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
-                Planning a <strong>bachelor party in Austin</strong>? The <Link href="/atx-disco-cruise" className="text-blue-600 hover:underline font-semibold">ATX Disco Cruise</Link> is already the best <Link href="/party-boat-austin" className="text-blue-600 hover:underline font-semibold">party boat in Austin</Link> – but YOUR crew can make it even better by committing to a theme. Whether you go full Disco Cowboy, embrace the 70s Retro Kings lifestyle, or keep it simple with matching team uniforms, the effort WILL pay off.
+                Planning your <strong>austin bachelor party</strong>? The <Link href="/atx-disco-cruise" className="text-blue-600 hover:underline font-semibold">ATX Disco Cruise</Link> is already the best <strong>lake travis bachelor party boat</strong> experience – but YOUR crew can make it even better by committing to a theme. Whether you go full Disco Cowboy, embrace the 70s Retro Kings lifestyle, or keep it simple with matching team uniforms, the effort WILL pay off.
               </p>
 
               <div className="bg-gradient-to-r from-yellow-100 to-orange-100 dark:from-yellow-900/20 dark:to-orange-900/20 p-6 rounded-xl mb-8">
@@ -554,7 +554,7 @@ export default function BachelorPartyOutfitIdeas() {
               </div>
 
               <p className="text-lg text-gray-700 dark:text-gray-300 mb-8 leading-relaxed">
-                Have questions about the cruise? Check out our <Link href="/faq" className="text-blue-600 hover:underline font-semibold">FAQ page</Link> or <Link href="/contact" className="text-blue-600 hover:underline font-semibold">contact us</Link> directly. For <Link href="/private-cruises" className="text-blue-600 hover:underline font-semibold">private charter options</Link>, we've got you covered too. Now stop reading and start planning – your legendary <strong>Austin bachelor party</strong> on the <Link href="/party-boat-lake-travis" className="text-blue-600 hover:underline font-semibold">Lake Travis party boat</Link> awaits!
+                Have questions about the cruise? Check out our <Link href="/faq" className="text-blue-600 hover:underline font-semibold">FAQ page</Link> or <Link href="/contact" className="text-blue-600 hover:underline font-semibold">contact us</Link> directly. For <Link href="/private-cruises" className="text-blue-600 hover:underline font-semibold">private charter options</Link>, we've got you covered too. Now stop reading and start planning – your legendary <strong>austin bachelor party</strong> on the <strong>lake travis bachelor party boat</strong> awaits!
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center">

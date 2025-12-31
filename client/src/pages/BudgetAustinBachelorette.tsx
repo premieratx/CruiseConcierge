@@ -107,7 +107,7 @@ export default function BudgetAustinBachelorette() {
           <div className="absolute inset-0 opacity-20">
             <LazyImage 
               src="/attached_assets/dancing-party-scene.webp"
-              alt="Budget-friendly austin bachelorette party celebration with friends"
+              alt="Budget-friendly austin bachelorette party boat celebration with friends on lake travis bachelorette party boat"
               className="w-full h-full object-cover"
             />
           </div>
@@ -211,7 +211,7 @@ export default function BudgetAustinBachelorette() {
             <div className="mb-8">
               <LazyImage 
                 src="/attached_assets/party-atmosphere-1.webp"
-                alt="Affordable accommodation options for austin bachelorette weekend celebrations"
+                alt="Affordable austin bachelorette party accommodation options near lake travis bachelorette party boat experiences"
                 className="w-full rounded-xl shadow-2xl"
               />
             </div>
@@ -241,7 +241,7 @@ export default function BudgetAustinBachelorette() {
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
-                    <span>Look for properties with pools for free entertainment between <strong>bachelorette party lake travis</strong> adventures</span>
+                    <span>Look for properties with pools for free entertainment between <strong>lake travis bachelorette party boat</strong> adventures</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
@@ -336,7 +336,7 @@ export default function BudgetAustinBachelorette() {
                   Take Advantage of BYOB and Deals
                 </h2>
                 <p className="text-lg text-gray-600 dark:text-gray-400 mt-2">
-                  ATX Disco Cruise & Budget-Friendly Bachelorette Boat Rental Austin
+                  ATX Disco Cruise & Budget-Friendly Lake Travis Bachelorette Party Boat
                 </p>
               </div>
             </div>
@@ -344,14 +344,14 @@ export default function BudgetAustinBachelorette() {
             <div className="mb-8">
               <LazyImage 
                 src="/attached_assets/atx-disco-cruise-party.webp"
-                alt="Budget-friendly ATX Disco Cruise bachelorette party lake travis celebration"
+                alt="Budget-friendly ATX Disco Cruise lake travis bachelorette party boat with austin bachelorette party boat dancing"
                 className="w-full rounded-xl shadow-2xl"
               />
             </div>
 
             <div className="prose prose-lg max-w-none dark:prose-invert">
               <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
-                One amazing thing about planning a <strong>bachelorette party in austin</strong> – a lot of activities are BYOB (bring your own beverages), which can save you a ton on your <strong>austin bachelorette weekend</strong>! For example, instead of an expensive cocktail bar outing, do a BYOB party boat on Lake Travis for your <strong>austin bachelorette party</strong>. You'll bring your own drinks (at store prices, much cheaper than bar prices) and still get that wild party experience your <strong>austin bachelorette</strong> deserves!
+                One amazing thing about planning an <strong>austin bachelorette party</strong> – a lot of activities are BYOB (bring your own beverages), which can save you a ton on your <strong>austin bachelorette weekend</strong>! For example, instead of an expensive cocktail bar outing, book a <strong>lake travis bachelorette party boat</strong> for your <strong>austin bachelorette party</strong>. You'll bring your own drinks (at store prices, much cheaper than bar prices) and still get that wild party experience your <strong>bachelorette party austin texas</strong> celebration deserves!
               </p>
               
               <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
@@ -361,12 +361,12 @@ export default function BudgetAustinBachelorette() {
               <div className="bg-blue-50 dark:bg-gray-800 border-l-4 border-blue-600 p-6 rounded-r-lg my-8">
                 <h4 className="text-xl font-bold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
                   <Ship className="h-6 w-6 text-blue-600" />
-                  Why ATX Disco Cruise is the Best Budget Austin Bachelorette Party Boat
+                  Why ATX Disco Cruise is the Best Budget Lake Travis Bachelorette Party Boat
                 </h4>
                 <ul className="space-y-2 text-gray-700 dark:text-gray-300">
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-5 w-5 text-blue-600 flex-shrink-0 mt-0.5" />
-                    <span>Saturday evening time slot (3:30-7:30pm): only $85 per person ($111.56 with tax & gratuity) for 4 hours of <strong>bachelorette party lake travis</strong> fun</span>
+                    <span>Saturday evening time slot (3:30-7:30pm): only $85 per person ($111.56 with tax & gratuity) for 4 hours of <strong>lake travis bachelorette party boat</strong> fun</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-5 w-5 text-blue-600 flex-shrink-0 mt-0.5" />
@@ -378,7 +378,7 @@ export default function BudgetAustinBachelorette() {
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-5 w-5 text-blue-600 flex-shrink-0 mt-0.5" />
-                    <span>Most affordable <strong>bachelorette boat rental austin</strong> option that's still epic!</span>
+                    <span>Most affordable <strong>lake travis bachelorette party boat</strong> option that's still epic for your <strong>austin bachelorette party</strong>!</span>
                   </li>
                 </ul>
               </div>
@@ -415,7 +415,7 @@ export default function BudgetAustinBachelorette() {
             <div className="mb-8">
               <LazyImage 
                 src="/attached_assets/party-atmosphere-2.webp"
-                alt="Party On Delivery coordination for budget austin bachelorette party"
+                alt="Party On Delivery coordination for budget austin bachelorette party boat supplies for bachelorette party austin texas"
                 className="w-full rounded-xl shadow-2xl"
               />
             </div>
@@ -533,7 +533,7 @@ export default function BudgetAustinBachelorette() {
               </p>
 
               <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                By saving money on meals, you'll have more budget for the experiences that matter most to your <strong>austin bachelorette</strong> – like the incredible <Link href="/atx-disco-cruise" className="text-blue-600 hover:text-blue-700 font-semibold">ATX Disco Cruise</Link> from <Link href="/" className="text-blue-600 hover:text-blue-700 font-semibold">Premier Party Cruises</Link>! The <strong>austin bachelorette party boat</strong> experience on Lake Travis is worth every penny, especially when you've been smart about food costs. Coordinate your supplies with <a href="https://partyondelivery.com" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 font-semibold">Party On Delivery</a> for your <strong>bachelorette party lake travis</strong> adventure, and check out <Link href="/combined-bachelor-bachelorette" className="text-blue-600 hover:text-blue-700 font-semibold">our party boat guide</Link> for more budget tips for your <strong>austin bachelorette weekend</strong>!
+                By saving money on meals, you'll have more budget for the experiences that matter most to your <strong>austin bachelorette party</strong> – like the incredible <Link href="/atx-disco-cruise" className="text-blue-600 hover:text-blue-700 font-semibold">ATX Disco Cruise</Link> from <Link href="/" className="text-blue-600 hover:text-blue-700 font-semibold">Premier Party Cruises</Link>! The <strong>lake travis bachelorette party boat</strong> experience is worth every penny, especially when you've been smart about food costs. Coordinate your supplies with <a href="https://partyondelivery.com" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 font-semibold">Party On Delivery</a> for your <strong>austin bachelorette party</strong> boat adventure, and check out <Link href="/combined-bachelor-bachelorette" className="text-blue-600 hover:text-blue-700 font-semibold">our party boat guide</Link> for more budget tips for your <strong>austin bachelorette weekend</strong>!
               </p>
             </div>
           </div>
@@ -560,7 +560,7 @@ export default function BudgetAustinBachelorette() {
             <div className="mb-8">
               <LazyImage 
                 src="/attached_assets/party-atmosphere-3.webp"
-                alt="DIY budget decorations for austin bachelorette party celebrations"
+                alt="DIY budget decorations for austin bachelorette party boat celebrations on lake travis bachelorette party boat"
                 className="w-full rounded-xl shadow-2xl"
               />
             </div>

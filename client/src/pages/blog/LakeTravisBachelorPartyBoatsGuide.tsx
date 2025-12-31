@@ -147,9 +147,9 @@ export default function LakeTravisBachelorPartyBoatsGuide() {
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
-              <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">Why Lake Travis is THE Place to Party</h2>
+              <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">Why Lake Travis is THE Place for Your Austin Bachelor Party</h2>
               <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
-                When it comes to planning a <strong>Lake Travis bachelor party</strong>, you're choosing the crown jewel of Austin's outdoor party scene. This stunning Hill Country reservoir offers crystal-clear waters, breathtaking scenery, and endless coves perfect for a floating celebration. Whether you're looking for an <Link href="/party-boat-austin" className="text-blue-600 hover:underline font-semibold">Austin party boat</Link> rental or the famous <Link href="/atx-disco-cruise" className="text-blue-600 hover:underline font-semibold">ATX Disco Cruise</Link>, Lake Travis delivers an unforgettable experience.
+                When it comes to planning your <strong>austin bachelor party</strong>, a <strong>lake travis bachelor party boat</strong> is the crown jewel of Austin's outdoor party scene. This stunning Hill Country reservoir offers crystal-clear waters, breathtaking scenery, and endless coves perfect for a floating celebration. Whether you're looking for an <Link href="/party-boat-austin" className="text-blue-600 hover:underline font-semibold">Austin party boat</Link> rental or the famous <Link href="/atx-disco-cruise" className="text-blue-600 hover:underline font-semibold">ATX Disco Cruise</Link>, Lake Travis delivers an unforgettable experience.
               </p>
               <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
                 What makes a <strong>party boat Austin</strong> experience so special? Picture this: you and your crew cruising the open waters of Lake Travis, premium sound system pumping your favorite tracks, cold drinks in hand, and the Texas sun keeping the vibes perfect. Then you anchor in a secluded cove for swimming, floating on giant lily pads, and creating memories that'll last a lifetime.
@@ -160,7 +160,7 @@ export default function LakeTravisBachelorPartyBoatsGuide() {
 
               <BlogImageBreak
                 src={bachelorHero}
-                alt="Bachelor party crew celebrating on Lake Travis party boat Austin"
+                alt="Lake travis bachelor party boat cruise with guys celebrating on Austin party boat"
                 caption="Your legendary Lake Travis bachelor party adventure starts here"
               />
             </motion.div>
@@ -218,7 +218,7 @@ export default function LakeTravisBachelorPartyBoatsGuide() {
               </div>
               
               <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
-                The <Link href="/atx-disco-cruise" className="text-blue-600 hover:underline font-semibold">ATX Disco Cruise</Link> isn't just another <strong>party boat Austin</strong> experience – it's the only co-ed party cruise in the entire United States where <strong>bachelor AND bachelorette groups party TOGETHER</strong> on the same boat. This is what makes it legendary.
+                The <Link href="/atx-disco-cruise" className="text-blue-600 hover:underline font-semibold">ATX Disco Cruise</Link> isn't just another <strong>party boat Austin</strong> experience – it's the ultimate <strong>austin bachelor party</strong> destination and the only co-ed party cruise in the entire United States where <strong>bachelor AND bachelorette groups party TOGETHER</strong> on the same <strong>lake travis bachelor party boat</strong>. This is what makes it legendary.
               </p>
 
               <div className="bg-gradient-to-r from-pink-100 to-blue-100 dark:from-pink-900/20 dark:to-blue-900/20 p-6 rounded-xl mb-8">
@@ -237,7 +237,7 @@ export default function LakeTravisBachelorPartyBoatsGuide() {
 
               <BlogImageBreak
                 src={discoParty}
-                alt="ATX Disco Cruise party with bachelor and bachelorette groups on Lake Travis"
+                alt="Austin bachelor party boat experience on the ATX Disco Cruise Lake Travis"
                 caption="Bachelor and bachelorette groups celebrating together on the famous ATX Disco Cruise"
               />
 
@@ -262,7 +262,7 @@ export default function LakeTravisBachelorPartyBoatsGuide() {
               </div>
 
               <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
-                The 4-hour <Link href="/atx-disco-cruise" className="text-blue-600 hover:underline font-semibold">ATX Disco Cruise</Link> experience includes everything you need for an epic <strong>Lake Travis bachelor party</strong>: professional DJ spinning hits from 70s disco to today's bangers, a pro photographer capturing every legendary moment, giant 6x20 feet lily pad floats for swimming breaks, plus all the ice, cups, and water you need. All boats are BYOB-friendly – just bring your own beverages (no glass containers).
+                The 4-hour <Link href="/atx-disco-cruise" className="text-blue-600 hover:underline font-semibold">ATX Disco Cruise</Link> experience includes everything you need for an epic <strong>austin bachelor party</strong>: professional DJ spinning hits from 70s disco to today's bangers, a pro photographer capturing every legendary moment, giant 6x20 feet lily pad floats for swimming breaks, plus all the ice, cups, and water you need. All <strong>lake travis bachelor party boat</strong> cruises are BYOB-friendly – just bring your own beverages (no glass containers).
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -293,7 +293,7 @@ export default function LakeTravisBachelorPartyBoatsGuide() {
               </div>
               
               <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
-                All <Link href="/private-cruises" className="text-blue-600 hover:underline font-semibold">Premier Party Cruises</Link> boats are BYOB-friendly, which means huge savings on your <strong>Lake Travis bachelor party</strong>. But here's the game-changer: <a href="https://www.partyondelivery.com" target="_blank" rel="noopener noreferrer" className="text-green-600 hover:underline font-semibold">Party On Delivery</a> takes all the hassle out of getting drinks.
+                All <Link href="/private-cruises" className="text-blue-600 hover:underline font-semibold">Premier Party Cruises</Link> boats are BYOB-friendly, which means huge savings on your <strong>austin bachelor party</strong>. When you book a <strong>lake travis bachelor party boat</strong>, here's the game-changer: <a href="https://www.partyondelivery.com" target="_blank" rel="noopener noreferrer" className="text-green-600 hover:underline font-semibold">Party On Delivery</a> takes all the hassle out of getting drinks.
               </p>
 
               <div className="bg-white dark:bg-gray-800 border-2 border-green-500 rounded-xl p-6 mb-8">
@@ -362,7 +362,7 @@ export default function LakeTravisBachelorPartyBoatsGuide() {
 
               <BlogImageBreak
                 src={cleverGirl}
-                alt="Clever Girl 50-person party boat Austin private charter Lake Travis"
+                alt="Bachelor party austin texas on the Clever Girl 50-person lake travis bachelor party boat"
                 caption="The Clever Girl: Our flagship 50-person party boat for private charters"
               />
 
@@ -442,9 +442,9 @@ export default function LakeTravisBachelorPartyBoatsGuide() {
         <section className="py-16 bg-gradient-to-br from-blue-50 to-purple-50 dark:from-gray-800 dark:to-gray-900">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
-              <h2 className="text-3xl font-bold mb-4 text-center text-gray-900 dark:text-white">Tips for a Legendary Lake Travis Boat Party</h2>
+              <h2 className="text-3xl font-bold mb-4 text-center text-gray-900 dark:text-white">Tips for a Legendary Lake Travis Bachelor Party Boat Experience</h2>
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto text-center mb-10">
-                Follow these insider tips to make your <strong>bachelor party in Austin</strong> absolutely unforgettable
+                Follow these insider tips to make your <strong>austin bachelor party</strong> on a <strong>lake travis bachelor party boat</strong> absolutely unforgettable
               </p>
 
               <div className="grid md:grid-cols-2 gap-6">

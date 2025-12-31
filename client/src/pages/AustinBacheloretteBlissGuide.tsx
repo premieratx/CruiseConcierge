@@ -35,8 +35,8 @@ const blissElements = [
   },
   { 
     icon: Ship, 
-    title: 'ATX Disco Cruise', 
-    description: 'Dance under the Texas sun on Lake Travis with professional DJs and stunning views',
+    title: 'Lake Travis Bachelorette Party Boat', 
+    description: 'Dance under the Texas sun on a Lake Travis bachelorette party boat with professional DJs and stunning views',
     color: 'text-purple-600',
     bg: 'bg-purple-100'
   },
@@ -187,7 +187,7 @@ export default function AustinBacheloretteBlissGuide() {
               Spa Retreats, Disco Cruises & Alcohol Delivery
             </p>
             <p className="text-lg text-white/80 max-w-2xl mx-auto mb-8">
-              Your complete guide to creating the perfect bachelorette weekend in Austin, Texas
+              Your complete guide to creating the perfect Austin bachelorette party weekend in Austin, Texas with a Lake Travis bachelorette party boat
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -267,9 +267,9 @@ export default function AustinBacheloretteBlissGuide() {
                   <Badge className="mb-4 bg-pink-100 text-pink-700">START WITH RELAXATION</Badge>
                   <h2 className="text-3xl font-bold mb-6">Austin's Premier Spa Retreats</h2>
                   <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
-                    Begin your bachelorette weekend with pure indulgence at one of Austin's acclaimed spa destinations. 
+                    Begin your Austin bachelorette party weekend with pure indulgence at one of Austin's acclaimed spa destinations. 
                     From downtown luxury spas to Hill Country wellness retreats, the city offers world-class treatments 
-                    perfect for bonding with your closest friends.
+                    perfect for bonding with your closest friends before your Lake Travis bachelorette party boat adventure.
                   </p>
                   <p className="text-lg text-gray-700 dark:text-gray-300 mb-8 leading-relaxed">
                     Consider booking group packages that include massages, facials, and champagne to set the tone 
@@ -294,7 +294,7 @@ export default function AustinBacheloretteBlissGuide() {
                   <div className="aspect-square rounded-2xl overflow-hidden shadow-2xl">
                     <img 
                       src="/attached_assets/disco_fun_first_1765193453547.jpg" 
-                      alt="Bachelorette group celebrating"
+                      alt="Austin bachelorette party group celebrating on Lake Travis bachelorette party boat"
                       className="w-full h-full object-cover"
                     />
                   </div>
@@ -327,7 +327,7 @@ export default function AustinBacheloretteBlissGuide() {
                   <div className="aspect-video rounded-2xl overflow-hidden shadow-2xl">
                     <img 
                       src="/attached_assets/disco_fun2_1765193453547.jpg" 
-                      alt="ATX Disco Cruise party"
+                      alt="Lake Travis bachelorette party boat ATX Disco Cruise party austin texas"
                       className="w-full h-full object-cover"
                     />
                   </div>
@@ -337,8 +337,8 @@ export default function AustinBacheloretteBlissGuide() {
                   <Badge className="mb-4 bg-yellow-400 text-black">THE MAIN EVENT</Badge>
                   <h2 className="text-3xl font-bold mb-6">ATX Disco Cruise on Lake Travis</h2>
                   <p className="text-lg text-white/90 mb-6 leading-relaxed">
-                    Take your celebration to the water with Premier Party Cruises' signature ATX Disco Cruise. 
-                    This isn't just a boat ride—it's a full-scale party experience featuring professional DJs, 
+                    Take your Austin bachelorette party celebration to the water with Premier Party Cruises' signature Lake Travis bachelorette party boat experience. 
+                    This isn't just a boat ride—it's a full-scale Austin bachelorette party featuring professional DJs, 
                     stunning lake views, and an atmosphere designed for celebration.
                   </p>
                   
@@ -558,10 +558,10 @@ export default function AustinBacheloretteBlissGuide() {
             >
               <Heart className="h-16 w-16 mx-auto mb-6 text-white/80" />
               <h2 className="text-3xl md:text-4xl font-bold mb-6">
-                Ready to Plan Your Austin Bachelorette?
+                Ready to Plan Your Austin Bachelorette Party?
               </h2>
               <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-                Let Premier Party Cruises and Party On Delivery handle the details so you can focus on celebrating the bride-to-be!
+                Let Premier Party Cruises handle your Lake Travis bachelorette party boat and Party On Delivery handle the details so you can focus on celebrating the bride-to-be at your Austin bachelorette party!
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">

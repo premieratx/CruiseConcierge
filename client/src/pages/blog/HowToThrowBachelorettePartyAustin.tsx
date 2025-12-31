@@ -97,12 +97,12 @@ const day3Schedule = [
 ];
 
 const galleryPhotos = [
-  { id: 'bach-1', src: DISCO_FUN_PHOTOS.brideGroup, alt: 'Bride and friends celebrating on Lake Travis' },
-  { id: 'bach-2', src: BOAT_SCENIC_PHOTOS.cleverGirl, alt: 'Clever Girl 50-person party boat' },
-  { id: 'bach-3', src: DISCO_FUN_PHOTOS.sunHatsGroup, alt: 'Bachelorette group with sun hats' },
-  { id: 'bach-4', src: DISCO_FUN_PHOTOS.heartSunglasses, alt: 'Party group with heart sunglasses' },
-  { id: 'bach-5', src: DISCO_FUN_PHOTOS.champagneSpray, alt: 'Champagne spray celebration' },
-  { id: 'bach-6', src: BOAT_SCENIC_PHOTOS.cleverGirlDanceFloor, alt: 'Disco dance floor with lights' },
+  { id: 'bach-1', src: DISCO_FUN_PHOTOS.brideGroup, alt: 'Austin bachelorette party bride and friends celebrating on Lake Travis bachelorette party boat' },
+  { id: 'bach-2', src: BOAT_SCENIC_PHOTOS.cleverGirl, alt: 'Lake Travis bachelorette party boat Clever Girl 50-person cruise' },
+  { id: 'bach-3', src: DISCO_FUN_PHOTOS.sunHatsGroup, alt: 'Bachelorette party austin texas group with sun hats on boat' },
+  { id: 'bach-4', src: DISCO_FUN_PHOTOS.heartSunglasses, alt: 'Austin bachelorette party group with heart sunglasses' },
+  { id: 'bach-5', src: DISCO_FUN_PHOTOS.champagneSpray, alt: 'Lake Travis bachelorette party boat champagne spray celebration' },
+  { id: 'bach-6', src: BOAT_SCENIC_PHOTOS.cleverGirlDanceFloor, alt: 'Austin bachelorette party boat disco dance floor with lights' },
 ];
 
 export default function HowToThrowBachelorettePartyAustin() {
@@ -172,7 +172,7 @@ export default function HowToThrowBachelorettePartyAustin() {
         <div className="absolute inset-0">
           <LazyImage 
             src={heroImage} 
-            alt="Bachelorette party group celebrating in Austin" 
+            alt="Austin bachelorette party group dancing and celebrating on Lake Travis party boat" 
             className="w-full h-full object-cover opacity-30"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-pink-700/80 via-rose-700/70 to-purple-800/80"></div>
@@ -192,7 +192,7 @@ export default function HowToThrowBachelorettePartyAustin() {
               How to Throw a Great Bachelorette Party in Austin
             </h1>
             <p className="text-xl md:text-2xl text-pink-100 mb-8 max-w-3xl mx-auto">
-              From stunning Lake Travis views to Rainey Street vibes - your complete guide to an unforgettable girls' weekend
+              From stunning Lake Travis bachelorette party boat cruises to Rainey Street vibes - your complete guide to an unforgettable Austin bachelorette party weekend
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/bachelorette-party-austin">
@@ -227,7 +227,7 @@ export default function HowToThrowBachelorettePartyAustin() {
             </h2>
             <div className="prose prose-lg dark:prose-invert max-w-none">
               <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed">
-                Looking to plan an unforgettable bachelorette party? Austin, Texas is the ultimate destination for celebrating with your best friends before the big day. With its vibrant nightlife, stunning Lake Travis views, world-class dining, and endless entertainment options, Austin has everything you need for an epic bachelorette weekend. At <Link href="/" className="text-pink-600 hover:underline font-semibold">Premier Party Cruises</Link>, we specialize in creating magical moments for bride tribes.
+                Looking to plan an unforgettable Austin bachelorette party? Austin, Texas is the ultimate destination for celebrating with your best friends before the big day. With its vibrant nightlife, stunning Lake Travis bachelorette party boat options, world-class dining, and endless entertainment options, Austin has everything you need for an epic Austin bachelorette party weekend. At <Link href="/" className="text-pink-600 hover:underline font-semibold">Premier Party Cruises</Link>, we specialize in creating magical moments for bride tribes on Lake Travis.
               </p>
             </div>
           </motion.div>
@@ -240,7 +240,7 @@ export default function HowToThrowBachelorettePartyAustin() {
           <div className="max-w-4xl mx-auto">
             <LazyImage 
               src={DISCO_FUN_PHOTOS.brideGroup}
-              alt="Bride and friends celebrating on Lake Travis"
+              alt="Austin bachelorette party boat with bride and friends celebrating on Lake Travis"
               className="w-full h-80 object-cover rounded-xl shadow-lg"
             />
             <p className="text-center text-gray-500 dark:text-gray-400 mt-3 text-sm">
@@ -292,7 +292,7 @@ export default function HowToThrowBachelorettePartyAustin() {
             variants={fadeInUp}
           >
             <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-900 dark:text-white">
-              Must-Do Activities for Your Austin Bachelorette Party
+              Must-Do Activities for Your Austin Bachelorette Party on Lake Travis
             </h2>
             
             <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
@@ -761,10 +761,10 @@ export default function HowToThrowBachelorettePartyAustin() {
             className="max-w-3xl mx-auto text-center"
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              Ready to Book Your Austin Bachelorette Party Boat?
+              Ready to Book Your Lake Travis Bachelorette Party Boat?
             </h2>
             <p className="text-xl text-pink-100 mb-8">
-              Make your Austin bachelorette party unforgettable with a private party boat cruise on Lake Travis. Our experienced crew will ensure your celebration is safe, fun, and absolutely epic!
+              Make your Austin bachelorette party unforgettable with a Lake Travis bachelorette party boat cruise. Our experienced crew will ensure your Austin bachelorette party celebration is safe, fun, and absolutely epic!
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/book-online">

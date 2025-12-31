@@ -154,7 +154,7 @@ export default function AustinBachelorPartyJuly() {
                   </div>
                 </div>
                 <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
-                  July is peak summer in Austin! Hot temperatures make Lake Travis the perfect escape. Start your lake activities early (9am-1pm) to beat the afternoon heat. Water temperatures are warm and perfect for swimming. Plan indoor or shaded activities during peak heat hours.
+                  July is peak summer for your austin bachelor party celebration! Hot temperatures make Lake Travis the perfect escape for a bachelor party austin texas adventure. Start your lake travis bachelor party boat activities early (9am-1pm) to beat the afternoon heat. Water temperatures are warm and perfect for swimming during your austin bachelor party.
                 </p>
                 <div className="mt-4 bg-cyan-50 dark:bg-cyan-900/20 border border-cyan-200 dark:border-cyan-800 rounded-xl p-4">
                   <p className="font-bold text-cyan-800 dark:text-cyan-300 mb-2">Beat the Heat on Lake Travis!</p>
@@ -166,7 +166,7 @@ export default function AustinBachelorPartyJuly() {
               <div className="relative">
                 <LazyImage 
                   src={heroImage} 
-                  alt="July bachelor party on Lake Travis" 
+                  alt="Austin bachelor party boat cruise on Lake Travis during 4th of July celebrations" 
                   className="rounded-2xl shadow-2xl w-full h-80 object-cover"
                   aspectRatio="4/3"
                 />
@@ -258,7 +258,7 @@ export default function AustinBachelorPartyJuly() {
               <div className="order-2 md:order-1">
                 <LazyImage 
                   src={sectionImage1} 
-                  alt="Bachelor party boat on Lake Travis in July" 
+                  alt="Lake Travis bachelor party boat rental with group celebrating bachelor party austin texas summer" 
                   className="rounded-2xl shadow-2xl w-full h-80 object-cover"
                   aspectRatio="4/3"
                 />
@@ -269,7 +269,7 @@ export default function AustinBachelorPartyJuly() {
                   <h2 className="text-3xl font-black text-gray-900 dark:text-white">Lake Travis Party Boats</h2>
                 </div>
                 <p className="text-lg text-gray-700 dark:text-gray-300 mb-6">
-                  July is PEAK season - book 3+ months in advance, especially for 4th of July weekend! Our Austin bachelor party boats accommodate 14-75 guests with captain, crew, premium sound system, and all the water activities you need to beat the heat.
+                  July is PEAK season for lake travis bachelor party boat experiences - book 3+ months in advance, especially for 4th of July weekend! Our austin bachelor party boats accommodate 14-75 guests with captain, crew, premium sound system, and all the water activities you need. Experience the ultimate lake travis bachelor party boat celebration!
                 </p>
                 <ul className="space-y-3">
                   {[
@@ -334,7 +334,7 @@ export default function AustinBachelorPartyJuly() {
             
             <div className="bg-gradient-to-br from-red-50 to-blue-50 dark:from-red-900/20 dark:to-blue-900/20 rounded-2xl p-8 mb-8">
               <p className="text-xl text-gray-700 dark:text-gray-300 mb-6">
-                <strong>Peak season rates.</strong> Expect $800-1200/person for a premium summer weekend experience.
+                <strong>Peak season rates.</strong> Expect $800-1200/person for a premium austin bachelor party summer experience. Reserve your lake travis bachelor party boat 3+ months in advance!
               </p>
               
               <div className="grid md:grid-cols-3 gap-6">
@@ -389,7 +389,7 @@ export default function AustinBachelorPartyJuly() {
               <div>
                 <LazyImage 
                   src={sectionImage2} 
-                  alt="Bachelor party group celebrating in July" 
+                  alt="Bachelor party austin texas group enjoying lake travis bachelor party boat summer experience" 
                   className="rounded-2xl shadow-2xl w-full h-80 object-cover"
                   aspectRatio="4/3"
                 />
@@ -500,7 +500,7 @@ export default function AustinBachelorPartyJuly() {
           <div className="max-w-4xl mx-auto text-center">
             <LazyImage 
               src={sectionImage3} 
-              alt="Bachelor party celebration on Lake Travis in July" 
+              alt="Austin bachelor party celebration on lake travis bachelor party boat 4th of July" 
               className="rounded-2xl shadow-2xl w-full h-64 object-cover mb-8"
               aspectRatio="21/9"
             />

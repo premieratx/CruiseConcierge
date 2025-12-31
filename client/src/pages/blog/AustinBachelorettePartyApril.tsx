@@ -154,7 +154,7 @@ export default function AustinBachelorettePartyApril() {
                   </div>
                 </div>
                 <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
-                  April delivers the most beautiful spring weather in Austin. Perfect temperatures for outdoor patios, Lake Travis boat days, and exploring the Hill Country bluebonnets. Not too hot, not too cold—just right for your bride tribe!
+                  April delivers the most beautiful spring weather for your austin bachelorette party. Perfect temperatures for outdoor patios, lake travis bachelorette party boat days, and exploring the Hill Country bluebonnets. Not too hot, not too cold—just right for your bachelorette party austin texas celebration with the bride tribe!
                 </p>
                 <div className="mt-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-xl p-4">
                   <p className="font-bold text-green-800 dark:text-green-300 mb-2">Perfect Weather, Any Weather!</p>
@@ -166,7 +166,7 @@ export default function AustinBachelorettePartyApril() {
               <div className="relative">
                 <LazyImage 
                   src={heroImage} 
-                  alt="April bachelorette party on Lake Travis" 
+                  alt="Austin bachelorette party boat cruise on Lake Travis in April with bride squad celebrating spring" 
                   className="rounded-2xl shadow-2xl w-full h-80 object-cover"
                   aspectRatio="4/3"
                 />
@@ -257,7 +257,7 @@ export default function AustinBachelorettePartyApril() {
               <div className="order-2 md:order-1">
                 <LazyImage 
                   src={sectionImage1} 
-                  alt="Bachelorette party boat on Lake Travis" 
+                  alt="Lake Travis bachelorette party boat rental with austin bachelorette party group enjoying spring cruise" 
                   className="rounded-2xl shadow-2xl w-full h-80 object-cover"
                   aspectRatio="4/3"
                 />
@@ -268,7 +268,7 @@ export default function AustinBachelorettePartyApril() {
                   <h2 className="text-3xl font-black text-gray-900 dark:text-white">Lake Travis Party Boats</h2>
                 </div>
                 <p className="text-lg text-gray-700 dark:text-gray-300 mb-6">
-                  April is perfect for a Lake Travis bachelorette cruise! The water is warming up, crowds are manageable, and the scenery is stunning with spring blooms. Our boats accommodate 14-75 guests with captain, crew, premium sound system, and photo-worthy moments.
+                  April is perfect for a lake travis bachelorette party boat cruise! The water is warming up for your austin bachelorette party, crowds are manageable, and the scenery is stunning with spring blooms. Our bachelorette party austin texas boats accommodate 14-75 guests with captain, crew, premium sound system, and photo-worthy moments.
                 </p>
                 <ul className="space-y-3">
                   {[
@@ -386,7 +386,7 @@ export default function AustinBachelorettePartyApril() {
               <div>
                 <LazyImage 
                   src={sectionImage2} 
-                  alt="Bachelorette party group celebrating" 
+                  alt="Bachelorette party austin texas group celebrating on lake travis bachelorette party boat in spring" 
                   className="rounded-2xl shadow-2xl w-full h-80 object-cover"
                   aspectRatio="4/3"
                 />
@@ -501,7 +501,7 @@ export default function AustinBachelorettePartyApril() {
           <div className="max-w-4xl mx-auto text-center">
             <LazyImage 
               src={sectionImage3} 
-              alt="Bachelorette party celebration on Lake Travis" 
+              alt="Austin bachelorette party boat celebration on Lake Travis with spring wildflowers and bride squad" 
               className="rounded-2xl shadow-2xl w-full h-64 object-cover mb-8"
               aspectRatio="21/9"
             />
@@ -510,7 +510,7 @@ export default function AustinBachelorettePartyApril() {
               Book Your April Bachelorette Party
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-400 mb-8">
-              April is perfect for bachelorette parties in Austin. Bluebonnets, spring weather, and epic celebrations await your bride tribe. Reserve your Lake Travis party boat and create memories that will last forever!
+              April is perfect for an austin bachelorette party celebration. Bluebonnets, spring weather, and epic bachelorette party austin texas moments await your bride tribe. Reserve your lake travis bachelorette party boat and create memories that will last forever!
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

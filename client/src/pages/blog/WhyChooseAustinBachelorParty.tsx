@@ -283,6 +283,7 @@ export default function WhyChooseAustinBachelorParty() {
           <div 
             className="absolute inset-0 bg-cover bg-center opacity-40"
             style={{ backgroundImage: `url(${heroImage})` }}
+            aria-label="Austin bachelor party group on Lake Travis bachelor party boat"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-transparent to-gray-900/50" />
           
@@ -394,14 +395,14 @@ export default function WhyChooseAustinBachelorParty() {
                   <Badge className="mb-4 bg-cyan-400 text-black font-bold">AUSTIN'S #1 BACHELOR PARTY EXPERIENCE</Badge>
                   <h2 className="text-3xl md:text-4xl font-bold mb-6">Lake Travis Party Boats</h2>
                   <p className="text-lg text-white/90 mb-6 leading-relaxed">
-                    This is it. The crown jewel of Austin bachelor parties. 
-                    Picture your crew on a private boat, cold drinks in hand, 
+                    This is it. The crown jewel of Austin bachelor party experiences. 
+                    Picture your crew on a Lake Travis bachelor party boat, cold drinks in hand, 
                     cruising across crystal-clear Lake Travis.
                   </p>
                   <p className="text-lg text-white/80 mb-8 leading-relaxed">
-                    Premier Party Cruises runs the best boats on the lake. 
+                    Premier Party Cruises runs the best Lake Travis bachelor party boats on the lake. 
                     Professional captains. Bluetooth sound systems. Giant lily pad floats. 
-                    BYOB welcome. This is the experience every groom deserves.
+                    BYOB welcome. This is the Austin bachelor party experience every groom deserves.
                   </p>
                   
                   <div className="grid sm:grid-cols-2 gap-4 mb-8">
@@ -446,7 +447,7 @@ export default function WhyChooseAustinBachelorParty() {
                   <div className="aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl">
                     <img 
                       src={sectionImage1} 
-                      alt="Bachelor party group on Lake Travis party boat"
+                      alt="Austin bachelor party group on Lake Travis bachelor party boat"
                       className="w-full h-full object-cover"
                     />
                   </div>
@@ -479,7 +480,7 @@ export default function WhyChooseAustinBachelorParty() {
                   <div className="aspect-[4/3] rounded-2xl overflow-hidden shadow-xl">
                     <img 
                       src={sectionImage2}
-                      alt="Texas BBQ brisket"
+                      alt="Texas BBQ brisket for Austin bachelor party dining"
                       className="w-full h-full object-cover"
                     />
                   </div>
@@ -564,7 +565,7 @@ export default function WhyChooseAustinBachelorParty() {
             <div className="aspect-video max-w-4xl mx-auto rounded-2xl overflow-hidden shadow-2xl">
               <img 
                 src={sectionImage3}
-                alt="Austin nightlife scene"
+                alt="Austin bachelor party nightlife scene on 6th Street"
                 className="w-full h-full object-cover"
               />
             </div>
@@ -732,8 +733,8 @@ export default function WhyChooseAustinBachelorParty() {
                 Give the Groom the Send-Off He Deserves
               </h2>
               <p className="text-xl text-white/80 mb-8 max-w-2xl mx-auto">
-                Lake Travis party boats. World-class BBQ. Electric nightlife. 
-                Austin delivers the bachelor party of a lifetime.
+                Lake Travis bachelor party boats. World-class BBQ. Electric nightlife. 
+                Austin bachelor party delivers the bachelor party of a lifetime.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">

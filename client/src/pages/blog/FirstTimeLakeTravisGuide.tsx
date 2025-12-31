@@ -28,7 +28,7 @@ export default function FirstTimeLakeTravisGuide() {
       publishDate="2025-01-10"
       author="Premier Party Cruises"
       heroImage="/attached_assets/atx-disco-cruise-party.webp"
-      heroImageAlt="Party celebration on Lake Travis boat"
+      heroImageAlt="Austin bachelor party and bachelorette party celebration on Lake Travis party boat"
       keywords={[
         'lake travis boat rental',
         'first time boat rental',
@@ -65,7 +65,7 @@ export default function FirstTimeLakeTravisGuide() {
           <div className="my-8">
             <LazyImage
               src="/attached_assets/day-tripper-14-person-boat.webp"
-              alt="14-person party boat on Lake Travis"
+              alt="14-person Lake Travis party boat perfect for Austin bachelor party or bachelorette party"
               className="rounded-lg shadow-lg w-full h-auto"
               data-testid="image-day-tripper-boat"
             />
@@ -106,7 +106,7 @@ export default function FirstTimeLakeTravisGuide() {
           <div className="my-8">
             <LazyImage
               src="/attached_assets/clever-girl-50-person-boat.webp"
-              alt="50-person party boat on Lake Travis"
+              alt="50-person party boat Austin for large bachelor party or bachelorette party on Lake Travis"
               className="rounded-lg shadow-lg w-full h-auto"
               data-testid="image-clever-girl-boat"
             />
@@ -164,13 +164,13 @@ export default function FirstTimeLakeTravisGuide() {
           <div className="my-8 grid grid-cols-1 md:grid-cols-2 gap-4">
             <LazyImage
               src={bachelorPartyBlogImages[0].src}
-              alt={bachelorPartyBlogImages[0].alt}
+              alt="Austin bachelor party celebration on Lake Travis party boat rental"
               className="rounded-lg shadow-lg w-full h-auto"
               data-testid="image-party-celebration-1"
             />
             <LazyImage
               src={bachelorPartyBlogImages[2].src}
-              alt={bachelorPartyBlogImages[2].alt}
+              alt="Bachelorette party group enjoying party boat Austin on Lake Travis"
               className="rounded-lg shadow-lg w-full h-auto"
               data-testid="image-party-celebration-2"
             />
@@ -344,7 +344,7 @@ export default function FirstTimeLakeTravisGuide() {
           <div className="my-8">
             <LazyImage
               src={bachelorPartyBlogImages[1].src}
-              alt={bachelorPartyBlogImages[1].alt}
+              alt="ATX Disco Cruise party boat Austin with bachelor and bachelorette party groups on Lake Travis"
               className="rounded-lg shadow-lg w-full h-auto"
               data-testid="image-atx-disco-party"
             />

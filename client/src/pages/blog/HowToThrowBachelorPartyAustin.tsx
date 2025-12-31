@@ -100,12 +100,12 @@ const sundaySchedule = [
 ];
 
 const galleryPhotos = [
-  { id: 'bach-1', src: DISCO_FUN_PHOTOS.jumping, alt: 'Bachelor party guests jumping into Lake Travis' },
-  { id: 'bach-2', src: BOAT_SCENIC_PHOTOS.meeseeks, alt: 'Meeseeks 25-person party boat on Lake Travis' },
-  { id: 'bach-3', src: DISCO_FUN_PHOTOS.blackCapsGroup, alt: 'Bachelor party crew with matching caps' },
-  { id: 'bach-4', src: BOAT_SCENIC_PHOTOS.cleverGirl, alt: 'Clever Girl 50-person party boat' },
-  { id: 'bach-5', src: DISCO_FUN_PHOTOS.champagneSpray, alt: 'Champagne spray celebration on boat' },
-  { id: 'bach-6', src: BOAT_SCENIC_PHOTOS.dayTripper, alt: 'Day Tripper 14-person intimate party boat' },
+  { id: 'bach-1', src: DISCO_FUN_PHOTOS.jumping, alt: 'Austin bachelor party guests jumping into Lake Travis from party boat' },
+  { id: 'bach-2', src: BOAT_SCENIC_PHOTOS.meeseeks, alt: 'Lake Travis bachelor party boat Meeseeks 25-person party boat' },
+  { id: 'bach-3', src: DISCO_FUN_PHOTOS.blackCapsGroup, alt: 'Austin bachelor party crew with matching caps on Lake Travis' },
+  { id: 'bach-4', src: BOAT_SCENIC_PHOTOS.cleverGirl, alt: 'Bachelor party Austin Texas on Clever Girl 50-person party boat' },
+  { id: 'bach-5', src: DISCO_FUN_PHOTOS.champagneSpray, alt: 'Austin bachelor party champagne spray celebration on Lake Travis boat' },
+  { id: 'bach-6', src: BOAT_SCENIC_PHOTOS.dayTripper, alt: 'Lake Travis bachelor party boat Day Tripper 14-person intimate cruise' },
 ];
 
 export default function HowToThrowBachelorPartyAustin() {
@@ -175,7 +175,7 @@ export default function HowToThrowBachelorPartyAustin() {
         <div className="absolute inset-0">
           <LazyImage 
             src={heroImage} 
-            alt="Bachelor party group celebrating in Austin" 
+            alt="Austin bachelor party group celebrating on Lake Travis bachelor party boat" 
             className="w-full h-full object-cover opacity-30"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-blue-900/80 via-slate-900/70 to-black/80"></div>
@@ -195,7 +195,7 @@ export default function HowToThrowBachelorPartyAustin() {
               How to Throw a Great Bachelor Party in Austin
             </h1>
             <p className="text-xl md:text-2xl text-blue-100 mb-8 max-w-3xl mx-auto">
-              From legendary 6th Street nightlife to Lake Travis party boats - your complete guide to an unforgettable guys' weekend
+              From legendary 6th Street nightlife to Lake Travis bachelor party boat adventures - your complete Austin bachelor party guide to an unforgettable guys' weekend
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/bachelor-party-austin">
@@ -243,11 +243,11 @@ export default function HowToThrowBachelorPartyAustin() {
           <div className="max-w-4xl mx-auto">
             <LazyImage 
               src={DISCO_FUN_PHOTOS.jumping}
-              alt="Bachelor party guests jumping into Lake Travis"
+              alt="Austin bachelor party guests jumping into Lake Travis from bachelor party boat"
               className="w-full h-80 object-cover rounded-xl shadow-lg"
             />
             <p className="text-center text-gray-500 dark:text-gray-400 mt-3 text-sm">
-              Bachelor party groups love jumping into the crystal-clear waters of Lake Travis
+              Austin bachelor party groups love jumping into the crystal-clear waters of Lake Travis from our party boats
             </p>
           </div>
         </div>
@@ -342,10 +342,10 @@ export default function HowToThrowBachelorPartyAustin() {
           >
             <div className="max-w-4xl mx-auto text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                Lake Travis Party Boat Adventure
+                Lake Travis Bachelor Party Boat Adventure
               </h2>
               <p className="text-xl text-blue-100">
-                No Austin bachelor party is complete without a private party boat cruise on Lake Travis
+                No Austin bachelor party is complete without a Lake Travis bachelor party boat cruise with Premier Party Cruises
               </p>
             </div>
             
@@ -387,10 +387,10 @@ export default function HowToThrowBachelorPartyAustin() {
             variants={fadeInUp}
           >
             <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 text-gray-900 dark:text-white">
-              Bachelor Party Photo Gallery
+              Austin Bachelor Party Photo Gallery
             </h2>
             <p className="text-center text-gray-600 dark:text-gray-300 mb-10 max-w-2xl mx-auto">
-              See what an epic bachelor party on Lake Travis looks like
+              See what an epic Austin bachelor party on a Lake Travis bachelor party boat looks like
             </p>
             
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-5xl mx-auto">
@@ -767,7 +767,7 @@ export default function HowToThrowBachelorPartyAustin() {
               Book Your Austin Bachelor Party Boat Today
             </h2>
             <p className="text-xl text-blue-100 mb-8">
-              Ready to plan the ultimate bachelor party? Start with a Lake Travis party boat cruise that will be the highlight of your weekend.
+              Ready to plan the ultimate Austin bachelor party? Start with a Lake Travis bachelor party boat cruise that will be the highlight of your weekend.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/book-online">

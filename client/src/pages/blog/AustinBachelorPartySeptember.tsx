@@ -154,7 +154,7 @@ export default function AustinBachelorPartySeptember() {
                   </div>
                 </div>
                 <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
-                  September offers ideal conditions for Lake Travis party boats. The summer heat starts to break, creating comfortable temperatures perfect for both outdoor lake adventures and nightlife. Water temperatures remain warm and inviting.
+                  September offers ideal conditions for your austin bachelor party on Lake Travis party boats. The summer heat starts to break, creating comfortable temperatures perfect for a bachelor party austin texas adventure. Water temperatures remain warm and inviting for the ultimate lake travis bachelor party boat experience.
                 </p>
                 <div className="mt-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-xl p-4">
                   <p className="font-bold text-green-800 dark:text-green-300 mb-2">Perfect Weather, Any Weather!</p>
@@ -166,7 +166,7 @@ export default function AustinBachelorPartySeptember() {
               <div className="relative">
                 <LazyImage 
                   src={heroImage} 
-                  alt="September bachelor party on Lake Travis" 
+                  alt="Austin bachelor party boat cruise on Lake Travis in September with Labor Day celebrations" 
                   className="rounded-2xl shadow-2xl w-full h-80 object-cover"
                   aspectRatio="4/3"
                 />
@@ -257,7 +257,7 @@ export default function AustinBachelorPartySeptember() {
               <div className="order-2 md:order-1">
                 <LazyImage 
                   src={sectionImage1} 
-                  alt="Bachelor party boat on Lake Travis" 
+                  alt="Lake Travis bachelor party boat rental with group celebrating bachelor party austin texas" 
                   className="rounded-2xl shadow-2xl w-full h-80 object-cover"
                   aspectRatio="4/3"
                 />
@@ -268,7 +268,7 @@ export default function AustinBachelorPartySeptember() {
                   <h2 className="text-3xl font-black text-gray-900 dark:text-white">Lake Travis Party Boats</h2>
                 </div>
                 <p className="text-lg text-gray-700 dark:text-gray-300 mb-6">
-                  September offers excellent availability with off-season rates. Book 3-4 weeks in advance for best selection. Our Austin bachelor party boats accommodate 14-75 guests with captain, crew, premium sound system, and water activities.
+                  September offers excellent availability for a lake travis bachelor party boat at off-season rates. Book 3-4 weeks in advance for best selection. Our austin bachelor party boats accommodate 14-75 guests with captain, crew, premium sound system, and water activities. Experience the perfect austin bachelor party this fall!
                 </p>
                 <ul className="space-y-3">
                   {[
@@ -333,7 +333,7 @@ export default function AustinBachelorPartySeptember() {
             
             <div className="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-2xl p-8 mb-8">
               <p className="text-xl text-gray-700 dark:text-gray-300 mb-6">
-                <strong>Shoulder season rates.</strong> Expect $600-900/person for a great weekend experience.
+                <strong>Shoulder season rates.</strong> Expect $600-900/person for a great austin bachelor party experience. Excellent availability for lake travis bachelor party boat adventures!
               </p>
               
               <div className="grid md:grid-cols-3 gap-6">
@@ -386,7 +386,7 @@ export default function AustinBachelorPartySeptember() {
               <div>
                 <LazyImage 
                   src={sectionImage2} 
-                  alt="Bachelor party group celebrating" 
+                  alt="Bachelor party austin texas group enjoying lake travis bachelor party boat experience" 
                   className="rounded-2xl shadow-2xl w-full h-80 object-cover"
                   aspectRatio="4/3"
                 />
@@ -493,7 +493,7 @@ export default function AustinBachelorPartySeptember() {
           <div className="max-w-4xl mx-auto text-center">
             <LazyImage 
               src={sectionImage3} 
-              alt="Bachelor party celebration on Lake Travis" 
+              alt="Austin bachelor party celebration on lake travis bachelor party boat Labor Day" 
               className="rounded-2xl shadow-2xl w-full h-64 object-cover mb-8"
               aspectRatio="21/9"
             />

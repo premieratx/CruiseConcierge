@@ -127,7 +127,7 @@ export default function EpicBachelorettePartyAustinGuide() {
         <div className="absolute inset-0">
           <LazyImage 
             src={heroImage} 
-            alt="Bachelorette party group celebrating in Austin" 
+            alt="Austin bachelorette party group celebrating on Lake Travis party boat" 
             className="w-full h-full object-cover opacity-30"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-pink-900/80 via-purple-900/70 to-pink-900/80"></div>
@@ -152,8 +152,8 @@ export default function EpicBachelorettePartyAustinGuide() {
               </h1>
               
               <p className="text-xl md:text-2xl text-pink-100 mb-8 leading-relaxed max-w-3xl mx-auto">
-                From lively nightlife to serene spa days, Lake Travis boat parties to legendary Rainey Street—
-                discover everything you need for an unforgettable Austin bachelorette celebration.
+                From lively nightlife to serene spa days, Lake Travis bachelorette party boat cruises to legendary Rainey Street—
+                discover everything you need for an unforgettable Austin bachelorette party celebration.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
@@ -229,7 +229,7 @@ export default function EpicBachelorettePartyAustinGuide() {
               >
                 <LazyImage 
                   src={sectionImage1} 
-                  alt="Bachelorette party on Lake Travis party boat" 
+                  alt="Lake Travis bachelorette party boat cruise with bride tribe celebrating" 
                   className="rounded-2xl shadow-2xl w-full h-80 object-cover"
                   aspectRatio="4/3"
                 />
@@ -241,12 +241,12 @@ export default function EpicBachelorettePartyAustinGuide() {
                 variants={fadeInUp}
               >
                 <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-                  The #1 Austin Bachelorette Experience
+                  The #1 Austin Bachelorette Party Experience
                 </h3>
                 <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
-                  When it comes to <strong>Austin bachelorette party ideas</strong>, one experience stands above everything else: 
-                  <Link href="/atx-disco-cruise" className="text-pink-600 hover:underline font-semibold"> Premier Party Cruises</Link> and their legendary 
-                  <strong> ATX Disco Cruise</strong>—a four-hour, high-energy, all-inclusive lake party that bride tribes say is the highlight of the entire weekend.
+                  When it comes to <strong>Austin bachelorette party ideas</strong>, one experience stands above everything else: a 
+                  <Link href="/atx-disco-cruise" className="text-pink-600 hover:underline font-semibold"> Lake Travis bachelorette party boat</Link> cruise with Premier Party Cruises and their legendary 
+                  <strong> ATX Disco Cruise</strong>—a four-hour, high-energy, all-inclusive lake party that bride tribes say is the highlight of the entire Austin bachelorette party weekend.
                 </p>
                 <div className="space-y-3">
                   {['No planning stress - everything included', 'Multi-group energy multiplies the fun', 'Professional DJ & photographer', 'Perfect for groups of any size'].map((item, i) => (
@@ -335,8 +335,8 @@ export default function EpicBachelorettePartyAustinGuide() {
                   <div>
                     <p className="text-lg text-gray-700 dark:text-gray-300 mb-6">
                       The <Link href="/atx-disco-cruise" className="text-pink-600 hover:underline font-semibold">ATX Disco Cruise</Link> is 
-                      often hailed as the top day party in Austin. This fun-filled cruise combines scenic Lake Travis views, 
-                      lively music, and a party atmosphere that sets the tone for an amazing bachelorette weekend.
+                      often hailed as the top day party and Lake Travis bachelorette party boat experience in Austin. This fun-filled cruise combines scenic Lake Travis views, 
+                      lively music, and a party atmosphere that sets the tone for an amazing Austin bachelorette party weekend.
                     </p>
                     
                     <div className="bg-pink-50 dark:bg-pink-900/20 border border-pink-200 dark:border-pink-800 rounded-xl p-6 mb-6">
@@ -1188,18 +1188,18 @@ export default function EpicBachelorettePartyAustinGuide() {
             >
               <LazyImage 
                 src={sectionImage4} 
-                alt="Bachelorette party celebration on Lake Travis" 
+                alt="Bachelorette party austin texas celebration on Lake Travis bachelorette party boat" 
                 className="rounded-2xl shadow-2xl w-full h-64 object-cover mb-8 mx-auto"
                 aspectRatio="21/9"
               />
               
               <h2 className="text-4xl font-black mb-6">
-                Ready to Plan the Best Bachelorette Party in Austin?
+                Ready to Plan the Best Austin Bachelorette Party?
               </h2>
               <p className="text-xl text-pink-200 mb-8">
-                Make it easy. Make it unforgettable. With <Link href="/" className="text-white hover:underline font-semibold">Premier Party Cruises</Link> dialed in 
-                and <a href="https://www.partyondelivery.com" target="_blank" rel="noopener noreferrer" className="text-white hover:underline font-semibold">Party On Delivery</a> handling 
-                the drinks, the rest of your Austin bachelorette practically plans itself!
+                Make it easy. Make it unforgettable. Book your Lake Travis bachelorette party boat with <Link href="/" className="text-white hover:underline font-semibold">Premier Party Cruises</Link> 
+                and let <a href="https://www.partyondelivery.com" target="_blank" rel="noopener noreferrer" className="text-white hover:underline font-semibold">Party On Delivery</a> handle 
+                the drinks—the rest of your Austin bachelorette party practically plans itself!
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center">

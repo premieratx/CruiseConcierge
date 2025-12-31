@@ -61,8 +61,8 @@ export default function LakeTravisBachelorPartyCelebrations() {
             Lake Travis Bachelor Party and Austin Celebrations
           </h2>
           <p className="text-lg mb-4 text-gray-700 dark:text-gray-300">
-            Planning a bachelor party? Consider <strong>Lake Travis and Austin</strong> for an unforgettable celebration. 
-            This area offers a perfect mix of adventure and relaxation that's ideal for any group.
+            Planning an Austin bachelor party? Consider a <strong>Lake Travis bachelor party boat</strong> experience for an unforgettable celebration. 
+            This area offers a perfect mix of adventure and relaxation that's ideal for any Austin bachelor party group.
           </p>
           <p className="text-lg mb-4 text-gray-700 dark:text-gray-300">
             Lake Travis is known for its stunning scenery and endless activities. From boat rentals to water sports, 
@@ -169,7 +169,7 @@ export default function LakeTravisBachelorPartyCelebrations() {
           </h2>
           
           <p className="text-lg mb-4 text-gray-700 dark:text-gray-300">
-            Boat rentals on Lake Travis are essential for a bachelor party. Plenty of options cater to small 
+            A Lake Travis bachelor party boat rental is essential for any Austin bachelor party. Plenty of options cater to small 
             or large groups. Party boats come equipped with sound systems and coolers to keep the celebration lively.
           </p>
 
@@ -188,14 +188,14 @@ export default function LakeTravisBachelorPartyCelebrations() {
           </div>
 
           <p className="text-lg mb-4 text-gray-700 dark:text-gray-300">
-            Experience the vibrant atmosphere on a party boat, making memories that will last. For the ultimate 
+            Experience the vibrant atmosphere on a Lake Travis bachelor party boat, making Austin bachelor party memories that will last. For the ultimate 
             experience, check out the <Link href="/atx-disco-cruise" className="text-brand-blue hover:underline font-bold" data-testid="link-atx-disco-cruise">ATX Disco Cruise</Link> - 
-            Austin's premier multi-group party boat with DJ, photographer, and incredible energy.
+            Austin's premier multi-group Lake Travis bachelor party boat with DJ, photographer, and incredible energy.
           </p>
 
           <div className="my-8 p-6 bg-gradient-to-r from-brand-blue/10 to-purple-500/10 rounded-xl border border-brand-blue/20">
-            <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-white">Ready to Book Your Lake Travis Party Boat?</h3>
-            <p className="text-gray-700 dark:text-gray-300 mb-4">Experience the ATX Disco Cruise - Austin's #1 bachelor party boat experience with DJ, photographer, and unforgettable energy!</p>
+            <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-white">Ready to Book Your Lake Travis Bachelor Party Boat?</h3>
+            <p className="text-gray-700 dark:text-gray-300 mb-4">Experience the ATX Disco Cruise - Austin's #1 Austin bachelor party boat experience with DJ, photographer, and unforgettable energy!</p>
             <BlogCTA variant="primary" text="Check Availability" href="/atx-disco-cruise" external={false} />
           </div>
         </section>
@@ -378,8 +378,8 @@ export default function LakeTravisBachelorPartyCelebrations() {
           </div>
 
           <p className="text-lg mb-4 text-gray-700 dark:text-gray-300">
-            Blend the serene beauty of Lake Travis with Austin's urban energy. This combination ensures 
-            an unforgettable <Link href="/bachelor-party-austin" className="text-brand-blue hover:underline font-semibold" data-testid="link-bachelor-party-2">bachelor party</Link>.
+            Blend the serene beauty of a Lake Travis bachelor party boat with Austin's urban energy. This combination ensures 
+            an unforgettable <Link href="/bachelor-party-austin" className="text-brand-blue hover:underline font-semibold" data-testid="link-bachelor-party-2">Austin bachelor party</Link>.
           </p>
         </section>
       </SectionReveal>
@@ -444,10 +444,10 @@ export default function LakeTravisBachelorPartyCelebrations() {
             </div>
 
             <div className="bg-gray-100 dark:bg-gray-800 p-6 rounded-lg">
-              <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-white">Can you rent boats on Lake Travis?</h3>
+              <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-white">Can you rent boats on Lake Travis for an Austin bachelor party?</h3>
               <p className="text-gray-700 dark:text-gray-300">
-                Yes! Several rental options are available, from pontoon boats to party barges. For the ultimate 
-                experience, book the <Link href="/atx-disco-cruise" className="text-brand-blue hover:underline font-semibold" data-testid="link-atx-disco-cruise-faq">ATX Disco Cruise</Link> with 
+                Yes! Several Lake Travis bachelor party boat rental options are available, from pontoon boats to party barges. For the ultimate 
+                Austin bachelor party experience, book the <Link href="/atx-disco-cruise" className="text-brand-blue hover:underline font-semibold" data-testid="link-atx-disco-cruise-faq">ATX Disco Cruise</Link> with 
                 DJ, photographer, and everything included.
               </p>
             </div>

@@ -30,7 +30,7 @@ export default function ATXDiscoCruiseExperience() {
       publishDate="2025-01-15"
       author="Premier Party Cruises"
       heroImage={bachelorPartyBlogImages[3].src}
-      heroImageAlt="Bachelor party group having fun on ATX Disco Cruise on Lake Travis"
+      heroImageAlt="Austin bachelor party group having fun on ATX Disco Cruise party boat on Lake Travis"
       keywords={[
         'atx disco cruise',
         'disco cruise tips',
@@ -48,7 +48,7 @@ export default function ATXDiscoCruiseExperience() {
       <SectionReveal>
         <section id="introduction" className="mb-12" data-testid="section-introduction">
           <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-6 text-gray-900 dark:text-white" data-testid="heading-introduction">
-            Party Like a Pro on Lake Travis
+            Party Like a Pro on a Lake Travis Party Boat
           </h2>
           <p className="text-lg mb-4 text-gray-700 dark:text-gray-300">
             So, you're gearing up for the famous <Link href="/atx-disco-cruise" className="text-brand-blue hover:underline font-bold" data-testid="link-atx-disco-cruise-intro">
@@ -59,14 +59,14 @@ export default function ATXDiscoCruiseExperience() {
           </p>
           <p className="text-lg mb-4 text-gray-700 dark:text-gray-300">
             To make sure you and the boys maximize the fun (and minimize any buzzkill moments), we've compiled 
-            the ultimate list of <strong>do's and don'ts specifically tailored for bachelor party groups on the 
+            the ultimate list of <strong>do's and don'ts specifically tailored for Austin bachelor party groups on the 
             Disco Cruise</strong>.
           </p>
 
           <div className="my-8">
             <LazyImage
               src={bachelorPartyBlogImages[0].src}
-              alt={bachelorPartyBlogImages[0].alt}
+              alt="ATX Disco Cruise party boat Austin bachelor party celebration on Lake Travis"
               className="rounded-lg shadow-lg w-full h-auto"
               data-testid="image-disco-cruise-party"
             />
@@ -169,13 +169,13 @@ export default function ATXDiscoCruiseExperience() {
           <div className="my-8 grid grid-cols-1 md:grid-cols-2 gap-4">
             <LazyImage
               src={bachelorPartyBlogImages[1].src}
-              alt={bachelorPartyBlogImages[1].alt}
+              alt="Austin bachelor party group having fun on Lake Travis party boat"
               className="rounded-lg shadow-lg w-full h-auto"
               data-testid="image-party-boat-fun"
             />
             <LazyImage
               src={bachelorPartyBlogImages[2].src}
-              alt={bachelorPartyBlogImages[2].alt}
+              alt="Lake Travis party boat with bachelor party guests dancing and celebrating"
               className="rounded-lg shadow-lg w-full h-auto"
               data-testid="image-disco-cruise-group"
             />
@@ -214,7 +214,7 @@ export default function ATXDiscoCruiseExperience() {
           
           <p className="text-lg mb-4 text-gray-700 dark:text-gray-300">
             One of the coolest aspects of the ATX Disco Cruise is the social scene. <strong>DO chat it up with 
-            the other bachelor and bachelorette parties on the boat!</strong> You're all here for the same reason – 
+            the other Austin bachelor party and Austin bachelorette party groups on the Lake Travis party boat!</strong> You're all here for the same reason – 
             to celebrate, let loose, and have an unforgettable time.
           </p>
 

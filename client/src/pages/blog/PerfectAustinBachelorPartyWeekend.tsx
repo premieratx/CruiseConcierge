@@ -131,7 +131,7 @@ export default function PerfectAustinBachelorPartyWeekend() {
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
               <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">Planning the Ultimate Austin Bachelor Party Weekend</h2>
               <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
-                So you've been tasked with planning a <strong>bachelor party in Austin</strong>, Texas – congratulations! You've picked one of the best party destinations in the country. But with so many <strong>ideas for bachelor party in Austin</strong>, where do you even start? That's where this comprehensive 3-day itinerary comes in.
+                So you've been tasked with planning an <strong>austin bachelor party</strong> – congratulations! You've picked one of the best party destinations in the country. With a <strong>lake travis bachelor party boat</strong> as your centerpiece, this weekend will be legendary. But with so many ideas, where do you even start? That's where this comprehensive 3-day itinerary comes in.
               </p>
               <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
                 Whether your groom loves <Link href="/party-boat-austin" className="text-blue-600 hover:underline font-semibold">Austin party boats</Link>, legendary nightlife, mouth-watering BBQ, or outdoor adventures, this guide covers it all. We'll walk you through each day from arrival to departure, highlighting the must-do activities that make Austin bachelor parties unforgettable – including the famous <Link href="/atx-disco-cruise" className="text-blue-600 hover:underline font-semibold">ATX Disco Cruise</Link>, the only co-ed party boat experience in the country.
@@ -142,7 +142,7 @@ export default function PerfectAustinBachelorPartyWeekend() {
 
               <BlogImageBreak
                 src={bachelorHero}
-                alt="Bachelor party crew celebrating in Austin Texas"
+                alt="Austin bachelor party boat cruise celebration on Lake Travis Texas"
                 caption="Your Austin bachelor party adventure starts here"
               />
             </motion.div>
@@ -279,7 +279,7 @@ export default function PerfectAustinBachelorPartyWeekend() {
               </div>
 
               <p className="text-lg text-gray-700 dark:text-gray-300 mb-8 leading-relaxed">
-                This is THE day – the centerpiece of your <strong>Austin bachelor party</strong> weekend. Today you'll experience the famous <Link href="/atx-disco-cruise" className="text-blue-600 hover:underline font-semibold">ATX Disco Cruise</Link> on Lake Travis, followed by legendary Texas BBQ and a night on Rainey Street. Let's make it unforgettable.
+                This is THE day – the centerpiece of your <strong>austin bachelor party</strong> weekend. Today you'll experience the famous <strong>lake travis bachelor party boat</strong> experience on the <Link href="/atx-disco-cruise" className="text-blue-600 hover:underline font-semibold">ATX Disco Cruise</Link>, followed by legendary Texas BBQ and a night on Rainey Street. Let's make it unforgettable.
               </p>
 
               {/* Day 2 Schedule */}
@@ -366,7 +366,7 @@ export default function PerfectAustinBachelorPartyWeekend() {
 
               <BlogImageBreak
                 src={discoParty}
-                alt="ATX Disco Cruise bachelor and bachelorette party celebration on Lake Travis"
+                alt="Lake travis bachelor party boat experience on the ATX Disco Cruise with bachelor party austin texas"
                 caption="Bachelor and bachelorette groups celebrating together on the ATX Disco Cruise - the ultimate Lake Travis party barge experience"
               />
 
@@ -378,7 +378,7 @@ export default function PerfectAustinBachelorPartyWeekend() {
                   Why the ATX Disco Cruise is Different
                 </h4>
                 <p className="text-gray-700 dark:text-gray-300 mb-3">
-                  Unlike private <Link href="/private-cruises" className="text-blue-600 hover:underline">boat charters</Link>, the <Link href="/atx-disco-cruise" className="text-blue-600 hover:underline font-semibold">ATX Disco Cruise</Link> brings multiple groups together for the ultimate party atmosphere. Bachelor parties mix with <Link href="/bachelorette-party-austin" className="text-blue-600 hover:underline">bachelorette parties</Link>, birthday crews, and friend groups – creating an electric social scene on the water.
+                  Unlike private <Link href="/private-cruises" className="text-blue-600 hover:underline">boat charters</Link>, the <Link href="/atx-disco-cruise" className="text-blue-600 hover:underline font-semibold">ATX Disco Cruise</Link> brings multiple groups together for the ultimate <strong>austin bachelor party</strong> atmosphere. Bachelor parties mix with <Link href="/bachelorette-party-austin" className="text-blue-600 hover:underline">bachelorette parties</Link>, birthday crews, and friend groups – creating an electric social scene on the <strong>lake travis bachelor party boat</strong>.
                 </p>
                 <p className="text-gray-700 dark:text-gray-300 mb-3">
                   This is the only co-ed party cruise experience in the entire U.S., and it's what makes Austin's <strong>party boat</strong> scene legendary. Check out our <Link href="/combined-bachelor-bachelorette-austin" className="text-blue-600 hover:underline font-semibold">combined bachelor-bachelorette party options</Link> if you want to book your whole wedding party together!
@@ -490,7 +490,7 @@ export default function PerfectAustinBachelorPartyWeekend() {
 
               <BlogImageBreak
                 src={dancingScene}
-                alt="Austin nightlife and party scene bachelor party memories"
+                alt="Bachelor party austin texas nightlife memories after lake travis bachelor party boat cruise"
                 caption="The memories from your Austin bachelor party weekend will last forever"
               />
             </motion.div>
@@ -528,7 +528,7 @@ export default function PerfectAustinBachelorPartyWeekend() {
               </div>
               
               <p className="text-lg text-gray-700 dark:text-gray-300 mb-8 leading-relaxed">
-                Before you jet off for your <strong>bachelor party in Austin</strong>, make sure you've got everything covered. Here's your quick-reference checklist for the perfect weekend:
+                Before you jet off for your <strong>austin bachelor party</strong> and <strong>lake travis bachelor party boat</strong> adventure, make sure you've got everything covered. Here's your quick-reference checklist for the perfect weekend:
               </p>
 
               <div className="bg-white dark:bg-gray-900 rounded-xl p-6 shadow-lg">
@@ -671,7 +671,7 @@ export default function PerfectAustinBachelorPartyWeekend() {
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
               <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to Book Your Austin Bachelor Party Weekend?</h2>
               <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-                Don't wait – the <strong>ATX Disco Cruise</strong> sells out fast, especially during peak season. Lock in your dates now and start planning the ultimate <strong>bachelor party in Austin</strong>!
+                Don't wait – the <strong>lake travis bachelor party boat</strong> experience on the ATX Disco Cruise sells out fast, especially during peak season. Lock in your dates now and start planning the ultimate <strong>austin bachelor party</strong>!
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">

@@ -154,7 +154,7 @@ export default function AustinBachelorettePartyFebruary() {
                   </div>
                 </div>
                 <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
-                  February in Austin offers mild winter weather perfect for a bride-to-be celebration. While mornings are crisp, afternoons warm up beautifully for Lake Travis boat cruises. Pack layers and enjoy the cozy vibes with your bridal squad!
+                  February in Austin offers mild winter weather perfect for an austin bachelorette party celebration. While mornings are crisp, afternoons warm up beautifully for a lake travis bachelorette party boat cruise. Pack layers and enjoy the cozy vibes with your bridal squad on your bachelorette party austin texas getaway!
                 </p>
                 <div className="mt-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl p-4">
                   <p className="font-bold text-blue-800 dark:text-blue-300 mb-2">We're Weather-Ready!</p>
@@ -166,7 +166,7 @@ export default function AustinBachelorettePartyFebruary() {
               <div className="relative">
                 <LazyImage 
                   src={heroImage} 
-                  alt="February bachelorette party on Lake Travis" 
+                  alt="Austin bachelorette party boat cruise on Lake Travis in February with bride squad celebrating" 
                   className="rounded-2xl shadow-2xl w-full h-80 object-cover"
                   aspectRatio="4/3"
                 />
@@ -257,7 +257,7 @@ export default function AustinBachelorettePartyFebruary() {
               <div className="order-2 md:order-1">
                 <LazyImage 
                   src={sectionImage1} 
-                  alt="Bachelorette party boat on Lake Travis" 
+                  alt="Lake Travis bachelorette party boat rental with austin bachelorette party group enjoying the cruise" 
                   className="rounded-2xl shadow-2xl w-full h-80 object-cover"
                   aspectRatio="4/3"
                 />
@@ -268,7 +268,7 @@ export default function AustinBachelorettePartyFebruary() {
                   <h2 className="text-3xl font-black text-gray-900 dark:text-white">Lake Travis Party Boats</h2>
                 </div>
                 <p className="text-lg text-gray-700 dark:text-gray-300 mb-6">
-                  February is LOW season with excellent availability and amazing deals. Book 2-3 weeks in advance for best selection. Our Austin bachelorette party boats accommodate 14-75 guests with captain, crew, premium sound system, and photo-worthy backdrops!
+                  February is LOW season with excellent availability and amazing deals for your austin bachelorette party. Book your lake travis bachelorette party boat 2-3 weeks in advance for best selection. Our bachelorette party austin texas boats accommodate 14-75 guests with captain, crew, premium sound system, and photo-worthy backdrops!
                 </p>
                 <ul className="space-y-3">
                   {[
@@ -386,7 +386,7 @@ export default function AustinBachelorettePartyFebruary() {
               <div>
                 <LazyImage 
                   src={sectionImage2} 
-                  alt="Bachelorette party group celebrating" 
+                  alt="Bachelorette party austin texas group celebrating on lake travis bachelorette party boat" 
                   className="rounded-2xl shadow-2xl w-full h-80 object-cover"
                   aspectRatio="4/3"
                 />
@@ -497,7 +497,7 @@ export default function AustinBachelorettePartyFebruary() {
           <div className="max-w-4xl mx-auto text-center">
             <LazyImage 
               src={sectionImage3} 
-              alt="Bachelorette party celebration on Lake Travis" 
+              alt="Austin bachelorette party boat celebration on Lake Travis with bride squad enjoying the cruise" 
               className="rounded-2xl shadow-2xl w-full h-64 object-cover mb-8"
               aspectRatio="21/9"
             />
@@ -506,7 +506,7 @@ export default function AustinBachelorettePartyFebruary() {
               Book Your February Bachelorette Party
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-400 mb-8">
-              February is perfect for bachelorette parties in Austin. Valentine's romance, Galentine's celebrations, amazing deals, and unforgettable memories await the bride-to-be and her squad!
+              February is perfect for an austin bachelorette party celebration. Valentine's romance, Galentine's celebrations, amazing deals on your lake travis bachelorette party boat, and unforgettable memories await the bride-to-be and her squad in bachelorette party austin texas style!
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
