@@ -231,7 +231,7 @@ export default function LakeTravisBachelorPartyBoatsGuide() {
                   Picture this: your bachelor crew on one side of the boat, a bachelorette party on the other, and by the end of the cruise, you're all dancing together like old friends. The <strong>ATX Disco Cruise</strong> creates the ultimate social mixer atmosphere where groups mingle, dance, and celebrate together.
                 </p>
                 <p className="text-gray-700 dark:text-gray-300 font-semibold">
-                  It's not uncommon for bachelor and bachelorette groups to team up for after-party bar crawls on <Link href="/austin-bachelor-party-ideas" className="text-blue-600 hover:underline">6th Street</Link> after the cruise!
+                  It's not uncommon for bachelor and bachelorette groups to team up for after-party bar crawls on <Link href="/blogs/austin-bachelor-party-ideas" className="text-blue-600 hover:underline">6th Street</Link> after the cruise!
                 </p>
               </div>
 
@@ -475,7 +475,7 @@ export default function LakeTravisBachelorPartyBoatsGuide() {
                     <div className="w-8 h-8 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center flex-shrink-0 font-bold text-blue-600">1</div>
                     <div>
                       <h4 className="font-semibold text-gray-900 dark:text-white">Friday Night</h4>
-                      <p className="text-gray-600 dark:text-gray-400">Arrive in Austin, check into rental house (already stocked by <a href="https://www.partyondelivery.com" target="_blank" rel="noopener noreferrer" className="text-green-600 hover:underline">Party On Delivery</a>), hit <Link href="/austin-bachelor-party-ideas" className="text-blue-600 hover:underline">6th Street or Rainey Street</Link> for a warm-up bar crawl</p>
+                      <p className="text-gray-600 dark:text-gray-400">Arrive in Austin, check into rental house (already stocked by <a href="https://www.partyondelivery.com" target="_blank" rel="noopener noreferrer" className="text-green-600 hover:underline">Party On Delivery</a>), hit <Link href="/blogs/austin-bachelor-party-ideas" className="text-blue-600 hover:underline">6th Street or Rainey Street</Link> for a warm-up bar crawl</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-4">
@@ -505,7 +505,7 @@ export default function LakeTravisBachelorPartyBoatsGuide() {
               <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">More Austin Bachelor Party Resources</h2>
               
               <div className="grid md:grid-cols-2 gap-4">
-                <Link href="/austin-bachelor-party-ideas" className="block">
+                <Link href="/blogs/austin-bachelor-party-ideas" className="block">
                   <Card className="hover:shadow-md transition-shadow cursor-pointer" data-testid="link-bachelor-ideas">
                     <CardContent className="pt-4">
                       <h3 className="font-semibold text-blue-600 hover:underline">Austin Bachelor Party Ideas: Epic Guys' Weekend Guide</h3>

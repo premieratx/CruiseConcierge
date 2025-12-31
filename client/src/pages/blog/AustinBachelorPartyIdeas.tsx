@@ -513,7 +513,7 @@ export default function AustinBachelorPartyIdeas() {
                   </CardContent>
                 </Card>
               </Link>
-              <Link href="/lake-travis-bachelor-party-boats">
+              <Link href="/blogs/lake-travis-bachelor-party-boats-guide">
                 <Card className="h-full hover:shadow-lg transition-shadow cursor-pointer">
                   <CardContent className="pt-6">
                     <Anchor className="h-8 w-8 text-blue-600 mb-3" />

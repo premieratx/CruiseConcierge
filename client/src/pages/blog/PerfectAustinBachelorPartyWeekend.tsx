@@ -628,7 +628,7 @@ export default function PerfectAustinBachelorPartyWeekend() {
               <h2 className="text-3xl font-bold mb-8 text-gray-900 dark:text-white text-center">More Austin Party Guides</h2>
               
               <div className="grid md:grid-cols-2 gap-6">
-                <Link href="/austin-bachelor-party-ideas">
+                <Link href="/blogs/austin-bachelor-party-ideas">
                   <Card className="h-full hover:shadow-lg transition-shadow cursor-pointer" data-testid="link-bachelor-ideas">
                     <CardContent className="pt-6">
                       <h3 className="font-bold text-lg mb-2 text-gray-900 dark:text-white">Austin Bachelor Party Ideas</h3>
@@ -636,7 +636,7 @@ export default function PerfectAustinBachelorPartyWeekend() {
                     </CardContent>
                   </Card>
                 </Link>
-                <Link href="/austin-bachelorette-party-ideas">
+                <Link href="/bachelorette-party-austin">
                   <Card className="h-full hover:shadow-lg transition-shadow cursor-pointer" data-testid="link-bachelorette-ideas">
                     <CardContent className="pt-6">
                       <h3 className="font-bold text-lg mb-2 text-gray-900 dark:text-white">Austin Bachelorette Party Ideas</h3>
