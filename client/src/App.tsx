@@ -35,7 +35,7 @@ const Chat = lazy(() => import("./pages/Chat"));
 const preloadChat = () => import("./pages/Chat");
 const BookOnline = lazy(() => import("./pages/BookOnline"));
 const BookOnlinePopUp = lazy(() => import("./pages/BookOnlinePopUp"));
-const BookNow = lazy(() => import("./pages/BookNow"));
+// BookNow removed - page deprecated, redirects to /private-cruises
 const GoldenTicket = lazy(() => import("./pages/GoldenTicket"));
 const GoldenTicketPrivate = lazy(() => import("./pages/GoldenTicketPrivate"));
 const QuoteBuilderEmbed = lazy(() => import("./pages/QuoteBuilderEmbed"));
@@ -492,19 +492,15 @@ function Router() {
         <Chat />
       </Route>
       
-      {/* Book Online redirects to /book-now (SEO canonical) */}
+      {/* Book Online/Book Now - Deprecated pages redirect to /private-cruises */}
       <Route path="/book-online">
-        <Redirect to="/book-now" />
+        <Redirect to="/private-cruises" />
       </Route>
-      
-      {/* Book Online Pop-Up redirects to /book-now (SEO canonical) */}
       <Route path="/book-online-popup">
-        <Redirect to="/book-now" />
+        <Redirect to="/private-cruises" />
       </Route>
-      
-      {/* Book Now - FRESH Xola Integration - No auth required */}
       <Route path="/book-now">
-        <BookNow />
+        <Redirect to="/private-cruises" />
       </Route>
       
       {/* Golden Ticket Promotion Page - No auth required */}

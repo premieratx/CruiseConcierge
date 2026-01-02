@@ -54,8 +54,6 @@ const PUBLIC_ROUTES = [
   '/ai-endorsement',
   '/partners',
   '/chat',
-  '/book-online',
-  '/book-now',
   '/golden-ticket',
   '/golden-ticket-private',
   
@@ -96,6 +94,30 @@ const PUBLIC_ROUTES = [
   // Blog listing pages
   '/blog',
   '/blogs',
+  
+  // Corporate Blog Pages (React components under /blogs/)
+  '/blogs/employee-appreciation-day-reward-your-team-with-an-easy-all-inclusive-boat-party',
+  '/blogs/quarterly-outings-lake-travis-make-routine-company-events-easy',
+  '/blogs/safety-first-how-premiers-perfect-record-and-first-aid-training-set-us-apart',
+  '/blogs/company-holiday-party-lake-travis',
+  '/blogs/tech-companies-boat-parties-austin',
+  '/blogs/finance-law-firms-boat-parties-austin',
+  '/blogs/real-estate-client-entertainment-boat-austin',
+  '/blogs/healthcare-wellness-boat-parties-austin',
+  '/blogs/marketing-creative-agencies-boat-austin',
+  '/blogs/construction-trades-boat-parties-austin',
+  '/blogs/small-business-boat-parties-austin',
+  '/blogs/large-group-events-lake-travis',
+  '/blogs/company-party-10-people-austin',
+  '/blogs/company-party-25-people-austin',
+  '/blogs/company-party-50-people-austin',
+  '/blogs/company-party-75-people-austin',
+  '/blogs/austin-best-corporate-events',
+  '/blogs/why-austin-companies-choose-premier',
+  '/blogs/dallas-to-lake-travis-corporate',
+  '/blogs/destination-austin-offsite-retreats',
+  '/blogs/austin-suburbs-corporate-events',
+  '/blogs/all-inclusive-corporate-packages',
 ];
 
 interface SitemapUrl {

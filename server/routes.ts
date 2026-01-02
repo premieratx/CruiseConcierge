@@ -1043,14 +1043,19 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
     res.redirect(301, '/blogs');
   });
   
-  // /book-online → /book-now (canonical booking page)
-  app.get('/book-online', (req, res) => {
-    res.redirect(301, '/book-now');
+  // /book-now → /private-cruises (deprecated page, redirect for de-indexing)
+  app.get('/book-now', (req, res) => {
+    res.redirect(301, '/private-cruises');
   });
   
-  // /book-online-popup → /book-now (same canonical)
+  // /book-online → /private-cruises (deprecated page)
+  app.get('/book-online', (req, res) => {
+    res.redirect(301, '/private-cruises');
+  });
+  
+  // /book-online-popup → /private-cruises (deprecated page)
   app.get('/book-online-popup', (req, res) => {
-    res.redirect(301, '/book-now');
+    res.redirect(301, '/private-cruises');
   });
   
   // ==========================================
