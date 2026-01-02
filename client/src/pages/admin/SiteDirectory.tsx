@@ -289,7 +289,7 @@ export default function SiteDirectory() {
               <Input
                 placeholder="Search pages..."
                 value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchTerm(e.target.value)}
                 className="pl-10"
                 data-testid="input-search-pages"
               />
@@ -306,7 +306,7 @@ export default function SiteDirectory() {
                   <Label>Route (e.g., /my-page)</Label>
                   <Input
                     value={newPageData.route}
-                    onChange={(e) => setNewPageData({ ...newPageData, route: e.target.value })}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNewPageData({ ...newPageData, route: e.target.value })}
                     placeholder="/example-page"
                     data-testid="input-new-route"
                   />
@@ -315,7 +315,7 @@ export default function SiteDirectory() {
                   <Label>Page Title</Label>
                   <Input
                     value={newPageData.title}
-                    onChange={(e) => setNewPageData({ ...newPageData, title: e.target.value })}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNewPageData({ ...newPageData, title: e.target.value })}
                     placeholder="Page Title | Premier Party Cruises"
                     data-testid="input-new-title"
                   />
@@ -324,7 +324,7 @@ export default function SiteDirectory() {
                   <Label>Meta Description</Label>
                   <Textarea
                     value={newPageData.description}
-                    onChange={(e) => setNewPageData({ ...newPageData, description: e.target.value })}
+                    onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setNewPageData({ ...newPageData, description: e.target.value })}
                     placeholder="A compelling description for search engines..."
                     rows={3}
                     data-testid="textarea-new-description"
@@ -385,7 +385,7 @@ export default function SiteDirectory() {
                           <Label>Page Title</Label>
                           <Input
                             value={formData.title}
-                            onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, title: e.target.value })}
                             placeholder="Page Title | Premier Party Cruises"
                             data-testid={`input-title-${page.route.replace(/\//g, "-")}`}
                           />
@@ -397,7 +397,7 @@ export default function SiteDirectory() {
                           <Label>Meta Description</Label>
                           <Textarea
                             value={formData.description}
-                            onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setFormData({ ...formData, description: e.target.value })}
                             placeholder="A compelling description for search engines..."
                             rows={3}
                             data-testid={`textarea-description-${page.route.replace(/\//g, "-")}`}
@@ -410,7 +410,7 @@ export default function SiteDirectory() {
                           <Label>Focus Keyword</Label>
                           <Input
                             value={formData.keywordFocus || ""}
-                            onChange={(e) => setFormData({ ...formData, keywordFocus: e.target.value || null })}
+                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, keywordFocus: e.target.value || null })}
                             placeholder="Primary keyword to target"
                             data-testid={`input-focus-keyword-${page.route.replace(/\//g, "-")}`}
                           />
@@ -420,9 +420,9 @@ export default function SiteDirectory() {
                           <div className="flex gap-2">
                             <Input
                               value={newKeyword}
-                              onChange={(e) => setNewKeyword(e.target.value)}
+                              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNewKeyword(e.target.value)}
                               placeholder="Add keyword"
-                              onKeyDown={(e) => e.key === "Enter" && (e.preventDefault(), handleAddKeyword())}
+                              onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => e.key === "Enter" && (e.preventDefault(), handleAddKeyword())}
                               data-testid={`input-add-keyword-${page.route.replace(/\//g, "-")}`}
                             />
                             <Button variant="outline" size="sm" onClick={handleAddKeyword} data-testid={`button-add-keyword-${page.route.replace(/\//g, "-")}`}>
