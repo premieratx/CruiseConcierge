@@ -150,7 +150,7 @@ const packageOptions = [
   { name: 'Day Tripper', capacity: '14 guests', best: 'Small clinic teams' },
   { name: 'Meeseeks', capacity: '25 guests', best: 'Department outings' },
   { name: 'Clever Girl', capacity: '50 guests', best: 'Large unit celebrations' },
-  { name: 'The Irony', capacity: '75 guests', best: 'Hospital-wide events' }
+  { name: 'Clever Girl', capacity: '75 guests', best: 'Hospital-wide events' }
 ];
 
 export default function HealthcareWellnessBoatParties() {

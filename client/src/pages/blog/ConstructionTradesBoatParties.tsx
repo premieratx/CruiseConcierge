@@ -114,7 +114,7 @@ const whyLakeTravis = [
 const faqs = [
   {
     question: 'How many construction workers can your boats hold?',
-    answer: 'Our fleet accommodates crews of all sizes. The Day Tripper holds 14 guests perfect for a small crew, Meeseeks fits 25, Clever Girl handles 50, and The Irony can host up to 75 workers. Perfect for any construction company party Austin or trades team building Lake Travis event.'
+    answer: 'Our fleet accommodates crews of all sizes. The Day Tripper holds 14 guests perfect for a small crew, Meeseeks and The Irony each fit 25-30, and our flagship Clever Girl handles up to 75 workers. All boats are single-deck party barges with arch canopy and disco balls. Perfect for any construction company party Austin or trades team building Lake Travis event.'
   },
   {
     question: 'Can we bring our own coolers, food and drinks?',
@@ -157,8 +157,8 @@ const faqs = [
 const packageOptions = [
   { name: 'Day Tripper', capacity: '14 guests', best: 'Small crew outings' },
   { name: 'Meeseeks', capacity: '25 guests', best: 'Foreman & crew events' },
-  { name: 'Clever Girl', capacity: '50 guests', best: 'Department celebrations' },
-  { name: 'The Irony', capacity: '75 guests', best: 'Full company parties' }
+  { name: 'The Irony', capacity: '30 guests', best: 'Department celebrations' },
+  { name: 'Clever Girl', capacity: '75 guests', best: 'Full company parties' }
 ];
 
 export default function ConstructionTradesBoatParties() {

@@ -117,7 +117,7 @@ const faqs = [
   },
   {
     question: 'What size groups work best for real estate team building Lake Travis events?',
-    answer: 'We accommodate real estate groups of all sizes. Our Day Tripper holds 14 guests for intimate agent gatherings, while The Irony accommodates 75 for large brokerage events. Real estate team building Lake Travis works perfectly for office teams of 20-50 agents.'
+    answer: 'We accommodate real estate groups of all sizes. Our Day Tripper holds 14 guests for intimate agent gatherings, while our flagship Clever Girl accommodates up to 75 for large brokerage events. Real estate team building Lake Travis works perfectly for office teams of 20-50 agents.'
   },
   {
     question: 'Can we brand the boat for our brokerage or real estate client event Austin?',
@@ -140,8 +140,8 @@ const faqs = [
 const packageOptions = [
   { name: 'Day Tripper', capacity: '14 guests', best: 'Intimate closings' },
   { name: 'Meeseeks', capacity: '25 guests', best: 'Team meetings' },
-  { name: 'Clever Girl', capacity: '50 guests', best: 'Office parties' },
-  { name: 'The Irony', capacity: '75 guests', best: 'Brokerage events' }
+  { name: 'The Irony', capacity: '30 guests', best: 'Office parties' },
+  { name: 'Clever Girl', capacity: '75 guests', best: 'Brokerage events' }
 ];
 
 export default function RealEstateClientEntertainmentBoat() {

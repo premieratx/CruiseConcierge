@@ -151,7 +151,7 @@ const boatOptions = [
   { name: 'Day Tripper', capacity: '14 guests', best: 'Executive leadership teams' },
   { name: 'Meeseeks', capacity: '25 guests', best: 'Department retreats' },
   { name: 'Clever Girl', capacity: '50 guests', best: 'Division offsites' },
-  { name: 'The Irony', capacity: '75 guests', best: 'Company-wide summits' }
+  { name: 'Clever Girl', capacity: '75 guests', best: 'Company-wide summits' }
 ];
 
 export default function DestinationAustinOffsiteRetreats() {

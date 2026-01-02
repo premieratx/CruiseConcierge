@@ -123,7 +123,7 @@ const faqs = [
   },
   {
     question: 'What size boats work best for advertising agency boat Austin outings?',
-    answer: 'For advertising agency boat Austin events, we offer boats from 14 to 75 guests. Small creative teams love the Day Tripper (14 guests), while full agency retreats work great on Clever Girl (50 guests) or The Irony (75 guests). We can help you pick the right boat for your team size.'
+    answer: 'For advertising agency boat Austin events, we offer boats from 14 to 75 guests. Small creative teams love the Day Tripper (14 guests), while full agency retreats work great on Clever Girl (up to 75 guests). We can help you pick the right boat for your team size.'
   },
   {
     question: 'Can we bring our own food and drinks for a creative retreat Lake Travis event?',
@@ -151,7 +151,7 @@ const packageOptions = [
   { name: 'Day Tripper', capacity: '14 guests', best: 'Small creative teams' },
   { name: 'Meeseeks', capacity: '25 guests', best: 'Department brainstorms' },
   { name: 'Clever Girl', capacity: '50 guests', best: 'Full agency retreats' },
-  { name: 'The Irony', capacity: '75 guests', best: 'Agency-wide events' }
+  { name: 'Clever Girl', capacity: '75 guests', best: 'Agency-wide events' }
 ];
 
 export default function MarketingAgenciesBoatParties() {

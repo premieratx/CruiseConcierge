@@ -64,11 +64,11 @@ const bigGroupBenefits = [
 
 const cleverGirlFeatures = [
   {
-    title: 'Spacious Upper Deck',
+    title: 'Spacious Open Deck',
     description: 'Expansive outdoor space perfect for mingling at your 50 person company party Austin',
     features: [
       '360-degree Lake Travis views',
-      'Open air dance floor',
+      'Open air dance floor under arch canopy',
       'Multiple seating areas',
       'Perfect for group photos'
     ]
@@ -137,7 +137,7 @@ const logisticsTips = [
       'Giant lily pad floats for swimming',
       'Dance floor with disco balls',
       'Team photo opportunities',
-      'Sunset viewing from upper deck'
+      'Sunset viewing from the open deck'
     ]
   },
   {
@@ -181,7 +181,7 @@ const logisticsTips = [
 const faqs = [
   {
     question: 'What is the capacity for a 50 person company party Austin on your boats?',
-    answer: 'Our Clever Girl boat is perfect for 50 person company party Austin events, comfortably holding 50-75 guests. For even larger groups up to 75 people, we recommend The Irony. Both boats offer private charters with professional crew for your large team event Lake Travis.'
+    answer: 'Our flagship Clever Girl boat is perfect for 50 person company party Austin events, comfortably holding up to 75 guests. This single-deck party barge features 14 disco balls, arch canopy, and premium sound system. Clever Girl is the largest in our fleet and perfect for your large team event Lake Travis.'
   },
   {
     question: 'How do I handle catering for a 50 guest boat rental Lake Travis event?',
@@ -189,7 +189,7 @@ const faqs = [
   },
   {
     question: 'What makes the Clever Girl perfect for large team events?',
-    answer: 'The Clever Girl features 14 disco balls, a premium sound system, spacious upper deck, and climate-controlled cabin - everything you need for an epic 50 person company party Austin. The two-level layout gives your large team event Lake Travis plenty of space to mingle and celebrate.'
+    answer: 'The Clever Girl features 14 disco balls, a premium sound system, spacious open deck with arch canopy, and shaded seating areas - everything you need for an epic 50 person company party Austin. The single-deck layout with plenty of space gives your large team event Lake Travis room to mingle and celebrate.'
   },
   {
     question: 'How far in advance should I book a 50 guest boat rental Lake Travis?',
@@ -197,7 +197,7 @@ const faqs = [
   },
   {
     question: 'What activities can we do during a large group boat party?',
-    answer: 'Your 50 person company party Austin includes swimming stops with giant lily pad floats, dancing under disco balls, sunset viewing from the upper deck, and plenty of space for team networking. Many companies add team toasts, awards ceremonies, and group photos.'
+    answer: 'Your 50 person company party Austin includes swimming stops with giant lily pad floats, dancing under disco balls, sunset viewing from the open deck, and plenty of space for team networking. Many companies add team toasts, awards ceremonies, and group photos.'
   },
   {
     question: 'Is there parking for 50 guests at the marina?',

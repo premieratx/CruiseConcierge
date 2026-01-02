@@ -64,11 +64,11 @@ const takeoverBenefits = [
 
 const cleverGirlFeatures = [
   {
-    title: 'Flagship Upper Deck',
+    title: 'Flagship Open Deck',
     description: 'The largest outdoor space on Lake Travis for your 75 person corporate event Austin',
     features: [
       '360-degree panoramic views',
-      'Massive open air dance floor',
+      'Massive open air dance floor with arch canopy',
       'Multiple seating zones',
       'Perfect for team photos'
     ]

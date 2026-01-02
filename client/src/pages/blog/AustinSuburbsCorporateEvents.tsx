@@ -133,7 +133,7 @@ const packageOptions = [
   { name: 'Day Tripper', capacity: '14 guests', best: 'Small team outings' },
   { name: 'Meeseeks', capacity: '25 guests', best: 'Department events' },
   { name: 'Clever Girl', capacity: '50 guests', best: 'Large team retreats' },
-  { name: 'The Irony', capacity: '75 guests', best: 'Company-wide events' }
+  { name: 'Clever Girl', capacity: '75 guests', best: 'Company-wide events' }
 ];
 
 const perfectForCompanies = [

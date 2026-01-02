@@ -87,7 +87,7 @@ const whatSetsPremierApart = [
       'Day Tripper: Intimate 14-guest cruises',
       'Meeseeks: 25-guest departmental events',
       'Clever Girl: 50-guest team celebrations',
-      'The Irony: 75-guest company-wide parties'
+      'Clever Girl: 75-guest company-wide parties'
     ]
   },
   {
@@ -199,7 +199,7 @@ const boatOptions = [
   { name: 'Day Tripper', capacity: '14 guests', best: 'Executive team outings' },
   { name: 'Meeseeks', capacity: '25 guests', best: 'Department celebrations' },
   { name: 'Clever Girl', capacity: '50 guests', best: 'Team building events' },
-  { name: 'The Irony', capacity: '75 guests', best: 'Company-wide parties' }
+  { name: 'Clever Girl', capacity: '75 guests', best: 'Company-wide parties' }
 ];
 
 export default function WhyAustinCompaniesChoosePremier() {
