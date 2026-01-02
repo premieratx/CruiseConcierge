@@ -158,7 +158,7 @@ const packageOptions = [
   { name: 'Day Tripper', capacity: '14 guests', best: 'Small crew outings' },
   { name: 'Meeseeks', capacity: '25 guests', best: 'Foreman & crew events' },
   { name: 'The Irony', capacity: '30 guests', best: 'Department celebrations' },
-  { name: 'Clever Girl', capacity: '75 guests', best: 'Full company parties' }
+  { name: 'Clever Girl', capacity: '50-75 guests', best: 'Full company parties' }
 ];
 
 export default function ConstructionTradesBoatParties() {

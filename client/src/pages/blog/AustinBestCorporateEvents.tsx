@@ -154,7 +154,7 @@ const whyChooseStats = [
 const faqs = [
   {
     question: 'What size corporate events Austin can you accommodate?',
-    answer: 'Our corporate events Austin services accommodate groups from 10 to over 100 guests. We have four boats ranging from our 14-person Day Tripper for executive retreats to our 75-person Clever Girl for company-wide celebrations. For larger events over 75 guests, we can arrange multiple boats for a coordinated fleet experience.'
+    answer: 'Our corporate events Austin services accommodate groups from 10 to over 100 guests. We have four boats ranging from our 14-person Day Tripper for executive retreats to our flagship Clever Girl (50-75 guests) for company-wide celebrations. For larger events over 75 guests, we can arrange multiple boats for a coordinated fleet experience.'
   },
   {
     question: 'What makes Lake Travis the best company party venue?',

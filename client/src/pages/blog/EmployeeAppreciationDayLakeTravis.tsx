@@ -126,7 +126,7 @@ const faqs = [
   },
   {
     question: 'What size boats are available for team building Lake Travis events?',
-    answer: 'We have boats for groups of all sizes: Day Tripper (14 guests) for small teams, Meeseeks and The Irony (25-30 guests) for medium groups, and Clever Girl (up to 75 guests) for large company celebrations. Each Lake Travis corporate event includes professional crew and all amenities.'
+    answer: "We have boats for groups of all sizes: Day Tripper (14 guests) for small teams, Meeseeks and The Irony (25-30 guests) for medium groups, and Clever Girl (50-75 guests, add'l crew fee for 51-75) for large company celebrations. Each Lake Travis corporate event includes professional crew and all amenities."
   },
   {
     question: 'How far in advance should we book our employee appreciation boat party?',
@@ -138,7 +138,7 @@ const boatOptions = [
   { name: 'Day Tripper', capacity: '14 guests', best: 'Small team outings & intimate celebrations', description: 'Perfect for department teams and executive retreats' },
   { name: 'Meeseeks', capacity: '25 guests', best: 'Medium team gatherings', description: 'Ideal for cross-functional team building Lake Travis events' },
   { name: 'The Irony', capacity: '30 guests', best: 'Departmental celebrations', description: 'Great for larger departments and multiple teams' },
-  { name: 'Clever Girl', capacity: '75 guests', best: 'Company-wide employee appreciation', description: 'Our flagship for large Lake Travis corporate events' }
+  { name: 'Clever Girl', capacity: '50-75 guests', best: 'Company-wide employee appreciation', description: 'Our flagship for large Lake Travis corporate events' }
 ];
 
 const activityIdeas = [

@@ -177,7 +177,7 @@ const faqs = [
   },
   {
     question: 'What size boat works best for a startup team building Lake Travis event?',
-    answer: 'It depends on your team size! Our Day Tripper (14 guests) is perfect for small startups and core teams. The Meeseeks (25 guests) works great for department outings. For larger corporate tech outing Lake Travis events, our Clever Girl (up to 75 guests) provide plenty of space.'
+    answer: "It depends on your team size! Our Day Tripper (14 guests) is perfect for small startups and core teams. The Meeseeks (25 guests) works great for department outings. For larger corporate tech outing Lake Travis events, our Clever Girl (50-75 guests, add'l crew fee for 51-75) provides plenty of space."
   },
   {
     question: 'How far in advance should tech companies book?',

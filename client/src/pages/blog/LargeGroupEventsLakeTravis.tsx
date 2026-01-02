@@ -122,7 +122,7 @@ const faqs = [
   },
   {
     question: 'What boats are best for 100 person boat party Austin events?',
-    answer: 'For groups of 100+, we typically combine our Clever Girl (75 guests) with Meeseeks (25 guests) or The Irony (30 guests). This gives you the capacity for your mega event Lake Travis while keeping the party connected. Each boat has its own captain, sound system, and amenities.'
+    answer: 'For groups of 100+, we typically combine our Clever Girl (50-75 guests) with Meeseeks (25 guests) or The Irony (30 guests). This gives you the capacity for your mega event Lake Travis while keeping the party connected. Each boat has its own captain, sound system, and amenities.'
   },
   {
     question: 'Can guests move between boats during the cruise?',
@@ -147,7 +147,7 @@ const faqs = [
 ];
 
 const boatOptions = [
-  { name: 'Clever Girl', capacity: '75 guests', best: 'Flagship for large groups', description: 'Our largest vessel perfect for corporate large group event Lake Travis gatherings' },
+  { name: 'Clever Girl', capacity: '50-75 guests', best: 'Flagship for large groups', description: 'Our largest vessel perfect for corporate large group event Lake Travis gatherings' },
   { name: 'The Irony', capacity: '30 guests', best: 'Add-on for mega events', description: 'Great secondary boat for 100 person boat party Austin coordination' },
   { name: 'Meeseeks', capacity: '25 guests', best: 'VIP overflow boat', description: 'Perfect for executive groups during large group party Austin' },
   { name: 'Day Tripper', capacity: '14 guests', best: 'Intimate add-on', description: 'Ideal for special guests at your mega event Lake Travis' }

@@ -131,7 +131,7 @@ const faqs = [
   },
   {
     question: 'What boat sizes work best for finance team building Lake Travis events?',
-    answer: 'For finance team building Lake Travis events, we recommend: Day Tripper (14 guests) for executive teams, Meeseeks (25 guests) for department events, Clever Girl (50 guests) for division gatherings, and Clever Girl (up to 75 guests) for full company events.'
+    answer: "For finance team building Lake Travis events, we recommend: Day Tripper (14 guests) for executive teams, Meeseeks (25 guests) for department events, Clever Girl (50 guests) for division gatherings, and Clever Girl (50-75 guests, add'l crew fee for 51-75) for full company events."
   },
   {
     question: 'How do we handle catering for a law firm party Austin event?',
@@ -151,7 +151,7 @@ const packageOptions = [
   { name: 'Day Tripper', capacity: '14 guests', best: 'Executive retreats & partner meetings', icon: Briefcase },
   { name: 'Meeseeks', capacity: '25 guests', best: 'Department outings & client events', icon: Users },
   { name: 'Clever Girl', capacity: '50 guests', best: 'Full practice groups & firm events', icon: Building2 },
-  { name: 'Clever Girl', capacity: '75 guests', best: 'Company-wide celebrations', icon: Landmark }
+  { name: 'Clever Girl', capacity: '50-75 guests', best: 'Company-wide celebrations', icon: Landmark }
 ];
 
 const whyFinanceAndLawFirms = [

@@ -141,7 +141,7 @@ const packageOptions = [
   { name: 'Day Tripper', capacity: '14 guests', best: 'Intimate closings' },
   { name: 'Meeseeks', capacity: '25 guests', best: 'Team meetings' },
   { name: 'The Irony', capacity: '30 guests', best: 'Office parties' },
-  { name: 'Clever Girl', capacity: '75 guests', best: 'Brokerage events' }
+  { name: 'Clever Girl', capacity: '50-75 guests', best: 'Brokerage events' }
 ];
 
 export default function RealEstateClientEntertainmentBoat() {

@@ -199,7 +199,7 @@ const boatOptions = [
   { name: 'Day Tripper', capacity: '14 guests', best: 'Executive team outings' },
   { name: 'Meeseeks', capacity: '25 guests', best: 'Department celebrations' },
   { name: 'Clever Girl', capacity: '50 guests', best: 'Team building events' },
-  { name: 'Clever Girl', capacity: '75 guests', best: 'Company-wide parties' }
+  { name: 'Clever Girl', capacity: '50-75 guests', best: 'Company-wide parties' }
 ];
 
 export default function WhyAustinCompaniesChoosePremier() {
