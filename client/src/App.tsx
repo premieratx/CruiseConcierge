@@ -70,6 +70,7 @@ const ATXDiscoCruiseExperience = lazy(() => import("./pages/blog/ATXDiscoCruiseE
 const LakeTravisBachelorPartyCelebrations = lazy(() => import("./pages/blog/LakeTravisBachelorPartyCelebrations"));
 const BirthdayPartyBoatRentalsLakeTravis = lazy(() => import("./pages/blog/BirthdayPartyBoatRentalsLakeTravis"));
 const CorporateTeamBuildingLakeTravis = lazy(() => import("./pages/blog/CorporateTeamBuildingLakeTravis"));
+const EmployeeAppreciationDayLakeTravis = lazy(() => import("./pages/blog/EmployeeAppreciationDayLakeTravis"));
 const LakeTravisLargeGroupBoatRentals = lazy(() => import("./pages/blog/LakeTravisLargeGroupBoatRentals"));
 const WhyChooseAustinBachelorParty = lazy(() => import("./pages/blog/WhyChooseAustinBachelorParty"));
 const WhyChooseAustinBacheloretteParty = lazy(() => import("./pages/blog/WhyChooseAustinBacheloretteParty"));
@@ -94,6 +95,8 @@ const PerfectAustinBachelorPartyWeekend = lazy(() => import("./pages/blog/Perfec
 const ATXDiscoCruiseDosAndDonts = lazy(() => import("./pages/blog/ATXDiscoCruiseDosAndDonts"));
 const BachelorPartyOutfitIdeas = lazy(() => import("./pages/blog/BachelorPartyOutfitIdeas"));
 const JointBachelorBachelorettePartyGuide = lazy(() => import("./pages/blog/JointBachelorBachelorettePartyGuide"));
+const QuarterlyOutingsLakeTravis = lazy(() => import("./pages/blog/QuarterlyOutingsLakeTravis"));
+const SafetyFirstPremierPartyCruises = lazy(() => import("./pages/blog/SafetyFirstPremierPartyCruises"));
 
 // Site Directory Page - Lazy loaded
 const SiteDirectory = lazy(() => import("./pages/SiteDirectory"));
@@ -373,6 +376,9 @@ function Router() {
       <Route path="/blog/lake-travis-weather-planning-seasonal-considerations-for-perfect-boat-parties" component={LakeTravisWeatherGuide} />
       <Route path="/blogs/birthday-party-boat-rentals-on-lake-travis-milestone-celebrations-with-a-view" component={BirthdayPartyBoatRentalsLakeTravis} />
       <Route path="/blogs/corporate-team-building-on-lake-travis-professional-boat-rental-solutions" component={CorporateTeamBuildingLakeTravis} />
+      <Route path="/blogs/quarterly-outings-lake-travis-make-routine-company-events-easy" component={QuarterlyOutingsLakeTravis} />
+      <Route path="/blogs/safety-first-how-premiers-perfect-record-and-first-aid-training-set-us-apart" component={SafetyFirstPremierPartyCruises} />
+      <Route path="/blogs/employee-appreciation-day-reward-your-team-with-an-easy-all-inclusive-boat-party" component={EmployeeAppreciationDayLakeTravis} />
       <Route path="/blogs/graduation-party-alcohol-planning-ut-and-austin-college-celebrations" component={GraduationPartyAlcoholPlanning} />
       <Route path="/blogs/lake-travis-boat-party-regulations-legal-requirements-and-compliance-guide" component={LakeTravisBoatPartyRegulations} />
       <Route path="/blogs/lake-travis-boat-safety-and-maintenance-quality-standards-for-party-cruises" component={LakeTravisBoatSafetyMaintenance} />
