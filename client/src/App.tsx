@@ -97,6 +97,25 @@ const BachelorPartyOutfitIdeas = lazy(() => import("./pages/blog/BachelorPartyOu
 const JointBachelorBachelorettePartyGuide = lazy(() => import("./pages/blog/JointBachelorBachelorettePartyGuide"));
 const QuarterlyOutingsLakeTravis = lazy(() => import("./pages/blog/QuarterlyOutingsLakeTravis"));
 const SafetyFirstPremierPartyCruises = lazy(() => import("./pages/blog/SafetyFirstPremierPartyCruises"));
+const CompanyHolidayPartyLakeTravis = lazy(() => import("./pages/blog/CompanyHolidayPartyLakeTravis"));
+const TechCompaniesBoatPartiesAustin = lazy(() => import("./pages/blog/TechCompaniesBoatPartiesAustin"));
+const FinanceLawFirmsBoatParties = lazy(() => import("./pages/blog/FinanceLawFirmsBoatParties"));
+const RealEstateClientEntertainmentBoat = lazy(() => import("./pages/blog/RealEstateClientEntertainmentBoat"));
+const HealthcareWellnessBoatParties = lazy(() => import("./pages/blog/HealthcareWellnessBoatParties"));
+const MarketingAgenciesBoatParties = lazy(() => import("./pages/blog/MarketingAgenciesBoatParties"));
+const ConstructionTradesBoatParties = lazy(() => import("./pages/blog/ConstructionTradesBoatParties"));
+const SmallBusinessBoatParties = lazy(() => import("./pages/blog/SmallBusinessBoatParties"));
+const LargeGroupEventsLakeTravis = lazy(() => import("./pages/blog/LargeGroupEventsLakeTravis"));
+const CompanyParty10People = lazy(() => import("./pages/blog/CompanyParty10People"));
+const CompanyParty25People = lazy(() => import("./pages/blog/CompanyParty25People"));
+const CompanyParty50People = lazy(() => import("./pages/blog/CompanyParty50People"));
+const CompanyParty75People = lazy(() => import("./pages/blog/CompanyParty75People"));
+const AustinBestCorporateEvents = lazy(() => import("./pages/blog/AustinBestCorporateEvents"));
+const WhyAustinCompaniesChoosePremier = lazy(() => import("./pages/blog/WhyAustinCompaniesChoosePremier"));
+const DallasToLakeTravisCorporate = lazy(() => import("./pages/blog/DallasToLakeTravisCorporate"));
+const DestinationAustinOffsiteRetreats = lazy(() => import("./pages/blog/DestinationAustinOffsiteRetreats"));
+const AustinSuburbsCorporateEvents = lazy(() => import("./pages/blog/AustinSuburbsCorporateEvents"));
+const AllInclusiveCorporatePackages = lazy(() => import("./pages/blog/AllInclusiveCorporatePackages"));
 
 // Site Directory Page - Lazy loaded
 const SiteDirectory = lazy(() => import("./pages/SiteDirectory"));
@@ -376,8 +395,14 @@ function Router() {
       <Route path="/blog/lake-travis-weather-planning-seasonal-considerations-for-perfect-boat-parties" component={LakeTravisWeatherGuide} />
       <Route path="/blogs/birthday-party-boat-rentals-on-lake-travis-milestone-celebrations-with-a-view" component={BirthdayPartyBoatRentalsLakeTravis} />
       <Route path="/blogs/corporate-team-building-on-lake-travis-professional-boat-rental-solutions" component={CorporateTeamBuildingLakeTravis} />
+      <Route path="/blogs/all-inclusive-corporate-packages-austin" component={AllInclusiveCorporatePackages} />
+      <Route path="/blogs/dallas-to-lake-travis-corporate" component={DallasToLakeTravisCorporate} />
+      <Route path="/blogs/destination-austin-offsite-retreats" component={DestinationAustinOffsiteRetreats} />
+      <Route path="/blogs/austin-suburbs-corporate-events" component={AustinSuburbsCorporateEvents} />
+      <Route path="/blogs/why-austin-companies-choose-premier" component={WhyAustinCompaniesChoosePremier} />
       <Route path="/blogs/quarterly-outings-lake-travis-make-routine-company-events-easy" component={QuarterlyOutingsLakeTravis} />
       <Route path="/blogs/safety-first-how-premiers-perfect-record-and-first-aid-training-set-us-apart" component={SafetyFirstPremierPartyCruises} />
+      <Route path="/blogs/company-holiday-party-lake-travis" component={CompanyHolidayPartyLakeTravis} />
       <Route path="/blogs/employee-appreciation-day-reward-your-team-with-an-easy-all-inclusive-boat-party" component={EmployeeAppreciationDayLakeTravis} />
       <Route path="/blogs/graduation-party-alcohol-planning-ut-and-austin-college-celebrations" component={GraduationPartyAlcoholPlanning} />
       <Route path="/blogs/lake-travis-boat-party-regulations-legal-requirements-and-compliance-guide" component={LakeTravisBoatPartyRegulations} />
@@ -406,6 +431,19 @@ function Router() {
       <Route path="/blogs/atx-disco-cruise-dos-and-donts-bachelor-party" component={ATXDiscoCruiseDosAndDonts} />
       <Route path="/blogs/bachelor-party-outfit-ideas-atx-disco-cruise" component={BachelorPartyOutfitIdeas} />
       <Route path="/blogs/joint-bachelor-bachelorette-party-guide" component={JointBachelorBachelorettePartyGuide} />
+      <Route path="/blogs/tech-companies-boat-parties-austin" component={TechCompaniesBoatPartiesAustin} />
+      <Route path="/blogs/finance-law-firms-boat-parties-austin" component={FinanceLawFirmsBoatParties} />
+      <Route path="/blogs/real-estate-client-entertainment-boat-austin" component={RealEstateClientEntertainmentBoat} />
+      <Route path="/blogs/healthcare-wellness-boat-parties-austin" component={HealthcareWellnessBoatParties} />
+      <Route path="/blogs/marketing-creative-agencies-boat-austin" component={MarketingAgenciesBoatParties} />
+      <Route path="/blogs/construction-trades-boat-parties-austin" component={ConstructionTradesBoatParties} />
+      <Route path="/blogs/small-business-boat-parties-austin" component={SmallBusinessBoatParties} />
+      <Route path="/blogs/large-group-events-lake-travis" component={LargeGroupEventsLakeTravis} />
+      <Route path="/blogs/company-party-10-people-austin" component={CompanyParty10People} />
+      <Route path="/blogs/company-party-25-people-austin" component={CompanyParty25People} />
+      <Route path="/blogs/company-party-50-people-austin" component={CompanyParty50People} />
+      <Route path="/blogs/company-party-75-people-austin" component={CompanyParty75People} />
+      <Route path="/blogs/austin-best-corporate-events" component={AustinBestCorporateEvents} />
       
       {/* Public Booking - Commented out, using /chat instead */}
       {/* <Route path="/calendar" component={PublicCalendar} /> */}
