@@ -219,6 +219,7 @@ const AustinPartyVenueAlcoholDelivery = lazy(() => import("./pages/blog/AustinPa
 const BirthdayPartyAlcoholDeliveryAustin = lazy(() => import("./pages/blog/BirthdayPartyAlcoholDeliveryAustin"));
 const GraduationPartyAlcoholPlanning = lazy(() => import("./pages/blog/GraduationPartyAlcoholPlanning"));
 const LakeTravisBoatPartyLogistics = lazy(() => import("./pages/blog/LakeTravisBoatPartyLogistics"));
+const LakeTravisBoatPartyPackages = lazy(() => import("./pages/blog/LakeTravisBoatPartyPackages"));
 const LakeTravisBoatPartyRegulations = lazy(() => import("./pages/blog/LakeTravisBoatPartyRegulations"));
 const LakeTravisBoatSafetyMaintenance = lazy(() => import("./pages/blog/LakeTravisBoatSafetyMaintenance"));
 const PartyAlcoholSafetyAustin = lazy(() => import("./pages/blog/PartyAlcoholSafetyAustin"));
@@ -388,6 +389,7 @@ function Router() {
       <Route path="/blogs/birthday-party-alcohol-delivery-austin-milestone-celebrations-made-easy" component={BirthdayPartyAlcoholDeliveryAustin} />
       <Route path="/blogs/austin-party-venue-alcohol-delivery-navigating-policies-and-logistics" component={AustinPartyVenueAlcoholDelivery} />
       <Route path="/blogs/lake-travis-boat-party-logistics-complete-planning-and-coordination-guide" component={LakeTravisBoatPartyLogistics} />
+      <Route path="/blogs/lake-travis-boat-party-packages-comprehensive-guide-to-options-and-pricing" component={LakeTravisBoatPartyPackages} />
       <Route path="/blogs/first-time-lake-travis-boat-rental-essential-tips-for-austin-party-planning" component={FirstTimeLakeTravisGuide} />
       <Route path="/blogs/integrated-austin-event-services-combining-alcohol-delivery-and-boat-rentals-for-perfect-celebrations" component={IntegratedAustinEventServices} />
       <Route path="/blog/birthday-party-alcohol-delivery-austin-milestone-celebrations-made-easy" component={BirthdayPartyAustinGuide} />
