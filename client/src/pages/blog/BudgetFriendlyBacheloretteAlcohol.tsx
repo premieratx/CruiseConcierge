@@ -91,7 +91,7 @@ const affordableAlcoholGuide = [
 ];
 
 const costBreakdown = [
-  { item: 'Day Tripper (14 guests, 3hr)', cost: '$900', perPerson: '~$65/person', note: 'Most budget-friendly bachelorette party boat option' },
+  { item: 'Day Tripper (14 guests, 4hr)', cost: 'Starting at $200/hr', perPerson: '~$57/person', note: 'Most budget-friendly bachelorette party boat option' },
   { item: 'Meeseeks (25 guests, 3hr)', cost: '$1,200', perPerson: '~$48/person', note: 'Great value for affordable bachelorette Austin groups' },
   { item: 'The Irony (30 guests, 3hr)', cost: '$1,400', perPerson: '~$47/person', note: 'Best per-person rate for budget bachelorette party' },
   { item: 'Clever Girl (50 guests, 3hr)', cost: '$2,200', perPerson: '~$44/person', note: 'Lowest per-person for budget-friendly bachelorette party' }
@@ -141,7 +141,7 @@ const fleetOptions = [
 const faqs = [
   {
     question: 'What is the most budget-friendly bachelorette party boat option?',
-    answer: 'For the most budget-friendly bachelorette party experience, consider our Day Tripper ($900 for up to 14 guests) which works out to about $65 per person for the boat alone. When you add affordable bachelorette alcohol at around $8-10 per person BYOB, your total is under $75 per person for a 3-hour Lake Travis cruise - much less than most Austin bars or venues.'
+    answer: 'For the most budget-friendly bachelorette party experience, consider our Day Tripper (starting at $200/hr Monday-Thursday, up to 14 guests) which works out to about $57 per person for the boat alone on a 4-hour cruise. When you add affordable bachelorette alcohol at around $8-10 per person BYOB, your total is under $70 per person for a Lake Travis cruise - much less than most Austin bars or venues.'
   },
   {
     question: 'How much should we budget for alcohol at a budget bachelorette party?',
