@@ -754,8 +754,7 @@ function generateFontPreloadTags(): string {
 }
 
 // Generate BreadcrumbList schema for interior pages
-// IMPORTANT: Per Google guidelines, the LAST breadcrumb item should NOT have an "item" property
-// because it represents the current page. Only non-terminal items need the "item" URL.
+// Uses item as object with @type, @id, and name for maximum compatibility with SEO tools
 function generateBreadcrumbSchema(pathname: string, h1: string): object | null {
   // Don't generate breadcrumbs for homepage
   if (pathname === '/') {
@@ -769,7 +768,21 @@ function generateBreadcrumbSchema(pathname: string, h1: string): object | null {
   pageName = pageName.replace(/\s*\|\s*Premier Party Cruises.*$/i, '');
   pageName = pageName.trim();
   
-  // Build breadcrumb list - LAST item has NO "item" property (Google requirement)
+  // Fallback if pageName is empty
+  if (!pageName) {
+    // Generate a readable name from the pathname
+    const pathSegments = pathname.split('/').filter(Boolean);
+    const lastSegment = pathSegments[pathSegments.length - 1] || 'Page';
+    pageName = lastSegment
+      .split('-')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+  }
+  
+  const fullUrl = `https://premierpartycruises.com${pathname}`;
+  
+  // Build breadcrumb list with item as object containing @type, @id, and name
+  // This format ensures both name and item.name are present for SEO tool compatibility
   const breadcrumbList = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -778,13 +791,21 @@ function generateBreadcrumbSchema(pathname: string, h1: string): object | null {
         "@type": "ListItem",
         "position": 1,
         "name": "Home",
-        "item": "https://premierpartycruises.com/"
+        "item": {
+          "@type": "WebPage",
+          "@id": "https://premierpartycruises.com/",
+          "name": "Home"
+        }
       },
       {
         "@type": "ListItem",
         "position": 2,
-        "name": pageName
-        // NOTE: No "item" property on last breadcrumb per Google's guidelines
+        "name": pageName,
+        "item": {
+          "@type": "WebPage",
+          "@id": fullUrl,
+          "name": pageName
+        }
       }
     ]
   };
