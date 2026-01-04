@@ -1036,6 +1036,8 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
     'ultimate-austin-party-boat-experience-any-celebration',
     'top-10-reasons-austin-bachelor-party-lake-travis-boat',
     'lake-travis-party-boat-vs-downtown-night-out-austin-bachelor',
+    'austin-bachelorette-party-vs-lake-travis-boat-why-lake-wins',
+    'corporate-boat-parties-austin-lake-travis-smartest-venue',
   ]);
   
   // Wrapper handler that checks for React pages first

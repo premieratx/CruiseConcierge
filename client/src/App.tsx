@@ -70,6 +70,7 @@ const ATXDiscoCruiseExperience = lazy(() => import("./pages/blog/ATXDiscoCruiseE
 const LakeTravisBachelorPartyCelebrations = lazy(() => import("./pages/blog/LakeTravisBachelorPartyCelebrations"));
 const BirthdayPartyBoatRentalsLakeTravis = lazy(() => import("./pages/blog/BirthdayPartyBoatRentalsLakeTravis"));
 const CorporateTeamBuildingLakeTravis = lazy(() => import("./pages/blog/CorporateTeamBuildingLakeTravis"));
+const CorporateBoatPartiesAustin = lazy(() => import("./pages/blog/CorporateBoatPartiesAustin"));
 const EmployeeAppreciationDayLakeTravis = lazy(() => import("./pages/blog/EmployeeAppreciationDayLakeTravis"));
 const LakeTravisLargeGroupBoatRentals = lazy(() => import("./pages/blog/LakeTravisLargeGroupBoatRentals"));
 const WhyChooseAustinBachelorParty = lazy(() => import("./pages/blog/WhyChooseAustinBachelorParty"));
@@ -262,6 +263,7 @@ const PerfectBachelorPartyItinerary = lazy(() => import("./pages/blog/PerfectBac
 const DiscoCruiseFashion = lazy(() => import("./pages/blog/DiscoCruiseFashion"));
 const LakeTravisWeatherPlanning = lazy(() => import("./pages/blog/LakeTravisWeatherPlanning"));
 const PartyBoatVsDowntownNightOut = lazy(() => import("./pages/blog/PartyBoatVsDowntownNightOut"));
+const BachelorettePartyVsNightlife = lazy(() => import("./pages/blog/BachelorettePartyVsNightlife"));
 
 // Customer Portal Pages - Lazy loaded
 const PortalLogin = lazy(() => import("./pages/PortalLogin"));
@@ -436,6 +438,7 @@ function Router() {
       <Route path="/blog/lake-travis-weather-planning-seasonal-considerations-for-perfect-boat-parties" component={LakeTravisWeatherGuide} />
       <Route path="/blogs/birthday-party-boat-rentals-on-lake-travis-milestone-celebrations-with-a-view" component={BirthdayPartyBoatRentalsLakeTravis} />
       <Route path="/blogs/corporate-team-building-on-lake-travis-professional-boat-rental-solutions" component={CorporateTeamBuildingLakeTravis} />
+      <Route path="/blogs/corporate-boat-parties-austin-lake-travis-smartest-venue" component={CorporateBoatPartiesAustin} />
       <Route path="/blogs/all-inclusive-corporate-packages-austin" component={AllInclusiveCorporatePackages} />
       <Route path="/blogs/dallas-to-lake-travis-corporate" component={DallasToLakeTravisCorporate} />
       <Route path="/blogs/destination-austin-offsite-retreats" component={DestinationAustinOffsiteRetreats} />
@@ -524,6 +527,7 @@ function Router() {
       <Route path="/blogs/disco-cruise-fashion-part-1" component={DiscoCruiseFashion} />
       <Route path="/blogs/lake-travis-weather-planning-seasonal-considerations-for-perfect-boat-parties" component={LakeTravisWeatherPlanning} />
       <Route path="/blogs/lake-travis-party-boat-vs-downtown-night-out-austin-bachelor" component={PartyBoatVsDowntownNightOut} />
+      <Route path="/blogs/austin-bachelorette-party-vs-lake-travis-boat-why-lake-wins" component={BachelorettePartyVsNightlife} />
       
       {/* Public Booking - Commented out, using /chat instead */}
       {/* <Route path="/calendar" component={PublicCalendar} /> */}
