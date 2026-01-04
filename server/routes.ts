@@ -1033,6 +1033,9 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
     'why-choose-integrated-event-services-comparing-austin-party-planning-options',
     'why-licensed-captains-matter-lake-travis-party-boats',
     'safest-austin-bachelor-party-lake-travis-party-boat',
+    'ultimate-austin-party-boat-experience-any-celebration',
+    'top-10-reasons-austin-bachelor-party-lake-travis-boat',
+    'lake-travis-party-boat-vs-downtown-night-out-austin-bachelor',
   ]);
   
   // Wrapper handler that checks for React pages first
