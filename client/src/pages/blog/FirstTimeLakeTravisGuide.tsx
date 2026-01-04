@@ -4,6 +4,7 @@ import { LazyImage } from '@/components/LazyImage';
 import { SectionReveal } from '@/components/SectionReveal';
 import { Link } from 'wouter';
 import { bachelorPartyBlogImages } from '@/lib/blogImages';
+import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import { 
   Anchor, Ship, Users, Calendar, Shield, 
   CheckCircle, Sparkles, Sun, Beer, MapPin
@@ -590,6 +591,9 @@ export default function FirstTimeLakeTravisGuide() {
           </div>
         </section>
       </SectionReveal>
+
+      {/* Quote Builder Section */}
+      <QuoteBuilderSection />
 
       {/* Final CTA */}
       <div className="my-12 bg-gradient-to-r from-brand-blue to-purple-600 text-white p-8 rounded-lg text-center">
