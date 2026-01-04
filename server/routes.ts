@@ -4244,6 +4244,55 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
     }
   });
 
+  // ==========================================
+  // INDEXNOW INTEGRATION
+  // ==========================================
+  
+  // IndexNow: Submit URLs to Bing and other search engines
+  app.post('/api/admin/indexnow/submit', requireAdmin, async (req, res) => {
+    try {
+      const { submitToIndexNow } = await import('./indexnow');
+      const { urls } = req.body;
+      
+      if (!urls || !Array.isArray(urls)) {
+        return res.status(400).json({ error: 'Invalid request. Provide an array of URLs.' });
+      }
+      
+      const result = await submitToIndexNow(urls);
+      res.json(result);
+    } catch (error: any) {
+      console.error('[IndexNow] Error submitting URLs:', error);
+      res.status(500).json({ error: error.message });
+    }
+  });
+  
+  // IndexNow: Submit entire sitemap
+  app.post('/api/admin/indexnow/submit-sitemap', requireAdmin, async (req, res) => {
+    try {
+      const { submitSitemapToIndexNow } = await import('./indexnow');
+      const result = await submitSitemapToIndexNow();
+      res.json(result);
+    } catch (error: any) {
+      console.error('[IndexNow] Error submitting sitemap:', error);
+      res.status(500).json({ error: error.message });
+    }
+  });
+  
+  // IndexNow: Get current key (for verification page)
+  app.get('/api/admin/indexnow/status', requireAdmin, async (req, res) => {
+    try {
+      const { getIndexNowKey } = await import('./indexnow');
+      const key = getIndexNowKey();
+      res.json({ 
+        configured: !!key,
+        keyFileUrl: key ? `https://premierpartycruises.com/${key}.txt` : null,
+        verificationUrl: 'https://www.bing.com/webmasters'
+      });
+    } catch (error: any) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }
