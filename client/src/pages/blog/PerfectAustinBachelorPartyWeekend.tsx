@@ -15,6 +15,7 @@ import { Badge } from '@/components/ui/badge';
 import PublicNavigation from '@/components/PublicNavigation';
 import Footer from '@/components/Footer';
 import { BlogImageBreak, BlogPhotoStrip, BLOG_BOAT_PHOTOS, BLOG_PARTY_PHOTOS } from '@/components/BlogImageBreak';
+import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 
 import bachelorHero from '@assets/bachelor-party-group-guys.webp';
 import discoParty from '@assets/atx-disco-cruise-party.webp';
@@ -664,6 +665,9 @@ export default function PerfectAustinBachelorPartyWeekend() {
             </motion.div>
           </div>
         </section>
+
+        {/* Quote Builder Section */}
+        <QuoteBuilderSection />
 
         {/* Final CTA Section */}
         <section className="py-20 bg-gradient-to-br from-blue-900 via-purple-900 to-blue-900 text-white">
