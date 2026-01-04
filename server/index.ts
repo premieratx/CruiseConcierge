@@ -404,6 +404,23 @@ Premier Party Cruises operates a fleet of four boats departing from Anderson Mil
   });
   log('✅ LLMs.txt route registered for AI crawlers', 'seo');
 
+  // IndexNow key verification file for Bing/search engine indexing
+  app.get('/:key.txt', (req, res, next) => {
+    const key = req.params.key;
+    const indexNowKey = process.env.INDEXNOW_KEY;
+    
+    // Only serve if it matches the IndexNow key
+    if (indexNowKey && key === indexNowKey) {
+      res.setHeader('Content-Type', 'text/plain; charset=UTF-8');
+      res.setHeader('Cache-Control', 'public, max-age=86400');
+      res.send(indexNowKey);
+      log(`✅ IndexNow key file served: ${key}.txt`, 'seo');
+    } else {
+      next();
+    }
+  });
+  log('✅ IndexNow key file route registered', 'seo');
+
   // CRITICAL FOR SEO: Register SSR middleware BEFORE static files
   // This ensures crawlers get fully-rendered HTML with H1 tags, content, and schemas
   app.use(ssrMiddleware());
