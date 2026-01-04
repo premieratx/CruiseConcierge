@@ -367,7 +367,7 @@ export default function IntegratedEventServicesComparison() {
                         Start Planning
                       </Button>
                     </Link>
-                    <a href="tel:512-803-9562">
+                    <a href="tel:512-488-5892">
                       <Button size="lg" variant="outline" className="bg-transparent border-white text-white hover:bg-white/10">
                         <Phone className="mr-2 h-5 w-5" />
                         Call (512) 803-9562
@@ -588,7 +588,7 @@ export default function IntegratedEventServicesComparison() {
                     Start Planning Today
                   </Button>
                 </Link>
-                <a href="tel:512-803-9562">
+                <a href="tel:512-488-5892">
                   <Button size="lg" variant="outline" className="bg-transparent border-white text-white hover:bg-white/10 font-bold text-lg px-8 py-6">
                     <Phone className="mr-2 h-5 w-5" />
                     Call (512) 803-9562

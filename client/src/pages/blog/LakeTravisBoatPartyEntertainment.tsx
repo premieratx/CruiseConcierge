@@ -582,9 +582,9 @@ export default function LakeTravisBoatPartyEntertainment() {
                   className="border-white text-white hover:bg-white hover:text-purple-900 font-semibold"
                   data-testid="button-final-call"
                 >
-                  <a href="tel:512-709-1560">
+                  <a href="tel:512-488-5892">
                     <Phone className="mr-2 h-5 w-5" />
-                    Call 512-709-1560
+                    Call 512-488-5892
                   </a>
                 </Button>
               </div>

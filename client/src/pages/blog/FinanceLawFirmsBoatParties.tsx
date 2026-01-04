@@ -683,7 +683,7 @@ export default function FinanceLawFirmsBoatParties() {
                     Get Your Quote
                   </Button>
                 </Link>
-                <a href="tel:5127270422">
+                <a href="tel:5124885892">
                   <Button size="lg" variant="outline" className="bg-transparent border-white text-white hover:bg-white/10 font-bold text-lg px-8 py-6" data-testid="button-call">
                     <Phone className="mr-2 h-5 w-5" />
                     Call (512) 727-0422

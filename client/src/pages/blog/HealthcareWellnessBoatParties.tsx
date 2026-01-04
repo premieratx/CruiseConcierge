@@ -603,7 +603,7 @@ export default function HealthcareWellnessBoatParties() {
               </div>
               
               <p className="mt-8 text-white/70 text-sm">
-                Questions? Call us at <a href="tel:5127809093" className="underline hover:text-white">(512) 780-9093</a> or email <a href="mailto:info@premierpartycruises.com" className="underline hover:text-white">info@premierpartycruises.com</a>
+                Questions? Call us at <a href="tel:5124885892" className="underline hover:text-white">512-488-5892</a> or email <a href="mailto:clientservices@premierpartycruises.com" className="underline hover:text-white">clientservices@premierpartycruises.com</a>
               </p>
             </motion.div>
           </div>
