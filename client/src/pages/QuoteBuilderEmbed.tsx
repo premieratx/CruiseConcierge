@@ -1,4 +1,5 @@
 import { Helmet } from 'react-helmet-async';
+import AdminNoIndex from '@/components/AdminNoIndex';
 import { useEffect, useLayoutEffect, useState } from 'react';
 
 export default function QuoteBuilderEmbed() {
@@ -41,6 +42,7 @@ export default function QuoteBuilderEmbed() {
 
   return (
     <>
+      <AdminNoIndex />
       <Helmet>
         <title>Get a Quote - Premier Party Cruises</title>
         <meta name="description" content="Get an instant quote for your private party cruise or disco cruise on Lake Travis. Book Day Tripper, Meeseeks, The Irony, Clever Girl, or ATX Disco boats." />

@@ -1,5 +1,6 @@
 import { Link } from 'wouter';
 import PublicNavigation from '@/components/PublicNavigation';
+import AdminNoIndex from '@/components/AdminNoIndex';
 import Footer from '@/components/Footer';
 import SEOHead from '@/components/SEOHead';
 import { Button } from '@/components/ui/button';
@@ -132,14 +133,16 @@ export default function Partners() {
   };
 
   return (
-    <div data-page-ready="partners">
-      <SEOHead
-        pageRoute="/partners"
-        defaultTitle="Partner Program | Premier Party Cruises"
-        defaultDescription="Earn 10% commission on boat bookings. Get personal discounts and monthly Venmo payouts. Join Austin's premier party boat partner program."
-        defaultKeywords={['party boat partner program', 'Austin boat rental affiliate', 'Lake Travis referral program', 'party cruise commission']}
-        schemaType="webpage"
-      />
+    <>
+      <AdminNoIndex />
+      <div data-page-ready="partners">
+        <SEOHead
+          pageRoute="/partners"
+          defaultTitle="Partner Program | Premier Party Cruises"
+          defaultDescription="Earn 10% commission on boat bookings. Get personal discounts and monthly Venmo payouts. Join Austin's premier party boat partner program."
+          defaultKeywords={['party boat partner program', 'Austin boat rental affiliate', 'Lake Travis referral program', 'party cruise commission']}
+          schemaType="webpage"
+        />
 
       <PublicNavigation />
 
@@ -490,6 +493,7 @@ export default function Partners() {
       </SectionReveal>
 
       <Footer />
-    </div>
+      </div>
+    </>
   );
 }

@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import AdminNoIndex from '@/components/AdminNoIndex';
 import { Helmet } from 'react-helmet-async';
 const logoPath = '/attached_assets/PPC Logo LARGE_1757881944449.png';
 import { Ship, Star, CheckCircle, Clock, Gift, Calendar, DollarSign, Tag, Package, Truck, Sparkles, Users, AlertCircle, Crown } from 'lucide-react';
@@ -74,6 +75,7 @@ export default function GoldenTicketPrivate() {
 
   return (
     <>
+      <AdminNoIndex />
       <Helmet>
         <title>Golden Ticket | Private Cruise Special</title>
         <meta name="description" content="Exclusive private cruise promotional offer! Get $300 gift card for Lake Travis boat rental. Limited Golden Ticket deal for Austin private cruises." />

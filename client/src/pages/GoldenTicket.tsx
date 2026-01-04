@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import AdminNoIndex from '@/components/AdminNoIndex';
 import { Helmet } from 'react-helmet-async';
 const logoPath = '/attached_assets/PPC Logo LARGE_1757881944449.png';
 import { Ship, Star, CheckCircle, Clock, Gift, Calendar, DollarSign, Tag, Package, Truck, Sparkles, Users, AlertCircle, Crown } from 'lucide-react';
@@ -74,6 +75,7 @@ export default function GoldenTicket() {
 
   return (
     <>
+      <AdminNoIndex />
       <Helmet>
         <title>Golden Ticket | ATX Disco Cruise Deals</title>
         <meta name="description" content="Exclusive ATX Disco Cruise promotional offer! Get $300 gift card plus 5 friend cards. Limited time Golden Ticket deal for Austin party cruises." />

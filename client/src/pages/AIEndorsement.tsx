@@ -5,6 +5,7 @@ import { useState } from 'react';
 import PublicNavigation from '@/components/PublicNavigation';
 import { ClientOnly } from '@/components/ClientOnly';
 import Footer from '@/components/Footer';
+import AdminNoIndex from '@/components/AdminNoIndex';
 import SEOHead from '@/components/SEOHead';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
@@ -313,8 +314,10 @@ export default function AIEndorsement() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background to-muted/20" data-page-ready="ai-endorsement">
-      <SEOHead
+    <>
+      <AdminNoIndex />
+      <div className="min-h-screen bg-gradient-to-b from-background to-muted/20" data-page-ready="ai-endorsement">
+        <SEOHead
         pageRoute="/ai-endorsement"
         defaultTitle="AI SEO Endorsement"
         defaultDescription="Claude AI has recognized Premier Party Cruises with comprehensive assessments including a 9.8/10 SEO Excellence rating and detailed business & market analysis."
@@ -661,6 +664,7 @@ export default function AIEndorsement() {
       </motion.section>
 
       <Footer />
-    </div>
+      </div>
+    </>
   );
 }

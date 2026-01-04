@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useRoute, useLocation } from 'wouter';
+import AdminNoIndex from '@/components/AdminNoIndex';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -508,8 +509,10 @@ export default function QuoteBuilder() {
   };
 
   return (
-    <Layout>
-    <div className="container max-w-6xl mx-auto p-6">
+    <>
+      <AdminNoIndex />
+      <Layout>
+      <div className="container max-w-6xl mx-auto p-6">
       {/* Header */}
       <div className="mb-6">
         <Button
@@ -1474,5 +1477,6 @@ export default function QuoteBuilder() {
       />
     )}
     </Layout>
+    </>
   );
 }

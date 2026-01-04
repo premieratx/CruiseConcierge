@@ -1,4 +1,5 @@
 import { useLayoutEffect, useEffect, useState, useRef } from 'react';
+import AdminNoIndex from '@/components/AdminNoIndex';
 import { Helmet } from 'react-helmet-async';
 const logoPath = '/attached_assets/PPC Logo LARGE_1757881944449.png';
 
@@ -68,6 +69,7 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
 
   return (
     <>
+      <AdminNoIndex />
       <Helmet>
         <title>Get Quote | Austin Party Boat Rentals</title>
         <meta name="description" content="Get instant quote for Lake Travis boat rentals. Austin party cruises for bachelor/bachelorette parties & events. Quick online booking!" />

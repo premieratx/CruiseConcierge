@@ -3,6 +3,7 @@ import { useQuery, useMutation } from "@tanstack/react-query";
 import { Plus, Edit2, Trash2, TrendingUp, DollarSign, Users, Calendar, Copy, RefreshCw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Layout from "@/components/Layout";
+import AdminNoIndex from "@/components/AdminNoIndex";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -179,10 +180,11 @@ export default function Affiliates() {
 
   return (
     <Layout>
-    <div className="container mx-auto p-6">
-      <div className="flex justify-between items-center mb-6">
-        <div>
-          <h1 className="text-3xl font-bold">Affiliates</h1>
+      <AdminNoIndex />
+      <div className="container mx-auto p-6">
+        <div className="flex justify-between items-center mb-6">
+          <div>
+            <h1 className="text-3xl font-bold">Affiliates</h1>
           <p className="text-muted-foreground mt-1">Manage affiliate partners and track commissions</p>
         </div>
         <Dialog open={isDialogOpen} onOpenChange={(open) => {
