@@ -15,6 +15,7 @@ import { Badge } from '@/components/ui/badge';
 import PublicNavigation from '@/components/PublicNavigation';
 import Footer from '@/components/Footer';
 import { BlogImageBreak, BlogPhotoStrip, BLOG_BOAT_PHOTOS, BLOG_PARTY_PHOTOS } from '@/components/BlogImageBreak';
+import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 
 import discoParty from '@assets/atx-disco-cruise-party.webp';
 import dancingScene from '@assets/dancing-party-scene.webp';
@@ -717,8 +718,19 @@ export default function JointBachelorBachelorettePartyGuide() {
                 </Link>
               </div>
 
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Quote Builder Section */}
+        <QuoteBuilderSection />
+
+        {/* More Resources Section */}
+        <section className="py-16 bg-white dark:bg-gray-900">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6">
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
               {/* More Resources */}
-              <div className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
+              <div className="pt-8">
                 <h3 className="text-xl font-bold mb-6 text-gray-900 dark:text-white">Explore More Party Resources</h3>
                 <div className="grid md:grid-cols-2 gap-4">
                   <Link href="/bachelor-party-austin" className="flex items-center gap-3 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg hover:bg-blue-100 dark:hover:bg-blue-900/40 transition-colors" data-testid="link-bachelor-austin">
