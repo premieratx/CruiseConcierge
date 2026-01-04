@@ -51,3 +51,4 @@ Key technical implementations and design decisions include:
 -   **OpenRouter**: AI chatbot interactions.
 -   **Replit DB**: Stores WordPress blog content.
 -   **Xola**: Online booking widgets.
+-   **IndexNow/Bing Webmaster Tools**: Instant search engine indexing via `server/indexnow.ts`. Key file served at `/{INDEXNOW_KEY}.txt`. Admin API endpoints: POST `/api/admin/indexnow/submit` (URLs), POST `/api/admin/indexnow/submit-sitemap` (full sitemap).
