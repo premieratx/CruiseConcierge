@@ -1039,6 +1039,7 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
     'austin-bachelorette-party-vs-lake-travis-boat-why-lake-wins',
     'corporate-boat-parties-austin-lake-travis-smartest-venue',
     'private-charter-vs-atx-disco-cruise-which-austin-party-boat',
+    'why-atx-disco-cruise-austins-most-booked-party-boat-experience',
   ]);
   
   // Wrapper handler that checks for React pages first

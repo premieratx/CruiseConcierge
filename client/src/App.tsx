@@ -117,6 +117,7 @@ const DallasToLakeTravisCorporate = lazy(() => import("./pages/blog/DallasToLake
 const DestinationAustinOffsiteRetreats = lazy(() => import("./pages/blog/DestinationAustinOffsiteRetreats"));
 const AustinSuburbsCorporateEvents = lazy(() => import("./pages/blog/AustinSuburbsCorporateEvents"));
 const AllInclusiveCorporatePackages = lazy(() => import("./pages/blog/AllInclusiveCorporatePackages"));
+const WhyATXDiscoCruiseMostBooked = lazy(() => import("./pages/blog/WhyATXDiscoCruiseMostBooked"));
 
 // Site Directory Page - Lazy loaded
 const SiteDirectory = lazy(() => import("./pages/SiteDirectory"));
@@ -530,6 +531,7 @@ function Router() {
       <Route path="/blogs/lake-travis-party-boat-vs-downtown-night-out-austin-bachelor" component={PartyBoatVsDowntownNightOut} />
       <Route path="/blogs/austin-bachelorette-party-vs-lake-travis-boat-why-lake-wins" component={BachelorettePartyVsNightlife} />
       <Route path="/blogs/private-charter-vs-atx-disco-cruise-which-austin-party-boat" component={PrivateCharterVsDiscoCruise} />
+      <Route path="/blogs/why-atx-disco-cruise-austins-most-booked-party-boat-experience" component={WhyATXDiscoCruiseMostBooked} />
       
       {/* Public Booking - Commented out, using /chat instead */}
       {/* <Route path="/calendar" component={PublicCalendar} /> */}
