@@ -138,24 +138,22 @@ export default function SafestAustinBachelorPartyLakeTravis() {
     window.scrollTo(0, 0);
   }, []);
 
-  const pageTitle = "The Safest Way to Plan an Austin Bachelor Party on a Lake Travis Party Boat";
-  const pageDescription = "Planning an Austin bachelor party? Learn why a Lake Travis party boat is the safest, easiest, and most memorable way to celebrate—without stress, chaos, or hidden costs.";
   const canonicalUrl = "https://premierpartycruises.com/blogs/safest-austin-bachelor-party-lake-travis-party-boat";
 
   return (
     <>
       <Helmet>
-        <title>{pageTitle} | Premier Party Cruises</title>
-        <meta name="description" content={pageDescription} />
+        <title>Safest Austin Bachelor Party: Lake Travis Party Boats</title>
+        <meta name="description" content="Plan a safe Austin bachelor party on Lake Travis. Licensed captains, BYOB savings, and stress-free celebration without chaos or hidden costs." />
         <link rel="canonical" href={canonicalUrl} />
-        <meta property="og:title" content={pageTitle} />
-        <meta property="og:description" content={pageDescription} />
+        <meta property="og:title" content="Safest Austin Bachelor Party: Lake Travis Party Boats" />
+        <meta property="og:description" content="Plan a safe Austin bachelor party on Lake Travis. Licensed captains, BYOB savings, and stress-free celebration without chaos or hidden costs." />
         <meta property="og:url" content={canonicalUrl} />
         <meta property="og:type" content="article" />
         <meta property="og:image" content="https://premierpartycruises.com/attached_assets/bachelor-party-group-guys-hero-compressed.webp" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={pageTitle} />
-        <meta name="twitter:description" content={pageDescription} />
+        <meta name="twitter:title" content="Safest Austin Bachelor Party: Lake Travis Party Boats" />
+        <meta name="twitter:description" content="Plan a safe Austin bachelor party on Lake Travis. Licensed captains, BYOB savings, and stress-free celebration without chaos or hidden costs." />
         <meta name="keywords" content="austin bachelor party, lake travis party boat, bachelor party austin, lake travis bachelor party, austin party boat, bachelor party ideas austin, austin bachelor weekend" />
       </Helmet>
 

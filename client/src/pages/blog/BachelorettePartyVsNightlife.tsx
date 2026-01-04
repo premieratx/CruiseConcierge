@@ -303,24 +303,22 @@ export default function BachelorettePartyVsNightlife() {
     window.scrollTo(0, 0);
   }, []);
 
-  const pageTitle = "Austin Bachelorette Party vs Lake Travis Party Boat: Why the Lake Wins Every Time";
-  const pageDescription = "Trying to choose between Austin nightlife and a Lake Travis party boat for your bachelorette party? Here's why a Lake Travis bachelorette party cruise delivers more fun, less stress, and better memories.";
   const canonicalUrl = "https://premierpartycruises.com/blogs/austin-bachelorette-party-vs-lake-travis-boat-why-lake-wins";
 
   return (
     <>
       <Helmet>
-        <title>{pageTitle} | Premier Party Cruises</title>
-        <meta name="description" content={pageDescription} />
+        <title>Lake Travis vs Austin Nightlife Bachelorette Party Guide</title>
+        <meta name="description" content="Compare Lake Travis party boats to Austin nightlife for your bachelorette. Discover why boat cruises offer more fun, less stress, and unforgettable memories." />
         <link rel="canonical" href={canonicalUrl} />
-        <meta property="og:title" content={pageTitle} />
-        <meta property="og:description" content={pageDescription} />
+        <meta property="og:title" content="Lake Travis vs Austin Nightlife Bachelorette Party Guide" />
+        <meta property="og:description" content="Compare Lake Travis party boats to Austin nightlife for your bachelorette. Discover why boat cruises offer more fun, less stress, and unforgettable memories." />
         <meta property="og:url" content={canonicalUrl} />
         <meta property="og:type" content="article" />
         <meta property="og:image" content="https://premierpartycruises.com/attached_assets/dancing-party-scene.webp" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={pageTitle} />
-        <meta name="twitter:description" content={pageDescription} />
+        <meta name="twitter:title" content="Lake Travis vs Austin Nightlife Bachelorette Party Guide" />
+        <meta name="twitter:description" content="Compare Lake Travis party boats to Austin nightlife for your bachelorette. Discover why boat cruises offer more fun, less stress, and unforgettable memories." />
         <meta name="keywords" content="austin bachelorette party, lake travis party boat, bachelorette party ideas austin, party boat vs bars, austin bachelorette weekend, rainey street bachelorette, 6th street bachelorette" />
       </Helmet>
 

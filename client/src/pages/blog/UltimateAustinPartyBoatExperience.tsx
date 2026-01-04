@@ -179,24 +179,22 @@ export default function UltimateAustinPartyBoatExperience() {
     window.scrollTo(0, 0);
   }, []);
 
-  const pageTitle = "The Ultimate Austin Party Boat Experience for Any Celebration";
-  const pageDescription = "Austin, Texas is famous for its vibrant nightlife, live music scene, and outdoor adventures. But nothing beats an Austin Party Boat when it comes to combining all three into one unforgettable celebration on the water.";
   const canonicalUrl = "https://premierpartycruises.com/blogs/ultimate-austin-party-boat-experience-any-celebration";
 
   return (
     <>
       <Helmet>
-        <title>{pageTitle} | Premier Party Cruises</title>
-        <meta name="description" content={pageDescription} />
+        <title>Ultimate Austin Party Boat Experience Guide | Lake Travis</title>
+        <meta name="description" content="Plan the ultimate Austin party boat celebration on Lake Travis. From bachelor parties to corporate events, discover everything you need to know." />
         <link rel="canonical" href={canonicalUrl} />
-        <meta property="og:title" content={pageTitle} />
-        <meta property="og:description" content={pageDescription} />
+        <meta property="og:title" content="Ultimate Austin Party Boat Experience Guide | Lake Travis" />
+        <meta property="og:description" content="Plan the ultimate Austin party boat celebration on Lake Travis. From bachelor parties to corporate events, discover everything you need to know." />
         <meta property="og:url" content={canonicalUrl} />
         <meta property="og:type" content="article" />
         <meta property="og:image" content="https://premierpartycruises.com/attached_assets/atx-disco-cruise-party.webp" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={pageTitle} />
-        <meta name="twitter:description" content={pageDescription} />
+        <meta name="twitter:title" content="Ultimate Austin Party Boat Experience Guide | Lake Travis" />
+        <meta name="twitter:description" content="Plan the ultimate Austin party boat celebration on Lake Travis. From bachelor parties to corporate events, discover everything you need to know." />
         <meta name="keywords" content="austin party boat, lake travis party boat, party boat austin, austin bachelor party, austin bachelorette party, corporate boat party austin, lake travis boat rental, party cruise austin" />
       </Helmet>
 

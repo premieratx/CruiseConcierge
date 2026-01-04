@@ -22,8 +22,8 @@ const sections: TOCSection[] = [
 export default function LakeTravisBachelorPartyBoats() {
   return (
     <BlogPostLayout
-      title="Lake Travis Bachelor Party Boats | Austin Cruise"
-      metaDescription="Discover why Lake Travis party boats are perfect for bachelor parties in Austin. Learn about the ATX Disco Cruise, private charters, BYOB options, and pro tips for an epic lake party."
+      title="Lake Travis Bachelor Party Boats | Austin TX Cruises"
+      metaDescription="Lake Travis party boats for Austin bachelor parties. ATX Disco Cruise, private charters, BYOB options, and pro tips for an unforgettable lake party."
       publishDate="2025-01-15"
       author="Premier Party Cruises"
       heroImage={lakeTravisBachelorBoatImages[0].src}

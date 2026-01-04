@@ -139,24 +139,22 @@ export default function Top10BachelorPartyBoatReasons() {
     window.scrollTo(0, 0);
   }, []);
 
-  const pageTitle = "Top 10 Reasons to Host Your Austin Bachelor Party on a Lake Travis Party Boat";
-  const pageDescription = "Planning an Austin bachelor party? Discover the top 10 reasons why a Lake Travis party boat is the ultimate celebration—from BYOB savings to epic photos and unforgettable memories.";
   const canonicalUrl = "https://premierpartycruises.com/blogs/top-10-reasons-austin-bachelor-party-lake-travis-boat";
 
   return (
     <>
       <Helmet>
-        <title>{pageTitle} | Premier Party Cruises</title>
-        <meta name="description" content={pageDescription} />
+        <title>Top 10 Reasons for a Lake Travis Bachelor Party Boat</title>
+        <meta name="description" content="Discover the top 10 reasons to host your Austin bachelor party on Lake Travis. BYOB savings, epic photos, swimming, and unforgettable memories await." />
         <link rel="canonical" href={canonicalUrl} />
-        <meta property="og:title" content={pageTitle} />
-        <meta property="og:description" content={pageDescription} />
+        <meta property="og:title" content="Top 10 Reasons for a Lake Travis Bachelor Party Boat" />
+        <meta property="og:description" content="Discover the top 10 reasons to host your Austin bachelor party on Lake Travis. BYOB savings, epic photos, swimming, and unforgettable memories await." />
         <meta property="og:url" content={canonicalUrl} />
         <meta property="og:type" content="article" />
         <meta property="og:image" content="https://premierpartycruises.com/attached_assets/bachelor-party-group-guys-hero-compressed.webp" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={pageTitle} />
-        <meta name="twitter:description" content={pageDescription} />
+        <meta name="twitter:title" content="Top 10 Reasons for a Lake Travis Bachelor Party Boat" />
+        <meta name="twitter:description" content="Discover the top 10 reasons to host your Austin bachelor party on Lake Travis. BYOB savings, epic photos, swimming, and unforgettable memories await." />
         <meta name="keywords" content="austin bachelor party, lake travis party boat, bachelor party austin, lake travis bachelor party, austin party boat, bachelor party ideas austin, top 10 bachelor party reasons" />
       </Helmet>
 

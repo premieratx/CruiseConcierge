@@ -215,24 +215,22 @@ export default function PrivateCharterVsDiscoCruise() {
     window.scrollTo(0, 0);
   }, []);
 
-  const pageTitle = "Private Charter vs ATX Disco Cruise: Which Austin Party Boat Is Right for Your Group?";
-  const pageDescription = "Trying to decide between a private party boat or the ATX Disco Cruise in Austin? This complete guide breaks down cost, vibe, group size, and experience so you can choose the best Lake Travis party boat.";
   const canonicalUrl = "https://premierpartycruises.com/blogs/private-charter-vs-atx-disco-cruise-which-austin-party-boat";
 
   return (
     <>
       <Helmet>
-        <title>{pageTitle} | Premier Party Cruises</title>
-        <meta name="description" content={pageDescription} />
+        <title>Private Charter vs ATX Disco Cruise | Austin Party Boats</title>
+        <meta name="description" content="Private charter or ATX Disco Cruise? Compare cost, vibe, and group size to choose the best Lake Travis party boat for your Austin celebration." />
         <link rel="canonical" href={canonicalUrl} />
-        <meta property="og:title" content={pageTitle} />
-        <meta property="og:description" content={pageDescription} />
+        <meta property="og:title" content="Private Charter vs ATX Disco Cruise | Austin Party Boats" />
+        <meta property="og:description" content="Private charter or ATX Disco Cruise? Compare cost, vibe, and group size to choose the best Lake Travis party boat for your Austin celebration." />
         <meta property="og:url" content={canonicalUrl} />
         <meta property="og:type" content="article" />
         <meta property="og:image" content="https://premierpartycruises.com/attached_assets/atx-disco-cruise-party.webp" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={pageTitle} />
-        <meta name="twitter:description" content={pageDescription} />
+        <meta name="twitter:title" content="Private Charter vs ATX Disco Cruise | Austin Party Boats" />
+        <meta name="twitter:description" content="Private charter or ATX Disco Cruise? Compare cost, vibe, and group size to choose the best Lake Travis party boat for your Austin celebration." />
         <meta name="keywords" content="austin party boat, lake travis party boat, private boat charter austin, atx disco cruise, bachelor party austin, bachelorette party lake travis, party boat rental austin" />
       </Helmet>
 

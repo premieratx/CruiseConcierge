@@ -144,8 +144,8 @@ export default function SafetyFirstPremierPartyCruises() {
     <>
       <SEOHead 
         pageRoute="/blogs/safety-first-how-premiers-perfect-record-and-first-aid-training-set-us-apart"
-        defaultTitle="Safety First! How Premier's Perfect Record & First Aid Training Set Us Apart | Safe Party Boat Austin"
-        defaultDescription="Discover why Premier Party Cruises has a perfect Austin boat rental safety record. Coast Guard certified captains, first aid trained crew, and 125,000+ safely served guests on Lake Travis."
+        defaultTitle="Party Boat Safety | Lake Travis Austin | Premier Cruises"
+        defaultDescription="Premier Party Cruises' perfect safety record: Coast Guard certified captains, first aid trained crew, and 125,000+ guests safely served on Lake Travis."
         defaultKeywords={[
           'safe party boat Austin',
           'Lake Travis boat safety',

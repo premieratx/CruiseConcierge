@@ -24,8 +24,8 @@ const sections: TOCSection[] = [
 export default function FirstTimeLakeTravisGuide() {
   return (
     <BlogPostLayout
-      title="First-Time Lake Travis Boat Rental: Essential Tips for Austin Party Planning"
-      metaDescription="Planning your first Lake Travis boat rental in Austin? Get essential tips for a perfect party, from choosing the right boat to safety and planning. Your ultimate guide to fun on Lake Travis!"
+      title="First-Time Lake Travis Boat Rental Guide | Austin TX"
+      metaDescription="First Lake Travis boat rental? Essential tips for choosing boats, safety, and party planning. Your complete Austin party boat guide from local experts."
       publishDate="2025-01-10"
       author="Premier Party Cruises"
       heroImage="/attached_assets/atx-disco-cruise-party.webp"

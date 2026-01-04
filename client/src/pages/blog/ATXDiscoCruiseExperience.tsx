@@ -25,8 +25,8 @@ const sections: TOCSection[] = [
 export default function ATXDiscoCruiseExperience() {
   return (
     <BlogPostLayout
-      title="The Top Do's and Don'ts for an Epic ATX Disco Cruise Bachelor Party"
-      metaDescription="Master the ATX Disco Cruise experience with our ultimate guide of do's and don'ts for bachelor parties on Lake Travis. Learn insider tips for an unforgettable party boat adventure in Austin."
+      title="ATX Disco Cruise Tips: Bachelor Party Do's & Don'ts"
+      metaDescription="Top do's and don'ts for your ATX Disco Cruise bachelor party on Lake Travis. Insider tips from 14+ years hosting epic Austin party boat experiences."
       publishDate="2025-01-15"
       author="Premier Party Cruises"
       heroImage={bachelorPartyBlogImages[3].src}

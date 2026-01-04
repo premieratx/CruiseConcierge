@@ -278,24 +278,22 @@ export default function PartyBoatVsDowntownNightOut() {
     window.scrollTo(0, 0);
   }, []);
 
-  const pageTitle = "Lake Travis Party Boat vs Downtown Night Out: The Best Austin Bachelor Party Choice";
-  const pageDescription = "Comparing Lake Travis party boats to downtown Austin nightlife for your bachelor party. Discover which option offers better value, more fun, and the ultimate celebration experience.";
   const canonicalUrl = "https://premierpartycruises.com/blogs/lake-travis-party-boat-vs-downtown-night-out-austin-bachelor";
 
   return (
     <>
       <Helmet>
-        <title>{pageTitle} | Premier Party Cruises</title>
-        <meta name="description" content={pageDescription} />
+        <title>Party Boat vs Downtown Austin Night Out Comparison Guide</title>
+        <meta name="description" content="Lake Travis party boats vs downtown Austin nightlife for bachelor parties. Compare costs, privacy, and fun to find the ultimate celebration experience." />
         <link rel="canonical" href={canonicalUrl} />
-        <meta property="og:title" content={pageTitle} />
-        <meta property="og:description" content={pageDescription} />
+        <meta property="og:title" content="Party Boat vs Downtown Austin Night Out Comparison Guide" />
+        <meta property="og:description" content="Lake Travis party boats vs downtown Austin nightlife for bachelor parties. Compare costs, privacy, and fun to find the ultimate celebration experience." />
         <meta property="og:url" content={canonicalUrl} />
         <meta property="og:type" content="article" />
         <meta property="og:image" content="https://premierpartycruises.com/attached_assets/bachelor-party-group-guys-hero-compressed.webp" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={pageTitle} />
-        <meta name="twitter:description" content={pageDescription} />
+        <meta name="twitter:title" content="Party Boat vs Downtown Austin Night Out Comparison Guide" />
+        <meta name="twitter:description" content="Lake Travis party boats vs downtown Austin nightlife for bachelor parties. Compare costs, privacy, and fun to find the ultimate celebration experience." />
         <meta name="keywords" content="austin bachelor party, lake travis party boat, downtown austin nightlife, bachelor party ideas austin, party boat vs bars, austin bachelor weekend, 6th street bachelor party" />
       </Helmet>
 

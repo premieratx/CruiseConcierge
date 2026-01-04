@@ -36,8 +36,8 @@ const anniversaryImages = [
 export default function WeddingAnniversaryCelebrationIdeas() {
   return (
     <BlogPostLayout
-      title="Wedding Anniversary Ideas | Lake Travis Boat"
-      metaDescription="Celebrate your wedding anniversary on Lake Travis with romantic boat rentals and BYOB packages. Intimate cruises or group celebrations for milestone anniversaries."
+      title="Wedding Anniversary Celebration Ideas | Lake Travis Boat"
+      metaDescription="Celebrate your wedding anniversary on Lake Travis with romantic boat rentals and BYOB packages. Intimate cruises to group celebrations for milestones."
       publishDate="2025-08-12"
       author="Premier Party Cruises Team"
       heroImage={anniversaryImages[0].src}

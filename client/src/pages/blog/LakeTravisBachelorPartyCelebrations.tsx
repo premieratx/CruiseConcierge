@@ -26,8 +26,8 @@ const sections: TOCSection[] = [
 export default function LakeTravisBachelorPartyCelebrations() {
   return (
     <BlogPostLayout
-      title="Lake Travis Bachelor Party: Ultimate Austin Adventure"
-      metaDescription="Plan the ultimate lake travis bachelor party with boat rentals, adventure activities, and vibrant Austin nightlife, ensuring unforgettable celebrations."
+      title="Lake Travis Bachelor Party Ideas | Austin TX Guide"
+      metaDescription="Plan the ultimate Lake Travis bachelor party with boat rentals, water activities, and Austin nightlife. Complete guide to unforgettable celebrations."
       publishDate="2025-01-20"
       author="Premier Party Cruises"
       heroImage={lakeTravisBachelorPartyImages[0].src}
