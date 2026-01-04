@@ -821,6 +821,117 @@ async function getTemplate(): Promise<string> {
   return cachedTemplate;
 }
 
+// CONVERTED_TO_REACT_SLUGS: Blog pages that have been converted to React components
+// These pages should skip the WordPress database lookup and let the React component render
+// This prevents SSR from showing old WordPress content instead of the new React content
+const CONVERTED_TO_REACT_SLUGS = new Set([
+  'accessible-lake-travis-boat-parties-inclusive-event-planning-for-all-guests',
+  'all-inclusive-corporate-packages-austin',
+  'atx-disco-cruise-dos-and-donts-bachelor-party',
+  'atx-disco-cruise-experience',
+  'austin-bachelorette-bliss-spa-retreats-disco-cruises-alcohol-delivery',
+  'austin-bachelorette-party-april',
+  'austin-bachelorette-party-august',
+  'austin-bachelorette-party-boats-lake-travis-adventures-for-unforgettable-celebrations',
+  'austin-bachelorette-party-december',
+  'austin-bachelorette-party-february',
+  'austin-bachelorette-party-june',
+  'austin-bachelorette-party-october',
+  'austin-bachelorette-weekend-alcohol-timeline-day-by-day-drinking-strategy-for-multi-day-celebrations',
+  'austin-bachelor-party-ideas',
+  'austin-bachelor-party-january',
+  'austin-bachelor-party-july',
+  'austin-bachelor-party-march',
+  'austin-bachelor-party-may',
+  'austin-bachelor-party-november',
+  'austin-bachelor-party-september',
+  'austin-best-corporate-events',
+  'austin-party-venue-alcohol-delivery-navigating-policies-and-logistics',
+  'austin-suburbs-corporate-events',
+  'austin-wedding-venue-alcohol-policies-delivery-solutions-for-every-location',
+  'bachelorette-party-alcohol-emergency-kit-last-minute-delivery-solutions',
+  'bachelor-party-outfit-ideas-atx-disco-cruise',
+  'birthday-party-alcohol-delivery-austin-milestone-celebrations-made-easy',
+  'birthday-party-boat-rentals-on-lake-travis-milestone-celebrations-with-a-view',
+  'budget-friendly-bachelorette-party-alcohol-maximum-fun-without-breaking-the-bank',
+  'client-entertainment-alcohol-strategy-impressing-without-overdoing-it',
+  'cocktail-kits-vs-individual-bottles-the-smart-bachelorette-party-alcohol-strategy',
+  'company-holiday-party-lake-travis',
+  'company-party-10-people-austin',
+  'company-party-25-people-austin',
+  'company-party-50-people-austin',
+  'company-party-75-people-austin',
+  'conference-after-party-alcohol-coordination-sxsw-acl-and-austin-event-integration',
+  'construction-trades-boat-parties-austin',
+  'corporate-team-building-on-lake-travis-alcohol-coordination-for-professional-events',
+  'corporate-team-building-on-lake-travis-professional-boat-rental-solutions',
+  'creative-lake-travis-boat-party-themes-unique-ideas-for-memorable-celebrations',
+  'dallas-to-lake-travis-corporate',
+  'destination-austin-offsite-retreats',
+  'disco-cruise-fashion-part-1',
+  'employee-appreciation-day-reward-your-team-with-an-easy-all-inclusive-boat-party',
+  'epic-bachelorette-party-austin-ultimate-guide',
+  'epic-bachelor-party-austin-ultimate-guide',
+  'executive-retreat-alcohol-planning-balancing-professionalism-and-team-bonding',
+  'finance-law-firms-boat-parties-austin',
+  'first-time-lake-travis-boat-rental-essential-tips-for-austin-party-planning',
+  'graduation-party-alcohol-planning-ut-and-austin-college-celebrations',
+  'healthcare-wellness-boat-parties-austin',
+  'holiday-celebrations-on-lake-travis-seasonal-boat-party-planning-and-coordination',
+  'holiday-office-party-alcohol-delivery-stress-free-corporate-celebration-planning',
+  'holiday-party-alcohol-themes-new-years-fourth-of-july-and-austin-celebrations',
+  'how-to-throw-great-bachelorette-party-austin',
+  'how-to-throw-great-bachelor-party-austin',
+  'instagram-worthy-bachelorette-party-cocktails-recipes-and-delivery-coordination',
+  'integrated-austin-event-services-combining-alcohol-delivery-and-boat-rentals-for-perfect-celebrations',
+  'joint-bachelor-bachelorette-parties-with-premier-party-cruises',
+  'joint-bachelor-bachelorette-party-guide',
+  'lake-travis-bachelorette-party-alcohol-laws-what-you-can-and-cant-bring-on-boats',
+  'lake-travis-bachelor-party-alcohol-delivery-complete-coordination-guide-for-boat-parties',
+  'lake-travis-bachelor-party-austin-celebrations',
+  'lake-travis-bachelor-party-boat-rentals-the-ultimate-guide-to-epic-celebrations',
+  'lake-travis-bachelor-party-boats-guide',
+  'lake-travis-boat-party-catering-food-and-beverage-coordination-for-perfect-events',
+  'lake-travis-boat-party-costs-complete-pricing-guide-and-budget-planning',
+  'lake-travis-boat-party-entertainment-activities-and-amenities-for-unforgettable-events',
+  'lake-travis-boat-party-insurance-understanding-coverage-and-liability-for-events',
+  'lake-travis-boat-party-logistics-complete-planning-and-coordination-guide',
+  'lake-travis-boat-party-music-sound-systems-and-entertainment-coordination',
+  'lake-travis-boat-party-packages-comprehensive-guide-to-options-and-pricing',
+  'lake-travis-boat-party-photography-capturing-perfect-memories-on-the-water',
+  'lake-travis-boat-party-regulations-legal-requirements-and-compliance-guide',
+  'lake-travis-boat-party-reviews-real-customer-experiences-and-testimonials',
+  'lake-travis-boat-safety-and-maintenance-quality-standards-for-party-cruises',
+  'lake-travis-boat-safety-essential-guidelines-for-safe-party-cruises',
+  'lake-travis-party-boat-rentals-ultimate-guide-for-large-group-events-20-guests',
+  'lake-travis-sunset-cruises-romantic-and-celebration-options-for-every-occasion',
+  'lake-travis-weather-planning-seasonal-considerations-for-perfect-boat-parties',
+  'lake-travis-wedding-boat-rentals-unique-venues-for-austin-celebrations',
+  'large-group-events-lake-travis',
+  'marketing-creative-agencies-boat-austin',
+  'must-haves-for-the-perfect-austin-bachelorette-weekend',
+  'outdoor-wedding-alcohol-logistics-hill-country-and-lake-travis-coordination',
+  'party-alcohol-safety-in-austin-responsible-service-and-guest-well-being',
+  'perfect-austin-bachelor-party-weekend',
+  'perfect-bachelor-party-itinerary-austin',
+  'pool-party-alcohol-coordination-summer-event-planning-in-austin-heat',
+  'quarterly-outings-lake-travis-make-routine-company-events-easy',
+  'real-estate-client-entertainment-boat-austin',
+  'safety-first-how-premiers-perfect-record-and-first-aid-training-set-us-apart',
+  'small-business-boat-parties-austin',
+  'tech-companies-boat-parties-austin',
+  'top-spots-tips-for-an-unforgettable-austin-bachelorette-party-experience',
+  'why-austin-companies-choose-premier',
+  'why-choose-austin-bachelorette-party',
+  'why-choose-austin-bachelor-party',
+  'why-choose-integrated-event-services-comparing-austin-party-planning-options',
+]);
+
+// Check if a blog slug has been converted to React (should skip WordPress DB)
+function isConvertedToReact(slug: string): boolean {
+  return CONVERTED_TO_REACT_SLUGS.has(slug);
+}
+
 // SSR routes that should be server-rendered
 // CRITICAL: ALL marketing pages MUST be in SSR for SEO visibility
 // DO NOT REMOVE PAGES FROM THIS LIST - SEO visibility is the top priority
@@ -1174,17 +1285,39 @@ async function renderPage(url: string, req: Request): Promise<string> {
       // Check for PAGE_CONTENT first (rich SSR content for React component blogs)
       const blogPageContent = PAGE_CONTENT['/blogs/' + slug] || PAGE_CONTENT[pathname];
       
-      // CRITICAL SEO FIX: ALWAYS fetch full content from database for SSR body content
-      // Previously, blogMeta match would return early with only 150-char description
-      // Now we always fetch the 4000+ char full content for proper SEO crawling
-      blogData = await fetchBlogPost(slug);
+      // CRITICAL FIX: Skip database fetch for converted React pages
+      // These pages have React components that render client-side with full content
+      // The old WordPress database content should NOT override the React components
+      const isReactPage = isConvertedToReact(slug);
       
-      // Determine content source: database > PAGE_CONTENT > blogMeta
+      // Only fetch from database if NOT a converted React page
+      if (!isReactPage) {
+        blogData = await fetchBlogPost(slug);
+      }
+      
+      // Determine content source priority:
+      // For React pages: blogMeta only (React component renders client-side)
+      // For WordPress pages: database > PAGE_CONTENT > blogMeta
       const dbContentLength = (blogData?.post?.content || '').length;
       const MIN_CONTENT_LENGTH = 500;
       
-      if (blogData && blogData.post && dbContentLength >= MIN_CONTENT_LENGTH) {
-        // Use database content (500+ chars) for SSR body
+      if (isReactPage) {
+        // For converted React pages, use metadata for SSR placeholder
+        // The React component will render the full content client-side
+        if (blogMeta) {
+          h1 = blogMeta.title;
+          content = `<p style="font-size: 1.125rem; line-height: 1.75; color: #374151;">${blogMeta.description}</p>`;
+          metaTitle = blogMeta.title;
+          metaDescription = blogMeta.description;
+        } else if (blogPageContent) {
+          h1 = blogPageContent.h1;
+          content = renderPageContent(blogPageContent);
+          usedPageContent = true;
+          metaTitle = blogPageContent.h1;
+          metaDescription = blogPageContent.introduction.substring(0, 160);
+        }
+      } else if (blogData && blogData.post && dbContentLength >= MIN_CONTENT_LENGTH) {
+        // Use database content (500+ chars) for SSR body (non-React WordPress pages)
         h1 = blogData.post.title;
         // Strip H1 tags from content to prevent duplicate H1s
         const rawContent = blogData.post.content || blogData.post.excerpt || '';
