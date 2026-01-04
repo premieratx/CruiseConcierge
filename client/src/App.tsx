@@ -234,6 +234,7 @@ const LakeTravisBoatPartyInsurance = lazy(() => import("./pages/blog/LakeTravisB
 const LakeTravisBoatPartyReviews = lazy(() => import("./pages/blog/LakeTravisBoatPartyReviews"));
 const LakeTravisBoatSafetyGuidelines = lazy(() => import("./pages/blog/LakeTravisBoatSafetyGuidelines"));
 const WhyLicensedCaptainsMatter = lazy(() => import("./pages/blog/WhyLicensedCaptainsMatter"));
+const SafestAustinBachelorPartyLakeTravis = lazy(() => import("./pages/blog/SafestAustinBachelorPartyLakeTravis"));
 const UltimateAustinBacheloretteBoatGuide = lazy(() => import("./pages/blog/UltimateAustinBacheloretteBoatGuide"));
 const CreativeLakeTravisPartyThemes = lazy(() => import("./pages/blog/CreativeLakeTravisPartyThemes"));
 const AccessibleLakeTravisParties = lazy(() => import("./pages/blog/AccessibleLakeTravisParties"));
@@ -492,6 +493,7 @@ function Router() {
       <Route path="/blogs/lake-travis-boat-party-reviews-real-customer-experiences-and-testimonials" component={LakeTravisBoatPartyReviews} />
       <Route path="/blogs/lake-travis-boat-safety-essential-guidelines-for-safe-party-cruises" component={LakeTravisBoatSafetyGuidelines} />
       <Route path="/blogs/why-licensed-captains-matter-lake-travis-party-boats" component={WhyLicensedCaptainsMatter} />
+      <Route path="/blogs/safest-austin-bachelor-party-lake-travis-party-boat" component={SafestAustinBachelorPartyLakeTravis} />
       <Route path="/blogs/ultimate-austin-bachelorette-party-boat-guide-lake-travis" component={UltimateAustinBacheloretteBoatGuide} />
       <Route path="/blogs/creative-lake-travis-boat-party-themes-unique-ideas-for-memorable-celebrations" component={CreativeLakeTravisPartyThemes} />
       <Route path="/blogs/accessible-lake-travis-boat-parties-inclusive-event-planning-for-all-guests" component={AccessibleLakeTravisParties} />

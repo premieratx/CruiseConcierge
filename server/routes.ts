@@ -1032,6 +1032,7 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
     'why-choose-austin-bachelor-party',
     'why-choose-integrated-event-services-comparing-austin-party-planning-options',
     'why-licensed-captains-matter-lake-travis-party-boats',
+    'safest-austin-bachelor-party-lake-travis-party-boat',
   ]);
   
   // Wrapper handler that checks for React pages first
