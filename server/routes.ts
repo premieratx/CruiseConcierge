@@ -1026,10 +1026,12 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
     'small-business-boat-parties-austin',
     'tech-companies-boat-parties-austin',
     'top-spots-tips-for-an-unforgettable-austin-bachelorette-party-experience',
+    'ultimate-austin-bachelorette-party-boat-guide-lake-travis',
     'why-austin-companies-choose-premier',
     'why-choose-austin-bachelorette-party',
     'why-choose-austin-bachelor-party',
     'why-choose-integrated-event-services-comparing-austin-party-planning-options',
+    'why-licensed-captains-matter-lake-travis-party-boats',
   ]);
   
   // Wrapper handler that checks for React pages first

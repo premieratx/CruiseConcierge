@@ -233,6 +233,8 @@ const LakeTravisBoatPartyPhotography = lazy(() => import("./pages/blog/LakeTravi
 const LakeTravisBoatPartyInsurance = lazy(() => import("./pages/blog/LakeTravisBoatPartyInsurance"));
 const LakeTravisBoatPartyReviews = lazy(() => import("./pages/blog/LakeTravisBoatPartyReviews"));
 const LakeTravisBoatSafetyGuidelines = lazy(() => import("./pages/blog/LakeTravisBoatSafetyGuidelines"));
+const WhyLicensedCaptainsMatter = lazy(() => import("./pages/blog/WhyLicensedCaptainsMatter"));
+const UltimateAustinBacheloretteBoatGuide = lazy(() => import("./pages/blog/UltimateAustinBacheloretteBoatGuide"));
 const CreativeLakeTravisPartyThemes = lazy(() => import("./pages/blog/CreativeLakeTravisPartyThemes"));
 const AccessibleLakeTravisParties = lazy(() => import("./pages/blog/AccessibleLakeTravisParties"));
 const LakeTravisSunsetCruises = lazy(() => import("./pages/blog/LakeTravisSunsetCruises"));
@@ -489,6 +491,8 @@ function Router() {
       <Route path="/blogs/lake-travis-boat-party-insurance-understanding-coverage-and-liability-for-events" component={LakeTravisBoatPartyInsurance} />
       <Route path="/blogs/lake-travis-boat-party-reviews-real-customer-experiences-and-testimonials" component={LakeTravisBoatPartyReviews} />
       <Route path="/blogs/lake-travis-boat-safety-essential-guidelines-for-safe-party-cruises" component={LakeTravisBoatSafetyGuidelines} />
+      <Route path="/blogs/why-licensed-captains-matter-lake-travis-party-boats" component={WhyLicensedCaptainsMatter} />
+      <Route path="/blogs/ultimate-austin-bachelorette-party-boat-guide-lake-travis" component={UltimateAustinBacheloretteBoatGuide} />
       <Route path="/blogs/creative-lake-travis-boat-party-themes-unique-ideas-for-memorable-celebrations" component={CreativeLakeTravisPartyThemes} />
       <Route path="/blogs/accessible-lake-travis-boat-parties-inclusive-event-planning-for-all-guests" component={AccessibleLakeTravisParties} />
       <Route path="/blogs/lake-travis-sunset-cruises-romantic-and-celebration-options-for-every-occasion" component={LakeTravisSunsetCruises} />
