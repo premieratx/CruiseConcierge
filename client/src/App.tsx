@@ -224,6 +224,39 @@ const LakeTravisBoatPartyRegulations = lazy(() => import("./pages/blog/LakeTravi
 const LakeTravisBoatSafetyMaintenance = lazy(() => import("./pages/blog/LakeTravisBoatSafetyMaintenance"));
 const PartyAlcoholSafetyAustin = lazy(() => import("./pages/blog/PartyAlcoholSafetyAustin"));
 
+// New Blog Pages - Converted from WordPress
+const LakeTravisBoatPartyCosts = lazy(() => import("./pages/blog/LakeTravisBoatPartyCosts"));
+const LakeTravisBoatPartyEntertainment = lazy(() => import("./pages/blog/LakeTravisBoatPartyEntertainment"));
+const LakeTravisBoatPartyCatering = lazy(() => import("./pages/blog/LakeTravisBoatPartyCatering"));
+const LakeTravisBoatPartyMusic = lazy(() => import("./pages/blog/LakeTravisBoatPartyMusic"));
+const LakeTravisBoatPartyPhotography = lazy(() => import("./pages/blog/LakeTravisBoatPartyPhotography"));
+const LakeTravisBoatPartyInsurance = lazy(() => import("./pages/blog/LakeTravisBoatPartyInsurance"));
+const LakeTravisBoatPartyReviews = lazy(() => import("./pages/blog/LakeTravisBoatPartyReviews"));
+const LakeTravisBoatSafetyGuidelines = lazy(() => import("./pages/blog/LakeTravisBoatSafetyGuidelines"));
+const CreativeLakeTravisPartyThemes = lazy(() => import("./pages/blog/CreativeLakeTravisPartyThemes"));
+const AccessibleLakeTravisParties = lazy(() => import("./pages/blog/AccessibleLakeTravisParties"));
+const LakeTravisSunsetCruises = lazy(() => import("./pages/blog/LakeTravisSunsetCruises"));
+const AustinBacheloretteAlcoholTimeline = lazy(() => import("./pages/blog/AustinBacheloretteAlcoholTimeline"));
+const LakeTravisBacheloretteAlcoholLaws = lazy(() => import("./pages/blog/LakeTravisBacheloretteAlcoholLaws"));
+const BacheloretteAlcoholEmergencyKit = lazy(() => import("./pages/blog/BacheloretteAlcoholEmergencyKit"));
+const BudgetFriendlyBacheloretteAlcohol = lazy(() => import("./pages/blog/BudgetFriendlyBacheloretteAlcohol"));
+const CocktailKitsVsBottles = lazy(() => import("./pages/blog/CocktailKitsVsBottles"));
+const InstagramBacheloretteCocktails = lazy(() => import("./pages/blog/InstagramBacheloretteCocktails"));
+const AustinBachelorettePartyBoats = lazy(() => import("./pages/blog/AustinBachelorettePartyBoats"));
+const AustinWeddingVenueAlcohol = lazy(() => import("./pages/blog/AustinWeddingVenueAlcohol"));
+const OutdoorWeddingAlcoholLogistics = lazy(() => import("./pages/blog/OutdoorWeddingAlcoholLogistics"));
+const ClientEntertainmentAlcoholStrategy = lazy(() => import("./pages/blog/ClientEntertainmentAlcoholStrategy"));
+const CorporateTeamBuildingAlcohol = lazy(() => import("./pages/blog/CorporateTeamBuildingAlcohol"));
+const ExecutiveRetreatAlcoholPlanning = lazy(() => import("./pages/blog/ExecutiveRetreatAlcoholPlanning"));
+const ConferenceAfterPartyAlcohol = lazy(() => import("./pages/blog/ConferenceAfterPartyAlcohol"));
+const HolidayOfficePartyAlcohol = lazy(() => import("./pages/blog/HolidayOfficePartyAlcohol"));
+const HolidayPartyAlcoholThemes = lazy(() => import("./pages/blog/HolidayPartyAlcoholThemes"));
+const PoolPartyAlcoholCoordination = lazy(() => import("./pages/blog/PoolPartyAlcoholCoordination"));
+const LakeTravisBachelorAlcoholDelivery = lazy(() => import("./pages/blog/LakeTravisBachelorAlcoholDelivery"));
+const PerfectBachelorPartyItinerary = lazy(() => import("./pages/blog/PerfectBachelorPartyItinerary"));
+const DiscoCruiseFashion = lazy(() => import("./pages/blog/DiscoCruiseFashion"));
+const LakeTravisWeatherPlanning = lazy(() => import("./pages/blog/LakeTravisWeatherPlanning"));
+
 // Customer Portal Pages - Lazy loaded
 const PortalLogin = lazy(() => import("./pages/PortalLogin"));
 const PortalVerify = lazy(() => import("./pages/PortalVerify"));
@@ -446,6 +479,39 @@ function Router() {
       <Route path="/blogs/company-party-50-people-austin" component={CompanyParty50People} />
       <Route path="/blogs/company-party-75-people-austin" component={CompanyParty75People} />
       <Route path="/blogs/austin-best-corporate-events" component={AustinBestCorporateEvents} />
+      
+      {/* Newly Converted Blog Pages */}
+      <Route path="/blogs/lake-travis-boat-party-costs-complete-pricing-guide-and-budget-planning" component={LakeTravisBoatPartyCosts} />
+      <Route path="/blogs/lake-travis-boat-party-entertainment-activities-and-amenities-for-unforgettable-events" component={LakeTravisBoatPartyEntertainment} />
+      <Route path="/blogs/lake-travis-boat-party-catering-food-and-beverage-coordination-for-perfect-events" component={LakeTravisBoatPartyCatering} />
+      <Route path="/blogs/lake-travis-boat-party-music-sound-systems-and-entertainment-coordination" component={LakeTravisBoatPartyMusic} />
+      <Route path="/blogs/lake-travis-boat-party-photography-capturing-perfect-memories-on-the-water" component={LakeTravisBoatPartyPhotography} />
+      <Route path="/blogs/lake-travis-boat-party-insurance-understanding-coverage-and-liability-for-events" component={LakeTravisBoatPartyInsurance} />
+      <Route path="/blogs/lake-travis-boat-party-reviews-real-customer-experiences-and-testimonials" component={LakeTravisBoatPartyReviews} />
+      <Route path="/blogs/lake-travis-boat-safety-essential-guidelines-for-safe-party-cruises" component={LakeTravisBoatSafetyGuidelines} />
+      <Route path="/blogs/creative-lake-travis-boat-party-themes-unique-ideas-for-memorable-celebrations" component={CreativeLakeTravisPartyThemes} />
+      <Route path="/blogs/accessible-lake-travis-boat-parties-inclusive-event-planning-for-all-guests" component={AccessibleLakeTravisParties} />
+      <Route path="/blogs/lake-travis-sunset-cruises-romantic-and-celebration-options-for-every-occasion" component={LakeTravisSunsetCruises} />
+      <Route path="/blogs/austin-bachelorette-weekend-alcohol-timeline-day-by-day-drinking-strategy-for-multi-day-celebrations" component={AustinBacheloretteAlcoholTimeline} />
+      <Route path="/blogs/lake-travis-bachelorette-party-alcohol-laws-what-you-can-and-cant-bring-on-boats" component={LakeTravisBacheloretteAlcoholLaws} />
+      <Route path="/blogs/bachelorette-party-alcohol-emergency-kit-last-minute-delivery-solutions" component={BacheloretteAlcoholEmergencyKit} />
+      <Route path="/blogs/budget-friendly-bachelorette-party-alcohol-maximum-fun-without-breaking-the-bank" component={BudgetFriendlyBacheloretteAlcohol} />
+      <Route path="/blogs/cocktail-kits-vs-individual-bottles-the-smart-bachelorette-party-alcohol-strategy" component={CocktailKitsVsBottles} />
+      <Route path="/blogs/instagram-worthy-bachelorette-party-cocktails-recipes-and-delivery-coordination" component={InstagramBacheloretteCocktails} />
+      <Route path="/blogs/austin-bachelorette-party-boats-lake-travis-adventures-for-unforgettable-celebrations" component={AustinBachelorettePartyBoats} />
+      <Route path="/blogs/austin-wedding-venue-alcohol-policies-delivery-solutions-for-every-location" component={AustinWeddingVenueAlcohol} />
+      <Route path="/blogs/outdoor-wedding-alcohol-logistics-hill-country-and-lake-travis-coordination" component={OutdoorWeddingAlcoholLogistics} />
+      <Route path="/blogs/client-entertainment-alcohol-strategy-impressing-without-overdoing-it" component={ClientEntertainmentAlcoholStrategy} />
+      <Route path="/blogs/corporate-team-building-on-lake-travis-alcohol-coordination-for-professional-events" component={CorporateTeamBuildingAlcohol} />
+      <Route path="/blogs/executive-retreat-alcohol-planning-balancing-professionalism-and-team-bonding" component={ExecutiveRetreatAlcoholPlanning} />
+      <Route path="/blogs/conference-after-party-alcohol-coordination-sxsw-acl-and-austin-event-integration" component={ConferenceAfterPartyAlcohol} />
+      <Route path="/blogs/holiday-office-party-alcohol-delivery-stress-free-corporate-celebration-planning" component={HolidayOfficePartyAlcohol} />
+      <Route path="/blogs/holiday-party-alcohol-themes-new-years-fourth-of-july-and-austin-celebrations" component={HolidayPartyAlcoholThemes} />
+      <Route path="/blogs/pool-party-alcohol-coordination-summer-event-planning-in-austin-heat" component={PoolPartyAlcoholCoordination} />
+      <Route path="/blogs/lake-travis-bachelor-party-alcohol-delivery-complete-coordination-guide-for-boat-parties" component={LakeTravisBachelorAlcoholDelivery} />
+      <Route path="/blogs/perfect-bachelor-party-itinerary-austin" component={PerfectBachelorPartyItinerary} />
+      <Route path="/blogs/disco-cruise-fashion-part-1" component={DiscoCruiseFashion} />
+      <Route path="/blogs/lake-travis-weather-planning-seasonal-considerations-for-perfect-boat-parties" component={LakeTravisWeatherPlanning} />
       
       {/* Public Booking - Commented out, using /chat instead */}
       {/* <Route path="/calendar" component={PublicCalendar} /> */}
