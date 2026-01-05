@@ -264,13 +264,6 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
     navigate('/chat');
   };
 
-  // Calculate dynamic "Book by" date (7 days from now)
-  const getBookByDate = () => {
-    const futureDate = new Date();
-    futureDate.setDate(futureDate.getDate() + 7);
-    return futureDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric' });
-  };
-
   return (
     <>
       {/* Fixed Header Container - Always visible on scroll */}
@@ -281,8 +274,8 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
             <Ship className="h-4 w-4 md:h-5 md:w-5 flex-shrink-0" />
             <span className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-black flex-shrink-0" />
             <div className="animate-pulse-text">
-              <div>Request a Quote to Unlock a 25% Discount on Your Party Cruise!</div>
-              <div className="underline" style={{ fontSize: '1.0em' }}>Book by {getBookByDate()} for Any 2026 Date!</div>
+              <div>New Years Super Sale!</div>
+              <div className="underline" style={{ fontSize: '1.0em' }}>Book by January 9th to get $250-$600+ in Bonus Discounts!</div>
             </div>
             <span className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-black flex-shrink-0" />
             <PartyPopper className="h-4 w-4 md:h-5 md:w-5 flex-shrink-0" />
