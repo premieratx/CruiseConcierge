@@ -277,8 +277,8 @@ export default function FinanceLawFirmsBoatParties() {
                       <div className={`w-16 h-16 mx-auto mb-4 ${item.bg} rounded-full flex items-center justify-center`}>
                         <item.icon className={`h-8 w-8 ${item.color}`} />
                       </div>
-                      <h3 className="font-bold text-lg mb-2">{item.title}</h3>
-                      <p className="text-gray-600 dark:text-gray-400 text-sm">{item.description}</p>
+                      <h3 className="font-bold text-xl mb-3">{item.title}</h3>
+                      <p className="text-gray-600 dark:text-gray-400 text-base">{item.description}</p>
                     </CardContent>
                   </Card>
                 </motion.div>
@@ -316,63 +316,57 @@ export default function FinanceLawFirmsBoatParties() {
               viewport={{ once: true }}
               variants={fadeInUp}
             >
-              <div className="grid lg:grid-cols-2 gap-12 items-center">
-                <div>
-                  <Badge className="mb-4 bg-blue-100 text-blue-700">CLIENT APPRECIATION</Badge>
-                  <h2 className="text-3xl font-bold mb-6" data-testid="section-title-client">Impress Clients in a Setting They'll Never Forget</h2>
-                  <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
-                    For law firm party Austin client events, the venue matters. Take your most valued clients on an attorney client entertainment boat experience that demonstrates your commitment to excellence. A professional corporate event Austin boat charter says "you're important to us" in ways a restaurant dinner simply can't.
-                  </p>
-                  <p className="text-lg text-gray-700 dark:text-gray-300 mb-8 leading-relaxed">
-                    Finance team building Lake Travis client events create relationship-building opportunities in a relaxed, memorable setting. Whether celebrating a closed deal or nurturing a growing partnership, the exclusive environment facilitates conversations that strengthen business bonds.
-                  </p>
-                  
-                  <div className="grid sm:grid-cols-2 gap-4 mb-8">
-                    {eventTypes.slice(0, 2).map((event, index) => (
-                      <Card key={index} className="bg-white/80">
-                        <CardContent className="p-4">
-                          <h4 className="font-bold text-sm mb-1">{event.title}</h4>
-                          <p className="text-xs text-gray-500 mb-2">{event.description}</p>
-                          <ul className="space-y-1">
-                            {event.features.slice(0, 2).map((feature, idx) => (
-                              <li key={idx} className="text-xs text-blue-600 flex items-center gap-1">
-                                <CheckCircle2 className="h-3 w-3" />
-                                {feature}
-                              </li>
-                            ))}
-                          </ul>
-                        </CardContent>
-                      </Card>
-                    ))}
-                  </div>
+              {/* Text content at top */}
+              <div className="mb-10">
+                <Badge className="mb-4 bg-blue-100 text-blue-700">CLIENT APPRECIATION</Badge>
+                <h2 className="text-3xl font-bold mb-6" data-testid="section-title-client">Impress Clients in a Setting They'll Never Forget</h2>
+                <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed max-w-4xl">
+                  For law firm party Austin client events, the venue matters. Take your most valued clients on an attorney client entertainment boat experience that demonstrates your commitment to excellence. A professional corporate event Austin boat charter says "you're important to us" in ways a restaurant dinner simply can't.
+                </p>
+                <p className="text-lg text-gray-700 dark:text-gray-300 mb-8 leading-relaxed max-w-4xl">
+                  Finance team building Lake Travis client events create relationship-building opportunities in a relaxed, memorable setting. Whether celebrating a closed deal or nurturing a growing partnership, the exclusive environment facilitates conversations that strengthen business bonds.
+                </p>
+              </div>
+              
+              {/* Image centered */}
+              <div className="mb-10">
+                <div className="max-w-4xl mx-auto aspect-video rounded-2xl overflow-hidden shadow-2xl">
+                  <img 
+                    src={sectionImage1}
+                    alt="Finance team building Lake Travis professional corporate event Austin executives networking"
+                    className="w-full h-full object-cover"
+                    data-testid="image-client-appreciation"
+                  />
+                </div>
+              </div>
+              
+              {/* Info cards below image - larger text */}
+              <div className="grid sm:grid-cols-2 gap-6 mb-10 max-w-4xl mx-auto">
+                {eventTypes.slice(0, 2).map((event, index) => (
+                  <Card key={index} className="bg-white shadow-lg">
+                    <CardContent className="p-6">
+                      <h4 className="font-bold text-lg mb-2">{event.title}</h4>
+                      <p className="text-base text-gray-600 mb-3">{event.description}</p>
+                      <ul className="space-y-2">
+                        {event.features.slice(0, 2).map((feature, idx) => (
+                          <li key={idx} className="text-base text-blue-600 flex items-center gap-2">
+                            <CheckCircle2 className="h-4 w-4 flex-shrink-0" />
+                            {feature}
+                          </li>
+                        ))}
+                      </ul>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
 
-                  <Link href="/client-entertainment">
-                    <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white font-bold" data-testid="button-client-entertainment">
-                      <Handshake className="mr-2 h-5 w-5" />
-                      Learn About Client Entertainment
-                    </Button>
-                  </Link>
-                </div>
-                
-                <div className="relative">
-                  <div className="aspect-square rounded-2xl overflow-hidden shadow-2xl">
-                    <img 
-                      src={sectionImage1}
-                      alt="Finance team building Lake Travis professional corporate event Austin executives networking"
-                      className="w-full h-full object-cover"
-                      data-testid="image-client-appreciation"
-                    />
-                  </div>
-                  <div className="absolute -bottom-6 -left-6 bg-white rounded-xl shadow-lg p-4">
-                    <div className="flex items-center gap-2">
-                      <Handshake className="h-8 w-8 text-blue-500" />
-                      <div>
-                        <p className="font-bold text-sm">Client-Focused</p>
-                        <p className="text-xs text-gray-500">VIP Treatment</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+              <div className="text-center">
+                <Link href="/client-entertainment">
+                  <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white font-bold" data-testid="button-client-entertainment">
+                    <Handshake className="mr-2 h-5 w-5" />
+                    Learn About Client Entertainment
+                  </Button>
+                </Link>
               </div>
             </motion.div>
           </div>
@@ -387,54 +381,57 @@ export default function FinanceLawFirmsBoatParties() {
               viewport={{ once: true }}
               variants={fadeInUp}
             >
-              <div className="grid lg:grid-cols-2 gap-12 items-center">
-                <div className="order-2 lg:order-1">
-                  <div className="aspect-video rounded-2xl overflow-hidden shadow-2xl">
-                    <img 
-                      src={sectionImage2}
-                      alt="Law firm party Austin attorney client entertainment boat private charter professional"
-                      className="w-full h-full object-cover"
-                      data-testid="image-partner-retreat"
-                    />
-                  </div>
+              {/* Text content at top */}
+              <div className="mb-10">
+                <Badge className="mb-4 bg-yellow-400 text-black">PARTNER RETREATS & TEAM BONDING</Badge>
+                <h2 className="text-3xl font-bold mb-6" data-testid="section-title-retreat">Attorney & Associate Team Building That Actually Works</h2>
+                <p className="text-lg text-white/90 mb-6 leading-relaxed max-w-4xl">
+                  Traditional law firm party Austin events often feel forced. Our boat charters create natural opportunities for partners, associates, and staff to connect authentically. The professional corporate event Austin atmosphere encourages conversation without the pressure of a formal dinner.
+                </p>
+                <p className="text-lg text-white/90 mb-8 leading-relaxed max-w-4xl">
+                  For finance team building Lake Travis events, the change of scenery breaks down barriers between departments. Traders, analysts, and managers interact as equals on the water, building bonds that translate back to the office.
+                </p>
+              </div>
+
+              {/* Image centered */}
+              <div className="mb-10">
+                <div className="max-w-4xl mx-auto aspect-video rounded-2xl overflow-hidden shadow-2xl">
+                  <img 
+                    src={sectionImage2}
+                    alt="Law firm party Austin attorney client entertainment boat private charter professional"
+                    className="w-full h-full object-cover"
+                    data-testid="image-partner-retreat"
+                  />
                 </div>
-                
-                <div className="order-1 lg:order-2">
-                  <Badge className="mb-4 bg-yellow-400 text-black">PARTNER RETREATS & TEAM BONDING</Badge>
-                  <h2 className="text-3xl font-bold mb-6" data-testid="section-title-retreat">Attorney & Associate Team Building That Actually Works</h2>
-                  <p className="text-lg text-white/90 mb-6 leading-relaxed">
-                    Traditional law firm party Austin events often feel forced. Our boat charters create natural opportunities for partners, associates, and staff to connect authentically. The professional corporate event Austin atmosphere encourages conversation without the pressure of a formal dinner.
-                  </p>
-                  <p className="text-lg text-white/90 mb-8 leading-relaxed">
-                    For finance team building Lake Travis events, the change of scenery breaks down barriers between departments. Traders, analysts, and managers interact as equals on the water, building bonds that translate back to the office.
-                  </p>
-                  
-                  <div className="grid sm:grid-cols-2 gap-4 mb-8">
-                    {eventTypes.slice(2, 4).map((event, index) => (
-                      <Card key={index} className="bg-white/10 border-white/20">
-                        <CardContent className="p-4">
-                          <h4 className="font-bold text-white text-sm mb-1">{event.title}</h4>
-                          <p className="text-xs text-white/70 mb-2">{event.description}</p>
-                          <ul className="space-y-1">
-                            {event.features.slice(0, 2).map((feature, idx) => (
-                              <li key={idx} className="text-xs text-yellow-400 flex items-center gap-1">
-                                <CheckCircle2 className="h-3 w-3" />
-                                {feature}
-                              </li>
-                            ))}
-                          </ul>
-                        </CardContent>
-                      </Card>
-                    ))}
-                  </div>
-                  
-                  <Link href="/team-building">
-                    <Button size="lg" className="bg-yellow-400 hover:bg-yellow-300 text-black font-bold" data-testid="button-team-building">
-                      <Users className="mr-2 h-5 w-5" />
-                      Explore Team Building Options
-                    </Button>
-                  </Link>
-                </div>
+              </div>
+              
+              {/* Info cards below image - larger text */}
+              <div className="grid sm:grid-cols-2 gap-6 mb-10 max-w-4xl mx-auto">
+                {eventTypes.slice(2, 4).map((event, index) => (
+                  <Card key={index} className="bg-white/10 border-white/20">
+                    <CardContent className="p-6">
+                      <h4 className="font-bold text-white text-lg mb-2">{event.title}</h4>
+                      <p className="text-base text-white/80 mb-3">{event.description}</p>
+                      <ul className="space-y-2">
+                        {event.features.slice(0, 2).map((feature, idx) => (
+                          <li key={idx} className="text-base text-yellow-400 flex items-center gap-2">
+                            <CheckCircle2 className="h-4 w-4 flex-shrink-0" />
+                            {feature}
+                          </li>
+                        ))}
+                      </ul>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+              
+              <div className="text-center">
+                <Link href="/team-building">
+                  <Button size="lg" className="bg-yellow-400 hover:bg-yellow-300 text-black font-bold" data-testid="button-team-building">
+                    <Users className="mr-2 h-5 w-5" />
+                    Explore Team Building Options
+                  </Button>
+                </Link>
               </div>
             </motion.div>
           </div>
@@ -467,15 +464,15 @@ export default function FinanceLawFirmsBoatParties() {
                 >
                   <Card className="h-full hover:shadow-lg transition-shadow border-2 hover:border-blue-200" data-testid={`industry-card-${index}`}>
                     <CardContent className="pt-6">
-                      <div className="w-12 h-12 mx-auto mb-4 bg-blue-100 rounded-full flex items-center justify-center">
-                        <industry.icon className="h-6 w-6 text-blue-600" />
+                      <div className="w-14 h-14 mx-auto mb-4 bg-blue-100 rounded-full flex items-center justify-center">
+                        <industry.icon className="h-7 w-7 text-blue-600" />
                       </div>
-                      <h3 className="font-bold text-lg mb-2 text-center">{industry.title}</h3>
-                      <p className="text-gray-600 dark:text-gray-400 text-sm mb-4 text-center">{industry.description}</p>
-                      <ul className="space-y-1">
+                      <h3 className="font-bold text-xl mb-3 text-center">{industry.title}</h3>
+                      <p className="text-gray-600 dark:text-gray-400 text-base mb-4 text-center">{industry.description}</p>
+                      <ul className="space-y-2">
                         {industry.benefits.map((benefit, idx) => (
-                          <li key={idx} className="text-xs text-gray-600 flex items-center gap-1">
-                            <CheckCircle2 className="h-3 w-3 text-green-500" />
+                          <li key={idx} className="text-sm text-gray-600 flex items-center gap-2">
+                            <CheckCircle2 className="h-4 w-4 text-green-500 flex-shrink-0" />
                             {benefit}
                           </li>
                         ))}
