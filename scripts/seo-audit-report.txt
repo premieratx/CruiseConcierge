@@ -7,24 +7,256 @@
 EXECUTIVE SUMMARY
 ─────────────────────────────────────────────────────────────
 Total URLs Tested:        133
-✓ Passed All Checks:      101
-✗ Failed One or More:     32
-Overall SEO Health Score: 76%
+✓ Passed All Checks:      78
+✗ Failed One or More:     55
+Overall SEO Health Score: 59%
 
-⚠ STATUS: GOOD - Several issues need attention
+✗ STATUS: NEEDS IMPROVEMENT - Critical SEO issues detected
 
 ISSUES BREAKDOWN
 ─────────────────────────────────────────────────────────────
 
-🟡 MISSING CANONICAL URLs (1)
+🔴 BROKEN LINKS (31)
+   Priority: CRITICAL - These pages return non-200 status codes
+   - https://premierpartycruises.com/blogs/austin-party-venue-alcohol-delivery-navigating-policies-and-logistics
+   - https://premierpartycruises.com/blogs/austin-wedding-venue-alcohol-policies-delivery-solutions-for-every-location
+   - https://premierpartycruises.com/blogs/bachelorette-party-alcohol-emergency-kit-last-minute-delivery-solutions
+   - https://premierpartycruises.com/blogs/birthday-party-alcohol-delivery-austin-milestone-celebrations-made-easy
+   - https://premierpartycruises.com/blogs/birthday-party-boat-rentals-on-lake-travis-milestone-celebrations-with-a-view
+   - https://premierpartycruises.com/blogs/budget-friendly-bachelorette-party-alcohol-maximum-fun-without-breaking-the-bank
+   - https://premierpartycruises.com/blogs/client-entertainment-alcohol-strategy-impressing-without-overdoing-it
+   - https://premierpartycruises.com/blogs/cocktail-kits-vs-individual-bottles-the-smart-bachelorette-party-alcohol-strategy
+   - https://premierpartycruises.com/blogs/conference-after-party-alcohol-coordination-sxsw-acl-and-austin-event-integration
+   - https://premierpartycruises.com/blogs/corporate-team-building-on-lake-travis-alcohol-coordination-for-professional-events
+   - https://premierpartycruises.com/blogs/corporate-team-building-on-lake-travis-professional-boat-rental-solutions
+   - https://premierpartycruises.com/blogs/creative-lake-travis-boat-party-themes-unique-ideas-for-memorable-celebrations
+   - https://premierpartycruises.com/blogs/disco-cruise-fashion-part-1
+   - https://premierpartycruises.com/blogs/executive-retreat-alcohol-planning-balancing-professionalism-and-team-bonding
+   - https://premierpartycruises.com/blogs/graduation-party-alcohol-planning-ut-and-austin-college-celebrations
+   - https://premierpartycruises.com/blogs/hello-world
+   - https://premierpartycruises.com/blogs/holiday-celebrations-on-lake-travis-seasonal-boat-party-planning-and-coordination
+   - https://premierpartycruises.com/blogs/holiday-office-party-alcohol-delivery-stress-free-corporate-celebration-planning
+   - https://premierpartycruises.com/blogs/holiday-party-alcohol-themes-new-years-fourth-of-july-and-austin-celebrations
+   - https://premierpartycruises.com/blogs/how-to-throw-great-bachelor-party-austin
+   - https://premierpartycruises.com/blogs/how-to-throw-great-bachelorette-party-austin
+   - https://premierpartycruises.com/blogs/instagram-worthy-bachelorette-party-cocktails-recipes-and-delivery-coordination
+   - https://premierpartycruises.com/blogs/joint-bachelor-bachelorette-parties-with-premier-party-cruises
+   - https://premierpartycruises.com/blogs/lake-travis-bachelor-party-alcohol-delivery-complete-coordination-guide-for-boat-parties
+   - https://premierpartycruises.com/blogs/lake-travis-bachelorette-party-alcohol-laws-what-you-can-and-cant-bring-on-boats
+   - https://premierpartycruises.com/blogs/lake-travis-boat-party-catering-food-and-beverage-coordination-for-perfect-events
+   - https://premierpartycruises.com/blogs/lake-travis-boat-party-costs-complete-pricing-guide-and-budget-planning
+   - https://premierpartycruises.com/blogs/lake-travis-boat-party-entertainment-activities-and-amenities-for-unforgettable-events
+   - https://premierpartycruises.com/blogs/lake-travis-boat-party-insurance-understanding-coverage-and-liability-for-events
+   - https://premierpartycruises.com/blogs/lake-travis-boat-party-logistics-complete-planning-and-coordination-guide
+   - https://premierpartycruises.com/blogs/lake-travis-boat-party-music-sound-systems-and-entertainment-coordination
+
+🔴 NO SSR CONTENT (31)
+   Priority: CRITICAL - Pages lack server-side rendered content
+   - https://premierpartycruises.com/blogs/austin-party-venue-alcohol-delivery-navigating-policies-and-logistics
+   - https://premierpartycruises.com/blogs/austin-wedding-venue-alcohol-policies-delivery-solutions-for-every-location
+   - https://premierpartycruises.com/blogs/bachelorette-party-alcohol-emergency-kit-last-minute-delivery-solutions
+   - https://premierpartycruises.com/blogs/birthday-party-alcohol-delivery-austin-milestone-celebrations-made-easy
+   - https://premierpartycruises.com/blogs/birthday-party-boat-rentals-on-lake-travis-milestone-celebrations-with-a-view
+   - https://premierpartycruises.com/blogs/budget-friendly-bachelorette-party-alcohol-maximum-fun-without-breaking-the-bank
+   - https://premierpartycruises.com/blogs/client-entertainment-alcohol-strategy-impressing-without-overdoing-it
+   - https://premierpartycruises.com/blogs/cocktail-kits-vs-individual-bottles-the-smart-bachelorette-party-alcohol-strategy
+   - https://premierpartycruises.com/blogs/conference-after-party-alcohol-coordination-sxsw-acl-and-austin-event-integration
+   - https://premierpartycruises.com/blogs/corporate-team-building-on-lake-travis-alcohol-coordination-for-professional-events
+   - https://premierpartycruises.com/blogs/corporate-team-building-on-lake-travis-professional-boat-rental-solutions
+   - https://premierpartycruises.com/blogs/creative-lake-travis-boat-party-themes-unique-ideas-for-memorable-celebrations
+   - https://premierpartycruises.com/blogs/disco-cruise-fashion-part-1
+   - https://premierpartycruises.com/blogs/executive-retreat-alcohol-planning-balancing-professionalism-and-team-bonding
+   - https://premierpartycruises.com/blogs/graduation-party-alcohol-planning-ut-and-austin-college-celebrations
+   - https://premierpartycruises.com/blogs/hello-world
+   - https://premierpartycruises.com/blogs/holiday-celebrations-on-lake-travis-seasonal-boat-party-planning-and-coordination
+   - https://premierpartycruises.com/blogs/holiday-office-party-alcohol-delivery-stress-free-corporate-celebration-planning
+   - https://premierpartycruises.com/blogs/holiday-party-alcohol-themes-new-years-fourth-of-july-and-austin-celebrations
+   - https://premierpartycruises.com/blogs/how-to-throw-great-bachelor-party-austin
+   - https://premierpartycruises.com/blogs/how-to-throw-great-bachelorette-party-austin
+   - https://premierpartycruises.com/blogs/instagram-worthy-bachelorette-party-cocktails-recipes-and-delivery-coordination
+   - https://premierpartycruises.com/blogs/joint-bachelor-bachelorette-parties-with-premier-party-cruises
+   - https://premierpartycruises.com/blogs/lake-travis-bachelor-party-alcohol-delivery-complete-coordination-guide-for-boat-parties
+   - https://premierpartycruises.com/blogs/lake-travis-bachelorette-party-alcohol-laws-what-you-can-and-cant-bring-on-boats
+   - https://premierpartycruises.com/blogs/lake-travis-boat-party-catering-food-and-beverage-coordination-for-perfect-events
+   - https://premierpartycruises.com/blogs/lake-travis-boat-party-costs-complete-pricing-guide-and-budget-planning
+   - https://premierpartycruises.com/blogs/lake-travis-boat-party-entertainment-activities-and-amenities-for-unforgettable-events
+   - https://premierpartycruises.com/blogs/lake-travis-boat-party-insurance-understanding-coverage-and-liability-for-events
+   - https://premierpartycruises.com/blogs/lake-travis-boat-party-logistics-complete-planning-and-coordination-guide
+   - https://premierpartycruises.com/blogs/lake-travis-boat-party-music-sound-systems-and-entertainment-coordination
+
+🟡 MISSING/POOR TITLES (31)
+   Priority: HIGH - Title tags missing or non-descriptive
+   - https://premierpartycruises.com/blogs/austin-party-venue-alcohol-delivery-navigating-policies-and-logistics
+   - https://premierpartycruises.com/blogs/austin-wedding-venue-alcohol-policies-delivery-solutions-for-every-location
+   - https://premierpartycruises.com/blogs/bachelorette-party-alcohol-emergency-kit-last-minute-delivery-solutions
+   - https://premierpartycruises.com/blogs/birthday-party-alcohol-delivery-austin-milestone-celebrations-made-easy
+   - https://premierpartycruises.com/blogs/birthday-party-boat-rentals-on-lake-travis-milestone-celebrations-with-a-view
+   - https://premierpartycruises.com/blogs/budget-friendly-bachelorette-party-alcohol-maximum-fun-without-breaking-the-bank
+   - https://premierpartycruises.com/blogs/client-entertainment-alcohol-strategy-impressing-without-overdoing-it
+   - https://premierpartycruises.com/blogs/cocktail-kits-vs-individual-bottles-the-smart-bachelorette-party-alcohol-strategy
+   - https://premierpartycruises.com/blogs/conference-after-party-alcohol-coordination-sxsw-acl-and-austin-event-integration
+   - https://premierpartycruises.com/blogs/corporate-team-building-on-lake-travis-alcohol-coordination-for-professional-events
+   - https://premierpartycruises.com/blogs/corporate-team-building-on-lake-travis-professional-boat-rental-solutions
+   - https://premierpartycruises.com/blogs/creative-lake-travis-boat-party-themes-unique-ideas-for-memorable-celebrations
+   - https://premierpartycruises.com/blogs/disco-cruise-fashion-part-1
+   - https://premierpartycruises.com/blogs/executive-retreat-alcohol-planning-balancing-professionalism-and-team-bonding
+   - https://premierpartycruises.com/blogs/graduation-party-alcohol-planning-ut-and-austin-college-celebrations
+   - https://premierpartycruises.com/blogs/hello-world
+   - https://premierpartycruises.com/blogs/holiday-celebrations-on-lake-travis-seasonal-boat-party-planning-and-coordination
+   - https://premierpartycruises.com/blogs/holiday-office-party-alcohol-delivery-stress-free-corporate-celebration-planning
+   - https://premierpartycruises.com/blogs/holiday-party-alcohol-themes-new-years-fourth-of-july-and-austin-celebrations
+   - https://premierpartycruises.com/blogs/how-to-throw-great-bachelor-party-austin
+   - https://premierpartycruises.com/blogs/how-to-throw-great-bachelorette-party-austin
+   - https://premierpartycruises.com/blogs/instagram-worthy-bachelorette-party-cocktails-recipes-and-delivery-coordination
+   - https://premierpartycruises.com/blogs/joint-bachelor-bachelorette-parties-with-premier-party-cruises
+   - https://premierpartycruises.com/blogs/lake-travis-bachelor-party-alcohol-delivery-complete-coordination-guide-for-boat-parties
+   - https://premierpartycruises.com/blogs/lake-travis-bachelorette-party-alcohol-laws-what-you-can-and-cant-bring-on-boats
+   - https://premierpartycruises.com/blogs/lake-travis-boat-party-catering-food-and-beverage-coordination-for-perfect-events
+   - https://premierpartycruises.com/blogs/lake-travis-boat-party-costs-complete-pricing-guide-and-budget-planning
+   - https://premierpartycruises.com/blogs/lake-travis-boat-party-entertainment-activities-and-amenities-for-unforgettable-events
+   - https://premierpartycruises.com/blogs/lake-travis-boat-party-insurance-understanding-coverage-and-liability-for-events
+   - https://premierpartycruises.com/blogs/lake-travis-boat-party-logistics-complete-planning-and-coordination-guide
+   - https://premierpartycruises.com/blogs/lake-travis-boat-party-music-sound-systems-and-entertainment-coordination
+
+🟡 MISSING META DESCRIPTIONS (31)
+   Priority: HIGH - Meta descriptions missing
+   - https://premierpartycruises.com/blogs/austin-party-venue-alcohol-delivery-navigating-policies-and-logistics
+   - https://premierpartycruises.com/blogs/austin-wedding-venue-alcohol-policies-delivery-solutions-for-every-location
+   - https://premierpartycruises.com/blogs/bachelorette-party-alcohol-emergency-kit-last-minute-delivery-solutions
+   - https://premierpartycruises.com/blogs/birthday-party-alcohol-delivery-austin-milestone-celebrations-made-easy
+   - https://premierpartycruises.com/blogs/birthday-party-boat-rentals-on-lake-travis-milestone-celebrations-with-a-view
+   - https://premierpartycruises.com/blogs/budget-friendly-bachelorette-party-alcohol-maximum-fun-without-breaking-the-bank
+   - https://premierpartycruises.com/blogs/client-entertainment-alcohol-strategy-impressing-without-overdoing-it
+   - https://premierpartycruises.com/blogs/cocktail-kits-vs-individual-bottles-the-smart-bachelorette-party-alcohol-strategy
+   - https://premierpartycruises.com/blogs/conference-after-party-alcohol-coordination-sxsw-acl-and-austin-event-integration
+   - https://premierpartycruises.com/blogs/corporate-team-building-on-lake-travis-alcohol-coordination-for-professional-events
+   - https://premierpartycruises.com/blogs/corporate-team-building-on-lake-travis-professional-boat-rental-solutions
+   - https://premierpartycruises.com/blogs/creative-lake-travis-boat-party-themes-unique-ideas-for-memorable-celebrations
+   - https://premierpartycruises.com/blogs/disco-cruise-fashion-part-1
+   - https://premierpartycruises.com/blogs/executive-retreat-alcohol-planning-balancing-professionalism-and-team-bonding
+   - https://premierpartycruises.com/blogs/graduation-party-alcohol-planning-ut-and-austin-college-celebrations
+   - https://premierpartycruises.com/blogs/hello-world
+   - https://premierpartycruises.com/blogs/holiday-celebrations-on-lake-travis-seasonal-boat-party-planning-and-coordination
+   - https://premierpartycruises.com/blogs/holiday-office-party-alcohol-delivery-stress-free-corporate-celebration-planning
+   - https://premierpartycruises.com/blogs/holiday-party-alcohol-themes-new-years-fourth-of-july-and-austin-celebrations
+   - https://premierpartycruises.com/blogs/how-to-throw-great-bachelor-party-austin
+   - https://premierpartycruises.com/blogs/how-to-throw-great-bachelorette-party-austin
+   - https://premierpartycruises.com/blogs/instagram-worthy-bachelorette-party-cocktails-recipes-and-delivery-coordination
+   - https://premierpartycruises.com/blogs/joint-bachelor-bachelorette-parties-with-premier-party-cruises
+   - https://premierpartycruises.com/blogs/lake-travis-bachelor-party-alcohol-delivery-complete-coordination-guide-for-boat-parties
+   - https://premierpartycruises.com/blogs/lake-travis-bachelorette-party-alcohol-laws-what-you-can-and-cant-bring-on-boats
+   - https://premierpartycruises.com/blogs/lake-travis-boat-party-catering-food-and-beverage-coordination-for-perfect-events
+   - https://premierpartycruises.com/blogs/lake-travis-boat-party-costs-complete-pricing-guide-and-budget-planning
+   - https://premierpartycruises.com/blogs/lake-travis-boat-party-entertainment-activities-and-amenities-for-unforgettable-events
+   - https://premierpartycruises.com/blogs/lake-travis-boat-party-insurance-understanding-coverage-and-liability-for-events
+   - https://premierpartycruises.com/blogs/lake-travis-boat-party-logistics-complete-planning-and-coordination-guide
+   - https://premierpartycruises.com/blogs/lake-travis-boat-party-music-sound-systems-and-entertainment-coordination
+
+🟡 MISSING OPEN GRAPH TAGS (31)
+   Priority: MEDIUM - og:title or og:description missing
+   - https://premierpartycruises.com/blogs/austin-party-venue-alcohol-delivery-navigating-policies-and-logistics
+   - https://premierpartycruises.com/blogs/austin-wedding-venue-alcohol-policies-delivery-solutions-for-every-location
+   - https://premierpartycruises.com/blogs/bachelorette-party-alcohol-emergency-kit-last-minute-delivery-solutions
+   - https://premierpartycruises.com/blogs/birthday-party-alcohol-delivery-austin-milestone-celebrations-made-easy
+   - https://premierpartycruises.com/blogs/birthday-party-boat-rentals-on-lake-travis-milestone-celebrations-with-a-view
+   - https://premierpartycruises.com/blogs/budget-friendly-bachelorette-party-alcohol-maximum-fun-without-breaking-the-bank
+   - https://premierpartycruises.com/blogs/client-entertainment-alcohol-strategy-impressing-without-overdoing-it
+   - https://premierpartycruises.com/blogs/cocktail-kits-vs-individual-bottles-the-smart-bachelorette-party-alcohol-strategy
+   - https://premierpartycruises.com/blogs/conference-after-party-alcohol-coordination-sxsw-acl-and-austin-event-integration
+   - https://premierpartycruises.com/blogs/corporate-team-building-on-lake-travis-alcohol-coordination-for-professional-events
+   - https://premierpartycruises.com/blogs/corporate-team-building-on-lake-travis-professional-boat-rental-solutions
+   - https://premierpartycruises.com/blogs/creative-lake-travis-boat-party-themes-unique-ideas-for-memorable-celebrations
+   - https://premierpartycruises.com/blogs/disco-cruise-fashion-part-1
+   - https://premierpartycruises.com/blogs/executive-retreat-alcohol-planning-balancing-professionalism-and-team-bonding
+   - https://premierpartycruises.com/blogs/graduation-party-alcohol-planning-ut-and-austin-college-celebrations
+   - https://premierpartycruises.com/blogs/hello-world
+   - https://premierpartycruises.com/blogs/holiday-celebrations-on-lake-travis-seasonal-boat-party-planning-and-coordination
+   - https://premierpartycruises.com/blogs/holiday-office-party-alcohol-delivery-stress-free-corporate-celebration-planning
+   - https://premierpartycruises.com/blogs/holiday-party-alcohol-themes-new-years-fourth-of-july-and-austin-celebrations
+   - https://premierpartycruises.com/blogs/how-to-throw-great-bachelor-party-austin
+   - https://premierpartycruises.com/blogs/how-to-throw-great-bachelorette-party-austin
+   - https://premierpartycruises.com/blogs/instagram-worthy-bachelorette-party-cocktails-recipes-and-delivery-coordination
+   - https://premierpartycruises.com/blogs/joint-bachelor-bachelorette-parties-with-premier-party-cruises
+   - https://premierpartycruises.com/blogs/lake-travis-bachelor-party-alcohol-delivery-complete-coordination-guide-for-boat-parties
+   - https://premierpartycruises.com/blogs/lake-travis-bachelorette-party-alcohol-laws-what-you-can-and-cant-bring-on-boats
+   - https://premierpartycruises.com/blogs/lake-travis-boat-party-catering-food-and-beverage-coordination-for-perfect-events
+   - https://premierpartycruises.com/blogs/lake-travis-boat-party-costs-complete-pricing-guide-and-budget-planning
+   - https://premierpartycruises.com/blogs/lake-travis-boat-party-entertainment-activities-and-amenities-for-unforgettable-events
+   - https://premierpartycruises.com/blogs/lake-travis-boat-party-insurance-understanding-coverage-and-liability-for-events
+   - https://premierpartycruises.com/blogs/lake-travis-boat-party-logistics-complete-planning-and-coordination-guide
+   - https://premierpartycruises.com/blogs/lake-travis-boat-party-music-sound-systems-and-entertainment-coordination
+
+🟡 MISSING CANONICAL URLs (32)
    Priority: MEDIUM - Canonical link tags missing
    - https://premierpartycruises.com/austin-bachelor-party-ideas
+   - https://premierpartycruises.com/blogs/austin-party-venue-alcohol-delivery-navigating-policies-and-logistics
+   - https://premierpartycruises.com/blogs/austin-wedding-venue-alcohol-policies-delivery-solutions-for-every-location
+   - https://premierpartycruises.com/blogs/bachelorette-party-alcohol-emergency-kit-last-minute-delivery-solutions
+   - https://premierpartycruises.com/blogs/birthday-party-alcohol-delivery-austin-milestone-celebrations-made-easy
+   - https://premierpartycruises.com/blogs/birthday-party-boat-rentals-on-lake-travis-milestone-celebrations-with-a-view
+   - https://premierpartycruises.com/blogs/budget-friendly-bachelorette-party-alcohol-maximum-fun-without-breaking-the-bank
+   - https://premierpartycruises.com/blogs/client-entertainment-alcohol-strategy-impressing-without-overdoing-it
+   - https://premierpartycruises.com/blogs/cocktail-kits-vs-individual-bottles-the-smart-bachelorette-party-alcohol-strategy
+   - https://premierpartycruises.com/blogs/conference-after-party-alcohol-coordination-sxsw-acl-and-austin-event-integration
+   - https://premierpartycruises.com/blogs/corporate-team-building-on-lake-travis-alcohol-coordination-for-professional-events
+   - https://premierpartycruises.com/blogs/corporate-team-building-on-lake-travis-professional-boat-rental-solutions
+   - https://premierpartycruises.com/blogs/creative-lake-travis-boat-party-themes-unique-ideas-for-memorable-celebrations
+   - https://premierpartycruises.com/blogs/disco-cruise-fashion-part-1
+   - https://premierpartycruises.com/blogs/executive-retreat-alcohol-planning-balancing-professionalism-and-team-bonding
+   - https://premierpartycruises.com/blogs/graduation-party-alcohol-planning-ut-and-austin-college-celebrations
+   - https://premierpartycruises.com/blogs/hello-world
+   - https://premierpartycruises.com/blogs/holiday-celebrations-on-lake-travis-seasonal-boat-party-planning-and-coordination
+   - https://premierpartycruises.com/blogs/holiday-office-party-alcohol-delivery-stress-free-corporate-celebration-planning
+   - https://premierpartycruises.com/blogs/holiday-party-alcohol-themes-new-years-fourth-of-july-and-austin-celebrations
+   - https://premierpartycruises.com/blogs/how-to-throw-great-bachelor-party-austin
+   - https://premierpartycruises.com/blogs/how-to-throw-great-bachelorette-party-austin
+   - https://premierpartycruises.com/blogs/instagram-worthy-bachelorette-party-cocktails-recipes-and-delivery-coordination
+   - https://premierpartycruises.com/blogs/joint-bachelor-bachelorette-parties-with-premier-party-cruises
+   - https://premierpartycruises.com/blogs/lake-travis-bachelor-party-alcohol-delivery-complete-coordination-guide-for-boat-parties
+   - https://premierpartycruises.com/blogs/lake-travis-bachelorette-party-alcohol-laws-what-you-can-and-cant-bring-on-boats
+   - https://premierpartycruises.com/blogs/lake-travis-boat-party-catering-food-and-beverage-coordination-for-perfect-events
+   - https://premierpartycruises.com/blogs/lake-travis-boat-party-costs-complete-pricing-guide-and-budget-planning
+   - https://premierpartycruises.com/blogs/lake-travis-boat-party-entertainment-activities-and-amenities-for-unforgettable-events
+   - https://premierpartycruises.com/blogs/lake-travis-boat-party-insurance-understanding-coverage-and-liability-for-events
+   - https://premierpartycruises.com/blogs/lake-travis-boat-party-logistics-complete-planning-and-coordination-guide
+   - https://premierpartycruises.com/blogs/lake-travis-boat-party-music-sound-systems-and-entertainment-coordination
 
-🟡 MISSING STRUCTURED DATA (1)
+🟡 MISSING STRUCTURED DATA (32)
    Priority: MEDIUM - JSON-LD structured data missing
    - https://premierpartycruises.com/austin-bachelor-party-ideas
+   - https://premierpartycruises.com/blogs/austin-party-venue-alcohol-delivery-navigating-policies-and-logistics
+   - https://premierpartycruises.com/blogs/austin-wedding-venue-alcohol-policies-delivery-solutions-for-every-location
+   - https://premierpartycruises.com/blogs/bachelorette-party-alcohol-emergency-kit-last-minute-delivery-solutions
+   - https://premierpartycruises.com/blogs/birthday-party-alcohol-delivery-austin-milestone-celebrations-made-easy
+   - https://premierpartycruises.com/blogs/birthday-party-boat-rentals-on-lake-travis-milestone-celebrations-with-a-view
+   - https://premierpartycruises.com/blogs/budget-friendly-bachelorette-party-alcohol-maximum-fun-without-breaking-the-bank
+   - https://premierpartycruises.com/blogs/client-entertainment-alcohol-strategy-impressing-without-overdoing-it
+   - https://premierpartycruises.com/blogs/cocktail-kits-vs-individual-bottles-the-smart-bachelorette-party-alcohol-strategy
+   - https://premierpartycruises.com/blogs/conference-after-party-alcohol-coordination-sxsw-acl-and-austin-event-integration
+   - https://premierpartycruises.com/blogs/corporate-team-building-on-lake-travis-alcohol-coordination-for-professional-events
+   - https://premierpartycruises.com/blogs/corporate-team-building-on-lake-travis-professional-boat-rental-solutions
+   - https://premierpartycruises.com/blogs/creative-lake-travis-boat-party-themes-unique-ideas-for-memorable-celebrations
+   - https://premierpartycruises.com/blogs/disco-cruise-fashion-part-1
+   - https://premierpartycruises.com/blogs/executive-retreat-alcohol-planning-balancing-professionalism-and-team-bonding
+   - https://premierpartycruises.com/blogs/graduation-party-alcohol-planning-ut-and-austin-college-celebrations
+   - https://premierpartycruises.com/blogs/hello-world
+   - https://premierpartycruises.com/blogs/holiday-celebrations-on-lake-travis-seasonal-boat-party-planning-and-coordination
+   - https://premierpartycruises.com/blogs/holiday-office-party-alcohol-delivery-stress-free-corporate-celebration-planning
+   - https://premierpartycruises.com/blogs/holiday-party-alcohol-themes-new-years-fourth-of-july-and-austin-celebrations
+   - https://premierpartycruises.com/blogs/how-to-throw-great-bachelor-party-austin
+   - https://premierpartycruises.com/blogs/how-to-throw-great-bachelorette-party-austin
+   - https://premierpartycruises.com/blogs/instagram-worthy-bachelorette-party-cocktails-recipes-and-delivery-coordination
+   - https://premierpartycruises.com/blogs/joint-bachelor-bachelorette-parties-with-premier-party-cruises
+   - https://premierpartycruises.com/blogs/lake-travis-bachelor-party-alcohol-delivery-complete-coordination-guide-for-boat-parties
+   - https://premierpartycruises.com/blogs/lake-travis-bachelorette-party-alcohol-laws-what-you-can-and-cant-bring-on-boats
+   - https://premierpartycruises.com/blogs/lake-travis-boat-party-catering-food-and-beverage-coordination-for-perfect-events
+   - https://premierpartycruises.com/blogs/lake-travis-boat-party-costs-complete-pricing-guide-and-budget-planning
+   - https://premierpartycruises.com/blogs/lake-travis-boat-party-entertainment-activities-and-amenities-for-unforgettable-events
+   - https://premierpartycruises.com/blogs/lake-travis-boat-party-insurance-understanding-coverage-and-liability-for-events
+   - https://premierpartycruises.com/blogs/lake-travis-boat-party-logistics-complete-planning-and-coordination-guide
+   - https://premierpartycruises.com/blogs/lake-travis-boat-party-music-sound-systems-and-entertainment-coordination
 
-🟡 INSUFFICIENT CONTENT (32)
+🟡 INSUFFICIENT CONTENT (55)
    Priority: MEDIUM - Pages have < 500 chars of text content
    - https://premierpartycruises.com/austin-bachelor-party-ideas
    - https://premierpartycruises.com/blogs/all-inclusive-corporate-packages
@@ -43,13 +275,36 @@ ISSUES BREAKDOWN
    - https://premierpartycruises.com/blogs/atx-disco-cruise-experience
    - https://premierpartycruises.com/blogs/austin-bachelorette-bliss-spa-retreats-disco-cruises-alcohol-delivery
    - https://premierpartycruises.com/blogs/austin-party-venue-alcohol-delivery-navigating-policies-and-logistics
+   - https://premierpartycruises.com/blogs/austin-wedding-venue-alcohol-policies-delivery-solutions-for-every-location
+   - https://premierpartycruises.com/blogs/bachelorette-party-alcohol-emergency-kit-last-minute-delivery-solutions
    - https://premierpartycruises.com/blogs/birthday-party-alcohol-delivery-austin-milestone-celebrations-made-easy
    - https://premierpartycruises.com/blogs/birthday-party-boat-rentals-on-lake-travis-milestone-celebrations-with-a-view
+   - https://premierpartycruises.com/blogs/budget-friendly-bachelorette-party-alcohol-maximum-fun-without-breaking-the-bank
+   - https://premierpartycruises.com/blogs/client-entertainment-alcohol-strategy-impressing-without-overdoing-it
+   - https://premierpartycruises.com/blogs/cocktail-kits-vs-individual-bottles-the-smart-bachelorette-party-alcohol-strategy
+   - https://premierpartycruises.com/blogs/conference-after-party-alcohol-coordination-sxsw-acl-and-austin-event-integration
+   - https://premierpartycruises.com/blogs/corporate-team-building-on-lake-travis-alcohol-coordination-for-professional-events
    - https://premierpartycruises.com/blogs/corporate-team-building-on-lake-travis-professional-boat-rental-solutions
+   - https://premierpartycruises.com/blogs/creative-lake-travis-boat-party-themes-unique-ideas-for-memorable-celebrations
+   - https://premierpartycruises.com/blogs/disco-cruise-fashion-part-1
+   - https://premierpartycruises.com/blogs/executive-retreat-alcohol-planning-balancing-professionalism-and-team-bonding
    - https://premierpartycruises.com/blogs/graduation-party-alcohol-planning-ut-and-austin-college-celebrations
+   - https://premierpartycruises.com/blogs/hello-world
    - https://premierpartycruises.com/blogs/holiday-celebrations-on-lake-travis-seasonal-boat-party-planning-and-coordination
+   - https://premierpartycruises.com/blogs/holiday-office-party-alcohol-delivery-stress-free-corporate-celebration-planning
+   - https://premierpartycruises.com/blogs/holiday-party-alcohol-themes-new-years-fourth-of-july-and-austin-celebrations
+   - https://premierpartycruises.com/blogs/how-to-throw-great-bachelor-party-austin
+   - https://premierpartycruises.com/blogs/how-to-throw-great-bachelorette-party-austin
+   - https://premierpartycruises.com/blogs/instagram-worthy-bachelorette-party-cocktails-recipes-and-delivery-coordination
    - https://premierpartycruises.com/blogs/joint-bachelor-bachelorette-parties-with-premier-party-cruises
+   - https://premierpartycruises.com/blogs/lake-travis-bachelor-party-alcohol-delivery-complete-coordination-guide-for-boat-parties
+   - https://premierpartycruises.com/blogs/lake-travis-bachelorette-party-alcohol-laws-what-you-can-and-cant-bring-on-boats
+   - https://premierpartycruises.com/blogs/lake-travis-boat-party-catering-food-and-beverage-coordination-for-perfect-events
+   - https://premierpartycruises.com/blogs/lake-travis-boat-party-costs-complete-pricing-guide-and-budget-planning
+   - https://premierpartycruises.com/blogs/lake-travis-boat-party-entertainment-activities-and-amenities-for-unforgettable-events
+   - https://premierpartycruises.com/blogs/lake-travis-boat-party-insurance-understanding-coverage-and-liability-for-events
    - https://premierpartycruises.com/blogs/lake-travis-boat-party-logistics-complete-planning-and-coordination-guide
+   - https://premierpartycruises.com/blogs/lake-travis-boat-party-music-sound-systems-and-entertainment-coordination
    - https://premierpartycruises.com/blogs/lake-travis-boat-party-regulations-legal-requirements-and-compliance-guide
    - https://premierpartycruises.com/blogs/lake-travis-boat-safety-and-maintenance-quality-standards-for-party-cruises
    - https://premierpartycruises.com/blogs/lake-travis-party-boat-rentals-ultimate-guide-for-large-group-events-20-guests
@@ -426,169 +681,468 @@ DETAILED URL RESULTS
 
 [77/133] ✗ FAIL: https://premierpartycruises.com/blogs/austin-party-venue-alcohol-delivery-navigating-policies-and-logistics
    Checks:
-      HTTP 200:           ✓
-      SSR Content:        ✓
-      Title Tag:          ✓
-      Title Descriptive:  ✓
-      Meta Description:   ✓
-      OG Title:           ✓
-      OG Description:     ✓
-      Canonical URL:      ✓
-      JSON-LD Schema:     ✓
-      Body Content:       ✗ (194 chars)
+      HTTP 200:           ✗
+      SSR Content:        ✗
+      Title Tag:          ✗
+      Title Descriptive:  ✗
+      Meta Description:   ✗
+      OG Title:           ✗
+      OG Description:     ✗
+      Canonical URL:      ✗
+      JSON-LD Schema:     ✗
+      Body Content:       ✗ (0 chars)
    Errors:
-      - Insufficient content: 194 chars (need 500+)
+      - Fetch error: fetch failed
 
-[78/133] ✓ PASS: https://premierpartycruises.com/blogs/austin-wedding-venue-alcohol-policies-delivery-solutions-for-every-location
+[78/133] ✗ FAIL: https://premierpartycruises.com/blogs/austin-wedding-venue-alcohol-policies-delivery-solutions-for-every-location
+   Checks:
+      HTTP 200:           ✗
+      SSR Content:        ✗
+      Title Tag:          ✗
+      Title Descriptive:  ✗
+      Meta Description:   ✗
+      OG Title:           ✗
+      OG Description:     ✗
+      Canonical URL:      ✗
+      JSON-LD Schema:     ✗
+      Body Content:       ✗ (0 chars)
+   Errors:
+      - Fetch error: fetch failed
 
-[79/133] ✓ PASS: https://premierpartycruises.com/blogs/bachelorette-party-alcohol-emergency-kit-last-minute-delivery-solutions
+[79/133] ✗ FAIL: https://premierpartycruises.com/blogs/bachelorette-party-alcohol-emergency-kit-last-minute-delivery-solutions
+   Checks:
+      HTTP 200:           ✗
+      SSR Content:        ✗
+      Title Tag:          ✗
+      Title Descriptive:  ✗
+      Meta Description:   ✗
+      OG Title:           ✗
+      OG Description:     ✗
+      Canonical URL:      ✗
+      JSON-LD Schema:     ✗
+      Body Content:       ✗ (0 chars)
+   Errors:
+      - Fetch error: fetch failed
 
 [80/133] ✗ FAIL: https://premierpartycruises.com/blogs/birthday-party-alcohol-delivery-austin-milestone-celebrations-made-easy
    Checks:
-      HTTP 200:           ✓
-      SSR Content:        ✓
-      Title Tag:          ✓
-      Title Descriptive:  ✓
-      Meta Description:   ✓
-      OG Title:           ✓
-      OG Description:     ✓
-      Canonical URL:      ✓
-      JSON-LD Schema:     ✓
-      Body Content:       ✗ (197 chars)
+      HTTP 200:           ✗
+      SSR Content:        ✗
+      Title Tag:          ✗
+      Title Descriptive:  ✗
+      Meta Description:   ✗
+      OG Title:           ✗
+      OG Description:     ✗
+      Canonical URL:      ✗
+      JSON-LD Schema:     ✗
+      Body Content:       ✗ (0 chars)
    Errors:
-      - Insufficient content: 197 chars (need 500+)
+      - Fetch error: fetch failed
 
 [81/133] ✗ FAIL: https://premierpartycruises.com/blogs/birthday-party-boat-rentals-on-lake-travis-milestone-celebrations-with-a-view
    Checks:
-      HTTP 200:           ✓
-      SSR Content:        ✓
-      Title Tag:          ✓
-      Title Descriptive:  ✓
-      Meta Description:   ✓
-      OG Title:           ✓
-      OG Description:     ✓
-      Canonical URL:      ✓
-      JSON-LD Schema:     ✓
-      Body Content:       ✗ (185 chars)
+      HTTP 200:           ✗
+      SSR Content:        ✗
+      Title Tag:          ✗
+      Title Descriptive:  ✗
+      Meta Description:   ✗
+      OG Title:           ✗
+      OG Description:     ✗
+      Canonical URL:      ✗
+      JSON-LD Schema:     ✗
+      Body Content:       ✗ (0 chars)
    Errors:
-      - Insufficient content: 185 chars (need 500+)
+      - Fetch error: fetch failed
 
-[82/133] ✓ PASS: https://premierpartycruises.com/blogs/budget-friendly-bachelorette-party-alcohol-maximum-fun-without-breaking-the-bank
+[82/133] ✗ FAIL: https://premierpartycruises.com/blogs/budget-friendly-bachelorette-party-alcohol-maximum-fun-without-breaking-the-bank
+   Checks:
+      HTTP 200:           ✗
+      SSR Content:        ✗
+      Title Tag:          ✗
+      Title Descriptive:  ✗
+      Meta Description:   ✗
+      OG Title:           ✗
+      OG Description:     ✗
+      Canonical URL:      ✗
+      JSON-LD Schema:     ✗
+      Body Content:       ✗ (0 chars)
+   Errors:
+      - Fetch error: fetch failed
 
-[83/133] ✓ PASS: https://premierpartycruises.com/blogs/client-entertainment-alcohol-strategy-impressing-without-overdoing-it
+[83/133] ✗ FAIL: https://premierpartycruises.com/blogs/client-entertainment-alcohol-strategy-impressing-without-overdoing-it
+   Checks:
+      HTTP 200:           ✗
+      SSR Content:        ✗
+      Title Tag:          ✗
+      Title Descriptive:  ✗
+      Meta Description:   ✗
+      OG Title:           ✗
+      OG Description:     ✗
+      Canonical URL:      ✗
+      JSON-LD Schema:     ✗
+      Body Content:       ✗ (0 chars)
+   Errors:
+      - Fetch error: fetch failed
 
-[84/133] ✓ PASS: https://premierpartycruises.com/blogs/cocktail-kits-vs-individual-bottles-the-smart-bachelorette-party-alcohol-strategy
+[84/133] ✗ FAIL: https://premierpartycruises.com/blogs/cocktail-kits-vs-individual-bottles-the-smart-bachelorette-party-alcohol-strategy
+   Checks:
+      HTTP 200:           ✗
+      SSR Content:        ✗
+      Title Tag:          ✗
+      Title Descriptive:  ✗
+      Meta Description:   ✗
+      OG Title:           ✗
+      OG Description:     ✗
+      Canonical URL:      ✗
+      JSON-LD Schema:     ✗
+      Body Content:       ✗ (0 chars)
+   Errors:
+      - Fetch error: fetch failed
 
-[85/133] ✓ PASS: https://premierpartycruises.com/blogs/conference-after-party-alcohol-coordination-sxsw-acl-and-austin-event-integration
+[85/133] ✗ FAIL: https://premierpartycruises.com/blogs/conference-after-party-alcohol-coordination-sxsw-acl-and-austin-event-integration
+   Checks:
+      HTTP 200:           ✗
+      SSR Content:        ✗
+      Title Tag:          ✗
+      Title Descriptive:  ✗
+      Meta Description:   ✗
+      OG Title:           ✗
+      OG Description:     ✗
+      Canonical URL:      ✗
+      JSON-LD Schema:     ✗
+      Body Content:       ✗ (0 chars)
+   Errors:
+      - Fetch error: fetch failed
 
-[86/133] ✓ PASS: https://premierpartycruises.com/blogs/corporate-team-building-on-lake-travis-alcohol-coordination-for-professional-events
+[86/133] ✗ FAIL: https://premierpartycruises.com/blogs/corporate-team-building-on-lake-travis-alcohol-coordination-for-professional-events
+   Checks:
+      HTTP 200:           ✗
+      SSR Content:        ✗
+      Title Tag:          ✗
+      Title Descriptive:  ✗
+      Meta Description:   ✗
+      OG Title:           ✗
+      OG Description:     ✗
+      Canonical URL:      ✗
+      JSON-LD Schema:     ✗
+      Body Content:       ✗ (0 chars)
+   Errors:
+      - Fetch error: fetch failed
 
 [87/133] ✗ FAIL: https://premierpartycruises.com/blogs/corporate-team-building-on-lake-travis-professional-boat-rental-solutions
    Checks:
-      HTTP 200:           ✓
-      SSR Content:        ✓
-      Title Tag:          ✓
-      Title Descriptive:  ✓
-      Meta Description:   ✓
-      OG Title:           ✓
-      OG Description:     ✓
-      Canonical URL:      ✓
-      JSON-LD Schema:     ✓
-      Body Content:       ✗ (196 chars)
+      HTTP 200:           ✗
+      SSR Content:        ✗
+      Title Tag:          ✗
+      Title Descriptive:  ✗
+      Meta Description:   ✗
+      OG Title:           ✗
+      OG Description:     ✗
+      Canonical URL:      ✗
+      JSON-LD Schema:     ✗
+      Body Content:       ✗ (0 chars)
    Errors:
-      - Insufficient content: 196 chars (need 500+)
+      - Fetch error: fetch failed
 
-[88/133] ✓ PASS: https://premierpartycruises.com/blogs/creative-lake-travis-boat-party-themes-unique-ideas-for-memorable-celebrations
+[88/133] ✗ FAIL: https://premierpartycruises.com/blogs/creative-lake-travis-boat-party-themes-unique-ideas-for-memorable-celebrations
+   Checks:
+      HTTP 200:           ✗
+      SSR Content:        ✗
+      Title Tag:          ✗
+      Title Descriptive:  ✗
+      Meta Description:   ✗
+      OG Title:           ✗
+      OG Description:     ✗
+      Canonical URL:      ✗
+      JSON-LD Schema:     ✗
+      Body Content:       ✗ (0 chars)
+   Errors:
+      - Fetch error: fetch failed
 
-[89/133] ✓ PASS: https://premierpartycruises.com/blogs/disco-cruise-fashion-part-1
+[89/133] ✗ FAIL: https://premierpartycruises.com/blogs/disco-cruise-fashion-part-1
+   Checks:
+      HTTP 200:           ✗
+      SSR Content:        ✗
+      Title Tag:          ✗
+      Title Descriptive:  ✗
+      Meta Description:   ✗
+      OG Title:           ✗
+      OG Description:     ✗
+      Canonical URL:      ✗
+      JSON-LD Schema:     ✗
+      Body Content:       ✗ (0 chars)
+   Errors:
+      - Fetch error: fetch failed
 
-[90/133] ✓ PASS: https://premierpartycruises.com/blogs/executive-retreat-alcohol-planning-balancing-professionalism-and-team-bonding
+[90/133] ✗ FAIL: https://premierpartycruises.com/blogs/executive-retreat-alcohol-planning-balancing-professionalism-and-team-bonding
+   Checks:
+      HTTP 200:           ✗
+      SSR Content:        ✗
+      Title Tag:          ✗
+      Title Descriptive:  ✗
+      Meta Description:   ✗
+      OG Title:           ✗
+      OG Description:     ✗
+      Canonical URL:      ✗
+      JSON-LD Schema:     ✗
+      Body Content:       ✗ (0 chars)
+   Errors:
+      - Fetch error: fetch failed
 
 [91/133] ✗ FAIL: https://premierpartycruises.com/blogs/graduation-party-alcohol-planning-ut-and-austin-college-celebrations
    Checks:
-      HTTP 200:           ✓
-      SSR Content:        ✓
-      Title Tag:          ✓
-      Title Descriptive:  ✓
-      Meta Description:   ✓
-      OG Title:           ✓
-      OG Description:     ✓
-      Canonical URL:      ✓
-      JSON-LD Schema:     ✓
-      Body Content:       ✗ (183 chars)
+      HTTP 200:           ✗
+      SSR Content:        ✗
+      Title Tag:          ✗
+      Title Descriptive:  ✗
+      Meta Description:   ✗
+      OG Title:           ✗
+      OG Description:     ✗
+      Canonical URL:      ✗
+      JSON-LD Schema:     ✗
+      Body Content:       ✗ (0 chars)
    Errors:
-      - Insufficient content: 183 chars (need 500+)
+      - Fetch error: fetch failed
 
-[92/133] ✓ PASS: https://premierpartycruises.com/blogs/hello-world
+[92/133] ✗ FAIL: https://premierpartycruises.com/blogs/hello-world
+   Checks:
+      HTTP 200:           ✗
+      SSR Content:        ✗
+      Title Tag:          ✗
+      Title Descriptive:  ✗
+      Meta Description:   ✗
+      OG Title:           ✗
+      OG Description:     ✗
+      Canonical URL:      ✗
+      JSON-LD Schema:     ✗
+      Body Content:       ✗ (0 chars)
+   Errors:
+      - Fetch error: fetch failed
 
 [93/133] ✗ FAIL: https://premierpartycruises.com/blogs/holiday-celebrations-on-lake-travis-seasonal-boat-party-planning-and-coordination
    Checks:
-      HTTP 200:           ✓
-      SSR Content:        ✓
-      Title Tag:          ✓
-      Title Descriptive:  ✓
-      Meta Description:   ✓
-      OG Title:           ✓
-      OG Description:     ✓
-      Canonical URL:      ✓
-      JSON-LD Schema:     ✓
-      Body Content:       ✗ (191 chars)
+      HTTP 200:           ✗
+      SSR Content:        ✗
+      Title Tag:          ✗
+      Title Descriptive:  ✗
+      Meta Description:   ✗
+      OG Title:           ✗
+      OG Description:     ✗
+      Canonical URL:      ✗
+      JSON-LD Schema:     ✗
+      Body Content:       ✗ (0 chars)
    Errors:
-      - Insufficient content: 191 chars (need 500+)
+      - Fetch error: fetch failed
 
-[94/133] ✓ PASS: https://premierpartycruises.com/blogs/holiday-office-party-alcohol-delivery-stress-free-corporate-celebration-planning
+[94/133] ✗ FAIL: https://premierpartycruises.com/blogs/holiday-office-party-alcohol-delivery-stress-free-corporate-celebration-planning
+   Checks:
+      HTTP 200:           ✗
+      SSR Content:        ✗
+      Title Tag:          ✗
+      Title Descriptive:  ✗
+      Meta Description:   ✗
+      OG Title:           ✗
+      OG Description:     ✗
+      Canonical URL:      ✗
+      JSON-LD Schema:     ✗
+      Body Content:       ✗ (0 chars)
+   Errors:
+      - Fetch error: fetch failed
 
-[95/133] ✓ PASS: https://premierpartycruises.com/blogs/holiday-party-alcohol-themes-new-years-fourth-of-july-and-austin-celebrations
+[95/133] ✗ FAIL: https://premierpartycruises.com/blogs/holiday-party-alcohol-themes-new-years-fourth-of-july-and-austin-celebrations
+   Checks:
+      HTTP 200:           ✗
+      SSR Content:        ✗
+      Title Tag:          ✗
+      Title Descriptive:  ✗
+      Meta Description:   ✗
+      OG Title:           ✗
+      OG Description:     ✗
+      Canonical URL:      ✗
+      JSON-LD Schema:     ✗
+      Body Content:       ✗ (0 chars)
+   Errors:
+      - Fetch error: fetch failed
 
-[96/133] ✓ PASS: https://premierpartycruises.com/blogs/how-to-throw-great-bachelor-party-austin
+[96/133] ✗ FAIL: https://premierpartycruises.com/blogs/how-to-throw-great-bachelor-party-austin
+   Checks:
+      HTTP 200:           ✗
+      SSR Content:        ✗
+      Title Tag:          ✗
+      Title Descriptive:  ✗
+      Meta Description:   ✗
+      OG Title:           ✗
+      OG Description:     ✗
+      Canonical URL:      ✗
+      JSON-LD Schema:     ✗
+      Body Content:       ✗ (0 chars)
+   Errors:
+      - Fetch error: fetch failed
 
-[97/133] ✓ PASS: https://premierpartycruises.com/blogs/how-to-throw-great-bachelorette-party-austin
+[97/133] ✗ FAIL: https://premierpartycruises.com/blogs/how-to-throw-great-bachelorette-party-austin
+   Checks:
+      HTTP 200:           ✗
+      SSR Content:        ✗
+      Title Tag:          ✗
+      Title Descriptive:  ✗
+      Meta Description:   ✗
+      OG Title:           ✗
+      OG Description:     ✗
+      Canonical URL:      ✗
+      JSON-LD Schema:     ✗
+      Body Content:       ✗ (0 chars)
+   Errors:
+      - Fetch error: fetch failed
 
-[98/133] ✓ PASS: https://premierpartycruises.com/blogs/instagram-worthy-bachelorette-party-cocktails-recipes-and-delivery-coordination
+[98/133] ✗ FAIL: https://premierpartycruises.com/blogs/instagram-worthy-bachelorette-party-cocktails-recipes-and-delivery-coordination
+   Checks:
+      HTTP 200:           ✗
+      SSR Content:        ✗
+      Title Tag:          ✗
+      Title Descriptive:  ✗
+      Meta Description:   ✗
+      OG Title:           ✗
+      OG Description:     ✗
+      Canonical URL:      ✗
+      JSON-LD Schema:     ✗
+      Body Content:       ✗ (0 chars)
+   Errors:
+      - Fetch error: fetch failed
 
 [99/133] ✗ FAIL: https://premierpartycruises.com/blogs/joint-bachelor-bachelorette-parties-with-premier-party-cruises
    Checks:
-      HTTP 200:           ✓
-      SSR Content:        ✓
-      Title Tag:          ✓
-      Title Descriptive:  ✓
-      Meta Description:   ✓
-      OG Title:           ✓
-      OG Description:     ✓
-      Canonical URL:      ✓
-      JSON-LD Schema:     ✓
-      Body Content:       ✗ (190 chars)
+      HTTP 200:           ✗
+      SSR Content:        ✗
+      Title Tag:          ✗
+      Title Descriptive:  ✗
+      Meta Description:   ✗
+      OG Title:           ✗
+      OG Description:     ✗
+      Canonical URL:      ✗
+      JSON-LD Schema:     ✗
+      Body Content:       ✗ (0 chars)
    Errors:
-      - Insufficient content: 190 chars (need 500+)
+      - Fetch error: fetch failed
 
-[100/133] ✓ PASS: https://premierpartycruises.com/blogs/lake-travis-bachelor-party-alcohol-delivery-complete-coordination-guide-for-boat-parties
+[100/133] ✗ FAIL: https://premierpartycruises.com/blogs/lake-travis-bachelor-party-alcohol-delivery-complete-coordination-guide-for-boat-parties
+   Checks:
+      HTTP 200:           ✗
+      SSR Content:        ✗
+      Title Tag:          ✗
+      Title Descriptive:  ✗
+      Meta Description:   ✗
+      OG Title:           ✗
+      OG Description:     ✗
+      Canonical URL:      ✗
+      JSON-LD Schema:     ✗
+      Body Content:       ✗ (0 chars)
+   Errors:
+      - Fetch error: fetch failed
 
-[101/133] ✓ PASS: https://premierpartycruises.com/blogs/lake-travis-bachelorette-party-alcohol-laws-what-you-can-and-cant-bring-on-boats
+[101/133] ✗ FAIL: https://premierpartycruises.com/blogs/lake-travis-bachelorette-party-alcohol-laws-what-you-can-and-cant-bring-on-boats
+   Checks:
+      HTTP 200:           ✗
+      SSR Content:        ✗
+      Title Tag:          ✗
+      Title Descriptive:  ✗
+      Meta Description:   ✗
+      OG Title:           ✗
+      OG Description:     ✗
+      Canonical URL:      ✗
+      JSON-LD Schema:     ✗
+      Body Content:       ✗ (0 chars)
+   Errors:
+      - Fetch error: fetch failed
 
-[102/133] ✓ PASS: https://premierpartycruises.com/blogs/lake-travis-boat-party-catering-food-and-beverage-coordination-for-perfect-events
+[102/133] ✗ FAIL: https://premierpartycruises.com/blogs/lake-travis-boat-party-catering-food-and-beverage-coordination-for-perfect-events
+   Checks:
+      HTTP 200:           ✗
+      SSR Content:        ✗
+      Title Tag:          ✗
+      Title Descriptive:  ✗
+      Meta Description:   ✗
+      OG Title:           ✗
+      OG Description:     ✗
+      Canonical URL:      ✗
+      JSON-LD Schema:     ✗
+      Body Content:       ✗ (0 chars)
+   Errors:
+      - Fetch error: fetch failed
 
-[103/133] ✓ PASS: https://premierpartycruises.com/blogs/lake-travis-boat-party-costs-complete-pricing-guide-and-budget-planning
+[103/133] ✗ FAIL: https://premierpartycruises.com/blogs/lake-travis-boat-party-costs-complete-pricing-guide-and-budget-planning
+   Checks:
+      HTTP 200:           ✗
+      SSR Content:        ✗
+      Title Tag:          ✗
+      Title Descriptive:  ✗
+      Meta Description:   ✗
+      OG Title:           ✗
+      OG Description:     ✗
+      Canonical URL:      ✗
+      JSON-LD Schema:     ✗
+      Body Content:       ✗ (0 chars)
+   Errors:
+      - Fetch error: fetch failed
 
-[104/133] ✓ PASS: https://premierpartycruises.com/blogs/lake-travis-boat-party-entertainment-activities-and-amenities-for-unforgettable-events
+[104/133] ✗ FAIL: https://premierpartycruises.com/blogs/lake-travis-boat-party-entertainment-activities-and-amenities-for-unforgettable-events
+   Checks:
+      HTTP 200:           ✗
+      SSR Content:        ✗
+      Title Tag:          ✗
+      Title Descriptive:  ✗
+      Meta Description:   ✗
+      OG Title:           ✗
+      OG Description:     ✗
+      Canonical URL:      ✗
+      JSON-LD Schema:     ✗
+      Body Content:       ✗ (0 chars)
+   Errors:
+      - Fetch error: fetch failed
 
-[105/133] ✓ PASS: https://premierpartycruises.com/blogs/lake-travis-boat-party-insurance-understanding-coverage-and-liability-for-events
+[105/133] ✗ FAIL: https://premierpartycruises.com/blogs/lake-travis-boat-party-insurance-understanding-coverage-and-liability-for-events
+   Checks:
+      HTTP 200:           ✗
+      SSR Content:        ✗
+      Title Tag:          ✗
+      Title Descriptive:  ✗
+      Meta Description:   ✗
+      OG Title:           ✗
+      OG Description:     ✗
+      Canonical URL:      ✗
+      JSON-LD Schema:     ✗
+      Body Content:       ✗ (0 chars)
+   Errors:
+      - Fetch error: fetch failed
 
 [106/133] ✗ FAIL: https://premierpartycruises.com/blogs/lake-travis-boat-party-logistics-complete-planning-and-coordination-guide
    Checks:
-      HTTP 200:           ✓
-      SSR Content:        ✓
-      Title Tag:          ✓
-      Title Descriptive:  ✓
-      Meta Description:   ✓
-      OG Title:           ✓
-      OG Description:     ✓
-      Canonical URL:      ✓
-      JSON-LD Schema:     ✓
-      Body Content:       ✗ (189 chars)
+      HTTP 200:           ✗
+      SSR Content:        ✗
+      Title Tag:          ✗
+      Title Descriptive:  ✗
+      Meta Description:   ✗
+      OG Title:           ✗
+      OG Description:     ✗
+      Canonical URL:      ✗
+      JSON-LD Schema:     ✗
+      Body Content:       ✗ (0 chars)
    Errors:
-      - Insufficient content: 189 chars (need 500+)
+      - Fetch error: fetch failed
 
-[107/133] ✓ PASS: https://premierpartycruises.com/blogs/lake-travis-boat-party-music-sound-systems-and-entertainment-coordination
+[107/133] ✗ FAIL: https://premierpartycruises.com/blogs/lake-travis-boat-party-music-sound-systems-and-entertainment-coordination
+   Checks:
+      HTTP 200:           ✗
+      SSR Content:        ✗
+      Title Tag:          ✗
+      Title Descriptive:  ✗
+      Meta Description:   ✗
+      OG Title:           ✗
+      OG Description:     ✗
+      Canonical URL:      ✗
+      JSON-LD Schema:     ✗
+      Body Content:       ✗ (0 chars)
+   Errors:
+      - Fetch error: fetch failed
 
 [108/133] ✓ PASS: https://premierpartycruises.com/blogs/lake-travis-boat-party-packages-comprehensive-guide-to-options-and-pricing
 

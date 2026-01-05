@@ -978,6 +978,7 @@ const SSR_ROUTES = [
   '/blogs/atx-disco-cruise-dos-and-donts-bachelor-party',
   '/blogs/bachelor-party-outfit-ideas-atx-disco-cruise',
   '/blogs/joint-bachelor-bachelorette-party-guide',
+  '/austin-bachelor-party-ideas',  // Added: SEO-critical static page
   '/lake-travis-bachelor-party-boats',
   '/luxury-austin-bachelorette',
   '/ultimate-austin-bachelorette-weekend',
@@ -1173,11 +1174,11 @@ const PAGE_METADATA: Record<string, { h1: string; content: string }> = {
   },
   // Static blog pages with BlogPostLayout - H1 for SSR SEO
   '/austin-bachelor-party-ideas': {
-    h1: "Austin Bachelor Party Ideas: Top Things to Do for an Epic Guys' Weekend",
+    h1: "Austin Bachelor Party Ideas: Epic Guys' Weekend Guide",
     content: 'Discover the ultimate Austin bachelor party ideas! From Lake Travis party boats to 6th Street bars, BBQ joints, and outdoor adventures - plan the perfect Austin bachelor weekend.'
   },
   '/lake-travis-bachelor-party-boats': {
-    h1: 'Lake Travis Bachelor Party Boats | Austin Cruise',
+    h1: 'Lake Travis Bachelor Party Boats: Your Complete Austin Guide',
     content: 'Discover why Lake Travis party boats are perfect for bachelor parties in Austin. Learn about the ATX Disco Cruise, private charters, BYOB options, and pro tips for an epic lake party.'
   },
   '/wedding-anniversary-celebration-ideas': {
@@ -1308,7 +1309,10 @@ async function renderPage(url: string, req: Request): Promise<string> {
         const rawContent = blogData.post.content || blogData.post.excerpt || '';
         content = rawContent.replace(/<h1[^>]*>[\s\S]*?<\/h1>/gi, '');
         // Use metadata for meta tags (shorter, optimized)
-        metaTitle = blogMeta?.title || blogData.post.metaTitle || blogData.post.title;
+        // SEO FIX: Ensure title is ALWAYS different from H1 by adding suffix
+        let baseTitle = blogMeta?.title || blogData.post.metaTitle || blogData.post.title;
+        // If title would match H1, add " | Lake Travis" suffix
+        metaTitle = (baseTitle === blogData.post.title) ? `${baseTitle} | Lake Travis` : baseTitle;
         metaDescription = blogMeta?.description || blogData.post.metaDescription || 
                           blogData.post.excerpt || 
                           (blogData.post.content ? blogData.post.content.substring(0, 160) : '');
@@ -1318,14 +1322,19 @@ async function renderPage(url: string, req: Request): Promise<string> {
         h1 = blogPageContent.h1;
         content = renderPageContent(blogPageContent);
         usedPageContent = true; // renderPageContent includes H1, don't add another
-        metaTitle = blogMeta?.title || blogPageContent.h1;
+        // SEO FIX: Ensure title is ALWAYS different from H1 by adding suffix if needed
+        const pageContentTitle = blogMeta?.title || blogPageContent.h1;
+        metaTitle = (pageContentTitle === blogPageContent.h1) ? `${pageContentTitle} | Lake Travis` : pageContentTitle;
         metaDescription = blogMeta?.description || blogPageContent.introduction.substring(0, 160);
       } else if (blogData && blogData.post) {
         // Use whatever database content exists (less than 500 chars)
         h1 = blogData.post.title;
         const rawContent = blogData.post.content || blogData.post.excerpt || '';
         content = rawContent.replace(/<h1[^>]*>[\s\S]*?<\/h1>/gi, '');
-        metaTitle = blogMeta?.title || blogData.post.metaTitle || blogData.post.title;
+        // SEO FIX: Ensure title is ALWAYS different from H1 by adding suffix
+        let baseTitle = blogMeta?.title || blogData.post.metaTitle || blogData.post.title;
+        // If title would match H1, add " | Lake Travis" suffix
+        metaTitle = (baseTitle === blogData.post.title) ? `${baseTitle} | Lake Travis` : baseTitle;
         metaDescription = blogMeta?.description || blogData.post.metaDescription || 
                           blogData.post.excerpt || 
                           (blogData.post.content ? blogData.post.content.substring(0, 160) : '');
@@ -1333,7 +1342,8 @@ async function renderPage(url: string, req: Request): Promise<string> {
         // Fallback to registry metadata only if no other source available
         h1 = blogMeta.title;
         content = blogMeta.description;
-        metaTitle = blogMeta.title;
+        // SEO FIX: Ensure title is ALWAYS different from H1 by adding suffix
+        metaTitle = `${blogMeta.title} | Lake Travis`;
         metaDescription = blogMeta.description;
       }
     } else if (pathname === '/blog' || pathname === '/blogs') {
@@ -1341,7 +1351,8 @@ async function renderPage(url: string, req: Request): Promise<string> {
       // SEO FIX: Shortened to <60 chars for Ubersuggest compliance
       h1 = 'Austin Party Boat Blog | Bachelor & Bachelorette Tips';
       const intro = 'Expert tips for planning bachelor and bachelorette parties in Austin. Lake Travis party boat guides, itineraries, and Austin party planning advice.';
-      metaTitle = h1;
+      // SEO FIX: Title must be different from H1
+      metaTitle = h1 + ' | Lake Travis';
       metaDescription = intro;
       
       // Fetch blog posts for SEO visibility
@@ -1390,18 +1401,28 @@ async function renderPage(url: string, req: Request): Promise<string> {
       // Check if it's a blog page in the registry
       const blogMeta = getBlogMetadata(pathname);
       if (blogMeta) {
-        h1 = blogMeta.title;
-        content = blogMeta.description;
-        metaTitle = blogMeta.title;
+        // SEO: Title tag should be short/optimized, H1 should be more descriptive
         metaDescription = blogMeta.description;
+        // Create expanded H1 from title (remove trailing suffixes like "| Premier Party Cruises")
+        const baseTitle = blogMeta.title.replace(/\s*\|.*$/, '').trim();
+        h1 = baseTitle.includes('Guide') || baseTitle.includes('Complete') 
+          ? baseTitle 
+          : `${baseTitle}: Your Complete Guide`;
+        // SEO FIX: Ensure title is different from H1
+        metaTitle = (blogMeta.title === h1) ? `${blogMeta.title} | Lake Travis` : blogMeta.title;
+        content = blogMeta.description;
       } else {
         // Check if it's a static React blog
         const staticBlogMeta = getStaticBlogMetadata(pathname);
         if (staticBlogMeta) {
-          h1 = staticBlogMeta.title;
-          content = staticBlogMeta.description;
-          metaTitle = staticBlogMeta.title;
           metaDescription = staticBlogMeta.description;
+          const baseTitle = staticBlogMeta.title.replace(/\s*\|.*$/, '').trim();
+          h1 = baseTitle.includes('Guide') || baseTitle.includes('Complete')
+            ? baseTitle
+            : `${baseTitle}: Your Complete Guide`;
+          // SEO FIX: Ensure title is different from H1
+          metaTitle = (staticBlogMeta.title === h1) ? `${staticBlogMeta.title} | Lake Travis` : staticBlogMeta.title;
+          content = staticBlogMeta.description;
         } else {
           // Use predefined metadata for marketing pages
           const pageData = PAGE_METADATA[pathname];
@@ -1413,10 +1434,13 @@ async function renderPage(url: string, req: Request): Promise<string> {
           // Fetch SEO metadata from API
           const seoData = await fetchSEOMetadata(pathname);
           if (seoData) {
-            metaTitle = seoData.metaTitle || h1;
+            // SEO FIX: Ensure title is different from H1
+            const baseMetaTitle = seoData.metaTitle || h1;
+            metaTitle = (baseMetaTitle === h1) ? `${baseMetaTitle} | Lake Travis` : baseMetaTitle;
             metaDescription = seoData.metaDescription || content;
           } else {
-            metaTitle = h1;
+            // SEO FIX: Ensure title is different from H1
+            metaTitle = `${h1} | Lake Travis`;
             metaDescription = content;
           }
         }

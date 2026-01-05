@@ -3677,7 +3677,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
     relatedPages: ['bachelor-party', 'atx-disco', 'private-cruises', 'combined-bach', 'pricing-breakdown']
   },
   '/lake-travis-bachelor-party-boats': {
-    h1: 'Lake Travis Bachelor Party Boats | Austin Cruise',
+    h1: 'Lake Travis Bachelor Party Boats: Your Complete Austin Guide',
     introduction: 'Discover why Lake Travis party boats are the #1 choice for Austin [[bachelor-party]] celebrations! From the all-inclusive [[atx-disco]] to exclusive [[private-cruises]], Premier Party Cruises offers the best bachelor party boat experience in Texas with 15+ years and 150,000+ happy customers.',
     sections: [
       {
@@ -4404,3 +4404,5 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       }
     ]
   },
+
+};

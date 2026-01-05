@@ -705,7 +705,9 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
         html = html.replace('</head>', `${schemaScript}\n${canonicalTag}\n${robotsMetaTag}\n  </head>`);
         
         // Update meta tags
-        const metaTitle = metadata?.title || slug.replace(/-/g, ' ');
+        // SEO FIX: Ensure title is different from H1 by adding suffix
+        const h1Text = metadata?.title || slug.replace(/-/g, ' ');
+        const metaTitle = `${h1Text} | Lake Travis`;
         const metaDescription = metadata?.description || '';
         html = html.replace(/<title>.*?<\/title>/, `<title>${metaTitle}</title>`);
         html = html.replace(/<meta name="description" content=".*?"\s*\/>/, `<meta name="description" content="${metaDescription}" />`);
@@ -719,9 +721,9 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
           console.log(`✅ [Blog SSR] Rendered React blog with entry-server: ${slug}`);
         } catch (renderError) {
           console.error('❌ [Blog SSR] React render failed for React blog:', renderError);
-          // Fallback SSR content for crawlers
+          // Fallback SSR content for crawlers - use h1Text (without suffix) for H1
           appHtml = `<article style="max-width: 56rem; margin: 0 auto; padding: 2rem 1rem;">
-            <h1 style="text-align: center; font-size: 2.5rem; font-weight: 800; margin-bottom: 2rem; color: #111827;">${metaTitle}</h1>
+            <h1 style="text-align: center; font-size: 2.5rem; font-weight: 800; margin-bottom: 2rem; color: #111827;">${h1Text}</h1>
             <p style="font-size: 1.125rem; line-height: 1.75; color: #374151;">${metaDescription}</p>
           </article>`;
         }
@@ -853,7 +855,13 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
       html = html.replace('</head>', `${schemaScript}\n${canonicalTag}\n${robotsMetaTag}\n  </head>`);
       
       // Update meta tags with post-specific data
-      const metaTitle = post.metaTitle || post.title || "Blog Post";
+      // SEO FIX: Ensure title is ALWAYS different from H1 by adding suffix if needed
+      const h1Text = post.title || "Blog Post";
+      let metaTitle = post.metaTitle || post.title || "Blog Post";
+      // If title matches H1, add " | Lake Travis" suffix to differentiate
+      if (metaTitle === h1Text) {
+        metaTitle = `${metaTitle} | Lake Travis`;
+      }
       const metaDescription = post.metaDescription || post.excerpt || "";
       
       // SEO FIX: Remove "| Premier Party Cruises" suffix to keep titles under 60 chars

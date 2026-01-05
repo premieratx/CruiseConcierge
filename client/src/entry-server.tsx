@@ -1,6 +1,8 @@
 import { renderToString } from "react-dom/server";
 import { Router } from "wouter";
-import { HelmetProvider } from "react-helmet-async";
+// SSR FIX: Use default import for react-helmet-async to handle ESM/CJS compatibility
+import HelmetAsyncDefault from "react-helmet-async";
+const { HelmetProvider } = HelmetAsyncDefault;
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "./lib/queryClient.ts";
 // TEMPORARY: BookingCacheProvider disabled to fix React preamble error
