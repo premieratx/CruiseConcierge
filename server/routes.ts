@@ -1047,13 +1047,13 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
   const blogRouteHandler: express.RequestHandler = (req, res, next) => {
     const slug = req.params.slug;
     
-    // If this slug has a React component, skip WordPress SSR and let Vite handle it
+    // Always use SSR to inject crawlable content for all blog pages
+    // React pages hydrate client-side but crawlers see the full content
     if (reactBlogSlugs.has(slug)) {
-      console.log(`🎯 [React Blog Route] Skipping WordPress SSR for React page: ${slug}`);
-      return next('route'); // Skip to next route (Vite will handle it)
+      console.log(`🔧 [React Blog Route] SSR rendering React page with content: ${slug}`);
     }
     
-    // Otherwise, use WordPress SSR handler
+    // Use SSR handler for ALL blog pages to ensure crawlable content
     return blogSSRHandler(req, res, next);
   };
   
