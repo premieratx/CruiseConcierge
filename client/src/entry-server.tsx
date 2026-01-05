@@ -31,19 +31,20 @@ export function render(url: string) {
   const helmetContext: SSRContext["helmetContext"] = {};
 
   // Render the app with static location
+  // SSR FIX: Router must wrap AuthProvider because AuthProvider uses useLocation
   const html = renderToString(
     <HelmetProvider context={helmetContext}>
       <QueryClientProvider client={queryClient}>
-        <AuthProvider>
-          <EditModeProvider>
-            {/* TEMPORARY: BookingCacheProvider disabled to fix React preamble error */}
-            {/* <BookingCacheProvider> */}
-              <Router hook={staticLocationHook(url)}>
+        <Router hook={staticLocationHook(url)}>
+          <AuthProvider>
+            <EditModeProvider>
+              {/* TEMPORARY: BookingCacheProvider disabled to fix React preamble error */}
+              {/* <BookingCacheProvider> */}
                 <App />
-              </Router>
-            {/* </BookingCacheProvider> */}
-          </EditModeProvider>
-        </AuthProvider>
+              {/* </BookingCacheProvider> */}
+            </EditModeProvider>
+          </AuthProvider>
+        </Router>
       </QueryClientProvider>
     </HelmetProvider>
   );

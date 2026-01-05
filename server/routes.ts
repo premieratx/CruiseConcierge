@@ -85,6 +85,142 @@ function isSlugConflictError(error: any): boolean {
          error?.message?.includes('unique constraint');
 }
 
+// Generate rich fallback content for SSR when React lazy() components don't render
+// This provides 500+ words of SEO-friendly content for crawlers
+function generateRichFallbackContent(slug: string, h1Text: string, metaDescription: string, keywords: string[]): string {
+  const slugLower = slug.toLowerCase();
+  
+  // Determine page category and generate appropriate content
+  let categoryContent = '';
+  let ctaText = '';
+  
+  if (slugLower.includes('bachelor')) {
+    categoryContent = `
+      <section>
+        <h2>Austin Bachelor Party Boat Rentals on Lake Travis</h2>
+        <p>Looking for the ultimate Austin bachelor party experience? Lake Travis party boats offer the perfect combination of adventure, relaxation, and celebration for you and your crew. Our bachelor party cruises feature premium amenities including professional sound systems, ample cooler space for BYOB beverages, and stunning lake views that make every moment Instagram-worthy.</p>
+        <p>The ATX Disco Cruise is Austin's most popular bachelor party option, featuring a professional DJ, photographer, disco dance floor with LED lighting, and the chance to party with other celebrating groups. For groups preferring privacy, our private charters on Day Tripper, Meeseeks/The Irony, or flagship Clever Girl provide an exclusive experience for 14-75 guests.</p>
+        <h3>Bachelor Party Boat Features and Amenities</h3>
+        <ul>
+          <li>Licensed captains with 15+ years experience on Lake Travis</li>
+          <li>Premium Bluetooth sound systems for your party playlist</li>
+          <li>Large coolers for BYOB beverages and refreshments</li>
+          <li>Lily pads and floaties for swimming and water activities</li>
+          <li>Perfect safety record with 150,000+ happy guests</li>
+          <li>Easy access to lakeside bars and restaurants</li>
+        </ul>
+        <p>Whether you're planning a laid-back day on the water or an epic party celebration, Premier Party Cruises has the perfect boat and package for your Austin bachelor party. Our experienced team handles all the details so you can focus on creating unforgettable memories with your best friends.</p>
+      </section>`;
+    ctaText = 'Ready to plan the ultimate Austin bachelor party? Book your Lake Travis boat cruise today starting at $1,050 for private charters or $85-$105 per person for the ATX Disco Cruise. Our team is ready to help you create an unforgettable celebration.';
+  } else if (slugLower.includes('bachelorette')) {
+    categoryContent = `
+      <section>
+        <h2>Austin Bachelorette Party Ideas and Activities</h2>
+        <p>Austin has become America's top bachelorette destination, and a Lake Travis boat party is the highlight of any celebration. Our bachelorette cruises combine Texas sunshine, beautiful lake scenery, and the perfect party atmosphere for your bridal crew. From sunrise mimosas to sunset dance parties, Lake Travis offers the ultimate backdrop for celebrating the bride-to-be.</p>
+        <p>The ATX Disco Cruise offers an all-inclusive bachelorette experience with professional DJ spinning the hottest tracks, photographer capturing all the memories, disco dance floor with LED lighting, and giant floaties including our famous unicorn - perfect for mixing and mingling with other celebrating groups. For intimate bridal parties, our private charters provide exclusive boat access with fully customizable itineraries.</p>
+        <h3>Bachelorette Cruise Amenities and Photo Opportunities</h3>
+        <ul>
+          <li>Instagrammable photo opportunities at every turn</li>
+          <li>Disco dance floor with professional LED lighting</li>
+          <li>Giant unicorn floaties and party props</li>
+          <li>Professional photographer included on disco cruises</li>
+          <li>BYOB with large cooler space for all your drinks</li>
+          <li>Stops at lakeside venues for additional activities</li>
+        </ul>
+        <p>Planning a bachelorette party in Austin? Our team specializes in creating picture-perfect celebrations that the whole bridal party will remember forever. From decorating the boat to coordinating with your hotel, we're here to make your bachelorette dreams come true.</p>
+      </section>`;
+    ctaText = 'Book the perfect Austin bachelorette party cruise! ATX Disco Cruise packages start at $85-$105 per person with DJ and photographer included. Private charters available for groups wanting an exclusive experience.';
+  } else if (slugLower.includes('corporate') || slugLower.includes('team') || slugLower.includes('company')) {
+    categoryContent = `
+      <section>
+        <h2>Corporate Events and Team Building on Lake Travis</h2>
+        <p>Elevate your corporate event with a unique Lake Travis boat experience that your team will never forget. Our professional team specializes in creating memorable team-building activities, client entertainment events, and company celebrations that strengthen relationships and boost morale. Step away from the conference room and onto the water for a truly unforgettable corporate experience.</p>
+        <p>Our flagship Clever Girl accommodates up to 75 guests, making it ideal for large corporate gatherings, while our smaller boats are perfect for executive retreats and intimate team outings. With professional crew, premium sound systems, and stunning lake views, your corporate event will be the talk of the office for years to come.</p>
+        <h3>Corporate Package Benefits and Customization Options</h3>
+        <ul>
+          <li>Professional atmosphere with experienced crew</li>
+          <li>Catering coordination with local restaurants available</li>
+          <li>Capacity from 14 to 75 guests across our fleet</li>
+          <li>Flexible scheduling including weekday options</li>
+          <li>Perfect for client entertainment and relationship building</li>
+          <li>Team building activities and water sports available</li>
+        </ul>
+        <p>From tech startups to Fortune 500 companies, Austin's leading businesses choose Premier Party Cruises for their corporate events. Let us help you plan an experience that impresses clients and rewards your team.</p>
+      </section>`;
+    ctaText = 'Impress your team and clients with a Lake Travis corporate cruise. Contact us for custom corporate packages starting at $1,413 for 4 hours. We handle all the details so you can focus on your team.';
+  } else if (slugLower.includes('wedding') || slugLower.includes('anniversary') || slugLower.includes('rehearsal')) {
+    categoryContent = `
+      <section>
+        <h2>Wedding Events and Celebrations on Lake Travis</h2>
+        <p>Create unforgettable wedding memories on Lake Travis with our romantic boat cruises. Perfect for rehearsal dinners, welcome parties, after-parties, or anniversary celebrations, our boats provide a stunning backdrop for your special moments. The Texas Hill Country sunset over the lake creates magical photos and memories that last a lifetime.</p>
+        <p>Our experienced crew ensures every detail is handled with care, from coordinating with your wedding planner to providing impeccable service throughout your cruise. Watch the sunset over the Texas Hill Country as you celebrate your love story with family and friends on the beautiful waters of Lake Travis.</p>
+        <h3>Wedding Event Options and Planning Services</h3>
+        <ul>
+          <li>Rehearsal dinner cruises with sunset views</li>
+          <li>Welcome party events for out-of-town guests</li>
+          <li>Wedding after-parties to extend the celebration</li>
+          <li>Anniversary celebrations and vow renewals</li>
+          <li>Sunset cruise timing for perfect golden hour photos</li>
+          <li>Coordination with wedding planners and vendors</li>
+        </ul>
+        <p>Your wedding weekend deserves something special. Let Premier Party Cruises add a unique Lake Travis experience that your guests will talk about for years. Our team understands the importance of every detail on your special day.</p>
+      </section>`;
+    ctaText = 'Plan your perfect wedding event on Lake Travis. Private wedding cruises start at $1,181 for 4 hours with customizable packages available. Contact us to discuss your vision.';
+  } else if (slugLower.includes('birthday') || slugLower.includes('celebration')) {
+    categoryContent = `
+      <section>
+        <h2>Birthday Celebrations and Special Events on Lake Travis</h2>
+        <p>Make your milestone birthday unforgettable with a Lake Travis party boat celebration. Whether you're planning a sweet 16, 21st birthday bash, 40th celebration, or 50th milestone, our boats provide the perfect venue for creating lasting memories with your favorite people. The combination of sun, water, and celebration creates an experience unlike any other.</p>
+        <p>Our private charters give you exclusive access to premium party boats with professional crew, top-quality sound systems, and all the amenities for an epic celebration. Bring your own cake, decorations, and beverages for a fully personalized party experience tailored exactly to your vision.</p>
+        <h3>Birthday Party Features and Customization</h3>
+        <ul>
+          <li>Private boat for your group with exclusive access</li>
+          <li>BYOB with large coolers - bring your own cake too</li>
+          <li>Premium sound systems for your party playlist</li>
+          <li>Swimming, floaties, and water activities</li>
+          <li>Customizable itinerary based on your preferences</li>
+          <li>Photo-worthy moments at every turn</li>
+        </ul>
+        <p>From intimate gatherings to large celebrations, we have the perfect boat for your birthday party. Our team loves helping Austin celebrate life's milestones on the beautiful waters of Lake Travis.</p>
+      </section>`;
+    ctaText = 'Book your birthday party cruise! Private boat rentals start at $1,050 for 4 hours. Perfect for groups of 14-75 guests depending on boat selection.';
+  } else {
+    categoryContent = `
+      <section>
+        <h2>Lake Travis Party Boat Experience</h2>
+        <p>Experience the best of Austin on a Lake Travis party boat cruise with Premier Party Cruises. We've been providing unforgettable experiences for over 15 years, with a perfect safety record and thousands of satisfied guests who keep coming back year after year. Our professional crew and premium boats ensure every cruise exceeds expectations.</p>
+        <p>Our fleet includes Day Tripper (up to 14 guests perfect for intimate gatherings), Meeseeks/The Irony (up to 30 guests for medium groups), and our flagship Clever Girl (up to 75 guests) featuring 14 disco balls and a giant Texas flag. Whether you're planning a bachelor party, bachelorette party, corporate event, or private celebration, we have the perfect boat and package for your group.</p>
+        <h3>Why Choose Premier Party Cruises</h3>
+        <ul>
+          <li>15+ years of experience on Lake Travis</li>
+          <li>Perfect safety record with licensed captains</li>
+          <li>Licensed, experienced, and friendly captains</li>
+          <li>Premium amenities included on all boats</li>
+          <li>150,000+ happy guests and counting</li>
+          <li>Easy online booking and flexible scheduling</li>
+        </ul>
+        <p>Join the thousands of Austin party-goers who have chosen Premier Party Cruises for their Lake Travis adventure. Our boats, crew, and experience make us Austin's premier choice for party boat rentals.</p>
+      </section>`;
+    ctaText = 'Ready for your Lake Travis adventure? Private cruises start at $1,050 for 4 hours. The ATX Disco Cruise is available Friday and Saturday starting at $85-$105 per person with DJ and photographer included.';
+  }
+  
+  // Keywords section if available
+  const keywordsList = keywords.length > 0 
+    ? `<section><h2>Related Topics</h2><ul>${keywords.map(k => `<li>${k}</li>`).join('')}</ul></section>`
+    : '';
+  
+  return `<article style="max-width: 56rem; margin: 0 auto; padding: 2rem 1rem;">
+    <h1 style="text-align: center; font-size: 2.5rem; font-weight: 800; margin-bottom: 2rem; color: #111827;">${h1Text}</h1>
+    <p style="font-size: 1.125rem; line-height: 1.75; color: #374151; margin-bottom: 1.5rem;">${metaDescription}</p>
+    ${categoryContent}
+    ${keywordsList}
+    <section style="margin-top: 2rem; padding: 1.5rem; background: #f9fafb; border-radius: 0.5rem;">
+      <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; color: #111827;">Book Your Lake Travis Cruise</h2>
+      <p style="font-size: 1rem; line-height: 1.75; color: #374151;">${ctaText}</p>
+    </section>
+  </article>`;
+}
+
 // Lazy loading - these will be imported when needed
 let mediaLibraryService: any = null;
 let ObjectStorageService: any = null;
@@ -814,14 +950,19 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
           const entryServer = await import('../client/src/entry-server.tsx');
           const rendered = entryServer.render(`/blogs/${slug}`);
           appHtml = rendered.html;
-          console.log(`✅ [Blog SSR] Rendered React blog with entry-server: ${slug}`);
+          
+          // Check if SSR output is too short (Suspense boundaries don't render with renderToString)
+          // If the output is under 1000 chars, the lazy-loaded blog content didn't render
+          if (appHtml.length < 1000 || !appHtml.includes('<h1')) {
+            console.log(`⚠️ [Blog SSR] React rendered but content too short (${appHtml.length} chars), using fallback: ${slug}`);
+            appHtml = generateRichFallbackContent(slug, h1Text, metaDescription, metadata?.keywords || []);
+          } else {
+            console.log(`✅ [Blog SSR] Rendered React blog with entry-server: ${slug}`);
+          }
         } catch (renderError) {
           console.error('❌ [Blog SSR] React render failed for React blog:', renderError);
           // Fallback SSR content for crawlers - use h1Text (without suffix) for H1
-          appHtml = `<article style="max-width: 56rem; margin: 0 auto; padding: 2rem 1rem;">
-            <h1 style="text-align: center; font-size: 2.5rem; font-weight: 800; margin-bottom: 2rem; color: #111827;">${h1Text}</h1>
-            <p style="font-size: 1.125rem; line-height: 1.75; color: #374151;">${metaDescription}</p>
-          </article>`;
+          appHtml = generateRichFallbackContent(slug, h1Text, metaDescription, metadata?.keywords || []);
         }
         
         // Inject SSR content into root div

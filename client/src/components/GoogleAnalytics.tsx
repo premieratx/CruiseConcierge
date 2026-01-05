@@ -10,7 +10,11 @@ declare global {
 
 export function GoogleAnalytics() {
   const [location] = useLocation();
-  const GA_MEASUREMENT_ID = import.meta.env.VITE_GA4_MEASUREMENT_ID || 'G-GL3D7NEFVT';
+  
+  // SSR safety: import.meta.env is undefined during server-side rendering
+  const GA_MEASUREMENT_ID = typeof window !== 'undefined' && typeof import.meta !== 'undefined'
+    ? (import.meta.env?.VITE_GA4_MEASUREMENT_ID || 'G-GL3D7NEFVT')
+    : 'G-GL3D7NEFVT';
 
   useEffect(() => {
     if (!GA_MEASUREMENT_ID) {

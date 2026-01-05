@@ -1,4 +1,5 @@
-import { createContext, useContext, useState, type ReactNode } from 'react';
+// SSR FIX: Explicit React import needed for Node.js SSR environment
+import React, { createContext, useContext, useState, type ReactNode } from 'react';
 
 // Edit mode context interface
 type EditModeContextType = {
