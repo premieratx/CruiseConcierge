@@ -715,6 +715,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     'private-charter-vs-atx-disco-cruise-which-austin-party-boat',
     'why-atx-disco-cruise-austins-most-booked-party-boat-experience',
     'private-party-cruise-vs-party-boat-pontoon-lake-travis',
+    'wedding-anniversary-celebration-ideas-recreating-your-special-day-with-boat-and-alcohol-packages',
   ]);
   
   // Blog post SSR routes - MUST be before Vite to inject unique Article schemas

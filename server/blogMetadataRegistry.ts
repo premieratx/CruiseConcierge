@@ -711,6 +711,17 @@ export const blogMetadataRegistry: Record<string, BlogMetadata> = {
     keywords: ['rehearsal dinner boat', 'Lake Travis wedding', 'wedding weekend Austin', 'rehearsal dinner venue', 'unique wedding experiences']
   },
 
+  'blogs/wedding-anniversary-celebration-ideas-recreating-your-special-day-with-boat-and-alcohol-packages': {
+    slug: 'blogs/wedding-anniversary-celebration-ideas-recreating-your-special-day-with-boat-and-alcohol-packages',
+    title: 'Wedding Anniversary Celebration Ideas | Lake Travis Boat Packages',
+    description: 'Celebrate your wedding anniversary on Lake Travis with romantic boat packages. All-inclusive options with alcohol delivery for milestone anniversaries.',
+    publishDate: '2025-01-15',
+    modifiedDate: '2026-01-05',
+    author: 'Premier Party Cruises',
+    heroImage: 'https://premierpartycruises.com/attached_assets/clever-girl-1-lake-travis-party-boat.jpg',
+    keywords: ['wedding anniversary boat', 'anniversary celebration Austin', 'Lake Travis romantic cruise', 'anniversary party boat', 'milestone anniversary ideas']
+  },
+
   'blogs/lake-travis-weather-planning-seasonal-considerations-for-perfect-boat-parties': {
     slug: 'blogs/lake-travis-weather-planning-seasonal-considerations-for-perfect-boat-parties',
     title: 'Lake Travis Weather Guide | Seasonal Boat Party Planning',

@@ -399,6 +399,7 @@ function Router() {
       
       {/* Wedding Anniversary Blog Page */}
       <Route path="/wedding-anniversary-celebration-ideas" component={WeddingAnniversaryCelebrationIdeas} />
+      <Route path="/blogs/wedding-anniversary-celebration-ideas-recreating-your-special-day-with-boat-and-alcohol-packages" component={WeddingAnniversaryCelebrationIdeas} />
       
       {/* Rehearsal Dinner Boat + Alcohol Delivery - Full React Page */}
       <Route path="/blog/rehearsal-dinner-boat-alcohol-delivery-unique-wedding-weekend-experiences" component={RehearsalDinnerBoatAlcoholDelivery} />
