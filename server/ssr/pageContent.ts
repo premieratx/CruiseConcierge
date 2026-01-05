@@ -4404,31 +4404,3 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       }
     ]
   },
-  '/blogs/austin-bachelorette-party-february': {
-    h1: 'Why Austin is Perfect for Bachelorette Parties in February',
-    introduction: 'Plan a February Austin bachelorette party: 47°F-64°F weather, Valentine\'s romance, Galentine\'s Day, Lake Travis boats & complete guide. Rain or shine, amazing off-season deals!',
-    sections: [
-      {
-        heading: 'Austin Weather in February',
-        paragraphs: [
-          'February in Austin offers mild winter weather perfect for an austin bachelorette party celebration. While mornings are crisp, afternoons warm up beautifully for a lake travis bachelorette party boat cruise. Pack layers and enjoy the cozy vibes with your bridal squad on your bachelorette party austin texas getaway!',
-          'Average temperatures range from 47°F to 64°F with about 2 inches of rainfall. Our boats come equipped with cozy blankets, propane heaters, and even a fire pit on select vessels.'
-        ]
-      },
-      {
-        heading: 'February Events & Celebrations',
-        paragraphs: [
-          'The most romantic time of year! Austin buzzes with love-themed celebrations, special menus, and pink decorations everywhere for Valentine\'s Day Weekend. Celebrate with your bridesmaids on February 13th for Galentine\'s Day - perfect timing for a girls\' trip before Valentine\'s Day.',
-          'Austin brings New Orleans energy with Mardi Gras celebrations - beads, music, and festive fun for your bridal squad. February is LOW season for Austin tourism - score amazing deals on hotels, boats, and experiences!'
-        ]
-      },
-      {
-        heading: 'Lake Travis Party Boats',
-        paragraphs: [
-          'February is LOW season with excellent availability and amazing deals for your austin bachelorette party. Book your lake travis bachelorette party boat 2-3 weeks in advance for best selection. Our bachelorette party austin texas boats accommodate 14-75 guests with captain, crew, premium sound system, and photo-worthy backdrops!',
-          'Perfect for bride-to-be photo ops with cozy cruising in February weather. BYOB through Party On Delivery with professional captain and crew included.'
-        ]
-      }
-    ]
-  }
-};
