@@ -35,8 +35,9 @@ const DOMAIN = 'https://premierpartycruises.com';
 const SERVER_URL = process.env.SERVER_URL || 'http://localhost:5000';
 
 // All public-facing NON-BLOG routes (excluding admin, auth, redirects, blog posts)
+// IMPORTANT: Do NOT include admin pages like /ai-endorsement, /partners, /chat, /golden-ticket, /quote-builder
 const PUBLIC_ROUTES = [
-  // Main pages
+  // Main pages (Priority 1.0)
   '/',
   '/bachelor-party-austin',
   '/bachelorette-party-austin',
@@ -48,33 +49,29 @@ const PUBLIC_ROUTES = [
   '/wedding-parties',
   '/party-boat-austin',
   '/party-boat-lake-travis',
-  '/gallery',
-  '/contact',
-  '/testimonials-faq',
-  '/ai-endorsement',
-  '/partners',
-  '/chat',
-  '/golden-ticket',
-  '/golden-ticket-private',
   
-  // Wedding Experience Pages
+  // Wedding Experience Pages (Priority 1.0)
   '/rehearsal-dinner',
   '/welcome-party',
   '/after-party',
   
-  // Corporate Experience Pages
+  // Corporate Experience Pages (Priority 1.0)
   '/team-building',
   '/client-entertainment',
   '/company-milestone',
   
-  // Birthday Experience Pages
+  // Birthday Experience Pages (Priority 1.0)
   '/milestone-birthday',
   '/sweet-16',
-  
-  // Special Event Pages
   '/graduation-party',
+  
+  // Important action pages (Priority 0.9)
+  '/gallery',
+  '/contact',
+  '/testimonials-faq',
   '/faq',
   '/pricing-breakdown',
+  '/site-directory',
   
   // Static SSR Blog Pages (React components with top-level paths - NOT in database)
   '/austin-bachelor-party-ideas',
@@ -128,7 +125,18 @@ interface SitemapUrl {
 }
 
 function generateSitemap(urls: SitemapUrl[]): string {
-  const urlElements = urls.map(url => {
+  // CRITICAL: Filter out any invalid URLs to prevent XML corruption
+  const validUrls = urls.filter(url => {
+    if (!url || !url.loc || typeof url.loc !== 'string' || url.loc.trim() === '') {
+      console.warn('⚠️ Skipping invalid URL entry:', url);
+      return false;
+    }
+    return true;
+  });
+  
+  console.log(`📝 Generating sitemap with ${validUrls.length} valid URLs (filtered from ${urls.length})`);
+  
+  const urlElements = validUrls.map(url => {
     let urlTag = `  <url>\n`;
     urlTag += `    <loc>${url.loc}</loc>\n`;
     if (url.lastmod) {
