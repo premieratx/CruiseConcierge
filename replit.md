@@ -42,6 +42,8 @@ Key technical implementations and design decisions include:
 -   **Schema Validation**: Run `npx tsx scripts/schema-validator.ts` to validate GSC compliance on 8 key pages. Checks for duplicate schemas (except allowed Service type), missing required fields (price/priceSpecification, availability, priceCurrency for Offers), and conflicting microdata. CRITICAL: ALL structured data (JSON-LD) must be handled via SSR from `attached_assets/schema_data/` files - NEVER inject schemas from React components to avoid duplicates.
 -   **Pre-Deploy Check**: Run `npx tsx scripts/pre-deploy-seo-check.ts` before deployments - combines SEO audit + schema validation for comprehensive compliance verification.
 -   **SSR Health Check**: Run `npx tsx scripts/ssr-health-check.ts` to validate 25 critical routes for soft 404 prevention. Checks H1 tags, meta descriptions (50+ chars), content length (10KB+), and soft 404 indicators. MUST pass before any deploy to prevent Google Search Console soft 404 errors.
+-   **Blog Word Count Audit**: Run `npx tsx scripts/blog-word-count-audit.ts` to verify all 94 blog pages have adequate SSR content for crawlers. Checks word count (min 500, recommended 1000), H1 presence. CRITICAL: Pages need database content OR PAGE_CONTENT entries for SSR visibility. Currently: 37 pages pass (1000+ words), 20 warnings (500-1000 words), 37 need content.
+-   **SSR Content Sources**: Blog pages get content from: (1) Database content from API, (2) PAGE_CONTENT entries in `server/ssr/pageContent.ts` (8 pages), (3) blogMetadataRegistry descriptions (fallback only). Pages without database content AND without PAGE_CONTENT entries show minimal content to crawlers.
 
 ## External Dependencies
 -   **Stripe**: Payment processing.
