@@ -1,4 +1,5 @@
-import { Helmet } from 'react-helmet-async';
+import HelmetAsyncDefault from 'react-helmet-async';
+const { Helmet } = HelmetAsyncDefault;
 
 interface BlogArticleSchemaProps {
   headline: string;

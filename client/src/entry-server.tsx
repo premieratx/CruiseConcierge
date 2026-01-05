@@ -1,3 +1,5 @@
+// SSR FIX: Explicit React import needed for Node.js SSR environment
+import React from "react";
 import { renderToString } from "react-dom/server";
 import { Router } from "wouter";
 // SSR FIX: Use default import for react-helmet-async to handle ESM/CJS compatibility

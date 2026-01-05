@@ -1,6 +1,8 @@
 import { useEffect, useState, type ReactNode } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { Helmet } from 'react-helmet-async';
+// SSR FIX: Use default import for react-helmet-async to handle ESM/CJS compatibility
+import HelmetAsyncDefault from 'react-helmet-async';
+const { Helmet } = HelmetAsyncDefault;
 
 interface SEOHeadProps {
   pageRoute: string;

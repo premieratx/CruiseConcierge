@@ -8,7 +8,8 @@ import { Toaster } from "@/components/ui/toaster";
 // import { BookingCacheProvider } from "@/contexts/BookingCacheContext";
 // TEMPORARY: EditModeProvider disabled to fix React preamble error - will re-enable after cache clears
 // import { EditModeProvider } from "@/contexts/EditModeContext";
-import { HelmetProvider } from 'react-helmet-async';
+import HelmetAsyncDefault from 'react-helmet-async';
+const { HelmetProvider } = HelmetAsyncDefault;
 import { lazy, Suspense, useEffect, useState } from "react";
 import { AuthProvider } from "@/hooks/use-auth";
 import { ProtectedRoute } from "@/lib/protected-route";

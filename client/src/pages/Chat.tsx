@@ -1,6 +1,7 @@
 import { useLayoutEffect, useEffect, useState, useRef } from 'react';
 import AdminNoIndex from '@/components/AdminNoIndex';
-import { Helmet } from 'react-helmet-async';
+import HelmetAsyncDefault from 'react-helmet-async';
+const { Helmet } = HelmetAsyncDefault;
 const logoPath = '/attached_assets/PPC Logo LARGE_1757881944449.png';
 
 declare global {

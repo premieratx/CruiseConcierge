@@ -1,4 +1,5 @@
-import { useState, useEffect, useRef, lazy, Suspense, FormEvent } from 'react';
+// SSR FIX: Explicit React import needed for Node.js SSR environment (JSX fragments)
+import React, { useState, useEffect, useRef, lazy, Suspense, FormEvent } from 'react';
 import { Link, useLocation } from 'wouter';
 import { LazyMotionProvider, m } from '@/components/LazyMotion';
 import { useQuery } from '@tanstack/react-query';

@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'wouter';
-import { Helmet } from 'react-helmet-async';
+import HelmetAsyncDefault from 'react-helmet-async';
+const { Helmet } = HelmetAsyncDefault;
 import { 
   Ship, Users, Music, Phone, Clock, CheckCircle2, 
   Volume2, Award, Sparkles, MapPin, Calendar, Star,

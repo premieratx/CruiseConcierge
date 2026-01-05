@@ -1,4 +1,5 @@
-import { Helmet } from "react-helmet-async";
+import HelmetAsyncDefault from 'react-helmet-async';
+const { Helmet } = HelmetAsyncDefault;
 import { Link } from "wouter";
 import PublicNavigation from "@/components/PublicNavigation";
 import Footer from "@/components/Footer";

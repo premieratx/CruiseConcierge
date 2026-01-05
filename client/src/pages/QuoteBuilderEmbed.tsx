@@ -1,4 +1,5 @@
-import { Helmet } from 'react-helmet-async';
+import HelmetAsyncDefault from 'react-helmet-async';
+const { Helmet } = HelmetAsyncDefault;
 import AdminNoIndex from '@/components/AdminNoIndex';
 import { useEffect, useLayoutEffect, useState } from 'react';
 

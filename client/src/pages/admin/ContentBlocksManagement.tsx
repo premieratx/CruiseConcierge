@@ -22,7 +22,8 @@ import { ContentBlocksManager } from "@/components/admin/ContentBlocksManager";
 import { EditModeToggle } from "@/components/admin/EditModeToggle";
 import { SortableContentBlockRenderer } from "@/components/content-blocks/SortableContentBlockRenderer";
 import { useEditMode } from "@/contexts/EditModeContext";
-import { Helmet } from "react-helmet-async";
+import HelmetAsyncDefault from "react-helmet-async";
+const { Helmet } = HelmetAsyncDefault;
 
 export default function ContentBlocksManagement() {
   const [location, navigate] = useLocation();

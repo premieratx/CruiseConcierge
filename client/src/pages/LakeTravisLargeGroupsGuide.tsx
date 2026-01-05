@@ -1,4 +1,5 @@
-import { Helmet } from 'react-helmet-async';
+import HelmetAsyncDefault from 'react-helmet-async';
+const { Helmet } = HelmetAsyncDefault;
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Ship, Users, Calendar, Shield, Music, Camera, CheckCircle2, Phone, Sparkles, Anchor, Building2, Trophy, Heart } from 'lucide-react';
