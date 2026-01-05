@@ -13,6 +13,7 @@ Premier Party Cruises offers party boat rentals on Lake Travis, Austin, speciali
 - Identical time slot definitions across all components
 - Real information only - no made-up details or "AI slop"
 - **100% FACTUAL ACCURACY**: No made-up activities, services, or features. Only describe what Premier Party Cruises actually provides: boat, captain, lake setting, and amenities. Customers create their own experience.
+- **MANDATORY SITEMAP VALIDATION**: After ANY edit to `public/sitemap.xml` or sitemap generation scripts, MUST verify: (1) opening `<url>` count equals closing `</url>` count, (2) no consecutive `<url>` tags without content between them, (3) no nested `<url>` tags. Run: `grep -c "^  <url>$" public/sitemap.xml && grep -c "</url>" public/sitemap.xml` - counts must match.
 
 ## Fleet Information
 - **Day Tripper**: 14 seats comfortably, max capacity 14 guests
