@@ -1,7 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import AdminNoIndex from '@/components/AdminNoIndex';
-import HelmetAsyncDefault from 'react-helmet-async';
+import * as HelmetAsync from 'react-helmet-async';
+const HelmetAsyncDefault = (HelmetAsync as any).default || HelmetAsync;
 const { Helmet } = HelmetAsyncDefault;
 const logoPath = '/attached_assets/PPC Logo LARGE_1757881944449.png';
 import { Ship, Star, CheckCircle, Clock, Gift, Calendar, DollarSign, Tag, Package, Truck, Sparkles, Users, AlertCircle, Crown } from 'lucide-react';

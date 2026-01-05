@@ -9,8 +9,9 @@ import { Toaster } from "@/components/ui/toaster";
 // import { BookingCacheProvider } from "@/contexts/BookingCacheContext";
 // TEMPORARY: EditModeProvider disabled to fix React preamble error - will re-enable after cache clears
 // import { EditModeProvider } from "@/contexts/EditModeContext";
-import HelmetAsyncDefault from 'react-helmet-async';
-const { HelmetProvider } = HelmetAsyncDefault;
+// SSR FIX: Use star import for react-helmet-async to work with both tsx and Vite SSR
+import * as HelmetAsync from 'react-helmet-async';
+const HelmetProvider = (HelmetAsync as any).HelmetProvider || (HelmetAsync as any).default?.HelmetProvider;
 import { lazy, Suspense, useEffect, useState } from "react";
 import { AuthProvider } from "@/hooks/use-auth";
 import { ProtectedRoute } from "@/lib/protected-route";

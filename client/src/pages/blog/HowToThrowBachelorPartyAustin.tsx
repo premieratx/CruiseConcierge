@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'wouter';
-import HelmetAsyncDefault from 'react-helmet-async';
+import * as HelmetAsync from 'react-helmet-async';
+const HelmetAsyncDefault = (HelmetAsync as any).default || HelmetAsync;
 const { Helmet } = HelmetAsyncDefault;
 import { 
   Ship, Users, Phone, Clock, CheckCircle2, 

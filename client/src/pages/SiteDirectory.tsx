@@ -1,4 +1,5 @@
-import HelmetAsyncDefault from 'react-helmet-async';
+import * as HelmetAsync from 'react-helmet-async';
+const HelmetAsyncDefault = (HelmetAsync as any).default || HelmetAsync;
 const { Helmet } = HelmetAsyncDefault;
 import { Link } from "wouter";
 import PublicNavigation from "@/components/PublicNavigation";

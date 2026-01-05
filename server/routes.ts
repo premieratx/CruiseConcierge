@@ -11,6 +11,7 @@ import { randomBytes } from "crypto";
 import { getBaseDomain } from "./utils/domain";
 import { isStaticBlogRoute } from "./staticBlogMetadata";
 import { generateArticleSchema } from "./schemaLoader";
+import { renderReactSSR } from "./ssr/viteSSR";
 
 // Augment Express Request type to include our custom properties
 declare module 'express-serve-static-core' {
@@ -945,23 +946,38 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
         html = html.replace(/<meta name="description" content=".*?"\s*\/>/, `<meta name="description" content="${metaDescription}" />`);
         
         // Render full React app server-side for visible content
+        // Use Vite SSR which properly handles lazy() imports and asset transforms
         let appHtml = '';
         try {
-          const entryServer = await import('../client/src/entry-server.tsx');
-          const rendered = entryServer.render(`/blogs/${slug}`);
-          appHtml = rendered.html;
+          console.log(`🔄 [Blog SSR] Attempting Vite SSR for: /blogs/${slug}`);
+          const viteResult = await renderReactSSR(`/blogs/${slug}`);
           
-          // Check if SSR output is too short (Suspense boundaries don't render with renderToString)
-          // If the output is under 1000 chars, the lazy-loaded blog content didn't render
-          if (appHtml.length < 1000 || !appHtml.includes('<h1')) {
-            console.log(`⚠️ [Blog SSR] React rendered but content too short (${appHtml.length} chars), using fallback: ${slug}`);
-            appHtml = generateRichFallbackContent(slug, h1Text, metaDescription, metadata?.keywords || []);
+          if (viteResult && viteResult.html && viteResult.html.length > 1000) {
+            appHtml = viteResult.html;
+            console.log(`✅ [Blog SSR] Vite SSR success: ${slug} (${appHtml.length} chars)`);
           } else {
-            console.log(`✅ [Blog SSR] Rendered React blog with entry-server: ${slug}`);
+            // Vite SSR didn't produce enough content - try direct import as fallback
+            console.log(`⚠️ [Blog SSR] Vite SSR insufficient (${viteResult?.html?.length || 0} chars), trying direct import: ${slug}`);
+            
+            try {
+              const entryServer = await import('../client/src/entry-server.tsx');
+              const rendered = entryServer.render(`/blogs/${slug}`);
+              appHtml = rendered.html;
+              
+              if (appHtml.length < 1000 || !appHtml.includes('<h1')) {
+                console.log(`⚠️ [Blog SSR] Direct import also insufficient (${appHtml.length} chars), using fallback: ${slug}`);
+                appHtml = generateRichFallbackContent(slug, h1Text, metaDescription, metadata?.keywords || []);
+              } else {
+                console.log(`✅ [Blog SSR] Direct import success: ${slug}`);
+              }
+            } catch (directError) {
+              console.error(`❌ [Blog SSR] Direct import failed:`, directError);
+              appHtml = generateRichFallbackContent(slug, h1Text, metaDescription, metadata?.keywords || []);
+            }
           }
-        } catch (renderError) {
-          console.error('❌ [Blog SSR] React render failed for React blog:', renderError);
-          // Fallback SSR content for crawlers - use h1Text (without suffix) for H1
+        } catch (viteError) {
+          console.error(`❌ [Blog SSR] Vite SSR failed for ${slug}:`, viteError);
+          // Fallback SSR content for crawlers
           appHtml = generateRichFallbackContent(slug, h1Text, metaDescription, metadata?.keywords || []);
         }
         

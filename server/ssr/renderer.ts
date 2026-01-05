@@ -9,6 +9,7 @@ import { isStaticBlogRoute, getStaticBlogMetadata } from '../staticBlogMetadata'
 import { getBlogMetadata } from '../blogMetadataRegistry';
 import { storage } from '../storage';
 import { getCanonicalUrl } from '../utils/domain';
+import { renderReactSSR, initViteSSR } from './viteSSR';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -1279,6 +1280,69 @@ async function renderPage(url: string, req: Request): Promise<string> {
         ? pathname.slice('/blogs/'.length) 
         : pathname.slice('/blog/'.length);
       
+      // Track if this is a React page
+      const isReactPage = isConvertedToReact(slug);
+      
+      // TRY VITE SSR FIRST for React pages
+      // This renders actual React component content with proper asset handling
+      if (isReactPage) {
+        try {
+          console.log(`[Vite SSR] Attempting React SSR for: ${pathname}`);
+          const viteResult = await renderReactSSR(pathname);
+          
+          if (viteResult && viteResult.html && viteResult.html.length > 500) {
+            console.log(`[Vite SSR] Success for ${pathname} - ${viteResult.html.length} chars`);
+            
+            // Extract meta tags from helmet
+            const helmetTitle = viteResult.helmet?.title || '';
+            const helmetMeta = viteResult.helmet?.meta || '';
+            const helmetLink = viteResult.helmet?.link || '';
+            
+            // Inject React-rendered content into template
+            let ssrContent = `<div id="root">${viteResult.html}</div>`;
+            template = template.replace('<div id="root"></div>', ssrContent);
+            
+            // Inject helmet meta tags
+            if (helmetTitle) {
+              template = template.replace(/<title>.*?<\/title>/, helmetTitle);
+            }
+            if (helmetMeta) {
+              template = template.replace('</head>', `${helmetMeta}\n</head>`);
+            }
+            if (helmetLink) {
+              template = template.replace('</head>', `${helmetLink}\n</head>`);
+            }
+            
+            // Add canonical URL
+            const canonicalUrl = getCanonicalUrl(pathname, req);
+            template = template.replace('</head>', `<link rel="canonical" href="${canonicalUrl}" />\n</head>`);
+            
+            // Get and inject schemas
+            const routeSchemas = getSchemaForRoute(pathname);
+            let schemaScripts = '';
+            
+            if (pathname !== '/') {
+              schemaScripts += `<script type="application/ld+json">${JSON.stringify(ORGANIZATION_SCHEMA)}</script>\n`;
+            }
+            schemaScripts += `<script type="application/ld+json">${JSON.stringify(WEBSITE_SCHEMA)}</script>\n`;
+            
+            routeSchemas.forEach(schema => {
+              schemaScripts += `<script type="application/ld+json">${JSON.stringify(schema)}</script>\n`;
+            });
+            
+            template = template.replace('</head>', `${schemaScripts}</head>`);
+            
+            return template;
+          } else {
+            console.log(`[Vite SSR] Insufficient content for ${pathname}, falling back to static SSR`);
+          }
+        } catch (viteError) {
+          console.error(`[Vite SSR] Error for ${pathname}:`, viteError);
+          // Fall through to static SSR fallback
+        }
+      }
+      
+      // FALLBACK: Static SSR using database/metadata content
       // Get metadata for meta tags (title, description for SEO)
       // Check both /blogs/slug and the pathname patterns in registry
       const blogMeta = getBlogMetadata('/blogs/' + slug) || getBlogMetadata(pathname);
@@ -1290,9 +1354,6 @@ async function renderPage(url: string, req: Request): Promise<string> {
       // Even React pages need database content for crawlers - React hydrates client-side
       // Previous code skipped DB fetch for React pages causing 0 word counts in SEMrush/Ubersuggest
       blogData = await fetchBlogPost(slug);
-      
-      // Track if this is a React page (for fallback logic, not for skipping DB)
-      const isReactPage = isConvertedToReact(slug);
       
       // Content source priority (same for ALL pages - React and WordPress):
       // 1. Database content (500+ chars) - highest priority for SEO

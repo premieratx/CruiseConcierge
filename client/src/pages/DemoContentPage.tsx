@@ -3,7 +3,8 @@ import { useLocation } from "wouter";
 import { SortableContentBlockRenderer } from "@/components/content-blocks/SortableContentBlockRenderer";
 import { EditModeToggle } from "@/components/admin/EditModeToggle";
 import { useEditMode } from "@/contexts/EditModeContext";
-import HelmetAsyncDefault from 'react-helmet-async';
+import * as HelmetAsync from 'react-helmet-async';
+const HelmetAsyncDefault = (HelmetAsync as any).default || HelmetAsync;
 const { Helmet } = HelmetAsyncDefault;
 
 export default function DemoContentPage() {

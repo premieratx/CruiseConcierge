@@ -45,6 +45,13 @@ Key technical implementations and design decisions include:
 -   **Blog Word Count Audit**: Run `npx tsx scripts/blog-word-count-audit.ts` to verify all 94 blog pages have adequate SSR content for crawlers. Checks word count (min 500, recommended 1000), H1 presence. CRITICAL: Pages need database content OR PAGE_CONTENT entries for SSR visibility.
 -   **SSR Content Sources**: Blog pages get content from: (1) Database content if 500+ chars, (2) PAGE_CONTENT entries in `server/ssr/pageContent.ts` (29+ pages), (3) blogMetadataRegistry descriptions (fallback only). All React blog pages now go through SSR handler for full content visibility.
 -   **CRITICAL SSR FIX (Jan 2026)**: Removed `next('route')` bypass in `server/routes.ts` that was skipping SSR for React pages. All blog pages now render through SSR handler, ensuring PAGE_CONTENT entries are used for crawlers.
+-   **Vite SSR for React Blog Pages (Jan 2026)**: Implemented proper Vite-powered SSR for React blog pages via `server/ssr/viteSSR.ts`. Key features:
+    - Vite dev server initializes in middleware mode for SSR module loading
+    - `client/src/entry-server.tsx` exports async `render()` function with module preloading
+    - Double-render technique primes lazy() module cache to ensure full content on first request
+    - All React blog pages in MASTER_REACT_BLOG_SLUGS render 100-200KB with 1000+ words on cold start
+    - react-helmet-async imports use star import pattern for ESM/CJS compatibility
+    - Fallback to static content if Vite SSR produces insufficient output
 
 ## External Dependencies
 -   **Stripe**: Payment processing.
