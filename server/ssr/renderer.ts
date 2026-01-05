@@ -1285,38 +1285,23 @@ async function renderPage(url: string, req: Request): Promise<string> {
       // Check for PAGE_CONTENT first (rich SSR content for React component blogs)
       const blogPageContent = PAGE_CONTENT['/blogs/' + slug] || PAGE_CONTENT[pathname];
       
-      // CRITICAL FIX: Skip database fetch for converted React pages
-      // These pages have React components that render client-side with full content
-      // The old WordPress database content should NOT override the React components
+      // SEO CRITICAL FIX: Always fetch database content for SSR visibility
+      // Even React pages need database content for crawlers - React hydrates client-side
+      // Previous code skipped DB fetch for React pages causing 0 word counts in SEMrush/Ubersuggest
+      blogData = await fetchBlogPost(slug);
+      
+      // Track if this is a React page (for fallback logic, not for skipping DB)
       const isReactPage = isConvertedToReact(slug);
       
-      // Only fetch from database if NOT a converted React page
-      if (!isReactPage) {
-        blogData = await fetchBlogPost(slug);
-      }
-      
-      // Determine content source priority:
-      // For React pages: blogMeta only (React component renders client-side)
-      // For WordPress pages: database > PAGE_CONTENT > blogMeta
+      // Content source priority (same for ALL pages - React and WordPress):
+      // 1. Database content (500+ chars) - highest priority for SEO
+      // 2. PAGE_CONTENT (rich SSR content) - second priority
+      // 3. Database content (any length) - third priority  
+      // 4. blogMeta description - last fallback
       const dbContentLength = (blogData?.post?.content || '').length;
       const MIN_CONTENT_LENGTH = 500;
       
-      if (isReactPage) {
-        // For converted React pages, use metadata for SSR placeholder
-        // The React component will render the full content client-side
-        if (blogMeta) {
-          h1 = blogMeta.title;
-          content = `<p style="font-size: 1.125rem; line-height: 1.75; color: #374151;">${blogMeta.description}</p>`;
-          metaTitle = blogMeta.title;
-          metaDescription = blogMeta.description;
-        } else if (blogPageContent) {
-          h1 = blogPageContent.h1;
-          content = renderPageContent(blogPageContent);
-          usedPageContent = true;
-          metaTitle = blogPageContent.h1;
-          metaDescription = blogPageContent.introduction.substring(0, 160);
-        }
-      } else if (blogData && blogData.post && dbContentLength >= MIN_CONTENT_LENGTH) {
+      if (blogData && blogData.post && dbContentLength >= MIN_CONTENT_LENGTH) {
         // Use database content (500+ chars) for SSR body (non-React WordPress pages)
         h1 = blogData.post.title;
         // Strip H1 tags from content to prevent duplicate H1s
