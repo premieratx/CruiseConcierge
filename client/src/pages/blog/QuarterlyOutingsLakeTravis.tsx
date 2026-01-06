@@ -19,10 +19,10 @@ import Footer from '@/components/Footer';
 import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
-import heroImage from '@assets/@capitalcityshots-16_1760080740020.jpg';
-import sectionImage1 from '@assets/@capitalcityshots-17_1760080740020.jpg';
-import sectionImage2 from '@assets/@capitalcityshots-18_1760080740021.jpg';
-import sectionImage3 from '@assets/@capitalcityshots-19_1760080740021.jpg';
+import heroImage from '@assets/meeseeks-25-person-boat.webp';
+import sectionImage1 from '@assets/meeseeks-1_1763968010088.jpg';
+import sectionImage2 from '@assets/meeseeks-2_1763968010089.jpg';
+import sectionImage3 from '@assets/meeseeks-4 austin party boat rental_1763968010090.jpg';
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 20 },

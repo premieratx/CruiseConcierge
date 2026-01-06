@@ -18,10 +18,10 @@ import Footer from '@/components/Footer';
 import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
-import heroImage from '@assets/@capitalcityshots-12_1760080740019.jpg';
-import sectionImage1 from '@assets/@capitalcityshots-13_1760080740020.jpg';
-import sectionImage2 from '@assets/@capitalcityshots-14_1760080740020.jpg';
-import sectionImage3 from '@assets/@capitalcityshots-15_1760080740020.jpg';
+import heroImage from '@assets/meeseeks-25-person-boat.webp';
+import sectionImage1 from '@assets/meeseeks-1_1763968010088.jpg';
+import sectionImage2 from '@assets/meeseeks-2_1763968010089.jpg';
+import sectionImage3 from '@assets/meeseeks-3 lake travis party boat_1763968010089.jpg';
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 20 },
