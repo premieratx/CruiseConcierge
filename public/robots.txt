@@ -1,58 +1,54 @@
-# Premier Party Cruises - Robots.txt
-# Last updated: 2025-12-31
+# PremierPartyCruises.com robots.txt
+# Last updated: 2026-01-07
 
 User-agent: *
 
-# Allow crawling of all public content
+# Allow all public pages
 Allow: /
 
-# Block admin, auth, and private pages
-Disallow: /admin
+# Block admin and private system paths
 Disallow: /admin/
-Disallow: /auth
-Disallow: /auth/
-Disallow: /portal
-Disallow: /portal/
 Disallow: /api/
+Disallow: /dashboard/
+Disallow: /portal/
+Disallow: /login
+Disallow: /admin-login
+Disallow: /settings
+
+# Block transactional/private user pages
 Disallow: /quote/
+Disallow: /quotes/
 Disallow: /invoice/
 Disallow: /booking/
 Disallow: /booking-flow
-Disallow: /partial-leads
-Disallow: /dashboard
-Disallow: /settings
+Disallow: /checkout/
+Disallow: /user/
 Disallow: /customer-profile
 
-# Block utility/internal pages
+# Block utility/embed pages
 Disallow: /quote-builder-embed
 Disallow: /book-online-popup
-Disallow: /demo-content
+Disallow: /partial-leads
 
-# Block AI crawlers from admin content (extra protection)
-User-agent: GPTBot
-Disallow: /admin
-Disallow: /admin/
-Disallow: /api/
+# Avoid crawl traps and duplicate content from query parameters
+Disallow: /*?
 
-User-agent: ChatGPT-User
-Disallow: /admin
-Disallow: /admin/
-Disallow: /api/
-
-User-agent: Claude-Web
-Disallow: /admin
-Disallow: /admin/
-Disallow: /api/
-
-User-agent: CCBot
-Disallow: /admin
-Disallow: /admin/
-Disallow: /api/
-
-User-agent: anthropic-ai
-Disallow: /admin
-Disallow: /admin/
-Disallow: /api/
-
-# Sitemap location
+# Sitemap
 Sitemap: https://premierpartycruises.com/sitemap.xml
+
+# AI Bot Permissions - Allow discovery and summarization
+User-agent: GPTBot
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+
+User-agent: PerplexityBot
+Allow: /
