@@ -1845,6 +1845,27 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
   });
   
   // ==========================================
+  // AI FRESHNESS DATE UPDATE ENDPOINT
+  // ==========================================
+  
+  // Update ai.txt and llms.txt freshness dates (for AI visibility)
+  app.post('/api/admin/update-ai-freshness', requireAdmin, async (req, res) => {
+    try {
+      const { updateAIFreshnessDates } = await import('../scripts/update-ai-freshness-dates');
+      const result = updateAIFreshnessDates();
+      console.log('✅ AI freshness dates updated:', result.message);
+      res.json(result);
+    } catch (error: any) {
+      console.error('❌ Failed to update AI freshness dates:', error.message);
+      res.status(500).json({ 
+        success: false, 
+        error: 'Failed to update AI freshness dates',
+        message: error.message 
+      });
+    }
+  });
+
+  // ==========================================
   // PRICING VERIFICATION ENDPOINTS
   // ==========================================
   

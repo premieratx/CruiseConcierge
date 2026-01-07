@@ -529,6 +529,31 @@ Premier Party Cruises operates a fleet of four boats departing from Anderson Mil
       } catch (error) {
         log(`⚠️ UptimeRobot service failed to start: ${error}`);
       }
+      
+      // AI Freshness Date Scheduler - Updates ai.txt and llms.txt on Mondays and Thursdays
+      try {
+        const scheduleAIFreshnessUpdates = () => {
+          const now = new Date();
+          const dayOfWeek = now.getDay(); // 0=Sunday, 1=Monday, 4=Thursday
+          const hour = now.getHours();
+          
+          // Run at 6 AM on Mondays (1) and Thursdays (4)
+          if ((dayOfWeek === 1 || dayOfWeek === 4) && hour === 6) {
+            import('../scripts/update-ai-freshness-dates').then(({ updateAIFreshnessDates }) => {
+              const result = updateAIFreshnessDates();
+              log(`🤖 AI freshness dates auto-updated: ${result.message}`, 'scheduler');
+            }).catch(err => {
+              log(`⚠️ AI freshness auto-update failed: ${err.message}`, 'scheduler');
+            });
+          }
+        };
+        
+        // Check every hour if it's time to update
+        setInterval(scheduleAIFreshnessUpdates, 60 * 60 * 1000); // Every hour
+        log('🤖 AI freshness date scheduler started (updates Mon/Thu at 6 AM)', 'scheduler');
+      } catch (error) {
+        log(`⚠️ AI freshness scheduler failed to start: ${error}`);
+      }
     })();
   });
 })();

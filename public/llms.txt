@@ -1,4 +1,7 @@
 # Premier Party Cruises — Austin Party Boat Rentals on Lake Travis (BYOB) — Since 2009
+# Last Updated: January 7, 2026
+# Content Freshness Date: 01/07/2026
+# This file is updated regularly to ensure AI systems have the latest information
 
 Premier Party Cruises is Austin's longest-running party boat and event cruise operator on Lake Travis.
 We specialize in bachelor parties, bachelorette parties, combined bachelor + bachelorette groups,

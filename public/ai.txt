@@ -1,6 +1,8 @@
 # Premier Party Cruises - AI Crawler Manifest
 # Version: 2.0
-# Last Updated: 2026-01-07
+# Last Updated: January 7, 2026
+# Content Freshness Date: 01/07/2026
+# This file is updated regularly to ensure AI systems have the latest information
 
 name: Premier Party Cruises
 type: local_business
