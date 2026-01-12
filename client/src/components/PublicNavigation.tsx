@@ -275,7 +275,7 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
             <span className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-black flex-shrink-0" />
             <div className="animate-pulse-text">
               <div>New Years Super Sale!</div>
-              <div className="underline" style={{ fontSize: '1.0em' }}>Book by January 9th to get $250-$600+ in Bonus Discounts!</div>
+              <div className="underline" style={{ fontSize: '1.0em' }}>Book by January 16th to get $150-$500+ in Discounts!</div>
             </div>
             <span className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-black flex-shrink-0" />
             <PartyPopper className="h-4 w-4 md:h-5 md:w-5 flex-shrink-0" />
