@@ -3816,6 +3816,53 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
     ],
     relatedPages: ['private-cruises', 'wedding-party', 'bachelor-party', 'bachelorette-party', 'corporate-events', 'pricing-breakdown', 'gallery']
   },
+  '/blogs/wedding-anniversary-celebration-ideas-recreating-your-special-day-with-boat-and-alcohol-packages': {
+    h1: 'Wedding Anniversary Celebration Ideas: Recreating Your Special Day with Boat and Alcohol Packages',
+    introduction: 'Transform your wedding anniversary into an unforgettable celebration with a Lake Travis cruise! Whether you are marking your first year or celebrating a golden 50th anniversary, Premier Party Cruises offers romantic [[private-cruises]] with BYOB flexibility and beverage delivery services. Recreate the magic of your wedding day surrounded by the stunning Texas Hill Country scenery.',
+    sections: [
+      {
+        heading: 'Why Lake Travis for Your Anniversary Celebration',
+        paragraphs: [
+          'Your wedding anniversary deserves more than just another dinner reservation. Lake Travis provides the perfect backdrop for romantic celebrations with crystal-clear waters, stunning Texas Hill Country scenery, and breathtaking sunsets that create unforgettable memories. Whether you are celebrating your first anniversary or your fiftieth golden anniversary, a boat cruise offers a unique and meaningful way to honor your love story.',
+          'Imagine toasting champagne as the sun sets over Lake Travis, recreating the magic of your wedding day surrounded by the natural beauty of Central Texas. Our BYOB-friendly boats let you bring your favorite wines, champagne, or cocktails to personalize your celebration. The gentle waves, open skies, and peaceful atmosphere create the perfect setting for reconnecting with your partner away from daily distractions.',
+          'Many couples tell us their anniversary cruise was even more romantic than their honeymoon! The combination of privacy, stunning views, and personalized service makes Lake Travis anniversary cruises the top choice for Austin-area couples seeking a memorable celebration.'
+        ]
+      },
+      {
+        heading: 'BYOB Anniversary Packages and Beverage Delivery',
+        paragraphs: [
+          'All our anniversary cruises are fully BYOB friendly, allowing you to bring your own beer, wine, champagne, and spirits without any corkage fees. We provide large coolers, plenty of ice, and cold water so your beverages stay perfectly chilled throughout your cruise. Glass bottles must be transferred to plastic containers for safety.',
+          'Partner with Party On Delivery for hassle-free beverage coordination - they deliver your complete drink order directly to the marina before your cruise. Choose from curated anniversary packages including champagne for toasting, wine selections, or full bar setups for larger celebrations. Skip the shopping and hauling; everything arrives cold and ready.',
+          'Popular anniversary beverage choices include premium champagne for sunset toasting, Texas wines from nearby Hill Country vineyards, and craft cocktail ingredients for signature drinks. Your anniversary celebration, your beverage choices - we accommodate whatever makes your celebration special.'
+        ]
+      },
+      {
+        heading: 'Intimate Romantic Anniversary Cruises',
+        paragraphs: [
+          'For couples seeking a private romantic experience, our Day Tripper boat (accommodating up to 14 guests) offers the perfect intimate setting. Book the entire boat just for the two of you, or invite a small group of your closest friends and family to share the celebration. Our sunset cruise timing is especially popular for romantic anniversaries.',
+          'Surprise your spouse with champagne, flowers, rose petals, and personalized decorations to recreate wedding memories. Create a custom playlist featuring your wedding songs and first dance music using our premium Bluetooth sound system. Many couples bring photos from their wedding to display on board, celebrating how far they have come together.',
+          'Our experienced captains can navigate to secluded coves on Lake Travis where you can enjoy privacy, swimming, and quiet moments together. The golden hour lighting over the Hill Country creates stunning photo opportunities to commemorate your special day.'
+        ]
+      },
+      {
+        heading: 'Milestone Anniversary Celebration Parties',
+        paragraphs: [
+          'Celebrating a milestone anniversary like your 10th, 25th silver anniversary, 40th ruby anniversary, or 50th golden anniversary? These special occasions deserve a grand celebration with everyone who has been part of your journey. Our larger boats accommodate your entire guest list for an unforgettable party.',
+          'The Meeseeks boat accommodates up to 30 guests, perfect for intimate family gatherings and close friend celebrations. For larger milestone parties, our flagship Clever Girl hosts up to 75 guests with its 14 disco balls, giant Texas flag, and spacious deck area. Transform the boat into your personal anniversary venue with custom decorations.',
+          'Include catered meals from Austin BBQ favorites, hire a DJ for dancing, arrange live music, or keep it simple and elegant with just your favorite playlist. Our team coordinates with local caterers, photographers, and entertainment vendors to create your perfect celebration.'
+        ]
+      },
+      {
+        heading: 'Planning Your Anniversary Cruise',
+        paragraphs: [
+          'We recommend booking your anniversary cruise 2-4 weeks in advance to secure your preferred date and boat, especially for weekend sunset times. Sunset cruises are our most popular choice for romantic anniversaries, with departure times varying by season to capture golden hour perfectly.',
+          'Spring and summer offer late sunsets around 7:30-8:30 PM, while fall and winter sunsets occur earlier. We help you select the perfect departure time to catch golden hour on Lake Travis. Our team helps coordinate every detail from timing to decorations to beverage delivery.',
+          'Contact us to discuss your anniversary vision and receive a personalized quote. Whether you want an intimate cruise for two or a milestone celebration with 75 guests, we have the perfect boat and package. Call 512-488-5892 or request a quote online to start planning your anniversary celebration today.'
+        ]
+      }
+    ],
+    relatedPages: ['private-cruises', 'wedding-party', 'rehearsal-dinner', 'pricing-breakdown', 'gallery', 'contact']
+  },
   '/lake-travis-bachelor-party-boats': {
     h1: 'Lake Travis Bachelor Party Boats: Your Complete Austin Guide',
     introduction: 'Discover why Lake Travis party boats are the #1 choice for Austin [[bachelor-party]] celebrations! From the all-inclusive [[atx-disco]] to exclusive [[private-cruises]], Premier Party Cruises offers the best bachelor party boat experience in Texas with 15+ years and 150,000+ happy customers.',
