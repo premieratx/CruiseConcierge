@@ -18,6 +18,7 @@ export async function apiRequest(
                        url.includes('/api/invoices') || url.includes('/api/media') ||
                        url.includes('/api/blog') || // SECURITY: Include blog management routes
                        url.includes('/api/seo') || // SECURITY: Include SEO management routes
+                       url.includes('/api/page-metadata') || // SECURITY: Include page metadata routes
                        url.includes('/api/agent/chat') || // SECURITY: Include agent chat routes
                        url.includes('/api/leads') || // SECURITY: Include leads management routes
                        url.includes('/api/agents') || // SECURITY: Include agentic AI routes
@@ -57,6 +58,7 @@ export const getQueryFn: <T>(options: {
                          url.includes('/api/invoices') || url.includes('/api/media') ||
                          url.includes('/api/blog') || // SECURITY: Include blog management routes
                          url.includes('/api/seo') || // SECURITY: Include SEO management routes
+                         url.includes('/api/page-metadata') || // SECURITY: Include page metadata routes
                          url.includes('/api/agent/chat') || // SECURITY: Include agent chat routes
                          url.includes('/api/leads') || // SECURITY: Include leads management routes
                          url.includes('/api/agents') || // SECURITY: Include agentic AI routes

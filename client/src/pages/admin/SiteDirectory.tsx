@@ -232,10 +232,7 @@ export default function SiteDirectory() {
 
   const saveMutation = useMutation({
     mutationFn: async (data: EditableMetadata) => {
-      const response = await apiRequest("POST", "/api/page-metadata", {
-        body: JSON.stringify(data),
-      });
-      return response.json();
+      return await apiRequest("POST", "/api/page-metadata", data);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/page-metadata"] });
@@ -257,8 +254,7 @@ export default function SiteDirectory() {
 
   const deleteMutation = useMutation({
     mutationFn: async (route: string) => {
-      const response = await apiRequest("DELETE", `/api/page-metadata/${encodeURIComponent(route)}`);
-      return response.json();
+      return await apiRequest("DELETE", `/api/page-metadata/${encodeURIComponent(route)}`);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/page-metadata"] });
