@@ -3629,52 +3629,98 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
   },
   '/wedding-anniversary-celebration-ideas': {
     h1: 'Wedding Anniversary Celebration Ideas | Lake Travis Boat Cruises',
-    introduction: 'Celebrate your wedding anniversary with a romantic Lake Travis cruise! From intimate sunset voyages to milestone celebration parties, Premier Party Cruises offers unforgettable [[private-cruises]] perfect for recreating your special day on the water.',
+    introduction: 'Celebrate your wedding anniversary with a romantic Lake Travis cruise! From intimate sunset voyages to milestone celebration parties with family and friends, Premier Party Cruises offers unforgettable [[private-cruises]] perfect for recreating your special day on the water. With 15+ years of experience hosting romantic celebrations and over 150,000 happy guests, we know how to make your anniversary magical.',
     sections: [
       {
-        heading: 'Romantic Anniversary Cruises',
+        heading: 'Why Celebrate Your Anniversary on Lake Travis',
         paragraphs: [
-          'Surprise your spouse with a private sunset cruise on Lake Travis. Our Day Tripper boat (up to 14 guests) offers intimate settings perfect for romantic anniversaries. Add champagne, flowers, and personalized decorations for a truly special celebration.',
-          'Recreate wedding memories with a boat party featuring your wedding songs, photos displayed on board, and scenic views of the Texas Hill Country. BYOB friendly - bring your favorite wines or champagne to toast your years together.'
+          'Your wedding anniversary deserves more than just a dinner reservation. Lake Travis provides the perfect backdrop for romantic celebrations with crystal-clear waters, stunning Texas Hill Country scenery, and breathtaking sunsets that create unforgettable memories. Whether you are celebrating your first anniversary or your fiftieth golden anniversary, a boat cruise offers a unique and meaningful way to honor your love story.',
+          'Imagine toasting champagne as the sun sets over Lake Travis, recreating the magic of your wedding day surrounded by the natural beauty of Central Texas. Our BYOB-friendly boats let you bring your favorite wines, champagne, or cocktails to personalize your celebration. The gentle waves, open skies, and peaceful atmosphere create the perfect setting for reconnecting with your partner away from daily distractions.',
+          'Many couples tell us their anniversary cruise was even more romantic than their honeymoon! The combination of privacy, stunning views, and personalized service makes Lake Travis anniversary cruises the top choice for Austin-area couples seeking a memorable celebration.'
         ]
       },
       {
-        heading: 'Milestone Anniversary Parties',
+        heading: 'Intimate Romantic Anniversary Cruises for Couples',
         paragraphs: [
-          'Celebrating 10, 25, or 50 years? Host a milestone anniversary party aboard our larger boats. Meeseeks accommodates up to 30 guests, while Clever Girl hosts up to 75 for bigger celebrations with family and friends.',
-          'Include catered meals, DJ entertainment, or a simple elegant cruise - customize every detail to match your vision. Our team helps coordinate everything so you can focus on celebrating your love story.'
+          'For couples seeking a private romantic experience, our Day Tripper boat (accommodating up to 14 guests) offers the perfect intimate setting. Book the entire boat just for the two of you, or invite a small group of your closest friends and family to share the celebration. Our sunset cruise timing is especially popular for romantic anniversaries.',
+          'Surprise your spouse with champagne, flowers, rose petals, and personalized decorations to recreate wedding memories. Create a custom playlist featuring your wedding songs and first dance music using our premium Bluetooth sound system. Many couples bring photos from their wedding to display on board, celebrating how far they have come together.',
+          'Our experienced captains can navigate to secluded coves on Lake Travis where you can enjoy privacy, swimming, and quiet moments together. The golden hour lighting over the Hill Country creates stunning photo opportunities to commemorate your special day. BYOB friendly with coolers and ice provided - bring your favorite wines or champagne to toast your years of love and commitment.'
+        ]
+      },
+      {
+        heading: 'Milestone Anniversary Celebration Parties',
+        paragraphs: [
+          'Celebrating a milestone anniversary like your 10th, 25th silver anniversary, 40th ruby anniversary, or 50th golden anniversary? These special occasions deserve a grand celebration with everyone who has been part of your journey. Our larger boats accommodate your entire guest list for an unforgettable party on Lake Travis.',
+          'The Meeseeks boat accommodates up to 30 guests, perfect for intimate family gatherings and close friend celebrations. For larger milestone parties, our flagship Clever Girl hosts up to 75 guests with its 14 disco balls, giant Texas flag, and spacious deck area. Transform the boat into your personal anniversary venue with custom decorations celebrating your years together.',
+          'Include catered meals from Austin BBQ favorites, hire a DJ for dancing, arrange live music, or keep it simple and elegant with just your favorite playlist. Our team coordinates with local caterers, photographers, and entertainment vendors to create your perfect anniversary celebration. We handle the logistics so you can focus on celebrating your love story with the people who matter most.'
+        ]
+      },
+      {
+        heading: 'BYOB Anniversary Party Packages and Beverage Options',
+        paragraphs: [
+          'All our anniversary cruises are fully BYOB friendly, allowing you to bring your own beer, wine, champagne, and spirits without any corkage fees. We provide large coolers, plenty of ice, and cold water so your beverages stay perfectly chilled throughout your cruise. Glass bottles must be transferred to plastic containers for safety.',
+          'Partner with Party On Delivery for hassle-free beverage coordination - they deliver your complete drink order directly to the marina before your cruise. Choose from curated anniversary packages including champagne for toasting, wine selections, or full bar setups for larger celebrations. Skip the shopping and hauling; everything arrives cold and ready.',
+          'Popular anniversary beverage choices include premium champagne for sunset toasting, Texas wines from nearby Hill Country vineyards, and craft cocktail ingredients for signature drinks. Your anniversary celebration, your beverage choices - we accommodate whatever makes your celebration special.'
+        ]
+      },
+      {
+        heading: 'Planning Your Lake Travis Anniversary Cruise',
+        paragraphs: [
+          'We recommend booking your anniversary cruise 2-4 weeks in advance to secure your preferred date and boat, especially for weekend sunset times and popular dates like summer months and holiday weekends. Our team helps coordinate every detail from timing to decorations to beverage delivery.',
+          'Sunset cruises are our most popular choice for romantic anniversaries, with departure times varying by season. Spring and summer offer late sunsets around 7:30-8:30 PM, while fall and winter sunsets occur earlier. We help you select the perfect departure time to catch golden hour on Lake Travis.',
+          'Contact us to discuss your anniversary vision and receive a personalized quote. Whether you want an intimate cruise for two or a milestone celebration with 75 guests, we have the perfect boat and package for your special occasion. Call 512-488-5892 or request a quote online to start planning your anniversary celebration today.'
         ]
       }
     ],
-    relatedPages: ['private-cruises', 'wedding-party', 'rehearsal-dinner', 'pricing-breakdown', 'gallery']
+    relatedPages: ['private-cruises', 'wedding-party', 'rehearsal-dinner', 'pricing-breakdown', 'gallery', 'contact']
   },
   '/blogs/austin-bachelor-party-ideas': {
     h1: 'Austin Bachelor Party Ideas: Top Things to Do for an Epic Guys\' Weekend',
-    introduction: 'Planning the ultimate [[bachelor-party]] in Austin? From Lake Travis boat parties to 6th Street adventures, Austin offers incredible options for an epic celebration. Our guide covers the best bachelor party activities, including the legendary [[atx-disco]] and [[private-cruises]].',
+    introduction: 'Planning the ultimate [[bachelor-party]] in Austin, Texas? Welcome to the bachelor party capital of the South! From legendary Lake Travis boat parties and world-class Texas BBQ to electric 6th Street nightlife and outdoor adventures, Austin offers everything you need for an epic guys\' weekend. Our comprehensive guide covers the best bachelor party activities, including the famous [[atx-disco]] where bachelor and bachelorette parties celebrate together, and exclusive [[private-cruises]] for groups wanting their own boat.',
     sections: [
       {
-        heading: 'Lake Travis Boat Party',
+        heading: 'Lake Travis Party Boats: The Ultimate Bachelor Party Experience',
         paragraphs: [
-          'The crown jewel of any Austin bachelor party - a boat cruise on Lake Travis! Join the [[atx-disco]] with multiple groups for an all-inclusive party experience with DJ, photographer, giant floats, and disco dance floor. Or book a [[private-cruises]] for exclusive use with your crew.',
-          'BYOB friendly with coolers and ice provided. Spend 4 hours swimming, partying, and cruising scenic Lake Travis. The perfect daytime activity before hitting Austin nightlife.'
+          'The crown jewel of any Austin bachelor party is a boat cruise on Lake Travis. This is the activity that makes Austin bachelor parties legendary - 4 hours of cruising crystal-clear waters, swimming in scenic coves, and partying with your crew against the stunning backdrop of the Texas Hill Country. No bachelor party in Austin is complete without hitting the lake.',
+          'Join the famous [[atx-disco]] with multiple bachelor and bachelorette groups for the ultimate social party experience. All-inclusive pricing includes professional DJ spinning hits all day, onboard photographer capturing epic moments, giant 20-foot lily pad floats for swimming breaks, disco dance floor, party supplies, coolers with ice, and an incredible energy with groups celebrating together. The co-ed atmosphere means you might team up with bachelorette groups for an epic after-party downtown.',
+          'Prefer exclusive use for your crew? Book a [[private-cruises]] and have the entire boat to yourselves. Choose the Day Tripper for groups up to 14, the Meeseeks for groups up to 30, or the flagship Clever Girl with 14 disco balls for parties up to 75 guys. Private charters include licensed captain, premium sound system, and complete flexibility to customize your route and vibe. BYOB friendly with no corkage fees - bring all your own beverages and we provide coolers and ice.',
+          'Pro tip: Use Party On Delivery to have all your drinks, mixers, and ice delivered directly to the marina. Skip the liquor store runs and hauling coolers - everything arrives cold and ready for your crew.'
         ]
       },
       {
-        heading: 'Downtown Austin Nightlife',
+        heading: 'Downtown Austin Nightlife: 6th Street and Beyond',
         paragraphs: [
-          'After your lake adventure, explore 6th Street - Austin\'s famous entertainment district. Dozens of bars, live music venues, and clubs within walking distance. Rainey Street offers craft cocktails in converted bungalows. East Austin features speakeasies and trendy spots.',
-          'Pro tip: Book your boat party for daytime (12-4pm or 11am-3pm) to maximize both lake time and nightlife. Many bachelor groups do boat party, dinner, then 6th Street for the ultimate Austin experience.'
+          'After your lake adventure, Austin\'s legendary nightlife awaits. No bachelor party is complete without a night on 6th Street, Austin\'s famous entertainment district often compared to Bourbon Street. Dozens of bars, live music venues, dance clubs, and honky-tonks line the strip - you can bar hop all night without walking more than a few blocks.',
+          'Dirty Sixth (East 6th) offers classic dive bars, rowdy dance clubs, and the quintessential Austin bachelor party experience. West 6th features more upscale lounges and cocktail bars for a classier vibe. Rainey Street is a must-visit with craft cocktails served in converted historic bungalows, food trucks, and a more relaxed atmosphere. East Austin delivers speakeasies, trendy spots, and the city\'s coolest new venues.',
+          'Pro tip: Book your [[atx-disco]] for daytime (12-4pm or 11am-3pm time slots) to maximize both lake time and nightlife. Many bachelor groups follow this itinerary: boat party, steak dinner or BBQ, then 6th Street until close. Coordinate with any bachelorette groups you met on the cruise for an epic downtown meetup - it happens all the time!'
         ]
       },
       {
-        heading: 'More Austin Activities',
+        heading: 'World-Famous Texas BBQ and Food',
         paragraphs: [
-          'Austin bachelor parties also love Top Golf, axe throwing, BBQ tours (Franklin, Terry Black\'s), brewery hopping, and golf courses. The city offers something for every groom\'s interests - from outdoor adventures to gaming lounges.',
-          'We recommend combining our [[atx-disco]] or [[private-cruises]] with 2-3 other activities for a packed weekend. Our team can suggest itineraries and partner discounts for complete bachelor party planning.'
+          'You cannot bring the boys to Austin without feasting on Texas barbecue. Austin is home to some of the best BBQ in the world, making it the perfect bachelor party fuel. Franklin Barbecue is the holy grail - arrive early and tailgate in line with beers for a memorable group experience. Terry Black\'s BBQ on Barton Springs offers incredible brisket without the extreme wait.',
+          'Other legendary spots include La Barbecue, Micklethwait Craft Meats, and Leroy and Lewis. For a BYOB experience, head to The Salt Lick in Driftwood where you can bring your own beer and enjoy family-style platters under oak trees. Austin also delivers world-class tacos at spots like Veracruz All Natural, Torchy\'s, and countless food trucks.',
+          'Pro tip: Many bachelor groups schedule their BBQ feast after the boat party when appetites are maximum. The combination of lake activities and Austin\'s best smoked meats creates the perfect bachelor party day.'
+        ]
+      },
+      {
+        heading: 'Daytime Activities and Adventures',
+        paragraphs: [
+          'Austin offers incredible daytime activities beyond Lake Travis to fill out your bachelor weekend. Top Golf provides competitive fun with drinks and great food in a climate-controlled bay. Urban Axes offers axe throwing for the crew who wants to channel their inner lumberjack. The Range at Austin or other local spots offer shooting range experiences.',
+          'For the active groom, consider go-karting at K1 Speed or the Circuit of the Americas track, tubing the San Marcos River, golfing at one of Austin\'s excellent courses, or hiking the Barton Creek Greenbelt. Brewery hopping hits Austin Beerworks, Zilker Brewing, and Jester King. Gaming lounges like Pinballz offer arcades and beer.',
+          'We recommend combining 2-3 activities with your [[atx-disco]] or [[private-cruises]] for a packed bachelor weekend. Our team can suggest optimal itineraries and help coordinate transportation between venues. The typical Austin bachelor party spans 2-3 days with boat party as the centerpiece.'
+        ]
+      },
+      {
+        heading: 'Planning Your Austin Bachelor Party',
+        paragraphs: [
+          'Start planning your Austin bachelor party 2-3 months in advance to secure the best [[atx-disco]] time slots and restaurant reservations. Peak season runs March through October when Lake Travis is at its warmest and weather is ideal. Book boat parties early as weekend slots fill up quickly during bachelor party season.',
+          'Most bachelor groups spend 2-3 days in Austin with this popular itinerary: Day 1 - arrive, settle in, casual dinner, Rainey Street. Day 2 - Lake Travis boat party, BBQ feast, 6th Street until close. Day 3 - recovery brunch, Top Golf or shooting range, depart. This schedule maximizes Austin\'s best offerings while keeping energy high.',
+          'For accommodations, consider downtown hotels for walkability to nightlife, or Lake Travis Airbnbs for proximity to the marina. We depart from Emerald Point Marina, about 30-45 minutes from downtown Austin. Transportation options include ride shares, party buses, or designated drivers. Call 512-488-5892 or request a quote online to lock in your bachelor party boat cruise today.'
         ]
       }
     ],
-    relatedPages: ['bachelor-party', 'atx-disco', 'private-cruises', 'combined-bach', 'pricing-breakdown']
+    relatedPages: ['bachelor-party', 'atx-disco', 'private-cruises', 'combined-bach', 'pricing-breakdown', 'faq', 'gallery']
   },
   '/lake-travis-bachelor-party-boats': {
     h1: 'Lake Travis Bachelor Party Boats: Your Complete Austin Guide',
