@@ -53,6 +53,7 @@ Key technical implementations and design decisions include:
     - All React blog pages in MASTER_REACT_BLOG_SLUGS render 100-200KB with 1000+ words on cold start
     - react-helmet-async imports use star import pattern for ESM/CJS compatibility
     - Fallback to static content if Vite SSR produces insufficient output
+-   **WordPress Blog SSR Fix (Jan 2026)**: Fixed critical bug where 7 WordPress/DB blog posts rendered 0 words (just React shell). Root cause: `blogSSRHandler` in `server/routes.ts` tried React SSR for ALL blog posts, including WordPress ones. WordPress posts don't have React components, so they got empty shells. Fix: Check `MASTER_REACT_BLOG_SLUGS` - only attempt React SSR for React pages; inject database content directly for WordPress posts. Affected posts now render 1500-2100+ words: startup-celebration, recipe-for-chillest, top-dos-and-dont, top-five-celebrities, ultimate-bachelorette-alcohol-guide, wedding-party-alcohol-coordination.
 
 ## External Dependencies
 -   **Stripe**: Payment processing.

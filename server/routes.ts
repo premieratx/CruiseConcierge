@@ -1128,19 +1128,32 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
         `<meta name="description" content="${metaDescription}" />`
       );
       
-      // Render full React app server-side using entry-server
+      // Render content for SSR
       let appHtml = '';
-      try {
-        // Dynamically import entry-server render function
-        const entryServer = await import('../client/src/entry-server.tsx');
-        const rendered = entryServer.render(`/blogs/${slug}`);
-        appHtml = rendered.html;
-        console.log(`✅ [Blog SSR] Rendered full React app with PublicNavigation for: ${slug}`);
-      } catch (renderError) {
-        console.error('❌ [Blog SSR] React render failed, using fallback:', renderError);
-        // Fallback to plain content if SSR fails
+      const isReactPage = MASTER_REACT_BLOG_SLUGS.has(slug);
+      
+      if (isReactPage) {
+        // React pages: Try to render the React component
+        try {
+          const entryServer = await import('../client/src/entry-server.tsx');
+          const rendered = entryServer.render(`/blogs/${slug}`);
+          appHtml = rendered.html;
+          console.log(`✅ [Blog SSR] Rendered React component for: ${slug}`);
+        } catch (renderError) {
+          console.error('❌ [Blog SSR] React render failed, using fallback:', renderError);
+          // Fallback to database content if React fails
+          const h1Content = post.title || "";
+          const rawBodyContent = post.content || post.excerpt || "";
+          const bodyContent = rawBodyContent.replace(/<h1[^>]*>[\s\S]*?<\/h1>/gi, '');
+          appHtml = `<article style="max-width: 56rem; margin: 0 auto; padding: 2rem 1rem;">
+            <h1 style="text-align: center; font-size: 2.5rem; font-weight: 800; margin-bottom: 2rem; color: #111827;">${h1Content}</h1>
+            <div class="blog-content">${bodyContent}</div>
+          </article>`;
+        }
+      } else {
+        // WordPress/database blog posts: Inject database content directly
+        // This is the critical fix - previously these posts got empty React shells
         const h1Content = post.title || "";
-        // SEO FIX: Strip H1 tags from content to prevent duplicate H1s (keep only our one H1)
         const rawBodyContent = post.content || post.excerpt || "";
         const bodyContent = rawBodyContent.replace(/<h1[^>]*>[\s\S]*?<\/h1>/gi, '');
         appHtml = `<article style="max-width: 56rem; margin: 0 auto; padding: 2rem 1rem;">
@@ -1157,6 +1170,7 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
           </style>
           <div class="blog-content">${bodyContent}</div>
         </article>`;
+        console.log(`✅ [Blog SSR] Rendered WordPress/DB content for: ${slug} (${bodyContent.length} chars)`);
       }
       
       // Inject the full React app HTML into root div
