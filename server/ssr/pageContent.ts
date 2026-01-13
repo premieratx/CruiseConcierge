@@ -3722,6 +3722,100 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
     ],
     relatedPages: ['bachelor-party', 'atx-disco', 'private-cruises', 'combined-bach', 'pricing-breakdown', 'faq', 'gallery']
   },
+  '/blogs/all-inclusive-corporate-packages': {
+    h1: 'All-Inclusive Corporate Boat Party Packages | Lake Travis Team Events',
+    introduction: 'Discover Premier Party Cruises\' all-inclusive corporate packages for Lake Travis boat rentals. Our turnkey [[corporate-events]] and [[team-building]] packages eliminate planning stress with everything included: premium boats, professional crew, catering coordination, and memorable experiences. Perfect for company outings, client entertainment, holiday parties, and milestone celebrations on Austin\'s beautiful Lake Travis.',
+    sections: [
+      {
+        heading: 'Why Choose All-Inclusive Corporate Packages',
+        paragraphs: [
+          'Planning a corporate event is stressful enough without coordinating dozens of vendors and logistics. Our all-inclusive corporate packages bundle everything you need for a successful Lake Travis boat party into one seamless experience. From the moment you book until your team disembarks, we handle every detail so you can focus on what matters: building relationships and celebrating achievements.',
+          'Our corporate packages have served Fortune 500 companies, Austin tech startups, law firms, medical practices, and organizations of all sizes. We understand that corporate events require professionalism, reliability, and attention to detail. Every aspect of our all-inclusive packages reflects this commitment to excellence.',
+          'Whether you are hosting a team building outing, client appreciation event, company milestone celebration, or holiday party, our packages adapt to your specific goals and budget. We work directly with your event coordinator or executive assistant to customize every element while handling vendor coordination, timing, and logistics.'
+        ]
+      },
+      {
+        heading: 'What\'s Included in Corporate Packages',
+        paragraphs: [
+          'Our all-inclusive packages include exclusive use of your selected boat for 4 hours or more. Choose from Day Tripper (up to 14 guests) for executive retreats and intimate client entertainment, Meeseeks (up to 30 guests) for department outings and medium groups, or flagship Clever Girl (up to 75 guests) with 14 disco balls for large corporate gatherings.',
+          'Every package includes licensed Coast Guard certified captain and professional crew, premium Bluetooth sound system for presentations or music, large coolers with ice for beverages, clean restroom facilities, comfortable seating areas, shade canopies, and swimming access with ladders. Our boats are meticulously maintained and spotlessly clean for professional impressions.',
+          'All-inclusive add-ons available include catered meals from Austin\'s top restaurants, professional photographer for marketing materials and team photos, branded decorations with your company logo, full beverage packages (or BYOB with no corkage), team building activity coordination, and transportation from downtown Austin offices to the marina.'
+        ]
+      },
+      {
+        heading: 'Corporate Team Building on Lake Travis',
+        paragraphs: [
+          'Lake Travis provides the perfect setting for meaningful team building outside the office. The combination of stunning Hill Country scenery, refreshing water activities, and relaxed atmosphere creates ideal conditions for colleagues to connect authentically. Studies show employees who participate in outdoor team building report stronger workplace relationships and improved collaboration.',
+          'Our team building packages can incorporate structured activities like scavenger hunts, trivia competitions, relay races, and collaborative challenges, or simply provide a beautiful environment for organic relationship building over food and drinks. The shared experience of a Lake Travis cruise creates lasting memories that strengthen team bonds.',
+          'Popular team building cruise activities include swimming and floating breaks, sunset photo sessions with coworkers, friendly competitions with prizes, recognition and awards ceremonies on deck, and casual networking in a relaxed setting. Our crew facilitates activities or steps back as needed for your event flow.'
+        ]
+      },
+      {
+        heading: 'Client Entertainment and Appreciation Cruises',
+        paragraphs: [
+          'Impress your most valuable clients with an unforgettable Lake Travis experience. Corporate client entertainment cruises demonstrate your commitment to relationships while providing a unique, memorable experience they will associate with your brand. Our professional service and stunning venue reflect positively on your organization.',
+          'Executive-level client cruises feature our Day Tripper boat for intimate groups up to 14, creating the perfect environment for meaningful conversations and relationship building. The privacy of a private charter allows for confidential discussions while the scenic backdrop provides natural conversation starters and photo opportunities.',
+          'We coordinate with your team on exact timing, route preferences, catering menus, and beverage selections to create a customized experience matching your client relationships. Many Austin firms use regular client appreciation cruises as a cornerstone of their relationship management strategy.'
+        ]
+      },
+      {
+        heading: 'Corporate Event Pricing and Booking',
+        paragraphs: [
+          'All-inclusive corporate packages start at $200 per hour with 4-hour minimum for the Day Tripper, scaling up for larger boats and extended durations. Weekday rates offer significant savings over weekend pricing, making Tuesday through Thursday ideal for budget-conscious corporate events.',
+          'Package pricing includes boat rental, captain and crew, all standard amenities, and event coordination. Catering, photography, decorations, and beverage packages are quoted separately based on your specific needs and guest count. We provide detailed proposals with line-item pricing for easy expense approval and budget management.',
+          'Book your corporate Lake Travis cruise by calling 512-488-5892 or submitting a quote request online. Our corporate event coordinator will discuss your goals, recommend the optimal package, and provide a comprehensive proposal within 24 hours. We recommend booking 2-4 weeks in advance for best availability, with last-minute bookings accommodated when possible.'
+        ]
+      }
+    ],
+    relatedPages: ['corporate-events', 'team-building', 'client-entertainment', 'company-milestone', 'private-cruises', 'pricing-breakdown']
+  },
+  '/blogs/lake-travis-sunset-cruises-romantic-and-celebration-options-for-every-occasion': {
+    h1: 'Lake Travis Sunset Cruises: Romantic and Celebration Options for Every Occasion',
+    introduction: 'Experience the magic of a Lake Travis sunset cruise with Premier Party Cruises. Our evening [[private-cruises]] capture the golden hour beauty of the Texas Hill Country, creating unforgettable moments for romantic dates, anniversary celebrations, proposals, and special occasions. Watch the sun paint the sky in brilliant oranges and pinks as you cruise crystal-clear Lake Travis waters.',
+    sections: [
+      {
+        heading: 'The Magic of Lake Travis Sunsets',
+        paragraphs: [
+          'Lake Travis is renowned for spectacular sunsets that transform the Texas Hill Country into a canvas of brilliant colors. The unique geography of the lake, nestled among rolling limestone hills and ancient oak trees, creates stunning views as the sun descends. These natural light shows have made Lake Travis one of Austin\'s most sought-after settings for romantic and celebratory experiences.',
+          'Our sunset cruises are carefully timed to capture golden hour, that magical period when warm light bathes everything in a soft glow perfect for photos and romance. As the sky transitions from golden yellows to deep oranges, fiery reds, and soft purples, you will understand why Lake Travis sunsets are considered among the best in Texas.',
+          'Every season offers unique sunset experiences. Summer brings late, lingering sunsets around 8:30 PM with warm temperatures perfect for swimming beforehand. Spring and fall deliver dramatic cloud formations and comfortable weather. Winter sunsets occur earlier but offer the most vivid colors and intimate, uncrowded experiences on the lake.'
+        ]
+      },
+      {
+        heading: 'Romantic Sunset Cruise Experiences',
+        paragraphs: [
+          'Create unforgettable romantic memories with a private sunset cruise designed for couples. Our Day Tripper boat accommodates intimate groups, perfect for date nights, anniversaries, or surprise proposals. Imagine champagne, your favorite music, and the stunning Lake Travis sunset as the backdrop for your special moment.',
+          'Many couples use our sunset cruises for marriage proposals, with our crew helping coordinate surprise elements like champagne on ice, rose petals, and the perfect secluded cove location for popping the question. We have hosted hundreds of successful proposals with our discrete, supportive service.',
+          'Anniversary sunset cruises let couples recreate the romance of their wedding day. Bring photos, play your wedding songs, and toast to your years together as the sun sets over the water. The combination of natural beauty, privacy, and personalized service creates deeply meaningful experiences for celebrating love.'
+        ]
+      },
+      {
+        heading: 'Sunset Celebration Parties',
+        paragraphs: [
+          'Sunset cruises are not just for couples. Our larger boats accommodate celebration groups who want to experience Lake Travis at its most beautiful. The Meeseeks hosts up to 30 guests for birthday parties, bachelor and bachelorette groups, and milestone celebrations. Flagship Clever Girl accommodates up to 75 for larger sunset events.',
+          'The [[atx-disco]] Saturday 3:30-7:30pm time slot captures sunset magic with the full party experience. Professional DJ, photographer, giant floats, and disco dance floor combine with stunning sunset views for an unforgettable celebration. This time slot is especially popular for groups wanting both party energy and romantic sunset photos.',
+          'Corporate sunset cruises offer sophisticated settings for client entertainment and team appreciation. The relaxed evening atmosphere encourages genuine conversations and relationship building as colleagues and clients enjoy spectacular views together. Our crew ensures professional service while nature provides the entertainment.'
+        ]
+      },
+      {
+        heading: 'Sunset Cruise Timing Guide',
+        paragraphs: [
+          'Optimal sunset cruise timing varies by season. We help you select the perfect departure time to maximize your golden hour experience. Summer cruises typically depart around 5:30-6:00 PM to catch sunset around 8:30 PM. Spring and fall departures adjust to 4:30-5:30 PM for sunsets around 7:00-7:30 PM. Winter sunset cruises depart earliest, around 3:30-4:00 PM.',
+          'Our 4-hour cruise duration is designed to include pre-sunset activities like swimming and cruising scenic coves, the golden hour photography window, the actual sunset moment, and the beautiful twilight period as stars emerge. This timing ensures you experience the full arc of a Lake Travis evening.',
+          'Weather conditions dramatically impact sunset quality. Clear days offer classic colorful sunsets, while scattered clouds create dramatic light shows. Our team monitors conditions and can advise on optimal booking dates for your special occasion. Flexibility in scheduling increases your chances of experiencing a truly spectacular sunset.'
+        ]
+      },
+      {
+        heading: 'Booking Your Sunset Cruise',
+        paragraphs: [
+          'Private sunset cruises start at $200 per hour with 4-hour minimum. Choose Day Tripper for romantic couples and small groups up to 14 guests, Meeseeks for celebration groups up to 30, or Clever Girl for large sunset parties up to 75. Our team helps you select the perfect boat and timing for your occasion.',
+          'Sunset time slots are our most popular, especially on weekends and during peak season from March through October. We recommend booking 2-4 weeks in advance to secure your preferred date. For proposals and special anniversaries, consider weekday sunset cruises for more availability and romantic privacy.',
+          'Enhance your sunset cruise with champagne packages, catered meals, professional photography, and personalized decorations. BYOB is always welcome with coolers and ice provided. Contact us at 512-488-5892 or request a quote online to start planning your perfect Lake Travis sunset experience.'
+        ]
+      }
+    ],
+    relatedPages: ['private-cruises', 'wedding-party', 'bachelor-party', 'bachelorette-party', 'corporate-events', 'pricing-breakdown', 'gallery']
+  },
   '/lake-travis-bachelor-party-boats': {
     h1: 'Lake Travis Bachelor Party Boats: Your Complete Austin Guide',
     introduction: 'Discover why Lake Travis party boats are the #1 choice for Austin [[bachelor-party]] celebrations! From the all-inclusive [[atx-disco]] to exclusive [[private-cruises]], Premier Party Cruises offers the best bachelor party boat experience in Texas with 15+ years and 150,000+ happy customers.',
