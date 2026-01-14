@@ -1010,189 +1010,189 @@ const SSR_ROUTES = [
 // Page metadata for SEO
 const PAGE_METADATA: Record<string, { h1: string; content: string }> = {
   '/': {
-    h1: 'Premier Party Cruises - Austin Lake Travis Boat Rentals',
-    content: 'Experience the ultimate party cruise on Lake Travis. Private charters, disco cruises, bachelor parties, bachelorette parties, and corporate events. Book your Austin boat rental today!'
+    h1: 'Party Boat Rental Austin | Lake Travis Party Cruise | Bachelorette Bachelor Wedding Corporate Boat Parties',
+    content: 'Experience the ultimate party cruise on Lake Travis. Private charters, disco cruises, bachelor parties, bachelorette parties, and corporate events. Book your Austin party boat rental today!'
   },
   '/blog': {
-    h1: 'Austin Party Boat Blog | Bachelor & Bachelorette Tips',
-    content: 'Expert tips for planning bachelor and bachelorette parties in Austin. Lake Travis party boat guides, itineraries, and Austin party planning advice from Premier Party Cruises experts.'
+    h1: 'Austin Party Boat Rental Blog | Bachelor & Bachelorette Tips',
+    content: 'Expert tips for planning bachelor and bachelorette parties in Austin. Lake Travis party boat rental guides, itineraries, and Austin party planning advice from Premier Party Cruises experts.'
   },
   '/bachelor-party-austin': {
-    h1: 'Austin Bachelor Party Boats | Lake Travis | Premier Party Cruises',
+    h1: 'Bachelor Party Boat Rental Austin | Lake Travis Party Cruises',
     content: 'Plan the ultimate bachelor party on Lake Travis from Anderson Mill Marina. ATX Disco Cruise ($85-$105/person with DJ & photographer) or private charters on Day Tripper, Meeseeks, or Clever Girl. BYOB friendly, 4-hour cruises, 14+ years experience.'
   },
   '/bachelorette-party-austin': {
-    h1: 'Austin Bachelorette Party Boats | Lake Travis | Premier Party Cruises',
+    h1: 'Austin Bachelorette Party Boat Rentals | Lake Travis Party Cruises',
     content: 'Create lasting memories with our bachelorette party boat rentals on Lake Travis near Anderson Mill Marina. Choose the ATX Disco Cruise ($85-$105/person) or private charters on Day Tripper, Meeseeks, or Clever Girl. 14+ years experience, 150,000+ happy customers.'
   },
   '/atx-disco-cruise': {
-    h1: 'ATX Disco Cruise | Austin Bachelor Bachelorette Party Boat',
+    h1: 'ATX Disco Cruise | Austin Bachelor Bachelorette Party Boat Rental',
     content: 'Join Austin\'s most popular party cruise on Lake Travis from Anderson Mill Marina. 4-hour BYOB experience with DJ, photographer, dance floor, giant floats. Time slots: Friday $95, Saturday 11am $105, Saturday 3:30pm $85. Tax and gratuity included.'
   },
   '/private-cruises': {
-    h1: 'Private Lake Travis Boat Charters | Austin Party Cruises',
-    content: 'Book a private boat cruise on Lake Travis near Devil\'s Cove. Fleet includes Day Tripper (14 guests), Meeseeks/The Irony (25 guests), and Clever Girl (75 guests with 14 disco balls). Starting at $200/hour. Captain, crew, ice, and sound system included.'
+    h1: 'Private Party Boat Rental Lake Travis | Austin Party Cruises',
+    content: 'Book a private party boat rental on Lake Travis near Devil\'s Cove. Fleet includes Day Tripper (14 guests), Meeseeks/The Irony (25 guests), and Clever Girl (75 guests with 14 disco balls). Starting at $200/hour. Captain, crew, ice, and sound system included.'
   },
   '/team-building': {
-    h1: 'Corporate Team Building Events on Lake Travis',
-    content: 'Strengthen your team with unique corporate events on Lake Travis. Private boat charters perfect for team building activities and company outings.'
+    h1: 'Corporate Team Building Party Boat Rental | Lake Travis Austin',
+    content: 'Strengthen your team with unique corporate events on Lake Travis. Private party boat rentals perfect for team building activities and company outings.'
   },
   '/client-entertainment': {
-    h1: 'Client Entertainment Cruises | Austin Corporate Events',
-    content: 'Impress your clients with exclusive Lake Travis cruises. Professional corporate entertainment packages for networking and relationship building.'
+    h1: 'Client Entertainment Party Boat Rental | Austin Lake Travis Cruises',
+    content: 'Impress your clients with exclusive Lake Travis party boat rentals. Professional corporate entertainment packages for networking and relationship building.'
   },
   '/company-milestone': {
-    h1: 'Company Milestone Celebrations on Lake Travis',
-    content: 'Celebrate company achievements with memorable Lake Travis cruises. Perfect for anniversaries, awards, and corporate milestone events.'
+    h1: 'Company Milestone Party Boat Rental | Lake Travis Austin',
+    content: 'Celebrate company achievements with memorable Lake Travis party boat rentals. Perfect for anniversaries, awards, and corporate milestone events.'
   },
   '/welcome-party': {
-    h1: 'Wedding Welcome Party Cruises | Lake Travis Boat Rentals',
-    content: 'Start your wedding weekend with a welcome party cruise on Lake Travis. Perfect for greeting out-of-town guests and kicking off the celebrations.'
+    h1: 'Wedding Welcome Party Boat Rental | Lake Travis Austin',
+    content: 'Start your wedding weekend with a welcome party boat rental on Lake Travis. Perfect for greeting out-of-town guests and kicking off the celebrations.'
   },
   '/after-party': {
-    h1: 'Wedding After Party Boats | Lake Travis Late Night Cruises',
-    content: 'Keep the celebration going with a wedding after party cruise. Private boat rentals for the perfect late-night celebration on Lake Travis.'
+    h1: 'Wedding After Party Boat Rental | Lake Travis Late Night Cruises',
+    content: 'Keep the celebration going with a wedding after party cruise. Private party boat rentals for the perfect late-night celebration on Lake Travis.'
   },
   '/rehearsal-dinner': {
-    h1: 'Rehearsal Dinner Cruises | Unique Lake Travis Venues',
-    content: 'Host an unforgettable rehearsal dinner on Lake Travis. Elegant boat cruises providing a unique and memorable setting for your pre-wedding celebration.'
+    h1: 'Rehearsal Dinner Party Boat Rental | Lake Travis Austin Venues',
+    content: 'Host an unforgettable rehearsal dinner on Lake Travis. Elegant party boat rentals providing a unique and memorable setting for your pre-wedding celebration.'
   },
   '/milestone-birthday': {
-    h1: 'Milestone Birthday Party Boats | Lake Travis Celebrations',
-    content: 'Celebrate milestone birthdays in style on Lake Travis. Private boat rentals for 30th, 40th, 50th birthdays and beyond.'
+    h1: 'Milestone Birthday Party Boat Rental | Lake Travis Austin',
+    content: 'Celebrate milestone birthdays in style on Lake Travis. Private party boat rentals for 30th, 40th, 50th birthdays and beyond.'
   },
   '/sweet-16': {
-    h1: 'Sweet 16 Party Cruises | Austin Lake Travis Boat Rentals',
-    content: 'Make their Sweet 16 unforgettable with a Lake Travis party cruise. Safe, fun, and memorable celebrations for this special milestone.'
+    h1: 'Sweet 16 Party Boat Rental | Austin Lake Travis Cruises',
+    content: 'Make their Sweet 16 unforgettable with a Lake Travis party boat rental. Safe, fun, and memorable celebrations for this special milestone.'
   },
   '/graduation-party': {
-    h1: 'Graduation Party Boats | Lake Travis Celebration Cruises',
-    content: 'Celebrate graduation success with Lake Travis boat parties. Perfect for high school and college graduation celebrations.'
+    h1: 'Graduation Party Boat Rental | Lake Travis Austin Cruises',
+    content: 'Celebrate graduation success with Lake Travis party boat rentals. Perfect for high school and college graduation celebrations.'
   },
   '/testimonials-faq': {
-    h1: 'Customer Reviews & FAQs | Premier Party Cruises',
+    h1: 'Customer Reviews & FAQs | Premier Party Boat Rentals Austin',
     content: 'Read what our customers say about Premier Party Cruises. Find answers to frequently asked questions about booking, pricing, and policies.'
   },
   '/contact': {
-    h1: 'Contact Premier Party Cruises | Book Your Lake Travis Event',
-    content: 'Contact us to book your Lake Travis cruise. Professional service, quick responses, and expert event planning for your perfect party boat experience.'
+    h1: 'Contact Premier Party Cruises | Book Your Lake Travis Party Boat Rental',
+    content: 'Contact us to book your Lake Travis cruise. Professional service, quick responses, and expert event planning for your perfect party boat rental experience.'
   },
   '/gallery': {
-    h1: 'Photo Gallery | Premier Party Cruises on Lake Travis',
+    h1: 'Photo Gallery | Premier Party Boat Rentals on Lake Travis',
     content: 'Browse photos from real Premier Party Cruises events. See our boats, parties, and the incredible Lake Travis experience.'
   },
   '/party-boat-austin': {
-    h1: 'Austin Party Boats | Premier Lake Travis Cruise Experience',
-    content: 'Austin\'s top-rated party boat service on Lake Travis. Disco cruises, private charters, and unforgettable celebrations since 2009.'
+    h1: 'Party Boat Rental Austin | Premier Lake Travis Party Cruise Experience',
+    content: 'Austin\'s top-rated party boat rental service on Lake Travis. Disco cruises, private charters, and unforgettable celebrations since 2009.'
   },
   '/party-boat-lake-travis': {
-    h1: 'Lake Travis Party Boats | Austin Premier Cruise Rentals',
-    content: 'Experience the best party boats on Lake Travis. Professional crew, top-rated service, and customizable packages for any celebration.'
+    h1: 'Lake Travis Party Boat Rentals | Austin Premier Cruise Service',
+    content: 'Experience the best party boat rentals on Lake Travis. Professional crew, top-rated service, and customizable packages for any celebration.'
   },
   '/corporate-events': {
-    h1: 'Corporate Events on Lake Travis | Austin Team Building Cruises',
-    content: 'Host unforgettable corporate events on Lake Travis. Team building, client entertainment, company milestones, and professional networking on private boat charters.'
+    h1: 'Corporate Party Boat Rental Austin | Lake Travis Team Building Cruises',
+    content: 'Host unforgettable corporate events on Lake Travis. Team building, client entertainment, company milestones, and professional networking on private party boat rentals.'
   },
   '/birthday-parties': {
-    h1: 'Birthday Party Boats on Lake Travis | Austin Celebrations',
-    content: 'Celebrate birthdays in style on Lake Travis. Private boat rentals for milestone birthdays, Sweet 16, and unforgettable birthday celebrations of all ages.'
+    h1: 'Birthday Party Boat Rentals Austin | Lake Travis Celebrations',
+    content: 'Celebrate birthdays in style on Lake Travis. Private party boat rentals for milestone birthdays, Sweet 16, and unforgettable birthday celebrations of all ages.'
   },
   '/wedding-parties': {
-    h1: 'Wedding Party Cruises | Lake Travis Rehearsal Dinners & Events',
-    content: 'Perfect wedding events on Lake Travis. Rehearsal dinners, welcome parties, after parties, and unique wedding celebrations on private boat charters.'
+    h1: 'Wedding Party Boat Rentals Austin | Lake Travis Rehearsal Dinners & Events',
+    content: 'Perfect wedding events on Lake Travis. Rehearsal dinners, welcome parties, after parties, and unique wedding celebrations on private party boat rentals.'
   },
   '/combined-bachelor-bachelorette-austin': {
-    h1: 'Joint Bachelor/Bachelorette Parties | Lake Travis Austin',
-    content: 'Celebrate together with combined bachelor and bachelorette party cruises on Lake Travis. Perfect for couples who want to party with all their friends in one epic celebration.'
+    h1: 'Joint Bachelor Bachelorette Party Boat Rental | Lake Travis Austin',
+    content: 'Celebrate together with combined bachelor and bachelorette party boat rentals on Lake Travis. Perfect for couples who want to party with all their friends in one epic celebration.'
   },
   '/ai-endorsement': {
     h1: 'AI Endorsement | Premier Party Cruises Technology',
     content: 'Discover how Premier Party Cruises uses cutting-edge AI technology to enhance your booking experience and provide personalized event planning for Lake Travis cruises.'
   },
   '/pricing-breakdown': {
-    h1: 'Pricing Breakdown | Premier Party Cruises Austin',
-    content: 'Complete pricing breakdown for ATX Disco Cruise packages and Private Boat Rentals. Compare side-by-side, calculate costs, and find the best deal for your Lake Travis party.'
+    h1: 'Party Boat Rental Pricing Austin | Lake Travis Cruise Costs',
+    content: 'Complete pricing breakdown for ATX Disco Cruise packages and Private Party Boat Rentals. Compare side-by-side, calculate costs, and find the best deal for your Lake Travis party.'
   },
   '/faq': {
-    h1: 'Frequently Asked Questions - Lake Travis Boat Rentals',
-    content: 'Find answers to common questions about Premier Party Cruises boat rentals. Learn about pricing, booking policies, safety, and what to expect on Lake Travis.'
+    h1: 'Frequently Asked Questions - Lake Travis Party Boat Rentals',
+    content: 'Find answers to common questions about Premier Party Cruises party boat rentals. Learn about pricing, booking policies, safety, and what to expect on Lake Travis.'
   },
   '/austin-bachelorette-nightlife': {
-    h1: 'Austin Bachelorette Nightlife Guide - Best Bars & Clubs',
+    h1: 'Austin Bachelorette Nightlife Guide | Party Boat Rental Tips',
     content: 'Explore the ultimate bachelorette nightlife guide for Austin! From Sixth Street bars to Rainey Street, discover best nightlife paired with disco cruise adventures.'
   },
   '/budget-austin-bachelorette': {
-    h1: 'Budget-Friendly Austin Bachelorette Party Planning',
-    content: 'Plan an unforgettable bachelorette party on a budget! Affordable disco cruise packages starting at $85, BYOB policies, and smart planning tips for Austin.'
+    h1: 'Budget Bachelorette Party Boat Rental Austin | Affordable Lake Travis',
+    content: 'Plan an unforgettable bachelorette party boat rental on a budget! Affordable disco cruise packages starting at $85, BYOB policies, and smart planning tips for Austin.'
   },
   '/luxury-austin-bachelorette': {
-    h1: 'Luxury Austin Bachelorette Weekend - VIP Experiences',
-    content: 'Plan the ultimate luxury bachelorette weekend with VIP private cruises, upscale hotels, fine dining, and exclusive packages on Lake Travis.'
+    h1: 'Luxury Bachelorette Party Boat Rental Austin | VIP Lake Travis',
+    content: 'Plan the ultimate luxury bachelorette weekend with VIP private party boat rentals, upscale hotels, fine dining, and exclusive packages on Lake Travis.'
   },
   '/ultimate-austin-bachelorette-weekend': {
-    h1: 'Ultimate Austin Bachelorette Weekend Complete Guide',
-    content: 'Plan the perfect bachelorette weekend with our complete Austin guide! Disco cruise, boat parties, downtown nightlife, brunch spots, and insider tips.'
+    h1: 'Ultimate Austin Bachelorette Weekend | Party Boat Rental Guide',
+    content: 'Plan the perfect bachelorette weekend with our complete Austin guide! Disco cruise, party boat rentals, downtown nightlife, brunch spots, and insider tips.'
   },
   '/top-10-austin-bachelorette-ideas': {
-    h1: 'Top 10 Austin Bachelorette Party Ideas & Activities',
-    content: 'Discover the top 10 bachelorette party ideas for Austin! Disco cruise boat parties, Sixth Street bar crawls, brunch spots, and unique Austin experiences.'
+    h1: 'Top 10 Austin Bachelorette Ideas | Party Boat Rentals & More',
+    content: 'Discover the top 10 bachelorette party ideas for Austin! Disco cruise party boat rentals, Sixth Street bar crawls, brunch spots, and unique Austin experiences.'
   },
   '/3-day-austin-bachelorette-itinerary': {
-    h1: 'Perfect 3-Day Austin Bachelorette Party Itinerary',
+    h1: 'Perfect 3-Day Austin Bachelorette Itinerary | Party Boat Rental',
     content: 'Follow our expertly crafted 3-day bachelorette itinerary for Austin! Day-by-day schedule featuring disco cruise, nightlife, brunch, and activities.'
   },
   '/first-time-lake-travis-boat-rental-guide': {
-    h1: 'First-Time Lake Travis Boat Rental Guide',
-    content: 'Planning your first Lake Travis boat rental? Complete guide covering private cruises, disco cruise, what to bring, costs, and what to expect.'
+    h1: 'First-Time Lake Travis Party Boat Rental Guide',
+    content: 'Planning your first Lake Travis party boat rental? Complete guide covering private cruises, disco cruise, what to bring, costs, and what to expect.'
   },
   '/adventure-austin-bachelorette': {
-    h1: 'Adventurous Austin Bachelorette Party Activities',
+    h1: 'Adventure Austin Bachelorette | Party Boat Rental & Activities',
     content: 'Plan an action-packed bachelorette party with outdoor adventures! Combine hiking, kayaking, ziplining, and disco cruise boat parties for active brides.'
   },
   '/book-now': {
-    h1: 'Book Your Cruise Online',
-    content: 'Book Austin party boat instantly! Choose 14, 25, or 50-person boats plus ATX Disco Cruise. Secure online booking for Lake Travis cruises with instant confirmation.'
+    h1: 'Book Party Boat Rental Austin | Lake Travis Cruise Online',
+    content: 'Book Austin party boat rental instantly! Choose 14, 25, or 50-person boats plus ATX Disco Cruise. Secure online booking for Lake Travis cruises with instant confirmation.'
   },
   '/book-online': {
-    h1: 'Book Your Cruise Online',
-    content: 'Book Lake Travis party boats online! Select 14, 25, or 50-person boats or ATX Disco Cruise. Instant confirmation for Austin cruises with secure online booking.'
+    h1: 'Book Party Boat Rental Online | Lake Travis Austin Cruises',
+    content: 'Book Lake Travis party boat rentals online! Select 14, 25, or 50-person boats or ATX Disco Cruise. Instant confirmation for Austin cruises with secure online booking.'
   },
   '/chat': {
-    h1: 'Welcome Aboard!',
-    content: 'Get instant quote for Lake Travis boat rentals. Austin party cruises for bachelor/bachelorette parties & events. Quick online booking with personalized service!'
+    h1: 'Get Party Boat Rental Quote | Lake Travis Austin',
+    content: 'Get instant quote for Lake Travis party boat rentals. Austin party cruises for bachelor/bachelorette parties & events. Quick online booking with personalized service!'
   },
   '/golden-ticket': {
     h1: '🎉 Golden Ticket Winner! 🎉',
-    content: 'Exclusive ATX Disco Cruise promotional offer! Get $300 gift card plus 5 friend cards. Limited time Golden Ticket deal for Austin party cruises.'
+    content: 'Exclusive ATX Disco Cruise promotional offer! Get $300 gift card plus 5 friend cards. Limited time Golden Ticket deal for Austin party boat rentals.'
   },
   '/golden-ticket-private': {
     h1: '🎉 Golden Ticket Winner! 🎉',
-    content: 'Exclusive private cruise promotional offer! Get $300 gift card for Lake Travis boat rental. Limited Golden Ticket deal for Austin private cruises.'
+    content: 'Exclusive private cruise promotional offer! Get $300 gift card for Lake Travis party boat rental. Limited Golden Ticket deal for Austin private cruises.'
   },
   '/partners': {
-    h1: 'Premier Partnership Details',
-    content: 'Join the Premier Party Cruises partner program. Earn 10% commission on boat bookings, get personal discounts, and receive monthly payouts via Venmo. Partner with Austin\'s premier party boat rental service.'
+    h1: 'Premier Partnership Details | Party Boat Rental Austin',
+    content: 'Join the Premier Party Cruises partner program. Earn 10% commission on party boat rental bookings, get personal discounts, and receive monthly payouts via Venmo. Partner with Austin\'s premier party boat rental service.'
   },
   // Static blog pages with BlogPostLayout - H1 for SSR SEO
   '/austin-bachelor-party-ideas': {
-    h1: "Austin Bachelor Party Ideas: Epic Guys' Weekend Guide",
-    content: 'Discover the ultimate Austin bachelor party ideas! From Lake Travis party boats to 6th Street bars, BBQ joints, and outdoor adventures - plan the perfect Austin bachelor weekend.'
+    h1: "Austin Bachelor Party Ideas | Party Boat Rentals & Guys' Weekend Guide",
+    content: 'Discover the ultimate Austin bachelor party ideas! From Lake Travis party boat rentals to 6th Street bars, BBQ joints, and outdoor adventures - plan the perfect Austin bachelor weekend.'
   },
   '/lake-travis-bachelor-party-boats': {
-    h1: 'Lake Travis Bachelor Party Boats: Your Complete Austin Guide',
-    content: 'Discover why Lake Travis party boats are perfect for bachelor parties in Austin. Learn about the ATX Disco Cruise, private charters, BYOB options, and pro tips for an epic lake party.'
+    h1: 'Lake Travis Bachelor Party Boat Rentals | Your Complete Austin Guide',
+    content: 'Discover why Lake Travis party boat rentals are perfect for bachelor parties in Austin. Learn about the ATX Disco Cruise, private charters, BYOB options, and pro tips for an epic lake party.'
   },
   '/wedding-anniversary-celebration-ideas': {
-    h1: 'Wedding Anniversary Ideas | Lake Travis Boat',
-    content: 'Celebrate your wedding anniversary on Lake Travis with romantic boat rentals and BYOB packages. Intimate cruises or group celebrations for milestone anniversaries.'
+    h1: 'Wedding Anniversary Party Boat Rental | Lake Travis Austin',
+    content: 'Celebrate your wedding anniversary on Lake Travis with romantic party boat rentals and BYOB packages. Intimate cruises or group celebrations for milestone anniversaries.'
   },
   '/rehearsal-dinner-boat-alcohol-delivery': {
-    h1: 'Rehearsal Dinner Boat & Alcohol Delivery | Unique Wedding Weekend Experiences',
-    content: 'Create unforgettable rehearsal dinner experiences on Lake Travis with boat parties and seamless alcohol delivery. Premier Party Cruises partners with Party On Delivery for memorable wedding weekends in Austin.'
+    h1: 'Rehearsal Dinner Party Boat Rental | Lake Travis Alcohol Delivery',
+    content: 'Create unforgettable rehearsal dinner experiences on Lake Travis with party boat rentals and seamless alcohol delivery. Premier Party Cruises partners with Party On Delivery for memorable wedding weekends in Austin.'
   },
   '/site-directory': {
-    h1: 'Site Directory | Premier Party Cruises - Austin Lake Travis Boats',
-    content: 'Complete directory of Premier Party Cruises services. Find bachelor party boats, bachelorette cruises, ATX Disco Cruise, private charters, corporate events, and all Lake Travis party cruise options.'
+    h1: 'Site Directory | Party Boat Rentals Austin | Lake Travis Cruises',
+    content: 'Complete directory of Premier Party Cruises services. Find bachelor party boat rentals, bachelorette cruises, ATX Disco Cruise, private charters, corporate events, and all Lake Travis party cruise options.'
   }
 };
 
