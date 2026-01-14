@@ -11,17 +11,16 @@ import { formatCurrency } from '@shared/formatters';
 import SEOHead from '@/components/SEOHead';
 import { 
   DollarSign, Crown, Disc3, Ship, Users, Clock, 
-  CheckCircle, Star, Sparkles, Package, Calculator,
-  TrendingUp, ArrowRight, Trophy, Gift, Check, X
+  CheckCircle, Sparkles, Calculator,
+  TrendingUp, ArrowRight, Check, X, Trophy, Package, Gift
 } from 'lucide-react';
 import Footer from '@/components/Footer';
-import { PricingTable2 } from '@/components/PricingTable2';
 import { ComparisonTable2, type ComparisonColumn, type ComparisonRow } from '@/components/ComparisonTable2';
 import DiscoVsPrivateComparison2 from '@/components/DiscoVsPrivateComparison2';
 import DiscoVsPrivateValueCalculator2 from '@/components/DiscoVsPrivateValueCalculator2';
 import { TabbedPrivateCruisePricing } from '@/components/TabbedPrivateCruisePricing';
 import Breadcrumb from '@/components/Breadcrumb';
-import { DISCO_PRICING, DISCO_TIME_SLOTS, PRIVATE_CRUISE_PRICING, BOATS } from '@shared/constants';
+import { DISCO_TIME_SLOTS, PRIVATE_CRUISE_PRICING, BOATS } from '@shared/constants';
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
@@ -58,72 +57,12 @@ const discoTimeSlots = DISCO_TIME_SLOTS.map((slot) => ({
   badge: slot.badge || 'Great Value'
 }));
 
-// Private Cruise Packages - 14-person boat (using PRIVATE_CRUISE_PRICING for accurate pricing)
-const privateCruisePackages = [
-  {
-    id: 'standard',
-    name: 'Standard Private Cruise',
-    price: PRIVATE_CRUISE_PRICING[14].packages.standard.totalPrices.MON_THU / 100,
-    baseHourlyRate: PRIVATE_CRUISE_PRICING[14].baseHourlyRates.MON_THU / 100,
-    addOnFee: 0,
-    description: 'Essential cruise experience',
-    features: [
-      'Licensed, fun, experienced captains to take your group safely around the lake in style',
-      '2 large empty coolers (plenty of cooler space - bring your own ice & drinks, or order ahead from Party On Delivery)',
-      'Premium Bluetooth speaker system',
-      'Clean restroom facilities',
-      'Comfortable seating for 14 guests',
-      'Plenty of sun & shade areas'
-    ],
-    icon: Ship,
-    badge: `${formatCurrency(PRIVATE_CRUISE_PRICING[14].baseHourlyRates.MON_THU)}/hour × 4 hours`
-  },
-  {
-    id: 'essentials',
-    name: 'Private Plus Essentials',
-    price: PRIVATE_CRUISE_PRICING[14].packages.essentials.totalPrices.MON_THU / 100,
-    baseHourlyRate: PRIVATE_CRUISE_PRICING[14].baseHourlyRates.MON_THU / 100,
-    addOnFee: PRIVATE_CRUISE_PRICING[14].packages.essentials.addOn / 100,
-    description: 'Complete convenience package',
-    features: [
-      'Everything from Standard Cruise',
-      'Insulated 5-gallon dispenser with ice water',
-      '15 gallons of fresh water & 30 solo cups',
-      'Coolers pre-stocked with 40lbs of ice',
-      '6-ft folding table for food & drinks'
-    ],
-    popular: true,
-    icon: Crown,
-    badge: 'MOST POPULAR'
-  },
-  {
-    id: 'ultimate',
-    name: 'Private with Ultimate Package',
-    price: PRIVATE_CRUISE_PRICING[14].packages.ultimate.totalPrices.MON_THU / 100,
-    baseHourlyRate: PRIVATE_CRUISE_PRICING[14].baseHourlyRates.MON_THU / 100,
-    addOnFee: PRIVATE_CRUISE_PRICING[14].packages.ultimate.addOn / 100,
-    description: 'Complete party experience',
-    features: [
-      'Everything from Essentials Package',
-      '6x20\' giant lily pad float',
-      'Unicorn or ring float for guest of honor',
-      '5 disco ball cups & 30 additional solo cups',
-      'Bubble gun & 3 bubble wands for fun',
-      '20 champagne flutes & 3 fruit juices',
-      '2 bottles SPF-50 spray sunscreen',
-      '3 disco balls installed for party atmosphere'
-    ],
-    icon: Star,
-    badge: `Base + ${formatCurrency(PRIVATE_CRUISE_PRICING[14].packages.ultimate.addOn)} package`
-  }
-];
-
 // Disco vs Private Comparison Data
 const discoVsPrivateComparison: ComparisonRow[] = [
   {
     feature: 'Pricing Model',
     values: [
-      { text: 'Per-person all-in ($95-$115)', highlight: true },
+      { text: 'Per-person all-in ($112-$138)', highlight: true },
       'Hourly boat rental (group rate)'
     ]
   },
@@ -386,7 +325,7 @@ export default function PricingBreakdown() {
                           <div className="space-y-2">
                             <div className="flex items-baseline gap-2">
                               <span className="text-4xl font-bold text-blue-600">
-                                {formatCurrency(slot.priceWithTax * 100)}
+                                ${slot.priceWithTax}
                               </span>
                               <span className="text-gray-600">/person all-in</span>
                             </div>
