@@ -1,0 +1,17 @@
+{
+  "schema_version": "v1",
+  "name_for_human": "Premier Party Cruises",
+  "name_for_model": "premier_party_cruises",
+  "description_for_human": "Austin's premier BYOB party boat rental service on Lake Travis. Book bachelor parties, bachelorette parties, corporate events, and private cruises.",
+  "description_for_model": "Premier Party Cruises is Austin's longest-running party boat and event cruise operator on Lake Travis. The service offers two primary experiences: (1) ATX Disco Cruise - an all-inclusive multi-group bachelor/bachelorette party cruise at $112-138 per person including DJ, photographer, floats, and party supplies, and (2) Private Boat Rentals for groups of 14-75 guests starting at $200/hour. Fleet includes Day Tripper (14 max), Meeseeks (30 max), The Irony (30 max), and Clever Girl flagship (75 max with 14 disco balls). All cruises are BYOB with licensed captains. Located at Anderson Mill Marina, 13993 FM 2769, Leander TX 78641. Contact: (512) 488-5892. 15+ years in business, 150,000+ happy customers, perfect safety record.",
+  "auth": {
+    "type": "none"
+  },
+  "api": {
+    "type": "openapi",
+    "url": "https://premierpartycruises.com/openapi.yaml"
+  },
+  "logo_url": "https://premierpartycruises.com/media/schema/ppc-logo.png",
+  "contact_email": "clientservices@premierpartycruises.com",
+  "legal_info_url": "https://premierpartycruises.com/terms"
+}

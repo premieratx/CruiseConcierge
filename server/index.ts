@@ -298,6 +298,22 @@ Disallow: /book-online-popup
   });
   log('✅ LLMs.txt route registered for AI crawlers', 'seo');
 
+  // Serve AI plugin manifest for ChatGPT, Claude, and other AI assistants
+  app.get('/.well-known/ai-plugin.json', (req, res) => {
+    try {
+      const aiPluginPath = path.join(process.cwd(), 'public', '.well-known', 'ai-plugin.json');
+      const aiPlugin = fs.readFileSync(aiPluginPath, 'utf-8');
+      res.setHeader('Content-Type', 'application/json; charset=UTF-8');
+      res.setHeader('Cache-Control', 'public, max-age=86400'); // 1 day
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      res.send(aiPlugin);
+    } catch (error) {
+      log(`⚠️ Failed to read ai-plugin.json: ${error}`, 'seo');
+      res.status(500).json({ error: 'Error loading ai-plugin.json' });
+    }
+  });
+  log('✅ AI plugin manifest registered for ChatGPT/Claude discovery', 'seo');
+
   // IndexNow key verification file for Bing/search engine indexing
   app.get('/:key.txt', (req, res, next) => {
     const key = req.params.key;

@@ -1,10 +1,14 @@
 # PremierPartyCruises.com robots.txt
-# Last updated: 2026-01-07
+# Last updated: 2026-01-14
 
 User-agent: *
 
 # Allow all public pages
 Allow: /
+
+# AI-specific content files
+Allow: /llms.txt
+Allow: /.well-known/ai-plugin.json
 
 # Block admin and private system paths
 Disallow: /admin/
@@ -36,19 +40,83 @@ Disallow: /*?
 # Sitemap
 Sitemap: https://premierpartycruises.com/sitemap.xml
 
+# ========================================
 # AI Bot Permissions - Allow discovery and summarization
+# ========================================
+
+# OpenAI GPT Crawler
 User-agent: GPTBot
+Allow: /llms.txt
+Allow: /.well-known/ai-plugin.json
 Allow: /
 Disallow: /admin/
 Disallow: /api/
 
+# OpenAI ChatGPT User Agent
+User-agent: ChatGPT-User
+Allow: /llms.txt
+Allow: /.well-known/ai-plugin.json
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+
+# Google AI / Gemini
 User-agent: Google-Extended
 Allow: /
 
+# Anthropic Claude
 User-agent: ClaudeBot
+Allow: /llms.txt
+Allow: /.well-known/ai-plugin.json
 Allow: /
 Disallow: /admin/
 Disallow: /api/
 
+User-agent: Claude-Web
+Allow: /llms.txt
+Allow: /.well-known/ai-plugin.json
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+
+User-agent: Anthropic-AI
+Allow: /llms.txt
+Allow: /.well-known/ai-plugin.json
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+
+# Perplexity AI
 User-agent: PerplexityBot
+Allow: /llms.txt
+Allow: /.well-known/ai-plugin.json
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+
+# Microsoft/Bing AI
+User-agent: Bingbot
+Allow: /
+
+# ========================================
+# Standard Search Engine Crawlers
+# ========================================
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+# Social Media Crawlers
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: LinkedInBot
 Allow: /
