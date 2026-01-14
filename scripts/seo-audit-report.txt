@@ -7,16 +7,16 @@
 EXECUTIVE SUMMARY
 ─────────────────────────────────────────────────────────────
 Total URLs Tested:        131
-✓ Passed All Checks:      90
-✗ Failed One or More:     41
-Overall SEO Health Score: 69%
+✓ Passed All Checks:      89
+✗ Failed One or More:     42
+Overall SEO Health Score: 68%
 
 ✗ STATUS: NEEDS IMPROVEMENT - Critical SEO issues detected
 
 ISSUES BREAKDOWN
 ─────────────────────────────────────────────────────────────
 
-🟡 INSUFFICIENT CONTENT (41)
+🟡 INSUFFICIENT CONTENT (42)
    Priority: MEDIUM - Pages have < 500 chars of text content
    - https://premierpartycruises.com/blogs/construction-trades-boat-parties-austin
    - https://premierpartycruises.com/blogs/dallas-to-lake-travis-corporate
@@ -54,6 +54,7 @@ ISSUES BREAKDOWN
    - https://premierpartycruises.com/blogs/lake-travis-wedding-boat-rentals-unique-venues-for-austin-celebrations
    - https://premierpartycruises.com/blogs/must-haves-for-the-perfect-austin-bachelorette-weekend
    - https://premierpartycruises.com/blogs/outdoor-wedding-alcohol-logistics-hill-country-and-lake-travis-coordination
+   - https://premierpartycruises.com/blogs/party-alcohol-safety-in-austin-responsible-service-and-guest-well-being
    - https://premierpartycruises.com/blogs/perfect-bachelor-party-itinerary-austin
    - https://premierpartycruises.com/blogs/pool-party-alcohol-coordination-summer-event-planning-in-austin-heat
    - https://premierpartycruises.com/blogs/top-spots-tips-for-an-unforgettable-austin-bachelorette-party-experience
@@ -765,7 +766,20 @@ DETAILED URL RESULTS
    Errors:
       - Insufficient content: 0 chars (need 500+)
 
-[118/131] ✓ PASS: https://premierpartycruises.com/blogs/party-alcohol-safety-in-austin-responsible-service-and-guest-well-being
+[118/131] ✗ FAIL: https://premierpartycruises.com/blogs/party-alcohol-safety-in-austin-responsible-service-and-guest-well-being
+   Checks:
+      HTTP 200:           ✓
+      SSR Content:        ✓
+      Title Tag:          ✓
+      Title Descriptive:  ✓
+      Meta Description:   ✓
+      OG Title:           ✓
+      OG Description:     ✓
+      Canonical URL:      ✓
+      JSON-LD Schema:     ✓
+      Body Content:       ✗ (0 chars)
+   Errors:
+      - Insufficient content: 0 chars (need 500+)
 
 [119/131] ✗ FAIL: https://premierpartycruises.com/blogs/perfect-bachelor-party-itinerary-austin
    Checks:
