@@ -54,6 +54,7 @@ Key technical implementations and design decisions include:
     - react-helmet-async imports use star import pattern for ESM/CJS compatibility
     - Fallback to static content if Vite SSR produces insufficient output
 -   **WordPress Blog SSR Fix (Jan 2026)**: Fixed critical bug where 7 WordPress/DB blog posts rendered 0 words (just React shell). Root cause: `blogSSRHandler` in `server/routes.ts` tried React SSR for ALL blog posts, including WordPress ones. WordPress posts don't have React components, so they got empty shells. Fix: Check `MASTER_REACT_BLOG_SLUGS` - only attempt React SSR for React pages; inject database content directly for WordPress posts. Affected posts now render 1500-2100+ words: startup-celebration, recipe-for-chillest, top-dos-and-dont, top-five-celebrities, ultimate-bachelorette-alcohol-guide, wedding-party-alcohol-coordination.
+-   **Production Template Fix (Jan 2026)**: Fixed SEMRush "unminified JavaScript" warning for WordPress blog pages. In production, `blogSSRHandler` now uses `dist/public/index.html` (with minified assets like `/assets/*.js`) instead of `client/index.html` (which references `/src/main.tsx`). In production, missing build artifacts return 500 error rather than silently serving dev assets.
 
 ## External Dependencies
 -   **Stripe**: Payment processing.

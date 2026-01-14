@@ -1059,9 +1059,28 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
         author: post.author
       }, canonicalUrl, req);
       
-      // Read index.html template
+      // Read index.html template - use production build in production, dev template in development
       const fs = await import('fs');
-      const htmlPath = path.join(process.cwd(), 'client', 'index.html');
+      const isProduction = process.env.NODE_ENV === 'production';
+      const prodHtmlPath = path.join(process.cwd(), 'dist', 'public', 'index.html');
+      const devHtmlPath = path.join(process.cwd(), 'client', 'index.html');
+      
+      // In production, REQUIRE the built index.html with minified assets
+      // In development, use the client source template
+      let htmlPath: string;
+      if (isProduction) {
+        try {
+          await fs.promises.access(prodHtmlPath);
+          htmlPath = prodHtmlPath;
+        } catch {
+          // In production, missing build is a critical error - don't silently serve dev assets
+          console.error(`❌ [Blog SSR] CRITICAL: Production build missing at ${prodHtmlPath}`);
+          console.error(`❌ [Blog SSR] Run 'npm run build' before deploying. Serving error page.`);
+          return res.status(500).send('Build artifacts missing. Please redeploy.');
+        }
+      } else {
+        htmlPath = devHtmlPath;
+      }
       let html = await fs.promises.readFile(htmlPath, 'utf-8');
       
       // Generate BreadcrumbList schema for blog post (interior page)
