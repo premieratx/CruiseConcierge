@@ -1294,6 +1294,14 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
     res.redirect(301, '/blogs');
   });
   
+  // /blogs/hello-world → /blogs (WordPress test post, redirect to blog listing)
+  app.get('/blogs/hello-world', (req, res) => {
+    res.redirect(301, '/blogs');
+  });
+  app.get('/blog/hello-world', (req, res) => {
+    res.redirect(301, '/blogs');
+  });
+  
   // /book-now → /private-cruises (deprecated page, redirect for de-indexing)
   app.get('/book-now', (req, res) => {
     res.redirect(301, '/private-cruises');

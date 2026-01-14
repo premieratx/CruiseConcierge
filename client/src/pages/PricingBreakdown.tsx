@@ -19,6 +19,7 @@ import { PricingTable2 } from '@/components/PricingTable2';
 import { ComparisonTable2, type ComparisonColumn, type ComparisonRow } from '@/components/ComparisonTable2';
 import DiscoVsPrivateComparison2 from '@/components/DiscoVsPrivateComparison2';
 import DiscoVsPrivateValueCalculator2 from '@/components/DiscoVsPrivateValueCalculator2';
+import { TabbedPrivateCruisePricing } from '@/components/TabbedPrivateCruisePricing';
 import Breadcrumb from '@/components/Breadcrumb';
 import { DISCO_PRICING, DISCO_TIME_SLOTS, PRIVATE_CRUISE_PRICING, BOATS } from '@shared/constants';
 
@@ -120,17 +121,17 @@ const privateCruisePackages = [
 // Disco vs Private Comparison Data
 const discoVsPrivateComparison: ComparisonRow[] = [
   {
-    feature: 'Cost per Person',
+    feature: 'Pricing Model',
     values: [
-      { text: '$85-$105', highlight: true },
-      '$150-$400+'
+      { text: 'Per-person all-in ($95-$115)', highlight: true },
+      'Hourly boat rental (group rate)'
     ]
   },
   {
     feature: 'Group Size',
     values: [
       { text: 'Any size (individual tickets)', highlight: true },
-      'Minimum group required'
+      'Book entire boat (14-75 guests)'
     ]
   },
   {
@@ -303,24 +304,24 @@ export default function PricingBreakdown() {
                       <div className="space-y-2 text-sm">
                         <div className="flex justify-between">
                           <span>Friday 12-4pm:</span>
-                          <span className="font-semibold">{formatCurrency(DISCO_TIME_SLOTS[0].basePrice)}/person</span>
+                          <span className="font-semibold">{formatCurrency(DISCO_TIME_SLOTS[0].priceWithTax)}/person</span>
                         </div>
                         <div className="flex justify-between items-center">
                           <span>Saturday 11am-3pm:</span>
                           <div className="flex items-center gap-2">
                             <Badge className="bg-blue-600 text-white text-xs px-2 py-0">BEST</Badge>
-                            <span className="font-semibold">{formatCurrency(DISCO_TIME_SLOTS[1].basePrice)}/person</span>
+                            <span className="font-semibold">{formatCurrency(DISCO_TIME_SLOTS[1].priceWithTax)}/person</span>
                           </div>
                         </div>
                         <div className="flex justify-between items-center">
                           <span>Saturday 3:30-7:30pm:</span>
                           <div className="flex items-center gap-2">
                             <Badge className="bg-purple-600 text-white text-xs px-2 py-0">FUN!</Badge>
-                            <span className="font-semibold">{formatCurrency(DISCO_TIME_SLOTS[2].basePrice)}/person</span>
+                            <span className="font-semibold">{formatCurrency(DISCO_TIME_SLOTS[2].priceWithTax)}/person</span>
                           </div>
                         </div>
                       </div>
-                      <p className="text-xs text-gray-500 mt-2">Prices include DJ, photographer, floats & party supplies</p>
+                      <p className="text-xs text-gray-500 mt-2">All-in prices include DJ, photographer, floats, tax & gratuity</p>
                     </div>
                     
                     <div className="space-y-3">
@@ -385,12 +386,12 @@ export default function PricingBreakdown() {
                           <div className="space-y-2">
                             <div className="flex items-baseline gap-2">
                               <span className="text-4xl font-bold text-blue-600">
-                                {formatCurrency(slot.price * 100)}
+                                {formatCurrency(slot.priceWithTax * 100)}
                               </span>
-                              <span className="text-gray-600">/person</span>
+                              <span className="text-gray-600">/person all-in</span>
                             </div>
-                            <p className="text-sm text-gray-600">
-                              Total w/tax & gratuity: {formatCurrency(slot.priceWithTax * 100)}
+                            <p className="text-sm text-gray-500">
+                              Tax, gratuity & booking fee included
                             </p>
                             <p className="text-sm font-semibold text-blue-600">{slot.subtitle}</p>
                           </div>
@@ -467,83 +468,15 @@ export default function PricingBreakdown() {
               animate="visible"
               variants={fadeInUp}
             >
-              {/* 3-Package Display */}
+              {/* Use the same TabbedPrivateCruisePricing component from home page */}
               <div className="mb-8">
-                <h2 className="text-3xl font-bold mb-6 text-center">Private Boat Rental Packages</h2>
-                <div className="grid md:grid-cols-3 gap-6">
-                  {privateCruisePackages.map((pkg) => {
-                    const Icon = pkg.icon;
-                    return (
-                      <Card 
-                        key={pkg.id}
-                        className={cn(
-                          "relative overflow-hidden transition-all hover:shadow-xl",
-                          pkg.popular && "border-2 border-blue-500 shadow-lg scale-105"
-                        )}
-                        data-testid={`package-private-${pkg.id}`}
-                      >
-                        {pkg.popular && (
-                          <Badge className="absolute top-4 right-4 bg-blue-600 text-white">
-                            {pkg.badge}
-                          </Badge>
-                        )}
-                        <CardHeader>
-                          <div className="flex items-center gap-3 mb-2">
-                            <Icon className="h-8 w-8 text-blue-600" />
-                            <CardTitle className="text-2xl">{pkg.name}</CardTitle>
-                          </div>
-                          <div className="space-y-2">
-                            <div className="text-base font-semibold text-gray-700 dark:text-gray-300">
-                              {formatCurrency(pkg.baseHourlyRate * 100)}/hour × 4 hours = {formatCurrency(pkg.baseHourlyRate * 4 * 100)}
-                            </div>
-                            {pkg.addOnFee > 0 && (
-                              <div className="text-sm text-gray-600">
-                                +{formatCurrency(pkg.addOnFee * 100)} package add-on
-                              </div>
-                            )}
-                            <div className="text-2xl font-bold text-blue-600">
-                              ({formatCurrency(pkg.price * 100)} with tax & tip)
-                            </div>
-                            <Badge variant="outline" className="mt-2">{pkg.badge}</Badge>
-                          </div>
-                          <CardDescription>{pkg.description}</CardDescription>
-                        </CardHeader>
-                        <CardContent>
-                          <ul className="space-y-2">
-                            {pkg.features.map((feature, i) => (
-                              <li key={i} className="flex items-start gap-2 text-sm">
-                                <CheckCircle className="h-4 w-4 text-green-600 mt-0.5 flex-shrink-0" />
-                                <span>{feature}</span>
-                              </li>
-                            ))}
-                          </ul>
-                          <Button className="w-full mt-6" asChild>
-                            <Link href="/private-cruises">
-                              View Details <ArrowRight className="ml-2 h-4 w-4" />
-                            </Link>
-                          </Button>
-                        </CardContent>
-                      </Card>
-                    );
-                  })}
-                </div>
-                <p className="text-center text-sm text-gray-600 mt-6">
-                  All prices shown are base hourly rates. Tax, gratuity, and any add-ons are additional.
+                <h2 className="text-3xl font-bold mb-6 text-center">Private Boat Rental Pricing</h2>
+                <p className="text-center text-gray-600 mb-8 max-w-2xl mx-auto">
+                  Select your boat size below to see all-inclusive pricing with tax, gratuity, and booking fees included.
+                  Use the interactive tabs to compare packages and day-of-week pricing.
                 </p>
+                <TabbedPrivateCruisePricing />
               </div>
-
-              {/* Private Pricing Table */}
-              <Card>
-                <CardHeader>
-                  <CardTitle>Detailed Private Cruise Pricing</CardTitle>
-                  <CardDescription>
-                    Complete breakdown by boat size and rental duration
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <PricingTable2 variant="private" />
-                </CardContent>
-              </Card>
 
               {/* Fleet Information */}
               <Card>
