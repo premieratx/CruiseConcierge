@@ -206,11 +206,11 @@ export default function WeddingPartyAlcoholCoordination() {
           variants={fadeInUp}
           className="relative pt-24 pb-16 md:pt-32 md:pb-24 bg-gradient-to-br from-rose-900 via-purple-800 to-rose-900 text-white overflow-hidden"
         >
-          <div className="absolute inset-0 bg-black/50" />
           <div 
             className="absolute inset-0 bg-cover bg-center"
             style={{ backgroundImage: `url(${heroImage})` }}
           />
+          <div className="absolute inset-0 bg-black/60" />
           
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 text-center">
             <Badge className="mb-4 bg-yellow-500 text-black font-bold">

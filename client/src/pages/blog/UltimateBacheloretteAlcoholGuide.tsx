@@ -280,13 +280,13 @@ export default function UltimateBacheloretteAlcoholGuide() {
           className="relative pt-24 pb-16 md:pt-32 md:pb-24 bg-gradient-to-br from-pink-600 via-rose-600 to-fuchsia-700 text-white overflow-hidden"
           data-testid="hero-section"
         >
-          <div className="absolute inset-0 bg-black/40" />
           <div 
-            className="absolute inset-0 bg-cover bg-center opacity-30"
+            className="absolute inset-0 bg-cover bg-center"
             style={{ backgroundImage: `url(${heroImage})` }}
             role="img"
             aria-label="Austin bachelorette party group celebrating on Lake Travis party boat with drinks"
           />
+          <div className="absolute inset-0 bg-black/60" />
           
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 text-center">
             <Badge className="mb-4 bg-pink-400 text-black font-bold" data-testid="badge-hero">

@@ -101,11 +101,11 @@ export default function RecipeForChillestATXBachParty() {
           variants={fadeInUp}
           className="relative pt-24 pb-16 md:pt-32 md:pb-24 bg-gradient-to-br from-blue-900 via-teal-800 to-blue-900 text-white overflow-hidden"
         >
-          <div className="absolute inset-0 bg-black/40" />
           <div 
             className="absolute inset-0 bg-cover bg-center"
             style={{ backgroundImage: `url(${bachelorHero})` }}
           />
+          <div className="absolute inset-0 bg-black/60" />
           
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 text-center">
             <Badge className="mb-4 bg-teal-500 text-white font-bold">
