@@ -853,6 +853,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
     'why-atx-disco-cruise-austins-most-booked-party-boat-experience',
     'private-party-cruise-vs-party-boat-pontoon-lake-travis',
     'wedding-anniversary-celebration-ideas-recreating-your-special-day-with-boat-and-alcohol-packages',
+    // WordPress converted to React pages (Jan 2026)
+    'the-top-dos-and-dont-for-success-on-the-atx-disco-cruise-with-premier-party-cruises',
+    'startup-celebration-alcohol-packages-funding-rounds-launches-and-milestone-events',
+    'the-recipe-for-the-chillest-atx-bach-party',
+    'the-top-five-celebrities-at-our-dream-party-barge',
+    'the-ultimate-austin-bachelorette-party-alcohol-guide-what-to-order-when-to-order-and-how-much-you-actually-need',
+    'wedding-party-alcohol-coordination-getting-ready-bachelor-bachelorette-and-reception',
   ]);
   
   // Blog post SSR routes - MUST be before Vite to inject unique Article schemas
