@@ -151,19 +151,32 @@ export function DiscoVsPrivateComparison2({
           <CardContent>
             {comparison.discoOption.available ? (
               <div className="space-y-3">
-                {/* Disco package options */}
-                {Object.entries(DISCO_AVAILABILITY.PACKAGES).map(([key, pkg]) => {
-                  const cost = calculateDiscoPrice(selectedGroupSize, key as any);
-                  const perPerson = pkg.pricePerPerson / 100;
+                {/* Disco TIME SLOT options - sorted by price */}
+                {Object.entries(DISCO_AVAILABILITY.TIME_SLOTS)
+                  .sort((a, b) => a[1].pricePerPerson - b[1].pricePerPerson)
+                  .map(([key, slot]) => {
+                  const pricePerPerson = slot.pricePerPerson / 100;
+                  const allInPrice = slot.priceWithTax / 100;
+                  const totalCost = (slot.priceWithTax * selectedGroupSize) / 100;
                   return (
-                    <div key={key} className="flex justify-between items-center p-3 bg-purple-50 rounded">
+                    <div key={key} className="flex justify-between items-center p-3 bg-purple-50 rounded relative">
+                      {slot.badge && (
+                        <span className="absolute -top-2 -right-2 bg-purple-600 text-white text-xs px-2 py-0.5 rounded-full font-bold">
+                          {slot.badge}
+                        </span>
+                      )}
                       <div>
-                        <div className="font-medium">{pkg.name}</div>
-                        <div className="text-sm text-gray-600">${perPerson}/person</div>
+                        <div className="font-medium flex items-center gap-2">
+                          <span className="text-purple-700 font-bold">{slot.day}</span>
+                          <span>{slot.timeRange}</span>
+                        </div>
+                        <div className="text-sm text-gray-600">
+                          ${pricePerPerson} base → <span className="font-semibold text-green-700">${allInPrice.toFixed(0)}/person all-in</span>
+                        </div>
                       </div>
                       <div className="text-right">
-                        <div className="font-bold">${(cost / 100).toLocaleString()}</div>
-                        <div className="text-sm text-gray-600">total</div>
+                        <div className="font-bold">${totalCost.toLocaleString()}</div>
+                        <div className="text-xs text-gray-600">total for {selectedGroupSize}</div>
                       </div>
                     </div>
                   );
@@ -173,7 +186,7 @@ export function DiscoVsPrivateComparison2({
                   <div className="flex items-start gap-2">
                     <Calendar className="h-4 w-4 text-yellow-600 mt-0.5" />
                     <div className="text-sm">
-                      <span className="font-medium">Available:</span> Friday & Saturday only
+                      <span className="font-medium">Available:</span> Friday & Saturday only (3 time slots)
                     </div>
                   </div>
                 </div>
@@ -196,6 +209,13 @@ export function DiscoVsPrivateComparison2({
               Private Cruise
               <Badge variant="outline">Always Available</Badge>
             </CardTitle>
+            {/* CRITICAL: Show which day the pricing is for */}
+            <div className="mt-2 p-2 bg-blue-100 rounded-lg">
+              <p className="text-sm font-semibold text-blue-800">
+                📅 Pricing shown for: <span className="text-blue-900 underline">{selectedDayName}</span>
+              </p>
+              <p className="text-xs text-blue-600">Select a different day above to see {selectedDayName === 'Saturday' ? 'lower' : 'other'} rates</p>
+            </div>
           </CardHeader>
           <CardContent>
             <div className="space-y-3">
@@ -208,12 +228,13 @@ export function DiscoVsPrivateComparison2({
                     <div>
                       <div className="font-medium">{packageLabel} Package</div>
                       <div className="text-sm text-gray-600">
-                        {cost.capacityTier}p boat • ${(cost.perPersonCost / 100).toFixed(0)}/person
+                        {cost.capacityTier}p boat • <span className="font-semibold text-green-700">${(cost.perPersonCost / 100).toFixed(0)}/person</span>
                       </div>
+                      <div className="text-xs text-blue-600 font-medium">{selectedDayName} pricing</div>
                     </div>
                     <div className="text-right">
                       <div className="font-bold">${(cost.totalPrice / 100).toLocaleString()}</div>
-                      <div className="text-sm text-gray-600">total</div>
+                      <div className="text-xs text-gray-600">total ({selectedDayName})</div>
                     </div>
                   </div>
                 );
@@ -224,6 +245,8 @@ export function DiscoVsPrivateComparison2({
                   <CheckCircle className="h-4 w-4 text-green-600 mt-0.5" />
                   <div className="text-sm">
                     <span className="font-medium">Available:</span> 7 days a week, multiple time slots
+                    <br />
+                    <span className="text-xs text-gray-500">Prices vary by day: Sat highest, Mon-Thu & Sun lowest</span>
                   </div>
                 </div>
               </div>

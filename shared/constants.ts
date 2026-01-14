@@ -1489,26 +1489,63 @@ export const PRIVATE_CRUISE_FINAL_PRICES = {
 } as const;
 
 /**
- * Disco package availability and pricing
+ * Disco TIME SLOT availability and pricing
+ * Updated Jan 2026: Pricing is by TIME SLOT, not package tier
+ * Each time slot includes: DJ, photographer, floats, party supplies
  */
 export const DISCO_AVAILABILITY = {
   // Disco cruises only available Friday & Saturday
   AVAILABLE_DAYS: [5, 6], // Friday=5, Saturday=6
+  // TIME SLOT-BASED PRICING (replaces old Basic Bach/Disco Queen/Platinum packages)
+  TIME_SLOTS: {
+    'friday-12-4pm': {
+      id: 'friday-12-4pm',
+      name: 'Friday 12-4pm',
+      day: 'Friday',
+      timeRange: '12pm - 4pm',
+      pricePerPerson: 9500, // $95.00 base
+      priceWithTax: 12488, // $124.88 all-in (w/tax & gratuity)
+      badge: null,
+      description: '4-hour afternoon cruise with DJ, photographer & floats'
+    },
+    'saturday-11am-3pm': {
+      id: 'saturday-11am-3pm',
+      name: 'Saturday 11am-3pm',
+      day: 'Saturday',
+      timeRange: '11am - 3pm',
+      pricePerPerson: 10500, // $105.00 base
+      priceWithTax: 13781, // $137.81 all-in (w/tax & gratuity)
+      badge: 'BEST',
+      description: 'Most popular! Peak Saturday morning cruise'
+    },
+    'saturday-330-730pm': {
+      id: 'saturday-330-730pm',
+      name: 'Saturday 3:30-7:30pm',
+      day: 'Saturday',
+      timeRange: '3:30pm - 7:30pm',
+      pricePerPerson: 8500, // $85.00 base
+      priceWithTax: 11156, // $111.56 all-in (w/tax & gratuity)
+      badge: 'FUN!',
+      description: 'Sunset cruise - catch the golden hour!'
+    }
+  },
+  // DEPRECATED: Old package-based pricing - DO NOT USE
+  // Keeping for backwards compatibility only
   PACKAGES: {
     basic: {
-      name: 'Basic Bach Package',
-      pricePerPerson: 8500, // $85.00
-      description: 'BYOB & Keep it Cheap - ALWAYS Cheaper than a Private Cruise'
+      name: 'Saturday 3:30-7:30pm',
+      pricePerPerson: 8500, // Maps to sunset slot
+      description: 'Sunset cruise - catch the golden hour!'
     },
     disco_queen: {
-      name: 'Disco Queen/King Package', 
-      pricePerPerson: 9500, // $95.00
-      description: 'Private Cooler & Reserved Spot for Your Group'
+      name: 'Friday 12-4pm', 
+      pricePerPerson: 9500, // Maps to Friday slot
+      description: '4-hour afternoon cruise with DJ, photographer & floats'
     },
     platinum: {
-      name: 'Super Sparkle Platinum Disco',
-      pricePerPerson: 10500, // $105.00
-      description: 'Nothing to Carry, Cooler Stocked w/drinks When You Arrive!'
+      name: 'Saturday 11am-3pm',
+      pricePerPerson: 10500, // Maps to Saturday morning slot
+      description: 'Most popular! Peak Saturday morning cruise'
     }
   }
 } as const;
