@@ -105,6 +105,21 @@ app.use((req, res, next) => {
   next();
 });
 
+// TRAILING SLASH REDIRECT - Prevent duplicate URLs in Google
+// Redirect /path/ to /path (except for root /)
+app.use((req, res, next) => {
+  const path = req.path;
+  // Only redirect if path ends with / and is not the root
+  if (path.length > 1 && path.endsWith('/')) {
+    const newPath = path.slice(0, -1);
+    const query = req.originalUrl.includes('?') ? req.originalUrl.substring(req.originalUrl.indexOf('?')) : '';
+    const protocol = req.secure || req.get('x-forwarded-proto') === 'https' ? 'https' : 'http';
+    const host = req.get('host');
+    return res.redirect(301, `${protocol}://${host}${newPath}${query}`);
+  }
+  next();
+});
+
 // Enable gzip compression for all responses
 app.use(compression({
   filter: (req, res) => {
