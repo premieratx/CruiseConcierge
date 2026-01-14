@@ -6,6 +6,22 @@ import { isStaticBlogRoute } from './staticBlogMetadata';
 import { getBaseDomain } from './utils/domain';
 
 const __filename = fileURLToPath(import.meta.url);
+
+// CRITICAL: Strip HTML tags from strings to prevent JSON-LD parsing errors
+// WordPress content often contains HTML in author names, descriptions, etc.
+function stripHtml(str: string | undefined | null): string {
+  if (!str) return '';
+  return str
+    .replace(/<[^>]*>/g, '') // Remove HTML tags
+    .replace(/&nbsp;/g, ' ') // Replace &nbsp;
+    .replace(/&amp;/g, '&')  // Replace &amp;
+    .replace(/&lt;/g, '<')   // Replace &lt;
+    .replace(/&gt;/g, '>')   // Replace &gt;
+    .replace(/&quot;/g, '"') // Replace &quot;
+    .replace(/&#39;/g, "'")  // Replace &#39;
+    .replace(/\s+/g, ' ')    // Collapse whitespace
+    .trim();
+}
 const __dirname = path.dirname(__filename);
 
 const SCHEMA_DIR = path.resolve(process.cwd(), 'attached_assets/schema_data');
@@ -118,17 +134,22 @@ export function generateArticleSchema(blogPost: {
   const organizationId = `${productionDomain}/#organization`;
   const defaultImage = `${productionDomain}/media/schema/hero-boat-1.jpg`;
 
+  // CRITICAL: Strip HTML from all text fields to prevent JSON-LD parsing errors
+  const cleanTitle = stripHtml(blogPost.title);
+  const cleanExcerpt = stripHtml(blogPost.excerpt) || stripHtml(blogPost.content?.substring(0, 160)) || '';
+  const cleanAuthorName = stripHtml(blogPost.author?.name) || "Premier Party Cruises";
+
   return {
     "@context": "https://schema.org",
     "@type": "Article",
-    "headline": blogPost.title,
-    "description": blogPost.excerpt || blogPost.content?.substring(0, 160) || '',
+    "headline": cleanTitle,
+    "description": cleanExcerpt,
     "image": blogPost.featuredImage || defaultImage,
     "datePublished": publishDate,
     "dateModified": modifiedDate,
     "author": {
       "@type": "Person",
-      "name": blogPost.author?.name || "Premier Party Cruises"
+      "name": cleanAuthorName
     },
     "publisher": {
       "@id": organizationId
