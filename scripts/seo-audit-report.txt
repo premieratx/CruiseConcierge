@@ -7,18 +7,18 @@
 EXECUTIVE SUMMARY
 ─────────────────────────────────────────────────────────────
 Total URLs Tested:        131
-✓ Passed All Checks:      92
-✗ Failed One or More:     39
-Overall SEO Health Score: 70%
+✓ Passed All Checks:      90
+✗ Failed One or More:     41
+Overall SEO Health Score: 69%
 
-⚠ STATUS: GOOD - Several issues need attention
+✗ STATUS: NEEDS IMPROVEMENT - Critical SEO issues detected
 
 ISSUES BREAKDOWN
 ─────────────────────────────────────────────────────────────
 
-🟡 INSUFFICIENT CONTENT (39)
+🟡 INSUFFICIENT CONTENT (41)
    Priority: MEDIUM - Pages have < 500 chars of text content
-   - https://premierpartycruises.com/austin-bachelor-party-ideas
+   - https://premierpartycruises.com/blogs/construction-trades-boat-parties-austin
    - https://premierpartycruises.com/blogs/dallas-to-lake-travis-corporate
    - https://premierpartycruises.com/blogs/destination-austin-offsite-retreats
    - https://premierpartycruises.com/blogs/employee-appreciation-day-reward-your-team-with-an-easy-all-inclusive-boat-party
@@ -45,6 +45,7 @@ ISSUES BREAKDOWN
    - https://premierpartycruises.com/blogs/lake-travis-boat-party-logistics-complete-planning-and-coordination-guide
    - https://premierpartycruises.com/blogs/lake-travis-boat-party-packages-comprehensive-guide-to-options-and-pricing
    - https://premierpartycruises.com/blogs/lake-travis-boat-party-regulations-legal-requirements-and-compliance-guide
+   - https://premierpartycruises.com/blogs/lake-travis-boat-party-reviews-real-customer-experiences-and-testimonials
    - https://premierpartycruises.com/blogs/lake-travis-boat-safety-and-maintenance-quality-standards-for-party-cruises
    - https://premierpartycruises.com/blogs/lake-travis-boat-safety-essential-guidelines-for-safe-party-cruises
    - https://premierpartycruises.com/blogs/lake-travis-party-boat-rentals-ultimate-guide-for-large-group-events-20-guests
@@ -52,6 +53,7 @@ ISSUES BREAKDOWN
    - https://premierpartycruises.com/blogs/lake-travis-weather-planning-seasonal-considerations-for-perfect-boat-parties
    - https://premierpartycruises.com/blogs/lake-travis-wedding-boat-rentals-unique-venues-for-austin-celebrations
    - https://premierpartycruises.com/blogs/must-haves-for-the-perfect-austin-bachelorette-weekend
+   - https://premierpartycruises.com/blogs/outdoor-wedding-alcohol-logistics-hill-country-and-lake-travis-coordination
    - https://premierpartycruises.com/blogs/perfect-bachelor-party-itinerary-austin
    - https://premierpartycruises.com/blogs/pool-party-alcohol-coordination-summer-event-planning-in-austin-heat
    - https://premierpartycruises.com/blogs/top-spots-tips-for-an-unforgettable-austin-bachelorette-party-experience
@@ -111,20 +113,7 @@ DETAILED URL RESULTS
 
 [25/131] ✓ PASS: https://premierpartycruises.com/adventure-austin-bachelorette
 
-[26/131] ✗ FAIL: https://premierpartycruises.com/austin-bachelor-party-ideas
-   Checks:
-      HTTP 200:           ✓
-      SSR Content:        ✓
-      Title Tag:          ✓
-      Title Descriptive:  ✓
-      Meta Description:   ✓
-      OG Title:           ✓
-      OG Description:     ✓
-      Canonical URL:      ✓
-      JSON-LD Schema:     ✓
-      Body Content:       ✗ (256 chars)
-   Errors:
-      - Insufficient content: 256 chars (need 500+)
+[26/131] ✓ PASS: https://premierpartycruises.com/austin-bachelor-party-ideas
 
 [27/131] ✓ PASS: https://premierpartycruises.com/austin-bachelorette-nightlife
 
@@ -146,7 +135,20 @@ DETAILED URL RESULTS
 
 [36/131] ✓ PASS: https://premierpartycruises.com/blogs/company-party-75-people-austin
 
-[37/131] ✓ PASS: https://premierpartycruises.com/blogs/construction-trades-boat-parties-austin
+[37/131] ✗ FAIL: https://premierpartycruises.com/blogs/construction-trades-boat-parties-austin
+   Checks:
+      HTTP 200:           ✓
+      SSR Content:        ✓
+      Title Tag:          ✓
+      Title Descriptive:  ✓
+      Meta Description:   ✓
+      OG Title:           ✓
+      OG Description:     ✓
+      Canonical URL:      ✓
+      JSON-LD Schema:     ✓
+      Body Content:       ✗ (0 chars)
+   Errors:
+      - Insufficient content: 0 chars (need 500+)
 
 [38/131] ✗ FAIL: https://premierpartycruises.com/blogs/dallas-to-lake-travis-corporate
    Checks:
@@ -628,7 +630,20 @@ DETAILED URL RESULTS
    Errors:
       - Insufficient content: 0 chars (need 500+)
 
-[109/131] ✓ PASS: https://premierpartycruises.com/blogs/lake-travis-boat-party-reviews-real-customer-experiences-and-testimonials
+[109/131] ✗ FAIL: https://premierpartycruises.com/blogs/lake-travis-boat-party-reviews-real-customer-experiences-and-testimonials
+   Checks:
+      HTTP 200:           ✓
+      SSR Content:        ✓
+      Title Tag:          ✓
+      Title Descriptive:  ✓
+      Meta Description:   ✓
+      OG Title:           ✓
+      OG Description:     ✓
+      Canonical URL:      ✓
+      JSON-LD Schema:     ✓
+      Body Content:       ✗ (0 chars)
+   Errors:
+      - Insufficient content: 0 chars (need 500+)
 
 [110/131] ✗ FAIL: https://premierpartycruises.com/blogs/lake-travis-boat-safety-and-maintenance-quality-standards-for-party-cruises
    Checks:
@@ -735,7 +750,20 @@ DETAILED URL RESULTS
    Errors:
       - Insufficient content: 0 chars (need 500+)
 
-[117/131] ✓ PASS: https://premierpartycruises.com/blogs/outdoor-wedding-alcohol-logistics-hill-country-and-lake-travis-coordination
+[117/131] ✗ FAIL: https://premierpartycruises.com/blogs/outdoor-wedding-alcohol-logistics-hill-country-and-lake-travis-coordination
+   Checks:
+      HTTP 200:           ✓
+      SSR Content:        ✓
+      Title Tag:          ✓
+      Title Descriptive:  ✓
+      Meta Description:   ✓
+      OG Title:           ✓
+      OG Description:     ✓
+      Canonical URL:      ✓
+      JSON-LD Schema:     ✓
+      Body Content:       ✗ (0 chars)
+   Errors:
+      - Insufficient content: 0 chars (need 500+)
 
 [118/131] ✓ PASS: https://premierpartycruises.com/blogs/party-alcohol-safety-in-austin-responsible-service-and-guest-well-being
 
