@@ -243,11 +243,27 @@ export default function BlogPostPage() {
     return plainText.substring(0, 300) + (plainText.length > 300 ? '...' : '');
   };
 
-  // Strip ALL H1 tags from content to prevent duplicate H1s (SEO fix)
+  // Process content: strip H1s, fix broken images, clean up formatting
   const getProcessedContent = () => {
+    let content = post.content;
+    
     // Remove ALL H1 tags and their content (only ONE H1 allowed per page for SEO)
-    // Use multiline-safe regex with global and case-insensitive flags
-    return post.content.replace(/<h1[^>]*>[\s\S]*?<\/h1>/gi, '').trim();
+    content = content.replace(/<h1[^>]*>[\s\S]*?<\/h1>/gi, '');
+    
+    // Fix broken WordPress image tags:
+    // 1. Remove images with broken/relative URLs that won't load
+    // 2. Keep images with full https:// URLs
+    content = content.replace(/<img[^>]*src=["'](?!https?:\/\/)[^"']*["'][^>]*>/gi, '');
+    
+    // Remove empty paragraphs and excessive whitespace
+    content = content.replace(/<p>\s*<\/p>/gi, '');
+    content = content.replace(/<p>\s*&nbsp;\s*<\/p>/gi, '');
+    
+    // Fix duplicate titles that might be in the content
+    const titlePattern = new RegExp(`<h2[^>]*>\\s*${post.title.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\s*<\\/h2>`, 'gi');
+    content = content.replace(titlePattern, '');
+    
+    return content.trim();
   };
 
   // Enhanced BlogPosting schema with comprehensive metadata
@@ -479,9 +495,9 @@ export default function BlogPostPage() {
             </div>
           </header>
 
-          {/* Featured Image */}
-          <div className="mb-0">
-            {post.featuredImage ? (
+          {/* Featured Image - Only show if valid image exists */}
+          {post.featuredImage && (
+            <div className="mb-0">
               <img
                 src={post.featuredImage}
                 alt={post.featuredImageAlt || post.title}
@@ -489,18 +505,8 @@ export default function BlogPostPage() {
                 loading="lazy"
                 data-testid="img-featured"
               />
-            ) : (
-              <div 
-                className="w-full h-64 md:h-80 bg-gradient-to-br from-brand-blue to-blue-600 flex items-center justify-center"
-                data-testid="img-featured-placeholder"
-              >
-                <div className="text-white text-center px-4">
-                  <h2 className="text-2xl md:text-3xl font-bold mb-2">{post.title}</h2>
-                  <p className="text-blue-100">Featured Image</p>
-                </div>
-              </div>
-            )}
-          </div>
+            </div>
+          )}
 
           {/* Post Content */}
           <div 
