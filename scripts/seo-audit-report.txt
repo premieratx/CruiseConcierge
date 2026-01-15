@@ -1,14 +1,14 @@
 ═══════════════════════════════════════════════════════════════
           COMPREHENSIVE SEO AUDIT REPORT
           Premier Party Cruises
-          2026-01-14
+          2026-01-15
 ═══════════════════════════════════════════════════════════════
 
 EXECUTIVE SUMMARY
 ─────────────────────────────────────────────────────────────
-Total URLs Tested:        131
-✓ Passed All Checks:      89
-✗ Failed One or More:     42
+Total URLs Tested:        152
+✓ Passed All Checks:      104
+✗ Failed One or More:     48
 Overall SEO Health Score: 68%
 
 ✗ STATUS: NEEDS IMPROVEMENT - Critical SEO issues detected
@@ -16,7 +16,7 @@ Overall SEO Health Score: 68%
 ISSUES BREAKDOWN
 ─────────────────────────────────────────────────────────────
 
-🟡 INSUFFICIENT CONTENT (42)
+🟡 INSUFFICIENT CONTENT (48)
    Priority: MEDIUM - Pages have < 500 chars of text content
    - https://premierpartycruises.com/blogs/construction-trades-boat-parties-austin
    - https://premierpartycruises.com/blogs/dallas-to-lake-travis-corporate
@@ -57,86 +57,92 @@ ISSUES BREAKDOWN
    - https://premierpartycruises.com/blogs/party-alcohol-safety-in-austin-responsible-service-and-guest-well-being
    - https://premierpartycruises.com/blogs/perfect-bachelor-party-itinerary-austin
    - https://premierpartycruises.com/blogs/pool-party-alcohol-coordination-summer-event-planning-in-austin-heat
+   - https://premierpartycruises.com/blogs/startup-celebration-alcohol-packages-funding-rounds-launches-and-milestone-events
+   - https://premierpartycruises.com/blogs/the-recipe-for-the-chillest-atx-bach-party
+   - https://premierpartycruises.com/blogs/the-top-dos-and-dont-for-success-on-the-atx-disco-cruise-with-premier-party-cruises
+   - https://premierpartycruises.com/blogs/the-top-five-celebrities-at-our-dream-party-barge
+   - https://premierpartycruises.com/blogs/the-ultimate-austin-bachelorette-party-alcohol-guide-what-to-order-when-to-order-and-how-much-you-actually-need
    - https://premierpartycruises.com/blogs/top-spots-tips-for-an-unforgettable-austin-bachelorette-party-experience
    - https://premierpartycruises.com/blogs/wedding-anniversary-celebration-ideas-recreating-your-special-day-with-boat-and-alcohol-packages
+   - https://premierpartycruises.com/blogs/wedding-party-alcohol-coordination-getting-ready-bachelor-bachelorette-and-reception
    - https://premierpartycruises.com/blogs/why-choose-integrated-event-services-comparing-austin-party-planning-options
 
 DETAILED URL RESULTS
 ─────────────────────────────────────────────────────────────
 
-[1/131] ✓ PASS: https://premierpartycruises.com/
+[1/152] ✓ PASS: https://premierpartycruises.com/
 
-[2/131] ✓ PASS: https://premierpartycruises.com/after-party
+[2/152] ✓ PASS: https://premierpartycruises.com/after-party
 
-[3/131] ✓ PASS: https://premierpartycruises.com/atx-disco-cruise
+[3/152] ✓ PASS: https://premierpartycruises.com/atx-disco-cruise
 
-[4/131] ✓ PASS: https://premierpartycruises.com/bachelor-party-austin
+[4/152] ✓ PASS: https://premierpartycruises.com/bachelor-party-austin
 
-[5/131] ✓ PASS: https://premierpartycruises.com/bachelorette-party-austin
+[5/152] ✓ PASS: https://premierpartycruises.com/bachelorette-party-austin
 
-[6/131] ✓ PASS: https://premierpartycruises.com/birthday-parties
+[6/152] ✓ PASS: https://premierpartycruises.com/birthday-parties
 
-[7/131] ✓ PASS: https://premierpartycruises.com/client-entertainment
+[7/152] ✓ PASS: https://premierpartycruises.com/client-entertainment
 
-[8/131] ✓ PASS: https://premierpartycruises.com/combined-bachelor-bachelorette-austin
+[8/152] ✓ PASS: https://premierpartycruises.com/combined-bachelor-bachelorette-austin
 
-[9/131] ✓ PASS: https://premierpartycruises.com/company-milestone
+[9/152] ✓ PASS: https://premierpartycruises.com/company-milestone
 
-[10/131] ✓ PASS: https://premierpartycruises.com/corporate-events
+[10/152] ✓ PASS: https://premierpartycruises.com/corporate-events
 
-[11/131] ✓ PASS: https://premierpartycruises.com/graduation-party
+[11/152] ✓ PASS: https://premierpartycruises.com/graduation-party
 
-[12/131] ✓ PASS: https://premierpartycruises.com/milestone-birthday
+[12/152] ✓ PASS: https://premierpartycruises.com/milestone-birthday
 
-[13/131] ✓ PASS: https://premierpartycruises.com/private-cruises
+[13/152] ✓ PASS: https://premierpartycruises.com/private-cruises
 
-[14/131] ✓ PASS: https://premierpartycruises.com/rehearsal-dinner
+[14/152] ✓ PASS: https://premierpartycruises.com/rehearsal-dinner
 
-[15/131] ✓ PASS: https://premierpartycruises.com/sweet-16
+[15/152] ✓ PASS: https://premierpartycruises.com/sweet-16
 
-[16/131] ✓ PASS: https://premierpartycruises.com/team-building
+[16/152] ✓ PASS: https://premierpartycruises.com/team-building
 
-[17/131] ✓ PASS: https://premierpartycruises.com/wedding-parties
+[17/152] ✓ PASS: https://premierpartycruises.com/wedding-parties
 
-[18/131] ✓ PASS: https://premierpartycruises.com/welcome-party
+[18/152] ✓ PASS: https://premierpartycruises.com/welcome-party
 
-[19/131] ✓ PASS: https://premierpartycruises.com/contact
+[19/152] ✓ PASS: https://premierpartycruises.com/contact
 
-[20/131] ✓ PASS: https://premierpartycruises.com/faq
+[20/152] ✓ PASS: https://premierpartycruises.com/faq
 
-[21/131] ✓ PASS: https://premierpartycruises.com/gallery
+[21/152] ✓ PASS: https://premierpartycruises.com/gallery
 
-[22/131] ✓ PASS: https://premierpartycruises.com/pricing-breakdown
+[22/152] ✓ PASS: https://premierpartycruises.com/pricing-breakdown
 
-[23/131] ✓ PASS: https://premierpartycruises.com/testimonials-faq
+[23/152] ✓ PASS: https://premierpartycruises.com/testimonials-faq
 
-[24/131] ✓ PASS: https://premierpartycruises.com/3-day-austin-bachelorette-itinerary
+[24/152] ✓ PASS: https://premierpartycruises.com/3-day-austin-bachelorette-itinerary
 
-[25/131] ✓ PASS: https://premierpartycruises.com/adventure-austin-bachelorette
+[25/152] ✓ PASS: https://premierpartycruises.com/adventure-austin-bachelorette
 
-[26/131] ✓ PASS: https://premierpartycruises.com/austin-bachelor-party-ideas
+[26/152] ✓ PASS: https://premierpartycruises.com/austin-bachelor-party-ideas
 
-[27/131] ✓ PASS: https://premierpartycruises.com/austin-bachelorette-nightlife
+[27/152] ✓ PASS: https://premierpartycruises.com/austin-bachelorette-nightlife
 
-[28/131] ✓ PASS: https://premierpartycruises.com/blogs
+[28/152] ✓ PASS: https://premierpartycruises.com/blogs
 
-[29/131] ✓ PASS: https://premierpartycruises.com/blogs/all-inclusive-corporate-packages
+[29/152] ✓ PASS: https://premierpartycruises.com/blogs/all-inclusive-corporate-packages
 
-[30/131] ✓ PASS: https://premierpartycruises.com/blogs/austin-best-corporate-events
+[30/152] ✓ PASS: https://premierpartycruises.com/blogs/austin-best-corporate-events
 
-[31/131] ✓ PASS: https://premierpartycruises.com/blogs/austin-suburbs-corporate-events
+[31/152] ✓ PASS: https://premierpartycruises.com/blogs/austin-suburbs-corporate-events
 
-[32/131] ✓ PASS: https://premierpartycruises.com/blogs/company-holiday-party-lake-travis
+[32/152] ✓ PASS: https://premierpartycruises.com/blogs/company-holiday-party-lake-travis
 
-[33/131] ✓ PASS: https://premierpartycruises.com/blogs/company-party-10-people-austin
+[33/152] ✓ PASS: https://premierpartycruises.com/blogs/company-party-10-people-austin
 
-[34/131] ✓ PASS: https://premierpartycruises.com/blogs/company-party-25-people-austin
+[34/152] ✓ PASS: https://premierpartycruises.com/blogs/company-party-25-people-austin
 
-[35/131] ✓ PASS: https://premierpartycruises.com/blogs/company-party-50-people-austin
+[35/152] ✓ PASS: https://premierpartycruises.com/blogs/company-party-50-people-austin
 
-[36/131] ✓ PASS: https://premierpartycruises.com/blogs/company-party-75-people-austin
+[36/152] ✓ PASS: https://premierpartycruises.com/blogs/company-party-75-people-austin
 
-[37/131] ✗ FAIL: https://premierpartycruises.com/blogs/construction-trades-boat-parties-austin
+[37/152] ✗ FAIL: https://premierpartycruises.com/blogs/construction-trades-boat-parties-austin
    Checks:
       HTTP 200:           ✓
       SSR Content:        ✓
@@ -151,7 +157,7 @@ DETAILED URL RESULTS
    Errors:
       - Insufficient content: 0 chars (need 500+)
 
-[38/131] ✗ FAIL: https://premierpartycruises.com/blogs/dallas-to-lake-travis-corporate
+[38/152] ✗ FAIL: https://premierpartycruises.com/blogs/dallas-to-lake-travis-corporate
    Checks:
       HTTP 200:           ✓
       SSR Content:        ✓
@@ -166,7 +172,7 @@ DETAILED URL RESULTS
    Errors:
       - Insufficient content: 0 chars (need 500+)
 
-[39/131] ✗ FAIL: https://premierpartycruises.com/blogs/destination-austin-offsite-retreats
+[39/152] ✗ FAIL: https://premierpartycruises.com/blogs/destination-austin-offsite-retreats
    Checks:
       HTTP 200:           ✓
       SSR Content:        ✓
@@ -181,7 +187,7 @@ DETAILED URL RESULTS
    Errors:
       - Insufficient content: 0 chars (need 500+)
 
-[40/131] ✗ FAIL: https://premierpartycruises.com/blogs/employee-appreciation-day-reward-your-team-with-an-easy-all-inclusive-boat-party
+[40/152] ✗ FAIL: https://premierpartycruises.com/blogs/employee-appreciation-day-reward-your-team-with-an-easy-all-inclusive-boat-party
    Checks:
       HTTP 200:           ✓
       SSR Content:        ✓
@@ -196,11 +202,11 @@ DETAILED URL RESULTS
    Errors:
       - Insufficient content: 0 chars (need 500+)
 
-[41/131] ✓ PASS: https://premierpartycruises.com/blogs/finance-law-firms-boat-parties-austin
+[41/152] ✓ PASS: https://premierpartycruises.com/blogs/finance-law-firms-boat-parties-austin
 
-[42/131] ✓ PASS: https://premierpartycruises.com/blogs/healthcare-wellness-boat-parties-austin
+[42/152] ✓ PASS: https://premierpartycruises.com/blogs/healthcare-wellness-boat-parties-austin
 
-[43/131] ✗ FAIL: https://premierpartycruises.com/blogs/large-group-events-lake-travis
+[43/152] ✗ FAIL: https://premierpartycruises.com/blogs/large-group-events-lake-travis
    Checks:
       HTTP 200:           ✓
       SSR Content:        ✓
@@ -215,13 +221,13 @@ DETAILED URL RESULTS
    Errors:
       - Insufficient content: 0 chars (need 500+)
 
-[44/131] ✓ PASS: https://premierpartycruises.com/blogs/marketing-creative-agencies-boat-austin
+[44/152] ✓ PASS: https://premierpartycruises.com/blogs/marketing-creative-agencies-boat-austin
 
-[45/131] ✓ PASS: https://premierpartycruises.com/blogs/quarterly-outings-lake-travis-make-routine-company-events-easy
+[45/152] ✓ PASS: https://premierpartycruises.com/blogs/quarterly-outings-lake-travis-make-routine-company-events-easy
 
-[46/131] ✓ PASS: https://premierpartycruises.com/blogs/real-estate-client-entertainment-boat-austin
+[46/152] ✓ PASS: https://premierpartycruises.com/blogs/real-estate-client-entertainment-boat-austin
 
-[47/131] ✗ FAIL: https://premierpartycruises.com/blogs/safety-first-how-premiers-perfect-record-and-first-aid-training-set-us-apart
+[47/152] ✗ FAIL: https://premierpartycruises.com/blogs/safety-first-how-premiers-perfect-record-and-first-aid-training-set-us-apart
    Checks:
       HTTP 200:           ✓
       SSR Content:        ✓
@@ -236,7 +242,7 @@ DETAILED URL RESULTS
    Errors:
       - Insufficient content: 0 chars (need 500+)
 
-[48/131] ✗ FAIL: https://premierpartycruises.com/blogs/small-business-boat-parties-austin
+[48/152] ✗ FAIL: https://premierpartycruises.com/blogs/small-business-boat-parties-austin
    Checks:
       HTTP 200:           ✓
       SSR Content:        ✓
@@ -251,43 +257,43 @@ DETAILED URL RESULTS
    Errors:
       - Insufficient content: 0 chars (need 500+)
 
-[49/131] ✓ PASS: https://premierpartycruises.com/blogs/tech-companies-boat-parties-austin
+[49/152] ✓ PASS: https://premierpartycruises.com/blogs/tech-companies-boat-parties-austin
 
-[50/131] ✓ PASS: https://premierpartycruises.com/blogs/why-austin-companies-choose-premier
+[50/152] ✓ PASS: https://premierpartycruises.com/blogs/why-austin-companies-choose-premier
 
-[51/131] ✓ PASS: https://premierpartycruises.com/budget-austin-bachelorette
+[51/152] ✓ PASS: https://premierpartycruises.com/budget-austin-bachelorette
 
-[52/131] ✓ PASS: https://premierpartycruises.com/first-time-lake-travis-boat-rental-guide
+[52/152] ✓ PASS: https://premierpartycruises.com/first-time-lake-travis-boat-rental-guide
 
-[53/131] ✓ PASS: https://premierpartycruises.com/lake-travis-bachelor-party-boats
+[53/152] ✓ PASS: https://premierpartycruises.com/lake-travis-bachelor-party-boats
 
-[54/131] ✓ PASS: https://premierpartycruises.com/luxury-austin-bachelorette
+[54/152] ✓ PASS: https://premierpartycruises.com/luxury-austin-bachelorette
 
-[55/131] ✓ PASS: https://premierpartycruises.com/party-boat-austin
+[55/152] ✓ PASS: https://premierpartycruises.com/party-boat-austin
 
-[56/131] ✓ PASS: https://premierpartycruises.com/party-boat-lake-travis
+[56/152] ✓ PASS: https://premierpartycruises.com/party-boat-lake-travis
 
-[57/131] ✓ PASS: https://premierpartycruises.com/top-10-austin-bachelorette-ideas
+[57/152] ✓ PASS: https://premierpartycruises.com/top-10-austin-bachelorette-ideas
 
-[58/131] ✓ PASS: https://premierpartycruises.com/ultimate-austin-bachelorette-weekend
+[58/152] ✓ PASS: https://premierpartycruises.com/ultimate-austin-bachelorette-weekend
 
-[59/131] ✓ PASS: https://premierpartycruises.com/blogs/accessible-lake-travis-boat-parties-inclusive-event-planning-for-all-guests
+[59/152] ✓ PASS: https://premierpartycruises.com/blogs/accessible-lake-travis-boat-parties-inclusive-event-planning-for-all-guests
 
-[60/131] ✓ PASS: https://premierpartycruises.com/blogs/atx-disco-cruise-experience
+[60/152] ✓ PASS: https://premierpartycruises.com/blogs/atx-disco-cruise-experience
 
-[61/131] ✓ PASS: https://premierpartycruises.com/blogs/austin-bachelor-party-january
+[61/152] ✓ PASS: https://premierpartycruises.com/blogs/austin-bachelor-party-january
 
-[62/131] ✓ PASS: https://premierpartycruises.com/blogs/austin-bachelor-party-july
+[62/152] ✓ PASS: https://premierpartycruises.com/blogs/austin-bachelor-party-july
 
-[63/131] ✓ PASS: https://premierpartycruises.com/blogs/austin-bachelor-party-march
+[63/152] ✓ PASS: https://premierpartycruises.com/blogs/austin-bachelor-party-march
 
-[64/131] ✓ PASS: https://premierpartycruises.com/blogs/austin-bachelor-party-may
+[64/152] ✓ PASS: https://premierpartycruises.com/blogs/austin-bachelor-party-may
 
-[65/131] ✓ PASS: https://premierpartycruises.com/blogs/austin-bachelor-party-november
+[65/152] ✓ PASS: https://premierpartycruises.com/blogs/austin-bachelor-party-november
 
-[66/131] ✓ PASS: https://premierpartycruises.com/blogs/austin-bachelor-party-september
+[66/152] ✓ PASS: https://premierpartycruises.com/blogs/austin-bachelor-party-september
 
-[67/131] ✗ FAIL: https://premierpartycruises.com/blogs/austin-bachelorette-bliss-spa-retreats-disco-cruises-alcohol-delivery
+[67/152] ✗ FAIL: https://premierpartycruises.com/blogs/austin-bachelorette-bliss-spa-retreats-disco-cruises-alcohol-delivery
    Checks:
       HTTP 200:           ✓
       SSR Content:        ✓
@@ -302,21 +308,21 @@ DETAILED URL RESULTS
    Errors:
       - Insufficient content: 0 chars (need 500+)
 
-[68/131] ✓ PASS: https://premierpartycruises.com/blogs/austin-bachelorette-party-april
+[68/152] ✓ PASS: https://premierpartycruises.com/blogs/austin-bachelorette-party-april
 
-[69/131] ✓ PASS: https://premierpartycruises.com/blogs/austin-bachelorette-party-august
+[69/152] ✓ PASS: https://premierpartycruises.com/blogs/austin-bachelorette-party-august
 
-[70/131] ✓ PASS: https://premierpartycruises.com/blogs/austin-bachelorette-party-boats-lake-travis-adventures-for-unforgettable-celebrations
+[70/152] ✓ PASS: https://premierpartycruises.com/blogs/austin-bachelorette-party-boats-lake-travis-adventures-for-unforgettable-celebrations
 
-[71/131] ✓ PASS: https://premierpartycruises.com/blogs/austin-bachelorette-party-december
+[71/152] ✓ PASS: https://premierpartycruises.com/blogs/austin-bachelorette-party-december
 
-[72/131] ✓ PASS: https://premierpartycruises.com/blogs/austin-bachelorette-party-february
+[72/152] ✓ PASS: https://premierpartycruises.com/blogs/austin-bachelorette-party-february
 
-[73/131] ✓ PASS: https://premierpartycruises.com/blogs/austin-bachelorette-party-june
+[73/152] ✓ PASS: https://premierpartycruises.com/blogs/austin-bachelorette-party-june
 
-[74/131] ✓ PASS: https://premierpartycruises.com/blogs/austin-bachelorette-party-october
+[74/152] ✓ PASS: https://premierpartycruises.com/blogs/austin-bachelorette-party-october
 
-[75/131] ✗ FAIL: https://premierpartycruises.com/blogs/austin-bachelorette-weekend-alcohol-timeline-day-by-day-drinking-strategy-for-multi-day-celebrations
+[75/152] ✗ FAIL: https://premierpartycruises.com/blogs/austin-bachelorette-weekend-alcohol-timeline-day-by-day-drinking-strategy-for-multi-day-celebrations
    Checks:
       HTTP 200:           ✓
       SSR Content:        ✓
@@ -331,19 +337,19 @@ DETAILED URL RESULTS
    Errors:
       - Insufficient content: 0 chars (need 500+)
 
-[76/131] ✓ PASS: https://premierpartycruises.com/blogs/austin-party-venue-alcohol-delivery-navigating-policies-and-logistics
+[76/152] ✓ PASS: https://premierpartycruises.com/blogs/austin-party-venue-alcohol-delivery-navigating-policies-and-logistics
 
-[77/131] ✓ PASS: https://premierpartycruises.com/blogs/austin-wedding-venue-alcohol-policies-delivery-solutions-for-every-location
+[77/152] ✓ PASS: https://premierpartycruises.com/blogs/austin-wedding-venue-alcohol-policies-delivery-solutions-for-every-location
 
-[78/131] ✓ PASS: https://premierpartycruises.com/blogs/bachelorette-party-alcohol-emergency-kit-last-minute-delivery-solutions
+[78/152] ✓ PASS: https://premierpartycruises.com/blogs/bachelorette-party-alcohol-emergency-kit-last-minute-delivery-solutions
 
-[79/131] ✓ PASS: https://premierpartycruises.com/blogs/birthday-party-alcohol-delivery-austin-milestone-celebrations-made-easy
+[79/152] ✓ PASS: https://premierpartycruises.com/blogs/birthday-party-alcohol-delivery-austin-milestone-celebrations-made-easy
 
-[80/131] ✓ PASS: https://premierpartycruises.com/blogs/birthday-party-boat-rentals-on-lake-travis-milestone-celebrations-with-a-view
+[80/152] ✓ PASS: https://premierpartycruises.com/blogs/birthday-party-boat-rentals-on-lake-travis-milestone-celebrations-with-a-view
 
-[81/131] ✓ PASS: https://premierpartycruises.com/blogs/budget-friendly-bachelorette-party-alcohol-maximum-fun-without-breaking-the-bank
+[81/152] ✓ PASS: https://premierpartycruises.com/blogs/budget-friendly-bachelorette-party-alcohol-maximum-fun-without-breaking-the-bank
 
-[82/131] ✗ FAIL: https://premierpartycruises.com/blogs/client-entertainment-alcohol-strategy-impressing-without-overdoing-it
+[82/152] ✗ FAIL: https://premierpartycruises.com/blogs/client-entertainment-alcohol-strategy-impressing-without-overdoing-it
    Checks:
       HTTP 200:           ✓
       SSR Content:        ✓
@@ -358,9 +364,9 @@ DETAILED URL RESULTS
    Errors:
       - Insufficient content: 0 chars (need 500+)
 
-[83/131] ✓ PASS: https://premierpartycruises.com/blogs/cocktail-kits-vs-individual-bottles-the-smart-bachelorette-party-alcohol-strategy
+[83/152] ✓ PASS: https://premierpartycruises.com/blogs/cocktail-kits-vs-individual-bottles-the-smart-bachelorette-party-alcohol-strategy
 
-[84/131] ✗ FAIL: https://premierpartycruises.com/blogs/conference-after-party-alcohol-coordination-sxsw-acl-and-austin-event-integration
+[84/152] ✗ FAIL: https://premierpartycruises.com/blogs/conference-after-party-alcohol-coordination-sxsw-acl-and-austin-event-integration
    Checks:
       HTTP 200:           ✓
       SSR Content:        ✓
@@ -375,7 +381,7 @@ DETAILED URL RESULTS
    Errors:
       - Insufficient content: 0 chars (need 500+)
 
-[85/131] ✗ FAIL: https://premierpartycruises.com/blogs/corporate-team-building-on-lake-travis-alcohol-coordination-for-professional-events
+[85/152] ✗ FAIL: https://premierpartycruises.com/blogs/corporate-team-building-on-lake-travis-alcohol-coordination-for-professional-events
    Checks:
       HTTP 200:           ✓
       SSR Content:        ✓
@@ -390,7 +396,7 @@ DETAILED URL RESULTS
    Errors:
       - Insufficient content: 0 chars (need 500+)
 
-[86/131] ✗ FAIL: https://premierpartycruises.com/blogs/corporate-team-building-on-lake-travis-professional-boat-rental-solutions
+[86/152] ✗ FAIL: https://premierpartycruises.com/blogs/corporate-team-building-on-lake-travis-professional-boat-rental-solutions
    Checks:
       HTTP 200:           ✓
       SSR Content:        ✓
@@ -405,7 +411,7 @@ DETAILED URL RESULTS
    Errors:
       - Insufficient content: 0 chars (need 500+)
 
-[87/131] ✗ FAIL: https://premierpartycruises.com/blogs/creative-lake-travis-boat-party-themes-unique-ideas-for-memorable-celebrations
+[87/152] ✗ FAIL: https://premierpartycruises.com/blogs/creative-lake-travis-boat-party-themes-unique-ideas-for-memorable-celebrations
    Checks:
       HTTP 200:           ✓
       SSR Content:        ✓
@@ -420,7 +426,7 @@ DETAILED URL RESULTS
    Errors:
       - Insufficient content: 0 chars (need 500+)
 
-[88/131] ✗ FAIL: https://premierpartycruises.com/blogs/disco-cruise-fashion-part-1
+[88/152] ✗ FAIL: https://premierpartycruises.com/blogs/disco-cruise-fashion-part-1
    Checks:
       HTTP 200:           ✓
       SSR Content:        ✓
@@ -435,7 +441,7 @@ DETAILED URL RESULTS
    Errors:
       - Insufficient content: 0 chars (need 500+)
 
-[89/131] ✗ FAIL: https://premierpartycruises.com/blogs/executive-retreat-alcohol-planning-balancing-professionalism-and-team-bonding
+[89/152] ✗ FAIL: https://premierpartycruises.com/blogs/executive-retreat-alcohol-planning-balancing-professionalism-and-team-bonding
    Checks:
       HTTP 200:           ✓
       SSR Content:        ✓
@@ -450,7 +456,7 @@ DETAILED URL RESULTS
    Errors:
       - Insufficient content: 0 chars (need 500+)
 
-[90/131] ✗ FAIL: https://premierpartycruises.com/blogs/graduation-party-alcohol-planning-ut-and-austin-college-celebrations
+[90/152] ✗ FAIL: https://premierpartycruises.com/blogs/graduation-party-alcohol-planning-ut-and-austin-college-celebrations
    Checks:
       HTTP 200:           ✓
       SSR Content:        ✓
@@ -465,7 +471,7 @@ DETAILED URL RESULTS
    Errors:
       - Insufficient content: 0 chars (need 500+)
 
-[91/131] ✗ FAIL: https://premierpartycruises.com/blogs/holiday-celebrations-on-lake-travis-seasonal-boat-party-planning-and-coordination
+[91/152] ✗ FAIL: https://premierpartycruises.com/blogs/holiday-celebrations-on-lake-travis-seasonal-boat-party-planning-and-coordination
    Checks:
       HTTP 200:           ✓
       SSR Content:        ✓
@@ -480,9 +486,9 @@ DETAILED URL RESULTS
    Errors:
       - Insufficient content: 0 chars (need 500+)
 
-[92/131] ✓ PASS: https://premierpartycruises.com/blogs/holiday-office-party-alcohol-delivery-stress-free-corporate-celebration-planning
+[92/152] ✓ PASS: https://premierpartycruises.com/blogs/holiday-office-party-alcohol-delivery-stress-free-corporate-celebration-planning
 
-[93/131] ✗ FAIL: https://premierpartycruises.com/blogs/holiday-party-alcohol-themes-new-years-fourth-of-july-and-austin-celebrations
+[93/152] ✗ FAIL: https://premierpartycruises.com/blogs/holiday-party-alcohol-themes-new-years-fourth-of-july-and-austin-celebrations
    Checks:
       HTTP 200:           ✓
       SSR Content:        ✓
@@ -497,7 +503,7 @@ DETAILED URL RESULTS
    Errors:
       - Insufficient content: 0 chars (need 500+)
 
-[94/131] ✗ FAIL: https://premierpartycruises.com/blogs/how-to-throw-great-bachelor-party-austin
+[94/152] ✗ FAIL: https://premierpartycruises.com/blogs/how-to-throw-great-bachelor-party-austin
    Checks:
       HTTP 200:           ✓
       SSR Content:        ✓
@@ -512,7 +518,7 @@ DETAILED URL RESULTS
    Errors:
       - Insufficient content: 0 chars (need 500+)
 
-[95/131] ✗ FAIL: https://premierpartycruises.com/blogs/how-to-throw-great-bachelorette-party-austin
+[95/152] ✗ FAIL: https://premierpartycruises.com/blogs/how-to-throw-great-bachelorette-party-austin
    Checks:
       HTTP 200:           ✓
       SSR Content:        ✓
@@ -527,9 +533,9 @@ DETAILED URL RESULTS
    Errors:
       - Insufficient content: 0 chars (need 500+)
 
-[96/131] ✓ PASS: https://premierpartycruises.com/blogs/instagram-worthy-bachelorette-party-cocktails-recipes-and-delivery-coordination
+[96/152] ✓ PASS: https://premierpartycruises.com/blogs/instagram-worthy-bachelorette-party-cocktails-recipes-and-delivery-coordination
 
-[97/131] ✗ FAIL: https://premierpartycruises.com/blogs/joint-bachelor-bachelorette-parties-with-premier-party-cruises
+[97/152] ✗ FAIL: https://premierpartycruises.com/blogs/joint-bachelor-bachelorette-parties-with-premier-party-cruises
    Checks:
       HTTP 200:           ✓
       SSR Content:        ✓
@@ -544,7 +550,7 @@ DETAILED URL RESULTS
    Errors:
       - Insufficient content: 0 chars (need 500+)
 
-[98/131] ✗ FAIL: https://premierpartycruises.com/blogs/lake-travis-bachelor-party-alcohol-delivery-complete-coordination-guide-for-boat-parties
+[98/152] ✗ FAIL: https://premierpartycruises.com/blogs/lake-travis-bachelor-party-alcohol-delivery-complete-coordination-guide-for-boat-parties
    Checks:
       HTTP 200:           ✓
       SSR Content:        ✓
@@ -559,7 +565,7 @@ DETAILED URL RESULTS
    Errors:
       - Insufficient content: 0 chars (need 500+)
 
-[99/131] ✗ FAIL: https://premierpartycruises.com/blogs/lake-travis-bachelorette-party-alcohol-laws-what-you-can-and-cant-bring-on-boats
+[99/152] ✗ FAIL: https://premierpartycruises.com/blogs/lake-travis-bachelorette-party-alcohol-laws-what-you-can-and-cant-bring-on-boats
    Checks:
       HTTP 200:           ✓
       SSR Content:        ✓
@@ -574,15 +580,15 @@ DETAILED URL RESULTS
    Errors:
       - Insufficient content: 0 chars (need 500+)
 
-[100/131] ✓ PASS: https://premierpartycruises.com/blogs/lake-travis-boat-party-catering-food-and-beverage-coordination-for-perfect-events
+[100/152] ✓ PASS: https://premierpartycruises.com/blogs/lake-travis-boat-party-catering-food-and-beverage-coordination-for-perfect-events
 
-[101/131] ✓ PASS: https://premierpartycruises.com/blogs/lake-travis-boat-party-costs-complete-pricing-guide-and-budget-planning
+[101/152] ✓ PASS: https://premierpartycruises.com/blogs/lake-travis-boat-party-costs-complete-pricing-guide-and-budget-planning
 
-[102/131] ✓ PASS: https://premierpartycruises.com/blogs/lake-travis-boat-party-entertainment-activities-and-amenities-for-unforgettable-events
+[102/152] ✓ PASS: https://premierpartycruises.com/blogs/lake-travis-boat-party-entertainment-activities-and-amenities-for-unforgettable-events
 
-[103/131] ✓ PASS: https://premierpartycruises.com/blogs/lake-travis-boat-party-insurance-understanding-coverage-and-liability-for-events
+[103/152] ✓ PASS: https://premierpartycruises.com/blogs/lake-travis-boat-party-insurance-understanding-coverage-and-liability-for-events
 
-[104/131] ✗ FAIL: https://premierpartycruises.com/blogs/lake-travis-boat-party-logistics-complete-planning-and-coordination-guide
+[104/152] ✗ FAIL: https://premierpartycruises.com/blogs/lake-travis-boat-party-logistics-complete-planning-and-coordination-guide
    Checks:
       HTTP 200:           ✓
       SSR Content:        ✓
@@ -597,9 +603,9 @@ DETAILED URL RESULTS
    Errors:
       - Insufficient content: 0 chars (need 500+)
 
-[105/131] ✓ PASS: https://premierpartycruises.com/blogs/lake-travis-boat-party-music-sound-systems-and-entertainment-coordination
+[105/152] ✓ PASS: https://premierpartycruises.com/blogs/lake-travis-boat-party-music-sound-systems-and-entertainment-coordination
 
-[106/131] ✗ FAIL: https://premierpartycruises.com/blogs/lake-travis-boat-party-packages-comprehensive-guide-to-options-and-pricing
+[106/152] ✗ FAIL: https://premierpartycruises.com/blogs/lake-travis-boat-party-packages-comprehensive-guide-to-options-and-pricing
    Checks:
       HTTP 200:           ✓
       SSR Content:        ✓
@@ -614,9 +620,9 @@ DETAILED URL RESULTS
    Errors:
       - Insufficient content: 0 chars (need 500+)
 
-[107/131] ✓ PASS: https://premierpartycruises.com/blogs/lake-travis-boat-party-photography-capturing-perfect-memories-on-the-water
+[107/152] ✓ PASS: https://premierpartycruises.com/blogs/lake-travis-boat-party-photography-capturing-perfect-memories-on-the-water
 
-[108/131] ✗ FAIL: https://premierpartycruises.com/blogs/lake-travis-boat-party-regulations-legal-requirements-and-compliance-guide
+[108/152] ✗ FAIL: https://premierpartycruises.com/blogs/lake-travis-boat-party-regulations-legal-requirements-and-compliance-guide
    Checks:
       HTTP 200:           ✓
       SSR Content:        ✓
@@ -631,7 +637,7 @@ DETAILED URL RESULTS
    Errors:
       - Insufficient content: 0 chars (need 500+)
 
-[109/131] ✗ FAIL: https://premierpartycruises.com/blogs/lake-travis-boat-party-reviews-real-customer-experiences-and-testimonials
+[109/152] ✗ FAIL: https://premierpartycruises.com/blogs/lake-travis-boat-party-reviews-real-customer-experiences-and-testimonials
    Checks:
       HTTP 200:           ✓
       SSR Content:        ✓
@@ -646,7 +652,7 @@ DETAILED URL RESULTS
    Errors:
       - Insufficient content: 0 chars (need 500+)
 
-[110/131] ✗ FAIL: https://premierpartycruises.com/blogs/lake-travis-boat-safety-and-maintenance-quality-standards-for-party-cruises
+[110/152] ✗ FAIL: https://premierpartycruises.com/blogs/lake-travis-boat-safety-and-maintenance-quality-standards-for-party-cruises
    Checks:
       HTTP 200:           ✓
       SSR Content:        ✓
@@ -661,7 +667,7 @@ DETAILED URL RESULTS
    Errors:
       - Insufficient content: 0 chars (need 500+)
 
-[111/131] ✗ FAIL: https://premierpartycruises.com/blogs/lake-travis-boat-safety-essential-guidelines-for-safe-party-cruises
+[111/152] ✗ FAIL: https://premierpartycruises.com/blogs/lake-travis-boat-safety-essential-guidelines-for-safe-party-cruises
    Checks:
       HTTP 200:           ✓
       SSR Content:        ✓
@@ -676,7 +682,7 @@ DETAILED URL RESULTS
    Errors:
       - Insufficient content: 0 chars (need 500+)
 
-[112/131] ✗ FAIL: https://premierpartycruises.com/blogs/lake-travis-party-boat-rentals-ultimate-guide-for-large-group-events-20-guests
+[112/152] ✗ FAIL: https://premierpartycruises.com/blogs/lake-travis-party-boat-rentals-ultimate-guide-for-large-group-events-20-guests
    Checks:
       HTTP 200:           ✓
       SSR Content:        ✓
@@ -691,7 +697,7 @@ DETAILED URL RESULTS
    Errors:
       - Insufficient content: 0 chars (need 500+)
 
-[113/131] ✗ FAIL: https://premierpartycruises.com/blogs/lake-travis-sunset-cruises-romantic-and-celebration-options-for-every-occasion
+[113/152] ✗ FAIL: https://premierpartycruises.com/blogs/lake-travis-sunset-cruises-romantic-and-celebration-options-for-every-occasion
    Checks:
       HTTP 200:           ✓
       SSR Content:        ✓
@@ -706,7 +712,7 @@ DETAILED URL RESULTS
    Errors:
       - Insufficient content: 0 chars (need 500+)
 
-[114/131] ✗ FAIL: https://premierpartycruises.com/blogs/lake-travis-weather-planning-seasonal-considerations-for-perfect-boat-parties
+[114/152] ✗ FAIL: https://premierpartycruises.com/blogs/lake-travis-weather-planning-seasonal-considerations-for-perfect-boat-parties
    Checks:
       HTTP 200:           ✓
       SSR Content:        ✓
@@ -721,7 +727,7 @@ DETAILED URL RESULTS
    Errors:
       - Insufficient content: 0 chars (need 500+)
 
-[115/131] ✗ FAIL: https://premierpartycruises.com/blogs/lake-travis-wedding-boat-rentals-unique-venues-for-austin-celebrations
+[115/152] ✗ FAIL: https://premierpartycruises.com/blogs/lake-travis-wedding-boat-rentals-unique-venues-for-austin-celebrations
    Checks:
       HTTP 200:           ✓
       SSR Content:        ✓
@@ -736,7 +742,7 @@ DETAILED URL RESULTS
    Errors:
       - Insufficient content: 0 chars (need 500+)
 
-[116/131] ✗ FAIL: https://premierpartycruises.com/blogs/must-haves-for-the-perfect-austin-bachelorette-weekend
+[116/152] ✗ FAIL: https://premierpartycruises.com/blogs/must-haves-for-the-perfect-austin-bachelorette-weekend
    Checks:
       HTTP 200:           ✓
       SSR Content:        ✓
@@ -751,7 +757,7 @@ DETAILED URL RESULTS
    Errors:
       - Insufficient content: 0 chars (need 500+)
 
-[117/131] ✗ FAIL: https://premierpartycruises.com/blogs/outdoor-wedding-alcohol-logistics-hill-country-and-lake-travis-coordination
+[117/152] ✗ FAIL: https://premierpartycruises.com/blogs/outdoor-wedding-alcohol-logistics-hill-country-and-lake-travis-coordination
    Checks:
       HTTP 200:           ✓
       SSR Content:        ✓
@@ -766,7 +772,7 @@ DETAILED URL RESULTS
    Errors:
       - Insufficient content: 0 chars (need 500+)
 
-[118/131] ✗ FAIL: https://premierpartycruises.com/blogs/party-alcohol-safety-in-austin-responsible-service-and-guest-well-being
+[118/152] ✗ FAIL: https://premierpartycruises.com/blogs/party-alcohol-safety-in-austin-responsible-service-and-guest-well-being
    Checks:
       HTTP 200:           ✓
       SSR Content:        ✓
@@ -781,7 +787,7 @@ DETAILED URL RESULTS
    Errors:
       - Insufficient content: 0 chars (need 500+)
 
-[119/131] ✗ FAIL: https://premierpartycruises.com/blogs/perfect-bachelor-party-itinerary-austin
+[119/152] ✗ FAIL: https://premierpartycruises.com/blogs/perfect-bachelor-party-itinerary-austin
    Checks:
       HTTP 200:           ✓
       SSR Content:        ✓
@@ -796,7 +802,7 @@ DETAILED URL RESULTS
    Errors:
       - Insufficient content: 0 chars (need 500+)
 
-[120/131] ✗ FAIL: https://premierpartycruises.com/blogs/pool-party-alcohol-coordination-summer-event-planning-in-austin-heat
+[120/152] ✗ FAIL: https://premierpartycruises.com/blogs/pool-party-alcohol-coordination-summer-event-planning-in-austin-heat
    Checks:
       HTTP 200:           ✓
       SSR Content:        ✓
@@ -811,17 +817,7 @@ DETAILED URL RESULTS
    Errors:
       - Insufficient content: 0 chars (need 500+)
 
-[121/131] ✓ PASS: https://premierpartycruises.com/blogs/startup-celebration-alcohol-packages-funding-rounds-launches-and-milestone-events
-
-[122/131] ✓ PASS: https://premierpartycruises.com/blogs/the-recipe-for-the-chillest-atx-bach-party
-
-[123/131] ✓ PASS: https://premierpartycruises.com/blogs/the-top-dos-and-dont-for-success-on-the-atx-disco-cruise-with-premier-party-cruises
-
-[124/131] ✓ PASS: https://premierpartycruises.com/blogs/the-top-five-celebrities-at-our-dream-party-barge
-
-[125/131] ✓ PASS: https://premierpartycruises.com/blogs/the-ultimate-austin-bachelorette-party-alcohol-guide-what-to-order-when-to-order-and-how-much-you-actually-need
-
-[126/131] ✗ FAIL: https://premierpartycruises.com/blogs/top-spots-tips-for-an-unforgettable-austin-bachelorette-party-experience
+[121/152] ✗ FAIL: https://premierpartycruises.com/blogs/startup-celebration-alcohol-packages-funding-rounds-launches-and-milestone-events
    Checks:
       HTTP 200:           ✓
       SSR Content:        ✓
@@ -836,7 +832,7 @@ DETAILED URL RESULTS
    Errors:
       - Insufficient content: 0 chars (need 500+)
 
-[127/131] ✗ FAIL: https://premierpartycruises.com/blogs/wedding-anniversary-celebration-ideas-recreating-your-special-day-with-boat-and-alcohol-packages
+[122/152] ✗ FAIL: https://premierpartycruises.com/blogs/the-recipe-for-the-chillest-atx-bach-party
    Checks:
       HTTP 200:           ✓
       SSR Content:        ✓
@@ -851,9 +847,7 @@ DETAILED URL RESULTS
    Errors:
       - Insufficient content: 0 chars (need 500+)
 
-[128/131] ✓ PASS: https://premierpartycruises.com/blogs/wedding-party-alcohol-coordination-getting-ready-bachelor-bachelorette-and-reception
-
-[129/131] ✗ FAIL: https://premierpartycruises.com/blogs/why-choose-integrated-event-services-comparing-austin-party-planning-options
+[123/152] ✗ FAIL: https://premierpartycruises.com/blogs/the-top-dos-and-dont-for-success-on-the-atx-disco-cruise-with-premier-party-cruises
    Checks:
       HTTP 200:           ✓
       SSR Content:        ✓
@@ -868,9 +862,141 @@ DETAILED URL RESULTS
    Errors:
       - Insufficient content: 0 chars (need 500+)
 
-[130/131] ✓ PASS: https://premierpartycruises.com/site-directory
+[124/152] ✗ FAIL: https://premierpartycruises.com/blogs/the-top-five-celebrities-at-our-dream-party-barge
+   Checks:
+      HTTP 200:           ✓
+      SSR Content:        ✓
+      Title Tag:          ✓
+      Title Descriptive:  ✓
+      Meta Description:   ✓
+      OG Title:           ✓
+      OG Description:     ✓
+      Canonical URL:      ✓
+      JSON-LD Schema:     ✓
+      Body Content:       ✗ (0 chars)
+   Errors:
+      - Insufficient content: 0 chars (need 500+)
 
-[131/131] ✓ PASS: https://premierpartycruises.com/wedding-anniversary-celebration-ideas
+[125/152] ✗ FAIL: https://premierpartycruises.com/blogs/the-ultimate-austin-bachelorette-party-alcohol-guide-what-to-order-when-to-order-and-how-much-you-actually-need
+   Checks:
+      HTTP 200:           ✓
+      SSR Content:        ✓
+      Title Tag:          ✓
+      Title Descriptive:  ✓
+      Meta Description:   ✓
+      OG Title:           ✓
+      OG Description:     ✓
+      Canonical URL:      ✓
+      JSON-LD Schema:     ✓
+      Body Content:       ✗ (0 chars)
+   Errors:
+      - Insufficient content: 0 chars (need 500+)
+
+[126/152] ✗ FAIL: https://premierpartycruises.com/blogs/top-spots-tips-for-an-unforgettable-austin-bachelorette-party-experience
+   Checks:
+      HTTP 200:           ✓
+      SSR Content:        ✓
+      Title Tag:          ✓
+      Title Descriptive:  ✓
+      Meta Description:   ✓
+      OG Title:           ✓
+      OG Description:     ✓
+      Canonical URL:      ✓
+      JSON-LD Schema:     ✓
+      Body Content:       ✗ (0 chars)
+   Errors:
+      - Insufficient content: 0 chars (need 500+)
+
+[127/152] ✗ FAIL: https://premierpartycruises.com/blogs/wedding-anniversary-celebration-ideas-recreating-your-special-day-with-boat-and-alcohol-packages
+   Checks:
+      HTTP 200:           ✓
+      SSR Content:        ✓
+      Title Tag:          ✓
+      Title Descriptive:  ✓
+      Meta Description:   ✓
+      OG Title:           ✓
+      OG Description:     ✓
+      Canonical URL:      ✓
+      JSON-LD Schema:     ✓
+      Body Content:       ✗ (0 chars)
+   Errors:
+      - Insufficient content: 0 chars (need 500+)
+
+[128/152] ✗ FAIL: https://premierpartycruises.com/blogs/wedding-party-alcohol-coordination-getting-ready-bachelor-bachelorette-and-reception
+   Checks:
+      HTTP 200:           ✓
+      SSR Content:        ✓
+      Title Tag:          ✓
+      Title Descriptive:  ✓
+      Meta Description:   ✓
+      OG Title:           ✓
+      OG Description:     ✓
+      Canonical URL:      ✓
+      JSON-LD Schema:     ✓
+      Body Content:       ✗ (0 chars)
+   Errors:
+      - Insufficient content: 0 chars (need 500+)
+
+[129/152] ✗ FAIL: https://premierpartycruises.com/blogs/why-choose-integrated-event-services-comparing-austin-party-planning-options
+   Checks:
+      HTTP 200:           ✓
+      SSR Content:        ✓
+      Title Tag:          ✓
+      Title Descriptive:  ✓
+      Meta Description:   ✓
+      OG Title:           ✓
+      OG Description:     ✓
+      Canonical URL:      ✓
+      JSON-LD Schema:     ✓
+      Body Content:       ✗ (0 chars)
+   Errors:
+      - Insufficient content: 0 chars (need 500+)
+
+[130/152] ✓ PASS: https://premierpartycruises.com/site-directory
+
+[131/152] ✓ PASS: https://premierpartycruises.com/wedding-anniversary-celebration-ideas
+
+[132/152] ✓ PASS: https://premierpartycruises.com/pricing
+
+[133/152] ✓ PASS: https://premierpartycruises.com/booking
+
+[134/152] ✓ PASS: https://premierpartycruises.com/boats
+
+[135/152] ✓ PASS: https://premierpartycruises.com/birthday-party-boat-rental
+
+[136/152] ✓ PASS: https://premierpartycruises.com/anniversary-cruise
+
+[137/152] ✓ PASS: https://premierpartycruises.com/graduation-cruise
+
+[138/152] ✓ PASS: https://premierpartycruises.com/retirement-party-cruise
+
+[139/152] ✓ PASS: https://premierpartycruises.com/memorial-celebration-cruise
+
+[140/152] ✓ PASS: https://premierpartycruises.com/family-reunion-cruise
+
+[141/152] ✓ PASS: https://premierpartycruises.com/proposal-cruise
+
+[142/152] ✓ PASS: https://premierpartycruises.com/rehearsal-dinner-cruise
+
+[143/152] ✓ PASS: https://premierpartycruises.com/bridal-shower-cruise
+
+[144/152] ✓ PASS: https://premierpartycruises.com/engagement-party-cruise
+
+[145/152] ✓ PASS: https://premierpartycruises.com/baby-shower-cruise
+
+[146/152] ✓ PASS: https://premierpartycruises.com/gender-reveal-cruise
+
+[147/152] ✓ PASS: https://premierpartycruises.com/party-boat-rental-austin
+
+[148/152] ✓ PASS: https://premierpartycruises.com/lake-travis-yacht-rental
+
+[149/152] ✓ PASS: https://premierpartycruises.com/austin-boat-party
+
+[150/152] ✓ PASS: https://premierpartycruises.com/celebration-cruises
+
+[151/152] ✓ PASS: https://premierpartycruises.com/prom-cruise
+
+[152/152] ✓ PASS: https://premierpartycruises.com/holiday-party-cruise
 
 ═══════════════════════════════════════════════════════════════
 END OF REPORT
