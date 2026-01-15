@@ -60,6 +60,12 @@ export default function Breadcrumb({ customSegments, hideOnMobile = false, class
   const [segments, setSegments] = useState<BreadcrumbSegment[]>([]);
 
   useEffect(() => {
+    // Guard against undefined location during SSR/hydration
+    if (!location || typeof location !== 'string') {
+      setSegments([]);
+      return;
+    }
+    
     // Don't show breadcrumbs on homepage
     if (location === '/' || location === '') {
       setSegments([]);

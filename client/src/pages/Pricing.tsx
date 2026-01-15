@@ -9,9 +9,8 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { formatCurrency } from '@shared/formatters';
-import { PRICING_DEFAULTS, PACKAGE_FLAT_FEES } from '@shared/constants';
 import { cn } from '@/lib/utils';
+// Note: Pricing uses hardcoded values for now - will be refactored to use shared constants
 import { 
   Ship, Users, Check, Sparkles, Crown, ArrowRight, Phone,
   DollarSign, Calculator, Clock, Calendar, Star
@@ -27,7 +26,8 @@ const boatPricing = [
     name: 'Day Tripper',
     capacity: '6-14 guests',
     seating: '14 seats comfortably',
-    pricePerPerson: PRICING_DEFAULTS.PRIVATE_PER_PERSON_25,
+    pricePerPerson: '$75',
+    basePrice: '$1,050',
     minGuests: 6,
     maxGuests: 14,
     description: 'Perfect for intimate celebrations',
@@ -37,7 +37,8 @@ const boatPricing = [
     name: 'Meeseeks / The Irony',
     capacity: '15-30 guests',
     seating: '20 seats comfortably (max 30)',
-    pricePerPerson: PRICING_DEFAULTS.PRIVATE_PER_PERSON_25,
+    pricePerPerson: '$75',
+    basePrice: '$1,500',
     minGuests: 15,
     maxGuests: 30,
     description: 'Two identical boats for medium groups',
@@ -47,7 +48,8 @@ const boatPricing = [
     name: 'Clever Girl',
     capacity: '31-75 guests',
     seating: '30 seats comfortably (max 75)',
-    pricePerPerson: PRICING_DEFAULTS.PRIVATE_PER_PERSON_50,
+    pricePerPerson: '$75',
+    basePrice: '$2,325',
     minGuests: 31,
     maxGuests: 75,
     description: 'Our flagship with 14 disco balls',
@@ -59,7 +61,7 @@ const packages = [
   {
     id: 'standard',
     name: 'Standard Package',
-    flatFee: 0,
+    flatFee: 'Included',
     description: 'The boat, the captain, and the lake',
     features: [
       'Licensed, experienced captain',
@@ -76,7 +78,7 @@ const packages = [
   {
     id: 'essentials',
     name: 'Essentials Package',
-    flatFee: PACKAGE_FLAT_FEES.ESSENTIALS,
+    flatFee: '+$100-$200',
     description: 'Everything from Standard + Enhanced Convenience',
     features: [
       'Everything from Standard Package',
@@ -93,7 +95,7 @@ const packages = [
   {
     id: 'ultimate',
     name: 'Ultimate Package',
-    flatFee: PACKAGE_FLAT_FEES.ULTIMATE,
+    flatFee: '+$250-$350',
     description: 'Everything from Essentials + Full Party Atmosphere',
     features: [
       'Everything from Essentials Package',
@@ -112,7 +114,7 @@ const packages = [
 const discoCruisePricing = {
   title: 'ATX Disco Cruise',
   description: 'All-inclusive multi-group bachelor/bachelorette party experience',
-  pricePerPerson: PRICING_DEFAULTS.DISCO_PER_PERSON,
+  pricePerPerson: '$149',
   includes: [
     'DJ and party host',
     'Open bar (beer, wine, cocktails)',
@@ -128,9 +130,9 @@ export default function Pricing() {
   return (
     <>
       <SEOHead
-        title="Party Boat Pricing & Packages | Lake Travis Austin | Premier Party Cruises"
-        description="Complete pricing for Lake Travis party boat rentals. Private charters from $75/person. ATX Disco Cruises $149/person all-inclusive. See packages, boats, and add-ons."
-        canonical="https://premierpartycruises.com/pricing"
+        pageRoute="/pricing"
+        defaultTitle="Party Boat Pricing & Packages | Lake Travis Austin | Premier Party Cruises"
+        defaultDescription="Complete pricing for Lake Travis party boat rentals. Private charters from $75/person. ATX Disco Cruises $149/person all-inclusive. See packages, boats, and add-ons."
       />
 
       <PublicNavigation />
@@ -147,8 +149,8 @@ export default function Pricing() {
                 Party Boat Pricing & Packages
               </h1>
               <p className="text-xl text-white/90 max-w-3xl mx-auto mb-8">
-                Private charters starting at ${PRICING_DEFAULTS.PRIVATE_PER_PERSON_25}/person. 
-                All-inclusive ATX Disco Cruises at ${PRICING_DEFAULTS.DISCO_PER_PERSON}/person.
+                Private charters starting at $75/person. 
+                All-inclusive ATX Disco Cruises at $149/person.
               </p>
               <Button
                 size="lg"
@@ -164,9 +166,9 @@ export default function Pricing() {
 
         <section className="py-4 bg-gray-50">
           <div className="container mx-auto px-4">
-            <Breadcrumb items={[
+            <Breadcrumb customSegments={[
               { label: 'Home', href: '/' },
-              { label: 'Pricing' }
+              { label: 'Pricing', current: true }
             ]} />
           </div>
         </section>
@@ -200,8 +202,11 @@ export default function Pricing() {
                         </CardHeader>
                         <CardContent>
                           <div className="text-3xl font-bold text-brand-blue mb-2">
-                            {formatCurrency(boat.pricePerPerson)}
+                            {boat.pricePerPerson}
                             <span className="text-lg font-normal text-gray-500">/person</span>
+                          </div>
+                          <div className="text-lg text-gray-700 mb-2">
+                            Starting at {boat.basePrice}
                           </div>
                           <div className="space-y-2 text-gray-600">
                             <div className="flex items-center gap-2">
@@ -234,13 +239,9 @@ export default function Pricing() {
                         <CardHeader className="text-center pt-8">
                           <pkg.icon className="h-12 w-12 mx-auto mb-4 text-brand-blue" />
                           <CardTitle className="text-2xl">{pkg.name}</CardTitle>
-                          {pkg.flatFee > 0 ? (
-                            <div className="text-3xl font-bold text-brand-blue">
-                              +{formatCurrency(pkg.flatFee)}
-                            </div>
-                          ) : (
-                            <div className="text-xl text-gray-500">Included</div>
-                          )}
+                          <div className="text-3xl font-bold text-brand-blue">
+                            {pkg.flatFee}
+                          </div>
                         </CardHeader>
                         <CardContent>
                           <ul className="space-y-2">
@@ -267,7 +268,7 @@ export default function Pricing() {
                     <CardTitle className="text-3xl">{discoCruisePricing.title}</CardTitle>
                     <p className="text-white/90">{discoCruisePricing.description}</p>
                     <div className="text-5xl font-bold mt-4">
-                      {formatCurrency(discoCruisePricing.pricePerPerson)}
+                      {discoCruisePricing.pricePerPerson}
                       <span className="text-xl font-normal">/person</span>
                     </div>
                   </CardHeader>

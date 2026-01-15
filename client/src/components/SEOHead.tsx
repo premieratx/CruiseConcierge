@@ -68,8 +68,10 @@ export default function SEOHead({
 
   // Generate canonical URL - ALWAYS use production domain, strip query params
   // This prevents "duplicate without user-selected canonical" errors in Google Search Console
-  const getCanonicalUrl = (path: string): string => {
+  const getCanonicalUrl = (path: string | undefined): string => {
     const productionDomain = 'https://premierpartycruises.com';
+    // Handle undefined path
+    if (!path) return productionDomain;
     // Strip query parameters
     let cleanPath = path.split('?')[0];
     // Remove trailing slash (except for root)

@@ -95,9 +95,9 @@ export default function Boats() {
   return (
     <>
       <SEOHead
-        title="Our Party Boats | Lake Travis Fleet | Premier Party Cruises Austin"
-        description="Meet our Lake Travis party boat fleet: Day Tripper (6-14 guests), Meeseeks (15-30 guests), and Clever Girl (31-75 guests). See features, photos, and pricing for each boat."
-        canonical="https://premierpartycruises.com/boats"
+        pageRoute="/boats"
+        defaultTitle="Our Party Boats | Lake Travis Fleet | Premier Party Cruises Austin"
+        defaultDescription="Meet our Lake Travis party boat fleet: Day Tripper (6-14 guests), Meeseeks (15-30 guests), and Clever Girl (31-75 guests). See features, photos, and pricing for each boat."
       />
 
       <PublicNavigation />
@@ -132,9 +132,9 @@ export default function Boats() {
 
         <section className="py-4 bg-gray-50">
           <div className="container mx-auto px-4">
-            <Breadcrumb items={[
+            <Breadcrumb customSegments={[
               { label: 'Home', href: '/' },
-              { label: 'Our Boats' }
+              { label: 'Our Boats', current: true }
             ]} />
           </div>
         </section>

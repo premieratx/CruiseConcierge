@@ -72,9 +72,9 @@ export default function Booking() {
   return (
     <>
       <SEOHead
-        title="Book Your Party Boat | Lake Travis Austin Reservations | Premier Party Cruises"
-        description="Book your Lake Travis party boat cruise in minutes. Easy online booking, flexible deposits, and instant confirmation. Reserve your date for bachelor, bachelorette, birthday parties."
-        canonical="https://premierpartycruises.com/booking"
+        pageRoute="/booking"
+        defaultTitle="Book Your Party Boat | Lake Travis Austin Reservations | Premier Party Cruises"
+        defaultDescription="Book your Lake Travis party boat cruise in minutes. Easy online booking, flexible deposits, and instant confirmation. Reserve your date for bachelor, bachelorette, birthday parties."
       />
 
       <PublicNavigation />
@@ -107,9 +107,9 @@ export default function Booking() {
 
         <section className="py-4 bg-gray-50">
           <div className="container mx-auto px-4">
-            <Breadcrumb items={[
+            <Breadcrumb customSegments={[
               { label: 'Home', href: '/' },
-              { label: 'Booking' }
+              { label: 'Booking', current: true }
             ]} />
           </div>
         </section>
