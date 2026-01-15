@@ -1197,10 +1197,17 @@ const PAGE_METADATA: Record<string, { h1: string; content: string }> = {
 };
 
 // Check if a route should use SSR
+// BULLETPROOF: Every marketing route gets SSR - no exceptions
 function shouldUseSSR(url: string): boolean {
   const pathname = url.split('?')[0];
   
-  // Check exact match
+  // CRITICAL: Always use SSR if PAGE_CONTENT exists for this route
+  // This is the authoritative source of truth - no route with PAGE_CONTENT should ever bypass SSR
+  if (PAGE_CONTENT[pathname]) {
+    return true;
+  }
+  
+  // Check exact match in SSR_ROUTES list
   if (SSR_ROUTES.includes(pathname)) {
     return true;
   }
@@ -1218,6 +1225,12 @@ function shouldUseSSR(url: string): boolean {
   
   // Check main blog listing page (only /blogs, not /blog which redirects)
   if (pathname === '/blogs') {
+    return true;
+  }
+  
+  // Check if route has schemas from schemaLoader - these are important SEO pages
+  const schemas = getSchemaForRoute(pathname);
+  if (schemas && schemas.length > 0) {
     return true;
   }
   
@@ -1825,54 +1838,13 @@ export function ssrMiddleware() {
       return next();
     }
     
-    // CRITICAL SEO FIX: Blog posts MUST go through SSR for unique meta tags
-    // Previously this skipped blog posts, causing all 43+ pages to have duplicate titles/descriptions
-    // Now blog posts use full SSR rendering with metadata from blogMetadataRegistry
-    // The renderPage() function handles /blogs/* routes with proper H1, content, and meta injection
+    // CRITICAL SEO FIX: All marketing routes MUST go through full SSR for SEO visibility
+    // Previously some routes only got schemas but empty root div - this caused soft 404 errors
+    // Now ALL routes with PAGE_CONTENT, SSR_ROUTES, or schemas go through full renderPage()
+    // The renderPage() function puts all content INSIDE the root div for Google visibility
     
-    // Check if we have schemas for this route (even if not SSR)
-    const schemas = getSchemaForRoute(pathname);
-    
-    // Check if this route should use SSR
+    // Check if this route should use SSR (now includes schema routes automatically)
     if (!shouldUseSSR(req.url)) {
-      // If we have schemas but no SSR, inject schemas AND canonical tag
-      if (schemas.length > 0) {
-        try {
-          console.log(`[Schema-Only] Injecting ${schemas.length} schemas + canonical for: ${pathname}`);
-          let template = await getTemplate();
-          
-          // CRITICAL: Generate canonical URL (strips query params, uses production domain)
-          const canonicalUrl = getCanonicalUrl(pathname, req);
-          
-          // Add sitewide schemas (Organization on non-homepage pages + WebSite)
-          let headInjection = `  <link rel="canonical" href="${canonicalUrl}" />\n`;
-          
-          if (pathname !== '/') {
-            headInjection += `  <script type="application/ld+json">
-${JSON.stringify(ORGANIZATION_SCHEMA, null, 2)}
-  </script>`;
-          }
-          
-          headInjection += `  <script type="application/ld+json">
-${JSON.stringify(WEBSITE_SCHEMA, null, 2)}
-  </script>`;
-          
-          // Add route-specific schemas
-          schemas.forEach(schema => {
-            headInjection += `
-  <script type="application/ld+json">
-${JSON.stringify(schema, null, 2)}
-  </script>`;
-          });
-          
-          // Inject canonical + schemas before </head>
-          template = template.replace('</head>', `\n${headInjection}\n  </head>`);
-          
-          return res.status(200).set({ 'Content-Type': 'text/html' }).send(template);
-        } catch (error) {
-          console.error(`[Schema-Only] Error injecting for ${pathname}:`, error);
-        }
-      }
       // Unknown route - pass to next middleware (Vite will handle or 404)
       return next();
     }
