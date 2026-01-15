@@ -1199,10 +1199,22 @@ const PAGE_METADATA: Record<string, { h1: string; content: string }> = {
 // Check if a route should use SSR
 // BULLETPROOF: Every marketing route gets SSR - no exceptions
 function shouldUseSSR(url: string): boolean {
-  const pathname = url.split('?')[0];
+  // SAFETY: Normalize pathname - remove trailing slash (except for root /) and lowercase
+  // This is defense-in-depth; trailing slashes are already 301 redirected in server/index.ts
+  let pathname = url.split('?')[0];
+  if (pathname.length > 1 && pathname.endsWith('/')) {
+    pathname = pathname.slice(0, -1);
+  }
+  // Normalize to lowercase for consistent PAGE_CONTENT lookup
+  // URLs are case-insensitive, so /Bachelor-Party-Austin should match /bachelor-party-austin
+  const normalizedPathname = pathname.toLowerCase();
   
-  // CRITICAL: Always use SSR if PAGE_CONTENT exists for this route
+  // CRITICAL: Always use SSR if PAGE_CONTENT exists for this route (case-insensitive)
   // This is the authoritative source of truth - no route with PAGE_CONTENT should ever bypass SSR
+  if (PAGE_CONTENT[normalizedPathname]) {
+    return true;
+  }
+  // Also check original case for blog paths which may have mixed case
   if (PAGE_CONTENT[pathname]) {
     return true;
   }
@@ -1276,7 +1288,14 @@ async function renderPage(url: string, req: Request): Promise<string> {
     // Get cached template (avoids disk I/O on every request)
     let template = await getTemplate();
     
-    const pathname = url.split('?')[0];
+    // SAFETY: Normalize pathname - remove trailing slash and normalize case (defense-in-depth)
+    let pathname = url.split('?')[0];
+    if (pathname.length > 1 && pathname.endsWith('/')) {
+      pathname = pathname.slice(0, -1);
+    }
+    // Normalize to lowercase for consistent PAGE_CONTENT lookup (except /blogs/ which may have mixed case)
+    const normalizedPathname = pathname.toLowerCase();
+    
     let h1 = '';
     let content = '';
     let metaTitle = '';
@@ -1718,15 +1737,16 @@ window.__vite_plugin_react_preamble_installed__ = true
     // PRODUCTION-SAFE SSR: Keep SSR content visible until React hydrates successfully
     // SSR content stays visible if React fails to load (resilient fallback)
     // CRITICAL FIX: Blog posts get content AFTER root div for SEO without hydration mismatch
-    const pageContent = PAGE_CONTENT[pathname];
+    // Use normalizedPathname for PAGE_CONTENT lookup (case-insensitive match)
+    const pageContent = PAGE_CONTENT[normalizedPathname] || PAGE_CONTENT[pathname];
     let ssrContent;
 
     // Blog posts need special handling: empty root + hidden SEO content after
     // Handle both /blogs/ (canonical) and /blog/ (legacy) URLs for SSR
-    const isBlogPost = (pathname.startsWith('/blogs/') && pathname.length > 7) || 
-                       (pathname.startsWith('/blog/') && pathname.length > 6);
-    const isStaticBlog = isStaticBlogRoute(pathname);
-    const isBlogListing = pathname === '/blog' || pathname === '/blogs';
+    const isBlogPost = (normalizedPathname.startsWith('/blogs/') && normalizedPathname.length > 7) || 
+                       (normalizedPathname.startsWith('/blog/') && normalizedPathname.length > 6);
+    const isStaticBlog = isStaticBlogRoute(normalizedPathname) || isStaticBlogRoute(pathname);
+    const isBlogListing = normalizedPathname === '/blog' || normalizedPathname === '/blogs';
     
     // PERMANENT SEO FIX: All SSR content goes INSIDE the root div
     // This is the same pattern used by blog pages which are indexed correctly by Google
@@ -1734,7 +1754,7 @@ window.__vite_plugin_react_preamble_installed__ = true
     // React will replace this content when it mounts - this is standard SSR behavior
     // DO NOT use hidden/visually-hidden patterns - Google treats them as soft 404s
     
-    const isHomepage = pathname === '/';
+    const isHomepage = normalizedPathname === '/';
     
     if (isHomepage && pageContent) {
       // Homepage: Full content INSIDE root div for SEO visibility
@@ -1768,10 +1788,15 @@ window.__vite_plugin_react_preamble_installed__ = true
       // This is the CRITICAL fix - content must be inside root, not hidden outside
       ssrContent = `<div id="root">${renderPageContent(pageContent)}</div>`;
     } else {
-      // Other pages: Basic content INSIDE root div
+      // SAFETY WARNING: This route has no PAGE_CONTENT - content may be thin
+      // Log a warning so we can catch new routes that need PAGE_CONTENT added
+      if (!h1 && !content) {
+        console.warn(`[SSR WARNING] Route ${pathname} has no PAGE_CONTENT and no fallback content - may cause soft 404`);
+      }
+      // Other pages: Basic content INSIDE root div (fallback with whatever h1/content we have)
       ssrContent = `<div id="root"><div style="max-width: 56rem; margin: 0 auto; padding: 2rem 1rem;">
-        <h1 style="font-size: 2.5rem; font-weight: bold; margin-bottom: 1.5rem; color: #000; line-height: 1.2;">${h1}</h1>
-        <p style="font-size: 1.125rem; line-height: 1.75; color: #374151; margin-bottom: 2rem;">${content}</p>
+        <h1 style="font-size: 2.5rem; font-weight: bold; margin-bottom: 1.5rem; color: #000; line-height: 1.2;">${h1 || 'Premier Party Cruises'}</h1>
+        <p style="font-size: 1.125rem; line-height: 1.75; color: #374151; margin-bottom: 2rem;">${content || 'Austin party boat rentals on Lake Travis. Bachelor parties, bachelorette parties, corporate events, and private cruises.'}</p>
       </div></div>`;
     }
     
