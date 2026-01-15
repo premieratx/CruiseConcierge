@@ -1353,6 +1353,72 @@ export const blogMetadataRegistry: Record<string, BlogMetadata> = {
     author: 'Premier Party Cruises',
     heroImage: 'https://premierpartycruises.com/media/schema/hero-boat-1.jpg',
     keywords: ['Austin bachelor party itinerary', 'day-by-day guide', 'Lake Travis bachelor', 'nightlife activities plan']
+  },
+
+  'blogs/startup-celebration-alcohol-packages-funding-rounds-launches-and-milestone-events': {
+    slug: 'blogs/startup-celebration-alcohol-packages-funding-rounds-launches-and-milestone-events',
+    title: 'Startup Celebration Alcohol Packages | Funding Rounds, Launches & Milestone Events',
+    description: 'Celebrate your Austin startup milestones on Lake Travis with Party On Delivery alcohol packages. Perfect for funding rounds, product launches, and team celebrations. BYOB party boat cruises for tech teams.',
+    publishDate: '2024-01-15',
+    modifiedDate: '2025-01-15',
+    author: 'Premier Party Cruises',
+    heroImage: 'https://premierpartycruises.com/attached_assets/@capitalcityshots-21_1760080807864.jpg',
+    keywords: ['startup celebration Austin', 'tech company party boat', 'funding round celebration', 'product launch party Austin', 'Party On Delivery', 'Lake Travis corporate cruise']
+  },
+
+  'blogs/the-recipe-for-the-chillest-atx-bach-party': {
+    slug: 'blogs/the-recipe-for-the-chillest-atx-bach-party',
+    title: 'The Recipe for the CHILLEST ATX Bach Party',
+    description: 'Plan the most laid-back Austin bachelor or bachelorette party with our chill weekend guide. Friday arrival, Saturday Lake Travis cruise, Sunday recovery - the perfect stress-free bach party itinerary.',
+    publishDate: '2024-01-15',
+    modifiedDate: '2025-01-15',
+    author: 'Premier Party Cruises',
+    heroImage: 'https://premierpartycruises.com/attached_assets/bachelor-party-group-guys.webp',
+    keywords: ['Austin bachelor party', 'ATX bach party', 'chill bachelor party Austin', 'Lake Travis bachelor party', 'relaxed bachelorette party Austin']
+  },
+
+  'blogs/the-top-dos-and-dont-for-success-on-the-atx-disco-cruise-with-premier-party-cruises': {
+    slug: 'blogs/the-top-dos-and-dont-for-success-on-the-atx-disco-cruise-with-premier-party-cruises',
+    title: 'Top Dos and Donts for Success on the ATX Disco Cruise',
+    description: 'Master the top dos and donts for success on the ATX Disco Cruise. Essential planning tips for bachelor and bachelorette boat parties on Lake Travis including hydration, dress code, making friends, bringing snacks, and party smart strategies.',
+    publishDate: '2024-01-15',
+    modifiedDate: '2025-01-15',
+    author: 'Premier Party Cruises',
+    heroImage: 'https://premierpartycruises.com/attached_assets/atx-disco-cruise-party.webp',
+    keywords: ['ATX Disco Cruise tips', 'Lake Travis party boat guide', 'bachelor party dos and donts', 'bachelorette cruise Austin', 'disco cruise Austin']
+  },
+
+  'blogs/the-top-five-celebrities-at-our-dream-party-barge': {
+    slug: 'blogs/the-top-five-celebrities-at-our-dream-party-barge',
+    title: 'The Top Five Celebrities at Our Dream Party Barge',
+    description: 'Imagine the ultimate Lake Travis party boat with your dream celebrity guest list! From Matthew McConaughey to Beyonce, discover which 5 stars wed invite to the ultimate Austin disco cruise adventure.',
+    publishDate: '2024-01-15',
+    modifiedDate: '2025-01-15',
+    author: 'Premier Party Cruises',
+    heroImage: 'https://premierpartycruises.com/attached_assets/atx-disco-cruise-party.webp',
+    keywords: ['Lake Travis party boat', 'Austin party cruise', 'celebrity party', 'ATX Disco Cruise', 'party barge Austin']
+  },
+
+  'blogs/the-ultimate-austin-bachelorette-party-alcohol-guide-what-to-order-when-to-order-and-how-much-you-actually-need': {
+    slug: 'blogs/the-ultimate-austin-bachelorette-party-alcohol-guide-what-to-order-when-to-order-and-how-much-you-actually-need',
+    title: 'The Ultimate Austin Bachelorette Party Alcohol Guide | What to Order, When & How Much',
+    description: 'Complete Austin bachelorette party alcohol guide: what to order (champagne, wine, seltzers), when to order (timeline), and how much you need for Lake Travis cruises. Party On Delivery tips included!',
+    publishDate: '2024-01-15',
+    modifiedDate: '2025-01-15',
+    author: 'Premier Party Cruises',
+    heroImage: 'https://premierpartycruises.com/attached_assets/disco_fun_first_1765193453547.jpg',
+    keywords: ['Austin bachelorette party alcohol', 'bachelorette party drinks', 'Lake Travis bachelorette cruise', 'what to bring bachelorette party boat', 'Party On Delivery Austin']
+  },
+
+  'blogs/wedding-party-alcohol-coordination-getting-ready-bachelor-bachelorette-and-reception': {
+    slug: 'blogs/wedding-party-alcohol-coordination-getting-ready-bachelor-bachelorette-and-reception',
+    title: 'Wedding Party Alcohol Coordination | Getting Ready, Bachelor/Bachelorette & Reception',
+    description: 'Complete guide to coordinating alcohol across all wedding party events in Austin. From getting ready champagne toasts to bachelor party Lake Travis cruises, bachelorette celebrations, and reception bars. Party On Delivery tips included.',
+    publishDate: '2024-01-15',
+    modifiedDate: '2025-01-15',
+    author: 'Premier Party Cruises',
+    heroImage: 'https://premierpartycruises.com/attached_assets/@capitalcityshots-25_1760080807866.jpg',
+    keywords: ['wedding party alcohol coordination', 'Austin wedding drinks', 'bachelor party alcohol', 'bachelorette party drinks', 'Lake Travis wedding cruise']
   }
 };
 
