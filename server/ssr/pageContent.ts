@@ -43,7 +43,22 @@ export const LINK_CATALOG: Record<string, {url: string; text: string}> = {
   'party-boat-austin': {url: '/party-boat-austin', text: 'Austin Party Boats'},
   'party-boat-lake-travis': {url: '/party-boat-lake-travis', text: 'Lake Travis Party Boats'},
   'gallery': {url: '/gallery', text: 'Photo Gallery'},
-  'blog': {url: '/blog', text: 'Blog'}
+  'blog': {url: '/blog', text: 'Blog'},
+  'birthday-boat-rental': {url: '/birthday-party-boat-rental', text: 'Birthday Boat Rentals'},
+  'anniversary-cruise': {url: '/anniversary-cruise', text: 'Anniversary Cruises'},
+  'proposal-cruise': {url: '/proposal-cruise', text: 'Proposal Cruises'},
+  'celebration-cruises': {url: '/celebration-cruises', text: 'Celebration Cruises'},
+  'graduation-cruise': {url: '/graduation-cruise', text: 'Graduation Cruises'},
+  'rehearsal-dinner-cruise': {url: '/rehearsal-dinner-cruise', text: 'Rehearsal Dinner Cruises'},
+  'holiday-party-cruise': {url: '/holiday-party-cruise', text: 'Holiday Party Cruises'},
+  'family-reunion-cruise': {url: '/family-reunion-cruise', text: 'Family Reunion Cruises'},
+  'retirement-party-cruise': {url: '/retirement-party-cruise', text: 'Retirement Party Cruises'},
+  'memorial-celebration-cruise': {url: '/memorial-celebration-cruise', text: 'Memorial Celebration Cruises'},
+  'gender-reveal-cruise': {url: '/gender-reveal-cruise', text: 'Gender Reveal Cruises'},
+  'engagement-party-cruise': {url: '/engagement-party-cruise', text: 'Engagement Party Cruises'},
+  'bridal-shower-cruise': {url: '/bridal-shower-cruise', text: 'Bridal Shower Cruises'},
+  'baby-shower-cruise': {url: '/baby-shower-cruise', text: 'Baby Shower Cruises'},
+  'prom-cruise': {url: '/prom-cruise', text: 'Prom Cruises'}
 };
 
 export const PAGE_CONTENT: Record<string, PageContent> = {
@@ -5850,6 +5865,2277 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       }
     ],
     relatedPages: ['bachelor-party', 'atx-disco', 'private-cruises', 'combined-bach', 'testimonials', 'faq', 'contact']
+  },
+  '/pricing': {
+    h1: 'Party Boat Pricing & Packages | Lake Travis Austin Party Cruises',
+    introduction: 'Discover transparent pricing for Austin\'s premier Lake Travis party boat experiences. Premier Party Cruises offers two main options: [[private-cruises]] starting at $200 per hour with exclusive boat access, and the legendary [[atx-disco]] from $85-$105 per person with DJ, photographer, and all amenities included. With 14+ years of experience, 150,000+ satisfied customers, and the newest fleet on Lake Travis, we deliver exceptional value for [[bachelor-party]], [[bachelorette-party]], [[corporate-events]], [[wedding-party]], [[birthday-party]], and every celebration.',
+    sections: [
+      {
+        heading: 'Private Charter Pricing - Exclusive Boat Rentals',
+        paragraphs: [
+          'Private charters give your group exclusive access to one of our premium party boats. All private rentals include a Coast Guard certified captain, professional crew, premium Bluetooth sound system, large coolers with ice, clean restroom facilities, and all safety equipment. Pricing varies by boat capacity and day of the week, with a 4-hour minimum rental required for all private charters.',
+          'Our transparent pricing means no hidden fees or surprise charges. The rates listed include captain, crew, and all standard amenities. All cruises are BYOB-friendly for guests 21 and older with valid ID. No glass containers are permitted for safety reasons. We can coordinate alcohol and food delivery directly to Anderson Mill Marina for your convenience.',
+          'Private charters are perfect for groups wanting complete control over their celebration. Choose your music through our premium Bluetooth speakers, select your route on Lake Travis, and enjoy the entire boat exclusively for your party. Whether you\'re celebrating a [[bachelor-party]], hosting [[corporate-events]], or planning a [[wedding-party]] outing, our private charters deliver an unforgettable experience.'
+        ],
+        lists: [
+          {
+            title: 'Day Tripper - 1 to 14 Guests',
+            items: [
+              'Perfect for intimate celebrations and smaller groups',
+              'Weekday rates: $200-$275 per hour',
+              'Weekend rates: $275-$350 per hour',
+              '4-hour minimum rental required',
+              'Captain and crew included in pricing',
+              'Premium Bluetooth sound system',
+              'Large coolers with ice provided',
+              'Ideal for birthdays, small corporate outings, family gatherings'
+            ]
+          },
+          {
+            title: 'Meeseeks / The Irony - 15 to 30 Guests',
+            items: [
+              'Two identical boats for medium-sized groups',
+              'Weekday rates: $225-$325 per hour',
+              'Weekend rates: $325-$425 per hour',
+              '4-hour minimum rental required',
+              'Captain and crew included in pricing',
+              'Premium Bluetooth sound system',
+              'Extra-large coolers with ice provided',
+              'Perfect for bachelor parties, bachelorette parties, team building'
+            ]
+          },
+          {
+            title: 'Clever Girl - 31 to 75 Guests',
+            items: [
+              'Our flagship vessel - Austin\'s ultimate party boat',
+              'Features 14 disco balls and giant Texas flag',
+              'Weekday rates: $250-$400 per hour',
+              'Weekend rates: $400-$500 per hour',
+              '4-hour minimum rental required',
+              'Captain and full crew included',
+              'Premium sound system with multiple speaker zones',
+              'Multiple coolers with abundant ice',
+              'Spacious deck and shaded areas',
+              'Ideal for weddings, corporate events, large celebrations'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'ATX Disco Cruise Pricing - All-Inclusive Party Experience',
+        paragraphs: [
+          'The [[atx-disco]] is our signature shared cruise experience where multiple [[bachelor-party]] and [[bachelorette-party]] groups celebrate together. Every disco cruise includes a professional DJ playing all day, professional photographer with digital photo delivery, giant unicorn floats, multiple 6x20-foot lily pad floats, party supplies, ice water stations, and clean restroom facilities. All listed prices include tax and gratuity for complete transparency.',
+          'This all-inclusive format delivers incredible value compared to renting a private boat. You get professional entertainment, photography, floats, and an electric party atmosphere at a fraction of the cost. The disco cruise is especially popular for groups of 6-30 guests who want the full Lake Travis party experience without the expense of a private charter.',
+          'All disco cruise guests enjoy BYOB privileges with private cooler space and ice provided for your group. We can arrange alcohol delivery directly to Anderson Mill Marina. The disco cruise departs every Friday and Saturday during peak season, with three time slot options to fit your schedule.'
+        ],
+        lists: [
+          {
+            title: 'Saturday 3:30-7:30pm - Best Value',
+            items: [
+              '$85 per person ($111.56 with tax & gratuity included)',
+              'Full 4-hour Lake Travis cruise',
+              'Professional DJ entertainment',
+              'Professional photographer with digital delivery',
+              'Giant floats and lily pads',
+              'Private cooler with ice for your group',
+              'BYOB friendly (21+ with ID)',
+              'Party supplies included'
+            ]
+          },
+          {
+            title: 'Friday 12-4pm',
+            items: [
+              '$95 per person ($124.88 with tax & gratuity included)',
+              'Full 4-hour Lake Travis cruise',
+              'Professional DJ and photographer',
+              'Reserved spot for your group',
+              'All floats and party amenities',
+              'Alcohol delivery available to marina',
+              'Transportation discounts available',
+              'Perfect for starting the weekend celebration'
+            ]
+          },
+          {
+            title: 'Saturday 11am-3pm - Most Popular',
+            items: [
+              '$105 per person ($137.81 with tax & gratuity included)',
+              'Full 4-hour Lake Travis cruise',
+              'Premium boat positioning',
+              'Professional DJ and photographer',
+              'Priority float access',
+              'Mimosa setup available as add-on',
+              'Towel service and SPF-50 sunscreen available',
+              'Best party atmosphere of the week'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'What\'s Included in Every Cruise',
+        paragraphs: [
+          'Both private charters and disco cruises include essential amenities for a comfortable celebration on Lake Travis. Our boats depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 30 minutes from downtown Austin. This convenient location makes us accessible from anywhere in the Austin metro area.',
+          'All cruises are fully BYOB-friendly. Guests 21 and older with valid ID may bring beer, wine, seltzers, and other beverages in cans or plastic containers. No glass is allowed for safety. We provide large coolers with ice on every cruise. Many groups coordinate alcohol or food delivery directly to the marina before departure.',
+          'Our Coast Guard certified captains navigate Lake Travis\'s beautiful waters while you celebrate. Professional crew members ensure your cruise runs smoothly from boarding to return. Every boat features clean restroom facilities, shaded areas, and modern safety equipment. With our perfect safety record and 14+ years of experience, your celebration is in expert hands.'
+        ],
+        lists: [
+          {
+            title: 'Standard Inclusions - All Cruises',
+            items: [
+              'Coast Guard certified captain',
+              'Professional crew members',
+              'Premium Bluetooth sound system',
+              'Large coolers with ice',
+              'Clean restroom facilities',
+              'Shaded lounge areas',
+              'All safety equipment and life jackets',
+              'BYOB friendly (21+ with ID, no glass)'
+            ]
+          },
+          {
+            title: 'ATX Disco Cruise Bonus Inclusions',
+            items: [
+              'Professional DJ playing all day',
+              'Professional photographer',
+              'Digital photo delivery',
+              'Giant unicorn floats',
+              'Multiple lily pad floats (6x20 feet)',
+              'Party supplies and mixers',
+              'Ice water stations',
+              'Multi-group party atmosphere'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Booking and Payment Information',
+        paragraphs: [
+          'Securing your preferred date is easy. Private charter bookings require a deposit to confirm your reservation, with the balance due before departure. ATX Disco Cruise tickets can be purchased online with immediate confirmation. We accept all major credit cards and offer split payment options for groups.',
+          'Weekend dates during peak season from April through October book 6-8 weeks in advance. We recommend booking as early as possible to secure your preferred time slot, especially for popular dates around holidays and graduation weekends. Contact Premier Party Cruises at 512-488-5892 for availability and to discuss your celebration plans.',
+          'Group discounts may be available for larger private charter bookings. Corporate clients and event planners receive dedicated support for [[team-building]] events, [[client-entertainment]] cruises, and [[company-milestone]] celebrations. Contact us to discuss custom packages for your specific needs.'
+        ]
+      },
+      {
+        heading: 'Frequently Asked Questions About Pricing',
+        paragraphs: [
+          'Is the pricing all-inclusive? For private charters, rates include captain, crew, and all standard boat amenities. You bring your own food and beverages. For the ATX Disco Cruise, the per-person price includes DJ, photographer, floats, party supplies, and all listed amenities, plus tax and gratuity.',
+          'Are there any hidden fees? No hidden fees. Our pricing is transparent. Private charter rates include crew. Disco cruise prices include tax and gratuity. The only additional costs are optional add-ons like mimosa setups or towel service.',
+          'Can we bring our own alcohol? Yes! All cruises are BYOB-friendly for guests 21+ with valid ID. Cans and plastic containers only - no glass allowed for safety. We provide coolers with ice.',
+          'What\'s the cancellation policy? Contact us directly for current cancellation and rescheduling policies. We understand plans change and work with customers to find solutions when possible.',
+          'Do you offer group discounts? Large group and corporate booking discounts may be available. Contact us at 512-488-5892 to discuss your event and potential package options.'
+        ]
+      }
+    ],
+    relatedPages: ['private-cruises', 'atx-disco', 'bachelor-party', 'bachelorette-party', 'corporate-events', 'wedding-party', 'birthday-party', 'team-building', 'faq', 'contact']
+  },
+  '/booking': {
+    h1: 'Book Your Lake Travis Party Cruise | Austin Party Boat Reservations',
+    introduction: 'Ready to book your Lake Travis celebration? Premier Party Cruises makes reserving your [[private-cruises]] or [[atx-disco]] experience simple and straightforward. With 14+ years serving Austin, 150,000+ satisfied customers, and the newest fleet on Lake Travis, we\'re the trusted choice for [[bachelor-party]], [[bachelorette-party]], [[corporate-events]], [[wedding-party]], and celebrations of every kind. Use our online booking system or call 512-488-5892 to secure your preferred date.',
+    sections: [
+      {
+        heading: 'How to Book Your Party Cruise',
+        paragraphs: [
+          'Booking your Lake Travis party cruise is easy and can be completed in just a few steps. Start by choosing between a [[private-cruises]] for exclusive boat access or the [[atx-disco]] for our legendary shared party experience with DJ, photographer, and all amenities included. Consider your group size, budget, and desired experience level to select the best option.',
+          'For the ATX Disco Cruise, simply select your preferred time slot and number of guests. Tickets can be purchased online with immediate confirmation. Popular time slots include Friday 12-4pm ($95/person), Saturday 11am-3pm ($105/person), and Saturday 3:30-7:30pm ($85/person), with all prices including tax and gratuity.',
+          'Private charter bookings involve selecting your preferred boat based on group size, choosing your date and departure time, and paying a deposit to secure your reservation. Our team will confirm availability and walk you through any questions about your celebration plans. The booking process is designed to be quick while ensuring we have all details needed to deliver an exceptional experience.'
+        ],
+        lists: [
+          {
+            title: 'Booking Steps for ATX Disco Cruise',
+            items: [
+              'Select your preferred time slot (Friday or Saturday)',
+              'Enter the number of guests in your group',
+              'Provide contact information for the booking',
+              'Complete payment online (all major cards accepted)',
+              'Receive instant confirmation via email',
+              'Add optional extras like mimosa setup if desired',
+              'Arrive at Anderson Mill Marina 30 minutes before departure'
+            ]
+          },
+          {
+            title: 'Booking Steps for Private Charters',
+            items: [
+              'Choose your boat based on group size (14, 30, or 75 guests)',
+              'Select your preferred date and time',
+              'Contact us to confirm availability (512-488-5892)',
+              'Pay deposit to secure your reservation',
+              'Receive confirmation with all cruise details',
+              'Coordinate any food or alcohol delivery',
+              'Arrive at Anderson Mill Marina 30 minutes before departure'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'When to Book Your Cruise',
+        paragraphs: [
+          'Timing matters when booking your Lake Travis party cruise. Peak season runs from April through October when warm weather makes for perfect cruising conditions. During this period, weekend dates fill quickly and popular time slots book 6-8 weeks in advance. For [[bachelor-party]] and [[bachelorette-party]] groups, early booking is essential to secure your preferred date.',
+          'Holiday weekends and graduation season see especially high demand. Memorial Day, Fourth of July, Labor Day, and graduation weekends in May often book out months ahead. If your celebration falls near a holiday, we strongly recommend booking as early as possible to avoid disappointment.',
+          'Weekday cruises offer more flexibility and availability. Groups with schedule flexibility can often find openings on shorter notice for weekday charters. [[Corporate-events]] and [[team-building]] groups frequently choose weekday cruises for easier scheduling and potential rate advantages. Contact us to discuss weekday options for your celebration.'
+        ],
+        lists: [
+          {
+            title: 'Peak Booking Periods',
+            items: [
+              'April through October - Primary party cruise season',
+              'May - Graduation celebrations and early summer groups',
+              'June through August - Peak summer demand',
+              'Memorial Day, July 4th, Labor Day weekends - Book 2-3 months ahead',
+              'Fall weekends - Popular for perfect weather cruises'
+            ]
+          },
+          {
+            title: 'Booking Recommendations by Group Type',
+            items: [
+              'Bachelor/Bachelorette parties: Book 6-8 weeks in advance',
+              'Wedding parties: Book 2-3 months ahead for specific dates',
+              'Corporate events: Book 4-6 weeks for weekdays, 6-8 for weekends',
+              'Birthday parties: Book 2-4 weeks in advance',
+              'Spontaneous celebrations: Weekday availability often exists'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Departure Location and Arrival',
+        paragraphs: [
+          'All Premier Party Cruises depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641. This convenient location is approximately 30 minutes from downtown Austin, making it accessible from anywhere in the Austin metropolitan area including Round Rock, Cedar Park, Lakeway, and surrounding communities.',
+          'We recommend arriving at the marina 30 minutes before your scheduled departure time. This allows time for parking, locating your boat, meeting your captain and crew, loading any coolers or supplies, and beginning your cruise on schedule. Late arrivals may result in shortened cruise time as we must return by our scheduled dock time.',
+          'Free parking is available at Anderson Mill Marina. The marina offers restroom facilities before boarding. Our crew will assist with loading coolers and supplies. If you\'ve arranged alcohol or food delivery to the marina, please coordinate timing so your order arrives before your departure window.'
+        ]
+      },
+      {
+        heading: 'What to Bring on Your Cruise',
+        paragraphs: [
+          'Proper preparation ensures you maximize your Lake Travis celebration. All cruises are BYOB-friendly for guests 21 and older with valid ID. Bring beer, wine, seltzers, and other beverages in cans or plastic containers only - no glass is allowed for safety reasons. We provide large coolers with ice on every cruise.',
+          'Pack swimsuits, towels, and reef-safe sunscreen for water activities. Sunglasses and hats provide comfort on sunny days. Wear shoes you can easily remove for boarding. Bring any celebration items, decorations, or party supplies your group wants to enjoy.',
+          'For [[bachelor-party]] and [[bachelorette-party]] groups, consider coordinating themed items, custom koozies, or celebration banners. Cameras and phones capture memories, though the [[atx-disco]] includes a professional photographer with digital delivery. Leave valuables at home or in locked vehicles as we cannot be responsible for personal items.'
+        ],
+        lists: [
+          {
+            title: 'Recommended Packing List',
+            items: [
+              'Valid ID for all guests 21+ (required for BYOB)',
+              'Beverages in cans/plastic (no glass)',
+              'Swimsuit and towel',
+              'Reef-safe sunscreen',
+              'Sunglasses and hat',
+              'Camera or phone for photos',
+              'Celebration items and decorations',
+              'Snacks or food for your group'
+            ]
+          },
+          {
+            title: 'Delivery Coordination',
+            items: [
+              'Alcohol delivery can be arranged to Anderson Mill Marina',
+              'Food delivery (pizza, tacos, catering) available',
+              'Coordinate delivery timing 30+ minutes before departure',
+              'Alert our crew about expected deliveries when you arrive',
+              'Ice and coolers provided - no need to bring your own'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Group Coordination Tips',
+        paragraphs: [
+          'Organizing a party cruise group requires clear communication. Designate one primary contact to handle booking, collect payments, and communicate with Premier Party Cruises. This streamlines the process and ensures everyone receives consistent information about departure times, what to bring, and meeting logistics.',
+          'For ATX Disco Cruise bookings, split payment options are available at checkout. Each guest can pay their portion directly, simplifying group payment collection. For private charters, the booking contact typically handles the deposit and final payment, then coordinates reimbursement within the group.',
+          'Share arrival instructions with all guests well in advance. Provide the marina address, parking information, and emphasized 30-minute early arrival recommendation. Consider coordinating group transportation from downtown Austin, hotels, or a central meeting point. Rideshare services operate in the area, and some groups arrange charter buses for larger parties.'
+        ]
+      },
+      {
+        heading: 'Contact Us to Book',
+        paragraphs: [
+          'Ready to secure your Lake Travis celebration? Contact Premier Party Cruises at 512-488-5892 to discuss your event and check availability. Our team answers questions about boat options, time slots, group sizes, and custom package possibilities. We\'ve helped 150,000+ customers celebrate and bring that experience to every booking conversation.',
+          'For quick ATX Disco Cruise bookings, use our online reservation system for instant confirmation. Private charter inquiries receive prompt responses with availability and detailed quotes. Corporate and event planners receive dedicated support for [[team-building]], [[client-entertainment]], and [[company-milestone]] celebrations.',
+          'Follow up with any questions after booking. Our team is available to help coordinate details, answer questions about what to bring, and ensure your celebration runs smoothly. With 14+ years of Lake Travis expertise and a perfect safety record, Premier Party Cruises delivers exceptional experiences you can trust.'
+        ]
+      }
+    ],
+    relatedPages: ['private-cruises', 'atx-disco', 'bachelor-party', 'bachelorette-party', 'corporate-events', 'wedding-party', 'team-building', 'faq', 'contact', 'testimonials']
+  },
+  '/boats': {
+    h1: 'Our Party Boat Fleet | Lake Travis Austin Boat Rentals',
+    introduction: 'Explore Premier Party Cruises\' fleet of premium party boats on Lake Travis. From the intimate Day Tripper accommodating up to 14 guests, to our twin vessels Meeseeks and The Irony perfect for groups of 30, to our flagship Clever Girl with capacity for 75 guests and featuring 14 disco balls plus a giant Texas flag - we have the perfect boat for your celebration. All boats include Coast Guard certified captains, premium Bluetooth sound systems, large coolers with ice, and professional crew for [[bachelor-party]], [[bachelorette-party]], [[corporate-events]], [[wedding-party]], and every type of Lake Travis celebration.',
+    sections: [
+      {
+        heading: 'Day Tripper - Intimate Celebrations for Up to 14 Guests',
+        paragraphs: [
+          'The Day Tripper delivers an intimate Lake Travis party experience perfect for smaller groups up to 14 guests. This vessel offers the personal touch that smaller celebrations deserve while maintaining all the premium amenities our customers expect. Whether you\'re hosting a birthday party, small corporate outing, family gathering, or intimate [[wedding-party]] cruise, the Day Tripper provides comfortable cruising with professional service.',
+          'Every Day Tripper cruise includes a Coast Guard certified captain who navigates Lake Travis while you celebrate with your guests. The premium Bluetooth sound system lets you control the music playlist, setting the perfect atmosphere for your event. Large coolers with ice keep your BYOB beverages cold throughout your 4-hour minimum cruise.',
+          'The Day Tripper is ideal for groups wanting a more personal experience on the water. With a smaller capacity, guests enjoy more space per person and easier conversation. This boat works beautifully for milestone [[birthday-party]] celebrations, small [[team-building]] outings, intimate wedding events like [[rehearsal-dinner]] cruises, and any celebration where quality time with your close group takes priority.'
+        ],
+        lists: [
+          {
+            title: 'Day Tripper Specifications',
+            items: [
+              'Maximum capacity: 14 guests',
+              'Ideal for groups of 1-14 people',
+              'Weekday rates: $200-$275 per hour',
+              'Weekend rates: $275-$350 per hour',
+              '4-hour minimum rental required',
+              'Coast Guard certified captain included',
+              'Professional crew service',
+              'Premium Bluetooth sound system',
+              'Large coolers with ice provided',
+              'Clean restroom facilities',
+              'Shaded areas for sun protection'
+            ]
+          },
+          {
+            title: 'Perfect For',
+            items: [
+              'Intimate birthday celebrations',
+              'Small corporate team outings',
+              'Family gatherings on the lake',
+              'Rehearsal dinners and wedding events',
+              'Small bachelor or bachelorette groups',
+              'Date experiences and romantic cruises',
+              'Close friend celebrations'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Meeseeks and The Irony - Medium Groups Up to 30 Guests',
+        paragraphs: [
+          'Meeseeks and The Irony are twin party vessels in our fleet, each accommodating up to 30 guests. These identical boats offer the perfect middle ground between intimate gatherings and large group celebrations. For medium-sized [[bachelor-party]] and [[bachelorette-party]] groups, [[corporate-events]], and [[birthday-party]] celebrations, these vessels deliver ample space, premium amenities, and room for everyone to enjoy Lake Travis.',
+          'Both Meeseeks and The Irony feature spacious deck layouts with room for socializing, dancing, and relaxing. The premium Bluetooth sound systems on each boat deliver excellent audio quality so your playlist sounds great throughout the cruise. Extra-large coolers with abundant ice ensure your BYOB beverages stay perfectly cold even on the hottest Texas summer days.',
+          'These twin boats are popular choices for bachelor and bachelorette parties that want private boat access without the larger commitment of our flagship vessel. Groups of 20-30 find these boats ideally sized - enough space for everyone to move comfortably while maintaining the intimate party atmosphere that makes celebrations memorable. Both boats feature clean restroom facilities and shaded areas for guest comfort.',
+          'Having two identical boats in our fleet means better availability for popular dates. When Meeseeks is booked, The Irony often has openings and vice versa. Both vessels receive the same meticulous maintenance and cleaning between charters. Your celebration experience is identical regardless of which twin boat hosts your group.'
+        ],
+        lists: [
+          {
+            title: 'Meeseeks / The Irony Specifications',
+            items: [
+              'Maximum capacity: 30 guests each',
+              'Ideal for groups of 15-30 people',
+              'Weekday rates: $225-$325 per hour',
+              'Weekend rates: $325-$425 per hour',
+              '4-hour minimum rental required',
+              'Coast Guard certified captain included',
+              'Professional crew on every cruise',
+              'Premium Bluetooth sound system',
+              'Extra-large coolers with ice',
+              'Spacious deck layout',
+              'Clean restroom facilities',
+              'Comfortable shaded areas'
+            ]
+          },
+          {
+            title: 'Perfect For',
+            items: [
+              'Bachelor party groups',
+              'Bachelorette party celebrations',
+              'Corporate team building events',
+              'Medium-sized birthday parties',
+              'Wedding party cruises',
+              'Graduation celebrations',
+              'Family reunion gatherings',
+              'Friend group celebrations'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Clever Girl - Flagship Vessel for Up to 75 Guests',
+        paragraphs: [
+          'Clever Girl is the flagship of the Premier Party Cruises fleet, accommodating up to 75 guests for the ultimate Lake Travis celebration. This impressive vessel features 14 disco balls that create an unforgettable party atmosphere and a giant Texas flag that makes a statement visible across the lake. Clever Girl is Austin\'s premier party boat for large celebrations.',
+          'The spacious deck of Clever Girl provides room for large groups to spread out comfortably. Multiple zones allow guests to choose between the energetic dance area near the speakers, quieter conversation spots, shaded lounge areas, and positions with the best views of Lake Travis. This flexibility makes Clever Girl exceptional for diverse groups with varying preferences.',
+          'Clever Girl\'s premium sound system features multiple speaker zones to ensure excellent audio coverage across the entire vessel. Whether guests are on the main deck, upper areas, or relaxing in shaded spots, they experience quality sound. The 14 disco balls add visual excitement, especially appreciated by [[bachelor-party]] and [[bachelorette-party]] groups ready to dance.',
+          'For [[wedding-party]] celebrations, [[corporate-events]], [[company-milestone]] gatherings, and large [[birthday-party]] events, Clever Girl delivers the scale and atmosphere these occasions deserve. The giant Texas flag makes for iconic photos and clearly marks your celebration as the standout party on Lake Travis. Professional crew members ensure all 75 guests receive attentive service throughout your cruise.',
+          'Multiple large coolers with abundant ice accommodate the beverage needs of large groups. Clean restroom facilities handle high-volume use with regular attention from our crew. Coast Guard certified captain and experienced crew members manage all operations while you and your guests focus entirely on celebrating. Clever Girl represents the pinnacle of Lake Travis party boat experiences.'
+        ],
+        lists: [
+          {
+            title: 'Clever Girl Specifications',
+            items: [
+              'Maximum capacity: 75 guests',
+              'Ideal for groups of 31-75 people',
+              '14 disco balls for party atmosphere',
+              'Giant Texas flag visible across the lake',
+              'Weekday rates: $250-$400 per hour',
+              'Weekend rates: $400-$500 per hour',
+              '4-hour minimum rental required',
+              'Coast Guard certified captain included',
+              'Full professional crew',
+              'Multi-zone premium sound system',
+              'Multiple large coolers with ice',
+              'Spacious multi-level deck',
+              'Multiple restroom facilities',
+              'Extensive shaded areas'
+            ]
+          },
+          {
+            title: 'Perfect For',
+            items: [
+              'Large wedding celebrations',
+              'Corporate events and company parties',
+              'Big bachelor and bachelorette groups',
+              'Milestone birthday celebrations',
+              'Graduation parties',
+              'Family reunions',
+              'Company milestone celebrations',
+              'Large group friend gatherings',
+              'Client entertainment events'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Fleet-Wide Amenities and Standards',
+        paragraphs: [
+          'Every boat in the Premier Party Cruises fleet maintains consistent high standards. All vessels undergo regular maintenance and thorough cleaning between charters. Our Coast Guard certified captains and professional crew members receive ongoing training to ensure safe, professional service on every cruise.',
+          'All boats feature premium Bluetooth sound systems so you control your music experience. Connect your phone and play your custom playlist throughout your celebration. Large coolers with ice are standard equipment - you bring the beverages, we keep them cold. Clean restroom facilities on every vessel ensure guest comfort during your 4-hour or longer cruise.',
+          'BYOB-friendly cruises allow guests 21 and older with valid ID to bring their own beverages. Cans and plastic containers only - no glass for safety. We can coordinate alcohol and food delivery to Anderson Mill Marina before your departure. All boats depart from the same convenient location approximately 30 minutes from downtown Austin.'
+        ],
+        lists: [
+          {
+            title: 'Standard on All Boats',
+            items: [
+              'Coast Guard certified captain',
+              'Professional crew members',
+              'Premium Bluetooth sound system',
+              'Large coolers with ice',
+              'Clean restroom facilities',
+              'Shaded areas available',
+              'All safety equipment',
+              'Life jackets for all guests',
+              'BYOB-friendly (21+ with ID)',
+              'Regular maintenance and cleaning'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Choosing the Right Boat for Your Celebration',
+        paragraphs: [
+          'Selecting the right boat depends on your group size, celebration type, and preferences. For groups up to 14, the Day Tripper provides an intimate experience at our most accessible price point. Groups of 15-30 find Meeseeks or The Irony ideally sized. Large celebrations of 31-75 guests deserve the flagship Clever Girl experience with disco balls and Texas flag.',
+          'Consider your celebration style when choosing. Intimate gatherings where conversation matters suit the Day Tripper. Medium groups wanting space to mingle and dance enjoy Meeseeks or The Irony. Major celebrations where making a statement matters call for Clever Girl\'s impressive presence and party features.',
+          'Not sure which boat fits best? Contact Premier Party Cruises at 512-488-5892 to discuss your celebration. Our experienced team helps match your group size, event type, and budget to the perfect vessel. With 14+ years and 150,000+ happy customers, we understand what makes Lake Travis celebrations successful.'
+        ]
+      },
+      {
+        heading: 'Book Your Party Boat Today',
+        paragraphs: [
+          'Ready to reserve your Lake Travis party boat? Weekend dates during peak season book 6-8 weeks in advance, so early booking secures your preferred date. Contact us at 512-488-5892 to check availability and discuss your celebration plans. Our team provides quotes, answers questions, and helps coordinate all details.',
+          'All boats depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641. The convenient location is approximately 30 minutes from downtown Austin, accessible from anywhere in the metro area. Arrive 30 minutes before your scheduled departure to meet your captain, load your coolers, and start your Lake Travis adventure on time.',
+          'Premier Party Cruises has operated on Lake Travis for 14+ years with a perfect safety record. Our newest fleet in Austin, experienced captains, and professional crews deliver consistent quality for [[bachelor-party]], [[bachelorette-party]], [[corporate-events]], [[wedding-party]], [[birthday-party]], and celebrations of every kind. Your memorable Lake Travis experience awaits.'
+        ]
+      }
+    ],
+    relatedPages: ['private-cruises', 'atx-disco', 'bachelor-party', 'bachelorette-party', 'corporate-events', 'wedding-party', 'birthday-party', 'team-building', 'faq', 'contact', 'testimonials']
+  },
+
+  '/birthday-party-boat-rental': {
+    h1: 'Birthday Party Boat Rentals on Lake Travis | Austin TX',
+    introduction: 'Celebrate your birthday in style with a private party boat rental on Lake Travis! Premier Party Cruises offers the ultimate [[birthday-party]] experience with our fleet of premium vessels. Whether you\'re planning an intimate gathering on the Day Tripper (14 guests), a medium-sized celebration on Meeseeks or The Irony (30 guests), or an unforgettable bash on our flagship Clever Girl (75 guests with 14 disco balls), we have the perfect boat for your special day. All [[private-cruises]] include Coast Guard certified captains, premium Bluetooth sound systems, large coolers with ice, and everything you need to make your birthday the talk of the town.',
+    sections: [
+      {
+        heading: 'Why Choose a Lake Travis Birthday Party Boat',
+        paragraphs: [
+          'A birthday party on Lake Travis offers an experience unlike any other celebration venue in Austin. Instead of crowded restaurants or predictable party spaces, your guests enjoy stunning Texas Hill Country views, crystal-clear waters, and the freedom to swim, float on giant lily pads, and dance under the open sky. The natural beauty of Lake Travis creates a magical backdrop for birthday photos that will last a lifetime.',
+          'Premier Party Cruises has hosted thousands of [[birthday-party]] celebrations over our 14+ years on Lake Travis. We understand what makes a birthday cruise special - from the moment your guests step aboard until you return to the marina, every detail is handled by our professional crew. Your only job is to celebrate and enjoy your special day while we navigate the lake, manage the amenities, and ensure everyone has an amazing time.',
+          'Lake Travis birthday parties are perfect for adults of all ages. Whether you\'re celebrating a 21st birthday milestone, a fabulous 40th, or any age in between, the combination of water activities, premium sound systems for your birthday playlist, and BYOB-friendly policies creates the ideal party atmosphere. The unique setting makes your celebration memorable and gives guests an experience they\'ll talk about for years to come.'
+        ]
+      },
+      {
+        heading: 'Our Birthday Party Boat Fleet',
+        paragraphs: [
+          'Choose the perfect vessel for your birthday celebration from our fleet of premium party boats:',
+          'Day Tripper accommodates up to 14 guests, making it perfect for intimate birthday gatherings with close friends and family. This vessel offers all the essential amenities - Coast Guard certified captain, premium Bluetooth sound system, coolers with ice, clean restroom facilities, and shaded areas. Starting at $200-$350 per hour depending on the day, Day Tripper provides exceptional value for smaller birthday groups seeking a private Lake Travis experience.',
+          'Meeseeks and The Irony are identical vessels each accommodating up to 30 guests. These mid-sized boats offer more space for dancing, socializing, and spreading out while maintaining an intimate party atmosphere. Perfect for birthday celebrations with extended friend groups or family gatherings, these boats run $225-$425 per hour and provide the ideal balance of space and value.',
+          'Clever Girl is our flagship vessel, accommodating up to 75 guests for the ultimate birthday bash. This impressive boat features 14 disco balls that create an unforgettable party atmosphere plus a giant Texas flag visible across the lake. For milestone birthdays, large friend groups, or those who want to make a major statement, Clever Girl delivers. Rates range from $250-$500 per hour depending on the day.'
+        ],
+        lists: [
+          {
+            title: 'All Birthday Boats Include',
+            items: [
+              'Coast Guard certified captain and professional crew',
+              'Premium Bluetooth sound system for your birthday playlist',
+              'Large coolers with ice for BYOB beverages',
+              'Clean restroom facilities',
+              'Shaded areas for sun relief',
+              'All required safety equipment and life jackets',
+              '4-hour minimum rental with flexible scheduling',
+              'Departure from Anderson Mill Marina (30 min from downtown Austin)'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Birthday Party Packages and Options',
+        paragraphs: [
+          'Premier Party Cruises makes planning your birthday celebration simple. All [[private-cruises]] charters include captain, crew, sound system, coolers with ice, and full control over your route and schedule. BYOB policies allow guests 21+ with valid ID to bring their own beverages in cans or plastic containers - no glass for safety. We can also coordinate alcohol and food delivery directly to the marina before your departure.',
+          'Many birthday groups add optional extras like lily pad floats for swimming stops, catering coordination for birthday cakes and food, and special decorations. Our team helps coordinate these details during the booking process. We\'ve hosted everything from casual afternoon cruises to elaborate themed birthday parties, and we know how to make each celebration unique and special.',
+          'Weekend dates during peak season (April-October) book 6-8 weeks in advance, so we recommend reserving your birthday cruise as soon as you know your date. Our team at 512-488-5892 can check availability, discuss your specific needs, and provide accurate quotes for your celebration. With 150,000+ happy customers, we\'ve earned Austin\'s trust for unforgettable Lake Travis celebrations.'
+        ]
+      },
+      {
+        heading: 'The Birthday Party Cruise Experience',
+        paragraphs: [
+          'Your birthday cruise departs from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 30 minutes from downtown Austin. We recommend arriving 30 minutes before your scheduled departure to meet your captain, load coolers and any special items, and get oriented with the boat before setting sail.',
+          'Once underway, your captain navigates Lake Travis while you and your guests enjoy the stunning scenery. Popular stops include Devil\'s Cove for swimming and floating, scenic cliff areas perfect for photos, and quiet coves where you can anchor and enjoy the water. The captain knows all the best spots and can customize your route based on weather conditions and your preferences.',
+          'Throughout the cruise, your birthday playlist pumps through the premium sound system while guests swim, lounge, take photos, and celebrate. As the birthday VIP, you\'re the center of attention while our crew handles all the logistics. When your cruise concludes, you\'ll return to the marina with unforgettable memories and photos of the best birthday party ever.'
+        ]
+      },
+      {
+        heading: 'Book Your Birthday Boat Rental Today',
+        paragraphs: [
+          'Ready to plan the ultimate birthday celebration on Lake Travis? Contact Premier Party Cruises at 512-488-5892 to check availability and discuss your party details. Our experienced team helps you select the right boat, coordinate timing, and plan any extras that will make your birthday unforgettable. Also explore our [[atx-disco]] for a different party experience, or check out [[milestone-birthday]] for special age celebrations.',
+          'With 14+ years of experience, 150,000+ satisfied customers, and a perfect safety record, Premier Party Cruises delivers consistent quality for every birthday celebration. Our Coast Guard certified captains and professional crews ensure safe, professional service while you focus entirely on celebrating your special day. Lake Travis awaits - let\'s make your birthday legendary!'
+        ]
+      }
+    ],
+    relatedPages: ['private-cruises', 'birthday-party', 'milestone-birthday', 'celebration-cruises', 'atx-disco', 'corporate-events', 'wedding-party', 'faq', 'contact', 'testimonials']
+  },
+
+  '/anniversary-cruise': {
+    h1: 'Anniversary Cruises on Lake Travis | Romantic Austin Boat Rental',
+    introduction: 'Celebrate your love with a romantic anniversary cruise on Lake Travis! Premier Party Cruises offers intimate [[private-cruises]] perfect for couples commemorating wedding anniversaries and relationship milestones. Our Day Tripper (14 guests) provides an intimate setting for just the two of you or a small gathering of family and close friends. For larger anniversary celebrations, Meeseeks/The Irony (30 guests) and Clever Girl (75 guests) accommodate extended family reunions to honor your years together. Coast Guard certified captains, premium amenities, and the stunning beauty of Lake Travis create the perfect backdrop for your special celebration.',
+    sections: [
+      {
+        heading: 'Why Lake Travis for Your Anniversary Celebration',
+        paragraphs: [
+          'Lake Travis offers a romantic escape from everyday life, making it the ideal location to celebrate your anniversary. The stunning Texas Hill Country scenery, crystal-clear waters, and peaceful coves create an atmosphere of intimacy and beauty that enhances any romantic celebration. As the sun reflects off the lake and cliffs frame your views, you\'ll understand why couples choose Lake Travis for their most meaningful celebrations.',
+          'Unlike crowded restaurants or typical anniversary outings, a private boat cruise gives you exclusive time with your partner or chosen guests. You control the music, the route, and the pace of your celebration. Whether you prefer a quiet, romantic sunset cruise for two or a lively gathering with family and friends who\'ve witnessed your journey together, Premier Party Cruises creates the experience you envision.',
+          'Our 14+ years on Lake Travis mean we\'ve hosted countless anniversary celebrations, from first anniversaries to golden 50th celebrations and everything in between. We understand the significance of these milestones and take pride in helping couples create memorable experiences that honor their commitment to each other. Your anniversary deserves more than ordinary - it deserves Lake Travis.'
+        ]
+      },
+      {
+        heading: 'Intimate Anniversary Cruises for Couples',
+        paragraphs: [
+          'For couples seeking a private, romantic experience, the Day Tripper offers the perfect intimate setting. While the boat accommodates up to 14 guests, many couples book it just for themselves, creating an exclusive Lake Travis experience with their own captain. Imagine cruising past scenic cliffs, anchoring in a quiet cove, and toasting your years together while surrounded by natural beauty.',
+          'The premium Bluetooth sound system lets you play your wedding song and the soundtrack of your relationship. Pack a romantic picnic or coordinate catering delivery to the marina - champagne, cheese boards, and elegant meals all transport easily. Large coolers with ice keep everything chilled while you focus on each other and the stunning scenery.',
+          'Sunset cruises are particularly popular for anniversary celebrations. Departing in the late afternoon, you\'ll watch the Texas sky transform through golden hour as the sun sets over the Hill Country. The changing light creates magical photo opportunities and an ambiance that enhances romantic moments. Our captains know the best viewing spots to position your boat for optimal sunset experiences.'
+        ]
+      },
+      {
+        heading: 'Anniversary Celebrations with Family and Friends',
+        paragraphs: [
+          'Major anniversary milestones often call for celebrations with loved ones who\'ve supported your journey. Our fleet accommodates anniversary parties of any size - from intimate gatherings to large family reunions. Silver (25th), Ruby (40th), and Golden (50th) anniversaries especially warrant celebrations with extended family and longtime friends.',
+          'Meeseeks and The Irony each accommodate up to 30 guests, perfect for family gatherings celebrating your milestone. Adult children, grandchildren, siblings, and close friends can join you on Lake Travis for an afternoon of celebration, swimming, and quality time together. These mid-sized vessels provide enough space for everyone while maintaining the intimate atmosphere anniversary celebrations deserve.',
+          'For the largest anniversary celebrations, Clever Girl accommodates up to 75 guests. This flagship vessel features 14 disco balls and a giant Texas flag, making your celebration visible across the lake. Large family reunions, combined anniversary and vow renewal celebrations, and parties where everyone who matters can attend all find their perfect venue on Clever Girl. You\'ve built a lifetime of relationships - celebrate with everyone who matters.'
+        ]
+      },
+      {
+        heading: 'Anniversary Cruise Amenities and Options',
+        paragraphs: [
+          'Every anniversary cruise includes Coast Guard certified captains, premium Bluetooth sound systems, large coolers with ice, clean restroom facilities, and professional crew members who understand the significance of your celebration. BYOB-friendly policies (21+ with ID, cans and plastic containers only) let you bring your favorite champagne, wines, and beverages.',
+          'Many anniversary couples add special touches to enhance their celebration. Coordinate catering delivery for elegant dining on the water - from romantic dinners for two to buffet spreads for larger gatherings. Some couples arrange for flowers, balloons, or custom decorations. Our team helps coordinate these details during booking to ensure your vision becomes reality.',
+          'Photography and videography coordinate easily with anniversary cruises. The natural beauty of Lake Travis provides stunning backdrops for anniversary portraits that capture this milestone. Some couples hire professional photographers who join the cruise, while others capture moments with smartphones against the spectacular scenery. Either approach results in treasured memories of your celebration.'
+        ],
+        lists: [
+          {
+            title: 'Popular Anniversary Cruise Add-Ons',
+            items: [
+              'Champagne and wine pre-ordered and chilled',
+              'Catered romantic dinner or appetizer spreads',
+              'Custom decorations celebrating your milestone',
+              'Fresh flower arrangements',
+              'Professional photography packages',
+              'Sunset cruise timing for romantic ambiance',
+              'Vow renewal ceremony coordination'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Planning Your Anniversary Cruise',
+        paragraphs: [
+          'Anniversary cruises depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 30 minutes from downtown Austin. All boats require a 4-hour minimum rental. Rates vary by vessel and day: Day Tripper ($200-$350/hour), Meeseeks/The Irony ($225-$425/hour), and Clever Girl ($250-$500/hour).',
+          'Weekend dates during peak season book 6-8 weeks in advance, so we recommend planning early for anniversary celebrations. Contact Premier Party Cruises at 512-488-5892 to discuss your vision, check availability, and receive a customized quote. Our team has helped thousands of couples celebrate their love on Lake Travis and knows how to make your anniversary extraordinary.',
+          'With 14+ years of experience, 150,000+ satisfied customers, and a perfect safety record, Premier Party Cruises delivers the quality your anniversary deserves. Your love story is unique - let us help you celebrate it on the beautiful waters of Lake Travis. Explore other celebration options including [[proposal-cruise]] for those planning the next chapter or [[celebration-cruises]] for any special occasion.'
+        ]
+      }
+    ],
+    relatedPages: ['private-cruises', 'proposal-cruise', 'celebration-cruises', 'wedding-party', 'rehearsal-dinner', 'welcome-party', 'after-party', 'faq', 'contact', 'testimonials']
+  },
+
+  '/proposal-cruise': {
+    h1: 'Marriage Proposal Cruises Lake Travis | Romantic Austin Boat Rental',
+    introduction: 'Planning to pop the question? A marriage proposal cruise on Lake Travis creates an unforgettable moment your partner will cherish forever. Premier Party Cruises offers intimate [[private-cruises]] on our Day Tripper (14 guests) that provide the perfect setting for this life-changing question. With stunning Texas Hill Country scenery, crystal-clear waters, romantic sunset opportunities, and complete privacy, Lake Travis has witnessed countless "yes" moments. Our Coast Guard certified captains and experienced crew discreetly support your proposal plans while you focus on the most important question of your life.',
+    sections: [
+      {
+        heading: 'Why Lake Travis Is Perfect for Your Proposal',
+        paragraphs: [
+          'Lake Travis provides a naturally romantic setting that elevates proposal moments beyond the ordinary. The stunning Texas Hill Country cliffs, crystal-clear waters, and peaceful coves create an atmosphere of beauty and intimacy that no restaurant or city location can match. As you cruise together, surrounded by natural splendor, the moment feels both spontaneous and deeply intentional.',
+          'Privacy is essential for such an intimate moment, and a private boat charter delivers exactly that. Unlike public spaces where strangers might interrupt or observe, your Lake Travis cruise provides exclusive time together. You choose when and where to pop the question - at anchor in a quiet cove, cruising past scenic cliffs, or timed perfectly with a stunning sunset over the Hill Country.',
+          'The element of surprise works beautifully on a proposal cruise. Many partners don\'t suspect that a "romantic boat trip" leads to the biggest question of their lives. The unique setting creates natural wonder and appreciation that enhances emotional openness. When you drop to one knee against the backdrop of Lake Travis, the moment is pure magic.'
+        ]
+      },
+      {
+        heading: 'Planning Your Perfect Proposal Cruise',
+        paragraphs: [
+          'Our Day Tripper vessel provides the ideal intimate setting for proposal cruises, accommodating up to 14 guests though many proposers book it just for two. The smaller vessel creates closeness while still offering all premium amenities - professional captain, Bluetooth sound system for your meaningful songs, coolers with ice for champagne, and clean restroom facilities.',
+          'Sunset proposal cruises are incredibly popular for their romantic ambiance. Departing in the late afternoon, you\'ll cruise as golden light transforms the lake and hills. Our captains know the perfect spots to position the boat for optimal sunset views - imagine proposing as warm colors paint the sky behind you. The natural beauty creates an unforgettable backdrop for this life-changing moment.',
+          'Coordinate special touches to enhance your proposal. Pre-order champagne and keep it chilled in our coolers for immediate celebration. Arrange for a beautiful charcuterie board or romantic meal delivered to the marina. Some proposers hide photographers on nearby boats or arrange drone photography to capture the moment. Our team discreetly supports your plans without alerting your unsuspecting partner.'
+        ],
+        lists: [
+          {
+            title: 'Proposal Cruise Planning Tips',
+            items: [
+              'Book the Day Tripper for intimate privacy',
+              'Choose a sunset time slot for romantic lighting',
+              'Pre-order champagne for immediate celebration',
+              'Coordinate catering for a romantic dinner after',
+              'Consider hidden photography arrangements',
+              'Share your proposal plan with the captain (discreetly)',
+              'Create a meaningful playlist for the cruise',
+              'Have backup timing in case of weather'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'What Your Proposal Cruise Includes',
+        paragraphs: [
+          'Every proposal cruise includes a Coast Guard certified captain who understands the significance of your journey. Our captains are experienced in supporting proposals - they\'ll help time anchor stops for your perfect moment, maintain appropriate distance to give you privacy, and celebrate with you after the big "yes." They\'ve witnessed many proposals on Lake Travis and know how to support your special moment.',
+          'The premium Bluetooth sound system lets you play meaningful songs throughout your cruise. From the song that was playing when you first met to your partner\'s favorite romantic ballads, music enhances the emotional atmosphere. Many proposers create special playlists that build to the proposal moment with songs that tell your love story.',
+          'Large coolers with ice keep champagne perfectly chilled for post-proposal celebrations. BYOB-friendly policies (21+ with ID, cans and plastic containers only) mean you can bring exactly what you want to toast your engagement. Many couples extend their celebration with a romantic meal on the water after the proposal, savoring the joy of their new engagement surrounded by Lake Travis beauty.'
+        ]
+      },
+      {
+        heading: 'Proposal Cruise Logistics and Booking',
+        paragraphs: [
+          'Proposal cruises depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 30 minutes from downtown Austin. The 4-hour minimum rental provides plenty of time for a leisurely cruise, the proposal moment, and celebration afterward. Day Tripper rates range from $200-$350 per hour depending on the day.',
+          'When booking, let our team know you\'re planning a proposal - we\'ll note this in your reservation and ensure your captain is prepared to support your special moment. All information is kept confidential, of course. We can also coordinate timing suggestions based on sunset schedules and help you think through logistics.',
+          'After the proposal, many newly-engaged couples return to Austin for dinner or celebrations with family and friends who may have been in on the secret. Some keep the engagement private initially, savoring the moment together. However you choose to continue celebrating, your Lake Travis proposal will be a story you tell for the rest of your lives together.'
+        ]
+      },
+      {
+        heading: 'Book Your Proposal Cruise Today',
+        paragraphs: [
+          'Ready to plan the perfect proposal? Contact Premier Party Cruises at 512-488-5892 to discuss your vision and check availability. Weekend dates and popular sunset slots book 6-8 weeks in advance, so planning early ensures you get your ideal timing. Our team has supported countless proposals and knows how to make your moment extraordinary.',
+          'With 14+ years of experience, 150,000+ satisfied customers, and a perfect safety record, Premier Party Cruises delivers the quality this important moment deserves. Your love story deserves an unforgettable proposal - let Lake Travis be the backdrop for your perfect "yes." After the proposal, explore [[anniversary-cruise]] options for future milestone celebrations, or check out [[celebration-cruises]] for your engagement party!'
+        ]
+      }
+    ],
+    relatedPages: ['private-cruises', 'anniversary-cruise', 'celebration-cruises', 'wedding-party', 'rehearsal-dinner', 'welcome-party', 'after-party', 'faq', 'contact', 'testimonials']
+  },
+
+  '/celebration-cruises': {
+    h1: 'Celebration Cruises Lake Travis | Austin Party Boat Rentals',
+    introduction: 'Every milestone deserves an unforgettable celebration on Lake Travis! Premier Party Cruises offers [[private-cruises]] and the [[atx-disco]] experience for every special occasion imaginable. From [[birthday-party]] celebrations and [[anniversary-cruise]] milestones to [[proposal-cruise]] moments and [[graduation-party]] achievements, our fleet of premium party boats provides the perfect setting. Choose from Day Tripper (14 guests), Meeseeks/The Irony (30 guests), or flagship Clever Girl (75 guests with 14 disco balls). Coast Guard certified captains, premium amenities, and stunning Lake Travis scenery ensure your celebration is legendary.',
+    sections: [
+      {
+        heading: 'Every Occasion Deserves Lake Travis',
+        paragraphs: [
+          'Life is full of moments worth celebrating, and Lake Travis provides the perfect backdrop for all of them. Unlike ordinary venues that feel predictable, a private boat cruise transforms any celebration into an extraordinary experience. The stunning Texas Hill Country scenery, crystal-clear waters, and freedom of being on the water create an atmosphere that elevates every occasion.',
+          'Premier Party Cruises has hosted celebrations of every imaginable type over our 14+ years on Lake Travis. Birthdays from 21 to 80+, wedding-related events from engagement parties to anniversary milestones, career achievements from promotions to retirements, family reunions, friend gatherings, and countless other occasions have all found their perfect venue on our boats. With 150,000+ satisfied customers, we\'ve learned what makes each celebration type special.',
+          'The beauty of Lake Travis celebration cruises is their versatility. Morning cruises for brunch celebrations, afternoon parties with swimming and floats, sunset gatherings for romantic occasions, or high-energy dance parties that extend into evening - your celebration matches your vision. Our fleet accommodates groups from intimate gatherings to large parties, with amenities customized to your needs.'
+        ]
+      },
+      {
+        heading: 'Types of Celebrations We Host',
+        paragraphs: [
+          'Birthday celebrations represent one of our most popular occasions. From milestone ages like 21, 30, 40, and 50 to any year worth celebrating, [[birthday-party]] cruises create unforgettable memories. The guest of honor enjoys VIP treatment while friends swim, dance, and celebrate on the water. Check out [[birthday-boat-rental]] and [[milestone-birthday]] for specialized birthday options.',
+          'Relationship milestones find beautiful expression on Lake Travis. [[proposal-cruise]] packages help couples create the perfect engagement moment. [[anniversary-cruise]] celebrations honor years together with romantic sunset cruises or family gatherings. Engagement parties, vow renewals, and relationship anniversaries all deserve the Lake Travis treatment.',
+          'Academic and career achievements call for celebration cruises too. [[graduation-party]] events honor educational accomplishments with style. Promotion celebrations, retirement parties, and career milestone gatherings give honorees unique recognition. The setting communicates that this achievement matters and deserves extraordinary celebration.'
+        ],
+        lists: [
+          {
+            title: 'Popular Celebration Types',
+            items: [
+              'Birthday parties for all ages',
+              'Milestone birthdays (21, 30, 40, 50, 60+)',
+              'Engagement and proposal celebrations',
+              'Anniversary milestones (silver, ruby, golden)',
+              'Graduation parties (high school, college, graduate)',
+              'Promotion and career achievement parties',
+              'Retirement celebrations',
+              'Family reunions and gatherings',
+              'Friend group celebrations',
+              'Just-because celebrations - no occasion needed!'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Choosing the Right Boat for Your Celebration',
+        paragraphs: [
+          'Our fleet offers options for every celebration size and style. Day Tripper accommodates up to 14 guests, perfect for intimate gatherings where connection and conversation matter most. Rates range from $200-$350 per hour, making it accessible for smaller celebrations that still deserve the Lake Travis experience.',
+          'Meeseeks and The Irony each accommodate up to 30 guests, ideal for medium-sized celebrations. These identical vessels provide more space for activities while maintaining an intimate party atmosphere. At $225-$425 per hour, they offer excellent value for friend groups and family gatherings celebrating milestones together.',
+          'Clever Girl accommodates up to 75 guests for the most significant celebrations. This flagship vessel features 14 disco balls and a giant Texas flag, making your celebration visible across the lake. Rates of $250-$500 per hour reflect the premium experience. When your celebration demands making a statement, Clever Girl delivers.'
+        ]
+      },
+      {
+        heading: 'ATX Disco Cruise - The Ultimate Party Experience',
+        paragraphs: [
+          'For celebrations that thrive on party energy, the [[atx-disco]] offers a unique alternative to private charters. Join other groups celebrating on Lake Travis with professional DJ entertainment, photographer capturing your moments, disco dance floor, giant floats, and an incredible party atmosphere. Perfect for [[bachelor-party]], [[bachelorette-party]], and any celebration that loves high energy.',
+          'ATX Disco Cruise time slots include Friday 12-4pm ($95/person), Saturday 11am-3pm ($105/person - most popular!), and Saturday 3:30-7:30pm ($85/person). All prices include tax and gratuity. BYOB-friendly policies, professional photos delivered after the event, and the energy of celebrating with other groups create an unforgettable experience.',
+          'Many celebration groups choose the Disco Cruise when they want professional entertainment without the cost of a private charter. Birthday groups, friend gatherings, and any celebration that loves dancing and socializing find perfect homes on our signature cruise. The shared experience often leads to making new friends while celebrating your special occasion.'
+        ]
+      },
+      {
+        heading: 'Celebration Cruise Amenities',
+        paragraphs: [
+          'Every celebration cruise includes premium amenities that elevate your experience. Coast Guard certified captains navigate Lake Travis while professional crew members ensure your party runs smoothly. Premium Bluetooth sound systems let you play your celebration soundtrack. Large coolers with ice keep your BYOB beverages cold (21+ with ID, cans and plastic containers only).',
+          'Clean restroom facilities, shaded lounge areas, and all required safety equipment come standard on every vessel. Optional add-ons include lily pad floats for swimming, catering coordination, decorations, and photography services. Our team helps customize your celebration during the booking process to ensure every detail matches your vision.',
+          'Celebration cruises depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 30 minutes from downtown Austin. All private charters require a 4-hour minimum. Arrive 30 minutes before departure to meet your captain, load your supplies, and begin your Lake Travis celebration adventure.'
+        ],
+        lists: [
+          {
+            title: 'Standard Celebration Amenities',
+            items: [
+              'Coast Guard certified captain and professional crew',
+              'Premium Bluetooth sound system',
+              'Large coolers with ice',
+              'Clean restroom facilities',
+              'Shaded areas for comfort',
+              'All required safety equipment',
+              'BYOB-friendly (21+ with ID)',
+              'Flexible route planning',
+              'Swimming stops when conditions permit'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Book Your Celebration Cruise Today',
+        paragraphs: [
+          'Ready to plan your Lake Travis celebration? Contact Premier Party Cruises at 512-488-5892 to discuss your occasion, check availability, and receive a customized quote. Weekend dates during peak season (April-October) book 6-8 weeks in advance, so planning early ensures you get your preferred timing.',
+          'With 14+ years of experience, 150,000+ satisfied customers, and a perfect safety record, Premier Party Cruises delivers consistent quality for celebrations of every type. Your milestone deserves more than ordinary - it deserves Lake Travis. Whether you\'re planning a [[birthday-boat-rental]], [[anniversary-cruise]], [[proposal-cruise]], or any other celebration, we\'re ready to make it legendary. Explore our [[bachelor-party]], [[bachelorette-party]], [[corporate-events]], and [[wedding-party]] pages for specific celebration types, or [[contact]] us directly to start planning your unforgettable Lake Travis experience.'
+        ]
+      }
+    ],
+    relatedPages: ['private-cruises', 'birthday-boat-rental', 'anniversary-cruise', 'proposal-cruise', 'birthday-party', 'milestone-birthday', 'graduation-party', 'atx-disco', 'bachelor-party', 'bachelorette-party', 'wedding-party', 'corporate-events', 'faq', 'contact', 'testimonials']
+  },
+
+  '/party-boat-rental-austin': {
+    h1: 'Party Boat Rental Austin | Lake Travis Private Charters',
+    introduction: 'Looking for the best party boat rental in Austin? Premier Party Cruises offers premium [[private-cruises]] on Lake Travis with three vessels to match any group size. Choose from Day Tripper (up to 14 guests), Meeseeks or The Irony (up to 30 guests), or our flagship Clever Girl (up to 75 guests featuring 14 disco balls and a giant Texas flag). Every Austin party boat rental includes a Coast Guard certified captain, professional crew, premium Bluetooth sound system, large coolers with ice, and all the amenities for an unforgettable celebration. We depart from Anderson Mill Marina, just 30 minutes from downtown Austin, making us the most convenient party boat rental option in the Austin area.',
+    sections: [
+      {
+        heading: 'Austin Party Boat Rental Fleet Options',
+        paragraphs: [
+          'Premier Party Cruises operates Austin\'s newest and most diverse party boat fleet on Lake Travis. Whether you\'re planning an intimate celebration or a large group gathering, we have the perfect vessel for your Austin party boat rental needs. Each boat is professionally maintained, fully equipped with premium amenities, and staffed by experienced crew members who specialize in creating unforgettable on-water experiences.',
+          'Our Day Tripper accommodates groups of 1-14 guests, perfect for smaller celebrations, family outings, or intimate gatherings with close friends. This versatile vessel offers a comfortable and private experience with premium sound, ample seating, coolers with ice, and all the amenities of our larger boats in a more intimate setting. Ideal for [[birthday-party]] celebrations, small [[corporate-events]], or groups wanting an exclusive Lake Travis adventure.',
+          'For mid-sized groups of 15-30 guests, we offer two identical boats: Meeseeks and The Irony. These popular party boats provide the perfect balance of space, amenities, and value. Both feature premium Bluetooth sound systems, spacious deck areas, comfortable seating, and everything needed for swimming and floating at Lake Travis\'s best coves. These boats are favorites for [[bachelor-party]], [[bachelorette-party]], and [[team-building]] events.',
+          'Our flagship Clever Girl is Austin\'s premier large-capacity party boat, accommodating 31-75 guests in spectacular style. Featuring 14 disco balls, a giant Texas flag, massive deck space, and premium party amenities, Clever Girl turns any celebration into a legendary event. Perfect for [[wedding-party]] celebrations, large [[corporate-events]], and groups that want the ultimate Lake Travis experience.'
+        ],
+        lists: [
+          {
+            title: 'Day Tripper (1-14 Guests)',
+            items: [
+              'Perfect for intimate celebrations and small groups',
+              'Full premium amenities in a cozy setting',
+              'USCG certified captain included',
+              'Premium Bluetooth sound system',
+              'Large coolers with ice provided',
+              'Starting at $200/hour (4-hour minimum)'
+            ]
+          },
+          {
+            title: 'Meeseeks / The Irony (15-30 Guests)',
+            items: [
+              'Two identical boats for larger groups',
+              'Spacious deck for dancing and socializing',
+              'Premium Bluetooth sound system',
+              'Multiple coolers with ice',
+              'Perfect for bachelor and bachelorette parties',
+              'Starting at $225/hour (4-hour minimum)'
+            ]
+          },
+          {
+            title: 'Clever Girl (31-75 Guests)',
+            items: [
+              'Austin\'s largest party boat',
+              '14 disco balls and giant Texas flag',
+              'Massive deck space for large celebrations',
+              'Premium sound system with multiple speakers',
+              'Perfect for weddings and corporate events',
+              'Starting at $250/hour (4-hour minimum)'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'What\'s Included with Every Austin Party Boat Rental',
+        paragraphs: [
+          'Every party boat rental from Premier Party Cruises comes fully equipped with everything you need for an incredible Lake Travis experience. We believe in transparent, all-inclusive pricing so there are no surprises on your special day. Our professional approach to party boat rentals has earned us 14+ years of trust from over 150,000 satisfied customers.',
+          'Your rental includes a US Coast Guard certified captain who handles all navigation while you focus on enjoying your celebration. Our captains know Lake Travis inside and out, from the best swimming coves to stunning cliff views and perfect sunset spots. They\'ll ensure your safety while delivering the Lake Travis experience your group deserves.',
+          'Premium Bluetooth sound systems let you play your own music throughout the cruise. Large coolers with ice keep your beverages cold (BYOB friendly for guests 21+ with valid ID - cans and plastic containers only, no glass). Clean restroom facilities, shaded areas for sun relief, and all required safety equipment are standard on every vessel.'
+        ],
+        lists: [
+          {
+            title: 'Standard Amenities on Every Rental',
+            items: [
+              'US Coast Guard certified captain',
+              'Professional crew members',
+              'Premium Bluetooth sound system',
+              'Large coolers with ice',
+              'Clean restroom facilities',
+              'Shaded lounge areas',
+              'All required safety equipment',
+              'Life jackets for all guests',
+              'BYOB-friendly (21+ with ID)'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Popular Occasions for Austin Party Boat Rentals',
+        paragraphs: [
+          'Austin party boat rentals are perfect for virtually any celebration or gathering. Our most popular occasions include [[bachelor-party]] and [[bachelorette-party]] celebrations, where groups enjoy the freedom of having their own private boat with swimming, music, and floating on Lake Travis. The Texas Hill Country scenery provides an incredible backdrop for photos and memories.',
+          'Corporate groups love our party boats for [[team-building]] events, [[client-entertainment]], and [[company-milestone]] celebrations. There\'s something about being on the water that breaks down barriers and creates genuine connections between colleagues. We\'ve hosted Fortune 500 companies, local startups, and everything in between.',
+          'Birthday celebrations from [[milestone-birthday]] events to [[sweet-16]] parties find their perfect venue on Lake Travis. [[Wedding-party]] events including [[rehearsal-dinner]] gatherings, [[welcome-party]] celebrations, and [[after-party]] cruises create unforgettable memories. [[Graduation-party]] celebrations, family reunions, and friend gatherings all benefit from the unique experience of a private party boat rental.'
+        ]
+      },
+      {
+        heading: 'Lake Travis Party Boat Experience',
+        paragraphs: [
+          'Lake Travis is Central Texas\'s premier destination for party boat rentals, offering calm, clear waters surrounded by stunning Texas Hill Country scenery. Your Austin party boat rental departs from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 30 minutes from downtown Austin. This convenient location makes us accessible for all your guests while providing immediate access to Lake Travis\'s best cruising areas.',
+          'During your cruise, expect beautiful cliff views, hidden coves perfect for swimming, and crystal-clear water that makes Lake Travis famous. Popular anchor spots like Devil\'s Cove offer opportunities for swimming, floating on lily pad floats, and enjoying the Texas sun. Water temperatures are ideal from April through October, though party boat rentals are available year-round.',
+          'The captain controls the route based on your preferences and current conditions, ensuring optimal experiences for swimming, sightseeing, or simply cruising. Whether you want to anchor and float, cruise past lakeside mansions, or catch the perfect sunset, your Austin party boat rental delivers the Lake Travis experience your group desires.'
+        ]
+      },
+      {
+        heading: 'Austin Party Boat Rental Pricing',
+        paragraphs: [
+          'Premier Party Cruises offers competitive pricing for Austin party boat rentals with transparent, all-inclusive rates. Day Tripper starts at $200/hour, Meeseeks/The Irony start at $225/hour, and Clever Girl starts at $250/hour. All rentals require a 4-hour minimum, which provides ample time for cruising, swimming, and celebrating.',
+          'Pricing may vary based on date, time, and season, with peak weekends during spring and summer booking 6-8 weeks in advance. We recommend early planning to secure your preferred date and vessel. Contact us at 512-488-5892 for current availability and customized quotes for your Austin party boat rental.'
+        ]
+      },
+      {
+        heading: 'Why Choose Premier Party Cruises',
+        paragraphs: [
+          'With 14+ years of experience and 150,000+ satisfied customers, Premier Party Cruises is Austin\'s most trusted party boat rental company. Our perfect safety record, Coast Guard certified captains, and newest fleet on Lake Travis ensure exceptional quality every time. We\'ve built our reputation on delivering unforgettable experiences while treating every group like VIPs.',
+          'Unlike other party boat rental options, we specialize exclusively in Lake Travis celebrations. This focused expertise means our captains know every cove, our crew understands party dynamics, and our boats are optimized for the ultimate celebration experience. From booking to departure to the final moment of your cruise, professional service is our standard.'
+        ],
+        lists: [
+          {
+            title: 'Premier Party Cruises Advantages',
+            items: [
+              '14+ years of Lake Travis experience',
+              '150,000+ satisfied customers',
+              'Perfect safety record',
+              'Coast Guard certified captains',
+              'Newest fleet in Austin',
+              'Professional crew on every cruise',
+              'Transparent, all-inclusive pricing',
+              'Convenient marina location'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Book Your Austin Party Boat Rental Today',
+        paragraphs: [
+          'Ready to book the best party boat rental in Austin? Contact Premier Party Cruises at 512-488-5892 to discuss your celebration, check availability, and secure your preferred vessel. Our team helps you choose the right boat, plan your itinerary, and ensure every detail is perfect for your Lake Travis adventure.',
+          'Whether you\'re planning a [[bachelor-party]], [[bachelorette-party]], [[corporate-events]], [[wedding-party]], or any other celebration, we have the perfect Austin party boat rental for your group. Don\'t miss out on the ultimate Lake Travis experience - book today and create memories that last a lifetime. Visit our [[faq]] page for common questions or check out our [[testimonials]] to see why Austin chooses Premier Party Cruises!'
+        ]
+      }
+    ],
+    relatedPages: ['private-cruises', 'atx-disco', 'bachelor-party', 'bachelorette-party', 'wedding-party', 'corporate-events', 'birthday-party', 'team-building', 'party-boat-lake-travis', 'faq', 'contact', 'testimonials']
+  },
+
+  '/lake-travis-yacht-rental': {
+    h1: 'Lake Travis Yacht Rental | Premium Party Boat Charters Austin',
+    introduction: 'Experience luxury on the water with a Lake Travis yacht rental from Premier Party Cruises. Our premium fleet offers upscale party boat experiences for discerning groups who want the finest Lake Travis has to offer. Choose from three exceptional vessels: Day Tripper for intimate gatherings of up to 14 guests, Meeseeks or The Irony for groups of up to 30, or our spectacular flagship Clever Girl accommodating up to 75 guests with 14 disco balls and a giant Texas flag. Every Lake Travis yacht rental includes a Coast Guard certified captain, professional crew, and premium amenities. Departing from Anderson Mill Marina just 30 minutes from downtown Austin, your luxury Lake Travis experience awaits.',
+    sections: [
+      {
+        heading: 'Premium Lake Travis Yacht Experience',
+        paragraphs: [
+          'Premier Party Cruises delivers the ultimate Lake Travis yacht rental experience with vessels designed for celebration and luxury. While Lake Travis may not have traditional ocean yachts, our premium party boats offer the same elevated experience discerning guests expect: professional crew, pristine vessels, premium sound systems, and first-class service from departure to return.',
+          'Our flagship Clever Girl represents the pinnacle of Lake Travis yacht rentals. At 75-guest capacity, this spectacular vessel features 14 disco balls, a giant Texas flag, expansive deck space, multiple lounge areas, and premium amenities throughout. Clever Girl transforms any celebration into a legendary event, from [[wedding-party]] receptions to exclusive [[corporate-events]] and milestone celebrations.',
+          'Lake Travis provides the perfect setting for luxury boating experiences. The clear, calm waters reflect the stunning Texas Hill Country scenery, creating an atmosphere of natural beauty and relaxation. Unlike coastal yacht experiences fighting waves and wind, Lake Travis offers smooth cruising ideal for socializing, dining, and celebrating in comfort.',
+          'Every Lake Travis yacht rental from Premier Party Cruises prioritizes your experience. Coast Guard certified captains handle navigation while you enjoy your celebration. Professional crew members ensure your needs are met throughout the cruise. Premium Bluetooth sound systems let you set the perfect musical atmosphere. This is yacht-level service on Lake Travis\'s most beautiful waters.'
+        ]
+      },
+      {
+        heading: 'Lake Travis Yacht Rental Fleet',
+        paragraphs: [
+          'Our diverse fleet ensures we have the perfect vessel for your Lake Travis yacht rental, regardless of group size or celebration type. Each boat is professionally maintained to the highest standards, fully equipped with premium amenities, and staffed by experienced crew members dedicated to exceptional service.',
+          'Day Tripper offers an intimate Lake Travis yacht experience for groups of 1-14 guests. This versatile vessel combines premium amenities with a cozy, private atmosphere perfect for special occasions, family celebrations, or executive gatherings. The smaller capacity ensures personalized attention and an exclusive feel.',
+          'Meeseeks and The Irony are twin vessels accommodating 15-30 guests each. These mid-sized party boats offer the perfect balance of space and intimacy, with premium sound systems, comfortable seating, and ample deck space for socializing. Popular for [[bachelor-party]], [[bachelorette-party]], and upscale group gatherings.',
+          'Clever Girl, our 75-guest flagship, delivers the ultimate Lake Travis yacht rental experience. The 14 disco balls create an unforgettable party atmosphere, while the giant Texas flag makes a statement visible across the lake. Massive deck space accommodates dancing, mingling, and multiple activity zones. This is the vessel groups choose when they want the absolute best Lake Travis has to offer.'
+        ],
+        lists: [
+          {
+            title: 'Clever Girl Flagship Features',
+            items: [
+              '75-guest capacity for large celebrations',
+              '14 disco balls for spectacular ambiance',
+              'Giant Texas flag visible across the lake',
+              'Multiple deck zones for different activities',
+              'Premium multi-zone sound system',
+              'Luxury seating and lounge areas',
+              'Professional captain and crew included',
+              'Perfect for weddings and corporate events'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'What Makes Our Yacht Rentals Premium',
+        paragraphs: [
+          'Premier Party Cruises differentiates our Lake Travis yacht rentals through uncompromising quality in every aspect of your experience. Beginning with our vessels, each boat is maintained to the highest standards with regular professional cleaning, equipment updates, and safety inspections. We operate the newest fleet on Lake Travis because quality matters to discerning guests.',
+          'Our Coast Guard certified captains bring years of Lake Travis experience to every yacht rental. They know every cove, understand weather patterns, and navigate to the best spots for swimming, sunset views, and scenic cruising. Their expertise ensures safety while maximizing your enjoyment of everything Lake Travis offers.',
+          'Premium amenities come standard on every Lake Travis yacht rental. High-fidelity Bluetooth sound systems deliver crystal-clear music throughout your cruise. Large coolers with ice keep your beverages perfectly chilled. Clean, well-maintained restroom facilities ensure comfort. Shaded areas provide relief from the Texas sun while maintaining your celebration atmosphere.'
+        ],
+        lists: [
+          {
+            title: 'Premium Yacht Rental Amenities',
+            items: [
+              'Coast Guard certified professional captains',
+              'Experienced, service-oriented crew',
+              'High-fidelity Bluetooth sound systems',
+              'Premium coolers with ample ice',
+              'Immaculately maintained vessels',
+              'Clean restroom facilities',
+              'Comfortable shaded lounge areas',
+              'Life jackets and safety equipment',
+              'BYOB-friendly (21+ guests with ID)'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Popular Lake Travis Yacht Rental Occasions',
+        paragraphs: [
+          'Lake Travis yacht rentals are perfect for celebrations where ordinary venues simply won\'t do. [[Wedding-party]] events find exceptional settings on our boats, from [[rehearsal-dinner]] gatherings that bring families together to [[welcome-party]] cruises for out-of-town guests and [[after-party]] celebrations that extend the wedding magic.',
+          'Corporate clients choose our Lake Travis yacht rentals for high-profile [[client-entertainment]] and executive [[team-building]] experiences. The unique setting facilitates genuine connections that conference rooms cannot replicate. [[Company-milestone]] celebrations, product launches, and investor events all benefit from the elevated atmosphere of a yacht rental.',
+          '[[Bachelor-party]] and [[bachelorette-party]] groups seeking an upscale experience find exactly what they\'re looking for with our premium yacht rentals. The combination of privacy, premium amenities, and Lake Travis beauty creates the perfect pre-wedding celebration. [[Milestone-birthday]] celebrations, [[graduation-party]] events, and exclusive friend gatherings all find their ideal venue on our vessels.',
+          'For groups wanting the shared party experience with premium quality, our [[atx-disco]] offers an alternative to private yacht rentals. With professional DJ, photographer, and party atmosphere, Disco Cruise delivers entertainment-focused experiences at accessible price points.'
+        ]
+      },
+      {
+        heading: 'The Lake Travis Experience',
+        paragraphs: [
+          'Lake Travis offers an unparalleled setting for yacht rentals in Central Texas. The 63-mile-long reservoir features crystal-clear water, stunning cliff formations, hidden coves, and the beautiful Texas Hill Country as a constant backdrop. Unlike coastal boating experiences, Lake Travis provides calm, protected waters perfect for celebrations.',
+          'Your Lake Travis yacht rental departs from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 30 minutes from downtown Austin. This convenient location provides easy access for all guests while positioning your cruise in the heart of Lake Travis\'s most scenic areas.',
+          'During your cruise, expect spectacular views of limestone cliffs, Texas Hill Country vegetation, and the blue-green waters that make Lake Travis famous. Popular anchor spots like Devil\'s Cove offer opportunities for swimming in crystal-clear water and floating on lily pad floats. The captain tailors your route to your preferences, whether you desire scenic cruising, swimming stops, or sunset positioning.',
+          'Water temperatures are ideal for swimming from April through October, with the lake\'s beauty providing year-round cruising opportunities. Texas weather typically delivers sunshine and comfortable temperatures throughout most of the year, making Lake Travis yacht rentals a reliable choice for celebrations.'
+        ]
+      },
+      {
+        heading: 'Lake Travis Yacht Rental Pricing',
+        paragraphs: [
+          'Premium Lake Travis yacht rentals from Premier Party Cruises start at $200/hour for Day Tripper, $225/hour for Meeseeks or The Irony, and $250/hour for flagship Clever Girl. All yacht rentals require a 4-hour minimum to ensure ample time for the full Lake Travis experience.',
+          'Pricing reflects our commitment to quality: newest fleet, professional captains, trained crew, and premium amenities throughout. Weekend dates during peak season (April-October) book 6-8 weeks in advance, so early planning ensures access to your preferred vessel and date. Contact us at 512-488-5892 for current availability and customized quotes.',
+          'For groups seeking entertainment-focused experiences, our [[atx-disco]] offers an alternative with Friday 12-4pm ($95/person), Saturday 11am-3pm ($105/person - most popular!), or Saturday 3:30-7:30pm ($85/person) time slots. All Disco Cruise prices include tax and gratuity with professional DJ, photographer, and party amenities included.'
+        ]
+      },
+      {
+        heading: 'Why Choose Premier Party Cruises',
+        paragraphs: [
+          'With 14+ years of experience and 150,000+ satisfied customers, Premier Party Cruises has established the gold standard for Lake Travis yacht rentals. Our perfect safety record demonstrates our commitment to professional operations. Our Coast Guard certified captains and trained crew deliver consistent excellence.',
+          'We specialize exclusively in Lake Travis celebrations, meaning our expertise runs deep. Unlike companies dividing attention across multiple services, every aspect of our operation focuses on creating the best possible yacht rental experience. From booking through departure to return, professional service defines the Premier Party Cruises difference.',
+          'Our reputation is built on delivering what we promise: premium vessels, professional service, and unforgettable Lake Travis experiences. Check our [[testimonials]] to see why discerning Austin groups choose Premier Party Cruises for their yacht rental needs. Ready to book? [[Contact]] us today to start planning your Lake Travis adventure!'
+        ],
+        lists: [
+          {
+            title: 'Why Premier Party Cruises',
+            items: [
+              '14+ years Lake Travis experience',
+              '150,000+ satisfied customers',
+              'Perfect safety record',
+              'Coast Guard certified captains',
+              'Newest fleet on Lake Travis',
+              'Professional crew on every cruise',
+              'Premium amenities standard',
+              'Exclusive focus on Lake Travis'
+            ]
+          }
+        ]
+      }
+    ],
+    relatedPages: ['private-cruises', 'atx-disco', 'wedding-party', 'corporate-events', 'client-entertainment', 'bachelor-party', 'bachelorette-party', 'milestone-birthday', 'party-boat-lake-travis', 'faq', 'contact', 'testimonials']
+  },
+
+  '/austin-boat-party': {
+    h1: 'Austin Boat Party | Lake Travis Party Cruises',
+    introduction: 'Planning an Austin boat party? Premier Party Cruises delivers the ultimate Lake Travis party experience with [[private-cruises]] and the legendary [[atx-disco]]! Choose from three premium party boats: Day Tripper (up to 14 guests), Meeseeks or The Irony (up to 30 guests), or our flagship Clever Girl (up to 75 guests featuring 14 disco balls). Every Austin boat party includes Coast Guard certified captains, premium Bluetooth sound systems, coolers with ice, and stunning Lake Travis scenery. Departing from Anderson Mill Marina just 30 minutes from downtown Austin, your epic boat party awaits!',
+    sections: [
+      {
+        heading: 'The Ultimate Austin Boat Party Experience',
+        paragraphs: [
+          'There\'s nothing quite like an Austin boat party on Lake Travis. The combination of crystal-clear water, stunning Texas Hill Country views, and the freedom of being on the water creates an atmosphere that land-based venues simply cannot match. Premier Party Cruises has perfected the Austin boat party experience over 14+ years, hosting 150,000+ satisfied customers who\'ve celebrated everything from [[bachelor-party]] and [[bachelorette-party]] events to [[corporate-events]], [[wedding-party]] gatherings, and [[birthday-party]] celebrations.',
+          'Our fleet offers the perfect boat for any Austin party. Day Tripper accommodates intimate gatherings of 1-14 guests with premium amenities in a cozy setting. Meeseeks and The Irony each handle 15-30 guests perfectly, offering spacious decks for dancing and socializing. Clever Girl, our spectacular flagship, accommodates up to 75 guests with 14 disco balls, a giant Texas flag, and the ultimate party atmosphere.',
+          'Every Austin boat party with Premier Party Cruises includes a Coast Guard certified captain who handles navigation while you focus entirely on celebrating. Premium Bluetooth sound systems let you play your party playlist. Large coolers with ice keep your beverages cold (BYOB friendly for guests 21+ with valid ID). Professional crew ensures your party runs smoothly from start to finish.',
+          'Lake Travis provides the perfect backdrop for Austin boat parties. The calm, clear waters offer ideal conditions for swimming and floating, while the surrounding cliffs and Hill Country create stunning scenery. Popular anchor spots like Devil\'s Cove become your personal party destination, where groups can swim, float on lily pads, and soak up the Texas sun.'
+        ]
+      },
+      {
+        heading: 'Two Ways to Party on Lake Travis',
+        paragraphs: [
+          'Premier Party Cruises offers two distinct Austin boat party experiences: Private Charters for groups wanting their own boat, and the ATX Disco Cruise for groups wanting professional entertainment in a shared party environment. Both options deliver unforgettable Lake Travis experiences with different atmospheres and price points.',
+          'Private Boat Parties give your group exclusive use of one of our vessels for 4+ hours. You control the music, route, and vibe. Perfect for groups wanting privacy, specific schedules, or larger gatherings. Private charters are ideal for [[bachelor-party]], [[bachelorette-party]], [[wedding-party]], [[corporate-events]], and any celebration where exclusivity matters.',
+          'The [[atx-disco]] brings multiple groups together for Austin\'s most legendary boat party experience. A professional DJ keeps the party going, a professional photographer captures every moment, and the shared energy creates an electric atmosphere. Available Friday 12-4pm ($95/person), Saturday 11am-3pm ($105/person - most popular!), or Saturday 3:30-7:30pm ($85/person), with all prices including tax and gratuity. Giant unicorn floats, lily pads, and party supplies are included.',
+          'Not sure which Austin boat party option fits your group? Under 30 guests looking for budget-friendly fun often love the Disco Cruise. Larger groups, those wanting privacy, or groups with specific timing needs typically prefer private charters. Contact us and we\'ll help you choose the perfect option for your celebration!'
+        ],
+        lists: [
+          {
+            title: 'Private Boat Party Features',
+            items: [
+              'Exclusive use of your chosen vessel',
+              'Day Tripper (14), Meeseeks (30), or Clever Girl (75 guests)',
+              'Coast Guard certified captain included',
+              'Premium Bluetooth sound system',
+              'Large coolers with ice',
+              'Choose your own music and route',
+              'Starting at $200/hour (4-hour minimum)',
+              'BYOB friendly (21+ with ID)'
+            ]
+          },
+          {
+            title: 'ATX Disco Cruise Features',
+            items: [
+              'Professional DJ playing party music',
+              'Professional photographer included',
+              'Digital photo delivery after cruise',
+              'Giant unicorn floats and lily pads',
+              'Party supplies and mixers',
+              'Private cooler with ice for your group',
+              'Electric multi-group party atmosphere',
+              'Three time slots available'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Popular Austin Boat Party Occasions',
+        paragraphs: [
+          '[[Bachelor-party]] and [[bachelorette-party]] celebrations represent our most popular Austin boat party occasions. The combination of water activities, party atmosphere, and Lake Travis beauty creates the perfect pre-wedding celebration. Groups love the freedom to swim, dance, and celebrate while professional crew handles all logistics. Check out [[combined-bach]] options for groups wanting to party together!',
+          '[[Birthday-party]] celebrations of all types find their ideal venue on Lake Travis. From [[sweet-16]] parties and 21st birthdays to [[milestone-birthday]] events celebrating 30, 40, 50, and beyond, Austin boat parties create unforgettable memories. The unique setting, photo opportunities, and sheer fun of celebrating on the water make birthdays legendary.',
+          '[[Corporate-events]] and [[team-building]] activities thrive on Austin boat parties. Something about being on the water breaks down barriers and creates genuine connections between colleagues. [[Client-entertainment]] impresses important clients in a memorable setting. [[Company-milestone]] celebrations reward teams with an experience they\'ll never forget.',
+          '[[Wedding-party]] events including [[rehearsal-dinner]] gatherings, [[welcome-party]] cruises, and [[after-party]] celebrations extend wedding festivities onto Lake Travis. [[Graduation-party]] celebrations mark achievements in spectacular fashion. Friend groups, family reunions, and any occasion worth celebrating find perfect homes on our Austin boat party cruises.'
+        ]
+      },
+      {
+        heading: 'Austin Boat Party Essentials',
+        paragraphs: [
+          'Every Austin boat party includes essential amenities for an incredible experience. Coast Guard certified captains navigate Lake Travis while you focus on celebrating. Premium Bluetooth sound systems let you control the music. Large coolers with ice keep your beverages cold throughout the cruise. Clean restroom facilities ensure comfort. Shaded areas provide relief from the Texas sun.',
+          'All Austin boat parties are BYOB friendly for guests 21+ with valid ID. Bring your own beer, wine, seltzers, and non-alcoholic beverages in cans or plastic containers (no glass for safety). We can also coordinate alcohol delivery directly to the boat for your convenience. Food is welcome - bring snacks, pizza, or we can coordinate catering.',
+          'Optional add-ons enhance your Austin boat party experience. Lily pad floats (6x20 feet) provide platforms for floating in the coves. Photography packages capture professional-quality memories. Catering coordination simplifies food planning. Let us know your vision and we\'ll help make it happen.',
+          'Austin boat parties depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 30 minutes from downtown Austin. Arrive 30 minutes before departure to meet your captain, load your supplies, and prepare for an amazing Lake Travis experience. All private charters require a 4-hour minimum.'
+        ],
+        lists: [
+          {
+            title: 'What to Bring to Your Boat Party',
+            items: [
+              'Beverages in cans or plastic (no glass)',
+              'Sunscreen and sunglasses',
+              'Swimsuit and towel',
+              'Valid ID (21+ for alcohol)',
+              'Camera for additional photos',
+              'Snacks or food for your group',
+              'Good vibes and party energy!'
+            ]
+          },
+          {
+            title: 'What We Provide',
+            items: [
+              'Coast Guard certified captain',
+              'Professional crew',
+              'Premium Bluetooth sound system',
+              'Large coolers with ice',
+              'Clean restroom facilities',
+              'Shaded areas',
+              'Life jackets and safety equipment'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Lake Travis - Austin\'s Premier Party Destination',
+        paragraphs: [
+          'Lake Travis is Central Texas\'s ultimate destination for Austin boat parties. The 63-mile-long reservoir features crystal-clear water that rivals coastal destinations, stunning limestone cliffs, and the beautiful Texas Hill Country as a constant backdrop. Unlike ocean boating, Lake Travis offers calm, protected waters perfect for celebrating.',
+          'The lake offers perfect conditions for swimming from April through October, with water temperatures ideal for cooling off after dancing on deck. Popular anchor spots like Devil\'s Cove become your personal party venue, with crystal-clear water for swimming and cliffsides for photos. The captain knows all the best spots and tailors your route to your preferences.',
+          'Lake Travis scenery creates an incredible atmosphere for Austin boat parties. Texas Hill Country vegetation covers the shoreline. Lakeside homes and mansions dot the cliffs. Sunset cruises deliver spectacular views as the sun dips below the western hills. Whether you\'re swimming, dancing, or simply cruising, Lake Travis delivers beauty from every angle.'
+        ]
+      },
+      {
+        heading: 'Austin Boat Party Pricing',
+        paragraphs: [
+          'Private Austin boat party charters start at $200/hour for Day Tripper (1-14 guests), $225/hour for Meeseeks or The Irony (15-30 guests), and $250/hour for Clever Girl (31-75 guests). All private charters require a 4-hour minimum, ensuring ample time for cruising, swimming, and celebrating.',
+          'ATX Disco Cruise offers Austin\'s most affordable boat party experience with professional entertainment included. Friday 12-4pm costs $95/person, Saturday 11am-3pm (most popular!) costs $105/person, and Saturday 3:30-7:30pm costs $85/person. All Disco Cruise prices include tax and gratuity with DJ, photographer, floats, and party supplies included.',
+          'Weekend dates during peak season (April-October) book 6-8 weeks in advance, especially for Clever Girl and Saturday Disco Cruise time slots. Early booking ensures access to your preferred option. Contact us at 512-488-5892 for current availability and to start planning your Austin boat party!'
+        ]
+      },
+      {
+        heading: 'Why Austin Chooses Premier Party Cruises',
+        paragraphs: [
+          'Premier Party Cruises has hosted Austin boat parties for 14+ years, earning the trust of 150,000+ satisfied customers. Our perfect safety record, Coast Guard certified captains, and newest fleet on Lake Travis deliver consistent quality every time. We specialize exclusively in Lake Travis celebrations, meaning every aspect of our operation focuses on creating the best possible party experience.',
+          'Our reputation is built on actually delivering what we promise. Check our [[testimonials]] and you\'ll see why Austin groups choose Premier Party Cruises again and again. From first contact through the final moment of your cruise, professional service defines our approach. Your Austin boat party deserves the best - that\'s Premier Party Cruises.',
+          'Ready to book your Austin boat party? Contact us at 512-488-5892 or visit our [[contact]] page to get started. Whether you\'re planning a [[bachelor-party]], [[bachelorette-party]], [[birthday-party]], [[corporate-events]], or any celebration worth having, Premier Party Cruises delivers the ultimate Lake Travis experience. Don\'t settle for ordinary - make your next party legendary on the water!'
+        ],
+        lists: [
+          {
+            title: 'Why Premier Party Cruises',
+            items: [
+              '14+ years of Lake Travis experience',
+              '150,000+ happy customers',
+              'Perfect safety record',
+              'Coast Guard certified captains',
+              'Newest fleet in Austin',
+              'Professional crew on every cruise',
+              'Exclusive Lake Travis focus',
+              'Hundreds of 5-star reviews'
+            ]
+          }
+        ]
+      }
+    ],
+    relatedPages: ['private-cruises', 'atx-disco', 'bachelor-party', 'bachelorette-party', 'combined-bach', 'birthday-party', 'corporate-events', 'wedding-party', 'team-building', 'party-boat-austin', 'faq', 'contact', 'testimonials']
+  },
+
+  '/graduation-cruise': {
+    h1: 'Graduation Cruise Austin | Lake Travis Celebration Boat Rentals',
+    introduction: 'Celebrate your graduate\'s incredible achievement with an unforgettable [[graduation-cruise]] on Lake Travis! Premier Party Cruises offers the perfect venue for high school graduations, college commencements, and advanced degree celebrations. Our fleet accommodates intimate family gatherings on Day Tripper (14 guests), medium-sized celebrations on Meeseeks or The Irony (up to 30 guests), or large graduation parties on our flagship Clever Girl (up to 75 guests). Create memories that match the magnitude of this milestone with professional captains, premium amenities, and the stunning Texas Hill Country backdrop.',
+    sections: [
+      {
+        heading: 'Why Lake Travis Is Perfect for Graduation Celebrations',
+        paragraphs: [
+          'Graduation marks one of life\'s most significant achievements, and such milestones deserve celebrations that rise to the occasion. Lake Travis provides an extraordinary setting that transforms graduation parties from ordinary gatherings into legendary celebrations. The combination of crystal-clear waters, Texas Hill Country scenery, and exclusive on-water experience creates an atmosphere unlike any land-based venue.',
+          'Your graduate has worked incredibly hard to reach this moment. Whether they\'re finishing high school, earning a college degree, completing graduate school, or achieving any educational milestone, a [[graduation-cruise]] honors their dedication with an experience as special as their achievement. Friends and family gather in a stunning natural setting, celebrating together while cruising past scenic cliffs and hidden coves.',
+          'Lake Travis offers perfect weather for graduation celebrations from April through October, coinciding beautifully with graduation season. Water temperatures are ideal for swimming, allowing guests to cool off between toasts and congratulations. The lake\'s calm waters ensure comfortable cruising for guests of all ages, from grandparents to younger siblings, making it truly a family-friendly celebration venue.'
+        ]
+      },
+      {
+        heading: 'Graduation Party Boat Options',
+        paragraphs: [
+          'Premier Party Cruises operates Austin\'s newest fleet of premium party boats, each perfectly suited for graduation celebrations of different sizes. Every vessel includes Coast Guard certified captains, premium Bluetooth sound systems, large coolers with ice, and all the amenities needed for an exceptional celebration. Choose the boat that matches your guest count and celebration style.'
+        ],
+        lists: [
+          {
+            title: 'Day Tripper - Intimate Celebrations (Up to 14 Guests)',
+            items: [
+              'Perfect for close family graduation celebrations',
+              'Cozy atmosphere for meaningful conversations',
+              'Starting at $200/hour with 4-hour minimum',
+              'USCG certified captain included',
+              'Premium Bluetooth sound system',
+              'Large coolers with ice provided',
+              'Ideal for immediate family and closest friends'
+            ]
+          },
+          {
+            title: 'Meeseeks / The Irony - Medium Parties (15-30 Guests)',
+            items: [
+              'Great for extended family and friend groups',
+              'Plenty of space for mingling and celebrating',
+              'Starting at $225/hour with 4-hour minimum',
+              'Professional captain and crew',
+              'Premium sound system with Bluetooth',
+              'Extra-large coolers with ice',
+              'Perfect for graduates inviting their friend group'
+            ]
+          },
+          {
+            title: 'Clever Girl - Large Celebrations (31-75 Guests)',
+            items: [
+              'Flagship boat for major graduation celebrations',
+              'Giant Texas flag and 14 disco balls',
+              'Starting at $250/hour with 4-hour minimum',
+              'Ample space for large families and friend groups',
+              'Multiple seating and gathering areas',
+              'Dance floor for celebration',
+              'Maximum flexibility for catering and activities'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'What\'s Included on Your Graduation Cruise',
+        paragraphs: [
+          'Every graduation celebration cruise includes everything you need to honor your graduate in style. Our professional captains navigate Lake Travis while your party enjoys the celebration. Premium Bluetooth sound systems let you create the perfect playlist featuring your graduate\'s favorite music. Large coolers with ice keep beverages refreshing throughout the cruise.'
+        ],
+        lists: [
+          {
+            title: 'Standard Graduation Cruise Amenities',
+            items: [
+              'Coast Guard certified professional captain',
+              'Premium Bluetooth sound system',
+              'Large coolers with ice provided',
+              'Clean restroom facilities on board',
+              'Shaded areas for comfortable seating',
+              'Swim platform and ladder access',
+              'Life jackets for all guests',
+              'Customizable route on Lake Travis'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Planning Your Graduation Celebration Cruise',
+        paragraphs: [
+          'Graduation cruise planning is straightforward with Premier Party Cruises. Contact us with your preferred date, estimated guest count, and any special requests. We\'ll recommend the perfect boat for your celebration and walk you through all the details. Graduation season (May-June) books quickly, so we recommend reserving at least 6-8 weeks in advance for weekend dates.',
+          'All graduation cruises are BYOB friendly for guests 21+ with valid ID. Bring your own beer, wine, seltzers, and non-alcoholic beverages in cans or plastic containers (no glass for safety). We provide the coolers and ice. Many graduation parties bring catered food, pizzas, or snacks. We can coordinate food and beverage delivery directly to the boat at Anderson Mill Marina.',
+          'Decoration is welcome and encouraged! Banners, balloons, and graduation-themed decor help personalize your celebration. Our crew can assist with setup upon arrival. Photography packages are available to capture professional-quality images of this special day on the water.'
+        ]
+      },
+      {
+        heading: 'The Lake Travis Graduation Experience',
+        paragraphs: [
+          'Your graduation cruise departs from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 30 minutes from downtown Austin. Arrive 30 minutes before departure to meet your captain, load supplies, and prepare for an amazing Lake Travis experience. The 4-hour cruise provides ample time for cruising, swimming, dining, and celebrating.',
+          'Lake Travis scenery creates an incredible backdrop for graduation photos and memories. Cruise past Texas Hill Country vegetation, scenic cliffs, and beautiful waterfront properties. Your captain knows all the best spots and can anchor in calm coves for swimming and floating. Devil\'s Cove and other popular locations offer crystal-clear water perfect for cooling off.',
+          'Whether your graduate is heading to college, starting a career, or embarking on graduate studies, this celebration marks a pivotal moment in their journey. A Lake Travis graduation cruise creates memories that will last a lifetime, surrounded by the people who supported them throughout their educational journey.'
+        ]
+      },
+      {
+        heading: 'Frequently Asked Questions About Graduation Cruises',
+        paragraphs: [
+          'How far in advance should we book? Graduation season (May-June) is extremely popular. Weekend dates often book 6-8 weeks in advance. Contact us as soon as you know your graduation date to secure your preferred time.',
+          'Can we bring decorations? Absolutely! Graduation banners, balloons, and themed decorations are welcome. Our crew can help with setup when you arrive at the marina.',
+          'What about food and drinks? All cruises are BYOB for guests 21+ with valid ID (cans and plastic only, no glass). Bring your own food or we can coordinate catering delivery. Many groups order pizza, tacos, or full catering to the marina.',
+          'Is swimming included? Yes! Weather and conditions permitting (captain\'s discretion), guests can swim in Lake Travis. Life jackets are provided and required when in the water. Perfect for cooling off during warm graduation season!',
+          'What about younger siblings and grandparents? Our cruises accommodate guests of all ages. Calm Lake Travis waters, shaded seating areas, and clean restroom facilities ensure comfort for everyone celebrating the graduate.'
+        ]
+      }
+    ],
+    relatedPages: ['private-cruises', 'birthday-party', 'milestone-birthday', 'graduation-party', 'corporate-events', 'family-reunion-cruise', 'party-boat-austin', 'party-boat-lake-travis', 'testimonials', 'faq', 'contact']
+  },
+
+  '/rehearsal-dinner-cruise': {
+    h1: 'Rehearsal Dinner Cruise Austin | Lake Travis Wedding Boat Rentals',
+    introduction: 'Host an unforgettable [[rehearsal-dinner-cruise]] on Lake Travis with Premier Party Cruises! The night before your wedding deserves a venue as special as your love story. Our private boat charters provide an intimate, elegant setting for wedding parties to gather, relax, and celebrate before the big day. Choose from Day Tripper (14 guests), Meeseeks or The Irony (up to 30 guests), or Clever Girl (up to 75 guests) for your perfect [[rehearsal-dinner]] experience on the water.',
+    sections: [
+      {
+        heading: 'Why Lake Travis for Your Rehearsal Dinner',
+        paragraphs: [
+          'The rehearsal dinner sets the tone for your entire wedding celebration. It\'s the moment when both families truly come together, when out-of-town guests arrive, and when the anticipation builds for tomorrow\'s main event. Lake Travis provides a stunning, memorable setting that transforms this traditional dinner into an extraordinary experience your guests will never forget.',
+          'Imagine your wedding party and closest family members cruising past Texas Hill Country scenery as the sun sets over Lake Travis. The intimate atmosphere of a private boat charter creates natural opportunities for meaningful conversations between families who may be meeting for the first time. Away from the distractions of traditional venues, guests focus entirely on celebrating your upcoming marriage.',
+          'Austin\'s Lake Travis has become an increasingly popular choice for rehearsal dinners among couples seeking something beyond typical restaurant settings. The combination of natural beauty, exclusive privacy, and unique experience creates perfect conditions for pre-wedding celebrations. Our sunset cruise times are particularly popular, offering spectacular views as the Texas sky transforms into brilliant oranges and pinks.'
+        ]
+      },
+      {
+        heading: 'Rehearsal Dinner Boat Options',
+        paragraphs: [
+          'Premier Party Cruises offers three vessels perfectly suited for rehearsal dinners of various sizes. Each boat includes professional captains, premium sound systems, and all amenities needed for an elegant evening on the water. We work with many wedding parties throughout the year and understand the unique needs of pre-wedding celebrations.'
+        ],
+        lists: [
+          {
+            title: 'Day Tripper - Intimate Dinners (Up to 14 Guests)',
+            items: [
+              'Perfect for immediate family rehearsal dinners',
+              'Intimate setting for wedding party only',
+              'Starting at $200/hour with 4-hour minimum',
+              'USCG certified captain included',
+              'Premium Bluetooth sound system',
+              'Large coolers with ice provided',
+              'Ideal for small, close-knit celebrations'
+            ]
+          },
+          {
+            title: 'Meeseeks / The Irony - Medium Dinners (15-30 Guests)',
+            items: [
+              'Great for wedding party plus immediate families',
+              'Comfortable space for seated dining',
+              'Starting at $225/hour with 4-hour minimum',
+              'Professional captain and crew',
+              'Premium sound with Bluetooth connectivity',
+              'Ample cooler space with ice',
+              'Popular choice for traditional-sized rehearsal dinners'
+            ]
+          },
+          {
+            title: 'Clever Girl - Large Dinners (31-75 Guests)',
+            items: [
+              'Flagship boat for extended rehearsal gatherings',
+              'Accommodates wedding party, families, and out-of-town guests',
+              'Starting at $250/hour with 4-hour minimum',
+              'Multiple seating areas for different groups',
+              'Giant Texas flag and elegant atmosphere',
+              'Maximum flexibility for catering setup',
+              'Perfect for couples with large families'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Creating Your Perfect Rehearsal Dinner on the Water',
+        paragraphs: [
+          'A Lake Travis rehearsal dinner cruise offers flexibility that traditional venues cannot match. Work with your caterer to create a menu that reflects your personality, from casual Texas BBQ to elegant plated service. We accommodate various catering styles and can provide recommendations for local vendors experienced with boat delivery. Food arrives at Anderson Mill Marina ready for your celebration.',
+          'The natural flow of a cruise creates organic transitions between cocktails, dinner, and toasts. Begin with drinks and appetizers as you cruise the lake, then anchor in a calm cove for the main course. Toasts and speeches feel more intimate in the exclusive setting of your private charter. Dessert and coffee accompany the cruise back as the sun sets over the Texas Hill Country.',
+          'Decoration options allow you to personalize the space for your celebration. Many couples incorporate their wedding colors, photos of their relationship journey, or simple elegant touches like candles and flowers. Our crew assists with setup upon your arrival at the marina. The natural beauty of Lake Travis provides a stunning backdrop that requires minimal additional decoration.'
+        ]
+      },
+      {
+        heading: 'Rehearsal Dinner Cruise Logistics',
+        paragraphs: [
+          'All rehearsal dinner cruises depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 30 minutes from downtown Austin. We recommend guests arrive 30 minutes before departure for parking, boarding, and getting settled. The 4-hour cruise provides ample time for pre-dinner drinks, a full meal, toasts, and enjoying Lake Travis scenery.',
+          'Every cruise is BYOB friendly for guests 21+ with valid ID. Bring champagne for toasts, wine for dinner, and any other beverages your group prefers (cans and plastic only, no glass for safety). We provide large coolers with ice to keep everything cold. Many couples hire bartenders for table-side service, or guests can serve themselves from the coolers.',
+          'Weather contingencies are important for wedding events. Lake Travis typically offers beautiful conditions April through October, with sunset cruises being especially popular for rehearsal dinners. In the rare case of severe weather, we work with you to reschedule or find alternative solutions. Your wedding week should be stress-free, and we prioritize flexibility for these important celebrations.'
+        ],
+        lists: [
+          {
+            title: 'Rehearsal Dinner Planning Checklist',
+            items: [
+              'Book 2-3 months in advance (especially for peak wedding season)',
+              'Coordinate catering delivery time with your caterer',
+              'Arrange guest transportation from downtown Austin if needed',
+              'Plan seating arrangements for families and wedding party',
+              'Prepare toasts and any special presentations',
+              'Bring decorations matching your wedding theme',
+              'Create a playlist for the evening on Bluetooth-ready device',
+              'Designate someone to handle photos/videos'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Combine With Other Wedding Week Events',
+        paragraphs: [
+          'Many couples book Premier Party Cruises for multiple wedding week events. A [[rehearsal-dinner-cruise]] pairs beautifully with a [[welcome-party]] cruise for out-of-town guests arriving earlier in the week. Some couples host their [[after-party]] on the water following the reception, giving the wedding party one final celebration before the night ends.',
+          'We offer special consideration for couples booking multiple events with us. Contact our team to discuss package options for your complete Lake Travis wedding celebration. From the rehearsal dinner through the post-wedding party, we help create cohesive, memorable experiences throughout your wedding festivities.',
+          'Premier Party Cruises has hosted countless wedding-related events over our 14+ years on Lake Travis. Our experience means we anticipate needs before they arise and handle logistics seamlessly. Your rehearsal dinner should be relaxed and joyful, not stressful. Trust our professional crew to deliver an exceptional experience while you focus on celebrating with loved ones.'
+        ]
+      },
+      {
+        heading: 'Frequently Asked Questions About Rehearsal Dinner Cruises',
+        paragraphs: [
+          'How do we handle catering on the boat? Work with any caterer you choose. They deliver food to Anderson Mill Marina before departure. We have coolers, tables, and serving areas available. Many caterers in the Austin area are experienced with boat deliveries.',
+          'What about elderly guests or those with mobility concerns? Our boats are accessible and comfortable for guests of all ages. Calm Lake Travis waters ensure a smooth ride. Shaded seating areas and clean restroom facilities provide comfort throughout the cruise.',
+          'Can we do a sunset cruise? Absolutely! Sunset rehearsal dinner cruises are incredibly popular. Departure times vary by season to capture the best light. Contact us for recommended timing based on your date.',
+          'What happens if it rains? We monitor weather closely and communicate proactively. In case of severe weather, we work with you to reschedule or find alternative solutions. Light rain rarely impacts cruises, and our boats have covered areas.',
+          'How many guests can give toasts? As many as you\'d like! The intimate boat setting is perfect for heartfelt speeches. Many couples find guests are more willing to share when in this relaxed, private environment.'
+        ]
+      }
+    ],
+    relatedPages: ['private-cruises', 'wedding-party', 'welcome-party', 'after-party', 'rehearsal-dinner', 'proposal-cruise', 'anniversary-cruise', 'party-boat-lake-travis', 'testimonials', 'faq', 'contact']
+  },
+
+  '/holiday-party-cruise': {
+    h1: 'Holiday Party Cruise Austin | Lake Travis Christmas, New Year\'s & 4th of July Boats',
+    introduction: 'Celebrate the holidays on Lake Travis with Premier Party Cruises! Our [[holiday-party-cruise]] options create unforgettable experiences for Christmas parties, New Year\'s Eve celebrations, 4th of July fireworks cruises, and every holiday in between. Book a [[private-cruises]] aboard Day Tripper (14 guests), Meeseeks or The Irony (up to 30 guests), or Clever Girl (up to 75 guests) for your company, family, or friend group\'s holiday celebration on the water.',
+    sections: [
+      {
+        heading: 'Lake Travis Holiday Celebrations',
+        paragraphs: [
+          'Holidays bring people together, and Lake Travis provides an extraordinary venue for seasonal celebrations throughout the year. Whether you\'re hosting a company Christmas party, ringing in the New Year with friends, watching 4th of July fireworks from the water, or celebrating any holiday occasion, our private boat charters create memories that last far beyond the season.',
+          'Premier Party Cruises has hosted holiday celebrations on Lake Travis for 14+ years, perfecting the art of seasonal entertaining on the water. We understand the unique requirements of holiday events, from accommodating larger groups during the festive season to timing cruises perfectly for fireworks displays. Our professional crew and premium fleet ensure every holiday party exceeds expectations.',
+          'Lake Travis offers natural beauty that enhances every holiday celebration. Winter months bring crisp, clear days perfect for cruising. Summer holidays feature warm waters ideal for swimming. The Texas Hill Country backdrop provides stunning scenery year-round, creating an impressive setting for holiday photos and memories.'
+        ]
+      },
+      {
+        heading: 'Christmas and Holiday Season Parties',
+        paragraphs: [
+          'Company Christmas parties and family holiday gatherings take on new meaning aboard a Lake Travis cruise. Escape the typical restaurant or office party setting for an exclusive on-water experience your guests will remember. The intimate atmosphere encourages genuine connection, whether among colleagues celebrating a successful year or family members gathering from near and far.',
+          'Our boats accommodate holiday parties of all sizes. Day Tripper hosts intimate gatherings of up to 14 guests, perfect for small teams or close families. Meeseeks and The Irony welcome parties of 15-30 guests, ideal for medium-sized departments or extended families. Clever Girl accommodates up to 75 guests for large company parties or family reunions spanning multiple generations.',
+          'Decoration is welcome and encouraged for holiday cruises. Bring Christmas lights, festive banners, and seasonal touches to transform the boat into your personal holiday venue. Our crew assists with setup upon arrival. The natural beauty of Lake Travis combined with your holiday decor creates an unforgettable atmosphere for seasonal celebration.'
+        ],
+        lists: [
+          {
+            title: 'Christmas Cruise Features',
+            items: [
+              'Private boat exclusively for your holiday party',
+              'BYOB for festive cocktails and wine',
+              'Catering coordination for holiday menus',
+              'Space for Secret Santa or gift exchanges',
+              'Premium sound for holiday music playlists',
+              'Photo opportunities with Lake Travis backdrop',
+              'Comfortable climate-controlled indoor areas',
+              'Professional captain and crew'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'New Year\'s Eve Lake Travis Cruises',
+        paragraphs: [
+          'Ring in the New Year on Lake Travis for a celebration like no other. Our New Year\'s Eve cruises offer exclusive, intimate settings away from crowded bars and restaurants. Toast at midnight under the Texas stars with your closest friends, family, or colleagues. The peaceful lake setting provides the perfect backdrop for reflection on the past year and excitement for what\'s to come.',
+          'New Year\'s Eve cruises feature our complete private charter experience with all standard amenities plus special touches for the occasion. Bring champagne for midnight toasts, your favorite party foods, and a playlist counting down to the new year. Our professional captains ensure safe navigation while you focus entirely on celebrating.',
+          'New Year\'s Eve bookings are extremely popular and should be reserved as early as possible. Many groups rebook for the following year before their current cruise ends. Contact us well in advance to secure your preferred vessel for this special night. We offer various cruise times to accommodate different celebration preferences, from sunset departures to late-night fireworks views.'
+        ],
+        lists: [
+          {
+            title: 'New Year\'s Eve Cruise Includes',
+            items: [
+              'Exclusive private charter for your party',
+              'BYOB champagne toasts at midnight',
+              'Professional captain and crew',
+              'Premium sound system for countdown',
+              'Waterfront fireworks viewing opportunities',
+              'Stars and peaceful Lake Travis setting',
+              'Safe celebration away from crowded venues',
+              'Flexible timing for your perfect evening'
+            ]
+          }
+        ]
+      },
+      {
+        heading: '4th of July Fireworks Cruises',
+        paragraphs: [
+          'Independence Day on Lake Travis delivers an unforgettable experience with fireworks viewed from the water. Multiple communities around Lake Travis host spectacular 4th of July fireworks displays, and watching from a private boat provides premium viewing without the crowds. Anchor in the perfect spot while other viewers jostle for space on shore.',
+          'Our 4th of July cruises combine classic summer fun with patriotic celebration. Swim in Lake Travis, float on giant lily pads, and enjoy the sunshine before anchoring for the evening fireworks spectacular. The calm water reflects the bursting colors above, doubling the visual impact of every explosion. It\'s a truly magical way to celebrate American independence.',
+          '4th of July is our busiest holiday of the year, with boats booking months in advance. Many families and friend groups make the Lake Travis fireworks cruise an annual tradition. Reserve your spot early to guarantee availability. We offer both day cruises ending before fireworks and extended cruises that include the evening show.'
+        ],
+        lists: [
+          {
+            title: '4th of July Cruise Experience',
+            items: [
+              'Premium fireworks viewing from the water',
+              'Swimming and floating during the day',
+              'BYOB with July 4th favorites',
+              'Patriotic playlist on premium sound',
+              'Captain selects optimal viewing location',
+              'Avoid crowded shoreline traffic',
+              'Giant lily pads and floats available',
+              'All-day celebration on Lake Travis'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Other Holiday Celebrations on Lake Travis',
+        paragraphs: [
+          'Beyond the major holidays, Lake Travis provides perfect settings for countless seasonal celebrations. Labor Day weekend cruises mark the end of summer in style. Memorial Day kicks off the warm season with time on the water. Halloween costume cruises offer unique party options. Thanksgiving weekend brings families together on the lake.',
+          'Easter celebrations, Valentine\'s Day cruises for couples, and St. Patrick\'s Day parties all find perfect homes on our boats. Any holiday that brings people together benefits from the unique atmosphere of a Lake Travis cruise. Contact us about your specific holiday and we\'ll help design the perfect celebration.'
+        ],
+        lists: [
+          {
+            title: 'Popular Holiday Cruises Throughout the Year',
+            items: [
+              'Memorial Day weekend summer kickoff',
+              'Labor Day end-of-summer celebrations',
+              'Halloween costume party cruises',
+              'Thanksgiving family gatherings',
+              'Valentine\'s Day romantic cruises',
+              'Easter family celebrations',
+              'Mother\'s Day and Father\'s Day tributes',
+              'Company holiday parties any season'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Booking Your Holiday Party Cruise',
+        paragraphs: [
+          'Holiday cruises require advance planning, especially for popular dates like 4th of July, New Year\'s Eve, and December weekends. We recommend booking 2-3 months ahead for major holidays and at least 6 weeks for other seasonal celebrations. Contact us with your date, estimated guest count, and holiday vision, and we\'ll help create the perfect celebration.',
+          'All holiday cruises are BYOB friendly for guests 21+ with valid ID (cans and plastic containers only, no glass). Bring seasonal beverages, holiday cookies, or full catering. We provide coolers with ice to keep everything fresh. Decoration is welcome to transform the boat for your specific holiday celebration.',
+          'Premier Party Cruises offers special consideration for groups booking multiple holidays throughout the year. Many corporate clients book annual Christmas parties, summer company outings, and team celebrations with us. Contact our team to discuss ongoing partnership opportunities and preferred scheduling for recurring holiday events.'
+        ]
+      },
+      {
+        heading: 'Frequently Asked Questions About Holiday Cruises',
+        paragraphs: [
+          'How early should we book holiday cruises? Major holidays (4th of July, New Year\'s Eve, December weekends) often book 3+ months in advance. Other holidays typically require 4-6 weeks notice. Book as early as possible to guarantee availability.',
+          'Do you offer special holiday pricing? Pricing follows our standard private charter rates. Day Tripper starts at $200/hour, Meeseeks/The Irony at $225/hour, and Clever Girl at $250/hour. All charters require a 4-hour minimum.',
+          'What about winter weather? Lake Travis offers comfortable cruising conditions year-round. Winter days are often crisp and beautiful. Our boats have covered areas for weather protection, and we communicate proactively about conditions.',
+          'Can we see fireworks on the 4th of July? Yes! Multiple Lake Travis communities host fireworks displays. Our captains know optimal viewing locations and position the boat perfectly for the show. It\'s a premium viewing experience.',
+          'Do you provide holiday decorations? We welcome you to bring your own decorations to personalize your celebration. Our crew helps with setup upon arrival. The natural Lake Travis setting provides a beautiful backdrop for any holiday theme.'
+        ]
+      }
+    ],
+    relatedPages: ['private-cruises', 'corporate-events', 'team-building', 'birthday-party', 'family-reunion-cruise', 'company-milestone', 'party-boat-austin', 'party-boat-lake-travis', 'testimonials', 'faq', 'contact']
+  },
+
+  '/family-reunion-cruise': {
+    h1: 'Family Reunion Cruise Austin | Lake Travis Multi-Generational Party Boats',
+    introduction: 'Bring your whole family together for an unforgettable [[family-reunion-cruise]] on Lake Travis! Premier Party Cruises provides the perfect venue for multi-generational gatherings, from intimate family get-togethers to large clan reunions. Our fleet offers Day Tripper (14 guests), Meeseeks or The Irony (up to 30 guests), and Clever Girl (up to 75 guests) to accommodate families of every size. Create lasting memories as grandparents, parents, and grandchildren celebrate together on the beautiful Texas waters.',
+    sections: [
+      {
+        heading: 'Why Lake Travis for Your Family Reunion',
+        paragraphs: [
+          'Family reunions represent precious opportunities to connect across generations, share stories, and create memories together. Lake Travis provides an extraordinary setting that naturally encourages interaction while offering activities for family members of every age. From toddlers to grandparents, everyone finds something to enjoy on a Premier Party Cruises family reunion.',
+          'Unlike traditional reunion venues like parks or restaurants, a private boat charter creates an exclusive environment where your family has complete privacy. No strangers interrupting your gatherings, no competing noise, and no time limits beyond your booked cruise. The intimate setting encourages meaningful conversations while the stunning scenery provides endless photo opportunities.',
+          'Austin area families have chosen Lake Travis for reunions for decades. The lake\'s calm waters ensure comfortable cruising for guests of all ages, including those who may not typically enjoy boats. Shaded seating areas provide relief from the Texas sun, clean restroom facilities ensure comfort, and our professional crew handles all logistics so family members can focus on each other.'
+        ]
+      },
+      {
+        heading: 'Family Reunion Boat Options',
+        paragraphs: [
+          'Premier Party Cruises offers three vessels to accommodate family reunions of different sizes. Each boat includes Coast Guard certified captains, premium sound systems, large coolers with ice, and family-friendly amenities. Choose the vessel that best fits your reunion guest count and celebration style.'
+        ],
+        lists: [
+          {
+            title: 'Day Tripper - Small Family Gatherings (Up to 14 Guests)',
+            items: [
+              'Perfect for immediate family reunions',
+              'Intimate atmosphere for close family connection',
+              'Starting at $200/hour with 4-hour minimum',
+              'USCG certified captain included',
+              'Premium Bluetooth sound system',
+              'Large coolers with ice provided',
+              'Ideal for siblings and their families gathering'
+            ]
+          },
+          {
+            title: 'Meeseeks / The Irony - Medium Reunions (15-30 Guests)',
+            items: [
+              'Great for extended family gatherings',
+              'Comfortable space for multiple generations',
+              'Starting at $225/hour with 4-hour minimum',
+              'Professional captain and crew',
+              'Plenty of seating for all ages',
+              'Room for family activities and games',
+              'Popular choice for annual family reunions'
+            ]
+          },
+          {
+            title: 'Clever Girl - Large Clan Reunions (31-75 Guests)',
+            items: [
+              'Flagship boat for major family gatherings',
+              'Accommodates large extended families',
+              'Starting at $250/hour with 4-hour minimum',
+              'Multiple areas for different generations to mingle',
+              'Giant Texas flag creates memorable backdrop',
+              'Maximum flexibility for catering and activities',
+              'Perfect when multiple family branches gather'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Multi-Generational Activities on the Water',
+        paragraphs: [
+          'Lake Travis cruises offer activities that engage family members of every age. Younger guests love swimming in the crystal-clear water and floating on giant lily pads when we anchor in calm coves. Teenagers appreciate the premium sound system for their favorite music. Adults relax with drinks while grandparents enjoy comfortable shaded seating with panoramic views.',
+          'The natural flow of a cruise creates opportunities for different generations to interact. Grandparents share stories while watching grandchildren swim. Parents reconnect with siblings they haven\'t seen in months. Cousins who\'ve grown up in different states discover they have more in common than they realized. The boat becomes a floating venue for family bonding.',
+          'Many reunion groups plan structured activities like family trivia, photo competitions, or storytelling sessions where elders share family history. The private setting allows for activities that wouldn\'t work in public venues. Some families arrange professional photography sessions using Lake Travis scenery as a backdrop, creating portraits that become treasured heirlooms.'
+        ],
+        lists: [
+          {
+            title: 'Family-Friendly Activities',
+            items: [
+              'Swimming in calm Lake Travis coves',
+              'Floating on giant lily pads',
+              'Family photo sessions with scenic backdrop',
+              'Music and dancing for all ages',
+              'Storytelling and family history sharing',
+              'Games and activities on deck',
+              'Scenic cruising past Texas Hill Country',
+              'Relaxed conversations across generations'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Planning Your Family Reunion Cruise',
+        paragraphs: [
+          'Successful family reunions require coordination, especially when gathering people from different cities or states. Start by selecting a date that works for key family members, then contact us to check boat availability. We recommend booking 6-8 weeks in advance for weekend dates, though weekday cruises often have more flexibility.',
+          'Communicate clearly with family members about the cruise details. Share the marina address (Anderson Mill Marina, 13993 FM 2769, Leander, TX 78641), arrival time (30 minutes before departure), and what to bring. Create a shared document or group chat for coordination. Consider designating a family member to handle RSVP collection and headcount updates.',
+          'Food planning for reunions requires attention to various preferences and dietary needs across generations. Our cruises are BYOB friendly, and you can bring any food you\'d like (cans and plastic containers for beverages, no glass). Many families coordinate potluck style, with each branch bringing a dish. We can also help coordinate catering delivery to the marina for those preferring full-service options.'
+        ],
+        lists: [
+          {
+            title: 'Reunion Planning Checklist',
+            items: [
+              'Survey family members for date availability',
+              'Book cruise 6-8 weeks in advance',
+              'Share marina address and arrival time with all guests',
+              'Coordinate food and beverage contributions',
+              'Account for dietary restrictions across generations',
+              'Plan activities suitable for all ages',
+              'Designate a photographer or hire professional',
+              'Prepare any family reunion traditions or activities',
+              'Arrange transportation for out-of-town guests'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Accommodating Every Generation',
+        paragraphs: [
+          'Premier Party Cruises understands that multi-generational events require attention to varied needs. Our boats feature shaded seating areas essential for elderly guests and young children avoiding sun exposure. Clean restroom facilities on board eliminate concerns about long cruise durations. Calm Lake Travis waters ensure comfortable cruising without excessive rocking.',
+          'Safety is paramount for family events. Our Coast Guard certified captains maintain perfect safety records and prioritize guest well-being. Life jackets are provided for all guests and required when swimming. Our crew monitors conditions and makes adjustments to ensure everyone\'s comfort and safety throughout the cruise.',
+          'Accessibility considerations are important for some families. While our boats do require basic mobility to board, we work with families to ensure everyone can participate safely. Contact us to discuss specific needs, and we\'ll provide honest guidance about what our vessels can accommodate.'
+        ]
+      },
+      {
+        heading: 'Creating Lasting Family Memories',
+        paragraphs: [
+          'A Lake Travis family reunion creates memories that become part of your family\'s story. Children will remember swimming with cousins and listening to grandparents\' stories. Adults will treasure the rare opportunity to relax and reconnect with siblings and extended family. The unique setting and shared experience strengthen family bonds in ways that ordinary gatherings cannot.',
+          'Many families make the Lake Travis cruise an annual reunion tradition. The consistency of returning to the same activity year after year creates continuity and anticipation. Children grow up looking forward to the annual boat trip with cousins. The marina becomes a familiar gathering spot, and the cruise itself becomes part of family identity.',
+          'Premier Party Cruises has hosted family reunions on Lake Travis for 14+ years, and we take pride in helping families create these traditions. Our professional crew, reliable vessels, and commitment to service ensure that your family reunion exceeds expectations every time. Contact us to start planning your family\'s Lake Travis tradition today.'
+        ]
+      },
+      {
+        heading: 'Frequently Asked Questions About Family Reunion Cruises',
+        paragraphs: [
+          'Are your cruises suitable for elderly guests? Absolutely. Our boats feature comfortable shaded seating, clean restrooms, and calm cruising on Lake Travis. Many grandparents tell us it\'s their favorite family activity.',
+          'What about young children? Children of all ages are welcome on private charters. Life jackets are provided for children, and swimming is supervised by parents. Many families bring water toys and games for younger guests.',
+          'Can we bring our own food? Yes! Bring any food you\'d like for your reunion feast. Many families do potluck style with each branch contributing dishes. We can also coordinate catering delivery to the marina.',
+          'How many people can you accommodate? Day Tripper holds 14 guests, Meeseeks and The Irony each hold up to 30 guests, and Clever Girl accommodates up to 75 guests. For larger reunions, contact us about booking multiple boats.',
+          'What if some family members don\'t swim? No problem! Swimming is optional. Many guests prefer relaxing on deck, enjoying the scenery, and socializing with family. There\'s plenty to enjoy without ever entering the water.',
+          'Do you offer any discounts for family reunions? We offer competitive pricing for all private charters. Contact us to discuss your specific needs and group size. We appreciate family reunion bookings and work to provide excellent value.'
+        ]
+      }
+    ],
+    relatedPages: ['private-cruises', 'birthday-party', 'graduation-cruise', 'holiday-party-cruise', 'milestone-birthday', 'anniversary-cruise', 'party-boat-austin', 'party-boat-lake-travis', 'testimonials', 'faq', 'contact']
+  },
+
+  '/retirement-party-cruise': {
+    h1: 'Retirement Party Cruises on Lake Travis | Austin Retirement Celebrations',
+    introduction: 'Celebrate a well-deserved retirement with an unforgettable [[private-cruises]] on Lake Travis! Premier Party Cruises offers the perfect venue to honor career achievements and toast to new beginnings. Our fleet includes Day Tripper (up to 14 guests), Meeseeks and The Irony (up to 30 guests each), and our flagship Clever Girl (up to 75 guests), ensuring we can accommodate retirement parties of any size. With professional captains, premium amenities, and stunning Texas Hill Country views, your retirement celebration will be truly memorable.',
+    sections: [
+      {
+        heading: 'Why Choose a Lake Travis Retirement Party Cruise',
+        paragraphs: [
+          'A retirement marks the end of one chapter and the beginning of another exciting journey. What better way to celebrate decades of hard work and dedication than on the beautiful waters of Lake Travis? Premier Party Cruises provides a unique, memorable setting that transforms an ordinary retirement party into an extraordinary experience your guest of honor and attendees will never forget.',
+          'Lake Travis offers stunning natural beauty with its crystal-clear waters, dramatic cliffs, and Texas Hill Country scenery. As your retirement cruise glides past scenic coves and peaceful shorelines, guests can reflect on accomplishments, share memories, and celebrate the honoree\'s contributions. The relaxed atmosphere on the water creates the perfect environment for meaningful conversations and genuine connection.',
+          'Unlike traditional restaurant or banquet hall retirement parties, a Lake Travis cruise offers something truly special. Your group has exclusive use of the entire boat with a professional captain and crew handling everything. Guests can move freely between shaded seating areas, open-air decks, and comfortable lounges while enjoying premium Bluetooth sound systems for speeches and music.'
+        ],
+        lists: [
+          {
+            title: 'Retirement Cruise Benefits',
+            items: [
+              'Private, exclusive venue for your celebration',
+              'Stunning Lake Travis and Hill Country scenery',
+              'USCG certified captains handle all navigation',
+              'Premium sound system for speeches and toasts',
+              'BYOB friendly - bring any beverages you prefer',
+              'Catering coordination available',
+              'Comfortable seating for all guests',
+              'Clean restroom facilities on board',
+              'Climate-friendly with shaded areas',
+              'Memorable photo opportunities throughout'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Our Fleet for Retirement Celebrations',
+        paragraphs: [
+          'Premier Party Cruises offers three boats perfectly suited for retirement parties of various sizes. Each vessel features professional crew, premium amenities, and everything needed for a successful celebration on Lake Travis.',
+          'Day Tripper accommodates up to 14 guests, perfect for intimate retirement gatherings with close colleagues and family. This vessel offers a personalized experience ideal for smaller groups who want quality time with the retiree. Meeseeks and The Irony each accommodate up to 30 guests, suitable for department-wide celebrations or mid-sized company gatherings. These identical boats feature spacious decks and comfortable seating.',
+          'For larger retirement celebrations, our flagship Clever Girl accommodates up to 75 guests. Featuring a giant Texas flag and 14 disco balls, Clever Girl provides ample space for company-wide celebrations, complete with room for presentations, dancing, and mingling. All boats include USCG certified captains, premium Bluetooth sound systems, large coolers with ice, and everything needed for your retirement cruise.'
+        ],
+        lists: [
+          {
+            title: 'Fleet Options',
+            items: [
+              'Day Tripper - Up to 14 guests, intimate celebrations',
+              'Meeseeks / The Irony - Up to 30 guests each, departmental parties',
+              'Clever Girl - Up to 75 guests, company-wide celebrations',
+              'All boats: Professional captains, premium sound, coolers with ice'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Planning Your Retirement Party Cruise',
+        paragraphs: [
+          'Planning a retirement celebration cruise is straightforward with Premier Party Cruises. Start by selecting the boat size that matches your guest count and desired atmosphere. Private charters start at $200 per hour with a 4-hour minimum, with pricing varying by boat size and time of year. Weekend dates are most popular and we recommend booking 6-8 weeks in advance.',
+          'Your retirement cruise is fully customizable. Coordinate catering delivery to the marina, arrange for special decorations celebrating the retiree\'s career, or create a slideshow of career highlights to display. Many retirement groups prepare speeches, tributes, and gifts to present during the cruise. The private setting allows for personal moments without interruption from other guests.',
+          'All cruises depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 30 minutes from downtown Austin. We recommend guests arrive 30 minutes before departure. The marina offers convenient parking, and our crew will be ready to welcome your group and begin the celebration.'
+        ],
+        lists: [
+          {
+            title: 'Planning Checklist',
+            items: [
+              'Determine guest count and select appropriate boat',
+              'Book cruise 6-8 weeks in advance for weekends',
+              'Coordinate catering or plan potluck-style food',
+              'Arrange any decorations or career celebration materials',
+              'Plan speeches, tributes, or presentation elements',
+              'Share marina address and arrival time with guests',
+              'Consider transportation coordination for guests'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Creating Memorable Retirement Moments',
+        paragraphs: [
+          'A Lake Travis retirement cruise creates the perfect setting for honoring years of service and dedication. The scenic backdrop provides natural beauty for photos and video, while the relaxed atmosphere encourages guests to share stories and memories. Many retirees tell us the cruise was the highlight of their career transition.',
+          'Consider incorporating meaningful elements into your retirement celebration. Display photos from throughout the honoree\'s career, invite colleagues to share their favorite memories, or present a memory book signed by coworkers. The private, unhurried setting allows time for genuine tributes that might feel rushed in other venues.',
+          'Premier Party Cruises has hosted retirement celebrations for companies ranging from small family businesses to major corporations. Our professional crew understands the significance of this milestone and works to ensure every detail contributes to a memorable send-off. With 14+ years of Lake Travis experience and 150,000+ satisfied customers, we take pride in making retirement celebrations truly special.'
+        ]
+      },
+      {
+        heading: 'Frequently Asked Questions About Retirement Cruises',
+        paragraphs: [
+          'Can we bring our own food and drinks? Yes! All cruises are BYOB friendly (21+ with ID for alcohol). Bring any food and beverages you prefer in cans or plastic containers (no glass for safety). We provide large coolers with ice. We can also coordinate catering delivery to the marina.',
+          'Is there a sound system for speeches? Absolutely. All boats feature premium Bluetooth sound systems perfect for speeches, toasts, career tribute videos, and music. Simply connect your phone or device to play content.',
+          'Can we decorate the boat? Yes, reasonable decorations are welcome. We ask that nothing be attached with tape, nails, or adhesives that could damage the boat. Balloon arches, banners, and table decorations are popular choices.',
+          'What if the weather is bad? We monitor weather conditions closely and will work with you if conditions require rescheduling. Safety is always our priority, and we maintain flexibility to ensure your celebration happens successfully.',
+          'How far in advance should we book? We recommend booking 6-8 weeks ahead for weekend dates. Weekday cruises often have more availability with shorter notice.'
+        ]
+      }
+    ],
+    relatedPages: ['private-cruises', 'corporate-events', 'company-milestone', 'birthday-party', 'milestone-birthday', 'party-boat-austin', 'party-boat-lake-travis', 'testimonials', 'faq', 'contact']
+  },
+
+  '/memorial-celebration-cruise': {
+    h1: 'Memorial Celebration of Life Cruises on Lake Travis | Austin Memorial Services',
+    introduction: 'Honor a loved one\'s memory with a peaceful and meaningful celebration of life cruise on Lake Travis. Premier Party Cruises provides a serene, private setting for families and friends to gather, share memories, and pay tribute in a unique and beautiful environment. Our [[private-cruises]] offers an intimate alternative to traditional memorial services, with stunning Texas Hill Country views and the calming presence of water creating a comforting atmosphere for remembrance.',
+    sections: [
+      {
+        heading: 'A Peaceful Setting for Remembrance',
+        paragraphs: [
+          'Lake Travis offers a tranquil, beautiful backdrop for celebrating a life well-lived. The gentle movement of the water, stunning natural scenery, and peaceful atmosphere create a comforting environment where families can gather to honor their loved one. Many find that being on the water provides a sense of peace and connection that traditional indoor venues cannot offer.',
+          'A celebration of life cruise allows your group complete privacy and flexibility. Unlike public venues with time constraints and other events happening simultaneously, your charter is exclusively yours. Take time to share stories, play meaningful music, view photo tributes, or simply sit together in quiet reflection. The natural beauty of Lake Travis provides a serene setting that many find healing.',
+          'Premier Party Cruises has had the privilege of hosting numerous celebration of life services on Lake Travis. Our professional crew approaches these occasions with the utmost respect and sensitivity, working quietly in the background to ensure your family can focus entirely on honoring your loved one. We understand the significance of these gatherings and treat every memorial cruise with care and reverence.'
+        ],
+        lists: [
+          {
+            title: 'Memorial Cruise Features',
+            items: [
+              'Complete privacy for your gathering',
+              'Peaceful Lake Travis setting',
+              'Flexible timing and activities',
+              'Respectful, professional crew',
+              'Sound system for music and tributes',
+              'Comfortable seating throughout',
+              'Clean restroom facilities',
+              'Scenic cruising or stationary anchoring options'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Our Fleet for Memorial Gatherings',
+        paragraphs: [
+          'We offer vessels suited to memorial gatherings of various sizes, each providing comfortable, dignified spaces for families and friends to come together. Day Tripper accommodates up to 14 guests for intimate family gatherings. Meeseeks and The Irony each accommodate up to 30 guests for extended family and close friends. Clever Girl accommodates up to 75 guests for larger memorial services.',
+          'Each boat features comfortable seating areas, shaded spaces for sun protection, and clean restroom facilities. Premium Bluetooth sound systems allow you to play meaningful music, share recorded memories, or amplify speakers during tributes. Our USCG certified captains navigate smoothly and quietly, creating a peaceful cruising experience.',
+          'The choice between scenic cruising and stationary anchoring is entirely yours. Some families prefer to cruise past meaningful Lake Travis locations or scenic views. Others prefer to anchor in a peaceful cove where guests can focus entirely on the service. We accommodate whatever approach feels right for your gathering.'
+        ]
+      },
+      {
+        heading: 'Planning a Celebration of Life Cruise',
+        paragraphs: [
+          'We understand that planning a memorial service while grieving is challenging. Our team works to make the booking process as simple and stress-free as possible. Contact us by phone or email to discuss your needs, and we\'ll guide you through selecting the appropriate vessel and planning the logistics.',
+          'Memorial cruises are fully customizable to honor your loved one in meaningful ways. Many families bring photo displays, play favorite songs, share readings or poems, release biodegradable flower petals on the water, or simply gather for quiet remembrance. We work with you to accommodate whatever elements feel right for your celebration.',
+          'All cruises depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 30 minutes from downtown Austin. We recommend guests arrive 30 minutes before departure. For out-of-town family members, the location is easily accessible from Austin-Bergstrom International Airport.'
+        ],
+        lists: [
+          {
+            title: 'Memorial Planning Considerations',
+            items: [
+              'Select boat size based on expected attendance',
+              'Decide between scenic cruising or anchoring in a cove',
+              'Plan any readings, music, or tribute elements',
+              'Coordinate any catering for reception afterward',
+              'Consider flower petals or other meaningful touches',
+              'Share marina address with all attendees',
+              'Arrange parking and transportation as needed'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Creating Meaningful Tributes on the Water',
+        paragraphs: [
+          'The water has long held symbolic significance for remembrance and transition. A Lake Travis memorial cruise allows families to create meaningful tributes in a setting that feels both peaceful and significant. The open sky, natural beauty, and gentle movement of the water create an environment that many find spiritually comforting.',
+          'Some families choose to release biodegradable flower petals on the water as a visual tribute. Others play meaningful songs that connect to their loved one\'s life. Many bring photo displays or video tributes that tell the story of a life well-lived. The private setting allows for whatever elements feel right for your family.',
+          'Children often find the boat environment less intimidating than traditional funeral settings. The natural surroundings, ability to move around, and focus on celebrating life rather than mourning death can make the experience more approachable for young family members.'
+        ]
+      },
+      {
+        heading: 'Compassionate Service from Our Team',
+        paragraphs: [
+          'Premier Party Cruises approaches memorial services with deep respect and sensitivity. Our captains and crew understand the significance of these occasions and conduct themselves accordingly. They work quietly and professionally to ensure your family can focus entirely on honoring your loved one.',
+          'We recognize that grief affects everyone differently, and we maintain flexibility to accommodate your needs. If you need to adjust timing, change plans, or take extra time, we work with you compassionately. Our goal is simply to provide a peaceful, dignified setting where your family can find comfort together.',
+          'With 14+ years of experience on Lake Travis and countless families served, we understand that these moments matter deeply. We consider it an honor to provide the setting for families to celebrate, remember, and find healing together on the beautiful waters of Lake Travis.'
+        ]
+      },
+      {
+        heading: 'Frequently Asked Questions About Memorial Cruises',
+        paragraphs: [
+          'Can we scatter ashes on Lake Travis? Texas law generally permits scattering of cremated remains in navigable waters. We can anchor in appropriate locations to allow families to scatter ashes if desired. Please inform us in advance if this is part of your plans.',
+          'Is food appropriate for a memorial cruise? Many families choose to include food as part of a reception-style gathering after the formal tribute. You\'re welcome to bring food and non-alcoholic or alcoholic beverages. We can also coordinate catering delivery to the marina.',
+          'What if family members have mobility limitations? While our boats require basic mobility to board, we work with families to ensure everyone can participate safely. Please discuss specific needs with us, and we\'ll provide honest guidance about accommodations.',
+          'How much does a memorial cruise cost? Private charters start at $200 per hour with a 4-hour minimum. Pricing varies by boat size and time of year. Contact us to discuss your specific needs and receive accurate pricing.',
+          'Can clergy or officiants join the cruise? Absolutely. Any spiritual leaders, celebrants, or officiants are welcome to join and conduct services aboard.'
+        ]
+      }
+    ],
+    relatedPages: ['private-cruises', 'family-reunion-cruise', 'anniversary-cruise', 'party-boat-austin', 'party-boat-lake-travis', 'testimonials', 'faq', 'contact']
+  },
+
+  '/gender-reveal-cruise': {
+    h1: 'Gender Reveal Party Cruises on Lake Travis | Austin Gender Reveal Celebrations',
+    introduction: 'Announce your exciting news with a spectacular gender reveal party on Lake Travis! Premier Party Cruises offers the perfect venue for this momentous celebration with stunning Texas Hill Country scenery as your backdrop. Our [[private-cruises]] provide privacy, premium amenities, and endless photo opportunities to capture the big reveal. Choose from Day Tripper (up to 14 guests), Meeseeks or The Irony (up to 30 guests), or Clever Girl (up to 75 guests) for your unforgettable gender reveal experience.',
+    sections: [
+      {
+        heading: 'Why Lake Travis for Your Gender Reveal',
+        paragraphs: [
+          'A gender reveal is one of the most exciting moments of pregnancy, and it deserves an extraordinary setting. Lake Travis provides breathtaking natural beauty with crystal-clear waters, dramatic limestone cliffs, and stunning Texas Hill Country views that create the perfect backdrop for this milestone announcement. The private setting of a boat cruise ensures your moment is shared only with your closest family and friends.',
+          'Unlike crowded venues or backyard parties, a gender reveal cruise offers complete privacy and exclusivity. Your group has the entire boat with no strangers or distractions. The scenic lake environment provides countless photo opportunities, and the surprise reveal can incorporate unique water elements like colored smoke, confetti cannons visible against the sky, or balloons released over the open water.',
+          'Premier Party Cruises has hosted numerous gender reveal celebrations, and we love being part of these joyful moments. Our professional crew ensures everything runs smoothly while staying out of the way during the big reveal. With 14+ years of Lake Travis experience, we know how to create the perfect setting for celebrations that matter.'
+        ],
+        lists: [
+          {
+            title: 'Gender Reveal Cruise Advantages',
+            items: [
+              'Stunning natural backdrop for photos and video',
+              'Complete privacy for your announcement',
+              'Exclusive use of the entire boat',
+              'Premium sound system for music and announcements',
+              'Space for decorations and reveal supplies',
+              'BYOB friendly for celebration toasts',
+              'Professional captain handles all navigation',
+              'Unique, memorable experience for guests'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Planning Your Gender Reveal Cruise',
+        paragraphs: [
+          'Planning a gender reveal cruise is exciting and straightforward. First, select the boat size that fits your guest count. Day Tripper is perfect for intimate reveals with just parents and grandparents (up to 14 guests). Meeseeks and The Irony accommodate medium-sized gatherings (up to 30 guests each). Clever Girl handles larger celebrations with extended family and friends (up to 75 guests).',
+          'Coordinate your reveal mechanism with our team. Popular options include confetti cannons, colored smoke bombs, balloon releases, or colored powder. Some parents open a box to release colored balloons against the lake and sky backdrop. Others prefer confetti poppers or even colored water balloons. We can anchor in a scenic cove for the perfect reveal moment.',
+          'Decorations are welcome on board. Many gender reveal cruises feature "Team Boy" and "Team Girl" decorations, question mark designs, or "What Will Baby Be?" themes. You can also coordinate catering, bring a reveal cake, or arrange for pink or blue celebration beverages. Our crew will work with whatever elements you bring to make your reveal special.'
+        ],
+        lists: [
+          {
+            title: 'Popular Reveal Ideas for the Water',
+            items: [
+              'Confetti cannons against the sky backdrop',
+              'Colored smoke bombs with lake scenery',
+              'Balloon releases over open water',
+              'Color reveal powder with scenic photos',
+              'Reveal cake cut during the cruise',
+              'Colored streamers or ribbon reveals'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Creating Instagram-Worthy Moments',
+        paragraphs: [
+          'Lake Travis provides the ultimate backdrop for gender reveal photos and videos. The combination of clear blue water, Texas Hill Country hills, and open sky creates stunning imagery that will make your announcement stand out. Whether you capture the moment professionally or with smartphones, the natural beauty enhances every shot.',
+          'Consider the timing of your cruise for optimal photography. Morning cruises offer soft, flattering light. Afternoon cruises provide bright, vibrant colors. Late afternoon cruises (our Saturday 3:30-7:30pm window for disco cruises, though gender reveals are private charters) offer golden hour lighting for magical photos. Our crew can suggest scenic anchoring spots perfect for photography.',
+          'Many families hire professional photographers to document their gender reveal cruise. The unique setting and memorable moment deserve quality documentation. If bringing a photographer, let us know in advance so we can plan for optimal positioning and lighting throughout the reveal.'
+        ]
+      },
+      {
+        heading: 'Celebrating Before and After the Reveal',
+        paragraphs: [
+          'A gender reveal cruise offers more than just the announcement moment. The entire 4-hour cruise becomes a celebration of your growing family. Before the reveal, guests can enjoy the scenic cruise, take bets on Team Boy or Team Girl, and share in the anticipation. After the reveal, the celebration continues with toasts, swimming if desired, and quality time with loved ones.',
+          'Our cruises are BYOB friendly for guests 21+ with valid ID. Bring champagne for celebration toasts, non-alcoholic sparkling cider for parents-to-be, and any beverages your guests prefer (cans and plastic containers only, no glass). You can also bring food or coordinate catering delivery to the marina for a complete celebration experience.',
+          'The private setting allows for personal moments that public venues cannot offer. Grandparents can share their joy, siblings can celebrate their new role, and friends can shower the expecting parents with love. The intimate boat environment creates connection and celebration in a way that feels genuine and memorable.'
+        ]
+      },
+      {
+        heading: 'Our Fleet for Gender Reveal Celebrations',
+        paragraphs: [
+          'Premier Party Cruises offers vessels suited to gender reveal parties of any size. Day Tripper accommodates up to 14 guests, perfect for intimate reveals with immediate family. Meeseeks and The Irony each accommodate up to 30 guests for celebrations including extended family and close friends. Our flagship Clever Girl accommodates up to 75 guests for larger gatherings.',
+          'All boats feature professional USCG certified captains, premium Bluetooth sound systems, large coolers with ice, and comfortable seating. The sound system allows you to play meaningful music, make announcements, and capture the reactions clearly on video. Our crew handles all navigation while you focus entirely on your celebration.',
+          'Private charters start at $200 per hour with a 4-hour minimum. Pricing varies by boat size and timing. Weekend dates are most popular for gender reveals, and we recommend booking 6-8 weeks in advance to secure your preferred date. Contact us to discuss your vision and receive accurate pricing.'
+        ]
+      },
+      {
+        heading: 'Frequently Asked Questions About Gender Reveal Cruises',
+        paragraphs: [
+          'Can we do a confetti cannon or smoke bomb on the boat? Yes, within reason! Confetti and smoke reveals are popular and work beautifully against the lake backdrop. We ask that you use products that won\'t damage the boat or leave permanent residue. Our crew can suggest positioning for best photos and easiest cleanup.',
+          'Is swimming part of the cruise? Swimming is available during private charters when conditions are safe at the captain\'s discretion. Life jackets are provided and required in the water. It\'s entirely optional based on your group\'s preferences.',
+          'Can we bring food and drinks? Absolutely! All cruises are BYOB friendly (21+ with ID for alcohol). Bring cakes, snacks, and beverages in cans or plastic containers (no glass). We can also coordinate catering delivery to the marina.',
+          'What if it rains on our reveal day? Weather on Lake Travis can change quickly. We monitor conditions closely and will work with you if weather requires rescheduling. Your special moment deserves perfect conditions, and we maintain flexibility to ensure your reveal happens successfully.',
+          'How many guests can join? Day Tripper holds up to 14 guests, Meeseeks and The Irony hold up to 30 guests each, and Clever Girl accommodates up to 75 guests. We\'ll help you select the right boat for your celebration.'
+        ]
+      }
+    ],
+    relatedPages: ['private-cruises', 'baby-shower-cruise', 'birthday-party', 'family-reunion-cruise', 'celebration-cruises', 'party-boat-austin', 'party-boat-lake-travis', 'testimonials', 'faq', 'contact']
+  },
+
+  '/engagement-party-cruise': {
+    h1: 'Engagement Party Cruises on Lake Travis | Austin Engagement Celebrations',
+    introduction: 'Celebrate your engagement with an unforgettable party cruise on Lake Travis! Premier Party Cruises offers the perfect venue for newly engaged couples to gather family and friends for this exciting milestone. Whether you prefer an intimate gathering on our Day Tripper (up to 14 guests) or a grand celebration on Clever Girl (up to 75 guests), our [[private-cruises]] provide stunning scenery, premium amenities, and complete privacy for your engagement celebration.',
+    sections: [
+      {
+        heading: 'The Perfect Engagement Party Venue',
+        paragraphs: [
+          'An engagement marks the beginning of your wedding journey, and it deserves a celebration as special as your love story. Lake Travis provides a breathtaking natural setting with crystal-clear waters, stunning limestone cliffs, and the beautiful Texas Hill Country as your backdrop. A private cruise creates an intimate, exclusive atmosphere where your closest family and friends can celebrate this milestone together.',
+          'Unlike traditional restaurant or banquet hall engagement parties, a Lake Travis cruise offers unique advantages. Your group has exclusive use of the entire boat with professional crew handling everything. Guests can move freely between decks, enjoy swimming and floating, and experience the natural beauty of the lake. The scenic environment creates countless photo opportunities to document this special time.',
+          'Premier Party Cruises has hosted numerous engagement celebrations over our 14+ years on Lake Travis. We understand that this gathering sets the tone for your wedding celebrations ahead. Our professional crew ensures every detail is handled smoothly, allowing you and your guests to focus on celebrating your love and the exciting journey ahead.'
+        ],
+        lists: [
+          {
+            title: 'Engagement Party Cruise Benefits',
+            items: [
+              'Stunning Lake Travis scenery for photos',
+              'Complete privacy for your celebration',
+              'Exclusive use of the boat for your group',
+              'Premium sound system for toasts and music',
+              'BYOB friendly for champagne celebrations',
+              'Swimming and floating options available',
+              'Catering coordination available',
+              'Professional captain and crew included'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Selecting the Right Boat for Your Engagement Party',
+        paragraphs: [
+          'Premier Party Cruises offers vessels perfectly suited for engagement celebrations of any size. Consider your guest count and desired atmosphere when selecting your boat. Day Tripper accommodates up to 14 guests, ideal for intimate celebrations with immediate family and your closest friends. This vessel creates a personal, cozy atmosphere perfect for heartfelt toasts and meaningful conversations.',
+          'Meeseeks and The Irony each accommodate up to 30 guests, perfect for engagement parties including extended family and friend groups from both sides. These boats offer more space for mingling while maintaining an intimate feel. For larger engagement celebrations, our flagship Clever Girl accommodates up to 75 guests with room for everyone to celebrate in style.',
+          'All boats feature USCG certified captains, premium Bluetooth sound systems perfect for speeches and music, large coolers with ice for your beverages, and comfortable seating throughout. The sound system connects easily to phones or devices for playing your favorite music or sharing your proposal story with guests.'
+        ],
+        lists: [
+          {
+            title: 'Fleet Options for Engagement Parties',
+            items: [
+              'Day Tripper - Up to 14 guests, intimate celebrations',
+              'Meeseeks / The Irony - Up to 30 guests, medium gatherings',
+              'Clever Girl - Up to 75 guests, larger celebrations',
+              'All boats include captain, crew, sound system, and coolers'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Creating Your Engagement Cruise Experience',
+        paragraphs: [
+          'Your engagement party cruise is fully customizable to match your vision. Many couples coordinate their engagement party with wedding colors or themes as a preview of what\'s to come. Decorations are welcome on board, including banners, balloon arrangements, and table decorations. Just avoid anything requiring tape, nails, or adhesives that could damage the boat.',
+          'The BYOB-friendly format allows you to bring champagne, wine, beer, and any beverages your guests prefer (21+ with valid ID, cans and plastic containers only, no glass). We provide large coolers with ice to keep everything chilled. Many couples bring a special bottle of champagne for the engagement toast and encourage guests to bring their own favorites.',
+          'Food options are flexible. Bring appetizers, finger foods, or a full meal aboard. Many engagement parties feature grazing boards, cheese platters, and celebration cakes. We can also coordinate catering delivery to the marina for those preferring full-service options. The 4-hour cruise provides ample time for eating, toasting, swimming, and celebrating.'
+        ],
+        lists: [
+          {
+            title: 'Engagement Party Planning Ideas',
+            items: [
+              'Coordinate colors with wedding theme preview',
+              'Bring champagne for engagement toasts',
+              'Display engagement photos or proposal video',
+              'Create a playlist of meaningful songs',
+              'Plan games or activities for guests',
+              'Arrange for professional photography',
+              'Bring celebration cake or desserts',
+              'Coordinate catering for larger groups'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'The Engagement Party Experience on the Water',
+        paragraphs: [
+          'A Lake Travis engagement cruise offers more than just a party venue—it creates an experience your guests will remember. The scenic cruise past limestone cliffs and through beautiful coves provides entertainment on its own. Guests naturally mingle and explore the boat while enjoying the stunning views and pleasant Texas weather.',
+          'Swimming and floating are available during private charters when conditions are safe at the captain\'s discretion. Many engagement party guests enjoy cooling off in the clear Lake Travis water or relaxing on giant lily pad floats. Life jackets are provided and required in the water. It\'s entirely optional based on your group\'s preferences.',
+          'The private setting encourages genuine connection among your guests. Family members from both sides can get to know each other in a relaxed, fun environment. Friends can share in your joy without the constraints of a structured venue. The boat becomes a floating celebration space where meaningful moments happen naturally.'
+        ]
+      },
+      {
+        heading: 'Booking Your Engagement Party Cruise',
+        paragraphs: [
+          'Private charters for engagement parties start at $200 per hour with a 4-hour minimum. Pricing varies by boat size and timing, with weekends being most popular. We recommend booking 6-8 weeks in advance to secure your preferred date, especially during peak season (April through October).',
+          'All cruises depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 30 minutes from downtown Austin. We recommend guests arrive 30 minutes before departure. The marina offers convenient parking, and our crew will be ready to welcome your engagement party and begin the celebration.',
+          'Contact Premier Party Cruises to discuss your engagement celebration vision. We\'ll help you select the right boat, plan the logistics, and ensure every detail is handled. With 14+ years of Lake Travis experience and 150,000+ satisfied customers, we take pride in creating memorable celebrations for couples beginning their wedding journey.'
+        ]
+      },
+      {
+        heading: 'Frequently Asked Questions About Engagement Party Cruises',
+        paragraphs: [
+          'Can we bring decorations? Yes, decorations are welcome! Banners, balloons, and table decorations work great. We ask that nothing be attached with tape, nails, or adhesives that could damage the boat.',
+          'Is there a sound system for toasts and music? Absolutely. All boats feature premium Bluetooth sound systems. Connect your phone or device easily to play music, share proposal videos, or amplify speeches.',
+          'Can we bring our own food and drinks? Yes! All cruises are BYOB friendly (21+ with ID for alcohol). Bring champagne, wine, beer, and any food you prefer in cans or plastic containers (no glass). We provide coolers with ice.',
+          'What if family members have mobility concerns? While our boats require basic mobility to board, we work with groups to ensure everyone can participate safely. Please discuss specific needs with us for honest guidance.',
+          'How far in advance should we book? We recommend booking 6-8 weeks ahead for weekend dates. Weekday cruises often have more availability with shorter notice.',
+          'Can we coordinate with other wedding weekend events? Absolutely! Many couples book an engagement party cruise as the first of several celebrations. We also host [[rehearsal-dinner]], [[welcome-party]], and [[after-party]] cruises for wedding weekends.'
+        ]
+      }
+    ],
+    relatedPages: ['private-cruises', 'bachelorette-party', 'bachelor-party', 'combined-bach', 'rehearsal-dinner', 'welcome-party', 'after-party', 'wedding-party', 'party-boat-austin', 'testimonials', 'faq', 'contact']
+  },
+
+  '/bridal-shower-cruise': {
+    h1: 'Bridal Shower Cruises on Lake Travis | Austin Bridal Shower Party Boats',
+    introduction: 'Host an unforgettable bridal shower on the beautiful waters of Lake Travis! Premier Party Cruises offers the perfect venue for celebrating the bride-to-be with stunning scenery, premium amenities, and complete privacy. Choose from our [[private-cruises]] options—Day Tripper (up to 14 guests), Meeseeks or The Irony (up to 30 guests), or Clever Girl (up to 75 guests)—for a bridal shower experience that goes beyond the ordinary.',
+    sections: [
+      {
+        heading: 'Why Choose a Lake Travis Bridal Shower Cruise',
+        paragraphs: [
+          'A bridal shower celebrates the bride-to-be as she prepares for her wedding day. What better setting than the stunning natural beauty of Lake Travis? A private cruise offers an elevated experience that combines celebration with scenic relaxation. The crystal-clear waters, limestone cliffs, and Texas Hill Country views create a magical backdrop for this pre-wedding gathering.',
+          'Unlike traditional bridal shower venues like restaurants, hotels, or private homes, a Lake Travis cruise offers unique advantages. Your group has exclusive use of the entire boat—no other guests, no time constraints, no waiting for service. The bride-to-be and her guests can relax, mingle, play games, swim, and celebrate without any of the typical venue limitations.',
+          'The private setting creates intimacy among guests. Whether it\'s family members, college friends, work colleagues, or neighborhood friends, the boat environment encourages genuine connection. Guests who might not know each other well bond naturally during the cruise, creating friendships that enhance the wedding celebration ahead.'
+        ],
+        lists: [
+          {
+            title: 'Bridal Shower Cruise Advantages',
+            items: [
+              'Stunning Lake Travis scenery for photos',
+              'Complete privacy for games and activities',
+              'Exclusive use of the entire boat',
+              'Premium sound system for music and games',
+              'BYOB friendly for mimosas and cocktails',
+              'Swimming and floating options available',
+              'Catering coordination available',
+              'Memorable experience for the bride and guests'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Selecting the Perfect Boat for Your Bridal Shower',
+        paragraphs: [
+          'Choose the boat that best fits your bridal shower guest count and desired atmosphere. Day Tripper accommodates up to 14 guests, perfect for intimate bridal showers with the bride\'s closest friends and family. This cozy vessel creates an intimate environment where every guest feels connected to the celebration.',
+          'Meeseeks and The Irony each accommodate up to 30 guests, ideal for medium-sized bridal showers including friends from various life chapters, work colleagues, and family. These boats provide ample space for mingling, games, and activities while maintaining a personal atmosphere. For larger bridal showers, our flagship Clever Girl accommodates up to 75 guests.',
+          'All boats feature professional USCG certified captains, premium Bluetooth sound systems, large coolers with ice, and comfortable seating. The sound system makes it easy to play music, host games that require announcements, and ensure everyone can hear toasts and speeches.'
+        ]
+      },
+      {
+        heading: 'Planning Your Bridal Shower Cruise',
+        paragraphs: [
+          'A bridal shower cruise offers flexibility for traditional and non-traditional celebrations. Many groups incorporate classic bridal shower elements like games, gift opening, and toasts, while also enjoying the unique water experience with swimming and floating. The 4-hour cruise provides ample time for all activities.',
+          'Decorations are welcome on board. Popular choices include "Bride" banners, white and gold color schemes, floral arrangements, and photo backdrops. We ask that nothing be attached with tape, nails, or adhesives that could damage the boat. Many hostesses also create favor stations or decoration elements on tables.',
+          'The BYOB-friendly format makes beverage planning easy. Bring mimosa supplies, prosecco, wine, seltzers, and any drinks guests prefer (21+ with valid ID, cans and plastic containers only, no glass). We provide large coolers with ice. For food, bring brunch items, finger foods, or a full meal, or coordinate catering delivery to the marina.'
+        ],
+        lists: [
+          {
+            title: 'Bridal Shower Cruise Planning Ideas',
+            items: [
+              'Coordinate theme with wedding colors or bridal preferences',
+              'Plan games that work in the boat environment',
+              'Create a photo backdrop for memorable pictures',
+              'Arrange mimosa bar or cocktail station',
+              'Plan gift opening time during cruise',
+              'Prepare toasts and tributes for the bride',
+              'Consider professional photography',
+              'Bring sunscreen and towels for swimming guests'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Bridal Shower Activities on the Water',
+        paragraphs: [
+          'The Lake Travis setting opens up activity possibilities that traditional venues cannot offer. Beyond classic bridal shower games like "How Well Do You Know the Bride" or "Advice for the Bride," guests can enjoy swimming in crystal-clear water, floating on giant lily pads, and taking photos with the stunning scenery as backdrop.',
+          'Many bridal showers incorporate water elements into their celebration. Guests often bring matching swimsuits, bride tribe shirts, or coordinated outfits for group photos. The natural beauty of Lake Travis provides effortless photo opportunities—no elaborate decorating required to create stunning imagery.',
+          'The cruise format naturally structures the event. Departure and boarding create a defined start. The scenic cruising provides entertainment and photo opportunities. Anchoring in a cove allows for swimming and games. Cruising back to the marina signals wind-down time for final toasts and conversations. Many hostesses find this natural flow easier to manage than venue events requiring structured schedules.'
+        ]
+      },
+      {
+        heading: 'Creating Memorable Moments for the Bride',
+        paragraphs: [
+          'A Lake Travis bridal shower creates memories that stand out from typical pre-wedding events. The unique setting, shared adventure, and beautiful surroundings combine to create an experience the bride and guests will remember for years. Many brides tell us their bridal shower cruise was a highlight of their wedding celebrations.',
+          'Consider incorporating personal elements that celebrate the bride\'s journey. Display photos from the couple\'s relationship, share stories of how guests met the bride, or create a memory book that guests can contribute to during the cruise. The intimate setting encourages genuine moments of connection and celebration.',
+          'Premier Party Cruises has hosted bridal showers for brides from across Texas and beyond. Our professional crew understands the importance of this celebration and works to ensure every detail contributes to an exceptional experience. With 14+ years on Lake Travis and 150,000+ satisfied customers, we take pride in creating memorable bridal celebrations.'
+        ]
+      },
+      {
+        heading: 'Booking Your Bridal Shower Cruise',
+        paragraphs: [
+          'Private bridal shower cruises start at $200 per hour with a 4-hour minimum. Pricing varies by boat size and timing. Weekend dates are most popular, and we recommend booking 6-8 weeks in advance. Many hostesses coordinate bridal shower cruises for Saturday or Sunday mornings, though weekday cruises offer more flexibility.',
+          'All cruises depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 30 minutes from downtown Austin. We recommend guests arrive 30 minutes before departure. The marina offers convenient parking, and out-of-town guests can easily access the location from Austin hotels.',
+          'Contact us to discuss your bridal shower vision. We\'ll help you select the right boat, plan logistics, and answer any questions. Our team loves celebrating brides-to-be and ensuring every bridal shower cruise exceeds expectations.'
+        ]
+      },
+      {
+        heading: 'Frequently Asked Questions About Bridal Shower Cruises',
+        paragraphs: [
+          'Can we do gift opening on the boat? Absolutely! Many bridal showers include gift opening during the cruise. The 4-hour duration provides ample time for gifts, games, eating, and enjoying the cruise.',
+          'Is there room for decorations? Yes, decorations are welcome. Banners, balloons, and table decorations work well. We ask that nothing be attached with tape, nails, or adhesives that could damage the boat.',
+          'What about guests who don\'t want to swim? Swimming is entirely optional. Many guests prefer staying on deck, enjoying the views, and socializing. There\'s plenty to enjoy without entering the water.',
+          'Can we play music and games? Yes! All boats feature premium Bluetooth sound systems perfect for music, games, and announcements. Connect your phone easily to play curated playlists or game audio.',
+          'How do we handle food and drinks? All cruises are BYOB friendly (21+ with ID for alcohol). Bring mimosa supplies, brunch foods, and any beverages in cans or plastic containers (no glass). We provide coolers with ice. Catering delivery to the marina is also available.'
+        ]
+      }
+    ],
+    relatedPages: ['private-cruises', 'bachelorette-party', 'engagement-party-cruise', 'wedding-party', 'rehearsal-dinner', 'after-party', 'party-boat-austin', 'party-boat-lake-travis', 'testimonials', 'faq', 'contact']
+  },
+
+  '/baby-shower-cruise': {
+    h1: 'Baby Shower Cruises on Lake Travis | Austin Baby Shower Party Boats',
+    introduction: 'Celebrate the upcoming arrival with a unique baby shower cruise on Lake Travis! Premier Party Cruises offers an unforgettable venue for welcoming new life, with stunning scenery and premium amenities. Our [[private-cruises]] accommodate groups of all sizes—Day Tripper (up to 14 guests), Meeseeks or The Irony (up to 30 guests), or Clever Girl (up to 75 guests)—for a baby shower that goes beyond traditional venues.',
+    sections: [
+      {
+        heading: 'A Unique Setting for Celebrating New Life',
+        paragraphs: [
+          'A baby shower celebrates the joy of new life and the exciting journey ahead for expecting parents. Lake Travis provides a beautiful, peaceful setting that matches the significance of this milestone. The crystal-clear waters, stunning cliffs, and Texas Hill Country views create natural beauty that enhances any celebration, while the gentle movement of the boat provides a calming, memorable experience.',
+          'A private baby shower cruise offers advantages that traditional venues cannot match. Your group has exclusive use of the entire boat with no other guests or events to navigate around. The expectant parent can relax and enjoy without the stress of hosting in their own home. Professional crew handles all logistics while you focus on celebration.',
+          'The scenic environment creates effortless photo opportunities. Every angle offers beautiful backdrops for capturing this special time. Many families treasure baby shower cruise photos for years, with images that stand out from typical indoor party pictures.'
+        ],
+        lists: [
+          {
+            title: 'Baby Shower Cruise Advantages',
+            items: [
+              'Stunning natural scenery for photos',
+              'Complete privacy for your celebration',
+              'Exclusive use of the entire boat',
+              'Comfortable seating for expecting parent',
+              'Shaded areas for sun protection',
+              'Premium sound system for games and music',
+              'BYOB friendly with coolers and ice provided',
+              'Catering coordination available',
+              'Memorable experience for all guests'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Choosing the Right Boat for Your Baby Shower',
+        paragraphs: [
+          'Select the vessel that matches your guest count and desired atmosphere. Day Tripper accommodates up to 14 guests, perfect for intimate baby showers with the closest family and friends. This cozy vessel creates a personal celebration where every guest connects meaningfully with the parents-to-be.',
+          'Meeseeks and The Irony each accommodate up to 30 guests, ideal for baby showers including extended family, work friends, and various friend groups. These boats offer space for activities and mingling while maintaining intimacy. For larger celebrations, Clever Girl accommodates up to 75 guests with room for all the loved ones eager to welcome the new arrival.',
+          'All boats feature comfortable seating perfect for expectant parents, shaded areas for sun protection, clean restroom facilities, and premium sound systems. The stable nature of Lake Travis (calmer than ocean waters) provides smooth cruising appropriate for pregnant guests. Our USCG certified captains prioritize guest comfort throughout the cruise.'
+        ]
+      },
+      {
+        heading: 'Planning Your Baby Shower Cruise',
+        paragraphs: [
+          'A baby shower cruise adapts beautifully to both traditional and modern celebration styles. Incorporate classic elements like games, gift opening, and advice cards, while adding the unique experience of scenic cruising. The 4-hour cruise provides ample time for all activities without feeling rushed.',
+          'Decorations are welcome and encouraged! Popular baby shower themes translate well to the boat environment—"Nautical Baby," "Oh Baby," "Adventure Awaits," or any theme the parents-to-be prefer. Balloons, banners, and table decorations create festive atmosphere. We ask that nothing be attached with tape, nails, or adhesives that could damage the boat.',
+          'Food and beverage planning is flexible. Bring brunch items, finger foods, or a full meal aboard. Many baby showers feature grazing boards, appetizers, and decorated cakes. All cruises are BYOB friendly—bring any beverages in cans or plastic containers (no glass). We provide large coolers with ice. Catering delivery to the marina is available for full-service options.'
+        ],
+        lists: [
+          {
+            title: 'Baby Shower Cruise Planning Ideas',
+            items: [
+              'Select theme that coordinates with nursery or preferences',
+              'Plan games appropriate for boat environment',
+              'Create diaper raffle or baby predictions',
+              'Arrange comfortable seating for expecting parent',
+              'Plan gift opening time during cruise',
+              'Prepare advice cards or memory book for parents',
+              'Consider professional photography',
+              'Coordinate matching outfits or colors for photos'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Baby Shower Activities on Lake Travis',
+        paragraphs: [
+          'The cruise format naturally structures your baby shower while offering unique experiences. Classic games like "Guess the Baby Food," "Baby Bingo," or "Don\'t Say Baby" work perfectly on board. The premium sound system makes announcements and music easy. Many hostesses find the natural flow of departure, cruising, anchoring, and return creates structure that\'s easier than managing a venue event.',
+          'For guests who want water activities, swimming and floating are available during private charters when conditions are safe. Giant lily pad floats provide relaxation for guests who want to cool off. Of course, many guests—especially the expectant parent—prefer enjoying the views from comfortable deck seating. Both options are equally enjoyable.',
+          'Photo opportunities abound throughout the cruise. The scenic Lake Travis backdrop, decorated boat, and joyful guests create beautiful imagery. Many baby showers incorporate photo stations or coordinate outfits for group pictures. Consider hiring a professional photographer to document this milestone celebration.'
+        ]
+      },
+      {
+        heading: 'Comfort Considerations for Expecting Parents',
+        paragraphs: [
+          'Premier Party Cruises understands the comfort needs of expecting parents. Our boats feature comfortable seating with options for various positions, shaded areas for escaping sun and heat, and clean restroom facilities accessible throughout the cruise. Lake Travis waters are typically calm, providing smooth cruising appropriate for pregnancy.',
+          'The private nature of your charter allows flexibility for the expecting parent\'s needs. If they need rest time, quiet moments, or any accommodation, the crew adjusts accordingly. The 4-hour cruise can be structured to the parent-to-be\'s energy levels, with active times and relaxed times as desired.',
+          'Water and hydration are important for expecting guests. We provide ice water stations, and we encourage bringing plenty of beverages. The shaded seating areas provide relief from Texas sun, and the breeze on the water helps moderate temperatures. Guests should bring sunscreen and hats for sun protection.'
+        ]
+      },
+      {
+        heading: 'Booking Your Baby Shower Cruise',
+        paragraphs: [
+          'Private baby shower cruises start at $200 per hour with a 4-hour minimum. Pricing varies by boat size and timing. We recommend booking 6-8 weeks in advance for weekend dates, which are most popular. Many hostesses choose weekend mornings or early afternoons, though weekday cruises offer more flexibility.',
+          'All cruises depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 30 minutes from downtown Austin. We recommend guests arrive 30 minutes before departure. The marina offers convenient parking for all guests.',
+          'Contact Premier Party Cruises to discuss your baby shower celebration. Our team loves helping families celebrate new arrivals and ensuring every detail creates a memorable experience. With 14+ years on Lake Travis, we take pride in hosting meaningful milestone celebrations.'
+        ]
+      },
+      {
+        heading: 'Frequently Asked Questions About Baby Shower Cruises',
+        paragraphs: [
+          'Is a boat cruise safe during pregnancy? Lake Travis waters are typically calm, providing smooth cruising. Many expecting parents have enjoyed cruises with us. As with any activity during pregnancy, we recommend consulting with your healthcare provider if you have concerns.',
+          'Can we do gift opening on the boat? Absolutely! The 4-hour cruise provides ample time for gifts, games, eating, and enjoying the scenery. Many groups do gift opening while anchored in a calm cove.',
+          'Are there restrooms on board? Yes, all our boats have clean restroom facilities accessible throughout the cruise—important for expecting guests!',
+          'What if guests have young children? Children are welcome on private charters. Life jackets are provided for children, and many families bring activities and snacks for younger guests. The boat environment is generally engaging for children.',
+          'How do we handle food safely? Bring food in coolers or insulated bags to maintain temperature. We provide ice for beverages. Avoid leaving perishable items in sun. For catered options, we coordinate delivery timing to ensure freshness.'
+        ]
+      }
+    ],
+    relatedPages: ['private-cruises', 'gender-reveal-cruise', 'birthday-party', 'family-reunion-cruise', 'celebration-cruises', 'party-boat-austin', 'party-boat-lake-travis', 'testimonials', 'faq', 'contact']
+  },
+
+  '/prom-cruise': {
+    h1: 'Prom Cruises on Lake Travis | Austin School Event Party Boats',
+    introduction: 'Create unforgettable prom and school event memories on Lake Travis! Premier Party Cruises offers a unique, safe venue for high school groups celebrating prom, homecoming, after-prom parties, and school dances. Our [[private-cruises]] provide supervised entertainment with stunning scenery and premium amenities. Perfect for school groups, parent organizations, and student clubs looking for an extraordinary celebration venue.',
+    sections: [
+      {
+        heading: 'A Unique Prom Experience on Lake Travis',
+        paragraphs: [
+          'Prom night is one of high school\'s most memorable experiences, and Premier Party Cruises offers a venue that takes this milestone to the next level. A Lake Travis cruise provides a stunning, Instagram-worthy backdrop that makes your prom photos extraordinary. The combination of crystal-clear water, Texas Hill Country scenery, and open sky creates a magical atmosphere for this once-in-a-lifetime celebration.',
+          'A prom cruise offers distinct advantages over traditional ballroom or banquet hall venues. Students experience something truly unique—a floating celebration with premium sound, comfortable spaces, and the beautiful Lake Travis environment. The exclusive, private setting creates a controlled environment where students can celebrate safely while creating memories that will last a lifetime.',
+          'Premier Party Cruises has hosted numerous school events over our 14+ years on Lake Travis. We understand the importance of these milestone celebrations and the responsibility involved in hosting student groups. Our professional crew, USCG certified captains, and commitment to safety make us a trusted choice for school organizations.'
+        ],
+        lists: [
+          {
+            title: 'Prom Cruise Advantages',
+            items: [
+              'Stunning scenery for memorable prom photos',
+              'Unique venue students will remember forever',
+              'Private, controlled environment for safety',
+              'Professional crew and certified captains',
+              'Premium sound system for DJ or playlist',
+              'Dance floor space on deck',
+              'Supervised entertainment option',
+              'No alcohol—appropriate for school events'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Our Fleet for School Events',
+        paragraphs: [
+          'Premier Party Cruises offers vessels suited for school events of various sizes. Select the boat that matches your group and desired atmosphere. Day Tripper accommodates up to 14 guests, perfect for smaller friend groups celebrating together or intimate school club events. This vessel provides a personal experience for close-knit groups.',
+          'Meeseeks and The Irony each accommodate up to 30 guests, ideal for larger friend groups, student organizations, or class sections celebrating together. These boats offer ample dance floor space, comfortable seating, and room for socializing. For larger school events, our flagship Clever Girl accommodates up to 75 guests with extensive deck space.',
+          'All boats feature professional USCG certified captains, premium Bluetooth sound systems perfect for DJ services or playlists, and comfortable seating. The sound quality rivals any traditional venue, allowing students to dance and celebrate with their favorite music in a spectacular setting.'
+        ],
+        lists: [
+          {
+            title: 'Fleet Options for School Events',
+            items: [
+              'Day Tripper - Up to 14 students, intimate groups',
+              'Meeseeks / The Irony - Up to 30 students, medium events',
+              'Clever Girl - Up to 75 students, larger celebrations',
+              'All boats include captain, crew, and premium sound'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Safety and Supervision for Student Groups',
+        paragraphs: [
+          'Premier Party Cruises prioritizes safety for all events, with particular attention to student groups. Our USCG certified captains maintain perfect safety records and ensure professional conduct throughout every cruise. The controlled boat environment provides natural supervision—there are no opportunities for students to wander off or for outsiders to join the event.',
+          'All our cruises for student events operate as dry events—no alcohol is permitted. We maintain this policy strictly for any group primarily composed of minors. Parent chaperones are welcome and encouraged to join the cruise. Many parent organizations coordinate prom cruises specifically because the controlled setting provides peace of mind.',
+          'Life jackets are provided for all guests and required if any swimming is permitted. Swimming decisions are made by the captain based on conditions and event requirements. Many prom cruises focus on dancing, socializing, and photos rather than water activities, which is perfectly accommodated by our vessels.'
+        ],
+        lists: [
+          {
+            title: 'Safety Features',
+            items: [
+              'USCG certified captains with perfect safety records',
+              'No alcohol permitted for student events',
+              'Controlled environment—no wandering or outside access',
+              'Parent chaperones welcome and encouraged',
+              'Life jackets provided for all guests',
+              'Swimming at captain\'s discretion only',
+              'Professional crew monitors conditions throughout',
+              'Coast Guard certified vessels'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Planning Your Prom or School Event Cruise',
+        paragraphs: [
+          'Coordinating a prom cruise involves planning similar to any school event. Work with your school administration, parent organization, or student council to establish parameters. Determine guest count, budget, and any school requirements for off-campus events. Once you have these details, contact Premier Party Cruises to discuss availability and pricing.',
+          'Many schools coordinate prom cruises as after-prom events rather than the prom itself. This allows students to attend the traditional school-hosted prom, then continue celebrating on Lake Travis. After-prom cruises typically book the Saturday 3:30-7:30pm or evening windows. We can work with your schedule to find optimal timing.',
+          'Decorations appropriate for school events are welcome on board. Many groups coordinate with prom themes, school colors, or class-year decorations. Food and non-alcoholic beverages can be brought aboard (cans and plastic containers only, no glass). We can also coordinate catering delivery to the marina for groups wanting full-service food options.'
+        ],
+        lists: [
+          {
+            title: 'Planning Checklist for School Events',
+            items: [
+              'Confirm guest count and select appropriate boat',
+              'Work with school administration on approval if needed',
+              'Coordinate with parent organization for chaperones',
+              'Book cruise 6-8 weeks in advance for weekend dates',
+              'Plan decorations coordinating with prom theme',
+              'Arrange DJ services or create playlists',
+              'Coordinate food and non-alcoholic beverages',
+              'Share marina address and arrival time with students',
+              'Arrange transportation to/from marina'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Creating Instagram-Worthy Prom Memories',
+        paragraphs: [
+          'Lake Travis provides an extraordinary backdrop for prom photos that will stand out on social media and in yearbooks. The combination of water, sky, cliffs, and Texas Hill Country scenery creates imagery that traditional venues cannot match. Students naturally capture stunning photos throughout the cruise without elaborate setup or professional equipment.',
+          'Many prom groups coordinate professional photographers to document the experience. The unique setting creates portfolio-worthy images that photographers appreciate as much as students do. Golden hour cruises (late afternoon) offer particularly stunning lighting for photography, with warm tones reflecting off the water.',
+          'Consider incorporating photo opportunities into your cruise planning. Create a designated photo area with props or decorations. Plan for group photos at scenic moments during the cruise. The captain can anchor in particularly photogenic coves for extended photo sessions. These images become lasting memories of an unforgettable prom experience.'
+        ]
+      },
+      {
+        heading: 'Beyond Prom: Other School Event Options',
+        paragraphs: [
+          'While prom cruises are popular, Premier Party Cruises hosts various school-related events throughout the year. Homecoming celebrations, after-party events, senior class gatherings, and graduation parties all benefit from the Lake Travis setting. Student organizations, sports teams, and school clubs book cruises for end-of-year celebrations and milestone events.',
+          'Post-graduation celebrations are particularly popular. As students prepare to head off to college or careers, a Lake Travis cruise provides a memorable send-off. These events allow friend groups to celebrate together one more time before life takes them in different directions.',
+          'For school organizations considering Lake Travis for any student event, contact us to discuss your specific needs. We understand the unique requirements of school-related functions and work to ensure appropriate, memorable experiences for student groups.'
+        ]
+      },
+      {
+        heading: 'Frequently Asked Questions About Prom Cruises',
+        paragraphs: [
+          'Can we have a DJ on the boat? Yes! Our premium Bluetooth sound systems connect easily to DJ equipment or personal devices. Many groups hire DJs for prom cruises, while others create curated Spotify playlists. The sound quality rivals traditional venues.',
+          'Are chaperones required? We welcome and encourage parent chaperones for student events. Requirements vary by school and organization. The number of chaperones depends on your group\'s needs and school policies.',
+          'Is swimming allowed during prom cruises? Swimming is at the captain\'s discretion based on conditions and event appropriateness. Many prom cruises focus on dancing and socializing rather than water activities. If swimming is desired, students should bring appropriate attire and towels.',
+          'How much does a prom cruise cost? Private charters start at $200 per hour with a 4-hour minimum. Pricing varies by boat size and timing. Contact us for specific pricing based on your group size and date preferences.',
+          'What about formal attire on the boat? Formal prom attire works great on our boats. We recommend flat shoes rather than high heels for safety on deck surfaces. Many students bring a change of more casual clothes if swimming or extended celebrating is planned.'
+        ]
+      }
+    ],
+    relatedPages: ['private-cruises', 'birthday-party', 'graduation-cruise', 'graduation-party', 'sweet-16', 'milestone-birthday', 'party-boat-austin', 'party-boat-lake-travis', 'testimonials', 'faq', 'contact']
   },
 
 };
