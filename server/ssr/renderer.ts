@@ -1715,105 +1715,51 @@ window.__vite_plugin_react_preamble_installed__ = true
     const isStaticBlog = isStaticBlogRoute(pathname);
     const isBlogListing = pathname === '/blog' || pathname === '/blogs';
     
-    // CRITICAL SEO FIX: Homepage MUST have SSR content visible to crawlers
-    // Use "visually hidden" CSS technique to prevent CLS while keeping content accessible to:
-    // - Search engine crawlers (Google, Bing, Ubersuggest)
-    // - AI crawlers (ChatGPT, Claude, Perplexity)
-    // - Screen readers for accessibility
-    // This replaces the previous broken approach that showed 0 words to crawlers
+    // PERMANENT SEO FIX: All SSR content goes INSIDE the root div
+    // This is the same pattern used by blog pages which are indexed correctly by Google
+    // Content is VISIBLE to crawlers (Google, Bing, AI bots) and users until React hydrates
+    // React will replace this content when it mounts - this is standard SSR behavior
+    // DO NOT use hidden/visually-hidden patterns - Google treats them as soft 404s
+    
     const isHomepage = pathname === '/';
     
-    // SEO FALLBACK CSS: Content is invisible to sighted users, visible to crawlers
-    // aria-hidden="true" prevents screen readers from reading duplicate content
-    // The SSR content is removed by React after hydration via useEffect
-    // This is a standard progressive enhancement pattern for SSR with SPA hydration
-    const ssrFallbackStyle = 'position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;';
-    
-    // Script to remove SSR content after React hydrates (prevents duplicate content)
-    const hydrationCleanupScript = `<script>
-      // Remove SSR fallback content after React mounts to prevent duplicate content
-      // This runs after React hydration, so crawlers still see the SSR content
-      if (typeof window !== 'undefined') {
-        window.addEventListener('DOMContentLoaded', function() {
-          // Give React time to mount and hydrate
-          setTimeout(function() {
-            var ssrContent = document.querySelectorAll('.ssr-content');
-            ssrContent.forEach(function(el) { el.remove(); });
-          }, 100);
-        });
-      }
-    </script>`;
-    
     if (isHomepage && pageContent) {
-      // Homepage: SSR content is visually hidden but crawlable for SEO
-      // aria-hidden="true" prevents screen readers from reading before React hydrates
-      // Content is removed by script after React mounts
-      ssrContent = `
-      <div id="root"></div>
-      <div class="ssr-content" style="${ssrFallbackStyle}" aria-hidden="true">
-        ${renderPageContent(pageContent)}
-      </div>
-      ${hydrationCleanupScript}`;
+      // Homepage: Full content INSIDE root div for SEO visibility
+      ssrContent = `<div id="root">${renderPageContent(pageContent)}</div>`;
     } else if (isBlogPost && usedPageContent) {
-      // Blog posts using PAGE_CONTENT: renderPageContent already includes H1
-      // Don't add another H1 to prevent SEMRush "multiple H1" warning
-      ssrContent = `<div id="root"></div>
-      <div class="ssr-content" style="${ssrFallbackStyle}" aria-hidden="true">
-        ${content}
-      </div>
-      ${hydrationCleanupScript}`;
+      // Blog posts using PAGE_CONTENT: content already includes H1
+      ssrContent = `<div id="root">${content}</div>`;
     } else if (isBlogPost) {
-      // Database blog posts: SSR content is visually hidden but crawlable
-      // aria-hidden="true" prevents screen readers from reading duplicate content
-      ssrContent = `<div id="root"></div>
-      <article class="ssr-content" style="${ssrFallbackStyle}" aria-hidden="true">
+      // Database blog posts: Full article content INSIDE root div
+      ssrContent = `<div id="root"><article style="max-width: 56rem; margin: 0 auto; padding: 2rem 1rem;">
         <h1 style="font-size: 2.5rem; font-weight: bold; margin-bottom: 1rem; color: #000;">${h1}</h1>
         <div style="font-size: 1.125rem; line-height: 1.75; color: #374151;">${content}</div>
-      </article>
-      ${hydrationCleanupScript}`;
+      </article></div>`;
     } else if (isStaticBlog && pageContent) {
-      // Static blog pages WITH full PAGE_CONTENT: use the rich content
-      ssrContent = `
-      <div id="root"></div>
-      <div class="ssr-content" style="${ssrFallbackStyle}" aria-hidden="true">
-        ${renderPageContent(pageContent)}
-      </div>
-      ${hydrationCleanupScript}`;
+      // Static blog pages WITH full PAGE_CONTENT: content INSIDE root div
+      ssrContent = `<div id="root">${renderPageContent(pageContent)}</div>`;
     } else if (isStaticBlog) {
-      // Static blog pages without PAGE_CONTENT: use short description
-      ssrContent = `<div id="root"></div>
-      <article class="ssr-content" style="${ssrFallbackStyle}" aria-hidden="true">
+      // Static blog pages without PAGE_CONTENT: article INSIDE root div
+      ssrContent = `<div id="root"><article style="max-width: 56rem; margin: 0 auto; padding: 2rem 1rem;">
         <h1 style="font-size: 2.5rem; font-weight: bold; margin-bottom: 1rem; color: #000;">${h1}</h1>
         <div style="font-size: 1.125rem; line-height: 1.75; color: #374151;">${content}</div>
-      </article>
-      ${hydrationCleanupScript}`;
+      </article></div>`;
     } else if (isBlogListing) {
-      // Blog listing page: SSR content is visually hidden but crawlable for SEO
-      ssrContent = `
-      <div id="root"></div>
-      <div class="ssr-content" style="${ssrFallbackStyle}" aria-hidden="true">
+      // Blog listing page: Content INSIDE root div for SEO
+      ssrContent = `<div id="root"><div style="max-width: 56rem; margin: 0 auto; padding: 2rem 1rem;">
         <h1 style="font-size: 2.5rem; font-weight: bold; margin-bottom: 1rem; color: #000;">${h1}</h1>
         ${content}
-      </div>
-      ${hydrationCleanupScript}`;
+      </div></div>`;
     } else if (pageContent) {
-      // Marketing pages: SSR content is visually hidden but crawlable for SEO
-      // aria-hidden="true" prevents screen readers from reading duplicate content
-      ssrContent = `
-      <div id="root"></div>
-      <div class="ssr-content" style="${ssrFallbackStyle}" aria-hidden="true">
-        ${renderPageContent(pageContent)}
-      </div>
-      ${hydrationCleanupScript}`;
+      // Marketing pages: Full content INSIDE root div for permanent SEO visibility
+      // This is the CRITICAL fix - content must be inside root, not hidden outside
+      ssrContent = `<div id="root">${renderPageContent(pageContent)}</div>`;
     } else {
-      // Other pages: SSR fallback content is visually hidden but crawlable
-      ssrContent = `
-      <div id="root"></div>
-      <div class="ssr-content" style="${ssrFallbackStyle}" aria-hidden="true">
-        <h1 style="font-size: 2.5rem; font-weight: bold; margin-bottom: 1rem; color: #000;">${h1}</h1>
+      // Other pages: Basic content INSIDE root div
+      ssrContent = `<div id="root"><div style="max-width: 56rem; margin: 0 auto; padding: 2rem 1rem;">
+        <h1 style="font-size: 2.5rem; font-weight: bold; margin-bottom: 1.5rem; color: #000; line-height: 1.2;">${h1}</h1>
         <p style="font-size: 1.125rem; line-height: 1.75; color: #374151; margin-bottom: 2rem;">${content}</p>
-      </div>
-      ${hydrationCleanupScript}`;
+      </div></div>`;
     }
     
     template = template.replace(
