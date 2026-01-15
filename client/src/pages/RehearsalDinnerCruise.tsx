@@ -1,0 +1,82 @@
+import EventPageTemplate from '@/components/EventPageTemplate';
+import { Wine, Users, Utensils, Music, Camera, Heart } from 'lucide-react';
+
+const features = [
+  {
+    icon: Wine,
+    title: 'Elegant Atmosphere',
+    description: 'Toast to the happy couple in a sophisticated yet relaxed setting on beautiful Lake Travis.'
+  },
+  {
+    icon: Users,
+    title: 'Wedding Party Bonding',
+    description: 'Perfect opportunity for both families and the wedding party to connect before the big day.'
+  },
+  {
+    icon: Utensils,
+    title: 'Catering Friendly',
+    description: 'Bring your own catering or we can coordinate with local restaurants for seamless delivery.'
+  },
+  {
+    icon: Music,
+    title: 'Speech-Ready Sound',
+    description: 'Premium sound system perfect for toasts, speeches, and creating the right ambiance.'
+  },
+  {
+    icon: Camera,
+    title: 'Photo Opportunities',
+    description: 'Capture stunning group photos with the lake and Texas Hill Country as your backdrop.'
+  },
+  {
+    icon: Heart,
+    title: 'Stress-Free Evening',
+    description: 'Let us handle the venue while you focus on celebrating with your loved ones.'
+  }
+];
+
+const faqs = [
+  {
+    question: 'How many guests can attend a rehearsal dinner cruise?',
+    answer: 'We can accommodate rehearsal dinners from intimate gatherings of 6-14 guests on our Day Tripper, 15-30 guests on Meeseeks/The Irony, or up to 75 guests on Clever Girl. Most rehearsal dinners book our medium or large boats to include both families and the wedding party.'
+  },
+  {
+    question: 'Can we bring our own catering and drinks?',
+    answer: 'Absolutely! We\'re BYOB and BYOF (bring your own food). Many couples work with Austin caterers who deliver to the marina, or you can bring prepared dishes. We provide coolers with ice, tables for food service, and all the setup you need.'
+  },
+  {
+    question: 'Is there enough space for toasts and speeches?',
+    answer: 'Yes! Our boats have open deck areas perfect for gathering the group for toasts and speeches. The premium Bluetooth sound system ensures everyone can hear, and the sunset views provide a beautiful backdrop for these special moments.'
+  },
+  {
+    question: 'What time should we schedule the rehearsal dinner cruise?',
+    answer: 'Most rehearsal dinner cruises depart around 5-6 PM for a 3-hour cruise that captures the sunset. This allows time for boarding, cocktails, dinner service, toasts, and celebration as the sun sets over Lake Travis.'
+  }
+];
+
+const breadcrumbItems = [
+  { label: 'Home', href: '/' },
+  { label: 'Events', href: '/private-cruises' },
+  { label: 'Rehearsal Dinner Cruises' }
+];
+
+export default function RehearsalDinnerCruise() {
+  return (
+    <EventPageTemplate
+      title="Rehearsal Dinner Cruises"
+      metaTitle="Rehearsal Dinner Cruise Austin | Lake Travis Wedding Party Boat"
+      metaDescription="Host your rehearsal dinner on Lake Travis. Unique venue for wedding party celebrations with catering, toasts, and stunning sunset views. Book your cruise!"
+      heroTitle="Rehearsal Dinner on the Water"
+      heroSubtitle="Celebrate the night before your wedding with an unforgettable Lake Travis cruise featuring stunning sunsets, delicious food, and quality time with your wedding party."
+      heroBadge="Wedding Celebrations"
+      heroIcon={Wine}
+      videoId="4-Yx24Y6oro"
+      heroImage="/attached_assets/party-atmosphere-2.jpg"
+      introTitle="The Perfect Pre-Wedding Celebration"
+      introText="Skip the traditional restaurant and give your wedding party an experience they'll never forget. A Lake Travis rehearsal dinner cruise brings together both families in a relaxed, beautiful setting. Watch the sunset paint the Texas Hill Country in golden hues while toasting to the happy couple. Our experienced crew handles all the details so you can focus on celebrating this special milestone."
+      features={features}
+      faqs={faqs}
+      breadcrumbItems={breadcrumbItems}
+      accentColor="pink"
+    />
+  );
+}

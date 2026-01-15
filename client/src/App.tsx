@@ -185,6 +185,12 @@ const Partners = lazy(() => import("./pages/Partners"));
 const RehearsalDinner = lazy(() => import("./pages/RehearsalDinner"));
 const WelcomeParty = lazy(() => import("./pages/WelcomeParty"));
 const AfterParty = lazy(() => import("./pages/AfterParty"));
+const ProposalCruise = lazy(() => import("./pages/ProposalCruise"));
+const RehearsalDinnerCruise = lazy(() => import("./pages/RehearsalDinnerCruise"));
+const BridalShowerCruise = lazy(() => import("./pages/BridalShowerCruise"));
+const EngagementPartyCruise = lazy(() => import("./pages/EngagementPartyCruise"));
+const BabyShowerCruise = lazy(() => import("./pages/BabyShowerCruise"));
+const GenderRevealCruise = lazy(() => import("./pages/GenderRevealCruise"));
 
 // Corporate Experience Pages - Lazy loaded
 const TeamBuilding = lazy(() => import("./pages/TeamBuilding"));
@@ -199,6 +205,14 @@ const Sweet16 = lazy(() => import("./pages/Sweet16"));
 const GraduationParty = lazy(() => import("./pages/GraduationParty"));
 const Faq = lazy(() => import("./pages/Faq"));
 const PricingBreakdown = lazy(() => import("./pages/PricingBreakdown"));
+
+// Marketing Event Pages - Lazy loaded
+const PartyBoatRentalAustin = lazy(() => import("./pages/PartyBoatRentalAustin"));
+const LakeTravisYachtRental = lazy(() => import("./pages/LakeTravisYachtRental"));
+const AustinBoatParty = lazy(() => import("./pages/AustinBoatParty"));
+const CelebrationCruises = lazy(() => import("./pages/CelebrationCruises"));
+const PromCruise = lazy(() => import("./pages/PromCruise"));
+const HolidayPartyCruise = lazy(() => import("./pages/HolidayPartyCruise"));
 
 // Blog Content Pages - Lazy loaded
 const LakeTravisBoatRentalGuide = lazy(() => import("./pages/LakeTravisBoatRentalGuide"));
@@ -369,6 +383,12 @@ function Router() {
       <Route path="/rehearsal-dinner" component={RehearsalDinner} />
       <Route path="/welcome-party" component={WelcomeParty} />
       <Route path="/after-party" component={AfterParty} />
+      <Route path="/proposal-cruise" component={ProposalCruise} />
+      <Route path="/rehearsal-dinner-cruise" component={RehearsalDinnerCruise} />
+      <Route path="/bridal-shower-cruise" component={BridalShowerCruise} />
+      <Route path="/engagement-party-cruise" component={EngagementPartyCruise} />
+      <Route path="/baby-shower-cruise" component={BabyShowerCruise} />
+      <Route path="/gender-reveal-cruise" component={GenderRevealCruise} />
       
       {/* Corporate Experience Pages */}
       <Route path="/team-building" component={TeamBuilding} />
@@ -383,6 +403,14 @@ function Router() {
       <Route path="/graduation-party" component={GraduationParty} />
       <Route path="/faq" component={Faq} />
       <Route path="/pricing-breakdown" component={PricingBreakdown} />
+      
+      {/* Marketing Event Pages */}
+      <Route path="/party-boat-rental-austin" component={PartyBoatRentalAustin} />
+      <Route path="/lake-travis-yacht-rental" component={LakeTravisYachtRental} />
+      <Route path="/austin-boat-party" component={AustinBoatParty} />
+      <Route path="/celebration-cruises" component={CelebrationCruises} />
+      <Route path="/prom-cruise" component={PromCruise} />
+      <Route path="/holiday-party-cruise" component={HolidayPartyCruise} />
       
       {/* Blog Content Pages */}
       <Route path="/first-time-lake-travis-boat-rental-guide" component={LakeTravisBoatRentalGuide} />
