@@ -214,6 +214,19 @@ const CelebrationCruises = lazy(() => import("./pages/CelebrationCruises"));
 const PromCruise = lazy(() => import("./pages/PromCruise"));
 const HolidayPartyCruise = lazy(() => import("./pages/HolidayPartyCruise"));
 
+// New Core Marketing Pages - Lazy loaded
+const PricingPage = lazy(() => import("./pages/Pricing"));
+const BookingPage = lazy(() => import("./pages/Booking"));
+const BoatsPage = lazy(() => import("./pages/Boats"));
+
+// Celebration Event Pages - Lazy loaded
+const BirthdayPartyBoatRental = lazy(() => import("./pages/BirthdayPartyBoatRental"));
+const AnniversaryCruise = lazy(() => import("./pages/AnniversaryCruise"));
+const GraduationCruise = lazy(() => import("./pages/GraduationCruise"));
+const RetirementPartyCruise = lazy(() => import("./pages/RetirementPartyCruise"));
+const MemorialCelebrationCruise = lazy(() => import("./pages/MemorialCelebrationCruise"));
+const FamilyReunionCruise = lazy(() => import("./pages/FamilyReunionCruise"));
+
 // Blog Content Pages - Lazy loaded
 const LakeTravisBoatRentalGuide = lazy(() => import("./pages/LakeTravisBoatRentalGuide"));
 const FirstTimeLakeTravisGuide = lazy(() => import("./pages/blog/FirstTimeLakeTravisGuide"));
@@ -411,6 +424,19 @@ function Router() {
       <Route path="/celebration-cruises" component={CelebrationCruises} />
       <Route path="/prom-cruise" component={PromCruise} />
       <Route path="/holiday-party-cruise" component={HolidayPartyCruise} />
+      
+      {/* New Core Marketing Pages */}
+      <Route path="/pricing" component={PricingPage} />
+      <Route path="/booking" component={BookingPage} />
+      <Route path="/boats" component={BoatsPage} />
+      
+      {/* Celebration Event Pages */}
+      <Route path="/birthday-party-boat-rental" component={BirthdayPartyBoatRental} />
+      <Route path="/anniversary-cruise" component={AnniversaryCruise} />
+      <Route path="/graduation-cruise" component={GraduationCruise} />
+      <Route path="/retirement-party-cruise" component={RetirementPartyCruise} />
+      <Route path="/memorial-celebration-cruise" component={MemorialCelebrationCruise} />
+      <Route path="/family-reunion-cruise" component={FamilyReunionCruise} />
       
       {/* Blog Content Pages */}
       <Route path="/first-time-lake-travis-boat-rental-guide" component={LakeTravisBoatRentalGuide} />
