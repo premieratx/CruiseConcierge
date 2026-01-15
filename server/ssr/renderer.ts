@@ -1193,6 +1193,91 @@ const PAGE_METADATA: Record<string, { h1: string; content: string }> = {
   '/site-directory': {
     h1: 'Site Directory | Party Boat Rentals Austin | Lake Travis Cruises',
     content: 'Complete directory of Premier Party Cruises services. Find bachelor party boat rentals, bachelorette cruises, ATX Disco Cruise, private charters, corporate events, and all Lake Travis party cruise options.'
+  },
+  // NEW PAGES - Added for complete SEO coverage
+  '/pricing': {
+    h1: 'Party Boat Pricing & Packages | Lake Travis Austin Party Cruises',
+    content: 'Complete pricing for Lake Travis party boat rentals. Private charters $200-500/hour, ATX Disco Cruise $85-105/person. Day Tripper, Meeseeks, Clever Girl boats. Tax and gratuity included.'
+  },
+  '/booking': {
+    h1: 'Book Your Party Boat Rental | Lake Travis Austin Cruises',
+    content: 'Book Lake Travis party boat rentals online. Private charters and ATX Disco Cruise from Anderson Mill Marina, 30 min from downtown Austin. Easy booking, instant confirmation.'
+  },
+  '/boats': {
+    h1: 'Party Boat Fleet | Lake Travis Austin Boat Rentals',
+    content: 'Meet our Lake Travis party boat fleet. Day Tripper (14 guests), Meeseeks/The Irony (30 guests), Clever Girl (75 guests with 14 disco balls). Professional captains, premium sound, BYOB friendly.'
+  },
+  '/birthday-party-boat-rental': {
+    h1: 'Birthday Party Boat Rental | Lake Travis Austin Cruises',
+    content: 'Celebrate birthdays on Lake Travis party boats. Private charters for 14-75 guests. BYOB friendly, professional crew, premium amenities. Book your Austin birthday cruise today.'
+  },
+  '/anniversary-cruise': {
+    h1: 'Anniversary Cruise Lake Travis | Austin Romantic Boat Rentals',
+    content: 'Celebrate your anniversary on Lake Travis. Romantic private cruises for couples or family gatherings. Sunset cruises, champagne-friendly, unforgettable Austin celebrations.'
+  },
+  '/party-boat-rental-austin': {
+    h1: 'Party Boat Rental Austin | Lake Travis Private Charters',
+    content: 'Austin party boat rentals on Lake Travis. Private charters 14-75 guests, ATX Disco Cruise packages. Professional crew, BYOB, premium sound systems. Book today.'
+  },
+  '/lake-travis-yacht-rental': {
+    h1: 'Lake Travis Yacht Rental | Premium Party Boat Charters Austin',
+    content: 'Premium yacht rental on Lake Travis. Flagship Clever Girl with 14 disco balls, 75 guests. Luxury party boat experience with professional crew, premium amenities.'
+  },
+  '/austin-boat-party': {
+    h1: 'Austin Boat Party | Lake Travis Party Cruises',
+    content: 'Austin boat party on Lake Travis. ATX Disco Cruise with DJ and photographer, or private charters. Bachelor, bachelorette, corporate events, birthdays. BYOB friendly.'
+  },
+  '/celebration-cruises': {
+    h1: 'Celebration Cruises Lake Travis | Austin Party Boat Rentals',
+    content: 'Celebrate any occasion on Lake Travis. Birthdays, anniversaries, graduations, retirements, reunions. Private party boat rentals for 14-75 guests with professional crew.'
+  },
+  '/proposal-cruise': {
+    h1: 'Proposal Cruise Lake Travis | Romantic Austin Boat Rentals',
+    content: 'Plan the perfect proposal on Lake Travis. Romantic sunset cruises, private boat rentals, champagne-friendly. Create an unforgettable engagement moment in Austin.'
+  },
+  '/graduation-cruise': {
+    h1: 'Graduation Cruise Lake Travis | Austin Party Boat Rentals',
+    content: 'Celebrate graduation on Lake Travis. High school, college, graduate degree milestones. Private party boats for 14-75 guests. BYOB friendly, professional crew included.'
+  },
+  '/rehearsal-dinner-cruise': {
+    h1: 'Rehearsal Dinner Cruise Lake Travis | Austin Wedding Boats',
+    content: 'Host your rehearsal dinner on Lake Travis. Elegant party boat rentals for wedding parties. Catering coordination, multi-generational accommodations, unforgettable venue.'
+  },
+  '/holiday-party-cruise': {
+    h1: 'Holiday Party Cruise Lake Travis | Austin Christmas New Year Boats',
+    content: 'Celebrate holidays on Lake Travis. Christmas parties, New Year Eve cruises, 4th of July celebrations. Private party boats for 14-75 guests with festive atmosphere.'
+  },
+  '/family-reunion-cruise': {
+    h1: 'Family Reunion Cruise Lake Travis | Austin Multi-Generation Boats',
+    content: 'Host your family reunion on Lake Travis. Multi-generational party boats for 14-75 guests. Activities for all ages, BYOB friendly, create lasting family memories.'
+  },
+  '/retirement-party-cruise': {
+    h1: 'Retirement Party Cruise Lake Travis | Austin Celebration Boats',
+    content: 'Celebrate retirement on Lake Travis. Honor career achievements with private party boat rentals. Elegant venue for 14-75 guests, professional service, unforgettable send-off.'
+  },
+  '/memorial-celebration-cruise': {
+    h1: 'Memorial Celebration Cruise Lake Travis | Austin Tribute Boats',
+    content: 'Honor loved ones with a celebration of life on Lake Travis. Peaceful, beautiful setting for memorial gatherings. Private party boats for meaningful tributes.'
+  },
+  '/gender-reveal-cruise': {
+    h1: 'Gender Reveal Cruise Lake Travis | Austin Baby Announcement Boats',
+    content: 'Announce your baby on Lake Travis. Gender reveal parties on private party boats. Scenic backdrop, photo opportunities, celebration with family and friends.'
+  },
+  '/engagement-party-cruise': {
+    h1: 'Engagement Party Cruise Lake Travis | Austin Celebration Boats',
+    content: 'Celebrate your engagement on Lake Travis. Party boat rentals for engagement parties. Toast to your future with friends and family on beautiful Austin waters.'
+  },
+  '/bridal-shower-cruise': {
+    h1: 'Bridal Shower Cruise Lake Travis | Austin Bachelorette Boats',
+    content: 'Host an elegant bridal shower on Lake Travis. Private party boats for the bride-to-be. Champagne-friendly, beautiful scenery, unforgettable pre-wedding celebration.'
+  },
+  '/baby-shower-cruise': {
+    h1: 'Baby Shower Cruise Lake Travis | Austin Party Boat Rentals',
+    content: 'Celebrate baby on the way with a Lake Travis cruise. Unique baby shower venue on private party boats. Beautiful setting for mom-to-be and guests.'
+  },
+  '/prom-cruise': {
+    h1: 'Prom Cruise Lake Travis | Austin School Event Party Boats',
+    content: 'Make prom unforgettable on Lake Travis. Safe, chaperoned party boat experience for high school students. Professional crew, great music, memorable photos.'
   }
 };
 
