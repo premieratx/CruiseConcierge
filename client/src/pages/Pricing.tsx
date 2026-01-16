@@ -1,5 +1,6 @@
 import { Link } from 'wouter';
 import { motion } from 'framer-motion';
+import { lazy, Suspense } from 'react';
 import PublicNavigation from '@/components/PublicNavigation';
 import Footer from '@/components/Footer';
 import QuoteBuilderSection from '@/components/QuoteBuilderSection';
@@ -10,26 +11,29 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { cn } from '@/lib/utils';
+import { type ComparisonColumn, type ComparisonRow } from '@/components/ComparisonTable';
 // Note: Pricing uses hardcoded values for now - will be refactored to use shared constants
 import { 
   Ship, Users, Check, Sparkles, Crown, ArrowRight, Phone,
-  DollarSign, Calculator, Clock, Calendar, Star
+  DollarSign, Calculator, Clock, Calendar, Star, Info
 } from 'lucide-react';
+
+const ComparisonTableLazy = lazy(() => import('@/components/ComparisonTable').then(m => ({ default: m.ComparisonTable })));
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
 };
 
+// Private cruise pricing - hourly rates and all-in totals (no per-person pricing)
 const boatPricing = [
   {
     name: 'Day Tripper',
-    capacity: '6-14 guests',
+    capacity: '1-14 guests',
     seating: '14 seats comfortably',
-    pricePerPerson: '$75',
-    basePrice: '$1,050',
-    minGuests: 6,
-    maxGuests: 14,
+    hourlyRate: '$263',
+    threeHourTotal: '$789',
+    fourHourTotal: '$1,050',
     description: 'Perfect for intimate celebrations',
     image: '/attached_assets/day-tripper-14-person-boat.jpg'
   },
@@ -37,10 +41,9 @@ const boatPricing = [
     name: 'Meeseeks / The Irony',
     capacity: '15-30 guests',
     seating: '20 seats comfortably (max 30)',
-    pricePerPerson: '$75',
-    basePrice: '$1,500',
-    minGuests: 15,
-    maxGuests: 30,
+    hourlyRate: '$295',
+    threeHourTotal: '$886',
+    fourHourTotal: '$1,181',
     description: 'Two identical boats for medium groups',
     image: '/attached_assets/meeseeks-25-person-boat.jpg'
   },
@@ -48,10 +51,9 @@ const boatPricing = [
     name: 'Clever Girl',
     capacity: '31-75 guests',
     seating: '30 seats comfortably (max 75)',
-    pricePerPerson: '$75',
-    basePrice: '$2,325',
-    minGuests: 31,
-    maxGuests: 75,
+    hourlyRate: '$353',
+    threeHourTotal: '$1,058',
+    fourHourTotal: '$1,411',
     description: 'Our flagship with 14 disco balls',
     image: '/attached_assets/clever-girl-50-person-boat.jpg'
   }
@@ -114,15 +116,14 @@ const packages = [
 const discoCruisePricing = {
   title: 'ATX Disco Cruise',
   description: 'All-inclusive multi-group bachelor/bachelorette party experience',
-  pricePerPerson: '$149',
+  priceRange: '$85-$105',
   includes: [
     'DJ and party host',
-    'Open bar (beer, wine, cocktails)',
-    'Food spread',
     'Professional photography',
     'Party floats and equipment',
     'Stops for swimming',
-    '3-hour cruise experience'
+    '4-hour cruise experience',
+    'Friday & Saturday availability'
   ]
 };
 
@@ -132,7 +133,7 @@ export default function Pricing() {
       <SEOHead
         pageRoute="/pricing"
         defaultTitle="Party Boat Pricing & Packages | Lake Travis Austin | Premier Party Cruises"
-        defaultDescription="Complete pricing for Lake Travis party boat rentals. Private charters from $75/person. ATX Disco Cruises $149/person all-inclusive. See packages, boats, and add-ons."
+        defaultDescription="Complete pricing for Lake Travis party boat rentals. Private charters from $263/hour ($789-$1,411 total). ATX Disco Cruises $85-$105/person all-inclusive. Compare boats and packages."
       />
 
       <PublicNavigation />
@@ -149,8 +150,8 @@ export default function Pricing() {
                 Party Boat Pricing & Packages
               </h1>
               <p className="text-xl text-white/90 max-w-3xl mx-auto mb-8">
-                Private charters starting at $75/person. 
-                All-inclusive ATX Disco Cruises at $149/person.
+                Private charters from $263/hour. 
+                All-inclusive ATX Disco Cruises from $85/person.
               </p>
               <Button
                 size="lg"
@@ -190,7 +191,11 @@ export default function Pricing() {
               <TabsContent value="private" className="space-y-12">
                 <div>
                   <h2 className="text-3xl font-playfair font-bold text-center mb-4">Choose Your Boat</h2>
-                  <p className="text-gray-600 text-center mb-8">All boats include 3-hour cruise with experienced captain</p>
+                  <p className="text-gray-600 text-center mb-4">Private charter pricing for your exclusive group</p>
+                  <div className="flex items-center justify-center gap-2 text-sm text-amber-700 bg-amber-50 rounded-lg px-4 py-2 mb-8 max-w-lg mx-auto">
+                    <Info className="h-4 w-4 flex-shrink-0" />
+                    <span>3-hour cruises available Monday–Thursday only. 4-hour minimum on weekends.</span>
+                  </div>
                   <div className="grid md:grid-cols-3 gap-8">
                     {boatPricing.map((boat, index) => (
                       <Card key={index} className="overflow-hidden hover:shadow-lg transition-shadow">
@@ -201,14 +206,27 @@ export default function Pricing() {
                           <CardTitle className="text-2xl">{boat.name}</CardTitle>
                         </CardHeader>
                         <CardContent>
-                          <div className="text-3xl font-bold text-brand-blue mb-2">
-                            {boat.pricePerPerson}
-                            <span className="text-lg font-normal text-gray-500">/person</span>
+                          <div className="text-2xl font-bold text-brand-blue mb-1">
+                            {boat.hourlyRate}
+                            <span className="text-base font-normal text-gray-500">/hour</span>
                           </div>
-                          <div className="text-lg text-gray-700 mb-2">
-                            Starting at {boat.basePrice}
+                          <div className="space-y-1 mb-4">
+                            <div className="flex justify-between text-gray-700">
+                              <span className="flex items-center gap-1">
+                                <Clock className="h-4 w-4" />
+                                3-Hour Cruise
+                              </span>
+                              <span className="font-semibold">{boat.threeHourTotal}</span>
+                            </div>
+                            <div className="flex justify-between text-gray-700">
+                              <span className="flex items-center gap-1">
+                                <Clock className="h-4 w-4" />
+                                4-Hour Cruise
+                              </span>
+                              <span className="font-semibold">{boat.fourHourTotal}</span>
+                            </div>
                           </div>
-                          <div className="space-y-2 text-gray-600">
+                          <div className="space-y-2 text-gray-600 border-t pt-3">
                             <div className="flex items-center gap-2">
                               <Users className="h-4 w-4" />
                               <span>{boat.capacity}</span>
@@ -218,7 +236,7 @@ export default function Pricing() {
                               <span>{boat.seating}</span>
                             </div>
                           </div>
-                          <p className="mt-4 text-gray-600">{boat.description}</p>
+                          <p className="mt-3 text-gray-600 text-sm">{boat.description}</p>
                         </CardContent>
                       </Card>
                     ))}
@@ -268,9 +286,10 @@ export default function Pricing() {
                     <CardTitle className="text-3xl">{discoCruisePricing.title}</CardTitle>
                     <p className="text-white/90">{discoCruisePricing.description}</p>
                     <div className="text-5xl font-bold mt-4">
-                      {discoCruisePricing.pricePerPerson}
+                      {discoCruisePricing.priceRange}
                       <span className="text-xl font-normal">/person</span>
                     </div>
+                    <p className="text-white/70 text-sm mt-2">Price varies by time slot</p>
                   </CardHeader>
                   <CardContent className="pt-6">
                     <h3 className="font-bold text-xl mb-4">Everything Included:</h3>
@@ -297,6 +316,180 @@ export default function Pricing() {
           </div>
         </section>
 
+        {/* Comparison Charts Section */}
+        <section className="py-16 bg-gray-50">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-playfair font-bold mb-4">Compare Your Options</h2>
+              <p className="text-gray-600 max-w-2xl mx-auto">
+                Not sure which option is right for you? Compare our cruise types and boat fleet to find the perfect fit.
+              </p>
+            </div>
+
+            {/* Disco vs Private Comparison */}
+            <div className="mb-16 max-w-5xl mx-auto">
+              <h3 className="text-xl font-semibold mb-6 text-center">
+                ATX Disco Cruise vs Private Charter
+              </h3>
+              <Suspense fallback={<div className="min-h-[400px] animate-pulse bg-gray-100 rounded-xl" />}>
+                <ComparisonTableLazy
+                  columns={[
+                    {
+                      id: 'disco',
+                      title: 'ATX Disco Cruise',
+                      subtitle: 'Multi-group party experience',
+                      recommended: true,
+                      badge: { text: 'Best Value', variant: 'default' }
+                    },
+                    {
+                      id: 'private',
+                      title: 'Private Charter',
+                      subtitle: 'Exclusive boat rental'
+                    }
+                  ]}
+                  rows={[
+                    {
+                      feature: 'Price Range',
+                      values: [
+                        { text: '$85-$105/person depending on time slot', highlight: true },
+                        '$789-$1,411 for 3-4 hour cruise'
+                      ]
+                    },
+                    {
+                      feature: 'Group Size',
+                      values: ['8-30 people typical', '1-75 people']
+                    },
+                    {
+                      feature: 'Duration',
+                      values: ['4 hours fixed', '3-4+ hours flexible']
+                    },
+                    {
+                      feature: 'Professional DJ',
+                      values: [true, false]
+                    },
+                    {
+                      feature: 'Professional Photographer',
+                      values: [true, false]
+                    },
+                    {
+                      feature: 'Food Options',
+                      values: ['Delivery available', 'Bring your own']
+                    },
+                    {
+                      feature: 'Customization',
+                      values: ['Limited', 'Full control']
+                    },
+                    {
+                      feature: 'Best For',
+                      values: ['Bach parties, social groups', 'Any private event']
+                    },
+                    {
+                      feature: 'Booking Type',
+                      values: ['Per person tickets', 'Charter entire boat']
+                    },
+                    {
+                      feature: 'Availability',
+                      values: ['Friday & Saturday time slots', '7 days a week']
+                    }
+                  ]}
+                  caption="ATX Disco Cruise vs Private Charter Comparison"
+                  summary="Compare the features and benefits of our ATX Disco Cruise public party experience versus a private charter boat rental on Lake Travis"
+                  mobileView="cards"
+                  schemaType="Service"
+                  ariaLabel="Comparison of ATX Disco Cruise and Private Charter options"
+                  highlightBest={true}
+                />
+              </Suspense>
+            </div>
+
+            {/* Fleet Comparison */}
+            <div className="max-w-7xl mx-auto">
+              <h3 className="text-xl font-semibold mb-6 text-center">
+                Our Lake Travis Fleet
+              </h3>
+              <Suspense fallback={<div className="min-h-[400px] animate-pulse bg-gray-100 rounded-xl" />}>
+                <ComparisonTableLazy
+                  columns={[
+                    {
+                      id: 'daytripper',
+                      title: 'Day Tripper',
+                      subtitle: 'Intimate cruiser'
+                    },
+                    {
+                      id: 'meeseeks',
+                      title: 'Meeseeks',
+                      subtitle: 'Party favorite',
+                      recommended: true,
+                      badge: { text: 'Most Popular', variant: 'default' }
+                    },
+                    {
+                      id: 'clevergirl',
+                      title: 'Clever Girl',
+                      subtitle: 'Flagship vessel'
+                    },
+                    {
+                      id: 'irony',
+                      title: 'The Irony',
+                      subtitle: 'Comfort cruiser'
+                    }
+                  ]}
+                  rows={[
+                    {
+                      feature: 'Capacity',
+                      values: ['1-14 guests', '15-25 guests', '31-75 guests', '15-30 guests']
+                    },
+                    {
+                      feature: 'Boat Size',
+                      values: ['Intimate', 'Medium', 'Flagship Large', 'Medium Plus']
+                    },
+                    {
+                      feature: 'Amenities',
+                      values: [
+                        'Sound system, coolers',
+                        'Premium sound, spacious',
+                        '14 disco balls, Texas flag',
+                        'Dual decks, comfort seating'
+                      ]
+                    },
+                    {
+                      feature: 'Best For',
+                      values: [
+                        'Small birthdays, dates',
+                        'Bach parties, friends',
+                        'Corporate, large groups',
+                        'Mixed groups, comfort'
+                      ]
+                    },
+                    {
+                      feature: 'Hourly Rate',
+                      values: [
+                        { text: '$263/hr', highlight: true },
+                        '$295/hr',
+                        '$353/hr',
+                        '$295/hr'
+                      ]
+                    },
+                    {
+                      feature: '3-Hour Total',
+                      values: ['$789', '$886', '$1,058', '$886']
+                    },
+                    {
+                      feature: '4-Hour Total',
+                      values: ['$1,050', '$1,181', '$1,411', '$1,181']
+                    }
+                  ]}
+                  caption="Lake Travis Fleet Comparison"
+                  summary="Compare our party boat fleet options including capacity, amenities, and pricing"
+                  mobileView="cards"
+                  schemaType="Product"
+                  ariaLabel="Comparison of our Lake Travis party boat fleet"
+                  highlightBest={true}
+                />
+              </Suspense>
+            </div>
+          </div>
+        </section>
+
         <QuoteBuilderSection />
 
         <section className="py-16 bg-gradient-to-r from-brand-blue to-purple-700 text-white">
@@ -307,9 +500,9 @@ export default function Pricing() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" className="bg-white text-gray-900 hover:bg-gray-100" asChild>
-                <a href="tel:512-709-1560">
+                <a href="tel:+15124885892">
                   <Phone className="mr-2 h-5 w-5" />
-                  Call 512-709-1560
+                  Call (512) 488-5892
                 </a>
               </Button>
               <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10" asChild>
