@@ -659,45 +659,6 @@ export default function CompanyMilestone() {
         </section>
       </SectionReveal>
 
-      {/* Service Schema */}
-      <script type="application/ld+json" dangerouslySetInnerHTML={{
-        __html: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "Service",
-          "name": "Company Milestone Celebration Cruises on Lake Travis",
-          "provider": {
-            "@type": "LocalBusiness",
-            "name": "Premier Party Cruises",
-            "telephone": "+1-512-488-5892"
-          },
-          "areaServed": "Austin, TX",
-          "description": "Company milestone celebrations on Lake Travis. Celebrate IPOs, anniversaries, and major achievements with professional corporate events on premium boats.",
-          "offers": [
-            {
-              "@type": "Offer",
-              "name": "14 Guest Milestone Package",
-              "price": "200",
-              "priceCurrency": "USD",
-              "description": "Small milestone celebrations up to 14 people"
-            },
-            {
-              "@type": "Offer",
-              "name": "15-25 Guest Milestone Package",
-              "price": "250",
-              "priceCurrency": "USD",
-              "description": "Medium company celebrations for 15-25 people"
-            },
-            {
-              "@type": "Offer",
-              "name": "26-50 Guest Milestone Package",
-              "price": "300",
-              "priceCurrency": "USD",
-              "description": "Large corporate milestones for 26-50 people"
-            }
-          ]
-        })
-      }} />
-
       <RelatedLinks />
 
       <VideoGallerySection videos={[{id: 'FABtEDZZBA0', title: 'Premier Party Cruises Experience', description: 'See what makes our Lake Travis cruises unforgettable'}]} />

@@ -659,45 +659,6 @@ export default function ClientEntertainment() {
         </section>
       </SectionReveal>
 
-      {/* Service Schema */}
-      <script type="application/ld+json" dangerouslySetInnerHTML={{
-        __html: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "Service",
-          "name": "Client Entertainment Cruises on Lake Travis",
-          "provider": {
-            "@type": "LocalBusiness",
-            "name": "Premier Party Cruises",
-            "telephone": "+1-512-488-5892"
-          },
-          "areaServed": "Austin, TX",
-          "description": "Premium client entertainment cruises on Lake Travis. Impress clients with luxury boat rentals, professional service, and stunning Lake Travis views for business events.",
-          "offers": [
-            {
-              "@type": "Offer",
-              "name": "14 Guest Client Entertainment Package",
-              "price": "200",
-              "priceCurrency": "USD",
-              "description": "Small client groups up to 14 people"
-            },
-            {
-              "@type": "Offer",
-              "name": "15-25 Guest Client Entertainment Package",
-              "price": "250",
-              "priceCurrency": "USD",
-              "description": "Medium client entertainment for 15-25 people"
-            },
-            {
-              "@type": "Offer",
-              "name": "26-50 Guest Client Entertainment Package",
-              "price": "300",
-              "priceCurrency": "USD",
-              "description": "Large client events for 26-50 people"
-            }
-          ]
-        })
-      }} />
-
       <RelatedLinks />
 
       <VideoGallerySection videos={[{id: 'FABtEDZZBA0', title: 'Premier Party Cruises Experience', description: 'See what makes our Lake Travis cruises unforgettable'}]} />

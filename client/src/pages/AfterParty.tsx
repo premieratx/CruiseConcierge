@@ -659,46 +659,6 @@ export default function AfterParty() {
         </section>
       </SectionReveal>
 
-      {/* Service Schema */}
-      <script type="application/ld+json" dangerouslySetInnerHTML={{
-        __html: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "Service",
-          "name": "Day After Wedding Cruise Austin",
-          "description": "Relaxing day-after wedding cruises on Lake Travis. Perfect daytime cruise to reconnect with close friends and close out the best weekend of your life.",
-          "provider": {
-            "@type": "LocalBusiness",
-            "name": "Premier Party Cruises",
-            "telephone": "(512) 488-5892",
-            "priceRange": "$1,050-$2,750"
-          },
-          "areaServed": "Austin, TX",
-          "offers": [
-            {
-              "@type": "Offer",
-              "name": "Day After Standard Package",
-              "price": "1050",
-              "priceCurrency": "USD",
-              "description": "4-hour daytime relaxation cruise for 1-14 guests"
-            },
-            {
-              "@type": "Offer",
-              "name": "Day After Essentials Package",
-              "price": "1150",
-              "priceCurrency": "USD",
-              "description": "4-hour day-after cruise with all amenities for 1-14 guests"
-            },
-            {
-              "@type": "Offer",
-              "name": "Day After Ultimate Package",
-              "price": "1300",
-              "priceCurrency": "USD",
-              "description": "4-hour ultimate relaxation cruise with floats and fun for 1-14 guests"
-            }
-          ]
-        })
-      }} />
-
       <VideoGallerySection videos={[{id: 'FABtEDZZBA0', title: 'Premier Party Cruises Experience', description: 'See what makes our Lake Travis cruises unforgettable'}]} />
 
       <Footer />
