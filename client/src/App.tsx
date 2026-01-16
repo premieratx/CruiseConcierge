@@ -216,8 +216,6 @@ const HolidayPartyCruise = lazy(() => import("./pages/HolidayPartyCruise"));
 
 // New Core Marketing Pages - Lazy loaded
 const PricingPage = lazy(() => import("./pages/Pricing"));
-const BookingPage = lazy(() => import("./pages/Booking"));
-const BoatsPage = lazy(() => import("./pages/Boats"));
 
 // Celebration Event Pages - Lazy loaded
 const BirthdayPartyBoatRental = lazy(() => import("./pages/BirthdayPartyBoatRental"));
@@ -427,8 +425,6 @@ function Router() {
       
       {/* New Core Marketing Pages */}
       <Route path="/pricing" component={PricingPage} />
-      <Route path="/booking" component={BookingPage} />
-      <Route path="/boats" component={BoatsPage} />
       
       {/* Celebration Event Pages */}
       <Route path="/birthday-party-boat-rental" component={BirthdayPartyBoatRental} />
