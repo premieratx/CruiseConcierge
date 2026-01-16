@@ -31,7 +31,7 @@ import {
   Gift, Heart, Crown, Anchor, PartyPopper, Presentation,
   TrendingUp, HandshakeIcon, DollarSign, ChevronRight,
   Receipt, Coffee, Award as AwardIcon, Network, UserCheck,
-  CheckCircle, X, Lightbulb, Megaphone, Zap, Globe
+  CheckCircle, X, Lightbulb, Megaphone, Zap, Globe, Ship
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { WhatToBring } from '@/components/WhatToBring';
