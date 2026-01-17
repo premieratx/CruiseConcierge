@@ -69,6 +69,43 @@ const safeSlug = (s?: string): string => {
   return (s ?? 'item').toLowerCase().replace(/\s+/g, '-');
 };
 
+// Calculate dynamic "Book By" date - always 10 days ahead, rolls over at 11:59 PM CST
+const getBookByDate = (): string => {
+  const now = new Date();
+  
+  // Convert to CST (Central Standard Time = UTC-6)
+  const cstOffset = -6 * 60; // CST is UTC-6
+  const utcTime = now.getTime() + (now.getTimezoneOffset() * 60000);
+  const cstTime = new Date(utcTime + (cstOffset * 60000));
+  
+  // Check if we're past 11:59 PM CST (use next day as base if so)
+  const hours = cstTime.getHours();
+  const minutes = cstTime.getMinutes();
+  const baseDate = new Date(cstTime);
+  
+  if (hours === 23 && minutes >= 59) {
+    baseDate.setDate(baseDate.getDate() + 1);
+  }
+  
+  // Add 10 days
+  baseDate.setDate(baseDate.getDate() + 10);
+  
+  // Format as "Month Dayth"
+  const months = ['January', 'February', 'March', 'April', 'May', 'June',
+                  'July', 'August', 'September', 'October', 'November', 'December'];
+  const month = months[baseDate.getMonth()];
+  const day = baseDate.getDate();
+  
+  // Add ordinal suffix (1st, 2nd, 3rd, etc.)
+  const getOrdinal = (n: number): string => {
+    const s = ['th', 'st', 'nd', 'rd'];
+    const v = n % 100;
+    return n + (s[(v - 20) % 10] || s[v] || s[0]);
+  };
+  
+  return `${month} ${getOrdinal(day)}`;
+};
+
 const isSection = (item: DropdownLink | DropdownSection): item is DropdownSection => {
   return 'section' in item;
 };
@@ -275,7 +312,7 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
             <span className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-black flex-shrink-0" />
             <div className="animate-pulse-text">
               <div>Request a Quote to Unlock a $150-$500+ Discount on Your Party Cruise!</div>
-              <div className="underline" style={{ fontSize: '1.0em' }}>Book by January 16 for Any 2026 Date!</div>
+              <div className="underline" style={{ fontSize: '1.0em' }}>Book by {getBookByDate()} for Any 2026 Date!</div>
             </div>
             <span className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-black flex-shrink-0" />
             <PartyPopper className="h-4 w-4 md:h-5 md:w-5 flex-shrink-0" />
