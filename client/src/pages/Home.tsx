@@ -683,6 +683,21 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Loom Video Section */}
+      <section className="py-8 bg-black">
+        <div className="max-w-4xl mx-auto px-4">
+          <div className="aspect-video rounded-xl overflow-hidden shadow-2xl">
+            <iframe
+              src="https://www.loom.com/embed/d9d73c47f97849d2b82935578fc20722?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true"
+              title="Premier Party Cruises Introduction"
+              className="w-full h-full"
+              frameBorder="0"
+              allowFullScreen
+            />
+          </div>
+        </div>
+      </section>
+
       {/* Quote Builder Section - Eagerly loaded for instant display */}
       <QuoteBuilderSection />
 
