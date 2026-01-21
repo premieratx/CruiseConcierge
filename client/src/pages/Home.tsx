@@ -646,14 +646,17 @@ export default function Home() {
         <div className="container mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto items-center">
             {/* Left: Loom Video */}
-            <div className="aspect-video rounded-xl overflow-hidden shadow-2xl">
-              <iframe
+            <div>
+              <p className="text-white text-lg md:text-xl font-medium mb-3 text-center">Please watch a quick intro video letter from the owner</p>
+              <div className="aspect-video rounded-xl overflow-hidden shadow-2xl">
+                <iframe
                 src="https://www.loom.com/embed/d9d73c47f97849d2b82935578fc20722?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true"
                 title="Premier Party Cruises Introduction"
                 className="w-full h-full"
                 frameBorder="0"
-                allowFullScreen
-              />
+                  allowFullScreen
+                />
+              </div>
             </div>
             {/* Right: Pricing Blocks Stacked */}
             <div className="flex flex-col gap-4">
