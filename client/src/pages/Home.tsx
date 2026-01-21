@@ -95,6 +95,8 @@ import {
 // PAGESPEED FIX: Hero poster compressed to 64KB (40% smaller!) with mobile variant (41KB)
 const heroImage1 = '/attached_assets/bachelor-party-group-guys-hero-compressed.webp';
 const heroImage1Mobile = '/attached_assets/bachelor-party-group-guys-mobile.webp';
+// Hero video - Clever Girl walkthrough
+const heroVideo = '/attached_assets/Boat_Video_Walkthrough_Generated_1761209219959.mp4';
 const heroImage2 = '/attached_assets/atx-disco-cruise-party.webp';
 const heroImage3 = '/attached_assets/dancing-party-scene.webp';
 const galleryImage1 = '/attached_assets/day-tripper-14-person-boat.webp';
@@ -353,6 +355,9 @@ export default function Home() {
   const { isEditMode } = useInlineEdit();
   const reducedMotion = useReducedMotion();
   const [currentHeroImage, setCurrentHeroImage] = useState(0);
+  const [videoLoaded, setVideoLoaded] = useState(false);
+  const [videoFailed, setVideoFailed] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
   const [showLightbox, setShowLightbox] = useState(false);
   const [selectedService, setSelectedService] = useState<typeof services[0] | null>(null);
@@ -399,6 +404,20 @@ export default function Home() {
     }, 6000);
     return () => clearInterval(interval);
   }, [reducedMotion]);
+
+  // Hero video loaded handler - show video when ready
+  const handleVideoLoadedData = () => {
+    setVideoLoaded(true);
+    if (videoRef.current) {
+      videoRef.current.play().catch(() => {
+        // Autoplay blocked - still show video
+      });
+    }
+  };
+
+  const handleVideoError = () => {
+    setVideoFailed(true);
+  };
 
 
   // Update page title for SEO
@@ -501,9 +520,10 @@ export default function Home() {
       <PublicNavigation />
       {/* Hero Section - PAGESPEED: Fixed height prevents CLS, poster-first prevents LCP delay */}
       <section id="hero" className="relative flex flex-col justify-center overflow-hidden bg-gray-900" style={{ minHeight: 'clamp(750px, calc(100vh - 64px), 1400px)', contain: 'layout paint' }}>
-        {/* PAGESPEED FIX: <picture> element with srcset for optimal LCP - browser picks best image */}
+        {/* Hero Background: Video with image fallback */}
         <div className="absolute inset-0 z-0" style={{ aspectRatio: '16/9', minHeight: '100%' }}>
-          <picture>
+          {/* Fallback image - shows immediately, hidden when video loads */}
+          <picture style={{ display: videoLoaded && !videoFailed ? 'none' : 'block' }}>
             <source 
               media="(max-width: 768px)" 
               srcSet={heroImage1Mobile}
@@ -526,6 +546,23 @@ export default function Home() {
               {...{ fetchpriority: "high" }}
             />
           </picture>
+          {/* Hero Video - Clever Girl walkthrough, all devices */}
+          {!videoFailed && (
+            <video
+              ref={videoRef}
+              className="w-full h-full object-cover opacity-60"
+              style={{ display: videoLoaded ? 'block' : 'none' }}
+              src={heroVideo}
+              muted
+              loop
+              playsInline
+              autoPlay
+              preload="auto"
+              onLoadedData={handleVideoLoadedData}
+              onError={handleVideoError}
+              poster={heroImage1}
+            />
+          )}
           {/* Lighter overlay for bright and happy feel */}
           <div className="absolute inset-0 bg-gradient-to-br from-black/15 via-black/15 to-black/15" />
           {/* Additional blue tint overlay for brand color */}
