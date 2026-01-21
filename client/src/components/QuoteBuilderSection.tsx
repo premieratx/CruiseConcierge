@@ -26,9 +26,12 @@ export default function QuoteBuilderSection() {
     <section ref={sectionRef} id="quote-builder" className="py-16 bg-gradient-to-br from-brand-blue via-purple-600 to-blue-700" style={{ position: 'relative', zIndex: 0 }}>
       <div className="container mx-auto px-0 md:px-6">
         <div className="text-center mb-8">
-          <h2 className="text-white font-bold text-sm sm:text-base md:text-lg lg:text-xl tracking-wide border-b-4 border-brand-yellow inline-block pb-3" data-editable data-editable-id="quote-builder-button">
-            Start Building Your Quote
+          <h2 className="text-white font-bold text-lg sm:text-xl md:text-2xl lg:text-3xl tracking-wide mb-3" data-editable data-editable-id="quote-builder-button">
+            Please request your quote to view pricing, availability, and to access exclusive discounts.
           </h2>
+          <p className="text-white/90 text-base sm:text-lg md:text-xl border-b-4 border-brand-yellow inline-block pb-3">
+            Select your cruise date.
+          </p>
         </div>
 
         <div className="overflow-visible">
