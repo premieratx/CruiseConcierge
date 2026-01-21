@@ -647,7 +647,7 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto items-center">
             {/* Left: Loom Video */}
             <div>
-              <p className="text-white text-lg md:text-xl font-medium mb-3 text-center">Please watch a quick intro video letter from the owner</p>
+              <p className="text-white text-lg md:text-xl font-medium mb-3 text-center">Please watch a quick intro video letter from Brian, the owner:</p>
               <div className="aspect-video rounded-xl overflow-hidden shadow-2xl">
                 <iframe
                 src="https://www.loom.com/embed/d9d73c47f97849d2b82935578fc20722?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true"
