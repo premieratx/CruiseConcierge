@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'wouter';
 import { motion, AnimatePresence } from 'framer-motion';
 import PublicNavigation from '@/components/PublicNavigation';
@@ -56,6 +56,9 @@ import { YouTubeVideoBackground } from '@/components/YouTubeVideoBackground';
 import { DiscoCruisePricing } from '@/components/DiscoCruisePricing';
 import AnimatedPhotoGallery from '@/components/AnimatedPhotoGallery';
 import { BACHELOR_GALLERY } from '@/lib/media';
+
+// Hero video - Clever Girl walkthrough
+const heroVideo = '/attached_assets/Boat_Video_Walkthrough_Generated_1761209219959.mp4';
 
 // BACHELOR PARTY PHOTOS - Unique party photos alternating with boat photos
 const heroImage1 = BACHELOR_GALLERY[0].src;
@@ -327,7 +330,21 @@ export default function BachelorParty() {
   const reducedMotion = useReducedMotion();
   const { toast } = useToast();
   const [currentHeroImage, setCurrentHeroImage] = useState(0);
+  const [videoLoaded, setVideoLoaded] = useState(false);
+  const [videoFailed, setVideoFailed] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const heroImages = [heroImage1, heroImage2, heroImage3];
+
+  const handleVideoLoadedData = () => {
+    setVideoLoaded(true);
+    if (videoRef.current) {
+      videoRef.current.play().catch(() => {});
+    }
+  };
+
+  const handleVideoError = () => {
+    setVideoFailed(true);
+  };
 
   useEffect(() => {
     if (reducedMotion) return;
@@ -442,7 +459,15 @@ export default function BachelorParty() {
       {/* 1. HERO SECTION */}
       <section id="hero" className="relative min-h-[85vh] flex flex-col justify-center overflow-hidden bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900">
         {/* Video Background */}
-        <YouTubeVideoBackground videoId="4-Yx24Y6oro" posterImage={heroImage1} />
+        <div className="absolute inset-0 z-0">
+          {/* Fallback image */}
+          <img src={heroImage1} alt="Austin Bachelor Party" className="w-full h-full object-cover" style={{ display: videoLoaded && !videoFailed ? 'none' : 'block' }} loading="eager" />
+          {/* Hero Video */}
+          {!videoFailed && (
+            <video ref={videoRef} className="w-full h-full object-cover" style={{ display: videoLoaded ? 'block' : 'none' }} src={heroVideo} muted loop playsInline autoPlay preload="auto" onLoadedData={handleVideoLoadedData} onError={handleVideoError} />
+          )}
+          <div className="absolute inset-0 bg-black/40" />
+        </div>
 
         {/* Main Hero Content */}
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 text-white text-center flex-grow flex items-center w-full py-12 md:py-20">
@@ -525,6 +550,21 @@ export default function BachelorParty() {
             <p className="text-center text-gray-900 text-lg md:text-xl font-bold">
               Just <span className="text-blue-600">SHOW UP & GET DOWN</span> - Everything Included!
             </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ATX Disco Cruise Video Section */}
+      <section className="py-8 bg-black">
+        <div className="max-w-4xl mx-auto px-4">
+          <div className="aspect-video rounded-xl overflow-hidden shadow-2xl">
+            <iframe
+              src="https://www.youtube.com/embed/4-Yx24Y6oro?autoplay=1&mute=1&loop=1&playlist=4-Yx24Y6oro&controls=0&showinfo=0&rel=0"
+              title="ATX Disco Cruise Experience"
+              className="w-full h-full"
+              allow="autoplay; encrypted-media"
+              allowFullScreen
+            />
           </div>
         </div>
       </section>
