@@ -641,23 +641,36 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Pricing Summary - Blue Section with Yellow Cards */}
-      <section className="py-3 md:py-4 bg-brand-blue">
+      {/* Video + Pricing Section - Two Column Layout */}
+      <section className="py-6 md:py-8 bg-brand-blue">
         <div className="container mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-2 gap-3 sm:gap-4 max-w-xl mx-auto text-center">
-            <div className="bg-brand-yellow rounded-lg p-2 sm:p-3 shadow-md">
-              <div className="font-sans tracking-wider font-bold uppercase text-[10px] sm:text-xs text-gray-900 mb-0.5" data-editable data-editable-id="pricing-overlay-private-label">PRIVATE CRUISES FROM:</div>
-              <div className="text-lg sm:text-2xl font-bold text-gray-900 mb-0.5" data-editable data-editable-id="pricing-overlay-private-price">
-                $200+/hr
-              </div>
-              <div className="text-[10px] sm:text-xs text-gray-800" data-editable data-editable-id="pricing-overlay-private-subtitle">Up to 14ppl • 14-75 guests</div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto items-center">
+            {/* Left: Loom Video */}
+            <div className="aspect-video rounded-xl overflow-hidden shadow-2xl">
+              <iframe
+                src="https://www.loom.com/embed/d9d73c47f97849d2b82935578fc20722?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true"
+                title="Premier Party Cruises Introduction"
+                className="w-full h-full"
+                frameBorder="0"
+                allowFullScreen
+              />
             </div>
-            <div className="bg-brand-yellow rounded-lg p-2 sm:p-3 shadow-md">
-              <div className="font-sans tracking-wider font-bold uppercase text-[10px] sm:text-xs text-gray-900 mb-0.5" data-editable data-editable-id="pricing-overlay-disco-label">ATX DISCO CRUISE</div>
-              <div className="text-lg sm:text-2xl font-bold text-gray-900 mb-0.5" data-editable data-editable-id="pricing-overlay-disco-price">
-                $85+ per person
+            {/* Right: Pricing Blocks Stacked */}
+            <div className="flex flex-col gap-4">
+              <div className="bg-brand-yellow rounded-lg p-4 shadow-md text-center">
+                <div className="font-sans tracking-wider font-bold uppercase text-xs text-gray-900 mb-1" data-editable data-editable-id="pricing-overlay-private-label">PRIVATE CRUISES FROM:</div>
+                <div className="text-2xl sm:text-3xl font-bold text-gray-900 mb-1" data-editable data-editable-id="pricing-overlay-private-price">
+                  $200+/hr
+                </div>
+                <div className="text-sm text-gray-800" data-editable data-editable-id="pricing-overlay-private-subtitle">Up to 14ppl • 14-75 guests</div>
               </div>
-              <div className="text-[10px] sm:text-xs text-gray-800" data-editable data-editable-id="pricing-overlay-disco-subtitle">Fri & Sat • Bach parties</div>
+              <div className="bg-brand-yellow rounded-lg p-4 shadow-md text-center">
+                <div className="font-sans tracking-wider font-bold uppercase text-xs text-gray-900 mb-1" data-editable data-editable-id="pricing-overlay-disco-label">ATX DISCO CRUISE</div>
+                <div className="text-2xl sm:text-3xl font-bold text-gray-900 mb-1" data-editable data-editable-id="pricing-overlay-disco-price">
+                  $85+ per person
+                </div>
+                <div className="text-sm text-gray-800" data-editable data-editable-id="pricing-overlay-disco-subtitle">Fri & Sat • Bach parties</div>
+              </div>
             </div>
           </div>
         </div>
@@ -679,21 +692,6 @@ export default function Home() {
               <Shield className="w-4 h-4 text-blue-600" />
               <span className="font-medium">Perfect Safety Record</span>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Loom Video Section */}
-      <section className="py-8 bg-black">
-        <div className="max-w-4xl mx-auto px-4">
-          <div className="aspect-video rounded-xl overflow-hidden shadow-2xl">
-            <iframe
-              src="https://www.loom.com/embed/d9d73c47f97849d2b82935578fc20722?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true"
-              title="Premier Party Cruises Introduction"
-              className="w-full h-full"
-              frameBorder="0"
-              allowFullScreen
-            />
           </div>
         </div>
       </section>
