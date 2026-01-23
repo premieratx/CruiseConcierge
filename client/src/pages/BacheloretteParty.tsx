@@ -15,7 +15,6 @@ import { useInlineEdit } from '@/hooks/useInlineEdit';
 import { useReducedMotion } from '@/hooks/use-reduced-motion';
 import PartyPlanningChecklist from '@/components/PartyPlanningChecklist';
 import { DiscoCruisePricing } from '@/components/DiscoCruisePricing';
-import DiscoVsPrivateValueCalculator from '@/components/DiscoVsPrivateValueCalculator';
 import { SectionReveal } from '@/components/SectionReveal';
 import { ScrollReveal } from '@/components/ScrollReveal';
 import { 
@@ -642,31 +641,6 @@ export default function BacheloretteParty() {
                   </Button>
                 </CardContent>
               </Card>
-            </div>
-          </div>
-        </section>
-      </SectionReveal>
-
-      {/* REAL PRICING COMPARISON SECTION */}
-      <SectionReveal>
-        <section id="value-stack" className="py-20 bg-gradient-to-br from-pink-50 to-purple-50">
-          <div className="max-w-7xl mx-auto px-6">
-            <div className="text-center mb-12">
-              <Badge className="mb-6 bg-gradient-to-r from-pink-600 to-purple-600 text-white px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
-                <Gem className="h-4 w-4 mr-2 inline" />
-                Real Pricing Calculator
-              </Badge>
-              <h2 className="text-4xl md:text-5xl font-bold font-playfair text-center mb-6 text-gray-900 leading-tight">
-                Compare Your Options
-              </h2>
-              <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
-                See exactly what you'll pay - ATX Disco Cruise vs Private Cruise with real pricing
-              </p>
-            </div>
-
-            {/* Real Pricing Calculator Component */}
-            <div className="max-w-5xl mx-auto">
-              <DiscoVsPrivateValueCalculator />
             </div>
           </div>
         </section>

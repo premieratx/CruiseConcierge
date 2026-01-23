@@ -15,7 +15,6 @@ import { useInlineEdit } from '@/hooks/useInlineEdit';
 import { useReducedMotion } from '@/hooks/use-reduced-motion';
 import { DISCO_PRICING } from '@shared/constants';
 import PartyPlanningChecklist from '@/components/PartyPlanningChecklist';
-import DiscoVsPrivateValueCalculator from '@/components/DiscoVsPrivateValueCalculator';
 import { SectionReveal } from '@/components/SectionReveal';
 import { ScrollReveal } from '@/components/ScrollReveal';
 import { 
@@ -808,10 +807,6 @@ export default function BachelorParty() {
               </TabsContent>
             </Tabs>
 
-            {/* Comparison Calculator */}
-            <div className="mt-8 max-w-5xl mx-auto">
-              <DiscoVsPrivateValueCalculator variant="bachelor" />
-            </div>
           </div>
         </section>
       </SectionReveal>
