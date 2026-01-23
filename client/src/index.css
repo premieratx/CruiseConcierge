@@ -60,11 +60,7 @@ html, body {
 .aspect-4-3 { aspect-ratio: 4 / 3; }
 .aspect-3-2 { aspect-ratio: 3 / 2; }
 
-/* CLS FIX: Reserve space for hero section (above-the-fold stability) */
-#hero {
-  /* Removed min-height: 100vh - was causing white gap below hero content */
-  contain: layout style;
-}
+/* Hero section - natural height from content */
 
 #hero video {
   position: absolute;
