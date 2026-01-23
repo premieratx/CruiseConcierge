@@ -62,8 +62,7 @@ html, body {
 
 /* CLS FIX: Reserve space for hero section (above-the-fold stability) */
 #hero {
-  min-height: 100vh;
-  min-height: 100svh; /* Safe viewport height for mobile */
+  /* Removed min-height: 100vh - was causing white gap below hero content */
   contain: layout style;
 }
 
