@@ -349,11 +349,7 @@ export default function FleetSection() {
     <>
       <section className="py-10 sm:py-16 bg-gradient-to-b from-white to-blue-50 dark:from-gray-900 dark:to-gray-800">
         <div className="container mx-auto px-3 sm:px-4">
-          <m.div
-            initial={reducedMotion ? undefined : { opacity: 0, y: 20 }}
-            whileInView={reducedMotion ? undefined : { opacity: 1, y: 0 }}
-            viewport={reducedMotion ? undefined : { once: true }}
-            transition={reducedMotion ? undefined : { duration: 0.6 }}
+          <div
             className="text-center mb-6 sm:mb-12"
           >
             <Badge 
@@ -374,16 +370,12 @@ export default function FleetSection() {
             >
               Custom-built party boats for 1-75 guests
             </p>
-          </m.div>
+          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-7xl mx-auto">
             {boats.map((boat, index) => (
-              <m.div
+              <div
                 key={boat.id}
-                initial={reducedMotion ? undefined : { opacity: 0, y: 30 }}
-                whileInView={reducedMotion ? undefined : { opacity: 1, y: 0 }}
-                viewport={reducedMotion ? undefined : { once: true }}
-                transition={reducedMotion ? undefined : { duration: 0.5, delay: index * 0.1 }}
               >
                 <Card className={`relative overflow-hidden h-full hover:shadow-xl transition-all duration-300 ${boat.highlighted ? 'ring-2 ring-brand-yellow' : ''}`}>
                   <div className="relative h-40 sm:h-52 overflow-hidden">
@@ -501,18 +493,12 @@ export default function FleetSection() {
                     </Button>
                   </CardContent>
                 </Card>
-              </m.div>
+              </div>
             ))}
           </div>
 
           {/* CTA to Quote Builder */}
-          <m.div
-            initial={reducedMotion ? undefined : { opacity: 0, y: 20 }}
-            whileInView={reducedMotion ? undefined : { opacity: 1, y: 0 }}
-            viewport={reducedMotion ? undefined : { once: true }}
-            transition={reducedMotion ? undefined : { duration: 0.6, delay: 0.3 }}
-            className="text-center mt-6 sm:mt-10"
-          >
+          <div className="text-center mt-6 sm:mt-10">
             <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 mb-2 sm:mb-4">
               Ready to book your Lake Travis adventure?
             </p>
@@ -525,7 +511,7 @@ export default function FleetSection() {
               Get Instant Quote
               <ArrowRight className="ml-1 sm:ml-2 h-4 w-4 sm:h-5 sm:w-5" />
             </Button>
-          </m.div>
+          </div>
         </div>
       </section>
 
