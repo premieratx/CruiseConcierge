@@ -59,7 +59,7 @@ const scaleIn = {
 };
 
 
-// FAQ data
+// FAQ data - comprehensive FAQs from all pages
 const faqCategories = {
   booking: {
     title: 'Booking & Reservations',
@@ -70,8 +70,32 @@ const faqCategories = {
         answer: 'Booking is easy! You can book online through our website, call us at (512) 488-5892, or fill out our contact form. We\'ll work with you to customize the perfect experience for your group.'
       },
       {
-        question: 'What deposit is required to secure my reservation?',
-        answer: 'We require a 50% deposit to secure your reservation, with the remaining balance due 24 hours before your cruise. We accept credit cards, cash, and electronic transfers.'
+        question: 'How much is the deposit?',
+        answer: 'If booking 14+ days before cruise: 25% deposit required, remaining balance due 14 days before cruise. If booking less than 14 days before cruise: 50% deposit required, remaining balance due within 48 hours of booking (or 3 days after booking). Flexible payment options available.'
+      },
+      {
+        question: 'What is the minimum booking time?',
+        answer: '4-hour minimum required for all private cruises. Most groups book 4 hours for a perfect Lake Travis experience.'
+      },
+      {
+        question: 'How far in advance should we book?',
+        answer: 'We recommend booking 8-12 weeks for priority time slots - once they book they\'re gone! This is especially important for weekends and peak season (May-September). Prime corporate event dates and wedding season weekends book even further out. Contact us ASAP to secure your preferred date!'
+      },
+      {
+        question: 'Can we add more people after booking?',
+        answer: 'Yes, usually 1-2 if availability allows—contact us ASAP.'
+      },
+      {
+        question: 'Can we split payments between the group?',
+        answer: 'Yes! Split payment options are available at checkout - makes it easy for everyone to chip in.'
+      },
+      {
+        question: 'Do you offer a refund window after booking?',
+        answer: "Yes—48 hours after booking for a full refund. After that, weather rules apply at captain's discretion."
+      },
+      {
+        question: 'What is your cancellation policy?',
+        answer: 'Full refund if canceled within 48 hours of booking. After that, weather-related cancellations receive full refund at captain\'s discretion.'
       }
     ]
   },
@@ -80,38 +104,110 @@ const faqCategories = {
     icon: DollarSign,
     faqs: [
       {
+        question: 'How does private cruise pricing work?',
+        answer: 'Private cruises have THREE pricing components: (1) Base boat rental for 4-hour cruise - Day Tripper (1-14 guests) $1,050-$1,838, Meeseeks/Irony (15-30 guests) $1,181-$2,231, Clever Girl (31-75 guests) $1,313-$2,660, based on day of week. (2) Package upgrades are FLAT FEES per cruise - Essentials +$100-200, Ultimate +$250-350. (3) Add-ons are FLAT FEES - DJ $600, Photographer $600, Lily Pad $50.'
+      },
+      {
+        question: 'Can you show me a pricing example?',
+        answer: 'Example: Saturday 4-hour cruise for 20 guests: Base boat rental (Meeseeks) = $1,500. Add Essentials Package = +$150 flat fee. With Ultimate Package instead = +$300 flat fee. Add Professional DJ = +$600 flat fee. Total with Ultimate + DJ = $1,500 + $300 + $600 = $2,400 plus tax and gratuity.'
+      },
+      {
+        question: 'How much are ATX Disco Cruise tickets?',
+        answer: 'Tickets are priced by time slot: Friday 12-4pm ($95/person), Saturday 11am-3pm ($105/person - most popular), and Saturday 3:30-7:30pm ($85/person). All prices include DJ, photographer, floats, and party atmosphere.'
+      },
+      {
+        question: 'Are there additional crew fees?',
+        answer: 'Additional crew fees apply for larger groups: $50/hour for 26-30 guests, $100/hour for 51-75 guests. 8.25% tax added. Suggested 20% gratuity for exceptional service.'
+      },
+      {
         question: 'What does the cruise price include?',
-        answer: 'All cruises include the boat, licensed, fun, experienced captains, fuel, cooler space (bring your own ice, or add Essentials/Ultimate for ice included, or order from Party On Delivery), sound system, and safety equipment. Premium packages include DJ, photographer, and additional amenities.'
+        answer: 'All cruises include the boat, licensed captains, fuel, cooler space, premium sound system, and safety equipment. Essentials/Ultimate packages include ice. ATX Disco Cruise includes DJ, photographer, floats, and party atmosphere.'
+      },
+      {
+        question: 'Do you offer group discounts?',
+        answer: 'Yes! Groups of 10+ receive special perks including group discounts, priority boarding, and complimentary items for the guest of honor. Contact us for custom packages for groups of 20+.'
       }
     ]
   },
-  safety: {
-    title: 'Safety & Requirements',
-    icon: Shield,
+  discoCruise: {
+    title: 'ATX Disco Cruise',
+    icon: Sparkles,
     faqs: [
       {
-        question: 'What safety measures are in place?',
-        answer: 'All boats have licensed, fun, experienced captains, required safety equipment, life jackets for every passenger, and comprehensive insurance. We maintain a perfect safety record over 15 years.'
+        question: 'What is the ATX Disco Cruise?',
+        answer: 'A shared 4-hour party boat for bachelor/bachelorette groups with pro DJ and photographer, BYOB, floats, and multi-group energy. It\'s like Vegas on the water!'
+      },
+      {
+        question: 'When does the Disco Cruise run?',
+        answer: 'Fridays 12-4 PM and Saturdays 11am-3pm or 3:30-7:30pm from March to October.'
+      },
+      {
+        question: 'Where do we meet for the cruise?',
+        answer: 'Anderson Mill Marina, 13993 FM 2769, Leander, TX 78641. Arrive 15-20 minutes early; free parking available.'
+      },
+      {
+        question: 'Is food included on the Disco Cruise?',
+        answer: 'Food is not included. Please eat before your cruise and bring snacks/light refreshments if needed. We provide coolers with ice for your BYOB beverages.'
+      },
+      {
+        question: 'What kind of music is played?',
+        answer: 'Some of the best DJs in Austin play an amazing selection - not all disco! Expect a mix of top 40, throwback classics, hip-hop, country, and party anthems. They read the crowd perfectly!'
+      },
+      {
+        question: 'When do we get our photos?',
+        answer: 'Professional photos are delivered digitally within 2-3 weeks after your cruise.'
+      },
+      {
+        question: 'Is disco attire required?',
+        answer: 'Encouraged but not required! Many groups coordinate outfits - it makes for legendary photos.'
       }
     ]
   },
-  experience: {
-    title: 'What to Expect',
-    icon: PartyPopper,
+  bachelorette: {
+    title: 'Bachelorette Parties',
+    icon: Flower2,
     faqs: [
       {
-        question: 'What should we bring on the cruise?',
-        answer: 'Bring sunscreen, sunglasses, towels, swimsuits, and your favorite drinks/snacks in cans or plastic (no glass). We provide cooler space - bring your own ice, OR add Essentials/Ultimate packages for ice included, OR order stocked and ready from Party On Delivery.'
+        question: 'Can we decorate for the bride?',
+        answer: 'Absolutely! We encourage bachelorette decorations. We provide disco ball cups, bubble guns, and party supplies. You can bring additional decorations like banners, signs, sashes, and matching outfits. Just avoid confetti or loose glitter that could blow into the lake.'
+      },
+      {
+        question: 'Is it safe for non-swimmers?',
+        answer: 'Yes! Safety is our #1 priority. Life jackets are available for everyone, swimming is optional, boats have railings and safe areas, and our experienced captains maintain a safe, female-friendly environment. Many guests enjoy the cruise without ever getting in the water.'
+      },
+      {
+        question: 'What if some girls don\'t drink?',
+        answer: 'Perfect for everyone! We provide ice water stations, you can bring non-alcoholic beverages, mocktails are popular. The experience is about celebrating the bride - not just drinking. The DJ, floats, and party atmosphere make it fun for everyone.'
+      },
+      {
+        question: 'Do you provide decorations?',
+        answer: 'Basic decorations included with all packages! We provide disco ball cups, bubble guns, and party supplies. Higher packages include personalized items for the bride and premium decorations. You\'re welcome to bring additional custom decorations.'
+      },
+      {
+        question: 'Is there a bathroom on the boat?',
+        answer: 'Yes, all boats have clean, private restroom facilities onboard for your comfort. Our boats are equipped with flushing toilets and handwashing stations, maintained throughout the cruise and stocked with necessary supplies.'
       }
     ]
   },
-  events: {
-    title: 'Special Events',
-    icon: Calendar,
+  bachelor: {
+    title: 'Bachelor Parties',
+    icon: Beer,
     faqs: [
       {
-        question: 'Do you accommodate bachelor and bachelorette parties?',
-        answer: 'Yes! We specialize in bachelor and bachelorette parties with premium packages designed specifically for celebrations.'
+        question: 'Can we bring a cooler of whatever we want?',
+        answer: 'Hell yes! BYOB - bring beer, liquor, seltzers - whatever your crew drinks. We provide the coolers and ice. Cans/plastic only for safety.'
+      },
+      {
+        question: 'Is there room for our whole crew?',
+        answer: 'We\'ve got boats from 14 to 75 people. Most bachelor parties book the Disco Cruise where you party with other bachelor crews - more energy, more fun.'
+      },
+      {
+        question: 'What\'s the party vibe like?',
+        answer: 'Think Vegas energy on Lake Travis. DJ spinning, multiple bachelor crews getting wild, giant floats, epic atmosphere. It\'s your last hurrah done right.'
+      },
+      {
+        question: 'What is the best bachelor party boat in Austin?',
+        answer: 'Premier Party Cruises offers Austin\'s #1 rated bachelor party boat experience on Lake Travis. With the ATX Disco Cruise, every cruise includes professional DJ, photographer, giant floats, and 4 hours of legendary celebration.'
       }
     ]
   },
@@ -122,6 +218,90 @@ const faqCategories = {
       {
         question: 'Can you host corporate events?',
         answer: 'Absolutely! We accommodate groups up to 75 guests on our largest boat. For larger corporate events, we can coordinate multiple boats. Professional service, custom amenities, and dedicated event planning for corporate team building and client entertainment.'
+      },
+      {
+        question: 'Are corporate cruise expenses tax-deductible?',
+        answer: 'Yes! Business entertainment expenses, including boat charters for corporate events, are typically tax-deductible. We provide detailed invoices with all necessary information for your accounting department. Consult your tax advisor for specific guidance.'
+      },
+      {
+        question: 'Can we have a presentation or meeting on board?',
+        answer: 'Absolutely! Our boats are equipped with premium sound systems perfect for presentations. We have microphones available and can accommodate both formal presentations and casual discussions. Many companies find the unique setting enhances creativity and engagement.'
+      },
+      {
+        question: 'Do you handle corporate invoicing and payment?',
+        answer: 'Yes! We provide professional invoicing with all details needed for expense reports. We accept purchase orders, corporate cards, and can work with your accounting department. NET 30 terms available for established corporate clients.'
+      },
+      {
+        question: 'What\'s the best boat size for our team?',
+        answer: 'Day Tripper (14 people): Perfect for executive teams or small departments. Meeseeks/The Irony (15-30 people): Ideal for medium teams or client groups. Clever Girl (50-75 people): Best for large departments or company-wide events.'
+      },
+      {
+        question: 'Can we brand the experience with our company logo?',
+        answer: 'Yes! We can accommodate custom banners, branded materials, and corporate decorations. Many companies bring branded merchandise, welcome signs, and company flags. We\'ll help coordinate the setup before your guests arrive.'
+      }
+    ]
+  },
+  safety: {
+    title: 'Safety & Requirements',
+    icon: Shield,
+    faqs: [
+      {
+        question: 'What safety measures are in place?',
+        answer: 'All boats have licensed, experienced captains, required safety equipment, life jackets for every passenger, and comprehensive insurance. We maintain a perfect safety record over 16 years.'
+      },
+      {
+        question: 'Are life jackets provided?',
+        answer: 'Yes, life jackets are on board and available for swimming - we encourage guests to wear them for safety. Approved life jackets provided for all guests in various sizes including children and adults.'
+      },
+      {
+        question: 'What happens in bad weather?',
+        answer: 'Captain makes final call on weather safety. For Private Cruises: Severe weather results in reschedule or full refund. Light rain usually continues as planned. For Disco Cruise: Rain or shine - for severe weather, we move the party to Lemonade Disco (land venue).'
+      }
+    ]
+  },
+  experience: {
+    title: 'What to Expect',
+    icon: PartyPopper,
+    faqs: [
+      {
+        question: 'What should we bring on the cruise?',
+        answer: 'Bring sunscreen, sunglasses, towels, swimsuits, and your favorite drinks/snacks in cans or plastic (no glass). We provide cooler space - bring your own ice, OR add Essentials/Ultimate packages for ice included, OR order stocked and ready from Party On Delivery.'
+      },
+      {
+        question: 'Can we bring our own alcohol?',
+        answer: 'Yes! All our cruises are BYOB (Bring Your Own Booze). We provide cooler space. You can also order from Party On Delivery - our sister company that delivers alcohol directly to your boat at the marina!'
+      },
+      {
+        question: 'Can we customize our route?',
+        answer: 'Yes! The typical cruise includes 30-45 minutes of cruising, then we tie up along the cliffs of a Lake Travis nature preserve with crystal clear water for swimming (typically 1.5-2 hours), then cruise back. However, the time is yours - work with your captain to customize.'
+      },
+      {
+        question: 'Can we swim from the boats?',
+        answer: 'Yes! You can swim at designated swimming areas on Lake Travis. We anchor at popular coves where you can jump off the boat and enjoy the water. We provide lily pads for floating.'
+      },
+      {
+        question: 'Can we customize the music and entertainment?',
+        answer: 'Absolutely! Connect your phone to our premium Bluetooth sound system and play your custom playlist. We can also arrange professional DJs ($600 per cruise), karaoke equipment ($150), or acoustic performers.'
+      },
+      {
+        question: 'Can we bring food aboard?',
+        answer: 'Yes! Bring your own easy items that won\'t make a mess, or we can help arrange full catering from Austin vendors. Our Essentials and Ultimate packages include a 6-foot table for food service.'
+      },
+      {
+        question: 'What about decorations?',
+        answer: 'Bring any decorations you want! Corporate clients often add company banners, wedding parties love florals and lights, and bach parties go all out with themed decor. The Ultimate Package includes party atmosphere decorations.'
+      },
+      {
+        question: 'How many people fit on your boats?',
+        answer: 'Day Tripper holds up to 14 people (perfect for intimate gatherings), Meeseeks/The Irony accommodates 25-30 people (ideal for parties), and our flagship Clever Girl holds up to 75 people (great for large corporate events or weddings).'
+      },
+      {
+        question: 'Where do Austin party boats depart from?',
+        answer: 'All Premier Party Cruises depart from Anderson Mill Marina located at 13993 FM2769, Leander, TX 78641 on Lake Travis. The marina is conveniently located just 30 minutes from downtown Austin. Free parking is available.'
+      },
+      {
+        question: 'How far is Lake Travis from downtown Austin?',
+        answer: 'Lake Travis is 30-45 minutes from downtown Austin, located northwest of the city. We depart from Anderson Mill Marina (20 minutes closer than other marinas). Round-trip transportation available from downtown hotels and Airbnbs.'
       }
     ]
   }
