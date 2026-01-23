@@ -75,7 +75,7 @@ const ProductCard = ({ product, onEdit, onDelete }: {
   onEdit: (product: Product) => void;
   onDelete: (id: string) => void;
 }) => {
-  const formatCurrency = (cents: number) => `$${(cents / 100).toFixed(2)}`;
+  const formatCurrency = (cents: number) => `$${Math.round(cents / 100)}`;
   
   // Generate gradient background based on product type if no image
   const getGradientBackground = () => {
@@ -751,7 +751,7 @@ export default function Products() {
                         <CardTitle className="text-sm">Saturday 3:30-7:30pm</CardTitle>
                       </CardHeader>
                       <CardContent>
-                        <div className="text-2xl font-bold">$85.00</div>
+                        <div className="text-2xl font-bold">$85</div>
                         <div className="text-sm text-gray-600 dark:text-gray-400">per person</div>
                       </CardContent>
                     </Card>
@@ -764,7 +764,7 @@ export default function Products() {
                         </CardTitle>
                       </CardHeader>
                       <CardContent>
-                        <div className="text-2xl font-bold">$95.00</div>
+                        <div className="text-2xl font-bold">$95</div>
                         <div className="text-sm text-gray-600 dark:text-gray-400">per person</div>
                       </CardContent>
                     </Card>
@@ -777,7 +777,7 @@ export default function Products() {
                         </CardTitle>
                       </CardHeader>
                       <CardContent>
-                        <div className="text-2xl font-bold">$105.00</div>
+                        <div className="text-2xl font-bold">$105</div>
                         <div className="text-sm text-gray-600 dark:text-gray-400">per person</div>
                       </CardContent>
                     </Card>

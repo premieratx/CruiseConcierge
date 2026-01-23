@@ -200,7 +200,7 @@ export default function DiscoVsPrivateValueCalculator2() {
           <CardContent className="space-y-4">
             <div className="space-y-2">
               <div className="flex justify-between text-sm">
-                <span>$105.00/person × {selectedSize}</span>
+                <span>$105/person × {selectedSize}</span>
                 <span>{formatCurrency(comparison.disco.subtotal)}</span>
               </div>
               <div className="flex justify-between text-sm text-muted-foreground">
