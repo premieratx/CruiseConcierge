@@ -54,14 +54,16 @@ export async function listFilesInFolder(folderId: string): Promise<any[]> {
   
   const response = await drive.files.list({
     q: `'${folderId}' in parents and (mimeType contains 'image/')`,
-    fields: 'files(id, name, mimeType, thumbnailLink, webContentLink)',
+    fields: 'files(id, name, mimeType, size)',
     pageSize: 100,
+    supportsAllDrives: true,
+    includeItemsFromAllDrives: true,
   });
 
   return response.data.files || [];
 }
 
-export async function downloadFile(fileId: string, fileName: string): Promise<string> {
+export async function downloadFileFromDrive(fileId: string, fileName: string): Promise<string> {
   const drive = await getUncachableGoogleDriveClient();
   
   const destDir = path.join(process.cwd(), 'public', 'gallery-imports');
@@ -69,7 +71,8 @@ export async function downloadFile(fileId: string, fileName: string): Promise<st
     fs.mkdirSync(destDir, { recursive: true });
   }
 
-  const destPath = path.join(destDir, fileName);
+  const safeName = fileName.replace(/[^a-zA-Z0-9.-]/g, '_');
+  const destPath = path.join(destDir, safeName);
   
   const response = await drive.files.get(
     { fileId, alt: 'media' },
@@ -80,13 +83,35 @@ export async function downloadFile(fileId: string, fileName: string): Promise<st
     const dest = fs.createWriteStream(destPath);
     (response.data as any)
       .on('end', () => {
-        resolve(`/gallery-imports/${fileName}`);
+        resolve(`/gallery-imports/${safeName}`);
       })
       .on('error', (err: Error) => {
         reject(err);
       })
       .pipe(dest);
   });
+}
+
+export async function downloadPublicDriveFile(fileId: string, fileName: string): Promise<string> {
+  const destDir = path.join(process.cwd(), 'public', 'gallery-imports');
+  if (!fs.existsSync(destDir)) {
+    fs.mkdirSync(destDir, { recursive: true });
+  }
+
+  const safeName = fileName.replace(/[^a-zA-Z0-9.-]/g, '_');
+  const destPath = path.join(destDir, safeName);
+  
+  const downloadUrl = `https://drive.google.com/uc?export=download&id=${fileId}`;
+  
+  const response = await fetch(downloadUrl);
+  if (!response.ok) {
+    throw new Error(`Failed to download file: ${response.status}`);
+  }
+  
+  const buffer = Buffer.from(await response.arrayBuffer());
+  fs.writeFileSync(destPath, buffer);
+  
+  return `/gallery-imports/${safeName}`;
 }
 
 export async function importPhotosFromDrive(folderId: string): Promise<{ imported: string[], errors: string[] }> {
@@ -96,9 +121,7 @@ export async function importPhotosFromDrive(folderId: string): Promise<{ importe
 
   for (const file of files) {
     try {
-      const ext = file.name.split('.').pop() || 'jpg';
-      const safeName = file.name.replace(/[^a-zA-Z0-9.-]/g, '_');
-      const filePath = await downloadFile(file.id, safeName);
+      const filePath = await downloadFileFromDrive(file.id, file.name);
       imported.push(filePath);
       console.log(`Imported: ${file.name} -> ${filePath}`);
     } catch (error: any) {

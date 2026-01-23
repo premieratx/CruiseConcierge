@@ -55,6 +55,7 @@ import { SchemaMarkup, generateEventSchema, generateProductSchema, generateFAQSc
 import { YouTubeVideoBackground } from '@/components/YouTubeVideoBackground';
 import { DiscoCruisePricing } from '@/components/DiscoCruisePricing';
 import AnimatedPhotoGallery from '@/components/AnimatedPhotoGallery';
+import ScrollingPhotoGallery from '@/components/ScrollingPhotoGallery';
 import { BACHELOR_GALLERY } from '@/lib/media';
 
 // Hero video - Clever Girl walkthrough
@@ -1748,6 +1749,17 @@ export default function BachelorParty() {
           </div>
         </section>
       </SectionReveal>
+
+      {/* Scrolling Photo Gallery */}
+      <section className="py-12 bg-gradient-to-b from-blue-100 to-white dark:from-blue-900/30 dark:to-gray-950 overflow-hidden">
+        <div className="text-center mb-6">
+          <h2 className="text-3xl font-playfair font-bold text-gray-900 dark:text-white mb-2">
+            Real Bachelor Parties on Lake Travis
+          </h2>
+          <p className="text-gray-600 dark:text-gray-300">See the legendary parties happening every weekend</p>
+        </div>
+        <ScrollingPhotoGallery />
+      </section>
 
       {/* Footer */}
       <Footer />

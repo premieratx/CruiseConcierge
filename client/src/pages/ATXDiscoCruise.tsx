@@ -58,6 +58,7 @@ import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 // to avoid duplicate/conflicting schemas and Google Search Console errors
 import { YouTubeVideoBackground } from '@/components/YouTubeVideoBackground';
 import AnimatedPhotoGallery from '@/components/AnimatedPhotoGallery';
+import ScrollingPhotoGallery from '@/components/ScrollingPhotoGallery';
 import { DISCO_GALLERY } from '@/lib/media';
 
 // Hero video - Clever Girl walkthrough
@@ -1884,6 +1885,17 @@ export default function ATXDiscoCruise() {
           secondaryHref="tel:+15124885892"
           showOnDesktop={false}
         />
+
+        {/* Scrolling Photo Gallery */}
+        <section className="py-12 bg-gradient-to-b from-purple-100 to-white dark:from-purple-900/30 dark:to-gray-950 overflow-hidden">
+          <div className="text-center mb-6">
+            <h2 className="text-3xl font-playfair font-bold text-gray-900 dark:text-white mb-2">
+              Real Parties, Real Fun
+            </h2>
+            <p className="text-gray-600 dark:text-gray-300">Photos from actual ATX Disco Cruise celebrations</p>
+          </div>
+          <ScrollingPhotoGallery />
+        </section>
 
         <Footer />
       </div>
