@@ -4406,6 +4406,29 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
     }
   });
 
+  // POST /api/admin/gallery/import-drive - Import photos from Google Drive folder
+  app.post('/api/admin/gallery/import-drive', requireAdmin, async (req, res) => {
+    try {
+      const { importPhotosFromDrive, listFilesInFolder } = await import('./googleDriveImport');
+      const { folderId, listOnly } = req.body;
+
+      if (!folderId) {
+        return res.status(400).json({ error: 'folderId is required' });
+      }
+
+      if (listOnly) {
+        const files = await listFilesInFolder(folderId);
+        return res.json({ files });
+      }
+
+      const result = await importPhotosFromDrive(folderId);
+      res.json(result);
+    } catch (error: any) {
+      console.error('[Google Drive Import] Error:', error);
+      res.status(500).json({ error: error.message });
+    }
+  });
+
   // ==========================================
   // PROMPTS LIBRARY API ROUTES
   // ==========================================
