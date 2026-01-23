@@ -53,7 +53,6 @@ import { SchemaMarkup, generateEventSchema, generateProductSchema, generateFAQSc
          generateBreadcrumbSchema, generateHowToSchema } from '@/components/SEOSchemaMarkup';
 import { YouTubeVideoBackground } from '@/components/YouTubeVideoBackground';
 import { DiscoCruisePricing } from '@/components/DiscoCruisePricing';
-import AnimatedPhotoGallery from '@/components/AnimatedPhotoGallery';
 import ScrollingPhotoGallery from '@/components/ScrollingPhotoGallery';
 import { BACHELOR_GALLERY } from '@/lib/media';
 
@@ -594,21 +593,6 @@ export default function BachelorParty() {
 
       {/* Quote Builder Section */}
       <QuoteBuilderSection />
-
-      {/* Photo Gallery Section */}
-      <SectionReveal>
-        <section className="py-16 bg-white dark:bg-gray-950">
-          <div className="container mx-auto px-4">
-            <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">
-              Real Bachelor Party Photos
-            </h2>
-            <p className="text-center text-gray-600 dark:text-gray-400 mb-12 max-w-2xl mx-auto">
-              See what past groups experienced on Lake Travis! Click any photo to view full gallery.
-            </p>
-            <AnimatedPhotoGallery />
-          </div>
-        </section>
-      </SectionReveal>
 
       {/* YOUR TWO OPTIONS SECTION */}
       <SectionReveal>
