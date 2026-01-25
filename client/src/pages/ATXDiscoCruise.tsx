@@ -351,6 +351,17 @@ export default function ATXDiscoCruise() {
           </div>
         </motion.section>
 
+        {/* Scrolling Photo Gallery - Below Hero */}
+        <section className="py-8 bg-gradient-to-b from-purple-100 to-white dark:from-purple-900/30 dark:to-gray-950 overflow-hidden">
+          <div className="text-center mb-4">
+            <h2 className="text-2xl md:text-3xl font-playfair font-bold text-gray-900 dark:text-white mb-2">
+              Real Parties, Real Fun
+            </h2>
+            <p className="text-gray-600 dark:text-gray-300 text-sm md:text-base">Photos from actual ATX Disco Cruise celebrations</p>
+          </div>
+          <ScrollingPhotoGallery />
+        </section>
+
         {/* ATX Disco Cruise Video Section */}
         <section className="py-8 bg-black">
           <div className="max-w-4xl mx-auto px-4">
