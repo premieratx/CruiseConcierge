@@ -652,10 +652,11 @@ export default function BacheloretteParty() {
                     <p className="text-[10px] sm:text-xs">(12-4pm)</p>
                   </div>
                   <div className="p-2 sm:p-4 text-center bg-white">
-                    <p className="text-sm sm:text-lg font-bold text-[#2B3A67] whitespace-nowrap">$95/person</p>
+                    <p className="text-lg sm:text-xl font-bold text-[#2B3A67]">$95</p>
+                    <p className="text-xs text-[#2B3A67] -mt-1">per person</p>
                     <div className="mt-2 sm:mt-3 pt-2 sm:pt-3 border-t border-gray-200">
                       <p className="text-[#C85A54] font-bold text-sm sm:text-base">$124 all-in</p>
-                      <p className="text-gray-500 text-[10px] sm:text-xs whitespace-nowrap">w/ tax, tip & fees</p>
+                      <p className="text-gray-500 text-[10px] sm:text-xs">w/ tax, tip & fees</p>
                     </div>
                   </div>
                 </div>
@@ -667,10 +668,11 @@ export default function BacheloretteParty() {
                     <p className="text-[10px] sm:text-xs">(11am-3pm)</p>
                   </div>
                   <div className="p-2 sm:p-4 text-center bg-white">
-                    <p className="text-sm sm:text-lg font-bold text-[#2B3A67] whitespace-nowrap">$105/person</p>
+                    <p className="text-lg sm:text-xl font-bold text-[#2B3A67]">$105</p>
+                    <p className="text-xs text-[#2B3A67] -mt-1">per person</p>
                     <div className="mt-2 sm:mt-3 pt-2 sm:pt-3 border-t border-gray-200">
                       <p className="text-[#C85A54] font-bold text-sm sm:text-base">$137 all-in</p>
-                      <p className="text-gray-500 text-[10px] sm:text-xs whitespace-nowrap">w/ tax, tip & fees</p>
+                      <p className="text-gray-500 text-[10px] sm:text-xs">w/ tax, tip & fees</p>
                     </div>
                   </div>
                 </div>
@@ -682,10 +684,11 @@ export default function BacheloretteParty() {
                     <p className="text-[10px] sm:text-xs">(3:30-7:30pm)</p>
                   </div>
                   <div className="p-2 sm:p-4 text-center bg-white">
-                    <p className="text-sm sm:text-lg font-bold text-[#2B3A67] whitespace-nowrap">$85/person</p>
+                    <p className="text-lg sm:text-xl font-bold text-[#2B3A67]">$85</p>
+                    <p className="text-xs text-[#2B3A67] -mt-1">per person</p>
                     <div className="mt-2 sm:mt-3 pt-2 sm:pt-3 border-t border-gray-200">
                       <p className="text-[#C85A54] font-bold text-sm sm:text-base">$111 all-in</p>
-                      <p className="text-gray-500 text-[10px] sm:text-xs whitespace-nowrap">w/ tax, tip & fees</p>
+                      <p className="text-gray-500 text-[10px] sm:text-xs">w/ tax, tip & fees</p>
                     </div>
                   </div>
                 </div>
