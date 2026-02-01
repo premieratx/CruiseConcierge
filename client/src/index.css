@@ -54,6 +54,11 @@ html, body {
   line-gap-override: 0%;
 }
 
+/* Candal font utility class */
+.font-candal {
+  font-family: 'Candal', sans-serif !important;
+}
+
 /* CLS FIX: Common aspect ratio utilities for image containers */
 .aspect-video { aspect-ratio: 16 / 9; }
 .aspect-square { aspect-ratio: 1 / 1; }

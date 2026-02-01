@@ -1919,7 +1919,7 @@ export default function BacheloretteParty() {
                         <item.icon className="h-6 w-6 text-pink-600" />
                       </div>
                       <div className="flex-1">
-                        <h3 className="font-bold text-lg mb-2 text-gray-900">{item.title}</h3>
+                        <h3 className="font-candal text-2xl mb-2 text-gray-900">{item.title}</h3>
                         <p className="text-gray-600 leading-relaxed">{item.description}</p>
                       </div>
                     </div>

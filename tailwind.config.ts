@@ -134,6 +134,7 @@ export default {
         mono: ["var(--font-mono)"],
         heading: ["var(--font-heading)"],
         playfair: ['Playfair Display', 'serif'],
+        candal: ['Candal', 'sans-serif'],
       },
       keyframes: {
         "accordion-down": {
