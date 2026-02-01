@@ -1,0 +1,23 @@
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Premier Party Cruises - Lake Travis Party Boats",
+  "description": "Experience Austin's premier party boat cruises on Lake Travis. Watch our walkthrough of the Clever Girl, our flagship 75-passenger disco party boat with 14 disco balls, premium sound system, and spectacular lake views. Perfect for bachelor parties, bachelorette parties, corporate events, and special celebrations.",
+  "thumbnailUrl": "https://premierpartycruises.com/gallery-optimized/_capitalcityshots-46.webp",
+  "uploadDate": "2024-01-15",
+  "duration": "PT2M30S",
+  "contentUrl": "https://premierpartycruises.com/attached_assets/Boat_Video_Walkthrough_Generated_1761209219959.mp4",
+  "embedUrl": "https://premierpartycruises.com/",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Premier Party Cruises",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://premierpartycruises.com/gallery-optimized/_capitalcityshots-6.webp"
+    }
+  },
+  "potentialAction": {
+    "@type": "WatchAction",
+    "target": "https://premierpartycruises.com/"
+  }
+}

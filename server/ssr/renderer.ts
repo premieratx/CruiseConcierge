@@ -83,7 +83,8 @@ const ORGANIZATION_SCHEMA = {
     "@type": "AggregateRating",
     "ratingValue": "5.0",
     "bestRating": "5",
-    "ratingCount": 420
+    "ratingCount": 420,
+    "reviewCount": 420
   }
 };
 
@@ -461,7 +462,8 @@ const DAY_TRIPPER_PRODUCT_SCHEMA = {
     "@type": "AggregateRating",
     "ratingValue": "5.0",
     "bestRating": "5",
-    "ratingCount": 145
+    "ratingCount": 145,
+    "reviewCount": 145
   }
 };
 
@@ -488,7 +490,8 @@ const ME_SEEKS_THE_IRONY_PRODUCT_SCHEMA = {
     "@type": "AggregateRating",
     "ratingValue": "5.0",
     "bestRating": "5",
-    "ratingCount": 187
+    "ratingCount": 187,
+    "reviewCount": 187
   }
 };
 
@@ -515,7 +518,8 @@ const CLEVER_GIRL_PRODUCT_SCHEMA = {
     "@type": "AggregateRating",
     "ratingValue": "5.0",
     "bestRating": "5",
-    "ratingCount": 234
+    "ratingCount": 234,
+    "reviewCount": 234
   }
 };
 
