@@ -517,84 +517,106 @@ export default function BacheloretteParty() {
                 ATX Disco Cruise: The Ultimate Bachelorette Party Experience
               </h3>
               
-              <div className="flex flex-col lg:flex-row gap-6">
-                <ul className="space-y-3 text-gray-800 flex-1">
-                  <li className="flex items-start gap-2">
-                    <span className="text-[#C85A54] font-bold mt-1">•</span>
-                    <span><strong className="text-[#C85A54]">All-inclusive, Turnkey, DRINK & ICE DELIVERY AVAILABLE!</strong></span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-[#C85A54] font-bold mt-1">•</span>
-                    <span><strong className="text-[#C85A54]">3-12 Bachelorette & Bachelor Parties Together</strong> Celebrating the Same, Amazing Occasion!</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-[#C85A54] font-bold mt-1">•</span>
-                    <span><strong className="text-[#C85A54]">World-famous, all-inclusive, one-of-a-kind</strong> 4-hour party cruise - the ONLY party like it in the country!</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-[#C85A54] font-bold mt-1">•</span>
-                    <span><strong className="text-[#C85A54]">GIANT 25-foot Unicorn Float</strong> - Biggest in the Country!</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-[#C85A54] font-bold mt-1">•</span>
-                    <span><strong className="text-[#C85A54]">Professional DJ & photographer</strong> to capture the moment - Amazing music, free photos sent after</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-[#C85A54] font-bold mt-1">•</span>
-                    <span>3 Lily Pads, Add-On Packages Available</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-[#C85A54] font-bold mt-1">•</span>
-                    <span>Ice Water, Cups, Koozies, Bubbles, & Name Tags</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-[#C85A54] font-bold mt-1">•</span>
-                    <span>Private coolers w/ice & locker for each group's convenience</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-[#C85A54] font-bold mt-1">•</span>
-                    <span><strong className="text-[#C85A54]">EXCLUSIVELY for Bachelorette & Bachelor parties!</strong></span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-[#C85A54] font-bold mt-1">•</span>
-                    <span><strong className="text-[#C85A54]">VIBES are OFF THE CHARTS!</strong> - EVERYONE is celebrating the same occasion, it's just magic</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-[#C85A54] font-bold mt-1">•</span>
-                    <span>All party supplies, coolers with ice, and floats included</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-[#C85A54] font-bold mt-1">•</span>
-                    <span><strong className="text-[#C85A54]">Zero planning required</strong> on your part</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-[#C85A54] font-bold mt-1">•</span>
-                    <span><strong className="text-[#C85A54]">Weather backup</strong> for a guaranteed good time, rain or shine!</span>
-                  </li>
-                </ul>
-                
-                <div className="lg:w-48 flex-shrink-0">
-                  <img 
-                    src="/gallery-optimized/party-01.webp" 
-                    alt="Bachelorette party on ATX Disco Cruise" 
-                    className="w-full h-auto rounded-xl shadow-lg object-cover"
-                  />
-                </div>
-              </div>
+              <ul className="space-y-3 text-gray-800 mb-8">
+                <li className="flex items-start gap-2">
+                  <span className="text-[#C85A54] font-bold mt-1">•</span>
+                  <span><strong className="text-[#C85A54]">All-inclusive, Turnkey, DRINK & ICE DELIVERY AVAILABLE!</strong></span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-[#C85A54] font-bold mt-1">•</span>
+                  <span><strong className="text-[#C85A54]">3-12 Bachelorette & Bachelor Parties Together</strong> Celebrating the Same, Amazing Occasion!</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-[#C85A54] font-bold mt-1">•</span>
+                  <span><strong className="text-[#C85A54]">World-famous, all-inclusive, one-of-a-kind</strong> 4-hour party cruise - the ONLY party like it in the country!</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-[#C85A54] font-bold mt-1">•</span>
+                  <span><strong className="text-[#C85A54]">GIANT 25-foot Unicorn Float</strong> - Biggest in the Country!</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-[#C85A54] font-bold mt-1">•</span>
+                  <span><strong className="text-[#C85A54]">Professional DJ & photographer</strong> to capture the moment - Amazing music, free photos sent after</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-[#C85A54] font-bold mt-1">•</span>
+                  <span>3 Lily Pads, Add-On Packages Available</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-[#C85A54] font-bold mt-1">•</span>
+                  <span>Ice Water, Cups, Koozies, Bubbles, & Name Tags</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-[#C85A54] font-bold mt-1">•</span>
+                  <span>Private coolers w/ice & locker for each group's convenience</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-[#C85A54] font-bold mt-1">•</span>
+                  <span><strong className="text-[#C85A54]">EXCLUSIVELY for Bachelorette & Bachelor parties!</strong></span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-[#C85A54] font-bold mt-1">•</span>
+                  <span><strong className="text-[#C85A54]">VIBES are OFF THE CHARTS!</strong> - EVERYONE is celebrating the same occasion, it's just magic</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-[#C85A54] font-bold mt-1">•</span>
+                  <span>All party supplies, coolers with ice, and floats included</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-[#C85A54] font-bold mt-1">•</span>
+                  <span><strong className="text-[#C85A54]">Zero planning required</strong> on your part</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-[#C85A54] font-bold mt-1">•</span>
+                  <span><strong className="text-[#C85A54]">Weather backup</strong> for a guaranteed good time, rain or shine!</span>
+                </li>
+              </ul>
 
-              {/* Time Slot Pricing Boxes */}
-              <div className="grid grid-cols-3 gap-3 mt-8">
-                <div className="bg-[#3B5998] text-white rounded-lg p-4 text-center">
-                  <p className="font-bold text-sm mb-1">Friday 12-4pm</p>
-                  <p className="text-xs">$95/person (<span className="underline">$124 all-in</span>)</p>
+              {/* ATX Disco Cruise Pricing Chart - Matching Private Cruise Style */}
+              <div className="grid grid-cols-3 gap-4">
+                {/* Friday */}
+                <div className="border-2 border-[#3B5998] rounded-xl overflow-hidden">
+                  <div className="bg-[#3B5998] text-white py-3 px-2 text-center">
+                    <p className="font-bold text-sm">Friday</p>
+                    <p className="text-xs">(12-4pm)</p>
+                  </div>
+                  <div className="p-4 text-center bg-white">
+                    <p className="text-xl font-bold text-[#2B3A67]">$95/person</p>
+                    <div className="mt-3 pt-3 border-t border-gray-200">
+                      <p className="text-[#C85A54] font-bold">$124 all-in</p>
+                      <p className="text-gray-500 text-xs">w/ tax, tip & fees</p>
+                    </div>
+                  </div>
                 </div>
-                <div className="bg-[#3B5998] text-white rounded-lg p-4 text-center">
-                  <p className="font-bold text-sm mb-1">Saturday 11am-3pm</p>
-                  <p className="text-xs">$105/person (<span className="underline">$137 all-in</span>)</p>
+
+                {/* Saturday Day */}
+                <div className="border-2 border-[#3B5998] rounded-xl overflow-hidden">
+                  <div className="bg-[#3B5998] text-white py-3 px-2 text-center">
+                    <p className="font-bold text-sm">Saturday</p>
+                    <p className="text-xs">(11am-3pm)</p>
+                  </div>
+                  <div className="p-4 text-center bg-white">
+                    <p className="text-xl font-bold text-[#2B3A67]">$105/person</p>
+                    <div className="mt-3 pt-3 border-t border-gray-200">
+                      <p className="text-[#C85A54] font-bold">$137 all-in</p>
+                      <p className="text-gray-500 text-xs">w/ tax, tip & fees</p>
+                    </div>
+                  </div>
                 </div>
-                <div className="bg-[#3B5998] text-white rounded-lg p-4 text-center">
-                  <p className="font-bold text-sm mb-1">Saturday 3:30-7:30</p>
-                  <p className="text-xs">$85/person (<span className="underline">$111 all-in</span>)</p>
+
+                {/* Saturday Sunset */}
+                <div className="border-2 border-[#3B5998] rounded-xl overflow-hidden">
+                  <div className="bg-[#3B5998] text-white py-3 px-2 text-center">
+                    <p className="font-bold text-sm">Saturday</p>
+                    <p className="text-xs">(3:30-7:30pm)</p>
+                  </div>
+                  <div className="p-4 text-center bg-white">
+                    <p className="text-xl font-bold text-[#2B3A67]">$85/person</p>
+                    <div className="mt-3 pt-3 border-t border-gray-200">
+                      <p className="text-[#C85A54] font-bold">$111 all-in</p>
+                      <p className="text-gray-500 text-xs">w/ tax, tip & fees</p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -605,7 +627,7 @@ export default function BacheloretteParty() {
                 All-Inclusive Private Party Cruise:
               </h3>
               
-              <ul className="space-y-3 text-gray-800 mb-6">
+              <ul className="space-y-3 text-gray-800">
                 <li className="flex items-start gap-2">
                   <span className="text-[#2B3A67] font-bold mt-1">•</span>
                   <span><strong className="text-[#2B3A67]">Exclusive private boat</strong> for 14-30 guests with captain & crew</span>
@@ -622,30 +644,47 @@ export default function BacheloretteParty() {
                   <span className="text-[#2B3A67] font-bold mt-1">•</span>
                   <span><strong className="text-[#2B3A67]">BYOB with large coolers provided</strong></span>
                 </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-[#2B3A67] font-bold mt-1">•</span>
-                  <span>Add a Mimosa Party Cooler for $100</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-[#2B3A67] font-bold mt-1">•</span>
-                  <span>Add the Essentials Package for $100-$150</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-[#2B3A67] font-bold mt-1">•</span>
-                  <span>Add the Ultimate Disco Party Package for $250-$300</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-[#2B3A67] font-bold mt-1">•</span>
-                  <span>Book a DJ, Photographer, & Bartender for Your Cruise! ($600)</span>
-                </li>
               </ul>
 
-              <div className="mt-6">
-                <img 
-                  src="/gallery-optimized/party-06.webp" 
-                  alt="Private bachelorette cruise on Lake Travis" 
-                  className="w-full h-48 rounded-xl shadow-lg object-cover"
-                />
+              {/* Packages Section */}
+              <div className="mt-6 space-y-4">
+                <div className="bg-gradient-to-r from-[#2B3A67]/5 to-[#2B3A67]/10 rounded-lg p-4 border-l-4 border-[#2B3A67]">
+                  <p className="font-bold text-[#2B3A67]">Add a Mimosa Party Cooler - $100</p>
+                  <p className="text-gray-600 text-sm mt-1">Champagne, OJ, and flutes for the group</p>
+                </div>
+
+                <div className="bg-gradient-to-r from-[#C85A54]/5 to-[#C85A54]/10 rounded-lg p-4 border-l-4 border-[#C85A54]">
+                  <p className="font-bold text-[#C85A54]">Essentials Package - $100-$150</p>
+                  <p className="text-gray-600 text-sm mt-1">Coolers, ice, cups, koozies, party supplies - everything you need!</p>
+                </div>
+
+                <div className="bg-gradient-to-r from-[#2B3A67]/5 to-[#2B3A67]/10 rounded-lg p-4 border-l-4 border-[#2B3A67]">
+                  <p className="font-bold text-[#2B3A67]">Ultimate Disco Party Package - $250-$300</p>
+                  <p className="text-gray-600 text-sm mt-1">Everything in Essentials PLUS decorations, premium supplies, floats, and more!</p>
+                </div>
+              </div>
+
+              {/* Additional Add-ons */}
+              <div className="mt-6 pt-4 border-t border-gray-200">
+                <p className="font-bold text-[#2B3A67] mb-3">Additional Add-ons:</p>
+                <ul className="space-y-2 text-gray-800">
+                  <li className="flex items-start gap-2">
+                    <span className="text-[#2B3A67] font-bold mt-1">•</span>
+                    <span>Professional DJ for your cruise - <strong>$600</strong></span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-[#2B3A67] font-bold mt-1">•</span>
+                    <span>Professional Photographer - <strong>$600</strong></span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-[#2B3A67] font-bold mt-1">•</span>
+                    <span>Bartender for your cruise - <strong>$600</strong></span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-[#2B3A67] font-bold mt-1">•</span>
+                    <span>Giant Lily Pad Floats (6x20 feet) - <strong>$50/each</strong></span>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
