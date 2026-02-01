@@ -657,7 +657,7 @@ export default function BachelorParty() {
           </h2>
           <p className="text-gray-600 dark:text-gray-300">See the legendary parties happening every weekend</p>
         </div>
-        <ScrollingPhotoGallery />
+        <ScrollingPhotoGallery pageType="bachelor" />
       </section>
 
       {/* Quote Builder Section */}

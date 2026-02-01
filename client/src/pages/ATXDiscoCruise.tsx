@@ -370,7 +370,7 @@ export default function ATXDiscoCruise() {
             </h2>
             <p className="text-gray-600 dark:text-gray-300 text-sm md:text-base">Photos from actual ATX Disco Cruise celebrations</p>
           </div>
-          <ScrollingPhotoGallery />
+          <ScrollingPhotoGallery pageType="disco" />
         </section>
 
         {/* ATX Disco Cruise Video Carousel Section */}
@@ -664,7 +664,7 @@ export default function ATXDiscoCruise() {
             </h2>
             <p className="text-gray-600 dark:text-gray-300">Photos from actual ATX Disco Cruise celebrations</p>
           </div>
-          <ScrollingPhotoGallery />
+          <ScrollingPhotoGallery pageType="disco" />
         </section>
 
         {/* WHY BOOK SECTION - From KB Doc */}

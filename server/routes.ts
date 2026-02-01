@@ -3144,6 +3144,30 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
     }
   });
 
+  // Get SEMRush keyword data
+  app.get('/api/seo/semrush-keywords', requireAdmin, async (req, res) => {
+    try {
+      const { SEMRushKeywordsDB } = await import('./seo/semrushKeywords');
+      res.json({
+        allKeywords: SEMRushKeywordsDB.keywords,
+        categories: SEMRushKeywordsDB.categories,
+        stats: {
+          totalKeywords: SEMRushKeywordsDB.totalKeywords,
+          highPriority: SEMRushKeywordsDB.highPriorityCount,
+          totalVolume: SEMRushKeywordsDB.totalSearchVolume,
+          categories: SEMRushKeywordsDB.categories.length,
+          lastUpdated: 'February 2026'
+        }
+      });
+    } catch (error) {
+      console.error('Error fetching SEMRush keywords:', error);
+      res.status(500).json({ 
+        error: 'Failed to fetch SEMRush keywords',
+        message: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+  });
+
   // ==========================================
   // PAGE STATUS ROUTES
   // ==========================================

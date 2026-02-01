@@ -1,0 +1,72 @@
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Austin Bachelorette Party Cruise Videos",
+  "description": "Watch real austin bachelorette party boat experiences on Lake Travis disco cruises",
+  "itemListElement": [
+    {
+      "@type": "VideoObject",
+      "position": 1,
+      "name": "Full Length Disco Cruise Highlight Reel - Austin Bachelorette Party Boat",
+      "description": "Experience the ultimate Austin bachelorette party boat on Lake Travis. Watch real bachelorette celebrations aboard Premier Party Cruises disco boats with dancing, drinks, and unforgettable memories.",
+      "thumbnailUrl": "https://img.youtube.com/vi/USWZ3BrexEI/maxresdefault.jpg",
+      "uploadDate": "2024-06-15",
+      "duration": "PT3M45S",
+      "contentUrl": "https://www.youtube.com/watch?v=USWZ3BrexEI",
+      "embedUrl": "https://www.youtube.com/embed/USWZ3BrexEI",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Premier Party Cruises",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://premierpartycruises.com/logo.png"
+        }
+      }
+    },
+    {
+      "@type": "VideoObject",
+      "position": 2,
+      "name": "Girls Gone Disco - Austin Bachelorette Party Lake Travis",
+      "description": "See bachelorette parties celebrating on Lake Travis party boats. This austin bachelorette party boat rental showcases the disco cruise experience with friends.",
+      "thumbnailUrl": "https://img.youtube.com/vi/riFpt4IEmBY/maxresdefault.jpg",
+      "uploadDate": "2024-07-20",
+      "duration": "PT1M00S",
+      "contentUrl": "https://www.youtube.com/shorts/riFpt4IEmBY",
+      "embedUrl": "https://www.youtube.com/embed/riFpt4IEmBY",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Premier Party Cruises"
+      }
+    },
+    {
+      "@type": "VideoObject",
+      "position": 3,
+      "name": "Kyle MVP of the ATX Disco Cruise - Party Boat Austin",
+      "description": "Watch guests having the time of their lives on Austin party cruises. Premier Party Cruises offers the best party boat austin tx experience.",
+      "thumbnailUrl": "https://img.youtube.com/vi/AmiWjlT5u10/maxresdefault.jpg",
+      "uploadDate": "2024-08-10",
+      "duration": "PT0M45S",
+      "contentUrl": "https://www.youtube.com/shorts/AmiWjlT5u10",
+      "embedUrl": "https://www.youtube.com/embed/AmiWjlT5u10",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Premier Party Cruises"
+      }
+    },
+    {
+      "@type": "VideoObject",
+      "position": 4,
+      "name": "ATX Disco Cruise Experience - Bachelorette Party Cruise Austin",
+      "description": "The full ATX disco cruise experience featuring bachelorette parties, bachelor parties, and group celebrations on Lake Travis party boats.",
+      "thumbnailUrl": "https://img.youtube.com/vi/4-Yx24Y6oro/maxresdefault.jpg",
+      "uploadDate": "2024-05-01",
+      "duration": "PT2M30S",
+      "contentUrl": "https://www.youtube.com/watch?v=4-Yx24Y6oro",
+      "embedUrl": "https://www.youtube.com/embed/4-Yx24Y6oro",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Premier Party Cruises"
+      }
+    }
+  ]
+}

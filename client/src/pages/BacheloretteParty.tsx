@@ -903,7 +903,7 @@ export default function BacheloretteParty() {
           </h2>
           <p className="text-gray-600 dark:text-gray-300">See the celebrations happening every weekend</p>
         </div>
-        <ScrollingPhotoGallery />
+        <ScrollingPhotoGallery pageType="bachelorette" />
       </section>
 
       {/* Quote Builder Section */}

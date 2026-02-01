@@ -1,0 +1,72 @@
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Austin Bachelor Party Boat Videos",
+  "description": "Watch real lake travis bachelor party boat experiences on ATX disco cruises",
+  "itemListElement": [
+    {
+      "@type": "VideoObject",
+      "position": 1,
+      "name": "Full Length Disco Cruise Highlight Reel - Lake Travis Bachelor Party Boat",
+      "description": "Experience the ultimate lake travis bachelor party boat celebration. Watch real bachelor parties aboard Premier Party Cruises disco boats with epic moments and unforgettable memories.",
+      "thumbnailUrl": "https://img.youtube.com/vi/USWZ3BrexEI/maxresdefault.jpg",
+      "uploadDate": "2024-06-15",
+      "duration": "PT3M45S",
+      "contentUrl": "https://www.youtube.com/watch?v=USWZ3BrexEI",
+      "embedUrl": "https://www.youtube.com/embed/USWZ3BrexEI",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Premier Party Cruises",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://premierpartycruises.com/logo.png"
+        }
+      }
+    },
+    {
+      "@type": "VideoObject",
+      "position": 2,
+      "name": "Girls Gone Disco - Party Boats Austin Texas",
+      "description": "See groups celebrating on party boats austin texas. Premier Party Cruises showcases the disco cruise experience on Lake Travis.",
+      "thumbnailUrl": "https://img.youtube.com/vi/riFpt4IEmBY/maxresdefault.jpg",
+      "uploadDate": "2024-07-20",
+      "duration": "PT1M00S",
+      "contentUrl": "https://www.youtube.com/shorts/riFpt4IEmBY",
+      "embedUrl": "https://www.youtube.com/embed/riFpt4IEmBY",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Premier Party Cruises"
+      }
+    },
+    {
+      "@type": "VideoObject",
+      "position": 3,
+      "name": "Kyle MVP of the ATX Disco Cruise - Austin Boat Party",
+      "description": "Watch guests having the time of their lives on austin boat party cruises. The best party boat austin experience for bachelor parties.",
+      "thumbnailUrl": "https://img.youtube.com/vi/AmiWjlT5u10/maxresdefault.jpg",
+      "uploadDate": "2024-08-10",
+      "duration": "PT0M45S",
+      "contentUrl": "https://www.youtube.com/shorts/AmiWjlT5u10",
+      "embedUrl": "https://www.youtube.com/embed/AmiWjlT5u10",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Premier Party Cruises"
+      }
+    },
+    {
+      "@type": "VideoObject",
+      "position": 4,
+      "name": "ATX Disco Cruise Experience - Bachelor Party Boat Lake Travis",
+      "description": "The full ATX disco cruise experience featuring bachelor parties and group celebrations on Lake Travis party boats austin tx.",
+      "thumbnailUrl": "https://img.youtube.com/vi/4-Yx24Y6oro/maxresdefault.jpg",
+      "uploadDate": "2024-05-01",
+      "duration": "PT2M30S",
+      "contentUrl": "https://www.youtube.com/watch?v=4-Yx24Y6oro",
+      "embedUrl": "https://www.youtube.com/embed/4-Yx24Y6oro",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Premier Party Cruises"
+      }
+    }
+  ]
+}

@@ -70,6 +70,168 @@ const staggerChildren = {
   visible: { opacity: 1, transition: { staggerChildren: 0.1 } }
 };
 
+interface SEMRushKeyword {
+  keyword: string;
+  position: number;
+  volume: number;
+  kd: number;
+  visibility: number;
+  intent: string;
+  category: string;
+  priority: 'high' | 'medium' | 'low';
+  notes?: string;
+}
+
+interface SEMRushData {
+  allKeywords: SEMRushKeyword[];
+  stats: {
+    totalKeywords: number;
+    highPriority: number;
+    totalVolume: number;
+    categories: number;
+    lastUpdated: string;
+  };
+  categories: string[];
+}
+
+function SEMRushKeywordCard() {
+  const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [sortBy, setSortBy] = useState<'volume' | 'position' | 'kd'>('volume');
+  
+  const { data: semrushData, isLoading } = useQuery<SEMRushData>({
+    queryKey: ['/api/seo/semrush-keywords'],
+    staleTime: 60 * 1000,
+  });
+
+  if (isLoading) {
+    return (
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <BarChart3 className="w-5 h-5 text-orange-600" />
+            SEMRush Keyword Data
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="flex items-center justify-center h-40">
+            <RefreshCw className="w-6 h-6 animate-spin text-gray-400" />
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
+
+  if (!semrushData) return null;
+
+  const filteredKeywords = semrushData.allKeywords
+    .filter(k => selectedCategory === 'all' || k.category === selectedCategory)
+    .sort((a, b) => {
+      if (sortBy === 'volume') return b.volume - a.volume;
+      if (sortBy === 'position') return a.position - b.position;
+      return b.kd - a.kd;
+    });
+
+  const getPriorityBadge = (priority: string) => {
+    switch (priority) {
+      case 'high': return <Badge className="bg-red-100 text-red-800">High</Badge>;
+      case 'medium': return <Badge className="bg-yellow-100 text-yellow-800">Medium</Badge>;
+      default: return <Badge className="bg-gray-100 text-gray-800">Low</Badge>;
+    }
+  };
+
+  return (
+    <Card>
+      <CardHeader>
+        <div className="flex justify-between items-start">
+          <div>
+            <CardTitle className="flex items-center gap-2">
+              <BarChart3 className="w-5 h-5 text-orange-600" />
+              SEMRush Keyword Data
+            </CardTitle>
+            <CardDescription>
+              {semrushData.stats.totalKeywords} keywords tracked | {semrushData.stats.totalVolume.toLocaleString()} total monthly volume
+            </CardDescription>
+          </div>
+          <div className="flex gap-2">
+            <select 
+              className="px-3 py-1 border rounded-md text-sm"
+              value={selectedCategory}
+              onChange={(e) => setSelectedCategory(e.target.value)}
+            >
+              <option value="all">All Categories</option>
+              {semrushData.categories.map(cat => (
+                <option key={cat} value={cat}>{cat}</option>
+              ))}
+            </select>
+            <select 
+              className="px-3 py-1 border rounded-md text-sm"
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value as 'volume' | 'position' | 'kd')}
+            >
+              <option value="volume">Sort by Volume</option>
+              <option value="position">Sort by Position</option>
+              <option value="kd">Sort by KD%</option>
+            </select>
+          </div>
+        </div>
+      </CardHeader>
+      <CardContent>
+        <div className="grid grid-cols-4 gap-4 mb-4">
+          <div className="bg-blue-50 dark:bg-blue-900/20 p-3 rounded-lg text-center">
+            <div className="text-2xl font-bold text-blue-600">{semrushData.stats.totalKeywords}</div>
+            <div className="text-xs text-gray-500">Keywords</div>
+          </div>
+          <div className="bg-green-50 dark:bg-green-900/20 p-3 rounded-lg text-center">
+            <div className="text-2xl font-bold text-green-600">{semrushData.stats.highPriority}</div>
+            <div className="text-xs text-gray-500">High Priority</div>
+          </div>
+          <div className="bg-purple-50 dark:bg-purple-900/20 p-3 rounded-lg text-center">
+            <div className="text-2xl font-bold text-purple-600">{semrushData.stats.totalVolume.toLocaleString()}</div>
+            <div className="text-xs text-gray-500">Monthly Volume</div>
+          </div>
+          <div className="bg-orange-50 dark:bg-orange-900/20 p-3 rounded-lg text-center">
+            <div className="text-2xl font-bold text-orange-600">{semrushData.stats.categories}</div>
+            <div className="text-xs text-gray-500">Categories</div>
+          </div>
+        </div>
+        <ScrollArea className="h-[400px]">
+          <table className="w-full text-sm">
+            <thead className="bg-gray-50 dark:bg-gray-800 sticky top-0">
+              <tr>
+                <th className="text-left p-2">Keyword</th>
+                <th className="text-center p-2">Position</th>
+                <th className="text-center p-2">Volume</th>
+                <th className="text-center p-2">KD%</th>
+                <th className="text-center p-2">Priority</th>
+                <th className="text-left p-2">Category</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredKeywords.slice(0, 50).map((kw, idx) => (
+                <tr key={idx} className="border-b hover:bg-gray-50 dark:hover:bg-gray-800/50">
+                  <td className="p-2 font-medium">{kw.keyword}</td>
+                  <td className="text-center p-2">
+                    <span className={kw.position <= 3 ? 'text-green-600 font-bold' : kw.position <= 10 ? 'text-blue-600' : 'text-gray-600'}>
+                      {kw.position}
+                    </span>
+                  </td>
+                  <td className="text-center p-2">{kw.volume.toLocaleString()}</td>
+                  <td className="text-center p-2">{kw.kd.toFixed(1)}%</td>
+                  <td className="text-center p-2">{getPriorityBadge(kw.priority)}</td>
+                  <td className="p-2 text-gray-500">{kw.category}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </ScrollArea>
+        <div className="mt-4 text-sm text-gray-500 text-center">
+          Last updated: {semrushData.stats.lastUpdated}
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
+
 export default function SEOManagement() {
   const { toast } = useToast();
   const [selectedPage, setSelectedPage] = useState<SeoPage | null>(null);
@@ -1003,6 +1165,9 @@ export default function SEOManagement() {
               </div>
             </CardContent>
           </Card>
+
+          {/* SEMRush Keyword Data */}
+          <SEMRushKeywordCard />
         </TabsContent>
 
         {/* Competitor Analysis Tab */}
