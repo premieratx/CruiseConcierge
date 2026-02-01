@@ -496,6 +496,273 @@ export default function BacheloretteParty() {
         </div>
       </section>
 
+      {/* ATX Bachelorette Party Boat Options Section */}
+      <section className="py-16 bg-gradient-to-b from-amber-50 via-orange-50/30 to-amber-50">
+        <div className="max-w-5xl mx-auto px-6">
+          {/* Main Header */}
+          <div className="text-center mb-12">
+            <h2 className="text-4xl md:text-5xl font-playfair font-bold text-[#C85A54] mb-3">
+              ATX Bachelorette Party Boat Options
+            </h2>
+            <p className="text-xl md:text-2xl font-playfair italic text-[#2B3A67]">
+              Two Amazing Party Cruise Choices for Your Unforgettable Weekend in Austin
+            </p>
+          </div>
+
+          {/* Two Column Layout - Disco Cruise & Private Cruise */}
+          <div className="grid lg:grid-cols-2 gap-8 mb-12">
+            {/* ATX Disco Cruise Column */}
+            <div className="bg-white/80 rounded-2xl p-8 shadow-lg">
+              <h3 className="text-2xl md:text-3xl font-playfair font-bold text-[#2B3A67] mb-6 leading-tight">
+                ATX Disco Cruise: The Ultimate Bachelorette Party Experience
+              </h3>
+              
+              <div className="flex flex-col lg:flex-row gap-6">
+                <ul className="space-y-3 text-gray-800 flex-1">
+                  <li className="flex items-start gap-2">
+                    <span className="text-[#C85A54] font-bold mt-1">•</span>
+                    <span><strong className="text-[#C85A54]">All-inclusive, Turnkey, DRINK & ICE DELIVERY AVAILABLE!</strong></span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-[#C85A54] font-bold mt-1">•</span>
+                    <span><strong className="text-[#C85A54]">3-12 Bachelorette & Bachelor Parties Together</strong> Celebrating the Same, Amazing Occasion!</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-[#C85A54] font-bold mt-1">•</span>
+                    <span><strong className="text-[#C85A54]">World-famous, all-inclusive, one-of-a-kind</strong> 4-hour party cruise - the ONLY party like it in the country!</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-[#C85A54] font-bold mt-1">•</span>
+                    <span><strong className="text-[#C85A54]">GIANT 25-foot Unicorn Float</strong> - Biggest in the Country!</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-[#C85A54] font-bold mt-1">•</span>
+                    <span><strong className="text-[#C85A54]">Professional DJ & photographer</strong> to capture the moment - Amazing music, free photos sent after</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-[#C85A54] font-bold mt-1">•</span>
+                    <span>3 Lily Pads, Add-On Packages Available</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-[#C85A54] font-bold mt-1">•</span>
+                    <span>Ice Water, Cups, Koozies, Bubbles, & Name Tags</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-[#C85A54] font-bold mt-1">•</span>
+                    <span>Private coolers w/ice & locker for each group's convenience</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-[#C85A54] font-bold mt-1">•</span>
+                    <span><strong className="text-[#C85A54]">EXCLUSIVELY for Bachelorette & Bachelor parties!</strong></span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-[#C85A54] font-bold mt-1">•</span>
+                    <span><strong className="text-[#C85A54]">VIBES are OFF THE CHARTS!</strong> - EVERYONE is celebrating the same occasion, it's just magic</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-[#C85A54] font-bold mt-1">•</span>
+                    <span>All party supplies, coolers with ice, and floats included</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-[#C85A54] font-bold mt-1">•</span>
+                    <span><strong className="text-[#C85A54]">Zero planning required</strong> on your part</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-[#C85A54] font-bold mt-1">•</span>
+                    <span><strong className="text-[#C85A54]">Weather backup</strong> for a guaranteed good time, rain or shine!</span>
+                  </li>
+                </ul>
+                
+                <div className="lg:w-48 flex-shrink-0">
+                  <img 
+                    src="/gallery-optimized/party-01.webp" 
+                    alt="Bachelorette party on ATX Disco Cruise" 
+                    className="w-full h-auto rounded-xl shadow-lg object-cover"
+                  />
+                </div>
+              </div>
+
+              {/* Time Slot Pricing Boxes */}
+              <div className="grid grid-cols-3 gap-3 mt-8">
+                <div className="bg-[#3B5998] text-white rounded-lg p-4 text-center">
+                  <p className="font-bold text-sm mb-1">Friday 12-4pm</p>
+                  <p className="text-xs">$95/person (<span className="underline">$124 all-in</span>)</p>
+                </div>
+                <div className="bg-[#3B5998] text-white rounded-lg p-4 text-center">
+                  <p className="font-bold text-sm mb-1">Saturday 11am-3pm</p>
+                  <p className="text-xs">$105/person (<span className="underline">$137 all-in</span>)</p>
+                </div>
+                <div className="bg-[#3B5998] text-white rounded-lg p-4 text-center">
+                  <p className="font-bold text-sm mb-1">Saturday 3:30-7:30</p>
+                  <p className="text-xs">$85/person (<span className="underline">$111 all-in</span>)</p>
+                </div>
+              </div>
+            </div>
+
+            {/* All-Inclusive Private Party Cruise Column */}
+            <div className="bg-white/80 rounded-2xl p-8 shadow-lg">
+              <h3 className="text-2xl md:text-3xl font-playfair font-bold text-[#2B3A67] mb-6 leading-tight">
+                All-Inclusive Private Party Cruise:
+              </h3>
+              
+              <ul className="space-y-3 text-gray-800 mb-6">
+                <li className="flex items-start gap-2">
+                  <span className="text-[#2B3A67] font-bold mt-1">•</span>
+                  <span><strong className="text-[#2B3A67]">Exclusive private boat</strong> for 14-30 guests with captain & crew</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-[#2B3A67] font-bold mt-1">•</span>
+                  <span><strong className="text-[#2B3A67]">Full freedom</strong> to choose your route, music, and timing</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-[#2B3A67] font-bold mt-1">•</span>
+                  <span><strong className="text-[#2B3A67]">Bluetooth sound system</strong> to play your favorite tunes</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-[#2B3A67] font-bold mt-1">•</span>
+                  <span><strong className="text-[#2B3A67]">BYOB with large coolers provided</strong></span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-[#2B3A67] font-bold mt-1">•</span>
+                  <span>Add a Mimosa Party Cooler for $100</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-[#2B3A67] font-bold mt-1">•</span>
+                  <span>Add the Essentials Package for $100-$150</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-[#2B3A67] font-bold mt-1">•</span>
+                  <span>Add the Ultimate Disco Party Package for $250-$300</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-[#2B3A67] font-bold mt-1">•</span>
+                  <span>Book a DJ, Photographer, & Bartender for Your Cruise! ($600)</span>
+                </li>
+              </ul>
+
+              <div className="mt-6">
+                <img 
+                  src="/gallery-optimized/party-06.webp" 
+                  alt="Private bachelorette cruise on Lake Travis" 
+                  className="w-full h-48 rounded-xl shadow-lg object-cover"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* REMEMBER Section */}
+          <div className="mb-12">
+            <h3 className="text-3xl font-playfair font-bold text-[#C85A54] text-center mb-8 tracking-wide">
+              REMEMBER:
+            </h3>
+            
+            <div className="grid md:grid-cols-3 gap-6">
+              {/* Personalized Private Cruise */}
+              <div className="bg-white/90 rounded-xl p-6 shadow-md border-t-4 border-[#2B3A67]">
+                <h4 className="text-xl font-playfair font-bold text-[#C85A54] mb-4">Personalized Private Cruise</h4>
+                <p className="text-gray-700 text-sm leading-relaxed">
+                  We'll help you throw an amazing all-inclusive private cruise if you'd like it private - it'll be AMAZING!
+                </p>
+                <p className="text-gray-700 text-sm leading-relaxed mt-3">
+                  Add one of our all-inclusive packages to make it turnkey!
+                </p>
+              </div>
+
+              {/* ATX Disco Cruise */}
+              <div className="bg-white/90 rounded-xl p-6 shadow-md border-t-4 border-[#C85A54]">
+                <h4 className="text-xl font-playfair font-bold text-[#C85A54] mb-4">ATX Disco Cruise: All-Inclusive Experience</h4>
+                <p className="text-gray-700 text-sm leading-relaxed">
+                  The ATX Disco Cruise Includes <strong className="underline">EVERYTHING</strong>: Professional DJ & Photographer are Included! - photos sent after the cruise!
+                </p>
+                <p className="text-gray-700 text-sm leading-relaxed mt-3">
+                  AND - the Giant Unicorn Float is ONLY on the ATX Disco Cruise!
+                </p>
+              </div>
+
+              {/* Value vs. Experience */}
+              <div className="bg-white/90 rounded-xl p-6 shadow-md border-t-4 border-[#2B3A67]">
+                <h4 className="text-xl font-playfair font-bold text-[#C85A54] mb-4">Value vs. Experience</h4>
+                <p className="text-gray-700 text-sm leading-relaxed">
+                  The Private Cruise MIGHT be cheaper, but the ATX Disco Cruise is a one-of-a-kind EXPERIENCE that you'll remember forever
+                </p>
+                <p className="text-[#C85A54] font-bold text-sm mt-3 italic">
+                  - Real talk y'all!
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Private Cruise Pricing Table */}
+          <div className="bg-white/90 rounded-2xl p-8 shadow-lg">
+            <h3 className="text-2xl md:text-3xl font-playfair font-bold text-[#2B3A67] text-center mb-8">
+              Private Cruise Pricing for up to 14 people:
+            </h3>
+            
+            <div className="grid md:grid-cols-3 gap-6">
+              {/* Friday */}
+              <div className="border-2 border-[#3B5998] rounded-xl overflow-hidden">
+                <div className="bg-[#3B5998] text-white py-3 px-4 text-center">
+                  <p className="font-bold">Friday</p>
+                  <p className="text-sm">(12-4, 430-830)</p>
+                </div>
+                <div className="p-5 text-center">
+                  <p className="text-2xl font-bold text-[#2B3A67]">$225/hr</p>
+                  <p className="text-gray-600 text-sm mt-1">$900 for 4-hr Cruise</p>
+                  <div className="mt-4 pt-4 border-t border-gray-200">
+                    <p className="text-[#C85A54] font-bold text-lg">$1,181 total</p>
+                    <p className="text-gray-500 text-xs">w/ tax, tip & fees</p>
+                  </div>
+                  <div className="mt-4 pt-4 border-t border-gray-200">
+                    <p className="text-gray-700 font-medium">~$84-$168 per person</p>
+                    <p className="text-gray-500 text-xs">(7-14ppl)</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Saturday Afternoon */}
+              <div className="border-2 border-[#3B5998] rounded-xl overflow-hidden">
+                <div className="bg-[#3B5998] text-white py-3 px-4 text-center">
+                  <p className="font-bold">Saturday</p>
+                  <p className="text-sm">(11-3, 330-730)</p>
+                </div>
+                <div className="p-5 text-center">
+                  <p className="text-2xl font-bold text-[#2B3A67]">$350/hr</p>
+                  <p className="text-gray-600 text-sm mt-1">$1400 for 4-hr Cruise</p>
+                  <div className="mt-4 pt-4 border-t border-gray-200">
+                    <p className="text-[#C85A54] font-bold text-lg">$1,837 total</p>
+                    <p className="text-gray-500 text-xs">w/ tax, tip & fees</p>
+                  </div>
+                  <div className="mt-4 pt-4 border-t border-gray-200">
+                    <p className="text-gray-700 font-medium">~$131-$263 per person</p>
+                    <p className="text-gray-500 text-xs">(7-14ppl)</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Sunday */}
+              <div className="border-2 border-[#3B5998] rounded-xl overflow-hidden">
+                <div className="bg-[#3B5998] text-white py-3 px-4 text-center">
+                  <p className="font-bold">Sunday</p>
+                  <p className="text-sm">(11-3, 330-730)</p>
+                </div>
+                <div className="p-5 text-center">
+                  <p className="text-2xl font-bold text-[#2B3A67]">$250/hr</p>
+                  <p className="text-gray-600 text-sm mt-1">$1000 for 4-hr Cruise</p>
+                  <div className="mt-4 pt-4 border-t border-gray-200">
+                    <p className="text-[#C85A54] font-bold text-lg">$1,312 total</p>
+                    <p className="text-gray-500 text-xs">w/ tax, tip & fees</p>
+                  </div>
+                  <div className="mt-4 pt-4 border-t border-gray-200">
+                    <p className="text-gray-700 font-medium">~$94-$187 per person</p>
+                    <p className="text-gray-500 text-xs">(7-14ppl)</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Subtle Tagline Section - Below Hero */}
       <section className="py-8 bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-5xl mx-auto px-6">
