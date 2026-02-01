@@ -56,8 +56,8 @@ const ROUTE_TO_SCHEMA_MAPPING: RouteSchemaMapping = {
   '/bachelor-party-austin': ['bachelor-party-austin/faq.jsonld', 'bachelor-party-austin/service.jsonld', 'bachelor-party-austin/videos.jsonld'],
   '/bachelorette-party-austin': ['bachelorette-party-austin/faq.jsonld', 'bachelorette-party-austin/service.jsonld', 'bachelorette-party-austin/videos.jsonld'],
   '/combined-bachelor-bachelorette-austin': ['combined-bachelor-bachelorette-austin/faq.jsonld', 'combined-bachelor-bachelorette-austin/videos.jsonld'],
-  '/party-boat-austin': ['party-boat-austin/faq.jsonld'],
-  '/party-boat-lake-travis': ['party-boat-lake-travis/faq.jsonld'],
+  '/party-boat-austin': ['party-boat-austin/faq.jsonld', 'party-boat-austin/video.jsonld'],
+  '/party-boat-lake-travis': ['party-boat-lake-travis/faq.jsonld', 'party-boat-lake-travis/video.jsonld'],
   '/testimonials-faq': ['testimonials-faq/faq.jsonld'],
   '/contact': ['contact/faq.jsonld', 'contact/service.jsonld'],
 };

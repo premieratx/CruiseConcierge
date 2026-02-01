@@ -1,0 +1,23 @@
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Lake Travis Party Boat Tours - Premier Party Cruises",
+  "description": "Explore Lake Travis on Austin's premier party boats. Drone video showcasing our fleet of party boats including the Clever Girl with 14 disco balls, perfect for unforgettable celebrations. Bachelor parties, bachelorette parties, corporate events, and private rentals available.",
+  "thumbnailUrl": "https://premierpartycruises.com/gallery-optimized/_capitalcityshots-46.webp",
+  "uploadDate": "2024-01-15",
+  "duration": "PT3M45S",
+  "contentUrl": "https://www.youtube.com/watch?v=FABtEDZZBA0",
+  "embedUrl": "https://www.youtube.com/embed/FABtEDZZBA0",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Premier Party Cruises",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://premierpartycruises.com/gallery-optimized/_capitalcityshots-6.webp"
+    }
+  },
+  "potentialAction": {
+    "@type": "WatchAction",
+    "target": "https://premierpartycruises.com/party-boat-lake-travis"
+  }
+}

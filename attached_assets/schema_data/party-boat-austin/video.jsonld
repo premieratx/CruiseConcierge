@@ -1,0 +1,23 @@
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Austin Party Boat Experience - Lake Travis Cruises",
+  "description": "Discover Austin's best party boat rentals on Lake Travis. Watch our aerial drone footage showcasing premier party cruises perfect for bachelor parties, bachelorette parties, corporate events, and private celebrations. Experience the ultimate Austin party boat adventure.",
+  "thumbnailUrl": "https://premierpartycruises.com/gallery-optimized/_capitalcityshots-46.webp",
+  "uploadDate": "2024-01-15",
+  "duration": "PT3M45S",
+  "contentUrl": "https://www.youtube.com/watch?v=FABtEDZZBA0",
+  "embedUrl": "https://www.youtube.com/embed/FABtEDZZBA0",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Premier Party Cruises",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://premierpartycruises.com/gallery-optimized/_capitalcityshots-6.webp"
+    }
+  },
+  "potentialAction": {
+    "@type": "WatchAction",
+    "target": "https://premierpartycruises.com/party-boat-austin"
+  }
+}
