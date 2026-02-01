@@ -69,9 +69,9 @@ const safeSlug = (s?: string): string => {
   return (s ?? 'item').toLowerCase().replace(/\s+/g, '-');
 };
 
-// Static "Book By" deadline - January 31st (manually update when promotion changes)
+// Static "Book By" deadline - February 5th (manually update when promotion changes)
 const getBookByDate = (): string => {
-  return 'January 31st';
+  return 'February 5th';
 };
 
 const isSection = (item: DropdownLink | DropdownSection): item is DropdownSection => {
