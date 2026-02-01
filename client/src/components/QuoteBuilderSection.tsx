@@ -42,13 +42,13 @@ export default function QuoteBuilderSection() {
               className="bg-white rounded-none md:rounded-2xl shadow-2xl"
               style={{ 
                 width: '100%', 
-                minHeight: '900px', 
+                minHeight: '700px', 
                 position: 'relative',
                 margin: '0'
               }}
             >
               {!iframeUrl && (
-                <div className="flex items-center justify-center h-[900px] text-gray-500">
+                <div className="flex items-center justify-center h-[700px] text-gray-500">
                   <div className="text-center">
                     <Sparkles className="h-12 w-12 mx-auto mb-4 animate-pulse text-brand-blue" />
                     <p className="text-lg font-medium">Loading Quote Builder...</p>
@@ -63,7 +63,7 @@ export default function QuoteBuilderSection() {
                   title="Get Your Quote - Premier Party Cruises"
                   className="w-full"
                   style={{ 
-                    height: '900px',
+                    height: '700px',
                     border: 'none',
                     display: 'block',
                     borderRadius: '8px',
@@ -76,7 +76,7 @@ export default function QuoteBuilderSection() {
                   data-testid="iframe-quote-builder"
                   onLoad={(e) => {
                     const iframe = e.target as HTMLIFrameElement;
-                    iframe.style.height = '900px';
+                    iframe.style.height = '700px';
                   }}
                 />
               )}
