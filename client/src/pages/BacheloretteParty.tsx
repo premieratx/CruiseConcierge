@@ -308,8 +308,20 @@ export default function BacheloretteParty() {
   const [currentHeroImage, setCurrentHeroImage] = useState(0);
   const [videoLoaded, setVideoLoaded] = useState(false);
   const [videoFailed, setVideoFailed] = useState(false);
+  const [activeVideoIndex, setActiveVideoIndex] = useState(0);
   const videoRef = useRef<HTMLVideoElement>(null);
   const heroImages = [heroImage2, heroImage3, galleryImage1];
+  
+  // Video carousel data
+  const carouselVideos = [
+    { id: 'USWZ3BrexEI', title: 'Full Length Disco Cruise Highlight Reel', isShort: false },
+    { id: '4-Yx24Y6oro', title: 'ATX Disco Cruise Experience', isShort: false },
+    { id: 'riFpt4IEmBY', title: 'Girls Gone Disco', isShort: true },
+    { id: 'AmiWjlT5u10', title: 'Kyle: MVP of the ATX Disco Cruise', isShort: true }
+  ];
+  
+  const goToPrevVideo = () => setActiveVideoIndex((prev) => (prev === 0 ? carouselVideos.length - 1 : prev - 1));
+  const goToNextVideo = () => setActiveVideoIndex((prev) => (prev === carouselVideos.length - 1 ? 0 : prev + 1));
 
   const handleVideoLoadedData = () => {
     setVideoLoaded(true);
@@ -481,17 +493,81 @@ export default function BacheloretteParty() {
         </div>
       </section>
 
-      {/* ATX Disco Cruise Video Section */}
-      <section className="py-8 bg-black">
-        <div className="max-w-4xl mx-auto px-4">
-          <div className="aspect-video rounded-xl overflow-hidden shadow-2xl">
-            <iframe
-              src="https://www.youtube.com/embed/4-Yx24Y6oro?autoplay=1&mute=1&loop=1&playlist=4-Yx24Y6oro&controls=0&showinfo=0&rel=0"
-              title="ATX Disco Cruise Experience"
-              className="w-full h-full"
-              allow="autoplay; encrypted-media"
-              allowFullScreen
-            />
+      {/* ATX Disco Cruise Video Carousel Section */}
+      <section className="py-8 bg-black overflow-hidden">
+        <div className="max-w-6xl mx-auto px-4 relative">
+          <div className="relative">
+            {/* Left Arrow */}
+            <button 
+              onClick={goToPrevVideo}
+              className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 z-20 bg-white/90 hover:bg-white text-gray-800 p-2 md:p-3 rounded-full transition-all shadow-lg"
+              aria-label="Previous video"
+            >
+              <svg className="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+            
+            {/* Right Arrow */}
+            <button 
+              onClick={goToNextVideo}
+              className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-20 bg-white/90 hover:bg-white text-gray-800 p-2 md:p-3 rounded-full transition-all shadow-lg"
+              aria-label="Next video"
+            >
+              <svg className="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+            
+            {/* Videos Container - All 4 visible */}
+            <div className="flex items-center justify-center gap-2 md:gap-3 py-4 px-10 md:px-16">
+              {carouselVideos.map((video, index) => {
+                const isActive = index === activeVideoIndex;
+                
+                return (
+                  <div
+                    key={video.id}
+                    onClick={() => setActiveVideoIndex(index)}
+                    className={`
+                      transition-all duration-300 cursor-pointer rounded-xl overflow-hidden shadow-2xl flex-shrink-0
+                      ${isActive 
+                        ? 'w-[40%] md:w-[35%] opacity-100 scale-105 z-10 ring-4 ring-pink-500' 
+                        : 'w-[18%] md:w-[20%] opacity-60 scale-95 hover:opacity-80'
+                      }
+                    `}
+                  >
+                    <div className={video.isShort ? 'aspect-[9/16]' : 'aspect-video'}>
+                      <iframe
+                        src={`https://www.youtube.com/embed/${video.id}${isActive ? '?autoplay=1&mute=1&loop=1&playlist=' + video.id : ''}`}
+                        title={video.title}
+                        className="w-full h-full"
+                        allow="autoplay; encrypted-media"
+                        allowFullScreen
+                      />
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+            
+            {/* Video Title */}
+            <p className="text-center text-white text-sm md:text-base mt-2 font-medium">
+              {carouselVideos[activeVideoIndex].title}
+            </p>
+            
+            {/* Dots Indicator */}
+            <div className="flex justify-center gap-2 mt-3">
+              {carouselVideos.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setActiveVideoIndex(index)}
+                  className={`w-2 h-2 md:w-3 md:h-3 rounded-full transition-all ${
+                    index === activeVideoIndex ? 'bg-white scale-125' : 'bg-white/40 hover:bg-white/60'
+                  }`}
+                  aria-label={`Go to video ${index + 1}`}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </section>
