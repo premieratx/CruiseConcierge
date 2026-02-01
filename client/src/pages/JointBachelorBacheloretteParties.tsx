@@ -878,13 +878,6 @@ export default function JointBachelorBacheloretteParties() {
           "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https://premierpartycruises.com/blogs/joint-bachelor-bachelorette-parties-with-premier-party-cruises"
-          },
-          "aggregateRating": {
-            "@type": "AggregateRating",
-            "ratingValue": "4.9",
-            "reviewCount": "87",
-            "bestRating": "5",
-            "worstRating": "1"
           }
         })}
       </script>

@@ -57,13 +57,6 @@ export default function TopSpotsAustinBacheloretteParty() {
             "mainEntityOfPage": {
               "@type": "WebPage",
               "@id": "https://premierpartycruises.com/blogs/top-spots-tips-for-an-unforgettable-austin-bachelorette-party-experience"
-            },
-            "aggregateRating": {
-              "@type": "AggregateRating",
-              "ratingValue": "4.9",
-              "reviewCount": "500",
-              "bestRating": "5",
-              "worstRating": "1"
             }
           })}
         </script>

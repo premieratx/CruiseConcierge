@@ -1182,13 +1182,6 @@ export default function UltimateAustinBacheloretteWeekend() {
           },
           "datePublished": "2025-11-10",
           "dateModified": "2025-11-10",
-          "aggregateRating": {
-            "@type": "AggregateRating",
-            "ratingValue": "4.9",
-            "reviewCount": "130",
-            "bestRating": "5",
-            "worstRating": "1"
-          },
           "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https://premierpartycruises.com/ultimate-austin-bachelorette-weekend"

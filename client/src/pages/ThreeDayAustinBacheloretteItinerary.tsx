@@ -52,13 +52,6 @@ export default function ThreeDayAustinBacheloretteItinerary() {
         "url": "https://premierpartycruises.com/attached_assets/PPC-Logo-LARGE.webp"
       }
     },
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "4.9",
-      "reviewCount": "130",
-      "bestRating": "5",
-      "worstRating": "1"
-    }
   };
 
   return (

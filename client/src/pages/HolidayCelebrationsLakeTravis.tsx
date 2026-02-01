@@ -1072,13 +1072,6 @@ export default function HolidayCelebrationsLakeTravis() {
           "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https://premierpartycruises.com/blogs/holiday-celebrations-on-lake-travis-seasonal-boat-party-planning-and-coordination"
-          },
-          "aggregateRating": {
-            "@type": "AggregateRating",
-            "ratingValue": "4.9",
-            "reviewCount": "130",
-            "bestRating": "5",
-            "worstRating": "1"
           }
         })}
       </script>

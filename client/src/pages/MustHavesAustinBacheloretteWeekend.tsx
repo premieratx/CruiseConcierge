@@ -58,13 +58,6 @@ export default function MustHavesAustinBacheloretteWeekend() {
             "mainEntityOfPage": {
               "@type": "WebPage",
               "@id": "https://premierpartycruises.com/blogs/must-haves-for-the-perfect-austin-bachelorette-weekend"
-            },
-            "aggregateRating": {
-              "@type": "AggregateRating",
-              "ratingValue": "4.9",
-              "reviewCount": "500",
-              "bestRating": "5",
-              "worstRating": "1"
             }
           })}
         </script>

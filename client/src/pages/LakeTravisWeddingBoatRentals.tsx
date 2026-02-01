@@ -1370,13 +1370,6 @@ export default function LakeTravisWeddingBoatRentals() {
           "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https://premierpartycruises.com/blogs/lake-travis-wedding-boat-rentals-unique-venues-for-austin-celebrations"
-          },
-          "aggregateRating": {
-            "@type": "AggregateRating",
-            "ratingValue": "5.0",
-            "reviewCount": "64",
-            "bestRating": "5",
-            "worstRating": "1"
           }
         })}
       </script>

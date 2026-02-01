@@ -288,14 +288,7 @@ export default function BlogPostPage() {
         "@type": "ImageObject",
         "url": "https://premierpartycruises.com/PPC%20Logo%20LARGE_1757881944449.png"
       },
-      "description": "Austin's premier party boat rental service on Lake Travis, validated by independent AI analysis",
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "4.9",
-        "reviewCount": "500",
-        "bestRating": "5",
-        "worstRating": "1"
-      }
+      "description": "Austin's premier party boat rental service on Lake Travis"
     },
     "description": post.excerpt || post.metaDescription || "",
     "articleBody": getArticleBody(),
