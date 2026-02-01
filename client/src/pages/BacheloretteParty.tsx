@@ -573,48 +573,48 @@ export default function BacheloretteParty() {
               </ul>
 
               {/* ATX Disco Cruise Pricing Chart - Matching Private Cruise Style */}
-              <div className="grid grid-cols-3 gap-4">
+              <div className="grid grid-cols-3 gap-2 sm:gap-4">
                 {/* Friday */}
                 <div className="border-2 border-[#3B5998] rounded-xl overflow-hidden">
-                  <div className="bg-[#3B5998] text-white py-3 px-2 text-center">
-                    <p className="font-bold text-sm">Friday</p>
-                    <p className="text-xs">(12-4pm)</p>
+                  <div className="bg-[#3B5998] text-white py-2 sm:py-3 px-1 sm:px-2 text-center">
+                    <p className="font-bold text-xs sm:text-sm">Friday</p>
+                    <p className="text-[10px] sm:text-xs">(12-4pm)</p>
                   </div>
-                  <div className="p-4 text-center bg-white">
-                    <p className="text-xl font-bold text-[#2B3A67]">$95/person</p>
-                    <div className="mt-3 pt-3 border-t border-gray-200">
-                      <p className="text-[#C85A54] font-bold">$124 all-in</p>
-                      <p className="text-gray-500 text-xs">w/ tax, tip & fees</p>
+                  <div className="p-2 sm:p-4 text-center bg-white">
+                    <p className="text-sm sm:text-lg font-bold text-[#2B3A67] whitespace-nowrap">$95/person</p>
+                    <div className="mt-2 sm:mt-3 pt-2 sm:pt-3 border-t border-gray-200">
+                      <p className="text-[#C85A54] font-bold text-sm sm:text-base">$124 all-in</p>
+                      <p className="text-gray-500 text-[10px] sm:text-xs whitespace-nowrap">w/ tax, tip & fees</p>
                     </div>
                   </div>
                 </div>
 
                 {/* Saturday Day */}
                 <div className="border-2 border-[#3B5998] rounded-xl overflow-hidden">
-                  <div className="bg-[#3B5998] text-white py-3 px-2 text-center">
-                    <p className="font-bold text-sm">Saturday</p>
-                    <p className="text-xs">(11am-3pm)</p>
+                  <div className="bg-[#3B5998] text-white py-2 sm:py-3 px-1 sm:px-2 text-center">
+                    <p className="font-bold text-xs sm:text-sm">Saturday</p>
+                    <p className="text-[10px] sm:text-xs">(11am-3pm)</p>
                   </div>
-                  <div className="p-4 text-center bg-white">
-                    <p className="text-xl font-bold text-[#2B3A67]">$105/person</p>
-                    <div className="mt-3 pt-3 border-t border-gray-200">
-                      <p className="text-[#C85A54] font-bold">$137 all-in</p>
-                      <p className="text-gray-500 text-xs">w/ tax, tip & fees</p>
+                  <div className="p-2 sm:p-4 text-center bg-white">
+                    <p className="text-sm sm:text-lg font-bold text-[#2B3A67] whitespace-nowrap">$105/person</p>
+                    <div className="mt-2 sm:mt-3 pt-2 sm:pt-3 border-t border-gray-200">
+                      <p className="text-[#C85A54] font-bold text-sm sm:text-base">$137 all-in</p>
+                      <p className="text-gray-500 text-[10px] sm:text-xs whitespace-nowrap">w/ tax, tip & fees</p>
                     </div>
                   </div>
                 </div>
 
                 {/* Saturday Sunset */}
                 <div className="border-2 border-[#3B5998] rounded-xl overflow-hidden">
-                  <div className="bg-[#3B5998] text-white py-3 px-2 text-center">
-                    <p className="font-bold text-sm">Saturday</p>
-                    <p className="text-xs">(3:30-7:30pm)</p>
+                  <div className="bg-[#3B5998] text-white py-2 sm:py-3 px-1 sm:px-2 text-center">
+                    <p className="font-bold text-xs sm:text-sm">Saturday</p>
+                    <p className="text-[10px] sm:text-xs">(3:30-7:30pm)</p>
                   </div>
-                  <div className="p-4 text-center bg-white">
-                    <p className="text-xl font-bold text-[#2B3A67]">$85/person</p>
-                    <div className="mt-3 pt-3 border-t border-gray-200">
-                      <p className="text-[#C85A54] font-bold">$111 all-in</p>
-                      <p className="text-gray-500 text-xs">w/ tax, tip & fees</p>
+                  <div className="p-2 sm:p-4 text-center bg-white">
+                    <p className="text-sm sm:text-lg font-bold text-[#2B3A67] whitespace-nowrap">$85/person</p>
+                    <div className="mt-2 sm:mt-3 pt-2 sm:pt-3 border-t border-gray-200">
+                      <p className="text-[#C85A54] font-bold text-sm sm:text-base">$111 all-in</p>
+                      <p className="text-gray-500 text-[10px] sm:text-xs whitespace-nowrap">w/ tax, tip & fees</p>
                     </div>
                   </div>
                 </div>
