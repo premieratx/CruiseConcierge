@@ -261,9 +261,9 @@ export default function ATXDiscoCruise() {
   
   const carouselVideos = [
     { id: 'USWZ3BrexEI', title: 'Full Length Disco Cruise Highlight Reel', isShort: false },
-    { id: '4-Yx24Y6oro', title: 'ATX Disco Cruise Experience', isShort: false },
     { id: 'riFpt4IEmBY', title: 'Girls Gone Disco', isShort: true },
-    { id: 'AmiWjlT5u10', title: 'Kyle: MVP of the ATX Disco Cruise', isShort: true }
+    { id: 'AmiWjlT5u10', title: 'Kyle: MVP of the ATX Disco Cruise', isShort: true },
+    { id: '4-Yx24Y6oro', title: 'ATX Disco Cruise Experience', isShort: false }
   ];
   
   const goToPrevVideo = () => setActiveVideoIndex((prev) => (prev === 0 ? carouselVideos.length - 1 : prev - 1));
