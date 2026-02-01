@@ -226,11 +226,6 @@ const faqItems = [
     answer: "Yes—48 hours after booking for a full refund. After that, weather rules apply at captain's discretion."
   },
   {
-    id: 'split-payment',
-    question: 'Can we split payments between the girls?',
-    answer: 'Yes. Split payment options are available at checkout.'
-  },
-  {
     id: 'bride-decorations',
     question: 'Can we decorate for the bride?',
     answer: 'Absolutely! We encourage bachelorette decorations. We provide disco ball cups, bubble guns, and party supplies. You can bring additional decorations like banners, signs, sashes, and matching outfits. Just avoid confetti or loose glitter that could blow into the lake.'
@@ -1835,7 +1830,7 @@ export default function BacheloretteParty() {
                 </CardHeader>
                 <CardContent className="text-center">
                   <p className="text-gray-700 leading-relaxed mb-4">
-                    Simple online booking with <strong>instant confirmation</strong>. Split payments available for your bride tribe convenience.
+                    Simple online booking with <strong>instant confirmation</strong>. Secure checkout for your bride tribe convenience.
                   </p>
                   <Badge className="bg-green-600 text-white">
                     Book in Minutes

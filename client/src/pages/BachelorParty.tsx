@@ -250,11 +250,6 @@ const faqItems = [
     answer: "Yes—48 hours after booking for a full refund. After that, weather rules apply at captain's discretion."
   },
   {
-    id: 'split-payment',
-    question: 'Can we split payments between the guys?',
-    answer: 'Yes. Split payment options are available at checkout - makes it easy for everyone to chip in.'
-  },
-  {
     id: 'attire',
     question: 'Is disco attire required?',
     answer: 'Encouraged but not required. Most crews go all out - it makes for legendary photos.'

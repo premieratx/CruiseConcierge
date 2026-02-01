@@ -126,7 +126,7 @@ const planningSteps = [
   {
     step: '1',
     title: 'Reserve Early',
-    description: 'Book 2-3 months in advance for peak season (March-August). Split payment options available so each girl pays their share directly.'
+    description: 'Book 2-3 months in advance for peak season (March-August). Secure online checkout makes booking quick and easy.'
   },
   {
     step: '2',

@@ -396,11 +396,6 @@ const allFAQs = {
         isNew: true
       },
       {
-        question: 'Can we split the payment between multiple people?',
-        answer: 'Absolutely! We offer split payment options at checkout. Each person can pay their portion directly, making it easy to manage group bookings. The organizer doesn\'t have to front the entire cost.',
-        isNew: true
-      },
-      {
         question: 'Is disco attire required?',
         answer: 'Disco attire is encouraged but not required! Many groups love dressing up in disco themes - it makes for amazing photos and adds to the fun vibe. But come as you are - the most important thing is that you\'re comfortable and ready to party!',
         isNew: true
@@ -440,11 +435,6 @@ const allFAQs = {
       {
         question: 'What is your refund policy?',
         answer: 'We offer a 48-hour full refund window after booking. This gives you time to coordinate with your girls and make sure everyone is on board. After 48 hours, deposits become non-refundable but can be transferred to another date with advance notice.',
-        isNew: true
-      },
-      {
-        question: 'Can we split the payment between the girls?',
-        answer: 'Absolutely! We offer split payment options at checkout. Each bridesmaid can pay their portion directly, making it easy to manage group bookings. The MOH doesn\'t have to front the entire cost!',
         isNew: true
       },
       {
@@ -492,11 +482,6 @@ const allFAQs = {
       {
         question: 'What is your refund policy?',
         answer: 'We offer a 48-hour full refund window after booking. After 48 hours, deposits become non-refundable but can be transferred to another date with advance notice. Weather cancellations include the Lemonade Disco backup option or full refund.',
-        isNew: true
-      },
-      {
-        question: 'Can we split the payment between multiple people?',
-        answer: 'Absolutely! We offer split payment options at checkout. Each person can pay their portion directly, making it easy to manage group bookings. The organizer doesn\'t have to front the entire cost.',
         isNew: true
       },
       {
@@ -991,11 +976,6 @@ const allFAQs = {
       {
         question: 'Should we book a private cruise or join the Disco Cruise?',
         answer: 'Great question! For groups under 30 people, the Disco Cruise is usually the best value and vibe. For 30+, or if you want complete control of the boat, go private. We can help you decide based on your group size, budget, and party style. Both options are AMAZING for combined parties!',
-        isNew: true
-      },
-      {
-        question: 'Can we split costs between the bride and groom\'s sides?',
-        answer: 'Absolutely! We make it easy to split payments however you want - by side, by person, or any way that works for your group. Everyone can pay their portion directly at checkout. No awkward Venmo requests needed!',
         isNew: true
       },
       {

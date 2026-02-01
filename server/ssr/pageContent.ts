@@ -603,7 +603,6 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         paragraphs: [
           'How many people can you fit? Disco cruise handles 20-40+ guests per group. Private boats accommodate up to 75 guests.',
           'Should we do disco or private cruise? Under 30 people: disco cruise is perfect. 30+ people: consider a private boat. We\'ll help you choose!',
-          'Can we split payments? Yes! Split payment options available at checkout for easy group coordination.',
           'What if guys and girls want different things? No problem! Plenty of zones on the boat - floats, DJ area, lounge spots. BYOB keeps everyone happy.',
           'Do you offer special packages for couples? Yes! Our Party Squad and Ultimate packages offer premium perks and VIP treatment for both the bride and groom.'
         ]
@@ -2729,7 +2728,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Pricing and Payment',
         paragraphs: [
           'Private boats start at $1,050 for 4-hour cruises for up to 14 guests, ranging up to $2,660 for larger boats (75 guests). The ATX Disco Cruise costs $85-105 per person including DJ, photographer, and amenities.',
-          'All prices include boat, licensed captains, fuel, cooler space, sound system, and safety equipment. ATX Disco Cruises add professional DJ, photographer, floats, and party supplies. We accept all major credit cards with split payment options available at checkout.'
+          'All prices include boat, licensed captains, fuel, cooler space, sound system, and safety equipment. ATX Disco Cruises add professional DJ, photographer, floats, and party supplies. We accept all major credit cards.'
         ]
       },
       {
@@ -3272,7 +3271,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Booking and Payment Policies',
         paragraphs: [
           'Deposits: If booking 14+ days before cruise, 25% deposit required with balance due 14 days before. If booking less than 14 days out, 50% deposit required with balance due within 48 hours.',
-          'Payment Methods: Accept all major credit cards. Groups can split payments among multiple cards at checkout. Corporate clients can request NET terms with approved credit.',
+          'Payment Methods: Accept all major credit cards. Corporate clients can request NET terms with approved credit.',
           'Cancellations: Cancel 48+ hours after booking for full refund. After that, deposits non-refundable but can apply to rescheduling within 12 months. Weather cancellations by us result in full refund.',
           'Price Matching: We already offer the best value on Lake Travis. Our Disco Cruise is unmatched - no other company offers similar experience at comparable price point.'
         ]
@@ -3387,7 +3386,6 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           'What is a combined bach party? Both bachelor and bachelorette parties celebrate together on the same boat. Saves time and money, and everyone bonds before the wedding.',
           'How many people can you fit? Disco cruise handles 20-40+ people comfortably. Private boats accommodate up to 75 guests for larger combined celebrations.',
           'Disco cruise or private boat - which is better? Under 30 people total, disco cruise is the best value. Over 30 or want complete privacy, choose private boat. We\'ll help you decide!',
-          'Can we split payments? Yes - split payment options available at checkout. Perfect for groups where different people are paying.',
           'What if guys and girls want different things? Plenty of zones on the boat: party floats, DJ dance area, lounge sections. BYOB keeps beverage preferences flexible for everyone.',
           'What are the best activities for mixed groups? DJ dance floor, giant party floats, swimming - universal fun everyone enjoys together!',
           'How far in advance should we book? Book 6-8 weeks early, especially for weekend dates. Combined parties are trending and popular time slots fill quickly.'
@@ -6009,7 +6007,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Booking and Payment Information',
         paragraphs: [
-          'Securing your preferred date is easy. Private charter bookings require a deposit to confirm your reservation, with the balance due before departure. ATX Disco Cruise tickets can be purchased online with immediate confirmation. We accept all major credit cards and offer split payment options for groups.',
+          'Securing your preferred date is easy. Private charter bookings require a deposit to confirm your reservation, with the balance due before departure. ATX Disco Cruise tickets can be purchased online with immediate confirmation. We accept all major credit cards.',
           'Weekend dates during peak season from April through October book 6-8 weeks in advance. We recommend booking as early as possible to secure your preferred time slot, especially for popular dates around holidays and graduation weekends. Contact Premier Party Cruises at 512-488-5892 for availability and to discuss your celebration plans.',
           'Group discounts may be available for larger private charter bookings. Corporate clients and event planners receive dedicated support for [[team-building]] events, [[client-entertainment]] cruises, and [[company-milestone]] celebrations. Contact us to discuss custom packages for your specific needs.'
         ]
@@ -6140,7 +6138,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Group Coordination Tips',
         paragraphs: [
           'Organizing a party cruise group requires clear communication. Designate one primary contact to handle booking, collect payments, and communicate with Premier Party Cruises. This streamlines the process and ensures everyone receives consistent information about departure times, what to bring, and meeting logistics.',
-          'For ATX Disco Cruise bookings, split payment options are available at checkout. Each guest can pay their portion directly, simplifying group payment collection. For private charters, the booking contact typically handles the deposit and final payment, then coordinates reimbursement within the group.',
+          'For private charters, the booking contact typically handles the deposit and final payment, then coordinates reimbursement within the group. Online booking provides immediate confirmation for all reservations.',
           'Share arrival instructions with all guests well in advance. Provide the marina address, parking information, and emphasized 30-minute early arrival recommendation. Consider coordinating group transportation from downtown Austin, hotels, or a central meeting point. Rideshare services operate in the area, and some groups arrange charter buses for larger parties.'
         ]
       },

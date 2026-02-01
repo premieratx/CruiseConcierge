@@ -77,11 +77,6 @@ const faqItems = [
     answer: "Under 30: disco. 30+: private. We'll help you choose."
   },
   {
-    id: 'split-payment',
-    question: 'Can we split payments?',
-    answer: 'Yes—split payment options available at checkout.'
-  },
-  {
     id: 'different-preferences',
     question: 'What if guys & girls want different things?',
     answer: 'Plenty of zones: floats, DJ, lounge. BYOB keeps it flexible.'

@@ -86,10 +86,6 @@ const faqCategories = {
         answer: 'Yes, usually 1-2 if availability allows—contact us ASAP.'
       },
       {
-        question: 'Can we split payments between the group?',
-        answer: 'Yes! Split payment options are available at checkout - makes it easy for everyone to chip in.'
-      },
-      {
         question: 'Do you offer a refund window after booking?',
         answer: "Yes—48 hours after booking for a full refund. After that, weather rules apply at captain's discretion."
       },

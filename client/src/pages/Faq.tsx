@@ -76,7 +76,7 @@ const faqCategories: FAQCategory[] = [
       {
         id: 'deposit',
         question: 'What\'s required to secure my boat rental reservation?',
-        answer: 'If booking 14+ days before cruise: 25% deposit required, remaining balance due 14 days before cruise. If booking less than 14 days before cruise: 50% deposit required, remaining balance due within 48 hours of booking (or 3 days after booking). We accept all major credit cards. For groups wanting to split payments, we offer convenient payment splitting options at checkout. Corporate clients can request invoicing for approved accounts.'
+        answer: 'If booking 14+ days before cruise: 25% deposit required, remaining balance due 14 days before cruise. If booking less than 14 days before cruise: 50% deposit required, remaining balance due within 48 hours of booking (or 3 days after booking). We accept all major credit cards. Corporate clients can request invoicing for approved accounts.'
       },
       {
         id: 'changes',
@@ -107,7 +107,7 @@ const faqCategories: FAQCategory[] = [
       {
         id: 'payment-methods',
         question: 'What payment methods do you accept?',
-        answer: 'We accept all major credit cards (Visa, Mastercard, Amex, Discover) and ACH transfers. Groups can split payments among multiple cards at checkout. Corporate clients can request NET terms with approved credit. We don\'t accept cash, checks, or cryptocurrency.'
+        answer: 'We accept all major credit cards (Visa, Mastercard, Amex, Discover) and ACH transfers. Corporate clients can request NET terms with approved credit. We don\'t accept cash, checks, or cryptocurrency.'
       },
       {
         id: 'group-discounts',

@@ -855,7 +855,7 @@ export default function ATXDiscoCruise() {
                   </CardHeader>
                   <CardContent className="text-center">
                     <p className="text-gray-700 leading-relaxed mb-4">
-                      Simple online booking with <strong>instant confirmation</strong>. Split payments available for your convenience.
+                      Simple online booking with <strong>instant confirmation</strong>. Secure checkout for your convenience.
                     </p>
                     <Badge className="bg-green-600 text-white">
                       Book in Minutes

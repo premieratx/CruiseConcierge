@@ -52,14 +52,6 @@
     },
     {
       "@type": "Question",
-      "name": "Can we split payments between different people?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes! Split payment options are available at checkout, making it easy for your group to coordinate and share costs. This is especially helpful for combined parties where friends from both the bride's and groom's sides want to contribute. It makes the whole booking process simple and stress-free."
-      }
-    },
-    {
-      "@type": "Question",
       "name": "What if guys and girls want different things during the party?",
       "acceptedAnswer": {
         "@type": "Answer",

@@ -320,7 +320,7 @@ Context:
 - Cruises run Friday and Saturday afternoons/evenings during peak season (spring/summer/fall)
 - Book online at premier party cruises website or through booking system
 - Three package options: Basic Disco ($85), Disco Queen ($95), Super Sparkle ($105)
-- Easy split payment options for groups (everyone pays their own share)
+- Secure online checkout for easy booking
 - Booking opens months in advance and sells out quickly (book early!)
 - What to bring: swimsuits, sunscreen, towels, good vibes
 - What NOT to bring: glass bottles (safety), excessive luggage
@@ -335,7 +335,7 @@ Include:
 - Schedule and availability (Friday/Saturday cruises)
 - How to book online (simple process)
 - Package options and what to choose
-- Split payment explanation (everyone pays individually, no collecting money!)
+- Simple online booking process
 - How far in advance to book (sells out fast)
 - What to bring checklist
 - Group coordination tips (point person, communication, themes)
