@@ -212,7 +212,7 @@ export default function CorporateBoatPartiesAustin() {
             <h1 className="heading-unbounded text-4xl sm:text-5xl md:text-6xl font-bold mb-6 leading-tight">
               Corporate Boat Parties in Austin
             </h1>
-            <p className="text-xl md:text-2xl text-white/90 max-w-3xl mx-auto mb-4">
+            <p className="heading-unbounded text-lg md:text-xl text-white/90 max-w-3xl mx-auto mb-4">
               Why Lake Travis Is the Smartest Event Venue You're Not Using
             </p>
             <p className="text-lg text-white/80 max-w-2xl mx-auto mb-8">

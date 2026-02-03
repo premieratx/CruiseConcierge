@@ -591,10 +591,10 @@ export default function Home() {
 
             {/* Main Headline */}
             <div className="mb-8 md:mb-10">
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold font-playfair mb-6 leading-tight" data-editable data-editable-id="hero-title">
+              <h1 className="heading-unbounded text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight" data-editable data-editable-id="hero-title">
                 Austin's Favorite Party Boat Rentals on Lake Travis
               </h1>
-              <h2 className="text-xl sm:text-2xl md:text-3xl text-brand-yellow font-semibold leading-relaxed" data-editable data-editable-id="hero-tagline">
+              <h2 className="heading-unbounded text-lg sm:text-xl md:text-2xl text-brand-yellow font-semibold leading-relaxed" data-editable data-editable-id="hero-tagline">
                 Captained party cruises on Lake Travis for 5-75 People, Offering All-Inclusive Party Packages & Pre-Party Setup
               </h2>
             </div>
