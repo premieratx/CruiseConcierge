@@ -283,7 +283,7 @@ header, nav[data-testid="main-nav"] {
   --sidebar-ring: hsl(45 100% 50%);
   /* Typography - Hormozi/McDowell Optimized */
   --font-sans: "Inter", "DM Sans", system-ui, sans-serif; /* Body font */
-  --font-heading: "Poppins", "Bebas Neue", system-ui, sans-serif; /* Headings */
+  --font-heading: "Unbounded", "Poppins", system-ui, sans-serif; /* Headings - Modern rounded font */
   --font-serif: Georgia, serif;
   --font-mono: Menlo, monospace;
   --font-caps: "Poppins", "Bebas Neue", system-ui, sans-serif;

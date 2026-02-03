@@ -111,7 +111,7 @@ const StructuredListBlock = ({ items }: { items: StructuredListItem[] }) => {
           </div>
           <div className="flex-grow">
             <div className="flex items-start justify-between">
-              <h4 className="font-semibold text-gray-900 dark:text-white">
+              <h4 className="heading-unbounded font-semibold text-gray-900 dark:text-white">
                 {item.title}
               </h4>
               {item.badge && (
@@ -155,7 +155,7 @@ const TimelineBlock = ({ items }: { items: TimelineItem[] }) => {
                 </Badge>
               )}
             </div>
-            <h4 className="font-semibold text-gray-900 dark:text-white mb-1">
+            <h4 className="heading-unbounded font-semibold text-gray-900 dark:text-white mb-1">
               {item.title}
             </h4>
             <p className="text-gray-600 dark:text-gray-400">
@@ -178,7 +178,7 @@ const QABlock = ({ items }: { items: QuestionAnswer[] }) => {
           key={index}
           className="bg-white dark:bg-gray-800 rounded-lg p-5"
         >
-          <h4 className="font-semibold text-gray-900 dark:text-white mb-2 flex items-start">
+          <h4 className="heading-unbounded font-semibold text-gray-900 dark:text-white mb-2 flex items-start">
             <span className="text-purple-600 mr-2">Q:</span>
             <span>{qa.question}</span>
           </h4>
@@ -248,7 +248,7 @@ const DefinitionBlock = ({ term, definition, context }: { term: string; definiti
       <div className="flex items-start">
         <Info className="w-5 h-5 text-blue-500 mr-3 mt-1 flex-shrink-0" />
         <div>
-          <h4 className="font-semibold text-gray-900 dark:text-white mb-2">
+          <h4 className="heading-unbounded font-semibold text-gray-900 dark:text-white mb-2">
             <span>{term}</span>
           </h4>
           <p className="text-gray-700 dark:text-gray-300">
@@ -345,7 +345,7 @@ const AIOptimizedSection: React.FC<AIOptimizedSectionProps> = ({
       {(title || description) && (
         <div className="mb-6">
           {title && (
-            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+            <h3 className="heading-unbounded text-2xl font-bold text-gray-900 dark:text-white mb-2">
               {title}
             </h3>
           )}

@@ -47,7 +47,7 @@ export default function FAQ({
           {showCategories && faqCategories.length > 1 && (
             <div className="space-y-2">
               <h2 className={cn(
-                "font-bold tracking-tight text-gray-900 dark:text-white",
+                "heading-unbounded font-bold tracking-tight text-gray-900 dark:text-white",
                 compact ? "text-xl" : "text-2xl"
               )}>
                 {category.name}
@@ -76,7 +76,7 @@ export default function FAQ({
                     compact ? "py-3 text-sm" : "py-4"
                   )}>
                     <h3 className={cn(
-                      "font-semibold text-gray-900 dark:text-white pr-4",
+                      "heading-unbounded font-semibold text-gray-900 dark:text-white pr-4",
                       compact ? "text-sm" : "text-base"
                     )}>
                       {item.question}

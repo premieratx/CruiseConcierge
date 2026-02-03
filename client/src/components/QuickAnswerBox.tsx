@@ -108,7 +108,7 @@ export function QuickAnswerBox({
         </div>
         
         <div className="flex-1 pr-2">
-          <h3 className="font-semibold text-sm sm:text-base text-gray-900 dark:text-white leading-snug">
+          <h3 className="heading-unbounded font-semibold text-sm sm:text-base text-gray-900 dark:text-white leading-snug">
             {question}
           </h3>
           {/* Show brief preview when collapsed on mobile */}
@@ -259,7 +259,7 @@ export function QuickAnswerBoxGroup({
       {/* Group header */}
       {title && (
         <div className="flex items-center justify-between">
-          <h2 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
+          <h2 className="heading-unbounded text-lg sm:text-xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
             <MessageCircle className="h-5 w-5 text-brand-blue" />
             {title}
           </h2>

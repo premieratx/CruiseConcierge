@@ -124,7 +124,7 @@ export default function PartyPlanningChecklist({
             <CheckCircle2 className="mr-2 h-4 w-4" />
             Complete Planning Guide
           </Badge>
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white">
+          <h2 className="heading-unbounded text-4xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white">
             How to Plan an Unforgettable {partyType} on Lake Travis
           </h2>
           <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
@@ -154,7 +154,7 @@ export default function PartyPlanningChecklist({
                         <Badge variant="outline" className="text-xs font-semibold">
                           Step {index + 1}
                         </Badge>
-                        <h3 className="text-lg font-bold text-gray-900 dark:text-white">
+                        <h3 className="heading-unbounded text-lg font-bold text-gray-900 dark:text-white">
                           {item.title}
                         </h3>
                       </div>
