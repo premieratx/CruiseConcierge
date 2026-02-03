@@ -458,90 +458,84 @@ export default function PrivateCruises() {
       {/* Table of Contents - Sticky Sidebar */}
       <TableOfContents sections={tocSections} />
 
-      {/* Hero Section */}
-      <section id="hero" className="relative pb-12 overflow-hidden bg-gray-900">
-        {/* Local Video Background - matches homepage */}
+      {/* Hero Section - Clean and spacious */}
+      <section id="hero" className="relative py-16 md:py-24 overflow-hidden bg-gray-900 min-h-[70vh] flex items-center">
+        {/* Local Video Background */}
         <div className="absolute inset-0 z-0">
           <video
             autoPlay
             loop
             muted
             playsInline
-            className="w-full h-full object-cover opacity-60"
+            className="w-full h-full object-cover opacity-50"
             poster={heroImage1}
             preload="metadata"
           >
             <source src="/attached_assets/Boat_Video_Walkthrough_Generated_1761209219959.mp4" type="video/mp4" />
           </video>
-          {/* Gradient overlay for text contrast */}
-          <div className="absolute inset-0 bg-gradient-to-br from-black/20 via-black/10 to-black/20" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/50" />
         </div>
         
-        {/* PAGESPEED: No motion/ScrollReveal above fold */}
-        <div className="max-w-7xl mx-auto relative z-10 px-4 text-white">
-          <div>
-            <div className="text-center mb-8 md:mb-12">
-              <Badge className="mb-4 md:mb-6 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-sm sm:text-base px-6 sm:px-8 py-2.5 border-0 font-sans tracking-wider font-bold uppercase shadow-lg">
-                Private Boat Charters
-              </Badge>
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold heading-unbounded mb-4 md:mb-6 text-white leading-tight drop-shadow-lg">
-                Private Boat Rentals on Lake Travis Austin
-              </h1>
-              <p className="text-lg sm:text-xl md:text-2xl text-brand-yellow mb-4 md:mb-6 font-bold drop-shadow-md">
-                Your Private Boat. Your Rules. Your Lake Travis Adventure.
-              </p>
-              <div className="inline-block bg-white/90 backdrop-blur-sm rounded-xl px-4 sm:px-6 py-3 sm:py-4 shadow-xl max-w-4xl mx-auto">
-                <p className="text-sm sm:text-base md:text-lg text-gray-900 font-semibold leading-relaxed">
-                  Exclusive boat charters for 14-75 guests. BYOB friendly. Choose your schedule, play your music, create your perfect day on the lake.
-                </p>
-              </div>
+        <div className="max-w-5xl mx-auto relative z-10 px-4 text-white text-center">
+          <Badge className="mb-6 md:mb-8 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-sm sm:text-base px-6 sm:px-8 py-2.5 border-0 font-sans tracking-wider font-bold uppercase shadow-lg">
+            Private Boat Charters
+          </Badge>
+          
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold heading-unbounded mb-6 md:mb-8 text-white leading-tight drop-shadow-lg">
+            Private Boat Rentals on Lake Travis
+          </h1>
+          
+          <p className="text-xl sm:text-2xl md:text-3xl text-brand-yellow mb-8 md:mb-10 font-bold drop-shadow-md">
+            Your Private Boat. Your Rules. Your Adventure.
+          </p>
+          
+          <p className="text-base sm:text-lg md:text-xl text-gray-100 mb-10 md:mb-12 max-w-3xl mx-auto leading-relaxed">
+            Exclusive charters for 14-75 guests. BYOB friendly. Choose your schedule, play your music, create your perfect day on the lake.
+          </p>
 
-              <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center mt-6 sm:mt-8">
-                <Button
-                  size="lg"
-                  onClick={() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })}
-                  className="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold text-base sm:text-lg px-6 sm:px-10 py-4 sm:py-5 shadow-2xl transition-all transform hover:scale-105"
-                  data-testid="button-hero-view-packages"
-                >
-                  View Packages & Pricing
-                  <Gem className="ml-2 sm:ml-3 h-5 w-5 sm:h-6 sm:w-6" />
-                </Button>
-                <div
-                  className="xola-custom xola-checkout w-full sm:w-auto"
-                  data-button-id="695186923c261203770cc2e7"
-                >
-                  <Button
-                    size="lg"
-                    className="w-full sm:w-auto bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-base sm:text-lg px-6 sm:px-10 py-4 sm:py-5 shadow-2xl transition-all transform hover:scale-105"
-                    data-testid="button-hero-get-quote"
-                  >
-                    Reserve Your Private Charter
-                    <ArrowRight className="ml-2 sm:ml-3 h-5 w-5 sm:h-6 sm:w-6" />
-                  </Button>
-                </div>
-              </div>
-
-              <div className="flex flex-wrap justify-center gap-4 sm:gap-8 text-sm sm:text-base mt-6 sm:mt-8">
-                <div className="flex items-center gap-2">
-                  <Ship className="h-5 w-5 text-brand-yellow" />
-                  <span className="text-white font-medium">Private Charter</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Users className="h-5 w-5 text-brand-yellow" />
-                  <span className="text-white font-medium">14-75 Guests</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Clock className="h-5 w-5 text-brand-yellow" />
-                  <span className="text-white font-medium">Flexible Schedule</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Wine className="h-5 w-5 text-brand-yellow" />
-                  <span className="text-white font-medium">BYOB Friendly</span>
-                </div>
-              </div>
+          <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center mb-10 md:mb-12">
+            <Button
+              size="lg"
+              onClick={() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })}
+              className="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold text-base sm:text-lg px-8 sm:px-12 py-5 sm:py-6 shadow-2xl transition-all transform hover:scale-105"
+              data-testid="button-hero-view-packages"
+            >
+              View Packages & Pricing
+              <Gem className="ml-2 sm:ml-3 h-5 w-5 sm:h-6 sm:w-6" />
+            </Button>
+            <div
+              className="xola-custom xola-checkout w-full sm:w-auto"
+              data-button-id="695186923c261203770cc2e7"
+            >
+              <Button
+                size="lg"
+                className="w-full sm:w-auto bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-base sm:text-lg px-8 sm:px-12 py-5 sm:py-6 shadow-2xl transition-all transform hover:scale-105"
+                data-testid="button-hero-get-quote"
+              >
+                Reserve Your Private Charter
+                <ArrowRight className="ml-2 sm:ml-3 h-5 w-5 sm:h-6 sm:w-6" />
+              </Button>
             </div>
           </div>
 
+          <div className="flex flex-wrap justify-center gap-6 sm:gap-10 text-sm sm:text-base">
+            <div className="flex items-center gap-2">
+              <Ship className="h-5 w-5 text-brand-yellow" />
+              <span className="text-white font-medium">Private Charter</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Users className="h-5 w-5 text-brand-yellow" />
+              <span className="text-white font-medium">14-75 Guests</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Clock className="h-5 w-5 text-brand-yellow" />
+              <span className="text-white font-medium">Flexible Schedule</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Wine className="h-5 w-5 text-brand-yellow" />
+              <span className="text-white font-medium">BYOB Friendly</span>
+            </div>
+          </div>
         </div>
       </section>
 
