@@ -161,7 +161,7 @@ const privateCruisePricing = [
   {
     name: 'Day Tripper',
     capacity: '14 guests',
-    price: 'Starting at $1,050',
+    price: 'Starting at $800',
     duration: '4 hours',
     description: 'Perfect for intimate groups and family outings'
   },

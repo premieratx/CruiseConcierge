@@ -125,7 +125,7 @@ const cruiseOptions = [
   {
     title: 'Private Cruises',
     subtitle: 'Exclusive Boat Just for Your Group',
-    price: 'From $1,050 (14 guests)',
+    price: 'From $800 (14 guests)',
     features: [
       'Private boat for your group only',
       'Flexible 3-4+ hour duration',

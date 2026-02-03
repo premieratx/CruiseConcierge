@@ -37,8 +37,8 @@ const boatPricing = [
   {
     name: 'Day Tripper',
     capacity: '14 guests',
-    basePrice: '$1,050',
-    weekendPrice: '$1,050',
+    basePrice: '$800',
+    weekendPrice: '$1,000',
     duration: '3-4 hours',
     perPerson: '$64-75/person',
     description: 'Most affordable Lake Travis boat party costs for intimate groups',
@@ -132,7 +132,7 @@ const whyPremier = [
 const faqs = [
   {
     question: 'What are typical Lake Travis boat party costs for different group sizes?',
-    answer: 'Lake Travis boat party costs start at $1,050 for our Day Tripper (14 guests, Monday-Thursday) and range up to $2,200+ for our flagship Clever Girl (50-75 guests). Per-person party boat pricing Austin breaks down to $35-75 depending on boat size and day of week. Weekend boat rental costs Lake Travis run about 15-20% higher than weekday rates.'
+    answer: 'Lake Travis boat party costs start at $800 for our Day Tripper (14 guests, Monday-Thursday) and range up to $2,200+ for our flagship Clever Girl (50-75 guests). Per-person party boat pricing Austin breaks down to $35-75 depending on boat size and day of week. Weekend boat rental costs Lake Travis run about 15-20% higher than weekday rates.'
   },
   {
     question: 'What factors affect party boat pricing Austin the most?',
@@ -182,11 +182,11 @@ export default function LakeTravisBoatPartyCosts() {
     <>
       <Helmet>
         <title>Lake Travis Boat Party Costs - Complete Pricing Guide & Budget Planning | Premier Party Cruises</title>
-        <meta name="description" content="Complete guide to Lake Travis boat party costs starting at $1,050. Compare party boat pricing Austin options, understand boat rental costs Lake Travis, and plan your Austin boat party budget. Transparent pricing since 2010." />
+        <meta name="description" content="Complete guide to Lake Travis boat party costs starting at $800. Compare party boat pricing Austin options, understand boat rental costs Lake Travis, and plan your Austin boat party budget. Transparent pricing since 2010." />
         <meta name="keywords" content="Lake Travis boat party costs, party boat pricing Austin, boat rental costs Lake Travis, Austin boat party budget, Lake Travis party boat costs, party boat rental prices Austin, Lake Travis boat charter pricing" />
         <link rel="canonical" href="https://premierpartycruises.com/blogs/lake-travis-boat-party-costs-complete-pricing-guide-and-budget-planning" />
         <meta property="og:title" content="Lake Travis Boat Party Costs - Complete Pricing Guide & Budget Planning" />
-        <meta property="og:description" content="Complete guide to Lake Travis boat party costs. Compare party boat pricing Austin starting at $1,050 for groups of 14-75 guests." />
+        <meta property="og:description" content="Complete guide to Lake Travis boat party costs. Compare party boat pricing Austin starting at $800 for groups of 14-75 guests." />
         <meta property="og:type" content="article" />
         <meta property="og:image" content={heroImage} />
       </Helmet>
@@ -221,7 +221,7 @@ export default function LakeTravisBoatPartyCosts() {
             </h1>
             
             <p className="text-xl md:text-2xl text-gray-200 max-w-3xl mx-auto mb-8" data-testid="hero-subtitle">
-              Everything you need to know about party boat pricing Austin. Transparent boat rental costs Lake Travis starting at $1,050 for groups of 14-75 guests. Plan your Austin boat party budget with confidence.
+              Everything you need to know about party boat pricing Austin. Transparent boat rental costs Lake Travis starting at $800 for groups of 14-75 guests. Plan your Austin boat party budget with confidence.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

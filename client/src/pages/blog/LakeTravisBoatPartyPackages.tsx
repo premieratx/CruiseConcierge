@@ -37,7 +37,7 @@ const boatPackages = [
   {
     name: 'Day Tripper',
     capacity: '14 guests',
-    price: 'Starting at $1,050',
+    price: 'Starting at $800',
     duration: '3-4 hours',
     description: 'Perfect intimate Lake Travis boat party package for small groups, birthdays, and close friend celebrations',
     features: [
@@ -153,7 +153,7 @@ const whyPremier = [
 const faqs = [
   {
     question: 'What are the pricing options for Lake Travis boat party packages?',
-    answer: 'Lake Travis boat party packages start at $1,050 for our Day Tripper (14 guests, Monday-Thursday) and range up to $2,200+ for our flagship Clever Girl (50-75 guests). Pricing varies based on day of week, time slot, and season. Weekend Lake Travis party boat packages are typically 15-20% higher than weekday rates. Contact us for a custom quote for your specific party boat Austin needs.'
+    answer: 'Lake Travis boat party packages start at $800 for our Day Tripper (14 guests, Monday-Thursday) and range up to $2,200+ for our flagship Clever Girl (50-75 guests). Pricing varies based on day of week, time slot, and season. Weekend Lake Travis party boat packages are typically 15-20% higher than weekday rates. Contact us for a custom quote for your specific party boat Austin needs.'
   },
   {
     question: 'What is included in a Lake Travis party boat package?',
@@ -203,7 +203,7 @@ export default function LakeTravisBoatPartyPackages() {
     <>
       <Helmet>
         <title>Lake Travis Boat Party Packages - Complete Guide to Options & Pricing | Premier Party Cruises</title>
-        <meta name="description" content="Explore Lake Travis boat party packages starting at $1,050. Compare party boat Austin options for 14-75 guests. Complete guide to Lake Travis party boat packages with pricing, inclusions, and booking tips. Party boat Lake Travis experts since 2010." />
+        <meta name="description" content="Explore Lake Travis boat party packages starting at $800. Compare party boat Austin options for 14-75 guests. Complete guide to Lake Travis party boat packages with pricing, inclusions, and booking tips. Party boat Lake Travis experts since 2010." />
         <meta name="keywords" content="Lake Travis boat party packages, party boat Austin, Lake Travis party boat packages, party boat Lake Travis, boat party Austin, Lake Travis boat rental party, Austin party boat rental, Lake Travis boat party pricing" />
         <link rel="canonical" href="https://premierpartycruises.com/blogs/lake-travis-boat-party-packages-comprehensive-guide-to-options-and-pricing" />
         <meta property="og:title" content="Lake Travis Boat Party Packages - Complete Guide to Options & Pricing" />

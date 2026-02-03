@@ -82,7 +82,7 @@ const discoVsPrivate = {
   private: {
     title: 'Private Charter',
     subtitle: 'Exclusive Experience for Your Squad',
-    price: 'Starting at $1,050',
+    price: 'Starting at $800',
     features: [
       'Entire boat for just your group',
       'Choose your own music via Bluetooth',
@@ -162,7 +162,7 @@ const faqs = [
   },
   {
     question: 'How much does a bachelorette boat party cost?',
-    answer: 'ATX Disco Cruise tickets range from $85-$105 per person depending on time slot: Friday 12-4pm ($95), Saturday 11am-3pm ($105), and Saturday 3:30-7:30pm ($85). This includes DJ, photographer, floats, coolers with ice, and all amenities. Private charters start at $1,050 for a 4-hour cruise on Day Tripper (14 guests).'
+    answer: 'ATX Disco Cruise tickets range from $85-$105 per person depending on time slot: Friday 12-4pm ($95), Saturday 11am-3pm ($105), and Saturday 3:30-7:30pm ($85). This includes DJ, photographer, floats, coolers with ice, and all amenities. Private charters start at $800 for a 4-hour cruise on Day Tripper (14 guests).'
   },
   {
     question: 'Should we do ATX Disco Cruise or Private Charter?',

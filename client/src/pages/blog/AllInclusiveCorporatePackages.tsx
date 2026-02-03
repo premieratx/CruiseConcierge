@@ -68,7 +68,7 @@ const packageTiers = [
   {
     name: 'Standard Package',
     tagline: 'The Essentials',
-    price: 'Starting at $1,050',
+    price: 'Starting at $800',
     color: 'border-blue-500',
     headerBg: 'bg-blue-500',
     features: [

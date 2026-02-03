@@ -228,7 +228,7 @@ const seasonalGuide = [
 const faqs = [
   {
     question: 'How much does an Austin bachelorette party cost?',
-    answer: 'Budget $250-400 per person for a weekend. This covers accommodations, food, drinks, and activities. The ATX Disco Cruise runs $85-$105 per person all-inclusive, while private boat charters start at $1,050 for a 4-hour cruise. Austin is more affordable than Miami or Vegas while delivering premium experiences.'
+    answer: 'Budget $250-400 per person for a weekend. This covers accommodations, food, drinks, and activities. The ATX Disco Cruise runs $85-$105 per person all-inclusive, while private boat charters start at $800 for a 4-hour cruise. Austin is more affordable than Miami or Vegas while delivering premium experiences.'
   },
   {
     question: 'What\'s the best area to stay for a bachelorette party?',
