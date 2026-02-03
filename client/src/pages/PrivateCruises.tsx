@@ -130,21 +130,21 @@ const fleetOptions = [
   {
     name: 'Day Tripper',
     capacity: 'Up to 14 guests',
-    baseRate: 1050,
+    baseRate: 800,
     image: heroImage3,
     features: ['Licensed, fun, experienced captains to take your group safely around the lake in style', 'Premium sound system', 'Empty coolers (bring your own ice, or order ahead from Party On Delivery)', 'Comfortable seating with sun and shade', '4-hour cruise', 'Ideal for small birthday parties and gatherings']
   },
   {
     name: 'Meeseeks & The Irony',
     capacity: '15-30 guests',
-    baseRate: 1181,
+    baseRate: 900,
     image: heroImage2,
     features: ['Licensed, fun, experienced captains to take your group safely around the lake in style', 'Premium Bluetooth sound system', 'Empty coolers (bring your own ice, or order ahead from Party On Delivery)', '4-hour cruise', 'Perfect for bachelor/bachelorette parties']
   },
   {
     name: 'Clever Girl',
     capacity: '31-75 guests',
-    baseRate: 1413,
+    baseRate: 1000,
     image: heroImage1,
     features: ['Flagship boat with 14 disco balls', 'Giant Texas flag display', 'Professional crew and premium amenities', '4-hour cruise', 'Ideal for corporate events and large celebrations']
   }
@@ -285,7 +285,7 @@ const faqItems = [
   {
     id: 'pricing',
     question: 'How does private cruise pricing work?',
-    answer: 'Private cruises have THREE pricing components: (1) Base boat rental for 4-hour cruise - Day Tripper (1-14 guests) $1,050-$1,838, Meeseeks/Irony (15-30 guests) $1,181-$2,231 including crew fees for 26-30 guests, Clever Girl (31-75 guests) $1,313-$2,660 including crew fees for 51-75 guests, based on day of week. (2) Package upgrades are FLAT FEES per cruise - Essentials +$100-200, Ultimate +$250-350. (3) Add-ons are FLAT FEES - DJ $600, Photographer $600, Lily Pad $50. All prices shown are for 4-hour cruise.'
+    answer: 'Private cruises have THREE pricing components: (1) Base boat rental for 4-hour cruise - Day Tripper (1-14 guests) $800-$1,400, Meeseeks/Irony (15-30 guests) $900-$1,700 including crew fees for 26-30 guests, Clever Girl (31-75 guests) $1,000-$2,000 including crew fees for 51-75 guests, based on day of week. (2) Package upgrades are FLAT FEES per cruise - Essentials +$100-200, Ultimate +$250-350. (3) Add-ons are FLAT FEES - DJ $600, Photographer $600, Lily Pad $50. All prices shown are for 4-hour cruise.'
   },
   {
     id: 'pricing-example',
@@ -841,9 +841,9 @@ export default function PrivateCruises() {
                     <FeaturedSnippet
                       question="Private boat rental prices Austin"
                       tableData={[
-                        { label: "Day Tripper (1-14)", value: "$1,050-$1,838 for 4-hour cruise - Intimate gatherings" },
-                        { label: "Meeseeks (15-30)", value: "$1,181-$2,231 for 4-hour cruise - Birthday parties" },
-                        { label: "Clever Girl (31-75)", value: "$1,313-$2,660 for 4-hour cruise - Large events" }
+                        { label: "Day Tripper (1-14)", value: "$800-$1,400 for 4-hour cruise - Intimate gatherings" },
+                        { label: "Meeseeks (15-30)", value: "$900-$1,700 for 4-hour cruise - Birthday parties" },
+                        { label: "Clever Girl (31-75)", value: "$1,000-$2,000 for 4-hour cruise - Large events" }
                       ]}
                       format="table"
                       schemaType="FAQ"

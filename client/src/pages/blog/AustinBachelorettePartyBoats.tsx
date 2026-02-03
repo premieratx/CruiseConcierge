@@ -50,7 +50,7 @@ const boatFleet = [
   {
     name: 'Meeseeks',
     capacity: '25 guests',
-    startingPrice: '$1,181',
+    startingPrice: '$900',
     description: 'Popular Austin bachelorette party boat for mid-size bride tribes on Lake Travis',
     features: [
       'Single-deck pontoon with arch canopy',
@@ -66,7 +66,7 @@ const boatFleet = [
   {
     name: 'The Irony',
     capacity: '30 guests',
-    startingPrice: '$1,181',
+    startingPrice: '$900',
     description: 'Spacious Lake Travis bachelorette party boat for larger celebrations',
     features: [
       'Single-deck pontoon with arch canopy',
@@ -83,7 +83,7 @@ const boatFleet = [
   {
     name: 'Clever Girl',
     capacity: '50-75 guests',
-    startingPrice: '$1,313',
+    startingPrice: '$1,000',
     description: 'Flagship Austin bachelorette party boat with 14 disco balls for ultimate celebrations',
     features: [
       'Single-deck pontoon with arch canopy',
@@ -144,7 +144,7 @@ const faqs = [
   },
   {
     question: 'How much do Austin bachelorette party boats cost on Lake Travis?',
-    answer: 'Austin bachelorette party boats on Lake Travis start at $800 for the Day Tripper (14 guests, 4-hour cruise) and range up to $2,660 for the Clever Girl (50-75 guests) on weekends. Meeseeks and The Irony start at $1,181. Pricing varies based on day of week and boat size. Weekend Lake Travis bachelorette adventures are typically 15-20% higher than weekday rates.'
+    answer: 'Austin bachelorette party boats on Lake Travis start at $800 for the Day Tripper (14 guests, 4-hour cruise) and range up to $2,000 for the Clever Girl (50-75 guests) on weekends. Meeseeks and The Irony start at $900. Pricing varies based on day of week and boat size. Weekend Lake Travis bachelorette adventures are typically 15-20% higher than weekday rates.'
   },
   {
     question: 'Can we bring alcohol on Austin bachelorette party boats?',

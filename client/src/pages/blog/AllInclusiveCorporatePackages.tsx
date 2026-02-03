@@ -106,7 +106,7 @@ const packageTiers = [
   {
     name: 'Ultimate Package',
     tagline: 'White Glove Service',
-    price: 'Starting at $2,813',
+    price: 'Starting at $2,100',
     color: 'border-purple-500',
     headerBg: 'bg-purple-500',
     features: [

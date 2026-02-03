@@ -168,21 +168,21 @@ const privateCruisePricing = [
   {
     name: 'Meeseeks',
     capacity: '25 guests',
-    price: 'Starting at $1,181',
+    price: 'Starting at $900',
     duration: '4 hours',
     description: 'Popular for bachelor/bachelorette parties'
   },
   {
     name: 'The Irony',
     capacity: '30 guests',
-    price: 'Starting at $1,181',
+    price: 'Starting at $900',
     duration: '4 hours',
     description: 'Great for larger celebrations'
   },
   {
     name: 'Clever Girl',
     capacity: '50-75 guests',
-    price: 'Starting at $1,313',
+    price: 'Starting at $1,000',
     duration: '4-5 hours',
     description: 'Flagship boat with 14 disco balls'
   }
