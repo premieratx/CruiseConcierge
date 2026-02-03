@@ -300,7 +300,7 @@ export default function PrivateCruiseVsPartyBoatPontoon() {
                 className="border-white text-white hover:bg-white hover:text-blue-900 font-semibold"
                 data-testid="button-get-quote"
               >
-                <Link href="/quote">Get Free Quote</Link>
+                <Link href="/book-now">Get Free Quote</Link>
               </Button>
             </div>
           </div>
@@ -816,7 +816,7 @@ export default function PrivateCruiseVsPartyBoatPontoon() {
                 className="border-white text-white hover:bg-white hover:text-green-600 font-semibold"
                 data-testid="button-final-quote"
               >
-                <Link href="/quote">Get Your Free Quote</Link>
+                <Link href="/book-now">Get Your Free Quote</Link>
               </Button>
             </div>
           </div>

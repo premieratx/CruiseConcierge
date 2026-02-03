@@ -225,7 +225,7 @@ export default function LakeTravisBoatPartyEntertainment() {
                 className="bg-amber-500 hover:bg-amber-600 text-black font-bold text-lg px-8"
                 data-testid="button-get-quote"
               >
-                <Link href="/quote">Plan Your Party</Link>
+                <Link href="/book-now">Plan Your Party</Link>
               </Button>
               <Button 
                 asChild 
@@ -575,7 +575,7 @@ export default function LakeTravisBoatPartyEntertainment() {
                   className="bg-amber-500 hover:bg-amber-600 text-black font-bold text-lg px-8"
                   data-testid="button-final-quote"
                 >
-                  <Link href="/quote">Plan Your Party</Link>
+                  <Link href="/book-now">Plan Your Party</Link>
                 </Button>
                 <Button 
                   asChild 

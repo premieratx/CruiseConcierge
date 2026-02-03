@@ -269,7 +269,7 @@ export default function LakeTravisBoatPartyReviews() {
                 className="bg-amber-400 hover:bg-amber-500 text-black font-bold text-lg px-8"
                 data-testid="button-get-quote"
               >
-                <Link href="/quote">Join Our 5-Star Guests</Link>
+                <Link href="/book-now">Join Our 5-Star Guests</Link>
               </Button>
               <Button 
                 asChild 
@@ -612,7 +612,7 @@ export default function LakeTravisBoatPartyReviews() {
                   className="bg-white text-amber-700 hover:bg-gray-100 font-bold text-lg px-8"
                   data-testid="button-cta-quote"
                 >
-                  <Link href="/quote">Start Your 5-Star Experience</Link>
+                  <Link href="/book-now">Start Your 5-Star Experience</Link>
                 </Button>
                 <Button 
                   asChild 

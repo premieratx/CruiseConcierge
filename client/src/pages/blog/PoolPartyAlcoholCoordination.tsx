@@ -207,7 +207,7 @@ export default function PoolPartyAlcoholCoordination() {
                 className="bg-white hover:bg-gray-100 text-orange-600 font-bold text-lg px-8"
                 data-testid="button-get-quote"
               >
-                <Link href="/quote">Get Your Custom Quote</Link>
+                <Link href="/book-now">Get Your Custom Quote</Link>
               </Button>
               <Button 
                 asChild 
@@ -390,7 +390,7 @@ export default function PoolPartyAlcoholCoordination() {
               className="bg-orange-500 hover:bg-orange-600 text-white font-bold"
               data-testid="button-book-now"
             >
-              <Link href="/quote">Get Your Free Quote</Link>
+              <Link href="/book-now">Get Your Free Quote</Link>
             </Button>
           </div>
         </section>
@@ -590,7 +590,7 @@ export default function PoolPartyAlcoholCoordination() {
                 className="bg-white hover:bg-gray-100 text-orange-600 font-bold"
                 data-testid="button-final-quote"
               >
-                <Link href="/quote">Get Your Free Quote</Link>
+                <Link href="/book-now">Get Your Free Quote</Link>
               </Button>
               <Button 
                 asChild 

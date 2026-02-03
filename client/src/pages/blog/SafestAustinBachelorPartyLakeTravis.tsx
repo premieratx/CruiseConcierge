@@ -418,7 +418,7 @@ export default function SafestAustinBachelorPartyLakeTravis() {
                         itinerary, and timing flexibility.
                       </p>
 
-                      <Link href="/private-boat-rentals">
+                      <Link href="/private-cruises">
                         <Button className="w-full bg-blue-600 hover:bg-blue-700" data-testid="button-explore-private">
                           Explore Private Options
                           <ArrowRight className="ml-2 h-4 w-4" />
@@ -729,7 +729,7 @@ export default function SafestAustinBachelorPartyLakeTravis() {
                     Bachelor Party Hub
                   </Button>
                 </Link>
-                <Link href="/private-boat-rentals">
+                <Link href="/private-cruises">
                   <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10" data-testid="button-cta-private">
                     <Ship className="mr-2 h-5 w-5" />
                     Party Boat Options

@@ -245,7 +245,7 @@ export default function OutdoorWeddingAlcoholLogistics() {
                 className="bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-lg px-8"
                 data-testid="button-get-quote"
               >
-                <Link href="/quote">Plan Your Outdoor Wedding</Link>
+                <Link href="/book-now">Plan Your Outdoor Wedding</Link>
               </Button>
               <Button 
                 asChild 
@@ -618,7 +618,7 @@ export default function OutdoorWeddingAlcoholLogistics() {
                 className="bg-white text-emerald-600 hover:bg-gray-100 font-bold text-lg px-8"
                 data-testid="button-cta-quote"
               >
-                <Link href="/quote">Get Your Custom Quote</Link>
+                <Link href="/book-now">Get Your Custom Quote</Link>
               </Button>
               <Button 
                 asChild 

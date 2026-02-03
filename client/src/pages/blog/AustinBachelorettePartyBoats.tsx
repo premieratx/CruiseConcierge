@@ -240,7 +240,7 @@ export default function AustinBachelorettePartyBoats() {
                 className="bg-pink-500 hover:bg-pink-600 text-white font-bold text-lg px-8"
                 data-testid="button-get-quote"
               >
-                <Link href="/quote">Plan Your Adventure</Link>
+                <Link href="/book-now">Plan Your Adventure</Link>
               </Button>
               <Button 
                 asChild 

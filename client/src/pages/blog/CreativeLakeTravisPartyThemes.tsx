@@ -230,7 +230,7 @@ export default function CreativeLakeTravisPartyThemes() {
                 className="bg-pink-500 hover:bg-pink-600 text-white font-bold text-lg px-8"
                 data-testid="button-get-quote"
               >
-                <Link href="/quote">Plan Your Themed Party</Link>
+                <Link href="/book-now">Plan Your Themed Party</Link>
               </Button>
               <Button 
                 asChild 
@@ -605,7 +605,7 @@ export default function CreativeLakeTravisPartyThemes() {
                   className="bg-white text-purple-700 hover:bg-gray-100 font-bold text-lg px-8"
                   data-testid="button-cta-quote"
                 >
-                  <Link href="/quote">Start Planning Your Theme</Link>
+                  <Link href="/book-now">Start Planning Your Theme</Link>
                 </Button>
                 <Button 
                   asChild 

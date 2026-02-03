@@ -93,7 +93,7 @@ const affordableAlcoholGuide = [
 ];
 
 const costBreakdown = [
-  { item: 'Day Tripper (14 guests, 4hr)', cost: 'Starting at $200/hr', perPerson: '~$57/person', note: 'Most budget-friendly bachelorette party boat option' },
+  { item: 'Day Tripper (14 guests, 4hr)', cost: 'Starting at $1,050', perPerson: '~$57/person', note: 'Most budget-friendly bachelorette party boat option' },
   { item: 'Meeseeks (25 guests, 3hr)', cost: '$1,200', perPerson: '~$48/person', note: 'Great value for affordable bachelorette Austin groups' },
   { item: 'The Irony (30 guests, 3hr)', cost: '$1,400', perPerson: '~$47/person', note: 'Best per-person rate for budget bachelorette party' },
   { item: 'Clever Girl (50 guests, 3hr)', cost: '$2,200', perPerson: '~$44/person', note: 'Lowest per-person for budget-friendly bachelorette party' }
@@ -143,7 +143,7 @@ const fleetOptions = [
 const faqs = [
   {
     question: 'What is the most budget-friendly bachelorette party boat option?',
-    answer: 'For the most budget-friendly bachelorette party experience, consider our Day Tripper (starting at $200/hr Monday-Thursday, up to 14 guests) which works out to about $57 per person for the boat alone on a 4-hour cruise. When you add affordable bachelorette alcohol at around $8-10 per person BYOB, your total is under $70 per person for a Lake Travis cruise - much less than most Austin bars or venues.'
+    answer: 'For the most budget-friendly bachelorette party experience, consider our Day Tripper (starting at $1,050 (4-hour cruise), up to 14 guests) which works out to about $57 per person for the boat alone on a 4-hour cruise. When you add affordable bachelorette alcohol at around $8-10 per person BYOB, your total is under $70 per person for a Lake Travis cruise - much less than most Austin bars or venues.'
   },
   {
     question: 'How much should we budget for alcohol at a budget bachelorette party?',
@@ -250,7 +250,7 @@ export default function BudgetFriendlyBacheloretteAlcohol() {
                 className="border-white text-white hover:bg-white hover:text-green-900 font-semibold"
                 data-testid="button-get-quote"
               >
-                <Link href="/quote">Get Custom Quote</Link>
+                <Link href="/book-now">Get Custom Quote</Link>
               </Button>
             </div>
           </div>
@@ -718,7 +718,7 @@ export default function BudgetFriendlyBacheloretteAlcohol() {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button asChild size="lg" className="bg-white text-green-600 hover:bg-gray-100 font-bold text-lg px-8" data-testid="cta-quote">
-                  <Link href="/quote">
+                  <Link href="/book-now">
                     <Calculator className="mr-2 h-5 w-5" />
                     Get Your Quote
                   </Link>

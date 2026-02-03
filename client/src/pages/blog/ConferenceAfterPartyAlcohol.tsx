@@ -240,7 +240,7 @@ export default function ConferenceAfterPartyAlcohol() {
                 className="bg-purple-500 hover:bg-purple-600 text-white font-bold text-lg px-8"
                 data-testid="button-plan-after-party"
               >
-                <Link href="/quote">Plan Your After Party</Link>
+                <Link href="/book-now">Plan Your After Party</Link>
               </Button>
               <Button 
                 asChild 

@@ -342,7 +342,7 @@ export default function Top10BachelorPartyBoatReasons() {
                         <ArrowRight className="ml-2 h-4 w-4" />
                       </Button>
                     </Link>
-                    <Link href="/private-boat-rentals">
+                    <Link href="/private-cruises">
                       <Button variant="outline" data-testid="button-private-options">
                         Explore Private Charters
                       </Button>
@@ -468,7 +468,7 @@ export default function Top10BachelorPartyBoatReasons() {
                       ATX Disco Cruise
                     </Button>
                   </Link>
-                  <Link href="/private-boat-rentals">
+                  <Link href="/private-cruises">
                     <Button size="lg" variant="outline" data-testid="button-private-bottom">
                       <Ship className="mr-2 h-5 w-5" />
                       Private Charters

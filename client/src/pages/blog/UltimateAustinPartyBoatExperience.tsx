@@ -92,14 +92,14 @@ const groupTypes = [
     icon: Cake,
     title: 'Birthdays & Reunions',
     description: 'From 21st birthdays to family reunions, a party boat suits all ages. Perfect for milestone celebrations with friends and family.',
-    link: '/private-boat-rentals',
+    link: '/private-cruises',
     linkText: 'Private Rentals Info'
   },
   {
     icon: Sparkles,
     title: 'Weddings & More',
     description: 'Host micro-weddings, rehearsal dinners, or wedding after-parties on the lake. Imagine saying "I do" at sunset on Lake Travis.',
-    link: '/private-boat-rentals',
+    link: '/private-cruises',
     linkText: 'Wedding Options'
   }
 ];
@@ -247,7 +247,7 @@ export default function UltimateAustinPartyBoatExperience() {
                     ATX Disco Cruise
                   </Button>
                 </Link>
-                <Link href="/private-boat-rentals">
+                <Link href="/private-cruises">
                   <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10" data-testid="button-private-rentals">
                     <Anchor className="mr-2 h-5 w-5" />
                     Private Boat Rentals
@@ -543,7 +543,7 @@ export default function UltimateAustinPartyBoatExperience() {
                       Book ATX Disco Cruise
                     </Button>
                   </Link>
-                  <Link href="/private-boat-rentals">
+                  <Link href="/private-cruises">
                     <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10" data-testid="button-cta-private">
                       <Anchor className="mr-2 h-5 w-5" />
                       Private Boat Rentals

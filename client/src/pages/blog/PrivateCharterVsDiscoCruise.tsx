@@ -281,7 +281,7 @@ export default function PrivateCharterVsDiscoCruise() {
               </motion.p>
 
               <motion.div variants={fadeInUp} className="flex flex-wrap gap-4">
-                <Link href="/private-boat-rentals">
+                <Link href="/private-cruises">
                   <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white" data-testid="button-private-charters">
                     <Lock className="mr-2 h-5 w-5" />
                     Private Charters
@@ -496,7 +496,7 @@ export default function PrivateCharterVsDiscoCruise() {
               </motion.div>
 
               <motion.div variants={fadeInUp} className="text-center mt-8">
-                <Link href="/private-boat-rentals">
+                <Link href="/private-cruises">
                   <Button size="lg" className="bg-blue-600 hover:bg-blue-700" data-testid="button-explore-private">
                     Explore Private Charters <ArrowRight className="ml-2 h-5 w-5" />
                   </Button>
@@ -1019,7 +1019,7 @@ export default function PrivateCharterVsDiscoCruise() {
                     ATX Disco Cruise
                   </Button>
                 </Link>
-                <Link href="/private-boat-rentals">
+                <Link href="/private-cruises">
                   <Button size="lg" className="bg-blue-700 hover:bg-blue-800 text-white" data-testid="button-cta-private">
                     <Lock className="mr-2 h-5 w-5" />
                     Private Boat Rentals

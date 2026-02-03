@@ -229,7 +229,7 @@ export default function WhyATXDiscoCruiseMostBooked() {
                 className="border-white text-white hover:bg-white hover:text-purple-900 font-semibold"
                 data-testid="button-get-quote"
               >
-                <Link href="/quote">Get Free Quote</Link>
+                <Link href="/book-now">Get Free Quote</Link>
               </Button>
             </div>
           </div>
@@ -722,10 +722,7 @@ export default function WhyATXDiscoCruiseMostBooked() {
         </section>
 
         {/* Quote Builder Section */}
-        <QuoteBuilderSection 
-          title="Ready to See Why Everyone Books It?"
-          subtitle="Get your custom quote for Austin's most booked party boat experience"
-        />
+        <QuoteBuilderSection />
 
         {/* FAQ Section */}
         <section className="py-16 bg-white dark:bg-gray-950" data-testid="faq-section">
@@ -809,7 +806,7 @@ export default function WhyATXDiscoCruiseMostBooked() {
                 className="border-white text-white hover:bg-white hover:text-purple-600 font-semibold"
                 data-testid="button-final-quote"
               >
-                <Link href="/quote">Get Your Free Quote</Link>
+                <Link href="/book-now">Get Your Free Quote</Link>
               </Button>
             </div>
           </div>

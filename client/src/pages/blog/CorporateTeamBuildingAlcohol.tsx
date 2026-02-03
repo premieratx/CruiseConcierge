@@ -281,7 +281,7 @@ export default function CorporateTeamBuildingAlcohol() {
                 className="bg-cyan-500 hover:bg-cyan-600 text-black font-bold text-lg px-8"
                 data-testid="button-get-quote"
               >
-                <Link href="/quote">Plan Your Team Event</Link>
+                <Link href="/book-now">Plan Your Team Event</Link>
               </Button>
               <Button 
                 asChild 
@@ -666,7 +666,7 @@ export default function CorporateTeamBuildingAlcohol() {
                 className="bg-white text-indigo-600 hover:bg-gray-100 font-bold text-lg px-8"
                 data-testid="button-cta-quote"
               >
-                <Link href="/quote">Get Your Custom Quote</Link>
+                <Link href="/book-now">Get Your Custom Quote</Link>
               </Button>
               <Button 
                 asChild 

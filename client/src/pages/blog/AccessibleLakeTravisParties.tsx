@@ -236,7 +236,7 @@ export default function AccessibleLakeTravisParties() {
                 className="bg-teal-500 hover:bg-teal-600 text-white font-bold text-lg px-8"
                 data-testid="button-get-quote"
               >
-                <Link href="/quote">Plan Your Inclusive Event</Link>
+                <Link href="/book-now">Plan Your Inclusive Event</Link>
               </Button>
               <Button 
                 asChild 
@@ -603,7 +603,7 @@ export default function AccessibleLakeTravisParties() {
                   className="bg-white text-teal-700 hover:bg-gray-100 font-bold text-lg px-8"
                   data-testid="button-cta-quote"
                 >
-                  <Link href="/quote">Start Planning Today</Link>
+                  <Link href="/book-now">Start Planning Today</Link>
                 </Button>
                 <Button 
                   asChild 

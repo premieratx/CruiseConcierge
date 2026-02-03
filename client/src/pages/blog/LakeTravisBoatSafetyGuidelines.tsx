@@ -257,7 +257,7 @@ export default function LakeTravisBoatSafetyGuidelines() {
                 className="bg-green-500 hover:bg-green-600 text-black font-bold text-lg px-8"
                 data-testid="button-get-quote"
               >
-                <Link href="/quote">Book a Safe Cruise</Link>
+                <Link href="/book-now">Book a Safe Cruise</Link>
               </Button>
               <Button 
                 asChild 
@@ -704,7 +704,7 @@ export default function LakeTravisBoatSafetyGuidelines() {
                   className="bg-white text-green-600 hover:bg-gray-100 font-bold text-lg px-8"
                   data-testid="button-cta-quote"
                 >
-                  <Link href="/quote">Get Your Safe Cruise Quote</Link>
+                  <Link href="/book-now">Get Your Safe Cruise Quote</Link>
                 </Button>
                 <Button 
                   asChild 

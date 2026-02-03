@@ -196,7 +196,7 @@ export default function AustinWeddingVenueAlcohol() {
                 className="bg-rose-500 hover:bg-rose-600 text-white font-bold text-lg px-8"
                 data-testid="button-get-quote"
               >
-                <Link href="/quote">Plan Your Wedding Celebration</Link>
+                <Link href="/book-now">Plan Your Wedding Celebration</Link>
               </Button>
               <Button 
                 asChild 
@@ -536,7 +536,7 @@ export default function AustinWeddingVenueAlcohol() {
                 className="bg-white text-rose-600 hover:bg-gray-100 font-bold text-lg px-8"
                 data-testid="button-cta-quote"
               >
-                <Link href="/quote">Get Your Custom Quote</Link>
+                <Link href="/book-now">Get Your Custom Quote</Link>
               </Button>
               <Button 
                 asChild 

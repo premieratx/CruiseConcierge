@@ -894,7 +894,7 @@ export default function PartyBoatVsDowntownNightOut() {
                     ATX Disco Cruise
                   </Button>
                 </Link>
-                <Link href="/private-boat-rentals">
+                <Link href="/private-cruises">
                   <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10" data-testid="button-cta-private-rentals">
                     <MapPin className="mr-2 h-5 w-5" />
                     Private Boat Rentals

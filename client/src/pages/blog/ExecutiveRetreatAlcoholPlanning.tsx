@@ -228,7 +228,7 @@ export default function ExecutiveRetreatAlcoholPlanning() {
                 className="bg-amber-500 hover:bg-amber-600 text-black font-bold text-lg px-8"
                 data-testid="button-plan-retreat"
               >
-                <Link href="/quote">Plan Your Executive Retreat</Link>
+                <Link href="/book-now">Plan Your Executive Retreat</Link>
               </Button>
               <Button 
                 asChild 

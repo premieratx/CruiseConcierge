@@ -195,7 +195,7 @@ export default function WhyLicensedCaptainsMatter() {
                 className="bg-green-500 hover:bg-green-600 text-black font-bold text-lg px-8"
                 data-testid="button-get-quote"
               >
-                <Link href="/quote">Get Your Free Quote</Link>
+                <Link href="/book-now">Get Your Free Quote</Link>
               </Button>
               <Button 
                 asChild 
@@ -583,7 +583,7 @@ export default function WhyLicensedCaptainsMatter() {
                 size="lg" 
                 className="bg-white text-blue-900 hover:bg-gray-100 font-bold text-lg px-8"
               >
-                <Link href="/quote">Get Your Free Quote</Link>
+                <Link href="/book-now">Get Your Free Quote</Link>
               </Button>
               <Button 
                 asChild 

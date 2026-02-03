@@ -226,7 +226,7 @@ export default function CorporateBoatPartiesAustin() {
                   Plan Your Corporate Event
                 </Button>
               </Link>
-              <Link href="/private-boat-rentals">
+              <Link href="/private-cruises">
                 <Button size="lg" variant="outline" className="bg-transparent border-white text-white hover:bg-white/10 font-bold text-lg px-8 py-6" data-testid="button-private-rentals">
                   View Private Boat Options
                   <ArrowRight className="ml-2 h-5 w-5" />
@@ -483,7 +483,7 @@ export default function CorporateBoatPartiesAustin() {
                     </ul>
                   </div>
                   
-                  <Link href="/private-boat-rentals">
+                  <Link href="/private-cruises">
                     <Button size="lg" className="bg-slate-800 hover:bg-slate-700 text-white font-bold" data-testid="button-private-boats">
                       <Anchor className="mr-2 h-5 w-5" />
                       View Private Boat Options
@@ -764,7 +764,7 @@ export default function CorporateBoatPartiesAustin() {
                     Plan Corporate Event
                   </Button>
                 </Link>
-                <Link href="/private-boat-rentals">
+                <Link href="/private-cruises">
                   <Button size="lg" variant="outline" className="bg-transparent border-white text-white hover:bg-white/10 font-bold text-lg px-8 py-6" data-testid="button-final-private">
                     <Ship className="mr-2 h-5 w-5" />
                     Private Boat Rentals

@@ -202,7 +202,7 @@ export default function PerfectBachelorPartyItinerary() {
                 className="bg-amber-500 hover:bg-amber-600 text-black font-bold text-lg px-8"
                 data-testid="button-get-quote"
               >
-                <Link href="/quote">Book Your Boat Now</Link>
+                <Link href="/book-now">Book Your Boat Now</Link>
               </Button>
               <Button 
                 asChild 
@@ -629,7 +629,7 @@ export default function PerfectBachelorPartyItinerary() {
                 className="bg-amber-500 hover:bg-amber-600 text-black font-bold"
                 data-testid="button-final-quote"
               >
-                <Link href="/quote">Get Your Free Quote</Link>
+                <Link href="/book-now">Get Your Free Quote</Link>
               </Button>
               <Button 
                 asChild 

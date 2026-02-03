@@ -255,7 +255,7 @@ export default function HolidayPartyAlcoholThemes() {
                 className="bg-amber-500 hover:bg-amber-600 text-black font-bold text-lg px-8"
                 data-testid="button-plan-party"
               >
-                <Link href="/quote">Plan Your Holiday Party</Link>
+                <Link href="/book-now">Plan Your Holiday Party</Link>
               </Button>
               <Button 
                 asChild 

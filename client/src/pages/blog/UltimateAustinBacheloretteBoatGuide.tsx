@@ -259,7 +259,7 @@ export default function UltimateAustinBacheloretteBoatGuide() {
                 className="bg-pink-500 hover:bg-pink-600 text-white font-bold text-lg px-8"
                 data-testid="button-get-quote"
               >
-                <Link href="/quote">Plan Your Bachelorette</Link>
+                <Link href="/book-now">Plan Your Bachelorette</Link>
               </Button>
               <Button 
                 asChild 
@@ -494,7 +494,7 @@ export default function UltimateAustinBacheloretteBoatGuide() {
 
             <div className="mt-8 text-center">
               <Button asChild size="lg" className="bg-pink-500 hover:bg-pink-600">
-                <Link href="/quote">Get Your Custom Quote</Link>
+                <Link href="/book-now">Get Your Custom Quote</Link>
               </Button>
             </div>
           </div>
@@ -613,11 +613,7 @@ export default function UltimateAustinBacheloretteBoatGuide() {
         </section>
 
         {/* Quote Builder Section */}
-        <QuoteBuilderSection 
-          title="Ready to Plan the Ultimate Bachelorette?"
-          subtitle="Get a personalized quote for your Lake Travis bachelorette party experience"
-          theme="pink"
-        />
+        <QuoteBuilderSection />
 
         {/* FAQ Section */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="faq-section">
@@ -697,7 +693,7 @@ export default function UltimateAustinBacheloretteBoatGuide() {
                 size="lg" 
                 className="bg-white text-pink-600 hover:bg-pink-50 font-bold text-lg px-8"
               >
-                <Link href="/quote">Start Planning Now</Link>
+                <Link href="/book-now">Start Planning Now</Link>
               </Button>
               <Button 
                 asChild 

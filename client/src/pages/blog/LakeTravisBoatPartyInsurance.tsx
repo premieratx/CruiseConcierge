@@ -220,7 +220,7 @@ export default function LakeTravisBoatPartyInsurance() {
                 className="bg-green-500 hover:bg-green-600 text-black font-bold text-lg px-8"
                 data-testid="button-get-quote"
               >
-                <Link href="/quote">Get Your Protected Quote</Link>
+                <Link href="/book-now">Get Your Protected Quote</Link>
               </Button>
               <Button 
                 asChild 
@@ -554,7 +554,7 @@ export default function LakeTravisBoatPartyInsurance() {
                   className="bg-white text-green-700 hover:bg-gray-100 font-bold text-lg px-8"
                   data-testid="button-cta-quote"
                 >
-                  <Link href="/quote">Get Your Quote Today</Link>
+                  <Link href="/book-now">Get Your Quote Today</Link>
                 </Button>
                 <Button 
                   asChild 

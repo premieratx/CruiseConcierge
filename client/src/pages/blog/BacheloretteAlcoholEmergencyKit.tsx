@@ -219,7 +219,7 @@ export default function BacheloretteAlcoholEmergencyKit() {
                 className="border-white text-white hover:bg-white hover:text-red-900 font-semibold"
                 data-testid="button-get-quote"
               >
-                <Link href="/quote">Get Custom Quote</Link>
+                <Link href="/book-now">Get Custom Quote</Link>
               </Button>
             </div>
           </div>
@@ -610,7 +610,7 @@ export default function BacheloretteAlcoholEmergencyKit() {
                   className="border-white text-white hover:bg-white/10 font-bold"
                   data-testid="cta-button-quote"
                 >
-                  <Link href="/quote">Get Custom Quote</Link>
+                  <Link href="/book-now">Get Custom Quote</Link>
                 </Button>
               </div>
             </motion.div>

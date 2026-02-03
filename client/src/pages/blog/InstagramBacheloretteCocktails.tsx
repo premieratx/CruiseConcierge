@@ -230,7 +230,7 @@ export default function InstagramBacheloretteCocktails() {
                 className="bg-pink-500 hover:bg-pink-600 text-white font-bold text-lg px-8"
                 data-testid="button-get-quote"
               >
-                <Link href="/quote">Plan Your Bachelorette</Link>
+                <Link href="/book-now">Plan Your Bachelorette</Link>
               </Button>
               <Button 
                 asChild 

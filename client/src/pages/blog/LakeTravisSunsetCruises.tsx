@@ -250,7 +250,7 @@ export default function LakeTravisSunsetCruises() {
                 className="bg-orange-500 hover:bg-orange-600 text-white font-bold text-lg px-8"
                 data-testid="button-get-quote"
               >
-                <Link href="/quote">Book Your Sunset Cruise</Link>
+                <Link href="/book-now">Book Your Sunset Cruise</Link>
               </Button>
               <Button 
                 asChild 
@@ -637,7 +637,7 @@ export default function LakeTravisSunsetCruises() {
                   className="bg-white text-orange-700 hover:bg-gray-100 font-bold text-lg px-8"
                   data-testid="button-cta-quote"
                 >
-                  <Link href="/quote">Book Your Sunset Cruise</Link>
+                  <Link href="/book-now">Book Your Sunset Cruise</Link>
                 </Button>
                 <Button 
                   asChild 
