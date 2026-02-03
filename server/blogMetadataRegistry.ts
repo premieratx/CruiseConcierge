@@ -1496,6 +1496,83 @@ export const blogMetadataRegistry: Record<string, BlogMetadata> = {
     author: 'Premier Party Cruises',
     heroImage: 'https://premierpartycruises.com/media/schema/hero-boat-1.jpg',
     keywords: ['Austin bachelor party', 'bachelor party in Austin', 'Austin party boat', 'party boat Austin', 'Lake Travis party barge', 'ATX Disco Cruise', 'ideas for bachelor party in Austin', 'Austin bachelor party itinerary', '3 day bachelor party Austin', 'bachelor party weekend Austin TX']
+  },
+
+  'blogs/why-licensed-captains-matter-lake-travis-party-boats': {
+    slug: 'blogs/why-licensed-captains-matter-lake-travis-party-boats',
+    title: 'Why Licensed Captains Matter for Lake Travis Party Boats',
+    description: 'Discover why licensed captains are essential for Lake Travis party boats. Learn how professional crews ensure safe, legal, stress-free bachelor parties, bachelorette parties, and celebrations on the water.',
+    publishDate: '2024-03-01',
+    modifiedDate: '2026-02-01',
+    author: 'Premier Party Cruises',
+    heroImage: 'https://premierpartycruises.com/media/schema/hero-boat-1.jpg',
+    keywords: ['licensed captains Lake Travis', 'party boat safety', 'Lake Travis boat rental', 'Austin party boat', 'professional boat crews']
+  },
+
+  'blogs/safest-austin-bachelor-party-lake-travis-party-boat': {
+    slug: 'blogs/safest-austin-bachelor-party-lake-travis-party-boat',
+    title: 'Safest Austin Bachelor Party: Lake Travis Party Boats',
+    description: 'Plan a safe Austin bachelor party on Lake Travis. Licensed captains, BYOB savings, and stress-free celebration without chaos or hidden costs.',
+    publishDate: '2024-03-15',
+    modifiedDate: '2026-02-01',
+    author: 'Premier Party Cruises',
+    heroImage: 'https://premierpartycruises.com/media/schema/hero-boat-1.jpg',
+    keywords: ['safe bachelor party Austin', 'Lake Travis bachelor party', 'Austin party boat safety', 'bachelor party planning']
+  },
+
+  'blogs/top-10-reasons-austin-bachelor-party-lake-travis-boat': {
+    slug: 'blogs/top-10-reasons-austin-bachelor-party-lake-travis-boat',
+    title: 'Top 10 Reasons for a Lake Travis Bachelor Party Boat',
+    description: 'Discover the top 10 reasons to host your Austin bachelor party on Lake Travis. BYOB savings, epic photos, swimming, and unforgettable memories await.',
+    publishDate: '2024-04-01',
+    modifiedDate: '2026-02-01',
+    author: 'Premier Party Cruises',
+    heroImage: 'https://premierpartycruises.com/media/schema/hero-boat-1.jpg',
+    keywords: ['Lake Travis bachelor party', 'Austin bachelor party', 'party boat Austin', 'bachelor party ideas']
+  },
+
+  'blogs/ultimate-austin-party-boat-experience-any-celebration': {
+    slug: 'blogs/ultimate-austin-party-boat-experience-any-celebration',
+    title: 'Ultimate Austin Party Boat Experience Guide | Lake Travis',
+    description: 'Plan the ultimate Austin party boat celebration on Lake Travis. From bachelor parties to corporate events, discover everything you need to know.',
+    publishDate: '2024-04-15',
+    modifiedDate: '2026-02-01',
+    author: 'Premier Party Cruises',
+    heroImage: 'https://premierpartycruises.com/media/schema/hero-boat-1.jpg',
+    keywords: ['Austin party boat', 'Lake Travis celebration', 'party boat experience', 'Austin boat rental']
+  },
+
+  'blogs/ultimate-austin-bachelorette-party-boat-guide-lake-travis': {
+    slug: 'blogs/ultimate-austin-bachelorette-party-boat-guide-lake-travis',
+    title: 'Ultimate Austin Bachelorette Party Boat Guide - Lake Travis Edition',
+    description: 'Planning an Austin bachelorette party? Make it unforgettable with a Lake Travis party boat! Discover ATX Disco Cruise vs Private Charter, pricing, and everything included for the ultimate celebration.',
+    publishDate: '2024-05-01',
+    modifiedDate: '2026-02-01',
+    author: 'Premier Party Cruises',
+    heroImage: 'https://premierpartycruises.com/media/schema/hero-boat-1.jpg',
+    keywords: ['Austin bachelorette party', 'Lake Travis bachelorette', 'party boat bachelorette', 'ATX Disco Cruise']
+  },
+
+  'blogs/lake-travis-party-boat-vs-downtown-night-out-austin-bachelor': {
+    slug: 'blogs/lake-travis-party-boat-vs-downtown-night-out-austin-bachelor',
+    title: 'Party Boat vs Downtown Austin Night Out Comparison Guide',
+    description: 'Lake Travis party boats vs downtown Austin nightlife for bachelor parties. Compare costs, privacy, and fun to find the ultimate celebration experience.',
+    publishDate: '2024-05-15',
+    modifiedDate: '2026-02-01',
+    author: 'Premier Party Cruises',
+    heroImage: 'https://premierpartycruises.com/media/schema/hero-boat-1.jpg',
+    keywords: ['party boat vs downtown', 'Austin bachelor party', 'Lake Travis party boat', 'Austin nightlife comparison']
+  },
+
+  'blogs/private-charter-vs-atx-disco-cruise-which-austin-party-boat': {
+    slug: 'blogs/private-charter-vs-atx-disco-cruise-which-austin-party-boat',
+    title: 'Private Charter vs ATX Disco Cruise | Austin Party Boats',
+    description: 'Private charter or ATX Disco Cruise? Compare cost, vibe, and group size to choose the best Lake Travis party boat for your Austin celebration.',
+    publishDate: '2024-06-01',
+    modifiedDate: '2026-02-01',
+    author: 'Premier Party Cruises',
+    heroImage: 'https://premierpartycruises.com/media/schema/disco-dance-floor.jpg',
+    keywords: ['private charter Austin', 'ATX Disco Cruise comparison', 'Lake Travis party boat', 'Austin party boat options']
   }
 };
 

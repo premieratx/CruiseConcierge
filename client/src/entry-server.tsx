@@ -132,6 +132,13 @@ async function preloadBlogModule(url: string): Promise<void> {
     'why-choose-austin-bachelorette-party': () => import('./pages/blog/WhyChooseAustinBacheloretteParty'),
     'why-choose-austin-bachelor-party': () => import('./pages/blog/WhyChooseAustinBachelorParty'),
     'why-choose-integrated-event-services-comparing-austin-party-planning-options': () => import('./pages/blog/IntegratedEventServicesComparison'),
+    'why-licensed-captains-matter-lake-travis-party-boats': () => import('./pages/blog/WhyLicensedCaptainsMatter'),
+    'safest-austin-bachelor-party-lake-travis-party-boat': () => import('./pages/blog/SafestAustinBachelorPartyLakeTravis'),
+    'top-10-reasons-austin-bachelor-party-lake-travis-boat': () => import('./pages/blog/Top10BachelorPartyBoatReasons'),
+    'ultimate-austin-party-boat-experience-any-celebration': () => import('./pages/blog/UltimateAustinPartyBoatExperience'),
+    'ultimate-austin-bachelorette-party-boat-guide-lake-travis': () => import('./pages/blog/UltimateAustinBacheloretteBoatGuide'),
+    'lake-travis-party-boat-vs-downtown-night-out-austin-bachelor': () => import('./pages/blog/PartyBoatVsDowntownNightOut'),
+    'private-charter-vs-atx-disco-cruise-which-austin-party-boat': () => import('./pages/blog/PrivateCharterVsDiscoCruise'),
   };
   
   const moduleLoader = blogModules[slug];
