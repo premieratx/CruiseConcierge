@@ -34,7 +34,7 @@ const boatFleet = [
   {
     name: 'Day Tripper',
     capacity: '14 guests',
-    startingPrice: '$200/hr',
+    startingPrice: '$1,050',
     description: 'Perfect Austin bachelorette party boat for intimate bride tribe celebrations',
     features: [
       'Single-deck pontoon with arch canopy',
@@ -50,7 +50,7 @@ const boatFleet = [
   {
     name: 'Meeseeks',
     capacity: '25 guests',
-    startingPrice: '$1,200',
+    startingPrice: '$1,181',
     description: 'Popular Austin bachelorette party boat for mid-size bride tribes on Lake Travis',
     features: [
       'Single-deck pontoon with arch canopy',
@@ -66,7 +66,7 @@ const boatFleet = [
   {
     name: 'The Irony',
     capacity: '30 guests',
-    startingPrice: '$1,400',
+    startingPrice: '$1,181',
     description: 'Spacious Lake Travis bachelorette party boat for larger celebrations',
     features: [
       'Single-deck pontoon with arch canopy',
@@ -83,7 +83,7 @@ const boatFleet = [
   {
     name: 'Clever Girl',
     capacity: '50-75 guests',
-    startingPrice: '$2,200',
+    startingPrice: '$1,313',
     description: 'Flagship Austin bachelorette party boat with 14 disco balls for ultimate celebrations',
     features: [
       'Single-deck pontoon with arch canopy',
@@ -144,7 +144,7 @@ const faqs = [
   },
   {
     question: 'How much do Austin bachelorette party boats cost on Lake Travis?',
-    answer: 'Austin bachelorette party boats on Lake Travis start at $200/hr for the Day Tripper (14 guests, Monday-Thursday) and range up to $2,200+ for the Clever Girl (50-75 guests). Pricing varies based on day of week, time slot, and season. Weekend Lake Travis bachelorette adventures are typically 15-20% higher than weekday rates.'
+    answer: 'Austin bachelorette party boats on Lake Travis start at $1,050 for the Day Tripper (14 guests, 4-hour cruise) and range up to $2,660 for the Clever Girl (50-75 guests) on weekends. Meeseeks and The Irony start at $1,181. Pricing varies based on day of week and boat size. Weekend Lake Travis bachelorette adventures are typically 15-20% higher than weekday rates.'
   },
   {
     question: 'Can we bring alcohol on Austin bachelorette party boats?',
@@ -190,7 +190,7 @@ export default function AustinBachelorettePartyBoats() {
     <>
       <Helmet>
         <title>Austin Bachelorette Party Boats: Lake Travis Adventures for Unforgettable Celebrations | Premier Party Cruises</title>
-        <meta name="description" content="Plan unforgettable Austin bachelorette party boats on Lake Travis. Compare boats for 14-75 guests, pricing from $200/hr, and adventure options. Lake Travis bachelorette adventures with 14+ years experience and 5-star reviews." />
+        <meta name="description" content="Plan unforgettable Austin bachelorette party boats on Lake Travis. Compare boats for 14-75 guests, pricing from $1,050 for 4-hour cruise. Lake Travis bachelorette adventures with 15+ years experience and 5-star reviews." />
         <meta name="keywords" content="Austin bachelorette party boats, Lake Travis bachelorette, bachelorette party boats Austin, Lake Travis adventures, Austin bachelorette boat, bachelorette boat Lake Travis, Austin party boats, Lake Travis boat party, bachelorette celebration Austin" />
         <link rel="canonical" href="https://premierpartycruises.com/blogs/austin-bachelorette-party-boats-lake-travis-adventures-for-unforgettable-celebrations" />
         <meta property="og:title" content="Austin Bachelorette Party Boats: Lake Travis Adventures for Unforgettable Celebrations" />

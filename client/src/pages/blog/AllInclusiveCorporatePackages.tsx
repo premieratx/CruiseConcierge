@@ -68,17 +68,17 @@ const packageTiers = [
   {
     name: 'Standard Package',
     tagline: 'The Essentials',
-    price: 'Starting at $1,200',
+    price: 'Starting at $1,050',
     color: 'border-blue-500',
     headerBg: 'bg-blue-500',
     features: [
-      'Private boat charter (3 hours)',
+      'Private boat charter (4 hours)',
       'Professional captain and crew',
       'Premium sound system',
       'BYOB - bring your own beverages',
       'Coolers with ice provided',
       'Giant lily pad float included',
-      'Perfect for teams of 14-25'
+      'Perfect for teams of 14 guests'
     ],
     best: 'Budget-conscious teams',
     cta: 'Great starter option for your hassle free company event Austin'
@@ -86,7 +86,7 @@ const packageTiers = [
   {
     name: 'Essentials Package',
     tagline: 'Most Popular',
-    price: 'Starting at $2,400',
+    price: 'Starting at $1,331',
     color: 'border-amber-500',
     headerBg: 'bg-amber-500',
     popular: true,
@@ -95,10 +95,10 @@ const packageTiers = [
       'Party On Delivery beverage coordination',
       'Pre-stocked coolers on arrival',
       'Catering coordination assistance',
-      'Extended 4-hour cruise option',
+      '4-hour cruise on larger boat',
       'Premium float collection',
       'Dedicated event coordinator',
-      'Perfect for teams of 25-50'
+      'Perfect for teams of 25-30'
     ],
     best: 'Most corporate groups',
     cta: 'Our most popular all inclusive corporate event Austin package'
@@ -106,16 +106,16 @@ const packageTiers = [
   {
     name: 'Ultimate Package',
     tagline: 'White Glove Service',
-    price: 'Starting at $4,500',
+    price: 'Starting at $2,813',
     color: 'border-purple-500',
     headerBg: 'bg-purple-500',
     features: [
       'Everything in Essentials, plus:',
-      'Full catering included',
-      'Premium beverage package',
-      'Professional photographer (2 hours)',
-      'Custom decorations and branding',
-      'Extended 5-hour cruise',
+      'Clever Girl flagship boat',
+      'Professional DJ ($600 value)',
+      'Professional photographer ($600 value)',
+      'Ultimate party package add-ons',
+      '4-5 hour cruise',
       'VIP dock-side setup',
       'Post-event photo gallery',
       'Perfect for teams of 50-75'

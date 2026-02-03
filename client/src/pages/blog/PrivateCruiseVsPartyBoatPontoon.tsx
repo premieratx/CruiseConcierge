@@ -161,29 +161,29 @@ const privateCruisePricing = [
   {
     name: 'Day Tripper',
     capacity: '14 guests',
-    price: 'Starting at $200/hr',
-    duration: '3-4 hours',
+    price: 'Starting at $1,050',
+    duration: '4 hours',
     description: 'Perfect for intimate groups and family outings'
   },
   {
     name: 'Meeseeks',
     capacity: '25 guests',
-    price: 'Starting at $1,200',
-    duration: '3-4 hours',
+    price: 'Starting at $1,181',
+    duration: '4 hours',
     description: 'Popular for bachelor/bachelorette parties'
   },
   {
     name: 'The Irony',
     capacity: '30 guests',
-    price: 'Starting at $1,400',
-    duration: '3-4 hours',
+    price: 'Starting at $1,181',
+    duration: '4 hours',
     description: 'Great for larger celebrations'
   },
   {
     name: 'Clever Girl',
     capacity: '50-75 guests',
-    price: 'Starting at $2,200',
-    duration: '3-5 hours',
+    price: 'Starting at $1,313',
+    duration: '4-5 hours',
     description: 'Flagship boat with 14 disco balls'
   }
 ];

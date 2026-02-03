@@ -185,7 +185,7 @@ const convenienceSafety = [
 
 const whyNotBothSchedule = [
   {
-    time: 'Saturday 12PM-4PM',
+    time: 'Saturday 11AM-3PM',
     activity: 'Lake Travis Party Boat (main event)',
     description: 'Start with the highlight—swimming, floating, dancing on the lake'
   },
