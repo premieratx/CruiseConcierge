@@ -420,10 +420,10 @@ export default function BacheloretteParty() {
               </Badge>
             </motion.div>
             
-            {/* CRITICAL: H1 with text-6xl and font-playfair - Largest text on page */}
+            {/* CRITICAL: H1 with text-6xl and heading-unbounded - Largest text on page */}
             <motion.h1 
               variants={fadeInUp}
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold font-playfair mb-4 md:mb-6 text-center leading-tight px-2"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold heading-unbounded mb-4 md:mb-6 text-center leading-tight px-2"
               data-editable 
               data-editable-id="bachelorette-hero-title"
             >
@@ -572,10 +572,10 @@ export default function BacheloretteParty() {
         <div className="max-w-5xl mx-auto px-6">
           {/* Main Header */}
           <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-playfair font-bold text-[#C85A54] mb-3">
+            <h2 className="text-4xl md:text-5xl heading-unbounded font-bold text-[#C85A54] mb-3">
               ATX Bachelorette Party Boat Options
             </h2>
-            <p className="text-xl md:text-2xl font-playfair italic text-[#2B3A67]">
+            <p className="text-xl md:text-2xl heading-unbounded italic text-[#2B3A67]">
               Two Amazing Party Cruise Choices for Your Unforgettable Weekend in Austin
             </p>
           </div>
@@ -584,7 +584,7 @@ export default function BacheloretteParty() {
           <div className="grid lg:grid-cols-2 gap-8 mb-12">
             {/* ATX Disco Cruise Column */}
             <div className="bg-white/80 rounded-2xl p-8 shadow-lg">
-              <h3 className="text-2xl md:text-3xl font-playfair font-bold text-[#2B3A67] mb-6 leading-tight">
+              <h3 className="text-2xl md:text-3xl heading-unbounded font-bold text-[#2B3A67] mb-6 leading-tight">
                 ATX Disco Cruise: The Ultimate Bachelorette Party Experience
               </h3>
               
@@ -697,7 +697,7 @@ export default function BacheloretteParty() {
 
             {/* All-Inclusive Private Party Cruise Column */}
             <div className="bg-white/80 rounded-2xl p-8 shadow-lg">
-              <h3 className="text-2xl md:text-3xl font-playfair font-bold text-[#2B3A67] mb-6 leading-tight">
+              <h3 className="text-2xl md:text-3xl heading-unbounded font-bold text-[#2B3A67] mb-6 leading-tight">
                 All-Inclusive Private Party Cruise:
               </h3>
               
@@ -765,14 +765,14 @@ export default function BacheloretteParty() {
 
           {/* REMEMBER Section */}
           <div className="mb-12">
-            <h3 className="text-3xl font-playfair font-bold text-[#C85A54] text-center mb-8 tracking-wide">
+            <h3 className="text-3xl heading-unbounded font-bold text-[#C85A54] text-center mb-8 tracking-wide">
               REMEMBER:
             </h3>
             
             <div className="grid md:grid-cols-3 gap-6">
               {/* Personalized Private Cruise */}
               <div className="bg-white/90 rounded-xl p-6 shadow-md border-t-4 border-[#2B3A67]">
-                <h4 className="text-xl font-playfair font-bold text-[#C85A54] mb-4">Personalized Private Cruise</h4>
+                <h4 className="text-xl heading-unbounded font-bold text-[#C85A54] mb-4">Personalized Private Cruise</h4>
                 <p className="text-gray-700 text-sm leading-relaxed">
                   We'll help you throw an amazing all-inclusive private cruise if you'd like it private - it'll be AMAZING!
                 </p>
@@ -783,7 +783,7 @@ export default function BacheloretteParty() {
 
               {/* ATX Disco Cruise */}
               <div className="bg-white/90 rounded-xl p-6 shadow-md border-t-4 border-[#C85A54]">
-                <h4 className="text-xl font-playfair font-bold text-[#C85A54] mb-4">ATX Disco Cruise: All-Inclusive Experience</h4>
+                <h4 className="text-xl heading-unbounded font-bold text-[#C85A54] mb-4">ATX Disco Cruise: All-Inclusive Experience</h4>
                 <p className="text-gray-700 text-sm leading-relaxed">
                   The ATX Disco Cruise Includes <strong className="underline">EVERYTHING</strong>: Professional DJ & Photographer are Included! - photos sent after the cruise!
                 </p>
@@ -794,7 +794,7 @@ export default function BacheloretteParty() {
 
               {/* Value vs. Experience */}
               <div className="bg-white/90 rounded-xl p-6 shadow-md border-t-4 border-[#2B3A67]">
-                <h4 className="text-xl font-playfair font-bold text-[#C85A54] mb-4">Value vs. Experience</h4>
+                <h4 className="text-xl heading-unbounded font-bold text-[#C85A54] mb-4">Value vs. Experience</h4>
                 <p className="text-gray-700 text-sm leading-relaxed">
                   The Private Cruise MIGHT be cheaper, but the ATX Disco Cruise is a one-of-a-kind EXPERIENCE that you'll remember forever
                 </p>
@@ -807,7 +807,7 @@ export default function BacheloretteParty() {
 
           {/* Private Cruise Pricing Table */}
           <div className="bg-white/90 rounded-2xl p-8 shadow-lg">
-            <h3 className="text-2xl md:text-3xl font-playfair font-bold text-[#2B3A67] text-center mb-8">
+            <h3 className="text-2xl md:text-3xl heading-unbounded font-bold text-[#2B3A67] text-center mb-8">
               Private Cruise Pricing for up to 14 people:
             </h3>
             
@@ -896,7 +896,7 @@ export default function BacheloretteParty() {
       {/* Scrolling Photo Gallery */}
       <section className="py-12 bg-gradient-to-b from-pink-100 to-white dark:from-pink-900/30 dark:to-gray-950 overflow-hidden">
         <div className="text-center mb-6">
-          <h2 className="text-3xl font-playfair font-bold text-gray-900 dark:text-white mb-2">
+          <h2 className="text-3xl heading-unbounded font-bold text-gray-900 dark:text-white mb-2">
             Real Bachelorette Parties on Lake Travis
           </h2>
           <p className="text-gray-600 dark:text-gray-300">See the celebrations happening every weekend</p>
@@ -916,7 +916,7 @@ export default function BacheloretteParty() {
                 <Target className="h-4 w-4 mr-2 inline" />
                 Two Amazing Options for Your Celebration
               </Badge>
-              <h2 className="text-4xl md:text-5xl font-bold font-playfair text-center mb-6 text-gray-900 leading-tight">
+              <h2 className="text-4xl md:text-5xl font-bold heading-unbounded text-center mb-6 text-gray-900 leading-tight">
                 Choose Your Perfect Bachelorette Party Style
               </h2>
               <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
@@ -1030,7 +1030,7 @@ export default function BacheloretteParty() {
                 <Sparkles className="h-4 w-4 mr-2 inline" />
                 The Bachelorette Experience
               </Badge>
-              <h2 className="text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
+              <h2 className="text-4xl md:text-5xl font-semibold heading-unbounded text-center mb-6 text-gray-900 leading-tight">
                 What Makes Our Bachelorette Parties Special
               </h2>
               <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
@@ -1045,7 +1045,7 @@ export default function BacheloretteParty() {
                   <div className="w-20 h-20 mx-auto mb-4 bg-pink-100 rounded-full flex items-center justify-center">
                     <Music className="h-10 w-10 text-pink-600" />
                   </div>
-                  <CardTitle className="text-2xl text-center font-playfair">ATX Disco Cruise</CardTitle>
+                  <CardTitle className="text-2xl text-center heading-unbounded">ATX Disco Cruise</CardTitle>
                   <CardDescription className="text-center text-base">
                     The Ultimate Bachelorette Party Boat
                   </CardDescription>
@@ -1088,7 +1088,7 @@ export default function BacheloretteParty() {
                   <div className="w-20 h-20 mx-auto mb-4 bg-purple-100 rounded-full flex items-center justify-center">
                     <Ship className="h-10 w-10 text-purple-600" />
                   </div>
-                  <CardTitle className="text-2xl text-center font-playfair">Private Boat Rental</CardTitle>
+                  <CardTitle className="text-2xl text-center heading-unbounded">Private Boat Rental</CardTitle>
                   <CardDescription className="text-center text-base">
                     Exclusive Bachelorette Charter
                   </CardDescription>
@@ -1142,7 +1142,7 @@ export default function BacheloretteParty() {
                 <Heart className="h-4 w-4 mr-2 inline" />
                 Why Brides Choose Us
               </Badge>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-playfair text-center mb-6 text-gray-900 leading-tight">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold heading-unbounded text-center mb-6 text-gray-900 leading-tight">
                 The Bachelorette Party Your Friends Will Talk About for YEARS
               </h2>
               <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
@@ -1159,7 +1159,7 @@ export default function BacheloretteParty() {
                       <Heart className="h-8 w-8 text-white" />
                     </div>
                     <div>
-                      <h3 className="text-2xl font-bold mb-2">Zero Stress, Maximum Memories</h3>
+                      <h3 className="heading-unbounded text-2xl font-bold mb-2">Zero Stress, Maximum Memories</h3>
                       <p className="text-gray-700 leading-relaxed">
                         No herding cats, no planning nightmares, no coordinating 15 different opinions. 
                         Just show up, celebrate your bride, and create memories that'll last forever.
@@ -1176,7 +1176,7 @@ export default function BacheloretteParty() {
                       <Users className="h-8 w-8 text-white" />
                     </div>
                     <div>
-                      <h3 className="text-2xl font-bold mb-2">Meet Other Bride Tribes - Instant Besties!</h3>
+                      <h3 className="heading-unbounded text-2xl font-bold mb-2">Meet Other Bride Tribes - Instant Besties!</h3>
                       <p className="text-gray-700 leading-relaxed">
                         Party with 3-4 other bachelorette groups on the disco cruise! 
                         Share the excitement, make new friends, and create an epic party atmosphere together.
@@ -1193,7 +1193,7 @@ export default function BacheloretteParty() {
                       <Camera className="h-8 w-8 text-white" />
                     </div>
                     <div>
-                      <h3 className="text-2xl font-bold mb-2">Instagram-Worthy Every Moment</h3>
+                      <h3 className="heading-unbounded text-2xl font-bold mb-2">Instagram-Worthy Every Moment</h3>
                       <p className="text-gray-700 leading-relaxed">
                         Professional photographer captures every laugh, every toast, every perfect moment. 
                         Giant unicorn floats, sunset views, and your whole squad looking amazing!
@@ -1210,7 +1210,7 @@ export default function BacheloretteParty() {
                       <Shield className="h-8 w-8 text-white" />
                     </div>
                     <div>
-                      <h3 className="text-2xl font-bold mb-2">Safe, Female-Friendly Environment</h3>
+                      <h3 className="heading-unbounded text-2xl font-bold mb-2">Safe, Female-Friendly Environment</h3>
                       <p className="text-gray-700 leading-relaxed">
                         Professional crew that respects boundaries, secure environment for all your girls, 
                         and a celebration focused on YOU - not unwanted attention.
@@ -1225,7 +1225,7 @@ export default function BacheloretteParty() {
             <div className="mt-16 max-w-4xl mx-auto text-center">
               <Card className="bg-gradient-to-r from-pink-600 to-purple-600 text-white border-0">
                 <CardContent className="p-12">
-                  <h3 className="text-3xl font-bold mb-4">
+                  <h3 className="heading-unbounded text-3xl font-bold mb-4">
                     This Is YOUR Moment
                   </h3>
                   <p className="text-xl mb-6 opacity-95 leading-relaxed">
@@ -1271,7 +1271,7 @@ export default function BacheloretteParty() {
                 <Package className="h-4 w-4 mr-2 inline" />
                 Bachelorette Packages
               </Badge>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold heading-unbounded text-center mb-6 text-gray-900 leading-tight">
                 Choose Your Bachelorette Party Package
               </h2>
               <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
@@ -1285,7 +1285,7 @@ export default function BacheloretteParty() {
                 <Badge className="bg-pink-600 text-white px-4 py-2 mb-4">
                   OPTION 1
                 </Badge>
-                <h3 className="text-3xl font-playfair font-bold mb-2">ATX Disco Cruise</h3>
+                <h3 className="text-3xl heading-unbounded font-bold mb-2">ATX Disco Cruise</h3>
                 <p className="text-lg text-gray-700">Multi-group party with other bachelorette parties</p>
               </div>
               
@@ -1298,7 +1298,7 @@ export default function BacheloretteParty() {
                 <Badge className="bg-purple-600 text-white px-4 py-2 mb-4">
                   OPTION 2
                 </Badge>
-                <h3 className="text-3xl font-playfair font-bold mb-2">Private Cruises</h3>
+                <h3 className="text-3xl heading-unbounded font-bold mb-2">Private Cruises</h3>
                 <p className="text-lg text-gray-700">Exclusive boat just for your group</p>
               </div>
               
@@ -1314,7 +1314,7 @@ export default function BacheloretteParty() {
                           <Ship className="h-8 w-8 text-purple-600" />
                         </div>
                       </div>
-                      <CardTitle className="text-2xl font-playfair mb-2">{boat.name}</CardTitle>
+                      <CardTitle className="text-2xl heading-unbounded mb-2">{boat.name}</CardTitle>
                       <CardDescription className="text-base">
                         {boat.description}
                       </CardDescription>
@@ -1380,7 +1380,7 @@ export default function BacheloretteParty() {
             <div className="max-w-6xl mx-auto">
               <Card className="bg-gradient-to-r from-pink-50 to-purple-50 border-2 border-pink-300 p-8">
                 <CardHeader>
-                  <CardTitle className="text-3xl font-playfair text-center mb-4">
+                  <CardTitle className="text-3xl heading-unbounded text-center mb-4">
                     Which Option is Right for Your Group?
                   </CardTitle>
                 </CardHeader>
@@ -1389,7 +1389,7 @@ export default function BacheloretteParty() {
                     {/* ATX Disco Comparison */}
                     <div className="text-center">
                       <Badge className="bg-pink-600 text-white px-4 py-2 mb-4">ATX DISCO CRUISE</Badge>
-                      <h4 className="text-xl font-bold mb-4">Perfect if you want:</h4>
+                      <h4 className="heading-unbounded text-xl font-bold mb-4">Perfect if you want:</h4>
                       <ul className="text-left space-y-2 mb-6">
                         <li className="flex items-start gap-2">
                           <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
@@ -1418,7 +1418,7 @@ export default function BacheloretteParty() {
                     {/* Private Cruise Comparison */}
                     <div className="text-center">
                       <Badge className="bg-purple-600 text-white px-4 py-2 mb-4">PRIVATE CRUISE</Badge>
-                      <h4 className="text-xl font-bold mb-4">Perfect if you want:</h4>
+                      <h4 className="heading-unbounded text-xl font-bold mb-4">Perfect if you want:</h4>
                       <ul className="text-left space-y-2 mb-6">
                         <li className="flex items-start gap-2">
                           <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
@@ -1468,7 +1468,7 @@ export default function BacheloretteParty() {
                 <Star className="h-4 w-4 mr-2 inline" />
                 What to Expect
               </Badge>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-playfair text-center mb-6 text-gray-900 leading-tight">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold heading-unbounded text-center mb-6 text-gray-900 leading-tight">
                 Your Day on the Water
               </h2>
               <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
@@ -1600,7 +1600,7 @@ export default function BacheloretteParty() {
         <section className="py-12 md:py-20 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="max-w-4xl mx-auto">
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-playfair text-center mb-8 text-gray-900 leading-tight">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold heading-unbounded text-center mb-8 text-gray-900 leading-tight">
                 Austin Party Cruises: Your Complete Bachelorette Celebration Guide
               </h2>
               
@@ -1609,13 +1609,13 @@ export default function BacheloretteParty() {
                   When it comes to planning an unforgettable bachelorette party, <strong>austin party cruises</strong> on Lake Travis offer the perfect blend of adventure, relaxation, and celebration. As Austin's premier <strong>party boat</strong> experience, we've helped thousands of brides and their friends create memories that last a lifetime.
                 </p>
                 
-                <h3 className="text-2xl font-bold text-gray-900 mb-4 mt-8">Why Choose a Lake Travis Party Boat for Your Bachelorette?</h3>
+                <h3 className="heading-unbounded text-2xl font-bold text-gray-900 mb-4 mt-8">Why Choose a Lake Travis Party Boat for Your Bachelorette?</h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-4">
                   A <strong>cruise for bachelorette party</strong> celebrations combines the best of Austin's outdoor lifestyle with world-class entertainment. Lake Travis provides the perfect backdrop with its crystal-clear waters, stunning Hill Country views, and endless sunshine. Our <strong>austin party cruise</strong> experiences are designed specifically for bachelorette groups who want more than just a standard celebration.
                 </p>
                 
                 <div className="bg-pink-50 border-l-4 border-pink-600 p-6 my-8 rounded-r-lg">
-                  <h4 className="text-xl font-bold text-gray-900 mb-3">What Makes Austin Party Cruises Special:</h4>
+                  <h4 className="heading-unbounded text-xl font-bold text-gray-900 mb-3">What Makes Austin Party Cruises Special:</h4>
                   <ul className="space-y-2 text-gray-700">
                     <li className="flex items-start gap-2">
                       <CheckCircle className="h-5 w-5 text-pink-600 mt-1 flex-shrink-0" />
@@ -1636,13 +1636,13 @@ export default function BacheloretteParty() {
                   </ul>
                 </div>
 
-                <h3 className="text-2xl font-bold text-gray-900 mb-4 mt-8">ATX Disco Cruise vs Private Charter: What's the Best Value?</h3>
+                <h3 className="heading-unbounded text-2xl font-bold text-gray-900 mb-4 mt-8">ATX Disco Cruise vs Private Charter: What's the Best Value?</h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-4">
                   When choosing your <strong>party boat austin</strong> experience, the ATX Disco Cruise delivers unmatched value for bachelorette parties of any size. While a bare-bones private boat rental may appear cheaper per person for larger groups, you'd be missing everything that makes a bachelorette party legendary!
                 </p>
                 
                 <div className="bg-gradient-to-br from-pink-50 to-purple-50 border-2 border-pink-300 p-6 my-6 rounded-lg">
-                  <h4 className="text-xl font-bold text-gray-900 mb-3">What's Included in Your ATX Disco Cruise Ticket:</h4>
+                  <h4 className="heading-unbounded text-xl font-bold text-gray-900 mb-3">What's Included in Your ATX Disco Cruise Ticket:</h4>
                   <div className="grid md:grid-cols-2 gap-3 text-gray-700">
                     <div className="flex items-start gap-2">
                       <CheckCircle className="h-5 w-5 text-pink-600 mt-1 flex-shrink-0" />
@@ -1714,7 +1714,7 @@ export default function BacheloretteParty() {
         <section className="py-12 md:py-20 bg-gradient-to-br from-purple-50 to-pink-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="max-w-4xl mx-auto">
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-playfair text-center mb-8 text-gray-900 leading-tight">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold heading-unbounded text-center mb-8 text-gray-900 leading-tight">
                 Planning Your Lake Travis Party Boat Bachelorette
               </h2>
               
@@ -1723,13 +1723,13 @@ export default function BacheloretteParty() {
                   Organizing a <strong>party cruises</strong> celebration for your best friend's bachelorette requires some planning, but we make it simple. Here's your step-by-step guide to creating the ultimate <strong>lake travis party boat</strong> experience that your bride tribe will never forget.
                 </p>
 
-                <h3 className="text-2xl font-bold text-gray-900 mb-4 mt-8">Timing Your Austin Party Cruise</h3>
+                <h3 className="heading-unbounded text-2xl font-bold text-gray-900 mb-4 mt-8">Timing Your Austin Party Cruise</h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-4">
                   The best time for <strong>austin party</strong> celebrations on Lake Travis is between April and September when the weather is perfect and the water is warm. However, we run cruises year-round with covered areas to keep you comfortable in any season. For the most popular dates, especially weekend cruises, we recommend booking 8-12 weeks for priority time slots - once they book they're gone!
                 </p>
 
                 <div className="bg-white border-2 border-pink-200 p-6 my-8 rounded-lg shadow-md">
-                  <h4 className="text-xl font-bold text-gray-900 mb-4">Pro Tips for Your Party Boat Austin Experience:</h4>
+                  <h4 className="heading-unbounded text-xl font-bold text-gray-900 mb-4">Pro Tips for Your Party Boat Austin Experience:</h4>
                   <div className="grid md:grid-cols-2 gap-4">
                     <div>
                       <h5 className="font-bold text-gray-900 mb-2 flex items-center gap-2">
@@ -1758,7 +1758,7 @@ export default function BacheloretteParty() {
                   </div>
                 </div>
 
-                <h3 className="text-2xl font-bold text-gray-900 mb-4 mt-8">What to Expect on Your Cruise for Bachelorette Party</h3>
+                <h3 className="heading-unbounded text-2xl font-bold text-gray-900 mb-4 mt-8">What to Expect on Your Cruise for Bachelorette Party</h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-4">
                   Your <strong>lake travis party boat</strong> adventure begins the moment you arrive at the marina. Our friendly crew will help you check in, load your coolers, and find your reserved spot on the boat. As we cruise out to our exclusive swimming areas, the DJ kicks off the party while our photographer starts capturing candid moments of your celebration.
                 </p>
@@ -1781,7 +1781,7 @@ export default function BacheloretteParty() {
                 <Calendar className="h-4 w-4 mr-2 inline" />
                 Availability & Booking
               </Badge>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold heading-unbounded text-center mb-6 text-gray-900 leading-tight">
                 Reserve Your Girls' Weekend Celebration
               </h2>
               <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
@@ -1843,7 +1843,7 @@ export default function BacheloretteParty() {
             </div>
 
             <div className="text-center bg-gradient-to-r from-pink-50 to-purple-50 rounded-2xl p-10 max-w-4xl mx-auto border-2 border-pink-200">
-              <h3 className="text-2xl font-bold mb-4 text-gray-900 font-playfair">Ready to Book Your Bachelorette Party?</h3>
+              <h3 className="text-2xl font-bold mb-4 text-gray-900 heading-unbounded">Ready to Book Your Bachelorette Party?</h3>
               <p className="text-gray-700 mb-6 text-lg leading-relaxed">
                 Check availability and get instant pricing for your girls' weekend on Lake Travis
               </p>
@@ -1884,7 +1884,7 @@ export default function BacheloretteParty() {
                 <Trophy className="h-4 w-4 mr-2 inline" />
                 Key Benefits
               </Badge>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold heading-unbounded text-center mb-6 text-gray-900 leading-tight">
                 Why Bachelorette Parties Choose Us
               </h2>
               <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
@@ -1976,7 +1976,7 @@ export default function BacheloretteParty() {
                 <CheckCircle className="h-4 w-4 mr-2 inline" />
                 What's Included
               </Badge>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold heading-unbounded text-center mb-6 text-gray-900 leading-tight">
                 Everything You Need for an Epic Day
               </h2>
               <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
@@ -1993,7 +1993,7 @@ export default function BacheloretteParty() {
                         <item.icon className="h-6 w-6 text-pink-600" />
                       </div>
                       <div className="flex-1">
-                        <h3 className="font-candal text-2xl mb-2 text-gray-900">{item.title}</h3>
+                        <h3 className="heading-unbounded text-2xl mb-2 text-gray-900">{item.title}</h3>
                         <p className="text-gray-600 leading-relaxed">{item.description}</p>
                       </div>
                     </div>
@@ -2024,7 +2024,7 @@ export default function BacheloretteParty() {
                 <Crown className="h-4 w-4 mr-2 inline" />
                 The Premier Difference
               </Badge>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-white leading-tight">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold heading-unbounded text-center mb-6 text-white leading-tight">
                 Austin's Most Trusted Bachelorette Party Company
               </h2>
               <p className="text-xl text-white/90 max-w-3xl mx-auto leading-relaxed">
@@ -2078,7 +2078,7 @@ export default function BacheloretteParty() {
                 <Camera className="h-4 w-4 mr-2 inline" />
                 Photo Gallery
               </Badge>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold heading-unbounded text-center mb-6 text-gray-900 leading-tight">
                 See the Bachelorette Party Experience
               </h2>
               <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
@@ -2114,7 +2114,7 @@ export default function BacheloretteParty() {
                 <Quote className="h-4 w-4 mr-2 inline" />
                 Customer Reviews
               </Badge>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold heading-unbounded text-center mb-6 text-gray-900 leading-tight">
                 What Bachelorette Parties Are Saying
               </h2>
               <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed mb-8">
@@ -2175,7 +2175,7 @@ export default function BacheloretteParty() {
                 <HelpCircle className="h-4 w-4 mr-2 inline" />
                 FAQs
               </Badge>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold heading-unbounded text-center mb-6 text-gray-900 leading-tight">
                 Frequently Asked Questions
               </h2>
               <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
@@ -2201,7 +2201,7 @@ export default function BacheloretteParty() {
             </Accordion>
 
             <div className="mt-12 text-center bg-pink-50 rounded-2xl p-8 border border-pink-200">
-              <h3 className="text-2xl font-bold mb-4 text-gray-900">Still Have Questions?</h3>
+              <h3 className="heading-unbounded text-2xl font-bold mb-4 text-gray-900">Still Have Questions?</h3>
               <p className="text-gray-700 mb-6 leading-relaxed">
                 Our bachelorette party experts are here to help you plan the perfect Lake Travis celebration
               </p>
