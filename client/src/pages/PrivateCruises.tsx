@@ -542,39 +542,6 @@ export default function PrivateCruises() {
             </div>
           </div>
 
-          {/* Hero Image Grid - PAGESPEED: No motion/ScrollReveal above fold */}
-          <div className="grid md:grid-cols-3 gap-6 mt-16">
-            <div>
-              <LazyImage
-                src={heroImage1}
-                alt="Clever Girl 50+ person private boat charter Lake Travis"
-                className="rounded-2xl shadow-2xl w-full h-72 object-cover ring-2 ring-blue-500/50 hover:ring-blue-400 transition-all"
-                priority={true}
-                width={400}
-                height={288}
-              />
-            </div>
-            <div>
-              <LazyImage
-                src={heroImage2}
-                alt="Meeseeks The Irony 25 person private boat Lake Travis"
-                className="rounded-2xl shadow-2xl w-full h-72 object-cover ring-2 ring-purple-500/50 hover:ring-purple-400 transition-all"
-                priority={true}
-                width={400}
-                height={288}
-              />
-            </div>
-            <div>
-              <LazyImage
-                src={heroImage3}
-                alt="Day Tripper 14 person intimate private boat charter"
-                className="rounded-2xl shadow-2xl w-full h-72 object-cover ring-2 ring-pink-500/50 hover:ring-pink-400 transition-all"
-                priority={true}
-                width={400}
-                height={288}
-              />
-            </div>
-          </div>
         </div>
       </section>
 
