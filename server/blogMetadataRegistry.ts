@@ -1441,6 +1441,61 @@ export const blogMetadataRegistry: Record<string, BlogMetadata> = {
     author: 'Premier Party Cruises',
     heroImage: 'https://premierpartycruises.com/attached_assets/@capitalcityshots-25_1760080807866.jpg',
     keywords: ['wedding party alcohol coordination', 'Austin wedding drinks', 'bachelor party alcohol', 'bachelorette party drinks', 'Lake Travis wedding cruise']
+  },
+
+  'blogs/all-inclusive-corporate-packages-austin': {
+    slug: 'blogs/all-inclusive-corporate-packages-austin',
+    title: 'All Inclusive Corporate Event Austin | Party Package Lake Travis',
+    description: 'Book an all inclusive corporate event Austin with turnkey corporate party boat packages on Lake Travis. Hassle free company event Austin with catering, beverages, and full coordination. Party package Lake Travis made easy.',
+    publishDate: '2024-06-15',
+    modifiedDate: '2026-02-01',
+    author: 'Premier Party Cruises',
+    heroImage: 'https://premierpartycruises.com/media/schema/hero-boat-1.jpg',
+    keywords: ['all inclusive corporate event Austin', 'party package Lake Travis', 'turnkey corporate party boat', 'hassle free company event Austin', 'corporate boat rental Austin', 'team building Lake Travis']
+  },
+
+  'blogs/atx-disco-cruise-dos-and-donts-bachelor-party': {
+    slug: 'blogs/atx-disco-cruise-dos-and-donts-bachelor-party',
+    title: 'Top Dos and Donts for an Epic ATX Disco Cruise Bachelor Party',
+    description: 'Planning an ATX Disco Cruise bachelor party? Master the dos and donts for an epic Lake Travis party boat experience. Learn Captain Brians rules, hydration tips, Party On Delivery coordination, and how to mix with bachelorette groups for the ultimate Austin bachelor party.',
+    publishDate: '2024-08-01',
+    modifiedDate: '2026-02-01',
+    author: 'Premier Party Cruises',
+    heroImage: 'https://premierpartycruises.com/media/schema/disco-dance-floor.jpg',
+    keywords: ['ATX Disco Cruise', 'Austin bachelor party', 'Lake Travis party boat', 'party boat Austin', 'bachelor party in Austin', 'ATX Disco Cruise tips', 'Lake Travis bachelor party', 'Austin party boat tips', 'co-ed party boat Austin']
+  },
+
+  'blogs/bachelor-party-outfit-ideas-atx-disco-cruise': {
+    slug: 'blogs/bachelor-party-outfit-ideas-atx-disco-cruise',
+    title: 'Best Bachelor Party Outfit Ideas for the ATX Disco Cruise',
+    description: 'Planning outfits for your Austin bachelor party on Lake Travis? Discover the best costume and theme ideas for the ATX Disco Cruise. From Disco Cowboys to Nautical Bros, dress up to stand out and break the ice with bachelorette groups!',
+    publishDate: '2024-07-15',
+    modifiedDate: '2026-02-01',
+    author: 'Premier Party Cruises',
+    heroImage: 'https://premierpartycruises.com/media/schema/disco-dance-floor.jpg',
+    keywords: ['Austin bachelor party outfits', 'ATX Disco Cruise costumes', 'Lake Travis party boat outfits', 'bachelor party in Austin themes', 'party boat Austin costume ideas', 'bachelor party costume themes', 'disco cruise outfit ideas']
+  },
+
+  'blogs/lake-travis-bachelor-party-boats-guide': {
+    slug: 'blogs/lake-travis-bachelor-party-boats-guide',
+    title: 'Lake Travis Bachelor Party Boats: The Ultimate Austin Party Cruise Experience',
+    description: 'Plan the ultimate Lake Travis bachelor party on Austins best party boats. Experience the famous ATX Disco Cruise where bachelor and bachelorette groups party together. BYOB-friendly with Party On Delivery coordination. Book your Austin party boat today!',
+    publishDate: '2024-05-01',
+    modifiedDate: '2026-02-01',
+    author: 'Premier Party Cruises',
+    heroImage: 'https://premierpartycruises.com/media/schema/hero-boat-1.jpg',
+    keywords: ['Lake Travis bachelor party', 'Austin party boat', 'party boat Austin', 'Lake Travis party barge', 'Austin party barge', 'bachelor party in Austin', 'ATX Disco Cruise', 'Lake Travis boat rental', 'Austin bachelor party boats']
+  },
+
+  'blogs/perfect-austin-bachelor-party-weekend': {
+    slug: 'blogs/perfect-austin-bachelor-party-weekend',
+    title: 'The Perfect Austin Bachelor Party Weekend: A 3-Day Itinerary',
+    description: 'Plan the perfect bachelor party in Austin with our complete 3-day itinerary. From the ATX Disco Cruise on Lake Travis to 6th Street bar crawls, Texas BBQ, and Rainey Street - discover the ultimate Austin bachelor party weekend guide.',
+    publishDate: '2024-04-01',
+    modifiedDate: '2026-02-01',
+    author: 'Premier Party Cruises',
+    heroImage: 'https://premierpartycruises.com/media/schema/hero-boat-1.jpg',
+    keywords: ['Austin bachelor party', 'bachelor party in Austin', 'Austin party boat', 'party boat Austin', 'Lake Travis party barge', 'ATX Disco Cruise', 'ideas for bachelor party in Austin', 'Austin bachelor party itinerary', '3 day bachelor party Austin', 'bachelor party weekend Austin TX']
   }
 };
 
