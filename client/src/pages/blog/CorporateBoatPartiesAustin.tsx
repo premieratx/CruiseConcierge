@@ -246,7 +246,7 @@ export default function CorporateBoatPartiesAustin() {
               variants={staggerChildren}
               className="text-center mb-12"
             >
-              <h2 className="font-unbounded text-3xl md:text-4xl font-bold mb-4">Corporate Events Have a Serious Problem</h2>
+              <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ fontFamily: "'Unbounded', sans-serif", textTransform: "none" }}>Corporate Events Have a Serious Problem</h2>
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Restaurants, hotel ballrooms, and rented event spaces all blur together. 
                 Employees and clients may show up, but they rarely remember the experience.
@@ -267,7 +267,7 @@ export default function CorporateBoatPartiesAustin() {
                       <div className={`w-16 h-16 mx-auto mb-4 ${item.bg} rounded-full flex items-center justify-center`}>
                         <item.icon className={`h-8 w-8 ${item.color}`} />
                       </div>
-                      <h3 className="font-unbounded font-bold text-lg mb-2">{item.title}</h3>
+                      <h3 className="font-bold text-lg mb-2" style={{ fontFamily: "'Unbounded', sans-serif", textTransform: "none" }}>{item.title}</h3>
                       <p className="text-gray-600 dark:text-gray-400 text-sm">{item.description}</p>
                     </CardContent>
                   </Card>
@@ -301,7 +301,7 @@ export default function CorporateBoatPartiesAustin() {
               <div className="grid lg:grid-cols-2 gap-12 items-center">
                 <div>
                   <Badge className="mb-4 bg-blue-100 text-blue-700">THE SOLUTION</Badge>
-                  <h2 className="font-unbounded text-3xl font-bold mb-6">Why Lake Travis Works for Corporate Events</h2>
+                  <h2 className="text-3xl font-bold mb-6" style={{ fontFamily: "'Unbounded', sans-serif", textTransform: 'none' }}>Why Lake Travis Works for Corporate Events</h2>
                   <p className="text-lg text-gray-700 dark:text-gray-300 mb-8 leading-relaxed">
                     A corporate boat party in Austin succeeds because it naturally solves the problems traditional venues create.
                   </p>
@@ -313,7 +313,7 @@ export default function CorporateBoatPartiesAustin() {
                           <item.icon className={`h-6 w-6 ${item.color}`} />
                         </div>
                         <div>
-                          <h3 className="font-unbounded font-bold text-lg mb-1">{item.title}</h3>
+                          <h3 className="font-bold text-lg mb-1" style={{ fontFamily: "'Unbounded', sans-serif", textTransform: 'none' }}>{item.title}</h3>
                           <p className="text-gray-600 dark:text-gray-400 text-sm">{item.description}</p>
                         </div>
                       </div>
@@ -355,7 +355,7 @@ export default function CorporateBoatPartiesAustin() {
               className="text-center mb-12"
             >
               <Badge className="mb-4 bg-green-100 text-green-700">EVENT TYPES</Badge>
-              <h2 className="font-unbounded text-3xl font-bold mb-4">What Types of Corporate Events Work Best on a Boat?</h2>
+              <h2 className="text-3xl font-bold mb-4" style={{ fontFamily: "'Unbounded', sans-serif", textTransform: "none" }}>What Types of Corporate Events Work Best on a Boat?</h2>
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Premier Party Cruises regularly hosts a wide variety of corporate events on Lake Travis party boats.
               </p>
@@ -417,7 +417,7 @@ export default function CorporateBoatPartiesAustin() {
                 
                 <div className="order-1 lg:order-2">
                   <Badge className="mb-4 bg-purple-400 text-black">FOR CREATIVE TEAMS</Badge>
-                  <h2 className="font-unbounded text-3xl font-bold mb-6">ATX Disco Cruise for Corporate Groups</h2>
+                  <h2 className="text-3xl font-bold mb-6" style={{ fontFamily: "'Unbounded', sans-serif", textTransform: "none" }}>ATX Disco Cruise for Corporate Groups</h2>
                   <p className="text-lg text-white/90 mb-4 leading-relaxed">
                     While the ATX Disco Cruise is best known for bachelor and bachelorette parties, 
                     it works exceptionally well for:
@@ -465,14 +465,14 @@ export default function CorporateBoatPartiesAustin() {
               <div className="grid lg:grid-cols-2 gap-12 items-center">
                 <div>
                   <Badge className="mb-4 bg-slate-100 text-slate-700">TRADITIONAL CORPORATE</Badge>
-                  <h2 className="font-unbounded text-3xl font-bold mb-6">Private Corporate Party Boats on Lake Travis</h2>
+                  <h2 className="text-3xl font-bold mb-6" style={{ fontFamily: "'Unbounded', sans-serif", textTransform: "none" }}>Private Corporate Party Boats on Lake Travis</h2>
                   <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
                     For more traditional corporate groups, private charters are often the better fit. 
                     You control the experience completely.
                   </p>
                   
                   <div className="mb-8">
-                    <h3 className="font-unbounded font-bold text-lg mb-4">Private corporate boats offer:</h3>
+                    <h3 className="font-bold text-lg mb-4" style={{ fontFamily: "'Unbounded', sans-serif", textTransform: "none" }}>Private corporate boats offer:</h3>
                     <ul className="space-y-3">
                       {privateFeatures.map((feature, index) => (
                         <li key={index} className="flex items-center gap-3">
@@ -525,7 +525,7 @@ export default function CorporateBoatPartiesAustin() {
             >
               <div className="max-w-4xl mx-auto text-center">
                 <Badge className="mb-4 bg-amber-100 text-amber-700">HANDLED CORRECTLY</Badge>
-                <h2 className="font-unbounded text-3xl font-bold mb-6">Alcohol at Corporate Events</h2>
+                <h2 className="text-3xl font-bold mb-6" style={{ fontFamily: "'Unbounded', sans-serif", textTransform: "none" }}>Alcohol at Corporate Events</h2>
                 <p className="text-lg text-gray-700 dark:text-gray-300 mb-8 leading-relaxed">
                   Alcohol at corporate events is sensitive. A Lake Travis party boat solves this elegantly.
                 </p>
@@ -548,7 +548,7 @@ export default function CorporateBoatPartiesAustin() {
 
                 <Card className="bg-white dark:bg-gray-800 border-2 border-amber-200">
                   <CardContent className="p-6">
-                    <h3 className="font-unbounded font-bold text-lg mb-3">Simplify with Party On Delivery</h3>
+                    <h3 className="font-bold text-lg mb-3" style={{ fontFamily: "'Unbounded', sans-serif", textTransform: "none" }}>Simplify with Party On Delivery</h3>
                     <p className="text-gray-600 dark:text-gray-400 mb-4">
                       Many companies partner with Party On Delivery to simplify logistics without encouraging excess. 
                       Alcohol delivered directly to the marina—no employee errands, no reimbursement chaos.
@@ -581,7 +581,7 @@ export default function CorporateBoatPartiesAustin() {
               className="text-center mb-12"
             >
               <Badge className="mb-4 bg-green-100 text-green-700">BUDGET-FRIENDLY</Badge>
-              <h2 className="font-unbounded text-3xl font-bold mb-4">Cost Transparency (Why Finance Teams Like Boats)</h2>
+              <h2 className="text-3xl font-bold mb-4" style={{ fontFamily: "'Unbounded', sans-serif", textTransform: "none" }}>Cost Transparency (Why Finance Teams Like Boats)</h2>
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 When compared to traditional venues, a corporate Lake Travis party boat often delivers 
                 higher perceived value at similar or lower cost.
@@ -628,7 +628,7 @@ export default function CorporateBoatPartiesAustin() {
             >
               <div className="text-center mb-12">
                 <Badge className="mb-4 bg-white text-blue-700">PROFESSIONALISM</Badge>
-                <h2 className="font-unbounded text-3xl font-bold mb-4">Safety, Compliance, and Professionalism</h2>
+                <h2 className="text-3xl font-bold mb-4" style={{ fontFamily: "'Unbounded', sans-serif", textTransform: "none" }}>Safety, Compliance, and Professionalism</h2>
                 <p className="text-lg text-white/80 max-w-3xl mx-auto">
                   This is where Premier Party Cruises stands apart. Every corporate event includes:
                 </p>
@@ -664,7 +664,7 @@ export default function CorporateBoatPartiesAustin() {
               className="text-center mb-12"
             >
               <Badge className="mb-4 bg-blue-100 text-blue-700">CRUISE OPTIONS</Badge>
-              <h2 className="font-unbounded text-3xl font-bold mb-4">Ideal Corporate Event Formats on the Water</h2>
+              <h2 className="text-3xl font-bold mb-4" style={{ fontFamily: "'Unbounded', sans-serif", textTransform: "none" }}>Ideal Corporate Event Formats on the Water</h2>
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 All formats benefit from the same core advantage: shared experience without distraction.
               </p>
@@ -714,7 +714,7 @@ export default function CorporateBoatPartiesAustin() {
               variants={fadeInUp}
               className="text-center mb-12"
             >
-              <h2 className="font-unbounded text-3xl font-bold mb-4">FAQs – Corporate Boat Parties in Austin</h2>
+              <h2 className="text-3xl font-bold mb-4" style={{ fontFamily: "'Unbounded', sans-serif", textTransform: "none" }}>FAQs – Corporate Boat Parties in Austin</h2>
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 Common questions about hosting corporate events on Lake Travis
               </p>
@@ -749,7 +749,7 @@ export default function CorporateBoatPartiesAustin() {
               viewport={{ once: true }}
               variants={fadeInUp}
             >
-              <h2 className="font-unbounded text-3xl md:text-4xl font-bold mb-4">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ fontFamily: "'Unbounded', sans-serif", textTransform: "none" }}>
                 Boats Beat Ballrooms
               </h2>
               <p className="text-xl text-white/80 mb-8 max-w-2xl mx-auto">
