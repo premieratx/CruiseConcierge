@@ -59,6 +59,11 @@ html, body {
   font-family: 'Candal', sans-serif !important;
 }
 
+/* Unbounded font utility class - modern rounded headings */
+.font-unbounded {
+  font-family: 'Unbounded', sans-serif !important;
+}
+
 /* CLS FIX: Common aspect ratio utilities for image containers */
 .aspect-video { aspect-ratio: 16 / 9; }
 .aspect-square { aspect-ratio: 1 / 1; }
