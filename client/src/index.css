@@ -62,6 +62,16 @@ html, body {
 /* Unbounded font utility class - modern rounded headings */
 .font-unbounded {
   font-family: 'Unbounded', sans-serif !important;
+  text-transform: none !important;
+  letter-spacing: -0.02em !important;
+}
+
+/* Apply Unbounded to heading levels when class is present */
+h2.font-unbounded,
+h3.font-unbounded,
+h4.font-unbounded {
+  font-family: 'Unbounded', sans-serif !important;
+  text-transform: none !important;
 }
 
 /* CLS FIX: Common aspect ratio utilities for image containers */
@@ -1320,4 +1330,17 @@ button,
     bottom: 0 !important;
     transform: none !important;
   }
+}
+
+/* OVERRIDE: Unbounded font for modern headings - placed at end for highest priority */
+.font-unbounded,
+h1.font-unbounded,
+h2.font-unbounded,
+h3.font-unbounded,
+h4.font-unbounded,
+h5.font-unbounded,
+h6.font-unbounded {
+  font-family: 'Unbounded', sans-serif !important;
+  text-transform: none !important;
+  letter-spacing: -0.01em !important;
 }
