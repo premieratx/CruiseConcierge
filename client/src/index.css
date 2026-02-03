@@ -1,4 +1,6 @@
 /* MOBILE PAGESPEED: Removed @import - fonts loaded async via index.html preload */
+/* Direct import for Unbounded font to ensure it loads */
+@import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -1340,6 +1342,31 @@ h3.font-unbounded,
 h4.font-unbounded,
 h5.font-unbounded,
 h6.font-unbounded {
+  font-family: 'Unbounded', sans-serif !important;
+  text-transform: none !important;
+  letter-spacing: -0.01em !important;
+}
+
+/* CRITICAL: Force Unbounded font on headings - must be last for highest priority */
+h1[style*="Unbounded"],
+h2[style*="Unbounded"],
+h3[style*="Unbounded"],
+h4[style*="Unbounded"],
+h5[style*="Unbounded"],
+h6[style*="Unbounded"] {
+  font-family: 'Unbounded', sans-serif !important;
+  text-transform: none !important;
+}
+
+/* FINAL OVERRIDE: Unbounded heading class - override the CSS variable */
+.heading-unbounded,
+h1.heading-unbounded,
+h2.heading-unbounded,
+h3.heading-unbounded,
+h4.heading-unbounded,
+h5.heading-unbounded,
+h6.heading-unbounded {
+  --font-heading: 'Unbounded', sans-serif !important;
   font-family: 'Unbounded', sans-serif !important;
   text-transform: none !important;
   letter-spacing: -0.01em !important;
