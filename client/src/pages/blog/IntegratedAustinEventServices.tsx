@@ -109,7 +109,7 @@ const cruiseOptions = [
   {
     title: 'ATX Disco Cruise',
     subtitle: 'The ONLY Multi-Group All-Inclusive Party in the U.S.',
-    price: 'From $149/person',
+    price: '$85-$105/person',
     features: [
       '4-hour all-inclusive experience',
       'Professional DJ spinning party hits',
@@ -125,7 +125,7 @@ const cruiseOptions = [
   {
     title: 'Private Cruises',
     subtitle: 'Exclusive Boat Just for Your Group',
-    price: 'From $850 (14 guests)',
+    price: 'From $1,050 (14 guests)',
     features: [
       'Private boat for your group only',
       'Flexible 3-4+ hour duration',
