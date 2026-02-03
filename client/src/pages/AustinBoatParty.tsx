@@ -68,7 +68,6 @@ export default function AustinBoatParty() {
       heroSubtitle="Turn up the music, dive into Lake Travis, and celebrate under the Texas sun. Your unforgettable boat party starts here."
       heroBadge="Party on the Water"
       heroIcon={PartyPopper}
-      videoId="4-Yx24Y6oro"
       heroImage="/attached_assets/party-atmosphere-1.jpg"
       introTitle="Austin's Best Boat Party Awaits"
       introText="Forget the ordinary. An Austin boat party on Lake Travis is the ultimate way to celebrate with friends. Picture this: your favorite music pumping through premium speakers, crystal-clear water for swimming, stunning Hill Country views, and your whole crew together for an epic day. That's what we deliver, every single cruise."

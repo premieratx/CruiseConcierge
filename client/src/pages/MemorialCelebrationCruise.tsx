@@ -69,7 +69,6 @@ export default function MemorialCelebrationCruise() {
       heroSubtitle="Honor their memory with a peaceful, meaningful gathering on Austin's beautiful waters"
       heroBadge="Celebration of Life"
       heroIcon={Heart}
-      videoId="4-Yx24Y6oro"
       heroImage="/attached_assets/party-atmosphere-2.jpg"
       introTitle="A Beautiful Way to Remember"
       introText="Some lives are so special, they deserve to be celebrated in an equally special way. A private cruise on Lake Travis provides a peaceful, beautiful setting to gather with loved ones, share memories, and honor a life well lived. The serene waters and stunning Texas scenery create a meaningful backdrop for remembrance."

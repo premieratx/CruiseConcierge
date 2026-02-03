@@ -69,7 +69,6 @@ export default function EngagementPartyCruise() {
       heroSubtitle="Announce your love and celebrate with friends and family on a stunning Lake Travis cruise featuring champagne toasts, beautiful sunsets, and joyful moments."
       heroBadge="Engagement Celebrations"
       heroIcon={Heart}
-      videoId="4-Yx24Y6oro"
       heroImage="/attached_assets/party-atmosphere-1.jpg"
       introTitle="Share Your Joy on the Water"
       introText="You said yes - now it's time to celebrate! An engagement party cruise on Lake Travis brings together your favorite people in a spectacular setting. Watch your families bond, toast to your future together, and dance under the Texas sky. Our experienced crew takes care of everything so you can focus on basking in the excitement of your engagement."

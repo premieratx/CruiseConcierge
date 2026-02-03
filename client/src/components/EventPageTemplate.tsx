@@ -124,6 +124,7 @@ interface EventPageTemplateProps {
   heroBadge: string;
   heroIcon: LucideIcon;
   videoId?: string;
+  localVideo?: string;
   heroImage: string;
   introTitle: string;
   introText: string;
@@ -151,7 +152,8 @@ export default function EventPageTemplate({
   heroSubtitle,
   heroBadge,
   heroIcon: HeroIcon,
-  videoId = '4-Yx24Y6oro',
+  videoId,
+  localVideo = '/attached_assets/Boat_Video_Walkthrough_Generated_1761209219959.mp4',
   heroImage,
   introTitle,
   introText,
@@ -188,7 +190,22 @@ export default function EventPageTemplate({
 
       <main className="min-h-screen bg-white">
         <section className="relative min-h-[70vh] flex flex-col justify-center overflow-hidden">
-          <YouTubeVideoBackground videoId={videoId} posterImage={heroImage} />
+          {videoId ? (
+            <YouTubeVideoBackground videoId={videoId} posterImage={heroImage} />
+          ) : (
+            <div className="absolute inset-0 z-0">
+              <video
+                className="w-full h-full object-cover opacity-60"
+                src={localVideo}
+                muted
+                loop
+                autoPlay
+                playsInline
+                poster={heroImage}
+              />
+              <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/60" />
+            </div>
+          )}
 
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 text-white text-center flex-grow flex items-center w-full py-12 md:py-20">
             <motion.div

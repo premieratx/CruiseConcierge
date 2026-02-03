@@ -69,7 +69,6 @@ export default function BirthdayPartyBoatRental() {
       heroSubtitle="Make your special day unforgettable with a private birthday cruise on Austin's most beautiful lake"
       heroBadge="Birthday Celebrations"
       heroIcon={Cake}
-      videoId="4-Yx24Y6oro"
       heroImage="/attached_assets/party-atmosphere-1.jpg"
       introTitle="The Ultimate Birthday Party Experience"
       introText="Forget the crowded restaurants and boring party venues. Celebrate your birthday on a private boat cruising Lake Travis with stunning views, your favorite music, and all your friends. From intimate gatherings to large celebrations, we make every birthday legendary."

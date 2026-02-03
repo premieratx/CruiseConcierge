@@ -69,7 +69,6 @@ export default function RetirementPartyCruise() {
       heroSubtitle="Honor a career of dedication with an unforgettable celebration on Austin's beautiful lake"
       heroBadge="Retirement Celebrations"
       heroIcon={Briefcase}
-      videoId="4-Yx24Y6oro"
       heroImage="/attached_assets/party-atmosphere-1.jpg"
       introTitle="They've Earned This Celebration"
       introText="After years of early mornings, late nights, and countless contributions, retirement deserves more than a cake in the break room. Celebrate their career with a private Lake Travis cruise where colleagues, friends, and family can properly honor their achievements and toast to the adventures ahead."

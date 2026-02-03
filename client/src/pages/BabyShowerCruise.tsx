@@ -69,7 +69,6 @@ export default function BabyShowerCruise() {
       heroSubtitle="Celebrate the mom-to-be with an unforgettable baby shower cruise on Lake Travis featuring gifts, games, and gorgeous lakeside views."
       heroBadge="Baby Celebrations"
       heroIcon={Baby}
-      videoId="4-Yx24Y6oro"
       heroImage="/attached_assets/party-atmosphere-2.jpg"
       introTitle="A Baby Shower to Remember"
       introText="Give the mom-to-be a baby shower experience unlike any other. A Lake Travis cruise combines the joy of celebrating new life with the beauty of nature. Open adorable baby gifts with the Texas Hill Country as your backdrop, play games on the open deck, and create precious memories that will be shared for years to come. Our gentle cruises are perfect for expecting moms."

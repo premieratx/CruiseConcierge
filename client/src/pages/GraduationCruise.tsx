@@ -69,7 +69,6 @@ export default function GraduationCruise() {
       heroSubtitle="Celebrate their achievement with an unforgettable graduation party on Austin's most beautiful lake"
       heroBadge="Graduation Celebrations"
       heroIcon={GraduationCap}
-      videoId="4-Yx24Y6oro"
       heroImage="/attached_assets/party-atmosphere-3.jpg"
       introTitle="They Earned an Epic Celebration"
       introText="After years of hard work, late nights studying, and countless exams, your graduate deserves a celebration that matches their achievement. A private Lake Travis cruise is the perfect way to honor their success before they embark on their next adventure."

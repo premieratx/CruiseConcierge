@@ -69,7 +69,6 @@ export default function AnniversaryCruise() {
       heroSubtitle="Celebrate your love story with a private cruise featuring stunning sunsets and unforgettable moments"
       heroBadge="Anniversary Celebrations"
       heroIcon={Heart}
-      videoId="4-Yx24Y6oro"
       heroImage="/attached_assets/party-atmosphere-2.jpg"
       introTitle="Celebrate Your Love on the Water"
       introText="Your anniversary deserves more than a dinner reservation. Escape to Lake Travis for a private cruise where you can toast your love, enjoy stunning views, and create new memories together. Whether it's your first anniversary or your fiftieth, we make every celebration special."

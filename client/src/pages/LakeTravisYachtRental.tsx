@@ -68,7 +68,6 @@ export default function LakeTravisYachtRental() {
       heroSubtitle="Elevate your celebration with Austin's premier yacht experience. Stunning vessels, professional crew, and unforgettable views of Texas Hill Country."
       heroBadge="Luxury Yacht Experience"
       heroIcon={Crown}
-      videoId="4-Yx24Y6oro"
       heroImage="/attached_assets/clever-girl-50-person-boat.jpg"
       introTitle="Experience Lake Travis in Luxury"
       introText="For those who demand the finest, our Lake Travis yacht rentals deliver an unparalleled experience. Whether you're hosting a corporate event, celebrating a milestone, or treating your group to something special, our luxury vessels provide the perfect backdrop for your most important occasions."

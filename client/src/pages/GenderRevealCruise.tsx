@@ -69,7 +69,6 @@ export default function GenderRevealCruise() {
       heroSubtitle="Make your gender reveal unforgettable with a stunning Lake Travis cruise featuring the perfect backdrop for your big pink or blue announcement."
       heroBadge="Gender Reveal Celebrations"
       heroIcon={Sparkles}
-      videoId="4-Yx24Y6oro"
       heroImage="/attached_assets/party-atmosphere-3.jpg"
       introTitle="The Ultimate Gender Reveal Setting"
       introText="Pink or blue? Make your big announcement absolutely epic on Lake Travis! A gender reveal cruise gives you the stunning natural backdrop, the space for creative reveals, and the privacy to share this special moment with your closest family and friends. From confetti cannons to colored smoke, the open water provides the perfect canvas for your reveal and the reactions you'll treasure forever."

@@ -68,7 +68,6 @@ export default function CelebrationCruises() {
       heroSubtitle="Anniversaries, engagements, graduations, and every milestone in between—make your celebration unforgettable with a private cruise."
       heroBadge="Celebrate in Style"
       heroIcon={Heart}
-      videoId="4-Yx24Y6oro"
       heroImage="/attached_assets/party-atmosphere-2.jpg"
       introTitle="Every Celebration Deserves Something Special"
       introText="Life's milestones deserve more than a dinner reservation. Our celebration cruises on Lake Travis transform your special occasion into an unforgettable experience. Whether you're marking an anniversary, toasting an engagement, celebrating a graduation, or honoring any of life's precious moments, we provide the perfect setting for your memories."

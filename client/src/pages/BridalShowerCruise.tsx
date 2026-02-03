@@ -69,7 +69,6 @@ export default function BridalShowerCruise() {
       heroSubtitle="Give the bride an unforgettable bridal shower on Lake Travis with champagne toasts, stunning views, and quality time with her favorite ladies."
       heroBadge="Bridal Celebrations"
       heroIcon={Gift}
-      videoId="4-Yx24Y6oro"
       heroImage="/attached_assets/party-atmosphere-3.jpg"
       introTitle="A Bridal Shower She'll Never Forget"
       introText="Forget the traditional living room bridal shower - treat the bride-to-be to an experience she'll cherish forever. A Lake Travis bridal shower cruise combines the elegance of a celebration with the adventure of being on the water. Open gifts with the Texas Hill Country as your backdrop, play games on the open deck, and toast to love as the sun sets over the lake."

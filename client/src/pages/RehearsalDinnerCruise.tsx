@@ -69,7 +69,6 @@ export default function RehearsalDinnerCruise() {
       heroSubtitle="Celebrate the night before your wedding with an unforgettable Lake Travis cruise featuring stunning sunsets, delicious food, and quality time with your wedding party."
       heroBadge="Wedding Celebrations"
       heroIcon={Wine}
-      videoId="4-Yx24Y6oro"
       heroImage="/attached_assets/party-atmosphere-2.jpg"
       introTitle="The Perfect Pre-Wedding Celebration"
       introText="Skip the traditional restaurant and give your wedding party an experience they'll never forget. A Lake Travis rehearsal dinner cruise brings together both families in a relaxed, beautiful setting. Watch the sunset paint the Texas Hill Country in golden hues while toasting to the happy couple. Our experienced crew handles all the details so you can focus on celebrating this special milestone."

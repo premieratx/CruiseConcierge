@@ -68,7 +68,6 @@ export default function HolidayPartyCruise() {
       heroSubtitle="Christmas parties, New Year's Eve celebrations, and festive gatherings—make this holiday season unforgettable with a cruise."
       heroBadge="Holiday Celebrations"
       heroIcon={Snowflake}
-      videoId="4-Yx24Y6oro"
       heroImage="/attached_assets/party-atmosphere-1.jpg"
       introTitle="The Most Wonderful Time for a Cruise"
       introText="This holiday season, skip the same old venues and celebrate on Lake Travis. Our holiday party cruises offer a unique, memorable experience for Christmas parties, New Year's Eve celebrations, and every festive gathering in between. Whether it's a corporate event or a family celebration, we make the holidays magical on the water."

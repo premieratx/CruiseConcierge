@@ -69,7 +69,6 @@ export default function ProposalCruise() {
       heroSubtitle="Create an unforgettable proposal moment with stunning lake views, romantic sunset lighting, and complete privacy for your special question."
       heroBadge="Romantic Proposals"
       heroIcon={Heart}
-      videoId="4-Yx24Y6oro"
       heroImage="/attached_assets/party-atmosphere-1.jpg"
       introTitle="The Perfect Proposal Setting"
       introText="Lake Travis provides the ultimate romantic backdrop for your marriage proposal. Imagine dropping to one knee as the sun sets over the Texas Hill Country, with the peaceful waters reflecting golden light. Our experienced crew helps coordinate every detail discreetly, from hiding photographers to timing the champagne service, ensuring your proposal moment is absolutely perfect."

@@ -68,7 +68,6 @@ export default function PromCruise() {
       heroSubtitle="Skip the ordinary venue and celebrate prom on Lake Travis. Stunning sunsets, great music, and memories that last a lifetime."
       heroBadge="School Event Cruises"
       heroIcon={GraduationCap}
-      videoId="4-Yx24Y6oro"
       heroImage="/attached_assets/party-atmosphere-3.jpg"
       introTitle="Elevate Your Prom Experience"
       introText="Prom should be extraordinary. Our Lake Travis prom cruises offer students a unique, memorable experience that stands out from traditional venues. With beautiful sunset views, premium sound systems for dancing, and stunning photo opportunities, a prom cruise creates the magical evening every student deserves."

@@ -68,7 +68,6 @@ export default function PartyBoatRentalAustin() {
       heroSubtitle="Experience Lake Travis aboard our luxury party boats. Perfect for birthdays, bachelor parties, corporate events, and any celebration worth remembering."
       heroBadge="Party Boat Rentals"
       heroIcon={Ship}
-      videoId="4-Yx24Y6oro"
       heroImage="/attached_assets/clever-girl-50-person-boat.jpg"
       introTitle="Your Austin Party Boat Adventure Awaits"
       introText="Looking for the ultimate party experience in Austin? Our party boat rentals on Lake Travis offer the perfect setting for any celebration. From intimate gatherings to large group parties, our fleet of professionally captained boats provides everything you need for an unforgettable day on the water."

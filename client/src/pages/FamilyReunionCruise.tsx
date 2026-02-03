@@ -69,7 +69,6 @@ export default function FamilyReunionCruise() {
       heroSubtitle="Bring generations together for an unforgettable day of fun and connection on Austin's beautiful lake"
       heroBadge="Family Celebrations"
       heroIcon={Users}
-      videoId="4-Yx24Y6oro"
       heroImage="/attached_assets/party-atmosphere-3.jpg"
       introTitle="Quality Family Time on the Water"
       introText="Skip the backyard BBQ and create memories your family will talk about for years. A private Lake Travis cruise brings everyone together - from grandparents to grandkids - for swimming, photos, great food, and the kind of quality time that's hard to find anywhere else. Make your next family reunion truly unforgettable."
