@@ -1573,6 +1573,50 @@ export const blogMetadataRegistry: Record<string, BlogMetadata> = {
     author: 'Premier Party Cruises',
     heroImage: 'https://premierpartycruises.com/media/schema/disco-dance-floor.jpg',
     keywords: ['private charter Austin', 'ATX Disco Cruise comparison', 'Lake Travis party boat', 'Austin party boat options']
+  },
+
+  'blogs/austin-bachelorette-party-vs-lake-travis-boat-why-lake-wins': {
+    slug: 'blogs/austin-bachelorette-party-vs-lake-travis-boat-why-lake-wins',
+    title: 'Lake Travis vs Austin Nightlife Bachelorette Party Guide',
+    description: 'Compare Lake Travis party boats to Austin nightlife for your bachelorette. Discover why boat cruises offer more fun, less stress, and unforgettable memories.',
+    publishDate: '2024-05-01',
+    modifiedDate: '2026-02-03',
+    author: 'Premier Party Cruises',
+    heroImage: 'https://premierpartycruises.com/media/schema/disco-dance-floor.jpg',
+    keywords: ['Lake Travis bachelorette', 'Austin nightlife comparison', 'bachelorette party boat', 'Austin bachelorette party']
+  },
+
+  'blogs/corporate-boat-parties-austin-lake-travis-smartest-venue': {
+    slug: 'blogs/corporate-boat-parties-austin-lake-travis-smartest-venue',
+    title: 'Corporate Boat Parties in Austin | Lake Travis Venue That Beats Ballrooms',
+    description: 'Looking for unique corporate event ideas in Austin? Discover why Lake Travis party boats outperform traditional venues for team-building, client entertainment, and company celebrations.',
+    publishDate: '2024-06-01',
+    modifiedDate: '2026-02-03',
+    author: 'Premier Party Cruises',
+    heroImage: 'https://premierpartycruises.com/media/schema/hero-boat-1.jpg',
+    keywords: ['corporate boat parties Austin', 'Lake Travis corporate events', 'Austin team building', 'corporate party venue Austin']
+  },
+
+  'blogs/private-party-cruise-vs-party-boat-pontoon-lake-travis': {
+    slug: 'blogs/private-party-cruise-vs-party-boat-pontoon-lake-travis',
+    title: 'Private Party Cruise vs Party Boat vs Pontoon on Lake Travis',
+    description: 'Comparing private party cruise, party boat, and pontoon options on Lake Travis? Learn why a professionally captained private cruise is the safest, easiest choice for bachelor parties, bachelorettes, families, and corporate events.',
+    publishDate: '2024-04-15',
+    modifiedDate: '2026-02-03',
+    author: 'Premier Party Cruises',
+    heroImage: 'https://premierpartycruises.com/media/schema/hero-boat-1.jpg',
+    keywords: ['private party cruise Lake Travis', 'party boat vs pontoon', 'Lake Travis boat comparison', 'best party boat Austin']
+  },
+
+  'blogs/why-atx-disco-cruise-austins-most-booked-party-boat-experience': {
+    slug: 'blogs/why-atx-disco-cruise-austins-most-booked-party-boat-experience',
+    title: 'Why the ATX Disco Cruise Is Austins Most Booked Party Boat Experience',
+    description: 'Discover why the ATX Disco Cruise is Austins most booked party boat. Complete breakdown of what makes this Lake Travis party boat experience dominate bachelor, bachelorette, and group celebrations.',
+    publishDate: '2024-03-15',
+    modifiedDate: '2026-02-03',
+    author: 'Premier Party Cruises',
+    heroImage: 'https://premierpartycruises.com/media/schema/disco-dance-floor.jpg',
+    keywords: ['ATX Disco Cruise', 'Austin party boat', 'most booked party boat', 'Lake Travis disco cruise']
   }
 };
 

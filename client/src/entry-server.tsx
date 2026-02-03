@@ -66,7 +66,6 @@ async function preloadBlogModule(url: string): Promise<void> {
     'quarterly-outings-lake-travis-make-routine-company-events-easy': () => import('./pages/blog/QuarterlyOutingsLakeTravis'),
     'accessible-lake-travis-boat-parties-inclusive-event-planning-for-all-guests': () => import('./pages/blog/AccessibleLakeTravisParties'),
     'why-austin-companies-choose-premier': () => import('./pages/blog/WhyAustinCompaniesChoosePremier'),
-    'bachelorette-party-vs-downtown-nightlife-austin': () => import('./pages/blog/BachelorettePartyVsNightlife'),
     'budget-friendly-bachelorette-party-alcohol-maximum-fun-without-breaking-the-bank': () => import('./pages/blog/BudgetFriendlyBacheloretteAlcohol'),
     'instagram-worthy-bachelorette-party-cocktails-recipes-and-delivery-coordination': () => import('./pages/blog/InstagramBacheloretteCocktails'),
     'lake-travis-boat-party-costs-complete-pricing-guide-and-budget-planning': () => import('./pages/blog/LakeTravisBoatPartyCosts'),
@@ -139,6 +138,8 @@ async function preloadBlogModule(url: string): Promise<void> {
     'ultimate-austin-bachelorette-party-boat-guide-lake-travis': () => import('./pages/blog/UltimateAustinBacheloretteBoatGuide'),
     'lake-travis-party-boat-vs-downtown-night-out-austin-bachelor': () => import('./pages/blog/PartyBoatVsDowntownNightOut'),
     'private-charter-vs-atx-disco-cruise-which-austin-party-boat': () => import('./pages/blog/PrivateCharterVsDiscoCruise'),
+    'austin-bachelorette-party-vs-lake-travis-boat-why-lake-wins': () => import('./pages/blog/BachelorettePartyVsNightlife'),
+    'corporate-boat-parties-austin-lake-travis-smartest-venue': () => import('./pages/blog/CorporateBoatPartiesAustin'),
   };
   
   const moduleLoader = blogModules[slug];
