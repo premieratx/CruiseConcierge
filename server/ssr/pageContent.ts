@@ -5689,6 +5689,49 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
     ],
     relatedPages: ['bachelorette-party', 'atx-disco', 'private-cruises', 'combined-bach', 'testimonials', 'faq', 'contact']
   },
+  '/blogs/joint-bachelor-bachelorette-party-guide': {
+    h1: 'How to Plan an Amazing Joint Bachelor Bachelorette Party in Austin',
+    introduction: 'Planning a joint bachelor bachelorette party in Austin? More couples are choosing to celebrate together with combined pre-wedding parties on Lake Travis. The [[atx-disco]] is perfect for co-ed groups, designed specifically for bachelor AND bachelorette parties celebrating together. With 15+ years of hosting epic celebrations and 150,000+ happy customers, Premier Party Cruises helps couples unite their crews for one legendary celebration.',
+    sections: [
+      {
+        heading: 'Why Choose a Combined Bachelor Bachelorette Party',
+        paragraphs: [
+          'Joint bachelor bachelorette parties are trending for great reasons: celebrate together side by side with your partner, unite bridesmaids and groomsmen before the wedding so no one\'s strangers at the altar, save money with one epic party instead of two, reduce planning stress by coordinating one celebration, and create shared memories you\'ll both tell at your reception.',
+          'The [[atx-disco]] is the perfect venue for combined celebrations. Multiple groups celebrate together on our flagship boats with professional DJ, photographer, giant lily pad floats, and high-energy party atmosphere. It\'s designed for exactly this kind of co-ed celebration on Lake Travis.'
+        ]
+      },
+      {
+        heading: 'ATX Disco Cruise: Perfect for Joint Celebrations',
+        paragraphs: [
+          'The [[atx-disco]] offers everything you need for an epic joint party: professional DJ spinning 70s disco to today\'s hits keeps everyone dancing, professional photographer captures every legendary moment, 6x20 foot giant lily pad floats perfect for your combined crew, USCG-certified captains with 15+ years and a perfect safety record.',
+          'Time slots and pricing: Saturday 3:30-7:30pm at $85/person, Friday 12-4pm at $95/person, Saturday 11am-3pm at $105/person. All prices include tax and gratuity. All cruises are BYOB-friendly for guests 21+ with valid ID. Alcohol delivery services can bring orders to Anderson Mill Marina.'
+        ]
+      },
+      {
+        heading: '3-Day Austin Joint Bach Party Itinerary',
+        paragraphs: [
+          'Day 1: Arrival and group bonding. Check into your Airbnb or hotel near Lake Travis. Welcome happy hour on Rainey Street where bridesmaids meet groomsmen. Group dinner at Texas BBQ spot like Terry Black\'s or Salt Lick. Evening bar hopping on 6th Street together.',
+          'Day 2: The main event! Late brunch with mimosas and tacos. Party On Delivery brings drinks to Anderson Mill Marina. 4-hour ATX Disco Cruise on Lake Travis - the highlight of your weekend! Sunset drinks at Oasis Texas overlooking the lake. Downtown celebration on West 6th or East Austin.',
+          'Day 3: Farewell and departure. Casual breakfast and gift exchange. Optional activities: Barton Springs swimming, South Congress shopping, or spa recovery. Afternoon departures with amazing shared memories.'
+        ]
+      },
+      {
+        heading: 'Private Charter Options for Large Groups',
+        paragraphs: [
+          'For groups wanting exclusive access, [[private-cruises]] offer complete customization. "Clever Girl" accommodates up to 75 guests - perfect for combined bachelor and bachelorette parties with all friends together. Control the music, customize the route, and celebrate on your own terms.',
+          '"Day Tripper" handles intimate groups of 1-14 guests starting at $800. "Meeseeks / The Irony" fits 15-30 guests starting at $900. "Clever Girl" accommodates 31-75 guests starting at $1,000. All private charters include licensed captains, premium Bluetooth sound, large coolers with ice, and the full Lake Travis experience.'
+        ]
+      },
+      {
+        heading: 'Book Your Joint Celebration',
+        paragraphs: [
+          'Weekend dates during peak season (April-October) book 6-8 weeks in advance. Major holiday weekends fill even earlier. Call 512-488-5892 to reserve your joint bachelor bachelorette party. Our team specializes in coordinating [[combined-bach]] celebrations and can recommend the perfect boat and time slot for your group.',
+          'With Coast Guard certified captains, the newest fleet on Lake Travis, and a perfect safety record, Premier Party Cruises delivers the combined celebration Austin is known for. Start planning your legendary joint bach party today!'
+        ]
+      }
+    ],
+    relatedPages: ['combined-bach', 'atx-disco', 'bachelor-party', 'bachelorette-party', 'private-cruises', 'testimonials', 'faq', 'contact']
+  },
   '/blogs/perfect-bachelor-party-itinerary-austin': {
     h1: 'Austin Bachelor Party Boat Rental: The Perfect Lake Travis Itinerary',
     introduction: 'Planning the perfect Austin bachelor party means including a Lake Travis party boat experience. Premier Party Cruises provides boats, licensed captains, and the Lake Travis setting - your group creates the epic celebration. With 15+ years of experience hosting [[bachelor-party]] celebrations and 150,000+ happy customers, we understand what makes these events legendary. Choose from [[private-cruises]] on "Day Tripper" (1-14), "Meeseeks/The Irony" (15-30), or flagship "Clever Girl" (31-75), or join the [[atx-disco]] with professional DJ, photographer, and incredible party atmosphere.',

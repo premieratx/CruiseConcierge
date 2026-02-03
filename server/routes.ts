@@ -955,12 +955,14 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
         // Render full React app server-side for visible content
         // Use Vite SSR which properly handles lazy() imports and asset transforms
         let appHtml = '';
+        let helmetData: { title?: string; meta?: string; link?: string; script?: string } = {};
         try {
           console.log(`🔄 [Blog SSR] Attempting Vite SSR for: /blogs/${slug}`);
           const viteResult = await renderReactSSR(`/blogs/${slug}`);
           
           if (viteResult && viteResult.html && viteResult.html.length > 1000) {
             appHtml = viteResult.html;
+            helmetData = viteResult.helmet || {};
             console.log(`✅ [Blog SSR] Vite SSR success: ${slug} (${appHtml.length} chars)`);
           } else {
             // Vite SSR didn't produce enough content - try direct import as fallback
@@ -990,6 +992,25 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
         
         // Inject SSR content into root div
         html = html.replace(/<div id="root"><\/div>/, `<div id="root">${appHtml}</div>`);
+        
+        // SSR FIX: If Vite SSR returned proper helmet data, inject it into the HTML head
+        // This ensures crawlers see the React Helmet title/meta instead of fallback values
+        if (helmetData.title && helmetData.title.includes('<title>')) {
+          // Extract title text from helmet (format: <title data-rh="true">Title Text</title>)
+          const titleMatch = helmetData.title.match(/<title[^>]*>([^<]+)<\/title>/);
+          if (titleMatch && titleMatch[1]) {
+            html = html.replace(/<title>.*?<\/title>/, `<title>${titleMatch[1]}</title>`);
+            console.log(`✅ [Blog SSR] Injected helmet title: ${titleMatch[1]}`);
+          }
+        }
+        if (helmetData.meta && helmetData.meta.includes('name="description"')) {
+          // Extract description from helmet meta tags
+          const descMatch = helmetData.meta.match(/name="description"\s+content="([^"]+)"/);
+          if (descMatch && descMatch[1]) {
+            html = html.replace(/<meta name="description" content="[^"]*"\s*\/>/, `<meta name="description" content="${descMatch[1]}" />`);
+            console.log(`✅ [Blog SSR] Injected helmet meta description`);
+          }
+        }
         
         console.log(`✅ [Blog SSR] Injected SSR content for React blog: ${slug}`);
         return res.status(200).set({ 'Content-Type': 'text/html' }).send(html);

@@ -190,6 +190,28 @@ export const blogMetadataRegistry: Record<string, BlogMetadata> = {
     ]
   },
   
+  'blogs/joint-bachelor-bachelorette-party-guide': {
+    slug: 'blogs/joint-bachelor-bachelorette-party-guide',
+    title: 'How to Plan a Joint Bachelor Bachelorette Party in Austin',
+    description: 'Planning a joint bachelor bachelorette party in Austin? Discover the ultimate guide to combined bachelor bachelorette celebrations on Lake Travis. ATX Disco Cruise is PERFECT for co-ed groups mixing together. Book your Lake Travis party boat today!',
+    publishDate: '2024-11-01',
+    modifiedDate: '2026-02-01',
+    author: 'Premier Party Cruises',
+    heroImage: 'https://premierpartycruises.com/media/schema/hero-boat-1.jpg',
+    keywords: [
+      'joint bachelor bachelorette party',
+      'Austin bachelor party',
+      'combined bachelor bachelorette',
+      'ATX Disco Cruise',
+      'Lake Travis party boat',
+      'bachelor party in Austin',
+      'party boat Austin',
+      'co-ed bachelor party',
+      'joint bach party Austin',
+      'combined pre-wedding party'
+    ]
+  },
+  
   'blogs/lake-travis-wedding-boat-rentals-unique-venues-for-austin-celebrations': {
     slug: 'blogs/lake-travis-wedding-boat-rentals-unique-venues-for-austin-celebrations',
     title: 'Lake Travis Wedding Boat Rentals | Austin Venues',

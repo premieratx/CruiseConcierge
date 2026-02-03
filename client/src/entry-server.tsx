@@ -89,6 +89,7 @@ async function preloadBlogModule(url: string): Promise<void> {
     'cocktail-kits-vs-individual-bottles-the-smart-bachelorette-party-alcohol-strategy': () => import('./pages/blog/CocktailKitsVsBottles'),
     'atx-disco-cruise-dos-and-donts-bachelor-party': () => import('./pages/blog/ATXDiscoCruiseDosAndDonts'),
     'bachelor-party-outfit-ideas-atx-disco-cruise': () => import('./pages/blog/BachelorPartyOutfitIdeas'),
+    'joint-bachelor-bachelorette-party-guide': () => import('./pages/blog/JointBachelorBachelorettePartyGuide'),
     'bachelorette-party-alcohol-emergency-kit-last-minute-delivery-solutions': () => import('./pages/blog/BacheloretteAlcoholEmergencyKit'),
     'birthday-party-alcohol-delivery-austin-milestone-celebrations-made-easy': () => import('./pages/blog/BirthdayPartyAlcoholDeliveryAustin'),
   };
