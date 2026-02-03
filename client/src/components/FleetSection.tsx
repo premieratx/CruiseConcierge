@@ -454,8 +454,8 @@ export default function FleetSection() {
                           <span className="font-semibold">{formatCurrency(boat.baseRate4Hr.sunday)}</span>
                         </div>
                       </div>
-                      <p className="text-[10px] text-green-600 dark:text-green-400 mt-1 font-medium">
-                        (all in: tax, tip & fees included)
+                      <p className="text-[10px] text-gray-500 dark:text-gray-400 mt-1 font-medium">
+                        (base price for 4hr cruise, before tax/tip)
                       </p>
                       {boat.crewFeeNote && (
                         <p className="text-[10px] text-gray-500 dark:text-gray-400 mt-0.5 italic" data-testid={`text-crew-fee-${boat.id}`}>

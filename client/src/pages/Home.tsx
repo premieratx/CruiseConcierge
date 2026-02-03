@@ -158,8 +158,8 @@ const services = [
     subtitle: 'Exclusive boat rental',
     description: `Choose from our fleet of premium party boats: "${BOATS.DAY_TRIPPER.displayName}" (${BOATS.DAY_TRIPPER.capacity} people), "${BOATS.ME_SEEKS_THE_IRONY.displayName}" (${BOATS.ME_SEEKS_THE_IRONY.seatingCapacity}-${BOATS.ME_SEEKS_THE_IRONY.capacity} people), or flagship "${BOATS.CLEVER_GIRL.displayName}" (${BOATS.CLEVER_GIRL.seatingCapacity}-${BOATS.CLEVER_GIRL.capacity} people) with giant Texas flag and 14 disco balls.`,
     features: [`"${BOATS.DAY_TRIPPER.displayName}", "${BOATS.ME_SEEKS_THE_IRONY.displayName}", "${BOATS.CLEVER_GIRL.displayName}" boats`, 'Licensed, fun, experienced captains to take your group safely around the lake in style', 'Premium bluetooth sound systems', 'Cooler space - bring your own ice, or add Essentials/Ultimate for ice included', `Lily pads & floaties available (+$${ADDON_FEES.LILY_PAD / 100})`],
-    startingPrice: '$1,050',
-    priceNote: 'for 4-hour cruise',
+    startingPrice: '$800',
+    priceNote: 'base price for 4-hour cruise',
     icon: Ship,
     image: galleryImage1,
     popular: true,
@@ -177,8 +177,8 @@ const services = [
       </>
     ),
     features: ['Rehearsal dinner cruises', 'Welcome party events', 'After party celebrations', 'Exclusive private charters', 'Customizable packages'],
-    startingPrice: '$1,181',
-    priceNote: 'for 4-hour cruise',
+    startingPrice: '$900',
+    priceNote: 'base price for 4-hour cruise',
     icon: Heart,
     image: galleryImage3,
     badge: 'Wedding Specialists',
@@ -196,8 +196,8 @@ const services = [
       </>
     ),
     features: ['"Clever Girl" flagship boat available', 'Professional atmosphere & service', 'Alcohol delivery coordination available', 'Up to 75 guests capacity', 'BYOB allowed'],
-    startingPrice: '$1,413',
-    priceNote: 'for 4-hour cruise',
+    startingPrice: '$1,000',
+    priceNote: 'base price for 4-hour cruise',
     icon: Users,
     image: galleryImage1,
     gallery: [galleryImage1, galleryImage3, heroImage1, galleryImage2],
@@ -844,20 +844,17 @@ export default function Home() {
                         {service.hourlyNote || service.priceNote || ''}
                       </div>
                       
-                      <div
-                        className="xola-custom xola-checkout"
-                        data-button-id="695186923c261203770cc2e7"
-                      >
+                      <Link href="/chat">
                         <Button 
                           className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-3 rounded-xl"
                           data-testid={`button-service-${service.id}`}
                         >
                           <span data-editable data-editable-id={`service-${service.id}-cta-button`}>
-                            {service.id === 'private' ? 'BOOK PRIVATE CRUISE' : service.id === 'wedding' ? 'PLAN WEDDING EVENT' : 'GET QUOTE'}
+                            Get My Quote
                           </span>
                           <ArrowRight className="ml-2 h-5 w-5" />
                         </Button>
-                      </div>
+                      </Link>
                     </div>
                   </CardContent>
                 </Card>
@@ -1003,24 +1000,24 @@ export default function Home() {
                   </thead>
                   <tbody className="font-semibold">
                     <tr className="border-b-2 border-gray-200 dark:border-gray-700 hover:bg-yellow-50/50 dark:hover:bg-yellow-900/10 transition-colors">
-                      <td className="py-3 px-4 text-center text-gray-800 dark:text-gray-200">Mon-Thu: <span className="text-green-600 dark:text-green-400 font-bold">$1,050</span></td>
-                      <td className="py-3 px-4 text-center text-gray-800 dark:text-gray-200 border-x border-gray-200 dark:border-gray-700">Mon-Thu: <span className="text-green-600 dark:text-green-400 font-bold">$1,181</span></td>
-                      <td className="py-3 px-4 text-center text-gray-800 dark:text-gray-200">Mon-Thu: <span className="text-green-600 dark:text-green-400 font-bold">$1,413</span></td>
+                      <td className="py-3 px-4 text-center text-gray-800 dark:text-gray-200">Mon-Thu: <span className="text-green-600 dark:text-green-400 font-bold">$800</span></td>
+                      <td className="py-3 px-4 text-center text-gray-800 dark:text-gray-200 border-x border-gray-200 dark:border-gray-700">Mon-Thu: <span className="text-green-600 dark:text-green-400 font-bold">$900</span></td>
+                      <td className="py-3 px-4 text-center text-gray-800 dark:text-gray-200">Mon-Thu: <span className="text-green-600 dark:text-green-400 font-bold">$1,000</span></td>
                     </tr>
                     <tr className="border-b-2 border-gray-200 dark:border-gray-700 hover:bg-yellow-50/50 dark:hover:bg-yellow-900/10 transition-colors">
-                      <td className="py-3 px-4 text-center text-gray-800 dark:text-gray-200">Friday: <span className="text-blue-600 dark:text-blue-400 font-bold">$1,181</span></td>
-                      <td className="py-3 px-4 text-center text-gray-800 dark:text-gray-200 border-x border-gray-200 dark:border-gray-700">Friday: <span className="text-blue-600 dark:text-blue-400 font-bold">$1,313</span></td>
-                      <td className="py-3 px-4 text-center text-gray-800 dark:text-gray-200">Friday: <span className="text-blue-600 dark:text-blue-400 font-bold">$1,554</span></td>
+                      <td className="py-3 px-4 text-center text-gray-800 dark:text-gray-200">Friday: <span className="text-blue-600 dark:text-blue-400 font-bold">$900</span></td>
+                      <td className="py-3 px-4 text-center text-gray-800 dark:text-gray-200 border-x border-gray-200 dark:border-gray-700">Friday: <span className="text-blue-600 dark:text-blue-400 font-bold">$1,000</span></td>
+                      <td className="py-3 px-4 text-center text-gray-800 dark:text-gray-200">Friday: <span className="text-blue-600 dark:text-blue-400 font-bold">$1,100</span></td>
                     </tr>
                     <tr className="bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-900/30 dark:to-purple-900/30 border-b-2 border-gray-200 dark:border-gray-700">
-                      <td className="py-3 px-4 text-center font-bold text-purple-700 dark:text-purple-300">Saturday: <span className="text-xl">$1,838</span></td>
-                      <td className="py-3 px-4 text-center font-bold text-purple-700 dark:text-purple-300 border-x border-purple-300 dark:border-purple-700">Saturday: <span className="text-xl">$1,969</span></td>
-                      <td className="py-3 px-4 text-center font-bold text-purple-700 dark:text-purple-300">Saturday: <span className="text-xl">$2,260</span></td>
+                      <td className="py-3 px-4 text-center font-bold text-purple-700 dark:text-purple-300">Saturday: <span className="text-xl">$1,400</span></td>
+                      <td className="py-3 px-4 text-center font-bold text-purple-700 dark:text-purple-300 border-x border-purple-300 dark:border-purple-700">Saturday: <span className="text-xl">$1,500</span></td>
+                      <td className="py-3 px-4 text-center font-bold text-purple-700 dark:text-purple-300">Saturday: <span className="text-xl">$1,600</span></td>
                     </tr>
                     <tr className="border-b-2 border-gray-200 dark:border-gray-700 hover:bg-yellow-50/50 dark:hover:bg-yellow-900/10 transition-colors">
-                      <td className="py-3 px-4 text-center text-gray-800 dark:text-gray-200">Sunday: <span className="text-blue-600 dark:text-blue-400 font-bold">$1,313</span></td>
-                      <td className="py-3 px-4 text-center text-gray-800 dark:text-gray-200 border-x border-gray-200 dark:border-gray-700">Sunday: <span className="text-blue-600 dark:text-blue-400 font-bold">$1,444</span></td>
-                      <td className="py-3 px-4 text-center text-gray-800 dark:text-gray-200">Sunday: <span className="text-blue-600 dark:text-blue-400 font-bold">$1,695</span></td>
+                      <td className="py-3 px-4 text-center text-gray-800 dark:text-gray-200">Sunday: <span className="text-blue-600 dark:text-blue-400 font-bold">$1,000</span></td>
+                      <td className="py-3 px-4 text-center text-gray-800 dark:text-gray-200 border-x border-gray-200 dark:border-gray-700">Sunday: <span className="text-blue-600 dark:text-blue-400 font-bold">$1,100</span></td>
+                      <td className="py-3 px-4 text-center text-gray-800 dark:text-gray-200">Sunday: <span className="text-blue-600 dark:text-blue-400 font-bold">$1,200</span></td>
                     </tr>
                     <tr className="bg-gradient-to-r from-yellow-100 to-orange-100 dark:from-yellow-900/30 dark:to-orange-900/30">
                       <td colSpan={3} className="py-4 px-4 font-bold text-center text-lg text-orange-700 dark:text-orange-300">
@@ -1043,7 +1040,7 @@ export default function Home() {
               </div>
               <div className="bg-gradient-to-r from-yellow-100 to-orange-100 dark:from-yellow-900/30 dark:to-orange-900/30 rounded-lg p-4 mt-6">
                 <p className="text-sm font-semibold text-center text-gray-800 dark:text-gray-200">
-                  💰 All prices subject to 8.25% tax • 20% gratuity recommended • Deposit: 25% if booking 14+ days out, 50% if less than 14 days
+                  💰 Base prices shown (before 8.25% tax & 20% gratuity) • Deposit: 25% if booking 14+ days out, 50% if less than 14 days
                 </p>
               </div>
             </div>
