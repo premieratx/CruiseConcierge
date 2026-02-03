@@ -2050,9 +2050,9 @@ export default function Home() {
                   <CardContent className="p-6 flex items-center space-x-4">
                     <MapPin className="h-8 w-8 text-brand-blue flex-shrink-0" />
                     <div>
-                      <h4 className="font-bold text-base tracking-wide" data-editable data-editable-id="contact-location-title">Lake Travis</h4>
-                      <p className="text-gray-600 dark:text-gray-300" data-editable data-editable-id="contact-location-city">Austin, Texas</p>
-                      <p className="text-sm text-gray-600" data-editable data-editable-id="contact-location-note">Austin, Texas</p>
+                      <h4 className="font-bold text-base tracking-wide" data-editable data-editable-id="contact-location-title">Anderson Mill Marina</h4>
+                      <p className="text-gray-600 dark:text-gray-300" data-editable data-editable-id="contact-location-city">13993 FM 2769</p>
+                      <p className="text-sm text-gray-600" data-editable data-editable-id="contact-location-note">Leander, TX 78641</p>
                     </div>
                   </CardContent>
                 </Card>
