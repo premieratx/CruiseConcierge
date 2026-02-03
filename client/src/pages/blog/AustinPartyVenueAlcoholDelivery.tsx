@@ -217,7 +217,7 @@ export default function AustinPartyVenueAlcoholDelivery() {
             >
               <h2 className="text-3xl font-bold mb-4">Why Use a Delivery Service?</h2>
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-                Skip the liquor store lines. Let us handle the heavy lifting.
+                Skip the liquor store lines. Let us handle the heavy lifting. With Party On Delivery, you get professional alcohol delivery directly to your Austin venue, hotel, or Lake Travis marina. Our TABC-licensed service ensures everything stays legal and stress-free, so you can focus on celebrating instead of running errands.
               </p>
             </motion.div>
 
