@@ -359,7 +359,7 @@ export default function FleetSection() {
               OUR FLEET
             </Badge>
             <h2 
-              className="text-2xl sm:text-4xl md:text-5xl font-bold mb-2 sm:mb-4 text-gray-900 dark:text-white"
+              className="heading-unbounded text-2xl sm:text-4xl md:text-5xl font-bold mb-2 sm:mb-4 text-gray-900 dark:text-white"
               data-testid="heading-fleet-section"
             >
               Choose Your Perfect Boat
@@ -413,7 +413,7 @@ export default function FleetSection() {
                   </div>
 
                   <CardContent className="p-3 sm:p-4">
-                    <h3 className="text-lg sm:text-xl font-bold mb-1 text-gray-900 dark:text-white" data-testid={`text-boat-name-${boat.id}`}>
+                    <h3 className="heading-unbounded text-lg sm:text-xl font-bold mb-1 text-gray-900 dark:text-white" data-testid={`text-boat-name-${boat.id}`}>
                       {boat.displayName}
                     </h3>
                     <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mb-2 line-clamp-2">{boat.description}</p>

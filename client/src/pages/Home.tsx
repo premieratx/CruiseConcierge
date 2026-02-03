@@ -706,7 +706,7 @@ export default function Home() {
       <section className="py-12 md:py-16 bg-white dark:bg-gray-900">
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-2xl md:text-3xl font-semibold font-playfair mb-6 text-gray-900 dark:text-white">
+            <h2 className="text-2xl md:text-3xl font-semibold heading-unbounded mb-6 text-gray-900 dark:text-white">
               Austin's Premier Party Cruise Experience
             </h2>
             <p className="text-base md:text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
@@ -731,7 +731,7 @@ export default function Home() {
           <div className="absolute top-4 right-4 text-6xl font-black text-blue-200 opacity-30">01</div>
           <div className="container mx-auto px-4 sm:px-6">
             <div className="text-center mb-16">
-              <h2 className="text-3xl font-semibold font-playfair text-center mb-6 text-gray-900 dark:text-white" data-editable data-editable-id="services-main-title">
+              <h2 className="text-3xl font-semibold heading-unbounded text-center mb-6 text-gray-900 dark:text-white" data-editable data-editable-id="services-main-title">
                 Choose Your Perfect Experience
               </h2>
               <p className="text-base text-gray-700 dark:text-gray-300 max-w-3xl mx-auto" data-editable data-editable-id="services-description">
@@ -755,7 +755,7 @@ export default function Home() {
                 )}
               >
                 <Card className={cn(
-                  "h-full bg-white rounded-xl p-6 border border-gray-200 hover:border-blue-500 hover:shadow-lg transition-all cursor-pointer overflow-hidden",
+                  "h-full flex flex-col bg-white rounded-xl p-6 border border-gray-200 hover:border-blue-500 hover:shadow-lg transition-all cursor-pointer overflow-hidden",
                   service.popular && "shadow-xl"
                 )}>
                   {service.badge && (
@@ -797,7 +797,7 @@ export default function Home() {
                     </CardDescription>
                   </CardHeader>
                   
-                  <CardContent className="space-y-6">
+                  <CardContent className="flex flex-col flex-grow space-y-4">
                     {/* Hormozi/McDowell Value Badge */}
                     {service.id === 'bachelor' && (
                       <div className="bg-gradient-to-r from-green-400 to-green-500 text-white text-center py-2 px-4 rounded-lg font-bold text-sm animate-pulse">
@@ -806,7 +806,7 @@ export default function Home() {
                     )}
                     {service.id === 'private' && (
                       <div className="bg-gradient-to-r from-blue-500 to-purple-600 text-white text-center py-2 px-4 rounded-lg font-bold text-sm">
-                        🚢 Starting at $1,050 for 4 hours • 14-75 People
+                        🚢 Starting at $800 for 4 hours • 14-75 People
                       </div>
                     )}
                     {service.id === 'corporate' && (
@@ -819,23 +819,18 @@ export default function Home() {
                       {service.description}
                     </p>
                     
-                    <div className="space-y-4">
+                    {/* Features list with flex-grow to push pricing to bottom */}
+                    <div className="space-y-3 flex-grow">
                       {service.features.map((feature, featureIndex) => (
                         <div key={featureIndex} className="flex items-center text-base">
-                          <CheckCircle className="h-6 w-6 text-green-500 mr-3 flex-shrink-0" />
+                          <CheckCircle className="h-5 w-5 text-green-500 mr-3 flex-shrink-0" />
                           <span className="text-gray-700 dark:text-gray-300 font-medium" data-editable data-editable-id={`service-${service.id}-feature-${featureIndex}`}>{feature}</span>
                         </div>
                       ))}
                     </div>
 
-                    {/* Urgency Text */}
-                    <div className="bg-red-50 border border-red-200 rounded-lg p-3 text-center">
-                      <p className="text-red-600 text-sm font-semibold">
-                        ⏰ Books 8-10 weeks before the date • {service.id === 'bachelor' ? 'Weekends sell out fast!' : 'Limited availability'}
-                      </p>
-                    </div>
-
-                    <div className="text-center pt-4">
+                    {/* Pricing and CTA - aligned at bottom */}
+                    <div className="text-center pt-4 mt-auto">
                       <div className="text-sm text-gray-600 mb-2" data-editable data-editable-id={`service-${service.id}-price-label`}>Starting from</div>
                       <div className="text-3xl font-bold text-gray-900 dark:text-white mb-2" data-editable data-editable-id={`service-${service.id}-price`}>
                         {service.startingPrice}
@@ -856,6 +851,13 @@ export default function Home() {
                         </Button>
                       </Link>
                     </div>
+
+                    {/* Urgency Text - at bottom of card */}
+                    <div className="bg-red-50 border border-red-200 rounded-lg p-3 text-center mt-4">
+                      <p className="text-red-600 text-sm font-semibold">
+                        ⏰ Books 8-10 weeks before the date • {service.id === 'bachelor' ? 'Weekends sell out fast!' : 'Limited availability'}
+                      </p>
+                    </div>
                   </CardContent>
                 </Card>
               </m.div>
@@ -875,7 +877,7 @@ export default function Home() {
                 <Star className="h-4 w-4 mr-2 inline" />
                 Transparent Pricing
               </Badge>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 dark:text-white leading-tight">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold heading-unbounded text-center mb-6 text-gray-900 dark:text-white leading-tight">
                 Pricing & Packages
               </h2>
               <p className="text-lg md:text-xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
@@ -890,7 +892,7 @@ export default function Home() {
                   <Ship className="h-4 w-4 mr-2 inline" />
                   Private Cruises
                 </Badge>
-                <h3 className="text-3xl font-semibold font-playfair mb-4 text-gray-900 dark:text-white">
+                <h3 className="text-3xl font-semibold heading-unbounded mb-4 text-gray-900 dark:text-white">
                   Your Boat, Your Way - Private Cruise Pricing
                 </h3>
                 <p className="text-base text-gray-700 dark:text-gray-300 max-w-2xl mx-auto leading-relaxed">
@@ -905,7 +907,7 @@ export default function Home() {
 
             {/* All Services Overview Comparison */}
             <div className="mb-16">
-              <h3 className="text-3xl font-semibold font-playfair text-center mb-8 text-gray-900 dark:text-white">
+              <h3 className="text-3xl font-semibold heading-unbounded text-center mb-8 text-gray-900 dark:text-white">
                 Compare All Our Services
               </h3>
               <Suspense fallback={<div className="min-h-[500px] animate-pulse bg-gray-100 rounded-xl" />}>
@@ -1056,7 +1058,7 @@ export default function Home() {
               <Badge className="mb-4 bg-gradient-to-r from-yellow-400 to-orange-500 text-black px-6 py-2 font-bold">
                 ⭐ 420+ Five-Star Reviews
               </Badge>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-playfair mb-4 text-gray-900 dark:text-white">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold heading-unbounded mb-4 text-gray-900 dark:text-white">
                 What Our Customers Say
               </h2>
               <p className="text-lg text-gray-700 dark:text-gray-300 max-w-3xl mx-auto">
@@ -1279,7 +1281,7 @@ export default function Home() {
                   <Calendar className="h-4 w-4 mr-2 inline" />
                   Availability & Booking
                 </Badge>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 dark:text-white leading-tight" data-editable data-editable-id="availability-main-title">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold heading-unbounded text-center mb-6 text-gray-900 dark:text-white leading-tight" data-editable data-editable-id="availability-main-title">
                   When Can You Book?
                 </h2>
                 <p className="text-lg md:text-xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed mb-6" data-editable data-editable-id="availability-description">
@@ -1383,7 +1385,7 @@ export default function Home() {
 
             {/* Time Slots Section */}
             <div className="max-w-5xl mx-auto mb-12">
-              <h3 className="text-2xl md:text-3xl font-semibold font-playfair text-center mb-8 text-gray-900 dark:text-white" data-editable data-editable-id="availability-timeslots-title">
+              <h3 className="text-2xl md:text-3xl font-semibold heading-unbounded text-center mb-8 text-gray-900 dark:text-white" data-editable data-editable-id="availability-timeslots-title">
                 Available Time Slots
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -1525,7 +1527,7 @@ export default function Home() {
           <div className="absolute top-4 right-4 text-6xl font-black text-blue-200 opacity-30">05</div>
           <div className="container mx-auto px-4 sm:px-6">
             <div className="text-center mb-16">
-              <h2 className="text-3xl font-semibold font-playfair text-center mb-6 text-gray-900 dark:text-white" data-editable data-editable-id="gallery-main-title">
+              <h2 className="text-3xl font-semibold heading-unbounded text-center mb-6 text-gray-900 dark:text-white" data-editable data-editable-id="gallery-main-title">
                 Experience the Premier Difference
               </h2>
               <p className="text-base text-gray-700 dark:text-gray-300 max-w-3xl mx-auto mb-6" data-editable data-editable-id="gallery-description">
@@ -1579,7 +1581,7 @@ export default function Home() {
           <div className="absolute top-4 right-4 text-6xl font-black text-blue-200 opacity-30">06</div>
           <div className="container mx-auto px-4 sm:px-6">
             <div className="text-center mb-16">
-              <h2 className="text-3xl font-semibold font-playfair text-center mb-6 text-gray-900 dark:text-white">
+              <h2 className="text-3xl font-semibold heading-unbounded text-center mb-6 text-gray-900 dark:text-white">
                 Compare Your Options
               </h2>
               <p className="text-base text-gray-700 dark:text-gray-300 max-w-3xl mx-auto mb-12">
@@ -1759,7 +1761,7 @@ export default function Home() {
           <div className="absolute top-4 right-4 text-6xl font-black text-white opacity-10">07</div>
           <div className="container mx-auto px-4 sm:px-6">
             <div className="text-center mb-16">
-              <h2 className="text-3xl font-semibold font-playfair text-center mb-6 text-white" data-editable data-editable-id="testimonials-main-title">
+              <h2 className="text-3xl font-semibold heading-unbounded text-center mb-6 text-white" data-editable data-editable-id="testimonials-main-title">
                 What Our Customers Say
               </h2>
               <p className="text-base text-blue-100 max-w-3xl mx-auto" data-editable data-editable-id="testimonials-description">
@@ -1850,7 +1852,7 @@ export default function Home() {
           <div className="absolute top-4 right-4 text-6xl font-black text-blue-200 opacity-30">07</div>
           <div className="container mx-auto px-4 sm:px-6">
             <div className="text-center mb-16">
-              <h2 className="text-3xl font-semibold font-playfair text-center mb-6 text-gray-900 dark:text-white" data-editable data-editable-id="contact-main-title">
+              <h2 className="text-3xl font-semibold heading-unbounded text-center mb-6 text-gray-900 dark:text-white" data-editable data-editable-id="contact-main-title">
                 Ready to Set Sail?
               </h2>
               <p className="text-base text-gray-700 dark:text-gray-300 max-w-3xl mx-auto mb-12" data-editable data-editable-id="contact-description">
@@ -2101,7 +2103,7 @@ export default function Home() {
       <section className="py-20 bg-gradient-to-br from-blue-600 to-purple-600">
         <div className="container mx-auto px-6">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-semibold font-playfair text-center mb-4 text-white">
+            <h2 className="text-3xl font-semibold heading-unbounded text-center mb-4 text-white">
               Explore All Our Austin Party Boat Services
             </h2>
             <p className="text-base text-blue-100 max-w-2xl mx-auto">
