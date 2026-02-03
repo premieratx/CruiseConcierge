@@ -267,7 +267,7 @@ export default function PartyBoatLakeTravis() {
             </motion.div>
 
             <motion.h1 
-              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-playfair font-extrabold mb-6 leading-tight text-center text-gray-900 drop-shadow-sm"
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl heading-unbounded font-extrabold mb-6 leading-tight text-center text-gray-900 drop-shadow-sm"
               variants={fadeInUp}
               data-testid="heading-hero"
             >
@@ -351,7 +351,7 @@ export default function PartyBoatLakeTravis() {
         <section className="py-24 bg-white">
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
-              <h2 className="text-3xl font-playfair font-bold mb-4 text-center" data-testid="heading-why-lake-travis">
+              <h2 className="text-3xl heading-unbounded font-bold mb-4 text-center" data-testid="heading-why-lake-travis">
                 Why Choose Lake Travis for Your Party Boat?
               </h2>
               <p className="text-base text-gray-600 max-w-3xl mx-auto" data-testid="text-why-subtitle">
@@ -366,7 +366,7 @@ export default function PartyBoatLakeTravis() {
                     <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4">
                       <reason.icon className="h-8 w-8 text-blue-600" />
                     </div>
-                    <CardTitle className="text-xl font-playfair">{reason.title}</CardTitle>
+                    <CardTitle className="text-xl heading-unbounded">{reason.title}</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <p className="text-base text-gray-600">{reason.description}</p>
@@ -382,7 +382,7 @@ export default function PartyBoatLakeTravis() {
         <section className="py-24 bg-gradient-to-b from-blue-50 to-white">
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
-              <h2 className="text-3xl font-playfair font-bold mb-4 text-center" data-testid="heading-complete-guide">
+              <h2 className="text-3xl heading-unbounded font-bold mb-4 text-center" data-testid="heading-complete-guide">
                 Complete Lake Travis Party Boat Guide
               </h2>
               <p className="text-base text-gray-600 max-w-3xl mx-auto" data-testid="text-guide-subtitle">
@@ -397,7 +397,7 @@ export default function PartyBoatLakeTravis() {
                     <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-3">
                       <Crown className="h-6 w-6 text-blue-600" />
                     </div>
-                    <CardTitle className="text-lg font-playfair group-hover:text-blue-600 transition-colors">
+                    <CardTitle className="text-lg heading-unbounded group-hover:text-blue-600 transition-colors">
                       Austin Bachelor Party Boats
                     </CardTitle>
                   </CardHeader>
@@ -415,7 +415,7 @@ export default function PartyBoatLakeTravis() {
                     <div className="w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center mb-3">
                       <Heart className="h-6 w-6 text-pink-600" />
                     </div>
-                    <CardTitle className="text-lg font-playfair group-hover:text-pink-600 transition-colors">
+                    <CardTitle className="text-lg heading-unbounded group-hover:text-pink-600 transition-colors">
                       Lake Travis Bachelorette Parties
                     </CardTitle>
                   </CardHeader>
@@ -433,7 +433,7 @@ export default function PartyBoatLakeTravis() {
                     <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mb-3">
                       <Users className="h-6 w-6 text-purple-600" />
                     </div>
-                    <CardTitle className="text-lg font-playfair group-hover:text-purple-600 transition-colors">
+                    <CardTitle className="text-lg heading-unbounded group-hover:text-purple-600 transition-colors">
                       ATX Disco Cruise
                     </CardTitle>
                   </CardHeader>
@@ -451,7 +451,7 @@ export default function PartyBoatLakeTravis() {
                     <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mb-3">
                       <Award className="h-6 w-6 text-gray-600" />
                     </div>
-                    <CardTitle className="text-lg font-playfair group-hover:text-gray-600 transition-colors">
+                    <CardTitle className="text-lg heading-unbounded group-hover:text-gray-600 transition-colors">
                       Austin Corporate Events on Lake Travis
                     </CardTitle>
                   </CardHeader>
@@ -471,7 +471,7 @@ export default function PartyBoatLakeTravis() {
         <section className="py-24 bg-white">
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
-              <h2 className="text-3xl font-playfair font-bold mb-4 text-center" data-testid="heading-fleet">
+              <h2 className="text-3xl heading-unbounded font-bold mb-4 text-center" data-testid="heading-fleet">
                 Lake Travis Party Boat Fleet
               </h2>
               <p className="text-base text-gray-600 max-w-3xl mx-auto" data-testid="text-fleet-subtitle">
@@ -493,7 +493,7 @@ export default function PartyBoatLakeTravis() {
                     </Badge>
                   </div>
                   <CardHeader>
-                    <CardTitle className="text-xl font-playfair">{boat.name}</CardTitle>
+                    <CardTitle className="text-xl heading-unbounded">{boat.name}</CardTitle>
                     <p className="text-base text-gray-600">{boat.description}</p>
                   </CardHeader>
                   <CardContent>
@@ -532,7 +532,7 @@ export default function PartyBoatLakeTravis() {
         <section className="py-24 bg-gradient-to-b from-blue-50 to-white">
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
-              <h2 className="text-3xl font-playfair font-bold mb-4 text-center" data-testid="heading-packages">
+              <h2 className="text-3xl heading-unbounded font-bold mb-4 text-center" data-testid="heading-packages">
                 Lake Travis Party Boat Packages
               </h2>
               <p className="text-base text-gray-600 max-w-3xl mx-auto" data-testid="text-packages-subtitle">
@@ -548,7 +548,7 @@ export default function PartyBoatLakeTravis() {
                       <pkg.icon className="w-8 h-8 text-white" />
                     </div>
                     <Badge className="mb-2 mx-auto font-sans tracking-wider">{pkg.highlight}</Badge>
-                    <CardTitle className="text-xl font-playfair text-center">{pkg.title}</CardTitle>
+                    <CardTitle className="text-xl heading-unbounded text-center">{pkg.title}</CardTitle>
                     <p className="text-base text-gray-600 text-center">{pkg.description}</p>
                   </CardHeader>
                   <CardContent>
@@ -585,7 +585,7 @@ export default function PartyBoatLakeTravis() {
         <section className="py-24 bg-white">
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-playfair font-bold mb-6 text-center" data-testid="heading-testimonials">
+              <h2 className="text-3xl heading-unbounded font-bold mb-6 text-center" data-testid="heading-testimonials">
                 Lake Travis Party Boat Reviews
               </h2>
               <p className="text-xl text-gray-700 max-w-3xl mx-auto mb-8" data-testid="text-testimonials-subtitle">
@@ -626,7 +626,7 @@ export default function PartyBoatLakeTravis() {
         <section className="py-24 bg-gradient-to-b from-blue-50 to-white">
           <div className="max-w-5xl mx-auto px-6">
             <div className="text-center mb-16">
-              <h2 className="text-3xl font-playfair font-bold mb-4 text-center" data-testid="heading-faq">
+              <h2 className="text-3xl heading-unbounded font-bold mb-4 text-center" data-testid="heading-faq">
                 Lake Travis Party Boat FAQ
               </h2>
               <p className="text-base text-gray-600" data-testid="text-faq-subtitle">
@@ -659,7 +659,7 @@ export default function PartyBoatLakeTravis() {
         <section className="py-24 bg-white">
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-playfair font-bold mb-4 text-center" data-testid="heading-quote-builder">
+              <h2 className="text-3xl heading-unbounded font-bold mb-4 text-center" data-testid="heading-quote-builder">
                 Get Your Lake Travis Party Boat Quote
               </h2>
               <p className="text-base text-gray-600 max-w-3xl mx-auto" data-testid="text-quote-subtitle">
@@ -669,7 +669,7 @@ export default function PartyBoatLakeTravis() {
 
             <Card className="overflow-hidden max-w-4xl mx-auto rounded-xl">
               <CardHeader className="bg-gradient-to-r from-blue-600 to-purple-600 text-white">
-                <CardTitle className="text-2xl flex items-center justify-between font-playfair">
+                <CardTitle className="text-2xl flex items-center justify-between heading-unbounded">
                   <span>Lake Travis Quote Builder</span>
                   {showQuoteBuilder && (
                     <Button
@@ -688,7 +688,7 @@ export default function PartyBoatLakeTravis() {
                 {!showQuoteBuilder ? (
                   <div className="p-12 text-center">
                     <MessageCircle className="h-16 w-16 text-blue-600 mx-auto mb-6" />
-                    <h3 className="text-2xl font-playfair font-bold mb-4">
+                    <h3 className="text-2xl heading-unbounded font-bold mb-4">
                       Ready for Your Lake Travis Adventure?
                     </h3>
                     <p className="text-base text-gray-600 mb-8">
@@ -731,7 +731,7 @@ export default function PartyBoatLakeTravis() {
       <SectionReveal>
         <section className="py-24 bg-gradient-to-r from-blue-600 to-purple-600 text-white">
           <div className="max-w-7xl mx-auto px-6 text-center">
-            <h2 className="text-3xl font-playfair font-bold mb-6 text-center" data-testid="heading-final-cta">
+            <h2 className="text-3xl heading-unbounded font-bold mb-6 text-center" data-testid="heading-final-cta">
               Ready to Party on Lake Travis?
             </h2>
             <p className="text-base mb-8 max-w-3xl mx-auto" data-testid="text-final-cta">
@@ -770,7 +770,7 @@ export default function PartyBoatLakeTravis() {
         <section className="py-24 bg-white">
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-playfair font-bold mb-4 text-center">
+              <h2 className="text-3xl heading-unbounded font-bold mb-4 text-center">
                 EXPLORE OUR PARTY BOAT EXPERIENCES
               </h2>
               <p className="text-base text-gray-600 max-w-2xl mx-auto">
@@ -782,7 +782,7 @@ export default function PartyBoatLakeTravis() {
               <Link href="/private-cruises" data-testid="link-private-from-party-boat">
                 <Card className="hover:shadow-xl transition-all duration-300 cursor-pointer h-full border-2 border-transparent hover:border-blue-600 rounded-xl">
                   <CardHeader>
-                    <CardTitle className="text-xl font-playfair">Private Austin Cruises</CardTitle>
+                    <CardTitle className="text-xl heading-unbounded">Private Austin Cruises</CardTitle>
                     <p className="text-base text-gray-600">Exclusive private Lake Travis boat charters for your group</p>
                   </CardHeader>
                 </Card>
@@ -791,7 +791,7 @@ export default function PartyBoatLakeTravis() {
               <Link href="/client-entertainment" data-testid="link-client-entertainment-from-party-boat">
                 <Card className="hover:shadow-xl transition-all duration-300 cursor-pointer h-full border-2 border-transparent hover:border-blue-600 rounded-xl">
                   <CardHeader>
-                    <CardTitle className="text-xl font-playfair">Corporate Entertainment</CardTitle>
+                    <CardTitle className="text-xl heading-unbounded">Corporate Entertainment</CardTitle>
                     <p className="text-base text-gray-600">Professional client entertainment cruises on Lake Travis</p>
                   </CardHeader>
                 </Card>
@@ -800,7 +800,7 @@ export default function PartyBoatLakeTravis() {
               <Link href="/gallery" data-testid="link-gallery-from-party-boat">
                 <Card className="hover:shadow-xl transition-all duration-300 cursor-pointer h-full border-2 border-transparent hover:border-blue-600 rounded-xl">
                   <CardHeader>
-                    <CardTitle className="text-xl font-playfair">Party Boat Photo Gallery</CardTitle>
+                    <CardTitle className="text-xl heading-unbounded">Party Boat Photo Gallery</CardTitle>
                     <p className="text-base text-gray-600">Real photos from Austin party boat cruises on Lake Travis</p>
                   </CardHeader>
                 </Card>
@@ -809,7 +809,7 @@ export default function PartyBoatLakeTravis() {
               <Link href="/contact" data-testid="link-contact-from-party-boat">
                 <Card className="hover:shadow-xl transition-all duration-300 cursor-pointer h-full border-2 border-transparent hover:border-blue-600 rounded-xl">
                   <CardHeader>
-                    <CardTitle className="text-xl font-playfair">Contact Us</CardTitle>
+                    <CardTitle className="text-xl heading-unbounded">Contact Us</CardTitle>
                     <p className="text-base text-gray-600">Get your custom party boat quote for Lake Travis</p>
                   </CardHeader>
                 </Card>
@@ -818,7 +818,7 @@ export default function PartyBoatLakeTravis() {
               <Link href="/" data-testid="link-home-from-party-boat">
                 <Card className="hover:shadow-xl transition-all duration-300 cursor-pointer h-full border-2 border-transparent hover:border-blue-600 rounded-xl">
                   <CardHeader>
-                    <CardTitle className="text-xl font-playfair">Home</CardTitle>
+                    <CardTitle className="text-xl heading-unbounded">Home</CardTitle>
                     <p className="text-base text-gray-600">Explore all our Austin party cruise services</p>
                   </CardHeader>
                 </Card>
@@ -827,7 +827,7 @@ export default function PartyBoatLakeTravis() {
               <Link href="/blogs" data-testid="link-blogs-from-party-boat">
                 <Card className="hover:shadow-xl transition-all duration-300 cursor-pointer h-full border-2 border-transparent hover:border-blue-600 rounded-xl">
                   <CardHeader>
-                    <CardTitle className="text-xl font-playfair">Cruise Blog & Tips</CardTitle>
+                    <CardTitle className="text-xl heading-unbounded">Cruise Blog & Tips</CardTitle>
                     <p className="text-base text-gray-600">Planning guides for your Lake Travis party boat experience</p>
                   </CardHeader>
                 </Card>

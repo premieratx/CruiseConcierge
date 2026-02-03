@@ -230,7 +230,7 @@ export default function BirthdayParties() {
           <Badge className="mb-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 text-sm font-sans tracking-wider shadow-lg">
             🎉 LAKE TRAVIS BIRTHDAY CRUISES 🎉
           </Badge>
-          <h1 className="font-playfair text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-6 text-center text-gray-900 drop-shadow-sm" data-editable data-editable-id="h1-birthday-hero">
+          <h1 className="heading-unbounded text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-6 text-center text-gray-900 drop-shadow-sm" data-editable data-editable-id="h1-birthday-hero">
             Make Your Birthday Legendary!
           </h1>
           <p className="text-xl sm:text-2xl md:text-3xl text-gray-900 mb-6 md:mb-8 font-bold drop-shadow-sm max-w-3xl mx-auto leading-relaxed text-center" data-editable data-editable-id="p-birthday-tagline">
@@ -275,7 +275,7 @@ export default function BirthdayParties() {
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
               <span className="text-6xl font-black text-gray-100 opacity-30 absolute -mt-8">01</span>
-              <h2 className="font-playfair text-3xl md:text-4xl font-bold mb-6 text-center relative">
+              <h2 className="heading-unbounded text-3xl md:text-4xl font-bold mb-6 text-center relative">
                 Austin's Favorite Birthday Destination
               </h2>
               <p className="text-base text-gray-600 max-w-3xl mx-auto text-center">
@@ -308,7 +308,7 @@ export default function BirthdayParties() {
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
               <span className="text-6xl font-black text-gray-100 opacity-30 absolute -mt-8">02</span>
-              <h2 className="font-playfair text-3xl md:text-4xl font-bold mb-6 text-center relative">
+              <h2 className="heading-unbounded text-3xl md:text-4xl font-bold mb-6 text-center relative">
                 Birthday Party Packages
               </h2>
               <p className="text-base text-gray-600 max-w-3xl mx-auto text-center">
@@ -332,7 +332,7 @@ export default function BirthdayParties() {
                   )}
                   <CardHeader className="text-center pb-4">
                     <pkg.icon className="h-16 w-16 mx-auto mb-4 text-blue-600" />
-                    <CardTitle className="font-playfair text-2xl mb-2 text-center">{pkg.name}</CardTitle>
+                    <CardTitle className="heading-unbounded text-2xl mb-2 text-center">{pkg.name}</CardTitle>
                     <div className="text-3xl font-black text-blue-600 mb-2">
                       {pkg.price}
                     </div>
@@ -372,7 +372,7 @@ export default function BirthdayParties() {
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
               <span className="text-6xl font-black text-gray-100 opacity-30 absolute -mt-8">03</span>
-              <h2 className="font-playfair text-3xl md:text-4xl font-bold mb-6 text-center relative">
+              <h2 className="heading-unbounded text-3xl md:text-4xl font-bold mb-6 text-center relative">
                 Everything For Your Birthday
               </h2>
               <p className="text-base text-gray-600 max-w-3xl mx-auto text-center">
@@ -405,7 +405,7 @@ export default function BirthdayParties() {
                 <Quote className="h-4 w-4 mr-2 inline" />
                 Customer Reviews
               </Badge>
-              <h2 className="font-playfair text-3xl md:text-4xl font-bold mb-6 text-center relative">
+              <h2 className="heading-unbounded text-3xl md:text-4xl font-bold mb-6 text-center relative">
                 What Birthday Parties Are Saying
               </h2>
               <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed mb-8">
@@ -465,7 +465,7 @@ export default function BirthdayParties() {
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
               <span className="text-6xl font-black text-gray-100 opacity-30 absolute -mt-8">05</span>
-              <h2 className="font-playfair text-3xl md:text-4xl font-bold mb-6 text-center relative">
+              <h2 className="heading-unbounded text-3xl md:text-4xl font-bold mb-6 text-center relative">
                 Birthday Cruise FAQs
               </h2>
               <p className="text-base text-gray-600 max-w-3xl mx-auto text-center">
@@ -504,7 +504,7 @@ export default function BirthdayParties() {
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
               <span className="text-6xl font-black text-gray-100 opacity-30 absolute -mt-8">06</span>
-              <h2 className="font-playfair text-3xl md:text-4xl font-bold mb-6 text-center relative">
+              <h2 className="heading-unbounded text-3xl md:text-4xl font-bold mb-6 text-center relative">
                 Birthday Memories
               </h2>
               <p className="text-base text-gray-600 max-w-3xl mx-auto text-center">
@@ -532,7 +532,7 @@ export default function BirthdayParties() {
       <SectionReveal>
         <section className="py-24 bg-white">
           <div className="max-w-7xl mx-auto px-6 text-center">
-            <h2 className="font-playfair text-3xl md:text-4xl font-bold mb-6 text-center">
+            <h2 className="heading-unbounded text-3xl md:text-4xl font-bold mb-6 text-center">
               Ready to Plan Your Birthday Cruise?
             </h2>
             <p className="text-base text-gray-600 max-w-2xl mx-auto mb-8 text-center">

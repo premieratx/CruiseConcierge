@@ -341,7 +341,7 @@ export default function Faq() {
                 <div className="inline-flex items-center justify-center p-3 bg-blue-100 dark:bg-blue-900 rounded-full mb-4">
                   <HelpCircle className="w-12 h-12 text-blue-600 dark:text-blue-400" />
                 </div>
-                <h1 className="text-5xl md:text-6xl font-playfair font-bold text-gray-900 dark:text-white">
+                <h1 className="text-5xl md:text-6xl heading-unbounded font-bold text-gray-900 dark:text-white">
                   Frequently Asked Questions
                 </h1>
                 <p className="text-base text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
@@ -438,7 +438,7 @@ export default function Faq() {
                   </div>
                   
                   <div className="text-center mb-12">
-                    <h2 className="text-3xl font-playfair font-bold text-gray-900 dark:text-white mb-3">
+                    <h2 className="text-3xl heading-unbounded font-bold text-gray-900 dark:text-white mb-3">
                       {category.name}
                     </h2>
                     <p className="text-base text-gray-600 dark:text-gray-400">
@@ -460,7 +460,7 @@ export default function Faq() {
           <section className="py-24 bg-gradient-to-b from-white to-blue-50 dark:from-gray-950 dark:to-gray-900">
             <div className="max-w-7xl mx-auto px-6">
               <div className="text-center">
-                <h2 className="text-3xl font-playfair font-bold mb-6 text-gray-900 dark:text-white">
+                <h2 className="text-3xl heading-unbounded font-bold mb-6 text-gray-900 dark:text-white">
                   Still Have Questions?
                 </h2>
                 <p className="text-base text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">

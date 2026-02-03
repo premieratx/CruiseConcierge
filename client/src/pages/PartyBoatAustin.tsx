@@ -257,7 +257,7 @@ export default function PartyBoatAustin() {
           </motion.div>
           
           <motion.h1 
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-playfair font-extrabold text-gray-900 mb-6 leading-tight text-center drop-shadow-sm"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl heading-unbounded font-extrabold text-gray-900 mb-6 leading-tight text-center drop-shadow-sm"
             variants={fadeInUp}
             data-testid="heading-main"
           >
@@ -316,7 +316,7 @@ export default function PartyBoatAustin() {
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
               <h2 
-                className="text-3xl font-playfair font-bold mb-6 text-center"
+                className="text-3xl heading-unbounded font-bold mb-6 text-center"
                 data-testid="heading-why-choose"
               >
                 Why Choose Austin's Premier Party Boat Company?
@@ -336,7 +336,7 @@ export default function PartyBoatAustin() {
                     <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4">
                       <item.icon className="w-8 h-8 text-blue-600" />
                     </div>
-                    <CardTitle className="text-xl font-playfair">{item.title}</CardTitle>
+                    <CardTitle className="text-xl heading-unbounded">{item.title}</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <p className="text-base text-gray-600">{item.description}</p>
@@ -353,7 +353,7 @@ export default function PartyBoatAustin() {
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
               <h2 
-                className="text-3xl font-playfair font-bold mb-6 text-center"
+                className="text-3xl heading-unbounded font-bold mb-6 text-center"
                 data-testid="heading-fleet"
               >
                 Austin's Newest Party Boat Fleet
@@ -380,7 +380,7 @@ export default function PartyBoatAustin() {
                     </Badge>
                   </div>
                   <CardHeader>
-                    <CardTitle className="text-xl font-playfair">{boat.name}</CardTitle>
+                    <CardTitle className="text-xl heading-unbounded">{boat.name}</CardTitle>
                     <p className="text-base text-gray-600">{boat.description}</p>
                   </CardHeader>
                   <CardContent>
@@ -418,7 +418,7 @@ export default function PartyBoatAustin() {
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
               <h2 
-                className="text-3xl font-playfair font-bold mb-6 text-center"
+                className="text-3xl heading-unbounded font-bold mb-6 text-center"
                 data-testid="heading-pricing"
               >
                 Transparent Austin Party Boat Pricing
@@ -438,7 +438,7 @@ export default function PartyBoatAustin() {
                     <Ship className="w-12 h-12 text-blue-600" />
                     <Badge className="font-sans tracking-wider">Private Charters</Badge>
                   </div>
-                  <CardTitle className="text-xl font-playfair">Austin Private Party Boats</CardTitle>
+                  <CardTitle className="text-xl heading-unbounded">Austin Private Party Boats</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
@@ -468,7 +468,7 @@ export default function PartyBoatAustin() {
                     <Music className="w-12 h-12 text-purple-600" />
                     <Badge className="bg-purple-600 font-sans tracking-wider">ATX Disco Cruise</Badge>
                   </div>
-                  <CardTitle className="text-xl font-playfair">Austin Disco Party Boat</CardTitle>
+                  <CardTitle className="text-xl heading-unbounded">Austin Disco Party Boat</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
@@ -507,7 +507,7 @@ export default function PartyBoatAustin() {
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
               <h2 
-                className="text-3xl font-playfair font-bold mb-6 text-center"
+                className="text-3xl heading-unbounded font-bold mb-6 text-center"
                 data-testid="heading-packages"
               >
                 Austin Party Boat Packages
@@ -527,7 +527,7 @@ export default function PartyBoatAustin() {
                     <div className="w-16 h-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center mb-4 mx-auto">
                       <pkg.icon className="w-8 h-8 text-white" />
                     </div>
-                    <CardTitle className="text-xl font-playfair text-center">{pkg.title}</CardTitle>
+                    <CardTitle className="text-xl heading-unbounded text-center">{pkg.title}</CardTitle>
                     <p className="text-base text-gray-600 text-center">{pkg.description}</p>
                   </CardHeader>
                   <CardContent>
@@ -565,7 +565,7 @@ export default function PartyBoatAustin() {
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-12">
               <h2 
-                className="text-3xl font-playfair font-bold mb-6 text-center"
+                className="text-3xl heading-unbounded font-bold mb-6 text-center"
                 data-testid="heading-testimonials"
               >
                 What Austin Customers Say
@@ -612,7 +612,7 @@ export default function PartyBoatAustin() {
           <div className="max-w-5xl mx-auto px-6">
             <div className="text-center mb-16">
               <h2 
-                className="text-3xl font-playfair font-bold mb-6 text-center"
+                className="text-3xl heading-unbounded font-bold mb-6 text-center"
                 data-testid="heading-faq"
               >
                 Austin Party Boat FAQ
@@ -658,7 +658,7 @@ export default function PartyBoatAustin() {
         <section className="py-24 bg-gradient-to-r from-blue-600 to-purple-600 text-white">
           <div className="max-w-7xl mx-auto px-6 text-center">
             <h2 
-              className="text-3xl font-playfair font-bold mb-6 text-center" 
+              className="text-3xl heading-unbounded font-bold mb-6 text-center" 
               data-testid="heading-final-cta"
             >
               Ready to Book Your Austin Party Boat?
@@ -698,7 +698,7 @@ export default function PartyBoatAustin() {
         <section className="py-24 bg-gradient-to-b from-blue-50 to-white">
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-playfair font-bold mb-4 text-center">
+              <h2 className="text-3xl heading-unbounded font-bold mb-4 text-center">
                 Explore More Austin Party Experiences
               </h2>
               <p className="text-base text-gray-600 max-w-2xl mx-auto">
@@ -713,7 +713,7 @@ export default function PartyBoatAustin() {
                     <div className="w-16 h-16 mx-auto mb-4 bg-blue-500/10 rounded-full flex items-center justify-center">
                       <Crown className="h-8 w-8 text-blue-500" />
                     </div>
-                    <CardTitle className="text-xl font-playfair text-center">Bachelor Party Austin</CardTitle>
+                    <CardTitle className="text-xl heading-unbounded text-center">Bachelor Party Austin</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <p className="text-base text-gray-600 text-center">
@@ -733,7 +733,7 @@ export default function PartyBoatAustin() {
                     <div className="w-16 h-16 mx-auto mb-4 bg-pink-500/10 rounded-full flex items-center justify-center">
                       <Heart className="h-8 w-8 text-pink-500" />
                     </div>
-                    <CardTitle className="text-xl font-playfair text-center">Bachelorette Party Austin</CardTitle>
+                    <CardTitle className="text-xl heading-unbounded text-center">Bachelorette Party Austin</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <p className="text-base text-gray-600 text-center">
@@ -753,7 +753,7 @@ export default function PartyBoatAustin() {
                     <div className="w-16 h-16 mx-auto mb-4 bg-purple-500/10 rounded-full flex items-center justify-center">
                       <Ship className="h-8 w-8 text-purple-500" />
                     </div>
-                    <CardTitle className="text-xl font-playfair text-center">Party Boat Lake Travis</CardTitle>
+                    <CardTitle className="text-xl heading-unbounded text-center">Party Boat Lake Travis</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <p className="text-base text-gray-600 text-center">

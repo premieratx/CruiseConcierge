@@ -99,7 +99,7 @@ export default function ThreeDayAustinBacheloretteItinerary() {
           </div>
           <div className="max-w-4xl mx-auto text-center relative z-10">
             <Crown className="h-16 w-16 text-yellow-400 mx-auto mb-6 animate-pulse" />
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-playfair font-bold mb-6 text-white drop-shadow-lg">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl heading-unbounded font-bold mb-6 text-white drop-shadow-lg">
               The Perfect 3-Day Austin Bachelorette Party Itinerary
             </h1>
             <p className="text-xl md:text-2xl text-pink-100 max-w-3xl mx-auto mb-8">
@@ -185,7 +185,7 @@ export default function ThreeDayAustinBacheloretteItinerary() {
                 1
               </div>
               <div>
-                <h2 className="text-3xl md:text-4xl font-playfair font-bold text-gray-900 dark:text-white">
+                <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-gray-900 dark:text-white">
                   Day 1 (Friday): Welcome to Austin
                 </h2>
                 <p className="text-lg text-gray-600 dark:text-gray-400 mt-2">
@@ -279,7 +279,7 @@ export default function ThreeDayAustinBacheloretteItinerary() {
                 2
               </div>
               <div>
-                <h2 className="text-3xl md:text-4xl font-playfair font-bold text-gray-900 dark:text-white">
+                <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-gray-900 dark:text-white">
                   Day 2 (Saturday): Lake Day & Downtown Dancing
                 </h2>
                 <p className="text-lg text-gray-600 dark:text-gray-400 mt-2">
@@ -401,7 +401,7 @@ export default function ThreeDayAustinBacheloretteItinerary() {
                 3
               </div>
               <div>
-                <h2 className="text-3xl md:text-4xl font-playfair font-bold text-gray-900 dark:text-white">
+                <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-gray-900 dark:text-white">
                   Day 3 (Sunday): Farewell Brunch & Memories
                 </h2>
                 <p className="text-lg text-gray-600 dark:text-gray-400 mt-2">
@@ -490,7 +490,7 @@ export default function ThreeDayAustinBacheloretteItinerary() {
       <SectionReveal>
         <section id="planning-tips" className="py-16 bg-gradient-to-b from-white to-pink-50 dark:from-gray-950 dark:to-gray-900">
           <div className="max-w-4xl mx-auto px-6">
-            <h2 className="text-3xl md:text-4xl font-playfair font-bold text-center mb-12 text-gray-900 dark:text-white">
+            <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-center mb-12 text-gray-900 dark:text-white">
               Essential Planning Tips for Your Austin Bachelorette Weekend
             </h2>
 
@@ -596,7 +596,7 @@ export default function ThreeDayAustinBacheloretteItinerary() {
       <SectionReveal>
         <section id="packing-list" className="py-16 bg-gradient-to-b from-pink-50 to-white dark:from-gray-900 dark:to-gray-950">
           <div className="max-w-4xl mx-auto px-6">
-            <h2 className="text-3xl md:text-4xl font-playfair font-bold text-center mb-12 text-gray-900 dark:text-white">
+            <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-center mb-12 text-gray-900 dark:text-white">
               What to Pack for Your Austin Bachelorette Weekend
             </h2>
 
@@ -720,7 +720,7 @@ export default function ThreeDayAustinBacheloretteItinerary() {
       <SectionReveal>
         <section className="py-16 bg-white dark:bg-gray-950">
           <div className="max-w-4xl mx-auto px-6">
-            <h2 className="text-3xl md:text-4xl font-playfair font-bold text-center mb-12 text-gray-900 dark:text-white">
+            <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-center mb-12 text-gray-900 dark:text-white">
               Frequently Asked Questions: 3-Day Austin Bachelorette Itinerary
             </h2>
 
@@ -829,7 +829,7 @@ export default function ThreeDayAustinBacheloretteItinerary() {
         <section className="py-16 bg-gradient-to-br from-pink-600 via-purple-600 to-blue-600">
           <div className="max-w-4xl mx-auto px-6 text-center">
             <Crown className="h-16 w-16 text-yellow-400 mx-auto mb-6 animate-bounce" />
-            <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-6 text-white">
+            <h2 className="text-3xl md:text-4xl heading-unbounded font-bold mb-6 text-white">
               Ready to Book Your Perfect Austin Bachelorette Weekend?
             </h2>
             <p className="text-xl text-pink-100 mb-8 max-w-2xl mx-auto">

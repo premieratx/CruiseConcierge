@@ -303,7 +303,7 @@ export default function MilestoneBirthday() {
             </motion.div>
 
             <motion.h1 
-              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-playfair font-extrabold mb-6 text-center text-gray-900 drop-shadow-sm"
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl heading-unbounded font-extrabold mb-6 text-center text-gray-900 drop-shadow-sm"
               variants={fadeInUp}
             >
               Milestone Birthday Celebrations

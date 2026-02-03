@@ -101,7 +101,7 @@ export default function Top10AustinBacheloretteIdeas() {
           </div>
           <div className="max-w-4xl mx-auto text-center relative z-10">
             <Crown className="h-16 w-16 text-yellow-400 mx-auto mb-6 animate-pulse" />
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-playfair font-bold mb-6 text-white drop-shadow-lg">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl heading-unbounded font-bold mb-6 text-white drop-shadow-lg">
               Top 10 Austin Bachelorette Party Ideas for an Epic Weekend
             </h1>
             <p className="text-xl md:text-2xl text-pink-100 max-w-3xl mx-auto mb-8">
@@ -184,7 +184,7 @@ export default function Top10AustinBacheloretteIdeas() {
               <div className="flex items-center justify-center w-16 h-16 rounded-full bg-pink-600 text-white font-bold text-2xl">
                 1
               </div>
-              <h2 className="text-3xl md:text-4xl font-playfair font-bold text-gray-900 dark:text-white">
+              <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-gray-900 dark:text-white">
                 Rent a Party Boat on Lake Travis
               </h2>
             </div>
@@ -249,7 +249,7 @@ export default function Top10AustinBacheloretteIdeas() {
               <div className="flex items-center justify-center w-16 h-16 rounded-full bg-purple-600 text-white font-bold text-2xl">
                 2
               </div>
-              <h2 className="text-3xl md:text-4xl font-playfair font-bold text-gray-900 dark:text-white">
+              <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-gray-900 dark:text-white">
                 Bar Crawl on Historic Sixth Street
               </h2>
             </div>
@@ -286,7 +286,7 @@ export default function Top10AustinBacheloretteIdeas() {
               <div className="flex items-center justify-center w-16 h-16 rounded-full bg-blue-600 text-white font-bold text-2xl">
                 3
               </div>
-              <h2 className="text-3xl md:text-4xl font-playfair font-bold text-gray-900 dark:text-white">
+              <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-gray-900 dark:text-white">
                 Dance the Night Away on Rainey Street
               </h2>
             </div>
@@ -323,7 +323,7 @@ export default function Top10AustinBacheloretteIdeas() {
               <div className="flex items-center justify-center w-16 h-16 rounded-full bg-pink-600 text-white font-bold text-2xl">
                 4
               </div>
-              <h2 className="text-3xl md:text-4xl font-playfair font-bold text-gray-900 dark:text-white">
+              <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-gray-900 dark:text-white">
                 Indulge in a Brunch Feast
               </h2>
             </div>
@@ -352,7 +352,7 @@ export default function Top10AustinBacheloretteIdeas() {
               <div className="flex items-center justify-center w-16 h-16 rounded-full bg-purple-600 text-white font-bold text-2xl">
                 5
               </div>
-              <h2 className="text-3xl md:text-4xl font-playfair font-bold text-gray-900 dark:text-white">
+              <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-gray-900 dark:text-white">
                 Go Two-Stepping at a Dance Hall
               </h2>
             </div>
@@ -389,7 +389,7 @@ export default function Top10AustinBacheloretteIdeas() {
               <div className="flex items-center justify-center w-16 h-16 rounded-full bg-blue-600 text-white font-bold text-2xl">
                 6
               </div>
-              <h2 className="text-3xl md:text-4xl font-playfair font-bold text-gray-900 dark:text-white">
+              <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-gray-900 dark:text-white">
                 Live Music on Red River or South Congress
               </h2>
             </div>
@@ -418,7 +418,7 @@ export default function Top10AustinBacheloretteIdeas() {
               <div className="flex items-center justify-center w-16 h-16 rounded-full bg-pink-600 text-white font-bold text-2xl">
                 7
               </div>
-              <h2 className="text-3xl md:text-4xl font-playfair font-bold text-gray-900 dark:text-white">
+              <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-gray-900 dark:text-white">
                 Spa Day or Pool Party Chill-Out
               </h2>
             </div>
@@ -455,7 +455,7 @@ export default function Top10AustinBacheloretteIdeas() {
               <div className="flex items-center justify-center w-16 h-16 rounded-full bg-purple-600 text-white font-bold text-2xl">
                 8
               </div>
-              <h2 className="text-3xl md:text-4xl font-playfair font-bold text-gray-900 dark:text-white">
+              <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-gray-900 dark:text-white">
                 Taco & BBQ Tasting Tour
               </h2>
             </div>
@@ -484,7 +484,7 @@ export default function Top10AustinBacheloretteIdeas() {
               <div className="flex items-center justify-center w-16 h-16 rounded-full bg-blue-600 text-white font-bold text-2xl">
                 9
               </div>
-              <h2 className="text-3xl md:text-4xl font-playfair font-bold text-gray-900 dark:text-white">
+              <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-gray-900 dark:text-white">
                 Themed Photoshoot and Bar Night
               </h2>
             </div>
@@ -521,7 +521,7 @@ export default function Top10AustinBacheloretteIdeas() {
               <div className="flex items-center justify-center w-16 h-16 rounded-full bg-pink-600 text-white font-bold text-2xl">
                 10
               </div>
-              <h2 className="text-3xl md:text-4xl font-playfair font-bold text-gray-900 dark:text-white">
+              <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-gray-900 dark:text-white">
                 Keep Austin Weird: Unique Activities
               </h2>
             </div>
@@ -546,7 +546,7 @@ export default function Top10AustinBacheloretteIdeas() {
       <SectionReveal>
         <section className="py-16 bg-gradient-to-b from-white to-pink-50 dark:from-gray-950 dark:to-gray-900">
           <div className="max-w-4xl mx-auto px-6">
-            <h2 className="text-3xl md:text-4xl font-playfair font-bold text-center mb-12 text-gray-900 dark:text-white">
+            <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-center mb-12 text-gray-900 dark:text-white">
               Bringing Your <strong className="text-pink-600">Austin Bachelorette Party</strong> Together
             </h2>
 
@@ -627,7 +627,7 @@ export default function Top10AustinBacheloretteIdeas() {
       <SectionReveal>
         <section className="py-16 bg-gradient-to-b from-white to-pink-50 dark:from-gray-950 dark:to-gray-900">
           <div className="max-w-4xl mx-auto px-6">
-            <h2 className="text-3xl md:text-4xl font-playfair font-bold text-center mb-12 text-gray-900 dark:text-white">
+            <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-center mb-12 text-gray-900 dark:text-white">
               Frequently Asked Questions About Your <strong className="text-pink-600">Austin Bachelorette Party</strong>
             </h2>
 
@@ -711,7 +711,7 @@ export default function Top10AustinBacheloretteIdeas() {
       <SectionReveal>
         <section className="py-16 bg-white dark:bg-gray-950">
           <div className="max-w-4xl mx-auto px-6">
-            <h2 className="text-3xl md:text-4xl font-playfair font-bold text-center mb-12 text-gray-900 dark:text-white">
+            <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-center mb-12 text-gray-900 dark:text-white">
               Complete <strong className="text-pink-600">Austin Bachelorette Weekend</strong> Planning Timeline
             </h2>
 
@@ -916,7 +916,7 @@ export default function Top10AustinBacheloretteIdeas() {
       <SectionReveal>
         <section className="py-16 bg-gradient-to-b from-white to-purple-50 dark:from-gray-950 dark:to-gray-900">
           <div className="max-w-4xl mx-auto px-6">
-            <h2 className="text-3xl md:text-4xl font-playfair font-bold text-center mb-12 text-gray-900 dark:text-white">
+            <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-center mb-12 text-gray-900 dark:text-white">
               Related <strong className="text-pink-600">Austin Bachelorette</strong> Resources
             </h2>
 

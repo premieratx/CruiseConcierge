@@ -288,7 +288,7 @@ export default function RehearsalDinner() {
             </motion.div>
 
             <motion.h1 
-              className="text-5xl md:text-7xl font-playfair font-bold mb-6 text-center"
+              className="text-5xl md:text-7xl heading-unbounded font-bold mb-6 text-center"
               variants={fadeInUp}
             >
               Rehearsal Dinner on Lake Travis

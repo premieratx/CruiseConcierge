@@ -70,7 +70,7 @@ export default function HolidayCelebrationsLakeTravis() {
           </div>
           <div className="max-w-4xl mx-auto text-center relative z-10">
             <Gift className="h-16 w-16 text-yellow-400 mx-auto mb-6 animate-pulse" />
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-playfair font-bold mb-6 text-white drop-shadow-lg">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl heading-unbounded font-bold mb-6 text-white drop-shadow-lg">
               Holiday Celebrations on Lake Travis: Seasonal Boat Party Planning and Coordination
             </h1>
             <p className="text-xl md:text-2xl text-blue-100 max-w-3xl mx-auto mb-8">
@@ -153,7 +153,7 @@ export default function HolidayCelebrationsLakeTravis() {
               <Badge className="mb-4 bg-brand-yellow text-black font-bold px-4 py-2">
                 OUR FLEET
               </Badge>
-              <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-4 text-gray-900 dark:text-white">
+              <h2 className="text-3xl md:text-4xl heading-unbounded font-bold mb-4 text-gray-900 dark:text-white">
                 Choose Your Perfect Boat for Holiday Celebrations
               </h2>
               <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
@@ -284,7 +284,7 @@ export default function HolidayCelebrationsLakeTravis() {
       <SectionReveal>
         <section id="why-lake-travis" className="py-16 bg-gradient-to-b from-white to-blue-50 dark:from-gray-950 dark:to-gray-900">
           <div className="max-w-4xl mx-auto px-6">
-            <h2 className="text-3xl md:text-4xl font-playfair font-bold text-center mb-12 text-gray-900 dark:text-white">
+            <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-center mb-12 text-gray-900 dark:text-white">
               Why Lake Travis is Perfect for Holiday Celebrations
             </h2>
             
@@ -368,7 +368,7 @@ export default function HolidayCelebrationsLakeTravis() {
       <SectionReveal>
         <section id="new-years" className="py-16 bg-white dark:bg-gray-950">
           <div className="max-w-4xl mx-auto px-6">
-            <h2 className="text-3xl md:text-4xl font-playfair font-bold text-center mb-12 text-gray-900 dark:text-white">
+            <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-center mb-12 text-gray-900 dark:text-white">
               New Year's Eve Celebrations on Lake Travis
             </h2>
 
@@ -446,7 +446,7 @@ export default function HolidayCelebrationsLakeTravis() {
       <SectionReveal>
         <section id="fourth-july" className="py-16 bg-gradient-to-b from-white to-red-50 dark:from-gray-950 dark:to-gray-900">
           <div className="max-w-4xl mx-auto px-6">
-            <h2 className="text-3xl md:text-4xl font-playfair font-bold text-center mb-12 text-gray-900 dark:text-white">
+            <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-center mb-12 text-gray-900 dark:text-white">
               4th of July Fireworks Cruises on Lake Travis
             </h2>
 
@@ -536,7 +536,7 @@ export default function HolidayCelebrationsLakeTravis() {
       <SectionReveal>
         <section id="thanksgiving" className="py-16 bg-white dark:bg-gray-950">
           <div className="max-w-4xl mx-auto px-6">
-            <h2 className="text-3xl md:text-4xl font-playfair font-bold text-center mb-12 text-gray-900 dark:text-white">
+            <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-center mb-12 text-gray-900 dark:text-white">
               Thanksgiving Gratitude Cruises
             </h2>
             
@@ -591,7 +591,7 @@ export default function HolidayCelebrationsLakeTravis() {
       <SectionReveal>
         <section id="christmas-parties" className="py-16 bg-gradient-to-b from-white to-green-50 dark:from-gray-950 dark:to-gray-900">
           <div className="max-w-4xl mx-auto px-6">
-            <h2 className="text-3xl md:text-4xl font-playfair font-bold text-center mb-12 text-gray-900 dark:text-white">
+            <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-center mb-12 text-gray-900 dark:text-white">
               Christmas & Holiday Office Parties
             </h2>
 
@@ -706,7 +706,7 @@ export default function HolidayCelebrationsLakeTravis() {
       <SectionReveal>
         <section id="planning-tips" className="py-16 bg-white dark:bg-gray-950">
           <div className="max-w-4xl mx-auto px-6">
-            <h2 className="text-3xl md:text-4xl font-playfair font-bold text-center mb-12 text-gray-900 dark:text-white">
+            <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-center mb-12 text-gray-900 dark:text-white">
               Holiday Party Planning Tips
             </h2>
 
@@ -799,7 +799,7 @@ export default function HolidayCelebrationsLakeTravis() {
       <SectionReveal>
         <section id="pricing-packages" className="py-16 bg-gradient-to-b from-white to-blue-50 dark:from-gray-950 dark:to-gray-900">
           <div className="max-w-4xl mx-auto px-6">
-            <h2 className="text-3xl md:text-4xl font-playfair font-bold text-center mb-12 text-gray-900 dark:text-white">
+            <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-center mb-12 text-gray-900 dark:text-white">
               Holiday Party Pricing & Packages
             </h2>
             
@@ -941,7 +941,7 @@ export default function HolidayCelebrationsLakeTravis() {
       <SectionReveal>
         <section id="booking-guide" className="py-16 bg-white dark:bg-gray-950">
           <div className="max-w-4xl mx-auto px-6">
-            <h2 className="text-3xl md:text-4xl font-playfair font-bold text-center mb-12 text-gray-900 dark:text-white">
+            <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-center mb-12 text-gray-900 dark:text-white">
               How to Book Your Holiday Celebration
             </h2>
             

@@ -334,7 +334,7 @@ export default function ATXDiscoCruise() {
 
           <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 text-center flex-grow flex items-center">
             <motion.div variants={fadeInUp} className="w-full">
-              <h1 className="font-playfair text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white mb-6 md:mb-8 text-center leading-tight drop-shadow-2xl" data-testid="text-hero-headline">
+              <h1 className="heading-unbounded text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white mb-6 md:mb-8 text-center leading-tight drop-shadow-2xl" data-testid="text-hero-headline">
                 ATX Disco Cruise: Lake Travis Bachelorette Party Boat
               </h1>
               <p className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 via-pink-300 to-purple-300 mb-8 md:mb-10 font-bold text-center drop-shadow-lg">
@@ -365,7 +365,7 @@ export default function ATXDiscoCruise() {
         {/* Scrolling Photo Gallery - Below Hero */}
         <section className="py-8 bg-gradient-to-b from-purple-100 to-white dark:from-purple-900/30 dark:to-gray-950 overflow-hidden">
           <div className="text-center mb-4">
-            <h2 className="text-2xl md:text-3xl font-playfair font-bold text-gray-900 dark:text-white mb-2">
+            <h2 className="text-2xl md:text-3xl heading-unbounded font-bold text-gray-900 dark:text-white mb-2">
               Real Parties, Real Fun
             </h2>
             <p className="text-gray-600 dark:text-gray-300 text-sm md:text-base">Photos from actual ATX Disco Cruise celebrations</p>
@@ -501,7 +501,7 @@ export default function ATXDiscoCruise() {
                   <Package className="h-4 w-4 mr-2 inline" />
                   Pricing & Time Slots
                 </Badge>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold heading-unbounded text-center mb-6 text-gray-900 leading-tight">
                   ATX Disco Cruise Pricing
                 </h2>
                 <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed mb-4">
@@ -605,7 +605,7 @@ export default function ATXDiscoCruise() {
                   <Clock className="h-4 w-4 mr-2 inline" />
                   What to Expect
                 </Badge>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold heading-unbounded text-center mb-6 text-gray-900 leading-tight">
                   Your Day of Disco Experience
                 </h2>
                 <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
@@ -659,7 +659,7 @@ export default function ATXDiscoCruise() {
         {/* Scrolling Photo Gallery */}
         <section className="py-12 bg-gradient-to-b from-purple-100 to-white dark:from-purple-900/30 dark:to-gray-950 overflow-hidden">
           <div className="text-center mb-6">
-            <h2 className="text-3xl font-playfair font-bold text-gray-900 dark:text-white mb-2">
+            <h2 className="text-3xl heading-unbounded font-bold text-gray-900 dark:text-white mb-2">
               Real Parties, Real Fun
             </h2>
             <p className="text-gray-600 dark:text-gray-300">Photos from actual ATX Disco Cruise celebrations</p>
@@ -676,7 +676,7 @@ export default function ATXDiscoCruise() {
                   <Zap className="h-4 w-4 mr-2 inline" />
                   Why Book ATX Disco
                 </Badge>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold heading-unbounded text-center mb-6 text-gray-900 leading-tight">
                   Why This is THE Bachelor/Bachelorette Experience
                 </h2>
                 <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
@@ -771,7 +771,7 @@ export default function ATXDiscoCruise() {
               </div>
 
               <div className="text-center mt-12 bg-gradient-to-r from-purple-100 to-pink-100 rounded-2xl p-10 border-2 border-purple-300">
-                <h3 className="text-2xl font-bold mb-4 text-gray-900 font-playfair">
+                <h3 className="text-2xl font-bold mb-4 text-gray-900 heading-unbounded">
                   This is NOT a Private Cruise - It's BETTER!
                 </h3>
                 <p className="text-lg text-gray-700 mb-6 leading-relaxed max-w-3xl mx-auto">
@@ -803,7 +803,7 @@ export default function ATXDiscoCruise() {
                   <Calendar className="h-4 w-4 mr-2 inline" />
                   Availability & Booking
                 </Badge>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold heading-unbounded text-center mb-6 text-gray-900 leading-tight">
                   Book Your Spot on the Disco Cruise
                 </h2>
                 <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
@@ -865,7 +865,7 @@ export default function ATXDiscoCruise() {
               </div>
 
               <div className="text-center bg-gradient-to-r from-purple-50 to-pink-50 rounded-2xl p-10 max-w-4xl mx-auto border-2 border-purple-200">
-                <h3 className="text-2xl font-bold mb-4 text-gray-900 font-playfair">Ready to Join the Best Bach Party?</h3>
+                <h3 className="text-2xl font-bold mb-4 text-gray-900 heading-unbounded">Ready to Join the Best Bach Party?</h3>
                 <p className="text-gray-700 mb-6 text-lg leading-relaxed">
                   Check availability and get instant pricing for your Lake Travis celebration
                 </p>
@@ -902,7 +902,7 @@ export default function ATXDiscoCruise() {
           <section className="py-12 md:py-20 bg-white">
             <div className="max-w-7xl mx-auto px-4 sm:px-6">
               <div className="max-w-4xl mx-auto">
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-playfair text-center mb-8 text-gray-900 leading-tight">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold heading-unbounded text-center mb-8 text-gray-900 leading-tight">
                   Austin Party Cruises: The Ultimate Multi-Group Celebration
                 </h2>
                 
@@ -989,7 +989,7 @@ export default function ATXDiscoCruise() {
           <section className="py-12 md:py-20 bg-gradient-to-br from-pink-50 to-purple-50">
             <div className="max-w-7xl mx-auto px-4 sm:px-6">
               <div className="max-w-4xl mx-auto">
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-playfair text-center mb-8 text-gray-900 leading-tight">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold heading-unbounded text-center mb-8 text-gray-900 leading-tight">
                   Your Lake Travis Party Boat Adventure Awaits
                 </h2>
                 
@@ -1078,7 +1078,7 @@ export default function ATXDiscoCruise() {
                   <Trophy className="h-4 w-4 mr-2 inline" />
                   Key Benefits
                 </Badge>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold heading-unbounded text-center mb-6 text-gray-900 leading-tight">
                   Why Bachelor & Bachelorette Parties Choose ATX Disco
                 </h2>
                 <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
@@ -1184,7 +1184,7 @@ export default function ATXDiscoCruise() {
                   <CheckCircle className="h-4 w-4 mr-2 inline" />
                   What's Included
                 </Badge>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold heading-unbounded text-center mb-6 text-gray-900 leading-tight">
                   Everything You Need for an Epic Day
                 </h2>
                 <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
@@ -1222,7 +1222,7 @@ export default function ATXDiscoCruise() {
                   <Crown className="h-4 w-4 mr-2 inline" />
                   The Premier Difference
                 </Badge>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-white leading-tight">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold heading-unbounded text-center mb-6 text-white leading-tight">
                   America's Most Unique Bachelor/Bachelorette Experience
                 </h2>
                 <p className="text-xl text-white/90 max-w-3xl mx-auto leading-relaxed">
@@ -1276,7 +1276,7 @@ export default function ATXDiscoCruise() {
                   <Camera className="h-4 w-4 mr-2 inline" />
                   Photo Gallery
                 </Badge>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold heading-unbounded text-center mb-6 text-gray-900 leading-tight">
                   See the Disco Cruise Experience
                 </h2>
                 <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
@@ -1327,7 +1327,7 @@ export default function ATXDiscoCruise() {
                   <Shield className="h-4 w-4 mr-2 inline" />
                   Our Guarantee
                 </Badge>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold heading-unbounded text-center mb-6 text-gray-900 leading-tight">
                   100% Risk-Free Booking
                 </h2>
                 <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
@@ -1412,7 +1412,7 @@ export default function ATXDiscoCruise() {
                   <Quote className="h-4 w-4 mr-2 inline" />
                   Customer Reviews
                 </Badge>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold heading-unbounded text-center mb-6 text-gray-900 leading-tight">
                   What Bachelor & Bachelorette Parties Are Saying
                 </h2>
                 <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed mb-6">
@@ -1491,7 +1491,7 @@ export default function ATXDiscoCruise() {
                   <AlertCircle className="h-4 w-4 mr-2 inline" />
                   Cost of Inaction
                 </Badge>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold heading-unbounded text-center mb-6 text-gray-900 leading-tight">
                   What Happens If You Don't Book ATX Disco?
                 </h2>
                 <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
@@ -1645,7 +1645,7 @@ export default function ATXDiscoCruise() {
                   <HelpCircle className="h-4 w-4 mr-2 inline" />
                   FAQs
                 </Badge>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold heading-unbounded text-center mb-6 text-gray-900 leading-tight">
                   Frequently Asked Questions
                 </h2>
                 <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">

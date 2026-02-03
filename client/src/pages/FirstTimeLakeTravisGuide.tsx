@@ -179,7 +179,7 @@ export default function FirstTimeLakeTravisGuide() {
                 <Badge className="mb-4 bg-blue-600 text-white font-bold px-4 py-2">
                   CHOOSE YOUR BOAT
                 </Badge>
-                <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-4 text-gray-900 dark:text-white">
+                <h2 className="text-3xl md:text-4xl heading-unbounded font-bold mb-4 text-gray-900 dark:text-white">
                   Choose Your Perfect Party Boat
                 </h2>
                 <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
@@ -298,7 +298,7 @@ export default function FirstTimeLakeTravisGuide() {
               <Badge className="mb-4 bg-purple-600 text-white font-bold px-4 py-2">
                 SEE OUR BOATS
               </Badge>
-              <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-4 text-gray-900 dark:text-white">
+              <h2 className="text-3xl md:text-4xl heading-unbounded font-bold mb-4 text-gray-900 dark:text-white">
                 Lake Travis Party Boat Gallery
               </h2>
               <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
@@ -338,7 +338,7 @@ export default function FirstTimeLakeTravisGuide() {
                 <Badge className="mb-4 bg-green-600 text-white font-bold px-4 py-2">
                   WHAT'S INCLUDED
                 </Badge>
-                <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-4 text-gray-900 dark:text-white">
+                <h2 className="text-3xl md:text-4xl heading-unbounded font-bold mb-4 text-gray-900 dark:text-white">
                   What to Expect on Your First Cruise
                 </h2>
                 <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
@@ -399,7 +399,7 @@ export default function FirstTimeLakeTravisGuide() {
                 <Badge className="mb-4 bg-green-600 text-white font-bold px-4 py-2">
                   YOUR SAFETY MATTERS
                 </Badge>
-                <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-4 text-gray-900 dark:text-white">
+                <h2 className="text-3xl md:text-4xl heading-unbounded font-bold mb-4 text-gray-900 dark:text-white">
                   Safety & Responsible Fun on Lake Travis
                 </h2>
               </div>
@@ -449,7 +449,7 @@ export default function FirstTimeLakeTravisGuide() {
                 <Badge className="mb-4 bg-yellow-500 text-black font-bold px-4 py-2">
                   TRANSPARENT PRICING
                 </Badge>
-                <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-4 text-gray-900 dark:text-white">
+                <h2 className="text-3xl md:text-4xl heading-unbounded font-bold mb-4 text-gray-900 dark:text-white">
                   Lake Travis Boat Rental Pricing
                 </h2>
                 <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
@@ -536,7 +536,7 @@ export default function FirstTimeLakeTravisGuide() {
                 <Badge className="mb-4 bg-orange-500 text-white font-bold px-4 py-2">
                   PRO TIPS
                 </Badge>
-                <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-4 text-gray-900 dark:text-white">
+                <h2 className="text-3xl md:text-4xl heading-unbounded font-bold mb-4 text-gray-900 dark:text-white">
                   First-Time Party Planning Tips
                 </h2>
               </div>
@@ -604,7 +604,7 @@ export default function FirstTimeLakeTravisGuide() {
                 <Badge className="mb-4 bg-gray-800 text-white font-bold px-4 py-2">
                   GOT QUESTIONS?
                 </Badge>
-                <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-4 text-gray-900 dark:text-white">
+                <h2 className="text-3xl md:text-4xl heading-unbounded font-bold mb-4 text-gray-900 dark:text-white">
                   Frequently Asked Questions
                 </h2>
               </div>

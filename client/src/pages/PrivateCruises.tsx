@@ -484,7 +484,7 @@ export default function PrivateCruises() {
               <Badge className="mb-4 md:mb-6 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-sm sm:text-base px-6 sm:px-8 py-2.5 border-0 font-sans tracking-wider font-bold uppercase shadow-lg">
                 Private Boat Charters
               </Badge>
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold font-playfair mb-4 md:mb-6 text-white leading-tight drop-shadow-lg">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold heading-unbounded mb-4 md:mb-6 text-white leading-tight drop-shadow-lg">
                 Private Boat Rentals on Lake Travis Austin
               </h1>
               <p className="text-lg sm:text-xl md:text-2xl text-brand-yellow mb-4 md:mb-6 font-bold drop-shadow-md">
@@ -655,7 +655,7 @@ export default function PrivateCruises() {
           <div className="container mx-auto px-4 sm:px-6">
             <div className="max-w-7xl mx-auto">
               <div className="text-center mb-16">
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold font-playfair mb-6 text-gray-900">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold heading-unbounded mb-6 text-gray-900">
                   The Private Charter Experience
                 </h2>
                 <p className="text-lg text-gray-700 max-w-3xl mx-auto">
@@ -773,7 +773,7 @@ export default function PrivateCruises() {
           <div className="container mx-auto px-4 sm:px-6">
             <div className="max-w-7xl mx-auto">
               <div className="text-center mb-16">
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold font-playfair mb-6 text-yellow-400">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold heading-unbounded mb-6 text-yellow-400">
                   Pricing & Packages
                 </h2>
                 <p className="text-lg text-blue-600 max-w-3xl mx-auto font-medium">
@@ -944,7 +944,7 @@ export default function PrivateCruises() {
           <div className="container mx-auto px-4 sm:px-6">
             <div className="max-w-7xl mx-auto">
               <div className="text-center mb-16">
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold font-playfair mb-6 text-gray-900">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold heading-unbounded mb-6 text-gray-900">
                   Booking & Availability
                 </h2>
                 <p className="text-lg text-gray-700 max-w-3xl mx-auto">
@@ -1071,7 +1071,7 @@ export default function PrivateCruises() {
         <section className="py-12 md:py-20 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="max-w-4xl mx-auto">
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-playfair text-center mb-8 text-gray-900 leading-tight">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold heading-unbounded text-center mb-8 text-gray-900 leading-tight">
                 Austin Party Cruises: Your Private Lake Travis Experience
               </h2>
               
@@ -1160,7 +1160,7 @@ export default function PrivateCruises() {
         <section className="py-12 md:py-20 bg-gradient-to-br from-purple-50 to-blue-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="max-w-4xl mx-auto">
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-playfair text-center mb-8 text-gray-900 leading-tight">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold heading-unbounded text-center mb-8 text-gray-900 leading-tight">
                 Planning Your Private Party Boat Austin Charter
               </h2>
               
@@ -1246,7 +1246,7 @@ export default function PrivateCruises() {
           <div className="container mx-auto px-4 sm:px-6">
             <div className="max-w-7xl mx-auto">
               <div className="text-center mb-16">
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold font-playfair mb-6 text-gray-900">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold heading-unbounded mb-6 text-gray-900">
                   What's Included in Every Charter
                 </h2>
                 <p className="text-lg text-gray-700 max-w-3xl mx-auto">
@@ -1292,7 +1292,7 @@ export default function PrivateCruises() {
           <div className="container mx-auto px-4 sm:px-6">
             <div className="max-w-7xl mx-auto">
               <div className="text-center mb-16">
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold font-playfair mb-6 text-gray-900">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold heading-unbounded mb-6 text-gray-900">
                   Customize Your Experience
                 </h2>
                 <p className="text-lg text-gray-700 max-w-3xl mx-auto">
@@ -1546,7 +1546,7 @@ export default function PrivateCruises() {
           <div className="container mx-auto px-4 sm:px-6">
             <div className="max-w-7xl mx-auto">
               <div className="text-center mb-16">
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold font-playfair mb-6 text-white">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold heading-unbounded mb-6 text-white">
                   Why Choose Premier Party Cruises
                 </h2>
                 <p className="text-xl text-white/90 max-w-3xl mx-auto">
@@ -1599,7 +1599,7 @@ export default function PrivateCruises() {
           <div className="container mx-auto px-4 sm:px-6">
             <div className="max-w-7xl mx-auto">
               <div className="text-center mb-16">
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold font-playfair mb-6 text-gray-900">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold heading-unbounded mb-6 text-gray-900">
                   Our Fleet Gallery
                 </h2>
                 <p className="text-lg text-gray-700 max-w-3xl mx-auto">
@@ -1691,7 +1691,7 @@ export default function PrivateCruises() {
           <div className="container mx-auto px-4 sm:px-6">
             <div className="max-w-7xl mx-auto">
               <div className="text-center mb-16">
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold font-playfair mb-6 text-gray-900">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold heading-unbounded mb-6 text-gray-900">
                   What Our Guests Say
                 </h2>
                 <p className="text-lg text-gray-700 max-w-3xl mx-auto">
@@ -1749,7 +1749,7 @@ export default function PrivateCruises() {
           <div className="container mx-auto px-4 sm:px-6">
             <div className="max-w-4xl mx-auto">
               <div className="text-center mb-16">
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold font-playfair mb-6 text-gray-900">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold heading-unbounded mb-6 text-gray-900">
                   Frequently Asked Questions
                 </h2>
                 <p className="text-lg text-gray-700">

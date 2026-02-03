@@ -42,7 +42,7 @@ export default function LakeTravisBoatRentalGuide() {
         <section className="relative py-24 px-6 bg-gradient-to-br from-blue-600 to-purple-700">
           <div className="max-w-4xl mx-auto text-center">
             <Anchor className="h-16 w-16 text-yellow-400 mx-auto mb-6" />
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-playfair font-bold mb-6 text-white drop-shadow-lg">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl heading-unbounded font-bold mb-6 text-white drop-shadow-lg">
               First-Time Lake Travis Boat Rental: Essential Tips for Austin Party Planning
             </h1>
             <p className="text-xl md:text-2xl text-blue-100 max-w-3xl mx-auto mb-8">
@@ -105,7 +105,7 @@ export default function LakeTravisBoatRentalGuide() {
       <SectionReveal>
         <section className="py-16 bg-gradient-to-b from-white to-blue-50 dark:from-gray-950 dark:to-gray-900">
           <div className="max-w-4xl mx-auto px-6">
-            <h2 className="text-3xl md:text-4xl font-playfair font-bold text-center mb-12 text-gray-900 dark:text-white">
+            <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-center mb-12 text-gray-900 dark:text-white">
               Why Lake Travis is Perfect for Your Party
             </h2>
             
@@ -182,7 +182,7 @@ export default function LakeTravisBoatRentalGuide() {
       <SectionReveal>
         <section className="py-16 bg-white dark:bg-gray-950">
           <div className="max-w-4xl mx-auto px-6">
-            <h2 className="text-3xl md:text-4xl font-playfair font-bold text-center mb-12 text-gray-900 dark:text-white">
+            <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-center mb-12 text-gray-900 dark:text-white">
               Understanding Your Lake Travis Boat Rental Options
             </h2>
 
@@ -244,7 +244,7 @@ export default function LakeTravisBoatRentalGuide() {
       <SectionReveal>
         <section className="py-16 bg-gradient-to-b from-white to-blue-50 dark:from-gray-950 dark:to-gray-900">
           <div className="max-w-4xl mx-auto px-6">
-            <h2 className="text-3xl md:text-4xl font-playfair font-bold text-center mb-12 text-gray-900 dark:text-white">
+            <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-center mb-12 text-gray-900 dark:text-white">
               Navigating Lake Travis Safely and Responsibly
             </h2>
 
@@ -296,7 +296,7 @@ export default function LakeTravisBoatRentalGuide() {
       <SectionReveal>
         <section className="py-16 bg-white dark:bg-gray-950">
           <div className="max-w-4xl mx-auto px-6">
-            <h2 className="text-3xl md:text-4xl font-playfair font-bold text-center mb-12 text-gray-900 dark:text-white">
+            <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-center mb-12 text-gray-900 dark:text-white">
               The Role of Alcohol Delivery in Your Lake Travis Party
             </h2>
 
@@ -349,7 +349,7 @@ export default function LakeTravisBoatRentalGuide() {
       <SectionReveal>
         <section className="py-16 bg-gradient-to-b from-white to-blue-50 dark:from-gray-950 dark:to-gray-900">
           <div className="max-w-4xl mx-auto px-6">
-            <h2 className="text-3xl md:text-4xl font-playfair font-bold text-center mb-12 text-gray-900 dark:text-white">
+            <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-center mb-12 text-gray-900 dark:text-white">
               Maximizing Your First-Time Boat Rental Experience
             </h2>
 
@@ -410,7 +410,7 @@ export default function LakeTravisBoatRentalGuide() {
       <SectionReveal>
         <section className="py-16 bg-white dark:bg-gray-950">
           <div className="max-w-4xl mx-auto px-6">
-            <h2 className="text-3xl md:text-4xl font-playfair font-bold text-center mb-12 text-gray-900 dark:text-white">
+            <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-center mb-12 text-gray-900 dark:text-white">
               FAQ: Your Lake Travis Boat Rental Questions Answered
             </h2>
 
@@ -478,7 +478,7 @@ export default function LakeTravisBoatRentalGuide() {
       <SectionReveal>
         <section className="py-16 bg-gradient-to-b from-white to-blue-50 dark:from-gray-950 dark:to-gray-900">
           <div className="max-w-6xl mx-auto px-6">
-            <h2 className="text-3xl md:text-4xl font-playfair font-bold text-center mb-12 text-gray-900 dark:text-white">
+            <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-center mb-12 text-gray-900 dark:text-white">
               Explore Our Lake Travis Party Boat Experiences
             </h2>
 

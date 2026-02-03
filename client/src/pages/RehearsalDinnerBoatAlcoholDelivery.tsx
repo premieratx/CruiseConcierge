@@ -208,7 +208,7 @@ export default function RehearsalDinnerBoatAlcoholDelivery() {
               <Wine className="h-4 w-4 mr-2" />
               Wedding Weekend Experience
             </Badge>
-            <h1 className="font-playfair text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+            <h1 className="heading-unbounded text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
               Rehearsal Dinner Boat &amp; Alcohol Delivery
             </h1>
             <p className="text-xl md:text-2xl mb-8 text-gray-100 max-w-3xl mx-auto">
@@ -265,7 +265,7 @@ export default function RehearsalDinnerBoatAlcoholDelivery() {
               <div className="grid lg:grid-cols-2 gap-12 items-center">
                 <div>
                   <Badge className="mb-4 bg-purple-100 text-purple-700">Section 01</Badge>
-                  <h2 className="font-playfair text-3xl md:text-4xl font-bold mb-6">
+                  <h2 className="heading-unbounded text-3xl md:text-4xl font-bold mb-6">
                     Why Lake Travis for Your Rehearsal Dinner?
                   </h2>
                   <p className="text-lg text-gray-600 mb-6 leading-relaxed">
@@ -333,7 +333,7 @@ export default function RehearsalDinnerBoatAlcoholDelivery() {
                 </div>
                 <div className="order-1 lg:order-2">
                   <Badge className="mb-4 bg-purple-100 text-purple-700">Section 02</Badge>
-                  <h2 className="font-playfair text-3xl md:text-4xl font-bold mb-6">
+                  <h2 className="heading-unbounded text-3xl md:text-4xl font-bold mb-6">
                     Seamless Alcohol Delivery with Party On Delivery
                   </h2>
                   <p className="text-lg text-gray-600 mb-6 leading-relaxed">
@@ -385,7 +385,7 @@ export default function RehearsalDinnerBoatAlcoholDelivery() {
         <SectionReveal>
           <section className="py-20 bg-gradient-to-r from-purple-600 to-pink-600 text-white">
             <div className="max-w-4xl mx-auto px-6 text-center">
-              <h2 className="font-playfair text-3xl md:text-4xl font-bold mb-6">
+              <h2 className="heading-unbounded text-3xl md:text-4xl font-bold mb-6">
                 The Only Integrated Alcohol Delivery + Party Boat Service in Austin
               </h2>
               <p className="text-xl mb-8 text-purple-100">
@@ -445,7 +445,7 @@ export default function RehearsalDinnerBoatAlcoholDelivery() {
             <div className="max-w-7xl mx-auto px-6">
               <div className="text-center mb-16">
                 <Badge className="mb-4 bg-purple-100 text-purple-700">Section 03</Badge>
-                <h2 className="font-playfair text-3xl md:text-4xl font-bold mb-6">
+                <h2 className="heading-unbounded text-3xl md:text-4xl font-bold mb-6">
                   Wedding Weekend Event Options
                 </h2>
                 <p className="text-lg text-gray-600 max-w-3xl mx-auto">
@@ -471,7 +471,7 @@ export default function RehearsalDinnerBoatAlcoholDelivery() {
                       <div className="w-16 h-16 mx-auto -mt-12 mb-2 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 flex items-center justify-center shadow-lg border-4 border-white">
                         <event.icon className="h-8 w-8 text-white" />
                       </div>
-                      <CardTitle className="font-playfair text-2xl">{event.name}</CardTitle>
+                      <CardTitle className="heading-unbounded text-2xl">{event.name}</CardTitle>
                       <CardDescription className="text-base">{event.description}</CardDescription>
                     </CardHeader>
                     <CardContent>
@@ -496,7 +496,7 @@ export default function RehearsalDinnerBoatAlcoholDelivery() {
             <div className="max-w-7xl mx-auto px-6">
               <div className="text-center mb-16">
                 <Badge className="mb-4 bg-purple-100 text-purple-700">Section 04</Badge>
-                <h2 className="font-playfair text-3xl md:text-4xl font-bold mb-6">
+                <h2 className="heading-unbounded text-3xl md:text-4xl font-bold mb-6">
                   Choose Your Perfect Vessel
                 </h2>
                 <p className="text-lg text-gray-600 max-w-3xl mx-auto">
@@ -519,7 +519,7 @@ export default function RehearsalDinnerBoatAlcoholDelivery() {
                       />
                     </div>
                     <CardHeader className="text-center">
-                      <CardTitle className="font-playfair text-2xl">{boat.name}</CardTitle>
+                      <CardTitle className="heading-unbounded text-2xl">{boat.name}</CardTitle>
                       <Badge className="mt-2 bg-purple-100 text-purple-700 w-fit mx-auto">{boat.capacity}</Badge>
                     </CardHeader>
                     <CardContent className="text-center">
@@ -551,7 +551,7 @@ export default function RehearsalDinnerBoatAlcoholDelivery() {
             <div className="max-w-7xl mx-auto px-6">
               <div className="text-center mb-16">
                 <Badge className="mb-4 bg-purple-100 text-purple-700">Section 05</Badge>
-                <h2 className="font-playfair text-3xl md:text-4xl font-bold mb-6">
+                <h2 className="heading-unbounded text-3xl md:text-4xl font-bold mb-6">
                   Wedding Celebrations on the Water
                 </h2>
                 <p className="text-lg text-gray-600 max-w-3xl mx-auto">
@@ -584,7 +584,7 @@ export default function RehearsalDinnerBoatAlcoholDelivery() {
             <div className="max-w-7xl mx-auto px-6">
               <div className="text-center mb-16">
                 <Badge className="mb-4 bg-purple-100 text-purple-700">Section 06</Badge>
-                <h2 className="font-playfair text-3xl md:text-4xl font-bold mb-6">
+                <h2 className="heading-unbounded text-3xl md:text-4xl font-bold mb-6">
                   Frequently Asked Questions
                 </h2>
                 <p className="text-lg text-gray-600 max-w-3xl mx-auto">
@@ -624,7 +624,7 @@ export default function RehearsalDinnerBoatAlcoholDelivery() {
         <SectionReveal>
           <section className="py-24 bg-gradient-to-r from-purple-600 to-pink-600 text-white">
             <div className="max-w-4xl mx-auto px-6 text-center">
-              <h2 className="font-playfair text-3xl md:text-4xl font-bold mb-6">
+              <h2 className="heading-unbounded text-3xl md:text-4xl font-bold mb-6">
                 Ready to Plan Your Wedding Weekend on Lake Travis?
               </h2>
               <p className="text-xl mb-8 text-purple-100">

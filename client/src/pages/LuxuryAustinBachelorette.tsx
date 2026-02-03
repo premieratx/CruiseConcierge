@@ -104,7 +104,7 @@ export default function LuxuryAustinBachelorette() {
           </div>
           <div className="max-w-4xl mx-auto text-center relative z-10">
             <Gem className="h-16 w-16 text-yellow-300 mx-auto mb-6 animate-pulse" />
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-playfair font-bold mb-6 text-white drop-shadow-lg">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl heading-unbounded font-bold mb-6 text-white drop-shadow-lg">
               Living the High Life: A Luxury Austin Bachelorette Weekend Guide
             </h1>
             <p className="text-xl md:text-2xl text-pink-100 max-w-3xl mx-auto mb-8">
@@ -185,7 +185,7 @@ export default function LuxuryAustinBachelorette() {
       <SectionReveal>
         <section id="accommodations" className="py-16 bg-gradient-to-b from-white to-purple-50 dark:from-gray-950 dark:to-gray-900">
           <div className="max-w-4xl mx-auto px-6">
-            <h2 className="text-3xl md:text-4xl font-playfair font-bold text-center mb-12 text-gray-900 dark:text-white">
+            <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-center mb-12 text-gray-900 dark:text-white">
               <Building2 className="inline-block h-10 w-10 text-purple-600 mb-2" /> Stay in Style - Luxe Hotels & Private Estates
             </h2>
 
@@ -244,7 +244,7 @@ export default function LuxuryAustinBachelorette() {
       <SectionReveal>
         <section id="arrival" className="py-16 bg-white dark:bg-gray-950">
           <div className="max-w-4xl mx-auto px-6">
-            <h2 className="text-3xl md:text-4xl font-playfair font-bold text-center mb-12 text-gray-900 dark:text-white">
+            <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-center mb-12 text-gray-900 dark:text-white">
               <Plane className="inline-block h-10 w-10 text-pink-600 mb-2" /> Arrival by Limo (or Helicopter!)
             </h2>
             
@@ -268,7 +268,7 @@ export default function LuxuryAustinBachelorette() {
       <SectionReveal>
         <section id="dining" className="py-16 bg-gradient-to-b from-white to-pink-50 dark:from-gray-950 dark:to-gray-900">
           <div className="max-w-4xl mx-auto px-6">
-            <h2 className="text-3xl md:text-4xl font-playfair font-bold text-center mb-12 text-gray-900 dark:text-white">
+            <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-center mb-12 text-gray-900 dark:text-white">
               <Utensils className="inline-block h-10 w-10 text-amber-600 mb-2" /> Fine Dining & Gourmet Experiences
             </h2>
 
@@ -327,7 +327,7 @@ export default function LuxuryAustinBachelorette() {
       <SectionReveal>
         <section id="nightlife" className="py-16 bg-white dark:bg-gray-950">
           <div className="max-w-4xl mx-auto px-6">
-            <h2 className="text-3xl md:text-4xl font-playfair font-bold text-center mb-12 text-gray-900 dark:text-white">
+            <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-center mb-12 text-gray-900 dark:text-white">
               <Music className="inline-block h-10 w-10 text-purple-600 mb-2" /> VIP Nightlife - Bottle Service & Rooftop Clubs
             </h2>
             
@@ -351,7 +351,7 @@ export default function LuxuryAustinBachelorette() {
       <SectionReveal>
         <section id="yacht" className="py-16 bg-gradient-to-b from-white to-purple-50 dark:from-gray-950 dark:to-gray-900">
           <div className="max-w-4xl mx-auto px-6">
-            <h2 className="text-3xl md:text-4xl font-playfair font-bold text-center mb-12 text-gray-900 dark:text-white">
+            <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-center mb-12 text-gray-900 dark:text-white">
               <Ship className="inline-block h-10 w-10 text-pink-600 mb-2" /> Luxury on the Lake - VIP Party Boat Charter on Lake Travis
             </h2>
 
@@ -414,7 +414,7 @@ export default function LuxuryAustinBachelorette() {
       <SectionReveal>
         <section id="spa" className="py-16 bg-white dark:bg-gray-950">
           <div className="max-w-4xl mx-auto px-6">
-            <h2 className="text-3xl md:text-4xl font-playfair font-bold text-center mb-12 text-gray-900 dark:text-white">
+            <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-center mb-12 text-gray-900 dark:text-white">
               <Sparkles className="inline-block h-10 w-10 text-purple-600 mb-2" /> Spa Day & Wellness Retreats
             </h2>
 
@@ -446,7 +446,7 @@ export default function LuxuryAustinBachelorette() {
       <SectionReveal>
         <section id="extras" className="py-16 bg-gradient-to-b from-white to-pink-50 dark:from-gray-950 dark:to-gray-900">
           <div className="max-w-4xl mx-auto px-6">
-            <h2 className="text-3xl md:text-4xl font-playfair font-bold text-center mb-12 text-gray-900 dark:text-white">
+            <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-center mb-12 text-gray-900 dark:text-white">
               <Crown className="inline-block h-10 w-10 text-amber-600 mb-2" /> High-End Extras & Personal Touches
             </h2>
 
@@ -509,7 +509,7 @@ export default function LuxuryAustinBachelorette() {
       <SectionReveal>
         <section id="planning" className="py-16 bg-white dark:bg-gray-950">
           <div className="max-w-4xl mx-auto px-6">
-            <h2 className="text-3xl md:text-4xl font-playfair font-bold text-center mb-12 text-gray-900 dark:text-white">
+            <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-center mb-12 text-gray-900 dark:text-white">
               <Trophy className="inline-block h-10 w-10 text-purple-600 mb-2" /> Planning Your Perfect Luxury Austin Bachelorette Weekend
             </h2>
             
@@ -539,7 +539,7 @@ export default function LuxuryAustinBachelorette() {
       <SectionReveal>
         <section className="py-16 bg-gradient-to-b from-white to-purple-50 dark:from-gray-950 dark:to-gray-900">
           <div className="max-w-4xl mx-auto px-6 text-center">
-            <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-8 text-gray-900 dark:text-white">
+            <h2 className="text-3xl md:text-4xl heading-unbounded font-bold mb-8 text-gray-900 dark:text-white">
               Explore More Austin Bachelorette Party Resources
             </h2>
             

@@ -41,7 +41,7 @@ export default function Contact() {
           <div className="max-w-7xl mx-auto">
             <div className="text-center px-4">
               <MessageSquare className="h-12 sm:h-16 w-12 sm:w-16 text-blue-600 mx-auto mb-4 md:mb-6" />
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-playfair font-bold mb-4 md:mb-6 text-gray-900 dark:text-white" data-editable data-editable-id="h1-contact-us">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl heading-unbounded font-bold mb-4 md:mb-6 text-gray-900 dark:text-white" data-editable data-editable-id="h1-contact-us">
                 Contact Premier Party Cruises
               </h1>
               <p className="text-base sm:text-lg md:text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto" data-editable data-editable-id="p-contact-tagline">
@@ -57,7 +57,7 @@ export default function Contact() {
         <section className="py-24 bg-white dark:bg-gray-950">
           <div className="max-w-7xl mx-auto px-6">
             <div className="max-w-5xl mx-auto">
-              <h2 className="text-3xl font-playfair font-bold mb-8 text-center text-gray-900 dark:text-white" data-editable data-editable-id="h2-get-in-touch">
+              <h2 className="text-3xl heading-unbounded font-bold mb-8 text-center text-gray-900 dark:text-white" data-editable data-editable-id="h2-get-in-touch">
                 Get in Touch
               </h2>
               <p className="text-base text-gray-600 dark:text-gray-300 mb-12 text-center" data-editable data-editable-id="p-contact-description">
@@ -117,7 +117,7 @@ export default function Contact() {
 
               {/* Social Media */}
               <div className="text-center mb-12">
-                <h3 className="text-2xl font-playfair font-bold text-gray-900 dark:text-white mb-6" data-editable data-editable-id="contact-social-title">Follow Our Adventures</h3>
+                <h3 className="text-2xl heading-unbounded font-bold text-gray-900 dark:text-white mb-6" data-editable data-editable-id="contact-social-title">Follow Our Adventures</h3>
                 <div className="flex justify-center space-x-4">
                   <Button variant="outline" size="lg" className="rounded-xl" data-testid="button-facebook">
                     <Facebook className="h-5 w-5 mr-2" />
@@ -142,7 +142,7 @@ export default function Contact() {
         <section className="py-24 bg-gradient-to-b from-white to-blue-50 dark:from-gray-950 dark:to-gray-900">
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
-              <h2 className="text-3xl font-playfair font-bold mb-6 text-gray-900 dark:text-white" data-editable data-editable-id="reviews-section-title">
+              <h2 className="text-3xl heading-unbounded font-bold mb-6 text-gray-900 dark:text-white" data-editable data-editable-id="reviews-section-title">
                 What Our Customers Say
               </h2>
               <div className="flex justify-center items-center space-x-2 mb-8">
@@ -199,7 +199,7 @@ export default function Contact() {
         <section className="py-24 bg-white dark:bg-gray-950">
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-playfair font-bold mb-4 text-gray-900 dark:text-white">
+              <h2 className="text-3xl heading-unbounded font-bold mb-4 text-gray-900 dark:text-white">
                 Explore Our Lake Travis Experiences
               </h2>
               <p className="text-base text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">

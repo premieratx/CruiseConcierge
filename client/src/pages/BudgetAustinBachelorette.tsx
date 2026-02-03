@@ -113,7 +113,7 @@ export default function BudgetAustinBachelorette() {
           </div>
           <div className="max-w-4xl mx-auto text-center relative z-10">
             <DollarSign className="h-16 w-16 text-yellow-400 mx-auto mb-6 animate-pulse" />
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-playfair font-bold mb-6 text-white drop-shadow-lg">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl heading-unbounded font-bold mb-6 text-white drop-shadow-lg">
               Budget-Friendly Austin Bachelorette Weekend - Party Without Breaking the Bank
             </h1>
             <p className="text-xl md:text-2xl text-green-100 max-w-3xl mx-auto mb-8">
@@ -199,7 +199,7 @@ export default function BudgetAustinBachelorette() {
                 1
               </div>
               <div>
-                <h2 className="text-3xl md:text-4xl font-playfair font-bold text-gray-900 dark:text-white">
+                <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-gray-900 dark:text-white">
                   Pick Affordable (and Awesome) Accommodation
                 </h2>
                 <p className="text-lg text-gray-600 dark:text-gray-400 mt-2">
@@ -266,7 +266,7 @@ export default function BudgetAustinBachelorette() {
                 2
               </div>
               <div>
-                <h2 className="text-3xl md:text-4xl font-playfair font-bold text-gray-900 dark:text-white">
+                <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-gray-900 dark:text-white">
                   Plan Free & Cheap Activities
                 </h2>
                 <p className="text-lg text-gray-600 dark:text-gray-400 mt-2">
@@ -332,7 +332,7 @@ export default function BudgetAustinBachelorette() {
                 3
               </div>
               <div>
-                <h2 className="text-3xl md:text-4xl font-playfair font-bold text-gray-900 dark:text-white">
+                <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-gray-900 dark:text-white">
                   Take Advantage of BYOB and Deals
                 </h2>
                 <p className="text-lg text-gray-600 dark:text-gray-400 mt-2">
@@ -403,7 +403,7 @@ export default function BudgetAustinBachelorette() {
                 4
               </div>
               <div>
-                <h2 className="text-3xl md:text-4xl font-playfair font-bold text-gray-900 dark:text-white">
+                <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-gray-900 dark:text-white">
                   BYO Everything with Party On Delivery
                 </h2>
                 <p className="text-lg text-gray-600 dark:text-gray-400 mt-2">
@@ -482,7 +482,7 @@ export default function BudgetAustinBachelorette() {
                 5
               </div>
               <div>
-                <h2 className="text-3xl md:text-4xl font-playfair font-bold text-gray-900 dark:text-white">
+                <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-gray-900 dark:text-white">
                   Eat Smart: Taco Trucks Over Pricey Meals
                 </h2>
                 <p className="text-lg text-gray-600 dark:text-gray-400 mt-2">
@@ -548,7 +548,7 @@ export default function BudgetAustinBachelorette() {
                 6
               </div>
               <div>
-                <h2 className="text-3xl md:text-4xl font-playfair font-bold text-gray-900 dark:text-white">
+                <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-gray-900 dark:text-white">
                   Use Group Discounts & DIY When Possible
                 </h2>
                 <p className="text-lg text-gray-600 dark:text-gray-400 mt-2">
@@ -619,7 +619,7 @@ export default function BudgetAustinBachelorette() {
                 7
               </div>
               <div>
-                <h2 className="text-3xl md:text-4xl font-playfair font-bold text-gray-900 dark:text-white">
+                <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-gray-900 dark:text-white">
                   Prioritize the Must-Dos and Skip the Rest
                 </h2>
                 <p className="text-lg text-gray-600 dark:text-gray-400 mt-2">
@@ -687,7 +687,7 @@ export default function BudgetAustinBachelorette() {
                 8
               </div>
               <div>
-                <h2 className="text-3xl md:text-4xl font-playfair font-bold text-gray-900 dark:text-white">
+                <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-gray-900 dark:text-white">
                   Keep Transportation Costs Low
                 </h2>
                 <p className="text-lg text-gray-600 dark:text-gray-400 mt-2">
@@ -758,7 +758,7 @@ export default function BudgetAustinBachelorette() {
                 9
               </div>
               <div>
-                <h2 className="text-3xl md:text-4xl font-playfair font-bold text-gray-900 dark:text-white">
+                <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-gray-900 dark:text-white">
                   Forego the Limo – Try a Party Bus or Van
                 </h2>
                 <p className="text-lg text-gray-600 dark:text-gray-400 mt-2">
@@ -821,7 +821,7 @@ export default function BudgetAustinBachelorette() {
                 10
               </div>
               <div>
-                <h2 className="text-3xl md:text-4xl font-playfair font-bold text-gray-900 dark:text-white">
+                <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-gray-900 dark:text-white">
                   Tap Into Austin's Generosity
                 </h2>
                 <p className="text-lg text-gray-600 dark:text-gray-400 mt-2">
@@ -879,7 +879,7 @@ export default function BudgetAustinBachelorette() {
       <SectionReveal>
         <section className="py-16 bg-gradient-to-b from-white to-green-50 dark:from-gray-950 dark:to-gray-900">
           <div className="max-w-4xl mx-auto px-6">
-            <h2 className="text-3xl md:text-4xl font-playfair font-bold text-center mb-8 text-gray-900 dark:text-white">
+            <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-center mb-8 text-gray-900 dark:text-white">
               Final Thoughts: Your Budget Austin Bachelorette Success
             </h2>
             

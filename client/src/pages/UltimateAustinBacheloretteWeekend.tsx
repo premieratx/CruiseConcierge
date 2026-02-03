@@ -69,7 +69,7 @@ export default function UltimateAustinBacheloretteWeekend() {
           </div>
           <div className="max-w-4xl mx-auto text-center relative z-10">
             <Crown className="h-16 w-16 text-yellow-400 mx-auto mb-6 animate-pulse" />
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-playfair font-bold mb-6 text-white drop-shadow-lg">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl heading-unbounded font-bold mb-6 text-white drop-shadow-lg">
               The Ultimate Austin Bachelorette Weekend - Party Boats, Nightlife & More
             </h1>
             <p className="text-xl md:text-2xl text-pink-100 max-w-3xl mx-auto mb-8">
@@ -148,7 +148,7 @@ export default function UltimateAustinBacheloretteWeekend() {
       <SectionReveal>
         <section id="why-austin" className="py-16 bg-gradient-to-b from-white to-pink-50 dark:from-gray-950 dark:to-gray-900">
           <div className="max-w-4xl mx-auto px-6">
-            <h2 className="text-3xl md:text-4xl font-playfair font-bold text-center mb-12 text-gray-900 dark:text-white">
+            <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-center mb-12 text-gray-900 dark:text-white">
               Why Austin is Perfect for Your Bachelorette Party
             </h2>
             
@@ -236,7 +236,7 @@ export default function UltimateAustinBacheloretteWeekend() {
       <SectionReveal>
         <section id="party-boat" className="py-16 bg-white dark:bg-gray-950">
           <div className="max-w-4xl mx-auto px-6">
-            <h2 className="text-3xl md:text-4xl font-playfair font-bold text-center mb-12 text-gray-900 dark:text-white">
+            <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-center mb-12 text-gray-900 dark:text-white">
               ATX Disco Cruise: The Must-Do Bachelorette Experience
             </h2>
 
@@ -403,7 +403,7 @@ export default function UltimateAustinBacheloretteWeekend() {
       <SectionReveal>
         <section id="bar-hopping" className="py-16 bg-gradient-to-b from-white to-purple-50 dark:from-gray-950 dark:to-gray-900">
           <div className="max-w-4xl mx-auto px-6">
-            <h2 className="text-3xl md:text-4xl font-playfair font-bold text-center mb-12 text-gray-900 dark:text-white">
+            <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-center mb-12 text-gray-900 dark:text-white">
               Bar Hopping: Sixth Street & Rainey Street
             </h2>
 
@@ -508,7 +508,7 @@ export default function UltimateAustinBacheloretteWeekend() {
       <SectionReveal>
         <section id="brunch-scene" className="py-16 bg-white dark:bg-gray-950">
           <div className="max-w-4xl mx-auto px-6">
-            <h2 className="text-3xl md:text-4xl font-playfair font-bold text-center mb-12 text-gray-900 dark:text-white">
+            <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-center mb-12 text-gray-900 dark:text-white">
               Austin's Famous Brunch Scene
             </h2>
 
@@ -597,7 +597,7 @@ export default function UltimateAustinBacheloretteWeekend() {
       <SectionReveal>
         <section id="unique-austin" className="py-16 bg-gradient-to-b from-white to-blue-50 dark:from-gray-950 dark:to-gray-900">
           <div className="max-w-4xl mx-auto px-6">
-            <h2 className="text-3xl md:text-4xl font-playfair font-bold text-center mb-12 text-gray-900 dark:text-white">
+            <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-center mb-12 text-gray-900 dark:text-white">
               Unique Austin Experiences for Your Bachelorette
             </h2>
             
@@ -673,7 +673,7 @@ export default function UltimateAustinBacheloretteWeekend() {
       <SectionReveal>
         <section id="group-sizes" className="py-16 bg-white dark:bg-gray-950">
           <div className="max-w-4xl mx-auto px-6">
-            <h2 className="text-3xl md:text-4xl font-playfair font-bold text-center mb-12 text-gray-900 dark:text-white">
+            <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-center mb-12 text-gray-900 dark:text-white">
               Plans for Every Group Size
             </h2>
             
@@ -769,7 +769,7 @@ export default function UltimateAustinBacheloretteWeekend() {
       <SectionReveal>
         <section id="tailoring" className="py-16 bg-gradient-to-b from-white to-pink-50 dark:from-gray-950 dark:to-gray-900">
           <div className="max-w-4xl mx-auto px-6">
-            <h2 className="text-3xl md:text-4xl font-playfair font-bold text-center mb-12 text-gray-900 dark:text-white">
+            <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-center mb-12 text-gray-900 dark:text-white">
               Tailoring Your Austin Bachelorette to the Bride
             </h2>
             
@@ -878,7 +878,7 @@ export default function UltimateAustinBacheloretteWeekend() {
       <SectionReveal>
         <section id="bonus-tips" className="py-16 bg-white dark:bg-gray-950">
           <div className="max-w-4xl mx-auto px-6">
-            <h2 className="text-3xl md:text-4xl font-playfair font-bold text-center mb-12 text-gray-900 dark:text-white">
+            <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-center mb-12 text-gray-900 dark:text-white">
               Bonus Tips for Your Austin Bachelorette Weekend
             </h2>
 
@@ -1011,7 +1011,7 @@ export default function UltimateAustinBacheloretteWeekend() {
       <SectionReveal>
         <section className="py-16 bg-gradient-to-b from-white to-pink-50 dark:from-gray-950 dark:to-gray-900">
           <div className="max-w-4xl mx-auto px-6">
-            <h2 className="text-3xl md:text-4xl font-playfair font-bold text-center mb-12 text-gray-900 dark:text-white">
+            <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-center mb-12 text-gray-900 dark:text-white">
               Common Questions About Austin Bachelorette Parties
             </h2>
             

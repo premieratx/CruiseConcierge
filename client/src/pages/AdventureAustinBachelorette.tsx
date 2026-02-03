@@ -70,7 +70,7 @@ export default function AdventureAustinBachelorette() {
           </div>
           <div className="max-w-4xl mx-auto text-center relative z-10">
             <Mountain className="h-16 w-16 text-yellow-400 mx-auto mb-6 animate-pulse" />
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-playfair font-bold mb-6 text-white drop-shadow-lg">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl heading-unbounded font-bold mb-6 text-white drop-shadow-lg">
               The Adventurer's Austin Bachelorette - Outdoor & Active Ideas
             </h1>
             <p className="text-xl md:text-2xl text-green-100 max-w-3xl mx-auto mb-8">
@@ -149,7 +149,7 @@ export default function AdventureAustinBachelorette() {
       <SectionReveal>
         <section id="why-adventure" className="py-16 bg-gradient-to-b from-white to-green-50 dark:from-gray-950 dark:to-gray-900">
           <div className="max-w-4xl mx-auto px-6">
-            <h2 className="text-3xl md:text-4xl font-playfair font-bold text-center mb-12 text-gray-900 dark:text-white">
+            <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-center mb-12 text-gray-900 dark:text-white">
               Why Adventure Bachelorette Parties Rock in Austin - Lake Travis Bachelorette Party Boat Edition
             </h2>
             
@@ -237,7 +237,7 @@ export default function AdventureAustinBachelorette() {
       <SectionReveal>
         <section id="hiking-trails" className="py-16 bg-white dark:bg-gray-950">
           <div className="max-w-4xl mx-auto px-6">
-            <h2 className="text-3xl md:text-4xl font-playfair font-bold text-center mb-12 text-gray-900 dark:text-white">
+            <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-center mb-12 text-gray-900 dark:text-white">
               Hit the Trails: Austin Bachelorette Party Hiking Adventures
             </h2>
 
@@ -345,7 +345,7 @@ export default function AdventureAustinBachelorette() {
       <SectionReveal>
         <section id="water-adventures" className="py-16 bg-gradient-to-b from-white to-blue-50 dark:from-gray-950 dark:to-gray-900">
           <div className="max-w-4xl mx-auto px-6">
-            <h2 className="text-3xl md:text-4xl font-playfair font-bold text-center mb-12 text-gray-900 dark:text-white">
+            <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-center mb-12 text-gray-900 dark:text-white">
               Water Adventures: The Ultimate Bachelorette Party Lake Travis Experience
             </h2>
 
@@ -470,7 +470,7 @@ export default function AdventureAustinBachelorette() {
       <SectionReveal>
         <section id="thrill-activities" className="py-16 bg-white dark:bg-gray-950">
           <div className="max-w-4xl mx-auto px-6">
-            <h2 className="text-3xl md:text-4xl font-playfair font-bold text-center mb-12 text-gray-900 dark:text-white">
+            <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-center mb-12 text-gray-900 dark:text-white">
               Thrill Seekers' Delights: Adrenaline-Pumping Activities
             </h2>
 
@@ -566,7 +566,7 @@ export default function AdventureAustinBachelorette() {
       <SectionReveal>
         <section id="hill-country" className="py-16 bg-gradient-to-b from-white to-green-50 dark:from-gray-950 dark:to-gray-900">
           <div className="max-w-4xl mx-auto px-6">
-            <h2 className="text-3xl md:text-4xl font-playfair font-bold text-center mb-12 text-gray-900 dark:text-white">
+            <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-center mb-12 text-gray-900 dark:text-white">
               Explore the Texas Hill Country
             </h2>
             
@@ -639,7 +639,7 @@ export default function AdventureAustinBachelorette() {
       <SectionReveal>
         <section id="evening-adventures" className="py-16 bg-white dark:bg-gray-950">
           <div className="max-w-4xl mx-auto px-6">
-            <h2 className="text-3xl md:text-4xl font-playfair font-bold text-center mb-12 text-gray-900 dark:text-white">
+            <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-center mb-12 text-gray-900 dark:text-white">
               Evenings for the Adventurous Soul
             </h2>
 
@@ -734,7 +734,7 @@ export default function AdventureAustinBachelorette() {
       <SectionReveal>
         <section id="planning-tips" className="py-16 bg-gradient-to-b from-white to-green-50 dark:from-gray-950 dark:to-gray-900">
           <div className="max-w-4xl mx-auto px-6">
-            <h2 className="text-3xl md:text-4xl font-playfair font-bold text-center mb-12 text-gray-900 dark:text-white">
+            <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-center mb-12 text-gray-900 dark:text-white">
               Planning Tips for Your Adventure Bachelorette Weekend
             </h2>
             
@@ -849,7 +849,7 @@ export default function AdventureAustinBachelorette() {
       <SectionReveal>
         <section id="itinerary" className="py-16 bg-white dark:bg-gray-950">
           <div className="max-w-4xl mx-auto px-6">
-            <h2 className="text-3xl md:text-4xl font-playfair font-bold text-center mb-12 text-gray-900 dark:text-white">
+            <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-center mb-12 text-gray-900 dark:text-white">
               Sample 3-Day Adventure Austin Bachelorette Itinerary
             </h2>
             
@@ -949,7 +949,7 @@ export default function AdventureAustinBachelorette() {
       <SectionReveal>
         <section className="py-16 bg-gradient-to-b from-white to-green-50 dark:from-gray-950 dark:to-gray-900">
           <div className="max-w-4xl mx-auto px-6">
-            <h2 className="text-3xl md:text-4xl font-playfair font-bold text-center mb-12 text-gray-900 dark:text-white">
+            <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-center mb-12 text-gray-900 dark:text-white">
               Ready for Your Adventure Austin Bachelorette?
             </h2>
             

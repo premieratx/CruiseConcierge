@@ -73,7 +73,7 @@ export default function BookOnlinePopUp({ defaultBoatType = '14p' }: BookOnlineP
                   data-testid="img-ppc-logo"
                 />
                 
-                <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 bg-clip-text text-transparent font-playfair">
+                <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 bg-clip-text text-transparent heading-unbounded">
                   Book Your Cruise Online
                 </h1>
                 

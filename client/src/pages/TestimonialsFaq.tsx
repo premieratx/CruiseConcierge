@@ -472,7 +472,7 @@ export default function TestimonialsFaq() {
               <Sparkles className="w-3 h-3 mr-1" />
               Real Reviews
             </Badge>
-            <h1 className="text-5xl md:text-6xl font-playfair font-bold mb-4 text-white">
+            <h1 className="text-5xl md:text-6xl heading-unbounded font-bold mb-4 text-white">
               Customer Reviews & Testimonials
             </h1>
             <p className="text-xl text-white/90 max-w-2xl mx-auto mb-8">
@@ -512,7 +512,7 @@ export default function TestimonialsFaq() {
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-12">
               <Trophy className="h-16 w-16 text-yellow-500 mx-auto mb-6" />
-              <h2 className="text-3xl font-playfair font-bold text-yellow-400 mb-6">
+              <h2 className="text-3xl heading-unbounded font-bold text-yellow-400 mb-6">
                 Austin's #1 Rated Party Cruise
               </h2>
               <div className="flex justify-center items-center space-x-2 mb-8">
@@ -550,7 +550,7 @@ export default function TestimonialsFaq() {
         <section className="py-24 bg-white dark:bg-gray-950">
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
-              <h2 className="text-4xl font-playfair font-bold mb-6 text-gray-900 dark:text-white">
+              <h2 className="text-4xl heading-unbounded font-bold mb-6 text-gray-900 dark:text-white">
                 Real Customer Reviews
               </h2>
               <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-8">
@@ -625,7 +625,7 @@ export default function TestimonialsFaq() {
               {/* Corporate Reviews */}
               <TabsContent value="corporate" className="mt-12">
                 <div className="mb-6">
-                  <h3 className="text-2xl font-playfair font-bold text-gray-900 dark:text-white flex items-center justify-center mb-2">
+                  <h3 className="text-2xl heading-unbounded font-bold text-gray-900 dark:text-white flex items-center justify-center mb-2">
                     <Building2 className="h-6 w-6 mr-3 text-blue-600" />
                     🏢 Corporate, Company & Business Events
                   </h3>
@@ -649,7 +649,7 @@ export default function TestimonialsFaq() {
               {/* Wedding Reviews */}
               <TabsContent value="wedding" className="mt-12">
                 <div className="mb-6">
-                  <h3 className="text-2xl font-playfair font-bold text-gray-900 dark:text-white flex items-center justify-center mb-2">
+                  <h3 className="text-2xl heading-unbounded font-bold text-gray-900 dark:text-white flex items-center justify-center mb-2">
                     <Heart className="h-6 w-6 mr-3 text-pink-600" />
                     💍 Weddings, Post-Wedding & Rehearsal Parties
                   </h3>
@@ -673,7 +673,7 @@ export default function TestimonialsFaq() {
               {/* Birthday Reviews */}
               <TabsContent value="birthday" className="mt-12">
                 <div className="mb-6">
-                  <h3 className="text-2xl font-playfair font-bold text-gray-900 dark:text-white flex items-center justify-center mb-2">
+                  <h3 className="text-2xl heading-unbounded font-bold text-gray-900 dark:text-white flex items-center justify-center mb-2">
                     <PartyPopper className="h-6 w-6 mr-3 text-purple-600" />
                     🎉 Family, Birthday & Anniversary Parties
                   </h3>
@@ -697,7 +697,7 @@ export default function TestimonialsFaq() {
               {/* Combined Bach Reviews */}
               <TabsContent value="combined" className="mt-12">
                 <div className="mb-6">
-                  <h3 className="text-2xl font-playfair font-bold text-gray-900 dark:text-white flex items-center justify-center mb-2">
+                  <h3 className="text-2xl heading-unbounded font-bold text-gray-900 dark:text-white flex items-center justify-center mb-2">
                     <Users className="h-6 w-6 mr-3 text-orange-600" />
                     💃🕺 Combined Bachelor & Bachelorette Parties
                   </h3>
@@ -721,7 +721,7 @@ export default function TestimonialsFaq() {
               {/* Bachelorette Reviews */}
               <TabsContent value="bachelorette" className="mt-12">
                 <div className="mb-6">
-                  <h3 className="text-2xl font-playfair font-bold text-gray-900 dark:text-white flex items-center justify-center mb-2">
+                  <h3 className="text-2xl heading-unbounded font-bold text-gray-900 dark:text-white flex items-center justify-center mb-2">
                     <Gem className="h-6 w-6 mr-3 text-pink-600" />
                     💃 Bachelorette Party Highlights
                   </h3>
@@ -745,7 +745,7 @@ export default function TestimonialsFaq() {
               {/* Bachelor Reviews */}
               <TabsContent value="bachelor" className="mt-12">
                 <div className="mb-6">
-                  <h3 className="text-2xl font-playfair font-bold text-gray-900 dark:text-white flex items-center justify-center mb-2">
+                  <h3 className="text-2xl heading-unbounded font-bold text-gray-900 dark:text-white flex items-center justify-center mb-2">
                     <Beer className="h-6 w-6 mr-3 text-amber-600" />
                     🕺 Bachelor Party Highlights
                   </h3>
@@ -775,7 +775,7 @@ export default function TestimonialsFaq() {
         <section className="py-24 bg-gray-50 dark:bg-gray-900">
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
-              <h2 className="text-3xl font-playfair font-bold mb-6 text-gray-900 dark:text-white">
+              <h2 className="text-3xl heading-unbounded font-bold mb-6 text-gray-900 dark:text-white">
                 Frequently Asked Questions
               </h2>
               <p className="text-base text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-8">
@@ -817,7 +817,7 @@ export default function TestimonialsFaq() {
                 {Object.entries(filteredFaqs).map(([key, category]) => (
                   <TabsContent key={key} value={key}>
                     <div className="mb-6 text-center">
-                      <h3 className="text-2xl font-playfair font-bold text-gray-900 dark:text-white flex items-center justify-center">
+                      <h3 className="text-2xl heading-unbounded font-bold text-gray-900 dark:text-white flex items-center justify-center">
                         <category.icon className="h-6 w-6 mr-3 text-blue-600" />
                         {category.title}
                       </h3>
@@ -863,7 +863,7 @@ export default function TestimonialsFaq() {
       <SectionReveal>
         <section className="py-24 bg-gradient-to-b from-blue-50 to-white dark:from-gray-900 dark:to-gray-950">
           <div className="max-w-7xl mx-auto px-6 text-center">
-            <h2 className="text-3xl font-playfair font-bold mb-6 text-gray-900 dark:text-white">
+            <h2 className="text-3xl heading-unbounded font-bold mb-6 text-gray-900 dark:text-white">
               Still Have Questions?
             </h2>
             <p className="text-base text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">

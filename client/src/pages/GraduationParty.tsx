@@ -304,7 +304,7 @@ export default function GraduationParty() {
             </motion.div>
 
             <motion.h1 
-              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-playfair font-extrabold mb-6 text-center text-gray-900 drop-shadow-sm"
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl heading-unbounded font-extrabold mb-6 text-center text-gray-900 drop-shadow-sm"
               variants={fadeInUp}
             >
               Graduation Party Cruises
@@ -394,7 +394,7 @@ export default function GraduationParty() {
         <section className="py-24 bg-gradient-to-r from-purple-600 to-pink-600">
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center">
-              <h2 className="text-2xl md:text-3xl font-playfair font-bold mb-6 text-white text-center tracking-wider">
+              <h2 className="text-2xl md:text-3xl heading-unbounded font-bold mb-6 text-white text-center tracking-wider">
                 BUILD MY QUOTE NOW
               </h2>
               <p className="text-xl text-base text-white/90 mb-8 max-w-2xl mx-auto text-center">

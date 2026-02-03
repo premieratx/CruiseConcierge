@@ -146,7 +146,7 @@ export default function Pricing() {
                 <DollarSign className="h-4 w-4 mr-1" />
                 Transparent Pricing
               </Badge>
-              <h1 className="text-4xl sm:text-5xl md:text-6xl font-playfair font-bold mb-6">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl heading-unbounded font-bold mb-6">
                 Party Boat Pricing & Packages
               </h1>
               <p className="text-xl text-white/90 max-w-3xl mx-auto mb-8">
@@ -190,7 +190,7 @@ export default function Pricing() {
 
               <TabsContent value="private" className="space-y-12">
                 <div>
-                  <h2 className="text-3xl font-playfair font-bold text-center mb-4">Choose Your Boat</h2>
+                  <h2 className="text-3xl heading-unbounded font-bold text-center mb-4">Choose Your Boat</h2>
                   <p className="text-gray-600 text-center mb-4">Private charter pricing for your exclusive group</p>
                   <div className="flex items-center justify-center gap-2 text-sm text-amber-700 bg-amber-50 rounded-lg px-4 py-2 mb-8 max-w-lg mx-auto">
                     <Info className="h-4 w-4 flex-shrink-0" />
@@ -244,7 +244,7 @@ export default function Pricing() {
                 </div>
 
                 <div>
-                  <h2 className="text-3xl font-playfair font-bold text-center mb-4">Package Add-Ons</h2>
+                  <h2 className="text-3xl heading-unbounded font-bold text-center mb-4">Package Add-Ons</h2>
                   <p className="text-gray-600 text-center mb-8">Enhance your cruise with optional packages</p>
                   <div className="grid md:grid-cols-3 gap-8">
                     {packages.map((pkg, index) => (
@@ -320,7 +320,7 @@ export default function Pricing() {
         <section className="py-16 bg-gray-50">
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-playfair font-bold mb-4">Compare Your Options</h2>
+              <h2 className="text-3xl heading-unbounded font-bold mb-4">Compare Your Options</h2>
               <p className="text-gray-600 max-w-2xl mx-auto">
                 Not sure which option is right for you? Compare our cruise types and boat fleet to find the perfect fit.
               </p>
@@ -494,7 +494,7 @@ export default function Pricing() {
 
         <section className="py-16 bg-gradient-to-r from-brand-blue to-purple-700 text-white">
           <div className="container mx-auto px-4 text-center">
-            <h2 className="text-3xl font-playfair font-bold mb-6">Questions About Pricing?</h2>
+            <h2 className="text-3xl heading-unbounded font-bold mb-6">Questions About Pricing?</h2>
             <p className="text-xl mb-8 max-w-2xl mx-auto opacity-90">
               Our team is happy to help you find the perfect boat and package for your budget.
             </p>

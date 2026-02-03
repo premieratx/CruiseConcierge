@@ -203,7 +203,7 @@ export default function CombinedBachelorBachelorette() {
         <div className="relative z-10 container mx-auto px-4 sm:px-6 text-white text-center flex-grow flex items-center">
           <div className="max-w-5xl mx-auto">
             <h1 
-              className="font-playfair text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 md:mb-6 text-center leading-tight"
+              className="heading-unbounded text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 md:mb-6 text-center leading-tight"
               data-editable 
               data-editable-id="combined-hero-title"
             >
@@ -337,7 +337,7 @@ export default function CombinedBachelorBachelorette() {
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
               <span className="text-6xl font-black text-gray-100 opacity-30 absolute -mt-8">01</span>
-              <h2 className="font-playfair text-3xl md:text-4xl font-bold mb-6 text-center relative">
+              <h2 className="heading-unbounded text-3xl md:text-4xl font-bold mb-6 text-center relative">
                 Why Combined Bach Parties Are The Modern Trend
               </h2>
               <p className="text-base text-gray-600 max-w-3xl mx-auto text-center">
@@ -370,7 +370,7 @@ export default function CombinedBachelorBachelorette() {
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
               <span className="text-6xl font-black text-gray-100 opacity-30 absolute -mt-8">02</span>
-              <h2 className="font-playfair text-3xl md:text-4xl font-bold mb-6 text-center relative">
+              <h2 className="heading-unbounded text-3xl md:text-4xl font-bold mb-6 text-center relative">
                 Choose Your Time Slot
               </h2>
               <p className="text-base text-gray-600 max-w-3xl mx-auto text-center">
@@ -394,7 +394,7 @@ export default function CombinedBachelorBachelorette() {
                   )}
                   <CardHeader className="text-center pb-4">
                     <Clock className="h-16 w-16 mx-auto mb-4 text-purple-600" />
-                    <CardTitle className="font-playfair text-2xl mb-2 text-center">
+                    <CardTitle className="heading-unbounded text-2xl mb-2 text-center">
                       {slot.label}
                     </CardTitle>
                     <div className="mb-2">
@@ -437,7 +437,7 @@ export default function CombinedBachelorBachelorette() {
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
               <span className="text-6xl font-black text-gray-100 opacity-30 absolute -mt-8">03</span>
-              <h2 className="font-playfair text-3xl md:text-4xl font-bold mb-6 text-center relative">
+              <h2 className="heading-unbounded text-3xl md:text-4xl font-bold mb-6 text-center relative">
                 What's Included in Every Combined Party
               </h2>
               <p className="text-base text-gray-600 max-w-3xl mx-auto text-center">
@@ -463,7 +463,7 @@ export default function CombinedBachelorBachelorette() {
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
               <span className="text-6xl font-black text-gray-100 opacity-30 absolute -mt-8">04</span>
-              <h2 className="font-playfair text-3xl md:text-4xl font-bold mb-6 text-center relative">
+              <h2 className="heading-unbounded text-3xl md:text-4xl font-bold mb-6 text-center relative">
                 Optional Add-Ons for Combined Parties
               </h2>
               <p className="text-base text-gray-600 max-w-3xl mx-auto text-center">
@@ -476,7 +476,7 @@ export default function CombinedBachelorBachelorette() {
                 <Card key={addon.id} className="rounded-xl border-2 hover:shadow-xl transition-all">
                   <CardHeader className="text-center pb-4">
                     <Package className="h-16 w-16 mx-auto mb-4 text-purple-600" />
-                    <CardTitle className="font-playfair text-2xl mb-2 text-center">
+                    <CardTitle className="heading-unbounded text-2xl mb-2 text-center">
                       {addon.name}
                     </CardTitle>
                     <div className="text-3xl font-black text-purple-600">
@@ -506,7 +506,7 @@ export default function CombinedBachelorBachelorette() {
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-12">
               <span className="text-6xl font-black text-gray-100 opacity-30 absolute -mt-8">05</span>
-              <h2 className="font-playfair text-3xl md:text-4xl font-bold mb-6 text-center relative">
+              <h2 className="heading-unbounded text-3xl md:text-4xl font-bold mb-6 text-center relative">
                 What Real Customers Are Saying
               </h2>
               <p className="text-base text-gray-600 max-w-3xl mx-auto mb-8 text-center">
@@ -551,7 +551,7 @@ export default function CombinedBachelorBachelorette() {
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
               <span className="text-6xl font-black text-gray-100 opacity-30 absolute -mt-8">06</span>
-              <h2 className="font-playfair text-3xl md:text-4xl font-bold mb-6 text-center relative">
+              <h2 className="heading-unbounded text-3xl md:text-4xl font-bold mb-6 text-center relative">
                 Combined Party FAQs
               </h2>
               <p className="text-base text-gray-600 max-w-3xl mx-auto text-center">
@@ -590,7 +590,7 @@ export default function CombinedBachelorBachelorette() {
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
               <span className="text-6xl font-black text-gray-100 opacity-30 absolute -mt-8">06</span>
-              <h2 className="font-playfair text-3xl md:text-4xl font-bold mb-6 text-center relative">
+              <h2 className="heading-unbounded text-3xl md:text-4xl font-bold mb-6 text-center relative">
                 Combined Party Vibes & Photos
               </h2>
               <p className="text-base text-gray-600 max-w-3xl mx-auto text-center">
@@ -618,7 +618,7 @@ export default function CombinedBachelorBachelorette() {
       <SectionReveal>
         <section className="py-24 bg-white">
           <div className="max-w-7xl mx-auto px-6 text-center">
-            <h2 className="font-playfair text-3xl md:text-4xl font-bold mb-6 text-center">
+            <h2 className="heading-unbounded text-3xl md:text-4xl font-bold mb-6 text-center">
               Ready to Plan Your Combined Celebration?
             </h2>
             <p className="text-base text-gray-600 max-w-2xl mx-auto mb-8 text-center">

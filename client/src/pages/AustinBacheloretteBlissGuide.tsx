@@ -182,7 +182,7 @@ export default function AustinBacheloretteBlissGuide() {
             <Badge className="mb-4 bg-white text-pink-600 font-bold">
               ULTIMATE BACHELORETTE GUIDE
             </Badge>
-            <h1 className="font-playfair text-4xl sm:text-5xl md:text-6xl font-bold mb-6 leading-tight">
+            <h1 className="heading-unbounded text-4xl sm:text-5xl md:text-6xl font-bold mb-6 leading-tight">
               Austin Bachelorette Bliss
             </h1>
             <p className="text-xl md:text-2xl text-white/90 max-w-3xl mx-auto mb-4">

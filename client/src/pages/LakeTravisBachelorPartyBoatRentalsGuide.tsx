@@ -121,7 +121,7 @@ export default function LakeTravisBachelorPartyBoatRentalsGuide() {
             <Badge className="mb-4 bg-yellow-500 text-black font-bold">
               ULTIMATE BACHELOR PARTY GUIDE
             </Badge>
-            <h1 className="font-playfair text-4xl sm:text-5xl md:text-6xl font-bold mb-6 leading-tight">
+            <h1 className="heading-unbounded text-4xl sm:text-5xl md:text-6xl font-bold mb-6 leading-tight">
               Lake Travis Bachelor Party Boat Rentals
             </h1>
             <p className="text-xl md:text-2xl text-white/90 max-w-3xl mx-auto mb-8">

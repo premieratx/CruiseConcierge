@@ -70,7 +70,7 @@ export default function AustinBacheloretteNightlife() {
           </div>
           <div className="max-w-4xl mx-auto text-center relative z-10">
             <Moon className="h-16 w-16 text-yellow-300 mx-auto mb-6 animate-pulse" />
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-playfair font-bold mb-6 text-white drop-shadow-lg">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl heading-unbounded font-bold mb-6 text-white drop-shadow-lg">
               Austin Bachelorette Nightlife Guide - The Best Bars & Clubs
             </h1>
             <p className="text-xl md:text-2xl text-pink-100 max-w-3xl mx-auto mb-8">
@@ -151,7 +151,7 @@ export default function AustinBacheloretteNightlife() {
       <SectionReveal>
         <section id="sixth-street" className="py-16 bg-gradient-to-b from-white to-purple-50 dark:from-gray-950 dark:to-gray-900">
           <div className="max-w-4xl mx-auto px-6">
-            <h2 className="text-3xl md:text-4xl font-playfair font-bold text-center mb-12 text-gray-900 dark:text-white">
+            <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-center mb-12 text-gray-900 dark:text-white">
               Sixth Street - The Iconic Austin Bachelorette Party Strip
             </h2>
 
@@ -224,7 +224,7 @@ export default function AustinBacheloretteNightlife() {
       <SectionReveal>
         <section id="rainey-street" className="py-16 bg-white dark:bg-gray-950">
           <div className="max-w-4xl mx-auto px-6">
-            <h2 className="text-3xl md:text-4xl font-playfair font-bold text-center mb-12 text-gray-900 dark:text-white">
+            <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-center mb-12 text-gray-900 dark:text-white">
               Rainey Street - Bungalow Bars & Austin Bachelorette Party Vibes
             </h2>
 
@@ -309,7 +309,7 @@ export default function AustinBacheloretteNightlife() {
       <SectionReveal>
         <section id="west-sixth" className="py-16 bg-gradient-to-b from-white to-pink-50 dark:from-gray-950 dark:to-gray-900">
           <div className="max-w-4xl mx-auto px-6">
-            <h2 className="text-3xl md:text-4xl font-playfair font-bold text-center mb-12 text-gray-900 dark:text-white">
+            <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-center mb-12 text-gray-900 dark:text-white">
               West 6th & Warehouse District - Upscale Austin Bachelorette Nightlife
             </h2>
 
@@ -396,7 +396,7 @@ export default function AustinBacheloretteNightlife() {
       <SectionReveal>
         <section id="east-austin" className="py-16 bg-white dark:bg-gray-950">
           <div className="max-w-4xl mx-auto px-6">
-            <h2 className="text-3xl md:text-4xl font-playfair font-bold text-center mb-12 text-gray-900 dark:text-white">
+            <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-center mb-12 text-gray-900 dark:text-white">
               East Austin - Hipster Bars & Live Music for Your Bachelorette Party
             </h2>
             
@@ -468,7 +468,7 @@ export default function AustinBacheloretteNightlife() {
       <SectionReveal>
         <section id="the-domain" className="py-16 bg-gradient-to-b from-white to-purple-50 dark:from-gray-950 dark:to-gray-900">
           <div className="max-w-4xl mx-auto px-6">
-            <h2 className="text-3xl md:text-4xl font-playfair font-bold text-center mb-12 text-gray-900 dark:text-white">
+            <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-center mb-12 text-gray-900 dark:text-white">
               The Domain - North Austin Nightlife for Your Bachelorette Party
             </h2>
             
@@ -508,7 +508,7 @@ export default function AustinBacheloretteNightlife() {
       <SectionReveal>
         <section id="party-boat-day" className="py-16 bg-white dark:bg-gray-950">
           <div className="max-w-4xl mx-auto px-6">
-            <h2 className="text-3xl md:text-4xl font-playfair font-bold text-center mb-12 text-gray-900 dark:text-white">
+            <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-center mb-12 text-gray-900 dark:text-white">
               Start Your Austin Bachelorette Weekend with ATX Disco Cruise
             </h2>
 
@@ -594,7 +594,7 @@ export default function AustinBacheloretteNightlife() {
       <SectionReveal>
         <section id="unique-experiences" className="py-16 bg-gradient-to-b from-white to-pink-50 dark:from-gray-950 dark:to-gray-900">
           <div className="max-w-4xl mx-auto px-6">
-            <h2 className="text-3xl md:text-4xl font-playfair font-bold text-center mb-12 text-gray-900 dark:text-white">
+            <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-center mb-12 text-gray-900 dark:text-white">
               Unique Nightlife Experiences for Your Austin Bachelorette Party
             </h2>
             
@@ -676,7 +676,7 @@ export default function AustinBacheloretteNightlife() {
       <SectionReveal>
         <section id="pregame-tips" className="py-16 bg-white dark:bg-gray-950">
           <div className="max-w-4xl mx-auto px-6">
-            <h2 className="text-3xl md:text-4xl font-playfair font-bold text-center mb-12 text-gray-900 dark:text-white">
+            <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-center mb-12 text-gray-900 dark:text-white">
               Pregaming & Transportation Tips for Your Austin Bachelorette
             </h2>
             
@@ -752,7 +752,7 @@ export default function AustinBacheloretteNightlife() {
           <div className="max-w-4xl mx-auto px-6">
             <div className="text-center mb-12">
               <Crown className="h-16 w-16 text-pink-600 mx-auto mb-6" />
-              <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-6 text-gray-900 dark:text-white">
+              <h2 className="text-3xl md:text-4xl heading-unbounded font-bold mb-6 text-gray-900 dark:text-white">
                 Ready to Plan Your Ultimate Austin Bachelorette Weekend?
               </h2>
               <p className="text-xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto mb-8">

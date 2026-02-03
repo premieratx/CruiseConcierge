@@ -236,7 +236,7 @@ export default function ClientEntertainment() {
               Impress Your Most Important Clients
             </Badge>
 
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-playfair font-extrabold mb-6 text-center text-gray-900 drop-shadow-sm">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl heading-unbounded font-extrabold mb-6 text-center text-gray-900 drop-shadow-sm">
               Client Entertainment Cruises
             </h1>
 
@@ -310,7 +310,7 @@ export default function ClientEntertainment() {
         <section className="py-24 bg-gradient-to-r from-blue-600 to-purple-600">
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center">
-              <h2 className="text-2xl md:text-3xl font-playfair font-bold mb-6 text-white text-center tracking-wider">
+              <h2 className="text-2xl md:text-3xl heading-unbounded font-bold mb-6 text-white text-center tracking-wider">
                 BUILD MY QUOTE NOW
               </h2>
               <p className="text-xl text-base text-white/90 mb-8 max-w-2xl mx-auto text-center">
@@ -378,7 +378,7 @@ export default function ClientEntertainment() {
         <section id="packages" className="py-24 bg-white">
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-4 text-center">
+              <h2 className="text-3xl md:text-4xl heading-unbounded font-bold mb-4 text-center">
                 Client Entertainment Packages
               </h2>
               <p className="text-xl text-base text-gray-600 max-w-3xl mx-auto text-center">
@@ -459,7 +459,7 @@ export default function ClientEntertainment() {
         <section className="py-24 bg-gradient-to-b from-blue-50 to-white">
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-4 text-center">
+              <h2 className="text-3xl md:text-4xl heading-unbounded font-bold mb-4 text-center">
                 Premium Client Experience
               </h2>
               <p className="text-xl text-base text-gray-600 text-center">
@@ -492,7 +492,7 @@ export default function ClientEntertainment() {
         <section className="py-24 bg-white">
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16 max-w-3xl mx-auto">
-              <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-4 text-center">
+              <h2 className="text-3xl md:text-4xl heading-unbounded font-bold mb-4 text-center">
                 Client Success Stories
               </h2>
               <p className="text-xl text-base text-gray-600 text-center mb-8">
@@ -534,7 +534,7 @@ export default function ClientEntertainment() {
         <section className="py-24 bg-gradient-to-b from-blue-50 to-white">
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-4 text-center">
+              <h2 className="text-3xl md:text-4xl heading-unbounded font-bold mb-4 text-center">
                 Professional Event Gallery
               </h2>
               <p className="text-xl text-base text-gray-600 text-center">
@@ -571,7 +571,7 @@ export default function ClientEntertainment() {
         <section className="py-24 bg-white">
           <div className="max-w-4xl mx-auto px-6">
             <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-4 text-center">
+              <h2 className="text-3xl md:text-4xl heading-unbounded font-bold mb-4 text-center">
                 Frequently Asked Questions
               </h2>
               <p className="text-xl text-base text-gray-600 text-center">
@@ -621,7 +621,7 @@ export default function ClientEntertainment() {
       <SectionReveal>
         <section className="py-24 bg-gradient-to-r from-blue-600 to-purple-600">
           <div className="max-w-4xl mx-auto px-6 text-center">
-            <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-6 text-white text-center">
+            <h2 className="text-3xl md:text-4xl heading-unbounded font-bold mb-6 text-white text-center">
               Ready to Impress Your Clients?
             </h2>
             <p className="text-xl text-base text-white/90 mb-8 text-center">

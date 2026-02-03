@@ -82,7 +82,7 @@ export default function LakeTravisWeddingBoatRentals() {
           </div>
           <div className="max-w-4xl mx-auto text-center relative z-10">
             <Heart className="h-16 w-16 text-pink-300 mx-auto mb-6 animate-pulse" />
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-playfair font-bold mb-6 text-white drop-shadow-lg">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl heading-unbounded font-bold mb-6 text-white drop-shadow-lg">
               Lake Travis Wedding Boat Rentals: Unique Venues for Austin Celebrations
             </h1>
             <p className="text-xl md:text-2xl text-blue-100 max-w-3xl mx-auto mb-8">
@@ -167,7 +167,7 @@ export default function LakeTravisWeddingBoatRentals() {
               <Badge className="mb-4 bg-pink-500 text-white font-bold px-4 py-2">
                 OUR WEDDING FLEET
               </Badge>
-              <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-4 text-gray-900 dark:text-white">
+              <h2 className="text-3xl md:text-4xl heading-unbounded font-bold mb-4 text-gray-900 dark:text-white">
                 Choose Your Perfect Boat for Your Wedding Event
               </h2>
               <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
@@ -294,7 +294,7 @@ export default function LakeTravisWeddingBoatRentals() {
               <Badge className="mb-4 bg-purple-600 text-white font-bold px-4 py-2">
                 FLAGSHIP WEDDING VENUE
               </Badge>
-              <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-4 text-gray-900 dark:text-white">
+              <h2 className="text-3xl md:text-4xl heading-unbounded font-bold mb-4 text-gray-900 dark:text-white">
                 Clever Girl: Our Premium 75-Guest Wedding Boat
               </h2>
               <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-4">
@@ -387,7 +387,7 @@ export default function LakeTravisWeddingBoatRentals() {
       <SectionReveal>
         <section id="why-wedding-boat" className="py-16 bg-gradient-to-b from-white to-blue-50 dark:from-gray-950 dark:to-gray-900">
           <div className="max-w-4xl mx-auto px-6">
-            <h2 className="text-3xl md:text-4xl font-playfair font-bold text-center mb-12 text-gray-900 dark:text-white">
+            <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-center mb-12 text-gray-900 dark:text-white">
               Why Choose a Wedding Boat on Lake Travis
             </h2>
             
@@ -484,7 +484,7 @@ export default function LakeTravisWeddingBoatRentals() {
       <SectionReveal>
         <section id="ceremony-boats" className="py-16 bg-white dark:bg-gray-950">
           <div className="max-w-4xl mx-auto px-6">
-            <h2 className="text-3xl md:text-4xl font-playfair font-bold text-center mb-12 text-gray-900 dark:text-white">
+            <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-center mb-12 text-gray-900 dark:text-white">
               Boat Wedding Ceremonies on Lake Travis
             </h2>
 
@@ -623,7 +623,7 @@ export default function LakeTravisWeddingBoatRentals() {
       <SectionReveal>
         <section id="rehearsal-dinners" className="py-16 bg-gradient-to-b from-white to-purple-50 dark:from-gray-950 dark:to-gray-900">
           <div className="max-w-4xl mx-auto px-6">
-            <h2 className="text-3xl md:text-4xl font-playfair font-bold text-center mb-12 text-gray-900 dark:text-white">
+            <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-center mb-12 text-gray-900 dark:text-white">
               Rehearsal Dinners on the Water
             </h2>
 
@@ -793,7 +793,7 @@ export default function LakeTravisWeddingBoatRentals() {
       <SectionReveal>
         <section id="welcome-parties" className="py-16 bg-white dark:bg-gray-950">
           <div className="max-w-4xl mx-auto px-6">
-            <h2 className="text-3xl md:text-4xl font-playfair font-bold text-center mb-12 text-gray-900 dark:text-white">
+            <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-center mb-12 text-gray-900 dark:text-white">
               Welcome Parties & After-Parties
             </h2>
             
@@ -883,7 +883,7 @@ export default function LakeTravisWeddingBoatRentals() {
       <SectionReveal>
         <section id="venue-options" className="py-16 bg-gradient-to-b from-white to-pink-50 dark:from-gray-950 dark:to-gray-900">
           <div className="max-w-4xl mx-auto px-6">
-            <h2 className="text-3xl md:text-4xl font-playfair font-bold text-center mb-12 text-gray-900 dark:text-white">
+            <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-center mb-12 text-gray-900 dark:text-white">
               Boat Size & Venue Options
             </h2>
             
@@ -995,7 +995,7 @@ export default function LakeTravisWeddingBoatRentals() {
       <SectionReveal>
         <section id="planning-guide" className="py-16 bg-white dark:bg-gray-950">
           <div className="max-w-4xl mx-auto px-6">
-            <h2 className="text-3xl md:text-4xl font-playfair font-bold text-center mb-12 text-gray-900 dark:text-white">
+            <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-center mb-12 text-gray-900 dark:text-white">
               Wedding Boat Planning Guide
             </h2>
             
@@ -1145,7 +1145,7 @@ export default function LakeTravisWeddingBoatRentals() {
       <SectionReveal>
         <section id="pricing-packages" className="py-16 bg-gradient-to-b from-white to-blue-50 dark:from-gray-950 dark:to-gray-900">
           <div className="max-w-4xl mx-auto px-6">
-            <h2 className="text-3xl md:text-4xl font-playfair font-bold text-center mb-12 text-gray-900 dark:text-white">
+            <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-center mb-12 text-gray-900 dark:text-white">
               Wedding Package Pricing
             </h2>
             
@@ -1253,7 +1253,7 @@ export default function LakeTravisWeddingBoatRentals() {
       <SectionReveal>
         <section id="real-weddings" className="py-16 bg-white dark:bg-gray-950">
           <div className="max-w-4xl mx-auto px-6">
-            <h2 className="text-3xl md:text-4xl font-playfair font-bold text-center mb-12 text-gray-900 dark:text-white">
+            <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-center mb-12 text-gray-900 dark:text-white">
               Real Wedding Stories from Lake Travis
             </h2>
 

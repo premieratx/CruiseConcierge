@@ -272,7 +272,7 @@ export default function WeddingParties() {
             WEDDING CELEBRATIONS ON THE WATER
             <Heart className="h-4 w-4 ml-2" />
           </Badge>
-          <h1 className="font-playfair text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-6 text-center text-gray-900 drop-shadow-sm" data-editable data-editable-id="h1-wedding-hero">
+          <h1 className="heading-unbounded text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-6 text-center text-gray-900 drop-shadow-sm" data-editable data-editable-id="h1-wedding-hero">
             Create Unforgettable Wedding Memories on Lake Travis
           </h1>
           <p className="text-xl sm:text-2xl md:text-3xl text-gray-900 mb-6 md:mb-8 font-bold drop-shadow-sm max-w-3xl mx-auto leading-relaxed text-center" data-editable data-editable-id="p-wedding-tagline">
@@ -311,7 +311,7 @@ export default function WeddingParties() {
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
               <span className="text-6xl font-black text-gray-100 opacity-30 absolute -mt-8">01</span>
-              <h2 className="font-playfair text-3xl md:text-4xl font-bold mb-6 text-center relative">
+              <h2 className="heading-unbounded text-3xl md:text-4xl font-bold mb-6 text-center relative">
                 Austin's Most Romantic Wedding Venue
               </h2>
               <p className="text-base text-gray-600 max-w-3xl mx-auto text-center">
@@ -344,7 +344,7 @@ export default function WeddingParties() {
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
               <span className="text-6xl font-black text-gray-100 opacity-30 absolute -mt-8">02</span>
-              <h2 className="font-playfair text-3xl md:text-4xl font-bold mb-6 text-center relative">
+              <h2 className="heading-unbounded text-3xl md:text-4xl font-bold mb-6 text-center relative">
                 Wedding Event Options
               </h2>
               <p className="text-base text-gray-600 max-w-3xl mx-auto text-center">
@@ -357,7 +357,7 @@ export default function WeddingParties() {
                 <Card key={idx} className="rounded-xl border-2 hover:shadow-xl transition-all">
                   <CardHeader className="text-center">
                     <event.icon className="h-16 w-16 mx-auto mb-4 text-purple-600" />
-                    <CardTitle className="font-playfair text-2xl mb-2 text-center">{event.name}</CardTitle>
+                    <CardTitle className="heading-unbounded text-2xl mb-2 text-center">{event.name}</CardTitle>
                     <CardDescription className="text-center">{event.description}</CardDescription>
                   </CardHeader>
                   <CardContent>
@@ -383,7 +383,7 @@ export default function WeddingParties() {
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
               <span className="text-6xl font-black text-gray-100 opacity-30 absolute -mt-8">03</span>
-              <h2 className="font-playfair text-3xl md:text-4xl font-bold mb-6 text-center relative">
+              <h2 className="heading-unbounded text-3xl md:text-4xl font-bold mb-6 text-center relative">
                 Wedding Packages
               </h2>
               <p className="text-base text-gray-600 max-w-3xl mx-auto text-center">
@@ -407,7 +407,7 @@ export default function WeddingParties() {
                   )}
                   <CardHeader className="text-center pb-4">
                     <pkg.icon className="h-16 w-16 mx-auto mb-4 text-purple-600" />
-                    <CardTitle className="font-playfair text-2xl mb-2 text-center">{pkg.name}</CardTitle>
+                    <CardTitle className="heading-unbounded text-2xl mb-2 text-center">{pkg.name}</CardTitle>
                     <div className="text-3xl font-black text-purple-600 mb-2">
                       {pkg.price}
                     </div>
@@ -447,7 +447,7 @@ export default function WeddingParties() {
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
               <span className="text-6xl font-black text-gray-100 opacity-30 absolute -mt-8">04</span>
-              <h2 className="font-playfair text-3xl md:text-4xl font-bold mb-6 text-center relative">
+              <h2 className="heading-unbounded text-3xl md:text-4xl font-bold mb-6 text-center relative">
                 Wedding Elegance Included
               </h2>
               <p className="text-base text-gray-600 max-w-3xl mx-auto text-center">
@@ -476,7 +476,7 @@ export default function WeddingParties() {
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
               <span className="text-6xl font-black text-gray-100 opacity-30 absolute -mt-8">05</span>
-              <h2 className="font-playfair text-3xl md:text-4xl font-bold mb-6 text-center relative">
+              <h2 className="heading-unbounded text-3xl md:text-4xl font-bold mb-6 text-center relative">
                 Customer Reviews
               </h2>
               <p className="text-base text-gray-600 max-w-3xl mx-auto text-center mb-8">
@@ -513,7 +513,7 @@ export default function WeddingParties() {
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
               <span className="text-6xl font-black text-gray-100 opacity-30 absolute -mt-8">06</span>
-              <h2 className="font-playfair text-3xl md:text-4xl font-bold mb-6 text-center relative">
+              <h2 className="heading-unbounded text-3xl md:text-4xl font-bold mb-6 text-center relative">
                 Wedding Cruise FAQs
               </h2>
               <p className="text-base text-gray-600 max-w-3xl mx-auto text-center">
@@ -552,7 +552,7 @@ export default function WeddingParties() {
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
               <span className="text-6xl font-black text-gray-100 opacity-30 absolute -mt-8">07</span>
-              <h2 className="font-playfair text-3xl md:text-4xl font-bold mb-6 text-center relative">
+              <h2 className="heading-unbounded text-3xl md:text-4xl font-bold mb-6 text-center relative">
                 Wedding Gallery
               </h2>
               <p className="text-base text-gray-600 max-w-3xl mx-auto text-center">
@@ -580,7 +580,7 @@ export default function WeddingParties() {
       <SectionReveal>
         <section className="py-24 bg-gradient-to-b from-blue-50 to-white">
           <div className="max-w-7xl mx-auto px-6 text-center">
-            <h2 className="font-playfair text-3xl md:text-4xl font-bold mb-6 text-center">
+            <h2 className="heading-unbounded text-3xl md:text-4xl font-bold mb-6 text-center">
               Ready to Plan Your Wedding Cruise?
             </h2>
             <p className="text-base text-gray-600 max-w-2xl mx-auto mb-8 text-center">

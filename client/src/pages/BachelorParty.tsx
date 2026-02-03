@@ -491,10 +491,10 @@ export default function BachelorParty() {
               </Badge>
             </motion.div>
             
-            {/* CRITICAL: H1 with text-6xl and font-playfair - Largest text on page */}
+            {/* CRITICAL: H1 with text-6xl and heading-unbounded - Largest text on page */}
             <motion.h1 
               variants={fadeInUp}
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold font-playfair mb-4 md:mb-6 text-center leading-tight px-2"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold heading-unbounded mb-4 md:mb-6 text-center leading-tight px-2"
               data-editable 
               data-editable-id="bachelor-hero-title"
             >
@@ -647,7 +647,7 @@ export default function BachelorParty() {
       {/* Scrolling Photo Gallery */}
       <section className="py-12 bg-gradient-to-b from-blue-100 to-white dark:from-blue-900/30 dark:to-gray-950 overflow-hidden">
         <div className="text-center mb-6">
-          <h2 className="text-3xl font-playfair font-bold text-gray-900 dark:text-white mb-2">
+          <h2 className="text-3xl heading-unbounded font-bold text-gray-900 dark:text-white mb-2">
             Real Bachelor Parties on Lake Travis
           </h2>
           <p className="text-gray-600 dark:text-gray-300">See the legendary parties happening every weekend</p>
@@ -667,7 +667,7 @@ export default function BachelorParty() {
                 <Target className="h-4 w-4 mr-2 inline" />
                 Two Legendary Options for Your Send-Off
               </Badge>
-              <h2 className="text-4xl md:text-5xl font-bold font-playfair text-center mb-6 text-gray-900 leading-tight">
+              <h2 className="text-4xl md:text-5xl font-bold heading-unbounded text-center mb-6 text-gray-900 leading-tight">
                 Choose Your Perfect Bachelor Party Style
               </h2>
               <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
@@ -781,7 +781,7 @@ export default function BachelorParty() {
                 <Package className="h-4 w-4 mr-2 inline" />
                 ATX Disco Cruise Packages
               </Badge>
-              <h2 className="text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
+              <h2 className="text-4xl md:text-5xl font-semibold heading-unbounded text-center mb-6 text-gray-900 leading-tight">
                 Choose Your Bachelor Party Time Slot
               </h2>
               <p className="text-xl text-blue-600 max-w-3xl mx-auto leading-relaxed font-medium">
@@ -879,7 +879,7 @@ export default function BachelorParty() {
                 <Star className="h-4 w-4 mr-2 inline" />
                 What to Expect
               </Badge>
-              <h2 className="text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
+              <h2 className="text-4xl md:text-5xl font-semibold heading-unbounded text-center mb-6 text-gray-900 leading-tight">
                 Your Bachelor Party Day Experience
               </h2>
               <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
@@ -1050,7 +1050,7 @@ export default function BachelorParty() {
         <section className="py-12 md:py-20 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="max-w-4xl mx-auto">
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-playfair text-center mb-8 text-gray-900 leading-tight">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold heading-unbounded text-center mb-8 text-gray-900 leading-tight">
                 Austin Party Cruises: The Ultimate Bachelor Send-Off Guide
               </h2>
               
@@ -1160,7 +1160,7 @@ export default function BachelorParty() {
         <section className="py-12 md:py-20 bg-gradient-to-br from-purple-50 to-blue-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="max-w-4xl mx-auto">
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-playfair text-center mb-8 text-gray-900 leading-tight">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold heading-unbounded text-center mb-8 text-gray-900 leading-tight">
                 Planning Your Lake Travis Party Boat Bachelor Party
               </h2>
               
@@ -1250,7 +1250,7 @@ export default function BachelorParty() {
                 <Calendar className="h-4 w-4 mr-2 inline" />
                 Check Availability
               </Badge>
-              <h2 className="text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
+              <h2 className="text-4xl md:text-5xl font-semibold heading-unbounded text-center mb-6 text-gray-900 leading-tight">
                 When Bachelor Parties Cruise
               </h2>
               <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
@@ -1302,7 +1302,7 @@ export default function BachelorParty() {
 
             {/* Booking Timeline */}
             <div className="max-w-4xl mx-auto bg-gradient-to-br from-blue-50 to-purple-50 rounded-2xl shadow-lg p-10 border border-gray-200">
-              <h3 className="text-2xl font-semibold font-playfair text-center mb-8 text-gray-900">
+              <h3 className="text-2xl font-semibold heading-unbounded text-center mb-8 text-gray-900">
                 How to Book Your Bachelor Party
               </h3>
               
@@ -1385,7 +1385,7 @@ export default function BachelorParty() {
                 <Trophy className="h-4 w-4 mr-2 inline" />
                 Why Choose Us
               </Badge>
-              <h2 className="text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
+              <h2 className="text-4xl md:text-5xl font-semibold heading-unbounded text-center mb-6 text-gray-900 leading-tight">
                 Why Bachelor Parties Choose Premier
               </h2>
               <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
@@ -1491,7 +1491,7 @@ export default function BachelorParty() {
                 <CheckCircle className="h-4 w-4 mr-2 inline" />
                 What's Included
               </Badge>
-              <h2 className="text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
+              <h2 className="text-4xl md:text-5xl font-semibold heading-unbounded text-center mb-6 text-gray-900 leading-tight">
                 Everything You Need for an Epic Day
               </h2>
               <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
@@ -1539,7 +1539,7 @@ export default function BachelorParty() {
                 <Crown className="h-4 w-4 mr-2 inline" />
                 The Premier Difference
               </Badge>
-              <h2 className="text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-white leading-tight">
+              <h2 className="text-4xl md:text-5xl font-semibold heading-unbounded text-center mb-6 text-white leading-tight">
                 Austin's Most Trusted Bachelor Party Company
               </h2>
               <p className="text-xl text-white/90 max-w-3xl mx-auto leading-relaxed">
@@ -1596,7 +1596,7 @@ export default function BachelorParty() {
                 <Camera className="h-4 w-4 mr-2 inline" />
                 Photo Gallery
               </Badge>
-              <h2 className="text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
+              <h2 className="text-4xl md:text-5xl font-semibold heading-unbounded text-center mb-6 text-gray-900 leading-tight">
                 See the Bachelor Party Experience
               </h2>
               <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
@@ -1632,7 +1632,7 @@ export default function BachelorParty() {
                 <Quote className="h-4 w-4 mr-2 inline" />
                 Real Reviews
               </Badge>
-              <h2 className="text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
+              <h2 className="text-4xl md:text-5xl font-semibold heading-unbounded text-center mb-6 text-gray-900 leading-tight">
                 What Grooms Are Saying
               </h2>
               <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
@@ -1679,7 +1679,7 @@ export default function BachelorParty() {
                 <HelpCircle className="h-4 w-4 mr-2 inline" />
                 Frequently Asked Questions
               </Badge>
-              <h2 className="text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 leading-tight">
+              <h2 className="text-4xl md:text-5xl font-semibold heading-unbounded text-center mb-6 text-gray-900 leading-tight">
                 Bachelor Party FAQs
               </h2>
               <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">

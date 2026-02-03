@@ -462,8 +462,8 @@ export default function CorporateEvents() {
             PROFESSIONAL CORPORATE CRUISES
           </Badge>
           
-          {/* CRITICAL: H1 with text-6xl and font-playfair - Largest text on page */}
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-playfair font-extrabold mb-6 tracking-tight text-gray-900 drop-shadow-sm" data-editable data-editable-id="h1-corporate-hero">
+          {/* CRITICAL: H1 with text-6xl and heading-unbounded - Largest text on page */}
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl heading-unbounded font-extrabold mb-6 tracking-tight text-gray-900 drop-shadow-sm" data-editable data-editable-id="h1-corporate-hero">
             Corporate Event Venue Austin | Lake Travis Team Building & Corporate Events
           </h1>
           
@@ -529,7 +529,7 @@ export default function CorporateEvents() {
               <Badge className="mb-4 font-sans tracking-wider uppercase bg-gradient-to-r from-blue-600 to-purple-600 text-white">
                 PROVEN RESULTS
               </Badge>
-              <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-4 text-center" data-editable data-editable-id="h2-roi-metrics">
+              <h2 className="text-3xl md:text-4xl heading-unbounded font-bold mb-4 text-center" data-editable data-editable-id="h2-roi-metrics">
                 The ROI of Corporate Team Events
               </h2>
               <p className="text-lg text-gray-600 max-w-3xl mx-auto">
@@ -573,7 +573,7 @@ export default function CorporateEvents() {
               <Badge className="mb-4 font-sans tracking-wider uppercase bg-gradient-to-r from-green-600 to-green-700 text-white">
                 THE EXPERIENCE
               </Badge>
-              <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-4 text-center" data-editable data-editable-id="h2-experience">
+              <h2 className="text-3xl md:text-4xl heading-unbounded font-bold mb-4 text-center" data-editable data-editable-id="h2-experience">
                 What Makes Corporate Cruises Special
               </h2>
               <p className="text-lg text-gray-600 max-w-3xl mx-auto">
@@ -604,7 +604,7 @@ export default function CorporateEvents() {
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
               <Badge className="mb-4 font-sans tracking-wider uppercase bg-yellow-400 text-black font-bold">PACKAGES & PRICING</Badge>
-              <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-4 text-center text-yellow-400" data-editable data-editable-id="h2-pricing">
+              <h2 className="text-3xl md:text-4xl heading-unbounded font-bold mb-4 text-center text-yellow-400" data-editable data-editable-id="h2-pricing">
                 Corporate Cruise Packages
               </h2>
               <p className="text-lg text-blue-600 max-w-3xl mx-auto font-medium">
@@ -686,7 +686,7 @@ export default function CorporateEvents() {
               <Badge className="mb-4 font-sans tracking-wider uppercase bg-gradient-to-r from-orange-600 to-orange-700 text-white">
                 BOOKING & AVAILABILITY
               </Badge>
-              <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-4 text-center" data-editable data-editable-id="h2-availability">
+              <h2 className="text-3xl md:text-4xl heading-unbounded font-bold mb-4 text-center" data-editable data-editable-id="h2-availability">
                 Plan Your Corporate Event
               </h2>
               <p className="text-lg text-gray-600 max-w-3xl mx-auto">
@@ -749,7 +749,7 @@ export default function CorporateEvents() {
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
               <Badge className="mb-4 font-sans tracking-wider uppercase">BENEFITS</Badge>
-              <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-4 text-center" data-editable data-editable-id="h2-benefits">
+              <h2 className="text-3xl md:text-4xl heading-unbounded font-bold mb-4 text-center" data-editable data-editable-id="h2-benefits">
                 Why Choose Corporate Cruises
               </h2>
               <p className="text-lg text-gray-600 max-w-3xl mx-auto">
@@ -787,7 +787,7 @@ export default function CorporateEvents() {
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
               <Badge className="mb-4 font-sans tracking-wider uppercase">INCLUDED FEATURES</Badge>
-              <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-4 text-center" data-editable data-editable-id="h2-features">
+              <h2 className="text-3xl md:text-4xl heading-unbounded font-bold mb-4 text-center" data-editable data-editable-id="h2-features">
                 What's Included
               </h2>
               <p className="text-lg text-gray-600 max-w-3xl mx-auto">
@@ -820,7 +820,7 @@ export default function CorporateEvents() {
               <Badge className="mb-4 font-sans tracking-wider uppercase bg-gradient-to-r from-green-600 to-green-700 text-white">
                 SUCCESS STORIES
               </Badge>
-              <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-4 text-center" data-editable data-editable-id="h2-case-studies">
+              <h2 className="text-3xl md:text-4xl heading-unbounded font-bold mb-4 text-center" data-editable data-editable-id="h2-case-studies">
                 Corporate Event Case Studies
               </h2>
               <p className="text-lg text-gray-600 max-w-3xl mx-auto">
@@ -897,7 +897,7 @@ export default function CorporateEvents() {
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-12">
               <Badge className="mb-4 font-sans tracking-wider uppercase">TESTIMONIALS</Badge>
-              <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-6 text-center" data-editable data-editable-id="h2-testimonials">
+              <h2 className="text-3xl md:text-4xl heading-unbounded font-bold mb-6 text-center" data-editable data-editable-id="h2-testimonials">
                 What Corporate Clients Say
               </h2>
               <p className="text-xl text-gray-700 max-w-3xl mx-auto mb-8">
@@ -961,7 +961,7 @@ export default function CorporateEvents() {
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
               <Badge className="mb-4 font-sans tracking-wider uppercase">FAQS</Badge>
-              <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-4 text-center" data-editable data-editable-id="h2-faqs">
+              <h2 className="text-3xl md:text-4xl heading-unbounded font-bold mb-4 text-center" data-editable data-editable-id="h2-faqs">
                 Frequently Asked Questions
               </h2>
               <p className="text-lg text-gray-600 max-w-3xl mx-auto">
@@ -995,7 +995,7 @@ export default function CorporateEvents() {
       <SectionReveal>
         <section className="py-24 bg-gradient-to-r from-blue-600 to-purple-600">
           <div className="max-w-7xl mx-auto px-6 text-center text-white">
-            <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-6" data-editable data-editable-id="h2-cta">
+            <h2 className="text-3xl md:text-4xl heading-unbounded font-bold mb-6" data-editable data-editable-id="h2-cta">
               Ready to Plan Your Corporate Event?
             </h2>
             <p className="text-lg mb-8 max-w-2xl mx-auto">
@@ -1041,7 +1041,7 @@ export default function CorporateEvents() {
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
               <Badge className="mb-4 font-sans tracking-wider uppercase">EXPLORE MORE</Badge>
-              <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-4 text-center" data-editable data-editable-id="h2-related">
+              <h2 className="text-3xl md:text-4xl heading-unbounded font-bold mb-4 text-center" data-editable data-editable-id="h2-related">
                 Related Corporate Experiences
               </h2>
               <p className="text-lg text-gray-600 max-w-3xl mx-auto">

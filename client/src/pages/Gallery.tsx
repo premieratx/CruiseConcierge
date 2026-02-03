@@ -262,7 +262,7 @@ export default function Gallery() {
       <SectionReveal>
         <section className="relative py-6 px-4 md:px-6">
           <div className="max-w-7xl mx-auto text-center">
-            <h1 className="text-5xl font-playfair font-bold text-gray-900 dark:text-white">
+            <h1 className="text-5xl heading-unbounded font-bold text-gray-900 dark:text-white">
               Lake Travis Party Boats Photo Gallery
             </h1>
           </div>
@@ -370,7 +370,7 @@ export default function Gallery() {
             <div className="text-center mb-8">
               <div className="flex items-center justify-center gap-4 mb-2">
                 <Sparkles className="h-10 w-10 text-purple-600" />
-                <h2 className="text-4xl font-playfair font-bold text-gray-900 dark:text-white">
+                <h2 className="text-4xl heading-unbounded font-bold text-gray-900 dark:text-white">
                   Party Vibes
                 </h2>
                 <Sparkles className="h-10 w-10 text-purple-600" />
@@ -464,7 +464,7 @@ export default function Gallery() {
             <div className="text-center mb-4">
               <div className="flex items-center justify-center gap-4 mb-2">
                 <Ship className="h-10 w-10 text-blue-600" />
-                <h2 className="text-4xl font-playfair font-bold text-gray-900 dark:text-white">
+                <h2 className="text-4xl heading-unbounded font-bold text-gray-900 dark:text-white">
                   Our Fleet
                 </h2>
                 <Ship className="h-10 w-10 text-blue-600" />
@@ -479,7 +479,7 @@ export default function Gallery() {
           <SectionReveal>
             <div className="mb-20">
               <div className="text-center mb-8">
-                <h3 className="text-3xl font-playfair font-bold text-gray-900 dark:text-white mb-2">Clever Girl</h3>
+                <h3 className="text-3xl heading-unbounded font-bold text-gray-900 dark:text-white mb-2">Clever Girl</h3>
                 <p className="text-base text-gray-600 dark:text-gray-400">Our flagship 50-person party boat with 14 disco balls</p>
               </div>
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -518,7 +518,7 @@ export default function Gallery() {
           <SectionReveal>
             <div className="mb-20">
               <div className="text-center mb-8">
-                <h3 className="text-3xl font-playfair font-bold text-gray-900 dark:text-white mb-2">Meeseeks / The Irony</h3>
+                <h3 className="text-3xl heading-unbounded font-bold text-gray-900 dark:text-white mb-2">Meeseeks / The Irony</h3>
                 <p className="text-base text-gray-600 dark:text-gray-400">Twin 25-person boats for medium-sized celebrations</p>
               </div>
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -557,7 +557,7 @@ export default function Gallery() {
           <SectionReveal>
             <div className="mb-20">
               <div className="text-center mb-8">
-                <h3 className="text-3xl font-playfair font-bold text-gray-900 dark:text-white mb-2">Day Tripper</h3>
+                <h3 className="text-3xl heading-unbounded font-bold text-gray-900 dark:text-white mb-2">Day Tripper</h3>
                 <p className="text-base text-gray-600 dark:text-gray-400">Perfect for intimate gatherings up to 14 guests</p>
               </div>
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -598,7 +598,7 @@ export default function Gallery() {
       <SectionReveal>
         <section className="py-24 bg-white dark:bg-gray-950">
           <div className="max-w-7xl mx-auto px-6 text-center">
-            <h3 className="text-3xl font-playfair font-bold mb-6 text-gray-900 dark:text-white">
+            <h3 className="text-3xl heading-unbounded font-bold mb-6 text-gray-900 dark:text-white">
               Ready to Create Your Own Memories?
             </h3>
             <p className="text-base text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
