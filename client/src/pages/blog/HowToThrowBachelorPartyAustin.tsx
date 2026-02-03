@@ -16,6 +16,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import PublicNavigation from '@/components/PublicNavigation';
 import Footer from '@/components/Footer';
+import RelatedBlogArticles from '@/components/RelatedBlogArticles';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { LazyImage } from '@/components/LazyImage';
 import Lightbox from '@/components/Lightbox';
@@ -789,6 +790,7 @@ export default function HowToThrowBachelorPartyAustin() {
         </div>
       </section>
 
+      <RelatedBlogArticles category="bachelor" currentSlug="/blogs/how-to-throw-great-bachelor-party-austin" />
       <Footer />
     </div>
   );

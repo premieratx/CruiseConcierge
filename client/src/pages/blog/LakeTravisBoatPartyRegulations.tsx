@@ -14,6 +14,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import PublicNavigation from '@/components/PublicNavigation';
 import Footer from '@/components/Footer';
+import RelatedBlogArticles from '@/components/RelatedBlogArticles';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
 import heroImage from '@assets/@capitalcityshots-24_1760080807866.jpg';
@@ -537,6 +538,7 @@ export default function LakeTravisBoatPartyRegulations() {
           </div>
         </section>
 
+        <RelatedBlogArticles category="safety" currentSlug="/blogs/lake-travis-boat-party-regulations-legal-requirements-and-compliance-guide" />
         <Footer />
       </div>
     </>

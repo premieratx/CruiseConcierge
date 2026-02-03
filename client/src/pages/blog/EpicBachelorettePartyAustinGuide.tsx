@@ -16,6 +16,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import PublicNavigation from '@/components/PublicNavigation';
 import Footer from '@/components/Footer';
+import RelatedBlogArticles from '@/components/RelatedBlogArticles';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { LazyImage } from '@/components/LazyImage';
 
@@ -1236,6 +1237,7 @@ export default function EpicBachelorettePartyAustinGuide() {
         </div>
       </section>
 
+      <RelatedBlogArticles category="bachelorette" currentSlug="/blogs/top-spots-tips-for-an-unforgettable-austin-bachelorette-party-experience" />
       <Footer />
     </div>
   );

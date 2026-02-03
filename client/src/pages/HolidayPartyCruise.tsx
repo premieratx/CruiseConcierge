@@ -75,6 +75,7 @@ export default function HolidayPartyCruise() {
       faqs={faqs}
       breadcrumbItems={breadcrumbItems}
       accentColor="yellow"
+      relatedCelebrationEventsSlug="/holiday-party-cruise"
     />
   );
 }

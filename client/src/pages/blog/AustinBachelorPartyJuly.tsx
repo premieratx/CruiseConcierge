@@ -8,6 +8,7 @@ import { Link } from 'wouter';
 import PublicNavigation from '@/components/PublicNavigation';
 import Footer from '@/components/Footer';
 import { LazyImage } from '@/components/LazyImage';
+import MonthlyGuidesNav from '@/components/MonthlyGuidesNav';
 
 import heroImage from '@assets/@capitalcityshots-17_1760080740020.jpg';
 import sectionImage1 from '@assets/@capitalcityshots-18_1760080740021.jpg';
@@ -540,6 +541,8 @@ export default function AustinBachelorPartyJuly() {
           </div>
         </div>
       </section>
+
+      <MonthlyGuidesNav type="bachelor" currentMonth="July" />
 
       <Footer />
     </div>

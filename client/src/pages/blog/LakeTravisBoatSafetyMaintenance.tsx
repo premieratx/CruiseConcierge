@@ -15,6 +15,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import PublicNavigation from '@/components/PublicNavigation';
 import Footer from '@/components/Footer';
+import RelatedBlogArticles from '@/components/RelatedBlogArticles';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
 import heroBoatImage from '@assets/clever-girl-1-lake-travis-party-boat.jpg';
@@ -699,6 +700,7 @@ export default function LakeTravisBoatSafetyMaintenance() {
           </div>
         </section>
 
+        <RelatedBlogArticles category="safety" currentSlug="/blogs/lake-travis-boat-safety-and-maintenance-quality-standards-for-party-cruises" />
         <Footer />
       </div>
     </>

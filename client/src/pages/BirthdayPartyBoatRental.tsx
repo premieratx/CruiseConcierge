@@ -76,6 +76,7 @@ export default function BirthdayPartyBoatRental() {
       faqs={faqs}
       breadcrumbItems={breadcrumbItems}
       accentColor="purple"
+      relatedCelebrationEventsSlug="/birthday-party-boat-rental"
     />
   );
 }

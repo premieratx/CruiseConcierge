@@ -1,4 +1,5 @@
 import { BlogPostLayout, TOCSection } from '@/components/blog/BlogPostLayout';
+import RelatedBlogArticles from '@/components/RelatedBlogArticles';
 import { BlogCTA } from '@/components/blog/BlogCTA';
 import { LazyImage } from '@/components/LazyImage';
 import { SectionReveal } from '@/components/SectionReveal';
@@ -618,6 +619,8 @@ export default function ATXDiscoCruiseExperience() {
         <BlogCTA variant="primary" text="Book Your Party Cruise Now" href="/atx-disco-cruise" external={false} />
         <BlogCTA variant="secondary" text="Get Custom Quote" external={false} />
       </div>
+
+      <RelatedBlogArticles category="general" currentSlug="/blogs/atx-disco-cruise-experience" />
     </BlogPostLayout>
   );
 }

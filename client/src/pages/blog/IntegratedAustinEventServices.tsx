@@ -16,6 +16,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import PublicNavigation from '@/components/PublicNavigation';
 import Footer from '@/components/Footer';
+import RelatedBlogArticles from '@/components/RelatedBlogArticles';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
 import heroImage from '@assets/atx-disco-cruise-party.webp';
@@ -630,6 +631,7 @@ export default function IntegratedAustinEventServices() {
           </div>
         </section>
 
+        <RelatedBlogArticles category="planning" currentSlug="/blogs/why-choose-integrated-event-services-comparing-austin-party-planning-options" />
         <Footer />
       </div>
     </>

@@ -76,6 +76,7 @@ export default function GenderRevealCruise() {
       faqs={faqs}
       breadcrumbItems={breadcrumbItems}
       accentColor="purple"
+      relatedCelebrationEventsSlug="/gender-reveal-cruise"
     />
   );
 }

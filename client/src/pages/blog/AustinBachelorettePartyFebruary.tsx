@@ -7,6 +7,7 @@ import { Calendar, Phone, Sun, CheckCircle2, Users, Music, Ship, MapPin, Utensil
 import { Link } from 'wouter';
 import PublicNavigation from '@/components/PublicNavigation';
 import Footer from '@/components/Footer';
+import MonthlyGuidesNav from '@/components/MonthlyGuidesNav';
 import { LazyImage } from '@/components/LazyImage';
 
 import heroImage from '@assets/@capitalcityshots-1_1760072938922.jpg';
@@ -538,6 +539,7 @@ export default function AustinBachelorettePartyFebruary() {
         </div>
       </section>
 
+      <MonthlyGuidesNav type="bachelorette" currentMonth="February" />
       <Footer />
     </div>
   );

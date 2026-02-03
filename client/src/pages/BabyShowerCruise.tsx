@@ -76,6 +76,7 @@ export default function BabyShowerCruise() {
       faqs={faqs}
       breadcrumbItems={breadcrumbItems}
       accentColor="purple"
+      relatedCelebrationEventsSlug="/baby-shower-cruise"
     />
   );
 }

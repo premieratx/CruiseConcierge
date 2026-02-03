@@ -178,8 +178,8 @@ export default function Gallery() {
     gcTime: 30 * 60 * 1000,
   });
 
-  // Combine media library photos with static fleet photos
-  const allPhotos = [...staticFleetPhotos, ...mediaLibraryPhotos];
+  // Combine media library photos with static fleet photos and party photos
+  const allPhotos = [...staticFleetPhotos, ...staticPartyPhotos, ...mediaLibraryPhotos];
   const photos = allPhotos;
 
   // Set initial filtered photos when data loads, filtering out broken images

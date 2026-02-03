@@ -76,6 +76,7 @@ export default function EngagementPartyCruise() {
       faqs={faqs}
       breadcrumbItems={breadcrumbItems}
       accentColor="pink"
+      relatedCelebrationEventsSlug="/engagement-party-cruise"
     />
   );
 }

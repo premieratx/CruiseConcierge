@@ -2,6 +2,7 @@ import { Link } from 'wouter';
 import { motion } from 'framer-motion';
 import PublicNavigation from '@/components/PublicNavigation';
 import Footer from '@/components/Footer';
+import RelatedCelebrationEvents from '@/components/RelatedCelebrationEvents';
 import { YouTubeVideoBackground } from '@/components/YouTubeVideoBackground';
 import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import AnimatedPhotoGallery from '@/components/AnimatedPhotoGallery';
@@ -142,6 +143,7 @@ interface EventPageTemplateProps {
     href?: string;
   }>;
   accentColor?: 'blue' | 'pink' | 'purple' | 'green' | 'yellow';
+  relatedCelebrationEventsSlug?: string;
 }
 
 export default function EventPageTemplate({
@@ -160,7 +162,8 @@ export default function EventPageTemplate({
   features,
   faqs,
   breadcrumbItems,
-  accentColor = 'blue'
+  accentColor = 'blue',
+  relatedCelebrationEventsSlug
 }: EventPageTemplateProps) {
   const accentColors = {
     blue: 'from-blue-600 to-brand-blue',
@@ -482,6 +485,10 @@ export default function EventPageTemplate({
           </div>
         </section>
       </main>
+
+      {relatedCelebrationEventsSlug && (
+        <RelatedCelebrationEvents currentPage={relatedCelebrationEventsSlug} />
+      )}
 
       <Footer />
     </>

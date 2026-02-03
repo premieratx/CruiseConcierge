@@ -16,6 +16,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import PublicNavigation from '@/components/PublicNavigation';
 import Footer from '@/components/Footer';
+import RelatedBlogArticles from '@/components/RelatedBlogArticles';
 import { BlogImageBreak, BlogPhotoStrip, BLOG_BOAT_PHOTOS, BLOG_PARTY_PHOTOS } from '@/components/BlogImageBreak';
 import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 
@@ -715,6 +716,7 @@ export default function PerfectAustinBachelorPartyWeekend() {
           </div>
         </section>
 
+        <RelatedBlogArticles category="bachelor" currentSlug="/blogs/perfect-bachelor-party-itinerary-austin" />
         <Footer />
       </div>
     </>
