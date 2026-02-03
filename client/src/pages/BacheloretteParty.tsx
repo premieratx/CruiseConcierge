@@ -427,7 +427,7 @@ export default function BacheloretteParty() {
               data-editable 
               data-editable-id="bachelorette-hero-title"
             >
-              Austin Bachelorette Party Boats | Bachelorette Party in Austin
+              Austin Bachelorette Party Boats on Lake Travis
             </motion.h1>
             
             <motion.div
@@ -1715,7 +1715,7 @@ export default function BacheloretteParty() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="max-w-4xl mx-auto">
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold heading-unbounded text-center mb-8 text-gray-900 leading-tight">
-                Planning Your Lake Travis Party Boat Bachelorette
+                Planning Your Lake Travis Girls' Trip
               </h2>
               
               <div className="prose prose-lg max-w-none">

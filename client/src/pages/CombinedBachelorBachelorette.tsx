@@ -207,7 +207,7 @@ export default function CombinedBachelorBachelorette() {
               data-editable 
               data-editable-id="combined-hero-title"
             >
-              Combined Bachelor Bachelorette Party Austin | Joint Bach Celebration on Lake Travis
+              Joint Bachelor & Bachelorette Party on Lake Travis
             </h1>
             
             <p 
