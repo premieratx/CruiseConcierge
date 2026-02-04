@@ -330,8 +330,8 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
             </a>
           </div>
 
-          {/* Mobile Header Controls - flex-1 to push to right, visible until xl breakpoint (1280px) */}
-          <div className="xl:!hidden flex flex-1 items-center justify-end gap-2">
+          {/* Mobile-only Header Controls (phones only - below lg) */}
+          <div className="lg:!hidden flex flex-1 items-center justify-end gap-2">
             {/* Mobile Get Quote Button */}
             <a
               href="/chat"
@@ -365,7 +365,72 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
             </button>
           </div>
 
-          {/* Desktop Navigation - Left-to-right flow, only show on xl+ (1280px+) to prevent button cut-off */}
+          {/* Laptop/Tablet Condensed Navigation (lg to xl: 1024px-1280px) - Dropdown menu + CTA buttons always visible */}
+          <div className="hidden lg:flex xl:!hidden flex-1 items-center justify-between">
+            {/* Condensed Menu Dropdown */}
+            <NavigationMenu className="overflow-visible">
+              <NavigationMenuList className="flex items-center overflow-visible">
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger className="flex items-center px-3 py-2 font-semibold text-sm text-gray-700 dark:text-gray-300">
+                    <Menu className="h-4 w-4 mr-2" />
+                    <span>Menu</span>
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <ul className="grid w-[400px] gap-1 p-3">
+                      {navigationItems.map((item) => {
+                        const Icon = item.icon;
+                        return (
+                          <li key={item.href}>
+                            <NavigationMenuLink asChild>
+                              <a
+                                href={item.href}
+                                className="flex items-center space-x-3 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                                data-testid={`link-condensed-${safeSlug(item.title)}`}
+                              >
+                                <Icon className="h-5 w-5 text-brand-blue flex-shrink-0" />
+                                <span className="text-sm font-medium">{item.title}</span>
+                                {item.badge && (
+                                  <span className="ml-auto text-xs bg-brand-yellow text-black px-2 py-0.5 rounded-full font-bold">
+                                    {item.badge}
+                                  </span>
+                                )}
+                              </a>
+                            </NavigationMenuLink>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+              </NavigationMenuList>
+            </NavigationMenu>
+
+            {/* CTA Buttons - Always visible on laptop */}
+            <div className="flex flex-shrink-0 items-center gap-2">
+              <a
+                href="/chat"
+                className="inline-flex items-center border-2 border-brand-blue text-brand-blue hover:bg-brand-blue hover:text-white font-bold px-3 py-2 tracking-wide text-sm whitespace-nowrap rounded-md transition-colors"
+                data-testid="button-laptop-get-quote"
+              >
+                <MessageSquare className="mr-1.5 h-4 w-4" />
+                <span>Get My Quote</span>
+              </a>
+              
+              {/* Book Now Button - Xola Checkout */}
+              <div
+                className="xola-custom xola-checkout"
+                data-button-id="695186923c261203770cc2e7"
+                data-testid="button-laptop-book-now"
+              >
+                <button className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold px-4 py-2 tracking-wide text-sm whitespace-nowrap shadow-md rounded-md inline-flex items-center justify-center transition-colors">
+                  <Calendar className="mr-1.5 h-4 w-4" />
+                  Book Now
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* Full Desktop Navigation (xl+: 1280px+) - All nav items visible */}
           <div className="ppc-public-nav-center hidden xl:flex items-center">
               <NavigationMenu className="overflow-visible">
                 <NavigationMenuList className="flex items-center space-x-1 overflow-visible">
@@ -491,10 +556,10 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
       {/* Spacer for fixed header + banner - hidden on homepage where hero extends behind header */}
       {location !== '/' && <div className="h-[calc(5rem+2.5rem)]" />}
 
-      {/* Mobile Bottom Navigation Bar - visible until xl breakpoint (1280px) */}
+      {/* Mobile Bottom Navigation Bar - only visible on phones (below lg/1024px) */}
       <nav 
         className={cn(
-          "fixed bottom-0 left-0 right-0 z-40 xl:hidden",
+          "fixed bottom-0 left-0 right-0 z-40 lg:hidden",
           "bg-white/95 dark:bg-gray-950/95 backdrop-blur-lg",
           "border-t border-gray-200 dark:border-gray-800 shadow-2xl",
           "pb-safe"
@@ -609,8 +674,8 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
         </div>
       </nav>
 
-      {/* Bottom spacer for mobile bottom nav - matches xl breakpoint */}
-      <div className="h-16 xl:hidden" />
+      {/* Bottom spacer for mobile bottom nav - only on phones (below lg/1024px) */}
+      <div className="h-16 lg:hidden" />
 
       {/* Mobile Menu Sheet - Only render when open to prevent overlay issues */}
       {mobileMenuOpen && (
