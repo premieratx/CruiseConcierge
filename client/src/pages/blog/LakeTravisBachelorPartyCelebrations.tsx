@@ -8,6 +8,7 @@ import {
   Ship, Music, Beer, Utensils, Mountain, MapPin, 
   Star, Users, Calendar, Sparkles, Home, Waves, Sun
 } from 'lucide-react';
+import { lakeTravisBachelorPartyImages } from '@/lib/blogImages';
 
 import bachelorHero from '@assets/bachelor-party-group-guys.webp';
 import capitalcityshots10 from '@assets/@capitalcityshots-10_1760080740019.jpg';
