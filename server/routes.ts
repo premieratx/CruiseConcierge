@@ -1330,6 +1330,11 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
     res.redirect(301, '/blogs');
   });
   
+  // WordPress post → React page redirect (consolidate duplicate content)
+  app.get('/blogs/all-inclusive-corporate-packages', (req, res) => {
+    res.redirect(301, '/blogs/all-inclusive-corporate-packages-austin');
+  });
+  
   // /book-now → /private-cruises (deprecated page, redirect for de-indexing)
   app.get('/book-now', (req, res) => {
     res.redirect(301, '/private-cruises');
