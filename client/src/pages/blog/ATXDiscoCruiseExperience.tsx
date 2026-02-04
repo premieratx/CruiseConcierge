@@ -5,10 +5,16 @@ import { LazyImage } from '@/components/LazyImage';
 import { SectionReveal } from '@/components/SectionReveal';
 import { Link } from 'wouter';
 import { bachelorPartyBlogImages } from '@/lib/blogImages';
+import { BlogImageBreak, BlogPhotoStrip } from '@/components/BlogImageBreak';
 import { 
   Star, CheckCircle, AlertTriangle, Ship, Users, 
   Beer, Utensils, Sparkles, MapPin, Calendar
 } from 'lucide-react';
+
+import atxDiscoHero from '@assets/atx-disco-cruise-party.webp';
+import capitalCityShots1 from '@assets/@capitalcityshots-5_1760080740018.jpg';
+import capitalCityShots2 from '@assets/@capitalcityshots-8_1760080740018.jpg';
+import capitalCityShots3 from '@assets/@capitalcityshots-15_1760080740020.jpg';
 
 const sections: TOCSection[] = [
   { id: 'introduction', title: 'Introduction', icon: <Star /> },
@@ -30,8 +36,8 @@ export default function ATXDiscoCruiseExperience() {
       metaDescription="Top do's and don'ts for your ATX Disco Cruise bachelor party on Lake Travis. Insider tips from 14+ years hosting epic Austin party boat experiences."
       publishDate="2025-01-15"
       author="Premier Party Cruises"
-      heroImage={bachelorPartyBlogImages[3].src}
-      heroImageAlt="Austin bachelor party group having fun on ATX Disco Cruise party boat on Lake Travis"
+      heroImage={atxDiscoHero}
+      heroImageAlt="ATX Disco Cruise party boat experience on Lake Travis with DJ and dancing guests"
       keywords={[
         'atx disco cruise',
         'disco cruise tips',
@@ -358,6 +364,13 @@ export default function ATXDiscoCruiseExperience() {
         </section>
       </SectionReveal>
 
+      {/* Section Image Break - Party Scene */}
+      <BlogImageBreak
+        src={capitalCityShots1}
+        alt="ATX Disco Cruise guests partying on Lake Travis party boat"
+        caption="Epic party vibes on the ATX Disco Cruise"
+      />
+
       {/* High-intent CTA after DO's section */}
       <div className="my-8 flex justify-center gap-4">
         <BlogCTA variant="primary" text="View Disco Cruise Packages" href="/atx-disco-cruise" external={false} />
@@ -473,6 +486,13 @@ export default function ATXDiscoCruiseExperience() {
           </p>
         </section>
       </SectionReveal>
+
+      {/* Section Image Break - Fun on Lake Travis */}
+      <BlogImageBreak
+        src={capitalCityShots2}
+        alt="Bachelor party group enjoying Austin party boat on Lake Travis"
+        caption="Making memories on Lake Travis with Premier Party Cruises"
+      />
 
       {/* DON'T: Forget Safety */}
       <SectionReveal>

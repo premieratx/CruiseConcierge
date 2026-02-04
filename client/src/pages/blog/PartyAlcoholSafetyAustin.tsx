@@ -15,6 +15,12 @@ import { Badge } from '@/components/ui/badge';
 import PublicNavigation from '@/components/PublicNavigation';
 import Footer from '@/components/Footer';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { BlogImageBreak } from '@/components/BlogImageBreak';
+
+import heroImage from '@assets/@capitalcityshots-10_1760080740019.jpg';
+import safetyImage1 from '@assets/@capitalcityshots-36_1760080807868.jpg';
+import safetyImage2 from '@assets/@capitalcityshots-37_1760080807869.jpg';
+import safetyImage3 from '@assets/@capitalcityshots-25_1760080807866.jpg';
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 20 },
@@ -190,8 +196,8 @@ export default function PartyAlcoholSafetyAustin() {
         >
           <div className="absolute inset-0 bg-black/30" />
           <div 
-            className="absolute inset-0 bg-cover bg-center opacity-20"
-            style={{ backgroundImage: `url('/attached_assets/@capitalcityshots-36_1760080807868.jpg')` }}
+            className="absolute inset-0 bg-cover bg-center opacity-40"
+            style={{ backgroundImage: `url(${heroImage})` }}
           />
           
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 text-center">
@@ -313,7 +319,7 @@ export default function PartyAlcoholSafetyAustin() {
                 <div className="relative">
                   <div className="aspect-square rounded-2xl overflow-hidden shadow-2xl">
                     <img 
-                      src="/attached_assets/@capitalcityshots-37_1760080807869.jpg" 
+                      src={safetyImage2} 
                       alt="Party guests enjoying drinks responsibly on Lake Travis"
                       className="w-full h-full object-cover"
                     />
@@ -346,7 +352,7 @@ export default function PartyAlcoholSafetyAustin() {
                 <div className="order-2 lg:order-1">
                   <div className="aspect-video rounded-2xl overflow-hidden shadow-2xl">
                     <img 
-                      src="/attached_assets/@capitalcityshots-38_1760080807869.jpg" 
+                      src={safetyImage1} 
                       alt="Safe BYOB party on Lake Travis boat"
                       className="w-full h-full object-cover"
                     />
@@ -430,7 +436,7 @@ export default function PartyAlcoholSafetyAustin() {
                 <div className="relative">
                   <div className="aspect-square rounded-2xl overflow-hidden shadow-2xl">
                     <img 
-                      src="/attached_assets/@capitalcityshots-39_1760080807869.jpg" 
+                      src={safetyImage3} 
                       alt="Friends looking out for each other at Austin party"
                       className="w-full h-full object-cover"
                     />

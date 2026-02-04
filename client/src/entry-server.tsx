@@ -140,6 +140,10 @@ async function preloadBlogModule(url: string): Promise<void> {
     'private-charter-vs-atx-disco-cruise-which-austin-party-boat': () => import('./pages/blog/PrivateCharterVsDiscoCruise'),
     'austin-bachelorette-party-vs-lake-travis-boat-why-lake-wins': () => import('./pages/blog/BachelorettePartyVsNightlife'),
     'corporate-boat-parties-austin-lake-travis-smartest-venue': () => import('./pages/blog/CorporateBoatPartiesAustin'),
+    'lake-travis-bachelor-party-austin-celebrations': () => import('./pages/blog/LakeTravisBachelorPartyCelebrations'),
+    'lake-travis-bachelor-party-boat-rentals-the-ultimate-guide-to-epic-celebrations': () => import('./pages/blog/LakeTravisBachelorPartyBoats'),
+    'first-time-lake-travis-boat-rental-essential-tips-for-austin-party-planning': () => import('./pages/blog/FirstTimeLakeTravisGuide'),
+    'wedding-anniversary-celebration-ideas-recreating-your-special-day-with-boat-and-alcohol-packages': () => import('./pages/blog/WeddingAnniversaryCelebrationIdeas'),
   };
   
   const moduleLoader = blogModules[slug];

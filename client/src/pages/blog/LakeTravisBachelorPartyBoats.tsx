@@ -4,10 +4,16 @@ import { LazyImage } from '@/components/LazyImage';
 import { SectionReveal } from '@/components/SectionReveal';
 import { Link } from 'wouter';
 import { lakeTravisBachelorBoatImages } from '@/lib/blogImages';
+import { BlogImageBreak, BlogPhotoStrip } from '@/components/BlogImageBreak';
 import { 
   Waves, Ship, Music, Beer, Calendar, 
   Users, CheckCircle, AlertCircle, Sparkles, MapPin 
 } from 'lucide-react';
+
+import bachelorHero from '@assets/bachelor-party-group-guys.webp';
+import capitalCityShots1 from '@assets/@capitalcityshots-10_1760080740019.jpg';
+import capitalCityShots2 from '@assets/@capitalcityshots-13_1760080740020.jpg';
+import capitalCityShots3 from '@assets/@capitalcityshots-16_1760080740020.jpg';
 
 const sections: TOCSection[] = [
   { id: 'why-lake-travis', title: 'Why Lake Travis', icon: <Waves /> },
@@ -26,8 +32,8 @@ export default function LakeTravisBachelorPartyBoats() {
       metaDescription="Lake Travis party boats for Austin bachelor parties. ATX Disco Cruise, private charters, BYOB options, and pro tips for an unforgettable lake party."
       publishDate="2025-01-15"
       author="Premier Party Cruises"
-      heroImage={lakeTravisBachelorBoatImages[0].src}
-      heroImageAlt={lakeTravisBachelorBoatImages[0].alt}
+      heroImage={bachelorHero}
+      heroImageAlt="Bachelor party group celebrating on Lake Travis party boat in Austin"
       keywords={[
         'lake travis bachelor party',
         'lake travis party boat',
@@ -375,6 +381,13 @@ export default function LakeTravisBachelorPartyBoats() {
         </section>
       </SectionReveal>
 
+      {/* Section Image Break - Party Action */}
+      <BlogImageBreak
+        src={capitalCityShots1}
+        alt="Bachelor party group dancing on Lake Travis party boat"
+        caption="Non-stop fun on Premier Party Cruises"
+      />
+
       {/* Tips for a Legendary Lake Travis Boat Party */}
       <SectionReveal>
         <section id="party-tips" className="mb-12" data-testid="section-party-tips">
@@ -552,6 +565,15 @@ export default function LakeTravisBachelorPartyBoats() {
           </div>
         </section>
       </SectionReveal>
+
+      {/* Section Image Break - More Party Shots */}
+      <BlogPhotoStrip
+        photos={[
+          { src: capitalCityShots2, alt: 'Austin bachelor party on Lake Travis party boat', caption: 'Epic party moments' },
+          { src: capitalCityShots3, alt: 'Lake Travis party cruise celebration', caption: 'Celebrating in style' },
+        ]}
+        columns={2}
+      />
 
       {/* Do's and Don'ts */}
       <SectionReveal>

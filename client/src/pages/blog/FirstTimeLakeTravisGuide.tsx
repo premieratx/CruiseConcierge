@@ -4,11 +4,17 @@ import { LazyImage } from '@/components/LazyImage';
 import { SectionReveal } from '@/components/SectionReveal';
 import { Link } from 'wouter';
 import { bachelorPartyBlogImages } from '@/lib/blogImages';
+import { BlogImageBreak, BlogPhotoStrip } from '@/components/BlogImageBreak';
 import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import { 
   Anchor, Ship, Users, Calendar, Shield, 
   CheckCircle, Sparkles, Sun, Beer, MapPin
 } from 'lucide-react';
+
+import cleverGirlHero from '@assets/clever-girl-1-lake-travis-party-boat.jpg';
+import dayTripperBoat from '@assets/day-tripper-14-person-boat.webp';
+import meeseeksBoat from '@assets/meeseeks-25-person-boat.webp';
+import cleverGirl50 from '@assets/clever-girl-50-person-boat.webp';
 
 const sections: TOCSection[] = [
   { id: 'introduction', title: 'Introduction', icon: <Anchor /> },
@@ -28,8 +34,8 @@ export default function FirstTimeLakeTravisGuide() {
       metaDescription="First Lake Travis boat rental? Essential tips for choosing boats, safety, and party planning. Your complete Austin party boat guide from local experts."
       publishDate="2025-01-10"
       author="Premier Party Cruises"
-      heroImage="/attached_assets/atx-disco-cruise-party.webp"
-      heroImageAlt="Austin bachelor party and bachelorette party celebration on Lake Travis party boat"
+      heroImage={cleverGirlHero}
+      heroImageAlt="Clever Girl party boat cruising Lake Travis - Austin party boat rental"
       keywords={[
         'lake travis boat rental',
         'first time boat rental',
@@ -250,6 +256,16 @@ export default function FirstTimeLakeTravisGuide() {
         </section>
       </SectionReveal>
 
+      {/* Section Image Break - Fleet Options */}
+      <BlogPhotoStrip
+        photos={[
+          { src: dayTripperBoat, alt: 'Day Tripper 14-person party boat Lake Travis', caption: '14-Person Day Tripper' },
+          { src: meeseeksBoat, alt: 'Meeseeks 25-person party boat Austin', caption: '25-Person Meeseeks' },
+          { src: cleverGirl50, alt: 'Clever Girl 50-person flagship party boat', caption: '50-Person Clever Girl' },
+        ]}
+        columns={3}
+      />
+
       {/* What to Bring */}
       <SectionReveal>
         <section id="what-to-bring" className="mb-12" data-testid="section-what-to-bring">
@@ -328,6 +344,13 @@ export default function FirstTimeLakeTravisGuide() {
       <div className="my-12 flex justify-center">
         <BlogCTA variant="primary" text="Book Your Lake Travis Party" external={false} />
       </div>
+
+      {/* Section Image Break - Party Atmosphere */}
+      <BlogImageBreak
+        src={cleverGirl50}
+        alt="Guests enjoying party atmosphere on Clever Girl 50-person boat Lake Travis"
+        caption="Our flagship 50-person party boat ready for your celebration"
+      />
 
       {/* ATX Disco vs Private Cruises */}
       <SectionReveal>

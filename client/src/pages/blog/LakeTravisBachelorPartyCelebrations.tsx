@@ -1,5 +1,6 @@
 import { BlogPostLayout, TOCSection } from '@/components/blog/BlogPostLayout';
 import { BlogCTA } from '@/components/blog/BlogCTA';
+import { BlogImageBreak } from '@/components/BlogImageBreak';
 import { LazyImage } from '@/components/LazyImage';
 import { SectionReveal } from '@/components/SectionReveal';
 import { Link } from 'wouter';
@@ -7,7 +8,11 @@ import {
   Ship, Music, Beer, Utensils, Mountain, MapPin, 
   Star, Users, Calendar, Sparkles, Home, Waves, Sun
 } from 'lucide-react';
-import { lakeTravisBachelorPartyImages } from '@/lib/blogImages';
+
+import bachelorHero from '@assets/bachelor-party-group-guys.webp';
+import capitalcityshots10 from '@assets/@capitalcityshots-10_1760080740019.jpg';
+import capitalcityshots15 from '@assets/@capitalcityshots-15_1760080740020.jpg';
+import capitalcityshots20 from '@assets/@capitalcityshots-20_1760080740021.jpg';
 
 const sections: TOCSection[] = [
   { id: 'introduction', title: 'Introduction', icon: <Star /> },
@@ -30,8 +35,8 @@ export default function LakeTravisBachelorPartyCelebrations() {
       metaDescription="Plan the ultimate Lake Travis bachelor party with boat rentals, water activities, and Austin nightlife. Complete guide to unforgettable celebrations."
       publishDate="2025-01-20"
       author="Premier Party Cruises"
-      heroImage={lakeTravisBachelorPartyImages[0].src}
-      heroImageAlt={lakeTravisBachelorPartyImages[0].alt}
+      heroImage={bachelorHero}
+      heroImageAlt="Bachelor party group celebrating on Lake Travis boat cruise"
       keywords={[
         'lake travis bachelor party',
         'austin bachelor party',
@@ -76,6 +81,12 @@ export default function LakeTravisBachelorPartyCelebrations() {
             Whether you want a laid-back weekend or an action-packed getaway, Lake Travis has it all. Get ready 
             to create lasting memories with your friends in this beautiful destination.
           </p>
+          
+          <BlogImageBreak
+            src={capitalcityshots10}
+            alt="Bachelor party groups celebrating together on Lake Travis party boat"
+            caption="Epic bachelor party celebrations on Lake Travis"
+          />
         </section>
       </SectionReveal>
 
@@ -158,6 +169,12 @@ export default function LakeTravisBachelorPartyCelebrations() {
           <p className="text-lg mb-4 text-gray-700 dark:text-gray-300">
             Mixing high-energy activities with peaceful moments ensures a fulfilling experience for everyone in your group.
           </p>
+          
+          <BlogImageBreak
+            src={capitalcityshots15}
+            alt="Lake Travis party boat with bachelor party enjoying water activities"
+            caption="Unforgettable bachelor party moments on Lake Travis"
+          />
         </section>
       </SectionReveal>
 
@@ -230,6 +247,12 @@ export default function LakeTravisBachelorPartyCelebrations() {
           <p className="text-lg mb-4 text-gray-700 dark:text-gray-300">
             Fuel your adrenaline needs at Lake Travis with these dynamic options.
           </p>
+          
+          <BlogImageBreak
+            src={capitalcityshots20}
+            alt="Bachelor party group enjoying water sports and adventure activities"
+            caption="Adventure awaits at Lake Travis for your bachelor party"
+          />
         </section>
       </SectionReveal>
 

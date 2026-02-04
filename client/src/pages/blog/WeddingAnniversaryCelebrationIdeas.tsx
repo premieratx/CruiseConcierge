@@ -1,9 +1,15 @@
 import { BlogPostLayout, TOCSection } from '@/components/blog/BlogPostLayout';
 import { BlogCTA } from '@/components/blog/BlogCTA';
+import { BlogImageBreak } from '@/components/BlogImageBreak';
 import { LazyImage } from '@/components/LazyImage';
 import { SectionReveal } from '@/components/SectionReveal';
 import { Link } from 'wouter';
 import { Heart, Ship, Wine, Camera, Music, Calendar, Users, Sparkles, Gift } from 'lucide-react';
+
+import heroImage from '@assets/@capitalcityshots-22_1760080807865.jpg';
+import celebrationImage1 from '@assets/@capitalcityshots-21_1760080807864.jpg';
+import celebrationImage2 from '@assets/@capitalcityshots-24_1760080807866.jpg';
+import celebrationImage3 from '@assets/@capitalcityshots-28_1760080807867.jpg';
 
 const sections: TOCSection[] = [
   { id: 'introduction', title: 'Celebrate Love on Lake Travis', icon: <Heart /> },
@@ -40,8 +46,8 @@ export default function WeddingAnniversaryCelebrationIdeas() {
       metaDescription="Celebrate your wedding anniversary on Lake Travis with romantic boat rentals and BYOB packages. Intimate cruises to group celebrations for milestones."
       publishDate="2025-08-12"
       author="Premier Party Cruises Team"
-      heroImage={anniversaryImages[0].src}
-      heroImageAlt={anniversaryImages[0].alt}
+      heroImage={heroImage}
+      heroImageAlt="Elegant celebration on Lake Travis for wedding anniversary"
       keywords={[
         'wedding anniversary',
         'anniversary celebration ideas',
@@ -109,6 +115,12 @@ export default function WeddingAnniversaryCelebrationIdeas() {
               ATX Disco Cruise</Link> to celebrate their anniversary with friends, making it a party they'll never forget!
             </p>
           </div>
+          
+          <BlogImageBreak
+            src={celebrationImage1}
+            alt="Couples celebrating wedding anniversary on Lake Travis boat cruise"
+            caption="Create unforgettable anniversary memories on Lake Travis"
+          />
         </section>
       </SectionReveal>
 
@@ -193,6 +205,12 @@ export default function WeddingAnniversaryCelebrationIdeas() {
             <BlogCTA variant="primary" text="Book Your Anniversary Cruise" />
             <BlogCTA variant="secondary" />
           </div>
+          
+          <BlogImageBreak
+            src={celebrationImage2}
+            alt="Anniversary celebration with friends and family on Lake Travis"
+            caption="Celebrate your love story with stunning Lake Travis views"
+          />
         </section>
       </SectionReveal>
 
@@ -373,6 +391,12 @@ export default function WeddingAnniversaryCelebrationIdeas() {
           <div className="my-8 flex justify-center">
             <BlogCTA variant="secondary" text="Get a Custom Quote" />
           </div>
+          
+          <BlogImageBreak
+            src={celebrationImage3}
+            alt="Romantic Lake Travis anniversary cruise with stunning sunset"
+            caption="Toast to your love with a romantic Lake Travis cruise"
+          />
         </section>
       </SectionReveal>
 
