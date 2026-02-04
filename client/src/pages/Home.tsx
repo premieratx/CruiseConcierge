@@ -641,39 +641,23 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Video + Pricing Section - Two Column Layout */}
+      {/* Pricing Section - Two Buttons Side by Side */}
       <section className="py-6 md:py-8 bg-brand-blue">
         <div className="container mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto items-center">
-            {/* Left: Loom Video */}
-            <div>
-              <p className="text-white text-lg md:text-xl font-medium mb-3 text-center">Please watch a quick intro video letter from Brian, the owner:</p>
-              <div className="aspect-video rounded-xl overflow-hidden shadow-2xl">
-                <iframe
-                src="https://www.loom.com/embed/d9d73c47f97849d2b82935578fc20722?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true"
-                title="Premier Party Cruises Introduction"
-                className="w-full h-full"
-                frameBorder="0"
-                  allowFullScreen
-                />
+          <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-3xl mx-auto">
+            <div className="bg-brand-yellow rounded-lg p-4 shadow-md text-center flex-1">
+              <div className="font-sans tracking-wider font-bold uppercase text-xs text-gray-900 mb-1" data-editable data-editable-id="pricing-overlay-private-label">PRIVATE CRUISES FROM:</div>
+              <div className="text-2xl sm:text-3xl font-bold text-gray-900 mb-1" data-editable data-editable-id="pricing-overlay-private-price">
+                $200+/hr
               </div>
+              <div className="text-sm text-gray-800" data-editable data-editable-id="pricing-overlay-private-subtitle">Up to 14ppl • 14-75 guests</div>
             </div>
-            {/* Right: Pricing Blocks Stacked */}
-            <div className="flex flex-col gap-4">
-              <div className="bg-brand-yellow rounded-lg p-4 shadow-md text-center">
-                <div className="font-sans tracking-wider font-bold uppercase text-xs text-gray-900 mb-1" data-editable data-editable-id="pricing-overlay-private-label">PRIVATE CRUISES FROM:</div>
-                <div className="text-2xl sm:text-3xl font-bold text-gray-900 mb-1" data-editable data-editable-id="pricing-overlay-private-price">
-                  $200+/hr
-                </div>
-                <div className="text-sm text-gray-800" data-editable data-editable-id="pricing-overlay-private-subtitle">Up to 14ppl • 14-75 guests</div>
+            <div className="bg-brand-yellow rounded-lg p-4 shadow-md text-center flex-1">
+              <div className="font-sans tracking-wider font-bold uppercase text-xs text-gray-900 mb-1" data-editable data-editable-id="pricing-overlay-disco-label">ATX DISCO CRUISE</div>
+              <div className="text-2xl sm:text-3xl font-bold text-gray-900 mb-1" data-editable data-editable-id="pricing-overlay-disco-price">
+                $85+ per person
               </div>
-              <div className="bg-brand-yellow rounded-lg p-4 shadow-md text-center">
-                <div className="font-sans tracking-wider font-bold uppercase text-xs text-gray-900 mb-1" data-editable data-editable-id="pricing-overlay-disco-label">ATX DISCO CRUISE</div>
-                <div className="text-2xl sm:text-3xl font-bold text-gray-900 mb-1" data-editable data-editable-id="pricing-overlay-disco-price">
-                  $85+ per person
-                </div>
-                <div className="text-sm text-gray-800" data-editable data-editable-id="pricing-overlay-disco-subtitle">Fri & Sat • Bach parties</div>
-              </div>
+              <div className="text-sm text-gray-800" data-editable data-editable-id="pricing-overlay-disco-subtitle">Fri & Sat • Bach parties</div>
             </div>
           </div>
         </div>
