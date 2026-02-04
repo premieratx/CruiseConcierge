@@ -30,43 +30,46 @@ interface VideoTestimonialsProps {
 const defaultTestimonials: VideoTestimonial[] = [
   {
     id: '1',
-    name: 'Jessica & The Girls',
-    event: 'Bachelorette Party',
-    location: 'Dallas, TX',
+    name: 'Full Disco Cruise Highlight Reel',
+    event: 'ATX Disco Cruise',
     rating: 5,
-    thumbnailUrl: 'https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg',
-    videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-    quote: 'This was hands down the BEST part of our Austin bachelorette weekend! The DJ was amazing and everyone had a blast!',
-    date: 'May 2024',
+    thumbnailUrl: 'https://img.youtube.com/vi/USWZ3BrexEI/maxresdefault.jpg',
+    videoUrl: 'https://www.youtube.com/embed/USWZ3BrexEI',
+    quote: 'Experience the full ATX Disco Cruise adventure on Lake Travis - the ultimate party boat experience!',
   },
   {
     id: '2',
-    name: 'Mike & The Bachelor Crew',
-    event: 'Bachelor Party',
-    location: 'Houston, TX',
+    name: 'Girls Gone Disco',
+    event: 'Bachelorette Party',
     rating: 5,
-    thumbnailUrl: 'https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg',
-    videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-    quote: 'Epic experience! The ATX Disco Cruise exceeded all expectations. Highly recommend for any bachelor party.',
-    date: 'June 2024',
+    thumbnailUrl: 'https://img.youtube.com/vi/riFpt4IEmBY/maxresdefault.jpg',
+    videoUrl: 'https://www.youtube.com/embed/riFpt4IEmBY',
+    quote: 'Watch the girls have an amazing time on the ATX Disco Cruise bachelorette experience!',
   },
   {
     id: '3',
-    name: 'Corporate Team from Dell',
-    event: 'Team Building Event',
-    location: 'Austin, TX',
+    name: 'Kyle: MVP of the ATX Disco Cruise',
+    event: 'Bachelor Party',
     rating: 5,
-    thumbnailUrl: 'https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg',
-    videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-    quote: 'Perfect team building activity! Our entire department loved it. Professional crew and amazing vibes.',
-    date: 'April 2024',
+    thumbnailUrl: 'https://img.youtube.com/vi/AmiWjlT5u10/maxresdefault.jpg',
+    videoUrl: 'https://www.youtube.com/embed/AmiWjlT5u10',
+    quote: 'Kyle shows us how to party like an MVP on the ATX Disco Cruise!',
+  },
+  {
+    id: '4',
+    name: 'ATX Disco Cruise Experience',
+    event: 'Lake Travis Party',
+    rating: 5,
+    thumbnailUrl: 'https://img.youtube.com/vi/4-Yx24Y6oro/maxresdefault.jpg',
+    videoUrl: 'https://www.youtube.com/embed/4-Yx24Y6oro',
+    quote: 'See what makes the ATX Disco Cruise the #1 party boat experience in Austin!',
   },
 ];
 
 export function VideoTestimonials({
   testimonials = defaultTestimonials,
-  title = "See Why Our Guests Love Us",
-  description = "Real stories from real parties. Watch what makes Premier Party Cruises the #1 choice for Lake Travis celebrations.",
+  title = "Video Gallery",
+  description = "Watch what makes Premier Party Cruises the #1 choice for Lake Travis celebrations.",
   className,
 }: VideoTestimonialsProps) {
   const [, navigate] = useLocation();
@@ -85,7 +88,7 @@ export function VideoTestimonials({
         >
           <Badge className="mb-4 font-sans tracking-wider uppercase bg-brand-yellow text-black px-6 py-2">
             <Star className="w-4 h-4 mr-2 inline fill-current" />
-            Video Testimonials
+            Video Gallery
           </Badge>
           <h2 className="text-3xl md:text-4xl font-bold font-playfair mb-4 text-gray-900 dark:text-white">
             {title}
