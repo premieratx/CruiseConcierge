@@ -66,7 +66,7 @@ export default function WeddingAnniversaryCelebrationIdeas() {
       {/* Introduction: Celebrate Love on Lake Travis */}
       <SectionReveal>
         <section id="introduction" className="mb-12" data-testid="section-introduction">
-          <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white" data-testid="heading-introduction">
+          <h2 className="heading-unbounded text-2xl sm:text-3xl font-bold mb-6 text-gray-900 dark:text-white" data-testid="heading-introduction">
             Introduction: Celebrate Love on Lake Travis
           </h2>
           <p className="text-lg mb-4 text-gray-700 dark:text-gray-300">
@@ -127,7 +127,7 @@ export default function WeddingAnniversaryCelebrationIdeas() {
       {/* Why Choose a Boat Party for Your Anniversary */}
       <SectionReveal>
         <section id="why-boat-party" className="mb-12" data-testid="section-why-boat-party">
-          <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white" data-testid="heading-why-boat-party">
+          <h2 className="heading-unbounded text-2xl sm:text-3xl font-bold mb-6 text-gray-900 dark:text-white" data-testid="heading-why-boat-party">
             Why Choose a Boat Party for Your Anniversary
           </h2>
           
@@ -217,7 +217,7 @@ export default function WeddingAnniversaryCelebrationIdeas() {
       {/* Anniversary Boat Package Options */}
       <SectionReveal>
         <section id="package-options" className="mb-12" data-testid="section-package-options">
-          <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white" data-testid="heading-package-options">
+          <h2 className="heading-unbounded text-2xl sm:text-3xl font-bold mb-6 text-gray-900 dark:text-white" data-testid="heading-package-options">
             Anniversary Boat Package Options
           </h2>
 
@@ -308,7 +308,7 @@ export default function WeddingAnniversaryCelebrationIdeas() {
       {/* BYOB Alcohol Packages Made Easy */}
       <SectionReveal>
         <section id="byob-packages" className="mb-12" data-testid="section-byob-packages">
-          <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white" data-testid="heading-byob-packages">
+          <h2 className="heading-unbounded text-2xl sm:text-3xl font-bold mb-6 text-gray-900 dark:text-white" data-testid="heading-byob-packages">
             BYOB Alcohol Packages Made Easy
           </h2>
 
@@ -403,7 +403,7 @@ export default function WeddingAnniversaryCelebrationIdeas() {
       {/* Creating the Perfect Anniversary Experience */}
       <SectionReveal>
         <section id="perfect-experience" className="mb-12" data-testid="section-perfect-experience">
-          <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white" data-testid="heading-perfect-experience">
+          <h2 className="heading-unbounded text-2xl sm:text-3xl font-bold mb-6 text-gray-900 dark:text-white" data-testid="heading-perfect-experience">
             Creating the Perfect Anniversary Experience
           </h2>
 
@@ -508,7 +508,7 @@ export default function WeddingAnniversaryCelebrationIdeas() {
       {/* Sample Anniversary Celebration Ideas */}
       <SectionReveal>
         <section id="celebration-ideas" className="mb-12" data-testid="section-celebration-ideas">
-          <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white" data-testid="heading-celebration-ideas">
+          <h2 className="heading-unbounded text-2xl sm:text-3xl font-bold mb-6 text-gray-900 dark:text-white" data-testid="heading-celebration-ideas">
             Sample Anniversary Celebration Ideas
           </h2>
 
@@ -616,7 +616,7 @@ export default function WeddingAnniversaryCelebrationIdeas() {
       {/* Real Anniversary Celebrations at Premier Party Cruises */}
       <SectionReveal>
         <section id="real-celebrations" className="mb-12" data-testid="section-real-celebrations">
-          <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white" data-testid="heading-real-celebrations">
+          <h2 className="heading-unbounded text-2xl sm:text-3xl font-bold mb-6 text-gray-900 dark:text-white" data-testid="heading-real-celebrations">
             Real Anniversary Celebrations at Premier Party Cruises
           </h2>
 
@@ -717,7 +717,7 @@ export default function WeddingAnniversaryCelebrationIdeas() {
       {/* Planning Your Anniversary Boat Party */}
       <SectionReveal>
         <section id="planning" className="mb-12" data-testid="section-planning">
-          <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white" data-testid="heading-planning">
+          <h2 className="heading-unbounded text-2xl sm:text-3xl font-bold mb-6 text-gray-900 dark:text-white" data-testid="heading-planning">
             Planning Your Anniversary Boat Party
           </h2>
 
@@ -840,7 +840,7 @@ export default function WeddingAnniversaryCelebrationIdeas() {
       {/* Conclusion: Make This Anniversary Unforgettable */}
       <SectionReveal>
         <section id="conclusion" className="mb-12" data-testid="section-conclusion">
-          <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white" data-testid="heading-conclusion">
+          <h2 className="heading-unbounded text-2xl sm:text-3xl font-bold mb-6 text-gray-900 dark:text-white" data-testid="heading-conclusion">
             Conclusion: Make This Anniversary Unforgettable
           </h2>
 

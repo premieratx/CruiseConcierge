@@ -305,7 +305,7 @@ export default function AustinWeddingVenueAlcohol() {
                 viewport={{ once: true }}
               >
                 <Badge className="mb-4 bg-rose-100 text-rose-700">WEDDING ALCOHOL DELIVERY AUSTIN</Badge>
-                <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">
+                <h2 className="heading-unbounded text-2xl sm:text-3xl font-bold mb-6 text-gray-900 dark:text-white">
                   Seamless Wedding Alcohol Delivery Austin Service
                 </h2>
                 <p className="text-lg text-gray-700 dark:text-gray-300 mb-6">
@@ -364,7 +364,7 @@ export default function AustinWeddingVenueAlcohol() {
                 className="order-1 lg:order-2"
               >
                 <Badge className="mb-4 bg-rose-100 text-rose-700">PLANNING CHECKLIST</Badge>
-                <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">
+                <h2 className="heading-unbounded text-2xl sm:text-3xl font-bold mb-6 text-gray-900 dark:text-white">
                   Austin Wedding Venue Alcohol Policies Checklist
                 </h2>
                 <p className="text-lg text-gray-700 dark:text-gray-300 mb-6">

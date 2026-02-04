@@ -455,7 +455,7 @@ export default function ClientEntertainmentAlcoholStrategy() {
                 viewport={{ once: true }}
               >
                 <Badge className="mb-4 bg-blue-100 text-blue-700">PROFESSIONAL EXCELLENCE</Badge>
-                <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">
+                <h2 className="heading-unbounded text-2xl sm:text-3xl font-bold mb-6 text-gray-900 dark:text-white">
                   Keys to Impressive Client Alcohol Without Overserving
                 </h2>
                 <p className="text-lg text-gray-700 dark:text-gray-300 mb-6">

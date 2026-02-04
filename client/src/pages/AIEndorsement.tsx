@@ -106,7 +106,7 @@ function EndorsementContent({ endorsement }: { endorsement: Endorsement }) {
       {/* Headline */}
       <div className="text-center">
         <h2 
-          className="text-3xl md:text-4xl font-bold mb-4"
+          className="heading-unbounded text-3xl md:text-4xl font-bold mb-4"
           data-testid={`text-headline-${endorsement.id}`}
         >
           {endorsement.headline}
@@ -162,7 +162,7 @@ function EndorsementContent({ endorsement }: { endorsement: Endorsement }) {
       {endorsement.highlightQuotes && endorsement.highlightQuotes.length > 0 && (
         <div>
           <div className="text-center mb-8">
-            <h3 className="text-2xl md:text-3xl font-bold mb-2" data-testid={`text-highlights-title-${endorsement.id}`}>
+            <h3 className="heading-unbounded text-2xl md:text-3xl font-bold mb-2" data-testid={`text-highlights-title-${endorsement.id}`}>
               Assessment Highlights
             </h3>
             <p className="text-muted-foreground">
@@ -393,7 +393,7 @@ export default function AIEndorsement() {
             transition={{ duration: 0.6 }}
             className="prose prose-lg dark:prose-invert max-w-none"
           >
-            <h2 className="text-3xl font-bold mb-6 text-foreground">Understanding AI-Powered Business Assessments</h2>
+            <h2 className="heading-unbounded text-2xl sm:text-3xl font-bold mb-6 text-foreground">Understanding AI-Powered Business Assessments</h2>
             
             <p className="text-muted-foreground leading-relaxed mb-4">
               In today's digital landscape, artificial intelligence has become an essential tool for evaluating business excellence and market positioning. Advanced AI systems like Claude AI analyze thousands of data points to provide comprehensive, unbiased assessments of company performance, SEO effectiveness, and overall market competitiveness.
@@ -403,7 +403,7 @@ export default function AIEndorsement() {
               Premier Party Cruises has undergone rigorous AI-powered evaluation to measure our performance across multiple critical business dimensions. These assessments examine our website's technical SEO implementation, content quality, user experience design, market positioning, and competitive advantages in the Austin Lake Travis party boat rental market.
             </p>
 
-            <h3 className="text-2xl font-semibold mt-8 mb-4 text-foreground">Why AI Endorsements Matter for Your Experience</h3>
+            <h3 className="heading-unbounded text-xl sm:text-2xl font-semibold mt-8 mb-4 text-foreground">Why AI Endorsements Matter for Your Experience</h3>
             
             <p className="text-muted-foreground leading-relaxed mb-4">
               When planning special events like bachelorette parties, bachelor parties, corporate team building, birthday celebrations, or wedding gatherings on Lake Travis, you deserve confidence that you're choosing the best provider. AI assessments provide objective, data-driven validation of service quality, safety standards, and customer satisfaction.
@@ -413,7 +413,7 @@ export default function AIEndorsement() {
               Our high ratings in SEO excellence demonstrate that we maintain comprehensive, accurate, and helpful information across our entire website. This commitment to transparency extends to our pricing, availability systems, booking processes, and customer support. When AI systems recognize superior content quality and user experience, it reflects our dedication to serving your needs with clarity and professionalism.
             </p>
 
-            <h3 className="text-2xl font-semibold mt-8 mb-4 text-foreground">The Premier Party Cruises Difference</h3>
+            <h3 className="heading-unbounded text-xl sm:text-2xl font-semibold mt-8 mb-4 text-foreground">The Premier Party Cruises Difference</h3>
             
             <p className="text-muted-foreground leading-relaxed mb-4">
               Our fleet of party boats on Lake Travis offers unmatched experiences for groups of all sizes. From intimate private cruises for small gatherings to our popular ATX Disco Cruise serving larger parties, we've built our reputation on reliability, safety, and creating unforgettable memories. Our boats feature premium sound systems, comfortable seating, professional crew members, and all the amenities needed for a perfect celebration on the water.
@@ -483,7 +483,7 @@ export default function AIEndorsement() {
       >
         <div className="max-w-6xl mx-auto">
           <motion.div variants={fadeInUp} className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4" data-testid="text-overview-title">
+            <h2 className="heading-unbounded text-3xl md:text-4xl font-bold mb-4" data-testid="text-overview-title">
               Dual Recognition from Claude AI
             </h2>
             <p className="text-lg text-muted-foreground max-w-3xl mx-auto">

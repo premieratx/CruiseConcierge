@@ -52,7 +52,7 @@ export default function FirstTimeLakeTravisGuide() {
       {/* Introduction */}
       <SectionReveal>
         <section id="introduction" className="mb-12" data-testid="section-introduction">
-          <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white" data-testid="heading-introduction">
+          <h2 className="heading-unbounded text-2xl sm:text-3xl font-bold mb-6 text-gray-900 dark:text-white" data-testid="heading-introduction">
             Your Gateway to an Unforgettable Lake Travis Experience
           </h2>
           <p className="text-lg mb-4 text-gray-700 dark:text-gray-300">

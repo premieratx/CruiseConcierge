@@ -149,7 +149,7 @@ export default function LakeTravisBachelorPartyBoatsGuide() {
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
-              <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">Why Lake Travis is THE Place for Your Austin Bachelor Party</h2>
+              <h2 className="heading-unbounded text-2xl sm:text-3xl font-bold mb-6 text-gray-900 dark:text-white">Why Lake Travis is THE Place for Your Austin Bachelor Party</h2>
               <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
                 When it comes to planning your <strong>austin bachelor party</strong>, a <strong>lake travis bachelor party boat</strong> is the crown jewel of Austin's outdoor party scene. This stunning Hill Country reservoir offers crystal-clear waters, breathtaking scenery, and endless coves perfect for a floating celebration. Whether you're looking for an <Link href="/party-boat-austin" className="text-blue-600 hover:underline font-semibold">Austin party boat</Link> rental or the famous <Link href="/atx-disco-cruise" className="text-blue-600 hover:underline font-semibold">ATX Disco Cruise</Link>, Lake Travis delivers an unforgettable experience.
               </p>

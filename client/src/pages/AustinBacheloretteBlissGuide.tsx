@@ -219,7 +219,7 @@ export default function AustinBacheloretteBlissGuide() {
               variants={staggerChildren}
               className="text-center mb-12"
             >
-              <h2 className="text-3xl font-bold mb-4">The Four Elements of Bachelorette Bliss</h2>
+              <h2 className="heading-unbounded text-2xl sm:text-3xl font-bold mb-4">The Four Elements of Bachelorette Bliss</h2>
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Combine relaxation, adventure, convenience, and celebration for the ultimate weekend
               </p>
@@ -267,7 +267,7 @@ export default function AustinBacheloretteBlissGuide() {
               <div className="grid lg:grid-cols-2 gap-12 items-center">
                 <div>
                   <Badge className="mb-4 bg-pink-100 text-pink-700">START WITH RELAXATION</Badge>
-                  <h2 className="text-3xl font-bold mb-6">Austin's Premier Spa Retreats</h2>
+                  <h2 className="heading-unbounded text-2xl sm:text-3xl font-bold mb-6">Austin's Premier Spa Retreats</h2>
                   <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
                     Begin your Austin bachelorette party weekend with pure indulgence at one of Austin's acclaimed spa destinations. 
                     From downtown luxury spas to Hill Country wellness retreats, the city offers world-class treatments 
@@ -337,7 +337,7 @@ export default function AustinBacheloretteBlissGuide() {
                 
                 <div className="order-1 lg:order-2">
                   <Badge className="mb-4 bg-yellow-400 text-black">THE MAIN EVENT</Badge>
-                  <h2 className="text-3xl font-bold mb-6">ATX Disco Cruise on Lake Travis</h2>
+                  <h2 className="heading-unbounded text-2xl sm:text-3xl font-bold mb-6">ATX Disco Cruise on Lake Travis</h2>
                   <p className="text-lg text-white/90 mb-6 leading-relaxed">
                     Take your Austin bachelorette party celebration to the water with Premier Party Cruises' signature Lake Travis bachelorette party boat experience. 
                     This isn't just a boat ride—it's a full-scale Austin bachelorette party featuring professional DJs, 
@@ -398,7 +398,7 @@ export default function AustinBacheloretteBlissGuide() {
               <div className="grid lg:grid-cols-2 gap-12 items-center">
                 <div>
                   <Badge className="mb-4 bg-amber-100 text-amber-700">SEAMLESS LOGISTICS</Badge>
-                  <h2 className="text-3xl font-bold mb-6">Alcohol Delivery for Every Occasion</h2>
+                  <h2 className="heading-unbounded text-2xl sm:text-3xl font-bold mb-6">Alcohol Delivery for Every Occasion</h2>
                   <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
                     Coordinating beverages for your bachelorette weekend doesn't have to be stressful. 
                     Party On Delivery provides comprehensive alcohol delivery services throughout Austin, 
@@ -455,7 +455,7 @@ export default function AustinBacheloretteBlissGuide() {
               variants={fadeInUp}
               className="text-center mb-12"
             >
-              <h2 className="text-3xl font-bold mb-4">Your Perfect Bachelorette Weekend</h2>
+              <h2 className="heading-unbounded text-2xl sm:text-3xl font-bold mb-4">Your Perfect Bachelorette Weekend</h2>
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 A sample itinerary combining all the best elements of Austin
               </p>
@@ -502,7 +502,7 @@ export default function AustinBacheloretteBlissGuide() {
               variants={fadeInUp}
               className="text-center mb-12"
             >
-              <h2 className="text-3xl font-bold mb-4">Bachelorette Party Gallery</h2>
+              <h2 className="heading-unbounded text-2xl sm:text-3xl font-bold mb-4">Bachelorette Party Gallery</h2>
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 Real celebrations on Lake Travis
               </p>
@@ -524,7 +524,7 @@ export default function AustinBacheloretteBlissGuide() {
               variants={fadeInUp}
               className="text-center mb-12"
             >
-              <h2 className="text-3xl font-bold mb-4">Frequently Asked Questions</h2>
+              <h2 className="heading-unbounded text-2xl sm:text-3xl font-bold mb-4">Frequently Asked Questions</h2>
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 Everything you need to know about planning your Austin bachelorette
               </p>
@@ -559,7 +559,7 @@ export default function AustinBacheloretteBlissGuide() {
               variants={fadeInUp}
             >
               <Heart className="h-16 w-16 mx-auto mb-6 text-white/80" />
-              <h2 className="text-3xl md:text-4xl font-bold mb-6">
+              <h2 className="heading-unbounded text-3xl md:text-4xl font-bold mb-6">
                 Ready to Plan Your Austin Bachelorette Party?
               </h2>
               <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">

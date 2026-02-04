@@ -1370,4 +1370,44 @@ h6.heading-unbounded {
   font-family: 'Unbounded', sans-serif !important;
   text-transform: none !important;
   letter-spacing: -0.01em !important;
+  line-height: 1.3 !important;
+}
+
+/* Blog post typography - ensure proper spacing */
+article h1.heading-unbounded {
+  line-height: 1.4 !important;
+  margin-bottom: 1.5rem !important;
+}
+
+article h2 {
+  margin-top: 2rem !important;
+  margin-bottom: 1.5rem !important;
+  line-height: 1.35 !important;
+}
+
+article h3 {
+  margin-top: 1.5rem !important;
+  margin-bottom: 1rem !important;
+  line-height: 1.35 !important;
+}
+
+/* Mobile responsive text - prevent overflow */
+@media (max-width: 640px) {
+  .heading-unbounded {
+    word-break: break-word !important;
+    hyphens: auto !important;
+  }
+  
+  article h1.heading-unbounded {
+    font-size: 1.5rem !important;
+    line-height: 1.5 !important;
+  }
+  
+  article h2 {
+    font-size: 1.375rem !important;
+  }
+  
+  article h3 {
+    font-size: 1.25rem !important;
+  }
 }

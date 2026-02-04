@@ -181,7 +181,7 @@ export default function GoldenTicket() {
               transition={{ delay: 0.45, duration: 0.5 }}
               className="space-y-6"
             >
-              <h2 className="text-3xl md:text-4xl font-bold text-center text-slate-900 dark:text-white mb-6">
+              <h2 className="heading-unbounded text-3xl md:text-4xl font-bold text-center text-slate-900 dark:text-white mb-6">
                 Your Golden Ticket Benefits
               </h2>
               
@@ -189,7 +189,7 @@ export default function GoldenTicket() {
               <div className="bg-gradient-to-br from-amber-50 to-yellow-50 dark:from-slate-800 dark:to-slate-900 p-6 md:p-8 rounded-2xl shadow-xl border-2 border-amber-300 dark:border-amber-700">
                 <div className="flex items-center gap-3 mb-6">
                   <Crown className="h-8 w-8 text-amber-600 dark:text-amber-400" />
-                  <h3 className="text-2xl md:text-3xl font-bold text-amber-900 dark:text-amber-100">
+                  <h3 className="heading-unbounded text-2xl md:text-3xl font-bold text-amber-900 dark:text-amber-100">
                     Universal Benefits (Everyone Gets These!)
                   </h3>
                 </div>
@@ -259,7 +259,7 @@ export default function GoldenTicket() {
               <div className="bg-gradient-to-br from-blue-50 to-cyan-50 dark:from-slate-800 dark:to-slate-900 p-6 md:p-8 rounded-2xl shadow-xl border-2 border-blue-300 dark:border-blue-700">
                 <div className="flex items-center gap-3 mb-4">
                   <Ship className="h-7 w-7 text-blue-600 dark:text-blue-400" />
-                  <h3 className="text-2xl md:text-3xl font-bold text-blue-900 dark:text-blue-100">
+                  <h3 className="heading-unbounded text-2xl md:text-3xl font-bold text-blue-900 dark:text-blue-100">
                     Private Cruise Perks
                   </h3>
                 </div>
@@ -286,7 +286,7 @@ export default function GoldenTicket() {
               <div className="bg-gradient-to-br from-purple-50 to-pink-50 dark:from-slate-800 dark:to-slate-900 p-6 md:p-8 rounded-2xl shadow-xl border-2 border-purple-300 dark:border-purple-700">
                 <div className="flex items-center gap-3 mb-4">
                   <Sparkles className="h-7 w-7 text-purple-600 dark:text-purple-400" />
-                  <h3 className="text-2xl md:text-3xl font-bold text-purple-900 dark:text-purple-100">
+                  <h3 className="heading-unbounded text-2xl md:text-3xl font-bold text-purple-900 dark:text-purple-100">
                     Disco Cruise Perks
                   </h3>
                 </div>
@@ -310,7 +310,7 @@ export default function GoldenTicket() {
                 <div className="flex items-start gap-4">
                   <Users className="h-8 w-8 flex-shrink-0 mt-1" />
                   <div>
-                    <h3 className="text-2xl md:text-3xl font-bold mb-3">
+                    <h3 className="heading-unbounded text-2xl md:text-3xl font-bold mb-3">
                       💍 Bachelor/Bachelorette Parties
                     </h3>
                     <p className="text-lg md:text-xl font-medium">
@@ -406,7 +406,7 @@ export default function GoldenTicket() {
               className="bg-white dark:bg-slate-800 p-4 md:p-8 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700"
             >
               <div className="text-center mb-6 md:mb-8">
-                <h2 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-2">
+                <h2 className="heading-unbounded text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-2">
                   Share the Golden Ticket! 🎁
                 </h2>
                 <p className="text-sm md:text-base text-slate-600 dark:text-slate-400">

@@ -63,7 +63,7 @@ export default function LakeTravisBachelorPartyCelebrations() {
       {/* Introduction */}
       <SectionReveal>
         <section id="introduction" className="mb-12" data-testid="section-introduction">
-          <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white" data-testid="heading-introduction">
+          <h2 className="heading-unbounded text-2xl sm:text-3xl font-bold mb-6 text-gray-900 dark:text-white" data-testid="heading-introduction">
             Lake Travis Bachelor Party and Austin Celebrations
           </h2>
           <p className="text-lg mb-4 text-gray-700 dark:text-gray-300">
@@ -94,7 +94,7 @@ export default function LakeTravisBachelorPartyCelebrations() {
       {/* Why Choose Lake Travis */}
       <SectionReveal>
         <section id="why-lake-travis" className="mb-12" data-testid="section-why-lake-travis">
-          <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white" data-testid="heading-why-lake-travis">
+          <h2 className="heading-unbounded text-2xl sm:text-3xl font-bold mb-6 text-gray-900 dark:text-white" data-testid="heading-why-lake-travis">
             Why Choose Lake Travis for Your Bachelor Party?
           </h2>
           
@@ -137,7 +137,7 @@ export default function LakeTravisBachelorPartyCelebrations() {
       {/* Top Party Ideas */}
       <SectionReveal>
         <section id="party-ideas" className="mb-12" data-testid="section-party-ideas">
-          <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white" data-testid="heading-party-ideas">
+          <h2 className="heading-unbounded text-2xl sm:text-3xl font-bold mb-6 text-gray-900 dark:text-white" data-testid="heading-party-ideas">
             Top Lake Travis Bachelor Party Ideas and Activities
           </h2>
           
@@ -182,7 +182,7 @@ export default function LakeTravisBachelorPartyCelebrations() {
       {/* Boat Rentals */}
       <SectionReveal>
         <section id="boat-rentals" className="mb-12" data-testid="section-boat-rentals">
-          <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white" data-testid="heading-boat-rentals">
+          <h2 className="heading-unbounded text-2xl sm:text-3xl font-bold mb-6 text-gray-900 dark:text-white" data-testid="heading-boat-rentals">
             Lake Travis Boat Rentals and Party Boats
           </h2>
           
@@ -222,7 +222,7 @@ export default function LakeTravisBachelorPartyCelebrations() {
       {/* Water Sports */}
       <SectionReveal>
         <section id="water-sports" className="mb-12" data-testid="section-water-sports">
-          <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white" data-testid="heading-water-sports">
+          <h2 className="heading-unbounded text-2xl sm:text-3xl font-bold mb-6 text-gray-900 dark:text-white" data-testid="heading-water-sports">
             Water Sports and Outdoor Adventures
           </h2>
           
@@ -260,7 +260,7 @@ export default function LakeTravisBachelorPartyCelebrations() {
       {/* Group Outings */}
       <SectionReveal>
         <section id="group-outings" className="mb-12" data-testid="section-group-outings">
-          <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white" data-testid="heading-group-outings">
+          <h2 className="heading-unbounded text-2xl sm:text-3xl font-bold mb-6 text-gray-900 dark:text-white" data-testid="heading-group-outings">
             Group Outings and Unique Experiences
           </h2>
           
@@ -287,7 +287,7 @@ export default function LakeTravisBachelorPartyCelebrations() {
       {/* Accommodations */}
       <SectionReveal>
         <section id="accommodations" className="mb-12" data-testid="section-accommodations">
-          <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white" data-testid="heading-accommodations">
+          <h2 className="heading-unbounded text-2xl sm:text-3xl font-bold mb-6 text-gray-900 dark:text-white" data-testid="heading-accommodations">
             Where to Stay: Best Bachelor Party Houses and Rentals
           </h2>
           
@@ -320,7 +320,7 @@ export default function LakeTravisBachelorPartyCelebrations() {
       {/* Nightlife & Dining */}
       <SectionReveal>
         <section id="nightlife-dining" className="mb-12" data-testid="section-nightlife-dining">
-          <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white" data-testid="heading-nightlife-dining">
+          <h2 className="heading-unbounded text-2xl sm:text-3xl font-bold mb-6 text-gray-900 dark:text-white" data-testid="heading-nightlife-dining">
             Lake Travis Nightlife and Dining
           </h2>
           
@@ -363,7 +363,7 @@ export default function LakeTravisBachelorPartyCelebrations() {
       {/* Adding Austin */}
       <SectionReveal>
         <section id="austin-itinerary" className="mb-12" data-testid="section-austin-itinerary">
-          <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white" data-testid="heading-austin-itinerary">
+          <h2 className="heading-unbounded text-2xl sm:text-3xl font-bold mb-6 text-gray-900 dark:text-white" data-testid="heading-austin-itinerary">
             Adding Austin to Your Bachelor Party Itinerary
           </h2>
           
@@ -411,7 +411,7 @@ export default function LakeTravisBachelorPartyCelebrations() {
       {/* Planning Tips */}
       <SectionReveal>
         <section id="planning-tips" className="mb-12" data-testid="section-planning-tips">
-          <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white" data-testid="heading-planning-tips">
+          <h2 className="heading-unbounded text-2xl sm:text-3xl font-bold mb-6 text-gray-900 dark:text-white" data-testid="heading-planning-tips">
             Planning Tips for the Ultimate Lake Travis Bachelor Party
           </h2>
           
@@ -446,7 +446,7 @@ export default function LakeTravisBachelorPartyCelebrations() {
       {/* FAQs */}
       <SectionReveal>
         <section id="faqs" className="mb-12" data-testid="section-faqs">
-          <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white" data-testid="heading-faqs">
+          <h2 className="heading-unbounded text-2xl sm:text-3xl font-bold mb-6 text-gray-900 dark:text-white" data-testid="heading-faqs">
             Frequently Asked Questions
           </h2>
           

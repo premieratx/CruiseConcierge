@@ -154,7 +154,7 @@ export default function LakeTravisBachelorPartyBoatRentalsGuide() {
               viewport={{ once: true }}
               variants={fadeInUp}
             >
-              <h2 className="text-3xl font-bold mb-6 text-center">Your Unforgettable Austin Bachelor Party Starts Here</h2>
+              <h2 className="heading-unbounded text-2xl sm:text-3xl font-bold mb-6 text-center">Your Unforgettable Austin Bachelor Party Starts Here</h2>
               <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
                 Austin, Texas, is renowned for its vibrant nightlife, live music scene, and the stunning Lake Travis. 
                 When it comes to planning an epic bachelor party, combining the excitement of Austin with the unique 
@@ -185,7 +185,7 @@ export default function LakeTravisBachelorPartyBoatRentalsGuide() {
               variants={staggerChildren}
               className="text-center mb-12"
             >
-              <h2 className="text-3xl font-bold mb-4">Why Lake Travis is the Ultimate Bachelor Party Destination</h2>
+              <h2 className="heading-unbounded text-2xl sm:text-3xl font-bold mb-4">Why Lake Travis is the Ultimate Bachelor Party Destination</h2>
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 A sprawling reservoir in the Texas Hill Country with crystal clear waters, stunning cliffs, and endless coves
               </p>
@@ -225,7 +225,7 @@ export default function LakeTravisBachelorPartyBoatRentalsGuide() {
               variants={fadeInUp}
               className="text-center mb-12"
             >
-              <h2 className="text-3xl font-bold mb-4">Choose Your Perfect Party Boat</h2>
+              <h2 className="heading-unbounded text-2xl sm:text-3xl font-bold mb-4">Choose Your Perfect Party Boat</h2>
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Our fleet of well-maintained boats is designed for various group sizes and party styles
               </p>
@@ -301,7 +301,7 @@ export default function LakeTravisBachelorPartyBoatRentalsGuide() {
               variants={fadeInUp}
               className="text-center mb-12"
             >
-              <h2 className="text-3xl font-bold mb-4">Bachelor Party Photo Gallery</h2>
+              <h2 className="heading-unbounded text-2xl sm:text-3xl font-bold mb-4">Bachelor Party Photo Gallery</h2>
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 Real bachelor parties on our Lake Travis boats
               </p>
@@ -320,7 +320,7 @@ export default function LakeTravisBachelorPartyBoatRentalsGuide() {
               viewport={{ once: true }}
               variants={fadeInUp}
             >
-              <h2 className="text-3xl font-bold mb-8 text-center">Planning Your Austin Bachelor Party</h2>
+              <h2 className="heading-unbounded text-2xl sm:text-3xl font-bold mb-8 text-center">Planning Your Austin Bachelor Party</h2>
               
               <div className="space-y-6">
                 <Card>
@@ -405,7 +405,7 @@ export default function LakeTravisBachelorPartyBoatRentalsGuide() {
               viewport={{ once: true }}
               variants={fadeInUp}
             >
-              <h2 className="text-3xl font-bold mb-8 text-center">Frequently Asked Questions</h2>
+              <h2 className="heading-unbounded text-2xl sm:text-3xl font-bold mb-8 text-center">Frequently Asked Questions</h2>
               
               <div className="space-y-4">
                 {faqs.map((faq, index) => (
@@ -432,7 +432,7 @@ export default function LakeTravisBachelorPartyBoatRentalsGuide() {
               viewport={{ once: true }}
               variants={fadeInUp}
             >
-              <h2 className="text-3xl md:text-4xl font-bold mb-6">
+              <h2 className="heading-unbounded text-3xl md:text-4xl font-bold mb-6">
                 Ready to Plan Your Epic Bachelor Party?
               </h2>
               <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
@@ -476,7 +476,7 @@ export default function LakeTravisBachelorPartyBoatRentalsGuide() {
         {/* Related Links */}
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <h2 className="text-2xl font-bold mb-8 text-center">Explore More</h2>
+            <h2 className="heading-unbounded text-2xl sm:text-3xl font-bold mb-8 text-center">Explore More</h2>
             <div className="grid md:grid-cols-3 gap-6">
               <Link href="/bachelor-party-austin">
                 <Card className="h-full hover:shadow-lg transition-all cursor-pointer">

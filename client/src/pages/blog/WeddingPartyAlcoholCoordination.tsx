@@ -244,7 +244,7 @@ export default function WeddingPartyAlcoholCoordination() {
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
-              <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">Coordinating Alcohol Across Your Wedding Weekend</h2>
+              <h2 className="heading-unbounded text-2xl sm:text-3xl font-bold mb-6 text-gray-900 dark:text-white">Coordinating Alcohol Across Your Wedding Weekend</h2>
               <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
                 Planning a wedding in Austin means coordinating multiple celebrations - each with its own drink needs. From the intimate <strong>champagne toast while getting ready</strong> to the wild <strong>bachelor party on Lake Travis</strong>, the glamorous <strong>bachelorette boat cruise</strong>, and finally the <strong>wedding reception bar</strong>, every event requires thoughtful alcohol planning.
               </p>
@@ -268,7 +268,7 @@ export default function WeddingPartyAlcoholCoordination() {
               <div className="grid lg:grid-cols-2 gap-12 items-center">
                 <div>
                   <Badge className="mb-4 bg-rose-500 text-white">MORNING OF</Badge>
-                  <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">Getting Ready Day Drinks</h2>
+                  <h2 className="heading-unbounded text-2xl sm:text-3xl font-bold mb-6 text-gray-900 dark:text-white">Getting Ready Day Drinks</h2>
                   <p className="text-lg text-gray-700 dark:text-gray-300 mb-8 leading-relaxed">
                     The wedding day starts with your closest friends getting ready together. Make it special with perfectly timed champagne deliveries and light refreshments that set the celebratory tone without overdoing it before photos.
                   </p>
@@ -327,7 +327,7 @@ export default function WeddingPartyAlcoholCoordination() {
                 
                 <div className="order-1 lg:order-2">
                   <Badge className="mb-4 bg-blue-600 text-white">BACHELOR PARTY</Badge>
-                  <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">Bachelor Party Alcohol Tips</h2>
+                  <h2 className="heading-unbounded text-2xl sm:text-3xl font-bold mb-6 text-gray-900 dark:text-white">Bachelor Party Alcohol Tips</h2>
                   <p className="text-lg text-gray-700 dark:text-gray-300 mb-8 leading-relaxed">
                     The <strong>bachelor party on Lake Travis</strong> is the ultimate pre-wedding celebration. Our BYOB party boats let the groom and his crew bring their own drinks for the perfect day on the water. Here's how to coordinate alcohol for an epic bachelor party.
                   </p>
@@ -369,7 +369,7 @@ export default function WeddingPartyAlcoholCoordination() {
               <div className="grid lg:grid-cols-2 gap-12 items-center">
                 <div>
                   <Badge className="mb-4 bg-pink-500 text-white">BACHELORETTE PARTY</Badge>
-                  <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">Bachelorette Party Alcohol Tips</h2>
+                  <h2 className="heading-unbounded text-2xl sm:text-3xl font-bold mb-6 text-gray-900 dark:text-white">Bachelorette Party Alcohol Tips</h2>
                   <p className="text-lg text-gray-700 dark:text-gray-300 mb-8 leading-relaxed">
                     The <strong>bachelorette party on Lake Travis</strong> deserves the perfect drink setup. From Instagram-worthy rosé to fun batch cocktails, here's how to coordinate alcohol for an unforgettable girls' day on the water.
                   </p>
@@ -510,7 +510,7 @@ export default function WeddingPartyAlcoholCoordination() {
               <div className="grid lg:grid-cols-2 gap-12 items-center mb-12">
                 <div>
                   <Badge className="mb-4 bg-brand-blue text-white">LAKE TRAVIS</Badge>
-                  <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">Lake Travis Wedding Party Cruises</h2>
+                  <h2 className="heading-unbounded text-2xl sm:text-3xl font-bold mb-6 text-gray-900 dark:text-white">Lake Travis Wedding Party Cruises</h2>
                   <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
                     Premier Party Cruises offers the perfect vessels for every wedding party event on Lake Travis. From intimate <strong>bachelor party boats</strong> to large <strong>bachelorette cruise vessels</strong> and even floating reception venues, we have options for every celebration.
                   </p>

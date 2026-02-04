@@ -133,7 +133,7 @@ export default function PerfectAustinBachelorPartyWeekend() {
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
-              <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">Planning the Ultimate Austin Bachelor Party Weekend</h2>
+              <h2 className="heading-unbounded text-2xl sm:text-3xl font-bold mb-6 text-gray-900 dark:text-white">Planning the Ultimate Austin Bachelor Party Weekend</h2>
               <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
                 So you've been tasked with planning an <strong>austin bachelor party</strong> – congratulations! You've picked one of the best party destinations in the country. With a <strong>lake travis bachelor party boat</strong> as your centerpiece, this weekend will be legendary. But with so many ideas, where do you even start? That's where this comprehensive 3-day itinerary comes in.
               </p>

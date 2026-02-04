@@ -139,7 +139,7 @@ export default function JointBachelorBachelorettePartyGuide() {
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="section-introduction">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
-              <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">Double the Fun with Your Austin Bachelor Party, Austin-Style</h2>
+              <h2 className="heading-unbounded text-2xl sm:text-3xl font-bold mb-6 text-gray-900 dark:text-white">Double the Fun with Your Austin Bachelor Party, Austin-Style</h2>
               <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
                 Planning a <strong>joint bachelor bachelorette party</strong> is the hottest trend in pre-wedding celebrations, and Austin, Texas is the perfect destination to make it happen. Why celebrate separately when you can double the fun with a <strong>combined bachelor bachelorette</strong> weekend on a <strong>lake travis bachelor party boat</strong> that brings both crews together for an unforgettable experience?
               </p>

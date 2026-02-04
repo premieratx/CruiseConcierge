@@ -590,7 +590,7 @@ export default function BlogPostPage() {
         {/* Related Posts */}
         {relatedPosts.length > 0 && (
           <section className="mt-12 mb-12">
-            <h2 className="text-3xl font-bold mb-8 text-gray-900 dark:text-white" data-testid="title-related-posts">You May Also Like</h2>
+            <h2 className="heading-unbounded text-2xl sm:text-3xl font-bold mb-8 text-gray-900 dark:text-white" data-testid="title-related-posts">You May Also Like</h2>
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               {relatedPosts.map((relatedPost) => (
                 <BlogCard
@@ -610,7 +610,7 @@ export default function BlogPostPage() {
           <section className="mt-12 mb-12 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-gray-800 dark:to-gray-900 rounded-2xl p-8">
             <div className="flex items-center gap-3 mb-6">
               <Anchor className="h-8 w-8 text-blue-600 dark:text-blue-400" />
-              <h2 className="text-3xl font-bold text-gray-900 dark:text-white" data-testid="title-related-cruises">
+              <h2 className="heading-unbounded text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white" data-testid="title-related-cruises">
                 Related Cruises & Services
               </h2>
             </div>

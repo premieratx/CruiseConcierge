@@ -150,7 +150,7 @@ export default function TopDosAndDontsATXDiscoCruise() {
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
-              <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">Your Guide to the Ultimate ATX Disco Cruise Experience</h2>
+              <h2 className="heading-unbounded text-2xl sm:text-3xl font-bold mb-6 text-gray-900 dark:text-white">Your Guide to the Ultimate ATX Disco Cruise Experience</h2>
               <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
                 You've made the decision to book the <Link href="/atx-disco-cruise" className="text-blue-600 hover:underline font-semibold">ATX Disco Cruise</Link> for your celebration - excellent choice! This isn't just another <Link href="/party-boat-austin" className="text-blue-600 hover:underline font-semibold">party boat in Austin</Link>. It's the only multi-group, all-inclusive party cruise in the U.S. where <strong>bachelor and bachelorette parties celebrate together</strong> on <Link href="/party-boat-lake-travis" className="text-blue-600 hover:underline font-semibold">Lake Travis</Link>.
               </p>

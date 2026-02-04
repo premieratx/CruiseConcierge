@@ -139,7 +139,7 @@ export default function RecipeForChillestATXBachParty() {
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
-              <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">Why a Chill Bach Party Hits Different</h2>
+              <h2 className="heading-unbounded text-2xl sm:text-3xl font-bold mb-6 text-gray-900 dark:text-white">Why a Chill Bach Party Hits Different</h2>
               <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
                 Look, we get it. The internet is full of "EPIC BACHELOR PARTY" guides with packed schedules, expensive clubs, and 4 hours of sleep per night. But here's the thing - some of the best bach parties we've seen are the ones where everyone actually relaxes, connects, and comes home feeling <em>good</em> instead of wrecked.
               </p>

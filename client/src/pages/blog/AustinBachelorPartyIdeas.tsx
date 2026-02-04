@@ -116,7 +116,7 @@ export default function AustinBachelorPartyIdeas() {
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
-              <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">Welcome to Austin, Bachelor Party Capital</h2>
+              <h2 className="heading-unbounded text-2xl sm:text-3xl font-bold mb-6 text-gray-900 dark:text-white">Welcome to Austin, Bachelor Party Capital</h2>
               <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
                 Planning an <strong>austin bachelor party</strong> means gearing up for an unforgettable adventure in one of the nation's top party destinations. This city has it all: legendary live music, incredible BBQ and tacos, craft breweries, outdoor excitement, and a nightlife scene that's second to none. With so many <strong>Austin bachelor party ideas</strong> out there, how do you choose? The best way to celebrate is aboard a <strong>lake travis bachelor party boat</strong> – and we've got you covered with all the details.
               </p>
@@ -446,7 +446,7 @@ export default function AustinBachelorPartyIdeas() {
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
-              <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">Final Thoughts: Austin Has It All for Your Bachelor Party</h2>
+              <h2 className="heading-unbounded text-2xl sm:text-3xl font-bold mb-6 text-gray-900 dark:text-white">Final Thoughts: Austin Has It All for Your Bachelor Party</h2>
               <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
                 From the ultimate <strong>lake travis bachelor party boat</strong> experience to bar-hopping on 6th Street, the range of <strong>austin bachelor party</strong> ideas is off the charts. You can tailor the weekend to your groom's personality – or better yet, sample a little of everything for a well-rounded blowout.
               </p>

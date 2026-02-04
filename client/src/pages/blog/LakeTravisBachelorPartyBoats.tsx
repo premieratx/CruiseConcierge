@@ -50,7 +50,7 @@ export default function LakeTravisBachelorPartyBoats() {
       {/* Why Lake Travis */}
       <SectionReveal>
         <section id="why-lake-travis" className="mb-12" data-testid="section-why-lake-travis">
-          <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white" data-testid="heading-why-lake-travis">
+          <h2 className="heading-unbounded text-2xl sm:text-3xl font-bold mb-6 text-gray-900 dark:text-white" data-testid="heading-why-lake-travis">
             Why Lake Travis is the Place to Party
           </h2>
 
@@ -103,7 +103,7 @@ export default function LakeTravisBachelorPartyBoats() {
       {/* ATX Disco Cruise */}
       <SectionReveal>
         <section id="atx-disco-cruise" className="mb-12" data-testid="section-atx-disco-cruise">
-          <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white" data-testid="heading-atx-disco-cruise">
+          <h2 className="heading-unbounded text-2xl sm:text-3xl font-bold mb-6 text-gray-900 dark:text-white" data-testid="heading-atx-disco-cruise">
             The ATX Disco Cruise: Austin Bachelor Party Paradise
           </h2>
 
@@ -232,7 +232,7 @@ export default function LakeTravisBachelorPartyBoats() {
       {/* BYOB + Party On Delivery */}
       <SectionReveal>
         <section id="byob-delivery" className="mb-12" data-testid="section-byob-delivery">
-          <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white" data-testid="heading-byob-delivery">
+          <h2 className="heading-unbounded text-2xl sm:text-3xl font-bold mb-6 text-gray-900 dark:text-white" data-testid="heading-byob-delivery">
             BYOB + Party On Delivery = No Worries
           </h2>
 
@@ -305,7 +305,7 @@ export default function LakeTravisBachelorPartyBoats() {
       {/* Private Charter vs Disco Cruise */}
       <SectionReveal>
         <section id="private-vs-disco" className="mb-12" data-testid="section-private-vs-disco">
-          <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white" data-testid="heading-private-vs-disco">
+          <h2 className="heading-unbounded text-2xl sm:text-3xl font-bold mb-6 text-gray-900 dark:text-white" data-testid="heading-private-vs-disco">
             Private Charter vs. Disco Cruise
           </h2>
 
@@ -391,7 +391,7 @@ export default function LakeTravisBachelorPartyBoats() {
       {/* Tips for a Legendary Lake Travis Boat Party */}
       <SectionReveal>
         <section id="party-tips" className="mb-12" data-testid="section-party-tips">
-          <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white" data-testid="heading-party-tips">
+          <h2 className="heading-unbounded text-2xl sm:text-3xl font-bold mb-6 text-gray-900 dark:text-white" data-testid="heading-party-tips">
             Tips for a Legendary Lake Travis Party Boat Experience
           </h2>
 
@@ -504,7 +504,7 @@ export default function LakeTravisBachelorPartyBoats() {
       {/* Sample Itinerary */}
       <SectionReveal>
         <section id="sample-itinerary" className="mb-12" data-testid="section-sample-itinerary">
-          <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white" data-testid="heading-sample-itinerary">
+          <h2 className="heading-unbounded text-2xl sm:text-3xl font-bold mb-6 text-gray-900 dark:text-white" data-testid="heading-sample-itinerary">
             Sample 3-Day Bachelor Party Itinerary
           </h2>
 
@@ -578,7 +578,7 @@ export default function LakeTravisBachelorPartyBoats() {
       {/* Do's and Don'ts */}
       <SectionReveal>
         <section id="dos-donts" className="mb-12" data-testid="section-dos-donts">
-          <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white" data-testid="heading-dos-donts">
+          <h2 className="heading-unbounded text-2xl sm:text-3xl font-bold mb-6 text-gray-900 dark:text-white" data-testid="heading-dos-donts">
             Do's and Don'ts for Your Lake Travis Bachelor Party
           </h2>
 
