@@ -330,8 +330,8 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
             </a>
           </div>
 
-          {/* Mobile Header Controls - flex-1 to push to right */}
-          <div className="lg:!hidden flex flex-1 items-center justify-end gap-2">
+          {/* Mobile Header Controls - flex-1 to push to right, visible until xl breakpoint (1280px) */}
+          <div className="xl:!hidden flex flex-1 items-center justify-end gap-2">
             {/* Mobile Get Quote Button */}
             <a
               href="/chat"
@@ -365,8 +365,8 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
             </button>
           </div>
 
-          {/* Desktop Navigation - Left-to-right flow */}
-          <div className="ppc-public-nav-center hidden lg:flex items-center">
+          {/* Desktop Navigation - Left-to-right flow, only show on xl+ (1280px+) to prevent button cut-off */}
+          <div className="ppc-public-nav-center hidden xl:flex items-center">
               <NavigationMenu className="overflow-visible">
                 <NavigationMenuList className="flex items-center space-x-1 overflow-visible">
                 {navigationItems.map((item) => (
@@ -461,8 +461,8 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
               </NavigationMenu>
             </div>
 
-          {/* Desktop CTA Buttons - Right */}
-          <div className="ppc-public-nav-cta hidden lg:flex flex-shrink-0 items-center gap-2">
+          {/* Desktop CTA Buttons - Right, only show on xl+ (1280px+) to prevent button cut-off */}
+          <div className="ppc-public-nav-cta hidden xl:flex flex-shrink-0 items-center gap-2">
               <a
                 href="/chat"
                 className="inline-flex items-center border-2 border-brand-blue text-brand-blue hover:bg-brand-blue hover:text-white font-bold px-3 lg:px-4 py-2 tracking-wide text-sm whitespace-nowrap rounded-md transition-colors"
@@ -491,10 +491,10 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
       {/* Spacer for fixed header + banner - hidden on homepage where hero extends behind header */}
       {location !== '/' && <div className="h-[calc(5rem+2.5rem)]" />}
 
-      {/* Mobile Bottom Navigation Bar */}
+      {/* Mobile Bottom Navigation Bar - visible until xl breakpoint (1280px) */}
       <nav 
         className={cn(
-          "fixed bottom-0 left-0 right-0 z-40 lg:hidden",
+          "fixed bottom-0 left-0 right-0 z-40 xl:hidden",
           "bg-white/95 dark:bg-gray-950/95 backdrop-blur-lg",
           "border-t border-gray-200 dark:border-gray-800 shadow-2xl",
           "pb-safe"
@@ -609,8 +609,8 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
         </div>
       </nav>
 
-      {/* Bottom spacer for mobile bottom nav */}
-      <div className="h-16 lg:hidden" />
+      {/* Bottom spacer for mobile bottom nav - matches xl breakpoint */}
+      <div className="h-16 xl:hidden" />
 
       {/* Mobile Menu Sheet - Only render when open to prevent overlay issues */}
       {mobileMenuOpen && (
