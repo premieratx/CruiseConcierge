@@ -365,64 +365,155 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
             </button>
           </div>
 
-          {/* Laptop/Tablet Condensed Navigation (lg to xl: 1024px-1280px) - Dropdown menu + CTA buttons always visible */}
+          {/* LEVEL 2 CONDENSED: lg to xl (1024-1280px) - Further condensed + CTA buttons */}
           <div className="hidden lg:flex xl:!hidden flex-1 items-center justify-between">
-            {/* Condensed Menu Dropdown */}
             <NavigationMenu className="overflow-visible">
-              <NavigationMenuList className="flex items-center overflow-visible">
+              <NavigationMenuList className="flex items-center space-x-0.5 overflow-visible">
+                {/* Home */}
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger className="flex items-center px-3 py-2 font-semibold text-sm text-gray-700 dark:text-gray-300">
-                    <Menu className="h-4 w-4 mr-2" />
-                    <span>Menu</span>
+                  <a href="/" className={cn(navigationMenuTriggerStyle(), "font-semibold text-sm px-2", location === '/' ? "text-brand-blue" : "text-gray-700 dark:text-gray-300")}>
+                    Home
+                  </a>
+                </NavigationMenuItem>
+                
+                {/* ATX Disco */}
+                <NavigationMenuItem>
+                  <a href="/atx-disco-cruise" className={cn(navigationMenuTriggerStyle(), "font-semibold text-sm px-2", location === '/atx-disco-cruise' ? "text-brand-blue" : "text-gray-700 dark:text-gray-300")}>
+                    ATX Disco
+                  </a>
+                </NavigationMenuItem>
+
+                {/* Bach Parties - Combined Bachelor/Bachelorette */}
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger className={cn("font-semibold text-sm px-2", (location.includes('bachelor') || location.includes('bachelorette')) ? "text-brand-blue" : "text-gray-700 dark:text-gray-300")}>
+                    Bach Parties
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
-                    <ul className="grid w-[400px] gap-1 p-3">
-                      {navigationItems.map((item) => {
-                        const Icon = item.icon;
-                        return (
-                          <li key={item.href}>
-                            <NavigationMenuLink asChild>
-                              <a
-                                href={item.href}
-                                className="flex items-center space-x-3 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
-                                data-testid={`link-condensed-${safeSlug(item.title)}`}
-                              >
-                                <Icon className="h-5 w-5 text-brand-blue flex-shrink-0" />
-                                <span className="text-sm font-medium">{item.title}</span>
-                                {item.badge && (
-                                  <span className="ml-auto text-xs bg-brand-yellow text-black px-2 py-0.5 rounded-full font-bold">
-                                    {item.badge}
-                                  </span>
-                                )}
-                              </a>
-                            </NavigationMenuLink>
-                          </li>
-                        );
-                      })}
+                    <ul className="grid w-[320px] gap-1 p-3">
+                      <li><NavigationMenuLink asChild><a href="/bachelor-party-austin" className="flex items-center space-x-3 rounded-md p-3 hover:bg-accent"><Users className="h-5 w-5 text-brand-blue" /><span className="text-sm font-medium">Bachelor Party</span></a></NavigationMenuLink></li>
+                      <li><NavigationMenuLink asChild><a href="/bachelorette-party-austin" className="flex items-center space-x-3 rounded-md p-3 hover:bg-accent"><Heart className="h-5 w-5 text-brand-blue" /><span className="text-sm font-medium">Bachelorette Party</span></a></NavigationMenuLink></li>
+                      <li><NavigationMenuLink asChild><a href="/combined-bachelor-bachelorette" className="flex items-center space-x-3 rounded-md p-3 hover:bg-accent"><PartyPopper className="h-5 w-5 text-brand-blue" /><span className="text-sm font-medium">Combined Bach Party</span></a></NavigationMenuLink></li>
+                    </ul>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+
+                {/* Private Cruises */}
+                <NavigationMenuItem>
+                  <a href="/private-cruises" className={cn(navigationMenuTriggerStyle(), "font-semibold text-sm px-2", location.startsWith('/private-cruises') ? "text-brand-blue" : "text-gray-700 dark:text-gray-300")}>
+                    Private
+                  </a>
+                </NavigationMenuItem>
+
+                {/* More - Combined Gallery/Reviews/Contact */}
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger className="font-semibold text-sm px-2 text-gray-700 dark:text-gray-300">
+                    More
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <ul className="grid w-[280px] gap-1 p-3">
+                      <li><NavigationMenuLink asChild><a href="/gallery" className="flex items-center space-x-3 rounded-md p-3 hover:bg-accent"><Camera className="h-5 w-5 text-brand-blue" /><span className="text-sm font-medium">Gallery</span></a></NavigationMenuLink></li>
+                      <li><NavigationMenuLink asChild><a href="/testimonials-faq" className="flex items-center space-x-3 rounded-md p-3 hover:bg-accent"><Star className="h-5 w-5 text-brand-blue" /><span className="text-sm font-medium">Reviews & FAQ</span></a></NavigationMenuLink></li>
+                      <li><NavigationMenuLink asChild><a href="/contact" className="flex items-center space-x-3 rounded-md p-3 hover:bg-accent"><Phone className="h-5 w-5 text-brand-blue" /><span className="text-sm font-medium">Contact</span></a></NavigationMenuLink></li>
                     </ul>
                   </NavigationMenuContent>
                 </NavigationMenuItem>
               </NavigationMenuList>
             </NavigationMenu>
 
-            {/* CTA Buttons - Always visible on laptop */}
+            {/* CTA Buttons - Always visible */}
             <div className="flex flex-shrink-0 items-center gap-2">
-              <a
-                href="/chat"
-                className="inline-flex items-center border-2 border-brand-blue text-brand-blue hover:bg-brand-blue hover:text-white font-bold px-3 py-2 tracking-wide text-sm whitespace-nowrap rounded-md transition-colors"
-                data-testid="button-laptop-get-quote"
-              >
+              <a href="/chat" className="inline-flex items-center border-2 border-brand-blue text-brand-blue hover:bg-brand-blue hover:text-white font-bold px-3 py-1.5 text-sm whitespace-nowrap rounded-md transition-colors">
                 <MessageSquare className="mr-1.5 h-4 w-4" />
-                <span>Get My Quote</span>
+                Quote
               </a>
-              
-              {/* Book Now Button - Xola Checkout */}
-              <div
-                className="xola-custom xola-checkout"
-                data-button-id="695186923c261203770cc2e7"
-                data-testid="button-laptop-book-now"
-              >
-                <button className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold px-4 py-2 tracking-wide text-sm whitespace-nowrap shadow-md rounded-md inline-flex items-center justify-center transition-colors">
+              <div className="xola-custom xola-checkout" data-button-id="695186923c261203770cc2e7">
+                <button className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold px-3 py-1.5 text-sm whitespace-nowrap shadow-md rounded-md inline-flex items-center transition-colors">
+                  <Calendar className="mr-1.5 h-4 w-4" />
+                  Book
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* LEVEL 1 CONDENSED: xl to 2xl (1280-1536px) - Bach parties combined + CTA buttons */}
+          <div className="hidden xl:flex 2xl:!hidden flex-1 items-center justify-between">
+            <NavigationMenu className="overflow-visible">
+              <NavigationMenuList className="flex items-center space-x-1 overflow-visible">
+                {/* Home */}
+                <NavigationMenuItem>
+                  <a href="/" className={cn(navigationMenuTriggerStyle(), "font-semibold text-sm px-2", location === '/' ? "text-brand-blue" : "text-gray-700 dark:text-gray-300")}>
+                    Home
+                  </a>
+                </NavigationMenuItem>
+                
+                {/* ATX Disco Cruise */}
+                <NavigationMenuItem>
+                  <a href="/atx-disco-cruise" className={cn(navigationMenuTriggerStyle(), "font-semibold text-sm px-2", location === '/atx-disco-cruise' ? "text-brand-blue" : "text-gray-700 dark:text-gray-300")}>
+                    ATX Disco Cruise
+                  </a>
+                </NavigationMenuItem>
+
+                {/* Bach Parties - Combined Bachelor/Bachelorette */}
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger className={cn("font-semibold text-sm px-2", (location.includes('bachelor') || location.includes('bachelorette')) ? "text-brand-blue" : "text-gray-700 dark:text-gray-300")}>
+                    Bach Parties
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <ul className="grid w-[400px] gap-2 p-4">
+                      <li><NavigationMenuLink asChild><a href="/bachelor-party-austin" className="block rounded-md p-3 hover:bg-accent"><div className="flex items-center space-x-2"><Users className="h-4 w-4 text-brand-blue" /><span className="text-sm font-medium">Austin Bachelor Party</span></div><p className="text-sm text-muted-foreground mt-1">Lake Travis bachelor party cruises</p></a></NavigationMenuLink></li>
+                      <li><NavigationMenuLink asChild><a href="/bachelorette-party-austin" className="block rounded-md p-3 hover:bg-accent"><div className="flex items-center space-x-2"><Heart className="h-4 w-4 text-brand-blue" /><span className="text-sm font-medium">Austin Bachelorette Party</span></div><p className="text-sm text-muted-foreground mt-1">Lake Travis bachelorette cruises</p></a></NavigationMenuLink></li>
+                      <li><NavigationMenuLink asChild><a href="/combined-bachelor-bachelorette" className="block rounded-md p-3 hover:bg-accent"><div className="flex items-center space-x-2"><PartyPopper className="h-4 w-4 text-brand-blue" /><span className="text-sm font-medium">Combined Bach Party</span></div><p className="text-sm text-muted-foreground mt-1">Joint bachelor & bachelorette celebration</p></a></NavigationMenuLink></li>
+                    </ul>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+
+                {/* Private Cruises - Keep dropdown */}
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger className={cn("font-semibold text-sm px-2", location.startsWith('/private-cruises') ? "text-brand-blue" : "text-gray-700 dark:text-gray-300")}>
+                    Private Cruises
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <ul className="grid w-[600px] gap-2 p-4 md:grid-cols-2">
+                      <li><NavigationMenuLink asChild><a href="/private-cruises" className="block rounded-md p-3 hover:bg-accent"><div className="flex items-center space-x-2"><Ship className="h-4 w-4 text-brand-blue" /><span className="text-sm font-medium">All Private Cruises</span></div><p className="text-sm text-muted-foreground mt-1">Exclusive boat charters</p></a></NavigationMenuLink></li>
+                      <li className="col-span-2 mt-2"><div className="text-xs font-semibold text-gray-500 uppercase tracking-wider px-3 pb-1">Wedding Experiences</div></li>
+                      <li><NavigationMenuLink asChild><a href="/rehearsal-dinner" className="block rounded-md p-3 hover:bg-accent"><div className="flex items-center space-x-2"><Wine className="h-4 w-4 text-brand-blue" /><span className="text-sm font-medium">Rehearsal Dinner</span></div></a></NavigationMenuLink></li>
+                      <li><NavigationMenuLink asChild><a href="/welcome-party" className="block rounded-md p-3 hover:bg-accent"><div className="flex items-center space-x-2"><Heart className="h-4 w-4 text-brand-blue" /><span className="text-sm font-medium">Welcome Party</span></div></a></NavigationMenuLink></li>
+                      <li><NavigationMenuLink asChild><a href="/after-party" className="block rounded-md p-3 hover:bg-accent"><div className="flex items-center space-x-2"><Music className="h-4 w-4 text-brand-blue" /><span className="text-sm font-medium">After Party</span></div></a></NavigationMenuLink></li>
+                    </ul>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+
+                {/* Gallery */}
+                <NavigationMenuItem>
+                  <a href="/gallery" className={cn(navigationMenuTriggerStyle(), "font-semibold text-sm px-2", location === '/gallery' ? "text-brand-blue" : "text-gray-700 dark:text-gray-300")}>
+                    Gallery
+                  </a>
+                </NavigationMenuItem>
+
+                {/* Reviews & FAQ */}
+                <NavigationMenuItem>
+                  <a href="/testimonials-faq" className={cn(navigationMenuTriggerStyle(), "font-semibold text-sm px-2", location === '/testimonials-faq' ? "text-brand-blue" : "text-gray-700 dark:text-gray-300")}>
+                    Reviews
+                  </a>
+                </NavigationMenuItem>
+
+                {/* Contact */}
+                <NavigationMenuItem>
+                  <a href="/contact" className={cn(navigationMenuTriggerStyle(), "font-semibold text-sm px-2", location === '/contact' ? "text-brand-blue" : "text-gray-700 dark:text-gray-300")}>
+                    Contact
+                  </a>
+                </NavigationMenuItem>
+              </NavigationMenuList>
+            </NavigationMenu>
+
+            {/* CTA Buttons - Always visible */}
+            <div className="flex flex-shrink-0 items-center gap-2">
+              <a href="/chat" className="inline-flex items-center border-2 border-brand-blue text-brand-blue hover:bg-brand-blue hover:text-white font-bold px-3 py-2 text-sm whitespace-nowrap rounded-md transition-colors">
+                <MessageSquare className="mr-1.5 h-4 w-4" />
+                Get My Quote
+              </a>
+              <div className="xola-custom xola-checkout" data-button-id="695186923c261203770cc2e7">
+                <button className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold px-4 py-2 text-sm whitespace-nowrap shadow-md rounded-md inline-flex items-center transition-colors">
                   <Calendar className="mr-1.5 h-4 w-4" />
                   Book Now
                 </button>
@@ -430,8 +521,8 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
             </div>
           </div>
 
-          {/* Full Desktop Navigation (xl+: 1280px+) - All nav items visible */}
-          <div className="ppc-public-nav-center hidden xl:flex items-center">
+          {/* FULL DESKTOP: 2xl+ (1536px+) - All nav items visible */}
+          <div className="ppc-public-nav-center hidden 2xl:flex items-center">
               <NavigationMenu className="overflow-visible">
                 <NavigationMenuList className="flex items-center space-x-1 overflow-visible">
                 {navigationItems.map((item) => (
@@ -526,8 +617,8 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
               </NavigationMenu>
             </div>
 
-          {/* Desktop CTA Buttons - Right, only show on xl+ (1280px+) to prevent button cut-off */}
-          <div className="ppc-public-nav-cta hidden xl:flex flex-shrink-0 items-center gap-2">
+          {/* Desktop CTA Buttons - Right, only show on 2xl+ (1536px+) for full desktop */}
+          <div className="ppc-public-nav-cta hidden 2xl:flex flex-shrink-0 items-center gap-2">
               <a
                 href="/chat"
                 className="inline-flex items-center border-2 border-brand-blue text-brand-blue hover:bg-brand-blue hover:text-white font-bold px-3 lg:px-4 py-2 tracking-wide text-sm whitespace-nowrap rounded-md transition-colors"
