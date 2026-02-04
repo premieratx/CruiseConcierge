@@ -100,7 +100,7 @@ export default function FirstTimeLakeTravisGuide() {
       {/* Choosing Your Perfect Vessel */}
       <SectionReveal>
         <section id="choosing-boat" className="mb-12" data-testid="section-choosing-boat">
-          <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white flex items-center gap-3" data-testid="heading-choosing-boat">
+          <h2 className="heading-unbounded text-2xl sm:text-3xl font-bold mb-6 text-gray-900 dark:text-white flex items-center gap-3" data-testid="heading-choosing-boat">
             <Ship className="text-brand-blue" /> Choosing Your Perfect Party Vessel
           </h2>
           
@@ -158,7 +158,7 @@ export default function FirstTimeLakeTravisGuide() {
       {/* Understanding Rental Options */}
       <SectionReveal>
         <section id="rental-options" className="mb-12" data-testid="section-rental-options">
-          <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white flex items-center gap-3" data-testid="heading-rental-options">
+          <h2 className="heading-unbounded text-2xl sm:text-3xl font-bold mb-6 text-gray-900 dark:text-white flex items-center gap-3" data-testid="heading-rental-options">
             <Calendar className="text-brand-blue" /> Understanding Rental Options and Inclusions
           </h2>
           
@@ -224,7 +224,7 @@ export default function FirstTimeLakeTravisGuide() {
       {/* Safety Tips */}
       <SectionReveal>
         <section id="safety-tips" className="mb-12" data-testid="section-safety-tips">
-          <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white flex items-center gap-3" data-testid="heading-safety-tips">
+          <h2 className="heading-unbounded text-2xl sm:text-3xl font-bold mb-6 text-gray-900 dark:text-white flex items-center gap-3" data-testid="heading-safety-tips">
             <Shield className="text-brand-blue" /> Navigating Lake Travis Safely and Responsibly
           </h2>
           
@@ -269,7 +269,7 @@ export default function FirstTimeLakeTravisGuide() {
       {/* What to Bring */}
       <SectionReveal>
         <section id="what-to-bring" className="mb-12" data-testid="section-what-to-bring">
-          <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white flex items-center gap-3" data-testid="heading-what-to-bring">
+          <h2 className="heading-unbounded text-2xl sm:text-3xl font-bold mb-6 text-gray-900 dark:text-white flex items-center gap-3" data-testid="heading-what-to-bring">
             <Sun className="text-brand-blue" /> What to Bring for Your Lake Travis Adventure
           </h2>
           
@@ -355,7 +355,7 @@ export default function FirstTimeLakeTravisGuide() {
       {/* ATX Disco vs Private Cruises */}
       <SectionReveal>
         <section id="atx-vs-private" className="mb-12" data-testid="section-atx-vs-private">
-          <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white flex items-center gap-3" data-testid="heading-atx-vs-private">
+          <h2 className="heading-unbounded text-2xl sm:text-3xl font-bold mb-6 text-gray-900 dark:text-white flex items-center gap-3" data-testid="heading-atx-vs-private">
             <Users className="text-brand-blue" /> ATX Disco Cruise vs Private Cruises
           </h2>
           
@@ -466,7 +466,7 @@ export default function FirstTimeLakeTravisGuide() {
       {/* Planning Tips */}
       <SectionReveal>
         <section id="planning-tips" className="mb-12" data-testid="section-planning-tips">
-          <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white flex items-center gap-3" data-testid="heading-planning-tips">
+          <h2 className="heading-unbounded text-2xl sm:text-3xl font-bold mb-6 text-gray-900 dark:text-white flex items-center gap-3" data-testid="heading-planning-tips">
             <Sparkles className="text-brand-blue" /> Maximizing Your First-Time Boat Rental Experience
           </h2>
           
@@ -546,7 +546,7 @@ export default function FirstTimeLakeTravisGuide() {
       {/* FAQ Section */}
       <SectionReveal>
         <section id="faq" className="mb-12" data-testid="section-faq">
-          <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white flex items-center gap-3" data-testid="heading-faq">
+          <h2 className="heading-unbounded text-2xl sm:text-3xl font-bold mb-6 text-gray-900 dark:text-white flex items-center gap-3" data-testid="heading-faq">
             <MapPin className="text-brand-blue" /> Frequently Asked Questions
           </h2>
 
