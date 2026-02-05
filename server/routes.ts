@@ -960,10 +960,22 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
           console.log(`🔄 [Blog SSR] Attempting Vite SSR for: /blogs/${slug}`);
           const viteResult = await renderReactSSR(`/blogs/${slug}`);
           
-          if (viteResult && viteResult.html && viteResult.html.length > 1000) {
+          // CRITICAL FIX: Detect and skip malformed SSR content with Suspense error templates
+          // renderToString doesn't support Suspense and outputs error templates like:
+          // <!--$!--><template data-msg="The server did not finish this Suspense boundary...
+          // These cause overlapping text when React tries to hydrate
+          const hasSuspenseError = viteResult?.html?.includes('<!--$!-->') || 
+                                   viteResult?.html?.includes('data-msg="The server did not finish');
+          
+          if (viteResult && viteResult.html && viteResult.html.length > 1000 && !hasSuspenseError) {
             appHtml = viteResult.html;
             helmetData = viteResult.helmet || {};
             console.log(`✅ [Blog SSR] Vite SSR success: ${slug} (${appHtml.length} chars)`);
+          } else if (hasSuspenseError) {
+            // SSR contains Suspense error templates - use rich fallback content for SEO
+            console.log(`⚠️ [Blog SSR] Vite SSR has Suspense errors, using fallback content: ${slug}`);
+            // Use rich fallback content for SEO crawlers instead of empty content
+            appHtml = generateRichFallbackContent(slug, h1Text, metaDescription, metadata?.keywords || []);
           } else {
             // Vite SSR didn't produce enough content - try direct import as fallback
             console.log(`⚠️ [Blog SSR] Vite SSR insufficient (${viteResult?.html?.length || 0} chars), trying direct import: ${slug}`);
@@ -990,8 +1002,13 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
           appHtml = generateRichFallbackContent(slug, h1Text, metaDescription, metadata?.keywords || []);
         }
         
-        // Inject SSR content into root div
-        html = html.replace(/<div id="root"><\/div>/, `<div id="root">${appHtml}</div>`);
+        // CRITICAL FIX: Inject SSR content as SIBLING with ssr-content class
+        // This allows CSS (#root[data-hydrated="true"] ~ .ssr-content) to hide it after React renders
+        // Previously content inside root div caused overlap because React wasn't properly replacing it
+        if (appHtml && appHtml.length > 0) {
+          // Keep root div empty for React, add SSR content as visible sibling
+          html = html.replace(/<div id="root"><\/div>/, `<div id="root"></div><div class="ssr-content">${appHtml}</div>`);
+        }
         
         // SSR FIX: If Vite SSR returned proper helmet data, inject it into the HTML head
         // This ensures crawlers see the React Helmet title/meta instead of fallback values

@@ -1411,7 +1411,13 @@ async function renderPage(url: string, req: Request): Promise<string> {
           console.log(`[Vite SSR] Attempting React SSR for: ${pathname}`);
           const viteResult = await renderReactSSR(pathname);
           
-          if (viteResult && viteResult.html && viteResult.html.length > 500) {
+          // CRITICAL FIX: Detect and skip malformed SSR content with Suspense error templates
+          // renderToString doesn't support Suspense and outputs error templates that cause
+          // overlapping text when React tries to mount
+          const hasSuspenseError = viteResult?.html?.includes('<!--$!-->') || 
+                                   viteResult?.html?.includes('data-msg="The server did not finish');
+          
+          if (viteResult && viteResult.html && viteResult.html.length > 500 && !hasSuspenseError) {
             console.log(`[Vite SSR] Success for ${pathname} - ${viteResult.html.length} chars`);
             
             // Extract meta tags from helmet
@@ -1456,6 +1462,8 @@ async function renderPage(url: string, req: Request): Promise<string> {
             template = template.replace('</head>', `${schemaScripts}</head>`);
             
             return template;
+          } else if (hasSuspenseError) {
+            console.log(`[Vite SSR] Suspense error detected for ${pathname}, falling back to static SSR`);
           } else {
             console.log(`[Vite SSR] Insufficient content for ${pathname}, falling back to static SSR`);
           }
