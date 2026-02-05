@@ -1419,18 +1419,10 @@ async function renderPage(url: string, req: Request): Promise<string> {
             const helmetMeta = viteResult.helmet?.meta || '';
             const helmetLink = viteResult.helmet?.link || '';
             
-            // SEO FIX: Add PAGE_CONTENT as visible SSR text for crawlers
-            // React components render client-side, but Google needs text content server-side
-            const blogPageContent = PAGE_CONTENT['/blogs/' + slug] || PAGE_CONTENT[pathname];
-            let ssrTextContent = '';
-            if (blogPageContent) {
-              ssrTextContent = renderPageContent(blogPageContent);
-              console.log(`[Vite SSR] Added PAGE_CONTENT for ${pathname} - crawlers will see text`);
-            }
-            
-            // Inject React-rendered content AND PAGE_CONTENT into template
-            // PAGE_CONTENT appears first (visible to crawlers), React app hydrates over it
-            let ssrContent = `<div id="root">${ssrTextContent}${viteResult.html}</div>`;
+            // FIXED: Use ONLY Vite SSR result - don't double-inject PAGE_CONTENT
+            // Vite SSR already renders the full React component with proper content
+            // Adding PAGE_CONTENT was causing duplicate/overlapping headings
+            let ssrContent = `<div id="root">${viteResult.html}</div>`;
             template = template.replace('<div id="root"></div>', ssrContent);
             
             // Inject helmet meta tags
