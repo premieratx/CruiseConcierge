@@ -2,7 +2,8 @@ import React from "react";
 import { Switch, Route, useLocation, Redirect } from "wouter";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
-import { Toaster } from "@/components/ui/toaster";
+// TBT OPTIMIZATION: Toaster lazy loaded - not critical for initial render
+const Toaster = lazy(() => import("@/components/ui/toaster").then(m => ({ default: m.Toaster })));
 // TEMPORARY: TooltipProvider disabled to fix React preamble error - will re-enable after cache clears
 // import { TooltipProvider } from "@/components/ui/tooltip";
 // TEMPORARY: BookingCacheProvider disabled to fix React preamble error
@@ -15,9 +16,12 @@ const HelmetProvider = (HelmetAsync as any).HelmetProvider || (HelmetAsync as an
 import { lazy, Suspense, useEffect, useState } from "react";
 import { AuthProvider } from "@/hooks/use-auth";
 import { ProtectedRoute } from "@/lib/protected-route";
-import { GoogleAnalytics } from "@/components/GoogleAnalytics";
+// TBT OPTIMIZATION: GoogleAnalytics lazy loaded - deferred loading anyway
+const GoogleAnalytics = lazy(() => import("@/components/GoogleAnalytics").then(m => ({ default: m.GoogleAnalytics })));
+// ErrorBoundary must be sync loaded - it wraps Router and delaying it blocks entire app render
 import { ErrorBoundary } from "@/components/ErrorBoundary";
-import { XolaMobileCloseButton } from "@/components/XolaMobileCloseButton";
+// TBT OPTIMIZATION: XolaMobileCloseButton lazy loaded - only used for Xola modal
+const XolaMobileCloseButton = lazy(() => import("@/components/XolaMobileCloseButton").then(m => ({ default: m.XolaMobileCloseButton })));
 
 // TBT OPTIMIZATION: GlobalInlineEditor lazy-loaded and only rendered on admin routes
 const GlobalInlineEditor = lazy(() => import("@/components/GlobalInlineEditor").then(m => ({ default: m.GlobalInlineEditor })));
@@ -997,15 +1001,21 @@ function App() {
             <HelmetProvider>
               {/* TEMPORARY: TooltipProvider disabled to fix React preamble error */}
               {/* <TooltipProvider> */}
-                <GoogleAnalytics />
-                <Toaster />
+                <Suspense fallback={null}>
+                  <GoogleAnalytics />
+                </Suspense>
+                <Suspense fallback={null}>
+                  <Toaster />
+                </Suspense>
                 {/* TBT OPTIMIZATION: GlobalInlineEditor only renders on admin routes */}
                 {isAdminRoute && (
                   <Suspense fallback={null}>
                     <GlobalInlineEditor />
                   </Suspense>
                 )}
-                <XolaMobileCloseButton />
+                <Suspense fallback={null}>
+                  <XolaMobileCloseButton />
+                </Suspense>
                 {/* TBT OPTIMIZATION: QuoteWidgetPreloader removed - was blocking main thread */}
                 <ErrorBoundary>
                   <Router />

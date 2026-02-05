@@ -23,7 +23,7 @@ export function GoogleAnalytics() {
     }
 
     // Check if already loaded
-    if (window.gtag) {
+    if (typeof window.gtag === 'function') {
       return;
     }
 
@@ -55,40 +55,36 @@ export function GoogleAnalytics() {
       document.head.appendChild(script2);
     };
 
-    // Use requestIdleCallback to defer analytics loading until browser is idle
-    // Falls back to setTimeout for browsers that don't support requestIdleCallback
-    let timeoutId: number;
-    if ('requestIdleCallback' in window) {
-      const idleId = requestIdleCallback(loadAnalytics, { timeout: 2000 });
-      return () => {
+    // TBT OPTIMIZATION: Defer analytics loading by 5 seconds to ensure no blocking
+    // This gives the main thread time to complete critical rendering first
+    let timeoutId: ReturnType<typeof setTimeout>;
+    let idleId: ReturnType<typeof requestIdleCallback> | undefined;
+    
+    // Wait 5 seconds, then use requestIdleCallback for additional safety
+    timeoutId = setTimeout(() => {
+      if ('requestIdleCallback' in window) {
+        idleId = requestIdleCallback(loadAnalytics, { timeout: 3000 });
+      } else {
+        loadAnalytics();
+      }
+    }, 5000);
+    
+    return () => {
+      clearTimeout(timeoutId);
+      if (idleId !== undefined && 'cancelIdleCallback' in window) {
         cancelIdleCallback(idleId);
-        
-        // Cleanup appended scripts if component unmounts
-        if (isLoaded) {
-          if (script1 && script1.parentNode) {
-            script1.parentNode.removeChild(script1);
-          }
-          if (script2 && script2.parentNode) {
-            script2.parentNode.removeChild(script2);
-          }
+      }
+      
+      // Cleanup appended scripts if component unmounts
+      if (isLoaded) {
+        if (script1 && script1.parentNode) {
+          script1.parentNode.removeChild(script1);
         }
-      };
-    } else {
-      timeoutId = window.setTimeout(loadAnalytics, 3000);
-      return () => {
-        clearTimeout(timeoutId);
-        
-        // Cleanup appended scripts if component unmounts
-        if (isLoaded) {
-          if (script1 && script1.parentNode) {
-            script1.parentNode.removeChild(script1);
-          }
-          if (script2 && script2.parentNode) {
-            script2.parentNode.removeChild(script2);
-          }
+        if (script2 && script2.parentNode) {
+          script2.parentNode.removeChild(script2);
         }
-      };
-    }
+      }
+    };
   }, [GA_MEASUREMENT_ID]);
 
   // Track page views on route change
