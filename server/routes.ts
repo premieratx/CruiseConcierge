@@ -210,7 +210,48 @@ function generateRichFallbackContent(slug: string, h1Text: string, metaDescripti
     ? `<section><h2>Related Topics</h2><ul>${keywords.map(k => `<li>${k}</li>`).join('')}</ul></section>`
     : '';
   
-  return `<article style="max-width: 56rem; margin: 0 auto; padding: 2rem 1rem;">
+  // Static navigation for SEO crawlers - CRITICAL for internal linking
+  const ssrNavigation = `
+  <nav aria-label="Main navigation" style="background: #f8fafc; padding: 1rem 2rem; border-bottom: 1px solid #e2e8f0;">
+    <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; justify-content: space-between;">
+      <a href="/" style="font-weight: 700; font-size: 1.25rem; color: #1e40af; text-decoration: none;">Premier Party Cruises</a>
+      <ul style="display: flex; flex-wrap: wrap; gap: 1.5rem; list-style: none; margin: 0; padding: 0;">
+        <li><a href="/" style="color: #374151; text-decoration: none;">Home</a></li>
+        <li><a href="/atx-disco-cruise" style="color: #374151; text-decoration: none;">ATX Disco Cruise</a></li>
+        <li><a href="/bachelor-party-austin" style="color: #374151; text-decoration: none;">Bachelor Party</a></li>
+        <li><a href="/bachelorette-party-austin" style="color: #374151; text-decoration: none;">Bachelorette Party</a></li>
+        <li><a href="/private-cruises" style="color: #374151; text-decoration: none;">Private Cruises</a></li>
+        <li><a href="/gallery" style="color: #374151; text-decoration: none;">Gallery</a></li>
+        <li><a href="/testimonials-faq" style="color: #374151; text-decoration: none;">Reviews & FAQ</a></li>
+        <li><a href="/contact" style="color: #374151; text-decoration: none;">Contact</a></li>
+      </ul>
+    </div>
+  </nav>`;
+
+  // Static footer for SEO crawlers
+  const ssrFooter = `
+  <footer style="background: #1e293b; color: #f8fafc; padding: 2rem; margin-top: 3rem;">
+    <div style="max-width: 1200px; margin: 0 auto;">
+      <nav aria-label="Footer navigation" style="margin-bottom: 1.5rem;">
+        <ul style="display: flex; flex-wrap: wrap; gap: 1.5rem; list-style: none; margin: 0; padding: 0;">
+          <li><a href="/" style="color: #f8fafc; text-decoration: none;">Home</a></li>
+          <li><a href="/atx-disco-cruise" style="color: #f8fafc; text-decoration: none;">ATX Disco Cruise</a></li>
+          <li><a href="/bachelor-party-austin" style="color: #f8fafc; text-decoration: none;">Bachelor Party</a></li>
+          <li><a href="/bachelorette-party-austin" style="color: #f8fafc; text-decoration: none;">Bachelorette Party</a></li>
+          <li><a href="/private-cruises" style="color: #f8fafc; text-decoration: none;">Private Cruises</a></li>
+          <li><a href="/gallery" style="color: #f8fafc; text-decoration: none;">Gallery</a></li>
+          <li><a href="/testimonials-faq" style="color: #f8fafc; text-decoration: none;">Reviews & FAQ</a></li>
+          <li><a href="/contact" style="color: #f8fafc; text-decoration: none;">Contact</a></li>
+          <li><a href="/blogs" style="color: #f8fafc; text-decoration: none;">Blog</a></li>
+        </ul>
+      </nav>
+      <p style="font-size: 0.875rem; color: #94a3b8;">Premier Party Cruises - Lake Travis party boat rentals in Austin, Texas. Over 15 years of experience with 150,000+ happy guests.</p>
+      <p style="font-size: 0.75rem; color: #64748b; margin-top: 0.5rem;">&copy; ${new Date().getFullYear()} Premier Party Cruises. All rights reserved.</p>
+    </div>
+  </footer>`;
+  
+  return `${ssrNavigation}
+  <article style="max-width: 56rem; margin: 0 auto; padding: 2rem 1rem;">
     <h1 style="text-align: center; font-size: 2.5rem; font-weight: 800; margin-bottom: 2rem; color: #111827;">${h1Text}</h1>
     <p style="font-size: 1.125rem; line-height: 1.75; color: #374151; margin-bottom: 1.5rem;">${metaDescription}</p>
     ${categoryContent}
@@ -219,7 +260,8 @@ function generateRichFallbackContent(slug: string, h1Text: string, metaDescripti
       <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; color: #111827;">Book Your Lake Travis Cruise</h2>
       <p style="font-size: 1rem; line-height: 1.75; color: #374151;">${ctaText}</p>
     </section>
-  </article>`;
+  </article>
+  ${ssrFooter}`;
 }
 
 // Lazy loading - these will be imported when needed
