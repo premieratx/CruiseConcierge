@@ -3,7 +3,7 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import { resolveAsset } from "../utils/viteManifest";
-import { PAGE_CONTENT, PageContent, PageSection, LINK_CATALOG } from './pageContent';
+import { PAGE_CONTENT, PageContent, PageSection, LINK_CATALOG, getRelatedLinksForPage } from './pageContent';
 import { getSchemaForRoute, generateArticleSchema, isBlogPostRoute } from '../schemaLoader';
 import { isStaticBlogRoute, getStaticBlogMetadata } from '../staticBlogMetadata';
 import { getBlogMetadata } from '../blogMetadataRegistry';
@@ -599,6 +599,59 @@ function renderRelatedPages(relatedKeys: string[] | undefined, catalog: Record<s
 }
 
 /**
+ * Render dynamic related links based on page pathname
+ * Uses the RELATED_PAGES_MAP to show relevant blog posts and pages
+ * @param pathname Current page pathname
+ * @returns HTML string for related content section or empty string
+ */
+function renderDynamicRelatedLinks(pathname: string): string {
+  const relatedLinks = getRelatedLinksForPage(pathname);
+  if (!relatedLinks || relatedLinks.length === 0) return '';
+  
+  // Separate pages and blogs for better organization
+  const pages = relatedLinks.filter(link => !link.url.includes('/blog'));
+  const blogs = relatedLinks.filter(link => link.url.includes('/blog') || link.url.startsWith('/3-day') || link.url.startsWith('/top-10') || link.url.startsWith('/budget-') || link.url.startsWith('/luxury-') || link.url.startsWith('/adventure-') || link.url.startsWith('/austin-') || link.url.startsWith('/ultimate-'));
+  
+  let html = `
+    <div style="margin-top: 3rem; padding-top: 2rem; border-top: 2px solid #e5e7eb;">
+      <h2 style="font-size: 1.75rem; font-weight: 600; margin-bottom: 1.5rem; color: #000;">Related Content</h2>
+  `;
+  
+  // Render related pages section
+  if (pages.length > 0) {
+    const pageLinks = pages
+      .map(link => `<li style="margin-bottom: 0.5rem;"><a href="${link.url}" style="color: #1e40af; text-decoration: underline;">${link.title}</a></li>`)
+      .join('\n');
+    html += `
+      <div style="margin-bottom: 1.5rem;">
+        <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 0.75rem; color: #111827;">Related Cruise Options</h3>
+        <ul style="list-style: none; padding: 0; columns: 2; column-gap: 2rem;">
+          ${pageLinks}
+        </ul>
+      </div>
+    `;
+  }
+  
+  // Render related blog posts section
+  if (blogs.length > 0) {
+    const blogLinks = blogs
+      .map(link => `<li style="margin-bottom: 0.5rem;"><a href="${link.url}" style="color: #1e40af; text-decoration: underline;">${link.title}</a></li>`)
+      .join('\n');
+    html += `
+      <div>
+        <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 0.75rem; color: #111827;">Related Articles</h3>
+        <ul style="list-style: none; padding: 0;">
+          ${blogLinks}
+        </ul>
+      </div>
+    `;
+  }
+  
+  html += `</div>`;
+  return html;
+}
+
+/**
  * Generate static SSR navigation for crawlers
  * CRITICAL: This ensures all pages have proper internal links to home and key pages
  * Without this, crawlers won't see navigation links which hurts SEO
@@ -661,8 +714,10 @@ function wrapWithSSRNavigation(content: string): string {
 /**
  * Generate complete HTML from PageContent structure
  * Renders all headings, paragraphs, and lists in semantic HTML
+ * @param content PageContent object with h1, introduction, sections
+ * @param pathname Optional pathname for dynamic related links (e.g., '/bachelor-party-austin')
  */
-function renderPageContent(content: PageContent): string {
+function renderPageContent(content: PageContent, pathname?: string): string {
   // Process introduction text for [[token]] replacements
   const processedIntroduction = processTokens(content.introduction, LINK_CATALOG);
   
@@ -702,7 +757,11 @@ function renderPageContent(content: PageContent): string {
     html += '</section>\n';
   });
   
-  // Add "Related Pages" footer section if relatedPages are defined
+  // Add "Related Pages" footer section - use dynamic links if pathname provided, fallback to static
+  if (pathname) {
+    html += renderDynamicRelatedLinks(pathname);
+  }
+  // Also add static related pages if defined in content (can have both)
   html += renderRelatedPages(content.relatedPages, LINK_CATALOG);
   
   html += `
@@ -1572,7 +1631,7 @@ async function renderPage(url: string, req: Request): Promise<string> {
         // Use PAGE_CONTENT for React component blogs with insufficient database content
         // NOTE: renderPageContent already includes H1, so we mark this to avoid duplicate H1
         h1 = blogPageContent.h1;
-        content = renderPageContent(blogPageContent);
+        content = renderPageContent(blogPageContent, pathname);
         usedPageContent = true; // renderPageContent includes H1, don't add another
         // SEO FIX: Ensure title is ALWAYS different from H1 by adding suffix if needed
         const pageContentTitle = blogMeta?.title || blogPageContent.h1;
@@ -1917,7 +1976,7 @@ window.__vite_plugin_react_preamble_installed__ = true
     
     if (isHomepage && pageContent) {
       // Homepage: Full content INSIDE root div for SEO visibility
-      ssrContent = `<div id="root">${renderPageContent(pageContent)}</div>`;
+      ssrContent = `<div id="root">${renderPageContent(pageContent, normalizedPathname)}</div>`;
     } else if (isBlogPost && usedPageContent) {
       // Blog posts using PAGE_CONTENT: content already includes H1
       ssrContent = `<div id="root">${content}</div>`;
@@ -1929,7 +1988,7 @@ window.__vite_plugin_react_preamble_installed__ = true
       </article></div>`;
     } else if (isStaticBlog && pageContent) {
       // Static blog pages WITH full PAGE_CONTENT: content INSIDE root div
-      ssrContent = `<div id="root">${renderPageContent(pageContent)}</div>`;
+      ssrContent = `<div id="root">${renderPageContent(pageContent, normalizedPathname)}</div>`;
     } else if (isStaticBlog) {
       // Static blog pages without PAGE_CONTENT: article INSIDE root div
       ssrContent = `<div id="root"><article style="max-width: 56rem; margin: 0 auto; padding: 2rem 1rem;">
@@ -1945,7 +2004,7 @@ window.__vite_plugin_react_preamble_installed__ = true
     } else if (pageContent) {
       // Marketing pages: Full content INSIDE root div for permanent SEO visibility
       // This is the CRITICAL fix - content must be inside root, not hidden outside
-      ssrContent = `<div id="root">${renderPageContent(pageContent)}</div>`;
+      ssrContent = `<div id="root">${renderPageContent(pageContent, normalizedPathname)}</div>`;
     } else {
       // SAFETY WARNING: This route has no PAGE_CONTENT - content may be thin
       // Log a warning so we can catch new routes that need PAGE_CONTENT added

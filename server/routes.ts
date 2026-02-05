@@ -12,6 +12,7 @@ import { getBaseDomain } from "./utils/domain";
 import { isStaticBlogRoute } from "./staticBlogMetadata";
 import { generateArticleSchema } from "./schemaLoader";
 import { renderReactSSR } from "./ssr/viteSSR";
+import { getRelatedLinksForPage } from "./ssr/pageContent";
 
 // Augment Express Request type to include our custom properties
 declare module 'express-serve-static-core' {
@@ -210,6 +211,40 @@ function generateRichFallbackContent(slug: string, h1Text: string, metaDescripti
     ? `<section><h2>Related Topics</h2><ul>${keywords.map(k => `<li>${k}</li>`).join('')}</ul></section>`
     : '';
   
+  // Dynamic related links based on page category
+  const blogPath = slug.startsWith('/') ? slug : `/${slug}`;
+  const relatedLinks = getRelatedLinksForPage(blogPath);
+  let relatedLinksSection = '';
+  if (relatedLinks && relatedLinks.length > 0) {
+    const pages = relatedLinks.filter(link => !link.url.includes('/blog') && !link.url.includes('/blogs'));
+    const blogs = relatedLinks.filter(link => link.url.includes('/blog') || link.url.includes('/blogs') || link.url.startsWith('/3-day') || link.url.startsWith('/top-10') || link.url.startsWith('/budget-') || link.url.startsWith('/luxury-') || link.url.startsWith('/adventure-') || link.url.startsWith('/austin-') || link.url.startsWith('/ultimate-'));
+    
+    relatedLinksSection = `<section style="margin-top: 2rem; padding-top: 1.5rem; border-top: 2px solid #e5e7eb;">
+      <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; color: #111827;">Related Content</h2>`;
+    
+    if (pages.length > 0) {
+      relatedLinksSection += `
+      <div style="margin-bottom: 1rem;">
+        <h3 style="font-size: 1.125rem; font-weight: 600; margin-bottom: 0.5rem; color: #374151;">Related Cruise Options</h3>
+        <ul style="list-style: none; padding: 0; columns: 2; column-gap: 2rem;">
+          ${pages.map(link => `<li style="margin-bottom: 0.5rem;"><a href="${link.url}" style="color: #1e40af; text-decoration: underline;">${link.title}</a></li>`).join('')}
+        </ul>
+      </div>`;
+    }
+    
+    if (blogs.length > 0) {
+      relatedLinksSection += `
+      <div>
+        <h3 style="font-size: 1.125rem; font-weight: 600; margin-bottom: 0.5rem; color: #374151;">Related Articles</h3>
+        <ul style="list-style: none; padding: 0;">
+          ${blogs.map(link => `<li style="margin-bottom: 0.5rem;"><a href="${link.url}" style="color: #1e40af; text-decoration: underline;">${link.title}</a></li>`).join('')}
+        </ul>
+      </div>`;
+    }
+    
+    relatedLinksSection += `</section>`;
+  }
+  
   // Static navigation for SEO crawlers - CRITICAL for internal linking
   const ssrNavigation = `
   <nav aria-label="Main navigation" style="background: #f8fafc; padding: 1rem 2rem; border-bottom: 1px solid #e2e8f0;">
@@ -260,6 +295,7 @@ function generateRichFallbackContent(slug: string, h1Text: string, metaDescripti
       <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; color: #111827;">Book Your Lake Travis Cruise</h2>
       <p style="font-size: 1rem; line-height: 1.75; color: #374151;">${ctaText}</p>
     </section>
+    ${relatedLinksSection}
   </article>
   ${ssrFooter}`;
 }
