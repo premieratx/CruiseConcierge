@@ -8243,6 +8243,53 @@ const PRIVATE_CRUISES_RELATED: RelatedPagesConfig = {
   ]
 };
 
+// Birthday pages link to birthday blogs
+const BIRTHDAY_RELATED: RelatedPagesConfig = {
+  pages: ['/private-cruises', '/atx-disco-cruise', '/celebration-cruises'],
+  blogs: [
+    '/blogs/birthday-party-boat-rentals-on-lake-travis-milestone-celebrations-with-a-view',
+    '/blogs/birthday-party-alcohol-delivery-austin-milestone-celebrations-made-easy'
+  ]
+};
+
+// Wedding pages link to wedding blogs
+const WEDDING_RELATED: RelatedPagesConfig = {
+  pages: ['/private-cruises', '/celebration-cruises', '/bachelorette-party-austin'],
+  blogs: [
+    '/blogs/lake-travis-wedding-boat-rentals-unique-venues-for-austin-celebrations',
+    '/blogs/wedding-anniversary-celebration-ideas-recreating-your-special-day-with-boat-and-alcohol-packages',
+    '/blogs/wedding-party-alcohol-coordination-getting-ready-bachelor-bachelorette-and-reception'
+  ]
+};
+
+// Celebration cruise pages link to celebration blogs
+const CELEBRATION_RELATED: RelatedPagesConfig = {
+  pages: ['/private-cruises', '/wedding-parties', '/birthday-parties'],
+  blogs: [
+    '/blogs/lake-travis-sunset-cruises-romantic-and-celebration-options-for-every-occasion',
+    '/blogs/creative-lake-travis-boat-party-themes-unique-ideas-for-memorable-celebrations',
+    '/blogs/integrated-austin-event-services-combining-alcohol-delivery-and-boat-rentals-for-perfect-celebrations'
+  ]
+};
+
+// Graduation pages link to graduation blogs
+const GRADUATION_RELATED: RelatedPagesConfig = {
+  pages: ['/private-cruises', '/atx-disco-cruise', '/celebration-cruises'],
+  blogs: [
+    '/blogs/graduation-party-alcohol-planning-ut-and-austin-college-celebrations'
+  ]
+};
+
+// Holiday pages link to holiday blogs
+const HOLIDAY_RELATED: RelatedPagesConfig = {
+  pages: ['/private-cruises', '/corporate-events', '/celebration-cruises'],
+  blogs: [
+    '/blogs/holiday-celebrations-on-lake-travis-seasonal-boat-party-planning-and-coordination',
+    '/blogs/holiday-party-alcohol-themes-new-years-fourth-of-july-and-austin-celebrations',
+    '/blogs/holiday-office-party-alcohol-delivery-stress-free-corporate-celebration-planning'
+  ]
+};
+
 // Reverse mappings: Blogs linking back to their parent pages
 const BACHELOR_BLOG_BACK_TO_PAGE: RelatedPagesConfig = {
   pages: ['/bachelor-party-austin', '/atx-disco-cruise', '/private-cruises'],
@@ -8269,6 +8316,42 @@ const CORPORATE_BLOG_BACK_TO_PAGE: RelatedPagesConfig = {
   blogs: []
 };
 
+// Birthday blogs link back to birthday pages
+const BIRTHDAY_BLOG_BACK_TO_PAGE: RelatedPagesConfig = {
+  pages: ['/birthday-parties', '/birthday-party-boat-rental', '/milestone-birthday', '/private-cruises'],
+  blogs: []
+};
+
+// Wedding blogs link back to wedding pages
+const WEDDING_BLOG_BACK_TO_PAGE: RelatedPagesConfig = {
+  pages: ['/wedding-parties', '/rehearsal-dinner', '/rehearsal-dinner-cruise', '/bridal-shower-cruise', '/private-cruises'],
+  blogs: []
+};
+
+// Celebration blogs link back to celebration cruise pages
+const CELEBRATION_BLOG_BACK_TO_PAGE: RelatedPagesConfig = {
+  pages: ['/celebration-cruises', '/anniversary-cruise', '/proposal-cruise', '/private-cruises'],
+  blogs: []
+};
+
+// Graduation blogs link back to graduation pages
+const GRADUATION_BLOG_BACK_TO_PAGE: RelatedPagesConfig = {
+  pages: ['/graduation-party', '/graduation-cruise', '/private-cruises'],
+  blogs: []
+};
+
+// Holiday blogs link back to holiday pages
+const HOLIDAY_BLOG_BACK_TO_PAGE: RelatedPagesConfig = {
+  pages: ['/holiday-party-cruise', '/corporate-events', '/private-cruises'],
+  blogs: []
+};
+
+// General party boat blogs link to main pages
+const GENERAL_BLOG_BACK_TO_PAGE: RelatedPagesConfig = {
+  pages: ['/private-cruises', '/atx-disco-cruise', '/celebration-cruises'],
+  blogs: []
+};
+
 export const RELATED_PAGES_MAP: Record<string, RelatedPagesConfig> = {
   // Main pages linking to blogs
   '/bachelor-party-austin': BACHELOR_RELATED,
@@ -8280,6 +8363,39 @@ export const RELATED_PAGES_MAP: Record<string, RelatedPagesConfig> = {
   '/client-entertainment': CORPORATE_RELATED,
   '/company-milestone': CORPORATE_RELATED,
   '/private-cruises': PRIVATE_CRUISES_RELATED,
+  
+  // Birthday pages
+  '/birthday-parties': BIRTHDAY_RELATED,
+  '/birthday-party-boat-rental': BIRTHDAY_RELATED,
+  '/milestone-birthday': BIRTHDAY_RELATED,
+  '/sweet-16': BIRTHDAY_RELATED,
+  
+  // Wedding pages
+  '/wedding-parties': WEDDING_RELATED,
+  '/rehearsal-dinner': WEDDING_RELATED,
+  '/rehearsal-dinner-cruise': WEDDING_RELATED,
+  '/after-party': WEDDING_RELATED,
+  '/welcome-party': WEDDING_RELATED,
+  '/bridal-shower-cruise': WEDDING_RELATED,
+  '/engagement-party-cruise': WEDDING_RELATED,
+  
+  // Celebration cruise pages
+  '/celebration-cruises': CELEBRATION_RELATED,
+  '/anniversary-cruise': CELEBRATION_RELATED,
+  '/proposal-cruise': CELEBRATION_RELATED,
+  '/gender-reveal-cruise': CELEBRATION_RELATED,
+  '/baby-shower-cruise': CELEBRATION_RELATED,
+  '/memorial-celebration-cruise': CELEBRATION_RELATED,
+  '/family-reunion-cruise': CELEBRATION_RELATED,
+  '/retirement-party-cruise': CELEBRATION_RELATED,
+  
+  // Graduation pages
+  '/graduation-party': GRADUATION_RELATED,
+  '/graduation-cruise': GRADUATION_RELATED,
+  '/prom-cruise': GRADUATION_RELATED,
+  
+  // Holiday pages
+  '/holiday-party-cruise': HOLIDAY_RELATED,
   
   // Bachelor blogs linking back to main pages
   '/blogs/lake-travis-bachelor-party-austin-celebrations': BACHELOR_BLOG_BACK_TO_PAGE,
@@ -8343,20 +8459,124 @@ export const RELATED_PAGES_MAP: Record<string, RelatedPagesConfig> = {
   '/blogs/marketing-creative-agencies-boat-austin': CORPORATE_BLOG_BACK_TO_PAGE,
   '/blogs/real-estate-client-entertainment-boat-austin': CORPORATE_BLOG_BACK_TO_PAGE,
   '/blogs/small-business-boat-parties-austin': CORPORATE_BLOG_BACK_TO_PAGE,
-  '/blogs/tech-companies-boat-parties-austin': CORPORATE_BLOG_BACK_TO_PAGE
+  '/blogs/tech-companies-boat-parties-austin': CORPORATE_BLOG_BACK_TO_PAGE,
+  '/blogs/employee-appreciation-day-reward-your-team-with-an-easy-all-inclusive-boat-party': CORPORATE_BLOG_BACK_TO_PAGE,
+  '/blogs/executive-retreat-alcohol-planning-balancing-professionalism-and-team-bonding': CORPORATE_BLOG_BACK_TO_PAGE,
+  '/blogs/holiday-office-party-alcohol-delivery-stress-free-corporate-celebration-planning': HOLIDAY_BLOG_BACK_TO_PAGE,
+  '/blogs/conference-after-party-alcohol-coordination-sxsw-acl-and-austin-event-integration': CORPORATE_BLOG_BACK_TO_PAGE,
+  '/blogs/corporate-boat-parties-austin-lake-travis-smartest-venue': CORPORATE_BLOG_BACK_TO_PAGE,
+  '/blogs/corporate-team-building-on-lake-travis-alcohol-coordination-for-professional-events': CORPORATE_BLOG_BACK_TO_PAGE,
+  '/blogs/startup-celebration-alcohol-packages-funding-rounds-launches-and-milestone-events': CORPORATE_BLOG_BACK_TO_PAGE,
+  
+  // Birthday blogs linking back to birthday pages
+  '/blogs/birthday-party-boat-rentals-on-lake-travis-milestone-celebrations-with-a-view': BIRTHDAY_BLOG_BACK_TO_PAGE,
+  '/blogs/birthday-party-alcohol-delivery-austin-milestone-celebrations-made-easy': BIRTHDAY_BLOG_BACK_TO_PAGE,
+  
+  // Wedding blogs linking back to wedding pages
+  '/blogs/lake-travis-wedding-boat-rentals-unique-venues-for-austin-celebrations': WEDDING_BLOG_BACK_TO_PAGE,
+  '/blogs/wedding-anniversary-celebration-ideas-recreating-your-special-day-with-boat-and-alcohol-packages': WEDDING_BLOG_BACK_TO_PAGE,
+  '/blogs/wedding-party-alcohol-coordination-getting-ready-bachelor-bachelorette-and-reception': WEDDING_BLOG_BACK_TO_PAGE,
+  '/blogs/outdoor-wedding-alcohol-logistics-hill-country-and-lake-travis-coordination': WEDDING_BLOG_BACK_TO_PAGE,
+  '/blogs/austin-wedding-venue-alcohol-policies-delivery-solutions-for-every-location': WEDDING_BLOG_BACK_TO_PAGE,
+  '/wedding-anniversary-celebration-ideas': WEDDING_BLOG_BACK_TO_PAGE,
+  
+  // Celebration blogs linking back to celebration cruise pages
+  '/blogs/lake-travis-sunset-cruises-romantic-and-celebration-options-for-every-occasion': CELEBRATION_BLOG_BACK_TO_PAGE,
+  '/blogs/ultimate-austin-party-boat-experience-any-celebration': CELEBRATION_BLOG_BACK_TO_PAGE,
+  '/blogs/creative-lake-travis-boat-party-themes-unique-ideas-for-memorable-celebrations': CELEBRATION_BLOG_BACK_TO_PAGE,
+  '/blogs/integrated-austin-event-services-combining-alcohol-delivery-and-boat-rentals-for-perfect-celebrations': CELEBRATION_BLOG_BACK_TO_PAGE,
+  '/blogs/why-choose-integrated-event-services-comparing-austin-party-planning-options': CELEBRATION_BLOG_BACK_TO_PAGE,
+  
+  // Graduation blogs linking back to graduation pages
+  '/blogs/graduation-party-alcohol-planning-ut-and-austin-college-celebrations': GRADUATION_BLOG_BACK_TO_PAGE,
+  
+  // Holiday blogs linking back to holiday pages
+  '/blogs/holiday-celebrations-on-lake-travis-seasonal-boat-party-planning-and-coordination': HOLIDAY_BLOG_BACK_TO_PAGE,
+  '/blogs/holiday-party-alcohol-themes-new-years-fourth-of-july-and-austin-celebrations': HOLIDAY_BLOG_BACK_TO_PAGE,
+  
+  // General party boat blogs
+  '/blogs/private-charter-vs-atx-disco-cruise-which-austin-party-boat': GENERAL_BLOG_BACK_TO_PAGE,
+  '/blogs/private-party-cruise-vs-party-boat-pontoon-lake-travis': GENERAL_BLOG_BACK_TO_PAGE,
+  '/blogs/why-atx-disco-cruise-austins-most-booked-party-boat-experience': ATX_DISCO_BLOG_BACK_TO_PAGE,
+  '/blogs/atx-disco-cruise-dos-and-donts-bachelor-party': ATX_DISCO_BLOG_BACK_TO_PAGE,
+  '/blogs/the-top-dos-and-dont-for-success-on-the-atx-disco-cruise-with-premier-party-cruises': ATX_DISCO_BLOG_BACK_TO_PAGE,
+  
+  // Safety and logistics blogs
+  '/blogs/safety-first-how-premiers-perfect-record-and-first-aid-training-set-us-apart': GENERAL_BLOG_BACK_TO_PAGE,
+  '/blogs/why-licensed-captains-matter-lake-travis-party-boats': GENERAL_BLOG_BACK_TO_PAGE,
+  '/blogs/lake-travis-boat-safety-essential-guidelines-for-safe-party-cruises': GENERAL_BLOG_BACK_TO_PAGE,
+  '/blogs/lake-travis-boat-safety-and-maintenance-quality-standards-for-party-cruises': GENERAL_BLOG_BACK_TO_PAGE,
+  '/blogs/accessible-lake-travis-boat-parties-inclusive-event-planning-for-all-guests': GENERAL_BLOG_BACK_TO_PAGE,
+  '/blogs/lake-travis-boat-party-regulations-legal-requirements-and-compliance-guide': GENERAL_BLOG_BACK_TO_PAGE,
+  '/blogs/lake-travis-boat-party-insurance-understanding-coverage-and-liability-for-events': GENERAL_BLOG_BACK_TO_PAGE,
+  
+  // Planning and logistics blogs
+  '/blogs/first-time-lake-travis-boat-rental-essential-tips-for-austin-party-planning': GENERAL_BLOG_BACK_TO_PAGE,
+  '/blogs/lake-travis-boat-party-logistics-complete-planning-and-coordination-guide': GENERAL_BLOG_BACK_TO_PAGE,
+  '/blogs/lake-travis-boat-party-costs-complete-pricing-guide-and-budget-planning': GENERAL_BLOG_BACK_TO_PAGE,
+  '/blogs/lake-travis-boat-party-packages-comprehensive-guide-to-options-and-pricing': GENERAL_BLOG_BACK_TO_PAGE,
+  '/blogs/lake-travis-weather-planning-seasonal-considerations-for-perfect-boat-parties': GENERAL_BLOG_BACK_TO_PAGE,
+  '/blogs/lake-travis-party-boat-rentals-ultimate-guide-for-large-group-events-20-guests': GENERAL_BLOG_BACK_TO_PAGE,
+  
+  // Entertainment and amenities blogs
+  '/blogs/lake-travis-boat-party-entertainment-activities-and-amenities-for-unforgettable-events': GENERAL_BLOG_BACK_TO_PAGE,
+  '/blogs/lake-travis-boat-party-music-sound-systems-and-entertainment-coordination': GENERAL_BLOG_BACK_TO_PAGE,
+  '/blogs/lake-travis-boat-party-photography-capturing-perfect-memories-on-the-water': GENERAL_BLOG_BACK_TO_PAGE,
+  '/blogs/lake-travis-boat-party-catering-food-and-beverage-coordination-for-perfect-events': GENERAL_BLOG_BACK_TO_PAGE,
+  '/blogs/lake-travis-boat-party-reviews-real-customer-experiences-and-testimonials': GENERAL_BLOG_BACK_TO_PAGE,
+  
+  // Geo-targeted pages (older bachelorette content)
+  '/first-time-lake-travis-boat-rental-guide': GENERAL_BLOG_BACK_TO_PAGE,
+  '/lake-travis-bachelor-party-boats': BACHELOR_BLOG_BACK_TO_PAGE,
+  '/austin-bachelor-party-ideas': BACHELOR_BLOG_BACK_TO_PAGE,
+  '/party-boat-austin': GENERAL_BLOG_BACK_TO_PAGE,
+  '/party-boat-lake-travis': GENERAL_BLOG_BACK_TO_PAGE
 };
 
 const PAGE_TITLE_MAP: Record<string, string> = {
+  // Core services
   '/atx-disco-cruise': 'ATX Disco Cruise',
-  '/combined-bachelor-bachelorette-austin': 'Combined Bachelor & Bachelorette Parties',
   '/private-cruises': 'Private Boat Rentals',
   '/bachelor-party-austin': 'Bachelor Party Cruises',
   '/bachelorette-party-austin': 'Bachelorette Party Cruises',
+  '/combined-bachelor-bachelorette-austin': 'Combined Bachelor & Bachelorette Parties',
+  
+  // Corporate
   '/corporate-events': 'Corporate Events',
   '/team-building': 'Team Building Events',
   '/client-entertainment': 'Client Entertainment',
+  '/company-milestone': 'Company Milestone Celebrations',
+  
+  // Birthday
   '/birthday-parties': 'Birthday Parties',
-  '/wedding-parties': 'Wedding Party Boats'
+  '/birthday-party-boat-rental': 'Birthday Party Boat Rentals',
+  '/milestone-birthday': 'Milestone Birthday Parties',
+  '/sweet-16': 'Sweet 16 Parties',
+  
+  // Wedding
+  '/wedding-parties': 'Wedding Party Boats',
+  '/rehearsal-dinner': 'Rehearsal Dinner Cruises',
+  '/rehearsal-dinner-cruise': 'Rehearsal Dinner Boat Rentals',
+  '/after-party': 'Wedding After Party Cruises',
+  '/welcome-party': 'Wedding Welcome Party Cruises',
+  '/bridal-shower-cruise': 'Bridal Shower Cruises',
+  '/engagement-party-cruise': 'Engagement Party Cruises',
+  
+  // Celebration Cruises
+  '/celebration-cruises': 'Celebration Cruises',
+  '/anniversary-cruise': 'Anniversary Cruises',
+  '/proposal-cruise': 'Proposal Cruises',
+  '/gender-reveal-cruise': 'Gender Reveal Cruises',
+  '/baby-shower-cruise': 'Baby Shower Cruises',
+  '/memorial-celebration-cruise': 'Memorial Celebration Cruises',
+  '/family-reunion-cruise': 'Family Reunion Cruises',
+  '/retirement-party-cruise': 'Retirement Party Cruises',
+  '/holiday-party-cruise': 'Holiday Party Cruises',
+  
+  // Graduation
+  '/graduation-party': 'Graduation Parties',
+  '/graduation-cruise': 'Graduation Cruises',
+  '/prom-cruise': 'Prom Cruises'
 };
 
 const BLOG_TITLE_MAP: Record<string, string> = {
@@ -8379,7 +8599,29 @@ const BLOG_TITLE_MAP: Record<string, string> = {
   '/blogs/why-austin-companies-choose-premier': 'Why Austin Companies Choose Premier Cruises',
   '/blogs/tech-companies-boat-parties-austin': 'Tech Company Boat Parties Austin | Startups',
   '/blogs/first-time-lake-travis-boat-rental-essential-tips-for-austin-party-planning': 'First-Time Lake Travis Boat Rental Tips',
-  '/blogs/lake-travis-party-boat-rentals-ultimate-guide-for-large-group-events-20-guests': 'Lake Travis Boat Rentals | Large Groups 20-75'
+  '/blogs/lake-travis-party-boat-rentals-ultimate-guide-for-large-group-events-20-guests': 'Lake Travis Boat Rentals | Large Groups 20-75',
+  
+  // Birthday blogs
+  '/blogs/birthday-party-boat-rentals-on-lake-travis-milestone-celebrations-with-a-view': 'Birthday Party Boat Rentals Lake Travis',
+  '/blogs/birthday-party-alcohol-delivery-austin-milestone-celebrations-made-easy': 'Birthday Party Planning Austin',
+  
+  // Wedding blogs
+  '/blogs/lake-travis-wedding-boat-rentals-unique-venues-for-austin-celebrations': 'Wedding Boat Rentals Lake Travis',
+  '/blogs/wedding-anniversary-celebration-ideas-recreating-your-special-day-with-boat-and-alcohol-packages': 'Anniversary Celebration Ideas',
+  '/blogs/wedding-party-alcohol-coordination-getting-ready-bachelor-bachelorette-and-reception': 'Wedding Party Planning Guide',
+  
+  // Celebration blogs
+  '/blogs/lake-travis-sunset-cruises-romantic-and-celebration-options-for-every-occasion': 'Lake Travis Sunset Cruises',
+  '/blogs/creative-lake-travis-boat-party-themes-unique-ideas-for-memorable-celebrations': 'Creative Boat Party Themes',
+  '/blogs/integrated-austin-event-services-combining-alcohol-delivery-and-boat-rentals-for-perfect-celebrations': 'Integrated Event Services Austin',
+  
+  // Graduation blogs
+  '/blogs/graduation-party-alcohol-planning-ut-and-austin-college-celebrations': 'Graduation Party Planning UT Austin',
+  
+  // Holiday blogs
+  '/blogs/holiday-celebrations-on-lake-travis-seasonal-boat-party-planning-and-coordination': 'Holiday Celebrations Lake Travis',
+  '/blogs/holiday-party-alcohol-themes-new-years-fourth-of-july-and-austin-celebrations': 'Holiday Party Themes Austin',
+  '/blogs/holiday-office-party-alcohol-delivery-stress-free-corporate-celebration-planning': 'Holiday Office Party Planning'
 };
 
 export function getRelatedLinksForPage(pathname: string): RelatedLink[] {
