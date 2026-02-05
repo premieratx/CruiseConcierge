@@ -8180,3 +8180,138 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
   },
 
 };
+
+export interface RelatedLink {
+  url: string;
+  title: string;
+}
+
+export interface RelatedPagesConfig {
+  pages: string[];
+  blogs: string[];
+}
+
+const BACHELOR_RELATED: RelatedPagesConfig = {
+  pages: ['/atx-disco-cruise', '/combined-bachelor-bachelorette-austin', '/private-cruises'],
+  blogs: [
+    '/blogs/lake-travis-bachelor-party-austin-celebrations',
+    '/blogs/why-choose-austin-bachelor-party',
+    '/blogs/epic-bachelor-party-austin-ultimate-guide',
+    '/blogs/how-to-throw-great-bachelor-party-austin',
+    '/blogs/austin-bachelor-party-january'
+  ]
+};
+
+const BACHELORETTE_RELATED: RelatedPagesConfig = {
+  pages: ['/atx-disco-cruise', '/combined-bachelor-bachelorette-austin', '/private-cruises'],
+  blogs: [
+    '/3-day-austin-bachelorette-itinerary',
+    '/ultimate-austin-bachelorette-weekend',
+    '/top-10-austin-bachelorette-ideas',
+    '/budget-austin-bachelorette',
+    '/luxury-austin-bachelorette',
+    '/blogs/why-choose-austin-bachelorette-party'
+  ]
+};
+
+const COMBINED_BACH_RELATED: RelatedPagesConfig = {
+  pages: ['/bachelor-party-austin', '/bachelorette-party-austin', '/atx-disco-cruise'],
+  blogs: ['/blogs/joint-bachelor-bachelorette-party-guide']
+};
+
+const ATX_DISCO_RELATED: RelatedPagesConfig = {
+  pages: ['/bachelor-party-austin', '/bachelorette-party-austin', '/private-cruises'],
+  blogs: ['/blogs/atx-disco-cruise-experience']
+};
+
+const CORPORATE_RELATED: RelatedPagesConfig = {
+  pages: ['/private-cruises', '/team-building', '/client-entertainment'],
+  blogs: [
+    '/blogs/corporate-team-building-on-lake-travis-professional-boat-rental-solutions',
+    '/blogs/all-inclusive-corporate-packages',
+    '/blogs/austin-best-corporate-events',
+    '/blogs/why-austin-companies-choose-premier',
+    '/blogs/tech-companies-boat-parties-austin'
+  ]
+};
+
+const PRIVATE_CRUISES_RELATED: RelatedPagesConfig = {
+  pages: ['/bachelor-party-austin', '/bachelorette-party-austin', '/corporate-events', '/birthday-parties', '/wedding-parties'],
+  blogs: [
+    '/blogs/first-time-lake-travis-boat-rental-essential-tips-for-austin-party-planning',
+    '/blogs/lake-travis-party-boat-rentals-ultimate-guide-for-large-group-events-20-guests'
+  ]
+};
+
+export const RELATED_PAGES_MAP: Record<string, RelatedPagesConfig> = {
+  '/bachelor-party-austin': BACHELOR_RELATED,
+  '/bachelorette-party-austin': BACHELORETTE_RELATED,
+  '/combined-bachelor-bachelorette-austin': COMBINED_BACH_RELATED,
+  '/atx-disco-cruise': ATX_DISCO_RELATED,
+  '/corporate-events': CORPORATE_RELATED,
+  '/team-building': CORPORATE_RELATED,
+  '/client-entertainment': CORPORATE_RELATED,
+  '/company-milestone': CORPORATE_RELATED,
+  '/private-cruises': PRIVATE_CRUISES_RELATED
+};
+
+const PAGE_TITLE_MAP: Record<string, string> = {
+  '/atx-disco-cruise': 'ATX Disco Cruise',
+  '/combined-bachelor-bachelorette-austin': 'Combined Bachelor & Bachelorette Parties',
+  '/private-cruises': 'Private Boat Rentals',
+  '/bachelor-party-austin': 'Bachelor Party Cruises',
+  '/bachelorette-party-austin': 'Bachelorette Party Cruises',
+  '/corporate-events': 'Corporate Events',
+  '/team-building': 'Team Building Events',
+  '/client-entertainment': 'Client Entertainment',
+  '/birthday-parties': 'Birthday Parties',
+  '/wedding-parties': 'Wedding Party Boats'
+};
+
+const BLOG_TITLE_MAP: Record<string, string> = {
+  '/blogs/lake-travis-bachelor-party-austin-celebrations': 'Lake Travis Bachelor Party: Ultimate Austin Adventure Guide',
+  '/blogs/why-choose-austin-bachelor-party': 'Why Choose Austin for Your Bachelor Party: Top 10 Reasons',
+  '/blogs/epic-bachelor-party-austin-ultimate-guide': 'Epic Bachelor Party Austin TX | Ultimate Planning Guide',
+  '/blogs/how-to-throw-great-bachelor-party-austin': 'How to Throw a Great Bachelor Party in Austin | Complete Guide',
+  '/blogs/austin-bachelor-party-january': 'Austin Bachelor Party in January | Winter Lake Travis Guide',
+  '/3-day-austin-bachelorette-itinerary': '3-Day Austin Bachelorette Itinerary | Weekend',
+  '/ultimate-austin-bachelorette-weekend': 'Ultimate Austin Bachelorette Weekend | Premier Party Guide',
+  '/top-10-austin-bachelorette-ideas': 'Top 10 Austin Bachelorette Ideas | Ultimate Party Guide 2025',
+  '/budget-austin-bachelorette': 'Budget Austin Bachelorette | Affordable Lake Travis',
+  '/luxury-austin-bachelorette': 'Luxury Austin Bachelorette | Lake Travis VIP',
+  '/blogs/why-choose-austin-bachelorette-party': 'Why Choose Austin for Your Bachelorette Party: Top 10 Reasons',
+  '/blogs/joint-bachelor-bachelorette-party-guide': 'How to Plan a Joint Bachelor Bachelorette Party in Austin',
+  '/blogs/atx-disco-cruise-experience': 'ATX Disco Cruise Experience | Austin Party Boat',
+  '/blogs/corporate-team-building-on-lake-travis-professional-boat-rental-solutions': 'Corporate Team Building Lake Travis: Professional Boat Rentals',
+  '/blogs/all-inclusive-corporate-packages': 'All-Inclusive Corporate Packages Lake Travis',
+  '/blogs/austin-best-corporate-events': 'Best Corporate Events Austin | 10-100 Guests',
+  '/blogs/why-austin-companies-choose-premier': 'Why Austin Companies Choose Premier Cruises',
+  '/blogs/tech-companies-boat-parties-austin': 'Tech Company Boat Parties Austin | Startups',
+  '/blogs/first-time-lake-travis-boat-rental-essential-tips-for-austin-party-planning': 'First-Time Lake Travis Boat Rental Tips',
+  '/blogs/lake-travis-party-boat-rentals-ultimate-guide-for-large-group-events-20-guests': 'Lake Travis Boat Rentals | Large Groups 20-75'
+};
+
+export function getRelatedLinksForPage(pathname: string): RelatedLink[] {
+  const config = RELATED_PAGES_MAP[pathname];
+  if (!config) {
+    return [];
+  }
+
+  const relatedLinks: RelatedLink[] = [];
+
+  for (const pageUrl of config.pages) {
+    const title = PAGE_TITLE_MAP[pageUrl];
+    if (title) {
+      relatedLinks.push({ url: pageUrl, title });
+    }
+  }
+
+  for (const blogUrl of config.blogs) {
+    const title = BLOG_TITLE_MAP[blogUrl];
+    if (title) {
+      relatedLinks.push({ url: blogUrl, title });
+    }
+  }
+
+  return relatedLinks;
+}
