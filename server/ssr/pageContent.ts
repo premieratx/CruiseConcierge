@@ -8243,7 +8243,34 @@ const PRIVATE_CRUISES_RELATED: RelatedPagesConfig = {
   ]
 };
 
+// Reverse mappings: Blogs linking back to their parent pages
+const BACHELOR_BLOG_BACK_TO_PAGE: RelatedPagesConfig = {
+  pages: ['/bachelor-party-austin', '/atx-disco-cruise', '/private-cruises'],
+  blogs: []
+};
+
+const BACHELORETTE_BLOG_BACK_TO_PAGE: RelatedPagesConfig = {
+  pages: ['/bachelorette-party-austin', '/atx-disco-cruise', '/private-cruises'],
+  blogs: []
+};
+
+const COMBINED_BACH_BLOG_BACK_TO_PAGE: RelatedPagesConfig = {
+  pages: ['/combined-bachelor-bachelorette-austin', '/bachelor-party-austin', '/bachelorette-party-austin', '/atx-disco-cruise'],
+  blogs: []
+};
+
+const ATX_DISCO_BLOG_BACK_TO_PAGE: RelatedPagesConfig = {
+  pages: ['/atx-disco-cruise', '/bachelor-party-austin', '/bachelorette-party-austin'],
+  blogs: []
+};
+
+const CORPORATE_BLOG_BACK_TO_PAGE: RelatedPagesConfig = {
+  pages: ['/corporate-events', '/team-building', '/client-entertainment', '/private-cruises'],
+  blogs: []
+};
+
 export const RELATED_PAGES_MAP: Record<string, RelatedPagesConfig> = {
+  // Main pages linking to blogs
   '/bachelor-party-austin': BACHELOR_RELATED,
   '/bachelorette-party-austin': BACHELORETTE_RELATED,
   '/combined-bachelor-bachelorette-austin': COMBINED_BACH_RELATED,
@@ -8252,7 +8279,71 @@ export const RELATED_PAGES_MAP: Record<string, RelatedPagesConfig> = {
   '/team-building': CORPORATE_RELATED,
   '/client-entertainment': CORPORATE_RELATED,
   '/company-milestone': CORPORATE_RELATED,
-  '/private-cruises': PRIVATE_CRUISES_RELATED
+  '/private-cruises': PRIVATE_CRUISES_RELATED,
+  
+  // Bachelor blogs linking back to main pages
+  '/blogs/lake-travis-bachelor-party-austin-celebrations': BACHELOR_BLOG_BACK_TO_PAGE,
+  '/blogs/why-choose-austin-bachelor-party': BACHELOR_BLOG_BACK_TO_PAGE,
+  '/blogs/epic-bachelor-party-austin-ultimate-guide': BACHELOR_BLOG_BACK_TO_PAGE,
+  '/blogs/how-to-throw-great-bachelor-party-austin': BACHELOR_BLOG_BACK_TO_PAGE,
+  '/blogs/austin-bachelor-party-january': BACHELOR_BLOG_BACK_TO_PAGE,
+  '/blogs/austin-bachelor-party-march': BACHELOR_BLOG_BACK_TO_PAGE,
+  '/blogs/austin-bachelor-party-may': BACHELOR_BLOG_BACK_TO_PAGE,
+  '/blogs/austin-bachelor-party-july': BACHELOR_BLOG_BACK_TO_PAGE,
+  '/blogs/austin-bachelor-party-september': BACHELOR_BLOG_BACK_TO_PAGE,
+  '/blogs/austin-bachelor-party-november': BACHELOR_BLOG_BACK_TO_PAGE,
+  '/blogs/lake-travis-bachelor-party-boat-rentals-the-ultimate-guide-to-epic-celebrations': BACHELOR_BLOG_BACK_TO_PAGE,
+  
+  // Bachelorette blogs linking back to main pages
+  '/3-day-austin-bachelorette-itinerary': BACHELORETTE_BLOG_BACK_TO_PAGE,
+  '/ultimate-austin-bachelorette-weekend': BACHELORETTE_BLOG_BACK_TO_PAGE,
+  '/top-10-austin-bachelorette-ideas': BACHELORETTE_BLOG_BACK_TO_PAGE,
+  '/budget-austin-bachelorette': BACHELORETTE_BLOG_BACK_TO_PAGE,
+  '/luxury-austin-bachelorette': BACHELORETTE_BLOG_BACK_TO_PAGE,
+  '/adventure-austin-bachelorette': BACHELORETTE_BLOG_BACK_TO_PAGE,
+  '/austin-bachelorette-nightlife': BACHELORETTE_BLOG_BACK_TO_PAGE,
+  '/blogs/why-choose-austin-bachelorette-party': BACHELORETTE_BLOG_BACK_TO_PAGE,
+  '/blogs/austin-bachelorette-party-february': BACHELORETTE_BLOG_BACK_TO_PAGE,
+  '/blogs/austin-bachelorette-party-april': BACHELORETTE_BLOG_BACK_TO_PAGE,
+  '/blogs/austin-bachelorette-party-june': BACHELORETTE_BLOG_BACK_TO_PAGE,
+  '/blogs/austin-bachelorette-party-august': BACHELORETTE_BLOG_BACK_TO_PAGE,
+  '/blogs/austin-bachelorette-party-october': BACHELORETTE_BLOG_BACK_TO_PAGE,
+  '/blogs/austin-bachelorette-party-december': BACHELORETTE_BLOG_BACK_TO_PAGE,
+  '/blogs/epic-bachelorette-party-austin-ultimate-guide': BACHELORETTE_BLOG_BACK_TO_PAGE,
+  '/blogs/how-to-throw-great-bachelorette-party-austin': BACHELORETTE_BLOG_BACK_TO_PAGE,
+  '/blogs/must-haves-for-the-perfect-austin-bachelorette-weekend': BACHELORETTE_BLOG_BACK_TO_PAGE,
+  '/blogs/top-spots-tips-for-an-unforgettable-austin-bachelorette-party-experience': BACHELORETTE_BLOG_BACK_TO_PAGE,
+  '/blogs/austin-bachelorette-bliss-spa-retreats-disco-cruises-alcohol-delivery': BACHELORETTE_BLOG_BACK_TO_PAGE,
+  
+  // Combined bach blogs
+  '/blogs/joint-bachelor-bachelorette-parties-with-premier-party-cruises': COMBINED_BACH_BLOG_BACK_TO_PAGE,
+  '/blogs/joint-bachelor-bachelorette-party-guide': COMBINED_BACH_BLOG_BACK_TO_PAGE,
+  
+  // ATX Disco blogs
+  '/blogs/atx-disco-cruise-experience': ATX_DISCO_BLOG_BACK_TO_PAGE,
+  
+  // Corporate blogs linking back to main pages
+  '/blogs/corporate-team-building-on-lake-travis-professional-boat-rental-solutions': CORPORATE_BLOG_BACK_TO_PAGE,
+  '/blogs/all-inclusive-corporate-packages': CORPORATE_BLOG_BACK_TO_PAGE,
+  '/blogs/austin-best-corporate-events': CORPORATE_BLOG_BACK_TO_PAGE,
+  '/blogs/austin-suburbs-corporate-events': CORPORATE_BLOG_BACK_TO_PAGE,
+  '/blogs/company-holiday-party-lake-travis': CORPORATE_BLOG_BACK_TO_PAGE,
+  '/blogs/company-party-10-people-austin': CORPORATE_BLOG_BACK_TO_PAGE,
+  '/blogs/company-party-25-people-austin': CORPORATE_BLOG_BACK_TO_PAGE,
+  '/blogs/company-party-50-people-austin': CORPORATE_BLOG_BACK_TO_PAGE,
+  '/blogs/company-party-75-people-austin': CORPORATE_BLOG_BACK_TO_PAGE,
+  '/blogs/dallas-to-lake-travis-corporate': CORPORATE_BLOG_BACK_TO_PAGE,
+  '/blogs/destination-austin-offsite-retreats': CORPORATE_BLOG_BACK_TO_PAGE,
+  '/blogs/quarterly-outings-lake-travis-make-routine-company-events-easy': CORPORATE_BLOG_BACK_TO_PAGE,
+  '/blogs/why-austin-companies-choose-premier': CORPORATE_BLOG_BACK_TO_PAGE,
+  '/blogs/large-group-events-lake-travis': CORPORATE_BLOG_BACK_TO_PAGE,
+  '/blogs/construction-trades-boat-parties-austin': CORPORATE_BLOG_BACK_TO_PAGE,
+  '/blogs/finance-law-firms-boat-parties-austin': CORPORATE_BLOG_BACK_TO_PAGE,
+  '/blogs/healthcare-wellness-boat-parties-austin': CORPORATE_BLOG_BACK_TO_PAGE,
+  '/blogs/marketing-creative-agencies-boat-austin': CORPORATE_BLOG_BACK_TO_PAGE,
+  '/blogs/real-estate-client-entertainment-boat-austin': CORPORATE_BLOG_BACK_TO_PAGE,
+  '/blogs/small-business-boat-parties-austin': CORPORATE_BLOG_BACK_TO_PAGE,
+  '/blogs/tech-companies-boat-parties-austin': CORPORATE_BLOG_BACK_TO_PAGE
 };
 
 const PAGE_TITLE_MAP: Record<string, string> = {

@@ -58,13 +58,16 @@ Key technical implementations and design decisions include:
 -   **SSR Overlapping Text Fix (Feb 2026)**: Fixed critical bug where SSR content and React content overlapped visually on blog pages. Root cause: `renderToString` doesn't support Suspense, outputting error templates like `<!--$!--><template data-msg="The server did not finish this Suspense boundary...`. Fix: (1) Detect Suspense error templates in SSR output, (2) Use `generateRichFallbackContent()` for SEO crawlers, (3) CRITICAL: Inject SSR content as a SIBLING of #root with class `ssr-content` instead of inside root. CSS rule `#root[data-hydrated="true"] ~ .ssr-content { display: none !important; }` hides SSR content after React hydrates. This ensures crawlers see content while users see only React-rendered content.
 -   **TBT Optimization (Feb 2026)**: Improved Total Blocking Time by: (1) Lazy-loading GoogleAnalytics, Toaster, XolaMobileCloseButton components, (2) Deferring Google Analytics script loading to 5 seconds + requestIdleCallback, (3) ErrorBoundary kept sync-loaded since it wraps Router.
 -   **SSR Navigation for Internal Linking (Feb 2026)**: Fixed SEMRush "home page has only one incoming link" error. Root cause: SSR output had NO navigation - only page content. Crawlers couldn't see links to home because navigation is rendered by React on client-side only. Fix: Added `generateSSRNavigation()` and `generateSSRFooter()` helper functions in `server/ssr/renderer.ts` that include proper internal links (home, ATX Disco, Bachelor/Bachelorette, Private Cruises, Gallery, Reviews, Contact, Blog). SSR content wrapped with navigation as sibling element with class `ssr-content`. Same pattern added to `server/routes.ts` `generateRichFallbackContent()` for blog pages. All pages now have 3 home links visible to crawlers.
--   **Related Content Internal Linking (Feb 2026)**: Comprehensive internal linking system connecting pages to related blog articles for improved SEO. Key features:
+-   **Related Content Internal Linking (Feb 2026)**: Comprehensive BIDIRECTIONAL internal linking system connecting pages to related blog articles and vice versa for improved SEO. Key features:
     - `RELATED_PAGES_MAP` in `server/ssr/pageContent.ts` with 6 category mappings: BACHELOR_RELATED, BACHELORETTE_RELATED, COMBINED_BACH_RELATED, ATX_DISCO_RELATED, CORPORATE_RELATED, PRIVATE_CRUISES_RELATED
     - Maps 9 key pages to ~20 relevant blog articles each
-    - `getRelatedLinksForPage(pathname)` function returns {url, title} objects for any page
+    - **Bidirectional linking**: Blog pages also map back to their parent pages (e.g., bachelor blogs link to /bachelor-party-austin)
+    - `getRelatedLinksForPage(pathname)` function returns {url, title} objects for any page OR blog
     - `renderDynamicRelatedLinks()` in renderer.ts generates "Related Cruise Options" and "Related Articles" sections
-    - Both SSR and fallback content include related links for crawler visibility
-    - Pages: /bachelor-party-austin, /bachelorette-party-austin, /combined-bachelor-bachelorette-austin, /atx-disco-cruise, /corporate-events, /team-building, /client-entertainment, /company-milestone, /private-cruises
+    - Blog SSR in routes.ts also injects related links for Vite-rendered blog pages
+    - All SSR, fallback content, and blog pages include related links for crawler visibility
+    - Covered pages: /bachelor-party-austin, /bachelorette-party-austin, /combined-bachelor-bachelorette-austin, /atx-disco-cruise, /corporate-events, /team-building, /client-entertainment, /company-milestone, /private-cruises
+    - Covered blogs: 11 bachelor blogs, 18 bachelorette blogs, 2 combined bach blogs, 1 ATX disco blog, 20+ corporate blogs
 
 ## External Dependencies
 -   **Stripe**: Payment processing.

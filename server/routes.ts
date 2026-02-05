@@ -1084,8 +1084,20 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
         // This allows CSS (#root[data-hydrated="true"] ~ .ssr-content) to hide it after React renders
         // Previously content inside root div caused overlap because React wasn't properly replacing it
         if (appHtml && appHtml.length > 0) {
+          // Add dynamic related links for blog pages (bidirectional linking)
+          const blogPath = `/blogs/${slug}`;
+          const relatedLinks = getRelatedLinksForPage(blogPath);
+          let relatedLinksHtml = '';
+          if (relatedLinks && relatedLinks.length > 0) {
+            relatedLinksHtml = `<div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 2px solid #e5e7eb;">
+              <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; color: #111827;">Related Cruise Options</h2>
+              <ul style="list-style: none; padding: 0; columns: 2; column-gap: 2rem;">
+                ${relatedLinks.map(link => `<li style="margin-bottom: 0.5rem;"><a href="${link.url}" style="color: #1e40af; text-decoration: underline;">${link.title}</a></li>`).join('')}
+              </ul>
+            </div>`;
+          }
           // Keep root div empty for React, add SSR content as visible sibling
-          html = html.replace(/<div id="root"><\/div>/, `<div id="root"></div><div class="ssr-content">${appHtml}</div>`);
+          html = html.replace(/<div id="root"><\/div>/, `<div id="root"></div><div class="ssr-content">${appHtml}${relatedLinksHtml}</div>`);
         }
         
         // SSR FIX: If Vite SSR returned proper helmet data, inject it into the HTML head
