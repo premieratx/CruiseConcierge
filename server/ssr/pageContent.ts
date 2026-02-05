@@ -8198,7 +8198,13 @@ const BACHELOR_RELATED: RelatedPagesConfig = {
     '/blogs/why-choose-austin-bachelor-party',
     '/blogs/epic-bachelor-party-austin-ultimate-guide',
     '/blogs/how-to-throw-great-bachelor-party-austin',
-    '/blogs/austin-bachelor-party-january'
+    '/blogs/austin-bachelor-party-january',
+    '/blogs/austin-bachelor-party-july',
+    '/blogs/austin-bachelor-party-march',
+    '/blogs/austin-bachelor-party-may',
+    '/blogs/austin-bachelor-party-november',
+    '/blogs/austin-bachelor-party-september',
+    '/blogs/perfect-bachelor-party-itinerary-austin'
   ]
 };
 
@@ -8210,7 +8216,15 @@ const BACHELORETTE_RELATED: RelatedPagesConfig = {
     '/top-10-austin-bachelorette-ideas',
     '/budget-austin-bachelorette',
     '/luxury-austin-bachelorette',
-    '/blogs/why-choose-austin-bachelorette-party'
+    '/blogs/why-choose-austin-bachelorette-party',
+    '/blogs/austin-bachelorette-party-april',
+    '/blogs/austin-bachelorette-party-august',
+    '/blogs/austin-bachelorette-party-december',
+    '/blogs/austin-bachelorette-party-february',
+    '/blogs/austin-bachelorette-party-june',
+    '/blogs/austin-bachelorette-party-october',
+    '/blogs/how-to-throw-great-bachelorette-party-austin',
+    '/blogs/top-spots-tips-for-an-unforgettable-austin-bachelorette-party-experience'
   ]
 };
 
@@ -8239,7 +8253,9 @@ const PRIVATE_CRUISES_RELATED: RelatedPagesConfig = {
   pages: ['/bachelor-party-austin', '/bachelorette-party-austin', '/corporate-events', '/birthday-parties', '/wedding-parties'],
   blogs: [
     '/blogs/first-time-lake-travis-boat-rental-essential-tips-for-austin-party-planning',
-    '/blogs/lake-travis-party-boat-rentals-ultimate-guide-for-large-group-events-20-guests'
+    '/blogs/lake-travis-party-boat-rentals-ultimate-guide-for-large-group-events-20-guests',
+    '/blogs/lake-travis-boat-party-regulations-legal-requirements-and-compliance-guide',
+    '/blogs/lake-travis-boat-safety-and-maintenance-quality-standards-for-party-cruises'
   ]
 };
 
@@ -8264,11 +8280,12 @@ const WEDDING_RELATED: RelatedPagesConfig = {
 
 // Celebration cruise pages link to celebration blogs
 const CELEBRATION_RELATED: RelatedPagesConfig = {
-  pages: ['/private-cruises', '/wedding-parties', '/birthday-parties'],
+  pages: ['/private-cruises', '/wedding-parties', '/birthday-parties', '/baby-shower-cruise', '/gender-reveal-cruise', '/engagement-party-cruise'],
   blogs: [
     '/blogs/lake-travis-sunset-cruises-romantic-and-celebration-options-for-every-occasion',
     '/blogs/creative-lake-travis-boat-party-themes-unique-ideas-for-memorable-celebrations',
-    '/blogs/integrated-austin-event-services-combining-alcohol-delivery-and-boat-rentals-for-perfect-celebrations'
+    '/blogs/integrated-austin-event-services-combining-alcohol-delivery-and-boat-rentals-for-perfect-celebrations',
+    '/blogs/why-choose-integrated-event-services-comparing-austin-party-planning-options'
   ]
 };
 
@@ -8501,6 +8518,9 @@ export const RELATED_PAGES_MAP: Record<string, RelatedPagesConfig> = {
   '/blogs/atx-disco-cruise-dos-and-donts-bachelor-party': ATX_DISCO_BLOG_BACK_TO_PAGE,
   '/blogs/the-top-dos-and-dont-for-success-on-the-atx-disco-cruise-with-premier-party-cruises': ATX_DISCO_BLOG_BACK_TO_PAGE,
   
+  // More bachelor blogs
+  '/blogs/perfect-bachelor-party-itinerary-austin': BACHELOR_BLOG_BACK_TO_PAGE,
+  
   // Safety and logistics blogs
   '/blogs/safety-first-how-premiers-perfect-record-and-first-aid-training-set-us-apart': GENERAL_BLOG_BACK_TO_PAGE,
   '/blogs/why-licensed-captains-matter-lake-travis-party-boats': GENERAL_BLOG_BACK_TO_PAGE,
@@ -8585,12 +8605,26 @@ const BLOG_TITLE_MAP: Record<string, string> = {
   '/blogs/epic-bachelor-party-austin-ultimate-guide': 'Epic Bachelor Party Austin TX | Ultimate Planning Guide',
   '/blogs/how-to-throw-great-bachelor-party-austin': 'How to Throw a Great Bachelor Party in Austin | Complete Guide',
   '/blogs/austin-bachelor-party-january': 'Austin Bachelor Party in January | Winter Lake Travis Guide',
+  '/blogs/austin-bachelor-party-march': 'Austin Bachelor Party in March | SXSW Season Lake Travis',
+  '/blogs/austin-bachelor-party-may': 'Austin Bachelor Party in May | Peak Season Lake Travis',
+  '/blogs/austin-bachelor-party-july': 'Austin Bachelor Party in July | Summer Lake Travis Guide',
+  '/blogs/austin-bachelor-party-september': 'Austin Bachelor Party in September | Fall Lake Travis',
+  '/blogs/austin-bachelor-party-november': 'Austin Bachelor Party in November | Fall Lake Travis Guide',
+  '/blogs/perfect-bachelor-party-itinerary-austin': 'Perfect Austin Bachelor Party Itinerary',
   '/3-day-austin-bachelorette-itinerary': '3-Day Austin Bachelorette Itinerary | Weekend',
   '/ultimate-austin-bachelorette-weekend': 'Ultimate Austin Bachelorette Weekend | Premier Party Guide',
   '/top-10-austin-bachelorette-ideas': 'Top 10 Austin Bachelorette Ideas | Ultimate Party Guide 2025',
   '/budget-austin-bachelorette': 'Budget Austin Bachelorette | Affordable Lake Travis',
   '/luxury-austin-bachelorette': 'Luxury Austin Bachelorette | Lake Travis VIP',
   '/blogs/why-choose-austin-bachelorette-party': 'Why Choose Austin for Your Bachelorette Party: Top 10 Reasons',
+  '/blogs/austin-bachelorette-party-april': 'Austin Bachelorette Party in April | Spring Wildflowers',
+  '/blogs/austin-bachelorette-party-august': 'Austin Bachelorette Party in August | Hot Summer Guide',
+  '/blogs/austin-bachelorette-party-december': 'Austin Bachelorette Party in December | Holiday Season',
+  '/blogs/austin-bachelorette-party-february': 'Austin Bachelorette Party in February | Valentines Season',
+  '/blogs/austin-bachelorette-party-june': 'Austin Bachelorette Party in June | Summer Lake Travis',
+  '/blogs/austin-bachelorette-party-october': 'Austin Bachelorette Party in October | Fall Celebration',
+  '/blogs/how-to-throw-great-bachelorette-party-austin': 'How to Throw a Great Bachelorette Party in Austin',
+  '/blogs/top-spots-tips-for-an-unforgettable-austin-bachelorette-party-experience': 'Austin Bachelorette Party Top Spots & Tips',
   '/blogs/joint-bachelor-bachelorette-party-guide': 'How to Plan a Joint Bachelor Bachelorette Party in Austin',
   '/blogs/atx-disco-cruise-experience': 'ATX Disco Cruise Experience | Austin Party Boat',
   '/blogs/corporate-team-building-on-lake-travis-professional-boat-rental-solutions': 'Corporate Team Building Lake Travis: Professional Boat Rentals',
@@ -8621,7 +8655,14 @@ const BLOG_TITLE_MAP: Record<string, string> = {
   // Holiday blogs
   '/blogs/holiday-celebrations-on-lake-travis-seasonal-boat-party-planning-and-coordination': 'Holiday Celebrations Lake Travis',
   '/blogs/holiday-party-alcohol-themes-new-years-fourth-of-july-and-austin-celebrations': 'Holiday Party Themes Austin',
-  '/blogs/holiday-office-party-alcohol-delivery-stress-free-corporate-celebration-planning': 'Holiday Office Party Planning'
+  '/blogs/holiday-office-party-alcohol-delivery-stress-free-corporate-celebration-planning': 'Holiday Office Party Planning',
+  
+  // Safety and regulations blogs
+  '/blogs/lake-travis-boat-party-regulations-legal-requirements-and-compliance-guide': 'Lake Travis Boat Party Regulations & Legal Compliance',
+  '/blogs/lake-travis-boat-safety-and-maintenance-quality-standards-for-party-cruises': 'Lake Travis Boat Safety & Maintenance Standards',
+  
+  // Integration and planning blogs
+  '/blogs/why-choose-integrated-event-services-comparing-austin-party-planning-options': 'Integrated Event Services: Austin Party Planning Comparison'
 };
 
 export function getRelatedLinksForPage(pathname: string): RelatedLink[] {
