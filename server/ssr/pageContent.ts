@@ -6558,22 +6558,32 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
 
   '/celebration-cruises': {
     h1: 'Celebration Cruises Lake Travis | Austin Party Boat Rentals',
-    introduction: 'Every milestone deserves an unforgettable celebration on Lake Travis! Premier Party Cruises offers [[private-cruises]] and the [[atx-disco]] experience for every special occasion imaginable. From [[birthday-party]] celebrations and [[anniversary-cruise]] milestones to [[proposal-cruise]] moments and [[graduation-party]] achievements, our fleet of premium party boats provides the perfect setting. Choose from Day Tripper (14 guests), Meeseeks/The Irony (30 guests), or flagship Clever Girl (75 guests with 14 disco balls). Coast Guard certified captains, premium amenities, and stunning Lake Travis scenery ensure your celebration is legendary.',
+    introduction: 'Every milestone deserves a celebration on Lake Travis! We offer [[private-cruises]] and the [[atx-disco]] for any special occasion. Host [[birthday-party]] celebrations, [[anniversary-cruise]] milestones, [[proposal-cruise]] moments, or [[graduation-party]] events on our premium party boats. Choose Day Tripper (14 guests), Meeseeks (30 guests), or Clever Girl (75 guests). All boats include Coast Guard captains and premium amenities.',
     sections: [
       {
-        heading: 'Every Occasion Deserves Lake Travis',
+        heading: 'Why Lake Travis for Your Celebration',
         paragraphs: [
-          'Life is full of moments worth celebrating, and Lake Travis provides the perfect backdrop for all of them. Unlike ordinary venues that feel predictable, a private boat cruise transforms any celebration into an extraordinary experience. The stunning Texas Hill Country scenery, crystal-clear waters, and freedom of being on the water create an atmosphere that elevates every occasion.',
-          'Premier Party Cruises has hosted celebrations of every imaginable type over our 14+ years on Lake Travis. Birthdays from 21 to 80+, wedding-related events from engagement parties to anniversary milestones, career achievements from promotions to retirements, family reunions, friend gatherings, and countless other occasions have all found their perfect venue on our boats. With 150,000+ satisfied customers, we\'ve learned what makes each celebration type special.',
-          'The beauty of Lake Travis celebration cruises is their versatility. Morning cruises for brunch celebrations, afternoon parties with swimming and floats, sunset gatherings for romantic occasions, or high-energy dance parties that extend into evening - your celebration matches your vision. Our fleet accommodates groups from intimate gatherings to large parties, with amenities customized to your needs.'
+          'Lake Travis offers a stunning backdrop for any celebration. The Texas Hill Country scenery and crystal-clear waters create an unforgettable atmosphere. A private boat cruise transforms any occasion into something extraordinary.',
+          'We\'ve hosted every type of celebration over 14+ years. Birthdays, anniversaries, graduations, retirements, and family reunions all find their perfect venue here. With 150,000+ happy customers, we know what makes each celebration special.'
+        ],
+        lists: [
+          {
+            title: 'Cruise Options for Any Time of Day',
+            items: [
+              'Morning cruises for brunch celebrations',
+              'Afternoon parties with swimming and floats',
+              'Sunset gatherings for romantic occasions',
+              'Evening dance parties under the stars'
+            ]
+          }
         ]
       },
       {
         heading: 'Types of Celebrations We Host',
         paragraphs: [
-          'Birthday celebrations represent one of our most popular occasions. From milestone ages like 21, 30, 40, and 50 to any year worth celebrating, [[birthday-party]] cruises create unforgettable memories. The guest of honor enjoys VIP treatment while friends swim, dance, and celebrate on the water. Check out [[birthday-boat-rental]] and [[milestone-birthday]] for specialized birthday options.',
-          'Relationship milestones find beautiful expression on Lake Travis. [[proposal-cruise]] packages help couples create the perfect engagement moment. [[anniversary-cruise]] celebrations honor years together with romantic sunset cruises or family gatherings. Engagement parties, vow renewals, and relationship anniversaries all deserve the Lake Travis treatment.',
-          'Academic and career achievements call for celebration cruises too. [[graduation-party]] events honor educational accomplishments with style. Promotion celebrations, retirement parties, and career milestone gatherings give honorees unique recognition. The setting communicates that this achievement matters and deserves extraordinary celebration.'
+          '[[birthday-party]] cruises are our most popular occasion. The guest of honor gets VIP treatment while friends swim, dance, and celebrate. See [[birthday-boat-rental]] and [[milestone-birthday]] for birthday options.',
+          'Relationship milestones shine on Lake Travis. [[proposal-cruise]] packages create perfect engagement moments. [[anniversary-cruise]] events honor years together with sunset cruises.',
+          '[[graduation-party]] events honor academic achievements in style. Retirement parties and promotions also deserve this special setting.'
         ],
         lists: [
           {
@@ -6581,63 +6591,96 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
             items: [
               'Birthday parties for all ages',
               'Milestone birthdays (21, 30, 40, 50, 60+)',
-              'Engagement and proposal celebrations',
-              'Anniversary milestones (silver, ruby, golden)',
-              'Graduation parties (high school, college, graduate)',
-              'Promotion and career achievement parties',
+              'Engagements and proposals',
+              'Wedding anniversaries',
+              'Graduation parties',
               'Retirement celebrations',
-              'Family reunions and gatherings',
-              'Friend group celebrations',
-              'Just-because celebrations - no occasion needed!'
+              'Family reunions',
+              'Friend group gatherings'
             ]
           }
         ]
       },
       {
-        heading: 'Choosing the Right Boat for Your Celebration',
+        heading: 'Choosing the Right Boat',
         paragraphs: [
-          'Our fleet offers options for every celebration size and style. Day Tripper accommodates up to 14 guests, perfect for intimate gatherings where connection and conversation matter most. Rates range from $200-$350 per hour, making it accessible for smaller celebrations that still deserve the Lake Travis experience.',
-          'Meeseeks and The Irony each accommodate up to 30 guests, ideal for medium-sized celebrations. These identical vessels provide more space for activities while maintaining an intimate party atmosphere. At $225-$425 per hour, they offer excellent value for friend groups and family gatherings celebrating milestones together.',
-          'Clever Girl accommodates up to 75 guests for the most significant celebrations. This flagship vessel features 14 disco balls and a giant Texas flag, making your celebration visible across the lake. Rates of $250-$500 per hour reflect the premium experience. When your celebration demands making a statement, Clever Girl delivers.'
-        ]
-      },
-      {
-        heading: 'ATX Disco Cruise - The Ultimate Party Experience',
-        paragraphs: [
-          'For celebrations that thrive on party energy, the [[atx-disco]] offers a unique alternative to private charters. Join other groups celebrating on Lake Travis with professional DJ entertainment, photographer capturing your moments, disco dance floor, giant floats, and an incredible party atmosphere. Perfect for [[bachelor-party]], [[bachelorette-party]], and any celebration that loves high energy.',
-          'ATX Disco Cruise time slots include Friday 12-4pm ($95/person), Saturday 11am-3pm ($105/person - most popular!), and Saturday 3:30-7:30pm ($85/person). All prices include tax and gratuity. BYOB-friendly policies, professional photos delivered after the event, and the energy of celebrating with other groups create an unforgettable experience.',
-          'Many celebration groups choose the Disco Cruise when they want professional entertainment without the cost of a private charter. Birthday groups, friend gatherings, and any celebration that loves dancing and socializing find perfect homes on our signature cruise. The shared experience often leads to making new friends while celebrating your special occasion.'
-        ]
-      },
-      {
-        heading: 'Celebration Cruise Amenities',
-        paragraphs: [
-          'Every celebration cruise includes premium amenities that elevate your experience. Coast Guard certified captains navigate Lake Travis while professional crew members ensure your party runs smoothly. Premium Bluetooth sound systems let you play your celebration soundtrack. Large coolers with ice keep your BYOB beverages cold (21+ with ID, cans and plastic containers only).',
-          'Clean restroom facilities, shaded lounge areas, and all required safety equipment come standard on every vessel. Optional add-ons include lily pad floats for swimming, catering coordination, decorations, and photography services. Our team helps customize your celebration during the booking process to ensure every detail matches your vision.',
-          'Celebration cruises depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 30 minutes from downtown Austin. All private charters require a 4-hour minimum. Arrive 30 minutes before departure to meet your captain, load your supplies, and begin your Lake Travis celebration adventure.'
+          'Our fleet fits every celebration size. Day Tripper holds 14 guests for intimate gatherings. Meeseeks and The Irony each hold 30 guests for medium parties. Clever Girl holds 75 guests with 14 disco balls for large celebrations.'
         ],
         lists: [
           {
-            title: 'Standard Celebration Amenities',
+            title: 'Fleet Options & Pricing',
             items: [
-              'Coast Guard certified captain and professional crew',
-              'Premium Bluetooth sound system',
-              'Large coolers with ice',
-              'Clean restroom facilities',
-              'Shaded areas for comfort',
-              'All required safety equipment',
-              'BYOB-friendly (21+ with ID)',
-              'Flexible route planning',
-              'Swimming stops when conditions permit'
+              'Day Tripper: 14 guests, $800 base rate',
+              'Meeseeks/The Irony: 30 guests, $900 base rate',
+              'Clever Girl: 75 guests, $1,000 base rate',
+              'All boats include captain and crew'
             ]
           }
         ]
       },
       {
-        heading: 'Book Your Celebration Cruise Today',
+        heading: 'ATX Disco Cruise',
         paragraphs: [
-          'Ready to plan your Lake Travis celebration? Contact Premier Party Cruises at 512-488-5892 to discuss your occasion, check availability, and receive a customized quote. Weekend dates during peak season (April-October) book 6-8 weeks in advance, so planning early ensures you get your preferred timing.',
-          'With 14+ years of experience, 150,000+ satisfied customers, and a perfect safety record, Premier Party Cruises delivers consistent quality for celebrations of every type. Your milestone deserves more than ordinary - it deserves Lake Travis. Whether you\'re planning a [[birthday-boat-rental]], [[anniversary-cruise]], [[proposal-cruise]], or any other celebration, we\'re ready to make it legendary. Explore our [[bachelor-party]], [[bachelorette-party]], [[corporate-events]], and [[wedding-party]] pages for specific celebration types, or [[contact]] us directly to start planning your unforgettable Lake Travis experience.'
+          'The [[atx-disco]] offers high-energy fun without booking a private charter. Join other groups on Lake Travis with a DJ, photographer, dance floor, and giant floats. Perfect for [[bachelor-party]] and [[bachelorette-party]] groups.'
+        ],
+        lists: [
+          {
+            title: 'ATX Disco Cruise Times & Pricing',
+            items: [
+              'Friday 12-4pm: $95/person',
+              'Saturday 11am-3pm: $105/person (most popular)',
+              'Saturday 3:30-7:30pm: $85/person',
+              'BYOB-friendly, photos included'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'What\'s Included',
+        paragraphs: [
+          'Every cruise includes premium amenities. Coast Guard captains navigate while crew ensures your party runs smoothly. BYOB-friendly with coolers and ice provided (21+ with ID, cans/plastic only).'
+        ],
+        lists: [
+          {
+            title: 'Standard Amenities',
+            items: [
+              'Coast Guard captain and crew',
+              'Bluetooth sound system',
+              'Coolers with ice',
+              'Restroom facilities',
+              'Shaded lounge areas',
+              'Safety equipment',
+              'Swimming stops available'
+            ]
+          },
+          {
+            title: 'Departure Info',
+            items: [
+              'Anderson Mill Marina, Leander TX',
+              '30 minutes from downtown Austin',
+              '4-hour minimum for private charters',
+              'Arrive 30 minutes early'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Book Your Celebration',
+        paragraphs: [
+          'Call 512-488-5892 to check availability and get a quote. Peak season weekends (April-October) book 6-8 weeks ahead.',
+          '14+ years experience. 150,000+ happy customers. Perfect safety record. Your celebration deserves Lake Travis.'
+        ],
+        lists: [
+          {
+            title: 'Explore Celebration Options',
+            items: [
+              '[[birthday-boat-rental]] - Birthday parties',
+              '[[anniversary-cruise]] - Romantic milestones',
+              '[[proposal-cruise]] - Perfect engagements',
+              '[[bachelor-party]] & [[bachelorette-party]] - Wedding parties',
+              '[[contact]] - Get started today'
+            ]
+          }
         ]
       }
     ],
