@@ -8350,66 +8350,89 @@ const HOLIDAY_RELATED: RelatedPagesConfig = {
   ]
 };
 
-// Reverse mappings: Blogs linking back to their parent pages
+// Reverse mappings: Blogs linking back to their parent pages AND related blogs
 const BACHELOR_BLOG_BACK_TO_PAGE: RelatedPagesConfig = {
   pages: ['/bachelor-party-austin', '/atx-disco-cruise', '/private-cruises'],
-  blogs: []
+  blogs: [
+    '/blogs/perfect-bachelor-party-itinerary-austin',
+    '/blogs/how-to-throw-great-bachelor-party-austin',
+    '/blogs/lake-travis-bachelor-party-boat-rentals-the-ultimate-guide-to-epic-celebrations'
+  ]
 };
 
 const BACHELORETTE_BLOG_BACK_TO_PAGE: RelatedPagesConfig = {
   pages: ['/bachelorette-party-austin', '/atx-disco-cruise', '/private-cruises'],
-  blogs: []
+  blogs: [
+    '/blogs/how-to-throw-great-bachelorette-party-austin',
+    '/blogs/must-haves-for-the-perfect-austin-bachelorette-weekend',
+    '/blogs/austin-bachelorette-bliss-spa-retreats-disco-cruises-alcohol-delivery'
+  ]
 };
 
 const COMBINED_BACH_BLOG_BACK_TO_PAGE: RelatedPagesConfig = {
   pages: ['/combined-bachelor-bachelorette-austin', '/bachelor-party-austin', '/bachelorette-party-austin', '/atx-disco-cruise'],
-  blogs: []
+  blogs: [
+    '/blogs/joint-bachelor-bachelorette-parties-with-premier-party-cruises'
+  ]
 };
 
 const ATX_DISCO_BLOG_BACK_TO_PAGE: RelatedPagesConfig = {
   pages: ['/atx-disco-cruise', '/bachelor-party-austin', '/bachelorette-party-austin'],
-  blogs: []
+  blogs: [
+    '/blogs/the-top-dos-and-dont-for-success-on-the-atx-disco-cruise-with-premier-party-cruises',
+    '/blogs/why-atx-disco-cruise-austins-most-booked-party-boat-experience'
+  ]
 };
 
 const CORPORATE_BLOG_BACK_TO_PAGE: RelatedPagesConfig = {
   pages: ['/corporate-events', '/team-building', '/client-entertainment', '/private-cruises'],
-  blogs: []
+  blogs: [
+    '/blogs/all-inclusive-corporate-packages',
+    '/blogs/why-austin-companies-choose-premier'
+  ]
 };
 
 // Birthday blogs link back to birthday pages
 const BIRTHDAY_BLOG_BACK_TO_PAGE: RelatedPagesConfig = {
   pages: ['/birthday-parties', '/birthday-party-boat-rental', '/milestone-birthday', '/private-cruises'],
-  blogs: []
+  blogs: ['/blogs/birthday-party-alcohol-delivery-austin-milestone-celebrations-made-easy']
 };
 
 // Wedding blogs link back to wedding pages
 const WEDDING_BLOG_BACK_TO_PAGE: RelatedPagesConfig = {
   pages: ['/wedding-parties', '/rehearsal-dinner', '/rehearsal-dinner-cruise', '/bridal-shower-cruise', '/private-cruises'],
-  blogs: []
+  blogs: ['/blogs/outdoor-wedding-alcohol-logistics-hill-country-and-lake-travis-coordination']
 };
 
 // Celebration blogs link back to celebration cruise pages
 const CELEBRATION_BLOG_BACK_TO_PAGE: RelatedPagesConfig = {
   pages: ['/celebration-cruises', '/anniversary-cruise', '/proposal-cruise', '/private-cruises'],
-  blogs: []
+  blogs: ['/blogs/ultimate-austin-party-boat-experience-any-celebration']
 };
 
 // Graduation blogs link back to graduation pages
 const GRADUATION_BLOG_BACK_TO_PAGE: RelatedPagesConfig = {
   pages: ['/graduation-party', '/graduation-cruise', '/private-cruises'],
-  blogs: []
+  blogs: ['/blogs/graduation-party-alcohol-planning-ut-and-austin-college-celebrations']
 };
 
 // Holiday blogs link back to holiday pages
 const HOLIDAY_BLOG_BACK_TO_PAGE: RelatedPagesConfig = {
   pages: ['/holiday-party-cruise', '/corporate-events', '/private-cruises'],
-  blogs: []
+  blogs: [
+    '/blogs/holiday-celebrations-on-lake-travis-seasonal-boat-party-planning-and-coordination',
+    '/blogs/holiday-party-alcohol-themes-new-years-fourth-of-july-and-austin-celebrations'
+  ]
 };
 
 // General party boat blogs link to main pages
 const GENERAL_BLOG_BACK_TO_PAGE: RelatedPagesConfig = {
   pages: ['/private-cruises', '/atx-disco-cruise', '/celebration-cruises'],
-  blogs: []
+  blogs: [
+    '/blogs/lake-travis-boat-safety-essential-guidelines-for-safe-party-cruises',
+    '/blogs/why-licensed-captains-matter-lake-travis-party-boats',
+    '/blogs/lake-travis-boat-party-costs-complete-pricing-guide-and-budget-planning'
+  ]
 };
 
 export const RELATED_PAGES_MAP: Record<string, RelatedPagesConfig> = {
