@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { m, LazyMotionProvider, fadeInUp, staggerContainer } from '@/components/LazyMotion';
 import { Link } from 'wouter';
-import * as HelmetAsync from 'react-helmet-async';
-const HelmetAsyncDefault = (HelmetAsync as any).default || HelmetAsync;
-const { Helmet } = HelmetAsyncDefault;
+import SEOHead from '@/components/SEOHead';
 import { 
   Ship, Users, DollarSign, Phone, Clock, CheckCircle2, 
   Calculator, Award, Waves, MapPin, Calendar, Star,
@@ -23,15 +21,6 @@ import heroImage from '@assets/@capitalcityshots-6_1760080740018.jpg';
 import sectionImage1 from '@assets/@capitalcityshots-7_1760080740018.jpg';
 import sectionImage2 from '@assets/@capitalcityshots-8_1760080740018.jpg';
 import sectionImage3 from '@assets/@capitalcityshots-9_1760080740019.jpg';
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-};
-
-const staggerChildren = {
-  visible: { transition: { staggerChildren: 0.1 } }
-};
 
 const boatPricing = [
   {
@@ -179,23 +168,21 @@ export default function LakeTravisBoatPartyCosts() {
   }, []);
 
   return (
+    <LazyMotionProvider>
     <>
-      <Helmet>
-        <title>Lake Travis Boat Party Costs - Complete Pricing Guide & Budget Planning | Premier Party Cruises</title>
-        <meta name="description" content="Complete guide to Lake Travis boat party costs starting at $800. Compare party boat pricing Austin options, understand boat rental costs Lake Travis, and plan your Austin boat party budget. Transparent pricing since 2010." />
-        <meta name="keywords" content="Lake Travis boat party costs, party boat pricing Austin, boat rental costs Lake Travis, Austin boat party budget, Lake Travis party boat costs, party boat rental prices Austin, Lake Travis boat charter pricing" />
-        <link rel="canonical" href="https://premierpartycruises.com/blogs/lake-travis-boat-party-costs-complete-pricing-guide-and-budget-planning" />
-        <meta property="og:title" content="Lake Travis Boat Party Costs - Complete Pricing Guide & Budget Planning" />
-        <meta property="og:description" content="Complete guide to Lake Travis boat party costs. Compare party boat pricing Austin starting at $800 for groups of 14-75 guests." />
-        <meta property="og:type" content="article" />
-        <meta property="og:image" content={heroImage} />
-      </Helmet>
+      <SEOHead 
+        pageRoute="/blogs/lake-travis-boat-party-costs-complete-pricing-guide-and-budget-planning"
+        defaultTitle="Lake Travis Boat Party Costs - Complete Pricing Guide & Budget Planning | Premier Party Cruises"
+        defaultDescription="Complete guide to Lake Travis boat party costs starting at $800. Compare party boat pricing Austin options, understand boat rental costs Lake Travis, and plan your Austin boat party budget. Transparent pricing since 2010."
+        defaultKeywords={['Lake Travis boat party costs', 'party boat pricing Austin', 'boat rental costs Lake Travis', 'Austin boat party budget', 'Lake Travis party boat costs', 'party boat rental prices Austin', 'Lake Travis boat charter pricing']}
+        image={heroImage}
+      />
 
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="lake-travis-boat-party-costs-page">
         <PublicNavigation />
 
         {/* Hero Section */}
-        <motion.section 
+        <m.section 
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
@@ -244,14 +231,26 @@ export default function LakeTravisBoatPartyCosts() {
               </Button>
             </div>
           </div>
-        </motion.section>
+        </m.section>
+
+      {/* Topic Cluster Pillar Link */}
+      <div className="bg-blue-50 dark:bg-blue-950/30 border-b border-blue-100 dark:border-blue-900/50">
+        <div className="max-w-4xl mx-auto px-6 py-3">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            Explore our full guide to{' '}
+            <Link href="/party-boat-lake-travis" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Lake Travis party boat rentals</Link>{' '}
+            for everything from pricing and logistics to safety and entertainment.
+          </p>
+        </div>
+      </div>
+
 
         {/* Stats Section */}
         <section className="py-12 bg-slate-100 dark:bg-slate-900" data-testid="stats-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {whyPremier.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -262,7 +261,7 @@ export default function LakeTravisBoatPartyCosts() {
                 >
                   <div className="text-3xl md:text-4xl font-bold text-green-600 dark:text-green-400">{item.stat}</div>
                   <div className="text-gray-600 dark:text-gray-400">{item.label}</div>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -283,7 +282,7 @@ export default function LakeTravisBoatPartyCosts() {
         {/* Boat Pricing Breakdown */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="pricing-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -295,11 +294,11 @@ export default function LakeTravisBoatPartyCosts() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Compare party boat pricing Austin across our entire fleet. All boat rental costs Lake Travis include captain, sound system, floats, and coolers with ice.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 gap-6">
               {boatPricing.map((boat, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -347,7 +346,7 @@ export default function LakeTravisBoatPartyCosts() {
                       </ul>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -356,7 +355,7 @@ export default function LakeTravisBoatPartyCosts() {
         {/* Pricing Factors */}
         <section className="py-16 bg-gray-50 dark:bg-gray-800" data-testid="factors-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -367,11 +366,11 @@ export default function LakeTravisBoatPartyCosts() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 Understanding these factors helps you plan your Austin boat party budget effectively
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {pricingFactors.map((factor, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -388,7 +387,7 @@ export default function LakeTravisBoatPartyCosts() {
                       <p className="text-gray-600 dark:text-gray-400 text-sm">{factor.description}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -398,7 +397,7 @@ export default function LakeTravisBoatPartyCosts() {
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="tips-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <motion.div
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -420,8 +419,8 @@ export default function LakeTravisBoatPartyCosts() {
                     </div>
                   ))}
                 </div>
-              </motion.div>
-              <motion.div
+              </m.div>
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -433,7 +432,7 @@ export default function LakeTravisBoatPartyCosts() {
                   className="rounded-2xl shadow-xl"
                   data-testid="img-tips"
                 />
-              </motion.div>
+              </m.div>
             </div>
           </div>
         </section>
@@ -441,7 +440,7 @@ export default function LakeTravisBoatPartyCosts() {
         {/* What's Included */}
         <section className="py-16 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-gray-800 dark:to-gray-900" data-testid="included-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -453,11 +452,11 @@ export default function LakeTravisBoatPartyCosts() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Our Lake Travis party boat costs include all the essentials for an amazing experience
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {whatsIncluded.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -478,7 +477,7 @@ export default function LakeTravisBoatPartyCosts() {
                       </div>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -488,7 +487,7 @@ export default function LakeTravisBoatPartyCosts() {
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="addons-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <motion.div
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -500,8 +499,8 @@ export default function LakeTravisBoatPartyCosts() {
                   className="rounded-2xl shadow-xl"
                   data-testid="img-addons"
                 />
-              </motion.div>
-              <motion.div
+              </m.div>
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -525,7 +524,7 @@ export default function LakeTravisBoatPartyCosts() {
                     </div>
                   ))}
                 </div>
-              </motion.div>
+              </m.div>
             </div>
           </div>
         </section>
@@ -536,7 +535,7 @@ export default function LakeTravisBoatPartyCosts() {
         {/* FAQ Section */}
         <section className="py-16 bg-gray-50 dark:bg-gray-800" data-testid="faq-section">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -548,7 +547,7 @@ export default function LakeTravisBoatPartyCosts() {
               <p className="text-gray-600 dark:text-gray-400">
                 Common questions about party boat pricing Austin and boat rental costs Lake Travis
               </p>
-            </motion.div>
+            </m.div>
 
             <Accordion type="single" collapsible className="space-y-4" data-testid="accordion-faq">
               {faqs.map((faq, index) => (
@@ -568,7 +567,7 @@ export default function LakeTravisBoatPartyCosts() {
         {/* Internal Links Section */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="links-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -579,11 +578,11 @@ export default function LakeTravisBoatPartyCosts() {
               <p className="text-gray-600 dark:text-gray-400">
                 Find the perfect Lake Travis experience for your celebration
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
               {internalLinks.map((link, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -599,7 +598,7 @@ export default function LakeTravisBoatPartyCosts() {
                       </CardContent>
                     </Card>
                   </Link>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -608,7 +607,7 @@ export default function LakeTravisBoatPartyCosts() {
         {/* Final CTA Section */}
         <section className="py-20 bg-gradient-to-br from-green-900 via-emerald-800 to-slate-900 text-white" data-testid="cta-section">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -640,12 +639,13 @@ export default function LakeTravisBoatPartyCosts() {
                   </a>
                 </Button>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         <Footer />
       </div>
     </>
+    </LazyMotionProvider>
   );
 }

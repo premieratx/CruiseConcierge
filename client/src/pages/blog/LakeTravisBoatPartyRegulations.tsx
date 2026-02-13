@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { m, LazyMotionProvider, fadeInUp, staggerContainer } from '@/components/LazyMotion';
 import { Link } from 'wouter';
-import * as HelmetAsync from 'react-helmet-async';
-const HelmetAsyncDefault = (HelmetAsync as any).default || HelmetAsync;
-const { Helmet } = HelmetAsyncDefault;
+import SEOHead from '@/components/SEOHead';
 import { 
   Ship, Shield, FileCheck, Phone, CheckCircle2, 
   AlertTriangle, Anchor, Users, Clock, Scale,
@@ -21,15 +19,6 @@ import heroImage from '@assets/@capitalcityshots-24_1760080807866.jpg';
 import sectionImage1 from '@assets/@capitalcityshots-25_1760080807866.jpg';
 import sectionImage2 from '@assets/@capitalcityshots-26_1760080807866.jpg';
 import sectionImage3 from '@assets/@capitalcityshots-27_1760080807866.jpg';
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-};
-
-const staggerChildren = {
-  visible: { transition: { staggerChildren: 0.1 } }
-};
 
 const regulationCategories = [
   { 
@@ -171,22 +160,20 @@ export default function LakeTravisBoatPartyRegulations() {
   }, []);
 
   return (
+    <LazyMotionProvider>
     <>
-      <Helmet>
-        <title>Lake Travis Boat Party Regulations | Legal Requirements Guide</title>
-        <meta name="description" content="Complete guide to Lake Travis boat party regulations. Learn about TABC rules, boating laws, safety requirements, and how Premier Party Cruises handles compliance for you." />
-        <meta name="keywords" content="Lake Travis boat regulations, TABC compliance boat party, Texas boating laws, Lake Travis party rules, boat party legal requirements" />
-        <link rel="canonical" href="https://premierpartycruises.com/blogs/lake-travis-boat-party-regulations-legal-requirements-and-compliance-guide" />
-        <meta property="og:title" content="Lake Travis Boat Party Regulations | Legal Requirements Guide" />
-        <meta property="og:description" content="Everything you need to know about Lake Travis boat party regulations and how Premier Party Cruises keeps you compliant." />
-        <meta property="og:type" content="article" />
-      </Helmet>
+      <SEOHead 
+        pageRoute="/blogs/lake-travis-boat-party-regulations-legal-requirements-and-compliance-guide"
+        defaultTitle="Lake Travis Boat Party Regulations | Legal Requirements Guide"
+        defaultDescription="Complete guide to Lake Travis boat party regulations. Learn about TABC rules, boating laws, safety requirements, and how Premier Party Cruises handles compliance for you."
+        defaultKeywords={['Lake Travis boat regulations', 'TABC compliance boat party', 'Texas boating laws', 'Lake Travis party rules', 'boat party legal requirements']}
+      />
 
       <div className="min-h-screen bg-white dark:bg-gray-950">
         <PublicNavigation />
 
         {/* Hero Section */}
-        <motion.section 
+        <m.section 
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
@@ -227,27 +214,39 @@ export default function LakeTravisBoatPartyRegulations() {
               </Link>
             </div>
           </div>
-        </motion.section>
+        </m.section>
+
+      {/* Topic Cluster Pillar Link */}
+      <div className="bg-blue-50 dark:bg-blue-950/30 border-b border-blue-100 dark:border-blue-900/50">
+        <div className="max-w-4xl mx-auto px-6 py-3">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            Explore our full guide to{' '}
+            <Link href="/party-boat-lake-travis" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Lake Travis party boat rentals</Link>{' '}
+            for everything from pricing and logistics to safety and entertainment.
+          </p>
+        </div>
+      </div>
+
 
         {/* Regulation Categories Grid */}
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={staggerChildren}
+              variants={staggerContainer}
               className="text-center mb-12"
             >
               <h2 className="text-3xl font-bold mb-4">Four Areas of Boat Party Compliance</h2>
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Texas has strict rules for boat parties. Here's what you need to know.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {regulationCategories.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -263,7 +262,7 @@ export default function LakeTravisBoatPartyRegulations() {
                       <p className="text-gray-600 dark:text-gray-400 text-sm">{item.description}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -272,7 +271,7 @@ export default function LakeTravisBoatPartyRegulations() {
         {/* TABC Section */}
         <section className="py-16 bg-gradient-to-br from-blue-50 to-teal-50 dark:from-gray-800 dark:to-gray-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -320,14 +319,14 @@ export default function LakeTravisBoatPartyRegulations() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Safety Requirements Section */}
         <section className="py-16 bg-gradient-to-br from-red-900 via-red-800 to-orange-900 text-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -367,14 +366,14 @@ export default function LakeTravisBoatPartyRegulations() {
                   </p>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* What We Handle Section */}
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -386,11 +385,11 @@ export default function LakeTravisBoatPartyRegulations() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 You focus on having fun. We handle the paperwork and compliance.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {whatWeHandle.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -408,7 +407,7 @@ export default function LakeTravisBoatPartyRegulations() {
                       </div>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -417,7 +416,7 @@ export default function LakeTravisBoatPartyRegulations() {
         {/* Common Mistakes Section */}
         <section className="py-16 bg-gradient-to-br from-orange-50 to-red-50 dark:from-gray-800 dark:to-gray-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -467,14 +466,14 @@ export default function LakeTravisBoatPartyRegulations() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* FAQs Section */}
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -486,7 +485,7 @@ export default function LakeTravisBoatPartyRegulations() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 Get answers to common questions about boat party rules and regulations.
               </p>
-            </motion.div>
+            </m.div>
 
             <Accordion type="single" collapsible className="w-full">
               {faqs.map((faq, index) => (
@@ -506,7 +505,7 @@ export default function LakeTravisBoatPartyRegulations() {
         {/* CTA Section */}
         <section className="py-16 bg-gradient-to-br from-blue-600 to-teal-600 text-white">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -534,7 +533,7 @@ export default function LakeTravisBoatPartyRegulations() {
                   </Button>
                 </Link>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
@@ -542,5 +541,6 @@ export default function LakeTravisBoatPartyRegulations() {
         <Footer />
       </div>
     </>
+    </LazyMotionProvider>
   );
 }

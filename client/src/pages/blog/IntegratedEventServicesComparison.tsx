@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { m, LazyMotionProvider, fadeInUp, staggerContainer } from '@/components/LazyMotion';
 import { Link } from 'wouter';
-import * as HelmetAsync from 'react-helmet-async';
-const HelmetAsyncDefault = (HelmetAsync as any).default || HelmetAsync;
-const { Helmet } = HelmetAsyncDefault;
+import SEOHead from '@/components/SEOHead';
 import { 
   Ship, Users, CheckCircle2, Clock, DollarSign, Smile,
   ArrowRight, Phone, AlertTriangle, Sparkles, Wine, Heart,
@@ -20,15 +18,6 @@ import heroImage from '@assets/@capitalcityshots-21_1760080807864.jpg';
 import sectionImage1 from '@assets/@capitalcityshots-22_1760080807865.jpg';
 import sectionImage2 from '@assets/@capitalcityshots-23_1760080807865.jpg';
 import sectionImage3 from '@assets/@capitalcityshots-24_1760080807866.jpg';
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-};
-
-const staggerChildren = {
-  visible: { transition: { staggerChildren: 0.1 } }
-};
 
 const integrationBenefits = [
   { 
@@ -168,22 +157,20 @@ export default function IntegratedEventServicesComparison() {
   }, []);
 
   return (
+    <LazyMotionProvider>
     <>
-      <Helmet>
-        <title>Why Choose Integrated Event Services | Austin Party Planning</title>
-        <meta name="description" content="Compare integrated event services vs DIY party planning in Austin. Learn how Premier Party Cruises and Party On Delivery save time and reduce stress for Lake Travis celebrations." />
-        <meta name="keywords" content="Austin party planning, integrated event services, Lake Travis party boat, alcohol delivery Austin, stress-free party planning" />
-        <link rel="canonical" href="https://premierpartycruises.com/blogs/why-choose-integrated-event-services-comparing-austin-party-planning-options" />
-        <meta property="og:title" content="Why Choose Integrated Event Services | Austin Party Planning" />
-        <meta property="og:description" content="Discover why integrated event services beat DIY party planning. Save time, reduce stress, and enjoy your Austin celebration." />
-        <meta property="og:type" content="article" />
-      </Helmet>
+      <SEOHead 
+        pageRoute="/blogs/why-choose-integrated-event-services-comparing-austin-party-planning-options"
+        defaultTitle="Why Choose Integrated Event Services | Austin Party Planning"
+        defaultDescription="Compare integrated event services vs DIY party planning in Austin. Learn how Premier Party Cruises and Party On Delivery save time and reduce stress for Lake Travis celebrations."
+        defaultKeywords={['Austin party planning', 'integrated event services', 'Lake Travis party boat', 'alcohol delivery Austin', 'stress-free party planning']}
+      />
 
       <div className="min-h-screen bg-white dark:bg-gray-950">
         <PublicNavigation />
 
         {/* Hero Section */}
-        <motion.section 
+        <m.section 
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
@@ -224,27 +211,39 @@ export default function IntegratedEventServicesComparison() {
               </Link>
             </div>
           </div>
-        </motion.section>
+        </m.section>
+
+      {/* Topic Cluster Pillar Link */}
+      <div className="bg-blue-50 dark:bg-blue-950/30 border-b border-blue-100 dark:border-blue-900/50">
+        <div className="max-w-4xl mx-auto px-6 py-3">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            Browse our full range of{' '}
+            <Link href="/party-boat-austin" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Austin party boat rentals</Link>{' '}
+            for celebrations of every kind on Lake Travis.
+          </p>
+        </div>
+      </div>
+
 
         {/* Benefits Grid */}
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={staggerChildren}
+              variants={staggerContainer}
               className="text-center mb-12"
             >
               <h2 className="text-3xl font-bold mb-4">Benefits of Integrated Event Services</h2>
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Let professionals handle the logistics while you focus on celebrating
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {integrationBenefits.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -260,7 +259,7 @@ export default function IntegratedEventServicesComparison() {
                       <p className="text-gray-600 dark:text-gray-400 text-sm">{item.description}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -269,7 +268,7 @@ export default function IntegratedEventServicesComparison() {
         {/* DIY Problems Section */}
         <section className="py-16 bg-gradient-to-br from-red-50 to-orange-50 dark:from-gray-800 dark:to-gray-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -315,14 +314,14 @@ export default function IntegratedEventServicesComparison() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Integration Solution Section */}
         <section className="py-16 bg-gradient-to-br from-blue-900 via-blue-800 to-purple-900 text-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -378,14 +377,14 @@ export default function IntegratedEventServicesComparison() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Comparison Table */}
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="max-w-5xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -396,7 +395,7 @@ export default function IntegratedEventServicesComparison() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 See the difference for yourself
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="overflow-x-auto">
               <table className="w-full border-collapse">
@@ -424,7 +423,7 @@ export default function IntegratedEventServicesComparison() {
         {/* Party On Delivery Section */}
         <section className="py-16 bg-gradient-to-br from-amber-50 to-orange-50 dark:from-gray-800 dark:to-gray-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -483,14 +482,14 @@ export default function IntegratedEventServicesComparison() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Testimonials */}
         <section className="py-16 bg-gray-50 dark:bg-gray-800">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -501,11 +500,11 @@ export default function IntegratedEventServicesComparison() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 Real experiences from real celebrations
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-3 gap-6">
               {testimonials.map((testimonial, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -528,7 +527,7 @@ export default function IntegratedEventServicesComparison() {
                       </div>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -537,7 +536,7 @@ export default function IntegratedEventServicesComparison() {
         {/* FAQ Section */}
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -548,7 +547,7 @@ export default function IntegratedEventServicesComparison() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 Common questions about integrated event services
               </p>
-            </motion.div>
+            </m.div>
 
             <Accordion type="single" collapsible className="space-y-4">
               {faqs.map((faq, index) => (
@@ -572,7 +571,7 @@ export default function IntegratedEventServicesComparison() {
         {/* CTA Section */}
         <section className="py-16 bg-gradient-to-br from-blue-600 to-purple-700 text-white">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -601,12 +600,13 @@ export default function IntegratedEventServicesComparison() {
               <p className="mt-8 text-white/70 text-sm">
                 Premier Party Cruises • Lake Travis, Austin TX
               </p>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         <Footer />
       </div>
     </>
+    </LazyMotionProvider>
   );
 }

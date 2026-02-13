@@ -442,8 +442,8 @@ export default function PrivateCruises() {
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white" data-page-ready="private-cruises">
       <SEOHead 
         pageRoute="/private-cruises"
-        defaultTitle="Lake Travis Party Boat Rentals | Private Austin Boat Cruises"
-        defaultDescription="Private party boat rentals on Lake Travis starting at $195/hr. Captain included, BYOB, holds 14-75 guests. Austin's premier private cruise experience!"
+        defaultTitle="Private Party Boat Rentals Lake Travis | Austin Boat Charter from $200/hr"
+        defaultDescription="Private party boat rentals on Lake Travis starting at $200/hr. Captain included, BYOB, holds 14-75 guests. Austin's premier private cruise experience since 2009!"
         defaultKeywords={["private boat rental Austin", "Lake Travis private cruise", "austin party cruises", "party boat austin", "Austin boat charter", "private party boat Austin", "Lake Travis boat rental", "Austin yacht rental", "lake travis party boat"]}
         schemaType="service"
       />
@@ -482,7 +482,7 @@ export default function PrivateCruises() {
           </Badge>
           
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold heading-unbounded mb-6 md:mb-8 text-white leading-tight drop-shadow-lg">
-            Private Boat Rentals on Lake Travis
+            Private Party Boat Rentals on Lake Travis: Austin Charters for 14-75 Guests
           </h1>
           
           <p className="text-xl sm:text-2xl md:text-3xl text-brand-yellow mb-8 md:mb-10 font-bold drop-shadow-md">
@@ -1825,6 +1825,85 @@ export default function PrivateCruises() {
       />
 
       <VideoGallerySection videos={[{id: 'FABtEDZZBA0', title: 'Premier Party Cruises Experience', description: 'See what makes our Lake Travis cruises unforgettable'}]} />
+
+      {/* Fleet Comparison Table */}
+      <section className="py-16 bg-white dark:bg-gray-900">
+        <div className="max-w-6xl mx-auto px-6">
+          <h2 className="text-3xl font-bold text-center mb-4 text-gray-900 dark:text-white">Compare Our Fleet</h2>
+          <p className="text-center text-gray-600 dark:text-gray-400 mb-10 max-w-2xl mx-auto">All four boats side-by-side. Find the perfect fit for your group size and budget.</p>
+          <div className="overflow-x-auto">
+            <table className="w-full border-collapse text-left text-sm">
+              <thead>
+                <tr className="bg-blue-900 text-white">
+                  <th className="p-4 font-semibold rounded-tl-lg">Feature</th>
+                  <th className="p-4 font-semibold">Day Tripper</th>
+                  <th className="p-4 font-semibold">The Irony</th>
+                  <th className="p-4 font-semibold">Meeseeks</th>
+                  <th className="p-4 font-semibold rounded-tr-lg">Clever Girl</th>
+                </tr>
+              </thead>
+              <tbody className="text-gray-700 dark:text-gray-300">
+                <tr className="border-b border-gray-200 dark:border-gray-700">
+                  <td className="p-4 font-medium">Max Capacity</td>
+                  <td className="p-4">14 guests</td>
+                  <td className="p-4">25 guests</td>
+                  <td className="p-4">30 guests</td>
+                  <td className="p-4">75 guests</td>
+                </tr>
+                <tr className="border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
+                  <td className="p-4 font-medium">Weekday Rate</td>
+                  <td className="p-4">$200/hr</td>
+                  <td className="p-4">$300/hr</td>
+                  <td className="p-4">$350/hr</td>
+                  <td className="p-4">$520/hr</td>
+                </tr>
+                <tr className="border-b border-gray-200 dark:border-gray-700">
+                  <td className="p-4 font-medium">Weekend Rate</td>
+                  <td className="p-4">$250/hr</td>
+                  <td className="p-4">$350/hr</td>
+                  <td className="p-4">$400/hr</td>
+                  <td className="p-4">$520/hr</td>
+                </tr>
+                <tr className="border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
+                  <td className="p-4 font-medium">Min Hours</td>
+                  <td className="p-4">3 hours</td>
+                  <td className="p-4">3 hours</td>
+                  <td className="p-4">3 hours</td>
+                  <td className="p-4">3 hours</td>
+                </tr>
+                <tr className="border-b border-gray-200 dark:border-gray-700">
+                  <td className="p-4 font-medium">Bluetooth Speakers</td>
+                  <td className="p-4">Yes</td>
+                  <td className="p-4">Yes</td>
+                  <td className="p-4">Yes</td>
+                  <td className="p-4">Yes</td>
+                </tr>
+                <tr className="border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
+                  <td className="p-4 font-medium">Floats Included</td>
+                  <td className="p-4">Yes</td>
+                  <td className="p-4">Yes</td>
+                  <td className="p-4">Yes</td>
+                  <td className="p-4">Yes (giant lily pad)</td>
+                </tr>
+                <tr className="border-b border-gray-200 dark:border-gray-700">
+                  <td className="p-4 font-medium">Best For</td>
+                  <td className="p-4">Intimate groups, couples, small teams</td>
+                  <td className="p-4">Medium groups, birthdays, friend groups</td>
+                  <td className="p-4">Larger parties, team events</td>
+                  <td className="p-4">Big celebrations, corporate, weddings</td>
+                </tr>
+                <tr>
+                  <td className="p-4 font-medium">Special Features</td>
+                  <td className="p-4">Most affordable, cozy vibe</td>
+                  <td className="p-4">Great value mid-size</td>
+                  <td className="p-4">Spacious deck, swim platform</td>
+                  <td className="p-4">14 disco balls, Texas flag deck, flagship</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
 
       <Footer />
     </div>

@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { m, LazyMotionProvider, fadeInUp, staggerContainer } from '@/components/LazyMotion';
 import { Link } from 'wouter';
-import * as HelmetAsync from 'react-helmet-async';
-const HelmetAsyncDefault = (HelmetAsync as any).default || HelmetAsync;
-const { Helmet } = HelmetAsyncDefault;
+import SEOHead from '@/components/SEOHead';
 import { 
   Ship, Users, Briefcase, Phone, Clock, CheckCircle2, 
   Gift, Award, Waves, MapPin, Calendar, Star,
@@ -22,15 +20,6 @@ import heroImage from '@assets/@capitalcityshots-14_1760080740020.jpg';
 import sectionImage1 from '@assets/@capitalcityshots-15_1760080740020.jpg';
 import sectionImage2 from '@assets/@capitalcityshots-16_1760080740020.jpg';
 import sectionImage3 from '@assets/@capitalcityshots-17_1760080740020.jpg';
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-};
-
-const staggerChildren = {
-  visible: { transition: { staggerChildren: 0.1 } }
-};
 
 const austinEvents = [
   {
@@ -186,24 +175,21 @@ export default function ConferenceAfterPartyAlcohol() {
   }, []);
 
   return (
+    <LazyMotionProvider>
     <>
-      <Helmet>
-        <title>Conference After Party Alcohol Coordination: SXSW, ACL & Austin Event Integration | Premier Party Cruises</title>
-        <meta name="description" content="Master conference after party alcohol coordination for SXSW, ACL, and Austin events. Expert Austin event integration for corporate gatherings on Lake Travis. BYOB boats for 14-75 guests." />
-        <meta name="keywords" content="conference after party alcohol, SXSW after party, ACL after party, Austin event integration, conference after party coordination, Austin conference parties, SXSW boat party, Lake Travis conference events" />
-        <link rel="canonical" href="https://premierpartycruises.com/blogs/conference-after-party-alcohol-coordination-sxsw-acl-and-austin-event-integration" />
-        <meta property="og:title" content="Conference After Party Alcohol Coordination: SXSW, ACL & Austin Event Integration" />
-        <meta property="og:description" content="Master conference after party alcohol coordination for SXSW, ACL, and Austin events. Expert Austin event integration on Lake Travis." />
-        <meta property="og:type" content="article" />
-        <meta property="og:url" content="https://premierpartycruises.com/blogs/conference-after-party-alcohol-coordination-sxsw-acl-and-austin-event-integration" />
-        <meta property="og:image" content="https://premierpartycruises.com/attached_assets/@capitalcityshots-14_1760080740020.jpg" />
-      </Helmet>
+      <SEOHead 
+        pageRoute="/blogs/conference-after-party-alcohol-coordination-sxsw-acl-and-austin-event-integration"
+        defaultTitle="Conference After Party Alcohol Coordination: SXSW, ACL & Austin Event Integration | Premier Party Cruises"
+        defaultDescription="Master conference after party alcohol coordination for SXSW, ACL, and Austin events. Expert Austin event integration for corporate gatherings on Lake Travis. BYOB boats for 14-75 guests."
+        defaultKeywords={['conference after party alcohol', 'SXSW after party', 'ACL after party', 'Austin event integration', 'conference after party coordination', 'Austin conference parties', 'SXSW boat party', 'Lake Travis conference events']}
+        image="https://premierpartycruises.com/attached_assets/@capitalcityshots-14_1760080740020.jpg"
+      />
 
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="conference-after-party-alcohol-page">
         <PublicNavigation />
 
         {/* Hero Section */}
-        <motion.section 
+        <m.section 
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
@@ -253,14 +239,26 @@ export default function ConferenceAfterPartyAlcohol() {
               </Button>
             </div>
           </div>
-        </motion.section>
+        </m.section>
+
+      {/* Topic Cluster Pillar Link */}
+      <div className="bg-blue-50 dark:bg-blue-950/30 border-b border-blue-100 dark:border-blue-900/50">
+        <div className="max-w-4xl mx-auto px-6 py-3">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            See our complete guide to{' '}
+            <Link href="/corporate-events" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Austin corporate event boats</Link>{' '}
+            for team building, client entertainment, and company celebrations on Lake Travis.
+          </p>
+        </div>
+      </div>
+
 
         {/* Stats Section */}
         <section className="py-12 bg-slate-100 dark:bg-slate-900" data-testid="stats-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {whyPremier.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -271,7 +269,7 @@ export default function ConferenceAfterPartyAlcohol() {
                 >
                   <div className="text-3xl md:text-4xl font-bold text-purple-600 dark:text-purple-400">{item.stat}</div>
                   <div className="text-gray-600 dark:text-gray-400 font-medium">{item.label}</div>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -280,7 +278,7 @@ export default function ConferenceAfterPartyAlcohol() {
         {/* Austin Events Section */}
         <section className="py-16 md:py-24 bg-white dark:bg-gray-950" data-testid="events-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div 
+            <m.div 
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -293,11 +291,11 @@ export default function ConferenceAfterPartyAlcohol() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Premier Party Cruises provides expert conference after party alcohol coordination for Austin's biggest events, from SXSW to ACL and beyond.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {austinEvents.map((event, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -314,7 +312,7 @@ export default function ConferenceAfterPartyAlcohol() {
                       <p className="text-gray-600 dark:text-gray-400 text-sm">{event.description}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -324,7 +322,7 @@ export default function ConferenceAfterPartyAlcohol() {
         <section className="py-16 bg-gradient-to-br from-red-50 to-orange-50 dark:from-gray-800 dark:to-gray-900" data-testid="sxsw-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <motion.div
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -345,9 +343,9 @@ export default function ConferenceAfterPartyAlcohol() {
                     </div>
                   ))}
                 </div>
-              </motion.div>
+              </m.div>
               
-              <motion.div
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -361,7 +359,7 @@ export default function ConferenceAfterPartyAlcohol() {
                     className="w-full h-full object-cover"
                   />
                 </div>
-              </motion.div>
+              </m.div>
             </div>
           </div>
         </section>
@@ -370,7 +368,7 @@ export default function ConferenceAfterPartyAlcohol() {
         <section className="py-16 bg-gradient-to-br from-green-50 to-teal-50 dark:from-gray-800 dark:to-gray-900" data-testid="acl-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <motion.div
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -384,9 +382,9 @@ export default function ConferenceAfterPartyAlcohol() {
                     className="w-full h-full object-cover"
                   />
                 </div>
-              </motion.div>
+              </m.div>
               
-              <motion.div
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -408,7 +406,7 @@ export default function ConferenceAfterPartyAlcohol() {
                     </div>
                   ))}
                 </div>
-              </motion.div>
+              </m.div>
             </div>
           </div>
         </section>
@@ -416,7 +414,7 @@ export default function ConferenceAfterPartyAlcohol() {
         {/* Coordination Strategies */}
         <section className="py-16 bg-white dark:bg-gray-950" data-testid="strategies-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -427,11 +425,11 @@ export default function ConferenceAfterPartyAlcohol() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Our Austin event integration expertise ensures flawless conference after party experiences.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {coordinationStrategies.map((strategy, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -444,7 +442,7 @@ export default function ConferenceAfterPartyAlcohol() {
                       <p className="text-gray-600 dark:text-gray-400 text-sm">{strategy.description}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -453,7 +451,7 @@ export default function ConferenceAfterPartyAlcohol() {
         {/* Boat Options Section */}
         <section className="py-16 bg-slate-50 dark:bg-slate-900" data-testid="boats-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -464,11 +462,11 @@ export default function ConferenceAfterPartyAlcohol() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 All boats are single-deck pontoons with arch canopy, perfect for Austin event integration.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {boatOptions.map((boat, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -488,7 +486,7 @@ export default function ConferenceAfterPartyAlcohol() {
                       <p className="text-sm text-gray-600 dark:text-gray-400">{boat.description}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
 
@@ -516,7 +514,7 @@ export default function ConferenceAfterPartyAlcohol() {
         {/* FAQ Section */}
         <section className="py-16 bg-slate-50 dark:bg-slate-900" data-testid="faq-section">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -527,7 +525,7 @@ export default function ConferenceAfterPartyAlcohol() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 Common questions about SXSW, ACL, and Austin event integration.
               </p>
-            </motion.div>
+            </m.div>
 
             <Accordion type="single" collapsible className="space-y-4">
               {faqs.map((faq, index) => (
@@ -555,7 +553,7 @@ export default function ConferenceAfterPartyAlcohol() {
         {/* Internal Links Section */}
         <section className="py-16 bg-white dark:bg-gray-950" data-testid="internal-links-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -566,11 +564,11 @@ export default function ConferenceAfterPartyAlcohol() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 Discover our complete range of corporate and conference after party services.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {internalLinks.map((link, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -592,7 +590,7 @@ export default function ConferenceAfterPartyAlcohol() {
                       </CardContent>
                     </Card>
                   </Link>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -601,5 +599,6 @@ export default function ConferenceAfterPartyAlcohol() {
         <Footer />
       </div>
     </>
+    </LazyMotionProvider>
   );
 }

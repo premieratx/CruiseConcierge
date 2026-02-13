@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { m, LazyMotionProvider, fadeInUp, staggerContainer } from '@/components/LazyMotion';
 import { Link } from 'wouter';
-import * as HelmetAsync from 'react-helmet-async';
-const HelmetAsyncDefault = (HelmetAsync as any).default || HelmetAsync;
-const { Helmet } = HelmetAsyncDefault;
+import SEOHead from '@/components/SEOHead';
 import { 
   Ship, Users, Briefcase, Phone, Clock, CheckCircle2, 
   Gift, Award, Waves, MapPin, Calendar, Star,
@@ -22,15 +20,6 @@ import heroImage from '@assets/@capitalcityshots-10_1760080740019.jpg';
 import sectionImage1 from '@assets/@capitalcityshots-11_1760080740019.jpg';
 import sectionImage2 from '@assets/@capitalcityshots-12_1760080740019.jpg';
 import sectionImage3 from '@assets/@capitalcityshots-13_1760080740020.jpg';
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-};
-
-const staggerChildren = {
-  visible: { transition: { staggerChildren: 0.1 } }
-};
 
 const alcoholPlanningTips = [
   {
@@ -174,24 +163,21 @@ export default function ExecutiveRetreatAlcoholPlanning() {
   }, []);
 
   return (
+    <LazyMotionProvider>
     <>
-      <Helmet>
-        <title>Executive Retreat Alcohol Planning: Balancing Professionalism and Team Bonding | Premier Party Cruises</title>
-        <meta name="description" content="Master executive retreat alcohol planning that balances professionalism with authentic team bonding. Expert tips for corporate retreat alcohol coordination on Lake Travis. 14-75 guests welcome." />
-        <meta name="keywords" content="executive retreat alcohol planning, executive retreat team bonding, corporate retreat alcohol, executive retreat coordination, professional team bonding alcohol, Lake Travis executive retreat, Austin corporate retreat alcohol, executive retreat beverages" />
-        <link rel="canonical" href="https://premierpartycruises.com/blogs/executive-retreat-alcohol-planning-balancing-professionalism-and-team-bonding" />
-        <meta property="og:title" content="Executive Retreat Alcohol Planning: Balancing Professionalism and Team Bonding" />
-        <meta property="og:description" content="Master executive retreat alcohol planning that balances professionalism with authentic team bonding. Expert tips for corporate retreat coordination." />
-        <meta property="og:type" content="article" />
-        <meta property="og:url" content="https://premierpartycruises.com/blogs/executive-retreat-alcohol-planning-balancing-professionalism-and-team-bonding" />
-        <meta property="og:image" content="https://premierpartycruises.com/attached_assets/@capitalcityshots-10_1760080740019.jpg" />
-      </Helmet>
+      <SEOHead 
+        pageRoute="/blogs/executive-retreat-alcohol-planning-balancing-professionalism-and-team-bonding"
+        defaultTitle="Executive Retreat Alcohol Planning: Balancing Professionalism and Team Bonding | Premier Party Cruises"
+        defaultDescription="Master executive retreat alcohol planning that balances professionalism with authentic team bonding. Expert tips for corporate retreat alcohol coordination on Lake Travis. 14-75 guests welcome."
+        defaultKeywords={['executive retreat alcohol planning', 'executive retreat team bonding', 'corporate retreat alcohol', 'executive retreat coordination', 'professional team bonding alcohol', 'Lake Travis executive retreat', 'Austin corporate retreat alcohol', 'executive retreat beverages']}
+        image="https://premierpartycruises.com/attached_assets/@capitalcityshots-10_1760080740019.jpg"
+      />
 
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="executive-retreat-alcohol-planning-page">
         <PublicNavigation />
 
         {/* Hero Section */}
-        <motion.section 
+        <m.section 
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
@@ -241,14 +227,26 @@ export default function ExecutiveRetreatAlcoholPlanning() {
               </Button>
             </div>
           </div>
-        </motion.section>
+        </m.section>
+
+      {/* Topic Cluster Pillar Link */}
+      <div className="bg-blue-50 dark:bg-blue-950/30 border-b border-blue-100 dark:border-blue-900/50">
+        <div className="max-w-4xl mx-auto px-6 py-3">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            See our complete guide to{' '}
+            <Link href="/corporate-events" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Austin corporate event boats</Link>{' '}
+            for team building, client entertainment, and company celebrations on Lake Travis.
+          </p>
+        </div>
+      </div>
+
 
         {/* Stats Section */}
         <section className="py-12 bg-slate-100 dark:bg-slate-900" data-testid="stats-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {whyPremier.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -259,7 +257,7 @@ export default function ExecutiveRetreatAlcoholPlanning() {
                 >
                   <div className="text-3xl md:text-4xl font-bold text-amber-600 dark:text-amber-400">{item.stat}</div>
                   <div className="text-gray-600 dark:text-gray-400 font-medium">{item.label}</div>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -268,7 +266,7 @@ export default function ExecutiveRetreatAlcoholPlanning() {
         {/* Key Planning Tips Section */}
         <section className="py-16 md:py-24 bg-white dark:bg-gray-950" data-testid="planning-tips-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div 
+            <m.div 
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -281,11 +279,11 @@ export default function ExecutiveRetreatAlcoholPlanning() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Master the art of executive retreat alcohol coordination that strengthens team bonds while preserving professional standards and company culture.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {alcoholPlanningTips.map((tip, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -301,7 +299,7 @@ export default function ExecutiveRetreatAlcoholPlanning() {
                       <p className="text-gray-600 dark:text-gray-400 text-sm">{tip.description}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -311,7 +309,7 @@ export default function ExecutiveRetreatAlcoholPlanning() {
         <section className="py-16 bg-gradient-to-br from-gray-50 to-amber-50 dark:from-gray-800 dark:to-gray-900" data-testid="professionalism-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <motion.div
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -335,9 +333,9 @@ export default function ExecutiveRetreatAlcoholPlanning() {
                     </div>
                   ))}
                 </div>
-              </motion.div>
+              </m.div>
               
-              <motion.div
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -351,7 +349,7 @@ export default function ExecutiveRetreatAlcoholPlanning() {
                     className="w-full h-full object-cover"
                   />
                 </div>
-              </motion.div>
+              </m.div>
             </div>
           </div>
         </section>
@@ -359,7 +357,7 @@ export default function ExecutiveRetreatAlcoholPlanning() {
         {/* Timeline Section */}
         <section className="py-16 bg-white dark:bg-gray-950" data-testid="timeline-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -370,11 +368,11 @@ export default function ExecutiveRetreatAlcoholPlanning() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Strategic timing is essential for executive retreat alcohol planning that supports team bonding goals.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="max-w-3xl mx-auto">
               {planningTimeline.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -395,7 +393,7 @@ export default function ExecutiveRetreatAlcoholPlanning() {
                   <div className="flex-1 pb-6">
                     <p className="text-gray-700 dark:text-gray-300">{item.task}</p>
                   </div>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -404,7 +402,7 @@ export default function ExecutiveRetreatAlcoholPlanning() {
         {/* Boat Options Section */}
         <section className="py-16 bg-slate-50 dark:bg-slate-900" data-testid="boats-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -415,11 +413,11 @@ export default function ExecutiveRetreatAlcoholPlanning() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Select the perfect boat for your executive retreat alcohol planning needs. All vessels are single-deck pontoons with arch canopy.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {boatOptions.map((boat, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -439,7 +437,7 @@ export default function ExecutiveRetreatAlcoholPlanning() {
                       <p className="text-sm text-gray-600 dark:text-gray-400">{boat.description}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
 
@@ -455,7 +453,7 @@ export default function ExecutiveRetreatAlcoholPlanning() {
         <section className="py-16 bg-white dark:bg-gray-950">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid md:grid-cols-2 gap-8">
-              <motion.div
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -466,8 +464,8 @@ export default function ExecutiveRetreatAlcoholPlanning() {
                   alt="Executive retreat alcohol planning success with team bonding on Lake Travis sunset cruise"
                   className="w-full h-64 object-cover rounded-xl shadow-lg"
                 />
-              </motion.div>
-              <motion.div
+              </m.div>
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -478,7 +476,7 @@ export default function ExecutiveRetreatAlcoholPlanning() {
                   alt="Professional corporate retreat team enjoying executive retreat alcohol coordination on party boat"
                   className="w-full h-64 object-cover rounded-xl shadow-lg"
                 />
-              </motion.div>
+              </m.div>
             </div>
           </div>
         </section>
@@ -486,7 +484,7 @@ export default function ExecutiveRetreatAlcoholPlanning() {
         {/* FAQ Section */}
         <section className="py-16 bg-slate-50 dark:bg-slate-900" data-testid="faq-section">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -497,7 +495,7 @@ export default function ExecutiveRetreatAlcoholPlanning() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 Common questions about balancing executive retreat team bonding with professionalism.
               </p>
-            </motion.div>
+            </m.div>
 
             <Accordion type="single" collapsible className="space-y-4">
               {faqs.map((faq, index) => (
@@ -525,7 +523,7 @@ export default function ExecutiveRetreatAlcoholPlanning() {
         {/* Internal Links Section */}
         <section className="py-16 bg-white dark:bg-gray-950" data-testid="internal-links-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -536,11 +534,11 @@ export default function ExecutiveRetreatAlcoholPlanning() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 Discover our complete range of corporate and executive retreat services.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {internalLinks.map((link, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -562,7 +560,7 @@ export default function ExecutiveRetreatAlcoholPlanning() {
                       </CardContent>
                     </Card>
                   </Link>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -571,5 +569,6 @@ export default function ExecutiveRetreatAlcoholPlanning() {
         <Footer />
       </div>
     </>
+    </LazyMotionProvider>
   );
 }

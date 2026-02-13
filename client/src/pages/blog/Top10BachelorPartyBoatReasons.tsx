@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { m, LazyMotionProvider, fadeInUp, staggerContainer } from '@/components/LazyMotion';
 import { Link } from 'wouter';
-import * as HelmetAsync from 'react-helmet-async';
-const HelmetAsyncDefault = (HelmetAsync as any).default || HelmetAsync;
-const { Helmet } = HelmetAsyncDefault;
+import SEOHead from '@/components/SEOHead';
 import { 
   Ship, Users, Anchor, Music, Camera, Waves, Sun, Shield,
   DollarSign, PartyPopper, MapPin, Heart, Star, ArrowRight,
@@ -19,15 +17,6 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 
 import heroImage from '@assets/bachelor-party-group-guys-hero-compressed.webp';
 import sectionImage from '@assets/atx-disco-cruise-party.webp';
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-};
-
-const staggerChildren = {
-  visible: { transition: { staggerChildren: 0.1 } }
-};
 
 const partyBoatStats = [
   { stat: '15+', label: 'Years Experience' },
@@ -144,21 +133,15 @@ export default function Top10BachelorPartyBoatReasons() {
   const canonicalUrl = "https://premierpartycruises.com/blogs/top-10-reasons-austin-bachelor-party-lake-travis-boat";
 
   return (
+    <LazyMotionProvider>
     <>
-      <Helmet>
-        <title>Top 10 Reasons for a Lake Travis Bachelor Party Boat</title>
-        <meta name="description" content="Discover the top 10 reasons to host your Austin bachelor party on Lake Travis. BYOB savings, epic photos, swimming, and unforgettable memories await." />
-        <link rel="canonical" href={canonicalUrl} />
-        <meta property="og:title" content="Top 10 Reasons for a Lake Travis Bachelor Party Boat" />
-        <meta property="og:description" content="Discover the top 10 reasons to host your Austin bachelor party on Lake Travis. BYOB savings, epic photos, swimming, and unforgettable memories await." />
-        <meta property="og:url" content={canonicalUrl} />
-        <meta property="og:type" content="article" />
-        <meta property="og:image" content="https://premierpartycruises.com/attached_assets/bachelor-party-group-guys-hero-compressed.webp" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Top 10 Reasons for a Lake Travis Bachelor Party Boat" />
-        <meta name="twitter:description" content="Discover the top 10 reasons to host your Austin bachelor party on Lake Travis. BYOB savings, epic photos, swimming, and unforgettable memories await." />
-        <meta name="keywords" content="austin bachelor party, lake travis party boat, bachelor party austin, lake travis bachelor party, austin party boat, bachelor party ideas austin, top 10 bachelor party reasons" />
-      </Helmet>
+      <SEOHead 
+        pageRoute=""
+        defaultTitle="Top 10 Reasons for a Lake Travis Bachelor Party Boat"
+        defaultDescription="Discover the top 10 reasons to host your Austin bachelor party on Lake Travis. BYOB savings, epic photos, swimming, and unforgettable memories await."
+        defaultKeywords={['austin bachelor party', 'lake travis party boat', 'bachelor party austin', 'lake travis bachelor party', 'austin party boat', 'bachelor party ideas austin', 'top 10 bachelor party reasons']}
+        image="https://premierpartycruises.com/attached_assets/bachelor-party-group-guys-hero-compressed.webp"
+      />
 
       <PublicNavigation />
 
@@ -174,34 +157,34 @@ export default function Top10BachelorPartyBoatReasons() {
           </div>
           
           <div className="relative z-10 container mx-auto px-4 py-16">
-            <motion.div
+            <m.div
               initial="hidden"
               animate="visible"
-              variants={staggerChildren}
+              variants={staggerContainer}
               className="max-w-3xl"
             >
-              <motion.div variants={fadeInUp} className="mb-4">
+              <m.div variants={fadeInUp} className="mb-4">
                 <Badge className="bg-orange-500 text-white px-4 py-1">
                   Bachelor Party Guide
                 </Badge>
-              </motion.div>
+              </m.div>
               
-              <motion.h1 
+              <m.h1 
                 variants={fadeInUp}
                 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight"
               >
                 Top 10 Reasons to Host Your Austin Bachelor Party on a Lake Travis Party Boat
-              </motion.h1>
+              </m.h1>
               
-              <motion.p 
+              <m.p 
                 variants={fadeInUp}
                 className="text-xl text-blue-100 mb-8 leading-relaxed"
               >
                 Planning the ultimate bachelor weekend? Discover why a Lake Travis party boat 
                 is the smartest, most unforgettable way to celebrate in Austin.
-              </motion.p>
+              </m.p>
 
-              <motion.div variants={fadeInUp} className="flex flex-wrap gap-4">
+              <m.div variants={fadeInUp} className="flex flex-wrap gap-4">
                 <Link href="/bachelor-party-austin">
                   <Button size="lg" className="bg-orange-500 hover:bg-orange-600 text-white" data-testid="button-bachelor-party-hub">
                     <Users className="mr-2 h-5 w-5" />
@@ -214,16 +197,27 @@ export default function Top10BachelorPartyBoatReasons() {
                     ATX Disco Cruise
                   </Button>
                 </Link>
-              </motion.div>
-            </motion.div>
+              </m.div>
+            </m.div>
           </div>
         </section>
+
+        {/* Topic Cluster Pillar Link */}
+        <div className="bg-blue-50 dark:bg-blue-950/30 border-b border-blue-100 dark:border-blue-900/50">
+          <div className="max-w-4xl mx-auto px-6 py-3">
+            <p className="text-sm text-gray-600 dark:text-gray-400">
+              This guide is part of our complete{' '}
+              <Link href="/bachelor-party-austin" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Austin bachelor party boats</Link>{' '}
+              resource — your one-stop planning hub for Lake Travis bachelor celebrations.
+            </p>
+          </div>
+        </div>
 
         <section className="py-12 bg-gradient-to-b from-blue-900 to-blue-800">
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {partyBoatStats.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -233,7 +227,7 @@ export default function Top10BachelorPartyBoatReasons() {
                 >
                   <div className="text-3xl md:text-4xl font-bold text-orange-400 mb-1">{item.stat}</div>
                   <div className="text-blue-200 text-sm">{item.label}</div>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -241,14 +235,14 @@ export default function Top10BachelorPartyBoatReasons() {
 
         <section className="py-16 bg-white">
           <div className="container mx-auto px-4">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={staggerChildren}
+              variants={staggerContainer}
               className="max-w-4xl mx-auto text-center mb-12"
             >
-              <motion.div variants={fadeInUp}>
+              <m.div variants={fadeInUp}>
                 <Badge className="bg-blue-100 text-blue-800 mb-4">The Ultimate Bachelor Party</Badge>
                 <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
                   Why a Lake Travis Party Boat Beats Every Other Option
@@ -257,12 +251,12 @@ export default function Top10BachelorPartyBoatReasons() {
                   An Austin bachelor party isn't just another weekend—it's a celebration that deserves 
                   something special. Here's why groups consistently choose Lake Travis party boats.
                 </p>
-              </motion.div>
-            </motion.div>
+              </m.div>
+            </m.div>
 
             <div className="max-w-5xl mx-auto">
               {top10Reasons.map((reason, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -297,7 +291,7 @@ export default function Top10BachelorPartyBoatReasons() {
                       </div>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -307,7 +301,7 @@ export default function Top10BachelorPartyBoatReasons() {
           <div className="container mx-auto px-4">
             <div className="max-w-5xl mx-auto">
               <div className="grid lg:grid-cols-2 gap-8 items-center">
-                <motion.div
+                <m.div
                   initial={{ opacity: 0, x: -30 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
@@ -348,8 +342,8 @@ export default function Top10BachelorPartyBoatReasons() {
                       </Button>
                     </Link>
                   </div>
-                </motion.div>
-                <motion.div
+                </m.div>
+                <m.div
                   initial={{ opacity: 0, x: 30 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
@@ -359,7 +353,7 @@ export default function Top10BachelorPartyBoatReasons() {
                     alt="ATX Disco Cruise party atmosphere on Lake Travis"
                     className="rounded-xl shadow-xl w-full"
                   />
-                </motion.div>
+                </m.div>
               </div>
             </div>
           </div>
@@ -367,14 +361,14 @@ export default function Top10BachelorPartyBoatReasons() {
 
         <section className="py-16 bg-blue-900">
           <div className="container mx-auto px-4">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={staggerChildren}
+              variants={staggerContainer}
               className="max-w-4xl mx-auto text-center"
             >
-              <motion.div variants={fadeInUp}>
+              <m.div variants={fadeInUp}>
                 <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
                   Pro Tip: BYOB Made Easy
                 </h2>
@@ -390,21 +384,21 @@ export default function Top10BachelorPartyBoatReasons() {
                   They'll deliver beer, seltzers, and mixers directly to your Airbnb or the marina. 
                   Your cooler will be stocked and waiting when you arrive.
                 </p>
-              </motion.div>
-            </motion.div>
+              </m.div>
+            </m.div>
           </div>
         </section>
 
         <section className="py-16 bg-white">
           <div className="container mx-auto px-4">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={staggerChildren}
+              variants={staggerContainer}
               className="max-w-3xl mx-auto"
             >
-              <motion.div variants={fadeInUp} className="text-center mb-12">
+              <m.div variants={fadeInUp} className="text-center mb-12">
                 <Badge className="bg-blue-100 text-blue-800 mb-4">Common Questions</Badge>
                 <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
                   Bachelor Party Boat FAQs
@@ -412,9 +406,9 @@ export default function Top10BachelorPartyBoatReasons() {
                 <p className="text-lg text-gray-600">
                   Everything you need to know about planning your Austin bachelor party on Lake Travis.
                 </p>
-              </motion.div>
+              </m.div>
 
-              <motion.div variants={fadeInUp}>
+              <m.div variants={fadeInUp}>
                 <Accordion type="single" collapsible className="space-y-4">
                   {faqs.map((faq, index) => (
                     <AccordionItem 
@@ -431,8 +425,8 @@ export default function Top10BachelorPartyBoatReasons() {
                     </AccordionItem>
                   ))}
                 </Accordion>
-              </motion.div>
-            </motion.div>
+              </m.div>
+            </m.div>
           </div>
         </section>
 
@@ -440,14 +434,14 @@ export default function Top10BachelorPartyBoatReasons() {
 
         <section className="py-16 bg-gray-50">
           <div className="container mx-auto px-4">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={staggerChildren}
+              variants={staggerContainer}
               className="max-w-4xl mx-auto text-center"
             >
-              <motion.div variants={fadeInUp}>
+              <m.div variants={fadeInUp}>
                 <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
                   Ready to Plan the Ultimate Bachelor Party?
                 </h2>
@@ -475,13 +469,14 @@ export default function Top10BachelorPartyBoatReasons() {
                     </Button>
                   </Link>
                 </div>
-              </motion.div>
-            </motion.div>
+              </m.div>
+            </m.div>
           </div>
         </section>
       </main>
 
       <Footer />
     </>
+    </LazyMotionProvider>
   );
 }

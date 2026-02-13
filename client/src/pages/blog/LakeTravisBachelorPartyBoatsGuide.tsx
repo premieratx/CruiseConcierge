@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { m, LazyMotionProvider, fadeInUp, staggerContainer } from '@/components/LazyMotion';
 import { Link } from 'wouter';
-import * as HelmetAsync from 'react-helmet-async';
-const HelmetAsyncDefault = (HelmetAsync as any).default || HelmetAsync;
-const { Helmet } = HelmetAsyncDefault;
+import SEOHead from '@/components/SEOHead';
 import { 
   Ship, Users, PartyPopper, Phone, Clock, CheckCircle2, 
   Anchor, Music, Sun, Waves, MapPin, Calendar, Beer, Star,
@@ -21,15 +19,6 @@ import { BlogImageBreak, BlogPhotoStrip, BLOG_BOAT_PHOTOS, BLOG_PARTY_PHOTOS } f
 import bachelorHero from '@assets/bachelor-party-group-guys.webp';
 import discoParty from '@assets/atx-disco-cruise-party.webp';
 import cleverGirl from '@assets/clever-girl-50-person-boat.webp';
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-};
-
-const staggerChildren = {
-  visible: { transition: { staggerChildren: 0.1 } }
-};
 
 const whyLakeTravis = [
   { icon: Waves, title: 'Crystal Clear Waters', description: 'Stunning Hill Country reservoir perfect for swimming and partying' },
@@ -88,24 +77,21 @@ export default function LakeTravisBachelorPartyBoatsGuide() {
   }, []);
 
   return (
+    <LazyMotionProvider>
     <>
-      <Helmet>
-        <title>Lake Travis Bachelor Party Boats: The Ultimate Austin Party Cruise Experience | Premier Party Cruises</title>
-        <meta name="description" content="Plan the ultimate Lake Travis bachelor party on Austin's best party boats. Experience the famous ATX Disco Cruise where bachelor and bachelorette groups party together. BYOB-friendly with Party On Delivery coordination. Book your Austin party boat today!" />
-        <meta name="keywords" content="Lake Travis bachelor party, Austin party boat, party boat Austin, Lake Travis party barge, Austin party barge, bachelor party in Austin, ATX Disco Cruise, Lake Travis boat rental, Austin bachelor party boats" />
-        <link rel="canonical" href="https://premierpartycruises.com/blogs/lake-travis-bachelor-party-boats-guide" />
-        <meta property="og:title" content="Lake Travis Bachelor Party Boats: The Ultimate Austin Party Cruise Experience" />
-        <meta property="og:description" content="Experience the ultimate bachelor party on Lake Travis. The famous ATX Disco Cruise brings bachelor and bachelorette groups together for an unforgettable Austin party boat experience." />
-        <meta property="og:type" content="article" />
-        <meta property="og:url" content="https://premierpartycruises.com/blogs/lake-travis-bachelor-party-boats-guide" />
-        <meta property="og:image" content="https://premierpartycruises.com/attached_assets/bachelor-party-group-guys.webp" />
-      </Helmet>
+      <SEOHead 
+        pageRoute="/blogs/lake-travis-bachelor-party-boats-guide"
+        defaultTitle="Lake Travis Bachelor Party Boats: The Ultimate Austin Party Cruise Experience | Premier Party Cruises"
+        defaultDescription="Plan the ultimate Lake Travis bachelor party on Austin's best party boats. Experience the famous ATX Disco Cruise where bachelor and bachelorette groups party together. BYOB-friendly with Party On Delivery coordination. Book your Austin party boat today!"
+        defaultKeywords={['Lake Travis bachelor party', 'Austin party boat', 'party boat Austin', 'Lake Travis party barge', 'Austin party barge', 'bachelor party in Austin', 'ATX Disco Cruise', 'Lake Travis boat rental', 'Austin bachelor party boats']}
+        image="https://premierpartycruises.com/attached_assets/bachelor-party-group-guys.webp"
+      />
 
       <div className="min-h-screen bg-white dark:bg-gray-950">
         <PublicNavigation />
 
         {/* Hero Section */}
-        <motion.section 
+        <m.section 
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
@@ -143,12 +129,24 @@ export default function LakeTravisBachelorPartyBoatsGuide() {
               </Link>
             </div>
           </div>
-        </motion.section>
+        </m.section>
+
+      {/* Topic Cluster Pillar Link */}
+      <div className="bg-blue-50 dark:bg-blue-950/30 border-b border-blue-100 dark:border-blue-900/50">
+        <div className="max-w-4xl mx-auto px-6 py-3">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            This guide is part of our complete{' '}
+            <Link href="/bachelor-party-austin" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Austin bachelor party boats</Link>{' '}
+            resource — your one-stop planning hub for Lake Travis bachelor celebrations.
+          </p>
+        </div>
+      </div>
+
 
         {/* Introduction */}
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+            <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
               <h2 className="heading-unbounded text-2xl sm:text-3xl font-bold mb-6 text-gray-900 dark:text-white">Why Lake Travis is THE Place for Your Austin Bachelor Party</h2>
               <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
                 When it comes to planning your <strong>austin bachelor party</strong>, a <strong>lake travis bachelor party boat</strong> is the crown jewel of Austin's outdoor party scene. This stunning Hill Country reservoir offers crystal-clear waters, breathtaking scenery, and endless coves perfect for a floating celebration. Whether you're looking for an <Link href="/party-boat-austin" className="text-blue-600 hover:underline font-semibold">Austin party boat</Link> rental or the famous <Link href="/atx-disco-cruise" className="text-blue-600 hover:underline font-semibold">ATX Disco Cruise</Link>, Lake Travis delivers an unforgettable experience.
@@ -165,23 +163,23 @@ export default function LakeTravisBachelorPartyBoatsGuide() {
                 alt="Lake travis bachelor party boat cruise with guys celebrating on Austin party boat"
                 caption="Your legendary Lake Travis bachelor party adventure starts here"
               />
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Why Lake Travis Section */}
         <section className="py-16 bg-gradient-to-br from-blue-50 to-cyan-50 dark:from-gray-800 dark:to-gray-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="text-center mb-12">
+            <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="text-center mb-12">
               <h2 className="text-3xl font-bold mb-4 text-gray-900 dark:text-white">Why Lake Travis is the Ultimate Bachelor Party Destination</h2>
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Just 30 minutes from downtown Austin, Lake Travis combines stunning natural beauty with world-class party boat experiences
               </p>
-            </motion.div>
+            </m.div>
 
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerChildren} className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer} className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {whyLakeTravis.map((item, index) => (
-                <motion.div key={index} variants={fadeInUp}>
+                <m.div key={index} variants={fadeInUp}>
                   <Card className="h-full hover:shadow-lg transition-shadow">
                     <CardContent className="pt-6">
                       <div className="flex items-start gap-4">
@@ -195,9 +193,9 @@ export default function LakeTravisBachelorPartyBoatsGuide() {
                       </div>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
-            </motion.div>
+            </m.div>
 
             <div className="text-center mt-10">
               <Link href="/party-boat-lake-travis">
@@ -213,7 +211,7 @@ export default function LakeTravisBachelorPartyBoatsGuide() {
         {/* ATX Disco Cruise Section */}
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+            <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
               <div className="flex items-center gap-3 mb-4">
                 <Crown className="h-8 w-8 text-yellow-500" />
                 <h2 className="text-3xl font-bold text-gray-900 dark:text-white">The ATX Disco Cruise: Bachelor Party Paradise</h2>
@@ -281,14 +279,14 @@ export default function LakeTravisBachelorPartyBoatsGuide() {
                   </Button>
                 </Link>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* BYOB + Party On Delivery Section */}
         <section className="py-16 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-gray-800 dark:to-gray-900">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+            <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
               <div className="flex items-center gap-3 mb-4">
                 <Beer className="h-8 w-8 text-green-600" />
                 <h2 className="text-3xl font-bold text-gray-900 dark:text-white">BYOB + Party On Delivery = Zero Stress</h2>
@@ -349,14 +347,14 @@ export default function LakeTravisBachelorPartyBoatsGuide() {
                   </Button>
                 </a>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Private Charter vs Disco Cruise */}
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="max-w-5xl mx-auto px-4 sm:px-6">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+            <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
               <h2 className="text-3xl font-bold mb-4 text-center text-gray-900 dark:text-white">Private Charter vs. ATX Disco Cruise: Which is Right for You?</h2>
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto text-center mb-10">
                 Both options deliver an incredible <strong>Lake Travis party barge</strong> experience – here's how to choose
@@ -436,14 +434,14 @@ export default function LakeTravisBachelorPartyBoatsGuide() {
               <p className="text-center text-gray-600 dark:text-gray-400 mt-6">
                 Not sure which option is best? <Link href="/contact" className="text-blue-600 hover:underline font-semibold">Contact our team</Link> or check our <Link href="/faq" className="text-blue-600 hover:underline font-semibold">FAQ page</Link> for more details.
               </p>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Tips Section */}
         <section className="py-16 bg-gradient-to-br from-blue-50 to-purple-50 dark:from-gray-800 dark:to-gray-900">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+            <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
               <h2 className="text-3xl font-bold mb-4 text-center text-gray-900 dark:text-white">Tips for a Legendary Lake Travis Bachelor Party Boat Experience</h2>
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto text-center mb-10">
                 Follow these insider tips to make your <strong>austin bachelor party</strong> on a <strong>lake travis bachelor party boat</strong> absolutely unforgettable
@@ -496,14 +494,14 @@ export default function LakeTravisBachelorPartyBoatsGuide() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Related Links Section */}
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+            <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
               <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">More Austin Bachelor Party Resources</h2>
               
               <div className="grid md:grid-cols-2 gap-4">
@@ -540,14 +538,14 @@ export default function LakeTravisBachelorPartyBoatsGuide() {
                   </Card>
                 </Link>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Final CTA Section */}
         <section className="py-20 bg-gradient-to-br from-blue-900 via-blue-800 to-purple-900 text-white">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+            <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
               <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to Book Your Lake Travis Bachelor Party?</h2>
               <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
                 Whether you choose the legendary <strong>ATX Disco Cruise</strong> or a private <strong>Austin party barge</strong> charter, your crew is in for an unforgettable celebration. Let's make it happen!
@@ -586,12 +584,13 @@ export default function LakeTravisBachelorPartyBoatsGuide() {
               <p className="mt-8 text-white/70">
                 Don't forget to use <a href="https://www.partyondelivery.com" target="_blank" rel="noopener noreferrer" className="text-green-400 hover:underline font-semibold">Party On Delivery</a> for hassle-free drink delivery to the marina and your rental house!
               </p>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         <Footer />
       </div>
     </>
+    </LazyMotionProvider>
   );
 }

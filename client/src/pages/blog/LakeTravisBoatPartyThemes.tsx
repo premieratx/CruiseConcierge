@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { m, LazyMotionProvider, fadeInUp, staggerContainer } from '@/components/LazyMotion';
 import { Link } from 'wouter';
-import * as HelmetAsync from 'react-helmet-async';
-const HelmetAsyncDefault = (HelmetAsync as any).default || HelmetAsync;
-const { Helmet } = HelmetAsyncDefault;
+import SEOHead from '@/components/SEOHead';
 import { 
   Sparkles, Users, Palette, Phone, Clock, CheckCircle2, 
   Music, Award, Waves, MapPin, Calendar, Star,
@@ -21,15 +19,6 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import heroImage from '@assets/@capitalcityshots-27_1760080807866.jpg';
 import sectionImage1 from '@assets/@capitalcityshots-28_1760080807867.jpg';
 import sectionImage2 from '@assets/@capitalcityshots-29_1760080807867.jpg';
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-};
-
-const staggerChildren = {
-  visible: { transition: { staggerChildren: 0.1 } }
-};
 
 const partyStats = [
   { stat: '14+', label: 'Years Experience' },
@@ -177,23 +166,21 @@ export default function LakeTravisBoatPartyThemes() {
   }, []);
 
   return (
+    <LazyMotionProvider>
     <>
-      <Helmet>
-        <title>Creative Lake Travis Boat Party Themes - Unique Ideas for Memorable Celebrations | Premier Party Cruises</title>
-        <meta name="description" content="Discover creative Lake Travis boat party theme ideas for unforgettable celebrations. Unique party boat themes Austin including disco, tropical, VIP luxury, and more. Boat party celebration ideas for bachelor, bachelorette, corporate, and special events." />
-        <meta name="keywords" content="Lake Travis boat party theme, unique party boat themes Austin, creative Lake Travis party, boat party celebration ideas, Lake Travis party themes, themed boat party Austin, party boat decorations Lake Travis" />
-        <link rel="canonical" href="https://premierpartycruises.com/blogs/creative-lake-travis-boat-party-themes-unique-ideas-for-memorable-celebrations" />
-        <meta property="og:title" content="Creative Lake Travis Boat Party Themes - Unique Ideas for Memorable Celebrations" />
-        <meta property="og:description" content="Discover creative party themes for your Lake Travis boat celebration. From disco to tropical to VIP luxury - unique ideas for unforgettable events." />
-        <meta property="og:type" content="article" />
-        <meta property="og:image" content={heroImage} />
-      </Helmet>
+      <SEOHead 
+        pageRoute="/blogs/creative-lake-travis-boat-party-themes-unique-ideas-for-memorable-celebrations"
+        defaultTitle="Creative Lake Travis Boat Party Themes - Unique Ideas for Memorable Celebrations | Premier Party Cruises"
+        defaultDescription="Discover creative Lake Travis boat party theme ideas for unforgettable celebrations. Unique party boat themes Austin including disco, tropical, VIP luxury, and more. Boat party celebration ideas for bachelor, bachelorette, corporate, and special events."
+        defaultKeywords={['Lake Travis boat party theme', 'unique party boat themes Austin', 'creative Lake Travis party', 'boat party celebration ideas', 'Lake Travis party themes', 'themed boat party Austin', 'party boat decorations Lake Travis']}
+        image={heroImage}
+      />
 
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="lake-travis-boat-party-themes-page">
         <PublicNavigation />
 
         {/* Hero Section */}
-        <motion.section 
+        <m.section 
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
@@ -243,14 +230,26 @@ export default function LakeTravisBoatPartyThemes() {
               </Button>
             </div>
           </div>
-        </motion.section>
+        </m.section>
+
+      {/* Topic Cluster Pillar Link */}
+      <div className="bg-blue-50 dark:bg-blue-950/30 border-b border-blue-100 dark:border-blue-900/50">
+        <div className="max-w-4xl mx-auto px-6 py-3">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            Explore our full guide to{' '}
+            <Link href="/party-boat-lake-travis" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Lake Travis party boat rentals</Link>{' '}
+            for everything from pricing and logistics to safety and entertainment.
+          </p>
+        </div>
+      </div>
+
 
         {/* Stats */}
         <section className="py-12 bg-slate-100 dark:bg-slate-900" data-testid="stats-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {partyStats.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -261,7 +260,7 @@ export default function LakeTravisBoatPartyThemes() {
                 >
                   <div className="text-3xl md:text-4xl font-bold text-purple-600 dark:text-purple-400">{item.stat}</div>
                   <div className="text-gray-600 dark:text-gray-400">{item.label}</div>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -270,11 +269,11 @@ export default function LakeTravisBoatPartyThemes() {
         {/* Popular Themes */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="themes-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={staggerChildren}
+              variants={staggerContainer}
               className="text-center mb-12"
             >
               <Badge className="mb-4 bg-purple-100 text-purple-700">POPULAR THEMES</Badge>
@@ -284,11 +283,11 @@ export default function LakeTravisBoatPartyThemes() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Our most requested unique party boat themes Austin guests love
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {popularThemes.map((theme, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -316,7 +315,7 @@ export default function LakeTravisBoatPartyThemes() {
                       <Badge variant="outline" className="text-purple-600 border-purple-600">Best for: {theme.best}</Badge>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -337,7 +336,7 @@ export default function LakeTravisBoatPartyThemes() {
         {/* Seasonal Themes */}
         <section className="py-16 bg-gradient-to-br from-gray-50 to-purple-50 dark:from-gray-800 dark:to-gray-900" data-testid="seasonal-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -351,11 +350,11 @@ export default function LakeTravisBoatPartyThemes() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Match your creative Lake Travis party theme to the season
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {seasonalThemes.map((season, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -378,7 +377,7 @@ export default function LakeTravisBoatPartyThemes() {
                       <p className="text-xs text-gray-500">{season.description}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -387,7 +386,7 @@ export default function LakeTravisBoatPartyThemes() {
         {/* Decoration Tips */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="decor-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -401,11 +400,11 @@ export default function LakeTravisBoatPartyThemes() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Make your unique party boat themes Austin vision come to life
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {decorTips.map((tip, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -421,7 +420,7 @@ export default function LakeTravisBoatPartyThemes() {
                       <p className="text-gray-600 dark:text-gray-400 text-sm">{tip.description}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -430,7 +429,7 @@ export default function LakeTravisBoatPartyThemes() {
         {/* Bachelor/Bachelorette Themes */}
         <section className="py-16 bg-slate-100 dark:bg-slate-800" data-testid="bach-themes-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -444,10 +443,10 @@ export default function LakeTravisBoatPartyThemes() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Creative Lake Travis party themes for pre-wedding celebrations
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 gap-8">
-              <motion.div
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -471,9 +470,9 @@ export default function LakeTravisBoatPartyThemes() {
                     </div>
                   </CardContent>
                 </Card>
-              </motion.div>
+              </m.div>
 
-              <motion.div
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -497,7 +496,7 @@ export default function LakeTravisBoatPartyThemes() {
                     </div>
                   </CardContent>
                 </Card>
-              </motion.div>
+              </m.div>
             </div>
           </div>
         </section>
@@ -520,7 +519,7 @@ export default function LakeTravisBoatPartyThemes() {
         {/* FAQ Section */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="faq-section">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -534,7 +533,7 @@ export default function LakeTravisBoatPartyThemes() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 Common questions about Lake Travis boat party theme ideas
               </p>
-            </motion.div>
+            </m.div>
 
             <Accordion type="single" collapsible className="space-y-4">
               {faqs.map((faq, index) => (
@@ -554,7 +553,7 @@ export default function LakeTravisBoatPartyThemes() {
         {/* Internal Links */}
         <section className="py-16 bg-slate-100 dark:bg-slate-800" data-testid="links-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -565,7 +564,7 @@ export default function LakeTravisBoatPartyThemes() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 Find the perfect boat for your unique party boat themes Austin
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
               {internalLinks.map((link, index) => (
@@ -585,7 +584,7 @@ export default function LakeTravisBoatPartyThemes() {
         {/* Final CTA */}
         <section className="py-20 bg-gradient-to-br from-purple-600 to-pink-600 text-white" data-testid="cta-section">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -620,12 +619,13 @@ export default function LakeTravisBoatPartyThemes() {
                   </a>
                 </Button>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         <Footer />
       </div>
     </>
+    </LazyMotionProvider>
   );
 }

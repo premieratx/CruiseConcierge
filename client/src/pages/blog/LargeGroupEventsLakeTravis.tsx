@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { m, LazyMotionProvider, fadeInUp, staggerContainer } from '@/components/LazyMotion';
 import { Link } from 'wouter';
-import * as HelmetAsync from 'react-helmet-async';
-const HelmetAsyncDefault = (HelmetAsync as any).default || HelmetAsync;
-const { Helmet } = HelmetAsyncDefault;
+import SEOHead from '@/components/SEOHead';
 import { 
   Ship, Users, Phone, Clock, CheckCircle2, 
   Award, Waves, MapPin, Calendar, Star,
@@ -22,15 +20,6 @@ import sectionImage1 from '@assets/@capitalcityshots-21_1760080807864.jpg';
 import sectionImage2 from '@assets/@capitalcityshots-22_1760080807865.jpg';
 import sectionImage3 from '@assets/@capitalcityshots-23_1760080807865.jpg';
 import sectionImage4 from '@assets/@capitalcityshots-24_1760080807866.jpg';
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-};
-
-const staggerChildren = {
-  visible: { transition: { staggerChildren: 0.1 } }
-};
 
 const largeGroupBenefits = [
   { 
@@ -161,22 +150,20 @@ export default function LargeGroupEventsLakeTravis() {
   }, []);
 
   return (
+    <LazyMotionProvider>
     <>
-      <Helmet>
-        <title>Large & Mega Group Events Lake Travis | 100+ Person Boat Parties Austin</title>
-        <meta name="description" content="Host large group party Austin events for 100+ people on Lake Travis. Multi-boat coordination for mega event Lake Travis celebrations. Corporate large group event specialists. Book your 100 person boat party Austin today!" />
-        <meta name="keywords" content="large group party Austin, mega event Lake Travis, 100 person boat party Austin, corporate large group event Lake Travis, multi-boat party Austin, large event boat rental Lake Travis" />
-        <link rel="canonical" href="https://premierpartycruises.com/blogs/large-group-events-lake-travis" />
-        <meta property="og:title" content="Large & Mega Group Events Lake Travis | 100+ Person Boat Parties Austin" />
-        <meta property="og:description" content="Host large group party Austin events for 100+ people on Lake Travis. Multi-boat coordination for mega event Lake Travis celebrations." />
-        <meta property="og:type" content="article" />
-      </Helmet>
+      <SEOHead 
+        pageRoute="/blogs/large-group-events-lake-travis"
+        defaultTitle="Large & Mega Group Events Lake Travis | 100+ Person Boat Parties Austin"
+        defaultDescription="Host large group party Austin events for 100+ people on Lake Travis. Multi-boat coordination for mega event Lake Travis celebrations. Corporate large group event specialists. Book your 100 person boat party Austin today!"
+        defaultKeywords={['large group party Austin', 'mega event Lake Travis', '100 person boat party Austin', 'corporate large group event Lake Travis', 'multi-boat party Austin', 'large event boat rental Lake Travis']}
+      />
 
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="page-large-group-events">
         <PublicNavigation />
 
         {/* Hero Section */}
-        <motion.section 
+        <m.section 
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
@@ -187,6 +174,8 @@ export default function LargeGroupEventsLakeTravis() {
           <div 
             className="absolute inset-0 bg-cover bg-center opacity-30"
             style={{ backgroundImage: `url(${heroImage})` }}
+          role="img"
+          aria-label="Large & Mega Group Events Lake Travis - Premier Party Cruises Lake Travis"
           />
           
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 text-center">
@@ -218,27 +207,39 @@ export default function LargeGroupEventsLakeTravis() {
               </Link>
             </div>
           </div>
-        </motion.section>
+        </m.section>
+
+      {/* Topic Cluster Pillar Link */}
+      <div className="bg-blue-50 dark:bg-blue-950/30 border-b border-blue-100 dark:border-blue-900/50">
+        <div className="max-w-4xl mx-auto px-6 py-3">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            Explore our full guide to{' '}
+            <Link href="/party-boat-lake-travis" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Lake Travis party boat rentals</Link>{' '}
+            for everything from pricing and logistics to safety and entertainment.
+          </p>
+        </div>
+      </div>
+
 
         {/* Benefits Grid */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="section-benefits">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={staggerChildren}
+              variants={staggerContainer}
               className="text-center mb-12"
             >
               <h2 className="text-3xl font-bold mb-4">Why Choose Us for Large Group Party Austin Events</h2>
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Expert coordination for mega event Lake Travis celebrations with 100+ guests
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {largeGroupBenefits.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -254,7 +255,7 @@ export default function LargeGroupEventsLakeTravis() {
                       <p className="text-gray-600 dark:text-gray-400 text-sm">{item.description}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -265,7 +266,7 @@ export default function LargeGroupEventsLakeTravis() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
               {largeGroupStats.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -274,7 +275,7 @@ export default function LargeGroupEventsLakeTravis() {
                 >
                   <p className="text-3xl md:text-4xl font-bold text-yellow-400">{item.stat}</p>
                   <p className="text-sm md:text-base text-white/80 mt-1">{item.label}</p>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -283,7 +284,7 @@ export default function LargeGroupEventsLakeTravis() {
         {/* Hosting 100+ Section */}
         <section className="py-16 bg-gradient-to-br from-gray-50 to-purple-50 dark:from-gray-800 dark:to-gray-900" data-testid="section-hosting-100">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -341,14 +342,14 @@ export default function LargeGroupEventsLakeTravis() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Why Lake Travis Section */}
         <section className="py-16 bg-gradient-to-br from-purple-900 via-blue-800 to-slate-900 text-white" data-testid="section-why-lake-travis">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -390,14 +391,14 @@ export default function LargeGroupEventsLakeTravis() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Fleet Options Section */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="section-fleet">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -409,11 +410,11 @@ export default function LargeGroupEventsLakeTravis() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Combine vessels to create the perfect 100 person boat party Austin experience
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
               {boatOptions.map((boat, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -429,7 +430,7 @@ export default function LargeGroupEventsLakeTravis() {
                       <p className="text-xs text-gray-600 dark:text-gray-400 text-center">{boat.description}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
             
@@ -467,7 +468,7 @@ export default function LargeGroupEventsLakeTravis() {
         {/* Event Types Section */}
         <section className="py-16 bg-gradient-to-br from-gray-50 to-purple-50 dark:from-gray-800 dark:to-gray-900" data-testid="section-event-types">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -501,14 +502,14 @@ export default function LargeGroupEventsLakeTravis() {
                   </Card>
                 ))}
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Coordination Services Section */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="section-coordination">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -572,7 +573,7 @@ export default function LargeGroupEventsLakeTravis() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
@@ -582,7 +583,7 @@ export default function LargeGroupEventsLakeTravis() {
         {/* FAQ Section */}
         <section className="py-16 bg-gray-50 dark:bg-gray-800" data-testid="section-faq">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -593,7 +594,7 @@ export default function LargeGroupEventsLakeTravis() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 Common questions about large group party Austin and mega event Lake Travis planning
               </p>
-            </motion.div>
+            </m.div>
 
             <Accordion type="single" collapsible className="space-y-4">
               {faqs.map((faq, index) => (
@@ -618,7 +619,7 @@ export default function LargeGroupEventsLakeTravis() {
         {/* CTA Section */}
         <section className="py-16 bg-gradient-to-br from-purple-900 to-slate-900 text-white" data-testid="section-cta">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -645,12 +646,13 @@ export default function LargeGroupEventsLakeTravis() {
                   </Button>
                 </a>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         <Footer />
       </div>
     </>
+    </LazyMotionProvider>
   );
 }

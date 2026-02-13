@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { m, LazyMotionProvider, fadeInUp, staggerContainer } from '@/components/LazyMotion';
 import { Link } from 'wouter';
-import * as HelmetAsync from 'react-helmet-async';
-const HelmetAsyncDefault = (HelmetAsync as any).default || HelmetAsync;
-const { Helmet } = HelmetAsyncDefault;
+import SEOHead from '@/components/SEOHead';
 import { 
   Ship, Users, Briefcase, Phone, Clock, CheckCircle2, 
   Target, Award, Waves, MapPin, Calendar, Star,
@@ -23,15 +21,6 @@ import sectionImage1 from '@assets/@capitalcityshots-5_1760080740018.jpg';
 import sectionImage2 from '@assets/@capitalcityshots-6_1760080740018.jpg';
 import sectionImage3 from '@assets/@capitalcityshots-7_1760080740018.jpg';
 import sectionImage4 from '@assets/@capitalcityshots-8_1760080740018.jpg';
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-};
-
-const staggerChildren = {
-  visible: { transition: { staggerChildren: 0.1 } }
-};
 
 const whyAustinBenefits = [
   { 
@@ -162,22 +151,20 @@ export default function DestinationAustinOffsiteRetreats() {
   }, []);
 
   return (
+    <LazyMotionProvider>
     <>
-      <Helmet>
-        <title>Destination Austin Off-Site Retreats & Leadership Summits | Lake Travis Corporate Events</title>
-        <meta name="description" content="Plan your corporate offsite Austin event or leadership retreat Lake Travis with Premier Party Cruises. Company conference Austin boat experiences and executive retreat Lake Travis options for 14-75 guests." />
-        <meta name="keywords" content="corporate offsite Austin, leadership retreat Lake Travis, company conference Austin boat, executive retreat Lake Travis, Austin corporate events, Lake Travis retreat venue" />
-        <link rel="canonical" href="https://premierpartycruises.com/blogs/destination-austin-offsite-retreats" />
-        <meta property="og:title" content="Destination Austin Off-Site Retreats & Leadership Summits | Lake Travis" />
-        <meta property="og:description" content="Plan your corporate offsite Austin event with unique leadership retreat Lake Travis experiences. Company conference Austin boat cruises for executive teams." />
-        <meta property="og:type" content="article" />
-      </Helmet>
+      <SEOHead 
+        pageRoute="/blogs/destination-austin-offsite-retreats"
+        defaultTitle="Destination Austin Off-Site Retreats & Leadership Summits | Lake Travis Corporate Events"
+        defaultDescription="Plan your corporate offsite Austin event or leadership retreat Lake Travis with Premier Party Cruises. Company conference Austin boat experiences and executive retreat Lake Travis options for 14-75 guests."
+        defaultKeywords={['corporate offsite Austin', 'leadership retreat Lake Travis', 'company conference Austin boat', 'executive retreat Lake Travis', 'Austin corporate events', 'Lake Travis retreat venue']}
+      />
 
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="page-destination-austin-offsite-retreats">
         <PublicNavigation />
 
         {/* Hero Section */}
-        <motion.section 
+        <m.section 
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
@@ -188,6 +175,8 @@ export default function DestinationAustinOffsiteRetreats() {
           <div 
             className="absolute inset-0 bg-cover bg-center opacity-30"
             style={{ backgroundImage: `url(${heroImage})` }}
+          role="img"
+          aria-label="Destination Austin Off-Site Retreats & Leadership Summits - Premier Party Cruises Lake Travis"
           />
           
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 text-center">
@@ -219,16 +208,28 @@ export default function DestinationAustinOffsiteRetreats() {
               </Link>
             </div>
           </div>
-        </motion.section>
+        </m.section>
+
+      {/* Topic Cluster Pillar Link */}
+      <div className="bg-blue-50 dark:bg-blue-950/30 border-b border-blue-100 dark:border-blue-900/50">
+        <div className="max-w-4xl mx-auto px-6 py-3">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            See our complete guide to{' '}
+            <Link href="/corporate-events" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Austin corporate event boats</Link>{' '}
+            for team building, client entertainment, and company celebrations on Lake Travis.
+          </p>
+        </div>
+      </div>
+
 
         {/* Why Austin Section */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="section-why-austin">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={staggerChildren}
+              variants={staggerContainer}
               className="text-center mb-12"
             >
               <Badge className="mb-4 bg-blue-100 text-blue-700">DESTINATION CITY</Badge>
@@ -236,11 +237,11 @@ export default function DestinationAustinOffsiteRetreats() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Austin offers the perfect blend of business infrastructure and unique venues for your corporate offsite Austin event. From world-class dining to stunning Lake Travis settings, your team will experience a retreat like no other.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {whyAustinBenefits.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -256,7 +257,7 @@ export default function DestinationAustinOffsiteRetreats() {
                       <p className="text-gray-600 dark:text-gray-400 text-sm">{item.description}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -267,7 +268,7 @@ export default function DestinationAustinOffsiteRetreats() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
               {austinStats.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -276,7 +277,7 @@ export default function DestinationAustinOffsiteRetreats() {
                 >
                   <p className="text-3xl md:text-4xl font-bold text-yellow-400" data-testid={`stat-value-${index}`}>{item.stat}</p>
                   <p className="text-sm md:text-base text-white/80 mt-1">{item.label}</p>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -285,7 +286,7 @@ export default function DestinationAustinOffsiteRetreats() {
         {/* Leadership Summits Section */}
         <section className="py-16 bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-800 dark:to-gray-900" data-testid="section-leadership-summits">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -337,14 +338,14 @@ export default function DestinationAustinOffsiteRetreats() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Conference Break Activities */}
         <section className="py-16 bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 text-white" data-testid="section-conference-breaks">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -398,14 +399,14 @@ export default function DestinationAustinOffsiteRetreats() {
                   </Link>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Multi-Day Retreat Planning */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="section-multi-day-planning">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -476,14 +477,14 @@ export default function DestinationAustinOffsiteRetreats() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Boat Options Section */}
         <section className="py-16 bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-800 dark:to-gray-900" data-testid="section-boat-options">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -495,11 +496,11 @@ export default function DestinationAustinOffsiteRetreats() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Whether you're hosting an intimate executive retreat Lake Travis for 14 or a large leadership retreat Lake Travis summit for 75, we have the perfect vessel for your corporate offsite Austin experience.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {boatOptions.map((boat, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -514,7 +515,7 @@ export default function DestinationAustinOffsiteRetreats() {
                       <p className="text-gray-600 dark:text-gray-400 text-sm">{boat.best}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -523,7 +524,7 @@ export default function DestinationAustinOffsiteRetreats() {
         {/* Unique Value Section */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="section-unique-value">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -573,14 +574,14 @@ export default function DestinationAustinOffsiteRetreats() {
                   </Link>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* FAQ Section */}
         <section className="py-16 bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-800 dark:to-gray-900" data-testid="section-faq">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -592,7 +593,7 @@ export default function DestinationAustinOffsiteRetreats() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 Common questions about planning your corporate offsite Austin, leadership retreat Lake Travis, or company conference Austin boat experience.
               </p>
-            </motion.div>
+            </m.div>
 
             <Accordion type="single" collapsible className="space-y-4">
               {faqs.map((faq, index) => (
@@ -620,7 +621,7 @@ export default function DestinationAustinOffsiteRetreats() {
         {/* Final CTA Section */}
         <section className="py-16 bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 text-white" data-testid="section-final-cta">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -647,12 +648,13 @@ export default function DestinationAustinOffsiteRetreats() {
                   </Button>
                 </Link>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         <Footer />
       </div>
     </>
+    </LazyMotionProvider>
   );
 }

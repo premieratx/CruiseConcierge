@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { m, LazyMotionProvider, fadeInUp, staggerContainer } from '@/components/LazyMotion';
 import { Link } from 'wouter';
-import * as HelmetAsync from 'react-helmet-async';
-const HelmetAsyncDefault = (HelmetAsync as any).default || HelmetAsync;
-const { Helmet } = HelmetAsyncDefault;
+import SEOHead from '@/components/SEOHead';
 import { 
   Ship, Users, PartyPopper, CheckCircle2, XCircle,
   Music, Waves, Beer, Star, ArrowRight, Camera, Shield, 
@@ -23,10 +21,6 @@ import dancingScene from '@assets/dancing-party-scene.webp';
 import cleverGirl from '@assets/clever-girl-50-person-boat.webp';
 import unicornFloat from '@assets/giant-unicorn-float.webp';
 
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-};
 
 const dosList = [
   { 
@@ -89,24 +83,21 @@ export default function TopDosAndDontsATXDiscoCruise() {
   }, []);
 
   return (
+    <LazyMotionProvider>
     <>
-      <Helmet>
-        <title>ATX Disco Cruise: Top Dos and Donts for Success | Premier Party Cruises</title>
-        <meta name="description" content="Master the top do's and don'ts for success on the ATX Disco Cruise. Essential planning tips for bachelor and bachelorette boat parties on Lake Travis including hydration, dress code, making friends, bringing snacks, and party smart strategies." />
-        <meta name="keywords" content="ATX Disco Cruise, Lake Travis party boat, Austin bachelor party, Austin bachelorette party, party boat tips, Lake Travis cruise tips, Austin party boat, disco cruise dos and donts" />
-        <link rel="canonical" href="https://premierpartycruises.com/blogs/the-top-dos-and-dont-for-success-on-the-atx-disco-cruise-with-premier-party-cruises" />
-        <meta property="og:title" content="ATX Disco Cruise: Top Dos and Donts for Success" />
-        <meta property="og:description" content="Essential planning tips for bachelor and bachelorette boat parties on the ATX Disco Cruise. Learn hydration tips, dress code, how to make friends with other groups, and party smart strategies." />
-        <meta property="og:type" content="article" />
-        <meta property="og:url" content="https://premierpartycruises.com/blogs/the-top-dos-and-dont-for-success-on-the-atx-disco-cruise-with-premier-party-cruises" />
-        <meta property="og:image" content="https://premierpartycruises.com/attached_assets/atx-disco-cruise-party.webp" />
-      </Helmet>
+      <SEOHead 
+        pageRoute="/blogs/the-top-dos-and-dont-for-success-on-the-atx-disco-cruise-with-premier-party-cruises"
+        defaultTitle="ATX Disco Cruise: Top Dos and Donts for Success | Premier Party Cruises"
+        defaultDescription="Master the top do's and don'ts for success on the ATX Disco Cruise. Essential planning tips for bachelor and bachelorette boat parties on Lake Travis including hydration, dress code, making friends, bringing snacks, and party smart strategies."
+        defaultKeywords={['ATX Disco Cruise', 'Lake Travis party boat', 'Austin bachelor party', 'Austin bachelorette party', 'party boat tips', 'Lake Travis cruise tips', 'Austin party boat', 'disco cruise dos and donts']}
+        image="https://premierpartycruises.com/attached_assets/atx-disco-cruise-party.webp"
+      />
 
       <div className="min-h-screen bg-white dark:bg-gray-950">
         <PublicNavigation />
 
         {/* Hero Section */}
-        <motion.section 
+        <m.section 
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
@@ -144,12 +135,24 @@ export default function TopDosAndDontsATXDiscoCruise() {
               </Link>
             </div>
           </div>
-        </motion.section>
+        </m.section>
+
+      {/* Topic Cluster Pillar Link */}
+      <div className="bg-blue-50 dark:bg-blue-950/30 border-b border-blue-100 dark:border-blue-900/50">
+        <div className="max-w-4xl mx-auto px-6 py-3">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            Explore our full guide to{' '}
+            <Link href="/party-boat-lake-travis" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Lake Travis party boat rentals</Link>{' '}
+            for everything from pricing and logistics to safety and entertainment.
+          </p>
+        </div>
+      </div>
+
 
         {/* Introduction */}
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+            <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
               <h2 className="heading-unbounded text-2xl sm:text-3xl font-bold mb-6 text-gray-900 dark:text-white">Your Guide to the Ultimate ATX Disco Cruise Experience</h2>
               <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
                 You've made the decision to book the <Link href="/atx-disco-cruise" className="text-blue-600 hover:underline font-semibold">ATX Disco Cruise</Link> for your celebration - excellent choice! This isn't just another <Link href="/party-boat-austin" className="text-blue-600 hover:underline font-semibold">party boat in Austin</Link>. It's the only multi-group, all-inclusive party cruise in the U.S. where <strong>bachelor and bachelorette parties celebrate together</strong> on <Link href="/party-boat-lake-travis" className="text-blue-600 hover:underline font-semibold">Lake Travis</Link>.
@@ -166,14 +169,14 @@ export default function TopDosAndDontsATXDiscoCruise() {
                 alt="Bachelor and bachelorette parties celebrating together on the ATX Disco Cruise Lake Travis"
                 caption="Bachelor and bachelorette groups mixing it up on the ATX Disco Cruise"
               />
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* The DO's Section */}
         <section className="py-16 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-gray-800 dark:to-gray-900">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+            <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
               <div className="flex items-center gap-3 mb-8">
                 <div className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center">
                   <ThumbsUp className="h-6 w-6 text-white" />
@@ -282,14 +285,14 @@ export default function TopDosAndDontsATXDiscoCruise() {
                   </p>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* The DON'Ts Section */}
         <section className="py-16 bg-gradient-to-br from-red-50 to-orange-50 dark:from-gray-800 dark:to-gray-900">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+            <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
               <div className="flex items-center gap-3 mb-8">
                 <div className="w-12 h-12 bg-red-500 rounded-full flex items-center justify-center">
                   <ThumbsDown className="h-6 w-6 text-white" />
@@ -375,23 +378,23 @@ export default function TopDosAndDontsATXDiscoCruise() {
                   </p>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Why ATX Disco Cruise Grid */}
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="text-center mb-12">
+            <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="text-center mb-12">
               <h2 className="text-3xl font-bold mb-4 text-gray-900 dark:text-white">Why the ATX Disco Cruise Works So Well</h2>
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Everything included for an epic <strong>Lake Travis party boat</strong> experience - just bring your crew and BYOB drinks
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {whyDiscoCruiseWorks.map((item, index) => (
-                <motion.div key={index} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+                <m.div key={index} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
                   <Card className="h-full hover:shadow-lg transition-shadow">
                     <CardContent className="pt-6">
                       <div className="w-14 h-14 mb-4 bg-purple-100 dark:bg-purple-900 rounded-full flex items-center justify-center">
@@ -401,7 +404,7 @@ export default function TopDosAndDontsATXDiscoCruise() {
                       <p className="text-gray-600 dark:text-gray-400">{item.description}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -410,7 +413,7 @@ export default function TopDosAndDontsATXDiscoCruise() {
         {/* Party On Delivery Section */}
         <section className="py-16 bg-gradient-to-br from-blue-50 to-purple-50 dark:from-gray-800 dark:to-gray-900">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+            <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
               <div className="flex items-center gap-3 mb-6">
                 <Gift className="h-8 w-8 text-blue-600" />
                 <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Make It Easy with Party On Delivery</h2>
@@ -455,14 +458,14 @@ export default function TopDosAndDontsATXDiscoCruise() {
                 alt="Giant unicorn float on lake travis party boat cruise in Austin Texas"
                 caption="Giant floats for swimming breaks - because even party animals need to cool off"
               />
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Quick Reference Card */}
         <section className="py-16 bg-gray-50 dark:bg-gray-800">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+            <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
               <h2 className="text-3xl font-bold mb-8 text-center text-gray-900 dark:text-white">Quick Reference: Do's vs Don'ts</h2>
               
               <div className="grid md:grid-cols-2 gap-6">
@@ -507,14 +510,14 @@ export default function TopDosAndDontsATXDiscoCruise() {
                   Follow that simple rule and you're guaranteed an epic <Link href="/atx-disco-cruise" className="text-blue-600 hover:underline font-semibold">ATX Disco Cruise</Link> experience!
                 </p>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Final CTA Section */}
         <section className="py-16 bg-gradient-to-br from-purple-900 via-pink-800 to-purple-900 text-white">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+            <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
               <Crown className="h-16 w-16 text-yellow-400 mx-auto mb-6" />
               <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready for Your ATX Disco Cruise Adventure?</h2>
               <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
@@ -549,12 +552,13 @@ export default function TopDosAndDontsATXDiscoCruise() {
                 <span>•</span>
                 <Link href="/faq" className="hover:text-white underline">FAQ</Link>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         <Footer />
       </div>
     </>
+    </LazyMotionProvider>
   );
 }

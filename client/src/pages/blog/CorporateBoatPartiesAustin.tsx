@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { m, LazyMotionProvider, fadeInUp, staggerContainer } from '@/components/LazyMotion';
 import { Link } from 'wouter';
-import * as HelmetAsync from 'react-helmet-async';
-const HelmetAsyncDefault = (HelmetAsync as any).default || HelmetAsync;
-const { Helmet } = HelmetAsyncDefault;
+import SEOHead from '@/components/SEOHead';
 import { 
   Ship, Users, Briefcase, Phone, Clock, CheckCircle2, 
   Target, Award, Waves, MapPin, Calendar, Star,
@@ -22,15 +20,6 @@ import heroImage from '@assets/@capitalcityshots-12_1760080740019.jpg';
 import sectionImage1 from '@assets/@capitalcityshots-13_1760080740020.jpg';
 import sectionImage2 from '@assets/@capitalcityshots-14_1760080740020.jpg';
 import sectionImage3 from '@assets/@capitalcityshots-15_1760080740020.jpg';
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-};
-
-const staggerChildren = {
-  visible: { transition: { staggerChildren: 0.1 } }
-};
 
 const corporateProblems = [
   { 
@@ -178,22 +167,20 @@ export default function CorporateBoatPartiesAustin() {
   }, []);
 
   return (
+    <LazyMotionProvider>
     <>
-      <Helmet>
-        <title>Corporate Boat Parties in Austin | Lake Travis Venue That Beats Ballrooms</title>
-        <meta name="description" content="Looking for unique corporate event ideas in Austin? Discover why Lake Travis party boats outperform traditional venues for team-building, client entertainment, and company celebrations." />
-        <meta name="keywords" content="corporate boat parties Austin, Lake Travis corporate events, Austin company party boat, team building boat rental, corporate event venue Austin" />
-        <link rel="canonical" href="https://premierpartycruises.com/blogs/corporate-boat-parties-austin-lake-travis-smartest-venue" />
-        <meta property="og:title" content="Corporate Boat Parties in Austin | Lake Travis Venue That Beats Ballrooms" />
-        <meta property="og:description" content="Discover why Lake Travis party boats outperform traditional venues for team-building, client entertainment, and company celebrations." />
-        <meta property="og:type" content="article" />
-      </Helmet>
+      <SEOHead 
+        pageRoute="/blogs/corporate-boat-parties-austin-lake-travis-smartest-venue"
+        defaultTitle="Corporate Boat Parties in Austin | Lake Travis Venue That Beats Ballrooms"
+        defaultDescription="Looking for unique corporate event ideas in Austin? Discover why Lake Travis party boats outperform traditional venues for team-building, client entertainment, and company celebrations."
+        defaultKeywords={['corporate boat parties Austin', 'Lake Travis corporate events', 'Austin company party boat', 'team building boat rental', 'corporate event venue Austin']}
+      />
 
       <div className="min-h-screen bg-white dark:bg-gray-950">
         <PublicNavigation />
 
         {/* Hero Section - Boats Beat Ballrooms */}
-        <motion.section 
+        <m.section 
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
@@ -203,6 +190,8 @@ export default function CorporateBoatPartiesAustin() {
           <div 
             className="absolute inset-0 bg-cover bg-center opacity-40"
             style={{ backgroundImage: `url(${heroImage})` }}
+          role="img"
+          aria-label="Corporate Boat Parties in Austin - Premier Party Cruises Lake Travis"
           />
           
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 text-center">
@@ -234,16 +223,27 @@ export default function CorporateBoatPartiesAustin() {
               </Link>
             </div>
           </div>
-        </motion.section>
+        </m.section>
+
+        {/* Topic Cluster Pillar Link */}
+        <div className="bg-blue-50 dark:bg-blue-950/30 border-b border-blue-100 dark:border-blue-900/50">
+          <div className="max-w-4xl mx-auto px-6 py-3">
+            <p className="text-sm text-gray-600 dark:text-gray-400">
+              See our complete guide to{' '}
+              <Link href="/corporate-events" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Austin corporate event boats</Link>{' '}
+              for team building, client entertainment, and company celebrations on Lake Travis.
+            </p>
+          </div>
+        </div>
 
         {/* Corporate Events Have a Serious Problem */}
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={staggerChildren}
+              variants={staggerContainer}
               className="text-center mb-12"
             >
               <h2 className="heading-unbounded text-3xl md:text-4xl font-bold mb-4">Corporate Events Have a Serious Problem</h2>
@@ -251,11 +251,11 @@ export default function CorporateBoatPartiesAustin() {
                 Restaurants, hotel ballrooms, and rented event spaces all blur together. 
                 Employees and clients may show up, but they rarely remember the experience.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {corporateProblems.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -271,11 +271,11 @@ export default function CorporateBoatPartiesAustin() {
                       <p className="text-gray-600 dark:text-gray-400 text-sm">{item.description}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
 
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -285,14 +285,14 @@ export default function CorporateBoatPartiesAustin() {
               <p className="text-xl font-semibold text-blue-600 dark:text-blue-400">
                 That's why more companies are choosing corporate boat parties on Lake Travis.
               </p>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Why Lake Travis Works for Corporate Events */}
         <section className="py-16 bg-gradient-to-br from-blue-50 to-slate-100 dark:from-gray-800 dark:to-gray-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -340,14 +340,14 @@ export default function CorporateBoatPartiesAustin() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* What Types of Corporate Events Work Best */}
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -359,11 +359,11 @@ export default function CorporateBoatPartiesAustin() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Premier Party Cruises regularly hosts a wide variety of corporate events on Lake Travis party boats.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="flex flex-wrap justify-center gap-4">
               {eventTypes.map((type, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -374,11 +374,11 @@ export default function CorporateBoatPartiesAustin() {
                     <CheckCircle2 className="h-4 w-4 mr-2 inline" />
                     {type}
                   </Badge>
-                </motion.div>
+                </m.div>
               ))}
             </div>
 
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -391,14 +391,14 @@ export default function CorporateBoatPartiesAustin() {
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* ATX Disco Cruise for Corporate Groups */}
         <section className="py-16 bg-gradient-to-br from-purple-900 via-blue-900 to-slate-900 text-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -449,14 +449,14 @@ export default function CorporateBoatPartiesAustin() {
                   </Link>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Private Corporate Party Boats */}
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -510,14 +510,14 @@ export default function CorporateBoatPartiesAustin() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Alcohol at Corporate Events */}
         <section className="py-16 bg-gradient-to-br from-amber-50 to-orange-50 dark:from-gray-800 dark:to-gray-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -566,14 +566,14 @@ export default function CorporateBoatPartiesAustin() {
                   </CardContent>
                 </Card>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Cost Transparency */}
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -586,11 +586,11 @@ export default function CorporateBoatPartiesAustin() {
                 When compared to traditional venues, a corporate Lake Travis party boat often delivers 
                 higher perceived value at similar or lower cost.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-3 gap-6">
               {costComparison.map((venue, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -611,7 +611,7 @@ export default function CorporateBoatPartiesAustin() {
                       </p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -620,7 +620,7 @@ export default function CorporateBoatPartiesAustin() {
         {/* Safety, Compliance, and Professionalism */}
         <section className="py-16 bg-gradient-to-br from-blue-900 via-slate-800 to-blue-900 text-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -636,7 +636,7 @@ export default function CorporateBoatPartiesAustin() {
 
               <div className="flex flex-wrap justify-center gap-4">
                 {safetyFeatures.map((feature, index) => (
-                  <motion.div
+                  <m.div
                     key={index}
                     initial="hidden"
                     whileInView="visible"
@@ -646,17 +646,17 @@ export default function CorporateBoatPartiesAustin() {
                   >
                     <feature.icon className="h-5 w-5 text-yellow-400" />
                     <span className="text-white font-semibold">{feature.text}</span>
-                  </motion.div>
+                  </m.div>
                 ))}
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Ideal Corporate Event Formats */}
         <section className="py-16 bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-800 dark:to-gray-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -668,11 +668,11 @@ export default function CorporateBoatPartiesAustin() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 All formats benefit from the same core advantage: shared experience without distraction.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-3 gap-6">
               {eventFormats.map((format, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -695,7 +695,7 @@ export default function CorporateBoatPartiesAustin() {
                       </ul>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -707,7 +707,7 @@ export default function CorporateBoatPartiesAustin() {
         {/* FAQ Section */}
         <section className="py-16 bg-gray-50 dark:bg-gray-800">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -718,7 +718,7 @@ export default function CorporateBoatPartiesAustin() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 Common questions about hosting corporate events on Lake Travis
               </p>
-            </motion.div>
+            </m.div>
 
             <Accordion type="single" collapsible className="space-y-4">
               {faqs.map((faq, index) => (
@@ -743,7 +743,7 @@ export default function CorporateBoatPartiesAustin() {
         {/* Final CTA Section */}
         <section className="py-16 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 text-white">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -784,12 +784,13 @@ export default function CorporateBoatPartiesAustin() {
                   <span className="font-semibold">(512) 727-0422</span>
                 </a>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         <Footer />
       </div>
     </>
+    </LazyMotionProvider>
   );
 }

@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { m, LazyMotionProvider, fadeInUp, staggerContainer } from '@/components/LazyMotion';
 import { Link } from 'wouter';
-import * as HelmetAsync from 'react-helmet-async';
-const HelmetAsyncDefault = (HelmetAsync as any).default || HelmetAsync;
-const { Helmet } = HelmetAsyncDefault;
+import SEOHead from '@/components/SEOHead';
 import { 
   Ship, Users, Briefcase, Phone, Clock, CheckCircle2, 
   Target, Award, Waves, MapPin, Calendar, Star,
@@ -22,15 +20,6 @@ import sectionImage1 from '@assets/meeseeks-1_1763968010088.jpg';
 import sectionImage2 from '@assets/meeseeks-2_1763968010089.jpg';
 import sectionImage3 from '@assets/meeseeks-3 lake travis party boat_1763968010089.jpg';
 import sectionImage4 from '@assets/meeseeks-4 austin party boat rental_1763968010090.jpg';
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-};
-
-const staggerChildren = {
-  visible: { transition: { staggerChildren: 0.1 } }
-};
 
 const sweetSpotBenefits = [
   { 
@@ -169,23 +158,21 @@ export default function CompanyParty25People() {
   }, []);
 
   return (
+    <LazyMotionProvider>
     <>
-      <Helmet>
-        <title>Planning a Company Party for 25 People - Finding the Sweet Spot | Lake Travis Austin</title>
-        <meta name="description" content="Discover why a 25 person company party Austin on Lake Travis is the perfect size. Mid-size group boat rental Lake Travis offers intimate team bonding. Book your department party boat Austin today." />
-        <meta name="keywords" content="25 person company party Austin, medium team event Lake Travis, department party boat Austin, mid-size group boat rental Lake Travis, corporate boat party Austin, team outing Lake Travis" />
-        <link rel="canonical" href="https://premierpartycruises.com/blogs/company-party-25-people-austin" />
-        <meta property="og:title" content="Planning a Company Party for 25 People - Finding the Sweet Spot | Lake Travis Austin" />
-        <meta property="og:description" content="Why 25 people is the perfect group size for company parties on Lake Travis. Medium team events that create real connections." />
-        <meta property="og:type" content="article" />
-        <meta property="og:image" content={heroImage} />
-      </Helmet>
+      <SEOHead 
+        pageRoute="/blogs/company-party-25-people-austin"
+        defaultTitle="Planning a Company Party for 25 People - Finding the Sweet Spot | Lake Travis Austin"
+        defaultDescription="Discover why a 25 person company party Austin on Lake Travis is the perfect size. Mid-size group boat rental Lake Travis offers intimate team bonding. Book your department party boat Austin today."
+        defaultKeywords={['25 person company party Austin', 'medium team event Lake Travis', 'department party boat Austin', 'mid-size group boat rental Lake Travis', 'corporate boat party Austin', 'team outing Lake Travis']}
+        image={heroImage}
+      />
 
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="company-party-25-page">
         <PublicNavigation />
 
         {/* Hero Section */}
-        <motion.section 
+        <m.section 
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
@@ -196,6 +183,8 @@ export default function CompanyParty25People() {
           <div 
             className="absolute inset-0 bg-cover bg-center opacity-30"
             style={{ backgroundImage: `url(${heroImage})` }}
+          role="img"
+          aria-label="Planning a Company Party for 25 People - Finding the Sweet Spot - Premier Party Cruises Lake Travis"
           />
           
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 text-center">
@@ -227,16 +216,28 @@ export default function CompanyParty25People() {
               </Link>
             </div>
           </div>
-        </motion.section>
+        </m.section>
+
+      {/* Topic Cluster Pillar Link */}
+      <div className="bg-blue-50 dark:bg-blue-950/30 border-b border-blue-100 dark:border-blue-900/50">
+        <div className="max-w-4xl mx-auto px-6 py-3">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            See our complete guide to{' '}
+            <Link href="/corporate-events" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Austin corporate event boats</Link>{' '}
+            for team building, client entertainment, and company celebrations on Lake Travis.
+          </p>
+        </div>
+      </div>
+
 
         {/* Why 25 is the Sweet Spot Section */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="sweet-spot-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={staggerChildren}
+              variants={staggerContainer}
               className="text-center mb-12"
             >
               <Badge className="mb-4 bg-blue-100 text-blue-700">THE PERFECT SIZE</Badge>
@@ -244,11 +245,11 @@ export default function CompanyParty25People() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 A medium team event Lake Travis offers the best of both worlds – energy and intimacy. Your department party boat Austin will feel exclusive while still having the buzz of a real celebration.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {sweetSpotBenefits.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -264,7 +265,7 @@ export default function CompanyParty25People() {
                       <p className="text-gray-600 dark:text-gray-400 text-sm">{item.description}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -275,7 +276,7 @@ export default function CompanyParty25People() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
               {statsSection.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -284,7 +285,7 @@ export default function CompanyParty25People() {
                 >
                   <p className="text-3xl md:text-4xl font-bold text-yellow-400">{item.stat}</p>
                   <p className="text-sm md:text-base text-white/80 mt-1">{item.label}</p>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -293,7 +294,7 @@ export default function CompanyParty25People() {
         {/* Finding the Sweet Spot Content Section */}
         <section className="py-16 bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-800 dark:to-gray-900" data-testid="content-section-1">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -345,14 +346,14 @@ export default function CompanyParty25People() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Boat Features Section */}
         <section className="py-16 bg-gradient-to-br from-blue-900 via-blue-800 to-slate-900 text-white" data-testid="boats-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -407,14 +408,14 @@ export default function CompanyParty25People() {
                   </Link>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Perfect For Section */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="perfect-for-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -473,14 +474,14 @@ export default function CompanyParty25People() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Activity Ideas Section */}
         <section className="py-16 bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-800 dark:to-gray-900" data-testid="activities-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -492,11 +493,11 @@ export default function CompanyParty25People() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Your 25 person company party Austin offers plenty of options for team fun. Here's what works best for a department party boat Austin.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 gap-6">
               {activityIdeas.map((activity, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -519,7 +520,7 @@ export default function CompanyParty25People() {
                       </ul>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -528,7 +529,7 @@ export default function CompanyParty25People() {
         {/* Image Feature Section */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="image-feature-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -572,7 +573,7 @@ export default function CompanyParty25People() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
@@ -582,7 +583,7 @@ export default function CompanyParty25People() {
         {/* FAQ Section */}
         <section className="py-16 bg-gray-50 dark:bg-gray-800" data-testid="faq-section">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -593,7 +594,7 @@ export default function CompanyParty25People() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 Common questions about planning a 25 person company party Austin and department party boat Austin
               </p>
-            </motion.div>
+            </m.div>
 
             <Accordion type="single" collapsible className="space-y-4">
               {faqs.map((faq, index) => (
@@ -618,7 +619,7 @@ export default function CompanyParty25People() {
         {/* Internal Links Section */}
         <section className="py-12 bg-white dark:bg-gray-900" data-testid="internal-links-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -626,7 +627,7 @@ export default function CompanyParty25People() {
               className="text-center mb-8"
             >
               <h3 className="text-2xl font-bold mb-4">Explore More Corporate Options</h3>
-            </motion.div>
+            </m.div>
             
             <div className="grid md:grid-cols-4 gap-4">
               <Link href="/team-building">
@@ -672,7 +673,7 @@ export default function CompanyParty25People() {
         {/* CTA Section */}
         <section className="py-16 bg-gradient-to-br from-blue-900 to-slate-900 text-white" data-testid="cta-section">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -699,12 +700,13 @@ export default function CompanyParty25People() {
                   </Button>
                 </a>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         <Footer />
       </div>
     </>
+    </LazyMotionProvider>
   );
 }

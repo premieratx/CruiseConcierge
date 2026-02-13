@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { m, LazyMotionProvider, fadeInUp, staggerContainer } from '@/components/LazyMotion';
 import { Link } from 'wouter';
-import * as HelmetAsync from 'react-helmet-async';
-const HelmetAsyncDefault = (HelmetAsync as any).default || HelmetAsync;
-const { Helmet } = HelmetAsyncDefault;
+import SEOHead from '@/components/SEOHead';
 import { 
   Ship, Users, PartyPopper, Phone, Clock, CheckCircle2, 
   Anchor, Music, Sun, Waves, MapPin, Calendar, Beer, Star,
@@ -23,15 +21,6 @@ import discoParty from '@assets/atx-disco-cruise-party.webp';
 import dancingScene from '@assets/dancing-party-scene.webp';
 import cleverGirl from '@assets/clever-girl-50-person-boat.webp';
 import unicornFloat from '@assets/giant-unicorn-float.webp';
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-};
-
-const staggerChildren = {
-  visible: { transition: { staggerChildren: 0.1 } }
-};
 
 const whyJointParty = [
   { icon: Heart, title: 'Celebrate Together', description: 'Experience the excitement of your pre-wedding celebration side by side with your partner' },
@@ -78,23 +67,21 @@ export default function JointBachelorBachelorettePartyGuide() {
   }, []);
 
   return (
+    <LazyMotionProvider>
     <>
-      <Helmet>
-        <title>How to Plan an Amazing Joint Bachelor/Bachelorette Party in Austin | Premier Party Cruises</title>
-        <meta name="description" content="Planning a joint bachelor bachelorette party in Austin? Discover the ultimate guide to combined bachelor bachelorette celebrations on Lake Travis. ATX Disco Cruise is PERFECT for co-ed groups mixing together. Book your Lake Travis party boat today!" />
-        <meta name="keywords" content="joint bachelor bachelorette party, Austin bachelor party, combined bachelor bachelorette, ATX Disco Cruise, Lake Travis party boat, bachelor party in Austin, party boat Austin, co-ed bachelor party, joint bach party Austin, combined pre-wedding party" />
-        <link rel="canonical" href="https://premierpartycruises.com/blogs/joint-bachelor-bachelorette-party-guide" />
-        <meta property="og:title" content="How to Plan an Amazing Joint Bachelor/Bachelorette Party in Austin" />
-        <meta property="og:description" content="The ultimate guide to planning a combined bachelor bachelorette party in Austin. ATX Disco Cruise on Lake Travis - perfect for co-ed groups!" />
-        <meta property="og:type" content="article" />
-        <meta property="og:image" content="https://premierpartycruises.com/attached_assets/atx-disco-cruise-party.webp" />
-      </Helmet>
+      <SEOHead 
+        pageRoute="/blogs/joint-bachelor-bachelorette-party-guide"
+        defaultTitle="How to Plan an Amazing Joint Bachelor/Bachelorette Party in Austin | Premier Party Cruises"
+        defaultDescription="Planning a joint bachelor bachelorette party in Austin? Discover the ultimate guide to combined bachelor bachelorette celebrations on Lake Travis. ATX Disco Cruise is PERFECT for co-ed groups mixing together. Book your Lake Travis party boat today!"
+        defaultKeywords={['joint bachelor bachelorette party', 'Austin bachelor party', 'combined bachelor bachelorette', 'ATX Disco Cruise', 'Lake Travis party boat', 'bachelor party in Austin', 'party boat Austin', 'co-ed bachelor party', 'joint bach party Austin', 'combined pre-wedding party']}
+        image="https://premierpartycruises.com/attached_assets/atx-disco-cruise-party.webp"
+      />
 
       <div className="min-h-screen bg-white dark:bg-gray-950">
         <PublicNavigation />
 
         {/* Hero Section */}
-        <motion.section 
+        <m.section 
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
@@ -133,12 +120,24 @@ export default function JointBachelorBachelorettePartyGuide() {
               </Link>
             </div>
           </div>
-        </motion.section>
+        </m.section>
+
+      {/* Topic Cluster Pillar Link */}
+      <div className="bg-blue-50 dark:bg-blue-950/30 border-b border-blue-100 dark:border-blue-900/50">
+        <div className="max-w-4xl mx-auto px-6 py-3">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            Explore our full guide to{' '}
+            <Link href="/party-boat-lake-travis" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Lake Travis party boat rentals</Link>{' '}
+            for everything from pricing and logistics to safety and entertainment.
+          </p>
+        </div>
+      </div>
+
 
         {/* Introduction: Double the Fun, Austin-Style */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="section-introduction">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+            <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
               <h2 className="heading-unbounded text-2xl sm:text-3xl font-bold mb-6 text-gray-900 dark:text-white">Double the Fun with Your Austin Bachelor Party, Austin-Style</h2>
               <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
                 Planning a <strong>joint bachelor bachelorette party</strong> is the hottest trend in pre-wedding celebrations, and Austin, Texas is the perfect destination to make it happen. Why celebrate separately when you can double the fun with a <strong>combined bachelor bachelorette</strong> weekend on a <strong>lake travis bachelor party boat</strong> that brings both crews together for an unforgettable experience?
@@ -155,14 +154,14 @@ export default function JointBachelorBachelorettePartyGuide() {
                 alt="Austin bachelor party boat with joint bachelor bachelorette party on Lake Travis"
                 caption="Bachelor and bachelorette crews celebrating together on Lake Travis"
               />
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Why a Joint Party? The Perks of Combining Forces */}
         <section className="py-16 bg-gradient-to-br from-pink-50 to-purple-50 dark:from-gray-800 dark:to-gray-900" data-testid="section-why-joint">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+            <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
               <div className="flex items-center gap-3 mb-4">
                 <Heart className="h-8 w-8 text-pink-600" />
                 <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Why a Joint Austin Bachelor Party? The Perks of Combining Forces</h2>
@@ -197,14 +196,14 @@ export default function JointBachelorBachelorettePartyGuide() {
                   <strong>Joint bachelor bachelorette parties</strong> are booking up fast, especially during peak wedding season (March-October). The <Link href="/atx-disco-cruise" className="text-purple-600 hover:underline font-semibold">ATX Disco Cruise</Link> is perfect for your <strong>combined bachelor bachelorette</strong> celebration, but popular dates fill months in advance. <Link href="/book-now" className="text-blue-600 hover:underline font-semibold">Book now</Link> to secure your spot!
                 </p>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Joint Activity Must-Do: The ATX Disco Cruise */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="section-atx-disco">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+            <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
               <div className="flex items-center gap-3 mb-4">
                 <Ship className="h-8 w-8 text-blue-600" />
                 <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Joint Activity Must-Do: The Lake Travis Bachelor Party Boat Cruise</h2>
@@ -282,14 +281,14 @@ export default function JointBachelorBachelorettePartyGuide() {
                   </Button>
                 </Link>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Balancing the Itinerary: Something for Everyone */}
         <section className="py-16 bg-gradient-to-br from-blue-50 to-purple-50 dark:from-gray-800 dark:to-gray-900" data-testid="section-itinerary-balance">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+            <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
               <div className="flex items-center gap-3 mb-4">
                 <Compass className="h-8 w-8 text-purple-600" />
                 <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Balancing the Itinerary: Something for Everyone</h2>
@@ -406,14 +405,14 @@ export default function JointBachelorBachelorettePartyGuide() {
               <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
                 For more ideas, check out our guides to <Link href="/bachelor-party-austin" className="text-blue-600 hover:underline font-semibold">bachelor party in Austin</Link> activities and <Link href="/bachelorette-party-austin" className="text-pink-600 hover:underline font-semibold">bachelorette party Austin</Link> adventures. And don't forget – <a href="https://www.partyondelivery.com" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline font-semibold">Party On Delivery</a> can supply drinks for all your group activities, not just the <strong>Lake Travis party boat</strong> adventure!
               </p>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Logistics for a Larger, Co-Ed Group */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="section-logistics">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+            <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
               <div className="flex items-center gap-3 mb-4">
                 <MapPinned className="h-8 w-8 text-green-600" />
                 <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Logistics for a Larger, Co-Ed Group</h2>
@@ -513,14 +512,14 @@ export default function JointBachelorBachelorettePartyGuide() {
                   Need help with planning? Check our <Link href="/faq" className="text-blue-600 hover:underline font-semibold">FAQ</Link> or <Link href="/contact" className="text-blue-600 hover:underline font-semibold">contact us</Link> – we've helped plan hundreds of <strong>joint bachelor bachelorette parties</strong>! You can also view our <Link href="/pricing-breakdown" className="text-purple-600 hover:underline font-semibold">pricing breakdown</Link> to budget for your <strong>combined bachelor bachelorette</strong> celebration.
                 </p>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Sample 3-Day Joint Party Itinerary */}
         <section className="py-16 bg-gradient-to-br from-yellow-50 to-orange-50 dark:from-gray-800 dark:to-gray-900" data-testid="section-itinerary">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+            <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
               <div className="flex items-center gap-3 mb-4">
                 <Calendar className="h-8 w-8 text-orange-600" />
                 <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Sample 3-Day Joint Party Itinerary</h2>
@@ -604,14 +603,14 @@ export default function JointBachelorBachelorettePartyGuide() {
                 alt="Giant unicorn float on austin bachelor party boat lake travis bachelor party cruise"
                 caption="Float like royalty on our giant lily pads during your combined celebration"
               />
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Party On Delivery Section */}
         <section className="py-16 bg-gradient-to-br from-green-50 to-blue-50 dark:from-gray-800 dark:to-gray-900" data-testid="section-party-on-delivery">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+            <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
               <div className="flex items-center gap-3 mb-4">
                 <Wine className="h-8 w-8 text-green-600" />
                 <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Let Party On Delivery Handle the Drinks</h2>
@@ -658,14 +657,14 @@ export default function JointBachelorBachelorettePartyGuide() {
               <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
                 Skip the stress of shopping for a large group. <a href="https://www.partyondelivery.com" target="_blank" rel="noopener noreferrer" className="text-green-600 hover:underline font-semibold">Party On Delivery</a> will supply drinks for larger combined groups – whether you're stocking your rental, preparing for the <strong>party boat Austin</strong> cruise, or setting up for a downtown bar crawl. They've partnered with <Link href="/" className="text-blue-600 hover:underline font-semibold">Premier Party Cruises</Link> to make your <strong>joint bachelor bachelorette party</strong> completely hassle-free!
               </p>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Conclusion: One for the Books */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="section-conclusion">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+            <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
               <div className="flex items-center gap-3 mb-4">
                 <Trophy className="h-8 w-8 text-yellow-600" />
                 <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Conclusion: Your Austin Bachelor Party Adventure Awaits</h2>
@@ -720,7 +719,7 @@ export default function JointBachelorBachelorettePartyGuide() {
                 </Link>
               </div>
 
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
@@ -730,7 +729,7 @@ export default function JointBachelorBachelorettePartyGuide() {
         {/* More Resources Section */}
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+            <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
               {/* More Resources */}
               <div className="pt-8">
                 <h3 className="text-xl font-bold mb-6 text-gray-900 dark:text-white">Explore More Party Resources</h3>
@@ -765,12 +764,13 @@ export default function JointBachelorBachelorettePartyGuide() {
                   </Link>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         <Footer />
       </div>
     </>
+    </LazyMotionProvider>
   );
 }

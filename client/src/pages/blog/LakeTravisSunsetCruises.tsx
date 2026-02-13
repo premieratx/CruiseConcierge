@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { m, LazyMotionProvider, fadeInUp, staggerContainer } from '@/components/LazyMotion';
 import { Link } from 'wouter';
-import * as HelmetAsync from 'react-helmet-async';
-const HelmetAsyncDefault = (HelmetAsync as any).default || HelmetAsync;
-const { Helmet } = HelmetAsyncDefault;
+import SEOHead from '@/components/SEOHead';
 import { 
   Sun, Users, Heart, Phone, Clock, CheckCircle2, 
   Camera, Award, Waves, MapPin, Calendar, Star,
@@ -21,15 +19,6 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import heroImage from '@assets/@capitalcityshots-33_1760080807868.jpg';
 import sectionImage1 from '@assets/@capitalcityshots-34_1760080807868.jpg';
 import sectionImage2 from '@assets/@capitalcityshots-35_1760080807868.jpg';
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-};
-
-const staggerChildren = {
-  visible: { transition: { staggerChildren: 0.1 } }
-};
 
 const cruiseStats = [
   { stat: '14+', label: 'Years Experience' },
@@ -197,23 +186,21 @@ export default function LakeTravisSunsetCruises() {
   }, []);
 
   return (
+    <LazyMotionProvider>
     <>
-      <Helmet>
-        <title>Lake Travis Sunset Cruises - Romantic & Celebration Options for Every Occasion | Premier Party Cruises</title>
-        <meta name="description" content="Experience magical Lake Travis sunset cruises for romantic occasions and celebrations. Sunset cruise Austin options, romantic boat cruise Austin experiences, and evening cruise Lake Travis departures. Lake Travis sunset boat ride for proposals, anniversaries, and parties." />
-        <meta name="keywords" content="Lake Travis sunset cruises, sunset cruise Austin, romantic boat cruise Austin, Lake Travis sunset boat ride, evening cruise Lake Travis, sunset party boat Austin, romantic Lake Travis cruise" />
-        <link rel="canonical" href="https://premierpartycruises.com/blogs/lake-travis-sunset-cruises-romantic-and-celebration-options-for-every-occasion" />
-        <meta property="og:title" content="Lake Travis Sunset Cruises - Romantic & Celebration Options" />
-        <meta property="og:description" content="Magical sunset cruises on Lake Travis for romantic occasions and celebrations. Golden hour boat experiences for proposals, anniversaries, and parties." />
-        <meta property="og:type" content="article" />
-        <meta property="og:image" content={heroImage} />
-      </Helmet>
+      <SEOHead 
+        pageRoute="/blogs/lake-travis-sunset-cruises-romantic-and-celebration-options-for-every-occasion"
+        defaultTitle="Lake Travis Sunset Cruises - Romantic & Celebration Options for Every Occasion | Premier Party Cruises"
+        defaultDescription="Experience magical Lake Travis sunset cruises for romantic occasions and celebrations. Sunset cruise Austin options, romantic boat cruise Austin experiences, and evening cruise Lake Travis departures. Lake Travis sunset boat ride for proposals, anniversaries, and parties."
+        defaultKeywords={['Lake Travis sunset cruises', 'sunset cruise Austin', 'romantic boat cruise Austin', 'Lake Travis sunset boat ride', 'evening cruise Lake Travis', 'sunset party boat Austin', 'romantic Lake Travis cruise']}
+        image={heroImage}
+      />
 
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="lake-travis-sunset-cruises-page">
         <PublicNavigation />
 
         {/* Hero Section */}
-        <motion.section 
+        <m.section 
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
@@ -263,14 +250,26 @@ export default function LakeTravisSunsetCruises() {
               </Button>
             </div>
           </div>
-        </motion.section>
+        </m.section>
+
+      {/* Topic Cluster Pillar Link */}
+      <div className="bg-blue-50 dark:bg-blue-950/30 border-b border-blue-100 dark:border-blue-900/50">
+        <div className="max-w-4xl mx-auto px-6 py-3">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            Explore our full guide to{' '}
+            <Link href="/party-boat-lake-travis" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Lake Travis party boat rentals</Link>{' '}
+            for everything from pricing and logistics to safety and entertainment.
+          </p>
+        </div>
+      </div>
+
 
         {/* Stats */}
         <section className="py-12 bg-slate-100 dark:bg-slate-900" data-testid="stats-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {cruiseStats.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -281,7 +280,7 @@ export default function LakeTravisSunsetCruises() {
                 >
                   <div className="text-3xl md:text-4xl font-bold text-orange-600 dark:text-orange-400">{item.stat}</div>
                   <div className="text-gray-600 dark:text-gray-400">{item.label}</div>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -290,11 +289,11 @@ export default function LakeTravisSunsetCruises() {
         {/* Sunset Cruise Types */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="cruise-types-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={staggerChildren}
+              variants={staggerContainer}
               className="text-center mb-12"
             >
               <Badge className="mb-4 bg-orange-100 text-orange-700">CRUISE OPTIONS</Badge>
@@ -304,11 +303,11 @@ export default function LakeTravisSunsetCruises() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Find the perfect sunset cruise Austin experience for your celebration
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 gap-6">
               {sunsetCruiseTypes.map((type, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -338,7 +337,7 @@ export default function LakeTravisSunsetCruises() {
                       </div>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -359,7 +358,7 @@ export default function LakeTravisSunsetCruises() {
         {/* Why Sunset */}
         <section className="py-16 bg-gradient-to-br from-gray-50 to-orange-50 dark:from-gray-800 dark:to-gray-900" data-testid="why-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -373,11 +372,11 @@ export default function LakeTravisSunsetCruises() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 What makes evening cruise Lake Travis departures so special
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {whySunset.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -393,7 +392,7 @@ export default function LakeTravisSunsetCruises() {
                       <p className="text-gray-600 dark:text-gray-400 text-sm">{item.description}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -402,7 +401,7 @@ export default function LakeTravisSunsetCruises() {
         {/* Sunset Timing */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="timing-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -416,11 +415,11 @@ export default function LakeTravisSunsetCruises() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Plan your Lake Travis sunset cruises with optimal departure times
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {sunsetTiming.map((time, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -445,7 +444,7 @@ export default function LakeTravisSunsetCruises() {
                       <p className="text-xs text-gray-500">{time.notes}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -455,7 +454,7 @@ export default function LakeTravisSunsetCruises() {
         <section className="py-16 bg-rose-50 dark:bg-rose-900/20" data-testid="romantic-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <motion.div
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -476,8 +475,8 @@ export default function LakeTravisSunsetCruises() {
                     </div>
                   ))}
                 </div>
-              </motion.div>
-              <motion.div
+              </m.div>
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -489,7 +488,7 @@ export default function LakeTravisSunsetCruises() {
                   className="rounded-2xl shadow-xl"
                   data-testid="img-romantic"
                 />
-              </motion.div>
+              </m.div>
             </div>
           </div>
         </section>
@@ -497,7 +496,7 @@ export default function LakeTravisSunsetCruises() {
         {/* Fleet for Sunset */}
         <section className="py-16 bg-slate-100 dark:bg-slate-800" data-testid="fleet-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -511,11 +510,11 @@ export default function LakeTravisSunsetCruises() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 All single-deck pontoons with arch canopy for sunset cruises Austin
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {fleetForSunset.map((boat, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -540,7 +539,7 @@ export default function LakeTravisSunsetCruises() {
                       </ul>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -552,7 +551,7 @@ export default function LakeTravisSunsetCruises() {
         {/* FAQ Section */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="faq-section">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -566,7 +565,7 @@ export default function LakeTravisSunsetCruises() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 Common questions about Lake Travis sunset cruises and evening departures
               </p>
-            </motion.div>
+            </m.div>
 
             <Accordion type="single" collapsible className="space-y-4">
               {faqs.map((faq, index) => (
@@ -586,7 +585,7 @@ export default function LakeTravisSunsetCruises() {
         {/* Internal Links */}
         <section className="py-16 bg-slate-100 dark:bg-slate-800" data-testid="links-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -597,7 +596,7 @@ export default function LakeTravisSunsetCruises() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 Discover more Lake Travis sunset boat ride options
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
               {internalLinks.map((link, index) => (
@@ -617,7 +616,7 @@ export default function LakeTravisSunsetCruises() {
         {/* Final CTA */}
         <section className="py-20 bg-gradient-to-br from-orange-600 to-rose-700 text-white" data-testid="cta-section">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -652,12 +651,13 @@ export default function LakeTravisSunsetCruises() {
                   </a>
                 </Button>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         <Footer />
       </div>
     </>
+    </LazyMotionProvider>
   );
 }

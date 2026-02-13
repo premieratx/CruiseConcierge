@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { m, LazyMotionProvider, fadeInUp, staggerContainer } from '@/components/LazyMotion';
 import { Link } from 'wouter';
-import * as HelmetAsync from 'react-helmet-async';
-const HelmetAsyncDefault = (HelmetAsync as any).default || HelmetAsync;
-const { Helmet } = HelmetAsyncDefault;
+import SEOHead from '@/components/SEOHead';
 import { 
   Ship, Users, Package, Phone, Clock, CheckCircle2, 
   Thermometer, Droplets, Waves, MapPin, Calendar, Star,
@@ -23,15 +21,6 @@ import { BlogImageBreak, BlogPhotoStrip, BLOG_PARTY_PHOTOS } from '@/components/
 import heroImage from '@assets/@capitalcityshots-10_1760080740019.jpg';
 import sectionImage1 from '@assets/@capitalcityshots-11_1760080740019.jpg';
 import sectionImage2 from '@assets/@capitalcityshots-12_1760080740019.jpg';
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-};
-
-const staggerChildren = {
-  visible: { transition: { staggerChildren: 0.1 } }
-};
 
 const summerTips = [
   {
@@ -154,24 +143,21 @@ export default function PoolPartyAlcoholCoordination() {
   }, []);
 
   return (
+    <LazyMotionProvider>
     <>
-      <Helmet>
-        <title>Pool Party Alcohol Coordination: Summer Event Planning in Austin Heat | Premier Party Cruises</title>
-        <meta name="description" content="Master pool party alcohol coordination for Austin summer events. Expert summer event planning tips for Lake Travis boat parties. Calculate drinks for 14-75 guests, keep beverages cold in Austin heat, and coordinate delivery. Pool party alcohol coordination guide from Premier Party Cruises." />
-        <meta name="keywords" content="pool party alcohol coordination, summer event planning, Austin pool party, Lake Travis party boat, Austin summer party, pool party planning Austin, boat party alcohol, summer event coordination, Austin heat party planning, Party On Delivery Austin" />
-        <link rel="canonical" href="https://premierpartycruises.com/blogs/pool-party-alcohol-coordination-summer-event-planning-in-austin-heat" />
-        <meta property="og:title" content="Pool Party Alcohol Coordination: Summer Event Planning in Austin Heat" />
-        <meta property="og:description" content="Expert pool party alcohol coordination and summer event planning tips for Austin Lake Travis boat parties. Keep drinks cold and guests happy in Texas heat." />
-        <meta property="og:type" content="article" />
-        <meta property="og:url" content="https://premierpartycruises.com/blogs/pool-party-alcohol-coordination-summer-event-planning-in-austin-heat" />
-        <meta property="og:image" content="https://premierpartycruises.com/attached_assets/@capitalcityshots-10_1760080740019.jpg" />
-      </Helmet>
+      <SEOHead 
+        pageRoute="/blogs/pool-party-alcohol-coordination-summer-event-planning-in-austin-heat"
+        defaultTitle="Pool Party Alcohol Coordination: Summer Event Planning in Austin Heat | Premier Party Cruises"
+        defaultDescription="Master pool party alcohol coordination for Austin summer events. Expert summer event planning tips for Lake Travis boat parties. Calculate drinks for 14-75 guests, keep beverages cold in Austin heat, and coordinate delivery. Pool party alcohol coordination guide from Premier Party Cruises."
+        defaultKeywords={['pool party alcohol coordination', 'summer event planning', 'Austin pool party', 'Lake Travis party boat', 'Austin summer party', 'pool party planning Austin', 'boat party alcohol', 'summer event coordination', 'Austin heat party planning', 'Party On Delivery Austin']}
+        image="https://premierpartycruises.com/attached_assets/@capitalcityshots-10_1760080740019.jpg"
+      />
 
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="pool-party-alcohol-coordination-page">
         <PublicNavigation />
 
         {/* Hero Section */}
-        <motion.section 
+        <m.section 
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
@@ -220,14 +206,26 @@ export default function PoolPartyAlcoholCoordination() {
               </Button>
             </div>
           </div>
-        </motion.section>
+        </m.section>
+
+      {/* Topic Cluster Pillar Link */}
+      <div className="bg-blue-50 dark:bg-blue-950/30 border-b border-blue-100 dark:border-blue-900/50">
+        <div className="max-w-4xl mx-auto px-6 py-3">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            Browse our full range of{' '}
+            <Link href="/party-boat-austin" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Austin party boat rentals</Link>{' '}
+            for celebrations of every kind on Lake Travis.
+          </p>
+        </div>
+      </div>
+
 
         {/* Stats Section */}
         <section className="py-12 bg-slate-100 dark:bg-slate-900" data-testid="stats-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {whyPremier.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -238,7 +236,7 @@ export default function PoolPartyAlcoholCoordination() {
                 >
                   <div className="text-3xl md:text-4xl font-bold text-orange-600 dark:text-orange-400">{item.stat}</div>
                   <div className="text-gray-600 dark:text-gray-400 font-medium">{item.label}</div>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -247,7 +245,7 @@ export default function PoolPartyAlcoholCoordination() {
         {/* Introduction */}
         <section className="py-16 md:py-24 bg-white dark:bg-gray-950" data-testid="intro-section">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div 
+            <m.div 
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -271,14 +269,14 @@ export default function PoolPartyAlcoholCoordination() {
                 alt="Pool party alcohol coordination on Lake Travis boat party - guests enjoying cold drinks in Austin summer"
                 caption="Keep your summer event cool with proper pool party alcohol coordination"
               />
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Summer Tips Section */}
         <section className="py-16 md:py-24 bg-gradient-to-br from-orange-50 to-yellow-50 dark:from-gray-800 dark:to-gray-900" data-testid="summer-tips-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div 
+            <m.div 
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -291,11 +289,11 @@ export default function PoolPartyAlcoholCoordination() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Pool party alcohol coordination in Texas summer requires specific strategies. These summer event planning tips ensure your Lake Travis party stays refreshing.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 gap-6">
               {summerTips.map((tip, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -315,7 +313,7 @@ export default function PoolPartyAlcoholCoordination() {
                       </div>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -324,7 +322,7 @@ export default function PoolPartyAlcoholCoordination() {
         {/* Alcohol Calculations Table */}
         <section className="py-16 md:py-24 bg-white dark:bg-gray-950" data-testid="calculations-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div 
+            <m.div 
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -337,7 +335,7 @@ export default function PoolPartyAlcoholCoordination() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Use this summer event planning guide to calculate beverages for your Lake Travis boat party. Quantities account for Austin summer heat consumption rates.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="overflow-x-auto">
               <table className="w-full border-collapse bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-lg" data-testid="alcohol-table">
@@ -398,7 +396,7 @@ export default function PoolPartyAlcoholCoordination() {
         {/* Fleet Options */}
         <section className="py-16 md:py-24 bg-slate-50 dark:bg-slate-900" data-testid="fleet-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div 
+            <m.div 
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -411,11 +409,11 @@ export default function PoolPartyAlcoholCoordination() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 All boats feature arch canopy shade for pool party alcohol coordination. Single-deck pontoons perfect for Austin summer events.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 gap-6">
               {boatFleet.map((boat, index) => (
-                <motion.div
+                <m.div
                   key={boat.name}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -438,7 +436,7 @@ export default function PoolPartyAlcoholCoordination() {
                       </div>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -447,7 +445,7 @@ export default function PoolPartyAlcoholCoordination() {
         {/* Coordination Checklist */}
         <section className="py-16 md:py-24 bg-white dark:bg-gray-950" data-testid="checklist-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div 
+            <m.div 
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -460,11 +458,11 @@ export default function PoolPartyAlcoholCoordination() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Follow this summer event planning checklist for a flawless Lake Travis boat party.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 gap-6">
               {coordinationChecklist.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
                   whileInView={{ opacity: 1, x: 0 }}
@@ -484,7 +482,7 @@ export default function PoolPartyAlcoholCoordination() {
                       </div>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -496,7 +494,7 @@ export default function PoolPartyAlcoholCoordination() {
         {/* FAQ Section */}
         <section className="py-16 md:py-24 bg-white dark:bg-gray-950" data-testid="faq-section">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div 
+            <m.div 
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -509,7 +507,7 @@ export default function PoolPartyAlcoholCoordination() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 Common questions about summer event planning and alcohol coordination for Austin boat parties.
               </p>
-            </motion.div>
+            </m.div>
 
             <Accordion type="single" collapsible className="space-y-4" data-testid="faq-accordion">
               {faqs.map((faq, index) => (
@@ -536,7 +534,7 @@ export default function PoolPartyAlcoholCoordination() {
         {/* Internal Links Section */}
         <section className="py-16 bg-slate-100 dark:bg-slate-900" data-testid="internal-links-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div 
+            <m.div 
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -549,11 +547,11 @@ export default function PoolPartyAlcoholCoordination() {
               <p className="text-gray-600 dark:text-gray-400">
                 Plan your perfect summer event with Premier Party Cruises
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
               {internalLinks.map((link, index) => (
-                <motion.div
+                <m.div
                   key={link.href}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -568,7 +566,7 @@ export default function PoolPartyAlcoholCoordination() {
                       </CardContent>
                     </Card>
                   </Link>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -611,5 +609,6 @@ export default function PoolPartyAlcoholCoordination() {
         <Footer />
       </div>
     </>
+    </LazyMotionProvider>
   );
 }

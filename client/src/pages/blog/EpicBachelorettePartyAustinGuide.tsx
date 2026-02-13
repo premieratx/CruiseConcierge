@@ -1,8 +1,6 @@
-import { motion } from 'framer-motion';
+import { m, LazyMotionProvider, fadeInUp, staggerContainer } from '@/components/LazyMotion';
 import { Link } from 'wouter';
-import * as HelmetAsync from 'react-helmet-async';
-const HelmetAsyncDefault = (HelmetAsync as any).default || HelmetAsync;
-const { Helmet } = HelmetAsyncDefault;
+import SEOHead from '@/components/SEOHead';
 import { 
   Ship, Users, Phone, Clock, CheckCircle2, 
   Music, Sun, Waves, MapPin, Calendar, Star,
@@ -26,10 +24,6 @@ import sectionImage2 from '@assets/@capitalcityshots-3_1760080740017.jpg';
 import sectionImage3 from '@assets/clever-girl-3-bachelorette-boat.jpg';
 import sectionImage4 from '@assets/@capitalcityshots-5_1760072938923.jpg';
 
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-};
 
 const discoCruiseFeatures = [
   { icon: Music, text: 'Professional DJ spinning the hottest tracks' },
@@ -73,55 +67,15 @@ const themeIdeas = [
 
 export default function EpicBachelorettePartyAustinGuide() {
   return (
+    <LazyMotionProvider>
     <div data-page-ready="epic-bachelorette-party-austin-guide" className="min-h-screen bg-gradient-to-b from-pink-50 via-white to-purple-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950">
-      <Helmet>
-        <title>Austin Texas Bachelorette Party Guide & Ideas | Premier Party Cruises</title>
-        <meta 
-          name="description" 
-          content="Discover top activities for an Austin Texas bachelorette party! From lively nightlife to serene spots, explore exciting itineraries, themes, and dining ideas for an unforgettable celebration." 
-        />
-        <meta 
-          name="keywords" 
-          content="Austin bachelorette party, bachelorette party Austin TX, Austin bachelorette ideas, Lake Travis bachelorette, ATX Disco Cruise, Rainey Street bachelorette, girls trip Austin, bride tribe Austin" 
-        />
-        <link rel="canonical" href="https://premierpartycruises.com/blogs/epic-bachelorette-party-austin-ultimate-guide" />
-        
-        <meta property="og:title" content="Austin Texas Bachelorette Party Guide & Ideas" />
-        <meta property="og:description" content="Plan the ultimate Austin bachelorette party! Lake Travis boats, Rainey Street nightlife, spa days, and the legendary ATX Disco Cruise." />
-        <meta property="og:type" content="article" />
-        <meta property="og:url" content="https://premierpartycruises.com/blogs/epic-bachelorette-party-austin-ultimate-guide" />
-        <meta property="og:image" content="https://premierpartycruises.com/attached_assets/@capitalcityshots-1_1760080740012.jpg" />
-        
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Article",
-            "headline": "Austin Texas Bachelorette Party Guide: Top Activities, Ideas & Insider Tips",
-            "description": "Discover top activities for an Austin Texas bachelorette party! From lively nightlife to serene spots, explore exciting itineraries, themes, and dining ideas for an unforgettable celebration.",
-            "image": "https://premierpartycruises.com/attached_assets/@capitalcityshots-1_1760080740012.jpg",
-            "author": {
-              "@type": "Organization",
-              "name": "Premier Party Cruises",
-              "url": "https://premierpartycruises.com"
-            },
-            "publisher": {
-              "@type": "Organization",
-              "name": "Premier Party Cruises",
-              "url": "https://premierpartycruises.com",
-              "logo": {
-                "@type": "ImageObject",
-                "url": "https://premierpartycruises.com/media/schema/ppc-logo.png"
-              }
-            },
-            "datePublished": "2025-01-01",
-            "dateModified": "2025-12-09",
-            "mainEntityOfPage": {
-              "@type": "WebPage",
-              "@id": "https://premierpartycruises.com/blogs/epic-bachelorette-party-austin-ultimate-guide"
-            }
-          })}
-        </script>
-      </Helmet>
+      <SEOHead 
+        pageRoute="/blogs/epic-bachelorette-party-austin-ultimate-guide"
+        defaultTitle="Austin Texas Bachelorette Party Guide & Ideas | Premier Party Cruises"
+        defaultDescription="Discover top activities for an Austin Texas bachelorette party! From lively nightlife to serene spots, explore exciting itineraries, themes, and dining ideas for an unforgettable celebration."
+        defaultKeywords={['Austin bachelorette party', 'bachelorette party Austin TX', 'Austin bachelorette ideas', 'Lake Travis bachelorette', 'ATX Disco Cruise', 'Rainey Street bachelorette', 'girls trip Austin', 'bride tribe Austin']}
+        image="https://premierpartycruises.com/attached_assets/@capitalcityshots-1_1760080740012.jpg"
+      />
 
       <PublicNavigation />
 
@@ -138,7 +92,7 @@ export default function EpicBachelorettePartyAustinGuide() {
         
         <div className="container mx-auto px-6 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
-            <motion.div
+            <m.div
               initial="hidden"
               animate="visible"
               variants={fadeInUp}
@@ -197,16 +151,28 @@ export default function EpicBachelorettePartyAustinGuide() {
                   <span>15+ Years Experience</span>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </div>
       </section>
+
+      {/* Topic Cluster Pillar Link */}
+      <div className="bg-blue-50 dark:bg-blue-950/30 border-b border-blue-100 dark:border-blue-900/50">
+        <div className="max-w-4xl mx-auto px-6 py-3">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            This guide is part of our complete{' '}
+            <Link href="/bachelorette-party-austin" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Austin bachelorette party boats</Link>{' '}
+            resource — your ultimate planning hub for Lake Travis bachelorette celebrations.
+          </p>
+        </div>
+      </div>
+
 
       {/* Why Austin Section */}
       <section className="py-20 bg-white dark:bg-gray-900">
         <div className="container mx-auto px-6">
           <div className="max-w-5xl mx-auto">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -221,10 +187,10 @@ export default function EpicBachelorettePartyAustinGuide() {
                 Austin draws bachelorette parties like a magnet. Its eclectic culture, legendary nightlife, 
                 amazing food scene, and beautiful Lake Travis make it the perfect destination for your bride tribe.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 gap-8 items-center">
-              <motion.div
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -236,8 +202,8 @@ export default function EpicBachelorettePartyAustinGuide() {
                   className="rounded-2xl shadow-2xl w-full h-80 object-cover"
                   aspectRatio="4/3"
                 />
-              </motion.div>
-              <motion.div
+              </m.div>
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -266,7 +232,7 @@ export default function EpicBachelorettePartyAustinGuide() {
                     </Button>
                   </Link>
                 </div>
-              </motion.div>
+              </m.div>
             </div>
 
             {/* Why Austin Reasons */}
@@ -277,7 +243,7 @@ export default function EpicBachelorettePartyAustinGuide() {
                 { icon: Palette, title: 'Unique Attractions', description: 'Murals, museums, and experiences for everyone' },
                 { icon: ShoppingBag, title: 'Boutique Shopping', description: 'South Congress has the cutest local shops' }
               ].map((reason, i) => (
-                <motion.div
+                <m.div
                   key={i}
                   initial="hidden"
                   whileInView="visible"
@@ -293,7 +259,7 @@ export default function EpicBachelorettePartyAustinGuide() {
                       <p className="text-gray-600 dark:text-gray-400 text-sm">{reason.description}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -304,7 +270,7 @@ export default function EpicBachelorettePartyAustinGuide() {
       <section className="py-20 bg-gradient-to-br from-pink-50 to-purple-50 dark:from-gray-800 dark:to-gray-900">
         <div className="container mx-auto px-6">
           <div className="max-w-6xl mx-auto">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -319,7 +285,7 @@ export default function EpicBachelorettePartyAustinGuide() {
                 As Austin's <Link href="/" className="text-pink-600 hover:underline">bachelorette party specialist</Link>, 
                 Premier Party Cruises offers exceptional experiences on <Link href="/party-boat-lake-travis" className="text-pink-600 hover:underline">Lake Travis</Link>.
               </p>
-            </motion.div>
+            </m.div>
 
             <Card className="border-2 border-pink-200 dark:border-pink-800 overflow-hidden">
               <div className="bg-gradient-to-r from-pink-600 to-purple-600 text-white p-6">
@@ -392,7 +358,7 @@ export default function EpicBachelorettePartyAustinGuide() {
       <section className="py-20 bg-white dark:bg-gray-900">
         <div className="container mx-auto px-6">
           <div className="max-w-6xl mx-auto">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -469,7 +435,7 @@ export default function EpicBachelorettePartyAustinGuide() {
                   </div>
                 </CardContent>
               </Card>
-            </motion.div>
+            </m.div>
           </div>
         </div>
       </section>
@@ -478,7 +444,7 @@ export default function EpicBachelorettePartyAustinGuide() {
       <section className="py-20 bg-gradient-to-br from-purple-50 to-pink-50 dark:from-gray-800 dark:to-gray-900">
         <div className="container mx-auto px-6">
           <div className="max-w-6xl mx-auto">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -492,10 +458,10 @@ export default function EpicBachelorettePartyAustinGuide() {
               <p className="text-xl text-gray-600 dark:text-gray-400">
                 Everything you need for the ultimate girls' weekend
               </p>
-            </motion.div>
+            </m.div>
 
             {/* Nightlife Section */}
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -540,10 +506,10 @@ export default function EpicBachelorettePartyAustinGuide() {
                   </div>
                 </CardContent>
               </Card>
-            </motion.div>
+            </m.div>
 
             {/* Spa & Relaxation */}
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -580,10 +546,10 @@ export default function EpicBachelorettePartyAustinGuide() {
                   </div>
                 </CardContent>
               </Card>
-            </motion.div>
+            </m.div>
 
             {/* Brunch & Dining */}
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -629,10 +595,10 @@ export default function EpicBachelorettePartyAustinGuide() {
                   </p>
                 </CardContent>
               </Card>
-            </motion.div>
+            </m.div>
 
             {/* Activities Grid */}
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -679,7 +645,7 @@ export default function EpicBachelorettePartyAustinGuide() {
                   </CardContent>
                 </Card>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </div>
       </section>
@@ -688,7 +654,7 @@ export default function EpicBachelorettePartyAustinGuide() {
       <section className="py-16 bg-white dark:bg-gray-900">
         <div className="container mx-auto px-6">
           <div className="max-w-6xl mx-auto">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -702,11 +668,11 @@ export default function EpicBachelorettePartyAustinGuide() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 Choose a fun theme that captures Austin's unique vibe!
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {themeIdeas.map((theme, i) => (
-                <motion.div
+                <m.div
                   key={i}
                   initial="hidden"
                   whileInView="visible"
@@ -724,7 +690,7 @@ export default function EpicBachelorettePartyAustinGuide() {
                       <p className="text-gray-600 dark:text-gray-400">{theme.description}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
 
@@ -747,7 +713,7 @@ export default function EpicBachelorettePartyAustinGuide() {
       <section className="py-20 bg-gradient-to-br from-pink-50 to-purple-50 dark:from-gray-800 dark:to-gray-900">
         <div className="container mx-auto px-6">
           <div className="max-w-5xl mx-auto">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -762,11 +728,11 @@ export default function EpicBachelorettePartyAustinGuide() {
                 Maximize the fun. Minimize the planning stress. Check out our 
                 <Link href="/3-day-austin-bachelorette-itinerary" className="text-purple-600 hover:underline"> complete 3-day itinerary guide</Link>.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="space-y-8">
               {/* Day 1 */}
-              <motion.div
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -798,10 +764,10 @@ export default function EpicBachelorettePartyAustinGuide() {
                     </div>
                   </CardContent>
                 </Card>
-              </motion.div>
+              </m.div>
 
               {/* Day 2 */}
-              <motion.div
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -847,10 +813,10 @@ export default function EpicBachelorettePartyAustinGuide() {
                     </div>
                   </CardContent>
                 </Card>
-              </motion.div>
+              </m.div>
 
               {/* Day 3 */}
-              <motion.div
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -881,7 +847,7 @@ export default function EpicBachelorettePartyAustinGuide() {
                     </div>
                   </CardContent>
                 </Card>
-              </motion.div>
+              </m.div>
             </div>
 
             <div className="mt-8 text-center">
@@ -899,7 +865,7 @@ export default function EpicBachelorettePartyAustinGuide() {
       <section className="py-16 bg-white dark:bg-gray-900">
         <div className="container mx-auto px-6">
           <div className="max-w-5xl mx-auto">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -910,7 +876,7 @@ export default function EpicBachelorettePartyAustinGuide() {
               <h2 className="text-3xl font-black text-gray-900 dark:text-white mb-4">
                 When to Visit: Best Times for an Austin Bachelorette Bash
               </h2>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-3 gap-6">
               {[
@@ -936,7 +902,7 @@ export default function EpicBachelorettePartyAustinGuide() {
                   link: '/blogs/austin-bachelorette-party-october'
                 }
               ].map((season, i) => (
-                <motion.div
+                <m.div
                   key={i}
                   initial="hidden"
                   whileInView="visible"
@@ -955,7 +921,7 @@ export default function EpicBachelorettePartyAustinGuide() {
                       </CardContent>
                     </Card>
                   </Link>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -966,7 +932,7 @@ export default function EpicBachelorettePartyAustinGuide() {
       <section className="py-16 bg-gradient-to-br from-slate-100 to-pink-100 dark:from-gray-800 dark:to-gray-900">
         <div className="container mx-auto px-6">
           <div className="max-w-5xl mx-auto">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -977,7 +943,7 @@ export default function EpicBachelorettePartyAustinGuide() {
               <h2 className="text-3xl font-black text-gray-900 dark:text-white mb-4">
                 Where to Stay for a Bachelorette Party in Austin
               </h2>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-3 gap-6">
               {[
@@ -985,7 +951,7 @@ export default function EpicBachelorettePartyAustinGuide() {
                 { title: 'South Congress Rentals', description: 'Quirky, local experience. Charming houses near eclectic boutiques, trendy cafes, and Instagram-worthy spots.', icon: Home },
                 { title: 'Lake Travis Airbnbs', description: 'Perfect if you\'re prioritizing the boat day with Premier Party Cruises. Wake up lakeside!', icon: Waves }
               ].map((option, i) => (
-                <motion.div
+                <m.div
                   key={i}
                   initial="hidden"
                   whileInView="visible"
@@ -1001,7 +967,7 @@ export default function EpicBachelorettePartyAustinGuide() {
                       <p className="text-gray-600 dark:text-gray-400">{option.description}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
 
@@ -1019,7 +985,7 @@ export default function EpicBachelorettePartyAustinGuide() {
       <section className="py-16 bg-gradient-to-br from-pink-500 to-purple-600 text-white">
         <div className="container mx-auto px-6">
           <div className="max-w-5xl mx-auto">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -1028,7 +994,7 @@ export default function EpicBachelorettePartyAustinGuide() {
             >
               <Trophy className="h-12 w-12 mx-auto text-pink-200 mb-4" />
               <h2 className="text-3xl font-black mb-4">Final Tips for an Epic Austin Bachelorette</h2>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
               {[
@@ -1039,7 +1005,7 @@ export default function EpicBachelorettePartyAustinGuide() {
                 { num: '5', tip: 'Keep the bride the priority—build the weekend around what SHE wants' },
                 { num: '6', tip: 'Book restaurant reservations ahead—Austin brunch spots fill up fast' }
               ].map((item, i) => (
-                <motion.div
+                <m.div
                   key={i}
                   initial="hidden"
                   whileInView="visible"
@@ -1053,7 +1019,7 @@ export default function EpicBachelorettePartyAustinGuide() {
                     </span>
                     <p className="text-lg">{item.tip}</p>
                   </div>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -1064,7 +1030,7 @@ export default function EpicBachelorettePartyAustinGuide() {
       <section className="py-16 bg-white dark:bg-gray-900">
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -1075,7 +1041,7 @@ export default function EpicBachelorettePartyAustinGuide() {
               <h2 className="text-3xl font-black text-gray-900 dark:text-white">
                 Frequently Asked Questions
               </h2>
-            </motion.div>
+            </m.div>
 
             <Accordion type="single" collapsible className="space-y-4">
               <AccordionItem value="item-1" className="border rounded-xl px-6">
@@ -1140,7 +1106,7 @@ export default function EpicBachelorettePartyAustinGuide() {
       <section className="py-16 bg-gradient-to-br from-purple-50 to-pink-50 dark:from-gray-800 dark:to-gray-900">
         <div className="container mx-auto px-6">
           <div className="max-w-5xl mx-auto">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -1151,7 +1117,7 @@ export default function EpicBachelorettePartyAustinGuide() {
               <h2 className="text-3xl font-black text-gray-900 dark:text-white">
                 More Bachelorette Party Resources
               </h2>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
               {[
@@ -1183,7 +1149,7 @@ export default function EpicBachelorettePartyAustinGuide() {
       <section className="py-20 bg-gradient-to-br from-pink-600 via-purple-600 to-pink-800 text-white">
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto text-center">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -1232,7 +1198,7 @@ export default function EpicBachelorettePartyAustinGuide() {
               <p className="mt-8 text-pink-300">
                 Questions? Call us at <a href="tel:5124885892" className="text-white hover:underline font-semibold">(512) 488-5892</a>
               </p>
-            </motion.div>
+            </m.div>
           </div>
         </div>
       </section>
@@ -1240,5 +1206,6 @@ export default function EpicBachelorettePartyAustinGuide() {
       <RelatedBlogArticles category="bachelorette" currentSlug="/blogs/top-spots-tips-for-an-unforgettable-austin-bachelorette-party-experience" />
       <Footer />
     </div>
+    </LazyMotionProvider>
   );
 }

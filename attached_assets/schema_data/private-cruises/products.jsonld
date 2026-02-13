@@ -1,0 +1,134 @@
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "Day Tripper - 14 Person Party Boat",
+    "description": "Intimate 14-guest single-deck pontoon with arch canopy, Bluetooth sound system, coolers with ice, and giant lily pad float. Perfect for small groups, birthday parties, and close-knit celebrations on Lake Travis.",
+    "brand": {
+      "@id": "https://premierpartycruises.com/#organization"
+    },
+    "category": "Party Boat Rental",
+    "url": "https://premierpartycruises.com/private-cruises",
+    "offers": {
+      "@type": "AggregateOffer",
+      "priceCurrency": "USD",
+      "lowPrice": "200",
+      "highPrice": "260",
+      "offerCount": "2",
+      "unitText": "per hour",
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/private-cruises"
+    },
+    "additionalProperty": [
+      {
+        "@type": "PropertyValue",
+        "name": "Capacity",
+        "value": "14 guests"
+      },
+      {
+        "@type": "PropertyValue",
+        "name": "Minimum Duration",
+        "value": "4 hours"
+      }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "The Irony - 25 Person Party Boat",
+    "description": "Mid-size 25-guest double-deck pontoon with upper sun deck, premium sound system, coolers with ice, and giant lily pad float. Ideal for bachelor parties, bachelorette parties, and medium groups on Lake Travis.",
+    "brand": {
+      "@id": "https://premierpartycruises.com/#organization"
+    },
+    "category": "Party Boat Rental",
+    "url": "https://premierpartycruises.com/private-cruises",
+    "offers": {
+      "@type": "AggregateOffer",
+      "priceCurrency": "USD",
+      "lowPrice": "225",
+      "highPrice": "325",
+      "offerCount": "2",
+      "unitText": "per hour",
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/private-cruises"
+    },
+    "additionalProperty": [
+      {
+        "@type": "PropertyValue",
+        "name": "Capacity",
+        "value": "25 guests"
+      },
+      {
+        "@type": "PropertyValue",
+        "name": "Minimum Duration",
+        "value": "4 hours"
+      }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "Meeseeks - 25 Person Party Boat",
+    "description": "Popular 25-guest single-deck pontoon with arch canopy, premium Bluetooth sound system, coolers with ice, and giant lily pad float. Most booked boat for bachelor and bachelorette parties on Lake Travis.",
+    "brand": {
+      "@id": "https://premierpartycruises.com/#organization"
+    },
+    "category": "Party Boat Rental",
+    "url": "https://premierpartycruises.com/private-cruises",
+    "offers": {
+      "@type": "AggregateOffer",
+      "priceCurrency": "USD",
+      "lowPrice": "225",
+      "highPrice": "325",
+      "offerCount": "2",
+      "unitText": "per hour",
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/private-cruises"
+    },
+    "additionalProperty": [
+      {
+        "@type": "PropertyValue",
+        "name": "Capacity",
+        "value": "25 guests"
+      },
+      {
+        "@type": "PropertyValue",
+        "name": "Minimum Duration",
+        "value": "4 hours"
+      }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "Clever Girl - 50-75 Person Flagship Party Boat",
+    "description": "Flagship 50-75 guest single-deck pontoon featuring 14 disco balls, giant Texas flag, maximum dance space, premium sound system, and coolers with ice. The ultimate large group party boat on Lake Travis for corporate events and celebrations.",
+    "brand": {
+      "@id": "https://premierpartycruises.com/#organization"
+    },
+    "category": "Party Boat Rental",
+    "url": "https://premierpartycruises.com/private-cruises",
+    "offers": {
+      "@type": "AggregateOffer",
+      "priceCurrency": "USD",
+      "lowPrice": "250",
+      "highPrice": "520",
+      "offerCount": "2",
+      "unitText": "per hour",
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/private-cruises"
+    },
+    "additionalProperty": [
+      {
+        "@type": "PropertyValue",
+        "name": "Capacity",
+        "value": "50-75 guests"
+      },
+      {
+        "@type": "PropertyValue",
+        "name": "Minimum Duration",
+        "value": "4 hours"
+      }
+    ]
+  }
+]

@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { m, LazyMotionProvider, fadeInUp, staggerContainer } from '@/components/LazyMotion';
 import { Link } from 'wouter';
-import * as HelmetAsync from 'react-helmet-async';
-const HelmetAsyncDefault = (HelmetAsync as any).default || HelmetAsync;
-const { Helmet } = HelmetAsyncDefault;
+import SEOHead from '@/components/SEOHead';
 import { 
   Ship, Users, PartyPopper, Sparkles, Crown, Music, 
   Anchor, Sun, Waves, Star, ArrowRight, Camera, 
@@ -23,10 +21,6 @@ import bachelorHero from '@assets/bachelor-party-group-guys.webp';
 import partyAtmosphere1 from '@assets/party-atmosphere-1.webp';
 import cleverGirl from '@assets/clever-girl-50-person-boat.webp';
 
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-};
 
 const outfitThemes = [
   { 
@@ -73,23 +67,21 @@ export default function BachelorPartyOutfitIdeas() {
   }, []);
 
   return (
+    <LazyMotionProvider>
     <>
-      <Helmet>
-        <title>Best Bachelor Party Outfit Ideas for the ATX Disco Cruise | Premier Party Cruises</title>
-        <meta name="description" content="Planning outfits for your Austin bachelor party on Lake Travis? Discover the best costume and theme ideas for the ATX Disco Cruise. From Disco Cowboys to Nautical Bros, dress up to stand out and break the ice with bachelorette groups!" />
-        <meta name="keywords" content="Austin bachelor party outfits, ATX Disco Cruise costumes, Lake Travis party boat outfits, bachelor party in Austin themes, party boat Austin costume ideas, bachelor party costume themes, disco cruise outfit ideas" />
-        <link rel="canonical" href="https://premierpartycruises.com/blogs/bachelor-party-outfit-ideas-atx-disco-cruise" />
-        <meta property="og:title" content="Best Bachelor Party Outfit Ideas for the ATX Disco Cruise" />
-        <meta property="og:description" content="The ultimate guide to dressing up for your Austin bachelor party on Lake Travis. Stand out, break the ice, and party harder!" />
-        <meta property="og:type" content="article" />
-        <meta property="og:image" content="https://premierpartycruises.com/attached_assets/atx-disco-cruise-party.webp" />
-      </Helmet>
+      <SEOHead 
+        pageRoute="/blogs/bachelor-party-outfit-ideas-atx-disco-cruise"
+        defaultTitle="Best Bachelor Party Outfit Ideas for the ATX Disco Cruise | Premier Party Cruises"
+        defaultDescription="Planning outfits for your Austin bachelor party on Lake Travis? Discover the best costume and theme ideas for the ATX Disco Cruise. From Disco Cowboys to Nautical Bros, dress up to stand out and break the ice with bachelorette groups!"
+        defaultKeywords={['Austin bachelor party outfits', 'ATX Disco Cruise costumes', 'Lake Travis party boat outfits', 'bachelor party in Austin themes', 'party boat Austin costume ideas', 'bachelor party costume themes', 'disco cruise outfit ideas']}
+        image="https://premierpartycruises.com/attached_assets/atx-disco-cruise-party.webp"
+      />
 
       <div className="min-h-screen bg-white dark:bg-gray-950">
         <PublicNavigation />
 
         {/* Hero Section */}
-        <motion.section 
+        <m.section 
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
@@ -127,12 +119,24 @@ export default function BachelorPartyOutfitIdeas() {
               </Link>
             </div>
           </div>
-        </motion.section>
+        </m.section>
+
+      {/* Topic Cluster Pillar Link */}
+      <div className="bg-blue-50 dark:bg-blue-950/30 border-b border-blue-100 dark:border-blue-900/50">
+        <div className="max-w-4xl mx-auto px-6 py-3">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            This guide is part of our complete{' '}
+            <Link href="/bachelor-party-austin" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Austin bachelor party boats</Link>{' '}
+            resource — your one-stop planning hub for Lake Travis bachelor celebrations.
+          </p>
+        </div>
+      </div>
+
 
         {/* Introduction */}
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+            <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
               <h2 className="heading-unbounded text-2xl sm:text-3xl font-bold mb-6 text-gray-900 dark:text-white">Why Costumes Matter for Your Austin Bachelor Party on Lake Travis</h2>
               <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
                 Listen up, best men and groomsmen – here's the secret sauce to an unforgettable <strong>bachelor party in Austin</strong>: GO ALL IN on a theme. The <Link href="/atx-disco-cruise" className="text-blue-600 hover:underline font-semibold">ATX Disco Cruise</Link> isn't your typical <Link href="/party-boat-austin" className="text-blue-600 hover:underline font-semibold">party boat in Austin</Link>. It's a floating nightclub where bachelor AND <Link href="/bachelorette-party-austin" className="text-blue-600 hover:underline font-semibold">bachelorette parties</Link> mix and mingle together.
@@ -149,14 +153,14 @@ export default function BachelorPartyOutfitIdeas() {
                 alt="Austin bachelor party boat group in matching outfits ready for Lake Travis party cruise"
                 caption="Groups that commit to themes become legends on the ATX Disco Cruise"
               />
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Theme 1: Disco Cowboys */}
         <section className="py-16 bg-gradient-to-br from-amber-50 to-yellow-50 dark:from-gray-800 dark:to-gray-900">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+            <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
               <div className="flex items-center gap-3 mb-4">
                 <Star className="h-8 w-8 text-yellow-600" />
                 <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Theme #1: Disco Cowboys</h2>
@@ -181,14 +185,14 @@ export default function BachelorPartyOutfitIdeas() {
               <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
                 <strong>Party tip:</strong> Coordinate with <a href="https://www.partyondelivery.com" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline font-semibold">Party On Delivery</a> to have custom koozies with "Disco Cowboy Crew" printed on them delivered with your drinks. The bachelorette girls will be stealing them as souvenirs!
               </p>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Theme 2: Nautical Bros */}
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+            <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
               <div className="flex items-center gap-3 mb-4">
                 <Anchor className="h-8 w-8 text-blue-600" />
                 <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Theme #2: Nautical Bros (Captain & Crew)</h2>
@@ -232,14 +236,14 @@ export default function BachelorPartyOutfitIdeas() {
                 alt="Lake travis bachelor party boat perfect for nautical themed bachelor party Austin Texas"
                 caption="Set sail on the ultimate Lake Travis party boat adventure"
               />
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Theme 3: 70s Retro Kings */}
         <section className="py-16 bg-gradient-to-br from-orange-50 to-pink-50 dark:from-gray-800 dark:to-gray-900">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+            <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
               <div className="flex items-center gap-3 mb-4">
                 <Music className="h-8 w-8 text-orange-600" />
                 <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Theme #3: 70s Retro Kings</h2>
@@ -265,14 +269,14 @@ export default function BachelorPartyOutfitIdeas() {
               <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
                 This is the theme that gets you on the dance floor IMMEDIATELY. When the DJ drops "Stayin' Alive" and your crew hits the floor in full 70s regalia, the <Link href="/bachelorette-party-austin" className="text-blue-600 hover:underline font-semibold">bachelorette parties</Link> will be lining up to dance with you. Trust us, we've seen it happen countless times on the <Link href="/party-boat-lake-travis" className="text-blue-600 hover:underline font-semibold">Lake Travis party boat</Link>! Complete the vibe by having <a href="https://www.partyondelivery.com" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline font-semibold">Party On Delivery</a> bring retro-inspired cocktail mixers to your pre-cruise party.
               </p>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Theme 4: Wiggin' Out */}
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+            <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
               <div className="flex items-center gap-3 mb-4">
                 <Palette className="h-8 w-8 text-purple-600" />
                 <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Theme #4: Wiggin' Out</h2>
@@ -304,14 +308,14 @@ export default function BachelorPartyOutfitIdeas() {
                 alt="Austin bachelor party guests dancing on lake travis bachelor party boat disco cruise"
                 caption="The dance floor is where themed outfits really shine"
               />
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Theme 5: Hawaiian Bros */}
         <section className="py-16 bg-gradient-to-br from-teal-50 to-cyan-50 dark:from-gray-800 dark:to-gray-900">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+            <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
               <div className="flex items-center gap-3 mb-4">
                 <Sun className="h-8 w-8 text-teal-600" />
                 <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Theme #5: Hawaiian Bros</h2>
@@ -337,14 +341,14 @@ export default function BachelorPartyOutfitIdeas() {
               <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
                 This theme pairs perfectly with tropical drinks! Have <a href="https://www.partyondelivery.com" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline font-semibold">Party On Delivery</a> deliver rum, pineapple juice, and all the Mai Tai mixers to the marina. When you break out the coconut cups filled with tropical cocktails, the vibe will be IMMACULATE. Check out our <Link href="/pricing-breakdown" className="text-blue-600 hover:underline font-semibold">pricing breakdown</Link> to plan your perfect cruise!
               </p>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Theme 6: Team Uniform */}
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+            <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
               <div className="flex items-center gap-3 mb-4">
                 <Shirt className="h-8 w-8 text-green-600" />
                 <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Theme #6: Team Uniform</h2>
@@ -369,14 +373,14 @@ export default function BachelorPartyOutfitIdeas() {
               <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
                 Order custom tees online with a funny quote or inside joke about the groom. When you roll up to that <Link href="/party-boat-austin" className="text-blue-600 hover:underline font-semibold">party boat Austin</Link> style, everyone will know your squad means business. <a href="https://www.partyondelivery.com" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline font-semibold">Party On Delivery</a> can even deliver matching koozies with your custom design!
               </p>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Theme 7: Groom in Costume */}
         <section className="py-16 bg-gradient-to-br from-pink-50 to-rose-50 dark:from-gray-800 dark:to-gray-900">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+            <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
               <div className="flex items-center gap-3 mb-4">
                 <Crown className="h-8 w-8 text-pink-600" />
                 <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Theme #7: Funny "Groom in Costume" + Group in Theme</h2>
@@ -414,14 +418,14 @@ export default function BachelorPartyOutfitIdeas() {
                 alt="Bachelor party Austin Texas groups mixing with bachelorettes on lake travis bachelor party boat"
                 caption="Costumes are the ultimate conversation starters between groups"
               />
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Bonus Props & Extras */}
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+            <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
               <div className="flex items-center gap-3 mb-4">
                 <Gift className="h-8 w-8 text-blue-600" />
                 <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Bonus Props & Extras That Level Up Any Theme</h2>
@@ -484,14 +488,14 @@ export default function BachelorPartyOutfitIdeas() {
                   <a href="https://www.partyondelivery.com" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline font-semibold">Party On Delivery</a> doesn't just deliver alcohol – they can stock your Airbnb with mixers, ice, snacks, cups, and party supplies too. Order your custom koozies and have them delivered with all your drinks. That way you can spend your time perfecting your outfits instead of running errands!
                 </p>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* The Social Advantage Section */}
         <section className="py-16 bg-gradient-to-br from-purple-100 to-pink-100 dark:from-gray-800 dark:to-gray-900">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+            <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
               <div className="flex items-center gap-3 mb-4">
                 <Users className="h-8 w-8 text-purple-600" />
                 <Heart className="h-8 w-8 text-pink-600" />
@@ -527,14 +531,14 @@ export default function BachelorPartyOutfitIdeas() {
               <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
                 The groups that show up in basic shorts and t-shirts? They blend in. The groups that COMMIT to a theme? They become the stars of the cruise. Which one do you want your <strong>austin bachelor party</strong> on the <strong>lake travis bachelor party boat</strong> to be?
               </p>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Final Thoughts */}
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+            <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
               <div className="flex items-center gap-3 mb-4">
                 <PartyPopper className="h-8 w-8 text-yellow-600" />
                 <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Final Thoughts: Dress Up to Get Down</h2>
@@ -573,23 +577,23 @@ export default function BachelorPartyOutfitIdeas() {
                   </Button>
                 </Link>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Theme Overview Grid */}
         <section className="py-16 bg-gray-50 dark:bg-gray-800">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="text-center mb-12">
+            <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="text-center mb-12">
               <h2 className="text-3xl font-bold mb-4 text-gray-900 dark:text-white">Quick Theme Reference Guide</h2>
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Pick your theme and make your <Link href="/bachelor-party-austin" className="text-blue-600 hover:underline">Austin bachelor party</Link> unforgettable
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {outfitThemes.map((theme, index) => (
-                <motion.div key={index} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+                <m.div key={index} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
                   <Card className="h-full hover:shadow-lg transition-shadow" data-testid={`theme-card-${index}`}>
                     <CardContent className="pt-6">
                       <div className="w-14 h-14 mb-4 bg-gradient-to-br from-purple-100 to-pink-100 dark:from-purple-900 dark:to-pink-900 rounded-full flex items-center justify-center">
@@ -600,7 +604,7 @@ export default function BachelorPartyOutfitIdeas() {
                       <p className="text-gray-600 dark:text-gray-400 text-sm">{theme.description}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -609,5 +613,6 @@ export default function BachelorPartyOutfitIdeas() {
         <Footer />
       </div>
     </>
+    </LazyMotionProvider>
   );
 }

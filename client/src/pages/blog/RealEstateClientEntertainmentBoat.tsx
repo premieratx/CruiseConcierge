@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { m, LazyMotionProvider, fadeInUp, staggerContainer } from '@/components/LazyMotion';
 import { Link } from 'wouter';
-import * as HelmetAsync from 'react-helmet-async';
-const HelmetAsyncDefault = (HelmetAsync as any).default || HelmetAsync;
-const { Helmet } = HelmetAsyncDefault;
+import SEOHead from '@/components/SEOHead';
 import { 
   Ship, Users, Home, Phone, Clock, CheckCircle2, 
   Target, Award, Waves, MapPin, Calendar, Star,
@@ -21,15 +19,6 @@ import heroImage from '@assets/@capitalcityshots-4_1760080740017.jpg';
 import sectionImage1 from '@assets/@capitalcityshots-5_1760080740018.jpg';
 import sectionImage2 from '@assets/@capitalcityshots-6_1760080740018.jpg';
 import sectionImage3 from '@assets/@capitalcityshots-7_1760080740018.jpg';
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-};
-
-const staggerChildren = {
-  visible: { transition: { staggerChildren: 0.1 } }
-};
 
 const realEstateBenefits = [
   { 
@@ -152,23 +141,21 @@ export default function RealEstateClientEntertainmentBoat() {
   }, []);
 
   return (
+    <LazyMotionProvider>
     <>
-      <Helmet>
-        <title>Real Estate Client Entertainment Boat Austin | Realtor Party Boat Lake Travis</title>
-        <meta name="description" content="Host unforgettable real estate client event Austin experiences. Realtor party boat Lake Travis perfect for client entertainment Austin and real estate team building Lake Travis. Private charters for 14-75 guests." />
-        <meta name="keywords" content="real estate client event Austin, realtor party boat Lake Travis, client entertainment Austin, real estate team building Lake Travis, Austin realtor boat party, Lake Travis brokerage event" />
-        <link rel="canonical" href="https://premierpartycruises.com/blogs/real-estate-client-entertainment-boat-austin" />
-        <meta property="og:title" content="Real Estate Client Entertainment Boat Austin | Realtor Party Boat Lake Travis" />
-        <meta property="og:description" content="Host unforgettable real estate client events on Lake Travis. Perfect for client entertainment Austin and realtor team building." />
-        <meta property="og:type" content="article" />
-        <meta property="og:image" content={heroImage} />
-      </Helmet>
+      <SEOHead 
+        pageRoute="/blogs/real-estate-client-entertainment-boat-austin"
+        defaultTitle="Real Estate Client Entertainment Boat Austin | Realtor Party Boat Lake Travis"
+        defaultDescription="Host unforgettable real estate client event Austin experiences. Realtor party boat Lake Travis perfect for client entertainment Austin and real estate team building Lake Travis. Private charters for 14-75 guests."
+        defaultKeywords={['real estate client event Austin', 'realtor party boat Lake Travis', 'client entertainment Austin', 'real estate team building Lake Travis', 'Austin realtor boat party', 'Lake Travis brokerage event']}
+        image={heroImage}
+      />
 
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="real-estate-blog-page">
         <PublicNavigation />
 
         {/* Hero Section */}
-        <motion.section 
+        <m.section 
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
@@ -179,6 +166,8 @@ export default function RealEstateClientEntertainmentBoat() {
           <div 
             className="absolute inset-0 bg-cover bg-center opacity-30"
             style={{ backgroundImage: `url(${heroImage})` }}
+          role="img"
+          aria-label="Real Estate Client Entertainment Boat Austin - Premier Party Cruises Lake Travis"
           />
           
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 text-center">
@@ -211,12 +200,24 @@ export default function RealEstateClientEntertainmentBoat() {
               </Link>
             </div>
           </div>
-        </motion.section>
+        </m.section>
+
+      {/* Topic Cluster Pillar Link */}
+      <div className="bg-blue-50 dark:bg-blue-950/30 border-b border-blue-100 dark:border-blue-900/50">
+        <div className="max-w-4xl mx-auto px-6 py-3">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            See our complete guide to{' '}
+            <Link href="/corporate-events" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Austin corporate event boats</Link>{' '}
+            for team building, client entertainment, and company celebrations on Lake Travis.
+          </p>
+        </div>
+      </div>
+
 
         {/* Intro Section */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="intro-section">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -235,29 +236,29 @@ export default function RealEstateClientEntertainmentBoat() {
                 of impressing discerning clients. From intimate 14-person closings to 75-person brokerage celebrations, we have the 
                 perfect boat for your <strong>real estate client event Austin</strong>.
               </p>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Benefits Grid */}
         <section className="py-16 bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-800 dark:to-gray-900" data-testid="benefits-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={staggerChildren}
+              variants={staggerContainer}
               className="text-center mb-12"
             >
               <h2 className="text-3xl font-bold mb-4">Perfect for Every Real Estate Celebration</h2>
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 From client appreciation to real estate team building Lake Travis adventures
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {realEstateBenefits.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -273,7 +274,7 @@ export default function RealEstateClientEntertainmentBoat() {
                       <p className="text-gray-600 dark:text-gray-400 text-sm">{item.description}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -284,7 +285,7 @@ export default function RealEstateClientEntertainmentBoat() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
               {whyLakeTravis.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -293,7 +294,7 @@ export default function RealEstateClientEntertainmentBoat() {
                 >
                   <p className="text-3xl md:text-4xl font-bold text-yellow-400">{item.stat}</p>
                   <p className="text-sm md:text-base text-white/80 mt-1">{item.label}</p>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -302,7 +303,7 @@ export default function RealEstateClientEntertainmentBoat() {
         {/* Event Types Section */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="event-types-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -357,14 +358,14 @@ export default function RealEstateClientEntertainmentBoat() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Impressing High-Value Clients Section */}
         <section className="py-16 bg-gradient-to-br from-blue-900 via-blue-800 to-slate-900 text-white" data-testid="impress-clients-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -415,14 +416,14 @@ export default function RealEstateClientEntertainmentBoat() {
                   </Link>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Boat Options Section */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="boat-options-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -477,14 +478,14 @@ export default function RealEstateClientEntertainmentBoat() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Creating Memorable Experiences Section */}
         <section className="py-16 bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-800 dark:to-gray-900" data-testid="memorable-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -495,7 +496,7 @@ export default function RealEstateClientEntertainmentBoat() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Turn every real estate client event Austin into a referral machine with client entertainment Austin that stands out
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {[
@@ -554,7 +555,7 @@ export default function RealEstateClientEntertainmentBoat() {
                   ]
                 }
               ].map((section, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -576,7 +577,7 @@ export default function RealEstateClientEntertainmentBoat() {
                       </ul>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -588,7 +589,7 @@ export default function RealEstateClientEntertainmentBoat() {
         {/* FAQ Section */}
         <section className="py-16 bg-gray-50 dark:bg-gray-800" data-testid="faq-section">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -599,7 +600,7 @@ export default function RealEstateClientEntertainmentBoat() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 Common questions about real estate client event Austin and realtor party boat Lake Travis experiences
               </p>
-            </motion.div>
+            </m.div>
 
             <Accordion type="single" collapsible className="space-y-4" data-testid="faq-accordion">
               {faqs.map((faq, index) => (
@@ -653,7 +654,7 @@ export default function RealEstateClientEntertainmentBoat() {
         {/* CTA Section */}
         <section className="py-16 bg-gradient-to-br from-blue-900 to-slate-900 text-white" data-testid="cta-section">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -681,12 +682,13 @@ export default function RealEstateClientEntertainmentBoat() {
                   </Button>
                 </a>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         <Footer />
       </div>
     </>
+    </LazyMotionProvider>
   );
 }

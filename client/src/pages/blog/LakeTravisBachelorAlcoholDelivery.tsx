@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { m, LazyMotionProvider, fadeInUp, staggerContainer } from '@/components/LazyMotion';
 import { Link } from 'wouter';
-import * as HelmetAsync from 'react-helmet-async';
-const HelmetAsyncDefault = (HelmetAsync as any).default || HelmetAsync;
-const { Helmet } = HelmetAsyncDefault;
+import SEOHead from '@/components/SEOHead';
 import { 
   Ship, Users, Package, Phone, Clock, CheckCircle2, 
   Truck, Beer, Waves, MapPin, Calendar, Star,
@@ -23,15 +21,6 @@ import { BlogImageBreak, BlogPhotoStrip, BLOG_PARTY_PHOTOS } from '@/components/
 import heroImage from '@assets/bachelor-party-group-guys.webp';
 import boatImage from '@assets/@capitalcityshots-13_1760080740020.jpg';
 import partyImage from '@assets/@capitalcityshots-14_1760080740020.jpg';
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-};
-
-const staggerChildren = {
-  visible: { transition: { staggerChildren: 0.1 } }
-};
 
 const deliveryBenefits = [
   {
@@ -159,24 +148,21 @@ export default function LakeTravisBachelorAlcoholDelivery() {
   }, []);
 
   return (
+    <LazyMotionProvider>
     <>
-      <Helmet>
-        <title>Lake Travis Bachelor Party Alcohol Delivery: Complete Coordination Guide for Boat Parties | Premier Party Cruises</title>
-        <meta name="description" content="Complete Lake Travis bachelor party alcohol delivery guide. Coordination guide for boat parties with dock delivery, drink calculations for 14-75 guests, and BYOB tips. Bachelor party alcohol delivery from Party On Delivery makes Lake Travis boat parties easy." />
-        <meta name="keywords" content="Lake Travis bachelor party alcohol delivery, coordination guide for boat parties, bachelor party alcohol delivery, Lake Travis boat party, Austin bachelor party, Party On Delivery Lake Travis, boat party alcohol, bachelor party planning Austin, Lake Travis bachelor weekend" />
-        <link rel="canonical" href="https://premierpartycruises.com/blogs/lake-travis-bachelor-party-alcohol-delivery-complete-coordination-guide-for-boat-parties" />
-        <meta property="og:title" content="Lake Travis Bachelor Party Alcohol Delivery: Complete Coordination Guide for Boat Parties" />
-        <meta property="og:description" content="Your complete Lake Travis bachelor party alcohol delivery guide. Dock delivery, drink calculations, and boat party coordination tips from Premier Party Cruises." />
-        <meta property="og:type" content="article" />
-        <meta property="og:url" content="https://premierpartycruises.com/blogs/lake-travis-bachelor-party-alcohol-delivery-complete-coordination-guide-for-boat-parties" />
-        <meta property="og:image" content="https://premierpartycruises.com/attached_assets/bachelor-party-group-guys.webp" />
-      </Helmet>
+      <SEOHead 
+        pageRoute="/blogs/lake-travis-bachelor-party-alcohol-delivery-complete-coordination-guide-for-boat-parties"
+        defaultTitle="Lake Travis Bachelor Party Alcohol Delivery: Complete Coordination Guide for Boat Parties | Premier Party Cruises"
+        defaultDescription="Complete Lake Travis bachelor party alcohol delivery guide. Coordination guide for boat parties with dock delivery, drink calculations for 14-75 guests, and BYOB tips. Bachelor party alcohol delivery from Party On Delivery makes Lake Travis boat parties easy."
+        defaultKeywords={['Lake Travis bachelor party alcohol delivery', 'coordination guide for boat parties', 'bachelor party alcohol delivery', 'Lake Travis boat party', 'Austin bachelor party', 'Party On Delivery Lake Travis', 'boat party alcohol', 'bachelor party planning Austin', 'Lake Travis bachelor weekend']}
+        image="https://premierpartycruises.com/attached_assets/bachelor-party-group-guys.webp"
+      />
 
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="lake-travis-bachelor-alcohol-delivery-page">
         <PublicNavigation />
 
         {/* Hero Section */}
-        <motion.section 
+        <m.section 
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
@@ -225,14 +211,26 @@ export default function LakeTravisBachelorAlcoholDelivery() {
               </Button>
             </div>
           </div>
-        </motion.section>
+        </m.section>
+
+      {/* Topic Cluster Pillar Link */}
+      <div className="bg-blue-50 dark:bg-blue-950/30 border-b border-blue-100 dark:border-blue-900/50">
+        <div className="max-w-4xl mx-auto px-6 py-3">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            This guide is part of our complete{' '}
+            <Link href="/bachelor-party-austin" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Austin bachelor party boats</Link>{' '}
+            resource — your one-stop planning hub for Lake Travis bachelor celebrations.
+          </p>
+        </div>
+      </div>
+
 
         {/* Stats Section */}
         <section className="py-12 bg-slate-100 dark:bg-slate-900" data-testid="stats-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {whyPremier.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -243,7 +241,7 @@ export default function LakeTravisBachelorAlcoholDelivery() {
                 >
                   <div className="text-3xl md:text-4xl font-bold text-blue-600 dark:text-blue-400">{item.stat}</div>
                   <div className="text-gray-600 dark:text-gray-400 font-medium">{item.label}</div>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -252,7 +250,7 @@ export default function LakeTravisBachelorAlcoholDelivery() {
         {/* Introduction */}
         <section className="py-16 md:py-24 bg-white dark:bg-gray-950" data-testid="intro-section">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div 
+            <m.div 
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -276,14 +274,14 @@ export default function LakeTravisBachelorAlcoholDelivery() {
                 alt="Lake Travis bachelor party alcohol delivery - bachelor group celebrating on party boat cruise"
                 caption="Lake Travis bachelor parties made easy with dock-side alcohol delivery"
               />
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Delivery Benefits */}
         <section className="py-16 md:py-24 bg-gradient-to-br from-blue-50 to-cyan-50 dark:from-gray-800 dark:to-gray-900" data-testid="benefits-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div 
+            <m.div 
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -296,11 +294,11 @@ export default function LakeTravisBachelorAlcoholDelivery() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 This coordination guide for boat parties starts with the smartest decision: dock-side alcohol delivery for your Lake Travis bachelor party.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 gap-6">
               {deliveryBenefits.map((benefit, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -320,7 +318,7 @@ export default function LakeTravisBachelorAlcoholDelivery() {
                       </div>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -329,7 +327,7 @@ export default function LakeTravisBachelorAlcoholDelivery() {
         {/* Coordination Steps */}
         <section className="py-16 md:py-24 bg-white dark:bg-gray-950" data-testid="steps-section">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div 
+            <m.div 
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -342,11 +340,11 @@ export default function LakeTravisBachelorAlcoholDelivery() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Follow these 5 steps for seamless Lake Travis bachelor party alcohol delivery and boat party coordination.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="space-y-6">
               {coordinationSteps.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
@@ -366,7 +364,7 @@ export default function LakeTravisBachelorAlcoholDelivery() {
                       </div>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -396,7 +394,7 @@ export default function LakeTravisBachelorAlcoholDelivery() {
         {/* Fleet Section */}
         <section className="py-16 md:py-24 bg-slate-50 dark:bg-slate-900" data-testid="fleet-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div 
+            <m.div 
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -409,11 +407,11 @@ export default function LakeTravisBachelorAlcoholDelivery() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 This coordination guide for boat parties includes alcohol estimates for each vessel. All boats are single-deck pontoons with arch canopy.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 gap-6">
               {boatFleet.map((boat, index) => (
-                <motion.div
+                <m.div
                   key={boat.name}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -440,7 +438,7 @@ export default function LakeTravisBachelorAlcoholDelivery() {
                       </div>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -449,7 +447,7 @@ export default function LakeTravisBachelorAlcoholDelivery() {
         {/* Drink Recommendations */}
         <section className="py-16 md:py-24 bg-white dark:bg-gray-950" data-testid="drinks-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div 
+            <m.div 
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -462,11 +460,11 @@ export default function LakeTravisBachelorAlcoholDelivery() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Our coordination guide for boat parties recommends these drinks for Lake Travis bachelor parties.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {drinkRecommendations.map((drink, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -482,7 +480,7 @@ export default function LakeTravisBachelorAlcoholDelivery() {
                       </div>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -494,7 +492,7 @@ export default function LakeTravisBachelorAlcoholDelivery() {
         {/* FAQ Section */}
         <section className="py-16 md:py-24 bg-white dark:bg-gray-950" data-testid="faq-section">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div 
+            <m.div 
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -507,7 +505,7 @@ export default function LakeTravisBachelorAlcoholDelivery() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 Common questions about bachelor party alcohol delivery and our coordination guide for boat parties.
               </p>
-            </motion.div>
+            </m.div>
 
             <Accordion type="single" collapsible className="space-y-4" data-testid="faq-accordion">
               {faqs.map((faq, index) => (
@@ -534,7 +532,7 @@ export default function LakeTravisBachelorAlcoholDelivery() {
         {/* Internal Links Section */}
         <section className="py-16 bg-slate-100 dark:bg-slate-900" data-testid="internal-links-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div 
+            <m.div 
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -547,11 +545,11 @@ export default function LakeTravisBachelorAlcoholDelivery() {
               <p className="text-gray-600 dark:text-gray-400">
                 Plan your complete Lake Travis bachelor party experience
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
               {internalLinks.map((link, index) => (
-                <motion.div
+                <m.div
                   key={link.href}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -566,7 +564,7 @@ export default function LakeTravisBachelorAlcoholDelivery() {
                       </CardContent>
                     </Card>
                   </Link>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -609,5 +607,6 @@ export default function LakeTravisBachelorAlcoholDelivery() {
         <Footer />
       </div>
     </>
+    </LazyMotionProvider>
   );
 }

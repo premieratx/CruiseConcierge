@@ -369,8 +369,8 @@ export default function BacheloretteParty() {
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white" data-page-ready="bachelorette-party">
       <SEOHead
         pageRoute="/bachelorette-party-austin"
-        defaultTitle="Austin Bachelorette Party Boats | Lake Travis Bachelorette Weekend"
-        defaultDescription="Bachelorette party in Austin starting at $85! Lake Travis boat cruises with DJ, photographer, floats. Perfect Austin bachelorette weekend experience. Reserve now!"
+        defaultTitle="Austin Bachelorette Party Boats | Lake Travis Bachelorette Cruise (2026)"
+        defaultDescription="Austin bachelorette party boats starting at $85/person on Lake Travis. DJ, photographer, giant unicorn float, BYOB. The perfect bachelorette cruise. 150K+ happy guests. Reserve now!"
         defaultKeywords={["Austin bachelorette party", "Lake Travis bachelorette party", "party boat Austin", "austin party cruise", "bachelorette party boat Austin", "ATX Disco Cruise bachelorette", "Austin bachelorette ideas", "Lake Travis party boat", "cruise for bachelorette party"]}
         schemaType="service"
       />
@@ -2459,6 +2459,53 @@ export default function BacheloretteParty() {
                 }
               ]}
             />
+          </div>
+        </section>
+      </SectionReveal>
+
+      {/* Austin Bachelorette Weekend Itinerary */}
+      <SectionReveal>
+        <section className="py-16 bg-gray-50 dark:bg-gray-800">
+          <div className="container mx-auto px-6">
+            <div className="max-w-4xl mx-auto">
+              <h2 className="text-3xl font-bold text-center mb-4 text-gray-900 dark:text-white">
+                3-Day Austin Bachelorette Weekend Itinerary
+              </h2>
+              <p className="text-center text-gray-600 dark:text-gray-400 mb-10">
+                The perfect bachelorette weekend framework — adapt it to your bride's personality!
+              </p>
+              <div className="space-y-8">
+                <div className="bg-white dark:bg-gray-900 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
+                  <h3 className="text-xl font-bold text-pink-600 mb-3">Friday — Settle In & Sip</h3>
+                  <ul className="space-y-2 text-gray-700 dark:text-gray-300">
+                    <li className="flex items-start gap-2"><span className="text-pink-500 font-bold">3 PM</span> Check into your South Congress or downtown Airbnb</li>
+                    <li className="flex items-start gap-2"><span className="text-pink-500 font-bold">5 PM</span> Matching outfits photo shoot at the "I love you so much" mural</li>
+                    <li className="flex items-start gap-2"><span className="text-pink-500 font-bold">7 PM</span> Dinner at Uchi, Emmer & Rye, or Suerte</li>
+                    <li className="flex items-start gap-2"><span className="text-pink-500 font-bold">9 PM</span> Rainey Street bar crawl — start at Banger's, end at Lustre Pearl</li>
+                  </ul>
+                </div>
+                <div className="bg-white dark:bg-gray-900 rounded-xl p-6 shadow-sm border border-pink-200 dark:border-pink-700 ring-2 ring-pink-500/20">
+                  <h3 className="text-xl font-bold text-pink-600 mb-1">Saturday — Lake Travis Party Boat Day</h3>
+                  <p className="text-sm text-pink-500 font-semibold mb-3">THE MAIN EVENT</p>
+                  <ul className="space-y-2 text-gray-700 dark:text-gray-300">
+                    <li className="flex items-start gap-2"><span className="text-pink-500 font-bold">9 AM</span> Brunch at Café No Sé or Elizabeth Street Café</li>
+                    <li className="flex items-start gap-2"><span className="text-pink-500 font-bold">11 AM</span> Board the ATX Disco Cruise at Anderson Mill Marina</li>
+                    <li className="flex items-start gap-2"><span className="text-pink-500 font-bold">11:30-3:30</span> 4 hours of DJ, dancing, swimming, unicorn float & professional photos</li>
+                    <li className="flex items-start gap-2"><span className="text-pink-500 font-bold">5 PM</span> Pool recovery at your rental, face masks & rosé</li>
+                    <li className="flex items-start gap-2"><span className="text-pink-500 font-bold">8 PM</span> Dinner at Launderette or Odd Duck</li>
+                    <li className="flex items-start gap-2"><span className="text-pink-500 font-bold">10 PM</span> VIP at Summit or dancing at The W rooftop</li>
+                  </ul>
+                </div>
+                <div className="bg-white dark:bg-gray-900 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
+                  <h3 className="text-xl font-bold text-pink-600 mb-3">Sunday — Relax & Reflect</h3>
+                  <ul className="space-y-2 text-gray-700 dark:text-gray-300">
+                    <li className="flex items-start gap-2"><span className="text-pink-500 font-bold">10 AM</span> Late brunch at Paperboy or Jo's on South Congress</li>
+                    <li className="flex items-start gap-2"><span className="text-pink-500 font-bold">12 PM</span> South Congress shopping, Barton Springs, or spa day</li>
+                    <li className="flex items-start gap-2"><span className="text-pink-500 font-bold">3 PM</span> Head home with incredible memories (and amazing photos!)</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
       </SectionReveal>

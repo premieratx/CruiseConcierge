@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { m, LazyMotionProvider, fadeInUp, staggerContainer } from '@/components/LazyMotion';
 import { Link } from 'wouter';
-import * as HelmetAsync from 'react-helmet-async';
-const HelmetAsyncDefault = (HelmetAsync as any).default || HelmetAsync;
-const { Helmet } = HelmetAsyncDefault;
+import SEOHead from '@/components/SEOHead';
 import { 
   Ship, Building2, Users, DollarSign, Camera, Music, 
   CheckCircle2, XCircle, Waves, MapPin,
@@ -22,15 +20,6 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import heroImage from '@assets/dancing-party-scene.webp';
 import sectionImage1 from '@assets/atx-disco-cruise-party.webp';
 import sectionImage2 from '@assets/party-atmosphere-1.webp';
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-};
-
-const staggerChildren = {
-  visible: { transition: { staggerChildren: 0.1 } }
-};
 
 const comparisonStats = [
   { stat: 'BYOB', label: 'Party Boat Savings' },
@@ -308,21 +297,15 @@ export default function BachelorettePartyVsNightlife() {
   const canonicalUrl = "https://premierpartycruises.com/blogs/austin-bachelorette-party-vs-lake-travis-boat-why-lake-wins";
 
   return (
+    <LazyMotionProvider>
     <>
-      <Helmet>
-        <title>Lake Travis vs Austin Nightlife Bachelorette Party Guide</title>
-        <meta name="description" content="Compare Lake Travis party boats to Austin nightlife for your bachelorette. Discover why boat cruises offer more fun, less stress, and unforgettable memories." />
-        <link rel="canonical" href={canonicalUrl} />
-        <meta property="og:title" content="Lake Travis vs Austin Nightlife Bachelorette Party Guide" />
-        <meta property="og:description" content="Compare Lake Travis party boats to Austin nightlife for your bachelorette. Discover why boat cruises offer more fun, less stress, and unforgettable memories." />
-        <meta property="og:url" content={canonicalUrl} />
-        <meta property="og:type" content="article" />
-        <meta property="og:image" content="https://premierpartycruises.com/attached_assets/dancing-party-scene.webp" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Lake Travis vs Austin Nightlife Bachelorette Party Guide" />
-        <meta name="twitter:description" content="Compare Lake Travis party boats to Austin nightlife for your bachelorette. Discover why boat cruises offer more fun, less stress, and unforgettable memories." />
-        <meta name="keywords" content="austin bachelorette party, lake travis party boat, bachelorette party ideas austin, party boat vs bars, austin bachelorette weekend, rainey street bachelorette, 6th street bachelorette" />
-      </Helmet>
+      <SEOHead 
+        pageRoute=""
+        defaultTitle="Lake Travis vs Austin Nightlife Bachelorette Party Guide"
+        defaultDescription="Compare Lake Travis party boats to Austin nightlife for your bachelorette. Discover why boat cruises offer more fun, less stress, and unforgettable memories."
+        defaultKeywords={['austin bachelorette party', 'lake travis party boat', 'bachelorette party ideas austin', 'party boat vs bars', 'austin bachelorette weekend', 'rainey street bachelorette', '6th street bachelorette']}
+        image="https://premierpartycruises.com/attached_assets/dancing-party-scene.webp"
+      />
 
       <PublicNavigation />
 
@@ -338,37 +321,37 @@ export default function BachelorettePartyVsNightlife() {
           </div>
           
           <div className="relative z-10 container mx-auto px-4 py-16">
-            <motion.div
+            <m.div
               initial="hidden"
               animate="visible"
-              variants={staggerChildren}
+              variants={staggerContainer}
               className="max-w-3xl"
             >
-              <motion.div variants={fadeInUp} className="mb-4 flex gap-2">
+              <m.div variants={fadeInUp} className="mb-4 flex gap-2">
                 <Badge className="bg-pink-600 text-white px-4 py-1">
                   <Ship className="h-3 w-3 mr-1" /> Lake Travis
                 </Badge>
                 <Badge className="bg-purple-600 text-white px-4 py-1">
                   <Building2 className="h-3 w-3 mr-1" /> Nightlife
                 </Badge>
-              </motion.div>
+              </m.div>
               
-              <motion.h1 
+              <m.h1 
                 variants={fadeInUp}
                 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight"
               >
                 Austin Bachelorette Party vs Lake Travis Party Boat
-              </motion.h1>
+              </m.h1>
               
-              <motion.p 
+              <m.p 
                 variants={fadeInUp}
                 className="text-xl text-pink-100 mb-8 leading-relaxed"
               >
                 Why the Lake Wins Every Time. More fun, less stress, and better memories 
                 for the bride-to-be and her crew.
-              </motion.p>
+              </m.p>
 
-              <motion.div variants={fadeInUp} className="flex flex-wrap gap-4">
+              <m.div variants={fadeInUp} className="flex flex-wrap gap-4">
                 <Link href="/bachelorette-party-austin">
                   <Button size="lg" className="bg-pink-500 hover:bg-pink-600 text-white" data-testid="button-bachelorette-party-hub">
                     <Users className="mr-2 h-5 w-5" />
@@ -381,16 +364,27 @@ export default function BachelorettePartyVsNightlife() {
                     ATX Disco Cruise
                   </Button>
                 </Link>
-              </motion.div>
-            </motion.div>
+              </m.div>
+            </m.div>
           </div>
         </section>
+
+        {/* Topic Cluster Pillar Link */}
+        <div className="bg-blue-50 dark:bg-blue-950/30 border-b border-blue-100 dark:border-blue-900/50">
+          <div className="max-w-4xl mx-auto px-6 py-3">
+            <p className="text-sm text-gray-600 dark:text-gray-400">
+              This guide is part of our complete{' '}
+              <Link href="/bachelorette-party-austin" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Austin bachelorette party boats</Link>{' '}
+              resource — your ultimate planning hub for Lake Travis bachelorette celebrations.
+            </p>
+          </div>
+        </div>
 
         <section className="py-12 bg-gradient-to-b from-pink-900 to-purple-800">
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {comparisonStats.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -400,7 +394,7 @@ export default function BachelorettePartyVsNightlife() {
                 >
                   <div className="text-3xl md:text-4xl font-bold text-pink-300 mb-1">{item.stat}</div>
                   <div className="text-pink-200 text-sm">{item.label}</div>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -408,13 +402,13 @@ export default function BachelorettePartyVsNightlife() {
 
         <section className="py-16 bg-white">
           <div className="container mx-auto px-4">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={staggerChildren}
+              variants={staggerContainer}
             >
-              <motion.div variants={fadeInUp} className="text-center mb-12">
+              <m.div variants={fadeInUp} className="text-center mb-12">
                 <Badge className="bg-pink-100 text-pink-800 mb-4">The Classic Dilemma</Badge>
                 <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
                   The Classic Austin Bachelorette Dilemma
@@ -425,20 +419,20 @@ export default function BachelorettePartyVsNightlife() {
                   when you zoom out, something becomes clear: <strong>bars are replaceable</strong>. The experience you'll 
                   remember years later isn't standing in line for drinks. It's the one-of-a-kind moment that brought everyone together.
                 </p>
-              </motion.div>
-            </motion.div>
+              </m.div>
+            </m.div>
           </div>
         </section>
 
         <section className="py-16 bg-gray-50">
           <div className="container mx-auto px-4">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={staggerChildren}
+              variants={staggerContainer}
             >
-              <motion.div variants={fadeInUp} className="text-center mb-12">
+              <m.div variants={fadeInUp} className="text-center mb-12">
                 <Badge className="bg-purple-100 text-purple-800 mb-4">Honest Comparison</Badge>
                 <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
                   Austin Nightlife vs Lake Travis Party Boat
@@ -446,11 +440,11 @@ export default function BachelorettePartyVsNightlife() {
                 <p className="text-lg text-gray-600 max-w-2xl mx-auto">
                   Let's break this down honestly—without hype.
                 </p>
-              </motion.div>
+              </m.div>
 
               <div className="grid lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
                 {atmosphereComparison.map((option, index) => (
-                  <motion.div key={index} variants={fadeInUp}>
+                  <m.div key={index} variants={fadeInUp}>
                     <Card className={`h-full border-2 ${option.color === 'pink' ? 'border-pink-200 bg-gradient-to-br from-pink-50 to-white' : 'border-purple-200 bg-gradient-to-br from-purple-50 to-white'}`}>
                       <CardContent className="p-8">
                         <div className="flex items-center gap-3 mb-6">
@@ -489,22 +483,22 @@ export default function BachelorettePartyVsNightlife() {
                         </div>
                       </CardContent>
                     </Card>
-                  </motion.div>
+                  </m.div>
                 ))}
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         <section className="py-16 bg-white">
           <div className="container mx-auto px-4">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={staggerChildren}
+              variants={staggerContainer}
             >
-              <motion.div variants={fadeInUp} className="text-center mb-12">
+              <m.div variants={fadeInUp} className="text-center mb-12">
                 <Badge className="bg-pink-100 text-pink-800 mb-4">Why It Works</Badge>
                 <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
                   Why Lake Travis Works Better for Bachelorette Groups
@@ -512,11 +506,11 @@ export default function BachelorettePartyVsNightlife() {
                 <p className="text-lg text-gray-600 max-w-2xl mx-auto">
                   A Lake Travis Bachelorette Party succeeds because it solves the biggest problems planners face.
                 </p>
-              </motion.div>
+              </m.div>
 
               <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
                 {whyLakeTravisWorks.map((item, index) => (
-                  <motion.div key={index} variants={fadeInUp}>
+                  <m.div key={index} variants={fadeInUp}>
                     <Card className="h-full border-2 border-pink-100 hover:border-pink-300 transition-colors">
                       <CardContent className="p-6">
                         <div className="p-3 bg-pink-100 rounded-lg w-fit mb-4">
@@ -526,28 +520,28 @@ export default function BachelorettePartyVsNightlife() {
                         <p className="text-gray-600">{item.description}</p>
                       </CardContent>
                     </Card>
-                  </motion.div>
+                  </m.div>
                 ))}
               </div>
 
-              <motion.div variants={fadeInUp} className="mt-8 text-center">
+              <m.div variants={fadeInUp} className="mt-8 text-center">
                 <p className="text-lg text-gray-700 italic max-w-2xl mx-auto">
                   "This is why bachelorette groups consistently describe the boat day as 'the highlight of the weekend.'"
                 </p>
-              </motion.div>
-            </motion.div>
+              </m.div>
+            </m.div>
           </div>
         </section>
 
         <section className="py-16 bg-gradient-to-br from-pink-600 to-purple-700">
           <div className="container mx-auto px-4">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={staggerChildren}
+              variants={staggerContainer}
             >
-              <motion.div variants={fadeInUp} className="text-center mb-12">
+              <m.div variants={fadeInUp} className="text-center mb-12">
                 <Badge className="bg-white/20 text-white mb-4">The Go-To Experience</Badge>
                 <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
                   ATX Disco Cruise: The Bachelorette Favorite
@@ -555,11 +549,11 @@ export default function BachelorettePartyVsNightlife() {
                 <p className="text-lg text-pink-100 max-w-2xl mx-auto">
                   The ATX Disco Cruise isn't just a boat ride—it's a curated bachelorette ecosystem.
                 </p>
-              </motion.div>
+              </m.div>
 
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
                 {discoCruiseFeatures.map((feature, index) => (
-                  <motion.div key={index} variants={fadeInUp}>
+                  <m.div key={index} variants={fadeInUp}>
                     <Card className="h-full bg-white/10 border-white/20 backdrop-blur-sm">
                       <CardContent className="p-6">
                         <div className="p-3 bg-white/20 rounded-lg w-fit mb-4">
@@ -569,20 +563,20 @@ export default function BachelorettePartyVsNightlife() {
                         <p className="text-pink-100 text-sm">{feature.description}</p>
                       </CardContent>
                     </Card>
-                  </motion.div>
+                  </m.div>
                 ))}
               </div>
 
-              <motion.div variants={fadeInUp} className="mt-10 text-center">
+              <m.div variants={fadeInUp} className="mt-10 text-center">
                 <Link href="/atx-disco-cruise">
                   <Button size="lg" className="bg-white text-pink-600 hover:bg-pink-50" data-testid="button-explore-disco-cruise">
                     <Ship className="mr-2 h-5 w-5" />
                     Explore ATX Disco Cruise
                   </Button>
                 </Link>
-              </motion.div>
+              </m.div>
 
-              <motion.div variants={fadeInUp} className="mt-8 grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+              <m.div variants={fadeInUp} className="mt-8 grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
                 <div className="relative rounded-xl overflow-hidden">
                   <img 
                     src={sectionImage1} 
@@ -609,20 +603,20 @@ export default function BachelorettePartyVsNightlife() {
                     </div>
                   </div>
                 </div>
-              </motion.div>
-            </motion.div>
+              </m.div>
+            </m.div>
           </div>
         </section>
 
         <section className="py-16 bg-white">
           <div className="container mx-auto px-4">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={staggerChildren}
+              variants={staggerContainer}
             >
-              <motion.div variants={fadeInUp} className="text-center mb-12">
+              <m.div variants={fadeInUp} className="text-center mb-12">
                 <Badge className="bg-blue-100 text-blue-800 mb-4">Choose Your Style</Badge>
                 <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
                   Private Party Boat vs Disco Cruise for Bachelorettes
@@ -631,11 +625,11 @@ export default function BachelorettePartyVsNightlife() {
                   Both options live on Lake Travis and both are operated by Premier Party Cruises. 
                   Both outperform nightlife when measured by group satisfaction.
                 </p>
-              </motion.div>
+              </m.div>
 
               <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
                 {privateVsDisco.map((option, index) => (
-                  <motion.div key={index} variants={fadeInUp}>
+                  <m.div key={index} variants={fadeInUp}>
                     <Card className={`h-full border-2 ${option.color === 'blue' ? 'border-blue-200' : 'border-pink-200'}`}>
                       <CardContent className="p-8">
                         <div className="flex items-center gap-3 mb-4">
@@ -653,22 +647,22 @@ export default function BachelorettePartyVsNightlife() {
                         </Link>
                       </CardContent>
                     </Card>
-                  </motion.div>
+                  </m.div>
                 ))}
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         <section className="py-16 bg-gray-50">
           <div className="container mx-auto px-4">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={staggerChildren}
+              variants={staggerContainer}
             >
-              <motion.div variants={fadeInUp} className="text-center mb-12">
+              <m.div variants={fadeInUp} className="text-center mb-12">
                 <Badge className="bg-green-100 text-green-800 mb-4">Cost Comparison</Badge>
                 <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
                   Pricing Reality Check
@@ -677,7 +671,7 @@ export default function BachelorettePartyVsNightlife() {
                   When you compare bar tabs, transportation, cover charges, and lost time—a Lake Travis 
                   Bachelorette Party is often more cost-effective than two nights out downtown.
                 </p>
-              </motion.div>
+              </m.div>
 
               <div className="max-w-4xl mx-auto">
                 <div className="bg-white rounded-xl shadow-lg overflow-hidden border">
@@ -688,7 +682,7 @@ export default function BachelorettePartyVsNightlife() {
                     <div className="text-center">You Save</div>
                   </div>
                   {costBreakdown.map((item, index) => (
-                    <motion.div 
+                    <m.div 
                       key={index}
                       variants={fadeInUp}
                       className={`grid grid-cols-4 p-4 ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'} border-t items-center`}
@@ -697,11 +691,11 @@ export default function BachelorettePartyVsNightlife() {
                       <div className="text-center text-pink-700 font-semibold">{item.boat}</div>
                       <div className="text-center text-purple-700">{item.downtown}</div>
                       <div className="text-center text-green-600 font-bold">{item.savings}</div>
-                    </motion.div>
+                    </m.div>
                   ))}
                 </div>
 
-                <motion.div variants={fadeInUp} className="mt-8 bg-green-50 border border-green-200 rounded-xl p-6">
+                <m.div variants={fadeInUp} className="mt-8 bg-green-50 border border-green-200 rounded-xl p-6">
                   <div className="flex items-start gap-4">
                     <DollarSign className="h-8 w-8 text-green-600 flex-shrink-0" />
                     <div>
@@ -714,21 +708,21 @@ export default function BachelorettePartyVsNightlife() {
                       </p>
                     </div>
                   </div>
-                </motion.div>
+                </m.div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         <section className="py-16 bg-white">
           <div className="container mx-auto px-4">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={staggerChildren}
+              variants={staggerContainer}
             >
-              <motion.div variants={fadeInUp} className="text-center mb-12">
+              <m.div variants={fadeInUp} className="text-center mb-12">
                 <Badge className="bg-orange-100 text-orange-800 mb-4">Skip the Stress</Badge>
                 <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
                   Party On Delivery: Alcohol Planning Without the Stress
@@ -737,9 +731,9 @@ export default function BachelorettePartyVsNightlife() {
                   Alcohol logistics derail a lot of bachelorette weekends. Premier Party Cruises allows BYOB—and 
                   many groups simplify even further by using Party On Delivery.
                 </p>
-              </motion.div>
+              </m.div>
 
-              <motion.div variants={fadeInUp} className="max-w-2xl mx-auto bg-orange-50 border border-orange-200 rounded-xl p-8 text-center">
+              <m.div variants={fadeInUp} className="max-w-2xl mx-auto bg-orange-50 border border-orange-200 rounded-xl p-8 text-center">
                 <Wine className="h-12 w-12 text-orange-600 mx-auto mb-4" />
                 <h3 className="text-xl font-bold text-gray-900 mb-4">Party On Delivery Benefits</h3>
                 <ul className="text-left space-y-3 mb-6">
@@ -774,20 +768,20 @@ export default function BachelorettePartyVsNightlife() {
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
                 </a>
-              </motion.div>
-            </motion.div>
+              </m.div>
+            </m.div>
           </div>
         </section>
 
         <section className="py-16 bg-gradient-to-br from-pink-50 to-purple-50">
           <div className="container mx-auto px-4">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={staggerChildren}
+              variants={staggerContainer}
             >
-              <motion.div variants={fadeInUp} className="text-center mb-12">
+              <m.div variants={fadeInUp} className="text-center mb-12">
                 <Badge className="bg-pink-100 text-pink-800 mb-4">The Experience</Badge>
                 <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
                   What the Actual Day Feels Like
@@ -795,12 +789,12 @@ export default function BachelorettePartyVsNightlife() {
                 <p className="text-lg text-gray-600 max-w-2xl mx-auto">
                   Here's what groups consistently describe about their Lake Travis bachelorette experience.
                 </p>
-              </motion.div>
+              </m.div>
 
               <div className="max-w-3xl mx-auto">
                 <div className="space-y-4">
                   {actualDayExperience.map((item, index) => (
-                    <motion.div 
+                    <m.div 
                       key={index}
                       variants={fadeInUp}
                       className="bg-white rounded-xl shadow-md p-6 flex gap-6 items-center"
@@ -812,39 +806,39 @@ export default function BachelorettePartyVsNightlife() {
                         <div className="text-sm text-pink-600 font-semibold mb-1">{item.time}</div>
                         <h4 className="text-lg font-bold text-gray-900">{item.activity}</h4>
                       </div>
-                    </motion.div>
+                    </m.div>
                   ))}
                 </div>
 
-                <motion.div variants={fadeInUp} className="mt-8 bg-pink-100 border border-pink-200 rounded-xl p-6 text-center">
+                <m.div variants={fadeInUp} className="mt-8 bg-pink-100 border border-pink-200 rounded-xl p-6 text-center">
                   <Sparkles className="h-8 w-8 text-pink-600 mx-auto mb-3" />
                   <p className="text-gray-800 font-medium">
                     That's the magic of a Lake Travis Party Boat—it creates space for connection instead of logistics.
                   </p>
-                </motion.div>
+                </m.div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         <section className="py-16 bg-white">
           <div className="container mx-auto px-4">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={staggerChildren}
+              variants={staggerContainer}
             >
-              <motion.div variants={fadeInUp} className="text-center mb-12">
+              <m.div variants={fadeInUp} className="text-center mb-12">
                 <Badge className="bg-gray-100 text-gray-800 mb-4">Decision Time</Badge>
                 <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
                   Summary: Which Should You Choose?
                 </h2>
-              </motion.div>
+              </m.div>
 
               <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
                 {summaryCards.map((card, index) => (
-                  <motion.div key={index} variants={fadeInUp}>
+                  <m.div key={index} variants={fadeInUp}>
                     <Card className={`h-full border-2 ${
                       card.color === 'pink' ? 'border-pink-200' : 
                       card.color === 'purple' ? 'border-purple-200' : 
@@ -877,10 +871,10 @@ export default function BachelorettePartyVsNightlife() {
                         </ul>
                       </CardContent>
                     </Card>
-                  </motion.div>
+                  </m.div>
                 ))}
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
@@ -888,21 +882,21 @@ export default function BachelorettePartyVsNightlife() {
 
         <section className="py-16 bg-gray-50">
           <div className="container mx-auto px-4">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={staggerChildren}
+              variants={staggerContainer}
               className="max-w-3xl mx-auto"
             >
-              <motion.div variants={fadeInUp} className="text-center mb-12">
+              <m.div variants={fadeInUp} className="text-center mb-12">
                 <Badge className="bg-pink-100 text-pink-800 mb-4">FAQ</Badge>
                 <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
                   Frequently Asked Questions
                 </h2>
-              </motion.div>
+              </m.div>
 
-              <motion.div variants={fadeInUp}>
+              <m.div variants={fadeInUp}>
                 <Accordion type="single" collapsible className="space-y-4">
                   {faqs.map((faq, index) => (
                     <AccordionItem 
@@ -919,30 +913,30 @@ export default function BachelorettePartyVsNightlife() {
                     </AccordionItem>
                   ))}
                 </Accordion>
-              </motion.div>
-            </motion.div>
+              </m.div>
+            </m.div>
           </div>
         </section>
 
         <section className="py-16 bg-gradient-to-r from-pink-600 to-purple-600">
           <div className="container mx-auto px-4">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={staggerChildren}
+              variants={staggerContainer}
               className="text-center"
             >
-              <motion.h2 variants={fadeInUp} className="text-3xl md:text-4xl font-bold text-white mb-4">
+              <m.h2 variants={fadeInUp} className="text-3xl md:text-4xl font-bold text-white mb-4">
                 Ready to Plan the Ultimate Austin Bachelorette Party?
-              </motion.h2>
-              <motion.p variants={fadeInUp} className="text-xl text-pink-100 mb-4 max-w-2xl mx-auto">
+              </m.h2>
+              <m.p variants={fadeInUp} className="text-xl text-pink-100 mb-4 max-w-2xl mx-auto">
                 Nightlife can fill time. A Lake Travis Bachelorette Party creates memories.
-              </motion.p>
-              <motion.p variants={fadeInUp} className="text-lg text-pink-200 mb-8 max-w-2xl mx-auto">
+              </m.p>
+              <m.p variants={fadeInUp} className="text-lg text-pink-200 mb-8 max-w-2xl mx-auto">
                 Whether you choose the party boat, downtown, or both—we've got you covered.
-              </motion.p>
-              <motion.div variants={fadeInUp} className="flex flex-wrap justify-center gap-4">
+              </m.p>
+              <m.div variants={fadeInUp} className="flex flex-wrap justify-center gap-4">
                 <Link href="/bachelorette-party-austin">
                   <Button size="lg" className="bg-white text-pink-600 hover:bg-pink-50" data-testid="button-cta-bachelorette-hub">
                     <Users className="mr-2 h-5 w-5" />
@@ -961,13 +955,14 @@ export default function BachelorettePartyVsNightlife() {
                     Private Boat Rentals
                   </Button>
                 </Link>
-              </motion.div>
-            </motion.div>
+              </m.div>
+            </m.div>
           </div>
         </section>
       </main>
 
       <Footer />
     </>
+    </LazyMotionProvider>
   );
 }

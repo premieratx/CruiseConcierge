@@ -1,9 +1,7 @@
 import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { m, LazyMotionProvider, fadeInUp, staggerContainer } from '@/components/LazyMotion';
 import { Link } from 'wouter';
-import * as HelmetAsync from 'react-helmet-async';
-const HelmetAsyncDefault = (HelmetAsync as any).default || HelmetAsync;
-const { Helmet } = HelmetAsyncDefault;
+import SEOHead from '@/components/SEOHead';
 import { 
   Ship, Users, Phone, Clock, CheckCircle2, 
   Music, Sun, Waves, MapPin, Calendar, Star,
@@ -25,10 +23,6 @@ import { BACHELORETTE_GALLERY, DISCO_FUN_PHOTOS, BOAT_SCENIC_PHOTOS } from '@/li
 
 import heroImage from '@assets/dancing-party-scene.webp';
 
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-};
 
 const boatFeatures = [
   { icon: Users, text: 'Groups of 14-75 guests' },
@@ -118,55 +112,15 @@ export default function HowToThrowBachelorettePartyAustin() {
   };
 
   return (
+    <LazyMotionProvider>
     <div data-page-ready="how-to-throw-bachelorette-party-austin" className="min-h-screen bg-gradient-to-b from-pink-50 via-white to-rose-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950">
-      <Helmet>
-        <title>How to Throw a Great Bachelorette Party in Austin | Premier Party Cruises</title>
-        <meta 
-          name="description" 
-          content="Plan the ultimate Austin bachelorette party with our complete guide. Lake Travis boat parties, Rainey Street nightlife, spa days, and weekend itineraries." 
-        />
-        <meta 
-          name="keywords" 
-          content="bachelorette party Austin, Austin bachelorette party guide, Lake Travis bachelorette party, Austin bachelorette party ideas, Rainey Street bachelorette, bachelorette party planning Austin TX" 
-        />
-        <link rel="canonical" href="https://premierpartycruises.com/blogs/how-to-throw-great-bachelorette-party-austin" />
-        
-        <meta property="og:title" content="How to Throw a Great Bachelorette Party in Austin" />
-        <meta property="og:description" content="Plan the ultimate Austin bachelorette party! Lake Travis boats, Rainey Street nightlife, spa days, and complete weekend itineraries." />
-        <meta property="og:type" content="article" />
-        <meta property="og:url" content="https://premierpartycruises.com/blogs/how-to-throw-great-bachelorette-party-austin" />
-        <meta property="og:image" content="https://premierpartycruises.com/attached_assets/bachelorette-hero-compressed.webp" />
-        
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Article",
-            "headline": "How to Throw a Great Bachelorette Party in Austin",
-            "description": "Plan the ultimate Austin bachelorette party with our complete guide. Lake Travis boat parties, Rainey Street nightlife, spa days, and weekend itineraries.",
-            "image": "https://premierpartycruises.com/attached_assets/bachelorette-hero-compressed.webp",
-            "author": {
-              "@type": "Organization",
-              "name": "Premier Party Cruises",
-              "url": "https://premierpartycruises.com"
-            },
-            "publisher": {
-              "@type": "Organization",
-              "name": "Premier Party Cruises",
-              "url": "https://premierpartycruises.com",
-              "logo": {
-                "@type": "ImageObject",
-                "url": "https://premierpartycruises.com/media/schema/ppc-logo.png"
-              }
-            },
-            "datePublished": "2025-01-01",
-            "dateModified": "2025-12-16",
-            "mainEntityOfPage": {
-              "@type": "WebPage",
-              "@id": "https://premierpartycruises.com/blogs/how-to-throw-great-bachelorette-party-austin"
-            }
-          })}
-        </script>
-      </Helmet>
+      <SEOHead 
+        pageRoute="/blogs/how-to-throw-great-bachelorette-party-austin"
+        defaultTitle="How to Throw a Great Bachelorette Party in Austin | Premier Party Cruises"
+        defaultDescription="Plan the ultimate Austin bachelorette party with our complete guide. Lake Travis boat parties, Rainey Street nightlife, spa days, and weekend itineraries."
+        defaultKeywords={['bachelorette party Austin', 'Austin bachelorette party guide', 'Lake Travis bachelorette party', 'Austin bachelorette party ideas', 'Rainey Street bachelorette', 'bachelorette party planning Austin TX']}
+        image="https://premierpartycruises.com/attached_assets/bachelorette-hero-compressed.webp"
+      />
 
       <PublicNavigation />
 
@@ -182,7 +136,7 @@ export default function HowToThrowBachelorettePartyAustin() {
         </div>
         
         <div className="container mx-auto px-6 relative z-10">
-          <motion.div
+          <m.div
             initial="hidden"
             animate="visible"
             variants={fadeInUp}
@@ -211,14 +165,26 @@ export default function HowToThrowBachelorettePartyAustin() {
                 </Button>
               </Link>
             </div>
-          </motion.div>
+          </m.div>
         </div>
       </section>
+
+      {/* Topic Cluster Pillar Link */}
+      <div className="bg-blue-50 dark:bg-blue-950/30 border-b border-blue-100 dark:border-blue-900/50">
+        <div className="max-w-4xl mx-auto px-6 py-3">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            This guide is part of our complete{' '}
+            <Link href="/bachelorette-party-austin" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Austin bachelorette party boats</Link>{' '}
+            resource — your ultimate planning hub for Lake Travis bachelorette celebrations.
+          </p>
+        </div>
+      </div>
+
 
       {/* Why Austin Section */}
       <section className="py-16 bg-white dark:bg-gray-900">
         <div className="container mx-auto px-6">
-          <motion.div
+          <m.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
@@ -233,7 +199,7 @@ export default function HowToThrowBachelorettePartyAustin() {
                 Looking to plan an unforgettable Austin bachelorette party? Austin, Texas is the ultimate destination for celebrating with your best friends before the big day. With its vibrant nightlife, stunning Lake Travis bachelorette party boat options, world-class dining, and endless entertainment options, Austin has everything you need for an epic Austin bachelorette party weekend. At <Link href="/" className="text-pink-600 hover:underline font-semibold">Premier Party Cruises</Link>, we specialize in creating magical moments for bride tribes on Lake Travis.
               </p>
             </div>
-          </motion.div>
+          </m.div>
         </div>
       </section>
 
@@ -256,7 +222,7 @@ export default function HowToThrowBachelorettePartyAustin() {
       {/* Planning Guide Section */}
       <section className="py-16 bg-pink-50 dark:bg-gray-800">
         <div className="container mx-auto px-6">
-          <motion.div
+          <m.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
@@ -281,14 +247,14 @@ export default function HowToThrowBachelorettePartyAustin() {
                 </div>
               </CardContent>
             </Card>
-          </motion.div>
+          </m.div>
         </div>
       </section>
 
       {/* Top Activities Section */}
       <section className="py-16 bg-white dark:bg-gray-900">
         <div className="container mx-auto px-6">
-          <motion.div
+          <m.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
@@ -300,7 +266,7 @@ export default function HowToThrowBachelorettePartyAustin() {
             
             <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
               {topActivities.map((activity, index) => (
-                <motion.div
+                <m.div
                   key={activity.name}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -318,7 +284,7 @@ export default function HowToThrowBachelorettePartyAustin() {
                       <p className="text-gray-600 dark:text-gray-300">{activity.description}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
             
@@ -327,14 +293,14 @@ export default function HowToThrowBachelorettePartyAustin() {
                 Looking for the ultimate all-inclusive experience? Check out our <Link href="/atx-disco-cruise" className="text-pink-600 hover:underline font-semibold">ATX Disco Cruise</Link> - the only multi-group bachelorette party cruise in the U.S.!
               </p>
             </div>
-          </motion.div>
+          </m.div>
         </div>
       </section>
 
       {/* Party Boat Features */}
       <section className="py-16 bg-gradient-to-r from-pink-600 to-rose-700 text-white">
         <div className="container mx-auto px-6">
-          <motion.div
+          <m.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
@@ -351,7 +317,7 @@ export default function HowToThrowBachelorettePartyAustin() {
             
             <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
               {boatFeatures.map((feature, index) => (
-                <motion.div
+                <m.div
                   key={feature.text}
                   initial={{ opacity: 0, scale: 0.9 }}
                   whileInView={{ opacity: 1, scale: 1 }}
@@ -361,7 +327,7 @@ export default function HowToThrowBachelorettePartyAustin() {
                 >
                   <feature.icon className="h-8 w-8 text-pink-200 flex-shrink-0" />
                   <span className="text-white">{feature.text}</span>
-                </motion.div>
+                </m.div>
               ))}
             </div>
             
@@ -373,14 +339,14 @@ export default function HowToThrowBachelorettePartyAustin() {
                 </Button>
               </Link>
             </div>
-          </motion.div>
+          </m.div>
         </div>
       </section>
 
       {/* Photo Gallery Section */}
       <section className="py-16 bg-white dark:bg-gray-900">
         <div className="container mx-auto px-6">
-          <motion.div
+          <m.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
@@ -395,7 +361,7 @@ export default function HowToThrowBachelorettePartyAustin() {
             
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-5xl mx-auto">
               {galleryPhotos.map((photo, index) => (
-                <motion.div
+                <m.div
                   key={photo.id}
                   initial={{ opacity: 0, scale: 0.9 }}
                   whileInView={{ opacity: 1, scale: 1 }}
@@ -413,7 +379,7 @@ export default function HowToThrowBachelorettePartyAustin() {
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors flex items-center justify-center">
                     <Camera className="text-white opacity-0 group-hover:opacity-100 transition-opacity h-8 w-8" />
                   </div>
-                </motion.div>
+                </m.div>
               ))}
             </div>
             
@@ -425,7 +391,7 @@ export default function HowToThrowBachelorettePartyAustin() {
                 </Button>
               </Link>
             </div>
-          </motion.div>
+          </m.div>
         </div>
       </section>
 
@@ -442,7 +408,7 @@ export default function HowToThrowBachelorettePartyAustin() {
       {/* Food Section */}
       <section className="py-16 bg-pink-50 dark:bg-gray-800">
         <div className="container mx-auto px-6">
-          <motion.div
+          <m.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
@@ -457,7 +423,7 @@ export default function HowToThrowBachelorettePartyAustin() {
             
             <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
               {diningSpots.map((spot, index) => (
-                <motion.div
+                <m.div
                   key={spot.name}
                   initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
                   whileInView={{ opacity: 1, x: 0 }}
@@ -475,7 +441,7 @@ export default function HowToThrowBachelorettePartyAustin() {
                       </div>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
             
@@ -484,14 +450,14 @@ export default function HowToThrowBachelorettePartyAustin() {
                 <strong>Pro Tip:</strong> Food trucks at the Picnic offer diverse options perfect for groups. For late-night bites, Elizabeth Street Cafe has amazing Vietnamese-French fusion. Need drinks delivered to your boat? Check out <Link href="/" className="text-pink-600 hover:underline font-semibold">Party on Delivery</Link> for hassle-free beverage service.
               </p>
             </div>
-          </motion.div>
+          </m.div>
         </div>
       </section>
 
       {/* Accommodations Section */}
       <section className="py-16 bg-white dark:bg-gray-900">
         <div className="container mx-auto px-6">
-          <motion.div
+          <m.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
@@ -522,14 +488,14 @@ export default function HowToThrowBachelorettePartyAustin() {
                 </CardContent>
               </Card>
             </div>
-          </motion.div>
+          </m.div>
         </div>
       </section>
 
       {/* Budget Section */}
       <section className="py-16 bg-pink-50 dark:bg-gray-800">
         <div className="container mx-auto px-6">
-          <motion.div
+          <m.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
@@ -546,7 +512,7 @@ export default function HowToThrowBachelorettePartyAustin() {
             
             <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
               {budgetItems.map((item, index) => (
-                <motion.div
+                <m.div
                   key={item.category}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -559,7 +525,7 @@ export default function HowToThrowBachelorettePartyAustin() {
                       <p className="font-bold text-pink-600 dark:text-pink-400">{item.cost}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
             
@@ -568,14 +534,14 @@ export default function HowToThrowBachelorettePartyAustin() {
                 Want a detailed quote for your group? Use our <Link href="/quote-builder" className="text-pink-600 hover:underline font-semibold">quote builder</Link> to get instant pricing.
               </p>
             </div>
-          </motion.div>
+          </m.div>
         </div>
       </section>
 
       {/* Weekend Itinerary Section */}
       <section className="py-16 bg-gradient-to-b from-white to-pink-50 dark:from-gray-900 dark:to-gray-800">
         <div className="container mx-auto px-6">
-          <motion.div
+          <m.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
@@ -653,14 +619,14 @@ export default function HowToThrowBachelorettePartyAustin() {
                 </AccordionItem>
               </Accordion>
             </div>
-          </motion.div>
+          </m.div>
         </div>
       </section>
 
       {/* Embedded Quote Builder */}
       <section className="py-16 bg-white dark:bg-gray-900">
         <div className="container mx-auto px-6">
-          <motion.div
+          <m.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
@@ -676,14 +642,14 @@ export default function HowToThrowBachelorettePartyAustin() {
             <div className="max-w-4xl mx-auto">
               <EmbeddedQuoteBuilder pageContext="bachelorette" />
             </div>
-          </motion.div>
+          </m.div>
         </div>
       </section>
 
       {/* Related Links Section */}
       <section className="py-16 bg-pink-50 dark:bg-gray-800">
         <div className="container mx-auto px-6">
-          <motion.div
+          <m.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
@@ -749,14 +715,14 @@ export default function HowToThrowBachelorettePartyAustin() {
                 </Card>
               </Link>
             </div>
-          </motion.div>
+          </m.div>
         </div>
       </section>
 
       {/* CTA Section */}
       <section className="py-20 bg-gradient-to-r from-pink-700 via-rose-600 to-purple-700 text-white">
         <div className="container mx-auto px-6">
-          <motion.div
+          <m.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
@@ -783,12 +749,13 @@ export default function HowToThrowBachelorettePartyAustin() {
                 </Button>
               </Link>
             </div>
-          </motion.div>
+          </m.div>
         </div>
       </section>
 
       <RelatedBlogArticles category="bachelorette" currentSlug="/blogs/how-to-throw-great-bachelorette-party-austin" />
       <Footer />
     </div>
+    </LazyMotionProvider>
   );
 }

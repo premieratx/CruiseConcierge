@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { m, LazyMotionProvider, fadeInUp, staggerContainer } from '@/components/LazyMotion';
 import { Link } from 'wouter';
-import * as HelmetAsync from 'react-helmet-async';
-const HelmetAsyncDefault = (HelmetAsync as any).default || HelmetAsync;
-const { Helmet } = HelmetAsyncDefault;
+import SEOHead from '@/components/SEOHead';
 import { 
   Ship, Users, Package, Phone, Clock, CheckCircle2, 
   Gift, Award, Waves, MapPin, Calendar, Star,
@@ -23,15 +21,6 @@ import sectionImage1 from '@assets/@capitalcityshots-7_1760080740018.jpg';
 import sectionImage2 from '@assets/@capitalcityshots-8_1760080740018.jpg';
 import sectionImage3 from '@assets/@capitalcityshots-9_1760080740019.jpg';
 import sectionImage4 from '@assets/@capitalcityshots-10_1760080740019.jpg';
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-};
-
-const staggerChildren = {
-  visible: { transition: { staggerChildren: 0.1 } }
-};
 
 const allInclusiveBenefits = [
   { 
@@ -194,23 +183,21 @@ export default function AllInclusiveCorporatePackages() {
   }, []);
 
   return (
+    <LazyMotionProvider>
     <>
-      <Helmet>
-        <title>All Inclusive Corporate Event Austin | Party Package Lake Travis | Premier Party Cruises</title>
-        <meta name="description" content="Book an all inclusive corporate event Austin with turnkey corporate party boat packages on Lake Travis. Hassle free company event Austin with catering, beverages, and full coordination. Party package Lake Travis made easy." />
-        <meta name="keywords" content="all inclusive corporate event Austin, party package Lake Travis, turnkey corporate party boat, hassle free company event Austin, corporate boat rental Austin, team building Lake Travis" />
-        <link rel="canonical" href="https://premierpartycruises.com/blogs/all-inclusive-corporate-packages-austin" />
-        <meta property="og:title" content="All Inclusive Corporate Event Austin | Party in a Box Packages" />
-        <meta property="og:description" content="Turnkey corporate party boat experiences on Lake Travis. All inclusive packages with beverages, catering, and full event coordination." />
-        <meta property="og:type" content="article" />
-        <meta property="og:image" content={heroImage} />
-      </Helmet>
+      <SEOHead 
+        pageRoute="/blogs/all-inclusive-corporate-packages-austin"
+        defaultTitle="All Inclusive Corporate Event Austin | Party Package Lake Travis | Premier Party Cruises"
+        defaultDescription="Book an all inclusive corporate event Austin with turnkey corporate party boat packages on Lake Travis. Hassle free company event Austin with catering, beverages, and full coordination. Party package Lake Travis made easy."
+        defaultKeywords={['all inclusive corporate event Austin', 'party package Lake Travis', 'turnkey corporate party boat', 'hassle free company event Austin', 'corporate boat rental Austin', 'team building Lake Travis']}
+        image={heroImage}
+      />
 
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="all-inclusive-corporate-packages-page">
         <PublicNavigation />
 
         {/* Hero Section */}
-        <motion.section 
+        <m.section 
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
@@ -221,6 +208,8 @@ export default function AllInclusiveCorporatePackages() {
           <div 
             className="absolute inset-0 bg-cover bg-center opacity-30"
             style={{ backgroundImage: `url(${heroImage})` }}
+          role="img"
+          aria-label="All Inclusive Corporate Event Austin - Premier Party Cruises Lake Travis"
           />
           
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 text-center">
@@ -252,7 +241,19 @@ export default function AllInclusiveCorporatePackages() {
               </Link>
             </div>
           </div>
-        </motion.section>
+        </m.section>
+
+      {/* Topic Cluster Pillar Link */}
+      <div className="bg-blue-50 dark:bg-blue-950/30 border-b border-blue-100 dark:border-blue-900/50">
+        <div className="max-w-4xl mx-auto px-6 py-3">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            See our complete guide to{' '}
+            <Link href="/corporate-events" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Austin corporate event boats</Link>{' '}
+            for team building, client entertainment, and company celebrations on Lake Travis.
+          </p>
+        </div>
+      </div>
+
 
         {/* Hero Image with SEO Alt */}
         <section className="relative -mt-8 mb-8">
@@ -269,22 +270,22 @@ export default function AllInclusiveCorporatePackages() {
         {/* Benefits Grid */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="benefits-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={staggerChildren}
+              variants={staggerContainer}
               className="text-center mb-12"
             >
               <h2 className="text-3xl font-bold mb-4" data-testid="benefits-title">Why Choose an All Inclusive Corporate Event Austin Package?</h2>
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Our party package Lake Travis options remove all the complexity from corporate event planning
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {allInclusiveBenefits.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -300,7 +301,7 @@ export default function AllInclusiveCorporatePackages() {
                       <p className="text-gray-600 dark:text-gray-400 text-sm">{item.description}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -309,7 +310,7 @@ export default function AllInclusiveCorporatePackages() {
         {/* What is Party in a Box Section */}
         <section className="py-16 bg-gradient-to-br from-gray-50 to-purple-50 dark:from-gray-800 dark:to-gray-900" data-testid="party-in-box-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -369,7 +370,7 @@ export default function AllInclusiveCorporatePackages() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
@@ -378,7 +379,7 @@ export default function AllInclusiveCorporatePackages() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
               {whyAllInclusive.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -387,7 +388,7 @@ export default function AllInclusiveCorporatePackages() {
                 >
                   <p className="text-3xl md:text-4xl font-bold text-amber-400" data-testid={`stat-value-${index}`}>{item.stat}</p>
                   <p className="text-sm md:text-base text-white/80 mt-1">{item.label}</p>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -396,7 +397,7 @@ export default function AllInclusiveCorporatePackages() {
         {/* Package Tiers Section */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="packages-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -408,11 +409,11 @@ export default function AllInclusiveCorporatePackages() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Choose the level of service that fits your team's needs and budget
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-3 gap-8">
               {packageTiers.map((tier, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -452,7 +453,7 @@ export default function AllInclusiveCorporatePackages() {
                       </Link>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -461,7 +462,7 @@ export default function AllInclusiveCorporatePackages() {
         {/* Party On Delivery Section */}
         <section className="py-16 bg-gradient-to-br from-blue-900 via-purple-800 to-slate-900 text-white" data-testid="pod-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -502,14 +503,14 @@ export default function AllInclusiveCorporatePackages() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Catering Section */}
         <section className="py-16 bg-gradient-to-br from-gray-50 to-amber-50 dark:from-gray-800 dark:to-gray-900" data-testid="catering-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -553,14 +554,14 @@ export default function AllInclusiveCorporatePackages() {
                   </p>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Why All-Inclusive Works Section */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="why-works-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -633,7 +634,7 @@ export default function AllInclusiveCorporatePackages() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
@@ -660,7 +661,7 @@ export default function AllInclusiveCorporatePackages() {
         {/* FAQ Section */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="faq-section">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -672,7 +673,7 @@ export default function AllInclusiveCorporatePackages() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 Everything you need to know about our party package Lake Travis experiences
               </p>
-            </motion.div>
+            </m.div>
 
             <Accordion type="single" collapsible className="w-full" data-testid="faq-accordion">
               {faqs.map((faq, index) => (
@@ -692,7 +693,7 @@ export default function AllInclusiveCorporatePackages() {
         {/* CTA Section */}
         <section className="py-16 bg-gradient-to-br from-purple-900 via-blue-800 to-slate-900 text-white" data-testid="cta-section">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -717,7 +718,7 @@ export default function AllInclusiveCorporatePackages() {
                   </Button>
                 </a>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
@@ -727,5 +728,6 @@ export default function AllInclusiveCorporatePackages() {
         <Footer />
       </div>
     </>
+    </LazyMotionProvider>
   );
 }

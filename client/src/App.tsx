@@ -1,4 +1,4 @@
-import React from "react";
+import React, { lazy, Suspense, useEffect, useState } from "react";
 import { Switch, Route, useLocation, Redirect } from "wouter";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
@@ -13,7 +13,6 @@ const Toaster = lazy(() => import("@/components/ui/toaster").then(m => ({ defaul
 // SSR FIX: Use star import for react-helmet-async to work with both tsx and Vite SSR
 import * as HelmetAsync from 'react-helmet-async';
 const HelmetProvider = (HelmetAsync as any).HelmetProvider || (HelmetAsync as any).default?.HelmetProvider;
-import { lazy, Suspense, useEffect, useState } from "react";
 import { AuthProvider } from "@/hooks/use-auth";
 import { ProtectedRoute } from "@/lib/protected-route";
 // TBT OPTIMIZATION: GoogleAnalytics lazy loaded - deferred loading anyway

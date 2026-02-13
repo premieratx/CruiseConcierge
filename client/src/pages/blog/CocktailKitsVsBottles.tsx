@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { m, LazyMotionProvider, fadeInUp, staggerContainer } from '@/components/LazyMotion';
 import { Link } from 'wouter';
-import * as HelmetAsync from 'react-helmet-async';
-const HelmetAsyncDefault = (HelmetAsync as any).default || HelmetAsync;
-const { Helmet } = HelmetAsyncDefault;
+import SEOHead from '@/components/SEOHead';
 import { 
   Ship, Users, Package, Clock, CheckCircle2, 
   Wine, Sparkles, DollarSign, ArrowRight, Heart,
@@ -25,10 +23,6 @@ import sectionImage1 from '@assets/@capitalcityshots-2_1760080740017.jpg';
 import sectionImage2 from '@assets/@capitalcityshots-3_1760080740017.jpg';
 import sectionImage3 from '@assets/@capitalcityshots-5_1760072938923.jpg';
 
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-};
 
 const cocktailKitBenefits = [
   { icon: Package, title: 'Pre-Portioned Ingredients', description: 'Cocktail kits for bachelorette parties come with exact measurements - no guesswork needed' },
@@ -150,24 +144,21 @@ export default function CocktailKitsVsBottles() {
   }, []);
 
   return (
+    <LazyMotionProvider>
     <>
-      <Helmet>
-        <title>Cocktail Kits vs Individual Bottles: Smart Bachelorette Party Alcohol Strategy | Premier Party Cruises</title>
-        <meta name="description" content="Compare cocktail kits vs individual bottles for your bachelorette party. Smart alcohol strategy guide with cost analysis, pros/cons, and tips for Lake Travis boat parties. Expert bachelorette party planning." />
-        <meta name="keywords" content="cocktail kits bachelorette party, bachelorette party alcohol, bachelorette party cocktails, cocktail kits vs bottles, bachelorette party alcohol strategy, Lake Travis bachelorette, bachelorette cocktail kit delivery, party alcohol planning" />
-        <link rel="canonical" href="https://premierpartycruises.com/blogs/cocktail-kits-vs-individual-bottles-the-smart-bachelorette-party-alcohol-strategy" />
-        <meta property="og:title" content="Cocktail Kits vs Individual Bottles: Smart Bachelorette Party Alcohol Strategy" />
-        <meta property="og:description" content="Compare cocktail kits vs individual bottles for your bachelorette party. Cost analysis, pros/cons, and expert tips for Lake Travis boat celebrations." />
-        <meta property="og:type" content="article" />
-        <meta property="og:url" content="https://premierpartycruises.com/blogs/cocktail-kits-vs-individual-bottles-the-smart-bachelorette-party-alcohol-strategy" />
-        <meta property="og:image" content="https://premierpartycruises.com/attached_assets/@capitalcityshots-1_1760080740012.jpg" />
-      </Helmet>
+      <SEOHead 
+        pageRoute="/blogs/cocktail-kits-vs-individual-bottles-the-smart-bachelorette-party-alcohol-strategy"
+        defaultTitle="Cocktail Kits vs Individual Bottles: Smart Bachelorette Party Alcohol Strategy | Premier Party Cruises"
+        defaultDescription="Compare cocktail kits vs individual bottles for your bachelorette party. Smart alcohol strategy guide with cost analysis, pros/cons, and tips for Lake Travis boat parties. Expert bachelorette party planning."
+        defaultKeywords={['cocktail kits bachelorette party', 'bachelorette party alcohol', 'bachelorette party cocktails', 'cocktail kits vs bottles', 'bachelorette party alcohol strategy', 'Lake Travis bachelorette', 'bachelorette cocktail kit delivery', 'party alcohol planning']}
+        image="https://premierpartycruises.com/attached_assets/@capitalcityshots-1_1760080740012.jpg"
+      />
 
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="cocktail-kits-vs-bottles-page">
         <PublicNavigation />
 
         {/* Hero Section */}
-        <motion.section 
+        <m.section 
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
@@ -216,12 +207,24 @@ export default function CocktailKitsVsBottles() {
               </Button>
             </div>
           </div>
-        </motion.section>
+        </m.section>
+
+      {/* Topic Cluster Pillar Link */}
+      <div className="bg-blue-50 dark:bg-blue-950/30 border-b border-blue-100 dark:border-blue-900/50">
+        <div className="max-w-4xl mx-auto px-6 py-3">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            Browse our full range of{' '}
+            <Link href="/party-boat-austin" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Austin party boat rentals</Link>{' '}
+            for celebrations of every kind on Lake Travis.
+          </p>
+        </div>
+      </div>
+
 
         {/* Introduction */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="intro-section">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -241,14 +244,14 @@ export default function CocktailKitsVsBottles() {
                 <strong> bachelorette party alcohol strategy</strong> directly impacts your budget, convenience, and overall experience. 
                 Let's compare <strong>cocktail kits vs individual bottles</strong> so you can make the best choice.
               </p>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Cocktail Kit Benefits */}
         <section className="py-16 bg-pink-50 dark:bg-gray-800" data-testid="cocktail-kits-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -263,11 +266,11 @@ export default function CocktailKitsVsBottles() {
                 Bachelorette party cocktail kits have surged in popularity for good reason. 
                 Here's why cocktail kits might be the perfect choice for your celebration.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {cocktailKitBenefits.map((benefit, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -283,7 +286,7 @@ export default function CocktailKitsVsBottles() {
                       <p className="text-gray-600 dark:text-gray-400">{benefit.description}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -293,7 +296,7 @@ export default function CocktailKitsVsBottles() {
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="bottles-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <motion.div
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -304,9 +307,9 @@ export default function CocktailKitsVsBottles() {
                   alt="Individual bottles for bachelorette party alcohol planning"
                   className="rounded-2xl shadow-xl w-full h-80 object-cover"
                 />
-              </motion.div>
+              </m.div>
               
-              <motion.div
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -333,7 +336,7 @@ export default function CocktailKitsVsBottles() {
                     </div>
                   ))}
                 </div>
-              </motion.div>
+              </m.div>
             </div>
           </div>
         </section>
@@ -341,7 +344,7 @@ export default function CocktailKitsVsBottles() {
         {/* Cost Comparison */}
         <section className="py-16 bg-gradient-to-br from-pink-50 to-purple-50 dark:from-gray-800 dark:to-gray-900" data-testid="cost-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -356,11 +359,11 @@ export default function CocktailKitsVsBottles() {
                 The right <strong>bachelorette party alcohol strategy</strong> depends largely on your group size. 
                 Here's a realistic cost breakdown for cocktail kits vs individual bottles.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-3 gap-6">
               {costComparison.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -391,7 +394,7 @@ export default function CocktailKitsVsBottles() {
                       </div>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -400,7 +403,7 @@ export default function CocktailKitsVsBottles() {
         {/* Smart Strategies */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="strategies-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -415,11 +418,11 @@ export default function CocktailKitsVsBottles() {
                 The best approach often combines cocktail kits and individual bottles. 
                 Here are proven strategies for your <strong>bachelorette party cocktails</strong>.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 gap-6">
               {smartStrategies.map((strategy, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -437,7 +440,7 @@ export default function CocktailKitsVsBottles() {
                       </div>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -447,7 +450,7 @@ export default function CocktailKitsVsBottles() {
         <section className="py-16 bg-blue-50 dark:bg-gray-800" data-testid="boats-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <motion.div
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -476,9 +479,9 @@ export default function CocktailKitsVsBottles() {
                 <p className="text-sm text-gray-500 dark:text-gray-400 mt-4 italic">
                   All boats are single-deck pontoons with arch canopy. Clever Girl has additional crew fee for 51-75 guests.
                 </p>
-              </motion.div>
+              </m.div>
               
-              <motion.div
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -489,7 +492,7 @@ export default function CocktailKitsVsBottles() {
                   alt="Lake Travis bachelorette party boat with cocktails and celebration"
                   className="rounded-2xl shadow-xl w-full h-96 object-cover"
                 />
-              </motion.div>
+              </m.div>
             </div>
           </div>
         </section>
@@ -500,7 +503,7 @@ export default function CocktailKitsVsBottles() {
         {/* FAQ Section */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="faq-section">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -514,7 +517,7 @@ export default function CocktailKitsVsBottles() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 Common questions about cocktail kits, bachelorette party alcohol, and Lake Travis celebrations.
               </p>
-            </motion.div>
+            </m.div>
 
             <Accordion type="single" collapsible className="space-y-4">
               {faqs.map((faq, index) => (
@@ -542,7 +545,7 @@ export default function CocktailKitsVsBottles() {
         {/* Internal Links Section */}
         <section className="py-16 bg-gray-50 dark:bg-gray-800" data-testid="internal-links-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -555,11 +558,11 @@ export default function CocktailKitsVsBottles() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 Continue planning your perfect Lake Travis bachelorette celebration.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
               {internalLinks.map((link, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -577,7 +580,7 @@ export default function CocktailKitsVsBottles() {
                       <ArrowRight className="h-4 w-4 ml-auto" />
                     </Button>
                   </Link>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -586,5 +589,6 @@ export default function CocktailKitsVsBottles() {
         <Footer />
       </div>
     </>
+    </LazyMotionProvider>
   );
 }

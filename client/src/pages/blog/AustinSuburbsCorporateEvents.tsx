@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { m, LazyMotionProvider, fadeInUp, staggerContainer } from '@/components/LazyMotion';
 import { Link } from 'wouter';
-import * as HelmetAsync from 'react-helmet-async';
-const HelmetAsyncDefault = (HelmetAsync as any).default || HelmetAsync;
-const { Helmet } = HelmetAsyncDefault;
+import SEOHead from '@/components/SEOHead';
 import { 
   Ship, Users, Briefcase, Phone, Clock, CheckCircle2, 
   Target, Award, MapPin, Calendar, Star,
@@ -21,15 +19,6 @@ import heroImage from '@assets/@capitalcityshots-5_1760072938923.jpg';
 import sectionImage1 from '@assets/@capitalcityshots-16_1760080740020.jpg';
 import sectionImage2 from '@assets/@capitalcityshots-17_1760080740020.jpg';
 import sectionImage3 from '@assets/@capitalcityshots-18_1760080740021.jpg';
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-};
-
-const staggerChildren = {
-  visible: { transition: { staggerChildren: 0.1 } }
-};
 
 const suburbBenefits = [
   { 
@@ -153,22 +142,20 @@ export default function AustinSuburbsCorporateEvents() {
   }, []);
 
   return (
+    <LazyMotionProvider>
     <>
-      <Helmet>
-        <title>Austin Suburb Corporate Events – Round Rock, Cedar Park, Leander | Lake Travis Boat Parties</title>
-        <meta name="description" content="Plan your Round Rock corporate event, Cedar Park team building, or Leander company party on Lake Travis. Austin suburbs boat party Lake Travis experiences for corporate groups. Private charters for 14-75 guests." />
-        <meta name="keywords" content="Round Rock corporate event, Cedar Park team building, Leander company party, Austin suburbs boat party Lake Travis, Georgetown corporate events, Pflugerville team building, Lake Travis corporate cruise" />
-        <link rel="canonical" href="https://premierpartycruises.com/blogs/austin-suburbs-corporate-events" />
-        <meta property="og:title" content="Austin Suburb Corporate Events – Round Rock, Cedar Park, Leander | Lake Travis" />
-        <meta property="og:description" content="Round Rock corporate event and Cedar Park team building on Lake Travis. Austin suburbs boat party Lake Travis experiences." />
-        <meta property="og:type" content="article" />
-      </Helmet>
+      <SEOHead 
+        pageRoute="/blogs/austin-suburbs-corporate-events"
+        defaultTitle="Austin Suburb Corporate Events – Round Rock, Cedar Park, Leander | Lake Travis Boat Parties"
+        defaultDescription="Plan your Round Rock corporate event, Cedar Park team building, or Leander company party on Lake Travis. Austin suburbs boat party Lake Travis experiences for corporate groups. Private charters for 14-75 guests."
+        defaultKeywords={['Round Rock corporate event', 'Cedar Park team building', 'Leander company party', 'Austin suburbs boat party Lake Travis', 'Georgetown corporate events', 'Pflugerville team building', 'Lake Travis corporate cruise']}
+      />
 
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="austin-suburbs-corporate-page">
         <PublicNavigation />
 
         {/* Hero Section */}
-        <motion.section 
+        <m.section 
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
@@ -179,6 +166,8 @@ export default function AustinSuburbsCorporateEvents() {
           <div 
             className="absolute inset-0 bg-cover bg-center opacity-30"
             style={{ backgroundImage: `url(${heroImage})` }}
+          role="img"
+          aria-label="Austin Suburb Corporate Events – Round Rock, Cedar Park, Leander - Premier Party Cruises Lake Travis"
           />
           
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 text-center">
@@ -219,7 +208,19 @@ export default function AustinSuburbsCorporateEvents() {
               </Link>
             </div>
           </div>
-        </motion.section>
+        </m.section>
+
+      {/* Topic Cluster Pillar Link */}
+      <div className="bg-blue-50 dark:bg-blue-950/30 border-b border-blue-100 dark:border-blue-900/50">
+        <div className="max-w-4xl mx-auto px-6 py-3">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            See our complete guide to{' '}
+            <Link href="/corporate-events" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Austin corporate event boats</Link>{' '}
+            for team building, client entertainment, and company celebrations on Lake Travis.
+          </p>
+        </div>
+      </div>
+
 
         {/* Hero Image Display */}
         <section className="py-8 bg-white dark:bg-gray-900">
@@ -238,22 +239,22 @@ export default function AustinSuburbsCorporateEvents() {
         {/* Benefits Grid */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="benefits-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={staggerChildren}
+              variants={staggerContainer}
               className="text-center mb-12"
             >
               <h2 className="text-3xl font-bold mb-4">Lake Travis: The Perfect Escape for Austin Area Companies</h2>
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 From Round Rock corporate event gatherings to Cedar Park team building retreats, Austin suburbs boat party Lake Travis experiences create lasting memories
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {suburbBenefits.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -269,7 +270,7 @@ export default function AustinSuburbsCorporateEvents() {
                       <p className="text-gray-600 dark:text-gray-400 text-sm">{item.description}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -280,7 +281,7 @@ export default function AustinSuburbsCorporateEvents() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
               {whySuburbsChooseUs.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -289,7 +290,7 @@ export default function AustinSuburbsCorporateEvents() {
                 >
                   <p className="text-3xl md:text-4xl font-bold text-yellow-400">{item.stat}</p>
                   <p className="text-sm md:text-base text-white/80 mt-1">{item.label}</p>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -298,7 +299,7 @@ export default function AustinSuburbsCorporateEvents() {
         {/* Round Rock Section */}
         <section className="py-16 bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-800 dark:to-gray-900" data-testid="round-rock-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -358,14 +359,14 @@ export default function AustinSuburbsCorporateEvents() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Cedar Park Section */}
         <section className="py-16 bg-gradient-to-br from-blue-900 via-blue-800 to-slate-900 text-white" data-testid="cedar-park-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -416,14 +417,14 @@ export default function AustinSuburbsCorporateEvents() {
                   </Link>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Leander & More Section */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="leander-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -491,14 +492,14 @@ export default function AustinSuburbsCorporateEvents() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Why Suburban Companies Love Boat Events */}
         <section className="py-16 bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-800 dark:to-gray-900" data-testid="why-love-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -509,7 +510,7 @@ export default function AustinSuburbsCorporateEvents() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Escape the office park and create real connections on the water
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {[
@@ -544,7 +545,7 @@ export default function AustinSuburbsCorporateEvents() {
                   icon: MapPin
                 }
               ].map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -560,7 +561,7 @@ export default function AustinSuburbsCorporateEvents() {
                       <p className="text-gray-600 dark:text-gray-400 text-sm">{item.description}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -569,7 +570,7 @@ export default function AustinSuburbsCorporateEvents() {
         {/* Boat Options Section */}
         <section className="py-16 bg-gradient-to-br from-blue-900 via-blue-800 to-slate-900 text-white" data-testid="boats-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -604,14 +605,14 @@ export default function AustinSuburbsCorporateEvents() {
                   </Button>
                 </Link>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Perfect For Section */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="perfect-for-section">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -625,7 +626,7 @@ export default function AustinSuburbsCorporateEvents() {
                   </Badge>
                 ))}
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
@@ -635,7 +636,7 @@ export default function AustinSuburbsCorporateEvents() {
         {/* FAQ Section */}
         <section className="py-16 bg-gray-50 dark:bg-gray-800" data-testid="faq-section">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -646,7 +647,7 @@ export default function AustinSuburbsCorporateEvents() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 Common questions about Round Rock corporate event planning, Cedar Park team building, and Austin suburbs boat party Lake Travis experiences
               </p>
-            </motion.div>
+            </m.div>
 
             <Accordion type="single" collapsible className="space-y-4" data-testid="accordion-faq">
               {faqs.map((faq, index) => (
@@ -671,7 +672,7 @@ export default function AustinSuburbsCorporateEvents() {
         {/* CTA Section */}
         <section className="py-16 bg-gradient-to-br from-blue-900 to-slate-900 text-white" data-testid="cta-section">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -708,7 +709,7 @@ export default function AustinSuburbsCorporateEvents() {
                   </Button>
                 </a>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
@@ -755,5 +756,6 @@ export default function AustinSuburbsCorporateEvents() {
         <Footer />
       </div>
     </>
+    </LazyMotionProvider>
   );
 }

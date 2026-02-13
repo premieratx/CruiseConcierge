@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { m, LazyMotionProvider, fadeInUp, staggerContainer } from '@/components/LazyMotion';
 import { Link } from 'wouter';
-import * as HelmetAsync from 'react-helmet-async';
-const HelmetAsyncDefault = (HelmetAsync as any).default || HelmetAsync;
-const { Helmet } = HelmetAsyncDefault;
+import SEOHead from '@/components/SEOHead';
 import { 
   Ship, Users, Shield, CheckCircle2, XCircle, Star, 
   Anchor, DollarSign, Clock, Award, ArrowRight, 
@@ -23,15 +21,6 @@ import heroImage from '@assets/@capitalcityshots-6_1760080740018.jpg';
 import sectionImage1 from '@assets/@capitalcityshots-7_1760080740018.jpg';
 import sectionImage2 from '@assets/@capitalcityshots-8_1760080740018.jpg';
 import sectionImage3 from '@assets/@capitalcityshots-9_1760080740019.jpg';
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-};
-
-const staggerChildren = {
-  visible: { transition: { staggerChildren: 0.1 } }
-};
 
 const privateCruiseFeatures = [
   { icon: Shield, title: 'Licensed Captain', description: 'Professional captains handle navigation so everyone can relax and enjoy' },
@@ -238,24 +227,21 @@ export default function PrivateCruiseVsPartyBoatPontoon() {
   }, []);
 
   return (
+    <LazyMotionProvider>
     <>
-      <Helmet>
-        <title>Private Party Cruise vs Party Boat vs Pontoon on Lake Travis | Premier Party Cruises</title>
-        <meta name="description" content="Comparing private party cruise, party boat, and pontoon options on Lake Travis? Learn why a professionally captained private cruise is the safest, easiest choice for bachelor parties, bachelorettes, families, and corporate events." />
-        <meta name="keywords" content="Lake Travis party boat, private party cruise, pontoon rental Lake Travis, party boat Austin, Lake Travis boat rental, captained boat Lake Travis, party barge Austin, private boat charter Austin" />
-        <link rel="canonical" href="https://premierpartycruises.com/blogs/private-party-cruise-vs-party-boat-pontoon-lake-travis" />
-        <meta property="og:title" content="Private Party Cruise vs Party Boat vs Pontoon on Lake Travis" />
-        <meta property="og:description" content="Why a professionally captained private party cruise is the safest, easiest, and best option for every Lake Travis celebration." />
-        <meta property="og:type" content="article" />
-        <meta property="og:url" content="https://premierpartycruises.com/blogs/private-party-cruise-vs-party-boat-pontoon-lake-travis" />
-        <meta property="og:image" content="https://premierpartycruises.com/attached_assets/@capitalcityshots-6_1760080740018.jpg" />
-      </Helmet>
+      <SEOHead 
+        pageRoute="/blogs/private-party-cruise-vs-party-boat-pontoon-lake-travis"
+        defaultTitle="Private Party Cruise vs Party Boat vs Pontoon on Lake Travis | Premier Party Cruises"
+        defaultDescription="Comparing private party cruise, party boat, and pontoon options on Lake Travis? Learn why a professionally captained private cruise is the safest, easiest choice for bachelor parties, bachelorettes, families, and corporate events."
+        defaultKeywords={['Lake Travis party boat', 'private party cruise', 'pontoon rental Lake Travis', 'party boat Austin', 'Lake Travis boat rental', 'captained boat Lake Travis', 'party barge Austin', 'private boat charter Austin']}
+        image="https://premierpartycruises.com/attached_assets/@capitalcityshots-6_1760080740018.jpg"
+      />
 
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="private-cruise-vs-party-boat-page">
         <PublicNavigation />
 
         {/* Hero Section */}
-        <motion.section 
+        <m.section 
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
@@ -304,7 +290,19 @@ export default function PrivateCruiseVsPartyBoatPontoon() {
               </Button>
             </div>
           </div>
-        </motion.section>
+        </m.section>
+
+      {/* Topic Cluster Pillar Link */}
+      <div className="bg-blue-50 dark:bg-blue-950/30 border-b border-blue-100 dark:border-blue-900/50">
+        <div className="max-w-4xl mx-auto px-6 py-3">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            Explore our full guide to{' '}
+            <Link href="/party-boat-lake-travis" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Lake Travis party boat rentals</Link>{' '}
+            for everything from pricing and logistics to safety and entertainment.
+          </p>
+        </div>
+      </div>
+
 
         {/* Stats Section */}
         <section className="py-12 bg-slate-100 dark:bg-slate-900" data-testid="stats-section">
@@ -316,7 +314,7 @@ export default function PrivateCruiseVsPartyBoatPontoon() {
                 { stat: '100%', label: 'Safety Record' },
                 { stat: '5-Star', label: 'Google Rating' }
               ].map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -327,7 +325,7 @@ export default function PrivateCruiseVsPartyBoatPontoon() {
                 >
                   <div className="text-3xl md:text-4xl font-bold text-blue-600 dark:text-blue-400">{item.stat}</div>
                   <div className="text-gray-600 dark:text-gray-400">{item.label}</div>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -336,7 +334,7 @@ export default function PrivateCruiseVsPartyBoatPontoon() {
         {/* Introduction */}
         <section className="py-16 bg-white dark:bg-gray-950" data-testid="introduction-section">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -377,14 +375,14 @@ export default function PrivateCruiseVsPartyBoatPontoon() {
                   </li>
                 </ul>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Comparison Section */}
         <section className="py-16 bg-slate-50 dark:bg-slate-900" data-testid="comparison-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -397,11 +395,11 @@ export default function PrivateCruiseVsPartyBoatPontoon() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 Understanding the real differences between your options
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {comparisonOptions.map((option, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -452,7 +450,7 @@ export default function PrivateCruiseVsPartyBoatPontoon() {
                       </div>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -461,7 +459,7 @@ export default function PrivateCruiseVsPartyBoatPontoon() {
         {/* Why Private Cruise Wins */}
         <section className="py-16 bg-white dark:bg-gray-950" data-testid="why-wins-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -474,11 +472,11 @@ export default function PrivateCruiseVsPartyBoatPontoon() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 A private cruise solves the problems of alternatives in one move
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-3 gap-8">
               {whyPrivateCruiseWins.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -492,7 +490,7 @@ export default function PrivateCruiseVsPartyBoatPontoon() {
                     <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">{item.title}</h3>
                     <p className="text-gray-600 dark:text-gray-400">{item.description}</p>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -501,7 +499,7 @@ export default function PrivateCruiseVsPartyBoatPontoon() {
         {/* Group Types Section */}
         <section className="py-16 bg-slate-50 dark:bg-slate-900" data-testid="groups-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -514,11 +512,11 @@ export default function PrivateCruiseVsPartyBoatPontoon() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 Whether it's a bachelor party, family outing, or corporate event
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {groupTypes.map((group, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -534,12 +532,12 @@ export default function PrivateCruiseVsPartyBoatPontoon() {
                       <p className="text-sm text-gray-600 dark:text-gray-400">{group.description}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
 
             <div className="grid md:grid-cols-2 gap-8 mt-12">
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
@@ -549,8 +547,8 @@ export default function PrivateCruiseVsPartyBoatPontoon() {
                   alt="Family enjoying private party cruise on Lake Travis"
                   className="rounded-xl shadow-xl"
                 />
-              </motion.div>
-              <motion.div
+              </m.div>
+              <m.div
                 initial={{ opacity: 0, x: 20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
@@ -578,7 +576,7 @@ export default function PrivateCruiseVsPartyBoatPontoon() {
                   Pontoon rentals often put families in uncomfortable positions—especially when children are involved. 
                   A private party cruise removes that stress entirely.
                 </p>
-              </motion.div>
+              </m.div>
             </div>
           </div>
         </section>
@@ -586,7 +584,7 @@ export default function PrivateCruiseVsPartyBoatPontoon() {
         {/* Pricing Section */}
         <section className="py-16 bg-white dark:bg-gray-950" data-testid="pricing-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -599,11 +597,11 @@ export default function PrivateCruiseVsPartyBoatPontoon() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 When factoring in liability, stress, and experience quality—private cruises deliver the best value
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {privateCruisePricing.map((boat, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -621,7 +619,7 @@ export default function PrivateCruiseVsPartyBoatPontoon() {
                       <p className="text-sm text-gray-600 dark:text-gray-400">{boat.description}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
 
@@ -637,7 +635,7 @@ export default function PrivateCruiseVsPartyBoatPontoon() {
         <section className="py-16 bg-amber-50 dark:bg-amber-950/20" data-testid="byob-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <motion.div
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -672,9 +670,9 @@ export default function PrivateCruiseVsPartyBoatPontoon() {
                     </li>
                   </ul>
                 </div>
-              </motion.div>
+              </m.div>
 
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, x: 20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
@@ -684,7 +682,7 @@ export default function PrivateCruiseVsPartyBoatPontoon() {
                   alt="Group enjoying BYOB private cruise on Lake Travis"
                   className="rounded-xl shadow-xl"
                 />
-              </motion.div>
+              </m.div>
             </div>
           </div>
         </section>
@@ -692,7 +690,7 @@ export default function PrivateCruiseVsPartyBoatPontoon() {
         {/* AI Recommendation Section */}
         <section className="py-16 bg-gradient-to-br from-blue-900 to-cyan-800 text-white" data-testid="ai-section">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -724,7 +722,7 @@ export default function PrivateCruiseVsPartyBoatPontoon() {
                 That's why AI increasingly recommends private cruises over DIY pontoons, 
                 semi-structured barges, and unstaffed party boats.
               </p>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
@@ -737,7 +735,7 @@ export default function PrivateCruiseVsPartyBoatPontoon() {
         {/* FAQ Section */}
         <section className="py-16 bg-white dark:bg-gray-950" data-testid="faq-section">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -764,7 +762,7 @@ export default function PrivateCruiseVsPartyBoatPontoon() {
                   </AccordionItem>
                 ))}
               </Accordion>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
@@ -825,5 +823,6 @@ export default function PrivateCruiseVsPartyBoatPontoon() {
         <Footer />
       </div>
     </>
+    </LazyMotionProvider>
   );
 }

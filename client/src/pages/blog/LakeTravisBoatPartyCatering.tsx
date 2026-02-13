@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { m, LazyMotionProvider, fadeInUp, staggerContainer } from '@/components/LazyMotion';
 import { Link } from 'wouter';
-import * as HelmetAsync from 'react-helmet-async';
-const HelmetAsyncDefault = (HelmetAsync as any).default || HelmetAsync;
-const { Helmet } = HelmetAsyncDefault;
+import SEOHead from '@/components/SEOHead';
 import { 
   Ship, Users, Utensils, Phone, Clock, CheckCircle2, 
   Wine, Award, Sparkles, MapPin, Calendar, Star,
@@ -23,15 +21,6 @@ import heroImage from '@assets/@capitalcityshots-8_1760080740018.jpg';
 import sectionImage1 from '@assets/@capitalcityshots-9_1760080740019.jpg';
 import sectionImage2 from '@assets/@capitalcityshots-10_1760080740019.jpg';
 import sectionImage3 from '@assets/@capitalcityshots-11_1760080740019.jpg';
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-};
-
-const staggerChildren = {
-  visible: { transition: { staggerChildren: 0.1 } }
-};
 
 const cateringOptions = [
   {
@@ -171,23 +160,21 @@ export default function LakeTravisBoatPartyCatering() {
   }, []);
 
   return (
+    <LazyMotionProvider>
     <>
-      <Helmet>
-        <title>Lake Travis Boat Party Catering - Food & Beverage Coordination | Premier Party Cruises</title>
-        <meta name="description" content="Complete guide to Lake Travis boat party catering, party boat food Austin options, and boat catering Lake Travis coordination. BYOB rules, Party On Delivery, and food and beverage boat party planning tips." />
-        <meta name="keywords" content="Lake Travis boat party catering, party boat food Austin, boat catering Lake Travis, Austin boat party food, food and beverage boat party, party boat catering Austin, Lake Travis boat food" />
-        <link rel="canonical" href="https://premierpartycruises.com/blogs/lake-travis-boat-party-catering-food-and-beverage-coordination-for-perfect-events" />
-        <meta property="og:title" content="Lake Travis Boat Party Catering - Food & Beverage Coordination Guide" />
-        <meta property="og:description" content="Everything you need to know about Lake Travis boat party catering. BYOB rules, catering options, and food planning tips for the perfect party boat experience." />
-        <meta property="og:type" content="article" />
-        <meta property="og:image" content={heroImage} />
-      </Helmet>
+      <SEOHead 
+        pageRoute="/blogs/lake-travis-boat-party-catering-food-and-beverage-coordination-for-perfect-events"
+        defaultTitle="Lake Travis Boat Party Catering - Food & Beverage Coordination | Premier Party Cruises"
+        defaultDescription="Complete guide to Lake Travis boat party catering, party boat food Austin options, and boat catering Lake Travis coordination. BYOB rules, Party On Delivery, and food and beverage boat party planning tips."
+        defaultKeywords={['Lake Travis boat party catering', 'party boat food Austin', 'boat catering Lake Travis', 'Austin boat party food', 'food and beverage boat party', 'party boat catering Austin', 'Lake Travis boat food']}
+        image={heroImage}
+      />
 
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="lake-travis-boat-party-catering-page">
         <PublicNavigation />
 
         {/* Hero Section */}
-        <motion.section 
+        <m.section 
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
@@ -236,14 +223,26 @@ export default function LakeTravisBoatPartyCatering() {
               </Button>
             </div>
           </div>
-        </motion.section>
+        </m.section>
+
+      {/* Topic Cluster Pillar Link */}
+      <div className="bg-blue-50 dark:bg-blue-950/30 border-b border-blue-100 dark:border-blue-900/50">
+        <div className="max-w-4xl mx-auto px-6 py-3">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            Explore our full guide to{' '}
+            <Link href="/party-boat-lake-travis" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Lake Travis party boat rentals</Link>{' '}
+            for everything from pricing and logistics to safety and entertainment.
+          </p>
+        </div>
+      </div>
+
 
         {/* Stats Section */}
         <section className="py-12 bg-slate-100 dark:bg-slate-900" data-testid="stats-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {whyPremier.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -254,7 +253,7 @@ export default function LakeTravisBoatPartyCatering() {
                 >
                   <div className="text-3xl md:text-4xl font-bold text-orange-600 dark:text-orange-400">{item.stat}</div>
                   <div className="text-gray-600 dark:text-gray-400">{item.label}</div>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -275,7 +274,7 @@ export default function LakeTravisBoatPartyCatering() {
         {/* Catering Options */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="catering-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -287,11 +286,11 @@ export default function LakeTravisBoatPartyCatering() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Choose the party boat food Austin approach that works best for your celebration
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-3 gap-6">
               {cateringOptions.map((option, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -329,7 +328,7 @@ export default function LakeTravisBoatPartyCatering() {
                       </p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -339,7 +338,7 @@ export default function LakeTravisBoatPartyCatering() {
         <section className="py-16 bg-gray-50 dark:bg-gray-800" data-testid="food-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <motion.div
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -361,8 +360,8 @@ export default function LakeTravisBoatPartyCatering() {
                     </div>
                   ))}
                 </div>
-              </motion.div>
-              <motion.div
+              </m.div>
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -374,7 +373,7 @@ export default function LakeTravisBoatPartyCatering() {
                   className="rounded-2xl shadow-xl"
                   data-testid="img-food"
                 />
-              </motion.div>
+              </m.div>
             </div>
           </div>
         </section>
@@ -382,7 +381,7 @@ export default function LakeTravisBoatPartyCatering() {
         {/* Beverage Guide */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="beverage-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -394,11 +393,11 @@ export default function LakeTravisBoatPartyCatering() {
               <p className="text-gray-600 dark:text-gray-400">
                 BYOB is welcome - just remember: cans and plastic only, no glass!
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {beverageGuide.map((bev, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -415,7 +414,7 @@ export default function LakeTravisBoatPartyCatering() {
                       <p className="text-gray-600 dark:text-gray-400 text-sm">{bev.description}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -425,7 +424,7 @@ export default function LakeTravisBoatPartyCatering() {
         <section className="py-16 bg-gradient-to-br from-orange-50 to-red-50 dark:from-gray-800 dark:to-gray-900" data-testid="pod-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <motion.div
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -437,8 +436,8 @@ export default function LakeTravisBoatPartyCatering() {
                   className="rounded-2xl shadow-xl"
                   data-testid="img-pod"
                 />
-              </motion.div>
-              <motion.div
+              </m.div>
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -460,7 +459,7 @@ export default function LakeTravisBoatPartyCatering() {
                     </div>
                   ))}
                 </div>
-              </motion.div>
+              </m.div>
             </div>
           </div>
         </section>
@@ -468,7 +467,7 @@ export default function LakeTravisBoatPartyCatering() {
         {/* Catering Tips */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="tips-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -480,11 +479,11 @@ export default function LakeTravisBoatPartyCatering() {
               <p className="text-gray-600 dark:text-gray-400">
                 Insider advice for successful boat catering Lake Travis events
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {cateringTips.map((tip, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -505,7 +504,7 @@ export default function LakeTravisBoatPartyCatering() {
                       </div>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -517,7 +516,7 @@ export default function LakeTravisBoatPartyCatering() {
         {/* FAQ Section */}
         <section className="py-16 bg-gray-50 dark:bg-gray-800" data-testid="faq-section">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -529,7 +528,7 @@ export default function LakeTravisBoatPartyCatering() {
               <p className="text-gray-600 dark:text-gray-400">
                 Common questions about party boat food Austin and boat catering Lake Travis
               </p>
-            </motion.div>
+            </m.div>
 
             <Accordion type="single" collapsible className="space-y-4" data-testid="accordion-faq">
               {faqs.map((faq, index) => (
@@ -549,7 +548,7 @@ export default function LakeTravisBoatPartyCatering() {
         {/* Internal Links Section */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="links-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -560,11 +559,11 @@ export default function LakeTravisBoatPartyCatering() {
               <p className="text-gray-600 dark:text-gray-400">
                 Find the perfect Lake Travis experience for your celebration
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
               {internalLinks.map((link, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -580,7 +579,7 @@ export default function LakeTravisBoatPartyCatering() {
                       </CardContent>
                     </Card>
                   </Link>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -589,7 +588,7 @@ export default function LakeTravisBoatPartyCatering() {
         {/* Final CTA Section */}
         <section className="py-20 bg-gradient-to-br from-orange-900 via-red-800 to-slate-900 text-white" data-testid="cta-section">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -621,12 +620,13 @@ export default function LakeTravisBoatPartyCatering() {
                   </a>
                 </Button>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         <Footer />
       </div>
     </>
+    </LazyMotionProvider>
   );
 }

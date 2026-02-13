@@ -321,7 +321,7 @@ export default function PublicNavigation({ onBookNowClick }: PublicNavigationPro
             >
               <img 
                 src={logoPath} 
-                alt="Premier Party Cruises" 
+                alt="Premier Party Cruises - Austin Lake Travis Party Boat Rentals"
                 className="h-12 lg:h-14 w-auto transition-transform duration-300 group-hover:scale-105"
                 width={56}
                 height={56}

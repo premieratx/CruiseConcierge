@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { m, LazyMotionProvider, fadeInUp, staggerContainer } from '@/components/LazyMotion';
 import { Link } from 'wouter';
-import * as HelmetAsync from 'react-helmet-async';
-const HelmetAsyncDefault = (HelmetAsync as any).default || HelmetAsync;
-const { Helmet } = HelmetAsyncDefault;
+import SEOHead from '@/components/SEOHead';
 import { 
   Ship, Users, Shield, Phone, Clock, CheckCircle2, 
   AlertTriangle, Sun, Waves, MapPin, Heart,
@@ -21,15 +19,6 @@ import heroImage from '@assets/@capitalcityshots-10_1760080740019.jpg';
 import safetyImage1 from '@assets/@capitalcityshots-36_1760080807868.jpg';
 import safetyImage2 from '@assets/@capitalcityshots-37_1760080807869.jpg';
 import safetyImage3 from '@assets/@capitalcityshots-25_1760080807866.jpg';
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-};
-
-const staggerChildren = {
-  visible: { transition: { staggerChildren: 0.1 } }
-};
 
 const safetyPillars = [
   { 
@@ -173,22 +162,20 @@ export default function PartyAlcoholSafetyAustin() {
   }, []);
 
   return (
+    <LazyMotionProvider>
     <>
-      <Helmet>
-        <title>Party Alcohol Safety in Austin | Responsible Service Guide</title>
-        <meta name="description" content="Learn about responsible alcohol service and guest safety at Austin parties. Tips for BYOB boat cruises, Party On Delivery service, and keeping everyone safe." />
-        <meta name="keywords" content="Austin party safety, responsible alcohol service, BYOB boat rules, party guest safety, Lake Travis boat safety" />
-        <link rel="canonical" href="https://premierpartycruises.com/blogs/party-alcohol-safety-in-austin-responsible-service-and-guest-well-being" />
-        <meta property="og:title" content="Party Alcohol Safety in Austin | Responsible Service Guide" />
-        <meta property="og:description" content="Your guide to responsible alcohol service and guest well-being at Austin parties and boat cruises." />
-        <meta property="og:type" content="article" />
-      </Helmet>
+      <SEOHead 
+        pageRoute="/blogs/party-alcohol-safety-in-austin-responsible-service-and-guest-well-being"
+        defaultTitle="Party Alcohol Safety in Austin | Responsible Service Guide"
+        defaultDescription="Learn about responsible alcohol service and guest safety at Austin parties. Tips for BYOB boat cruises, Party On Delivery service, and keeping everyone safe."
+        defaultKeywords={['Austin party safety', 'responsible alcohol service', 'BYOB boat rules', 'party guest safety', 'Lake Travis boat safety']}
+      />
 
       <div className="min-h-screen bg-white dark:bg-gray-950">
         <PublicNavigation />
 
         {/* Hero Section */}
-        <motion.section 
+        <m.section 
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
@@ -198,6 +185,8 @@ export default function PartyAlcoholSafetyAustin() {
           <div 
             className="absolute inset-0 bg-cover bg-center opacity-40"
             style={{ backgroundImage: `url(${heroImage})` }}
+          role="img"
+          aria-label="Party Alcohol Safety in Austin - Premier Party Cruises Lake Travis"
           />
           
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 text-center">
@@ -229,27 +218,39 @@ export default function PartyAlcoholSafetyAustin() {
               </Link>
             </div>
           </div>
-        </motion.section>
+        </m.section>
+
+      {/* Topic Cluster Pillar Link */}
+      <div className="bg-blue-50 dark:bg-blue-950/30 border-b border-blue-100 dark:border-blue-900/50">
+        <div className="max-w-4xl mx-auto px-6 py-3">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            Browse our full range of{' '}
+            <Link href="/party-boat-austin" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Austin party boat rentals</Link>{' '}
+            for celebrations of every kind on Lake Travis.
+          </p>
+        </div>
+      </div>
+
 
         {/* Safety Pillars Grid */}
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={staggerChildren}
+              variants={staggerContainer}
               className="text-center mb-12"
             >
               <h2 className="text-3xl font-bold mb-4">Four Pillars of Party Safety</h2>
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 A great party is a safe party. Here's how we keep everyone having fun.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {safetyPillars.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -265,7 +266,7 @@ export default function PartyAlcoholSafetyAustin() {
                       <p className="text-gray-600 dark:text-gray-400 text-sm">{item.description}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -274,7 +275,7 @@ export default function PartyAlcoholSafetyAustin() {
         {/* Party On Delivery Section */}
         <section className="py-16 bg-gradient-to-br from-blue-50 to-green-50 dark:from-gray-800 dark:to-gray-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -335,14 +336,14 @@ export default function PartyAlcoholSafetyAustin() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* BYOB Boat Safety Section */}
         <section className="py-16 bg-gradient-to-br from-green-800 via-blue-800 to-green-900 text-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -388,14 +389,14 @@ export default function PartyAlcoholSafetyAustin() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Warning Signs Section */}
         <section className="py-16 bg-amber-50 dark:bg-gray-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -443,14 +444,14 @@ export default function PartyAlcoholSafetyAustin() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Hosting Best Practices */}
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -461,11 +462,11 @@ export default function PartyAlcoholSafetyAustin() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Good hosts keep their guests safe. Follow these tips for a party everyone will enjoy.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-3 gap-6">
               {hostingBestPractices.map((section, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -487,7 +488,7 @@ export default function PartyAlcoholSafetyAustin() {
                       </ul>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -496,7 +497,7 @@ export default function PartyAlcoholSafetyAustin() {
         {/* Our Crew Commitment */}
         <section className="py-16 bg-gradient-to-br from-blue-600 to-green-600 text-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -525,14 +526,14 @@ export default function PartyAlcoholSafetyAustin() {
                   </Card>
                 ))}
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* FAQ Section */}
         <section className="py-16 bg-gray-50 dark:bg-gray-800">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -543,7 +544,7 @@ export default function PartyAlcoholSafetyAustin() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 Get answers about alcohol safety on Austin party boats
               </p>
-            </motion.div>
+            </m.div>
 
             <Accordion type="single" collapsible className="space-y-4">
               {faqs.map((faq, index) => (
@@ -567,7 +568,7 @@ export default function PartyAlcoholSafetyAustin() {
         {/* CTA Section */}
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -592,12 +593,13 @@ export default function PartyAlcoholSafetyAustin() {
                   </Button>
                 </Link>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         <Footer />
       </div>
     </>
+    </LazyMotionProvider>
   );
 }

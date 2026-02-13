@@ -221,8 +221,8 @@ export default function PartyBoatAustin() {
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white" data-page-ready="party-boat-austin">
       <SEOHead
         pageRoute="/party-boat-austin"
-        defaultTitle="Party Boat Austin | Premier Lake Travis"
-        defaultDescription="Best party boats in Austin since 2009. Bachelor parties, corporate events, private charters. 15+ years experience. Book today!"
+        defaultTitle="Party Boat Austin | Lake Travis Party Boat Rentals | Premier Party Cruises"
+        defaultDescription="Looking for a party boat in Austin? Premier Party Cruises offers Lake Travis party boats for 14-75 guests since 2009. BYOB, captained cruises, DJ available. 150K+ happy guests. Book now!"
         defaultKeywords={['party boat Austin', 'Austin party boat rental', 'Lake Travis party boat', 'party boat rental Austin', 'Austin boat party', 'Lake Travis boat rental', 'Austin bachelorette boat', 'Austin bachelor party boat']}
       />
 

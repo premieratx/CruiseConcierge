@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { m, LazyMotionProvider, fadeInUp, staggerContainer } from '@/components/LazyMotion';
 import { Link } from 'wouter';
-import * as HelmetAsync from 'react-helmet-async';
-const HelmetAsyncDefault = (HelmetAsync as any).default || HelmetAsync;
-const { Helmet } = HelmetAsyncDefault;
+import SEOHead from '@/components/SEOHead';
 import { 
   Ship, Users, Wine, Phone, Clock, CheckCircle2, 
   MapPin, Calendar, Star, ArrowRight, Building2, 
@@ -22,15 +20,6 @@ import heroImage from '@assets/@capitalcityshots-25_1760080807866.jpg';
 import sectionImage1 from '@assets/@capitalcityshots-26_1760080807866.jpg';
 import sectionImage2 from '@assets/@capitalcityshots-27_1760080807866.jpg';
 import sectionImage3 from '@assets/@capitalcityshots-28_1760080807867.jpg';
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-};
-
-const staggerChildren = {
-  visible: { transition: { staggerChildren: 0.1 } }
-};
 
 const outdoorVenueTypes = [
   {
@@ -193,23 +182,21 @@ export default function OutdoorWeddingAlcoholLogistics() {
   }, []);
 
   return (
+    <LazyMotionProvider>
     <>
-      <Helmet>
-        <title>Outdoor Wedding Alcohol Logistics - Hill Country & Lake Travis Coordination | Premier Party Cruises</title>
-        <meta name="description" content="Master outdoor wedding alcohol logistics for Hill Country and Lake Travis venues. Expert Lake Travis wedding alcohol coordination, delivery solutions, temperature management, and seasonal planning tips." />
-        <meta name="keywords" content="outdoor wedding alcohol logistics, Hill Country wedding alcohol, Lake Travis wedding alcohol coordination, outdoor wedding alcohol logistics Hill Country, Texas outdoor wedding drinks, Hill Country wedding planning, Lake Travis wedding venue" />
-        <link rel="canonical" href="https://premierpartycruises.com/blogs/outdoor-wedding-alcohol-logistics-hill-country-and-lake-travis-coordination" />
-        <meta property="og:title" content="Outdoor Wedding Alcohol Logistics - Hill Country & Lake Travis Coordination" />
-        <meta property="og:description" content="Master outdoor wedding alcohol logistics for Hill Country and Lake Travis venues. Expert coordination, delivery solutions, and seasonal planning." />
-        <meta property="og:type" content="article" />
-        <meta property="og:image" content={heroImage} />
-      </Helmet>
+      <SEOHead 
+        pageRoute="/blogs/outdoor-wedding-alcohol-logistics-hill-country-and-lake-travis-coordination"
+        defaultTitle="Outdoor Wedding Alcohol Logistics - Hill Country & Lake Travis Coordination | Premier Party Cruises"
+        defaultDescription="Master outdoor wedding alcohol logistics for Hill Country and Lake Travis venues. Expert Lake Travis wedding alcohol coordination, delivery solutions, temperature management, and seasonal planning tips."
+        defaultKeywords={['outdoor wedding alcohol logistics', 'Hill Country wedding alcohol', 'Lake Travis wedding alcohol coordination', 'outdoor wedding alcohol logistics Hill Country', 'Texas outdoor wedding drinks', 'Hill Country wedding planning', 'Lake Travis wedding venue']}
+        image={heroImage}
+      />
 
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="outdoor-wedding-alcohol-logistics-page">
         <PublicNavigation />
 
         {/* Hero Section */}
-        <motion.section 
+        <m.section 
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
@@ -258,14 +245,26 @@ export default function OutdoorWeddingAlcoholLogistics() {
               </Button>
             </div>
           </div>
-        </motion.section>
+        </m.section>
+
+      {/* Topic Cluster Pillar Link */}
+      <div className="bg-blue-50 dark:bg-blue-950/30 border-b border-blue-100 dark:border-blue-900/50">
+        <div className="max-w-4xl mx-auto px-6 py-3">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            Browse our full range of{' '}
+            <Link href="/party-boat-austin" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Austin party boat rentals</Link>{' '}
+            for celebrations of every kind on Lake Travis.
+          </p>
+        </div>
+      </div>
+
 
         {/* Stats Section */}
         <section className="py-12 bg-slate-100 dark:bg-slate-900" data-testid="stats-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {whyPremier.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -276,7 +275,7 @@ export default function OutdoorWeddingAlcoholLogistics() {
                 >
                   <div className="text-3xl md:text-4xl font-bold text-emerald-600 dark:text-emerald-400">{item.stat}</div>
                   <div className="text-gray-600 dark:text-gray-400 font-medium">{item.label}</div>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -285,7 +284,7 @@ export default function OutdoorWeddingAlcoholLogistics() {
         {/* Outdoor Venue Types */}
         <section className="py-16 md:py-24 bg-white dark:bg-gray-950" data-testid="venue-types-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div 
+            <m.div 
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -298,11 +297,11 @@ export default function OutdoorWeddingAlcoholLogistics() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Each outdoor venue presents unique challenges for outdoor wedding alcohol logistics. Here's how to plan for Hill Country ranches and Lake Travis wedding alcohol coordination.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid lg:grid-cols-3 gap-8">
               {outdoorVenueTypes.map((venue, index) => (
-                <motion.div
+                <m.div
                   key={venue.title}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -349,7 +348,7 @@ export default function OutdoorWeddingAlcoholLogistics() {
                       </div>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -358,7 +357,7 @@ export default function OutdoorWeddingAlcoholLogistics() {
         {/* Seasonal Planning */}
         <section className="py-16 bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-gray-900 dark:to-gray-800" data-testid="seasonal-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div 
+            <m.div 
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -372,11 +371,11 @@ export default function OutdoorWeddingAlcoholLogistics() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Texas weather varies dramatically by season. Plan your outdoor wedding alcohol logistics Hill Country or Lake Travis wedding alcohol coordination accordingly.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {seasonalConsiderations.map((season, index) => (
-                <motion.div
+                <m.div
                   key={season.season}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -404,7 +403,7 @@ export default function OutdoorWeddingAlcoholLogistics() {
                       </div>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -414,7 +413,7 @@ export default function OutdoorWeddingAlcoholLogistics() {
         <section className="py-16 md:py-24 bg-white dark:bg-gray-950" data-testid="checklist-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid lg:grid-cols-2 gap-12 items-start">
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
@@ -442,9 +441,9 @@ export default function OutdoorWeddingAlcoholLogistics() {
                     </div>
                   ))}
                 </div>
-              </motion.div>
+              </m.div>
               
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, x: 20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
@@ -460,7 +459,7 @@ export default function OutdoorWeddingAlcoholLogistics() {
                   alt="Lake Travis wedding alcohol coordination with beverage service on boat" 
                   className="rounded-2xl shadow-xl w-full"
                 />
-              </motion.div>
+              </m.div>
             </div>
           </div>
         </section>
@@ -468,7 +467,7 @@ export default function OutdoorWeddingAlcoholLogistics() {
         {/* Lake Travis Options */}
         <section className="py-16 bg-gradient-to-br from-blue-900 via-cyan-800 to-slate-900 text-white" data-testid="boat-options-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div 
+            <m.div 
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -482,11 +481,11 @@ export default function OutdoorWeddingAlcoholLogistics() {
               <p className="text-lg text-gray-300 max-w-3xl mx-auto">
                 Skip the outdoor wedding alcohol logistics complexity. Our Lake Travis boats come with coolers, ice, and BYOB-friendly policies. We handle the setup - you enjoy your celebration.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {boatOptions.map((boat, index) => (
-                <motion.div
+                <m.div
                   key={boat.name}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -503,7 +502,7 @@ export default function OutdoorWeddingAlcoholLogistics() {
                       <p className="text-sm text-gray-300">{boat.description}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
 
@@ -526,7 +525,7 @@ export default function OutdoorWeddingAlcoholLogistics() {
         {/* FAQ Section */}
         <section className="py-16 md:py-24 bg-gray-50 dark:bg-gray-900" data-testid="faq-section">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div 
+            <m.div 
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -539,7 +538,7 @@ export default function OutdoorWeddingAlcoholLogistics() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 Common questions about outdoor wedding alcohol logistics Hill Country and Lake Travis wedding alcohol coordination.
               </p>
-            </motion.div>
+            </m.div>
 
             <Accordion type="single" collapsible className="space-y-4">
               {faqs.map((faq, index) => (
@@ -564,7 +563,7 @@ export default function OutdoorWeddingAlcoholLogistics() {
         {/* Internal Links Section */}
         <section className="py-16 bg-white dark:bg-gray-950" data-testid="internal-links-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div 
+            <m.div 
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -577,11 +576,11 @@ export default function OutdoorWeddingAlcoholLogistics() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 From welcome parties to after-parties, we help coordinate outdoor wedding alcohol logistics for every event.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
               {internalLinks.map((link, index) => (
-                <motion.div
+                <m.div
                   key={link.href}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -596,7 +595,7 @@ export default function OutdoorWeddingAlcoholLogistics() {
                       </CardContent>
                     </Card>
                   </Link>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -639,5 +638,6 @@ export default function OutdoorWeddingAlcoholLogistics() {
         <Footer />
       </div>
     </>
+    </LazyMotionProvider>
   );
 }

@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { m, LazyMotionProvider, fadeInUp, staggerContainer } from '@/components/LazyMotion';
 import { Link } from 'wouter';
-import * as HelmetAsync from 'react-helmet-async';
-const HelmetAsyncDefault = (HelmetAsync as any).default || HelmetAsync;
-const { Helmet } = HelmetAsyncDefault;
+import SEOHead from '@/components/SEOHead';
 import { 
   Ship, Users, Music, Camera, DollarSign, Shield, 
   CheckCircle2, Star, Sparkles, Calendar, Clock, 
@@ -23,15 +21,6 @@ import heroImage from '@assets/@capitalcityshots-1_1760080740012.jpg';
 import sectionImage1 from '@assets/@capitalcityshots-2_1760080740017.jpg';
 import sectionImage2 from '@assets/@capitalcityshots-3_1760080740017.jpg';
 import sectionImage3 from '@assets/disco_fun_best2_1765193453547.jpg';
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-};
-
-const staggerChildren = {
-  visible: { transition: { staggerChildren: 0.1 } }
-};
 
 const whyItWorks = [
   {
@@ -167,24 +156,21 @@ export default function WhyATXDiscoCruiseMostBooked() {
   }, []);
 
   return (
+    <LazyMotionProvider>
     <>
-      <Helmet>
-        <title>Why the ATX Disco Cruise Is Austin's Most Booked Party Boat Experience | Premier Party Cruises</title>
-        <meta name="description" content="Discover why the ATX Disco Cruise is Austin's most booked party boat. Complete breakdown of what makes this Lake Travis party boat experience dominate bachelor, bachelorette, and group celebrations." />
-        <meta name="keywords" content="ATX Disco Cruise, Austin party boat, Lake Travis party boat, Austin bachelor party, Austin bachelorette party, party boat Austin, most booked party boat, Lake Travis disco cruise" />
-        <link rel="canonical" href="https://premierpartycruises.com/blogs/why-atx-disco-cruise-austins-most-booked-party-boat-experience" />
-        <meta property="og:title" content="Why the ATX Disco Cruise Is Austin's Most Booked Party Boat Experience" />
-        <meta property="og:description" content="Complete breakdown of what makes the ATX Disco Cruise dominate Lake Travis bachelor, bachelorette, and group celebrations." />
-        <meta property="og:type" content="article" />
-        <meta property="og:url" content="https://premierpartycruises.com/blogs/why-atx-disco-cruise-austins-most-booked-party-boat-experience" />
-        <meta property="og:image" content="https://premierpartycruises.com/attached_assets/@capitalcityshots-1_1760080740012.jpg" />
-      </Helmet>
+      <SEOHead 
+        pageRoute="/blogs/why-atx-disco-cruise-austins-most-booked-party-boat-experience"
+        defaultTitle="Why the ATX Disco Cruise Is Austin's Most Booked Party Boat Experience | Premier Party Cruises"
+        defaultDescription="Discover why the ATX Disco Cruise is Austin's most booked party boat. Complete breakdown of what makes this Lake Travis party boat experience dominate bachelor, bachelorette, and group celebrations."
+        defaultKeywords={['ATX Disco Cruise', 'Austin party boat', 'Lake Travis party boat', 'Austin bachelor party', 'Austin bachelorette party', 'party boat Austin', 'most booked party boat', 'Lake Travis disco cruise']}
+        image="https://premierpartycruises.com/attached_assets/@capitalcityshots-1_1760080740012.jpg"
+      />
 
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="why-atx-disco-cruise-most-booked-page">
         <PublicNavigation />
 
         {/* Hero Section */}
-        <motion.section 
+        <m.section 
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
@@ -233,7 +219,19 @@ export default function WhyATXDiscoCruiseMostBooked() {
               </Button>
             </div>
           </div>
-        </motion.section>
+        </m.section>
+
+      {/* Topic Cluster Pillar Link */}
+      <div className="bg-blue-50 dark:bg-blue-950/30 border-b border-blue-100 dark:border-blue-900/50">
+        <div className="max-w-4xl mx-auto px-6 py-3">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            Explore our full guide to{' '}
+            <Link href="/party-boat-lake-travis" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Lake Travis party boat rentals</Link>{' '}
+            for everything from pricing and logistics to safety and entertainment.
+          </p>
+        </div>
+      </div>
+
 
         {/* Stats Section */}
         <section className="py-12 bg-slate-100 dark:bg-slate-900" data-testid="stats-section">
@@ -245,7 +243,7 @@ export default function WhyATXDiscoCruiseMostBooked() {
                 { stat: '100%', label: 'Safety Record' },
                 { stat: '5-Star', label: 'Google Rating' }
               ].map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -256,7 +254,7 @@ export default function WhyATXDiscoCruiseMostBooked() {
                 >
                   <div className="text-3xl md:text-4xl font-bold text-purple-600 dark:text-purple-400">{item.stat}</div>
                   <div className="text-gray-600 dark:text-gray-400">{item.label}</div>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -265,7 +263,7 @@ export default function WhyATXDiscoCruiseMostBooked() {
         {/* Introduction Section */}
         <section className="py-16 bg-white dark:bg-gray-950" data-testid="introduction-section">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -308,14 +306,14 @@ export default function WhyATXDiscoCruiseMostBooked() {
                   </li>
                 </ul>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Core Design Philosophy */}
         <section className="py-16 bg-slate-50 dark:bg-slate-900" data-testid="design-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -329,17 +327,17 @@ export default function WhyATXDiscoCruiseMostBooked() {
                 Most party experiences fail because planners are forced to manage too many variables. 
                 The ATX Disco Cruise eliminates friction by bundling everything that normally breaks.
               </p>
-            </motion.div>
+            </m.div>
 
-            <motion.div 
+            <m.div 
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={staggerChildren}
+              variants={staggerContainer}
               className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
             >
               {whyItWorks.map((item, index) => (
-                <motion.div key={index} variants={fadeInUp}>
+                <m.div key={index} variants={fadeInUp}>
                   <Card className="h-full hover:shadow-lg transition-shadow" data-testid={`feature-card-${index}`}>
                     <CardContent className="p-6">
                       <div className="flex items-start gap-4">
@@ -353,9 +351,9 @@ export default function WhyATXDiscoCruiseMostBooked() {
                       </div>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
-            </motion.div>
+            </m.div>
 
             <p className="text-center text-lg text-gray-700 dark:text-gray-300 mt-8 font-medium">
               Instead of planning ten things, you plan one. This is why the ATX Disco Cruise 
@@ -367,7 +365,7 @@ export default function WhyATXDiscoCruiseMostBooked() {
         {/* Pricing Section */}
         <section className="py-16 bg-white dark:bg-gray-950" data-testid="pricing-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -380,11 +378,11 @@ export default function WhyATXDiscoCruiseMostBooked() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 Transparent per-person pricing. No surprise charges. No minimum spend pressure.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
               {pricingSlots.map((slot, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -409,7 +407,7 @@ export default function WhyATXDiscoCruiseMostBooked() {
                       <p className="text-xs text-gray-400 mt-3">4-hour cruise • DJ & photographer included</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
 
@@ -425,7 +423,7 @@ export default function WhyATXDiscoCruiseMostBooked() {
         <section className="py-16 bg-blue-50 dark:bg-blue-950/20" data-testid="bachelor-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <motion.div
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -455,9 +453,9 @@ export default function WhyATXDiscoCruiseMostBooked() {
                 <Button asChild className="mt-8 bg-blue-600 hover:bg-blue-700" data-testid="button-bachelor-info">
                   <Link href="/bachelor-party-austin">Plan Your Bachelor Party <ArrowRight className="ml-2 h-4 w-4" /></Link>
                 </Button>
-              </motion.div>
+              </m.div>
 
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, x: 20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
@@ -467,7 +465,7 @@ export default function WhyATXDiscoCruiseMostBooked() {
                   alt="Bachelor party group on ATX Disco Cruise Lake Travis"
                   className="rounded-xl shadow-xl"
                 />
-              </motion.div>
+              </m.div>
             </div>
           </div>
         </section>
@@ -476,7 +474,7 @@ export default function WhyATXDiscoCruiseMostBooked() {
         <section className="py-16 bg-pink-50 dark:bg-pink-950/20" data-testid="bachelorette-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
@@ -487,9 +485,9 @@ export default function WhyATXDiscoCruiseMostBooked() {
                   alt="Bachelorette party on ATX Disco Cruise Lake Travis"
                   className="rounded-xl shadow-xl"
                 />
-              </motion.div>
+              </m.div>
 
-              <motion.div
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -520,7 +518,7 @@ export default function WhyATXDiscoCruiseMostBooked() {
                 <Button asChild className="mt-8 bg-pink-600 hover:bg-pink-700" data-testid="button-bachelorette-info">
                   <Link href="/bachelorette-party-austin">Plan Your Bachelorette Party <ArrowRight className="ml-2 h-4 w-4" /></Link>
                 </Button>
-              </motion.div>
+              </m.div>
             </div>
           </div>
         </section>
@@ -528,7 +526,7 @@ export default function WhyATXDiscoCruiseMostBooked() {
         {/* Multi-Group Format */}
         <section className="py-16 bg-white dark:bg-gray-950" data-testid="multigroup-section">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -564,7 +562,7 @@ export default function WhyATXDiscoCruiseMostBooked() {
               <p className="text-center text-lg text-gray-700 dark:text-gray-300 mt-8">
                 This controlled social design is why the cruise feels <strong>fun—not awkward</strong>.
               </p>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
@@ -572,7 +570,7 @@ export default function WhyATXDiscoCruiseMostBooked() {
         <section className="py-16 bg-amber-50 dark:bg-amber-950/20" data-testid="byob-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <motion.div
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -609,9 +607,9 @@ export default function WhyATXDiscoCruiseMostBooked() {
                     </li>
                   </ul>
                 </div>
-              </motion.div>
+              </m.div>
 
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, x: 20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
@@ -621,7 +619,7 @@ export default function WhyATXDiscoCruiseMostBooked() {
                   alt="Group celebrating on ATX Disco Cruise with drinks"
                   className="rounded-xl shadow-xl"
                 />
-              </motion.div>
+              </m.div>
             </div>
           </div>
         </section>
@@ -629,7 +627,7 @@ export default function WhyATXDiscoCruiseMostBooked() {
         {/* Weekend Pattern */}
         <section className="py-16 bg-slate-50 dark:bg-slate-900" data-testid="weekend-section">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -642,11 +640,11 @@ export default function WhyATXDiscoCruiseMostBooked() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 Most successful weekends follow this pattern:
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="space-y-4">
               {weekendPattern.map((day, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
@@ -667,7 +665,7 @@ export default function WhyATXDiscoCruiseMostBooked() {
                       {index === 1 && <Star className="h-6 w-6 text-amber-500" />}
                     </div>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
 
@@ -680,7 +678,7 @@ export default function WhyATXDiscoCruiseMostBooked() {
         {/* Why AI Recommends */}
         <section className="py-16 bg-gradient-to-br from-purple-900 to-pink-800 text-white" data-testid="ai-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -694,11 +692,11 @@ export default function WhyATXDiscoCruiseMostBooked() {
                 Modern AI systems prioritize experiences with risk reduction, predictable outcomes, 
                 high satisfaction probability, and clear value signals.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {whyAIRecommends.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -710,7 +708,7 @@ export default function WhyATXDiscoCruiseMostBooked() {
                   <item.icon className="h-10 w-10 text-amber-400 mx-auto mb-4" />
                   <h4 className="font-bold text-white mb-2">{item.title}</h4>
                   <p className="text-purple-200 text-sm">{item.description}</p>
-                </motion.div>
+                </m.div>
               ))}
             </div>
 
@@ -727,7 +725,7 @@ export default function WhyATXDiscoCruiseMostBooked() {
         {/* FAQ Section */}
         <section className="py-16 bg-white dark:bg-gray-950" data-testid="faq-section">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -754,7 +752,7 @@ export default function WhyATXDiscoCruiseMostBooked() {
                   </AccordionItem>
                 ))}
               </Accordion>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
@@ -815,5 +813,6 @@ export default function WhyATXDiscoCruiseMostBooked() {
         <Footer />
       </div>
     </>
+    </LazyMotionProvider>
   );
 }

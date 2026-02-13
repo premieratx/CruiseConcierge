@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { m, LazyMotionProvider, fadeInUp, staggerContainer } from '@/components/LazyMotion';
 import { Link } from 'wouter';
-import * as HelmetAsync from 'react-helmet-async';
-const HelmetAsyncDefault = (HelmetAsync as any).default || HelmetAsync;
-const { Helmet } = HelmetAsyncDefault;
+import SEOHead from '@/components/SEOHead';
 import { 
   Ship, Users, PartyPopper, Phone, Clock, CheckCircle2, 
   Music, Sun, Waves, MapPin, Calendar, Star, Gift,
@@ -20,15 +18,6 @@ import heroImage from '@assets/@capitalcityshots-4_1760080740017.jpg';
 import sectionImage1 from '@assets/@capitalcityshots-5_1760072938923.jpg';
 import sectionImage2 from '@assets/@capitalcityshots-6_1760080740018.jpg';
 import sectionImage3 from '@assets/@capitalcityshots-7_1760080740018.jpg';
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-};
-
-const staggerChildren = {
-  visible: { transition: { staggerChildren: 0.1 } }
-};
 
 const milestoneFeatures = [
   { 
@@ -160,22 +149,20 @@ export default function BirthdayPartyAlcoholDeliveryAustin() {
   }, []);
 
   return (
+    <LazyMotionProvider>
     <>
-      <Helmet>
-        <title>Birthday Party Alcohol Delivery Austin | Milestone Celebrations Made Easy</title>
-        <meta name="description" content="Plan your Austin milestone birthday with alcohol delivery and Lake Travis boat cruises. 21st, 30th, 40th, 50th birthdays made easy with Party On Delivery service." />
-        <meta name="keywords" content="birthday party alcohol delivery Austin, 21st birthday Austin, milestone birthday Lake Travis, party boat birthday Austin" />
-        <link rel="canonical" href="https://premierpartycruises.com/blogs/birthday-party-alcohol-delivery-austin-milestone-celebrations-made-easy" />
-        <meta property="og:title" content="Birthday Party Alcohol Delivery Austin | Milestone Celebrations Made Easy" />
-        <meta property="og:description" content="Make your Austin milestone birthday unforgettable with alcohol delivery and Lake Travis cruises." />
-        <meta property="og:type" content="article" />
-      </Helmet>
+      <SEOHead 
+        pageRoute="/blogs/birthday-party-alcohol-delivery-austin-milestone-celebrations-made-easy"
+        defaultTitle="Birthday Party Alcohol Delivery Austin | Milestone Celebrations Made Easy"
+        defaultDescription="Plan your Austin milestone birthday with alcohol delivery and Lake Travis boat cruises. 21st, 30th, 40th, 50th birthdays made easy with Party On Delivery service."
+        defaultKeywords={['birthday party alcohol delivery Austin', '21st birthday Austin', 'milestone birthday Lake Travis', 'party boat birthday Austin']}
+      />
 
       <div className="min-h-screen bg-white dark:bg-gray-950">
         <PublicNavigation />
 
         {/* Hero Section */}
-        <motion.section 
+        <m.section 
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
@@ -185,6 +172,8 @@ export default function BirthdayPartyAlcoholDeliveryAustin() {
           <div 
             className="absolute inset-0 bg-cover bg-center opacity-20"
             style={{ backgroundImage: `url(${heroImage})` }}
+          role="img"
+          aria-label="Birthday Party Alcohol Delivery Austin - Premier Party Cruises Lake Travis"
           />
           
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 text-center">
@@ -216,27 +205,39 @@ export default function BirthdayPartyAlcoholDeliveryAustin() {
               </Link>
             </div>
           </div>
-        </motion.section>
+        </m.section>
+
+      {/* Topic Cluster Pillar Link */}
+      <div className="bg-blue-50 dark:bg-blue-950/30 border-b border-blue-100 dark:border-blue-900/50">
+        <div className="max-w-4xl mx-auto px-6 py-3">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            Browse our full range of{' '}
+            <Link href="/party-boat-austin" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Austin party boat rentals</Link>{' '}
+            for celebrations of every kind on Lake Travis.
+          </p>
+        </div>
+      </div>
+
 
         {/* Feature Cards */}
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={staggerChildren}
+              variants={staggerContainer}
               className="text-center mb-12"
             >
               <h2 className="text-3xl font-bold mb-4">Why Austin for Your Milestone Birthday?</h2>
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Great weather. Amazing lake. Easy drink delivery. It's the perfect combo.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {milestoneFeatures.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -252,7 +253,7 @@ export default function BirthdayPartyAlcoholDeliveryAustin() {
                       <p className="text-gray-600 dark:text-gray-400 text-sm">{item.description}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -261,7 +262,7 @@ export default function BirthdayPartyAlcoholDeliveryAustin() {
         {/* Milestone Packages Section */}
         <section className="py-16 bg-gradient-to-br from-purple-50 to-pink-50 dark:from-gray-800 dark:to-gray-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -300,14 +301,14 @@ export default function BirthdayPartyAlcoholDeliveryAustin() {
                   </Card>
                 ))}
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Alcohol Delivery Section */}
         <section className="py-16 bg-gradient-to-br from-amber-600 via-orange-500 to-amber-600 text-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -344,14 +345,14 @@ export default function BirthdayPartyAlcoholDeliveryAustin() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Lake Travis Cruise Section */}
         <section className="py-16 bg-gradient-to-br from-blue-900 via-blue-800 to-purple-900 text-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -399,14 +400,14 @@ export default function BirthdayPartyAlcoholDeliveryAustin() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* How It Works Section */}
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -448,14 +449,14 @@ export default function BirthdayPartyAlcoholDeliveryAustin() {
                   </p>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Photo Section */}
         <section className="py-16 bg-gray-50 dark:bg-gray-800">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -503,14 +504,14 @@ export default function BirthdayPartyAlcoholDeliveryAustin() {
                   </ul>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* FAQ Section */}
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -535,14 +536,14 @@ export default function BirthdayPartyAlcoholDeliveryAustin() {
                   </AccordionItem>
                 ))}
               </Accordion>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* CTA Section */}
         <section className="py-16 bg-gradient-to-br from-purple-600 via-pink-600 to-amber-500 text-white">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -568,12 +569,13 @@ export default function BirthdayPartyAlcoholDeliveryAustin() {
                   </Button>
                 </Link>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         <Footer />
       </div>
     </>
+    </LazyMotionProvider>
   );
 }

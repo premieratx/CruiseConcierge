@@ -1,6 +1,4 @@
-import * as HelmetAsync from 'react-helmet-async';
-const HelmetAsyncDefault = (HelmetAsync as any).default || HelmetAsync;
-const { Helmet } = HelmetAsyncDefault;
+import SEOHead from '@/components/SEOHead';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Calendar, Phone, Sun, CheckCircle2, Users, Music, Ship, MapPin, Utensils, ThermometerSun, PartyPopper, Star, ChevronRight, Flame, DollarSign, Backpack } from 'lucide-react';
@@ -18,54 +16,13 @@ import sectionImage3 from '@assets/@capitalcityshots-20_1760080740021.jpg';
 export default function AustinBachelorPartyJuly() {
   return (
     <div data-page-ready="austin-bachelor-party-july" className="min-h-screen bg-gradient-to-b from-red-50 via-white to-blue-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950">
-      <Helmet>
-        <title>Why Austin is Perfect for Bachelor Parties in July | Premier Party Cruises</title>
-        <meta 
-          name="description" 
-          content="Plan a July Austin bachelor party: 76°F-97°F hot summer weather, 4th of July celebrations, Lake Travis boats & fireworks. Rain or shine, peak season guide!" 
-        />
-        <meta 
-          name="keywords" 
-          content="July bachelor party Austin, Austin bachelor party, Lake Travis party boat, 4th of July bachelor party, Austin nightlife July, summer bachelor party Texas" 
-        />
-        <link rel="canonical" href="https://premierpartycruises.com/blogs/austin-bachelor-party-july" />
-        
-        <meta property="og:title" content="Why Austin is Perfect for Bachelor Parties in July" />
-        <meta property="og:description" content="Plan a July Austin bachelor party with Lake Travis boats, 4th of July fireworks, and hot summer celebrations." />
-        <meta property="og:type" content="article" />
-        <meta property="og:url" content="https://premierpartycruises.com/blogs/austin-bachelor-party-july" />
-        <meta property="og:image" content="https://premierpartycruises.com/attached_assets/@capitalcityshots-17_1760080740020.jpg" />
-        
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Article",
-            "headline": "Why Austin is Perfect for Bachelor Parties in July",
-            "description": "Plan a July Austin bachelor party: 76°F-97°F hot summer weather, 4th of July celebrations, Lake Travis boats & fireworks. Rain or shine!",
-            "image": "https://premierpartycruises.com/attached_assets/@capitalcityshots-17_1760080740020.jpg",
-            "author": {
-              "@type": "Organization",
-              "name": "Premier Party Cruises",
-              "url": "https://premierpartycruises.com"
-            },
-            "publisher": {
-              "@type": "Organization",
-              "name": "Premier Party Cruises",
-              "url": "https://premierpartycruises.com",
-              "logo": {
-                "@type": "ImageObject",
-                "url": "https://premierpartycruises.com/media/schema/ppc-logo.png"
-              }
-            },
-            "datePublished": "2024-07-01",
-            "dateModified": "2025-12-09",
-            "mainEntityOfPage": {
-              "@type": "WebPage",
-              "@id": "https://premierpartycruises.com/blogs/austin-bachelor-party-july"
-            }
-          })}
-        </script>
-      </Helmet>
+      <SEOHead 
+        pageRoute="/blogs/austin-bachelor-party-july"
+        defaultTitle="Why Austin is Perfect for Bachelor Parties in July | Premier Party Cruises"
+        defaultDescription="Plan a July Austin bachelor party: 76°F-97°F hot summer weather, 4th of July celebrations, Lake Travis boats & fireworks. Rain or shine, peak season guide!"
+        defaultKeywords={['July bachelor party Austin', 'Austin bachelor party', 'Lake Travis party boat', '4th of July bachelor party', 'Austin nightlife July', 'summer bachelor party Texas']}
+        image="https://premierpartycruises.com/attached_assets/@capitalcityshots-17_1760080740020.jpg"
+      />
 
       <PublicNavigation />
 
@@ -133,6 +90,18 @@ export default function AustinBachelorPartyJuly() {
           </div>
         </div>
       </section>
+
+      {/* Topic Cluster Pillar Link */}
+      <div className="bg-blue-50 dark:bg-blue-950/30 border-b border-blue-100 dark:border-blue-900/50">
+        <div className="max-w-4xl mx-auto px-6 py-3">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            This guide is part of our complete{' '}
+            <Link href="/bachelor-party-austin" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Austin bachelor party boats</Link>{' '}
+            resource — your one-stop planning hub for Lake Travis bachelor celebrations.
+          </p>
+        </div>
+      </div>
+
 
       {/* Weather Section */}
       <section className="py-16 bg-white dark:bg-gray-900">

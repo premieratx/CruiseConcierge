@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { m, LazyMotionProvider, fadeInUp, staggerContainer } from '@/components/LazyMotion';
 import { Link } from 'wouter';
-import * as HelmetAsync from 'react-helmet-async';
-const HelmetAsyncDefault = (HelmetAsync as any).default || HelmetAsync;
-const { Helmet } = HelmetAsyncDefault;
+import SEOHead from '@/components/SEOHead';
 import { 
   Ship, Users, Heart, Phone, Clock, CheckCircle2, 
   Target, Award, Waves, MapPin, Calendar, Star,
@@ -22,15 +20,6 @@ import sectionImage1 from '@assets/@capitalcityshots-16_1760080740020.jpg';
 import sectionImage2 from '@assets/@capitalcityshots-17_1760080740020.jpg';
 import sectionImage3 from '@assets/@capitalcityshots-18_1760080740021.jpg';
 import sectionImage4 from '@assets/@capitalcityshots-19_1760080740021.jpg';
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-};
-
-const staggerChildren = {
-  visible: { transition: { staggerChildren: 0.1 } }
-};
 
 const healthcareBenefits = [
   { 
@@ -161,23 +150,21 @@ export default function HealthcareWellnessBoatParties() {
   }, []);
 
   return (
+    <LazyMotionProvider>
     <>
-      <Helmet>
-        <title>Healthcare Team Building Austin | Medical Staff Party Lake Travis | Wellness Retreat Boat</title>
-        <meta name="description" content="Plan the perfect healthcare team building Austin event on Lake Travis. Medical staff parties, nurse appreciation cruises, doctor retreats, and hospital team outings. Private boat charters for wellness-focused celebrations." />
-        <meta name="keywords" content="healthcare team building Austin, medical staff party Lake Travis, wellness retreat boat Austin, hospital team outing Lake Travis, nurse appreciation party, doctor retreat Austin, healthcare wellness event" />
-        <link rel="canonical" href="https://premierpartycruises.com/blogs/healthcare-wellness-boat-parties-austin" />
-        <meta property="og:title" content="Healthcare Team Building Austin | Medical Staff Party Lake Travis" />
-        <meta property="og:description" content="Private boat cruises for healthcare professionals. Nurse appreciation, doctor retreats, clinic outings, and hospital team celebrations on Lake Travis." />
-        <meta property="og:type" content="article" />
-        <meta property="og:image" content={heroImage} />
-      </Helmet>
+      <SEOHead 
+        pageRoute="/blogs/healthcare-wellness-boat-parties-austin"
+        defaultTitle="Healthcare Team Building Austin | Medical Staff Party Lake Travis | Wellness Retreat Boat"
+        defaultDescription="Plan the perfect healthcare team building Austin event on Lake Travis. Medical staff parties, nurse appreciation cruises, doctor retreats, and hospital team outings. Private boat charters for wellness-focused celebrations."
+        defaultKeywords={['healthcare team building Austin', 'medical staff party Lake Travis', 'wellness retreat boat Austin', 'hospital team outing Lake Travis', 'nurse appreciation party', 'doctor retreat Austin', 'healthcare wellness event']}
+        image={heroImage}
+      />
 
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="healthcare-wellness-blog-page">
         <PublicNavigation />
 
         {/* Hero Section */}
-        <motion.section 
+        <m.section 
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
@@ -188,6 +175,8 @@ export default function HealthcareWellnessBoatParties() {
           <div 
             className="absolute inset-0 bg-cover bg-center opacity-30"
             style={{ backgroundImage: `url(${heroImage})` }}
+          role="img"
+          aria-label="Healthcare Team Building Austin - Premier Party Cruises Lake Travis"
           />
           
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 text-center">
@@ -219,27 +208,39 @@ export default function HealthcareWellnessBoatParties() {
               </Link>
             </div>
           </div>
-        </motion.section>
+        </m.section>
+
+      {/* Topic Cluster Pillar Link */}
+      <div className="bg-blue-50 dark:bg-blue-950/30 border-b border-blue-100 dark:border-blue-900/50">
+        <div className="max-w-4xl mx-auto px-6 py-3">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            See our complete guide to{' '}
+            <Link href="/corporate-events" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Austin corporate event boats</Link>{' '}
+            for team building, client entertainment, and company celebrations on Lake Travis.
+          </p>
+        </div>
+      </div>
+
 
         {/* Why Healthcare Teams Need Time on the Water */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="section-why-healthcare">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={staggerChildren}
+              variants={staggerContainer}
               className="text-center mb-12"
             >
               <h2 className="text-3xl font-bold mb-4">Why Healthcare Teams Need Time on the Water</h2>
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Medical professionals give everything to their patients. A hospital team outing Lake Travis provides the stress relief and team bonding that healthcare workers truly deserve.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {healthcareBenefits.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -255,7 +256,7 @@ export default function HealthcareWellnessBoatParties() {
                       <p className="text-gray-600 dark:text-gray-400 text-sm">{item.description}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -266,7 +267,7 @@ export default function HealthcareWellnessBoatParties() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
               {whyHealthcareTeams.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -275,7 +276,7 @@ export default function HealthcareWellnessBoatParties() {
                 >
                   <p className="text-3xl md:text-4xl font-bold text-yellow-400">{item.stat}</p>
                   <p className="text-sm md:text-base text-white/80 mt-1">{item.label}</p>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -284,7 +285,7 @@ export default function HealthcareWellnessBoatParties() {
         {/* Perfect For Section */}
         <section className="py-16 bg-gradient-to-br from-gray-50 to-teal-50 dark:from-gray-800 dark:to-gray-900" data-testid="section-perfect-for">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -337,14 +338,14 @@ export default function HealthcareWellnessBoatParties() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Benefits of Outdoor Wellness */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="section-wellness-benefits">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -407,14 +408,14 @@ export default function HealthcareWellnessBoatParties() {
                   </Link>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Boat Options Section */}
         <section className="py-16 bg-gradient-to-br from-teal-900 via-blue-800 to-slate-900 text-white" data-testid="section-boat-options">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -458,14 +459,14 @@ export default function HealthcareWellnessBoatParties() {
                   </Link>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Additional Healthcare Image Section */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="section-healthcare-experience">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -476,7 +477,7 @@ export default function HealthcareWellnessBoatParties() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Picture your medical team cruising Lake Travis, enjoying the sunshine, swimming in crystal-clear water, and bonding without the stress of hospital walls. That's what a wellness retreat boat Austin delivers.
               </p>
-            </motion.div>
+            </m.div>
             
             <div className="grid md:grid-cols-2 gap-8 items-center">
               <div className="rounded-2xl overflow-hidden shadow-xl">
@@ -535,7 +536,7 @@ export default function HealthcareWellnessBoatParties() {
         {/* FAQ Section */}
         <section className="py-16 bg-gradient-to-br from-gray-50 to-teal-50 dark:from-gray-800 dark:to-gray-900" data-testid="section-faq">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -547,7 +548,7 @@ export default function HealthcareWellnessBoatParties() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 Common questions about planning medical staff party Lake Travis celebrations and healthcare team building Austin events
               </p>
-            </motion.div>
+            </m.div>
 
             <Accordion type="single" collapsible className="space-y-4">
               {faqs.map((faq, index) => (
@@ -575,7 +576,7 @@ export default function HealthcareWellnessBoatParties() {
         {/* CTA Section */}
         <section className="py-16 bg-gradient-to-r from-teal-600 to-blue-600 text-white" data-testid="section-cta">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -607,12 +608,13 @@ export default function HealthcareWellnessBoatParties() {
               <p className="mt-8 text-white/70 text-sm">
                 Questions? Call us at <a href="tel:5124885892" className="underline hover:text-white">512-488-5892</a> or email <a href="mailto:clientservices@premierpartycruises.com" className="underline hover:text-white">clientservices@premierpartycruises.com</a>
               </p>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         <Footer />
       </div>
     </>
+    </LazyMotionProvider>
   );
 }

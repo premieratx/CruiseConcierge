@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { m, LazyMotionProvider, fadeInUp, staggerContainer } from '@/components/LazyMotion';
 import { Link } from 'wouter';
-import * as HelmetAsync from 'react-helmet-async';
-const HelmetAsyncDefault = (HelmetAsync as any).default || HelmetAsync;
-const { Helmet } = HelmetAsyncDefault;
+import SEOHead from '@/components/SEOHead';
 import { 
   Truck, Wine, Clock, Phone, Package, Ship, 
   Calendar, Star, Users, Heart, Sparkles, CheckCircle2,
@@ -20,15 +18,6 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import heroImage from '@assets/disco_fun_1765193453547.jpg';
 import sectionImage1 from '@assets/disco_fun2_1765193453547.jpg';
 import sectionImage2 from '@assets/disco_fun_28_1765193453540.jpg';
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-};
-
-const staggerChildren = {
-  visible: { transition: { staggerChildren: 0.1 } }
-};
 
 const trustStats = [
   { stat: '14+', label: 'Years in Business' },
@@ -157,23 +146,21 @@ export default function BacheloretteAlcoholEmergencyKit() {
   }, []);
 
   return (
+    <LazyMotionProvider>
     <>
-      <Helmet>
-        <title>Bachelorette Party Alcohol Emergency Kit | Last-Minute Delivery Solutions | Premier Party Cruises</title>
-        <meta name="description" content="Last-minute alcohol solutions for your austin bachelorette party. Emergency delivery options, Party On Delivery for Lake Travis bachelorette boats, and quick-order guides. Never run out at your bachelorette party Austin!" />
-        <meta name="keywords" content="austin bachelorette party, bachelorette party Austin, Lake Travis bachelorette, bachelorette alcohol delivery, last minute party alcohol, austin alcohol delivery, Lake Travis boat party drinks" />
-        <link rel="canonical" href="https://premierpartycruises.com/blogs/bachelorette-party-alcohol-emergency-kit-last-minute-delivery-solutions" />
-        <meta property="og:title" content="Bachelorette Party Alcohol Emergency Kit | Last-Minute Delivery Solutions" />
-        <meta property="og:description" content="Emergency alcohol delivery solutions for your austin bachelorette party and Lake Travis boat cruises." />
-        <meta property="og:type" content="article" />
-        <meta property="og:image" content={heroImage} />
-      </Helmet>
+      <SEOHead 
+        pageRoute="/blogs/bachelorette-party-alcohol-emergency-kit-last-minute-delivery-solutions"
+        defaultTitle="Bachelorette Party Alcohol Emergency Kit | Last-Minute Delivery Solutions | Premier Party Cruises"
+        defaultDescription="Last-minute alcohol solutions for your austin bachelorette party. Emergency delivery options, Party On Delivery for Lake Travis bachelorette boats, and quick-order guides. Never run out at your bachelorette party Austin!"
+        defaultKeywords={['austin bachelorette party', 'bachelorette party Austin', 'Lake Travis bachelorette', 'bachelorette alcohol delivery', 'last minute party alcohol', 'austin alcohol delivery', 'Lake Travis boat party drinks']}
+        image={heroImage}
+      />
 
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="bachelorette-alcohol-emergency-kit-page">
         <PublicNavigation />
 
         {/* Hero Section */}
-        <motion.section 
+        <m.section 
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
@@ -223,14 +210,26 @@ export default function BacheloretteAlcoholEmergencyKit() {
               </Button>
             </div>
           </div>
-        </motion.section>
+        </m.section>
+
+      {/* Topic Cluster Pillar Link */}
+      <div className="bg-blue-50 dark:bg-blue-950/30 border-b border-blue-100 dark:border-blue-900/50">
+        <div className="max-w-4xl mx-auto px-6 py-3">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            This guide is part of our complete{' '}
+            <Link href="/bachelorette-party-austin" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Austin bachelorette party boats</Link>{' '}
+            resource — your ultimate planning hub for Lake Travis bachelorette celebrations.
+          </p>
+        </div>
+      </div>
+
 
         {/* Trust Stats */}
         <section className="py-12 bg-slate-100 dark:bg-slate-900" data-testid="stats-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {trustStats.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -241,7 +240,7 @@ export default function BacheloretteAlcoholEmergencyKit() {
                 >
                   <div className="text-3xl md:text-4xl font-bold text-red-600 dark:text-red-400">{item.stat}</div>
                   <div className="text-gray-600 dark:text-gray-400">{item.label}</div>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -250,7 +249,7 @@ export default function BacheloretteAlcoholEmergencyKit() {
         {/* Emergency Scenarios */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="scenarios-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -262,11 +261,11 @@ export default function BacheloretteAlcoholEmergencyKit() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 And how to solve them for your Lake Travis bachelorette
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {emergencyScenarios.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -287,7 +286,7 @@ export default function BacheloretteAlcoholEmergencyKit() {
                       </div>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -296,7 +295,7 @@ export default function BacheloretteAlcoholEmergencyKit() {
         {/* Party On Delivery Feature */}
         <section className="py-16 bg-gradient-to-r from-pink-600 to-purple-600 text-white" data-testid="pod-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -330,14 +329,14 @@ export default function BacheloretteAlcoholEmergencyKit() {
                   data-testid="img-pod"
                 />
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Delivery Options */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="delivery-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -348,11 +347,11 @@ export default function BacheloretteAlcoholEmergencyKit() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 Compare services for your austin bachelorette party emergency
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 gap-6">
               {lastMinuteOptions.map((option, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -382,7 +381,7 @@ export default function BacheloretteAlcoholEmergencyKit() {
                       </ul>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -391,7 +390,7 @@ export default function BacheloretteAlcoholEmergencyKit() {
         {/* Emergency Kit Essentials */}
         <section className="py-16 bg-slate-100 dark:bg-slate-800" data-testid="kit-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -403,11 +402,11 @@ export default function BacheloretteAlcoholEmergencyKit() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 Essential items to always have ready for your austin bachelorette party
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
               {emergencyKitEssentials.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -423,7 +422,7 @@ export default function BacheloretteAlcoholEmergencyKit() {
                       <p className="text-xs text-gray-600 dark:text-gray-400">{item.reason}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -432,7 +431,7 @@ export default function BacheloretteAlcoholEmergencyKit() {
         {/* Timeline Guide */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="timeline-section">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -443,11 +442,11 @@ export default function BacheloretteAlcoholEmergencyKit() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 How far in advance to order for your Lake Travis bachelorette
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="space-y-4">
               {timelineGuide.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -463,7 +462,7 @@ export default function BacheloretteAlcoholEmergencyKit() {
                       </div>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -472,7 +471,7 @@ export default function BacheloretteAlcoholEmergencyKit() {
         {/* Fleet Options */}
         <section className="py-16 bg-slate-100 dark:bg-slate-800" data-testid="fleet-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -483,11 +482,11 @@ export default function BacheloretteAlcoholEmergencyKit() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 All boats BYOB-friendly with Party On Delivery available
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-4 gap-6">
               {fleetOptions.map((boat, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -502,7 +501,7 @@ export default function BacheloretteAlcoholEmergencyKit() {
                       <p className="text-sm text-gray-600 dark:text-gray-400">{boat.description}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -514,7 +513,7 @@ export default function BacheloretteAlcoholEmergencyKit() {
         {/* FAQs */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="faq-section">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -525,7 +524,7 @@ export default function BacheloretteAlcoholEmergencyKit() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 Common questions about emergency delivery for your austin bachelorette party
               </p>
-            </motion.div>
+            </m.div>
 
             <Accordion type="single" collapsible className="space-y-4">
               {faqs.map((faq, index) => (
@@ -545,7 +544,7 @@ export default function BacheloretteAlcoholEmergencyKit() {
         {/* Internal Links */}
         <section className="py-16 bg-slate-100 dark:bg-slate-800" data-testid="links-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -553,11 +552,11 @@ export default function BacheloretteAlcoholEmergencyKit() {
               className="text-center mb-12"
             >
               <h2 className="text-3xl font-bold mb-4">Plan Your Complete Austin Bachelorette Party</h2>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-4 gap-6">
               {internalLinks.map((link, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -573,7 +572,7 @@ export default function BacheloretteAlcoholEmergencyKit() {
                       </CardContent>
                     </Card>
                   </Link>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -582,7 +581,7 @@ export default function BacheloretteAlcoholEmergencyKit() {
         {/* Final CTA */}
         <section className="py-16 bg-gradient-to-br from-red-600 to-pink-700 text-white" data-testid="cta-section">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -613,12 +612,13 @@ export default function BacheloretteAlcoholEmergencyKit() {
                   <Link href="/book-now">Get Custom Quote</Link>
                 </Button>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         <Footer />
       </div>
     </>
+    </LazyMotionProvider>
   );
 }

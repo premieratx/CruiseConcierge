@@ -1446,15 +1446,49 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
   app.get('/book-now', (req, res) => {
     res.redirect(301, '/private-cruises');
   });
-  
+
   // /book-online → /private-cruises (deprecated page)
   app.get('/book-online', (req, res) => {
     res.redirect(301, '/private-cruises');
   });
-  
+
   // /book-online-popup → /private-cruises (deprecated page)
   app.get('/book-online-popup', (req, res) => {
     res.redirect(301, '/private-cruises');
+  });
+
+  // SEO: Consolidate cannibalized pages to canonical URLs
+  app.get('/party-boat-rental-austin', (req, res) => {
+    res.redirect(301, '/party-boat-austin');
+  });
+
+  app.get('/austin-boat-party', (req, res) => {
+    res.redirect(301, '/party-boat-austin');
+  });
+
+  app.get('/lake-travis-yacht-rental', (req, res) => {
+    res.redirect(301, '/party-boat-lake-travis');
+  });
+
+  // Client-side redirect equivalents for SEO (crawlers get 301 without JS)
+  app.get('/bachelor-party', (req, res) => {
+    res.redirect(301, '/bachelor-party-austin');
+  });
+
+  app.get('/bachelorette-party', (req, res) => {
+    res.redirect(301, '/bachelorette-party-austin');
+  });
+
+  app.get('/combined-parties-austin', (req, res) => {
+    res.redirect(301, '/combined-bachelor-bachelorette-austin');
+  });
+
+  app.get('/party-cruises-2025', (req, res) => {
+    res.redirect(301, '/');
+  });
+
+  app.get('/quote-builder', (req, res) => {
+    res.redirect(301, '/chat');
   });
   
   // ==========================================

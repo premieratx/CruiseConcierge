@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { m, LazyMotionProvider, fadeInUp, staggerContainer } from '@/components/LazyMotion';
 import { Link } from 'wouter';
-import * as HelmetAsync from 'react-helmet-async';
-const HelmetAsyncDefault = (HelmetAsync as any).default || HelmetAsync;
-const { Helmet } = HelmetAsyncDefault;
+import SEOHead from '@/components/SEOHead';
 import { 
   Ship, Users, PartyPopper, CheckCircle2, 
   Music, Waves, Beer, Star, ArrowRight, Camera, Shield, 
@@ -20,15 +18,6 @@ import bachelorHero from '@assets/bachelor-party-group-guys.webp';
 import capitalCityShots1 from '@assets/@capitalcityshots-1_1760080740012.jpg';
 import capitalCityShots5 from '@assets/@capitalcityshots-5_1760080740018.jpg';
 import capitalCityShots10 from '@assets/@capitalcityshots-10_1760080740019.jpg';
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-};
-
-const staggerChildren = {
-  visible: { transition: { staggerChildren: 0.1 } }
-};
 
 const fridaySchedule = [
   { time: '3-5 PM', icon: Plane, title: 'Touch Down in Austin', description: 'Fly into Austin-Bergstrom and feel the Texas heat. Your chill bach weekend officially begins.' },
@@ -78,24 +67,21 @@ export default function RecipeForChillestATXBachParty() {
   }, []);
 
   return (
+    <LazyMotionProvider>
     <>
-      <Helmet>
-        <title>The Recipe for the CHILLEST ATX Bach Party | Premier Party Cruises</title>
-        <meta name="description" content="Plan the most laid-back Austin bachelor or bachelorette party with our chill weekend guide. Friday arrival, Saturday Lake Travis cruise, Sunday recovery - the perfect stress-free bach party itinerary." />
-        <meta name="keywords" content="Austin bachelor party, ATX bach party, chill bachelor party Austin, Lake Travis bachelor party, relaxed bachelorette party Austin, Austin party boat, Lake Travis party cruise" />
-        <link rel="canonical" href="https://premierpartycruises.com/blogs/the-recipe-for-the-chillest-atx-bach-party" />
-        <meta property="og:title" content="The Recipe for the CHILLEST ATX Bach Party" />
-        <meta property="og:description" content="Plan the most laid-back Austin bachelor or bachelorette party. Friday arrival, Saturday Lake Travis cruise, Sunday recovery - stress-free bach party vibes." />
-        <meta property="og:type" content="article" />
-        <meta property="og:url" content="https://premierpartycruises.com/blogs/the-recipe-for-the-chillest-atx-bach-party" />
-        <meta property="og:image" content="https://premierpartycruises.com/attached_assets/bachelor-party-group-guys.webp" />
-      </Helmet>
+      <SEOHead 
+        pageRoute="/blogs/the-recipe-for-the-chillest-atx-bach-party"
+        defaultTitle="The Recipe for the CHILLEST ATX Bach Party | Premier Party Cruises"
+        defaultDescription="Plan the most laid-back Austin bachelor or bachelorette party with our chill weekend guide. Friday arrival, Saturday Lake Travis cruise, Sunday recovery - the perfect stress-free bach party itinerary."
+        defaultKeywords={['Austin bachelor party', 'ATX bach party', 'chill bachelor party Austin', 'Lake Travis bachelor party', 'relaxed bachelorette party Austin', 'Austin party boat', 'Lake Travis party cruise']}
+        image="https://premierpartycruises.com/attached_assets/bachelor-party-group-guys.webp"
+      />
 
       <div className="min-h-screen bg-white dark:bg-gray-950">
         <PublicNavigation />
 
         {/* Hero Section */}
-        <motion.section 
+        <m.section 
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
@@ -133,12 +119,24 @@ export default function RecipeForChillestATXBachParty() {
               </Link>
             </div>
           </div>
-        </motion.section>
+        </m.section>
+
+      {/* Topic Cluster Pillar Link */}
+      <div className="bg-blue-50 dark:bg-blue-950/30 border-b border-blue-100 dark:border-blue-900/50">
+        <div className="max-w-4xl mx-auto px-6 py-3">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            This guide is part of our complete{' '}
+            <Link href="/bachelor-party-austin" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Austin bachelor party boats</Link>{' '}
+            resource — your one-stop planning hub for Lake Travis bachelor celebrations.
+          </p>
+        </div>
+      </div>
+
 
         {/* Introduction */}
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+            <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
               <h2 className="heading-unbounded text-2xl sm:text-3xl font-bold mb-6 text-gray-900 dark:text-white">Why a Chill Bach Party Hits Different</h2>
               <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
                 Look, we get it. The internet is full of "EPIC BACHELOR PARTY" guides with packed schedules, expensive clubs, and 4 hours of sleep per night. But here's the thing - some of the best bach parties we've seen are the ones where everyone actually relaxes, connects, and comes home feeling <em>good</em> instead of wrecked.
@@ -146,29 +144,29 @@ export default function RecipeForChillestATXBachParty() {
               <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
                 Austin is perfect for this vibe. You've got Lake Travis for the ultimate <Link href="/party-boat-austin" className="text-blue-600 hover:underline font-semibold">party boat experience</Link>, incredible food, gorgeous weather, and a city that knows how to have fun without trying too hard. Here's your 3-day recipe for the chillest ATX bach party that everyone will actually remember.
               </p>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Why Chill Works */}
         <section className="py-16 bg-gray-50 dark:bg-gray-800">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="text-center mb-12">
+            <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="text-center mb-12">
               <h2 className="text-3xl font-bold mb-4 text-gray-900 dark:text-white">The Chill Approach: Why It Works</h2>
               <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
                 Skip the exhaustion and embrace the vibes. Here's why a laid-back bach party is the move.
               </p>
-            </motion.div>
+            </m.div>
 
-            <motion.div 
+            <m.div 
               initial="hidden" 
               whileInView="visible" 
               viewport={{ once: true }} 
-              variants={staggerChildren}
+              variants={staggerContainer}
               className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
             >
               {whyChillWorks.map((item, index) => (
-                <motion.div key={index} variants={fadeInUp}>
+                <m.div key={index} variants={fadeInUp}>
                   <Card className="h-full hover:shadow-lg transition-shadow border-0 bg-white dark:bg-gray-900">
                     <CardContent className="p-6">
                       <div className="flex items-start gap-4">
@@ -182,28 +180,28 @@ export default function RecipeForChillestATXBachParty() {
                       </div>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Friday Itinerary */}
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="text-center mb-12">
+            <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="text-center mb-12">
               <Badge className="mb-4 bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">DAY 1</Badge>
               <h2 className="text-3xl font-bold mb-4 text-gray-900 dark:text-white">Friday: Arrival & Easy Vibes</h2>
               <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
                 Set the tone with a stress-free arrival day. No rushing, no pressure - just settling in and starting the celebration.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid lg:grid-cols-2 gap-8 items-center">
-              <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerChildren}>
+              <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer}>
                 <div className="space-y-4">
                   {fridaySchedule.map((item, index) => (
-                    <motion.div key={index} variants={fadeInUp}>
+                    <m.div key={index} variants={fadeInUp}>
                       <Card className="border-l-4 border-l-blue-500 hover:shadow-md transition-shadow">
                         <CardContent className="p-4">
                           <div className="flex items-start gap-4">
@@ -220,18 +218,18 @@ export default function RecipeForChillestATXBachParty() {
                           </div>
                         </CardContent>
                       </Card>
-                    </motion.div>
+                    </m.div>
                   ))}
                 </div>
-              </motion.div>
+              </m.div>
 
-              <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+              <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
                 <img 
                   src={capitalCityShots1} 
                   alt="Austin bachelor party group enjoying Lake Travis" 
                   className="rounded-2xl shadow-xl w-full h-auto"
                 />
-              </motion.div>
+              </m.div>
             </div>
           </div>
         </section>
@@ -239,27 +237,27 @@ export default function RecipeForChillestATXBachParty() {
         {/* Saturday Itinerary - The Main Event */}
         <section className="py-16 bg-gradient-to-br from-teal-50 to-blue-50 dark:from-gray-800 dark:to-gray-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="text-center mb-12">
+            <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="text-center mb-12">
               <Badge className="mb-4 bg-teal-500 text-white font-bold">DAY 2 - THE MAIN EVENT</Badge>
               <h2 className="text-3xl font-bold mb-4 text-gray-900 dark:text-white">Saturday: Lake Travis Party Cruise</h2>
               <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
                 This is it - the centerpiece of your chill bach party. A 4-hour <Link href="/party-boat-lake-travis" className="text-teal-600 hover:underline font-semibold">Lake Travis party cruise</Link> that hits all the right notes.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid lg:grid-cols-2 gap-8 items-center">
-              <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="order-2 lg:order-1">
+              <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="order-2 lg:order-1">
                 <img 
                   src={capitalCityShots5} 
                   alt="Lake Travis party boat cruise with bachelor party group" 
                   className="rounded-2xl shadow-xl w-full h-auto"
                 />
-              </motion.div>
+              </m.div>
 
-              <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerChildren} className="order-1 lg:order-2">
+              <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer} className="order-1 lg:order-2">
                 <div className="space-y-4">
                   {saturdaySchedule.map((item, index) => (
-                    <motion.div key={index} variants={fadeInUp}>
+                    <m.div key={index} variants={fadeInUp}>
                       <Card className={`border-l-4 hover:shadow-md transition-shadow ${item.title.includes('Lake Travis') ? 'border-l-yellow-500 bg-yellow-50 dark:bg-yellow-900/20' : 'border-l-teal-500'}`}>
                         <CardContent className="p-4">
                           <div className="flex items-start gap-4">
@@ -277,14 +275,14 @@ export default function RecipeForChillestATXBachParty() {
                           </div>
                         </CardContent>
                       </Card>
-                    </motion.div>
+                    </m.div>
                   ))}
                 </div>
-              </motion.div>
+              </m.div>
             </div>
 
             {/* Lake Cruise Highlight Box */}
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="mt-12">
+            <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="mt-12">
               <Card className="bg-gradient-to-r from-teal-600 to-blue-600 text-white border-0">
                 <CardContent className="p-8">
                   <div className="grid md:grid-cols-2 gap-8 items-center">
@@ -325,26 +323,26 @@ export default function RecipeForChillestATXBachParty() {
                   </div>
                 </CardContent>
               </Card>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Sunday Itinerary */}
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="text-center mb-12">
+            <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="text-center mb-12">
               <Badge className="mb-4 bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200">DAY 3</Badge>
               <h2 className="text-3xl font-bold mb-4 text-gray-900 dark:text-white">Sunday: Recovery & Goodbye</h2>
               <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
                 Wind down the weekend with Austin's best recovery activities. Leave feeling refreshed, not wrecked.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid lg:grid-cols-2 gap-8 items-center">
-              <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerChildren}>
+              <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer}>
                 <div className="space-y-4">
                   {sundaySchedule.map((item, index) => (
-                    <motion.div key={index} variants={fadeInUp}>
+                    <m.div key={index} variants={fadeInUp}>
                       <Card className="border-l-4 border-l-purple-500 hover:shadow-md transition-shadow">
                         <CardContent className="p-4">
                           <div className="flex items-start gap-4">
@@ -361,18 +359,18 @@ export default function RecipeForChillestATXBachParty() {
                           </div>
                         </CardContent>
                       </Card>
-                    </motion.div>
+                    </m.div>
                   ))}
                 </div>
-              </motion.div>
+              </m.div>
 
-              <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+              <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
                 <img 
                   src={capitalCityShots10} 
                   alt="Austin party group enjoying Lake Travis views" 
                   className="rounded-2xl shadow-xl w-full h-auto"
                 />
-              </motion.div>
+              </m.div>
             </div>
           </div>
         </section>
@@ -380,7 +378,7 @@ export default function RecipeForChillestATXBachParty() {
         {/* Pro Tips Section */}
         <section className="py-16 bg-gray-50 dark:bg-gray-800">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+            <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
               <h2 className="text-3xl font-bold mb-8 text-center text-gray-900 dark:text-white">Pro Tips for the Chillest Bach Party</h2>
               
               <Card className="border-0 shadow-lg">
@@ -395,14 +393,14 @@ export default function RecipeForChillestATXBachParty() {
                   </div>
                 </CardContent>
               </Card>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* CTA Section */}
         <section className="py-20 bg-gradient-to-br from-teal-600 via-blue-600 to-teal-700 text-white">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+            <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
               <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to Plan Your Chill ATX Bach Party?</h2>
               <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
                 The Lake Travis cruise is the heart of the experience. Let us help you find the perfect boat for your crew.
@@ -426,12 +424,13 @@ export default function RecipeForChillestATXBachParty() {
               <p className="mt-8 text-white/80">
                 Questions? <Link href="/contact" className="underline hover:text-white">Contact our team</Link> or call us anytime.
               </p>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         <Footer />
       </div>
     </>
+    </LazyMotionProvider>
   );
 }

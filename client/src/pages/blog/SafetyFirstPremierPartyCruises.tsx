@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { m, LazyMotionProvider, fadeInUp, staggerContainer } from '@/components/LazyMotion';
 import { Link } from 'wouter';
 import { 
   Ship, Users, Shield, Phone, Clock, CheckCircle2, 
@@ -20,15 +20,6 @@ import heroImage from '@assets/@capitalcityshots-20_1760080740021.jpg';
 import sectionImage1 from '@assets/@capitalcityshots-21_1760080807864.jpg';
 import sectionImage2 from '@assets/@capitalcityshots-10_1760080740019.jpg';
 import sectionImage3 from '@assets/@capitalcityshots-11_1760080740019.jpg';
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-};
-
-const staggerChildren = {
-  visible: { transition: { staggerChildren: 0.1 } }
-};
 
 const safetyHighlights = [
   { 
@@ -141,6 +132,7 @@ export default function SafetyFirstPremierPartyCruises() {
   }, []);
 
   return (
+    <LazyMotionProvider>
     <>
       <SEOHead 
         pageRoute="/blogs/safety-first-how-premiers-perfect-record-and-first-aid-training-set-us-apart"
@@ -168,7 +160,7 @@ export default function SafetyFirstPremierPartyCruises() {
         <PublicNavigation />
 
         {/* Hero Section */}
-        <motion.section 
+        <m.section 
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
@@ -178,6 +170,8 @@ export default function SafetyFirstPremierPartyCruises() {
           <div 
             className="absolute inset-0 bg-cover bg-center opacity-30"
             style={{ backgroundImage: `url(${heroImage})` }}
+          role="img"
+          aria-label="Party Boat Safety - Premier Party Cruises Lake Travis"
           />
           
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 text-center">
@@ -218,7 +212,19 @@ export default function SafetyFirstPremierPartyCruises() {
               </Link>
             </div>
           </div>
-        </motion.section>
+        </m.section>
+
+      {/* Topic Cluster Pillar Link */}
+      <div className="bg-blue-50 dark:bg-blue-950/30 border-b border-blue-100 dark:border-blue-900/50">
+        <div className="max-w-4xl mx-auto px-6 py-3">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            Explore our full guide to{' '}
+            <Link href="/party-boat-lake-travis" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Lake Travis party boat rentals</Link>{' '}
+            for everything from pricing and logistics to safety and entertainment.
+          </p>
+        </div>
+      </div>
+
 
         {/* Hero Image with Alt Text */}
         <section className="py-8 bg-gray-50 dark:bg-gray-900">
@@ -235,22 +241,22 @@ export default function SafetyFirstPremierPartyCruises() {
         {/* Safety Highlights Grid */}
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={staggerChildren}
+              variants={staggerContainer}
               className="text-center mb-12"
             >
               <h2 className="text-3xl font-bold mb-4">Why Safe Party Boat Austin Guests Choose Us</h2>
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Our Austin boat rental safety record speaks for itself. Here's what makes premier party cruises safety unmatched on Lake Travis.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {safetyHighlights.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -266,7 +272,7 @@ export default function SafetyFirstPremierPartyCruises() {
                       <p className="text-gray-600 dark:text-gray-400 text-sm">{item.description}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -290,7 +296,7 @@ export default function SafetyFirstPremierPartyCruises() {
         <section className="py-16 bg-gray-50 dark:bg-gray-800">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <motion.div
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -314,8 +320,8 @@ export default function SafetyFirstPremierPartyCruises() {
                     </li>
                   ))}
                 </ul>
-              </motion.div>
-              <motion.div
+              </m.div>
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -327,7 +333,7 @@ export default function SafetyFirstPremierPartyCruises() {
                   className="rounded-xl shadow-2xl w-full"
                   data-testid="image-section-1"
                 />
-              </motion.div>
+              </m.div>
             </div>
           </div>
         </section>
@@ -336,7 +342,7 @@ export default function SafetyFirstPremierPartyCruises() {
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <motion.div
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -349,8 +355,8 @@ export default function SafetyFirstPremierPartyCruises() {
                   className="rounded-xl shadow-2xl w-full"
                   data-testid="image-section-2"
                 />
-              </motion.div>
-              <motion.div
+              </m.div>
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -378,7 +384,7 @@ export default function SafetyFirstPremierPartyCruises() {
                     ))}
                   </ul>
                 </div>
-              </motion.div>
+              </m.div>
             </div>
           </div>
         </section>
@@ -387,7 +393,7 @@ export default function SafetyFirstPremierPartyCruises() {
         <section className="py-16 bg-gray-50 dark:bg-gray-800">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <motion.div
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -411,8 +417,8 @@ export default function SafetyFirstPremierPartyCruises() {
                     </li>
                   ))}
                 </ul>
-              </motion.div>
-              <motion.div
+              </m.div>
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -424,7 +430,7 @@ export default function SafetyFirstPremierPartyCruises() {
                   className="rounded-xl shadow-2xl w-full"
                   data-testid="image-section-3"
                 />
-              </motion.div>
+              </m.div>
             </div>
           </div>
         </section>
@@ -432,7 +438,7 @@ export default function SafetyFirstPremierPartyCruises() {
         {/* Safety Equipment Section */}
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -446,11 +452,11 @@ export default function SafetyFirstPremierPartyCruises() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Our safe party boat Austin vessels are equipped with comprehensive safety gear that exceeds Coast Guard requirements. Austin boat rental safety record excellence requires top-tier equipment.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {safetyEquipment.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -465,7 +471,7 @@ export default function SafetyFirstPremierPartyCruises() {
                       <span className="font-medium">{item.item}</span>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -475,7 +481,7 @@ export default function SafetyFirstPremierPartyCruises() {
         <section className="py-16 bg-gradient-to-br from-slate-800 to-slate-900 text-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <motion.div
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -499,8 +505,8 @@ export default function SafetyFirstPremierPartyCruises() {
                     </div>
                   ))}
                 </div>
-              </motion.div>
-              <motion.div
+              </m.div>
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -522,7 +528,7 @@ export default function SafetyFirstPremierPartyCruises() {
                     <div className="text-gray-300">Documentation Available</div>
                   </div>
                 </div>
-              </motion.div>
+              </m.div>
             </div>
           </div>
         </section>
@@ -530,7 +536,7 @@ export default function SafetyFirstPremierPartyCruises() {
         {/* Corporate Events Section */}
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -544,11 +550,11 @@ export default function SafetyFirstPremierPartyCruises() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 HR directors and event planners choose Premier Party Cruises because our Lake Travis boat safety standards meet corporate liability requirements.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 gap-8">
               {corporateBenefits.map((benefit, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -568,7 +574,7 @@ export default function SafetyFirstPremierPartyCruises() {
                       </div>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
 
@@ -587,7 +593,7 @@ export default function SafetyFirstPremierPartyCruises() {
         {/* Internal Links Section */}
         <section className="py-16 bg-gray-50 dark:bg-gray-800">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -598,7 +604,7 @@ export default function SafetyFirstPremierPartyCruises() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 Every cruise type benefits from our Austin boat rental safety record and premier party cruises safety protocols.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {[
@@ -607,7 +613,7 @@ export default function SafetyFirstPremierPartyCruises() {
                 { title: 'Corporate Events', href: '/corporate-events', icon: Building2, description: 'Professional Lake Travis boat safety' },
                 { title: 'ATX Disco Cruise', href: '/atx-disco-cruise', icon: Star, description: 'Fun with premier party cruises safety' }
               ].map((link, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -628,7 +634,7 @@ export default function SafetyFirstPremierPartyCruises() {
                       </CardContent>
                     </Card>
                   </Link>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -637,7 +643,7 @@ export default function SafetyFirstPremierPartyCruises() {
         {/* FAQ Section */}
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -651,7 +657,7 @@ export default function SafetyFirstPremierPartyCruises() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 Get answers about Lake Travis boat safety and our Austin boat rental safety record.
               </p>
-            </motion.div>
+            </m.div>
 
             <Accordion type="single" collapsible className="w-full space-y-4" data-testid="faq-accordion">
               {faqs.map((faq, index) => (
@@ -681,7 +687,7 @@ export default function SafetyFirstPremierPartyCruises() {
         {/* Final CTA Section */}
         <section className="py-16 bg-gradient-to-br from-green-600 to-green-700 text-white">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -716,12 +722,13 @@ export default function SafetyFirstPremierPartyCruises() {
                   </Button>
                 </Link>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         <Footer />
       </div>
     </>
+    </LazyMotionProvider>
   );
 }

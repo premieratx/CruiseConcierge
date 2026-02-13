@@ -97,17 +97,18 @@ export class GoogleSheetsService {
   private baseDelay: number = 1000; // 1 second
 
   constructor() {
-    // PRODUCTION FIX: Fail fast if required environment variables missing
-    if (!process.env.SHEET_ID) {
-      throw new Error("CRITICAL: SHEET_ID environment variable is required for production. No fallbacks available.");
+    // Allow development mode to run without Google Sheets
+    if (!process.env.SHEET_ID || !process.env.GOOGLE_SERVICE_ACCOUNT_CREDENTIALS) {
+      if (process.env.NODE_ENV === 'development') {
+        console.log("⚠️ Google Sheets credentials not configured - running in dev mode with mock data");
+        this.spreadsheetId = '';
+        return;
+      }
+      throw new Error("CRITICAL: SHEET_ID and GOOGLE_SERVICE_ACCOUNT_CREDENTIALS environment variables are required for production.");
     }
-    
-    if (!process.env.GOOGLE_SERVICE_ACCOUNT_CREDENTIALS) {
-      throw new Error("CRITICAL: GOOGLE_SERVICE_ACCOUNT_CREDENTIALS environment variable is required for production. No fallbacks available.");
-    }
-    
+
     this.spreadsheetId = process.env.SHEET_ID;
-    
+
     // Parse service account credentials from environment variable
     const credentialsJson = process.env.GOOGLE_SERVICE_ACCOUNT_CREDENTIALS;
     try {
@@ -116,7 +117,7 @@ export class GoogleSheetsService {
     } catch (error) {
       throw new Error(`CRITICAL: Failed to parse GOOGLE_SERVICE_ACCOUNT_CREDENTIALS: ${error}`);
     }
-    
+
     console.log("✅ Google Sheets Service initialized with production credentials - no fallbacks available");
   }
 

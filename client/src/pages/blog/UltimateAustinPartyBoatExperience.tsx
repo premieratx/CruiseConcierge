@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { m, LazyMotionProvider, fadeInUp, staggerContainer } from '@/components/LazyMotion';
 import { Link } from 'wouter';
-import * as HelmetAsync from 'react-helmet-async';
-const HelmetAsyncDefault = (HelmetAsync as any).default || HelmetAsync;
-const { Helmet } = HelmetAsyncDefault;
+import SEOHead from '@/components/SEOHead';
 import { 
   Ship, Users, Anchor, Sun, Music, Camera, Waves, MapPin,
   PartyPopper, Wine, Car, Calendar, CheckCircle2, Shield,
@@ -21,15 +19,6 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import heroImage from '@assets/atx-disco-cruise-party.webp';
 import sectionImage1 from '@assets/clever-girl-1-lake-travis-party-boat.jpg';
 import sectionImage2 from '@assets/bachelor-party-group-guys-hero-compressed.webp';
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-};
-
-const staggerChildren = {
-  visible: { transition: { staggerChildren: 0.1 } }
-};
 
 const partyBoatStats = [
   { stat: '150K+', label: 'Happy Guests' },
@@ -184,21 +173,15 @@ export default function UltimateAustinPartyBoatExperience() {
   const canonicalUrl = "https://premierpartycruises.com/blogs/ultimate-austin-party-boat-experience-any-celebration";
 
   return (
+    <LazyMotionProvider>
     <>
-      <Helmet>
-        <title>Ultimate Austin Party Boat Experience Guide | Lake Travis</title>
-        <meta name="description" content="Plan the ultimate Austin party boat celebration on Lake Travis. From bachelor parties to corporate events, discover everything you need to know." />
-        <link rel="canonical" href={canonicalUrl} />
-        <meta property="og:title" content="Ultimate Austin Party Boat Experience Guide | Lake Travis" />
-        <meta property="og:description" content="Plan the ultimate Austin party boat celebration on Lake Travis. From bachelor parties to corporate events, discover everything you need to know." />
-        <meta property="og:url" content={canonicalUrl} />
-        <meta property="og:type" content="article" />
-        <meta property="og:image" content="https://premierpartycruises.com/attached_assets/atx-disco-cruise-party.webp" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Ultimate Austin Party Boat Experience Guide | Lake Travis" />
-        <meta name="twitter:description" content="Plan the ultimate Austin party boat celebration on Lake Travis. From bachelor parties to corporate events, discover everything you need to know." />
-        <meta name="keywords" content="austin party boat, lake travis party boat, party boat austin, austin bachelor party, austin bachelorette party, corporate boat party austin, lake travis boat rental, party cruise austin" />
-      </Helmet>
+      <SEOHead 
+        pageRoute=""
+        defaultTitle="Ultimate Austin Party Boat Experience Guide | Lake Travis"
+        defaultDescription="Plan the ultimate Austin party boat celebration on Lake Travis. From bachelor parties to corporate events, discover everything you need to know."
+        defaultKeywords={['austin party boat', 'lake travis party boat', 'party boat austin', 'austin bachelor party', 'austin bachelorette party', 'corporate boat party austin', 'lake travis boat rental', 'party cruise austin']}
+        image="https://premierpartycruises.com/attached_assets/atx-disco-cruise-party.webp"
+      />
 
       <PublicNavigation />
 
@@ -214,33 +197,33 @@ export default function UltimateAustinPartyBoatExperience() {
           </div>
           
           <div className="relative z-10 container mx-auto px-4 py-16">
-            <motion.div
+            <m.div
               initial="hidden"
               animate="visible"
-              variants={staggerChildren}
+              variants={staggerContainer}
               className="max-w-3xl"
             >
-              <motion.div variants={fadeInUp} className="mb-4">
+              <m.div variants={fadeInUp} className="mb-4">
                 <Badge className="bg-orange-500 text-white px-4 py-1">
                   Austin Party Boats
                 </Badge>
-              </motion.div>
+              </m.div>
               
-              <motion.h1 
+              <m.h1 
                 variants={fadeInUp}
                 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight"
               >
                 The Ultimate Austin Party Boat Experience for Any Celebration
-              </motion.h1>
+              </m.h1>
               
-              <motion.p 
+              <m.p 
                 variants={fadeInUp}
                 className="text-xl text-blue-100 mb-8 leading-relaxed"
               >
                 Picture this: you and your favorite people aboard a spacious boat, gliding across the blue waters of Lake Travis with sunshine sparkling on the waves. The music is pumping, the drinks are cold, and the energy is electric.
-              </motion.p>
+              </m.p>
 
-              <motion.div variants={fadeInUp} className="flex flex-wrap gap-4">
+              <m.div variants={fadeInUp} className="flex flex-wrap gap-4">
                 <Link href="/atx-disco-cruise">
                   <Button size="lg" className="bg-orange-500 hover:bg-orange-600 text-white" data-testid="button-disco-cruise">
                     <Ship className="mr-2 h-5 w-5" />
@@ -253,16 +236,27 @@ export default function UltimateAustinPartyBoatExperience() {
                     Private Boat Rentals
                   </Button>
                 </Link>
-              </motion.div>
-            </motion.div>
+              </m.div>
+            </m.div>
           </div>
         </section>
+
+        {/* Topic Cluster Pillar Link */}
+        <div className="bg-blue-50 dark:bg-blue-950/30 border-b border-blue-100 dark:border-blue-900/50">
+          <div className="max-w-4xl mx-auto px-6 py-3">
+            <p className="text-sm text-gray-600 dark:text-gray-400">
+              Explore our full guide to{' '}
+              <Link href="/party-boat-lake-travis" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Lake Travis party boat rentals</Link>{' '}
+              for everything from pricing and logistics to safety and entertainment.
+            </p>
+          </div>
+        </div>
 
         <section className="py-12 bg-gradient-to-b from-blue-900 to-blue-800">
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {partyBoatStats.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -272,7 +266,7 @@ export default function UltimateAustinPartyBoatExperience() {
                 >
                   <div className="text-3xl md:text-4xl font-bold text-orange-400 mb-1">{item.stat}</div>
                   <div className="text-blue-200 text-sm">{item.label}</div>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -280,13 +274,13 @@ export default function UltimateAustinPartyBoatExperience() {
 
         <section className="py-16 bg-white">
           <div className="container mx-auto px-4">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={staggerChildren}
+              variants={staggerContainer}
             >
-              <motion.div variants={fadeInUp} className="text-center mb-12">
+              <m.div variants={fadeInUp} className="text-center mb-12">
                 <Badge className="bg-blue-100 text-blue-800 mb-4">Why Choose Us</Badge>
                 <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
                   Why Choose a Party Boat in Austin?
@@ -294,11 +288,11 @@ export default function UltimateAustinPartyBoatExperience() {
                 <p className="text-lg text-gray-600 max-w-2xl mx-auto">
                   What makes an Austin party boat stand out from other venues? In one word: freedom. On a Lake Travis party boat, you're not confined to four walls of a bar or club.
                 </p>
-              </motion.div>
+              </m.div>
 
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
                 {whyChooseReasons.map((reason, index) => (
-                  <motion.div
+                  <m.div
                     key={index}
                     variants={fadeInUp}
                     className="bg-gray-50 rounded-xl p-6 hover:shadow-lg transition-shadow"
@@ -312,22 +306,22 @@ export default function UltimateAustinPartyBoatExperience() {
                         <p className="text-gray-600">{reason.description}</p>
                       </div>
                     </div>
-                  </motion.div>
+                  </m.div>
                 ))}
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         <section className="py-16 bg-gray-50">
           <div className="container mx-auto px-4">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={staggerChildren}
+              variants={staggerContainer}
             >
-              <motion.div variants={fadeInUp} className="text-center mb-12">
+              <m.div variants={fadeInUp} className="text-center mb-12">
                 <Badge className="bg-orange-100 text-orange-800 mb-4">Perfect for Everyone</Badge>
                 <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
                   Perfect for Every Group Occasion
@@ -335,28 +329,28 @@ export default function UltimateAustinPartyBoatExperience() {
                 <p className="text-lg text-gray-600 max-w-2xl mx-auto">
                   One of the best parts of an Austin party boat is its versatility. It works for any type of group and occasion.
                 </p>
-              </motion.div>
+              </m.div>
 
               <div className="grid lg:grid-cols-2 gap-8 max-w-5xl mx-auto mb-12">
-                <motion.div variants={fadeInUp}>
+                <m.div variants={fadeInUp}>
                   <img 
                     src={sectionImage1} 
                     alt="Lake Travis party boat with guests enjoying the water and sunshine"
                     className="rounded-xl shadow-lg w-full h-64 object-cover"
                   />
-                </motion.div>
-                <motion.div variants={fadeInUp}>
+                </m.div>
+                <m.div variants={fadeInUp}>
                   <img 
                     src={sectionImage2} 
                     alt="Bachelor party group celebrating on Austin party boat"
                     className="rounded-xl shadow-lg w-full h-64 object-cover"
                   />
-                </motion.div>
+                </m.div>
               </div>
 
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
                 {groupTypes.map((group, index) => (
-                  <motion.div
+                  <m.div
                     key={index}
                     variants={fadeInUp}
                   >
@@ -375,22 +369,22 @@ export default function UltimateAustinPartyBoatExperience() {
                         </Link>
                       </CardContent>
                     </Card>
-                  </motion.div>
+                  </m.div>
                 ))}
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         <section className="py-16 bg-blue-900 text-white">
           <div className="container mx-auto px-4">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={staggerChildren}
+              variants={staggerContainer}
             >
-              <motion.div variants={fadeInUp} className="text-center mb-12">
+              <m.div variants={fadeInUp} className="text-center mb-12">
                 <Badge className="bg-blue-700 text-blue-100 mb-4">The Experience</Badge>
                 <h2 className="text-3xl md:text-4xl font-bold mb-4">
                   What to Expect on a Lake Travis Party Boat
@@ -398,11 +392,11 @@ export default function UltimateAustinPartyBoatExperience() {
                 <p className="text-lg text-blue-200 max-w-2xl mx-auto">
                   If you've never experienced a party boat before, here's what you get when you book with Premier Party Cruises.
                 </p>
-              </motion.div>
+              </m.div>
 
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
                 {whatToExpect.map((item, index) => (
-                  <motion.div
+                  <m.div
                     key={index}
                     variants={fadeInUp}
                     className="flex items-center gap-4 bg-blue-800/50 rounded-lg p-4"
@@ -411,11 +405,11 @@ export default function UltimateAustinPartyBoatExperience() {
                       <item.icon className="h-5 w-5 text-white" />
                     </div>
                     <span className="text-blue-100">{item.text}</span>
-                  </motion.div>
+                  </m.div>
                 ))}
               </div>
 
-              <motion.div variants={fadeInUp} className="text-center mt-10">
+              <m.div variants={fadeInUp} className="text-center mt-10">
                 <p className="text-blue-200 mb-6 max-w-2xl mx-auto">
                   On a shared party cruise like the Disco Cruise, expect a high-energy atmosphere with multiple groups partying together. For private charters, you set your own vibe—it can be a raging dance party or a laid-back chill cruise.
                 </p>
@@ -425,20 +419,20 @@ export default function UltimateAustinPartyBoatExperience() {
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Button>
                 </Link>
-              </motion.div>
-            </motion.div>
+              </m.div>
+            </m.div>
           </div>
         </section>
 
         <section className="py-16 bg-white">
           <div className="container mx-auto px-4">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={staggerChildren}
+              variants={staggerContainer}
             >
-              <motion.div variants={fadeInUp} className="text-center mb-12">
+              <m.div variants={fadeInUp} className="text-center mb-12">
                 <Badge className="bg-green-100 text-green-800 mb-4">Pro Tips</Badge>
                 <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
                   Tips for a Fantastic Boat Party
@@ -446,11 +440,11 @@ export default function UltimateAustinPartyBoatExperience() {
                 <p className="text-lg text-gray-600 max-w-2xl mx-auto">
                   Make sure your Austin party boat experience is as smooth and fun as possible with these tips.
                 </p>
-              </motion.div>
+              </m.div>
 
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
                 {partyTips.map((tip, index) => (
-                  <motion.div
+                  <m.div
                     key={index}
                     variants={fadeInUp}
                     className="bg-gray-50 rounded-xl p-6 border border-gray-100"
@@ -462,11 +456,11 @@ export default function UltimateAustinPartyBoatExperience() {
                       <h3 className="text-lg font-bold text-gray-900">{tip.title}</h3>
                     </div>
                     <p className="text-gray-600">{tip.description}</p>
-                  </motion.div>
+                  </m.div>
                 ))}
               </div>
 
-              <motion.div variants={fadeInUp} className="mt-10 bg-orange-50 border border-orange-200 rounded-xl p-6 max-w-3xl mx-auto">
+              <m.div variants={fadeInUp} className="mt-10 bg-orange-50 border border-orange-200 rounded-xl p-6 max-w-3xl mx-auto">
                 <div className="flex items-start gap-4">
                   <Wine className="h-8 w-8 text-orange-600 flex-shrink-0" />
                   <div>
@@ -476,8 +470,8 @@ export default function UltimateAustinPartyBoatExperience() {
                     </p>
                   </div>
                 </div>
-              </motion.div>
-            </motion.div>
+              </m.div>
+            </m.div>
           </div>
         </section>
 
@@ -485,14 +479,14 @@ export default function UltimateAustinPartyBoatExperience() {
 
         <section className="py-16 bg-gray-50">
           <div className="container mx-auto px-4">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={staggerChildren}
+              variants={staggerContainer}
               className="max-w-3xl mx-auto"
             >
-              <motion.div variants={fadeInUp} className="text-center mb-12">
+              <m.div variants={fadeInUp} className="text-center mb-12">
                 <Badge className="bg-blue-100 text-blue-800 mb-4">FAQ</Badge>
                 <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
                   Frequently Asked Questions
@@ -500,9 +494,9 @@ export default function UltimateAustinPartyBoatExperience() {
                 <p className="text-lg text-gray-600">
                   Everything you need to know about Austin party boats and Lake Travis cruises.
                 </p>
-              </motion.div>
+              </m.div>
 
-              <motion.div variants={fadeInUp}>
+              <m.div variants={fadeInUp}>
                 <Accordion type="single" collapsible className="w-full">
                   {faqs.map((faq, index) => (
                     <AccordionItem key={index} value={`item-${index}`} className="bg-white mb-2 rounded-lg border">
@@ -515,21 +509,21 @@ export default function UltimateAustinPartyBoatExperience() {
                     </AccordionItem>
                   ))}
                 </Accordion>
-              </motion.div>
-            </motion.div>
+              </m.div>
+            </m.div>
           </div>
         </section>
 
         <section className="py-16 bg-gradient-to-r from-blue-900 to-blue-800 text-white">
           <div className="container mx-auto px-4">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={staggerChildren}
+              variants={staggerContainer}
               className="text-center max-w-3xl mx-auto"
             >
-              <motion.div variants={fadeInUp}>
+              <m.div variants={fadeInUp}>
                 <h2 className="text-3xl md:text-4xl font-bold mb-6">
                   Ready to Create Unforgettable Memories?
                 </h2>
@@ -550,9 +544,9 @@ export default function UltimateAustinPartyBoatExperience() {
                     </Button>
                   </Link>
                 </div>
-              </motion.div>
+              </m.div>
 
-              <motion.div variants={fadeInUp} className="mt-12 pt-8 border-t border-blue-700">
+              <m.div variants={fadeInUp} className="mt-12 pt-8 border-t border-blue-700">
                 <p className="text-blue-300 mb-4">Explore More Party Options</p>
                 <div className="flex flex-wrap justify-center gap-4 text-sm">
                   <Link href="/bachelor-party-austin" className="text-blue-200 hover:text-white hover:underline">
@@ -571,13 +565,14 @@ export default function UltimateAustinPartyBoatExperience() {
                     ATX Disco Cruise
                   </Link>
                 </div>
-              </motion.div>
-            </motion.div>
+              </m.div>
+            </m.div>
           </div>
         </section>
       </main>
 
       <Footer />
     </>
+    </LazyMotionProvider>
   );
 }

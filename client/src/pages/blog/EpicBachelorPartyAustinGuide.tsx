@@ -1,8 +1,6 @@
-import { motion } from 'framer-motion';
+import { m, LazyMotionProvider, fadeInUp, staggerContainer } from '@/components/LazyMotion';
 import { Link } from 'wouter';
-import * as HelmetAsync from 'react-helmet-async';
-const HelmetAsyncDefault = (HelmetAsync as any).default || HelmetAsync;
-const { Helmet } = HelmetAsyncDefault;
+import SEOHead from '@/components/SEOHead';
 import { 
   Ship, Users, Phone, Clock, CheckCircle2, 
   Music, Sun, Waves, MapPin, Calendar, Star,
@@ -23,10 +21,6 @@ import sectionImage1 from '@assets/@capitalcityshots-30_1760080807867.jpg';
 import sectionImage2 from '@assets/@capitalcityshots-31_1760080807867.jpg';
 import sectionImage3 from '@assets/@capitalcityshots-32_1760073243497.jpg';
 
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-};
 
 const discoCruiseFeatures = [
   { icon: Music, text: 'Professional DJ spinning the perfect bachelor party playlist' },
@@ -61,55 +55,15 @@ const activities = [
 
 export default function EpicBachelorPartyAustinGuide() {
   return (
+    <LazyMotionProvider>
     <div data-page-ready="epic-bachelor-party-austin-guide" className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-blue-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950">
-      <Helmet>
-        <title>Epic Bachelor Party Austin, TX: Top Ideas & Tips | Premier Party Cruises</title>
-        <meta 
-          name="description" 
-          content="Plan the ultimate bachelor party in Austin, TX! Discover nightlife, outdoor adventures, Lake Travis boat parties, BBQ spots, and insider tips including the legendary ATX Disco Cruise." 
-        />
-        <meta 
-          name="keywords" 
-          content="bachelor party Austin, Austin bachelor party ideas, Lake Travis bachelor party, ATX Disco Cruise, Austin nightlife bachelor party, bachelor party planning Austin TX, Sixth Street bachelor party, Rainey Street bachelor party" 
-        />
-        <link rel="canonical" href="https://premierpartycruises.com/blogs/epic-bachelor-party-austin-ultimate-guide" />
-        
-        <meta property="og:title" content="Epic Bachelor Party Austin, TX: Top Ideas & Tips" />
-        <meta property="og:description" content="Plan the ultimate bachelor party in Austin! Lake Travis boats, nightlife, BBQ, and the legendary ATX Disco Cruise." />
-        <meta property="og:type" content="article" />
-        <meta property="og:url" content="https://premierpartycruises.com/blogs/epic-bachelor-party-austin-ultimate-guide" />
-        <meta property="og:image" content="https://premierpartycruises.com/attached_assets/bachelor-party-group-guys-hero-compressed.webp" />
-        
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Article",
-            "headline": "Epic Bachelor Party in Austin, TX: The Ultimate Guide to Planning an Unforgettable Weekend",
-            "description": "Plan the ultimate bachelor party in Austin, TX! Discover nightlife, outdoor adventures, Lake Travis boat parties, BBQ spots, and insider tips including the legendary ATX Disco Cruise.",
-            "image": "https://premierpartycruises.com/attached_assets/bachelor-party-group-guys-hero-compressed.webp",
-            "author": {
-              "@type": "Organization",
-              "name": "Premier Party Cruises",
-              "url": "https://premierpartycruises.com"
-            },
-            "publisher": {
-              "@type": "Organization",
-              "name": "Premier Party Cruises",
-              "url": "https://premierpartycruises.com",
-              "logo": {
-                "@type": "ImageObject",
-                "url": "https://premierpartycruises.com/media/schema/ppc-logo.png"
-              }
-            },
-            "datePublished": "2025-01-01",
-            "dateModified": "2025-12-09",
-            "mainEntityOfPage": {
-              "@type": "WebPage",
-              "@id": "https://premierpartycruises.com/blogs/epic-bachelor-party-austin-ultimate-guide"
-            }
-          })}
-        </script>
-      </Helmet>
+      <SEOHead 
+        pageRoute="/blogs/epic-bachelor-party-austin-ultimate-guide"
+        defaultTitle="Epic Bachelor Party Austin, TX: Top Ideas & Tips | Premier Party Cruises"
+        defaultDescription="Plan the ultimate bachelor party in Austin, TX! Discover nightlife, outdoor adventures, Lake Travis boat parties, BBQ spots, and insider tips including the legendary ATX Disco Cruise."
+        defaultKeywords={['bachelor party Austin', 'Austin bachelor party ideas', 'Lake Travis bachelor party', 'ATX Disco Cruise', 'Austin nightlife bachelor party', 'bachelor party planning Austin TX', 'Sixth Street bachelor party', 'Rainey Street bachelor party']}
+        image="https://premierpartycruises.com/attached_assets/bachelor-party-group-guys-hero-compressed.webp"
+      />
 
       <PublicNavigation />
 
@@ -126,7 +80,7 @@ export default function EpicBachelorPartyAustinGuide() {
         
         <div className="container mx-auto px-6 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
-            <motion.div
+            <m.div
               initial="hidden"
               animate="visible"
               variants={fadeInUp}
@@ -185,16 +139,28 @@ export default function EpicBachelorPartyAustinGuide() {
                   <span>15+ Years Experience</span>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </div>
       </section>
+
+      {/* Topic Cluster Pillar Link */}
+      <div className="bg-blue-50 dark:bg-blue-950/30 border-b border-blue-100 dark:border-blue-900/50">
+        <div className="max-w-4xl mx-auto px-6 py-3">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            This guide is part of our complete{' '}
+            <Link href="/bachelor-party-austin" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Austin bachelor party boats</Link>{' '}
+            resource — your one-stop planning hub for Lake Travis bachelor celebrations.
+          </p>
+        </div>
+      </div>
+
 
       {/* Why Austin Section */}
       <section className="py-20 bg-white dark:bg-gray-900">
         <div className="container mx-auto px-6">
           <div className="max-w-5xl mx-auto">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -209,10 +175,10 @@ export default function EpicBachelorPartyAustinGuide() {
                 Live music, world-class BBQ, iconic nightlife, epic lakeside adventures, and nonstop bachelor-party energy. 
                 Austin has everything you need for an unforgettable celebration.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 gap-8 items-center">
-              <motion.div
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -224,8 +190,8 @@ export default function EpicBachelorPartyAustinGuide() {
                   className="rounded-2xl shadow-2xl w-full h-80 object-cover"
                   aspectRatio="4/3"
                 />
-              </motion.div>
-              <motion.div
+              </m.div>
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -254,7 +220,7 @@ export default function EpicBachelorPartyAustinGuide() {
                     </Button>
                   </Link>
                 </div>
-              </motion.div>
+              </m.div>
             </div>
           </div>
         </div>
@@ -264,7 +230,7 @@ export default function EpicBachelorPartyAustinGuide() {
       <section className="py-20 bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-800 dark:to-gray-900">
         <div className="container mx-auto px-6">
           <div className="max-w-6xl mx-auto">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -278,10 +244,10 @@ export default function EpicBachelorPartyAustinGuide() {
               <p className="text-xl text-gray-600 dark:text-gray-400">
                 Everything you need for the ultimate bachelor weekend
               </p>
-            </motion.div>
+            </m.div>
 
             {/* Idea 1: Lake Travis */}
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -341,10 +307,10 @@ export default function EpicBachelorPartyAustinGuide() {
                   </div>
                 </CardContent>
               </Card>
-            </motion.div>
+            </m.div>
 
             {/* Idea 2: BYOB & Alcohol Delivery */}
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -391,10 +357,10 @@ export default function EpicBachelorPartyAustinGuide() {
                   </Link>
                 </CardContent>
               </Card>
-            </motion.div>
+            </m.div>
 
             {/* Idea 3: Nightlife */}
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -434,10 +400,10 @@ export default function EpicBachelorPartyAustinGuide() {
                   </p>
                 </CardContent>
               </Card>
-            </motion.div>
+            </m.div>
 
             {/* Idea 4: BBQ */}
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -480,10 +446,10 @@ export default function EpicBachelorPartyAustinGuide() {
                   </p>
                 </CardContent>
               </Card>
-            </motion.div>
+            </m.div>
 
             {/* Idea 5: Activities */}
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -527,7 +493,7 @@ export default function EpicBachelorPartyAustinGuide() {
                   </CardContent>
                 </Card>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </div>
       </section>
@@ -536,7 +502,7 @@ export default function EpicBachelorPartyAustinGuide() {
       <section className="py-20 bg-white dark:bg-gray-900">
         <div className="container mx-auto px-6">
           <div className="max-w-5xl mx-auto">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -550,11 +516,11 @@ export default function EpicBachelorPartyAustinGuide() {
               <p className="text-xl text-gray-600 dark:text-gray-400">
                 Maximize the party. Minimize the chaos.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="space-y-8">
               {/* Day 1 */}
-              <motion.div
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -584,10 +550,10 @@ export default function EpicBachelorPartyAustinGuide() {
                     </div>
                   </CardContent>
                 </Card>
-              </motion.div>
+              </m.div>
 
               {/* Day 2 */}
-              <motion.div
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -632,10 +598,10 @@ export default function EpicBachelorPartyAustinGuide() {
                     </div>
                   </CardContent>
                 </Card>
-              </motion.div>
+              </m.div>
 
               {/* Day 3 */}
-              <motion.div
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -666,7 +632,7 @@ export default function EpicBachelorPartyAustinGuide() {
                     </div>
                   </CardContent>
                 </Card>
-              </motion.div>
+              </m.div>
             </div>
           </div>
         </div>
@@ -676,7 +642,7 @@ export default function EpicBachelorPartyAustinGuide() {
       <section className="py-16 bg-gradient-to-br from-slate-100 to-blue-100 dark:from-gray-800 dark:to-gray-900">
         <div className="container mx-auto px-6">
           <div className="max-w-5xl mx-auto">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -687,7 +653,7 @@ export default function EpicBachelorPartyAustinGuide() {
               <h2 className="text-3xl font-black text-gray-900 dark:text-white mb-4">
                 Where to Stay for a Bachelor Party in Austin
               </h2>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-3 gap-6">
               {[
@@ -695,7 +661,7 @@ export default function EpicBachelorPartyAustinGuide() {
                 { title: 'Rainey Street Lofts', description: 'Walkable bachelor heaven. Right in the heart of the action.', icon: Home },
                 { title: 'Lake Travis Airbnbs', description: 'Perfect if you\'re prioritizing the boat day with Premier Party Cruises.', icon: Waves }
               ].map((option, i) => (
-                <motion.div
+                <m.div
                   key={i}
                   initial="hidden"
                   whileInView="visible"
@@ -711,7 +677,7 @@ export default function EpicBachelorPartyAustinGuide() {
                       <p className="text-gray-600 dark:text-gray-400">{option.description}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -722,7 +688,7 @@ export default function EpicBachelorPartyAustinGuide() {
       <section className="py-16 bg-gradient-to-br from-yellow-500 to-orange-600 text-white">
         <div className="container mx-auto px-6">
           <div className="max-w-5xl mx-auto">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -731,7 +697,7 @@ export default function EpicBachelorPartyAustinGuide() {
             >
               <Trophy className="h-12 w-12 mx-auto text-yellow-200 mb-4" />
               <h2 className="text-3xl font-black mb-4">Final Tips for an Epic Bachelor Party in Austin</h2>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
               {[
@@ -741,7 +707,7 @@ export default function EpicBachelorPartyAustinGuide() {
                 { num: '4', tip: 'Combine nightlife + lake life—this is the formula for the best weekend' },
                 { num: '5', tip: 'Keep the groom the priority—build the weekend around what he wants' }
               ].map((item, i) => (
-                <motion.div
+                <m.div
                   key={i}
                   initial="hidden"
                   whileInView="visible"
@@ -755,7 +721,7 @@ export default function EpicBachelorPartyAustinGuide() {
                     </span>
                     <p className="text-lg">{item.tip}</p>
                   </div>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -766,7 +732,7 @@ export default function EpicBachelorPartyAustinGuide() {
       <section className="py-16 bg-white dark:bg-gray-900">
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -777,7 +743,7 @@ export default function EpicBachelorPartyAustinGuide() {
               <h2 className="text-3xl font-black text-gray-900 dark:text-white">
                 Frequently Asked Questions
               </h2>
-            </motion.div>
+            </m.div>
 
             <Accordion type="single" collapsible className="space-y-4">
               <AccordionItem value="item-1" className="border rounded-xl px-6">
@@ -828,7 +794,7 @@ export default function EpicBachelorPartyAustinGuide() {
       <section className="py-20 bg-gradient-to-br from-blue-900 via-slate-900 to-black text-white">
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto text-center">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -876,12 +842,13 @@ export default function EpicBachelorPartyAustinGuide() {
               <p className="mt-8 text-blue-300">
                 Questions? Call us at <a href="tel:5124885892" className="text-yellow-400 hover:underline font-semibold">(512) 488-5892</a>
               </p>
-            </motion.div>
+            </m.div>
           </div>
         </div>
       </section>
 
       <Footer />
     </div>
+    </LazyMotionProvider>
   );
 }

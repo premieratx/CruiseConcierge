@@ -1,6 +1,4 @@
-import * as HelmetAsync from 'react-helmet-async';
-const HelmetAsyncDefault = (HelmetAsync as any).default || HelmetAsync;
-const { Helmet } = HelmetAsyncDefault;
+import SEOHead from '@/components/SEOHead';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Calendar, Phone, Sun, CheckCircle2, Users, Music, Ship, MapPin, Utensils, ThermometerSun, PartyPopper, Star, ChevronRight, Flower2, DollarSign, Backpack } from 'lucide-react';
@@ -18,54 +16,13 @@ import sectionImage3 from '@assets/@capitalcityshots-12_1760080740019.jpg';
 export default function AustinBachelorPartyMarch() {
   return (
     <div data-page-ready="austin-bachelor-party-march" className="min-h-screen bg-gradient-to-b from-green-50 via-white to-emerald-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950">
-      <Helmet>
-        <title>Why Austin is Perfect for Bachelor Parties in March | Premier Party Cruises</title>
-        <meta 
-          name="description" 
-          content="Plan a March Austin bachelor party: 54°F-72°F weather, SXSW Festival energy, Lake Travis boats & complete guide. Rain or shine, Spring Break vibes and epic celebrations!" 
-        />
-        <meta 
-          name="keywords" 
-          content="March bachelor party Austin, Austin bachelor party, Lake Travis party boat, SXSW bachelor party, Spring Break Austin, Austin nightlife March" 
-        />
-        <link rel="canonical" href="https://premierpartycruises.com/blogs/austin-bachelor-party-march" />
-        
-        <meta property="og:title" content="Why Austin is Perfect for Bachelor Parties in March" />
-        <meta property="og:description" content="Plan a March Austin bachelor party with Lake Travis boats, SXSW energy, and perfect spring weather." />
-        <meta property="og:type" content="article" />
-        <meta property="og:url" content="https://premierpartycruises.com/blogs/austin-bachelor-party-march" />
-        <meta property="og:image" content="https://premierpartycruises.com/attached_assets/@capitalcityshots-9_1760080740019.jpg" />
-        
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Article",
-            "headline": "Why Austin is Perfect for Bachelor Parties in March",
-            "description": "Plan a March Austin bachelor party: 54°F-72°F weather, SXSW Festival energy, Lake Travis boats & complete guide. Rain or shine!",
-            "image": "https://premierpartycruises.com/attached_assets/@capitalcityshots-9_1760080740019.jpg",
-            "author": {
-              "@type": "Organization",
-              "name": "Premier Party Cruises",
-              "url": "https://premierpartycruises.com"
-            },
-            "publisher": {
-              "@type": "Organization",
-              "name": "Premier Party Cruises",
-              "url": "https://premierpartycruises.com",
-              "logo": {
-                "@type": "ImageObject",
-                "url": "https://premierpartycruises.com/media/schema/ppc-logo.png"
-              }
-            },
-            "datePublished": "2024-03-01",
-            "dateModified": "2025-12-09",
-            "mainEntityOfPage": {
-              "@type": "WebPage",
-              "@id": "https://premierpartycruises.com/blogs/austin-bachelor-party-march"
-            }
-          })}
-        </script>
-      </Helmet>
+      <SEOHead 
+        pageRoute="/blogs/austin-bachelor-party-march"
+        defaultTitle="Why Austin is Perfect for Bachelor Parties in March | Premier Party Cruises"
+        defaultDescription="Plan a March Austin bachelor party: 54°F-72°F weather, SXSW Festival energy, Lake Travis boats & complete guide. Rain or shine, Spring Break vibes and epic celebrations!"
+        defaultKeywords={['March bachelor party Austin', 'Austin bachelor party', 'Lake Travis party boat', 'SXSW bachelor party', 'Spring Break Austin', 'Austin nightlife March']}
+        image="https://premierpartycruises.com/attached_assets/@capitalcityshots-9_1760080740019.jpg"
+      />
 
       <PublicNavigation />
 
@@ -133,6 +90,18 @@ export default function AustinBachelorPartyMarch() {
           </div>
         </div>
       </section>
+
+      {/* Topic Cluster Pillar Link */}
+      <div className="bg-blue-50 dark:bg-blue-950/30 border-b border-blue-100 dark:border-blue-900/50">
+        <div className="max-w-4xl mx-auto px-6 py-3">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            This guide is part of our complete{' '}
+            <Link href="/bachelor-party-austin" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Austin bachelor party boats</Link>{' '}
+            resource — your one-stop planning hub for Lake Travis bachelor celebrations.
+          </p>
+        </div>
+      </div>
+
 
       {/* Weather Section */}
       <section className="py-16 bg-white dark:bg-gray-900">

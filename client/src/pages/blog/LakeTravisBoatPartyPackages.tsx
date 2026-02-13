@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { m, LazyMotionProvider, fadeInUp, staggerContainer } from '@/components/LazyMotion';
 import { Link } from 'wouter';
-import * as HelmetAsync from 'react-helmet-async';
-const HelmetAsyncDefault = (HelmetAsync as any).default || HelmetAsync;
-const { Helmet } = HelmetAsyncDefault;
+import SEOHead from '@/components/SEOHead';
 import { 
   Ship, Users, Package, Phone, Clock, CheckCircle2, 
   Gift, Award, Waves, MapPin, Calendar, Star,
@@ -23,15 +21,6 @@ import heroImage from '@assets/@capitalcityshots-6_1760080740018.jpg';
 import sectionImage1 from '@assets/@capitalcityshots-7_1760080740018.jpg';
 import sectionImage2 from '@assets/@capitalcityshots-8_1760080740018.jpg';
 import sectionImage3 from '@assets/@capitalcityshots-9_1760080740019.jpg';
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-};
-
-const staggerChildren = {
-  visible: { transition: { staggerChildren: 0.1 } }
-};
 
 const boatPackages = [
   {
@@ -200,23 +189,21 @@ export default function LakeTravisBoatPartyPackages() {
   }, []);
 
   return (
+    <LazyMotionProvider>
     <>
-      <Helmet>
-        <title>Lake Travis Boat Party Packages - Complete Guide to Options & Pricing | Premier Party Cruises</title>
-        <meta name="description" content="Explore Lake Travis boat party packages starting at $800. Compare party boat Austin options for 14-75 guests. Complete guide to Lake Travis party boat packages with pricing, inclusions, and booking tips. Party boat Lake Travis experts since 2010." />
-        <meta name="keywords" content="Lake Travis boat party packages, party boat Austin, Lake Travis party boat packages, party boat Lake Travis, boat party Austin, Lake Travis boat rental party, Austin party boat rental, Lake Travis boat party pricing" />
-        <link rel="canonical" href="https://premierpartycruises.com/blogs/lake-travis-boat-party-packages-comprehensive-guide-to-options-and-pricing" />
-        <meta property="og:title" content="Lake Travis Boat Party Packages - Complete Guide to Options & Pricing" />
-        <meta property="og:description" content="Compare Lake Travis boat party packages from 14 to 75 guests. Party boat Austin pricing, inclusions, and booking guide from Lake Travis experts." />
-        <meta property="og:type" content="article" />
-        <meta property="og:image" content={heroImage} />
-      </Helmet>
+      <SEOHead 
+        pageRoute="/blogs/lake-travis-boat-party-packages-comprehensive-guide-to-options-and-pricing"
+        defaultTitle="Lake Travis Boat Party Packages - Complete Guide to Options & Pricing | Premier Party Cruises"
+        defaultDescription="Explore Lake Travis boat party packages starting at $800. Compare party boat Austin options for 14-75 guests. Complete guide to Lake Travis party boat packages with pricing, inclusions, and booking tips. Party boat Lake Travis experts since 2010."
+        defaultKeywords={['Lake Travis boat party packages', 'party boat Austin', 'Lake Travis party boat packages', 'party boat Lake Travis', 'boat party Austin', 'Lake Travis boat rental party', 'Austin party boat rental', 'Lake Travis boat party pricing']}
+        image={heroImage}
+      />
 
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="lake-travis-boat-party-packages-page">
         <PublicNavigation />
 
         {/* Hero Section */}
-        <motion.section 
+        <m.section 
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
@@ -265,14 +252,26 @@ export default function LakeTravisBoatPartyPackages() {
               </Button>
             </div>
           </div>
-        </motion.section>
+        </m.section>
+
+      {/* Topic Cluster Pillar Link */}
+      <div className="bg-blue-50 dark:bg-blue-950/30 border-b border-blue-100 dark:border-blue-900/50">
+        <div className="max-w-4xl mx-auto px-6 py-3">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            Explore our full guide to{' '}
+            <Link href="/party-boat-lake-travis" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Lake Travis party boat rentals</Link>{' '}
+            for everything from pricing and logistics to safety and entertainment.
+          </p>
+        </div>
+      </div>
+
 
         {/* Why Premier Stats */}
         <section className="py-12 bg-slate-100 dark:bg-slate-900" data-testid="stats-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {whyPremier.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -283,7 +282,7 @@ export default function LakeTravisBoatPartyPackages() {
                 >
                   <div className="text-3xl md:text-4xl font-bold text-blue-600 dark:text-blue-400">{item.stat}</div>
                   <div className="text-gray-600 dark:text-gray-400 font-medium">{item.label}</div>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -292,7 +291,7 @@ export default function LakeTravisBoatPartyPackages() {
         {/* Boat Packages Section */}
         <section className="py-16 md:py-24 bg-white dark:bg-gray-950" data-testid="packages-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div 
+            <m.div 
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -305,11 +304,11 @@ export default function LakeTravisBoatPartyPackages() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Choose from four party boat Austin options. Each Lake Travis party boat package includes professional captain, sound system, floats, and everything you need for an unforgettable celebration.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 gap-8">
               {boatPackages.map((pkg, index) => (
-                <motion.div
+                <m.div
                   key={pkg.name}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -351,7 +350,7 @@ export default function LakeTravisBoatPartyPackages() {
                       </div>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
 
@@ -373,7 +372,7 @@ export default function LakeTravisBoatPartyPackages() {
         {/* What's Included Section */}
         <section className="py-16 md:py-24 bg-slate-50 dark:bg-slate-900" data-testid="included-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div 
+            <m.div 
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -386,11 +385,11 @@ export default function LakeTravisBoatPartyPackages() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Every Lake Travis boat party package comes loaded with amenities. No hidden fees, no surprises - just pure party boat Lake Travis fun.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {whatIncluded.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -410,7 +409,7 @@ export default function LakeTravisBoatPartyPackages() {
                       </div>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -440,7 +439,7 @@ export default function LakeTravisBoatPartyPackages() {
         {/* Pricing Factors */}
         <section className="py-16 md:py-24 bg-white dark:bg-gray-950" data-testid="pricing-factors-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div 
+            <m.div 
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -453,11 +452,11 @@ export default function LakeTravisBoatPartyPackages() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Understanding pricing factors helps you get the best value on your party boat Lake Travis rental.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {pricingFactors.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -473,7 +472,7 @@ export default function LakeTravisBoatPartyPackages() {
                       <p className="text-gray-600 dark:text-gray-400 text-sm">{item.description}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -483,7 +482,7 @@ export default function LakeTravisBoatPartyPackages() {
         <section className="py-16 md:py-24 bg-slate-50 dark:bg-slate-900" data-testid="event-types-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
@@ -507,8 +506,8 @@ export default function LakeTravisBoatPartyPackages() {
                     </div>
                   ))}
                 </div>
-              </motion.div>
-              <motion.div
+              </m.div>
+              <m.div
                 initial={{ opacity: 0, x: 20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
@@ -518,7 +517,7 @@ export default function LakeTravisBoatPartyPackages() {
                   alt="Lake Travis boat party packages - groups celebrating on party boat Austin" 
                   className="rounded-2xl shadow-xl w-full"
                 />
-              </motion.div>
+              </m.div>
             </div>
           </div>
         </section>
@@ -526,7 +525,7 @@ export default function LakeTravisBoatPartyPackages() {
         {/* Add-On Options */}
         <section className="py-16 md:py-24 bg-white dark:bg-gray-950" data-testid="addons-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div 
+            <m.div 
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -539,11 +538,11 @@ export default function LakeTravisBoatPartyPackages() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Add these popular upgrades to your Lake Travis boat party packages for an even more memorable celebration.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 gap-6">
               {addOnOptions.map((addon, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -559,7 +558,7 @@ export default function LakeTravisBoatPartyPackages() {
                       <p className="text-gray-600 dark:text-gray-400">{addon.description}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -575,7 +574,7 @@ export default function LakeTravisBoatPartyPackages() {
         {/* FAQ Section */}
         <section className="py-16 md:py-24 bg-white dark:bg-gray-950" data-testid="faq-section">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div 
+            <m.div 
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -588,7 +587,7 @@ export default function LakeTravisBoatPartyPackages() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 Everything you need to know about party boat Austin rentals and Lake Travis party boat packages.
               </p>
-            </motion.div>
+            </m.div>
 
             <Accordion type="single" collapsible className="space-y-4">
               {faqs.map((faq, index) => (
@@ -667,5 +666,6 @@ export default function LakeTravisBoatPartyPackages() {
         <Footer />
       </div>
     </>
+    </LazyMotionProvider>
   );
 }

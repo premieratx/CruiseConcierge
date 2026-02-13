@@ -1,6 +1,4 @@
-import * as HelmetAsync from 'react-helmet-async';
-const HelmetAsyncDefault = (HelmetAsync as any).default || HelmetAsync;
-const { Helmet } = HelmetAsyncDefault;
+import SEOHead from '@/components/SEOHead';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Calendar, Phone, Sun, CheckCircle2, Users, Music, Ship, MapPin, Utensils, ThermometerSun, PartyPopper, Star, ChevronRight, Flame, DollarSign, Backpack, Heart, Sparkles } from 'lucide-react';
@@ -18,54 +16,13 @@ import sectionImage3 from '@assets/@capitalcityshots-18_1760073115407.jpg';
 export default function AustinBachelorettePartyAugust() {
   return (
     <div data-page-ready="austin-bachelorette-party-august" className="min-h-screen bg-gradient-to-b from-pink-50 via-white to-orange-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950">
-      <Helmet>
-        <title>Why Austin is Perfect for Bachelorette Parties in August | Premier Party Cruises</title>
-        <meta 
-          name="description" 
-          content="Plan an August Austin bachelorette party: 76°F-98°F hot summer nights, Lake Travis pool parties, and the ultimate girls' weekend guide. Rain or shine, peak season excitement!" 
-        />
-        <meta 
-          name="keywords" 
-          content="August bachelorette party Austin, Austin bachelorette party, Lake Travis party boat, summer bachelorette party, Austin nightlife August, girls trip Austin" 
-        />
-        <link rel="canonical" href="https://premierpartycruises.com/blogs/austin-bachelorette-party-august" />
-        
-        <meta property="og:title" content="Why Austin is Perfect for Bachelorette Parties in August" />
-        <meta property="og:description" content="Plan an August Austin bachelorette party with Lake Travis boats, hot summer nights, and the ultimate bride-to-be celebration." />
-        <meta property="og:type" content="article" />
-        <meta property="og:url" content="https://premierpartycruises.com/blogs/austin-bachelorette-party-august" />
-        <meta property="og:image" content="https://premierpartycruises.com/attached_assets/@capitalcityshots-15_1760073205051.jpg" />
-        
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Article",
-            "headline": "Why Austin is Perfect for Bachelorette Parties in August",
-            "description": "Plan an August Austin bachelorette party: 76°F-98°F hot summer nights, Lake Travis pool parties, and the ultimate girls' weekend guide. Rain or shine!",
-            "image": "https://premierpartycruises.com/attached_assets/@capitalcityshots-15_1760073205051.jpg",
-            "author": {
-              "@type": "Organization",
-              "name": "Premier Party Cruises",
-              "url": "https://premierpartycruises.com"
-            },
-            "publisher": {
-              "@type": "Organization",
-              "name": "Premier Party Cruises",
-              "url": "https://premierpartycruises.com",
-              "logo": {
-                "@type": "ImageObject",
-                "url": "https://premierpartycruises.com/media/schema/ppc-logo.png"
-              }
-            },
-            "datePublished": "2024-08-01",
-            "dateModified": "2025-12-09",
-            "mainEntityOfPage": {
-              "@type": "WebPage",
-              "@id": "https://premierpartycruises.com/blogs/austin-bachelorette-party-august"
-            }
-          })}
-        </script>
-      </Helmet>
+      <SEOHead 
+        pageRoute="/blogs/austin-bachelorette-party-august"
+        defaultTitle="Why Austin is Perfect for Bachelorette Parties in August | Premier Party Cruises"
+        defaultDescription="Plan an August Austin bachelorette party: 76°F-98°F hot summer nights, Lake Travis pool parties, and the ultimate girls' weekend guide. Rain or shine, peak season excitement!"
+        defaultKeywords={['August bachelorette party Austin', 'Austin bachelorette party', 'Lake Travis party boat', 'summer bachelorette party', 'Austin nightlife August', 'girls trip Austin']}
+        image="https://premierpartycruises.com/attached_assets/@capitalcityshots-15_1760073205051.jpg"
+      />
 
       <PublicNavigation />
 
@@ -133,6 +90,18 @@ export default function AustinBachelorettePartyAugust() {
           </div>
         </div>
       </section>
+
+      {/* Topic Cluster Pillar Link */}
+      <div className="bg-blue-50 dark:bg-blue-950/30 border-b border-blue-100 dark:border-blue-900/50">
+        <div className="max-w-4xl mx-auto px-6 py-3">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            This guide is part of our complete{' '}
+            <Link href="/bachelorette-party-austin" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Austin bachelorette party boats</Link>{' '}
+            resource — your ultimate planning hub for Lake Travis bachelorette celebrations.
+          </p>
+        </div>
+      </div>
+
 
       {/* Weather Section */}
       <section className="py-16 bg-white dark:bg-gray-900">

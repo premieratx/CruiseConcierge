@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { m, LazyMotionProvider, fadeInUp, staggerContainer } from '@/components/LazyMotion';
 import { Link } from 'wouter';
-import * as HelmetAsync from 'react-helmet-async';
-const HelmetAsyncDefault = (HelmetAsync as any).default || HelmetAsync;
-const { Helmet } = HelmetAsyncDefault;
+import SEOHead from '@/components/SEOHead';
 import { 
   Ship, Users, Phone, Clock, CheckCircle2, 
   Music, Sun, Waves, MapPin, Calendar, Star,
@@ -23,15 +21,6 @@ import heroImage from '@assets/atx-disco-cruise-party.webp';
 import sectionImage1 from '@assets/day-tripper-14-person-boat.webp';
 import sectionImage2 from '@assets/clever-girl-3-bachelorette-boat.jpg';
 import sectionImage3 from '@assets/clever-girl-50-person-boat.webp';
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-};
-
-const staggerChildren = {
-  visible: { transition: { staggerChildren: 0.1 } }
-};
 
 const eventTypes = [
   {
@@ -188,23 +177,21 @@ export default function IntegratedAustinEventServices() {
   }, []);
 
   return (
+    <LazyMotionProvider>
     <>
-      <Helmet>
-        <title>Integrated Austin Event Services | Lake Travis Boat Rentals & Party Planning</title>
-        <meta name="description" content="Planning an event in Austin? Premier Party Cruises offers seamless Lake Travis boat rentals for bachelor/bachelorette parties, corporate events, weddings, and more. 15+ years experience." />
-        <meta name="keywords" content="Austin event services, Lake Travis party planning, Austin party boat rental, bachelor party Austin, bachelorette party Austin, corporate events Austin, wedding party boat" />
-        <link rel="canonical" href="https://premierpartycruises.com/blogs/integrated-austin-event-services-combining-alcohol-delivery-and-boat-rentals-for-perfect-celebrations" />
-        <meta property="og:title" content="Integrated Austin Event Services | Lake Travis Boat Rentals & Party Planning" />
-        <meta property="og:description" content="Planning an event in Austin? Premier Party Cruises offers seamless Lake Travis boat rentals for all your celebration needs." />
-        <meta property="og:type" content="article" />
-        <meta property="og:image" content="https://premierpartycruises.com/attached_assets/atx-disco-cruise-party.webp" />
-      </Helmet>
+      <SEOHead 
+        pageRoute="/blogs/integrated-austin-event-services-combining-alcohol-delivery-and-boat-rentals-for-perfect-celebrations"
+        defaultTitle="Integrated Austin Event Services | Lake Travis Boat Rentals & Party Planning"
+        defaultDescription="Planning an event in Austin? Premier Party Cruises offers seamless Lake Travis boat rentals for bachelor/bachelorette parties, corporate events, weddings, and more. 15+ years experience."
+        defaultKeywords={['Austin event services', 'Lake Travis party planning', 'Austin party boat rental', 'bachelor party Austin', 'bachelorette party Austin', 'corporate events Austin', 'wedding party boat']}
+        image="https://premierpartycruises.com/attached_assets/atx-disco-cruise-party.webp"
+      />
 
       <div className="min-h-screen bg-white dark:bg-gray-950">
         <PublicNavigation />
 
         {/* Hero Section */}
-        <motion.section 
+        <m.section 
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
@@ -214,6 +201,8 @@ export default function IntegratedAustinEventServices() {
           <div 
             className="absolute inset-0 bg-cover bg-center opacity-40"
             style={{ backgroundImage: `url(${heroImage})` }}
+          role="img"
+          aria-label="Integrated Austin Event Services - Premier Party Cruises Lake Travis"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-transparent to-gray-900/50" />
           
@@ -264,27 +253,39 @@ export default function IntegratedAustinEventServices() {
               </div>
             </div>
           </div>
-        </motion.section>
+        </m.section>
+
+      {/* Topic Cluster Pillar Link */}
+      <div className="bg-blue-50 dark:bg-blue-950/30 border-b border-blue-100 dark:border-blue-900/50">
+        <div className="max-w-4xl mx-auto px-6 py-3">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            Browse our full range of{' '}
+            <Link href="/party-boat-austin" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Austin party boat rentals</Link>{' '}
+            for celebrations of every kind on Lake Travis.
+          </p>
+        </div>
+      </div>
+
 
         {/* Event Types Grid */}
         <section className="py-20 bg-gray-50 dark:bg-gray-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={staggerChildren}
+              variants={staggerContainer}
               className="text-center mb-16"
             >
               <h2 className="text-3xl md:text-4xl font-bold mb-4" data-testid="heading-events">Every Celebration, One Solution</h2>
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 From intimate gatherings to large group celebrations, we've got you covered.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {eventTypes.map((event, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -309,7 +310,7 @@ export default function IntegratedAustinEventServices() {
                       </CardContent>
                     </Card>
                   </Link>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -319,7 +320,7 @@ export default function IntegratedAustinEventServices() {
         <section className="py-20 bg-white dark:bg-gray-950">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <motion.div
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -347,9 +348,9 @@ export default function IntegratedAustinEventServices() {
                     Contact Us Today
                   </Button>
                 </Link>
-              </motion.div>
+              </m.div>
 
-              <motion.div
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -366,7 +367,7 @@ export default function IntegratedAustinEventServices() {
                   <div className="text-3xl font-bold">4+</div>
                   <div className="text-sm">Boats Available</div>
                 </div>
-              </motion.div>
+              </m.div>
             </div>
           </div>
         </section>
@@ -374,22 +375,22 @@ export default function IntegratedAustinEventServices() {
         {/* What's Included */}
         <section className="py-20 bg-gradient-to-br from-brand-blue to-purple-900 text-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={staggerChildren}
+              variants={staggerContainer}
               className="text-center mb-16"
             >
               <h2 className="text-3xl md:text-4xl font-bold mb-4" data-testid="heading-included">What's Included with Every Cruise</h2>
               <p className="text-lg text-white/80 max-w-3xl mx-auto">
                 No hidden fees. No surprises. Everything you need for an amazing day on the water.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-3 lg:grid-cols-6 gap-6">
               {whatsIncluded.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -402,7 +403,7 @@ export default function IntegratedAustinEventServices() {
                   </div>
                   <h3 className="font-bold mb-1">{item.title}</h3>
                   <p className="text-white/70 text-sm">{item.description}</p>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -411,22 +412,22 @@ export default function IntegratedAustinEventServices() {
         {/* Cruise Options */}
         <section className="py-20 bg-gray-50 dark:bg-gray-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={staggerChildren}
+              variants={staggerContainer}
               className="text-center mb-16"
             >
               <h2 className="text-3xl md:text-4xl font-bold mb-4" data-testid="heading-options">Choose Your Experience</h2>
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Two ways to party on Lake Travis – pick the one that fits your style.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
               {cruiseOptions.map((option, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -456,7 +457,7 @@ export default function IntegratedAustinEventServices() {
                       </Link>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -465,21 +466,21 @@ export default function IntegratedAustinEventServices() {
         {/* Image Gallery Section */}
         <section className="py-20 bg-white dark:bg-gray-950">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={staggerChildren}
+              variants={staggerContainer}
               className="text-center mb-12"
             >
               <h2 className="text-3xl md:text-4xl font-bold mb-4" data-testid="heading-gallery">See Our Fleet in Action</h2>
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Real celebrations. Real memories. Your event could be next.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              <motion.div
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -497,9 +498,9 @@ export default function IntegratedAustinEventServices() {
                   <h3 className="font-bold text-lg">Bachelorette Parties</h3>
                   <p className="text-white/80 text-sm">Dancing, sun, and sisterhood</p>
                 </div>
-              </motion.div>
+              </m.div>
 
-              <motion.div
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -517,9 +518,9 @@ export default function IntegratedAustinEventServices() {
                   <h3 className="font-bold text-lg">Private Cruises</h3>
                   <p className="text-white/80 text-sm">Your boat, your rules</p>
                 </div>
-              </motion.div>
+              </m.div>
 
-              <motion.div
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -537,7 +538,7 @@ export default function IntegratedAustinEventServices() {
                   <h3 className="font-bold text-lg">Large Groups</h3>
                   <p className="text-white/80 text-sm">Up to 75 guests</p>
                 </div>
-              </motion.div>
+              </m.div>
             </div>
           </div>
         </section>
@@ -545,22 +546,22 @@ export default function IntegratedAustinEventServices() {
         {/* FAQs */}
         <section className="py-20 bg-gray-50 dark:bg-gray-900">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={staggerChildren}
+              variants={staggerContainer}
               className="text-center mb-12"
             >
               <h2 className="text-3xl md:text-4xl font-bold mb-4" data-testid="heading-faq">Frequently Asked Questions</h2>
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 Everything you need to know about planning your Austin event.
               </p>
-            </motion.div>
+            </m.div>
 
             <Accordion type="single" collapsible className="w-full">
               {faqs.map((faq, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -575,7 +576,7 @@ export default function IntegratedAustinEventServices() {
                       {faq.answer}
                     </AccordionContent>
                   </AccordionItem>
-                </motion.div>
+                </m.div>
               ))}
             </Accordion>
           </div>
@@ -584,7 +585,7 @@ export default function IntegratedAustinEventServices() {
         {/* Final CTA */}
         <section className="py-20 bg-gradient-to-br from-brand-blue via-purple-700 to-brand-blue text-white">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -627,7 +628,7 @@ export default function IntegratedAustinEventServices() {
                   <span>Best price guarantee</span>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
@@ -635,5 +636,6 @@ export default function IntegratedAustinEventServices() {
         <Footer />
       </div>
     </>
+    </LazyMotionProvider>
   );
 }

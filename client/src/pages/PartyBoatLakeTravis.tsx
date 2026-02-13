@@ -230,8 +230,8 @@ export default function PartyBoatLakeTravis() {
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white" data-page-ready="party-boat-lake-travis">
       <SEOHead
         pageRoute="/party-boat-lake-travis"
-        defaultTitle="Party Boat Lake Travis | Austin Cruises"
-        defaultDescription="Premier Lake Travis party boats. Crystal clear water, 270 miles of shoreline. ATX Disco & private charters. 150K+ happy guests!"
+        defaultTitle="Party Boat Lake Travis | Lake Travis Boat Rental for Parties & Events"
+        defaultDescription="Premier Lake Travis party boats on crystal clear water with 270 miles of shoreline. ATX Disco Cruise & private charters for 14-75 guests. BYOB. 150K+ happy guests!"
         defaultKeywords={['party boat Lake Travis', 'Lake Travis party boat', 'Lake Travis boat rental', 'party boat rental Lake Travis', 'Lake Travis party cruise']}
       />
 

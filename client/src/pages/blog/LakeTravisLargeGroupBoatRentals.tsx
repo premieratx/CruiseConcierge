@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { m, LazyMotionProvider, fadeInUp, staggerContainer } from '@/components/LazyMotion';
 import { Link } from 'wouter';
-import * as HelmetAsync from 'react-helmet-async';
-const HelmetAsyncDefault = (HelmetAsync as any).default || HelmetAsync;
-const { Helmet } = HelmetAsyncDefault;
+import SEOHead from '@/components/SEOHead';
 import { 
   Ship, Users, PartyPopper, Phone, Clock, CheckCircle2, 
   DollarSign, Calendar, Star, Anchor, MapPin, ArrowRight,
@@ -20,15 +18,6 @@ import heroImage from '@assets/@capitalcityshots-32_1760080807868.jpg';
 import sectionImage1 from '@assets/@capitalcityshots-33_1760080807868.jpg';
 import sectionImage2 from '@assets/@capitalcityshots-34_1760080807868.jpg';
 import sectionImage3 from '@assets/@capitalcityshots-35_1760080807868.jpg';
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-};
-
-const staggerChildren = {
-  visible: { transition: { staggerChildren: 0.1 } }
-};
 
 const keyBenefits = [
   { 
@@ -177,23 +166,21 @@ export default function LakeTravisLargeGroupBoatRentals() {
   }, []);
 
   return (
+    <LazyMotionProvider>
     <>
-      <Helmet>
-        <title>Lake Travis Party Boat Rentals for Large Groups (20+ Guests) | Ultimate Guide</title>
-        <meta name="description" content="Plan the perfect large group boat party on Lake Travis. Boats for 20-75 guests with private charters, group pricing, and expert crews. Book your Austin celebration today." />
-        <meta name="keywords" content="Lake Travis party boat, large group boat rental, Austin party boat 20 guests, Lake Travis charter, group boat party Austin" />
-        <link rel="canonical" href="https://premierpartycruises.com/blogs/lake-travis-party-boat-rentals-ultimate-guide-for-large-group-events-20-guests" />
-        <meta property="og:title" content="Lake Travis Party Boat Rentals for Large Groups (20+ Guests)" />
-        <meta property="og:description" content="The ultimate guide to planning large group boat parties on Lake Travis. Boats for 20-75 guests with private charters." />
-        <meta property="og:type" content="article" />
-        <meta property="og:image" content={heroImage} />
-      </Helmet>
+      <SEOHead 
+        pageRoute="/blogs/lake-travis-party-boat-rentals-ultimate-guide-for-large-group-events-20-guests"
+        defaultTitle="Lake Travis Party Boat Rentals for Large Groups (20+ Guests) | Ultimate Guide"
+        defaultDescription="Plan the perfect large group boat party on Lake Travis. Boats for 20-75 guests with private charters, group pricing, and expert crews. Book your Austin celebration today."
+        defaultKeywords={['Lake Travis party boat', 'large group boat rental', 'Austin party boat 20 guests', 'Lake Travis charter', 'group boat party Austin']}
+        image={heroImage}
+      />
 
       <div className="min-h-screen bg-white dark:bg-gray-950">
         <PublicNavigation />
 
         {/* Hero Section */}
-        <motion.section 
+        <m.section 
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
@@ -203,6 +190,8 @@ export default function LakeTravisLargeGroupBoatRentals() {
           <div 
             className="absolute inset-0 bg-cover bg-center opacity-30"
             style={{ backgroundImage: `url(${heroImage})` }}
+          role="img"
+          aria-label="Lake Travis Party Boat Rentals for Large Groups (20+ Guests) - Premier Party Cruises Lake Travis"
           />
           
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 text-center">
@@ -234,27 +223,39 @@ export default function LakeTravisLargeGroupBoatRentals() {
               </Link>
             </div>
           </div>
-        </motion.section>
+        </m.section>
+
+      {/* Topic Cluster Pillar Link */}
+      <div className="bg-blue-50 dark:bg-blue-950/30 border-b border-blue-100 dark:border-blue-900/50">
+        <div className="max-w-4xl mx-auto px-6 py-3">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            Explore our full guide to{' '}
+            <Link href="/party-boat-lake-travis" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Lake Travis party boat rentals</Link>{' '}
+            for everything from pricing and logistics to safety and entertainment.
+          </p>
+        </div>
+      </div>
+
 
         {/* Key Benefits Grid */}
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={staggerChildren}
+              variants={staggerContainer}
               className="text-center mb-12"
             >
               <h2 className="text-3xl font-bold mb-4">Why Large Groups Choose Premier Party Cruises</h2>
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 We specialize in big group celebrations. Here's what makes us different.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {keyBenefits.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -270,7 +271,7 @@ export default function LakeTravisLargeGroupBoatRentals() {
                       <p className="text-gray-600 dark:text-gray-400 text-sm">{item.description}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -279,7 +280,7 @@ export default function LakeTravisLargeGroupBoatRentals() {
         {/* Fleet Options Section */}
         <section className="py-16 bg-gradient-to-br from-blue-50 to-teal-50 dark:from-gray-800 dark:to-gray-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -333,14 +334,14 @@ export default function LakeTravisLargeGroupBoatRentals() {
                   </Button>
                 </Link>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Large Group Photo Section */}
         <section className="py-16 bg-gradient-to-br from-blue-900 via-teal-800 to-blue-900 text-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -376,14 +377,14 @@ export default function LakeTravisLargeGroupBoatRentals() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Planning Tips Section */}
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -435,14 +436,14 @@ export default function LakeTravisLargeGroupBoatRentals() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Pricing Breakdown Section */}
         <section className="py-16 bg-gradient-to-br from-teal-50 to-blue-50 dark:from-gray-800 dark:to-gray-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -494,14 +495,14 @@ export default function LakeTravisLargeGroupBoatRentals() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* What's Included Section */}
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -512,7 +513,7 @@ export default function LakeTravisLargeGroupBoatRentals() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Everything you need for an amazing day on the lake
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-3 lg:grid-cols-6 gap-4">
               {[
@@ -523,7 +524,7 @@ export default function LakeTravisLargeGroupBoatRentals() {
                 { icon: Sun, text: 'Shade Cover' },
                 { icon: Shield, text: 'Safety Gear' }
               ].map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -538,7 +539,7 @@ export default function LakeTravisLargeGroupBoatRentals() {
                       <p className="font-medium text-sm">{item.text}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -547,7 +548,7 @@ export default function LakeTravisLargeGroupBoatRentals() {
         {/* FAQ Section */}
         <section className="py-16 bg-gray-50 dark:bg-gray-800">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -558,7 +559,7 @@ export default function LakeTravisLargeGroupBoatRentals() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 Common questions about booking party boats for 20+ guests
               </p>
-            </motion.div>
+            </m.div>
 
             <Accordion type="single" collapsible className="space-y-4">
               {faqs.map((faq, index) => (
@@ -582,7 +583,7 @@ export default function LakeTravisLargeGroupBoatRentals() {
         {/* CTA Section */}
         <section className="py-16 bg-gradient-to-br from-blue-700 via-teal-600 to-blue-800 text-white">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -613,12 +614,13 @@ export default function LakeTravisLargeGroupBoatRentals() {
               <p className="mt-6 text-white/70 text-sm">
                 Serving Austin & Lake Travis since 2018 | 500+ large group events hosted
               </p>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         <Footer />
       </div>
     </>
+    </LazyMotionProvider>
   );
 }

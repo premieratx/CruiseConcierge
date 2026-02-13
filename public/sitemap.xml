@@ -858,24 +858,7 @@
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
-  <url>
-    <loc>https://premierpartycruises.com/party-boat-rental-austin</loc>
-    <lastmod>2026-01-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://premierpartycruises.com/lake-travis-yacht-rental</loc>
-    <lastmod>2026-01-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://premierpartycruises.com/austin-boat-party</loc>
-    <lastmod>2026-01-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
+  <!-- Removed: /party-boat-rental-austin, /lake-travis-yacht-rental, /austin-boat-party (301 redirected to pillar pages) -->
   <url>
     <loc>https://premierpartycruises.com/celebration-cruises</loc>
     <lastmod>2026-01-15</lastmod>
@@ -1047,6 +1030,18 @@
   <url>
     <loc>https://premierpartycruises.com/blogs/why-licensed-captains-matter-lake-travis-party-boats</loc>
     <lastmod>2026-02-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://premierpartycruises.com/blogs/all-inclusive-corporate-packages</loc>
+    <lastmod>2026-02-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://premierpartycruises.com/blogs/rehearsal-dinner-boat-alcohol-delivery-unique-wedding-weekend-experiences</loc>
+    <lastmod>2026-02-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

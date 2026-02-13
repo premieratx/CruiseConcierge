@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { m, LazyMotionProvider, fadeInUp, staggerContainer } from '@/components/LazyMotion';
 import { Link } from 'wouter';
-import * as HelmetAsync from 'react-helmet-async';
-const HelmetAsyncDefault = (HelmetAsync as any).default || HelmetAsync;
-const { Helmet } = HelmetAsyncDefault;
+import SEOHead from '@/components/SEOHead';
 import { 
   Ship, Users, Wine, Phone, Clock, CheckCircle2, 
   MapPin, Calendar, Star, ArrowRight, Building2, 
@@ -23,15 +21,6 @@ import heroImage from '@assets/@capitalcityshots-33_1760080807868.jpg';
 import sectionImage1 from '@assets/@capitalcityshots-34_1760080807868.jpg';
 import sectionImage2 from '@assets/@capitalcityshots-35_1760080807868.jpg';
 import sectionImage3 from '@assets/@capitalcityshots-36_1760080807868.jpg';
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-};
-
-const staggerChildren = {
-  visible: { transition: { staggerChildren: 0.1 } }
-};
 
 const teamBuildingBenefits = [
   {
@@ -229,23 +218,21 @@ export default function CorporateTeamBuildingAlcohol() {
   }, []);
 
   return (
+    <LazyMotionProvider>
     <>
-      <Helmet>
-        <title>Corporate Team Building on Lake Travis - Alcohol Coordination for Professional Events | Premier Party Cruises</title>
-        <meta name="description" content="Expert corporate team building Lake Travis alcohol coordination for professional events. Learn Lake Travis corporate event alcohol logistics, team event beverage planning Lake Travis, and professional event drinks coordination strategies." />
-        <meta name="keywords" content="corporate team building Lake Travis alcohol coordination, Lake Travis corporate event alcohol logistics, team event beverage planning Lake Travis, professional event drinks coordination, corporate party Lake Travis, team building Austin, company event alcohol management" />
-        <link rel="canonical" href="https://premierpartycruises.com/blogs/corporate-team-building-on-lake-travis-alcohol-coordination-for-professional-events" />
-        <meta property="og:title" content="Corporate Team Building on Lake Travis - Alcohol Coordination for Professional Events" />
-        <meta property="og:description" content="Expert corporate team building Lake Travis alcohol coordination. Lake Travis corporate event alcohol logistics and team event beverage planning for professional events." />
-        <meta property="og:type" content="article" />
-        <meta property="og:image" content={heroImage} />
-      </Helmet>
+      <SEOHead 
+        pageRoute="/blogs/corporate-team-building-on-lake-travis-alcohol-coordination-for-professional-events"
+        defaultTitle="Corporate Team Building on Lake Travis - Alcohol Coordination for Professional Events | Premier Party Cruises"
+        defaultDescription="Expert corporate team building Lake Travis alcohol coordination for professional events. Learn Lake Travis corporate event alcohol logistics, team event beverage planning Lake Travis, and professional event drinks coordination strategies."
+        defaultKeywords={['corporate team building Lake Travis alcohol coordination', 'Lake Travis corporate event alcohol logistics', 'team event beverage planning Lake Travis', 'professional event drinks coordination', 'corporate party Lake Travis', 'team building Austin', 'company event alcohol management']}
+        image={heroImage}
+      />
 
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="corporate-team-building-alcohol-page">
         <PublicNavigation />
 
         {/* Hero Section */}
-        <motion.section 
+        <m.section 
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
@@ -294,14 +281,26 @@ export default function CorporateTeamBuildingAlcohol() {
               </Button>
             </div>
           </div>
-        </motion.section>
+        </m.section>
+
+      {/* Topic Cluster Pillar Link */}
+      <div className="bg-blue-50 dark:bg-blue-950/30 border-b border-blue-100 dark:border-blue-900/50">
+        <div className="max-w-4xl mx-auto px-6 py-3">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            See our complete guide to{' '}
+            <Link href="/corporate-events" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Austin corporate event boats</Link>{' '}
+            for team building, client entertainment, and company celebrations on Lake Travis.
+          </p>
+        </div>
+      </div>
+
 
         {/* Stats Section */}
         <section className="py-12 bg-slate-100 dark:bg-slate-900" data-testid="stats-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {whyPremier.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -312,7 +311,7 @@ export default function CorporateTeamBuildingAlcohol() {
                 >
                   <div className="text-3xl md:text-4xl font-bold text-indigo-600 dark:text-indigo-400">{item.stat}</div>
                   <div className="text-gray-600 dark:text-gray-400 font-medium">{item.label}</div>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -321,7 +320,7 @@ export default function CorporateTeamBuildingAlcohol() {
         {/* Benefits Section */}
         <section className="py-16 md:py-24 bg-white dark:bg-gray-950" data-testid="benefits-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div 
+            <m.div 
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -334,11 +333,11 @@ export default function CorporateTeamBuildingAlcohol() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Lake Travis corporate event alcohol logistics naturally support responsible team events. The unique setting provides structure that makes professional event drinks coordination easier.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {teamBuildingBenefits.map((benefit, index) => (
-                <motion.div
+                <m.div
                   key={benefit.title}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -357,7 +356,7 @@ export default function CorporateTeamBuildingAlcohol() {
                       <p className="text-sm font-medium text-indigo-600 dark:text-indigo-400">{benefit.benefit}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -366,7 +365,7 @@ export default function CorporateTeamBuildingAlcohol() {
         {/* Coordination Tips Section */}
         <section className="py-16 bg-gradient-to-r from-indigo-50 to-blue-50 dark:from-gray-900 dark:to-gray-800" data-testid="tips-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div 
+            <m.div 
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -380,11 +379,11 @@ export default function CorporateTeamBuildingAlcohol() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Successful corporate team building Lake Travis alcohol coordination follows a clear timeline. Here's how to manage professional event drinks coordination before, during, and after your cruise.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid lg:grid-cols-3 gap-8">
               {alcoholCoordinationTips.map((section, index) => (
-                <motion.div
+                <m.div
                   key={section.title}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -411,7 +410,7 @@ export default function CorporateTeamBuildingAlcohol() {
                       </ul>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -420,7 +419,7 @@ export default function CorporateTeamBuildingAlcohol() {
         {/* Event Types Section */}
         <section className="py-16 md:py-24 bg-white dark:bg-gray-950" data-testid="event-types-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div 
+            <m.div 
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -433,11 +432,11 @@ export default function CorporateTeamBuildingAlcohol() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Different corporate events require different approaches to professional event drinks coordination. Here's how to tailor your corporate team building Lake Travis alcohol coordination.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 gap-6">
               {eventTypes.map((event, index) => (
-                <motion.div
+                <m.div
                   key={event.type}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -463,7 +462,7 @@ export default function CorporateTeamBuildingAlcohol() {
                       </div>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -473,7 +472,7 @@ export default function CorporateTeamBuildingAlcohol() {
         <section className="py-16 bg-gradient-to-r from-slate-50 to-indigo-50 dark:from-gray-900 dark:to-gray-800" data-testid="policy-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
@@ -496,8 +495,8 @@ export default function CorporateTeamBuildingAlcohol() {
                     </div>
                   ))}
                 </div>
-              </motion.div>
-              <motion.div
+              </m.div>
+              <m.div
                 initial={{ opacity: 0, x: 20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
@@ -507,7 +506,7 @@ export default function CorporateTeamBuildingAlcohol() {
                   alt="Corporate team building Lake Travis alcohol coordination on boat cruise" 
                   className="rounded-2xl shadow-xl w-full"
                 />
-              </motion.div>
+              </m.div>
             </div>
           </div>
         </section>
@@ -515,7 +514,7 @@ export default function CorporateTeamBuildingAlcohol() {
         {/* Boat Options */}
         <section className="py-16 bg-gradient-to-br from-indigo-900 via-blue-800 to-slate-900 text-white" data-testid="boat-options-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div 
+            <m.div 
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -529,11 +528,11 @@ export default function CorporateTeamBuildingAlcohol() {
               <p className="text-lg text-gray-300 max-w-3xl mx-auto">
                 Each boat offers unique advantages for Lake Travis corporate event alcohol logistics. All feature BYOB-friendly policies and team event beverage planning Lake Travis support.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {boatOptions.map((boat, index) => (
-                <motion.div
+                <m.div
                   key={boat.name}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -551,7 +550,7 @@ export default function CorporateTeamBuildingAlcohol() {
                       <p className="text-xs text-gray-400 italic">{boat.alcoholNote}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
 
@@ -574,7 +573,7 @@ export default function CorporateTeamBuildingAlcohol() {
         {/* FAQ Section */}
         <section className="py-16 md:py-24 bg-gray-50 dark:bg-gray-900" data-testid="faq-section">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div 
+            <m.div 
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -587,7 +586,7 @@ export default function CorporateTeamBuildingAlcohol() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 Common questions about Lake Travis corporate event alcohol logistics and professional event drinks coordination.
               </p>
-            </motion.div>
+            </m.div>
 
             <Accordion type="single" collapsible className="space-y-4">
               {faqs.map((faq, index) => (
@@ -612,7 +611,7 @@ export default function CorporateTeamBuildingAlcohol() {
         {/* Internal Links Section */}
         <section className="py-16 bg-white dark:bg-gray-950" data-testid="internal-links-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div 
+            <m.div 
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -625,11 +624,11 @@ export default function CorporateTeamBuildingAlcohol() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 From team building to client entertainment, we help coordinate Lake Travis corporate event alcohol logistics for every occasion.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
               {internalLinks.map((link, index) => (
-                <motion.div
+                <m.div
                   key={link.href}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -644,7 +643,7 @@ export default function CorporateTeamBuildingAlcohol() {
                       </CardContent>
                     </Card>
                   </Link>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -687,5 +686,6 @@ export default function CorporateTeamBuildingAlcohol() {
         <Footer />
       </div>
     </>
+    </LazyMotionProvider>
   );
 }

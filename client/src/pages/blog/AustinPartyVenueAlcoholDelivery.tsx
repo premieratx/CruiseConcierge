@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { m, LazyMotionProvider, fadeInUp, staggerContainer } from '@/components/LazyMotion';
 import { Link } from 'wouter';
-import * as HelmetAsync from 'react-helmet-async';
-const HelmetAsyncDefault = (HelmetAsync as any).default || HelmetAsync;
-const { Helmet } = HelmetAsyncDefault;
+import SEOHead from '@/components/SEOHead';
 import { 
   Ship, Phone, CheckCircle2, Wine, ArrowRight, MapPin, 
   Shield, Truck, Building2, Clock, FileCheck, Users,
@@ -20,15 +18,6 @@ import heroImage from '@assets/atx-disco-cruise-party.webp';
 import sectionImage1 from '@assets/@capitalcityshots-1_1760080740012.jpg';
 import sectionImage2 from '@assets/@capitalcityshots-2_1760080740017.jpg';
 import galleryImage from '@assets/@capitalcityshots-3_1760080740017.jpg';
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-};
-
-const staggerChildren = {
-  visible: { transition: { staggerChildren: 0.1 } }
-};
 
 const keyBenefits = [
   { 
@@ -147,22 +136,20 @@ export default function AustinPartyVenueAlcoholDelivery() {
   }, []);
 
   return (
+    <LazyMotionProvider>
     <>
-      <Helmet>
-        <title>Austin Party Venue Alcohol Delivery | TABC Policies & Logistics Guide</title>
-        <meta name="description" content="Navigate Austin's alcohol delivery rules with ease. Learn TABC compliance, venue coordination, and Lake Travis delivery options. Party On Delivery makes it simple." />
-        <meta name="keywords" content="Austin alcohol delivery, TABC compliance, party venue alcohol, Lake Travis alcohol delivery, Austin party planning" />
-        <link rel="canonical" href="https://premierpartycruises.com/blogs/austin-party-venue-alcohol-delivery-navigating-policies-and-logistics" />
-        <meta property="og:title" content="Austin Party Venue Alcohol Delivery | TABC Policies & Logistics Guide" />
-        <meta property="og:description" content="Navigate Austin's alcohol delivery rules with ease. TABC compliance, venue coordination, and Lake Travis delivery made simple." />
-        <meta property="og:type" content="article" />
-      </Helmet>
+      <SEOHead 
+        pageRoute="/blogs/austin-party-venue-alcohol-delivery-navigating-policies-and-logistics"
+        defaultTitle="Austin Party Venue Alcohol Delivery | TABC Policies & Logistics Guide"
+        defaultDescription="Navigate Austin's alcohol delivery rules with ease. Learn TABC compliance, venue coordination, and Lake Travis delivery options. Party On Delivery makes it simple."
+        defaultKeywords={['Austin alcohol delivery', 'TABC compliance', 'party venue alcohol', 'Lake Travis alcohol delivery', 'Austin party planning']}
+      />
 
       <div className="min-h-screen bg-white dark:bg-gray-950">
         <PublicNavigation />
 
         {/* Hero Section */}
-        <motion.section 
+        <m.section 
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
@@ -203,27 +190,39 @@ export default function AustinPartyVenueAlcoholDelivery() {
               </Link>
             </div>
           </div>
-        </motion.section>
+        </m.section>
+
+      {/* Topic Cluster Pillar Link */}
+      <div className="bg-blue-50 dark:bg-blue-950/30 border-b border-blue-100 dark:border-blue-900/50">
+        <div className="max-w-4xl mx-auto px-6 py-3">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            Browse our full range of{' '}
+            <Link href="/party-boat-austin" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Austin party boat rentals</Link>{' '}
+            for celebrations of every kind on Lake Travis.
+          </p>
+        </div>
+      </div>
+
 
         {/* Key Benefits Grid */}
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={staggerChildren}
+              variants={staggerContainer}
               className="text-center mb-12"
             >
               <h2 className="text-3xl font-bold mb-4">Why Use a Delivery Service?</h2>
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Skip the liquor store lines. Let us handle the heavy lifting. With Party On Delivery, you get professional alcohol delivery directly to your Austin venue, hotel, or Lake Travis marina. Our TABC-licensed service ensures everything stays legal and stress-free, so you can focus on celebrating instead of running errands.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {keyBenefits.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -239,7 +238,7 @@ export default function AustinPartyVenueAlcoholDelivery() {
                       <p className="text-gray-600 dark:text-gray-400 text-sm">{item.description}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -248,7 +247,7 @@ export default function AustinPartyVenueAlcoholDelivery() {
         {/* TABC Regulations Section */}
         <section className="py-16 bg-gradient-to-br from-green-50 to-blue-50 dark:from-gray-800 dark:to-gray-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -301,14 +300,14 @@ export default function AustinPartyVenueAlcoholDelivery() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Venue Coordination Section */}
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -319,11 +318,11 @@ export default function AustinPartyVenueAlcoholDelivery() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 From lake marinas to downtown hotels, we've got you covered
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-3 gap-6">
               {venueTypes.map((venue, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -348,7 +347,7 @@ export default function AustinPartyVenueAlcoholDelivery() {
                       </ul>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -357,7 +356,7 @@ export default function AustinPartyVenueAlcoholDelivery() {
         {/* Lake Travis Integration Section */}
         <section className="py-16 bg-gradient-to-br from-blue-900 via-blue-800 to-cyan-900 text-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -407,14 +406,14 @@ export default function AustinPartyVenueAlcoholDelivery() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Photo Gallery */}
         <section className="py-16 bg-gray-50 dark:bg-gray-800">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -425,7 +424,7 @@ export default function AustinPartyVenueAlcoholDelivery() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 Real celebrations on Lake Travis with Party On Delivery
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 gap-6">
               <div className="aspect-video rounded-2xl overflow-hidden shadow-lg">
@@ -449,7 +448,7 @@ export default function AustinPartyVenueAlcoholDelivery() {
         {/* FAQ Section */}
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -460,7 +459,7 @@ export default function AustinPartyVenueAlcoholDelivery() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 Quick answers about Austin alcohol delivery
               </p>
-            </motion.div>
+            </m.div>
 
             <Accordion type="single" collapsible className="space-y-4">
               {faqs.map((faq, index) => (
@@ -484,7 +483,7 @@ export default function AustinPartyVenueAlcoholDelivery() {
         {/* CTA Section */}
         <section className="py-16 bg-gradient-to-br from-blue-700 via-blue-600 to-cyan-600 text-white">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -535,12 +534,13 @@ export default function AustinPartyVenueAlcoholDelivery() {
                   </CardContent>
                 </Card>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         <Footer />
       </div>
     </>
+    </LazyMotionProvider>
   );
 }

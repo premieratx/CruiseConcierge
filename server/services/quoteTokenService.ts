@@ -31,11 +31,16 @@ export class QuoteTokenService {
     this.secret = process.env.QUOTE_TOKEN_SECRET;
     
     if (!this.secret) {
-      const error = 'CRITICAL SECURITY ERROR: QUOTE_TOKEN_SECRET environment variable not set. This is required for secure token generation.';
-      console.error('🚨', error);
-      console.error('💡 Set QUOTE_TOKEN_SECRET environment variable to a secure 32-byte hex string');
-      console.error('   Example: export QUOTE_TOKEN_SECRET="3a291fc3dd81fdea8989406574ed05a6f29240a7a31525fd91d5ab8fda7cc090"');
-      throw new Error(error);
+      if (process.env.NODE_ENV === 'development') {
+        this.secret = 'dev-only-insecure-token-secret-do-not-use-in-production';
+        console.log('⚠️ Using dev-only QUOTE_TOKEN_SECRET (not for production)');
+      } else {
+        const error = 'CRITICAL SECURITY ERROR: QUOTE_TOKEN_SECRET environment variable not set. This is required for secure token generation.';
+        console.error('🚨', error);
+        console.error('💡 Set QUOTE_TOKEN_SECRET environment variable to a secure 32-byte hex string');
+        console.error('   Example: export QUOTE_TOKEN_SECRET="3a291fc3dd81fdea8989406574ed05a6f29240a7a31525fd91d5ab8fda7cc090"');
+        throw new Error(error);
+      }
     }
     
     console.log('🔐 QUOTE_TOKEN_SECRET configured securely from environment');

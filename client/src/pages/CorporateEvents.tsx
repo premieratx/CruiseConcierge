@@ -424,8 +424,8 @@ export default function CorporateEvents() {
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white" data-page-ready="corporate-events">
       <SEOHead 
         pageRoute="/corporate-events"
-        defaultTitle="Corporate Event Venue Austin | Lake Travis Team Building"
-        defaultDescription="Corporate event venue Austin on Lake Travis. Team building cruises starting at $195/hr. Boat rentals for 14-75 guests. Impress clients on the water!"
+        defaultTitle="Corporate Event Boat Austin | Lake Travis Team Building & Client Entertainment"
+        defaultDescription="Corporate event boats in Austin on Lake Travis. Team building cruises starting at $200/hr. Boat rentals for 14-75 guests. Tax-deductible. Impress clients on the water!"
         defaultKeywords={[
           'corporate cruise austin',
           'team building lake travis',
@@ -464,7 +464,7 @@ export default function CorporateEvents() {
           
           {/* CRITICAL: H1 with text-6xl and heading-unbounded - Largest text on page */}
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl heading-unbounded font-extrabold mb-6 tracking-tight text-gray-900 drop-shadow-sm" data-editable data-editable-id="h1-corporate-hero">
-            Corporate Event Venue Austin | Lake Travis Team Building & Corporate Events
+            Austin Corporate Event Boats: Lake Travis Team Building & Client Entertainment
           </h1>
           
           <p className="text-xl sm:text-2xl md:text-3xl text-gray-900 mb-6 md:mb-8 font-bold drop-shadow-sm max-w-3xl mx-auto leading-relaxed" data-editable data-editable-id="corporate-hero-tagline">

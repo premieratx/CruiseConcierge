@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { m, LazyMotionProvider, fadeInUp, staggerContainer } from '@/components/LazyMotion';
 import { Link } from 'wouter';
-import * as HelmetAsync from 'react-helmet-async';
-const HelmetAsyncDefault = (HelmetAsync as any).default || HelmetAsync;
-const { Helmet } = HelmetAsyncDefault;
+import SEOHead from '@/components/SEOHead';
 import { 
   Star, Users, MessageSquare, Phone, Clock, CheckCircle2, 
   Heart, Award, Waves, MapPin, Calendar, ThumbsUp,
@@ -21,15 +19,6 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import heroImage from '@assets/@capitalcityshots-21_1760080807864.jpg';
 import sectionImage1 from '@assets/@capitalcityshots-22_1760080807865.jpg';
 import sectionImage2 from '@assets/@capitalcityshots-23_1760080807865.jpg';
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-};
-
-const staggerChildren = {
-  visible: { transition: { staggerChildren: 0.1 } }
-};
 
 const reviewStats = [
   { stat: '14+', label: 'Years in Business' },
@@ -216,23 +205,21 @@ export default function LakeTravisBoatPartyReviews() {
   }, []);
 
   return (
+    <LazyMotionProvider>
     <>
-      <Helmet>
-        <title>Lake Travis Boat Party Reviews - Real Customer Experiences & Testimonials | Premier Party Cruises</title>
-        <meta name="description" content="Read real Lake Travis boat party reviews and customer testimonials. 125,000+ happy guests, 5-star Google rating. Authentic party boat customer testimonials and Austin boat party testimonials from bachelor parties, bachelorettes, and corporate events." />
-        <meta name="keywords" content="Lake Travis boat party reviews, party boat customer testimonials, Lake Travis boat rental reviews, Austin boat party testimonials, premier party cruise experience, party boat reviews Austin, Lake Travis charter reviews" />
-        <link rel="canonical" href="https://premierpartycruises.com/blogs/lake-travis-boat-party-reviews-real-customer-experiences-and-testimonials" />
-        <meta property="og:title" content="Lake Travis Boat Party Reviews - Real Customer Experiences & Testimonials" />
-        <meta property="og:description" content="Read authentic reviews from 125,000+ happy guests. 5-star rated Lake Travis boat party experiences for bachelor, bachelorette, and corporate events." />
-        <meta property="og:type" content="article" />
-        <meta property="og:image" content={heroImage} />
-      </Helmet>
+      <SEOHead 
+        pageRoute="/blogs/lake-travis-boat-party-reviews-real-customer-experiences-and-testimonials"
+        defaultTitle="Lake Travis Boat Party Reviews - Real Customer Experiences & Testimonials | Premier Party Cruises"
+        defaultDescription="Read real Lake Travis boat party reviews and customer testimonials. 125,000+ happy guests, 5-star Google rating. Authentic party boat customer testimonials and Austin boat party testimonials from bachelor parties, bachelorettes, and corporate events."
+        defaultKeywords={['Lake Travis boat party reviews', 'party boat customer testimonials', 'Lake Travis boat rental reviews', 'Austin boat party testimonials', 'premier party cruise experience', 'party boat reviews Austin', 'Lake Travis charter reviews']}
+        image={heroImage}
+      />
 
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="lake-travis-boat-party-reviews-page">
         <PublicNavigation />
 
         {/* Hero Section */}
-        <motion.section 
+        <m.section 
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
@@ -282,14 +269,26 @@ export default function LakeTravisBoatPartyReviews() {
               </Button>
             </div>
           </div>
-        </motion.section>
+        </m.section>
+
+      {/* Topic Cluster Pillar Link */}
+      <div className="bg-blue-50 dark:bg-blue-950/30 border-b border-blue-100 dark:border-blue-900/50">
+        <div className="max-w-4xl mx-auto px-6 py-3">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            Explore our full guide to{' '}
+            <Link href="/party-boat-lake-travis" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Lake Travis party boat rentals</Link>{' '}
+            for everything from pricing and logistics to safety and entertainment.
+          </p>
+        </div>
+      </div>
+
 
         {/* Review Stats */}
         <section className="py-12 bg-slate-100 dark:bg-slate-900" data-testid="stats-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {reviewStats.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -300,7 +299,7 @@ export default function LakeTravisBoatPartyReviews() {
                 >
                   <div className="text-3xl md:text-4xl font-bold text-amber-600 dark:text-amber-400">{item.stat}</div>
                   <div className="text-gray-600 dark:text-gray-400">{item.label}</div>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -309,11 +308,11 @@ export default function LakeTravisBoatPartyReviews() {
         {/* Featured Reviews */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="featured-reviews-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={staggerChildren}
+              variants={staggerContainer}
               className="text-center mb-12"
             >
               <Badge className="mb-4 bg-amber-100 text-amber-700">FEATURED TESTIMONIALS</Badge>
@@ -323,11 +322,11 @@ export default function LakeTravisBoatPartyReviews() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Authentic party boat customer testimonials from guests who experienced the premier party cruise experience
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {featuredReviews.map((review, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -351,7 +350,7 @@ export default function LakeTravisBoatPartyReviews() {
                       </div>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -372,7 +371,7 @@ export default function LakeTravisBoatPartyReviews() {
         {/* Review Categories */}
         <section className="py-16 bg-gradient-to-br from-gray-50 to-amber-50 dark:from-gray-800 dark:to-gray-900" data-testid="categories-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -386,11 +385,11 @@ export default function LakeTravisBoatPartyReviews() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 See what guests say about their specific event type - from bachelor parties to corporate outings
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {reviewCategories.map((category, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -411,7 +410,7 @@ export default function LakeTravisBoatPartyReviews() {
                       <p className="text-gray-600 dark:text-gray-400 text-sm">{category.description}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -420,7 +419,7 @@ export default function LakeTravisBoatPartyReviews() {
         {/* What Guests Love */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="guests-love-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -434,11 +433,11 @@ export default function LakeTravisBoatPartyReviews() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 The aspects of our premier party cruise experience that guests mention most
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {whatGuestsLove.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -456,7 +455,7 @@ export default function LakeTravisBoatPartyReviews() {
                       </div>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -465,7 +464,7 @@ export default function LakeTravisBoatPartyReviews() {
         {/* Boat Review Summary */}
         <section className="py-16 bg-slate-100 dark:bg-slate-800" data-testid="boat-reviews-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -479,11 +478,11 @@ export default function LakeTravisBoatPartyReviews() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 See how each boat in our fleet rates - all single-deck pontoons with arch canopy
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {boatReviewSummary.map((boat, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -503,7 +502,7 @@ export default function LakeTravisBoatPartyReviews() {
                       <p className="text-sm text-gray-600 dark:text-gray-400 italic">"{boat.topComment}"</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -527,7 +526,7 @@ export default function LakeTravisBoatPartyReviews() {
         {/* FAQ Section */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="faq-section">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -541,7 +540,7 @@ export default function LakeTravisBoatPartyReviews() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 Common questions about Lake Travis boat party reviews and customer experiences
               </p>
-            </motion.div>
+            </m.div>
 
             <Accordion type="single" collapsible className="space-y-4">
               {faqs.map((faq, index) => (
@@ -561,7 +560,7 @@ export default function LakeTravisBoatPartyReviews() {
         {/* Internal Links */}
         <section className="py-16 bg-slate-100 dark:bg-slate-800" data-testid="links-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -572,7 +571,7 @@ export default function LakeTravisBoatPartyReviews() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 See what makes our Lake Travis boat party reviews so positive
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
               {internalLinks.map((link, index) => (
@@ -592,7 +591,7 @@ export default function LakeTravisBoatPartyReviews() {
         {/* Final CTA */}
         <section className="py-20 bg-gradient-to-br from-amber-600 to-orange-700 text-white" data-testid="cta-section">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -627,12 +626,13 @@ export default function LakeTravisBoatPartyReviews() {
                   </a>
                 </Button>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         <Footer />
       </div>
     </>
+    </LazyMotionProvider>
   );
 }

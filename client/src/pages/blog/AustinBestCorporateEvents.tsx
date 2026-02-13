@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { m, LazyMotionProvider, fadeInUp, staggerContainer } from '@/components/LazyMotion';
 import { Link } from 'wouter';
-import * as HelmetAsync from 'react-helmet-async';
-const HelmetAsyncDefault = (HelmetAsync as any).default || HelmetAsync;
-const { Helmet } = HelmetAsyncDefault;
+import SEOHead from '@/components/SEOHead';
 import { 
   Ship, Users, Briefcase, Phone, Clock, CheckCircle2, 
   Target, Award, Waves, MapPin, Calendar, Star,
@@ -23,15 +21,6 @@ import sectionImage1 from '@assets/@capitalcityshots-2_1760080740017.jpg';
 import sectionImage2 from '@assets/@capitalcityshots-3_1760080740017.jpg';
 import sectionImage3 from '@assets/@capitalcityshots-4_1760080740017.jpg';
 import sectionImage4 from '@assets/@capitalcityshots-5_1760080740018.jpg';
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-};
-
-const staggerChildren = {
-  visible: { transition: { staggerChildren: 0.1 } }
-};
 
 const corporateBenefits = [
   { 
@@ -194,23 +183,20 @@ export default function AustinBestCorporateEvents() {
   }, []);
 
   return (
+    <LazyMotionProvider>
     <>
-      <Helmet>
-        <title>Austin's Best Corporate Events – From 10 to 100 Guests | Lake Travis Boat Rentals</title>
-        <meta name="description" content="Plan unforgettable corporate events Austin on Lake Travis. Our company party venue Lake Travis accommodates 10-100+ guests with corporate boat rental Austin options for team building, client entertainment, and celebrations." />
-        <meta name="keywords" content="corporate events Austin, company party venue Lake Travis, corporate boat rental Austin, team event Lake Travis, Austin corporate party, Lake Travis business events" />
-        <link rel="canonical" href="https://premierpartycruises.com/blogs/austin-best-corporate-events" />
-        <meta property="og:title" content="Austin's Best Corporate Events – From 10 to 100 Guests | Lake Travis" />
-        <meta property="og:description" content="Plan unforgettable corporate events Austin on Lake Travis. Company party venue Lake Travis for 10-100+ guests." />
-        <meta property="og:type" content="article" />
-        <meta property="og:url" content="https://premierpartycruises.com/blogs/austin-best-corporate-events" />
-      </Helmet>
+      <SEOHead 
+        pageRoute="/blogs/austin-best-corporate-events"
+        defaultTitle="Austin's Best Corporate Events – From 10 to 100 Guests | Lake Travis Boat Rentals"
+        defaultDescription="Plan unforgettable corporate events Austin on Lake Travis. Our company party venue Lake Travis accommodates 10-100+ guests with corporate boat rental Austin options for team building, client entertainment, and celebrations."
+        defaultKeywords={['corporate events Austin', 'company party venue Lake Travis', 'corporate boat rental Austin', 'team event Lake Travis', 'Austin corporate party', 'Lake Travis business events']}
+      />
 
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="page-austin-best-corporate-events">
         <PublicNavigation />
 
         {/* Hero Section */}
-        <motion.section 
+        <m.section 
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
@@ -221,6 +207,8 @@ export default function AustinBestCorporateEvents() {
           <div 
             className="absolute inset-0 bg-cover bg-center opacity-30"
             style={{ backgroundImage: `url(${heroImage})` }}
+          role="img"
+          aria-label="Austin's Best Corporate Events – From 10 to 100 Guests - Premier Party Cruises Lake Travis"
           />
           
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 text-center">
@@ -252,27 +240,39 @@ export default function AustinBestCorporateEvents() {
               </Link>
             </div>
           </div>
-        </motion.section>
+        </m.section>
+
+      {/* Topic Cluster Pillar Link */}
+      <div className="bg-blue-50 dark:bg-blue-950/30 border-b border-blue-100 dark:border-blue-900/50">
+        <div className="max-w-4xl mx-auto px-6 py-3">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            See our complete guide to{' '}
+            <Link href="/corporate-events" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Austin corporate event boats</Link>{' '}
+            for team building, client entertainment, and company celebrations on Lake Travis.
+          </p>
+        </div>
+      </div>
+
 
         {/* Benefits Grid */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="section-benefits">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={staggerChildren}
+              variants={staggerContainer}
               className="text-center mb-12"
             >
               <h2 className="text-3xl font-bold mb-4" data-testid="heading-why-choose">Why Companies Choose Our Corporate Events Austin Services</h2>
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 From small executive retreats to large company celebrations, we deliver exceptional team event Lake Travis experiences
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {corporateBenefits.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -288,7 +288,7 @@ export default function AustinBestCorporateEvents() {
                       <p className="text-gray-600 dark:text-gray-400 text-sm">{item.description}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -299,7 +299,7 @@ export default function AustinBestCorporateEvents() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
               {whyChooseStats.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -308,7 +308,7 @@ export default function AustinBestCorporateEvents() {
                 >
                   <p className="text-3xl md:text-4xl font-bold text-yellow-400" data-testid={`stat-value-${index}`}>{item.stat}</p>
                   <p className="text-sm md:text-base text-white/80 mt-1">{item.label}</p>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -317,7 +317,7 @@ export default function AustinBestCorporateEvents() {
         {/* Austin's Premier Corporate Event Venue Section */}
         <section className="py-16 bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-800 dark:to-gray-900" data-testid="section-premier-venue">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -378,14 +378,14 @@ export default function AustinBestCorporateEvents() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Scaling Section - Fleet Flexibility */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="section-fleet">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -397,11 +397,11 @@ export default function AustinBestCorporateEvents() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Our corporate boat rental Austin fleet offers the flexibility your company needs. Whether planning an intimate executive retreat or a company-wide celebration, we have the perfect vessel for your team event Lake Travis.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {fleetOptions.map((boat, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -428,7 +428,7 @@ export default function AustinBestCorporateEvents() {
                       <p className="text-xs text-blue-600 font-medium">{boat.bestFor}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
 
@@ -449,7 +449,7 @@ export default function AustinBestCorporateEvents() {
         {/* Event Types Section */}
         <section className="py-16 bg-gradient-to-br from-blue-900 via-blue-800 to-slate-900 text-white" data-testid="section-event-types">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -461,11 +461,11 @@ export default function AustinBestCorporateEvents() {
               <p className="text-lg text-white/80 max-w-3xl mx-auto">
                 From team building to client appreciation, our corporate boat rental Austin services cover all your business entertainment needs
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {eventTypes.map((event, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -493,7 +493,7 @@ export default function AustinBestCorporateEvents() {
                       </Link>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -502,7 +502,7 @@ export default function AustinBestCorporateEvents() {
         {/* Image Gallery Section */}
         <section className="py-16 bg-gray-50 dark:bg-gray-800" data-testid="section-gallery">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -513,10 +513,10 @@ export default function AustinBestCorporateEvents() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 See why companies choose our company party venue Lake Travis for their most important business gatherings
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-3 gap-6">
-              <motion.div
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -528,8 +528,8 @@ export default function AustinBestCorporateEvents() {
                   alt="Company party venue Lake Travis corporate boat rental team celebration"
                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                 />
-              </motion.div>
-              <motion.div
+              </m.div>
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -541,8 +541,8 @@ export default function AustinBestCorporateEvents() {
                   alt="Team event Lake Travis corporate boat rental Austin business gathering"
                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                 />
-              </motion.div>
-              <motion.div
+              </m.div>
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -554,7 +554,7 @@ export default function AustinBestCorporateEvents() {
                   alt="Corporate events Austin Lake Travis company party venue boat experience"
                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                 />
-              </motion.div>
+              </m.div>
             </div>
           </div>
         </section>
@@ -565,7 +565,7 @@ export default function AustinBestCorporateEvents() {
         {/* FAQ Section */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="section-faq">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -577,7 +577,7 @@ export default function AustinBestCorporateEvents() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 Everything you need to know about planning your team event Lake Travis or corporate boat rental Austin
               </p>
-            </motion.div>
+            </m.div>
 
             <Accordion type="single" collapsible className="space-y-4" data-testid="accordion-faq">
               {faqs.map((faq, index) => (
@@ -597,7 +597,7 @@ export default function AustinBestCorporateEvents() {
         {/* Final CTA Section */}
         <section className="py-16 bg-gradient-to-br from-blue-900 via-blue-800 to-slate-900 text-white" data-testid="section-cta">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -627,12 +627,13 @@ export default function AustinBestCorporateEvents() {
                 <Phone className="inline h-4 w-4 mr-2" />
                 Call us directly: <a href="tel:+15127884707" className="underline hover:text-white" data-testid="link-phone">(512) 788-4707</a>
               </p>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         <Footer />
       </div>
     </>
+    </LazyMotionProvider>
   );
 }

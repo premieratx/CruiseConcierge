@@ -32,7 +32,7 @@ import { join } from 'path';
 const DOMAIN = 'https://premierpartycruises.com';
 
 // Server URL for fetching blog posts (use localhost when server is running)
-const SERVER_URL = process.env.SERVER_URL || 'http://localhost:5000';
+const SERVER_URL = process.env.SERVER_URL || 'http://localhost:3000';
 
 // All public-facing NON-BLOG routes (excluding admin, auth, redirects, blog posts)
 // IMPORTANT: Do NOT include admin pages like /ai-endorsement, /partners, /chat, /golden-ticket, /quote-builder
@@ -65,6 +65,28 @@ const PUBLIC_ROUTES = [
   '/sweet-16',
   '/graduation-party',
   
+  // Additional Wedding Experience Pages
+  '/proposal-cruise',
+  '/rehearsal-dinner-cruise',
+  '/bridal-shower-cruise',
+  '/engagement-party-cruise',
+  '/baby-shower-cruise',
+  '/gender-reveal-cruise',
+
+  // Marketing Event Pages
+  '/celebration-cruises',
+  '/prom-cruise',
+  '/holiday-party-cruise',
+  '/pricing',
+
+  // Celebration Event Pages
+  '/birthday-party-boat-rental',
+  '/anniversary-cruise',
+  '/graduation-cruise',
+  '/retirement-party-cruise',
+  '/memorial-celebration-cruise',
+  '/family-reunion-cruise',
+
   // Important action pages (Priority 0.9)
   '/gallery',
   '/contact',
@@ -92,7 +114,97 @@ const PUBLIC_ROUTES = [
   '/blog',
   '/blogs',
   
+  // Bachelor/Bachelorette Blog Pages (React components under /blogs/)
+  '/blogs/austin-bachelor-party-ideas',
+  '/blogs/perfect-austin-bachelor-party-weekend',
+  '/blogs/atx-disco-cruise-experience',
+  '/blogs/lake-travis-bachelor-party-austin-celebrations',
+  '/blogs/epic-bachelor-party-austin-ultimate-guide',
+  '/blogs/epic-bachelorette-party-austin-ultimate-guide',
+  '/blogs/how-to-throw-great-bachelor-party-austin',
+  '/blogs/how-to-throw-great-bachelorette-party-austin',
+  '/blogs/lake-travis-bachelor-party-boats-guide',
+  '/blogs/atx-disco-cruise-dos-and-donts-bachelor-party',
+  '/blogs/the-top-dos-and-dont-for-success-on-the-atx-disco-cruise-with-premier-party-cruises',
+  '/blogs/bachelor-party-outfit-ideas-atx-disco-cruise',
+  '/blogs/joint-bachelor-bachelorette-party-guide',
+  '/blogs/why-choose-austin-bachelor-party',
+  '/blogs/why-choose-austin-bachelorette-party',
+  '/blogs/austin-bachelor-party-january',
+  '/blogs/austin-bachelor-party-march',
+  '/blogs/austin-bachelor-party-may',
+  '/blogs/austin-bachelor-party-july',
+  '/blogs/austin-bachelor-party-september',
+  '/blogs/austin-bachelor-party-november',
+  '/blogs/austin-bachelorette-party-february',
+  '/blogs/austin-bachelorette-party-april',
+  '/blogs/austin-bachelorette-party-june',
+  '/blogs/austin-bachelorette-party-august',
+  '/blogs/austin-bachelorette-party-october',
+  '/blogs/austin-bachelorette-party-december',
+  '/blogs/perfect-bachelor-party-itinerary-austin',
+  '/blogs/disco-cruise-fashion-part-1',
+  '/blogs/lake-travis-weather-planning-seasonal-considerations-for-perfect-boat-parties',
+  '/blogs/lake-travis-party-boat-vs-downtown-night-out-austin-bachelor',
+  '/blogs/austin-bachelorette-party-vs-lake-travis-boat-why-lake-wins',
+  '/blogs/private-charter-vs-atx-disco-cruise-which-austin-party-boat',
+  '/blogs/why-atx-disco-cruise-austins-most-booked-party-boat-experience',
+  '/blogs/private-party-cruise-vs-party-boat-pontoon-lake-travis',
+  '/blogs/the-recipe-for-the-chillest-atx-bach-party',
+  '/blogs/the-top-five-celebrities-at-our-dream-party-barge',
+
+  // Safety & Boat Guide Blog Pages
+  '/blogs/lake-travis-boat-party-costs-complete-pricing-guide-and-budget-planning',
+  '/blogs/lake-travis-boat-party-entertainment-activities-and-amenities-for-unforgettable-events',
+  '/blogs/lake-travis-boat-party-catering-food-and-beverage-coordination-for-perfect-events',
+  '/blogs/lake-travis-boat-party-music-sound-systems-and-entertainment-coordination',
+  '/blogs/lake-travis-boat-party-photography-capturing-perfect-memories-on-the-water',
+  '/blogs/lake-travis-boat-party-insurance-understanding-coverage-and-liability-for-events',
+  '/blogs/lake-travis-boat-party-reviews-real-customer-experiences-and-testimonials',
+  '/blogs/lake-travis-boat-safety-essential-guidelines-for-safe-party-cruises',
+  '/blogs/why-licensed-captains-matter-lake-travis-party-boats',
+  '/blogs/safest-austin-bachelor-party-lake-travis-party-boat',
+  '/blogs/top-10-reasons-austin-bachelor-party-lake-travis-boat',
+  '/blogs/ultimate-austin-party-boat-experience-any-celebration',
+  '/blogs/ultimate-austin-bachelorette-party-boat-guide-lake-travis',
+  '/blogs/creative-lake-travis-boat-party-themes-unique-ideas-for-memorable-celebrations',
+  '/blogs/accessible-lake-travis-boat-parties-inclusive-event-planning-for-all-guests',
+  '/blogs/lake-travis-sunset-cruises-romantic-and-celebration-options-for-every-occasion',
+  '/blogs/lake-travis-party-boat-rentals-ultimate-guide-for-large-group-events-20-guests',
+  '/blogs/lake-travis-boat-party-logistics-complete-planning-and-coordination-guide',
+  '/blogs/lake-travis-boat-party-packages-comprehensive-guide-to-options-and-pricing',
+  '/blogs/lake-travis-boat-party-regulations-legal-requirements-and-compliance-guide',
+  '/blogs/lake-travis-boat-safety-and-maintenance-quality-standards-for-party-cruises',
+
+  // Alcohol/Beverage Blog Pages
+  '/blogs/austin-bachelorette-weekend-alcohol-timeline-day-by-day-drinking-strategy-for-multi-day-celebrations',
+  '/blogs/lake-travis-bachelorette-party-alcohol-laws-what-you-can-and-cant-bring-on-boats',
+  '/blogs/bachelorette-party-alcohol-emergency-kit-last-minute-delivery-solutions',
+  '/blogs/budget-friendly-bachelorette-party-alcohol-maximum-fun-without-breaking-the-bank',
+  '/blogs/the-ultimate-austin-bachelorette-party-alcohol-guide-what-to-order-when-to-order-and-how-much-you-actually-need',
+  '/blogs/cocktail-kits-vs-individual-bottles-the-smart-bachelorette-party-alcohol-strategy',
+  '/blogs/instagram-worthy-bachelorette-party-cocktails-recipes-and-delivery-coordination',
+  '/blogs/austin-bachelorette-party-boats-lake-travis-adventures-for-unforgettable-celebrations',
+  '/blogs/austin-wedding-venue-alcohol-policies-delivery-solutions-for-every-location',
+  '/blogs/outdoor-wedding-alcohol-logistics-hill-country-and-lake-travis-coordination',
+  '/blogs/wedding-party-alcohol-coordination-getting-ready-bachelor-bachelorette-and-reception',
+  '/blogs/client-entertainment-alcohol-strategy-impressing-without-overdoing-it',
+  '/blogs/corporate-team-building-on-lake-travis-alcohol-coordination-for-professional-events',
+  '/blogs/executive-retreat-alcohol-planning-balancing-professionalism-and-team-bonding',
+  '/blogs/conference-after-party-alcohol-coordination-sxsw-acl-and-austin-event-integration',
+  '/blogs/holiday-office-party-alcohol-delivery-stress-free-corporate-celebration-planning',
+  '/blogs/holiday-party-alcohol-themes-new-years-fourth-of-july-and-austin-celebrations',
+  '/blogs/pool-party-alcohol-coordination-summer-event-planning-in-austin-heat',
+  '/blogs/lake-travis-bachelor-party-alcohol-delivery-complete-coordination-guide-for-boat-parties',
+  '/blogs/startup-celebration-alcohol-packages-funding-rounds-launches-and-milestone-events',
+  '/blogs/party-alcohol-safety-in-austin-responsible-service-and-guest-well-being',
+  '/blogs/austin-party-venue-alcohol-delivery-navigating-policies-and-logistics',
+  '/blogs/birthday-party-alcohol-delivery-austin-milestone-celebrations-made-easy',
+  '/blogs/graduation-party-alcohol-planning-ut-and-austin-college-celebrations',
+
   // Corporate Blog Pages (React components under /blogs/)
+  '/blogs/corporate-team-building-on-lake-travis-professional-boat-rental-solutions',
+  '/blogs/corporate-boat-parties-austin-lake-travis-smartest-venue',
   '/blogs/employee-appreciation-day-reward-your-team-with-an-easy-all-inclusive-boat-party',
   '/blogs/quarterly-outings-lake-travis-make-routine-company-events-easy',
   '/blogs/safety-first-how-premiers-perfect-record-and-first-aid-training-set-us-apart',

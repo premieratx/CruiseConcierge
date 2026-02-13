@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { m, LazyMotionProvider, fadeInUp, staggerContainer } from '@/components/LazyMotion';
 import { Link } from 'wouter';
-import * as HelmetAsync from 'react-helmet-async';
-const HelmetAsyncDefault = (HelmetAsync as any).default || HelmetAsync;
-const { Helmet } = HelmetAsyncDefault;
+import SEOHead from '@/components/SEOHead';
 import { 
   Ship, Users, Briefcase, Phone, CheckCircle2, 
   Target, Award, Waves, Calendar, Star,
@@ -23,15 +21,6 @@ import sectionImage1 from '@assets/@capitalcityshots-7_1760080740018.jpg';
 import sectionImage2 from '@assets/@capitalcityshots-8_1760080740018.jpg';
 import sectionImage3 from '@assets/@capitalcityshots-9_1760080740019.jpg';
 import sectionImage4 from '@assets/@capitalcityshots-10_1760080740019.jpg';
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-};
-
-const staggerChildren = {
-  visible: { transition: { staggerChildren: 0.1 } }
-};
 
 const creativeBenefits = [
   { 
@@ -162,22 +151,20 @@ export default function MarketingAgenciesBoatParties() {
   }, []);
 
   return (
+    <LazyMotionProvider>
     <>
-      <Helmet>
-        <title>Marketing Agency Party Austin | Creative Team Building Lake Travis | Advertising Agency Boat</title>
-        <meta name="description" content="Plan the ultimate marketing agency party Austin on Lake Travis. Creative team building, advertising agency boat rentals, and creative retreat Lake Travis experiences. Boats for 14-75 guests." />
-        <meta name="keywords" content="marketing agency party Austin, creative team building Lake Travis, advertising agency boat Austin, creative retreat Lake Travis, Austin marketing events, creative agency boat party" />
-        <link rel="canonical" href="https://premierpartycruises.com/blogs/marketing-creative-agencies-boat-austin" />
-        <meta property="og:title" content="Marketing Agency Party Austin | Creative Team Building Lake Travis" />
-        <meta property="og:description" content="Unleash creativity with a boat brainstorm. Marketing agency parties, creative retreats, and advertising agency events on Lake Travis." />
-        <meta property="og:type" content="article" />
-      </Helmet>
+      <SEOHead 
+        pageRoute="/blogs/marketing-creative-agencies-boat-austin"
+        defaultTitle="Marketing Agency Party Austin | Creative Team Building Lake Travis | Advertising Agency Boat"
+        defaultDescription="Plan the ultimate marketing agency party Austin on Lake Travis. Creative team building, advertising agency boat rentals, and creative retreat Lake Travis experiences. Boats for 14-75 guests."
+        defaultKeywords={['marketing agency party Austin', 'creative team building Lake Travis', 'advertising agency boat Austin', 'creative retreat Lake Travis', 'Austin marketing events', 'creative agency boat party']}
+      />
 
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="marketing-agencies-page">
         <PublicNavigation />
 
         {/* Hero Section */}
-        <motion.section 
+        <m.section 
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
@@ -188,6 +175,8 @@ export default function MarketingAgenciesBoatParties() {
           <div 
             className="absolute inset-0 bg-cover bg-center opacity-30"
             style={{ backgroundImage: `url(${heroImage})` }}
+          role="img"
+          aria-label="Marketing Agency Party Austin - Premier Party Cruises Lake Travis"
           />
           
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 text-center">
@@ -228,27 +217,39 @@ export default function MarketingAgenciesBoatParties() {
               </Link>
             </div>
           </div>
-        </motion.section>
+        </m.section>
+
+      {/* Topic Cluster Pillar Link */}
+      <div className="bg-blue-50 dark:bg-blue-950/30 border-b border-blue-100 dark:border-blue-900/50">
+        <div className="max-w-4xl mx-auto px-6 py-3">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            See our complete guide to{' '}
+            <Link href="/corporate-events" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Austin corporate event boats</Link>{' '}
+            for team building, client entertainment, and company celebrations on Lake Travis.
+          </p>
+        </div>
+      </div>
+
 
         {/* Why Creative Teams Love Boat Parties */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="section-benefits">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={staggerChildren}
+              variants={staggerContainer}
               className="text-center mb-12"
             >
               <h2 className="text-3xl font-bold mb-4">Why Creative Teams Love Boat Parties</h2>
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 From marketing agency party Austin celebrations to advertising agency boat Austin brainstorms, creative professionals thrive on the water
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {creativeBenefits.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -264,7 +265,7 @@ export default function MarketingAgenciesBoatParties() {
                       <p className="text-gray-600 dark:text-gray-400 text-sm">{item.description}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -275,7 +276,7 @@ export default function MarketingAgenciesBoatParties() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
               {whyCreatives.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -284,7 +285,7 @@ export default function MarketingAgenciesBoatParties() {
                 >
                   <p className="text-3xl md:text-4xl font-bold text-yellow-400">{item.stat}</p>
                   <p className="text-sm md:text-base text-white/80 mt-1">{item.label}</p>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -293,7 +294,7 @@ export default function MarketingAgenciesBoatParties() {
         {/* How Water Inspires Creativity */}
         <section className="py-16 bg-gradient-to-br from-gray-50 to-purple-50 dark:from-gray-800 dark:to-gray-900" data-testid="section-inspiration">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -345,14 +346,14 @@ export default function MarketingAgenciesBoatParties() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Perfect For Section */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="section-event-types">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -363,11 +364,11 @@ export default function MarketingAgenciesBoatParties() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 From creative retreat Lake Travis escapes to advertising agency boat Austin celebrations, we host it all
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {eventTypes.map((event, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -390,7 +391,7 @@ export default function MarketingAgenciesBoatParties() {
                       </ul>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
 
@@ -412,7 +413,7 @@ export default function MarketingAgenciesBoatParties() {
         {/* Boat Options for Creative Agencies */}
         <section className="py-16 bg-gradient-to-br from-purple-900 via-pink-800 to-orange-700 text-white" data-testid="section-boats">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -460,14 +461,14 @@ export default function MarketingAgenciesBoatParties() {
                   </Link>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* What's Included */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="section-included">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -530,14 +531,14 @@ export default function MarketingAgenciesBoatParties() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Success Stories / Testimonials Teaser */}
         <section className="py-16 bg-gradient-to-br from-gray-50 to-purple-50 dark:from-gray-800 dark:to-gray-900" data-testid="section-testimonials">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -548,7 +549,7 @@ export default function MarketingAgenciesBoatParties() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Marketing agencies and creative teams across Austin choose Premier Party Cruises for their advertising agency boat Austin events
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-3 gap-6">
               {[
@@ -568,7 +569,7 @@ export default function MarketingAgenciesBoatParties() {
                   company: "Full-Service Ad Agency"
                 }
               ].map((testimonial, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -587,7 +588,7 @@ export default function MarketingAgenciesBoatParties() {
                       <p className="text-xs text-gray-500">{testimonial.company}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -596,7 +597,7 @@ export default function MarketingAgenciesBoatParties() {
         {/* Image Gallery Section */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="section-gallery">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -607,7 +608,7 @@ export default function MarketingAgenciesBoatParties() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Get a glimpse of what your creative team building Lake Travis experience could look like
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 gap-6">
               <div className="aspect-video rounded-xl overflow-hidden shadow-lg">
@@ -634,7 +635,7 @@ export default function MarketingAgenciesBoatParties() {
         {/* FAQ Section */}
         <section className="py-16 bg-gray-50 dark:bg-gray-800" data-testid="section-faq">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -645,7 +646,7 @@ export default function MarketingAgenciesBoatParties() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 Common questions about marketing agency party Austin and creative team building Lake Travis events
               </p>
-            </motion.div>
+            </m.div>
 
             <Accordion type="single" collapsible className="space-y-4">
               {faqs.map((faq, index) => (
@@ -670,7 +671,7 @@ export default function MarketingAgenciesBoatParties() {
         {/* CTA Section */}
         <section className="py-16 bg-gradient-to-br from-purple-900 via-pink-800 to-orange-700 text-white" data-testid="section-cta">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -732,12 +733,13 @@ export default function MarketingAgenciesBoatParties() {
                   </span>
                 </Link>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         <Footer />
       </div>
     </>
+    </LazyMotionProvider>
   );
 }

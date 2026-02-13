@@ -181,8 +181,8 @@ export default function CombinedBachelorBachelorette() {
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white" data-page-ready="combined-bach-party">
       <SEOHead
         pageRoute="/combined-bachelor-bachelorette-austin"
-        defaultTitle="Combined Bachelor Bachelorette Party Austin | Lake Travis Joint Celebration"
-        defaultDescription="Combined bachelor and bachelorette party in Austin! Joint bach cruise on Lake Travis starting at $85/person. DJ, photographer, floats included. Book your joint celebration!"
+        defaultTitle="Combined Bachelor & Bachelorette Party Austin | Joint Lake Travis Cruise"
+        defaultDescription="Planning a combined bachelor and bachelorette party? Austin Lake Travis joint bach cruises from $85/person. DJ, photographer, floats, BYOB. The ultimate co-ed party boat experience!"
         defaultKeywords={['combined bachelor bachelorette party Austin', 'Lake Travis combined party', 'bachelor bachelorette party together', 'Austin group party cruise']}
         schemaType="event"
       />

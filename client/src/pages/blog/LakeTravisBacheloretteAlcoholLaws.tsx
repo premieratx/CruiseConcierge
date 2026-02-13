@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { m, LazyMotionProvider, fadeInUp, staggerContainer } from '@/components/LazyMotion';
 import { Link } from 'wouter';
-import * as HelmetAsync from 'react-helmet-async';
-const HelmetAsyncDefault = (HelmetAsync as any).default || HelmetAsync;
-const { Helmet } = HelmetAsyncDefault;
+import SEOHead from '@/components/SEOHead';
 import { 
   Shield, Wine, AlertTriangle, CheckCircle2, XCircle, Ship, 
   Calendar, Star, Users, Heart, Sparkles, Info, Scale,
@@ -20,15 +18,6 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import heroImage from '@assets/disco_fun6_1765193453548.jpg';
 import sectionImage1 from '@assets/disco_fun7_1765193453548.jpg';
 import sectionImage2 from '@assets/disco_fun9_1765193453548.jpg';
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-};
-
-const staggerChildren = {
-  visible: { transition: { staggerChildren: 0.1 } }
-};
 
 const trustStats = [
   { stat: '14+', label: 'Years in Business' },
@@ -129,23 +118,21 @@ export default function LakeTravisBacheloretteAlcoholLaws() {
   }, []);
 
   return (
+    <LazyMotionProvider>
     <>
-      <Helmet>
-        <title>Lake Travis Bachelorette Party Alcohol Laws | What You Can Bring on Boats | Premier Party Cruises</title>
-        <meta name="description" content="Know the rules for your Lake Travis bachelorette party. Complete guide to alcohol laws on austin bachelorette party boats - what you CAN and CAN'T bring. No glass policy, BYOB rules, and Party On Delivery options for your bachelorette party Austin." />
-        <meta name="keywords" content="Lake Travis bachelorette, austin bachelorette party, bachelorette party Austin, Lake Travis alcohol laws, boat party alcohol rules, austin bachelorette party boats, Lake Travis bachelorette BYOB" />
-        <link rel="canonical" href="https://premierpartycruises.com/blogs/lake-travis-bachelorette-party-alcohol-laws-what-you-can-and-cant-bring-on-boats" />
-        <meta property="og:title" content="Lake Travis Bachelorette Party Alcohol Laws | What You Can Bring on Boats" />
-        <meta property="og:description" content="Complete guide to alcohol rules for your austin bachelorette party boat cruise on Lake Travis." />
-        <meta property="og:type" content="article" />
-        <meta property="og:image" content={heroImage} />
-      </Helmet>
+      <SEOHead 
+        pageRoute="/blogs/lake-travis-bachelorette-party-alcohol-laws-what-you-can-and-cant-bring-on-boats"
+        defaultTitle="Lake Travis Bachelorette Party Alcohol Laws | What You Can Bring on Boats | Premier Party Cruises"
+        defaultDescription="Know the rules for your Lake Travis bachelorette party. Complete guide to alcohol laws on austin bachelorette party boats - what you CAN and CAN'T bring. No glass policy, BYOB rules, and Party On Delivery options for your bachelorette party Austin."
+        defaultKeywords={['Lake Travis bachelorette', 'austin bachelorette party', 'bachelorette party Austin', 'Lake Travis alcohol laws', 'boat party alcohol rules', 'austin bachelorette party boats', 'Lake Travis bachelorette BYOB']}
+        image={heroImage}
+      />
 
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="lake-travis-bachelorette-alcohol-laws-page">
         <PublicNavigation />
 
         {/* Hero Section */}
-        <motion.section 
+        <m.section 
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
@@ -195,14 +182,26 @@ export default function LakeTravisBacheloretteAlcoholLaws() {
               </Button>
             </div>
           </div>
-        </motion.section>
+        </m.section>
+
+      {/* Topic Cluster Pillar Link */}
+      <div className="bg-blue-50 dark:bg-blue-950/30 border-b border-blue-100 dark:border-blue-900/50">
+        <div className="max-w-4xl mx-auto px-6 py-3">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            Explore our full guide to{' '}
+            <Link href="/party-boat-lake-travis" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Lake Travis party boat rentals</Link>{' '}
+            for everything from pricing and logistics to safety and entertainment.
+          </p>
+        </div>
+      </div>
+
 
         {/* Trust Stats */}
         <section className="py-12 bg-slate-100 dark:bg-slate-900" data-testid="stats-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {trustStats.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -213,7 +212,7 @@ export default function LakeTravisBacheloretteAlcoholLaws() {
                 >
                   <div className="text-3xl md:text-4xl font-bold text-purple-600 dark:text-purple-400">{item.stat}</div>
                   <div className="text-gray-600 dark:text-gray-400">{item.label}</div>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -222,7 +221,7 @@ export default function LakeTravisBacheloretteAlcoholLaws() {
         {/* Quick Summary */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="summary-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -238,14 +237,14 @@ export default function LakeTravisBacheloretteAlcoholLaws() {
                   This keeps everyone safe at your bachelorette party Austin celebration on Lake Travis.
                 </p>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Allowed Items */}
         <section className="py-16 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-gray-800 dark:to-gray-900" data-testid="allowed-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -257,11 +256,11 @@ export default function LakeTravisBacheloretteAlcoholLaws() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 Everything in cans or plastic is welcome for your austin bachelorette party
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-3 gap-6">
               {allowedItems.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -281,7 +280,7 @@ export default function LakeTravisBacheloretteAlcoholLaws() {
                       </div>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -290,7 +289,7 @@ export default function LakeTravisBacheloretteAlcoholLaws() {
         {/* Prohibited Items */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="prohibited-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -302,11 +301,11 @@ export default function LakeTravisBacheloretteAlcoholLaws() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 Leave these at home for your Lake Travis bachelorette safety
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl mx-auto">
               {prohibitedItems.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -324,7 +323,7 @@ export default function LakeTravisBacheloretteAlcoholLaws() {
                       </div>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -333,7 +332,7 @@ export default function LakeTravisBacheloretteAlcoholLaws() {
         {/* Texas Boat Laws */}
         <section className="py-16 bg-gradient-to-r from-blue-600 to-purple-600 text-white" data-testid="laws-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -344,11 +343,11 @@ export default function LakeTravisBacheloretteAlcoholLaws() {
               <p className="text-xl text-blue-100">
                 Know your rights and responsibilities for a safe Lake Travis bachelorette
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 gap-6">
               {texasBoatLaws.map((law, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -366,7 +365,7 @@ export default function LakeTravisBacheloretteAlcoholLaws() {
                       </div>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -375,7 +374,7 @@ export default function LakeTravisBacheloretteAlcoholLaws() {
         {/* Party On Delivery */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="pod-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -409,14 +408,14 @@ export default function LakeTravisBacheloretteAlcoholLaws() {
                   data-testid="img-pod"
                 />
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Packing Checklist */}
         <section className="py-16 bg-slate-100 dark:bg-slate-800" data-testid="checklist-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -427,11 +426,11 @@ export default function LakeTravisBacheloretteAlcoholLaws() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 Everything you need to bring for your bachelorette party Austin boat cruise
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-3 gap-6">
               {packingChecklist.map((category, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -453,7 +452,7 @@ export default function LakeTravisBacheloretteAlcoholLaws() {
                       </ul>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -462,7 +461,7 @@ export default function LakeTravisBacheloretteAlcoholLaws() {
         {/* Fleet Options */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="fleet-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -473,11 +472,11 @@ export default function LakeTravisBacheloretteAlcoholLaws() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 All boats are BYOB-friendly for your Lake Travis bachelorette
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-4 gap-6">
               {fleetOptions.map((boat, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -492,7 +491,7 @@ export default function LakeTravisBacheloretteAlcoholLaws() {
                       <p className="text-sm text-gray-600 dark:text-gray-400">{boat.description}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -504,7 +503,7 @@ export default function LakeTravisBacheloretteAlcoholLaws() {
         {/* FAQs */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="faq-section">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -515,7 +514,7 @@ export default function LakeTravisBacheloretteAlcoholLaws() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 Common questions about alcohol rules for your austin bachelorette party boat
               </p>
-            </motion.div>
+            </m.div>
 
             <Accordion type="single" collapsible className="space-y-4">
               {faqs.map((faq, index) => (
@@ -535,7 +534,7 @@ export default function LakeTravisBacheloretteAlcoholLaws() {
         {/* Internal Links */}
         <section className="py-16 bg-slate-100 dark:bg-slate-800" data-testid="links-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -543,11 +542,11 @@ export default function LakeTravisBacheloretteAlcoholLaws() {
               className="text-center mb-12"
             >
               <h2 className="text-3xl font-bold mb-4">Plan Your Complete Lake Travis Bachelorette</h2>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-4 gap-6">
               {internalLinks.map((link, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -563,7 +562,7 @@ export default function LakeTravisBacheloretteAlcoholLaws() {
                       </CardContent>
                     </Card>
                   </Link>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -572,7 +571,7 @@ export default function LakeTravisBacheloretteAlcoholLaws() {
         {/* Final CTA */}
         <section className="py-16 bg-gradient-to-br from-purple-600 to-pink-700 text-white" data-testid="cta-section">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -603,12 +602,13 @@ export default function LakeTravisBacheloretteAlcoholLaws() {
                   <Link href="/book-now">Get Custom Quote</Link>
                 </Button>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         <Footer />
       </div>
     </>
+    </LazyMotionProvider>
   );
 }

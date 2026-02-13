@@ -233,8 +233,8 @@ export default function WeddingParties() {
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white" data-page-ready="wedding-parties">
       <SEOHead 
         pageRoute="/wedding-parties"
-        defaultTitle="Wedding Party Boat | Lake Travis Austin"
-        defaultDescription="Lake Travis wedding cruises. Rehearsal dinners, welcome parties, after parties. Sunset views, champagne toasts. Book now!"
+        defaultTitle="Wedding Party Boat Austin | Lake Travis Rehearsal Dinners & Wedding Events"
+        defaultDescription="Austin wedding party boats on Lake Travis. Rehearsal dinners, welcome parties, after parties & celebrations. Sunset views, BYOB, 14-75 guests. Book now!"
         defaultKeywords={[
           'wedding cruise austin',
           'rehearsal dinner lake travis',
@@ -273,7 +273,7 @@ export default function WeddingParties() {
             <Heart className="h-4 w-4 ml-2" />
           </Badge>
           <h1 className="heading-unbounded text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-6 text-center text-gray-900 drop-shadow-sm" data-editable data-editable-id="h1-wedding-hero">
-            Create Unforgettable Wedding Memories on Lake Travis
+            Austin Wedding Party Boats: Lake Travis Rehearsal Dinners, After Parties & Celebrations
           </h1>
           <p className="text-xl sm:text-2xl md:text-3xl text-gray-900 mb-6 md:mb-8 font-bold drop-shadow-sm max-w-3xl mx-auto leading-relaxed text-center" data-editable data-editable-id="p-wedding-tagline">
             Wedding Celebrations on the Water

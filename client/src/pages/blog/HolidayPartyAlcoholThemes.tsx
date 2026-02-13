@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { m, LazyMotionProvider, fadeInUp, staggerContainer } from '@/components/LazyMotion';
 import { Link } from 'wouter';
-import * as HelmetAsync from 'react-helmet-async';
-const HelmetAsyncDefault = (HelmetAsync as any).default || HelmetAsync;
-const { Helmet } = HelmetAsyncDefault;
+import SEOHead from '@/components/SEOHead';
 import { 
   Ship, Users, Briefcase, Phone, Clock, CheckCircle2, 
   Gift, Award, Waves, MapPin, Calendar, Star,
@@ -22,15 +20,6 @@ import heroImage from '@assets/@capitalcityshots-22_1760080807865.jpg';
 import sectionImage1 from '@assets/@capitalcityshots-23_1760080807865.jpg';
 import sectionImage2 from '@assets/@capitalcityshots-24_1760080807866.jpg';
 import sectionImage3 from '@assets/@capitalcityshots-25_1760080807866.jpg';
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-};
-
-const staggerChildren = {
-  visible: { transition: { staggerChildren: 0.1 } }
-};
 
 const holidayThemes = [
   {
@@ -200,24 +189,21 @@ export default function HolidayPartyAlcoholThemes() {
   }, []);
 
   return (
+    <LazyMotionProvider>
     <>
-      <Helmet>
-        <title>Holiday Party Alcohol Themes: New Year's, Fourth of July & Austin Celebrations | Premier Party Cruises</title>
-        <meta name="description" content="Plan perfect holiday party alcohol themes for New Year's Eve, Fourth of July, and Austin celebrations on Lake Travis. Complete guide to themed beverage planning for 14-75 guests." />
-        <meta name="keywords" content="holiday party alcohol themes, New Year's Eve party, Fourth of July alcohol planning, Austin celebrations, holiday themed drinks, Lake Travis holiday party, New Year's boat party, Fourth of July Lake Travis" />
-        <link rel="canonical" href="https://premierpartycruises.com/blogs/holiday-party-alcohol-themes-new-years-fourth-of-july-and-austin-celebrations" />
-        <meta property="og:title" content="Holiday Party Alcohol Themes: New Year's, Fourth of July & Austin Celebrations" />
-        <meta property="og:description" content="Plan perfect holiday party alcohol themes for New Year's Eve, Fourth of July, and Austin celebrations on Lake Travis." />
-        <meta property="og:type" content="article" />
-        <meta property="og:url" content="https://premierpartycruises.com/blogs/holiday-party-alcohol-themes-new-years-fourth-of-july-and-austin-celebrations" />
-        <meta property="og:image" content="https://premierpartycruises.com/attached_assets/@capitalcityshots-22_1760080807865.jpg" />
-      </Helmet>
+      <SEOHead 
+        pageRoute="/blogs/holiday-party-alcohol-themes-new-years-fourth-of-july-and-austin-celebrations"
+        defaultTitle="Holiday Party Alcohol Themes: New Year's, Fourth of July & Austin Celebrations | Premier Party Cruises"
+        defaultDescription="Plan perfect holiday party alcohol themes for New Year's Eve, Fourth of July, and Austin celebrations on Lake Travis. Complete guide to themed beverage planning for 14-75 guests."
+        defaultKeywords={['holiday party alcohol themes', 'New Year\'s Eve party', 'Fourth of July alcohol planning', 'Austin celebrations', 'holiday themed drinks', 'Lake Travis holiday party', 'New Year\'s boat party', 'Fourth of July Lake Travis']}
+        image="https://premierpartycruises.com/attached_assets/@capitalcityshots-22_1760080807865.jpg"
+      />
 
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="holiday-party-alcohol-themes-page">
         <PublicNavigation />
 
         {/* Hero Section */}
-        <motion.section 
+        <m.section 
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
@@ -268,14 +254,26 @@ export default function HolidayPartyAlcoholThemes() {
               </Button>
             </div>
           </div>
-        </motion.section>
+        </m.section>
+
+      {/* Topic Cluster Pillar Link */}
+      <div className="bg-blue-50 dark:bg-blue-950/30 border-b border-blue-100 dark:border-blue-900/50">
+        <div className="max-w-4xl mx-auto px-6 py-3">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            Browse our full range of{' '}
+            <Link href="/party-boat-austin" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Austin party boat rentals</Link>{' '}
+            for celebrations of every kind on Lake Travis.
+          </p>
+        </div>
+      </div>
+
 
         {/* Stats Section */}
         <section className="py-12 bg-slate-100 dark:bg-slate-900" data-testid="stats-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {whyPremier.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -286,7 +284,7 @@ export default function HolidayPartyAlcoholThemes() {
                 >
                   <div className="text-3xl md:text-4xl font-bold text-purple-600 dark:text-purple-400">{item.stat}</div>
                   <div className="text-gray-600 dark:text-gray-400 font-medium">{item.label}</div>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -295,7 +293,7 @@ export default function HolidayPartyAlcoholThemes() {
         {/* Holiday Themes Overview */}
         <section className="py-16 md:py-24 bg-white dark:bg-gray-950" data-testid="themes-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div 
+            <m.div 
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -308,11 +306,11 @@ export default function HolidayPartyAlcoholThemes() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 From New Year's Eve elegance to Fourth of July patriotism, explore holiday party alcohol themes that make Austin celebrations unforgettable.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {holidayThemes.map((theme, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -334,7 +332,7 @@ export default function HolidayPartyAlcoholThemes() {
                       </div>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -344,7 +342,7 @@ export default function HolidayPartyAlcoholThemes() {
         <section className="py-16 bg-gradient-to-br from-purple-50 to-pink-50 dark:from-gray-800 dark:to-gray-900" data-testid="newyears-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <motion.div
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -365,9 +363,9 @@ export default function HolidayPartyAlcoholThemes() {
                     </div>
                   ))}
                 </div>
-              </motion.div>
+              </m.div>
               
-              <motion.div
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -381,7 +379,7 @@ export default function HolidayPartyAlcoholThemes() {
                     className="w-full h-full object-cover"
                   />
                 </div>
-              </motion.div>
+              </m.div>
             </div>
           </div>
         </section>
@@ -390,7 +388,7 @@ export default function HolidayPartyAlcoholThemes() {
         <section className="py-16 bg-gradient-to-br from-red-50 to-blue-50 dark:from-gray-800 dark:to-gray-900" data-testid="july4-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <motion.div
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -404,9 +402,9 @@ export default function HolidayPartyAlcoholThemes() {
                     className="w-full h-full object-cover"
                   />
                 </div>
-              </motion.div>
+              </m.div>
               
-              <motion.div
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -428,7 +426,7 @@ export default function HolidayPartyAlcoholThemes() {
                     </div>
                   ))}
                 </div>
-              </motion.div>
+              </m.div>
             </div>
           </div>
         </section>
@@ -437,7 +435,7 @@ export default function HolidayPartyAlcoholThemes() {
         <section className="py-16 bg-gradient-to-br from-amber-50 to-orange-50 dark:from-gray-800 dark:to-gray-900" data-testid="austin-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <motion.div
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -458,9 +456,9 @@ export default function HolidayPartyAlcoholThemes() {
                     </div>
                   ))}
                 </div>
-              </motion.div>
+              </m.div>
               
-              <motion.div
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -474,7 +472,7 @@ export default function HolidayPartyAlcoholThemes() {
                     className="w-full h-full object-cover"
                   />
                 </div>
-              </motion.div>
+              </m.div>
             </div>
           </div>
         </section>
@@ -482,7 +480,7 @@ export default function HolidayPartyAlcoholThemes() {
         {/* Beverage Recommendations */}
         <section className="py-16 bg-white dark:bg-gray-950" data-testid="beverages-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -493,11 +491,11 @@ export default function HolidayPartyAlcoholThemes() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Curated recommendations for New Year's and Fourth of July alcohol planning success.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 gap-8">
               {seasonalBeverages.map((season, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -522,7 +520,7 @@ export default function HolidayPartyAlcoholThemes() {
                       </div>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -531,7 +529,7 @@ export default function HolidayPartyAlcoholThemes() {
         {/* Boat Options Section */}
         <section className="py-16 bg-slate-50 dark:bg-slate-900" data-testid="boats-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -542,11 +540,11 @@ export default function HolidayPartyAlcoholThemes() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 All boats are single-deck pontoons with arch canopy, perfect for holiday party alcohol themes.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {boatOptions.map((boat, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -566,7 +564,7 @@ export default function HolidayPartyAlcoholThemes() {
                       <p className="text-sm text-gray-600 dark:text-gray-400">{boat.description}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
 
@@ -581,7 +579,7 @@ export default function HolidayPartyAlcoholThemes() {
         {/* FAQ Section */}
         <section className="py-16 bg-white dark:bg-gray-950" data-testid="faq-section">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -592,7 +590,7 @@ export default function HolidayPartyAlcoholThemes() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 Common questions about New Year's, Fourth of July, and Austin celebrations.
               </p>
-            </motion.div>
+            </m.div>
 
             <Accordion type="single" collapsible className="space-y-4">
               {faqs.map((faq, index) => (
@@ -620,7 +618,7 @@ export default function HolidayPartyAlcoholThemes() {
         {/* Internal Links Section */}
         <section className="py-16 bg-slate-50 dark:bg-slate-900" data-testid="internal-links-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -631,11 +629,11 @@ export default function HolidayPartyAlcoholThemes() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 Discover our complete range of holiday and celebration services.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {internalLinks.map((link, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -657,7 +655,7 @@ export default function HolidayPartyAlcoholThemes() {
                       </CardContent>
                     </Card>
                   </Link>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -666,5 +664,6 @@ export default function HolidayPartyAlcoholThemes() {
         <Footer />
       </div>
     </>
+    </LazyMotionProvider>
   );
 }

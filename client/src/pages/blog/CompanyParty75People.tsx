@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { m, LazyMotionProvider, fadeInUp, staggerContainer } from '@/components/LazyMotion';
 import { Link } from 'wouter';
-import * as HelmetAsync from 'react-helmet-async';
-const HelmetAsyncDefault = (HelmetAsync as any).default || HelmetAsync;
-const { Helmet } = HelmetAsyncDefault;
+import SEOHead from '@/components/SEOHead';
 import { 
   Ship, Users, Briefcase, Phone, Clock, CheckCircle2, 
   Target, Award, Waves, MapPin, Calendar, Star,
@@ -23,15 +21,6 @@ import sectionImage1 from '@assets/@capitalcityshots-25_1760080807866.jpg';
 import sectionImage2 from '@assets/@capitalcityshots-26_1760080807866.jpg';
 import sectionImage3 from '@assets/@capitalcityshots-27_1760080807866.jpg';
 import sectionImage4 from '@assets/@capitalcityshots-28_1760080807867.jpg';
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-};
-
-const staggerChildren = {
-  visible: { transition: { staggerChildren: 0.1 } }
-};
 
 const takeoverBenefits = [
   { 
@@ -229,23 +218,21 @@ export default function CompanyParty75People() {
   }, []);
 
   return (
+    <LazyMotionProvider>
     <>
-      <Helmet>
-        <title>75 Person Corporate Event Austin | Large Company Party Lake Travis Boat</title>
-        <meta name="description" content="Host the ultimate 75 person corporate event Austin on Lake Travis. Our Clever Girl flagship boat holds 75 guests with 14 disco balls and giant Texas flag. Book your corporate bash boat Austin today!" />
-        <meta name="keywords" content="75 person corporate event Austin, large company party Lake Travis, corporate bash boat Austin, 75 guest event Lake Travis, corporate party boat, Austin company celebration, Lake Travis corporate event" />
-        <link rel="canonical" href="https://premierpartycruises.com/blogs/company-party-75-people-austin" />
-        <meta property="og:title" content="75 Person Corporate Event Austin | Large Company Party Lake Travis" />
-        <meta property="og:description" content="Host the ultimate 75 person corporate event on Lake Travis. Clever Girl flagship holds 75 guests with 14 disco balls. Book your corporate bash boat Austin!" />
-        <meta property="og:type" content="article" />
-        <meta property="og:image" content="https://premierpartycruises.com/assets/clever-girl-50-person-boat.webp" />
-      </Helmet>
+      <SEOHead 
+        pageRoute="/blogs/company-party-75-people-austin"
+        defaultTitle="75 Person Corporate Event Austin | Large Company Party Lake Travis Boat"
+        defaultDescription="Host the ultimate 75 person corporate event Austin on Lake Travis. Our Clever Girl flagship boat holds 75 guests with 14 disco balls and giant Texas flag. Book your corporate bash boat Austin today!"
+        defaultKeywords={['75 person corporate event Austin', 'large company party Lake Travis', 'corporate bash boat Austin', '75 guest event Lake Travis', 'corporate party boat', 'Austin company celebration', 'Lake Travis corporate event']}
+        image="https://premierpartycruises.com/assets/clever-girl-50-person-boat.webp"
+      />
 
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="page-company-party-75-people">
         <PublicNavigation />
 
         {/* Hero Section */}
-        <motion.section 
+        <m.section 
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
@@ -256,6 +243,8 @@ export default function CompanyParty75People() {
           <div 
             className="absolute inset-0 bg-cover bg-center opacity-40"
             style={{ backgroundImage: `url(${heroImage})` }}
+          role="img"
+          aria-label="75 Person Corporate Event Austin - Premier Party Cruises Lake Travis"
           />
           
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 text-center">
@@ -287,7 +276,19 @@ export default function CompanyParty75People() {
               </Link>
             </div>
           </div>
-        </motion.section>
+        </m.section>
+
+      {/* Topic Cluster Pillar Link */}
+      <div className="bg-blue-50 dark:bg-blue-950/30 border-b border-blue-100 dark:border-blue-900/50">
+        <div className="max-w-4xl mx-auto px-6 py-3">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            See our complete guide to{' '}
+            <Link href="/corporate-events" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Austin corporate event boats</Link>{' '}
+            for team building, client entertainment, and company celebrations on Lake Travis.
+          </p>
+        </div>
+      </div>
+
 
         {/* Hero Image Section */}
         <section className="relative -mt-8 z-20 px-4 sm:px-6">
@@ -306,22 +307,22 @@ export default function CompanyParty75People() {
         {/* Takeover Benefits Grid */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="section-benefits">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={staggerChildren}
+              variants={staggerContainer}
               className="text-center mb-12"
             >
               <h2 className="text-3xl font-bold mb-4" data-testid="heading-benefits">The Ultimate Lake Travis Takeover</h2>
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 When you book a 75 person corporate event Austin, you're commanding the largest private charter on Lake Travis. This is the corporate bash boat Austin experience your team deserves.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {takeoverBenefits.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -337,7 +338,7 @@ export default function CompanyParty75People() {
                       <p className="text-gray-600 dark:text-gray-400 text-sm">{item.description}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -348,7 +349,7 @@ export default function CompanyParty75People() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
               {eventStats.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -357,7 +358,7 @@ export default function CompanyParty75People() {
                 >
                   <p className="text-3xl md:text-4xl font-bold text-yellow-400" data-testid={`stat-value-${index}`}>{item.stat}</p>
                   <p className="text-sm md:text-base text-white/80 mt-1">{item.label}</p>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -366,7 +367,7 @@ export default function CompanyParty75People() {
         {/* Clever Girl Flagship Features Section */}
         <section className="py-16 bg-gradient-to-br from-gray-50 to-amber-50 dark:from-gray-800 dark:to-gray-900" data-testid="section-clever-girl">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -422,14 +423,14 @@ export default function CompanyParty75People() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Perfect For Section */}
         <section className="py-16 bg-gradient-to-br from-amber-900 via-purple-800 to-slate-900 text-white" data-testid="section-perfect-for">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -482,14 +483,14 @@ export default function CompanyParty75People() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* All-Inclusive Coordination Section */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="section-coordination">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -558,14 +559,14 @@ export default function CompanyParty75People() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Image Gallery Section */}
         <section className="py-16 bg-gradient-to-br from-gray-50 to-amber-50 dark:from-gray-800 dark:to-gray-900" data-testid="section-gallery">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -576,7 +577,7 @@ export default function CompanyParty75People() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Our large company party Lake Travis events create memories that last. Here's what your corporate bash boat Austin could look like.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
               <div className="aspect-square rounded-xl overflow-hidden shadow-lg">
@@ -621,7 +622,7 @@ export default function CompanyParty75People() {
         {/* CTA Section */}
         <section className="py-16 bg-gradient-to-r from-amber-600 to-purple-700 text-white" data-testid="section-cta">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -648,7 +649,7 @@ export default function CompanyParty75People() {
                   </Button>
                 </Link>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
@@ -700,7 +701,7 @@ export default function CompanyParty75People() {
         {/* FAQ Section */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="section-faq">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -743,12 +744,13 @@ export default function CompanyParty75People() {
                   </Button>
                 </Link>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         <Footer />
       </div>
     </>
+    </LazyMotionProvider>
   );
 }

@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { m, LazyMotionProvider, fadeInUp, staggerContainer } from '@/components/LazyMotion';
 import { Link } from 'wouter';
-import * as HelmetAsync from 'react-helmet-async';
-const HelmetAsyncDefault = (HelmetAsync as any).default || HelmetAsync;
-const { Helmet } = HelmetAsyncDefault;
+import SEOHead from '@/components/SEOHead';
 import { 
   Clock, Wine, Sun, Moon, Coffee, Utensils, Ship, 
   Calendar, Star, Users, Heart, Sparkles, CheckCircle2,
@@ -20,15 +18,6 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import heroImage from '@assets/disco_fun_best2_1765193453547.jpg';
 import sectionImage1 from '@assets/disco_fun3_1765193453547.jpg';
 import sectionImage2 from '@assets/disco_fun5_1765193453548.jpg';
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-};
-
-const staggerChildren = {
-  visible: { transition: { staggerChildren: 0.1 } }
-};
 
 const trustStats = [
   { stat: '14+', label: 'Years in Business' },
@@ -126,23 +115,21 @@ export default function AustinBacheloretteAlcoholTimeline() {
   }, []);
 
   return (
+    <LazyMotionProvider>
     <>
-      <Helmet>
-        <title>Austin Bachelorette Weekend Alcohol Timeline | Day-by-Day Drinking Strategy | Premier Party Cruises</title>
-        <meta name="description" content="Plan your austin bachelorette party drinking schedule with our day-by-day timeline. Smart strategies for a 3-day bachelorette party Austin weekend including Lake Travis bachelorette boat party tips. Pace yourself for maximum fun." />
-        <meta name="keywords" content="austin bachelorette party, bachelorette party Austin, Lake Travis bachelorette, austin bachelorette party drinks, bachelorette weekend drinking timeline, austin bachelorette boat party alcohol" />
-        <link rel="canonical" href="https://premierpartycruises.com/blogs/austin-bachelorette-weekend-alcohol-timeline-day-by-day-drinking-strategy-for-multi-day-celebrations" />
-        <meta property="og:title" content="Austin Bachelorette Weekend Alcohol Timeline | Day-by-Day Drinking Strategy" />
-        <meta property="og:description" content="Smart drinking strategies for your 3-day austin bachelorette party including Lake Travis boat party tips." />
-        <meta property="og:type" content="article" />
-        <meta property="og:image" content={heroImage} />
-      </Helmet>
+      <SEOHead 
+        pageRoute="/blogs/austin-bachelorette-weekend-alcohol-timeline-day-by-day-drinking-strategy-for-multi-day-celebrations"
+        defaultTitle="Austin Bachelorette Weekend Alcohol Timeline | Day-by-Day Drinking Strategy | Premier Party Cruises"
+        defaultDescription="Plan your austin bachelorette party drinking schedule with our day-by-day timeline. Smart strategies for a 3-day bachelorette party Austin weekend including Lake Travis bachelorette boat party tips. Pace yourself for maximum fun."
+        defaultKeywords={['austin bachelorette party', 'bachelorette party Austin', 'Lake Travis bachelorette', 'austin bachelorette party drinks', 'bachelorette weekend drinking timeline', 'austin bachelorette boat party alcohol']}
+        image={heroImage}
+      />
 
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="austin-bachelorette-alcohol-timeline-page">
         <PublicNavigation />
 
         {/* Hero Section */}
-        <motion.section 
+        <m.section 
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
@@ -192,14 +179,26 @@ export default function AustinBacheloretteAlcoholTimeline() {
               </Button>
             </div>
           </div>
-        </motion.section>
+        </m.section>
+
+      {/* Topic Cluster Pillar Link */}
+      <div className="bg-blue-50 dark:bg-blue-950/30 border-b border-blue-100 dark:border-blue-900/50">
+        <div className="max-w-4xl mx-auto px-6 py-3">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            This guide is part of our complete{' '}
+            <Link href="/bachelorette-party-austin" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Austin bachelorette party boats</Link>{' '}
+            resource — your ultimate planning hub for Lake Travis bachelorette celebrations.
+          </p>
+        </div>
+      </div>
+
 
         {/* Trust Stats */}
         <section className="py-12 bg-slate-100 dark:bg-slate-900" data-testid="stats-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {trustStats.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -210,7 +209,7 @@ export default function AustinBacheloretteAlcoholTimeline() {
                 >
                   <div className="text-3xl md:text-4xl font-bold text-pink-600 dark:text-pink-400">{item.stat}</div>
                   <div className="text-gray-600 dark:text-gray-400">{item.label}</div>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -219,7 +218,7 @@ export default function AustinBacheloretteAlcoholTimeline() {
         {/* Day 1 Timeline */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="day-one-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -231,11 +230,11 @@ export default function AustinBacheloretteAlcoholTimeline() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Your austin bachelorette party marathon starts with a smart pace
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="space-y-6">
               {dayOneTimeline.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -265,7 +264,7 @@ export default function AustinBacheloretteAlcoholTimeline() {
                       </div>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -274,7 +273,7 @@ export default function AustinBacheloretteAlcoholTimeline() {
         {/* Day 2 Timeline - Main Event */}
         <section className="py-16 bg-gradient-to-br from-pink-50 to-purple-50 dark:from-gray-800 dark:to-gray-900" data-testid="day-two-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -286,12 +285,12 @@ export default function AustinBacheloretteAlcoholTimeline() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 The centerpiece of your bachelorette party Austin - pace for the full experience
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid lg:grid-cols-2 gap-8 items-center mb-12">
               <div className="space-y-6">
                 {dayTwoTimeline.map((item, index) => (
-                  <motion.div
+                  <m.div
                     key={index}
                     initial="hidden"
                     whileInView="visible"
@@ -315,7 +314,7 @@ export default function AustinBacheloretteAlcoholTimeline() {
                         </div>
                       </CardContent>
                     </Card>
-                  </motion.div>
+                  </m.div>
                 ))}
               </div>
               <div>
@@ -333,7 +332,7 @@ export default function AustinBacheloretteAlcoholTimeline() {
         {/* Day 3 Timeline */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="day-three-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -345,11 +344,11 @@ export default function AustinBacheloretteAlcoholTimeline() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Wind down your austin bachelorette party gracefully
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-3 gap-6">
               {dayThreeTimeline.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -367,7 +366,7 @@ export default function AustinBacheloretteAlcoholTimeline() {
                       <p className="text-sm text-gray-600 dark:text-gray-400">{item.tip}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -376,7 +375,7 @@ export default function AustinBacheloretteAlcoholTimeline() {
         {/* Hydration Tips */}
         <section className="py-16 bg-gradient-to-r from-blue-600 to-cyan-600 text-white" data-testid="hydration-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -387,11 +386,11 @@ export default function AustinBacheloretteAlcoholTimeline() {
               <p className="text-xl text-blue-100 max-w-3xl mx-auto">
                 The secret to enjoying every moment of your Lake Travis bachelorette weekend
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-4 gap-6">
               {hydrationTips.map((tip, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -405,7 +404,7 @@ export default function AustinBacheloretteAlcoholTimeline() {
                   </div>
                   <h3 className="font-bold text-lg mb-2">{tip.title}</h3>
                   <p className="text-blue-100 text-sm">{tip.description}</p>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -414,7 +413,7 @@ export default function AustinBacheloretteAlcoholTimeline() {
         {/* Boat Drinking Tips */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="boat-tips-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -444,14 +443,14 @@ export default function AustinBacheloretteAlcoholTimeline() {
                   data-testid="img-boat-tips"
                 />
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Fleet Options */}
         <section className="py-16 bg-slate-100 dark:bg-slate-800" data-testid="fleet-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -462,11 +461,11 @@ export default function AustinBacheloretteAlcoholTimeline() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 Our Lake Travis bachelorette fleet for every group size
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-4 gap-6">
               {fleetOptions.map((boat, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -481,7 +480,7 @@ export default function AustinBacheloretteAlcoholTimeline() {
                       <p className="text-sm text-gray-600 dark:text-gray-400">{boat.description}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -493,7 +492,7 @@ export default function AustinBacheloretteAlcoholTimeline() {
         {/* FAQs */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="faq-section">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -504,7 +503,7 @@ export default function AustinBacheloretteAlcoholTimeline() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 Common questions about drinking during your bachelorette party Austin weekend
               </p>
-            </motion.div>
+            </m.div>
 
             <Accordion type="single" collapsible className="space-y-4">
               {faqs.map((faq, index) => (
@@ -524,7 +523,7 @@ export default function AustinBacheloretteAlcoholTimeline() {
         {/* Internal Links */}
         <section className="py-16 bg-slate-100 dark:bg-slate-800" data-testid="links-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -532,11 +531,11 @@ export default function AustinBacheloretteAlcoholTimeline() {
               className="text-center mb-12"
             >
               <h2 className="text-3xl font-bold mb-4">Plan Your Complete Austin Bachelorette Party</h2>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-4 gap-6">
               {internalLinks.map((link, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -552,7 +551,7 @@ export default function AustinBacheloretteAlcoholTimeline() {
                       </CardContent>
                     </Card>
                   </Link>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -561,7 +560,7 @@ export default function AustinBacheloretteAlcoholTimeline() {
         {/* Final CTA */}
         <section className="py-16 bg-gradient-to-br from-pink-600 to-purple-700 text-white" data-testid="cta-section">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -592,12 +591,13 @@ export default function AustinBacheloretteAlcoholTimeline() {
                   <Link href="/book-now">Get Custom Quote</Link>
                 </Button>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         <Footer />
       </div>
     </>
+    </LazyMotionProvider>
   );
 }

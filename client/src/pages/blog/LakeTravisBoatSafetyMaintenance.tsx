@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { m, LazyMotionProvider, fadeInUp, staggerContainer } from '@/components/LazyMotion';
 import { Link } from 'wouter';
-import * as HelmetAsync from 'react-helmet-async';
-const HelmetAsyncDefault = (HelmetAsync as any).default || HelmetAsync;
-const { Helmet } = HelmetAsyncDefault;
+import SEOHead from '@/components/SEOHead';
 import { 
   Ship, Users, Phone, Clock, CheckCircle2, 
   Shield, Anchor, Wrench, Award, Star,
@@ -23,15 +21,6 @@ import captainImage from '@assets/day tripper-1 party boat with captain austin_1
 import maintenanceImage from '@assets/clever-girl-2-party-boat-austin.jpg';
 import fleetImage from '@assets/meeseeks-1_1763968010088.jpg';
 import safetyGearImage from '@assets/day tripper-2 party boat austin lake travis_1763968078449.jpg';
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-};
-
-const staggerChildren = {
-  visible: { transition: { staggerChildren: 0.1 } }
-};
 
 const safetyPillars = [
   { 
@@ -189,27 +178,21 @@ export default function LakeTravisBoatSafetyMaintenance() {
   }, []);
 
   return (
+    <LazyMotionProvider>
     <>
-      <Helmet>
-        <title>Lake Travis Boat Safety & Maintenance Standards | Premier Party Cruises</title>
-        <meta name="description" content="Discover Premier Party Cruises' industry-leading boat safety and maintenance standards. TPWD licensed captains, rigorous inspections, and a perfect 15-year safety record on Lake Travis." />
-        <meta name="keywords" content="Lake Travis boat safety, party boat maintenance, TPWD licensed captains, Lake Travis party cruise safety, boat safety inspections, Premier Party Cruises safety record" />
-        <link rel="canonical" href="https://premierpartycruises.com/blogs/lake-travis-boat-safety-and-maintenance-quality-standards-for-party-cruises" />
-        <meta property="og:title" content="Lake Travis Boat Safety & Maintenance Standards | Premier Party Cruises" />
-        <meta property="og:description" content="15+ years. 150,000+ guests. Zero safety incidents. Learn about our industry-leading safety standards on Lake Travis." />
-        <meta property="og:type" content="article" />
-        <meta property="og:url" content="https://premierpartycruises.com/blogs/lake-travis-boat-safety-and-maintenance-quality-standards-for-party-cruises" />
-        <meta property="og:image" content="https://premierpartycruises.com/attached_assets/clever-girl-1-lake-travis-party-boat.jpg" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Lake Travis Boat Safety & Maintenance Standards" />
-        <meta name="twitter:description" content="15+ years. 150,000+ guests. Zero safety incidents. Premier Party Cruises." />
-      </Helmet>
+      <SEOHead 
+        pageRoute="/blogs/lake-travis-boat-safety-and-maintenance-quality-standards-for-party-cruises"
+        defaultTitle="Lake Travis Boat Safety & Maintenance Standards | Premier Party Cruises"
+        defaultDescription="Discover Premier Party Cruises' industry-leading boat safety and maintenance standards. TPWD licensed captains, rigorous inspections, and a perfect 15-year safety record on Lake Travis."
+        defaultKeywords={['Lake Travis boat safety', 'party boat maintenance', 'TPWD licensed captains', 'Lake Travis party cruise safety', 'boat safety inspections', 'Premier Party Cruises safety record']}
+        image="https://premierpartycruises.com/attached_assets/clever-girl-1-lake-travis-party-boat.jpg"
+      />
 
       <div className="min-h-screen bg-white dark:bg-gray-950">
         <PublicNavigation />
 
         {/* Hero Section */}
-        <motion.section 
+        <m.section 
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
@@ -251,14 +234,26 @@ export default function LakeTravisBoatSafetyMaintenance() {
               </Link>
             </div>
           </div>
-        </motion.section>
+        </m.section>
+
+      {/* Topic Cluster Pillar Link */}
+      <div className="bg-blue-50 dark:bg-blue-950/30 border-b border-blue-100 dark:border-blue-900/50">
+        <div className="max-w-4xl mx-auto px-6 py-3">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            Explore our full guide to{' '}
+            <Link href="/party-boat-lake-travis" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Lake Travis party boat rentals</Link>{' '}
+            for everything from pricing and logistics to safety and entertainment.
+          </p>
+        </div>
+      </div>
+
 
         {/* Safety Stats Bar */}
         <section className="py-8 bg-blue-900 text-white" data-testid="stats-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {safetyStats.map((stat, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -270,7 +265,7 @@ export default function LakeTravisBoatSafetyMaintenance() {
                   <p className="text-3xl md:text-4xl font-bold text-yellow-400 mb-1">{stat.number}</p>
                   <p className="text-white font-semibold text-sm">{stat.label}</p>
                   <p className="text-white/60 text-xs">{stat.subtext}</p>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -279,11 +274,11 @@ export default function LakeTravisBoatSafetyMaintenance() {
         {/* Safety Pillars Grid */}
         <section className="py-16 bg-gray-50 dark:bg-gray-800" data-testid="pillars-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={staggerChildren}
+              variants={staggerContainer}
               className="text-center mb-12"
             >
               <Badge className="mb-4 bg-blue-100 text-blue-700">CORE PRINCIPLES</Badge>
@@ -291,11 +286,11 @@ export default function LakeTravisBoatSafetyMaintenance() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Every cruise is built on these non-negotiable standards
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {safetyPillars.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -313,7 +308,7 @@ export default function LakeTravisBoatSafetyMaintenance() {
                       <Badge className={`${item.bg} ${item.color} font-semibold`}>{item.stat}</Badge>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -322,7 +317,7 @@ export default function LakeTravisBoatSafetyMaintenance() {
         {/* Captain Expertise Section */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="captains-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -383,14 +378,14 @@ export default function LakeTravisBoatSafetyMaintenance() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Maintenance Schedule Section */}
         <section className="py-16 bg-gradient-to-br from-blue-900 via-blue-800 to-cyan-800 text-white" data-testid="maintenance-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -402,11 +397,11 @@ export default function LakeTravisBoatSafetyMaintenance() {
               <p className="text-xl text-white/80 max-w-3xl mx-auto">
                 We don't just meet safety standards. We exceed them at every level.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {maintenanceSchedule.map((schedule, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -431,7 +426,7 @@ export default function LakeTravisBoatSafetyMaintenance() {
                       </ul>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -441,7 +436,7 @@ export default function LakeTravisBoatSafetyMaintenance() {
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="boat-maintenance-detail">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <motion.div
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -455,9 +450,9 @@ export default function LakeTravisBoatSafetyMaintenance() {
                     loading="lazy"
                   />
                 </div>
-              </motion.div>
+              </m.div>
               
-              <motion.div
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -492,7 +487,7 @@ export default function LakeTravisBoatSafetyMaintenance() {
                     See Our Well-Maintained Fleet
                   </Button>
                 </Link>
-              </motion.div>
+              </m.div>
             </div>
           </div>
         </section>
@@ -500,7 +495,7 @@ export default function LakeTravisBoatSafetyMaintenance() {
         {/* Fleet Safety Equipment */}
         <section className="py-16 bg-gray-50 dark:bg-gray-800" data-testid="fleet-safety-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -512,11 +507,11 @@ export default function LakeTravisBoatSafetyMaintenance() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Every vessel exceeds TPWD requirements
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {fleetSafety.map((boat, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -542,7 +537,7 @@ export default function LakeTravisBoatSafetyMaintenance() {
                       </ul>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -552,7 +547,7 @@ export default function LakeTravisBoatSafetyMaintenance() {
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="gear-photo-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <motion.div
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -588,9 +583,9 @@ export default function LakeTravisBoatSafetyMaintenance() {
                     Book With Confidence
                   </Button>
                 </Link>
-              </motion.div>
+              </m.div>
               
-              <motion.div
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -605,7 +600,7 @@ export default function LakeTravisBoatSafetyMaintenance() {
                     loading="lazy"
                   />
                 </div>
-              </motion.div>
+              </m.div>
             </div>
           </div>
         </section>
@@ -613,7 +608,7 @@ export default function LakeTravisBoatSafetyMaintenance() {
         {/* FAQ Section */}
         <section className="py-16 bg-gray-50 dark:bg-gray-800" data-testid="faq-section">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -625,7 +620,7 @@ export default function LakeTravisBoatSafetyMaintenance() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 Answers to your most common safety questions
               </p>
-            </motion.div>
+            </m.div>
 
             <Accordion type="single" collapsible className="space-y-4">
               {faqs.map((faq, index) => (
@@ -650,7 +645,7 @@ export default function LakeTravisBoatSafetyMaintenance() {
         {/* CTA Section */}
         <section className="py-16 bg-gradient-to-r from-blue-700 to-cyan-600 text-white" data-testid="cta-section">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -696,7 +691,7 @@ export default function LakeTravisBoatSafetyMaintenance() {
                   Weather Guarantee
                 </span>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
@@ -704,5 +699,6 @@ export default function LakeTravisBoatSafetyMaintenance() {
         <Footer />
       </div>
     </>
+    </LazyMotionProvider>
   );
 }

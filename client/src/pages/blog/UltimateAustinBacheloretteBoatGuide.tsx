@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { m, LazyMotionProvider, fadeInUp, staggerContainer } from '@/components/LazyMotion';
 import { Link } from 'wouter';
-import * as HelmetAsync from 'react-helmet-async';
-const HelmetAsyncDefault = (HelmetAsync as any).default || HelmetAsync;
-const { Helmet } = HelmetAsyncDefault;
+import SEOHead from '@/components/SEOHead';
 import { 
   Heart, Users, Star, Phone, Clock, CheckCircle2, 
   Camera, Music, Waves, MapPin, Calendar, PartyPopper,
@@ -21,15 +19,6 @@ import heroImage from '@assets/clever girl-10 austin bachelorette party_17639664
 import sectionImage1 from '@assets/clever-girl-3-bachelorette-boat.jpg';
 import sectionImage2 from '@assets/dancing-party-scene.jpg';
 import sectionImage3 from '@assets/atx-disco-cruise-party.jpg';
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-};
-
-const staggerChildren = {
-  visible: { transition: { staggerChildren: 0.1 } }
-};
 
 const partyStats = [
   { stat: '15+', label: 'Years Experience' },
@@ -205,23 +194,21 @@ export default function UltimateAustinBacheloretteBoatGuide() {
   }, []);
 
   return (
+    <LazyMotionProvider>
     <>
-      <Helmet>
-        <title>Ultimate Austin Bachelorette Party Boat Guide - Lake Travis Edition | Premier Party Cruises</title>
-        <meta name="description" content="Planning an Austin bachelorette party? Make it unforgettable with a Lake Travis party boat! Discover ATX Disco Cruise vs Private Charter, pricing, and everything included for the ultimate celebration." />
-        <meta name="keywords" content="Austin bachelorette party boat, Lake Travis bachelorette cruise, ATX Disco Cruise bachelorette, Austin party boat, Lake Travis party cruise, bachelorette party ideas Austin" />
-        <link rel="canonical" href="https://premierpartycruises.com/blogs/ultimate-austin-bachelorette-party-boat-guide-lake-travis" />
-        <meta property="og:title" content="Ultimate Austin Bachelorette Party Boat Guide - Lake Travis Edition" />
-        <meta property="og:description" content="The complete guide to planning an unforgettable Austin bachelorette party on Lake Travis. ATX Disco Cruise vs Private Charter, pricing, what's included, and stress-free planning tips." />
-        <meta property="og:type" content="article" />
-        <meta property="og:image" content={heroImage} />
-      </Helmet>
+      <SEOHead 
+        pageRoute="/blogs/ultimate-austin-bachelorette-party-boat-guide-lake-travis"
+        defaultTitle="Ultimate Austin Bachelorette Party Boat Guide - Lake Travis Edition | Premier Party Cruises"
+        defaultDescription="Planning an Austin bachelorette party? Make it unforgettable with a Lake Travis party boat! Discover ATX Disco Cruise vs Private Charter, pricing, and everything included for the ultimate celebration."
+        defaultKeywords={['Austin bachelorette party boat', 'Lake Travis bachelorette cruise', 'ATX Disco Cruise bachelorette', 'Austin party boat', 'Lake Travis party cruise', 'bachelorette party ideas Austin']}
+        image={heroImage}
+      />
 
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="ultimate-bachelorette-guide-page">
         <PublicNavigation />
 
         {/* Hero Section */}
-        <motion.section 
+        <m.section 
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
@@ -272,14 +259,26 @@ export default function UltimateAustinBacheloretteBoatGuide() {
               </Button>
             </div>
           </div>
-        </motion.section>
+        </m.section>
+
+      {/* Topic Cluster Pillar Link */}
+      <div className="bg-blue-50 dark:bg-blue-950/30 border-b border-blue-100 dark:border-blue-900/50">
+        <div className="max-w-4xl mx-auto px-6 py-3">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            This guide is part of our complete{' '}
+            <Link href="/bachelorette-party-austin" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Austin bachelorette party boats</Link>{' '}
+            resource — your ultimate planning hub for Lake Travis bachelorette celebrations.
+          </p>
+        </div>
+      </div>
+
 
         {/* Stats Section */}
         <section className="py-12 bg-pink-50 dark:bg-slate-900" data-testid="stats-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {partyStats.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -290,7 +289,7 @@ export default function UltimateAustinBacheloretteBoatGuide() {
                 >
                   <div className="text-3xl md:text-4xl font-bold text-pink-600 dark:text-pink-400">{item.stat}</div>
                   <div className="text-gray-600 dark:text-gray-400">{item.label}</div>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -299,11 +298,11 @@ export default function UltimateAustinBacheloretteBoatGuide() {
         {/* Why Lake Travis Section */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="why-lake-travis-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={staggerChildren}
+              variants={staggerContainer}
               className="text-center mb-12"
             >
               <Badge className="mb-4 bg-purple-100 text-purple-700">WHY LAKE TRAVIS</Badge>
@@ -313,11 +312,11 @@ export default function UltimateAustinBacheloretteBoatGuide() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 There are dozens of bachelorette party ideas in Austin, but none are as unique and exciting as a party boat
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {whyLakeTravis.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -333,7 +332,7 @@ export default function UltimateAustinBacheloretteBoatGuide() {
                       <p className="text-gray-600 dark:text-gray-400 text-sm">{item.description}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -357,7 +356,7 @@ export default function UltimateAustinBacheloretteBoatGuide() {
         {/* ATX Disco vs Private Section */}
         <section className="py-16 bg-gradient-to-br from-purple-50 to-pink-50 dark:from-gray-800 dark:to-gray-900" data-testid="comparison-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -371,11 +370,11 @@ export default function UltimateAustinBacheloretteBoatGuide() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Both are fantastic—which is right for your group?
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 gap-8">
               {/* ATX Disco Cruise Card */}
-              <motion.div
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -407,10 +406,10 @@ export default function UltimateAustinBacheloretteBoatGuide() {
                     </Button>
                   </CardContent>
                 </Card>
-              </motion.div>
+              </m.div>
 
               {/* Private Charter Card */}
-              <motion.div
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -439,7 +438,7 @@ export default function UltimateAustinBacheloretteBoatGuide() {
                     </Button>
                   </CardContent>
                 </Card>
-              </motion.div>
+              </m.div>
             </div>
           </div>
         </section>
@@ -447,7 +446,7 @@ export default function UltimateAustinBacheloretteBoatGuide() {
         {/* Pricing Chart Section */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="pricing-section">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -461,11 +460,11 @@ export default function UltimateAustinBacheloretteBoatGuide() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 All-inclusive per-person pricing includes DJ, photographer, floats, and all amenities
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-3 gap-6">
               {pricingTiers.map((tier, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -488,7 +487,7 @@ export default function UltimateAustinBacheloretteBoatGuide() {
                       <p className="text-sm text-gray-600 dark:text-gray-400">{tier.description}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
 
@@ -518,7 +517,7 @@ export default function UltimateAustinBacheloretteBoatGuide() {
         {/* Planning Steps */}
         <section className="py-16 bg-gradient-to-br from-pink-50 to-purple-50 dark:from-gray-800 dark:to-gray-900" data-testid="planning-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -532,11 +531,11 @@ export default function UltimateAustinBacheloretteBoatGuide() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Choosing Premier Party Cruises practically eliminates the planning stress
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {planningSteps.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -552,7 +551,7 @@ export default function UltimateAustinBacheloretteBoatGuide() {
                       <p className="text-gray-600 dark:text-gray-400 text-sm">{item.description}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -562,7 +561,7 @@ export default function UltimateAustinBacheloretteBoatGuide() {
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="byob-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <motion.div
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -594,9 +593,9 @@ export default function UltimateAustinBacheloretteBoatGuide() {
                     </li>
                   ))}
                 </ul>
-              </motion.div>
+              </m.div>
               
-              <motion.div
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -607,7 +606,7 @@ export default function UltimateAustinBacheloretteBoatGuide() {
                   alt="ATX Disco Cruise party atmosphere with DJ and celebrating guests on Lake Travis"
                   className="rounded-2xl shadow-xl w-full"
                 />
-              </motion.div>
+              </m.div>
             </div>
           </div>
         </section>
@@ -618,7 +617,7 @@ export default function UltimateAustinBacheloretteBoatGuide() {
         {/* FAQ Section */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="faq-section">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -629,7 +628,7 @@ export default function UltimateAustinBacheloretteBoatGuide() {
               <h2 className="text-3xl font-bold mb-4">
                 Bachelorette Boat Party Questions Answered
               </h2>
-            </motion.div>
+            </m.div>
 
             <Accordion type="single" collapsible className="space-y-4">
               {faqs.map((faq, index) => (
@@ -649,7 +648,7 @@ export default function UltimateAustinBacheloretteBoatGuide() {
         {/* Internal Links */}
         <section className="py-16 bg-gradient-to-br from-pink-50 to-purple-50 dark:from-gray-800 dark:to-gray-900" data-testid="related-links-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -660,7 +659,7 @@ export default function UltimateAustinBacheloretteBoatGuide() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 Everything you need to plan the perfect Austin bachelorette weekend
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
               {internalLinks.map((link, index) => (
@@ -710,5 +709,6 @@ export default function UltimateAustinBacheloretteBoatGuide() {
         <Footer />
       </div>
     </>
+    </LazyMotionProvider>
   );
 }

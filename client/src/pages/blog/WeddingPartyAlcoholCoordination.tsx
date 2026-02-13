@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { m, LazyMotionProvider, fadeInUp, staggerContainer } from '@/components/LazyMotion';
 import { Link } from 'wouter';
-import * as HelmetAsync from 'react-helmet-async';
-const HelmetAsyncDefault = (HelmetAsync as any).default || HelmetAsync;
-const { Helmet } = HelmetAsyncDefault;
+import SEOHead from '@/components/SEOHead';
 import { 
   Ship, Users, Wine, Phone, Clock, CheckCircle2, 
   MapPin, Calendar, Star, ArrowRight, Heart,
@@ -24,15 +22,6 @@ import bachelorImage from '@assets/bachelor-party-group-guys.webp';
 import bacheloretteImage from '@assets/@capitalcityshots-22_1760080807865.jpg';
 import receptionImage from '@assets/@capitalcityshots-23_1760080807865.jpg';
 import lakeTravisImage from '@assets/clever-girl-50-person-boat.webp';
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-};
-
-const staggerChildren = {
-  visible: { transition: { staggerChildren: 0.1 } }
-};
 
 const gettingReadyTips = [
   {
@@ -180,27 +169,21 @@ export default function WeddingPartyAlcoholCoordination() {
   }, []);
 
   return (
+    <LazyMotionProvider>
     <>
-      <Helmet>
-        <title>Wedding Party Alcohol Coordination: Getting Ready, Bachelor/Bachelorette & Reception | Austin Guide</title>
-        <meta name="description" content="Complete guide to coordinating alcohol across all wedding party events in Austin. From getting ready champagne toasts to bachelor party Lake Travis cruises, bachelorette celebrations, and reception bars. Party On Delivery tips included." />
-        <meta name="keywords" content="wedding party alcohol coordination, Austin wedding drinks, bachelor party alcohol, bachelorette party drinks, Lake Travis wedding cruise, Party On Delivery Austin, getting ready champagne, wedding reception bar, Austin alcohol delivery" />
-        <link rel="canonical" href="https://premierpartycruises.com/blogs/wedding-party-alcohol-coordination-getting-ready-bachelor-bachelorette-and-reception" />
-        <meta property="og:title" content="Wedding Party Alcohol Coordination: Getting Ready, Bachelor/Bachelorette & Reception" />
-        <meta property="og:description" content="Complete guide to coordinating alcohol across all wedding party events in Austin. Expert tips for getting ready drinks, bachelor/bachelorette parties, and reception coordination." />
-        <meta property="og:type" content="article" />
-        <meta property="og:url" content="https://premierpartycruises.com/blogs/wedding-party-alcohol-coordination-getting-ready-bachelor-bachelorette-and-reception" />
-        <meta property="og:image" content="https://premierpartycruises.com/attached_assets/@capitalcityshots-25_1760080807866.jpg" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Wedding Party Alcohol Coordination Guide | Austin" />
-        <meta name="twitter:description" content="Coordinate alcohol for every wedding event - getting ready, bachelor party, bachelorette party, and reception." />
-      </Helmet>
+      <SEOHead 
+        pageRoute="/blogs/wedding-party-alcohol-coordination-getting-ready-bachelor-bachelorette-and-reception"
+        defaultTitle="Wedding Party Alcohol Coordination: Getting Ready, Bachelor/Bachelorette & Reception | Austin Guide"
+        defaultDescription="Complete guide to coordinating alcohol across all wedding party events in Austin. From getting ready champagne toasts to bachelor party Lake Travis cruises, bachelorette celebrations, and reception bars. Party On Delivery tips included."
+        defaultKeywords={['wedding party alcohol coordination', 'Austin wedding drinks', 'bachelor party alcohol', 'bachelorette party drinks', 'Lake Travis wedding cruise', 'Party On Delivery Austin', 'getting ready champagne', 'wedding reception bar', 'Austin alcohol delivery']}
+        image="https://premierpartycruises.com/attached_assets/@capitalcityshots-25_1760080807866.jpg"
+      />
 
       <div className="min-h-screen bg-white dark:bg-gray-950">
         <PublicNavigation />
 
         {/* Hero Section */}
-        <motion.section 
+        <m.section 
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
@@ -209,6 +192,8 @@ export default function WeddingPartyAlcoholCoordination() {
           <div 
             className="absolute inset-0 bg-cover bg-center"
             style={{ backgroundImage: `url(${heroImage})` }}
+          role="img"
+          aria-label="Wedding Party Alcohol Coordination: Getting Ready, Bachelor/Bachelorette & Reception - Premier Party Cruises Lake Travis"
           />
           <div className="absolute inset-0 bg-black/60" />
           
@@ -238,12 +223,24 @@ export default function WeddingPartyAlcoholCoordination() {
               </Link>
             </div>
           </div>
-        </motion.section>
+        </m.section>
+
+      {/* Topic Cluster Pillar Link */}
+      <div className="bg-blue-50 dark:bg-blue-950/30 border-b border-blue-100 dark:border-blue-900/50">
+        <div className="max-w-4xl mx-auto px-6 py-3">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            Browse our full range of{' '}
+            <Link href="/party-boat-austin" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Austin party boat rentals</Link>{' '}
+            for celebrations of every kind on Lake Travis.
+          </p>
+        </div>
+      </div>
+
 
         {/* Introduction */}
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+            <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
               <h2 className="heading-unbounded text-2xl sm:text-3xl font-bold mb-6 text-gray-900 dark:text-white">Coordinating Alcohol Across Your Wedding Weekend</h2>
               <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
                 Planning a wedding in Austin means coordinating multiple celebrations - each with its own drink needs. From the intimate <strong>champagne toast while getting ready</strong> to the wild <strong>bachelor party on Lake Travis</strong>, the glamorous <strong>bachelorette boat cruise</strong>, and finally the <strong>wedding reception bar</strong>, every event requires thoughtful alcohol planning.
@@ -257,14 +254,14 @@ export default function WeddingPartyAlcoholCoordination() {
                   Pro Tip: Book your Lake Travis party cruise early - wedding season fills up fast!
                 </p>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Getting Ready Day Drinks Section */}
         <section className="py-16 bg-gray-50 dark:bg-gray-800">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerChildren}>
+            <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer}>
               <div className="grid lg:grid-cols-2 gap-12 items-center">
                 <div>
                   <Badge className="mb-4 bg-rose-500 text-white">MORNING OF</Badge>
@@ -275,7 +272,7 @@ export default function WeddingPartyAlcoholCoordination() {
                   
                   <div className="space-y-4">
                     {gettingReadyTips.map((tip, index) => (
-                      <motion.div key={index} variants={fadeInUp}>
+                      <m.div key={index} variants={fadeInUp}>
                         <Card className="border-l-4 border-l-rose-500">
                           <CardContent className="p-4 flex items-start gap-4">
                             <div className="p-2 bg-rose-100 dark:bg-rose-900/30 rounded-lg">
@@ -287,7 +284,7 @@ export default function WeddingPartyAlcoholCoordination() {
                             </div>
                           </CardContent>
                         </Card>
-                      </motion.div>
+                      </m.div>
                     ))}
                   </div>
                 </div>
@@ -304,14 +301,14 @@ export default function WeddingPartyAlcoholCoordination() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Bachelor Party Section */}
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerChildren}>
+            <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer}>
               <div className="grid lg:grid-cols-2 gap-12 items-center">
                 <div className="order-2 lg:order-1 relative">
                   <img 
@@ -334,7 +331,7 @@ export default function WeddingPartyAlcoholCoordination() {
                   
                   <div className="space-y-4">
                     {bachelorPartyTips.map((tip, index) => (
-                      <motion.div key={index} variants={fadeInUp}>
+                      <m.div key={index} variants={fadeInUp}>
                         <Card className="border-l-4 border-l-blue-600">
                           <CardContent className="p-4 flex items-start gap-4">
                             <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
@@ -346,7 +343,7 @@ export default function WeddingPartyAlcoholCoordination() {
                             </div>
                           </CardContent>
                         </Card>
-                      </motion.div>
+                      </m.div>
                     ))}
                   </div>
                   
@@ -358,14 +355,14 @@ export default function WeddingPartyAlcoholCoordination() {
                   </Link>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Bachelorette Party Section */}
         <section className="py-16 bg-gray-50 dark:bg-gray-800">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerChildren}>
+            <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer}>
               <div className="grid lg:grid-cols-2 gap-12 items-center">
                 <div>
                   <Badge className="mb-4 bg-pink-500 text-white">BACHELORETTE PARTY</Badge>
@@ -376,7 +373,7 @@ export default function WeddingPartyAlcoholCoordination() {
                   
                   <div className="space-y-4">
                     {bachelorettePartyTips.map((tip, index) => (
-                      <motion.div key={index} variants={fadeInUp}>
+                      <m.div key={index} variants={fadeInUp}>
                         <Card className="border-l-4 border-l-pink-500">
                           <CardContent className="p-4 flex items-start gap-4">
                             <div className="p-2 bg-pink-100 dark:bg-pink-900/30 rounded-lg">
@@ -388,7 +385,7 @@ export default function WeddingPartyAlcoholCoordination() {
                             </div>
                           </CardContent>
                         </Card>
-                      </motion.div>
+                      </m.div>
                     ))}
                   </div>
                   
@@ -412,24 +409,24 @@ export default function WeddingPartyAlcoholCoordination() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Reception Coordination Section */}
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="text-center mb-12">
+            <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="text-center mb-12">
               <Badge className="mb-4 bg-purple-600 text-white">WEDDING RECEPTION</Badge>
               <h2 className="text-3xl font-bold mb-4 text-gray-900 dark:text-white">Reception Alcohol Coordination</h2>
               <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
                 The wedding reception bar requires careful planning. Whether you're hosting at a traditional venue or considering a unique <strong>Lake Travis reception cruise</strong>, here's how to coordinate alcohol for the big celebration.
               </p>
-            </motion.div>
+            </m.div>
             
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
               {receptionCoordination.map((item, index) => (
-                <motion.div key={index} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+                <m.div key={index} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
                   <Card className="h-full text-center hover:shadow-lg transition-shadow">
                     <CardContent className="p-6">
                       <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -439,7 +436,7 @@ export default function WeddingPartyAlcoholCoordination() {
                       <p className="text-sm text-gray-600 dark:text-gray-400">{item.description}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
             
@@ -467,17 +464,17 @@ export default function WeddingPartyAlcoholCoordination() {
         {/* Party On Delivery Partnership Section */}
         <section className="py-16 bg-gradient-to-br from-yellow-400 to-orange-500">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="text-center mb-12">
+            <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="text-center mb-12">
               <Badge className="mb-4 bg-black text-white">PARTNER SPOTLIGHT</Badge>
               <h2 className="text-3xl font-bold mb-4 text-black">Party On Delivery: Austin's Wedding Weekend Partner</h2>
               <p className="text-lg text-black/80 max-w-3xl mx-auto">
                 Simplify your <strong>wedding party alcohol coordination</strong> with Party On Delivery. From getting ready champagne to marina dock deliveries for Lake Travis cruises, they handle the logistics so you can focus on celebrating.
               </p>
-            </motion.div>
+            </m.div>
             
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {partyOnDeliveryBenefits.map((benefit, index) => (
-                <motion.div key={index} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+                <m.div key={index} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
                   <Card className="h-full bg-white/90 backdrop-blur hover:shadow-lg transition-shadow">
                     <CardContent className="p-6 text-center">
                       <div className="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -487,7 +484,7 @@ export default function WeddingPartyAlcoholCoordination() {
                       <p className="text-sm text-gray-600">{benefit.description}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
             
@@ -506,7 +503,7 @@ export default function WeddingPartyAlcoholCoordination() {
         {/* Lake Travis Wedding Cruises Section */}
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+            <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
               <div className="grid lg:grid-cols-2 gap-12 items-center mb-12">
                 <div>
                   <Badge className="mb-4 bg-brand-blue text-white">LAKE TRAVIS</Badge>
@@ -551,14 +548,14 @@ export default function WeddingPartyAlcoholCoordination() {
                   </Card>
                 ))}
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* FAQ Section */}
         <section className="py-16 bg-gray-50 dark:bg-gray-800">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+            <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
               <h2 className="text-3xl font-bold mb-8 text-center text-gray-900 dark:text-white">
                 Frequently Asked Questions
               </h2>
@@ -575,14 +572,14 @@ export default function WeddingPartyAlcoholCoordination() {
                   </AccordionItem>
                 ))}
               </Accordion>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* CTA Section */}
         <section className="py-16 bg-gradient-to-br from-rose-900 via-purple-800 to-rose-900 text-white">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+            <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
               <Heart className="h-16 w-16 mx-auto mb-6 text-yellow-400" />
               <h2 className="text-3xl md:text-4xl font-bold mb-6">
                 Ready to Plan Your Wedding Party Celebration?
@@ -609,12 +606,13 @@ export default function WeddingPartyAlcoholCoordination() {
               <p className="mt-8 text-white/70 text-sm">
                 Questions? Call us at <a href="tel:+15126965486" className="text-yellow-400 hover:underline">(512) 696-5486</a>
               </p>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         <Footer />
       </div>
     </>
+    </LazyMotionProvider>
   );
 }

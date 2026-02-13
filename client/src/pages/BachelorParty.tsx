@@ -391,8 +391,8 @@ export default function BachelorParty() {
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white" data-page-ready="bachelor-party">
       <SEOHead
         pageRoute="/bachelor-party-austin"
-        defaultTitle="Austin Bachelor Party Boats | Lake Travis Party Boat Rentals"
-        defaultDescription="Austin bachelor party boats on Lake Travis starting at $85. Professional DJ, photographer, giant floats. Party boat rentals for Lake Travis bachelor parties. Book today!"
+        defaultTitle="Austin Bachelor Party Boats | Lake Travis Party Boat Rentals (2026)"
+        defaultDescription="Plan the perfect Austin bachelor party on Lake Travis. Party boats starting at $85/person with DJ, photographer & giant floats. BYOB, 4-hour cruises. 150,000+ guests served. Book today!"
         defaultKeywords={["Austin bachelor party", "Lake Travis bachelor party", "party boat Austin", "austin party cruise", "bachelor party boat Austin", "ATX Disco Cruise bachelor", "Austin bachelor ideas", "Lake Travis party boat", "party cruises"]}
         schemaType="service"
       />
@@ -1803,6 +1803,82 @@ export default function BachelorParty() {
           </div>
         </section>
       </SectionReveal>
+
+      {/* Sample Bachelor Party Weekend Itinerary */}
+      <SectionReveal>
+        <section className="py-16 bg-gray-50 dark:bg-gray-800">
+          <div className="container mx-auto px-6">
+            <div className="max-w-4xl mx-auto">
+              <h2 className="text-3xl font-bold text-center mb-4 text-gray-900 dark:text-white">
+                Sample Austin Bachelor Party Weekend Itinerary
+              </h2>
+              <p className="text-center text-gray-600 dark:text-gray-400 mb-10">
+                Here's how the best bachelor party weekends in Austin play out. Customize to fit your crew!
+              </p>
+              <div className="space-y-8">
+                <div className="bg-white dark:bg-gray-900 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
+                  <h3 className="text-xl font-bold text-blue-600 mb-3">Friday — Arrive & Hit the Town</h3>
+                  <ul className="space-y-2 text-gray-700 dark:text-gray-300">
+                    <li className="flex items-start gap-2"><span className="text-blue-500 font-bold">4 PM</span> Check into your Austin Airbnb or hotel</li>
+                    <li className="flex items-start gap-2"><span className="text-blue-500 font-bold">6 PM</span> Group dinner at Terry Black's BBQ or Uchi</li>
+                    <li className="flex items-start gap-2"><span className="text-blue-500 font-bold">9 PM</span> Rainey Street bar crawl or 6th Street nightlife</li>
+                  </ul>
+                </div>
+                <div className="bg-white dark:bg-gray-900 rounded-xl p-6 shadow-sm border border-blue-200 dark:border-blue-700 ring-2 ring-blue-500/20">
+                  <h3 className="text-xl font-bold text-blue-600 mb-1">Saturday — Lake Travis Party Boat Day</h3>
+                  <p className="text-sm text-blue-500 font-semibold mb-3">THE MAIN EVENT</p>
+                  <ul className="space-y-2 text-gray-700 dark:text-gray-300">
+                    <li className="flex items-start gap-2"><span className="text-blue-500 font-bold">9 AM</span> Breakfast tacos from Torchy's, prep your cooler (BYOB!)</li>
+                    <li className="flex items-start gap-2"><span className="text-blue-500 font-bold">11 AM</span> Board the ATX Disco Cruise at Anderson Mill Marina</li>
+                    <li className="flex items-start gap-2"><span className="text-blue-500 font-bold">11:30-3:30</span> 4 hours of DJ, dancing, swimming, giant floats & photos</li>
+                    <li className="flex items-start gap-2"><span className="text-blue-500 font-bold">5 PM</span> Recover at the pool, then dinner at Loro or LeRoy & Lewis</li>
+                    <li className="flex items-start gap-2"><span className="text-blue-500 font-bold">9 PM</span> Round 2: East 6th Street or a comedy show at Cap City</li>
+                  </ul>
+                </div>
+                <div className="bg-white dark:bg-gray-900 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
+                  <h3 className="text-xl font-bold text-blue-600 mb-3">Sunday — Wind Down & Head Home</h3>
+                  <ul className="space-y-2 text-gray-700 dark:text-gray-300">
+                    <li className="flex items-start gap-2"><span className="text-blue-500 font-bold">10 AM</span> Brunch at Paperboy or Jo's Coffee on South Congress</li>
+                    <li className="flex items-start gap-2"><span className="text-blue-500 font-bold">12 PM</span> Optional: Top Golf, Barton Springs, or South Congress shopping</li>
+                    <li className="flex items-start gap-2"><span className="text-blue-500 font-bold">3 PM</span> Head to the airport with legendary memories</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </SectionReveal>
+
+      {/* AI Search Quick Answers */}
+      <section className="py-12 bg-white dark:bg-gray-900">
+        <div className="container mx-auto px-6">
+          <QuickAnswerBoxGroup
+            title="Quick Answers About Austin Bachelor Parties"
+            boxes={[
+              {
+                id: 'best-bachelor-boat',
+                question: 'What is the best Austin bachelor party boat?',
+                answer: 'The ATX Disco Cruise is Austin\'s #1 rated bachelor party boat experience. For $85-$105/person, you get a 4-hour all-inclusive cruise on Lake Travis with professional DJ, photographer, giant floats, and BYOB. It\'s the country\'s only multi-group bach party cruise, creating an unmatched party atmosphere with 50-100 fellow celebrants.',
+                keywords: ['best bachelor party boat Austin', 'ATX Disco Cruise bachelor', 'Lake Travis bachelor party'],
+              },
+              {
+                id: 'bachelor-party-cost',
+                question: 'How much does a bachelor party boat cost in Austin?',
+                answer: 'Austin bachelor party boat costs start at $85/person for the ATX Disco Cruise (all-inclusive with DJ, photographer, floats). Private charters range from $200-$520/hour for 14-75 guests. Most bachelor groups of 10-20 spend $85-$105 per person on the Disco Cruise, making it the best value on Lake Travis.',
+                keywords: ['bachelor party boat cost', 'Austin bachelor party price'],
+              },
+              {
+                id: 'bachelor-destination',
+                question: 'Is Lake Travis a good bachelor party destination?',
+                answer: 'Lake Travis is one of the top bachelor party destinations in Texas. With year-round sunshine, crystal-clear water, BYOB-friendly boats, and Austin\'s legendary nightlife just 30 minutes away, it offers the perfect combination of daytime lake activities and evening entertainment. Over 150,000 bachelor party guests have celebrated with Premier Party Cruises since 2009.',
+                keywords: ['Lake Travis bachelor party destination', 'Austin bachelor party'],
+              }
+            ]}
+            columns={3}
+            className="max-w-7xl mx-auto"
+          />
+        </div>
+      </section>
 
       {/* Footer */}
       <Footer />

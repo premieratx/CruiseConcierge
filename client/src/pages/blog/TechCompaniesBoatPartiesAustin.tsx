@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { m, LazyMotionProvider, fadeInUp, staggerContainer } from '@/components/LazyMotion';
 import { Link } from 'wouter';
-import * as HelmetAsync from 'react-helmet-async';
-const HelmetAsyncDefault = (HelmetAsync as any).default || HelmetAsync;
-const { Helmet } = HelmetAsyncDefault;
+import SEOHead from '@/components/SEOHead';
 import { 
   Ship, Users, Briefcase, Phone, Clock, CheckCircle2, 
   Target, Award, Waves, MapPin, Calendar, Star,
@@ -23,15 +21,6 @@ import sectionImage1 from '@assets/@capitalcityshots-16_1760080740020.jpg';
 import sectionImage2 from '@assets/@capitalcityshots-17_1760080740020.jpg';
 import sectionImage3 from '@assets/@capitalcityshots-18_1760080740021.jpg';
 import sectionImage4 from '@assets/@capitalcityshots-19_1760080740021.jpg';
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-};
-
-const staggerChildren = {
-  visible: { transition: { staggerChildren: 0.1 } }
-};
 
 const techBenefits = [
   { 
@@ -209,23 +198,21 @@ export default function TechCompaniesBoatPartiesAustin() {
   }, []);
 
   return (
+    <LazyMotionProvider>
     <>
-      <Helmet>
-        <title>Tech Companies on Deck – Why Austin's Tech Industry Loves Boat Parties | Lake Travis</title>
-        <meta name="description" content="Plan the perfect tech company party Austin on Lake Travis. Startup team building, product launches, and corporate tech outings. Private boat charters for 14-75 guests. Book your Austin tech event boat today!" />
-        <meta name="keywords" content="tech company party Austin, startup team building Lake Travis, Austin tech event boat, corporate tech outing Lake Travis, tech team building Austin, startup party boat Austin, tech company celebration Lake Travis" />
-        <link rel="canonical" href="https://premierpartycruises.com/blogs/tech-companies-boat-parties-austin" />
-        <meta property="og:title" content="Tech Companies on Deck – Why Austin's Tech Industry Loves Boat Parties" />
-        <meta property="og:description" content="Plan the perfect tech company party Austin on Lake Travis. Startup team building, product launches, and corporate tech outings for 14-75 guests." />
-        <meta property="og:type" content="article" />
-        <meta property="og:image" content="https://premierpartycruises.com/attached_assets/@capitalcityshots-2_1760072938923.jpg" />
-      </Helmet>
+      <SEOHead 
+        pageRoute="/blogs/tech-companies-boat-parties-austin"
+        defaultTitle="Tech Companies on Deck – Why Austin's Tech Industry Loves Boat Parties | Lake Travis"
+        defaultDescription="Plan the perfect tech company party Austin on Lake Travis. Startup team building, product launches, and corporate tech outings. Private boat charters for 14-75 guests. Book your Austin tech event boat today!"
+        defaultKeywords={['tech company party Austin', 'startup team building Lake Travis', 'Austin tech event boat', 'corporate tech outing Lake Travis', 'tech team building Austin', 'startup party boat Austin', 'tech company celebration Lake Travis']}
+        image="https://premierpartycruises.com/attached_assets/@capitalcityshots-2_1760072938923.jpg"
+      />
 
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="page-tech-companies-boat-parties">
         <PublicNavigation />
 
         {/* Hero Section */}
-        <motion.section 
+        <m.section 
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
@@ -236,6 +223,8 @@ export default function TechCompaniesBoatPartiesAustin() {
           <div 
             className="absolute inset-0 bg-cover bg-center opacity-30"
             style={{ backgroundImage: `url(${heroImage})` }}
+          role="img"
+          aria-label="Tech Companies on Deck – Why Austin's Tech Industry Loves Boat Parties - Premier Party Cruises Lake Travis"
           />
           
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 text-center">
@@ -269,16 +258,28 @@ export default function TechCompaniesBoatPartiesAustin() {
               </Link>
             </div>
           </div>
-        </motion.section>
+        </m.section>
+
+      {/* Topic Cluster Pillar Link */}
+      <div className="bg-blue-50 dark:bg-blue-950/30 border-b border-blue-100 dark:border-blue-900/50">
+        <div className="max-w-4xl mx-auto px-6 py-3">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            See our complete guide to{' '}
+            <Link href="/corporate-events" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Austin corporate event boats</Link>{' '}
+            for team building, client entertainment, and company celebrations on Lake Travis.
+          </p>
+        </div>
+      </div>
+
 
         {/* Why Tech Teams Love Boat Parties */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="section-benefits">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={staggerChildren}
+              variants={staggerContainer}
               className="text-center mb-12"
             >
               <h2 className="text-3xl font-bold mb-4" data-testid="heading-why-tech-loves">Why Tech Teams Love Boat Parties</h2>
@@ -286,11 +287,11 @@ export default function TechCompaniesBoatPartiesAustin() {
                 Your tech company party Austin event should be as innovative as your products. 
                 Escape the conference room and celebrate on Lake Travis.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {techBenefits.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -306,7 +307,7 @@ export default function TechCompaniesBoatPartiesAustin() {
                       <p className="text-gray-600 dark:text-gray-400 text-sm">{item.description}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -317,7 +318,7 @@ export default function TechCompaniesBoatPartiesAustin() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
               {whyTechTeamsChooseLakeTravis.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -327,7 +328,7 @@ export default function TechCompaniesBoatPartiesAustin() {
                 >
                   <p className="text-3xl md:text-4xl font-bold text-yellow-400">{item.stat}</p>
                   <p className="text-sm md:text-base text-white/80 mt-1">{item.label}</p>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -336,7 +337,7 @@ export default function TechCompaniesBoatPartiesAustin() {
         {/* Perfect For Section */}
         <section className="py-16 bg-gradient-to-br from-gray-50 to-purple-50 dark:from-gray-800 dark:to-gray-900" data-testid="section-event-types">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -390,14 +391,14 @@ export default function TechCompaniesBoatPartiesAustin() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Boat Options for Tech Teams */}
         <section className="py-16 bg-gradient-to-br from-indigo-900 via-purple-800 to-slate-900 text-white" data-testid="section-boat-options">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -413,7 +414,7 @@ export default function TechCompaniesBoatPartiesAustin() {
               
               <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {boatOptions.map((boat, index) => (
-                  <motion.div
+                  <m.div
                     key={index}
                     initial="hidden"
                     whileInView="visible"
@@ -431,7 +432,7 @@ export default function TechCompaniesBoatPartiesAustin() {
                         <p className="text-white/80 text-sm">{boat.description}</p>
                       </CardContent>
                     </Card>
-                  </motion.div>
+                  </m.div>
                 ))}
               </div>
               
@@ -443,14 +444,14 @@ export default function TechCompaniesBoatPartiesAustin() {
                   </Button>
                 </Link>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* How Premier Accommodates Tech Needs */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="section-accommodations">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -501,14 +502,14 @@ export default function TechCompaniesBoatPartiesAustin() {
                   </Link>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Case Examples Section */}
         <section className="py-16 bg-gradient-to-br from-gray-50 to-purple-50 dark:from-gray-800 dark:to-gray-900" data-testid="section-case-examples">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -519,11 +520,11 @@ export default function TechCompaniesBoatPartiesAustin() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Real examples of how Austin tech companies use our boats for memorable corporate tech outing Lake Travis team experiences
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 gap-6">
               {techEventExamples.map((example, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -547,7 +548,7 @@ export default function TechCompaniesBoatPartiesAustin() {
                       </div>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -556,7 +557,7 @@ export default function TechCompaniesBoatPartiesAustin() {
         {/* Image Gallery Section */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="section-gallery">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -567,7 +568,7 @@ export default function TechCompaniesBoatPartiesAustin() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 From startup team building Lake Travis events to enterprise celebrations, our boats create unforgettable experiences
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 gap-6">
               <div className="aspect-video rounded-2xl overflow-hidden shadow-lg">
@@ -591,7 +592,7 @@ export default function TechCompaniesBoatPartiesAustin() {
         {/* FAQ Section */}
         <section className="py-16 bg-gray-50 dark:bg-gray-800" data-testid="section-faq">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -602,7 +603,7 @@ export default function TechCompaniesBoatPartiesAustin() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 Common questions about tech company party Austin and startup team building Lake Travis events
               </p>
-            </motion.div>
+            </m.div>
 
             <Accordion type="single" collapsible className="space-y-4" data-testid="accordion-faq">
               {faqs.map((faq, index) => (
@@ -630,7 +631,7 @@ export default function TechCompaniesBoatPartiesAustin() {
         {/* CTA Section */}
         <section className="py-16 bg-gradient-to-br from-indigo-900 to-purple-900 text-white" data-testid="section-cta">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -681,12 +682,13 @@ export default function TechCompaniesBoatPartiesAustin() {
                   </Button>
                 </Link>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         <Footer />
       </div>
     </>
+    </LazyMotionProvider>
   );
 }

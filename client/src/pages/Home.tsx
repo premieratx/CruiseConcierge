@@ -511,8 +511,8 @@ export default function Home() {
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white dark:bg-gray-950" data-page-ready="home">
       <SEOHead
         pageRoute="/"
-        defaultTitle="Party Boat Austin | Lake Travis Bachelor & Bachelorette Cruises"
-        defaultDescription="Austin party boat rentals on Lake Travis since 2009. Bachelor parties, bachelorette cruises, private charters for 5-75 guests. DJ, photographer, BYOB. Book now!"
+        defaultTitle="Party Boat Austin | Lake Travis Boat Rentals for Bachelor & Bachelorette Parties"
+        defaultDescription="Austin party boat rentals on Lake Travis since 2009. BYOB bachelor parties, bachelorette cruises & private charters for 5-75 guests. DJ, photographer & floats included. Get a free quote!"
         defaultKeywords={['party boat Austin', 'bachelorette party Austin', 'Austin boat rental', 'Lake Travis party boat', 'bachelor party Austin']}
         schemaType="organization"
       />
@@ -685,6 +685,71 @@ export default function Home() {
 
       {/* Quote Builder Section - Eagerly loaded for instant display */}
       <QuoteBuilderSection />
+
+      {/* How It Works Section - AI-extractable numbered steps */}
+      <section className="py-12 md:py-16 bg-gray-50 dark:bg-gray-800">
+        <div className="container mx-auto px-6">
+          <div className="max-w-5xl mx-auto">
+            <h2 className="text-2xl md:text-3xl font-semibold heading-unbounded text-center mb-10 text-gray-900 dark:text-white">
+              How It Works: Book Your Lake Travis Party Boat
+            </h2>
+            <div className="grid md:grid-cols-4 gap-8">
+              <div className="text-center">
+                <div className="w-14 h-14 bg-blue-600 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">1</div>
+                <h3 className="font-bold text-lg mb-2 text-gray-900 dark:text-white">Choose Your Cruise</h3>
+                <p className="text-gray-600 dark:text-gray-400 text-sm">Pick the ATX Disco Cruise (all-inclusive, from $85/person) or a private charter ($200-$520/hr for 14-75 guests).</p>
+              </div>
+              <div className="text-center">
+                <div className="w-14 h-14 bg-blue-600 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">2</div>
+                <h3 className="font-bold text-lg mb-2 text-gray-900 dark:text-white">Get a Free Quote</h3>
+                <p className="text-gray-600 dark:text-gray-400 text-sm">Use our instant quote builder above or call (512) 488-5892 for personalized pricing.</p>
+              </div>
+              <div className="text-center">
+                <div className="w-14 h-14 bg-blue-600 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">3</div>
+                <h3 className="font-bold text-lg mb-2 text-gray-900 dark:text-white">Confirm & Prepare</h3>
+                <p className="text-gray-600 dark:text-gray-400 text-sm">Secure your date with a deposit. BYOB or order from Party On Delivery. We handle captain, crew, and everything else.</p>
+              </div>
+              <div className="text-center">
+                <div className="w-14 h-14 bg-blue-600 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">4</div>
+                <h3 className="font-bold text-lg mb-2 text-gray-900 dark:text-white">Party on Lake Travis</h3>
+                <p className="text-gray-600 dark:text-gray-400 text-sm">Arrive at Anderson Mill Marina, board your boat, and enjoy 3-4 hours of cruising, swimming, music, and unforgettable memories!</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Quick Facts Block */}
+      <section className="py-8 bg-blue-900 text-white">
+        <div className="container mx-auto px-6">
+          <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6 text-center">
+            <div>
+              <div className="text-2xl font-bold">15+</div>
+              <div className="text-blue-200 text-sm">Years in Business</div>
+            </div>
+            <div>
+              <div className="text-2xl font-bold">4</div>
+              <div className="text-blue-200 text-sm">Boats in Fleet</div>
+            </div>
+            <div>
+              <div className="text-2xl font-bold">14-75</div>
+              <div className="text-blue-200 text-sm">Guest Capacity</div>
+            </div>
+            <div>
+              <div className="text-2xl font-bold">$85+</div>
+              <div className="text-blue-200 text-sm">Per Person From</div>
+            </div>
+            <div>
+              <div className="text-2xl font-bold">4.9★</div>
+              <div className="text-blue-200 text-sm">Google Rating</div>
+            </div>
+            <div>
+              <div className="text-2xl font-bold">150K+</div>
+              <div className="text-blue-200 text-sm">Happy Guests</div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Description Section - Welcome Text */}
       <section className="py-12 md:py-16 bg-white dark:bg-gray-900">
@@ -2319,6 +2384,28 @@ export default function Home() {
                   relatedLink: {
                     href: '/contact',
                     text: 'Get directions'
+                  }
+                },
+                {
+                  id: 'party-boat-cost',
+                  question: 'How much does a party boat cost in Austin?',
+                  answer: 'Austin party boat costs range from $85/person for the all-inclusive ATX Disco Cruise (4 hours with DJ, photographer, floats) to $200-$520/hour for private charters accommodating 14-75 guests. Private boats start at $800 for a 3-hour weekday rental. All options include a professional captain and are BYOB.',
+                  keywords: ['party boat cost', 'Austin party boat price', 'Lake Travis boat rental cost'],
+                  icon: Ship,
+                  relatedLink: {
+                    href: '/private-cruises',
+                    text: 'See private charter pricing'
+                  }
+                },
+                {
+                  id: 'departure-location',
+                  question: 'Where do Lake Travis party boats depart from?',
+                  answer: 'Premier Party Cruises departs from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641. Free parking is available at the marina. It\'s approximately 30 minutes from downtown Austin and 20 minutes closer than most other Lake Travis marinas. Arrive 15-20 minutes before your scheduled departure for check-in.',
+                  keywords: ['Anderson Mill Marina', 'Lake Travis departure', 'marina location'],
+                  icon: MapPin,
+                  relatedLink: {
+                    href: '/contact',
+                    text: 'Get directions & parking info'
                   }
                 }
               ]}

@@ -300,8 +300,8 @@ export default function ATXDiscoCruise() {
     <>
       <SEOHead
         pageRoute="/atx-disco-cruise"
-        defaultTitle="ATX Disco Cruise | Austin Bachelor Bachelorette Party Boat"
-        defaultDescription="ATX Disco Cruise on Lake Travis - Austin's premier bachelor and bachelorette party boat. All-inclusive with DJ, photographer, floats. Starting at $85/person. Book now!"
+        defaultTitle="ATX Disco Cruise | Austin's All-Inclusive Party Boat on Lake Travis"
+        defaultDescription="ATX Disco Cruise on Lake Travis - Austin's premier all-inclusive party boat. DJ, photographer, floats, BYOB. Starting at $85/person. Bachelor & bachelorette parties. Book now!"
         defaultKeywords={["ATX Disco Cruise", "austin party cruises", "lake travis party boat", "party boat austin", "austin party cruise", "Austin bachelor party", "Austin bachelorette party", "party cruises", "Lake Travis bachelor party", "Lake Travis bachelorette party", "Austin boat party"]}
         schemaType="event"
       />
@@ -334,8 +334,8 @@ export default function ATXDiscoCruise() {
 
           <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 text-center flex-grow flex items-center">
             <motion.div variants={fadeInUp} className="w-full">
-              <h1 className="heading-unbounded text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white mb-6 md:mb-8 text-center leading-tight drop-shadow-2xl" data-testid="text-hero-headline">
-                ATX Disco Cruise: Lake Travis Bachelorette Party Boat
+              <h1 className="heading-unbounded text-2xl sm:text-3xl md:text-4xl lg:text-4xl xl:text-5xl font-bold text-white mb-6 md:mb-8 text-center leading-tight drop-shadow-2xl" data-testid="text-hero-headline">
+                ATX Disco Cruise: Austin's Premier All-Inclusive Party Boat on Lake Travis
               </h1>
               <p className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 via-pink-300 to-purple-300 mb-8 md:mb-10 font-bold text-center drop-shadow-lg">
                 The Country's Only Multi-Group Bach Party Cruise
@@ -1704,7 +1704,87 @@ export default function ATXDiscoCruise() {
         </SectionReveal>
 
         {/* 11. SEO-ONLY CONTENT (BOTTOM) */}
-        
+
+        {/* Disco Cruise vs Private Charter Comparison Table */}
+        <SectionReveal>
+          <section className="py-16 bg-white dark:bg-gray-900">
+            <div className="max-w-5xl mx-auto px-6">
+              <h2 className="text-3xl font-bold text-center mb-4 text-gray-900 dark:text-white">ATX Disco Cruise vs. Private Charter</h2>
+              <p className="text-center text-gray-600 dark:text-gray-400 mb-10 max-w-2xl mx-auto">Not sure which option is right for your group? Compare our two experiences side-by-side.</p>
+              <div className="overflow-x-auto">
+                <table className="w-full border-collapse text-left">
+                  <thead>
+                    <tr className="bg-blue-900 text-white">
+                      <th className="p-4 font-semibold rounded-tl-lg">Feature</th>
+                      <th className="p-4 font-semibold">ATX Disco Cruise</th>
+                      <th className="p-4 font-semibold rounded-tr-lg">Private Charter</th>
+                    </tr>
+                  </thead>
+                  <tbody className="text-gray-700 dark:text-gray-300">
+                    <tr className="border-b border-gray-200 dark:border-gray-700">
+                      <td className="p-4 font-medium">Pricing</td>
+                      <td className="p-4">$85-$138/person (all-inclusive)</td>
+                      <td className="p-4">$200-$520/hour (entire boat)</td>
+                    </tr>
+                    <tr className="border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
+                      <td className="p-4 font-medium">Duration</td>
+                      <td className="p-4">4 hours (fixed time slots)</td>
+                      <td className="p-4">3-8 hours (flexible)</td>
+                    </tr>
+                    <tr className="border-b border-gray-200 dark:border-gray-700">
+                      <td className="p-4 font-medium">Group Size</td>
+                      <td className="p-4">5-75 per group (shared boat)</td>
+                      <td className="p-4">14-75 (exclusive boat)</td>
+                    </tr>
+                    <tr className="border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
+                      <td className="p-4 font-medium">DJ & Music</td>
+                      <td className="p-4">Included (professional DJ)</td>
+                      <td className="p-4">Bluetooth speakers (DJ add-on available)</td>
+                    </tr>
+                    <tr className="border-b border-gray-200 dark:border-gray-700">
+                      <td className="p-4 font-medium">Photographer</td>
+                      <td className="p-4">Included (digital delivery)</td>
+                      <td className="p-4">Add-on available</td>
+                    </tr>
+                    <tr className="border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
+                      <td className="p-4 font-medium">Giant Floats</td>
+                      <td className="p-4">Included (lily pad & more)</td>
+                      <td className="p-4">Included</td>
+                    </tr>
+                    <tr className="border-b border-gray-200 dark:border-gray-700">
+                      <td className="p-4 font-medium">BYOB</td>
+                      <td className="p-4">Yes, coolers & ice included</td>
+                      <td className="p-4">Yes, bring your own cooler</td>
+                    </tr>
+                    <tr className="border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
+                      <td className="p-4 font-medium">Best For</td>
+                      <td className="p-4">Bach parties, birthdays, social groups wanting high-energy atmosphere</td>
+                      <td className="p-4">Corporate events, weddings, groups wanting privacy & exclusivity</td>
+                    </tr>
+                    <tr>
+                      <td className="p-4 font-medium">Party Vibe</td>
+                      <td className="p-4">High energy, multi-group, co-ed party</td>
+                      <td className="p-4">Customizable, private experience</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
+                <Link href="#packages">
+                  <Button className="bg-blue-600 hover:bg-blue-700 text-white font-bold px-8 py-3">
+                    Book Disco Cruise
+                  </Button>
+                </Link>
+                <Link href="/private-cruises">
+                  <Button variant="outline" className="border-blue-600 text-blue-600 hover:bg-blue-50 font-bold px-8 py-3">
+                    Explore Private Charters
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          </section>
+        </SectionReveal>
+
         {/* Quick Answer Boxes - SEO Content */}
         <SectionReveal>
           <section className="py-16 bg-gray-50">
@@ -1712,6 +1792,17 @@ export default function ATXDiscoCruise() {
               <QuickAnswerBoxGroup
                 title="Quick Answers About ATX Disco Cruise"
                 boxes={[
+                  {
+                    id: 'what-is-disco-cruise',
+                    question: 'What is the ATX Disco Cruise and is it worth it?',
+                    answer: 'The ATX Disco Cruise is Austin\'s premier all-inclusive party boat experience on Lake Travis. For $85-$105/person, you get a 4-hour cruise with professional DJ, photographer, digital photos, giant lily pad floats, coolers with ice, and BYOB. It\'s the country\'s only multi-group bach party cruise, hosting bachelor parties, bachelorette parties, birthdays, and friend groups together for an electric party atmosphere. With 150,000+ happy guests since 2009 and a 4.9-star rating, it\'s consistently rated Austin\'s best party boat experience.',
+                    keywords: ['ATX Disco Cruise', 'what is ATX Disco Cruise', 'Austin party boat', 'Lake Travis cruise'],
+                    icon: Star,
+                    relatedLink: {
+                      href: '#packages',
+                      text: 'View time slots & pricing'
+                    }
+                  },
                   {
                     id: 'food-included',
                     question: 'Is food included?',

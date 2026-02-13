@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { m, LazyMotionProvider, fadeInUp, staggerContainer } from '@/components/LazyMotion';
 import { Link } from 'wouter';
-import * as HelmetAsync from 'react-helmet-async';
-const HelmetAsyncDefault = (HelmetAsync as any).default || HelmetAsync;
-const { Helmet } = HelmetAsyncDefault;
+import SEOHead from '@/components/SEOHead';
 import { 
   Ship, Users, PartyPopper, Phone, Clock, CheckCircle2, 
   Anchor, Music, Sun, Waves, MapPin, Calendar, Beer, Star,
@@ -22,15 +20,6 @@ import discoParty from '@assets/atx-disco-cruise-party.webp';
 import dancingScene from '@assets/dancing-party-scene.webp';
 import cleverGirl from '@assets/clever-girl-50-person-boat.webp';
 import unicornFloat from '@assets/giant-unicorn-float.webp';
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-};
-
-const staggerChildren = {
-  visible: { transition: { staggerChildren: 0.1 } }
-};
 
 const austinActivities = [
   { icon: Ship, title: 'ATX Disco Cruise', description: 'The ultimate party boat experience with bachelors AND bachelorettes together' },
@@ -56,23 +45,21 @@ export default function AustinBachelorPartyIdeas() {
   }, []);
 
   return (
+    <LazyMotionProvider>
     <>
-      <Helmet>
-        <title>Austin Bachelor Party Ideas: Top Things to Do for an Epic Guys' Weekend | Premier Party Cruises</title>
-        <meta name="description" content="Planning a bachelor party in Austin? Discover the ultimate guide to Austin bachelor party ideas including the famous ATX Disco Cruise, 6th Street bar crawls, Lake Travis party boats, and Texas BBQ. Book the best bachelor party experience in Austin, Texas." />
-        <meta name="keywords" content="Austin bachelor party ideas, bachelor party in Austin, bachelor party Austin, Austin party boat, party boat Austin, Lake Travis party barge, Austin party barge, ideas for bachelor party in Austin, ATX Disco Cruise, Lake Travis bachelor party, Austin bachelor party boats" />
-        <link rel="canonical" href="https://premierpartycruises.com/blogs/austin-bachelor-party-ideas" />
-        <meta property="og:title" content="Austin Bachelor Party Ideas: Epic Guys' Weekend Guide" />
-        <meta property="og:description" content="The ultimate guide to planning an epic bachelor party in Austin. Lake Travis party boats, 6th Street, BBQ, and more." />
-        <meta property="og:type" content="article" />
-        <meta property="og:image" content="https://premierpartycruises.com/attached_assets/bachelor-party-group-guys.webp" />
-      </Helmet>
+      <SEOHead 
+        pageRoute="/blogs/austin-bachelor-party-ideas"
+        defaultTitle="Austin Bachelor Party Ideas: Top Things to Do for an Epic Guys' Weekend | Premier Party Cruises"
+        defaultDescription="Planning a bachelor party in Austin? Discover the ultimate guide to Austin bachelor party ideas including the famous ATX Disco Cruise, 6th Street bar crawls, Lake Travis party boats, and Texas BBQ. Book the best bachelor party experience in Austin, Texas."
+        defaultKeywords={['Austin bachelor party ideas', 'bachelor party in Austin', 'bachelor party Austin', 'Austin party boat', 'party boat Austin', 'Lake Travis party barge', 'Austin party barge', 'ideas for bachelor party in Austin', 'ATX Disco Cruise', 'Lake Travis bachelor party', 'Austin bachelor party boats']}
+        image="https://premierpartycruises.com/attached_assets/bachelor-party-group-guys.webp"
+      />
 
       <div className="min-h-screen bg-white dark:bg-gray-950">
         <PublicNavigation />
 
         {/* Hero Section */}
-        <motion.section 
+        <m.section 
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
@@ -110,12 +97,24 @@ export default function AustinBachelorPartyIdeas() {
               </Link>
             </div>
           </div>
-        </motion.section>
+        </m.section>
+
+      {/* Topic Cluster Pillar Link */}
+      <div className="bg-blue-50 dark:bg-blue-950/30 border-b border-blue-100 dark:border-blue-900/50">
+        <div className="max-w-4xl mx-auto px-6 py-3">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            This guide is part of our complete{' '}
+            <Link href="/bachelor-party-austin" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Austin bachelor party boats</Link>{' '}
+            resource — your one-stop planning hub for Lake Travis bachelor celebrations.
+          </p>
+        </div>
+      </div>
+
 
         {/* Introduction */}
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+            <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
               <h2 className="heading-unbounded text-2xl sm:text-3xl font-bold mb-6 text-gray-900 dark:text-white">Welcome to Austin, Bachelor Party Capital</h2>
               <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
                 Planning an <strong>austin bachelor party</strong> means gearing up for an unforgettable adventure in one of the nation's top party destinations. This city has it all: legendary live music, incredible BBQ and tacos, craft breweries, outdoor excitement, and a nightlife scene that's second to none. With so many <strong>Austin bachelor party ideas</strong> out there, how do you choose? The best way to celebrate is aboard a <strong>lake travis bachelor party boat</strong> – and we've got you covered with all the details.
@@ -129,14 +128,14 @@ export default function AustinBachelorPartyIdeas() {
                 alt="Austin bachelor party boat cruise on Lake Travis with guys celebrating"
                 caption="Your Austin bachelor party adventure starts here"
               />
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* The Ultimate Party Boat Section */}
         <section className="py-16 bg-gradient-to-br from-blue-50 to-purple-50 dark:from-gray-800 dark:to-gray-900">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+            <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
               <div className="flex items-center gap-3 mb-4">
                 <Ship className="h-8 w-8 text-blue-600" />
                 <h2 className="text-3xl font-bold text-gray-900 dark:text-white">The Ultimate Party Boat on Lake Travis</h2>
@@ -204,23 +203,23 @@ export default function AustinBachelorPartyIdeas() {
                   </Button>
                 </Link>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Why ATX Disco Cruise Grid */}
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="text-center mb-12">
+            <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="text-center mb-12">
               <h2 className="text-3xl font-bold mb-4 text-gray-900 dark:text-white">Why the ATX Disco Cruise is the Best Bachelor Party in Austin</h2>
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Everything you need for an epic Lake Travis party boat experience
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {whyDiscoCruise.map((item, index) => (
-                <motion.div key={index} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+                <m.div key={index} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
                   <Card className="h-full hover:shadow-lg transition-shadow">
                     <CardContent className="pt-6">
                       <div className="w-14 h-14 mb-4 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center">
@@ -230,7 +229,7 @@ export default function AustinBachelorPartyIdeas() {
                       <p className="text-gray-600 dark:text-gray-400">{item.description}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -239,7 +238,7 @@ export default function AustinBachelorPartyIdeas() {
         {/* 6th Street Section */}
         <section className="py-16 bg-gray-50 dark:bg-gray-800">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+            <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
               <div className="flex items-center gap-3 mb-4">
                 <Beer className="h-8 w-8 text-amber-600" />
                 <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Bar Hopping on 6th Street ("Dirty 6th")</h2>
@@ -260,14 +259,14 @@ export default function AustinBachelorPartyIdeas() {
                 alt="Bachelor party austin texas nightlife on 6th Street"
                 caption="6th Street: Where Austin's legendary nightlife awaits your bachelor crew"
               />
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Rainey Street Section */}
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+            <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
               <div className="flex items-center gap-3 mb-4">
                 <Sparkles className="h-8 w-8 text-purple-600" />
                 <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Rainey Street Vibes and Craft Beers</h2>
@@ -282,14 +281,14 @@ export default function AustinBachelorPartyIdeas() {
               <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
                 <strong>Pro tip:</strong> Craft beer lovers should squeeze in a brewery tour. Austin's craft brewery game is strong – hit Zilker Brewing, Austin Beerworks, or St. Elmo Brewing. And coordinate with <a href="https://www.partyondelivery.com" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline font-semibold">Party On Delivery</a> to have your Airbnb stocked with the groom's favorite brews when you return!
               </p>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Texas BBQ Section */}
         <section className="py-16 bg-gradient-to-br from-orange-50 to-red-50 dark:from-gray-800 dark:to-gray-900">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+            <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
               <div className="flex items-center gap-3 mb-4">
                 <Utensils className="h-8 w-8 text-red-600" />
                 <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Feast on Texas BBQ (Meat Coma, Anyone?)</h2>
@@ -304,14 +303,14 @@ export default function AustinBachelorPartyIdeas() {
               <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
                 Another great option is The Salt Lick, a BYOB barbecue oasis in Driftwood (about 30 minutes outside Austin). They'll set you up with family-style platters under the oak trees – just bring a cooler of your favorite beers. <strong>Pro tip:</strong> Coordinate with <a href="https://www.partyondelivery.com" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline font-semibold">Party On Delivery</a> to have a stock of the groom's favorite beer or bourbon waiting at your Airbnb when you return!
               </p>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Outdoor Adventures Section */}
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+            <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
               <div className="flex items-center gap-3 mb-4">
                 <Sun className="h-8 w-8 text-yellow-600" />
                 <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Outdoor Adventures to Kick Off the Weekend</h2>
@@ -353,14 +352,14 @@ export default function AustinBachelorPartyIdeas() {
                 alt="Austin bachelor party boat rental - the Clever Girl 50-person party boat on Lake Travis"
                 caption="The Clever Girl - Perfect for large bachelor party groups on Lake Travis"
               />
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Live Music Section */}
         <section className="py-16 bg-gray-50 dark:bg-gray-800">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+            <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
               <div className="flex items-center gap-3 mb-4">
                 <Mic className="h-8 w-8 text-green-600" />
                 <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Live Music & Entertainment</h2>
@@ -375,14 +374,14 @@ export default function AustinBachelorPartyIdeas() {
               <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
                 For a bit of old-school fun, hit up Cidercade – a giant arcade with 100+ games and a wall of craft ciders on tap. It's all-you-can-play after a small cover fee, making it a great pre-game spot before heading to the <Link href="/atx-disco-cruise" className="text-blue-600 hover:underline font-semibold">ATX Disco Cruise</Link> the next day!
               </p>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Pro Tips Section */}
         <section className="py-16 bg-gradient-to-br from-blue-100 to-purple-100 dark:from-gray-800 dark:to-gray-900">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+            <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
               <div className="flex items-center gap-3 mb-4">
                 <Trophy className="h-8 w-8 text-yellow-600" />
                 <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Pro Tips: Drinks, Mixers, and Logistics Made Easy</h2>
@@ -438,14 +437,14 @@ export default function AustinBachelorPartyIdeas() {
                   <strong>Pro tip:</strong> Stay downtown or in East Austin if possible to minimize transit headaches – you'll be right in the action.
                 </p>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Final Thoughts */}
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+            <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
               <h2 className="heading-unbounded text-2xl sm:text-3xl font-bold mb-6 text-gray-900 dark:text-white">Final Thoughts: Austin Has It All for Your Bachelor Party</h2>
               <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
                 From the ultimate <strong>lake travis bachelor party boat</strong> experience to bar-hopping on 6th Street, the range of <strong>austin bachelor party</strong> ideas is off the charts. You can tailor the weekend to your groom's personality – or better yet, sample a little of everything for a well-rounded blowout.
@@ -469,14 +468,14 @@ export default function AustinBachelorPartyIdeas() {
               <p className="text-xl text-center font-bold text-blue-600 mb-8">
                 Cheers to an incredible bachelor weekend in Austin – let the good times roll!
               </p>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* CTA Section */}
         <section className="py-20 bg-gradient-to-br from-blue-900 via-purple-900 to-blue-900 text-white">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+            <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
               <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to Book the Best Bachelor Party in Austin?</h2>
               <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
                 The ATX Disco Cruise is the ultimate bachelor party experience – party with your crew AND meet awesome bachelorette groups on the same boat. Book now before spots fill up!
@@ -497,7 +496,7 @@ export default function AustinBachelorPartyIdeas() {
               <p className="mt-6 text-white/70">
                 Questions? <Link href="/contact" className="text-yellow-400 hover:underline">Contact us</Link> or check out our <Link href="/faq" className="text-yellow-400 hover:underline">FAQ</Link>
               </p>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
@@ -549,5 +548,6 @@ export default function AustinBachelorPartyIdeas() {
         <Footer />
       </div>
     </>
+    </LazyMotionProvider>
   );
 }

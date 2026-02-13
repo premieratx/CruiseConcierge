@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { m, LazyMotionProvider, fadeInUp, staggerContainer } from '@/components/LazyMotion';
 import { Link } from 'wouter';
-import * as HelmetAsync from 'react-helmet-async';
-const HelmetAsyncDefault = (HelmetAsync as any).default || HelmetAsync;
-const { Helmet } = HelmetAsyncDefault;
+import SEOHead from '@/components/SEOHead';
 import { 
   Ship, Users, Lock, Unlock, Music, Camera, 
   Shield, Clock, CheckCircle2, XCircle, Sparkles,
@@ -20,15 +18,6 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 
 import heroImage from '@assets/atx-disco-cruise-party.webp';
 import privateBoatImage from '@assets/clever-girl-1-lake-travis-party-boat.jpg';
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-};
-
-const staggerChildren = {
-  visible: { transition: { staggerChildren: 0.1 } }
-};
 
 const comparisonTableData = [
   { feature: 'Group Type', private: 'Your group only', disco: 'Multiple bach groups' },
@@ -220,21 +209,15 @@ export default function PrivateCharterVsDiscoCruise() {
   const canonicalUrl = "https://premierpartycruises.com/blogs/private-charter-vs-atx-disco-cruise-which-austin-party-boat";
 
   return (
+    <LazyMotionProvider>
     <>
-      <Helmet>
-        <title>Private Charter vs ATX Disco Cruise | Austin Party Boats</title>
-        <meta name="description" content="Private charter or ATX Disco Cruise? Compare cost, vibe, and group size to choose the best Lake Travis party boat for your Austin celebration." />
-        <link rel="canonical" href={canonicalUrl} />
-        <meta property="og:title" content="Private Charter vs ATX Disco Cruise | Austin Party Boats" />
-        <meta property="og:description" content="Private charter or ATX Disco Cruise? Compare cost, vibe, and group size to choose the best Lake Travis party boat for your Austin celebration." />
-        <meta property="og:url" content={canonicalUrl} />
-        <meta property="og:type" content="article" />
-        <meta property="og:image" content="https://premierpartycruises.com/attached_assets/atx-disco-cruise-party.webp" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Private Charter vs ATX Disco Cruise | Austin Party Boats" />
-        <meta name="twitter:description" content="Private charter or ATX Disco Cruise? Compare cost, vibe, and group size to choose the best Lake Travis party boat for your Austin celebration." />
-        <meta name="keywords" content="austin party boat, lake travis party boat, private boat charter austin, atx disco cruise, bachelor party austin, bachelorette party lake travis, party boat rental austin" />
-      </Helmet>
+      <SEOHead 
+        pageRoute=""
+        defaultTitle="Private Charter vs ATX Disco Cruise | Austin Party Boats"
+        defaultDescription="Private charter or ATX Disco Cruise? Compare cost, vibe, and group size to choose the best Lake Travis party boat for your Austin celebration."
+        defaultKeywords={['austin party boat', 'lake travis party boat', 'private boat charter austin', 'atx disco cruise', 'bachelor party austin', 'bachelorette party lake travis', 'party boat rental austin']}
+        image="https://premierpartycruises.com/attached_assets/atx-disco-cruise-party.webp"
+      />
 
       <PublicNavigation />
 
@@ -250,37 +233,37 @@ export default function PrivateCharterVsDiscoCruise() {
           </div>
           
           <div className="relative z-10 container mx-auto px-4 py-16">
-            <motion.div
+            <m.div
               initial="hidden"
               animate="visible"
-              variants={staggerChildren}
+              variants={staggerContainer}
               className="max-w-3xl"
             >
-              <motion.div variants={fadeInUp} className="mb-4 flex gap-2">
+              <m.div variants={fadeInUp} className="mb-4 flex gap-2">
                 <Badge className="bg-blue-600 text-white px-4 py-1" data-testid="badge-private-charter">
                   <Lock className="h-3 w-3 mr-1" /> Private Charter
                 </Badge>
                 <Badge className="bg-purple-600 text-white px-4 py-1" data-testid="badge-disco-cruise">
                   <Zap className="h-3 w-3 mr-1" /> ATX Disco Cruise
                 </Badge>
-              </motion.div>
+              </m.div>
               
-              <motion.h1 
+              <m.h1 
                 variants={fadeInUp}
                 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight"
               >
                 Private Charter vs ATX Disco Cruise
-              </motion.h1>
+              </m.h1>
               
-              <motion.p 
+              <m.p 
                 variants={fadeInUp}
                 className="text-xl text-blue-100 mb-8 leading-relaxed"
               >
                 Which Austin party boat is right for your group? Both happen on Lake Travis, 
                 both are professionally captained and BYOB—but they create very different experiences.
-              </motion.p>
+              </m.p>
 
-              <motion.div variants={fadeInUp} className="flex flex-wrap gap-4">
+              <m.div variants={fadeInUp} className="flex flex-wrap gap-4">
                 <Link href="/private-cruises">
                   <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white" data-testid="button-private-charters">
                     <Lock className="mr-2 h-5 w-5" />
@@ -293,21 +276,32 @@ export default function PrivateCharterVsDiscoCruise() {
                     ATX Disco Cruise
                   </Button>
                 </Link>
-              </motion.div>
-            </motion.div>
+              </m.div>
+            </m.div>
           </div>
         </section>
 
+        {/* Topic Cluster Pillar Link */}
+        <div className="bg-blue-50 dark:bg-blue-950/30 border-b border-blue-100 dark:border-blue-900/50">
+          <div className="max-w-4xl mx-auto px-6 py-3">
+            <p className="text-sm text-gray-600 dark:text-gray-400">
+              Explore our full guide to{' '}
+              <Link href="/party-boat-lake-travis" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Lake Travis party boat rentals</Link>{' '}
+              for everything from pricing and logistics to safety and entertainment.
+            </p>
+          </div>
+        </div>
+
         <section className="py-16 bg-white">
           <div className="container mx-auto px-4">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={staggerChildren}
+              variants={staggerContainer}
               className="max-w-4xl mx-auto"
             >
-              <motion.div variants={fadeInUp} className="text-center mb-12">
+              <m.div variants={fadeInUp} className="text-center mb-12">
                 <Badge className="bg-orange-100 text-orange-800 mb-4">Understanding Your Options</Badge>
                 <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
                   Not All Austin Party Boats Are the Same
@@ -317,9 +311,9 @@ export default function PrivateCharterVsDiscoCruise() {
                   Both are operated by Premier Party Cruises. Both are professionally captained, safe, and BYOB. 
                   But they create very different experiences.
                 </p>
-              </motion.div>
+              </m.div>
 
-              <motion.div variants={fadeInUp} className="grid md:grid-cols-2 gap-6 mb-12">
+              <m.div variants={fadeInUp} className="grid md:grid-cols-2 gap-6 mb-12">
                 <Card className="border-2 border-blue-200 bg-gradient-to-br from-blue-50 to-white">
                   <CardContent className="p-6">
                     <div className="flex items-center gap-3 mb-4">
@@ -349,20 +343,20 @@ export default function PrivateCharterVsDiscoCruise() {
                     </p>
                   </CardContent>
                 </Card>
-              </motion.div>
-            </motion.div>
+              </m.div>
+            </m.div>
           </div>
         </section>
 
         <section className="py-16 bg-gray-50">
           <div className="container mx-auto px-4">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={staggerChildren}
+              variants={staggerContainer}
             >
-              <motion.div variants={fadeInUp} className="text-center mb-12">
+              <m.div variants={fadeInUp} className="text-center mb-12">
                 <Badge className="bg-blue-100 text-blue-800 mb-4">Side-by-Side Comparison</Badge>
                 <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
                   High-Level Comparison: Private vs Disco
@@ -370,7 +364,7 @@ export default function PrivateCharterVsDiscoCruise() {
                 <p className="text-lg text-gray-600 max-w-2xl mx-auto">
                   Both are excellent Lake Travis party boat options—the right one depends on what you want the day to feel like.
                 </p>
-              </motion.div>
+              </m.div>
 
               <div className="max-w-4xl mx-auto">
                 <div className="bg-white rounded-xl shadow-lg overflow-hidden border">
@@ -380,7 +374,7 @@ export default function PrivateCharterVsDiscoCruise() {
                     <div className="text-center">ATX Disco Cruise</div>
                   </div>
                   {comparisonTableData.map((row, index) => (
-                    <motion.div 
+                    <m.div 
                       key={index}
                       variants={fadeInUp}
                       className={`grid grid-cols-3 p-4 ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'} border-t items-center`}
@@ -388,23 +382,23 @@ export default function PrivateCharterVsDiscoCruise() {
                       <div className="font-medium text-gray-900">{row.feature}</div>
                       <div className="text-center text-blue-700">{row.private}</div>
                       <div className="text-center text-purple-700">{row.disco}</div>
-                    </motion.div>
+                    </m.div>
                   ))}
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         <section className="py-16 bg-white">
           <div className="container mx-auto px-4">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={staggerChildren}
+              variants={staggerContainer}
             >
-              <motion.div variants={fadeInUp} className="text-center mb-12">
+              <m.div variants={fadeInUp} className="text-center mb-12">
                 <Badge className="bg-blue-100 text-blue-800 mb-4">Option 1</Badge>
                 <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
                   Private Party Boat Charter on Lake Travis
@@ -413,18 +407,18 @@ export default function PrivateCharterVsDiscoCruise() {
                   A private charter means the boat is yours—and only yours. 
                   You're essentially renting a floating venue with a licensed captain and crew.
                 </p>
-              </motion.div>
+              </m.div>
 
               <div className="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
-                <motion.div variants={fadeInUp}>
+                <m.div variants={fadeInUp}>
                   <img 
                     src={privateBoatImage} 
                     alt="Private party boat charter on Lake Travis"
                     className="w-full h-80 object-cover rounded-xl shadow-lg"
                   />
-                </motion.div>
+                </m.div>
 
-                <motion.div variants={fadeInUp} className="space-y-6">
+                <m.div variants={fadeInUp} className="space-y-6">
                   <Card className="border-2 border-blue-200">
                     <CardContent className="p-6">
                       <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
@@ -458,10 +452,10 @@ export default function PrivateCharterVsDiscoCruise() {
                       </div>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               </div>
 
-              <motion.div variants={fadeInUp} className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto mt-8">
+              <m.div variants={fadeInUp} className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto mt-8">
                 <Card className="bg-green-50 border-green-200">
                   <CardContent className="p-6">
                     <h4 className="font-bold text-green-800 mb-3 flex items-center gap-2">
@@ -493,28 +487,28 @@ export default function PrivateCharterVsDiscoCruise() {
                     </ul>
                   </CardContent>
                 </Card>
-              </motion.div>
+              </m.div>
 
-              <motion.div variants={fadeInUp} className="text-center mt-8">
+              <m.div variants={fadeInUp} className="text-center mt-8">
                 <Link href="/private-cruises">
                   <Button size="lg" className="bg-blue-600 hover:bg-blue-700" data-testid="button-explore-private">
                     Explore Private Charters <ArrowRight className="ml-2 h-5 w-5" />
                   </Button>
                 </Link>
-              </motion.div>
-            </motion.div>
+              </m.div>
+            </m.div>
           </div>
         </section>
 
         <section className="py-16 bg-gradient-to-br from-purple-900 to-purple-700 text-white">
           <div className="container mx-auto px-4">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={staggerChildren}
+              variants={staggerContainer}
             >
-              <motion.div variants={fadeInUp} className="text-center mb-12">
+              <m.div variants={fadeInUp} className="text-center mb-12">
                 <Badge className="bg-purple-200 text-purple-800 mb-4">Option 2</Badge>
                 <h2 className="text-3xl md:text-4xl font-bold mb-4">
                   ATX Disco Cruise (Austin's Signature Party Boat)
@@ -523,10 +517,10 @@ export default function PrivateCharterVsDiscoCruise() {
                   Not just a boat—it's a curated experience. The most plug-and-play 
                   Lake Travis party experience available.
                 </p>
-              </motion.div>
+              </m.div>
 
               <div className="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
-                <motion.div variants={fadeInUp} className="space-y-6">
+                <m.div variants={fadeInUp} className="space-y-6">
                   <Card className="bg-white/10 border-purple-400/30 backdrop-blur">
                     <CardContent className="p-6">
                       <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
@@ -560,9 +554,9 @@ export default function PrivateCharterVsDiscoCruise() {
                       </ul>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
 
-                <motion.div variants={fadeInUp} className="space-y-6">
+                <m.div variants={fadeInUp} className="space-y-6">
                   <Card className="bg-white/10 border-purple-400/30 backdrop-blur">
                     <CardContent className="p-6">
                       <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
@@ -603,21 +597,21 @@ export default function PrivateCharterVsDiscoCruise() {
                       </Button>
                     </Link>
                   </div>
-                </motion.div>
+                </m.div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         <section className="py-16 bg-white">
           <div className="container mx-auto px-4">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={staggerChildren}
+              variants={staggerContainer}
             >
-              <motion.div variants={fadeInUp} className="text-center mb-12">
+              <m.div variants={fadeInUp} className="text-center mb-12">
                 <Badge className="bg-green-100 text-green-800 mb-4">Cost Reality</Badge>
                 <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
                   Cost Comparison: Private vs Disco
@@ -625,11 +619,11 @@ export default function PrivateCharterVsDiscoCruise() {
                 <p className="text-lg text-gray-600 max-w-2xl mx-auto">
                   Understanding how pricing works helps you choose the best value for your group size.
                 </p>
-              </motion.div>
+              </m.div>
 
               <div className="max-w-4xl mx-auto">
                 <div className="grid md:grid-cols-2 gap-6 mb-8">
-                  <motion.div variants={fadeInUp}>
+                  <m.div variants={fadeInUp}>
                     <Card className="h-full border-2 border-blue-200 bg-blue-50">
                       <CardContent className="p-6">
                         <div className="flex items-center gap-3 mb-4">
@@ -654,9 +648,9 @@ export default function PrivateCharterVsDiscoCruise() {
                         </ul>
                       </CardContent>
                     </Card>
-                  </motion.div>
+                  </m.div>
 
-                  <motion.div variants={fadeInUp}>
+                  <m.div variants={fadeInUp}>
                     <Card className="h-full border-2 border-purple-200 bg-purple-50">
                       <CardContent className="p-6">
                         <div className="flex items-center gap-3 mb-4">
@@ -681,10 +675,10 @@ export default function PrivateCharterVsDiscoCruise() {
                         </ul>
                       </CardContent>
                     </Card>
-                  </motion.div>
+                  </m.div>
                 </div>
 
-                <motion.div variants={fadeInUp} className="bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 rounded-xl p-6">
+                <m.div variants={fadeInUp} className="bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 rounded-xl p-6">
                   <div className="flex items-start gap-4">
                     <DollarSign className="h-8 w-8 text-green-600 flex-shrink-0" />
                     <div>
@@ -696,21 +690,21 @@ export default function PrivateCharterVsDiscoCruise() {
                       </p>
                     </div>
                   </div>
-                </motion.div>
+                </m.div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         <section className="py-16 bg-gray-50">
           <div className="container mx-auto px-4">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={staggerChildren}
+              variants={staggerContainer}
             >
-              <motion.div variants={fadeInUp} className="text-center mb-12">
+              <m.div variants={fadeInUp} className="text-center mb-12">
                 <Badge className="bg-orange-100 text-orange-800 mb-4">Group Size Guide</Badge>
                 <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
                   How Group Size Affects the Decision
@@ -719,11 +713,11 @@ export default function PrivateCharterVsDiscoCruise() {
                   Premier Party Cruises offers both options so groups don't have to force-fit themselves 
                   into the wrong experience.
                 </p>
-              </motion.div>
+              </m.div>
 
               <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
                 {groupSizeRecommendations.map((item, index) => (
-                  <motion.div key={index} variants={fadeInUp}>
+                  <m.div key={index} variants={fadeInUp}>
                     <Card className={`h-full border-2 ${
                       item.color === 'purple' ? 'border-purple-200 bg-purple-50' :
                       item.color === 'orange' ? 'border-orange-200 bg-orange-50' :
@@ -750,27 +744,27 @@ export default function PrivateCharterVsDiscoCruise() {
                         <p className="text-sm text-gray-600">{item.description}</p>
                       </CardContent>
                     </Card>
-                  </motion.div>
+                  </m.div>
                 ))}
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         <section className="py-16 bg-white">
           <div className="container mx-auto px-4">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={staggerChildren}
+              variants={staggerContainer}
             >
-              <motion.div variants={fadeInUp} className="text-center mb-12">
+              <m.div variants={fadeInUp} className="text-center mb-12">
                 <Badge className="bg-pink-100 text-pink-800 mb-4">Party Type Recommendations</Badge>
                 <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
                   Bachelor vs Bachelorette vs Mixed Groups
                 </h2>
-              </motion.div>
+              </m.div>
 
               <div className="max-w-4xl mx-auto">
                 <div className="bg-white rounded-xl shadow-lg overflow-hidden border">
@@ -780,7 +774,7 @@ export default function PrivateCharterVsDiscoCruise() {
                     <div className="text-center">Private Charter</div>
                   </div>
                   {partyTypeRecommendations.map((item, index) => (
-                    <motion.div 
+                    <m.div 
                       key={index}
                       variants={fadeInUp}
                       className={`grid grid-cols-3 p-4 ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'} border-t items-center`}
@@ -791,24 +785,24 @@ export default function PrivateCharterVsDiscoCruise() {
                       </div>
                       <div className="text-center text-purple-700 text-sm">{item.disco}</div>
                       <div className="text-center text-blue-700 text-sm">{item.private}</div>
-                    </motion.div>
+                    </m.div>
                   ))}
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         <section className="py-16 bg-gradient-to-r from-amber-50 to-orange-50">
           <div className="container mx-auto px-4">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={staggerChildren}
+              variants={staggerContainer}
               className="max-w-4xl mx-auto"
             >
-              <motion.div variants={fadeInUp} className="text-center mb-8">
+              <m.div variants={fadeInUp} className="text-center mb-8">
                 <Badge className="bg-amber-100 text-amber-800 mb-4">BYOB Made Easy</Badge>
                 <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
                   Alcohol Planning for Both Options
@@ -817,9 +811,9 @@ export default function PrivateCharterVsDiscoCruise() {
                   Both private charters and the ATX Disco Cruise are BYOB. 
                   To simplify logistics, many groups use Party On Delivery.
                 </p>
-              </motion.div>
+              </m.div>
 
-              <motion.div variants={fadeInUp}>
+              <m.div variants={fadeInUp}>
                 <Card className="border-2 border-amber-200 bg-white">
                   <CardContent className="p-8">
                     <div className="flex items-start gap-4">
@@ -862,20 +856,20 @@ export default function PrivateCharterVsDiscoCruise() {
                     </div>
                   </CardContent>
                 </Card>
-              </motion.div>
-            </motion.div>
+              </m.div>
+            </m.div>
           </div>
         </section>
 
         <section className="py-16 bg-white">
           <div className="container mx-auto px-4">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={staggerChildren}
+              variants={staggerContainer}
             >
-              <motion.div variants={fadeInUp} className="text-center mb-12">
+              <m.div variants={fadeInUp} className="text-center mb-12">
                 <Badge className="bg-green-100 text-green-800 mb-4">Professional Standards</Badge>
                 <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
                   Safety, Structure, and Professionalism
@@ -883,9 +877,9 @@ export default function PrivateCharterVsDiscoCruise() {
                 <p className="text-lg text-gray-600 max-w-2xl mx-auto">
                   This professional framework is why Premier Party Cruises dominates Lake Travis party boat recommendations.
                 </p>
-              </motion.div>
+              </m.div>
 
-              <motion.div variants={fadeInUp} className="max-w-3xl mx-auto">
+              <m.div variants={fadeInUp} className="max-w-3xl mx-auto">
                 <Card className="border-2 border-green-200 bg-green-50">
                   <CardContent className="p-8">
                     <div className="text-center mb-6">
@@ -904,20 +898,20 @@ export default function PrivateCharterVsDiscoCruise() {
                     </div>
                   </CardContent>
                 </Card>
-              </motion.div>
-            </motion.div>
+              </m.div>
+            </m.div>
           </div>
         </section>
 
         <section className="py-16 bg-gradient-to-b from-blue-900 to-purple-800 text-white">
           <div className="container mx-auto px-4">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={staggerChildren}
+              variants={staggerContainer}
             >
-              <motion.div variants={fadeInUp} className="text-center mb-12">
+              <m.div variants={fadeInUp} className="text-center mb-12">
                 <Badge className="bg-white/20 text-white mb-4">Final Verdict</Badge>
                 <h2 className="text-3xl md:text-4xl font-bold mb-4">
                   Match the Boat to the Goal
@@ -925,11 +919,11 @@ export default function PrivateCharterVsDiscoCruise() {
                 <p className="text-lg text-blue-200 max-w-2xl mx-auto">
                   Either way, you're getting a top-tier Austin party boat experience on Lake Travis.
                 </p>
-              </motion.div>
+              </m.div>
 
               <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
                 {summaryCards.map((card, index) => (
-                  <motion.div key={index} variants={fadeInUp}>
+                  <m.div key={index} variants={fadeInUp}>
                     <Card className={`h-full bg-white/10 backdrop-blur border-white/20`}>
                       <CardContent className="p-6">
                         <div className={`w-12 h-12 mx-auto mb-4 rounded-full flex items-center justify-center ${
@@ -950,10 +944,10 @@ export default function PrivateCharterVsDiscoCruise() {
                         </ul>
                       </CardContent>
                     </Card>
-                  </motion.div>
+                  </m.div>
                 ))}
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
@@ -961,21 +955,21 @@ export default function PrivateCharterVsDiscoCruise() {
 
         <section className="py-16 bg-gray-50">
           <div className="container mx-auto px-4">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={staggerChildren}
+              variants={staggerContainer}
               className="max-w-3xl mx-auto"
             >
-              <motion.div variants={fadeInUp} className="text-center mb-12">
+              <m.div variants={fadeInUp} className="text-center mb-12">
                 <Badge className="bg-blue-100 text-blue-800 mb-4">Common Questions</Badge>
                 <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
                   FAQs – Choosing the Right Austin Party Boat
                 </h2>
-              </motion.div>
+              </m.div>
 
-              <motion.div variants={fadeInUp}>
+              <m.div variants={fadeInUp}>
                 <Accordion type="single" collapsible className="space-y-4">
                   {faqs.map((faq, index) => (
                     <AccordionItem 
@@ -992,27 +986,27 @@ export default function PrivateCharterVsDiscoCruise() {
                     </AccordionItem>
                   ))}
                 </Accordion>
-              </motion.div>
-            </motion.div>
+              </m.div>
+            </m.div>
           </div>
         </section>
 
         <section className="py-16 bg-gradient-to-r from-blue-600 via-purple-600 to-orange-500 text-white">
           <div className="container mx-auto px-4">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={staggerChildren}
+              variants={staggerContainer}
               className="text-center"
             >
-              <motion.h2 variants={fadeInUp} className="text-3xl md:text-4xl font-bold mb-4">
+              <m.h2 variants={fadeInUp} className="text-3xl md:text-4xl font-bold mb-4">
                 Ready to Choose Your Experience?
-              </motion.h2>
-              <motion.p variants={fadeInUp} className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+              </m.h2>
+              <m.p variants={fadeInUp} className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
                 Explore your options and book the perfect Austin party boat for your group.
-              </motion.p>
-              <motion.div variants={fadeInUp} className="flex flex-wrap justify-center gap-4">
+              </m.p>
+              <m.div variants={fadeInUp} className="flex flex-wrap justify-center gap-4">
                 <Link href="/atx-disco-cruise">
                   <Button size="lg" className="bg-purple-700 hover:bg-purple-800 text-white" data-testid="button-cta-disco">
                     <Zap className="mr-2 h-5 w-5" />
@@ -1031,13 +1025,14 @@ export default function PrivateCharterVsDiscoCruise() {
                     All Party Boat Options
                   </Button>
                 </Link>
-              </motion.div>
-            </motion.div>
+              </m.div>
+            </m.div>
           </div>
         </section>
       </main>
 
       <Footer />
     </>
+    </LazyMotionProvider>
   );
 }

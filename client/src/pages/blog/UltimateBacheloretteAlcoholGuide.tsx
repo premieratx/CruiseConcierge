@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { m, LazyMotionProvider, fadeInUp, staggerContainer } from '@/components/LazyMotion';
 import { Link } from 'wouter';
-import * as HelmetAsync from 'react-helmet-async';
-const HelmetAsyncDefault = (HelmetAsync as any).default || HelmetAsync;
-const { Helmet } = HelmetAsyncDefault;
+import SEOHead from '@/components/SEOHead';
 import { 
   Wine, Beer, PartyPopper, Clock, Ship, Calculator, 
   Calendar, Star, Users, Heart, Sparkles, CheckCircle2,
@@ -21,15 +19,6 @@ import heroImage from '@assets/disco_fun_first_1765193453547.jpg';
 import sectionImage1 from '@assets/disco_fun3_1765193453547.jpg';
 import sectionImage2 from '@assets/disco_fun5_1765193453548.jpg';
 import sectionImage3 from '@assets/disco_fun7_1765193453548.jpg';
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-};
-
-const staggerChildren = {
-  visible: { transition: { staggerChildren: 0.1 } }
-};
 
 const trustStats = [
   { stat: '14+', label: 'Years in Business' },
@@ -253,27 +242,21 @@ export default function UltimateBacheloretteAlcoholGuide() {
   }, []);
 
   return (
+    <LazyMotionProvider>
     <>
-      <Helmet>
-        <title>The Ultimate Austin Bachelorette Party Alcohol Guide | What to Order, When & How Much | Premier Party Cruises</title>
-        <meta name="description" content="Complete Austin bachelorette party alcohol guide: what to order (champagne, wine, seltzers), when to order (timeline), and how much you need for Lake Travis cruises. Party On Delivery tips included!" />
-        <meta name="keywords" content="Austin bachelorette party alcohol, bachelorette party drinks, Lake Travis bachelorette cruise, what to bring bachelorette party boat, Party On Delivery Austin, bachelorette party planning, Austin party boat alcohol" />
-        <link rel="canonical" href="https://premierpartycruises.com/blogs/the-ultimate-austin-bachelorette-party-alcohol-guide-what-to-order-when-to-order-and-how-much-you-actually-need" />
-        <meta property="og:title" content="The Ultimate Austin Bachelorette Party Alcohol Guide: What to Order, When & How Much" />
-        <meta property="og:description" content="Complete guide to bachelorette party alcohol planning for Austin Lake Travis cruises. Expert tips on quantities, timing, and Party On Delivery." />
-        <meta property="og:type" content="article" />
-        <meta property="og:url" content="https://premierpartycruises.com/blogs/the-ultimate-austin-bachelorette-party-alcohol-guide-what-to-order-when-to-order-and-how-much-you-actually-need" />
-        <meta property="og:image" content="https://premierpartycruises.com/attached_assets/disco_fun_first_1765193453547.jpg" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="The Ultimate Austin Bachelorette Party Alcohol Guide" />
-        <meta name="twitter:description" content="What to order, when to order, and how much you actually need for Lake Travis bachelorette cruises." />
-      </Helmet>
+      <SEOHead 
+        pageRoute="/blogs/the-ultimate-austin-bachelorette-party-alcohol-guide-what-to-order-when-to-order-and-how-much-you-actually-need"
+        defaultTitle="The Ultimate Austin Bachelorette Party Alcohol Guide | What to Order, When & How Much | Premier Party Cruises"
+        defaultDescription="Complete Austin bachelorette party alcohol guide: what to order (champagne, wine, seltzers), when to order (timeline), and how much you need for Lake Travis cruises. Party On Delivery tips included!"
+        defaultKeywords={['Austin bachelorette party alcohol', 'bachelorette party drinks', 'Lake Travis bachelorette cruise', 'what to bring bachelorette party boat', 'Party On Delivery Austin', 'bachelorette party planning', 'Austin party boat alcohol']}
+        image="https://premierpartycruises.com/attached_assets/disco_fun_first_1765193453547.jpg"
+      />
 
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="ultimate-bachelorette-alcohol-guide-page">
         <PublicNavigation />
 
         {/* Hero Section */}
-        <motion.section 
+        <m.section 
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
@@ -327,14 +310,26 @@ export default function UltimateBacheloretteAlcoholGuide() {
               </Button>
             </div>
           </div>
-        </motion.section>
+        </m.section>
+
+      {/* Topic Cluster Pillar Link */}
+      <div className="bg-blue-50 dark:bg-blue-950/30 border-b border-blue-100 dark:border-blue-900/50">
+        <div className="max-w-4xl mx-auto px-6 py-3">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            This guide is part of our complete{' '}
+            <Link href="/bachelorette-party-austin" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Austin bachelorette party boats</Link>{' '}
+            resource — your ultimate planning hub for Lake Travis bachelorette celebrations.
+          </p>
+        </div>
+      </div>
+
 
         {/* Trust Stats */}
         <section className="py-12 bg-slate-100 dark:bg-slate-900" data-testid="stats-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {trustStats.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -345,7 +340,7 @@ export default function UltimateBacheloretteAlcoholGuide() {
                 >
                   <div className="text-3xl md:text-4xl font-bold text-pink-600 dark:text-pink-400">{item.stat}</div>
                   <div className="text-gray-600 dark:text-gray-400">{item.label}</div>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -354,7 +349,7 @@ export default function UltimateBacheloretteAlcoholGuide() {
         {/* What to Order Section */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="what-to-order-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -366,11 +361,11 @@ export default function UltimateBacheloretteAlcoholGuide() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
                 The perfect drink mix for Lake Travis bachelorette cruises - boat-friendly options the whole squad will love
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 gap-8">
               {whatToOrderCategories.map((category, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -408,7 +403,7 @@ export default function UltimateBacheloretteAlcoholGuide() {
                       </div>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -426,7 +421,7 @@ export default function UltimateBacheloretteAlcoholGuide() {
         {/* When to Order Section */}
         <section className="py-16 bg-gradient-to-r from-pink-600 to-rose-600 text-white" data-testid="when-to-order-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -438,11 +433,11 @@ export default function UltimateBacheloretteAlcoholGuide() {
               <p className="text-xl text-pink-100 max-w-2xl mx-auto">
                 Don't leave drink planning to the last minute! Follow this timeline for stress-free bachelorette party prep.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {whenToOrderTimeline.map((phase, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -468,7 +463,7 @@ export default function UltimateBacheloretteAlcoholGuide() {
                       </ul>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -477,7 +472,7 @@ export default function UltimateBacheloretteAlcoholGuide() {
         {/* How Much You Need Section */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="quantity-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -490,7 +485,7 @@ export default function UltimateBacheloretteAlcoholGuide() {
                 Use our calculator guide based on a {quantityCalculator.cruiseLength} Lake Travis cruise. 
                 Choose your group's drinking style!
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="overflow-x-auto">
               <table className="w-full border-collapse" data-testid="quantity-table">
@@ -580,7 +575,7 @@ export default function UltimateBacheloretteAlcoholGuide() {
         {/* Party On Delivery Section */}
         <section className="py-16 bg-slate-100 dark:bg-slate-800" data-testid="pod-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -593,11 +588,11 @@ export default function UltimateBacheloretteAlcoholGuide() {
                 Let the professionals handle your bachelorette party alcohol! Party On Delivery specializes in 
                 Lake Travis boat party beverage service.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
               {partyOnDeliveryBenefits.map((benefit, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -613,7 +608,7 @@ export default function UltimateBacheloretteAlcoholGuide() {
                       <p className="text-gray-600 dark:text-gray-400 text-sm">{benefit.description}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
 
@@ -634,7 +629,7 @@ export default function UltimateBacheloretteAlcoholGuide() {
         {/* Lake Travis Cruise Tips */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="cruise-tips-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -646,11 +641,11 @@ export default function UltimateBacheloretteAlcoholGuide() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
                 Expert advice for a perfect Lake Travis bachelorette party from our experienced crew
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {lakeTravisCruiseTips.map((tip, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -669,7 +664,7 @@ export default function UltimateBacheloretteAlcoholGuide() {
                       <p className="text-gray-600 dark:text-gray-400 text-sm">{tip.description}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -687,7 +682,7 @@ export default function UltimateBacheloretteAlcoholGuide() {
         {/* FAQs */}
         <section className="py-16 bg-slate-100 dark:bg-slate-800" data-testid="faq-section">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -699,7 +694,7 @@ export default function UltimateBacheloretteAlcoholGuide() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 Everything you need to know about bachelorette party alcohol planning
               </p>
-            </motion.div>
+            </m.div>
 
             <Accordion type="single" collapsible className="space-y-4">
               {faqs.map((faq, index) => (
@@ -724,7 +719,7 @@ export default function UltimateBacheloretteAlcoholGuide() {
         {/* CTA Section */}
         <section className="py-16 bg-gradient-to-r from-pink-600 via-rose-600 to-fuchsia-600 text-white" data-testid="cta-section">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -777,12 +772,13 @@ export default function UltimateBacheloretteAlcoholGuide() {
                   </Link>
                 ))}
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         <Footer />
       </div>
     </>
+    </LazyMotionProvider>
   );
 }

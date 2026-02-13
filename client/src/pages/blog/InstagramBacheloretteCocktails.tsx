@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { m, LazyMotionProvider, fadeInUp, staggerContainer } from '@/components/LazyMotion';
 import { Link } from 'wouter';
-import * as HelmetAsync from 'react-helmet-async';
-const HelmetAsyncDefault = (HelmetAsync as any).default || HelmetAsync;
-const { Helmet } = HelmetAsyncDefault;
+import SEOHead from '@/components/SEOHead';
 import { 
   Ship, Users, Camera, Clock, CheckCircle2, 
   Wine, Sparkles, Heart, ArrowRight, Star,
@@ -25,10 +23,6 @@ import sectionImage1 from '@assets/@capitalcityshots-3_1760080740017.jpg';
 import sectionImage2 from '@assets/@capitalcityshots-5_1760072938923.jpg';
 import sectionImage3 from '@assets/clever-girl-3-bachelorette-boat.jpg';
 
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-};
 
 const instagramCocktails = [
   {
@@ -177,24 +171,21 @@ export default function InstagramBacheloretteCocktails() {
   }, []);
 
   return (
+    <LazyMotionProvider>
     <>
-      <Helmet>
-        <title>Instagram-Worthy Bachelorette Party Cocktails: Recipes & Delivery Coordination | Premier Party Cruises</title>
-        <meta name="description" content="Create stunning Instagram bachelorette party cocktails with our recipes and delivery tips. Perfect for Lake Travis boat parties. Photo-ready bachelorette cocktails with delivery coordination for your celebration." />
-        <meta name="keywords" content="Instagram bachelorette party cocktails, bachelorette party cocktails, Instagram-worthy cocktails, bachelorette cocktail recipes, Lake Travis bachelorette, cocktail delivery, bachelorette drinks, photogenic cocktails, bride tribe drinks" />
-        <link rel="canonical" href="https://premierpartycruises.com/blogs/instagram-worthy-bachelorette-party-cocktails-recipes-and-delivery-coordination" />
-        <meta property="og:title" content="Instagram-Worthy Bachelorette Party Cocktails: Recipes & Delivery Coordination" />
-        <meta property="og:description" content="Create stunning Instagram bachelorette party cocktails with recipes and delivery tips for Lake Travis boat parties." />
-        <meta property="og:type" content="article" />
-        <meta property="og:url" content="https://premierpartycruises.com/blogs/instagram-worthy-bachelorette-party-cocktails-recipes-and-delivery-coordination" />
-        <meta property="og:image" content="https://premierpartycruises.com/attached_assets/@capitalcityshots-2_1760080740017.jpg" />
-      </Helmet>
+      <SEOHead 
+        pageRoute="/blogs/instagram-worthy-bachelorette-party-cocktails-recipes-and-delivery-coordination"
+        defaultTitle="Instagram-Worthy Bachelorette Party Cocktails: Recipes & Delivery Coordination | Premier Party Cruises"
+        defaultDescription="Create stunning Instagram bachelorette party cocktails with our recipes and delivery tips. Perfect for Lake Travis boat parties. Photo-ready bachelorette cocktails with delivery coordination for your celebration."
+        defaultKeywords={['Instagram bachelorette party cocktails', 'bachelorette party cocktails', 'Instagram-worthy cocktails', 'bachelorette cocktail recipes', 'Lake Travis bachelorette', 'cocktail delivery', 'bachelorette drinks', 'photogenic cocktails', 'bride tribe drinks']}
+        image="https://premierpartycruises.com/attached_assets/@capitalcityshots-2_1760080740017.jpg"
+      />
 
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="instagram-bachelorette-cocktails-page">
         <PublicNavigation />
 
         {/* Hero Section */}
-        <motion.section 
+        <m.section 
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
@@ -243,12 +234,24 @@ export default function InstagramBacheloretteCocktails() {
               </Button>
             </div>
           </div>
-        </motion.section>
+        </m.section>
+
+      {/* Topic Cluster Pillar Link */}
+      <div className="bg-blue-50 dark:bg-blue-950/30 border-b border-blue-100 dark:border-blue-900/50">
+        <div className="max-w-4xl mx-auto px-6 py-3">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            This guide is part of our complete{' '}
+            <Link href="/bachelorette-party-austin" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Austin bachelorette party boats</Link>{' '}
+            resource — your ultimate planning hub for Lake Travis bachelorette celebrations.
+          </p>
+        </div>
+      </div>
+
 
         {/* Introduction */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="intro-section">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -267,14 +270,14 @@ export default function InstagramBacheloretteCocktails() {
                 coordination for your Lake Travis boat party. Get ready to create <strong>bachelorette party cocktails</strong> 
                 that look as amazing as they taste.
               </p>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Cocktail Recipes */}
         <section className="py-16 bg-gradient-to-br from-pink-50 to-purple-50 dark:from-gray-800 dark:to-gray-900" data-testid="recipes-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -289,11 +292,11 @@ export default function InstagramBacheloretteCocktails() {
                 These photogenic <strong>bachelorette party cocktails</strong> are designed for both taste and Instagram appeal. 
                 Each recipe includes photo tips for the perfect shot.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {instagramCocktails.map((cocktail, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -329,7 +332,7 @@ export default function InstagramBacheloretteCocktails() {
                       </div>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -339,7 +342,7 @@ export default function InstagramBacheloretteCocktails() {
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="photo-tips-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <motion.div
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -366,9 +369,9 @@ export default function InstagramBacheloretteCocktails() {
                     </div>
                   ))}
                 </div>
-              </motion.div>
+              </m.div>
               
-              <motion.div
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -379,7 +382,7 @@ export default function InstagramBacheloretteCocktails() {
                   alt="Instagram bachelorette party cocktails photography on Lake Travis boat"
                   className="rounded-2xl shadow-xl w-full h-96 object-cover"
                 />
-              </motion.div>
+              </m.div>
             </div>
           </div>
         </section>
@@ -387,7 +390,7 @@ export default function InstagramBacheloretteCocktails() {
         {/* Delivery Coordination */}
         <section className="py-16 bg-blue-50 dark:bg-gray-800" data-testid="delivery-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -402,11 +405,11 @@ export default function InstagramBacheloretteCocktails() {
                 Getting your <strong>Instagram-worthy bachelorette party cocktails</strong> to the dock is easy. 
                 Here are your delivery options for Lake Travis celebrations.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 gap-6">
               {deliveryServices.map((service, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -430,7 +433,7 @@ export default function InstagramBacheloretteCocktails() {
                       </div>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -439,7 +442,7 @@ export default function InstagramBacheloretteCocktails() {
         {/* Theme Ideas */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="themes-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -453,11 +456,11 @@ export default function InstagramBacheloretteCocktails() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Match your <strong>Instagram bachelorette party cocktails</strong> to your party theme for cohesive content.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {themeIdeas.map((idea, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -477,7 +480,7 @@ export default function InstagramBacheloretteCocktails() {
                       </ul>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -487,7 +490,7 @@ export default function InstagramBacheloretteCocktails() {
         <section className="py-16 bg-gradient-to-br from-blue-50 to-cyan-50 dark:from-gray-800 dark:to-gray-900" data-testid="boats-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <motion.div
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -498,9 +501,9 @@ export default function InstagramBacheloretteCocktails() {
                   alt="Lake Travis bachelorette party boat with Instagram-worthy cocktails"
                   className="rounded-2xl shadow-xl w-full h-96 object-cover"
                 />
-              </motion.div>
+              </m.div>
               
-              <motion.div
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -528,7 +531,7 @@ export default function InstagramBacheloretteCocktails() {
                 <p className="text-sm text-gray-500 dark:text-gray-400 mt-4 italic">
                   Clever Girl has additional crew fee for 51-75 guests.
                 </p>
-              </motion.div>
+              </m.div>
             </div>
           </div>
         </section>
@@ -539,7 +542,7 @@ export default function InstagramBacheloretteCocktails() {
         {/* FAQ Section */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="faq-section">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -553,7 +556,7 @@ export default function InstagramBacheloretteCocktails() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 Common questions about Instagram bachelorette party cocktails and Lake Travis celebrations.
               </p>
-            </motion.div>
+            </m.div>
 
             <Accordion type="single" collapsible className="space-y-4">
               {faqs.map((faq, index) => (
@@ -581,7 +584,7 @@ export default function InstagramBacheloretteCocktails() {
         {/* Internal Links Section */}
         <section className="py-16 bg-gray-50 dark:bg-gray-800" data-testid="internal-links-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -594,11 +597,11 @@ export default function InstagramBacheloretteCocktails() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 Continue planning your Instagram-perfect Lake Travis bachelorette celebration.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
               {internalLinks.map((link, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -616,7 +619,7 @@ export default function InstagramBacheloretteCocktails() {
                       <ArrowRight className="h-4 w-4 ml-auto" />
                     </Button>
                   </Link>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -625,5 +628,6 @@ export default function InstagramBacheloretteCocktails() {
         <Footer />
       </div>
     </>
+    </LazyMotionProvider>
   );
 }

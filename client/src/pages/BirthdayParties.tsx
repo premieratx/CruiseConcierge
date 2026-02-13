@@ -193,8 +193,8 @@ export default function BirthdayParties() {
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white" data-page-ready="birthday-parties">
       <SEOHead 
         pageRoute="/birthday-parties"
-        defaultTitle="Birthday Party Boat | Lake Travis Austin"
-        defaultDescription="Lake Travis birthday cruises. Private boat rentals for all ages. Perfect for milestone birthdays. Decorations included. Book today!"
+        defaultTitle="Birthday Party Boat Austin | Lake Travis Birthday Cruise Rentals"
+        defaultDescription="Austin birthday party boats on Lake Travis. Private cruise rentals for all ages & milestone birthdays (Sweet 16, 21st, 30th, 40th, 50th). BYOB, captain included. Book today!"
         defaultKeywords={[
           'birthday cruise austin',
           'birthday party boat lake travis',
@@ -231,7 +231,7 @@ export default function BirthdayParties() {
             🎉 LAKE TRAVIS BIRTHDAY CRUISES 🎉
           </Badge>
           <h1 className="heading-unbounded text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-6 text-center text-gray-900 drop-shadow-sm" data-editable data-editable-id="h1-birthday-hero">
-            Make Your Birthday Legendary!
+            Austin Birthday Party Boats: Celebrate on Lake Travis
           </h1>
           <p className="text-xl sm:text-2xl md:text-3xl text-gray-900 mb-6 md:mb-8 font-bold drop-shadow-sm max-w-3xl mx-auto leading-relaxed text-center" data-editable data-editable-id="p-birthday-tagline">
             Celebrate on Lake Travis • All ages welcome • Milestone specialists

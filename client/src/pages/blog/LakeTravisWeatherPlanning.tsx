@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { m, LazyMotionProvider, fadeInUp, staggerContainer } from '@/components/LazyMotion';
 import { Link } from 'wouter';
-import * as HelmetAsync from 'react-helmet-async';
-const HelmetAsyncDefault = (HelmetAsync as any).default || HelmetAsync;
-const { Helmet } = HelmetAsyncDefault;
+import SEOHead from '@/components/SEOHead';
 import { 
   Cloud, Sun, Thermometer, Droplets, Wind, Calendar,
   ArrowRight, CheckCircle2, AlertTriangle, Ship, Users,
@@ -22,15 +20,6 @@ import sectionImage1 from '@assets/@capitalcityshots-2_1760080740017.jpg';
 import sectionImage2 from '@assets/@capitalcityshots-3_1760080740017.jpg';
 import sectionImage3 from '@assets/@capitalcityshots-4_1760080740017.jpg';
 import sectionImage4 from '@assets/@capitalcityshots-5_1760080740018.jpg';
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-};
-
-const staggerChildren = {
-  visible: { transition: { staggerChildren: 0.1 } }
-};
 
 const weatherBenefits = [
   { 
@@ -248,24 +237,21 @@ export default function LakeTravisWeatherPlanning() {
   }, []);
 
   return (
+    <LazyMotionProvider>
     <>
-      <Helmet>
-        <title>Lake Travis Weather Planning: Best Time to Boat | Seasonal Guide for Austin Boat Parties</title>
-        <meta name="description" content="Plan the perfect Lake Travis boat party with our weather guide. Learn the best time to boat on Lake Travis, Austin weather for boating by season, and seasonal boat party planning tips. Lake Travis party weather advice from local experts." />
-        <meta name="keywords" content="Lake Travis weather, best time to boat on Lake Travis, Austin weather for boating, Lake Travis party weather, seasonal boat party planning, Lake Travis boating seasons, Austin boat party weather" />
-        <link rel="canonical" href="https://premierpartycruises.com/blogs/lake-travis-weather-planning-seasonal-considerations-for-perfect-boat-parties" />
-        <meta property="og:title" content="Lake Travis Weather Planning: Seasonal Guide for Perfect Boat Parties" />
-        <meta property="og:description" content="Discover the best time to boat on Lake Travis and plan your perfect Austin boat party. Seasonal weather guide, tips, and expert insights." />
-        <meta property="og:type" content="article" />
-        <meta property="og:image" content={heroImage} />
-        <meta property="og:url" content="https://premierpartycruises.com/blogs/lake-travis-weather-planning-seasonal-considerations-for-perfect-boat-parties" />
-      </Helmet>
+      <SEOHead 
+        pageRoute="/blogs/lake-travis-weather-planning-seasonal-considerations-for-perfect-boat-parties"
+        defaultTitle="Lake Travis Weather Planning: Best Time to Boat | Seasonal Guide for Austin Boat Parties"
+        defaultDescription="Plan the perfect Lake Travis boat party with our weather guide. Learn the best time to boat on Lake Travis, Austin weather for boating by season, and seasonal boat party planning tips. Lake Travis party weather advice from local experts."
+        defaultKeywords={['Lake Travis weather', 'best time to boat on Lake Travis', 'Austin weather for boating', 'Lake Travis party weather', 'seasonal boat party planning', 'Lake Travis boating seasons', 'Austin boat party weather']}
+        image={heroImage}
+      />
 
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="lake-travis-weather-page">
         <PublicNavigation />
 
         {/* Hero Section */}
-        <motion.section 
+        <m.section 
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
@@ -276,6 +262,8 @@ export default function LakeTravisWeatherPlanning() {
           <div 
             className="absolute inset-0 bg-cover bg-center opacity-30"
             style={{ backgroundImage: `url(${heroImage})` }}
+          role="img"
+          aria-label="Lake Travis Weather Planning: Best Time to Boat - Premier Party Cruises Lake Travis"
           />
           
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 text-center">
@@ -307,7 +295,19 @@ export default function LakeTravisWeatherPlanning() {
               </Link>
             </div>
           </div>
-        </motion.section>
+        </m.section>
+
+      {/* Topic Cluster Pillar Link */}
+      <div className="bg-blue-50 dark:bg-blue-950/30 border-b border-blue-100 dark:border-blue-900/50">
+        <div className="max-w-4xl mx-auto px-6 py-3">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            Explore our full guide to{' '}
+            <Link href="/party-boat-lake-travis" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Lake Travis party boat rentals</Link>{' '}
+            for everything from pricing and logistics to safety and entertainment.
+          </p>
+        </div>
+      </div>
+
 
         {/* Hero Image with SEO Alt */}
         <section className="relative -mt-8 mb-8">
@@ -324,22 +324,22 @@ export default function LakeTravisWeatherPlanning() {
         {/* Benefits Grid */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="benefits-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={staggerChildren}
+              variants={staggerContainer}
               className="text-center mb-12"
             >
               <h2 className="text-3xl font-bold mb-4" data-testid="benefits-title">Why Lake Travis Weather Works for Your Party</h2>
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Austin weather for boating is among the best in Texas, with year-round opportunities
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {weatherBenefits.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -355,7 +355,7 @@ export default function LakeTravisWeatherPlanning() {
                       <p className="text-gray-600 dark:text-gray-400 text-sm">{item.description}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -364,7 +364,7 @@ export default function LakeTravisWeatherPlanning() {
         {/* Introduction Section */}
         <section className="py-16 bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-800 dark:to-gray-900" data-testid="intro-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -424,14 +424,14 @@ export default function LakeTravisWeatherPlanning() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Seasonal Guides Section */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="seasons-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -443,11 +443,11 @@ export default function LakeTravisWeatherPlanning() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Find the best time to boat on Lake Travis for your specific celebration
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 gap-8">
               {seasonalGuides.map((season, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -523,7 +523,7 @@ export default function LakeTravisWeatherPlanning() {
                       </div>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -532,7 +532,7 @@ export default function LakeTravisWeatherPlanning() {
         {/* Weather Policies Section */}
         <section className="py-16 bg-gradient-to-br from-blue-900 via-cyan-800 to-blue-900 text-white" data-testid="policies-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -572,14 +572,14 @@ export default function LakeTravisWeatherPlanning() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Monthly Breakdown Section */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="monthly-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -615,7 +615,7 @@ export default function LakeTravisWeatherPlanning() {
                   </tbody>
                 </table>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
@@ -628,7 +628,7 @@ export default function LakeTravisWeatherPlanning() {
             </div>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {fleetInfo.map((boat, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -640,7 +640,7 @@ export default function LakeTravisWeatherPlanning() {
                   <p className="text-xl font-bold text-amber-400" data-testid={`boat-name-${index}`}>{boat.name}</p>
                   <p className="text-sm text-white/90 mt-1">{boat.capacity}</p>
                   <p className="text-xs text-white/70">{boat.description}</p>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -649,7 +649,7 @@ export default function LakeTravisWeatherPlanning() {
         {/* Planning Tips Section */}
         <section className="py-16 bg-gradient-to-br from-gray-50 to-cyan-50 dark:from-gray-800 dark:to-gray-900" data-testid="tips-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -718,7 +718,7 @@ export default function LakeTravisWeatherPlanning() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
@@ -745,7 +745,7 @@ export default function LakeTravisWeatherPlanning() {
         {/* FAQ Section */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="faq-section">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -757,7 +757,7 @@ export default function LakeTravisWeatherPlanning() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 Everything you need to know about Austin weather for boating and the best time to boat on Lake Travis
               </p>
-            </motion.div>
+            </m.div>
 
             <Accordion type="single" collapsible className="w-full" data-testid="faq-accordion">
               {faqs.map((faq, index) => (
@@ -777,7 +777,7 @@ export default function LakeTravisWeatherPlanning() {
         {/* CTA Section */}
         <section className="py-16 bg-gradient-to-br from-blue-900 via-cyan-800 to-blue-900 text-white" data-testid="cta-section">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -802,7 +802,7 @@ export default function LakeTravisWeatherPlanning() {
                   </Button>
                 </Link>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
@@ -812,5 +812,6 @@ export default function LakeTravisWeatherPlanning() {
         <Footer />
       </div>
     </>
+    </LazyMotionProvider>
   );
 }

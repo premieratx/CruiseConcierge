@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { m, LazyMotionProvider, fadeInUp, staggerContainer } from '@/components/LazyMotion';
 import { Link } from 'wouter';
-import * as HelmetAsync from 'react-helmet-async';
-const HelmetAsyncDefault = (HelmetAsync as any).default || HelmetAsync;
-const { Helmet } = HelmetAsyncDefault;
+import SEOHead from '@/components/SEOHead';
 import { 
   Ship, Users, Wine, Phone, Clock, CheckCircle2, 
   MapPin, Calendar, Star, ArrowRight, Building2, 
@@ -22,15 +20,6 @@ import heroImage from '@assets/@capitalcityshots-21_1760080807864.jpg';
 import sectionImage1 from '@assets/@capitalcityshots-22_1760080807865.jpg';
 import sectionImage2 from '@assets/@capitalcityshots-23_1760080807865.jpg';
 import sectionImage3 from '@assets/@capitalcityshots-24_1760080807866.jpg';
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-};
-
-const staggerChildren = {
-  visible: { transition: { staggerChildren: 0.1 } }
-};
 
 const venueTypes = [
   {
@@ -144,23 +133,21 @@ export default function AustinWeddingVenueAlcohol() {
   }, []);
 
   return (
+    <LazyMotionProvider>
     <>
-      <Helmet>
-        <title>Austin Wedding Venue Alcohol Policies & Delivery Solutions | Premier Party Cruises</title>
-        <meta name="description" content="Navigate Austin wedding venue alcohol policies with confidence. Wedding alcohol delivery Austin service for every location - hotels, ranches, estates, and Lake Travis boats. Expert guidance on permits, quantities, and coordination." />
-        <meta name="keywords" content="Austin wedding venue alcohol policies, wedding alcohol delivery Austin, wedding venue alcohol policies Austin, Austin wedding alcohol, Lake Travis wedding alcohol, wedding drink delivery Austin, wedding beverage service Austin" />
-        <link rel="canonical" href="https://premierpartycruises.com/blogs/austin-wedding-venue-alcohol-policies-delivery-solutions-for-every-location" />
-        <meta property="og:title" content="Austin Wedding Venue Alcohol Policies & Delivery Solutions" />
-        <meta property="og:description" content="Navigate Austin wedding venue alcohol policies with confidence. Wedding alcohol delivery Austin for hotels, ranches, estates, and Lake Travis boats." />
-        <meta property="og:type" content="article" />
-        <meta property="og:image" content={heroImage} />
-      </Helmet>
+      <SEOHead 
+        pageRoute="/blogs/austin-wedding-venue-alcohol-policies-delivery-solutions-for-every-location"
+        defaultTitle="Austin Wedding Venue Alcohol Policies & Delivery Solutions | Premier Party Cruises"
+        defaultDescription="Navigate Austin wedding venue alcohol policies with confidence. Wedding alcohol delivery Austin service for every location - hotels, ranches, estates, and Lake Travis boats. Expert guidance on permits, quantities, and coordination."
+        defaultKeywords={['Austin wedding venue alcohol policies', 'wedding alcohol delivery Austin', 'wedding venue alcohol policies Austin', 'Austin wedding alcohol', 'Lake Travis wedding alcohol', 'wedding drink delivery Austin', 'wedding beverage service Austin']}
+        image={heroImage}
+      />
 
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="austin-wedding-venue-alcohol-page">
         <PublicNavigation />
 
         {/* Hero Section */}
-        <motion.section 
+        <m.section 
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
@@ -209,14 +196,26 @@ export default function AustinWeddingVenueAlcohol() {
               </Button>
             </div>
           </div>
-        </motion.section>
+        </m.section>
+
+      {/* Topic Cluster Pillar Link */}
+      <div className="bg-blue-50 dark:bg-blue-950/30 border-b border-blue-100 dark:border-blue-900/50">
+        <div className="max-w-4xl mx-auto px-6 py-3">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            Browse our full range of{' '}
+            <Link href="/party-boat-austin" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Austin party boat rentals</Link>{' '}
+            for celebrations of every kind on Lake Travis.
+          </p>
+        </div>
+      </div>
+
 
         {/* Stats Section */}
         <section className="py-12 bg-slate-100 dark:bg-slate-900" data-testid="stats-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {whyPremier.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -227,7 +226,7 @@ export default function AustinWeddingVenueAlcohol() {
                 >
                   <div className="text-3xl md:text-4xl font-bold text-rose-600 dark:text-rose-400">{item.stat}</div>
                   <div className="text-gray-600 dark:text-gray-400 font-medium">{item.label}</div>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -236,7 +235,7 @@ export default function AustinWeddingVenueAlcohol() {
         {/* Venue Types Section */}
         <section className="py-16 md:py-24 bg-white dark:bg-gray-950" data-testid="venue-types-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div 
+            <m.div 
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -249,11 +248,11 @@ export default function AustinWeddingVenueAlcohol() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Every venue type has different wedding venue alcohol policies Austin couples need to navigate. Here's what to expect and how our wedding alcohol delivery Austin service adapts to each.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 gap-8">
               {venueTypes.map((venue, index) => (
-                <motion.div
+                <m.div
                   key={venue.title}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -289,7 +288,7 @@ export default function AustinWeddingVenueAlcohol() {
                       </div>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -299,7 +298,7 @@ export default function AustinWeddingVenueAlcohol() {
         <section className="py-16 bg-gradient-to-r from-rose-50 to-pink-50 dark:from-gray-900 dark:to-gray-800" data-testid="image-section-1">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
@@ -324,8 +323,8 @@ export default function AustinWeddingVenueAlcohol() {
                     </div>
                   ))}
                 </div>
-              </motion.div>
-              <motion.div
+              </m.div>
+              <m.div
                 initial={{ opacity: 0, x: 20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
@@ -336,7 +335,7 @@ export default function AustinWeddingVenueAlcohol() {
                   alt="Wedding alcohol delivery Austin - beverages ready for Lake Travis wedding celebration" 
                   className="rounded-2xl shadow-xl w-full"
                 />
-              </motion.div>
+              </m.div>
             </div>
           </div>
         </section>
@@ -345,7 +344,7 @@ export default function AustinWeddingVenueAlcohol() {
         <section className="py-16 md:py-24 bg-white dark:bg-gray-950" data-testid="checklist-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
@@ -356,8 +355,8 @@ export default function AustinWeddingVenueAlcohol() {
                   alt="Austin wedding venue alcohol policies - couples planning their celebration" 
                   className="rounded-2xl shadow-xl w-full"
                 />
-              </motion.div>
-              <motion.div
+              </m.div>
+              <m.div
                 initial={{ opacity: 0, x: 20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
@@ -378,7 +377,7 @@ export default function AustinWeddingVenueAlcohol() {
                     </li>
                   ))}
                 </ul>
-              </motion.div>
+              </m.div>
             </div>
           </div>
         </section>
@@ -386,7 +385,7 @@ export default function AustinWeddingVenueAlcohol() {
         {/* Lake Travis Boat Options */}
         <section className="py-16 bg-gradient-to-br from-blue-900 via-cyan-800 to-slate-900 text-white" data-testid="boat-options-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div 
+            <m.div 
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -400,11 +399,11 @@ export default function AustinWeddingVenueAlcohol() {
               <p className="text-lg text-gray-300 max-w-3xl mx-auto">
                 Our Lake Travis boats offer the most flexible wedding venue alcohol policies Austin has to offer. BYOB-friendly with wedding alcohol delivery Austin right to your dock.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {boatOptions.map((boat, index) => (
-                <motion.div
+                <m.div
                   key={boat.name}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -421,7 +420,7 @@ export default function AustinWeddingVenueAlcohol() {
                       <p className="text-sm text-gray-300">{boat.description}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
 
@@ -444,7 +443,7 @@ export default function AustinWeddingVenueAlcohol() {
         {/* FAQ Section */}
         <section className="py-16 md:py-24 bg-gray-50 dark:bg-gray-900" data-testid="faq-section">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div 
+            <m.div 
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -457,7 +456,7 @@ export default function AustinWeddingVenueAlcohol() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 Common questions about wedding venue alcohol policies Austin and our wedding alcohol delivery Austin service.
               </p>
-            </motion.div>
+            </m.div>
 
             <Accordion type="single" collapsible className="space-y-4">
               {faqs.map((faq, index) => (
@@ -482,7 +481,7 @@ export default function AustinWeddingVenueAlcohol() {
         {/* Internal Links Section */}
         <section className="py-16 bg-white dark:bg-gray-950" data-testid="internal-links-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div 
+            <m.div 
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -495,11 +494,11 @@ export default function AustinWeddingVenueAlcohol() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 From rehearsal dinners to after parties, we help with wedding alcohol delivery Austin for every event.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
               {internalLinks.map((link, index) => (
-                <motion.div
+                <m.div
                   key={link.href}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -514,7 +513,7 @@ export default function AustinWeddingVenueAlcohol() {
                       </CardContent>
                     </Card>
                   </Link>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -557,5 +556,6 @@ export default function AustinWeddingVenueAlcohol() {
         <Footer />
       </div>
     </>
+    </LazyMotionProvider>
   );
 }

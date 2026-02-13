@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { m, LazyMotionProvider, fadeInUp, staggerContainer } from '@/components/LazyMotion';
 import { Link } from 'wouter';
-import * as HelmetAsync from 'react-helmet-async';
-const HelmetAsyncDefault = (HelmetAsync as any).default || HelmetAsync;
-const { Helmet } = HelmetAsyncDefault;
+import SEOHead from '@/components/SEOHead';
 import { 
   Ship, Users, Briefcase, Phone, Clock, CheckCircle2, 
   Gift, Award, Waves, MapPin, Calendar, Star,
@@ -22,15 +20,6 @@ import heroImage from '@assets/@capitalcityshots-18_1760080740021.jpg';
 import sectionImage1 from '@assets/@capitalcityshots-19_1760080740021.jpg';
 import sectionImage2 from '@assets/@capitalcityshots-20_1760080740021.jpg';
 import sectionImage3 from '@assets/@capitalcityshots-21_1760080807864.jpg';
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-};
-
-const staggerChildren = {
-  visible: { transition: { staggerChildren: 0.1 } }
-};
 
 const stressFreeBenefits = [
   {
@@ -212,24 +201,21 @@ export default function HolidayOfficePartyAlcohol() {
   }, []);
 
   return (
+    <LazyMotionProvider>
     <>
-      <Helmet>
-        <title>Holiday Office Party Alcohol Delivery: Stress-Free Corporate Celebration Planning | Premier Party Cruises</title>
-        <meta name="description" content="Plan stress-free corporate celebration with holiday office party alcohol delivery on Lake Travis. Complete planning guide for 14-75 guests. Party On Delivery coordination included." />
-        <meta name="keywords" content="holiday office party alcohol delivery, stress-free corporate celebration, holiday office party planning, corporate holiday party alcohol, Austin holiday office party, Lake Travis holiday party, office party alcohol service, corporate celebration planning" />
-        <link rel="canonical" href="https://premierpartycruises.com/blogs/holiday-office-party-alcohol-delivery-stress-free-corporate-celebration-planning" />
-        <meta property="og:title" content="Holiday Office Party Alcohol Delivery: Stress-Free Corporate Celebration Planning" />
-        <meta property="og:description" content="Plan stress-free corporate celebration with holiday office party alcohol delivery on Lake Travis. Complete planning guide included." />
-        <meta property="og:type" content="article" />
-        <meta property="og:url" content="https://premierpartycruises.com/blogs/holiday-office-party-alcohol-delivery-stress-free-corporate-celebration-planning" />
-        <meta property="og:image" content="https://premierpartycruises.com/attached_assets/@capitalcityshots-18_1760080740021.jpg" />
-      </Helmet>
+      <SEOHead 
+        pageRoute="/blogs/holiday-office-party-alcohol-delivery-stress-free-corporate-celebration-planning"
+        defaultTitle="Holiday Office Party Alcohol Delivery: Stress-Free Corporate Celebration Planning | Premier Party Cruises"
+        defaultDescription="Plan stress-free corporate celebration with holiday office party alcohol delivery on Lake Travis. Complete planning guide for 14-75 guests. Party On Delivery coordination included."
+        defaultKeywords={['holiday office party alcohol delivery', 'stress-free corporate celebration', 'holiday office party planning', 'corporate holiday party alcohol', 'Austin holiday office party', 'Lake Travis holiday party', 'office party alcohol service', 'corporate celebration planning']}
+        image="https://premierpartycruises.com/attached_assets/@capitalcityshots-18_1760080740021.jpg"
+      />
 
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="holiday-office-party-alcohol-page">
         <PublicNavigation />
 
         {/* Hero Section */}
-        <motion.section 
+        <m.section 
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
@@ -280,14 +266,26 @@ export default function HolidayOfficePartyAlcohol() {
               </Button>
             </div>
           </div>
-        </motion.section>
+        </m.section>
+
+      {/* Topic Cluster Pillar Link */}
+      <div className="bg-blue-50 dark:bg-blue-950/30 border-b border-blue-100 dark:border-blue-900/50">
+        <div className="max-w-4xl mx-auto px-6 py-3">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            See our complete guide to{' '}
+            <Link href="/corporate-events" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Austin corporate event boats</Link>{' '}
+            for team building, client entertainment, and company celebrations on Lake Travis.
+          </p>
+        </div>
+      </div>
+
 
         {/* Stats Section */}
         <section className="py-12 bg-slate-100 dark:bg-slate-900" data-testid="stats-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {whyPremier.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -298,7 +296,7 @@ export default function HolidayOfficePartyAlcohol() {
                 >
                   <div className="text-3xl md:text-4xl font-bold text-red-600 dark:text-red-400">{item.stat}</div>
                   <div className="text-gray-600 dark:text-gray-400 font-medium">{item.label}</div>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -307,7 +305,7 @@ export default function HolidayOfficePartyAlcohol() {
         {/* Stress-Free Benefits Section */}
         <section className="py-16 md:py-24 bg-white dark:bg-gray-950" data-testid="benefits-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div 
+            <m.div 
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -320,11 +318,11 @@ export default function HolidayOfficePartyAlcohol() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Experience truly stress-free corporate celebration planning with our comprehensive holiday office party services.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {stressFreeBenefits.map((benefit, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -340,7 +338,7 @@ export default function HolidayOfficePartyAlcohol() {
                       <p className="text-gray-600 dark:text-gray-400 text-sm">{benefit.description}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -350,7 +348,7 @@ export default function HolidayOfficePartyAlcohol() {
         <section className="py-16 bg-gradient-to-br from-red-50 to-green-50 dark:from-gray-800 dark:to-gray-900" data-testid="delivery-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <motion.div
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -376,9 +374,9 @@ export default function HolidayOfficePartyAlcohol() {
                     </div>
                   ))}
                 </div>
-              </motion.div>
+              </m.div>
               
-              <motion.div
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -392,7 +390,7 @@ export default function HolidayOfficePartyAlcohol() {
                     className="w-full h-full object-cover"
                   />
                 </div>
-              </motion.div>
+              </m.div>
             </div>
           </div>
         </section>
@@ -400,7 +398,7 @@ export default function HolidayOfficePartyAlcohol() {
         {/* Planning Checklist Section */}
         <section className="py-16 bg-white dark:bg-gray-950" data-testid="checklist-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -411,11 +409,11 @@ export default function HolidayOfficePartyAlcohol() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Follow this timeline for perfect holiday office party alcohol delivery coordination.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {planningChecklist.map((phase, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -437,7 +435,7 @@ export default function HolidayOfficePartyAlcohol() {
                       </ul>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -447,7 +445,7 @@ export default function HolidayOfficePartyAlcohol() {
         <section className="py-16 bg-slate-50 dark:bg-slate-900" data-testid="beverages-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <motion.div
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -461,9 +459,9 @@ export default function HolidayOfficePartyAlcohol() {
                     className="w-full h-full object-cover"
                   />
                 </div>
-              </motion.div>
+              </m.div>
               
-              <motion.div
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -488,7 +486,7 @@ export default function HolidayOfficePartyAlcohol() {
                     </div>
                   ))}
                 </div>
-              </motion.div>
+              </m.div>
             </div>
           </div>
         </section>
@@ -496,7 +494,7 @@ export default function HolidayOfficePartyAlcohol() {
         {/* Boat Options Section */}
         <section className="py-16 bg-white dark:bg-gray-950" data-testid="boats-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -507,11 +505,11 @@ export default function HolidayOfficePartyAlcohol() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 All boats are single-deck pontoons with arch canopy, perfect for stress-free corporate celebration.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {boatOptions.map((boat, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -531,7 +529,7 @@ export default function HolidayOfficePartyAlcohol() {
                       <p className="text-sm text-gray-600 dark:text-gray-400">{boat.description}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
 
@@ -559,7 +557,7 @@ export default function HolidayOfficePartyAlcohol() {
         {/* FAQ Section */}
         <section className="py-16 bg-white dark:bg-gray-950" data-testid="faq-section">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -570,7 +568,7 @@ export default function HolidayOfficePartyAlcohol() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 Common questions about stress-free corporate celebration planning.
               </p>
-            </motion.div>
+            </m.div>
 
             <Accordion type="single" collapsible className="space-y-4">
               {faqs.map((faq, index) => (
@@ -598,7 +596,7 @@ export default function HolidayOfficePartyAlcohol() {
         {/* Internal Links Section */}
         <section className="py-16 bg-slate-50 dark:bg-slate-900" data-testid="internal-links-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -609,11 +607,11 @@ export default function HolidayOfficePartyAlcohol() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 Discover our complete range of corporate holiday celebration services.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {internalLinks.map((link, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -635,7 +633,7 @@ export default function HolidayOfficePartyAlcohol() {
                       </CardContent>
                     </Card>
                   </Link>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -644,5 +642,6 @@ export default function HolidayOfficePartyAlcohol() {
         <Footer />
       </div>
     </>
+    </LazyMotionProvider>
   );
 }

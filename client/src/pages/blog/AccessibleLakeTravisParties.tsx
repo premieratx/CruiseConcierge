@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { m, LazyMotionProvider, fadeInUp, staggerContainer } from '@/components/LazyMotion';
 import { Link } from 'wouter';
-import * as HelmetAsync from 'react-helmet-async';
-const HelmetAsyncDefault = (HelmetAsync as any).default || HelmetAsync;
-const { Helmet } = HelmetAsyncDefault;
+import SEOHead from '@/components/SEOHead';
 import { 
   Accessibility, Users, Heart, Phone, Clock, CheckCircle2, 
   Shield, Award, Waves, MapPin, Calendar, Star,
@@ -21,15 +19,6 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import heroImage from '@assets/@capitalcityshots-30_1760080807867.jpg';
 import sectionImage1 from '@assets/@capitalcityshots-31_1760080807867.jpg';
 import sectionImage2 from '@assets/@capitalcityshots-32_1760080807868.jpg';
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-};
-
-const staggerChildren = {
-  visible: { transition: { staggerChildren: 0.1 } }
-};
 
 const trustStats = [
   { stat: '14+', label: 'Years Experience' },
@@ -183,23 +172,21 @@ export default function AccessibleLakeTravisParties() {
   }, []);
 
   return (
+    <LazyMotionProvider>
     <>
-      <Helmet>
-        <title>Accessible Lake Travis Boat Parties - Inclusive Event Planning for All Guests | Premier Party Cruises</title>
-        <meta name="description" content="Plan an accessible Lake Travis boat party with inclusive event planning for all guests. ADA boat rental Austin accommodations, wheelchair accessible boat party options, and inclusive party boat Lake Travis experiences. Everyone deserves to celebrate on the water." />
-        <meta name="keywords" content="accessible Lake Travis boat party, inclusive event planning Lake Travis, ADA boat rental Austin, wheelchair accessible boat party, inclusive party boat Lake Travis, accessible boat charter Austin, disability-friendly boat party" />
-        <link rel="canonical" href="https://premierpartycruises.com/blogs/accessible-lake-travis-boat-parties-inclusive-event-planning-for-all-guests" />
-        <meta property="og:title" content="Accessible Lake Travis Boat Parties - Inclusive Event Planning for All Guests" />
-        <meta property="og:description" content="Inclusive boat party experiences on Lake Travis. ADA accommodations, caregiver-friendly policies, and accessible event planning for all." />
-        <meta property="og:type" content="article" />
-        <meta property="og:image" content={heroImage} />
-      </Helmet>
+      <SEOHead 
+        pageRoute="/blogs/accessible-lake-travis-boat-parties-inclusive-event-planning-for-all-guests"
+        defaultTitle="Accessible Lake Travis Boat Parties - Inclusive Event Planning for All Guests | Premier Party Cruises"
+        defaultDescription="Plan an accessible Lake Travis boat party with inclusive event planning for all guests. ADA boat rental Austin accommodations, wheelchair accessible boat party options, and inclusive party boat Lake Travis experiences. Everyone deserves to celebrate on the water."
+        defaultKeywords={['accessible Lake Travis boat party', 'inclusive event planning Lake Travis', 'ADA boat rental Austin', 'wheelchair accessible boat party', 'inclusive party boat Lake Travis', 'accessible boat charter Austin', 'disability-friendly boat party']}
+        image={heroImage}
+      />
 
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="accessible-lake-travis-boat-parties-page">
         <PublicNavigation />
 
         {/* Hero Section */}
-        <motion.section 
+        <m.section 
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
@@ -249,14 +236,26 @@ export default function AccessibleLakeTravisParties() {
               </Button>
             </div>
           </div>
-        </motion.section>
+        </m.section>
+
+      {/* Topic Cluster Pillar Link */}
+      <div className="bg-blue-50 dark:bg-blue-950/30 border-b border-blue-100 dark:border-blue-900/50">
+        <div className="max-w-4xl mx-auto px-6 py-3">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            Explore our full guide to{' '}
+            <Link href="/party-boat-lake-travis" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Lake Travis party boat rentals</Link>{' '}
+            for everything from pricing and logistics to safety and entertainment.
+          </p>
+        </div>
+      </div>
+
 
         {/* Trust Stats */}
         <section className="py-12 bg-slate-100 dark:bg-slate-900" data-testid="stats-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {trustStats.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -267,7 +266,7 @@ export default function AccessibleLakeTravisParties() {
                 >
                   <div className="text-3xl md:text-4xl font-bold text-teal-600 dark:text-teal-400">{item.stat}</div>
                   <div className="text-gray-600 dark:text-gray-400">{item.label}</div>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -276,11 +275,11 @@ export default function AccessibleLakeTravisParties() {
         {/* Accessibility Features */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="features-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={staggerChildren}
+              variants={staggerContainer}
               className="text-center mb-12"
             >
               <Badge className="mb-4 bg-teal-100 text-teal-700">ACCOMMODATIONS</Badge>
@@ -290,11 +289,11 @@ export default function AccessibleLakeTravisParties() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Our commitment to inclusive event planning Lake Travis for all guests
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {accessibilityFeatures.map((feature, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -311,7 +310,7 @@ export default function AccessibleLakeTravisParties() {
                       <Badge variant="outline" className="text-teal-600 border-teal-600">{feature.details}</Badge>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -332,7 +331,7 @@ export default function AccessibleLakeTravisParties() {
         {/* Boat Accessibility Details */}
         <section className="py-16 bg-gradient-to-br from-gray-50 to-teal-50 dark:from-gray-800 dark:to-gray-900" data-testid="boats-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -346,11 +345,11 @@ export default function AccessibleLakeTravisParties() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 All our boats are single-deck pontoons with arch canopy - designed for accessible Lake Travis boat party experiences
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {boatAccessibility.map((boat, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -375,7 +374,7 @@ export default function AccessibleLakeTravisParties() {
                       <p className="text-xs text-gray-500 italic">{boat.notes}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -384,7 +383,7 @@ export default function AccessibleLakeTravisParties() {
         {/* Planning Considerations */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="planning-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -398,11 +397,11 @@ export default function AccessibleLakeTravisParties() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 How to prepare for your wheelchair accessible boat party
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {planningConsiderations.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -418,7 +417,7 @@ export default function AccessibleLakeTravisParties() {
                       <p className="text-gray-600 dark:text-gray-400 text-sm">{item.description}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -427,7 +426,7 @@ export default function AccessibleLakeTravisParties() {
         {/* Special Needs Support */}
         <section className="py-16 bg-slate-100 dark:bg-slate-800" data-testid="support-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -441,11 +440,11 @@ export default function AccessibleLakeTravisParties() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Our ADA boat rental Austin accommodations for various requirements
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {specialNeedsSupport.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -463,7 +462,7 @@ export default function AccessibleLakeTravisParties() {
                       </div>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -473,7 +472,7 @@ export default function AccessibleLakeTravisParties() {
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="checklist-section">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <motion.div
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -494,8 +493,8 @@ export default function AccessibleLakeTravisParties() {
                     </li>
                   ))}
                 </ul>
-              </motion.div>
-              <motion.div
+              </m.div>
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -507,7 +506,7 @@ export default function AccessibleLakeTravisParties() {
                   className="rounded-2xl shadow-xl"
                   data-testid="img-checklist"
                 />
-              </motion.div>
+              </m.div>
             </div>
           </div>
         </section>
@@ -518,7 +517,7 @@ export default function AccessibleLakeTravisParties() {
         {/* FAQ Section */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="faq-section">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -532,7 +531,7 @@ export default function AccessibleLakeTravisParties() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 Common questions about inclusive event planning Lake Travis
               </p>
-            </motion.div>
+            </m.div>
 
             <Accordion type="single" collapsible className="space-y-4">
               {faqs.map((faq, index) => (
@@ -552,7 +551,7 @@ export default function AccessibleLakeTravisParties() {
         {/* Internal Links */}
         <section className="py-16 bg-slate-100 dark:bg-slate-800" data-testid="links-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -563,7 +562,7 @@ export default function AccessibleLakeTravisParties() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 Learn more about our inclusive party boat Lake Travis options
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
               {internalLinks.map((link, index) => (
@@ -583,7 +582,7 @@ export default function AccessibleLakeTravisParties() {
         {/* Final CTA */}
         <section className="py-20 bg-gradient-to-br from-teal-600 to-blue-700 text-white" data-testid="cta-section">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -618,12 +617,13 @@ export default function AccessibleLakeTravisParties() {
                   </a>
                 </Button>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         <Footer />
       </div>
     </>
+    </LazyMotionProvider>
   );
 }

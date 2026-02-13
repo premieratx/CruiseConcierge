@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { m, LazyMotionProvider, fadeInUp, staggerContainer } from '@/components/LazyMotion';
 import { Link } from 'wouter';
-import * as HelmetAsync from 'react-helmet-async';
-const HelmetAsyncDefault = (HelmetAsync as any).default || HelmetAsync;
-const { Helmet } = HelmetAsyncDefault;
+import SEOHead from '@/components/SEOHead';
 import { 
   Ship, Users, Briefcase, Phone, Clock, CheckCircle2, 
   Target, Award, Waves, MapPin, Calendar, Star,
@@ -23,15 +21,6 @@ import sectionImage1 from '@assets/@capitalcityshots-14_1760080740020.jpg';
 import sectionImage2 from '@assets/@capitalcityshots-15_1760080740020.jpg';
 import sectionImage3 from '@assets/@capitalcityshots-16_1760080740020.jpg';
 import sectionImage4 from '@assets/@capitalcityshots-17_1760080740020.jpg';
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-};
-
-const staggerChildren = {
-  visible: { transition: { staggerChildren: 0.1 } }
-};
 
 const industryBenefits = [
   { 
@@ -189,23 +178,21 @@ export default function FinanceLawFirmsBoatParties() {
   }, []);
 
   return (
+    <LazyMotionProvider>
     <>
-      <Helmet>
-        <title>Boat Parties for Finance & Law Firms Austin | Attorney Client Entertainment Lake Travis</title>
-        <meta name="description" content="Host exclusive law firm party Austin events and finance team building Lake Travis cruises. Professional corporate event Austin boat charters with attorney client entertainment boat experiences. Private cruises for 14-75 guests." />
-        <meta name="keywords" content="law firm party Austin, finance team building Lake Travis, professional corporate event Austin, attorney client entertainment boat, law firm events Austin, finance team outing Lake Travis, corporate boat charter Austin" />
-        <link rel="canonical" href="https://premierpartycruises.com/blogs/finance-law-firms-boat-parties-austin" />
-        <meta property="og:title" content="Boat Parties for Finance & Law Firms Austin | Attorney Client Entertainment Lake Travis" />
-        <meta property="og:description" content="Exclusive law firm party Austin events and finance team building Lake Travis cruises. Professional corporate event Austin experiences with attorney client entertainment boat charters." />
-        <meta property="og:type" content="article" />
-        <meta property="og:image" content="https://premierpartycruises.com/attached_assets/@capitalcityshots-3_1760072938923.jpg" />
-      </Helmet>
+      <SEOHead 
+        pageRoute="/blogs/finance-law-firms-boat-parties-austin"
+        defaultTitle="Boat Parties for Finance & Law Firms Austin | Attorney Client Entertainment Lake Travis"
+        defaultDescription="Host exclusive law firm party Austin events and finance team building Lake Travis cruises. Professional corporate event Austin boat charters with attorney client entertainment boat experiences. Private cruises for 14-75 guests."
+        defaultKeywords={['law firm party Austin', 'finance team building Lake Travis', 'professional corporate event Austin', 'attorney client entertainment boat', 'law firm events Austin', 'finance team outing Lake Travis', 'corporate boat charter Austin']}
+        image="https://premierpartycruises.com/attached_assets/@capitalcityshots-3_1760072938923.jpg"
+      />
 
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="finance-law-firms-blog-page">
         <PublicNavigation />
 
         {/* Hero Section */}
-        <motion.section 
+        <m.section 
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
@@ -216,6 +203,8 @@ export default function FinanceLawFirmsBoatParties() {
           <div 
             className="absolute inset-0 bg-cover bg-center opacity-30"
             style={{ backgroundImage: `url(${heroImage})` }}
+          role="img"
+          aria-label="Boat Parties for Finance & Law Firms Austin - Premier Party Cruises Lake Travis"
           />
           
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 text-center">
@@ -247,27 +236,39 @@ export default function FinanceLawFirmsBoatParties() {
               </Link>
             </div>
           </div>
-        </motion.section>
+        </m.section>
+
+      {/* Topic Cluster Pillar Link */}
+      <div className="bg-blue-50 dark:bg-blue-950/30 border-b border-blue-100 dark:border-blue-900/50">
+        <div className="max-w-4xl mx-auto px-6 py-3">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            See our complete guide to{' '}
+            <Link href="/corporate-events" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Austin corporate event boats</Link>{' '}
+            for team building, client entertainment, and company celebrations on Lake Travis.
+          </p>
+        </div>
+      </div>
+
 
         {/* Why Finance & Law Firms Section */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="benefits-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={staggerChildren}
+              variants={staggerContainer}
               className="text-center mb-12"
             >
               <h2 className="text-3xl font-bold mb-4" data-testid="section-title-benefits">Why Finance & Law Firms Choose Lake Travis Boat Events</h2>
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 A law firm party Austin venue that matches your firm's standards. Finance team building Lake Travis experiences that elevate ordinary team events into extraordinary memories.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {industryBenefits.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -283,7 +284,7 @@ export default function FinanceLawFirmsBoatParties() {
                       <p className="text-gray-600 dark:text-gray-400 text-base">{item.description}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -294,7 +295,7 @@ export default function FinanceLawFirmsBoatParties() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
               {whyChooseUs.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -303,7 +304,7 @@ export default function FinanceLawFirmsBoatParties() {
                 >
                   <p className="text-3xl md:text-4xl font-bold text-yellow-400" data-testid={`stat-value-${index}`}>{item.stat}</p>
                   <p className="text-sm md:text-base text-white/80 mt-1">{item.label}</p>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -312,7 +313,7 @@ export default function FinanceLawFirmsBoatParties() {
         {/* Client Appreciation Events Section */}
         <section className="py-16 bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-800 dark:to-gray-900" data-testid="client-appreciation-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -370,14 +371,14 @@ export default function FinanceLawFirmsBoatParties() {
                   </Button>
                 </Link>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Partner Retreat & Team Bonding Section */}
         <section className="py-16 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 text-white" data-testid="partner-retreat-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -435,14 +436,14 @@ export default function FinanceLawFirmsBoatParties() {
                   </Button>
                 </Link>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Industries We Serve Section */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="industries-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -453,11 +454,11 @@ export default function FinanceLawFirmsBoatParties() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 We understand the culture of professional services. Whether it's a law firm party Austin tradition or a finance team building Lake Travis celebration, we deliver attorney client entertainment boat experiences that match your firm's standards.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {whyFinanceAndLawFirms.map((industry, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -481,7 +482,7 @@ export default function FinanceLawFirmsBoatParties() {
                       </ul>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -490,7 +491,7 @@ export default function FinanceLawFirmsBoatParties() {
         {/* Boat Options Section */}
         <section className="py-16 bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-800 dark:to-gray-900" data-testid="boats-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -549,14 +550,14 @@ export default function FinanceLawFirmsBoatParties() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* What's Included Section */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="included-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -616,7 +617,7 @@ export default function FinanceLawFirmsBoatParties() {
                   </Link>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
@@ -626,7 +627,7 @@ export default function FinanceLawFirmsBoatParties() {
         {/* FAQ Section */}
         <section className="py-16 bg-gray-50 dark:bg-gray-800" data-testid="faq-section">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -637,7 +638,7 @@ export default function FinanceLawFirmsBoatParties() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 Common questions about law firm party Austin events, finance team building Lake Travis outings, and professional corporate event Austin experiences
               </p>
-            </motion.div>
+            </m.div>
 
             <Accordion type="single" collapsible className="space-y-4" data-testid="faq-accordion">
               {faqs.map((faq, index) => (
@@ -662,7 +663,7 @@ export default function FinanceLawFirmsBoatParties() {
         {/* CTA Section */}
         <section className="py-16 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 text-white" data-testid="cta-section">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -689,12 +690,13 @@ export default function FinanceLawFirmsBoatParties() {
                   </Button>
                 </a>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         <Footer />
       </div>
     </>
+    </LazyMotionProvider>
   );
 }

@@ -2064,6 +2064,11 @@ const VALID_SPA_ROUTES = [
 // SSR middleware
 export function ssrMiddleware() {
   return async (req: Request, res: Response, next: NextFunction) => {
+    // In development, skip SSR and let Vite serve the full React SPA
+    if (isDevelopment) {
+      return next();
+    }
+
     // Skip non-GET requests
     if (req.method !== 'GET') {
       return next();

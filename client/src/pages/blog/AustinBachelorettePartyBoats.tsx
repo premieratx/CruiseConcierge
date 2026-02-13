@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { m, LazyMotionProvider, fadeInUp, staggerContainer } from '@/components/LazyMotion';
 import { Link } from 'wouter';
-import * as HelmetAsync from 'react-helmet-async';
-const HelmetAsyncDefault = (HelmetAsync as any).default || HelmetAsync;
-const { Helmet } = HelmetAsyncDefault;
+import SEOHead from '@/components/SEOHead';
 import { 
   Ship, Users, Anchor, Clock, CheckCircle2, 
   Wine, Sparkles, Heart, ArrowRight, Star,
@@ -25,10 +23,6 @@ import sectionImage1 from '@assets/@capitalcityshots-1_1760080740012.jpg';
 import sectionImage2 from '@assets/@capitalcityshots-2_1760080740017.jpg';
 import sectionImage3 from '@assets/@capitalcityshots-3_1760080740017.jpg';
 
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-};
 
 const boatFleet = [
   {
@@ -187,24 +181,21 @@ export default function AustinBachelorettePartyBoats() {
   }, []);
 
   return (
+    <LazyMotionProvider>
     <>
-      <Helmet>
-        <title>Austin Bachelorette Party Boats: Lake Travis Adventures for Unforgettable Celebrations | Premier Party Cruises</title>
-        <meta name="description" content="Plan unforgettable Austin bachelorette party boats on Lake Travis. Compare boats for 14-75 guests, pricing from $800 for 4-hour cruise. Lake Travis bachelorette adventures with 15+ years experience and 5-star reviews." />
-        <meta name="keywords" content="Austin bachelorette party boats, Lake Travis bachelorette, bachelorette party boats Austin, Lake Travis adventures, Austin bachelorette boat, bachelorette boat Lake Travis, Austin party boats, Lake Travis boat party, bachelorette celebration Austin" />
-        <link rel="canonical" href="https://premierpartycruises.com/blogs/austin-bachelorette-party-boats-lake-travis-adventures-for-unforgettable-celebrations" />
-        <meta property="og:title" content="Austin Bachelorette Party Boats: Lake Travis Adventures for Unforgettable Celebrations" />
-        <meta property="og:description" content="Plan unforgettable Austin bachelorette party boats on Lake Travis. Compare boats, pricing, and adventure options for your bride tribe celebration." />
-        <meta property="og:type" content="article" />
-        <meta property="og:url" content="https://premierpartycruises.com/blogs/austin-bachelorette-party-boats-lake-travis-adventures-for-unforgettable-celebrations" />
-        <meta property="og:image" content="https://premierpartycruises.com/attached_assets/clever-girl-3-bachelorette-boat.jpg" />
-      </Helmet>
+      <SEOHead 
+        pageRoute="/blogs/austin-bachelorette-party-boats-lake-travis-adventures-for-unforgettable-celebrations"
+        defaultTitle="Austin Bachelorette Party Boats: Lake Travis Adventures for Unforgettable Celebrations | Premier Party Cruises"
+        defaultDescription="Plan unforgettable Austin bachelorette party boats on Lake Travis. Compare boats for 14-75 guests, pricing from $800 for 4-hour cruise. Lake Travis bachelorette adventures with 15+ years experience and 5-star reviews."
+        defaultKeywords={['Austin bachelorette party boats', 'Lake Travis bachelorette', 'bachelorette party boats Austin', 'Lake Travis adventures', 'Austin bachelorette boat', 'bachelorette boat Lake Travis', 'Austin party boats', 'Lake Travis boat party', 'bachelorette celebration Austin']}
+        image="https://premierpartycruises.com/attached_assets/clever-girl-3-bachelorette-boat.jpg"
+      />
 
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="austin-bachelorette-party-boats-page">
         <PublicNavigation />
 
         {/* Hero Section */}
-        <motion.section 
+        <m.section 
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
@@ -253,14 +244,26 @@ export default function AustinBachelorettePartyBoats() {
               </Button>
             </div>
           </div>
-        </motion.section>
+        </m.section>
+
+      {/* Topic Cluster Pillar Link */}
+      <div className="bg-blue-50 dark:bg-blue-950/30 border-b border-blue-100 dark:border-blue-900/50">
+        <div className="max-w-4xl mx-auto px-6 py-3">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            This guide is part of our complete{' '}
+            <Link href="/bachelorette-party-austin" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Austin bachelorette party boats</Link>{' '}
+            resource — your ultimate planning hub for Lake Travis bachelorette celebrations.
+          </p>
+        </div>
+      </div>
+
 
         {/* Stats Section */}
         <section className="py-12 bg-pink-50 dark:bg-gray-900" data-testid="stats-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {companyStats.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -271,7 +274,7 @@ export default function AustinBachelorettePartyBoats() {
                 >
                   <div className="text-3xl md:text-4xl font-bold text-pink-600 dark:text-pink-400">{item.stat}</div>
                   <div className="text-gray-600 dark:text-gray-400 font-medium text-sm">{item.label}</div>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -280,7 +283,7 @@ export default function AustinBachelorettePartyBoats() {
         {/* Introduction */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="intro-section">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -299,14 +302,14 @@ export default function AustinBachelorettePartyBoats() {
                 14 years, with 125,000+ happy guests and a perfect safety record. Our <strong>Lake Travis adventures</strong> 
                 are designed specifically for unforgettable <strong>bachelorette celebrations</strong>.
               </p>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Why Lake Travis */}
         <section className="py-16 bg-gradient-to-br from-pink-50 to-purple-50 dark:from-gray-800 dark:to-gray-900" data-testid="why-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -321,11 +324,11 @@ export default function AustinBachelorettePartyBoats() {
                 Lake Travis provides the perfect setting for <strong>Austin bachelorette party boats</strong> and 
                 unforgettable <strong>Lake Travis adventures</strong>.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {whyLakeTravis.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -341,7 +344,7 @@ export default function AustinBachelorettePartyBoats() {
                       <p className="text-gray-600 dark:text-gray-400">{item.description}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -350,7 +353,7 @@ export default function AustinBachelorettePartyBoats() {
         {/* Boat Fleet */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="fleet-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -365,11 +368,11 @@ export default function AustinBachelorettePartyBoats() {
                 Choose from four <strong>Austin bachelorette party boats</strong> for your <strong>Lake Travis adventure</strong>. 
                 All boats are single-deck pontoons with arch canopy.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 gap-6">
               {boatFleet.map((boat, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -418,7 +421,7 @@ export default function AustinBachelorettePartyBoats() {
                       </div>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -428,7 +431,7 @@ export default function AustinBachelorettePartyBoats() {
         <section className="py-16 bg-blue-50 dark:bg-gray-800" data-testid="included-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <motion.div
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -455,9 +458,9 @@ export default function AustinBachelorettePartyBoats() {
                     </div>
                   ))}
                 </div>
-              </motion.div>
+              </m.div>
               
-              <motion.div
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -468,7 +471,7 @@ export default function AustinBachelorettePartyBoats() {
                   alt="Austin bachelorette party boats features on Lake Travis adventure"
                   className="rounded-2xl shadow-xl w-full h-96 object-cover"
                 />
-              </motion.div>
+              </m.div>
             </div>
           </div>
         </section>
@@ -476,7 +479,7 @@ export default function AustinBachelorettePartyBoats() {
         {/* Adventure Options */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="adventures-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -491,11 +494,11 @@ export default function AustinBachelorettePartyBoats() {
                 Choose your perfect <strong>Austin bachelorette party boat</strong> timing for the ultimate 
                 <strong> Lake Travis adventure</strong>.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {adventureIdeas.map((idea, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -512,7 +515,7 @@ export default function AustinBachelorettePartyBoats() {
                       <p className="text-gray-600 dark:text-gray-400 text-sm">{idea.description}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -522,7 +525,7 @@ export default function AustinBachelorettePartyBoats() {
         <section className="py-16 bg-gradient-to-br from-pink-50 to-purple-50 dark:from-gray-800 dark:to-gray-900" data-testid="tips-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <motion.div
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -533,9 +536,9 @@ export default function AustinBachelorettePartyBoats() {
                   alt="Planning tips for Austin bachelorette party boats on Lake Travis"
                   className="rounded-2xl shadow-xl w-full h-96 object-cover"
                 />
-              </motion.div>
+              </m.div>
               
-              <motion.div
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -553,7 +556,7 @@ export default function AustinBachelorettePartyBoats() {
                     </div>
                   ))}
                 </div>
-              </motion.div>
+              </m.div>
             </div>
           </div>
         </section>
@@ -564,7 +567,7 @@ export default function AustinBachelorettePartyBoats() {
         {/* FAQ Section */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="faq-section">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -578,7 +581,7 @@ export default function AustinBachelorettePartyBoats() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 Common questions about Austin bachelorette party boats and Lake Travis adventures.
               </p>
-            </motion.div>
+            </m.div>
 
             <Accordion type="single" collapsible className="space-y-4">
               {faqs.map((faq, index) => (
@@ -606,7 +609,7 @@ export default function AustinBachelorettePartyBoats() {
         {/* Internal Links Section */}
         <section className="py-16 bg-gray-50 dark:bg-gray-800" data-testid="internal-links-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -619,11 +622,11 @@ export default function AustinBachelorettePartyBoats() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 Continue planning your Austin bachelorette party boat adventure on Lake Travis.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
               {internalLinks.map((link, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -641,7 +644,7 @@ export default function AustinBachelorettePartyBoats() {
                       <ArrowRight className="h-4 w-4 ml-auto" />
                     </Button>
                   </Link>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -650,5 +653,6 @@ export default function AustinBachelorettePartyBoats() {
         <Footer />
       </div>
     </>
+    </LazyMotionProvider>
   );
 }

@@ -67,16 +67,20 @@ export function LazyImage({
     }
   };
 
+  // Default to 16/9 aspect ratio when no sizing info is provided to prevent CLS
   const computedAspectRatio = aspectRatio || (width && height ? `${width}/${height}` : undefined);
+  const hasExplicitSize = computedAspectRatio || className?.match(/\bh-\d+\b|\bh-\[|\bmin-h-|\bmax-h-/);
 
   const wrapperStyle: React.CSSProperties = {
     position: 'relative',
     overflow: 'hidden',
     width: '100%',
-    ...(computedAspectRatio && { aspectRatio: computedAspectRatio })
+    ...((computedAspectRatio || !hasExplicitSize) && { aspectRatio: computedAspectRatio || '16/9' })
   };
 
-  const imgStyle: React.CSSProperties = computedAspectRatio ? {
+  const effectiveAspectRatio = computedAspectRatio || (!hasExplicitSize ? '16/9' : undefined);
+
+  const imgStyle: React.CSSProperties = effectiveAspectRatio ? {
     position: 'absolute',
     inset: 0,
     width: '100%',
@@ -85,9 +89,9 @@ export function LazyImage({
   } : {};
 
   const placeholderStyle: React.CSSProperties = {
-    aspectRatio: computedAspectRatio,
+    aspectRatio: effectiveAspectRatio,
     width: '100%',
-    height: computedAspectRatio ? '100%' : 'auto'
+    height: effectiveAspectRatio ? '100%' : 'auto'
   };
 
   return (

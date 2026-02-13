@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { m, LazyMotionProvider, fadeInUp, staggerContainer } from '@/components/LazyMotion';
 import { Link } from 'wouter';
-import * as HelmetAsync from 'react-helmet-async';
-const HelmetAsyncDefault = (HelmetAsync as any).default || HelmetAsync;
-const { Helmet } = HelmetAsyncDefault;
+import SEOHead from '@/components/SEOHead';
 import { 
   Ship, Users, Briefcase, Phone, Clock, CheckCircle2, 
   Target, Award, Waves, MapPin, Calendar, Star,
@@ -23,15 +21,6 @@ import heroImage from '@assets/meeseeks-25-person-boat.webp';
 import sectionImage1 from '@assets/meeseeks-1_1763968010088.jpg';
 import sectionImage2 from '@assets/meeseeks-2_1763968010089.jpg';
 import sectionImage3 from '@assets/meeseeks-4 austin party boat rental_1763968010090.jpg';
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-};
-
-const staggerChildren = {
-  visible: { transition: { staggerChildren: 0.1 } }
-};
 
 const quarterlyBenefits = [
   { 
@@ -243,23 +232,21 @@ export default function QuarterlyOutingsLakeTravis() {
   }, []);
 
   return (
+    <LazyMotionProvider>
     <>
-      <Helmet>
-        <title>Quarterly Team Outings Austin | Corporate Boat Party Lake Travis | Premier Party Cruises</title>
-        <meta name="description" content="Make routine company events easy with Premier's quarterly boat packages. Plan team building Lake Travis outings, corporate boat party events, and company event ideas Austin businesses love. Book all 4 seasons!" />
-        <meta name="keywords" content="quarterly team outing Austin, corporate boat party Lake Travis, company event ideas Austin, team building Lake Travis, quarterly corporate events, recurring company outings, seasonal team events Austin" />
-        <link rel="canonical" href="https://premierpartycruises.com/blogs/quarterly-outings-lake-travis-make-routine-company-events-easy" />
-        <meta property="og:title" content="Quarterly Team Outings Austin | Corporate Boat Party Lake Travis" />
-        <meta property="og:description" content="Make routine company events easy with Premier's quarterly boat packages. Team building Lake Travis made simple with recurring booking discounts." />
-        <meta property="og:type" content="article" />
-        <meta property="og:image" content={heroImage} />
-      </Helmet>
+      <SEOHead 
+        pageRoute="/blogs/quarterly-outings-lake-travis-make-routine-company-events-easy"
+        defaultTitle="Quarterly Team Outings Austin | Corporate Boat Party Lake Travis | Premier Party Cruises"
+        defaultDescription="Make routine company events easy with Premier's quarterly boat packages. Plan team building Lake Travis outings, corporate boat party events, and company event ideas Austin businesses love. Book all 4 seasons!"
+        defaultKeywords={['quarterly team outing Austin', 'corporate boat party Lake Travis', 'company event ideas Austin', 'team building Lake Travis', 'quarterly corporate events', 'recurring company outings', 'seasonal team events Austin']}
+        image={heroImage}
+      />
 
       <div className="min-h-screen bg-white dark:bg-gray-950">
         <PublicNavigation />
 
         {/* Hero Section */}
-        <motion.section 
+        <m.section 
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
@@ -269,6 +256,8 @@ export default function QuarterlyOutingsLakeTravis() {
           <div 
             className="absolute inset-0 bg-cover bg-center opacity-30"
             style={{ backgroundImage: `url(${heroImage})` }}
+          role="img"
+          aria-label="Quarterly Team Outings Austin - Premier Party Cruises Lake Travis"
           />
           
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 text-center">
@@ -315,16 +304,28 @@ export default function QuarterlyOutingsLakeTravis() {
             alt="Quarterly corporate outing boat party Lake Travis Austin team event" 
             className="hidden"
           />
-        </motion.section>
+        </m.section>
+
+      {/* Topic Cluster Pillar Link */}
+      <div className="bg-blue-50 dark:bg-blue-950/30 border-b border-blue-100 dark:border-blue-900/50">
+        <div className="max-w-4xl mx-auto px-6 py-3">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            See our complete guide to{' '}
+            <Link href="/corporate-events" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Austin corporate event boats</Link>{' '}
+            for team building, client entertainment, and company celebrations on Lake Travis.
+          </p>
+        </div>
+      </div>
+
 
         {/* Why Quarterly vs Annual Section */}
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={staggerChildren}
+              variants={staggerContainer}
               className="text-center mb-12"
             >
               <h2 className="text-3xl font-bold mb-4">Why Quarterly Team Outings Beat Annual Events</h2>
@@ -332,11 +333,11 @@ export default function QuarterlyOutingsLakeTravis() {
                 Annual company parties are great, but quarterly team outing Austin events create 
                 lasting culture. Here's why more companies are choosing regular team building Lake Travis experiences.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {quarterlyBenefits.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -352,7 +353,7 @@ export default function QuarterlyOutingsLakeTravis() {
                       <p className="text-gray-600 dark:text-gray-400 text-sm">{item.description}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -363,7 +364,7 @@ export default function QuarterlyOutingsLakeTravis() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
               {whyLakeTravis.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -372,7 +373,7 @@ export default function QuarterlyOutingsLakeTravis() {
                 >
                   <p className="text-3xl md:text-4xl font-bold text-yellow-400">{item.stat}</p>
                   <p className="text-sm md:text-base text-white/80 mt-1">{item.label}</p>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -381,7 +382,7 @@ export default function QuarterlyOutingsLakeTravis() {
         {/* Why Choose a Boat Every Time Section */}
         <section className="py-16 bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-800 dark:to-gray-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -444,14 +445,14 @@ export default function QuarterlyOutingsLakeTravis() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Seasonal Themes Section */}
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -463,11 +464,11 @@ export default function QuarterlyOutingsLakeTravis() {
                 Make each quarterly team outing Austin event unique with seasonal themes. 
                 Your corporate boat party Lake Travis can reflect the energy of each season.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {seasonalThemes.map((theme, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -496,7 +497,7 @@ export default function QuarterlyOutingsLakeTravis() {
                       </ul>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -505,7 +506,7 @@ export default function QuarterlyOutingsLakeTravis() {
         {/* How Premier Makes It Easy Section */}
         <section className="py-16 bg-gradient-to-br from-blue-900 via-blue-800 to-slate-900 text-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -559,14 +560,14 @@ export default function QuarterlyOutingsLakeTravis() {
                   </Link>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Boat Options Section */}
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -628,14 +629,14 @@ export default function QuarterlyOutingsLakeTravis() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Packages Section */}
         <section className="py-16 bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-800 dark:to-gray-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -647,11 +648,11 @@ export default function QuarterlyOutingsLakeTravis() {
                 Every quarterly team outing Austin event can be customized with our three package tiers. 
                 Choose the same package each quarter or mix it up for variety.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-3 gap-6">
               {packageOptions.map((pkg, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -682,7 +683,7 @@ export default function QuarterlyOutingsLakeTravis() {
                       </ul>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -694,7 +695,7 @@ export default function QuarterlyOutingsLakeTravis() {
         {/* Internal Links Section */}
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -706,7 +707,7 @@ export default function QuarterlyOutingsLakeTravis() {
                 Your quarterly team outing Austin events can include any of these experiences. 
                 Mix and match throughout the year for variety.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {[
@@ -716,7 +717,7 @@ export default function QuarterlyOutingsLakeTravis() {
                 { title: 'Private Cruises', href: '/private-cruises', description: 'Explore our full fleet for quarterly team outing Austin events', icon: Ship },
                 { title: 'Corporate Events', href: '/corporate-events', description: 'Full corporate boat party Lake Travis planning guide', icon: Building2 }
               ].map((link, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -735,7 +736,7 @@ export default function QuarterlyOutingsLakeTravis() {
                       </CardContent>
                     </Card>
                   </Link>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -744,7 +745,7 @@ export default function QuarterlyOutingsLakeTravis() {
         {/* FAQ Section */}
         <section className="py-16 bg-gray-50 dark:bg-gray-800">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -755,7 +756,7 @@ export default function QuarterlyOutingsLakeTravis() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 Common questions about quarterly team outing Austin and corporate boat party Lake Travis events
               </p>
-            </motion.div>
+            </m.div>
 
             <Accordion type="single" collapsible className="space-y-4">
               {faqs.map((faq, index) => (
@@ -780,7 +781,7 @@ export default function QuarterlyOutingsLakeTravis() {
         {/* CTA Section */}
         <section className="py-16 bg-gradient-to-br from-blue-900 to-slate-900 text-white">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -817,12 +818,13 @@ export default function QuarterlyOutingsLakeTravis() {
                   </Button>
                 </a>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         <Footer />
       </div>
     </>
+    </LazyMotionProvider>
   );
 }

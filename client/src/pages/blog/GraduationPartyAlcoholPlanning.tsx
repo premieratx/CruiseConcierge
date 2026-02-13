@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { m, LazyMotionProvider, fadeInUp, staggerContainer } from '@/components/LazyMotion';
 import { Link } from 'wouter';
-import * as HelmetAsync from 'react-helmet-async';
-const HelmetAsyncDefault = (HelmetAsync as any).default || HelmetAsync;
-const { Helmet } = HelmetAsyncDefault;
+import SEOHead from '@/components/SEOHead';
 import { 
   Ship, Users, PartyPopper, Phone, Clock, CheckCircle2, 
   Music, Sun, Waves, MapPin, Calendar, Star, GraduationCap,
@@ -20,15 +18,6 @@ import heroImage from '@assets/@capitalcityshots-16_1760080740020.jpg';
 import sectionImage1 from '@assets/@capitalcityshots-17_1760080740020.jpg';
 import sectionImage2 from '@assets/@capitalcityshots-18_1760080740021.jpg';
 import sectionImage3 from '@assets/@capitalcityshots-19_1760080740021.jpg';
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-};
-
-const staggerChildren = {
-  visible: { transition: { staggerChildren: 0.1 } }
-};
 
 const celebrationElements = [
   { 
@@ -193,23 +182,21 @@ export default function GraduationPartyAlcoholPlanning() {
   }, []);
 
   return (
+    <LazyMotionProvider>
     <>
-      <Helmet>
-        <title>Graduation Party Alcohol Planning: UT and Austin College Celebrations | Premier Party Cruises</title>
-        <meta name="description" content="Plan the perfect graduation party in Austin. Get alcohol delivered with Party On Delivery. Book Lake Travis cruises for UT and Austin college grads. Easy planning tips inside." />
-        <meta name="keywords" content="graduation party Austin, UT graduation party, Lake Travis graduation cruise, Party On Delivery Austin, college graduation celebration, Texas graduation party boat" />
-        <link rel="canonical" href="https://premierpartycruises.com/blogs/graduation-party-alcohol-planning-ut-and-austin-college-celebrations" />
-        <meta property="og:title" content="Graduation Party Alcohol Planning: UT and Austin College Celebrations" />
-        <meta property="og:description" content="Plan your Austin graduation party with Lake Travis cruises and easy alcohol delivery. Perfect for UT, Texas State, and local college grads." />
-        <meta property="og:type" content="article" />
-        <meta property="og:image" content={heroImage} />
-      </Helmet>
+      <SEOHead 
+        pageRoute="/blogs/graduation-party-alcohol-planning-ut-and-austin-college-celebrations"
+        defaultTitle="Graduation Party Alcohol Planning: UT and Austin College Celebrations | Premier Party Cruises"
+        defaultDescription="Plan the perfect graduation party in Austin. Get alcohol delivered with Party On Delivery. Book Lake Travis cruises for UT and Austin college grads. Easy planning tips inside."
+        defaultKeywords={['graduation party Austin', 'UT graduation party', 'Lake Travis graduation cruise', 'Party On Delivery Austin', 'college graduation celebration', 'Texas graduation party boat']}
+        image={heroImage}
+      />
 
       <div className="min-h-screen bg-white dark:bg-gray-950">
         <PublicNavigation />
 
         {/* Hero Section */}
-        <motion.section 
+        <m.section 
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
@@ -250,27 +237,39 @@ export default function GraduationPartyAlcoholPlanning() {
               </Link>
             </div>
           </div>
-        </motion.section>
+        </m.section>
+
+      {/* Topic Cluster Pillar Link */}
+      <div className="bg-blue-50 dark:bg-blue-950/30 border-b border-blue-100 dark:border-blue-900/50">
+        <div className="max-w-4xl mx-auto px-6 py-3">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            Browse our full range of{' '}
+            <Link href="/party-boat-austin" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Austin party boat rentals</Link>{' '}
+            for celebrations of every kind on Lake Travis.
+          </p>
+        </div>
+      </div>
+
 
         {/* Elements Grid */}
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={staggerChildren}
+              variants={staggerContainer}
               className="text-center mb-12"
             >
               <h2 className="text-3xl font-bold mb-4">Four Keys to a Great Grad Party</h2>
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Make your celebration easy and fun with these essentials
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {celebrationElements.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -286,7 +285,7 @@ export default function GraduationPartyAlcoholPlanning() {
                       <p className="text-gray-600 dark:text-gray-400 text-sm">{item.description}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -295,7 +294,7 @@ export default function GraduationPartyAlcoholPlanning() {
         {/* Party On Delivery Section */}
         <section className="py-16 bg-gradient-to-br from-amber-50 to-orange-50 dark:from-gray-800 dark:to-gray-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -366,14 +365,14 @@ export default function GraduationPartyAlcoholPlanning() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Lake Travis Cruise Section */}
         <section className="py-16 bg-gradient-to-br from-blue-900 via-blue-800 to-cyan-900 text-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -422,14 +421,14 @@ export default function GraduationPartyAlcoholPlanning() {
                   </Link>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Party Packages */}
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -440,11 +439,11 @@ export default function GraduationPartyAlcoholPlanning() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Find the right boat for your group size
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {partyPackages.map((pkg, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -468,7 +467,7 @@ export default function GraduationPartyAlcoholPlanning() {
                       <p className="text-sm font-medium text-orange-600">{pkg.ideal}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
 
@@ -486,7 +485,7 @@ export default function GraduationPartyAlcoholPlanning() {
         {/* Austin Colleges Section */}
         <section className="py-16 bg-gradient-to-br from-orange-50 to-amber-50 dark:from-gray-800 dark:to-gray-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -537,14 +536,14 @@ export default function GraduationPartyAlcoholPlanning() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Planning Timeline */}
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -555,11 +554,11 @@ export default function GraduationPartyAlcoholPlanning() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Follow these steps for a stress-free graduation party
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {planningTimeline.map((step, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -582,7 +581,7 @@ export default function GraduationPartyAlcoholPlanning() {
                       </ul>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -591,7 +590,7 @@ export default function GraduationPartyAlcoholPlanning() {
         {/* FAQ Section */}
         <section className="py-16 bg-gray-50 dark:bg-gray-800">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -602,7 +601,7 @@ export default function GraduationPartyAlcoholPlanning() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 Common questions about graduation party cruises
               </p>
-            </motion.div>
+            </m.div>
 
             <Accordion type="single" collapsible className="space-y-4">
               {faqs.map((faq, index) => (
@@ -626,7 +625,7 @@ export default function GraduationPartyAlcoholPlanning() {
         {/* CTA Section */}
         <section className="py-16 bg-gradient-to-br from-orange-600 via-amber-600 to-orange-700 text-white">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -677,12 +676,13 @@ export default function GraduationPartyAlcoholPlanning() {
                   </CardContent>
                 </Card>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         <Footer />
       </div>
     </>
+    </LazyMotionProvider>
   );
 }

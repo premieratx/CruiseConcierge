@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { m, LazyMotionProvider, fadeInUp, staggerContainer } from '@/components/LazyMotion';
 import { Link } from 'wouter';
-import * as HelmetAsync from 'react-helmet-async';
-const HelmetAsyncDefault = (HelmetAsync as any).default || HelmetAsync;
-const { Helmet } = HelmetAsyncDefault;
+import SEOHead from '@/components/SEOHead';
 import { 
   Ship, Users, PartyPopper, Music, Waves, Star, ArrowRight, 
   Camera, Sparkles, Heart, Crown, Mic2, Guitar, Film,
@@ -21,10 +19,6 @@ import partyAtmosphere1 from '@assets/party-atmosphere-1.webp';
 import partyAtmosphere2 from '@assets/party-atmosphere-2.webp';
 import partyAtmosphere3 from '@assets/party-atmosphere-3.webp';
 
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-};
 
 const celebrities = [
   {
@@ -84,24 +78,21 @@ export default function TopFiveCelebritiesPartyBarge() {
   }, []);
 
   return (
+    <LazyMotionProvider>
     <>
-      <Helmet>
-        <title>The Top Five Celebrities at Our Dream Party Barge | Premier Party Cruises Austin</title>
-        <meta name="description" content="Imagine the ultimate Lake Travis party boat with your dream celebrity guest list! From Matthew McConaughey to Beyoncé, discover which 5 stars we'd invite to the ultimate Austin disco cruise adventure." />
-        <meta name="keywords" content="Lake Travis party boat, Austin party cruise, celebrity party, ATX Disco Cruise, party barge Austin, Lake Travis boat rental, Austin boat party" />
-        <link rel="canonical" href="https://premierpartycruises.com/blogs/the-top-five-celebrities-at-our-dream-party-barge" />
-        <meta property="og:title" content="The Top Five Celebrities at Our Dream Party Barge" />
-        <meta property="og:description" content="Who would you invite to the ultimate Lake Travis party boat? Here's our dream celebrity guest list for the perfect Austin disco cruise!" />
-        <meta property="og:type" content="article" />
-        <meta property="og:url" content="https://premierpartycruises.com/blogs/the-top-five-celebrities-at-our-dream-party-barge" />
-        <meta property="og:image" content="https://premierpartycruises.com/attached_assets/atx-disco-cruise-party.webp" />
-      </Helmet>
+      <SEOHead 
+        pageRoute="/blogs/the-top-five-celebrities-at-our-dream-party-barge"
+        defaultTitle="The Top Five Celebrities at Our Dream Party Barge | Premier Party Cruises Austin"
+        defaultDescription="Imagine the ultimate Lake Travis party boat with your dream celebrity guest list! From Matthew McConaughey to Beyoncé, discover which 5 stars we'd invite to the ultimate Austin disco cruise adventure."
+        defaultKeywords={['Lake Travis party boat', 'Austin party cruise', 'celebrity party', 'ATX Disco Cruise', 'party barge Austin', 'Lake Travis boat rental', 'Austin boat party']}
+        image="https://premierpartycruises.com/attached_assets/atx-disco-cruise-party.webp"
+      />
 
       <div className="min-h-screen bg-white dark:bg-gray-950">
         <PublicNavigation />
 
         {/* Hero Section */}
-        <motion.section 
+        <m.section 
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
@@ -139,12 +130,24 @@ export default function TopFiveCelebritiesPartyBarge() {
               </Link>
             </div>
           </div>
-        </motion.section>
+        </m.section>
+
+      {/* Topic Cluster Pillar Link */}
+      <div className="bg-blue-50 dark:bg-blue-950/30 border-b border-blue-100 dark:border-blue-900/50">
+        <div className="max-w-4xl mx-auto px-6 py-3">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            Explore our full guide to{' '}
+            <Link href="/party-boat-lake-travis" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Lake Travis party boat rentals</Link>{' '}
+            for everything from pricing and logistics to safety and entertainment.
+          </p>
+        </div>
+      </div>
+
 
         {/* Introduction */}
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+            <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
               <h2 className="heading-unbounded text-2xl sm:text-3xl font-bold mb-6 text-gray-900 dark:text-white">The Ultimate Fantasy: Celebrities on a Lake Travis Party Boat</h2>
               <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
                 We've hosted thousands of <Link href="/party-boat-austin" className="text-blue-600 hover:underline font-semibold">Austin party boats</Link> over the years—bachelor parties, bachelorette crews, corporate celebrations, and milestone birthdays. But we got to thinking: if we could create the ULTIMATE <Link href="/atx-disco-cruise" className="text-blue-600 hover:underline font-semibold">ATX Disco Cruise</Link> with any five celebrities in the world, who would we invite?
@@ -155,14 +158,14 @@ export default function TopFiveCelebritiesPartyBarge() {
               <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
                 Grab a drink, put on your favorite playlist, and imagine cruising the Texas Hill Country waters with this incredible crew...
               </p>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Celebrity Spotlights */}
         <section className="py-16 bg-gradient-to-br from-gray-50 to-purple-50 dark:from-gray-800 dark:to-gray-900">
           <div className="max-w-6xl mx-auto px-4 sm:px-6">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="text-center mb-12">
+            <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="text-center mb-12">
               <Badge className="mb-4 bg-purple-600 text-white">THE DREAM LINEUP</Badge>
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
                 Our Five Celebrity Dream Guests
@@ -170,11 +173,11 @@ export default function TopFiveCelebritiesPartyBarge() {
               <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
                 Each one brings something special to the party barge experience
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="space-y-12">
               {celebrities.map((celebrity, index) => (
-                <motion.div 
+                <m.div 
                   key={celebrity.name}
                   initial="hidden" 
                   whileInView="visible" 
@@ -219,7 +222,7 @@ export default function TopFiveCelebritiesPartyBarge() {
                       </CardContent>
                     </div>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -228,7 +231,7 @@ export default function TopFiveCelebritiesPartyBarge() {
         {/* Why Party Boats Are Celebrity-Worthy */}
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="max-w-6xl mx-auto px-4 sm:px-6">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="text-center mb-12">
+            <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="text-center mb-12">
               <Badge className="mb-4 bg-blue-600 text-white">CELEBRITY-WORTHY EXPERIENCE</Badge>
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
                 Why Our Party Boats Are VIP-Ready
@@ -236,11 +239,11 @@ export default function TopFiveCelebritiesPartyBarge() {
               <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
                 Even if celebrities aren't on YOUR guest list, you'll party like they're there
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {whyPartyBoatsCelebWorthy.map((feature, index) => (
-                <motion.div 
+                <m.div 
                   key={feature.title}
                   initial="hidden" 
                   whileInView="visible" 
@@ -257,7 +260,7 @@ export default function TopFiveCelebritiesPartyBarge() {
                       <p className="text-gray-600 dark:text-gray-300">{feature.description}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -289,7 +292,7 @@ export default function TopFiveCelebritiesPartyBarge() {
         {/* Final CTA Section */}
         <section className="py-16 bg-gradient-to-br from-purple-900 via-pink-800 to-orange-700 text-white">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+            <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
               <Star className="h-12 w-12 mx-auto mb-4 text-yellow-400" />
               <h2 className="text-3xl md:text-4xl font-bold mb-6">
                 Ready to Create Your Own Celebrity-Worthy Party?
@@ -319,12 +322,13 @@ export default function TopFiveCelebritiesPartyBarge() {
                 <Link href="/private-cruises" className="hover:text-white underline"> Private Cruises</Link> • 
                 <Link href="/party-boat-lake-travis" className="hover:text-white underline"> Lake Travis Party Boats</Link>
               </p>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         <Footer />
       </div>
     </>
+    </LazyMotionProvider>
   );
 }

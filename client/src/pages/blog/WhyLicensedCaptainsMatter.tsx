@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { m, LazyMotionProvider, fadeInUp, staggerContainer } from '@/components/LazyMotion';
 import { Link } from 'wouter';
-import * as HelmetAsync from 'react-helmet-async';
-const HelmetAsyncDefault = (HelmetAsync as any).default || HelmetAsync;
-const { Helmet } = HelmetAsyncDefault;
+import SEOHead from '@/components/SEOHead';
 import { 
   Shield, Users, Anchor, Phone, Clock, CheckCircle2, 
   AlertTriangle, Award, Waves, MapPin, Calendar, Star,
@@ -22,15 +20,6 @@ import heroImage from '@assets/day tripper-1 party boat with captain austin_1763
 import sectionImage1 from '@assets/clever-girl-7-flagship-boat.jpg';
 import sectionImage2 from '@assets/clever-girl-1-lake-travis-party-boat.jpg';
 import sectionImage3 from '@assets/@capitalcityshots-24_1760080807866.jpg';
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-};
-
-const staggerChildren = {
-  visible: { transition: { staggerChildren: 0.1 } }
-};
 
 const captainStats = [
   { stat: '15+', label: 'Years Experience' },
@@ -142,23 +131,21 @@ export default function WhyLicensedCaptainsMatter() {
   }, []);
 
   return (
+    <LazyMotionProvider>
     <>
-      <Helmet>
-        <title>Why Licensed Captains Matter for Lake Travis Party Boats | Premier Party Cruises</title>
-        <meta name="description" content="Discover why licensed captains are essential for Lake Travis party boats. Learn how professional crews ensure safe, legal, stress-free bachelor parties, bachelorette parties, and celebrations on the water." />
-        <meta name="keywords" content="Lake Travis party boat captain, licensed boat captain Austin, Lake Travis boat safety, party boat crew, USCG licensed captain, Lake Travis bachelor party, bachelorette party boat Austin" />
-        <link rel="canonical" href="https://premierpartycruises.com/blogs/why-licensed-captains-matter-lake-travis-party-boats" />
-        <meta property="og:title" content="Why Licensed Captains Matter for Lake Travis Party Boats" />
-        <meta property="og:description" content="The overlooked detail that makes or breaks your entire Lake Travis party boat experience. Learn why professional captains are essential for bachelor parties, bachelorette parties, and celebrations." />
-        <meta property="og:type" content="article" />
-        <meta property="og:image" content={heroImage} />
-      </Helmet>
+      <SEOHead 
+        pageRoute="/blogs/why-licensed-captains-matter-lake-travis-party-boats"
+        defaultTitle="Why Licensed Captains Matter for Lake Travis Party Boats | Premier Party Cruises"
+        defaultDescription="Discover why licensed captains are essential for Lake Travis party boats. Learn how professional crews ensure safe, legal, stress-free bachelor parties, bachelorette parties, and celebrations on the water."
+        defaultKeywords={['Lake Travis party boat captain', 'licensed boat captain Austin', 'Lake Travis boat safety', 'party boat crew', 'USCG licensed captain', 'Lake Travis bachelor party', 'bachelorette party boat Austin']}
+        image={heroImage}
+      />
 
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="why-licensed-captains-page">
         <PublicNavigation />
 
         {/* Hero Section */}
-        <motion.section 
+        <m.section 
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
@@ -208,14 +195,26 @@ export default function WhyLicensedCaptainsMatter() {
               </Button>
             </div>
           </div>
-        </motion.section>
+        </m.section>
+
+      {/* Topic Cluster Pillar Link */}
+      <div className="bg-blue-50 dark:bg-blue-950/30 border-b border-blue-100 dark:border-blue-900/50">
+        <div className="max-w-4xl mx-auto px-6 py-3">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            Explore our full guide to{' '}
+            <Link href="/party-boat-lake-travis" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Lake Travis party boat rentals</Link>{' '}
+            for everything from pricing and logistics to safety and entertainment.
+          </p>
+        </div>
+      </div>
+
 
         {/* Captain Stats */}
         <section className="py-12 bg-slate-100 dark:bg-slate-900" data-testid="stats-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {captainStats.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -226,7 +225,7 @@ export default function WhyLicensedCaptainsMatter() {
                 >
                   <div className="text-3xl md:text-4xl font-bold text-green-600 dark:text-green-400">{item.stat}</div>
                   <div className="text-gray-600 dark:text-gray-400">{item.label}</div>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -235,11 +234,11 @@ export default function WhyLicensedCaptainsMatter() {
         {/* Why This Matters Section */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="why-matters-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={staggerChildren}
+              variants={staggerContainer}
               className="text-center mb-12"
             >
               <Badge className="mb-4 bg-blue-100 text-blue-700">FOR EVENT PLANNERS</Badge>
@@ -249,11 +248,11 @@ export default function WhyLicensedCaptainsMatter() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 When you're planning a high-stakes group experience, professional operation makes all the difference
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
               {eventTypes.map((event, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -271,7 +270,7 @@ export default function WhyLicensedCaptainsMatter() {
                       </CardContent>
                     </Card>
                   </Link>
-                </motion.div>
+                </m.div>
               ))}
             </div>
 
@@ -309,7 +308,7 @@ export default function WhyLicensedCaptainsMatter() {
         {/* What Captains Do Section */}
         <section className="py-16 bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-800 dark:to-gray-900" data-testid="responsibilities-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -323,11 +322,11 @@ export default function WhyLicensedCaptainsMatter() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 A licensed captain is not just "someone who drives the boat" — they're responsible for your entire experience
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {captainResponsibilities.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -343,7 +342,7 @@ export default function WhyLicensedCaptainsMatter() {
                       <p className="text-gray-600 dark:text-gray-400 text-sm">{item.description}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -352,7 +351,7 @@ export default function WhyLicensedCaptainsMatter() {
         {/* Captain Benefits */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="benefits-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -366,11 +365,11 @@ export default function WhyLicensedCaptainsMatter() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Every captain meets rigorous qualifications for your safety and peace of mind
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {captainBenefits.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -384,7 +383,7 @@ export default function WhyLicensedCaptainsMatter() {
                       <p className="text-gray-600 dark:text-gray-400 text-sm">{item.description}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -409,7 +408,7 @@ export default function WhyLicensedCaptainsMatter() {
         <section className="py-16 bg-gradient-to-br from-blue-50 to-teal-50 dark:from-gray-800 dark:to-gray-900" data-testid="out-of-town-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <motion.div
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -439,9 +438,9 @@ export default function WhyLicensedCaptainsMatter() {
                   Our licensed captains guide the entire experience, from arrival to return. This is why out-of-town 
                   planners consistently choose Premier Party Cruises for destination celebrations.
                 </p>
-              </motion.div>
+              </m.div>
               
-              <motion.div
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -452,7 +451,7 @@ export default function WhyLicensedCaptainsMatter() {
                   alt="Group celebrating on Lake Travis party boat with Austin skyline in background"
                   className="rounded-2xl shadow-xl w-full"
                 />
-              </motion.div>
+              </m.div>
             </div>
           </div>
         </section>
@@ -460,7 +459,7 @@ export default function WhyLicensedCaptainsMatter() {
         {/* BYOB & Party On Delivery Section */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="byob-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -476,7 +475,7 @@ export default function WhyLicensedCaptainsMatter() {
                 <a href="https://partyondelivery.com" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline ml-1">Party On Delivery</a> 
                 to make BYOB simple and legal.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {[
@@ -507,7 +506,7 @@ export default function WhyLicensedCaptainsMatter() {
         {/* FAQ Section */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="faq-section">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -518,7 +517,7 @@ export default function WhyLicensedCaptainsMatter() {
               <h2 className="text-3xl font-bold mb-4">
                 Frequently Asked Questions About Licensed Captains
               </h2>
-            </motion.div>
+            </m.div>
 
             <Accordion type="single" collapsible className="space-y-4">
               {faqs.map((faq, index) => (
@@ -538,7 +537,7 @@ export default function WhyLicensedCaptainsMatter() {
         {/* Internal Links */}
         <section className="py-16 bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-800 dark:to-gray-900" data-testid="related-links-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -549,7 +548,7 @@ export default function WhyLicensedCaptainsMatter() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 Learn more about our professionally captained Lake Travis experiences
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
               {internalLinks.map((link, index) => (
@@ -600,5 +599,6 @@ export default function WhyLicensedCaptainsMatter() {
         <Footer />
       </div>
     </>
+    </LazyMotionProvider>
   );
 }

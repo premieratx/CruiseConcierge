@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { m, LazyMotionProvider, fadeInUp, staggerContainer } from '@/components/LazyMotion';
 import { Link } from 'wouter';
-import * as HelmetAsync from 'react-helmet-async';
-const HelmetAsyncDefault = (HelmetAsync as any).default || HelmetAsync;
-const { Helmet } = HelmetAsyncDefault;
+import SEOHead from '@/components/SEOHead';
 import { 
   Ship, Users, PartyPopper, Phone, Clock, CheckCircle2, 
   Anchor, Music, Sun, Waves, MapPin, Calendar, Beer, Star,
@@ -23,15 +21,6 @@ import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import bachelorHero from '@assets/bachelor-party-group-guys.webp';
 import discoParty from '@assets/atx-disco-cruise-party.webp';
 import dancingScene from '@assets/dancing-party-scene.webp';
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-};
-
-const staggerChildren = {
-  visible: { transition: { staggerChildren: 0.1 } }
-};
 
 const day1Highlights = [
   { icon: Plane, title: 'Arrive in Austin', description: 'Land at AUS, gather the crew, and head to your rental' },
@@ -73,23 +62,21 @@ export default function PerfectAustinBachelorPartyWeekend() {
   }, []);
 
   return (
+    <LazyMotionProvider>
     <>
-      <Helmet>
-        <title>The Perfect Austin Bachelor Party Weekend: A 3-Day Itinerary | Premier Party Cruises</title>
-        <meta name="description" content="Plan the perfect bachelor party in Austin with our complete 3-day itinerary. From the ATX Disco Cruise on Lake Travis to 6th Street bar crawls, Texas BBQ, and Rainey Street - discover the ultimate Austin bachelor party weekend guide." />
-        <meta name="keywords" content="Austin bachelor party, bachelor party in Austin, Austin party boat, party boat Austin, Lake Travis party barge, ATX Disco Cruise, ideas for bachelor party in Austin, Austin bachelor party itinerary, 3 day bachelor party Austin, bachelor party weekend Austin TX" />
-        <link rel="canonical" href="https://premierpartycruises.com/blogs/perfect-austin-bachelor-party-weekend" />
-        <meta property="og:title" content="The Perfect Austin Bachelor Party Weekend: A 3-Day Itinerary" />
-        <meta property="og:description" content="Your complete guide to planning an epic 3-day bachelor party in Austin. Lake Travis party boats, 6th Street, BBQ, and more." />
-        <meta property="og:type" content="article" />
-        <meta property="og:image" content="https://premierpartycruises.com/attached_assets/bachelor-party-group-guys.webp" />
-      </Helmet>
+      <SEOHead 
+        pageRoute="/blogs/perfect-austin-bachelor-party-weekend"
+        defaultTitle="The Perfect Austin Bachelor Party Weekend: A 3-Day Itinerary | Premier Party Cruises"
+        defaultDescription="Plan the perfect bachelor party in Austin with our complete 3-day itinerary. From the ATX Disco Cruise on Lake Travis to 6th Street bar crawls, Texas BBQ, and Rainey Street - discover the ultimate Austin bachelor party weekend guide."
+        defaultKeywords={['Austin bachelor party', 'bachelor party in Austin', 'Austin party boat', 'party boat Austin', 'Lake Travis party barge', 'ATX Disco Cruise', 'ideas for bachelor party in Austin', 'Austin bachelor party itinerary', '3 day bachelor party Austin', 'bachelor party weekend Austin TX']}
+        image="https://premierpartycruises.com/attached_assets/bachelor-party-group-guys.webp"
+      />
 
       <div className="min-h-screen bg-white dark:bg-gray-950">
         <PublicNavigation />
 
         {/* Hero Section */}
-        <motion.section 
+        <m.section 
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
@@ -127,12 +114,24 @@ export default function PerfectAustinBachelorPartyWeekend() {
               </Link>
             </div>
           </div>
-        </motion.section>
+        </m.section>
+
+      {/* Topic Cluster Pillar Link */}
+      <div className="bg-blue-50 dark:bg-blue-950/30 border-b border-blue-100 dark:border-blue-900/50">
+        <div className="max-w-4xl mx-auto px-6 py-3">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            This guide is part of our complete{' '}
+            <Link href="/bachelor-party-austin" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Austin bachelor party boats</Link>{' '}
+            resource — your one-stop planning hub for Lake Travis bachelor celebrations.
+          </p>
+        </div>
+      </div>
+
 
         {/* Introduction */}
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+            <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
               <h2 className="heading-unbounded text-2xl sm:text-3xl font-bold mb-6 text-gray-900 dark:text-white">Planning the Ultimate Austin Bachelor Party Weekend</h2>
               <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
                 So you've been tasked with planning an <strong>austin bachelor party</strong> – congratulations! You've picked one of the best party destinations in the country. With a <strong>lake travis bachelor party boat</strong> as your centerpiece, this weekend will be legendary. But with so many ideas, where do you even start? That's where this comprehensive 3-day itinerary comes in.
@@ -149,14 +148,14 @@ export default function PerfectAustinBachelorPartyWeekend() {
                 alt="Austin bachelor party boat cruise celebration on Lake Travis Texas"
                 caption="Your Austin bachelor party adventure starts here"
               />
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Day 1 Section */}
         <section className="py-16 bg-gradient-to-br from-orange-50 to-yellow-50 dark:from-gray-800 dark:to-gray-900">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+            <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center text-white font-bold text-xl">1</div>
                 <div>
@@ -245,7 +244,7 @@ export default function PerfectAustinBachelorPartyWeekend() {
                   Either way, book early and use <a href="https://www.partyondelivery.com" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline font-semibold">Party On Delivery</a> for pre-arrival fridge stocking – they'll deliver to any address in the Austin area!
                 </p>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
@@ -254,7 +253,7 @@ export default function PerfectAustinBachelorPartyWeekend() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {day1Highlights.map((item, index) => (
-                <motion.div key={index} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+                <m.div key={index} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
                   <Card className="h-full hover:shadow-lg transition-shadow bg-orange-50 dark:bg-gray-800 border-orange-200 dark:border-gray-700">
                     <CardContent className="pt-6">
                       <div className="w-12 h-12 mb-4 bg-orange-500 rounded-full flex items-center justify-center">
@@ -264,7 +263,7 @@ export default function PerfectAustinBachelorPartyWeekend() {
                       <p className="text-gray-600 dark:text-gray-400">{item.description}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -273,7 +272,7 @@ export default function PerfectAustinBachelorPartyWeekend() {
         {/* Day 2 Section */}
         <section className="py-16 bg-gradient-to-br from-blue-50 to-purple-50 dark:from-gray-800 dark:to-gray-900">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+            <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold text-xl">2</div>
                 <div>
@@ -391,7 +390,7 @@ export default function PerfectAustinBachelorPartyWeekend() {
                   <Link href="/pricing-breakdown" className="text-blue-600 hover:underline">View pricing details</Link> or check our <Link href="/faq" className="text-blue-600 hover:underline">FAQ</Link> for common questions about the cruise.
                 </p>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
@@ -400,7 +399,7 @@ export default function PerfectAustinBachelorPartyWeekend() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {day2Highlights.map((item, index) => (
-                <motion.div key={index} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+                <m.div key={index} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
                   <Card className="h-full hover:shadow-lg transition-shadow bg-blue-50 dark:bg-gray-800 border-blue-200 dark:border-gray-700">
                     <CardContent className="pt-6">
                       <div className="w-12 h-12 mb-4 bg-blue-600 rounded-full flex items-center justify-center">
@@ -410,7 +409,7 @@ export default function PerfectAustinBachelorPartyWeekend() {
                       <p className="text-gray-600 dark:text-gray-400">{item.description}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -419,7 +418,7 @@ export default function PerfectAustinBachelorPartyWeekend() {
         {/* Day 3 Section */}
         <section className="py-16 bg-gradient-to-br from-green-50 to-teal-50 dark:from-gray-800 dark:to-gray-900">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+            <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center text-white font-bold text-xl">3</div>
                 <div>
@@ -497,7 +496,7 @@ export default function PerfectAustinBachelorPartyWeekend() {
                 alt="Bachelor party austin texas nightlife memories after lake travis bachelor party boat cruise"
                 caption="The memories from your Austin bachelor party weekend will last forever"
               />
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
@@ -506,7 +505,7 @@ export default function PerfectAustinBachelorPartyWeekend() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {day3Highlights.map((item, index) => (
-                <motion.div key={index} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+                <m.div key={index} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
                   <Card className="h-full hover:shadow-lg transition-shadow bg-green-50 dark:bg-gray-800 border-green-200 dark:border-gray-700">
                     <CardContent className="pt-6">
                       <div className="w-12 h-12 mb-4 bg-green-600 rounded-full flex items-center justify-center">
@@ -516,7 +515,7 @@ export default function PerfectAustinBachelorPartyWeekend() {
                       <p className="text-gray-600 dark:text-gray-400">{item.description}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -525,7 +524,7 @@ export default function PerfectAustinBachelorPartyWeekend() {
         {/* Must-Have Checklist */}
         <section className="py-16 bg-gray-50 dark:bg-gray-800">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+            <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
               <div className="flex items-center gap-3 mb-6">
                 <CheckCircle2 className="h-8 w-8 text-green-600" />
                 <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Austin Bachelor Party Must-Haves Checklist</h2>
@@ -545,14 +544,14 @@ export default function PerfectAustinBachelorPartyWeekend() {
                   ))}
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Pro Tips Section */}
         <section className="py-16 bg-gradient-to-br from-purple-100 to-blue-100 dark:from-gray-800 dark:to-gray-900">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+            <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
               <div className="flex items-center gap-3 mb-6">
                 <Trophy className="h-8 w-8 text-yellow-600" />
                 <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Pro Tips for Your Austin Bachelor Party</h2>
@@ -621,14 +620,14 @@ export default function PerfectAustinBachelorPartyWeekend() {
                   </p>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Related Blog Posts */}
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+            <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
               <h2 className="text-3xl font-bold mb-8 text-gray-900 dark:text-white text-center">More Austin Party Guides</h2>
               
               <div className="grid md:grid-cols-2 gap-6">
@@ -665,7 +664,7 @@ export default function PerfectAustinBachelorPartyWeekend() {
                   </Card>
                 </Link>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
@@ -675,7 +674,7 @@ export default function PerfectAustinBachelorPartyWeekend() {
         {/* Final CTA Section */}
         <section className="py-20 bg-gradient-to-br from-blue-900 via-purple-900 to-blue-900 text-white">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+            <m.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
               <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to Book Your Austin Bachelor Party Weekend?</h2>
               <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
                 Don't wait – the <strong>lake travis bachelor party boat</strong> experience on the ATX Disco Cruise sells out fast, especially during peak season. Lock in your dates now and start planning the ultimate <strong>austin bachelor party</strong>!
@@ -712,7 +711,7 @@ export default function PerfectAustinBachelorPartyWeekend() {
                   Pricing Details
                 </Link>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
@@ -720,5 +719,6 @@ export default function PerfectAustinBachelorPartyWeekend() {
         <Footer />
       </div>
     </>
+    </LazyMotionProvider>
   );
 }

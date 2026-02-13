@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { m, LazyMotionProvider, fadeInUp, staggerContainer } from '@/components/LazyMotion';
 import { Link } from 'wouter';
-import * as HelmetAsync from 'react-helmet-async';
-const HelmetAsyncDefault = (HelmetAsync as any).default || HelmetAsync;
-const { Helmet } = HelmetAsyncDefault;
+import SEOHead from '@/components/SEOHead';
 import { 
   Ship, Users, Camera, Phone, Clock, CheckCircle2, 
   Image, Award, Sparkles, MapPin, Calendar, Star,
@@ -23,15 +21,6 @@ import heroImage from '@assets/@capitalcityshots-10_1760080740019.jpg';
 import sectionImage1 from '@assets/@capitalcityshots-11_1760080740019.jpg';
 import sectionImage2 from '@assets/@capitalcityshots-12_1760080740019.jpg';
 import sectionImage3 from '@assets/@capitalcityshots-13_1760080740020.jpg';
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-};
-
-const staggerChildren = {
-  visible: { transition: { staggerChildren: 0.1 } }
-};
 
 const photographyOptions = [
   {
@@ -184,23 +173,21 @@ export default function LakeTravisBoatPartyPhotography() {
   }, []);
 
   return (
+    <LazyMotionProvider>
     <>
-      <Helmet>
-        <title>Lake Travis Boat Party Photography - Capturing Perfect Memories | Premier Party Cruises</title>
-        <meta name="description" content="Complete guide to Lake Travis boat party photography. Party boat photos Austin tips, professional boat party photographer Lake Travis options, and how to capture amazing photos on Lake Travis party boat. Austin boat party pictures made easy." />
-        <meta name="keywords" content="Lake Travis boat party photography, party boat photos Austin, boat party photographer Lake Travis, photos on Lake Travis party boat, Austin boat party pictures, Lake Travis party boat photos, party boat photography Austin" />
-        <link rel="canonical" href="https://premierpartycruises.com/blogs/lake-travis-boat-party-photography-capturing-perfect-memories-on-the-water" />
-        <meta property="og:title" content="Lake Travis Boat Party Photography - Capturing Perfect Memories on the Water" />
-        <meta property="og:description" content="Everything you need to know about Lake Travis boat party photography. Tips, professional options, and stunning photo locations on our party boats." />
-        <meta property="og:type" content="article" />
-        <meta property="og:image" content={heroImage} />
-      </Helmet>
+      <SEOHead 
+        pageRoute="/blogs/lake-travis-boat-party-photography-capturing-perfect-memories-on-the-water"
+        defaultTitle="Lake Travis Boat Party Photography - Capturing Perfect Memories | Premier Party Cruises"
+        defaultDescription="Complete guide to Lake Travis boat party photography. Party boat photos Austin tips, professional boat party photographer Lake Travis options, and how to capture amazing photos on Lake Travis party boat. Austin boat party pictures made easy."
+        defaultKeywords={['Lake Travis boat party photography', 'party boat photos Austin', 'boat party photographer Lake Travis', 'photos on Lake Travis party boat', 'Austin boat party pictures', 'Lake Travis party boat photos', 'party boat photography Austin']}
+        image={heroImage}
+      />
 
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="lake-travis-boat-party-photography-page">
         <PublicNavigation />
 
         {/* Hero Section */}
-        <motion.section 
+        <m.section 
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
@@ -249,14 +236,26 @@ export default function LakeTravisBoatPartyPhotography() {
               </Button>
             </div>
           </div>
-        </motion.section>
+        </m.section>
+
+      {/* Topic Cluster Pillar Link */}
+      <div className="bg-blue-50 dark:bg-blue-950/30 border-b border-blue-100 dark:border-blue-900/50">
+        <div className="max-w-4xl mx-auto px-6 py-3">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            Explore our full guide to{' '}
+            <Link href="/party-boat-lake-travis" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Lake Travis party boat rentals</Link>{' '}
+            for everything from pricing and logistics to safety and entertainment.
+          </p>
+        </div>
+      </div>
+
 
         {/* Stats Section */}
         <section className="py-12 bg-slate-100 dark:bg-slate-900" data-testid="stats-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {whyPremier.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -267,7 +266,7 @@ export default function LakeTravisBoatPartyPhotography() {
                 >
                   <div className="text-3xl md:text-4xl font-bold text-rose-600 dark:text-rose-400">{item.stat}</div>
                   <div className="text-gray-600 dark:text-gray-400">{item.label}</div>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -288,7 +287,7 @@ export default function LakeTravisBoatPartyPhotography() {
         {/* Photography Options */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="options-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -300,11 +299,11 @@ export default function LakeTravisBoatPartyPhotography() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Choose how to capture your party boat photos Austin memories
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-3 gap-6">
               {photographyOptions.map((option, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -342,7 +341,7 @@ export default function LakeTravisBoatPartyPhotography() {
                       </p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -352,7 +351,7 @@ export default function LakeTravisBoatPartyPhotography() {
         <section className="py-16 bg-gray-50 dark:bg-gray-800" data-testid="spots-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <motion.div
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -374,8 +373,8 @@ export default function LakeTravisBoatPartyPhotography() {
                     </div>
                   ))}
                 </div>
-              </motion.div>
-              <motion.div
+              </m.div>
+              <m.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -387,7 +386,7 @@ export default function LakeTravisBoatPartyPhotography() {
                   className="rounded-2xl shadow-xl"
                   data-testid="img-spots"
                 />
-              </motion.div>
+              </m.div>
             </div>
           </div>
         </section>
@@ -395,7 +394,7 @@ export default function LakeTravisBoatPartyPhotography() {
         {/* Photo Tips */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="tips-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -407,11 +406,11 @@ export default function LakeTravisBoatPartyPhotography() {
               <p className="text-gray-600 dark:text-gray-400">
                 Expert advice for amazing Lake Travis boat party photography
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {photoTips.map((tip, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -432,7 +431,7 @@ export default function LakeTravisBoatPartyPhotography() {
                       </div>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -441,7 +440,7 @@ export default function LakeTravisBoatPartyPhotography() {
         {/* Boat Photo Features */}
         <section className="py-16 bg-gradient-to-br from-rose-50 to-pink-50 dark:from-gray-800 dark:to-gray-900" data-testid="boats-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -453,11 +452,11 @@ export default function LakeTravisBoatPartyPhotography() {
               <p className="text-gray-600 dark:text-gray-400">
                 Each vessel offers unique boat party photographer Lake Travis opportunities
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {boatPhotoFeatures.map((boat, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -484,7 +483,7 @@ export default function LakeTravisBoatPartyPhotography() {
                       </ul>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -496,7 +495,7 @@ export default function LakeTravisBoatPartyPhotography() {
         {/* FAQ Section */}
         <section className="py-16 bg-gray-50 dark:bg-gray-800" data-testid="faq-section">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -508,7 +507,7 @@ export default function LakeTravisBoatPartyPhotography() {
               <p className="text-gray-600 dark:text-gray-400">
                 Common questions about party boat photos Austin and boat party photographer Lake Travis
               </p>
-            </motion.div>
+            </m.div>
 
             <Accordion type="single" collapsible className="space-y-4" data-testid="accordion-faq">
               {faqs.map((faq, index) => (
@@ -528,7 +527,7 @@ export default function LakeTravisBoatPartyPhotography() {
         {/* Internal Links Section */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="links-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -539,11 +538,11 @@ export default function LakeTravisBoatPartyPhotography() {
               <p className="text-gray-600 dark:text-gray-400">
                 Find the perfect Lake Travis experience for your photos
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
               {internalLinks.map((link, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -559,7 +558,7 @@ export default function LakeTravisBoatPartyPhotography() {
                       </CardContent>
                     </Card>
                   </Link>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -568,7 +567,7 @@ export default function LakeTravisBoatPartyPhotography() {
         {/* Final CTA Section */}
         <section className="py-20 bg-gradient-to-br from-rose-900 via-pink-800 to-slate-900 text-white" data-testid="cta-section">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -600,12 +599,13 @@ export default function LakeTravisBoatPartyPhotography() {
                   </a>
                 </Button>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         <Footer />
       </div>
     </>
+    </LazyMotionProvider>
   );
 }

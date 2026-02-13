@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { m, LazyMotionProvider, fadeInUp, staggerContainer } from '@/components/LazyMotion';
 import { Link } from 'wouter';
-import * as HelmetAsync from 'react-helmet-async';
-const HelmetAsyncDefault = (HelmetAsync as any).default || HelmetAsync;
-const { Helmet } = HelmetAsyncDefault;
+import SEOHead from '@/components/SEOHead';
 import { 
   Ship, Users, Phone, Clock, CheckCircle2, 
   Music, Sun, Waves, MapPin, Calendar, Star,
@@ -21,15 +19,6 @@ import heroImage from '@assets/bachelor-party-group-guys-hero-compressed.webp';
 import sectionImage1 from '@assets/@capitalcityshots-30_1760080807867.jpg';
 import sectionImage2 from '@assets/@capitalcityshots-31_1760080807867.jpg';
 import sectionImage3 from '@assets/@capitalcityshots-32_1760073243497.jpg';
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-};
-
-const staggerChildren = {
-  visible: { transition: { staggerChildren: 0.1 } }
-};
 
 const topReasons = [
   {
@@ -259,23 +248,21 @@ export default function WhyChooseAustinBachelorParty() {
   }, []);
 
   return (
+    <LazyMotionProvider>
     <>
-      <Helmet>
-        <title>Why Choose Austin for Your Bachelor Party | 10 Epic Reasons</title>
-        <meta name="description" content="Austin crushes Vegas and Miami for bachelor parties. Lake Travis boats, legendary BBQ, no income tax, electric nightlife. Here's why the groom squad picks ATX." />
-        <meta name="keywords" content="Austin bachelor party, Lake Travis bachelor party, bachelor party Austin Texas, Austin vs Vegas bachelor party, bachelor party ideas Austin" />
-        <link rel="canonical" href="https://premierpartycruises.com/blogs/why-choose-austin-bachelor-party" />
-        <meta property="og:title" content="Why Choose Austin for Your Bachelor Party | 10 Epic Reasons" />
-        <meta property="og:description" content="Austin crushes Vegas and Miami for bachelor parties. Lake Travis boats, legendary BBQ, and nightlife that doesn't break the bank." />
-        <meta property="og:type" content="article" />
-        <meta property="og:image" content="https://premierpartycruises.com/attached_assets/bachelor-party-group-guys-hero-compressed.webp" />
-      </Helmet>
+      <SEOHead 
+        pageRoute="/blogs/why-choose-austin-bachelor-party"
+        defaultTitle="Why Choose Austin for Your Bachelor Party | 10 Epic Reasons"
+        defaultDescription="Austin crushes Vegas and Miami for bachelor parties. Lake Travis boats, legendary BBQ, no income tax, electric nightlife. Here's why the groom squad picks ATX."
+        defaultKeywords={['Austin bachelor party', 'Lake Travis bachelor party', 'bachelor party Austin Texas', 'Austin vs Vegas bachelor party', 'bachelor party ideas Austin']}
+        image="https://premierpartycruises.com/attached_assets/bachelor-party-group-guys-hero-compressed.webp"
+      />
 
       <div className="min-h-screen bg-white dark:bg-gray-950">
         <PublicNavigation />
 
         {/* Epic Hero Section */}
-        <motion.section 
+        <m.section 
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
@@ -336,27 +323,38 @@ export default function WhyChooseAustinBachelorParty() {
               </div>
             </div>
           </div>
-        </motion.section>
+        </m.section>
+
+        {/* Topic Cluster Pillar Link */}
+        <div className="bg-blue-50 dark:bg-blue-950/30 border-b border-blue-100 dark:border-blue-900/50">
+          <div className="max-w-4xl mx-auto px-6 py-3">
+            <p className="text-sm text-gray-600 dark:text-gray-400">
+              This guide is part of our complete{' '}
+              <Link href="/bachelor-party-austin" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Austin bachelor party boats</Link>{' '}
+              resource — your one-stop planning hub for Lake Travis bachelor celebrations.
+            </p>
+          </div>
+        </div>
 
         {/* 10 Reasons Grid */}
         <section className="py-20 bg-gray-50 dark:bg-gray-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={staggerChildren}
+              variants={staggerContainer}
               className="text-center mb-16"
             >
               <h2 className="text-3xl md:text-4xl font-bold mb-4">10 Reasons Austin Dominates</h2>
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Forget the tourist traps. Austin delivers authentic experiences that actually matter.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-6">
               {topReasons.map((reason, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -377,7 +375,7 @@ export default function WhyChooseAustinBachelorParty() {
                       <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">{reason.description}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -386,7 +384,7 @@ export default function WhyChooseAustinBachelorParty() {
         {/* Lake Travis Featured Section */}
         <section className="py-20 bg-gradient-to-br from-blue-900 via-blue-800 to-cyan-900 text-white overflow-hidden">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -464,14 +462,14 @@ export default function WhyChooseAustinBachelorParty() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* BBQ Section */}
         <section className="py-20 bg-white dark:bg-gray-950">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -514,14 +512,14 @@ export default function WhyChooseAustinBachelorParty() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Nightlife Section */}
         <section className="py-20 bg-gradient-to-br from-purple-900 via-purple-800 to-pink-900 text-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -534,11 +532,11 @@ export default function WhyChooseAustinBachelorParty() {
                 250+ live music venues. No cover charges. Craft cocktails everywhere.
                 Austin's nightlife hits different.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
               {nightlifeDistricts.map((district, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -560,7 +558,7 @@ export default function WhyChooseAustinBachelorParty() {
                       <p className="text-xs text-white/60">Best for: {district.bestFor}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
 
@@ -577,7 +575,7 @@ export default function WhyChooseAustinBachelorParty() {
         {/* Austin vs Vegas/Miami Comparison */}
         <section className="py-20 bg-gray-50 dark:bg-gray-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -590,7 +588,7 @@ export default function WhyChooseAustinBachelorParty() {
                 Vegas is manufactured fun. Miami is overpriced pretense. 
                 Austin is the real deal.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="max-w-4xl mx-auto">
               <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden">
@@ -628,7 +626,7 @@ export default function WhyChooseAustinBachelorParty() {
         {/* Best Times to Visit */}
         <section className="py-20 bg-white dark:bg-gray-950">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -640,11 +638,11 @@ export default function WhyChooseAustinBachelorParty() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Austin delivers year-round. Here's what to expect each season.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {seasonalGuide.map((season, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -680,7 +678,7 @@ export default function WhyChooseAustinBachelorParty() {
                       </div>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -689,7 +687,7 @@ export default function WhyChooseAustinBachelorParty() {
         {/* FAQ Section */}
         <section className="py-20 bg-gray-50 dark:bg-gray-900">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -700,7 +698,7 @@ export default function WhyChooseAustinBachelorParty() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 Everything you need to know about planning your Austin bachelor party.
               </p>
-            </motion.div>
+            </m.div>
 
             <Accordion type="single" collapsible className="space-y-4">
               {faqs.map((faq, index) => (
@@ -724,7 +722,7 @@ export default function WhyChooseAustinBachelorParty() {
         {/* Strong CTA Footer */}
         <section className="py-20 bg-gradient-to-br from-blue-900 via-blue-800 to-cyan-900 text-white">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -768,12 +766,13 @@ export default function WhyChooseAustinBachelorParty() {
                   <span>BYOB welcome</span>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         <Footer />
       </div>
     </>
+    </LazyMotionProvider>
   );
 }

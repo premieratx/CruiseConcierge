@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { m, LazyMotionProvider, fadeInUp, staggerContainer } from '@/components/LazyMotion';
 import { Link } from 'wouter';
-import * as HelmetAsync from 'react-helmet-async';
-const HelmetAsyncDefault = (HelmetAsync as any).default || HelmetAsync;
-const { Helmet } = HelmetAsyncDefault;
+import SEOHead from '@/components/SEOHead';
 import { 
   Ship, Users, Briefcase, Phone, Clock, CheckCircle2, 
   Target, Award, Waves, MapPin, Calendar, Star,
@@ -22,15 +20,6 @@ import heroImage from '@assets/meeseeks-25-person-boat.webp';
 import sectionImage1 from '@assets/meeseeks-1_1763968010088.jpg';
 import sectionImage2 from '@assets/meeseeks-2_1763968010089.jpg';
 import sectionImage3 from '@assets/meeseeks-3 lake travis party boat_1763968010089.jpg';
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-};
-
-const staggerChildren = {
-  visible: { transition: { staggerChildren: 0.1 } }
-};
 
 const appreciationBenefits = [
   { 
@@ -182,26 +171,21 @@ export default function EmployeeAppreciationDayLakeTravis() {
   }, []);
 
   return (
+    <LazyMotionProvider>
     <>
-      <Helmet>
-        <title>Employee Appreciation Day Boat Party Lake Travis | Corporate Events Austin | Premier Party Cruises</title>
-        <meta name="description" content="Plan the perfect employee appreciation boat party on Lake Travis. All-inclusive corporate boat party Austin with team building activities, BYOB, catering coordination. Book your Lake Travis corporate event today!" />
-        <meta name="keywords" content="corporate boat party Austin, Lake Travis corporate event, employee appreciation ideas Austin, team building Lake Travis, employee appreciation day Austin, corporate party boat Lake Travis, Austin company party ideas, team celebration Austin" />
-        <link rel="canonical" href="https://premierpartycruises.com/blogs/employee-appreciation-day-reward-your-team-with-an-easy-all-inclusive-boat-party" />
-        <meta property="og:title" content="Employee Appreciation Day Boat Party Lake Travis | Corporate Events Austin" />
-        <meta property="og:description" content="Reward your team with an unforgettable corporate boat party Austin on Lake Travis. All-inclusive packages, team building activities, and stress-free planning." />
-        <meta property="og:type" content="article" />
-        <meta property="og:image" content={heroImage} />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Employee Appreciation Day Boat Party Lake Travis" />
-        <meta name="twitter:description" content="Plan the perfect employee appreciation event with a Lake Travis corporate event. Team building, celebration, and unforgettable memories." />
-      </Helmet>
+      <SEOHead 
+        pageRoute="/blogs/employee-appreciation-day-reward-your-team-with-an-easy-all-inclusive-boat-party"
+        defaultTitle="Employee Appreciation Day Boat Party Lake Travis | Corporate Events Austin | Premier Party Cruises"
+        defaultDescription="Plan the perfect employee appreciation boat party on Lake Travis. All-inclusive corporate boat party Austin with team building activities, BYOB, catering coordination. Book your Lake Travis corporate event today!"
+        defaultKeywords={['corporate boat party Austin', 'Lake Travis corporate event', 'employee appreciation ideas Austin', 'team building Lake Travis', 'employee appreciation day Austin', 'corporate party boat Lake Travis', 'Austin company party ideas', 'team celebration Austin']}
+        image={heroImage}
+      />
 
       <div className="min-h-screen bg-white dark:bg-gray-950">
         <PublicNavigation />
 
         {/* Hero Section */}
-        <motion.section 
+        <m.section 
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
@@ -211,6 +195,8 @@ export default function EmployeeAppreciationDayLakeTravis() {
           <div 
             className="absolute inset-0 bg-cover bg-center opacity-30"
             style={{ backgroundImage: `url(${heroImage})` }}
+          role="img"
+          aria-label="Employee Appreciation Day Boat Party Lake Travis - Premier Party Cruises Lake Travis"
           />
           
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 text-center">
@@ -242,12 +228,24 @@ export default function EmployeeAppreciationDayLakeTravis() {
               </Link>
             </div>
           </div>
-        </motion.section>
+        </m.section>
+
+      {/* Topic Cluster Pillar Link */}
+      <div className="bg-blue-50 dark:bg-blue-950/30 border-b border-blue-100 dark:border-blue-900/50">
+        <div className="max-w-4xl mx-auto px-6 py-3">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            See our complete guide to{' '}
+            <Link href="/corporate-events" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Austin corporate event boats</Link>{' '}
+            for team building, client entertainment, and company celebrations on Lake Travis.
+          </p>
+        </div>
+      </div>
+
 
         {/* Intro Section - Why Employee Appreciation Matters */}
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -273,29 +271,29 @@ export default function EmployeeAppreciationDayLakeTravis() {
                   </Button>
                 </Link>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Benefits Grid */}
         <section className="py-16 bg-gradient-to-br from-gray-50 to-orange-50 dark:from-gray-800 dark:to-gray-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={staggerChildren}
+              variants={staggerContainer}
               className="text-center mb-12"
             >
               <h2 className="text-3xl font-bold mb-4">Why a Corporate Boat Party Austin for Employee Appreciation?</h2>
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Team building Lake Travis experiences that create lasting memories and stronger teams
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {appreciationBenefits.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -311,7 +309,7 @@ export default function EmployeeAppreciationDayLakeTravis() {
                       <p className="text-gray-600 dark:text-gray-400 text-sm">{item.description}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -322,7 +320,7 @@ export default function EmployeeAppreciationDayLakeTravis() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
               {safetyStats.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -331,7 +329,7 @@ export default function EmployeeAppreciationDayLakeTravis() {
                 >
                   <p className="text-3xl md:text-4xl font-bold text-yellow-400">{item.stat}</p>
                   <p className="text-sm md:text-base text-white/80 mt-1">{item.label}</p>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -340,7 +338,7 @@ export default function EmployeeAppreciationDayLakeTravis() {
         {/* Why Boat Party Section */}
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -393,14 +391,14 @@ export default function EmployeeAppreciationDayLakeTravis() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* How Premier Makes It Easy */}
         <section className="py-16 bg-gradient-to-br from-orange-900 via-amber-800 to-red-900 text-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -450,14 +448,14 @@ export default function EmployeeAppreciationDayLakeTravis() {
                   </Link>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Activities & Ideas Section */}
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -468,11 +466,11 @@ export default function EmployeeAppreciationDayLakeTravis() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Make your employee appreciation ideas Austin come to life with these team building Lake Travis activities
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {activityIdeas.map((activity, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial="hidden"
                   whileInView="visible"
@@ -488,7 +486,7 @@ export default function EmployeeAppreciationDayLakeTravis() {
                       <p className="text-gray-600 dark:text-gray-400 text-sm">{activity.description}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -497,7 +495,7 @@ export default function EmployeeAppreciationDayLakeTravis() {
         {/* Boat Options Section */}
         <section className="py-16 bg-gradient-to-br from-gray-50 to-orange-50 dark:from-gray-800 dark:to-gray-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -549,7 +547,7 @@ export default function EmployeeAppreciationDayLakeTravis() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
@@ -603,7 +601,7 @@ export default function EmployeeAppreciationDayLakeTravis() {
         {/* FAQ Section */}
         <section className="py-16 bg-gray-50 dark:bg-gray-800">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -614,7 +612,7 @@ export default function EmployeeAppreciationDayLakeTravis() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 Common questions about corporate boat party Austin and employee appreciation ideas Austin
               </p>
-            </motion.div>
+            </m.div>
 
             <Accordion type="single" collapsible className="space-y-4">
               {faqs.map((faq, index) => (
@@ -639,7 +637,7 @@ export default function EmployeeAppreciationDayLakeTravis() {
         {/* CTA Section */}
         <section className="py-16 bg-gradient-to-br from-orange-900 to-red-900 text-white">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -666,12 +664,13 @@ export default function EmployeeAppreciationDayLakeTravis() {
                   </Button>
                 </a>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         <Footer />
       </div>
     </>
+    </LazyMotionProvider>
   );
 }

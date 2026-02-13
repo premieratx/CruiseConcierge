@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { m, LazyMotionProvider, fadeInUp, staggerContainer } from '@/components/LazyMotion';
 import { Link } from 'wouter';
-import * as HelmetAsync from 'react-helmet-async';
-const HelmetAsyncDefault = (HelmetAsync as any).default || HelmetAsync;
-const { Helmet } = HelmetAsyncDefault;
+import SEOHead from '@/components/SEOHead';
 import { 
   Shield, Users, Anchor, Phone, Clock, CheckCircle2, 
   AlertTriangle, Award, Waves, MapPin, Calendar, Star,
@@ -23,15 +21,6 @@ import heroImage from '@assets/bachelor-party-group-guys-hero-compressed.webp';
 import sectionImage1 from '@assets/atx-disco-cruise-party.webp';
 import sectionImage2 from '@assets/clever-girl-1-lake-travis-party-boat.jpg';
 import pricingChart from '@assets/atx-disco-cruise-bachelor-pricing-chart-2026_1762902241086.png';
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-};
-
-const staggerChildren = {
-  visible: { transition: { staggerChildren: 0.1 } }
-};
 
 const partyBoatStats = [
   { stat: '15+', label: 'Years Experience' },
@@ -143,21 +132,15 @@ export default function SafestAustinBachelorPartyLakeTravis() {
   const canonicalUrl = "https://premierpartycruises.com/blogs/safest-austin-bachelor-party-lake-travis-party-boat";
 
   return (
+    <LazyMotionProvider>
     <>
-      <Helmet>
-        <title>Safest Austin Bachelor Party: Lake Travis Party Boats</title>
-        <meta name="description" content="Plan a safe Austin bachelor party on Lake Travis. Licensed captains, BYOB savings, and stress-free celebration without chaos or hidden costs." />
-        <link rel="canonical" href={canonicalUrl} />
-        <meta property="og:title" content="Safest Austin Bachelor Party: Lake Travis Party Boats" />
-        <meta property="og:description" content="Plan a safe Austin bachelor party on Lake Travis. Licensed captains, BYOB savings, and stress-free celebration without chaos or hidden costs." />
-        <meta property="og:url" content={canonicalUrl} />
-        <meta property="og:type" content="article" />
-        <meta property="og:image" content="https://premierpartycruises.com/attached_assets/bachelor-party-group-guys-hero-compressed.webp" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Safest Austin Bachelor Party: Lake Travis Party Boats" />
-        <meta name="twitter:description" content="Plan a safe Austin bachelor party on Lake Travis. Licensed captains, BYOB savings, and stress-free celebration without chaos or hidden costs." />
-        <meta name="keywords" content="austin bachelor party, lake travis party boat, bachelor party austin, lake travis bachelor party, austin party boat, bachelor party ideas austin, austin bachelor weekend" />
-      </Helmet>
+      <SEOHead 
+        pageRoute=""
+        defaultTitle="Safest Austin Bachelor Party: Lake Travis Party Boats"
+        defaultDescription="Plan a safe Austin bachelor party on Lake Travis. Licensed captains, BYOB savings, and stress-free celebration without chaos or hidden costs."
+        defaultKeywords={['austin bachelor party', 'lake travis party boat', 'bachelor party austin', 'lake travis bachelor party', 'austin party boat', 'bachelor party ideas austin', 'austin bachelor weekend']}
+        image="https://premierpartycruises.com/attached_assets/bachelor-party-group-guys-hero-compressed.webp"
+      />
 
       <PublicNavigation />
 
@@ -173,34 +156,34 @@ export default function SafestAustinBachelorPartyLakeTravis() {
           </div>
           
           <div className="relative z-10 container mx-auto px-4 py-16">
-            <motion.div
+            <m.div
               initial="hidden"
               animate="visible"
-              variants={staggerChildren}
+              variants={staggerContainer}
               className="max-w-3xl"
             >
-              <motion.div variants={fadeInUp} className="mb-4">
+              <m.div variants={fadeInUp} className="mb-4">
                 <Badge className="bg-blue-600 text-white px-4 py-1">
                   Bachelor Party Guide
                 </Badge>
-              </motion.div>
+              </m.div>
               
-              <motion.h1 
+              <m.h1 
                 variants={fadeInUp}
                 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight"
               >
                 The Safest Way to Plan an Austin Bachelor Party
-              </motion.h1>
+              </m.h1>
               
-              <motion.p 
+              <m.p 
                 variants={fadeInUp}
                 className="text-xl text-blue-100 mb-8 leading-relaxed"
               >
                 Why a Lake Travis party boat is the smartest, safest, and most memorable 
                 way to celebrate—without stress, chaos, or hidden costs.
-              </motion.p>
+              </m.p>
 
-              <motion.div variants={fadeInUp} className="flex flex-wrap gap-4">
+              <m.div variants={fadeInUp} className="flex flex-wrap gap-4">
                 <Link href="/bachelor-party-austin">
                   <Button size="lg" className="bg-orange-500 hover:bg-orange-600 text-white" data-testid="button-bachelor-party-hub">
                     <Users className="mr-2 h-5 w-5" />
@@ -213,16 +196,27 @@ export default function SafestAustinBachelorPartyLakeTravis() {
                     ATX Disco Cruise
                   </Button>
                 </Link>
-              </motion.div>
-            </motion.div>
+              </m.div>
+            </m.div>
           </div>
         </section>
+
+        {/* Topic Cluster Pillar Link */}
+        <div className="bg-blue-50 dark:bg-blue-950/30 border-b border-blue-100 dark:border-blue-900/50">
+          <div className="max-w-4xl mx-auto px-6 py-3">
+            <p className="text-sm text-gray-600 dark:text-gray-400">
+              This guide is part of our complete{' '}
+              <Link href="/bachelor-party-austin" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Austin bachelor party boats</Link>{' '}
+              resource — your one-stop planning hub for Lake Travis bachelor celebrations.
+            </p>
+          </div>
+        </div>
 
         <section className="py-12 bg-gradient-to-b from-blue-900 to-blue-800">
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {partyBoatStats.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -232,7 +226,7 @@ export default function SafestAustinBachelorPartyLakeTravis() {
                 >
                   <div className="text-3xl md:text-4xl font-bold text-orange-400 mb-1">{item.stat}</div>
                   <div className="text-blue-200 text-sm">{item.label}</div>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -240,14 +234,14 @@ export default function SafestAustinBachelorPartyLakeTravis() {
 
         <section className="py-16 bg-white">
           <div className="container mx-auto px-4">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={staggerChildren}
+              variants={staggerContainer}
               className="max-w-4xl mx-auto"
             >
-              <motion.div variants={fadeInUp} className="text-center mb-12">
+              <m.div variants={fadeInUp} className="text-center mb-12">
                 <Badge className="bg-red-100 text-red-800 mb-4">High-Stakes Planning</Badge>
                 <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
                   Why Bachelor Parties Are High-Risk Events
@@ -255,9 +249,9 @@ export default function SafestAustinBachelorPartyLakeTravis() {
                 <p className="text-lg text-gray-600">
                   An Austin bachelor party isn't just a party—it's a high-stakes group event.
                 </p>
-              </motion.div>
+              </m.div>
 
-              <motion.div variants={fadeInUp} className="bg-red-50 border border-red-200 rounded-xl p-8 mb-8">
+              <m.div variants={fadeInUp} className="bg-red-50 border border-red-200 rounded-xl p-8 mb-8">
                 <div className="flex items-start gap-4 mb-6">
                   <AlertTriangle className="h-8 w-8 text-red-600 flex-shrink-0 mt-1" />
                   <div>
@@ -276,9 +270,9 @@ export default function SafestAustinBachelorPartyLakeTravis() {
                   That's why so many bachelor parties fail quietly: people get separated, plans fall apart, 
                   money gets wasted, or the group spends half the weekend managing logistics instead of enjoying the celebration.
                 </p>
-              </motion.div>
+              </m.div>
 
-              <motion.div variants={fadeInUp} className="bg-blue-50 border border-blue-200 rounded-xl p-8">
+              <m.div variants={fadeInUp} className="bg-blue-50 border border-blue-200 rounded-xl p-8">
                 <div className="flex items-start gap-4">
                   <CheckCircle2 className="h-8 w-8 text-blue-600 flex-shrink-0 mt-1" />
                   <div>
@@ -291,20 +285,20 @@ export default function SafestAustinBachelorPartyLakeTravis() {
                     </p>
                   </div>
                 </div>
-              </motion.div>
-            </motion.div>
+              </m.div>
+            </m.div>
           </div>
         </section>
 
         <section className="py-16 bg-gray-50">
           <div className="container mx-auto px-4">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={staggerChildren}
+              variants={staggerContainer}
             >
-              <motion.div variants={fadeInUp} className="text-center mb-12">
+              <m.div variants={fadeInUp} className="text-center mb-12">
                 <Badge className="bg-blue-100 text-blue-800 mb-4">Smart Planning</Badge>
                 <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
                   Why a Lake Travis Party Boat Is the Smart Move
@@ -312,11 +306,11 @@ export default function SafestAustinBachelorPartyLakeTravis() {
                 <p className="text-lg text-gray-600 max-w-2xl mx-auto">
                   When planners evaluate bachelor party ideas, they consistently favor contained, turnkey experiences.
                 </p>
-              </motion.div>
+              </m.div>
 
               <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
                 {whyBoatsWork.map((item, index) => (
-                  <motion.div
+                  <m.div
                     key={index}
                     variants={fadeInUp}
                     className="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow"
@@ -330,22 +324,22 @@ export default function SafestAustinBachelorPartyLakeTravis() {
                         <p className="text-gray-600">{item.description}</p>
                       </div>
                     </div>
-                  </motion.div>
+                  </m.div>
                 ))}
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         <section className="py-16 bg-white">
           <div className="container mx-auto px-4">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={staggerChildren}
+              variants={staggerContainer}
             >
-              <motion.div variants={fadeInUp} className="text-center mb-12">
+              <m.div variants={fadeInUp} className="text-center mb-12">
                 <Badge className="bg-orange-100 text-orange-800 mb-4">Choose Your Experience</Badge>
                 <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
                   ATX Disco Cruise vs Private Charter
@@ -353,10 +347,10 @@ export default function SafestAustinBachelorPartyLakeTravis() {
                 <p className="text-lg text-gray-600 max-w-2xl mx-auto">
                   Premier Party Cruises offers two primary bachelor party formats, both on Lake Travis.
                 </p>
-              </motion.div>
+              </m.div>
 
               <div className="grid lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
-                <motion.div variants={fadeInUp}>
+                <m.div variants={fadeInUp}>
                   <Card className="h-full border-2 border-orange-200 bg-gradient-to-br from-orange-50 to-white">
                     <CardContent className="p-8">
                       <div className="flex items-center gap-3 mb-4">
@@ -390,9 +384,9 @@ export default function SafestAustinBachelorPartyLakeTravis() {
                       </Link>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
 
-                <motion.div variants={fadeInUp}>
+                <m.div variants={fadeInUp}>
                   <Card className="h-full border-2 border-blue-200 bg-gradient-to-br from-blue-50 to-white">
                     <CardContent className="p-8">
                       <div className="flex items-center gap-3 mb-4">
@@ -426,36 +420,36 @@ export default function SafestAustinBachelorPartyLakeTravis() {
                       </Link>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         <section className="py-16 bg-gray-50">
           <div className="container mx-auto px-4">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={staggerChildren}
+              variants={staggerContainer}
             >
-              <motion.div variants={fadeInUp} className="text-center mb-12">
+              <m.div variants={fadeInUp} className="text-center mb-12">
                 <Badge className="bg-green-100 text-green-800 mb-4">Cost Comparison</Badge>
                 <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
                   Realistic Cost Breakdown: Why Boats Beat Bars
                 </h2>
-              </motion.div>
+              </m.div>
 
-              <motion.div variants={fadeInUp} className="max-w-4xl mx-auto mb-8">
+              <m.div variants={fadeInUp} className="max-w-4xl mx-auto mb-8">
                 <img 
                   src={pricingChart} 
                   alt="ATX Disco Cruise bachelor party pricing comparison chart showing $85-$105 per person all-inclusive"
                   className="w-full rounded-xl shadow-lg"
                 />
-              </motion.div>
+              </m.div>
 
-              <motion.div variants={fadeInUp} className="max-w-3xl mx-auto">
+              <m.div variants={fadeInUp} className="max-w-3xl mx-auto">
                 <div className="bg-white rounded-xl shadow-md overflow-hidden">
                   <table className="w-full">
                     <thead className="bg-blue-900 text-white">
@@ -484,15 +478,15 @@ export default function SafestAustinBachelorPartyLakeTravis() {
                 <p className="text-center text-gray-600 mt-4">
                   This is why bachelor parties consistently rank Lake Travis party boats as the highest value option.
                 </p>
-              </motion.div>
-            </motion.div>
+              </m.div>
+            </m.div>
           </div>
         </section>
 
         <section className="py-16 bg-white">
           <div className="container mx-auto px-4">
             <div className="grid lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, x: -30 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
@@ -534,9 +528,9 @@ export default function SafestAustinBachelorPartyLakeTravis() {
                     This pairing—Austin party boat + Party On Delivery—is one of the strongest planning advantages in Austin.
                   </p>
                 </div>
-              </motion.div>
+              </m.div>
 
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, x: 30 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
@@ -546,21 +540,21 @@ export default function SafestAustinBachelorPartyLakeTravis() {
                   alt="ATX Disco Cruise party boat with bachelor party guests enjoying Lake Travis"
                   className="rounded-xl shadow-lg w-full"
                 />
-              </motion.div>
+              </m.div>
             </div>
           </div>
         </section>
 
         <section className="py-16 bg-blue-900 text-white">
           <div className="container mx-auto px-4">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={staggerChildren}
+              variants={staggerContainer}
               className="max-w-4xl mx-auto"
             >
-              <motion.div variants={fadeInUp} className="text-center mb-12">
+              <m.div variants={fadeInUp} className="text-center mb-12">
                 <Badge className="bg-blue-700 text-blue-100 mb-4">Safety First</Badge>
                 <h2 className="text-3xl md:text-4xl font-bold mb-4">
                   Safety Without Killing the Vibe
@@ -568,9 +562,9 @@ export default function SafestAustinBachelorPartyLakeTravis() {
                 <p className="text-xl text-blue-200">
                   A common concern: "Will rules ruin the fun?" The answer is no—professional structure makes the party better.
                 </p>
-              </motion.div>
+              </m.div>
 
-              <motion.div variants={fadeInUp} className="grid md:grid-cols-2 gap-6">
+              <m.div variants={fadeInUp} className="grid md:grid-cols-2 gap-6">
                 <div className="bg-blue-800/50 rounded-xl p-6">
                   <Shield className="h-10 w-10 text-blue-300 mb-4" />
                   <h3 className="text-xl font-bold mb-2">Clear Safety Boundaries</h3>
@@ -591,28 +585,28 @@ export default function SafestAustinBachelorPartyLakeTravis() {
                   <h3 className="text-xl font-bold mb-2">Crowd Flow Control</h3>
                   <p className="text-blue-200">Boat movement managed for safety and optimal experience.</p>
                 </div>
-              </motion.div>
+              </m.div>
 
-              <motion.div variants={fadeInUp} className="text-center mt-8">
+              <m.div variants={fadeInUp} className="text-center mt-8">
                 <p className="text-xl text-blue-100">
                   That's why Premier Party Cruises has maintained a <strong>perfect safety record</strong> while 
                   hosting tens of thousands of bachelor and bachelorette parties.
                 </p>
-              </motion.div>
-            </motion.div>
+              </m.div>
+            </m.div>
           </div>
         </section>
 
         <section className="py-16 bg-white">
           <div className="container mx-auto px-4">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={staggerChildren}
+              variants={staggerContainer}
               className="max-w-4xl mx-auto"
             >
-              <motion.div variants={fadeInUp} className="text-center mb-12">
+              <m.div variants={fadeInUp} className="text-center mb-12">
                 <Badge className="bg-orange-100 text-orange-800 mb-4">Weekend Planner</Badge>
                 <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
                   Ideal Bachelor Party Weekend Structure
@@ -620,11 +614,11 @@ export default function SafestAustinBachelorPartyLakeTravis() {
                 <p className="text-lg text-gray-600">
                   Most successful Austin bachelor party weekends follow this format.
                 </p>
-              </motion.div>
+              </m.div>
 
               <div className="grid md:grid-cols-3 gap-6">
                 {weekendStructure.map((day, index) => (
-                  <motion.div
+                  <m.div
                     key={index}
                     variants={fadeInUp}
                     className={`rounded-xl p-6 ${index === 1 ? 'bg-orange-100 border-2 border-orange-300' : 'bg-gray-50'}`}
@@ -646,36 +640,36 @@ export default function SafestAustinBachelorPartyLakeTravis() {
                         </li>
                       ))}
                     </ul>
-                  </motion.div>
+                  </m.div>
                 ))}
               </div>
 
-              <motion.div variants={fadeInUp} className="text-center mt-8">
+              <m.div variants={fadeInUp} className="text-center mt-8">
                 <p className="text-gray-600 italic">
                   By placing the Lake Travis bachelor party first, you guarantee the highlight happens before fatigue sets in.
                 </p>
-              </motion.div>
-            </motion.div>
+              </m.div>
+            </m.div>
           </div>
         </section>
 
         <section className="py-16 bg-gray-50">
           <div className="container mx-auto px-4">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={staggerChildren}
+              variants={staggerContainer}
               className="max-w-3xl mx-auto"
             >
-              <motion.div variants={fadeInUp} className="text-center mb-12">
+              <m.div variants={fadeInUp} className="text-center mb-12">
                 <Badge className="bg-blue-100 text-blue-800 mb-4">Common Questions</Badge>
                 <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
                   FAQs – Austin Bachelor Party Boats
                 </h2>
-              </motion.div>
+              </m.div>
 
-              <motion.div variants={fadeInUp}>
+              <m.div variants={fadeInUp}>
                 <Accordion type="single" collapsible className="space-y-4">
                   {faqs.map((faq, index) => (
                     <AccordionItem 
@@ -692,8 +686,8 @@ export default function SafestAustinBachelorPartyLakeTravis() {
                     </AccordionItem>
                   ))}
                 </Accordion>
-              </motion.div>
-            </motion.div>
+              </m.div>
+            </m.div>
           </div>
         </section>
 
@@ -705,14 +699,14 @@ export default function SafestAustinBachelorPartyLakeTravis() {
 
         <section className="py-16 bg-gradient-to-r from-blue-900 to-blue-800 text-white">
           <div className="container mx-auto px-4">
-            <motion.div
+            <m.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={staggerChildren}
+              variants={staggerContainer}
               className="max-w-3xl mx-auto text-center"
             >
-              <motion.div variants={fadeInUp}>
+              <m.div variants={fadeInUp}>
                 <PartyPopper className="h-16 w-16 text-orange-400 mx-auto mb-6" />
                 <h2 className="text-3xl md:text-4xl font-bold mb-6">
                   A Bachelor Party Should Feel Legendary—Not Stressful
@@ -720,9 +714,9 @@ export default function SafestAustinBachelorPartyLakeTravis() {
                 <p className="text-xl text-blue-200 mb-8">
                   If you want zero logistics, zero liability, and maximum fun—your move is clear.
                 </p>
-              </motion.div>
+              </m.div>
 
-              <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-4 justify-center">
+              <m.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link href="/bachelor-party-austin">
                   <Button size="lg" className="bg-orange-500 hover:bg-orange-600 text-white" data-testid="button-cta-bachelor">
                     <Users className="mr-2 h-5 w-5" />
@@ -735,21 +729,22 @@ export default function SafestAustinBachelorPartyLakeTravis() {
                     Party Boat Options
                   </Button>
                 </Link>
-              </motion.div>
+              </m.div>
 
-              <motion.div variants={fadeInUp} className="mt-8 flex items-center justify-center gap-2 text-blue-200">
+              <m.div variants={fadeInUp} className="mt-8 flex items-center justify-center gap-2 text-blue-200">
                 <Phone className="h-5 w-5" />
                 <span>Questions? Call us at </span>
                 <a href="tel:512-488-5892" className="text-white font-semibold hover:underline">
                   512-488-5892
                 </a>
-              </motion.div>
-            </motion.div>
+              </m.div>
+            </m.div>
           </div>
         </section>
       </main>
 
       <Footer />
     </>
+    </LazyMotionProvider>
   );
 }

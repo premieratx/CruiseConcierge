@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { m, LazyMotionProvider, fadeInUp, staggerContainer } from '@/components/LazyMotion';
 import { Link } from 'wouter';
-import * as HelmetAsync from 'react-helmet-async';
-const HelmetAsyncDefault = (HelmetAsync as any).default || HelmetAsync;
-const { Helmet } = HelmetAsyncDefault;
+import SEOHead from '@/components/SEOHead';
 import { 
   Ship, Users, Package, Phone, Clock, CheckCircle2, 
   Plane, Home, Beer, MapPin, Calendar, Star,
@@ -23,15 +21,6 @@ import { BlogImageBreak, BLOG_PARTY_PHOTOS } from '@/components/BlogImageBreak';
 import heroImage from '@assets/bachelor-party-group-guys.webp';
 import discoImage from '@assets/atx-disco-cruise-party.webp';
 import partyImage from '@assets/dancing-party-scene.webp';
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-};
-
-const staggerChildren = {
-  visible: { transition: { staggerChildren: 0.1 } }
-};
 
 const day1Schedule = [
   { time: '2-4 PM', icon: Plane, title: 'Arrive in Austin', description: 'Fly into Austin-Bergstrom International Airport. Your perfect bachelor party itinerary Austin starts now!' },
@@ -149,24 +138,21 @@ export default function PerfectBachelorPartyItinerary() {
   }, []);
 
   return (
+    <LazyMotionProvider>
     <>
-      <Helmet>
-        <title>Perfect Bachelor Party Itinerary Austin: 3-Day Guide | Best Bachelor Party Austin | Premier Party Cruises</title>
-        <meta name="description" content="The perfect bachelor party itinerary Austin guide. Best bachelor party Austin 3-day schedule: Lake Travis boat party, 6th Street bar crawl, Texas BBQ, and Rainey Street nightlife. Plan the ultimate bachelor party Austin weekend with our day-by-day itinerary." />
-        <meta name="keywords" content="perfect bachelor party itinerary Austin, best bachelor party Austin, bachelor party Austin, Austin bachelor party, bachelor party itinerary Austin, Austin bachelor weekend, Lake Travis bachelor party, 6th Street bachelor party, bachelor party Texas" />
-        <link rel="canonical" href="https://premierpartycruises.com/blogs/perfect-bachelor-party-itinerary-austin" />
-        <meta property="og:title" content="Perfect Bachelor Party Itinerary Austin: 3-Day Guide | Best Bachelor Party Austin" />
-        <meta property="og:description" content="Plan the best bachelor party Austin with our perfect 3-day itinerary. Lake Travis boat party, 6th Street, Texas BBQ, and more." />
-        <meta property="og:type" content="article" />
-        <meta property="og:url" content="https://premierpartycruises.com/blogs/perfect-bachelor-party-itinerary-austin" />
-        <meta property="og:image" content="https://premierpartycruises.com/attached_assets/bachelor-party-group-guys.webp" />
-      </Helmet>
+      <SEOHead 
+        pageRoute="/blogs/perfect-bachelor-party-itinerary-austin"
+        defaultTitle="Perfect Bachelor Party Itinerary Austin: 3-Day Guide | Best Bachelor Party Austin | Premier Party Cruises"
+        defaultDescription="The perfect bachelor party itinerary Austin guide. Best bachelor party Austin 3-day schedule: Lake Travis boat party, 6th Street bar crawl, Texas BBQ, and Rainey Street nightlife. Plan the ultimate bachelor party Austin weekend with our day-by-day itinerary."
+        defaultKeywords={['perfect bachelor party itinerary Austin', 'best bachelor party Austin', 'bachelor party Austin', 'Austin bachelor party', 'bachelor party itinerary Austin', 'Austin bachelor weekend', 'Lake Travis bachelor party', '6th Street bachelor party', 'bachelor party Texas']}
+        image="https://premierpartycruises.com/attached_assets/bachelor-party-group-guys.webp"
+      />
 
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="perfect-bachelor-party-itinerary-page">
         <PublicNavigation />
 
         {/* Hero Section */}
-        <motion.section 
+        <m.section 
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
@@ -215,14 +201,26 @@ export default function PerfectBachelorPartyItinerary() {
               </Button>
             </div>
           </div>
-        </motion.section>
+        </m.section>
+
+      {/* Topic Cluster Pillar Link */}
+      <div className="bg-blue-50 dark:bg-blue-950/30 border-b border-blue-100 dark:border-blue-900/50">
+        <div className="max-w-4xl mx-auto px-6 py-3">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            This guide is part of our complete{' '}
+            <Link href="/bachelor-party-austin" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Austin bachelor party boats</Link>{' '}
+            resource — your one-stop planning hub for Lake Travis bachelor celebrations.
+          </p>
+        </div>
+      </div>
+
 
         {/* Stats Section */}
         <section className="py-12 bg-slate-100 dark:bg-slate-900" data-testid="stats-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {whyPremier.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -233,7 +231,7 @@ export default function PerfectBachelorPartyItinerary() {
                 >
                   <div className="text-3xl md:text-4xl font-bold text-blue-600 dark:text-blue-400">{item.stat}</div>
                   <div className="text-gray-600 dark:text-gray-400 font-medium">{item.label}</div>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -242,7 +240,7 @@ export default function PerfectBachelorPartyItinerary() {
         {/* Introduction */}
         <section className="py-16 md:py-24 bg-white dark:bg-gray-950" data-testid="intro-section">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div 
+            <m.div 
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -266,14 +264,14 @@ export default function PerfectBachelorPartyItinerary() {
                 alt="Perfect bachelor party itinerary Austin - bachelor group celebrating on Lake Travis party boat"
                 caption="The best bachelor party Austin experience starts on Lake Travis"
               />
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Day 1 */}
         <section className="py-16 md:py-24 bg-gradient-to-br from-orange-50 to-yellow-50 dark:from-gray-800 dark:to-gray-900" data-testid="day1-section">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div 
+            <m.div 
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -289,7 +287,7 @@ export default function PerfectBachelorPartyItinerary() {
 
               <div className="space-y-4">
                 {day1Schedule.map((item, index) => (
-                  <motion.div
+                  <m.div
                     key={index}
                     initial={{ opacity: 0, x: -20 }}
                     whileInView={{ opacity: 1, x: 0 }}
@@ -312,7 +310,7 @@ export default function PerfectBachelorPartyItinerary() {
                         </div>
                       </CardContent>
                     </Card>
-                  </motion.div>
+                  </m.div>
                 ))}
               </div>
 
@@ -325,14 +323,14 @@ export default function PerfectBachelorPartyItinerary() {
                   The <strong>best bachelor party Austin</strong> Day 1 sets the tone. Dirty 6th Street is legendary - bars packed shoulder-to-shoulder, live music spilling onto streets, and that unmistakable Austin energy. This is where your <strong>perfect bachelor party itinerary Austin</strong> really begins!
                 </p>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Day 2 - The Main Event */}
         <section className="py-16 md:py-24 bg-gradient-to-br from-blue-50 to-cyan-50 dark:from-gray-900 dark:to-gray-800" data-testid="day2-section">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div 
+            <m.div 
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -348,7 +346,7 @@ export default function PerfectBachelorPartyItinerary() {
 
               <div className="space-y-4">
                 {day2Schedule.map((item, index) => (
-                  <motion.div
+                  <m.div
                     key={index}
                     initial={{ opacity: 0, x: -20 }}
                     whileInView={{ opacity: 1, x: 0 }}
@@ -372,7 +370,7 @@ export default function PerfectBachelorPartyItinerary() {
                         </div>
                       </CardContent>
                     </Card>
-                  </motion.div>
+                  </m.div>
                 ))}
               </div>
 
@@ -381,14 +379,14 @@ export default function PerfectBachelorPartyItinerary() {
                 alt="Best bachelor party Austin - Lake Travis party boat cruise with bachelor group"
                 caption="Day 2 is THE highlight of your perfect bachelor party itinerary Austin"
               />
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Day 3 */}
         <section className="py-16 md:py-24 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-gray-800 dark:to-gray-900" data-testid="day3-section">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div 
+            <m.div 
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -404,7 +402,7 @@ export default function PerfectBachelorPartyItinerary() {
 
               <div className="space-y-4">
                 {day3Schedule.map((item, index) => (
-                  <motion.div
+                  <m.div
                     key={index}
                     initial={{ opacity: 0, x: -20 }}
                     whileInView={{ opacity: 1, x: 0 }}
@@ -427,17 +425,17 @@ export default function PerfectBachelorPartyItinerary() {
                         </div>
                       </CardContent>
                     </Card>
-                  </motion.div>
+                  </m.div>
                 ))}
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
         {/* Boat Options */}
         <section className="py-16 md:py-24 bg-white dark:bg-gray-950" data-testid="boats-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div 
+            <m.div 
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -450,11 +448,11 @@ export default function PerfectBachelorPartyItinerary() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 The perfect bachelor party itinerary Austin centers on your Lake Travis boat experience. All boats are single-deck pontoons with arch canopy - choose based on your group size.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 gap-6">
               {boatOptions.map((boat, index) => (
-                <motion.div
+                <m.div
                   key={boat.name}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -477,7 +475,7 @@ export default function PerfectBachelorPartyItinerary() {
                       </div>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -486,7 +484,7 @@ export default function PerfectBachelorPartyItinerary() {
         {/* Must-Do List */}
         <section className="py-16 md:py-24 bg-slate-50 dark:bg-slate-900" data-testid="mustdo-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div 
+            <m.div 
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -499,11 +497,11 @@ export default function PerfectBachelorPartyItinerary() {
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 No perfect bachelor party itinerary Austin is complete without these experiences
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {mustDoList.map((item, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -523,7 +521,7 @@ export default function PerfectBachelorPartyItinerary() {
                       </div>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -535,7 +533,7 @@ export default function PerfectBachelorPartyItinerary() {
         {/* FAQ Section */}
         <section className="py-16 md:py-24 bg-white dark:bg-gray-950" data-testid="faq-section">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div 
+            <m.div 
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -548,7 +546,7 @@ export default function PerfectBachelorPartyItinerary() {
               <p className="text-lg text-gray-600 dark:text-gray-400">
                 Common questions about planning the best bachelor party Austin experience
               </p>
-            </motion.div>
+            </m.div>
 
             <Accordion type="single" collapsible className="space-y-4" data-testid="faq-accordion">
               {faqs.map((faq, index) => (
@@ -575,7 +573,7 @@ export default function PerfectBachelorPartyItinerary() {
         {/* Internal Links Section */}
         <section className="py-16 bg-slate-100 dark:bg-slate-900" data-testid="internal-links-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <motion.div 
+            <m.div 
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -588,11 +586,11 @@ export default function PerfectBachelorPartyItinerary() {
               <p className="text-gray-600 dark:text-gray-400">
                 Plan your complete bachelor party Austin experience
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
               {internalLinks.map((link, index) => (
-                <motion.div
+                <m.div
                   key={link.href}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -607,7 +605,7 @@ export default function PerfectBachelorPartyItinerary() {
                       </CardContent>
                     </Card>
                   </Link>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -650,5 +648,6 @@ export default function PerfectBachelorPartyItinerary() {
         <Footer />
       </div>
     </>
+    </LazyMotionProvider>
   );
 }
