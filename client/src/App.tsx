@@ -159,6 +159,9 @@ const AIAssistant = lazy(() => import("./pages/admin/AIAssistant"));
 // Admin Agent Chat - Lazy loaded
 const AgentChat = lazy(() => import("./pages/admin/AgentChat"));
 
+// SEO Command Center - Multi-agent AI system
+const SEOCommandCenterPage = lazy(() => import("./components/admin/SEOCommandCenter"));
+
 // Admin Inventory Management - Lazy loaded
 const InventoryManagement = lazy(() => import("./pages/admin/InventoryManagement"));
 
@@ -893,6 +896,13 @@ function Router() {
       <Route path="/admin/agent-chat">
         <ProtectedRoute>
           <AgentChat />
+        </ProtectedRoute>
+      </Route>
+
+      {/* SEO Command Center - Multi-agent AI system */}
+      <Route path="/admin/seo-command-center">
+        <ProtectedRoute>
+          <SEOCommandCenterPage />
         </ProtectedRoute>
       </Route>
       
