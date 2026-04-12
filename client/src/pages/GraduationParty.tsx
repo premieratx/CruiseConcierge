@@ -24,7 +24,7 @@ import {
   GraduationCap, Users, Calendar, MapPin, Clock, Phone,
   ArrowRight, CheckCircle, Sparkles, Trophy, Shield,
   Star, MessageSquare, Award, Quote, ChevronRight,
-  Ship, Sun, Info, TrendingUp, PartyPopper, Camera,
+  Ship, Anchor, Sun, Info, TrendingUp, PartyPopper, Camera,
   Music, Gift, Rocket, BookOpen, Target, X, Crown
 } from 'lucide-react';
 import { useReducedMotion } from '@/hooks/use-reduced-motion';

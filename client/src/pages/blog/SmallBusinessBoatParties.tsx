@@ -696,7 +696,7 @@ export default function SmallBusinessBoatParties() {
                     Get a Free Quote
                   </Button>
                 </Link>
-                <a href="tel:5126959386">
+                <a href="tel:5124885892">
                   <Button 
                     size="lg" 
                     variant="outline" 
@@ -704,7 +704,7 @@ export default function SmallBusinessBoatParties() {
                     data-testid="button-call-us"
                   >
                     <Phone className="mr-2 h-5 w-5" />
-                    Call (512) 695-9386
+                    Call (512) 488-5892
                   </Button>
                 </a>
               </div>

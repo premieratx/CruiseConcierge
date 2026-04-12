@@ -806,7 +806,7 @@ export default function QuarterlyOutingsLakeTravis() {
                     Get Your Quarterly Quote
                   </Button>
                 </Link>
-                <a href="tel:5127270422">
+                <a href="tel:5124885892">
                   <Button 
                     size="lg" 
                     variant="outline" 
@@ -814,7 +814,7 @@ export default function QuarterlyOutingsLakeTravis() {
                     data-testid="button-call-now"
                   >
                     <Phone className="mr-2 h-5 w-5" />
-                    Call (512) 727-0422
+                    Call (512) 488-5892
                   </Button>
                 </a>
               </div>

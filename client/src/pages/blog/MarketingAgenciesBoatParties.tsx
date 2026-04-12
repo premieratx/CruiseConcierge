@@ -695,7 +695,7 @@ export default function MarketingAgenciesBoatParties() {
                     Get Your Quote
                   </Button>
                 </Link>
-                <a href="tel:5127270422">
+                <a href="tel:5124885892">
                   <Button 
                     size="lg" 
                     variant="outline" 
@@ -703,7 +703,7 @@ export default function MarketingAgenciesBoatParties() {
                     data-testid="button-call"
                   >
                     <Phone className="mr-2 h-5 w-5" />
-                    Call (512) 727-0422
+                    Call (512) 488-5892
                   </Button>
                 </a>
               </div>

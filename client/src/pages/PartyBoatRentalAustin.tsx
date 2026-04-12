@@ -64,6 +64,7 @@ export default function PartyBoatRentalAustin() {
       title="Party Boat Rental Austin"
       metaTitle="Party Boat Rental Austin | Lake Travis Boat Rentals | Premier Party Cruises"
       metaDescription="Rent a party boat in Austin for your next celebration. Premium boats for 6-75 guests on Lake Travis. Licensed captains, BYOB friendly, premium sound systems. Book today!"
+      pageRoute="/party-boat-rental-austin"
       heroTitle="Austin's Premier Party Boat Rentals"
       heroSubtitle="Experience Lake Travis aboard our luxury party boats. Perfect for birthdays, bachelor parties, corporate events, and any celebration worth remembering."
       heroBadge="Party Boat Rentals"

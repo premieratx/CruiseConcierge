@@ -529,7 +529,7 @@ export default function LakeTravisBoatPartyRegulations() {
                 <Link href="/contact">
                   <Button size="lg" variant="outline" className="bg-transparent border-white text-white hover:bg-white/10 font-bold text-lg px-8 py-6">
                     <Phone className="mr-2 h-5 w-5" />
-                    Call Us: (512) 709-9806
+                    Call Us: (512) 488-5892
                   </Button>
                 </Link>
               </div>

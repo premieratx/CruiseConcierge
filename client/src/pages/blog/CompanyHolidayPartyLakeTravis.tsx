@@ -755,7 +755,7 @@ export default function CompanyHolidayPartyLakeTravis() {
                     Get Your Holiday Quote
                   </Button>
                 </Link>
-                <a href="tel:5127270422">
+                <a href="tel:5124885892">
                   <Button 
                     size="lg" 
                     variant="outline" 
@@ -763,7 +763,7 @@ export default function CompanyHolidayPartyLakeTravis() {
                     data-testid="button-call-phone"
                   >
                     <Phone className="mr-2 h-5 w-5" />
-                    Call (512) 727-0422
+                    Call (512) 488-5892
                   </Button>
                 </a>
               </div>

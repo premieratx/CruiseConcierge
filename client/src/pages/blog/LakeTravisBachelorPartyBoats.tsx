@@ -5,6 +5,7 @@ import { SectionReveal } from '@/components/SectionReveal';
 import { Link } from 'wouter';
 import { lakeTravisBachelorBoatImages } from '@/lib/blogImages';
 import { BlogImageBreak, BlogPhotoStrip } from '@/components/BlogImageBreak';
+import InlineCTABar from '@/components/InlineCTABar';
 import { 
   Waves, Ship, Music, Beer, Calendar, 
   Users, CheckCircle, AlertCircle, Sparkles, MapPin 
@@ -302,6 +303,8 @@ export default function LakeTravisBachelorPartyBoats() {
         </section>
       </SectionReveal>
 
+      <InlineCTABar variant="navy" />
+
       {/* Private Charter vs Disco Cruise */}
       <SectionReveal>
         <section id="private-vs-disco" className="mb-12" data-testid="section-private-vs-disco">
@@ -501,6 +504,8 @@ export default function LakeTravisBachelorPartyBoats() {
         </section>
       </SectionReveal>
 
+      <InlineCTABar variant="amber" />
+
       {/* Sample Itinerary */}
       <SectionReveal>
         <section id="sample-itinerary" className="mb-12" data-testid="section-sample-itinerary">
@@ -669,6 +674,8 @@ export default function LakeTravisBachelorPartyBoats() {
           </div>
         </section>
       </SectionReveal>
+
+      <InlineCTABar variant="slate" />
 
       {/* Final CTA Section */}
       <SectionReveal>

@@ -103,6 +103,7 @@ export default {
           ring: "var(--sidebar-ring)",
         },
         // Premier Party Cruises brand colors
+        "brand-navy": "var(--brand-navy)",
         "brand-blue": "var(--brand-blue)",
         "brand-blue-light": "var(--brand-blue-light)",
         "brand-blue-dark": "var(--brand-blue-dark)",

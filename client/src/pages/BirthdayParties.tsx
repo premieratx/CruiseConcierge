@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'wouter';
 import { motion, AnimatePresence } from 'framer-motion';
 import PublicNavigation from '@/components/PublicNavigation';
@@ -12,7 +12,7 @@ import Breadcrumb from '@/components/Breadcrumb';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import SEOHead from '@/components/SEOHead';
 import { formatCurrency } from '@shared/formatters';
@@ -29,7 +29,7 @@ import {
   ChefHat, Wifi, Target, Headphones, Check, Sparkles,
   Waves, Wine, Umbrella, Music, ArrowRight, Camera,
   Crown, Anchor, Presentation, Zap, ChevronRight,
-  DollarSign, Smile, Gem, CheckCircle, X, Ship
+  DollarSign, Smile, Gem, CheckCircle, X, Ship, ChevronDown
 } from 'lucide-react';
 
 // Hero and gallery images
@@ -184,6 +184,7 @@ export default function BirthdayParties() {
   const [location, navigate] = useLocation();
   const { isEditMode } = useInlineEdit();
   const [showQuoteBuilder, setShowQuoteBuilder] = useState(false);
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   const handleGetQuote = () => {
     navigate('/chat');
@@ -257,14 +258,24 @@ export default function BirthdayParties() {
             >
               <Button
                 size="lg"
-                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold px-8 py-6 text-lg"
+                className="bg-brand-yellow hover:bg-yellow-300 text-gray-900 font-bold px-8 py-3 rounded-lg"
                 data-testid="button-hero-get-quote"
               >
                 <Cake className="mr-2 h-5 w-5" />
-                PLAN MY BIRTHDAY
+                BOOK NOW
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </div>
+            <Button
+              onClick={handleGetQuote}
+              size="lg"
+              variant="outline"
+              className="border-2 border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white font-bold px-8 py-3 rounded-lg"
+              data-testid="button-hero-view-packages"
+            >
+              <MessageSquare className="mr-2 h-5 w-5" />
+              GET A QUOTE
+            </Button>
           </div>
         </div>
       </section>
@@ -459,109 +470,136 @@ export default function BirthdayParties() {
         </section>
       </SectionReveal>
 
-      {/* FAQs Section */}
+      {/* 10. Planning Guides Section */}
       <SectionReveal>
-        <section className="py-24 bg-white">
-          <div className="max-w-7xl mx-auto px-6">
-            <div className="text-center mb-16">
-              <span className="text-6xl font-black text-gray-100 opacity-30 absolute -mt-8">05</span>
-              <h2 className="heading-unbounded text-3xl md:text-4xl font-bold mb-6 text-center relative">
-                Birthday Cruise FAQs
-              </h2>
-              <p className="text-base text-gray-600 max-w-3xl mx-auto text-center">
-                Everything about planning the perfect birthday cruise
-              </p>
-            </div>
-
-            <div className="max-w-3xl mx-auto">
-              <Accordion type="single" collapsible className="space-y-4">
-                {birthdayFAQs.map((item, idx) => (
-                  <AccordionItem 
-                    key={idx} 
-                    value={`item-${idx}`}
-                    className="bg-blue-50 rounded-xl px-6 border-none"
-                  >
-                    <AccordionTrigger 
-                      className="text-left hover:no-underline font-bold"
-                      data-testid={`faq-trigger-${idx}`}
-                    >
-                      {item.question}
-                    </AccordionTrigger>
-                    <AccordionContent className="text-base text-gray-600">
-                      {item.answer}
-                    </AccordionContent>
-                  </AccordionItem>
-                ))}
-              </Accordion>
-            </div>
-          </div>
-        </section>
-      </SectionReveal>
-
-      {/* Photo Gallery Section */}
-      <SectionReveal>
-        <section className="py-24 bg-gradient-to-b from-blue-50 to-white">
-          <div className="max-w-7xl mx-auto px-6">
-            <div className="text-center mb-16">
-              <span className="text-6xl font-black text-gray-100 opacity-30 absolute -mt-8">06</span>
-              <h2 className="heading-unbounded text-3xl md:text-4xl font-bold mb-6 text-center relative">
-                Birthday Memories
-              </h2>
-              <p className="text-base text-gray-600 max-w-3xl mx-auto text-center">
-                See the birthday magic on Lake Travis
-              </p>
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-6">
-              {galleryImages.map((image, idx) => (
-                <div key={idx} className="rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all">
-                  <img
-                    src={image.src}
-                    alt={image.alt}
-                    className="w-full h-64 object-cover"
-                    data-testid={`photo-gallery-birthday-${idx}`}
-                  />
-                </div>
+        <section className="py-24 bg-white border-t">
+          <div className="max-w-7xl mx-auto px-6 text-center">
+            <h2 className="heading-unbounded text-3xl md:text-4xl font-bold mb-12">
+              Birthday Planning & Logistics Guides
+            </h2>
+            <div className="grid sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
+              {[
+                {
+                  title: "Boat Party Planning & Logistics",
+                  href: "/blogs/lake-travis-boat-party-logistics-complete-planning-and-coordination-guide",
+                  desc: "Complete planning and coordination guide for your Lake Travis boat party."
+                },
+                {
+                  title: "Lake Travis Large Groups Guide",
+                  href: "/blogs/lake-travis-large-groups-guide",
+                  desc: "Essential tips for organizing successful events for groups of 20+."
+                }
+              ].map((item, idx) => (
+                <Link key={idx} href={item.href}>
+                  <a className="block group">
+                    <Card className="h-full rounded-xl border-2 hover:shadow-xl transition-all duration-300 group-hover:-translate-y-1">
+                      <CardContent className="pt-8 px-6 text-center flex flex-col h-full">
+                        <h3 className="font-bold text-xl mb-3 text-gray-900">{item.title}</h3>
+                        <p className="text-gray-600 mb-6 flex-grow">{item.desc}</p>
+                        <div className="flex items-center justify-center text-blue-600 font-bold group-hover:translate-x-1 transition-transform">
+                          Read Guide <ArrowRight className="ml-2 h-4 w-4" />
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </a>
+                </Link>
               ))}
             </div>
           </div>
         </section>
       </SectionReveal>
 
+      {/* FAQs Section */}
+      <SectionReveal>
+        <div id="faqs" className="scroll-mt-20">
+          <section className="py-24 bg-gradient-to-b from-blue-50 to-white text-center">
+            <div className="max-w-7xl mx-auto px-6">
+              <div className="text-center mb-16">
+                <span className="text-6xl font-black text-gray-100 opacity-30 absolute -mt-8">05</span>
+                <h2 className="heading-unbounded text-3xl md:text-4xl font-bold mb-6 text-center relative">
+                  Birthday Cruise FAQs
+                </h2>
+                <p className="text-base text-gray-600 max-w-3xl mx-auto text-center">
+                  Everything about planning the perfect birthday cruise
+                </p>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-4 max-w-6xl mx-auto text-left">
+                {birthdayFAQs.map((faq, idx) => (
+                  <Collapsible
+                    key={idx}
+                    open={openFaq === idx}
+                    onOpenChange={() => setOpenFaq(openFaq === idx ? null : idx)}
+                    className="w-full bg-white rounded-xl border shadow-sm h-fit"
+                  >
+                    <CollapsibleTrigger className="flex w-full items-center justify-between p-6 text-left hover:bg-gray-50 transition-colors rounded-xl">
+                      <span className="font-bold text-lg text-gray-900">{faq.question}</span>
+                      <ChevronDown className={cn(
+                        "h-5 w-5 text-gray-500 transition-transform duration-200",
+                        openFaq === idx && "transform rotate-180"
+                      )} />
+                    </CollapsibleTrigger>
+                    <CollapsibleContent className="px-6 pb-6 pt-0">
+                      <p className="text-gray-600 leading-relaxed">{faq.answer}</p>
+                    </CollapsibleContent>
+                  </Collapsible>
+                ))}
+              </div>
+            </div>
+          </section>
+        </div>
+      </SectionReveal>
+
       {/* Final CTA Section */}
       <SectionReveal>
-        <section className="py-24 bg-white">
-          <div className="max-w-7xl mx-auto px-6 text-center">
+        <section className="py-24 bg-gray-900">
+          <div className="max-w-7xl mx-auto px-6 text-center text-white">
             <h2 className="heading-unbounded text-3xl md:text-4xl font-bold mb-6 text-center">
               Ready to Plan Your Birthday Cruise?
             </h2>
-            <p className="text-base text-gray-600 max-w-2xl mx-auto mb-8 text-center">
-              Make your birthday legendary on Lake Travis
+            <p className="text-lg mb-8 max-w-2xl mx-auto text-gray-400">
+              Celebrate your special day with an unforgettable experience on Lake Travis
             </p>
-            <div
-              className="xola-custom xola-checkout"
-              data-button-id="695186923c261203770cc2e7"
-            >
-              <Button
-                size="lg"
-                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold text-xl px-12 py-8"
-                data-testid="button-final-cta"
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <div
+                className="xola-custom xola-checkout"
+                data-button-id="695186923c261203770cc2e7"
               >
-                <Sparkles className="mr-2 h-6 w-6" />
-                Start Planning Today
-                <ArrowRight className="ml-2 h-6 w-6" />
-              </Button>
+                <Button
+                  size="lg"
+                  className="bg-brand-yellow hover:bg-yellow-300 text-gray-900 font-bold px-8 py-3 rounded-lg"
+                  data-testid="button-final-cta"
+                >
+                  <PartyPopper className="mr-2 h-6 w-6" />
+                  BOOK NOW
+                  <ArrowRight className="ml-2 h-6 w-6" />
+                </Button>
+              </div>
             </div>
           </div>
         </section>
       </SectionReveal>
 
-      <PartyPlanningChecklist 
-        partyType="Birthday Party"
-        eventType="birthday celebration"
-      />
-
-      <VideoGallerySection videos={[{id: 'FABtEDZZBA0', title: 'Premier Party Cruises Experience', description: 'See what makes our Lake Travis cruises unforgettable'}]} />
+      {/* INTERNAL LINKS STRIP */}
+      <section className="py-6 bg-gray-900 border-t border-gray-800">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-gray-400">
+            <Link href="/" className="hover:text-brand-yellow transition-colors">Home</Link>
+            <Link href="/atx-disco-cruise" className="hover:text-brand-yellow transition-colors">ATX Disco Cruise</Link>
+            <Link href="/private-cruises" className="hover:text-brand-yellow transition-colors">Private Cruises</Link>
+            <Link href="/bachelor-party-austin" className="hover:text-brand-yellow transition-colors">Bachelor Party Austin</Link>
+            <Link href="/bachelorette-party-austin" className="hover:text-brand-yellow transition-colors">Bachelorette Party Austin</Link>
+            <Link href="/wedding-parties" className="hover:text-brand-yellow transition-colors">Wedding Parties</Link>
+            <Link href="/birthday-parties" className="hover:text-brand-yellow transition-colors">Birthday Parties</Link>
+            <Link href="/celebration-cruises" className="hover:text-brand-yellow transition-colors">Celebration Cruises</Link>
+            <Link href="/corporate-events" className="hover:text-brand-yellow transition-colors">Corporate Events</Link>
+            <Link href="/party-boat-lake-travis" className="hover:text-brand-yellow transition-colors">Party Boat Lake Travis</Link>
+            <Link href="/gallery" className="hover:text-brand-yellow transition-colors">Gallery</Link>
+            <Link href="/blogs" className="hover:text-brand-yellow transition-colors">Blog & Tips</Link>
+            <Link href="/contact" className="hover:text-brand-yellow transition-colors">Contact</Link>
+          </div>
+        </div>
+      </section>
 
       <Footer />
     </div>

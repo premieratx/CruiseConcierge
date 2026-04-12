@@ -31,7 +31,8 @@ import {
   Gift, Heart, Crown, Anchor, PartyPopper, Presentation,
   TrendingUp, HandshakeIcon, DollarSign, ChevronRight,
   Receipt, Coffee, Award as AwardIcon, Network, UserCheck,
-  CheckCircle, X, Lightbulb, Megaphone, Zap, Globe, Ship
+  CheckCircle, X, Lightbulb, Megaphone, Zap, Globe, Ship,
+  ChevronDown
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { WhatToBring } from '@/components/WhatToBring';
@@ -39,6 +40,11 @@ import { PricingTable } from '@/components/PricingTable';
 import { LazyImage } from '@/components/LazyImage';
 import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import { InternalLinkHighlight, InternalLinkHighlightWithArrow } from '@/components/InternalLinkHighlight';
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
 
 // Hero and gallery images
 const heroImage1 = '/attached_assets/clever-girl-50-person-boat.jpg';
@@ -412,6 +418,8 @@ export default function CorporateEvents() {
     return () => window.removeEventListener('message', handleMessage);
   }, [navigate, toast]);
 
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
+
   const handleGetQuote = () => {
     navigate('/chat');
   };
@@ -477,23 +485,13 @@ export default function CorporateEvents() {
           </div>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button
-              onClick={() => navigate('/chat')}
-              size="lg"
-              variant="outline"
-              className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white font-bold px-8 py-6 text-lg"
-              data-testid="button-hero-view-packages"
-            >
-              <Briefcase className="mr-2 h-5 w-5" />
-              VIEW PACKAGES
-            </Button>
             <div
               className="xola-custom xola-checkout"
               data-button-id="695186923c261203770cc2e7"
             >
               <Button
                 size="lg"
-                className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold px-8 py-6 text-lg shadow-xl hover:shadow-2xl transition-all duration-300"
+                className="bg-brand-yellow hover:bg-yellow-300 text-gray-900 font-bold px-8 py-3 rounded-lg"
                 data-testid="button-hero-get-quote"
               >
                 <MessageSquare className="mr-2 h-5 w-5" />
@@ -501,6 +499,16 @@ export default function CorporateEvents() {
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </div>
+            <Button
+              onClick={() => navigate('/chat')}
+              size="lg"
+              variant="outline"
+              className="border-2 border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white font-bold px-8 py-3 rounded-lg"
+              data-testid="button-hero-view-packages"
+            >
+              <Briefcase className="mr-2 h-5 w-5" />
+              GET A QUOTE
+            </Button>
           </div>
 
           {/* Quick stats */}
@@ -942,7 +950,7 @@ export default function CorporateEvents() {
               <Button 
                 size="lg"
                 variant="outline"
-                className="border-blue-600 text-blue-600 hover:bg-blue-50"
+                className="border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white font-bold"
                 data-testid="button-google-reviews"
               >
                 <a href="https://www.google.com/search?q=premier+party+cruises+austin" target="_blank" rel="noopener noreferrer" className="flex items-center">
@@ -955,12 +963,51 @@ export default function CorporateEvents() {
         </section>
       </SectionReveal>
 
-      {/* 10. FAQs SECTION */}
+      {/* 10. Planning Guides Section */}
+      <SectionReveal>
+        <section className="py-24 bg-white border-t">
+          <div className="max-w-7xl mx-auto px-6 text-center">
+            <h2 className="heading-unbounded text-3xl md:text-4xl font-bold mb-12">
+              Corporate Event Planning Guides
+            </h2>
+            <div className="grid sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
+              {[
+                {
+                  title: "Boat Party Planning & Logistics",
+                  href: "/blogs/lake-travis-boat-party-logistics-complete-planning-and-coordination-guide",
+                  desc: "Complete planning and coordination guide for your Lake Travis boat party."
+                },
+                {
+                  title: "Lake Travis Large Groups Guide",
+                  href: "/blogs/lake-travis-large-groups-guide",
+                  desc: "Essential tips for organizing successful events for groups of 20+."
+                }
+              ].map((item, idx) => (
+                <Link key={idx} href={item.href}>
+                  <a className="block group">
+                    <Card className="h-full rounded-xl border-2 hover:shadow-xl transition-all duration-300 group-hover:-translate-y-1">
+                      <CardContent className="pt-8 px-6 text-center flex flex-col h-full">
+                        <h3 className="font-bold text-xl mb-3 text-gray-900">{item.title}</h3>
+                        <p className="text-gray-600 mb-6 flex-grow">{item.desc}</p>
+                        <div className="flex items-center justify-center text-blue-600 font-bold group-hover:translate-x-1 transition-transform">
+                          Read Guide <ArrowRight className="ml-2 h-4 w-4" />
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </a>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      </SectionReveal>
+
+      {/* 11. FAQs SECTION */}
       <SectionReveal id="faqs">
         <section className="py-24 bg-gradient-to-b from-blue-50 to-white">
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
-              <Badge className="mb-4 font-sans tracking-wider uppercase">FAQS</Badge>
+              <Badge className="mb-4 font-sans tracking-wider uppercase text-blue-600">FAQS</Badge>
               <h2 className="text-3xl md:text-4xl heading-unbounded font-bold mb-4 text-center" data-editable data-editable-id="h2-faqs">
                 Frequently Asked Questions
               </h2>
@@ -969,36 +1016,72 @@ export default function CorporateEvents() {
               </p>
             </div>
 
-            <div className="max-w-3xl mx-auto">
-              <Accordion type="single" collapsible className="space-y-4">
-                {corporateFAQs.map((faq, index) => (
-                  <AccordionItem 
-                    key={index} 
-                    value={`item-${index}`}
-                    className="border border-gray-200 rounded-xl px-6 data-[state=open]:shadow-lg"
-                  >
-                    <AccordionTrigger className="text-left font-bold hover:no-underline">
-                      {faq.question}
-                    </AccordionTrigger>
-                    <AccordionContent className="text-base text-gray-600 pt-2">
-                      {faq.answer}
-                    </AccordionContent>
-                  </AccordionItem>
-                ))}
-              </Accordion>
+            <div className="grid md:grid-cols-2 gap-4 max-w-6xl mx-auto text-left">
+              {[
+                {
+                  q: "What team sizes can you accommodate?",
+                  a: "We have boats for groups of 14, 25, 30, 50, and up to 75 guests. For even larger company-wide events, we can coordinate multi-boat tandem cruises."
+                },
+                {
+                  q: "Do you have an alcohol/bar option?",
+                  a: "All cruises are BYOB. We work with Party On Delivery to have your drinks delivered and iced down when you arrive. Optional external bartending service is available for $600."
+                },
+                {
+                  q: "Is AV equipment included for presentations?",
+                  a: "Yes! Our boats feature premium sound systems with Bluetooth connectivity and microphones, perfect for executive presentations or team announcements."
+                },
+                {
+                  q: "Can you help with catering?",
+                  a: "We provide 6-foot folding tables and cooler space. You can bring your own food or we can recommend preferred local caterers who deliver directly to the marina."
+                },
+                {
+                  q: "What is the deposit and payment policy?",
+                  a: "A 50% deposit is required to secure your date, with the balance due 14 days before your event. We provide itemized invoices for corporate expense reporting."
+                },
+                {
+                  q: "What happens if there's bad weather?",
+                  a: "If weather makes it unsafe to cruise (determined by the captain), we'll first try to reschedule. If that's not possible, you'll receive a full refund."
+                },
+                {
+                  q: "Which boat is best for a corporate retreat?",
+                  a: "Day Tripper (14p) is great for executive offsites. Clever Girl (50-75p) is our flagship with a full bar-style setup and lounge area perfect for networking."
+                },
+                {
+                  q: "Can we customize the itinerary?",
+                  a: "Absolutely! Whether you want a focus on strategic planning sessions, relaxed networking, or active team building on the lily pads, we tailor the route to your goals."
+                }
+              ].map((faq, idx) => (
+                <Collapsible
+                  key={idx}
+                  open={openFaq === idx}
+                  onOpenChange={() => setOpenFaq(openFaq === idx ? null : idx)}
+                  className="w-full bg-white rounded-xl border shadow-sm h-fit"
+                >
+                  <CollapsibleTrigger className="flex w-full items-center justify-between p-6 text-left hover:bg-gray-50 transition-colors rounded-xl">
+                    <span className="font-bold text-lg text-gray-900">{faq.q}</span>
+                    <ChevronDown className={cn(
+                      "h-5 w-5 text-gray-500 transition-transform duration-200",
+                      openFaq === idx && "transform rotate-180"
+                    )} />
+                  </CollapsibleTrigger>
+                  <CollapsibleContent className="px-6 pb-6 pt-0">
+                    <p className="text-gray-600 leading-relaxed">{faq.a}</p>
+                  </CollapsibleContent>
+                </Collapsible>
+              ))}
             </div>
           </div>
         </section>
       </SectionReveal>
 
-      {/* CTA Section */}
+      {/* 12. CTA Section */}
       <SectionReveal>
-        <section className="py-24 bg-gradient-to-r from-blue-600 to-purple-600">
+        <section className="py-24 bg-gray-900">
           <div className="max-w-7xl mx-auto px-6 text-center text-white">
             <h2 className="text-3xl md:text-4xl heading-unbounded font-bold mb-6" data-editable data-editable-id="h2-cta">
               Ready to Plan Your Corporate Event?
             </h2>
-            <p className="text-lg mb-8 max-w-2xl mx-auto">
+            <p className="text-lg mb-8 max-w-2xl mx-auto text-gray-400">
               Get a custom quote for your team building, client entertainment, or corporate celebration
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -1008,138 +1091,39 @@ export default function CorporateEvents() {
               >
                 <Button
                   size="lg"
-                  className="bg-white text-blue-600 hover:bg-gray-100 font-bold px-8 py-6 text-lg"
+                  className="bg-brand-yellow hover:bg-yellow-300 text-gray-900 font-bold px-8 py-3 rounded-lg"
                   data-testid="button-cta-quote"
                 >
                   <MessageSquare className="mr-2 h-5 w-5" />
-                  GET YOUR QUOTE
+                  BOOK NOW
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </div>
-              <div
-                className="xola-custom xola-checkout"
-                data-button-id="695186923c261203770cc2e7"
-              >
-                <Button
-                  size="lg"
-                  variant="outlineLight"
-                  className="px-8 py-6 text-lg"
-                  data-testid="button-cta-book"
-                >
-                  <Calendar className="mr-2 h-5 w-5" />
-                  BOOK NOW
-                </Button>
-              </div>
             </div>
           </div>
         </section>
       </SectionReveal>
 
-      {/* 11. SEO SECTION - Related Experiences (Bottom) */}
-      <SectionReveal>
-        <section className="py-24 bg-white">
-          <div className="max-w-7xl mx-auto px-6">
-            <div className="text-center mb-16">
-              <Badge className="mb-4 font-sans tracking-wider uppercase">EXPLORE MORE</Badge>
-              <h2 className="text-3xl md:text-4xl heading-unbounded font-bold mb-4 text-center" data-editable data-editable-id="h2-related">
-                Related Corporate Experiences
-              </h2>
-              <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-                Explore our complete range of corporate event options
-              </p>
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-8">
-              <Link href="/team-building">
-                <Card className="h-full rounded-xl hover:shadow-xl transition-all cursor-pointer border-2 hover:border-blue-600">
-                  <CardHeader className="text-center">
-                    <div className="w-16 h-16 mx-auto mb-4 bg-blue-100 rounded-xl flex items-center justify-center">
-                      <Target className="h-8 w-8 text-blue-600" />
-                    </div>
-                    <CardTitle className="text-xl">Team Building</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-base text-gray-600 text-center mb-4">
-                      Interactive team building activities on Lake Travis designed to strengthen collaboration
-                    </p>
-                    <Button className="w-full bg-gradient-to-r from-blue-600 to-purple-600" data-testid="link-team-building">
-                      Explore Team Building
-                      <ArrowRight className="ml-2 h-4 w-4" />
-                    </Button>
-                  </CardContent>
-                </Card>
-              </Link>
-
-              <Link href="/client-entertainment">
-                <Card className="h-full rounded-xl hover:shadow-xl transition-all cursor-pointer border-2 hover:border-blue-600">
-                  <CardHeader className="text-center">
-                    <div className="w-16 h-16 mx-auto mb-4 bg-green-100 rounded-xl flex items-center justify-center">
-                      <Briefcase className="h-8 w-8 text-green-600" />
-                    </div>
-                    <CardTitle className="text-xl">Client Entertainment</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-base text-gray-600 text-center mb-4">
-                      Impress clients and close deals with exclusive Lake Travis experiences
-                    </p>
-                    <Button className="w-full bg-gradient-to-r from-green-600 to-green-700" data-testid="link-client-entertainment">
-                      Explore Client Events
-                      <ArrowRight className="ml-2 h-4 w-4" />
-                    </Button>
-                  </CardContent>
-                </Card>
-              </Link>
-
-              <Link href="/private-cruises">
-                <Card className="h-full rounded-xl hover:shadow-xl transition-all cursor-pointer border-2 hover:border-blue-600">
-                  <CardHeader className="text-center">
-                    <div className="w-16 h-16 mx-auto mb-4 bg-purple-100 rounded-xl flex items-center justify-center">
-                      <Ship className="h-8 w-8 text-purple-600" />
-                    </div>
-                    <CardTitle className="text-xl">Private Cruises</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-base text-gray-600 text-center mb-4">
-                      Exclusive private boat rentals for company celebrations and executive retreats
-                    </p>
-                    <Button className="w-full bg-gradient-to-r from-purple-600 to-pink-600" data-testid="link-private-cruises">
-                      Explore Private Options
-                      <ArrowRight className="ml-2 h-4 w-4" />
-                    </Button>
-                  </CardContent>
-                </Card>
-              </Link>
-            </div>
-
-            {/* Photo Gallery - SEO Content */}
-            <div className="mt-20">
-              <div className="text-center mb-12">
-                <h3 className="text-2xl font-bold mb-4">Corporate Events Gallery</h3>
-                <p className="text-base text-gray-600 max-w-2xl mx-auto">
-                  See our professional corporate cruises in action
-                </p>
-              </div>
-
-              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-                {galleryImages.map((image, index) => (
-                  <div key={index} className="relative aspect-square rounded-xl overflow-hidden group">
-                    <LazyImage
-                      src={image.src}
-                      alt={image.alt}
-                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-                      <p className="text-white text-sm">{image.alt}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
+      {/* INTERNAL LINKS STRIP */}
+      <section className="py-6 bg-gray-900 border-t border-gray-800">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-gray-400">
+            <Link href="/" className="hover:text-brand-yellow transition-colors">Home</Link>
+            <Link href="/atx-disco-cruise" className="hover:text-brand-yellow transition-colors">ATX Disco Cruise</Link>
+            <Link href="/private-cruises" className="hover:text-brand-yellow transition-colors">Private Cruises</Link>
+            <Link href="/bachelor-party-austin" className="hover:text-brand-yellow transition-colors">Bachelor Party Austin</Link>
+            <Link href="/bachelorette-party-austin" className="hover:text-brand-yellow transition-colors">Bachelorette Party Austin</Link>
+            <Link href="/wedding-parties" className="hover:text-brand-yellow transition-colors">Wedding Parties</Link>
+            <Link href="/birthday-parties" className="hover:text-brand-yellow transition-colors">Birthday Parties</Link>
+            <Link href="/celebration-cruises" className="hover:text-brand-yellow transition-colors">Celebration Cruises</Link>
+            <Link href="/corporate-events" className="hover:text-brand-yellow transition-colors">Corporate Events</Link>
+            <Link href="/party-boat-lake-travis" className="hover:text-brand-yellow transition-colors">Party Boat Lake Travis</Link>
+            <Link href="/gallery" className="hover:text-brand-yellow transition-colors">Gallery</Link>
+            <Link href="/blogs" className="hover:text-brand-yellow transition-colors">Blog & Tips</Link>
+            <Link href="/contact" className="hover:text-brand-yellow transition-colors">Contact</Link>
           </div>
-        </section>
-      </SectionReveal>
-
-      <VideoGallerySection videos={[{id: 'FABtEDZZBA0', title: 'Premier Party Cruises Experience', description: 'See what makes our Lake Travis cruises unforgettable'}]} />
+        </div>
+      </section>
 
       <Footer />
     </div>

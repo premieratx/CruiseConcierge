@@ -1,5 +1,5 @@
 import EventPageTemplate from '@/components/EventPageTemplate';
-import { Users, Camera, Waves, Music, Shield, PartyPopper } from 'lucide-react';
+import { Users, Camera, Waves, Music, Shield, PartyPopper, Heart, Ship, Utensils, Star } from 'lucide-react';
 
 const features = [
   {
@@ -31,6 +31,26 @@ const features = [
     icon: PartyPopper,
     title: 'Celebration Ready',
     description: 'Perfect for combining reunions with birthdays, anniversaries, or other milestones.'
+  },
+  {
+    icon: Heart,
+    title: 'Stress-Free Bonding',
+    description: 'Our crew handles the navigation so you can focus on connecting with your relatives.'
+  },
+  {
+    icon: Ship,
+    title: 'Vessels for All Sizes',
+    description: 'From intimate groups of 14 to massive reunions of 75, we have the right boat for you.'
+  },
+  {
+    icon: Utensils,
+    title: 'Picnic Perfect',
+    description: 'Spacious decks and tables make it easy to host a family-style meal on the water.'
+  },
+  {
+    icon: Star,
+    title: 'Custom Memories',
+    description: 'Personalize your reunion with themed decorations and activities for all ages.'
   }
 ];
 
@@ -50,6 +70,22 @@ const faqs = [
   {
     question: 'Is the boat accessible for elderly family members?',
     answer: 'Our boats have comfortable seating areas with both sun and shade. While boarding does require stepping onto the boat, our crew assists all passengers. Please let us know in advance if any family members have mobility concerns so we can prepare accordingly.'
+  },
+  {
+    question: 'What activities do you recommend for large family groups?',
+    answer: 'Swimming is always a hit! With our Ultimate package, the giant lily pad float provides hours of fun for kids and adults. We also recommend playing family-friendly music, taking group photos during sunset, and having a dedicated time for family announcements or stories.'
+  },
+  {
+    question: 'Can we combine a family reunion with a birthday or anniversary celebration?',
+    answer: 'Definitely! Many families use their reunion cruise to honor a special milestone. You can bring a cake, decorations, and even coordinate a surprise for the guest of honor with our crew.'
+  },
+  {
+    question: 'Do you have a restroom on board for the family?',
+    answer: 'Yes, all of our primary charter vessels are equipped with a clean, private marine restroom (head) for the comfort and convenience of all family members throughout the cruise.'
+  },
+  {
+    question: 'Is there shade available on the boat for sensitive family members?',
+    answer: 'Yes! Each of our boats features significant covered areas that provide shade from the Texas sun, allowing family members to stay cool and comfortable while still enjoying the lake views.'
   }
 ];
 
@@ -65,6 +101,7 @@ export default function FamilyReunionCruise() {
       title="Family Reunion Cruise"
       metaTitle="Family Reunion Cruise Lake Travis | Austin TX Party Boat"
       metaDescription="Host your family reunion on Lake Travis with a private party boat. All ages welcome, swimming, photos, and quality family time. Book your Austin family gathering today!"
+      pageRoute="/family-reunion-cruise"
       heroTitle="Family Reunion Cruises on Lake Travis"
       heroSubtitle="Bring generations together for an unforgettable day of fun and connection on Austin's beautiful lake"
       heroBadge="Family Celebrations"

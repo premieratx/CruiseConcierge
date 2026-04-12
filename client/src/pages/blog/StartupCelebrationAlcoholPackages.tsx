@@ -537,7 +537,7 @@ export default function StartupCelebrationAlcoholPackages() {
               </div>
               
               <p className="mt-8 text-white/70 text-sm">
-                Questions? Call us at (512) 879-3996 or email info@premierpartycruises.com
+                Questions? Call us at (512) 488-5892 or email info@premierpartycruises.com
               </p>
             </m.div>
           </div>

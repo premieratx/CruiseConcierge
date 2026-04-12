@@ -65,6 +65,7 @@ export default function GraduationCruise() {
       title="Graduation Cruise"
       metaTitle="Graduation Party Cruise Lake Travis | Austin TX Celebration"
       metaDescription="Celebrate graduation with a private party cruise on Lake Travis. Perfect for high school, college, and grad school celebrations. Book an unforgettable Austin graduation party!"
+      pageRoute="/graduation-cruise"
       heroTitle="Graduation Party Cruises on Lake Travis"
       heroSubtitle="Celebrate their achievement with an unforgettable graduation party on Austin's most beautiful lake"
       heroBadge="Graduation Celebrations"

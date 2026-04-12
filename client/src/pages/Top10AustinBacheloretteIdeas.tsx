@@ -16,6 +16,7 @@ import {
   Utensils, Clock, Trophy, Gem, CheckCircle2, Waves
 } from 'lucide-react';
 import { Link } from 'wouter';
+import InlineCTABar from '@/components/InlineCTABar';
 
 const tableOfContents = [
   { id: 'party-boat', title: '1. Party Boat on Lake Travis' },
@@ -242,6 +243,8 @@ export default function Top10AustinBacheloretteIdeas() {
         </section>
       </SectionReveal>
 
+      <InlineCTABar />
+
       <SectionReveal>
         <section id="sixth-street" className="py-16 bg-white dark:bg-gray-950">
           <div className="max-w-4xl mx-auto px-6">
@@ -344,6 +347,8 @@ export default function Top10AustinBacheloretteIdeas() {
           </div>
         </section>
       </SectionReveal>
+
+      <InlineCTABar />
 
       <SectionReveal>
         <section id="two-stepping" className="py-16 bg-gradient-to-b from-white to-pink-50 dark:from-gray-950 dark:to-gray-900">
@@ -448,6 +453,8 @@ export default function Top10AustinBacheloretteIdeas() {
         </section>
       </SectionReveal>
 
+      <InlineCTABar />
+
       <SectionReveal>
         <section id="taco-bbq" className="py-16 bg-white dark:bg-gray-950">
           <div className="max-w-4xl mx-auto px-6">
@@ -542,6 +549,8 @@ export default function Top10AustinBacheloretteIdeas() {
           </div>
         </section>
       </SectionReveal>
+
+      <InlineCTABar />
 
       <SectionReveal>
         <section className="py-16 bg-gradient-to-b from-white to-pink-50 dark:from-gray-950 dark:to-gray-900">
@@ -1008,6 +1017,32 @@ export default function Top10AustinBacheloretteIdeas() {
       </SectionReveal>
 
       <QuoteBuilderSection />
+      <section className="py-12 bg-gray-900 border-t border-gray-800">
+        <div className="container mx-auto px-6 text-center">
+          <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-white mb-6">
+            Ready to Book Your Top 10 Bachelorette Cruise on Lake Travis?
+          </h2>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
+            <Link href="/bachelorette-party-austin">
+              <Button className="bg-brand-yellow hover:bg-yellow-300 text-gray-900 font-bold px-8 py-6 rounded-lg text-lg w-full sm:w-auto">
+                Book Your Bachelorette Party
+              </Button>
+            </Link>
+          </div>
+          <Link href="/" className="text-gray-400 hover:text-brand-yellow transition-colors text-sm">
+            ← Back to Premier Party Cruises
+          </Link>
+        </div>
+      </section>
+
+      <div className="flex flex-wrap justify-center gap-x-4 gap-y-1 text-xs text-gray-400 py-3 bg-gray-900 border-t border-gray-800">
+        <Link href="/" className="hover:text-brand-yellow transition-colors">Home</Link>
+        <span className="text-gray-700">|</span>
+        <Link href="/bachelorette-party-austin" className="hover:text-brand-yellow transition-colors">Bachelorette Party Austin</Link>
+        <span className="text-gray-700">|</span>
+        <Link href="/blogs" className="hover:text-brand-yellow transition-colors">Blog & Tips</Link>
+      </div>
+
       <Footer />
     </div>
   );

@@ -1084,8 +1084,28 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
         // This allows CSS (#root[data-hydrated="true"] ~ .ssr-content) to hide it after React renders
         // Previously content inside root div caused overlap because React wasn't properly replacing it
         if (appHtml && appHtml.length > 0) {
-          // Add dynamic related links for blog pages (bidirectional linking)
+          // Build referral banner for bachelorette/bachelor/disco blog pages (SSR-visible to crawlers)
           const blogPath = `/blogs/${slug}`;
+          const hasBachelorette = slug.includes('bachelorette');
+          // Strip 'bachelorette' before checking for 'bachelor' to avoid false matches
+          // ('bachelorette' contains 'bachelor' as a substring)
+          const slugWithoutBachelorette = slug.replace(/bachelorette/g, '');
+          const hasBachelorWord = slugWithoutBachelorette.includes('bachelor');
+          const hasDiscoWord = slug.includes('disco') || slug.includes('atx-disco');
+          const isCombinedBach = hasBachelorette && hasBachelorWord;
+          const hasBachelorOnly = hasBachelorWord && !hasBachelorette;
+          let referralBannerHtml = '';
+          if (isCombinedBach) {
+            referralBannerHtml = `<div style="background:#1d4ed8;color:#fff;padding:0.75rem 1.5rem;font-size:0.95rem;line-height:1.5;"><strong>Planning a combined trip?</strong> See the full guides: <a href="/bachelorette-party-austin" style="color:#fef08a;text-decoration:underline;">Austin Bachelorette Party Guide</a> &amp; <a href="/bachelor-party-austin" style="color:#fef08a;text-decoration:underline;">Austin Bachelor Party Guide</a> — and book your spots on the <a href="/atx-disco-cruise" style="color:#fef08a;text-decoration:underline;">ATX Disco Cruise</a>, Austin's #1 bachelor &amp; bachelorette party experience on Lake Travis.</div>`;
+          } else if (hasBachelorette) {
+            referralBannerHtml = `<div style="background:#1d4ed8;color:#fff;padding:0.75rem 1.5rem;font-size:0.95rem;line-height:1.5;"><strong>Looking for the complete Austin bachelorette party guide?</strong> Our main <a href="/bachelorette-party-austin" style="color:#fef08a;text-decoration:underline;">Austin Bachelorette Party page</a> is the definitive resource — and the <a href="/atx-disco-cruise" style="color:#fef08a;text-decoration:underline;">ATX Disco Cruise</a> is Austin's #1 bachelorette experience on Lake Travis.</div>`;
+          } else if (hasBachelorOnly) {
+            referralBannerHtml = `<div style="background:#1d4ed8;color:#fff;padding:0.75rem 1.5rem;font-size:0.95rem;line-height:1.5;"><strong>Looking for the complete Austin bachelor party guide?</strong> Our main <a href="/bachelor-party-austin" style="color:#fef08a;text-decoration:underline;">Austin Bachelor Party page</a> is the definitive resource — and the <a href="/atx-disco-cruise" style="color:#fef08a;text-decoration:underline;">ATX Disco Cruise</a> is Austin's most-booked bachelor party experience on Lake Travis.</div>`;
+          } else if (hasDiscoWord) {
+            referralBannerHtml = `<div style="background:#1d4ed8;color:#fff;padding:0.75rem 1.5rem;font-size:0.95rem;line-height:1.5;"><strong>Ready to book Austin's #1 party experience?</strong> The <a href="/atx-disco-cruise" style="color:#fef08a;text-decoration:underline;">ATX Disco Cruise</a> is the only multi-group all-inclusive bachelor &amp; bachelorette cruise in the U.S. — DJ, photographer, floats, and Lake Travis views all included. Also see: <a href="/bachelor-party-austin" style="color:#fef08a;text-decoration:underline;">Bachelor Party Guide</a> &amp; <a href="/bachelorette-party-austin" style="color:#fef08a;text-decoration:underline;">Bachelorette Party Guide</a>.</div>`;
+          }
+
+          // Add dynamic related links for blog pages (bidirectional linking)
           const relatedLinks = getRelatedLinksForPage(blogPath);
           let relatedLinksHtml = '';
           if (relatedLinks && relatedLinks.length > 0) {
@@ -1097,7 +1117,8 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
             </div>`;
           }
           // Keep root div empty for React, add SSR content as visible sibling
-          html = html.replace(/<div id="root"><\/div>/, `<div id="root"></div><div class="ssr-content">${appHtml}${relatedLinksHtml}</div>`);
+          // referralBannerHtml is prepended (outside appHtml) so it's always visible to crawlers
+          html = html.replace(/<div id="root"><\/div>/, `<div id="root"></div><div class="ssr-content">${referralBannerHtml}${appHtml}${relatedLinksHtml}</div>`);
         }
         
         // SSR FIX: If Vite SSR returned proper helmet data, inject it into the HTML head
@@ -4009,6 +4030,16 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
   // ==========================================
 
   // Create blog author (admin only)
+  app.get('/api/blog/admin/authors', requireAdmin, async (req, res) => {
+    try {
+      const storage = await getStorage();
+      const authors = await storage.getBlogAuthors();
+      res.json(authors);
+    } catch (error: any) {
+      res.status(500).json({ error: 'Failed to fetch authors', message: error.message });
+    }
+  });
+
   app.post('/api/blog/authors', requireAdmin, async (req, res) => {
     try {
       const validatedData = insertBlogAuthorSchema.parse(req.body);
@@ -4302,6 +4333,275 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
         error: 'Failed to format blog posts',
         message: error instanceof Error ? error.message : 'Unknown error'
       });
+    }
+  });
+
+  // ==========================================
+  // BATCH BLOG IMPORTER ROUTES
+  // ==========================================
+
+  // POST /api/blog/batch/parse — split raw pasted text into individual posts
+  app.post('/api/blog/batch/parse', requireAdmin, async (req, res) => {
+    try {
+      const { rawText } = req.body;
+      if (!rawText || typeof rawText !== 'string' || rawText.trim().length < 50) {
+        return res.status(400).json({ error: 'rawText is required and must be at least 50 characters' });
+      }
+
+      const { generateBlogContent } = await import('./services/gemini');
+
+      const parsePrompt = `You are parsing raw text that contains one or more blog posts pasted together.
+
+TASK: Split the following raw text into individual blog posts and extract the title and body content of each.
+
+INSTRUCTIONS:
+- Look for title boundaries: markdown headers (# Title or ## Title), ALL CAPS lines, a short line followed by a blank line that reads like a title, or repeating structural patterns
+- Each blog post starts with a distinct title — the title is usually the first thing before a block of body text
+- Return ONLY valid JSON — no markdown code blocks, no extra text before or after
+- If there is only one blog post, return an array with one item
+- Preserve ALL body content, just split it by detected post boundary
+- rawContent should NOT include the title line itself
+
+Return this exact JSON structure:
+[
+  {
+    "index": 0,
+    "title": "The full detected blog title",
+    "rawContent": "Full body content of this post (everything except the title line)",
+    "firstWords": "First 12-15 words of the body content"
+  }
+]
+
+RAW TEXT TO PARSE:
+---
+${rawText.substring(0, 60000)}
+---
+
+Return ONLY the JSON array:`;
+
+      const result = await generateBlogContent(parsePrompt);
+      const cleaned = result.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
+
+      let parsed;
+      try {
+        parsed = JSON.parse(cleaned);
+      } catch {
+        console.error('Gemini parse response (first 500):', result.substring(0, 500));
+        return res.status(500).json({ error: 'AI could not parse the pasted text into blog posts. Check that your blogs have clear titles separating them.' });
+      }
+
+      if (!Array.isArray(parsed)) {
+        return res.status(500).json({ error: 'AI returned unexpected format. Please try again.' });
+      }
+
+      const posts = parsed.map((p: any, i: number) => ({
+        index: i,
+        title: String(p.title || `Post ${i + 1}`).trim(),
+        rawContent: String(p.rawContent || '').trim(),
+        firstWords: String(p.firstWords || '').trim(),
+        wordCount: String(p.rawContent || '').split(/\s+/).filter((w: string) => w.length > 0).length,
+      }));
+
+      res.json({ posts, total: posts.length });
+    } catch (error: any) {
+      console.error('Error in batch/parse:', error);
+      res.status(500).json({ error: 'Failed to parse blog posts', message: error.message });
+    }
+  });
+
+  // POST /api/blog/batch/verify — fact-check and format each parsed post
+  app.post('/api/blog/batch/verify', requireAdmin, async (req, res) => {
+    try {
+      const { posts, contentCluster } = req.body;
+      if (!Array.isArray(posts) || posts.length === 0) {
+        return res.status(400).json({ error: 'posts array is required' });
+      }
+
+      const { generateBlogContent } = await import('./services/gemini');
+
+      const BUSINESS_RULES = `
+PREMIER PARTY CRUISES — VERIFIED BUSINESS FACTS (fact-check against these only):
+
+ATX DISCO CRUISE PRICING (base price / all-in with tax + 20% gratuity):
+- Friday 12–4pm: $95/person base | $124.88/person all-in
+- Saturday 11am–3pm: $105/person base | $137.81/person all-in  
+- Saturday 3:30–7:30pm: $85/person base | $111.56/person all-in
+- Season: March through October
+- INCLUDES: professional DJ, professional photographer, giant floats, BYOB coolers with ice, 3–5 other celebration groups on board
+
+PRIVATE CHARTER PRICING (base weekday hourly / 4-hour minimum):
+- Day Tripper: $200/hour base, seats 14 guests comfortably, max 14 guests
+- Meeseeks / The Irony: $225/hour base, 20 seats comfortably, max 30 guests (two identical boats)
+- Clever Girl: $250/hour base, max 75 guests, flagship with 14 disco balls and a giant Texas flag
+- Weekend rates are higher than weekday base rates
+- ALL private charters include: captain, crew, Bluetooth sound system, coolers with ice
+
+CONTACT & LOCATION:
+- Phone: (512) 488-5892 — this is the ONLY correct number, no other number is valid
+- Marina: Anderson Mill Marina, 13993 FM 2769, Leander, TX 78641
+- ~30–35 minutes from downtown Austin via MoPac North
+
+BYOB POLICY:
+- Cans and plastic containers ONLY — absolutely no glass on any boat
+- BYOB encouraged for guests 21+
+- Party On Delivery (https://partyondelivery.com) offers alcohol delivery to the marina
+
+DO NOT STATE / NEVER INCLUDE:
+- Do NOT say food or catering is included — it is not
+- Do NOT mention bartending as included (it is an optional add-on at $600)
+- Do NOT mention specific tip amounts or percentages in the pricing unless quoting all-in prices above
+- Do NOT reference any specific food vendors
+- Do NOT claim "pet friendly" — no such policy exists
+`;
+
+      const clusterLinks: Record<string, string> = {
+        'atx-disco': `<a href="/atx-disco-cruise">ATX Disco Cruise</a>, <a href="/bachelor-party-austin">bachelor party cruise Austin</a>, <a href="/bachelorette-party-austin">bachelorette party cruise Austin</a>, <a href="/combined-bachelor-bachelorette-austin">combined bachelor bachelorette cruise</a>`,
+        'bachelor': `<a href="/bachelor-party-austin">bachelor party cruise Austin</a>, <a href="/atx-disco-cruise">ATX Disco Cruise</a>, <a href="/combined-bachelor-bachelorette-austin">combined bach cruise</a>, <a href="/private-cruises">private boat charter Lake Travis</a>`,
+        'bachelorette': `<a href="/bachelorette-party-austin">bachelorette party cruise Austin</a>, <a href="/atx-disco-cruise">ATX Disco Cruise</a>, <a href="/combined-bachelor-bachelorette-austin">combined bach cruise</a>, <a href="/private-cruises">private boat charter Lake Travis</a>`,
+        'private': `<a href="/private-cruises">private boat charter Lake Travis</a>, <a href="/atx-disco-cruise">ATX Disco Cruise</a>, <a href="/bachelor-party-austin">bachelor party cruise</a>, <a href="/bachelorette-party-austin">bachelorette party cruise</a>`,
+        'general': `<a href="/atx-disco-cruise">ATX Disco Cruise</a>, <a href="/private-cruises">private boat charter</a>, <a href="/bachelor-party-austin">bachelor party cruise</a>, <a href="/bachelorette-party-austin">bachelorette party cruise</a>`,
+      };
+      const links = clusterLinks[contentCluster || 'atx-disco'] || clusterLinks['general'];
+
+      const results = [];
+
+      for (const post of posts) {
+        try {
+          const verifyPrompt = `You are fact-checking and formatting a blog post for Premier Party Cruises (Austin, TX — Lake Travis party boat company).
+
+${BUSINESS_RULES}
+
+BLOG POST TO PROCESS:
+Title: ${post.title}
+---
+${post.rawContent}
+---
+
+YOUR TASKS:
+1. FACT-CHECK: Identify any factual errors vs the business rules above. Flag wrong pricing, wrong capacities, wrong phone number, wrong address, anything that contradicts the verified facts.
+2. FORMAT: Rewrite the body as clean semantic HTML: h2 for main sections, h3 for sub-sections, p tags, ul/li for lists. Good heading hierarchy for SEO.
+3. INTERNAL LINKS: Naturally work in at least 2–3 of these internal links where they fit contextually — do not force them: ${links}
+4. PARTY ON DELIVERY: Any mention of "Party On Delivery" must link to https://partyondelivery.com
+5. META DESCRIPTION: Write a compelling 150–160 character meta description for SEO.
+6. SLUG: Generate a clean URL-friendly slug from the title (lowercase, hyphens, no special chars).
+
+Return ONLY valid JSON in this exact structure (no markdown, no extra text):
+{
+  "issues": [
+    { "severity": "error", "text": "Description of a factual error that must be fixed" },
+    { "severity": "warning", "text": "Description of a minor concern or recommendation" }
+  ],
+  "formattedContent": "<h2>...</h2><p>...</p>... full HTML body with internal links naturally placed",
+  "metaDescription": "150-160 char meta description",
+  "slug": "url-friendly-slug-here",
+  "summary": "One sentence: what changes were made and how many issues found"
+}`;
+
+          const verifyResult = await generateBlogContent(verifyPrompt);
+          const cleanedVerify = verifyResult.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
+          const verifyData = JSON.parse(cleanedVerify);
+
+          const errorCount = (verifyData.issues || []).filter((i: any) => i.severity === 'error').length;
+
+          results.push({
+            index: post.index,
+            title: post.title,
+            rawContent: post.rawContent,
+            issues: verifyData.issues || [],
+            formattedContent: verifyData.formattedContent || post.rawContent,
+            metaDescription: verifyData.metaDescription || '',
+            slug: verifyData.slug || post.title.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+            summary: verifyData.summary || '',
+            errorCount,
+            approved: errorCount === 0,
+          });
+        } catch (err: any) {
+          console.error(`Failed to verify post "${post.title}":`, err);
+          results.push({
+            index: post.index,
+            title: post.title,
+            rawContent: post.rawContent,
+            issues: [{ severity: 'error', text: `AI verification failed: ${err.message}` }],
+            formattedContent: post.rawContent,
+            metaDescription: '',
+            slug: post.title.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+            summary: 'Verification failed — review manually before publishing',
+            errorCount: 1,
+            approved: false,
+          });
+        }
+      }
+
+      res.json({ results });
+    } catch (error: any) {
+      console.error('Error in batch/verify:', error);
+      res.status(500).json({ error: 'Failed to verify blog posts', message: error.message });
+    }
+  });
+
+  // POST /api/blog/batch/publish — publish verified approved posts
+  app.post('/api/blog/batch/publish', requireAdmin, async (req, res) => {
+    try {
+      const { posts, authorId, categoryIds, tagIds } = req.body;
+      if (!Array.isArray(posts) || posts.length === 0) {
+        return res.status(400).json({ error: 'posts array is required' });
+      }
+
+      const storage = await getStorage();
+      const results = [];
+
+      for (const post of posts) {
+        try {
+          const { sanitized } = sanitizeAndValidateHtml(post.formattedContent || post.rawContent, post.title);
+
+          const baseSlug = post.slug || generateSlugFromText(post.title);
+          const uniqueSlug = await generateUniqueSlug(baseSlug, async (s: string) => {
+            return await storage.getBlogPostBySlug(s);
+          });
+
+          const textContent = sanitized.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+          const words = textContent.split(' ').filter((w: string) => w.length > 0);
+
+          const newPost = await storage.createBlogPost({
+            title: post.title,
+            slug: uniqueSlug,
+            content: sanitized,
+            excerpt: post.metaDescription || '',
+            metaTitle: post.title,
+            metaDescription: post.metaDescription || '',
+            status: 'published',
+            authorId: authorId || null,
+            wordCount: words.length,
+            readingTime: Math.ceil(words.length / 200),
+            publishedAt: new Date(),
+          });
+
+          if (categoryIds && Array.isArray(categoryIds)) {
+            for (const catId of categoryIds) {
+              await storage.addBlogPostCategory(newPost.id, catId);
+            }
+          }
+          if (tagIds && Array.isArray(tagIds)) {
+            for (const tagId of tagIds) {
+              await storage.addBlogPostTag(newPost.id, tagId);
+            }
+          }
+
+          results.push({ index: post.index, title: post.title, slug: uniqueSlug, id: newPost.id, success: true });
+        } catch (err: any) {
+          console.error(`Failed to publish "${post.title}":`, err);
+          results.push({ index: post.index, title: post.title, success: false, error: err.message });
+        }
+      }
+
+      res.json({
+        results,
+        published: results.filter(r => r.success).length,
+        failed: results.filter(r => !r.success).length,
+      });
+    } catch (error: any) {
+      console.error('Error in batch/publish:', error);
+      res.status(500).json({ error: 'Failed to publish blog posts', message: error.message });
     }
   });
 

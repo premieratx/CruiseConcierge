@@ -1,5 +1,5 @@
 import EventPageTemplate from '@/components/EventPageTemplate';
-import { Briefcase, Award, Users, Sunset, Wine, Star } from 'lucide-react';
+import { Briefcase, Award, Users, Sunset, Wine, Star, Check, Ship, Music, Clock } from 'lucide-react';
 
 const features = [
   {
@@ -31,6 +31,26 @@ const features = [
     icon: Star,
     title: 'VIP Treatment',
     description: 'Make the guest of honor feel special with our premium cruise packages.'
+  },
+  {
+    icon: Check,
+    title: 'Seamless Coordination',
+    description: 'We help manage the details so coworkers and family can focus on the celebration.'
+  },
+  {
+    icon: Ship,
+    title: 'Private & Professional',
+    description: 'Our fleet provides a sophisticated and private alternative to traditional restaurant venues.'
+  },
+  {
+    icon: Music,
+    title: 'Memory Playlists',
+    description: 'Play music from their decade of hire or a curated mix of their all-time favorites.'
+  },
+  {
+    icon: Clock,
+    title: 'Flexible Schedules',
+    description: 'Choose from weekday afternoon cruises for staff outings or weekend sunset cruises for family.'
   }
 ];
 
@@ -50,6 +70,22 @@ const faqs = [
   {
     question: 'Do you allow speeches and presentations?',
     answer: 'Of course! Our Bluetooth sound system can be used for speeches, and we can create quiet moments during the cruise for special presentations, awards, or memory sharing.'
+  },
+  {
+    question: 'Can we decorate the boat with the retiree\'s career photos?',
+    answer: 'Yes! We encourage personal touches like photo banners, "Happy Retirement" signs, and decorations. We just ask that you use blue painter\'s tape or similar non-damaging adhesives.'
+  },
+  {
+    question: 'Is there a place to play a video presentation or slideshow?',
+    answer: 'While our boats don\'t have built-in screens, many groups bring a portable projector or large tablet for intimate slideshows. We have plenty of space and power outlets to accommodate your equipment.'
+  },
+  {
+    question: 'How do we handle transportation for the team?',
+    answer: 'Many corporate groups arrange for a shuttle or ride-share from their office to our marina at Lake Travis. We can help provide directions and marina information for your transportation coordinator.'
+  },
+  {
+    question: 'What happens if we need to reschedule our retirement celebration?',
+    answer: 'We understand that plans can change. Please refer to our booking policy for information on rescheduling and cancellations. We aim to be as flexible as possible to ensure your retirement party is a success.'
   }
 ];
 
@@ -65,6 +101,7 @@ export default function RetirementPartyCruise() {
       title="Retirement Party Cruise"
       metaTitle="Retirement Party Cruise Lake Travis | Austin TX Celebration"
       metaDescription="Celebrate retirement with a private party cruise on Lake Travis. Perfect for corporate sendoffs and personal celebrations. Book an unforgettable Austin retirement party!"
+      pageRoute="/retirement-party-cruise"
       heroTitle="Retirement Party Cruises on Lake Travis"
       heroSubtitle="Honor a career of dedication with an unforgettable celebration on Austin's beautiful lake"
       heroBadge="Retirement Celebrations"

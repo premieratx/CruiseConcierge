@@ -1,5 +1,5 @@
 import EventPageTemplate from '@/components/EventPageTemplate';
-import { Baby, Gift, Heart, Camera, Sparkles, Users } from 'lucide-react';
+import { Baby, Gift, Heart, Camera, Sparkles, Users, Shield, Utensils, Music, Waves } from 'lucide-react';
 
 const features = [
   {
@@ -31,6 +31,26 @@ const features = [
     icon: Users,
     title: 'Stress-Free Hosting',
     description: 'We handle the venue details so hosts can focus on celebrating mom.'
+  },
+  {
+    icon: Shield,
+    title: 'Safety First',
+    description: 'Stable boats and experienced captains ensure a safe, comfortable ride for all guests.'
+  },
+  {
+    icon: Utensils,
+    title: 'Catering Ready',
+    description: 'Spacious tables and setups perfect for brunch, snacks, or baby-themed treats.'
+  },
+  {
+    icon: Music,
+    title: 'Custom Soundtrack',
+    description: 'Play your favorite relaxing or upbeat tunes via our premium Bluetooth audio system.'
+  },
+  {
+    icon: Waves,
+    title: 'Hill Country Views',
+    description: 'Enjoy the scenic beauty of Lake Travis while you celebrate the upcoming arrival.'
   }
 ];
 
@@ -50,6 +70,22 @@ const faqs = [
   {
     question: 'Can we bring our own decorations and cake?',
     answer: 'Yes! You can bring decorations, a cake, food, and all the party supplies you need. We provide tables for setup, coolers for beverages, and help coordinate everything. Many hosts decorate with a baby shower theme and bring specialty cakes from local bakeries.'
+  },
+  {
+    question: 'Are there any theme restrictions for the baby shower?',
+    answer: 'No specific restrictions! Popular themes like "Ahoy, It\'s a Boy," "Little Sailor," or floral garden themes work perfectly on the water. We just ask that you use blue painter\'s tape for any wall decorations and avoid loose glitter.'
+  },
+  {
+    question: 'Can we have a gender reveal as part of the baby shower?',
+    answer: 'Yes! Many groups combine a baby shower with a gender reveal. We can help time the big reveal (confetti, smoke bombs, or balloon pops) for the perfect photo opportunity with the lake in the background.'
+  },
+  {
+    question: 'How many people can attend a baby shower cruise?',
+    answer: 'We have boat options for all group sizes. Our Day Tripper is perfect for up to 14 guests, Meeseeks or The Irony can host up to 30, and our flagship Clever Girl can accommodate up to 75 for larger family gatherings.'
+  },
+  {
+    question: 'Do you provide water and ice for our guests?',
+    answer: 'Our Essentials and Ultimate packages include 5 gallons of water and large coolers pre-stocked with ice. This is ideal for keeping baby shower refreshments and drinks perfectly chilled throughout the celebration.'
   }
 ];
 
@@ -65,6 +101,7 @@ export default function BabyShowerCruise() {
       title="Baby Shower Cruises"
       metaTitle="Baby Shower Cruise Austin | Lake Travis Boat Party for Mom-to-Be"
       metaDescription="Host a unique baby shower on Lake Travis. Private boat celebration with games, gifts, and stunning views. Celebrate the mom-to-be in style!"
+      pageRoute="/baby-shower-cruise"
       heroTitle="Welcome Baby on the Water"
       heroSubtitle="Celebrate the mom-to-be with an unforgettable baby shower cruise on Lake Travis featuring gifts, games, and gorgeous lakeside views."
       heroBadge="Baby Celebrations"

@@ -144,6 +144,16 @@ async function preloadBlogModule(url: string): Promise<void> {
     'lake-travis-bachelor-party-boat-rentals-the-ultimate-guide-to-epic-celebrations': () => import('./pages/blog/LakeTravisBachelorPartyBoats'),
     'first-time-lake-travis-boat-rental-essential-tips-for-austin-party-planning': () => import('./pages/blog/FirstTimeLakeTravisGuide'),
     'wedding-anniversary-celebration-ideas-recreating-your-special-day-with-boat-and-alcohol-packages': () => import('./pages/blog/WeddingAnniversaryCelebrationIdeas'),
+    'the-funnest-daytime-activity-in-austin-according-to-30000-guests': () => import('./pages/blog/TheFunnestDaytimeActivityAustin'),
+    'is-the-atx-disco-cruise-worth-it-breaking-down-the-value-vs-a-private-boat': () => import('./pages/blog/ATXDiscoCruiseWorthIt'),
+    'everything-thats-included-on-the-atx-disco-cruise-so-you-dont-have-to-bring-anything': () => import('./pages/blog/EverythingIncludedATXDiscoCruise'),
+    'why-combined-bachelor-bachelorette-parties-love-the-atx-disco-cruise': () => import('./pages/blog/WhyCombinedBachLoveDiscoCruise'),
+    'the-best-bachelor-party-boat-in-austin-disco-cruise-vs-private-charter': () => import('./pages/blog/WhatYouGetForMoneyPartyBoat'),
+    'what-you-actually-get-for-your-money-on-an-austin-party-boat-full-cost-breakdown': () => import('./pages/blog/BestBachelorPartyBoatAustin'),
+    'private-cruise-or-disco-cruise-how-real-bach-groups-decide': () => import('./pages/blog/PrivateCruiseOrDiscoCruise'),
+    'why-the-atx-disco-cruise-has-been-austins-1-bachelorette-party-activity-since-2019': () => import('./pages/blog/ATXDiscoCruiseBacheloretteNumber1'),
+    'atx-disco-cruise-vs-private-boat-which-is-better-for-a-bachelorette-party': () => import('./pages/blog/ATXDiscoCruiseVsPrivateBachelorette'),
+    'the-top-dos-and-dont-for-success-on-the-atx-disco-cruise-with-premier-party-cruises': () => import('./pages/blog/TopDosAndDontsATXDiscoCruise'),
   };
   
   const moduleLoader = blogModules[slug];

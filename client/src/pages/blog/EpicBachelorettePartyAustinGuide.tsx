@@ -1083,7 +1083,7 @@ export default function EpicBachelorettePartyAustinGuide() {
                 </AccordionTrigger>
                 <AccordionContent className="text-gray-600 dark:text-gray-400">
                   Check out our <Link href="/budget-austin-bachelorette" className="text-pink-600 hover:underline">budget-friendly guide</Link> or 
-                  our <Link href="/luxury-austin-bachelorette" className="text-pink-600 hover:underline">luxury options</Link> depending on your style. 
+                  our <Link href="/bachelorette-party-austin" className="text-pink-600 hover:underline">complete Austin bachelorette guide</Link> for all options. 
                   The ATX Disco Cruise is incredibly affordable per person!
                 </AccordionContent>
               </AccordionItem>
@@ -1124,7 +1124,7 @@ export default function EpicBachelorettePartyAustinGuide() {
                 { title: 'Top 10 Bachelorette Ideas', link: '/top-10-austin-bachelorette-ideas' },
                 { title: '3-Day Itinerary Guide', link: '/3-day-austin-bachelorette-itinerary' },
                 { title: 'Budget-Friendly Options', link: '/budget-austin-bachelorette' },
-                { title: 'Luxury Bachelorette Guide', link: '/luxury-austin-bachelorette' },
+                { title: 'ATX Disco Cruise Guide', link: '/atx-disco-cruise' },
                 { title: 'Nightlife & Bar Guide', link: '/austin-bachelorette-nightlife' },
                 { title: 'Spa & Wellness Guide', link: '/blogs/austin-bachelorette-bliss-spa-retreats-disco-cruises-alcohol-delivery' },
                 { title: 'Top Spots & Tips', link: '/blogs/top-spots-tips-for-an-unforgettable-austin-bachelorette-party-experience' },

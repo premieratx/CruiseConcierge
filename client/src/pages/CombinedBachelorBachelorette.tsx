@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import { cn } from '@/lib/utils';
 import { formatCurrency } from '@shared/formatters';
@@ -26,7 +26,7 @@ import {
   AlertCircle, DollarSign, Timer, CreditCard, CloudRain, 
   HelpCircle, Anchor, Droplets, Waves, Info, TrendingUp,
   Gem, Flower, Flower2, CircleDot, Smile, X, Package,
-  Plane, Wine
+  Plane, Wine, ChevronDown
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useReducedMotion } from '@/hooks/use-reduced-motion';
@@ -34,7 +34,12 @@ import Footer from '@/components/Footer';
 import { combinedBachReviews } from '@shared/reviews-data';
 import { YouTubeVideoBackground } from '@/components/YouTubeVideoBackground';
 import AnimatedPhotoGallery from '@/components/AnimatedPhotoGallery';
+import VideoShowcaseGrid from '@/components/VideoShowcaseGrid';
 import { COMBINED_GALLERY } from '@/lib/media';
+import showcaseVideo1 from '@assets/disco_dance_party_v3.mp4';
+import showcaseVideo2 from '@assets/mr_brightside_compressed.mp4';
+import showcaseVideo3 from '@assets/pursuit_of_happiness_compressed.mp4';
+import showcaseVideo4 from '@assets/fireball_dance_party_compressed.mp4';
 import { initXolaEmbeds } from '@/services/xola';
 
 // Hero video - Clever Girl walkthrough
@@ -110,6 +115,7 @@ export default function CombinedBachelorBachelorette() {
   const [videoLoaded, setVideoLoaded] = useState(false);
   const [videoFailed, setVideoFailed] = useState(false);
   const [activeVideoIndex, setActiveVideoIndex] = useState(0);
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const heroImages = [heroImage2, heroImage3, galleryImage1];
   
@@ -178,7 +184,7 @@ export default function CombinedBachelorBachelorette() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white" data-page-ready="combined-bach-party">
+    <div className="min-h-screen bg-white" data-page-ready="combined-bach-party">
       <SEOHead
         pageRoute="/combined-bachelor-bachelorette-austin"
         defaultTitle="Combined Bachelor & Bachelorette Party Austin | Joint Lake Travis Cruise"
@@ -220,7 +226,7 @@ export default function CombinedBachelorBachelorette() {
               The Modern Way to Celebrate - All Your Friends, One Unforgettable Party
             </p>
 
-            <Badge className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-3 text-base font-sans tracking-wider mb-6">
+            <Badge className="bg-brand-navy text-white px-6 py-3 text-base font-sans tracking-wider mb-6">
               🎉 The Best of Both Worlds - One Epic Celebration
             </Badge>
 
@@ -230,18 +236,57 @@ export default function CombinedBachelorBachelorette() {
                 data-button-id="695186923c261203770cc2e7"
                 data-testid="button-hero-book-combined"
               >
-                <button 
-                  className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold text-lg px-8 py-6 rounded-md inline-flex items-center justify-center cursor-pointer transition-colors shadow-lg"
-                  style={{minHeight: '56px'}}
+                <Button 
+                  size="lg"
+                  className="bg-brand-yellow hover:bg-yellow-300 text-gray-900 font-bold px-8 py-3 rounded-lg"
                 >
                   <Calendar className="mr-2 h-6 w-6" />
-                  Book Now
-                </button>
+                  BOOK NOW
+                </Button>
               </div>
+              <Button
+                onClick={() => handleGetQuote()}
+                size="lg"
+                variant="outline"
+                className="border-2 border-white text-white hover:bg-white hover:text-gray-900 font-bold px-8 py-3 rounded-lg"
+              >
+                <MessageSquare className="mr-2 h-6 w-6" />
+                GET A QUOTE
+              </Button>
             </div>
           </div>
         </div>
       </section>
+
+      {/* Featured YouTube Video - Full Disco Cruise Highlight Reel */}
+      <section className="py-10 md:py-14 bg-black">
+        <div className="max-w-4xl mx-auto px-4">
+          <h2 className="text-2xl md:text-3xl font-bold text-center text-white mb-2">Watch the ATX Disco Cruise in Action</h2>
+          <p className="text-center text-gray-300 text-sm md:text-base mb-6">Full-length highlight reel — real footage from real parties</p>
+          <div className="aspect-video w-full rounded-xl overflow-hidden shadow-2xl">
+            <iframe
+              src="https://www.youtube.com/embed/USWZ3BrexEI?rel=0&modestbranding=1"
+              title="ATX Disco Cruise Full Highlight Reel"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              className="w-full h-full"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Video Showcase Grid - 4 autoplay videos */}
+      <VideoShowcaseGrid
+        videos={[
+          { src: showcaseVideo1, title: 'Disco Cruise Dance Party' },
+          { src: showcaseVideo2, title: 'Mr. Brightside Singalong OTW Home' },
+          { src: showcaseVideo3, title: 'Pursuit of Happiness IRL' },
+          { src: showcaseVideo4, title: "Just Gettin' Started" },
+        ]}
+        title="Action Shots from the ATX Disco Cruise"
+        subtitle="Tap any video to watch full screen with audio"
+      />
 
       {/* ATX Disco Cruise Video Carousel Section */}
       <section className="py-8 bg-black overflow-hidden">
@@ -277,7 +322,7 @@ export default function CombinedBachelorBachelorette() {
                     className={`
                       transition-all duration-300 cursor-pointer rounded-xl overflow-hidden shadow-2xl flex-shrink-0
                       ${isActive 
-                        ? 'w-[40%] md:w-[35%] opacity-100 scale-105 z-10 ring-4 ring-purple-500' 
+                        ? 'w-[40%] md:w-[35%] opacity-100 scale-105 z-10 ring-4 ring-brand-yellow' 
                         : 'w-[18%] md:w-[20%] opacity-60 scale-95 hover:opacity-80'
                       }
                     `}
@@ -312,6 +357,45 @@ export default function CombinedBachelorBachelorette() {
                 />
               ))}
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ATX Disco Cruise Highlight Section - THE option for combined parties */}
+      <section className="py-14 bg-brand-navy text-white">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 text-center">
+          <span className="inline-block bg-brand-yellow text-gray-900 font-bold text-xs uppercase tracking-widest px-4 py-1 rounded-full mb-6">⭐ THE #1 OPTION FOR COMBINED PARTIES</span>
+          <h2 className="heading-unbounded text-3xl md:text-4xl font-bold mb-4">
+            The ATX Disco Cruise — Built for Exactly This
+          </h2>
+          <p className="text-lg md:text-xl text-white/90 max-w-3xl mx-auto mb-8 leading-relaxed">
+            The <Link href="/atx-disco-cruise" className="text-brand-yellow font-bold hover:underline">ATX Disco Cruise</Link> is America's only all-inclusive multi-group bachelor and bachelorette party cruise — meaning your <Link href="/bachelor-party-austin" className="text-white/80 hover:underline font-semibold">bachelor party</Link> and <Link href="/bachelorette-party-austin" className="text-white/80 hover:underline font-semibold">bachelorette party</Link> can cruise together on the same boat, partying alongside other bach groups in an electric, high-energy atmosphere with a professional DJ, photographer, and giant floats — all-inclusive from $85/person.
+          </p>
+          <div className="grid sm:grid-cols-3 gap-4 max-w-4xl mx-auto mb-10 text-left">
+            {[
+              { icon: '🎵', title: 'Professional DJ', desc: 'Playing non-stop hits for the entire 4-hour cruise' },
+              { icon: '📸', title: 'Photographer Included', desc: 'Every moment captured — delivered digitally after' },
+              { icon: '🛟', title: 'Giant Lily Pad Floats', desc: 'Jump in the lake together — included on every cruise' },
+            ].map((item, i) => (
+              <div key={i} className="bg-white/10 backdrop-blur-sm rounded-xl p-5 border border-white/20">
+                <div className="text-3xl mb-2">{item.icon}</div>
+                <div className="font-bold text-lg mb-1">{item.title}</div>
+                <div className="text-white/80 text-sm">{item.desc}</div>
+              </div>
+            ))}
+          </div>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link href="/atx-disco-cruise">
+              <a className="inline-flex items-center gap-2 bg-brand-yellow hover:bg-yellow-300 text-gray-900 font-bold px-8 py-4 rounded-lg text-lg transition-colors">
+                See ATX Disco Cruise Details
+                <ArrowRight className="h-5 w-5" />
+              </a>
+            </Link>
+            <Link href="/private-cruises">
+              <a className="inline-flex items-center gap-2 border-2 border-white text-white hover:bg-white hover:text-gray-900 font-bold px-8 py-4 rounded-lg text-lg transition-colors">
+                Or: Book a Private Charter
+              </a>
+            </Link>
           </div>
         </div>
       </section>
@@ -353,7 +437,7 @@ export default function CombinedBachelorBachelorette() {
               ].map((benefit, idx) => (
                 <Card key={idx} className="rounded-xl border-2 hover:shadow-xl transition-all">
                   <CardContent className="pt-8 text-center">
-                    <benefit.icon className="h-12 w-12 mx-auto mb-4 text-purple-600" />
+                    <benefit.icon className="h-12 w-12 mx-auto mb-4 text-blue-600" />
                     <h3 className="font-bold text-xl mb-3 text-center">{benefit.title}</h3>
                     <p className="text-base text-gray-600 text-center">{benefit.desc}</p>
                   </CardContent>
@@ -366,7 +450,7 @@ export default function CombinedBachelorBachelorette() {
 
       {/* Time Slot Pricing Section */}
       <SectionReveal>
-        <section className="py-24 bg-gradient-to-b from-blue-50 to-white">
+        <section className="py-24 bg-gray-50">
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
               <span className="text-6xl font-black text-gray-100 opacity-30 absolute -mt-8">02</span>
@@ -384,21 +468,21 @@ export default function CombinedBachelorBachelorette() {
                   key={slot.id} 
                   className={cn(
                     "rounded-xl relative",
-                    slot.badge === 'BEST' ? "border-4 border-purple-600 shadow-2xl" : "border-2"
+                    slot.badge === 'BEST' ? "border-4 border-brand-yellow shadow-2xl" : "border-2"
                   )}
                 >
                   {slot.badge && (
-                    <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-sans tracking-wider">
+                    <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 bg-brand-yellow text-gray-900 font-bold font-sans tracking-wider">
                       {slot.badge === 'BEST' ? 'MOST POPULAR' : slot.badge}
                     </Badge>
                   )}
                   <CardHeader className="text-center pb-4">
-                    <Clock className="h-16 w-16 mx-auto mb-4 text-purple-600" />
+                    <Clock className="h-16 w-16 mx-auto mb-4 text-blue-600" />
                     <CardTitle className="heading-unbounded text-2xl mb-2 text-center">
                       {slot.label}
                     </CardTitle>
                     <div className="mb-2">
-                      <div className="text-4xl font-black text-purple-600">
+                      <div className="text-4xl font-black text-gray-900">
                         ${(slot.basePrice / 100).toFixed(2)}
                       </div>
                       <p className="text-lg font-semibold text-gray-700">per person</p>
@@ -416,7 +500,7 @@ export default function CombinedBachelorBachelorette() {
                       data-button-id="695186923c261203770cc2e7"
                     >
                       <Button
-                        className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
+                        className="w-full bg-brand-navy hover:bg-blue-900"
                         data-testid={`button-timeslot-${slot.id}`}
                       >
                         <Calendar className="mr-2 h-5 w-5" />
@@ -459,7 +543,7 @@ export default function CombinedBachelorBachelorette() {
 
       {/* Add-Ons Section */}
       <SectionReveal>
-        <section className="py-24 bg-gradient-to-b from-blue-50 to-white">
+        <section className="py-24 bg-gray-50">
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
               <span className="text-6xl font-black text-gray-100 opacity-30 absolute -mt-8">04</span>
@@ -475,11 +559,11 @@ export default function CombinedBachelorBachelorette() {
               {combinedAddOns.map((addon) => (
                 <Card key={addon.id} className="rounded-xl border-2 hover:shadow-xl transition-all">
                   <CardHeader className="text-center pb-4">
-                    <Package className="h-16 w-16 mx-auto mb-4 text-purple-600" />
+                    <Package className="h-16 w-16 mx-auto mb-4 text-blue-600" />
                     <CardTitle className="heading-unbounded text-2xl mb-2 text-center">
                       {addon.name}
                     </CardTitle>
-                    <div className="text-3xl font-black text-purple-600">
+                    <div className="text-3xl font-black text-gray-900">
                       ${addon.price / 100}
                     </div>
                   </CardHeader>
@@ -518,7 +602,7 @@ export default function CombinedBachelorBachelorette() {
                   size="lg"
                   variant="outline"
                   asChild
-                  className="border-2 border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white font-bold text-sm sm:text-lg px-6 sm:px-10 py-4 sm:py-6"
+                  className="border-2 border-gray-700 text-gray-700 hover:bg-gray-900 hover:text-white font-bold text-sm sm:text-lg px-6 sm:px-10 py-4 sm:py-6"
                   data-testid="button-google-reviews"
                 >
                   <a href="https://www.google.com/search?q=premier+party+cruises+austin" target="_blank" rel="noopener noreferrer">
@@ -531,7 +615,7 @@ export default function CombinedBachelorBachelorette() {
                   size="lg"
                   variant="outline"
                   asChild
-                  className="border-2 border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white font-bold text-sm sm:text-lg px-6 sm:px-10 py-4 sm:py-6"
+                  className="border-2 border-gray-700 text-gray-700 hover:bg-gray-900 hover:text-white font-bold text-sm sm:text-lg px-6 sm:px-10 py-4 sm:py-6"
                   data-testid="button-facebook-reviews"
                 >
                   <a href="https://www.facebook.com/premierpartycruises" target="_blank" rel="noopener noreferrer">
@@ -545,164 +629,136 @@ export default function CombinedBachelorBachelorette() {
         </section>
       </SectionReveal>
 
-      {/* FAQs Section */}
+      {/* 10. Planning Guides Section */}
       <SectionReveal>
-        <section className="py-24 bg-gradient-to-b from-blue-50 to-white">
-          <div className="max-w-7xl mx-auto px-6">
-            <div className="text-center mb-16">
-              <span className="text-6xl font-black text-gray-100 opacity-30 absolute -mt-8">06</span>
-              <h2 className="heading-unbounded text-3xl md:text-4xl font-bold mb-6 text-center relative">
-                Combined Party FAQs
-              </h2>
-              <p className="text-base text-gray-600 max-w-3xl mx-auto text-center">
-                Common questions about combined bachelor/bachelorette celebrations
-              </p>
-            </div>
-
-            <div className="max-w-3xl mx-auto">
-              <Accordion type="single" collapsible className="space-y-4">
-                {faqItems.map((item) => (
-                  <AccordionItem 
-                    key={item.id} 
-                    value={item.id}
-                    className="bg-blue-50 rounded-xl px-6 border-none"
-                  >
-                    <AccordionTrigger 
-                      className="text-left hover:no-underline font-bold"
-                      data-testid={`faq-trigger-${item.id}`}
-                    >
-                      {item.question}
-                    </AccordionTrigger>
-                    <AccordionContent className="text-base text-gray-600">
-                      {item.answer}
-                    </AccordionContent>
-                  </AccordionItem>
-                ))}
-              </Accordion>
-            </div>
-          </div>
-        </section>
-      </SectionReveal>
-
-      {/* Photo Gallery Section */}
-      <SectionReveal>
-        <section className="py-24 bg-gradient-to-b from-blue-50 to-white">
-          <div className="max-w-7xl mx-auto px-6">
-            <div className="text-center mb-16">
-              <span className="text-6xl font-black text-gray-100 opacity-30 absolute -mt-8">06</span>
-              <h2 className="heading-unbounded text-3xl md:text-4xl font-bold mb-6 text-center relative">
-                Combined Party Vibes & Photos
-              </h2>
-              <p className="text-base text-gray-600 max-w-3xl mx-auto text-center">
-                See the energy and excitement of combined celebrations on Lake Travis
-              </p>
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-6">
-              {galleryPhotos.slice(0, 6).map((photo) => (
-                <div key={photo.id} className="rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all">
-                  <img
-                    src={photo.src}
-                    alt={photo.alt}
-                    className="w-full h-64 object-cover"
-                    data-testid={`photo-gallery-combined-${photo.id}`}
-                  />
-                </div>
+        <section className="py-24 bg-white border-t">
+          <div className="max-w-7xl mx-auto px-6 text-center">
+            <h2 className="heading-unbounded text-3xl md:text-4xl font-bold mb-12">
+              Combined Party Planning & Logistics Guides
+            </h2>
+            <div className="grid sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
+              {[
+                {
+                  title: "Boat Party Planning & Logistics",
+                  href: "/blogs/lake-travis-boat-party-logistics-complete-planning-and-coordination-guide",
+                  desc: "Complete planning and coordination guide for your Lake Travis boat party."
+                },
+                {
+                  title: "Lake Travis Large Groups Guide",
+                  href: "/blogs/lake-travis-large-groups-guide",
+                  desc: "Essential tips for organizing successful events for groups of 20+."
+                }
+              ].map((item, idx) => (
+                <Link key={idx} href={item.href}>
+                  <a className="block group">
+                    <Card className="h-full rounded-xl border-2 hover:shadow-xl transition-all duration-300 group-hover:-translate-y-1">
+                      <CardContent className="pt-8 px-6 text-center flex flex-col h-full">
+                        <h3 className="font-bold text-xl mb-3 text-gray-900">{item.title}</h3>
+                        <p className="text-gray-600 mb-6 flex-grow">{item.desc}</p>
+                        <div className="flex items-center justify-center text-blue-600 font-bold group-hover:translate-x-1 transition-transform">
+                          Read Guide <ArrowRight className="ml-2 h-4 w-4" />
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </a>
+                </Link>
               ))}
             </div>
           </div>
         </section>
       </SectionReveal>
 
+      {/* FAQ Section */}
+      <SectionReveal>
+        <div id="faqs" className="scroll-mt-20">
+          <section className="py-24 bg-gray-50 text-center">
+            <div className="max-w-7xl mx-auto px-6">
+              <div className="text-center mb-16">
+                <span className="text-6xl font-black text-gray-100 opacity-30 absolute -mt-8">06</span>
+                <h2 className="heading-unbounded text-3xl md:text-4xl font-bold mb-6 text-center relative">
+                  Combined Party FAQs
+                </h2>
+                <p className="text-base text-gray-600 max-w-3xl mx-auto text-center">
+                  Common questions about combined bachelor/bachelorette celebrations
+                </p>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-4 max-w-6xl mx-auto text-left">
+                {faqItems.map((faq, idx) => (
+                  <Collapsible
+                    key={faq.id}
+                    open={openFaq === idx}
+                    onOpenChange={() => setOpenFaq(openFaq === idx ? null : idx)}
+                    className="w-full bg-white rounded-xl border shadow-sm h-fit"
+                  >
+                    <CollapsibleTrigger className="flex w-full items-center justify-between p-6 text-left hover:bg-gray-50 transition-colors rounded-xl">
+                      <span className="font-bold text-lg text-gray-900">{faq.question}</span>
+                      <ChevronDown className={cn(
+                        "h-5 w-5 text-gray-500 transition-transform duration-200",
+                        openFaq === idx && "transform rotate-180"
+                      )} />
+                    </CollapsibleTrigger>
+                    <CollapsibleContent className="px-6 pb-6 pt-0">
+                      <p className="text-gray-600 leading-relaxed">{faq.answer}</p>
+                    </CollapsibleContent>
+                  </Collapsible>
+                ))}
+              </div>
+            </div>
+          </section>
+        </div>
+      </SectionReveal>
+
       {/* Final CTA Section */}
       <SectionReveal>
-        <section className="py-24 bg-white">
-          <div className="max-w-7xl mx-auto px-6 text-center">
+        <section className="py-24 bg-gray-900">
+          <div className="max-w-7xl mx-auto px-6 text-center text-white">
             <h2 className="heading-unbounded text-3xl md:text-4xl font-bold mb-6 text-center">
-              Ready to Plan Your Combined Celebration?
+              Ready to Book Your Combined Party?
             </h2>
-            <p className="text-base text-gray-600 max-w-2xl mx-auto mb-8 text-center">
-              Join the modern trend - bring everyone together for one epic party on Lake Travis
+            <p className="text-lg mb-8 max-w-2xl mx-auto text-gray-400">
+              The modern way to celebrate - bring both crews together for one epic day on Lake Travis!
             </p>
-            <div
-              className="xola-custom xola-checkout"
-              data-button-id="695186923c261203770cc2e7"
-            >
-              <Button
-                size="lg"
-                className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold text-xl px-12 py-8"
-                data-testid="button-final-cta"
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <div
+                className="xola-custom xola-checkout"
+                data-button-id="695186923c261203770cc2e7"
               >
-                <Sparkles className="mr-2 h-6 w-6" />
-                Start Planning Today
-                <ArrowRight className="ml-2 h-6 w-6" />
-              </Button>
+                <Button
+                  size="lg"
+                  className="bg-brand-yellow hover:bg-yellow-300 text-gray-900 font-bold px-8 py-3 rounded-lg"
+                  data-testid="button-final-cta"
+                >
+                  <PartyPopper className="mr-2 h-6 w-6" />
+                  BOOK NOW
+                  <ArrowRight className="ml-2 h-6 w-6" />
+                </Button>
+              </div>
             </div>
           </div>
         </section>
       </SectionReveal>
 
-      <PartyPlanningChecklist partyType="Combined Bachelor & Bachelorette Party" eventType="combined celebration" />
-
-      {/* Related Experiences Section - SEO Internal Linking */}
-      <SectionReveal>
-        <section className="py-16 bg-gradient-to-br from-purple-50 to-pink-50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                Related Austin Party Experiences
-              </h2>
-              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                Explore individual party options on Lake Travis
-              </p>
-            </div>
-            <div className="grid md:grid-cols-3 gap-6">
-              <Card className="hover:shadow-xl transition-all border-2 hover:border-blue-300">
-                <CardContent className="pt-6 text-center">
-                  <Users className="h-12 w-12 mx-auto mb-4 text-blue-600" />
-                  <h3 className="font-bold text-xl mb-3">Austin Bachelor Party Boat</h3>
-                  <p className="text-gray-600 mb-4">
-                    Epic austin bachelor party boat cruises on Lake Travis with DJ, photographer, and legendary party vibes.
-                  </p>
-                  <Link href="/bachelor-party-austin">
-                    <Button variant="outline" className="w-full">
-                      View Bachelor Parties <ArrowRight className="ml-2 h-4 w-4" />
-                    </Button>
-                  </Link>
-                </CardContent>
-              </Card>
-              <Card className="hover:shadow-xl transition-all border-2 hover:border-pink-300">
-                <CardContent className="pt-6 text-center">
-                  <Crown className="h-12 w-12 mx-auto mb-4 text-pink-600" />
-                  <h3 className="font-bold text-xl mb-3">Lake Travis Bachelorette Party</h3>
-                  <p className="text-gray-600 mb-4">
-                    Celebrate the bride with a lake travis bachelorette party cruise - DJ, floats, and unforgettable memories.
-                  </p>
-                  <Link href="/bachelorette-party-austin">
-                    <Button variant="outline" className="w-full">
-                      View Bachelorette Parties <ArrowRight className="ml-2 h-4 w-4" />
-                    </Button>
-                  </Link>
-                </CardContent>
-              </Card>
-              <Card className="hover:shadow-xl transition-all border-2 hover:border-orange-300">
-                <CardContent className="pt-6 text-center">
-                  <Disc3 className="h-12 w-12 mx-auto mb-4 text-orange-600" />
-                  <h3 className="font-bold text-xl mb-3">ATX Disco Cruise</h3>
-                  <p className="text-gray-600 mb-4">
-                    Join the legendary austin party boat experience! DJ, photographer, and party atmosphere included.
-                  </p>
-                  <Link href="/atx-disco-cruise">
-                    <Button variant="outline" className="w-full">
-                      View ATX Disco Cruise <ArrowRight className="ml-2 h-4 w-4" />
-                    </Button>
-                  </Link>
-                </CardContent>
-              </Card>
-            </div>
+      {/* INTERNAL LINKS STRIP */}
+      <section className="py-6 bg-gray-900 border-t border-gray-800">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-gray-400">
+            <Link href="/" className="hover:text-brand-yellow transition-colors">Home</Link>
+            <Link href="/atx-disco-cruise" className="hover:text-brand-yellow transition-colors">ATX Disco Cruise</Link>
+            <Link href="/private-cruises" className="hover:text-brand-yellow transition-colors">Private Cruises</Link>
+            <Link href="/bachelor-party-austin" className="hover:text-brand-yellow transition-colors">Bachelor Party Austin</Link>
+            <Link href="/bachelorette-party-austin" className="hover:text-brand-yellow transition-colors">Bachelorette Party Austin</Link>
+            <Link href="/wedding-parties" className="hover:text-brand-yellow transition-colors">Wedding Parties</Link>
+            <Link href="/birthday-parties" className="hover:text-brand-yellow transition-colors">Birthday Parties</Link>
+            <Link href="/celebration-cruises" className="hover:text-brand-yellow transition-colors">Celebration Cruises</Link>
+            <Link href="/corporate-events" className="hover:text-brand-yellow transition-colors">Corporate Events</Link>
+            <Link href="/party-boat-lake-travis" className="hover:text-brand-yellow transition-colors">Party Boat Lake Travis</Link>
+            <Link href="/gallery" className="hover:text-brand-yellow transition-colors">Gallery</Link>
+            <Link href="/blogs" className="hover:text-brand-yellow transition-colors">Blog & Tips</Link>
+            <Link href="/contact" className="hover:text-brand-yellow transition-colors">Contact</Link>
           </div>
-        </section>
-      </SectionReveal>
+        </div>
+      </section>
 
       <Footer />
     </div>

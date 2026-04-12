@@ -611,7 +611,7 @@ export default function AccessibleLakeTravisParties() {
                   className="border-white text-white hover:bg-white hover:text-teal-700 font-semibold"
                   data-testid="button-cta-call"
                 >
-                  <a href="tel:5125551234">
+                  <a href="tel:5124885892">
                     <Phone className="mr-2 h-5 w-5" />
                     Discuss Your Needs
                   </a>

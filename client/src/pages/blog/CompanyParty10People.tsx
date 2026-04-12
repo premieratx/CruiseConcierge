@@ -599,10 +599,10 @@ export default function CompanyParty10People() {
                         Book Your Cruise
                       </Button>
                     </Link>
-                    <a href="tel:5128727999">
+                    <a href="tel:5124885892">
                       <Button size="lg" variant="outline" className="bg-transparent border-white text-white hover:bg-white/10 font-bold" data-testid="button-call-us">
                         <Phone className="mr-2 h-5 w-5" />
-                        (512) 872-7999
+                        (512) 488-5892
                       </Button>
                     </a>
                   </div>

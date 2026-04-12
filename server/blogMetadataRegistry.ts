@@ -85,8 +85,8 @@ export const blogMetadataRegistry: Record<string, BlogMetadata> = {
   
   'luxury-austin-bachelorette': {
     slug: 'luxury-austin-bachelorette',
-    title: 'Luxury Austin Bachelorette | Lake Travis VIP',
-    description: 'Indulge in a luxury Austin bachelorette party with premium Lake Travis boat rentals, VIP service, and upscale experiences. 15+ years, 150,000+ guests.',
+    title: 'Luxury Bachelorette Party Austin: VIP Private Boats, Spas & Upscale Hotels',
+    description: 'Plan a luxury bachelorette party in Austin with VIP private boat charters on Lake Travis, 5-star hotels, fine dining, and spa retreats. High-end guide from Premier Party Cruises.',
     publishDate: '2024-01-20',
     modifiedDate: '2026-02-12',
     author: 'Premier Party Cruises',
@@ -1617,6 +1617,96 @@ export const blogMetadataRegistry: Record<string, BlogMetadata> = {
     author: 'Premier Party Cruises',
     heroImage: 'https://premierpartycruises.com/media/schema/disco-dance-floor.jpg',
     keywords: ['ATX Disco Cruise', 'Austin party boat', 'most booked party boat', 'Lake Travis disco cruise']
+  },
+  'blogs/the-funnest-daytime-activity-in-austin-according-to-30000-guests': {
+    slug: 'blogs/the-funnest-daytime-activity-in-austin-according-to-30000-guests',
+    title: 'The Funnest Daytime Activity in Austin, According to 30,000 Guests',
+    description: 'What is the most fun daytime activity in Austin? Over 30,000 guests say it is the ATX Disco Cruise on Lake Travis — DJ, photographer, giant floats, BYOB from $85/person. Austin\'s must-do bach party experience.',
+    publishDate: '2026-03-01',
+    modifiedDate: '2026-04-02',
+    author: 'Premier Party Cruises',
+    heroImage: 'https://premierpartycruises.com/attached_assets/disco_fun_best2_1765193453547.jpg',
+    keywords: ['funnest thing to do in Austin', 'Austin daytime activities', 'ATX Disco Cruise', 'Austin bachelorette activity', 'Austin bachelor party daytime', 'Lake Travis party boat']
+  },
+  'blogs/is-the-atx-disco-cruise-worth-it-breaking-down-the-value-vs-a-private-boat': {
+    slug: 'blogs/is-the-atx-disco-cruise-worth-it-breaking-down-the-value-vs-a-private-boat',
+    title: 'Is the ATX Disco Cruise Worth It? Breaking Down the Value vs. a Private Boat',
+    description: 'Is the ATX Disco Cruise worth the money? Full value breakdown: $85–$105/person all-inclusive with DJ and photographer vs. private boat rental costs. The honest comparison most Austin party planners need.',
+    publishDate: '2026-03-01',
+    modifiedDate: '2026-04-02',
+    author: 'Premier Party Cruises',
+    heroImage: 'https://premierpartycruises.com/attached_assets/disco_fun2_1765193453547.jpg',
+    keywords: ['ATX Disco Cruise cost', 'is disco cruise worth it', 'Austin party boat value', 'Lake Travis party boat price', 'Austin bach party cost', 'ATX Disco Cruise price 2026']
+  },
+  'blogs/everything-thats-included-on-the-atx-disco-cruise-so-you-dont-have-to-bring-anything': {
+    slug: 'blogs/everything-thats-included-on-the-atx-disco-cruise-so-you-dont-have-to-bring-anything',
+    title: "Everything That's Included on the ATX Disco Cruise (So You Don't Have to Bring Anything)",
+    description: 'Complete guide to what is included on the ATX Disco Cruise: professional DJ, photographer, 14 disco balls, giant lily pad floats, coolers with ice, cups, koozies. BYOB. The only thing you need is your drinks.',
+    publishDate: '2026-03-01',
+    modifiedDate: '2026-04-02',
+    author: 'Premier Party Cruises',
+    heroImage: 'https://premierpartycruises.com/attached_assets/disco_fun5_1765193453548.jpg',
+    keywords: ["what's included ATX Disco Cruise", 'ATX Disco Cruise all-inclusive', 'what to bring ATX Disco Cruise', 'ATX Disco Cruise packing list', 'ATX Disco Cruise amenities']
+  },
+  'blogs/why-combined-bachelor-bachelorette-parties-love-the-atx-disco-cruise': {
+    slug: 'blogs/why-combined-bachelor-bachelorette-parties-love-the-atx-disco-cruise',
+    title: 'Why Combined Bachelor & Bachelorette Parties Love the ATX Disco Cruise',
+    description: 'Planning a combined bachelor bachelorette party in Austin? The ATX Disco Cruise is the ONLY multi-group all-inclusive co-ed bach cruise in the U.S. From $85/person with DJ and photographer on Lake Travis.',
+    publishDate: '2026-03-01',
+    modifiedDate: '2026-04-02',
+    author: 'Premier Party Cruises',
+    heroImage: 'https://premierpartycruises.com/attached_assets/dancing-party-scene.webp',
+    keywords: ['combined bachelor bachelorette party Austin', 'joint bach party Lake Travis', 'co-ed bach party Austin', 'combined bachelor bachelorette cruise']
+  },
+  'blogs/the-best-bachelor-party-boat-in-austin-disco-cruise-vs-private-charter': {
+    slug: 'blogs/the-best-bachelor-party-boat-in-austin-disco-cruise-vs-private-charter',
+    title: 'The Best Bachelor Party Boat in Austin: Disco Cruise vs. Private Charter',
+    description: 'Choosing the best bachelor party boat in Austin? Full comparison of ATX Disco Cruise vs. private charter for Lake Travis bachelor parties — cost, vibe, group size, DJ, and photos for 2026.',
+    publishDate: '2026-03-01',
+    modifiedDate: '2026-04-02',
+    author: 'Premier Party Cruises',
+    heroImage: 'https://premierpartycruises.com/attached_assets/bachelor-party-group-guys.webp',
+    keywords: ['Austin bachelor party boat', 'best bachelor party boat Austin', 'Lake Travis bachelor party', 'bachelor party boat rental Austin', 'Austin bachelor party ideas 2026']
+  },
+  'blogs/what-you-actually-get-for-your-money-on-an-austin-party-boat-full-cost-breakdown': {
+    slug: 'blogs/what-you-actually-get-for-your-money-on-an-austin-party-boat-full-cost-breakdown',
+    title: 'What You Actually Get for Your Money on an Austin Party Boat: Full Cost Breakdown',
+    description: 'Full Austin party boat cost breakdown 2026. ATX Disco Cruise from $85/person all-inclusive vs. private charters from $200/hr. Includes pricing tables for groups of 8, 12, 15, 20+ people.',
+    publishDate: '2026-03-01',
+    modifiedDate: '2026-04-02',
+    author: 'Premier Party Cruises',
+    heroImage: 'https://premierpartycruises.com/attached_assets/disco_fun_best2_1765193453547.jpg',
+    keywords: ['Austin party boat cost', 'Lake Travis party boat price', 'ATX Disco Cruise price 2026', 'party boat rental Austin cost', 'how much does ATX Disco Cruise cost']
+  },
+  'blogs/private-cruise-or-disco-cruise-how-real-bach-groups-decide': {
+    slug: 'blogs/private-cruise-or-disco-cruise-how-real-bach-groups-decide',
+    title: 'Private Cruise or Disco Cruise: How Real Bach Groups Decide',
+    description: 'Trying to decide between the ATX Disco Cruise and a private charter for your Austin bach party? Decision framework real groups use — based on size, budget, vibe, and what matters most.',
+    publishDate: '2026-03-01',
+    modifiedDate: '2026-04-02',
+    author: 'Premier Party Cruises',
+    heroImage: 'https://premierpartycruises.com/attached_assets/@capitalcityshots-3_1760080740017.jpg',
+    keywords: ['ATX Disco Cruise vs private charter', 'private boat vs disco cruise Austin', 'how to choose Austin party boat', 'Lake Travis private charter vs party cruise']
+  },
+  'blogs/why-the-atx-disco-cruise-has-been-austins-1-bachelorette-party-activity-since-2019': {
+    slug: 'blogs/why-the-atx-disco-cruise-has-been-austins-1-bachelorette-party-activity-since-2019',
+    title: "Why the ATX Disco Cruise Has Been Austin's #1 Bachelorette Party Activity Since 2019",
+    description: 'Why is the ATX Disco Cruise Austin\'s #1 bachelorette party activity since 2019? DJ, pro photographer, Lake Travis views, all-inclusive from $85/person. The only multi-group bachelorette cruise in the U.S.',
+    publishDate: '2026-03-01',
+    modifiedDate: '2026-04-02',
+    author: 'Premier Party Cruises',
+    heroImage: 'https://premierpartycruises.com/attached_assets/clever-girl-3-bachelorette-boat.jpg',
+    keywords: ['Austin bachelorette party activity', 'best bachelorette party activity Austin 2026', 'ATX Disco Cruise bachelorette', 'Austin bachelorette boat party', 'bachelorette party Lake Travis']
+  },
+  'blogs/atx-disco-cruise-vs-private-boat-which-is-better-for-a-bachelorette-party': {
+    slug: 'blogs/atx-disco-cruise-vs-private-boat-which-is-better-for-a-bachelorette-party',
+    title: 'ATX Disco Cruise vs. Private Boat: Which Is Better for a Bachelorette Party?',
+    description: 'ATX Disco Cruise vs. private boat rental for your Austin bachelorette party? Full comparison of cost, photos, vibe, and logistics. For most groups of 6–20, the Disco Cruise wins. Here\'s exactly why.',
+    publishDate: '2026-03-01',
+    modifiedDate: '2026-04-02',
+    author: 'Premier Party Cruises',
+    heroImage: 'https://premierpartycruises.com/attached_assets/clever-girl-3-bachelorette-boat.jpg',
+    keywords: ['Austin bachelorette boat rental', 'bachelorette party boat Austin', 'ATX Disco Cruise bachelorette', 'private boat bachelorette Austin', 'Lake Travis bachelorette party 2026']
   }
 };
 

@@ -64,6 +64,7 @@ export default function AustinBoatParty() {
       title="Austin Boat Party"
       metaTitle="Austin Boat Party | Lake Travis Party Cruises | Premier Party Cruises"
       metaDescription="Throw the ultimate Austin boat party on Lake Travis! Premium party boats with sound systems, disco vibes, and swimming. BYOB friendly. Groups 6-75. Book your party cruise today!"
+      pageRoute="/austin-boat-party"
       heroTitle="The Ultimate Austin Boat Party Experience"
       heroSubtitle="Turn up the music, dive into Lake Travis, and celebrate under the Texas sun. Your unforgettable boat party starts here."
       heroBadge="Party on the Water"

@@ -16,6 +16,8 @@ import PublicNavigation from '@/components/PublicNavigation';
 import Footer from '@/components/Footer';
 import AnimatedPhotoGallery from '@/components/AnimatedPhotoGallery';
 import { BlogImageBreak, BlogPhotoStrip, BlogPartyGallery, BLOG_BOAT_PHOTOS, BLOG_PARTY_PHOTOS } from '@/components/BlogImageBreak';
+import Breadcrumb from '@/components/Breadcrumb';
+import InlineCTABar from '@/components/InlineCTABar';
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 20 },
@@ -103,6 +105,7 @@ export default function LakeTravisBachelorPartyBoatRentalsGuide() {
 
       <div className="min-h-screen bg-white dark:bg-gray-950">
         <PublicNavigation />
+        <Breadcrumb />
 
         {/* Hero Section */}
         <motion.section 
@@ -291,6 +294,8 @@ export default function LakeTravisBachelorPartyBoatRentalsGuide() {
           </div>
         </section>
 
+        <InlineCTABar variant="navy" />
+
         {/* Photo Gallery */}
         <section className="py-16 bg-gray-50 dark:bg-gray-800">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
@@ -396,6 +401,8 @@ export default function LakeTravisBachelorPartyBoatRentalsGuide() {
           </div>
         </section>
 
+        <InlineCTABar variant="amber" />
+
         {/* FAQ Section */}
         <section className="py-16 bg-blue-50 dark:bg-gray-800">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
@@ -473,6 +480,8 @@ export default function LakeTravisBachelorPartyBoatRentalsGuide() {
           </div>
         </section>
 
+        <InlineCTABar variant="slate" />
+
         {/* Related Links */}
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
@@ -514,6 +523,32 @@ export default function LakeTravisBachelorPartyBoatRentalsGuide() {
             </div>
           </div>
         </section>
+
+        <section className="py-12 bg-gray-900 border-t border-gray-800">
+          <div className="container mx-auto px-6 text-center text-white">
+            <h2 className="text-3xl md:text-4xl heading-unbounded font-bold mb-6">
+              Ready to Book Your Bachelor Party Cruise on Lake Travis?
+            </h2>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
+              <Link href="/bachelor-party-austin">
+                <Button className="bg-brand-yellow hover:bg-yellow-300 text-gray-900 font-bold px-8 py-6 rounded-lg text-lg w-full sm:w-auto">
+                  Book Your Bachelor Party
+                </Button>
+              </Link>
+            </div>
+            <Link href="/" className="text-gray-400 hover:text-brand-yellow transition-colors text-sm">
+              ← Back to Premier Party Cruises
+            </Link>
+          </div>
+        </section>
+
+        <div className="flex flex-wrap justify-center gap-x-4 gap-y-1 text-xs text-gray-400 py-3 bg-gray-900 border-t border-gray-800">
+          <Link href="/" className="hover:text-brand-yellow transition-colors">Home</Link>
+          <span className="text-gray-700">|</span>
+          <Link href="/bachelor-party-austin" className="hover:text-brand-yellow transition-colors">Bachelor Party Austin</Link>
+          <span className="text-gray-700">|</span>
+          <Link href="/blogs" className="hover:text-brand-yellow transition-colors">Blog & Tips</Link>
+        </div>
 
         <Footer />
       </div>

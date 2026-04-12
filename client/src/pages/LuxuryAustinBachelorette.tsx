@@ -16,6 +16,7 @@ import {
   Utensils, Clock, Trophy, Gem, CheckCircle2, Plane, Building2, Phone
 } from 'lucide-react';
 import { Link } from 'wouter';
+import InlineCTABar from '@/components/InlineCTABar';
 
 const tableOfContents = [
   { id: 'intro', title: 'Why Choose Luxury in Austin' },
@@ -33,8 +34,8 @@ export default function LuxuryAustinBachelorette() {
   const schemaData = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    "headline": "Living the High Life: A Luxury Austin Bachelorette Weekend Guide",
-    "description": "Plan a luxury austin bachelorette weekend with VIP party boats, upscale hotels, fine dining, and exclusive ATX Disco Cruise packages on Lake Travis.",
+    "headline": "Luxury Bachelorette Party Austin: VIP Private Boats, Spas & 5-Star Hotels",
+    "description": "Plan a luxury bachelorette party in Austin with VIP private boat charters on Lake Travis, 5-star hotels, fine dining, and spa retreats. High-end guide from Premier Party Cruises.",
     "image": [
       "https://premierpartycruises.com/attached_assets/clever-girl-50-person-boat.webp",
       "https://premierpartycruises.com/attached_assets/atx-disco-cruise-party.webp",
@@ -63,19 +64,19 @@ export default function LuxuryAustinBachelorette() {
     <div data-page-ready="luxury-austin-bachelorette" className="min-h-screen bg-gradient-to-b from-purple-50 via-pink-50 to-white dark:from-gray-900 dark:to-gray-950">
       <SEOHead 
         pageRoute="/luxury-austin-bachelorette"
-        defaultTitle="Luxury Austin Bachelorette Weekend | VIP Boats & Upscale Experiences"
-        defaultDescription="Plan a luxury austin bachelorette weekend with VIP party boats, upscale hotels, fine dining, and exclusive ATX Disco Cruise packages on Lake Travis."
+        defaultTitle="Luxury Bachelorette Party Austin: VIP Private Boats, Spas & Upscale Hotels"
+        defaultDescription="Plan a luxury bachelorette party in Austin with VIP private boat charters on Lake Travis, 5-star hotels, fine dining, and spa retreats. High-end guide from Premier Party Cruises."
         defaultKeywords={[
-          'austin bachelorette',
-          'bachelorette party in austin',
-          'austin bachelorette party',
-          'austin bachelorette weekend',
-          'bachelorette boat rental austin',
-          'bachelorette party lake travis',
-          'austin bachelorette party boat',
-          'luxury bachelorette',
-          'VIP party boat Austin',
-          'ATX Disco Cruise'
+          'luxury bachelorette party austin',
+          'luxury austin bachelorette weekend',
+          'VIP bachelorette party austin texas',
+          'upscale bachelorette party austin',
+          'luxury bachelorette boat rental austin',
+          'VIP party boat lake travis',
+          'luxury lake travis bachelorette',
+          'high end bachelorette party austin',
+          'private yacht bachelorette austin',
+          'luxury ATX Disco Cruise VIP'
         ]}
       />
       
@@ -85,7 +86,7 @@ export default function LuxuryAustinBachelorette() {
 
       <PublicNavigation />
       <Breadcrumb />
-      
+
       <StickyCTA 
         primaryText="Book Your Luxury Bachelorette"
         primaryHref="/chat"
@@ -105,7 +106,7 @@ export default function LuxuryAustinBachelorette() {
           <div className="max-w-4xl mx-auto text-center relative z-10">
             <Gem className="h-16 w-16 text-yellow-300 mx-auto mb-6 animate-pulse" />
             <h1 className="text-4xl md:text-5xl lg:text-6xl heading-unbounded font-bold mb-6 text-white drop-shadow-lg">
-              Living the High Life: A Luxury Austin Bachelorette Weekend Guide
+              Luxury Bachelorette Party Austin: VIP Boats, Spas & 5-Star Hotels
             </h1>
             <p className="text-xl md:text-2xl text-pink-100 max-w-3xl mx-auto mb-8">
               Plan the ultimate luxury austin bachelorette weekend with VIP party boats, upscale hotels, fine dining, and exclusive ATX Disco Cruise packages on Lake Travis
@@ -241,6 +242,8 @@ export default function LuxuryAustinBachelorette() {
         </section>
       </SectionReveal>
 
+      <InlineCTABar />
+
       <SectionReveal>
         <section id="arrival" className="py-16 bg-white dark:bg-gray-950">
           <div className="max-w-4xl mx-auto px-6">
@@ -347,6 +350,8 @@ export default function LuxuryAustinBachelorette() {
           </div>
         </section>
       </SectionReveal>
+
+      <InlineCTABar />
 
       <SectionReveal>
         <section id="yacht" className="py-16 bg-gradient-to-b from-white to-purple-50 dark:from-gray-950 dark:to-gray-900">
@@ -506,6 +511,8 @@ export default function LuxuryAustinBachelorette() {
         </section>
       </SectionReveal>
 
+      <InlineCTABar />
+
       <SectionReveal>
         <section id="planning" className="py-16 bg-white dark:bg-gray-950">
           <div className="max-w-4xl mx-auto px-6">
@@ -634,6 +641,32 @@ export default function LuxuryAustinBachelorette() {
           </div>
         </section>
       </SectionReveal>
+
+      <section className="py-12 bg-gray-900 border-t border-gray-800">
+        <div className="container mx-auto px-6 text-center">
+          <h2 className="text-3xl md:text-4xl heading-unbounded font-bold text-white mb-6">
+            Ready to Book Your Luxury Bachelorette Cruise on Lake Travis?
+          </h2>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
+            <Link href="/bachelorette-party-austin">
+              <Button className="bg-brand-yellow hover:bg-yellow-300 text-gray-900 font-bold px-8 py-6 rounded-lg text-lg w-full sm:w-auto">
+                Book Your Bachelorette Party
+              </Button>
+            </Link>
+          </div>
+          <Link href="/" className="text-gray-400 hover:text-brand-yellow transition-colors text-sm">
+            ← Back to Premier Party Cruises
+          </Link>
+        </div>
+      </section>
+
+      <div className="flex flex-wrap justify-center gap-x-4 gap-y-1 text-xs text-gray-400 py-3 bg-gray-900 border-t border-gray-800">
+        <Link href="/" className="hover:text-brand-yellow transition-colors">Home</Link>
+        <span className="text-gray-700">|</span>
+        <Link href="/bachelorette-party-austin" className="hover:text-brand-yellow transition-colors">Bachelorette Party Austin</Link>
+        <span className="text-gray-700">|</span>
+        <Link href="/blogs" className="hover:text-brand-yellow transition-colors">Blog & Tips</Link>
+      </div>
 
       <Footer />
     </div>

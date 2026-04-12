@@ -202,8 +202,16 @@ export default function WeddingAnniversaryCelebrationIdeas() {
           </div>
 
           <div className="my-8 flex justify-center gap-4">
-            <BlogCTA variant="primary" text="Book Your Anniversary Cruise" />
-            <BlogCTA variant="secondary" />
+            <Link href="/anniversary-cruise">
+              <button className="bg-rose-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-rose-700 transition-colors">
+                Plan Your Anniversary Cruise
+              </button>
+            </Link>
+            <Link href="/wedding-parties">
+              <button className="border-2 border-rose-600 text-rose-600 px-6 py-3 rounded-lg font-bold hover:bg-rose-50 transition-colors">
+                View Wedding Parties
+              </button>
+            </Link>
           </div>
           
           <BlogImageBreak
@@ -708,8 +716,16 @@ export default function WeddingAnniversaryCelebrationIdeas() {
           </div>
 
           <div className="my-8 flex justify-center gap-4">
-            <BlogCTA variant="primary" text="Book Your Anniversary Cruise" />
-            <BlogCTA variant="secondary" />
+            <Link href="/anniversary-cruise">
+              <button className="bg-rose-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-rose-700 transition-colors">
+                Plan Your Anniversary Cruise
+              </button>
+            </Link>
+            <Link href="/wedding-parties">
+              <button className="border-2 border-rose-600 text-rose-600 px-6 py-3 rounded-lg font-bold hover:bg-rose-50 transition-colors">
+                View Wedding Parties
+              </button>
+            </Link>
           </div>
         </section>
       </SectionReveal>

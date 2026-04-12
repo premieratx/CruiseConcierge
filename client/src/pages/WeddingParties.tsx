@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'wouter';
 import { motion, AnimatePresence } from 'framer-motion';
 import PublicNavigation from '@/components/PublicNavigation';
@@ -11,7 +11,7 @@ import VideoGallerySection from '@/components/VideoGallerySection';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import SEOHead from '@/components/SEOHead';
 import { cn } from '@/lib/utils';
 import { useInlineEdit } from '@/hooks/useInlineEdit';
@@ -26,7 +26,7 @@ import {
   ChefHat, Wifi, Target, Headphones, Check, Flower,
   Waves, Wine, Umbrella, Music, ArrowRight, Flower2,
   Crown, Anchor, Sun, Zap, ChevronRight, Gem,
-  DollarSign, Smile, GlassWater, CheckCircle, Sunset, X, Ship
+  DollarSign, Smile, GlassWater, CheckCircle, Sunset, X, Ship, ChevronDown
 } from 'lucide-react';
 
 // Hero and gallery images
@@ -224,6 +224,7 @@ const galleryImages = [
 export default function WeddingParties() {
   const [location, navigate] = useLocation();
   const { isEditMode } = useInlineEdit();
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   const handleGetQuote = () => {
     navigate('/chat');
@@ -252,18 +253,19 @@ export default function WeddingParties() {
 
       {/* Hero Section */}
       <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden ">
-        {/* YouTube Video Background */}
+        {/* Wedding Walkthrough Video Background */}
         <div className="absolute inset-0 z-0">
-          <iframe
-            src="https://www.youtube.com/embed/FABtEDZZBA0?autoplay=1&mute=1&loop=1&playlist=FABtEDZZBA0&controls=0&modestbranding=1&rel=0&showinfo=0&disablekb=1&fs=0&playsinline=1"
-            title="Premier Party Cruises Drone Video Background"
-            allow="autoplay; encrypted-media"
-            className="absolute top-1/2 left-1/2 w-[177.77vh] h-[56.25vw] min-w-full min-h-full -translate-x-1/2 -translate-y-1/2 pointer-events-none"
-            style={{ border: 'none' }}
-            data-testid="youtube-background-video"
+          <video
+            className="w-full h-full object-cover"
+            src="/attached_assets/Wedding_Walkthrough_Video_1774071375807.mp4"
+            autoPlay
+            muted
+            loop
+            playsInline
+            poster="/attached_assets/clever-girl-4-wedding-venue.jpg"
+            data-testid="wedding-background-video"
           />
-          {/* White Overlay for contrast - 75% opacity */}
-          <div className="absolute inset-0 bg-white/75"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/40 to-black/65"></div>
         </div>
         
         <div className="relative z-10 container mx-auto px-6 text-center">
@@ -272,14 +274,14 @@ export default function WeddingParties() {
             WEDDING CELEBRATIONS ON THE WATER
             <Heart className="h-4 w-4 ml-2" />
           </Badge>
-          <h1 className="heading-unbounded text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-6 text-center text-gray-900 drop-shadow-sm" data-editable data-editable-id="h1-wedding-hero">
+          <h1 className="heading-unbounded text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-6 text-center text-white drop-shadow-lg" data-editable data-editable-id="h1-wedding-hero">
             Austin Wedding Party Boats: Lake Travis Rehearsal Dinners, After Parties & Celebrations
           </h1>
-          <p className="text-xl sm:text-2xl md:text-3xl text-gray-900 mb-6 md:mb-8 font-bold drop-shadow-sm max-w-3xl mx-auto leading-relaxed text-center" data-editable data-editable-id="p-wedding-tagline">
+          <p className="text-xl sm:text-2xl md:text-3xl text-white/90 mb-6 md:mb-8 font-semibold drop-shadow-md max-w-3xl mx-auto leading-relaxed text-center" data-editable data-editable-id="p-wedding-tagline">
             Wedding Celebrations on the Water
           </p>
-          <div className="inline-block bg-white/90 backdrop-blur-sm rounded-2xl px-6 sm:px-8 py-4 sm:py-6 shadow-xl max-w-5xl mx-auto mb-8">
-            <p className="text-lg sm:text-xl md:text-2xl text-gray-900 font-semibold leading-relaxed">
+          <div className="inline-block bg-black/40 backdrop-blur-sm rounded-2xl px-6 sm:px-8 py-4 sm:py-6 shadow-xl max-w-5xl mx-auto mb-8 border border-white/20">
+            <p className="text-lg sm:text-xl md:text-2xl text-white font-semibold leading-relaxed">
               Rehearsal Dinners • Welcome Parties • After Parties
               <br />
               Elegant celebrations with sunset views on Lake Travis
@@ -293,7 +295,7 @@ export default function WeddingParties() {
             >
               <Button
                 size="lg"
-                className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold px-8 py-6 text-lg"
+                className="bg-brand-yellow hover:bg-yellow-300 text-gray-900 font-bold px-8 py-3 rounded-lg"
                 data-testid="button-hero-get-quote"
               >
                 <Heart className="mr-2 h-5 w-5" />
@@ -301,6 +303,16 @@ export default function WeddingParties() {
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </div>
+            <Button
+              onClick={handleGetQuote}
+              size="lg"
+              variant="outline"
+              className="border-2 border-white text-white hover:bg-white hover:text-gray-900 font-bold px-8 py-3 rounded-lg"
+              data-testid="button-hero-view-packages"
+            >
+              <MessageSquare className="mr-2 h-5 w-5" />
+              GET A QUOTE
+            </Button>
           </div>
         </div>
       </section>
@@ -377,6 +389,69 @@ export default function WeddingParties() {
         </section>
       </SectionReveal>
 
+      {/* Wedding Specific Event Navigation */}
+      <SectionReveal>
+        <section className="py-16 bg-white">
+          <div className="max-w-7xl mx-auto px-6 text-center">
+            <h2 className="heading-unbounded text-3xl md:text-4xl font-bold mb-12">
+              Plan Your Specific Wedding Event
+            </h2>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {[
+                {
+                  title: "Rehearsal Dinner",
+                  href: "/rehearsal-dinner-cruise",
+                  desc: "An elegant sunset dinner cruise for your closest family and friends.",
+                  icon: Wine,
+                  color: "from-purple-500 to-pink-500"
+                },
+                {
+                  title: "Bridal Shower",
+                  href: "/bridal-shower-cruise",
+                  desc: "Celebrate the bride-to-be with a unique brunch or afternoon cruise.",
+                  icon: Flower2,
+                  color: "from-pink-400 to-purple-400"
+                },
+                {
+                  title: "Engagement Party",
+                  href: "/engagement-party-cruise",
+                  desc: "Toast to your new engagement with a private party on Lake Travis.",
+                  icon: Heart,
+                  color: "from-purple-600 to-pink-600"
+                },
+                {
+                  title: "Proposal Cruise",
+                  href: "/proposal-cruise",
+                  desc: "Pop the question with a romantic, private sunset backdrop.",
+                  icon: Sparkles,
+                  color: "from-pink-500 to-purple-500"
+                }
+              ].map((item, idx) => (
+                <Link key={idx} href={item.href}>
+                  <a className="block h-full group">
+                    <Card className="h-full rounded-xl border-2 hover:shadow-xl transition-all duration-300 group-hover:-translate-y-1">
+                      <CardContent className="pt-8 px-6 text-center flex flex-col h-full">
+                        <div className={cn(
+                          "w-16 h-16 rounded-full bg-gradient-to-br mx-auto mb-6 flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition-transform duration-300",
+                          item.color
+                        )}>
+                          <item.icon className="h-8 w-8" />
+                        </div>
+                        <h3 className="font-bold text-xl mb-3 text-gray-900">{item.title}</h3>
+                        <p className="text-gray-600 mb-6 flex-grow">{item.desc}</p>
+                        <div className="flex items-center justify-center text-purple-600 font-bold group-hover:translate-x-1 transition-transform">
+                          Plan This Event <ArrowRight className="ml-2 h-4 w-4" />
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </a>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      </SectionReveal>
+
       {/* Wedding Packages Section */}
       <SectionReveal>
         <section className="py-24 bg-white">
@@ -408,9 +483,6 @@ export default function WeddingParties() {
                   <CardHeader className="text-center pb-4">
                     <pkg.icon className="h-16 w-16 mx-auto mb-4 text-purple-600" />
                     <CardTitle className="heading-unbounded text-2xl mb-2 text-center">{pkg.name}</CardTitle>
-                    <div className="text-3xl font-black text-purple-600 mb-2">
-                      {pkg.price}
-                    </div>
                     <CardDescription className="text-center">{pkg.description}</CardDescription>
                   </CardHeader>
                   <CardContent>
@@ -507,48 +579,138 @@ export default function WeddingParties() {
         </section>
       </SectionReveal>
 
-      {/* FAQs Section */}
+      {/* Wedding Weekend Bach Party Options */}
       <SectionReveal>
-        <section className="py-24 bg-gradient-to-b from-blue-50 to-white">
-          <div className="max-w-7xl mx-auto px-6">
-            <div className="text-center mb-16">
-              <span className="text-6xl font-black text-gray-100 opacity-30 absolute -mt-8">06</span>
-              <h2 className="heading-unbounded text-3xl md:text-4xl font-bold mb-6 text-center relative">
-                Wedding Cruise FAQs
-              </h2>
-              <p className="text-base text-gray-600 max-w-3xl mx-auto text-center">
-                Everything for planning your wedding event
-              </p>
+        <section className="py-16 bg-gradient-to-br from-purple-50 to-pink-50 border-t border-purple-100">
+          <div className="max-w-5xl mx-auto px-6 text-center">
+            <span className="inline-block bg-purple-600 text-white font-bold text-xs uppercase tracking-widest px-4 py-1 rounded-full mb-6">WEDDING WEEKEND EXTRAS</span>
+            <h2 className="heading-unbounded text-3xl md:text-4xl font-bold mb-4 text-gray-900">
+              Planning a Bachelor or Bachelorette Party Too?
+            </h2>
+            <p className="text-lg text-gray-700 max-w-3xl mx-auto mb-10 leading-relaxed">
+              The <Link href="/atx-disco-cruise"><a className="text-purple-700 font-bold hover:underline">ATX Disco Cruise</a></Link> is Austin's #1 rated bachelor and bachelorette party experience — and it's the perfect addition to any wedding weekend. Your bridal party can celebrate on Friday or Saturday while you finalize rehearsal dinner details. Or book the bride and groom their own <Link href="/combined-bachelor-bachelorette-austin"><a className="text-purple-700 font-bold hover:underline">combined bach party cruise</a></Link> the day before the big day.
+            </p>
+            <div className="grid sm:grid-cols-3 gap-6 text-left">
+              <Card className="border-2 border-purple-200 hover:border-purple-500 hover:shadow-lg transition-all">
+                <CardContent className="pt-6">
+                  <div className="text-4xl mb-3">👰</div>
+                  <h3 className="font-bold text-xl mb-2 heading-unbounded text-gray-900">Bachelorette Party</h3>
+                  <p className="text-gray-600 text-sm mb-4 leading-relaxed">From $85/person. Professional DJ, photographer, giant floats, and BYOB. The highlight of her Austin weekend.</p>
+                  <Link href="/bachelorette-party-austin"><a className="inline-flex items-center gap-1 text-purple-700 font-bold hover:underline text-sm">See bachelorette options <ArrowRight className="h-4 w-4" /></a></Link>
+                </CardContent>
+              </Card>
+              <Card className="border-2 border-blue-200 hover:border-blue-500 hover:shadow-lg transition-all">
+                <CardContent className="pt-6">
+                  <div className="text-4xl mb-3">🤵</div>
+                  <h3 className="font-bold text-xl mb-2 heading-unbounded text-gray-900">Bachelor Party</h3>
+                  <p className="text-gray-600 text-sm mb-4 leading-relaxed">Same incredible experience for the groom's crew. DJ, photographer, lake floats — everything included from $85/person.</p>
+                  <Link href="/bachelor-party-austin"><a className="inline-flex items-center gap-1 text-blue-700 font-bold hover:underline text-sm">See bachelor options <ArrowRight className="h-4 w-4" /></a></Link>
+                </CardContent>
+              </Card>
+              <Card className="border-2 border-pink-200 hover:border-pink-500 hover:shadow-lg transition-all">
+                <CardContent className="pt-6">
+                  <div className="text-4xl mb-3">💑</div>
+                  <h3 className="font-bold text-xl mb-2 heading-unbounded text-gray-900">Combined Party</h3>
+                  <p className="text-gray-600 text-sm mb-4 leading-relaxed">Bride and groom celebrate together — one unforgettable co-ed party on Lake Travis before the big day.</p>
+                  <Link href="/combined-bachelor-bachelorette-austin"><a className="inline-flex items-center gap-1 text-pink-700 font-bold hover:underline text-sm">See combined options <ArrowRight className="h-4 w-4" /></a></Link>
+                </CardContent>
+              </Card>
             </div>
-
-            <div className="max-w-3xl mx-auto">
-              <Accordion type="single" collapsible className="space-y-4">
-                {weddingFAQs.map((item, idx) => (
-                  <AccordionItem 
-                    key={idx} 
-                    value={`item-${idx}`}
-                    className="bg-blue-50 rounded-xl px-6 border-none"
-                  >
-                    <AccordionTrigger 
-                      className="text-left hover:no-underline font-bold"
-                      data-testid={`faq-trigger-${idx}`}
-                    >
-                      {item.question}
-                    </AccordionTrigger>
-                    <AccordionContent className="text-base text-gray-600">
-                      {item.answer}
-                    </AccordionContent>
-                  </AccordionItem>
-                ))}
-              </Accordion>
+            <div className="mt-8">
+              <Link href="/atx-disco-cruise">
+                <a className="inline-flex items-center gap-2 bg-brand-yellow hover:bg-yellow-300 text-gray-900 font-bold px-8 py-4 rounded-lg text-lg transition-colors">
+                  ⭐ Explore the ATX Disco Cruise
+                  <ArrowRight className="h-5 w-5" />
+                </a>
+              </Link>
             </div>
           </div>
         </section>
       </SectionReveal>
 
+      {/* 10. Planning Guides Section */}
+      <SectionReveal>
+        <section className="py-24 bg-white border-t">
+          <div className="max-w-7xl mx-auto px-6 text-center">
+            <h2 className="heading-unbounded text-3xl md:text-4xl font-bold mb-12">
+              Wedding Planning & Logistics Guides
+            </h2>
+            <div className="grid sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
+              {[
+                {
+                  title: "Boat Party Planning & Logistics",
+                  href: "/blogs/lake-travis-boat-party-logistics-complete-planning-and-coordination-guide",
+                  desc: "Complete planning and coordination guide for your Lake Travis boat party."
+                },
+                {
+                  title: "Lake Travis Large Groups Guide",
+                  href: "/blogs/lake-travis-large-groups-guide",
+                  desc: "Essential tips for organizing successful events for groups of 20+."
+                }
+              ].map((item, idx) => (
+                <Link key={idx} href={item.href}>
+                  <a className="block group">
+                    <Card className="h-full rounded-xl border-2 hover:shadow-xl transition-all duration-300 group-hover:-translate-y-1">
+                      <CardContent className="pt-8 px-6 text-center flex flex-col h-full">
+                        <h3 className="font-bold text-xl mb-3 text-gray-900">{item.title}</h3>
+                        <p className="text-gray-600 mb-6 flex-grow">{item.desc}</p>
+                        <div className="flex items-center justify-center text-blue-600 font-bold group-hover:translate-x-1 transition-transform">
+                          Read Guide <ArrowRight className="ml-2 h-4 w-4" />
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </a>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      </SectionReveal>
+
+      {/* FAQs Section */}
+      <SectionReveal>
+        <div id="faqs" className="scroll-mt-20">
+          <section className="py-24 bg-gradient-to-b from-blue-50 to-white">
+            <div className="max-w-7xl mx-auto px-6">
+              <div className="text-center mb-16">
+                <span className="text-6xl font-black text-gray-100 opacity-30 absolute -mt-8">06</span>
+                <h2 className="heading-unbounded text-3xl md:text-4xl font-bold mb-6 text-center relative">
+                  Wedding Cruise FAQs
+                </h2>
+                <p className="text-base text-gray-600 max-w-3xl mx-auto text-center">
+                  Everything for planning your wedding event
+                </p>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-4 max-w-6xl mx-auto text-left">
+                {weddingFAQs.map((faq, idx) => (
+                  <Collapsible
+                    key={idx}
+                    open={openFaq === idx}
+                    onOpenChange={() => setOpenFaq(openFaq === idx ? null : idx)}
+                    className="w-full bg-white rounded-xl border shadow-sm h-fit"
+                  >
+                    <CollapsibleTrigger className="flex w-full items-center justify-between p-6 text-left hover:bg-gray-50 transition-colors rounded-xl">
+                      <span className="font-bold text-lg text-gray-900">{faq.question}</span>
+                      <ChevronDown className={cn(
+                        "h-5 w-5 text-gray-500 transition-transform duration-200",
+                        openFaq === idx && "transform rotate-180"
+                      )} />
+                    </CollapsibleTrigger>
+                    <CollapsibleContent className="px-6 pb-6 pt-0">
+                      <p className="text-gray-600 leading-relaxed">{faq.answer}</p>
+                    </CollapsibleContent>
+                  </Collapsible>
+                ))}
+              </div>
+            </div>
+          </section>
+        </div>
+      </SectionReveal>
+
       {/* Photo Gallery Section */}
       <SectionReveal>
-        <section className="py-24 bg-white">
+        <section className="py-24 bg-white border-t">
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
               <span className="text-6xl font-black text-gray-100 opacity-30 absolute -mt-8">07</span>
@@ -578,38 +740,54 @@ export default function WeddingParties() {
 
       {/* Final CTA Section */}
       <SectionReveal>
-        <section className="py-24 bg-gradient-to-b from-blue-50 to-white">
-          <div className="max-w-7xl mx-auto px-6 text-center">
+        <section className="py-24 bg-gray-900">
+          <div className="max-w-7xl mx-auto px-6 text-center text-white">
             <h2 className="heading-unbounded text-3xl md:text-4xl font-bold mb-6 text-center">
               Ready to Plan Your Wedding Cruise?
             </h2>
-            <p className="text-base text-gray-600 max-w-2xl mx-auto mb-8 text-center">
+            <p className="text-lg mb-8 max-w-2xl mx-auto text-gray-400">
               Create unforgettable memories for your wedding weekend on Lake Travis
             </p>
-            <div
-              className="xola-custom xola-checkout"
-              data-button-id="695186923c261203770cc2e7"
-            >
-              <Button
-                size="lg"
-                className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold text-xl px-12 py-8"
-                data-testid="button-final-cta"
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <div
+                className="xola-custom xola-checkout"
+                data-button-id="695186923c261203770cc2e7"
               >
-                <Sparkles className="mr-2 h-6 w-6" />
-                Start Planning Today
-                <ArrowRight className="ml-2 h-6 w-6" />
-              </Button>
+                <Button
+                  size="lg"
+                  className="bg-brand-yellow hover:bg-yellow-300 text-gray-900 font-bold px-8 py-3 rounded-lg"
+                  data-testid="button-final-cta"
+                >
+                  <Sparkles className="mr-2 h-6 w-6" />
+                  BOOK NOW
+                  <ArrowRight className="ml-2 h-6 w-6" />
+                </Button>
+              </div>
             </div>
           </div>
         </section>
       </SectionReveal>
 
-      <PartyPlanningChecklist 
-        partyType="Wedding Event"
-        eventType="wedding celebration"
-      />
-
-      <VideoGallerySection videos={[{id: 'FABtEDZZBA0', title: 'Premier Party Cruises Experience', description: 'See what makes our Lake Travis cruises unforgettable'}]} />
+      {/* INTERNAL LINKS STRIP */}
+      <section className="py-6 bg-gray-900 border-t border-gray-800">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-gray-400">
+            <Link href="/" className="hover:text-brand-yellow transition-colors">Home</Link>
+            <Link href="/atx-disco-cruise" className="hover:text-brand-yellow transition-colors">ATX Disco Cruise</Link>
+            <Link href="/private-cruises" className="hover:text-brand-yellow transition-colors">Private Cruises</Link>
+            <Link href="/bachelor-party-austin" className="hover:text-brand-yellow transition-colors">Bachelor Party Austin</Link>
+            <Link href="/bachelorette-party-austin" className="hover:text-brand-yellow transition-colors">Bachelorette Party Austin</Link>
+            <Link href="/wedding-parties" className="hover:text-brand-yellow transition-colors">Wedding Parties</Link>
+            <Link href="/birthday-parties" className="hover:text-brand-yellow transition-colors">Birthday Parties</Link>
+            <Link href="/celebration-cruises" className="hover:text-brand-yellow transition-colors">Celebration Cruises</Link>
+            <Link href="/corporate-events" className="hover:text-brand-yellow transition-colors">Corporate Events</Link>
+            <Link href="/party-boat-lake-travis" className="hover:text-brand-yellow transition-colors">Party Boat Lake Travis</Link>
+            <Link href="/gallery" className="hover:text-brand-yellow transition-colors">Gallery</Link>
+            <Link href="/blogs" className="hover:text-brand-yellow transition-colors">Blog & Tips</Link>
+            <Link href="/contact" className="hover:text-brand-yellow transition-colors">Contact</Link>
+          </div>
+        </div>
+      </section>
 
       <Footer />
     </div>

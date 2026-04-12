@@ -121,7 +121,7 @@ const privateCruisePackages = [
     popular: false,
     icon: Crown,
     badge: 'All-Inclusive VIP',
-    color: 'purple'
+    color: 'blue'
   }
 ];
 
@@ -430,16 +430,64 @@ const tocSections = [
   { id: 'faqs', title: 'FAQs', icon: <HelpCircle className="h-4 w-4" /> }
 ];
 
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
+import { ChevronDown } from 'lucide-react';
+
+const faqQuestions = [
+  {
+    question: "Which boat is right for my group size?",
+    answer: "We have three options: Day Tripper (up to 14 guests), Meeseeks & The Irony (15-30 guests), and Clever Girl (31-75 guests). Choose the boat that best fits your headcount for the most comfortable experience."
+  },
+  {
+    question: "What's included in a private charter?",
+    answer: "Every private charter includes the boat, a licensed captain, a premium Bluetooth sound system, coolers, and an onboard restroom. Depending on your package (Standard, Essentials, or Ultimate), we also provide ice, water stations, floats, and party decorations."
+  },
+  {
+    question: "Can we bring our own alcohol or food?",
+    answer: "Yes! We are BYOB-friendly (cans/plastic only, no glass). You're also welcome to bring your own food. We provide table space and coolers. For ultimate convenience, we can help coordinate alcohol delivery through Party On Delivery."
+  },
+  {
+    question: "How far in advance should I book?",
+    answer: "We recommend booking 8-12 weeks in advance, especially for Saturdays and peak season (May-September). Prime time slots fill up quickly!"
+  },
+  {
+    question: "What does the captain/crew do?",
+    answer: "Your licensed captain handles all navigation and safety so you can relax. They also help with boarding, setting up your music, and anchoring at the best spots for swimming."
+  },
+  {
+    question: "Deposit and cancellation policy?",
+    answer: "A deposit is required to secure your date (25-50% depending on how far out you book). We offer a full refund if canceled within 48 hours of booking. Weather-related cancellations are handled at the captain's discretion with a full refund or reschedule."
+  },
+  {
+    question: "What if the weather is bad?",
+    answer: "The captain makes the final safety call. If conditions are unsafe, you'll receive a full refund or the option to reschedule. We typically sail in light rain, but not in high winds or lightning."
+  },
+  {
+    question: "Can we customize the cruise route?",
+    answer: "Absolutely! While we have popular routes that include scenic cruising and swimming in Devils Cove, you can talk to your captain about specific spots you'd like to see on Lake Travis."
+  },
+  {
+    question: "Where do we depart from?",
+    answer: "Our primary departure point is at Emerald Point Marina on Lake Travis. Detailed arrival instructions and parking info will be sent with your booking confirmation."
+  },
+  {
+    question: "How long are the cruises?",
+    answer: "Our standard private charters are 4 hours long, which is the perfect amount of time to cruise, swim, and celebrate. Extended durations may be available upon request."
+  }
+];
+
 export default function PrivateCruises() {
   const [, setLocation] = useLocation();
   const { toast } = useToast();
+
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   const handleGetQuote = () => {
     setLocation('/chat');
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white" data-page-ready="private-cruises">
+    <div className="min-h-screen bg-white" data-page-ready="private-cruises">
       <SEOHead 
         pageRoute="/private-cruises"
         defaultTitle="Private Party Boat Rentals Lake Travis | Austin Boat Charter from $200/hr"
@@ -448,10 +496,6 @@ export default function PrivateCruises() {
         schemaType="service"
       />
       
-      {/* NOTE: All structured data (Service, FAQ, LocalBusiness, Product) is handled by SSR via schemaLoader.ts
-          SSR schemas loaded: private-cruises/faq.jsonld, private-cruises/service.jsonld
-          This avoids duplicate/conflicting schemas and Google Search Console errors. */}
-
       <PublicNavigation />
       <Breadcrumb />
 
@@ -459,7 +503,7 @@ export default function PrivateCruises() {
       <TableOfContents sections={tocSections} />
 
       {/* Hero Section - Clean and spacious */}
-      <section id="hero" className="relative py-16 md:py-24 overflow-hidden bg-gray-900 min-h-[70vh] flex items-center">
+      <section id="hero" className="relative py-16 md:py-24 overflow-hidden bg-gray-900 min-h-[70vh] flex items-center pt-[116px]">
         {/* Local Video Background */}
         <div className="absolute inset-0 z-0">
           <video
@@ -477,7 +521,7 @@ export default function PrivateCruises() {
         </div>
         
         <div className="max-w-5xl mx-auto relative z-10 px-4 text-white text-center">
-          <Badge className="mb-6 md:mb-8 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-sm sm:text-base px-6 sm:px-8 py-2.5 border-0 font-sans tracking-wider font-bold uppercase shadow-lg">
+          <Badge className="mb-6 md:mb-8 bg-brand-yellow text-gray-900 text-sm sm:text-base px-6 sm:px-8 py-2.5 border-0 font-sans tracking-wider font-bold uppercase shadow-lg">
             Private Boat Charters
           </Badge>
           
@@ -497,7 +541,7 @@ export default function PrivateCruises() {
             <Button
               size="lg"
               onClick={() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })}
-              className="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold text-base sm:text-lg px-8 sm:px-12 py-5 sm:py-6 shadow-2xl transition-all transform hover:scale-105"
+              className="w-full sm:w-auto bg-brand-yellow hover:bg-yellow-300 text-gray-900 font-bold text-base sm:text-lg px-8 sm:px-12 py-5 sm:py-6 shadow-2xl transition-all transform hover:scale-105"
               data-testid="button-hero-view-packages"
             >
               View Packages & Pricing
@@ -509,7 +553,7 @@ export default function PrivateCruises() {
             >
               <Button
                 size="lg"
-                className="w-full sm:w-auto bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-base sm:text-lg px-8 sm:px-12 py-5 sm:py-6 shadow-2xl transition-all transform hover:scale-105"
+                className="w-full sm:w-auto bg-brand-yellow hover:bg-yellow-300 text-gray-900 font-bold text-base sm:text-lg px-8 sm:px-12 py-5 sm:py-6 shadow-2xl transition-all transform hover:scale-105"
                 data-testid="button-hero-get-quote"
               >
                 Reserve Your Private Charter
@@ -566,49 +610,6 @@ export default function PrivateCruises() {
       <QuoteBuilderSection />
 
       {/* Premium Emotional Benefits Section - NEW */}
-      <SectionReveal>
-        <section className="py-12 md:py-20 bg-gradient-to-br from-white to-blue-50">
-          <div className="container mx-auto px-4 sm:px-6">
-            <div className="max-w-6xl mx-auto">
-              <div className="text-center mb-12">
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 text-gray-900">
-                  The Experience You Deserve
-                </h2>
-                <p className="text-xl text-gray-700">
-                  More than just a boat rental - it's YOUR perfect day on the water
-                </p>
-              </div>
-
-              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                {emotionalBenefits.map((benefit, index) => {
-                  const Icon = benefit.icon;
-                  return (
-                    <Card key={index} className="bg-white border-gray-200 hover:border-blue-500 transition-all hover:shadow-xl">
-                      <CardHeader className="text-center">
-                        <div className="mx-auto mb-4 p-4 bg-gradient-to-br from-blue-100 to-purple-100 rounded-full">
-                          <Icon className="h-8 w-8 text-blue-600" />
-                        </div>
-                        <CardTitle className="text-xl">{benefit.title}</CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <p className="text-center text-gray-700">{benefit.description}</p>
-                      </CardContent>
-                    </Card>
-                  );
-                })}
-              </div>
-
-              <div className="mt-12 text-center">
-                <p className="text-lg text-gray-700 mb-6">
-                  <InternalLinkHighlight href="/team-building" title="Team Building">Corporate team building</InternalLinkHighlight> | 
-                  <InternalLinkHighlight href="/wedding-parties" title="Wedding Parties">Wedding celebrations</InternalLinkHighlight> | 
-                  <InternalLinkHighlight href="/birthday-parties" title="Birthday Parties">Birthday parties</InternalLinkHighlight>
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-      </SectionReveal>
 
       {/* Experience Section */}
       <SectionReveal>
@@ -625,7 +626,7 @@ export default function PrivateCruises() {
               </div>
 
               <div className="grid md:grid-cols-2 gap-12 mb-16">
-                <Card className="bg-gradient-to-br from-blue-50 to-white border-blue-200">
+                <Card className="bg-blue-50 border-blue-200">
                   <CardHeader>
                     <div className="flex items-center gap-3 mb-4">
                       <div className="p-3 bg-blue-600 rounded-lg">
@@ -659,10 +660,10 @@ export default function PrivateCruises() {
                   </CardContent>
                 </Card>
 
-                <Card className="bg-gradient-to-br from-purple-50 to-white border-purple-200">
+                <Card className="bg-gray-50 border-gray-200">
                   <CardHeader>
                     <div className="flex items-center gap-3 mb-4">
-                      <div className="p-3 bg-purple-600 rounded-lg">
+                      <div className="p-3 bg-brand-navy rounded-lg">
                         <UserCheck className="h-8 w-8 text-white" />
                       </div>
                       <CardTitle className="text-2xl">Professional Service</CardTitle>
@@ -674,19 +675,19 @@ export default function PrivateCruises() {
                     </p>
                     <ul className="space-y-3">
                       <li className="flex items-start gap-3">
-                        <CheckCircle className="h-5 w-5 text-purple-600 shrink-0 mt-0.5" />
+                        <CheckCircle className="h-5 w-5 text-blue-600 shrink-0 mt-0.5" />
                         <span className="text-gray-700">Licensed, fun, experienced captains to take your group safely around the lake in style</span>
                       </li>
                       <li className="flex items-start gap-3">
-                        <CheckCircle className="h-5 w-5 text-purple-600 shrink-0 mt-0.5" />
+                        <CheckCircle className="h-5 w-5 text-blue-600 shrink-0 mt-0.5" />
                         <span className="text-gray-700">Expert knowledge of Lake Travis</span>
                       </li>
                       <li className="flex items-start gap-3">
-                        <CheckCircle className="h-5 w-5 text-purple-600 shrink-0 mt-0.5" />
+                        <CheckCircle className="h-5 w-5 text-blue-600 shrink-0 mt-0.5" />
                         <span className="text-gray-700">Professional crew for larger groups</span>
                       </li>
                       <li className="flex items-start gap-3">
-                        <CheckCircle className="h-5 w-5 text-purple-600 shrink-0 mt-0.5" />
+                        <CheckCircle className="h-5 w-5 text-blue-600 shrink-0 mt-0.5" />
                         <span className="text-gray-700">Dedicated to making your event perfect</span>
                       </li>
                     </ul>
@@ -748,7 +749,7 @@ export default function PrivateCruises() {
               </div>
 
               <Tabs defaultValue="fleet" className="w-full">
-                <TabsList className="grid w-full grid-cols-2 mb-12 bg-gradient-to-r from-blue-600 to-purple-600 p-2 rounded-2xl h-auto">
+                <TabsList className="grid w-full grid-cols-2 mb-12 bg-brand-navy p-2 rounded-2xl h-auto">
                   <TabsTrigger 
                     value="fleet" 
                     className="data-[state=active]:bg-yellow-400 data-[state=active]:text-black data-[state=inactive]:bg-white/20 data-[state=inactive]:text-white hover:bg-white/30 font-bold text-lg py-4 rounded-xl transition-all"
@@ -873,10 +874,10 @@ export default function PrivateCruises() {
                         <p className="text-3xl font-bold text-yellow-600">$100-200</p>
                         <p className="text-sm text-gray-600 mt-2">Based on boat size</p>
                       </div>
-                      <div className="p-6 bg-purple-50 rounded-xl">
-                        <Crown className="h-12 w-12 text-purple-600 mx-auto mb-3" />
+                      <div className="p-6 bg-gray-50 rounded-xl">
+                        <Crown className="h-12 w-12 text-brand-navy mx-auto mb-3" />
                         <h4 className="font-bold text-lg mb-2">Ultimate</h4>
-                        <p className="text-3xl font-bold text-purple-600">$250-350</p>
+                        <p className="text-3xl font-bold text-gray-900">$250-350</p>
                         <p className="text-sm text-gray-600 mt-2">Based on boat size</p>
                       </div>
                     </div>
@@ -914,7 +915,7 @@ export default function PrivateCruises() {
               </div>
 
               <div className="grid md:grid-cols-2 gap-12">
-                <Card className="bg-gradient-to-br from-blue-50 to-white border-blue-200">
+                <Card className="bg-blue-50 border-blue-200">
                   <CardHeader>
                     <div className="flex items-center gap-3 mb-4">
                       <div className="p-3 bg-blue-600 rounded-lg">
@@ -956,10 +957,10 @@ export default function PrivateCruises() {
                   </CardContent>
                 </Card>
 
-                <Card className="bg-gradient-to-br from-purple-50 to-white border-purple-200">
+                <Card className="bg-gray-50 border-gray-200">
                   <CardHeader>
                     <div className="flex items-center gap-3 mb-4">
-                      <div className="p-3 bg-purple-600 rounded-lg">
+                      <div className="p-3 bg-brand-navy rounded-lg">
                         <Clock className="h-8 w-8 text-white" />
                       </div>
                       <CardTitle className="text-2xl">Cruise Times</CardTitle>
@@ -968,8 +969,8 @@ export default function PrivateCruises() {
                   <CardContent>
                     <ul className="space-y-4">
                       <li className="flex items-start gap-3">
-                        <div className="p-2 bg-purple-100 rounded-lg shrink-0">
-                          <Sun className="h-5 w-5 text-purple-600" />
+                        <div className="p-2 bg-gray-100 rounded-lg shrink-0">
+                          <Sun className="h-5 w-5 text-blue-600" />
                         </div>
                         <div>
                           <p className="font-semibold text-gray-900 mb-1">Morning Cruises (9am-1pm)</p>
@@ -977,8 +978,8 @@ export default function PrivateCruises() {
                         </div>
                       </li>
                       <li className="flex items-start gap-3">
-                        <div className="p-2 bg-purple-100 rounded-lg shrink-0">
-                          <Sun className="h-5 w-5 text-purple-600" />
+                        <div className="p-2 bg-gray-100 rounded-lg shrink-0">
+                          <Sun className="h-5 w-5 text-blue-600" />
                         </div>
                         <div>
                           <p className="font-semibold text-gray-900 mb-1">Afternoon Cruises (2pm-6pm)</p>
@@ -986,8 +987,8 @@ export default function PrivateCruises() {
                         </div>
                       </li>
                       <li className="flex items-start gap-3">
-                        <div className="p-2 bg-purple-100 rounded-lg shrink-0">
-                          <Moon className="h-5 w-5 text-purple-600" />
+                        <div className="p-2 bg-gray-100 rounded-lg shrink-0">
+                          <Moon className="h-5 w-5 text-blue-600" />
                         </div>
                         <div>
                           <p className="font-semibold text-gray-900 mb-1">Evening Cruises (4pm-8pm)</p>
@@ -1000,7 +1001,7 @@ export default function PrivateCruises() {
               </div>
 
               <div className="mt-12 text-center">
-                <Card className="bg-gradient-to-r from-blue-600 to-purple-600 text-white border-0">
+                <Card className="bg-brand-navy text-white border-0">
                   <CardContent className="p-12">
                     <h3 className="text-3xl font-bold mb-4">Ready to Book Your Private Charter?</h3>
                     <p className="text-xl mb-8 text-white/90">
@@ -1086,10 +1087,10 @@ export default function PrivateCruises() {
                     </CardContent>
                   </Card>
                   
-                  <Card className="border-2 border-purple-200">
-                    <CardHeader className="bg-purple-50">
+                  <Card className="border-2 border-gray-200">
+                    <CardHeader className="bg-gray-50">
                       <CardTitle className="text-lg flex items-center gap-2">
-                        <Heart className="h-5 w-5 text-purple-600" />
+                        <Heart className="h-5 w-5 text-blue-600" />
                         Wedding Celebrations
                       </CardTitle>
                     </CardHeader>
@@ -1098,10 +1099,10 @@ export default function PrivateCruises() {
                     </CardContent>
                   </Card>
                   
-                  <Card className="border-2 border-pink-200">
-                    <CardHeader className="bg-pink-50">
+                  <Card className="border-2 border-gray-200">
+                    <CardHeader className="bg-gray-50">
                       <CardTitle className="text-lg flex items-center gap-2">
-                        <Cake className="h-5 w-5 text-pink-600" />
+                        <Cake className="h-5 w-5 text-blue-600" />
                         Special Milestones
                       </CardTitle>
                     </CardHeader>
@@ -1118,7 +1119,7 @@ export default function PrivateCruises() {
 
       {/* NEW SEO SECTION 2: Planning Your Lake Travis Party Boat */}
       <SectionReveal>
-        <section className="py-12 md:py-20 bg-gradient-to-br from-purple-50 to-blue-50">
+        <section className="py-12 md:py-20 bg-gray-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="max-w-4xl mx-auto">
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold heading-unbounded text-center mb-8 text-gray-900 leading-tight">
@@ -1152,7 +1153,7 @@ export default function PrivateCruises() {
                     </div>
                     <div>
                       <h5 className="font-bold text-gray-900 mb-2 flex items-center gap-2">
-                        <Wine className="h-5 w-5 text-purple-600" />
+                        <Wine className="h-5 w-5 text-blue-600" />
                         Food & Beverage
                       </h5>
                       <ul className="text-sm text-gray-700 space-y-1 ml-7">
@@ -1290,26 +1291,26 @@ export default function PrivateCruises() {
                 <Card className="bg-white border-gray-200 rounded-xl hover:border-blue-500 transition-all">
                   <CardHeader className="p-6">
                     <div className="flex items-center gap-3 mb-4">
-                      <div className="p-3 bg-purple-100 rounded-lg">
-                        <Music className="h-6 w-6 text-purple-600" />
+                      <div className="p-3 bg-gray-100 rounded-lg">
+                        <Music className="h-6 w-6 text-blue-600" />
                       </div>
                       <CardTitle className="text-xl font-semibold text-gray-900">Entertainment</CardTitle>
                     </div>
                     <ul className="space-y-2 text-base text-gray-700">
                       <li className="flex items-start gap-2">
-                        <Check className="h-5 w-5 text-purple-600 shrink-0 mt-0.5" />
+                        <Check className="h-5 w-5 text-blue-600 shrink-0 mt-0.5" />
                         <span>Professional DJ services ($600 per cruise)</span>
                       </li>
                       <li className="flex items-start gap-2">
-                        <Check className="h-5 w-5 text-purple-600 shrink-0 mt-0.5" />
+                        <Check className="h-5 w-5 text-blue-600 shrink-0 mt-0.5" />
                         <span>Professional photographer ($600 per cruise)</span>
                       </li>
                       <li className="flex items-start gap-2">
-                        <Check className="h-5 w-5 text-purple-600 shrink-0 mt-0.5" />
+                        <Check className="h-5 w-5 text-blue-600 shrink-0 mt-0.5" />
                         <span>AV package: microphone + projector/screen</span>
                       </li>
                       <li className="flex items-start gap-2">
-                        <Check className="h-5 w-5 text-purple-600 shrink-0 mt-0.5" />
+                        <Check className="h-5 w-5 text-blue-600 shrink-0 mt-0.5" />
                         <span>Premium Bluetooth sound system</span>
                       </li>
                     </ul>
@@ -1361,8 +1362,8 @@ export default function PrivateCruises() {
 
                   <Card className="bg-white border-gray-200">
                     <CardHeader className="p-6 text-center">
-                      <div className="mx-auto mb-3 p-3 bg-pink-100 rounded-lg w-fit">
-                        <Heart className="h-6 w-6 text-pink-600" />
+                      <div className="mx-auto mb-3 p-3 bg-gray-100 rounded-lg w-fit">
+                        <Heart className="h-6 w-6 text-blue-600" />
                       </div>
                       <CardTitle className="text-lg">Weddings</CardTitle>
                       <p className="text-sm text-gray-600 mt-2">Rehearsal dinners, welcome parties, after parties</p>
@@ -1371,8 +1372,8 @@ export default function PrivateCruises() {
 
                   <Card className="bg-white border-gray-200">
                     <CardHeader className="p-6 text-center">
-                      <div className="mx-auto mb-3 p-3 bg-purple-100 rounded-lg w-fit">
-                        <Cake className="h-6 w-6 text-purple-600" />
+                      <div className="mx-auto mb-3 p-3 bg-gray-100 rounded-lg w-fit">
+                        <Cake className="h-6 w-6 text-blue-600" />
                       </div>
                       <CardTitle className="text-lg">Birthdays</CardTitle>
                       <p className="text-sm text-gray-600 mt-2">Milestone celebrations, Sweet 16s, surprise parties</p>
@@ -1503,7 +1504,7 @@ export default function PrivateCruises() {
 
       {/* Why Choose Us Section */}
       <SectionReveal>
-        <section id="why-choose" className="py-12 md:py-24 bg-gradient-to-br from-blue-600 to-purple-600 text-white">
+        <section id="why-choose" className="py-12 md:py-24 bg-brand-navy text-white">
           <div className="container mx-auto px-4 sm:px-6">
             <div className="max-w-7xl mx-auto">
               <div className="text-center mb-16">
@@ -1665,7 +1666,7 @@ export default function PrivateCruises() {
                   <Card key={testimonial.id} className="bg-white border-gray-200 hover:border-blue-500 transition-all hover:shadow-xl">
                     <CardHeader>
                       {testimonial.highlight && (
-                        <Badge className="mb-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+                        <Badge className="mb-3 bg-brand-navy text-white">
                           {testimonial.highlight}
                         </Badge>
                       )}
@@ -1704,6 +1705,37 @@ export default function PrivateCruises() {
         </section>
       </SectionReveal>
 
+      {/* Planning Guides Section */}
+      <SectionReveal>
+        <section className="py-12 md:py-24 bg-gray-50">
+          <div className="container mx-auto px-4 sm:px-6 text-center">
+            <h2 className="text-3xl font-bold mb-12">Lake Travis Party Boat Planning Guides</h2>
+            <div className="flex flex-wrap justify-center gap-6">
+              <Link href="/first-time-lake-travis-boat-rental-guide">
+                <Button variant="outline" className="border-blue-600 text-blue-600 hover:bg-blue-50 font-bold">
+                  First-Time Lake Travis Boat Rental Guide
+                </Button>
+              </Link>
+              <Link href="/blog/lake-travis-party-boat-rentals-ultimate-guide-for-large-group-events-20-guests">
+                <Button variant="outline" className="border-blue-600 text-blue-600 hover:bg-blue-50 font-bold">
+                  Large Group Party Boat Guide
+                </Button>
+              </Link>
+              <Link href="/blogs/lake-travis-boat-party-logistics-complete-planning-and-coordination-guide">
+                <Button variant="outline" className="border-blue-600 text-blue-600 hover:bg-blue-50 font-bold">
+                  Boat Party Planning & Logistics
+                </Button>
+              </Link>
+              <Link href="/blogs/lake-travis-boat-party-packages-comprehensive-guide-to-options-and-pricing">
+                <Button variant="outline" className="border-blue-600 text-blue-600 hover:bg-blue-50 font-bold">
+                  Boat Party Packages Guide
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </section>
+      </SectionReveal>
+
       {/* FAQs Section */}
       <SectionReveal>
         <section id="faqs" className="py-12 md:py-24 bg-white">
@@ -1718,18 +1750,27 @@ export default function PrivateCruises() {
                 </p>
               </div>
 
-              <Accordion type="single" collapsible className="w-full">
-                {faqItems.map((faq) => (
-                  <AccordionItem key={faq.id} value={faq.id}>
-                    <AccordionTrigger className="text-left text-lg font-semibold">
-                      {faq.question}
-                    </AccordionTrigger>
-                    <AccordionContent className="text-gray-700 text-base leading-relaxed">
+              <div className="grid md:grid-cols-2 gap-6 items-start">
+                {faqQuestions.map((faq, index) => (
+                  <Collapsible
+                    key={index}
+                    open={openFaq === index}
+                    onOpenChange={() => setOpenFaq(openFaq === index ? null : index)}
+                    className="border border-gray-200 rounded-lg overflow-hidden transition-all duration-200 bg-white shadow-sm hover:shadow-md"
+                  >
+                    <CollapsibleTrigger className="flex items-center justify-between w-full p-5 text-left font-bold text-gray-900 hover:bg-gray-50 transition-colors">
+                      <span className="text-lg leading-tight pr-4">{faq.question}</span>
+                      <ChevronDown className={cn(
+                        "h-5 w-5 text-brand-yellow shrink-0 transition-transform duration-300",
+                        openFaq === index ? "rotate-180" : ""
+                      )} />
+                    </CollapsibleTrigger>
+                    <CollapsibleContent className="p-5 text-gray-700 bg-gray-50/50 border-t border-gray-100 leading-relaxed">
                       {faq.answer}
-                    </AccordionContent>
-                  </AccordionItem>
+                    </CollapsibleContent>
+                  </Collapsible>
                 ))}
-              </Accordion>
+              </div>
 
               <div className="mt-16 text-center bg-blue-50 rounded-xl p-8">
                 <h3 className="text-2xl font-bold mb-4">Still Have Questions?</h3>
@@ -1737,7 +1778,7 @@ export default function PrivateCruises() {
                 <div className="flex flex-col sm:flex-row gap-4 justify-center px-4">
                   <a
                     href="/chat"
-                    className="inline-flex items-center justify-center w-full sm:w-auto bg-gradient-to-r from-yellow-400 to-amber-500 hover:from-yellow-500 hover:to-amber-600 text-gray-900 font-bold text-base sm:text-lg px-6 sm:px-8 py-4 sm:py-5 rounded-md transition-all"
+                    className="inline-flex items-center justify-center w-full sm:w-auto bg-brand-yellow hover:bg-yellow-300 text-gray-900 font-bold text-base sm:text-lg px-6 sm:px-8 py-4 sm:py-5 rounded-md transition-all shadow-lg transform hover:-translate-y-1"
                   >
                     Get Custom Quote
                     <ArrowRight className="ml-2 h-5 w-5" />
@@ -1746,7 +1787,7 @@ export default function PrivateCruises() {
                     size="lg"
                     variant="outline"
                     asChild
-                    className="border-2 border-blue-600 text-blue-600 hover:bg-blue-50"
+                    className="border-2 border-blue-600 text-blue-600 hover:bg-blue-50 font-bold"
                   >
                     <a href="tel:+15124885892">
                       <Phone className="mr-2 h-5 w-5" />
@@ -1809,10 +1850,6 @@ export default function PrivateCruises() {
         </div>
       </section>
 
-      {/* Related Services Section */}
-      <RelatedServicesSection currentPath="/private-cruises" />
-
-      {/* Related Links */}
       <RelatedLinks />
 
       {/* Sticky CTA */}
@@ -1901,6 +1938,26 @@ export default function PrivateCruises() {
                 </tr>
               </tbody>
             </table>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-6 bg-gray-900">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-gray-400">
+            <Link href="/" className="hover:text-brand-yellow transition-colors">Home</Link>
+            <Link href="/atx-disco-cruise" className="hover:text-brand-yellow transition-colors">ATX Disco Cruise</Link>
+            <Link href="/private-cruises" className="hover:text-brand-yellow transition-colors">Private Cruises</Link>
+            <Link href="/bachelor-party-austin" className="hover:text-brand-yellow transition-colors">Bachelor Party Austin</Link>
+            <Link href="/bachelorette-party-austin" className="hover:text-brand-yellow transition-colors">Bachelorette Party Austin</Link>
+            <Link href="/wedding-parties" className="hover:text-brand-yellow transition-colors">Wedding Parties</Link>
+            <Link href="/birthday-parties" className="hover:text-brand-yellow transition-colors">Birthday Parties</Link>
+            <Link href="/celebration-cruises" className="hover:text-brand-yellow transition-colors">Celebration Cruises</Link>
+            <Link href="/corporate-events" className="hover:text-brand-yellow transition-colors">Corporate Events</Link>
+            <Link href="/party-boat-lake-travis" className="hover:text-brand-yellow transition-colors">Party Boat Lake Travis</Link>
+            <Link href="/gallery" className="hover:text-brand-yellow transition-colors">Gallery</Link>
+            <Link href="/blogs" className="hover:text-brand-yellow transition-colors">Blog & Tips</Link>
+            <Link href="/contact" className="hover:text-brand-yellow transition-colors">Contact</Link>
           </div>
         </div>
       </section>

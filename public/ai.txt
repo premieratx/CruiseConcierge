@@ -1,7 +1,7 @@
 # Premier Party Cruises - AI Crawler Manifest
-# Version: 2.0
-# Last Updated: January 7, 2026
-# Content Freshness Date: 01/07/2026
+# Version: 2.2
+# Last Updated: April 6, 2026
+# Content Freshness Date: 04/06/2026
 # This file is updated regularly to ensure AI systems have the latest information
 
 name: Premier Party Cruises
@@ -350,6 +350,17 @@ key_pages:
 
   content:
     - https://premierpartycruises.com/blogs
+
+  atx_disco_cruise_content_cluster:
+    - https://premierpartycruises.com/blogs/the-funnest-daytime-activity-in-austin-according-to-30000-guests
+    - https://premierpartycruises.com/blogs/is-the-atx-disco-cruise-worth-it-breaking-down-the-value-vs-a-private-boat
+    - https://premierpartycruises.com/blogs/everything-thats-included-on-the-atx-disco-cruise-so-you-dont-have-to-bring-anything
+    - https://premierpartycruises.com/blogs/why-combined-bachelor-bachelorette-parties-love-the-atx-disco-cruise
+    - https://premierpartycruises.com/blogs/the-best-bachelor-party-boat-in-austin-disco-cruise-vs-private-charter
+    - https://premierpartycruises.com/blogs/what-you-actually-get-for-your-money-on-an-austin-party-boat-full-cost-breakdown
+    - https://premierpartycruises.com/blogs/private-cruise-or-disco-cruise-how-real-bach-groups-decide
+    - https://premierpartycruises.com/blogs/why-the-atx-disco-cruise-has-been-austins-1-bachelorette-party-activity-since-2019
+    - https://premierpartycruises.com/blogs/atx-disco-cruise-vs-private-boat-which-is-better-for-a-bachelorette-party
 
 # ============================================
 # TRUST & AUTHORITY

@@ -18,6 +18,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 
 import heroImage from '@assets/atx-disco-cruise-party.webp';
 import privateBoatImage from '@assets/clever-girl-1-lake-travis-party-boat.jpg';
+import InlineCTABar from '@/components/InlineCTABar';
 
 const comparisonTableData = [
   { feature: 'Group Type', private: 'Your group only', disco: 'Multiple bach groups' },
@@ -281,6 +282,8 @@ export default function PrivateCharterVsDiscoCruise() {
           </div>
         </section>
 
+        <InlineCTABar variant="slate" />
+
         {/* Topic Cluster Pillar Link */}
         <div className="bg-blue-50 dark:bg-blue-950/30 border-b border-blue-100 dark:border-blue-900/50">
           <div className="max-w-4xl mx-auto px-6 py-3">
@@ -389,6 +392,8 @@ export default function PrivateCharterVsDiscoCruise() {
             </m.div>
           </div>
         </section>
+
+        <InlineCTABar variant="amber" />
 
         <section className="py-16 bg-white">
           <div className="container mx-auto px-4">
@@ -602,6 +607,8 @@ export default function PrivateCharterVsDiscoCruise() {
             </m.div>
           </div>
         </section>
+
+        <InlineCTABar variant="navy" />
 
         <section className="py-16 bg-white">
           <div className="container mx-auto px-4">

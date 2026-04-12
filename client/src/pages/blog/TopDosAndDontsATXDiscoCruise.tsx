@@ -20,6 +20,7 @@ import discoParty from '@assets/atx-disco-cruise-party.webp';
 import dancingScene from '@assets/dancing-party-scene.webp';
 import cleverGirl from '@assets/clever-girl-50-person-boat.webp';
 import unicornFloat from '@assets/giant-unicorn-float.webp';
+import InlineCTABar from '@/components/InlineCTABar';
 
 
 const dosList = [
@@ -64,7 +65,7 @@ const dontsList = [
   { 
     icon: Anchor, 
     title: 'DON\'T: Ignore Boat Safety Rules', 
-    description: 'No glass containers, no diving while moving, follow crew instructions. Safety keeps the party going!' 
+    description: 'No glass beer bottles, no diving while moving, follow crew instructions. Safety keeps the party going!' 
   }
 ];
 
@@ -173,6 +174,8 @@ export default function TopDosAndDontsATXDiscoCruise() {
           </div>
         </section>
 
+        <InlineCTABar variant="slate" />
+
         {/* The DO's Section */}
         <section className="py-16 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-gray-800 dark:to-gray-900">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
@@ -258,7 +261,7 @@ export default function TopDosAndDontsATXDiscoCruise() {
                   You're about to spend 4 hours dancing, swimming, and partying on a <strong>Lake Travis party boat</strong>. Food is BYOB just like drinks, and trust us - you'll want it. An empty stomach plus sun plus alcohol equals a rough time.
                 </p>
                 <p className="text-gray-700 dark:text-gray-300 mb-4 leading-relaxed">
-                  Austin breakfast tacos are the perfect pre-cruise fuel (Torchy's, Tacodeli, Veracruz All Natural). Pack a cooler with sandwiches, chips, and easy finger foods. <a href="https://www.partyondelivery.com" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline font-semibold">Party On Delivery</a> can coordinate snack boxes, coolers, and ice delivered right to the marina.
+                  Austin breakfast tacos are the perfect pre-cruise fuel (Torchy's, Tacodeli, Veracruz All Natural). Pack a cooler with sandwiches, granola bars, and easy finger foods. <a href="https://www.partyondelivery.com" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline font-semibold">Party On Delivery</a> can coordinate snack boxes, coolers, and ice delivered right to the marina.
                 </p>
                 <div className="bg-orange-50 dark:bg-orange-900/20 border-l-4 border-orange-500 p-4 rounded-r-lg">
                   <p className="text-gray-700 dark:text-gray-300 font-semibold">
@@ -357,7 +360,7 @@ export default function TopDosAndDontsATXDiscoCruise() {
                 <ul className="space-y-3 mb-4">
                   <li className="flex items-start gap-2 text-gray-700 dark:text-gray-300">
                     <XCircle className="h-5 w-5 text-red-500 mt-1 flex-shrink-0" />
-                    <span><strong>No glass containers.</strong> Broken glass on a boat deck = ruined party. Use plastic or cans only.</span>
+                    <span><strong>No glass beer bottles.</strong> Broken glass on a boat deck = ruined party. Beer must be in cans. Wine, champagne, and spirits in a cooler are fine.</span>
                   </li>
                   <li className="flex items-start gap-2 text-gray-700 dark:text-gray-300">
                     <XCircle className="h-5 w-5 text-red-500 mt-1 flex-shrink-0" />
@@ -381,6 +384,8 @@ export default function TopDosAndDontsATXDiscoCruise() {
             </m.div>
           </div>
         </section>
+
+        <InlineCTABar variant="amber" />
 
         {/* Why ATX Disco Cruise Grid */}
         <section className="py-16 bg-white dark:bg-gray-900">
@@ -461,6 +466,8 @@ export default function TopDosAndDontsATXDiscoCruise() {
             </m.div>
           </div>
         </section>
+
+        <InlineCTABar variant="navy" />
 
         {/* Quick Reference Card */}
         <section className="py-16 bg-gray-50 dark:bg-gray-800">

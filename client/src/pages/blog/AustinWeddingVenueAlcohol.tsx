@@ -183,7 +183,7 @@ export default function AustinWeddingVenueAlcohol() {
                 className="bg-rose-500 hover:bg-rose-600 text-white font-bold text-lg px-8"
                 data-testid="button-get-quote"
               >
-                <Link href="/book-now">Plan Your Wedding Celebration</Link>
+                <Link href="/wedding-parties">Plan Your Wedding Celebration</Link>
               </Button>
               <Button 
                 asChild 
@@ -192,7 +192,7 @@ export default function AustinWeddingVenueAlcohol() {
                 className="border-white text-white hover:bg-white hover:text-rose-900 font-semibold"
                 data-testid="button-view-options"
               >
-                <Link href="/private-cruises">View Lake Travis Options</Link>
+                <Link href="/bridal-shower-cruise">Bridal Shower Cruise</Link>
               </Button>
             </div>
           </div>

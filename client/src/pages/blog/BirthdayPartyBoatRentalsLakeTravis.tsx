@@ -167,15 +167,15 @@ export default function BirthdayPartyBoatRentalsLakeTravis() {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/chat">
+              <Link href="/birthday-parties">
                 <Button size="lg" className="bg-white hover:bg-gray-100 text-blue-600 font-bold text-lg px-8 py-6">
                   <Cake className="mr-2 h-5 w-5" />
                   Plan Your Birthday Cruise
                 </Button>
               </Link>
-              <Link href="/birthday-parties">
+              <Link href="/milestone-birthday">
                 <Button size="lg" variant="outline" className="bg-transparent border-white text-white hover:bg-white/10 font-bold text-lg px-8 py-6">
-                  View All Options
+                  Milestone Birthdays
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
@@ -510,10 +510,10 @@ export default function BirthdayPartyBoatRentalsLakeTravis() {
                     Start Planning Now
                   </Button>
                 </Link>
-                <a href="tel:5126091368">
+                <a href="tel:5124885892">
                   <Button size="lg" variant="outline" className="bg-transparent border-white text-white hover:bg-white/10 font-bold text-lg px-8 py-6">
                     <Phone className="mr-2 h-5 w-5" />
-                    Call (512) 609-1368
+                    Call (512) 488-5892
                   </Button>
                 </a>
               </div>

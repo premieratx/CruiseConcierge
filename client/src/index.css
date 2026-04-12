@@ -309,7 +309,8 @@ header, nav[data-testid="main-nav"] {
   --tracking-normal: 0em;
   --spacing: 0.25rem;
   
-  /* Premier Party Cruises Custom Colors - Bright Blue & Yellow Branding */
+  /* Premier Party Cruises Custom Colors */
+  --brand-navy: hsl(215 60% 13%); /* Deep nautical navy #0C1E40 */
   --brand-blue: hsl(208 100% 50%); /* Electric Blue #0080FF */
   --brand-blue-light: hsl(208 100% 96%);
   --brand-blue-dark: hsl(208 100% 40%);

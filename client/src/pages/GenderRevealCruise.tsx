@@ -1,5 +1,5 @@
 import EventPageTemplate from '@/components/EventPageTemplate';
-import { Sparkles, Heart, Camera, Users, PartyPopper, Baby } from 'lucide-react';
+import { Sparkles, Heart, Camera, Users, PartyPopper, Baby, Waves, Music, Shield, Star } from 'lucide-react';
 
 const features = [
   {
@@ -31,6 +31,26 @@ const features = [
     icon: Baby,
     title: 'Stress-Free Planning',
     description: 'We handle the venue while you focus on the reveal and celebration.'
+  },
+  {
+    icon: Waves,
+    title: 'Scenic Backdrop',
+    description: 'The rolling hills and blue waters of Lake Travis provide the ultimate reveal canvas.'
+  },
+  {
+    icon: Music,
+    title: 'Thematic Playlists',
+    description: 'Sync your announcement with the perfect build-up music on our premium speakers.'
+  },
+  {
+    icon: Shield,
+    title: 'Safe Execution',
+    description: 'Our captains ensure the boat is positioned perfectly for your reveal and guest safety.'
+  },
+  {
+    icon: Star,
+    title: 'Custom Props',
+    description: 'Bring your custom reveal props, boxes, or cannons for a truly personalized event.'
   }
 ];
 
@@ -50,6 +70,22 @@ const faqs = [
   {
     question: 'Can we keep the gender secret until the reveal on the boat?',
     answer: 'Absolutely! Many couples have a trusted friend, family member, or even us help coordinate the reveal so both parents are surprised. Just let us know your plan and we\'ll make sure everything is set up for the big moment without spoiling the surprise.'
+  },
+  {
+    question: 'What is the best boat for a gender reveal party?',
+    answer: 'For a small intimate reveal, Day Tripper (up to 14) is great. For a larger celebration with extended family, Meeseeks or The Irony (up to 30) or Clever Girl (up to 75) offer plenty of space for everyone to witness the big moment.'
+  },
+  {
+    question: 'Can we bring pink and blue themed snacks and drinks?',
+    answer: 'Yes! We are BYOB and BYOF. Many parents-to-be bring themed cupcakes, drinks, and snacks. We provide tables and coolers with ice (in Essentials/Ultimate packages) to keep everything organized and chilled.'
+  },
+  {
+    question: 'How long does a gender reveal cruise last?',
+    answer: 'Our standard private charters are 3 hours. This gives you plenty of time to cruise to a beautiful spot, enjoy some music and snacks, do the big reveal, and celebrate on the way back to the marina.'
+  },
+  {
+    question: 'Is there a restroom on the boat for our guests?',
+    answer: 'Yes, all of our primary charter vessels are equipped with a clean, private marine restroom (head) for the comfort of your guests throughout the 3-hour cruise.'
   }
 ];
 
@@ -65,6 +101,7 @@ export default function GenderRevealCruise() {
       title="Gender Reveal Cruises"
       metaTitle="Gender Reveal Cruise Austin | Lake Travis Boat Party Celebration"
       metaDescription="Host an unforgettable gender reveal on Lake Travis. Private boat party with stunning views for your big announcement. Pink or blue - reveal in style!"
+      pageRoute="/gender-reveal-cruise"
       heroTitle="Reveal in Style on Lake Travis"
       heroSubtitle="Make your gender reveal unforgettable with a stunning Lake Travis cruise featuring the perfect backdrop for your big pink or blue announcement."
       heroBadge="Gender Reveal Celebrations"

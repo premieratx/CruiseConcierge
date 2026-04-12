@@ -209,15 +209,15 @@ export default function WeddingPartyAlcoholCoordination() {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/private-cruises">
+              <Link href="/wedding-parties">
                 <Button size="lg" className="bg-yellow-500 hover:bg-yellow-400 text-black font-bold text-lg px-8 py-6">
-                  <Ship className="mr-2 h-5 w-5" />
-                  Book Wedding Party Cruise
+                  <Heart className="mr-2 h-5 w-5" />
+                  Plan Your Wedding Party
                 </Button>
               </Link>
-              <Link href="/contact">
+              <Link href="/rehearsal-dinner-cruise">
                 <Button size="lg" variant="outline" className="bg-transparent border-white text-white hover:bg-white/10 font-bold text-lg px-8 py-6">
-                  Get Custom Quote
+                  Rehearsal Dinner Cruise
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
@@ -604,7 +604,7 @@ export default function WeddingPartyAlcoholCoordination() {
               </div>
               
               <p className="mt-8 text-white/70 text-sm">
-                Questions? Call us at <a href="tel:+15126965486" className="text-yellow-400 hover:underline">(512) 696-5486</a>
+                Questions? Call us at <a href="tel:+15124885892" className="text-yellow-400 hover:underline">(512) 488-5892</a>
               </p>
             </m.div>
           </div>

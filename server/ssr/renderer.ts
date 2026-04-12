@@ -720,9 +720,34 @@ function wrapWithSSRNavigation(content: string): string {
 function renderPageContent(content: PageContent, pathname?: string): string {
   // Process introduction text for [[token]] replacements
   const processedIntroduction = processTokens(content.introduction, LINK_CATALOG);
+
+  // Build referral banner HTML for bachelorette/bachelor/disco pages (visible to crawlers)
+  let referralBannerHtml = '';
+  if (pathname) {
+    const hasBachelorette = pathname.includes('bachelorette');
+    // Strip 'bachelorette' substring before checking for 'bachelor' to avoid false positives
+    // ('bachelorette' contains 'bachelor' as a substring)
+    const pathnameWithoutBachelorette = pathname.replace(/bachelorette/g, '');
+    const hasBachelorWord = pathnameWithoutBachelorette.includes('bachelor');
+    const hasDiscoWord = pathname.includes('disco') || pathname.includes('atx-disco');
+    const isMainBachelorette = pathname === '/bachelorette-party-austin';
+    const isMainBachelor = pathname === '/bachelor-party-austin';
+    const isMainDisco = pathname === '/atx-disco-cruise';
+    const isCombined = hasBachelorette && hasBachelorWord;
+    if (isCombined && !isMainBachelorette && !isMainBachelor) {
+      referralBannerHtml = `<p style="background:#1d4ed8;color:#fff;padding:0.75rem 1rem;border-radius:6px;margin-bottom:1.5rem;font-size:0.95rem;"><strong>Planning a combined trip?</strong> See the full guides: <a href="/bachelorette-party-austin" style="color:#fef08a;text-decoration:underline;">Austin Bachelorette Party Guide</a> and <a href="/bachelor-party-austin" style="color:#fef08a;text-decoration:underline;">Austin Bachelor Party Guide</a> — and book your spots on the <a href="/atx-disco-cruise" style="color:#fef08a;text-decoration:underline;">ATX Disco Cruise</a>, Austin's #1 bachelor &amp; bachelorette experience on Lake Travis.</p>`;
+    } else if (hasBachelorette && !isMainBachelorette) {
+      referralBannerHtml = `<p style="background:#1d4ed8;color:#fff;padding:0.75rem 1rem;border-radius:6px;margin-bottom:1.5rem;font-size:0.95rem;"><strong>Looking for the complete Austin bachelorette party guide?</strong> Our main <a href="/bachelorette-party-austin" style="color:#fef08a;text-decoration:underline;">Austin Bachelorette Party page</a> is the definitive resource — and the <a href="/atx-disco-cruise" style="color:#fef08a;text-decoration:underline;">ATX Disco Cruise</a> is Austin's #1 bachelorette experience on Lake Travis.</p>`;
+    } else if (hasBachelorWord && !isMainBachelor) {
+      referralBannerHtml = `<p style="background:#1d4ed8;color:#fff;padding:0.75rem 1rem;border-radius:6px;margin-bottom:1.5rem;font-size:0.95rem;"><strong>Looking for the complete Austin bachelor party guide?</strong> Our main <a href="/bachelor-party-austin" style="color:#fef08a;text-decoration:underline;">Austin Bachelor Party page</a> is the definitive resource — and the <a href="/atx-disco-cruise" style="color:#fef08a;text-decoration:underline;">ATX Disco Cruise</a> is Austin's most-booked bachelor party experience on Lake Travis.</p>`;
+    } else if (hasDiscoWord && !isMainDisco) {
+      referralBannerHtml = `<p style="background:#1d4ed8;color:#fff;padding:0.75rem 1rem;border-radius:6px;margin-bottom:1.5rem;font-size:0.95rem;"><strong>Ready to book Austin's #1 party experience?</strong> The <a href="/atx-disco-cruise" style="color:#fef08a;text-decoration:underline;">ATX Disco Cruise</a> is the only multi-group all-inclusive bachelor &amp; bachelorette cruise in the U.S. — DJ, photographer, floats, and Lake Travis views all included. Also see: <a href="/bachelor-party-austin" style="color:#fef08a;text-decoration:underline;">Bachelor Party Guide</a> &amp; <a href="/bachelorette-party-austin" style="color:#fef08a;text-decoration:underline;">Bachelorette Party Guide</a>.</p>`;
+    }
+  }
   
   let html = `
     <div class="ssr-content" style="padding: 2rem; max-width: 1200px; margin: 0 auto; font-family: system-ui, sans-serif;">
+      ${referralBannerHtml}
       <h1 style="font-size: 2.5rem; font-weight: bold; margin-bottom: 1.5rem; color: #000; line-height: 1.2;">${content.h1}</h1>
       <p style="font-size: 1.125rem; line-height: 1.75; color: #374151; margin-bottom: 2rem;">${processedIntroduction}</p>
   `;
@@ -1049,6 +1074,15 @@ const CONVERTED_TO_REACT_SLUGS = new Set([
   'why-choose-austin-bachelorette-party',
   'why-choose-austin-bachelor-party',
   'why-choose-integrated-event-services-comparing-austin-party-planning-options',
+  'atx-disco-cruise-vs-private-boat-which-is-better-for-a-bachelorette-party',
+  'everything-thats-included-on-the-atx-disco-cruise-so-you-dont-have-to-bring-anything',
+  'is-the-atx-disco-cruise-worth-it-breaking-down-the-value-vs-a-private-boat',
+  'private-cruise-or-disco-cruise-how-real-bach-groups-decide',
+  'the-best-bachelor-party-boat-in-austin-disco-cruise-vs-private-charter',
+  'the-funnest-daytime-activity-in-austin-according-to-30000-guests',
+  'what-you-actually-get-for-your-money-on-an-austin-party-boat-full-cost-breakdown',
+  'why-combined-bachelor-bachelorette-parties-love-the-atx-disco-cruise',
+  'why-the-atx-disco-cruise-has-been-austins-1-bachelorette-party-activity-since-2019',
 ]);
 
 // Check if a blog slug has been converted to React (should skip WordPress DB)
@@ -1543,19 +1577,35 @@ async function renderPage(url: string, req: Request): Promise<string> {
             const helmetTitle = viteResult.helmet?.title || '';
             const helmetMeta = viteResult.helmet?.meta || '';
             const helmetLink = viteResult.helmet?.link || '';
-            
-            // FIXED: Use ONLY Vite SSR result - don't double-inject PAGE_CONTENT
-            // Vite SSR already renders the full React component with proper content
-            // Adding PAGE_CONTENT was causing duplicate/overlapping headings
+
+            // Get blog metadata for title fallback and schema generation
+            const viteBlogMeta = getBlogMetadata('/blogs/' + slug) || getBlogMetadata(pathname);
+
+            // Build SSR content: React component in #root + pageContent as sibling .ssr-content
+            // pageContent is hidden after React hydration via CSS:
+            // #root[data-hydrated="true"] ~ .ssr-content { display: none !important; }
             let ssrContent = `<div id="root">${viteResult.html}</div>`;
+            const vitePageContent = PAGE_CONTENT['/blogs/' + slug] || PAGE_CONTENT[pathname];
+            if (vitePageContent) {
+              const ssrHidden = renderPageContent(vitePageContent, pathname);
+              ssrContent += `\n<div class="ssr-content" aria-hidden="true" style="position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;overflow:hidden;">${ssrHidden}</div>`;
+            }
             template = template.replace('<div id="root"></div>', ssrContent);
             
-            // Inject helmet meta tags
-            if (helmetTitle) {
+            // Inject helmet meta tags — with blogMeta fallback for title
+            // Check if helmetTitle actually has text content (React Helmet can emit empty <title data-rh="true"></title>)
+            const helmetTitleText = helmetTitle.match(/<title[^>]*>([^<]+)<\/title>/)?.[1] || '';
+            if (helmetTitleText) {
               template = template.replace(/<title>.*?<\/title>/, helmetTitle);
+            } else if (viteBlogMeta?.title) {
+              const blogTitle = `${viteBlogMeta.title} | Lake Travis`;
+              template = template.replace(/<title>.*?<\/title>/, `<title>${blogTitle}</title>`);
             }
             if (helmetMeta) {
               template = template.replace('</head>', `${helmetMeta}\n</head>`);
+            } else if (viteBlogMeta?.description) {
+              const escapedDesc = viteBlogMeta.description.replace(/"/g, '&quot;');
+              template = template.replace('</head>', `<meta name="description" content="${escapedDesc}" />\n</head>`);
             }
             if (helmetLink) {
               template = template.replace('</head>', `${helmetLink}\n</head>`);
@@ -1577,6 +1627,24 @@ async function renderPage(url: string, req: Request): Promise<string> {
             routeSchemas.forEach(schema => {
               schemaScripts += `<script type="application/ld+json">${JSON.stringify(schema)}</script>\n`;
             });
+
+            // Add BlogPosting / Article schema for blog posts
+            if (viteBlogMeta) {
+              // Strip 'blogs/' prefix from slug if present (registry stores slugs as 'blogs/...')
+              const cleanArticleSlug = viteBlogMeta.slug.startsWith('blogs/')
+                ? viteBlogMeta.slug.slice('blogs/'.length)
+                : viteBlogMeta.slug;
+              const articleSchema = generateArticleSchema({
+                title: viteBlogMeta.title,
+                slug: cleanArticleSlug,
+                excerpt: viteBlogMeta.description,
+                featuredImage: viteBlogMeta.heroImage,
+                publishedAt: viteBlogMeta.publishDate,
+                modifiedAt: viteBlogMeta.modifiedDate || viteBlogMeta.publishDate,
+                author: { name: viteBlogMeta.author }
+              });
+              schemaScripts += `<script type="application/ld+json">${JSON.stringify(articleSchema)}</script>\n`;
+            }
             
             template = template.replace('</head>', `${schemaScripts}</head>`);
             

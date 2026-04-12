@@ -100,7 +100,16 @@ const HowToThrowBachelorettePartyAustin = lazy(() => import("./pages/blog/HowToT
 const LakeTravisBachelorPartyBoatsGuide = lazy(() => import("./pages/blog/LakeTravisBachelorPartyBoatsGuide"));
 const PerfectAustinBachelorPartyWeekend = lazy(() => import("./pages/blog/PerfectAustinBachelorPartyWeekend"));
 const ATXDiscoCruiseDosAndDonts = lazy(() => import("./pages/blog/ATXDiscoCruiseDosAndDonts"));
+const TheFunnestDaytimeActivityAustin = lazy(() => import("./pages/blog/TheFunnestDaytimeActivityAustin"));
+const ATXDiscoCruiseWorthIt = lazy(() => import("./pages/blog/ATXDiscoCruiseWorthIt"));
+const EverythingIncludedATXDiscoCruise = lazy(() => import("./pages/blog/EverythingIncludedATXDiscoCruise"));
+const WhyCombinedBachLoveDiscoCruise = lazy(() => import("./pages/blog/WhyCombinedBachLoveDiscoCruise"));
+const BestBachelorPartyBoatAustin = lazy(() => import("./pages/blog/WhatYouGetForMoneyPartyBoat"));
+const WhatYouGetForMoneyPartyBoat = lazy(() => import("./pages/blog/BestBachelorPartyBoatAustin"));
 const TopDosAndDontsATXDiscoCruise = lazy(() => import("./pages/blog/TopDosAndDontsATXDiscoCruise"));
+const PrivateCruiseOrDiscoCruise = lazy(() => import("./pages/blog/PrivateCruiseOrDiscoCruise"));
+const ATXDiscoCruiseBacheloretteNumber1 = lazy(() => import("./pages/blog/ATXDiscoCruiseBacheloretteNumber1"));
+const ATXDiscoCruiseVsPrivateBachelorette = lazy(() => import("./pages/blog/ATXDiscoCruiseVsPrivateBachelorette"));
 const BachelorPartyOutfitIdeas = lazy(() => import("./pages/blog/BachelorPartyOutfitIdeas"));
 const JointBachelorBachelorettePartyGuide = lazy(() => import("./pages/blog/JointBachelorBachelorettePartyGuide"));
 const QuarterlyOutingsLakeTravis = lazy(() => import("./pages/blog/QuarterlyOutingsLakeTravis"));
@@ -135,6 +144,7 @@ const SiteDirectory = lazy(() => import("./pages/SiteDirectory"));
 const BlogManagement = lazy(() => import("./pages/admin/BlogManagement"));
 const BlogPostEditor = lazy(() => import("./pages/admin/BlogPostEditor"));
 const BlogFormatter = lazy(() => import("./pages/admin/BlogFormatter"));
+const BlogBatchImporter = lazy(() => import("./pages/admin/BlogBatchImporter"));
 
 // Admin SEO Pages - Lazy loaded
 const SEOManagement = lazy(() => import("./pages/admin/SEOManagement"));
@@ -163,6 +173,7 @@ const FAQReview = lazy(() => import("./pages/admin/FAQReview"));
 
 // Admin Business Summary - Lazy loaded
 const BusinessSummary = lazy(() => import("./pages/admin/BusinessSummary"));
+const SiteSummary = lazy(() => import("./pages/admin/SiteSummary"));
 
 // Admin Blog Conversion Tracker - Lazy loaded
 const BlogConversionTracker = lazy(() => import("./pages/admin/BlogConversionTracker"));
@@ -178,6 +189,8 @@ const BirthdayParties = lazy(() => import("./pages/BirthdayParties"));
 const WeddingParties = lazy(() => import("./pages/WeddingParties"));
 const Gallery = lazy(() => import("./pages/Gallery"));
 const Contact = lazy(() => import("./pages/Contact"));
+const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
+const TermsAndConditions = lazy(() => import("./pages/TermsAndConditions"));
 const TestimonialsFaq = lazy(() => import("./pages/TestimonialsFaq"));
 const PartyBoatAustin = lazy(() => import("./pages/PartyBoatAustin"));
 const PartyBoatLakeTravis = lazy(() => import("./pages/PartyBoatLakeTravis"));
@@ -388,6 +401,8 @@ function Router() {
       <Route path="/party-boat-lake-travis" component={PartyBoatLakeTravis} />
       <Route path="/gallery" component={Gallery} />
       <Route path="/contact" component={Contact} />
+      <Route path="/privacy-policy" component={PrivacyPolicy} />
+      <Route path="/terms-of-service" component={TermsAndConditions} />
       <Route path="/testimonials-faq" component={TestimonialsFaq} />
       <Route path="/ai-endorsement" component={AIEndorsement} />
       <Route path="/partners" component={Partners} />
@@ -539,6 +554,15 @@ function Router() {
       <Route path="/blogs/how-to-throw-great-bachelorette-party-austin" component={HowToThrowBachelorettePartyAustin} />
       <Route path="/blogs/lake-travis-bachelor-party-boats-guide" component={LakeTravisBachelorPartyBoatsGuide} />
       <Route path="/blogs/atx-disco-cruise-dos-and-donts-bachelor-party" component={ATXDiscoCruiseDosAndDonts} />
+      <Route path="/blogs/the-funnest-daytime-activity-in-austin-according-to-30000-guests" component={TheFunnestDaytimeActivityAustin} />
+      <Route path="/blogs/is-the-atx-disco-cruise-worth-it-breaking-down-the-value-vs-a-private-boat" component={ATXDiscoCruiseWorthIt} />
+      <Route path="/blogs/everything-thats-included-on-the-atx-disco-cruise-so-you-dont-have-to-bring-anything" component={EverythingIncludedATXDiscoCruise} />
+      <Route path="/blogs/why-combined-bachelor-bachelorette-parties-love-the-atx-disco-cruise" component={WhyCombinedBachLoveDiscoCruise} />
+      <Route path="/blogs/the-best-bachelor-party-boat-in-austin-disco-cruise-vs-private-charter" component={BestBachelorPartyBoatAustin} />
+      <Route path="/blogs/what-you-actually-get-for-your-money-on-an-austin-party-boat-full-cost-breakdown" component={WhatYouGetForMoneyPartyBoat} />
+      <Route path="/blogs/private-cruise-or-disco-cruise-how-real-bach-groups-decide" component={PrivateCruiseOrDiscoCruise} />
+      <Route path="/blogs/why-the-atx-disco-cruise-has-been-austins-1-bachelorette-party-activity-since-2019" component={ATXDiscoCruiseBacheloretteNumber1} />
+      <Route path="/blogs/atx-disco-cruise-vs-private-boat-which-is-better-for-a-bachelorette-party" component={ATXDiscoCruiseVsPrivateBachelorette} />
       <Route path="/blogs/the-top-dos-and-dont-for-success-on-the-atx-disco-cruise-with-premier-party-cruises" component={TopDosAndDontsATXDiscoCruise} />
       <Route path="/blogs/bachelor-party-outfit-ideas-atx-disco-cruise" component={BachelorPartyOutfitIdeas} />
       <Route path="/blogs/joint-bachelor-bachelorette-party-guide" component={JointBachelorBachelorettePartyGuide} />
@@ -778,6 +802,11 @@ function Router() {
           <BlogPostEditor />
         </ProtectedRoute>
       </Route>
+      <Route path="/admin/blogs/batch">
+        <ProtectedRoute>
+          <BlogBatchImporter />
+        </ProtectedRoute>
+      </Route>
       <Route path="/admin/blogs/posts/:id/edit">
         <ProtectedRoute>
           <BlogPostEditor />
@@ -893,6 +922,11 @@ function Router() {
       <Route path="/admin/business-summary">
         <ProtectedRoute>
           <BusinessSummary />
+        </ProtectedRoute>
+      </Route>
+      <Route path="/admin/site-summary">
+        <ProtectedRoute>
+          <SiteSummary />
         </ProtectedRoute>
       </Route>
       

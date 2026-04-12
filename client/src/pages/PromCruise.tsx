@@ -1,5 +1,5 @@
 import EventPageTemplate from '@/components/EventPageTemplate';
-import { GraduationCap, Shield, Camera, Music, Users, Star } from 'lucide-react';
+import { GraduationCap, Shield, Camera, Music, Users, Star, Clock, Ship, Check, Heart } from 'lucide-react';
 
 const features = [
   {
@@ -31,6 +31,26 @@ const features = [
     icon: Star,
     title: 'Unique Experience',
     description: 'Stand out from traditional venues with a prom cruise your students will remember forever.'
+  },
+  {
+    icon: Clock,
+    title: 'Flexible Timing',
+    description: 'Book your pre-prom sunset cruise or post-prom celebration to fit your school\'s schedule.'
+  },
+  {
+    icon: Ship,
+    title: 'Modern Fleet',
+    description: 'Our well-maintained boats provide a stylish and comfortable setting for high school celebrations.'
+  },
+  {
+    icon: Check,
+    title: 'Easy Coordination',
+    description: 'We work directly with parent groups and schools to ensure all logistics are handled professionally.'
+  },
+  {
+    icon: Heart,
+    title: 'Unforgettable Memories',
+    description: 'Give students a high-school milestone they\'ll cherish for years to come.'
   }
 ];
 
@@ -50,6 +70,22 @@ const faqs = [
   {
     question: 'How do prom cruise timing and logistics work?',
     answer: 'We offer flexible scheduling for prom events. Popular options include sunset cruises before or after dinner. Standard cruises are 3 hours. We\'ll coordinate meeting at the marina and can work with your event timeline. Photography time at the dock is included.'
+  },
+  {
+    question: 'What is the minimum age for a BYOB cruise?',
+    answer: 'For groups where alcohol is present, all guests must be 21+ with a valid ID. For school-organized events or prom cruises where alcohol is not permitted, we welcome high school students. We have a zero-tolerance policy for underage drinking.'
+  },
+  {
+    question: 'Are chaperones required for prom cruises?',
+    answer: 'For student groups under 18, we require at least one adult chaperone (21+) per boat. Chaperones are responsible for the behavior of the group, while our captain and crew focus on the safe operation of the vessel.'
+  },
+  {
+    question: 'Can we bring our own food and snacks?',
+    answer: 'Yes! We are BYOF (Bring Your Own Food) friendly. Students often bring pizza, snacks, and soda. Our Essentials and Ultimate packages include coolers with ice to keep your beverages cold throughout the cruise.'
+  },
+  {
+    question: 'What happens if we have more than 75 students?',
+    answer: 'Our flagship boat, Clever Girl, has a maximum capacity of 75 guests. If your group is larger, we can coordinate multiple boats (like Meeseeks and The Irony) to depart together, accommodating up to 135+ guests across our fleet.'
   }
 ];
 
@@ -64,6 +100,7 @@ export default function PromCruise() {
       title="Prom Cruise"
       metaTitle="Prom Cruise Austin | Lake Travis School Event Boat Rentals | Premier Party Cruises"
       metaDescription="Make prom unforgettable with a Lake Travis cruise! Safe, supervised party boats for student groups. Perfect for prom, homecoming, and school celebrations. Book your student event today!"
+      pageRoute="/prom-cruise"
       heroTitle="A Prom They'll Never Forget"
       heroSubtitle="Skip the ordinary venue and celebrate prom on Lake Travis. Stunning sunsets, great music, and memories that last a lifetime."
       heroBadge="School Event Cruises"

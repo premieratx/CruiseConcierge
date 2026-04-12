@@ -15,11 +15,66 @@ Premier Party Cruises offers party boat rentals on Lake Travis, Austin, speciali
 - **100% FACTUAL ACCURACY**: No made-up activities, services, or features. Only describe what Premier Party Cruises actually provides: boat, captain, lake setting, and amenities. Customers create their own experience.
 - **MANDATORY SITEMAP VALIDATION**: After ANY edit to `public/sitemap.xml` or sitemap generation scripts, MUST verify: (1) opening `<url>` count equals closing `</url>` count, (2) no consecutive `<url>` tags without content between them, (3) no nested `<url>` tags. Run: `grep -c "^  <url>$" public/sitemap.xml && grep -c "</url>" public/sitemap.xml` - counts must match.
 
+## SEO NON-NEGOTIABLES — PERMANENT RULES (READ BEFORE TOUCHING ANY PAGE)
+
+These rules exist because a real SEO ranking loss happened from content deletion. They are permanent and non-negotiable.
+
+### THE CARDINAL RULE: Never reduce crawlable word count on a ranking page without replacing it
+- **Before removing ANY section from ANY service page**: identify what keyword territory it covers and where that coverage moves to
+- If there is no replacement plan, the section does NOT get removed — it gets rewritten
+- "Clean UI" and "good SEO" are not in conflict. The SSR layer exists so crawlers see deep content while users see clean pages
+
+### Minimum crawlable word count per page type
+- **Core service pages** (ATX Disco, Bachelor, Bachelorette, Private Cruises, Combined Bach): 1,500–2,500 crawler-visible words minimum
+- **Category pages** (birthday, wedding, corporate, etc.): 1,000–1,500 words minimum
+- **Blog pages**: 500 words absolute minimum, 1,000+ recommended
+
+### Where SEO content lives
+- ALL crawlable content for core service pages goes in `server/ssr/pageContent.ts` using the `PAGE_CONTENT` object
+- Use `[[token]]` syntax for internal links — these get replaced with real hrefs before serving
+- NEVER add SEO content blocks to the React UI that users see — keep the UI clean
+- Users see the React component; crawlers see the SSR layer
+
+### The two-part rule for any page edit
+1. **Remove / simplify UI**: Also update `pageContent.ts` to ensure the removed content's keyword coverage is maintained in the SSR layer
+2. **Add new sections**: Also add those facts and topics to `pageContent.ts` if they aren't already there
+
+### What search engines and AI engines need from every core page
+- What the service IS (real description, not marketing)
+- Who it's FOR (specific audience targeting)
+- How it WORKS (step-by-step logistics)
+- What's INCLUDED (real specifics, real prices)
+- Real FAQs answering what Perplexity/ChatGPT/Google AI Overviews pull from
+- Real logistics: marina address (13993 FM 2769, Leander TX 78641), parking, timing, BYOB rules, booking lead time
+- Austin context: why Lake Travis, why Premier Party Cruises specifically, what differentiates us
+
+### Page-specific word count tracking (last verified March 2026)
+- `/` Home: ~4,291 crawler words ✓
+- `/atx-disco-cruise`: ~4,103 crawler words ✓ (up from 3,798 — added featured YouTube section, video performance improvements)
+- `/bachelor-party-austin`: ~4,720 crawler words ✓ (stable near 4,734 target — added marina transportation section to SSR layer)
+- `/bachelorette-party-austin`: ~5,042 crawler words ✓ (MAJOR EXPANSION March 2026: page grew 604→884 lines; added trust stats bar, scrolling photo gallery, two-options comparison cards, how-it-works 4-step section, Lake Travis split section with photos, transportation guide, party planning checklist, 15-FAQ expanded accordion; SSR layer added how-to-book + marina logistics + 4 additional FAQ entries)
+- `/private-cruises`: ~2,800 crawler words ✓ (expanded March 2026)
+- `/combined-bachelor-bachelorette-austin`: ~3,881 crawler words ✓ (up from 2,600 — major expansion March 2026)
+
+### Schema / structured data rules
+- ALL JSON-LD schemas live in `attached_assets/schema_data/` — NEVER inject from React components
+- After adding new FAQ accordion items to any page, update the corresponding `.jsonld` file
+- Run `npx tsx scripts/pre-deploy-seo-check.ts` before any deployment
+
+### The lesson that led to these rules
+In early 2026, a "UI consolidation" pass removed ~1,100 lines from the home and ATX Disco pages to reduce bloat. The removed sections were bad writing but had real SEO value — they covered keyword territory, added word count that search engines had indexed, and maintained topical depth signals. Rankings dropped. The correct approach was to rewrite those sections with accurate content and move them to the SSR layer — not delete them. That mistake will not be repeated.
+
 ## Fleet Information
 - **Day Tripper**: 14 seats comfortably, max capacity 14 guests
 - **Meeseeks / The Irony**: 20 seats comfortably, max capacity 30 guests (2 identical boats available)
   - IMPORTANT: Always spell as "Meeseeks" (not "Me Seeks", "MeSeeks", etc.)
 - **Clever Girl**: 30 seats comfortably, max capacity 75 guests (flagship boat with 14 disco balls)
+
+## Key Business Details
+- **Phone**: (512) 488-5892 — tel href: `tel:+15124885892` — this is the ONLY correct phone number site-wide, no exceptions
+- **Marina address**: 13993 FM 2769, Leander, TX 78641 — Anderson Mill Marina
+- **ATX Disco Cruise schedule**: Fridays 12-4pm ($95/person), Saturdays 11am-3pm ($105/person), Saturdays 3:30-7:30pm ($85/person) — March through October
+- **Private cruise pricing**: Starting at $200/hour with 4-hour minimum (Day Tripper), $225/hour (Meeseeks), $250/hour (Clever Girl)
 
 ## System Architecture
 The system employs a **React + TypeScript + Vite** frontend with **Tailwind CSS** and **shadcn/ui**, using **Wouter** for routing. The backend is built with **Express + Node.js** and **PostgreSQL**.
@@ -38,36 +93,26 @@ Key technical implementations and design decisions include:
 -   **UI/UX**: Prioritizes clear navigation, responsive design, and components like `TableOfContents`, `StickyCTA`, and `CollapsibleSection`. Video backgrounds in hero sections are used for engaging visuals.
 -   **Photo Gallery**: Utilizes an `AnimatedPhotoGallery` component displaying verified party photos, specifically excluding mislabeled images showing empty boats.
 -   **SEO Audit & Compliance**: Automated scripts and processes are in place to ensure ongoing SEO health, including title tag optimization, H1 visibility, sitemap accuracy, and structured data validation for Google Search Console compliance.
--   **SSR Content Priority System**: For blog pages, content sources are prioritized: (1) Database content if 500+ chars, (2) PAGE_CONTENT entries in `pageContent.ts`, (3) blogMetadataRegistry short descriptions. This ensures all pages have sufficient crawlable content.
--   **SEO Audit Script**: Run `npx tsx scripts/seo-audit.ts` to verify all sitemap URLs pass 8 critical SEO checks (H1, meta title/description, content length 500+, canonical URL, Open Graph, structured data, mobile viewport). Current score: 100% (141/141 pages passing).
--   **Schema Validation**: Run `npx tsx scripts/schema-validator.ts` to validate GSC compliance on 8 key pages. Checks for duplicate schemas (except allowed Service type), missing required fields (price/priceSpecification, availability, priceCurrency for Offers), and conflicting microdata. CRITICAL: ALL structured data (JSON-LD) must be handled via SSR from `attached_assets/schema_data/` files - NEVER inject schemas from React components to avoid duplicates.
+-   **SSR Content Priority System**: For blog pages, content sources are prioritized: (1) Database content if 500+ chars, (2) PAGE_CONTENT entries in `pageContent.ts`, (3) blogMetadataRegistry short descriptions.
+-   **SEO Audit Script**: Run `npx tsx scripts/seo-audit.ts` to verify all sitemap URLs pass 8 critical SEO checks.
+-   **Schema Validation**: Run `npx tsx scripts/schema-validator.ts` to validate GSC compliance on 8 key pages. CRITICAL: ALL structured data (JSON-LD) must be handled via SSR from `attached_assets/schema_data/` files - NEVER inject schemas from React components to avoid duplicates.
 -   **Pre-Deploy Check**: Run `npx tsx scripts/pre-deploy-seo-check.ts` before deployments - combines SEO audit + schema validation for comprehensive compliance verification.
--   **SSR Health Check**: Run `npx tsx scripts/ssr-health-check.ts` to validate 25 critical routes for soft 404 prevention. Checks H1 tags, meta descriptions (50+ chars), content length (10KB+), and soft 404 indicators. MUST pass before any deploy to prevent Google Search Console soft 404 errors.
--   **Blog Word Count Audit**: Run `npx tsx scripts/blog-word-count-audit.ts` to verify all 94 blog pages have adequate SSR content for crawlers. Checks word count (min 500, recommended 1000), H1 presence. CRITICAL: Pages need database content OR PAGE_CONTENT entries for SSR visibility.
+-   **SSR Health Check**: Run `npx tsx scripts/ssr-health-check.ts` to validate 25 critical routes for soft 404 prevention.
 -   **SSR Content Sources**: Blog pages get content from: (1) Database content if 500+ chars, (2) PAGE_CONTENT entries in `server/ssr/pageContent.ts` (29+ pages), (3) blogMetadataRegistry descriptions (fallback only). All React blog pages now go through SSR handler for full content visibility.
 -   **CRITICAL SSR FIX (Jan 2026)**: Removed `next('route')` bypass in `server/routes.ts` that was skipping SSR for React pages. All blog pages now render through SSR handler, ensuring PAGE_CONTENT entries are used for crawlers.
--   **Vite SSR for React Blog Pages (Jan 2026)**: Implemented proper Vite-powered SSR for React blog pages via `server/ssr/viteSSR.ts`. Key features:
-    - Vite dev server initializes in middleware mode for SSR module loading
-    - `client/src/entry-server.tsx` exports async `render()` function with module preloading
-    - Double-render technique primes lazy() module cache to ensure full content on first request
-    - All React blog pages in MASTER_REACT_BLOG_SLUGS render 100-200KB with 1000+ words on cold start
-    - react-helmet-async imports use star import pattern for ESM/CJS compatibility
-    - Fallback to static content if Vite SSR produces insufficient output
--   **WordPress Blog SSR Fix (Jan 2026)**: Fixed critical bug where 7 WordPress/DB blog posts rendered 0 words (just React shell). Root cause: `blogSSRHandler` in `server/routes.ts` tried React SSR for ALL blog posts, including WordPress ones. WordPress posts don't have React components, so they got empty shells. Fix: Check `MASTER_REACT_BLOG_SLUGS` - only attempt React SSR for React pages; inject database content directly for WordPress posts. Affected posts now render 1500-2100+ words: startup-celebration, recipe-for-chillest, top-dos-and-dont, top-five-celebrities, ultimate-bachelorette-alcohol-guide, wedding-party-alcohol-coordination.
--   **Production Template Fix (Jan 2026)**: Fixed SEMRush "unminified JavaScript" warning for WordPress blog pages. In production, `blogSSRHandler` now uses `dist/public/index.html` (with minified assets like `/assets/*.js`) instead of `client/index.html` (which references `/src/main.tsx`). In production, missing build artifacts return 500 error rather than silently serving dev assets.
--   **SSR Overlapping Text Fix (Feb 2026)**: Fixed critical bug where SSR content and React content overlapped visually on blog pages. Root cause: `renderToString` doesn't support Suspense, outputting error templates like `<!--$!--><template data-msg="The server did not finish this Suspense boundary...`. Fix: (1) Detect Suspense error templates in SSR output, (2) Use `generateRichFallbackContent()` for SEO crawlers, (3) CRITICAL: Inject SSR content as a SIBLING of #root with class `ssr-content` instead of inside root. CSS rule `#root[data-hydrated="true"] ~ .ssr-content { display: none !important; }` hides SSR content after React hydrates. This ensures crawlers see content while users see only React-rendered content.
--   **TBT Optimization (Feb 2026)**: Improved Total Blocking Time by: (1) Lazy-loading GoogleAnalytics, Toaster, XolaMobileCloseButton components, (2) Deferring Google Analytics script loading to 5 seconds + requestIdleCallback, (3) ErrorBoundary kept sync-loaded since it wraps Router.
--   **SSR Navigation for Internal Linking (Feb 2026)**: Fixed SEMRush "home page has only one incoming link" error. Root cause: SSR output had NO navigation - only page content. Crawlers couldn't see links to home because navigation is rendered by React on client-side only. Fix: Added `generateSSRNavigation()` and `generateSSRFooter()` helper functions in `server/ssr/renderer.ts` that include proper internal links (home, ATX Disco, Bachelor/Bachelorette, Private Cruises, Gallery, Reviews, Contact, Blog). SSR content wrapped with navigation as sibling element with class `ssr-content`. Same pattern added to `server/routes.ts` `generateRichFallbackContent()` for blog pages. All pages now have 3 home links visible to crawlers.
--   **Related Content Internal Linking (Feb 2026)**: Comprehensive BIDIRECTIONAL internal linking system connecting ALL pages to related blog articles and vice versa for improved SEO. Key features:
-    - `RELATED_PAGES_MAP` in `server/ssr/pageContent.ts` with 12 category mappings covering all service types
-    - **Forward mappings (pages → blogs)**: BACHELOR_RELATED, BACHELORETTE_RELATED, COMBINED_BACH_RELATED, ATX_DISCO_RELATED, CORPORATE_RELATED, PRIVATE_CRUISES_RELATED, BIRTHDAY_RELATED, WEDDING_RELATED, CELEBRATION_RELATED, GRADUATION_RELATED, HOLIDAY_RELATED
-    - **Reverse mappings (blogs → pages)**: BACHELOR_BLOG_BACK_TO_PAGE, BACHELORETTE_BLOG_BACK_TO_PAGE, COMBINED_BACH_BLOG_BACK_TO_PAGE, ATX_DISCO_BLOG_BACK_TO_PAGE, CORPORATE_BLOG_BACK_TO_PAGE, BIRTHDAY_BLOG_BACK_TO_PAGE, WEDDING_BLOG_BACK_TO_PAGE, CELEBRATION_BLOG_BACK_TO_PAGE, GRADUATION_BLOG_BACK_TO_PAGE, HOLIDAY_BLOG_BACK_TO_PAGE, GENERAL_BLOG_BACK_TO_PAGE
-    - `getRelatedLinksForPage(pathname)` function returns {url, title} objects for any page OR blog
-    - `renderDynamicRelatedLinks()` in renderer.ts generates "Related Cruise Options" and "Related Articles" sections
-    - Blog SSR in routes.ts also injects related links for Vite-rendered blog pages
-    - All SSR, fallback content, and blog pages include related links for crawler visibility
-    - **Covered main pages (40+)**: bachelor, bachelorette, combined bach, ATX disco, corporate (events/team-building/client-entertainment/company-milestone), private cruises, birthday (parties/boat-rental/milestone/sweet-16), wedding (parties/rehearsal-dinner/after-party/welcome-party/bridal-shower/engagement), celebration cruises (anniversary/proposal/gender-reveal/baby-shower/memorial/family-reunion/retirement), graduation (party/cruise/prom), holiday-party-cruise
-    - **Covered blogs (100+)**: 11 bachelor, 18 bachelorette, 2 combined bach, 3 ATX disco, 25+ corporate, 2 birthday, 6 wedding, 5 celebration, 1 graduation, 3 holiday, 20+ general/safety/logistics blogs
+-   **Vite SSR for React Blog Pages (Jan 2026)**: Implemented proper Vite-powered SSR for React blog pages via `server/ssr/viteSSR.ts`. Double-render technique primes lazy() module cache. All React blog pages in MASTER_REACT_BLOG_SLUGS render 100-200KB with 1000+ words on cold start.
+-   **WordPress Blog SSR Fix (Jan 2026)**: Fixed critical bug where WordPress/DB blog posts rendered 0 words. Check `MASTER_REACT_BLOG_SLUGS` — only attempt React SSR for React pages; inject database content directly for WordPress posts.
+-   **SSR Overlapping Text Fix (Feb 2026)**: SSR content injected as a SIBLING of #root with class `ssr-content`. CSS rule `#root[data-hydrated="true"] ~ .ssr-content { display: none !important; }` hides SSR content after React hydrates.
+-   **TBT Optimization (Feb 2026)**: Lazy-loading GoogleAnalytics, Toaster, XolaMobileCloseButton. Deferring Google Analytics script loading to 5 seconds + requestIdleCallback.
+-   **ATX Disco Cruise Content Cluster (Apr 2026)**: 10 static React blog posts targeting bach party queries. All posts have correct title tags (with blogMeta fallback in renderer.ts when helmetTitle is empty), FAQPage + Article JSON-LD schemas, and pageContent.ts injected as sibling `.ssr-content` div for AI crawlers. File naming quirk: `BestBachelorPartyBoatAustin.tsx` contains cost breakdown content; `WhatYouGetForMoneyPartyBoat.tsx` contains bachelor boat guide content. App.tsx import lines are swapped to serve correct content at correct routes.
+-   **Vite SSR Title Fallback (Apr 2026)**: Fixed renderer.ts to detect empty `<title data-rh="true"></title>` output from React Helmet (truthy but has no text content) and fall back to `blogMetadataRegistry` title when helmetTitle has no text. Uses regex `/<title[^>]*>([^<]+)<\/title>/` to detect real title text.
+-   **SSR Navigation for Internal Linking (Feb 2026)**: Added `generateSSRNavigation()` and `generateSSRFooter()` helper functions in `server/ssr/renderer.ts` that include proper internal links visible to crawlers.
+-   **Related Content Internal Linking (Feb 2026)**: Comprehensive BIDIRECTIONAL internal linking system. `RELATED_PAGES_MAP` in `server/ssr/pageContent.ts` with 12 category mappings. `getRelatedLinksForPage(pathname)` returns {url, title} objects for any page OR blog.
+
+## Available Media Assets
+- **Videos** (6 mp4 files in attached_assets/): Boat_Video_Walkthrough (hero), disco_dance_party, fireball_dance_party, mr_brightside_singalong, pursuit_of_happiness_singalong, Wedding_Walkthrough_Video — compressed versions available
+- **Photos**: 922 images in attached_assets/ — verified party photos
+- **Video usage on pages**: ATX Disco Cruise, Bachelor Party, Bachelorette Party all use VideoShowcaseGrid + YouTube carousel + hero video. Private Cruises and Combined Bach pages may need visual improvement.
 
 ## External Dependencies
 -   **Stripe**: Payment processing.
@@ -77,4 +122,4 @@ Key technical implementations and design decisions include:
 -   **OpenRouter**: AI chatbot interactions.
 -   **Replit DB**: Stores WordPress blog content.
 -   **Xola**: Online booking widgets.
--   **IndexNow/Bing Webmaster Tools**: Instant search engine indexing via `server/indexnow.ts`. Key file served at `/{INDEXNOW_KEY}.txt`. Admin API endpoints: POST `/api/admin/indexnow/submit` (URLs), POST `/api/admin/indexnow/submit-sitemap` (full sitemap).
+-   **IndexNow/Bing Webmaster Tools**: Instant search engine indexing via `server/indexnow.ts`. Key file served at `/{INDEXNOW_KEY}.txt`. Admin API endpoints: POST `/api/admin/indexnow/submit` (URLs), POST `/api/admin/indexnow/submit-sitemap` (full sitemap). Requires admin authentication.

@@ -385,7 +385,7 @@ export default function Partners() {
                                 <Input 
                                   {...field} 
                                   type="tel"
-                                  placeholder="(512) 555-0123" 
+                                  placeholder="(512) 488-5892" 
                                   data-testid="input-partner-phone"
                                 />
                               </FormControl>

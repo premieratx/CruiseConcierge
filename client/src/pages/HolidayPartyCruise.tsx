@@ -1,5 +1,5 @@
 import EventPageTemplate from '@/components/EventPageTemplate';
-import { Snowflake, Gift, Star, Users, Music, Sparkles } from 'lucide-react';
+import { Snowflake, Gift, Star, Users, Music, Sparkles, Clock, Ship, Check, Calendar } from 'lucide-react';
 
 const features = [
   {
@@ -31,6 +31,26 @@ const features = [
     icon: Sparkles,
     title: 'Party Packages',
     description: 'Add festive touches with our Ultimate package including decorations, floats, and party supplies.'
+  },
+  {
+    icon: Clock,
+    title: 'Flexible Booking',
+    description: 'Choose from morning, afternoon, or evening cruises to fit your holiday schedule.'
+  },
+  {
+    icon: Ship,
+    title: 'Fleet Variety',
+    description: 'Our diverse fleet means we have the perfect boat for any size holiday gathering.'
+  },
+  {
+    icon: Check,
+    title: 'Professional Service',
+    description: 'Over 15 years of experience ensuring your holiday party runs smoothly and safely.'
+  },
+  {
+    icon: Calendar,
+    title: 'Seasonal Themes',
+    description: 'Celebrate any holiday throughout the year, from Halloween to Independence Day.'
   }
 ];
 
@@ -50,6 +70,22 @@ const faqs = [
   {
     question: 'Can we bring holiday decorations on the boat?',
     answer: 'Yes! You\'re welcome to bring holiday decorations to personalize your celebration. We recommend easy-to-manage items like garlands, lights (battery-powered), festive banners, and themed tableware. Our crew can help you set up before guests arrive.'
+  },
+  {
+    question: 'How far in advance should we book for a December holiday party?',
+    answer: 'December is one of our busiest months for corporate and private events. We recommend booking 2-4 months in advance for prime weekend and evening slots to ensure you get your preferred boat and date.'
+  },
+  {
+    question: 'What is your capacity for holiday events?',
+    answer: 'We can host groups from as small as 6 on our Day Tripper (up to 14) to as large as 75 on our flagship Clever Girl. If you have a very large group, we can even coordinate multiple boats departing together.'
+  },
+  {
+    question: 'Can we have a themed holiday party like a "Tropical Christmas"?',
+    answer: 'Absolutely! Lake Travis is the perfect spot for a "Mele Kalikimaka" or Tropical-themed holiday party. We encourage you to bring themed props, music, and even catering to match your vision.'
+  },
+  {
+    question: 'Is there a restroom on the boat for our holiday guests?',
+    answer: 'Yes, all of our primary charter vessels are equipped with a clean, private marine restroom (head) for the comfort and convenience of all your guests throughout the party.'
   }
 ];
 
@@ -64,6 +100,7 @@ export default function HolidayPartyCruise() {
       title="Holiday Party Cruise"
       metaTitle="Holiday Party Cruise Austin | Christmas & New Year's Eve Boat Rentals | Premier Party Cruises"
       metaDescription="Celebrate the holidays on Lake Travis! Book a Christmas party cruise or New Year's Eve celebration. Perfect for corporate events and private parties. Groups 6-75 guests."
+      pageRoute="/holiday-party-cruise"
       heroTitle="Celebrate the Holidays on Lake Travis"
       heroSubtitle="Christmas parties, New Year's Eve celebrations, and festive gatherings—make this holiday season unforgettable with a cruise."
       heroBadge="Holiday Celebrations"

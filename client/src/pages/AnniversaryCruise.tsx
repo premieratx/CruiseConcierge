@@ -1,5 +1,5 @@
 import EventPageTemplate from '@/components/EventPageTemplate';
-import { Heart, Sunset, Wine, Camera, Sparkles, Star } from 'lucide-react';
+import { Heart, Sunset, Wine, Camera, Sparkles, Star, Calendar, Gift, Users, Music } from 'lucide-react';
 
 const features = [
   {
@@ -31,6 +31,26 @@ const features = [
     icon: Star,
     title: 'Milestone Celebrations',
     description: 'Whether it\'s your 1st or 50th anniversary, we help make every milestone magical.'
+  },
+  {
+    icon: Calendar,
+    title: 'Flexible Scheduling',
+    description: 'Book your special day any time of year with morning, afternoon, and sunset options.'
+  },
+  {
+    icon: Gift,
+    title: 'Surprise Potential',
+    description: 'Coordinate with our crew to surprise your spouse with special gifts or hidden family members.'
+  },
+  {
+    icon: Users,
+    title: 'Family Inclusion',
+    description: 'Plenty of space to invite children, grandchildren, and friends to join the celebration.'
+  },
+  {
+    icon: Music,
+    title: 'Your Love\'s Soundtrack',
+    description: 'Connect your device to our premium sound system and play "your song" as you cruise.'
   }
 ];
 
@@ -50,6 +70,22 @@ const faqs = [
   {
     question: 'Do you offer any special anniversary packages?',
     answer: 'Our Ultimate package is perfect for anniversaries with champagne flutes, festive accessories, and premium amenities. You can also coordinate catering delivery to the marina for a full celebration experience.'
+  },
+  {
+    question: 'How do we handle milestone anniversaries like the 25th or 50th?',
+    answer: 'For large milestone anniversaries, our flagship Clever Girl is ideal, accommodating up to 75 guests. We can help you plan a significant event with space for multiple generations of family to celebrate together.'
+  },
+  {
+    question: 'What should we bring for a romantic anniversary cruise?',
+    answer: 'We recommend bringing your favorite beverages, some light snacks or a full meal, a light jacket for after sunset, and of course, your camera. If you\'re planning to swim, don\'t forget towels and swimwear!'
+  },
+  {
+    question: 'Can we decorate the boat for our anniversary?',
+    answer: 'Yes! You can bring banners, photos of your wedding day, and floral arrangements. We just ask that you use blue painter\'s tape or similar non-damaging adhesives and avoid glitter/confetti.'
+  },
+  {
+    question: 'Is there a restroom available on the boat?',
+    answer: 'Yes, all of our primary charter boats are equipped with a clean, private marine restroom (head) for your convenience throughout the cruise.'
   }
 ];
 
@@ -65,6 +101,7 @@ export default function AnniversaryCruise() {
       title="Anniversary Cruise"
       metaTitle="Anniversary Cruise Lake Travis | Romantic Austin Party Boat"
       metaDescription="Celebrate your anniversary with a romantic private cruise on Lake Travis. Stunning sunsets, intimate atmosphere, and unforgettable memories in Austin. Book your special day!"
+      pageRoute="/anniversary-cruise"
       heroTitle="Romantic Anniversary Cruises on Lake Travis"
       heroSubtitle="Celebrate your love story with a private cruise featuring stunning sunsets and unforgettable moments"
       heroBadge="Anniversary Celebrations"

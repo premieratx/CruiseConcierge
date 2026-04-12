@@ -7,7 +7,6 @@ import {
   BreadcrumbLink,
   BreadcrumbPage,
   BreadcrumbSeparator,
-  BreadcrumbEllipsis,
 } from '@/components/ui/breadcrumb';
 import { Home } from 'lucide-react';
 
@@ -49,6 +48,42 @@ const breadcrumbConfig: BreadcrumbConfig = {
   '/blog': { label: 'Blog' },
 };
 
+// Compute segments synchronously for a given location (SSR-safe)
+function computeSegments(location: string, customSegments?: BreadcrumbSegment[]): BreadcrumbSegment[] {
+  if (!location || typeof location !== 'string') return [];
+  if (location === '/' || location === '') return [];
+  if (customSegments && customSegments.length > 0) return customSegments;
+
+  const generatedSegments: BreadcrumbSegment[] = [
+    { label: 'Home', href: '/' }
+  ];
+
+  if (location.startsWith('/blog/')) {
+    generatedSegments.push({ label: 'Blog', href: '/blogs' });
+    const slug = location.replace('/blog/', '');
+    generatedSegments.push({ label: slug.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()), current: true });
+  } else {
+    const config = breadcrumbConfig[location];
+    if (config) {
+      if (config.category) {
+        generatedSegments.push({ label: config.category });
+      }
+      generatedSegments.push({ label: config.label, current: true });
+    } else {
+      const pathSegments = location.split('/').filter(s => s);
+      pathSegments.forEach((segment, index) => {
+        const label = segment.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+        generatedSegments.push({
+          label,
+          current: index === pathSegments.length - 1
+        });
+      });
+    }
+  }
+
+  return generatedSegments;
+}
+
 interface BreadcrumbProps {
   customSegments?: BreadcrumbSegment[];
   hideOnMobile?: boolean;
@@ -57,66 +92,29 @@ interface BreadcrumbProps {
 
 export default function Breadcrumb({ customSegments, hideOnMobile = false, className }: BreadcrumbProps) {
   const [location] = useLocation();
-  const [segments, setSegments] = useState<BreadcrumbSegment[]>([]);
+
+  // Compute segments synchronously so they're available during SSR
+  const [segments, setSegments] = useState<BreadcrumbSegment[]>(() =>
+    computeSegments(location, customSegments)
+  );
 
   useEffect(() => {
-    // Guard against undefined location during SSR/hydration
-    if (!location || typeof location !== 'string') {
-      setSegments([]);
-      return;
-    }
-    
-    // Don't show breadcrumbs on homepage
-    if (location === '/' || location === '') {
-      setSegments([]);
-      return;
-    }
-
-    // Use custom segments if provided
-    if (customSegments && customSegments.length > 0) {
-      setSegments(customSegments);
-      return;
-    }
-
-    // Generate segments based on current route
-    const generatedSegments: BreadcrumbSegment[] = [
-      { label: 'Home', href: '/' }
-    ];
-
-    // Check if it's a blog post page
-    if (location.startsWith('/blog/')) {
-      generatedSegments.push({ label: 'Blog', href: '/blogs' });
-      // The blog post title should be passed as customSegments for blog posts
-      const slug = location.replace('/blog/', '');
-      generatedSegments.push({ label: slug.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()), current: true });
-    } else {
-      // Use configuration for known pages
-      const config = breadcrumbConfig[location];
-      if (config) {
-        if (config.category) {
-          generatedSegments.push({ label: config.category });
-        }
-        generatedSegments.push({ label: config.label, current: true });
-      } else {
-        // Fallback for unknown pages - capitalize the path
-        const pathSegments = location.split('/').filter(s => s);
-        pathSegments.forEach((segment, index) => {
-          const label = segment.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
-          generatedSegments.push({
-            label,
-            current: index === pathSegments.length - 1
-          });
-        });
-      }
-    }
-
-    setSegments(generatedSegments);
+    setSegments(computeSegments(location, customSegments));
   }, [location, customSegments]);
 
-  // Don't render if no segments (homepage) or empty
-  if (segments.length === 0) {
-    return null;
-  }
+  // Compute banner flags from location (SSR-safe — location is always available)
+  const isBachelorettePage =
+    location.includes('bachelorette') &&
+    location !== '/bachelorette-party-austin';
+  const isBachelorOnlyPage =
+    location.includes('bachelor') &&
+    !location.includes('bachelorette') &&
+    location !== '/bachelor-party-austin';
+  const isCombinedPage =
+    location.includes('bachelor') &&
+    location.includes('bachelorette') &&
+    location !== '/bachelorette-party-austin' &&
+    location !== '/bachelor-party-austin';
 
   // NOTE: Schema.org BreadcrumbList is handled by SSR (server/ssr/renderer.ts)
   // to avoid duplicate/conflicting schemas and "Missing field 'item'" errors
@@ -124,39 +122,85 @@ export default function Breadcrumb({ customSegments, hideOnMobile = false, class
 
   return (
     <>
-      <BreadcrumbNav 
-        className={`bg-gray-50 dark:bg-gray-900 border-b px-4 py-3 ${hideOnMobile ? 'hidden sm:block' : ''} ${className || ''}`}
-        aria-label="Breadcrumb navigation"
-      >
-        <div className="container mx-auto max-w-7xl">
-          <BreadcrumbList className="flex-wrap">
-            {segments.map((segment, index) => (
-              <Fragment key={index}>
-                <BreadcrumbItem>
-                  {segment.current ? (
-                    <BreadcrumbPage className="text-gray-700 dark:text-gray-300 font-medium">
-                      {segment.label}
-                    </BreadcrumbPage>
-                  ) : segment.href ? (
-                    <BreadcrumbLink asChild>
-                      <Link 
-                        href={segment.href}
-                        className="text-primary hover:text-primary-dark transition-colors inline-flex items-center gap-1"
-                      >
-                        {index === 0 && <Home className="w-4 h-4" />}
-                        <span>{segment.label}</span>
-                      </Link>
-                    </BreadcrumbLink>
-                  ) : (
-                    <span className="text-gray-600 dark:text-gray-400">{segment.label}</span>
-                  )}
-                </BreadcrumbItem>
-                {index < segments.length - 1 && <BreadcrumbSeparator />}
-              </Fragment>
-            ))}
-          </BreadcrumbList>
+      {/* Breadcrumb nav — only render when we have segments */}
+      {segments.length > 0 && (
+        <BreadcrumbNav
+          className={`bg-gray-50 dark:bg-gray-900 border-b px-4 py-3 ${hideOnMobile ? 'hidden sm:block' : ''} ${className || ''}`}
+          aria-label="Breadcrumb navigation"
+        >
+          <div className="container mx-auto max-w-7xl">
+            <BreadcrumbList className="flex-wrap">
+              {segments.map((segment, index) => (
+                <Fragment key={index}>
+                  <BreadcrumbItem>
+                    {segment.current ? (
+                      <BreadcrumbPage className="text-gray-700 dark:text-gray-300 font-medium">
+                        {segment.label}
+                      </BreadcrumbPage>
+                    ) : segment.href ? (
+                      <BreadcrumbLink asChild>
+                        <Link
+                          href={segment.href}
+                          className="text-primary hover:text-primary-dark transition-colors inline-flex items-center gap-1"
+                        >
+                          {index === 0 && <Home className="w-4 h-4" />}
+                          <span>{segment.label}</span>
+                        </Link>
+                      </BreadcrumbLink>
+                    ) : (
+                      <span className="text-gray-600 dark:text-gray-400">{segment.label}</span>
+                    )}
+                  </BreadcrumbItem>
+                  {index < segments.length - 1 && <BreadcrumbSeparator />}
+                </Fragment>
+              ))}
+            </BreadcrumbList>
+          </div>
+        </BreadcrumbNav>
+      )}
+
+      {/* Referral banners — rendered based on location (SSR-safe, no segments dependency) */}
+      {isCombinedPage && (
+        <div className="bg-blue-700 text-white py-3 px-6">
+          <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left">
+            <p className="text-sm font-medium">
+              <strong>Planning a combined trip?</strong> See the full guides:&nbsp;
+              <Link href="/bachelorette-party-austin" className="underline hover:no-underline">Austin Bachelorette Guide</Link>
+              &nbsp;&amp;&nbsp;
+              <Link href="/bachelor-party-austin" className="underline hover:no-underline">Austin Bachelor Party Guide</Link>
+            </p>
+            <Link href="/bachelorette-party-austin" className="flex-shrink-0 bg-white text-blue-700 font-bold px-4 py-1.5 rounded-full text-sm hover:bg-blue-50 transition-colors whitespace-nowrap">
+              View Main Guides →
+            </Link>
+          </div>
         </div>
-      </BreadcrumbNav>
+      )}
+
+      {isBachelorettePage && !isCombinedPage && (
+        <div className="bg-blue-700 text-white py-3 px-6">
+          <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left">
+            <p className="text-sm font-medium">
+              <strong>Looking for the complete Austin bachelorette party guide?</strong> Pricing, boats, the ATX Disco Cruise, and all options — it&apos;s all on the main page.
+            </p>
+            <Link href="/bachelorette-party-austin" className="flex-shrink-0 bg-white text-blue-700 font-bold px-4 py-1.5 rounded-full text-sm hover:bg-blue-50 transition-colors whitespace-nowrap">
+              Main Bachelorette Guide →
+            </Link>
+          </div>
+        </div>
+      )}
+
+      {isBachelorOnlyPage && (
+        <div className="bg-blue-700 text-white py-3 px-6">
+          <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left">
+            <p className="text-sm font-medium">
+              <strong>Looking for the complete Austin bachelor party guide?</strong> Pricing, boats, the ATX Disco Cruise, and all options — it&apos;s all on the main page.
+            </p>
+            <Link href="/bachelor-party-austin" className="flex-shrink-0 bg-white text-blue-700 font-bold px-4 py-1.5 rounded-full text-sm hover:bg-blue-50 transition-colors whitespace-nowrap">
+              Main Bachelor Party Guide →
+            </Link>
+          </div>
+        </div>
+      )}
     </>
   );
 }

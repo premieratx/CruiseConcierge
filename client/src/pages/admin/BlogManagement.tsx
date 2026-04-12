@@ -778,6 +778,13 @@ export default function BlogManagement() {
               </DialogContent>
             </Dialog>
             
+            <Button asChild variant="outline">
+              <Link href="/admin/blogs/batch">
+                <FileText className="h-4 w-4 mr-2" />
+                Batch Import
+              </Link>
+            </Button>
+
             <Button asChild data-testid="button-create-post">
               <Link href="/admin/blogs/posts/new">
                 <Plus className="h-4 w-4 mr-2" />

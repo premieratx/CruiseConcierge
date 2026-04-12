@@ -23,7 +23,7 @@ import {
   ArrowRight, CheckCircle, Sparkles, Music, Wine,
   Star, Shield, Gift, MessageSquare, Coffee, Disc3,
   Mic, Crown, Award, Quote, ChevronRight,
-  Anchor, Sun, Info, GlassWater, Heart, X, Smile, MessageCircle
+  Anchor, Ship, Sun, Info, GlassWater, Heart, X, Smile, MessageCircle
 } from 'lucide-react';
 
 // Hero and gallery images

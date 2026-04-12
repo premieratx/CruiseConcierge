@@ -15,6 +15,7 @@ import atxDiscoHero from '@assets/atx-disco-cruise-party.webp';
 import capitalCityShots1 from '@assets/@capitalcityshots-5_1760080740018.jpg';
 import capitalCityShots2 from '@assets/@capitalcityshots-8_1760080740018.jpg';
 import capitalCityShots3 from '@assets/@capitalcityshots-15_1760080740020.jpg';
+import InlineCTABar from '@/components/InlineCTABar';
 
 const sections: TOCSection[] = [
   { id: 'introduction', title: 'Introduction', icon: <Star /> },
@@ -157,6 +158,8 @@ export default function ATXDiscoCruiseExperience() {
             </p>
           </div>
         </section>
+
+      <InlineCTABar variant="amber" />
       </SectionReveal>
 
       {/* DO: Hydrate */}
@@ -258,6 +261,8 @@ export default function ATXDiscoCruiseExperience() {
             supergroup. <strong>Be that group.</strong>
           </p>
         </section>
+
+      <InlineCTABar variant="navy" />
       </SectionReveal>
 
       {/* DO: Bring Snacks */}

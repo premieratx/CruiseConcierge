@@ -21,6 +21,7 @@ import heroImage from '@assets/@capitalcityshots-1_1760080740012.jpg';
 import sectionImage1 from '@assets/@capitalcityshots-2_1760080740017.jpg';
 import sectionImage2 from '@assets/@capitalcityshots-3_1760080740017.jpg';
 import sectionImage3 from '@assets/disco_fun_best2_1765193453547.jpg';
+import InlineCTABar from '@/components/InlineCTABar';
 
 const whyItWorks = [
   {
@@ -260,6 +261,8 @@ export default function WhyATXDiscoCruiseMostBooked() {
           </div>
         </section>
 
+        <InlineCTABar variant="slate" />
+
         {/* Introduction Section */}
         <section className="py-16 bg-white dark:bg-gray-950" data-testid="introduction-section">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
@@ -361,6 +364,8 @@ export default function WhyATXDiscoCruiseMostBooked() {
             </p>
           </div>
         </section>
+
+        <InlineCTABar variant="amber" />
 
         {/* Pricing Section */}
         <section className="py-16 bg-white dark:bg-gray-950" data-testid="pricing-section">
@@ -469,6 +474,8 @@ export default function WhyATXDiscoCruiseMostBooked() {
             </div>
           </div>
         </section>
+
+        <InlineCTABar variant="navy" />
 
         {/* Bachelorette Party Benefits */}
         <section className="py-16 bg-pink-50 dark:bg-pink-950/20" data-testid="bachelorette-section">

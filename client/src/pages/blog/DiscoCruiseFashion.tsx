@@ -20,6 +20,7 @@ import sectionImage1 from '@assets/disco_fun2_1765193453547.jpg';
 import sectionImage2 from '@assets/disco_fun3_1765193453547.jpg';
 import sectionImage3 from '@assets/disco_fun5_1765193453548.jpg';
 import sectionImage4 from '@assets/disco_fun6_1765193453548.jpg';
+import InlineCTABar from '@/components/InlineCTABar';
 
 const fashionTips = [
   { 
@@ -249,6 +250,8 @@ export default function DiscoCruiseFashion() {
           </div>
         </section>
 
+        <InlineCTABar variant="slate" />
+
         {/* Fashion Tips Grid */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="tips-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
@@ -355,6 +358,8 @@ export default function DiscoCruiseFashion() {
             </m.div>
           </div>
         </section>
+
+        <InlineCTABar variant="amber" />
 
         {/* Outfit Categories Section */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="outfits-section">
@@ -473,6 +478,8 @@ export default function DiscoCruiseFashion() {
             </m.div>
           </div>
         </section>
+
+        <InlineCTABar variant="navy" />
 
         {/* What to Bring Section */}
         <section className="py-16 bg-white dark:bg-gray-900" data-testid="packing-section">

@@ -625,7 +625,7 @@ export default function AustinBestCorporateEvents() {
               </div>
               <p className="mt-6 text-white/70">
                 <Phone className="inline h-4 w-4 mr-2" />
-                Call us directly: <a href="tel:+15127884707" className="underline hover:text-white" data-testid="link-phone">(512) 788-4707</a>
+                Call us directly: <a href="tel:+15124885892" className="underline hover:text-white" data-testid="link-phone">(512) 488-5892</a>
               </p>
             </m.div>
           </div>

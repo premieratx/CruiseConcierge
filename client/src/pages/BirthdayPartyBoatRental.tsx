@@ -65,6 +65,7 @@ export default function BirthdayPartyBoatRental() {
       title="Birthday Party Boat Rental"
       metaTitle="Birthday Party Boat Rental Lake Travis | Austin TX Party Cruises"
       metaDescription="Celebrate your birthday on Lake Travis with a private party boat rental in Austin. Perfect for milestone birthdays, surprise parties, and unforgettable celebrations. Book today!"
+      pageRoute="/birthday-party-boat-rental"
       heroTitle="Birthday Party Boat Rentals on Lake Travis"
       heroSubtitle="Make your special day unforgettable with a private birthday cruise on Austin's most beautiful lake"
       heroBadge="Birthday Celebrations"

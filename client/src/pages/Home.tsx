@@ -243,7 +243,7 @@ const whyChooseUs = [
 const faqData = [
   {
     question: 'What types of party boat services do you offer in Austin?',
-    answer: 'We offer exclusive Private Charters on Lake Travis with boats holding 14-75 people. Perfect for corporate events, wedding parties, birthdays, and all special celebrations. Every cruise includes licensed, fun, experienced captains to take your group safely around the lake in style, premium sound systems, cooler space (bring your own ice, or order ahead from Party On Delivery), and departs from Anderson Mill Marina. Choose from our fleet of premium boats based on your group size and event type.'
+    answer: 'We offer two main experiences on Lake Travis: the ATX Disco Cruise (all-inclusive multi-group bachelor/bachelorette cruise with DJ, photographer, and open bar) and Private Charters (exclusive use of the entire boat for 14–75 people). Whether you call it a party boat, party barge, or charter cruise — our captained boats depart from Anderson Mill Marina with premium sound systems, cooler space, and a licensed crew. Perfect for bachelor parties, bachelorette parties, birthdays, corporate events, and weddings.'
   },
   {
     question: 'How much does a party boat rental cost in Austin?',
@@ -358,6 +358,7 @@ export default function Home() {
   const [videoLoaded, setVideoLoaded] = useState(false);
   const [videoFailed, setVideoFailed] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [openFaq, setOpenFaq] = React.useState<number | null>(null);
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
   const [showLightbox, setShowLightbox] = useState(false);
   const [selectedService, setSelectedService] = useState<typeof services[0] | null>(null);
@@ -422,7 +423,7 @@ export default function Home() {
 
   // Update page title for SEO
   useEffect(() => {
-    document.title = 'Party Boat Austin | Lake Travis Bachelor & Bachelorette Cruises';
+    document.title = 'Austin Party Boat Rentals on Lake Travis | Corporate | Bachelorette | Bachelor | Everyone';
     
     // Add meta description
     const existingDesc = document.querySelector('meta[name="description"]');
@@ -436,6 +437,10 @@ export default function Home() {
     }
   }, []);
 
+
+  const scrollToQuoteBuilder = () => {
+    document.getElementById('quote-builder')?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   const handleGetQuote = (packageType?: string, eventType?: string) => {
     if (packageType && eventType) {
@@ -508,18 +513,18 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white dark:bg-gray-950" data-page-ready="home">
+    <div className="min-h-screen bg-white dark:bg-gray-950" data-page-ready="home">
       <SEOHead
         pageRoute="/"
-        defaultTitle="Party Boat Austin | Lake Travis Boat Rentals for Bachelor & Bachelorette Parties"
+        defaultTitle="Austin Party Boat Rentals on Lake Travis | Corporate | Bachelorette | Bachelor | Everyone"
         defaultDescription="Austin party boat rentals on Lake Travis since 2009. BYOB bachelor parties, bachelorette cruises & private charters for 5-75 guests. DJ, photographer & floats included. Get a free quote!"
-        defaultKeywords={['party boat Austin', 'bachelorette party Austin', 'Austin boat rental', 'Lake Travis party boat', 'bachelor party Austin']}
+        defaultKeywords={['party boat Austin', 'party barge Austin', 'bachelorette party Austin', 'Austin boat rental', 'Lake Travis party boat', 'Lake Travis party barge', 'bachelor party Austin', 'party boat Lake Travis', 'Austin party barge', 'boat rental Lake Travis Austin']}
         schemaType="organization"
       />
       <LazyMotionProvider>
       <PublicNavigation />
       {/* Hero Section - PAGESPEED: Fixed height prevents CLS, poster-first prevents LCP delay */}
-      <section id="hero" className="relative flex flex-col justify-center overflow-hidden bg-gray-900" style={{ minHeight: 'clamp(750px, calc(100vh - 64px), 1400px)', contain: 'layout paint' }}>
+      <section id="hero" className="relative flex flex-col overflow-hidden bg-gray-900 pt-[116px]" style={{ minHeight: 'clamp(750px, 100vh, 1400px)', contain: 'layout paint' }}>
         {/* Hero Background: Video with image fallback */}
         <div className="absolute inset-0 z-0" style={{ aspectRatio: '16/9', minHeight: '100%' }}>
           {/* Fallback image - shows immediately, hidden when video loads */}
@@ -550,7 +555,7 @@ export default function Home() {
           {!videoFailed && (
             <video
               ref={videoRef}
-              className="w-full h-full object-cover opacity-60"
+              className="w-full h-full object-cover opacity-80"
               style={{ display: videoLoaded ? 'block' : 'none' }}
               src={heroVideo}
               muted
@@ -563,10 +568,10 @@ export default function Home() {
               poster={heroImage1}
             />
           )}
-          {/* Lighter overlay for bright and happy feel */}
-          <div className="absolute inset-0 bg-gradient-to-br from-black/15 via-black/15 to-black/15" />
-          {/* Additional blue tint overlay for brand color */}
-          <div className="absolute inset-0 bg-blue-900/5" />
+          {/* Overlay: dark enough to read text, light enough to show video */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/35 to-black/60" />
+          {/* Subtle blue brand tint */}
+          <div className="absolute inset-0 bg-blue-900/10" />
         </div>
 
 
@@ -595,19 +600,19 @@ export default function Home() {
                 Austin's Favorite Party Boat Rentals on Lake Travis
               </h1>
               <h2 className="heading-unbounded text-lg sm:text-xl md:text-2xl text-brand-yellow font-semibold leading-relaxed" data-editable data-editable-id="hero-tagline">
-                Captained party cruises on Lake Travis for 5-75 People, Offering All-Inclusive Party Packages & Pre-Party Setup
+                The trip your group will talk about for years — captained cruises for 5–75 people, all-inclusive packages, 150K+ happy guests since 2009
               </h2>
             </div>
 
-            {/* CTA Buttons - PAGESPEED: No m.div above fold */}
-            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
+            {/* CTA Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <div
                 className="xola-custom xola-checkout"
                 data-button-id="695186923c261203770cc2e7"
               >
                 <Button
                   size="lg"
-                  className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold text-base sm:text-lg px-8 sm:px-12 py-4 sm:py-7 rounded-xl shadow-2xl transform hover:scale-105 transition-all duration-300"
+                  className="bg-brand-yellow hover:bg-yellow-300 text-gray-900 font-bold text-base sm:text-lg px-8 sm:px-12 py-4 sm:py-7 rounded-xl shadow-2xl transition-all duration-300"
                   data-testid="button-hero-get-quote"
                 >
                   <Calendar className="mr-2 sm:mr-3 h-5 w-5 sm:h-6 sm:w-6" />
@@ -615,504 +620,168 @@ export default function Home() {
                 </Button>
               </div>
               
-              <a
-                href="/chat"
-                className="font-bold text-sm sm:text-base px-6 sm:px-10 py-3 sm:py-5 rounded-xl shadow-2xl transform hover:scale-105 transition-all duration-300 inline-flex items-center justify-center"
-                style={{
-                  background: 'linear-gradient(to right, #facc15, #f59e0b)',
-                  color: '#1f2937'
-                }}
+              <button
+                onClick={scrollToQuoteBuilder}
+                className="font-bold text-sm sm:text-base px-6 sm:px-10 py-3 sm:py-5 rounded-xl border-2 border-white/70 text-white hover:bg-white/15 transition-all duration-300 inline-flex items-center justify-center backdrop-blur-sm"
                 data-testid="button-hero-book-now"
               >
-                <Phone className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
-                <span data-editable data-editable-id="hero-cta-book">Get Custom Quote</span>
-              </a>
+                <ArrowRight className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
+                <span data-editable data-editable-id="hero-cta-book">Get a Quote</span>
+              </button>
             </div>
           </div>
         </div>
 
-        {/* Bottom Feature Bar */}
-        <div className="relative z-20 w-full bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm py-4 px-6">
+        {/* Bottom Trust Bar */}
+        <div className="relative z-20 w-full bg-black/60 backdrop-blur-sm py-3 px-6">
           <div className="container mx-auto">
-            <p className="text-center text-gray-900 dark:text-white text-sm md:text-base font-semibold">
-              ✨ Transparent Pricing • No Hidden Fees • Best Value Guaranteed ✨
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Pricing Section - Two Buttons Side by Side */}
-      <section className="py-6 md:py-8 bg-brand-blue">
-        <div className="container mx-auto px-4 sm:px-6">
-          <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-3xl mx-auto">
-            <div className="bg-brand-yellow rounded-lg p-4 shadow-md text-center flex-1">
-              <div className="font-sans tracking-wider font-bold uppercase text-xs text-gray-900 mb-1" data-editable data-editable-id="pricing-overlay-private-label">PRIVATE CRUISES FROM:</div>
-              <div className="text-2xl sm:text-3xl font-bold text-gray-900 mb-1" data-editable data-editable-id="pricing-overlay-private-price">
-                $200+/hr
-              </div>
-              <div className="text-sm text-gray-800" data-editable data-editable-id="pricing-overlay-private-subtitle">Up to 14ppl • 14-75 guests</div>
-            </div>
-            <div className="bg-brand-yellow rounded-lg p-4 shadow-md text-center flex-1">
-              <div className="font-sans tracking-wider font-bold uppercase text-xs text-gray-900 mb-1" data-editable data-editable-id="pricing-overlay-disco-label">ATX DISCO CRUISE</div>
-              <div className="text-2xl sm:text-3xl font-bold text-gray-900 mb-1" data-editable data-editable-id="pricing-overlay-disco-price">
-                $85+ per person
-              </div>
-              <div className="text-sm text-gray-800" data-editable data-editable-id="pricing-overlay-disco-subtitle">Fri & Sat • Bach parties</div>
+            <div className="flex flex-wrap justify-center gap-4 md:gap-10 text-sm text-white font-medium">
+              <span className="flex items-center gap-1.5"><Star className="h-3.5 w-3.5 text-brand-yellow fill-brand-yellow" /> 4.9 on Google</span>
+              <span className="hidden sm:inline">150,000+ Guests Served</span>
+              <span>15+ Years in Austin</span>
+              <span className="hidden md:inline">Perfect Safety Record</span>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Trust Badges - Subtle Row */}
-      <section className="py-6 bg-gray-50 dark:bg-gray-900 border-y border-gray-200 dark:border-gray-800">
+      {/* Social Proof Strip */}
+      <section className="py-10 bg-white border-b border-gray-100">
         <div className="container mx-auto px-6">
-          <div className="flex flex-wrap justify-center gap-4 md:gap-6 max-w-3xl mx-auto">
-            <div className="flex items-center gap-2 text-sm md:text-base text-gray-700 dark:text-gray-300">
-              <Users className="w-4 h-4 text-blue-600" />
-              <span className="font-medium">150K+ Customers</span>
-            </div>
-            <div className="flex items-center gap-2 text-sm md:text-base text-gray-700 dark:text-gray-300">
-              <Trophy className="w-4 h-4 text-blue-600" />
-              <span className="font-medium">15+ Years</span>
-            </div>
-            <div className="flex items-center gap-2 text-sm md:text-base text-gray-700 dark:text-gray-300">
-              <Shield className="w-4 h-4 text-blue-600" />
-              <span className="font-medium">Perfect Safety Record</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Quote Builder Section - Eagerly loaded for instant display */}
-      <QuoteBuilderSection />
-
-      {/* How It Works Section - AI-extractable numbered steps */}
-      <section className="py-12 md:py-16 bg-gray-50 dark:bg-gray-800">
-        <div className="container mx-auto px-6">
-          <div className="max-w-5xl mx-auto">
-            <h2 className="text-2xl md:text-3xl font-semibold heading-unbounded text-center mb-10 text-gray-900 dark:text-white">
-              How It Works: Book Your Lake Travis Party Boat
-            </h2>
-            <div className="grid md:grid-cols-4 gap-8">
-              <div className="text-center">
-                <div className="w-14 h-14 bg-blue-600 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">1</div>
-                <h3 className="font-bold text-lg mb-2 text-gray-900 dark:text-white">Choose Your Cruise</h3>
-                <p className="text-gray-600 dark:text-gray-400 text-sm">Pick the ATX Disco Cruise (all-inclusive, from $85/person) or a private charter ($200-$520/hr for 14-75 guests).</p>
+          <div className="flex flex-wrap justify-center gap-8 md:gap-16 max-w-4xl mx-auto">
+            {[
+              { stat: '4.9★', label: 'Google Rating', Icon: Star },
+              { stat: '150K+', label: 'Happy Guests', Icon: Users },
+              { stat: '15+', label: 'Years in Austin', Icon: Trophy },
+              { stat: 'Zero', label: 'Safety Incidents', Icon: Shield },
+            ].map(({ stat, label, Icon }) => (
+              <div key={label} className="text-center">
+                <div className="text-2xl md:text-3xl font-bold text-gray-900 heading-unbounded">{stat}</div>
+                <div className="text-sm text-gray-500 mt-1 flex items-center justify-center gap-1.5">
+                  <Icon className="h-3.5 w-3.5" />
+                  {label}
+                </div>
               </div>
-              <div className="text-center">
-                <div className="w-14 h-14 bg-blue-600 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">2</div>
-                <h3 className="font-bold text-lg mb-2 text-gray-900 dark:text-white">Get a Free Quote</h3>
-                <p className="text-gray-600 dark:text-gray-400 text-sm">Use our instant quote builder above or call (512) 488-5892 for personalized pricing.</p>
-              </div>
-              <div className="text-center">
-                <div className="w-14 h-14 bg-blue-600 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">3</div>
-                <h3 className="font-bold text-lg mb-2 text-gray-900 dark:text-white">Confirm & Prepare</h3>
-                <p className="text-gray-600 dark:text-gray-400 text-sm">Secure your date with a deposit. BYOB or order from Party On Delivery. We handle captain, crew, and everything else.</p>
-              </div>
-              <div className="text-center">
-                <div className="w-14 h-14 bg-blue-600 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">4</div>
-                <h3 className="font-bold text-lg mb-2 text-gray-900 dark:text-white">Party on Lake Travis</h3>
-                <p className="text-gray-600 dark:text-gray-400 text-sm">Arrive at Anderson Mill Marina, board your boat, and enjoy 3-4 hours of cruising, swimming, music, and unforgettable memories!</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Quick Facts Block */}
-      <section className="py-8 bg-blue-900 text-white">
-        <div className="container mx-auto px-6">
-          <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6 text-center">
-            <div>
-              <div className="text-2xl font-bold">15+</div>
-              <div className="text-blue-200 text-sm">Years in Business</div>
-            </div>
-            <div>
-              <div className="text-2xl font-bold">4</div>
-              <div className="text-blue-200 text-sm">Boats in Fleet</div>
-            </div>
-            <div>
-              <div className="text-2xl font-bold">14-75</div>
-              <div className="text-blue-200 text-sm">Guest Capacity</div>
-            </div>
-            <div>
-              <div className="text-2xl font-bold">$85+</div>
-              <div className="text-blue-200 text-sm">Per Person From</div>
-            </div>
-            <div>
-              <div className="text-2xl font-bold">4.9★</div>
-              <div className="text-blue-200 text-sm">Google Rating</div>
-            </div>
-            <div>
-              <div className="text-2xl font-bold">150K+</div>
-              <div className="text-blue-200 text-sm">Happy Guests</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Description Section - Welcome Text */}
-      <section className="py-12 md:py-16 bg-white dark:bg-gray-900">
-        <div className="container mx-auto px-6">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-2xl md:text-3xl font-semibold heading-unbounded mb-6 text-gray-900 dark:text-white">
-              Austin's Premier Party Cruise Experience
-            </h2>
-            <p className="text-base md:text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
-              Experience the ultimate Lake Travis party boat adventure! From <InternalLinkHighlight href="/private-cruises" title="Private Cruises">intimate 14-person private cruises</InternalLinkHighlight> on "Day Tripper" to epic 75-person celebrations on flagship "Clever Girl", we've been Austin's most trusted party cruise company since 2009. 
-              Perfect for <InternalLinkHighlight href="/bachelor-party-austin" title="Bachelor Parties">bachelor parties</InternalLinkHighlight>, <InternalLinkHighlight href="/bachelorette-party-austin" title="Bachelorette Parties">bachelorette celebrations</InternalLinkHighlight>, and <InternalLinkHighlight href="/corporate-events" title="Corporate Events">corporate team building</InternalLinkHighlight> - read our <InternalLinkHighlight href="/testimonials-faq" title="Customer Reviews">customer reviews</InternalLinkHighlight> to see why 150K+ guests love us!
-            </p>
-            <p className="text-base md:text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
-              Operating from Anderson Mill Marina on beautiful Lake Travis, our experienced licensed captains and pristine fleet provide unforgettable party boat experiences for groups of all sizes. With transparent pricing, no hidden fees, and unmatched service backed by thousands of 5-star reviews, we make your Lake Travis celebration effortless and extraordinary.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Fleet Section */}
-      <Suspense fallback={<div className="animate-pulse bg-gray-100 dark:bg-gray-800 rounded-lg" style={{ minHeight: '600px' }} />}>
-        <FleetSection />
-      </Suspense>
-
-      {/* Services Section */}
-      <SectionReveal>
-        <section id="services" className="py-12 md:py-24 bg-white dark:bg-gray-900 relative">
-          <div className="absolute top-4 right-4 text-6xl font-black text-blue-200 opacity-30">01</div>
-          <div className="container mx-auto px-4 sm:px-6">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl font-semibold heading-unbounded text-center mb-6 text-gray-900 dark:text-white" data-editable data-editable-id="services-main-title">
-                Choose Your Perfect Experience
-              </h2>
-              <p className="text-base text-gray-700 dark:text-gray-300 max-w-3xl mx-auto" data-editable data-editable-id="services-description">
-                From intimate celebrations to epic parties, we have the perfect cruise experience 
-                for every group size and occasion.
-              </p>
-            </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-            {services.map((service, index) => (
-              <m.div
-                key={service.id}
-                initial={reducedMotion ? undefined : "hidden"}
-                whileInView={reducedMotion ? undefined : "visible"}
-                viewport={reducedMotion ? undefined : { once: true, margin: "-50px" }}
-                variants={reducedMotion ? undefined : scaleIn}
-                transition={reducedMotion ? undefined : { delay: index * 0.2 }}
-                className={cn(
-                  "group relative",
-                  service.popular && "lg:scale-105"
-                )}
-              >
-                <Card className={cn(
-                  "h-full flex flex-col bg-white rounded-xl p-6 border border-gray-200 hover:border-blue-500 hover:shadow-lg transition-all cursor-pointer overflow-hidden",
-                  service.popular && "shadow-xl"
-                )}>
-                  {service.badge && (
-                    <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-10">
-                      <Badge className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm rounded-full shadow-lg border-0">
-                        <span data-editable data-editable-id={`service-${service.id}-badge`}>{service.badge}</span>
-                      </Badge>
-                    </div>
-                  )}
-
-                  {/* Service Image with Lightbox Trigger */}
-                  <div className="relative h-48 overflow-hidden cursor-pointer" onClick={() => handleOpenLightbox(service)}>
-                    <LazyImage 
-                      src={service.image} 
-                      alt={service.title}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                      width={400}
-                      height={192}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent group-hover:from-black/60" />
-                    <service.icon className="absolute bottom-4 right-4 h-8 w-8 text-white" />
-                    {/* View Gallery Overlay */}
-                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
-                      <div className="bg-white/20 backdrop-blur-sm rounded-full p-3">
-                        <Image className="h-6 w-6 text-white" />
-                      </div>
-                    </div>
-                    {/* Gallery Indicator */}
-                    <div className="absolute top-4 left-4 bg-black/50 backdrop-blur-sm rounded-full px-3 py-1 text-white text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <Image className="h-4 w-4 inline mr-1" />
-                      <span data-editable data-editable-id={`service-${service.id}-view-gallery`}>View Gallery</span>
-                    </div>
-                  </div>
-                  
-                  <CardHeader className="text-center pb-4">
-                    <CardTitle className="text-xl font-semibold mb-2" data-editable data-editable-id={`service-${service.id}-title`}>{service.title}</CardTitle>
-                    <CardDescription className="font-sans tracking-wider font-bold uppercase text-sm text-blue-600" data-editable data-editable-id={`service-${service.id}-subtitle`}>
-                      {service.subtitle}
-                    </CardDescription>
-                  </CardHeader>
-                  
-                  <CardContent className="flex flex-col flex-grow space-y-4">
-                    {/* Hormozi/McDowell Value Badge */}
-                    {service.id === 'bachelor' && (
-                      <div className="bg-gradient-to-r from-green-400 to-green-500 text-white text-center py-2 px-4 rounded-lg font-bold text-sm animate-pulse">
-                        🌟 BEST VALUE - Only $85/person 🌟
-                      </div>
-                    )}
-                    {service.id === 'private' && (
-                      <div className="bg-gradient-to-r from-blue-500 to-purple-600 text-white text-center py-2 px-4 rounded-lg font-bold text-sm">
-                        🚢 Starting at $800 for 4 hours • 14-75 People
-                      </div>
-                    )}
-                    {service.id === 'corporate' && (
-                      <div className="bg-gradient-to-r from-gold-500 to-yellow-500 text-black text-center py-2 px-4 rounded-lg font-bold text-sm">
-                        💼 Premium Corporate Experience
-                      </div>
-                    )}
-
-                    <p className="text-base text-gray-700 dark:text-gray-300" data-editable data-editable-id={`service-${service.id}-description`}>
-                      {service.description}
-                    </p>
-                    
-                    {/* Features list with flex-grow to push pricing to bottom */}
-                    <div className="space-y-3 flex-grow">
-                      {service.features.map((feature, featureIndex) => (
-                        <div key={featureIndex} className="flex items-center text-base">
-                          <CheckCircle className="h-5 w-5 text-green-500 mr-3 flex-shrink-0" />
-                          <span className="text-gray-700 dark:text-gray-300 font-medium" data-editable data-editable-id={`service-${service.id}-feature-${featureIndex}`}>{feature}</span>
-                        </div>
-                      ))}
-                    </div>
-
-                    {/* Pricing and CTA - aligned at bottom */}
-                    <div className="text-center pt-4 mt-auto">
-                      <div className="text-sm text-gray-600 mb-2" data-editable data-editable-id={`service-${service.id}-price-label`}>Starting from</div>
-                      <div className="text-3xl font-bold text-gray-900 dark:text-white mb-2" data-editable data-editable-id={`service-${service.id}-price`}>
-                        {service.startingPrice}
-                      </div>
-                      <div className="text-sm text-gray-700 dark:text-gray-300 mb-4" data-editable data-editable-id={`service-${service.id}-price-note`}>
-                        {service.hourlyNote || service.priceNote || ''}
-                      </div>
-                      
-                      <Link href="/chat">
-                        <Button 
-                          className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-3 rounded-xl"
-                          data-testid={`button-service-${service.id}`}
-                        >
-                          <span data-editable data-editable-id={`service-${service.id}-cta-button`}>
-                            Get My Quote
-                          </span>
-                          <ArrowRight className="ml-2 h-5 w-5" />
-                        </Button>
-                      </Link>
-                    </div>
-
-                    {/* Urgency Text - at bottom of card */}
-                    <div className="bg-red-50 border border-red-200 rounded-lg p-3 text-center mt-4">
-                      <p className="text-red-600 text-sm font-semibold">
-                        ⏰ Books 8-10 weeks before the date • {service.id === 'bachelor' ? 'Weekends sell out fast!' : 'Limited availability'}
-                      </p>
-                    </div>
-                  </CardContent>
-                </Card>
-              </m.div>
             ))}
           </div>
-          </div>
-        </section>
-      </SectionReveal>
+        </div>
+      </section>
 
-      {/* Pricing & Packages Section - MOVED UP FOR PROMINENCE */}
-      <SectionReveal>
-        <section className="py-12 md:py-20 bg-gradient-to-br from-blue-50 to-purple-50 dark:from-gray-900 dark:to-gray-950 relative" id="pricing">
-          <div className="absolute top-4 right-4 text-6xl font-black text-blue-200 opacity-20">02</div>
-          <div className="container mx-auto px-4 sm:px-6">
-            <div className="text-center mb-16">
-              <Badge className="mb-6 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 sm:px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
-                <Star className="h-4 w-4 mr-2 inline" />
-                Transparent Pricing
-              </Badge>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold heading-unbounded text-center mb-6 text-gray-900 dark:text-white leading-tight">
-                Pricing & Packages
-              </h2>
-              <p className="text-lg md:text-xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
-                Find the perfect Lake Travis cruise for your budget and group size - transparent pricing with no hidden fees
-              </p>
-            </div>
+      {/* Services Section — Two Experiences */}
+      <section id="services" className="bg-white dark:bg-gray-900">
 
-            {/* Private Cruise Detailed Pricing - MOVED UP FOR PROMINENCE */}
-            <div className="mb-20">
-              <div className="text-center mb-12">
-                <Badge className="mb-4 bg-white text-brand-blue px-4 py-2 font-semibold">
-                  <Ship className="h-4 w-4 mr-2 inline" />
-                  Private Cruises
-                </Badge>
-                <h3 className="text-3xl font-semibold heading-unbounded mb-4 text-gray-900 dark:text-white">
-                  Your Boat, Your Way - Private Cruise Pricing
-                </h3>
-                <p className="text-base text-gray-700 dark:text-gray-300 max-w-2xl mx-auto leading-relaxed">
-                  Choose your boat size and package level. All packages include licensed, fun, experienced captains to take your group safely around the lake in style, premium sound system, and cooler space (bring your own ice, or add Essentials/Ultimate for ice included, or order from Party On Delivery).
-                </p>
-              </div>
-              <Suspense fallback={<div className="min-h-[400px] animate-pulse bg-gray-100 rounded-xl" />}>
-                <TabbedPrivateCruisePricingLazy />
-              </Suspense>
-            </div>
-
-
-            {/* All Services Overview Comparison */}
-            <div className="mb-16">
-              <h3 className="text-3xl font-semibold heading-unbounded text-center mb-8 text-gray-900 dark:text-white">
-                Compare All Our Services
-              </h3>
-              <Suspense fallback={<div className="min-h-[500px] animate-pulse bg-gray-100 rounded-xl" />}>
-              <PricingTableLazy
-                title="All Services Overview"
-                items={[
-                  {
-                    name: 'Private Cruises',
-                    basePrice: 1050,
-                    pricingType: 'cruise',
-                    description: 'Exclusive boat rental for your group',
-                    features: [
-                      '4-hour cruise',
-                      'Choose your boat (14-75 capacity)',
-                      'BYOB allowed',
-                      'Customizable packages',
-                      '7 days a week'
-                    ],
-                    capacity: '14-75 guests',
-                    duration: '4 hours',
-                    priceNote: '$1,050-$2,660 for 4-hour cruise',
-                    ctaText: 'Book Private Charter',
-                    ctaHref: '/private-cruises',
-                    isPopular: true
-                  },
-                  {
-                    name: 'Corporate Events',
-                    basePrice: 225,
-                    pricingType: 'hour',
-                    description: 'Professional corporate experiences on Lake Travis',
-                    features: [
-                      'Professional atmosphere',
-                      'Client entertainment',
-                      'Alcohol delivery coordination',
-                      'BYOB allowed',
-                      'Tax deductible'
-                    ],
-                    capacity: '14-75 guests',
-                    duration: '4+ hours',
-                    priceNote: '$1,181 for 4-hour cruise',
-                    ctaText: 'Plan Corporate Event',
-                    ctaHref: '/client-entertainment'
-                  },
-                  {
-                    name: 'Wedding Parties',
-                    basePrice: 250,
-                    pricingType: 'hour',
-                    description: 'Elegant celebrations for wedding events',
-                    features: [
-                      'Rehearsal dinners',
-                      'Welcome parties',
-                      'After parties',
-                      'Tables & coolers provided',
-                      'Professional service'
-                    ],
-                    capacity: '14-75 guests',
-                    duration: '4+ hours',
-                    priceNote: '$1,313 for 4-hour cruise',
-                    ctaText: 'Plan Wedding Event',
-                    ctaHref: '/wedding-parties'
-                  }
-                ]}
+        {/* ATX Disco Cruise — Photo Left, Text Right */}
+        <div className="max-w-7xl mx-auto px-6 lg:px-10 py-20 md:py-28">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+            <div className="relative overflow-hidden rounded-2xl shadow-2xl aspect-[4/3]">
+              <LazyImage
+                src={heroImage2}
+                alt="ATX Disco Cruise bachelor bachelorette party Lake Travis Austin"
+                className="w-full h-full object-cover"
+                width={800}
+                height={600}
               />
-              </Suspense>
             </div>
-
-            {/* Complete Pricing Information Table */}
-            <div className="p-8 bg-gradient-to-br from-white via-yellow-50/30 to-white dark:from-gray-800 dark:via-yellow-900/20 dark:to-gray-800 rounded-2xl shadow-2xl border-2 border-yellow-400/30">
-              <h3 className="text-3xl font-bold mb-8 text-center bg-gradient-to-r from-yellow-600 to-yellow-500 bg-clip-text text-transparent">
-                ⚓ Private Cruise Pricing ⚓
-              </h3>
-              <div className="overflow-x-auto">
-                <table className="w-full text-base mx-auto">
-                  <thead>
-                    <tr className="bg-gradient-to-r from-yellow-400 to-yellow-500 text-black">
-                      <th className="text-center py-4 px-4 font-bold border-r border-yellow-600/30">
-                        <Ship className="inline w-5 h-5 mr-2" />
-                        Day Tripper
-                        <span className="block text-xs font-semibold mt-1">Up to 14 people</span>
-                      </th>
-                      <th className="text-center py-4 px-4 font-bold border-r border-yellow-600/30">
-                        <Ship className="inline w-5 h-5 mr-2" />
-                        Meeseeks / The Irony
-                        <span className="block text-xs font-semibold mt-1">15-30 people</span>
-                      </th>
-                      <th className="text-center py-4 px-4 font-bold">
-                        <Ship className="inline w-5 h-5 mr-2" />
-                        Clever Girl
-                        <span className="block text-xs font-semibold mt-1">31-75 people</span>
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody className="font-semibold">
-                    <tr className="border-b-2 border-gray-200 dark:border-gray-700 hover:bg-yellow-50/50 dark:hover:bg-yellow-900/10 transition-colors">
-                      <td className="py-3 px-4 text-center text-gray-800 dark:text-gray-200">Mon-Thu: <span className="text-green-600 dark:text-green-400 font-bold">$800</span></td>
-                      <td className="py-3 px-4 text-center text-gray-800 dark:text-gray-200 border-x border-gray-200 dark:border-gray-700">Mon-Thu: <span className="text-green-600 dark:text-green-400 font-bold">$900</span></td>
-                      <td className="py-3 px-4 text-center text-gray-800 dark:text-gray-200">Mon-Thu: <span className="text-green-600 dark:text-green-400 font-bold">$1,000</span></td>
-                    </tr>
-                    <tr className="border-b-2 border-gray-200 dark:border-gray-700 hover:bg-yellow-50/50 dark:hover:bg-yellow-900/10 transition-colors">
-                      <td className="py-3 px-4 text-center text-gray-800 dark:text-gray-200">Friday: <span className="text-blue-600 dark:text-blue-400 font-bold">$900</span></td>
-                      <td className="py-3 px-4 text-center text-gray-800 dark:text-gray-200 border-x border-gray-200 dark:border-gray-700">Friday: <span className="text-blue-600 dark:text-blue-400 font-bold">$1,000</span></td>
-                      <td className="py-3 px-4 text-center text-gray-800 dark:text-gray-200">Friday: <span className="text-blue-600 dark:text-blue-400 font-bold">$1,100</span></td>
-                    </tr>
-                    <tr className="bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-900/30 dark:to-purple-900/30 border-b-2 border-gray-200 dark:border-gray-700">
-                      <td className="py-3 px-4 text-center font-bold text-purple-700 dark:text-purple-300">Saturday: <span className="text-xl">$1,400</span></td>
-                      <td className="py-3 px-4 text-center font-bold text-purple-700 dark:text-purple-300 border-x border-purple-300 dark:border-purple-700">Saturday: <span className="text-xl">$1,500</span></td>
-                      <td className="py-3 px-4 text-center font-bold text-purple-700 dark:text-purple-300">Saturday: <span className="text-xl">$1,600</span></td>
-                    </tr>
-                    <tr className="border-b-2 border-gray-200 dark:border-gray-700 hover:bg-yellow-50/50 dark:hover:bg-yellow-900/10 transition-colors">
-                      <td className="py-3 px-4 text-center text-gray-800 dark:text-gray-200">Sunday: <span className="text-blue-600 dark:text-blue-400 font-bold">$1,000</span></td>
-                      <td className="py-3 px-4 text-center text-gray-800 dark:text-gray-200 border-x border-gray-200 dark:border-gray-700">Sunday: <span className="text-blue-600 dark:text-blue-400 font-bold">$1,100</span></td>
-                      <td className="py-3 px-4 text-center text-gray-800 dark:text-gray-200">Sunday: <span className="text-blue-600 dark:text-blue-400 font-bold">$1,200</span></td>
-                    </tr>
-                    <tr className="bg-gradient-to-r from-yellow-100 to-orange-100 dark:from-yellow-900/30 dark:to-orange-900/30">
-                      <td colSpan={3} className="py-4 px-4 font-bold text-center text-lg text-orange-700 dark:text-orange-300">
-                        <Star className="inline w-5 h-5 mr-2" />
-                        Package Add-Ons (Flat Fee Per Cruise)
-                      </td>
-                    </tr>
-                    <tr className="border-b border-gray-200 dark:border-gray-700 hover:bg-yellow-50/50 dark:hover:bg-yellow-900/10 transition-colors">
-                      <td className="py-3 px-4 text-center text-gray-800 dark:text-gray-200">Essentials: <span className="text-orange-600 dark:text-orange-400 font-bold">+$100</span></td>
-                      <td className="py-3 px-4 text-center text-gray-800 dark:text-gray-200 border-x border-gray-200 dark:border-gray-700">Essentials: <span className="text-orange-600 dark:text-orange-400 font-bold">+$150</span></td>
-                      <td className="py-3 px-4 text-center text-gray-800 dark:text-gray-200">Essentials: <span className="text-orange-600 dark:text-orange-400 font-bold">+$200</span></td>
-                    </tr>
-                    <tr className="border-b-2 border-gray-200 dark:border-gray-700 hover:bg-yellow-50/50 dark:hover:bg-yellow-900/10 transition-colors">
-                      <td className="py-3 px-4 text-center text-gray-800 dark:text-gray-200">Ultimate: <span className="text-purple-600 dark:text-purple-400 font-bold">+$250</span></td>
-                      <td className="py-3 px-4 text-center text-gray-800 dark:text-gray-200 border-x border-gray-200 dark:border-gray-700">Ultimate: <span className="text-purple-600 dark:text-purple-400 font-bold">+$300</span></td>
-                      <td className="py-3 px-4 text-center text-gray-800 dark:text-gray-200">Ultimate: <span className="text-purple-600 dark:text-purple-400 font-bold">+$350</span></td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <div className="bg-gradient-to-r from-yellow-100 to-orange-100 dark:from-yellow-900/30 dark:to-orange-900/30 rounded-lg p-4 mt-6">
-                <p className="text-sm font-semibold text-center text-gray-800 dark:text-gray-200">
-                  💰 Base prices shown (before 8.25% tax & 20% gratuity) • Deposit: 25% if booking 14+ days out, 50% if less than 14 days
-                </p>
+            <div className="flex flex-col justify-center">
+              <p className="text-xs font-bold tracking-[0.2em] uppercase mb-4 text-brand-yellow bg-brand-navy inline-block px-3 py-1 rounded self-start">
+                From $85 / Person
+              </p>
+              <h2 className="heading-unbounded text-3xl sm:text-4xl font-bold mb-6 leading-tight text-gray-900 dark:text-white">
+                ATX Disco Cruise
+              </h2>
+              <p className="text-lg leading-relaxed mb-6 text-gray-600 dark:text-gray-300">
+                The <em>only</em> multi-group all-inclusive <Suspense fallback="bachelor"><InternalLinkHighlight href="/bachelor-party-austin" title="Bachelor Party Austin">bachelor</InternalLinkHighlight></Suspense> and <Suspense fallback="bachelorette"><InternalLinkHighlight href="/bachelorette-party-austin" title="Bachelorette Party Austin">bachelorette party</InternalLinkHighlight></Suspense> cruise in the U.S. DJ, photographer, and open bar — everything included. Friday & Saturday on Lake Travis.
+              </p>
+              <ul className="space-y-3 mb-8">
+                {[
+                  'Professional DJ + on-board Photographer included',
+                  'All-inclusive bar package — no BYOB needed',
+                  'Groups of 8–30 people · March through October',
+                  'Mix with other bach groups for maximum energy',
+                ].map((item) => (
+                  <li key={item} className="flex items-start gap-3">
+                    <CheckCircle className="h-5 w-5 text-brand-yellow mt-0.5 flex-shrink-0" style={{ color: 'var(--brand-yellow)' }} />
+                    <span className="text-gray-700 dark:text-gray-200">{item}</span>
+                  </li>
+                ))}
+              </ul>
+              <div className="flex flex-col sm:flex-row gap-3">
+                <div className="xola-custom xola-checkout" data-button-id="695186923c261203770cc2e7">
+                  <Button className="bg-brand-yellow hover:bg-yellow-300 text-gray-900 font-bold px-8 py-5 rounded-xl text-base" data-testid="button-atx-disco-cta">
+                    <Calendar className="mr-2 h-5 w-5" /> Check ATX Disco Dates
+                  </Button>
+                </div>
+                <button onClick={scrollToQuoteBuilder} className="font-bold text-base px-6 py-5 rounded-xl border-2 border-gray-300 text-gray-700 hover:border-gray-900 hover:text-gray-900 transition-all">
+                  Get a Quote
+                </button>
               </div>
             </div>
           </div>
-        </section>
-      </SectionReveal>
+        </div>
 
-      {/* Testimonials Section - Hormozi/McDowell Social Proof */}
-      <SectionReveal>
-        <section className="py-12 md:py-20 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-gray-900 dark:to-gray-950">
+        {/* Divider */}
+        <div className="border-t border-gray-100" />
+
+        {/* Private Charters — Text Left, Photo Right */}
+        <div className="max-w-7xl mx-auto px-6 lg:px-10 py-20 md:py-28">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+            <div className="flex flex-col justify-center lg:order-1 order-2">
+              <p className="text-xs font-bold tracking-[0.2em] uppercase mb-4 text-blue-600">
+                Your Boat. Your Group. Your Rules.
+              </p>
+              <h2 className="heading-unbounded text-3xl sm:text-4xl font-bold mb-6 leading-tight text-gray-900 dark:text-white">
+                Private Charters
+              </h2>
+              <p className="text-lg leading-relaxed mb-6 text-gray-600 dark:text-gray-300">
+                Rent the entire boat exclusively for your group. Perfect for <Suspense fallback="weddings"><InternalLinkHighlight href="/wedding-parties" title="Wedding Parties Lake Travis">weddings</InternalLinkHighlight></Suspense>, <Suspense fallback="birthdays"><InternalLinkHighlight href="/birthday-parties" title="Birthday Party Boat Austin">birthdays</InternalLinkHighlight></Suspense>, <Suspense fallback="corporate events"><InternalLinkHighlight href="/corporate-events" title="Corporate Events Lake Travis">corporate events</InternalLinkHighlight></Suspense>, and every celebration. 14–75 guests, 7 days a week, year-round.
+              </p>
+              <ul className="space-y-3 mb-8">
+                {[
+                  '4 boats available · 14–75 guests · from $800 for 4 hours',
+                  'BYOB or order direct alcohol delivery to the marina',
+                  'Licensed captain + premium Bluetooth sound system',
+                  'Anderson Mill Marina · Leander, TX · 30 min from Austin',
+                ].map((item) => (
+                  <li key={item} className="flex items-start gap-3">
+                    <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-700 dark:text-gray-200">{item}</span>
+                  </li>
+                ))}
+              </ul>
+              <div className="flex flex-col sm:flex-row gap-3">
+                <button onClick={scrollToQuoteBuilder} className="bg-brand-yellow hover:bg-yellow-300 text-gray-900 font-bold px-8 py-5 rounded-xl text-base transition-all" data-testid="button-private-charter-quote">
+                  Get a Quote <ArrowRight className="ml-2 h-5 w-5 inline" />
+                </button>
+                <Link href="/private-cruises">
+                  <Button variant="outline" className="border-2 border-gray-300 text-gray-700 hover:border-gray-900 hover:text-gray-900 font-semibold px-6 py-5 rounded-xl" data-testid="button-private-charter-cta">
+                    View Pricing & Fleet
+                  </Button>
+                </Link>
+              </div>
+            </div>
+            <div className="relative overflow-hidden rounded-2xl shadow-2xl aspect-[4/3] lg:order-2 order-1">
+              <LazyImage
+                src={galleryImage3}
+                alt="Clever Girl 75-person private charter boat Lake Travis Austin"
+                className="w-full h-full object-cover"
+                width={800}
+                height={600}
+              />
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      {/* Testimonials Section */}
+      <SectionReveal id="testimonials">
+        <section className="py-16 md:py-24 bg-gray-50 dark:from-gray-900 dark:to-gray-950">
           <div className="container mx-auto px-4 sm:px-6">
-            <div className="text-center mb-12">
-              <Badge className="mb-4 bg-gradient-to-r from-yellow-400 to-orange-500 text-black px-6 py-2 font-bold">
-                ⭐ 420+ Five-Star Reviews
-              </Badge>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold heading-unbounded mb-4 text-gray-900 dark:text-white">
+            <div className="text-center mb-6">
+              <h2 className="text-3xl sm:text-4xl font-bold heading-unbounded mb-1 text-gray-900 dark:text-white">
                 What Our Customers Say
               </h2>
-              <p className="text-lg text-gray-700 dark:text-gray-300 max-w-3xl mx-auto">
-                Real reviews from real party-goers who chose Premier Party Cruises
-              </p>
+              <p className="text-gray-600 dark:text-gray-400">⭐ 420+ five-star reviews from real party-goers</p>
             </div>
 
             {/* Testimonial Cards Grid */}
@@ -1167,24 +836,23 @@ export default function Home() {
 
             {/* Call to Action */}
             <div className="text-center mt-12">
-              <div
-                className="xola-custom xola-checkout"
-                data-button-id="695186923c261203770cc2e7"
+              <button
+                onClick={scrollToQuoteBuilder}
+                className="bg-brand-yellow hover:bg-yellow-300 text-gray-900 font-bold px-10 py-5 rounded-xl shadow-lg text-base transition-all inline-flex items-center"
               >
-                <Button
-                  size="lg"
-                  className="bg-gradient-to-r from-yellow-400 via-yellow-500 to-orange-500 hover:from-yellow-500 hover:via-orange-500 hover:to-orange-600 text-black font-bold px-8 py-4 rounded-xl shadow-xl transform hover:scale-105 transition-all duration-300"
-                >
-                  <Star className="mr-2 h-5 w-5" />
-                  Join Our Happy Customers
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
-              </div>
+                Get Your Free Quote
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </button>
             </div>
           </div>
         </section>
       </SectionReveal>
 
+
+      {/* Quote Builder Section */}
+      <div id="quote-builder">
+        <QuoteBuilderSection title="Get Your Free Quote in 60 Seconds" />
+      </div>
 
       {/* CRITICAL: Lightbox Photo Gallery for Experience Cards */}
       <Dialog open={showLightbox} onOpenChange={setShowLightbox}>
@@ -1319,274 +987,53 @@ export default function Home() {
         </DialogContent>
       </Dialog>
 
-      {/* Availability & Booking Section */}
+      {/* Booking & Availability Section */}
       <SectionReveal id="availability">
-        <section className="py-12 md:py-20 bg-gradient-to-br from-blue-50 via-white to-blue-50 dark:from-gray-900 dark:via-gray-950 dark:to-gray-900 relative">
-          <div className="absolute top-4 right-4 text-6xl font-black text-blue-200 opacity-20">03</div>
+        <section className="py-10 md:py-14 bg-blue-900 text-white">
           <div className="container mx-auto px-4 sm:px-6">
-            <Collapsible className="max-w-7xl mx-auto" defaultOpen={false}>
-              <div className="text-center mb-8">
-                <Badge className="mb-6 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 sm:px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
-                  <Calendar className="h-4 w-4 mr-2 inline" />
-                  Availability & Booking
-                </Badge>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold heading-unbounded text-center mb-6 text-gray-900 dark:text-white leading-tight" data-editable data-editable-id="availability-main-title">
-                  When Can You Book?
-                </h2>
-                <p className="text-lg md:text-xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed mb-6" data-editable data-editable-id="availability-description">
-                  We operate year-round on Lake Travis with flexible scheduling to fit your celebration
-                </p>
-                
-                <CollapsibleTrigger asChild>
-                  <Button variant="outline" size="lg" className="group" data-testid="button-toggle-availability">
-                    <span>View Booking Details</span>
-                    <ChevronDown className="ml-2 h-4 w-4 transition-transform group-data-[state=open]:rotate-180" />
+            <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
+              <div className="flex-1">
+                <h2 className="text-2xl md:text-3xl font-bold heading-unbounded mb-4" data-editable data-editable-id="availability-main-title">Book Your Date on Lake Travis</h2>
+                <ul className="space-y-2 text-blue-100 text-sm">
+                  <li className="flex items-center gap-2"><CheckCircle className="h-4 w-4 text-brand-yellow flex-shrink-0" /> Available 7 days a week, year-round</li>
+                  <li className="flex items-center gap-2"><CheckCircle className="h-4 w-4 text-brand-yellow flex-shrink-0" /> Peak season (May–Sep): book 8–12 weeks ahead</li>
+                  <li className="flex items-center gap-2"><CheckCircle className="h-4 w-4 text-brand-yellow flex-shrink-0" /> Off-peak (Oct–Apr): more flexibility, best rates</li>
+                  <li className="flex items-center gap-2"><CheckCircle className="h-4 w-4 text-brand-yellow flex-shrink-0" /> ATX Disco Cruise: Friday &amp; Saturday nights only</li>
+                  <li className="flex items-center gap-2"><CheckCircle className="h-4 w-4 text-brand-yellow flex-shrink-0" /> Departs Anderson Mill Marina · 13993 FM2769 Leander TX</li>
+                </ul>
+              </div>
+              <div className="flex flex-col gap-3 min-w-[220px]">
+                <div className="xola-custom xola-checkout" data-button-id="695186923c261203770cc2e7">
+                  <Button className="w-full bg-brand-yellow hover:bg-yellow-300 text-gray-900 font-bold px-8 py-4 rounded-xl text-base" data-testid="button-availability-cta">
+                    <Calendar className="mr-2 h-5 w-5" /> Check Availability
                   </Button>
-                </CollapsibleTrigger>
-              </div>
-
-              <CollapsibleContent className="space-y-12">
-                {/* Main Availability Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12 max-w-7xl mx-auto">
-              {/* 7 Days a Week */}
-              <Card className="border-2 border-blue-200 dark:border-blue-900 hover:border-blue-400 dark:hover:border-blue-700 transition-all hover:shadow-xl bg-white dark:bg-gray-800">
-                <CardHeader className="text-center pb-4">
-                  <div className="mx-auto mb-4 p-4 bg-blue-100 dark:bg-blue-900 rounded-full w-16 h-16 flex items-center justify-center">
-                    <Calendar className="h-8 w-8 text-blue-600 dark:text-blue-400" />
-                  </div>
-                  <CardTitle className="text-xl font-bold text-gray-900 dark:text-white" data-editable data-editable-id="availability-card-1-title">
-                    7 Days a Week
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="text-center">
-                  <p className="text-gray-700 dark:text-gray-300 leading-relaxed" data-editable data-editable-id="availability-card-1-description">
-                    Private charters available every day of the week, year-round on Lake Travis
-                  </p>
-                </CardContent>
-              </Card>
-
-              {/* Peak Season */}
-              <Card className="border-2 border-orange-200 dark:border-orange-900 hover:border-orange-400 dark:hover:border-orange-700 transition-all hover:shadow-xl bg-gradient-to-br from-orange-50 to-white dark:from-gray-800 dark:to-gray-800">
-                <CardHeader className="text-center pb-4">
-                  <div className="mx-auto mb-4 p-4 bg-orange-100 dark:bg-orange-900 rounded-full w-16 h-16 flex items-center justify-center">
-                    <Calendar className="h-8 w-8 text-orange-600 dark:text-orange-400" />
-                  </div>
-                  <CardTitle className="text-xl font-bold text-gray-900 dark:text-white" data-editable data-editable-id="availability-card-2-title">
-                    Peak Season
-                  </CardTitle>
-                  <CardDescription className="font-semibold" data-editable data-editable-id="availability-card-2-subtitle">
-                    May - September
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="text-center">
-                  <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-3" data-editable data-editable-id="availability-card-2-description">
-                    High demand season - book 8-12 weeks for priority time slots - once they book they're gone!
-                  </p>
-                  <Badge variant="secondary" className="bg-orange-100 dark:bg-orange-900 text-orange-700 dark:text-orange-300">
-                    Book Early
-                  </Badge>
-                </CardContent>
-              </Card>
-
-              {/* Off Season */}
-              <Card className="border-2 border-blue-200 dark:border-blue-900 hover:border-blue-400 dark:hover:border-blue-700 transition-all hover:shadow-xl bg-gradient-to-br from-blue-50 to-white dark:from-gray-800 dark:to-gray-800">
-                <CardHeader className="text-center pb-4">
-                  <div className="mx-auto mb-4 p-4 bg-blue-100 dark:bg-blue-900 rounded-full w-16 h-16 flex items-center justify-center">
-                    <Calendar className="h-8 w-8 text-blue-600 dark:text-blue-400" />
-                  </div>
-                  <CardTitle className="text-xl font-bold text-gray-900 dark:text-white" data-editable data-editable-id="availability-card-3-title">
-                    Off-Peak Season
-                  </CardTitle>
-                  <CardDescription className="font-semibold" data-editable data-editable-id="availability-card-3-subtitle">
-                    October - April
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="text-center">
-                  <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-3" data-editable data-editable-id="availability-card-3-description">
-                    More flexible scheduling and last-minute availability
-                  </p>
-                  <Badge variant="secondary" className="bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300">
-                    Best Value
-                  </Badge>
-                </CardContent>
-              </Card>
-
-              {/* ATX Disco Cruise Schedule */}
-              <Card className="border-2 border-purple-200 dark:border-purple-900 hover:border-purple-400 dark:hover:border-purple-700 transition-all hover:shadow-xl bg-gradient-to-br from-purple-50 to-white dark:from-gray-800 dark:to-gray-800">
-                <CardHeader className="text-center pb-4">
-                  <div className="mx-auto mb-4 p-4 bg-purple-100 dark:bg-purple-900 rounded-full w-16 h-16 flex items-center justify-center">
-                    <Music className="h-8 w-8 text-purple-600 dark:text-purple-400" />
-                  </div>
-                  <CardTitle className="text-xl font-bold text-gray-900 dark:text-white" data-editable data-editable-id="availability-card-4-title">
-                    ATX Disco Cruise
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="text-center">
-                  <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-3" data-editable data-editable-id="availability-card-4-description">
-                    Friday & Saturday time slots - $85-$105/person depending on time slot
-                  </p>
-                  <Badge variant="secondary" className="bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300">
-                    Weekly Event
-                  </Badge>
-                </CardContent>
-              </Card>
-            </div>
-
-            {/* Time Slots Section */}
-            <div className="max-w-5xl mx-auto mb-12">
-              <h3 className="text-2xl md:text-3xl font-semibold heading-unbounded text-center mb-8 text-gray-900 dark:text-white" data-editable data-editable-id="availability-timeslots-title">
-                Available Time Slots
-              </h3>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {/* Morning Cruises */}
-                <Card className="border border-gray-200 dark:border-gray-700 hover:border-blue-400 dark:hover:border-blue-600 transition-all hover:shadow-lg bg-white dark:bg-gray-800">
-                  <CardHeader className="text-center">
-                    <div className="mx-auto mb-3 p-3 bg-yellow-100 dark:bg-yellow-900 rounded-full w-14 h-14 flex items-center justify-center">
-                      <Calendar className="h-7 w-7 text-yellow-600 dark:text-yellow-400" />
-                    </div>
-                    <CardTitle className="text-lg font-bold text-gray-900 dark:text-white" data-editable data-editable-id="timeslot-morning-title">
-                      Morning Cruises
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="text-center">
-                    <p className="text-2xl font-bold text-blue-600 dark:text-blue-400 mb-2">9am - 1pm</p>
-                    <p className="text-sm text-gray-600 dark:text-gray-400" data-editable data-editable-id="timeslot-morning-description">
-                      Perfect for early risers and calm waters
-                    </p>
-                  </CardContent>
-                </Card>
-
-                {/* Afternoon Cruises */}
-                <Card className="border-2 border-blue-300 dark:border-blue-700 hover:border-blue-500 dark:hover:border-blue-500 transition-all hover:shadow-lg bg-white dark:bg-gray-800">
-                  <CardHeader className="text-center">
-                    <div className="mx-auto mb-3 p-3 bg-blue-100 dark:bg-blue-900 rounded-full w-14 h-14 flex items-center justify-center">
-                      <Clock className="h-7 w-7 text-blue-600 dark:text-blue-400" />
-                    </div>
-                    <CardTitle className="text-lg font-bold text-gray-900 dark:text-white" data-editable data-editable-id="timeslot-afternoon-title">
-                      Afternoon Cruises
-                    </CardTitle>
-                    <Badge className="mt-2 bg-blue-600 text-white">Most Popular</Badge>
-                  </CardHeader>
-                  <CardContent className="text-center">
-                    <p className="text-2xl font-bold text-blue-600 dark:text-blue-400 mb-2">2pm - 6pm</p>
-                    <p className="text-sm text-gray-600 dark:text-gray-400" data-editable data-editable-id="timeslot-afternoon-description">
-                      Peak party time on Lake Travis
-                    </p>
-                  </CardContent>
-                </Card>
-
-                {/* Evening Cruises */}
-                <Card className="border border-gray-200 dark:border-gray-700 hover:border-purple-400 dark:hover:border-purple-600 transition-all hover:shadow-lg bg-white dark:bg-gray-800">
-                  <CardHeader className="text-center">
-                    <div className="mx-auto mb-3 p-3 bg-purple-100 dark:bg-purple-900 rounded-full w-14 h-14 flex items-center justify-center">
-                      <Ship className="h-7 w-7 text-purple-600 dark:text-purple-400" />
-                    </div>
-                    <CardTitle className="text-lg font-bold text-gray-900 dark:text-white" data-editable data-editable-id="timeslot-evening-title">
-                      Evening Cruises
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="text-center">
-                    <p className="text-2xl font-bold text-purple-600 dark:text-purple-400 mb-2">4pm - 8pm</p>
-                    <p className="text-sm text-gray-600 dark:text-gray-400" data-editable data-editable-id="timeslot-evening-description">
-                      Sunset views and celebrations (cruises end by 8:30pm)
-                    </p>
-                  </CardContent>
-                </Card>
-              </div>
-            </div>
-
-            {/* Booking Timeline */}
-            <div className="max-w-4xl mx-auto bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8 border border-gray-200 dark:border-gray-700">
-              <h3 className="text-2xl font-semibold text-center mb-8 text-gray-900 dark:text-white" data-editable data-editable-id="booking-timeline-title">
-                How Far in Advance Should You Book?
-              </h3>
-              <div className="space-y-6">
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-12 h-12 bg-red-100 dark:bg-red-900 rounded-full flex items-center justify-center">
-                    <CheckCircle className="h-6 w-6 text-red-600 dark:text-red-400" />
-                  </div>
-                  <div className="flex-1">
-                    <h4 className="font-bold text-lg mb-2 text-gray-900 dark:text-white" data-editable data-editable-id="booking-timeline-1-title">
-                      Bachelorette & Bachelor Parties
-                    </h4>
-                    <p className="text-gray-700 dark:text-gray-300" data-editable data-editable-id="booking-timeline-1-description">
-                      Book 8-12 weeks for priority time slots - once they book they're gone! Especially for ATX Disco Cruises on weekends during peak season
-                    </p>
-                  </div>
                 </div>
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center">
-                    <Users className="h-6 w-6 text-blue-600 dark:text-blue-400" />
-                  </div>
-                  <div className="flex-1">
-                    <h4 className="font-bold text-lg mb-2 text-gray-900 dark:text-white" data-editable data-editable-id="booking-timeline-2-title">
-                      Large Groups & Corporate Events
-                    </h4>
-                    <p className="text-gray-700 dark:text-gray-300" data-editable data-editable-id="booking-timeline-2-description">
-                      Book 6-8 weeks ahead for groups of 30+ or corporate events requiring our flagship boats
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-12 h-12 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center">
-                    <CheckCircle className="h-6 w-6 text-green-600 dark:text-green-400" />
-                  </div>
-                  <div className="flex-1">
-                    <h4 className="font-bold text-lg mb-2 text-gray-900 dark:text-white" data-editable data-editable-id="booking-timeline-3-title">
-                      Last-Minute Bookings
-                    </h4>
-                    <p className="text-gray-700 dark:text-gray-300" data-editable data-editable-id="booking-timeline-3-description">
-                      Weekday cruises during off-peak season may be available with 1-2 weeks notice - call us to check!
-                    </p>
-                  </div>
-                </div>
+                <a href="tel:+15124885892">
+                  <Button variant="outline" className="w-full border-white/50 text-white hover:bg-white/10 font-semibold px-8 py-4 rounded-xl text-base">
+                    <Phone className="mr-2 h-5 w-5" /> (512) 488-5892
+                  </Button>
+                </a>
+                <Link href="/contact">
+                  <Button variant="ghost" className="w-full text-blue-200 hover:text-white hover:bg-white/10 font-semibold px-8 py-3 rounded-xl text-sm">
+                    Send us a message →
+                  </Button>
+                </Link>
               </div>
             </div>
-
-            {/* CTA Section */}
-            <div className="text-center mt-12">
-              <div
-                className="xola-custom xola-checkout inline-block"
-                data-button-id="695186923c261203770cc2e7"
-              >
-                <Button
-                  size="lg"
-                  className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-6 text-lg font-bold shadow-lg hover:shadow-xl transition-all"
-                  data-testid="button-check-availability"
-                >
-                  <Calendar className="mr-2 h-6 w-6" />
-                  Check Availability & Book Now
-                  <ArrowRight className="ml-2 h-6 w-6" />
-                </Button>
-              </div>
-              <p className="mt-4 text-gray-600 dark:text-gray-400">
-                <Phone className="inline h-4 w-4 mr-1" />
-                Or call us at <a href="tel:+15124885892" className="font-bold text-blue-600 dark:text-blue-400 hover:underline">(512) 488-5892</a>
-              </p>
-            </div>
-              </CollapsibleContent>
-            </Collapsible>
           </div>
         </section>
       </SectionReveal>
 
       {/* Photo Gallery Section */}
       <SectionReveal id="gallery">
-        <section className="py-12 md:py-24 bg-blue-50/30 dark:bg-gray-900 relative">
+        <section className="py-16 md:py-24 bg-gray-50 dark:bg-gray-900 relative">
           <div className="absolute top-4 right-4 text-6xl font-black text-blue-200 opacity-30">05</div>
           <div className="container mx-auto px-4 sm:px-6">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl font-semibold heading-unbounded text-center mb-6 text-gray-900 dark:text-white" data-editable data-editable-id="gallery-main-title">
+            <div className="text-center mb-4">
+              <h2 className="text-3xl font-semibold heading-unbounded text-center mb-1 text-gray-900 dark:text-white" data-editable data-editable-id="gallery-main-title">
                 Experience the Premier Difference
               </h2>
-              <p className="text-base text-gray-700 dark:text-gray-300 max-w-3xl mx-auto mb-6" data-editable data-editable-id="gallery-description">
-                See why customers choose Premier Party Cruises for their unforgettable Lake Travis experience.
-              </p>
-              <div className="mt-6">
-                <InternalLinkHighlightWithArrow href="/gallery" title="View Our Fleet" className="text-base">
-                  View Our Fleet
-                </InternalLinkHighlightWithArrow>
-              </div>
+              <InternalLinkHighlightWithArrow href="/gallery" title="View Our Fleet" className="text-sm">View Full Gallery</InternalLinkHighlightWithArrow>
             </div>
 
             <div className="grid grid-cols-2 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
@@ -1624,410 +1071,113 @@ export default function Home() {
         </section>
       </SectionReveal>
 
-      {/* Comparison Tables Section */}
-      <SectionReveal id="fleet">
-        <section className="py-12 md:py-24 bg-white dark:bg-gray-800 relative">
-          <div className="absolute top-4 right-4 text-6xl font-black text-blue-200 opacity-30">06</div>
-          <div className="container mx-auto px-4 sm:px-6">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl font-semibold heading-unbounded text-center mb-6 text-gray-900 dark:text-white">
-                Compare Your Options
-              </h2>
-              <p className="text-base text-gray-700 dark:text-gray-300 max-w-3xl mx-auto mb-12">
-                Compare our cruise options and boat fleet to find the perfect fit for your celebration
-              </p>
-            </div>
-
-          {/* Disco vs Private Comparison */}
-          <m.div 
-            variants={reducedMotion ? undefined : fadeInUp}
-            className="mb-16 max-w-5xl mx-auto"
-          >
-            <h3 className="text-xl font-semibold mb-6 text-center text-gray-900 dark:text-white">
-              ATX Disco Cruise vs Private Charter
-            </h3>
-            <Suspense fallback={<div className="min-h-[400px] animate-pulse bg-gray-100 rounded-xl" />}>
-            <ComparisonTableLazy
-              columns={[
-                {
-                  id: 'disco',
-                  title: 'ATX Disco Cruise',
-                  subtitle: 'Multi-group party experience',
-                  recommended: true,
-                  badge: { text: 'Best Value', variant: 'default' }
-                },
-                {
-                  id: 'private',
-                  title: 'Private Charter',
-                  subtitle: 'Exclusive boat rental'
-                }
-              ]}
-              rows={[
-                {
-                  feature: 'Price Range',
-                  values: [
-                    { text: '$85-$105/person depending on time slot', highlight: true },
-                    '$1,050-$2,660 for 4-hour cruise'
-                  ]
-                },
-                {
-                  feature: 'Group Size',
-                  values: ['8-30 people typical', '1-75 people']
-                },
-                {
-                  feature: 'Duration',
-                  values: ['4 hours fixed', '4+ hours flexible']
-                },
-                {
-                  feature: 'Professional DJ',
-                  values: [true, false]
-                },
-                {
-                  feature: 'Professional Photographer',
-                  values: [true, false]
-                },
-                {
-                  feature: 'Food Options',
-                  values: ['Delivery available', 'Bring your own']
-                },
-                {
-                  feature: 'Customization',
-                  values: ['Limited', 'Full control']
-                },
-                {
-                  feature: 'Best For',
-                  values: ['Bach parties, social groups', 'Any private event']
-                },
-                {
-                  feature: 'Booking Type',
-                  values: ['Per person tickets', 'Charter entire boat']
-                },
-                {
-                  feature: 'Availability',
-                  values: ['Friday & Saturday time slots', '7 days a week']
-                }
-              ]}
-              caption="ATX Disco Cruise vs Private Charter Comparison"
-              summary="Compare the features and benefits of our ATX Disco Cruise public party experience versus a private charter boat rental on Lake Travis"
-              mobileView="cards"
-              schemaType="Service"
-              ariaLabel="Comparison of ATX Disco Cruise and Private Charter options"
-              highlightBest={true}
-            />
-            </Suspense>
-          </m.div>
-
-                    </div>
-        </section>
-      </SectionReveal>
-
-      {/* Testimonials Section */}
-      <SectionReveal id="testimonials">
-        <section className="py-12 md:py-24 bg-gradient-to-br from-blue-600 to-purple-600 text-white relative">
-          <div className="absolute top-4 right-4 text-6xl font-black text-white opacity-10">07</div>
-          <div className="container mx-auto px-4 sm:px-6">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl font-semibold heading-unbounded text-center mb-6 text-white" data-editable data-editable-id="testimonials-main-title">
-                What Our Customers Say
-              </h2>
-              <p className="text-base text-blue-100 max-w-3xl mx-auto" data-editable data-editable-id="testimonials-description">
-                Don't just take our word for it - see what makes us Austin's most trusted party cruise company.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-              {testimonials.map((testimonial, index) => (
-                <div key={testimonial.id}>
-                  <Card className="h-full bg-white/10 backdrop-blur-sm border-white/20 text-white hover:bg-white/20 transition-all">
-                    <CardHeader className="text-center pb-4">
-                      <div className="text-3xl mb-4">{testimonial.avatar}</div>
-                      <div className="flex justify-center mb-4">
-                        {[...Array(testimonial.rating)].map((_, i) => (
-                          <Star key={i} className="h-5 w-5 text-yellow-400 fill-current" />
-                        ))}
-                      </div>
-                      <CardTitle className="text-xl font-semibold">
-                        <span data-editable data-editable-id={`testimonial-${testimonial.id}-name`}>{testimonial.name}</span>
-                      </CardTitle>
-                      <CardDescription className="text-base text-blue-200">
-                        <span data-editable data-editable-id={`testimonial-${testimonial.id}-role`}>{testimonial.role}</span>
-                      </CardDescription>
-                    </CardHeader>
-                    
-                    <CardContent>
-                      <Star className="h-6 w-6 text-yellow-400 mb-4 mx-auto" />
-                      <p className="text-base text-white/90 italic text-center" data-editable data-editable-id={`testimonial-${testimonial.id}-text`}>
-                        "{testimonial.text}"
-                      </p>
-                    </CardContent>
-                  </Card>
-                </div>
-              ))}
-            </div>
+      {/* FAQ Section — 2-Column Accordion */}
+      <section className="py-8 md:py-12 bg-gray-50 dark:bg-gray-900" id="faq">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="text-center mb-8">
+            <h2 className="text-2xl md:text-3xl font-bold heading-unbounded mb-3 text-gray-900 dark:text-white">
+              Frequently Asked Questions
+            </h2>
+            <p className="text-gray-600 dark:text-gray-400 max-w-xl mx-auto">
+              Everything you need to know about cruising Lake Travis — click any question to expand
+            </p>
           </div>
-        </section>
-      </SectionReveal>
-
-      {/* Party Planning Checklist */}
-      <Suspense fallback={<div className="animate-pulse bg-gray-100 dark:bg-gray-800 rounded-lg" style={{ minHeight: '300px' }} />}>
-        <PartyPlanningChecklist partyType="Lake Travis Party" eventType="celebration" />
-      </Suspense>
-
-      {/* AI-Optimized Conversational Q&A Content */}
-      <section className="py-16 bg-white dark:bg-gray-950">
-        <div className="container mx-auto px-6">
-          <AIOptimizedSection
-            type="qa"
-            title="You Asked, We Answer - Lake Travis Party Boat FAQs"
-            description="Natural language answers to your common questions about party boat rentals in Austin"
-            data={[
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-2 max-w-5xl mx-auto">
+            {[
               {
-                question: "What should you bring on a Lake Travis party boat?",
-                answer: "You should bring your own alcohol (we're BYOB), towels, sunscreen, and snacks. We provide cooler space - bring your own ice, OR add Essentials/Ultimate packages for ice included, OR order stocked and ready from Party On Delivery. We also provide cups and Bluetooth speakers. For special events, we can arrange DJ services and party supplies. Don't forget your ID and swimsuit!",
-                category: "What to Bring"
+                q: "What types of party boat services do you offer?",
+                a: "Two main options on Lake Travis: the ATX Disco Cruise (all-inclusive multi-group party for 8–30 guests from $85/person with DJ + photographer) and Private Charters (exclusive boat rental for 5–75 guests from $800 for 4 hours). Both depart from Anderson Mill Marina."
               },
               {
-                question: "How does your party boat rental process work?",
-                answer: "First, you check availability for your date online. Then you choose the perfect boat size for your private charter based on your group (14-75 people). You'll pay a deposit to secure your booking, receive confirmation via email, and show up at Anderson Mill Marina on Lake Travis 15 minutes before departure. Your captain handles everything else!",
-                category: "Booking Process"
+                q: "How much does a Lake Travis party boat cost?",
+                a: "Private charters start at $800 for 4 hours (up to 14 guests) — up to $2,660 for larger groups. The ATX Disco Cruise starts at $85/person all-inclusive. Weekend rates are slightly higher. All prices are before 8.25% tax and 20% gratuity."
               },
               {
-                question: "What happens if it rains on your scheduled cruise date?",
-                answer: "For Private Cruises: Your captain can reschedule or cancel at their discretion. If any cruise time is lost, a prorated refund will be applied. We monitor weather conditions closely and will contact you if there are concerns. Safety is our top priority, and we'll work with you to find the best solution for your event.",
-                category: "Weather Policy"
+                q: "Where do your boats depart from?",
+                a: "All cruises depart from Anderson Mill Marina at 13993 FM2769, Leander TX 78641 — about 30 minutes from downtown Austin. Free parking available. Arrive 15–20 minutes before departure."
               },
               {
-                question: "Can you swim from your party boats?",
-                answer: "Yes! You can swim at designated swimming areas on Lake Travis. We anchor at popular coves where you can jump off the boat and enjoy the water. We provide lily pads for floating. Your captain knows the best spots based on conditions that day.",
-                category: "Swimming"
+                q: "What's included in the price?",
+                a: "Every cruise includes a licensed captain, premium Bluetooth sound system, and cooler space. BYOB allowed — bring your own ice and drinks, upgrade to Essentials/Ultimate packages for ice included, or order stocked-and-ready from Party On Delivery (delivers right to your boat)."
               },
               {
-                question: "How many people fit on your boats?",
-                answer: "Your group size determines which boat: Day Tripper holds up to 14 people (perfect for intimate gatherings), Meeseeks accommodates 25 people (ideal for birthday parties), and our flagship Clever Girl holds up to 75 people (great for large corporate events or weddings). We'll help you choose the perfect boat for your group size.",
-                category: "Capacity"
+                q: "Can we bring our own alcohol?",
+                a: "Yes! All cruises are BYOB. Bring your own ice and drinks, or order through Party On Delivery — our sister company delivers directly to your boat. The ATX Disco Cruise includes an all-inclusive bar package (no BYOB needed)."
+              },
+              {
+                q: "Can you swim from the boats?",
+                a: "Yes! We anchor at popular coves on Lake Travis where guests can jump off and swim. We provide lily pads for floating. Your captain knows the best spots based on that day's conditions."
+              },
+              {
+                q: "What if it rains or weather is bad?",
+                a: "Your captain can reschedule or cancel at their discretion. If cruise time is lost, a prorated refund applies. We monitor conditions closely and will contact you with concerns. Safety is always our top priority."
+              },
+              {
+                q: "How far in advance should I book?",
+                a: "Peak season (May–Sep): book 8–12 weeks ahead — weekends sell out fast. Off-peak (Oct–Apr): more flexibility and better rates. Deposits are 25% if booking 14+ days out, or 50% if booking within 14 days."
+              },
+              {
+                q: "How many people fit on each boat?",
+                a: "Day Tripper: up to 14 guests. Meeseeks & The Irony: up to 30 guests each. Flagship Clever Girl: up to 75 guests. We'll match you with the right boat for your group size and occasion."
               }
-            ]}
-            className="max-w-4xl mx-auto"
-          />
+            ].map((faq, i) => (
+              <Suspense key={i} fallback={null}>
+                <Collapsible open={openFaq === i} onOpenChange={(open) => setOpenFaq(open ? i : null)}>
+                  <CollapsibleTrigger asChild>
+                    <button className="flex justify-between items-center w-full p-4 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 text-left hover:border-brand-yellow hover:shadow-sm transition-all">
+                      <span className="font-semibold text-gray-900 dark:text-white text-sm pr-4">{faq.q}</span>
+                      <ChevronDown className={cn("h-4 w-4 text-gray-500 flex-shrink-0 transition-transform duration-200", openFaq === i && "rotate-180")} />
+                    </button>
+                  </CollapsibleTrigger>
+                  <CollapsibleContent>
+                    <div className="px-4 py-3 bg-white dark:bg-gray-800 border-x border-b border-gray-200 dark:border-gray-700 rounded-b-xl text-sm text-gray-600 dark:text-gray-300 leading-relaxed -mt-1">
+                      {faq.a}
+                    </div>
+                  </CollapsibleContent>
+                </Collapsible>
+              </Suspense>
+            ))}
+          </div>
         </div>
       </section>
 
       {/* Contact & CTA Section */}
       <SectionReveal id="contact">
-        <section className="py-12 md:py-24 bg-blue-50/30 dark:bg-gray-950 relative">
-          <div className="absolute top-4 right-4 text-6xl font-black text-blue-200 opacity-30">07</div>
-          <div className="container mx-auto px-4 sm:px-6">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl font-semibold heading-unbounded text-center mb-6 text-gray-900 dark:text-white" data-editable data-editable-id="contact-main-title">
-                Ready to Set Sail?
-              </h2>
-              <p className="text-base text-gray-700 dark:text-gray-300 max-w-3xl mx-auto mb-12" data-editable data-editable-id="contact-description">
-                Contact us today for a free quote and let's start planning your unforgettable Lake Travis adventure.
-              </p>
-            </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 max-w-6xl mx-auto">
-            {/* Contact Form */}
-            <m.div
-              initial={reducedMotion ? false : "hidden"}
-              whileInView={reducedMotion ? undefined : "visible"}
-              viewport={reducedMotion ? undefined : { once: true, margin: "-50px" }}
-              variants={reducedMotion ? undefined : fadeInUp}
-            >
-              <Card className="border-2 border-gray-200 dark:border-gray-700 shadow-xl">
-                <CardHeader>
-                  <CardTitle className="text-2xl font-bold text-center mb-4 tracking-wide">
-                    <span data-editable data-editable-id="contact-form-title">Get Your Free Quote</span>
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <form onSubmit={(e) => { e.preventDefault(); navigate('/chat?type=general'); }} className="space-y-6">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div>
-                        <Label htmlFor="name" className="text-sm font-semibold tracking-wide">
-                          <span data-editable data-editable-id="contact-form-label-name">Full Name *</span>
-                        </Label>
-                        <Input
-                          id="name"
-                          type="text"
-                          value={contactForm.name}
-                          onChange={(e) => setContactForm(prev => ({ ...prev, name: e.target.value }))}
-                          className="mt-1 rounded-xl"
-                          data-testid="input-contact-name"
-                          required
-                        />
-                      </div>
-                      <div>
-                        <Label htmlFor="email" className="text-sm font-semibold tracking-wide">
-                          <span data-editable data-editable-id="contact-form-label-email">Email *</span>
-                        </Label>
-                        <Input
-                          id="email"
-                          type="email"
-                          value={contactForm.email}
-                          onChange={(e) => setContactForm(prev => ({ ...prev, email: e.target.value }))}
-                          className="mt-1 rounded-xl"
-                          data-testid="input-contact-email"
-                          required
-                        />
-                      </div>
-                    </div>
-                    
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div>
-                        <Label htmlFor="phone" className="text-sm font-semibold tracking-wide">
-                          <span data-editable data-editable-id="contact-form-label-phone">Phone *</span>
-                        </Label>
-                        <Input
-                          id="phone"
-                          type="tel"
-                          value={contactForm.phone}
-                          onChange={(e) => setContactForm(prev => ({ ...prev, phone: e.target.value }))}
-                          className="mt-1 rounded-xl"
-                          data-testid="input-contact-phone"
-                          required
-                        />
-                      </div>
-                      <div>
-                        <Label htmlFor="eventType" className="text-sm font-semibold tracking-wide">
-                          <span data-editable data-editable-id="contact-form-label-event-type">Event Type</span>
-                        </Label>
-                        <Input
-                          id="eventType"
-                          type="text"
-                          placeholder="Birthday, Bachelor/ette, Corporate..."
-                          value={contactForm.eventType}
-                          onChange={(e) => setContactForm(prev => ({ ...prev, eventType: e.target.value }))}
-                          className="mt-1 rounded-xl"
-                          data-testid="input-contact-event-type"
-                        />
-                      </div>
-                    </div>
-                    
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div>
-                        <Label htmlFor="groupSize" className="text-sm font-semibold tracking-wide">
-                          <span data-editable data-editable-id="contact-form-label-group-size">Group Size</span>
-                        </Label>
-                        <Input
-                          id="groupSize"
-                          type="text"
-                          placeholder="e.g., 20 people"
-                          value={contactForm.groupSize}
-                          onChange={(e) => setContactForm(prev => ({ ...prev, groupSize: e.target.value }))}
-                          className="mt-1 rounded-xl"
-                          data-testid="input-contact-group-size"
-                        />
-                      </div>
-                      <div>
-                        <Label htmlFor="eventDate" className="text-sm font-semibold tracking-wide">
-                          <span data-editable data-editable-id="contact-form-label-event-date">Event Date</span>
-                        </Label>
-                        <Input
-                          id="eventDate"
-                          type="date"
-                          value={contactForm.eventDate}
-                          onChange={(e) => setContactForm(prev => ({ ...prev, eventDate: e.target.value }))}
-                          className="mt-1 rounded-xl"
-                          data-testid="input-contact-event-date"
-                        />
-                      </div>
-                    </div>
-                    
-                    <div>
-                      <Label htmlFor="message" className="text-sm font-semibold tracking-wide">
-                        <span data-editable data-editable-id="contact-form-label-message">Additional Details</span>
-                      </Label>
-                      <Textarea
-                        id="message"
-                        rows={4}
-                        placeholder="Tell us about your event, special requests, or any questions..."
-                        value={contactForm.message}
-                        onChange={(e) => setContactForm(prev => ({ ...prev, message: e.target.value }))}
-                        className="mt-1 rounded-xl resize-none"
-                        data-testid="textarea-contact-message"
-                      />
-                    </div>
-                    
-                    <Button 
-                      type="submit"
-                      className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-4 text-base rounded-xl"
-                      data-testid="button-contact-submit"
-                    >
-                      <Mail className="mr-3 h-5 w-5" />
-                      <span data-editable data-editable-id="contact-form-submit-button">GET FREE QUOTE</span>
-                    </Button>
-                  </form>
-                </CardContent>
-              </Card>
-            </m.div>
-
-            {/* Contact Info & Quick Actions */}
-            <m.div
-              initial={reducedMotion ? false : "hidden"}
-              whileInView={reducedMotion ? undefined : "visible"}
-              viewport={reducedMotion ? undefined : { once: true, margin: "-50px" }}
-              variants={reducedMotion ? undefined : fadeInUp}
-              className="space-y-8"
-            >
-              {/* Quick Book Button */}
-              <Card className="border-2 border-brand-yellow bg-gradient-to-br from-brand-yellow/10 to-brand-yellow/5">
-                <CardContent className="p-8 text-center">
-                  <Calendar className="h-12 w-12 text-brand-yellow mx-auto mb-4" />
-                  <h3 className="text-xl font-semibold mb-4 tracking-wide" data-editable data-editable-id="quick-book-title">Book Online Now</h3>
-                  <p className="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed" data-editable data-editable-id="quick-book-description">
-                    See our real-time availability and book your perfect cruise date instantly.
-                  </p>
-                  <Button 
-                    onClick={() => scrollToSection('quote-builder')}
-                    size="lg"
-                    className="w-full bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold py-4 text-base rounded-xl tracking-wide"
-                    data-testid="button-quick-book"
-                  >
-                    <span data-editable data-editable-id="quick-book-button">GET MY QUOTE</span>
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </Button>
-                </CardContent>
-              </Card>
-
-              {/* Contact Methods */}
-              <div className="grid grid-cols-1 gap-6">
-                <Card className="border-2 border-gray-200 dark:border-gray-700">
-                  <CardContent className="p-6 flex items-center space-x-4">
-                    <Phone className="h-8 w-8 text-brand-blue flex-shrink-0" />
-                    <div>
-                      <h4 className="font-bold text-base tracking-wide" data-editable data-editable-id="contact-phone-title">Call Us</h4>
-                      <p className="text-gray-600 dark:text-gray-300" data-editable data-editable-id="contact-phone-number">(512) 488-5892</p>
-                      <p className="text-sm text-gray-600" data-editable data-editable-id="contact-phone-note">Available 7 days a week</p>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                <Card className="border-2 border-gray-200 dark:border-gray-700">
-                  <CardContent className="p-6 flex items-center space-x-4">
-                    <Mail className="h-8 w-8 text-brand-blue flex-shrink-0" />
-                    <div>
-                      <h4 className="font-bold text-base tracking-wide" data-editable data-editable-id="contact-email-title">Email Us</h4>
-                      <p className="text-gray-600 dark:text-gray-300" data-editable data-editable-id="contact-email-address">clientservices@premierpartycruises.com</p>
-                      <p className="text-sm text-gray-600" data-editable data-editable-id="contact-email-note">Response within 24 hours</p>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                <Card className="border-2 border-gray-200 dark:border-gray-700">
-                  <CardContent className="p-6 flex items-center space-x-4">
-                    <MapPin className="h-8 w-8 text-brand-blue flex-shrink-0" />
-                    <div>
-                      <h4 className="font-bold text-base tracking-wide" data-editable data-editable-id="contact-location-title">Anderson Mill Marina</h4>
-                      <p className="text-gray-600 dark:text-gray-300" data-editable data-editable-id="contact-location-city">13993 FM 2769</p>
-                      <p className="text-sm text-gray-600" data-editable data-editable-id="contact-location-note">Leander, TX 78641</p>
-                    </div>
-                  </CardContent>
-                </Card>
+        <section className="py-10 md:py-14 bg-brand-yellow">
+          <div className="container mx-auto px-4 sm:px-6 text-center">
+            <h2 className="text-2xl md:text-3xl font-bold heading-unbounded mb-3 text-gray-900" data-editable data-editable-id="contact-main-title">
+              Ready to Set Sail?
+            </h2>
+            <p className="text-gray-800 mb-8 max-w-xl mx-auto" data-editable data-editable-id="contact-description">
+              Austin's favorite party cruise since 2009 — let's plan your unforgettable Lake Travis experience.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
+              <div className="xola-custom xola-checkout" data-button-id="695186923c261203770cc2e7">
+                <Button className="bg-gray-900 hover:bg-gray-800 text-white font-bold px-8 py-4 rounded-xl text-base" data-testid="button-contact-book">
+                  <Calendar className="mr-2 h-5 w-5" /> Book Online Now
+                </Button>
               </div>
-
-            </m.div>
-          </div>
+              <Link href="/chat">
+                <Button variant="outline" className="border-gray-900 text-gray-900 hover:bg-gray-900/10 font-bold px-8 py-4 rounded-xl text-base">
+                  <Phone className="mr-2 h-5 w-5" /> Chat for a Custom Quote
+                </Button>
+              </Link>
+              <a href="tel:+15124885892">
+                <Button variant="ghost" className="text-gray-800 hover:bg-gray-900/10 font-semibold px-6 py-3 rounded-xl">
+                  Call (512) 488-5892
+                </Button>
+              </a>
+            </div>
+            <div className="flex flex-wrap justify-center gap-6 text-sm text-gray-700">
+              <div className="flex items-center gap-2">
+                <MapPin className="h-4 w-4" />
+                <span>Anderson Mill Marina, Leander TX</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Mail className="h-4 w-4" />
+                <a href="mailto:clientservices@premierpartycruises.com" className="hover:text-gray-900 hover:underline" data-editable data-editable-id="contact-email-address">clientservices@premierpartycruises.com</a>
+              </div>
+            </div>
           </div>
         </section>
       </SectionReveal>
@@ -2065,99 +1215,23 @@ export default function Home() {
         </DialogContent>
       </Dialog>
 
-      {/* Quick Links Section */}
-      <section className="py-20 bg-gradient-to-br from-blue-600 to-purple-600">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-semibold heading-unbounded text-center mb-4 text-white">
-              Explore All Our Austin Party Boat Services
-            </h2>
-            <p className="text-base text-blue-100 max-w-2xl mx-auto">
-              Discover the perfect Lake Travis party cruise for your celebration
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
-            <Link href="/bachelor-party-austin" data-testid="link-bachelor-from-home">
-              <Card className="hover:shadow-2xl transition-all duration-300 cursor-pointer h-full border-2 border-transparent hover:border-brand-yellow">
-                <CardHeader>
-                  <CardTitle className="text-xl font-bold text-gray-900 dark:text-white">Bachelor Party Austin</CardTitle>
-                  <p className="text-gray-700 dark:text-gray-300">Epic bachelor party boat cruises on Lake Travis with DJ and photographer</p>
-                </CardHeader>
-              </Card>
-            </Link>
-
-            <Link href="/bachelorette-party-austin" data-testid="link-bachelorette-from-home">
-              <Card className="hover:shadow-2xl transition-all duration-300 cursor-pointer h-full border-2 border-transparent hover:border-brand-yellow">
-                <CardHeader>
-                  <CardTitle className="text-xl font-bold text-gray-900 dark:text-white">Bachelorette Party Austin</CardTitle>
-                  <p className="text-gray-700 dark:text-gray-300">Austin's #1 bachelorette party cruise - Our specialty since 2009</p>
-                </CardHeader>
-              </Card>
-            </Link>
-
-            <Link href="/wedding-parties" data-testid="link-wedding-from-home">
-              <Card className="hover:shadow-2xl transition-all duration-300 cursor-pointer h-full border-2 border-transparent hover:border-brand-yellow">
-                <CardHeader>
-                  <CardTitle className="text-xl font-bold text-gray-900 dark:text-white">Wedding Parties</CardTitle>
-                  <p className="text-gray-700 dark:text-gray-300">Elegant wedding celebrations on Lake Travis</p>
-                </CardHeader>
-              </Card>
-            </Link>
-
-            <Link href="/party-boat-lake-travis" data-testid="link-party-boat-from-home">
-              <Card className="hover:shadow-2xl transition-all duration-300 cursor-pointer h-full border-2 border-transparent hover:border-brand-yellow">
-                <CardHeader>
-                  <CardTitle className="text-xl font-bold text-gray-900 dark:text-white">Party Boat Lake Travis</CardTitle>
-                  <p className="text-gray-700 dark:text-gray-300">Premium Austin party boats for unforgettable celebrations</p>
-                </CardHeader>
-              </Card>
-            </Link>
-
-            <Link href="/private-cruises" data-testid="link-private-from-home">
-              <Card className="hover:shadow-2xl transition-all duration-300 cursor-pointer h-full border-2 border-transparent hover:border-brand-yellow">
-                <CardHeader>
-                  <CardTitle className="text-xl font-bold text-gray-900 dark:text-white">Private Cruises</CardTitle>
-                  <p className="text-gray-700 dark:text-gray-300">Exclusive private boat charters on Lake Travis</p>
-                </CardHeader>
-              </Card>
-            </Link>
-
-            <Link href="/client-entertainment" data-testid="link-client-entertainment-from-home">
-              <Card className="hover:shadow-2xl transition-all duration-300 cursor-pointer h-full border-2 border-transparent hover:border-brand-yellow">
-                <CardHeader>
-                  <CardTitle className="text-xl font-bold text-gray-900 dark:text-white">Corporate Events</CardTitle>
-                  <p className="text-gray-700 dark:text-gray-300">Professional client entertainment on Lake Travis</p>
-                </CardHeader>
-              </Card>
-            </Link>
-
-            <Link href="/gallery" data-testid="link-gallery-from-home">
-              <Card className="hover:shadow-2xl transition-all duration-300 cursor-pointer h-full border-2 border-transparent hover:border-brand-yellow">
-                <CardHeader>
-                  <CardTitle className="text-xl font-bold text-gray-900 dark:text-white">Photo Gallery</CardTitle>
-                  <p className="text-gray-700 dark:text-gray-300">See real photos from our Austin party boat cruises</p>
-                </CardHeader>
-              </Card>
-            </Link>
-
-            <Link href="/blogs" data-testid="link-blogs-from-home">
-              <Card className="hover:shadow-2xl transition-all duration-300 cursor-pointer h-full border-2 border-transparent hover:border-brand-yellow">
-                <CardHeader>
-                  <CardTitle className="text-xl font-bold text-gray-900 dark:text-white">Cruise Blog & Tips</CardTitle>
-                  <p className="text-gray-700 dark:text-gray-300">Expert guides for planning your Lake Travis experience</p>
-                </CardHeader>
-              </Card>
-            </Link>
-
-            <Link href="/contact" data-testid="link-contact-from-home">
-              <Card className="hover:shadow-2xl transition-all duration-300 cursor-pointer h-full border-2 border-transparent hover:border-brand-yellow">
-                <CardHeader>
-                  <CardTitle className="text-xl font-bold text-gray-900 dark:text-white">Contact Us</CardTitle>
-                  <p className="text-gray-700 dark:text-gray-300">Get your custom party boat quote today</p>
-                </CardHeader>
-              </Card>
-            </Link>
+      {/* Internal Links Strip */}
+      <section className="py-6 bg-gray-900 dark:bg-gray-950">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-gray-400">
+            <Link href="/atx-disco-cruise" className="hover:text-brand-yellow transition-colors">ATX Disco Cruise</Link>
+            <Link href="/private-cruises" className="hover:text-brand-yellow transition-colors">Private Cruises</Link>
+            <Link href="/bachelor-party-austin" className="hover:text-brand-yellow transition-colors" data-testid="link-bachelor-from-home">Bachelor Party Austin</Link>
+            <Link href="/bachelorette-party-austin" className="hover:text-brand-yellow transition-colors" data-testid="link-bachelorette-from-home">Bachelorette Party Austin</Link>
+            <Link href="/combined-bachelor-bachelorette-austin" className="hover:text-brand-yellow transition-colors" data-testid="link-combined-from-home">Combined Bach Party</Link>
+            <Link href="/wedding-parties" className="hover:text-brand-yellow transition-colors" data-testid="link-wedding-from-home">Wedding Parties</Link>
+            <Link href="/birthday-parties" className="hover:text-brand-yellow transition-colors">Birthday Parties</Link>
+            <Link href="/celebration-cruises" className="hover:text-brand-yellow transition-colors" data-testid="link-celebration-from-home">Celebration Cruises</Link>
+            <Link href="/corporate-events" className="hover:text-brand-yellow transition-colors" data-testid="link-client-entertainment-from-home">Corporate Events</Link>
+            <Link href="/party-boat-lake-travis" className="hover:text-brand-yellow transition-colors" data-testid="link-party-boat-from-home">Party Boat Lake Travis</Link>
+            <Link href="/gallery" className="hover:text-brand-yellow transition-colors" data-testid="link-gallery-from-home">Gallery</Link>
+            <Link href="/blogs" className="hover:text-brand-yellow transition-colors" data-testid="link-blogs-from-home">Blog & Tips</Link>
+            <Link href="/contact" className="hover:text-brand-yellow transition-colors" data-testid="link-contact-from-home">Contact</Link>
           </div>
         </div>
       </section>
@@ -2167,91 +1241,8 @@ export default function Home() {
           SSR schemas loaded: homepage/organization.jsonld, homepage/faq.jsonld, homepage/service-private.jsonld,
           homepage/service-disco.jsonld, homepage/service-daytripper.jsonld, homepage/service-meeseeks.jsonld,
           homepage/service-clevergirl.jsonld */}
-
-      {/* ========== SEO-OPTIMIZED CONTENT SECTION (FOR SEARCH ENGINES) ========== */}
-      
-      {/* AI-Optimized By The Numbers Section */}
-      <section className="py-20 bg-gradient-to-br from-purple-50 to-blue-50 dark:from-purple-950/20 dark:to-blue-950/20">
-        <div className="container mx-auto px-6">
-          <AIOptimizedSection
-            type="statistics"
-            title="Premier Party Cruises By The Numbers"
-            description="Trusted by customers in Austin, Texas (ATX) and Lake Travis area since 2009"
-            data={[
-              { 
-                value: "Hundreds", 
-                label: "Happy Customers", 
-                icon: <Users className="w-8 h-8" />
-              },
-              { 
-                value: "15+", 
-                label: "Years in Business", 
-                icon: <Trophy className="w-8 h-8" />
-              },
-              { 
-                value: "4", 
-                label: "Premium Boats", 
-                icon: <Ship className="w-8 h-8" />
-              },
-              { 
-                value: "75", 
-                label: "Max Capacity", 
-                icon: <Users className="w-8 h-8" />
-              },
-              { 
-                value: "4.9/5", 
-                label: "Average Rating", 
-                icon: <Star className="w-8 h-8" />
-              }
-            ]}
-            className="max-w-6xl mx-auto"
-          />
-        </div>
-      </section>
-
-      {/* Structured Services Overview - AI Optimized */}
-      <section className="py-16 bg-white dark:bg-gray-950">
-        <div className="container mx-auto px-6">
-          <AIOptimizedSection
-            type="list"
-            title="Our Services Overview - Lake Travis Party Boats"
-            description="Choose from our comprehensive range of party boat services on Lake Travis, Austin Texas"
-            data={[
-              {
-                title: "ATX Disco Cruise - Multi-Group Party Experience",
-                description: "Join other bachelor and bachelorette parties for a 4-hour cruise with professional DJ, photographer, and all-inclusive amenities. Perfect for groups of 8-30 people looking for the best value at $85-125 per person.",
-                icon: <Music className="w-6 h-6" />,
-                badge: "Best Value",
-                highlighted: true
-              },
-              {
-                title: "Private Boat Charters - Exclusive Rentals",
-                description: "Rent an entire boat exclusively for your group. Choose from Day Tripper (14 people), Meeseeks (25 people), or Clever Girl (75 people). Starting at $1,050 for 4-hour cruise.",
-                icon: <Ship className="w-6 h-6" />
-              },
-              {
-                title: "Bachelor Party Packages - Austin's #1 Choice",
-                description: "Specialized bachelor party experiences with professional DJ, photographer, and giant floats. Available as ATX Disco Cruise or private charter options.",
-                icon: <Trophy className="w-6 h-6" />
-              },
-              {
-                title: "Bachelorette Party Cruises - Celebrate in Style",
-                description: "Premium bachelorette party packages with mimosa supplies, decorations, and professional photography.",
-                icon: <Heart className="w-6 h-6" />
-              },
-              {
-                title: "Corporate Events - Professional Lake Travis Experiences",
-                description: "Client entertainment and company celebrations on our flagship boats. Professional service, flexible food options, and capacity up to 75 guests.",
-                icon: <Users className="w-6 h-6" />
-              }
-            ]}
-            className="max-w-5xl mx-auto mb-12"
-          />
-        </div>
-      </section>
-
       {/* AI-Optimized Location & Entity Recognition Section */}
-      <section className="py-16 bg-gradient-to-br from-blue-50 to-green-50 dark:from-blue-950/20 dark:to-green-950/20">
+      <section className="py-8 bg-gray-50 dark:from-blue-950/20 dark:to-green-950/20">
         <div className="container mx-auto px-6">
           <AIOptimizedSection
             type="definition"
@@ -2264,157 +1255,6 @@ export default function Home() {
           />
         </div>
       </section>
-
-      {/* Related Services Section */}
-      <Suspense fallback={<div className="animate-pulse bg-gray-100 dark:bg-gray-800 rounded-lg" style={{ minHeight: '200px' }} />}>
-        <RelatedServicesSection currentPath="/" />
-      </Suspense>
-
-      {/* Social Proof Counter Section - Hormozi/McDowell Style */}
-      <section className="py-16 bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 text-white relative overflow-hidden">
-        {/* Animated background elements */}
-        <div className="absolute inset-0 opacity-20">
-          <div className="absolute top-1/2 left-1/4 w-64 h-64 bg-white rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-1/4 right-1/3 w-96 h-96 bg-yellow-400 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        </div>
-
-        <div className="container mx-auto px-6 relative z-10">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
-              Join Our Happy Cruisers
-            </h2>
-            <p className="text-xl opacity-90">
-              Austin's Most Trusted Party Boat Company Since 2009
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            {/* Parties Hosted Counter - CLS FIX: No animations on mobile */}
-            <div className="text-center">
-              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20">
-                <div className="text-4xl sm:text-5xl md:text-6xl font-bold mb-2">
-                  1,000s
-                </div>
-                <div className="text-xl font-semibold">Happy Guests</div>
-                <div className="text-sm opacity-80 mt-2">Since 2009</div>
-              </div>
-            </div>
-
-            {/* Five-Star Reviews Counter */}
-            <div className="text-center">
-              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20">
-                <div className="text-4xl sm:text-5xl md:text-6xl font-bold mb-2 flex items-center justify-center gap-2">
-                  420+
-                  <Star className="h-10 w-10 fill-yellow-400 text-yellow-400" />
-                </div>
-                <div className="text-xl font-semibold">Five-Star Reviews</div>
-                <div className="text-sm opacity-80 mt-2">4.9/5 Average Rating</div>
-              </div>
-            </div>
-
-            {/* Weather Guarantee Counter */}
-            <div className="text-center">
-              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20">
-                <div className="text-4xl sm:text-5xl md:text-6xl font-bold mb-2">
-                  100%
-                </div>
-                <div className="text-xl font-semibold">Weather Guarantee</div>
-                <div className="text-sm opacity-80 mt-2">Full Refund Protection</div>
-              </div>
-            </div>
-          </div>
-
-          {/* Final CTA */}
-          <div className="text-center mt-12">
-            <div
-              className="xola-custom xola-checkout"
-              data-button-id="695186923c261203770cc2e7"
-            >
-              <Button
-                size="lg"
-                className="bg-gradient-to-r from-yellow-400 via-yellow-500 to-orange-500 hover:from-yellow-500 hover:via-orange-500 hover:to-orange-600 text-black font-extrabold px-10 py-6 rounded-xl shadow-2xl transform hover:scale-110 transition-all duration-300 animate-pulse"
-              >
-                <Calendar className="mr-3 h-6 w-6" />
-                BOOK YOUR PARTY NOW
-                <ArrowRight className="ml-3 h-6 w-6 animate-bounce-horizontal" />
-              </Button>
-            </div>
-            <p className="text-sm mt-4 opacity-90">
-              ⚠️ Weekend spots fill up - book 8-12 weeks for priority time slots - once they book they're gone!
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Quick Answer Boxes Section */}
-      <Suspense fallback={<div className="animate-pulse bg-gray-100 dark:bg-gray-800 rounded-lg" style={{ minHeight: '300px' }} />}>
-        <section className="py-12 bg-white dark:bg-gray-900">
-          <div className="container mx-auto px-6">
-            <QuickAnswerBoxGroup
-              title="Quick Answers About Lake Travis"
-              boxes={[
-                {
-                  id: 'parties-good',
-                  question: 'Is Lake Travis good for parties?',
-                  answer: 'Yes! Lake Travis offers the perfect setting for unforgettable parties with crystal-clear waters, scenic coves, and year-round sunshine. Our party boats feature premium sound systems, spacious decks, and professional crews ensuring safe, memorable celebrations on Austin\'s premier lake destination.',
-                  keywords: ['Lake Travis', 'parties', 'party boats', 'Austin'],
-                  icon: Star,
-                  relatedLink: {
-                    href: '#services',
-                    text: 'View our party packages'
-                  }
-                },
-                {
-                  id: 'alcohol-allowed',
-                  question: 'Can you bring alcohol on Lake Travis boats?',
-                  answer: 'Yes, BYOB is allowed on all our Lake Travis cruises! Bring your favorite beverages - we provide cooler space - bring your own ice, OR add Essentials/Ultimate packages for ice included, OR order stocked and ready from Party On Delivery. We also provide cups and all necessary supplies. Our crews help with loading/unloading, and we can arrange alcohol delivery directly to the boat for your convenience.',
-                  keywords: ['BYOB', 'alcohol', 'coolers', 'Lake Travis'],
-                  icon: Wine,
-                  relatedLink: {
-                    href: '/faq',
-                    text: 'See all FAQs'
-                  }
-                },
-                {
-                  id: 'distance-austin',
-                  question: 'How far is Lake Travis from downtown Austin?',
-                  answer: 'Lake Travis is 30-45 minutes from downtown Austin, located northwest of the city. We depart from Anderson Mill Marina (20 minutes closer than other marinas), making it convenient for locals and visitors. Round-trip transportation available from downtown hotels and Airbnbs.',
-                  keywords: ['downtown Austin', 'Anderson Mill Marina', 'transportation'],
-                  icon: MapPin,
-                  relatedLink: {
-                    href: '/contact',
-                    text: 'Get directions'
-                  }
-                },
-                {
-                  id: 'party-boat-cost',
-                  question: 'How much does a party boat cost in Austin?',
-                  answer: 'Austin party boat costs range from $85/person for the all-inclusive ATX Disco Cruise (4 hours with DJ, photographer, floats) to $200-$520/hour for private charters accommodating 14-75 guests. Private boats start at $800 for a 3-hour weekday rental. All options include a professional captain and are BYOB.',
-                  keywords: ['party boat cost', 'Austin party boat price', 'Lake Travis boat rental cost'],
-                  icon: Ship,
-                  relatedLink: {
-                    href: '/private-cruises',
-                    text: 'See private charter pricing'
-                  }
-                },
-                {
-                  id: 'departure-location',
-                  question: 'Where do Lake Travis party boats depart from?',
-                  answer: 'Premier Party Cruises departs from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641. Free parking is available at the marina. It\'s approximately 30 minutes from downtown Austin and 20 minutes closer than most other Lake Travis marinas. Arrive 15-20 minutes before your scheduled departure for check-in.',
-                  keywords: ['Anderson Mill Marina', 'Lake Travis departure', 'marina location'],
-                  icon: MapPin,
-                  relatedLink: {
-                    href: '/contact',
-                    text: 'Get directions & parking info'
-                  }
-                }
-              ]}
-              columns={3}
-              className="max-w-7xl mx-auto"
-            />
-          </div>
-        </section>
-      </Suspense>
 
       {/* Footer */}
       <Suspense fallback={<div className="animate-pulse bg-gray-100 dark:bg-gray-800 rounded-lg" style={{ minHeight: '400px' }} />}>

@@ -779,9 +779,9 @@ export default function CorporateBoatPartiesAustin() {
               </div>
 
               <div className="pt-6 border-t border-white/20">
-                <a href="tel:5127270422" className="inline-flex items-center gap-2 text-white/80 hover:text-white">
+                <a href="tel:5124885892" className="inline-flex items-center gap-2 text-white/80 hover:text-white">
                   <Phone className="h-5 w-5" />
-                  <span className="font-semibold">(512) 727-0422</span>
+                  <span className="font-semibold">(512) 488-5892</span>
                 </a>
               </div>
             </m.div>

@@ -7,79 +7,103 @@
       "name": "What is the ATX Disco Cruise?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "A shared 4-hour party boat for bachelor/bachelorette groups with pro DJ and photographer, BYOB, floats, and multi-group energy."
+        "text": "A shared 4-hour party boat on Lake Travis for bachelor and bachelorette groups with a professional DJ, professional photographer, BYOB coolers with ice, giant lily pad floats, party supplies, and multi-group energy. It is Austin's only all-inclusive multi-group bachelor/bachelorette cruise — the only one of its kind in the United States."
       }
     },
     {
       "@type": "Question",
-      "name": "When does it run?",
+      "name": "When does the ATX Disco Cruise run?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Fridays 12–4 PM and Saturdays 11–3 PM or 3:30–7:30 PM from March to October."
+        "text": "Fridays 12–4 PM and Saturdays 11–3 PM or 3:30–7:30 PM from March through October. The Saturday 3:30–7:30 PM slot is the most affordable at $85/person."
       }
     },
     {
       "@type": "Question",
-      "name": "How much are tickets?",
+      "name": "How much do ATX Disco Cruise tickets cost?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Friday 12-4pm: $95/person. Saturday 11am-3pm: $105/person. Saturday 3:30-7:30pm: $85/person."
+        "text": "Friday 12–4 PM: $95/person. Saturday 11 AM–3 PM: $105/person. Saturday 3:30–7:30 PM: $85/person. All packages include professional DJ, photographer, cooler with ice, party supplies, and giant floats."
       }
     },
     {
       "@type": "Question",
-      "name": "What happens in bad weather?",
+      "name": "What happens if it rains on the ATX Disco Cruise?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Rain or shine. For severe weather, we move the party to Lemonade Disco land venue."
+        "text": "Light rain does not cancel the cruise — the party continues on the water. For severe weather, Premier Party Cruises moves the entire party to Lemonade Disco, an indoor land venue, so no one loses their day. The captain makes the final call on safety."
       }
     },
     {
       "@type": "Question",
-      "name": "What's the alcohol policy?",
+      "name": "What is the alcohol policy on the ATX Disco Cruise?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "BYOB for 21+; cans/plastic only; coolers with ice and cups provided."
+        "text": "BYOB for guests 21 and over with valid ID. Cans and plastic containers only — no glass on any Lake Travis vessel. Coolers with ice and cups are provided. Party On Delivery can coordinate alcohol delivery directly to the marina at retail prices with 100% buyback on unopened bottles."
       }
     },
     {
       "@type": "Question",
-      "name": "When do we get photos?",
+      "name": "When do we get our photos from the ATX Disco Cruise?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Professional photos delivered digitally within 2–3 weeks after your cruise."
+        "text": "Professional photos are delivered digitally within 2–3 weeks after your cruise. The photographer covers the entire boat throughout the four hours — both candid action shots and group posed photos. Digital delivery only; prints are not included but can be ordered."
       }
     },
     {
       "@type": "Question",
-      "name": "Where do we meet?",
+      "name": "Where is the ATX Disco Cruise departure location?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Anderson Mill Marina, 13993 FM 2769, Leander, TX 78641. Arrive 15–20 minutes early; free parking available."
+        "text": "Anderson Mill Marina, 13993 FM 2769, Leander, TX 78641. Approximately 35–40 minutes from downtown Austin via 183 North. Free parking is available at the marina. Arrive 15–20 minutes before your scheduled departure time."
       }
     },
     {
       "@type": "Question",
-      "name": "How many people can join?",
+      "name": "How many people can join the ATX Disco Cruise?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Disco cruises handle 20-40+ guests per group, up to 100 total capacity."
+        "text": "Individual groups can be any size — from a small group of 4 to a large party of 50+. The boat accommodates multiple bachelor and bachelorette groups simultaneously, with total capacity up to 100 guests. There is no minimum group size requirement."
       }
     },
     {
       "@type": "Question",
-      "name": "Can we bring food?",
+      "name": "Can we bring food on the ATX Disco Cruise?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes, bring your own or we can coordinate delivery right to the boat."
+        "text": "Yes. Bring your own food in plastic containers — no glass. Party On Delivery can also coordinate food delivery directly to the boat or marina before departure. Popular choices are sandwiches, charcuterie boards, and party snacks that do not require utensils."
       }
     },
     {
       "@type": "Question",
-      "name": "Is swimming allowed?",
+      "name": "Is swimming allowed on the ATX Disco Cruise?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes, when conditions are safe at captain's discretion. Life jackets are on board and available for swimming - we encourage guests to wear them for safety."
+        "text": "Yes, when conditions are safe at the captain's discretion. Life jackets are on board and available for all swimmers — we encourage guests to wear them. The boat anchors at a beautiful Lake Travis cove with crystal-clear water for swimming during most of the cruise."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can both bachelor and bachelorette parties share the same cruise?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes — combined bachelor bachelorette parties are one of our most popular configurations. Both groups board together as one crew. The boat has multiple zones so everyone finds their space, and the combined group size creates more energy on the dance floor. It is typically more fun than two separate events and costs the same per person."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the photo quality like on the ATX Disco Cruise?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Professional-grade digital photography delivered within 2–3 weeks. The photographer covers all groups throughout the cruise — both candid action shots (dancing, swimming, floats) and posed group photos. You receive all usable photos in digital format. Quality is professional event photography, not iPhone snapshots."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What add-ons are available for the ATX Disco Cruise?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Available add-ons vary by package tier. The Party Squad package ($95/person) adds a private group cooler with ice, reserved space, celebration items for the honoree, alcohol delivery coordination, a 25% transportation discount, and a $50–100 Airbnb delivery voucher. The Ultimate package ($105/person) adds everything above plus premium party floats, a full mixology setup with champagne and juices, a $100 Airbnb concierge voucher, towel service, and SPF-50 sunscreen — fully turnkey."
       }
     }
   ]

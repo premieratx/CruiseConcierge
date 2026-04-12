@@ -64,6 +64,7 @@ export default function LakeTravisYachtRental() {
       title="Lake Travis Yacht Rental"
       metaTitle="Lake Travis Yacht Rental | Luxury Boat Charter Austin | Premier Party Cruises"
       metaDescription="Rent a luxury yacht on Lake Travis for your upscale celebration. Premium vessels for up to 75 guests with professional crew. Perfect for corporate events, weddings, and VIP parties."
+      pageRoute="/lake-travis-yacht-rental"
       heroTitle="Luxury Yacht Rentals on Lake Travis"
       heroSubtitle="Elevate your celebration with Austin's premier yacht experience. Stunning vessels, professional crew, and unforgettable views of Texas Hill Country."
       heroBadge="Luxury Yacht Experience"

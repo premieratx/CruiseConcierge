@@ -120,6 +120,7 @@ interface EventPageTemplateProps {
   title: string;
   metaTitle: string;
   metaDescription: string;
+  pageRoute: string;
   heroTitle: string;
   heroSubtitle: string;
   heroBadge: string;
@@ -149,6 +150,7 @@ interface EventPageTemplateProps {
 export default function EventPageTemplate({
   title,
   metaTitle,
+  pageRoute,
   metaDescription,
   heroTitle,
   heroSubtitle,
@@ -184,14 +186,14 @@ export default function EventPageTemplate({
   return (
     <>
       <SEOHead
-        title={metaTitle}
-        description={metaDescription}
-        canonical={`https://premierpartycruises.com${window.location.pathname}`}
+        pageRoute={pageRoute}
+        defaultTitle={metaTitle}
+        defaultDescription={metaDescription}
       />
 
       <PublicNavigation />
 
-      <main className="min-h-screen bg-white">
+      <main className="min-h-screen bg-white" data-page-ready="event-page">
         <section className="relative min-h-[70vh] flex flex-col justify-center overflow-hidden">
           {videoId ? (
             <YouTubeVideoBackground videoId={videoId} posterImage={heroImage} />
@@ -253,9 +255,9 @@ export default function EventPageTemplate({
                   className="text-lg px-8 py-6 bg-white/10 border-white text-white hover:bg-white/20"
                   asChild
                 >
-                  <a href="tel:512-709-1560">
+                  <a href="tel:(512) 488-5892">
                     <Phone className="mr-2 h-5 w-5" />
-                    Call 512-709-1560
+                    Call (512) 488-5892
                   </a>
                 </Button>
               </motion.div>
@@ -476,7 +478,7 @@ export default function EventPageTemplate({
                 className="text-lg px-8 py-6 border-white text-white hover:bg-white/10"
                 asChild
               >
-                <a href="tel:512-709-1560">
+                <a href="tel:(512) 488-5892">
                   <Phone className="mr-2 h-5 w-5" />
                   Call Us Now
                 </a>
