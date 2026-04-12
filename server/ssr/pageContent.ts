@@ -165,7 +165,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           'How much does it cost to rent a party boat on Lake Travis? Private charters start at $200 per hour with a 4-hour minimum. We have three boats available: Day Tripper (1-14 people, $200-350/hr), Meeseeks / The Irony (15-30 people, $225-425/hr), and Clever Girl (31-75 people with 14 disco balls, $250-500/hr). Crew fees are included in these price ranges. ATX Disco Cruise time slots are Friday 12-4pm ($95/person), Saturday 11am-3pm ($105/person), or Saturday 3:30-7:30pm ($85/person), with all prices including tax and gratuity, plus professional DJ, photographer, floats, and all amenities.',
           'Can we bring food and drinks on the boat? Yes! All cruises are fully BYOB friendly (21+ with valid ID required). You can bring your own beer, wine, seltzers, and non-alcoholic beverages in cans or plastic containers - no glass allowed for safety. We provide large coolers with ice. You can also bring snacks and meals, or we can coordinate alcohol delivery directly to the boat for your convenience.',
           'When does the ATX Disco Cruise run? The disco cruise operates Fridays 12-4pm and Saturdays with two time slots: 11am-3pm (most popular!) or 3:30-7:30pm. Pricing varies by time slot, with all prices including tax and gratuity for a complete, transparent experience.',
-          'Where do you depart from on Lake Travis? We depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641. We\'re the closest marina to downtown Austin, approximately 30 minutes away, making us convenient for all your guests.',
+          'Where do you depart from on Lake Travis? We depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641. We\'re the closest marina to downtown Austin, approximately 25 minutes away, making us convenient for all your guests.',
           'What\'s included with the ATX Disco Cruise? Every ATX Disco Cruise includes a professional DJ playing all day, professional photographer with photo delivery, giant unicorn floats, multiple lily pad floats, disco dance floor, party supplies and mixers, ice water stations, clean restroom facilities, and an unforgettable party atmosphere with multiple bachelor and bachelorette groups celebrating together.',
           'What makes Premier Party Cruises different from other Lake Travis boat rentals? With 14+ years of experience and 150,000+ satisfied customers, we are Austin\'s longest-running and most trusted party cruise company. We maintain a perfect safety record with Coast Guard certified captains, operate the newest fleet in Austin, and provide full-service experiences with professional crew and premium sound systems. We\'re the only company offering the signature ATX Disco Cruise party experience.',
           'Can you accommodate corporate events and team building activities? Absolutely! We specialize in corporate events and team building on Lake Travis. Our fleet accommodates groups from 14 to 75+ guests with professional service and premium amenities. Customizable packages include catering coordination, AV equipment, and dedicated event planning to ensure your corporate event is a complete success.'
@@ -277,7 +277,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Lake Travis Bachelor Party Experience',
         paragraphs: [
-          'Your bachelor party cruise departs from Anderson Mill Marina on Lake Travis, about 30 minutes from downtown Austin. Cruise the beautiful Texas Hill Country scenery, anchor near Devil\'s Cove for swimming, and enjoy the ultimate guys\' day out on the water.',
+          'Your bachelor party cruise departs from Anderson Mill Marina on Lake Travis, about 25 minutes from downtown Austin. Cruise the beautiful Texas Hill Country scenery, anchor near Devil\'s Cove for swimming, and enjoy the ultimate guys\' day out on the water.',
           'Lake Travis is Texas\'s premier party destination with calm, clear waters perfect for swimming and floating on giant lily pads. The lake offers stunning cliff views and hidden coves that provide the perfect backdrop for your bachelor celebration.'
         ],
         lists: [
@@ -454,7 +454,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Lake Travis Bachelorette Cruise Experience',
         paragraphs: [
-          'Your bachelorette cruise departs from Anderson Mill Marina on Lake Travis, just 30 minutes from downtown Austin. Cruise past stunning Texas Hill Country scenery, anchor near Devil\'s Cove for swimming, and enjoy the perfect combination of party vibes and natural beauty.',
+          'Your bachelorette cruise departs from Anderson Mill Marina on Lake Travis, just 25 minutes from downtown Austin. Cruise past stunning Texas Hill Country scenery, anchor near Devil\'s Cove for swimming, and enjoy the perfect combination of party vibes and natural beauty.',
           'Lake Travis offers calm, clear waters perfect for swimming, floating on giant lily pads, and capturing incredible photos with the cliffs and coves as your backdrop. Water temperatures are perfect from April through October.'
         ],
         lists: [
@@ -717,7 +717,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Lake Travis - The Perfect Party Destination',
         paragraphs: [
-          'Lake Travis is Austin\'s premier party destination and the setting for the ATX Disco Cruise. Located in the Texas Hill Country, about 30 minutes from downtown Austin, Lake Travis offers stunning scenery, crystal clear water, and perfect weather from April through October.',
+          'Lake Travis is Austin\'s premier party destination and the setting for the ATX Disco Cruise. Located in the Texas Hill Country, about 25 minutes from downtown Austin, Lake Travis offers stunning scenery, crystal clear water, and perfect weather from April through October.',
           'Your disco cruise experience includes cruising past beautiful cliffs, anchoring near Devil\'s Cove for swimming, and enjoying the best party atmosphere on the water. The combination of incredible views, perfect weather, and high-energy entertainment makes the ATX Disco Cruise unforgettable.'
         ],
         lists: [
@@ -729,7 +729,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
               'Texas Hill Country scenery as your backdrop',
               'Calm waters ideal for dancing and socializing',
               'Perfect weather from April through October',
-              'Just 30 minutes from downtown Austin',
+              'Just 25 minutes from downtown Austin',
               'Anderson Mill Marina - easy access with free parking'
             ]
           }
@@ -870,7 +870,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Lake Travis Private Cruise Experience',
         paragraphs: [
-          'Your private cruise departs from Anderson Mill Marina on Lake Travis, conveniently located about 30 minutes from downtown Austin. The Texas Hill Country provides a stunning backdrop as you cruise the calm, crystal-clear waters of Lake Travis.',
+          'Your private cruise departs from Anderson Mill Marina on Lake Travis, conveniently located about 25 minutes from downtown Austin. The Texas Hill Country provides a stunning backdrop as you cruise the calm, crystal-clear waters of Lake Travis.',
           'Typical private cruises include 30-45 minutes of scenic cruising, followed by 1.5-2 hours anchored near Devil\'s Cove or other beautiful spots for swimming and floating. The captain can customize your route to include the most scenic areas and best swimming spots based on conditions.'
         ],
         lists: [
@@ -916,16 +916,59 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         ]
       },
       {
+        heading: 'Year-Round Private Cruises',
+        paragraphs: [
+          'Unlike our seasonal ATX Disco Cruise (March through October only), private charters are available all 12 months of the year. Lake Travis is beautiful in every season. Fall cruises feature stunning foliage along the Texas Hill Country shoreline. Winter cruises offer mild Texas weather and uncrowded waters perfect for intimate celebrations. Spring brings wildflowers along the cliffs and warm sunshine. Summer is peak season with warm water perfect for swimming in the coves.',
+          'Many corporate groups and families prefer off-peak booking (November through February) for better availability and a more private lake experience. The mild Central Texas climate means comfortable cruising temperatures most days year-round, making a [[private-cruises]] the perfect choice for [[corporate-events]], [[birthday-party]], and [[wedding-party]] regardless of season.'
+        ]
+      },
+      {
+        heading: 'Private Cruises for Every Event Type',
+        paragraphs: [
+          'Our private charters accommodate virtually any celebration or gathering. While our [[atx-disco]] specializes exclusively in [[bachelor-party]] and [[bachelorette-party]] groups, private boat rentals are open to everyone and every occasion:'
+        ],
+        lists: [
+          {
+            title: 'Most Popular Private Cruise Events',
+            items: [
+              'Bachelor and bachelorette parties wanting exclusive boat access',
+              'Corporate team building and company outings',
+              'Birthday celebrations from Sweet 16 to milestone birthdays',
+              'Wedding rehearsal dinners and after parties',
+              'Anniversary celebrations and romantic cruises',
+              'Family reunions and multi-generational gatherings',
+              'Graduation parties for high school and college',
+              'Client entertainment and networking events',
+              'Engagement parties and bridal showers',
+              'Holiday celebrations and company milestones',
+              'Proposal cruises for that perfect moment',
+              'Memorial celebrations and tribute events',
+              'Gender reveal parties on the water',
+              'Prom and school event celebrations'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Safety and Professionalism',
+        paragraphs: [
+          'Premier Party Cruises maintains a perfect safety record spanning 15+ years and 150,000+ guests on Lake Travis. Every private charter includes a Coast Guard certified, licensed captain with extensive Lake Travis navigation experience. Our professional crew members are trained in safety protocols, guest service, and emergency procedures.',
+          'All four boats in our fleet are regularly inspected, professionally maintained, and equipped with current safety gear including life jackets for all passengers, fire extinguishers, first aid kits, and emergency communication equipment. We monitor weather conditions continuously and our captains have final authority on all safety decisions.'
+        ]
+      },
+      {
         heading: 'Frequently Asked Questions',
         paragraphs: [
-          'What boats are available? We offer three exceptional vessels: Day Tripper (14-person boat) perfect for intimate groups starting at $200/hour with a 4-hour minimum. Meeseeks and The Irony (25-person boat) is our most popular choice for medium groups of 18-25 guests, starting at $225/hour. Clever Girl (50-person flagship) features 14 disco balls and a giant Texas flag, starting at $250/hour, perfect for corporate events.',
+          'What boats are available for private cruises? We have four boats in our fleet: Day Tripper (up to 14 guests, starting at $200/hour), Meeseeks (up to 25-30 guests, starting at $225/hour), The Irony (up to 25-30 guests, starting at $225/hour, same size as Meeseeks), and Clever Girl (up to 50-75 guests, starting at $250/hour, our flagship with 14 disco balls and giant Texas flag). All private charters have a 4-hour minimum.',
+          'Are private cruises available year-round? Yes! Private charters operate all 12 months. This is different from our ATX Disco Cruise, which runs seasonally March through October only. Many clients prefer off-peak months for better availability and a more exclusive lake experience.',
           'What\'s included in each package? Standard Package includes professional captain and crew, large coolers (bring your own ice), premium Bluetooth sound system, clean restroom facilities, and sun/shade seating. Essentials Package adds coolers pre-stocked with ice, water dispenser, solo cups, 6-foot folding table, and catering coordination. Ultimate Package adds giant lily pad float, guest of honor float, disco ball cups, bubble guns, champagne flutes, SPF-50 sunscreen, plates, and full party setup.',
           'Can we bring food and drinks? Yes! We are fully BYOB friendly (21+ with valid ID required). Bring your own beer, wine, seltzers in cans or plastic containers - no glass. We provide large coolers and cups. With Essentials Package, coolers come pre-stocked with ice. Ultimate Package includes champagne flutes, plates, plasticware, and a 6-foot table for food setup.',
-          'How does pricing work? Base cost is Hourly rate × Duration. Day Tripper $200/hour, Meeseeks $225/hour, Clever Girl $250/hour (4-hour minimums). Essentials Package adds $100-200/hour, Ultimate adds $250-350/hour. Additional crew fees: $50/hour for 26-30 guests, $100/hour for 51-75 guests. Plus 8.25% tax and suggested 20% gratuity.',
+          'How does pricing work? Base cost is hourly rate times duration. Day Tripper $200/hour, Meeseeks or The Irony $225/hour, Clever Girl $250/hour (all with 4-hour minimums). Essentials Package adds a flat $100-200 per cruise, Ultimate adds a flat $250-350 per cruise. Additional crew fees: $50/hour for 26-30 guests, $100/hour for 51-75 guests. Plus 8.25% tax and suggested 20% gratuity.',
           'How far in advance should we book? Popular weekend dates fill 6-8 weeks in advance, especially during peak season (April-September). For special events like bachelor/bachelorette parties, corporate events, or milestone birthdays, we suggest booking 2-3 months ahead to secure your preferred date and boat.',
-          'How do deposits and payments work? 25% deposit if >30 days out (balance due 30 days prior). If booking within 30 days, 50% deposit due and remainder within 72 hours.',
+          'How do deposits and payments work? 25% deposit if booking more than 30 days out (balance due 30 days prior). If booking within 30 days, 50% deposit due and remainder within 72 hours.',
           'What\'s your cancellation policy? 48-hour full refund window after booking. After that, cancellations are weather-dependent at the captain\'s discretion. Pro-rated refunds if weather shortens the cruise.',
-          'Can we customize our route? Absolutely! You have complete control over your Lake Travis experience. Work with your captain to customize your route, timing, and activities. The typical cruise includes 30-45 minutes of cruising, then we tie up along the cliffs of a beautiful Lake Travis nature preserve with crystal clear water for swimming (typically 1.5-2 hours), then cruise back. However, the time is yours - customize any combination of cruising and swimming time that works for your group.'
+          'Can we customize our route? Absolutely! You have complete control over your Lake Travis experience. Work with your captain to customize your route, timing, and activities. The typical cruise includes 30-45 minutes of cruising, then we tie up along the cliffs of a beautiful Lake Travis nature preserve with crystal clear water for swimming (typically 1.5-2 hours), then cruise back. However, the time is yours - customize any combination of cruising and swimming time that works for your group.',
+          'What is the difference between the ATX Disco Cruise and a private charter? The ATX Disco Cruise is a shared, per-person experience running March through October, exclusively for bachelor and bachelorette groups. It includes a DJ, photographer, and party atmosphere with other groups. Private charters give you exclusive use of the entire boat, are available year-round for any event type, and let you set the music, route, and vibe.'
         ]
       }
     ],
@@ -1097,7 +1140,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           'What\'s the ideal timing for a welcome party cruise? Welcome parties typically run 2-3 hours, scheduled the evening before the wedding. Popular timing is 5pm-8pm or 6pm-9pm, allowing guests to arrive from travel, check into hotels, and join refreshed.',
           'What catering options work for welcome party cruises? Welcome parties often feature casual, shareable Austin favorites: BBQ sliders, taco bars, queso and chips, or appetizer spreads. The Essentials package includes full catering coordination and serving assistance.',
           'How much does a wedding welcome party cruise cost? Welcome party pricing varies by boat size and package. Most 2-3 hour welcome parties range from $590-$2,535 depending on size and package.',
-          'Where does the welcome party cruise depart from? Welcome party cruises depart from Anderson Mill Marina on Lake Travis, approximately 30 minutes from downtown Austin. Free parking is available, and many couples arrange shuttle service from hotel blocks.'
+          'Where does the welcome party cruise depart from? Welcome party cruises depart from Anderson Mill Marina on Lake Travis, approximately 25 minutes from downtown Austin. Free parking is available, and many couples arrange shuttle service from hotel blocks.'
         ]
       }
     ],
@@ -1164,7 +1207,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           'What are the alcohol and beverage service options? Rehearsal dinner cruises are BYOB - bring your own wine, champagne, and beer. We provide ice, coolers, cups, and bottle openers. Many rehearsal dinners feature champagne toasts, wine with dinner, and craft beers.',
           'How much does a rehearsal dinner cruise cost? Pricing depends on boat size and package. Typical 3-hour rehearsal dinner ranges from $585-$2,535 total depending on boat and package selection.',
           'How far in advance should we book our rehearsal dinner cruise? Book 6-8 weeks in advance to secure your preferred date and boat, especially for peak wedding season (April-October) and Friday evening rehearsals.',
-          'Where do we depart from for the rehearsal dinner cruise? Rehearsal dinner cruises depart from Anderson Mill Marina on Lake Travis, just 30 minutes from downtown Austin. The marina offers ample free parking and is easily accessible for out-of-town wedding guests.'
+          'Where do we depart from for the rehearsal dinner cruise? Rehearsal dinner cruises depart from Anderson Mill Marina on Lake Travis, just 25 minutes from downtown Austin. The marina offers ample free parking and is easily accessible for out-of-town wedding guests.'
         ]
       }
     ],
@@ -1230,7 +1273,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           'What group sizes can you host? We accommodate 14-75 guests across our three-boat fleet. Day Tripper hosts 14 guests, Meeseeks and The Irony accommodates 25 guests, and Clever Girl can host 50+ guests. For larger groups, we can coordinate multiple boats. Volume discounts are available for regular corporate clients.',
           'Can we bring catering? Yes! You can bring your own catering, or we\'ll coordinate with your preferred caterer or restaurant to ensure seamless delivery and setup. Full bar setups are available, or you can bring your own beverages (BYOB for guests 21+).',
           'How much does team building cost? Team building cruises start at $200/hour for our Day Tripper boat. Most team building events run 3-6 hours. Package upgrades include Essentials (+$100-200/hour) and Ultimate (+$250-350/hour) with additional amenities. Volume discounts are available for companies booking multiple team building events.',
-          'Where do we depart? All team building cruises depart from Anderson Mill Marina, located at 13993 FM 2769, Leander, TX 78641. Free parking is available for all guests. The marina is conveniently located about 30 minutes from downtown Austin.',
+          'Where do we depart? All team building cruises depart from Anderson Mill Marina, located at 13993 FM 2769, Leander, TX 78641. Free parking is available for all guests. The marina is conveniently located about 25 minutes from downtown Austin.',
           'How far in advance should we book? Team building dates fill quickly, especially during spring and fall months when weather is ideal. We recommend booking 6-8 weeks in advance to secure your preferred date and boat.',
           'What makes Lake Travis ideal for team building? Lake Travis provides the perfect team building environment—away from office distractions in a relaxed outdoor setting where teams naturally open up and connect on a personal level. Many companies report enhanced communication, collaboration, and team cohesion after Lake Travis team building cruises.'
         ]
@@ -1367,7 +1410,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           'Do you provide professional photography? Yes! Professional photography services are available to capture your milestone celebration memories. Our photographers understand corporate events and can provide both candid shots and formal group photos.',
           'Can we do speeches and presentations? Yes! Our premium sound system is available for speeches, announcements, and presentations. Many companies use the cruise to present achievement awards, share company updates, recognize team members, and make important announcements.',
           'How much does a milestone celebration cost? Milestone celebrations start at $200/hour for our Day Tripper boat. The Essentials package adds $100-200/hour, and the Ultimate package (recommended for milestones) adds $250-350/hour. Volume discounts are available for larger groups.',
-          'Where do we depart? Milestone celebrations depart from Anderson Mill Marina, located at 13993 FM 2769, Leander, TX 78641. The marina offers ample free parking for your entire team and is conveniently located approximately 30 minutes from downtown Austin.'
+          'Where do we depart? Milestone celebrations depart from Anderson Mill Marina, located at 13993 FM 2769, Leander, TX 78641. The marina offers ample free parking for your entire team and is conveniently located approximately 25 minutes from downtown Austin.'
         ]
       }
     ],
@@ -1788,7 +1831,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           'What\'s the difference between ATX Disco Cruise and private boat rental? ATX Disco Cruise is a multi-group shared party cruise with professional DJ, photographer, and disco dance floor at $85-105/person. Private boat rentals are exclusively your group with complete customization starting at $195/hour. Disco Cruise is budget-friendly and high-energy; private boats offer exclusivity and control.',
           'How many people can party boats accommodate in Austin? We accommodate 14-75 guests for private boats. Day Tripper hosts 14 guests, Meeseeks and The Irony accommodates 25 guests, and Clever Girl can host 50-75 guests. Disco Cruise welcomes groups of 6-20+ per group, with multiple groups sharing the boat.',
           'What\'s included with Austin party boats? All cruises include Coast Guard certified captain and professional crew, premium Bluetooth sound systems, life jackets and safety equipment, coolers with ice, clean restroom facilities, and sun/shade seating areas. Private boats offer complete BYOB service; Disco Cruise includes DJ and photographer.',
-          'Where do Austin party boats depart from? All cruises depart from Anderson Mill Marina on Lake Travis, located at 13993 FM 2769, Leander, TX 78641. The marina is approximately 30 minutes from downtown Austin with ample free parking for all guests.',
+          'Where do Austin party boats depart from? All cruises depart from Anderson Mill Marina on Lake Travis, located at 13993 FM 2769, Leander, TX 78641. The marina is approximately 25 minutes from downtown Austin with ample free parking for all guests.',
           'Can we bring our own food and drinks on Austin party boats? Yes! BYOB is allowed for guests 21+ with valid ID (cans and plastic containers only). We provide coolers and ice. You can bring your own food or we can coordinate catering delivery. Many groups order pizza, BBQ, tacos, or other Austin favorites delivered right to the boat.',
           'How far in advance should we book Austin party boats? Book 6-8 weeks in advance for weekend dates, especially during peak season (April-October). Weekday bookings can be made with less advance notice. Popular dates like bachelor/bachelorette parties and summer weekends fill earliest.',
           'What makes Lake Travis the best Austin party boat destination? Lake Travis offers beautiful clear blue water perfect for swimming, stunning Hill Country scenery, year-round perfect weather, Instagram-worthy sunset views, and professional party atmosphere. Located just 20 miles from downtown Austin with easy access.'
@@ -1901,7 +1944,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           'How many people can Lake Travis party boats hold? Private boats accommodate 14-75 guests depending on vessel. Day Tripper holds 14 guests, Meeseeks and The Irony holds 25 guests, and Clever Girl accommodates 50-75 guests. Disco Cruise welcomes multiple groups of 6-20+ per group.',
           'Can we bring our own alcohol on Lake Travis party boats? Yes! All Lake Travis party boats are BYOB friendly for guests 21+ with valid ID. Cans and plastic containers only (no glass). We provide coolers, ice, cups, and openers. Responsible consumption is required.',
           'What\'s included with Lake Travis party boats? All boats include Coast Guard certified captain, professional crew, premium Bluetooth sound system, coolers with ice (select packages), safety equipment and life jackets, clean restroom facilities, comfortable seating with sun and shade areas, and swimming platform access.',
-          'Where do Lake Travis party boats depart from? All cruises depart from Anderson Mill Marina, located at 13993 FM 2769, Leander, TX 78641. Free parking available for all guests. The marina is approximately 30 minutes from downtown Austin with easy access from Austin, Round Rock, and Cedar Park.',
+          'Where do Lake Travis party boats depart from? All cruises depart from Anderson Mill Marina, located at 13993 FM 2769, Leander, TX 78641. Free parking available for all guests. The marina is approximately 25 minutes from downtown Austin with easy access from Austin, Round Rock, and Cedar Park.',
           'How far in advance should we book? Book 6-8 weeks in advance for weekend dates, especially during peak season (April-September). Summer weekends and popular dates book earliest. Weekday availability is better with less advance notice needed.',
           'What makes Lake Travis the best for party boats? Lake Travis offers beautiful clear blue water perfect for swimming, stunning Hill Country scenery with nature preserves, perfect year-round weather, Instagram-worthy sunset views, professional marina facilities, and legendary party atmosphere. It\'s Central Texas\' premier party destination!'
         ]
@@ -2139,7 +2182,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Why Lake Travis is the Ultimate Bachelor Party Destination',
         paragraphs: [
           'Lake Travis, a sprawling reservoir in the Texas Hill Country, offers the perfect backdrop for bachelor party celebrations. Crystal clear waters, stunning cliffs, and endless coves provide opportunities for swimming, sunbathing, and partying away from downtown crowds.',
-          'The lake transforms into a private playground where your group can blast favorite tunes, enjoy cold drinks, and create lasting memories. Just 30 minutes from downtown Austin nightlife, you get the best of both worlds.'
+          'The lake transforms into a private playground where your group can blast favorite tunes, enjoy cold drinks, and create lasting memories. Just 25 minutes from downtown Austin nightlife, you get the best of both worlds.'
         ]
       },
       {
@@ -2533,7 +2576,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Visit Us at Lake Travis',
         paragraphs: [
-          'Premier Party Cruises operates from prime Lake Travis locations with easy access from Austin. Our main office at 13993 FM 2769 in Leander is just 30 minutes from downtown Austin. We depart from multiple marinas around Lake Travis to provide convenient access for all our customers.',
+          'Premier Party Cruises operates from prime Lake Travis locations with easy access from Austin. Our main office at 13993 FM 2769 in Leander is just 25 minutes from downtown Austin. We depart from multiple marinas around Lake Travis to provide convenient access for all our customers.',
           'Whether you\'re coming from Austin, Round Rock, Cedar Park, or anywhere in Central Texas, we\'re easily accessible via major highways. Our team can provide detailed directions, parking information, and even arrange transportation from your location to ensure a smooth start to your Lake Travis adventure.'
         ],
         lists: [
@@ -2541,7 +2584,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
             title: 'Location and Directions',
             items: [
               'Main Office: 13993 FM 2769, Leander, TX 78641',
-              'Just 30 minutes from downtown Austin',
+              'Just 25 minutes from downtown Austin',
               'Easy access from Highway 183 and FM 1431',
               'Multiple departure locations on Lake Travis',
               'Free parking available at all marina locations',
@@ -2714,7 +2757,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'General Questions About Lake Travis Boat Rentals',
         paragraphs: [
           'Premier Party Cruises offers two main types of Lake Travis boat rental experiences: Private Boat Charters for exclusive groups of 14-75 guests starting at $200/hour with 4-hour minimum, and the ATX Disco Cruise for shared party boat experiences at $85-105 per person with professional DJ and photographer included.',
-          'We depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, located approximately 30 minutes from downtown Austin with free parking available. All rentals include licensed, fun, experienced captains, premium sound systems, cooler space, restroom facilities, and shaded areas.'
+          'We depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, located approximately 25 minutes from downtown Austin with free parking available. All rentals include licensed, fun, experienced captains, premium sound systems, cooler space, restroom facilities, and shaded areas.'
         ]
       },
       {
@@ -3246,7 +3289,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         paragraphs: [
           'Beverages: All cruises are BYOB (bring your own). Budget $30-50 per person for drinks. Party On Delivery can coordinate convenient delivery at retail prices.',
           'Food: Bring your own or coordinate delivery to marina. Budget $10-20 per person for snacks and meals.',
-          'Transportation: Marina is 30 minutes from downtown Austin. Rideshare typically $30-50 each way per vehicle. Transportation discounts may be available - contact us for details.',
+          'Transportation: Marina is 25 minutes from downtown Austin. Rideshare typically $30-50 each way per vehicle. Transportation discounts may be available - contact us for details.',
           'Gratuity: Not required but appreciated for exceptional service. Standard is 15-20% of base rental cost for private charters. Disco cruise prices already include tax and gratuity for transparent pricing.',
           'Add-ons: Mimosa Party Cooler ($100), Sparkle Packages ($100), professional videography, premium decorations, catering coordination, or special requests available at additional cost. Contact us for custom pricing.'
         ]
@@ -3376,7 +3419,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Planning Your Combined Party',
         paragraphs: [
           'Book 6-8 weeks in advance - combined parties are trending and weekends fill quickly! All cruises are BYOB (bring your own beverages). Party On Delivery can coordinate convenient alcohol delivery at retail prices with 100% buyback on unopened bottles.',
-          'The marina is 30 minutes from downtown Austin with ample free parking. Party Squad and Ultimate packages include 25% transportation discount. Most combined parties run 4 hours with 11am-3pm being the most popular time slot.',
+          'The marina is 25 minutes from downtown Austin with ample free parking. Party Squad and Ultimate packages include 25% transportation discount. Most combined parties run 4 hours with 11am-3pm being the most popular time slot.',
           'Questions about group size, package selection, or customization? Our team specializes in combined bachelor bachelorette parties and will help you plan the perfect celebration for your crew!'
         ]
       },
@@ -4612,7 +4655,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Why Dallas Companies Choose Lake Travis',
         paragraphs: [
           'Lake Travis offers Dallas-based companies an accessible escape from the office that feels worlds away. The 3-hour drive from Dallas to our marina at Lake Travis makes it perfect for day trips or overnight corporate outings. The stunning Texas Hill Country scenery provides a memorable backdrop that your team will talk about long after returning to the office.',
-          'Our boats depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641 - approximately 30 minutes from downtown Austin and 3 hours from Dallas. Many Dallas companies combine their [[corporate-events]] with an overnight stay in Austin, exploring the city\'s renowned dining and entertainment before or after their cruise.'
+          'Our boats depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641 - approximately 25 minutes from downtown Austin and 3 hours from Dallas. Many Dallas companies combine their [[corporate-events]] with an overnight stay in Austin, exploring the city\'s renowned dining and entertainment before or after their cruise.'
         ]
       },
       {
@@ -4647,7 +4690,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Why Austin for Your Company Offsite',
         paragraphs: [
           'Austin has become one of America\'s top destinations for corporate offsites, combining excellent flight connectivity, world-class dining, live music culture, and unique outdoor experiences like Lake Travis. Companies from across the country choose Austin for destination retreats because it offers something genuinely different from typical conference venues.',
-          'A Lake Travis party boat experience adds a memorable highlight to any multi-day offsite. The scenic Texas Hill Country waters, beautiful coves, and relaxed atmosphere create the perfect environment for team bonding. Our boats depart from Anderson Mill Marina, just 30 minutes from downtown Austin hotels, making logistics simple for visiting teams.'
+          'A Lake Travis party boat experience adds a memorable highlight to any multi-day offsite. The scenic Texas Hill Country waters, beautiful coves, and relaxed atmosphere create the perfect environment for team bonding. Our boats depart from Anderson Mill Marina, just 25 minutes from downtown Austin hotels, making logistics simple for visiting teams.'
         ]
       },
       {
@@ -4696,7 +4739,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Easy Planning for Busy Managers',
         paragraphs: [
           'We understand that planning employee events is often an extra responsibility on top of your regular workload. That\'s why we\'ve streamlined the process: choose your boat based on group size, select your date and time, and we handle the rest. Private charters start at $200 per hour with a 4-hour minimum.',
-          'All cruises are BYOB-friendly (21+ with ID), and you can bring your own catering or have food delivered to the marina. Many companies coordinate with local Austin restaurants or bring team-favorite foods. Our boats depart from Anderson Mill Marina, approximately 30 minutes from downtown Austin, making it accessible for Austin-area workplaces.'
+          'All cruises are BYOB-friendly (21+ with ID), and you can bring your own catering or have food delivered to the marina. Many companies coordinate with local Austin restaurants or bring team-favorite foods. Our boats depart from Anderson Mill Marina, approximately 25 minutes from downtown Austin, making it accessible for Austin-area workplaces.'
         ]
       },
       {
@@ -4730,7 +4773,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Large Group Logistics Made Simple',
         paragraphs: [
-          'We depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 30 minutes from downtown Austin. The marina offers ample parking for large groups. Private charters on "Clever Girl" start at $250 per hour with a 4-hour minimum.',
+          'We depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 25 minutes from downtown Austin. The marina offers ample parking for large groups. Private charters on "Clever Girl" start at $250 per hour with a 4-hour minimum.',
           'All cruises are BYOB-friendly, and you can coordinate catering delivery to the marina or bring your own food. For groups approaching 75 guests, we recommend booking well in advance - typically 6-8 weeks for weekend dates. Our team can help coordinate logistics for your specific event needs.'
         ]
       },
@@ -4808,7 +4851,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Building Your Austin Bachelorette Weekend',
         paragraphs: [
           'Many bridal parties build multi-day Austin weekends around their Lake Travis cruise. The city offers spa experiences, boutique shopping, rooftop bars, and the famous 6th Street entertainment district. Your lake cruise becomes the unforgettable centerpiece of the celebration.',
-          'Whether you\'re planning a relaxed spa-focused weekend or a non-stop celebration, a Lake Travis party boat fits perfectly into your itinerary. We depart approximately 30 minutes from downtown Austin, making it easy to incorporate into any Austin bachelorette schedule. Visit [[bachelorette-party]] for more details or call 512-488-5892.'
+          'Whether you\'re planning a relaxed spa-focused weekend or a non-stop celebration, a Lake Travis party boat fits perfectly into your itinerary. We depart approximately 25 minutes from downtown Austin, making it easy to incorporate into any Austin bachelorette schedule. Visit [[bachelorette-party]] for more details or call 512-488-5892.'
         ]
       }
     ],
@@ -4906,7 +4949,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'BYOB and Logistics During Events',
         paragraphs: [
           'All cruises are BYOB-friendly for guests 21+ with valid ID, giving you complete control over your event\'s hospitality. During major conferences, alcohol delivery to Anderson Mill Marina saves time and simplifies logistics. Coordinate delivery timing with your cruise departure.',
-          'We depart approximately 30 minutes from downtown Austin - close enough for conference attendees while offering a complete change of scenery. Many groups arrange transportation to and from the marina as part of their conference programming.'
+          'We depart approximately 25 minutes from downtown Austin - close enough for conference attendees while offering a complete change of scenery. Many groups arrange transportation to and from the marina as part of their conference programming.'
         ]
       },
       {
@@ -4947,7 +4990,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Planning Your Team Event',
         paragraphs: [
-          'Private charters start at $200 per hour with a 4-hour minimum. We depart from Anderson Mill Marina, approximately 30 minutes from downtown Austin. Book 4-6 weeks ahead for weekend dates, especially during peak season (April-October).',
+          'Private charters start at $200 per hour with a 4-hour minimum. We depart from Anderson Mill Marina, approximately 25 minutes from downtown Austin. Book 4-6 weeks ahead for weekend dates, especially during peak season (April-October).',
           'With a perfect safety record and 15+ years hosting [[team-building]] events, Premier Party Cruises provides the professional service your company expects. Contact us at 512-488-5892 or visit [[team-building]] to start planning your Lake Travis corporate outing.'
         ]
       }
@@ -5087,7 +5130,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Planning Your Executive Retreat Cruise',
         paragraphs: [
-          'Private charters start at $200 per hour with a 4-hour minimum. We depart from Anderson Mill Marina, approximately 30 minutes from downtown Austin. Book 4-6 weeks ahead for preferred dates, especially during peak season from April through October.',
+          'Private charters start at $200 per hour with a 4-hour minimum. We depart from Anderson Mill Marina, approximately 25 minutes from downtown Austin. Book 4-6 weeks ahead for preferred dates, especially during peak season from April through October.',
           'With 15+ years of experience hosting [[corporate-events]], a perfect safety record, and Coast Guard certified captains, Premier Party Cruises provides the reliability and professionalism your executive retreat requires. Contact us at 512-488-5892 or visit [[team-building]] to discuss your leadership team\'s Lake Travis experience.'
         ]
       }
@@ -5123,7 +5166,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Making Graduation Memories on Lake Travis',
         paragraphs: [
           'Lake Travis provides stunning backdrops for graduation photos - the Texas Hill Country scenery, clear water, and our premium boats create memorable settings. Many families coordinate school colors in their attire, bringing themed decorations aboard to celebrate the graduate\'s achievement.',
-          'We depart from Anderson Mill Marina, approximately 30 minutes from downtown Austin and the UT campus area. With a perfect safety record and 15+ years of experience, Premier Party Cruises provides the professional service your celebration deserves. Contact us at 512-488-5892 or visit [[graduation-party]] to plan your Lake Travis graduation celebration.'
+          'We depart from Anderson Mill Marina, approximately 25 minutes from downtown Austin and the UT campus area. With a perfect safety record and 15+ years of experience, Premier Party Cruises provides the professional service your celebration deserves. Contact us at 512-488-5892 or visit [[graduation-party]] to plan your Lake Travis graduation celebration.'
         ]
       }
     ],
@@ -5192,7 +5235,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Planning Your Holiday Boat Party',
         paragraphs: [
-          'Private charters start at $200 per hour with a 4-hour minimum. All holidays and holiday weekends book quickly - reserve your date as early as possible. We depart from Anderson Mill Marina, approximately 30 minutes from downtown Austin.',
+          'Private charters start at $200 per hour with a 4-hour minimum. All holidays and holiday weekends book quickly - reserve your date as early as possible. We depart from Anderson Mill Marina, approximately 25 minutes from downtown Austin.',
           'With 15+ years of experience, a perfect safety record, and Coast Guard certified captains, Premier Party Cruises provides reliable service for your holiday celebration. Alcohol delivery services can bring your beverages directly to the marina. Contact us at 512-488-5892 or visit [[private-cruises]] to book your Austin holiday party on Lake Travis.'
         ]
       }
@@ -5227,7 +5270,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Booking Your Bachelor Party Cruise',
         paragraphs: [
-          'Weekend dates, especially during peak season (April-October), book 6-8 weeks in advance. Contact us early to secure your preferred date. We depart from Anderson Mill Marina, approximately 30 minutes from downtown Austin, making coordination with downtown Austin bachelor party activities easy.',
+          'Weekend dates, especially during peak season (April-October), book 6-8 weeks in advance. Contact us early to secure your preferred date. We depart from Anderson Mill Marina, approximately 25 minutes from downtown Austin, making coordination with downtown Austin bachelor party activities easy.',
           'With 15+ years of experience, a perfect safety record, and Coast Guard certified captains, Premier Party Cruises is Austin\'s trusted choice for bachelor parties. Contact us at 512-488-5892 or visit [[bachelor-party]] to start planning the groom\'s Lake Travis celebration.'
         ]
       }
@@ -5262,7 +5305,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Planning Your Lake Travis Bachelorette',
         paragraphs: [
-          'Bachelorette dates book quickly, especially weekend slots during peak season (April-October). Reserve 6-8 weeks ahead to secure your preferred time. We depart from Anderson Mill Marina, approximately 30 minutes from downtown Austin, convenient for bachelorette weekends that include downtown activities.',
+          'Bachelorette dates book quickly, especially weekend slots during peak season (April-October). Reserve 6-8 weeks ahead to secure your preferred time. We depart from Anderson Mill Marina, approximately 25 minutes from downtown Austin, convenient for bachelorette weekends that include downtown activities.',
           'With 15+ years specializing in bachelorette celebrations, a perfect safety record, and Coast Guard certified captains, Premier Party Cruises is Austin\'s premier choice. Contact us at 512-488-5892 or visit [[bachelorette-party]] to start planning the bride\'s unforgettable Lake Travis celebration.'
         ]
       }
@@ -5388,7 +5431,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Transportation and Marina Arrival',
         paragraphs: [
-          'We depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641. The marina is approximately 30 minutes from downtown Austin. Plan arrival 15-30 minutes before your cruise departure to allow time for parking, loading coolers, and boarding.',
+          'We depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641. The marina is approximately 25 minutes from downtown Austin. Plan arrival 15-30 minutes before your cruise departure to allow time for parking, loading coolers, and boarding.',
           'Many groups coordinate transportation together, whether driving separately and meeting at the marina, arranging rideshares, or hiring group transportation. If booking group transportation, provide the marina address and confirm drop-off/pick-up timing with your cruise schedule.'
         ]
       },
@@ -5430,7 +5473,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'What\'s Included in Every Cruise',
         paragraphs: [
-          'Every Premier Party Cruises experience includes: Coast Guard certified licensed captain, professional crew, premium Bluetooth sound system for your playlist, large coolers with ice, clean restroom facilities, and all safety equipment. Our boats depart from Anderson Mill Marina, approximately 30 minutes from downtown Austin.',
+          'Every Premier Party Cruises experience includes: Coast Guard certified licensed captain, professional crew, premium Bluetooth sound system for your playlist, large coolers with ice, clean restroom facilities, and all safety equipment. Our boats depart from Anderson Mill Marina, approximately 25 minutes from downtown Austin.',
           'All cruises are BYOB-friendly for guests 21+ with valid ID. Bring beverages in cans or plastic containers - no glass allowed. Swimming is available when conditions permit (captain\'s discretion). Life jackets are provided. You bring the celebration essentials; we provide the venue, crew, and Lake Travis experience.'
         ]
       },
@@ -5543,7 +5586,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Booking with Confidence',
         paragraphs: [
           'Premier Party Cruises\' perfect safety record over 15+ years demonstrates our commitment to professional operations. Our [[bachelor-party]] and [[bachelorette-party]] guests, [[corporate-events]] groups, and [[wedding-party]] celebrations all benefit from our safety-first approach.',
-          'We depart from Anderson Mill Marina, approximately 30 minutes from downtown Austin. Contact us at 512-488-5892 to book your professionally-operated Lake Travis party boat experience with the newest fleet and most experienced crew on the lake.'
+          'We depart from Anderson Mill Marina, approximately 25 minutes from downtown Austin. Contact us at 512-488-5892 to book your professionally-operated Lake Travis party boat experience with the newest fleet and most experienced crew on the lake.'
         ]
       }
     ],
@@ -5570,7 +5613,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Large Group Logistics',
         paragraphs: [
-          'We depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 30 minutes from downtown Austin. For large groups, plan arrival 20-30 minutes early for parking coordination, cooler loading, and boarding. Communicate marina address and timing to all guests.',
+          'We depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 25 minutes from downtown Austin. For large groups, plan arrival 20-30 minutes early for parking coordination, cooler loading, and boarding. Communicate marina address and timing to all guests.',
           'Large groups often coordinate group transportation for easier logistics. Whether carpooling, rideshare, or charter bus, confirm timing aligns with your cruise departure. Alcohol delivery services can bring orders directly to the marina for BYOB convenience (21+ with valid ID, no glass containers).'
         ]
       },
@@ -5633,7 +5676,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'What We Provide',
         paragraphs: [
-          'Premier Party Cruises provides the venue and professional operation: boats, Coast Guard certified captains, trained crew, premium Bluetooth sound systems for your playlist, large coolers with ice, and clean restroom facilities. We depart from Anderson Mill Marina, approximately 30 minutes from downtown Austin.',
+          'Premier Party Cruises provides the venue and professional operation: boats, Coast Guard certified captains, trained crew, premium Bluetooth sound systems for your playlist, large coolers with ice, and clean restroom facilities. We depart from Anderson Mill Marina, approximately 25 minutes from downtown Austin.',
           'All cruises are BYOB-friendly (21+ with valid ID, no glass containers). You coordinate your catering, decorations, and celebration details. Alcohol delivery services can bring orders to the marina. Private charters start at $200 per hour with 4-hour minimum.'
         ]
       },
@@ -5675,7 +5718,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Planning Your Bachelorette Weekend',
         paragraphs: [
-          'Book your Lake Travis cruise as the anchor event, then build your weekend around it. We depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 30 minutes from downtown Austin. Coordinate transportation for your group.',
+          'Book your Lake Travis cruise as the anchor event, then build your weekend around it. We depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 25 minutes from downtown Austin. Coordinate transportation for your group.',
           'Weekend dates during peak season (April-October) book 6-8 weeks in advance. Holiday weekends fill faster. Contact us early to secure your preferred date and time slot for the [[atx-disco]] or preferred boat for [[private-cruises]].'
         ]
       },
@@ -5754,7 +5797,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Bachelor Party Timeline',
         paragraphs: [
           'Plan arrival at Anderson Mill Marina (13993 FM 2769, Leander, TX 78641) 15-30 minutes before departure. Load coolers, board, and the captain handles everything from there. Your 4-hour cruise includes cruising Lake Travis, anchoring in scenic coves, swimming, and celebrating.',
-          'Coordinate group transportation - approximately 30 minutes from downtown Austin. Many groups arrange rideshares or designated drivers. After your cruise, downtown Austin offers nightlife to continue the celebration. The lake experience anchors your bachelor weekend.'
+          'Coordinate group transportation - approximately 25 minutes from downtown Austin. Many groups arrange rideshares or designated drivers. After your cruise, downtown Austin offers nightlife to continue the celebration. The lake experience anchors your bachelor weekend.'
         ]
       },
       {
@@ -5830,7 +5873,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Planning Your Bachelorette Cruise',
         paragraphs: [
-          'We depart from Anderson Mill Marina (13993 FM 2769, Leander, TX 78641), approximately 30 minutes from downtown Austin. All cruises are BYOB-friendly (21+ with ID, no glass). Pack swimsuits, sunscreen, towels, and celebration items. Coordinate group transportation.',
+          'We depart from Anderson Mill Marina (13993 FM 2769, Leander, TX 78641), approximately 25 minutes from downtown Austin. All cruises are BYOB-friendly (21+ with ID, no glass). Pack swimsuits, sunscreen, towels, and celebration items. Coordinate group transportation.',
           'Weekend dates during peak season book 6-8 weeks in advance. Contact Premier Party Cruises at 512-488-5892 to secure your preferred date. With our Coast Guard certified captains and perfect safety record, your bachelorette celebration is in expert hands.'
         ]
       }
@@ -5866,7 +5909,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Booking Confidence',
         paragraphs: [
           'Our reputation is built on consistent delivery. [[Bachelor-party]] groups, [[bachelorette-party]] crews, [[corporate-events]] planners, and [[wedding-party]] coordinators choose us because we execute reliably. Read our [[testimonials]] to see what customers experience.',
-          'Contact Premier Party Cruises at 512-488-5892 to discuss your celebration. We depart from Anderson Mill Marina, approximately 30 minutes from downtown Austin. With 15+ years of Lake Travis expertise, your event is in experienced hands.'
+          'Contact Premier Party Cruises at 512-488-5892 to discuss your celebration. We depart from Anderson Mill Marina, approximately 25 minutes from downtown Austin. With 15+ years of Lake Travis expertise, your event is in experienced hands.'
         ]
       }
     ],
@@ -5900,7 +5943,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Planning Your Austin Bachelor Party',
         paragraphs: [
-          'We depart from Anderson Mill Marina (13993 FM 2769, Leander, TX 78641), approximately 30 minutes from downtown Austin. All cruises are BYOB-friendly (21+ with ID, no glass containers). Pack swimsuits, sunscreen, towels, and celebration essentials. Coordinate group transportation to the marina.',
+          'We depart from Anderson Mill Marina (13993 FM 2769, Leander, TX 78641), approximately 25 minutes from downtown Austin. All cruises are BYOB-friendly (21+ with ID, no glass containers). Pack swimsuits, sunscreen, towels, and celebration essentials. Coordinate group transportation to the marina.',
           'Weekend dates during peak season (April-October) book 6-8 weeks in advance. Contact Premier Party Cruises at 512-488-5892 to secure your preferred date. With our Coast Guard certified captains, perfect safety record, and newest fleet on Lake Travis, your bachelor party is in expert hands.'
         ]
       }
@@ -6014,7 +6057,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'What\'s Included in Every Cruise',
         paragraphs: [
-          'Both private charters and disco cruises include essential amenities for a comfortable celebration on Lake Travis. Our boats depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 30 minutes from downtown Austin. This convenient location makes us accessible from anywhere in the Austin metro area.',
+          'Both private charters and disco cruises include essential amenities for a comfortable celebration on Lake Travis. Our boats depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 25 minutes from downtown Austin. This convenient location makes us accessible from anywhere in the Austin metro area.',
           'All cruises are fully BYOB-friendly. Guests 21 and older with valid ID may bring beer, wine, seltzers, and other beverages in cans or plastic containers. No glass is allowed for safety. We provide large coolers with ice on every cruise. Many groups coordinate alcohol or food delivery directly to the marina before departure.',
           'Our Coast Guard certified captains navigate Lake Travis\'s beautiful waters while you celebrate. Professional crew members ensure your cruise runs smoothly from boarding to return. Every boat features clean restroom facilities, shaded areas, and modern safety equipment. With our perfect safety record and 14+ years of experience, your celebration is in expert hands.'
         ],
@@ -6139,7 +6182,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Departure Location and Arrival',
         paragraphs: [
-          'All Premier Party Cruises depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641. This convenient location is approximately 30 minutes from downtown Austin, making it accessible from anywhere in the Austin metropolitan area including Round Rock, Cedar Park, Lakeway, and surrounding communities.',
+          'All Premier Party Cruises depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641. This convenient location is approximately 25 minutes from downtown Austin, making it accessible from anywhere in the Austin metropolitan area including Round Rock, Cedar Park, Lakeway, and surrounding communities.',
           'We recommend arriving at the marina 30 minutes before your scheduled departure time. This allows time for parking, locating your boat, meeting your captain and crew, loading any coolers or supplies, and beginning your cruise on schedule. Late arrivals may result in shortened cruise time as we must return by our scheduled dock time.',
           'Free parking is available at Anderson Mill Marina. The marina offers restroom facilities before boarding. Our crew will assist with loading coolers and supplies. If you\'ve arranged alcohol or food delivery to the marina, please coordinate timing so your order arrives before your departure window.'
         ]
@@ -6329,7 +6372,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         paragraphs: [
           'Every boat in the Premier Party Cruises fleet maintains consistent high standards. All vessels undergo regular maintenance and thorough cleaning between charters. Our Coast Guard certified captains and professional crew members receive ongoing training to ensure safe, professional service on every cruise.',
           'All boats feature premium Bluetooth sound systems so you control your music experience. Connect your phone and play your custom playlist throughout your celebration. Large coolers with ice are standard equipment - you bring the beverages, we keep them cold. Clean restroom facilities on every vessel ensure guest comfort during your 4-hour or longer cruise.',
-          'BYOB-friendly cruises allow guests 21 and older with valid ID to bring their own beverages. Cans and plastic containers only - no glass for safety. We can coordinate alcohol and food delivery to Anderson Mill Marina before your departure. All boats depart from the same convenient location approximately 30 minutes from downtown Austin.'
+          'BYOB-friendly cruises allow guests 21 and older with valid ID to bring their own beverages. Cans and plastic containers only - no glass for safety. We can coordinate alcohol and food delivery to Anderson Mill Marina before your departure. All boats depart from the same convenient location approximately 25 minutes from downtown Austin.'
         ],
         lists: [
           {
@@ -6361,7 +6404,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Book Your Party Boat Today',
         paragraphs: [
           'Ready to reserve your Lake Travis party boat? Weekend dates during peak season book 6-8 weeks in advance, so early booking secures your preferred date. Contact us at 512-488-5892 to check availability and discuss your celebration plans. Our team provides quotes, answers questions, and helps coordinate all details.',
-          'All boats depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641. The convenient location is approximately 30 minutes from downtown Austin, accessible from anywhere in the metro area. Arrive 30 minutes before your scheduled departure to meet your captain, load your coolers, and start your Lake Travis adventure on time.',
+          'All boats depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641. The convenient location is approximately 25 minutes from downtown Austin, accessible from anywhere in the metro area. Arrive 30 minutes before your scheduled departure to meet your captain, load your coolers, and start your Lake Travis adventure on time.',
           'Premier Party Cruises has operated on Lake Travis for 14+ years with a perfect safety record. Our newest fleet in Austin, experienced captains, and professional crews deliver consistent quality for [[bachelor-party]], [[bachelorette-party]], [[corporate-events]], [[wedding-party]], [[birthday-party]], and celebrations of every kind. Your memorable Lake Travis experience awaits.'
         ]
       }
@@ -6416,7 +6459,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'The Birthday Party Cruise Experience',
         paragraphs: [
-          'Your birthday cruise departs from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 30 minutes from downtown Austin. We recommend arriving 30 minutes before your scheduled departure to meet your captain, load coolers and any special items, and get oriented with the boat before setting sail.',
+          'Your birthday cruise departs from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 25 minutes from downtown Austin. We recommend arriving 30 minutes before your scheduled departure to meet your captain, load coolers and any special items, and get oriented with the boat before setting sail.',
           'Once underway, your captain navigates Lake Travis while you and your guests enjoy the stunning scenery. Popular stops include Devil\'s Cove for swimming and floating, scenic cliff areas perfect for photos, and quiet coves where you can anchor and enjoy the water. The captain knows all the best spots and can customize your route based on weather conditions and your preferences.',
           'Throughout the cruise, your birthday playlist pumps through the premium sound system while guests swim, lounge, take photos, and celebrate. As the birthday VIP, you\'re the center of attention while our crew handles all the logistics. When your cruise concludes, you\'ll return to the marina with unforgettable memories and photos of the best birthday party ever.'
         ]
@@ -6485,7 +6528,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Planning Your Anniversary Cruise',
         paragraphs: [
-          'Anniversary cruises depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 30 minutes from downtown Austin. All boats require a 4-hour minimum rental. Rates vary by vessel and day: Day Tripper ($200-$350/hour), Meeseeks/The Irony ($225-$425/hour), and Clever Girl ($250-$500/hour).',
+          'Anniversary cruises depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 25 minutes from downtown Austin. All boats require a 4-hour minimum rental. Rates vary by vessel and day: Day Tripper ($200-$350/hour), Meeseeks/The Irony ($225-$425/hour), and Clever Girl ($250-$500/hour).',
           'Weekend dates during peak season book 6-8 weeks in advance, so we recommend planning early for anniversary celebrations. Contact Premier Party Cruises at 512-488-5892 to discuss your vision, check availability, and receive a customized quote. Our team has helped thousands of couples celebrate their love on Lake Travis and knows how to make your anniversary extraordinary.',
           'With 14+ years of experience, 150,000+ satisfied customers, and a perfect safety record, Premier Party Cruises delivers the quality your anniversary deserves. Your love story is unique - let us help you celebrate it on the beautiful waters of Lake Travis. Explore other celebration options including [[proposal-cruise]] for those planning the next chapter or [[celebration-cruises]] for any special occasion.'
         ]
@@ -6540,7 +6583,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Proposal Cruise Logistics and Booking',
         paragraphs: [
-          'Proposal cruises depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 30 minutes from downtown Austin. The 4-hour minimum rental provides plenty of time for a leisurely cruise, the proposal moment, and celebration afterward. Day Tripper rates range from $200-$350 per hour depending on the day.',
+          'Proposal cruises depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 25 minutes from downtown Austin. The 4-hour minimum rental provides plenty of time for a leisurely cruise, the proposal moment, and celebration afterward. Day Tripper rates range from $200-$350 per hour depending on the day.',
           'When booking, let our team know you\'re planning a proposal - we\'ll note this in your reservation and ensure your captain is prepared to support your special moment. All information is kept confidential, of course. We can also coordinate timing suggestions based on sunset schedules and help you think through logistics.',
           'After the proposal, many newly-engaged couples return to Austin for dinner or celebrations with family and friends who may have been in on the secret. Some keep the engagement private initially, savoring the moment together. However you choose to continue celebrating, your Lake Travis proposal will be a story you tell for the rest of your lives together.'
         ]
@@ -6657,7 +6700,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
             title: 'Departure Info',
             items: [
               'Anderson Mill Marina, Leander TX',
-              '30 minutes from downtown Austin',
+              '25 minutes from downtown Austin',
               '4-hour minimum for private charters',
               'Arrive 30 minutes early'
             ]
@@ -6689,7 +6732,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
 
   '/party-boat-rental-austin': {
     h1: 'Party Boat Rental Austin | Lake Travis Private Charters',
-    introduction: 'Looking for the best party boat rental in Austin? Premier Party Cruises offers premium [[private-cruises]] on Lake Travis with three vessels to match any group size. Choose from Day Tripper (up to 14 guests), Meeseeks or The Irony (up to 30 guests), or our flagship Clever Girl (up to 75 guests featuring 14 disco balls and a giant Texas flag). Every Austin party boat rental includes a Coast Guard certified captain, professional crew, premium Bluetooth sound system, large coolers with ice, and all the amenities for an unforgettable celebration. We depart from Anderson Mill Marina, just 30 minutes from downtown Austin, making us the most convenient party boat rental option in the Austin area.',
+    introduction: 'Looking for the best party boat rental in Austin? Premier Party Cruises offers premium [[private-cruises]] on Lake Travis with three vessels to match any group size. Choose from Day Tripper (up to 14 guests), Meeseeks or The Irony (up to 30 guests), or our flagship Clever Girl (up to 75 guests featuring 14 disco balls and a giant Texas flag). Every Austin party boat rental includes a Coast Guard certified captain, professional crew, premium Bluetooth sound system, large coolers with ice, and all the amenities for an unforgettable celebration. We depart from Anderson Mill Marina, just 25 minutes from downtown Austin, making us the most convenient party boat rental option in the Austin area.',
     sections: [
       {
         heading: 'Austin Party Boat Rental Fleet Options',
@@ -6770,7 +6813,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Lake Travis Party Boat Experience',
         paragraphs: [
-          'Lake Travis is Central Texas\'s premier destination for party boat rentals, offering calm, clear waters surrounded by stunning Texas Hill Country scenery. Your Austin party boat rental departs from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 30 minutes from downtown Austin. This convenient location makes us accessible for all your guests while providing immediate access to Lake Travis\'s best cruising areas.',
+          'Lake Travis is Central Texas\'s premier destination for party boat rentals, offering calm, clear waters surrounded by stunning Texas Hill Country scenery. Your Austin party boat rental departs from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 25 minutes from downtown Austin. This convenient location makes us accessible for all your guests while providing immediate access to Lake Travis\'s best cruising areas.',
           'During your cruise, expect beautiful cliff views, hidden coves perfect for swimming, and crystal-clear water that makes Lake Travis famous. Popular anchor spots like Devil\'s Cove offer opportunities for swimming, floating on lily pad floats, and enjoying the Texas sun. Water temperatures are ideal from April through October, though party boat rentals are available year-round.',
           'The captain controls the route based on your preferences and current conditions, ensuring optimal experiences for swimming, sightseeing, or simply cruising. Whether you want to anchor and float, cruise past lakeside mansions, or catch the perfect sunset, your Austin party boat rental delivers the Lake Travis experience your group desires.'
         ]
@@ -6817,7 +6860,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
 
   '/lake-travis-yacht-rental': {
     h1: 'Lake Travis Yacht Rental | Premium Party Boat Charters Austin',
-    introduction: 'Experience luxury on the water with a Lake Travis yacht rental from Premier Party Cruises. Our premium fleet offers upscale party boat experiences for discerning groups who want the finest Lake Travis has to offer. Choose from three exceptional vessels: Day Tripper for intimate gatherings of up to 14 guests, Meeseeks or The Irony for groups of up to 30, or our spectacular flagship Clever Girl accommodating up to 75 guests with 14 disco balls and a giant Texas flag. Every Lake Travis yacht rental includes a Coast Guard certified captain, professional crew, and premium amenities. Departing from Anderson Mill Marina just 30 minutes from downtown Austin, your luxury Lake Travis experience awaits.',
+    introduction: 'Experience luxury on the water with a Lake Travis yacht rental from Premier Party Cruises. Our premium fleet offers upscale party boat experiences for discerning groups who want the finest Lake Travis has to offer. Choose from three exceptional vessels: Day Tripper for intimate gatherings of up to 14 guests, Meeseeks or The Irony for groups of up to 30, or our spectacular flagship Clever Girl accommodating up to 75 guests with 14 disco balls and a giant Texas flag. Every Lake Travis yacht rental includes a Coast Guard certified captain, professional crew, and premium amenities. Departing from Anderson Mill Marina just 25 minutes from downtown Austin, your luxury Lake Travis experience awaits.',
     sections: [
       {
         heading: 'Premium Lake Travis Yacht Experience',
@@ -6889,7 +6932,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'The Lake Travis Experience',
         paragraphs: [
           'Lake Travis offers an unparalleled setting for yacht rentals in Central Texas. The 63-mile-long reservoir features crystal-clear water, stunning cliff formations, hidden coves, and the beautiful Texas Hill Country as a constant backdrop. Unlike coastal boating experiences, Lake Travis provides calm, protected waters perfect for celebrations.',
-          'Your Lake Travis yacht rental departs from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 30 minutes from downtown Austin. This convenient location provides easy access for all guests while positioning your cruise in the heart of Lake Travis\'s most scenic areas.',
+          'Your Lake Travis yacht rental departs from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 25 minutes from downtown Austin. This convenient location provides easy access for all guests while positioning your cruise in the heart of Lake Travis\'s most scenic areas.',
           'During your cruise, expect spectacular views of limestone cliffs, Texas Hill Country vegetation, and the blue-green waters that make Lake Travis famous. Popular anchor spots like Devil\'s Cove offer opportunities for swimming in crystal-clear water and floating on lily pad floats. The captain tailors your route to your preferences, whether you desire scenic cruising, swimming stops, or sunset positioning.',
           'Water temperatures are ideal for swimming from April through October, with the lake\'s beauty providing year-round cruising opportunities. Texas weather typically delivers sunshine and comfortable temperatures throughout most of the year, making Lake Travis yacht rentals a reliable choice for celebrations.'
         ]
@@ -6931,7 +6974,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
 
   '/austin-boat-party': {
     h1: 'Austin Boat Party | Lake Travis Party Cruises',
-    introduction: 'Planning an Austin boat party? Premier Party Cruises delivers the ultimate Lake Travis party experience with [[private-cruises]] and the legendary [[atx-disco]]! Choose from three premium party boats: Day Tripper (up to 14 guests), Meeseeks or The Irony (up to 30 guests), or our flagship Clever Girl (up to 75 guests featuring 14 disco balls). Every Austin boat party includes Coast Guard certified captains, premium Bluetooth sound systems, coolers with ice, and stunning Lake Travis scenery. Departing from Anderson Mill Marina just 30 minutes from downtown Austin, your epic boat party awaits!',
+    introduction: 'Planning an Austin boat party? Premier Party Cruises delivers the ultimate Lake Travis party experience with [[private-cruises]] and the legendary [[atx-disco]]! Choose from three premium party boats: Day Tripper (up to 14 guests), Meeseeks or The Irony (up to 30 guests), or our flagship Clever Girl (up to 75 guests featuring 14 disco balls). Every Austin boat party includes Coast Guard certified captains, premium Bluetooth sound systems, coolers with ice, and stunning Lake Travis scenery. Departing from Anderson Mill Marina just 25 minutes from downtown Austin, your epic boat party awaits!',
     sections: [
       {
         heading: 'The Ultimate Austin Boat Party Experience',
@@ -6994,7 +7037,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           'Every Austin boat party includes essential amenities for an incredible experience. Coast Guard certified captains navigate Lake Travis while you focus on celebrating. Premium Bluetooth sound systems let you control the music. Large coolers with ice keep your beverages cold throughout the cruise. Clean restroom facilities ensure comfort. Shaded areas provide relief from the Texas sun.',
           'All Austin boat parties are BYOB friendly for guests 21+ with valid ID. Bring your own beer, wine, seltzers, and non-alcoholic beverages in cans or plastic containers (no glass for safety). We can also coordinate alcohol delivery directly to the boat for your convenience. Food is welcome - bring snacks, pizza, or we can coordinate catering.',
           'Optional add-ons enhance your Austin boat party experience. Lily pad floats (6x20 feet) provide platforms for floating in the coves. Photography packages capture professional-quality memories. Catering coordination simplifies food planning. Let us know your vision and we\'ll help make it happen.',
-          'Austin boat parties depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 30 minutes from downtown Austin. Arrive 30 minutes before departure to meet your captain, load your supplies, and prepare for an amazing Lake Travis experience. All private charters require a 4-hour minimum.'
+          'Austin boat parties depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 25 minutes from downtown Austin. Arrive 30 minutes before departure to meet your captain, load your supplies, and prepare for an amazing Lake Travis experience. All private charters require a 4-hour minimum.'
         ],
         lists: [
           {
@@ -7154,7 +7197,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'The Lake Travis Graduation Experience',
         paragraphs: [
-          'Your graduation cruise departs from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 30 minutes from downtown Austin. Arrive 30 minutes before departure to meet your captain, load supplies, and prepare for an amazing Lake Travis experience. The 4-hour cruise provides ample time for cruising, swimming, dining, and celebrating.',
+          'Your graduation cruise departs from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 25 minutes from downtown Austin. Arrive 30 minutes before departure to meet your captain, load supplies, and prepare for an amazing Lake Travis experience. The 4-hour cruise provides ample time for cruising, swimming, dining, and celebrating.',
           'Lake Travis scenery creates an incredible backdrop for graduation photos and memories. Cruise past Texas Hill Country vegetation, scenic cliffs, and beautiful waterfront properties. Your captain knows all the best spots and can anchor in calm coves for swimming and floating. Devil\'s Cove and other popular locations offer crystal-clear water perfect for cooling off.',
           'Whether your graduate is heading to college, starting a career, or embarking on graduate studies, this celebration marks a pivotal moment in their journey. A Lake Travis graduation cruise creates memories that will last a lifetime, surrounded by the people who supported them throughout their educational journey.'
         ]
@@ -7240,7 +7283,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Rehearsal Dinner Cruise Logistics',
         paragraphs: [
-          'All rehearsal dinner cruises depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 30 minutes from downtown Austin. We recommend guests arrive 30 minutes before departure for parking, boarding, and getting settled. The 4-hour cruise provides ample time for pre-dinner drinks, a full meal, toasts, and enjoying Lake Travis scenery.',
+          'All rehearsal dinner cruises depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 25 minutes from downtown Austin. We recommend guests arrive 30 minutes before departure for parking, boarding, and getting settled. The 4-hour cruise provides ample time for pre-dinner drinks, a full meal, toasts, and enjoying Lake Travis scenery.',
           'Every cruise is BYOB friendly for guests 21+ with valid ID. Bring champagne for toasts, wine for dinner, and any other beverages your group prefers (cans and plastic only, no glass for safety). We provide large coolers with ice to keep everything cold. Many couples hire bartenders for table-side service, or guests can serve themselves from the coolers.',
           'Weather contingencies are important for wedding events. Lake Travis typically offers beautiful conditions April through October, with sunset cruises being especially popular for rehearsal dinners. In the rare case of severe weather, we work with you to reschedule or find alternative solutions. Your wedding week should be stress-free, and we prioritize flexibility for these important celebrations.'
         ],
@@ -7594,7 +7637,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         paragraphs: [
           'Planning a retirement celebration cruise is straightforward with Premier Party Cruises. Start by selecting the boat size that matches your guest count and desired atmosphere. Private charters start at $200 per hour with a 4-hour minimum, with pricing varying by boat size and time of year. Weekend dates are most popular and we recommend booking 6-8 weeks in advance.',
           'Your retirement cruise is fully customizable. Coordinate catering delivery to the marina, arrange for special decorations celebrating the retiree\'s career, or create a slideshow of career highlights to display. Many retirement groups prepare speeches, tributes, and gifts to present during the cruise. The private setting allows for personal moments without interruption from other guests.',
-          'All cruises depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 30 minutes from downtown Austin. We recommend guests arrive 30 minutes before departure. The marina offers convenient parking, and our crew will be ready to welcome your group and begin the celebration.'
+          'All cruises depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 25 minutes from downtown Austin. We recommend guests arrive 30 minutes before departure. The marina offers convenient parking, and our crew will be ready to welcome your group and begin the celebration.'
         ],
         lists: [
           {
@@ -7673,7 +7716,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         paragraphs: [
           'We understand that planning a memorial service while grieving is challenging. Our team works to make the booking process as simple and stress-free as possible. Contact us by phone or email to discuss your needs, and we\'ll guide you through selecting the appropriate vessel and planning the logistics.',
           'Memorial cruises are fully customizable to honor your loved one in meaningful ways. Many families bring photo displays, play favorite songs, share readings or poems, release biodegradable flower petals on the water, or simply gather for quiet remembrance. We work with you to accommodate whatever elements feel right for your celebration.',
-          'All cruises depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 30 minutes from downtown Austin. We recommend guests arrive 30 minutes before departure. For out-of-town family members, the location is easily accessible from Austin-Bergstrom International Airport.'
+          'All cruises depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 25 minutes from downtown Austin. We recommend guests arrive 30 minutes before departure. For out-of-town family members, the location is easily accessible from Austin-Bergstrom International Airport.'
         ],
         lists: [
           {
@@ -7887,7 +7930,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Booking Your Engagement Party Cruise',
         paragraphs: [
           'Private charters for engagement parties start at $200 per hour with a 4-hour minimum. Pricing varies by boat size and timing, with weekends being most popular. We recommend booking 6-8 weeks in advance to secure your preferred date, especially during peak season (April through October).',
-          'All cruises depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 30 minutes from downtown Austin. We recommend guests arrive 30 minutes before departure. The marina offers convenient parking, and our crew will be ready to welcome your engagement party and begin the celebration.',
+          'All cruises depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 25 minutes from downtown Austin. We recommend guests arrive 30 minutes before departure. The marina offers convenient parking, and our crew will be ready to welcome your engagement party and begin the celebration.',
           'Contact Premier Party Cruises to discuss your engagement celebration vision. We\'ll help you select the right boat, plan the logistics, and ensure every detail is handled. With 14+ years of Lake Travis experience and 150,000+ satisfied customers, we take pride in creating memorable celebrations for couples beginning their wedding journey.'
         ]
       },
@@ -7984,7 +8027,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Booking Your Bridal Shower Cruise',
         paragraphs: [
           'Private bridal shower cruises start at $200 per hour with a 4-hour minimum. Pricing varies by boat size and timing. Weekend dates are most popular, and we recommend booking 6-8 weeks in advance. Many hostesses coordinate bridal shower cruises for Saturday or Sunday mornings, though weekday cruises offer more flexibility.',
-          'All cruises depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 30 minutes from downtown Austin. We recommend guests arrive 30 minutes before departure. The marina offers convenient parking, and out-of-town guests can easily access the location from Austin hotels.',
+          'All cruises depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 25 minutes from downtown Austin. We recommend guests arrive 30 minutes before departure. The marina offers convenient parking, and out-of-town guests can easily access the location from Austin hotels.',
           'Contact us to discuss your bridal shower vision. We\'ll help you select the right boat, plan logistics, and answer any questions. Our team loves celebrating brides-to-be and ensuring every bridal shower cruise exceeds expectations.'
         ]
       },
@@ -8081,7 +8124,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Booking Your Baby Shower Cruise',
         paragraphs: [
           'Private baby shower cruises start at $200 per hour with a 4-hour minimum. Pricing varies by boat size and timing. We recommend booking 6-8 weeks in advance for weekend dates, which are most popular. Many hostesses choose weekend mornings or early afternoons, though weekday cruises offer more flexibility.',
-          'All cruises depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 30 minutes from downtown Austin. We recommend guests arrive 30 minutes before departure. The marina offers convenient parking for all guests.',
+          'All cruises depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 25 minutes from downtown Austin. We recommend guests arrive 30 minutes before departure. The marina offers convenient parking for all guests.',
           'Contact Premier Party Cruises to discuss your baby shower celebration. Our team loves helping families celebrate new arrivals and ensuring every detail creates a memorable experience. With 14+ years on Lake Travis, we take pride in hosting meaningful milestone celebrations.'
         ]
       },

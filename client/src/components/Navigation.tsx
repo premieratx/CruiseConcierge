@@ -75,6 +75,12 @@ const mainNavItems = [
     icon: Bot,
     description: 'AI agent that can perform backend tasks: blog posts, database queries, file operations',
   },
+  {
+    title: 'SEO Command Center',
+    href: '/admin/seo-command-center',
+    icon: Search,
+    description: 'Multi-agent SEO optimization: keywords, AI visibility, design, and implementation',
+  },
 ];
 
 export default function Navigation() {

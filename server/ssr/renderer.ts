@@ -1134,7 +1134,7 @@ const SSR_ROUTES = [
 const PAGE_METADATA: Record<string, { h1: string; content: string }> = {
   '/': {
     h1: 'Party Boat Rental Austin | Lake Travis Party Cruise | Bachelorette Bachelor Wedding Corporate Boat Parties',
-    content: 'Experience the ultimate party cruise on Lake Travis. Private charters, disco cruises, bachelor parties, bachelorette parties, and corporate events. Book your Austin party boat rental today!'
+    content: 'Austin\'s #1 party boat company since 2009. Private charters for 14-75 guests, ATX Disco Cruise with DJ & photographer ($85-$105/person). BYOB, licensed captains, 150,000+ happy guests. Book Lake Travis today!'
   },
   '/blog': {
     h1: 'Austin Party Boat Rental Blog | Bachelor & Bachelorette Tips',
