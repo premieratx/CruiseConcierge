@@ -167,6 +167,18 @@ const BacheloretteV2 = lazy(() => import("./pages/BacheloretteV2"));
 // New Combined Bach V2 - Same luxury design system
 const CombinedBachV2 = lazy(() => import("./pages/CombinedBachV2"));
 
+// New Private Cruises V2 - Same luxury design system
+const PrivateCruisesV2 = lazy(() => import("./pages/PrivateCruisesV2"));
+
+// New Corporate Events V2 - Same luxury design system
+const CorporateV2 = lazy(() => import("./pages/CorporateV2"));
+
+// New Wedding Parties V2 - Same luxury design system
+const WeddingV2 = lazy(() => import("./pages/WeddingV2"));
+
+// New Birthday Parties V2 - Same luxury design system
+const BirthdayV2 = lazy(() => import("./pages/BirthdayV2"));
+
 // Admin Inventory Management - Lazy loaded
 const InventoryManagement = lazy(() => import("./pages/admin/InventoryManagement"));
 
@@ -364,6 +376,10 @@ function Router() {
         <Route path="/bachelor-v2" component={BachelorV2} />
         <Route path="/bachelorette-v2" component={BacheloretteV2} />
         <Route path="/combined-bach-v2" component={CombinedBachV2} />
+        <Route path="/private-cruises-v2" component={PrivateCruisesV2} />
+        <Route path="/corporate-v2" component={CorporateV2} />
+        <Route path="/wedding-v2" component={WeddingV2} />
+        <Route path="/birthday-v2" component={BirthdayV2} />
       
       {/* Authentication */}
       <Route path="/auth" component={AuthPage} />
