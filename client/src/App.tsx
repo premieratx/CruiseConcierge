@@ -152,6 +152,9 @@ const AgentChat = lazy(() => import("./pages/admin/AgentChat"));
 // SEO Command Center - Multi-agent AI system
 const SEOCommandCenterPage = lazy(() => import("./components/admin/SEOCommandCenter"));
 
+// New Homepage V2 - Concierge luxury design + McDowell principles
+const HomeV2 = lazy(() => import("./pages/HomeV2"));
+
 // Admin Inventory Management - Lazy loaded
 const InventoryManagement = lazy(() => import("./pages/admin/InventoryManagement"));
 
@@ -344,6 +347,7 @@ function Router() {
       <Switch>
         {/* Public Homepage */}
         <Route path="/" component={Home} />
+        <Route path="/home-v2" component={HomeV2} />
       
       {/* Authentication */}
       <Route path="/auth" component={AuthPage} />
