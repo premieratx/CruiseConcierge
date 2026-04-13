@@ -681,6 +681,162 @@ const HP2_STYLES = `
     font-size: clamp(2rem, 6vw, 2.8rem);
   }
 }
+
+/* Expandable Details Section */
+.hp2-details-section {
+  margin-top: 2rem;
+}
+.hp2-details-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 1.2rem 1.5rem;
+  background: var(--hp2-bg-card);
+  border: 1px solid var(--hp2-border);
+  color: var(--hp2-cream);
+  font-family: var(--hp2-font-body);
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.hp2-details-toggle:hover {
+  background: rgba(200,169,110,0.08);
+}
+.hp2-details-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, opacity 0.3s ease;
+  opacity: 0;
+  background: var(--hp2-bg-card);
+  border: 1px solid var(--hp2-border);
+  border-top: none;
+}
+.hp2-details-content--open {
+  max-height: 3000px;
+  opacity: 1;
+}
+.hp2-details-inner {
+  padding: 1.5rem;
+  font-size: 0.95rem;
+  color: var(--hp2-text-muted);
+  line-height: 1.75;
+}
+.hp2-details-inner ul {
+  list-style: none;
+  padding: 0;
+  margin: 0.75rem 0;
+}
+.hp2-details-inner li {
+  padding: 0.3rem 0;
+  padding-left: 1.2rem;
+  position: relative;
+}
+.hp2-details-inner li::before {
+  content: '\u2713';
+  position: absolute;
+  left: 0;
+  color: var(--hp2-gold);
+}
+/* Private Pricing Table */
+.hp2-private-pricing {
+  margin-top: 4rem;
+}
+.hp2-private-pricing__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border: 1px solid var(--hp2-border);
+  margin-top: 2rem;
+}
+.hp2-private-pricing__card {
+  padding: 2rem 1.5rem;
+  border-right: 1px solid var(--hp2-border);
+}
+.hp2-private-pricing__card:last-child {
+  border-right: none;
+}
+.hp2-private-pricing__name {
+  font-family: var(--hp2-font-display);
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--hp2-cream);
+  margin-bottom: 0.25rem;
+}
+.hp2-private-pricing__capacity {
+  font-size: 0.85rem;
+  color: var(--hp2-gold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+.hp2-private-pricing__rate {
+  font-family: var(--hp2-font-display);
+  font-size: 2rem;
+  font-weight: 300;
+  color: var(--hp2-gold-light);
+  margin-bottom: 0.25rem;
+}
+.hp2-private-pricing__note {
+  font-size: 0.82rem;
+  color: var(--hp2-text-muted);
+  margin-bottom: 1rem;
+}
+.hp2-private-pricing__features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.hp2-private-pricing__features li {
+  padding: 0.35rem 0;
+  font-size: 0.88rem;
+  color: var(--hp2-cream-muted);
+  padding-left: 1.2rem;
+  position: relative;
+}
+.hp2-private-pricing__features li::before {
+  content: '\u2713';
+  position: absolute;
+  left: 0;
+  color: var(--hp2-gold);
+  font-size: 0.8rem;
+}
+@media (max-width: 768px) {
+  .hp2-private-pricing__grid {
+    grid-template-columns: 1fr;
+  }
+  .hp2-private-pricing__card {
+    border-right: none;
+    border-bottom: 1px solid var(--hp2-border);
+  }
+  .hp2-private-pricing__card:last-child {
+    border-bottom: none;
+  }
+}
+/* Photo Gallery */
+.hp2-gallery {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+  margin-top: 2rem;
+}
+.hp2-gallery img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border: 1px solid var(--hp2-border);
+  transition: transform 0.3s ease;
+}
+.hp2-gallery img:hover {
+  transform: scale(1.03);
+}
+@media (max-width: 768px) {
+  .hp2-gallery {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
 `;
 
 // ─── FAQ Data (AI-optimized: direct answer first, then supporting detail) ───
@@ -742,9 +898,14 @@ const FAQ_DATA = [
 // ─── Component ──────────────────────────────────────────────────────────────
 export default function HomeV2() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [openDetails, setOpenDetails] = useState<string | null>(null);
 
   const toggleFaq = (index: number) => {
     setOpenFaq(openFaq === index ? null : index);
+  };
+
+  const toggleDetails = (key: string) => {
+    setOpenDetails(openDetails === key ? null : key);
   };
 
   return (
@@ -1030,6 +1191,85 @@ export default function HomeV2() {
                 "Used Premier Party Cruises for our company team building event. 50 people on the Clever Girl and everyone had a blast. Booking was easy, communication was excellent, and the experience was flawless."
               </p>
               <div className="hp2-testimonial-card__author">— Jennifer L., Corporate Team Event</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── Photo Gallery ─── */}
+      <section className="hp2-section">
+        <div className="hp2-section__label">On The Water</div>
+        <h2 className="hp2-section__headline">
+          Real parties. Real <em>memories</em>.
+        </h2>
+        <div className="hp2-gallery">
+          <img src="/attached_assets/disco_fun_1765193453547.jpg" alt="Party boat cruise on Lake Travis Austin" loading="lazy" />
+          <img src="/attached_assets/disco_fun2_1765193453547.jpg" alt="Dance party on Clever Girl boat Lake Travis" loading="lazy" />
+          <img src="/attached_assets/disco_fun5_1765193453548.jpg" alt="Disco ball party atmosphere on ATX Disco Cruise" loading="lazy" />
+          <img src="/attached_assets/disco_fun6_1765193453548.jpg" alt="Group celebrating on Lake Travis party boat Austin" loading="lazy" />
+          <img src="/attached_assets/@capitalcityshots-1_1760080740012.jpg" alt="Professional DJ on party boat Lake Travis" loading="lazy" />
+          <img src="/attached_assets/@capitalcityshots-5_1760080740018.jpg" alt="Party group photo on Lake Travis cruise" loading="lazy" />
+          <img src="/attached_assets/clever girl-3 bachelorette party boat austin_1763966476657.jpg" alt="Bachelorette party on Clever Girl boat Austin" loading="lazy" />
+          <img src="/attached_assets/day tripper-2 party boat austin lake travis_1763968078449.jpg" alt="Day Tripper party boat on Lake Travis Austin" loading="lazy" />
+        </div>
+      </section>
+
+      {/* ─── Explore Our Services ─── */}
+      <section className="hp2-section--alt">
+        <div className="hp2-section__inner" style={{ padding: '9rem 4rem' }}>
+          <div className="hp2-section__label">Explore Our Services</div>
+          <h2 className="hp2-section__headline">
+            Everything Premier Party Cruises <em>offers</em>.
+          </h2>
+          <div className="hp2-details-section">
+            <button className="hp2-details-toggle" onClick={() => toggleDetails('private-charters')}>
+              <span>Private Charters — Exclusive Boat Rentals</span>
+              <span>{openDetails === 'private-charters' ? '\u2212' : '+'}</span>
+            </button>
+            <div className={`hp2-details-content ${openDetails === 'private-charters' ? 'hp2-details-content--open' : ''}`}>
+              <div className="hp2-details-inner">
+                <p>Premier Party Cruises offers private charter boat rentals on Lake Travis for groups of 14 to 75 guests. Every private charter includes a licensed captain, trained crew, premium Bluetooth sound system, large coolers packed with ice, and a swim stop in a scenic cove. Choose from four boats: Day Tripper (up to 14, from $200/hr), Meeseeks (25-30, from $225/hr), The Irony (25-30, from $225/hr), or Clever Girl (50-75, from $250/hr). All private charters have a 4-hour minimum and are available year-round. BYOB is welcome on every cruise — bring whatever you want in cans or plastic containers.</p>
+              </div>
+            </div>
+
+            <button className="hp2-details-toggle" onClick={() => toggleDetails('disco-cruise')}>
+              <span>ATX Disco Cruise — Austin's Signature Party Boat</span>
+              <span>{openDetails === 'disco-cruise' ? '\u2212' : '+'}</span>
+            </button>
+            <div className={`hp2-details-content ${openDetails === 'disco-cruise' ? 'hp2-details-content--open' : ''}`}>
+              <div className="hp2-details-inner">
+                <p>The ATX Disco Cruise is Austin's most iconic party boat experience, running March through October exclusively for bachelor and bachelorette groups. Multiple groups celebrate together on Clever Girl, our 50-75 person flagship equipped with 14 disco balls, LED lighting, and a dedicated dance floor. Every ticket includes a professional DJ, professional photographer with digital delivery, giant lily pad floats, a swim stop in a crystal-clear Lake Travis cove, private cooler with ice, and mimosa supplies. Tickets start at $85 per person with tax and gratuity included in the total price.</p>
+              </div>
+            </div>
+
+            <button className="hp2-details-toggle" onClick={() => toggleDetails('corporate')}>
+              <span>Corporate Events &amp; Team Building</span>
+              <span>{openDetails === 'corporate' ? '\u2212' : '+'}</span>
+            </button>
+            <div className={`hp2-details-content ${openDetails === 'corporate' ? 'hp2-details-content--open' : ''}`}>
+              <div className="hp2-details-inner">
+                <p>Premier Party Cruises is one of Austin's top venues for corporate team building events and company outings on Lake Travis. Many of Austin's leading tech companies, law firms, and agencies choose us for quarterly team outings, client entertainment, company milestones, and employee appreciation events. Our fleet accommodates 14 to 75 guests with professional service, flexible scheduling, and catering coordination. We offer sound system setup for presentations, flexible payment and invoicing options, and year-round availability for corporate groups of any size.</p>
+              </div>
+            </div>
+
+            <button className="hp2-details-toggle" onClick={() => toggleDetails('weddings')}>
+              <span>Weddings &amp; Rehearsal Dinners</span>
+              <span>{openDetails === 'weddings' ? '\u2212' : '+'}</span>
+            </button>
+            <div className={`hp2-details-content ${openDetails === 'weddings' ? 'hp2-details-content--open' : ''}`}>
+              <div className="hp2-details-inner">
+                <p>Lake Travis provides a stunning backdrop for wedding-related celebrations, and Premier Party Cruises offers private charters perfect for rehearsal dinners, wedding after-parties, and intimate ceremonies on the water. Our sunset cruises are especially popular for proposals and anniversaries, with golden Texas Hill Country light reflecting off the calm lake. Clever Girl accommodates up to 75 guests for larger wedding events, while Day Tripper is perfect for intimate proposals and small celebrations. Catering coordination and custom decorations are available.</p>
+              </div>
+            </div>
+
+            <button className="hp2-details-toggle" onClick={() => toggleDetails('birthdays')}>
+              <span>Birthday Parties on Lake Travis</span>
+              <span>{openDetails === 'birthdays' ? '\u2212' : '+'}</span>
+            </button>
+            <div className={`hp2-details-content ${openDetails === 'birthdays' ? 'hp2-details-content--open' : ''}`}>
+              <div className="hp2-details-inner">
+                <p>Celebrate your birthday on the water with a private party boat charter on Lake Travis. From intimate 14-person gatherings on Day Tripper to large milestone celebrations with 75 guests on Clever Girl, we have a boat for every birthday party. Every charter includes a licensed captain, premium sound system, coolers with ice, and a swim stop in a beautiful cove. BYOB means you can bring your own cake, champagne, and party supplies. Birthday parties are available year-round with morning, afternoon, and sunset time slots to fit your schedule.</p>
+              </div>
             </div>
           </div>
         </div>

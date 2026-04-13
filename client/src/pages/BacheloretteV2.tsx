@@ -728,6 +728,162 @@ const HP2_STYLES = `
     font-size: clamp(2rem, 6vw, 2.8rem);
   }
 }
+
+/* Expandable Details Section */
+.hp2-details-section {
+  margin-top: 2rem;
+}
+.hp2-details-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 1.2rem 1.5rem;
+  background: var(--hp2-bg-card);
+  border: 1px solid var(--hp2-border);
+  color: var(--hp2-cream);
+  font-family: var(--hp2-font-body);
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.hp2-details-toggle:hover {
+  background: rgba(200,169,110,0.08);
+}
+.hp2-details-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, opacity 0.3s ease;
+  opacity: 0;
+  background: var(--hp2-bg-card);
+  border: 1px solid var(--hp2-border);
+  border-top: none;
+}
+.hp2-details-content--open {
+  max-height: 3000px;
+  opacity: 1;
+}
+.hp2-details-inner {
+  padding: 1.5rem;
+  font-size: 0.95rem;
+  color: var(--hp2-text-muted);
+  line-height: 1.75;
+}
+.hp2-details-inner ul {
+  list-style: none;
+  padding: 0;
+  margin: 0.75rem 0;
+}
+.hp2-details-inner li {
+  padding: 0.3rem 0;
+  padding-left: 1.2rem;
+  position: relative;
+}
+.hp2-details-inner li::before {
+  content: '\u2713';
+  position: absolute;
+  left: 0;
+  color: var(--hp2-gold);
+}
+/* Private Pricing Table */
+.hp2-private-pricing {
+  margin-top: 4rem;
+}
+.hp2-private-pricing__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border: 1px solid var(--hp2-border);
+  margin-top: 2rem;
+}
+.hp2-private-pricing__card {
+  padding: 2rem 1.5rem;
+  border-right: 1px solid var(--hp2-border);
+}
+.hp2-private-pricing__card:last-child {
+  border-right: none;
+}
+.hp2-private-pricing__name {
+  font-family: var(--hp2-font-display);
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--hp2-cream);
+  margin-bottom: 0.25rem;
+}
+.hp2-private-pricing__capacity {
+  font-size: 0.85rem;
+  color: var(--hp2-gold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+.hp2-private-pricing__rate {
+  font-family: var(--hp2-font-display);
+  font-size: 2rem;
+  font-weight: 300;
+  color: var(--hp2-gold-light);
+  margin-bottom: 0.25rem;
+}
+.hp2-private-pricing__note {
+  font-size: 0.82rem;
+  color: var(--hp2-text-muted);
+  margin-bottom: 1rem;
+}
+.hp2-private-pricing__features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.hp2-private-pricing__features li {
+  padding: 0.35rem 0;
+  font-size: 0.88rem;
+  color: var(--hp2-cream-muted);
+  padding-left: 1.2rem;
+  position: relative;
+}
+.hp2-private-pricing__features li::before {
+  content: '\u2713';
+  position: absolute;
+  left: 0;
+  color: var(--hp2-gold);
+  font-size: 0.8rem;
+}
+@media (max-width: 768px) {
+  .hp2-private-pricing__grid {
+    grid-template-columns: 1fr;
+  }
+  .hp2-private-pricing__card {
+    border-right: none;
+    border-bottom: 1px solid var(--hp2-border);
+  }
+  .hp2-private-pricing__card:last-child {
+    border-bottom: none;
+  }
+}
+/* Photo Gallery */
+.hp2-gallery {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+  margin-top: 2rem;
+}
+.hp2-gallery img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border: 1px solid var(--hp2-border);
+  transition: transform 0.3s ease;
+}
+.hp2-gallery img:hover {
+  transform: scale(1.03);
+}
+@media (max-width: 768px) {
+  .hp2-gallery {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
 `;
 
 // ─── FAQ Data (AI-optimized: direct answer first, then supporting detail) ───
@@ -793,9 +949,14 @@ const FAQ_DATA = [
 // ─── Component ──────────────────────────────────────────────────────────────
 export default function BacheloretteV2() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [openDetails, setOpenDetails] = useState<string | null>(null);
 
   const toggleFaq = (index: number) => {
     setOpenFaq(openFaq === index ? null : index);
+  };
+
+  const toggleDetails = (key: string) => {
+    setOpenDetails(openDetails === key ? null : key);
   };
 
   return (
@@ -1049,6 +1210,182 @@ export default function BacheloretteV2() {
               <div className="hp2-promise-card__num">04</div>
               <div className="hp2-promise-card__title">BYOB Party Setup</div>
               <div className="hp2-promise-card__desc">Private cooler with ice, mimosa supplies, party cups, koozies. Bring your own champagne and celebrate.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── Private Charter Alternative ─── */}
+      <section className="hp2-section">
+        <div className="hp2-section__label">Private Charters</div>
+        <h2 className="hp2-section__headline">
+          Want the boat all to <em>yourselves</em>?
+        </h2>
+        <p style={{ fontSize: '1.15rem', color: '#C8B898', maxWidth: '700px', lineHeight: 1.7, marginBottom: '2rem' }}>
+          Private charters give your bride tribe exclusive use of the entire boat — your music, your route, your vibe. Available year-round for any group size.
+        </p>
+        <div className="hp2-private-pricing__grid">
+          <div className="hp2-private-pricing__card">
+            <div className="hp2-private-pricing__name">Day Tripper</div>
+            <div className="hp2-private-pricing__capacity">Up to 14 guests</div>
+            <div className="hp2-private-pricing__rate">$200–$350/hr</div>
+            <div className="hp2-private-pricing__note">4-hour minimum · Year-round</div>
+            <ul className="hp2-private-pricing__features">
+              <li>Licensed captain &amp; crew</li>
+              <li>Premium sound system</li>
+              <li>Coolers with ice</li>
+              <li>BYOB friendly</li>
+              <li>Swim stop included</li>
+            </ul>
+          </div>
+          <div className="hp2-private-pricing__card">
+            <div className="hp2-private-pricing__name">Meeseeks / The Irony</div>
+            <div className="hp2-private-pricing__capacity">25–30 guests</div>
+            <div className="hp2-private-pricing__rate">$225–$425/hr</div>
+            <div className="hp2-private-pricing__note">4-hour minimum · Year-round</div>
+            <ul className="hp2-private-pricing__features">
+              <li>Licensed captain &amp; crew</li>
+              <li>Premium sound system</li>
+              <li>Coolers with ice</li>
+              <li>BYOB friendly</li>
+              <li>Perfect for bach parties</li>
+            </ul>
+          </div>
+          <div className="hp2-private-pricing__card">
+            <div className="hp2-private-pricing__name">Clever Girl</div>
+            <div className="hp2-private-pricing__capacity">50–75 guests</div>
+            <div className="hp2-private-pricing__rate">$250–$500/hr</div>
+            <div className="hp2-private-pricing__note">4-hour minimum · 14 disco balls</div>
+            <ul className="hp2-private-pricing__features">
+              <li>Licensed captain &amp; crew</li>
+              <li>14 disco balls + LED lighting</li>
+              <li>Dance floor</li>
+              <li>BYOB friendly</li>
+              <li>Austin's flagship party boat</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── Photo Gallery ─── */}
+      <section className="hp2-section--alt">
+        <div className="hp2-section__inner" style={{ padding: '9rem 4rem' }}>
+          <div className="hp2-section__label">Real Bachelorette Parties</div>
+          <h2 className="hp2-section__headline">
+            See what your party looks <em>like</em>.
+          </h2>
+          <div className="hp2-gallery">
+            <img src="/attached_assets/disco_fun_1765193453547.jpg" alt="Bachelorette party dancing on ATX Disco Cruise" loading="lazy" />
+            <img src="/attached_assets/disco_fun2_1765193453547.jpg" alt="Bachelorette group celebrating on Lake Travis party boat" loading="lazy" />
+            <img src="/attached_assets/disco_fun5_1765193453548.jpg" alt="Dance floor party on Clever Girl boat Austin" loading="lazy" />
+            <img src="/attached_assets/disco_fun6_1765193453548.jpg" alt="Disco ball party boat Lake Travis bachelorette" loading="lazy" />
+            <img src="/attached_assets/@capitalcityshots-1_1760080740012.jpg" alt="Austin bachelorette party boat with DJ" loading="lazy" />
+            <img src="/attached_assets/@capitalcityshots-5_1760080740018.jpg" alt="Bachelorette group photo on Lake Travis cruise" loading="lazy" />
+            <img src="/attached_assets/@capitalcityshots-21_1760080807864.jpg" alt="Swimming at bachelorette party boat Lake Travis" loading="lazy" />
+            <img src="/attached_assets/@capitalcityshots-25_1760080807866.jpg" alt="Sunset bachelorette cruise on Lake Travis Austin" loading="lazy" />
+          </div>
+        </div>
+      </section>
+
+      {/* ─── Expandable Bachelorette Details ─── */}
+      <section className="hp2-section">
+        <div className="hp2-section__label">Complete Details</div>
+        <h2 className="hp2-section__headline">
+          Everything about your <em>bachelorette</em> experience.
+        </h2>
+        <div className="hp2-details-section">
+          <button className="hp2-details-toggle" onClick={() => toggleDetails('disco')}>
+            <span>ATX Disco Cruise — Complete Details</span>
+            <span>{openDetails === 'disco' ? '−' : '+'}</span>
+          </button>
+          <div className={`hp2-details-content ${openDetails === 'disco' ? 'hp2-details-content--open' : ''}`}>
+            <div className="hp2-details-inner">
+              <p>The ATX Disco Cruise is a 4-hour shared party boat experience on Lake Travis, running March through October exclusively for bachelor and bachelorette groups. Your group boards Clever Girl, our 50-75 person flagship vessel with 14 disco balls and LED lighting.</p>
+              <p><strong style={{ color: 'var(--hp2-cream)' }}>Every ticket includes:</strong></p>
+              <ul>
+                <li>Professional DJ playing for the full 4 hours</li>
+                <li>Professional photographer with digital photo delivery in 2-3 weeks</li>
+                <li>14 disco balls and LED dance floor lighting</li>
+                <li>Dedicated dance floor on the water</li>
+                <li>Swim stop in a crystal-clear Lake Travis cove</li>
+                <li>Giant 6x20-foot lily pad floats and unicorn floats</li>
+                <li>Private cooler stocked with ice for your group</li>
+                <li>Mimosa supplies (juice and fruit)</li>
+                <li>Party cups, koozies, and party supplies</li>
+                <li>Ice water stations</li>
+                <li>Clean restroom facilities and shaded lounge areas</li>
+                <li>USCG-certified captain and experienced crew</li>
+                <li>Swim ladder and life jackets in all sizes</li>
+              </ul>
+              <p><strong style={{ color: 'var(--hp2-cream)' }}>Time slots:</strong> Friday 12-4 PM ($95/person), Saturday 11 AM-3 PM ($105/person, most popular), Saturday 3:30-7:30 PM ($85/person, best value with sunset). All prices include tax and gratuity in the total.</p>
+            </div>
+          </div>
+
+          <button className="hp2-details-toggle" onClick={() => toggleDetails('private')}>
+            <span>Private Charter — Package Options</span>
+            <span>{openDetails === 'private' ? '−' : '+'}</span>
+          </button>
+          <div className={`hp2-details-content ${openDetails === 'private' ? 'hp2-details-content--open' : ''}`}>
+            <div className="hp2-details-inner">
+              <p>Private charters give your bachelorette party exclusive use of an entire boat with a dedicated captain and crew. Available year-round with a 4-hour minimum.</p>
+              <p><strong style={{ color: 'var(--hp2-cream)' }}>Standard Package (included):</strong></p>
+              <ul>
+                <li>Licensed captain and trained crew</li>
+                <li>Premium Bluetooth sound system</li>
+                <li>Large coolers packed with ice</li>
+                <li>Swim stop in a scenic Lake Travis cove</li>
+                <li>Swim ladder and life jackets</li>
+                <li>BYOB — bring whatever you want</li>
+              </ul>
+              <p><strong style={{ color: 'var(--hp2-cream)' }}>Essentials Upgrade ($100–$200 flat per cruise):</strong></p>
+              <ul>
+                <li>Everything in Standard</li>
+                <li>Enhanced party setup and decorations</li>
+                <li>Mimosa bar supplies</li>
+                <li>Towel service</li>
+                <li>SPF-50 spray sunscreen station</li>
+              </ul>
+              <p><strong style={{ color: 'var(--hp2-cream)' }}>Ultimate Package ($250–$350 flat per cruise):</strong></p>
+              <ul>
+                <li>Everything in Essentials</li>
+                <li>Premium decorations and banner setup</li>
+                <li>Custom party accessories</li>
+                <li>Priority boarding and extended amenities</li>
+                <li>Dedicated event coordinator</li>
+              </ul>
+            </div>
+          </div>
+
+          <button className="hp2-details-toggle" onClick={() => toggleDetails('checklist')}>
+            <span>What to Bring — Complete Checklist</span>
+            <span>{openDetails === 'checklist' ? '−' : '+'}</span>
+          </button>
+          <div className={`hp2-details-content ${openDetails === 'checklist' ? 'hp2-details-content--open' : ''}`}>
+            <div className="hp2-details-inner">
+              <p>Here is the complete packing list for your bachelorette boat party on Lake Travis. We provide coolers with ice, sound systems, and all safety equipment — you just bring the fun.</p>
+              <p><strong style={{ color: 'var(--hp2-cream)' }}>Essentials:</strong></p>
+              <ul>
+                <li>Sunscreen (SPF 50+ recommended, reef-safe preferred)</li>
+                <li>Swimsuit and coverup</li>
+                <li>Towel (or add towel service upgrade)</li>
+                <li>Sunglasses and a hat</li>
+                <li>Flat shoes or sandals (no heels on the boat)</li>
+                <li>Waterproof phone case (highly recommended for swim stop)</li>
+              </ul>
+              <p><strong style={{ color: 'var(--hp2-cream)' }}>Drinks and Snacks (BYOB):</strong></p>
+              <ul>
+                <li>Your favorite beverages in cans or plastic (no glass)</li>
+                <li>Champagne, seltzers, beer, wine, spirits, mixers</li>
+                <li>Snacks and finger foods if desired</li>
+                <li>Or use Party On Delivery for drinks waiting on the boat</li>
+              </ul>
+              <p><strong style={{ color: 'var(--hp2-cream)' }}>Fun Extras:</strong></p>
+              <ul>
+                <li>Matching bride-tribe outfits and swimsuits</li>
+                <li>Sashes, tiaras, and "Bride to Be" banner</li>
+                <li>Custom koozies and party accessories</li>
+                <li>Change of clothes for going out afterward</li>
+              </ul>
             </div>
           </div>
         </div>
