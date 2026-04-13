@@ -1490,6 +1490,16 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           'Birthday party packages start at $1,050 for a 4-hour cruise (14 guests), $1,181 with our Birthday Bash package, or $1,413 for the VIP Birthday Experience. Larger boats available for bigger celebrations up to 75 guests.',
           'Book 4-6 weeks in advance for weekend dates. We\'ll coordinate all details including catering, decorations, and special birthday surprises. Just show up and celebrate!'
         ]
+      },
+      {
+        heading: 'Birthday Party Frequently Asked Questions',
+        paragraphs: [
+          'What is the best birthday party venue in Austin? A Lake Travis party boat cruise is one of Austin\'s most unique and memorable birthday venues. Unlike restaurants or event halls, a boat party combines stunning natural scenery, swimming, music, and an exclusive private experience for your group. Premier Party Cruises has hosted thousands of birthday celebrations since 2009 on our fleet of 4 boats for 14-75 guests, with a 4.9/5 star rating.',
+          'How much does a birthday boat party cost? Birthday cruises start at approximately $800 for a 4-hour private charter on Day Tripper (up to 14 guests). For larger groups: Meeseeks or The Irony (25-30 guests) starts at $900, and Clever Girl (50-75 guests) starts at $1,000. Package upgrades add $100-350 flat per cruise. All cruises are BYOB, which significantly reduces the cost compared to bar/restaurant birthday parties.',
+          'Can kids have birthday parties on Lake Travis? Yes! We host birthday parties for all ages. For children\'s parties, all boats have life jackets in children\'s sizes, experienced crew trained in safety, and swim ladders for easy water access. Many families choose our boats for Sweet 16 parties, tween birthdays, and multi-generational celebrations where grandparents and grandkids celebrate together.',
+          'What is included in a birthday boat party? Every private charter includes a Coast Guard certified captain, trained crew, premium Bluetooth sound system for your birthday playlist, large coolers with ice, swim stop in a scenic Lake Travis cove, clean restroom facilities, and all safety equipment. Upgrade to the Essentials package for pre-stocked ice, water, cups, and a folding table. The Ultimate package adds giant lily pad floats, disco ball cups, bubble guns, champagne flutes, and a full party setup.',
+          'Can I bring a birthday cake on the boat? Yes! You can bring a cake, cupcakes, or any food aboard. We provide table space (6-foot folding table with Essentials or Ultimate packages) and can coordinate with Austin bakeries and caterers. Many guests also bring charcuterie boards, pizza, sandwiches, and party snacks.'
+        ]
       }
     ],
     relatedPages: [
