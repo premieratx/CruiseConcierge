@@ -1787,7 +1787,14 @@ async function renderPage(url: string, req: Request): Promise<string> {
         `<meta property="og:title" content="${metaTitle.replace(/"/g, '&quot;')}" />`
       );
     }
-    
+
+    // Update OG URL to match current page (critical for social sharing)
+    const ogUrl = `https://premierpartycruises.com${pathname}`;
+    template = template.replace(
+      /<meta property="og:url" content="[^"]*" \/>/,
+      `<meta property="og:url" content="${ogUrl}" />`
+    );
+
     // Generate breadcrumb schema for interior pages
     const breadcrumbSchema = generateBreadcrumbSchema(pathname, h1);
     
