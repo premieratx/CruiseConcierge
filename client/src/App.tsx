@@ -158,6 +158,12 @@ const HomeV2 = lazy(() => import("./pages/HomeV2"));
 // New ATX Disco Cruise V2 - Same luxury design system
 const DiscoV2 = lazy(() => import("./pages/DiscoV2"));
 
+// New Bachelorette V2 - Same luxury design system
+const BacheloretteV2 = lazy(() => import("./pages/BacheloretteV2"));
+
+// New Combined Bach V2 - Same luxury design system
+const CombinedBachV2 = lazy(() => import("./pages/CombinedBachV2"));
+
 // Admin Inventory Management - Lazy loaded
 const InventoryManagement = lazy(() => import("./pages/admin/InventoryManagement"));
 
@@ -352,6 +358,8 @@ function Router() {
         <Route path="/" component={Home} />
         <Route path="/home-v2" component={HomeV2} />
         <Route path="/disco-v2" component={DiscoV2} />
+        <Route path="/bachelorette-v2" component={BacheloretteV2} />
+        <Route path="/combined-bach-v2" component={CombinedBachV2} />
       
       {/* Authentication */}
       <Route path="/auth" component={AuthPage} />
