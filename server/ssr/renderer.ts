@@ -1404,6 +1404,22 @@ const PAGE_METADATA: Record<string, { h1: string; content: string }> = {
   }
 };
 
+// Canonical URL overrides — fixes keyword cannibalization by pointing competing
+// blog posts to the primary conversion page for their target keyword.
+// When a blog post competes with a service page for the same keyword, the blog
+// should defer to the service page via canonical tag.
+const CANONICAL_OVERRIDES: Record<string, string> = {
+  // "ATX Disco Cruise" branded term → conversion page
+  '/blogs/why-atx-disco-cruise-austins-most-booked-party-boat-experience': '/atx-disco-cruise',
+  '/blogs/the-best-bachelor-party-boat-in-austin-disco-cruise-vs-private-charter': '/atx-disco-cruise',
+  // "bachelor party austin" → main service page
+  '/blogs/epic-bachelor-party-austin-ultimate-guide': '/bachelor-party-austin',
+  '/blogs/how-to-throw-great-bachelor-party-austin': '/bachelor-party-austin',
+  // "bachelorette party austin" → main service page
+  '/blogs/epic-bachelorette-party-austin-ultimate-guide': '/bachelorette-party-austin',
+  '/blogs/how-to-throw-great-bachelorette-party-austin': '/bachelorette-party-austin',
+};
+
 // Check if a route should use SSR
 // BULLETPROOF: Every marketing route gets SSR - no exceptions
 function shouldUseSSR(url: string): boolean {
@@ -1938,7 +1954,11 @@ ${JSON.stringify(blogCollectionSchema, null, 2)}
     
     // Inject canonical tag, critical CSS, and schemas at end of head
     // Use environment-based canonical URL (production domain in prod, request host in dev)
-    const canonicalUrl = getCanonicalUrl(pathname, req);
+    // Apply canonical overrides for keyword cannibalization prevention
+    const canonicalOverride = CANONICAL_OVERRIDES[normalizedPathname] || CANONICAL_OVERRIDES[pathname];
+    const canonicalUrl = canonicalOverride
+      ? `https://premierpartycruises.com${canonicalOverride}`
+      : getCanonicalUrl(pathname, req);
     
     // Build head injection with critical CSS and React Refresh preamble (dev only)
     const reactPreamble = isDevelopment ? `  <script type="module">
