@@ -155,6 +155,9 @@ const SEOCommandCenterPage = lazy(() => import("./components/admin/SEOCommandCen
 // New Homepage V2 - Concierge luxury design + McDowell principles
 const HomeV2 = lazy(() => import("./pages/HomeV2"));
 
+// New ATX Disco Cruise V2 - Same luxury design system
+const DiscoV2 = lazy(() => import("./pages/DiscoV2"));
+
 // Admin Inventory Management - Lazy loaded
 const InventoryManagement = lazy(() => import("./pages/admin/InventoryManagement"));
 
@@ -348,6 +351,7 @@ function Router() {
         {/* Public Homepage */}
         <Route path="/" component={Home} />
         <Route path="/home-v2" component={HomeV2} />
+        <Route path="/disco-v2" component={DiscoV2} />
       
       {/* Authentication */}
       <Route path="/auth" component={AuthPage} />
