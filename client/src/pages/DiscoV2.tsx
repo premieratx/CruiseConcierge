@@ -1082,11 +1082,21 @@ export default function DiscoV2() {
         <div className="hp2-video-gallery">
           <div className="hp2-video-gallery__item">
             <iframe
+              src="https://www.tiktok.com/embed/v2/7098140161766198574"
+              allowFullScreen
+              allow="encrypted-media"
+              loading="lazy"
+              title="BachBabes: Premier Party Cruises is a MUST for Austin bachelorettes"
+            />
+            <div className="hp2-video-gallery__label">100K+ Views — @bachbabes</div>
+          </div>
+          <div className="hp2-video-gallery__item">
+            <iframe
               src="https://www.tiktok.com/embed/v2/7186412125869362474"
               allowFullScreen
               allow="encrypted-media"
               loading="lazy"
-              title="ATX Disco Cruise walkthrough"
+              title="ATX Disco Cruise full walkthrough by @budatreehousestudios"
             />
             <div className="hp2-video-gallery__label">The Disco Cruise Experience</div>
           </div>
@@ -1096,29 +1106,19 @@ export default function DiscoV2() {
               allowFullScreen
               allow="encrypted-media"
               loading="lazy"
-              title="Bachelorette party planning Austin"
+              title="Planning your Austin bachelorette party"
             />
-            <div className="hp2-video-gallery__label">Bach Party on the Water</div>
+            <div className="hp2-video-gallery__label">Bachelorette Planning Tips</div>
           </div>
           <div className="hp2-video-gallery__item">
             <iframe
-              src="https://www.tiktok.com/embed/v2/7186412125869362474"
+              src="https://www.tiktok.com/embed/v2/7098140161766198574"
               allowFullScreen
               allow="encrypted-media"
               loading="lazy"
-              title="Premier Party Cruises highlight"
+              title="Premier Party Cruises Austin bachelorette must-do"
             />
-            <div className="hp2-video-gallery__label">Dance Floor Vibes</div>
-          </div>
-          <div className="hp2-video-gallery__item">
-            <iframe
-              src="https://www.tiktok.com/embed/v2/7192009833111964974"
-              allowFullScreen
-              allow="encrypted-media"
-              loading="lazy"
-              title="Austin bachelorette boat party"
-            />
-            <div className="hp2-video-gallery__label">Lake Travis Sunset</div>
+            <div className="hp2-video-gallery__label">The Viral Bach Party Video</div>
           </div>
         </div>
 
