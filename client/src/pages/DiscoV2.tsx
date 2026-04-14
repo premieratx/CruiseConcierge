@@ -976,33 +976,55 @@ const DISCO_FAQ_DATA = [
 ];
 
 // ─── Component ──────────────────────────────────────────────────────────────
-// Lazy TikTok embed — only loads iframe when scrolled into view
-function LazyTikTok({ videoId, title, label }: { videoId: string; title: string; label: string }) {
+// TikTok embed — autoplay first video on scroll, others play on click
+function LazyTikTok({ videoId, title, label, autoplay = false }: { videoId: string; title: string; label: string; autoplay?: boolean }) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
+  const [playing, setPlaying] = useState(false);
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
     const obs = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { setVisible(true); obs.disconnect(); } },
-      { threshold: 0.2 }
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          if (autoplay) setPlaying(true);
+          obs.disconnect();
+        }
+      },
+      { threshold: 0.3 }
     );
     obs.observe(el);
     return () => obs.disconnect();
-  }, []);
+  }, [autoplay]);
+
+  const shouldLoad = autoplay ? visible : playing;
 
   return (
-    <div className="hp2-video-gallery__item" ref={ref}>
-      {visible ? (
+    <div className="hp2-video-gallery__item" ref={ref} onClick={() => !playing && setPlaying(true)} style={{ cursor: playing ? 'default' : 'pointer' }}>
+      {shouldLoad ? (
         <iframe
-          src={`https://www.tiktok.com/embed/v2/${videoId}`}
+          src={`https://www.tiktok.com/embed/v2/${videoId}?autoplay=${autoplay ? 1 : 0}&mute=1`}
           allowFullScreen
           allow="encrypted-media; autoplay"
           title={title}
+          style={{ width: '100%', height: '100%', border: 'none' }}
         />
       ) : (
-        <div style={{ width: '100%', height: '100%', background: '#1A1A26', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#C8A96E', fontSize: '2rem' }}>▶</div>
+        <div style={{
+          width: '100%', height: '100%', background: '#1A1A26',
+          display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+          gap: '0.5rem', transition: 'background 0.2s'
+        }}
+          onMouseEnter={(e) => { e.currentTarget.style.background = '#252535'; }}
+          onMouseLeave={(e) => { e.currentTarget.style.background = '#1A1A26'; }}
+        >
+          <div style={{ width: 48, height: 48, borderRadius: '50%', background: 'rgba(200,169,110,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <span style={{ color: '#C8A96E', fontSize: '1.5rem', marginLeft: '3px' }}>▶</span>
+          </div>
+          <span style={{ color: '#A89878', fontSize: '0.75rem', letterSpacing: '0.05em' }}>TAP TO PLAY</span>
+        </div>
       )}
       <div className="hp2-video-gallery__label">{label}</div>
     </div>
@@ -1113,7 +1135,7 @@ export default function DiscoV2() {
 
         {/* TikTok Video Embeds — lazy-loaded on scroll into view */}
         <div className="hp2-video-gallery">
-          <LazyTikTok videoId="7098140161766198574" title="BachBabes: Premier Party Cruises is a MUST" label="100K+ Views — @bachbabes" />
+          <LazyTikTok videoId="7098140161766198574" title="BachBabes: Premier Party Cruises is a MUST" label="100K+ Views — @bachbabes" autoplay />
           <LazyTikTok videoId="7186412125869362474" title="ATX Disco Cruise walkthrough" label="The Disco Cruise Experience" />
           <LazyTikTok videoId="7192009833111964974" title="Austin bachelorette party planning" label="Bachelorette Planning Tips" />
           <LazyTikTok videoId="7098140161766198574" title="Premier Party Cruises Austin must-do" label="The Viral Bach Video" />
