@@ -91,7 +91,7 @@ const BLOG_FAQ_SCHEMAS: Record<string, Array<{ question: string; answer: string 
     { question: "Is the ATX Disco Cruise or a private charter better for bachelor parties?", answer: "The ATX Disco Cruise is perfect for groups of 6-20 who want high energy, a DJ, photographer, and the chance to party with other groups. Private charters are ideal for larger groups (20-75) who want exclusive access." },
     { question: "What happens if the weather is bad?", answer: "Our licensed captains monitor weather conditions constantly. If severe weather is predicted, we work with groups to reschedule. Light rain usually doesn't stop the party." },
     { question: "Can we combine our bachelor party with a bachelorette group?", answer: "Absolutely! Combined bachelor/bachelorette cruises are very popular on the ATX Disco Cruise." },
-    { question: "How does transportation to the marina work?", answer: "Lake Travis marinas are about 30 minutes from downtown Austin. Many bachelor groups rent a party bus or van so everyone can ride together." }
+    { question: "How does transportation to the marina work?", answer: "Lake Travis marinas are about 25 minutes from downtown Austin. Many bachelor groups rent a party bus or van so everyone can ride together." }
   ],
   '/blogs/first-time-lake-travis-boat-rental-essential-tips-for-austin-party-planning': [
     { question: "What types of boats can I rent on Lake Travis?", answer: "Lake Travis offers pontoons, party barges, and yacht charters. Premier Party Cruises specializes in custom-built, high-end single-deck party boats in 14, 25, and 50-person capacities." },

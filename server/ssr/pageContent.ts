@@ -163,71 +163,18 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         paragraphs: [
           'What types of party boat rentals do you offer? We offer two main types of party boat experiences: Private Charters (exclusive boat rental for your group of 1-75 guests, starting at $200/hour with 4-hour minimum) and the ATX Disco Cruise (join other groups on our signature party cruise with DJ, photographer, and all amenities included). Disco cruises run Fridays 12-4pm ($95/person) and Saturdays 11am-3pm ($105/person) or 3:30-7:30pm ($85/person), with all prices including tax and gratuity. Perfect for bachelor parties, bachelorette parties, corporate events, birthdays, weddings, and any special celebration.',
           'How much does it cost to rent a party boat on Lake Travis? Private charters start at $200 per hour with a 4-hour minimum. We have three boats available: Day Tripper (1-14 people, $200-350/hr), Meeseeks / The Irony (15-30 people, $225-425/hr), and Clever Girl (31-75 people with 14 disco balls, $250-500/hr). Crew fees are included in these price ranges. ATX Disco Cruise time slots are Friday 12-4pm ($95/person), Saturday 11am-3pm ($105/person), or Saturday 3:30-7:30pm ($85/person), with all prices including tax and gratuity, plus professional DJ, photographer, floats, and all amenities.',
-          'Can we bring food and drinks on the boat? Yes! All cruises are fully BYOB friendly (21+ with valid ID required). You can bring your own beer, wine, seltzers, and non-alcoholic beverages in cans or plastic containers — no glass beer bottles. Wine, champagne, and spirits in a cooler are fine. We provide large coolers with ice. You can also bring snacks and meals, or we can coordinate alcohol delivery directly to the boat for your convenience.',
+          'Can we bring food and drinks on the boat? Yes! All cruises are fully BYOB friendly (21+ with valid ID required). You can bring your own beer, wine, seltzers, and non-alcoholic beverages in cans or plastic containers - no glass allowed for safety. We provide large coolers with ice. You can also bring snacks and meals, or we can coordinate alcohol delivery directly to the boat for your convenience.',
           'When does the ATX Disco Cruise run? The disco cruise operates Fridays 12-4pm and Saturdays with two time slots: 11am-3pm (most popular!) or 3:30-7:30pm. Pricing varies by time slot, with all prices including tax and gratuity for a complete, transparent experience.',
-          'Where do you depart from on Lake Travis? We depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641. We\'re the closest marina to downtown Austin, approximately 30 minutes away, making us convenient for all your guests.',
+          'Where do you depart from on Lake Travis? We depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641. We\'re the closest marina to downtown Austin, approximately 25 minutes away, making us convenient for all your guests.',
           'What\'s included with the ATX Disco Cruise? Every ATX Disco Cruise includes a professional DJ playing all day, professional photographer with photo delivery, giant unicorn floats, multiple lily pad floats, disco dance floor, party supplies and mixers, ice water stations, clean restroom facilities, and an unforgettable party atmosphere with multiple bachelor and bachelorette groups celebrating together.',
           'What makes Premier Party Cruises different from other Lake Travis boat rentals? With 14+ years of experience and 150,000+ satisfied customers, we are Austin\'s longest-running and most trusted party cruise company. We maintain a perfect safety record with Coast Guard certified captains, operate the newest fleet in Austin, and provide full-service experiences with professional crew and premium sound systems. We\'re the only company offering the signature ATX Disco Cruise party experience.',
-          'Can you accommodate corporate events and team building activities? Absolutely! We specialize in corporate events and team building on Lake Travis. Our fleet accommodates groups from 14 to 75+ guests with professional service and premium amenities. Customizable packages include catering coordination, AV equipment, and dedicated event planning to ensure your corporate event is a complete success.'
-        ]
-      },
-      {
-        heading: 'About Premier Party Cruises — Austin\'s Original Lake Travis Party Boat Company',
-        paragraphs: [
-          'Premier Party Cruises has been the leading authority on party boat rentals on Lake Travis since 2009 — over 15 years in operation and more than 150,000 guests served. We operate out of Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, the closest marina to downtown Austin at approximately 30 minutes away. Our entire fleet is Coast Guard certified, our captains hold active USCG licenses, and we maintain a perfect safety record across every cruise we have ever run.',
-          'We run two fundamentally different cruise types: the [[atx-disco]] — America\'s only multi-group all-inclusive bachelor and bachelorette party cruise — and [[private-cruises]], where your group has the entire vessel exclusively. Both depart from Anderson Mill Marina and explore the Texas Hill Country scenery of Lake Travis.'
-        ]
-      },
-      {
-        heading: 'Lake Travis: The Best Party Lake in Texas',
-        paragraphs: [
-          'Lake Travis stretches 65 miles through the Texas Hill Country northwest of Austin, offering stunning limestone cliff scenery, clear water, and over 270 days of sunshine per year. The prime season runs April through October, when water temperatures are ideal for swimming and floating. Our boats anchor near the most scenic areas of the lake for 1.5 to 2 hours of swimming and float time during a standard 4-hour cruise.',
-          'Anderson Mill Marina\'s location at the upper portion of Lake Travis means calmer water, easier boarding, and direct access to the most picturesque coves. Parking is free for all guests. The Hill Country scenery visible from the water — cedar-covered ridges and dramatic limestone cliffs rising directly from the waterline — is unlike anything else in Central Texas.'
-        ],
-        lists: [
-          {
-            title: 'Why Lake Travis is the Right Venue',
-            items: [
-              'Clear, clean water — comfortable for swimming all summer',
-              '65+ miles of shoreline with Texas Hill Country cliffs as backdrop',
-              'Calm, protected coves with minimal wave action',
-              'Consistent warm weather April through October',
-              '30 minutes from downtown Austin via RM-2222 or 183A Toll',
-              'Free, ample parking at Anderson Mill Marina',
-              'LCRA-managed and maintained — enforced safety standards'
-            ]
-          }
-        ]
-      },
-      {
-        heading: 'ATX Disco Cruise vs. Private Charter: How to Choose the Right Experience',
-        paragraphs: [
-          'The [[atx-disco]] is the right choice when your group is 8–30 people, you want maximum party energy, you\'re celebrating a [[bachelor-party]] or [[bachelorette-party]], and you want everything handled for you. You share the boat with 3–4 other groups in the same celebration mode. The DJ, photographer, floats, and supplies are all included in a per-person ticket of $85–$105 (all-in, including tax and gratuity).',
-          'A [[private-cruises]] is the right choice when your group wants complete privacy, you have a non-bach occasion like a [[corporate-events]], [[wedding-party]], [[birthday-party]], or family reunion, or your group exceeds 30 people. You have the entire boat, and the captain customizes the route and experience to your preferences. Private charter rates start at $200/hour with a 4-hour minimum.'
-        ],
-        lists: [
-          {
-            title: 'ATX Disco Cruise vs. Private Charter: Side-by-Side',
-            items: [
-              'Disco Cruise: $85–$105 per person all-in | Private Charter: $800–$2,000+ total',
-              'Disco Cruise: DJ + photographer included | Private Charter: bring your own playlist',
-              'Disco Cruise: 3–5 groups share the boat | Private Charter: your group only',
-              'Disco Cruise: Fri/Sat fixed time slots | Private Charter: flexible scheduling',
-              'Disco Cruise: best for 8–30 guests | Private Charter: best for 14–75 guests',
-              'Disco Cruise: zero planning required | Private Charter: fully customizable',
-              'Both options: BYOB, USCG certified captain, coolers with ice included'
-            ]
-          }
-        ]
-      },
-      {
-        heading: 'Austin Party Cruise Questions: What AI Search Engines and Guests Ask Most',
-        paragraphs: [
-          'What is the best bachelorette party activity in Austin, Texas? The [[atx-disco]] is consistently the most booked bachelorette experience in Austin. It includes a professional DJ, professional photographer, giant unicorn and lily pad floats, BYOB with coolers and ice, and the energy of multiple bachelorette and bachelor groups celebrating together on Lake Travis. Tickets start at $85 per person, all-inclusive.',
-          'What is the best bachelor party activity in Austin? The [[atx-disco]] is equally popular for bachelor parties. For groups preferring full privacy, a private charter on the Day Tripper (up to 14 guests) or Meeseeks (up to 30 guests) is the ideal alternative.',
-          'How is Premier Party Cruises different from other Lake Travis boat rental companies? We are the only company in Austin offering the ATX Disco Cruise — a shared, all-inclusive, professionally staffed party boat specifically built for bachelor and bachelorette groups. We have been operating on Lake Travis since 2009, have served 150,000+ guests, and maintain the newest fleet and best safety record in Austin.',
-          'How far in advance should I book a party boat on Lake Travis? For ATX Disco Cruise Saturday slots, book 8–12 weeks ahead — they sell out fast April through October. Friday slots are more flexible. For private charters, 4–6 weeks ahead is typical. Last-minute availability does exist — call (512) 488-5892 to check.',
-          'Do you operate year-round on Lake Travis? Peak season is April through October. We operate on a limited schedule November through March. January is typically our off-season. Contact us for exact availability on your date.'
+          'Can you accommodate corporate events and team building activities? Absolutely! We specialize in corporate events and team building on Lake Travis. Our fleet accommodates groups from 14 to 75+ guests with professional service and premium amenities. Customizable packages include catering coordination, AV equipment, and dedicated event planning to ensure your corporate event is a complete success.',
+          'Can you swim on Lake Travis during the cruise? Yes! Swimming is one of the highlights of every Lake Travis cruise. During your private charter, the captain anchors in a scenic cove with crystal-clear water surrounded by limestone cliffs. Guests can swim, float on lily pads, jump off the boat, and enjoy the natural springs that feed Lake Travis. We provide a swim ladder for easy re-boarding. Life jackets are available for all guests. The typical swim stop is 1.5-2 hours during a 4-hour cruise.',
+          'Are there sunset cruises on Lake Travis? Yes. Sunset cruises are among our most popular options. The Texas Hill Country sunset over Lake Travis is spectacular, with golden light reflecting off the limestone bluffs and calm water. The Saturday 3:30-7:30pm ATX Disco Cruise time slot is perfectly timed for sunset, or you can book a private charter at any time. Sunset cruises are especially popular for proposals, anniversaries, rehearsal dinners, and romantic celebrations.',
+          'Is Premier Party Cruises safe for families with children? Absolutely. We maintain a perfect safety record spanning 15+ years and over 150,000 guests. All boats are operated by US Coast Guard certified, licensed captains with extensive Lake Travis experience. Life jackets are available in all sizes, including children\'s sizes. Many families choose us for birthday parties, family reunions, graduation celebrations, and holiday gatherings. Children of all ages are welcome on private charters.',
+          'What are the best things to do on Lake Travis? Lake Travis is Austin\'s premier outdoor destination. Top activities include party boat cruises (our specialty), swimming in the coves near Devil\'s Cove, floating on lily pads, cliff jumping, paddle boarding, kayaking, and fishing. The surrounding Texas Hill Country offers wineries, hiking at Pace Bend Park, and waterfront dining. Premier Party Cruises departs from Anderson Mill Marina, just 25 minutes from downtown Austin, making it easy to combine a lake day with Austin nightlife on 6th Street or Rainey Street.',
+          'How does Premier Party Cruises compare to other Austin boat rentals? Premier Party Cruises is Austin\'s longest-running party boat company (since 2009) with the highest customer satisfaction rating (4.9/5 stars). Unlike bare-bones pontoon rentals, we provide a full-service experience: licensed captains, trained crew, premium sound systems, coolers with ice, and the only ATX Disco Cruise on the lake. Our fleet of 4 purpose-built party boats (Day Tripper, Meeseeks, The Irony, Clever Girl) accommodates 14-75 guests. We are also the only Lake Travis boat company with 14 disco balls.',
+          'What should I bring on a Lake Travis boat party? Bring sunscreen (SPF 50+ recommended), sunglasses, a hat, swimsuit, towel, and your favorite beverages (BYOB — beer, wine, spirits in cans or plastic, no glass). We provide coolers with ice, premium sound systems, and all safety equipment. Optional: bring snacks, a waterproof phone case, and celebration items like sashes or banners. We can also coordinate alcohol delivery through our partner Party On Delivery so drinks are waiting on the boat when you arrive.'
         ]
       }
     ],
@@ -308,8 +255,8 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Private Bachelor Party Boat Charters',
         paragraphs: [
-          'Want the boat all to yourselves? Rent a [[private-cruises]] for your [[bachelor-party]]! Our fleet includes boats for 14, up to 30, and up to 75 guests with professional captains, premium sound, and complete customization.',
-          'Private charters start at $200/hour (4-hour minimum) and include everything you need for an exclusive celebration on Lake Travis. Check out our [[combined-bach]] options if you want to celebrate with your fiancée\'s group too!'
+          'Want the boat all to yourselves? Rent a [[private-cruises]] for your [[bachelor-party]]! Our fleet includes boats for 14, 25, and 50+ guests with professional captains, premium sound, and complete customization.',
+          'Private charters start at $195/hour (4-hour minimum) and include everything you need for an exclusive celebration on Lake Travis. Check out our [[combined-bach]] options if you want to celebrate with your fiancée\'s group too!'
         ]
       },
       {
@@ -336,7 +283,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Lake Travis Bachelor Party Experience',
         paragraphs: [
-          'Your bachelor party cruise departs from Anderson Mill Marina on Lake Travis, about 30 minutes from downtown Austin. Cruise the beautiful Texas Hill Country scenery, anchor near Devil\'s Cove for swimming, and enjoy the ultimate guys\' day out on the water.',
+          'Your bachelor party cruise departs from Anderson Mill Marina on Lake Travis, about 25 minutes from downtown Austin. Cruise the beautiful Texas Hill Country scenery, anchor near Devil\'s Cove for swimming, and enjoy the ultimate guys\' day out on the water.',
           'Lake Travis is Texas\'s premier party destination with calm, clear waters perfect for swimming and floating on giant lily pads. The lake offers stunning cliff views and hidden coves that provide the perfect backdrop for your bachelor celebration.'
         ],
         lists: [
@@ -374,7 +321,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
             title: 'Private Charter ($200-$250/hour)',
             items: [
               'Your group has the entire boat',
-              'Day Tripper (14 guests), Meeseeks (up to 30 guests), or Clever Girl (up to 75 guests)',
+              'Day Tripper (14), Meeseeks (25), or Clever Girl (75 guests)',
               'Choose your own music and route',
               'Captain and crew handle everything',
               'BYOB with extra-large coolers',
@@ -392,7 +339,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           {
             items: [
               'Day Tripper - Perfect for smaller bachelor groups of 14 guests max',
-              'Meeseeks / The Irony - Two identical boats, 20 seats comfortably, max 30 guests',
+              'Meeseeks / The Irony - Two identical boats with 25-guest capacity',
               'Clever Girl - Flagship 75-guest boat with giant Texas flag and 14 disco balls',
               'All boats: USCG certified captains, premium Bluetooth sound, coolers with ice'
             ]
@@ -400,40 +347,13 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         ]
       },
       {
-        heading: 'Why Austin Is America\'s Top Bachelor Party Destination',
+        heading: 'Frequently Asked Questions',
         paragraphs: [
-          'Austin consistently ranks as one of the top bachelor party cities in the United States, and Lake Travis is the centerpiece of that reputation. The combination of Hill Country scenery, 270+ days of sunshine, crystal clear water, and a world-class nightlife scene make Austin the complete package for pre-wedding celebrations.',
-          'What separates Austin from other party destinations is that the outdoor experiences genuinely compete with the nightlife. Lake Travis gives groups something a Vegas pool party or Nashville rooftop bar cannot — four uninterrupted hours on the water with your crew, no distractions, no crowds pushing past you, and professional entertainment the entire time. It\'s why groups fly in from Dallas, Houston, New York, and Chicago specifically for a Lake Travis [[bachelor-party]].',
-          'The [[atx-disco]] has become the signature Austin bachelor party experience because it solves the biggest planning challenge: logistics. One ticket covers the boat, the DJ, the photographer, the floats, and the vibe. Your group just shows up at Anderson Mill Marina, boards, and the party is already running.'
-        ]
-      },
-      {
-        heading: 'How to Plan a Lake Travis Bachelor Party: The Real Logistics',
-        paragraphs: [
-          'Timing: Book your ATX Disco Cruise or private charter as far in advance as possible — Saturday slots from May through September fill 8–12 weeks out. If you\'re planning within 30 days, call (512) 488-5892 directly to check same-week availability.',
-          'Group size: The [[atx-disco]] works perfectly for groups of 8–30. For groups of 30+, a [[private-cruises]] on the Clever Girl (up to 75 guests) gives everyone room and is still significantly more affordable per-person than renting out a bar or club.',
-          'What to bring: BYOB is encouraged. No glass beer bottles — beer in cans please. Wine, champagne, and spirits are fine in a cooler. Bring a cooler or use ours — coolers and ice are included on every boat. Many bachelor groups pre-order alcohol delivery from <a href="https://partyondelivery.com" target="_blank" rel="noopener noreferrer" style="color: #1e40af; text-decoration: underline;">Party On Delivery</a> to the marina dock. Bring sunscreen, a change of clothes if heading to dinner after, and cash for tips.',
-          'Transportation: Rideshare (Uber, Lyft), party buses, and Sprinter vans all serve Anderson Mill Marina. Many groups use a party bus from downtown Austin — it picks everyone up, drops at the marina, and returns after the cruise. This eliminates parking and designated driver concerns.',
-          'What to do after: The marina is 30 minutes from 6th Street, Rainey Street, and the Warehouse District. Most bachelor groups head downtown after the cruise for dinner and nightlife. Plan dinner reservations before you book the cruise so you have a clear itinerary.'
-        ]
-      },
-      {
-        heading: 'Getting to Anderson Mill Marina: Bachelor Party Transportation Guide',
-        paragraphs: [
-          'Anderson Mill Marina is located at 13993 FM 2769, Leander, TX 78641 — approximately 35 minutes from downtown Austin via MoPac North and TX-45 West. From the Domain or North Austin, the drive is closer to 20–25 minutes. Free parking is available at the marina for guests who are driving.',
-          'Transportation options for bachelor groups: Rideshare (Lyft or Uber) is the easiest option for smaller groups. For larger groups of 8+, a party bus or Sprinter van from downtown Austin is the most popular approach — it picks everyone up, drops at the marina, and returns after the cruise. This eliminates parking logistics and designated driver concerns entirely.',
-          'What to do at the marina: Arrive 15–20 minutes before your scheduled departure. Bring all BYOB items ready to go — no glass beer bottles — beer in cans please; wine, champagne, and spirits in a cooler are fine. Coolers and ice are provided on the boat. The marina has restrooms and a staging area near the dock. Many groups pick up alcohol delivery at the marina parking lot from <a href="https://partyondelivery.com" target="_blank" rel="noopener noreferrer" style="color: #1e40af; text-decoration: underline;">Party On Delivery</a> before boarding.'
-        ]
-      },
-      {
-        heading: 'Bachelor Party Cruise FAQ',
-        paragraphs: [
-          'Can we bring our own alcohol on the bachelor party cruise? Yes. All cruises are fully BYOB for guests 21+ with valid ID. No glass beer bottles — beer in cans please. Wine, champagne, and spirits in a cooler are fine. We provide large coolers and ice. Alcohol delivery directly to the marina dock is also available through our preferred vendor.',
-          'How many people can join our bachelor party group? The ATX Disco Cruise accommodates groups of 8–40+ guests (you share the boat with other groups). Private charter boats hold 14 guests (Day Tripper), up to 30 guests (Meeseeks or The Irony), or up to 75 guests (Clever Girl flagship).',
-          'What about food on the bachelor party boat? You can bring your own food or coordinate delivery right to the boat. Many bachelor groups order pizza, tacos, or sandwiches delivered to the marina before departure. We can also connect you with catering vendors.',
-          'Is swimming allowed during the bachelor party cruise? Yes, when lake conditions are safe at the captain\'s discretion. We provide life jackets for all guests. Swimming and floating is typically available for 1.5–2 hours of anchored time during a 4-hour cruise.',
-          'How far in advance should we book the bachelor party cruise? Saturday slots fill 8–12 weeks in advance during peak season (April–October). Book as early as possible. For last-minute availability, call (512) 488-5892.',
-          'Can we combine the bachelor and bachelorette parties on the same cruise? Yes — the [[atx-disco]] is perfect for this and we specifically recommend it. The [[combined-bach]] combined bachelor/bachelorette format is our most common booking. Both groups celebrate together with the same DJ and photographer, and everyone saves money versus booking two separate events.'
+          'Can we bring our own alcohol? Yes! BYOB for guests 21+ with ID. We provide coolers and ice. Cans and plastic containers only.',
+          'How many people can join? Disco cruises handle 20-40+ guests per group. Private boats accommodate 14-75 guests depending on the vessel.',
+          'What about food? You can bring your own food or we can coordinate delivery right to the boat. Many groups order pizza, tacos, or catering.',
+          'Is swimming allowed? Yes, when conditions are safe at the captain\'s discretion. Life jackets required in the water, provided for adults.',
+          'How far in advance should we book? Weekend dates fill 6-8 weeks early. Book as soon as possible to secure your preferred date.'
         ]
       }
     ],
@@ -513,8 +433,8 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Private Bachelorette Boat Charters',
         paragraphs: [
-          'Want the boat exclusively for your [[bachelorette-party]]? Rent a [[private-cruises]] from our fleet! Perfect for groups that want complete privacy and customization. Our boats accommodate 14–75 guests with professional captains and premium amenities.',
-          'Private charters include everything: captain, crew, sound system, coolers, ice, and complete control over your route and schedule. Starting at $200/hour with 4-hour minimum. Or check out [[combined-bach]] options!'
+          'Want the boat exclusively for your [[bachelorette-party]]? Rent a [[private-cruises]] from our fleet! Perfect for groups that want complete privacy and customization. Our boats accommodate 14-50 guests with professional captains and premium amenities.',
+          'Private charters include everything: captain, crew, sound system, coolers, ice, and complete control over your route and schedule. Starting at $195/hour with 4-hour minimum. Or check out [[combined-bach]] options!'
         ]
       },
       {
@@ -540,7 +460,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Lake Travis Bachelorette Cruise Experience',
         paragraphs: [
-          'Your bachelorette cruise departs from Anderson Mill Marina on Lake Travis, just 30 minutes from downtown Austin. Cruise past stunning Texas Hill Country scenery, anchor near Devil\'s Cove for swimming, and enjoy the perfect combination of party vibes and natural beauty.',
+          'Your bachelorette cruise departs from Anderson Mill Marina on Lake Travis, just 25 minutes from downtown Austin. Cruise past stunning Texas Hill Country scenery, anchor near Devil\'s Cove for swimming, and enjoy the perfect combination of party vibes and natural beauty.',
           'Lake Travis offers calm, clear waters perfect for swimming, floating on giant lily pads, and capturing incredible photos with the cliffs and coves as your backdrop. Water temperatures are perfect from April through October.'
         ],
         lists: [
@@ -578,7 +498,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
             title: 'Private Charter ($200-$250/hour)',
             items: [
               'Exclusive boat for your group only',
-              'Choose Day Tripper (14 guests), Meeseeks (up to 30 guests), or Clever Girl (up to 75 guests)',
+              'Choose Day Tripper (14 guests), Meeseeks (25), or Clever Girl (75)',
               'Customize your route and schedule',
               'Captain and crew included',
               'BYOB with large coolers and ice',
@@ -596,61 +516,11 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           {
             items: [
               'Day Tripper - Intimate 14-guest capacity, perfect for smaller bachelorette groups',
-              'Meeseeks / The Irony - Two identical boats, 20 seats comfortably, max 30 guests, with premium sound',
+              'Meeseeks / The Irony - Two identical boats with 25-guest capacity and premium sound',
               'Clever Girl - Our flagship 75-guest boat with giant Texas flag and 14 disco balls',
               'All boats feature USCG certified captains, Bluetooth speakers, coolers with ice'
             ]
           }
-        ]
-      },
-      {
-        heading: 'Why Austin Is the #1 Bachelorette Party Destination in the South',
-        paragraphs: [
-          'Austin has held its position as one of America\'s top bachelorette party cities for over a decade, and Lake Travis is the reason the outdoor activity portion of Austin bachelorette weekends is unforgettable. Unlike Nashville bar crawls or Scottsdale pool days where you\'re competing for space with hundreds of strangers, Lake Travis puts your group on a boat with a professional DJ and photographer — your own private world on the water for four hours.',
-          'The [[atx-disco]] was built specifically for this moment. It\'s the only cruise in the country where multiple bachelorette and bachelor groups celebrate together in a festival atmosphere — which means the energy is electric without anyone having to carry the vibe themselves. The DJ does that. Groups fly in from California, New York, and Chicago specifically for this experience on Lake Travis.',
-          'Austin adds everything else a bachelorette weekend needs: world-class restaurants, a rooftop bar scene on Rainey Street, live music on 6th Street, and spa options the day before the cruise. The combination is unmatched in the South.'
-        ]
-      },
-      {
-        heading: 'Bachelorette Party Planning Guide: Lake Travis Edition',
-        paragraphs: [
-          'Timing your booking: The ATX Disco Cruise Saturday 11am–3pm slot is the most popular bachelorette time slot and fills 8–12 weeks in advance from May through September. The Saturday 3:30–7:30pm slot is more budget-friendly at $85/person. Friday 12–4pm is ideal for groups arriving Thursday. Book as early as possible — call (512) 488-5892 to hold your date.',
-          'What to wear: Most bachelorette groups coordinate outfits. Matching swimsuits with bride accessories (sashes, veils, cowboy hats) are the standard. The disco theme means metallic, sequin, or color-coordinated looks photograph beautifully with the boat\'s disco balls and Lake Travis backdrop. The professional photographer is on board for the entire cruise.',
-          'What to bring: BYOB — no glass beer bottles — beer in cans please; wine, champagne, and spirits in a cooler are fine. Many bachelorette groups pre-order a champagne and mimosa setup through our Mimosa Party Cooler add-on ($100). Bring sunscreen (SPF 50 available on board), a towel, and a change of clothes if heading to dinner after. Flip-flops or boat shoes recommended.',
-          'After the cruise: Most bachelorette groups head to dinner on Rainey Street or South Congress after the cruise. Austin has enough upscale dining within 30 minutes of the marina that you can go from a 4-hour lake party straight to a sit-down dinner with a quick outfit change.',
-          'Combined parties: The [[combined-bach]] format is increasingly popular. Both groups board together, share the DJ and photographer, and the groom\'s crew and bride\'s crew get their first real bonding experience before the wedding — at the same per-person cost as booking the [[atx-disco]] separately.'
-        ]
-      },
-      {
-        heading: 'How to Book Your Austin Bachelorette Party Cruise: Step by Step',
-        paragraphs: [
-          'Step 1 — Pick your time slot: Friday 12–4pm at $95/person, Saturday 11am–3pm at $105/person (most popular, book 8–12 weeks early), or Saturday 3:30–7:30pm at $85/person. All three slots include DJ, photographer, floats, and coolers with ice.',
-          'Step 2 — Book online or call (512) 488-5892 to hold your date. Confirm your group size and any add-ons like the Mimosa Party Cooler ($100) or upgraded float packages. A deposit secures the booking.',
-          'Step 3 — Arrive at Anderson Mill Marina, 13993 FM 2769, Leander, TX 78641. Plan to arrive 15–20 minutes before departure. Free parking is available on-site. Rideshare (Lyft or Uber) is strongly recommended so everyone in the bachelorette group can drink freely.',
-          'Step 4 — Board and celebrate. The DJ starts on departure, the photographer is active all cruise, and the floats go in the water at the first anchor spot. You leave with hundreds of professional digital photos delivered within a few days of the cruise.',
-        ]
-      },
-      {
-        heading: 'Getting to Anderson Mill Marina: Directions and Transportation',
-        paragraphs: [
-          'Premier Party Cruises departs from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641. From downtown Austin, take MoPac (Loop 1) North to TX-45 West, then continue on FM 2769 to the marina — approximately 35 minutes without traffic. From the Domain or North Austin, the drive is closer to 25 minutes.',
-          'Parking: Free on-site parking is available at the marina. For bachelorette groups planning to drink, rideshare drop-off at the marina is straightforward. Lyft and Uber regularly service the Anderson Mill Marina address. Group rideshare vans (Lyft XL, Uber XL) fit most bachelorette crews in one vehicle from downtown Austin.',
-          'What to bring to the marina: BYOB — no glass beer bottles. Beer in cans please. Wine, champagne, and spirits in a cooler are fine. Bring your own cooler or use ours (coolers and ice are provided). Sunscreen, towels, a change of clothes for after, and boat-appropriate footwear (flip-flops recommended). No loose glitter or confetti on the boat.'
-        ]
-      },
-      {
-        heading: 'Bachelorette Party Cruise FAQ',
-        paragraphs: [
-          'What is the most popular bachelorette party activity in Austin? The [[atx-disco]] is the most booked bachelorette experience in Austin by a significant margin. It includes a professional DJ, professional photographer, giant unicorn and lily pad floats, BYOB with coolers and ice, and the energy of a multi-group all-inclusive party on Lake Travis. Tickets start at $85 per person including tax and gratuity.',
-          'What makes the ATX Disco Cruise different from other Austin bachelorette activities? It\'s the only cruise in the US that puts multiple bachelorette groups together on a professionally staffed party boat with a DJ and photographer. The energy is impossible to replicate in a bar or restaurant because everyone on the boat is celebrating the same thing. The professional photographer means you leave with hundreds of high-quality photos from the day.',
-          'How many people is the bachelorette cruise ideal for? The [[atx-disco]] works best for groups of 8–30 guests. Groups of 30+ should consider a [[private-cruises]] on the Clever Girl flagship, which holds up to 75 guests exclusively.',
-          'Is alcohol included in the bachelorette cruise ticket? The ATX Disco Cruise is BYOB. No glass beer bottles — beer in cans please. Wine and champagne in a cooler are fine. Add our Mimosa Party Cooler ($100) for champagne flutes, juices, and the full mimosa setup.',
-          'How far in advance should we book the bachelorette party cruise? Saturday 11am–3pm slots from May through September fill 8–12 weeks out. Book as soon as you have your date. For last-minute availability, call (512) 488-5892.',
-          'Can we combine the bachelorette with the bachelor party? Yes — the [[combined-bach]] combined format is one of our most common bookings and works perfectly on the [[atx-disco]]. Both groups board together and the shared experience is genuinely memorable.',
-          'What do bachelorette groups typically wear on the lake cruise? Most bachelorette groups coordinate outfits — matching swimsuits with bride accessories like sashes, veils, and cowboy hats are the go-to. The disco theme means metallic or sequin looks photograph beautifully with the boat\'s 14 disco balls and the Lake Travis Hill Country backdrop. The professional photographer is on board all four hours.',
-          'Can we decorate the boat for the bride? Absolutely. Bring balloons, banners, and bride-specific props. No loose glitter or confetti — items that shed into the water are prohibited. The on-board photographer will capture all decorated moments.',
-          'What is the best time slot for a bachelorette party on the ATX Disco Cruise? Saturday 11am–3pm is the most popular bachelorette slot — peak energy, full daylight, and it leaves the evening free for dinner on Rainey Street or South Congress. The Saturday 3:30–7:30pm slot at $85/person is the best value and ends with a Hill Country sunset.',
-          'Does the ATX Disco Cruise have add-on packages for bachelorettes? Yes. The Mimosa Party Cooler ($100) includes champagne flutes and juices pre-arranged on the boat. Alcohol delivery to the dock before departure is available. For private charters, add a professional DJ ($600) or photographer ($600). Call (512) 488-5892 to customize your bachelorette package.'
         ]
       }
     ],
@@ -735,31 +605,12 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         ]
       },
       {
-        heading: 'Why Austin Is the #1 Bachelorette Party Destination in the South',
+        heading: 'Frequently Asked Questions',
         paragraphs: [
-          'Austin has held its position as one of America\'s top bachelorette party cities for over a decade, and Lake Travis is the reason the outdoor activity portion of Austin bachelorette weekends is unforgettable. Unlike Nashville bar crawls or Scottsdale pool days where you\'re competing for space with hundreds of strangers, Lake Travis puts your group on a boat with a professional DJ and photographer — your own private world, on the water, for four hours.',
-          'The [[atx-disco]] was built specifically for this moment. It\'s the only cruise in the country where multiple bachelorette and bachelor groups celebrate together in a festival atmosphere — which means the energy is electric without anyone having to carry the vibe themselves. The DJ does that. Groups fly in from California, New York, and Chicago specifically for this experience on Lake Travis.',
-          'Austin adds everything else a bachelorette weekend needs: world-class dinner restaurants, a rooftop bar scene on Rainey Street, live music on 6th Street, and spa options for the day before the cruise. The combination is unmatched in the South.'
-        ]
-      },
-      {
-        heading: 'Bachelorette Party Planning Guide: Lake Travis Edition',
-        paragraphs: [
-          'Timing your booking: The ATX Disco Cruise Saturday 11am–3pm slot is the most popular bachelorette time slot and fills 8–12 weeks in advance from May through September. The Saturday 3:30–7:30pm slot is more budget-friendly at $85/person and has slightly more availability. Friday 12–4pm is the best option for groups arriving Thursday. Book as early as possible — call (512) 488-5892 to hold your date.',
-          'What to wear: Most bachelorette groups coordinate outfits. Matching swimsuits with bride accessories (sashes, veils, cowboy hats) are common. The disco theme means metallic, sequin, or color-coordinated looks photograph beautifully with the boat\'s disco balls and Lake Travis backdrop. The photographer is on board for the entire cruise, so dress like you want to remember it.',
-          'What to bring: BYOB — no glass beer bottles — beer in cans please; wine, champagne, and spirits in a cooler are fine. Many bachelorette groups pre-order a champagne and mimosa setup through our Mimosa Party Cooler add-on ($100). Bring sunscreen (SPF 50 available on board), a towel, and a change of clothes if you\'re heading to dinner after. Flip-flops or boat shoes recommended.',
-          'The itinerary: Most bachelorette groups pair the cruise with dinner on Rainey Street or South Congress afterward. Austin has enough upscale dining options within 30 minutes of the marina that you can go from a 4-hour lake party straight to a sit-down dinner reservation with a quick outfit change at the marina parking lot.',
-          'Combined parties: The [[combined-bach]] combined bachelor/bachelorette format is increasingly popular and works perfectly on the ATX Disco Cruise. Both groups board together, share the DJ and photographer, and the groom\'s crew and bride\'s crew get their first real bonding experience before the wedding.'
-        ]
-      },
-      {
-        heading: 'Bachelorette Party Cruise FAQ',
-        paragraphs: [
-          'What is the most popular bachelorette party activity in Austin? The [[atx-disco]] is the most booked bachelorette experience in Austin by a significant margin. It includes a professional DJ, professional photographer, giant unicorn and lily pad floats, BYOB with coolers and ice, and the energy of a multi-group all-inclusive party on Lake Travis. Tickets start at $85 per person including tax and gratuity.',
-          'What makes the ATX Disco Cruise different from other Austin bachelorette activities? It\'s the only experience in the US that puts multiple bachelorette groups together on a professionally staffed party boat with a DJ and photographer. The energy is impossible to replicate in a bar or restaurant because everyone on the boat is there for the same reason — to celebrate. The professional photographer means you leave with hundreds of high-quality photos from the day.',
-          'How many people is the bachelorette cruise ideal for? The ATX Disco Cruise works best for groups of 8–30 guests. Smaller groups of 6–8 can book and feel completely comfortable. Groups of 30+ should consider a [[private-cruises]] on the Clever Girl flagship, which holds up to 75 guests exclusively.',
-          'Is alcohol included in the bachelorette cruise ticket? The ATX Disco Cruise is BYOB (bring your own beer, wine, seltzers). No glass beer bottles — beer in cans please; wine, champagne, and spirits in a cooler are fine. We provide coolers and ice. You can also add our Mimosa Party Cooler package ($100) which includes champagne flutes, juices, and the full mimosa setup.',
-          'How far in advance should we book the bachelorette party cruise? Book as soon as you have your date. Saturday 11am–3pm slots from May through September fill 8–12 weeks out. For last-minute availability within 2–3 weeks, call (512) 488-5892 directly.'
+          'How many people can you fit? Disco cruise handles 20-40+ guests per group. Private boats accommodate up to 75 guests.',
+          'Should we do disco or private cruise? Under 30 people: disco cruise is perfect. 30+ people: consider a private boat. We\'ll help you choose!',
+          'What if guys and girls want different things? No problem! Plenty of zones on the boat - floats, DJ area, lounge spots. BYOB keeps everyone happy.',
+          'Do you offer special packages for couples? Yes! Our Party Squad and Ultimate packages offer premium perks and VIP treatment for both the bride and groom.'
         ]
       }
     ],
@@ -872,7 +723,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Lake Travis - The Perfect Party Destination',
         paragraphs: [
-          'Lake Travis is Austin\'s premier party destination and the setting for the ATX Disco Cruise. Located in the Texas Hill Country, about 30 minutes from downtown Austin, Lake Travis offers stunning scenery, crystal clear water, and perfect weather from April through October.',
+          'Lake Travis is Austin\'s premier party destination and the setting for the ATX Disco Cruise. Located in the Texas Hill Country, about 25 minutes from downtown Austin, Lake Travis offers stunning scenery, crystal clear water, and perfect weather from April through October.',
           'Your disco cruise experience includes cruising past beautiful cliffs, anchoring near Devil\'s Cove for swimming, and enjoying the best party atmosphere on the water. The combination of incredible views, perfect weather, and high-energy entertainment makes the ATX Disco Cruise unforgettable.'
         ],
         lists: [
@@ -884,45 +735,27 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
               'Texas Hill Country scenery as your backdrop',
               'Calm waters ideal for dancing and socializing',
               'Perfect weather from April through October',
-              'Just 30 minutes from downtown Austin',
+              'Just 25 minutes from downtown Austin',
               'Anderson Mill Marina - easy access with free parking'
             ]
           }
         ]
       },
       {
-        heading: 'America\'s Only Multi-Group All-Inclusive Bachelor and Bachelorette Cruise',
+        heading: 'Frequently Asked Questions',
         paragraphs: [
-          'This is the single most important thing to understand about the ATX Disco Cruise: there is nothing else like it in the United States. Every other party boat experience is either (a) a private charter where one group has the boat, or (b) a public booze cruise open to strangers. The ATX Disco Cruise is neither of those things.',
-          'We specifically book 3–5 bachelor and bachelorette groups per cruise — groups who are all there for the same purpose. The result is a festival atmosphere that no single group could create on their own. The DJ plays to a full boat of people who want to dance. The photographer captures group interactions you didn\'t plan. Everyone is celebrating something, and that shared energy is contagious in the best possible way.',
-          'This format is why the ATX Disco Cruise has been the most-reviewed Lake Travis party experience for over a decade. It\'s why groups from across the country plan Austin trips around booking a specific date. And it\'s why no other company in Austin has successfully replicated it — the logistics, the staffing, and the curation of groups require a level of operational precision that took years to develop.',
-          'If you\'ve been comparing the ATX Disco Cruise to other Austin bachelorette activities and wondering what makes it different, this is the answer: every other option competes on amenities or location. The ATX Disco Cruise competes on energy, and it wins on that dimension by design.'
-        ]
-      },
-      {
-        heading: 'How the ATX Disco Cruise Works: From Booking to Boarding to Departure',
-        paragraphs: [
-          'Step 1 — Book your time slot. Choose from Friday 12–4pm ($95/person), Saturday 11am–3pm ($105/person, most popular), or Saturday 3:30–7:30pm ($85/person). All prices include tax and gratuity — no surprise fees at checkout. Pay your deposit online through our booking system powered by Xola.',
-          'Step 2 — Prep your group. BYOB is the standard. Pack cans and plastic bottles only — no glass beer bottles — wine, champagne, and spirits in a cooler are fine. Many groups use our Mimosa Party Cooler add-on ($100) so the bride doesn\'t have to coordinate drinks. We provide the coolers and ice. Arrange transportation (party bus, rideshare, or designated driver) since Anderson Mill Marina is 30 minutes from downtown Austin.',
-          'Step 3 — Arrive at Anderson Mill Marina. The address is 13993 FM 2769, Leander, TX 78641. Arrive 15–20 minutes before your scheduled departure. Free parking is available in the marina lot. Check in at the dock — a crew member will direct your group to your designated cooler area and seating zone.',
-          'Step 4 — Board and set sail. The DJ is already playing when you board. Other groups are loading in at the same time. Once everyone is aboard, the boat departs the marina and heads out onto Lake Travis. The Texas Hill Country scenery opens up immediately — limestone cliffs, cedar-covered hillsides, and open blue water.',
-          'Step 5 — Cruise, swim, and celebrate. The 4-hour experience includes cruising time and anchored time near scenic coves for swimming and floating on the giant lily pads and unicorn floats. The DJ plays the entire time. The photographer moves between groups capturing candid and posed shots throughout the cruise.',
-          'Step 6 — Return and photos. The boat returns to Anderson Mill Marina at the end of your time slot. Within 2–3 weeks, you\'ll receive a link to a digital gallery of professional photos from your cruise — included in your ticket price, no additional charge.'
-        ]
-      },
-      {
-        heading: 'ATX Disco Cruise FAQ: Every Question Answered',
-        paragraphs: [
-          'What is the ATX Disco Cruise? It is America\'s only multi-group all-inclusive bachelor and bachelorette party boat cruise. A 4-hour experience on Lake Travis with a professional DJ, professional photographer, giant floats, BYOB coolers with ice, and 3–5 other celebration groups on board creating a festival-level party atmosphere.',
-          'When does it run? Fridays 12–4pm and Saturdays 11am–3pm or 3:30–7:30pm, primarily from March through October. Limited winter availability exists — contact us for specific off-season dates.',
-          'How much are tickets? Saturday 3:30–7:30pm: $85/person ($111.56 total with tax and gratuity). Friday 12–4pm: $95/person ($124.88 total). Saturday 11am–3pm: $105/person ($137.81 total). All prices are fully all-in.',
-          'What happens if it rains or there is bad weather? Rain or shine — we always run the cruise. For severe weather that prevents lake operations (lightning, extreme wind), we move the celebration to our downtown partner venue, Lemonade Disco, so the party never stops.',
-          'What is the BYOB policy? All guests 21+ with valid ID may bring their own alcohol. No glass beer bottles — beer in cans please. Wine, champagne, and spirits in a cooler are fine. We provide large coolers loaded with ice for each group. Alcohol delivery to the marina dock is available through <a href="https://partyondelivery.com" target="_blank" rel="noopener noreferrer" style="color: #1e40af; text-decoration: underline;">Party On Delivery</a>.',
-          'When do we receive our photos? Professional photos are delivered digitally within 2–3 weeks after your cruise date. The link is sent to the email address used for booking.',
-          'Where exactly is the departure marina? Anderson Mill Marina, 13993 FM 2769, Leander, TX 78641. Approximately 30 minutes from downtown Austin. Free parking is available. Arrive 15–20 minutes before your scheduled departure time.',
-          'What add-ons are available? Mimosa Party Cooler ($100) — champagne flutes, juice, fruit; Sparkle Package ($100) — additional floats, party supplies, VIP setup for the guest of honor; towel service and SPF-50 sunscreen available on board.',
-          'Can we book the ATX Disco Cruise for a [[combined-bach]] combined bachelor and bachelorette group? Yes — this is one of our most common configurations. Both groups board together and share the DJ, photographer, floats, and party atmosphere. It\'s more cost-effective than booking two separate events and the bonding experience before the wedding is invaluable.',
-          'Is the ATX Disco Cruise right for a [[private-cruises]] vs. shared experience? The Disco Cruise is the shared experience. If you want the boat exclusively for your group, that is a private charter — a different product. Both are excellent; the right choice depends on whether your group wants the curated multi-group energy of the Disco Cruise or complete exclusivity.'
+          'What is the ATX Disco Cruise? A shared 4-hour party boat for bachelor/bachelorette groups with pro DJ and photographer, BYOB, floats, and multi-group energy.',
+          'When does it run? Fridays 12–4 PM and Saturdays 11am–3pm or 3:30–7:30pm from March to October.',
+          'How much are tickets? Time slot pricing: Saturday 3:30-7:30pm ($85, total $111.56 w/tax & gratuity), Friday 12-4pm ($95, total $124.88 w/tax & gratuity), Saturday 11am-3pm ($105, total $137.81 w/tax & gratuity).',
+          'What happens in bad weather? Rain or shine. For severe weather, we move the party to Lemonade Disco land venue.',
+          'What\'s the alcohol policy? BYOB for 21+; cans/plastic only; coolers with ice and cups provided.',
+          'When do we get photos? Professional photos delivered digitally within 2–3 weeks after your cruise.',
+          'Where do we meet? Anderson Mill Marina, 13993 FM 2769, Leander, TX 78641. Arrive 15–20 minutes early; free parking available.',
+          'What add-ons are available? We offer add-on packages like Mimosa Party Cooler ($100) and Sparkle Packages ($100) with extra floats, party supplies, and VIP amenities for the guest of honor.',
+          'Can you swim during the ATX Disco Cruise? Yes! The cruise includes a swim stop where the boat anchors in a beautiful cove on Lake Travis. Guests can swim in the crystal-clear water, float on giant lily pads and unicorn floats, and enjoy the natural limestone cliffs and springs that make Lake Travis one of Texas\'s best swimming destinations. Life jackets are available for all guests.',
+          'Is the ATX Disco Cruise the best party boat in Austin? The ATX Disco Cruise is Austin\'s most popular and highest-rated party boat experience, with over 150,000 guests since 2009 and a 4.9/5 star rating. It is the only Lake Travis party cruise that includes a professional DJ, professional photographer, disco ball lighting, giant floats, and a multi-group party atmosphere. No other Austin boat rental offers this combination of entertainment and value starting at just $85 per person.',
+          'What should I wear on the ATX Disco Cruise? Wear your swimsuit as a base layer with a cover-up or casual outfit on top. Bring sunglasses, a hat, and sunscreen (SPF 50+ recommended). Most guests also bring a change of clothes. Bachelorette groups often coordinate matching outfits, sashes, or themed accessories. Comfortable water shoes or sandals recommended — the deck can get wet. Skip the heels.',
+          'How does the ATX Disco Cruise compare to renting a private boat? The ATX Disco Cruise is a shared experience with DJ, photographer, and party energy included for $85-$105/person. A [[private-cruises]] gives you exclusive use of a boat for your group starting at $200/hour with a 4-hour minimum, with complete control over music, route, and activities. Choose the Disco Cruise for maximum energy and value; choose a private charter for exclusivity and customization.'
         ]
       }
     ],
@@ -991,7 +824,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
               'Premium Bluetooth sound system',
               'Clean restroom facilities',
               'Sun and shade seating areas',
-              'BYOB friendly (beer in cans; wine & spirits in cooler OK)',
+              'BYOB friendly (cans/plastic only)',
               'Basic cruise experience'
             ]
           },
@@ -1047,7 +880,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Lake Travis Private Cruise Experience',
         paragraphs: [
-          'Your private cruise departs from Anderson Mill Marina on Lake Travis, conveniently located about 30 minutes from downtown Austin. The Texas Hill Country provides a stunning backdrop as you cruise the calm, crystal-clear waters of Lake Travis.',
+          'Your private cruise departs from Anderson Mill Marina on Lake Travis, conveniently located about 25 minutes from downtown Austin. The Texas Hill Country provides a stunning backdrop as you cruise the calm, crystal-clear waters of Lake Travis.',
           'Typical private cruises include 30-45 minutes of scenic cruising, followed by 1.5-2 hours anchored near Devil\'s Cove or other beautiful spots for swimming and floating. The captain can customize your route to include the most scenic areas and best swimming spots based on conditions.'
         ],
         lists: [
@@ -1093,48 +926,59 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         ]
       },
       {
+        heading: 'Year-Round Private Cruises',
+        paragraphs: [
+          'Unlike our seasonal ATX Disco Cruise (March through October only), private charters are available all 12 months of the year. Lake Travis is beautiful in every season. Fall cruises feature stunning foliage along the Texas Hill Country shoreline. Winter cruises offer mild Texas weather and uncrowded waters perfect for intimate celebrations. Spring brings wildflowers along the cliffs and warm sunshine. Summer is peak season with warm water perfect for swimming in the coves.',
+          'Many corporate groups and families prefer off-peak booking (November through February) for better availability and a more private lake experience. The mild Central Texas climate means comfortable cruising temperatures most days year-round, making a [[private-cruises]] the perfect choice for [[corporate-events]], [[birthday-party]], and [[wedding-party]] regardless of season.'
+        ]
+      },
+      {
+        heading: 'Private Cruises for Every Event Type',
+        paragraphs: [
+          'Our private charters accommodate virtually any celebration or gathering. While our [[atx-disco]] specializes exclusively in [[bachelor-party]] and [[bachelorette-party]] groups, private boat rentals are open to everyone and every occasion:'
+        ],
+        lists: [
+          {
+            title: 'Most Popular Private Cruise Events',
+            items: [
+              'Bachelor and bachelorette parties wanting exclusive boat access',
+              'Corporate team building and company outings',
+              'Birthday celebrations from Sweet 16 to milestone birthdays',
+              'Wedding rehearsal dinners and after parties',
+              'Anniversary celebrations and romantic cruises',
+              'Family reunions and multi-generational gatherings',
+              'Graduation parties for high school and college',
+              'Client entertainment and networking events',
+              'Engagement parties and bridal showers',
+              'Holiday celebrations and company milestones',
+              'Proposal cruises for that perfect moment',
+              'Memorial celebrations and tribute events',
+              'Gender reveal parties on the water',
+              'Prom and school event celebrations'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Safety and Professionalism',
+        paragraphs: [
+          'Premier Party Cruises maintains a perfect safety record spanning 15+ years and 150,000+ guests on Lake Travis. Every private charter includes a Coast Guard certified, licensed captain with extensive Lake Travis navigation experience. Our professional crew members are trained in safety protocols, guest service, and emergency procedures.',
+          'All four boats in our fleet are regularly inspected, professionally maintained, and equipped with current safety gear including life jackets for all passengers, fire extinguishers, first aid kits, and emergency communication equipment. We monitor weather conditions continuously and our captains have final authority on all safety decisions.'
+        ]
+      },
+      {
         heading: 'Frequently Asked Questions',
         paragraphs: [
-          'What boats are available? We offer three exceptional vessels: Day Tripper (14-person boat) perfect for intimate groups starting at $200/hour with a 4-hour minimum. Meeseeks and The Irony (25-person boat) is our most popular choice for medium groups of 18-25 guests, starting at $225/hour. Clever Girl (50-person flagship) features 14 disco balls and a giant Texas flag, starting at $250/hour, perfect for corporate events.',
+          'What boats are available for private cruises? We have four boats in our fleet: Day Tripper (up to 14 guests, starting at $200/hour), Meeseeks (up to 25-30 guests, starting at $225/hour), The Irony (up to 25-30 guests, starting at $225/hour, same size as Meeseeks), and Clever Girl (up to 50-75 guests, starting at $250/hour, our flagship with 14 disco balls and giant Texas flag). All private charters have a 4-hour minimum.',
+          'Are private cruises available year-round? Yes! Private charters operate all 12 months. This is different from our ATX Disco Cruise, which runs seasonally March through October only. Many clients prefer off-peak months for better availability and a more exclusive lake experience.',
           'What\'s included in each package? Standard Package includes professional captain and crew, large coolers (bring your own ice), premium Bluetooth sound system, clean restroom facilities, and sun/shade seating. Essentials Package adds coolers pre-stocked with ice, water dispenser, solo cups, 6-foot folding table, and catering coordination. Ultimate Package adds giant lily pad float, guest of honor float, disco ball cups, bubble guns, champagne flutes, SPF-50 sunscreen, plates, and full party setup.',
-          'Can we bring food and drinks? Yes! We are fully BYOB friendly (21+ with valid ID required). Bring your own beer, wine, seltzers in cans or plastic containers — no glass beer bottles. Wine, champagne, and spirits in a cooler are fine. We provide large coolers and cups. With Essentials Package, coolers come pre-stocked with ice. Ultimate Package includes champagne flutes, plates, plasticware, and a 6-foot table for food setup.',
-          'How does pricing work? Base cost is Hourly rate × Duration. Day Tripper $200/hour, Meeseeks $225/hour, Clever Girl $250/hour (4-hour minimums). Essentials Package adds $100-200/hour, Ultimate adds $250-350/hour. Additional crew fees: $50/hour for 26-30 guests, $100/hour for 51-75 guests. Plus 8.25% tax and suggested 20% gratuity.',
+          'Can we bring food and drinks? Yes! We are fully BYOB friendly (21+ with valid ID required). Bring your own beer, wine, seltzers in cans or plastic containers - no glass. We provide large coolers and cups. With Essentials Package, coolers come pre-stocked with ice. Ultimate Package includes champagne flutes, plates, plasticware, and a 6-foot table for food setup.',
+          'How does pricing work? Base cost is hourly rate times duration. Day Tripper $200/hour, Meeseeks or The Irony $225/hour, Clever Girl $250/hour (all with 4-hour minimums). Essentials Package adds a flat $100-200 per cruise, Ultimate adds a flat $250-350 per cruise. Additional crew fees: $50/hour for 26-30 guests, $100/hour for 51-75 guests. Plus 8.25% tax and suggested 20% gratuity.',
           'How far in advance should we book? Popular weekend dates fill 6-8 weeks in advance, especially during peak season (April-September). For special events like bachelor/bachelorette parties, corporate events, or milestone birthdays, we suggest booking 2-3 months ahead to secure your preferred date and boat.',
-          'How do deposits and payments work? 25% deposit if >30 days out (balance due 30 days prior). If booking within 30 days, 50% deposit due and remainder within 72 hours.',
+          'How do deposits and payments work? 25% deposit if booking more than 30 days out (balance due 30 days prior). If booking within 30 days, 50% deposit due and remainder within 72 hours.',
           'What\'s your cancellation policy? 48-hour full refund window after booking. After that, cancellations are weather-dependent at the captain\'s discretion. Pro-rated refunds if weather shortens the cruise.',
-          'Can we customize our route? Absolutely! You have complete control over your Lake Travis experience. Work with your captain to customize your route, timing, and activities. The typical cruise includes 30-45 minutes of cruising, then we tie up along the cliffs of a beautiful Lake Travis nature preserve with crystal clear water for swimming (typically 1.5-2 hours), then cruise back. However, the time is yours - customize any combination of cruising and swimming time that works for your group.'
-        ]
-      },
-      {
-        heading: 'Private Charter vs ATX Disco Cruise: How to Choose',
-        paragraphs: [
-          'The most common question we hear: "Should we do the ATX Disco Cruise or book a private boat?" Here is the honest breakdown.',
-          'The [[atx-disco]] is the right choice when your group is under 30 people, you want professional DJ and photographer included in the package price, and you appreciate the energy of multiple groups partying together on the water. More people means more energy — this is a genuine advantage of the Disco Cruise, not a drawback. At $85-105 per person all-inclusive, the ATX Disco Cruise is hard to beat on value and is Premier Party Cruises\' signature product for a reason.',
-          'A private charter is the right choice when you need exclusivity — corporate client entertaining, a wedding rehearsal dinner, a family reunion, a milestone birthday where you want the whole boat to yourselves. Private charters are also the answer when your group exceeds 30 people, when you want complete control over timing, route, and music, or when your event has a specific theme or activity that requires privacy.',
-          'Bottom line: if you are planning a [[bachelor-party]] or [[bachelorette-party]] with under 30 people and want the best value, the ATX Disco Cruise wins almost every time. If you need the whole boat, choose private charter.'
-        ]
-      },
-      {
-        heading: 'Planning Your Private Lake Travis Cruise: Complete Logistics Guide',
-        paragraphs: [
-          'Everything you need to know to plan a successful private charter on Lake Travis.',
-          'Getting there: The marina is at 13993 FM 2769, Leander, TX 78641 — Anderson Mill Marina. From downtown Austin, it is approximately 35-40 minutes via 183 North. Free parking is available at the marina. Most groups coordinate a party bus or Uber from Austin to make the drive part of the experience. Do not drive yourself if you plan to drink.',
-          'Timing: The most popular time slots are 11am-3pm (peak sun, best for swimming) and 2pm-6pm (still warm with a beautiful sunset on the return). Evening cruises after 6pm are available and scenic but swimming is limited. The 4-hour minimum is firm. Be at the marina 15 minutes before your departure time — the captain cannot hold for late arrivals.',
-          'What to bring: Your own beverages (cans and plastic containers only — no glass beer bottles on any vessel. Wine, champagne, and spirits in a cooler are fine). Food is encouraged — sandwiches, charcuterie, snacks all work well. Sunscreen, towels, a change of clothes if you plan to swim. A waterproof phone case is strongly recommended. Cash for gratuity (20% is the standard).',
-          'Food and catering: We do not provide food, but we fully support outside catering. The Essentials and Ultimate packages include a 6-foot folding table for food setup. Popular options are Torchy\'s Tacos catering, HEB party platters, and local charcuterie vendors. Coordinate delivery to the marina 30 minutes before your departure.',
-          'Swimming and activities: Lake Travis water is crystal-clear and warm from May through October. The captain anchors at a protected cove for swimming and floating. Giant lily pad floats come with the Ultimate Package. You are welcome to bring your own inflatables — just let us know in advance. The captain has full discretion on anchor location based on conditions.',
-          'Weather policy: Light rain does not cancel cruises — many groups enjoy it. The captain makes the final call on safety. If weather forces a cancellation, you receive full credit or a reschedule. Pro-rated refunds apply if weather cuts the cruise short.'
-        ]
-      },
-      {
-        heading: 'Who Books Private Charters on Lake Travis',
-        paragraphs: [
-          'Private boat rentals serve a wide range of Austin events and celebrations. Here is who typically books private charters with Premier Party Cruises.',
-          'Corporate groups are one of our most consistent private charter clients. Austin\'s tech and business community uses private charters for team-building outings, client entertainment, and company milestone celebrations year-round. A 4-hour private charter for 20-50 people on the Clever Girl is a far more memorable client entertainment experience than a restaurant reservation — the private setting creates relationship-building opportunities that a crowded dinner simply cannot.',
-          'Wedding parties book private cruises for rehearsal dinners, morning-of-wedding celebrations, wedding after-parties, and bridal showers. The Clever Girl flagship with its 14 disco balls makes for an unforgettable rehearsal dinner backdrop. The Ultimate package with floats, champagne flutes, and full party setup is especially popular for bridal showers.',
-          'Milestone birthday celebrations — 30th, 40th, 50th, and beyond — are a growing segment. A milestone birthday on a private boat on Lake Travis is a genuinely distinctive Austin experience that guests talk about for years. Groups regularly fly in from Dallas, Houston, and out of state specifically for Lake Travis birthday parties.',
-          'Family reunions and multi-generational gatherings benefit from the Clever Girl\'s 75-guest capacity, making it one of the few Lake Travis options for truly large family events in an environment that is safe, structured, and fun for all ages.',
-          'Graduation celebrations for college and high school groups are in peak demand each May and June. Private charters give graduates an exclusive, elevated experience that stands apart from house parties and bar events.'
+          'Can we customize our route? Absolutely! You have complete control over your Lake Travis experience. Work with your captain to customize your route, timing, and activities. The typical cruise includes 30-45 minutes of cruising, then we tie up along the cliffs of a beautiful Lake Travis nature preserve with crystal clear water for swimming (typically 1.5-2 hours), then cruise back. However, the time is yours - customize any combination of cruising and swimming time that works for your group.',
+          'What is the difference between the ATX Disco Cruise and a private charter? The ATX Disco Cruise is a shared, per-person experience running March through October, exclusively for bachelor and bachelorette groups. It includes a DJ, photographer, and party atmosphere with other groups. Private charters give you exclusive use of the entire boat, are available year-round for any event type, and let you set the music, route, and vibe.'
         ]
       }
     ],
@@ -1306,7 +1150,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           'What\'s the ideal timing for a welcome party cruise? Welcome parties typically run 2-3 hours, scheduled the evening before the wedding. Popular timing is 5pm-8pm or 6pm-9pm, allowing guests to arrive from travel, check into hotels, and join refreshed.',
           'What catering options work for welcome party cruises? Welcome parties often feature casual, shareable Austin favorites: BBQ sliders, taco bars, queso and chips, or appetizer spreads. The Essentials package includes full catering coordination and serving assistance.',
           'How much does a wedding welcome party cruise cost? Welcome party pricing varies by boat size and package. Most 2-3 hour welcome parties range from $590-$2,535 depending on size and package.',
-          'Where does the welcome party cruise depart from? Welcome party cruises depart from Anderson Mill Marina on Lake Travis, approximately 30 minutes from downtown Austin. Free parking is available, and many couples arrange shuttle service from hotel blocks.'
+          'Where does the welcome party cruise depart from? Welcome party cruises depart from Anderson Mill Marina on Lake Travis, approximately 25 minutes from downtown Austin. Free parking is available, and many couples arrange shuttle service from hotel blocks.'
         ]
       }
     ],
@@ -1373,7 +1217,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           'What are the alcohol and beverage service options? Rehearsal dinner cruises are BYOB - bring your own wine, champagne, and beer. We provide ice, coolers, cups, and bottle openers. Many rehearsal dinners feature champagne toasts, wine with dinner, and craft beers.',
           'How much does a rehearsal dinner cruise cost? Pricing depends on boat size and package. Typical 3-hour rehearsal dinner ranges from $585-$2,535 total depending on boat and package selection.',
           'How far in advance should we book our rehearsal dinner cruise? Book 6-8 weeks in advance to secure your preferred date and boat, especially for peak wedding season (April-October) and Friday evening rehearsals.',
-          'Where do we depart from for the rehearsal dinner cruise? Rehearsal dinner cruises depart from Anderson Mill Marina on Lake Travis, just 30 minutes from downtown Austin. The marina offers ample free parking and is easily accessible for out-of-town wedding guests.'
+          'Where do we depart from for the rehearsal dinner cruise? Rehearsal dinner cruises depart from Anderson Mill Marina on Lake Travis, just 25 minutes from downtown Austin. The marina offers ample free parking and is easily accessible for out-of-town wedding guests.'
         ]
       }
     ],
@@ -1439,7 +1283,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           'What group sizes can you host? We accommodate 14-75 guests across our three-boat fleet. Day Tripper hosts 14 guests, Meeseeks and The Irony accommodates 25 guests, and Clever Girl can host 50+ guests. For larger groups, we can coordinate multiple boats. Volume discounts are available for regular corporate clients.',
           'Can we bring catering? Yes! You can bring your own catering, or we\'ll coordinate with your preferred caterer or restaurant to ensure seamless delivery and setup. Full bar setups are available, or you can bring your own beverages (BYOB for guests 21+).',
           'How much does team building cost? Team building cruises start at $200/hour for our Day Tripper boat. Most team building events run 3-6 hours. Package upgrades include Essentials (+$100-200/hour) and Ultimate (+$250-350/hour) with additional amenities. Volume discounts are available for companies booking multiple team building events.',
-          'Where do we depart? All team building cruises depart from Anderson Mill Marina, located at 13993 FM 2769, Leander, TX 78641. Free parking is available for all guests. The marina is conveniently located about 30 minutes from downtown Austin.',
+          'Where do we depart? All team building cruises depart from Anderson Mill Marina, located at 13993 FM 2769, Leander, TX 78641. Free parking is available for all guests. The marina is conveniently located about 25 minutes from downtown Austin.',
           'How far in advance should we book? Team building dates fill quickly, especially during spring and fall months when weather is ideal. We recommend booking 6-8 weeks in advance to secure your preferred date and boat.',
           'What makes Lake Travis ideal for team building? Lake Travis provides the perfect team building environment—away from office distractions in a relaxed outdoor setting where teams naturally open up and connect on a personal level. Many companies report enhanced communication, collaboration, and team cohesion after Lake Travis team building cruises.'
         ]
@@ -1576,7 +1420,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           'Do you provide professional photography? Yes! Professional photography services are available to capture your milestone celebration memories. Our photographers understand corporate events and can provide both candid shots and formal group photos.',
           'Can we do speeches and presentations? Yes! Our premium sound system is available for speeches, announcements, and presentations. Many companies use the cruise to present achievement awards, share company updates, recognize team members, and make important announcements.',
           'How much does a milestone celebration cost? Milestone celebrations start at $200/hour for our Day Tripper boat. The Essentials package adds $100-200/hour, and the Ultimate package (recommended for milestones) adds $250-350/hour. Volume discounts are available for larger groups.',
-          'Where do we depart? Milestone celebrations depart from Anderson Mill Marina, located at 13993 FM 2769, Leander, TX 78641. The marina offers ample free parking for your entire team and is conveniently located approximately 30 minutes from downtown Austin.'
+          'Where do we depart? Milestone celebrations depart from Anderson Mill Marina, located at 13993 FM 2769, Leander, TX 78641. The marina offers ample free parking for your entire team and is conveniently located approximately 25 minutes from downtown Austin.'
         ]
       }
     ],
@@ -1645,6 +1489,16 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           'Birthday cruises typically run 3-4 hours. Popular times are afternoon (2pm-5pm) for kids, or evening (6pm-9pm) for adults. Sunset cruises especially popular for milestone birthdays.',
           'Birthday party packages start at $1,050 for a 4-hour cruise (14 guests), $1,181 with our Birthday Bash package, or $1,413 for the VIP Birthday Experience. Larger boats available for bigger celebrations up to 75 guests.',
           'Book 4-6 weeks in advance for weekend dates. We\'ll coordinate all details including catering, decorations, and special birthday surprises. Just show up and celebrate!'
+        ]
+      },
+      {
+        heading: 'Birthday Party Frequently Asked Questions',
+        paragraphs: [
+          'What is the best birthday party venue in Austin? A Lake Travis party boat cruise is one of Austin\'s most unique and memorable birthday venues. Unlike restaurants or event halls, a boat party combines stunning natural scenery, swimming, music, and an exclusive private experience for your group. Premier Party Cruises has hosted thousands of birthday celebrations since 2009 on our fleet of 4 boats for 14-75 guests, with a 4.9/5 star rating.',
+          'How much does a birthday boat party cost? Birthday cruises start at approximately $800 for a 4-hour private charter on Day Tripper (up to 14 guests). For larger groups: Meeseeks or The Irony (25-30 guests) starts at $900, and Clever Girl (50-75 guests) starts at $1,000. Package upgrades add $100-350 flat per cruise. All cruises are BYOB, which significantly reduces the cost compared to bar/restaurant birthday parties.',
+          'Can kids have birthday parties on Lake Travis? Yes! We host birthday parties for all ages. For children\'s parties, all boats have life jackets in children\'s sizes, experienced crew trained in safety, and swim ladders for easy water access. Many families choose our boats for Sweet 16 parties, tween birthdays, and multi-generational celebrations where grandparents and grandkids celebrate together.',
+          'What is included in a birthday boat party? Every private charter includes a Coast Guard certified captain, trained crew, premium Bluetooth sound system for your birthday playlist, large coolers with ice, swim stop in a scenic Lake Travis cove, clean restroom facilities, and all safety equipment. Upgrade to the Essentials package for pre-stocked ice, water, cups, and a folding table. The Ultimate package adds giant lily pad floats, disco ball cups, bubble guns, champagne flutes, and a full party setup.',
+          'Can I bring a birthday cake on the boat? Yes! You can bring a cake, cupcakes, or any food aboard. We provide table space (6-foot folding table with Essentials or Ultimate packages) and can coordinate with Austin bakeries and caterers. Many guests also bring charcuterie boards, pizza, sandwiches, and party snacks.'
         ]
       }
     ],
@@ -1997,8 +1851,8 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           'What\'s the difference between ATX Disco Cruise and private boat rental? ATX Disco Cruise is a multi-group shared party cruise with professional DJ, photographer, and disco dance floor at $85-105/person. Private boat rentals are exclusively your group with complete customization starting at $195/hour. Disco Cruise is budget-friendly and high-energy; private boats offer exclusivity and control.',
           'How many people can party boats accommodate in Austin? We accommodate 14-75 guests for private boats. Day Tripper hosts 14 guests, Meeseeks and The Irony accommodates 25 guests, and Clever Girl can host 50-75 guests. Disco Cruise welcomes groups of 6-20+ per group, with multiple groups sharing the boat.',
           'What\'s included with Austin party boats? All cruises include Coast Guard certified captain and professional crew, premium Bluetooth sound systems, life jackets and safety equipment, coolers with ice, clean restroom facilities, and sun/shade seating areas. Private boats offer complete BYOB service; Disco Cruise includes DJ and photographer.',
-          'Where do Austin party boats depart from? All cruises depart from Anderson Mill Marina on Lake Travis, located at 13993 FM 2769, Leander, TX 78641. The marina is approximately 30 minutes from downtown Austin with ample free parking for all guests.',
-          'Can we bring our own food and drinks on Austin party boats? Yes! BYOB is allowed for guests 21+ with valid ID (no glass beer bottles — wine and spirits in a cooler are fine). We provide coolers and ice. You can bring your own food or we can coordinate catering delivery. Many groups order pizza, BBQ, tacos, or other Austin favorites delivered right to the boat.',
+          'Where do Austin party boats depart from? All cruises depart from Anderson Mill Marina on Lake Travis, located at 13993 FM 2769, Leander, TX 78641. The marina is approximately 25 minutes from downtown Austin with ample free parking for all guests.',
+          'Can we bring our own food and drinks on Austin party boats? Yes! BYOB is allowed for guests 21+ with valid ID (cans and plastic containers only). We provide coolers and ice. You can bring your own food or we can coordinate catering delivery. Many groups order pizza, BBQ, tacos, or other Austin favorites delivered right to the boat.',
           'How far in advance should we book Austin party boats? Book 6-8 weeks in advance for weekend dates, especially during peak season (April-October). Weekday bookings can be made with less advance notice. Popular dates like bachelor/bachelorette parties and summer weekends fill earliest.',
           'What makes Lake Travis the best Austin party boat destination? Lake Travis offers beautiful clear blue water perfect for swimming, stunning Hill Country scenery, year-round perfect weather, Instagram-worthy sunset views, and professional party atmosphere. Located just 20 miles from downtown Austin with easy access.'
         ]
@@ -2097,7 +1951,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         paragraphs: [
           'Lake Travis party boats are perfect for any celebration: bachelor/bachelorette parties, birthdays, corporate events, weddings, graduations, and more. We\'ve hosted 150,000+ guests with perfect safety record.',
           'Most parties run 3-4 hours, with options for longer adventures. Popular times include afternoon fun (2pm-6pm) or sunset cruises (6pm-9pm). Private boats offer complete flexibility on timing.',
-          'BYOB friendly for guests 21+ with ID (beer in cans preferred; wine, champagne, and spirits in a cooler are fine). Catering coordination available - many groups love having food delivered right to the boat on Lake Travis.',
+          'BYOB friendly for guests 21+ with ID (cans/plastic containers only). Catering coordination available - many groups love having food delivered right to the boat on Lake Travis.',
           'Book 6-8 weeks in advance for weekend dates, especially during peak season (April-September). Weekday availability is better with less advance notice needed.',
           'Pricing: Private boats start at $195/hour (4-hour minimum). Disco Cruise packages $85-$105 per person. Best value for Lake Travis party boats, guaranteed!',
           'Ready to experience the best party boat on Lake Travis? Book now and create memories that last forever!'
@@ -2108,9 +1962,9 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         paragraphs: [
           'What are the party boat options on Lake Travis? Lake Travis offers two main options: Private boat rentals (exclusive boat for your group, 14-75 capacity, starting $195/hour) and ATX Disco Cruise (multi-group party with DJ and photographer, $85-105/person). Private boats offer exclusivity; Disco Cruise is more affordable with high-energy atmosphere.',
           'How many people can Lake Travis party boats hold? Private boats accommodate 14-75 guests depending on vessel. Day Tripper holds 14 guests, Meeseeks and The Irony holds 25 guests, and Clever Girl accommodates 50-75 guests. Disco Cruise welcomes multiple groups of 6-20+ per group.',
-          'Can we bring our own alcohol on Lake Travis party boats? Yes! All Lake Travis party boats are BYOB friendly for guests 21+ with valid ID. No glass beer bottles — beer in cans please. Wine, champagne, and spirits in a cooler are fine. We provide coolers, ice, cups, and openers. Responsible consumption is required.',
+          'Can we bring our own alcohol on Lake Travis party boats? Yes! All Lake Travis party boats are BYOB friendly for guests 21+ with valid ID. Cans and plastic containers only (no glass). We provide coolers, ice, cups, and openers. Responsible consumption is required.',
           'What\'s included with Lake Travis party boats? All boats include Coast Guard certified captain, professional crew, premium Bluetooth sound system, coolers with ice (select packages), safety equipment and life jackets, clean restroom facilities, comfortable seating with sun and shade areas, and swimming platform access.',
-          'Where do Lake Travis party boats depart from? All cruises depart from Anderson Mill Marina, located at 13993 FM 2769, Leander, TX 78641. Free parking available for all guests. The marina is approximately 30 minutes from downtown Austin with easy access from Austin, Round Rock, and Cedar Park.',
+          'Where do Lake Travis party boats depart from? All cruises depart from Anderson Mill Marina, located at 13993 FM 2769, Leander, TX 78641. Free parking available for all guests. The marina is approximately 25 minutes from downtown Austin with easy access from Austin, Round Rock, and Cedar Park.',
           'How far in advance should we book? Book 6-8 weeks in advance for weekend dates, especially during peak season (April-September). Summer weekends and popular dates book earliest. Weekday availability is better with less advance notice needed.',
           'What makes Lake Travis the best for party boats? Lake Travis offers beautiful clear blue water perfect for swimming, stunning Hill Country scenery with nature preserves, perfect year-round weather, Instagram-worthy sunset views, professional marina facilities, and legendary party atmosphere. It\'s Central Texas\' premier party destination!'
         ]
@@ -2190,7 +2044,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
               'Experienced crew trained for corporate events',
               'Premium boats with professional appearance',
               'Catering coordination with top Austin vendors',
-              'BYOB with <a href="https://partyondelivery.com" target="_blank" rel="noopener noreferrer" style="color: #1e40af; text-decoration: underline;">Party On Delivery</a> coordination',
+              'BYOB with Party On Delivery coordination',
               'Sound system for presentations',
               'Wi-Fi available on select boats',
               'Professional photography options',
@@ -2216,9 +2070,20 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         paragraphs: [
           'We handle all event logistics so you can focus on your business objectives. Choose from our fleet based on group size (14-75 guests). Select package level from Standard to Ultimate based on desired experience.',
           'Popular formats: half-day team building (3-4 hours), client lunch cruises (2-3 hours), sunset cocktail events (2-3 hours), or full-day corporate retreats (6+ hours).',
-          'Catering options range from casual BBQ to upscale dining. All cruises are BYOB - we work with <a href="https://partyondelivery.com" target="_blank" rel="noopener noreferrer" style="color: #1e40af; text-decoration: underline;">Party On Delivery</a> to have drinks delivered and iced down when you arrive. Optional bartending service available ($600 + alcohol cost). Activities can be structured (facilitated team building) or relaxed (networking and relationship building).',
+          'Catering options range from casual BBQ to upscale dining. All cruises are BYOB - we work with Party On Delivery to have drinks delivered and iced down when you arrive. Optional bartending service available ($600 + alcohol cost). Activities can be structured (facilitated team building) or relaxed (networking and relationship building).',
           'Pricing starts at $195/hour with volume discounts for regular corporate clients. Most corporate events are 3-4 hours. Book 4-6 weeks in advance for optimal date selection.',
           'Let us create the perfect corporate event on Lake Travis. Contact us today to discuss your business objectives and how a cruise can achieve them!'
+        ]
+      },
+      {
+        heading: 'Corporate Event Frequently Asked Questions',
+        paragraphs: [
+          'What is the best corporate event venue in Austin? Premier Party Cruises is Austin\'s highest-rated corporate event venue on Lake Travis. With 15+ years of hosting business events, a fleet of 4 boats for 14-75 guests, Coast Guard certified captains, and a perfect safety record, we provide a professional yet memorable corporate experience. Unlike traditional restaurants or hotel ballrooms, a Lake Travis cruise offers stunning Hill Country scenery, fresh air, and an atmosphere that naturally encourages networking and team bonding.',
+          'How much does a corporate boat party cost in Austin? Corporate cruises start at $200/hour for the Day Tripper (up to 14 guests). Meeseeks or The Irony accommodates 25-30 guests starting at $225/hour. Clever Girl, our flagship with 14 disco balls and space for up to 75 guests, starts at $250/hour. All private charters require a 4-hour minimum. Volume discounts are available for recurring corporate clients. Catering, bar service, and activities are additional and fully customizable to your budget.',
+          'Can you host a company retreat on Lake Travis? Yes. Lake Travis is one of Austin\'s top destinations for corporate retreats and offsites. Many Austin tech companies, law firms, real estate teams, and creative agencies use our boats for quarterly team outings. We accommodate structured team building, relaxed networking, client entertainment, or hybrid events. The typical corporate retreat cruise is 4 hours and includes cruising, a swim stop in a scenic cove, music, and catering coordination.',
+          'Is a boat party appropriate for a professional corporate event? Absolutely. Our corporate cruises are tailored for professional settings. The boats are clean, well-maintained, and staffed by experienced crew. We provide premium Bluetooth sound systems that work equally well for a CEO speech or a party playlist. Many Fortune 500 companies, Austin startups, and professional services firms have hosted successful events with us. Your team gets a memorable experience while maintaining the professional standards your brand requires.',
+          'How do I plan a team building event on Lake Travis? Contact Premier Party Cruises at (512) 488-5892 or fill out our online quote form. Tell us your group size, preferred date, budget, and goals. We recommend booking 4-6 weeks in advance for weekend dates. We handle all logistics including boat selection, catering coordination, drink delivery through Party On Delivery, and activity planning. All you need to do is show up with your team.',
+          'Do Austin companies really do boat parties for team building? Yes — Lake Travis boat parties are one of Austin\'s most popular corporate team building activities. The combination of outdoor scenery, water activities, and a relaxed atmosphere creates authentic team connections that conference rooms cannot replicate. We host corporate events year-round, with spring and fall being especially popular for business groups who prefer mild weather and calmer lake conditions.'
         ]
       }
     ],
@@ -2326,6 +2191,16 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           'Pricing starts at $195/hour for smaller boats, up to $495/hour for our flagship. Most wedding events are 3-4 hours. We offer wedding package discounts for booking multiple events.',
           'Let us make your wedding day perfect! Contact us today to start planning your unforgettable Lake Travis wedding celebration.'
         ]
+      },
+      {
+        heading: 'Wedding Event Frequently Asked Questions',
+        paragraphs: [
+          'Is a Lake Travis boat a good venue for a rehearsal dinner? Lake Travis is one of Austin\'s most popular and unique rehearsal dinner venues. A [[rehearsal-dinner]] cruise provides stunning sunset views, an intimate setting for wedding party and families, and a memorable experience that sets the tone for the entire wedding weekend. Our boats accommodate 14-75 guests, include professional crew and catering coordination, and offer a more distinctive experience than a traditional restaurant.',
+          'Can you host a wedding reception on a boat on Lake Travis? Yes. Our flagship Clever Girl accommodates up to 75 guests and features a dedicated dance floor area, 14 disco balls, LED lighting, and a premium sound system — everything needed for a wedding reception. Many couples host their reception on the water during a 4-hour sunset cruise. Catering is fully customizable, and we coordinate with Austin\'s top catering vendors. We also support elopements and intimate ceremonies on Day Tripper (14 guests).',
+          'How much does a wedding boat party cost in Austin? Wedding cruises are priced per hour: Day Tripper ($200-350/hr for intimate gatherings of 14), Meeseeks or The Irony ($225-425/hr for 25-30 guests), and Clever Girl ($250-500/hr for up to 75 guests). All require a 4-hour minimum. Many couples book multiple events — welcome party, rehearsal dinner, and after party — and we offer package discounts for multi-event weddings.',
+          'What types of wedding events can you host on Lake Travis? We host every type of wedding event: [[welcome-party]] cruises for out-of-town guests, [[rehearsal-dinner]] cruises for the wedding party and family, wedding day celebrations and receptions, and [[after-party]] cruises for the late-night crew. Many couples book 2-3 events throughout their wedding weekend. Our wedding coordinator works with you and your planner to ensure seamless timing and execution.',
+          'Can you accommodate a destination wedding weekend in Austin? Absolutely. Lake Travis is a top destination wedding location in Texas, and Premier Party Cruises is the premier vendor for wedding weekend boat events. Out-of-town guests love experiencing the Texas Hill Country, and a Lake Travis cruise showcases the best of Austin. We coordinate with hotels, transportation companies, and other vendors to make your destination wedding seamless.'
+        ]
       }
     ],
     relatedPages: [
@@ -2336,7 +2211,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
   },
   '/blog/rehearsal-dinner-boat-alcohol-delivery-unique-wedding-weekend-experiences': {
     h1: 'Rehearsal Dinner Boat & Alcohol Delivery | Unique Wedding Weekend Experiences',
-    introduction: 'Create unforgettable [[rehearsal-dinner]] experiences on Lake Travis with boat parties and seamless alcohol delivery. Premier Party Cruises partners with <a href="https://partyondelivery.com" target="_blank" rel="noopener noreferrer" style="color: #1e40af; text-decoration: underline;">Party On Delivery</a> to make your wedding weekend in Austin truly memorable. From intimate family gatherings to elegant [[welcome-party]] events, we handle everything so you can focus on celebrating.',
+    introduction: 'Create unforgettable [[rehearsal-dinner]] experiences on Lake Travis with boat parties and seamless alcohol delivery. Premier Party Cruises partners with Party On Delivery to make your wedding weekend in Austin truly memorable. From intimate family gatherings to elegant [[welcome-party]] events, we handle everything so you can focus on celebrating.',
     sections: [],
     relatedPages: ['rehearsal-dinner', 'welcome-party', 'after-party', 'private-cruises']
   },
@@ -2348,7 +2223,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Why Lake Travis is the Ultimate Bachelor Party Destination',
         paragraphs: [
           'Lake Travis, a sprawling reservoir in the Texas Hill Country, offers the perfect backdrop for bachelor party celebrations. Crystal clear waters, stunning cliffs, and endless coves provide opportunities for swimming, sunbathing, and partying away from downtown crowds.',
-          'The lake transforms into a private playground where your group can blast favorite tunes, enjoy cold drinks, and create lasting memories. Just 30 minutes from downtown Austin nightlife, you get the best of both worlds.'
+          'The lake transforms into a private playground where your group can blast favorite tunes, enjoy cold drinks, and create lasting memories. Just 25 minutes from downtown Austin nightlife, you get the best of both worlds.'
         ]
       },
       {
@@ -2363,7 +2238,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
   },
   '/rehearsal-dinner-boat-alcohol-delivery': {
     h1: 'Rehearsal Dinner Boat & Alcohol Delivery | Unique Wedding Weekend Experiences',
-    introduction: 'Create unforgettable [[rehearsal-dinner]] experiences on Lake Travis with boat parties and seamless alcohol delivery. Premier Party Cruises partners with <a href="https://partyondelivery.com" target="_blank" rel="noopener noreferrer" style="color: #1e40af; text-decoration: underline;">Party On Delivery</a> to make your wedding weekend in Austin truly memorable. From intimate family gatherings to elegant [[welcome-party]] events, we handle everything so you can focus on celebrating.',
+    introduction: 'Create unforgettable [[rehearsal-dinner]] experiences on Lake Travis with boat parties and seamless alcohol delivery. Premier Party Cruises partners with Party On Delivery to make your wedding weekend in Austin truly memorable. From intimate family gatherings to elegant [[welcome-party]] events, we handle everything so you can focus on celebrating.',
     sections: [
       {
         heading: 'Why Lake Travis for Your Rehearsal Dinner?',
@@ -2385,13 +2260,13 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         ]
       },
       {
-        heading: 'Seamless Alcohol Delivery with <a href="https://partyondelivery.com" target="_blank" rel="noopener noreferrer" style="color: #1e40af; text-decoration: underline;">Party On Delivery</a>',
+        heading: 'Seamless Alcohol Delivery with Party On Delivery',
         paragraphs: [
-          'Forget the hassle of coordinating multiple vendors. <a href="https://partyondelivery.com" target="_blank" rel="noopener noreferrer" style="color: #1e40af; text-decoration: underline;">Party On Delivery</a> ensures your drinks, ice, and cocktail kits are delivered directly to your boat on Lake Travis. Their 1-hour delivery windows, free consultations, and 100% buyback policy on unopened bottles make beverage planning stress-free.'
+          'Forget the hassle of coordinating multiple vendors. Party On Delivery ensures your drinks, ice, and cocktail kits are delivered directly to your boat on Lake Travis. Their 1-hour delivery windows, free consultations, and 100% buyback policy on unopened bottles make beverage planning stress-free.'
         ],
         lists: [
           {
-            title: '<a href="https://partyondelivery.com" target="_blank" rel="noopener noreferrer" style="color: #1e40af; text-decoration: underline;">Party On Delivery</a> Benefits',
+            title: 'Party On Delivery Benefits',
             items: [
               '1-hour delivery windows directly to the marina',
               'Free order consultations for quantity recommendations',
@@ -2456,7 +2331,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Rehearsal Dinner FAQs',
         paragraphs: [
-          '<a href="https://partyondelivery.com" target="_blank" rel="noopener noreferrer" style="color: #1e40af; text-decoration: underline;">Party On Delivery</a> delivers to most marinas on Lake Travis, coordinating directly with Premier Party Cruises to ensure your order arrives at your boat. We recommend booking 3-6 months in advance for wedding weekend events, especially during peak season (April-October).',
+          'Party On Delivery delivers to most marinas on Lake Travis, coordinating directly with Premier Party Cruises to ensure your order arrives at your boat. We recommend booking 3-6 months in advance for wedding weekend events, especially during peak season (April-October).',
           'Our boats are BYOB and catering-friendly - many couples work with Austin caterers who prepare food for boat delivery. We provide tables and cooler space for your setup. For weather concerns, we monitor conditions closely and work with you to reschedule if needed. Safety is our top priority.',
           'Sunset cruises are our most popular option for rehearsal dinners. We time departures so you are on the water during golden hour, typically 2-3 hours before sunset. The Lake Travis sunset views create absolutely stunning photo opportunities for your wedding weekend.'
         ]
@@ -2510,7 +2385,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
             title: 'Can We Bring Food and Drinks?',
             items: [
               'Yes! BYOB for guests 21+ with valid ID',
-              'Cans and plastic containers only (no glass beer bottles — wine and spirits in a cooler fine)',
+              'Cans and plastic containers only (no glass)',
               'Bring snacks, meals, or coordinate catering delivery',
               'We provide coolers and ice (package dependent)',
               'Solo cups provided on Essentials/Ultimate packages',
@@ -2639,7 +2514,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
               'Custom packages tailored to your specific needs',
               'Group discounts for large parties',
               'Transportation coordination assistance',
-              'Catering coordination and BYOB <a href="https://partyondelivery.com" target="_blank" rel="noopener noreferrer" style="color: #1e40af; text-decoration: underline;">Party On Delivery</a> setup',
+              'Catering coordination and BYOB Party On Delivery setup',
               'Special celebration add-ons (decorations, photographers, DJs)',
               'Weather contingency planning',
               'Same-day booking when available',
@@ -2742,7 +2617,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Visit Us at Lake Travis',
         paragraphs: [
-          'Premier Party Cruises operates from prime Lake Travis locations with easy access from Austin. Our main office at 13993 FM 2769 in Leander is just 30 minutes from downtown Austin. We depart from multiple marinas around Lake Travis to provide convenient access for all our customers.',
+          'Premier Party Cruises operates from prime Lake Travis locations with easy access from Austin. Our main office at 13993 FM 2769 in Leander is just 25 minutes from downtown Austin. We depart from multiple marinas around Lake Travis to provide convenient access for all our customers.',
           'Whether you\'re coming from Austin, Round Rock, Cedar Park, or anywhere in Central Texas, we\'re easily accessible via major highways. Our team can provide detailed directions, parking information, and even arrange transportation from your location to ensure a smooth start to your Lake Travis adventure.'
         ],
         lists: [
@@ -2750,7 +2625,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
             title: 'Location and Directions',
             items: [
               'Main Office: 13993 FM 2769, Leander, TX 78641',
-              'Just 30 minutes from downtown Austin',
+              'Just 25 minutes from downtown Austin',
               'Easy access from Highway 183 and FM 1431',
               'Multiple departure locations on Lake Travis',
               'Free parking available at all marina locations',
@@ -2923,7 +2798,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'General Questions About Lake Travis Boat Rentals',
         paragraphs: [
           'Premier Party Cruises offers two main types of Lake Travis boat rental experiences: Private Boat Charters for exclusive groups of 14-75 guests starting at $200/hour with 4-hour minimum, and the ATX Disco Cruise for shared party boat experiences at $85-105 per person with professional DJ and photographer included.',
-          'We depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, located approximately 30 minutes from downtown Austin with free parking available. All rentals include licensed, fun, experienced captains, premium sound systems, cooler space, restroom facilities, and shaded areas.'
+          'We depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, located approximately 25 minutes from downtown Austin with free parking available. All rentals include licensed, fun, experienced captains, premium sound systems, cooler space, restroom facilities, and shaded areas.'
         ]
       },
       {
@@ -2943,8 +2818,8 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Food, Drinks, and BYOB Policy',
         paragraphs: [
-          'All cruises are BYOB-friendly for guests 21+ with valid ID. Bring beer, wine, seltzers, and spirits in cans or plastic containers only — no glass beer bottles; wine and spirits in a cooler are fine. We provide cooler space and ice. You can bring your own food or arrange catering delivery to the boat.',
-          'We provide ice water stations on all boats. For convenient beverage delivery, <a href="https://partyondelivery.com" target="_blank" rel="noopener noreferrer" style="color: #1e40af; text-decoration: underline;">Party On Delivery</a> can coordinate alcohol, mixers, and supplies delivered directly to your boat before departure.'
+          'All cruises are BYOB-friendly for guests 21+ with valid ID. Bring beer, wine, seltzers, and spirits in cans or plastic containers only - no glass for safety. We provide cooler space and ice. You can bring your own food or arrange catering delivery to the boat.',
+          'We provide ice water stations on all boats. For convenient beverage delivery, Party On Delivery can coordinate alcohol, mixers, and supplies delivered directly to your boat before departure.'
         ]
       },
       {
@@ -3003,7 +2878,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Combining Day and Night Experiences',
         paragraphs: [
           'The ultimate Austin bachelorette weekend combines daytime [[atx-disco]] adventures with nighttime bar hopping. Start with a 4-hour ATX Disco Cruise (11am-3pm), return to freshen up, then hit the bars around 9pm.',
-          'This day-to-night combination creates the perfect energy flow. The boat party gets everyone pumped, then downtown nightlife keeps the celebration going. Many groups use <a href="https://partyondelivery.com" target="_blank" rel="noopener noreferrer" style="color: #1e40af; text-decoration: underline;">Party On Delivery</a> for convenient pregaming supplies between activities.'
+          'This day-to-night combination creates the perfect energy flow. The boat party gets everyone pumped, then downtown nightlife keeps the celebration going. Many groups use Party On Delivery for convenient pregaming supplies between activities.'
         ]
       },
       {
@@ -3028,7 +2903,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Affordable Accommodation Options',
         paragraphs: [
           'Rent a large Airbnb or vacation home and split costs among your group. Austin has rentals sleeping 8-12 people for $50-100 per person per night when divided. Choose East Austin or South Austin areas for cheaper rates.',
-          'Having a kitchen means doing meals at home to save on restaurant bills. Perfect for coordinating with <a href="https://partyondelivery.com" target="_blank" rel="noopener noreferrer" style="color: #1e40af; text-decoration: underline;">Party On Delivery</a> for affordable beverage supplies delivered to your rental.'
+          'Having a kitchen means doing meals at home to save on restaurant bills. Perfect for coordinating with Party On Delivery for affordable beverage supplies delivered to your rental.'
         ]
       },
       {
@@ -3042,7 +2917,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'BYOB and Money-Saving Deals',
         paragraphs: [
           'All Premier Party Cruises are BYOB-friendly, saving hundreds on bar tabs. Bring your own beer, wine, and seltzers in cans or plastic. We provide coolers and ice.',
-          'Use <a href="https://partyondelivery.com" target="_blank" rel="noopener noreferrer" style="color: #1e40af; text-decoration: underline;">Party On Delivery</a> to order alcohol at retail prices with delivery to your boat or Airbnb. They offer 100% buyback on unopened bottles, so you won\'t overbuy. Much cheaper than buying drinks at bars.'
+          'Use Party On Delivery to order alcohol at retail prices with delivery to your boat or Airbnb. They offer 100% buyback on unopened bottles, so you won\'t overbuy. Much cheaper than buying drinks at bars.'
         ]
       },
       {
@@ -3074,14 +2949,14 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
     ]
   },
   '/luxury-austin-bachelorette': {
-    h1: 'Luxury Bachelorette Party Austin: VIP Private Boats, Spas & 5-Star Hotels',
-    introduction: 'This guide covers the high-end tier of [[bachelorette-party]] planning in Austin — VIP [[private-cruises]], 5-star hotels, spa retreats, fine dining, and upscale [[atx-disco]] packages on Lake Travis. For the complete Austin bachelorette overview covering all budgets and options, see our main <a href="/bachelorette-party-austin" style="color:#1e40af;text-decoration:underline;">Austin Bachelorette Party guide</a>.',
+    h1: 'Luxury Austin Bachelorette Weekend - VIP Experiences',
+    introduction: 'Plan the ultimate luxury [[bachelorette-party]] with VIP [[private-cruises]], upscale hotels, fine dining, and exclusive [[atx-disco]] packages. Treat the bride to an unforgettable high-end Austin celebration on Lake Travis.',
     sections: [
       {
         heading: 'Luxe Hotels and Private Estates',
         paragraphs: [
           'Book prestigious hotels like Fairmont Austin, JW Marriott Downtown, or South Congress Hotel with rooftop infinity pools, world-class spas, and sweeping skyline views. Many offer special bachelorette packages with welcome champagne and spa credits.',
-          'Or rent a luxury Lake Travis villa or Hill Country estate with infinity pool, outdoor entertaining spaces, and stunning lake views. Hire a private chef for gourmet dinners and coordinate premium beverage delivery through <a href="https://partyondelivery.com" target="_blank" rel="noopener noreferrer" style="color: #1e40af; text-decoration: underline;">Party On Delivery</a>.'
+          'Or rent a luxury Lake Travis villa or Hill Country estate with infinity pool, outdoor entertaining spaces, and stunning lake views. Hire a private chef for gourmet dinners and coordinate premium beverage delivery through Party On Delivery.'
         ]
       },
       {
@@ -3141,7 +3016,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'ATX Disco Cruise - The Must-Do Experience',
         paragraphs: [
           'The ATX Disco Cruise is THE premier bachelorette boat experience on Lake Travis. Join other bachelorette groups for a 4-hour party cruise with professional DJ, photographer, giant lily pad floats, and disco dance floor.',
-          'Three time slots available: Saturday 3:30-7:30pm ($85 base, $111.56 w/tax & gratuity), Friday 12-4pm ($95 base, $124.88 w/tax & gratuity), and Saturday 11am-3pm ($105 base, $137.81 w/tax & gratuity - most popular!). Includes everything you need for an epic day on the water with BYOB policies and <a href="https://partyondelivery.com" target="_blank" rel="noopener noreferrer" style="color: #1e40af; text-decoration: underline;">Party On Delivery</a> coordination available.'
+          'Three time slots available: Saturday 3:30-7:30pm ($85 base, $111.56 w/tax & gratuity), Friday 12-4pm ($95 base, $124.88 w/tax & gratuity), and Saturday 11am-3pm ($105 base, $137.81 w/tax & gratuity - most popular!). Includes everything you need for an epic day on the water with BYOB policies and Party On Delivery coordination available.'
         ]
       },
       {
@@ -3155,7 +3030,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Austin\'s Famous Brunch Scene',
         paragraphs: [
           'Recover from nightlife with amazing Austin brunch! Try Tex-Mex brunch spots for migas and mimosas, farm-to-table cafés like Josephine House, or drag brunch shows for entertainment with your meal.',
-          'Bottomless mimosas are popular at many venues. Book reservations in advance for large bachelorette groups. Or keep it simple with DIY mimosa bar and breakfast tacos delivered to your Airbnb via <a href="https://partyondelivery.com" target="_blank" rel="noopener noreferrer" style="color: #1e40af; text-decoration: underline;">Party On Delivery</a>.'
+          'Bottomless mimosas are popular at many venues. Book reservations in advance for large bachelorette groups. Or keep it simple with DIY mimosa bar and breakfast tacos delivered to your Airbnb via Party On Delivery.'
         ]
       },
       {
@@ -3187,7 +3062,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: '1. Party Boat on Lake Travis (ATX Disco Cruise)',
         paragraphs: [
           'The #1 bachelorette party activity in Austin! The ATX Disco Cruise offers a 4-hour floating party with professional DJ, photographer, giant floats, and disco dance floor. Join other bachelorette groups for the ultimate Lake Travis experience.',
-          'Three time slots available starting at $85 per person base price ($111.56 including tax and gratuity). Most affordable and fun way to experience Lake Travis. BYOB with private coolers and ice provided, or coordinate delivery through <a href="https://partyondelivery.com" target="_blank" rel="noopener noreferrer" style="color: #1e40af; text-decoration: underline;">Party On Delivery</a> for ultimate convenience.'
+          'Three time slots available starting at $85 per person base price ($111.56 including tax and gratuity). Most affordable and fun way to experience Lake Travis. BYOB with private coolers and ice provided, or coordinate delivery through Party On Delivery for ultimate convenience.'
         ]
       },
       {
@@ -3208,7 +3083,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: '4. Indulge in Brunch Feasts',
         paragraphs: [
           'Austin\'s brunch scene is legendary! Recover from nightlife with bottomless mimosas, Tex-Mex migas, farm-to-table fare, or drag brunch entertainment shows.',
-          'Popular spots include Banger\'s Beer Garden for Tex-Mex, Josephine House for upscale dining, or DIY mimosa bars at your Airbnb with <a href="https://partyondelivery.com" target="_blank" rel="noopener noreferrer" style="color: #1e40af; text-decoration: underline;">Party On Delivery</a> providing champagne and juices.'
+          'Popular spots include Banger\'s Beer Garden for Tex-Mex, Josephine House for upscale dining, or DIY mimosa bars at your Airbnb with Party On Delivery providing champagne and juices.'
         ]
       },
       {
@@ -3267,7 +3142,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Day 1 (Friday): Welcome to Austin - BBQ and Bar Crawl',
         paragraphs: [
-          'Afternoon Arrival (2-4 PM): Check into shared Airbnb or hotel in downtown or East Austin. Surprise the bride with decorations and welcome bags. Use <a href="https://partyondelivery.com" target="_blank" rel="noopener noreferrer" style="color: #1e40af; text-decoration: underline;">Party On Delivery</a> to pre-stock drinks and mixers in your rental.',
+          'Afternoon Arrival (2-4 PM): Check into shared Airbnb or hotel in downtown or East Austin. Surprise the bride with decorations and welcome bags. Use Party On Delivery to pre-stock drinks and mixers in your rental.',
           'Evening BBQ Feast (6-7 PM): Experience authentic Texas BBQ at Franklin, La Barbecue, or Terry Black\'s. Order family-style to share and budget around $20-25 per person for amazing brisket, ribs, and sides.',
           'Sixth Street Bar Crawl (9 PM-1 AM): Hit the legendary party strip! Start at Maggie Mae\'s rooftop, move to Buckshot for country dancing, shots at Cheers Shot Bar, and end wherever the music takes you. Bride wears sash for free drinks!'
         ]
@@ -3293,7 +3168,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Planning Tips for This Itinerary',
         paragraphs: [
-          'Book ATX Disco Cruise 6-8 weeks in advance for Saturday time slots. Make brunch reservations for Sunday as they fill up quickly. Use <a href="https://partyondelivery.com" target="_blank" rel="noopener noreferrer" style="color: #1e40af; text-decoration: underline;">Party On Delivery</a> to coordinate all beverage needs without carrying anything.',
+          'Book ATX Disco Cruise 6-8 weeks in advance for Saturday time slots. Make brunch reservations for Sunday as they fill up quickly. Use Party On Delivery to coordinate all beverage needs without carrying anything.',
           'Budget approximately $400-600 per person for entire weekend including accommodation, activities, meals, and nightlife. Adjust based on accommodation choice and dining preferences.',
           'Bring comfortable shoes for bar hopping, swimsuits for boat day, and layers for varying temperatures. Sunscreen and sunglasses essential for Lake Travis!',
           'Use rideshare services for all transportation. Split costs among the group. Many bars are walking distance on Sixth and Rainey Streets to minimize transportation costs.'
@@ -3328,7 +3203,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Essential Items to Bring',
         paragraphs: [
-          'Beverages: BYOB allowed for guests 21+ with ID. Bring beer, wine, seltzers in cans or plastic (no glass beer bottles). Wine, champagne, and spirits in a cooler are fine. We provide coolers and ice. Or use <a href="https://partyondelivery.com" target="_blank" rel="noopener noreferrer" style="color: #1e40af; text-decoration: underline;">Party On Delivery</a> to coordinate everything.',
+          'Beverages: BYOB allowed for guests 21+ with ID. Bring beer, wine, seltzers in cans or plastic (no glass). We provide coolers and ice. Or use Party On Delivery to coordinate everything.',
           'Food: Bring snacks, sandwiches, fruit, or order delivery to the marina. Easy-to-eat finger foods work best on boats.',
           'Sun Protection: Sunscreen (reapply often), sunglasses, hats, and light cover-ups. Lake reflection intensifies sun exposure.',
           'Swimming Gear: Swimsuits, towels, waterproof phone cases, and optional floaties. We provide giant lily pads on ATX Disco and Ultimate packages.',
@@ -3453,9 +3328,9 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Additional Costs to Consider',
         paragraphs: [
-          'Beverages: All cruises are BYOB (bring your own). Budget $30-50 per person for drinks. <a href="https://partyondelivery.com" target="_blank" rel="noopener noreferrer" style="color: #1e40af; text-decoration: underline;">Party On Delivery</a> can coordinate convenient delivery at retail prices.',
+          'Beverages: All cruises are BYOB (bring your own). Budget $30-50 per person for drinks. Party On Delivery can coordinate convenient delivery at retail prices.',
           'Food: Bring your own or coordinate delivery to marina. Budget $10-20 per person for snacks and meals.',
-          'Transportation: Marina is 30 minutes from downtown Austin. Rideshare typically $30-50 each way per vehicle. Transportation discounts may be available - contact us for details.',
+          'Transportation: Marina is 25 minutes from downtown Austin. Rideshare typically $30-50 each way per vehicle. Transportation discounts may be available - contact us for details.',
           'Gratuity: Not required but appreciated for exceptional service. Standard is 15-20% of base rental cost for private charters. Disco cruise prices already include tax and gratuity for transparent pricing.',
           'Add-ons: Mimosa Party Cooler ($100), Sparkle Packages ($100), professional videography, premium decorations, catering coordination, or special requests available at additional cost. Contact us for custom pricing.'
         ]
@@ -3463,7 +3338,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Money-Saving Tips',
         paragraphs: [
-          'Book ATX Disco Cruise for best value - always cheaper than private boats for groups under 30. BYOB saves hundreds on bar tabs. Use <a href="https://partyondelivery.com" target="_blank" rel="noopener noreferrer" style="color: #1e40af; text-decoration: underline;">Party On Delivery</a> for retail-priced alcohol with 100% buyback on unopened bottles.',
+          'Book ATX Disco Cruise for best value - always cheaper than private boats for groups under 30. BYOB saves hundreds on bar tabs. Use Party On Delivery for retail-priced alcohol with 100% buyback on unopened bottles.',
           'Book weekday cruises when possible for lower rates. Combine groups for shared private charters to split costs. Ask about group discounts for multiple bookings. Military and first responders receive 10% off with valid ID.',
           'Saturday 3:30-7:30pm time slot at $85 base price ($111.56 with tax & gratuity) offers the best value for budget-conscious groups, while Friday 12-4pm ($95 base, $124.88 total) and Saturday 11am-3pm ($105 base, $137.81 total) provide premium timing and atmosphere.'
         ]
@@ -3584,8 +3459,8 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Planning Your Combined Party',
         paragraphs: [
-          'Book 6-8 weeks in advance - combined parties are trending and weekends fill quickly! All cruises are BYOB (bring your own beverages). <a href="https://partyondelivery.com" target="_blank" rel="noopener noreferrer" style="color: #1e40af; text-decoration: underline;">Party On Delivery</a> can coordinate convenient alcohol delivery at retail prices with 100% buyback on unopened bottles.',
-          'The marina is 30 minutes from downtown Austin with ample free parking. Party Squad and Ultimate packages include 25% transportation discount. Most combined parties run 4 hours with 11am-3pm being the most popular time slot.',
+          'Book 6-8 weeks in advance - combined parties are trending and weekends fill quickly! All cruises are BYOB (bring your own beverages). Party On Delivery can coordinate convenient alcohol delivery at retail prices with 100% buyback on unopened bottles.',
+          'The marina is 25 minutes from downtown Austin with ample free parking. Party Squad and Ultimate packages include 25% transportation discount. Most combined parties run 4 hours with 11am-3pm being the most popular time slot.',
           'Questions about group size, package selection, or customization? Our team specializes in combined bachelor bachelorette parties and will help you plan the perfect celebration for your crew!'
         ]
       },
@@ -3597,45 +3472,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           'Disco cruise or private boat - which is better? Under 30 people total, disco cruise is the best value. Over 30 or want complete privacy, choose private boat. We\'ll help you decide!',
           'What if guys and girls want different things? Plenty of zones on the boat: party floats, DJ dance area, lounge sections. BYOB keeps beverage preferences flexible for everyone.',
           'What are the best activities for mixed groups? DJ dance floor, giant party floats, swimming - universal fun everyone enjoys together!',
-          'How far in advance should we book? Book 6-8 weeks early, especially for weekend dates. Combined parties are trending and popular time slots fill quickly.',
-          'Can the bachelor and bachelorette groups have their own space on the boat? Yes. The boat has multiple zones — a DJ dance area, floating platforms, lounge areas, and sun decks. Groups naturally spread out and come together. The combined energy is part of what makes it work.',
-          'What if the bride wants something different from the groom? That is exactly the point. BYOB means each group brings whatever they want to drink. The DJ plays music everyone enjoys. The floats, the lake, and the dancing are universal. There is no agenda to fight over.',
-          'Is there a minimum group size for a combined party? No minimum. One person from each side is fine. Most combined groups run 10-30 total, which is the sweet spot for the ATX Disco Cruise format.',
-          'Can we have sashes, banners, or decorations? Yes — bring whatever you want. Many combined groups do matching sashes for the bach and the bride, or coordinating colors. The photographer captures all of it.'
-        ]
-      },
-      {
-        heading: 'How Combined Bachelor Bachelorette Parties Actually Work on the Water',
-        paragraphs: [
-          'A combined bachelor bachelorette party on the ATX Disco Cruise works differently than you might expect — and it works better than most people anticipate. Here is what actually happens.',
-          'When your group arrives at Anderson Mill Marina (13993 FM 2769, Leander TX 78641), you check in as a group and board together. The bachelor side and bachelorette side are not separated — you are one crew. The boat has enough space that people naturally find their own zones: some stay near the DJ booth dancing, some spread out on the giant lily pad floats, some gather at the coolers. The layout creates natural social flow rather than forcing everyone into the same three feet.',
-          'The professional DJ plays a set that works for mixed groups — dance hits, singalong moments, and crowd-interactive games that get both sides engaged. The photographer moves through the whole group throughout the four hours, capturing candid shots and posed group photos. Both sides get the full photography coverage.',
-          'The most common thing our crew hears from combined group guests is that they expected it to feel compromised — like neither side got the full experience — and instead found it more fun than a solo bach party would have been. The dynamic of the two groups meeting, merging, and celebrating together creates energy that a single-group party does not have.',
-          'The cruise runs four hours. The typical flow is 30-40 minutes of cruising, 2+ hours anchored in a cove for swimming and floating, then the cruise back. The return trip is often the most party-like segment — everyone is warmed up, the sun is getting lower, and the DJ brings the energy up for the finale.'
-        ]
-      },
-      {
-        heading: 'The Real Reasons Combined Bach Parties Are Growing',
-        paragraphs: [
-          'Combined bachelor bachelorette parties have grown significantly over the past five years. This is not a trend driven by budget constraints — it is driven by what modern couples actually want from their pre-wedding celebrations.',
-          'Many couples have deeply overlapping friend groups. When 60% of the guest list knows people from both sides, holding two separate parties creates social friction. People feel obligated to attend both, which splits attention and energy. One combined party solves the scheduling problem entirely.',
-          'The wedding weekend itself is often already stressful to coordinate — hotels, rehearsal dinners, getting everyone in the same city. A combined bach party simplifies the pre-wedding social calendar dramatically. One date, one activity, one group chat.',
-          'There is also a genuine experience case. The ATX Disco Cruise for a combined group of 20-40 people creates a party atmosphere that a smaller single-gender group cannot match. More people equals more energy on the dance floor, better group photos, and the kind of shared memory that both sides of the wedding party talk about at the reception.',
-          'From a cost standpoint: one combined party almost always costs less than two separate ones, especially in Austin where bachelor and bachelorette activities have gotten expensive. The [[atx-disco]] at $85-105 per person all-inclusive is one of the best value propositions for any Austin pre-wedding celebration, and splitting it as a combined event means each person only pays once.',
-          'Premier Party Cruises has been running combined bachelor bachelorette parties on Lake Travis for years. It is one of our most requested configurations. Call us at (512) 488-5892 or use the quote builder to discuss what your combined group looks like and which package fits best.'
-        ]
-      },
-      {
-        heading: 'Austin Combined Bach Party: Full Planning Guide',
-        paragraphs: [
-          'Here is everything you need to plan a combined bachelor bachelorette party in Austin from start to finish.',
-          'The venue decision: For groups under 30 total, the [[atx-disco]] is almost always the right call. All-inclusive pricing means you are not coordinating multiple vendors. DJ, photographer, floats, and party supplies are all built in. For groups over 30 or those wanting a fully private boat, a [[private-cruises]] charter on the Clever Girl (up to 75 guests) gives you the whole boat.',
-          'Booking timeline: Book 6-8 weeks in advance for weekend dates, 4-6 weeks for weekdays. The ATX Disco Cruise runs Fridays 12-4pm and Saturdays at 11am-3pm or 3:30-7:30pm (March through October). Saturday slots fill fastest, especially June, July, and August.',
-          'Getting to the marina: Anderson Mill Marina is at 13993 FM 2769, Leander TX 78641. It is approximately 35-40 minutes from downtown Austin via 183 North. Free parking is available. Most combined groups coordinate a party bus or Lyft together — this is the right call if the group is drinking.',
-          'Coordinating both sides: Combined parties work best when one person owns the planning. Decide on one point of contact for each side, then designate an overall coordinator (often the maid of honor or best man). Use the quote builder on this site to get a pricing breakdown you can share with both groups.',
-          'Alcohol logistics: The ATX Disco Cruise is BYOB (beer in cans; wine, champagne, and spirits in a cooler are fine, no glass). <a href="https://partyondelivery.com" target="_blank" rel="noopener noreferrer" style="color: #1e40af; text-decoration: underline;">Party On Delivery</a> offers alcohol delivery directly to the marina at retail prices with 100% buyback on unopened bottles — popular option for combined groups who do not want to coordinate a Costco run.',
-          'Photography: The professional photographer covers the whole group. Both sides get digital delivery within 2-3 weeks. No need to hire separate photographers for the two sides — it is all covered.',
-          'After the cruise: Most combined parties extend into Austin proper after the cruise. Rainey Street and East 6th are 40 minutes away and have the highest density of good bars for groups. Make a reservation at a large-format bar or restaurant for dinner — walk-in for a group of 20+ rarely works on a weekend evening.'
+          'How far in advance should we book? Book 6-8 weeks early, especially for weekend dates. Combined parties are trending and popular time slots fill quickly.'
         ]
       }
     ],
@@ -3919,7 +3756,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'BYOB Anniversary Party Packages and Beverage Options',
         paragraphs: [
           'All our anniversary cruises are fully BYOB friendly, allowing you to bring your own beer, wine, champagne, and spirits without any corkage fees. We provide large coolers, plenty of ice, and cold water so your beverages stay perfectly chilled throughout your cruise. Glass bottles must be transferred to plastic containers for safety.',
-          'Partner with <a href="https://partyondelivery.com" target="_blank" rel="noopener noreferrer" style="color: #1e40af; text-decoration: underline;">Party On Delivery</a> for hassle-free beverage coordination - they deliver your complete drink order directly to the marina before your cruise. Choose from curated anniversary packages including champagne for toasting, wine selections, or full bar setups for larger celebrations. Skip the shopping and hauling; everything arrives cold and ready.',
+          'Partner with Party On Delivery for hassle-free beverage coordination - they deliver your complete drink order directly to the marina before your cruise. Choose from curated anniversary packages including champagne for toasting, wine selections, or full bar setups for larger celebrations. Skip the shopping and hauling; everything arrives cold and ready.',
           'Popular anniversary beverage choices include premium champagne for sunset toasting, Texas wines from nearby Hill Country vineyards, and craft cocktail ingredients for signature drinks. Your anniversary celebration, your beverage choices - we accommodate whatever makes your celebration special.'
         ]
       },
@@ -3944,7 +3781,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           'The crown jewel of any Austin bachelor party is a boat cruise on Lake Travis. This is the activity that makes Austin bachelor parties legendary - 4 hours of cruising crystal-clear waters, swimming in scenic coves, and partying with your crew against the stunning backdrop of the Texas Hill Country. No bachelor party in Austin is complete without hitting the lake.',
           'Join the famous [[atx-disco]] with multiple bachelor and bachelorette groups for the ultimate social party experience. All-inclusive pricing includes professional DJ spinning hits all day, onboard photographer capturing epic moments, giant 20-foot lily pad floats for swimming breaks, disco dance floor, party supplies, coolers with ice, and an incredible energy with groups celebrating together. The co-ed atmosphere means you might team up with bachelorette groups for an epic after-party downtown.',
           'Prefer exclusive use for your crew? Book a [[private-cruises]] and have the entire boat to yourselves. Choose the Day Tripper for groups up to 14, the Meeseeks for groups up to 30, or the flagship Clever Girl with 14 disco balls for parties up to 75 guys. Private charters include licensed captain, premium sound system, and complete flexibility to customize your route and vibe. BYOB friendly with no corkage fees - bring all your own beverages and we provide coolers and ice.',
-          'Pro tip: Use <a href="https://partyondelivery.com" target="_blank" rel="noopener noreferrer" style="color: #1e40af; text-decoration: underline;">Party On Delivery</a> to have all your drinks, mixers, and ice delivered directly to the marina. Skip the liquor store runs and hauling coolers - everything arrives cold and ready for your crew.'
+          'Pro tip: Use Party On Delivery to have all your drinks, mixers, and ice delivered directly to the marina. Skip the liquor store runs and hauling coolers - everything arrives cold and ready for your crew.'
         ]
       },
       {
@@ -4092,7 +3929,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'BYOB Anniversary Packages and Beverage Delivery',
         paragraphs: [
           'All our anniversary cruises are fully BYOB friendly, allowing you to bring your own beer, wine, champagne, and spirits without any corkage fees. We provide large coolers, plenty of ice, and cold water so your beverages stay perfectly chilled throughout your cruise. Glass bottles must be transferred to plastic containers for safety.',
-          'Partner with <a href="https://partyondelivery.com" target="_blank" rel="noopener noreferrer" style="color: #1e40af; text-decoration: underline;">Party On Delivery</a> for hassle-free beverage coordination - they deliver your complete drink order directly to the marina before your cruise. Choose from curated anniversary packages including champagne for toasting, wine selections, or full bar setups for larger celebrations. Skip the shopping and hauling; everything arrives cold and ready.',
+          'Partner with Party On Delivery for hassle-free beverage coordination - they deliver your complete drink order directly to the marina before your cruise. Choose from curated anniversary packages including champagne for toasting, wine selections, or full bar setups for larger celebrations. Skip the shopping and hauling; everything arrives cold and ready.',
           'Popular anniversary beverage choices include premium champagne for sunset toasting, Texas wines from nearby Hill Country vineyards, and craft cocktail ingredients for signature drinks. Your anniversary celebration, your beverage choices - we accommodate whatever makes your celebration special.'
         ]
       },
@@ -4576,7 +4413,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Lake Travis Party Boats',
         paragraphs: [
           'January offers the best availability and lowest prices of the year for a lake travis bachelor party boat experience. Book midday cruises (12-4pm) when temperatures are warmest. Our austin bachelor party boats accommodate 14-75 guests with captain, crew, premium sound system, and water activities for the ultimate bachelor party austin texas celebration.',
-          'BYOB through <a href="https://partyondelivery.com" target="_blank" rel="noopener noreferrer" style="color: #1e40af; text-decoration: underline;">Party On Delivery</a>, professional captain and crew included, Bluetooth sound system for your playlist, and the best rates of the year in January.'
+          'BYOB through Party On Delivery, professional captain and crew included, Bluetooth sound system for your playlist, and the best rates of the year in January.'
         ]
       }
     ]
@@ -4630,7 +4467,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Lake Travis Party Boats',
         paragraphs: [
           'May is peak season for a lake travis bachelor party boat experience! Book 2-3 months in advance, especially for Memorial Day weekend. Our austin bachelor party boats accommodate 14-75 guests with captain, crew, premium sound system, and all the water activities you need.',
-          'Perfect warm water temperatures in May with BYOB through <a href="https://partyondelivery.com" target="_blank" rel="noopener noreferrer" style="color: #1e40af; text-decoration: underline;">Party On Delivery</a>, professional captain and crew included, and Bluetooth sound system for your playlist.'
+          'Perfect warm water temperatures in May with BYOB through Party On Delivery, professional captain and crew included, and Bluetooth sound system for your playlist.'
         ]
       }
     ]
@@ -4657,7 +4494,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Lake Travis Party Boats',
         paragraphs: [
           'July is PEAK season for lake travis bachelor party boat experiences - book 3+ months in advance, especially for 4th of July weekend! Our austin bachelor party boats accommodate 14-75 guests with captain, crew, premium sound system, and all the water activities you need.',
-          'Swimming and water activities are essential in July with shaded areas to escape the Texas sun. BYOB through <a href="https://partyondelivery.com" target="_blank" rel="noopener noreferrer" style="color: #1e40af; text-decoration: underline;">Party On Delivery</a> with professional captain and crew included.'
+          'Swimming and water activities are essential in July with shaded areas to escape the Texas sun. BYOB through Party On Delivery with professional captain and crew included.'
         ]
       }
     ]
@@ -4684,7 +4521,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Lake Travis Party Boats',
         paragraphs: [
           'September offers excellent availability for a lake travis bachelor party boat at off-season rates. Book 3-4 weeks in advance for best selection. Our austin bachelor party boats accommodate 14-75 guests with captain, crew, premium sound system, and water activities.',
-          'Perfect lake conditions in September with swimming and water activities available. BYOB through <a href="https://partyondelivery.com" target="_blank" rel="noopener noreferrer" style="color: #1e40af; text-decoration: underline;">Party On Delivery</a> with professional captain and crew included.'
+          'Perfect lake conditions in September with swimming and water activities available. BYOB through Party On Delivery with professional captain and crew included.'
         ]
       }
     ]
@@ -4711,7 +4548,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Lake Travis Party Boats',
         paragraphs: [
           'November offers excellent availability for a lake travis bachelor party boat at shoulder season rates. Midday cruises are perfect for swimming while evenings are crisp and refreshing. Our austin bachelor party boats accommodate 14-75 guests with captain, crew, and premium sound system.',
-          'Swimming still works great midday with crisp fall lake conditions. BYOB through <a href="https://partyondelivery.com" target="_blank" rel="noopener noreferrer" style="color: #1e40af; text-decoration: underline;">Party On Delivery</a> with professional captain and crew included.'
+          'Swimming still works great midday with crisp fall lake conditions. BYOB through Party On Delivery with professional captain and crew included.'
         ]
       }
     ]
@@ -4738,7 +4575,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Lake Travis Party Boats',
         paragraphs: [
           'April is perfect for a lake travis bachelorette party boat cruise! The water is warming up for your austin bachelorette party, crowds are manageable, and the scenery is stunning with spring blooms. Our bachelorette party austin texas boats accommodate 14-75 guests with captain, crew, premium sound system, and photo-worthy moments.',
-          'Perfect spring lake conditions with BYOB through <a href="https://partyondelivery.com" target="_blank" rel="noopener noreferrer" style="color: #1e40af; text-decoration: underline;">Party On Delivery</a>, professional captain and crew included, and Bluetooth sound system for your bridal playlist.'
+          'Perfect spring lake conditions with BYOB through Party On Delivery, professional captain and crew included, and Bluetooth sound system for your bridal playlist.'
         ]
       }
     ]
@@ -4765,7 +4602,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Lake Travis Party Boats',
         paragraphs: [
           'June is peak season for your austin bachelorette party - book your lake travis bachelorette party boat 2-3 months in advance for best selection! Our bachelorette party austin texas boats accommodate 14-75 guests with captain, crew, premium sound system, and water activities.',
-          'Prime lake conditions with warm water temps, perfect for the bride tribe! BYOB through <a href="https://partyondelivery.com" target="_blank" rel="noopener noreferrer" style="color: #1e40af; text-decoration: underline;">Party On Delivery</a> with professional captain and crew included.'
+          'Prime lake conditions with warm water temps, perfect for the bride tribe! BYOB through Party On Delivery with professional captain and crew included.'
         ]
       }
     ]
@@ -4792,7 +4629,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Lake Travis Party Boats',
         paragraphs: [
           'August is peak season for your austin bachelorette party on Lake Travis - book your lake travis bachelorette party boat 4-6 weeks in advance for your bride tribe! Our bachelorette party austin texas boats accommodate 14-75 guests with captain, crew, premium sound system, and water activities perfect for beating the heat.',
-          'Swimming and water slides to cool off with sunset cruises as the most popular time slot. BYOB through <a href="https://partyondelivery.com" target="_blank" rel="noopener noreferrer" style="color: #1e40af; text-decoration: underline;">Party On Delivery</a> with professional captain and crew included.'
+          'Swimming and water slides to cool off with sunset cruises as the most popular time slot. BYOB through Party On Delivery with professional captain and crew included.'
         ]
       }
     ]
@@ -4819,7 +4656,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Lake Travis Party Boats',
         paragraphs: [
           'October is peak season for your austin bachelorette party! Book your lake travis bachelorette party boat 6-8 weeks in advance for ACL weekends. Our bachelorette party austin texas boats accommodate 14-75 guests with captain, crew, premium sound system, and Instagram-worthy lake views.',
-          'Swimming and water activities in perfect fall weather - Halloween costume party cruises are a hit! BYOB through <a href="https://partyondelivery.com" target="_blank" rel="noopener noreferrer" style="color: #1e40af; text-decoration: underline;">Party On Delivery</a> with professional captain and crew included.'
+          'Swimming and water activities in perfect fall weather - Halloween costume party cruises are a hit! BYOB through Party On Delivery with professional captain and crew included.'
         ]
       }
     ]
@@ -4846,7 +4683,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Lake Travis Party Boats',
         paragraphs: [
           'December offers unique holiday-themed lake travis bachelorette party boat cruises with festive decorations! Book your austin bachelorette party 2-3 weeks in advance for best availability. Our bachelorette party austin texas boats accommodate 14-75 guests with captain, crew, premium sound system, and cozy cabin areas.',
-          'Holiday-themed decorations available with enclosed cabin areas for cooler weather. Perfect for sunset cruises and champagne toasts with BYOB through <a href="https://partyondelivery.com" target="_blank" rel="noopener noreferrer" style="color: #1e40af; text-decoration: underline;">Party On Delivery</a>.'
+          'Holiday-themed decorations available with enclosed cabin areas for cooler weather. Perfect for sunset cruises and champagne toasts with BYOB through Party On Delivery.'
         ]
       }
     ]
@@ -4859,7 +4696,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Why Dallas Companies Choose Lake Travis',
         paragraphs: [
           'Lake Travis offers Dallas-based companies an accessible escape from the office that feels worlds away. The 3-hour drive from Dallas to our marina at Lake Travis makes it perfect for day trips or overnight corporate outings. The stunning Texas Hill Country scenery provides a memorable backdrop that your team will talk about long after returning to the office.',
-          'Our boats depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641 - approximately 30 minutes from downtown Austin and 3 hours from Dallas. Many Dallas companies combine their [[corporate-events]] with an overnight stay in Austin, exploring the city\'s renowned dining and entertainment before or after their cruise.'
+          'Our boats depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641 - approximately 25 minutes from downtown Austin and 3 hours from Dallas. Many Dallas companies combine their [[corporate-events]] with an overnight stay in Austin, exploring the city\'s renowned dining and entertainment before or after their cruise.'
         ]
       },
       {
@@ -4894,7 +4731,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Why Austin for Your Company Offsite',
         paragraphs: [
           'Austin has become one of America\'s top destinations for corporate offsites, combining excellent flight connectivity, world-class dining, live music culture, and unique outdoor experiences like Lake Travis. Companies from across the country choose Austin for destination retreats because it offers something genuinely different from typical conference venues.',
-          'A Lake Travis party boat experience adds a memorable highlight to any multi-day offsite. The scenic Texas Hill Country waters, beautiful coves, and relaxed atmosphere create the perfect environment for team bonding. Our boats depart from Anderson Mill Marina, just 30 minutes from downtown Austin hotels, making logistics simple for visiting teams.'
+          'A Lake Travis party boat experience adds a memorable highlight to any multi-day offsite. The scenic Texas Hill Country waters, beautiful coves, and relaxed atmosphere create the perfect environment for team bonding. Our boats depart from Anderson Mill Marina, just 25 minutes from downtown Austin hotels, making logistics simple for visiting teams.'
         ]
       },
       {
@@ -4943,7 +4780,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Easy Planning for Busy Managers',
         paragraphs: [
           'We understand that planning employee events is often an extra responsibility on top of your regular workload. That\'s why we\'ve streamlined the process: choose your boat based on group size, select your date and time, and we handle the rest. Private charters start at $200 per hour with a 4-hour minimum.',
-          'All cruises are BYOB-friendly (21+ with ID), and you can bring your own catering or have food delivered to the marina. Many companies coordinate with local Austin restaurants or bring team-favorite foods. Our boats depart from Anderson Mill Marina, approximately 30 minutes from downtown Austin, making it accessible for Austin-area workplaces.'
+          'All cruises are BYOB-friendly (21+ with ID), and you can bring your own catering or have food delivered to the marina. Many companies coordinate with local Austin restaurants or bring team-favorite foods. Our boats depart from Anderson Mill Marina, approximately 25 minutes from downtown Austin, making it accessible for Austin-area workplaces.'
         ]
       },
       {
@@ -4977,7 +4814,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Large Group Logistics Made Simple',
         paragraphs: [
-          'We depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 30 minutes from downtown Austin. The marina offers ample parking for large groups. Private charters on "Clever Girl" start at $250 per hour with a 4-hour minimum.',
+          'We depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 25 minutes from downtown Austin. The marina offers ample parking for large groups. Private charters on "Clever Girl" start at $250 per hour with a 4-hour minimum.',
           'All cruises are BYOB-friendly, and you can coordinate catering delivery to the marina or bring your own food. For groups approaching 75 guests, we recommend booking well in advance - typically 6-8 weeks for weekend dates. Our team can help coordinate logistics for your specific event needs.'
         ]
       },
@@ -5019,7 +4856,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Safety Policies That Protect Everyone',
         paragraphs: [
-          'All cruises are BYOB-friendly for guests 21+ with valid ID - we check identification to ensure compliance. No glass beer bottles allowed. Beer must be in cans. Wine, champagne, and spirits in a cooler are fine. Our captain has authority to address any behavior that could compromise safety.',
+          'All cruises are BYOB-friendly for guests 21+ with valid ID - we check identification to ensure compliance. No glass containers are allowed on board for safety reasons; cans and plastic containers only. Our captain has authority to address any behavior that could compromise safety.',
           'Our perfect safety record isn\'t luck - it\'s the result of professional operations, trained personnel, maintained equipment, and policies that prioritize your wellbeing. When you book with Premier Party Cruises at 512-488-5892, you\'re choosing the safest party boat experience on Lake Travis. Visit our [[testimonials]] to see why 150,000+ customers have trusted us with their celebrations.'
         ]
       }
@@ -5047,7 +4884,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'BYOB and Alcohol Delivery Options',
         paragraphs: [
-          'All Premier Party Cruises are BYOB-friendly for guests 21+ with valid ID. Bring your own beer, wine, seltzers, champagne, and any other beverages in cans or plastic (no glass beer bottles). Wine, champagne, and spirits in a cooler are fine. We provide large coolers packed with ice to keep everything cold during your cruise.',
+          'All Premier Party Cruises are BYOB-friendly for guests 21+ with valid ID. Bring your own beer, wine, seltzers, champagne, and any other beverages in cans or plastic containers (no glass for safety). We provide large coolers packed with ice to keep everything cold during your cruise.',
           'For convenience, alcohol delivery services can bring your order directly to Anderson Mill Marina before your cruise. Many bachelorette groups use this option to avoid transporting drinks themselves. Coordinate your delivery timing with your cruise departure, and your beverages will be ready when you arrive.'
         ]
       },
@@ -5055,7 +4892,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Building Your Austin Bachelorette Weekend',
         paragraphs: [
           'Many bridal parties build multi-day Austin weekends around their Lake Travis cruise. The city offers spa experiences, boutique shopping, rooftop bars, and the famous 6th Street entertainment district. Your lake cruise becomes the unforgettable centerpiece of the celebration.',
-          'Whether you\'re planning a relaxed spa-focused weekend or a non-stop celebration, a Lake Travis party boat fits perfectly into your itinerary. We depart approximately 30 minutes from downtown Austin, making it easy to incorporate into any Austin bachelorette schedule. Visit [[bachelorette-party]] for more details or call 512-488-5892.'
+          'Whether you\'re planning a relaxed spa-focused weekend or a non-stop celebration, a Lake Travis party boat fits perfectly into your itinerary. We depart approximately 25 minutes from downtown Austin, making it easy to incorporate into any Austin bachelorette schedule. Visit [[bachelorette-party]] for more details or call 512-488-5892.'
         ]
       }
     ],
@@ -5076,7 +4913,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'BYOB Planning for Your Cruise',
         paragraphs: [
           'All Premier Party Cruises are BYOB-friendly for guests 21+ with valid ID. For a 4-hour cruise, plan on bringing enough beverages to keep your group comfortable without overloading coolers. We provide large coolers packed with ice on every boat.',
-          'Cans and plastic containers only — no glass beer bottles. Wine, champagne, and spirits in a cooler are fine. Popular choices include seltzers, champagne in plastic flutes, wine in cans, and beer. Water and non-alcoholic options help everyone pace themselves, especially during warm months on the lake.'
+          'Cans and plastic containers only - no glass allowed for safety. Popular choices include seltzers, champagne in plastic flutes, wine in cans, and beer. Water and non-alcoholic options help everyone pace themselves, especially during warm months on the lake.'
         ]
       },
       {
@@ -5153,7 +4990,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'BYOB and Logistics During Events',
         paragraphs: [
           'All cruises are BYOB-friendly for guests 21+ with valid ID, giving you complete control over your event\'s hospitality. During major conferences, alcohol delivery to Anderson Mill Marina saves time and simplifies logistics. Coordinate delivery timing with your cruise departure.',
-          'We depart approximately 30 minutes from downtown Austin - close enough for conference attendees while offering a complete change of scenery. Many groups arrange transportation to and from the marina as part of their conference programming.'
+          'We depart approximately 25 minutes from downtown Austin - close enough for conference attendees while offering a complete change of scenery. Many groups arrange transportation to and from the marina as part of their conference programming.'
         ]
       },
       {
@@ -5194,7 +5031,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Planning Your Team Event',
         paragraphs: [
-          'Private charters start at $200 per hour with a 4-hour minimum. We depart from Anderson Mill Marina, approximately 30 minutes from downtown Austin. Book 4-6 weeks ahead for weekend dates, especially during peak season (April-October).',
+          'Private charters start at $200 per hour with a 4-hour minimum. We depart from Anderson Mill Marina, approximately 25 minutes from downtown Austin. Book 4-6 weeks ahead for weekend dates, especially during peak season (April-October).',
           'With a perfect safety record and 15+ years hosting [[team-building]] events, Premier Party Cruises provides the professional service your company expects. Contact us at 512-488-5892 or visit [[team-building]] to start planning your Lake Travis corporate outing.'
         ]
       }
@@ -5334,7 +5171,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Planning Your Executive Retreat Cruise',
         paragraphs: [
-          'Private charters start at $200 per hour with a 4-hour minimum. We depart from Anderson Mill Marina, approximately 30 minutes from downtown Austin. Book 4-6 weeks ahead for preferred dates, especially during peak season from April through October.',
+          'Private charters start at $200 per hour with a 4-hour minimum. We depart from Anderson Mill Marina, approximately 25 minutes from downtown Austin. Book 4-6 weeks ahead for preferred dates, especially during peak season from April through October.',
           'With 15+ years of experience hosting [[corporate-events]], a perfect safety record, and Coast Guard certified captains, Premier Party Cruises provides the reliability and professionalism your executive retreat requires. Contact us at 512-488-5892 or visit [[team-building]] to discuss your leadership team\'s Lake Travis experience.'
         ]
       }
@@ -5355,7 +5192,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'BYOB Policy for Graduate Celebrations',
         paragraphs: [
-          'All Premier Party Cruises are BYOB-friendly. Guests 21+ with valid ID may bring beer, wine, seltzers, and other beverages in cans or plastic containers — no glass beer bottles. Wine, champagne, and spirits in a cooler are fine. We provide large coolers with ice on every boat. Alcohol delivery services can bring orders directly to Anderson Mill Marina.',
+          'All Premier Party Cruises are BYOB-friendly. Guests 21+ with valid ID may bring beer, wine, seltzers, and other beverages in cans or plastic containers - no glass allowed for safety. We provide large coolers with ice on every boat. Alcohol delivery services can bring orders directly to Anderson Mill Marina.',
           'For graduation parties with guests under 21, many families bring a mix of alcoholic beverages for adults and plenty of non-alcoholic options for younger guests. The celebration belongs to you - our boats and crew provide the venue and service while you create the experience that honors your graduate.'
         ]
       },
@@ -5370,7 +5207,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Making Graduation Memories on Lake Travis',
         paragraphs: [
           'Lake Travis provides stunning backdrops for graduation photos - the Texas Hill Country scenery, clear water, and our premium boats create memorable settings. Many families coordinate school colors in their attire, bringing themed decorations aboard to celebrate the graduate\'s achievement.',
-          'We depart from Anderson Mill Marina, approximately 30 minutes from downtown Austin and the UT campus area. With a perfect safety record and 15+ years of experience, Premier Party Cruises provides the professional service your celebration deserves. Contact us at 512-488-5892 or visit [[graduation-party]] to plan your Lake Travis graduation celebration.'
+          'We depart from Anderson Mill Marina, approximately 25 minutes from downtown Austin and the UT campus area. With a perfect safety record and 15+ years of experience, Premier Party Cruises provides the professional service your celebration deserves. Contact us at 512-488-5892 or visit [[graduation-party]] to plan your Lake Travis graduation celebration.'
         ]
       }
     ],
@@ -5439,7 +5276,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Planning Your Holiday Boat Party',
         paragraphs: [
-          'Private charters start at $200 per hour with a 4-hour minimum. All holidays and holiday weekends book quickly - reserve your date as early as possible. We depart from Anderson Mill Marina, approximately 30 minutes from downtown Austin.',
+          'Private charters start at $200 per hour with a 4-hour minimum. All holidays and holiday weekends book quickly - reserve your date as early as possible. We depart from Anderson Mill Marina, approximately 25 minutes from downtown Austin.',
           'With 15+ years of experience, a perfect safety record, and Coast Guard certified captains, Premier Party Cruises provides reliable service for your holiday celebration. Alcohol delivery services can bring your beverages directly to the marina. Contact us at 512-488-5892 or visit [[private-cruises]] to book your Austin holiday party on Lake Travis.'
         ]
       }
@@ -5460,7 +5297,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'BYOB and Alcohol Coordination',
         paragraphs: [
-          'All Premier Party Cruises are BYOB-friendly for guests 21+ with valid ID. Bring beer, wine, seltzers, and other beverages in cans or plastic containers — no glass beer bottles. Wine, champagne, and spirits in a cooler are fine. We provide large coolers with ice on every boat. Alcohol delivery services can bring your order directly to Anderson Mill Marina.',
+          'All Premier Party Cruises are BYOB-friendly for guests 21+ with valid ID. Bring beer, wine, seltzers, and other beverages in cans or plastic containers - no glass allowed for safety. We provide large coolers with ice on every boat. Alcohol delivery services can bring your order directly to Anderson Mill Marina.',
           'For bachelor parties, many groups coordinate beverage duties among the groomsmen. Designate someone to handle the cooler logistics, ensuring you have enough ice, beverages, and variety for the entire cruise. Our crew provides ice and cooler space - you bring the drinks and party supplies.'
         ]
       },
@@ -5474,7 +5311,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Booking Your Bachelor Party Cruise',
         paragraphs: [
-          'Weekend dates, especially during peak season (April-October), book 6-8 weeks in advance. Contact us early to secure your preferred date. We depart from Anderson Mill Marina, approximately 30 minutes from downtown Austin, making coordination with downtown Austin bachelor party activities easy.',
+          'Weekend dates, especially during peak season (April-October), book 6-8 weeks in advance. Contact us early to secure your preferred date. We depart from Anderson Mill Marina, approximately 25 minutes from downtown Austin, making coordination with downtown Austin bachelor party activities easy.',
           'With 15+ years of experience, a perfect safety record, and Coast Guard certified captains, Premier Party Cruises is Austin\'s trusted choice for bachelor parties. Contact us at 512-488-5892 or visit [[bachelor-party]] to start planning the groom\'s Lake Travis celebration.'
         ]
       }
@@ -5502,14 +5339,14 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'BYOB and Bachelorette Essentials',
         paragraphs: [
-          'All cruises are BYOB-friendly for guests 21+ with valid ID. Bring champagne, wine, seltzers, and other beverages in cans or plastic containers — no glass beer bottles; wine and spirits in a cooler are fine. We provide large coolers with ice. Alcohol delivery services can bring orders directly to Anderson Mill Marina, making coordination easy.',
+          'All cruises are BYOB-friendly for guests 21+ with valid ID. Bring champagne, wine, seltzers, and other beverages in cans or plastic containers - no glass for safety. We provide large coolers with ice. Alcohol delivery services can bring orders directly to Anderson Mill Marina, making coordination easy.',
           'Many bachelorette groups bring matching swimsuits, custom koozies, bride-themed decorations, and coordinated accessories. Our boats provide premium Bluetooth sound for your playlist, shaded lounge areas for conversation, and clean restroom facilities. You bring the celebration essentials - we provide the venue.'
         ]
       },
       {
         heading: 'Planning Your Lake Travis Bachelorette',
         paragraphs: [
-          'Bachelorette dates book quickly, especially weekend slots during peak season (April-October). Reserve 6-8 weeks ahead to secure your preferred time. We depart from Anderson Mill Marina, approximately 30 minutes from downtown Austin, convenient for bachelorette weekends that include downtown activities.',
+          'Bachelorette dates book quickly, especially weekend slots during peak season (April-October). Reserve 6-8 weeks ahead to secure your preferred time. We depart from Anderson Mill Marina, approximately 25 minutes from downtown Austin, convenient for bachelorette weekends that include downtown activities.',
           'With 15+ years specializing in bachelorette celebrations, a perfect safety record, and Coast Guard certified captains, Premier Party Cruises is Austin\'s premier choice. Contact us at 512-488-5892 or visit [[bachelorette-party]] to start planning the bride\'s unforgettable Lake Travis celebration.'
         ]
       }
@@ -5558,7 +5395,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'BYOB Policy and What to Bring',
         paragraphs: [
-          'All Premier Party Cruises are BYOB-friendly for guests 21+ with valid ID. You can bring beer, wine, seltzers, hard seltzers, and other beverages. The key rule: no glass beer bottles on the boats. Beer in cans please. Wine, champagne, and spirits in a cooler are fine. We provide large coolers with ice on every boat.',
+          'All Premier Party Cruises are BYOB-friendly for guests 21+ with valid ID. You can bring beer, wine, seltzers, hard seltzers, and other beverages. The key rule: no glass containers allowed on the boats for safety reasons. Cans and plastic containers only. We provide large coolers with ice on every boat.',
           'For [[bachelor-party]] groups, popular choices include canned beers, boxed wine, canned cocktails, and hard seltzers. Estimate beverages based on your cruise length (typically 4 hours for the [[atx-disco]] or 4+ hours for [[private-cruises]]) and your group\'s preferences. Having variety ensures everyone has options they enjoy.'
         ]
       },
@@ -5588,7 +5425,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
   },
   '/blogs/lake-travis-bachelorette-party-alcohol-laws-what-you-can-and-cant-bring-on-boats': {
     h1: 'Bachelorette Party Boat Rental Alcohol Rules: What You Can Bring on Lake Travis',
-    introduction: 'Planning beverages for your Lake Travis [[bachelorette-party]] cruise? Understanding Premier Party Cruises\' BYOB policy ensures your celebration goes smoothly. With over 15 years hosting bachelorette parties and 150,000+ happy customers, we\'ve streamlined the process to make beverage coordination simple. Our boats - "Day Tripper" (1-14 guests), "Meeseeks/The Irony" (15-30 guests), and "Clever Girl" (31-75 guests) - provide large coolers with ice for your drinks. The key rules: guests must be 21+ with valid ID, no glass beer bottles — beer in cans please; wine, champagne, and spirits in a cooler are fine. This guide explains everything you need to know about bringing alcohol on your bachelorette boat party.',
+    introduction: 'Planning beverages for your Lake Travis [[bachelorette-party]] cruise? Understanding Premier Party Cruises\' BYOB policy ensures your celebration goes smoothly. With over 15 years hosting bachelorette parties and 150,000+ happy customers, we\'ve streamlined the process to make beverage coordination simple. Our boats - "Day Tripper" (1-14 guests), "Meeseeks/The Irony" (15-30 guests), and "Clever Girl" (31-75 guests) - provide large coolers with ice for your drinks. The key rules: guests must be 21+ with valid ID, no glass containers allowed, and cans or plastic containers only. This guide explains everything you need to know about bringing alcohol on your bachelorette boat party.',
     sections: [
       {
         heading: 'Our BYOB Policy Explained',
@@ -5635,14 +5472,14 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Transportation and Marina Arrival',
         paragraphs: [
-          'We depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641. The marina is approximately 30 minutes from downtown Austin. Plan arrival 15-30 minutes before your cruise departure to allow time for parking, loading coolers, and boarding.',
+          'We depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641. The marina is approximately 25 minutes from downtown Austin. Plan arrival 15-30 minutes before your cruise departure to allow time for parking, loading coolers, and boarding.',
           'Many groups coordinate transportation together, whether driving separately and meeting at the marina, arranging rideshares, or hiring group transportation. If booking group transportation, provide the marina address and confirm drop-off/pick-up timing with your cruise schedule.'
         ]
       },
       {
         heading: 'BYOB and Food Coordination',
         paragraphs: [
-          'All cruises are BYOB-friendly for guests 21+ with valid ID. Bring beverages in cans — no glass beer bottles; wine, champagne, and spirits in a cooler are fine. Wine, champagne, and spirits in a cooler are fine. We provide large coolers with ice on every boat. Alcohol delivery services can bring orders directly to the marina for convenience.',
+          'All cruises are BYOB-friendly for guests 21+ with valid ID. Bring beverages in cans or plastic containers only - no glass allowed for safety. We provide large coolers with ice on every boat. Alcohol delivery services can bring orders directly to the marina for convenience.',
           'You can bring your own food or coordinate delivery to the marina. Many groups order pizza, tacos, or catering to arrive before departure. For the [[atx-disco]], mimosa supplies and party supplies are available. Plan food logistics in advance to ensure everything arrives on time.'
         ]
       },
@@ -5677,8 +5514,8 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'What\'s Included in Every Cruise',
         paragraphs: [
-          'Every Premier Party Cruises experience includes: Coast Guard certified licensed captain, professional crew, premium Bluetooth sound system for your playlist, large coolers with ice, clean restroom facilities, and all safety equipment. Our boats depart from Anderson Mill Marina, approximately 30 minutes from downtown Austin.',
-          'All cruises are BYOB-friendly for guests 21+ with valid ID. Bring beverages in cans or plastic containers — no glass beer bottles; wine and spirits in a cooler are fine. Swimming is available when conditions permit (captain\'s discretion). Life jackets are provided. You bring the celebration essentials; we provide the venue, crew, and Lake Travis experience.'
+          'Every Premier Party Cruises experience includes: Coast Guard certified licensed captain, professional crew, premium Bluetooth sound system for your playlist, large coolers with ice, clean restroom facilities, and all safety equipment. Our boats depart from Anderson Mill Marina, approximately 25 minutes from downtown Austin.',
+          'All cruises are BYOB-friendly for guests 21+ with valid ID. Bring beverages in cans or plastic containers - no glass allowed. Swimming is available when conditions permit (captain\'s discretion). Life jackets are provided. You bring the celebration essentials; we provide the venue, crew, and Lake Travis experience.'
         ]
       },
       {
@@ -5713,7 +5550,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Alcohol Regulations for Guests',
         paragraphs: [
           'All Premier Party Cruises are BYOB-friendly, but guests bringing alcohol must be 21+ with valid ID. This is both our policy and Texas state law. Our crew may verify IDs before departure. No alcohol will be served to or consumed by anyone under 21.',
-          'Open container laws that apply on Texas roadways do not apply on private boats on Lake Travis. You may consume alcohol legally on our vessels. However, guests are expected to behave responsibly - our captains have authority to return to the marina if safety concerns arise. We also require no glass beer bottles — wine and spirits in a cooler are fine.'
+          'Open container laws that apply on Texas roadways do not apply on private boats on Lake Travis. You may consume alcohol legally on our vessels. However, guests are expected to behave responsibly - our captains have authority to return to the marina if safety concerns arise. We also require no glass containers for safety reasons.'
         ]
       },
       {
@@ -5748,7 +5585,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'On-Water Safety Equipment',
         paragraphs: [
           'Every cruise includes full safety equipment: life jackets for all passengers, first aid supplies, fire extinguishers, and emergency communication equipment. Swimming is available when conditions permit at the captain\'s discretion, with life jackets required in the water.',
-          'Our boats feature clean restroom facilities, shaded areas, and premium Bluetooth sound systems - all maintained for your comfort and safety. Large coolers with ice are provided for your BYOB beverages (21+ with valid ID, beer in cans; wine & spirits in cooler OK).'
+          'Our boats feature clean restroom facilities, shaded areas, and premium Bluetooth sound systems - all maintained for your comfort and safety. Large coolers with ice are provided for your BYOB beverages (21+ with valid ID, cans/plastic only - no glass).'
         ]
       },
       {
@@ -5782,7 +5619,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'BYOB Safety Requirements',
         paragraphs: [
-          'All cruises are BYOB-friendly for guests 21+ with valid ID. Our crew may verify IDs before departure per our policy and Texas state law. Beverages must be in cans or plastic containers - no glass beer bottles; wine, champagne, and spirits in a cooler are fine. We provide large coolers with ice on every boat.',
+          'All cruises are BYOB-friendly for guests 21+ with valid ID. Our crew may verify IDs before departure per our policy and Texas state law. Beverages must be in cans or plastic containers - no glass allowed for safety reasons. We provide large coolers with ice on every boat.',
           'While you may consume alcohol legally on our vessels, guests are expected to behave responsibly. Our captains have authority to return to the marina if safety concerns arise. Responsible celebration ensures everyone has an amazing experience.'
         ]
       },
@@ -5790,7 +5627,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Booking with Confidence',
         paragraphs: [
           'Premier Party Cruises\' perfect safety record over 15+ years demonstrates our commitment to professional operations. Our [[bachelor-party]] and [[bachelorette-party]] guests, [[corporate-events]] groups, and [[wedding-party]] celebrations all benefit from our safety-first approach.',
-          'We depart from Anderson Mill Marina, approximately 30 minutes from downtown Austin. Contact us at 512-488-5892 to book your professionally-operated Lake Travis party boat experience with the newest fleet and most experienced crew on the lake.'
+          'We depart from Anderson Mill Marina, approximately 25 minutes from downtown Austin. Contact us at 512-488-5892 to book your professionally-operated Lake Travis party boat experience with the newest fleet and most experienced crew on the lake.'
         ]
       }
     ],
@@ -5817,8 +5654,8 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Large Group Logistics',
         paragraphs: [
-          'We depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 30 minutes from downtown Austin. For large groups, plan arrival 20-30 minutes early for parking coordination, cooler loading, and boarding. Communicate marina address and timing to all guests.',
-          'Large groups often coordinate group transportation for easier logistics. Whether carpooling, rideshare, or charter bus, confirm timing aligns with your cruise departure. Alcohol delivery services can bring orders directly to the marina for BYOB convenience (21+ with valid ID, no glass beer bottles; wine and spirits in a cooler fine).'
+          'We depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 25 minutes from downtown Austin. For large groups, plan arrival 20-30 minutes early for parking coordination, cooler loading, and boarding. Communicate marina address and timing to all guests.',
+          'Large groups often coordinate group transportation for easier logistics. Whether carpooling, rideshare, or charter bus, confirm timing aligns with your cruise departure. Alcohol delivery services can bring orders directly to the marina for BYOB convenience (21+ with valid ID, no glass containers).'
         ]
       },
       {
@@ -5880,8 +5717,8 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'What We Provide',
         paragraphs: [
-          'Premier Party Cruises provides the venue and professional operation: boats, Coast Guard certified captains, trained crew, premium Bluetooth sound systems for your playlist, large coolers with ice, and clean restroom facilities. We depart from Anderson Mill Marina, approximately 30 minutes from downtown Austin.',
-          'All cruises are BYOB-friendly (21+ with valid ID, no glass beer bottles; wine and spirits in a cooler fine). You coordinate your catering, decorations, and celebration details. Alcohol delivery services can bring orders to the marina. Private charters start at $200 per hour with 4-hour minimum.'
+          'Premier Party Cruises provides the venue and professional operation: boats, Coast Guard certified captains, trained crew, premium Bluetooth sound systems for your playlist, large coolers with ice, and clean restroom facilities. We depart from Anderson Mill Marina, approximately 25 minutes from downtown Austin.',
+          'All cruises are BYOB-friendly (21+ with valid ID, no glass containers). You coordinate your catering, decorations, and celebration details. Alcohol delivery services can bring orders to the marina. Private charters start at $200 per hour with 4-hour minimum.'
         ]
       },
       {
@@ -5915,14 +5752,14 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'What to Bring for Your Cruise',
         paragraphs: [
-          'All cruises are BYOB-friendly (21+ with valid ID). Bring beverages in cans or plastic containers — no glass beer bottles; wine and spirits in a cooler are fine. We provide large coolers with ice. Alcohol delivery services can bring orders directly to Anderson Mill Marina for convenience.',
+          'All cruises are BYOB-friendly (21+ with valid ID). Bring beverages in cans or plastic containers - no glass allowed. We provide large coolers with ice. Alcohol delivery services can bring orders directly to Anderson Mill Marina for convenience.',
           'Pack swimsuits, sunscreen, sunglasses, and towels for water activities. Swimming is available when conditions permit at the captain\'s discretion. Life jackets provided. Bring decorations, matching outfits, and celebration items to personalize your experience.'
         ]
       },
       {
         heading: 'Planning Your Bachelorette Weekend',
         paragraphs: [
-          'Book your Lake Travis cruise as the anchor event, then build your weekend around it. We depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 30 minutes from downtown Austin. Coordinate transportation for your group.',
+          'Book your Lake Travis cruise as the anchor event, then build your weekend around it. We depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 25 minutes from downtown Austin. Coordinate transportation for your group.',
           'Weekend dates during peak season (April-October) book 6-8 weeks in advance. Holiday weekends fill faster. Contact us early to secure your preferred date and time slot for the [[atx-disco]] or preferred boat for [[private-cruises]].'
         ]
       },
@@ -5958,7 +5795,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: '3-Day Austin Joint Bach Party Itinerary',
         paragraphs: [
           'Day 1: Arrival and group bonding. Check into your Airbnb or hotel near Lake Travis. Welcome happy hour on Rainey Street where bridesmaids meet groomsmen. Group dinner at Texas BBQ spot like Terry Black\'s or Salt Lick. Evening bar hopping on 6th Street together.',
-          'Day 2: The main event! Late brunch with mimosas and tacos. <a href="https://partyondelivery.com" target="_blank" rel="noopener noreferrer" style="color: #1e40af; text-decoration: underline;">Party On Delivery</a> brings drinks to Anderson Mill Marina. 4-hour ATX Disco Cruise on Lake Travis - the highlight of your weekend! Sunset drinks at Oasis Texas overlooking the lake. Downtown celebration on West 6th or East Austin.',
+          'Day 2: The main event! Late brunch with mimosas and tacos. Party On Delivery brings drinks to Anderson Mill Marina. 4-hour ATX Disco Cruise on Lake Travis - the highlight of your weekend! Sunset drinks at Oasis Texas overlooking the lake. Downtown celebration on West 6th or East Austin.',
           'Day 3: Farewell and departure. Casual breakfast and gift exchange. Optional activities: Barton Springs swimming, South Congress shopping, or spa recovery. Afternoon departures with amazing shared memories.'
         ]
       },
@@ -5993,7 +5830,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'What to Bring',
         paragraphs: [
-          'All cruises are BYOB-friendly for guests 21+ with valid ID. Pack beverages in cans or plastic containers — no glass beer bottles; wine and spirits in a cooler are fine. We provide large coolers with ice on every boat. Alcohol delivery services can bring orders directly to Anderson Mill Marina.',
+          'All cruises are BYOB-friendly for guests 21+ with valid ID. Pack beverages in cans or plastic containers - no glass allowed. We provide large coolers with ice on every boat. Alcohol delivery services can bring orders directly to Anderson Mill Marina.',
           'Bring swimsuits, sunscreen, sunglasses, and towels. Swimming is available when conditions permit at the captain\'s discretion with life jackets required (provided). Bring your celebration items - we provide boats, captains, premium sound systems, and the Lake Travis experience.'
         ]
       },
@@ -6001,7 +5838,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Bachelor Party Timeline',
         paragraphs: [
           'Plan arrival at Anderson Mill Marina (13993 FM 2769, Leander, TX 78641) 15-30 minutes before departure. Load coolers, board, and the captain handles everything from there. Your 4-hour cruise includes cruising Lake Travis, anchoring in scenic coves, swimming, and celebrating.',
-          'Coordinate group transportation - approximately 30 minutes from downtown Austin. Many groups arrange rideshares or designated drivers. After your cruise, downtown Austin offers nightlife to continue the celebration. The lake experience anchors your bachelor weekend.'
+          'Coordinate group transportation - approximately 25 minutes from downtown Austin. Many groups arrange rideshares or designated drivers. After your cruise, downtown Austin offers nightlife to continue the celebration. The lake experience anchors your bachelor weekend.'
         ]
       },
       {
@@ -6021,7 +5858,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'BYOB Guidelines and Coordination',
         paragraphs: [
-          'All Premier Party Cruises are BYOB-friendly for guests 21+ with valid ID. Bring your own beer, wine, seltzers, and non-alcoholic beverages in cans or plastic containers only - no glass beer bottles; wine, champagne, and spirits in a cooler are fine. We provide large coolers with ice on every boat.',
+          'All Premier Party Cruises are BYOB-friendly for guests 21+ with valid ID. Bring your own beer, wine, seltzers, and non-alcoholic beverages in cans or plastic containers only - no glass allowed for safety reasons. We provide large coolers with ice on every boat.',
           'Alcohol delivery services can bring orders directly to Anderson Mill Marina (13993 FM 2769, Leander, TX 78641) for your convenience. Coordinate delivery timing with your cruise departure. Many groups find this easier than transporting beverages themselves.'
         ]
       },
@@ -6077,7 +5914,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Planning Your Bachelorette Cruise',
         paragraphs: [
-          'We depart from Anderson Mill Marina (13993 FM 2769, Leander, TX 78641), approximately 30 minutes from downtown Austin. All cruises are BYOB-friendly (21+ with ID; no glass beer bottles — wine and spirits in a cooler fine). Pack swimsuits, sunscreen, towels, and celebration items. Coordinate group transportation.',
+          'We depart from Anderson Mill Marina (13993 FM 2769, Leander, TX 78641), approximately 25 minutes from downtown Austin. All cruises are BYOB-friendly (21+ with ID, no glass). Pack swimsuits, sunscreen, towels, and celebration items. Coordinate group transportation.',
           'Weekend dates during peak season book 6-8 weeks in advance. Contact Premier Party Cruises at 512-488-5892 to secure your preferred date. With our Coast Guard certified captains and perfect safety record, your bachelorette celebration is in expert hands.'
         ]
       }
@@ -6113,7 +5950,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Booking Confidence',
         paragraphs: [
           'Our reputation is built on consistent delivery. [[Bachelor-party]] groups, [[bachelorette-party]] crews, [[corporate-events]] planners, and [[wedding-party]] coordinators choose us because we execute reliably. Read our [[testimonials]] to see what customers experience.',
-          'Contact Premier Party Cruises at 512-488-5892 to discuss your celebration. We depart from Anderson Mill Marina, approximately 30 minutes from downtown Austin. With 15+ years of Lake Travis expertise, your event is in experienced hands.'
+          'Contact Premier Party Cruises at 512-488-5892 to discuss your celebration. We depart from Anderson Mill Marina, approximately 25 minutes from downtown Austin. With 15+ years of Lake Travis expertise, your event is in experienced hands.'
         ]
       }
     ],
@@ -6127,7 +5964,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'ATX Disco Cruise Bachelor Experience',
         paragraphs: [
           'The [[atx-disco]] delivers Austin\'s signature bachelor party cruise experience. Professional DJ plays all day, professional photographer captures epic moments with digital delivery, giant floats and lily pads for water fun, and incredible energy with multiple bachelor groups celebrating together. Three time slots: Saturday 3:30-7:30pm ($85/person), Friday 12-4pm ($95/person), Saturday 11am-3pm ($105/person) - all including tax and gratuity.',
-          'Every disco cruise includes private cooler space with ice for your group, party supplies, and BYOB-friendly policy (21+ with ID; no glass beer bottles — wine and spirits in a cooler fine). Alcohol delivery available directly to Anderson Mill Marina. The [[atx-disco]] is Austin\'s most popular bachelor party activity for good reason.'
+          'Every disco cruise includes private cooler space with ice for your group, party supplies, and BYOB-friendly policy (21+ with ID, no glass). Alcohol delivery available directly to Anderson Mill Marina. The [[atx-disco]] is Austin\'s most popular bachelor party activity for good reason.'
         ]
       },
       {
@@ -6147,7 +5984,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Planning Your Austin Bachelor Party',
         paragraphs: [
-          'We depart from Anderson Mill Marina (13993 FM 2769, Leander, TX 78641), approximately 30 minutes from downtown Austin. All cruises are BYOB-friendly (21+ with ID, no glass beer bottles; wine and spirits in a cooler fine). Pack swimsuits, sunscreen, towels, and celebration essentials. Coordinate group transportation to the marina.',
+          'We depart from Anderson Mill Marina (13993 FM 2769, Leander, TX 78641), approximately 25 minutes from downtown Austin. All cruises are BYOB-friendly (21+ with ID, no glass containers). Pack swimsuits, sunscreen, towels, and celebration essentials. Coordinate group transportation to the marina.',
           'Weekend dates during peak season (April-October) book 6-8 weeks in advance. Contact Premier Party Cruises at 512-488-5892 to secure your preferred date. With our Coast Guard certified captains, perfect safety record, and newest fleet on Lake Travis, your bachelor party is in expert hands.'
         ]
       }
@@ -6162,7 +5999,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Private Charter Pricing - Exclusive Boat Rentals',
         paragraphs: [
           'Private charters give your group exclusive access to one of our premium party boats. All private rentals include a Coast Guard certified captain, professional crew, premium Bluetooth sound system, large coolers with ice, clean restroom facilities, and all safety equipment. Pricing varies by boat capacity and day of the week, with a 4-hour minimum rental required for all private charters.',
-          'Our transparent pricing means no hidden fees or surprise charges. The rates listed include captain, crew, and all standard amenities. All cruises are BYOB-friendly for guests 21 and older with valid ID. No glass beer bottles — wine, champagne, and spirits in a cooler are fine. We can coordinate alcohol and food delivery directly to Anderson Mill Marina for your convenience.',
+          'Our transparent pricing means no hidden fees or surprise charges. The rates listed include captain, crew, and all standard amenities. All cruises are BYOB-friendly for guests 21 and older with valid ID. No glass containers are permitted for safety reasons. We can coordinate alcohol and food delivery directly to Anderson Mill Marina for your convenience.',
           'Private charters are perfect for groups wanting complete control over their celebration. Choose your music through our premium Bluetooth speakers, select your route on Lake Travis, and enjoy the entire boat exclusively for your party. Whether you\'re celebrating a [[bachelor-party]], hosting [[corporate-events]], or planning a [[wedding-party]] outing, our private charters deliver an unforgettable experience.'
         ],
         lists: [
@@ -6261,7 +6098,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'What\'s Included in Every Cruise',
         paragraphs: [
-          'Both private charters and disco cruises include essential amenities for a comfortable celebration on Lake Travis. Our boats depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 30 minutes from downtown Austin. This convenient location makes us accessible from anywhere in the Austin metro area.',
+          'Both private charters and disco cruises include essential amenities for a comfortable celebration on Lake Travis. Our boats depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 25 minutes from downtown Austin. This convenient location makes us accessible from anywhere in the Austin metro area.',
           'All cruises are fully BYOB-friendly. Guests 21 and older with valid ID may bring beer, wine, seltzers, and other beverages in cans or plastic containers. No glass is allowed for safety. We provide large coolers with ice on every cruise. Many groups coordinate alcohol or food delivery directly to the marina before departure.',
           'Our Coast Guard certified captains navigate Lake Travis\'s beautiful waters while you celebrate. Professional crew members ensure your cruise runs smoothly from boarding to return. Every boat features clean restroom facilities, shaded areas, and modern safety equipment. With our perfect safety record and 14+ years of experience, your celebration is in expert hands.'
         ],
@@ -6276,7 +6113,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
               'Clean restroom facilities',
               'Shaded lounge areas',
               'All safety equipment and life jackets',
-              'BYOB friendly (21+ with ID; no glass beer bottles — wine and spirits in a cooler fine)'
+              'BYOB friendly (21+ with ID, no glass)'
             ]
           },
           {
@@ -6307,7 +6144,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         paragraphs: [
           'Is the pricing all-inclusive? For private charters, rates include captain, crew, and all standard boat amenities. You bring your own food and beverages. For the ATX Disco Cruise, the per-person price includes DJ, photographer, floats, party supplies, and all listed amenities, plus tax and gratuity.',
           'Are there any hidden fees? No hidden fees. Our pricing is transparent. Private charter rates include crew. Disco cruise prices include tax and gratuity. The only additional costs are optional add-ons like mimosa setups or towel service.',
-          'Can we bring our own alcohol? Yes! All cruises are BYOB-friendly for guests 21+ with valid ID. Cans and plastic containers only — no glass beer bottles. Wine, champagne, and spirits in a cooler are fine. We provide coolers with ice.',
+          'Can we bring our own alcohol? Yes! All cruises are BYOB-friendly for guests 21+ with valid ID. Cans and plastic containers only - no glass allowed for safety. We provide coolers with ice.',
           'What\'s the cancellation policy? Contact us directly for current cancellation and rescheduling policies. We understand plans change and work with customers to find solutions when possible.',
           'Do you offer group discounts? Large group and corporate booking discounts may be available. Contact us at 512-488-5892 to discuss your event and potential package options.'
         ]
@@ -6386,7 +6223,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Departure Location and Arrival',
         paragraphs: [
-          'All Premier Party Cruises depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641. This convenient location is approximately 30 minutes from downtown Austin, making it accessible from anywhere in the Austin metropolitan area including Round Rock, Cedar Park, Lakeway, and surrounding communities.',
+          'All Premier Party Cruises depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641. This convenient location is approximately 25 minutes from downtown Austin, making it accessible from anywhere in the Austin metropolitan area including Round Rock, Cedar Park, Lakeway, and surrounding communities.',
           'We recommend arriving at the marina 30 minutes before your scheduled departure time. This allows time for parking, locating your boat, meeting your captain and crew, loading any coolers or supplies, and beginning your cruise on schedule. Late arrivals may result in shortened cruise time as we must return by our scheduled dock time.',
           'Free parking is available at Anderson Mill Marina. The marina offers restroom facilities before boarding. Our crew will assist with loading coolers and supplies. If you\'ve arranged alcohol or food delivery to the marina, please coordinate timing so your order arrives before your departure window.'
         ]
@@ -6394,7 +6231,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'What to Bring on Your Cruise',
         paragraphs: [
-          'Proper preparation ensures you maximize your Lake Travis celebration. All cruises are BYOB-friendly for guests 21 and older with valid ID. Bring beer, wine, seltzers, and other beverages in cans or plastic containers only - no glass beer bottles; wine, champagne, and spirits in a cooler are fine. We provide large coolers with ice on every cruise.',
+          'Proper preparation ensures you maximize your Lake Travis celebration. All cruises are BYOB-friendly for guests 21 and older with valid ID. Bring beer, wine, seltzers, and other beverages in cans or plastic containers only - no glass is allowed for safety reasons. We provide large coolers with ice on every cruise.',
           'Pack swimsuits, towels, and reef-safe sunscreen for water activities. Sunglasses and hats provide comfort on sunny days. Wear shoes you can easily remove for boarding. Bring any celebration items, decorations, or party supplies your group wants to enjoy.',
           'For [[bachelor-party]] and [[bachelorette-party]] groups, consider coordinating themed items, custom koozies, or celebration banners. Cameras and phones capture memories, though the [[atx-disco]] includes a professional photographer with digital delivery. Leave valuables at home or in locked vehicles as we cannot be responsible for personal items.'
         ],
@@ -6403,7 +6240,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
             title: 'Recommended Packing List',
             items: [
               'Valid ID for all guests 21+ (required for BYOB)',
-              'Beverages in cans/plastic (no glass beer bottles — wine and spirits in a cooler fine)',
+              'Beverages in cans/plastic (no glass)',
               'Swimsuit and towel',
               'Reef-safe sunscreen',
               'Sunglasses and hat',
@@ -6576,7 +6413,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         paragraphs: [
           'Every boat in the Premier Party Cruises fleet maintains consistent high standards. All vessels undergo regular maintenance and thorough cleaning between charters. Our Coast Guard certified captains and professional crew members receive ongoing training to ensure safe, professional service on every cruise.',
           'All boats feature premium Bluetooth sound systems so you control your music experience. Connect your phone and play your custom playlist throughout your celebration. Large coolers with ice are standard equipment - you bring the beverages, we keep them cold. Clean restroom facilities on every vessel ensure guest comfort during your 4-hour or longer cruise.',
-          'BYOB-friendly cruises allow guests 21 and older with valid ID to bring their own beverages. Cans and plastic containers only — no glass beer bottles; wine and spirits in a cooler are fine. We can coordinate alcohol and food delivery to Anderson Mill Marina before your departure. All boats depart from the same convenient location approximately 30 minutes from downtown Austin.'
+          'BYOB-friendly cruises allow guests 21 and older with valid ID to bring their own beverages. Cans and plastic containers only - no glass for safety. We can coordinate alcohol and food delivery to Anderson Mill Marina before your departure. All boats depart from the same convenient location approximately 25 minutes from downtown Austin.'
         ],
         lists: [
           {
@@ -6608,7 +6445,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Book Your Party Boat Today',
         paragraphs: [
           'Ready to reserve your Lake Travis party boat? Weekend dates during peak season book 6-8 weeks in advance, so early booking secures your preferred date. Contact us at 512-488-5892 to check availability and discuss your celebration plans. Our team provides quotes, answers questions, and helps coordinate all details.',
-          'All boats depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641. The convenient location is approximately 30 minutes from downtown Austin, accessible from anywhere in the metro area. Arrive 30 minutes before your scheduled departure to meet your captain, load your coolers, and start your Lake Travis adventure on time.',
+          'All boats depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641. The convenient location is approximately 25 minutes from downtown Austin, accessible from anywhere in the metro area. Arrive 30 minutes before your scheduled departure to meet your captain, load your coolers, and start your Lake Travis adventure on time.',
           'Premier Party Cruises has operated on Lake Travis for 14+ years with a perfect safety record. Our newest fleet in Austin, experienced captains, and professional crews deliver consistent quality for [[bachelor-party]], [[bachelorette-party]], [[corporate-events]], [[wedding-party]], [[birthday-party]], and celebrations of every kind. Your memorable Lake Travis experience awaits.'
         ]
       }
@@ -6655,7 +6492,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Birthday Party Packages and Options',
         paragraphs: [
-          'Premier Party Cruises makes planning your birthday celebration simple. All [[private-cruises]] charters include captain, crew, sound system, coolers with ice, and full control over your route and schedule. BYOB policies allow guests 21+ with valid ID to bring their own beverages in cans or plastic containers — no glass beer bottles; wine and spirits in a cooler are fine. We can also coordinate alcohol and food delivery directly to the marina before your departure.',
+          'Premier Party Cruises makes planning your birthday celebration simple. All [[private-cruises]] charters include captain, crew, sound system, coolers with ice, and full control over your route and schedule. BYOB policies allow guests 21+ with valid ID to bring their own beverages in cans or plastic containers - no glass for safety. We can also coordinate alcohol and food delivery directly to the marina before your departure.',
           'Many birthday groups add optional extras like lily pad floats for swimming stops, catering coordination for birthday cakes and food, and special decorations. Our team helps coordinate these details during the booking process. We\'ve hosted everything from casual afternoon cruises to elaborate themed birthday parties, and we know how to make each celebration unique and special.',
           'Weekend dates during peak season (April-October) book 6-8 weeks in advance, so we recommend reserving your birthday cruise as soon as you know your date. Our team at 512-488-5892 can check availability, discuss your specific needs, and provide accurate quotes for your celebration. With 150,000+ happy customers, we\'ve earned Austin\'s trust for unforgettable Lake Travis celebrations.'
         ]
@@ -6663,7 +6500,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'The Birthday Party Cruise Experience',
         paragraphs: [
-          'Your birthday cruise departs from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 30 minutes from downtown Austin. We recommend arriving 30 minutes before your scheduled departure to meet your captain, load coolers and any special items, and get oriented with the boat before setting sail.',
+          'Your birthday cruise departs from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 25 minutes from downtown Austin. We recommend arriving 30 minutes before your scheduled departure to meet your captain, load coolers and any special items, and get oriented with the boat before setting sail.',
           'Once underway, your captain navigates Lake Travis while you and your guests enjoy the stunning scenery. Popular stops include Devil\'s Cove for swimming and floating, scenic cliff areas perfect for photos, and quiet coves where you can anchor and enjoy the water. The captain knows all the best spots and can customize your route based on weather conditions and your preferences.',
           'Throughout the cruise, your birthday playlist pumps through the premium sound system while guests swim, lounge, take photos, and celebrate. As the birthday VIP, you\'re the center of attention while our crew handles all the logistics. When your cruise concludes, you\'ll return to the marina with unforgettable memories and photos of the best birthday party ever.'
         ]
@@ -6710,7 +6547,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Anniversary Cruise Amenities and Options',
         paragraphs: [
-          'Every anniversary cruise includes Coast Guard certified captains, premium Bluetooth sound systems, large coolers with ice, clean restroom facilities, and professional crew members who understand the significance of your celebration. BYOB-friendly policies (21+ with ID, no glass beer bottles — wine, champagne, and spirits in a cooler are fine) let you bring your favorite champagne, wines, and beverages.',
+          'Every anniversary cruise includes Coast Guard certified captains, premium Bluetooth sound systems, large coolers with ice, clean restroom facilities, and professional crew members who understand the significance of your celebration. BYOB-friendly policies (21+ with ID, cans and plastic containers only) let you bring your favorite champagne, wines, and beverages.',
           'Many anniversary couples add special touches to enhance their celebration. Coordinate catering delivery for elegant dining on the water - from romantic dinners for two to buffet spreads for larger gatherings. Some couples arrange for flowers, balloons, or custom decorations. Our team helps coordinate these details during booking to ensure your vision becomes reality.',
           'Photography and videography coordinate easily with anniversary cruises. The natural beauty of Lake Travis provides stunning backdrops for anniversary portraits that capture this milestone. Some couples hire professional photographers who join the cruise, while others capture moments with smartphones against the spectacular scenery. Either approach results in treasured memories of your celebration.'
         ],
@@ -6732,7 +6569,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Planning Your Anniversary Cruise',
         paragraphs: [
-          'Anniversary cruises depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 30 minutes from downtown Austin. All boats require a 4-hour minimum rental. Rates vary by vessel and day: Day Tripper ($200-$350/hour), Meeseeks/The Irony ($225-$425/hour), and Clever Girl ($250-$500/hour).',
+          'Anniversary cruises depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 25 minutes from downtown Austin. All boats require a 4-hour minimum rental. Rates vary by vessel and day: Day Tripper ($200-$350/hour), Meeseeks/The Irony ($225-$425/hour), and Clever Girl ($250-$500/hour).',
           'Weekend dates during peak season book 6-8 weeks in advance, so we recommend planning early for anniversary celebrations. Contact Premier Party Cruises at 512-488-5892 to discuss your vision, check availability, and receive a customized quote. Our team has helped thousands of couples celebrate their love on Lake Travis and knows how to make your anniversary extraordinary.',
           'With 14+ years of experience, 150,000+ satisfied customers, and a perfect safety record, Premier Party Cruises delivers the quality your anniversary deserves. Your love story is unique - let us help you celebrate it on the beautiful waters of Lake Travis. Explore other celebration options including [[proposal-cruise]] for those planning the next chapter or [[celebration-cruises]] for any special occasion.'
         ]
@@ -6781,13 +6618,13 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         paragraphs: [
           'Every proposal cruise includes a Coast Guard certified captain who understands the significance of your journey. Our captains are experienced in supporting proposals - they\'ll help time anchor stops for your perfect moment, maintain appropriate distance to give you privacy, and celebrate with you after the big "yes." They\'ve witnessed many proposals on Lake Travis and know how to support your special moment.',
           'The premium Bluetooth sound system lets you play meaningful songs throughout your cruise. From the song that was playing when you first met to your partner\'s favorite romantic ballads, music enhances the emotional atmosphere. Many proposers create special playlists that build to the proposal moment with songs that tell your love story.',
-          'Large coolers with ice keep champagne perfectly chilled for post-proposal celebrations. BYOB-friendly policies (21+ with ID, no glass beer bottles — wine and spirits in a cooler are fine) mean you can bring exactly what you want to toast your engagement. Many couples extend their celebration with a romantic meal on the water after the proposal, savoring the joy of their new engagement surrounded by Lake Travis beauty.'
+          'Large coolers with ice keep champagne perfectly chilled for post-proposal celebrations. BYOB-friendly policies (21+ with ID, cans and plastic containers only) mean you can bring exactly what you want to toast your engagement. Many couples extend their celebration with a romantic meal on the water after the proposal, savoring the joy of their new engagement surrounded by Lake Travis beauty.'
         ]
       },
       {
         heading: 'Proposal Cruise Logistics and Booking',
         paragraphs: [
-          'Proposal cruises depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 30 minutes from downtown Austin. The 4-hour minimum rental provides plenty of time for a leisurely cruise, the proposal moment, and celebration afterward. Day Tripper rates range from $200-$350 per hour depending on the day.',
+          'Proposal cruises depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 25 minutes from downtown Austin. The 4-hour minimum rental provides plenty of time for a leisurely cruise, the proposal moment, and celebration afterward. Day Tripper rates range from $200-$350 per hour depending on the day.',
           'When booking, let our team know you\'re planning a proposal - we\'ll note this in your reservation and ensure your captain is prepared to support your special moment. All information is kept confidential, of course. We can also coordinate timing suggestions based on sunset schedules and help you think through logistics.',
           'After the proposal, many newly-engaged couples return to Austin for dinner or celebrations with family and friends who may have been in on the secret. Some keep the engagement private initially, savoring the moment together. However you choose to continue celebrating, your Lake Travis proposal will be a story you tell for the rest of your lives together.'
         ]
@@ -6904,7 +6741,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
             title: 'Departure Info',
             items: [
               'Anderson Mill Marina, Leander TX',
-              '30 minutes from downtown Austin',
+              '25 minutes from downtown Austin',
               '4-hour minimum for private charters',
               'Arrive 30 minutes early'
             ]
@@ -6936,7 +6773,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
 
   '/party-boat-rental-austin': {
     h1: 'Party Boat Rental Austin | Lake Travis Private Charters',
-    introduction: 'Looking for the best party boat rental in Austin? Premier Party Cruises offers premium [[private-cruises]] on Lake Travis with three vessels to match any group size. Choose from Day Tripper (up to 14 guests), Meeseeks or The Irony (up to 30 guests), or our flagship Clever Girl (up to 75 guests featuring 14 disco balls and a giant Texas flag). Every Austin party boat rental includes a Coast Guard certified captain, professional crew, premium Bluetooth sound system, large coolers with ice, and all the amenities for an unforgettable celebration. We depart from Anderson Mill Marina, just 30 minutes from downtown Austin, making us the most convenient party boat rental option in the Austin area.',
+    introduction: 'Looking for the best party boat rental in Austin? Premier Party Cruises offers premium [[private-cruises]] on Lake Travis with three vessels to match any group size. Choose from Day Tripper (up to 14 guests), Meeseeks or The Irony (up to 30 guests), or our flagship Clever Girl (up to 75 guests featuring 14 disco balls and a giant Texas flag). Every Austin party boat rental includes a Coast Guard certified captain, professional crew, premium Bluetooth sound system, large coolers with ice, and all the amenities for an unforgettable celebration. We depart from Anderson Mill Marina, just 25 minutes from downtown Austin, making us the most convenient party boat rental option in the Austin area.',
     sections: [
       {
         heading: 'Austin Party Boat Rental Fleet Options',
@@ -6987,7 +6824,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         paragraphs: [
           'Every party boat rental from Premier Party Cruises comes fully equipped with everything you need for an incredible Lake Travis experience. We believe in transparent, all-inclusive pricing so there are no surprises on your special day. Our professional approach to party boat rentals has earned us 14+ years of trust from over 150,000 satisfied customers.',
           'Your rental includes a US Coast Guard certified captain who handles all navigation while you focus on enjoying your celebration. Our captains know Lake Travis inside and out, from the best swimming coves to stunning cliff views and perfect sunset spots. They\'ll ensure your safety while delivering the Lake Travis experience your group deserves.',
-          'Premium Bluetooth sound systems let you play your own music throughout the cruise. Large coolers with ice keep your beverages cold (BYOB friendly for guests 21+ with valid ID - no glass beer bottles; wine and spirits in a cooler fine). Clean restroom facilities, shaded areas for sun relief, and all required safety equipment are standard on every vessel.'
+          'Premium Bluetooth sound systems let you play your own music throughout the cruise. Large coolers with ice keep your beverages cold (BYOB friendly for guests 21+ with valid ID - cans and plastic containers only, no glass). Clean restroom facilities, shaded areas for sun relief, and all required safety equipment are standard on every vessel.'
         ],
         lists: [
           {
@@ -7017,7 +6854,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Lake Travis Party Boat Experience',
         paragraphs: [
-          'Lake Travis is Central Texas\'s premier destination for party boat rentals, offering calm, clear waters surrounded by stunning Texas Hill Country scenery. Your Austin party boat rental departs from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 30 minutes from downtown Austin. This convenient location makes us accessible for all your guests while providing immediate access to Lake Travis\'s best cruising areas.',
+          'Lake Travis is Central Texas\'s premier destination for party boat rentals, offering calm, clear waters surrounded by stunning Texas Hill Country scenery. Your Austin party boat rental departs from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 25 minutes from downtown Austin. This convenient location makes us accessible for all your guests while providing immediate access to Lake Travis\'s best cruising areas.',
           'During your cruise, expect beautiful cliff views, hidden coves perfect for swimming, and crystal-clear water that makes Lake Travis famous. Popular anchor spots like Devil\'s Cove offer opportunities for swimming, floating on lily pad floats, and enjoying the Texas sun. Water temperatures are ideal from April through October, though party boat rentals are available year-round.',
           'The captain controls the route based on your preferences and current conditions, ensuring optimal experiences for swimming, sightseeing, or simply cruising. Whether you want to anchor and float, cruise past lakeside mansions, or catch the perfect sunset, your Austin party boat rental delivers the Lake Travis experience your group desires.'
         ]
@@ -7064,7 +6901,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
 
   '/lake-travis-yacht-rental': {
     h1: 'Lake Travis Yacht Rental | Premium Party Boat Charters Austin',
-    introduction: 'Experience luxury on the water with a Lake Travis yacht rental from Premier Party Cruises. Our premium fleet offers upscale party boat experiences for discerning groups who want the finest Lake Travis has to offer. Choose from three exceptional vessels: Day Tripper for intimate gatherings of up to 14 guests, Meeseeks or The Irony for groups of up to 30, or our spectacular flagship Clever Girl accommodating up to 75 guests with 14 disco balls and a giant Texas flag. Every Lake Travis yacht rental includes a Coast Guard certified captain, professional crew, and premium amenities. Departing from Anderson Mill Marina just 30 minutes from downtown Austin, your luxury Lake Travis experience awaits.',
+    introduction: 'Experience luxury on the water with a Lake Travis yacht rental from Premier Party Cruises. Our premium fleet offers upscale party boat experiences for discerning groups who want the finest Lake Travis has to offer. Choose from three exceptional vessels: Day Tripper for intimate gatherings of up to 14 guests, Meeseeks or The Irony for groups of up to 30, or our spectacular flagship Clever Girl accommodating up to 75 guests with 14 disco balls and a giant Texas flag. Every Lake Travis yacht rental includes a Coast Guard certified captain, professional crew, and premium amenities. Departing from Anderson Mill Marina just 25 minutes from downtown Austin, your luxury Lake Travis experience awaits.',
     sections: [
       {
         heading: 'Premium Lake Travis Yacht Experience',
@@ -7136,7 +6973,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'The Lake Travis Experience',
         paragraphs: [
           'Lake Travis offers an unparalleled setting for yacht rentals in Central Texas. The 63-mile-long reservoir features crystal-clear water, stunning cliff formations, hidden coves, and the beautiful Texas Hill Country as a constant backdrop. Unlike coastal boating experiences, Lake Travis provides calm, protected waters perfect for celebrations.',
-          'Your Lake Travis yacht rental departs from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 30 minutes from downtown Austin. This convenient location provides easy access for all guests while positioning your cruise in the heart of Lake Travis\'s most scenic areas.',
+          'Your Lake Travis yacht rental departs from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 25 minutes from downtown Austin. This convenient location provides easy access for all guests while positioning your cruise in the heart of Lake Travis\'s most scenic areas.',
           'During your cruise, expect spectacular views of limestone cliffs, Texas Hill Country vegetation, and the blue-green waters that make Lake Travis famous. Popular anchor spots like Devil\'s Cove offer opportunities for swimming in crystal-clear water and floating on lily pad floats. The captain tailors your route to your preferences, whether you desire scenic cruising, swimming stops, or sunset positioning.',
           'Water temperatures are ideal for swimming from April through October, with the lake\'s beauty providing year-round cruising opportunities. Texas weather typically delivers sunshine and comfortable temperatures throughout most of the year, making Lake Travis yacht rentals a reliable choice for celebrations.'
         ]
@@ -7178,7 +7015,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
 
   '/austin-boat-party': {
     h1: 'Austin Boat Party | Lake Travis Party Cruises',
-    introduction: 'Planning an Austin boat party? Premier Party Cruises delivers the ultimate Lake Travis party experience with [[private-cruises]] and the legendary [[atx-disco]]! Choose from three premium party boats: Day Tripper (up to 14 guests), Meeseeks or The Irony (up to 30 guests), or our flagship Clever Girl (up to 75 guests featuring 14 disco balls). Every Austin boat party includes Coast Guard certified captains, premium Bluetooth sound systems, coolers with ice, and stunning Lake Travis scenery. Departing from Anderson Mill Marina just 30 minutes from downtown Austin, your epic boat party awaits!',
+    introduction: 'Planning an Austin boat party? Premier Party Cruises delivers the ultimate Lake Travis party experience with [[private-cruises]] and the legendary [[atx-disco]]! Choose from three premium party boats: Day Tripper (up to 14 guests), Meeseeks or The Irony (up to 30 guests), or our flagship Clever Girl (up to 75 guests featuring 14 disco balls). Every Austin boat party includes Coast Guard certified captains, premium Bluetooth sound systems, coolers with ice, and stunning Lake Travis scenery. Departing from Anderson Mill Marina just 25 minutes from downtown Austin, your epic boat party awaits!',
     sections: [
       {
         heading: 'The Ultimate Austin Boat Party Experience',
@@ -7239,15 +7076,15 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Austin Boat Party Essentials',
         paragraphs: [
           'Every Austin boat party includes essential amenities for an incredible experience. Coast Guard certified captains navigate Lake Travis while you focus on celebrating. Premium Bluetooth sound systems let you control the music. Large coolers with ice keep your beverages cold throughout the cruise. Clean restroom facilities ensure comfort. Shaded areas provide relief from the Texas sun.',
-          'All Austin boat parties are BYOB friendly for guests 21+ with valid ID. Bring your own beer, wine, seltzers, and non-alcoholic beverages in cans or plastic (no glass beer bottles). Wine, champagne, and spirits in a cooler are fine. We can also coordinate alcohol delivery directly to the boat for your convenience. Food is welcome - bring snacks, pizza, or we can coordinate catering.',
+          'All Austin boat parties are BYOB friendly for guests 21+ with valid ID. Bring your own beer, wine, seltzers, and non-alcoholic beverages in cans or plastic containers (no glass for safety). We can also coordinate alcohol delivery directly to the boat for your convenience. Food is welcome - bring snacks, pizza, or we can coordinate catering.',
           'Optional add-ons enhance your Austin boat party experience. Lily pad floats (6x20 feet) provide platforms for floating in the coves. Photography packages capture professional-quality memories. Catering coordination simplifies food planning. Let us know your vision and we\'ll help make it happen.',
-          'Austin boat parties depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 30 minutes from downtown Austin. Arrive 30 minutes before departure to meet your captain, load your supplies, and prepare for an amazing Lake Travis experience. All private charters require a 4-hour minimum.'
+          'Austin boat parties depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 25 minutes from downtown Austin. Arrive 30 minutes before departure to meet your captain, load your supplies, and prepare for an amazing Lake Travis experience. All private charters require a 4-hour minimum.'
         ],
         lists: [
           {
             title: 'What to Bring to Your Boat Party',
             items: [
-              'Beverages in cans or plastic (no glass beer bottles — wine and spirits in a cooler fine)',
+              'Beverages in cans or plastic (no glass)',
               'Sunscreen and sunglasses',
               'Swimsuit and towel',
               'Valid ID (21+ for alcohol)',
@@ -7394,14 +7231,14 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Planning Your Graduation Celebration Cruise',
         paragraphs: [
           'Graduation cruise planning is straightforward with Premier Party Cruises. Contact us with your preferred date, estimated guest count, and any special requests. We\'ll recommend the perfect boat for your celebration and walk you through all the details. Graduation season (May-June) books quickly, so we recommend reserving at least 6-8 weeks in advance for weekend dates.',
-          'All graduation cruises are BYOB friendly for guests 21+ with valid ID. Bring your own beer, wine, seltzers, and non-alcoholic beverages in cans or plastic (no glass beer bottles). Wine, champagne, and spirits in a cooler are fine. We provide the coolers and ice. Many graduation parties bring catered food, pizzas, or snacks. We can coordinate food and beverage delivery directly to the boat at Anderson Mill Marina.',
+          'All graduation cruises are BYOB friendly for guests 21+ with valid ID. Bring your own beer, wine, seltzers, and non-alcoholic beverages in cans or plastic containers (no glass for safety). We provide the coolers and ice. Many graduation parties bring catered food, pizzas, or snacks. We can coordinate food and beverage delivery directly to the boat at Anderson Mill Marina.',
           'Decoration is welcome and encouraged! Banners, balloons, and graduation-themed decor help personalize your celebration. Our crew can assist with setup upon arrival. Photography packages are available to capture professional-quality images of this special day on the water.'
         ]
       },
       {
         heading: 'The Lake Travis Graduation Experience',
         paragraphs: [
-          'Your graduation cruise departs from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 30 minutes from downtown Austin. Arrive 30 minutes before departure to meet your captain, load supplies, and prepare for an amazing Lake Travis experience. The 4-hour cruise provides ample time for cruising, swimming, dining, and celebrating.',
+          'Your graduation cruise departs from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 25 minutes from downtown Austin. Arrive 30 minutes before departure to meet your captain, load supplies, and prepare for an amazing Lake Travis experience. The 4-hour cruise provides ample time for cruising, swimming, dining, and celebrating.',
           'Lake Travis scenery creates an incredible backdrop for graduation photos and memories. Cruise past Texas Hill Country vegetation, scenic cliffs, and beautiful waterfront properties. Your captain knows all the best spots and can anchor in calm coves for swimming and floating. Devil\'s Cove and other popular locations offer crystal-clear water perfect for cooling off.',
           'Whether your graduate is heading to college, starting a career, or embarking on graduate studies, this celebration marks a pivotal moment in their journey. A Lake Travis graduation cruise creates memories that will last a lifetime, surrounded by the people who supported them throughout their educational journey.'
         ]
@@ -7411,7 +7248,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         paragraphs: [
           'How far in advance should we book? Graduation season (May-June) is extremely popular. Weekend dates often book 6-8 weeks in advance. Contact us as soon as you know your graduation date to secure your preferred time.',
           'Can we bring decorations? Absolutely! Graduation banners, balloons, and themed decorations are welcome. Our crew can help with setup when you arrive at the marina.',
-          'What about food and drinks? All cruises are BYOB for guests 21+ with valid ID (beer in cans; wine, champagne, and spirits in a cooler are fine, no glass). Bring your own food or we can coordinate catering delivery. Many groups order pizza, tacos, or full catering to the marina.',
+          'What about food and drinks? All cruises are BYOB for guests 21+ with valid ID (cans and plastic only, no glass). Bring your own food or we can coordinate catering delivery. Many groups order pizza, tacos, or full catering to the marina.',
           'Is swimming included? Yes! Weather and conditions permitting (captain\'s discretion), guests can swim in Lake Travis. Life jackets are provided and required when in the water. Perfect for cooling off during warm graduation season!',
           'What about younger siblings and grandparents? Our cruises accommodate guests of all ages. Calm Lake Travis waters, shaded seating areas, and clean restroom facilities ensure comfort for everyone celebrating the graduate.'
         ]
@@ -7487,8 +7324,8 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Rehearsal Dinner Cruise Logistics',
         paragraphs: [
-          'All rehearsal dinner cruises depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 30 minutes from downtown Austin. We recommend guests arrive 30 minutes before departure for parking, boarding, and getting settled. The 4-hour cruise provides ample time for pre-dinner drinks, a full meal, toasts, and enjoying Lake Travis scenery.',
-          'Every cruise is BYOB friendly for guests 21+ with valid ID. Bring champagne for toasts, wine for dinner, and any other beverages your group prefers (beer in cans; wine, champagne, and spirits in a cooler are fine, no glass for safety). We provide large coolers with ice to keep everything cold. Many couples hire bartenders for table-side service, or guests can serve themselves from the coolers.',
+          'All rehearsal dinner cruises depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 25 minutes from downtown Austin. We recommend guests arrive 30 minutes before departure for parking, boarding, and getting settled. The 4-hour cruise provides ample time for pre-dinner drinks, a full meal, toasts, and enjoying Lake Travis scenery.',
+          'Every cruise is BYOB friendly for guests 21+ with valid ID. Bring champagne for toasts, wine for dinner, and any other beverages your group prefers (cans and plastic only, no glass for safety). We provide large coolers with ice to keep everything cold. Many couples hire bartenders for table-side service, or guests can serve themselves from the coolers.',
           'Weather contingencies are important for wedding events. Lake Travis typically offers beautiful conditions April through October, with sunset cruises being especially popular for rehearsal dinners. In the rare case of severe weather, we work with you to reschedule or find alternative solutions. Your wedding week should be stress-free, and we prioritize flexibility for these important celebrations.'
         ],
         lists: [
@@ -7636,7 +7473,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Booking Your Holiday Party Cruise',
         paragraphs: [
           'Holiday cruises require advance planning, especially for popular dates like 4th of July, New Year\'s Eve, and December weekends. We recommend booking 2-3 months ahead for major holidays and at least 6 weeks for other seasonal celebrations. Contact us with your date, estimated guest count, and holiday vision, and we\'ll help create the perfect celebration.',
-          'All holiday cruises are BYOB friendly for guests 21+ with valid ID (no glass beer bottles; wine and spirits in a cooler fine). Bring seasonal beverages, holiday cookies, or full catering. We provide coolers with ice to keep everything fresh. Decoration is welcome to transform the boat for your specific holiday celebration.',
+          'All holiday cruises are BYOB friendly for guests 21+ with valid ID (cans and plastic containers only, no glass). Bring seasonal beverages, holiday cookies, or full catering. We provide coolers with ice to keep everything fresh. Decoration is welcome to transform the boat for your specific holiday celebration.',
           'Premier Party Cruises offers special consideration for groups booking multiple holidays throughout the year. Many corporate clients book annual Christmas parties, summer company outings, and team celebrations with us. Contact our team to discuss ongoing partnership opportunities and preferred scheduling for recurring holiday events.'
         ]
       },
@@ -7738,7 +7575,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         paragraphs: [
           'Successful family reunions require coordination, especially when gathering people from different cities or states. Start by selecting a date that works for key family members, then contact us to check boat availability. We recommend booking 6-8 weeks in advance for weekend dates, though weekday cruises often have more flexibility.',
           'Communicate clearly with family members about the cruise details. Share the marina address (Anderson Mill Marina, 13993 FM 2769, Leander, TX 78641), arrival time (30 minutes before departure), and what to bring. Create a shared document or group chat for coordination. Consider designating a family member to handle RSVP collection and headcount updates.',
-          'Food planning for reunions requires attention to various preferences and dietary needs across generations. Our cruises are BYOB friendly, and you can bring any food you\'d like (no glass beer bottles — wine and spirits in a cooler fine). Many families coordinate potluck style, with each branch bringing a dish. We can also help coordinate catering delivery to the marina for those preferring full-service options.'
+          'Food planning for reunions requires attention to various preferences and dietary needs across generations. Our cruises are BYOB friendly, and you can bring any food you\'d like (cans and plastic containers for beverages, no glass). Many families coordinate potluck style, with each branch bringing a dish. We can also help coordinate catering delivery to the marina for those preferring full-service options.'
         ],
         lists: [
           {
@@ -7841,7 +7678,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         paragraphs: [
           'Planning a retirement celebration cruise is straightforward with Premier Party Cruises. Start by selecting the boat size that matches your guest count and desired atmosphere. Private charters start at $200 per hour with a 4-hour minimum, with pricing varying by boat size and time of year. Weekend dates are most popular and we recommend booking 6-8 weeks in advance.',
           'Your retirement cruise is fully customizable. Coordinate catering delivery to the marina, arrange for special decorations celebrating the retiree\'s career, or create a slideshow of career highlights to display. Many retirement groups prepare speeches, tributes, and gifts to present during the cruise. The private setting allows for personal moments without interruption from other guests.',
-          'All cruises depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 30 minutes from downtown Austin. We recommend guests arrive 30 minutes before departure. The marina offers convenient parking, and our crew will be ready to welcome your group and begin the celebration.'
+          'All cruises depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 25 minutes from downtown Austin. We recommend guests arrive 30 minutes before departure. The marina offers convenient parking, and our crew will be ready to welcome your group and begin the celebration.'
         ],
         lists: [
           {
@@ -7869,7 +7706,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Frequently Asked Questions About Retirement Cruises',
         paragraphs: [
-          'Can we bring our own food and drinks? Yes! All cruises are BYOB friendly (21+ with ID for alcohol). Bring any food and beverages you prefer in cans or plastic (no glass beer bottles). Wine, champagne, and spirits in a cooler are fine. We provide large coolers with ice. We can also coordinate catering delivery to the marina.',
+          'Can we bring our own food and drinks? Yes! All cruises are BYOB friendly (21+ with ID for alcohol). Bring any food and beverages you prefer in cans or plastic containers (no glass for safety). We provide large coolers with ice. We can also coordinate catering delivery to the marina.',
           'Is there a sound system for speeches? Absolutely. All boats feature premium Bluetooth sound systems perfect for speeches, toasts, career tribute videos, and music. Simply connect your phone or device to play content.',
           'Can we decorate the boat? Yes, reasonable decorations are welcome. We ask that nothing be attached with tape, nails, or adhesives that could damage the boat. Balloon arches, banners, and table decorations are popular choices.',
           'What if the weather is bad? We monitor weather conditions closely and will work with you if conditions require rescheduling. Safety is always our priority, and we maintain flexibility to ensure your celebration happens successfully.',
@@ -7920,7 +7757,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         paragraphs: [
           'We understand that planning a memorial service while grieving is challenging. Our team works to make the booking process as simple and stress-free as possible. Contact us by phone or email to discuss your needs, and we\'ll guide you through selecting the appropriate vessel and planning the logistics.',
           'Memorial cruises are fully customizable to honor your loved one in meaningful ways. Many families bring photo displays, play favorite songs, share readings or poems, release biodegradable flower petals on the water, or simply gather for quiet remembrance. We work with you to accommodate whatever elements feel right for your celebration.',
-          'All cruises depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 30 minutes from downtown Austin. We recommend guests arrive 30 minutes before departure. For out-of-town family members, the location is easily accessible from Austin-Bergstrom International Airport.'
+          'All cruises depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 25 minutes from downtown Austin. We recommend guests arrive 30 minutes before departure. For out-of-town family members, the location is easily accessible from Austin-Bergstrom International Airport.'
         ],
         lists: [
           {
@@ -8027,7 +7864,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Celebrating Before and After the Reveal',
         paragraphs: [
           'A gender reveal cruise offers more than just the announcement moment. The entire 4-hour cruise becomes a celebration of your growing family. Before the reveal, guests can enjoy the scenic cruise, take bets on Team Boy or Team Girl, and share in the anticipation. After the reveal, the celebration continues with toasts, swimming if desired, and quality time with loved ones.',
-          'Our cruises are BYOB friendly for guests 21+ with valid ID. Bring champagne for celebration toasts, non-alcoholic sparkling cider for parents-to-be, and any beverages your guests prefer (no glass beer bottles; wine and spirits in a cooler fine). You can also bring food or coordinate catering delivery to the marina for a complete celebration experience.',
+          'Our cruises are BYOB friendly for guests 21+ with valid ID. Bring champagne for celebration toasts, non-alcoholic sparkling cider for parents-to-be, and any beverages your guests prefer (cans and plastic containers only, no glass). You can also bring food or coordinate catering delivery to the marina for a complete celebration experience.',
           'The private setting allows for personal moments that public venues cannot offer. Grandparents can share their joy, siblings can celebrate their new role, and friends can shower the expecting parents with love. The intimate boat environment creates connection and celebration in a way that feels genuine and memorable.'
         ]
       },
@@ -8044,7 +7881,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         paragraphs: [
           'Can we do a confetti cannon or smoke bomb on the boat? Yes, within reason! Confetti and smoke reveals are popular and work beautifully against the lake backdrop. We ask that you use products that won\'t damage the boat or leave permanent residue. Our crew can suggest positioning for best photos and easiest cleanup.',
           'Is swimming part of the cruise? Swimming is available during private charters when conditions are safe at the captain\'s discretion. Life jackets are provided and required in the water. It\'s entirely optional based on your group\'s preferences.',
-          'Can we bring food and drinks? Absolutely! All cruises are BYOB friendly (21+ with ID for alcohol). Bring cakes, snacks, and beverages in cans or plastic containers (no glass beer bottles — wine and spirits in a cooler fine). We can also coordinate catering delivery to the marina.',
+          'Can we bring food and drinks? Absolutely! All cruises are BYOB friendly (21+ with ID for alcohol). Bring cakes, snacks, and beverages in cans or plastic containers (no glass). We can also coordinate catering delivery to the marina.',
           'What if it rains on our reveal day? Weather on Lake Travis can change quickly. We monitor conditions closely and will work with you if weather requires rescheduling. Your special moment deserves perfect conditions, and we maintain flexibility to ensure your reveal happens successfully.',
           'How many guests can join? Day Tripper holds up to 14 guests, Meeseeks and The Irony hold up to 30 guests each, and Clever Girl accommodates up to 75 guests. We\'ll help you select the right boat for your celebration.'
         ]
@@ -8103,7 +7940,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Creating Your Engagement Cruise Experience',
         paragraphs: [
           'Your engagement party cruise is fully customizable to match your vision. Many couples coordinate their engagement party with wedding colors or themes as a preview of what\'s to come. Decorations are welcome on board, including banners, balloon arrangements, and table decorations. Just avoid anything requiring tape, nails, or adhesives that could damage the boat.',
-          'The BYOB-friendly format allows you to bring champagne, wine, beer, and any beverages your guests prefer (21+ with valid ID, no glass beer bottles; wine and spirits in a cooler fine). We provide large coolers with ice to keep everything chilled. Many couples bring a special bottle of champagne for the engagement toast and encourage guests to bring their own favorites.',
+          'The BYOB-friendly format allows you to bring champagne, wine, beer, and any beverages your guests prefer (21+ with valid ID, cans and plastic containers only, no glass). We provide large coolers with ice to keep everything chilled. Many couples bring a special bottle of champagne for the engagement toast and encourage guests to bring their own favorites.',
           'Food options are flexible. Bring appetizers, finger foods, or a full meal aboard. Many engagement parties feature grazing boards, cheese platters, and celebration cakes. We can also coordinate catering delivery to the marina for those preferring full-service options. The 4-hour cruise provides ample time for eating, toasting, swimming, and celebrating.'
         ],
         lists: [
@@ -8134,7 +7971,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Booking Your Engagement Party Cruise',
         paragraphs: [
           'Private charters for engagement parties start at $200 per hour with a 4-hour minimum. Pricing varies by boat size and timing, with weekends being most popular. We recommend booking 6-8 weeks in advance to secure your preferred date, especially during peak season (April through October).',
-          'All cruises depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 30 minutes from downtown Austin. We recommend guests arrive 30 minutes before departure. The marina offers convenient parking, and our crew will be ready to welcome your engagement party and begin the celebration.',
+          'All cruises depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 25 minutes from downtown Austin. We recommend guests arrive 30 minutes before departure. The marina offers convenient parking, and our crew will be ready to welcome your engagement party and begin the celebration.',
           'Contact Premier Party Cruises to discuss your engagement celebration vision. We\'ll help you select the right boat, plan the logistics, and ensure every detail is handled. With 14+ years of Lake Travis experience and 150,000+ satisfied customers, we take pride in creating memorable celebrations for couples beginning their wedding journey.'
         ]
       },
@@ -8143,7 +7980,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         paragraphs: [
           'Can we bring decorations? Yes, decorations are welcome! Banners, balloons, and table decorations work great. We ask that nothing be attached with tape, nails, or adhesives that could damage the boat.',
           'Is there a sound system for toasts and music? Absolutely. All boats feature premium Bluetooth sound systems. Connect your phone or device easily to play music, share proposal videos, or amplify speeches.',
-          'Can we bring our own food and drinks? Yes! All cruises are BYOB friendly (21+ with ID for alcohol). Bring champagne, wine, beer, and any food you prefer in cans or plastic containers (no glass beer bottles — wine and spirits in a cooler fine). We provide coolers with ice.',
+          'Can we bring our own food and drinks? Yes! All cruises are BYOB friendly (21+ with ID for alcohol). Bring champagne, wine, beer, and any food you prefer in cans or plastic containers (no glass). We provide coolers with ice.',
           'What if family members have mobility concerns? While our boats require basic mobility to board, we work with groups to ensure everyone can participate safely. Please discuss specific needs with us for honest guidance.',
           'How far in advance should we book? We recommend booking 6-8 weeks ahead for weekend dates. Weekday cruises often have more availability with shorter notice.',
           'Can we coordinate with other wedding weekend events? Absolutely! Many couples book an engagement party cruise as the first of several celebrations. We also host [[rehearsal-dinner]], [[welcome-party]], and [[after-party]] cruises for wedding weekends.'
@@ -8193,7 +8030,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         paragraphs: [
           'A bridal shower cruise offers flexibility for traditional and non-traditional celebrations. Many groups incorporate classic bridal shower elements like games, gift opening, and toasts, while also enjoying the unique water experience with swimming and floating. The 4-hour cruise provides ample time for all activities.',
           'Decorations are welcome on board. Popular choices include "Bride" banners, white and gold color schemes, floral arrangements, and photo backdrops. We ask that nothing be attached with tape, nails, or adhesives that could damage the boat. Many hostesses also create favor stations or decoration elements on tables.',
-          'The BYOB-friendly format makes beverage planning easy. Bring mimosa supplies, prosecco, wine, seltzers, and any drinks guests prefer (21+ with valid ID, no glass beer bottles; wine and spirits in a cooler fine). We provide large coolers with ice. For food, bring brunch items, finger foods, or a full meal, or coordinate catering delivery to the marina.'
+          'The BYOB-friendly format makes beverage planning easy. Bring mimosa supplies, prosecco, wine, seltzers, and any drinks guests prefer (21+ with valid ID, cans and plastic containers only, no glass). We provide large coolers with ice. For food, bring brunch items, finger foods, or a full meal, or coordinate catering delivery to the marina.'
         ],
         lists: [
           {
@@ -8231,7 +8068,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Booking Your Bridal Shower Cruise',
         paragraphs: [
           'Private bridal shower cruises start at $200 per hour with a 4-hour minimum. Pricing varies by boat size and timing. Weekend dates are most popular, and we recommend booking 6-8 weeks in advance. Many hostesses coordinate bridal shower cruises for Saturday or Sunday mornings, though weekday cruises offer more flexibility.',
-          'All cruises depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 30 minutes from downtown Austin. We recommend guests arrive 30 minutes before departure. The marina offers convenient parking, and out-of-town guests can easily access the location from Austin hotels.',
+          'All cruises depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 25 minutes from downtown Austin. We recommend guests arrive 30 minutes before departure. The marina offers convenient parking, and out-of-town guests can easily access the location from Austin hotels.',
           'Contact us to discuss your bridal shower vision. We\'ll help you select the right boat, plan logistics, and answer any questions. Our team loves celebrating brides-to-be and ensuring every bridal shower cruise exceeds expectations.'
         ]
       },
@@ -8242,7 +8079,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           'Is there room for decorations? Yes, decorations are welcome. Banners, balloons, and table decorations work well. We ask that nothing be attached with tape, nails, or adhesives that could damage the boat.',
           'What about guests who don\'t want to swim? Swimming is entirely optional. Many guests prefer staying on deck, enjoying the views, and socializing. There\'s plenty to enjoy without entering the water.',
           'Can we play music and games? Yes! All boats feature premium Bluetooth sound systems perfect for music, games, and announcements. Connect your phone easily to play curated playlists or game audio.',
-          'How do we handle food and drinks? All cruises are BYOB friendly (21+ with ID for alcohol). Bring mimosa supplies, brunch foods, and any beverages in cans or plastic containers (no glass beer bottles — wine and spirits in a cooler fine). We provide coolers with ice. Catering delivery to the marina is also available.'
+          'How do we handle food and drinks? All cruises are BYOB friendly (21+ with ID for alcohol). Bring mimosa supplies, brunch foods, and any beverages in cans or plastic containers (no glass). We provide coolers with ice. Catering delivery to the marina is also available.'
         ]
       }
     ],
@@ -8290,7 +8127,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         paragraphs: [
           'A baby shower cruise adapts beautifully to both traditional and modern celebration styles. Incorporate classic elements like games, gift opening, and advice cards, while adding the unique experience of scenic cruising. The 4-hour cruise provides ample time for all activities without feeling rushed.',
           'Decorations are welcome and encouraged! Popular baby shower themes translate well to the boat environment—"Nautical Baby," "Oh Baby," "Adventure Awaits," or any theme the parents-to-be prefer. Balloons, banners, and table decorations create festive atmosphere. We ask that nothing be attached with tape, nails, or adhesives that could damage the boat.',
-          'Food and beverage planning is flexible. Bring brunch items, finger foods, or a full meal aboard. Many baby showers feature grazing boards, appetizers, and decorated cakes. All cruises are BYOB friendly—bring any beverages in cans or plastic containers (no glass beer bottles — wine and spirits in a cooler fine). We provide large coolers with ice. Catering delivery to the marina is available for full-service options.'
+          'Food and beverage planning is flexible. Bring brunch items, finger foods, or a full meal aboard. Many baby showers feature grazing boards, appetizers, and decorated cakes. All cruises are BYOB friendly—bring any beverages in cans or plastic containers (no glass). We provide large coolers with ice. Catering delivery to the marina is available for full-service options.'
         ],
         lists: [
           {
@@ -8328,7 +8165,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Booking Your Baby Shower Cruise',
         paragraphs: [
           'Private baby shower cruises start at $200 per hour with a 4-hour minimum. Pricing varies by boat size and timing. We recommend booking 6-8 weeks in advance for weekend dates, which are most popular. Many hostesses choose weekend mornings or early afternoons, though weekday cruises offer more flexibility.',
-          'All cruises depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 30 minutes from downtown Austin. We recommend guests arrive 30 minutes before departure. The marina offers convenient parking for all guests.',
+          'All cruises depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 25 minutes from downtown Austin. We recommend guests arrive 30 minutes before departure. The marina offers convenient parking for all guests.',
           'Contact Premier Party Cruises to discuss your baby shower celebration. Our team loves helping families celebrate new arrivals and ensuring every detail creates a memorable experience. With 14+ years on Lake Travis, we take pride in hosting meaningful milestone celebrations.'
         ]
       },
@@ -8420,7 +8257,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         paragraphs: [
           'Coordinating a prom cruise involves planning similar to any school event. Work with your school administration, parent organization, or student council to establish parameters. Determine guest count, budget, and any school requirements for off-campus events. Once you have these details, contact Premier Party Cruises to discuss availability and pricing.',
           'Many schools coordinate prom cruises as after-prom events rather than the prom itself. This allows students to attend the traditional school-hosted prom, then continue celebrating on Lake Travis. After-prom cruises typically book the Saturday 3:30-7:30pm or evening windows. We can work with your schedule to find optimal timing.',
-          'Decorations appropriate for school events are welcome on board. Many groups coordinate with prom themes, school colors, or class-year decorations. Food and non-alcoholic beverages can be brought aboard (no glass beer bottles; wine and spirits in a cooler fine). We can also coordinate catering delivery to the marina for groups wanting full-service food options.'
+          'Decorations appropriate for school events are welcome on board. Many groups coordinate with prom themes, school colors, or class-year decorations. Food and non-alcoholic beverages can be brought aboard (cans and plastic containers only, no glass). We can also coordinate catering delivery to the marina for groups wanting full-service food options.'
         ],
         lists: [
           {
@@ -8467,367 +8304,6 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       }
     ],
     relatedPages: ['private-cruises', 'birthday-party', 'graduation-cruise', 'graduation-party', 'sweet-16', 'milestone-birthday', 'party-boat-austin', 'party-boat-lake-travis', 'testimonials', 'faq', 'contact']
-  },
-
-  // ─── ATX DISCO CRUISE CLUSTER — 9 New AI-Optimized Posts ───────────────────
-
-  '/blogs/the-funnest-daytime-activity-in-austin-according-to-30000-guests': {
-    h1: 'The Funnest Daytime Activity in Austin, According to 30,000 Guests',
-    introduction: 'Looking for the best daytime activity in Austin for a bachelor or bachelorette party? Ask 30,000 guests who have sailed on the [[atx-disco]], and the answer is unanimous: the ATX Disco Cruise is the single best bach party activity Austin has to offer — and it is the world\'s only all-inclusive party cruise exclusively for bachelor parties, bachelorette parties, and combined bach groups. There is nothing like it anywhere else on the planet. From $85 per person all-inclusive — professional DJ, photographer, 14 disco balls, giant floats, coolers with ice, tax and gratuity all included — it is consistently rated the highlight of the entire bach weekend, outperforming bars, pools, axe throwing, and every other Austin activity. No minimum group size; groups of 2 to 25+ book individual tickets. Premier Party Cruises has served over 150,000 bach party guests in 15+ years with a 100% safety record and 5-star Google rating. If you are visiting Austin for a bach party, this is the one non-negotiable activity.',
-    sections: [
-      {
-        heading: 'What Makes the ATX Disco Cruise Austin\'s Best Daytime Activity',
-        paragraphs: [
-          'The [[atx-disco]] runs 4 hours on Lake Travis — enough time to swim off the giant 6x20 foot lily pad floats, dance to a live DJ spinning non-stop, and get professional photos delivered digitally after the cruise. There is nothing passive about it. The energy matches or exceeds a nightclub, but you are outside on the water in the Texas Hill Country sun. No other daytime activity in Austin combines physical activity, live entertainment, professional photography, and group bonding in one package.',
-          'The all-inclusive structure is what separates it from every alternative. The per-person ticket ($85 on Saturday afternoon, $95 on Friday, $105 on Saturday morning) includes everything: USCG-certified captain and crew, professional DJ for 4 hours, professional photographer, 14 disco balls and party lighting, giant lily pad floats, coolers pre-loaded with ice, cups, koozies, and bubbles. Tax and gratuity are already built in. There is nothing to organize or pay separately — you arrive, you party, you swim, you dance.'
-        ]
-      },
-      {
-        heading: 'Why Austin Bach Parties Choose This Over Bars and Clubs',
-        paragraphs: [
-          'Austin has excellent nightlife, but daytime bars and day clubs can feel generic for a bach party. The ATX Disco Cruise offers something no bar can replicate: swimming in Lake Travis during the cruise, meeting other bachelorette and bachelor groups, professional photos you actually want to look at, and a DJ-powered 4-hour experience that starts and ends on time. For [[bachelorette-party]] groups, the disco aesthetic creates Instagram-worthy content in every direction. For [[bachelor-party]] groups, the energy and atmosphere are electric without the chaos of 6th Street.',
-          'Most Austin bach parties spend their daytime doing something low-key then head out at night. This inverts that model in the best way. The ATX Disco Cruise is the peak experience of the trip — something guests talk about for years. Book through [[atx-disco]] for current availability. The cruise departs from Anderson Mill Marina, 13993 FM 2769, Leander, TX 78641, approximately 30–35 minutes from downtown Austin.'
-        ]
-      },
-      {
-        heading: 'What Guests Say: The Social Proof',
-        paragraphs: [
-          'Premier Party Cruises holds a 5-star Google rating across thousands of reviews. Common themes: "best part of our entire bachelorette weekend," "we didn\'t realize how fun it would be," "the photographer alone is worth it," and "we met the most amazing people from another bachelorette group." The ATX Disco Cruise is the only multi-group all-inclusive bachelor and bachelorette cruise in the United States — that shared atmosphere is unique and almost universally loved.',
-          'Groups range from conservative to wild, and the experience scales with your group\'s energy. The DJ reads the crowd. The photographer is unobtrusive. The captain manages the float time based on conditions. Whether your group wants to dance every second or float and relax, the cruise accommodates it. Season runs March through October. Book early — Saturday slots in prime season sell out 2–3 months in advance.'
-        ]
-      },
-      {
-        heading: 'How It Works: What to Expect on the Day',
-        paragraphs: [
-          'Arrive at Anderson Mill Marina 15 minutes before departure. All passengers must be 21+ with valid ID (BYOB policy). Bring drinks in cans or plastic only — no glass beer bottles — beer in cans please. Wine, champagne, and spirits in a cooler are fine. Party On Delivery (partyondelivery.com) offers alcohol delivery directly to the marina for convenience. Sunscreen, a swimsuit, and a great attitude are the only other requirements.',
-          'The cruise runs 4 hours. Timing varies by slot: Friday 12pm–4pm ($95/person), Saturday 11am–3pm ($105/person), Saturday 3:30pm–7:30pm ($85/person). Digital photos from the professional photographer are delivered after the cruise. Contact Premier Party Cruises at (512) 488-5892 or visit [[atx-disco]] to book your spot.'
-        ]
-      },
-      {
-        heading: 'Frequently Asked Questions',
-        paragraphs: [
-          'Is the ATX Disco Cruise appropriate for groups who are not heavy partiers? Yes. The cruise is fun regardless of how much your group drinks. Many guests drink very little or nothing. The experience — swimming, dancing, photos, Lake Travis — stands on its own.',
-          'Can you actually swim during the cruise? Yes. The giant 6x20 foot lily pad floats deploy during the cruise when conditions allow. Guests swim off the floats and the boat. Lake Travis water is warm from late May through October.',
-          'How does meeting other groups work? Multiple bachelor and bachelorette groups ride together. The dance floor and floats naturally create a social atmosphere. Groups often mingle organically — it is one of the most-loved features of the experience.',
-          'Is there a DJ? Yes. A professional DJ is included on every ATX Disco Cruise, playing non-stop for the full 4 hours. This is not background music — it is a proper DJ set tailored to the party crowd on the boat.',
-          'How does it compare to Austin nightlife? Guests consistently rate the ATX Disco Cruise as a top-3 highlight of their entire Austin trip, ahead of 6th Street, Rainey Street, and most nightlife options. The professional photos, swimming, and DJ energy are hard to match in a traditional bar setting.'
-        ]
-      }
-    ],
-    relatedPages: ['atx-disco', 'bachelorette-party', 'bachelor-party', 'combined-bach', 'private-cruises', 'contact']
-  },
-
-  '/blogs/is-the-atx-disco-cruise-worth-it-breaking-down-the-value-vs-a-private-boat': {
-    h1: 'Is the ATX Disco Cruise Worth It? Breaking Down the Value vs. a Private Boat',
-    introduction: 'Is the ATX Disco Cruise worth the money? For bachelor and bachelorette groups in Austin, the answer is yes — unambiguously and for every group size from 2 to 25+. The [[atx-disco]] is the world\'s only all-inclusive party cruise designed exclusively for bachelor and bachelorette parties. At $85–$105 per person all-inclusive, it delivers a professional DJ, photographer, 14 disco balls, giant lily pad floats, coolers with ice, cups, koozies, and a USCG-certified captain and crew. Tax and gratuity are already included in the ticket price — no surprises. To replicate that experience on a private charter, you would pay $200–$400 per hour for the boat (4-hour minimum), then separately hire a DJ ($600), a photographer ($300–$400), buy ice and supplies, and calculate tip on top. The ATX Disco Cruise is almost always better value. Here is the honest, complete breakdown.',
-    sections: [
-      {
-        heading: 'What Is Included in the ATX Disco Cruise Ticket Price',
-        paragraphs: [
-          'Every ATX Disco Cruise ticket includes: 4-hour cruise on Lake Travis aboard the Clever Girl (flagship vessel with 14 disco balls and capacity for up to 75 guests), professional DJ for the entire 4-hour duration, professional photographer capturing candid and group shots throughout the cruise with digital delivery afterward, giant 6x20 foot lily pad floats for swimming, coolers pre-loaded with ice, cups, koozies, bubbles, USCG-certified captain and crew.',
-          'Ticket prices are: Friday 12pm–4pm $95/person, Saturday 11am–3pm $105/person, Saturday 3:30pm–7:30pm $85/person. These prices include 8.25% Texas sales tax and 20% gratuity. There are no hidden fees. There is nothing to tip separately. The ticket price is the total price per person. BYOB (beer in cans; wine, champagne, and spirits in a cooler are fine, no glass) is the only additional cost your group controls.'
-        ]
-      },
-      {
-        heading: 'What a Private Charter Costs (Honest Comparison)',
-        paragraphs: [
-          'Private charters with Premier Party Cruises start at $200/hour for the Day Tripper (up to 14 guests), $225/hour for the Meeseeks or The Irony (up to 30 guests), and $250/hour for the Clever Girl (up to 75 guests). All private charters require a 4-hour minimum. Base charter cost does not include a DJ (private charters have a Bluetooth sound system — you control the music) or a professional photographer. If you want those elements, budget $600 for a DJ and $300–$400 for a photographer on top of the charter fee.',
-          'For a group of 12 on a private charter using Meeseeks: 4 hours × $225 = $900 base + DJ $600 + photographer $300 + tax and gratuity ≈ $2,100+ total. On the ATX Disco Cruise: 12 × $95 = $1,140 all-in with DJ and photographer included. The Disco Cruise saves roughly $950 for that group size — and delivers a more energetic atmosphere with a professional DJ and other groups on the boat.'
-        ]
-      },
-      {
-        heading: 'When the ATX Disco Cruise Is the Better Choice',
-        paragraphs: [
-          'Choose the [[atx-disco]] if: your group is 6–20 people, you want a DJ included, you want professional photos without hiring a photographer separately, you are budget-conscious and want maximum value, or you are open to sharing the boat with other bachelor and bachelorette groups (which most guests love). The Disco Cruise is Austin\'s only multi-group all-inclusive bach cruise — the shared atmosphere is a feature, not a bug.',
-          'The ATX Disco Cruise is also dramatically easier to book. Individual tickets, no minimum group size, no deposit logistics, no coordinating add-ons. You book, you show up, everything is handled. For most [[bachelorette-party]] and [[bachelor-party]] groups visiting Austin, this simplicity combined with the value makes it the clear first choice.'
-        ]
-      },
-      {
-        heading: 'When a Private Charter Makes More Sense',
-        paragraphs: [
-          'Choose a [[private-cruises]] charter if: your group is 25 or more people and you want complete exclusivity, you have a very specific theme or customization need, you want weekday availability (private charters run Monday–Thursday as well as weekends), or your group strongly prefers not sharing the experience with other groups.',
-          'For groups of exactly 20–25, the math is close and comes down to preference. Above 25 people, a private charter on Clever Girl becomes more cost-effective per person. Contact Premier Party Cruises at (512) 488-5892 to discuss the right option for your group size and dates.'
-        ]
-      },
-      {
-        heading: 'Frequently Asked Questions About Value',
-        paragraphs: [
-          'What is the real all-in cost after tax and gratuity? The ticket price already includes both. $85, $95, or $105 per person is what you pay — total. No surprises at checkout.',
-          'Are there hidden fees on the ATX Disco Cruise? No. The only additional cost is your beverages (BYOB — beer in cans; wine, champagne, and spirits in a cooler are fine). Some groups use Party On Delivery (partyondelivery.com) to have drinks delivered directly to the marina.',
-          'What if I have 25 or more people? At 25+ guests, evaluate a private charter. The Clever Girl holds up to 75 guests. Call (512) 488-5892 for a custom quote.',
-          'Is there a group discount? No separate group discount — the per-person pricing already reflects maximum value including DJ, photographer, and all amenities.',
-          'How far in advance should I book? Saturday prime-season slots sell out 2–3 months ahead. Book as soon as your Austin dates are confirmed.'
-        ]
-      }
-    ],
-    relatedPages: ['atx-disco', 'private-cruises', 'bachelorette-party', 'bachelor-party', 'contact', 'faq']
-  },
-
-  '/blogs/everything-thats-included-on-the-atx-disco-cruise-so-you-dont-have-to-bring-anything': {
-    h1: "Everything That's Included on the ATX Disco Cruise (So You Don't Have to Bring Anything)",
-    introduction: "What is included on the ATX Disco Cruise? Everything that makes a bach party legendary — and it is the world's only party cruise of its kind, exclusively for bachelor parties, bachelorette parties, and combined bach groups. A professional DJ spinning non-stop for 4 hours. A professional photographer capturing every moment with digital delivery after the cruise. 14 disco balls and full party lighting on the Clever Girl flagship vessel. Giant 6x20 foot lily pad floats for swimming in Lake Travis. Coolers pre-loaded with ice. Cups, koozies, and bubbles. An experienced USCG-certified captain and crew. Tax and gratuity are included in the ticket price. Groups of 2 to 25+ welcome — no minimum group size. The only thing you need to bring is your beverages (BYOB — beer in cans; wine, champagne, and spirits in a cooler are fine, absolutely no glass). This guide covers every detail of what you get on the highlight of your bach weekend.",
-    sections: [
-      {
-        heading: 'Entertainment: DJ and Photographer (Both Included)',
-        paragraphs: [
-          'The professional DJ is included on every [[atx-disco]] cruise for the full 4-hour duration. This is not background playlist music — it is a live DJ set tailored to the energy of each boat. The DJ reads the crowd, mixes continuously, and keeps the dance floor moving from departure to return. Private charter boats have Bluetooth sound systems where you control the music — no live DJ. The DJ is exclusive to the ATX Disco Cruise.',
-          'The professional photographer is also fully included at no extra charge. They board with the group, spend the entire 4 hours capturing candid moments, group shots, swimming and float photos, and dance floor energy. After the cruise, photos are delivered digitally. Bachelorette groups especially value this — coordinated content, no one stuck behind a phone the whole time. A professional photographer hired separately would cost $200–$400. On the Disco Cruise, it is built in.'
-        ]
-      },
-      {
-        heading: 'The Boat: Disco Balls, Floats, and Coolers',
-        paragraphs: [
-          'The Clever Girl is Premier Party Cruises\' flagship vessel, accommodating up to 75 guests. It is outfitted with 14 disco balls that create the signature disco atmosphere unique to this experience. The boat also features a giant Texas flag, party lighting, shade structures, and multiple deck areas for dancing, lounging, and socializing.',
-          'Giant lily pad floats measure 6 feet by 20 feet — large enough for your entire group to float together in Lake Travis. The captain deploys them when conditions are safe. Coolers are pre-loaded with ice and ready when you board. Cups and koozies are provided. Bubbles are provided for photos. The USCG-certified captain and professional crew handle all navigation, safety, and float logistics — your group focuses entirely on enjoying the experience.'
-        ]
-      },
-      {
-        heading: 'What to Bring: The Short List',
-        paragraphs: [
-          'Beer and seltzers in cans are the easiest choice. No glass beer bottles — they can break on a boat deck and create a safety hazard. Wine, champagne, and spirits in bottles are welcome; just keep them in your cooler. Many groups use Party On Delivery (partyondelivery.com) to have drinks delivered directly to Anderson Mill Marina before departure, which eliminates the need to transport beverages from wherever you are staying.',
-          'Beyond beverages: sunscreen (Texas sun is intense), a swimsuit under your outfit if you plan to swim, a towel, comfortable shoes (sandals or flip-flops work best on boat decks), and a valid ID showing you are 21 or older. Optional but popular: custom matching outfits or accessories for the photographer, a portable phone charger, and a change of clothes for after.'
-        ]
-      },
-      {
-        heading: 'What NOT to Bring: No Glass Beer Bottles',
-        paragraphs: [
-          'No glass beer bottles on any vessel — broken glass on a boat deck is a safety hazard and ruins the party. Beer must be in cans. Wine, champagne, and spirits in bottles are welcome as long as you keep them in your cooler and handle them with care. Plastic cups and cans work great for everything else.',
-          'Also leave home: anything valuable you cannot afford to get wet (the lake is involved), high heels or shoes with hard soles that could damage the deck, and any prohibited substances. The captain and crew have authority to remove guests for rule violations. The policy exists to protect everyone on board.'
-        ]
-      },
-      {
-        heading: 'BYOB Guide: How to Stock Your Group',
-        paragraphs: [
-          'The ATX Disco Cruise is fully BYOB for guests 21 and older with valid ID. Plan roughly 2–3 drinks per person per hour as a starting point for most groups. The 4-hour cruise means budgeting appropriately. Coolers with ice are provided on board — you do not need to bring a cooler. Simply bring your beverages and load them into the on-board coolers when you arrive.',
-          'Party On Delivery (partyondelivery.com) is a local Austin alcohol delivery service that delivers directly to Anderson Mill Marina, 13993 FM 2769, Leander, TX 78641. Order in advance and have your beverages waiting at the dock. This removes the logistics of transporting alcohol from your Airbnb or hotel. Current ATX Disco Cruise schedule: Fridays 12pm–4pm ($95/person), Saturdays 11am–3pm ($105/person), Saturdays 3:30pm–7:30pm ($85/person). Call (512) 488-5892 or visit [[atx-disco]] to book.'
-        ]
-      }
-    ],
-    relatedPages: ['atx-disco', 'bachelorette-party', 'bachelor-party', 'private-cruises', 'faq', 'contact']
-  },
-
-  '/blogs/why-combined-bachelor-bachelorette-parties-love-the-atx-disco-cruise': {
-    h1: 'Why Combined Bachelor & Bachelorette Parties Love the ATX Disco Cruise',
-    introduction: 'Planning a combined bachelor bachelorette party in Austin? The [[atx-disco]] is the world\'s only all-inclusive bachelor and bachelorette party cruise — and it is specifically designed for this exact celebration. There is nothing like it anywhere on the planet. Multiple bach groups book individual tickets for the same cruise, ride together on Lake Travis, share the DJ-powered dance floor, and mix on the giant lily pad floats. Exclusively for bachelor parties, bachelorette parties, and combined bach groups — no exceptions. From $85 per person all-inclusive (DJ, photographer, coolers, tax, gratuity — all included) with groups of 2 to 25+ and no minimum. If the bride-to-be and groom-to-be both want an epic bach party that brings everyone together, this is the only place in the world to do it.',
-    sections: [
-      {
-        heading: 'Why Co-Ed Works So Well on the ATX Disco Cruise',
-        paragraphs: [
-          'Most co-ed bach party options in Austin are just a group of people at a bar or restaurant — fine, but not exceptional. The [[atx-disco]] creates a genuine shared experience. Groups arrive separately, mix on the dance floor, and share the lily pad floats on Lake Travis. The DJ creates a unified atmosphere that brings everyone together. The professional photographer captures the full group together and in subgroups. By the time the 4-hour cruise ends, the bachelor group and bachelorette group have shared something memorable — not just proximity.',
-          'The cruise is also uniquely suited to co-ed groups because both sides have something to love. The bachelorette group loves the disco aesthetic, the photographer, and the girls-trip energy. The bachelor group loves the swimming, the party boat energy, and meeting other groups. Everyone wins. No one is bored or waiting around.'
-        ]
-      },
-      {
-        heading: 'How It Works for Combined Groups',
-        paragraphs: [
-          'For a [[combined-bach]] party, both groups simply book individual tickets for the same cruise date and time. There is no need to book a separate private event — the ATX Disco Cruise format already puts multiple groups together on the same boat. Contact Premier Party Cruises at (512) 488-5892 to coordinate timing and ensure both groups are on the same cruise.',
-          'The combined group can sit together, dance together, and float together. The cruise accommodates up to 75 guests on the Clever Girl, the flagship vessel. For very large combined groups (25+), a private charter may be worth considering — but for most combined bach parties of 15–30 total guests, individual tickets on the same ATX Disco Cruise is the smoothest, most affordable approach.'
-        ]
-      },
-      {
-        heading: 'Unique Advantages for Combined Groups',
-        paragraphs: [
-          'The ATX Disco Cruise is the ONLY multi-group all-inclusive bachelor and bachelorette cruise in the United States. This is not marketing language — there is genuinely nothing comparable in Austin or nationally. Every other all-inclusive bach boat experience is a private charter. The Disco Cruise is designed from the ground up to bring multiple celebration groups together in a shared, professionally staffed party environment.',
-          'From a value standpoint, combined groups benefit doubly. Instead of the bride-to-be\'s group booking one private charter and the groom-to-be\'s group booking another — at $200–$400/hour each — both groups pay per-person ticket prices that include DJ, photographer, and all amenities. The savings are significant, and the experience is better because of the shared energy.'
-        ]
-      },
-      {
-        heading: 'Tips for Planning a Combined Bach Party Cruise',
-        paragraphs: [
-          'Book early. Combined groups often want the Saturday 11am–3pm slot ($105/person) for the full daytime experience or Saturday 3:30pm–7:30pm ($85/person) for the sunset atmosphere. These slots sell out fastest. Call (512) 488-5892 to confirm availability and reserve your spots. The marina is at 13993 FM 2769, Leander, TX 78641, approximately 30–35 minutes from downtown Austin.',
-          'Coordinate your BYOB. Both groups should plan beverages in cans or plastic — no glass beer bottles — beer in cans please. Wine, champagne, and spirits in a cooler are fine. Party On Delivery (partyondelivery.com) delivers alcohol directly to the marina and can handle both groups\' orders. The on-board coolers are pre-loaded with ice, so you just need to bring the beverages. Visit [[combined-bach]] for more planning resources, or [[bachelorette-party]] and [[bachelor-party]] for group-specific details.'
-        ]
-      }
-    ],
-    relatedPages: ['combined-bach', 'atx-disco', 'bachelorette-party', 'bachelor-party', 'private-cruises', 'contact']
-  },
-
-  '/blogs/the-best-bachelor-party-boat-in-austin-disco-cruise-vs-private-charter': {
-    h1: 'The Best Bachelor Party Boat in Austin: ATX Disco Cruise vs. Private Charter',
-    introduction: 'What is the best party boat rental for a bachelor party in Austin? After 15+ years and 150,000+ guests on Lake Travis, the answer is the [[atx-disco]] — for bachelor groups of 2 to 25+ guests with no minimum. The ATX Disco Cruise is the world\'s only all-inclusive party cruise designed exclusively for bachelor parties, bachelorette parties, and combined bach groups. From $85 per person all-inclusive — professional DJ, photographer, 14 disco balls, giant floats, coolers with ice, tax and gratuity included — it is consistently rated the highlight of the bachelor weekend and the must-do Austin activity. For groups wanting complete exclusivity or groups of 25+, a [[private-cruises]] charter is the right call. This guide covers the honest comparison.',
-    sections: [
-      {
-        heading: 'Why Most Bachelor Parties Choose the ATX Disco Cruise',
-        paragraphs: [
-          'On a private charter, a bachelor party is a group of guys on a boat. That can be great — but you provide the music, you organize the vibe, and you pay separately for anything beyond the boat itself. On the [[atx-disco]], the DJ is already there. The photographer is already there. Other bachelorette groups are also there — and most bachelor parties discover they love this. Meeting other groups, sharing the dance floor with bachelorette parties, and the combined energy of multiple celebration crews creates an atmosphere no private boat can replicate.',
-          'The per-person value is also exceptional. At $85–$105/person all-inclusive, a group of 12 pays roughly $1,020–$1,260 total for 4 hours with a DJ, photographer, floats, and all amenities. A comparable private charter — boat rental plus DJ plus photographer plus tips — runs $1,800–$2,500+ for the same group. The ATX Disco Cruise saves hundreds of dollars and delivers a more energetic experience.'
-        ]
-      },
-      {
-        heading: 'ATX Disco Cruise Advantages for Bachelor Parties',
-        paragraphs: [
-          'Professional DJ included: The DJ plays non-stop for 4 hours and reads the crowd. No Spotify playlist debates, no one assigned to phone DJ duty, no Bluetooth connection issues. The music is handled by a professional.',
-          'Professional photographer included: Bachelor parties notoriously lack good photos. Everyone is on their phones or no one thinks to capture the moment. The included photographer solves this. Your group gets professional photos delivered digitally after the cruise — something to actually share and keep.',
-          'Swimming and floats: Giant 6x20 foot lily pad floats deploy on Lake Travis. Swimming is one of the most universally loved parts of the experience for bachelor groups. July through September in particular, the lake is warm and the float is a highlight.',
-          'No coordination required: Buy tickets online, show up, enjoy. No catering coordination, no DJ booking, no photographer scheduling, no rental logistics. For bachelor parties where the best man is already managing 20 other things, the simplicity is a massive advantage.'
-        ]
-      },
-      {
-        heading: 'When a Private Charter is Better for Bachelor Parties',
-        paragraphs: [
-          'Choose a [[private-cruises]] charter if your group is 25 or more men and you want the entire boat to yourselves, if you want complete control over the music (private charters have premium Bluetooth — you are the DJ), if you have a specific corporate or themed event that requires full exclusivity, or if you are planning a weekday event (Monday–Thursday private charters are available).',
-          'Private charter pricing starts at $200/hour for the Day Tripper (up to 14 guests), $225/hour for Meeseeks or The Irony (up to 30 guests), or $250/hour for the Clever Girl (up to 75 guests), all with a 4-hour minimum. These rates do not include a professional DJ or photographer — those are add-ons you arrange separately.'
-        ]
-      },
-      {
-        heading: 'Side-by-Side: Best Austin Bachelor Party Boat Rental',
-        paragraphs: [
-          'ATX Disco Cruise: $85–$105/person all-inclusive (tax + gratuity included), DJ included, photographer included, exclusively for bachelor and bachelorette parties, groups of 2 to 25+ guests (individual tickets, no minimum), co-ed atmosphere, Friday and Saturday availability. Best for: any bach group of 2 to 25+ who want the world\'s only all-inclusive bach party cruise experience.',
-          'Private Charter: $200–$400/hour (4-hr min), no DJ included, no photographer included, exclusive boat use, any group size up to 75, weekday and weekend availability, pricing excludes tax, gratuity, and add-ons. Best for: 25+ guests who want complete exclusivity, or groups with very specific customization needs.',
-          'Our recommendation: For the typical 8–15 man bachelor party visiting Austin, the ATX Disco Cruise is the best bachelor party boat rental in Austin, hands down. Call (512) 488-5892 or visit [[atx-disco]] to book your date. March through October, Fridays and Saturdays at Anderson Mill Marina, 13993 FM 2769, Leander, TX 78641.'
-        ]
-      }
-    ],
-    relatedPages: ['bachelor-party', 'atx-disco', 'private-cruises', 'combined-bach', 'contact', 'faq']
-  },
-
-  '/blogs/what-you-actually-get-for-your-money-on-an-austin-party-boat-full-cost-breakdown': {
-    h1: 'What You Actually Get for Your Money on an Austin Party Boat: Full 2026 Cost Breakdown',
-    introduction: 'How much does a party boat rental in Austin cost — and what do you actually get for that money? The ATX Disco Cruise is $85–$105 per person all-inclusive (tax and gratuity included), exclusively for bachelor and bachelorette parties, with no minimum group size — groups of 2 to 25+ can book individual tickets. Private charters run $200–$400 per hour (4-hour minimum) and are open to any occasion. The difference is not just price — it is what is included, who else is on the boat, and the atmosphere. This is the most transparent, complete Austin party boat cost breakdown for 2026, with real numbers and a clear recommendation for every bach group size.',
-    sections: [
-      {
-        heading: 'ATX Disco Cruise Pricing: What You Pay and What You Get',
-        paragraphs: [
-          'The [[atx-disco]] operates on a per-person ticket model. Current 2026 pricing: Friday 12pm–4pm: $95/person. Saturday 11am–3pm: $105/person. Saturday 3:30pm–7:30pm: $85/person. These prices are all-inclusive — 8.25% Texas sales tax and 20% gratuity are already included. There is nothing additional to pay.',
-          'What you get at that price: 4-hour cruise on Lake Travis, USCG-certified captain and crew, professional DJ for the full 4 hours, professional photographer with digital delivery after the cruise, Clever Girl flagship vessel with 14 disco balls, giant 6x20 foot lily pad floats, coolers pre-loaded with ice, cups, koozies, and bubbles. BYOB is the only variable cost — beer in cans; wine, champagne, and spirits in a cooler are fine, absolutely no glass.'
-        ]
-      },
-      {
-        heading: 'Private Charter Pricing: Base Rates and Add-Ons',
-        paragraphs: [
-          'Private charters with Premier Party Cruises are priced by the hour with a 4-hour minimum. Day Tripper (up to 14 guests): $200–$350/hour. Meeseeks or The Irony (up to 30 guests): $225–$375/hour. Clever Girl (up to 75 guests): $250–$400/hour. A typical 4-hour private charter on Meeseeks runs $900–$1,500 base before tax, gratuity, or add-ons.',
-          'Private charters do not include a DJ (Bluetooth sound system is provided — you control the music) or a professional photographer. If you want those elements, budget: DJ $600 for 4 hours, Photographer $300–$400 for 4 hours. Total for a 4-hour Meeseeks charter with DJ and photographer: $1,800–$2,100 before tax and gratuity. Add 8.25% tax and 20% gratuity and the all-in number climbs substantially.'
-        ]
-      },
-      {
-        heading: 'Group Size Cost Comparison: Disco Cruise vs. Private Charter',
-        paragraphs: [
-          '8 people: ATX Disco Cruise at $95/person = $760 all-in with DJ + photographer. Private charter Meeseeks 4hrs = $900 base + DJ $600 + photographer $300 + tax + tip ≈ $2,100+. Savings on Disco Cruise: $1,340+.',
-          '12 people: ATX Disco Cruise at $95/person = $1,140 all-in. Private charter ≈ $2,100+. Savings: $960+.',
-          '15 people: ATX Disco Cruise at $95/person = $1,425 all-in. Private charter ≈ $2,200+. Savings: $775+.',
-          '25 people: ATX Disco Cruise at $95/person = $2,375 all-in. Private charter Clever Girl ≈ $1,900–$2,800 (without DJ/photographer). At this size the math is close — private charter makes more sense for groups wanting exclusivity.'
-        ]
-      },
-      {
-        heading: 'Hidden Costs You Avoid on the ATX Disco Cruise',
-        paragraphs: [
-          'DJ hire: Save $600. Photographer: Save $300–$400. Ice and cups: Save $40–$60. Gratuity calculation anxiety: Gratuity is already included. Booking coordination for multiple vendors: Save hours of planning time. The ATX Disco Cruise eliminates five separate vendor bookings and replaces them with a single per-person ticket.',
-          'Most transparent pricing in Austin: What you see on the [[atx-disco]] booking page is what you pay. No service fees added at checkout beyond the listed ticket price. No gratuity reminder at the end. No separate invoice for supplies. Contact Premier Party Cruises at (512) 488-5892 or visit [[private-cruises]] to compare options for your group size and dates.'
-        ]
-      }
-    ],
-    relatedPages: ['atx-disco', 'private-cruises', 'bachelor-party', 'bachelorette-party', 'contact', 'faq']
-  },
-
-  '/blogs/private-cruise-or-disco-cruise-how-real-bach-groups-decide': {
-    h1: 'Private Cruise or Disco Cruise: How Austin Bach Groups Decide',
-    introduction: 'The most common question Premier Party Cruises gets from [[bachelor-party]] and [[bachelorette-party]] groups in Austin: should we book the ATX Disco Cruise or a private charter? Both depart from Anderson Mill Marina on Lake Travis. Both offer 4+ hours on beautiful water with an experienced USCG-certified captain and crew. The difference is in what is included, who else is on the boat, and what the experience feels like. This guide gives you the exact decision framework real groups use — so you can make the right call for your crew.',
-    sections: [
-      {
-        heading: 'The Key Question: What Does Your Group Want?',
-        paragraphs: [
-          'The decision almost always comes down to two factors: group size and atmosphere preference. The ATX Disco Cruise is exclusively for bachelor parties, bachelorette parties, and combined bach groups — it is the world\'s only party cruise designed exclusively for bach celebrations. If your bach group has 2 to 25+ people and wants a pre-built party atmosphere with a live DJ, photographer, and the electric energy of multiple bach groups sharing the boat, the [[atx-disco]] is the right choice. If your group is 25+ and wants the entire boat to yourselves — full exclusivity, control over the music, and no other guests — a [[private-cruises]] charter is right.',
-          'For groups in the 15–25 person range, both options can work and the decision comes down to preference. Want the DJ included and do not mind sharing the experience? Disco Cruise. Want complete control and exclusivity even at higher cost? Private charter. Call (512) 488-5892 and talk through your group\'s needs — the Premier Party Cruises team has helped thousands of groups make this exact decision.'
-        ]
-      },
-      {
-        heading: 'Choose the ATX Disco Cruise If...',
-        paragraphs: [
-          'Your bach group has 2 to 25+ people (no minimum — even groups of 2 or 3 can book). You want a professional DJ included without booking one separately. You want a professional photographer capturing your crew without hiring one separately. You are on a budget and want maximum value per person. You want to share the boat with other bachelor and bachelorette groups — because that shared energy between multiple bach crews is what makes this the highlight of the weekend. You want the simplest possible booking: individual tickets, no minimum group, no vendor coordination.',
-          'You are visiting Austin specifically for a bach party and want the most iconic, talked-about Lake Travis experience. The ATX Disco Cruise is Austin\'s #1 bach party activity — the world\'s only all-inclusive bachelor and bachelorette party cruise, exclusively for bach celebrations. Season: March through October, Fridays and Saturdays only. This is the activity that defines Austin bach weekends.'
-        ]
-      },
-      {
-        heading: 'Choose a Private Charter If...',
-        paragraphs: [
-          'Your group is 25 or more people and wants complete exclusivity. You have a very specific theme or event that requires full control over the environment. You want to bring your own DJ or control the music entirely via the premium Bluetooth sound system. You need weekday availability (Monday–Thursday private charters are available). Your budget allows for the higher all-in cost when DJ and photographer are added as separate vendors.',
-          'Private charter boats: Day Tripper holds up to 14 guests ($200–$350/hr), Meeseeks and The Irony each hold up to 30 guests ($225–$375/hr), Clever Girl holds up to 75 guests ($250–$400/hr). All require a 4-hour minimum. Departures from Anderson Mill Marina, 13993 FM 2769, Leander, TX 78641.'
-        ]
-      },
-      {
-        heading: 'Decision Checklist',
-        paragraphs: [
-          'Group size under 20? → ATX Disco Cruise. Want DJ included? → ATX Disco Cruise. Want photographer included? → ATX Disco Cruise. Budget-focused (best per-person value)? → ATX Disco Cruise. Open to co-ed atmosphere? → ATX Disco Cruise. 25+ guests wanting exclusivity? → Private Charter. Need weekday date? → Private Charter. Want full music control? → Private Charter. Specific theme requiring customization? → Private Charter.',
-          'Still unsure? Call (512) 488-5892. Describe your group size, date, and what matters most. The Premier Party Cruises team will give you an honest recommendation — even if that means recommending the option that costs them less. Visit [[atx-disco]] or [[private-cruises]] to see current availability.'
-        ]
-      }
-    ],
-    relatedPages: ['atx-disco', 'private-cruises', 'bachelorette-party', 'bachelor-party', 'combined-bach', 'contact']
-  },
-
-  '/blogs/why-the-atx-disco-cruise-has-been-austins-1-bachelorette-party-activity-since-2019': {
-    h1: "Why the ATX Disco Cruise Has Been Austin's #1 Bachelorette Party Activity Since 2019",
-    introduction: "Looking for the best bachelorette party activity in Austin? The ATX Disco Cruise has been Austin's #1 bachelorette experience since 2019 — and it isn't close. At $85–$105 per person all-inclusive, it delivers everything every bachelorette group wants: a professional photographer capturing every moment, a live DJ creating the ultimate party atmosphere, Lake Travis as a backdrop, giant lily pad floats for swimming, and the shared energy of multiple bachelorette and bachelor groups celebrating together. It is the world's only all-inclusive bachelor and bachelorette party cruise — exclusively for bach celebrations, no exceptions. Groups of 2 to 25+ guests welcome; no minimum. This is not just the highlight of the bachelorette weekend — guests consistently call it the highlight of the entire Austin trip.",
-    sections: [
-      {
-        heading: 'Why Bachelorette Groups Choose This Above Everything Else in Austin',
-        paragraphs: [
-          'Austin has excellent options for bachelorette parties — Rainey Street, 6th Street, South Congress, spa days, wine tours. But the [[atx-disco]] occupies a category of its own. It is a 4-hour experience that combines lake swimming, a professional DJ, professional photography, a disco party atmosphere, and the unique energy of multiple bachelorette groups celebrating together. Nothing in Austin replicates this combination.',
-          'The most cited reason bachelorette groups choose the Disco Cruise over alternatives: the photographer is already there. Bachelorette weekends generate some of the most important social content of the year — the bride needs photos that look great, not blurry phone shots. The included professional photographer delivers that without anyone in the group being stuck behind a phone for 4 hours. Photos are delivered digitally after the cruise.'
-        ]
-      },
-      {
-        heading: "What Makes It Austin's #1 Bachelorette Activity",
-        paragraphs: [
-          'The ATX Disco Cruise has held the top bachelorette activity ranking in Austin since 2019 because it delivers on every dimension bachelorette groups care about: fun (DJ, dancing, swimming), content (professional photographer), ease (nothing to organize beyond arriving), value ($85–$105 all-in with everything included), and uniqueness (14 disco balls, Lake Travis, no comparable experience anywhere in the U.S.).',
-          'The co-ed atmosphere deserves special mention. The [[atx-disco]] attracts bachelor parties on the same cruise. Most bachelorette groups discover they love this — meeting the bachelor group, dancing with new people, and the electric energy of multiple celebrations merging on the water. Groups that were skeptical about sharing the boat consistently report it was their favorite part. This is the only venue in Austin where that naturally happens.'
-        ]
-      },
-      {
-        heading: 'The Photographer Factor: Why This Matters for Bachelorette Parties',
-        paragraphs: [
-          'A professional photographer is included on every ATX Disco Cruise at no extra cost. They spend the full 4 hours capturing candid moments, group shots on the dance floor, swimming and float photos, and the disco atmosphere. Photos are delivered digitally. For a bachelorette group, this is transformative: everyone is present in the photos, the quality is professional, and no one has the job of phone photographer for the day.',
-          'Hiring a comparable photographer separately costs $200–$400 for 4 hours. On the Disco Cruise, that cost is folded into the per-person ticket price. It is one of the most concrete examples of why the all-inclusive model works — the things bachelorette groups most want are the things most included.'
-        ]
-      },
-      {
-        heading: 'Austin as a Bachelorette Destination — and Why the Cruise Is the Reason to Come',
-        paragraphs: [
-          'Austin has surpassed Vegas and Nashville as the top bachelorette party city for many groups, and Lake Travis is a major reason why. The combination of world-class food and nightlife in Austin proper with the outdoor water experience of Lake Travis creates a weekend that has something for everyone. The [[atx-disco]] is often cited by guests as the single deciding factor that made them choose Austin over other cities.',
-          'The cruise runs March through October from Anderson Mill Marina, 13993 FM 2769, Leander, TX 78641, approximately 30–35 minutes from downtown Austin. Current schedule: Fridays 12pm–4pm ($95/person), Saturdays 11am–3pm ($105/person), Saturdays 3:30pm–7:30pm ($85/person). Book early — Saturday slots in peak season sell out 2–3 months ahead. Visit [[bachelorette-party]] for full Austin bachelorette planning resources, or call (512) 488-5892.'
-        ]
-      }
-    ],
-    relatedPages: ['bachelorette-party', 'atx-disco', 'combined-bach', 'private-cruises', 'contact', 'faq']
-  },
-
-  '/blogs/atx-disco-cruise-vs-private-boat-which-is-better-for-a-bachelorette-party': {
-    h1: 'ATX Disco Cruise vs. Private Boat: Which Is Better for a Bachelorette Party in Austin?',
-    introduction: "Choosing between the ATX Disco Cruise and a private boat rental for your Austin bachelorette party? For bachelorette groups of 2 to 25+, the [[atx-disco]] is the better choice — and it is not close. The ATX Disco Cruise is the world's only all-inclusive party cruise designed exclusively for bachelor and bachelorette celebrations. It includes a professional photographer (private charters do not), a live DJ for 4 hours (private charters have Bluetooth — you manage the playlist yourself), and the electric energy of being surrounded by other bach groups who are all celebrating the same milestone. At $85–$105 per person all-inclusive (tax and gratuity included) versus $200–$400/hour plus separate DJ, photographer, and supplies on a private charter, the value difference is significant. Here is the complete, honest comparison.",
-    sections: [
-      {
-        heading: 'The Key Differences That Matter for Bachelorette Groups',
-        paragraphs: [
-          'Photographer: The ATX Disco Cruise includes a professional photographer for the full 4 hours. Private charters do not include a photographer — you would hire one separately ($200–$400) or rely on phone photos. For most bachelorette groups, this is the single most important factor. Professional photos, everyone present in the shots, no phone duty for 4 hours.',
-          'DJ: The [[atx-disco]] includes a live professional DJ for the full 4 hours. Private charters include a Bluetooth sound system — you create and manage the playlist yourself. For bachelorette groups who want dancing and a real party energy, the professional DJ creates an atmosphere a playlist cannot replicate.',
-          'Atmosphere: The Disco Cruise brings multiple bachelorette and bachelor groups together. Many bachelorette groups cite the co-ed energy — dancing with other bachelorette crews and meeting bachelor groups — as their favorite part of the experience. Private charters offer complete exclusivity: only your group, fully private.',
-          'Price: Disco Cruise is $85–$105/person all-inclusive (tax and gratuity included). Private charter is $200–$400/hour (4-hour minimum) plus DJ, photographer, supplies, tax, and gratuity. For most group sizes under 20, the Disco Cruise is $500–$1,500 less expensive in total.'
-        ]
-      },
-      {
-        heading: 'Why Bachelorette Parties Specifically Prefer the ATX Disco Cruise',
-        paragraphs: [
-          'The disco theme is perfect for bachelorette aesthetic content. The 14 disco balls, the Lake Travis backdrop, and the party atmosphere create Instagram-ready photos in every direction. The professional photographer captures all of it without anyone managing a phone. This combination — themed aesthetic plus professional photography — is uniquely aligned with what bachelorette groups want to share after the trip.',
-          'The all-inclusive structure also reduces planning stress, which matters for bachelorette organizers. Instead of booking a boat, then a photographer, then a DJ, then coordinating ice and supplies — you buy tickets online and show up. Everything else is handled. For a maid of honor coordinating a complex bachelorette weekend, this simplicity is genuinely valuable.'
-        ]
-      },
-      {
-        heading: 'When a Private Charter Is Better for a Bachelorette Party',
-        paragraphs: [
-          'Choose a [[private-cruises]] charter if: your group is 25 or more women and you want the entire boat exclusively, you have a specific theme or activity that requires full control of the environment, you strongly prefer no other groups on the boat, or you need a weekday booking (private charters are available Monday through Thursday as well).',
-          'Private charter boats include Day Tripper (up to 14 guests, $200–$350/hr), Meeseeks or The Irony (up to 30 guests, $225–$375/hr), and Clever Girl (up to 75 guests, $250–$400/hr). All require a 4-hour minimum. Remember to budget separately for a photographer and DJ if you want those elements.'
-        ]
-      },
-      {
-        heading: 'Our Recommendation for Austin Bachelorette Parties',
-        paragraphs: [
-          'For bachelorette groups of 2 to 25+: ATX Disco Cruise, without hesitation. The photographer alone justifies the choice. Add the professional DJ, the 14 disco balls, the giant floats, the world\'s-only exclusively-bach atmosphere, and the all-inclusive value — it is not a close call. This is the highlight of the bachelorette weekend.',
-          'For groups of 25+: Private charter on the Clever Girl is worth the cost if exclusivity matters to your group. But do not assume bigger is better — many large bachelorette groups specifically choose the Disco Cruise because the shared energy is what makes it special.',
-          'Current ATX Disco Cruise schedule: Fridays 12pm–4pm ($95/person), Saturdays 11am–3pm ($105/person), Saturdays 3:30pm–7:30pm ($85/person). March through October season, departing from Anderson Mill Marina, 13993 FM 2769, Leander, TX 78641, approximately 30–35 minutes from downtown Austin. Book at [[atx-disco]] or call (512) 488-5892. Visit [[bachelorette-party]] for full Austin bachelorette planning resources.'
-        ]
-      }
-    ],
-    relatedPages: ['bachelorette-party', 'atx-disco', 'private-cruises', 'combined-bach', 'contact', 'faq']
   },
 
 };
@@ -9195,21 +8671,6 @@ export const RELATED_PAGES_MAP: Record<string, RelatedPagesConfig> = {
   
   // ATX Disco blogs
   '/blogs/atx-disco-cruise-experience': ATX_DISCO_BLOG_BACK_TO_PAGE,
-  '/blogs/the-funnest-daytime-activity-in-austin-according-to-30000-guests': ATX_DISCO_BLOG_BACK_TO_PAGE,
-  '/blogs/is-the-atx-disco-cruise-worth-it-breaking-down-the-value-vs-a-private-boat': ATX_DISCO_BLOG_BACK_TO_PAGE,
-  '/blogs/everything-thats-included-on-the-atx-disco-cruise-so-you-dont-have-to-bring-anything': ATX_DISCO_BLOG_BACK_TO_PAGE,
-  '/blogs/why-combined-bachelor-bachelorette-parties-love-the-atx-disco-cruise': ATX_DISCO_BLOG_BACK_TO_PAGE,
-  '/blogs/the-best-bachelor-party-boat-in-austin-disco-cruise-vs-private-charter': ATX_DISCO_BLOG_BACK_TO_PAGE,
-  '/blogs/what-you-actually-get-for-your-money-on-an-austin-party-boat-full-cost-breakdown': ATX_DISCO_BLOG_BACK_TO_PAGE,
-  '/blogs/private-cruise-or-disco-cruise-how-real-bach-groups-decide': ATX_DISCO_BLOG_BACK_TO_PAGE,
-  '/blogs/why-the-atx-disco-cruise-has-been-austins-1-bachelorette-party-activity-since-2019': ATX_DISCO_BLOG_BACK_TO_PAGE,
-  '/blogs/atx-disco-cruise-vs-private-boat-which-is-better-for-a-bachelorette-party': ATX_DISCO_BLOG_BACK_TO_PAGE,
-  '/blogs/atx-disco-cruise-dos-and-donts-bachelor-party': ATX_DISCO_BLOG_BACK_TO_PAGE,
-  '/blogs/the-top-dos-and-dont-for-success-on-the-atx-disco-cruise-with-premier-party-cruises': ATX_DISCO_BLOG_BACK_TO_PAGE,
-  '/blogs/bachelor-party-outfit-ideas-atx-disco-cruise': ATX_DISCO_BLOG_BACK_TO_PAGE,
-  '/blogs/disco-cruise-fashion-part-1': ATX_DISCO_BLOG_BACK_TO_PAGE,
-  '/blogs/private-charter-vs-atx-disco-cruise-which-austin-party-boat': ATX_DISCO_BLOG_BACK_TO_PAGE,
-  '/blogs/why-atx-disco-cruise-austins-most-booked-party-boat-experience': ATX_DISCO_BLOG_BACK_TO_PAGE,
   
   // Corporate blogs linking back to main pages
   '/blogs/corporate-team-building-on-lake-travis-professional-boat-rental-solutions': CORPORATE_BLOG_BACK_TO_PAGE,
@@ -9268,7 +8729,11 @@ export const RELATED_PAGES_MAP: Record<string, RelatedPagesConfig> = {
   '/blogs/holiday-party-alcohol-themes-new-years-fourth-of-july-and-austin-celebrations': HOLIDAY_BLOG_BACK_TO_PAGE,
   
   // General party boat blogs
+  '/blogs/private-charter-vs-atx-disco-cruise-which-austin-party-boat': GENERAL_BLOG_BACK_TO_PAGE,
   '/blogs/private-party-cruise-vs-party-boat-pontoon-lake-travis': GENERAL_BLOG_BACK_TO_PAGE,
+  '/blogs/why-atx-disco-cruise-austins-most-booked-party-boat-experience': ATX_DISCO_BLOG_BACK_TO_PAGE,
+  '/blogs/atx-disco-cruise-dos-and-donts-bachelor-party': ATX_DISCO_BLOG_BACK_TO_PAGE,
+  '/blogs/the-top-dos-and-dont-for-success-on-the-atx-disco-cruise-with-premier-party-cruises': ATX_DISCO_BLOG_BACK_TO_PAGE,
   
   // More bachelor blogs
   '/blogs/perfect-bachelor-party-itinerary-austin': BACHELOR_BLOG_BACK_TO_PAGE,
@@ -9297,43 +8762,6 @@ export const RELATED_PAGES_MAP: Record<string, RelatedPagesConfig> = {
   '/blogs/lake-travis-boat-party-catering-food-and-beverage-coordination-for-perfect-events': GENERAL_BLOG_BACK_TO_PAGE,
   '/blogs/lake-travis-boat-party-reviews-real-customer-experiences-and-testimonials': GENERAL_BLOG_BACK_TO_PAGE,
   
-  // Additional bachelor blogs (gap-fill)
-  '/blogs/austin-bachelor-party-ideas': BACHELOR_BLOG_BACK_TO_PAGE,
-  '/blogs/lake-travis-bachelor-party-alcohol-delivery-complete-coordination-guide-for-boat-parties': BACHELOR_BLOG_BACK_TO_PAGE,
-  '/blogs/lake-travis-bachelor-party-boats-guide': BACHELOR_BLOG_BACK_TO_PAGE,
-  '/blogs/lake-travis-party-boat-vs-downtown-night-out-austin-bachelor': BACHELOR_BLOG_BACK_TO_PAGE,
-  '/blogs/perfect-austin-bachelor-party-weekend': BACHELOR_BLOG_BACK_TO_PAGE,
-  '/blogs/safest-austin-bachelor-party-lake-travis-party-boat': BACHELOR_BLOG_BACK_TO_PAGE,
-  '/blogs/top-10-reasons-austin-bachelor-party-lake-travis-boat': BACHELOR_BLOG_BACK_TO_PAGE,
-
-  // Additional bachelorette blogs (gap-fill)
-  '/blogs/austin-bachelorette-party-boats-lake-travis-adventures-for-unforgettable-celebrations': BACHELORETTE_BLOG_BACK_TO_PAGE,
-  '/blogs/austin-bachelorette-party-vs-lake-travis-boat-why-lake-wins': BACHELORETTE_BLOG_BACK_TO_PAGE,
-  '/blogs/austin-bachelorette-weekend-alcohol-timeline-day-by-day-drinking-strategy-for-multi-day-celebrations': BACHELORETTE_BLOG_BACK_TO_PAGE,
-  '/blogs/bachelorette-party-alcohol-emergency-kit-last-minute-delivery-solutions': BACHELORETTE_BLOG_BACK_TO_PAGE,
-  '/blogs/budget-friendly-bachelorette-party-alcohol-maximum-fun-without-breaking-the-bank': BACHELORETTE_BLOG_BACK_TO_PAGE,
-  '/blogs/cocktail-kits-vs-individual-bottles-the-smart-bachelorette-party-alcohol-strategy': BACHELORETTE_BLOG_BACK_TO_PAGE,
-  '/blogs/instagram-worthy-bachelorette-party-cocktails-recipes-and-delivery-coordination': BACHELORETTE_BLOG_BACK_TO_PAGE,
-  '/blogs/lake-travis-bachelorette-party-alcohol-laws-what-you-can-and-cant-bring-on-boats': BACHELORETTE_BLOG_BACK_TO_PAGE,
-  '/blogs/the-ultimate-austin-bachelorette-party-alcohol-guide-what-to-order-when-to-order-and-how-much-you-actually-need': BACHELORETTE_BLOG_BACK_TO_PAGE,
-  '/blogs/ultimate-austin-bachelorette-party-boat-guide-lake-travis': BACHELORETTE_BLOG_BACK_TO_PAGE,
-
-  // Additional ATX Disco blogs (gap-fill)
-  '/blogs/the-recipe-for-the-chillest-atx-bach-party': ATX_DISCO_BLOG_BACK_TO_PAGE,
-
-  // Additional corporate blogs (gap-fill)
-  '/blogs/all-inclusive-corporate-packages-austin': CORPORATE_BLOG_BACK_TO_PAGE,
-  '/blogs/client-entertainment-alcohol-strategy-impressing-without-overdoing-it': CORPORATE_BLOG_BACK_TO_PAGE,
-
-  // Additional wedding blogs (gap-fill)
-  '/blogs/rehearsal-dinner-boat-alcohol-delivery-unique-wedding-weekend-experiences': WEDDING_BLOG_BACK_TO_PAGE,
-
-  // Additional general blogs (gap-fill)
-  '/blogs/austin-party-venue-alcohol-delivery-navigating-policies-and-logistics': GENERAL_BLOG_BACK_TO_PAGE,
-  '/blogs/party-alcohol-safety-in-austin-responsible-service-and-guest-well-being': GENERAL_BLOG_BACK_TO_PAGE,
-  '/blogs/pool-party-alcohol-coordination-summer-event-planning-in-austin-heat': GENERAL_BLOG_BACK_TO_PAGE,
-  '/blogs/the-top-five-celebrities-at-our-dream-party-barge': GENERAL_BLOG_BACK_TO_PAGE,
-
   // Geo-targeted pages (older bachelorette content)
   '/first-time-lake-travis-boat-rental-guide': GENERAL_BLOG_BACK_TO_PAGE,
   '/lake-travis-bachelor-party-boats': BACHELOR_BLOG_BACK_TO_PAGE,
@@ -9404,7 +8832,7 @@ const BLOG_TITLE_MAP: Record<string, string> = {
   '/ultimate-austin-bachelorette-weekend': 'Ultimate Austin Bachelorette Weekend | Premier Party Guide',
   '/top-10-austin-bachelorette-ideas': 'Top 10 Austin Bachelorette Ideas | Ultimate Party Guide 2025',
   '/budget-austin-bachelorette': 'Budget Austin Bachelorette | Affordable Lake Travis',
-  '/luxury-austin-bachelorette': 'Luxury Bachelorette Party Austin: VIP Private Boats, Spas & Upscale Hotels',
+  '/luxury-austin-bachelorette': 'Luxury Austin Bachelorette | Lake Travis VIP',
   '/blogs/why-choose-austin-bachelorette-party': 'Why Choose Austin for Your Bachelorette Party: Top 10 Reasons',
   '/blogs/austin-bachelorette-party-april': 'Austin Bachelorette Party in April | Spring Wildflowers',
   '/blogs/austin-bachelorette-party-august': 'Austin Bachelorette Party in August | Hot Summer Guide',
@@ -9416,15 +8844,6 @@ const BLOG_TITLE_MAP: Record<string, string> = {
   '/blogs/top-spots-tips-for-an-unforgettable-austin-bachelorette-party-experience': 'Austin Bachelorette Party Top Spots & Tips',
   '/blogs/joint-bachelor-bachelorette-party-guide': 'How to Plan a Joint Bachelor Bachelorette Party in Austin',
   '/blogs/atx-disco-cruise-experience': 'ATX Disco Cruise Experience | Austin Party Boat',
-  '/blogs/the-funnest-daytime-activity-in-austin-according-to-30000-guests': 'The Funnest Daytime Activity in Austin, According to 30,000 Guests',
-  '/blogs/is-the-atx-disco-cruise-worth-it-breaking-down-the-value-vs-a-private-boat': 'Is the ATX Disco Cruise Worth It? Value vs. Private Boat',
-  '/blogs/everything-thats-included-on-the-atx-disco-cruise-so-you-dont-have-to-bring-anything': "Everything That's Included on the ATX Disco Cruise",
-  '/blogs/why-combined-bachelor-bachelorette-parties-love-the-atx-disco-cruise': 'Why Combined Bachelor & Bachelorette Parties Love the ATX Disco Cruise',
-  '/blogs/the-best-bachelor-party-boat-in-austin-disco-cruise-vs-private-charter': 'Best Bachelor Party Boat in Austin: Disco Cruise vs. Private Charter',
-  '/blogs/what-you-actually-get-for-your-money-on-an-austin-party-boat-full-cost-breakdown': 'Austin Party Boat Cost Breakdown 2026: Full Pricing Guide',
-  '/blogs/private-cruise-or-disco-cruise-how-real-bach-groups-decide': 'Private Cruise or Disco Cruise: How Austin Bach Groups Decide',
-  '/blogs/why-the-atx-disco-cruise-has-been-austins-1-bachelorette-party-activity-since-2019': "Austin's #1 Bachelorette Party Activity Since 2019: ATX Disco Cruise",
-  '/blogs/atx-disco-cruise-vs-private-boat-which-is-better-for-a-bachelorette-party': 'ATX Disco Cruise vs. Private Boat: Best Austin Bachelorette Option',
   '/blogs/corporate-team-building-on-lake-travis-professional-boat-rental-solutions': 'Corporate Team Building Lake Travis: Professional Boat Rentals',
   '/blogs/all-inclusive-corporate-packages': 'All-Inclusive Corporate Packages Lake Travis',
   '/blogs/austin-best-corporate-events': 'Best Corporate Events Austin | 10-100 Guests',
