@@ -1,4 +1,4 @@
-import { useState, lazy, Suspense } from 'react';
+import { useState, useEffect, useRef, lazy, Suspense } from 'react';
 import { Link } from 'wouter';
 import PublicNavigation from '@/components/PublicNavigation';
 
@@ -976,6 +976,39 @@ const DISCO_FAQ_DATA = [
 ];
 
 // ─── Component ──────────────────────────────────────────────────────────────
+// Lazy TikTok embed — only loads iframe when scrolled into view
+function LazyTikTok({ videoId, title, label }: { videoId: string; title: string; label: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setVisible(true); obs.disconnect(); } },
+      { threshold: 0.2 }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+
+  return (
+    <div className="hp2-video-gallery__item" ref={ref}>
+      {visible ? (
+        <iframe
+          src={`https://www.tiktok.com/embed/v2/${videoId}`}
+          allowFullScreen
+          allow="encrypted-media; autoplay"
+          title={title}
+        />
+      ) : (
+        <div style={{ width: '100%', height: '100%', background: '#1A1A26', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#C8A96E', fontSize: '2rem' }}>▶</div>
+      )}
+      <div className="hp2-video-gallery__label">{label}</div>
+    </div>
+  );
+}
+
 export default function DiscoV2() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [openDetails, setOpenDetails] = useState<string | null>(null);
@@ -1078,62 +1111,39 @@ export default function DiscoV2() {
           Real moments from the ATX Disco Cruise — dance floors, lake swims, sunset views, and pure celebration.
         </p>
 
-        {/* TikTok Video Embeds — 4 vertical videos */}
+        {/* TikTok Video Embeds — lazy-loaded on scroll into view */}
         <div className="hp2-video-gallery">
-          <div className="hp2-video-gallery__item">
-            <iframe
-              src="https://www.tiktok.com/embed/v2/7098140161766198574"
-              allowFullScreen
-              allow="encrypted-media"
-              loading="lazy"
-              title="BachBabes: Premier Party Cruises is a MUST for Austin bachelorettes"
-            />
-            <div className="hp2-video-gallery__label">100K+ Views — @bachbabes</div>
-          </div>
-          <div className="hp2-video-gallery__item">
-            <iframe
-              src="https://www.tiktok.com/embed/v2/7186412125869362474"
-              allowFullScreen
-              allow="encrypted-media"
-              loading="lazy"
-              title="ATX Disco Cruise full walkthrough by @budatreehousestudios"
-            />
-            <div className="hp2-video-gallery__label">The Disco Cruise Experience</div>
-          </div>
-          <div className="hp2-video-gallery__item">
-            <iframe
-              src="https://www.tiktok.com/embed/v2/7192009833111964974"
-              allowFullScreen
-              allow="encrypted-media"
-              loading="lazy"
-              title="Planning your Austin bachelorette party"
-            />
-            <div className="hp2-video-gallery__label">Bachelorette Planning Tips</div>
-          </div>
-          <div className="hp2-video-gallery__item">
-            <iframe
-              src="https://www.tiktok.com/embed/v2/7098140161766198574"
-              allowFullScreen
-              allow="encrypted-media"
-              loading="lazy"
-              title="Premier Party Cruises Austin bachelorette must-do"
-            />
-            <div className="hp2-video-gallery__label">The Viral Bach Party Video</div>
-          </div>
+          <LazyTikTok videoId="7098140161766198574" title="BachBabes: Premier Party Cruises is a MUST" label="100K+ Views — @bachbabes" />
+          <LazyTikTok videoId="7186412125869362474" title="ATX Disco Cruise walkthrough" label="The Disco Cruise Experience" />
+          <LazyTikTok videoId="7192009833111964974" title="Austin bachelorette party planning" label="Bachelorette Planning Tips" />
+          <LazyTikTok videoId="7098140161766198574" title="Premier Party Cruises Austin must-do" label="The Viral Bach Video" />
         </div>
 
         {/* Photo Mosaic */}
         <div style={{ marginTop: '3rem' }}>
           <div className="hp2-section__label">Photos From The Cruise</div>
         </div>
-        <div className="hp2-photo-mosaic">
-          <img src="/attached_assets/disco_fun_1765193453547.jpg" alt="Bachelorette group dancing on ATX Disco Cruise Lake Travis" loading="lazy" />
-          <img src="/attached_assets/disco_fun2_1765193453547.jpg" alt="Party atmosphere on Clever Girl disco boat Austin" loading="lazy" />
-          <img src="/attached_assets/disco_fun5_1765193453548.jpg" alt="Groups celebrating together on Lake Travis disco cruise" loading="lazy" />
-          <img src="/attached_assets/disco_fun6_1765193453548.jpg" alt="DJ and dance floor on ATX Disco Cruise boat party" loading="lazy" />
-          <img src="/attached_assets/@capitalcityshots-1_1760080740012.jpg" alt="Bachelor group on Lake Travis party boat with DJ" loading="lazy" />
-          <img src="/attached_assets/@capitalcityshots-5_1760080740018.jpg" alt="Swimming and floats at ATX Disco Cruise Lake Travis" loading="lazy" />
-          <img src="/attached_assets/@capitalcityshots-21_1760080807864.jpg" alt="Sunset view from ATX Disco Cruise on Lake Travis" loading="lazy" />
+        <div className="hp2-gallery" style={{ gridTemplateColumns: 'repeat(5, 1fr)', gap: '0.4rem' }}>
+          <img src="/attached_assets/disco_fun_first_1765193453547.jpg" alt="ATX Disco Cruise party dancing on Lake Travis" loading="lazy" />
+          <img src="/attached_assets/disco_fun_1765193453547.jpg" alt="Bachelorette group dancing on ATX Disco Cruise" loading="lazy" />
+          <img src="/attached_assets/disco_fun2_1765193453547.jpg" alt="Party vibes on Clever Girl disco boat Austin" loading="lazy" />
+          <img src="/attached_assets/disco_fun3_1765193453547.jpg" alt="Groups having fun on Lake Travis disco cruise" loading="lazy" />
+          <img src="/attached_assets/disco_fun5_1765193453548.jpg" alt="Friends celebrating on ATX Disco Cruise boat" loading="lazy" />
+          <img src="/attached_assets/disco_fun6_1765193453548.jpg" alt="DJ and dance floor on Lake Travis party boat" loading="lazy" />
+          <img src="/attached_assets/disco_fun7_1765193453548.jpg" alt="Swimming and floats at ATX Disco Cruise" loading="lazy" />
+          <img src="/attached_assets/disco_fun9_1765193453548.jpg" alt="Sunset party on Clever Girl boat Lake Travis" loading="lazy" />
+          <img src="/attached_assets/disco_fun_best2_1765193453547.jpg" alt="Best moments from ATX Disco Cruise Austin" loading="lazy" />
+          <img src="/attached_assets/disco_fun_28_1765193453540.jpg" alt="Disco ball party on Lake Travis boat cruise" loading="lazy" />
+          <img src="/attached_assets/@capitalcityshots-1_1760080740012.jpg" alt="Bachelor group on party boat with DJ" loading="lazy" />
+          <img src="/attached_assets/@capitalcityshots-2_1760080740017.jpg" alt="Party atmosphere on Lake Travis cruise" loading="lazy" />
+          <img src="/attached_assets/@capitalcityshots-3_1760080740017.jpg" alt="Friends swimming off party boat Lake Travis" loading="lazy" />
+          <img src="/attached_assets/@capitalcityshots-4_1760080740017.jpg" alt="Bachelorette group on ATX Disco Cruise" loading="lazy" />
+          <img src="/attached_assets/@capitalcityshots-5_1760080740018.jpg" alt="Giant float and swimming at disco cruise" loading="lazy" />
+          <img src="/attached_assets/@capitalcityshots-9_1760080740019.jpg" alt="Lake Travis cove swimming stop party boat" loading="lazy" />
+          <img src="/attached_assets/@capitalcityshots-10_1760080740019.jpg" alt="Dancing on deck ATX Disco Cruise sunset" loading="lazy" />
+          <img src="/attached_assets/@capitalcityshots-14_1760080740020.jpg" alt="Groups celebrating together Lake Travis" loading="lazy" />
+          <img src="/attached_assets/@capitalcityshots-21_1760080807864.jpg" alt="Sunset cruise view from Clever Girl boat" loading="lazy" />
+          <img src="/attached_assets/@capitalcityshots-25_1760080807866.jpg" alt="Fun times on ATX Disco Cruise Austin TX" loading="lazy" />
         </div>
       </section>
 
