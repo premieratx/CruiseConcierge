@@ -755,6 +755,67 @@ const DISCO_STYLES = `
   left: 0;
   color: var(--hp2-gold);
 }
+/* Video Gallery — vertical TikTok embeds */
+.hp2-video-gallery {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-top: 2.5rem;
+}
+.hp2-video-gallery__item {
+  position: relative;
+  border: 1px solid var(--hp2-border);
+  border-radius: 0;
+  overflow: hidden;
+  background: var(--hp2-bg-card);
+  aspect-ratio: 9/16;
+}
+.hp2-video-gallery__item iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+.hp2-video-gallery__label {
+  text-align: center;
+  font-size: 0.78rem;
+  color: var(--hp2-text-muted);
+  padding: 0.6rem 0.5rem;
+  letter-spacing: 0.04em;
+}
+.hp2-photo-mosaic {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 220px 220px;
+  gap: 0.5rem;
+  margin-top: 2rem;
+}
+.hp2-photo-mosaic img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: 1px solid var(--hp2-border);
+  transition: transform 0.3s ease;
+}
+.hp2-photo-mosaic img:hover {
+  transform: scale(1.03);
+}
+.hp2-photo-mosaic img:first-child {
+  grid-column: 1 / 3;
+  grid-row: 1 / 3;
+}
+@media (max-width: 768px) {
+  .hp2-video-gallery {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .hp2-photo-mosaic {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 180px 180px 180px;
+  }
+  .hp2-photo-mosaic img:first-child {
+    grid-column: 1 / 3;
+    grid-row: 1 / 2;
+  }
+}
 /* Private Pricing Table */
 .hp2-private-pricing {
   margin-top: 4rem;
@@ -1006,6 +1067,75 @@ export default function DiscoV2() {
           </div>
         </div>
       </div>
+
+      {/* ─── Video & Photo Gallery ─── */}
+      <section className="hp2-section">
+        <div className="hp2-section__label">See It In Action</div>
+        <h2 className="hp2-section__headline">
+          This is what <em>unforgettable</em> looks like.
+        </h2>
+        <p style={{ fontSize: '1.15rem', color: '#C8B898', maxWidth: '700px', lineHeight: 1.7, marginBottom: '1rem' }}>
+          Real moments from the ATX Disco Cruise — dance floors, lake swims, sunset views, and pure celebration.
+        </p>
+
+        {/* TikTok Video Embeds — 4 vertical videos */}
+        <div className="hp2-video-gallery">
+          <div className="hp2-video-gallery__item">
+            <iframe
+              src="https://www.tiktok.com/embed/v2/7186412125869362474"
+              allowFullScreen
+              allow="encrypted-media"
+              loading="lazy"
+              title="ATX Disco Cruise walkthrough"
+            />
+            <div className="hp2-video-gallery__label">The Disco Cruise Experience</div>
+          </div>
+          <div className="hp2-video-gallery__item">
+            <iframe
+              src="https://www.tiktok.com/embed/v2/7192009833111964974"
+              allowFullScreen
+              allow="encrypted-media"
+              loading="lazy"
+              title="Bachelorette party planning Austin"
+            />
+            <div className="hp2-video-gallery__label">Bach Party on the Water</div>
+          </div>
+          <div className="hp2-video-gallery__item">
+            <iframe
+              src="https://www.tiktok.com/embed/v2/7186412125869362474"
+              allowFullScreen
+              allow="encrypted-media"
+              loading="lazy"
+              title="Premier Party Cruises highlight"
+            />
+            <div className="hp2-video-gallery__label">Dance Floor Vibes</div>
+          </div>
+          <div className="hp2-video-gallery__item">
+            <iframe
+              src="https://www.tiktok.com/embed/v2/7192009833111964974"
+              allowFullScreen
+              allow="encrypted-media"
+              loading="lazy"
+              title="Austin bachelorette boat party"
+            />
+            <div className="hp2-video-gallery__label">Lake Travis Sunset</div>
+          </div>
+        </div>
+
+        {/* Photo Mosaic */}
+        <div style={{ marginTop: '3rem' }}>
+          <div className="hp2-section__label">Photos From The Cruise</div>
+        </div>
+        <div className="hp2-photo-mosaic">
+          <img src="/attached_assets/disco_fun_1765193453547.jpg" alt="Bachelorette group dancing on ATX Disco Cruise Lake Travis" loading="lazy" />
+          <img src="/attached_assets/disco_fun2_1765193453547.jpg" alt="Party atmosphere on Clever Girl disco boat Austin" loading="lazy" />
+          <img src="/attached_assets/disco_fun5_1765193453548.jpg" alt="Groups celebrating together on Lake Travis disco cruise" loading="lazy" />
+          <img src="/attached_assets/disco_fun6_1765193453548.jpg" alt="DJ and dance floor on ATX Disco Cruise boat party" loading="lazy" />
+          <img src="/attached_assets/@capitalcityshots-1_1760080740012.jpg" alt="Bachelor group on Lake Travis party boat with DJ" loading="lazy" />
+          <img src="/attached_assets/@capitalcityshots-5_1760080740018.jpg" alt="Swimming and floats at ATX Disco Cruise Lake Travis" loading="lazy" />
+          <img src="/attached_assets/@capitalcityshots-21_1760080807864.jpg" alt="Sunset view from ATX Disco Cruise on Lake Travis" loading="lazy" />
+        </div>
+      </section>
 
       {/* ─── The Experience ─── */}
       <section className="hp2-section">
