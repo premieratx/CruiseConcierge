@@ -28,6 +28,7 @@ const GlobalInlineEditor = lazy(() => import("@/components/GlobalInlineEditor").
 
 // Home eagerly loaded for optimal LCP performance
 import Home from "./pages/Home";
+import HomeNew from "./pages/Home-New";
 
 // All other routes lazy-loaded for optimal code splitting
 const AuthPage = lazy(() => import("./pages/AuthPage"));
@@ -357,6 +358,7 @@ function Router() {
       <Switch>
         {/* Public Homepage */}
         <Route path="/" component={Home} />
+        <Route path="/home-v2" component={HomeNew} />
       
       {/* Authentication */}
       <Route path="/auth" component={AuthPage} />
