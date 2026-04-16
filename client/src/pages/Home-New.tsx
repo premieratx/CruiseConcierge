@@ -1,6 +1,6 @@
 import { useState, useEffect, lazy, Suspense, useRef } from 'react';
 import { Link } from 'wouter';
-import PublicNavigation from '@/components/PublicNavigation';
+import PublicNavigation from '@/components/PublicNavigationLuxury';
 
 const Footer = lazy(() => import('@/components/Footer'));
 
@@ -63,8 +63,47 @@ const HP2_STYLES = `
 .hp2-hero__overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(7,7,12,0.88) 0%, rgba(7,7,12,0.55) 60%, rgba(7,7,12,0.75) 100%);
+  background:
+    radial-gradient(ellipse at 20% 80%, rgba(30,136,229,0.22) 0%, transparent 55%),
+    radial-gradient(ellipse at 80% 20%, rgba(200,169,110,0.15) 0%, transparent 60%),
+    linear-gradient(135deg, rgba(7,7,12,0.88) 0%, rgba(7,7,12,0.55) 60%, rgba(7,7,12,0.78) 100%);
   z-index: 1;
+}
+
+.hp2-hero__overlay::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 100%, rgba(30,136,229,0.12) 0%, transparent 45%);
+  pointer-events: none;
+}
+
+/* Blue accent streak — appears between major sections */
+.hp2-section-divider {
+  position: relative;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(30,136,229,0.4) 25%,
+    rgba(200,169,110,0.6) 50%,
+    rgba(30,136,229,0.4) 75%,
+    transparent 100%);
+  margin: 0;
+  overflow: hidden;
+}
+.hp2-section-divider::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--hp2-gold);
+  box-shadow:
+    0 0 12px rgba(200,169,110,0.6),
+    0 0 24px rgba(30,136,229,0.4);
 }
 
 .hp2-hero__content {
@@ -236,9 +275,30 @@ const HP2_STYLES = `
 }
 
 .hp2-section--alt {
-  background: var(--hp2-bg-1);
+  background:
+    radial-gradient(ellipse at 0% 50%, rgba(30,136,229,0.08) 0%, transparent 40%),
+    radial-gradient(ellipse at 100% 50%, rgba(30,136,229,0.06) 0%, transparent 40%),
+    var(--hp2-bg-1);
   max-width: none;
+  position: relative;
 }
+
+.hp2-section--alt::before,
+.hp2-section--alt::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(30,136,229,0.3) 30%,
+    rgba(200,169,110,0.5) 50%,
+    rgba(30,136,229,0.3) 70%,
+    transparent 100%);
+}
+.hp2-section--alt::before { top: 0; }
+.hp2-section--alt::after { bottom: 0; }
 
 .hp2-section--alt > .hp2-section__inner {
   max-width: 1280px;

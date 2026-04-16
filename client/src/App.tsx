@@ -40,6 +40,64 @@ const CorporateV2 = lazy(() => import("./pages/CorporateV2"));
 const WeddingV2 = lazy(() => import("./pages/WeddingV2"));
 const BirthdayV2 = lazy(() => import("./pages/BirthdayV2"));
 
+// V2 Utility
+const ContactV2 = lazy(() => import("./pages/ContactV2"));
+const FAQV2 = lazy(() => import("./pages/FAQV2"));
+const GalleryV2 = lazy(() => import("./pages/GalleryV2"));
+const PricingV2 = lazy(() => import("./pages/PricingV2"));
+const PricingBreakdownV2 = lazy(() => import("./pages/PricingBreakdownV2"));
+const TestimonialsFAQV2 = lazy(() => import("./pages/TestimonialsFAQV2"));
+
+// V2 Wedding-adjacent
+const AfterPartyV2 = lazy(() => import("./pages/AfterPartyV2"));
+const WelcomePartyV2 = lazy(() => import("./pages/WelcomePartyV2"));
+const RehearsalDinnerV2 = lazy(() => import("./pages/RehearsalDinnerV2"));
+const RehearsalDinnerCruiseV2 = lazy(() => import("./pages/RehearsalDinnerCruiseV2"));
+const BridalShowerCruiseV2 = lazy(() => import("./pages/BridalShowerCruiseV2"));
+const EngagementPartyCruiseV2 = lazy(() => import("./pages/EngagementPartyCruiseV2"));
+const AnniversaryCruiseV2 = lazy(() => import("./pages/AnniversaryCruiseV2"));
+const WeddingAnniversaryIdeasV2 = lazy(() => import("./pages/WeddingAnniversaryIdeasV2"));
+const ProposalCruiseV2 = lazy(() => import("./pages/ProposalCruiseV2"));
+
+// V2 Corporate
+const TeamBuildingV2 = lazy(() => import("./pages/TeamBuildingV2"));
+const ClientEntertainmentV2 = lazy(() => import("./pages/ClientEntertainmentV2"));
+const CompanyMilestoneV2 = lazy(() => import("./pages/CompanyMilestoneV2"));
+const HolidayPartyCruiseV2 = lazy(() => import("./pages/HolidayPartyCruiseV2"));
+
+// V2 Birthday/Age
+const Sweet16V2 = lazy(() => import("./pages/Sweet16V2"));
+const MilestoneBirthdayV2 = lazy(() => import("./pages/MilestoneBirthdayV2"));
+const BirthdayPartyBoatRentalV2 = lazy(() => import("./pages/BirthdayPartyBoatRentalV2"));
+const GraduationPartyV2 = lazy(() => import("./pages/GraduationPartyV2"));
+const GraduationCruiseV2 = lazy(() => import("./pages/GraduationCruiseV2"));
+const PromCruiseV2 = lazy(() => import("./pages/PromCruiseV2"));
+const RetirementPartyCruiseV2 = lazy(() => import("./pages/RetirementPartyCruiseV2"));
+
+// V2 Family
+const FamilyReunionCruiseV2 = lazy(() => import("./pages/FamilyReunionCruiseV2"));
+const BabyShowerCruiseV2 = lazy(() => import("./pages/BabyShowerCruiseV2"));
+const GenderRevealCruiseV2 = lazy(() => import("./pages/GenderRevealCruiseV2"));
+const MemorialCelebrationCruiseV2 = lazy(() => import("./pages/MemorialCelebrationCruiseV2"));
+const CelebrationCruisesV2 = lazy(() => import("./pages/CelebrationCruisesV2"));
+
+// V2 Bachelorette Content Hubs
+const ThreeDayBacheloretteItineraryV2 = lazy(() => import("./pages/ThreeDayBacheloretteItineraryV2"));
+const AdventureAustinBacheloretteV2 = lazy(() => import("./pages/AdventureAustinBacheloretteV2"));
+const BudgetAustinBacheloretteV2 = lazy(() => import("./pages/BudgetAustinBacheloretteV2"));
+const LuxuryAustinBacheloretteV2 = lazy(() => import("./pages/LuxuryAustinBacheloretteV2"));
+const AustinBacheloretteNightlifeV2 = lazy(() => import("./pages/AustinBacheloretteNightlifeV2"));
+const Top10AustinBacheloretteIdeasV2 = lazy(() => import("./pages/Top10AustinBacheloretteIdeasV2"));
+const UltimateAustinBacheloretteWeekendV2 = lazy(() => import("./pages/UltimateAustinBacheloretteWeekendV2"));
+
+// V2 Bachelor + Location + Misc
+const AustinBachelorPartyIdeasV2 = lazy(() => import("./pages/AustinBachelorPartyIdeasV2"));
+const LakeTravisBachelorPartyBoatsV2 = lazy(() => import("./pages/LakeTravisBachelorPartyBoatsV2"));
+const PartyBoatAustinV2 = lazy(() => import("./pages/PartyBoatAustinV2"));
+const PartyBoatLakeTravisV2 = lazy(() => import("./pages/PartyBoatLakeTravisV2"));
+const FirstTimeLakeTravisBoatRentalGuideV2 = lazy(() => import("./pages/FirstTimeLakeTravisBoatRentalGuideV2"));
+const SiteDirectoryV2 = lazy(() => import("./pages/SiteDirectoryV2"));
+
 // All other routes lazy-loaded for optimal code splitting
 const AuthPage = lazy(() => import("./pages/AuthPage"));
 const NotFound = lazy(() => import("@/pages/not-found"));
@@ -377,6 +435,64 @@ function Router() {
         <Route path="/corporate-v2" component={CorporateV2} />
         <Route path="/wedding-v2" component={WeddingV2} />
         <Route path="/birthday-v2" component={BirthdayV2} />
+
+        {/* V2 Utility */}
+        <Route path="/contact-v2" component={ContactV2} />
+        <Route path="/faq-v2" component={FAQV2} />
+        <Route path="/gallery-v2" component={GalleryV2} />
+        <Route path="/pricing-v2" component={PricingV2} />
+        <Route path="/pricing-breakdown-v2" component={PricingBreakdownV2} />
+        <Route path="/testimonials-faq-v2" component={TestimonialsFAQV2} />
+
+        {/* V2 Wedding-adjacent */}
+        <Route path="/after-party-v2" component={AfterPartyV2} />
+        <Route path="/welcome-party-v2" component={WelcomePartyV2} />
+        <Route path="/rehearsal-dinner-v2" component={RehearsalDinnerV2} />
+        <Route path="/rehearsal-dinner-cruise-v2" component={RehearsalDinnerCruiseV2} />
+        <Route path="/bridal-shower-cruise-v2" component={BridalShowerCruiseV2} />
+        <Route path="/engagement-party-cruise-v2" component={EngagementPartyCruiseV2} />
+        <Route path="/anniversary-cruise-v2" component={AnniversaryCruiseV2} />
+        <Route path="/wedding-anniversary-celebration-ideas-v2" component={WeddingAnniversaryIdeasV2} />
+        <Route path="/proposal-cruise-v2" component={ProposalCruiseV2} />
+
+        {/* V2 Corporate */}
+        <Route path="/team-building-v2" component={TeamBuildingV2} />
+        <Route path="/client-entertainment-v2" component={ClientEntertainmentV2} />
+        <Route path="/company-milestone-v2" component={CompanyMilestoneV2} />
+        <Route path="/holiday-party-cruise-v2" component={HolidayPartyCruiseV2} />
+
+        {/* V2 Birthday/Age */}
+        <Route path="/sweet-16-v2" component={Sweet16V2} />
+        <Route path="/milestone-birthday-v2" component={MilestoneBirthdayV2} />
+        <Route path="/birthday-party-boat-rental-v2" component={BirthdayPartyBoatRentalV2} />
+        <Route path="/graduation-party-v2" component={GraduationPartyV2} />
+        <Route path="/graduation-cruise-v2" component={GraduationCruiseV2} />
+        <Route path="/prom-cruise-v2" component={PromCruiseV2} />
+        <Route path="/retirement-party-cruise-v2" component={RetirementPartyCruiseV2} />
+
+        {/* V2 Family */}
+        <Route path="/family-reunion-cruise-v2" component={FamilyReunionCruiseV2} />
+        <Route path="/baby-shower-cruise-v2" component={BabyShowerCruiseV2} />
+        <Route path="/gender-reveal-cruise-v2" component={GenderRevealCruiseV2} />
+        <Route path="/memorial-celebration-cruise-v2" component={MemorialCelebrationCruiseV2} />
+        <Route path="/celebration-cruises-v2" component={CelebrationCruisesV2} />
+
+        {/* V2 Bachelorette Content Hubs */}
+        <Route path="/3-day-austin-bachelorette-itinerary-v2" component={ThreeDayBacheloretteItineraryV2} />
+        <Route path="/adventure-austin-bachelorette-v2" component={AdventureAustinBacheloretteV2} />
+        <Route path="/budget-austin-bachelorette-v2" component={BudgetAustinBacheloretteV2} />
+        <Route path="/luxury-austin-bachelorette-v2" component={LuxuryAustinBacheloretteV2} />
+        <Route path="/austin-bachelorette-nightlife-v2" component={AustinBacheloretteNightlifeV2} />
+        <Route path="/top-10-austin-bachelorette-ideas-v2" component={Top10AustinBacheloretteIdeasV2} />
+        <Route path="/ultimate-austin-bachelorette-weekend-v2" component={UltimateAustinBacheloretteWeekendV2} />
+
+        {/* V2 Bachelor + Location + Misc */}
+        <Route path="/austin-bachelor-party-ideas-v2" component={AustinBachelorPartyIdeasV2} />
+        <Route path="/lake-travis-bachelor-party-boats-v2" component={LakeTravisBachelorPartyBoatsV2} />
+        <Route path="/party-boat-austin-v2" component={PartyBoatAustinV2} />
+        <Route path="/party-boat-lake-travis-v2" component={PartyBoatLakeTravisV2} />
+        <Route path="/first-time-lake-travis-boat-rental-guide-v2" component={FirstTimeLakeTravisBoatRentalGuideV2} />
+        <Route path="/site-directory-v2" component={SiteDirectoryV2} />
       
       {/* Authentication */}
       <Route path="/auth" component={AuthPage} />
