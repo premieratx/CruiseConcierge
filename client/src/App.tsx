@@ -29,7 +29,16 @@ const GlobalInlineEditor = lazy(() => import("@/components/GlobalInlineEditor").
 // Home eagerly loaded for optimal LCP performance
 import Home from "./pages/Home";
 import HomeNew from "./pages/Home-New";
-import BacheloretteV2 from "./pages/BacheloretteV2";
+
+// V2 Luxury pages - lazy loaded for performance
+const BacheloretteV2 = lazy(() => import("./pages/BacheloretteV2"));
+const BachelorV2 = lazy(() => import("./pages/BachelorV2"));
+const CombinedBachV2 = lazy(() => import("./pages/CombinedBachV2"));
+const DiscoV2 = lazy(() => import("./pages/DiscoV2"));
+const PrivateCruisesV2 = lazy(() => import("./pages/PrivateCruisesV2"));
+const CorporateV2 = lazy(() => import("./pages/CorporateV2"));
+const WeddingV2 = lazy(() => import("./pages/WeddingV2"));
+const BirthdayV2 = lazy(() => import("./pages/BirthdayV2"));
 
 // All other routes lazy-loaded for optimal code splitting
 const AuthPage = lazy(() => import("./pages/AuthPage"));
@@ -361,6 +370,13 @@ function Router() {
         <Route path="/" component={Home} />
         <Route path="/home-v2" component={HomeNew} />
         <Route path="/bachelorette-v2" component={BacheloretteV2} />
+        <Route path="/bachelor-v2" component={BachelorV2} />
+        <Route path="/combined-bach-v2" component={CombinedBachV2} />
+        <Route path="/disco-v2" component={DiscoV2} />
+        <Route path="/private-cruises-v2" component={PrivateCruisesV2} />
+        <Route path="/corporate-v2" component={CorporateV2} />
+        <Route path="/wedding-v2" component={WeddingV2} />
+        <Route path="/birthday-v2" component={BirthdayV2} />
       
       {/* Authentication */}
       <Route path="/auth" component={AuthPage} />
