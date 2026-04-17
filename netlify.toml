@@ -1,0 +1,62 @@
+# Netlify build + runtime config for the V2 preview site.
+#
+# Goal: host the Vite-built static frontend on Netlify, but keep the Express
+# backend (chat, forms, bookings) running on the live Replit app at
+# premierpartycruises.com. All /api and /attached_assets traffic is proxied
+# to that host so the preview uses the exact same backend as production.
+
+[build]
+  # Fetch any build-time assets not committed to the repo (large videos,
+  # etc.) from the live CDN, then Vite builds the frontend. The Express
+  # backend is skipped entirely for the Netlify deploy — Replit still runs
+  # it at premierpartycruises.com.
+  command = "bash scripts/fetch-build-assets.sh && npx vite build --mode production"
+  publish = "dist/public"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+# ──────────────────────────────────────────────────────────────────────────
+# Proxy API + backend-served assets to the live Replit app.
+# Netlify edge rewrites (status 200) are server-side — no CORS issues.
+# ──────────────────────────────────────────────────────────────────────────
+[[redirects]]
+  from = "/api/*"
+  to = "https://premierpartycruises.com/api/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/attached_assets/*"
+  to = "https://premierpartycruises.com/attached_assets/:splat"
+  status = 200
+  force = true
+
+# Also proxy sitemap, robots, and other server-generated files
+[[redirects]]
+  from = "/sitemap.xml"
+  to = "https://premierpartycruises.com/sitemap.xml"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/robots.txt"
+  to = "https://premierpartycruises.com/robots.txt"
+  status = 200
+  force = true
+
+# ──────────────────────────────────────────────────────────────────────────
+# SPA fallback — wouter is a client-side router, so unknown paths should
+# serve index.html and let the router resolve the route.
+# This MUST be the last redirect.
+# ──────────────────────────────────────────────────────────────────────────
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Long-term caching for hashed Vite assets
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"

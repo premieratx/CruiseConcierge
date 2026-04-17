@@ -4,3 +4,7 @@ dist
 server/public
 vite.config.ts.*
 *.tar.gz
+.netlify
+
+# Large videos fetched at build time by scripts/fetch-build-assets.sh
+attached_assets/*.mp4
