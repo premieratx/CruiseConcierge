@@ -13,7 +13,9 @@ import {
   AccordionItem, 
   AccordionTrigger 
 } from '@/components/ui/accordion';
-import { BlogPostLayout, type TOCSection } from '@/components/blog/BlogPostLayout';
+import { type TOCSection } from '@/components/blog/BlogPostLayout';
+import BlogV2Layout from '@/components/BlogV2Layout';
+import SEOHead from '@/components/SEOHead';
 import { BlogImageBreak } from '@/components/BlogImageBreak';
 
 import dancingScene from '@assets/dancing-party-scene.webp';
@@ -32,17 +34,27 @@ const sections: TOCSection[] = [
 
 export default function WhyCombinedBachLoveDiscoCruise() {
   return (
-    <BlogPostLayout
+    <BlogV2Layout
       title="Why Combined Bachelor & Bachelorette Parties Love the ATX Disco Cruise"
-      metaDescription="Planning a combined bachelor bachelorette party in Austin? The ATX Disco Cruise is the ONLY multi-group all-inclusive co-ed bach cruise in the U.S. From $85/person with DJ and photographer on Lake Travis."
-      publishDate="2025-05-15"
-      author="Captain Brian"
-      heroImage={dancingScene}
-      heroImageAlt="Combined bachelor and bachelorette parties dancing on a Lake Travis party boat"
-      keywords={['combined bachelor bachelorette party Austin', 'joint bach party Lake Travis', 'co-ed bach party Austin', 'combined bachelor bachelorette cruise', 'Austin co-ed party boat']}
-      pageRoute="/blogs/why-combined-bachelor-bachelorette-parties-love-the-atx-disco-cruise"
-      sections={sections}
+      description="Planning a combined bachelor bachelorette party in Austin? The ATX Disco Cruise is the ONLY multi-group all-inclusive co-ed bach cruise in the U.S. From $85/person with DJ and photographer on Lake Travis."
+      slug="why-combined-bachelor-bachelorette-parties-love-the-atx-disco-cruise"
+      category="Combined Bach Guides"
+      categoryHref="/combined-bachelor-bachelorette-austin"
+      pillarTitle="Combined Bachelor/Bachelorette Party Guide"
+      pillarHref="/combined-bachelor-bachelorette-austin"
+      relatedArticles={[
+        { title: "Epic Austin Bachelorette Party Guide", href: "/blogs/epic-austin-bachelorette-party-guide" },
+        { title: "Epic Austin Bachelor Party Guide", href: "/blogs/epic-bachelor-party-austin-guide" },
+        { title: "ATX Disco Cruise Experience", href: "/atx-disco-cruise" },
+      ]}
     >
+      <SEOHead
+        pageRoute="/blogs/why-combined-bachelor-bachelorette-parties-love-the-atx-disco-cruise"
+        defaultTitle="Why Combined Bachelor & Bachelorette Parties Love the ATX Disco Cruise"
+        defaultDescription="Planning a combined bachelor bachelorette party in Austin? The ATX Disco Cruise is the ONLY multi-group all-inclusive co-ed bach cruise in the U.S. From $85/person with DJ and photographer on Lake Travis."
+        defaultKeywords={['combined bachelor bachelorette party Austin', 'joint bach party Lake Travis', 'co-ed bach party Austin', 'combined bachelor bachelorette cruise', 'Austin co-ed party boat']}
+        image="https://premierpartycruises.com/attached_assets/dancing-party-scene.webp"
+      />
       <div className="mb-8 flex items-start gap-3 p-4 bg-blue-50 border border-blue-200 rounded-xl text-sm">
         <span className="text-blue-600 font-bold text-lg leading-none mt-0.5">→</span>
         <p className="text-slate-700 leading-relaxed m-0">
@@ -241,6 +253,6 @@ export default function WhyCombinedBachLoveDiscoCruise() {
           </Link>
         </div>
       </div>
-    </BlogPostLayout>
+    </BlogV2Layout>
   );
 }

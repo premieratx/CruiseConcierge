@@ -3,8 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Calendar, Phone, Sun, CheckCircle2, Users, Music, Ship, MapPin, Utensils, ThermometerSun, PartyPopper, Star, ChevronRight, Heart, DollarSign, Backpack } from 'lucide-react';
 import { Link } from 'wouter';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import MonthlyGuidesNav from '@/components/MonthlyGuidesNav';
 import { LazyImage } from '@/components/LazyImage';
 
@@ -15,16 +14,28 @@ import sectionImage3 from '@assets/@capitalcityshots-4_1760072938923.jpg';
 
 export default function AustinBachelorettePartyFebruary() {
   return (
+    <BlogV2Layout
+      title="Why Austin is Perfect for Bachelorette Parties in February | Premier Party Cruises"
+      description="Plan a February Austin bachelorette party: 47°F-64°F weather, Valentine's romance, Galentine's Day, Lake Travis boats & complete guide. Rain or shine, amazing off-season deals!"
+      slug="austin-bachelorette-party-february"
+      category="Bachelorette Guides"
+      categoryHref="/bachelorette-party-austin"
+      pillarTitle="Austin Bachelorette Party Guide"
+      pillarHref="/bachelorette-party-austin"
+      relatedArticles={[
+        { title: "Austin Bachelorette Party in June", href: "/blogs/austin-bachelorette-party-june" },
+        { title: "Austin Bachelorette Party in October", href: "/blogs/austin-bachelorette-party-october" },
+        { title: "Epic Austin Bachelorette Party Guide", href: "/blogs/epic-austin-bachelorette-party-guide" },
+      ]}
+    >
     <div data-page-ready="austin-bachelorette-party-february" className="min-h-screen bg-gradient-to-b from-pink-50 via-white to-rose-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950">
-      <SEOHead 
+      <SEOHead
         pageRoute="/blogs/austin-bachelorette-party-february"
         defaultTitle="Why Austin is Perfect for Bachelorette Parties in February | Premier Party Cruises"
         defaultDescription="Plan a February Austin bachelorette party: 47°F-64°F weather, Valentine's romance, Galentine's Day, Lake Travis boats & complete guide. Rain or shine, amazing off-season deals!"
         defaultKeywords={['February bachelorette party Austin', 'Austin bachelorette party', 'Lake Travis party boat', 'Valentine\'s bachelorette party', 'Galentine\'s Day Austin', 'Austin nightlife February']}
         image="https://premierpartycruises.com/attached_assets/@capitalcityshots-1_1760072938922.jpg"
       />
-
-      <PublicNavigation />
 
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-pink-500 via-rose-500 to-red-500 text-white py-20 overflow-hidden">
@@ -509,7 +520,7 @@ export default function AustinBachelorettePartyFebruary() {
       </section>
 
       <MonthlyGuidesNav type="bachelorette" currentMonth="February" />
-      <Footer />
     </div>
+    </BlogV2Layout>
   );
 }

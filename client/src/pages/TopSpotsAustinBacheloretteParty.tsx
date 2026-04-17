@@ -5,11 +5,24 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Calendar, Phone, Sparkles, CheckCircle2, Users, Music, Ship, MapPin, Utensils, Camera, PartyPopper, Star, ChevronRight, Sun, Beer, Waves, TrendingUp } from 'lucide-react';
 import { Link } from 'wouter';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 
 export default function TopSpotsAustinBacheloretteParty() {
   return (
+    <BlogV2Layout
+      title="Top Spots & Tips for an Unforgettable Austin Bachelorette Party Experience | Premier Party Cruises"
+      description="Planning an Austin bachelorette party? Discover the hottest spots, insider tips, and must-do experiences to make your celebration unforgettable. From Lake Travis party boats to downtown nightlife, we have got your complete guide!"
+      slug="top-spots-tips-for-an-unforgettable-austin-bachelorette-party-experience"
+      category="Bachelorette Guides"
+      categoryHref="/bachelorette-party-austin"
+      pillarTitle="Austin Bachelorette Party Guide"
+      pillarHref="/bachelorette-party-austin"
+      relatedArticles={[
+        { title: "3-Day Austin Bachelorette Itinerary", href: "/three-day-austin-bachelorette-itinerary" },
+        { title: "Luxury Austin Bachelorette Experience", href: "/luxury-austin-bachelorette" },
+        { title: "Austin Bachelorette Nightlife Guide", href: "/austin-bachelorette-nightlife" },
+      ]}
+    >
     <div className="min-h-screen bg-gradient-to-b from-blue-50 via-white to-blue-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950" data-page-ready="top-spots-bachelorette">
       <Helmet>
         <title>Top Spots & Tips for an Unforgettable Austin Bachelorette Party Experience | Premier Party Cruises</title>
@@ -61,8 +74,6 @@ export default function TopSpotsAustinBacheloretteParty() {
           })}
         </script>
       </Helmet>
-
-      <PublicNavigation />
 
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-pink-500 via-purple-600 to-blue-600 text-white py-20 overflow-hidden">
@@ -646,7 +657,7 @@ export default function TopSpotsAustinBacheloretteParty() {
         </div>
       </section>
 
-      <Footer />
     </div>
+    </BlogV2Layout>
   );
 }

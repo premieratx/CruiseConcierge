@@ -12,8 +12,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import RelatedBlogArticles from '@/components/RelatedBlogArticles';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { LazyImage } from '@/components/LazyImage';
@@ -68,16 +67,28 @@ const themeIdeas = [
 export default function EpicBachelorettePartyAustinGuide() {
   return (
     <LazyMotionProvider>
+    <SEOHead
+      pageRoute="/blogs/epic-bachelorette-party-austin-ultimate-guide"
+      defaultTitle="Austin Texas Bachelorette Party Guide & Ideas | Premier Party Cruises"
+      defaultDescription="Discover top activities for an Austin Texas bachelorette party! From lively nightlife to serene spots, explore exciting itineraries, themes, and dining ideas for an unforgettable celebration."
+      defaultKeywords={['Austin bachelorette party', 'bachelorette party Austin TX', 'Austin bachelorette ideas', 'Lake Travis bachelorette', 'ATX Disco Cruise', 'Rainey Street bachelorette', 'girls trip Austin', 'bride tribe Austin']}
+      image="https://premierpartycruises.com/attached_assets/@capitalcityshots-1_1760080740012.jpg"
+    />
+    <BlogV2Layout
+      title="Austin Texas Bachelorette Party Guide & Ideas"
+      description="Discover top activities for an Austin Texas bachelorette party! From lively nightlife to serene spots, explore exciting itineraries, themes, and dining ideas for an unforgettable celebration."
+      slug="epic-bachelorette-party-austin-ultimate-guide"
+      category="Bachelorette Guides"
+      categoryHref="/bachelorette-party-austin"
+      pillarTitle="Austin Bachelorette Party Guide"
+      pillarHref="/bachelorette-party-austin"
+      relatedArticles={[
+        { title: "How to Throw a Great Bachelorette Party in Austin", href: "/blogs/how-to-throw-great-bachelorette-party-austin" },
+        { title: "Ultimate Austin Bachelorette Party Boat Guide", href: "/blogs/ultimate-austin-bachelorette-party-boat-guide-lake-travis" },
+        { title: "Why Choose Austin for Your Bachelorette Party", href: "/blogs/why-choose-austin-bachelorette-party" },
+      ]}
+    >
     <div data-page-ready="epic-bachelorette-party-austin-guide" className="min-h-screen bg-gradient-to-b from-pink-50 via-white to-purple-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950">
-      <SEOHead 
-        pageRoute="/blogs/epic-bachelorette-party-austin-ultimate-guide"
-        defaultTitle="Austin Texas Bachelorette Party Guide & Ideas | Premier Party Cruises"
-        defaultDescription="Discover top activities for an Austin Texas bachelorette party! From lively nightlife to serene spots, explore exciting itineraries, themes, and dining ideas for an unforgettable celebration."
-        defaultKeywords={['Austin bachelorette party', 'bachelorette party Austin TX', 'Austin bachelorette ideas', 'Lake Travis bachelorette', 'ATX Disco Cruise', 'Rainey Street bachelorette', 'girls trip Austin', 'bride tribe Austin']}
-        image="https://premierpartycruises.com/attached_assets/@capitalcityshots-1_1760080740012.jpg"
-      />
-
-      <PublicNavigation />
 
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-pink-600 via-purple-600 to-pink-800 text-white py-20 overflow-hidden">
@@ -1204,8 +1215,8 @@ export default function EpicBachelorettePartyAustinGuide() {
       </section>
 
       <RelatedBlogArticles category="bachelorette" currentSlug="/blogs/top-spots-tips-for-an-unforgettable-austin-bachelorette-party-experience" />
-      <Footer />
     </div>
+    </BlogV2Layout>
     </LazyMotionProvider>
   );
 }

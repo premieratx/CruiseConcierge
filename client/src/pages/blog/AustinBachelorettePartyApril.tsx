@@ -3,8 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Calendar, Phone, Sun, CheckCircle2, Users, Music, Ship, MapPin, Utensils, ThermometerSun, PartyPopper, Star, ChevronRight, Flower, DollarSign, Backpack } from 'lucide-react';
 import { Link } from 'wouter';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import MonthlyGuidesNav from '@/components/MonthlyGuidesNav';
 import { LazyImage } from '@/components/LazyImage';
 
@@ -15,8 +14,8 @@ import sectionImage3 from '@assets/@capitalcityshots-9_1760073205047.jpg';
 
 export default function AustinBachelorettePartyApril() {
   return (
-    <div data-page-ready="austin-bachelorette-party-april" className="min-h-screen bg-gradient-to-b from-pink-50 via-white to-purple-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950">
-      <SEOHead 
+    <>
+      <SEOHead
         pageRoute="/blogs/austin-bachelorette-party-april"
         defaultTitle="Why Austin is Perfect for Bachelorette Parties in April | Premier Party Cruises"
         defaultDescription="Plan an April Austin bachelorette party: 62°F-80°F spring weather, bluebonnet season, Lake Travis boats & complete guide. Rain or shine, perfect spring celebration!"
@@ -24,7 +23,21 @@ export default function AustinBachelorettePartyApril() {
         image="https://premierpartycruises.com/attached_assets/@capitalcityshots-5_1760072938923.jpg"
       />
 
-      <PublicNavigation />
+      <BlogV2Layout
+        title="Why Austin is Perfect for Bachelorette Parties in April | Premier Party Cruises"
+        description="Plan an April Austin bachelorette party: 62°F-80°F spring weather, bluebonnet season, Lake Travis boats & complete guide. Rain or shine, perfect spring celebration!"
+        slug="austin-bachelorette-party-april"
+        category="Bachelorette Guides"
+        categoryHref="/bachelorette-party-austin"
+        pillarTitle="Austin Bachelorette Party Guide"
+        pillarHref="/bachelorette-party-austin"
+        relatedArticles={[
+          { title: "Austin Bachelorette Party in August", href: "/blogs/austin-bachelorette-party-august" },
+          { title: "Austin Bachelorette Party in December", href: "/blogs/austin-bachelorette-party-december" },
+          { title: "Austin Bachelorette Party Boats", href: "/blogs/austin-bachelorette-party-boats-lake-travis-adventures-for-unforgettable-celebrations" },
+        ]}
+      >
+      <div data-page-ready="austin-bachelorette-party-april" className="min-h-screen bg-gradient-to-b from-pink-50 via-white to-purple-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950">
 
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-purple-400 via-pink-400 to-rose-400 text-white py-20 overflow-hidden">
@@ -513,7 +526,8 @@ export default function AustinBachelorettePartyApril() {
       </section>
 
       <MonthlyGuidesNav type="bachelorette" currentMonth="April" />
-      <Footer />
     </div>
+    </BlogV2Layout>
+    </>
   );
 }

@@ -12,8 +12,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import { BlogImageBreak, BlogPhotoStrip, BLOG_BOAT_PHOTOS, BLOG_PARTY_PHOTOS } from '@/components/BlogImageBreak';
 import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 
@@ -68,8 +67,22 @@ export default function JointBachelorBachelorettePartyGuide() {
 
   return (
     <LazyMotionProvider>
+    <BlogV2Layout
+      title="How to Plan an Amazing Joint Bachelor/Bachelorette Party in Austin | Premier Party Cruises"
+      description="Planning a joint bachelor bachelorette party in Austin? Discover the ultimate guide to combined bachelor bachelorette celebrations on Lake Travis. ATX Disco Cruise is PERFECT for co-ed groups mixing together. Book your Lake Travis party boat today!"
+      slug="joint-bachelor-bachelorette-party-guide"
+      category="Combined Bach Guides"
+      categoryHref="/combined-bachelor-bachelorette-austin"
+      pillarTitle="Combined Bachelor/Bachelorette Party Guide"
+      pillarHref="/combined-bachelor-bachelorette-austin"
+      relatedArticles={[
+        { title: "Epic Austin Bachelorette Party Guide", href: "/blogs/epic-austin-bachelorette-party-guide" },
+        { title: "Epic Austin Bachelor Party Guide", href: "/blogs/epic-bachelor-party-austin-guide" },
+        { title: "ATX Disco Cruise Experience", href: "/atx-disco-cruise" },
+      ]}
+    >
     <>
-      <SEOHead 
+      <SEOHead
         pageRoute="/blogs/joint-bachelor-bachelorette-party-guide"
         defaultTitle="How to Plan an Amazing Joint Bachelor/Bachelorette Party in Austin | Premier Party Cruises"
         defaultDescription="Planning a joint bachelor bachelorette party in Austin? Discover the ultimate guide to combined bachelor bachelorette celebrations on Lake Travis. ATX Disco Cruise is PERFECT for co-ed groups mixing together. Book your Lake Travis party boat today!"
@@ -78,7 +91,6 @@ export default function JointBachelorBachelorettePartyGuide() {
       />
 
       <div className="min-h-screen bg-white dark:bg-gray-950">
-        <PublicNavigation />
 
         {/* Hero Section */}
         <m.section 
@@ -768,9 +780,9 @@ export default function JointBachelorBachelorettePartyGuide() {
           </div>
         </section>
 
-        <Footer />
       </div>
     </>
+    </BlogV2Layout>
     </LazyMotionProvider>
   );
 }

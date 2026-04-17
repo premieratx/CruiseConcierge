@@ -10,8 +10,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
@@ -116,17 +115,29 @@ export default function AustinBacheloretteAlcoholTimeline() {
 
   return (
     <LazyMotionProvider>
+    <SEOHead
+      pageRoute="/blogs/austin-bachelorette-weekend-alcohol-timeline-day-by-day-drinking-strategy-for-multi-day-celebrations"
+      defaultTitle="Austin Bachelorette Weekend Alcohol Timeline | Day-by-Day Drinking Strategy | Premier Party Cruises"
+      defaultDescription="Plan your austin bachelorette party drinking schedule with our day-by-day timeline. Smart strategies for a 3-day bachelorette party Austin weekend including Lake Travis bachelorette boat party tips. Pace yourself for maximum fun."
+      defaultKeywords={['austin bachelorette party', 'bachelorette party Austin', 'Lake Travis bachelorette', 'austin bachelorette party drinks', 'bachelorette weekend drinking timeline', 'austin bachelorette boat party alcohol']}
+      image={heroImage}
+    />
+    <BlogV2Layout
+      title="Austin Bachelorette Weekend Alcohol Timeline | Day-by-Day Drinking Strategy"
+      description="Plan your austin bachelorette party drinking schedule with our day-by-day timeline. Smart strategies for a 3-day bachelorette party Austin weekend including Lake Travis bachelorette boat party tips. Pace yourself for maximum fun."
+      slug="austin-bachelorette-weekend-alcohol-timeline-day-by-day-drinking-strategy-for-multi-day-celebrations"
+      category="Bachelorette Guides"
+      categoryHref="/bachelorette-party-austin"
+      pillarTitle="Austin Bachelorette Party Guide"
+      pillarHref="/bachelorette-party-austin"
+      relatedArticles={[
+        { title: "Lake Travis Bachelorette Party Alcohol Laws", href: "/blogs/lake-travis-bachelorette-party-alcohol-laws-what-you-can-and-cant-bring-on-boats" },
+        { title: "Austin Bachelorette Party vs. Lake Travis Boat", href: "/blogs/austin-bachelorette-party-vs-lake-travis-boat-why-lake-wins" },
+        { title: "Ultimate Austin Bachelorette Party Boat Guide", href: "/blogs/ultimate-austin-bachelorette-party-boat-guide-lake-travis" },
+      ]}
+    >
     <>
-      <SEOHead 
-        pageRoute="/blogs/austin-bachelorette-weekend-alcohol-timeline-day-by-day-drinking-strategy-for-multi-day-celebrations"
-        defaultTitle="Austin Bachelorette Weekend Alcohol Timeline | Day-by-Day Drinking Strategy | Premier Party Cruises"
-        defaultDescription="Plan your austin bachelorette party drinking schedule with our day-by-day timeline. Smart strategies for a 3-day bachelorette party Austin weekend including Lake Travis bachelorette boat party tips. Pace yourself for maximum fun."
-        defaultKeywords={['austin bachelorette party', 'bachelorette party Austin', 'Lake Travis bachelorette', 'austin bachelorette party drinks', 'bachelorette weekend drinking timeline', 'austin bachelorette boat party alcohol']}
-        image={heroImage}
-      />
-
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="austin-bachelorette-alcohol-timeline-page">
-        <PublicNavigation />
 
         {/* Hero Section */}
         <m.section 
@@ -595,9 +606,9 @@ export default function AustinBacheloretteAlcoholTimeline() {
           </div>
         </section>
 
-        <Footer />
       </div>
     </>
+    </BlogV2Layout>
     </LazyMotionProvider>
   );
 }

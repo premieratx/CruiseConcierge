@@ -10,8 +10,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
@@ -156,8 +155,21 @@ export default function BacheloretteAlcoholEmergencyKit() {
         image={heroImage}
       />
 
+      <BlogV2Layout
+        title="Bachelorette Party Alcohol Emergency Kit | Last-Minute Delivery Solutions | Premier Party Cruises"
+        description="Last-minute alcohol solutions for your austin bachelorette party. Emergency delivery options, Party On Delivery for Lake Travis bachelorette boats, and quick-order guides. Never run out at your bachelorette party Austin!"
+        slug="bachelorette-party-alcohol-emergency-kit-last-minute-delivery-solutions"
+        category="Bachelorette Guides"
+        categoryHref="/bachelorette-party-austin"
+        pillarTitle="Austin Bachelorette Party Guide"
+        pillarHref="/bachelorette-party-austin"
+        relatedArticles={[
+          { title: "Cocktail Kits vs Individual Bottles: The Smart Strategy", href: "/blogs/cocktail-kits-vs-individual-bottles-the-smart-bachelorette-party-alcohol-strategy" },
+          { title: "Budget-Friendly Bachelorette Party Alcohol", href: "/blogs/budget-friendly-bachelorette-party-alcohol-maximum-fun-without-breaking-the-bank" },
+          { title: "The Ultimate Austin Bachelorette Party Alcohol Guide", href: "/blogs/the-ultimate-austin-bachelorette-party-alcohol-guide-what-to-order-when-to-order-and-how-much-you-actually-need" },
+        ]}
+      >
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="bachelorette-alcohol-emergency-kit-page">
-        <PublicNavigation />
 
         {/* Hero Section */}
         <m.section 
@@ -616,8 +628,8 @@ export default function BacheloretteAlcoholEmergencyKit() {
           </div>
         </section>
 
-        <Footer />
       </div>
+      </BlogV2Layout>
     </>
     </LazyMotionProvider>
   );

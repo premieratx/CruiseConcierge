@@ -10,8 +10,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
@@ -119,17 +118,29 @@ export default function LakeTravisBacheloretteAlcoholLaws() {
 
   return (
     <LazyMotionProvider>
+    <SEOHead
+      pageRoute="/blogs/lake-travis-bachelorette-party-alcohol-laws-what-you-can-and-cant-bring-on-boats"
+      defaultTitle="Lake Travis Bachelorette Party Alcohol Laws | What You Can Bring on Boats | Premier Party Cruises"
+      defaultDescription="Know the rules for your Lake Travis bachelorette party. Complete guide to alcohol laws on austin bachelorette party boats - what you CAN and CAN'T bring. No glass policy, BYOB rules, and Party On Delivery options for your bachelorette party Austin."
+      defaultKeywords={['Lake Travis bachelorette', 'austin bachelorette party', 'bachelorette party Austin', 'Lake Travis alcohol laws', 'boat party alcohol rules', 'austin bachelorette party boats', 'Lake Travis bachelorette BYOB']}
+      image={heroImage}
+    />
+    <BlogV2Layout
+      title="Lake Travis Bachelorette Party Alcohol Laws | What You Can Bring on Boats"
+      description="Know the rules for your Lake Travis bachelorette party. Complete guide to alcohol laws on austin bachelorette party boats - what you CAN and CAN'T bring. No glass policy, BYOB rules, and Party On Delivery options for your bachelorette party Austin."
+      slug="lake-travis-bachelorette-party-alcohol-laws-what-you-can-and-cant-bring-on-boats"
+      category="Bachelorette Guides"
+      categoryHref="/bachelorette-party-austin"
+      pillarTitle="Austin Bachelorette Party Guide"
+      pillarHref="/bachelorette-party-austin"
+      relatedArticles={[
+        { title: "Austin Bachelorette Weekend Alcohol Timeline", href: "/blogs/austin-bachelorette-weekend-alcohol-timeline-day-by-day-drinking-strategy-for-multi-day-celebrations" },
+        { title: "Ultimate Austin Bachelorette Party Boat Guide", href: "/blogs/ultimate-austin-bachelorette-party-boat-guide-lake-travis" },
+        { title: "Austin Bachelorette Party vs. Lake Travis Boat", href: "/blogs/austin-bachelorette-party-vs-lake-travis-boat-why-lake-wins" },
+      ]}
+    >
     <>
-      <SEOHead 
-        pageRoute="/blogs/lake-travis-bachelorette-party-alcohol-laws-what-you-can-and-cant-bring-on-boats"
-        defaultTitle="Lake Travis Bachelorette Party Alcohol Laws | What You Can Bring on Boats | Premier Party Cruises"
-        defaultDescription="Know the rules for your Lake Travis bachelorette party. Complete guide to alcohol laws on austin bachelorette party boats - what you CAN and CAN'T bring. No glass policy, BYOB rules, and Party On Delivery options for your bachelorette party Austin."
-        defaultKeywords={['Lake Travis bachelorette', 'austin bachelorette party', 'bachelorette party Austin', 'Lake Travis alcohol laws', 'boat party alcohol rules', 'austin bachelorette party boats', 'Lake Travis bachelorette BYOB']}
-        image={heroImage}
-      />
-
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="lake-travis-bachelorette-alcohol-laws-page">
-        <PublicNavigation />
 
         {/* Hero Section */}
         <m.section 
@@ -606,9 +617,9 @@ export default function LakeTravisBacheloretteAlcoholLaws() {
           </div>
         </section>
 
-        <Footer />
       </div>
     </>
+    </BlogV2Layout>
     </LazyMotionProvider>
   );
 }

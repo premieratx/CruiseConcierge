@@ -1,5 +1,4 @@
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import SEOHead from '@/components/SEOHead';
 import Breadcrumb from '@/components/Breadcrumb';
 import { SectionReveal } from '@/components/SectionReveal';
@@ -32,8 +31,22 @@ const tableOfContents = [
 
 export default function JointBachelorBacheloretteParties() {
   return (
+    <BlogV2Layout
+      title="Joint Bachelor/Bachelorette Parties With Premier Party Cruises"
+      description="Plan the perfect combined bachelor bachelorette party on Lake Travis! ATX Disco Cruise and private boats offer unforgettable co-ed celebrations. Save money, maximize fun!"
+      slug="joint-bachelor-bachelorette-parties-with-premier-party-cruises"
+      category="Combined Bach Guides"
+      categoryHref="/combined-bachelor-bachelorette-austin"
+      pillarTitle="Combined Bachelor/Bachelorette Party Guide"
+      pillarHref="/combined-bachelor-bachelorette-austin"
+      relatedArticles={[
+        { title: "Epic Austin Bachelorette Party Guide", href: "/blogs/epic-austin-bachelorette-party-guide" },
+        { title: "Epic Austin Bachelor Party Guide", href: "/blogs/epic-bachelor-party-austin-guide" },
+        { title: "ATX Disco Cruise Experience", href: "/atx-disco-cruise" },
+      ]}
+    >
     <div className="min-h-screen bg-gradient-to-b from-pink-50 via-purple-50 to-blue-50 dark:from-gray-900 dark:to-gray-950" data-page-ready="joint-bach-party">
-      <SEOHead 
+      <SEOHead
         pageRoute="/blogs/joint-bachelor-bachelorette-parties-with-premier-party-cruises"
         defaultTitle="Joint Bachelor/Bachelorette Parties With Premier Party Cruises"
         defaultDescription="Plan the perfect combined bachelor bachelorette party on Lake Travis! ATX Disco Cruise and private boats offer unforgettable co-ed celebrations. Save money, maximize fun!"
@@ -50,7 +63,6 @@ export default function JointBachelorBacheloretteParties() {
           'joint bachelor party ideas'
         ]}
       />
-      <PublicNavigation />
       <Breadcrumb />
       
       <StickyCTA 
@@ -847,8 +859,6 @@ export default function JointBachelorBacheloretteParties() {
 
       <QuoteBuilderSection />
 
-      <Footer />
-      
       <script type="application/ld+json">
         {JSON.stringify({
           "@context": "https://schema.org",
@@ -882,5 +892,6 @@ export default function JointBachelorBacheloretteParties() {
         })}
       </script>
     </div>
+    </BlogV2Layout>
   );
 }

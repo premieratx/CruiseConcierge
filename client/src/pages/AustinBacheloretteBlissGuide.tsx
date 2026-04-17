@@ -12,8 +12,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import AnimatedPhotoGallery from '@/components/AnimatedPhotoGallery';
 import { BlogImageBreak, BlogPhotoStrip, BlogPartyGallery, BLOG_BOAT_PHOTOS, BLOG_PARTY_PHOTOS } from '@/components/BlogImageBreak';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
@@ -151,6 +150,20 @@ export default function AustinBacheloretteBlissGuide() {
   }, []);
 
   return (
+    <BlogV2Layout
+      title="Austin Bachelorette Bliss Guide | Spa, Disco Cruise & More"
+      description="Plan the perfect Austin bachelorette party with spa retreats, Lake Travis disco cruises, and seamless alcohol delivery. Your complete guide to bachelorette bliss in Austin, Texas."
+      slug="austin-bachelorette-bliss-spa-retreats-disco-cruises-alcohol-delivery"
+      category="Bachelorette Guides"
+      categoryHref="/bachelorette-party-austin"
+      pillarTitle="Austin Bachelorette Party Guide"
+      pillarHref="/bachelorette-party-austin"
+      relatedArticles={[
+        { title: "Luxury Austin Bachelorette Experience", href: "/luxury-austin-bachelorette" },
+        { title: "Austin Bachelorette Alcohol Delivery Timeline", href: "/blogs/austin-bachelorette-alcohol-timeline" },
+        { title: "3-Day Austin Bachelorette Itinerary", href: "/three-day-austin-bachelorette-itinerary" },
+      ]}
+    >
     <>
       <Helmet>
         <title>Austin Bachelorette Bliss Guide | Spa, Disco Cruise & More</title>
@@ -163,7 +176,6 @@ export default function AustinBacheloretteBlissGuide() {
       </Helmet>
 
       <div className="min-h-screen bg-white dark:bg-gray-950">
-        <PublicNavigation />
 
         {/* Hero Section */}
         <motion.section 
@@ -607,8 +619,8 @@ export default function AustinBacheloretteBlissGuide() {
           </div>
         </section>
 
-        <Footer />
       </div>
     </>
+    </BlogV2Layout>
   );
 }

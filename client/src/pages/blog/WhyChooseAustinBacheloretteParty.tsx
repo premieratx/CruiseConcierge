@@ -12,8 +12,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
 import heroImage from '@assets/clever girl-10 austin bachelorette party_1763966476658.jpg';
@@ -256,17 +255,29 @@ export default function WhyChooseAustinBacheloretteParty() {
 
   return (
     <LazyMotionProvider>
+    <SEOHead
+      pageRoute="/blogs/why-choose-austin-bachelorette-party"
+      defaultTitle="Why Choose Austin for Your Bachelorette Party | 10 Amazing Reasons"
+      defaultDescription="Austin is the perfect bachelorette party destination. Lake Travis party boats, incredible nightlife, luxury spas, and Instagram-worthy moments. Here's why bride squads pick ATX."
+      defaultKeywords={['Austin bachelorette party', 'Lake Travis bachelorette', 'bachelorette party Austin Texas', 'Austin vs Nashville bachelorette', 'bachelorette party ideas Austin']}
+      image="https://premierpartycruises.com/attached_assets/clever-girl-3-bachelorette-boat.jpg"
+    />
+    <BlogV2Layout
+      title="Why Choose Austin for Your Bachelorette Party"
+      description="Austin is the perfect bachelorette party destination. Lake Travis party boats, incredible nightlife, luxury spas, and Instagram-worthy moments. Here's why bride squads pick ATX."
+      slug="why-choose-austin-bachelorette-party"
+      category="Bachelorette Guides"
+      categoryHref="/bachelorette-party-austin"
+      pillarTitle="Austin Bachelorette Party Guide"
+      pillarHref="/bachelorette-party-austin"
+      relatedArticles={[
+        { title: "Austin Texas Bachelorette Party Guide & Ideas", href: "/blogs/epic-bachelorette-party-austin-ultimate-guide" },
+        { title: "How to Throw a Great Bachelorette Party in Austin", href: "/blogs/how-to-throw-great-bachelorette-party-austin" },
+        { title: "Ultimate Austin Bachelorette Party Boat Guide", href: "/blogs/ultimate-austin-bachelorette-party-boat-guide-lake-travis" },
+      ]}
+    >
     <>
-      <SEOHead 
-        pageRoute="/blogs/why-choose-austin-bachelorette-party"
-        defaultTitle="Why Choose Austin for Your Bachelorette Party | 10 Amazing Reasons"
-        defaultDescription="Austin is the perfect bachelorette party destination. Lake Travis party boats, incredible nightlife, luxury spas, and Instagram-worthy moments. Here's why bride squads pick ATX."
-        defaultKeywords={['Austin bachelorette party', 'Lake Travis bachelorette', 'bachelorette party Austin Texas', 'Austin vs Nashville bachelorette', 'bachelorette party ideas Austin']}
-        image="https://premierpartycruises.com/attached_assets/clever-girl-3-bachelorette-boat.jpg"
-      />
-
       <div className="min-h-screen bg-white dark:bg-gray-950">
-        <PublicNavigation />
 
         {/* Hero Section */}
         <m.section 
@@ -773,9 +784,9 @@ export default function WhyChooseAustinBacheloretteParty() {
           </div>
         </section>
 
-        <Footer />
       </div>
     </>
+    </BlogV2Layout>
     </LazyMotionProvider>
   );
 }

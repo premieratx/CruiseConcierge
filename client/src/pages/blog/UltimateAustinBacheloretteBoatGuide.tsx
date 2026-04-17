@@ -10,8 +10,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
@@ -195,17 +194,29 @@ export default function UltimateAustinBacheloretteBoatGuide() {
 
   return (
     <LazyMotionProvider>
+    <SEOHead
+      pageRoute="/blogs/ultimate-austin-bachelorette-party-boat-guide-lake-travis"
+      defaultTitle="Ultimate Austin Bachelorette Party Boat Guide - Lake Travis Edition | Premier Party Cruises"
+      defaultDescription="Planning an Austin bachelorette party? Make it unforgettable with a Lake Travis party boat! Discover ATX Disco Cruise vs Private Charter, pricing, and everything included for the ultimate celebration."
+      defaultKeywords={['Austin bachelorette party boat', 'Lake Travis bachelorette cruise', 'ATX Disco Cruise bachelorette', 'Austin party boat', 'Lake Travis party cruise', 'bachelorette party ideas Austin']}
+      image={heroImage}
+    />
+    <BlogV2Layout
+      title="Ultimate Austin Bachelorette Party Boat Guide - Lake Travis Edition"
+      description="Planning an Austin bachelorette party? Make it unforgettable with a Lake Travis party boat! Discover ATX Disco Cruise vs Private Charter, pricing, and everything included for the ultimate celebration."
+      slug="ultimate-austin-bachelorette-party-boat-guide-lake-travis"
+      category="Bachelorette Guides"
+      categoryHref="/bachelorette-party-austin"
+      pillarTitle="Austin Bachelorette Party Guide"
+      pillarHref="/bachelorette-party-austin"
+      relatedArticles={[
+        { title: "ATX Disco Cruise vs. Private Boat: Which Is Better?", href: "/blogs/atx-disco-cruise-vs-private-boat-which-is-better-for-a-bachelorette-party" },
+        { title: "Why the ATX Disco Cruise Has Been Austin's #1 Bachelorette Activity", href: "/blogs/why-the-atx-disco-cruise-has-been-austins-1-bachelorette-party-activity-since-2019" },
+        { title: "How to Throw a Great Bachelorette Party in Austin", href: "/blogs/how-to-throw-great-bachelorette-party-austin" },
+      ]}
+    >
     <>
-      <SEOHead 
-        pageRoute="/blogs/ultimate-austin-bachelorette-party-boat-guide-lake-travis"
-        defaultTitle="Ultimate Austin Bachelorette Party Boat Guide - Lake Travis Edition | Premier Party Cruises"
-        defaultDescription="Planning an Austin bachelorette party? Make it unforgettable with a Lake Travis party boat! Discover ATX Disco Cruise vs Private Charter, pricing, and everything included for the ultimate celebration."
-        defaultKeywords={['Austin bachelorette party boat', 'Lake Travis bachelorette cruise', 'ATX Disco Cruise bachelorette', 'Austin party boat', 'Lake Travis party cruise', 'bachelorette party ideas Austin']}
-        image={heroImage}
-      />
-
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="ultimate-bachelorette-guide-page">
-        <PublicNavigation />
 
         {/* Hero Section */}
         <m.section 
@@ -706,9 +717,9 @@ export default function UltimateAustinBacheloretteBoatGuide() {
           </div>
         </section>
 
-        <Footer />
       </div>
     </>
+    </BlogV2Layout>
     </LazyMotionProvider>
   );
 }

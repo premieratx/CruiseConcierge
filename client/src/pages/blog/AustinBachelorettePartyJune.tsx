@@ -3,8 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Calendar, Phone, Sun, CheckCircle2, Users, Music, Ship, MapPin, Utensils, ThermometerSun, PartyPopper, Star, ChevronRight, Sparkles, DollarSign, Backpack } from 'lucide-react';
 import { Link } from 'wouter';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import MonthlyGuidesNav from '@/components/MonthlyGuidesNav';
 import { LazyImage } from '@/components/LazyImage';
 
@@ -15,16 +14,28 @@ import sectionImage3 from '@assets/@capitalcityshots-14_1760073205050.jpg';
 
 export default function AustinBachelorettePartyJune() {
   return (
+    <BlogV2Layout
+      title="Why Austin is Perfect for Bachelorette Parties in June | Premier Party Cruises"
+      description="Plan a June Austin bachelorette party: 74°F-93°F weather, pool parties, pride month, Lake Travis boats & complete guide. Rain or shine, peak summer celebration awaits!"
+      slug="austin-bachelorette-party-june"
+      category="Bachelorette Guides"
+      categoryHref="/bachelorette-party-austin"
+      pillarTitle="Austin Bachelorette Party Guide"
+      pillarHref="/bachelorette-party-austin"
+      relatedArticles={[
+        { title: "Austin Bachelorette Party in February", href: "/blogs/austin-bachelorette-party-february" },
+        { title: "Austin Bachelorette Party in October", href: "/blogs/austin-bachelorette-party-october" },
+        { title: "Epic Austin Bachelorette Party Guide", href: "/blogs/epic-austin-bachelorette-party-guide" },
+      ]}
+    >
     <div data-page-ready="austin-bachelorette-party-june" className="min-h-screen bg-gradient-to-b from-yellow-50 via-white to-pink-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950">
-      <SEOHead 
+      <SEOHead
         pageRoute="/blogs/austin-bachelorette-party-june"
         defaultTitle="Why Austin is Perfect for Bachelorette Parties in June | Premier Party Cruises"
         defaultDescription="Plan a June Austin bachelorette party: 74°F-93°F weather, pool parties, pride month, Lake Travis boats & complete guide. Rain or shine, peak summer celebration awaits!"
         defaultKeywords={['June bachelorette party Austin', 'Austin bachelorette party', 'Lake Travis party boat', 'summer bachelorette Austin', 'Austin girls trip June']}
         image="https://premierpartycruises.com/attached_assets/@capitalcityshots-10_1760073205050.jpg"
       />
-
-      <PublicNavigation />
 
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-yellow-400 via-orange-400 to-pink-400 text-white py-20 overflow-hidden">
@@ -505,7 +516,7 @@ export default function AustinBachelorettePartyJune() {
       </section>
 
       <MonthlyGuidesNav type="bachelorette" currentMonth="June" />
-      <Footer />
     </div>
+    </BlogV2Layout>
   );
 }

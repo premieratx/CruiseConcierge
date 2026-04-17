@@ -12,8 +12,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import RelatedBlogArticles from '@/components/RelatedBlogArticles';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { LazyImage } from '@/components/LazyImage';
@@ -113,16 +112,28 @@ export default function HowToThrowBachelorettePartyAustin() {
 
   return (
     <LazyMotionProvider>
+    <SEOHead
+      pageRoute="/blogs/how-to-throw-great-bachelorette-party-austin"
+      defaultTitle="How to Throw a Great Bachelorette Party in Austin | Premier Party Cruises"
+      defaultDescription="Plan the ultimate Austin bachelorette party with our complete guide. Lake Travis boat parties, Rainey Street nightlife, spa days, and weekend itineraries."
+      defaultKeywords={['bachelorette party Austin', 'Austin bachelorette party guide', 'Lake Travis bachelorette party', 'Austin bachelorette party ideas', 'Rainey Street bachelorette', 'bachelorette party planning Austin TX']}
+      image="https://premierpartycruises.com/attached_assets/bachelorette-hero-compressed.webp"
+    />
+    <BlogV2Layout
+      title="How to Throw a Great Bachelorette Party in Austin"
+      description="Plan the ultimate Austin bachelorette party with our complete guide. Lake Travis boat parties, Rainey Street nightlife, spa days, and weekend itineraries."
+      slug="how-to-throw-great-bachelorette-party-austin"
+      category="Bachelorette Guides"
+      categoryHref="/bachelorette-party-austin"
+      pillarTitle="Austin Bachelorette Party Guide"
+      pillarHref="/bachelorette-party-austin"
+      relatedArticles={[
+        { title: "Ultimate Austin Bachelorette Party Boat Guide", href: "/blogs/ultimate-austin-bachelorette-party-boat-guide-lake-travis" },
+        { title: "Austin Bachelorette Party Guide & Ideas", href: "/blogs/epic-bachelorette-party-austin-ultimate-guide" },
+        { title: "Why Choose Austin for Your Bachelorette Party", href: "/blogs/why-choose-austin-bachelorette-party" },
+      ]}
+    >
     <div data-page-ready="how-to-throw-bachelorette-party-austin" className="min-h-screen bg-gradient-to-b from-pink-50 via-white to-rose-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950">
-      <SEOHead 
-        pageRoute="/blogs/how-to-throw-great-bachelorette-party-austin"
-        defaultTitle="How to Throw a Great Bachelorette Party in Austin | Premier Party Cruises"
-        defaultDescription="Plan the ultimate Austin bachelorette party with our complete guide. Lake Travis boat parties, Rainey Street nightlife, spa days, and weekend itineraries."
-        defaultKeywords={['bachelorette party Austin', 'Austin bachelorette party guide', 'Lake Travis bachelorette party', 'Austin bachelorette party ideas', 'Rainey Street bachelorette', 'bachelorette party planning Austin TX']}
-        image="https://premierpartycruises.com/attached_assets/bachelorette-hero-compressed.webp"
-      />
-
-      <PublicNavigation />
 
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-pink-600 via-rose-700 to-purple-800 text-white py-20 overflow-hidden">
@@ -754,8 +765,8 @@ export default function HowToThrowBachelorettePartyAustin() {
       </section>
 
       <RelatedBlogArticles category="bachelorette" currentSlug="/blogs/how-to-throw-great-bachelorette-party-austin" />
-      <Footer />
     </div>
+    </BlogV2Layout>
     </LazyMotionProvider>
   );
 }

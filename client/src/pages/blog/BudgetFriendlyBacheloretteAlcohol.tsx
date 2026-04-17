@@ -11,8 +11,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
@@ -187,8 +186,21 @@ export default function BudgetFriendlyBacheloretteAlcohol() {
         image={heroImage}
       />
 
+      <BlogV2Layout
+        title="Budget-Friendly Bachelorette Party Alcohol | Maximum Fun Without Breaking the Bank | Premier Party Cruises"
+        description="Plan a budget-friendly bachelorette party with smart alcohol strategies. Affordable bachelorette Austin tips, BYOB savings guide, and budget bachelorette party boat options. Maximum fun, minimum spend on Lake Travis."
+        slug="budget-friendly-bachelorette-party-alcohol-maximum-fun-without-breaking-the-bank"
+        category="Bachelorette Guides"
+        categoryHref="/bachelorette-party-austin"
+        pillarTitle="Austin Bachelorette Party Guide"
+        pillarHref="/bachelorette-party-austin"
+        relatedArticles={[
+          { title: "Cocktail Kits vs Individual Bottles: The Smart Strategy", href: "/blogs/cocktail-kits-vs-individual-bottles-the-smart-bachelorette-party-alcohol-strategy" },
+          { title: "The Ultimate Austin Bachelorette Party Alcohol Guide", href: "/blogs/the-ultimate-austin-bachelorette-party-alcohol-guide-what-to-order-when-to-order-and-how-much-you-actually-need" },
+          { title: "Bachelorette Party Alcohol Emergency Kit", href: "/blogs/bachelorette-party-alcohol-emergency-kit-last-minute-delivery-solutions" },
+        ]}
+      >
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="budget-friendly-bachelorette-alcohol-page">
-        <PublicNavigation />
 
         {/* Hero Section */}
         <m.section 
@@ -733,8 +745,8 @@ export default function BudgetFriendlyBacheloretteAlcohol() {
           </div>
         </section>
 
-        <Footer />
       </div>
+      </BlogV2Layout>
     </>
     </LazyMotionProvider>
   );

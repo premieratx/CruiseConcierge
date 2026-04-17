@@ -3,8 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Calendar, Phone, CheckCircle2, Users, Music, Ship, MapPin, Utensils, ThermometerSun, PartyPopper, Star, ChevronRight, DollarSign, Backpack, Sparkles, Gift } from 'lucide-react';
 import { Link } from 'wouter';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import MonthlyGuidesNav from '@/components/MonthlyGuidesNav';
 import { LazyImage } from '@/components/LazyImage';
 
@@ -15,8 +14,8 @@ import sectionImage3 from '@assets/@capitalcityshots-8_1760080740018.jpg';
 
 export default function AustinBachelorettePartyDecember() {
   return (
-    <div data-page-ready="austin-bachelorette-party-december" className="min-h-screen bg-gradient-to-b from-red-50 via-white to-green-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950">
-      <SEOHead 
+    <>
+      <SEOHead
         pageRoute="/blogs/austin-bachelorette-party-december"
         defaultTitle="Why Austin is Perfect for Bachelorette Parties in December | Premier Party Cruises"
         defaultDescription="Plan a December Austin bachelorette party: 45°F-62°F weather, Trail of Lights, holiday celebrations, Lake Travis boats & complete guide. Rain or shine, festive fun awaits!"
@@ -24,7 +23,21 @@ export default function AustinBachelorettePartyDecember() {
         image="https://premierpartycruises.com/attached_assets/@capitalcityshots-5_1760080740018.jpg"
       />
 
-      <PublicNavigation />
+      <BlogV2Layout
+        title="Why Austin is Perfect for Bachelorette Parties in December | Premier Party Cruises"
+        description="Plan a December Austin bachelorette party: 45°F-62°F weather, Trail of Lights, holiday celebrations, Lake Travis boats & complete guide. Rain or shine, festive fun awaits!"
+        slug="austin-bachelorette-party-december"
+        category="Bachelorette Guides"
+        categoryHref="/bachelorette-party-austin"
+        pillarTitle="Austin Bachelorette Party Guide"
+        pillarHref="/bachelorette-party-austin"
+        relatedArticles={[
+          { title: "Austin Bachelorette Party in April", href: "/blogs/austin-bachelorette-party-april" },
+          { title: "Austin Bachelorette Party in August", href: "/blogs/austin-bachelorette-party-august" },
+          { title: "Austin Bachelorette Party Boats", href: "/blogs/austin-bachelorette-party-boats-lake-travis-adventures-for-unforgettable-celebrations" },
+        ]}
+      >
+      <div data-page-ready="austin-bachelorette-party-december" className="min-h-screen bg-gradient-to-b from-red-50 via-white to-green-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950">
 
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-red-500 via-green-600 to-red-600 text-white py-20 overflow-hidden">
@@ -510,7 +523,8 @@ export default function AustinBachelorettePartyDecember() {
       </section>
 
       <MonthlyGuidesNav type="bachelorette" currentMonth="December" />
-      <Footer />
     </div>
+    </BlogV2Layout>
+    </>
   );
 }

@@ -12,8 +12,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { LazyImage } from '@/components/LazyImage';
@@ -154,8 +153,21 @@ export default function CocktailKitsVsBottles() {
         image="https://premierpartycruises.com/attached_assets/@capitalcityshots-1_1760080740012.jpg"
       />
 
+      <BlogV2Layout
+        title="Cocktail Kits vs Individual Bottles: Smart Bachelorette Party Alcohol Strategy | Premier Party Cruises"
+        description="Compare cocktail kits vs individual bottles for your bachelorette party. Smart alcohol strategy guide with cost analysis, pros/cons, and tips for Lake Travis boat parties. Expert bachelorette party planning."
+        slug="cocktail-kits-vs-individual-bottles-the-smart-bachelorette-party-alcohol-strategy"
+        category="Bachelorette Guides"
+        categoryHref="/bachelorette-party-austin"
+        pillarTitle="Austin Bachelorette Party Guide"
+        pillarHref="/bachelorette-party-austin"
+        relatedArticles={[
+          { title: "The Ultimate Austin Bachelorette Party Alcohol Guide", href: "/blogs/the-ultimate-austin-bachelorette-party-alcohol-guide-what-to-order-when-to-order-and-how-much-you-actually-need" },
+          { title: "Budget-Friendly Bachelorette Party Alcohol", href: "/blogs/budget-friendly-bachelorette-party-alcohol-maximum-fun-without-breaking-the-bank" },
+          { title: "Bachelorette Party Alcohol Emergency Kit", href: "/blogs/bachelorette-party-alcohol-emergency-kit-last-minute-delivery-solutions" },
+        ]}
+      >
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="cocktail-kits-vs-bottles-page">
-        <PublicNavigation />
 
         {/* Hero Section */}
         <m.section 
@@ -586,8 +598,8 @@ export default function CocktailKitsVsBottles() {
           </div>
         </section>
 
-        <Footer />
       </div>
+      </BlogV2Layout>
     </>
     </LazyMotionProvider>
   );

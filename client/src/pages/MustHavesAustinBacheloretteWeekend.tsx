@@ -5,12 +5,25 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Calendar, Phone, Sparkles, CheckCircle2, Users, Music, Ship, MapPin, Utensils, Camera, PartyPopper, Star, ChevronRight, Waves } from 'lucide-react';
 import { Link } from 'wouter';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import { BlogImageBreak, BlogPhotoStrip, BlogPartyGallery, BLOG_BOAT_PHOTOS, BLOG_PARTY_PHOTOS } from '@/components/BlogImageBreak';
 
 export default function MustHavesAustinBacheloretteWeekend() {
   return (
+    <BlogV2Layout
+      title="Must-Haves for the Perfect Austin Bachelorette Weekend | Premier Party Cruises"
+      description="Planning a bachelorette party in Austin, Texas? This complete weekend guide covers must-have activities from Lake Travis boat parties to Austin's best restaurants, nightlife, and insider tips for an unforgettable celebration."
+      slug="must-haves-for-the-perfect-austin-bachelorette-weekend"
+      category="Bachelorette Guides"
+      categoryHref="/bachelorette-party-austin"
+      pillarTitle="Austin Bachelorette Party Guide"
+      pillarHref="/bachelorette-party-austin"
+      relatedArticles={[
+        { title: "Top 10 Austin Bachelorette Party Ideas", href: "/top-10-austin-bachelorette-ideas" },
+        { title: "Epic Austin Bachelorette Party Guide", href: "/blogs/epic-austin-bachelorette-party-guide" },
+        { title: "Ultimate Austin Bachelorette Weekend", href: "/ultimate-austin-bachelorette-weekend" },
+      ]}
+    >
     <div data-page-ready="must-haves-bachelorette-weekend" className="min-h-screen bg-gradient-to-b from-blue-50 via-white to-blue-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950">
       <Helmet>
         <title>Must-Haves for the Perfect Austin Bachelorette Weekend | Premier Party Cruises</title>
@@ -62,8 +75,6 @@ export default function MustHavesAustinBacheloretteWeekend() {
           })}
         </script>
       </Helmet>
-
-      <PublicNavigation />
 
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-pink-500 via-purple-600 to-blue-600 text-white py-20 overflow-hidden">
@@ -637,7 +648,7 @@ export default function MustHavesAustinBacheloretteWeekend() {
         </div>
       </section>
 
-      <Footer />
     </div>
+    </BlogV2Layout>
   );
 }

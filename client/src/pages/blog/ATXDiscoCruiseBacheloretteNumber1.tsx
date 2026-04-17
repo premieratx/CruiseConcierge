@@ -10,7 +10,8 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { BlogPostLayout, TOCSection } from '@/components/blog/BlogPostLayout';
+import BlogV2Layout from '@/components/BlogV2Layout';
+import { TOCSection } from '@/components/blog/BlogPostLayout';
 import { BlogImageBreak, BlogPhotoStrip } from '@/components/BlogImageBreak';
 import { SectionReveal } from '@/components/SectionReveal';
 
@@ -36,16 +37,22 @@ export default function ATXDiscoCruiseBacheloretteNumber1() {
 
   return (
     <LazyMotionProvider>
-      <BlogPostLayout
+      <BlogV2Layout
         title="Why the ATX Disco Cruise Has Been Austin's #1 Bachelorette Party Activity Since 2019"
-        metaDescription="Why is the ATX Disco Cruise Austin's #1 bachelorette party activity since 2019? DJ, pro photographer, Lake Travis views, and all-inclusive from $85/person. The only multi-group bachelorette cruise in the U.S."
+        description="Why is the ATX Disco Cruise Austin's #1 bachelorette party activity since 2019? DJ, pro photographer, Lake Travis views, and all-inclusive from $85/person. The only multi-group bachelorette cruise in the U.S."
+        slug="why-the-atx-disco-cruise-has-been-austins-1-bachelorette-party-activity-since-2019"
         publishDate="2025-05-20"
         author="Captain Brian"
         heroImage={cleverGirl3}
-        heroImageAlt="Bachelorette party group celebrating on the Clever Girl boat"
-        keywords={['Austin bachelorette party activity', 'best bachelorette party activity Austin 2026', 'ATX Disco Cruise bachelorette', 'Austin bachelorette boat party', 'bachelorette party Lake Travis', 'Austin bachelorette party ideas']}
-        pageRoute="/blogs/why-the-atx-disco-cruise-has-been-austins-1-bachelorette-party-activity-since-2019"
-        sections={sections}
+        category="Bachelorette Guides"
+        categoryHref="/bachelorette-party-austin"
+        pillarTitle="Austin Bachelorette Party Guide"
+        pillarHref="/bachelorette-party-austin"
+        relatedArticles={[
+          { title: "ATX Disco Cruise vs. Private Boat: Which Is Better?", href: "/blogs/atx-disco-cruise-vs-private-boat-which-is-better-for-a-bachelorette-party" },
+          { title: "Ultimate Austin Bachelorette Party Boat Guide", href: "/blogs/ultimate-austin-bachelorette-party-boat-guide-lake-travis" },
+          { title: "Austin Bachelorette Party vs. Lake Travis Boat", href: "/blogs/austin-bachelorette-party-vs-lake-travis-boat-why-lake-wins" },
+        ]}
       >
         <div className="mb-8 flex items-start gap-3 p-4 bg-blue-50 border border-blue-200 rounded-xl text-sm">
           <span className="text-blue-600 font-bold text-lg leading-none mt-0.5">→</span>
@@ -232,7 +239,7 @@ export default function ATXDiscoCruiseBacheloretteNumber1() {
           </Link>
           <p className="text-slate-500 font-medium">Tickets include DJ, Photographer, and Lake Travis Views!</p>
         </div>
-      </BlogPostLayout>
+      </BlogV2Layout>
     </LazyMotionProvider>
   );
 }

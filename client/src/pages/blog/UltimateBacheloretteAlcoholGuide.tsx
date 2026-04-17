@@ -11,8 +11,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
 import heroImage from '@assets/disco_fun_first_1765193453547.jpg';
@@ -252,8 +251,21 @@ export default function UltimateBacheloretteAlcoholGuide() {
         image="https://premierpartycruises.com/attached_assets/disco_fun_first_1765193453547.jpg"
       />
 
+      <BlogV2Layout
+        title="The Ultimate Austin Bachelorette Party Alcohol Guide | What to Order, When & How Much | Premier Party Cruises"
+        description="Complete Austin bachelorette party alcohol guide: what to order (champagne, wine, seltzers), when to order (timeline), and how much you need for Lake Travis cruises. Party On Delivery tips included!"
+        slug="the-ultimate-austin-bachelorette-party-alcohol-guide-what-to-order-when-to-order-and-how-much-you-actually-need"
+        category="Bachelorette Guides"
+        categoryHref="/bachelorette-party-austin"
+        pillarTitle="Austin Bachelorette Party Guide"
+        pillarHref="/bachelorette-party-austin"
+        relatedArticles={[
+          { title: "Cocktail Kits vs Individual Bottles: The Smart Strategy", href: "/blogs/cocktail-kits-vs-individual-bottles-the-smart-bachelorette-party-alcohol-strategy" },
+          { title: "Budget-Friendly Bachelorette Party Alcohol", href: "/blogs/budget-friendly-bachelorette-party-alcohol-maximum-fun-without-breaking-the-bank" },
+          { title: "Bachelorette Party Alcohol Emergency Kit", href: "/blogs/bachelorette-party-alcohol-emergency-kit-last-minute-delivery-solutions" },
+        ]}
+      >
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="ultimate-bachelorette-alcohol-guide-page">
-        <PublicNavigation />
 
         {/* Hero Section */}
         <m.section 
@@ -776,8 +788,8 @@ export default function UltimateBacheloretteAlcoholGuide() {
           </div>
         </section>
 
-        <Footer />
       </div>
+      </BlogV2Layout>
     </>
     </LazyMotionProvider>
   );

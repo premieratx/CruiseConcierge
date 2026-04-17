@@ -12,8 +12,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { LazyImage } from '@/components/LazyImage';
@@ -191,8 +190,21 @@ export default function AustinBachelorettePartyBoats() {
         image="https://premierpartycruises.com/attached_assets/clever-girl-3-bachelorette-boat.jpg"
       />
 
+      <BlogV2Layout
+        title="Austin Bachelorette Party Boats: Lake Travis Adventures for Unforgettable Celebrations | Premier Party Cruises"
+        description="Plan unforgettable Austin bachelorette party boats on Lake Travis. Compare boats for 14-75 guests, pricing from $800 for 4-hour cruise. Lake Travis bachelorette adventures with 15+ years experience and 5-star reviews."
+        slug="austin-bachelorette-party-boats-lake-travis-adventures-for-unforgettable-celebrations"
+        category="Bachelorette Guides"
+        categoryHref="/bachelorette-party-austin"
+        pillarTitle="Austin Bachelorette Party Guide"
+        pillarHref="/bachelorette-party-austin"
+        relatedArticles={[
+          { title: "The Ultimate Austin Bachelorette Party Alcohol Guide", href: "/blogs/the-ultimate-austin-bachelorette-party-alcohol-guide-what-to-order-when-to-order-and-how-much-you-actually-need" },
+          { title: "Austin Bachelorette Party in April", href: "/blogs/austin-bachelorette-party-april" },
+          { title: "Austin Bachelorette Party in August", href: "/blogs/austin-bachelorette-party-august" },
+        ]}
+      >
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="austin-bachelorette-party-boats-page">
-        <PublicNavigation />
 
         {/* Hero Section */}
         <m.section 
@@ -650,8 +662,8 @@ export default function AustinBachelorettePartyBoats() {
           </div>
         </section>
 
-        <Footer />
       </div>
+      </BlogV2Layout>
     </>
     </LazyMotionProvider>
   );

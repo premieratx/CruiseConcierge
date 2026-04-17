@@ -12,8 +12,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { LazyImage } from '@/components/LazyImage';
@@ -173,7 +172,7 @@ export default function InstagramBacheloretteCocktails() {
   return (
     <LazyMotionProvider>
     <>
-      <SEOHead 
+      <SEOHead
         pageRoute="/blogs/instagram-worthy-bachelorette-party-cocktails-recipes-and-delivery-coordination"
         defaultTitle="Instagram-Worthy Bachelorette Party Cocktails: Recipes & Delivery Coordination | Premier Party Cruises"
         defaultDescription="Create stunning Instagram bachelorette party cocktails with our recipes and delivery tips. Perfect for Lake Travis boat parties. Photo-ready bachelorette cocktails with delivery coordination for your celebration."
@@ -181,8 +180,21 @@ export default function InstagramBacheloretteCocktails() {
         image="https://premierpartycruises.com/attached_assets/@capitalcityshots-2_1760080740017.jpg"
       />
 
+      <BlogV2Layout
+        title="Instagram-Worthy Bachelorette Party Cocktails: Recipes & Delivery Coordination | Premier Party Cruises"
+        description="Create stunning Instagram bachelorette party cocktails with our recipes and delivery tips. Perfect for Lake Travis boat parties. Photo-ready bachelorette cocktails with delivery coordination for your celebration."
+        slug="instagram-worthy-bachelorette-party-cocktails-recipes-and-delivery-coordination"
+        category="Bachelorette Guides"
+        categoryHref="/bachelorette-party-austin"
+        pillarTitle="Austin Bachelorette Party Guide"
+        pillarHref="/bachelorette-party-austin"
+        relatedArticles={[
+          { title: "The Ultimate Austin Bachelorette Party Alcohol Guide", href: "/blogs/the-ultimate-austin-bachelorette-party-alcohol-guide-what-to-order-when-to-order-and-how-much-you-actually-need" },
+          { title: "Cocktail Kits vs Individual Bottles: The Smart Strategy", href: "/blogs/cocktail-kits-vs-individual-bottles-the-smart-bachelorette-party-alcohol-strategy" },
+          { title: "Budget-Friendly Bachelorette Party Alcohol", href: "/blogs/budget-friendly-bachelorette-party-alcohol-maximum-fun-without-breaking-the-bank" },
+        ]}
+      >
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="instagram-bachelorette-cocktails-page">
-        <PublicNavigation />
 
         {/* Hero Section */}
         <m.section 
@@ -625,8 +637,8 @@ export default function InstagramBacheloretteCocktails() {
           </div>
         </section>
 
-        <Footer />
       </div>
+      </BlogV2Layout>
     </>
     </LazyMotionProvider>
   );

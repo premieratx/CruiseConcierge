@@ -12,8 +12,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
@@ -298,17 +297,28 @@ export default function BachelorettePartyVsNightlife() {
 
   return (
     <LazyMotionProvider>
+    <SEOHead
+      pageRoute=""
+      defaultTitle="Lake Travis vs Austin Nightlife Bachelorette Party Guide"
+      defaultDescription="Compare Lake Travis party boats to Austin nightlife for your bachelorette. Discover why boat cruises offer more fun, less stress, and unforgettable memories."
+      defaultKeywords={['austin bachelorette party', 'lake travis party boat', 'bachelorette party ideas austin', 'party boat vs bars', 'austin bachelorette weekend', 'rainey street bachelorette', '6th street bachelorette']}
+      image="https://premierpartycruises.com/attached_assets/dancing-party-scene.webp"
+    />
+    <BlogV2Layout
+      title="Lake Travis vs Austin Nightlife Bachelorette Party Guide"
+      description="Compare Lake Travis party boats to Austin nightlife for your bachelorette. Discover why boat cruises offer more fun, less stress, and unforgettable memories."
+      slug="austin-bachelorette-party-vs-lake-travis-boat-why-lake-wins"
+      category="Bachelorette Guides"
+      categoryHref="/bachelorette-party-austin"
+      pillarTitle="Austin Bachelorette Party Guide"
+      pillarHref="/bachelorette-party-austin"
+      relatedArticles={[
+        { title: "ATX Disco Cruise vs. Private Boat: Which Is Better?", href: "/blogs/atx-disco-cruise-vs-private-boat-which-is-better-for-a-bachelorette-party" },
+        { title: "Ultimate Austin Bachelorette Party Boat Guide", href: "/blogs/ultimate-austin-bachelorette-party-boat-guide-lake-travis" },
+        { title: "Austin Bachelorette Weekend Alcohol Timeline", href: "/blogs/austin-bachelorette-weekend-alcohol-timeline-day-by-day-drinking-strategy-for-multi-day-celebrations" },
+      ]}
+    >
     <>
-      <SEOHead 
-        pageRoute=""
-        defaultTitle="Lake Travis vs Austin Nightlife Bachelorette Party Guide"
-        defaultDescription="Compare Lake Travis party boats to Austin nightlife for your bachelorette. Discover why boat cruises offer more fun, less stress, and unforgettable memories."
-        defaultKeywords={['austin bachelorette party', 'lake travis party boat', 'bachelorette party ideas austin', 'party boat vs bars', 'austin bachelorette weekend', 'rainey street bachelorette', '6th street bachelorette']}
-        image="https://premierpartycruises.com/attached_assets/dancing-party-scene.webp"
-      />
-
-      <PublicNavigation />
-
       <main className="min-h-screen bg-white">
         <section className="relative min-h-[60vh] flex items-center justify-center overflow-hidden">
           <div className="absolute inset-0">
@@ -960,9 +970,8 @@ export default function BachelorettePartyVsNightlife() {
           </div>
         </section>
       </main>
-
-      <Footer />
     </>
+    </BlogV2Layout>
     </LazyMotionProvider>
   );
 }

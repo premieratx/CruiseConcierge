@@ -3,8 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Calendar, Phone, CheckCircle2, Users, Music, Ship, MapPin, Utensils, ThermometerSun, PartyPopper, Star, ChevronRight, DollarSign, Backpack, Sparkles, Ghost } from 'lucide-react';
 import { Link } from 'wouter';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import MonthlyGuidesNav from '@/components/MonthlyGuidesNav';
 import { LazyImage } from '@/components/LazyImage';
 
@@ -15,16 +14,28 @@ import sectionImage3 from '@assets/@capitalcityshots-4_1760080740017.jpg';
 
 export default function AustinBachelorettePartyOctober() {
   return (
+    <BlogV2Layout
+      title="Why Austin is Perfect for Bachelorette Parties in October | Premier Party Cruises"
+      description="Plan an October Austin bachelorette party: 62°F-82°F fall weather, ACL Festival vibes, Halloween celebrations, Lake Travis boats & complete girls' trip guide! Rain or shine!"
+      slug="austin-bachelorette-party-october"
+      category="Bachelorette Guides"
+      categoryHref="/bachelorette-party-austin"
+      pillarTitle="Austin Bachelorette Party Guide"
+      pillarHref="/bachelorette-party-austin"
+      relatedArticles={[
+        { title: "Austin Bachelorette Party in February", href: "/blogs/austin-bachelorette-party-february" },
+        { title: "Austin Bachelorette Party in June", href: "/blogs/austin-bachelorette-party-june" },
+        { title: "Epic Austin Bachelorette Party Guide", href: "/blogs/epic-austin-bachelorette-party-guide" },
+      ]}
+    >
     <div data-page-ready="austin-bachelorette-party-october" className="min-h-screen bg-gradient-to-b from-orange-50 via-white to-purple-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950">
-      <SEOHead 
+      <SEOHead
         pageRoute="/blogs/austin-bachelorette-party-october"
         defaultTitle="Why Austin is Perfect for Bachelorette Parties in October | Premier Party Cruises"
         defaultDescription="Plan an October Austin bachelorette party: 62°F-82°F fall weather, ACL Festival vibes, Halloween celebrations, Lake Travis boats & complete girls' trip guide! Rain or shine!"
         defaultKeywords={['October bachelorette party Austin', 'Austin bachelorette party', 'Lake Travis party boat', 'ACL Festival bachelorette', 'Halloween bachelorette Austin', 'girls trip Austin October']}
         image="https://premierpartycruises.com/attached_assets/@capitalcityshots-1_1760080740012.jpg"
       />
-
-      <PublicNavigation />
 
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-orange-500 via-amber-600 to-purple-600 text-white py-20 overflow-hidden">
@@ -505,7 +516,7 @@ export default function AustinBachelorettePartyOctober() {
       </section>
 
       <MonthlyGuidesNav type="bachelorette" currentMonth="October" />
-      <Footer />
     </div>
+    </BlogV2Layout>
   );
 }
