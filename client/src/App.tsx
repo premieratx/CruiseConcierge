@@ -425,7 +425,7 @@ function Router() {
     <Suspense fallback={<PageSkeleton />}>
       <Switch>
         {/* Public Homepage */}
-        <Route path="/" component={Home} />
+        <Route path="/" component={HomeNew} />
         <Route path="/home-v2" component={HomeNew} />
         <Route path="/bachelorette-v2" component={BacheloretteV2} />
         <Route path="/bachelor-v2" component={BachelorV2} />
@@ -499,10 +499,10 @@ function Router() {
       <Route path="/admin/login" component={AuthPage} />
       
       {/* Landing Pages */}
-      <Route path="/bachelor-party-austin" component={BachelorParty} />
-      <Route path="/bachelorette-party-austin" component={BacheloretteParty} />
-      <Route path="/combined-bachelor-bachelorette-austin" component={CombinedBachelorBachelorette} />
-      <Route path="/atx-disco-cruise" component={ATXDiscoCruise} />
+      <Route path="/bachelor-party-austin" component={BachelorV2} />
+      <Route path="/bachelorette-party-austin" component={BacheloretteV2} />
+      <Route path="/combined-bachelor-bachelorette-austin" component={CombinedBachV2} />
+      <Route path="/atx-disco-cruise" component={DiscoV2} />
       
       {/* Legacy URL Redirects - SEO & User Experience */}
       <Route path="/bachelor-party">
@@ -532,74 +532,74 @@ function Router() {
         <Redirect to="/" />
       </Route>
       
-      <Route path="/private-cruises" component={PrivateCruises} />
-      <Route path="/corporate-events" component={CorporateEvents} />
-      <Route path="/birthday-parties" component={BirthdayParties} />
-      <Route path="/wedding-parties" component={WeddingParties} />
-      <Route path="/party-boat-austin" component={PartyBoatAustin} />
-      <Route path="/party-boat-lake-travis" component={PartyBoatLakeTravis} />
-      <Route path="/gallery" component={Gallery} />
-      <Route path="/contact" component={Contact} />
+      <Route path="/private-cruises" component={PrivateCruisesV2} />
+      <Route path="/corporate-events" component={CorporateV2} />
+      <Route path="/birthday-parties" component={BirthdayV2} />
+      <Route path="/wedding-parties" component={WeddingV2} />
+      <Route path="/party-boat-austin" component={PartyBoatAustinV2} />
+      <Route path="/party-boat-lake-travis" component={PartyBoatLakeTravisV2} />
+      <Route path="/gallery" component={GalleryV2} />
+      <Route path="/contact" component={ContactV2} />
       <Route path="/privacy-policy" component={PrivacyPolicy} />
       <Route path="/terms-of-service" component={TermsAndConditions} />
-      <Route path="/testimonials-faq" component={TestimonialsFaq} />
+      <Route path="/testimonials-faq" component={TestimonialsFAQV2} />
       <Route path="/ai-endorsement" component={AIEndorsement} />
       <Route path="/partners" component={Partners} />
-      <Route path="/site-directory" component={SiteDirectory} />
+      <Route path="/site-directory" component={SiteDirectoryV2} />
       
       {/* Wedding Experience Pages */}
-      <Route path="/rehearsal-dinner" component={RehearsalDinner} />
-      <Route path="/welcome-party" component={WelcomeParty} />
-      <Route path="/after-party" component={AfterParty} />
-      <Route path="/proposal-cruise" component={ProposalCruise} />
-      <Route path="/rehearsal-dinner-cruise" component={RehearsalDinnerCruise} />
-      <Route path="/bridal-shower-cruise" component={BridalShowerCruise} />
-      <Route path="/engagement-party-cruise" component={EngagementPartyCruise} />
-      <Route path="/baby-shower-cruise" component={BabyShowerCruise} />
-      <Route path="/gender-reveal-cruise" component={GenderRevealCruise} />
+      <Route path="/rehearsal-dinner" component={RehearsalDinnerV2} />
+      <Route path="/welcome-party" component={WelcomePartyV2} />
+      <Route path="/after-party" component={AfterPartyV2} />
+      <Route path="/proposal-cruise" component={ProposalCruiseV2} />
+      <Route path="/rehearsal-dinner-cruise" component={RehearsalDinnerCruiseV2} />
+      <Route path="/bridal-shower-cruise" component={BridalShowerCruiseV2} />
+      <Route path="/engagement-party-cruise" component={EngagementPartyCruiseV2} />
+      <Route path="/baby-shower-cruise" component={BabyShowerCruiseV2} />
+      <Route path="/gender-reveal-cruise" component={GenderRevealCruiseV2} />
       
       {/* Corporate Experience Pages */}
-      <Route path="/team-building" component={TeamBuilding} />
-      <Route path="/client-entertainment" component={ClientEntertainment} />
-      <Route path="/company-milestone" component={CompanyMilestone} />
+      <Route path="/team-building" component={TeamBuildingV2} />
+      <Route path="/client-entertainment" component={ClientEntertainmentV2} />
+      <Route path="/company-milestone" component={CompanyMilestoneV2} />
       
       {/* Birthday Experience Pages */}
-      <Route path="/milestone-birthday" component={MilestoneBirthday} />
-      <Route path="/sweet-16" component={Sweet16} />
+      <Route path="/milestone-birthday" component={MilestoneBirthdayV2} />
+      <Route path="/sweet-16" component={Sweet16V2} />
       
       {/* Special Event Pages */}
-      <Route path="/graduation-party" component={GraduationParty} />
-      <Route path="/faq" component={Faq} />
-      <Route path="/pricing-breakdown" component={PricingBreakdown} />
+      <Route path="/graduation-party" component={GraduationPartyV2} />
+      <Route path="/faq" component={FAQV2} />
+      <Route path="/pricing-breakdown" component={PricingBreakdownV2} />
       
       {/* Marketing Event Pages */}
       <Route path="/party-boat-rental-austin" component={PartyBoatRentalAustin} />
       <Route path="/lake-travis-yacht-rental" component={LakeTravisYachtRental} />
       <Route path="/austin-boat-party" component={AustinBoatParty} />
-      <Route path="/celebration-cruises" component={CelebrationCruises} />
-      <Route path="/prom-cruise" component={PromCruise} />
-      <Route path="/holiday-party-cruise" component={HolidayPartyCruise} />
+      <Route path="/celebration-cruises" component={CelebrationCruisesV2} />
+      <Route path="/prom-cruise" component={PromCruiseV2} />
+      <Route path="/holiday-party-cruise" component={HolidayPartyCruiseV2} />
       
       {/* New Core Marketing Pages */}
-      <Route path="/pricing" component={PricingPage} />
+      <Route path="/pricing" component={PricingV2} />
       
       {/* Celebration Event Pages */}
-      <Route path="/birthday-party-boat-rental" component={BirthdayPartyBoatRental} />
-      <Route path="/anniversary-cruise" component={AnniversaryCruise} />
-      <Route path="/graduation-cruise" component={GraduationCruise} />
-      <Route path="/retirement-party-cruise" component={RetirementPartyCruise} />
-      <Route path="/memorial-celebration-cruise" component={MemorialCelebrationCruise} />
-      <Route path="/family-reunion-cruise" component={FamilyReunionCruise} />
+      <Route path="/birthday-party-boat-rental" component={BirthdayPartyBoatRentalV2} />
+      <Route path="/anniversary-cruise" component={AnniversaryCruiseV2} />
+      <Route path="/graduation-cruise" component={GraduationCruiseV2} />
+      <Route path="/retirement-party-cruise" component={RetirementPartyCruiseV2} />
+      <Route path="/memorial-celebration-cruise" component={MemorialCelebrationCruiseV2} />
+      <Route path="/family-reunion-cruise" component={FamilyReunionCruiseV2} />
       
       {/* Blog Content Pages */}
-      <Route path="/first-time-lake-travis-boat-rental-guide" component={LakeTravisBoatRentalGuide} />
-      <Route path="/ultimate-austin-bachelorette-weekend" component={UltimateAustinBacheloretteWeekend} />
-      <Route path="/top-10-austin-bachelorette-ideas" component={Top10AustinBacheloretteIdeas} />
-      <Route path="/3-day-austin-bachelorette-itinerary" component={ThreeDayAustinBacheloretteItinerary} />
-      <Route path="/budget-austin-bachelorette" component={BudgetAustinBachelorette} />
-      <Route path="/luxury-austin-bachelorette" component={LuxuryAustinBachelorette} />
-      <Route path="/adventure-austin-bachelorette" component={AdventureAustinBachelorette} />
-      <Route path="/austin-bachelorette-nightlife" component={AustinBacheloretteNightlife} />
+      <Route path="/first-time-lake-travis-boat-rental-guide" component={FirstTimeLakeTravisBoatRentalGuideV2} />
+      <Route path="/ultimate-austin-bachelorette-weekend" component={UltimateAustinBacheloretteWeekendV2} />
+      <Route path="/top-10-austin-bachelorette-ideas" component={Top10AustinBacheloretteIdeasV2} />
+      <Route path="/3-day-austin-bachelorette-itinerary" component={ThreeDayBacheloretteItineraryV2} />
+      <Route path="/budget-austin-bachelorette" component={BudgetAustinBacheloretteV2} />
+      <Route path="/luxury-austin-bachelorette" component={LuxuryAustinBacheloretteV2} />
+      <Route path="/adventure-austin-bachelorette" component={AdventureAustinBacheloretteV2} />
+      <Route path="/austin-bachelorette-nightlife" component={AustinBacheloretteNightlifeV2} />
       <Route path="/blogs/holiday-celebrations-on-lake-travis-seasonal-boat-party-planning-and-coordination" component={HolidayCelebrationsLakeTravis} />
       <Route path="/blogs/joint-bachelor-bachelorette-parties-with-premier-party-cruises" component={JointBachelorBacheloretteParties} />
       <Route path="/blogs/lake-travis-wedding-boat-rentals-unique-venues-for-austin-celebrations" component={LakeTravisWeddingBoatRentals} />
@@ -608,14 +608,14 @@ function Router() {
       
       {/* New SEO-Optimized Bachelor Party Blog Pages */}
       <Route path="/blogs/austin-bachelor-party-ideas" component={AustinBachelorPartyIdeas} />
-      <Route path="/austin-bachelor-party-ideas" component={AustinBachelorPartyIdeas} />{/* live-site parity alias */}
+      <Route path="/austin-bachelor-party-ideas" component={AustinBachelorPartyIdeasV2} />{/* live-site parity alias */}
       <Route path="/blogs/perfect-austin-bachelor-party-weekend" component={PerfectAustinBachelorPartyWeekend} />
-      <Route path="/lake-travis-bachelor-party-boats" component={LakeTravisBachelorPartyBoats} />
+      <Route path="/lake-travis-bachelor-party-boats" component={LakeTravisBachelorPartyBoatsV2} />
       <Route path="/blogs/atx-disco-cruise-experience" component={ATXDiscoCruiseExperience} />
       <Route path="/blogs/lake-travis-bachelor-party-austin-celebrations" component={LakeTravisBachelorPartyCelebrations} />
       
       {/* Wedding Anniversary Blog Page */}
-      <Route path="/wedding-anniversary-celebration-ideas" component={WeddingAnniversaryCelebrationIdeas} />
+      <Route path="/wedding-anniversary-celebration-ideas" component={WeddingAnniversaryIdeasV2} />
       <Route path="/blogs/wedding-anniversary-celebration-ideas-recreating-your-special-day-with-boat-and-alcohol-packages" component={WeddingAnniversaryCelebrationIdeas} />
       
       {/* Rehearsal Dinner Boat + Alcohol Delivery - Full React Page */}
