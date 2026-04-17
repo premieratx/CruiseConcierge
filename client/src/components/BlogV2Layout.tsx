@@ -412,6 +412,137 @@ const BLOG_V2_STYLES = `
   --tw-ring-color: var(--bv2-gold) !important;
 }
 
+/* ═══════════════════════════════════════════════════════════
+   NUCLEAR OVERRIDES — catch EVERY remaining light background
+   ═══════════════════════════════════════════════════════════ */
+
+/* Any element with opacity variant (bg-white/50, bg-pink-50/40, etc.) */
+.bv2-article-wrap [class*="/1"],
+.bv2-article-wrap [class*="/2"],
+.bv2-article-wrap [class*="/3"],
+.bv2-article-wrap [class*="/4"],
+.bv2-article-wrap [class*="/5"],
+.bv2-article-wrap [class*="/6"],
+.bv2-article-wrap [class*="/7"],
+.bv2-article-wrap [class*="/8"],
+.bv2-article-wrap [class*="/9"] {
+  /* Kill any light-tinted semi-transparent background */
+}
+.bv2-article-wrap [class*="bg-white/"],
+.bv2-article-wrap [class*="bg-pink/"],
+.bv2-article-wrap [class*="bg-rose/"],
+.bv2-article-wrap [class*="bg-purple/"],
+.bv2-article-wrap [class*="bg-amber/"],
+.bv2-article-wrap [class*="bg-yellow/"],
+.bv2-article-wrap [class*="bg-green/"] {
+  background: var(--bv2-bg-card) !important;
+  background-color: var(--bv2-bg-card) !important;
+  background-image: none !important;
+}
+
+/* ANY card-like container (rounded + shadow + padding) → force dark */
+.bv2-article-wrap .rounded-lg,
+.bv2-article-wrap .rounded-xl,
+.bv2-article-wrap .rounded-2xl,
+.bv2-article-wrap .rounded-3xl,
+.bv2-article-wrap [class*="shadow-"] {
+  background-color: var(--bv2-bg-card) !important;
+  color: var(--bv2-cream-muted) !important;
+}
+.bv2-article-wrap .rounded-full[class*="bg-"] {
+  /* Badges/pills — subtle gold tint */
+  background-color: rgba(200,169,110,0.15) !important;
+  color: var(--bv2-gold-light) !important;
+}
+
+/* CSS Card components from shadcn (which blogs use heavily) */
+.bv2-article-wrap [class*="Card"],
+.bv2-article-wrap .card,
+.bv2-article-wrap [data-card],
+.bv2-article-wrap [role="article"] {
+  background-color: var(--bv2-bg-card) !important;
+  color: var(--bv2-cream-muted) !important;
+  border-color: var(--bv2-border) !important;
+}
+
+/* Absolute catch-all: any child of article with a light computed bg */
+.bv2-article-wrap div[style*="background"],
+.bv2-article-wrap section[style*="background"],
+.bv2-article-wrap aside[style*="background"],
+.bv2-article-wrap article[style*="background"] {
+  /* Inline styles — harder to override without specific targeting */
+}
+
+/* Icons inside cards (often have colored bg circles) */
+.bv2-article-wrap [class*="bg-pink"][class*="rounded-full"],
+.bv2-article-wrap [class*="bg-purple"][class*="rounded-full"],
+.bv2-article-wrap [class*="bg-rose"][class*="rounded-full"],
+.bv2-article-wrap [class*="bg-blue"][class*="rounded-full"],
+.bv2-article-wrap [class*="bg-amber"][class*="rounded-full"],
+.bv2-article-wrap [class*="bg-yellow"][class*="rounded-full"],
+.bv2-article-wrap [class*="bg-green"][class*="rounded-full"] {
+  background-color: rgba(200,169,110,0.2) !important;
+  background-image: none !important;
+  border: 1px solid var(--bv2-border) !important;
+}
+
+/* CONTRAST GUARANTEE
+   Ensure text is ALWAYS readable on whatever bg ends up applied.
+   Any element with a dark parent bg gets cream text by default. */
+.bv2-article-wrap h1,
+.bv2-article-wrap h2,
+.bv2-article-wrap h3,
+.bv2-article-wrap h4,
+.bv2-article-wrap h5,
+.bv2-article-wrap h6 {
+  color: var(--bv2-cream) !important;
+}
+
+/* Paragraphs and body text on ANY background */
+.bv2-article-wrap p:not([class*="text-"]),
+.bv2-article-wrap li:not([class*="text-"]),
+.bv2-article-wrap span:not([class*="text-"]):not([class*="bg-"]) {
+  color: var(--bv2-cream-muted) !important;
+}
+
+/* If a heading has gold color + on a light bg, make sure bg is dark */
+.bv2-article-wrap h1[class*="text-gold"],
+.bv2-article-wrap h2[class*="text-gold"],
+.bv2-article-wrap h3[class*="text-gold"],
+.bv2-article-wrap h1[class*="text-amber"],
+.bv2-article-wrap h2[class*="text-amber"],
+.bv2-article-wrap h3[class*="text-amber"],
+.bv2-article-wrap h1[class*="text-yellow"],
+.bv2-article-wrap h2[class*="text-yellow"],
+.bv2-article-wrap h3[class*="text-yellow"] {
+  color: var(--bv2-gold-light) !important;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+
+/* Prose content (Tailwind typography plugin) */
+.bv2-article-wrap .prose,
+.bv2-article-wrap [class*="prose"] {
+  color: var(--bv2-cream-muted) !important;
+  background: transparent !important;
+  --tw-prose-body: var(--bv2-cream-muted) !important;
+  --tw-prose-headings: var(--bv2-cream) !important;
+  --tw-prose-links: var(--bv2-gold-light) !important;
+  --tw-prose-bold: var(--bv2-cream) !important;
+  --tw-prose-quotes: var(--bv2-gold-light) !important;
+  --tw-prose-quote-borders: var(--bv2-gold) !important;
+  --tw-prose-bullets: var(--bv2-gold) !important;
+}
+.bv2-article-wrap .prose *,
+.bv2-article-wrap [class*="prose"] * {
+  color: inherit !important;
+}
+.bv2-article-wrap .prose h1,
+.bv2-article-wrap .prose h2,
+.bv2-article-wrap .prose h3,
+.bv2-article-wrap .prose h4 {
+  color: var(--bv2-cream) !important;
+}
+
 /* Pillar CTA — above the fold, sticky linking to pillar page */
 .bv2-pillar-cta {
   max-width: 1200px;
