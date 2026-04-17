@@ -94,7 +94,173 @@ const BLOG_V2_STYLES = `
   margin-right: 1rem;
 }
 
-/* Rewire typography for legacy content */
+/* ═══════════════════════════════════════════════════════════
+   UNIVERSAL LUXURY OVERRIDES
+   Force the luxury black/gold/cream palette on ALL legacy content.
+   Only accent colors permitted: gold (primary), brand-blue (accent),
+   brand-yellow (rare, for highlight badges only).
+   ═══════════════════════════════════════════════════════════ */
+
+/* Force dark base on ALL section-level elements */
+.bv2-article-wrap > *,
+.bv2-article-wrap section,
+.bv2-article-wrap article,
+.bv2-article-wrap main,
+.bv2-article-wrap aside,
+.bv2-article-wrap header,
+.bv2-article-wrap footer {
+  background: transparent !important;
+  background-image: none !important;
+  color: var(--bv2-cream-muted) !important;
+}
+
+/* Force dark on ANY light background (Tailwind variants) */
+.bv2-article-wrap [class*="bg-white"],
+.bv2-article-wrap [class*="bg-gray-"],
+.bv2-article-wrap [class*="bg-slate-"],
+.bv2-article-wrap [class*="bg-zinc-"],
+.bv2-article-wrap [class*="bg-stone-"],
+.bv2-article-wrap [class*="bg-neutral-"] {
+  background: var(--bv2-bg-card) !important;
+  background-image: none !important;
+  color: var(--bv2-cream-muted) !important;
+  border-color: var(--bv2-border) !important;
+}
+
+/* Override ALL colorful backgrounds (pink/purple/rose/etc.) to luxury */
+.bv2-article-wrap [class*="bg-pink-"],
+.bv2-article-wrap [class*="bg-rose-"],
+.bv2-article-wrap [class*="bg-fuchsia-"],
+.bv2-article-wrap [class*="bg-purple-"],
+.bv2-article-wrap [class*="bg-violet-"],
+.bv2-article-wrap [class*="bg-indigo-"],
+.bv2-article-wrap [class*="bg-red-"],
+.bv2-article-wrap [class*="bg-orange-"],
+.bv2-article-wrap [class*="bg-amber-"],
+.bv2-article-wrap [class*="bg-yellow-"],
+.bv2-article-wrap [class*="bg-lime-"],
+.bv2-article-wrap [class*="bg-green-"],
+.bv2-article-wrap [class*="bg-emerald-"],
+.bv2-article-wrap [class*="bg-teal-"],
+.bv2-article-wrap [class*="bg-cyan-"],
+.bv2-article-wrap [class*="bg-sky-"],
+.bv2-article-wrap [class*="bg-blue-"] {
+  background: var(--bv2-bg-card) !important;
+  background-image: none !important;
+  color: var(--bv2-cream-muted) !important;
+  border-color: var(--bv2-border) !important;
+}
+
+/* Override gradient classes */
+.bv2-article-wrap [class*="bg-gradient-"],
+.bv2-article-wrap [class*="from-"],
+.bv2-article-wrap [class*="via-"],
+.bv2-article-wrap [class*="to-"] {
+  background-image: linear-gradient(135deg, var(--bv2-bg-card) 0%, var(--bv2-bg-1) 100%) !important;
+  background-color: var(--bv2-bg-card) !important;
+  color: var(--bv2-cream-muted) !important;
+}
+
+/* ACCENT CARDS: preserve semantic meaning using luxury accent colors
+   Opacity/subtle variants get blue-tinted treatment */
+.bv2-article-wrap [class*="bg-blue-5"],
+.bv2-article-wrap [class*="bg-blue-6"],
+.bv2-article-wrap [class*="bg-blue-7"],
+.bv2-article-wrap [class*="bg-blue-8"],
+.bv2-article-wrap [class*="bg-blue-9"],
+.bv2-article-wrap [class*="bg-sky-6"],
+.bv2-article-wrap [class*="bg-sky-7"],
+.bv2-article-wrap [class*="bg-sky-8"],
+.bv2-article-wrap [class*="bg-sky-9"] {
+  background: linear-gradient(135deg, rgba(30,136,229,0.12) 0%, var(--bv2-bg-card) 100%) !important;
+  background-image: linear-gradient(135deg, rgba(30,136,229,0.12) 0%, var(--bv2-bg-card) 100%) !important;
+  color: var(--bv2-cream) !important;
+  border: 1px solid rgba(30,136,229,0.3) !important;
+}
+
+/* TEXT COLOR OVERRIDES — force everything to luxury palette */
+.bv2-article-wrap [class*="text-pink-"],
+.bv2-article-wrap [class*="text-rose-"],
+.bv2-article-wrap [class*="text-fuchsia-"],
+.bv2-article-wrap [class*="text-purple-"],
+.bv2-article-wrap [class*="text-violet-"],
+.bv2-article-wrap [class*="text-indigo-"],
+.bv2-article-wrap [class*="text-red-"],
+.bv2-article-wrap [class*="text-orange-"],
+.bv2-article-wrap [class*="text-amber-"],
+.bv2-article-wrap [class*="text-lime-"],
+.bv2-article-wrap [class*="text-green-"],
+.bv2-article-wrap [class*="text-emerald-"],
+.bv2-article-wrap [class*="text-teal-"] {
+  color: var(--bv2-gold-light) !important;
+}
+
+/* Yellow text → keep as yellow-tinted gold for badges */
+.bv2-article-wrap [class*="text-yellow-"] {
+  color: var(--bv2-gold-pale) !important;
+}
+
+/* Blue text → keep as brand blue for accent text */
+.bv2-article-wrap [class*="text-blue-"],
+.bv2-article-wrap [class*="text-cyan-"],
+.bv2-article-wrap [class*="text-sky-"] {
+  color: var(--bv2-brand-blue-light) !important;
+}
+
+/* Light text → cream */
+.bv2-article-wrap [class*="text-white"],
+.bv2-article-wrap [class*="text-gray-50"],
+.bv2-article-wrap [class*="text-gray-100"],
+.bv2-article-wrap [class*="text-gray-200"],
+.bv2-article-wrap [class*="text-slate-50"],
+.bv2-article-wrap [class*="text-slate-100"],
+.bv2-article-wrap [class*="text-slate-200"] {
+  color: var(--bv2-cream) !important;
+}
+
+/* Dark text (body) → cream muted */
+.bv2-article-wrap [class*="text-gray-6"],
+.bv2-article-wrap [class*="text-gray-7"],
+.bv2-article-wrap [class*="text-gray-8"],
+.bv2-article-wrap [class*="text-gray-9"],
+.bv2-article-wrap [class*="text-slate-6"],
+.bv2-article-wrap [class*="text-slate-7"],
+.bv2-article-wrap [class*="text-slate-8"],
+.bv2-article-wrap [class*="text-slate-9"],
+.bv2-article-wrap [class*="text-zinc-6"],
+.bv2-article-wrap [class*="text-zinc-7"],
+.bv2-article-wrap [class*="text-zinc-8"],
+.bv2-article-wrap [class*="text-zinc-9"],
+.bv2-article-wrap [class*="text-black"] {
+  color: var(--bv2-cream-muted) !important;
+}
+
+/* Border color overrides */
+.bv2-article-wrap [class*="border-pink-"],
+.bv2-article-wrap [class*="border-rose-"],
+.bv2-article-wrap [class*="border-purple-"],
+.bv2-article-wrap [class*="border-fuchsia-"],
+.bv2-article-wrap [class*="border-amber-"],
+.bv2-article-wrap [class*="border-yellow-"],
+.bv2-article-wrap [class*="border-orange-"],
+.bv2-article-wrap [class*="border-red-"],
+.bv2-article-wrap [class*="border-green-"],
+.bv2-article-wrap [class*="border-emerald-"],
+.bv2-article-wrap [class*="border-teal-"],
+.bv2-article-wrap [class*="border-gray-"],
+.bv2-article-wrap [class*="border-slate-"],
+.bv2-article-wrap [class*="border-white"],
+.bv2-article-wrap [class*="border-zinc-"] {
+  border-color: var(--bv2-border) !important;
+}
+.bv2-article-wrap [class*="border-blue-"],
+.bv2-article-wrap [class*="border-cyan-"],
+.bv2-article-wrap [class*="border-sky-"],
+.bv2-article-wrap [class*="border-indigo-"] {
+  border-color: rgba(30,136,229,0.35) !important;
+}
+
+/* Typography */
 .bv2-article-wrap h1,
 .bv2-article-wrap h2 {
   font-family: var(--bv2-font-display) !important;
@@ -108,37 +274,122 @@ const BLOG_V2_STYLES = `
   font-style: italic !important;
 }
 .bv2-article-wrap h3,
-.bv2-article-wrap h4 {
+.bv2-article-wrap h4,
+.bv2-article-wrap h5 {
   font-family: var(--bv2-font-display) !important;
   color: var(--bv2-cream) !important;
   font-weight: 400 !important;
 }
 .bv2-article-wrap p,
+.bv2-article-wrap li,
+.bv2-article-wrap span,
+.bv2-article-wrap div {
+  line-height: 1.75;
+}
+.bv2-article-wrap p,
 .bv2-article-wrap li {
   color: var(--bv2-cream-muted) !important;
-  line-height: 1.75 !important;
 }
-.bv2-article-wrap strong {
+.bv2-article-wrap strong,
+.bv2-article-wrap b {
   color: var(--bv2-cream) !important;
+  font-weight: 600;
 }
-.bv2-article-wrap a:not(.bv2-cta-card):not(.bv2-quick-link):not(.bv2-related-card) {
+
+/* Inline links in article body */
+.bv2-article-wrap a:not(.bv2-cta-card):not(.bv2-quick-link):not(.bv2-related-card):not(.bv2-pillar-cta__btn):not(.bv2-mid-cta__primary):not(.bv2-mid-cta__secondary) {
   color: var(--bv2-gold-light) !important;
   text-decoration: underline;
   text-decoration-color: rgba(200,169,110,0.35);
   text-underline-offset: 3px;
   transition: color 0.2s ease;
+  background: transparent !important;
 }
-.bv2-article-wrap a:not(.bv2-cta-card):not(.bv2-quick-link):not(.bv2-related-card):hover {
+.bv2-article-wrap a:not(.bv2-cta-card):not(.bv2-quick-link):not(.bv2-related-card):not(.bv2-pillar-cta__btn):not(.bv2-mid-cta__primary):not(.bv2-mid-cta__secondary):hover {
   color: var(--bv2-gold-pale) !important;
 }
 
-/* Cards on dark bg */
-.bv2-article-wrap [class*="bg-white"],
-.bv2-article-wrap [class*="bg-gray"],
-.bv2-article-wrap [class*="bg-slate"] {
+/* CTA-like colored buttons inside article body → luxury gold button */
+.bv2-article-wrap button[class*="bg-"],
+.bv2-article-wrap a[class*="bg-pink-5"],
+.bv2-article-wrap a[class*="bg-pink-6"],
+.bv2-article-wrap a[class*="bg-rose-5"],
+.bv2-article-wrap a[class*="bg-rose-6"],
+.bv2-article-wrap a[class*="bg-purple-5"],
+.bv2-article-wrap a[class*="bg-purple-6"] {
+  background: linear-gradient(135deg, var(--bv2-gold) 0%, var(--bv2-gold-light) 100%) !important;
+  background-image: linear-gradient(135deg, var(--bv2-gold) 0%, var(--bv2-gold-light) 100%) !important;
+  color: var(--bv2-bg-0) !important;
+  border: 1px solid var(--bv2-gold) !important;
+  text-decoration: none !important;
+}
+.bv2-article-wrap button[class*="bg-"]:hover,
+.bv2-article-wrap a[class*="bg-pink-5"]:hover,
+.bv2-article-wrap a[class*="bg-pink-6"]:hover,
+.bv2-article-wrap a[class*="bg-rose-5"]:hover,
+.bv2-article-wrap a[class*="bg-rose-6"]:hover {
+  box-shadow: 0 0 24px rgba(200,169,110,0.5) !important;
+  transform: translateY(-1px) !important;
+}
+
+/* Images — add subtle gold border */
+.bv2-article-wrap img {
+  border: 1px solid var(--bv2-border);
+}
+
+/* Blockquotes */
+.bv2-article-wrap blockquote {
+  border-left: 3px solid var(--bv2-gold) !important;
+  background: var(--bv2-bg-card) !important;
+  color: var(--bv2-cream-muted) !important;
+  padding: 1rem 1.5rem;
+  font-family: var(--bv2-font-display);
+  font-style: italic;
+  font-size: 1.15rem;
+}
+
+/* Tables */
+.bv2-article-wrap table {
   background: var(--bv2-bg-card) !important;
   color: var(--bv2-cream-muted) !important;
   border: 1px solid var(--bv2-border);
+}
+.bv2-article-wrap th {
+  background: var(--bv2-bg-1) !important;
+  color: var(--bv2-gold) !important;
+  border-color: var(--bv2-border) !important;
+}
+.bv2-article-wrap td {
+  border-color: var(--bv2-border) !important;
+}
+
+/* Badge-style pills → gold */
+.bv2-article-wrap [class*="rounded-full"][class*="bg-"] {
+  background: rgba(200,169,110,0.15) !important;
+  background-image: none !important;
+  color: var(--bv2-gold-light) !important;
+  border: 1px solid var(--bv2-border) !important;
+}
+
+/* SVG icons in article → gold */
+.bv2-article-wrap svg {
+  color: var(--bv2-gold) !important;
+}
+
+/* Shadows — remove colorful ones */
+.bv2-article-wrap [class*="shadow-pink"],
+.bv2-article-wrap [class*="shadow-purple"],
+.bv2-article-wrap [class*="shadow-rose"] {
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4) !important;
+}
+
+/* Ring/outline colors */
+.bv2-article-wrap [class*="ring-pink"],
+.bv2-article-wrap [class*="ring-rose"],
+.bv2-article-wrap [class*="ring-purple"],
+.bv2-article-wrap [class*="ring-amber"],
+.bv2-article-wrap [class*="ring-yellow"] {
+  --tw-ring-color: var(--bv2-gold) !important;
 }
 
 /* Pillar CTA — above the fold, sticky linking to pillar page */
