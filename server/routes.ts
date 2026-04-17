@@ -803,11 +803,17 @@ function getTimeAgo(date: Date): string {
 }
 
 export async function registerRoutes(app: Express): Promise<Server> {
-  
+
+  // ==========================================
+  // PUBLIC CHATBOT (Claude-powered, knowledge base backed)
+  // ==========================================
+  const { handleChatMessage } = await import('./services/chatbotService');
+  app.post('/api/chat/message', handleChatMessage);
+
   // ==========================================
   // AUTHENTICATION SETUP (handled in server/index.ts)
   // ==========================================
-  
+
   const storageInstance = await getStorage();
   // Note: setupAuth is called in server/index.ts before registerRoutes
   

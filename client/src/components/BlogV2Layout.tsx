@@ -260,7 +260,27 @@ const BLOG_V2_STYLES = `
   border-color: rgba(30,136,229,0.35) !important;
 }
 
-/* Typography */
+/* ═══ FONT ENFORCEMENT — force luxury fonts everywhere ═══ */
+.bv2-article-wrap,
+.bv2-article-wrap * {
+  font-family: var(--bv2-font-body) !important;
+}
+.bv2-article-wrap h1,
+.bv2-article-wrap h2,
+.bv2-article-wrap h3,
+.bv2-article-wrap h4,
+.bv2-article-wrap h5,
+.bv2-article-wrap h6,
+.bv2-article-wrap [class*="font-serif"],
+.bv2-article-wrap [class*="font-display"],
+.bv2-article-wrap [class*="font-playfair"],
+.bv2-article-wrap [class*="font-cursive"],
+.bv2-article-wrap [class*="font-handwriting"],
+.bv2-article-wrap [class*="font-script"] {
+  font-family: var(--bv2-font-display) !important;
+}
+
+/* Typography (keep original rules) */
 .bv2-article-wrap h1,
 .bv2-article-wrap h2 {
   font-family: var(--bv2-font-display) !important;
