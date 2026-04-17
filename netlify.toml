@@ -6,11 +6,11 @@
 # to that host so the preview uses the exact same backend as production.
 
 [build]
-  # Fetch any build-time assets not committed to the repo (large videos,
-  # etc.) from the live CDN, then Vite builds the frontend. The Express
-  # backend is skipped entirely for the Netlify deploy — Replit still runs
-  # it at premierpartycruises.com.
-  command = "bash scripts/fetch-build-assets.sh && npx vite build --mode production"
+  # Pre-build: fetch any assets not committed to git from the live CDN.
+  # Vite build: produces dist/public (static frontend).
+  # Post-build: copy attached_assets → dist/public/attached_assets so the
+  # deploy is fully self-contained. No runtime proxy to Replit needed.
+  command = "bash scripts/fetch-build-assets.sh && npx vite build --mode production && mkdir -p dist/public/attached_assets && cp -R attached_assets/. dist/public/attached_assets/ && node scripts/generate-seo-files.mjs"
   publish = "dist/public"
 
 [build.environment]
@@ -26,24 +26,11 @@
   status = 200
   force = true
 
-[[redirects]]
-  from = "/attached_assets/*"
-  to = "https://premierpartycruises.com/attached_assets/:splat"
-  status = 200
-  force = true
+# /attached_assets/* is now shipped with the build (see build command), so
+# no proxy needed. Falls back to the 404 page if a file is missing.
 
-# Also proxy sitemap, robots, and other server-generated files
-[[redirects]]
-  from = "/sitemap.xml"
-  to = "https://premierpartycruises.com/sitemap.xml"
-  status = 200
-  force = true
-
-[[redirects]]
-  from = "/robots.txt"
-  to = "https://premierpartycruises.com/robots.txt"
-  status = 200
-  force = true
+# sitemap.xml + robots.txt are generated at build time by
+# scripts/generate-seo-files.mjs and shipped in the bundle. No proxy needed.
 
 # ──────────────────────────────────────────────────────────────────────────
 # SPA fallback — wouter is a client-side router, so unknown paths should

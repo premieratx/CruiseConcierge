@@ -1414,7 +1414,7 @@ export default function DiscoV2() {
             Want the boat all to <em>yourselves</em>?
           </h2>
           <p style={{ fontSize: '1.15rem', color: '#C8B898', maxWidth: '700px', lineHeight: 1.7, marginBottom: '2rem' }}>
-            Love the Disco Cruise vibe but want a private experience? Charter Clever Girl or any of our boats exclusively for your group — your music, your route, your schedule. Available year-round.
+            Love the Disco Cruise vibe but want a private experience? Charter Clever Girl or any of our boats exclusively for your group — your music, your route, your schedule. Available year-round. A <strong style={{ color: 'var(--hp2-gold)' }}>Private Disco Cruise</strong> is also available by special request for any event type (weddings, birthdays, corporate).
           </p>
           <div className="hp2-private-pricing__grid">
             <div className="hp2-private-pricing__card">
@@ -1429,10 +1429,11 @@ export default function DiscoV2() {
                 <li>BYOB friendly</li>
                 <li>Swim stop included</li>
               </ul>
+              <p style={{ fontSize: '0.75rem', color: '#A89878', marginTop: '0.75rem', lineHeight: 1.5 }}>Hard cap of 14 guests. Larger groups must upgrade.</p>
             </div>
             <div className="hp2-private-pricing__card">
               <div className="hp2-private-pricing__name">Meeseeks / The Irony</div>
-              <div className="hp2-private-pricing__capacity">25–30 guests</div>
+              <div className="hp2-private-pricing__capacity">25–30 guests*</div>
               <div className="hp2-private-pricing__rate">$225–$425/hr</div>
               <div className="hp2-private-pricing__note">4-hour minimum · Year-round</div>
               <ul className="hp2-private-pricing__features">
@@ -1442,6 +1443,7 @@ export default function DiscoV2() {
                 <li>BYOB friendly</li>
                 <li>Perfect for bach parties</li>
               </ul>
+              <p style={{ fontSize: '0.75rem', color: '#A89878', marginTop: '0.75rem', lineHeight: 1.5 }}>*26–30 guests adds +$50/hr for a legally-required extra crew member, or upgrade to Clever Girl for more space.</p>
             </div>
             <div className="hp2-private-pricing__card">
               <div className="hp2-private-pricing__name">Clever Girl</div>
@@ -1455,6 +1457,7 @@ export default function DiscoV2() {
                 <li>BYOB friendly</li>
                 <li>Austin's flagship party boat</li>
               </ul>
+              <p style={{ fontSize: '0.75rem', color: '#A89878', marginTop: '0.75rem', lineHeight: 1.5 }}>No minimum, but best suited to groups of 30+.</p>
             </div>
           </div>
         </div>

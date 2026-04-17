@@ -608,6 +608,7 @@ function Router() {
       
       {/* New SEO-Optimized Bachelor Party Blog Pages */}
       <Route path="/blogs/austin-bachelor-party-ideas" component={AustinBachelorPartyIdeas} />
+      <Route path="/austin-bachelor-party-ideas" component={AustinBachelorPartyIdeas} />{/* live-site parity alias */}
       <Route path="/blogs/perfect-austin-bachelor-party-weekend" component={PerfectAustinBachelorPartyWeekend} />
       <Route path="/lake-travis-bachelor-party-boats" component={LakeTravisBachelorPartyBoats} />
       <Route path="/blogs/atx-disco-cruise-experience" component={ATXDiscoCruiseExperience} />
@@ -619,6 +620,7 @@ function Router() {
       
       {/* Rehearsal Dinner Boat + Alcohol Delivery - Full React Page */}
       <Route path="/blog/rehearsal-dinner-boat-alcohol-delivery-unique-wedding-weekend-experiences" component={RehearsalDinnerBoatAlcoholDelivery} />
+      <Route path="/blogs/rehearsal-dinner-boat-alcohol-delivery-unique-wedding-weekend-experiences" component={RehearsalDinnerBoatAlcoholDelivery} />{/* live-site parity alias */}
       <Route path="/rehearsal-dinner-boat-alcohol-delivery" component={RehearsalDinnerBoatAlcoholDelivery} />
       
       {/* Redirect /blog/ version to /blogs/ React page */}
@@ -660,6 +662,7 @@ function Router() {
       <Route path="/blogs/corporate-team-building-on-lake-travis-professional-boat-rental-solutions" component={CorporateTeamBuildingLakeTravis} />
       <Route path="/blogs/corporate-boat-parties-austin-lake-travis-smartest-venue" component={CorporateBoatPartiesAustin} />
       <Route path="/blogs/all-inclusive-corporate-packages-austin" component={AllInclusiveCorporatePackages} />
+      <Route path="/blogs/all-inclusive-corporate-packages" component={AllInclusiveCorporatePackages} />{/* live-site parity alias */}
       <Route path="/blogs/dallas-to-lake-travis-corporate" component={DallasToLakeTravisCorporate} />
       <Route path="/blogs/destination-austin-offsite-retreats" component={DestinationAustinOffsiteRetreats} />
       <Route path="/blogs/austin-suburbs-corporate-events" component={AustinSuburbsCorporateEvents} />

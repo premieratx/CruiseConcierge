@@ -1065,7 +1065,7 @@ export default function PrivateCruisesV2() {
                   <span className="hp2-fleet-card__tag">$200–$350/hr</span>
                 </div>
                 <p className="hp2-fleet-card__desc">
-                  Our most intimate vessel — perfect for proposals, anniversary cruises, small birthday parties, and close-knit gatherings. Cozy yet spacious, with everything you need for a memorable day on the water.
+                  Our most intimate vessel — perfect for proposals, anniversary cruises, small birthday parties, and close-knit gatherings. Cozy yet spacious, with everything you need for a memorable day on the water. <strong>Hard cap of 14 guests</strong> — larger groups must upgrade to a bigger boat by calling or emailing us.
                 </p>
                 <ul className="hp2-fleet-card__features">
                   <li>Licensed captain &amp; trained crew</li>
@@ -1096,11 +1096,11 @@ export default function PrivateCruisesV2() {
               <div className="hp2-fleet-card__content">
                 <h3 className="hp2-fleet-card__title">Meeseeks</h3>
                 <div className="hp2-fleet-card__meta">
-                  <span className="hp2-fleet-card__tag">25–30 Guests</span>
+                  <span className="hp2-fleet-card__tag">25–30 Guests*</span>
                   <span className="hp2-fleet-card__tag">$225–$425/hr</span>
                 </div>
                 <p className="hp2-fleet-card__desc">
-                  Our most popular charter — the sweet spot for bachelor/bachelorette parties, corporate team outings, milestone birthdays, and mid-size celebrations. Spacious deck, premium sound, and room to move.
+                  Our most popular charter — the sweet spot for bachelor/bachelorette parties, corporate team outings, milestone birthdays, and mid-size celebrations. Spacious deck, premium sound, and room to move. <em>*26–30 guests adds $50/hr for a legally-required extra crew member; or upgrade to Clever Girl for more space at no surcharge.</em>
                 </p>
                 <ul className="hp2-fleet-card__features">
                   <li>Licensed captain &amp; trained crew</li>
@@ -1130,11 +1130,11 @@ export default function PrivateCruisesV2() {
               <div className="hp2-fleet-card__content">
                 <h3 className="hp2-fleet-card__title">The Irony</h3>
                 <div className="hp2-fleet-card__meta">
-                  <span className="hp2-fleet-card__tag">25–30 Guests</span>
+                  <span className="hp2-fleet-card__tag">25–30 Guests*</span>
                   <span className="hp2-fleet-card__tag">$225–$425/hr</span>
                 </div>
                 <p className="hp2-fleet-card__desc">
-                  Versatile and comfortable — a great option when Meeseeks is booked or when you need two mid-size boats for a large event. Same premium experience, same Lake Travis adventure.
+                  Versatile and comfortable — a great option when Meeseeks is booked or when you need two mid-size boats for a large event. Same premium experience, same Lake Travis adventure. <em>*Same 26–30 guest upgrade option as Meeseeks: +$50/hr for additional required crew.</em>
                 </p>
                 <ul className="hp2-fleet-card__features">
                   <li>Licensed captain &amp; trained crew</li>

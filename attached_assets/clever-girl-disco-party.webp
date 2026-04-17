@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- PAGESPEED: Only preconnect to fonts (critical for render) - defer third-party scripts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- INSTANT QUOTE WIDGET: Preconnect to booking domain for zero-delay /chat page -->
+    <link rel="preconnect" href="https://booking.premierpartycruises.com" crossorigin>
+    <link rel="dns-prefetch" href="https://booking.premierpartycruises.com">
+    
+    <!-- DNS prefetch for non-critical resources (much lighter than preconnect) -->
+    <link rel="dns-prefetch" href="https://xola.com">
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+    
+    <!-- PAGESPEED: Preload LCP image (hero poster) - most critical for LCP score -->
+    <link rel="preload" as="image" href="/attached_assets/bachelor-party-group-guys-mobile.webp" 
+          media="(max-width: 768px)" fetchpriority="high" type="image/webp" />
+    <link rel="preload" as="image" href="/attached_assets/bachelor-party-group-guys-hero-compressed.webp" 
+          media="(min-width: 769px)" fetchpriority="high" type="image/webp" />
+    
+    <!-- PAGESPEED: Preconnect to critical third-party domains -->
+    <link rel="preconnect" href="https://js.stripe.com" crossorigin>
+    <link rel="dns-prefetch" href="https://js.stripe.com">
+    
+    <!-- MOBILE PAGESPEED: Preload 140x140 logo for mobile retina (7KB vs 26KB) -->
+    <link rel="preload" as="image" href="/attached_assets/PPC-Logo-140x140.webp" 
+          media="(max-width: 768px)" fetchpriority="high" type="image/webp" />
+    <link rel="preload" as="image" href="/attached_assets/PPC-Logo-280x280.webp" 
+          media="(min-width: 769px)" fetchpriority="high" type="image/webp" />
+    
+    
+    <!-- FALLBACK SEO TAGS (overridden by React Helmet) -->
+    <title>Austin Party Boat Rentals | Lake Travis Cruises</title>
+    <meta name="description" content="Austin's premier boat rental and party cruise experience on Lake Travis. Private charters, disco cruises, bachelor parties, bachelorette parties, and corporate events since 2009." />
+    <meta name="keywords" content="Austin boat rental, Lake Travis cruises, party boat Austin, bachelor party boat, bachelorette party Austin, corporate events, private charter" />
+    
+    <!-- AI & Search Engine Indexing - Explicitly allow all crawlers -->
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+
+    <!-- Open Graph Fallback -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://premierpartycruises.com" />
+    <meta property="og:title" content="Premier Party Cruises - Austin Lake Travis Party Boats" />
+    <meta property="og:description" content="Austin's premier boat rental and party cruise experience on Lake Travis. Private charters, disco cruises, bachelor parties, and corporate events." />
+    <meta property="og:image" content="https://premierpartycruises.com/og-default.jpg" />
+    <meta property="og:site_name" content="Premier Party Cruises" />
+
+    <!-- Twitter Card Fallback -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Premier Party Cruises - Austin Lake Travis Party Boats" />
+    <meta name="twitter:description" content="Austin's premier boat rental and party cruise experience on Lake Travis." />
+    <meta name="twitter:image" content="https://premierpartycruises.com/og-default.jpg" />
+
+    <!-- FAQ Schema and other structured data injected by React Helmet per page for unique SEO -->
+
+    <!-- Branding & Theme - Premier Party Cruises Favicon (v2 = Feb 2026 logo update) -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico?v=2" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png?v=2" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=2" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png?v=2" />
+    <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png?v=2" />
+    <meta name="theme-color" content="#00d4ff" />
+    
+    <!-- PAGESPEED: Non-blocking font loading using media="print" pattern (most reliable) -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700&family=Bebas+Neue&family=Candal&family=Unbounded:wght@400;500;600;700;800&display=swap" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700&family=Bebas+Neue&family=Candal&family=Unbounded:wght@400;500;600;700;800&display=swap"></noscript>
+    
+    <!-- Inline critical CSS for instant layout stability (prevents CLS) -->
+    <style>
+      /* Critical layout stability - applied immediately before any content renders */
+      html, body {
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      }
+      
+      #root {
+        min-height: 0;
+        background: transparent;
+      }
+      
+      /* PAGESPEED: Critical above-the-fold styles for hero section - FIXED HEIGHT prevents CLS */
+      #hero, .hero-section, section[id="hero"] {
+        min-height: clamp(600px, 100vh, 1200px);
+        background: #111827;
+        position: relative;
+        contain: layout paint;
+        overflow: hidden;
+      }
+      
+      /* Navigation bar critical styles - target ONLY header nav, not mobile bottom nav */
+      header nav,
+      nav[data-testid="main-nav"] {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 50;
+        background: rgba(255, 255, 255, 0.95);
+        -webkit-backdrop-filter: blur(10px);
+                backdrop-filter: blur(10px);
+      }
+      
+      /* Ensure mobile bottom nav stays at bottom */
+      nav[data-testid="mobile-bottom-nav"] {
+        position: fixed !important;
+        top: auto !important;
+        bottom: 0 !important;
+      }
+      
+      /* Hero content critical styles to prevent CLS */
+      .hero-content {
+        position: relative;
+        z-index: 10;
+        color: white;
+        text-align: center;
+        padding: 2rem 1rem;
+      }
+      
+      /* SSR content will be hidden by inline script after this */
+      .ssr-content {
+        /* Visible to crawlers until JS loads */
+      }
+    </style>
+    <script type="module" crossorigin src="/assets/index-LKMLi1vh.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-BpuwoHg0.css">
+  </head>
+  <body>
+    <div id="root"></div>
+    
+    <!-- PREVIEW FIX: Force hard reload if React preamble issue detected -->
+    <script>
+      (function(){var h=window.onerror;window.onerror=function(m,s,l,c,e){if(m&&m.includes&&m.includes("preamble")){if(!sessionStorage.getItem('pr_fix')){sessionStorage.setItem('pr_fix','1');location.reload(true);}return true;}return h?h.apply(this,arguments):false;};})();
+    </script>
+    
+    <!-- Disable dev overlays for embed routes -->
+    <!-- Xola Checkout Script - Load ONLY when booking button clicked (reduces TBT) -->
+    <script>
+      window.loadXolaCheckout = function() {
+        if (window.xolaLoaded) return;
+        window.xolaLoaded = true;
+        var script = document.createElement('script');
+        script.src = 'https://xola.com/checkout.js';
+        script.async = true;
+        script.crossOrigin = 'anonymous';
+        document.body.appendChild(script);
+      };
+      document.addEventListener('click', function(e) {
+        var target = e.target;
+        while (target && target !== document.body) {
+          if (target.hasAttribute && (
+            target.hasAttribute('data-xola-button') ||
+            target.hasAttribute('data-xola-checkout') ||
+            (target.className && typeof target.className === 'string' && (
+              target.className.includes('xola') ||
+              target.className.includes('book-now') ||
+              target.className.includes('booking-btn')
+            )) ||
+            (target.href && target.href.includes('xola.com'))
+          )) {
+            window.loadXolaCheckout();
+            return;
+          }
+          target = target.parentElement;
+        }
+      }, { passive: true });
+    </script>
+    
+  </body>
+</html>
