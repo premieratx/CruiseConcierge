@@ -11,8 +11,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import { BlogImageBreak, BlogPhotoStrip, BLOG_BOAT_PHOTOS, BLOG_PARTY_PHOTOS } from '@/components/BlogImageBreak';
 
 import bachelorHero from '@assets/bachelor-party-group-guys.webp';
@@ -47,16 +46,29 @@ export default function AustinBachelorPartyIdeas() {
   return (
     <LazyMotionProvider>
     <>
-      <SEOHead 
+      <SEOHead
         pageRoute="/blogs/austin-bachelor-party-ideas"
         defaultTitle="Austin Bachelor Party Ideas: Top Things to Do for an Epic Guys' Weekend | Premier Party Cruises"
         defaultDescription="Planning a bachelor party in Austin? Discover the ultimate guide to Austin bachelor party ideas including the famous ATX Disco Cruise, 6th Street bar crawls, Lake Travis party boats, and Texas BBQ. Book the best bachelor party experience in Austin, Texas."
         defaultKeywords={['Austin bachelor party ideas', 'bachelor party in Austin', 'bachelor party Austin', 'Austin party boat', 'party boat Austin', 'Lake Travis party barge', 'Austin party barge', 'ideas for bachelor party in Austin', 'ATX Disco Cruise', 'Lake Travis bachelor party', 'Austin bachelor party boats']}
         image="https://premierpartycruises.com/attached_assets/bachelor-party-group-guys.webp"
       />
+      <BlogV2Layout
+        title="Austin Bachelor Party Ideas: Top Things to Do for an Epic Guys' Weekend"
+        description="Planning a bachelor party in Austin? Discover the ultimate guide to Austin bachelor party ideas including the famous ATX Disco Cruise, 6th Street bar crawls, Lake Travis party boats, and Texas BBQ. Book the best bachelor party experience in Austin, Texas."
+        slug="austin-bachelor-party-ideas"
+        category="Bachelor Guides"
+        categoryHref="/bachelor-party-austin"
+        pillarTitle="Austin Bachelor Party Guide"
+        pillarHref="/bachelor-party-austin"
+        relatedArticles={[
+          { title: "Top 10 Reasons for a Lake Travis Bachelor Party Boat", href: "/blogs/top-10-reasons-austin-bachelor-party-lake-travis-boat" },
+          { title: "Lake Travis Bachelor Party Boats Guide", href: "/blogs/lake-travis-bachelor-party-boats-guide" },
+          { title: "Party Boat vs Downtown Night Out", href: "/blogs/lake-travis-party-boat-vs-downtown-night-out-austin-bachelor" },
+        ]}
+      >
 
       <div className="min-h-screen bg-white dark:bg-gray-950">
-        <PublicNavigation />
 
         {/* Hero Section */}
         <m.section 
@@ -545,8 +557,8 @@ export default function AustinBachelorPartyIdeas() {
           </div>
         </section>
 
-        <Footer />
       </div>
+      </BlogV2Layout>
     </>
     </LazyMotionProvider>
   );

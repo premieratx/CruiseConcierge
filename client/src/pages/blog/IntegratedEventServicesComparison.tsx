@@ -10,8 +10,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
 import heroImage from '@assets/@capitalcityshots-21_1760080807864.jpg';
@@ -166,8 +165,21 @@ export default function IntegratedEventServicesComparison() {
         defaultKeywords={['Austin party planning', 'integrated event services', 'Lake Travis party boat', 'alcohol delivery Austin', 'stress-free party planning']}
       />
 
+      <BlogV2Layout
+        title="Why Choose Integrated Event Services | Austin Party Planning"
+        description="Compare integrated event services vs DIY party planning in Austin. Learn how Premier Party Cruises and Party On Delivery save time and reduce stress for Lake Travis celebrations."
+        slug="why-choose-integrated-event-services-comparing-austin-party-planning-options"
+        category="Event Planning Guides"
+        categoryHref="/private-cruises"
+        pillarTitle="Austin Event Planning"
+        pillarHref="/private-cruises"
+        relatedArticles={[
+          { title: 'Integrated Austin Event Services: Alcohol Delivery + Boat Rentals', href: '/blogs/integrated-austin-event-services-combining-alcohol-delivery-and-boat-rentals-for-perfect-celebrations' },
+          { title: 'Austin Party Venue Alcohol Delivery: Navigating Policies & Logistics', href: '/blogs/austin-party-venue-alcohol-delivery-navigating-policies-and-logistics' },
+          { title: 'Conference After-Party Alcohol Coordination: SXSW, ACL & Austin Events', href: '/blogs/conference-after-party-alcohol-coordination-sxsw-acl-and-austin-event-integration' }
+        ]}
+      >
       <div className="min-h-screen bg-white dark:bg-gray-950">
-        <PublicNavigation />
 
         {/* Hero Section */}
         <m.section 
@@ -604,8 +616,8 @@ export default function IntegratedEventServicesComparison() {
           </div>
         </section>
 
-        <Footer />
       </div>
+      </BlogV2Layout>
     </>
     </LazyMotionProvider>
   );

@@ -11,8 +11,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { LazyImage } from '@/components/LazyImage';
@@ -167,8 +166,21 @@ export default function WhyATXDiscoCruiseMostBooked() {
         image="https://premierpartycruises.com/attached_assets/@capitalcityshots-1_1760080740012.jpg"
       />
 
-      <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="why-atx-disco-cruise-most-booked-page">
-        <PublicNavigation />
+      <BlogV2Layout
+        title="Why ATX Disco Cruise: Austin's Most Booked Party Boat Experience"
+        description="Discover why the ATX Disco Cruise is Austin's most booked party boat. Complete breakdown of what makes this Lake Travis party boat experience dominate bachelor, bachelorette, and group celebrations."
+        slug="why-atx-disco-cruise-austins-most-booked-party-boat-experience"
+        category="ATX Disco Cruise"
+        categoryHref="/atx-disco-cruise"
+        pillarTitle="ATX Disco Cruise"
+        pillarHref="/atx-disco-cruise"
+        relatedArticles={[
+          { title: "ATX Disco Cruise Experience", href: "/blogs/atx-disco-cruise-experience" },
+          { title: "Why the ATX Disco Cruise Has Been Austin's #1 Bachelorette Party Activity Since 2019", href: "/blogs/why-the-atx-disco-cruise-has-been-austins-1-bachelorette-party-activity-since-2019" },
+          { title: "The Best Bachelor Party Boat in Austin: Disco Cruise vs Private Charter", href: "/blogs/the-best-bachelor-party-boat-in-austin-disco-cruise-vs-private-charter" },
+        ]}
+      >
+      <div className="min-h-screen" data-testid="why-atx-disco-cruise-most-booked-page">
 
         {/* Hero Section */}
         <m.section 
@@ -817,8 +829,8 @@ export default function WhyATXDiscoCruiseMostBooked() {
           </div>
         </section>
 
-        <Footer />
       </div>
+      </BlogV2Layout>
     </>
     </LazyMotionProvider>
   );

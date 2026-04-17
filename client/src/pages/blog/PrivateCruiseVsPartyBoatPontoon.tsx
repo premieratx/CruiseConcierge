@@ -11,8 +11,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { LazyImage } from '@/components/LazyImage';
@@ -237,8 +236,21 @@ export default function PrivateCruiseVsPartyBoatPontoon() {
         image="https://premierpartycruises.com/attached_assets/@capitalcityshots-6_1760080740018.jpg"
       />
 
+      <BlogV2Layout
+        title="Private Party Cruise vs Party Boat vs Pontoon on Lake Travis"
+        description="Comparing private party cruise, party boat, and pontoon options on Lake Travis? Learn why a professionally captained private cruise is the safest, easiest choice for bachelor parties, bachelorettes, families, and corporate events."
+        slug="private-party-cruise-vs-party-boat-pontoon-lake-travis"
+        category="Planning Guides"
+        categoryHref="/private-cruises"
+        pillarTitle="Private Party Boat Charters"
+        pillarHref="/private-cruises"
+        relatedArticles={[
+          { title: "Lake Travis Party Boat Rentals for Large Groups (20+ Guests)", href: "/blogs/lake-travis-party-boat-rentals-ultimate-guide-for-large-group-events-20-guests" },
+          { title: "Lake Travis Sunset Cruises - Romantic & Celebration Options", href: "/blogs/lake-travis-sunset-cruises-romantic-and-celebration-options-for-every-occasion" },
+          { title: "Accessible Lake Travis Boat Parties - Inclusive Event Planning", href: "/blogs/accessible-lake-travis-boat-parties-inclusive-event-planning-for-all-guests" },
+        ]}
+      >
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="private-cruise-vs-party-boat-page">
-        <PublicNavigation />
 
         {/* Hero Section */}
         <m.section 
@@ -820,8 +832,8 @@ export default function PrivateCruiseVsPartyBoatPontoon() {
           </div>
         </section>
 
-        <Footer />
       </div>
+      </BlogV2Layout>
     </>
     </LazyMotionProvider>
   );

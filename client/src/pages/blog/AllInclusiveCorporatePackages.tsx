@@ -11,8 +11,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
@@ -193,8 +192,21 @@ export default function AllInclusiveCorporatePackages() {
         image={heroImage}
       />
 
+      <BlogV2Layout
+        title="All Inclusive Corporate Event Austin | Party Package Lake Travis | Premier Party Cruises"
+        description="Book an all inclusive corporate event Austin with turnkey corporate party boat packages on Lake Travis. Hassle free company event Austin with catering, beverages, and full coordination. Party package Lake Travis made easy."
+        slug="all-inclusive-corporate-packages"
+        category="Corporate Guides"
+        categoryHref="/corporate-events"
+        pillarTitle="Austin Corporate Events Guide"
+        pillarHref="/corporate-events"
+        relatedArticles={[
+          { title: "Why Austin Companies Choose Premier Party Cruises", href: "/blogs/why-austin-companies-choose-premier" },
+          { title: "Corporate Boat Parties Austin: Lake Travis Smartest Venue", href: "/blogs/corporate-boat-parties-austin-lake-travis-smartest-venue" },
+          { title: "Austin Best Corporate Events", href: "/blogs/austin-best-corporate-events" },
+        ]}
+      >
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="all-inclusive-corporate-packages-page">
-        <PublicNavigation />
 
         {/* Hero Section */}
         <m.section 
@@ -725,8 +737,8 @@ export default function AllInclusiveCorporatePackages() {
         {/* Quote Builder Section */}
         <QuoteBuilderSection />
 
-        <Footer />
       </div>
+      </BlogV2Layout>
     </>
     </LazyMotionProvider>
   );

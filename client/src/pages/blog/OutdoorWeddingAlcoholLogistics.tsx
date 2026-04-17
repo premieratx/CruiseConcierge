@@ -11,8 +11,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
@@ -192,8 +191,21 @@ export default function OutdoorWeddingAlcoholLogistics() {
         image={heroImage}
       />
 
-      <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="outdoor-wedding-alcohol-logistics-page">
-        <PublicNavigation />
+      <BlogV2Layout
+        title="Outdoor Wedding Alcohol Logistics - Hill Country & Lake Travis Coordination"
+        description="Master outdoor wedding alcohol logistics for Hill Country and Lake Travis venues. Expert Lake Travis wedding alcohol coordination, delivery solutions, temperature management, and seasonal planning tips."
+        slug="outdoor-wedding-alcohol-logistics-hill-country-and-lake-travis-coordination"
+        category="Wedding Guides"
+        categoryHref="/wedding-parties"
+        pillarTitle="Austin Wedding Boat Cruises"
+        pillarHref="/wedding-parties"
+        relatedArticles={[
+          { title: "Austin Wedding Venue Alcohol Policies & Delivery Solutions", href: "/blogs/austin-wedding-venue-alcohol-policies-delivery-solutions-for-every-location" },
+          { title: "Wedding Party Alcohol Coordination", href: "/blogs/wedding-party-alcohol-coordination-getting-ready-bachelor-bachelorette-and-reception" },
+          { title: "Lake Travis Wedding Boat Rentals - Unique Venues for Austin Celebrations", href: "/blogs/lake-travis-wedding-boat-rentals-unique-venues-for-austin-celebrations" },
+        ]}
+      >
+      <div className="min-h-screen" data-testid="outdoor-wedding-alcohol-logistics-page">
 
         {/* Hero Section */}
         <m.section 
@@ -635,8 +647,8 @@ export default function OutdoorWeddingAlcoholLogistics() {
           </div>
         </section>
 
-        <Footer />
       </div>
+      </BlogV2Layout>
     </>
     </LazyMotionProvider>
   );

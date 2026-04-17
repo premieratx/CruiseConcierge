@@ -11,8 +11,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
@@ -196,8 +195,21 @@ export default function LakeTravisSunsetCruises() {
         image={heroImage}
       />
 
+      <BlogV2Layout
+        title="Lake Travis Sunset Cruises - Romantic & Celebration Options for Every Occasion"
+        description="Experience magical Lake Travis sunset cruises for romantic occasions and celebrations. Sunset cruise Austin options, romantic boat cruise Austin experiences, and evening cruise Lake Travis departures. Lake Travis sunset boat ride for proposals, anniversaries, and parties."
+        slug="lake-travis-sunset-cruises-romantic-and-celebration-options-for-every-occasion"
+        category="Planning Guides"
+        categoryHref="/private-cruises"
+        pillarTitle="Private Party Boat Charters"
+        pillarHref="/private-cruises"
+        relatedArticles={[
+          { title: "Lake Travis Party Boat Rentals for Large Groups (20+ Guests)", href: "/blogs/lake-travis-party-boat-rentals-ultimate-guide-for-large-group-events-20-guests" },
+          { title: "Accessible Lake Travis Boat Parties - Inclusive Event Planning", href: "/blogs/accessible-lake-travis-boat-parties-inclusive-event-planning-for-all-guests" },
+          { title: "Private Cruise vs Party Boat vs Pontoon on Lake Travis", href: "/blogs/private-party-cruise-vs-party-boat-pontoon-lake-travis" },
+        ]}
+      >
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="lake-travis-sunset-cruises-page">
-        <PublicNavigation />
 
         {/* Hero Section */}
         <m.section 
@@ -655,8 +667,8 @@ export default function LakeTravisSunsetCruises() {
           </div>
         </section>
 
-        <Footer />
       </div>
+      </BlogV2Layout>
     </>
     </LazyMotionProvider>
   );

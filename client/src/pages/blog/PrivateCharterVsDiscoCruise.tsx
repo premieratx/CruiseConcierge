@@ -11,8 +11,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
@@ -220,9 +219,21 @@ export default function PrivateCharterVsDiscoCruise() {
         image="https://premierpartycruises.com/attached_assets/atx-disco-cruise-party.webp"
       />
 
-      <PublicNavigation />
-
-      <main className="min-h-screen bg-white">
+      <BlogV2Layout
+        title="Private Charter vs ATX Disco Cruise: Which Austin Party Boat"
+        description="Private charter or ATX Disco Cruise? Compare cost, vibe, and group size to choose the best Lake Travis party boat for your Austin celebration."
+        slug="private-charter-vs-atx-disco-cruise-which-austin-party-boat"
+        category="ATX Disco Cruise"
+        categoryHref="/atx-disco-cruise"
+        pillarTitle="ATX Disco Cruise"
+        pillarHref="/atx-disco-cruise"
+        relatedArticles={[
+          { title: "ATX Disco Cruise Experience", href: "/blogs/atx-disco-cruise-experience" },
+          { title: "Why the ATX Disco Cruise Has Been Austin's #1 Bachelorette Party Activity Since 2019", href: "/blogs/why-the-atx-disco-cruise-has-been-austins-1-bachelorette-party-activity-since-2019" },
+          { title: "The Best Bachelor Party Boat in Austin: Disco Cruise vs Private Charter", href: "/blogs/the-best-bachelor-party-boat-in-austin-disco-cruise-vs-private-charter" },
+        ]}
+      >
+      <main className="min-h-screen">
         <section className="relative min-h-[60vh] flex items-center justify-center overflow-hidden">
           <div className="absolute inset-0">
             <img 
@@ -1037,8 +1048,7 @@ export default function PrivateCharterVsDiscoCruise() {
           </div>
         </section>
       </main>
-
-      <Footer />
+      </BlogV2Layout>
     </>
     </LazyMotionProvider>
   );

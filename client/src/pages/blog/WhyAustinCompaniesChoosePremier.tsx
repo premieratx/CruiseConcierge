@@ -11,8 +11,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
@@ -209,8 +208,21 @@ export default function WhyAustinCompaniesChoosePremier() {
         image={heroImage}
       />
 
+      <BlogV2Layout
+        title="Why Austin Companies Choose Premier Party Cruises | Best Corporate Boat Rental Austin"
+        description="Discover why Austin companies choose Premier Party Cruises for corporate events. Best corporate boat rental Austin with 14+ years experience, 125K+ guests, perfect safety record. Lake Travis party boat company with 5-star Austin boat party reviews."
+        slug="why-austin-companies-choose-premier"
+        category="Corporate Guides"
+        categoryHref="/corporate-events"
+        pillarTitle="Austin Corporate Events Guide"
+        pillarHref="/corporate-events"
+        relatedArticles={[
+          { title: "All Inclusive Corporate Packages", href: "/blogs/all-inclusive-corporate-packages" },
+          { title: "Corporate Boat Parties Austin: Lake Travis Smartest Venue", href: "/blogs/corporate-boat-parties-austin-lake-travis-smartest-venue" },
+          { title: "Austin Best Corporate Events", href: "/blogs/austin-best-corporate-events" },
+        ]}
+      >
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="page-why-austin-companies-choose-premier">
-        <PublicNavigation />
 
         {/* Hero Section */}
         <m.section 
@@ -718,8 +730,8 @@ export default function WhyAustinCompaniesChoosePremier() {
           </div>
         </section>
 
-        <Footer />
       </div>
+      </BlogV2Layout>
     </>
     </LazyMotionProvider>
   );

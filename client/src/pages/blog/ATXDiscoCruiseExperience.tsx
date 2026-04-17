@@ -1,4 +1,5 @@
 import { BlogPostLayout, TOCSection } from '@/components/blog/BlogPostLayout';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import RelatedBlogArticles from '@/components/RelatedBlogArticles';
 import { BlogCTA } from '@/components/blog/BlogCTA';
 import { LazyImage } from '@/components/LazyImage';
@@ -32,25 +33,19 @@ const sections: TOCSection[] = [
 
 export default function ATXDiscoCruiseExperience() {
   return (
-    <BlogPostLayout
+    <BlogV2Layout
       title="ATX Disco Cruise Tips: Bachelor Party Do's & Don'ts"
-      metaDescription="Top do's and don'ts for your ATX Disco Cruise bachelor party on Lake Travis. Insider tips from 14+ years hosting epic Austin party boat experiences."
-      publishDate="2025-01-15"
-      author="Premier Party Cruises"
-      heroImage={atxDiscoHero}
-      heroImageAlt="ATX Disco Cruise party boat experience on Lake Travis with DJ and dancing guests"
-      keywords={[
-        'atx disco cruise',
-        'disco cruise tips',
-        'bachelor party boat austin',
-        'lake travis party boat',
-        'austin disco cruise',
-        'party boat dos and donts',
-        'lake travis bachelor party',
-        'disco cruise guide',
+      description="Top do's and don'ts for your ATX Disco Cruise bachelor party on Lake Travis. Insider tips from 14+ years hosting epic Austin party boat experiences."
+      slug="atx-disco-cruise-experience"
+      category="ATX Disco Cruise"
+      categoryHref="/atx-disco-cruise"
+      pillarTitle="ATX Disco Cruise"
+      pillarHref="/atx-disco-cruise"
+      relatedArticles={[
+        { title: "The Top Do's and Don'ts for an Epic ATX Disco Cruise Bachelor Party", href: "/blogs/atx-disco-cruise-dos-and-donts-bachelor-party" },
+        { title: "Why the ATX Disco Cruise Has Been Austin's #1 Bachelorette Party Activity Since 2019", href: "/blogs/why-the-atx-disco-cruise-has-been-austins-1-bachelorette-party-activity-since-2019" },
+        { title: "The Best Bachelor Party Boat in Austin: Disco Cruise vs Private Charter", href: "/blogs/the-best-bachelor-party-boat-in-austin-disco-cruise-vs-private-charter" },
       ]}
-      sections={sections}
-      pageRoute="/blogs/atx-disco-cruise-experience"
     >
       {/* Introduction */}
       <SectionReveal>
@@ -646,6 +641,6 @@ export default function ATXDiscoCruiseExperience() {
       </div>
 
       <RelatedBlogArticles category="general" currentSlug="/blogs/atx-disco-cruise-experience" />
-    </BlogPostLayout>
+    </BlogV2Layout>
   );
 }

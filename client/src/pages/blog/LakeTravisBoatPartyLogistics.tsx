@@ -11,8 +11,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
 import heroImage from '@assets/@capitalcityshots-20_1760080740021.jpg';
@@ -216,8 +215,21 @@ export default function LakeTravisBoatPartyLogistics() {
         image={heroImage}
       />
 
+      <BlogV2Layout
+        title="Lake Travis Boat Party Logistics - Complete Planning Guide"
+        description="Plan your Lake Travis boat party with ease. Get our complete logistics guide with checklists, timelines, and coordination tips for a perfect celebration."
+        slug="lake-travis-boat-party-logistics-complete-planning-and-coordination-guide"
+        category="Planning Guides"
+        categoryHref="/private-cruises"
+        pillarTitle="Private Party Boat Charters"
+        pillarHref="/private-cruises"
+        relatedArticles={[
+          { title: "Lake Travis Boat Party Regulations - Legal Requirements", href: "/blogs/lake-travis-boat-party-regulations-legal-requirements-and-compliance-guide" },
+          { title: "Lake Travis Boat Party Insurance - Coverage & Liability", href: "/blogs/lake-travis-boat-party-insurance-understanding-coverage-and-liability-for-events" },
+          { title: "Lake Travis Weather Planning - Seasonal Considerations", href: "/blogs/lake-travis-weather-planning-seasonal-considerations-for-perfect-boat-parties" },
+        ]}
+      >
       <div className="min-h-screen bg-white dark:bg-gray-950">
-        <PublicNavigation />
 
         {/* Hero Section */}
         <m.section 
@@ -646,8 +658,8 @@ export default function LakeTravisBoatPartyLogistics() {
           </div>
         </section>
 
-        <Footer />
       </div>
+      </BlogV2Layout>
     </>
     </LazyMotionProvider>
   );

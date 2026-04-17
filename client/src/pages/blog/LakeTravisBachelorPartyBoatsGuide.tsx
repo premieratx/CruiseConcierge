@@ -12,8 +12,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import { BlogImageBreak, BlogPhotoStrip, BLOG_BOAT_PHOTOS, BLOG_PARTY_PHOTOS } from '@/components/BlogImageBreak';
 
 import bachelorHero from '@assets/bachelor-party-group-guys.webp';
@@ -86,9 +85,22 @@ export default function LakeTravisBachelorPartyBoatsGuide() {
         defaultKeywords={['Lake Travis bachelor party', 'Austin party boat', 'party boat Austin', 'Lake Travis party barge', 'Austin party barge', 'bachelor party in Austin', 'ATX Disco Cruise', 'Lake Travis boat rental', 'Austin bachelor party boats']}
         image="https://premierpartycruises.com/attached_assets/bachelor-party-group-guys.webp"
       />
+      <BlogV2Layout
+        title="Lake Travis Bachelor Party Boats: The Ultimate Austin Party Cruise Experience"
+        description="Plan the ultimate Lake Travis bachelor party on Austin's best party boats. Experience the famous ATX Disco Cruise where bachelor and bachelorette groups party together. BYOB-friendly with Party On Delivery coordination. Book your Austin party boat today!"
+        slug="lake-travis-bachelor-party-boats-guide"
+        category="Bachelor Guides"
+        categoryHref="/bachelor-party-austin"
+        pillarTitle="Austin Bachelor Party Guide"
+        pillarHref="/bachelor-party-austin"
+        relatedArticles={[
+          { title: "Top 10 Reasons for a Lake Travis Bachelor Party Boat", href: "/blogs/top-10-reasons-austin-bachelor-party-lake-travis-boat" },
+          { title: "Austin Bachelor Party Ideas", href: "/blogs/austin-bachelor-party-ideas" },
+          { title: "Epic Austin Bachelor Party Ultimate Guide", href: "/blogs/epic-bachelor-party-austin-ultimate-guide" },
+        ]}
+      >
 
       <div className="min-h-screen bg-white dark:bg-gray-950">
-        <PublicNavigation />
 
         {/* Hero Section */}
         <m.section 
@@ -588,8 +600,8 @@ export default function LakeTravisBachelorPartyBoatsGuide() {
           </div>
         </section>
 
-        <Footer />
       </div>
+      </BlogV2Layout>
     </>
     </LazyMotionProvider>
   );

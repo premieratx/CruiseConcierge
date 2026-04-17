@@ -11,8 +11,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
@@ -173,8 +172,21 @@ export default function ExecutiveRetreatAlcoholPlanning() {
         image="https://premierpartycruises.com/attached_assets/@capitalcityshots-10_1760080740019.jpg"
       />
 
+      <BlogV2Layout
+        title="Executive Retreat Alcohol Planning: Balancing Professionalism and Team Bonding | Premier Party Cruises"
+        description="Master executive retreat alcohol planning that balances professionalism with authentic team bonding. Expert tips for corporate retreat alcohol coordination on Lake Travis. 14-75 guests welcome."
+        slug="executive-retreat-alcohol-planning-balancing-professionalism-and-team-bonding"
+        category="Corporate Guides"
+        categoryHref="/corporate-events"
+        pillarTitle="Austin Corporate Events Guide"
+        pillarHref="/corporate-events"
+        relatedArticles={[
+          { title: "Quarterly Outings Lake Travis", href: "/blogs/quarterly-outings-lake-travis-make-routine-company-events-easy" },
+          { title: "Employee Appreciation Day Lake Travis", href: "/blogs/employee-appreciation-day-reward-your-team-with-an-easy-all-inclusive-boat-party" },
+          { title: "Corporate Team Building Lake Travis", href: "/blogs/corporate-team-building-on-lake-travis-professional-boat-rental-solutions" },
+        ]}
+      >
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="executive-retreat-alcohol-planning-page">
-        <PublicNavigation />
 
         {/* Hero Section */}
         <m.section 
@@ -566,8 +578,8 @@ export default function ExecutiveRetreatAlcoholPlanning() {
           </div>
         </section>
 
-        <Footer />
       </div>
+      </BlogV2Layout>
     </>
     </LazyMotionProvider>
   );

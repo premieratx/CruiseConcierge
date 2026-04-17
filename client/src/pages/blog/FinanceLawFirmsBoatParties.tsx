@@ -11,8 +11,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
@@ -188,8 +187,21 @@ export default function FinanceLawFirmsBoatParties() {
         image="https://premierpartycruises.com/attached_assets/@capitalcityshots-3_1760072938923.jpg"
       />
 
+      <BlogV2Layout
+        title="Boat Parties for Finance & Law Firms Austin | Attorney Client Entertainment Lake Travis"
+        description="Host exclusive law firm party Austin events and finance team building Lake Travis cruises. Professional corporate event Austin boat charters with attorney client entertainment boat experiences. Private cruises for 14-75 guests."
+        slug="finance-law-firms-boat-parties-austin"
+        category="Corporate Guides"
+        categoryHref="/corporate-events"
+        pillarTitle="Austin Corporate Events Guide"
+        pillarHref="/corporate-events"
+        relatedArticles={[
+          { title: "Tech Companies Boat Parties Austin", href: "/blogs/tech-companies-boat-parties-austin" },
+          { title: "Healthcare Wellness Boat Parties Austin", href: "/blogs/healthcare-wellness-boat-parties-austin" },
+          { title: "All Inclusive Corporate Packages", href: "/blogs/all-inclusive-corporate-packages" },
+        ]}
+      >
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="finance-law-firms-blog-page">
-        <PublicNavigation />
 
         {/* Hero Section */}
         <m.section 
@@ -694,8 +706,8 @@ export default function FinanceLawFirmsBoatParties() {
           </div>
         </section>
 
-        <Footer />
       </div>
+      </BlogV2Layout>
     </>
     </LazyMotionProvider>
   );

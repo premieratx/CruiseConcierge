@@ -12,8 +12,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
@@ -242,8 +241,21 @@ export default function QuarterlyOutingsLakeTravis() {
         image={heroImage}
       />
 
+      <BlogV2Layout
+        title="Quarterly Team Outings Austin | Corporate Boat Party Lake Travis | Premier Party Cruises"
+        description="Make routine company events easy with Premier's quarterly boat packages. Plan team building Lake Travis outings, corporate boat party events, and company event ideas Austin businesses love. Book all 4 seasons!"
+        slug="quarterly-outings-lake-travis-make-routine-company-events-easy"
+        category="Corporate Guides"
+        categoryHref="/corporate-events"
+        pillarTitle="Austin Corporate Events Guide"
+        pillarHref="/corporate-events"
+        relatedArticles={[
+          { title: "Employee Appreciation Day Lake Travis", href: "/blogs/employee-appreciation-day-reward-your-team-with-an-easy-all-inclusive-boat-party" },
+          { title: "Corporate Team Building Lake Travis", href: "/blogs/corporate-team-building-on-lake-travis-professional-boat-rental-solutions" },
+          { title: "Executive Retreat Alcohol Planning", href: "/blogs/executive-retreat-alcohol-planning-balancing-professionalism-and-team-bonding" },
+        ]}
+      >
       <div className="min-h-screen bg-white dark:bg-gray-950">
-        <PublicNavigation />
 
         {/* Hero Section */}
         <m.section 
@@ -822,8 +834,8 @@ export default function QuarterlyOutingsLakeTravis() {
           </div>
         </section>
 
-        <Footer />
       </div>
+      </BlogV2Layout>
     </>
     </LazyMotionProvider>
   );

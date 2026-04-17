@@ -11,8 +11,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
@@ -185,8 +184,21 @@ export default function ClientEntertainmentAlcoholStrategy() {
         image={heroImage}
       />
 
+      <BlogV2Layout
+        title="Client Entertainment Alcohol Strategy - Impressing Without Overdoing It | Premier Party Cruises"
+        description="Master client entertainment alcohol strategy for professional events. Learn professional event alcohol balance, corporate event alcohol etiquette, and how to deliver impressive client alcohol without overserving on Lake Travis cruises."
+        slug="client-entertainment-alcohol-strategy-impressing-without-overdoing-it"
+        category="Corporate Guides"
+        categoryHref="/corporate-events"
+        pillarTitle="Austin Corporate Events Guide"
+        pillarHref="/corporate-events"
+        relatedArticles={[
+          { title: "Real Estate Client Entertainment Boat", href: "/blogs/real-estate-client-entertainment-boat-austin" },
+          { title: "All Inclusive Corporate Packages", href: "/blogs/all-inclusive-corporate-packages" },
+          { title: "Austin Best Corporate Events", href: "/blogs/austin-best-corporate-events" },
+        ]}
+      >
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="client-entertainment-alcohol-strategy-page">
-        <PublicNavigation />
 
         {/* Hero Section */}
         <m.section 
@@ -660,8 +672,8 @@ export default function ClientEntertainmentAlcoholStrategy() {
           </div>
         </section>
 
-        <Footer />
       </div>
+      </BlogV2Layout>
     </>
     </LazyMotionProvider>
   );

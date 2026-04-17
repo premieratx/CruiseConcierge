@@ -10,8 +10,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { BlogImageBreak } from '@/components/BlogImageBreak';
 
@@ -171,8 +170,21 @@ export default function PartyAlcoholSafetyAustin() {
         defaultKeywords={['Austin party safety', 'responsible alcohol service', 'BYOB boat rules', 'party guest safety', 'Lake Travis boat safety']}
       />
 
+      <BlogV2Layout
+        title="Party Alcohol Safety in Austin - Responsible Service Guide"
+        description="Learn about responsible alcohol service and guest safety at Austin parties. Tips for BYOB boat cruises, Party On Delivery service, and keeping everyone safe."
+        slug="party-alcohol-safety-in-austin-responsible-service-and-guest-well-being"
+        category="Safety Guides"
+        categoryHref="/private-cruises"
+        pillarTitle="Private Party Boat Charters"
+        pillarHref="/private-cruises"
+        relatedArticles={[
+          { title: "Lake Travis Boat Safety - Essential Guidelines for Safe Party Cruises", href: "/blogs/lake-travis-boat-safety-essential-guidelines-for-safe-party-cruises" },
+          { title: "Safety First - Premier's Perfect Record & First Aid Training", href: "/blogs/safety-first-how-premiers-perfect-record-and-first-aid-training-set-us-apart" },
+          { title: "Why Licensed Captains Matter for Lake Travis Party Boats", href: "/blogs/why-licensed-captains-matter-lake-travis-party-boats" },
+        ]}
+      >
       <div className="min-h-screen bg-white dark:bg-gray-950">
-        <PublicNavigation />
 
         {/* Hero Section */}
         <m.section 
@@ -597,8 +609,8 @@ export default function PartyAlcoholSafetyAustin() {
           </div>
         </section>
 
-        <Footer />
       </div>
+      </BlogV2Layout>
     </>
     </LazyMotionProvider>
   );

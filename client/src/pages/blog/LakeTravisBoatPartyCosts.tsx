@@ -12,8 +12,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
@@ -178,8 +177,21 @@ export default function LakeTravisBoatPartyCosts() {
         image={heroImage}
       />
 
+      <BlogV2Layout
+        title="Lake Travis Boat Party Costs - Complete Pricing Guide & Budget Planning"
+        description="Complete guide to Lake Travis boat party costs starting at $800. Compare party boat pricing Austin options, understand boat rental costs Lake Travis, and plan your Austin boat party budget. Transparent pricing since 2010."
+        slug="lake-travis-boat-party-costs-complete-pricing-guide-and-budget-planning"
+        category="Planning Guides"
+        categoryHref="/private-cruises"
+        pillarTitle="Private Party Boat Charters"
+        pillarHref="/private-cruises"
+        relatedArticles={[
+          { title: "Lake Travis Boat Party Packages - Complete Guide", href: "/blogs/lake-travis-boat-party-packages-comprehensive-guide-to-options-and-pricing" },
+          { title: "Lake Travis Boat Party Reviews - Real Customer Experiences", href: "/blogs/lake-travis-boat-party-reviews-real-customer-experiences-and-testimonials" },
+          { title: "Lake Travis Boat Party Insurance - Coverage & Liability", href: "/blogs/lake-travis-boat-party-insurance-understanding-coverage-and-liability-for-events" },
+        ]}
+      >
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="lake-travis-boat-party-costs-page">
-        <PublicNavigation />
 
         {/* Hero Section */}
         <m.section 
@@ -643,8 +655,8 @@ export default function LakeTravisBoatPartyCosts() {
           </div>
         </section>
 
-        <Footer />
       </div>
+      </BlogV2Layout>
     </>
     </LazyMotionProvider>
   );

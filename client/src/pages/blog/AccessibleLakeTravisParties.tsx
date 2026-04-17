@@ -11,8 +11,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
@@ -174,7 +173,7 @@ export default function AccessibleLakeTravisParties() {
   return (
     <LazyMotionProvider>
     <>
-      <SEOHead 
+      <SEOHead
         pageRoute="/blogs/accessible-lake-travis-boat-parties-inclusive-event-planning-for-all-guests"
         defaultTitle="Accessible Lake Travis Boat Parties - Inclusive Event Planning for All Guests | Premier Party Cruises"
         defaultDescription="Plan an accessible Lake Travis boat party with inclusive event planning for all guests. ADA boat rental Austin accommodations, wheelchair accessible boat party options, and inclusive party boat Lake Travis experiences. Everyone deserves to celebrate on the water."
@@ -182,8 +181,21 @@ export default function AccessibleLakeTravisParties() {
         image={heroImage}
       />
 
+      <BlogV2Layout
+        title="Accessible Lake Travis Boat Parties - Inclusive Event Planning for All Guests"
+        description="Plan an accessible Lake Travis boat party with inclusive event planning for all guests. ADA boat rental Austin accommodations, wheelchair accessible boat party options, and inclusive party boat Lake Travis experiences. Everyone deserves to celebrate on the water."
+        slug="accessible-lake-travis-boat-parties-inclusive-event-planning-for-all-guests"
+        category="Planning Guides"
+        categoryHref="/private-cruises"
+        pillarTitle="Private Party Boat Charters"
+        pillarHref="/private-cruises"
+        relatedArticles={[
+          { title: "Lake Travis Party Boat Rentals for Large Groups (20+ Guests)", href: "/blogs/lake-travis-party-boat-rentals-ultimate-guide-for-large-group-events-20-guests" },
+          { title: "Lake Travis Sunset Cruises - Romantic & Celebration Options", href: "/blogs/lake-travis-sunset-cruises-romantic-and-celebration-options-for-every-occasion" },
+          { title: "Private Cruise vs Party Boat vs Pontoon on Lake Travis", href: "/blogs/private-party-cruise-vs-party-boat-pontoon-lake-travis" },
+        ]}
+      >
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="accessible-lake-travis-boat-parties-page">
-        <PublicNavigation />
 
         {/* Hero Section */}
         <m.section 
@@ -621,8 +633,8 @@ export default function AccessibleLakeTravisParties() {
           </div>
         </section>
 
-        <Footer />
       </div>
+      </BlogV2Layout>
     </>
     </LazyMotionProvider>
   );

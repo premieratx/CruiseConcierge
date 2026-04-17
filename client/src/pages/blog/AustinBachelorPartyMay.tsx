@@ -3,8 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Calendar, Phone, Sun, CheckCircle2, Users, Music, Ship, MapPin, Utensils, ThermometerSun, PartyPopper, Star, ChevronRight, DollarSign, Backpack, Waves } from 'lucide-react';
 import { Link } from 'wouter';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import { LazyImage } from '@/components/LazyImage';
 import MonthlyGuidesNav from '@/components/MonthlyGuidesNav';
 
@@ -23,8 +22,20 @@ export default function AustinBachelorPartyMay() {
         defaultKeywords={['May bachelor party Austin', 'Austin bachelor party', 'Lake Travis party boat', 'Memorial Day bachelor party', 'Austin pool parties May']}
         image="https://premierpartycruises.com/attached_assets/@capitalcityshots-13_1760080740020.jpg"
       />
-
-      <PublicNavigation />
+      <BlogV2Layout
+        title="Why Austin is Perfect for Bachelor Parties in May"
+        description="Plan a May Austin bachelor party: 70°F-87°F weather, Memorial Day energy, Lake Travis boats & complete guide. Rain or shine, summer kickoff and pool party season!"
+        slug="austin-bachelor-party-may"
+        category="Bachelor Guides"
+        categoryHref="/bachelor-party-austin"
+        pillarTitle="Austin Bachelor Party Guide"
+        pillarHref="/bachelor-party-austin"
+        relatedArticles={[
+          { title: "Austin Bachelor Party in March", href: "/blogs/austin-bachelor-party-march" },
+          { title: "Austin Bachelor Party in July", href: "/blogs/austin-bachelor-party-july" },
+          { title: "Epic Austin Bachelor Party Ultimate Guide", href: "/blogs/epic-bachelor-party-austin-ultimate-guide" },
+        ]}
+      >
 
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-yellow-500 via-amber-500 to-orange-500 text-white py-20 overflow-hidden">
@@ -506,7 +517,7 @@ export default function AustinBachelorPartyMay() {
 
       <MonthlyGuidesNav type="bachelor" currentMonth="May" />
 
-      <Footer />
+      </BlogV2Layout>
     </div>
   );
 }

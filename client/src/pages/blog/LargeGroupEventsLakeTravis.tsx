@@ -10,8 +10,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
@@ -159,8 +158,21 @@ export default function LargeGroupEventsLakeTravis() {
         defaultKeywords={['large group party Austin', 'mega event Lake Travis', '100 person boat party Austin', 'corporate large group event Lake Travis', 'multi-boat party Austin', 'large event boat rental Lake Travis']}
       />
 
+      <BlogV2Layout
+        title="Large & Mega Group Events Lake Travis | 100+ Person Boat Parties Austin"
+        description="Host large group party Austin events for 100+ people on Lake Travis. Multi-boat coordination for mega event Lake Travis celebrations. Corporate large group event specialists. Book your 100 person boat party Austin today!"
+        slug="large-group-events-lake-travis"
+        category="Planning Guides"
+        categoryHref="/private-cruises"
+        pillarTitle="Private Party Boat Charters"
+        pillarHref="/private-cruises"
+        relatedArticles={[
+          { title: "Lake Travis Party Boat Rentals for Large Groups (20+ Guests)", href: "/blogs/lake-travis-party-boat-rentals-ultimate-guide-for-large-group-events-20-guests" },
+          { title: "Lake Travis Sunset Cruises - Romantic & Celebration Options", href: "/blogs/lake-travis-sunset-cruises-romantic-and-celebration-options-for-every-occasion" },
+          { title: "Private Cruise vs Party Boat vs Pontoon on Lake Travis", href: "/blogs/private-party-cruise-vs-party-boat-pontoon-lake-travis" },
+        ]}
+      >
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="page-large-group-events">
-        <PublicNavigation />
 
         {/* Hero Section */}
         <m.section 
@@ -650,8 +662,8 @@ export default function LargeGroupEventsLakeTravis() {
           </div>
         </section>
 
-        <Footer />
       </div>
+      </BlogV2Layout>
     </>
     </LazyMotionProvider>
   );

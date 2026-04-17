@@ -12,8 +12,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import { BlogImageBreak } from '@/components/BlogImageBreak';
 
 import discoParty from '@assets/atx-disco-cruise-party.webp';
@@ -94,8 +93,21 @@ export default function TopDosAndDontsATXDiscoCruise() {
         image="https://premierpartycruises.com/attached_assets/atx-disco-cruise-party.webp"
       />
 
-      <div className="min-h-screen bg-white dark:bg-gray-950">
-        <PublicNavigation />
+      <BlogV2Layout
+        title="The Top Dos and Donts for Success on the ATX Disco Cruise with Premier Party Cruises"
+        description="Master the top do's and don'ts for success on the ATX Disco Cruise. Essential planning tips for bachelor and bachelorette boat parties on Lake Travis including hydration, dress code, making friends, bringing snacks, and party smart strategies."
+        slug="the-top-dos-and-dont-for-success-on-the-atx-disco-cruise-with-premier-party-cruises"
+        category="ATX Disco Cruise"
+        categoryHref="/atx-disco-cruise"
+        pillarTitle="ATX Disco Cruise"
+        pillarHref="/atx-disco-cruise"
+        relatedArticles={[
+          { title: "ATX Disco Cruise Experience", href: "/blogs/atx-disco-cruise-experience" },
+          { title: "Why the ATX Disco Cruise Has Been Austin's #1 Bachelorette Party Activity Since 2019", href: "/blogs/why-the-atx-disco-cruise-has-been-austins-1-bachelorette-party-activity-since-2019" },
+          { title: "The Best Bachelor Party Boat in Austin: Disco Cruise vs Private Charter", href: "/blogs/the-best-bachelor-party-boat-in-austin-disco-cruise-vs-private-charter" },
+        ]}
+      >
+      <div className="min-h-screen">
 
         {/* Hero Section */}
         <m.section 
@@ -563,8 +575,8 @@ export default function TopDosAndDontsATXDiscoCruise() {
           </div>
         </section>
 
-        <Footer />
       </div>
+      </BlogV2Layout>
     </>
     </LazyMotionProvider>
   );

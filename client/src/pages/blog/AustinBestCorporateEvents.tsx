@@ -11,8 +11,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
@@ -192,8 +191,21 @@ export default function AustinBestCorporateEvents() {
         defaultKeywords={['corporate events Austin', 'company party venue Lake Travis', 'corporate boat rental Austin', 'team event Lake Travis', 'Austin corporate party', 'Lake Travis business events']}
       />
 
+      <BlogV2Layout
+        title="Austin's Best Corporate Events – From 10 to 100 Guests | Lake Travis Boat Rentals"
+        description="Plan unforgettable corporate events Austin on Lake Travis. Our company party venue Lake Travis accommodates 10-100+ guests with corporate boat rental Austin options for team building, client entertainment, and celebrations."
+        slug="austin-best-corporate-events"
+        category="Corporate Guides"
+        categoryHref="/corporate-events"
+        pillarTitle="Austin Corporate Events Guide"
+        pillarHref="/corporate-events"
+        relatedArticles={[
+          { title: "Why Austin Companies Choose Premier Party Cruises", href: "/blogs/why-austin-companies-choose-premier" },
+          { title: "All Inclusive Corporate Packages", href: "/blogs/all-inclusive-corporate-packages" },
+          { title: "Corporate Boat Parties Austin: Lake Travis Smartest Venue", href: "/blogs/corporate-boat-parties-austin-lake-travis-smartest-venue" },
+        ]}
+      >
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="page-austin-best-corporate-events">
-        <PublicNavigation />
 
         {/* Hero Section */}
         <m.section 
@@ -631,8 +643,8 @@ export default function AustinBestCorporateEvents() {
           </div>
         </section>
 
-        <Footer />
       </div>
+      </BlogV2Layout>
     </>
     </LazyMotionProvider>
   );

@@ -11,8 +11,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
@@ -208,8 +207,21 @@ export default function TechCompaniesBoatPartiesAustin() {
         image="https://premierpartycruises.com/attached_assets/@capitalcityshots-2_1760072938923.jpg"
       />
 
+      <BlogV2Layout
+        title="Tech Companies on Deck – Why Austin's Tech Industry Loves Boat Parties | Lake Travis"
+        description="Plan the perfect tech company party Austin on Lake Travis. Startup team building, product launches, and corporate tech outings. Private boat charters for 14-75 guests. Book your Austin tech event boat today!"
+        slug="tech-companies-boat-parties-austin"
+        category="Corporate Guides"
+        categoryHref="/corporate-events"
+        pillarTitle="Austin Corporate Events Guide"
+        pillarHref="/corporate-events"
+        relatedArticles={[
+          { title: "Finance & Law Firms Boat Parties", href: "/blogs/finance-law-firms-boat-parties-austin" },
+          { title: "Marketing & Creative Agencies Boat", href: "/blogs/marketing-creative-agencies-boat-austin" },
+          { title: "Small Business Boat Parties Austin", href: "/blogs/small-business-boat-parties-austin" },
+        ]}
+      >
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="page-tech-companies-boat-parties">
-        <PublicNavigation />
 
         {/* Hero Section */}
         <m.section 
@@ -686,8 +698,8 @@ export default function TechCompaniesBoatPartiesAustin() {
           </div>
         </section>
 
-        <Footer />
       </div>
+      </BlogV2Layout>
     </>
     </LazyMotionProvider>
   );

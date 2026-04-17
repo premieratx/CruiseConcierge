@@ -10,8 +10,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
@@ -176,8 +175,21 @@ export default function DiscoCruiseFashion() {
         image={heroImage}
       />
 
-      <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="disco-cruise-fashion-page">
-        <PublicNavigation />
+      <BlogV2Layout
+        title="Disco Cruise Fashion Guide: What to Wear on ATX Disco Cruise"
+        description="Complete disco cruise fashion guide for ATX Disco Cruise on Lake Travis. Discover party boat outfit ideas, bachelorette party cruise outfits, and what to wear on a boat party in Austin."
+        slug="disco-cruise-fashion-part-1"
+        category="ATX Disco Cruise"
+        categoryHref="/atx-disco-cruise"
+        pillarTitle="ATX Disco Cruise"
+        pillarHref="/atx-disco-cruise"
+        relatedArticles={[
+          { title: "ATX Disco Cruise Experience", href: "/blogs/atx-disco-cruise-experience" },
+          { title: "Why the ATX Disco Cruise Has Been Austin's #1 Bachelorette Party Activity Since 2019", href: "/blogs/why-the-atx-disco-cruise-has-been-austins-1-bachelorette-party-activity-since-2019" },
+          { title: "The Best Bachelor Party Boat in Austin: Disco Cruise vs Private Charter", href: "/blogs/the-best-bachelor-party-boat-in-austin-disco-cruise-vs-private-charter" },
+        ]}
+      >
+      <div className="min-h-screen" data-testid="disco-cruise-fashion-page">
 
         {/* Hero Section */}
         <m.section 
@@ -712,8 +724,8 @@ export default function DiscoCruiseFashion() {
         {/* Quote Builder Section */}
         <QuoteBuilderSection />
 
-        <Footer />
       </div>
+      </BlogV2Layout>
     </>
     </LazyMotionProvider>
   );

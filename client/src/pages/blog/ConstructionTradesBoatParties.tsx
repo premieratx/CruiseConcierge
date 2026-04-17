@@ -10,8 +10,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
@@ -167,8 +166,21 @@ export default function ConstructionTradesBoatParties() {
         defaultKeywords={['construction company party Austin', 'trades team building Lake Travis', 'manufacturing team outing Austin', 'blue collar team event Lake Travis', 'construction crew celebration', 'trades worker appreciation']}
       />
 
+      <BlogV2Layout
+        title="Construction Company Party Austin | Trades Team Building Lake Travis Boats"
+        description="Plan the ultimate construction company party Austin or trades team building Lake Travis event. Manufacturing team outing Austin on private boats. Blue collar team event Lake Travis for crews of 14-75."
+        slug="construction-trades-boat-parties-austin"
+        category="Corporate Guides"
+        categoryHref="/corporate-events"
+        pillarTitle="Austin Corporate Events Guide"
+        pillarHref="/corporate-events"
+        relatedArticles={[
+          { title: "Small Business Boat Parties Austin", href: "/blogs/small-business-boat-parties-austin" },
+          { title: "Tech Companies Boat Parties Austin", href: "/blogs/tech-companies-boat-parties-austin" },
+          { title: "Why Austin Companies Choose Premier", href: "/blogs/why-austin-companies-choose-premier" },
+        ]}
+      >
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="construction-trades-blog-page">
-        <PublicNavigation />
 
         {/* Hero Section */}
         <m.section 
@@ -788,8 +800,8 @@ export default function ConstructionTradesBoatParties() {
           </div>
         </section>
 
-        <Footer />
       </div>
+      </BlogV2Layout>
     </>
     </LazyMotionProvider>
   );

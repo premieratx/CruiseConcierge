@@ -10,8 +10,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
 import heroImage from '@assets/@capitalcityshots-32_1760080807868.jpg';
@@ -176,8 +175,21 @@ export default function LakeTravisLargeGroupBoatRentals() {
         image={heroImage}
       />
 
+      <BlogV2Layout
+        title="Lake Travis Party Boat Rentals for Large Groups (20+ Guests)"
+        description="Plan the perfect large group boat party on Lake Travis. Boats for 20-75 guests with private charters, group pricing, and expert crews. Book your Austin celebration today."
+        slug="lake-travis-party-boat-rentals-ultimate-guide-for-large-group-events-20-guests"
+        category="Planning Guides"
+        categoryHref="/private-cruises"
+        pillarTitle="Private Party Boat Charters"
+        pillarHref="/private-cruises"
+        relatedArticles={[
+          { title: "Large & Mega Group Events Lake Travis (100+ Guests)", href: "/blogs/large-group-events-lake-travis" },
+          { title: "Lake Travis Sunset Cruises - Romantic & Celebration Options", href: "/blogs/lake-travis-sunset-cruises-romantic-and-celebration-options-for-every-occasion" },
+          { title: "Private Cruise vs Party Boat vs Pontoon on Lake Travis", href: "/blogs/private-party-cruise-vs-party-boat-pontoon-lake-travis" },
+        ]}
+      >
       <div className="min-h-screen bg-white dark:bg-gray-950">
-        <PublicNavigation />
 
         {/* Hero Section */}
         <m.section 
@@ -618,8 +630,8 @@ export default function LakeTravisLargeGroupBoatRentals() {
           </div>
         </section>
 
-        <Footer />
       </div>
+      </BlogV2Layout>
     </>
     </LazyMotionProvider>
   );

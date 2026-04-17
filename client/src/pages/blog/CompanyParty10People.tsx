@@ -10,8 +10,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
@@ -167,8 +166,21 @@ export default function CompanyParty10People() {
         image={heroImage}
       />
 
+      <BlogV2Layout
+        title="10 Person Company Party Austin | Small Team Event Lake Travis | Premier Party Cruises"
+        description="Plan the perfect 10 person company party Austin on Lake Travis. Intimate corporate party boat Austin for small teams. Small group boat rental Lake Travis with Day Tripper - ideal for 10 guests."
+        slug="company-party-10-people-austin"
+        category="Corporate Guides"
+        categoryHref="/corporate-events"
+        pillarTitle="Austin Corporate Events Guide"
+        pillarHref="/corporate-events"
+        relatedArticles={[
+          { title: "Company Party for 25 People Austin", href: "/blogs/company-party-25-people-austin" },
+          { title: "Company Party for 50 People Austin", href: "/blogs/company-party-50-people-austin" },
+          { title: "Company Party for 75 People Austin", href: "/blogs/company-party-75-people-austin" },
+        ]}
+      >
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="page-company-party-10-people">
-        <PublicNavigation />
 
         {/* Hero Section */}
         <m.section 
@@ -626,8 +638,8 @@ export default function CompanyParty10People() {
         {/* Quote Builder Section */}
         <QuoteBuilderSection />
 
-        <Footer />
       </div>
+      </BlogV2Layout>
     </>
     </LazyMotionProvider>
   );

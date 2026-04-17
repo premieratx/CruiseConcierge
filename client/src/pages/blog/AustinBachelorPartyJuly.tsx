@@ -3,8 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Calendar, Phone, Sun, CheckCircle2, Users, Music, Ship, MapPin, Utensils, ThermometerSun, PartyPopper, Star, ChevronRight, Flame, DollarSign, Backpack } from 'lucide-react';
 import { Link } from 'wouter';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import { LazyImage } from '@/components/LazyImage';
 import MonthlyGuidesNav from '@/components/MonthlyGuidesNav';
 
@@ -23,8 +22,20 @@ export default function AustinBachelorPartyJuly() {
         defaultKeywords={['July bachelor party Austin', 'Austin bachelor party', 'Lake Travis party boat', '4th of July bachelor party', 'Austin nightlife July', 'summer bachelor party Texas']}
         image="https://premierpartycruises.com/attached_assets/@capitalcityshots-17_1760080740020.jpg"
       />
-
-      <PublicNavigation />
+      <BlogV2Layout
+        title="Why Austin is Perfect for Bachelor Parties in July"
+        description="Plan a July Austin bachelor party: 76°F-97°F hot summer weather, 4th of July celebrations, Lake Travis boats & fireworks. Rain or shine, peak season guide!"
+        slug="austin-bachelor-party-july"
+        category="Bachelor Guides"
+        categoryHref="/bachelor-party-austin"
+        pillarTitle="Austin Bachelor Party Guide"
+        pillarHref="/bachelor-party-austin"
+        relatedArticles={[
+          { title: "Austin Bachelor Party in May", href: "/blogs/austin-bachelor-party-may" },
+          { title: "Austin Bachelor Party in September", href: "/blogs/austin-bachelor-party-september" },
+          { title: "Epic Austin Bachelor Party Ultimate Guide", href: "/blogs/epic-bachelor-party-austin-ultimate-guide" },
+        ]}
+      >
 
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-red-500 via-blue-600 to-red-600 text-white py-20 overflow-hidden">
@@ -513,7 +524,7 @@ export default function AustinBachelorPartyJuly() {
 
       <MonthlyGuidesNav type="bachelor" currentMonth="July" />
 
-      <Footer />
+      </BlogV2Layout>
     </div>
   );
 }

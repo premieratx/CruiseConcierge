@@ -10,8 +10,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
@@ -151,8 +150,21 @@ export default function AustinSuburbsCorporateEvents() {
         defaultKeywords={['Round Rock corporate event', 'Cedar Park team building', 'Leander company party', 'Austin suburbs boat party Lake Travis', 'Georgetown corporate events', 'Pflugerville team building', 'Lake Travis corporate cruise']}
       />
 
+      <BlogV2Layout
+        title="Austin Suburb Corporate Events – Round Rock, Cedar Park, Leander | Lake Travis Boat Parties"
+        description="Plan your Round Rock corporate event, Cedar Park team building, or Leander company party on Lake Travis. Austin suburbs boat party Lake Travis experiences for corporate groups. Private charters for 14-75 guests."
+        slug="austin-suburbs-corporate-events"
+        category="Corporate Guides"
+        categoryHref="/corporate-events"
+        pillarTitle="Austin Corporate Events Guide"
+        pillarHref="/corporate-events"
+        relatedArticles={[
+          { title: "Austin Best Corporate Events", href: "/blogs/austin-best-corporate-events" },
+          { title: "Destination Austin Off-Site Retreats", href: "/blogs/destination-austin-offsite-retreats" },
+          { title: "Why Austin Companies Choose Premier", href: "/blogs/why-austin-companies-choose-premier" },
+        ]}
+      >
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="austin-suburbs-corporate-page">
-        <PublicNavigation />
 
         {/* Hero Section */}
         <m.section 
@@ -753,8 +765,8 @@ export default function AustinSuburbsCorporateEvents() {
           </div>
         </section>
 
-        <Footer />
       </div>
+      </BlogV2Layout>
     </>
     </LazyMotionProvider>
   );

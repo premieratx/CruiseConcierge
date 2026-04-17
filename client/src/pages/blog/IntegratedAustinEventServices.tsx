@@ -12,8 +12,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import RelatedBlogArticles from '@/components/RelatedBlogArticles';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
@@ -187,8 +186,21 @@ export default function IntegratedAustinEventServices() {
         image="https://premierpartycruises.com/attached_assets/atx-disco-cruise-party.webp"
       />
 
+      <BlogV2Layout
+        title="Integrated Austin Event Services | Lake Travis Boat Rentals & Party Planning"
+        description="Planning an event in Austin? Premier Party Cruises offers seamless Lake Travis boat rentals for bachelor/bachelorette parties, corporate events, weddings, and more. 15+ years experience."
+        slug="integrated-austin-event-services-combining-alcohol-delivery-and-boat-rentals-for-perfect-celebrations"
+        category="Event Planning Guides"
+        categoryHref="/private-cruises"
+        pillarTitle="Austin Event Planning"
+        pillarHref="/private-cruises"
+        relatedArticles={[
+          { title: 'Austin Party Venue Alcohol Delivery: Navigating Policies & Logistics', href: '/blogs/austin-party-venue-alcohol-delivery-navigating-policies-and-logistics' },
+          { title: 'Why Choose Integrated Event Services: Comparing Austin Party Planning Options', href: '/blogs/why-choose-integrated-event-services-comparing-austin-party-planning-options' },
+          { title: 'Conference After-Party Alcohol Coordination: SXSW, ACL & Austin Events', href: '/blogs/conference-after-party-alcohol-coordination-sxsw-acl-and-austin-event-integration' }
+        ]}
+      >
       <div className="min-h-screen bg-white dark:bg-gray-950">
-        <PublicNavigation />
 
         {/* Hero Section */}
         <m.section 
@@ -633,8 +645,8 @@ export default function IntegratedAustinEventServices() {
         </section>
 
         <RelatedBlogArticles category="planning" currentSlug="/blogs/why-choose-integrated-event-services-comparing-austin-party-planning-options" />
-        <Footer />
       </div>
+      </BlogV2Layout>
     </>
     </LazyMotionProvider>
   );

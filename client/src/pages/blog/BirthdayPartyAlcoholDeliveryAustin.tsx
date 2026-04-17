@@ -10,8 +10,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
 import heroImage from '@assets/@capitalcityshots-4_1760080740017.jpg';
@@ -158,8 +157,21 @@ export default function BirthdayPartyAlcoholDeliveryAustin() {
         defaultKeywords={['birthday party alcohol delivery Austin', '21st birthday Austin', 'milestone birthday Lake Travis', 'party boat birthday Austin']}
       />
 
+      <BlogV2Layout
+        title="Birthday Party Alcohol Delivery Austin | Milestone Celebrations Made Easy"
+        description="Plan your Austin milestone birthday with alcohol delivery and Lake Travis boat cruises. 21st, 30th, 40th, 50th birthdays made easy with Party On Delivery service."
+        slug="birthday-party-alcohol-delivery-austin-milestone-celebrations-made-easy"
+        category="Birthday Party Guides"
+        categoryHref="/birthday-parties"
+        pillarTitle="Austin Birthday Party Boats"
+        pillarHref="/birthday-parties"
+        relatedArticles={[
+          { title: 'Birthday Party Boat Rentals on Lake Travis: Milestone Celebrations with a View', href: '/blogs/birthday-party-boat-rentals-on-lake-travis-milestone-celebrations-with-a-view' },
+          { title: 'Austin Party Venue Alcohol Delivery: Navigating Policies & Logistics', href: '/blogs/austin-party-venue-alcohol-delivery-navigating-policies-and-logistics' },
+          { title: 'Integrated Austin Event Services: Alcohol Delivery + Boat Rentals', href: '/blogs/integrated-austin-event-services-combining-alcohol-delivery-and-boat-rentals-for-perfect-celebrations' }
+        ]}
+      >
       <div className="min-h-screen bg-white dark:bg-gray-950">
-        <PublicNavigation />
 
         {/* Hero Section */}
         <m.section 
@@ -573,8 +585,8 @@ export default function BirthdayPartyAlcoholDeliveryAustin() {
           </div>
         </section>
 
-        <Footer />
       </div>
+      </BlogV2Layout>
     </>
     </LazyMotionProvider>
   );

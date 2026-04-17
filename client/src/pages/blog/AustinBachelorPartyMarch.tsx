@@ -3,8 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Calendar, Phone, Sun, CheckCircle2, Users, Music, Ship, MapPin, Utensils, ThermometerSun, PartyPopper, Star, ChevronRight, Flower2, DollarSign, Backpack } from 'lucide-react';
 import { Link } from 'wouter';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import { LazyImage } from '@/components/LazyImage';
 import MonthlyGuidesNav from '@/components/MonthlyGuidesNav';
 
@@ -23,8 +22,20 @@ export default function AustinBachelorPartyMarch() {
         defaultKeywords={['March bachelor party Austin', 'Austin bachelor party', 'Lake Travis party boat', 'SXSW bachelor party', 'Spring Break Austin', 'Austin nightlife March']}
         image="https://premierpartycruises.com/attached_assets/@capitalcityshots-9_1760080740019.jpg"
       />
-
-      <PublicNavigation />
+      <BlogV2Layout
+        title="Why Austin is Perfect for Bachelor Parties in March"
+        description="Plan a March Austin bachelor party: 54°F-72°F weather, SXSW Festival energy, Lake Travis boats & complete guide. Rain or shine, Spring Break vibes and epic celebrations!"
+        slug="austin-bachelor-party-march"
+        category="Bachelor Guides"
+        categoryHref="/bachelor-party-austin"
+        pillarTitle="Austin Bachelor Party Guide"
+        pillarHref="/bachelor-party-austin"
+        relatedArticles={[
+          { title: "Austin Bachelor Party in January", href: "/blogs/austin-bachelor-party-january" },
+          { title: "Austin Bachelor Party in May", href: "/blogs/austin-bachelor-party-may" },
+          { title: "Epic Austin Bachelor Party Ultimate Guide", href: "/blogs/epic-bachelor-party-austin-ultimate-guide" },
+        ]}
+      >
 
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-green-500 via-emerald-600 to-teal-600 text-white py-20 overflow-hidden">
@@ -506,7 +517,7 @@ export default function AustinBachelorPartyMarch() {
 
       <MonthlyGuidesNav type="bachelor" currentMonth="March" />
 
-      <Footer />
+      </BlogV2Layout>
     </div>
   );
 }

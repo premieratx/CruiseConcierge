@@ -11,8 +11,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
@@ -160,8 +159,21 @@ export default function MarketingAgenciesBoatParties() {
         defaultKeywords={['marketing agency party Austin', 'creative team building Lake Travis', 'advertising agency boat Austin', 'creative retreat Lake Travis', 'Austin marketing events', 'creative agency boat party']}
       />
 
+      <BlogV2Layout
+        title="Marketing Agency Party Austin | Creative Team Building Lake Travis | Advertising Agency Boat"
+        description="Plan the ultimate marketing agency party Austin on Lake Travis. Creative team building, advertising agency boat rentals, and creative retreat Lake Travis experiences. Boats for 14-75 guests."
+        slug="marketing-creative-agencies-boat-austin"
+        category="Corporate Guides"
+        categoryHref="/corporate-events"
+        pillarTitle="Austin Corporate Events Guide"
+        pillarHref="/corporate-events"
+        relatedArticles={[
+          { title: "Tech Companies Boat Parties Austin", href: "/blogs/tech-companies-boat-parties-austin" },
+          { title: "Finance & Law Firms Boat Parties", href: "/blogs/finance-law-firms-boat-parties-austin" },
+          { title: "Small Business Boat Parties Austin", href: "/blogs/small-business-boat-parties-austin" },
+        ]}
+      >
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="marketing-agencies-page">
-        <PublicNavigation />
 
         {/* Hero Section */}
         <m.section 
@@ -737,8 +749,8 @@ export default function MarketingAgenciesBoatParties() {
           </div>
         </section>
 
-        <Footer />
       </div>
+      </BlogV2Layout>
     </>
     </LazyMotionProvider>
   );

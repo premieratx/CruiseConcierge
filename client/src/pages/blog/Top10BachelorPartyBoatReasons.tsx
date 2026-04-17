@@ -10,8 +10,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
@@ -142,8 +141,20 @@ export default function Top10BachelorPartyBoatReasons() {
         defaultKeywords={['austin bachelor party', 'lake travis party boat', 'bachelor party austin', 'lake travis bachelor party', 'austin party boat', 'bachelor party ideas austin', 'top 10 bachelor party reasons']}
         image="https://premierpartycruises.com/attached_assets/bachelor-party-group-guys-hero-compressed.webp"
       />
-
-      <PublicNavigation />
+      <BlogV2Layout
+        title="Top 10 Reasons for a Lake Travis Bachelor Party Boat"
+        description="Discover the top 10 reasons to host your Austin bachelor party on Lake Travis. BYOB savings, epic photos, swimming, and unforgettable memories await."
+        slug="top-10-reasons-austin-bachelor-party-lake-travis-boat"
+        category="Bachelor Guides"
+        categoryHref="/bachelor-party-austin"
+        pillarTitle="Austin Bachelor Party Guide"
+        pillarHref="/bachelor-party-austin"
+        relatedArticles={[
+          { title: "Lake Travis Bachelor Party Boats Guide", href: "/blogs/lake-travis-bachelor-party-boats-guide" },
+          { title: "Epic Austin Bachelor Party Ultimate Guide", href: "/blogs/epic-bachelor-party-austin-ultimate-guide" },
+          { title: "Austin Bachelor Party Ideas", href: "/blogs/austin-bachelor-party-ideas" },
+        ]}
+      >
 
       <main className="min-h-screen bg-white">
         <section className="relative min-h-[60vh] flex items-center justify-center overflow-hidden">
@@ -475,7 +486,7 @@ export default function Top10BachelorPartyBoatReasons() {
         </section>
       </main>
 
-      <Footer />
+      </BlogV2Layout>
     </>
     </LazyMotionProvider>
   );

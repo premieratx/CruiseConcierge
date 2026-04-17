@@ -10,8 +10,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import { BlogImageBreak, BlogPhotoStrip } from '@/components/BlogImageBreak';
 import { DISCO_FUN_PHOTOS } from '@/lib/media';
 
@@ -76,9 +75,22 @@ export default function BachelorPartyOutfitIdeas() {
         defaultKeywords={['Austin bachelor party outfits', 'ATX Disco Cruise costumes', 'Lake Travis party boat outfits', 'bachelor party in Austin themes', 'party boat Austin costume ideas', 'bachelor party costume themes', 'disco cruise outfit ideas']}
         image="https://premierpartycruises.com/attached_assets/atx-disco-cruise-party.webp"
       />
+      <BlogV2Layout
+        title="Best Bachelor Party Outfit Ideas for the ATX Disco Cruise"
+        description="Planning outfits for your Austin bachelor party on Lake Travis? Discover the best costume and theme ideas for the ATX Disco Cruise. From Disco Cowboys to Nautical Bros, dress up to stand out and break the ice with bachelorette groups!"
+        slug="bachelor-party-outfit-ideas-atx-disco-cruise"
+        category="Bachelor Guides"
+        categoryHref="/bachelor-party-austin"
+        pillarTitle="Austin Bachelor Party Guide"
+        pillarHref="/bachelor-party-austin"
+        relatedArticles={[
+          { title: "Austin Bachelor Party Ideas", href: "/blogs/austin-bachelor-party-ideas" },
+          { title: "Party Boat vs Downtown Night Out", href: "/blogs/lake-travis-party-boat-vs-downtown-night-out-austin-bachelor" },
+          { title: "Why Choose Austin for Your Bachelor Party", href: "/blogs/why-choose-austin-bachelor-party" },
+        ]}
+      >
 
       <div className="min-h-screen bg-white dark:bg-gray-950">
-        <PublicNavigation />
 
         {/* Hero Section */}
         <m.section 
@@ -610,8 +622,8 @@ export default function BachelorPartyOutfitIdeas() {
           </div>
         </section>
 
-        <Footer />
       </div>
+      </BlogV2Layout>
     </>
     </LazyMotionProvider>
   );

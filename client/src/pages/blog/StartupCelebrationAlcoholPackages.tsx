@@ -11,8 +11,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
 import heroImage from '@assets/@capitalcityshots-21_1760080807864.jpg';
@@ -177,8 +176,21 @@ export default function StartupCelebrationAlcoholPackages() {
         image="https://premierpartycruises.com/attached_assets/@capitalcityshots-21_1760080807864.jpg"
       />
 
+      <BlogV2Layout
+        title="Startup Celebration Alcohol Packages: Funding Rounds, Launches & Milestone Events | Premier Party Cruises"
+        description="Celebrate your Austin startup milestones on Lake Travis with Party On Delivery alcohol packages. Perfect for funding rounds, product launches, and team celebrations. BYOB party boat cruises for tech teams."
+        slug="startup-celebration-alcohol-packages-funding-rounds-launches-and-milestone-events"
+        category="Corporate Guides"
+        categoryHref="/corporate-events"
+        pillarTitle="Austin Corporate Events Guide"
+        pillarHref="/corporate-events"
+        relatedArticles={[
+          { title: "Company Holiday Party Lake Travis", href: "/blogs/company-holiday-party-lake-travis" },
+          { title: "Holiday Office Party Alcohol Delivery", href: "/blogs/holiday-office-party-alcohol-delivery-stress-free-corporate-celebration-planning" },
+          { title: "Employee Appreciation Day Lake Travis", href: "/blogs/employee-appreciation-day-reward-your-team-with-an-easy-all-inclusive-boat-party" },
+        ]}
+      >
       <div className="min-h-screen bg-white dark:bg-gray-950">
-        <PublicNavigation />
 
         {/* Hero Section */}
         <m.section 
@@ -543,8 +555,8 @@ export default function StartupCelebrationAlcoholPackages() {
           </div>
         </section>
 
-        <Footer />
       </div>
+      </BlogV2Layout>
     </>
     </LazyMotionProvider>
   );

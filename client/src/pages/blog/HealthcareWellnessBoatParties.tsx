@@ -10,8 +10,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
@@ -160,8 +159,21 @@ export default function HealthcareWellnessBoatParties() {
         image={heroImage}
       />
 
+      <BlogV2Layout
+        title="Healthcare Team Building Austin | Medical Staff Party Lake Travis | Wellness Retreat Boat"
+        description="Plan the perfect healthcare team building Austin event on Lake Travis. Medical staff parties, nurse appreciation cruises, doctor retreats, and hospital team outings. Private boat charters for wellness-focused celebrations."
+        slug="healthcare-wellness-boat-parties-austin"
+        category="Corporate Guides"
+        categoryHref="/corporate-events"
+        pillarTitle="Austin Corporate Events Guide"
+        pillarHref="/corporate-events"
+        relatedArticles={[
+          { title: "Finance & Law Firms Boat Parties Austin", href: "/blogs/finance-law-firms-boat-parties-austin" },
+          { title: "Tech Companies Boat Parties Austin", href: "/blogs/tech-companies-boat-parties-austin" },
+          { title: "All Inclusive Corporate Packages", href: "/blogs/all-inclusive-corporate-packages" },
+        ]}
+      >
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="healthcare-wellness-blog-page">
-        <PublicNavigation />
 
         {/* Hero Section */}
         <m.section 
@@ -612,8 +624,8 @@ export default function HealthcareWellnessBoatParties() {
           </div>
         </section>
 
-        <Footer />
       </div>
+      </BlogV2Layout>
     </>
     </LazyMotionProvider>
   );

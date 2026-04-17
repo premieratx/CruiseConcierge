@@ -12,8 +12,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { BlogImageBreak, BlogPhotoStrip, BLOG_PARTY_PHOTOS } from '@/components/BlogImageBreak';
@@ -157,9 +156,22 @@ export default function LakeTravisBachelorAlcoholDelivery() {
         defaultKeywords={['Lake Travis bachelor party alcohol delivery', 'coordination guide for boat parties', 'bachelor party alcohol delivery', 'Lake Travis boat party', 'Austin bachelor party', 'Party On Delivery Lake Travis', 'boat party alcohol', 'bachelor party planning Austin', 'Lake Travis bachelor weekend']}
         image="https://premierpartycruises.com/attached_assets/bachelor-party-group-guys.webp"
       />
+      <BlogV2Layout
+        title="Lake Travis Bachelor Party Alcohol Delivery: Complete Coordination Guide for Boat Parties"
+        description="Complete Lake Travis bachelor party alcohol delivery guide. Coordination guide for boat parties with dock delivery, drink calculations for 14-75 guests, and BYOB tips. Bachelor party alcohol delivery from Party On Delivery makes Lake Travis boat parties easy."
+        slug="lake-travis-bachelor-party-alcohol-delivery-complete-coordination-guide-for-boat-parties"
+        category="Bachelor Guides"
+        categoryHref="/bachelor-party-austin"
+        pillarTitle="Austin Bachelor Party Guide"
+        pillarHref="/bachelor-party-austin"
+        relatedArticles={[
+          { title: "Austin Bachelor Party Ideas", href: "/blogs/austin-bachelor-party-ideas" },
+          { title: "Party Boat vs Downtown Night Out", href: "/blogs/lake-travis-party-boat-vs-downtown-night-out-austin-bachelor" },
+          { title: "Why Choose Austin for Your Bachelor Party", href: "/blogs/why-choose-austin-bachelor-party" },
+        ]}
+      >
 
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="lake-travis-bachelor-alcohol-delivery-page">
-        <PublicNavigation />
 
         {/* Hero Section */}
         <m.section 
@@ -604,8 +616,8 @@ export default function LakeTravisBachelorAlcoholDelivery() {
           </div>
         </section>
 
-        <Footer />
       </div>
+      </BlogV2Layout>
     </>
     </LazyMotionProvider>
   );

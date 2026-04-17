@@ -11,8 +11,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
@@ -141,8 +140,21 @@ export default function WhyLicensedCaptainsMatter() {
         image={heroImage}
       />
 
+      <BlogV2Layout
+        title="Why Licensed Captains Matter for Lake Travis Party Boats"
+        description="Discover why licensed captains are essential for Lake Travis party boats. Learn how professional crews ensure safe, legal, stress-free bachelor parties, bachelorette parties, and celebrations on the water."
+        slug="why-licensed-captains-matter-lake-travis-party-boats"
+        category="Safety Guides"
+        categoryHref="/private-cruises"
+        pillarTitle="Private Party Boat Charters"
+        pillarHref="/private-cruises"
+        relatedArticles={[
+          { title: "Lake Travis Boat Safety - Essential Guidelines for Safe Party Cruises", href: "/blogs/lake-travis-boat-safety-essential-guidelines-for-safe-party-cruises" },
+          { title: "Lake Travis Boat Safety & Maintenance Standards", href: "/blogs/lake-travis-boat-safety-and-maintenance-quality-standards-for-party-cruises" },
+          { title: "Safety First - Premier's Perfect Record & First Aid Training", href: "/blogs/safety-first-how-premiers-perfect-record-and-first-aid-training-set-us-apart" },
+        ]}
+      >
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="why-licensed-captains-page">
-        <PublicNavigation />
 
         {/* Hero Section */}
         <m.section 
@@ -596,8 +608,8 @@ export default function WhyLicensedCaptainsMatter() {
           </div>
         </section>
 
-        <Footer />
       </div>
+      </BlogV2Layout>
     </>
     </LazyMotionProvider>
   );

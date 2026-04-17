@@ -11,8 +11,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
 import heroImage from '@assets/bachelor-party-group-guys-hero-compressed.webp';
@@ -257,9 +256,22 @@ export default function WhyChooseAustinBachelorParty() {
         defaultKeywords={['Austin bachelor party', 'Lake Travis bachelor party', 'bachelor party Austin Texas', 'Austin vs Vegas bachelor party', 'bachelor party ideas Austin']}
         image="https://premierpartycruises.com/attached_assets/bachelor-party-group-guys-hero-compressed.webp"
       />
+      <BlogV2Layout
+        title="Why Choose Austin for Your Bachelor Party | 10 Epic Reasons"
+        description="Austin crushes Vegas and Miami for bachelor parties. Lake Travis boats, legendary BBQ, no income tax, electric nightlife. Here's why the groom squad picks ATX."
+        slug="why-choose-austin-bachelor-party"
+        category="Bachelor Guides"
+        categoryHref="/bachelor-party-austin"
+        pillarTitle="Austin Bachelor Party Guide"
+        pillarHref="/bachelor-party-austin"
+        relatedArticles={[
+          { title: "Austin Bachelor Party Ideas", href: "/blogs/austin-bachelor-party-ideas" },
+          { title: "Party Boat vs Downtown Night Out", href: "/blogs/lake-travis-party-boat-vs-downtown-night-out-austin-bachelor" },
+          { title: "Bachelor Party Outfit Ideas for ATX Disco Cruise", href: "/blogs/bachelor-party-outfit-ideas-atx-disco-cruise" },
+        ]}
+      >
 
       <div className="min-h-screen bg-white dark:bg-gray-950">
-        <PublicNavigation />
 
         {/* Epic Hero Section */}
         <m.section 
@@ -770,8 +782,8 @@ export default function WhyChooseAustinBachelorParty() {
           </div>
         </section>
 
-        <Footer />
       </div>
+      </BlogV2Layout>
     </>
     </LazyMotionProvider>
   );

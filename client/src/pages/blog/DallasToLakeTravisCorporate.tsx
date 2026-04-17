@@ -10,8 +10,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
@@ -180,8 +179,21 @@ export default function DallasToLakeTravisCorporate() {
         defaultKeywords={['Dallas corporate retreat Austin', 'out of town company event Lake Travis', 'Texas corporate getaway boat', 'Dallas to Austin corporate outing', 'corporate team building Lake Travis']}
       />
 
+      <BlogV2Layout
+        title="Dallas Corporate Retreat Austin | Out of Town Company Events Lake Travis"
+        description="Plan your Dallas corporate retreat Austin on Lake Travis. Texas corporate getaway boat experiences for out of town company events. Dallas to Austin corporate outing packages for 14-75 guests."
+        slug="dallas-to-lake-travis-corporate"
+        category="Corporate Guides"
+        categoryHref="/corporate-events"
+        pillarTitle="Austin Corporate Events Guide"
+        pillarHref="/corporate-events"
+        relatedArticles={[
+          { title: "Austin Best Corporate Events", href: "/blogs/austin-best-corporate-events" },
+          { title: "Destination Austin Off-Site Retreats", href: "/blogs/destination-austin-offsite-retreats" },
+          { title: "Why Austin Companies Choose Premier", href: "/blogs/why-austin-companies-choose-premier" },
+        ]}
+      >
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="dallas-lake-travis-corporate-page">
-        <PublicNavigation />
 
         {/* Hero Section */}
         <m.section 
@@ -635,8 +647,8 @@ export default function DallasToLakeTravisCorporate() {
         {/* Quote Builder Section */}
         <QuoteBuilderSection />
 
-        <Footer />
       </div>
+      </BlogV2Layout>
     </>
     </LazyMotionProvider>
   );

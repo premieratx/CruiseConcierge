@@ -12,8 +12,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
@@ -141,8 +140,20 @@ export default function SafestAustinBachelorPartyLakeTravis() {
         defaultKeywords={['austin bachelor party', 'lake travis party boat', 'bachelor party austin', 'lake travis bachelor party', 'austin party boat', 'bachelor party ideas austin', 'austin bachelor weekend']}
         image="https://premierpartycruises.com/attached_assets/bachelor-party-group-guys-hero-compressed.webp"
       />
-
-      <PublicNavigation />
+      <BlogV2Layout
+        title="Safest Austin Bachelor Party: Lake Travis Party Boats"
+        description="Plan a safe Austin bachelor party on Lake Travis. Licensed captains, BYOB savings, and stress-free celebration without chaos or hidden costs."
+        slug="safest-austin-bachelor-party-lake-travis-party-boat"
+        category="Bachelor Guides"
+        categoryHref="/bachelor-party-austin"
+        pillarTitle="Austin Bachelor Party Guide"
+        pillarHref="/bachelor-party-austin"
+        relatedArticles={[
+          { title: "Epic Austin Bachelor Party Ultimate Guide", href: "/blogs/epic-bachelor-party-austin-ultimate-guide" },
+          { title: "Lake Travis Bachelor Party Boats Guide", href: "/blogs/lake-travis-bachelor-party-boats-guide" },
+          { title: "How to Throw a Great Bachelor Party in Austin", href: "/blogs/how-to-throw-great-bachelor-party-austin" },
+        ]}
+      >
 
       <main className="min-h-screen bg-white">
         <section className="relative min-h-[60vh] flex items-center justify-center overflow-hidden">
@@ -743,7 +754,7 @@ export default function SafestAustinBachelorPartyLakeTravis() {
         </section>
       </main>
 
-      <Footer />
+      </BlogV2Layout>
     </>
     </LazyMotionProvider>
   );

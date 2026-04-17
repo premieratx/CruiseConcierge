@@ -11,8 +11,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
@@ -176,8 +175,21 @@ export default function CreativeLakeTravisPartyThemes() {
         image={heroImage}
       />
 
+      <BlogV2Layout
+        title="Creative Lake Travis Boat Party Themes - Unique Ideas for Memorable Celebrations"
+        description="Discover creative Lake Travis boat party theme ideas for unforgettable celebrations. Unique party boat themes Austin including disco, tropical, VIP luxury, and more. Boat party celebration ideas for bachelor, bachelorette, corporate, and special events."
+        slug="creative-lake-travis-boat-party-themes-unique-ideas-for-memorable-celebrations"
+        category="Planning Guides"
+        categoryHref="/private-cruises"
+        pillarTitle="Private Party Boat Charters"
+        pillarHref="/private-cruises"
+        relatedArticles={[
+          { title: "Lake Travis Boat Party Entertainment - Activities & Amenities", href: "/blogs/lake-travis-boat-party-entertainment-activities-and-amenities-for-unforgettable-events" },
+          { title: "Lake Travis Boat Party Music - Sound Systems & Entertainment", href: "/blogs/lake-travis-boat-party-music-sound-systems-and-entertainment-coordination" },
+          { title: "Lake Travis Boat Party Photography - Capturing Perfect Memories", href: "/blogs/lake-travis-boat-party-photography-capturing-perfect-memories-on-the-water" },
+        ]}
+      >
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="lake-travis-boat-party-themes-page">
-        <PublicNavigation />
 
         {/* Hero Section */}
         <m.section 
@@ -623,8 +635,8 @@ export default function CreativeLakeTravisPartyThemes() {
           </div>
         </section>
 
-        <Footer />
       </div>
+      </BlogV2Layout>
     </>
     </LazyMotionProvider>
   );

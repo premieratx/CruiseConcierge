@@ -11,8 +11,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
@@ -176,8 +175,21 @@ export default function CorporateBoatPartiesAustin() {
         defaultKeywords={['corporate boat parties Austin', 'Lake Travis corporate events', 'Austin company party boat', 'team building boat rental', 'corporate event venue Austin']}
       />
 
+      <BlogV2Layout
+        title="Corporate Boat Parties in Austin | Lake Travis Venue That Beats Ballrooms"
+        description="Looking for unique corporate event ideas in Austin? Discover why Lake Travis party boats outperform traditional venues for team-building, client entertainment, and company celebrations."
+        slug="corporate-boat-parties-austin-lake-travis-smartest-venue"
+        category="Corporate Guides"
+        categoryHref="/corporate-events"
+        pillarTitle="Austin Corporate Events Guide"
+        pillarHref="/corporate-events"
+        relatedArticles={[
+          { title: "Why Austin Companies Choose Premier", href: "/blogs/why-austin-companies-choose-premier" },
+          { title: "All Inclusive Corporate Packages", href: "/blogs/all-inclusive-corporate-packages" },
+          { title: "Austin Best Corporate Events", href: "/blogs/austin-best-corporate-events" },
+        ]}
+      >
       <div className="min-h-screen bg-white dark:bg-gray-950">
-        <PublicNavigation />
 
         {/* Hero Section - Boats Beat Ballrooms */}
         <m.section 
@@ -788,8 +800,8 @@ export default function CorporateBoatPartiesAustin() {
           </div>
         </section>
 
-        <Footer />
       </div>
+      </BlogV2Layout>
     </>
     </LazyMotionProvider>
   );

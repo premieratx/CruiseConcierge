@@ -11,8 +11,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
@@ -211,8 +210,21 @@ export default function HolidayOfficePartyAlcohol() {
         image="https://premierpartycruises.com/attached_assets/@capitalcityshots-18_1760080740021.jpg"
       />
 
+      <BlogV2Layout
+        title="Holiday Office Party Alcohol Delivery: Stress-Free Corporate Celebration Planning | Premier Party Cruises"
+        description="Plan stress-free corporate celebration with holiday office party alcohol delivery on Lake Travis. Complete planning guide for 14-75 guests. Party On Delivery coordination included."
+        slug="holiday-office-party-alcohol-delivery-stress-free-corporate-celebration-planning"
+        category="Corporate Guides"
+        categoryHref="/corporate-events"
+        pillarTitle="Austin Corporate Events Guide"
+        pillarHref="/corporate-events"
+        relatedArticles={[
+          { title: "Company Holiday Party Lake Travis", href: "/blogs/company-holiday-party-lake-travis" },
+          { title: "Employee Appreciation Day Lake Travis", href: "/blogs/employee-appreciation-day-reward-your-team-with-an-easy-all-inclusive-boat-party" },
+          { title: "Startup Celebration Alcohol Packages", href: "/blogs/startup-celebration-alcohol-packages-funding-rounds-launches-and-milestone-events" },
+        ]}
+      >
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="holiday-office-party-alcohol-page">
-        <PublicNavigation />
 
         {/* Hero Section */}
         <m.section 
@@ -639,8 +651,8 @@ export default function HolidayOfficePartyAlcohol() {
           </div>
         </section>
 
-        <Footer />
       </div>
+      </BlogV2Layout>
     </>
     </LazyMotionProvider>
   );

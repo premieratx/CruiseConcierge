@@ -11,8 +11,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
@@ -185,8 +184,21 @@ export default function ConferenceAfterPartyAlcohol() {
         image="https://premierpartycruises.com/attached_assets/@capitalcityshots-14_1760080740020.jpg"
       />
 
+      <BlogV2Layout
+        title="Conference After Party Alcohol Coordination: SXSW, ACL & Austin Event Integration | Premier Party Cruises"
+        description="Master conference after party alcohol coordination for SXSW, ACL, and Austin events. Expert Austin event integration for corporate gatherings on Lake Travis. BYOB boats for 14-75 guests."
+        slug="conference-after-party-alcohol-coordination-sxsw-acl-and-austin-event-integration"
+        category="Event Planning Guides"
+        categoryHref="/private-cruises"
+        pillarTitle="Austin Event Planning"
+        pillarHref="/private-cruises"
+        relatedArticles={[
+          { title: 'Integrated Austin Event Services: Alcohol Delivery + Boat Rentals', href: '/blogs/integrated-austin-event-services-combining-alcohol-delivery-and-boat-rentals-for-perfect-celebrations' },
+          { title: 'Austin Party Venue Alcohol Delivery: Navigating Policies & Logistics', href: '/blogs/austin-party-venue-alcohol-delivery-navigating-policies-and-logistics' },
+          { title: 'Why Choose Integrated Event Services: Comparing Austin Party Planning Options', href: '/blogs/why-choose-integrated-event-services-comparing-austin-party-planning-options' }
+        ]}
+      >
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="conference-after-party-alcohol-page">
-        <PublicNavigation />
 
         {/* Hero Section */}
         <m.section 
@@ -596,8 +608,8 @@ export default function ConferenceAfterPartyAlcohol() {
           </div>
         </section>
 
-        <Footer />
       </div>
+      </BlogV2Layout>
     </>
     </LazyMotionProvider>
   );

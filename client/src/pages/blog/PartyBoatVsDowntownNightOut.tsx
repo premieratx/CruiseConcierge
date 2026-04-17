@@ -11,8 +11,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
@@ -281,8 +280,20 @@ export default function PartyBoatVsDowntownNightOut() {
         defaultKeywords={['austin bachelor party', 'lake travis party boat', 'downtown austin nightlife', 'bachelor party ideas austin', 'party boat vs bars', 'austin bachelor weekend', '6th street bachelor party']}
         image="https://premierpartycruises.com/attached_assets/bachelor-party-group-guys-hero-compressed.webp"
       />
-
-      <PublicNavigation />
+      <BlogV2Layout
+        title="Party Boat vs Downtown Austin Night Out Comparison Guide"
+        description="Lake Travis party boats vs downtown Austin nightlife for bachelor parties. Compare costs, privacy, and fun to find the ultimate celebration experience."
+        slug="lake-travis-party-boat-vs-downtown-night-out-austin-bachelor"
+        category="Bachelor Guides"
+        categoryHref="/bachelor-party-austin"
+        pillarTitle="Austin Bachelor Party Guide"
+        pillarHref="/bachelor-party-austin"
+        relatedArticles={[
+          { title: "Austin Bachelor Party Ideas", href: "/blogs/austin-bachelor-party-ideas" },
+          { title: "Why Choose Austin for Your Bachelor Party", href: "/blogs/why-choose-austin-bachelor-party" },
+          { title: "Bachelor Party Outfit Ideas for ATX Disco Cruise", href: "/blogs/bachelor-party-outfit-ideas-atx-disco-cruise" },
+        ]}
+      >
 
       <main className="min-h-screen bg-white">
         <section className="relative min-h-[60vh] flex items-center justify-center overflow-hidden">
@@ -900,7 +911,7 @@ export default function PartyBoatVsDowntownNightOut() {
         </section>
       </main>
 
-      <Footer />
+      </BlogV2Layout>
     </>
     </LazyMotionProvider>
   );

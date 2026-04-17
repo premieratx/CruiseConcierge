@@ -12,8 +12,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { BlogImageBreak, BlogPhotoStrip, BLOG_PARTY_PHOTOS } from '@/components/BlogImageBreak';
@@ -153,8 +152,21 @@ export default function PoolPartyAlcoholCoordination() {
         image="https://premierpartycruises.com/attached_assets/@capitalcityshots-10_1760080740019.jpg"
       />
 
+      <BlogV2Layout
+        title="Pool Party Alcohol Coordination: Summer Event Planning in Austin Heat | Premier Party Cruises"
+        description="Master pool party alcohol coordination for Austin summer events. Expert summer event planning tips for Lake Travis boat parties. Calculate drinks for 14-75 guests, keep beverages cold in Austin heat, and coordinate delivery. Pool party alcohol coordination guide from Premier Party Cruises."
+        slug="pool-party-alcohol-coordination-summer-event-planning-in-austin-heat"
+        category="Event Planning Guides"
+        categoryHref="/private-cruises"
+        pillarTitle="Austin Event Planning"
+        pillarHref="/private-cruises"
+        relatedArticles={[
+          { title: 'Austin Party Venue Alcohol Delivery: Navigating Policies & Logistics', href: '/blogs/austin-party-venue-alcohol-delivery-navigating-policies-and-logistics' },
+          { title: 'Integrated Austin Event Services: Alcohol Delivery + Boat Rentals', href: '/blogs/integrated-austin-event-services-combining-alcohol-delivery-and-boat-rentals-for-perfect-celebrations' },
+          { title: 'Holiday Party Alcohol Themes: New Year\'s, Fourth of July & Austin Celebrations', href: '/blogs/holiday-party-alcohol-themes-new-years-fourth-of-july-and-austin-celebrations' }
+        ]}
+      >
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="pool-party-alcohol-coordination-page">
-        <PublicNavigation />
 
         {/* Hero Section */}
         <m.section 
@@ -606,8 +618,8 @@ export default function PoolPartyAlcoholCoordination() {
           </div>
         </section>
 
-        <Footer />
       </div>
+      </BlogV2Layout>
     </>
     </LazyMotionProvider>
   );

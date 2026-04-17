@@ -12,8 +12,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
@@ -183,8 +182,21 @@ export default function LakeTravisBoatPartyPhotography() {
         image={heroImage}
       />
 
+      <BlogV2Layout
+        title="Lake Travis Boat Party Photography - Capturing Perfect Memories"
+        description="Complete guide to Lake Travis boat party photography. Party boat photos Austin tips, professional boat party photographer Lake Travis options, and how to capture amazing photos on Lake Travis party boat. Austin boat party pictures made easy."
+        slug="lake-travis-boat-party-photography-capturing-perfect-memories-on-the-water"
+        category="Planning Guides"
+        categoryHref="/private-cruises"
+        pillarTitle="Private Party Boat Charters"
+        pillarHref="/private-cruises"
+        relatedArticles={[
+          { title: "Lake Travis Boat Party Entertainment - Activities & Amenities", href: "/blogs/lake-travis-boat-party-entertainment-activities-and-amenities-for-unforgettable-events" },
+          { title: "Lake Travis Boat Party Music - Sound Systems & Entertainment", href: "/blogs/lake-travis-boat-party-music-sound-systems-and-entertainment-coordination" },
+          { title: "Lake Travis Boat Party Catering - Food & Beverage", href: "/blogs/lake-travis-boat-party-catering-food-and-beverage-coordination-for-perfect-events" },
+        ]}
+      >
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="lake-travis-boat-party-photography-page">
-        <PublicNavigation />
 
         {/* Hero Section */}
         <m.section 
@@ -603,8 +615,8 @@ export default function LakeTravisBoatPartyPhotography() {
           </div>
         </section>
 
-        <Footer />
       </div>
+      </BlogV2Layout>
     </>
     </LazyMotionProvider>
   );

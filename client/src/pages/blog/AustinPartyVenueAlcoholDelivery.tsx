@@ -10,8 +10,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
 import heroImage from '@assets/atx-disco-cruise-party.webp';
@@ -145,8 +144,21 @@ export default function AustinPartyVenueAlcoholDelivery() {
         defaultKeywords={['Austin alcohol delivery', 'TABC compliance', 'party venue alcohol', 'Lake Travis alcohol delivery', 'Austin party planning']}
       />
 
+      <BlogV2Layout
+        title="Austin Party Venue Alcohol Delivery | TABC Policies & Logistics Guide"
+        description="Navigate Austin's alcohol delivery rules with ease. Learn TABC compliance, venue coordination, and Lake Travis delivery options. Party On Delivery makes it simple."
+        slug="austin-party-venue-alcohol-delivery-navigating-policies-and-logistics"
+        category="Event Planning Guides"
+        categoryHref="/private-cruises"
+        pillarTitle="Austin Event Planning"
+        pillarHref="/private-cruises"
+        relatedArticles={[
+          { title: 'Integrated Austin Event Services: Alcohol Delivery + Boat Rentals', href: '/blogs/integrated-austin-event-services-combining-alcohol-delivery-and-boat-rentals-for-perfect-celebrations' },
+          { title: 'Birthday Party Alcohol Delivery Austin: Milestone Celebrations Made Easy', href: '/blogs/birthday-party-alcohol-delivery-austin-milestone-celebrations-made-easy' },
+          { title: 'Conference After-Party Alcohol Coordination: SXSW, ACL & Austin Events', href: '/blogs/conference-after-party-alcohol-coordination-sxsw-acl-and-austin-event-integration' }
+        ]}
+      >
       <div className="min-h-screen bg-white dark:bg-gray-950">
-        <PublicNavigation />
 
         {/* Hero Section */}
         <m.section 
@@ -538,8 +550,8 @@ export default function AustinPartyVenueAlcoholDelivery() {
           </div>
         </section>
 
-        <Footer />
       </div>
+      </BlogV2Layout>
     </>
     </LazyMotionProvider>
   );

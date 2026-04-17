@@ -10,8 +10,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
 import heroImage from '@assets/@capitalcityshots-16_1760080740020.jpg';
@@ -192,8 +191,21 @@ export default function GraduationPartyAlcoholPlanning() {
         image={heroImage}
       />
 
+      <BlogV2Layout
+        title="Graduation Party Alcohol Planning: UT and Austin College Celebrations | Premier Party Cruises"
+        description="Plan the perfect graduation party in Austin. Get alcohol delivered with Party On Delivery. Book Lake Travis cruises for UT and Austin college grads. Easy planning tips inside."
+        slug="graduation-party-alcohol-planning-ut-and-austin-college-celebrations"
+        category="Celebration Guides"
+        categoryHref="/graduation-party"
+        pillarTitle="Austin Graduation Parties"
+        pillarHref="/graduation-party"
+        relatedArticles={[
+          { title: 'The Ultimate Austin Bachelorette Party Alcohol Guide', href: '/blogs/the-ultimate-austin-bachelorette-party-alcohol-guide-what-to-order-when-to-order-and-how-much-you-actually-need' },
+          { title: 'Holiday Party Alcohol Themes: New Year\'s, Fourth of July & Austin Celebrations', href: '/blogs/holiday-party-alcohol-themes-new-years-fourth-of-july-and-austin-celebrations' },
+          { title: 'Pool Party Alcohol Coordination: Summer Event Planning in Austin Heat', href: '/blogs/pool-party-alcohol-coordination-summer-event-planning-in-austin-heat' }
+        ]}
+      >
       <div className="min-h-screen bg-white dark:bg-gray-950">
-        <PublicNavigation />
 
         {/* Hero Section */}
         <m.section 
@@ -680,8 +692,8 @@ export default function GraduationPartyAlcoholPlanning() {
           </div>
         </section>
 
-        <Footer />
       </div>
+      </BlogV2Layout>
     </>
     </LazyMotionProvider>
   );

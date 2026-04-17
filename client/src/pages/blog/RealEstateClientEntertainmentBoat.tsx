@@ -10,8 +10,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
@@ -151,8 +150,21 @@ export default function RealEstateClientEntertainmentBoat() {
         image={heroImage}
       />
 
+      <BlogV2Layout
+        title="Real Estate Client Entertainment Boat Austin | Realtor Party Boat Lake Travis"
+        description="Host unforgettable real estate client event Austin experiences. Realtor party boat Lake Travis perfect for client entertainment Austin and real estate team building Lake Travis. Private charters for 14-75 guests."
+        slug="real-estate-client-entertainment-boat-austin"
+        category="Corporate Guides"
+        categoryHref="/corporate-events"
+        pillarTitle="Austin Corporate Events Guide"
+        pillarHref="/corporate-events"
+        relatedArticles={[
+          { title: "Client Entertainment Alcohol Strategy", href: "/blogs/client-entertainment-alcohol-strategy-impressing-without-overdoing-it" },
+          { title: "Finance & Law Firms Boat Parties", href: "/blogs/finance-law-firms-boat-parties-austin" },
+          { title: "All Inclusive Corporate Packages", href: "/blogs/all-inclusive-corporate-packages" },
+        ]}
+      >
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="real-estate-blog-page">
-        <PublicNavigation />
 
         {/* Hero Section */}
         <m.section 
@@ -686,8 +698,8 @@ export default function RealEstateClientEntertainmentBoat() {
           </div>
         </section>
 
-        <Footer />
       </div>
+      </BlogV2Layout>
     </>
     </LazyMotionProvider>
   );

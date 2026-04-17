@@ -3,8 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Calendar, Phone, Sun, CheckCircle2, Users, Music, Ship, MapPin, Utensils, ThermometerSun, PartyPopper, Star, ChevronRight, Leaf, DollarSign, Backpack } from 'lucide-react';
 import { Link } from 'wouter';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import { LazyImage } from '@/components/LazyImage';
 import MonthlyGuidesNav from '@/components/MonthlyGuidesNav';
 
@@ -23,8 +22,20 @@ export default function AustinBachelorPartySeptember() {
         defaultKeywords={['September bachelor party Austin', 'Austin bachelor party', 'Lake Travis party boat', 'Labor Day bachelor party', 'Austin nightlife September']}
         image="https://premierpartycruises.com/attached_assets/@capitalcityshots-1_1760080740012.jpg"
       />
-
-      <PublicNavigation />
+      <BlogV2Layout
+        title="Why Austin is Perfect for Bachelor Parties in September"
+        description="Plan a September Austin bachelor party: 71°F-91°F weather, Labor Day vibe, Lake Travis boats & complete guide. Rain or shine, great deals and perfect conditions!"
+        slug="austin-bachelor-party-september"
+        category="Bachelor Guides"
+        categoryHref="/bachelor-party-austin"
+        pillarTitle="Austin Bachelor Party Guide"
+        pillarHref="/bachelor-party-austin"
+        relatedArticles={[
+          { title: "Austin Bachelor Party in July", href: "/blogs/austin-bachelor-party-july" },
+          { title: "Austin Bachelor Party in November", href: "/blogs/austin-bachelor-party-november" },
+          { title: "Epic Austin Bachelor Party Ultimate Guide", href: "/blogs/epic-bachelor-party-austin-ultimate-guide" },
+        ]}
+      >
 
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-orange-500 via-amber-600 to-yellow-600 text-white py-20 overflow-hidden">
@@ -506,7 +517,7 @@ export default function AustinBachelorPartySeptember() {
 
       <MonthlyGuidesNav type="bachelor" currentMonth="September" />
 
-      <Footer />
+      </BlogV2Layout>
     </div>
   );
 }

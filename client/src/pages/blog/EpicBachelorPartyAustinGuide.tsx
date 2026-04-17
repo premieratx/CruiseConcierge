@@ -11,8 +11,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { LazyImage } from '@/components/LazyImage';
 
@@ -64,8 +63,20 @@ export default function EpicBachelorPartyAustinGuide() {
         defaultKeywords={['bachelor party Austin', 'Austin bachelor party ideas', 'Lake Travis bachelor party', 'ATX Disco Cruise', 'Austin nightlife bachelor party', 'bachelor party planning Austin TX', 'Sixth Street bachelor party', 'Rainey Street bachelor party']}
         image="https://premierpartycruises.com/attached_assets/bachelor-party-group-guys-hero-compressed.webp"
       />
-
-      <PublicNavigation />
+      <BlogV2Layout
+        title="Epic Bachelor Party Austin, TX: Top Ideas & Tips"
+        description="Plan the ultimate bachelor party in Austin, TX! Discover nightlife, outdoor adventures, Lake Travis boat parties, BBQ spots, and insider tips including the legendary ATX Disco Cruise."
+        slug="epic-bachelor-party-austin-ultimate-guide"
+        category="Bachelor Guides"
+        categoryHref="/bachelor-party-austin"
+        pillarTitle="Austin Bachelor Party Guide"
+        pillarHref="/bachelor-party-austin"
+        relatedArticles={[
+          { title: "Top 10 Reasons for a Lake Travis Bachelor Party Boat", href: "/blogs/top-10-reasons-austin-bachelor-party-lake-travis-boat" },
+          { title: "Lake Travis Bachelor Party Boats Guide", href: "/blogs/lake-travis-bachelor-party-boats-guide" },
+          { title: "Austin Bachelor Party Ideas", href: "/blogs/austin-bachelor-party-ideas" },
+        ]}
+      >
 
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-blue-900 via-slate-900 to-black text-white py-20 overflow-hidden">
@@ -847,7 +858,7 @@ export default function EpicBachelorPartyAustinGuide() {
         </div>
       </section>
 
-      <Footer />
+      </BlogV2Layout>
     </div>
     </LazyMotionProvider>
   );

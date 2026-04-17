@@ -3,8 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Calendar, Phone, CheckCircle2, Users, Music, Ship, MapPin, Utensils, ThermometerSun, PartyPopper, Star, ChevronRight, Leaf, DollarSign, Backpack } from 'lucide-react';
 import { Link } from 'wouter';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import { LazyImage } from '@/components/LazyImage';
 import MonthlyGuidesNav from '@/components/MonthlyGuidesNav';
 
@@ -23,8 +22,20 @@ export default function AustinBachelorPartyNovember() {
         defaultKeywords={['November bachelor party Austin', 'Austin bachelor party', 'Lake Travis party boat', 'Thanksgiving bachelor party', 'Austin nightlife November', 'UT football bachelor party']}
         image="https://premierpartycruises.com/attached_assets/@capitalcityshots-21_1760080807864.jpg"
       />
-
-      <PublicNavigation />
+      <BlogV2Layout
+        title="Why Austin is Perfect for Bachelor Parties in November"
+        description="Plan a November Austin bachelor party: 52°F-71°F crisp weather, UT Football rivalry games, Thanksgiving vibes & Lake Travis boats. Rain or shine, shoulder season deals!"
+        slug="austin-bachelor-party-november"
+        category="Bachelor Guides"
+        categoryHref="/bachelor-party-austin"
+        pillarTitle="Austin Bachelor Party Guide"
+        pillarHref="/bachelor-party-austin"
+        relatedArticles={[
+          { title: "Austin Bachelor Party in September", href: "/blogs/austin-bachelor-party-september" },
+          { title: "Austin Bachelor Party in January", href: "/blogs/austin-bachelor-party-january" },
+          { title: "Epic Austin Bachelor Party Ultimate Guide", href: "/blogs/epic-bachelor-party-austin-ultimate-guide" },
+        ]}
+      >
 
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-amber-600 via-orange-700 to-red-700 text-white py-20 overflow-hidden">
@@ -506,7 +517,7 @@ export default function AustinBachelorPartyNovember() {
 
       <MonthlyGuidesNav type="bachelor" currentMonth="November" />
 
-      <Footer />
+      </BlogV2Layout>
     </div>
   );
 }

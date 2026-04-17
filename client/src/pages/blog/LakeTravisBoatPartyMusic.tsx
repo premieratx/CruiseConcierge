@@ -12,8 +12,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
@@ -172,8 +171,21 @@ export default function LakeTravisBoatPartyMusic() {
         image={heroImage}
       />
 
+      <BlogV2Layout
+        title="Lake Travis Boat Party Music - Sound Systems & Entertainment"
+        description="Complete guide to Lake Travis boat party music and sound systems. Party boat sound system Austin features, boat party DJ Austin tips, and music for boat parties Lake Travis. Premium Bluetooth audio on all vessels."
+        slug="lake-travis-boat-party-music-sound-systems-and-entertainment-coordination"
+        category="Planning Guides"
+        categoryHref="/private-cruises"
+        pillarTitle="Private Party Boat Charters"
+        pillarHref="/private-cruises"
+        relatedArticles={[
+          { title: "Lake Travis Boat Party Entertainment - Activities & Amenities", href: "/blogs/lake-travis-boat-party-entertainment-activities-and-amenities-for-unforgettable-events" },
+          { title: "Lake Travis Boat Party Catering - Food & Beverage", href: "/blogs/lake-travis-boat-party-catering-food-and-beverage-coordination-for-perfect-events" },
+          { title: "Lake Travis Boat Party Photography - Capturing Perfect Memories", href: "/blogs/lake-travis-boat-party-photography-capturing-perfect-memories-on-the-water" },
+        ]}
+      >
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="lake-travis-boat-party-music-page">
-        <PublicNavigation />
 
         {/* Hero Section */}
         <m.section 
@@ -580,8 +592,8 @@ export default function LakeTravisBoatPartyMusic() {
           </div>
         </section>
 
-        <Footer />
       </div>
+      </BlogV2Layout>
     </>
     </LazyMotionProvider>
   );

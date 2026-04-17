@@ -12,8 +12,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
@@ -203,8 +202,21 @@ export default function LakeTravisBoatSafetyGuidelines() {
         image={heroImage}
       />
 
+      <BlogV2Layout
+        title="Lake Travis Boat Safety - Essential Guidelines for Safe Party Cruises"
+        description="Essential Lake Travis boat safety guidelines for safe party cruises. Learn party boat safety Lake Travis rules, swimming safety, emergency procedures, and what makes our safe party cruises Lake Travis the best choice. 14+ years, 100% safety record."
+        slug="lake-travis-boat-safety-essential-guidelines-for-safe-party-cruises"
+        category="Safety Guides"
+        categoryHref="/private-cruises"
+        pillarTitle="Private Party Boat Charters"
+        pillarHref="/private-cruises"
+        relatedArticles={[
+          { title: "Lake Travis Boat Safety & Maintenance Standards", href: "/blogs/lake-travis-boat-safety-and-maintenance-quality-standards-for-party-cruises" },
+          { title: "Safety First - Premier's Perfect Record & First Aid Training", href: "/blogs/safety-first-how-premiers-perfect-record-and-first-aid-training-set-us-apart" },
+          { title: "Why Licensed Captains Matter for Lake Travis Party Boats", href: "/blogs/why-licensed-captains-matter-lake-travis-party-boats" },
+        ]}
+      >
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="lake-travis-boat-safety-guidelines-page">
-        <PublicNavigation />
 
         {/* Hero Section */}
         <m.section 
@@ -722,8 +734,8 @@ export default function LakeTravisBoatSafetyGuidelines() {
           </div>
         </section>
 
-        <Footer />
       </div>
+      </BlogV2Layout>
     </>
     </LazyMotionProvider>
   );

@@ -10,8 +10,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
 import heroImage from '@assets/@capitalcityshots-12_1760080740019.jpg';
@@ -149,8 +148,21 @@ export default function CorporateTeamBuildingLakeTravis() {
         defaultKeywords={['corporate team building Lake Travis', 'Austin corporate events', 'company boat rental', 'team building cruise Austin', 'corporate party boat']}
       />
 
+      <BlogV2Layout
+        title="Corporate Team Building on Lake Travis | Professional Boat Rental Solutions"
+        description="Plan professional corporate events on Lake Travis. Team building cruises, client entertainment, and company celebrations with Premier Party Cruises. Private boat charters for 14-75 guests."
+        slug="corporate-team-building-on-lake-travis-professional-boat-rental-solutions"
+        category="Corporate Guides"
+        categoryHref="/corporate-events"
+        pillarTitle="Austin Corporate Events Guide"
+        pillarHref="/corporate-events"
+        relatedArticles={[
+          { title: "Quarterly Outings Lake Travis", href: "/blogs/quarterly-outings-lake-travis-make-routine-company-events-easy" },
+          { title: "Employee Appreciation Day Lake Travis", href: "/blogs/employee-appreciation-day-reward-your-team-with-an-easy-all-inclusive-boat-party" },
+          { title: "Corporate Team Building Alcohol Coordination", href: "/blogs/corporate-team-building-on-lake-travis-alcohol-coordination-for-professional-events" },
+        ]}
+      >
       <div className="min-h-screen bg-white dark:bg-gray-950">
-        <PublicNavigation />
 
         {/* Hero Section */}
         <m.section 
@@ -621,8 +633,8 @@ export default function CorporateTeamBuildingLakeTravis() {
           </div>
         </section>
 
-        <Footer />
       </div>
+      </BlogV2Layout>
     </>
     </LazyMotionProvider>
   );

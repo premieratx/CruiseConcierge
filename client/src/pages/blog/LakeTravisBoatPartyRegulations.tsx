@@ -10,8 +10,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import RelatedBlogArticles from '@/components/RelatedBlogArticles';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
@@ -169,8 +168,21 @@ export default function LakeTravisBoatPartyRegulations() {
         defaultKeywords={['Lake Travis boat regulations', 'TABC compliance boat party', 'Texas boating laws', 'Lake Travis party rules', 'boat party legal requirements']}
       />
 
+      <BlogV2Layout
+        title="Lake Travis Boat Party Regulations - Legal Requirements Guide"
+        description="Complete guide to Lake Travis boat party regulations. Learn about TABC rules, boating laws, safety requirements, and how Premier Party Cruises handles compliance for you."
+        slug="lake-travis-boat-party-regulations-legal-requirements-and-compliance-guide"
+        category="Planning Guides"
+        categoryHref="/private-cruises"
+        pillarTitle="Private Party Boat Charters"
+        pillarHref="/private-cruises"
+        relatedArticles={[
+          { title: "Lake Travis Boat Party Logistics - Complete Planning Guide", href: "/blogs/lake-travis-boat-party-logistics-complete-planning-and-coordination-guide" },
+          { title: "Lake Travis Boat Party Insurance - Coverage & Liability", href: "/blogs/lake-travis-boat-party-insurance-understanding-coverage-and-liability-for-events" },
+          { title: "Lake Travis Weather Planning - Seasonal Considerations", href: "/blogs/lake-travis-weather-planning-seasonal-considerations-for-perfect-boat-parties" },
+        ]}
+      >
       <div className="min-h-screen bg-white dark:bg-gray-950">
-        <PublicNavigation />
 
         {/* Hero Section */}
         <m.section 
@@ -538,8 +550,8 @@ export default function LakeTravisBoatPartyRegulations() {
         </section>
 
         <RelatedBlogArticles category="safety" currentSlug="/blogs/lake-travis-boat-party-regulations-legal-requirements-and-compliance-guide" />
-        <Footer />
       </div>
+      </BlogV2Layout>
     </>
     </LazyMotionProvider>
   );

@@ -11,8 +11,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
@@ -219,8 +218,21 @@ export default function CompanyHolidayPartyLakeTravis() {
         image="https://premierpartycruises.com/attached_assets/@capitalcityshots-1_1760080740012.jpg"
       />
 
+      <BlogV2Layout
+        title="How to Throw the Perfect Company Holiday Party on Lake Travis | Austin Corporate Celebrations"
+        description="Plan the ultimate company holiday party Austin experience on Lake Travis. Corporate holiday party boat rentals for 14-75 guests. BYOB, catering coordination, and stunning sunset views."
+        slug="company-holiday-party-lake-travis"
+        category="Corporate Guides"
+        categoryHref="/corporate-events"
+        pillarTitle="Austin Corporate Events Guide"
+        pillarHref="/corporate-events"
+        relatedArticles={[
+          { title: "Holiday Office Party Alcohol Delivery", href: "/blogs/holiday-office-party-alcohol-delivery-stress-free-corporate-celebration-planning" },
+          { title: "Employee Appreciation Day Lake Travis", href: "/blogs/employee-appreciation-day-reward-your-team-with-an-easy-all-inclusive-boat-party" },
+          { title: "Startup Celebration Alcohol Packages", href: "/blogs/startup-celebration-alcohol-packages-funding-rounds-launches-and-milestone-events" },
+        ]}
+      >
       <div className="min-h-screen bg-white dark:bg-gray-950">
-        <PublicNavigation />
 
         {/* Hero Section */}
         <m.section 
@@ -810,8 +822,8 @@ export default function CompanyHolidayPartyLakeTravis() {
           </div>
         </section>
 
-        <Footer />
       </div>
+      </BlogV2Layout>
     </>
     </LazyMotionProvider>
   );

@@ -11,8 +11,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
@@ -181,8 +180,21 @@ export default function EmployeeAppreciationDayLakeTravis() {
         image={heroImage}
       />
 
+      <BlogV2Layout
+        title="Employee Appreciation Day Boat Party Lake Travis | Corporate Events Austin | Premier Party Cruises"
+        description="Plan the perfect employee appreciation boat party on Lake Travis. All-inclusive corporate boat party Austin with team building activities, BYOB, catering coordination. Book your Lake Travis corporate event today!"
+        slug="employee-appreciation-day-reward-your-team-with-an-easy-all-inclusive-boat-party"
+        category="Corporate Guides"
+        categoryHref="/corporate-events"
+        pillarTitle="Austin Corporate Events Guide"
+        pillarHref="/corporate-events"
+        relatedArticles={[
+          { title: "Quarterly Outings Lake Travis", href: "/blogs/quarterly-outings-lake-travis-make-routine-company-events-easy" },
+          { title: "Corporate Team Building Lake Travis", href: "/blogs/corporate-team-building-on-lake-travis-professional-boat-rental-solutions" },
+          { title: "Company Holiday Party Lake Travis", href: "/blogs/company-holiday-party-lake-travis" },
+        ]}
+      >
       <div className="min-h-screen bg-white dark:bg-gray-950">
-        <PublicNavigation />
 
         {/* Hero Section */}
         <m.section 
@@ -668,8 +680,8 @@ export default function EmployeeAppreciationDayLakeTravis() {
           </div>
         </section>
 
-        <Footer />
       </div>
+      </BlogV2Layout>
     </>
     </LazyMotionProvider>
   );

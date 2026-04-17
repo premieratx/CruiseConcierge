@@ -10,8 +10,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 
 import discoParty from '@assets/atx-disco-cruise-party.webp';
 import dancingScene from '@assets/dancing-party-scene.webp';
@@ -88,8 +87,21 @@ export default function TopFiveCelebritiesPartyBarge() {
         image="https://premierpartycruises.com/attached_assets/atx-disco-cruise-party.webp"
       />
 
+      <BlogV2Layout
+        title="The Top Five Celebrities at Our Dream Party Barge"
+        description="Imagine the ultimate Lake Travis party boat with your dream celebrity guest list! From Matthew McConaughey to Beyoncé, discover which 5 stars we'd invite to the ultimate Austin disco cruise adventure."
+        slug="the-top-five-celebrities-at-our-dream-party-barge"
+        category="Planning Guides"
+        categoryHref="/private-cruises"
+        pillarTitle="Private Party Boat Charters"
+        pillarHref="/private-cruises"
+        relatedArticles={[
+          { title: "Lake Travis Party Boat Rentals for Large Groups (20+ Guests)", href: "/blogs/lake-travis-party-boat-rentals-ultimate-guide-for-large-group-events-20-guests" },
+          { title: "Lake Travis Sunset Cruises - Romantic & Celebration Options", href: "/blogs/lake-travis-sunset-cruises-romantic-and-celebration-options-for-every-occasion" },
+          { title: "Private Cruise vs Party Boat vs Pontoon on Lake Travis", href: "/blogs/private-party-cruise-vs-party-boat-pontoon-lake-travis" },
+        ]}
+      >
       <div className="min-h-screen bg-white dark:bg-gray-950">
-        <PublicNavigation />
 
         {/* Hero Section */}
         <m.section 
@@ -326,8 +338,8 @@ export default function TopFiveCelebritiesPartyBarge() {
           </div>
         </section>
 
-        <Footer />
       </div>
+      </BlogV2Layout>
     </>
     </LazyMotionProvider>
   );

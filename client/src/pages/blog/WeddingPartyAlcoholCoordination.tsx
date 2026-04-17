@@ -12,8 +12,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
 import heroImage from '@assets/@capitalcityshots-25_1760080807866.jpg';
@@ -179,8 +178,21 @@ export default function WeddingPartyAlcoholCoordination() {
         image="https://premierpartycruises.com/attached_assets/@capitalcityshots-25_1760080807866.jpg"
       />
 
-      <div className="min-h-screen bg-white dark:bg-gray-950">
-        <PublicNavigation />
+      <BlogV2Layout
+        title="Wedding Party Alcohol Coordination: Getting Ready, Bachelor/Bachelorette & Reception"
+        description="Complete guide to coordinating alcohol across all wedding party events in Austin. From getting ready champagne toasts to bachelor party Lake Travis cruises, bachelorette celebrations, and reception bars."
+        slug="wedding-party-alcohol-coordination-getting-ready-bachelor-bachelorette-and-reception"
+        category="Wedding Guides"
+        categoryHref="/wedding-parties"
+        pillarTitle="Austin Wedding Boat Cruises"
+        pillarHref="/wedding-parties"
+        relatedArticles={[
+          { title: "Austin Wedding Venue Alcohol Policies & Delivery Solutions", href: "/blogs/austin-wedding-venue-alcohol-policies-delivery-solutions-for-every-location" },
+          { title: "Outdoor Wedding Alcohol Logistics - Hill Country & Lake Travis", href: "/blogs/outdoor-wedding-alcohol-logistics-hill-country-and-lake-travis-coordination" },
+          { title: "Lake Travis Wedding Boat Rentals - Unique Venues for Austin Celebrations", href: "/blogs/lake-travis-wedding-boat-rentals-unique-venues-for-austin-celebrations" },
+        ]}
+      >
+      <div className="min-h-screen">
 
         {/* Hero Section */}
         <m.section 
@@ -610,8 +622,8 @@ export default function WeddingPartyAlcoholCoordination() {
           </div>
         </section>
 
-        <Footer />
       </div>
+      </BlogV2Layout>
     </>
     </LazyMotionProvider>
   );

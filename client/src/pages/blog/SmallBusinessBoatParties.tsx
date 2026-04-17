@@ -11,8 +11,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
@@ -168,8 +167,21 @@ export default function SmallBusinessBoatParties() {
         defaultKeywords={['small business party Austin', 'startup team building Lake Travis', 'small company event boat Austin', 'entrepreneur celebration Lake Travis', 'small team boat rental Austin', 'company party Lake Travis']}
       />
 
+      <BlogV2Layout
+        title="Small Business Boat Parties Austin | Startup Team Building Lake Travis | Premier Party Cruises"
+        description="Plan the perfect small business party Austin on Lake Travis. Affordable startup team building, entrepreneur celebrations, and small company event boat rentals for teams under 50 people."
+        slug="small-business-boat-parties-austin"
+        category="Corporate Guides"
+        categoryHref="/corporate-events"
+        pillarTitle="Austin Corporate Events Guide"
+        pillarHref="/corporate-events"
+        relatedArticles={[
+          { title: "Tech Companies Boat Parties Austin", href: "/blogs/tech-companies-boat-parties-austin" },
+          { title: "Construction & Trades Boat Parties", href: "/blogs/construction-trades-boat-parties-austin" },
+          { title: "All Inclusive Corporate Packages", href: "/blogs/all-inclusive-corporate-packages" },
+        ]}
+      >
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="small-business-boat-parties-page">
-        <PublicNavigation />
 
         {/* Hero Section */}
         <m.section 
@@ -716,8 +728,8 @@ export default function SmallBusinessBoatParties() {
           </div>
         </section>
 
-        <Footer />
       </div>
+      </BlogV2Layout>
     </>
     </LazyMotionProvider>
   );

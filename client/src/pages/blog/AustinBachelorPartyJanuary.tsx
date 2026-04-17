@@ -3,8 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Calendar, Phone, Sun, CheckCircle2, Users, Music, Ship, MapPin, Utensils, ThermometerSun, PartyPopper, Star, ChevronRight, Snowflake, DollarSign, Backpack } from 'lucide-react';
 import { Link } from 'wouter';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import { LazyImage } from '@/components/LazyImage';
 import MonthlyGuidesNav from '@/components/MonthlyGuidesNav';
 
@@ -16,15 +15,27 @@ import sectionImage3 from '@assets/@capitalcityshots-8_1760080740018.jpg';
 export default function AustinBachelorPartyJanuary() {
   return (
     <div data-page-ready="austin-bachelor-party-january" className="min-h-screen bg-gradient-to-b from-blue-50 via-white to-slate-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950">
-      <SEOHead 
+      <SEOHead
         pageRoute="/blogs/austin-bachelor-party-january"
         defaultTitle="Why Austin is Perfect for Bachelor Parties in January | Premier Party Cruises"
         defaultDescription="Plan a January Austin bachelor party: 43°F-59°F weather, off-season deals, Lake Travis boats & complete guide. Rain or shine, 30-40% cheaper rates and fewer crowds!"
         defaultKeywords={['January bachelor party Austin', 'Austin bachelor party', 'Lake Travis party boat', 'winter bachelor party', 'Austin nightlife January', 'off-season bachelor party']}
         image="https://premierpartycruises.com/attached_assets/@capitalcityshots-5_1760080740018.jpg"
       />
-
-      <PublicNavigation />
+      <BlogV2Layout
+        title="Why Austin is Perfect for Bachelor Parties in January"
+        description="Plan a January Austin bachelor party: 43°F-59°F weather, off-season deals, Lake Travis boats & complete guide. Rain or shine, 30-40% cheaper rates and fewer crowds!"
+        slug="austin-bachelor-party-january"
+        category="Bachelor Guides"
+        categoryHref="/bachelor-party-austin"
+        pillarTitle="Austin Bachelor Party Guide"
+        pillarHref="/bachelor-party-austin"
+        relatedArticles={[
+          { title: "Austin Bachelor Party in March", href: "/blogs/austin-bachelor-party-march" },
+          { title: "Austin Bachelor Party in May", href: "/blogs/austin-bachelor-party-may" },
+          { title: "Epic Austin Bachelor Party Ultimate Guide", href: "/blogs/epic-bachelor-party-austin-ultimate-guide" },
+        ]}
+      >
 
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-blue-600 via-slate-700 to-blue-800 text-white py-20 overflow-hidden">
@@ -506,7 +517,7 @@ export default function AustinBachelorPartyJanuary() {
 
       <MonthlyGuidesNav type="bachelor" currentMonth="January" />
 
-      <Footer />
+      </BlogV2Layout>
     </div>
   );
 }

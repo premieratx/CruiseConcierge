@@ -11,8 +11,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
@@ -143,8 +142,21 @@ export default function AustinWeddingVenueAlcohol() {
         image={heroImage}
       />
 
-      <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="austin-wedding-venue-alcohol-page">
-        <PublicNavigation />
+      <BlogV2Layout
+        title="Austin Wedding Venue Alcohol Policies & Delivery Solutions for Every Location"
+        description="Navigate Austin wedding venue alcohol policies with confidence. Wedding alcohol delivery Austin service for every location - hotels, ranches, estates, and Lake Travis boats."
+        slug="austin-wedding-venue-alcohol-policies-delivery-solutions-for-every-location"
+        category="Wedding Guides"
+        categoryHref="/wedding-parties"
+        pillarTitle="Austin Wedding Boat Cruises"
+        pillarHref="/wedding-parties"
+        relatedArticles={[
+          { title: "Outdoor Wedding Alcohol Logistics - Hill Country & Lake Travis", href: "/blogs/outdoor-wedding-alcohol-logistics-hill-country-and-lake-travis-coordination" },
+          { title: "Wedding Party Alcohol Coordination", href: "/blogs/wedding-party-alcohol-coordination-getting-ready-bachelor-bachelorette-and-reception" },
+          { title: "Lake Travis Wedding Boat Rentals - Unique Venues for Austin Celebrations", href: "/blogs/lake-travis-wedding-boat-rentals-unique-venues-for-austin-celebrations" },
+        ]}
+      >
+      <div className="min-h-screen" data-testid="austin-wedding-venue-alcohol-page">
 
         {/* Hero Section */}
         <m.section 
@@ -553,8 +565,8 @@ export default function AustinWeddingVenueAlcohol() {
           </div>
         </section>
 
-        <Footer />
       </div>
+      </BlogV2Layout>
     </>
     </LazyMotionProvider>
   );

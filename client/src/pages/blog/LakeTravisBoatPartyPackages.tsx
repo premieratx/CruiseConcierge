@@ -12,8 +12,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
@@ -199,8 +198,21 @@ export default function LakeTravisBoatPartyPackages() {
         image={heroImage}
       />
 
+      <BlogV2Layout
+        title="Lake Travis Boat Party Packages - Complete Guide to Options & Pricing"
+        description="Explore Lake Travis boat party packages starting at $800. Compare party boat Austin options for 14-75 guests. Complete guide to Lake Travis party boat packages with pricing, inclusions, and booking tips. Party boat Lake Travis experts since 2010."
+        slug="lake-travis-boat-party-packages-comprehensive-guide-to-options-and-pricing"
+        category="Planning Guides"
+        categoryHref="/private-cruises"
+        pillarTitle="Private Party Boat Charters"
+        pillarHref="/private-cruises"
+        relatedArticles={[
+          { title: "Lake Travis Boat Party Costs - Complete Pricing Guide", href: "/blogs/lake-travis-boat-party-costs-complete-pricing-guide-and-budget-planning" },
+          { title: "Lake Travis Boat Party Reviews - Real Customer Experiences", href: "/blogs/lake-travis-boat-party-reviews-real-customer-experiences-and-testimonials" },
+          { title: "Lake Travis Boat Party Insurance - Coverage & Liability", href: "/blogs/lake-travis-boat-party-insurance-understanding-coverage-and-liability-for-events" },
+        ]}
+      >
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="lake-travis-boat-party-packages-page">
-        <PublicNavigation />
 
         {/* Hero Section */}
         <m.section 
@@ -663,8 +675,8 @@ export default function LakeTravisBoatPartyPackages() {
           </div>
         </section>
 
-        <Footer />
       </div>
+      </BlogV2Layout>
     </>
     </LazyMotionProvider>
   );

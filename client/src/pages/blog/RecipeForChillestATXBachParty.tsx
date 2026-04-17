@@ -11,8 +11,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 
 import bachelorHero from '@assets/bachelor-party-group-guys.webp';
 import capitalCityShots1 from '@assets/@capitalcityshots-1_1760080740012.jpg';
@@ -76,9 +75,22 @@ export default function RecipeForChillestATXBachParty() {
         defaultKeywords={['Austin bachelor party', 'ATX bach party', 'chill bachelor party Austin', 'Lake Travis bachelor party', 'relaxed bachelorette party Austin', 'Austin party boat', 'Lake Travis party cruise']}
         image="https://premierpartycruises.com/attached_assets/bachelor-party-group-guys.webp"
       />
+      <BlogV2Layout
+        title="The Recipe for the CHILLEST ATX Bach Party"
+        description="Plan the most laid-back Austin bachelor or bachelorette party with our chill weekend guide. Friday arrival, Saturday Lake Travis cruise, Sunday recovery - the perfect stress-free bach party itinerary."
+        slug="the-recipe-for-the-chillest-atx-bach-party"
+        category="Bachelor Guides"
+        categoryHref="/bachelor-party-austin"
+        pillarTitle="Austin Bachelor Party Guide"
+        pillarHref="/bachelor-party-austin"
+        relatedArticles={[
+          { title: "Epic Austin Bachelor Party Ultimate Guide", href: "/blogs/epic-bachelor-party-austin-ultimate-guide" },
+          { title: "Lake Travis Bachelor Party Boats Guide", href: "/blogs/lake-travis-bachelor-party-boats-guide" },
+          { title: "How to Throw a Great Bachelor Party in Austin", href: "/blogs/how-to-throw-great-bachelor-party-austin" },
+        ]}
+      >
 
       <div className="min-h-screen bg-white dark:bg-gray-950">
-        <PublicNavigation />
 
         {/* Hero Section */}
         <m.section 
@@ -428,8 +440,8 @@ export default function RecipeForChillestATXBachParty() {
           </div>
         </section>
 
-        <Footer />
       </div>
+      </BlogV2Layout>
     </>
     </LazyMotionProvider>
   );

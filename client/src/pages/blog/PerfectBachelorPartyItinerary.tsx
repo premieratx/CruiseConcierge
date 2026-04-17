@@ -12,8 +12,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { BlogImageBreak, BLOG_PARTY_PHOTOS } from '@/components/BlogImageBreak';
@@ -147,9 +146,22 @@ export default function PerfectBachelorPartyItinerary() {
         defaultKeywords={['perfect bachelor party itinerary Austin', 'best bachelor party Austin', 'bachelor party Austin', 'Austin bachelor party', 'bachelor party itinerary Austin', 'Austin bachelor weekend', 'Lake Travis bachelor party', '6th Street bachelor party', 'bachelor party Texas']}
         image="https://premierpartycruises.com/attached_assets/bachelor-party-group-guys.webp"
       />
+      <BlogV2Layout
+        title="Perfect Bachelor Party Itinerary Austin: 3-Day Guide | Best Bachelor Party Austin"
+        description="The perfect bachelor party itinerary Austin guide. Best bachelor party Austin 3-day schedule: Lake Travis boat party, 6th Street bar crawl, Texas BBQ, and Rainey Street nightlife. Plan the ultimate bachelor party Austin weekend with our day-by-day itinerary."
+        slug="perfect-bachelor-party-itinerary-austin"
+        category="Bachelor Guides"
+        categoryHref="/bachelor-party-austin"
+        pillarTitle="Austin Bachelor Party Guide"
+        pillarHref="/bachelor-party-austin"
+        relatedArticles={[
+          { title: "Top 10 Reasons for a Lake Travis Bachelor Party Boat", href: "/blogs/top-10-reasons-austin-bachelor-party-lake-travis-boat" },
+          { title: "Lake Travis Bachelor Party Boats Guide", href: "/blogs/lake-travis-bachelor-party-boats-guide" },
+          { title: "Austin Bachelor Party Ideas", href: "/blogs/austin-bachelor-party-ideas" },
+        ]}
+      >
 
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="perfect-bachelor-party-itinerary-page">
-        <PublicNavigation />
 
         {/* Hero Section */}
         <m.section 
@@ -645,8 +657,8 @@ export default function PerfectBachelorPartyItinerary() {
           </div>
         </section>
 
-        <Footer />
       </div>
+      </BlogV2Layout>
     </>
     </LazyMotionProvider>
   );

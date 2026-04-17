@@ -10,8 +10,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
@@ -168,8 +167,21 @@ export default function CompanyParty25People() {
         image={heroImage}
       />
 
+      <BlogV2Layout
+        title="Planning a Company Party for 25 People - Finding the Sweet Spot | Lake Travis Austin"
+        description="Discover why a 25 person company party Austin on Lake Travis is the perfect size. Mid-size group boat rental Lake Travis offers intimate team bonding. Book your department party boat Austin today."
+        slug="company-party-25-people-austin"
+        category="Corporate Guides"
+        categoryHref="/corporate-events"
+        pillarTitle="Austin Corporate Events Guide"
+        pillarHref="/corporate-events"
+        relatedArticles={[
+          { title: "Company Party for 10 People Austin", href: "/blogs/company-party-10-people-austin" },
+          { title: "Company Party for 50 People Austin", href: "/blogs/company-party-50-people-austin" },
+          { title: "Company Party for 75 People Austin", href: "/blogs/company-party-75-people-austin" },
+        ]}
+      >
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="company-party-25-page">
-        <PublicNavigation />
 
         {/* Hero Section */}
         <m.section 
@@ -704,8 +716,8 @@ export default function CompanyParty25People() {
           </div>
         </section>
 
-        <Footer />
       </div>
+      </BlogV2Layout>
     </>
     </LazyMotionProvider>
   );

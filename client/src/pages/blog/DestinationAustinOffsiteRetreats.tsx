@@ -11,8 +11,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
@@ -160,8 +159,21 @@ export default function DestinationAustinOffsiteRetreats() {
         defaultKeywords={['corporate offsite Austin', 'leadership retreat Lake Travis', 'company conference Austin boat', 'executive retreat Lake Travis', 'Austin corporate events', 'Lake Travis retreat venue']}
       />
 
+      <BlogV2Layout
+        title="Destination Austin Off-Site Retreats & Leadership Summits | Lake Travis Corporate Events"
+        description="Plan your corporate offsite Austin event or leadership retreat Lake Travis with Premier Party Cruises. Company conference Austin boat experiences and executive retreat Lake Travis options for 14-75 guests."
+        slug="destination-austin-offsite-retreats"
+        category="Corporate Guides"
+        categoryHref="/corporate-events"
+        pillarTitle="Austin Corporate Events Guide"
+        pillarHref="/corporate-events"
+        relatedArticles={[
+          { title: "Austin Best Corporate Events", href: "/blogs/austin-best-corporate-events" },
+          { title: "Dallas to Lake Travis Corporate", href: "/blogs/dallas-to-lake-travis-corporate" },
+          { title: "Why Austin Companies Choose Premier", href: "/blogs/why-austin-companies-choose-premier" },
+        ]}
+      >
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="page-destination-austin-offsite-retreats">
-        <PublicNavigation />
 
         {/* Hero Section */}
         <m.section 
@@ -652,8 +664,8 @@ export default function DestinationAustinOffsiteRetreats() {
           </div>
         </section>
 
-        <Footer />
       </div>
+      </BlogV2Layout>
     </>
     </LazyMotionProvider>
   );

@@ -12,8 +12,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import PublicNavigation from '@/components/PublicNavigation';
-import Footer from '@/components/Footer';
+import BlogV2Layout from '@/components/BlogV2Layout';
 import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
@@ -228,8 +227,21 @@ export default function CorporateTeamBuildingAlcohol() {
         image={heroImage}
       />
 
+      <BlogV2Layout
+        title="Corporate Team Building on Lake Travis - Alcohol Coordination for Professional Events | Premier Party Cruises"
+        description="Expert corporate team building Lake Travis alcohol coordination for professional events. Learn Lake Travis corporate event alcohol logistics, team event beverage planning Lake Travis, and professional event drinks coordination strategies."
+        slug="corporate-team-building-on-lake-travis-alcohol-coordination-for-professional-events"
+        category="Corporate Guides"
+        categoryHref="/corporate-events"
+        pillarTitle="Austin Corporate Events Guide"
+        pillarHref="/corporate-events"
+        relatedArticles={[
+          { title: "Quarterly Outings Lake Travis", href: "/blogs/quarterly-outings-lake-travis-make-routine-company-events-easy" },
+          { title: "Employee Appreciation Day Lake Travis", href: "/blogs/employee-appreciation-day-reward-your-team-with-an-easy-all-inclusive-boat-party" },
+          { title: "Corporate Team Building Lake Travis", href: "/blogs/corporate-team-building-on-lake-travis-professional-boat-rental-solutions" },
+        ]}
+      >
       <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="corporate-team-building-alcohol-page">
-        <PublicNavigation />
 
         {/* Hero Section */}
         <m.section 
@@ -683,8 +695,8 @@ export default function CorporateTeamBuildingAlcohol() {
           </div>
         </section>
 
-        <Footer />
       </div>
+      </BlogV2Layout>
     </>
     </LazyMotionProvider>
   );
