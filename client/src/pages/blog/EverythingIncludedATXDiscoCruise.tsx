@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
 import { m, LazyMotionProvider, fadeInUp } from '@/components/LazyMotion';
 import { Link } from 'wouter';
-import { BlogPostLayout, TOCSection } from '@/components/blog/BlogPostLayout';
+import BlogV2Layout from '@/components/BlogV2Layout';
+import { TOCSection } from '@/components/blog/BlogPostLayout';
 import { BlogImageBreak } from '@/components/BlogImageBreak';
 import { 
   Accordion, 
@@ -44,16 +45,13 @@ export default function EverythingIncludedATXDiscoCruise() {
 
   return (
     <LazyMotionProvider>
-      <BlogPostLayout
-        pageRoute="/blogs/everything-thats-included-on-the-atx-disco-cruise-so-you-dont-have-to-bring-anything"
+      <BlogV2Layout
+        slug="everything-thats-included-on-the-atx-disco-cruise-so-you-dont-have-to-bring-anything"
         title="Everything That's Included on the ATX Disco Cruise (So You Don't Have to Bring Anything)"
-        metaDescription="Complete guide to what's included on the ATX Disco Cruise: professional DJ, photographer, 14 disco balls, giant lily pad floats, coolers with ice, cups, koozies. BYOB. The only thing you need is your drinks."
-        keywords={["what's included ATX Disco Cruise", 'ATX Disco Cruise all-inclusive', 'what to bring ATX Disco Cruise', 'ATX Disco Cruise packing list', 'ATX Disco Cruise amenities']}
+        description="Complete guide to what's included on the ATX Disco Cruise: professional DJ, photographer, 14 disco balls, giant lily pad floats, coolers with ice, cups, koozies. BYOB. The only thing you need is your drinks."
         publishDate="2025-05-20"
         author="Captain Brian"
         heroImage={discoFun5}
-        heroImageAlt="All-inclusive amenities on the ATX Disco Cruise"
-        sections={sections}
       >
         <div className="mb-8 flex items-start gap-3 p-4 bg-blue-50 border border-blue-200 rounded-xl text-sm">
           <span className="text-blue-600 font-bold text-lg leading-none mt-0.5">→</span>
@@ -271,7 +269,7 @@ export default function EverythingIncludedATXDiscoCruise() {
             </AccordionItem>
           </Accordion>
         </section>
-      </BlogPostLayout>
+      </BlogV2Layout>
     </LazyMotionProvider>
   );
 }

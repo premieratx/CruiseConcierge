@@ -1,4 +1,5 @@
-import { BlogPostLayout, TOCSection } from '@/components/blog/BlogPostLayout';
+import BlogV2Layout from '@/components/BlogV2Layout';
+import { TOCSection } from '@/components/blog/BlogPostLayout';
 import { BlogCTA } from '@/components/blog/BlogCTA';
 import { BlogImageBreak } from '@/components/BlogImageBreak';
 import { LazyImage } from '@/components/LazyImage';
@@ -31,34 +32,13 @@ const sections: TOCSection[] = [
 
 export default function LakeTravisBachelorPartyCelebrations() {
   return (
-    <BlogPostLayout
+    <BlogV2Layout
       title="Lake Travis Bachelor Party Ideas | Austin TX Guide"
-      metaDescription="Plan the ultimate Lake Travis bachelor party with boat rentals, water activities, and Austin nightlife. Complete guide to unforgettable celebrations."
+      description="Plan the ultimate Lake Travis bachelor party with boat rentals, water activities, and Austin nightlife. Complete guide to unforgettable celebrations."
       publishDate="2025-01-20"
       author="Premier Party Cruises"
       heroImage={bachelorHero}
-      heroImageAlt="Bachelor party group celebrating on Lake Travis boat cruise"
-      keywords={[
-        'lake travis bachelor party',
-        'austin bachelor party',
-        'bachelor party lake travis',
-        'lake travis boat rental bachelor party',
-        'party boat rentals',
-        'lake travis fun',
-        'adventure activities',
-        'austin bachelor party lake travis',
-        'group outings',
-        'weekend getaway',
-        'lake travis nightlife',
-        'lake travis bachelor party house',
-        'lake activities',
-        'bachelor party ideas',
-        'outdoor adventures',
-        'lake travis austin bachelor party',
-        'lake travis bachelor party boat',
-      ]}
-      sections={sections}
-      pageRoute="/blogs/lake-travis-bachelor-party-austin-celebrations"
+      slug="lake-travis-bachelor-party-austin-celebrations"
     >
       {/* Introduction */}
       <SectionReveal>
@@ -107,7 +87,6 @@ export default function LakeTravisBachelorPartyCelebrations() {
             <LazyImage
               src={lakeTravisBachelorPartyImages[1].src}
               alt={lakeTravisBachelorPartyImages[1].alt}
-              className="rounded-lg shadow-lg w-full h-auto"
               data-testid="image-panoramic-lake-travis"
             />
             <p className="text-sm text-gray-500 mt-2 text-center">Panoramic view of Lake Travis with rolling Texas Hill Country</p>
@@ -338,7 +317,6 @@ export default function LakeTravisBachelorPartyCelebrations() {
             <LazyImage
               src={lakeTravisBachelorPartyImages[2].src}
               alt={lakeTravisBachelorPartyImages[2].alt}
-              className="rounded-lg shadow-lg w-full h-auto"
               data-testid="image-lakeside-restaurant"
             />
             <p className="text-sm text-gray-500 mt-2 text-center">Enjoy lakeside dining with stunning sunset views</p>
@@ -381,7 +359,6 @@ export default function LakeTravisBachelorPartyCelebrations() {
             <LazyImage
               src={lakeTravisBachelorPartyImages[3].src}
               alt={lakeTravisBachelorPartyImages[3].alt}
-              className="rounded-lg shadow-lg w-full h-auto"
               data-testid="image-austin-live-music"
             />
             <p className="text-sm text-gray-500 mt-2 text-center">Experience Austin's legendary live music scene on 6th Street</p>
@@ -492,6 +469,6 @@ export default function LakeTravisBachelorPartyCelebrations() {
           </div>
         </section>
       </SectionReveal>
-    </BlogPostLayout>
+    </BlogV2Layout>
   );
 }

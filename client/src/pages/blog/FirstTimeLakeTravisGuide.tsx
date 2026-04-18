@@ -1,4 +1,5 @@
-import { BlogPostLayout, TOCSection } from '@/components/blog/BlogPostLayout';
+import BlogV2Layout from '@/components/BlogV2Layout';
+import { TOCSection } from '@/components/blog/BlogPostLayout';
 import { BlogCTA } from '@/components/blog/BlogCTA';
 import { LazyImage } from '@/components/LazyImage';
 import { SectionReveal } from '@/components/SectionReveal';
@@ -29,25 +30,13 @@ const sections: TOCSection[] = [
 
 export default function FirstTimeLakeTravisGuide() {
   return (
-    <BlogPostLayout
+    <BlogV2Layout
       title="First-Time Lake Travis Boat Rental Guide | Austin TX"
-      metaDescription="First Lake Travis boat rental? Essential tips for choosing boats, safety, and party planning. Your complete Austin party boat guide from local experts."
+      description="First Lake Travis boat rental? Essential tips for choosing boats, safety, and party planning. Your complete Austin party boat guide from local experts."
       publishDate="2025-01-10"
       author="Premier Party Cruises"
       heroImage={cleverGirlHero}
-      heroImageAlt="Clever Girl party boat cruising Lake Travis - Austin party boat rental"
-      keywords={[
-        'lake travis boat rental',
-        'first time boat rental',
-        'austin party planning',
-        'lake travis party boat',
-        'austin boat rental guide',
-        'lake travis tips',
-        'party boat austin',
-        'lake travis cruises',
-      ]}
-      sections={sections}
-      pageRoute="/blogs/first-time-lake-travis-boat-rental-essential-tips-for-austin-party-planning"
+      slug="first-time-lake-travis-boat-rental-essential-tips-for-austin-party-planning"
     >
       {/* Introduction */}
       <SectionReveal>
@@ -73,7 +62,6 @@ export default function FirstTimeLakeTravisGuide() {
             <LazyImage
               src="/attached_assets/day-tripper-14-person-boat.webp"
               alt="14-person Lake Travis party boat perfect for Austin bachelor party or bachelorette party"
-              className="rounded-lg shadow-lg w-full h-auto"
               data-testid="image-day-tripper-boat"
             />
           </div>
@@ -114,7 +102,6 @@ export default function FirstTimeLakeTravisGuide() {
             <LazyImage
               src="/attached_assets/clever-girl-50-person-boat.webp"
               alt="50-person party boat Austin for large bachelor party or bachelorette party on Lake Travis"
-              className="rounded-lg shadow-lg w-full h-auto"
               data-testid="image-clever-girl-boat"
             />
           </div>
@@ -172,13 +159,11 @@ export default function FirstTimeLakeTravisGuide() {
             <LazyImage
               src={bachelorPartyBlogImages[0].src}
               alt="Austin bachelor party celebration on Lake Travis party boat rental"
-              className="rounded-lg shadow-lg w-full h-auto"
               data-testid="image-party-celebration-1"
             />
             <LazyImage
               src={bachelorPartyBlogImages[2].src}
               alt="Bachelorette party group enjoying party boat Austin on Lake Travis"
-              className="rounded-lg shadow-lg w-full h-auto"
               data-testid="image-party-celebration-2"
             />
           </div>
@@ -369,7 +354,6 @@ export default function FirstTimeLakeTravisGuide() {
             <LazyImage
               src={bachelorPartyBlogImages[1].src}
               alt="ATX Disco Cruise party boat Austin with bachelor and bachelorette party groups on Lake Travis"
-              className="rounded-lg shadow-lg w-full h-auto"
               data-testid="image-atx-disco-party"
             />
           </div>
@@ -631,20 +615,18 @@ export default function FirstTimeLakeTravisGuide() {
         <div className="flex justify-center gap-4 flex-wrap">
           <Link 
             href="/atx-disco-cruise" 
-            className="bg-white text-brand-blue px-8 py-4 rounded-lg font-bold text-lg hover:bg-gray-100 transition-colors inline-block"
             data-testid="link-final-cta-disco"
           >
             Book ATX Disco Cruise
           </Link>
           <Link 
             href="/private-cruises" 
-            className="bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-white/10 transition-colors inline-block"
             data-testid="link-final-cta-private"
           >
             Explore Private Cruises
           </Link>
         </div>
       </div>
-    </BlogPostLayout>
+    </BlogV2Layout>
   );
 }

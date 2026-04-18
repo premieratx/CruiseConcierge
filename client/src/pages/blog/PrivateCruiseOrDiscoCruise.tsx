@@ -10,7 +10,8 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { BlogPostLayout, TOCSection } from '@/components/blog/BlogPostLayout';
+import BlogV2Layout from '@/components/BlogV2Layout';
+import { TOCSection } from '@/components/blog/BlogPostLayout';
 import { BlogImageBreak } from '@/components/BlogImageBreak';
 import { SectionReveal } from '@/components/SectionReveal';
 
@@ -36,16 +37,13 @@ export default function PrivateCruiseOrDiscoCruise() {
 
   return (
     <LazyMotionProvider>
-      <BlogPostLayout
+      <BlogV2Layout
         title="Private Cruise or Disco Cruise: How Real Bach Groups Decide"
-        metaDescription="Trying to decide between the ATX Disco Cruise and a private charter for your Austin bach party? Here's the decision framework real groups use — based on size, budget, vibe, and what matters most."
+        description="Trying to decide between the ATX Disco Cruise and a private charter for your Austin bach party? Here's the decision framework real groups use — based on size, budget, vibe, and what matters most."
         publishDate="2025-05-15"
         author="Captain Brian"
         heroImage={capitalShots3}
-        heroImageAlt="Group of friends celebrating on a Lake Travis party boat"
-        keywords={['ATX Disco Cruise vs private charter', 'private boat vs disco cruise Austin', 'how to choose Austin party boat', 'Lake Travis private charter vs party cruise', 'Austin party boat decision']}
-        pageRoute="/blogs/private-cruise-or-disco-cruise-how-real-bach-groups-decide"
-        sections={sections}
+        slug="private-cruise-or-disco-cruise-how-real-bach-groups-decide"
       >
         <div className="mb-8 flex items-start gap-3 p-4 bg-blue-50 border border-blue-200 rounded-xl text-sm">
           <span className="text-blue-600 font-bold text-lg leading-none mt-0.5">→</span>
@@ -227,7 +225,7 @@ export default function PrivateCruiseOrDiscoCruise() {
             </Button>
           </Link>
         </div>
-      </BlogPostLayout>
+      </BlogV2Layout>
     </LazyMotionProvider>
   );
 }

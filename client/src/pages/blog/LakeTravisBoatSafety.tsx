@@ -180,7 +180,7 @@ export default function LakeTravisBoatSafety() {
     <LazyMotionProvider>
     <>
       <SEOHead 
-        pageRoute="/blogs/lake-travis-boat-safety-essential-guidelines-for-safe-party-cruises"
+        slug="lake-travis-boat-safety-essential-guidelines-for-safe-party-cruises"
         defaultTitle="Lake Travis Boat Safety - Essential Guidelines for Safe Party Cruises | Premier Party Cruises"
         defaultDescription="Essential Lake Travis boat safety guidelines for party cruises. Learn boat party safety guidelines, party boat safety rules, and Lake Travis boating safety protocols. 100% safety record, 125,000+ safe passengers."
         defaultKeywords={['Lake Travis boat safety', 'boat party safety guidelines', 'safe party cruises Lake Travis', 'party boat safety rules', 'Lake Travis boating safety', 'boat party safety Texas', 'Lake Travis cruise safety']}
@@ -195,12 +195,10 @@ export default function LakeTravisBoatSafety() {
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
-          className="relative pt-24 pb-16 md:pt-32 md:pb-24 bg-gradient-to-br from-blue-900 via-teal-800 to-green-900 text-white overflow-hidden"
           data-testid="hero-section"
         >
           <div className="absolute inset-0 bg-black/40" />
           <div 
-            className="absolute inset-0 bg-cover bg-center opacity-30"
             style={{ backgroundImage: `url(${heroImage})` }}
             role="img"
             aria-label="Lake Travis boat safety - professional captain ensuring safe party cruise with safety equipment visible"
@@ -225,7 +223,6 @@ export default function LakeTravisBoatSafety() {
               <Button 
                 asChild 
                 size="lg" 
-                className="bg-green-500 hover:bg-green-600 text-black font-bold text-lg px-8"
                 data-testid="button-get-quote"
               >
                 <Link href="/book-now">Book Your Safe Cruise</Link>
@@ -234,7 +231,6 @@ export default function LakeTravisBoatSafety() {
                 asChild 
                 size="lg" 
                 variant="outline" 
-                className="border-white text-white hover:bg-white hover:text-green-900 font-semibold"
                 data-testid="button-contact"
               >
                 <Link href="/contact">Questions About Safety</Link>
@@ -266,7 +262,6 @@ export default function LakeTravisBoatSafety() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
-                  className="text-center"
                   data-testid={`stat-${index}`}
                 >
                   <div className="text-3xl md:text-4xl font-bold text-green-600 dark:text-green-400">{item.stat}</div>
@@ -285,7 +280,6 @@ export default function LakeTravisBoatSafety() {
               whileInView="visible"
               viewport={{ once: true }}
               variants={staggerContainer}
-              className="text-center mb-12"
             >
               <Badge className="mb-4 bg-blue-100 text-blue-700">EQUIPMENT</Badge>
               <h2 className="text-3xl font-bold mb-4" data-testid="equipment-title">
@@ -326,7 +320,6 @@ export default function LakeTravisBoatSafety() {
             <img 
               src={sectionImage1}
               alt="Lake Travis boating safety - equipped party boat with life jackets and safety gear for safe party cruises"
-              className="w-full rounded-2xl shadow-xl"
               data-testid="img-equipment"
             />
           </div>
@@ -340,7 +333,6 @@ export default function LakeTravisBoatSafety() {
               whileInView="visible"
               viewport={{ once: true }}
               variants={fadeInUp}
-              className="text-center mb-12"
             >
               <Badge className="mb-4 bg-teal-100 text-teal-700">OUR CREW</Badge>
               <h2 className="text-3xl font-bold mb-4" data-testid="captain-title">
@@ -381,7 +373,6 @@ export default function LakeTravisBoatSafety() {
               whileInView="visible"
               viewport={{ once: true }}
               variants={fadeInUp}
-              className="text-center mb-12"
             >
               <Badge className="mb-4 bg-amber-100 text-amber-700">GUEST GUIDELINES</Badge>
               <h2 className="text-3xl font-bold mb-4" data-testid="rules-title">
@@ -426,7 +417,6 @@ export default function LakeTravisBoatSafety() {
               whileInView="visible"
               viewport={{ once: true }}
               variants={fadeInUp}
-              className="text-center mb-12"
             >
               <Badge className="mb-4 bg-blue-100 text-blue-700">WEATHER PROTOCOLS</Badge>
               <h2 className="text-3xl font-bold mb-4" data-testid="weather-title">
@@ -496,7 +486,6 @@ export default function LakeTravisBoatSafety() {
                 <img 
                   src={sectionImage2}
                   alt="Safe party cruises Lake Travis - guests swimming safely with floats following boat party safety guidelines"
-                  className="rounded-2xl shadow-xl"
                   data-testid="img-swimming"
                 />
               </m.div>
@@ -512,7 +501,6 @@ export default function LakeTravisBoatSafety() {
               whileInView="visible"
               viewport={{ once: true }}
               variants={fadeInUp}
-              className="text-center mb-12"
             >
               <Badge className="mb-4 bg-red-100 text-red-700">EMERGENCY PROTOCOLS</Badge>
               <h2 className="text-3xl font-bold mb-4" data-testid="emergency-title">
@@ -531,7 +519,6 @@ export default function LakeTravisBoatSafety() {
                   whileInView="visible"
                   viewport={{ once: true }}
                   variants={fadeInUp}
-                  className="text-center"
                   data-testid={`emergency-step-${index}`}
                 >
                   <div className="w-16 h-16 bg-red-600 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
@@ -556,7 +543,6 @@ export default function LakeTravisBoatSafety() {
               whileInView="visible"
               viewport={{ once: true }}
               variants={fadeInUp}
-              className="text-center mb-12"
             >
               <Badge className="mb-4 bg-green-100 text-green-700">SAFETY FAQ</Badge>
               <h2 className="text-3xl font-bold mb-4" data-testid="faq-title">
@@ -590,7 +576,6 @@ export default function LakeTravisBoatSafety() {
               whileInView="visible"
               viewport={{ once: true }}
               variants={fadeInUp}
-              className="text-center mb-12"
             >
               <h2 className="text-3xl font-bold mb-4">Explore More</h2>
               <p className="text-lg text-gray-600 dark:text-gray-400">
@@ -633,7 +618,6 @@ export default function LakeTravisBoatSafety() {
                 <Button 
                   asChild 
                   size="lg" 
-                  className="bg-white text-green-700 hover:bg-gray-100 font-bold text-lg px-8"
                   data-testid="button-cta-quote"
                 >
                   <Link href="/book-now">Book Your Safe Cruise Today</Link>
@@ -642,7 +626,6 @@ export default function LakeTravisBoatSafety() {
                   asChild 
                   size="lg" 
                   variant="outline" 
-                  className="border-white text-white hover:bg-white hover:text-green-700 font-semibold"
                   data-testid="button-cta-call"
                 >
                   <a href="tel:5124885892">

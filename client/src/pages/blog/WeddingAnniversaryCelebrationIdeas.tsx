@@ -1,4 +1,5 @@
-import { BlogPostLayout, TOCSection } from '@/components/blog/BlogPostLayout';
+import BlogV2Layout from '@/components/BlogV2Layout';
+import { TOCSection } from '@/components/blog/BlogPostLayout';
 import { BlogCTA } from '@/components/blog/BlogCTA';
 import { BlogImageBreak } from '@/components/BlogImageBreak';
 import { LazyImage } from '@/components/LazyImage';
@@ -41,27 +42,13 @@ const anniversaryImages = [
 
 export default function WeddingAnniversaryCelebrationIdeas() {
   return (
-    <BlogPostLayout
+    <BlogV2Layout
       title="Wedding Anniversary Celebration Ideas | Lake Travis Boat"
-      metaDescription="Celebrate your wedding anniversary on Lake Travis with romantic boat rentals and BYOB packages. Intimate cruises to group celebrations for milestones."
+      description="Celebrate your wedding anniversary on Lake Travis with romantic boat rentals and BYOB packages. Intimate cruises to group celebrations for milestones."
       publishDate="2025-08-12"
       author="Premier Party Cruises Team"
       heroImage={heroImage}
-      heroImageAlt="Elegant celebration on Lake Travis for wedding anniversary"
-      keywords={[
-        'wedding anniversary',
-        'anniversary celebration ideas',
-        'lake travis anniversary',
-        'romantic boat rental austin',
-        'anniversary party boat',
-        'milestone celebration',
-        'anniversary cruise',
-        'lake travis boat rental',
-        'austin anniversary ideas',
-        'romantic lake travis',
-      ]}
-      sections={sections}
-      pageRoute="/wedding-anniversary-celebration-ideas"
+      slug="wedding-anniversary-celebration-ideas"
     >
       {/* Introduction: Celebrate Love on Lake Travis */}
       <SectionReveal>
@@ -80,13 +67,11 @@ export default function WeddingAnniversaryCelebrationIdeas() {
             <LazyImage
               src={anniversaryImages[1].src}
               alt={anniversaryImages[1].alt}
-              className="rounded-lg shadow-lg w-full h-auto"
               data-testid="image-anniversary-1"
             />
             <LazyImage
               src={anniversaryImages[2].src}
               alt={anniversaryImages[2].alt}
-              className="rounded-lg shadow-lg w-full h-auto"
               data-testid="image-anniversary-2"
             />
           </div>
@@ -135,7 +120,6 @@ export default function WeddingAnniversaryCelebrationIdeas() {
             <LazyImage
               src={anniversaryImages[3].src}
               alt={anniversaryImages[3].alt}
-              className="rounded-lg shadow-lg w-full h-auto"
               data-testid="image-anniversary-3"
             />
           </div>
@@ -184,19 +168,16 @@ export default function WeddingAnniversaryCelebrationIdeas() {
             <LazyImage
               src={anniversaryImages[4].src}
               alt={anniversaryImages[4].alt}
-              className="rounded-lg shadow-lg w-full h-auto"
               data-testid="image-anniversary-4"
             />
             <LazyImage
               src={anniversaryImages[5].src}
               alt={anniversaryImages[5].alt}
-              className="rounded-lg shadow-lg w-full h-auto"
               data-testid="image-anniversary-5"
             />
             <LazyImage
               src={anniversaryImages[6].src}
               alt={anniversaryImages[6].alt}
-              className="rounded-lg shadow-lg w-full h-auto"
               data-testid="image-anniversary-6"
             />
           </div>
@@ -298,7 +279,6 @@ export default function WeddingAnniversaryCelebrationIdeas() {
             <LazyImage
               src={anniversaryImages[7].src}
               alt={anniversaryImages[7].alt}
-              className="rounded-lg shadow-lg w-full h-auto"
               data-testid="image-anniversary-7"
             />
           </div>
@@ -331,13 +311,11 @@ export default function WeddingAnniversaryCelebrationIdeas() {
             <LazyImage
               src={anniversaryImages[8].src}
               alt={anniversaryImages[8].alt}
-              className="rounded-lg shadow-lg w-full h-auto"
               data-testid="image-anniversary-8"
             />
             <LazyImage
               src={anniversaryImages[9].src}
               alt={anniversaryImages[9].alt}
-              className="rounded-lg shadow-lg w-full h-auto"
               data-testid="image-anniversary-9"
             />
           </div>
@@ -424,7 +402,6 @@ export default function WeddingAnniversaryCelebrationIdeas() {
             <LazyImage
               src={anniversaryImages[10].src}
               alt={anniversaryImages[10].alt}
-              className="rounded-lg shadow-lg w-full h-auto"
               data-testid="image-anniversary-10"
             />
           </div>
@@ -614,7 +591,6 @@ export default function WeddingAnniversaryCelebrationIdeas() {
             <LazyImage
               src={anniversaryImages[11].src}
               alt={anniversaryImages[11].alt}
-              className="rounded-lg shadow-lg w-full h-auto"
               data-testid="image-anniversary-11"
             />
           </div>
@@ -702,7 +678,6 @@ export default function WeddingAnniversaryCelebrationIdeas() {
             <LazyImage
               src={anniversaryImages[12].src}
               alt={anniversaryImages[12].alt}
-              className="rounded-lg shadow-lg w-full h-auto"
               data-testid="image-anniversary-12"
             />
           </div>
@@ -824,7 +799,6 @@ export default function WeddingAnniversaryCelebrationIdeas() {
                 href="https://premierpartycruises.xola.com/checkout" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="text-brand-blue hover:underline font-bold"
                 data-testid="link-book-online"
               >
                 book online directly</a>. Our team will help you plan every detail to make your anniversary 
@@ -961,6 +935,6 @@ export default function WeddingAnniversaryCelebrationIdeas() {
           </div>
         </section>
       </SectionReveal>
-    </BlogPostLayout>
+    </BlogV2Layout>
   );
 }

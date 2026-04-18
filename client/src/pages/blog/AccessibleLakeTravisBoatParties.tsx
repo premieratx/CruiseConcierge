@@ -173,7 +173,7 @@ export default function AccessibleLakeTravisBoatParties() {
     <LazyMotionProvider>
     <>
       <SEOHead 
-        pageRoute="/blogs/accessible-lake-travis-boat-parties-inclusive-event-planning-for-all-guests"
+        slug="accessible-lake-travis-boat-parties-inclusive-event-planning-for-all-guests"
         defaultTitle="Accessible Lake Travis Boat Parties - Inclusive Event Planning for All Guests | Premier Party Cruises"
         defaultDescription="Plan an accessible Lake Travis boat party with inclusive event planning for all guests. ADA boat rental Austin accommodations, wheelchair accessible boat party options, and inclusive party boat Lake Travis experiences. Everyone deserves to celebrate on the water."
         defaultKeywords={['accessible Lake Travis boat party', 'inclusive event planning Lake Travis', 'ADA boat rental Austin', 'wheelchair accessible boat party', 'inclusive party boat Lake Travis', 'accessible boat charter Austin', 'disability-friendly boat party']}
@@ -188,12 +188,10 @@ export default function AccessibleLakeTravisBoatParties() {
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
-          className="relative pt-24 pb-16 md:pt-32 md:pb-24 bg-gradient-to-br from-teal-900 via-blue-800 to-purple-900 text-white overflow-hidden"
           data-testid="hero-section"
         >
           <div className="absolute inset-0 bg-black/40" />
           <div 
-            className="absolute inset-0 bg-cover bg-center opacity-30"
             style={{ backgroundImage: `url(${heroImage})` }}
             role="img"
             aria-label="Accessible Lake Travis boat party - inclusive celebration with guests of all abilities enjoying party cruise"
@@ -218,7 +216,6 @@ export default function AccessibleLakeTravisBoatParties() {
               <Button 
                 asChild 
                 size="lg" 
-                className="bg-teal-500 hover:bg-teal-600 text-white font-bold text-lg px-8"
                 data-testid="button-get-quote"
               >
                 <Link href="/book-now">Plan Your Inclusive Event</Link>
@@ -227,7 +224,6 @@ export default function AccessibleLakeTravisBoatParties() {
                 asChild 
                 size="lg" 
                 variant="outline" 
-                className="border-white text-white hover:bg-white hover:text-teal-900 font-semibold"
                 data-testid="button-contact"
               >
                 <Link href="/contact">Discuss Your Needs</Link>
@@ -259,7 +255,6 @@ export default function AccessibleLakeTravisBoatParties() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
-                  className="text-center"
                   data-testid={`stat-${index}`}
                 >
                   <div className="text-3xl md:text-4xl font-bold text-teal-600 dark:text-teal-400">{item.stat}</div>
@@ -278,7 +273,6 @@ export default function AccessibleLakeTravisBoatParties() {
               whileInView="visible"
               viewport={{ once: true }}
               variants={staggerContainer}
-              className="text-center mb-12"
             >
               <Badge className="mb-4 bg-teal-100 text-teal-700">ACCOMMODATIONS</Badge>
               <h2 className="text-3xl font-bold mb-4" data-testid="features-title">
@@ -320,7 +314,6 @@ export default function AccessibleLakeTravisBoatParties() {
             <img 
               src={sectionImage1}
               alt="Inclusive party boat Lake Travis - accessible single-deck pontoon with flat surfaces and shade canopy"
-              className="w-full rounded-2xl shadow-xl"
               data-testid="img-accessible"
             />
           </div>
@@ -334,7 +327,6 @@ export default function AccessibleLakeTravisBoatParties() {
               whileInView="visible"
               viewport={{ once: true }}
               variants={fadeInUp}
-              className="text-center mb-12"
             >
               <Badge className="mb-4 bg-blue-100 text-blue-700">OUR FLEET</Badge>
               <h2 className="text-3xl font-bold mb-4" data-testid="boats-title">
@@ -386,7 +378,6 @@ export default function AccessibleLakeTravisBoatParties() {
               whileInView="visible"
               viewport={{ once: true }}
               variants={fadeInUp}
-              className="text-center mb-12"
             >
               <Badge className="mb-4 bg-purple-100 text-purple-700">PLANNING TIPS</Badge>
               <h2 className="text-3xl font-bold mb-4" data-testid="planning-title">
@@ -429,7 +420,6 @@ export default function AccessibleLakeTravisBoatParties() {
               whileInView="visible"
               viewport={{ once: true }}
               variants={fadeInUp}
-              className="text-center mb-12"
             >
               <Badge className="mb-4 bg-pink-100 text-pink-700">SPECIAL NEEDS</Badge>
               <h2 className="text-3xl font-bold mb-4" data-testid="support-title">
@@ -501,7 +491,6 @@ export default function AccessibleLakeTravisBoatParties() {
                 <img 
                   src={sectionImage2}
                   alt="Wheelchair accessible boat party - guests of all abilities celebrating on ADA boat rental Austin"
-                  className="rounded-2xl shadow-xl"
                   data-testid="img-checklist"
                 />
               </m.div>
@@ -520,7 +509,6 @@ export default function AccessibleLakeTravisBoatParties() {
               whileInView="visible"
               viewport={{ once: true }}
               variants={fadeInUp}
-              className="text-center mb-12"
             >
               <Badge className="mb-4 bg-teal-100 text-teal-700">ACCESSIBILITY FAQ</Badge>
               <h2 className="text-3xl font-bold mb-4" data-testid="faq-title">
@@ -554,7 +542,6 @@ export default function AccessibleLakeTravisBoatParties() {
               whileInView="visible"
               viewport={{ once: true }}
               variants={fadeInUp}
-              className="text-center mb-12"
             >
               <h2 className="text-3xl font-bold mb-4">Explore More</h2>
               <p className="text-lg text-gray-600 dark:text-gray-400">
@@ -597,7 +584,6 @@ export default function AccessibleLakeTravisBoatParties() {
                 <Button 
                   asChild 
                   size="lg" 
-                  className="bg-white text-teal-700 hover:bg-gray-100 font-bold text-lg px-8"
                   data-testid="button-cta-quote"
                 >
                   <Link href="/book-now">Start Planning Today</Link>
@@ -606,7 +592,6 @@ export default function AccessibleLakeTravisBoatParties() {
                   asChild 
                   size="lg" 
                   variant="outline" 
-                  className="border-white text-white hover:bg-white hover:text-teal-700 font-semibold"
                   data-testid="button-cta-call"
                 >
                   <a href="tel:5124885892">

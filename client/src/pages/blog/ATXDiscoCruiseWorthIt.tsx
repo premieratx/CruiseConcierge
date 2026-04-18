@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
 import { m, LazyMotionProvider, fadeInUp } from '@/components/LazyMotion';
 import { Link } from 'wouter';
-import { BlogPostLayout, TOCSection } from '@/components/blog/BlogPostLayout';
+import BlogV2Layout from '@/components/BlogV2Layout';
+import { TOCSection } from '@/components/blog/BlogPostLayout';
 import { BlogImageBreak } from '@/components/BlogImageBreak';
 import { 
   Accordion, 
@@ -42,16 +43,13 @@ export default function ATXDiscoCruiseWorthIt() {
 
   return (
     <LazyMotionProvider>
-      <BlogPostLayout
-        pageRoute="/blogs/is-the-atx-disco-cruise-worth-it-breaking-down-the-value-vs-a-private-boat"
+      <BlogV2Layout
+        slug="is-the-atx-disco-cruise-worth-it-breaking-down-the-value-vs-a-private-boat"
         title="Is the ATX Disco Cruise Worth It? Breaking Down the Value vs. a Private Boat"
-        metaDescription="Is the ATX Disco Cruise worth it? Full value breakdown: $85–$105/person all-inclusive with DJ + photographer vs. private boat rental costs. The honest comparison most Austin party planners need."
-        keywords={['ATX Disco Cruise cost', 'is disco cruise worth it', 'Austin party boat value', 'Lake Travis party boat price', 'Austin bach party cost', 'ATX Disco Cruise price 2026']}
+        description="Is the ATX Disco Cruise worth it? Full value breakdown: $85–$105/person all-inclusive with DJ + photographer vs. private boat rental costs. The honest comparison most Austin party planners need."
         publishDate="2025-05-18"
         author="Captain Brian"
         heroImage={discoFun2}
-        heroImageAlt="ATX Disco Cruise value comparison for Lake Travis party boats"
-        sections={sections}
       >
         <div className="mb-8 flex items-start gap-3 p-4 bg-blue-50 border border-blue-200 rounded-xl text-sm">
           <span className="text-blue-600 font-bold text-lg leading-none mt-0.5">→</span>
@@ -251,7 +249,7 @@ export default function ATXDiscoCruiseWorthIt() {
             </AccordionItem>
           </Accordion>
         </section>
-      </BlogPostLayout>
+      </BlogV2Layout>
     </LazyMotionProvider>
   );
 }

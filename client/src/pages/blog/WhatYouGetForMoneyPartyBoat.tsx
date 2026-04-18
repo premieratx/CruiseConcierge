@@ -32,16 +32,13 @@ const sections: TOCSection[] = [
 
 export default function BestBachelorPartyBoatAustin() {
   return (
-    <BlogPostLayout
+    <BlogV2Layout
       title="The Best Bachelor Party Boat in Austin: Disco Cruise vs. Private Charter"
-      metaDescription="Choosing the best bachelor party boat in Austin? Full comparison of ATX Disco Cruise vs. private charter for Lake Travis bachelor parties — cost, vibe, group size, DJ, and photos for 2026."
+      description="Choosing the best bachelor party boat in Austin? Full comparison of ATX Disco Cruise vs. private charter for Lake Travis bachelor parties — cost, vibe, group size, DJ, and photos for 2026."
       publishDate="2025-05-16"
       author="Captain Brian"
       heroImage={bachelorHero}
-      heroImageAlt="Bachelor party group celebrating on a Lake Travis party boat"
-      keywords={['Austin bachelor party boat', 'best bachelor party boat Austin', 'Lake Travis bachelor party', 'bachelor party boat rental Austin', 'Austin bachelor party ideas 2026', 'bachelor party cruise Austin']}
-      pageRoute="/blogs/the-best-bachelor-party-boat-in-austin-disco-cruise-vs-private-charter"
-      sections={sections}
+      slug="the-best-bachelor-party-boat-in-austin-disco-cruise-vs-private-charter"
     >
       <div className="mb-8 flex items-start gap-3 p-4 bg-blue-50 border border-blue-200 rounded-xl text-sm">
         <span className="text-blue-600 font-bold text-lg leading-none mt-0.5">→</span>
@@ -250,6 +247,6 @@ export default function BestBachelorPartyBoatAustin() {
           </Link>
         </div>
       </div>
-    </BlogPostLayout>
+    </BlogV2Layout>
   );
 }

@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
 import { m, LazyMotionProvider, fadeInUp } from '@/components/LazyMotion';
 import { Link } from 'wouter';
-import { BlogPostLayout, TOCSection } from '@/components/blog/BlogPostLayout';
+import BlogV2Layout from '@/components/BlogV2Layout';
+import { TOCSection } from '@/components/blog/BlogPostLayout';
 import { BlogImageBreak, BlogPhotoStrip } from '@/components/BlogImageBreak';
 import { 
   Accordion, 
@@ -44,16 +45,13 @@ export default function TheFunnestDaytimeActivityAustin() {
 
   return (
     <LazyMotionProvider>
-      <BlogPostLayout
-        pageRoute="/blogs/the-funnest-daytime-activity-in-austin-according-to-30000-guests"
+      <BlogV2Layout
+        slug="the-funnest-daytime-activity-in-austin-according-to-30000-guests"
         title="The Funnest Daytime Activity in Austin, According to 30,000 Guests"
-        metaDescription="What's the most fun daytime activity in Austin? Over 30,000 guests say it's the ATX Disco Cruise on Lake Travis — DJ, photographer, giant floats, BYOB from $85/person. Austin's must-do bach party experience."
-        keywords={['funnest thing to do in Austin', 'Austin daytime activities', 'Austin bachelorette activity', 'Austin bachelor party daytime', 'Lake Travis party boat', 'ATX Disco Cruise', 'Austin party boat', 'best Austin bach party activity']}
+        description="What's the most fun daytime activity in Austin? Over 30,000 guests say it's the ATX Disco Cruise on Lake Travis — DJ, photographer, giant floats, BYOB from $85/person. Austin's must-do bach party experience."
         publishDate="2025-05-15"
         author="Captain Brian"
         heroImage={discoFun}
-        heroImageAlt="ATX Disco Cruise guests having the funnest daytime activity in Austin on Lake Travis"
-        sections={sections}
       >
         <div className="mb-8 flex items-start gap-3 p-4 bg-blue-50 border border-blue-200 rounded-xl text-sm">
           <span className="text-blue-600 font-bold text-lg leading-none mt-0.5">→</span>
@@ -253,7 +251,7 @@ export default function TheFunnestDaytimeActivityAustin() {
             </Link>
           </div>
         </div>
-      </BlogPostLayout>
+      </BlogV2Layout>
     </LazyMotionProvider>
   );
 }

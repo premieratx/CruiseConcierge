@@ -32,16 +32,13 @@ const sections: TOCSection[] = [
 
 export default function WhatYouGetForMoneyPartyBoat() {
   return (
-    <BlogPostLayout
+    <BlogV2Layout
       title="What You Actually Get for Your Money on an Austin Party Boat: Full Cost Breakdown"
-      metaDescription="Full Austin party boat cost breakdown 2026. ATX Disco Cruise from $85/person all-inclusive vs. private charters from $200/hr. Includes pricing tables for groups of 5, 10, 15, 20+ people."
+      description="Full Austin party boat cost breakdown 2026. ATX Disco Cruise from $85/person all-inclusive vs. private charters from $200/hr. Includes pricing tables for groups of 5, 10, 15, 20+ people."
       publishDate="2025-05-17"
       author="Captain Brian"
       heroImage={discoFun}
-      heroImageAlt="Group of friends celebrating on a Lake Travis party boat with disco balls"
-      keywords={['Austin party boat cost', 'Lake Travis party boat price', 'ATX Disco Cruise price 2026', 'party boat rental Austin cost', 'how much does ATX Disco Cruise cost', 'Austin party boat comparison']}
-      pageRoute="/blogs/what-you-actually-get-for-your-money-on-an-austin-party-boat-full-cost-breakdown"
-      sections={sections}
+      slug="what-you-actually-get-for-your-money-on-an-austin-party-boat-full-cost-breakdown"
     >
       <div className="mb-8 flex items-start gap-3 p-4 bg-blue-50 border border-blue-200 rounded-xl text-sm">
         <span className="text-blue-600 font-bold text-lg leading-none mt-0.5">→</span>
@@ -325,6 +322,6 @@ export default function WhatYouGetForMoneyPartyBoat() {
           </Link>
         </div>
       </div>
-    </BlogPostLayout>
+    </BlogV2Layout>
   );
 }

@@ -167,7 +167,7 @@ export default function LakeTravisBoatPartyThemes() {
     <LazyMotionProvider>
     <>
       <SEOHead 
-        pageRoute="/blogs/creative-lake-travis-boat-party-themes-unique-ideas-for-memorable-celebrations"
+        slug="creative-lake-travis-boat-party-themes-unique-ideas-for-memorable-celebrations"
         defaultTitle="Creative Lake Travis Boat Party Themes - Unique Ideas for Memorable Celebrations | Premier Party Cruises"
         defaultDescription="Discover creative Lake Travis boat party theme ideas for unforgettable celebrations. Unique party boat themes Austin including disco, tropical, VIP luxury, and more. Boat party celebration ideas for bachelor, bachelorette, corporate, and special events."
         defaultKeywords={['Lake Travis boat party theme', 'unique party boat themes Austin', 'creative Lake Travis party', 'boat party celebration ideas', 'Lake Travis party themes', 'themed boat party Austin', 'party boat decorations Lake Travis']}
@@ -182,12 +182,10 @@ export default function LakeTravisBoatPartyThemes() {
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
-          className="relative pt-24 pb-16 md:pt-32 md:pb-24 bg-gradient-to-br from-purple-900 via-pink-800 to-orange-700 text-white overflow-hidden"
           data-testid="hero-section"
         >
           <div className="absolute inset-0 bg-black/40" />
           <div 
-            className="absolute inset-0 bg-cover bg-center opacity-30"
             style={{ backgroundImage: `url(${heroImage})` }}
             role="img"
             aria-label="Creative Lake Travis boat party themes - decorated party boat with disco balls and festive atmosphere"
@@ -212,7 +210,6 @@ export default function LakeTravisBoatPartyThemes() {
               <Button 
                 asChild 
                 size="lg" 
-                className="bg-pink-500 hover:bg-pink-600 text-white font-bold text-lg px-8"
                 data-testid="button-get-quote"
               >
                 <Link href="/book-now">Plan Your Themed Party</Link>
@@ -221,7 +218,6 @@ export default function LakeTravisBoatPartyThemes() {
                 asChild 
                 size="lg" 
                 variant="outline" 
-                className="border-white text-white hover:bg-white hover:text-purple-900 font-semibold"
                 data-testid="button-disco"
               >
                 <Link href="/atx-disco-cruise">See Disco Cruise</Link>
@@ -253,7 +249,6 @@ export default function LakeTravisBoatPartyThemes() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
-                  className="text-center"
                   data-testid={`stat-${index}`}
                 >
                   <div className="text-3xl md:text-4xl font-bold text-purple-600 dark:text-purple-400">{item.stat}</div>
@@ -272,7 +267,6 @@ export default function LakeTravisBoatPartyThemes() {
               whileInView="visible"
               viewport={{ once: true }}
               variants={staggerContainer}
-              className="text-center mb-12"
             >
               <Badge className="mb-4 bg-purple-100 text-purple-700">POPULAR THEMES</Badge>
               <h2 className="text-3xl font-bold mb-4" data-testid="themes-title">
@@ -325,7 +319,6 @@ export default function LakeTravisBoatPartyThemes() {
             <img 
               src={sectionImage1}
               alt="Unique party boat themes Austin - guests enjoying creative Lake Travis party with themed decorations"
-              className="w-full rounded-2xl shadow-xl"
               data-testid="img-themes"
             />
           </div>
@@ -339,7 +332,6 @@ export default function LakeTravisBoatPartyThemes() {
               whileInView="visible"
               viewport={{ once: true }}
               variants={fadeInUp}
-              className="text-center mb-12"
             >
               <Badge className="mb-4 bg-orange-100 text-orange-700">SEASONAL IDEAS</Badge>
               <h2 className="text-3xl font-bold mb-4" data-testid="seasonal-title">
@@ -389,7 +381,6 @@ export default function LakeTravisBoatPartyThemes() {
               whileInView="visible"
               viewport={{ once: true }}
               variants={fadeInUp}
-              className="text-center mb-12"
             >
               <Badge className="mb-4 bg-pink-100 text-pink-700">DECORATION TIPS</Badge>
               <h2 className="text-3xl font-bold mb-4" data-testid="decor-title">
@@ -432,7 +423,6 @@ export default function LakeTravisBoatPartyThemes() {
               whileInView="visible"
               viewport={{ once: true }}
               variants={fadeInUp}
-              className="text-center mb-12"
             >
               <Badge className="mb-4 bg-red-100 text-red-700">BACH PARTY THEMES</Badge>
               <h2 className="text-3xl font-bold mb-4" data-testid="bach-title">
@@ -505,7 +495,6 @@ export default function LakeTravisBoatPartyThemes() {
             <img 
               src={sectionImage2}
               alt="Boat party celebration ideas - themed bachelorette party on Lake Travis with decorations and happy guests"
-              className="w-full rounded-2xl shadow-xl"
               data-testid="img-celebration"
             />
           </div>
@@ -522,7 +511,6 @@ export default function LakeTravisBoatPartyThemes() {
               whileInView="visible"
               viewport={{ once: true }}
               variants={fadeInUp}
-              className="text-center mb-12"
             >
               <Badge className="mb-4 bg-purple-100 text-purple-700">THEME FAQ</Badge>
               <h2 className="text-3xl font-bold mb-4" data-testid="faq-title">
@@ -556,7 +544,6 @@ export default function LakeTravisBoatPartyThemes() {
               whileInView="visible"
               viewport={{ once: true }}
               variants={fadeInUp}
-              className="text-center mb-12"
             >
               <h2 className="text-3xl font-bold mb-4">Explore More</h2>
               <p className="text-lg text-gray-600 dark:text-gray-400">
@@ -599,7 +586,6 @@ export default function LakeTravisBoatPartyThemes() {
                 <Button 
                   asChild 
                   size="lg" 
-                  className="bg-white text-purple-700 hover:bg-gray-100 font-bold text-lg px-8"
                   data-testid="button-cta-quote"
                 >
                   <Link href="/book-now">Start Planning Your Theme</Link>
@@ -608,7 +594,6 @@ export default function LakeTravisBoatPartyThemes() {
                   asChild 
                   size="lg" 
                   variant="outline" 
-                  className="border-white text-white hover:bg-white hover:text-purple-700 font-semibold"
                   data-testid="button-cta-call"
                 >
                   <a href="tel:5124885892">
