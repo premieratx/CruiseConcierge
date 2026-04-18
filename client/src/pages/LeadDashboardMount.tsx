@@ -13,22 +13,25 @@ import { HelmetProvider } from "react-helmet-async";
 import { Toaster } from "sonner";
 import { TooltipProvider } from "@/lead-app/components/ui/tooltip";
 import LeadDashboard from "@/lead-app/pages/LeadDashboard";
+import "@/styles/lead-dashboard-luxury.css";
 
 const queryClient = new QueryClient();
 
 export default function LeadDashboardMount() {
   return (
-    <HelmetProvider>
-      <QueryClientProvider client={queryClient}>
-        <TooltipProvider>
-          <Toaster position="top-center" theme="dark" />
-          <BrowserRouter basename="/lead-dashboard">
-            <Routes>
-              <Route path="/*" element={<LeadDashboard />} />
-            </Routes>
-          </BrowserRouter>
-        </TooltipProvider>
-      </QueryClientProvider>
-    </HelmetProvider>
+    <div className="v2-luxury-root">
+      <HelmetProvider>
+        <QueryClientProvider client={queryClient}>
+          <TooltipProvider>
+            <Toaster position="top-center" theme="dark" />
+            <BrowserRouter basename="/lead-dashboard">
+              <Routes>
+                <Route path="/*" element={<LeadDashboard />} />
+              </Routes>
+            </BrowserRouter>
+          </TooltipProvider>
+        </QueryClientProvider>
+      </HelmetProvider>
+    </div>
   );
 }

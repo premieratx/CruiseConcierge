@@ -110,13 +110,13 @@ export const EOYSaleBannerVisual = () => {
 
   const depositPerks = [
     {
-      image: cleverGirl1.src,
+      image: cleverGirl1,
       title: "$150 Off Your Booking",
       value: "SAVE $150",
       description: "Instant discount when you book by the deadline"
     },
     {
-      image: irony1.src,
+      image: irony1,
       title: "25% Off Transportation",
       value: "SAVE 25%",
       description: "Round-trip shuttle service discount included"
@@ -125,27 +125,27 @@ export const EOYSaleBannerVisual = () => {
 
   const bonusPerks = [
     {
-      image: discoFunBest2.src,
+      image: discoFunBest2,
       title: "Ultimate Disco Party Package",
       value: "$250-$350 FREE",
       description: "Private Cruises: Disco Ball Cups, Bubble Guns, Unicorn Floats & More",
       highlight: true
     },
     {
-      image: discoWigs.src,
+      image: discoWigs,
       title: "Sparkle + Mimosa Cooler",
       value: "$200-$250 FREE",
       description: "ATX Disco Cruise: Juices, Champagne Flutes, Bubble Guns & More",
       highlight: true
     },
     {
-      image: meeseeks1.src,
+      image: meeseeks1,
       title: "Party On Boat Delivery",
       value: "$50 FREE",
       description: "Drink delivery, stock-the-cooler service & free champagne"
     },
     {
-      image: groupPic.src,
+      image: groupPic,
       title: "Airbnb Concierge Package",
       value: "$100 FREE",
       description: "Welcome drink package - Tequila Shots or Beer Pong Setup"

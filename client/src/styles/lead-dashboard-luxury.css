@@ -1,0 +1,223 @@
+/*
+ * V2 Luxury Theme Override — for /lead-dashboard and /customer-dashboard.
+ *
+ * The ported Lovable dashboards were styled with Tailwind's slate / sky /
+ * amber / yellow / purple / emerald palette. This file re-skins them to the
+ * Cruise V2 luxury theme (deep black + gold + cream + sparse sapphire
+ * blue) without touching the component source, so updates from upstream
+ * still flow through cleanly.
+ *
+ * Scope: everything inside `.v2-luxury-root`. Mount wrappers add that class.
+ * Specificity: we use `.v2-luxury-root [class*="…"]` selectors and
+ * `!important` where Tailwind utilities otherwise win.
+ */
+
+.v2-luxury-root {
+  /* Global typography + base surface */
+  font-family: 'Jost', system-ui, -apple-system, sans-serif !important;
+  color: #EDE3D0 !important;
+  background:
+    radial-gradient(ellipse at 20% 0%, rgba(30, 136, 229, 0.06) 0%, transparent 55%),
+    radial-gradient(ellipse at 80% 100%, rgba(200, 169, 110, 0.05) 0%, transparent 55%),
+    #07070C !important;
+  min-height: 100vh;
+}
+
+/* Serif heads use Cormorant Garamond */
+.v2-luxury-root h1,
+.v2-luxury-root h2,
+.v2-luxury-root h3,
+.v2-luxury-root [role="heading"],
+.v2-luxury-root .cormorant {
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
+  font-weight: 400 !important;
+  letter-spacing: -0.005em;
+}
+
+/* ── Surfaces ─────────────────────────────────────────────────────── */
+/* Slate cards → deep luxury card */
+.v2-luxury-root [class*="bg-slate-800"],
+.v2-luxury-root [class*="bg-slate-900"],
+.v2-luxury-root [class*="bg-slate-700"] {
+  background-color: #0F0F18 !important;
+  background-image: linear-gradient(180deg, rgba(200, 169, 110, 0.04) 0%, transparent 60%) !important;
+}
+.v2-luxury-root [class*="bg-slate-700/80"],
+.v2-luxury-root [class*="bg-slate-800/70"],
+.v2-luxury-root [class*="bg-slate-800/80"],
+.v2-luxury-root [class*="bg-slate-900/70"] {
+  background-color: rgba(15, 15, 24, 0.85) !important;
+}
+.v2-luxury-root [class*="bg-gradient-to-b"][class*="from-slate"],
+.v2-luxury-root [class*="bg-gradient-to-r"][class*="from-slate"] {
+  background: linear-gradient(180deg, #0F0F18 0%, #07070C 100%) !important;
+}
+
+/* ── Borders → gold-subtle ────────────────────────────────────────── */
+.v2-luxury-root [class*="border-slate"],
+.v2-luxury-root [class*="border-sky"],
+.v2-luxury-root [class*="border-amber"],
+.v2-luxury-root [class*="border-yellow"],
+.v2-luxury-root [class*="border-purple"],
+.v2-luxury-root [class*="border-emerald"],
+.v2-luxury-root [class*="border-orange"],
+.v2-luxury-root [class*="border-green"],
+.v2-luxury-root [class*="border-blue"],
+.v2-luxury-root [class*="border-red"] {
+  border-color: rgba(200, 169, 110, 0.22) !important;
+}
+.v2-luxury-root [class*="border-sky-400"],
+.v2-luxury-root [class*="border-amber-400"],
+.v2-luxury-root [class*="border-yellow-400"] {
+  border-color: rgba(200, 169, 110, 0.5) !important;
+}
+
+/* ── Text color remap ─────────────────────────────────────────────── */
+.v2-luxury-root [class*="text-white"] {
+  color: #F5EED8 !important;
+}
+.v2-luxury-root [class*="text-slate-100"],
+.v2-luxury-root [class*="text-slate-200"],
+.v2-luxury-root [class*="text-slate-300"] {
+  color: rgba(237, 227, 208, 0.88) !important;
+}
+.v2-luxury-root [class*="text-slate-400"],
+.v2-luxury-root [class*="text-slate-500"] {
+  color: rgba(237, 227, 208, 0.6) !important;
+}
+.v2-luxury-root [class*="text-slate-600"],
+.v2-luxury-root [class*="text-slate-700"] {
+  color: rgba(237, 227, 208, 0.45) !important;
+}
+/* Sky / amber / yellow accents → gold */
+.v2-luxury-root [class*="text-sky-"],
+.v2-luxury-root [class*="text-amber-"],
+.v2-luxury-root [class*="text-yellow-"] {
+  color: #C8A96E !important;
+}
+/* Emerald (money-positive) → soft-gold, kept green on confirmation states */
+.v2-luxury-root [class*="text-emerald-300"],
+.v2-luxury-root [class*="text-emerald-400"],
+.v2-luxury-root [class*="text-emerald-500"] {
+  color: #C8A96E !important;
+}
+.v2-luxury-root [class*="text-purple-"] {
+  color: #D4B97E !important;
+}
+.v2-luxury-root [class*="text-orange-"] {
+  color: #C8A96E !important;
+}
+/* Red stays red — it's for errors + warnings. */
+
+/* ── Background accents → sapphire blue (for key CTAs only) ──────── */
+.v2-luxury-root [class*="bg-sky-600"],
+.v2-luxury-root [class*="bg-sky-500"] {
+  background-color: #1E88E5 !important;
+  color: #F5EED8 !important;
+}
+.v2-luxury-root [class*="bg-amber-600"],
+.v2-luxury-root [class*="bg-yellow-600"] {
+  background: linear-gradient(135deg, #C8A96E 0%, #A88B4E 100%) !important;
+  color: #0A0A10 !important;
+}
+.v2-luxury-root [class*="bg-emerald-600"],
+.v2-luxury-root [class*="bg-green-600"] {
+  background-color: #2F8A5C !important;
+  color: #F5EED8 !important;
+}
+.v2-luxury-root [class*="bg-purple-600"] {
+  background: linear-gradient(135deg, #C8A96E 0%, #A88B4E 100%) !important;
+  color: #0A0A10 !important;
+}
+
+/* ── Tabs trigger styling — gold-accented pills ───────────────────── */
+.v2-luxury-root [role="tab"] {
+  font-family: 'Jost', sans-serif !important;
+  letter-spacing: 0.02em;
+}
+.v2-luxury-root [role="tab"][data-state="active"] {
+  background: linear-gradient(135deg, #C8A96E 0%, #A88B4E 100%) !important;
+  color: #0A0A10 !important;
+  border-color: #C8A96E !important;
+  box-shadow: 0 4px 16px rgba(200, 169, 110, 0.35) !important;
+}
+.v2-luxury-root [role="tab"][data-state="inactive"] {
+  background-color: rgba(15, 15, 24, 0.7) !important;
+  color: rgba(237, 227, 208, 0.7) !important;
+  border-color: rgba(200, 169, 110, 0.2) !important;
+}
+
+/* ── Buttons ──────────────────────────────────────────────────────── */
+.v2-luxury-root button[class*="bg-sky-600"],
+.v2-luxury-root a[class*="bg-sky-600"],
+.v2-luxury-root button[class*="bg-amber-600"],
+.v2-luxury-root button[class*="bg-yellow-600"] {
+  background: linear-gradient(135deg, #C8A96E 0%, #A88B4E 100%) !important;
+  color: #0A0A10 !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.04em;
+}
+.v2-luxury-root button[class*="bg-sky-600"]:hover,
+.v2-luxury-root a[class*="bg-sky-600"]:hover,
+.v2-luxury-root button[class*="bg-amber-600"]:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 28px rgba(200, 169, 110, 0.3);
+}
+
+/* ── Badges ──────────────────────────────────────────────────────── */
+.v2-luxury-root [class*="Badge"],
+.v2-luxury-root .badge {
+  font-family: 'Jost', sans-serif !important;
+  letter-spacing: 0.04em;
+}
+
+/* ── Top header bar (lead name + date + guests) ──────────────────── */
+.v2-luxury-root .container > div:first-child,
+.v2-luxury-root header {
+  border-bottom: 1px solid rgba(200, 169, 110, 0.2) !important;
+}
+
+/* ── Focus rings → gold ──────────────────────────────────────────── */
+.v2-luxury-root *:focus-visible {
+  outline-color: #C8A96E !important;
+}
+.v2-luxury-root [class*="ring-sky"],
+.v2-luxury-root [class*="ring-amber"] {
+  --tw-ring-color: rgba(200, 169, 110, 0.4) !important;
+}
+
+/* ── Hero / banner gradients ─────────────────────────────────────── */
+.v2-luxury-root [class*="bg-gradient"][class*="from-sky"],
+.v2-luxury-root [class*="bg-gradient"][class*="from-blue"],
+.v2-luxury-root [class*="bg-gradient"][class*="from-amber"],
+.v2-luxury-root [class*="bg-gradient"][class*="from-yellow"] {
+  background: linear-gradient(135deg, rgba(200, 169, 110, 0.18) 0%, rgba(30, 136, 229, 0.08) 100%) !important;
+}
+
+/* ── Dividers ────────────────────────────────────────────────────── */
+.v2-luxury-root hr,
+.v2-luxury-root [class*="divide-slate"] > * + * {
+  border-color: rgba(200, 169, 110, 0.15) !important;
+}
+
+/* ── Input fields ────────────────────────────────────────────────── */
+.v2-luxury-root input:not([type="checkbox"]):not([type="radio"]),
+.v2-luxury-root textarea,
+.v2-luxury-root select {
+  background-color: #07070C !important;
+  border-color: rgba(200, 169, 110, 0.25) !important;
+  color: #EDE3D0 !important;
+  font-family: 'Jost', sans-serif !important;
+}
+.v2-luxury-root input:focus,
+.v2-luxury-root textarea:focus,
+.v2-luxury-root select:focus {
+  border-color: #C8A96E !important;
+}
+
+/* ── Dialog / Modal surfaces ─────────────────────────────────────── */
+.v2-luxury-root [role="dialog"],
+.v2-luxury-root [data-state="open"][class*="Dialog"] {
+  background-color: #0F0F18 !important;
+  border: 1px solid rgba(200, 169, 110, 0.3) !important;
+}

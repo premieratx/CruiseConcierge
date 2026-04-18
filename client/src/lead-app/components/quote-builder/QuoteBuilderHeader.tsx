@@ -196,7 +196,7 @@ export const QuoteBuilderHeader = ({
             {/* Premier Party Cruises Logo */}
             <div className="hidden md:flex items-center justify-center">
               <img 
-                src={ppcLogo.src} 
+                src={ppcLogo} 
                 alt="Premier Party Cruises" 
                 className="w-16 h-16 object-contain"
               />
