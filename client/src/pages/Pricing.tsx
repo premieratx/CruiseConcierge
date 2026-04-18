@@ -1,7 +1,7 @@
 import { Link } from 'wouter';
 import { motion } from 'framer-motion';
 import { lazy, Suspense } from 'react';
-import PublicNavigation from '@/components/PublicNavigation';
+import PublicNavigation from '@/components/PublicNavigationLuxury';
 import Footer from '@/components/Footer';
 import QuoteBuilderSection from '@/components/QuoteBuilderSection';
 import SEOHead from '@/components/SEOHead';

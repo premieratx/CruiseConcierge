@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { Link } from 'wouter';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import PublicNavigation from '@/components/PublicNavigation';
+import PublicNavigation from '@/components/PublicNavigationLuxury';
 import { ClientOnly } from '@/components/ClientOnly';
 import Footer from '@/components/Footer';
 import AdminNoIndex from '@/components/AdminNoIndex';

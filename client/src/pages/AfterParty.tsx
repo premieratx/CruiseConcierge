@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useLocation } from 'wouter';
 import { motion, AnimatePresence } from 'framer-motion';
-import PublicNavigation from '@/components/PublicNavigation';
+import PublicNavigation from '@/components/PublicNavigationLuxury';
 import { ClientOnly } from '@/components/ClientOnly';
 import Footer from '@/components/Footer';
 import PartyPlanningChecklist from '@/components/PartyPlanningChecklist';

@@ -6,10 +6,13 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Cake, Ship, Users, Calendar, Shield, Music, Camera, Sparkles, CheckCircle2, Phone, PartyPopper, Gift, Anchor } from 'lucide-react';
 import { Link } from 'wouter';
 import { BlogImageBreak, BlogPhotoStrip, BlogPartyGallery, BLOG_BOAT_PHOTOS, BLOG_PARTY_PHOTOS } from '@/components/BlogImageBreak';
+import PublicNavigationLuxury from '@/components/PublicNavigationLuxury';
+import Footer from '@/components/Footer';
 
 export default function BirthdayPartyAustinGuide() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-purple-50 via-white to-pink-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950" data-page-ready="birthday-party-austin-guide">
+      <PublicNavigationLuxury />
       <Helmet>
         <title>Birthday Party Boat Austin | Milestone Celebrations on Lake Travis</title>
         <meta 
@@ -533,6 +536,7 @@ export default function BirthdayPartyAustinGuide() {
           </div>
         </div>
       </section>
+      <Footer />
     </div>
   );
 }

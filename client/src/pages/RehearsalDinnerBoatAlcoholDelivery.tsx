@@ -1,5 +1,5 @@
 import { Link } from 'wouter';
-import PublicNavigation from '@/components/PublicNavigation';
+import PublicNavigation from '@/components/PublicNavigationLuxury';
 import { ClientOnly } from '@/components/ClientOnly';
 import Footer from '@/components/Footer';
 import Breadcrumb from '@/components/Breadcrumb';

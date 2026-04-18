@@ -6,10 +6,13 @@ import { Card, CardContent } from '@/components/ui/card';
 import { CloudRain, Sun, Wind, Snowflake, Calendar, Shield, CheckCircle2, Phone, Thermometer, Umbrella, Sparkles } from 'lucide-react';
 import { Link } from 'wouter';
 import { BlogImageBreak, BlogPhotoStrip, BlogPartyGallery, BLOG_BOAT_PHOTOS, BLOG_PARTY_PHOTOS } from '@/components/BlogImageBreak';
+import PublicNavigationLuxury from '@/components/PublicNavigationLuxury';
+import Footer from '@/components/Footer';
 
 export default function LakeTravisWeatherGuide() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-sky-50 via-white to-blue-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950" data-page-ready="lake-travis-weather-guide">
+      <PublicNavigationLuxury />
       <Helmet>
         <title>Lake Travis Weather Planning | Seasonal Guide for Perfect Boat Parties</title>
         <meta 
@@ -574,6 +577,7 @@ export default function LakeTravisWeatherGuide() {
           </div>
         </div>
       </section>
+      <Footer />
     </div>
   );
 }

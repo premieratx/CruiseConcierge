@@ -1,5 +1,5 @@
 import { Link } from 'wouter';
-import PublicNavigation from '@/components/PublicNavigation';
+import PublicNavigation from '@/components/PublicNavigationLuxury';
 import AdminNoIndex from '@/components/AdminNoIndex';
 import Footer from '@/components/Footer';
 import SEOHead from '@/components/SEOHead';

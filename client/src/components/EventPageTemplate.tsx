@@ -1,6 +1,6 @@
 import { Link } from 'wouter';
 import { motion } from 'framer-motion';
-import PublicNavigation from '@/components/PublicNavigation';
+import PublicNavigation from '@/components/PublicNavigationLuxury';
 import Footer from '@/components/Footer';
 import RelatedCelebrationEvents from '@/components/RelatedCelebrationEvents';
 import { YouTubeVideoBackground } from '@/components/YouTubeVideoBackground';

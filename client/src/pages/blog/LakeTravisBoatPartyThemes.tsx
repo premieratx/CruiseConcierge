@@ -17,6 +17,8 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import heroImage from '@assets/@capitalcityshots-27_1760080807866.jpg';
 import sectionImage1 from '@assets/@capitalcityshots-28_1760080807867.jpg';
 import sectionImage2 from '@assets/@capitalcityshots-29_1760080807867.jpg';
+import PublicNavigationLuxury from '@/components/PublicNavigationLuxury';
+import Footer from '@/components/Footer';
 
 const partyStats = [
   { stat: '14+', label: 'Years Experience' },

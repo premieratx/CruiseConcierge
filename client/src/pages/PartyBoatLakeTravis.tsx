@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'wouter';
 import { motion } from 'framer-motion';
-import PublicNavigation from '@/components/PublicNavigation';
+import PublicNavigation from '@/components/PublicNavigationLuxury';
 import { ClientOnly } from '@/components/ClientOnly';
 import Footer from '@/components/Footer';
 import YouTubeHeroEmbed from '@/components/YouTubeHeroEmbed';

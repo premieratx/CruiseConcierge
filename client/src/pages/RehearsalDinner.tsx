@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'wouter';
 import { motion, AnimatePresence } from 'framer-motion';
-import PublicNavigation from '@/components/PublicNavigation';
+import PublicNavigation from '@/components/PublicNavigationLuxury';
 import Footer from '@/components/Footer';
 import PartyPlanningChecklist from '@/components/PartyPlanningChecklist';
 import { Button } from '@/components/ui/button';

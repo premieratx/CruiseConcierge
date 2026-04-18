@@ -6,10 +6,13 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Ship, Users, Calendar, Shield, Music, Camera, CheckCircle2, Phone, Sparkles, Anchor, Building2, Trophy, Heart } from 'lucide-react';
 import { Link } from 'wouter';
 import { BlogImageBreak, BlogPhotoStrip, BlogPartyGallery, BLOG_BOAT_PHOTOS, BLOG_PARTY_PHOTOS } from '@/components/BlogImageBreak';
+import PublicNavigationLuxury from '@/components/PublicNavigationLuxury';
+import Footer from '@/components/Footer';
 
 export default function LakeTravisLargeGroupsGuide() {
   return (
     <div data-page-ready="lake-travis-large-groups-guide" className="min-h-screen bg-gradient-to-b from-blue-50 via-white to-cyan-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950">
+      <PublicNavigationLuxury />
       <Helmet>
         <title>Lake Travis Boat Rentals Texas | Large Group Party Boats (20-75 Guests) Austin</title>
         <meta 
@@ -632,6 +635,7 @@ export default function LakeTravisLargeGroupsGuide() {
           </div>
         </div>
       </section>
+      <Footer />
     </div>
   );
 }

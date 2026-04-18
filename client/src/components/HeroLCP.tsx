@@ -1,4 +1,4 @@
-import PublicNavigation from '@/components/PublicNavigation';
+import PublicNavigation from '@/components/PublicNavigationLuxury';
 import { Button } from '@/components/ui/button';
 import { Calendar, MessageSquare } from 'lucide-react';
 

@@ -1,4 +1,4 @@
-import PublicNavigation from '@/components/PublicNavigation';
+import PublicNavigation from '@/components/PublicNavigationLuxury';
 import Footer from '@/components/Footer';
 import SEOHead from '@/components/SEOHead';
 import { CONTACT_INFO } from '@shared/contact';

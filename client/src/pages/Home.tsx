@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef, lazy, Suspense, FormEvent } from 'r
 import { Link, useLocation } from 'wouter';
 import { LazyMotionProvider, m } from '@/components/LazyMotion';
 import { useQuery } from '@tanstack/react-query';
-import PublicNavigation from '@/components/PublicNavigation';
+import PublicNavigation from '@/components/PublicNavigationLuxury';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
