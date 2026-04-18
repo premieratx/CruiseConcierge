@@ -37,6 +37,9 @@ import { addDays, format, parseISO, startOfDay } from "date-fns";
 import {
   calculatePricing,
   getAutoCrewFeePerHour,
+  getBaseHourlyRate,
+  DISCO_TIME_SLOTS,
+  isDiscoEligiblePartyType,
 } from "@/lib/pricing";
 import { supabase } from "@/lib/supabase";
 
@@ -246,8 +249,33 @@ const STYLES = `
   border-radius: 10px; padding: 0.85rem 1rem; margin-top: 1rem;
 }
 .qlb-live-label { font-size: 0.64rem; letter-spacing: 0.22em; color: rgba(237,227,208,0.55); text-transform: uppercase; margin: 0 0 0.3rem; }
-.qlb-live-total { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; color: #C8A96E; margin: 0; font-weight: 400; }
+.qlb-live-total { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; color: #C8A96E; margin: 0; font-weight: 400; display: flex; align-items: baseline; gap: 0.4rem; }
 .qlb-live-hint { font-size: 0.72rem; color: rgba(237,227,208,0.55); margin: 0.2rem 0 0; }
+
+.qlb-starting-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; margin-top: 1rem;
+}
+@media (max-width: 520px) { .qlb-starting-grid { grid-template-columns: 1fr; } }
+.qlb-starting-card {
+  background: rgba(200,169,110,0.05);
+  border: 1px solid rgba(200,169,110,0.18);
+  border-radius: 10px; padding: 0.85rem 1rem;
+}
+.qlb-starting-label {
+  font-size: 0.6rem; letter-spacing: 0.18em; color: rgba(237,227,208,0.6);
+  text-transform: uppercase; margin: 0 0 0.35rem;
+}
+.qlb-starting-amount {
+  font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; color: #C8A96E;
+  margin: 0; font-weight: 400; display: flex; align-items: baseline; gap: 0.35rem;
+  flex-wrap: wrap;
+}
+.qlb-starting-prefix {
+  font-family: 'Jost', system-ui, sans-serif;
+  font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
+  color: rgba(237,227,208,0.55); font-weight: 500;
+}
+.qlb-starting-hint { font-size: 0.7rem; color: rgba(237,227,208,0.5); margin: 0.2rem 0 0; }
 
 .qlb-success {
   text-align: center; padding: 1rem 0.5rem;
@@ -344,7 +372,39 @@ export function QuoteLightboxProvider({ children }: { children: ReactNode }) {
     return () => { document.body.style.overflow = prev; };
   }, [isOpen]);
 
-  // ── Live estimate for a Saturday 4-hour reference cruise based on guests ──
+  // ── "Starting at" pricing for the badge ──────────────────────────────
+  // These are PRE-tax, PRE-tip, PRE-booking-fee numbers — the user
+  // wanted "starting at" copy rather than an all-in total during the
+  // form. We show:
+  //   • Private charter: lowest possible 4-hour cost for this guest
+  //     count (Mon-Thu rate × 4 + auto crew fee × 4 if applicable)
+  //   • ATX Disco:        lowest per-person slot price ($85 for Sat 3:30)
+  //                       if the party type qualifies (bach variants)
+  const startingAt = useMemo(() => {
+    // Find the next Tuesday (getDay === 2), guaranteed Mon–Thu tier
+    // regardless of what day of the week today happens to be.
+    let refDate = startOfDay(new Date());
+    while (refDate.getDay() !== 2) {
+      refDate = addDays(refDate, 1);
+    }
+    const hourly = getBaseHourlyRate(refDate, guests);
+    const crew = getAutoCrewFeePerHour(guests);
+    const privateStartingAt = (hourly + crew) * 4;
+
+    const allDiscoSlots = [...DISCO_TIME_SLOTS.friday, ...DISCO_TIME_SLOTS.saturday];
+    const discoStartingAtPerPerson = Math.min(
+      ...allDiscoSlots.map((s) => s.pricePerPerson),
+    );
+
+    return { privateStartingAt, discoStartingAtPerPerson };
+  }, [guests]);
+
+  const showDisco = useMemo(
+    () => isDiscoEligiblePartyType(partyType),
+    [partyType],
+  );
+
+  // Legacy total (used only if we ever need an all-in number for analytics).
   const liveEstimate = useMemo(() => {
     const refDate = selectedDate ?? startOfDay(addDays(new Date(), 21));
     return calculatePricing({
@@ -388,38 +448,62 @@ export function QuoteLightboxProvider({ children }: { children: ReactNode }) {
     try {
       const formattedDate = format(selectedDate, "yyyy-MM-dd");
 
-      // Pull optional affiliate tracking cookies the old iframe also passed.
-      // We don't require the affiliateTracking lib — just read window.sessionStorage
-      // so if affiliate tracking isn't set up on the cruise site yet it
-      // degrades gracefully.
-      const affiliateId =
-        typeof window !== "undefined" ? sessionStorage.getItem("affiliateId") ?? undefined : undefined;
-      const affiliateCodeId =
-        typeof window !== "undefined" ? sessionStorage.getItem("affiliateCodeId") ?? undefined : undefined;
-      const affiliateClickId =
-        typeof window !== "undefined" ? sessionStorage.getItem("affiliateClickId") ?? undefined : undefined;
+      // The edge function validates `quoteUrl` with zod `.url()` — it must
+      // be a real URL. Generate one that points at the customer lead
+      // dashboard; the server backfills the lead id after insert. The
+      // `sourceUrl` we pass in `sourceUrl` is the page they clicked from.
+      const quoteUrl = `https://booking.premierpartycruises.com/lead-dashboard?sourceHost=${encodeURIComponent(
+        typeof window !== "undefined" ? window.location.hostname : "premierpartycruises.com",
+      )}`;
+
+      // Affiliate fields are zod-validated as UUIDs when present. Only
+      // include them if they look like UUIDs so empty strings don't 400.
+      const uuidRe = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;
+      const readUuid = (key: string) => {
+        if (typeof window === "undefined") return undefined;
+        const v = sessionStorage.getItem(key);
+        return v && uuidRe.test(v) ? v : undefined;
+      };
+      const affiliateId = readUuid("affiliateId");
+      const affiliateCodeId = readUuid("affiliateCodeId");
+      const affiliateClickId = readUuid("affiliateClickId");
+
+      // Build body — only include affiliate keys if they passed UUID
+      // validation, so the zod `.optional()` branch takes over.
+      const body: Record<string, unknown> = {
+        firstName,
+        lastName,
+        email,
+        phone,
+        eventDate: formattedDate,
+        partyType,
+        guestCount: guests,
+        quoteUrl,
+        sourceType: sourceType ?? "quote_lightbox",
+        sourceUrl: sourceUrlRef.current,
+      };
+      if (affiliateId) body.affiliateId = affiliateId;
+      if (affiliateCodeId) body.affiliateCodeId = affiliateCodeId;
+      if (affiliateClickId) body.affiliateClickId = affiliateClickId;
 
       const { data, error: fnError } = await supabase.functions.invoke("create-lead", {
-        body: {
-          firstName,
-          lastName,
-          email,
-          phone,
-          eventDate: formattedDate,
-          partyType,
-          guestCount: guests,
-          // The old iframe passed a quoteUrl so the server could email it;
-          // here we leave it blank so the edge function generates one.
-          quoteUrl: "",
-          sourceType: sourceType ?? "quote_lightbox",
-          sourceUrl: sourceUrlRef.current,
-          affiliateId,
-          affiliateCodeId,
-          affiliateClickId,
-        },
+        body,
       });
 
-      if (fnError) throw fnError;
+      if (fnError) {
+        // Edge function returns { error, details } on validation failure.
+        // `fnError.context?.body` is a ReadableStream; surface the details.
+        let friendly = fnError.message;
+        try {
+          const ctx = (fnError as any).context;
+          if (ctx?.body && typeof ctx.body.getReader === "function") {
+            const text = await new Response(ctx.body).text();
+            const parsed = JSON.parse(text);
+            if (parsed?.error) friendly = parsed.error;
+          }
+        } catch { /* ignore */ }
+        throw new Error(friendly || "Quote service error");
+      }
 
       const leadId: string | undefined = data?.leadId;
       const quoteNumber: string | undefined = data?.quoteNumber;
@@ -504,6 +588,8 @@ export function QuoteLightboxProvider({ children }: { children: ReactNode }) {
         setPhone={setPhone}
         canAdvance={canAdvance}
         liveEstimate={liveEstimate}
+        startingAt={startingAt}
+        showDisco={showDisco}
         submitting={submitting}
         error={error}
         submitted={submitted}
@@ -537,6 +623,8 @@ export function useQuoteLightbox() {
 // ────────────────────────────────────────────────────────────────────────
 // Modal component
 // ────────────────────────────────────────────────────────────────────────
+type StartingAt = { privateStartingAt: number; discoStartingAtPerPerson: number };
+
 function Modal(props: {
   open: boolean;
   onClose: () => void;
@@ -551,6 +639,8 @@ function Modal(props: {
   phone: string; setPhone: (s: string) => void;
   canAdvance: boolean;
   liveEstimate: { total: number };
+  startingAt: StartingAt;
+  showDisco: boolean;
   submitting: boolean;
   error: string | null;
   submitted: { quoteUrl?: string } | null;
@@ -562,7 +652,7 @@ function Modal(props: {
     selectedDate, setSelectedDate,
     firstName, setFirstName, lastName, setLastName,
     email, setEmail, phone, setPhone,
-    canAdvance, liveEstimate, submitting, error, submitted, onSubmit,
+    canAdvance, startingAt, showDisco, submitting, error, submitted, onSubmit,
   } = props;
 
   const next = () => setStep(Math.min(4, (step + 1)) as FlowStep);
@@ -618,10 +708,21 @@ function Modal(props: {
                 <Step1Party partyType={partyType} setPartyType={setPartyType} />
               )}
               {step === 2 && (
-                <Step2Guests guests={guests} setGuests={setGuests} liveEstimate={liveEstimate} />
+                <Step2Guests
+                  guests={guests}
+                  setGuests={setGuests}
+                  startingAt={startingAt}
+                  showDisco={showDisco}
+                />
               )}
               {step === 3 && (
-                <Step3Date selectedDate={selectedDate} setSelectedDate={setSelectedDate} liveEstimate={liveEstimate} />
+                <Step3Date
+                  selectedDate={selectedDate}
+                  setSelectedDate={setSelectedDate}
+                  startingAt={startingAt}
+                  showDisco={showDisco}
+                  guests={guests}
+                />
               )}
               {step === 4 && (
                 <Step4Contact
@@ -629,7 +730,9 @@ function Modal(props: {
                   lastName={lastName} setLastName={setLastName}
                   email={email} setEmail={setEmail}
                   phone={phone} setPhone={setPhone}
-                  liveEstimate={liveEstimate}
+                  startingAt={startingAt}
+                  showDisco={showDisco}
+                  guests={guests}
                 />
               )}
 
@@ -699,11 +802,13 @@ function Step1Party({ partyType, setPartyType }: { partyType: string; setPartyTy
 function Step2Guests({
   guests,
   setGuests,
-  liveEstimate,
+  startingAt,
+  showDisco,
 }: {
   guests: number;
   setGuests: (n: number) => void;
-  liveEstimate: { total: number };
+  startingAt: StartingAt;
+  showDisco: boolean;
 }) {
   return (
     <>
@@ -729,11 +834,7 @@ function Step2Guests({
         style={{ width: "100%" }}
       />
 
-      <div className="qlb-live">
-        <p className="qlb-live-label">Reference 4-hour cruise</p>
-        <p className="qlb-live-total">{currencyDecimal(liveEstimate.total)}</p>
-        <p className="qlb-live-hint">All-in total · captain, gratuity, tax, booking fee included</p>
-      </div>
+      <StartingAtBadge startingAt={startingAt} showDisco={showDisco} guests={guests} />
     </>
   );
 }
@@ -742,11 +843,15 @@ function Step2Guests({
 function Step3Date({
   selectedDate,
   setSelectedDate,
-  liveEstimate,
+  startingAt,
+  showDisco,
+  guests,
 }: {
   selectedDate?: Date;
   setSelectedDate: (d: Date | undefined) => void;
-  liveEstimate: { total: number };
+  startingAt: StartingAt;
+  showDisco: boolean;
+  guests: number;
 }) {
   return (
     <>
@@ -762,13 +867,7 @@ function Step3Date({
         />
       </div>
 
-      <div className="qlb-live">
-        <p className="qlb-live-label">Estimated total · 4-hour cruise</p>
-        <p className="qlb-live-total">{currencyDecimal(liveEstimate.total)}</p>
-        <p className="qlb-live-hint">
-          {selectedDate ? format(selectedDate, "EEEE, MMMM do, yyyy") : "Pick a date to see day-of-week pricing"}
-        </p>
-      </div>
+      <StartingAtBadge startingAt={startingAt} showDisco={showDisco} guests={guests} />
     </>
   );
 }
@@ -779,9 +878,15 @@ function Step4Contact(props: {
   lastName: string; setLastName: (s: string) => void;
   email: string; setEmail: (s: string) => void;
   phone: string; setPhone: (s: string) => void;
-  liveEstimate: { total: number };
+  startingAt: StartingAt;
+  showDisco: boolean;
+  guests: number;
 }) {
-  const { firstName, setFirstName, lastName, setLastName, email, setEmail, phone, setPhone, liveEstimate } = props;
+  const {
+    firstName, setFirstName, lastName, setLastName,
+    email, setEmail, phone, setPhone,
+    startingAt, showDisco, guests,
+  } = props;
   return (
     <>
       <p className="qlb-step-label">Step 4 · Where do we send your quote?</p>
@@ -811,11 +916,53 @@ function Step4Contact(props: {
         </div>
       </div>
 
-      <div className="qlb-live">
-        <p className="qlb-live-label">Estimated total</p>
-        <p className="qlb-live-total">{currencyDecimal(liveEstimate.total)}</p>
-        <p className="qlb-live-hint">Detailed quote → your inbox, with add-ons + deposit link.</p>
-      </div>
+      <StartingAtBadge startingAt={startingAt} showDisco={showDisco} guests={guests} />
     </>
+  );
+}
+
+// ── Starting-at pricing badge (used in Steps 2, 3, 4) ──────────────────
+function StartingAtBadge({
+  startingAt,
+  showDisco,
+  guests,
+}: {
+  startingAt: StartingAt;
+  showDisco: boolean;
+  guests: number;
+}) {
+  // Disco is shown side-by-side with Private when the party type is bach
+  // variant. Non-bach parties only see the private charter price.
+  if (showDisco) {
+    return (
+      <div className="qlb-starting-grid">
+        <div className="qlb-starting-card">
+          <p className="qlb-starting-label">Private charter · {guests} guests · 4 hrs</p>
+          <p className="qlb-starting-amount">
+            <span className="qlb-starting-prefix">starting at</span>
+            {currencyDecimal(startingAt.privateStartingAt)}
+          </p>
+          <p className="qlb-starting-hint">Whole boat · Mon–Thu rate · before tax + tip</p>
+        </div>
+        <div className="qlb-starting-card">
+          <p className="qlb-starting-label">ATX Disco Cruise · per person</p>
+          <p className="qlb-starting-amount">
+            <span className="qlb-starting-prefix">starting at</span>
+            {currencyDecimal(startingAt.discoStartingAtPerPerson)}
+          </p>
+          <p className="qlb-starting-hint">Sat 3:30–7:30 slot · before tax + tip</p>
+        </div>
+      </div>
+    );
+  }
+  return (
+    <div className="qlb-live">
+      <p className="qlb-live-label">Private charter · {guests} guests · 4 hrs</p>
+      <p className="qlb-live-total">
+        <span className="qlb-starting-prefix">starting at</span>
+        {currencyDecimal(startingAt.privateStartingAt)}
+      </p>
+      <p className="qlb-live-hint">Whole boat · Mon–Thu rate · before tax + tip</p>
+    </div>
   );
 }
