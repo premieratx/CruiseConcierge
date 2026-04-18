@@ -17,7 +17,7 @@ import RelatedBlogArticles from '@/components/RelatedBlogArticles';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { LazyImage } from '@/components/LazyImage';
 import Lightbox from '@/components/Lightbox';
-import { EmbeddedQuoteBuilder } from '@/components/EmbeddedQuoteBuilder';
+import EmbeddedQuoteFlow from '@/components/EmbeddedQuoteFlow';
 import { BACHELOR_GALLERY, DISCO_FUN_PHOTOS, BOAT_SCENIC_PHOTOS } from '@/lib/media';
 
 import heroImage from '@assets/bachelor-party-group-guys-hero-compressed.webp';
@@ -654,7 +654,7 @@ export default function HowToThrowBachelorPartyAustin() {
             </p>
             
             <div className="max-w-4xl mx-auto">
-              <EmbeddedQuoteBuilder pageContext="bachelor" />
+              <EmbeddedQuoteFlow source="blog_bachelor_howto" defaultPartyType="bachelor_party" />
             </div>
           </m.div>
         </div>

@@ -17,7 +17,7 @@ import RelatedBlogArticles from '@/components/RelatedBlogArticles';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { LazyImage } from '@/components/LazyImage';
 import Lightbox from '@/components/Lightbox';
-import { EmbeddedQuoteBuilder } from '@/components/EmbeddedQuoteBuilder';
+import EmbeddedQuoteFlow from '@/components/EmbeddedQuoteFlow';
 import { BACHELORETTE_GALLERY, DISCO_FUN_PHOTOS, BOAT_SCENIC_PHOTOS } from '@/lib/media';
 
 import heroImage from '@assets/dancing-party-scene.webp';
@@ -651,7 +651,7 @@ export default function HowToThrowBachelorettePartyAustin() {
             </p>
             
             <div className="max-w-4xl mx-auto">
-              <EmbeddedQuoteBuilder pageContext="bachelorette" />
+              <EmbeddedQuoteFlow source="blog_bachelorette_howto" defaultPartyType="bachelorette_party" />
             </div>
           </m.div>
         </div>

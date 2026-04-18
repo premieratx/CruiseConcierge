@@ -416,24 +416,8 @@ export default function BachelorParty() {
     return () => clearInterval(interval);
   }, [reducedMotion]);
 
-  useEffect(() => {
-    const handleMessage = (event: MessageEvent) => {
-      if (event.origin !== 'https://booking.premierpartycruises.com/quote-v2') {
-        return;
-      }
-      
-      if (event.data && event.data.type === 'quote-submitted') {
-        navigate('/chat');
-        toast({
-          title: "Quote Submitted!",
-          description: "Redirecting you to view your quote details...",
-        });
-      }
-    };
-
-    window.addEventListener('message', handleMessage);
-    return () => window.removeEventListener('message', handleMessage);
-  }, [navigate, toast]);
+  // Legacy cross-origin iframe listener removed — quote flow is now
+  // in-house (EmbeddedQuoteFlow) and routes its own post-submit UX.
 
   const handleGetQuote = (packageId?: string) => {
     const params = new URLSearchParams({ cruiseType: 'bachelor' });

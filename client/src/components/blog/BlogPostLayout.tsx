@@ -67,13 +67,16 @@ export function BlogPostLayout({
 
       <article className={cn("pt-24 pb-16", className)}>
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Hero Image */}
+          {/* Hero Image — shrunk for faster LCP + less above-the-fold real estate */}
           <SectionReveal>
-            <div className="mb-8 rounded-lg overflow-hidden shadow-2xl" data-testid="blog-hero-container">
+            <div
+              className="mb-8 rounded-lg overflow-hidden shadow-2xl mx-auto max-w-3xl aspect-[16/9] sm:aspect-[16/8] bg-black"
+              data-testid="blog-hero-container"
+            >
               <LazyImage
                 src={heroImage}
                 alt={heroImageAlt}
-                className="w-full h-auto"
+                className="w-full h-full object-cover"
                 priority
                 data-testid="blog-hero-image"
               />

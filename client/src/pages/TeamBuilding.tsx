@@ -19,6 +19,7 @@ import { formatCurrency } from '@shared/formatters';
 import { PACKAGE_FLAT_FEES, CREW_FEES } from '@shared/constants';
 import SEOHead from '@/components/SEOHead';
 import { SectionReveal } from '@/components/SectionReveal';
+import EmbeddedQuoteFlow from '@/components/EmbeddedQuoteFlow';
 import { corporateReviews } from '@shared/reviews-data';
 import { 
   Target, Users, Calendar, MapPin, Clock, Phone,
@@ -357,18 +358,10 @@ export default function TeamBuilding() {
                   className="mt-12 overflow-hidden"
                 >
                   <div className="bg-white rounded-xl shadow-2xl overflow-hidden">
-                    <iframe 
-                      src="https://booking.premierpartycruises.com/quote-v2/"
-                      title="Build Your Quote - Premier Party Cruises"
-                      className="w-full"
-                      style={{ 
-                        minHeight: '1200px',
-                        height: '90vh',
-                        border: 'none'
-                      }}
-                      allow="payment; geolocation"
-                      allowFullScreen
-                      data-testid="iframe-quote-builder"
+                    <EmbeddedQuoteFlow
+                      source="team_building_page"
+                      defaultPartyType="corporate_event"
+                      defaultGuests={30}
                     />
                   </div>
                 </motion.div>

@@ -311,7 +311,7 @@ export default function WhyAustinCompaniesChoosePremier() {
               <img 
                 src={heroImage}
                 alt="Premier Party Cruises Austin best corporate boat rental Lake Travis"
-                className="w-full h-[400px] object-cover"
+                className="w-full h-[240px] md:h-[300px] object-cover"
                 data-testid="image-hero"
               />
             </div>
