@@ -62,6 +62,8 @@ import { BachPhotoGallery } from "@/lead-app/components/BachPhotoGallery";
 import { isDiscoEligiblePartyType } from "@/lead-app/lib/discoRules";
 import { PricingDetailsTab } from "@/lead-app/components/lead-dashboard/PricingDetailsTab";
 import { useTabEngagement } from "@/lead-app/hooks/useTabEngagement";
+import { FormalQuoteDisplay } from "@/lead-app/components/quote-builder/FormalQuoteDisplay";
+import { generateStaticSlots } from "@/lead-app/lib/staticSchedule";
 
 // Alcohol delivery service tiles
 import tileSuiteDelivery from "@/lead-app/assets/tiles/suite-delivery.jpg";
@@ -975,57 +977,52 @@ const LeadDashboard = () => {
                 <CardHeader className="px-2 sm:px-6 py-3">
                   <CardTitle className="text-lg text-sky-300 flex items-center gap-2">
                     <FileText className="h-5 w-5" />
-                    Your Personalized Quote <span className="text-slate-400 font-normal text-sm">— Date, guests, and price breakdown</span>
+                    Your Personalized Quote <span className="text-slate-400 font-normal text-sm">— Review your options and customize your cruise experience</span>
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="p-6 space-y-5">
-                  {/* ── Native quote summary (replaces the quote-v2 iframe) ── */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-                    <div className="bg-slate-900/60 border border-sky-500/20 rounded-lg p-4">
-                      <p className="text-xs uppercase tracking-widest text-amber-300 mb-1">Event date</p>
-                      <p className="text-lg text-white font-semibold">
-                        {format(eventDate, "EEEE, MMMM do, yyyy")}
-                      </p>
-                    </div>
-                    <div className="bg-slate-900/60 border border-sky-500/20 rounded-lg p-4">
-                      <p className="text-xs uppercase tracking-widest text-amber-300 mb-1">Party</p>
-                      <p className="text-lg text-white font-semibold">
-                        {formatPartyType(lead.party_type)} · {lead.guest_count} guests
-                      </p>
-                    </div>
-                    <div className="bg-slate-900/60 border border-sky-500/20 rounded-lg p-4">
-                      <p className="text-xs uppercase tracking-widest text-amber-300 mb-1">Lead reference</p>
-                      <p className="text-base text-white font-mono">
-                        {lead.quote_number ?? lead.id?.slice(0, 8)}
-                      </p>
-                    </div>
-                    <div className="bg-slate-900/60 border border-sky-500/20 rounded-lg p-4">
-                      <p className="text-xs uppercase tracking-widest text-amber-300 mb-1">Contact</p>
-                      <p className="text-sm text-white">{lead.first_name} {lead.last_name}</p>
-                      <p className="text-xs text-slate-400">{lead.email}</p>
-                      <p className="text-xs text-slate-400">{lead.phone}</p>
-                    </div>
-                  </div>
-
-                  {/* Call-to-action: jump to Book Now tab */}
-                  <div className="bg-amber-500/5 border border-amber-500/25 rounded-lg p-5 text-center">
-                    <p className="text-sm text-slate-200 mb-3">
-                      Ready to lock in your date? Secure a 50% deposit to hold the boat.
-                    </p>
-                    <Button
-                      className="bg-amber-600 hover:bg-amber-500 text-black font-semibold"
-                      onClick={() => setActiveTab("booking")}
-                    >
-                      <Anchor className="h-4 w-4 mr-2" />
-                      Continue to Book Now →
-                    </Button>
-                  </div>
-
-                  <p className="text-xs text-slate-400 text-center">
-                    Review the Pricing, Photos, Transport, and Concierge tabs above to
-                    customize your cruise experience. Your captain will confirm
-                    availability within the hour.
-                  </p>
+                <CardContent className="p-0">
+                  <FormalQuoteDisplay
+                    {...(() => {
+                      const { discoSlots, privateSlots } = generateStaticSlots(
+                        eventDate,
+                        lead.party_type || "",
+                        lead.guest_count || 15,
+                      );
+                      return {
+                        discoSlots,
+                        privateSlots,
+                        guestCount: lead.guest_count || 15,
+                        eventDate,
+                        customerEmail: lead.email,
+                        customerName: `${lead.first_name} ${lead.last_name}`.trim(),
+                        customerPhone: lead.phone,
+                        partyType: lead.party_type || "",
+                        quoteNumber: lead.quote_number || undefined,
+                        useV2DiscoPricing: true as const,
+                        quoteCreatedAt: (lead as any).created_at || undefined,
+                        quoteExpiresAt: (lead as any).quote_expires_at || undefined,
+                        onDiscoBook: () => setActiveTab("booking"),
+                        onPrivateBook: () => setActiveTab("booking"),
+                        onBookOnline: () => setActiveTab("booking"),
+                        onGuestCountChange: (n: number) => {
+                          saveLeadField({ guest_count: n });
+                          setLead((prev) => (prev ? { ...prev, guest_count: n } : prev));
+                        },
+                        onEventDateChange: (d: Date) => {
+                          const iso = format(d, "yyyy-MM-dd");
+                          saveLeadField({ event_date: iso });
+                          setLead((prev) => (prev ? { ...prev, event_date: iso } : prev));
+                        },
+                        onPartyTypeChange: (t: string) => {
+                          saveLeadField({ party_type: t });
+                          setLead((prev) => (prev ? { ...prev, party_type: t } : prev));
+                        },
+                        onSelectionChange: () => {
+                          /* persisted per-selection by FormalQuoteDisplay via its own hooks */
+                        },
+                      };
+                    })()}
+                  />
                 </CardContent>
               </Card>
             </TabsContent>
