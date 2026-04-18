@@ -1,23 +1,36 @@
 #!/usr/bin/env node
 /**
- * Build-time generator for sitemap.xml and robots.txt.
+ * Build-time generator for sitemap.xml, robots.txt, AND per-route
+ * pre-rendered HTML stubs (so SEO crawlers see real title +
+ * description + canonical + schema + h1 + internal links instead of
+ * the empty SPA shell).
  *
- * Pulls the canonical URL list from the live site's sitemap (source of
- * truth for what's indexed), then rewrites it to match the V2 Netlify
- * deploy's canonical host.
+ * How the prerender works:
+ *  1. Parse the sitemap to get every public URL
+ *  2. For each URL, fetch the equivalent rendered HTML from the live
+ *     Replit app at premierpartycruises.com (it renders server-side,
+ *     so the response includes real content + schema + canonicals).
+ *  3. Rewrite hostnames to the Netlify host, swap <script src="..."> to
+ *     the Vite bundle from this build, and write the result to
+ *     dist/public/{slug}/index.html.
+ *
+ * The SPA fallback in netlify.toml hits /index.html — so if a crawler
+ * requests /bachelorette-party-austin it now lands on the
+ * pre-rendered /bachelorette-party-austin/index.html with real
+ * content, then React hydrates on top of it.
  *
  * Writes:
  *   dist/public/sitemap.xml
  *   dist/public/robots.txt
+ *   dist/public/{slug}/index.html  (per-route prerendered)
  *
  * Env vars:
- *   CANONICAL_HOST  the host URLs should use in the output (default:
- *                   reads from netlify context or defaults to the V2
- *                   preview URL).
+ *   CANONICAL_HOST    host URLs should use in the output
+ *   SKIP_PRERENDER    set to "1" to skip the per-route prerender step
  */
 
-import { writeFileSync, mkdirSync } from 'node:fs';
-import { dirname } from 'node:path';
+import { writeFileSync, mkdirSync, readFileSync, existsSync } from 'node:fs';
+import { dirname, join } from 'node:path';
 
 const LIVE_SITEMAP_URL = 'https://premierpartycruises.com/sitemap.xml';
 const OUT_DIR = 'dist/public';
@@ -84,7 +97,138 @@ async function main() {
   console.log(`  ✓ robots.txt`);
 }
 
-main().catch((e) => {
-  console.error('SEO file generation failed:', e);
-  process.exit(0); // non-fatal — don't block the deploy
-});
+// ────────────────────────────────────────────────────────────────────
+// Per-route prerender
+// ────────────────────────────────────────────────────────────────────
+const LIVE_HOST = 'https://premierpartycruises.com';
+const SPA_INDEX_PATH = `${OUT_DIR}/index.html`;
+
+/** Extract the Vite-built bundle + stylesheet tags from the SPA shell
+ * so we can inject them into pre-rendered pages (keeps React hydrating
+ * on top of the server-rendered content). */
+function readSpaHead() {
+  if (!existsSync(SPA_INDEX_PATH)) return null;
+  const html = readFileSync(SPA_INDEX_PATH, 'utf8');
+  // Grab every <link rel="stylesheet"> + <script type="module"> from the
+  // built index.html. Those hashes change every deploy.
+  const links = [...html.matchAll(/<link[^>]+rel="(?:stylesheet|modulepreload)"[^>]*>/g)].map((m) => m[0]).join('\n    ');
+  const scripts = [...html.matchAll(/<script[^>]+type="module"[^>]*>[\s\S]*?<\/script>/g)].map((m) => m[0]).join('\n    ');
+  return { links, scripts };
+}
+
+/** Slug list from the sitemap we just wrote (+ a few routes that are
+ * client-only but important for SEO). */
+function extractSlugs(sitemapXml) {
+  const locs = [...sitemapXml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
+  const slugs = new Set();
+  for (const url of locs) {
+    try {
+      const u = new URL(url);
+      const path = u.pathname.replace(/\/$/, '') || '/';
+      // Skip /admin* + /lead-dashboard + /customer-dashboard + /quote*
+      if (/^\/(?:admin|lead-dashboard|customer-dashboard|quote)/.test(path)) continue;
+      slugs.add(path);
+    } catch { /* ignore */ }
+  }
+  return Array.from(slugs);
+}
+
+/** Fetch a page's live server-rendered HTML, rewrite hostnames, and
+ * swap in the fresh Vite bundle. Returns null if the fetch fails. */
+async function prerenderOne(slug, canonicalHost, spaHead) {
+  const url = `${LIVE_HOST}${slug === '/' ? '/' : slug}`;
+  try {
+    const res = await fetch(url, {
+      redirect: 'follow',
+      headers: { 'User-Agent': 'Mozilla/5.0 (compatible; PPC-SEO-Prerender)' },
+    });
+    if (!res.ok) return null;
+    let html = await res.text();
+
+    // Rewrite live host → canonical host for <link rel="canonical">,
+    // Open Graph URL, Twitter URL, JSON-LD, etc.
+    html = html.replace(/https?:\/\/(?:www\.)?premierpartycruises\.com/g, canonicalHost.replace(/\/$/, ''));
+
+    // Strip the live app's own <script> bundle references (Replit/Vite
+    // on the production domain has different hashes from our Netlify
+    // build). Replace with our Netlify build's bundle.
+    if (spaHead) {
+      // Remove every existing <script type="module"> block and Vite
+      // stylesheet reference.
+      html = html.replace(/<script[^>]+type="module"[^>]*>[\s\S]*?<\/script>/g, '');
+      html = html.replace(/<link[^>]+rel="(?:stylesheet|modulepreload)"[^>]*>/g, '');
+      // Inject fresh ones right before </head>.
+      html = html.replace(/<\/head>/i, `    ${spaHead.links}\n    ${spaHead.scripts}\n  </head>`);
+    }
+
+    return html;
+  } catch {
+    return null;
+  }
+}
+
+async function prerenderRoutes(sitemapXml, canonicalHost) {
+  if (process.env.SKIP_PRERENDER === '1') {
+    console.log('Per-route prerender skipped (SKIP_PRERENDER=1).');
+    return;
+  }
+  const spaHead = readSpaHead();
+  if (!spaHead) {
+    console.warn('No dist/public/index.html — skipping prerender.');
+    return;
+  }
+
+  const slugs = extractSlugs(sitemapXml);
+  console.log(`Prerendering ${slugs.length} routes from ${LIVE_HOST}...`);
+
+  // Small concurrency to stay polite on the live origin.
+  const CONCURRENCY = 6;
+  let done = 0;
+  let ok = 0;
+  let fail = 0;
+
+  async function worker(queue) {
+    while (queue.length) {
+      const slug = queue.shift();
+      if (!slug) continue;
+      const html = await prerenderOne(slug, canonicalHost, spaHead);
+      done++;
+      if (html) {
+        const outPath = slug === '/' ? `${OUT_DIR}/index.html` : `${OUT_DIR}${slug}/index.html`;
+        try {
+          mkdirSync(dirname(outPath), { recursive: true });
+          writeFileSync(outPath, html);
+          ok++;
+        } catch (e) {
+          console.warn(`  ✗ write ${outPath}: ${e.message}`);
+          fail++;
+        }
+      } else {
+        fail++;
+      }
+      if (done % 20 === 0) {
+        console.log(`  …${done}/${slugs.length} (${ok} ok, ${fail} fail)`);
+      }
+    }
+  }
+
+  const queue = [...slugs];
+  await Promise.all(
+    Array.from({ length: CONCURRENCY }, () => worker(queue)),
+  );
+  console.log(`Prerender complete: ${ok} ok, ${fail} fail.`);
+}
+
+main()
+  .then(async () => {
+    try {
+      const sitemapXml = readFileSync(`${OUT_DIR}/sitemap.xml`, 'utf8');
+      await prerenderRoutes(sitemapXml, CANONICAL_HOST);
+    } catch (e) {
+      console.warn('Skipping prerender:', e.message);
+    }
+  })
+  .catch((e) => {
+    console.error('SEO file generation failed:', e);
+    process.exit(0);
+  });
