@@ -275,7 +275,14 @@ html, body { background: #07070c; }
 `;
 
 function currencyDecimal(n: number) {
-  return n.toLocaleString("en-US", { style: "currency", currency: "USD", minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  // Drop ".00" on whole-dollar amounts.
+  const isWhole = Math.abs(n - Math.round(n)) < 0.005;
+  return n.toLocaleString("en-US", {
+    style: "currency",
+    currency: "USD",
+    minimumFractionDigits: isWhole ? 0 : 2,
+    maximumFractionDigits: 2,
+  });
 }
 
 function useQueryParam(key: string): string | undefined {

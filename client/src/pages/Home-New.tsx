@@ -3,6 +3,7 @@ import { Link } from 'wouter';
 import PublicNavigation from '@/components/PublicNavigationLuxury';
 import { useQuoteLightbox } from '@/components/QuoteLightbox';
 import CtaPair, { CtaBanner } from '@/components/CtaPair';
+import EmbeddedQuoteFlow from '@/components/EmbeddedQuoteFlow';
 
 const Footer = lazy(() => import('@/components/Footer'));
 
@@ -1217,15 +1218,7 @@ export default function HomeNew() {
         </div>
 
         <div className="hp2-quote-embed__frame-wrap">
-          <iframe
-            className="hp2-quote-embed__frame"
-            src={`https://booking.premierpartycruises.com/quote-v2?sourceUrl=${encodeURIComponent(
-              typeof window !== 'undefined' ? window.location.href : 'https://premier-party-cruises-v2.netlify.app/'
-            )}&sourceType=home_embed_v2&autoResize=1`}
-            title="Premier Party Cruises — Quote Builder"
-            loading="lazy"
-            allow="payment"
-          />
+          <EmbeddedQuoteFlow source="home_embed" />
         </div>
       </section>
 

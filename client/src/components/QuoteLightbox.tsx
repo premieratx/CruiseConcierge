@@ -63,15 +63,19 @@ type QuoteLightboxContextValue = {
 const QuoteLightboxContext = createContext<QuoteLightboxContextValue | null>(null);
 
 const PARTY_TYPES = [
-  { id: "bachelor_party", label: "Bachelor" },
-  { id: "bachelorette_party", label: "Bachelorette" },
-  { id: "combined_bach", label: "Combined bach" },
-  { id: "wedding_event", label: "Wedding" },
-  { id: "corporate_event", label: "Corporate" },
-  { id: "birthday_party", label: "Birthday" },
-  { id: "family_gathering", label: "Family" },
-  { id: "other", label: "Other" },
+  { id: "bachelor_party", label: "Bachelor", inline: "bachelor party" },
+  { id: "bachelorette_party", label: "Bachelorette", inline: "bachelorette" },
+  { id: "combined_bach", label: "Combined bach", inline: "combined bach" },
+  { id: "wedding_event", label: "Wedding", inline: "wedding" },
+  { id: "corporate_event", label: "Corporate", inline: "corporate" },
+  { id: "birthday_party", label: "Birthday", inline: "birthday" },
+  { id: "family_gathering", label: "Family", inline: "family" },
+  { id: "other", label: "Other", inline: "" },
 ];
+
+function partyInline(id: string): string {
+  return PARTY_TYPES.find((p) => p.id === id)?.inline ?? "";
+}
 
 // ────────────────────────────────────────────────────────────────────────
 // Styles
@@ -291,11 +295,17 @@ const STYLES = `
 // ────────────────────────────────────────────────────────────────────────
 // Provider
 // ────────────────────────────────────────────────────────────────────────
+/**
+ * Smart currency formatter. Drops the `.00` when the amount is a whole
+ * dollar ($900 instead of $900.00) but keeps cents when they're non-zero
+ * ($1,977.75). Used across all pricing badges in the modal.
+ */
 function currencyDecimal(n: number) {
+  const isWhole = Math.abs(n - Math.round(n)) < 0.005;
   return n.toLocaleString("en-US", {
     style: "currency",
     currency: "USD",
-    minimumFractionDigits: 2,
+    minimumFractionDigits: isWhole ? 0 : 2,
     maximumFractionDigits: 2,
   });
 }
@@ -688,7 +698,11 @@ function Modal(props: {
             <>
               <p className="qlb-eyebrow">Instant quote · No obligation</p>
               <h2 id="qlb-title" className="qlb-title">
-                Tell us about your <em>cruise</em>.
+                {step > 1 && partyInline(partyType) ? (
+                  <>Tell us about your <em>{partyInline(partyType)}</em> cruise.</>
+                ) : (
+                  <>Tell us about your <em>cruise</em>.</>
+                )}
               </h2>
               <p className="qlb-sub">
                 4 quick steps. Captain, fuel, tax, and 20% gratuity are always
