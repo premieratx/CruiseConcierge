@@ -1175,20 +1175,9 @@ export default function BlogV2Layout({
         </section>
       )}
 
-      {/* Quick Links */}
-      <section className="bv2-quick-links">
-        <div className="bv2-quick-links__inner">
-          {DEFAULT_QUICK_LINKS.map((link, i) => (
-            <a
-              key={i}
-              href={link.href}
-              className={`bv2-quick-link ${link.primary ? 'bv2-quick-link--primary' : ''}`}
-            >
-              {link.title}
-            </a>
-          ))}
-        </div>
-      </section>
+      {/* Quick Links removed — Footer is now the single source of truth
+          for site-wide navigation links. Keeping this section caused
+          duplicates with the Cruises / Occasions / Resources columns. */}
 
       <Suspense fallback={<div style={{ height: '200px', background: '#07070C' }} />}>
         <Footer />
