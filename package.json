@@ -50,6 +50,7 @@
     "@radix-ui/react-tooltip": "^1.2.0",
     "@replit/database": "^3.0.1",
     "@sendgrid/mail": "^8.1.5",
+    "@supabase/supabase-js": "^2.103.3",
     "@tanstack/react-query": "^5.60.5",
     "@types/cheerio": "^0.22.35",
     "@types/compression": "^1.8.1",

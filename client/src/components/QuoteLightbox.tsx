@@ -38,6 +38,7 @@ import {
   calculatePricing,
   getAutoCrewFeePerHour,
 } from "@/lib/pricing";
+import { supabase } from "@/lib/supabase";
 
 // ────────────────────────────────────────────────────────────────────────
 // Public API
@@ -371,6 +372,12 @@ export function QuoteLightboxProvider({ children }: { children: ReactNode }) {
   }, [step, partyType, guests, selectedDate, firstName, lastName, email, phone]);
 
   // ── Submit ───────────────────────────────────────────────────────────
+  // Hits the SAME Supabase `create-lead` edge function the old quote-v2
+  // iframe hit, with the identical payload shape. This preserves the GHL
+  // webhook → Zapier → Google Sheets → email pipeline on the server side
+  // with no backend changes required. The response carries `leadId` and
+  // `quoteNumber`, which we use to redirect to the customer lead dashboard
+  // (same destination as the old flow).
   const handleSubmit = useCallback(async () => {
     if (!selectedDate) {
       setError("Please pick a date.");
@@ -379,58 +386,94 @@ export function QuoteLightboxProvider({ children }: { children: ReactNode }) {
     setError(null);
     setSubmitting(true);
     try {
-      const payload = {
-        contactInfo: { firstName, lastName, email, phone },
-        eventDetails: {
-          eventType: partyType,
-          eventDate: format(selectedDate, "yyyy-MM-dd"),
-          groupSize: guests,
-        },
-        selectionDetails: {
-          cruiseType: "private",
-          preferredTimeLabel: "4-hour cruise",
-          ticketQuantity: guests,
-          groupSizeLabel: `${guests} guests`,
+      const formattedDate = format(selectedDate, "yyyy-MM-dd");
+
+      // Pull optional affiliate tracking cookies the old iframe also passed.
+      // We don't require the affiliateTracking lib — just read window.sessionStorage
+      // so if affiliate tracking isn't set up on the cruise site yet it
+      // degrades gracefully.
+      const affiliateId =
+        typeof window !== "undefined" ? sessionStorage.getItem("affiliateId") ?? undefined : undefined;
+      const affiliateCodeId =
+        typeof window !== "undefined" ? sessionStorage.getItem("affiliateCodeId") ?? undefined : undefined;
+      const affiliateClickId =
+        typeof window !== "undefined" ? sessionStorage.getItem("affiliateClickId") ?? undefined : undefined;
+
+      const { data, error: fnError } = await supabase.functions.invoke("create-lead", {
+        body: {
+          firstName,
+          lastName,
+          email,
+          phone,
+          eventDate: formattedDate,
+          partyType,
+          guestCount: guests,
+          // The old iframe passed a quoteUrl so the server could email it;
+          // here we leave it blank so the edge function generates one.
+          quoteUrl: "",
           sourceType: sourceType ?? "quote_lightbox",
           sourceUrl: sourceUrlRef.current,
+          affiliateId,
+          affiliateCodeId,
+          affiliateClickId,
         },
-        pricing: {
-          subtotal: liveEstimate.subtotal,
-          tax: liveEstimate.tax,
-          gratuity: liveEstimate.gratuity,
-          total: liveEstimate.total,
-          depositAmount: liveEstimate.total * 0.5,
-        },
-      };
-
-      const res = await fetch("/api/leads/quote-builder", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
       });
-      if (!res.ok) {
-        const body = await res.json().catch(() => ({}));
-        throw new Error(body?.error || `Something went wrong (${res.status})`);
-      }
-      const json = await res.json();
-      setSubmitted({ leadId: json?.leadId, quoteUrl: json?.quoteUrl });
 
-      // Redirect to the returned quoteUrl (renders QuoteViewer = customer
-      // lead dashboard with the quote embedded). Fall back to the native
-      // /quote page if no URL comes back.
-      const target = json?.quoteUrl
-        ? stripOrigin(json.quoteUrl)
-        : `/quote?leadId=${encodeURIComponent(json?.leadId ?? "")}`;
+      if (fnError) throw fnError;
+
+      const leadId: string | undefined = data?.leadId;
+      const quoteNumber: string | undefined = data?.quoteNumber;
+
+      // Mirror the old flow: GTM + TikTok pixel events for Google Ads &
+      // paid conversion attribution (unchanged if marketing already hooked
+      // these up on the cruise site).
+      if (typeof window !== "undefined") {
+        (window as any).dataLayer = (window as any).dataLayer || [];
+        (window as any).dataLayer.push({ event: "lovable_quote_completed" });
+        const ttq = (window as any).ttq;
+        if (ttq && typeof ttq.track === "function") {
+          ttq.track("SubmitForm", {
+            content_name: "Quote Completed",
+            content_category: partyType,
+          });
+        }
+      }
+
+      // Persist so returning visitors can resume their quote.
+      try {
+        if (leadId) sessionStorage.setItem("leadId", leadId);
+        if (quoteNumber) sessionStorage.setItem("quoteNumber", quoteNumber);
+      } catch {
+        /* ignore storage errors */
+      }
+
+      setSubmitted({ leadId });
+
+      // Redirect to the customer lead dashboard — identical destination to
+      // the old iframe. Uses the booking subdomain since that's where the
+      // full LeadDashboard (with quote viewer) is deployed.
+      const target = leadId
+        ? `https://booking.premierpartycruises.com/lead-dashboard?lead=${encodeURIComponent(leadId)}`
+        : null;
+
       setTimeout(() => {
         setIsOpen(false);
-        navigate(target);
+        if (target) {
+          window.location.assign(target);
+        } else {
+          // Fallback: native /quote page if no lead id came back.
+          navigate("/quote");
+        }
       }, 1100);
     } catch (err: any) {
-      setError(err?.message || "We couldn't send your quote. Try again or call (512) 488-5892.");
+      setError(
+        err?.message ||
+          "We couldn't send your quote. Try again, or call (512) 488-5892.",
+      );
     } finally {
       setSubmitting(false);
     }
-  }, [firstName, lastName, email, phone, partyType, guests, selectedDate, sourceType, liveEstimate, navigate]);
+  }, [firstName, lastName, email, phone, partyType, guests, selectedDate, sourceType, navigate]);
 
   const value = useMemo<QuoteLightboxContextValue>(
     () => ({ isOpen, openQuote, closeQuote }),
@@ -494,15 +537,6 @@ export function useQuoteLightbox() {
 // ────────────────────────────────────────────────────────────────────────
 // Modal component
 // ────────────────────────────────────────────────────────────────────────
-function stripOrigin(url: string): string {
-  try {
-    const u = new URL(url);
-    return u.pathname + u.search + u.hash;
-  } catch {
-    return url;
-  }
-}
-
 function Modal(props: {
   open: boolean;
   onClose: () => void;
