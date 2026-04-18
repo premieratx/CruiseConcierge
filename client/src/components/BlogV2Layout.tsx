@@ -34,12 +34,12 @@ const BLOG_V2_STYLES = `
   min-height: 100vh;
 }
 
-/* ─── Post Header (compact, under the fixed nav) ──────────────── */
+/* ─── Post Header (compact — PublicNavigationLuxury spacer clears the nav) */
 .bv2-post-header {
   max-width: 820px;
   margin: 0 auto;
-  padding: 2.5rem 2rem 1.25rem;    /* nav is static, minimal top padding */
-  height: auto !important;          /* override any global header height */
+  padding: 2rem 2rem 1.25rem;
+  height: auto !important;
   min-height: 0 !important;
 }
 
@@ -112,7 +112,7 @@ const BLOG_V2_STYLES = `
 
 @media (max-width: 880px) {
   .bv2-post-header {
-    padding: 1.75rem 1.25rem 1rem;
+    padding: 1.25rem 1.25rem 1rem;
   }
   .bv2-post-title {
     font-size: clamp(1.6rem, 5.5vw, 2.25rem) !important;
@@ -132,7 +132,7 @@ const BLOG_V2_STYLES = `
 }
 @media (max-width: 480px) {
   .bv2-post-header {
-    padding: 1.25rem 1rem 0.9rem;
+    padding: 1rem 1rem 0.9rem;
   }
   .bv2-post-title {
     font-size: clamp(1.45rem, 6.5vw, 1.9rem) !important;

@@ -25,6 +25,34 @@ const LUX_NAV_STYLES = `
   --lux-font-body: 'Jost', system-ui, sans-serif;
 }
 
+/* ── Fixed header stack: promo + nav scroll together at top of viewport ── */
+.lux-header-stack {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 60;
+  pointer-events: none;   /* inner elements re-enable */
+}
+.lux-header-stack > * { pointer-events: auto; }
+
+/* Spacer reserves document flow below the fixed header so nothing collides.
+   Height matches promo (~33px) + nav (~64px). Use CSS var so it stays
+   synced with nav padding changes in media queries. */
+.lux-header-spacer {
+  height: var(--lux-header-height, 97px);
+  flex-shrink: 0;
+}
+@media (max-width: 1000px) {
+  .lux-header-spacer { height: 88px; }
+}
+@media (max-width: 760px) {
+  .lux-header-spacer { height: 84px; }
+}
+@media (max-width: 480px) {
+  .lux-header-spacer { height: 78px; }
+}
+
 /* ── Promo Banner (refined: black + gold, no yellow) ── */
 .lux-promo-banner {
   background: linear-gradient(90deg, #07070C 0%, #0D0D18 50%, #07070C 100%);
@@ -38,7 +66,7 @@ const LUX_NAV_STYLES = `
   text-transform: uppercase;
   border-bottom: 1px solid var(--lux-border);
   position: relative;
-  z-index: 51;
+  z-index: 2;
 }
 .lux-promo-banner::before {
   content: '';
@@ -72,11 +100,8 @@ const LUX_NAV_STYLES = `
 
 /* ── Nav Container ── */
 .lux-nav-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 50;
+  position: relative;     /* now stacked inside .lux-header-stack */
+  z-index: 1;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .lux-nav {
@@ -632,13 +657,15 @@ export default function PublicNavigationLuxury() {
     <>
       <style dangerouslySetInnerHTML={{ __html: LUX_NAV_STYLES }} />
 
-      {/* Promo Banner (black + gold, no yellow) */}
-      <div className="lux-promo-banner">
-        Book by <em>Feb 5th</em> · <strong>$150 OFF</strong> Your Party Cruise · <em>Limited Dates</em>
-      </div>
+      {/* Fixed header stack: promo + nav never overlap */}
+      <div className="lux-header-stack">
+        {/* Promo Banner (black + gold, no yellow) */}
+        <div className="lux-promo-banner">
+          Book by <em>Feb 5th</em> · <strong>$150 OFF</strong> Your Party Cruise · <em>Limited Dates</em>
+        </div>
 
-      {/* Navigation */}
-      <div className="lux-nav-container">
+        {/* Navigation */}
+        <div className="lux-nav-container">
         <nav className={`lux-nav ${isScrolled ? 'scrolled' : ''}`}>
           <div className="lux-nav-inner">
             {/* Logo */}
@@ -696,7 +723,12 @@ export default function PublicNavigationLuxury() {
           </div>
           <div className="lux-nav-streak" />
         </nav>
+        </div>
       </div>
+
+      {/* Spacer: reserves document space equal to the fixed header's height
+          so page content starts below it and nothing collides. */}
+      <div className="lux-header-spacer" aria-hidden="true" />
 
       {/* Mobile Menu Overlay */}
       <div className={`lux-nav-overlay ${mobileOpen ? 'open' : ''}`} onClick={() => setMobileOpen(false)} />
