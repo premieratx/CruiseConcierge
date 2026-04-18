@@ -746,11 +746,11 @@ const FAQ_DATA = [
   },
   {
     q: 'How many guests can a Lake Travis wedding boat hold?',
-    a: 'We have 4 boats to match any wedding event size. Day Tripper holds up to 14 guests, perfect for intimate rehearsal dinners or elopement celebrations. Meeseeks accommodates 15-25 guests for mid-size wedding parties. The Irony fits 25-30 guests for larger rehearsal dinners. Our flagship Clever Girl holds 31-75 guests for full wedding receptions, welcome parties, and after parties. For weddings exceeding 75 guests, we can coordinate multi-boat events with boats departing together.'
+    a: 'We have 4 boats to match any wedding event size. Day Tripper holds up to 14 guests, perfect for intimate rehearsal dinners or elopement celebrations. Meeseeks and The Irony each accommodate 25-30 guests at the same starting rate — ideal for mid-size wedding parties and larger rehearsal dinners. Our flagship Clever Girl holds 31-75 guests for full wedding receptions, welcome parties, and after parties. For weddings exceeding 75 guests, we can coordinate multi-boat events with boats departing together.'
   },
   {
     q: 'How much does a wedding event cruise on Lake Travis cost?',
-    a: 'Wedding event cruises start at $200 per hour with a 4-hour minimum. Day Tripper (14 guests) ranges $200-$350/hr, Meeseeks (25 guests) $225-$375/hr, The Irony (30 guests) $250-$400/hr, and Clever Girl (75 guests) $250-$500/hr. A typical 4-hour rehearsal dinner or welcome party ranges from $800 to $2,000+ depending on boat and package selection. Multi-event discounts are available when you book two or more wedding weekend events together. All prices include captain, crew, sound system, coolers with ice, and BYOB service.'
+    a: 'Wedding event cruises start at $200 per hour with a 4-hour minimum. Starting rates: Day Tripper (up to 14 guests) from $200/hr, Meeseeks or The Irony (25-30 guests) from $225/hr, and Clever Girl (31-75 guests) from $250/hr. A typical 4-hour rehearsal dinner or welcome party ranges from $800 to $2,000+ depending on boat and package selection. Multi-event discounts are available when you book two or more wedding weekend events together. All prices include captain, crew, premium sound system, and coolers (BYOB — bring your own ice, or order pre-iced from Party On Delivery, our sister company, so everything is on ice and ready when you board).'
   },
   {
     q: 'Is Lake Travis a good destination wedding location?',
@@ -774,11 +774,11 @@ const FAQ_DATA = [
   },
   {
     q: 'What catering options are available for wedding cruises?',
-    a: 'We coordinate with Austin\'s finest caterers and restaurants for your wedding event. Popular options include upscale BBQ from Salt Lick or County Line, elegant plated dinners, family-style Italian, taco bars, charcuterie and appetizer spreads, or fully customized menus from local favorites. Our Essentials package includes catering coordination and serving assistance. All cruises are fully BYOB — bring champagne, wine, beer, cocktail supplies, or any beverages. We provide coolers with ice, cups, and openers. Many couples bring their own wedding cake or desserts as well.'
+    a: 'We coordinate with Austin\'s finest caterers and restaurants for your wedding event. Popular options include upscale BBQ from Salt Lick or County Line, elegant plated dinners, family-style Italian, taco bars, charcuterie and appetizer spreads, or fully customized menus from local favorites. Our Essentials package includes catering coordination and serving assistance. All cruises are fully BYOB — bring champagne, wine, beer, cocktail supplies, or any beverages. We provide coolers, cups, and openers (bring your own ice, or order from Party On Delivery — our sister company — to have your drinks delivered pre-iced and stocked on the boat before you arrive). Many couples bring their own wedding cake or desserts as well.'
   },
   {
     q: 'What is the alcohol policy for wedding events?',
-    a: 'All wedding event cruises are fully BYOB (bring your own beverages). You can bring champagne, wine, beer, spirits, mixers, seltzers, and non-alcoholic beverages. Cans and plastic containers only — no glass for safety. We provide large coolers packed with ice, cups, and bottle openers on every cruise. Many couples bring champagne for toasts, wine for dinner, and a signature cocktail setup. You can also coordinate beverage delivery through our partners so everything is waiting on the boat when you arrive. All guests must be 21+ with valid ID for alcohol.'
+    a: 'All wedding event cruises are fully BYOB (bring your own beverages). You can bring champagne, wine, beer, spirits, mixers, seltzers, and non-alcoholic beverages. Cans and plastic containers only — no glass for safety. We provide large coolers, cups, and bottle openers on every cruise — bring your own ice, or upgrade with Party On Delivery (our sister company) to have your drinks delivered pre-iced and stocked on the boat before you arrive. Many couples bring champagne for toasts, wine for dinner, and a signature cocktail setup. All guests must be 21+ with valid ID for alcohol.'
   },
   {
     q: 'How far in advance should we book a wedding event cruise?',
@@ -967,7 +967,7 @@ export default function WeddingV2() {
           Four boats for every <em>wedding</em> event.
         </h2>
         <p style={{ fontSize: '1.15rem', color: '#C8B898', maxWidth: '700px', lineHeight: 1.7, marginBottom: '2rem' }}>
-          From intimate rehearsal dinners to full wedding receptions, our fleet accommodates 14 to 75 guests. All boats include a licensed captain, crew, premium sound system, coolers with ice, and BYOB service. 4-hour minimum.
+          From intimate rehearsal dinners to full wedding receptions, our fleet accommodates 14 to 75 guests. All boats include a licensed captain, crew, premium sound system, and coolers (BYOB — bring your own ice and drinks, or order pre-iced through our sister company Party On Delivery). 4-hour minimum.
         </p>
 
         <div className="hp2-fleet-grid">
@@ -980,13 +980,13 @@ export default function WeddingV2() {
             />
             <div className="hp2-fleet-card__name">Day Tripper</div>
             <div className="hp2-fleet-card__capacity">Up to 14 guests</div>
-            <div className="hp2-fleet-card__rate">$200-$350/hr</div>
+            <div className="hp2-fleet-card__rate">From $200/hr</div>
             <div className="hp2-fleet-card__note">4-hour minimum · Year-round</div>
             <ul className="hp2-fleet-card__features">
               <li>Intimate elopement celebrations</li>
               <li>Licensed captain &amp; crew</li>
               <li>Premium sound system</li>
-              <li>Coolers with ice · BYOB</li>
+              <li>Coolers included · BYOB</li>
             </ul>
           </div>
 
@@ -998,14 +998,14 @@ export default function WeddingV2() {
               loading="lazy"
             />
             <div className="hp2-fleet-card__name">Meeseeks</div>
-            <div className="hp2-fleet-card__capacity">15-25 guests</div>
-            <div className="hp2-fleet-card__rate">$225-$375/hr</div>
-            <div className="hp2-fleet-card__note">4-hour minimum · Year-round</div>
+            <div className="hp2-fleet-card__capacity">25-30 guests</div>
+            <div className="hp2-fleet-card__rate">From $225/hr</div>
+            <div className="hp2-fleet-card__note">4-hour minimum · Year-round · Same pricing as The Irony</div>
             <ul className="hp2-fleet-card__features">
               <li>Perfect rehearsal dinners</li>
               <li>Licensed captain &amp; crew</li>
               <li>Premium sound system</li>
-              <li>Coolers with ice · BYOB</li>
+              <li>Coolers included · BYOB</li>
             </ul>
           </div>
 
@@ -1018,13 +1018,13 @@ export default function WeddingV2() {
             />
             <div className="hp2-fleet-card__name">The Irony</div>
             <div className="hp2-fleet-card__capacity">25-30 guests</div>
-            <div className="hp2-fleet-card__rate">$250-$400/hr</div>
-            <div className="hp2-fleet-card__note">4-hour minimum · Year-round</div>
+            <div className="hp2-fleet-card__rate">From $225/hr</div>
+            <div className="hp2-fleet-card__note">4-hour minimum · Year-round · Same pricing as Meeseeks</div>
             <ul className="hp2-fleet-card__features">
               <li>Mid-size wedding events</li>
               <li>Licensed captain &amp; crew</li>
               <li>Premium sound system</li>
-              <li>Coolers with ice · BYOB</li>
+              <li>Coolers included · BYOB</li>
             </ul>
           </div>
 
@@ -1037,13 +1037,13 @@ export default function WeddingV2() {
             />
             <div className="hp2-fleet-card__name">Clever Girl</div>
             <div className="hp2-fleet-card__capacity">31-75 guests</div>
-            <div className="hp2-fleet-card__rate">$250-$500/hr</div>
+            <div className="hp2-fleet-card__rate">From $250/hr</div>
             <div className="hp2-fleet-card__note">4-hour minimum · 14 disco balls</div>
             <ul className="hp2-fleet-card__features">
               <li>Full wedding receptions</li>
               <li>Dance floor + LED lighting</li>
               <li>Giant Texas flag · Flagship</li>
-              <li>Coolers with ice · BYOB</li>
+              <li>Coolers included · BYOB</li>
             </ul>
           </div>
         </div>
@@ -1125,7 +1125,7 @@ export default function WeddingV2() {
                   <li>Wedding cake, cupcakes, and dessert displays</li>
                   <li>Late-night bites: tacos, pizza, sliders for after parties</li>
                 </ul>
-                <p>All cruises are fully BYOB. We provide large coolers packed with ice, cups, and openers. Beverage delivery coordination is available so your drinks are on the boat before you arrive.</p>
+                <p>All cruises are fully BYOB. We provide large coolers, cups, and openers — bring your own ice, or order from Party On Delivery (our sister company) to have your drinks delivered pre-iced and stocked on the boat before you arrive.</p>
               </div>
             </div>
 

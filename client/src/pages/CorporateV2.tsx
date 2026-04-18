@@ -710,7 +710,7 @@ const FAQ_DATA = [
   },
   {
     q: 'How much does a corporate boat event cost in Austin?',
-    a: 'Corporate charters start at $200 per hour with a 4-hour minimum. Pricing varies by boat size: Day Tripper (up to 14 guests) runs $200-$350/hr, Meeseeks or The Irony (25-30 guests) runs $225-$425/hr, and Clever Girl (50-75 guests) runs $250-$500/hr. All rates include a licensed captain and crew. For a typical 4-hour corporate event for 30 people, expect $900-$1,700 total before catering. We can provide detailed quotes and work within most corporate event budgets.'
+    a: 'Corporate charters start at $200 per hour with a 4-hour minimum. Pricing varies by boat size: Day Tripper (up to 14 guests) runs From $200/hr, Meeseeks or The Irony (25-30 guests) runs From $225/hr, and Clever Girl (50-75 guests) runs From $250/hr. All rates include a licensed captain and crew. For a typical 4-hour corporate event for 30 people, expect $900-$1,700 total before catering. We can provide detailed quotes and work within most corporate event budgets.'
   },
   {
     q: 'Is a boat party appropriate for a corporate event?',
@@ -750,7 +750,7 @@ const FAQ_DATA = [
   },
   {
     q: 'What is included with a corporate charter?',
-    a: 'Every corporate charter includes a USCG-licensed captain, trained crew, premium Bluetooth sound system, large coolers packed with ice, swim stop in a scenic Lake Travis cove, swim ladder and life jackets, and clean restroom facilities. The entire boat is exclusively yours for the duration. You control the music, schedule, route, and activities. BYOB is included on every charter. Optional add-ons include catering coordination, enhanced party packages, towel service, and dedicated event planning support.'
+    a: 'Every corporate charter includes a USCG-licensed captain, trained crew, premium Bluetooth sound system, large coolers (bring your own ice, or order pre-iced from Party On Delivery), swim stop in a scenic Lake Travis cove, swim ladder and life jackets, and clean restroom facilities. The entire boat is exclusively yours for the duration. You control the music, schedule, route, and activities. BYOB is included on every charter. Optional add-ons include catering coordination, enhanced party packages, towel service, and dedicated event planning support.'
   },
   {
     q: 'Where do you depart from and how far is it from downtown Austin?',
@@ -758,7 +758,7 @@ const FAQ_DATA = [
   },
   {
     q: 'Can we bring our own alcohol for a corporate event?',
-    a: 'Yes. All Premier Party Cruises are fully BYOB. You can bring beer, wine, spirits, seltzers, mixers, and non-alcoholic beverages in cans or plastic containers (no glass for safety). We provide large coolers with ice on every charter. Many corporate groups use our delivery partner, Party On Delivery, to have beverages and food waiting on the boat when they arrive. For corporate events where alcohol liability is a concern, we recommend designating a drink coordinator within your team and ensuring all guests are 21+ with valid ID.'
+    a: 'Yes. All Premier Party Cruises are fully BYOB. You can bring beer, wine, spirits, seltzers, mixers, and non-alcoholic beverages in cans or plastic containers (no glass for safety). We provide large coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company) on every charter. Many corporate groups use our delivery partner, Party On Delivery, to have beverages and food waiting on the boat when they arrive. For corporate events where alcohol liability is a concern, we recommend designating a drink coordinator within your team and ensuring all guests are 21+ with valid ID.'
   }
 ];
 
@@ -938,7 +938,7 @@ export default function CorporateV2() {
           <div className="hp2-private-pricing__card">
             <div className="hp2-private-pricing__name">Day Tripper</div>
             <div className="hp2-private-pricing__capacity">Up to 14 guests</div>
-            <div className="hp2-private-pricing__rate">$200-$350/hr</div>
+            <div className="hp2-private-pricing__rate">From $200/hr</div>
             <div className="hp2-private-pricing__note">4-hour minimum &middot; Year-round</div>
             <ul className="hp2-private-pricing__features">
               <li>Licensed captain &amp; crew</li>
@@ -951,7 +951,7 @@ export default function CorporateV2() {
           <div className="hp2-private-pricing__card">
             <div className="hp2-private-pricing__name">Meeseeks</div>
             <div className="hp2-private-pricing__capacity">25-30 guests</div>
-            <div className="hp2-private-pricing__rate">$225-$425/hr</div>
+            <div className="hp2-private-pricing__rate">From $225/hr</div>
             <div className="hp2-private-pricing__note">4-hour minimum &middot; Year-round</div>
             <ul className="hp2-private-pricing__features">
               <li>Licensed captain &amp; crew</li>
@@ -964,7 +964,7 @@ export default function CorporateV2() {
           <div className="hp2-private-pricing__card">
             <div className="hp2-private-pricing__name">The Irony</div>
             <div className="hp2-private-pricing__capacity">25-30 guests</div>
-            <div className="hp2-private-pricing__rate">$225-$425/hr</div>
+            <div className="hp2-private-pricing__rate">From $225/hr</div>
             <div className="hp2-private-pricing__note">4-hour minimum &middot; Year-round</div>
             <ul className="hp2-private-pricing__features">
               <li>Licensed captain &amp; crew</li>
@@ -977,7 +977,7 @@ export default function CorporateV2() {
           <div className="hp2-private-pricing__card">
             <div className="hp2-private-pricing__name">Clever Girl</div>
             <div className="hp2-private-pricing__capacity">50-75 guests</div>
-            <div className="hp2-private-pricing__rate">$250-$500/hr</div>
+            <div className="hp2-private-pricing__rate">From $250/hr</div>
             <div className="hp2-private-pricing__note">4-hour minimum &middot; Flagship vessel</div>
             <ul className="hp2-private-pricing__features">
               <li>Licensed captain &amp; crew</li>
@@ -1069,7 +1069,7 @@ export default function CorporateV2() {
                 <ul>
                   <li>BYOB — bring your own beer, wine, spirits, seltzers (no glass)</li>
                   <li>Party On Delivery partner can have everything on the boat when you arrive</li>
-                  <li>We provide large coolers packed with ice on every charter</li>
+                  <li>We provide large coolers (bring your own ice, or order pre-iced from Party On Delivery) on every charter</li>
                   <li>Non-alcoholic options always welcome</li>
                 </ul>
               </div>
@@ -1110,16 +1110,16 @@ export default function CorporateV2() {
                 <p>All corporate charters have a 4-hour minimum with transparent, straightforward pricing. Captain and crew fees are included in the hourly rates.</p>
                 <p><strong style={{ color: 'var(--hp2-cream)' }}>Fleet pricing:</strong></p>
                 <ul>
-                  <li>Day Tripper (up to 14 guests): $200-$350/hr</li>
-                  <li>Meeseeks (25-30 guests): $225-$425/hr</li>
-                  <li>The Irony (25-30 guests): $225-$425/hr</li>
-                  <li>Clever Girl (50-75 guests): $250-$500/hr</li>
+                  <li>Day Tripper (up to 14 guests): From $200/hr</li>
+                  <li>Meeseeks (25-30 guests): From $225/hr</li>
+                  <li>The Irony (25-30 guests): From $225/hr</li>
+                  <li>Clever Girl (50-75 guests): From $250/hr</li>
                 </ul>
                 <p><strong style={{ color: 'var(--hp2-cream)' }}>What is included:</strong></p>
                 <ul>
                   <li>USCG-licensed captain and trained crew</li>
                   <li>Premium Bluetooth sound system</li>
-                  <li>Large coolers packed with ice</li>
+                  <li>Large coolers (bring your own ice, or order pre-iced from Party On Delivery)</li>
                   <li>Swim stop in scenic Lake Travis cove</li>
                   <li>Swim ladder and life jackets</li>
                   <li>Clean restroom facilities</li>

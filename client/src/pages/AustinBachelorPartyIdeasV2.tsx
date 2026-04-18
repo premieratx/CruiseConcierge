@@ -56,7 +56,7 @@ export default function AustinBachelorPartyIdeasV2() {
     },
     {
       q: 'Should we do a private charter or a shared disco cruise for the bachelor?',
-      a: 'If you want a high-energy party atmosphere with a DJ and photographer already built in, the ATX Disco Cruise ($85-$105/person, shared with other bachelor/bachelorette groups) is the value pick — most groups choose this. If you want the boat to yourselves, full control over the playlist and route, or the group is 20+ guys, book a private charter ($200-$500/hour, 4-hour minimum). For a typical 12-person bachelor group that wants the "Austin lake experience," the Disco Cruise wins on cost and ease. For a "this is our boat" moment, private wins.',
+      a: 'If you want a high-energy party atmosphere with a DJ and photographer already built in, the ATX Disco Cruise ($85-$105/person, shared with other bachelor/bachelorette groups) is the value pick — most groups choose this. If you want the boat to yourselves, full control over the playlist and route, or the group is 20+ guys, book a private charter (from $200/hour, 4-hour minimum). For a typical 12-person bachelor group that wants the "Austin lake experience," the Disco Cruise wins on cost and ease. For a "this is our boat" moment, private wins.',
     },
     {
       q: 'What are the best Austin bachelor party ideas for a small group?',

@@ -519,7 +519,7 @@ function ComparisonPricingTable({ className }: { className?: string }) {
     {
       name: 'Private Day Tripper',
       type: 'Hourly',
-      priceRange: '$200-$300/hr',
+      priceRange: 'From $200/hr',
       duration: '4 hour minimum',
       groupSize: '1-14 guests',
       includes: ['Private boat', 'Captain', 'Sound system'],
@@ -528,7 +528,7 @@ function ComparisonPricingTable({ className }: { className?: string }) {
     {
       name: 'Private Meeseeks',
       type: 'Hourly',
-      priceRange: '$225-$350/hr',
+      priceRange: 'From $225/hr',
       duration: '4 hour minimum',
       groupSize: '15-30 guests',
       includes: ['Private boat', 'Captain & crew', 'Premium amenities'],
@@ -537,7 +537,7 @@ function ComparisonPricingTable({ className }: { className?: string }) {
     {
       name: 'Private Clever Girl',
       type: 'Hourly',
-      priceRange: '$300-$400/hr',
+      priceRange: 'From $225/hr',
       duration: '4 hour minimum',
       groupSize: '31-75 guests',
       includes: ['Premium vessel', 'Full crew', 'Ultimate space'],

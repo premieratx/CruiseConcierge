@@ -79,7 +79,7 @@ export default function PartyPlanningChecklist({
     {
       icon: Wine,
       title: 'Plan Your Beverages',
-      description: 'BYOB and use our coolers with ice, or arrange alcohol delivery directly to the boat through our delivery partners. We make it easy either way!',
+      description: 'BYOB and use our coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company), or arrange alcohol delivery directly to the boat through our delivery partners. We make it easy either way!',
       highlight: 'Direct-to-boat delivery available'
     },
     {

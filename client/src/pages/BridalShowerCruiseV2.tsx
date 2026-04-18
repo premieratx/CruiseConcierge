@@ -8,7 +8,7 @@ export default function BridalShowerCruiseV2() {
     },
     {
       q: 'How much does a bridal shower cruise cost?',
-      a: 'Bridal shower cruises on Lake Travis start at $200/hour with a 4-hour minimum. Day Tripper (14 guests) runs $200-$350/hr, Meeseeks or The Irony (25-30) run $225-$425/hr, and Clever Girl (50-75) runs $250-$500/hr. Total cost for a 4-hour Saturday bridal shower cruise with 20 guests runs approximately $1,000-$1,700 depending on the boat and day of week.'
+      a: 'Bridal shower cruises on Lake Travis start at $200/hour with a 4-hour minimum. Day Tripper (14 guests) runs From $200/hr, Meeseeks or The Irony (25-30) run From $225/hr, and Clever Girl (50-75) runs From $250/hr. Total cost for a 4-hour Saturday bridal shower cruise with 20 guests runs approximately $1,000-$1,700 depending on the boat and day of week.'
     },
     {
       q: 'How long is a bridal shower boat cruise?',
@@ -16,7 +16,7 @@ export default function BridalShowerCruiseV2() {
     },
     {
       q: 'Is BYOB allowed on a bridal shower cruise?',
-      a: 'Yes, all Premier Party Cruises are 100% BYOB including bridal showers. Bring champagne, prosecco, rosé, signature cocktails (spicy marg, aperol spritz), beer, and non-alcoholic options. Cans and plastic containers only (no glass for safety). We provide coolers with ice on every boat. Many hosts coordinate alcohol delivery so drinks are stocked before boarding.'
+      a: 'Yes, all Premier Party Cruises are 100% BYOB including bridal showers. Bring champagne, prosecco, rosé, signature cocktails (spicy marg, aperol spritz), beer, and non-alcoholic options. Cans and plastic containers only (no glass for safety). We provide coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company) on every boat. Many hosts coordinate alcohol delivery so drinks are stocked before boarding.'
     },
     {
       q: 'How many guests fit on a bridal shower cruise?',
@@ -24,7 +24,7 @@ export default function BridalShowerCruiseV2() {
     },
     {
       q: 'What is included in a bridal shower cruise?',
-      a: 'Every bridal shower cruise includes a US Coast Guard licensed captain, trained crew, premium Bluetooth sound system, large coolers packed with ice, a swim stop in a scenic cove, and all safety equipment. BYOB drinks and food welcome. Optional Ultimate decor package ($250-$350 flat) adds premium styling. Catering coordination through Party On Delivery.'
+      a: 'Every bridal shower cruise includes a US Coast Guard licensed captain, trained crew, premium Bluetooth sound system, large coolers (bring your own ice, or order pre-iced from Party On Delivery), a swim stop in a scenic cove, and all safety equipment. BYOB drinks and food welcome. Optional Ultimate decor package ($250-$350 flat) adds premium styling. Catering coordination through Party On Delivery.'
     },
     {
       q: 'Can we decorate the boat for a bridal shower?',
@@ -119,7 +119,7 @@ export default function BridalShowerCruiseV2() {
           Simple bridal shower <em>pricing</em>.
         </h2>
         <p className="hp2-section__body">
-          Bridal shower cruises start at $200/hour with a 4-hour minimum. Day Tripper $200-$350/hr (14 guests), Meeseeks and The Irony $225-$425/hr (25-30 guests), Clever Girl $250-$500/hr (50-75 guests). A typical 4-hour Saturday bridal shower cruise with 20 guests totals $1,100-$1,700. All rates include captain, crew, sound system, coolers with ice, and safety gear. Ultimate decor package $250-$350 flat.
+          Bridal shower cruises start at $200/hour with a 4-hour minimum. Day Tripper From $200/hr (14 guests), Meeseeks and The Irony From $225/hr (25-30 guests), Clever Girl From $250/hr (50-75 guests). A typical 4-hour Saturday bridal shower cruise with 20 guests totals $1,100-$1,700. All rates include captain, crew, sound system, coolers (BYOB — bring ice or order pre-iced from Party On Delivery), and safety gear. Ultimate decor package $250-$350 flat.
         </p>
       </section>
     </V2PageTemplate>

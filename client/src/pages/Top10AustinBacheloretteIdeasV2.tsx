@@ -40,7 +40,7 @@ export default function Top10AustinBacheloretteIdeasV2() {
     },
     {
       q: 'What\'s the best bachelorette party idea for a smaller group in Austin?',
-      a: 'Best small-group (6-12 bachelorettes) Austin bachelorette ideas: (1) Private Day Tripper boat charter (14 guests, $200-$350/hour, intimate Lake Travis party); (2) Private dining at Uchi or Jeffrey\'s; (3) Rainey Street bar crawl (walkable, manageable); (4) Milk + Honey group spa day; (5) Private chef Friday dinner at an Airbnb; (6) Hamilton Pool hike + grotto swim; (7) Hill country wine tour in a single Sprinter van; (8) Paddleboarding Lady Bird Lake; (9) ATX Disco Cruise for Saturday afternoon; (10) Rooftop cocktails at P6.'
+      a: 'Best small-group (6-12 bachelorettes) Austin bachelorette ideas: (1) Private Day Tripper boat charter (14 guests, from $200/hour, intimate Lake Travis party); (2) Private dining at Uchi or Jeffrey\'s; (3) Rainey Street bar crawl (walkable, manageable); (4) Milk + Honey group spa day; (5) Private chef Friday dinner at an Airbnb; (6) Hamilton Pool hike + grotto swim; (7) Hill country wine tour in a single Sprinter van; (8) Paddleboarding Lady Bird Lake; (9) ATX Disco Cruise for Saturday afternoon; (10) Rooftop cocktails at P6.'
     },
     {
       q: 'What are good late-night bachelorette activities in Austin?',
@@ -107,7 +107,7 @@ export default function Top10AustinBacheloretteIdeasV2() {
             <div className="hp2-feature-card">
               <div className="hp2-feature-card__num">02</div>
               <div className="hp2-feature-card__title">Private Lake Travis Charter</div>
-              <div className="hp2-feature-card__desc">Exclusive use of Clever Girl, The Irony, Meeseeks, or Day Tripper. $200-$500/hour, 4-hour minimum. Year-round. Your music, your route, your vibe. BYOB with captain + crew included.</div>
+              <div className="hp2-feature-card__desc">Exclusive use of Clever Girl, The Irony, Meeseeks, or Day Tripper. from $200/hour, 4-hour minimum. Year-round. Your music, your route, your vibe. BYOB with captain + crew included.</div>
             </div>
             <div className="hp2-feature-card">
               <div className="hp2-feature-card__num">03</div>

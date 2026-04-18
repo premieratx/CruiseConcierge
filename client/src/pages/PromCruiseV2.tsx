@@ -19,7 +19,7 @@ export default function PromCruiseV2() {
     },
     {
       q: 'Is alcohol allowed on a prom cruise?',
-      a: 'No alcohol is permitted on prom cruises. Because the majority of guests are minors, we ask the parent host to keep the cruise fully alcohol-free. We stock coolers with ice for sodas, sparkling water, sparkling cider (for the prom toast), and mocktails. The focus stays on the teens, the photos, and the memory.',
+      a: 'No alcohol is permitted on prom cruises. Because the majority of guests are minors, we ask the parent host to keep the cruise fully alcohol-free. We stock coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company) for sodas, sparkling water, sparkling cider (for the prom toast), and mocktails. The focus stays on the teens, the photos, and the memory.',
     },
     {
       q: 'How many prom guests can a charter accommodate?',

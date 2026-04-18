@@ -902,11 +902,11 @@ const FAQ_DATA = [
   },
   {
     q: "What's included in a bachelor boat party?",
-    a: 'Every ATX Disco Cruise includes: a professional DJ playing your favorite music, a professional photographer with digital photo delivery within 2-3 weeks, 14 disco balls and LED dance floor lighting, a swim stop in a crystal-clear Lake Travis cove, giant 6x20-foot lily pad floats, a private cooler stocked with ice for your group, party cups and koozies, ice water stations, clean restroom facilities, shaded lounge areas, and a USCG-certified captain and crew. Private charters include a dedicated captain, crew, premium sound system, large coolers with ice, and complete control over your route and schedule.'
+    a: 'Every ATX Disco Cruise includes: a professional DJ playing your favorite music, a professional photographer with digital photo delivery within 2-3 weeks, 14 disco balls and LED dance floor lighting, a swim stop in a crystal-clear Lake Travis cove, giant 6x20-foot lily pad floats, a private cooler stocked with ice for your group, party cups and koozies, ice water stations, clean restroom facilities, shaded lounge areas, and a USCG-certified captain and crew. Private charters include a dedicated captain, crew, premium sound system, large coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company), and complete control over your route and schedule.'
   },
   {
     q: "Is it BYOB? Can we bring our own alcohol?",
-    a: 'Yes — Premier Party Cruises is 100% BYOB. Bring whatever you want: beer, seltzers, spirits, mixers, wine, and non-alcoholic beverages. Cans and plastic containers only (no glass for safety). We provide large coolers packed with ice on every cruise. You can also coordinate alcohol and food delivery through our partner Party On Delivery so everything is waiting on the boat when you arrive. Many bachelor groups bring beer, seltzers, spirits, mixers, and snacks for the ultimate guys\' day out.'
+    a: 'Yes — Premier Party Cruises is 100% BYOB. Bring whatever you want: beer, seltzers, spirits, mixers, wine, and non-alcoholic beverages. Cans and plastic containers only (no glass for safety). We provide large coolers (bring your own ice, or order pre-iced from Party On Delivery) on every cruise. You can also coordinate alcohol and food delivery through our partner Party On Delivery so everything is waiting on the boat when you arrive. Many bachelor groups bring beer, seltzers, spirits, mixers, and snacks for the ultimate guys\' day out.'
   },
   {
     q: 'What should we wear on the boat?',
@@ -1381,7 +1381,7 @@ export default function BachelorV2() {
               <ul>
                 <li>Licensed captain and trained crew</li>
                 <li>Premium Bluetooth sound system</li>
-                <li>Large coolers packed with ice</li>
+                <li>Large coolers (bring your own ice, or order pre-iced from Party On Delivery)</li>
                 <li>Swim stop in a scenic Lake Travis cove</li>
                 <li>Swim ladder and life jackets</li>
                 <li>BYOB — bring whatever you want</li>
@@ -1410,7 +1410,7 @@ export default function BachelorV2() {
           </button>
           <div className={`hp2-details-content ${openDetails === 'checklist' ? 'hp2-details-content--open' : ''}`}>
             <div className="hp2-details-inner">
-              <p>Here is the complete packing list for your bachelor boat party on Lake Travis. We provide coolers with ice, sound systems, and all safety equipment — you just bring the fun.</p>
+              <p>Here is the complete packing list for your bachelor boat party on Lake Travis. We provide coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company), sound systems, and all safety equipment — you just bring the fun.</p>
               <p><strong style={{ color: 'var(--hp2-cream)' }}>Essentials:</strong></p>
               <ul>
                 <li>Sunscreen (SPF 50+ recommended, reef-safe preferred)</li>

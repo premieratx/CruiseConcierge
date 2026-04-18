@@ -20,7 +20,7 @@ export default function FirstTimeLakeTravisBoatRentalGuideV2() {
     },
     {
       q: 'How much does a Lake Travis boat rental cost for a first-timer?',
-      a: 'First-time Lake Travis boat rentals start at $200 per hour with a 4-hour minimum, so $800 base for Day Tripper (up to 14 guests). Larger boats go up: Meeseeks (25 guests) starts at $225/hour, The Irony (30 guests) at $225/hour, Clever Travis (75 guests) at $250/hour. Peak Saturday rates can reach $500/hour on the flagship. Every rate includes captain, fuel, sound system, coolers with ice, life jackets, swim ladder, and gratuity — no hidden fees. Most first-time groups spend $800-$2,000 total for a 4-hour Lake Travis boat rental, which comes out to $30-$100 per guest depending on boat and group size.',
+      a: 'First-time Lake Travis boat rentals start at $200 per hour with a 4-hour minimum, so $800 base for Day Tripper (up to 14 guests). Larger boats go up: Meeseeks (25 guests) starts at $225/hour, The Irony (30 guests) at $225/hour, Clever Travis (75 guests) at $250/hour. Peak Saturday rates can reach $500/hour on the flagship. Every rate includes captain, fuel, sound system, coolers (BYOB — bring ice or order pre-iced from Party On Delivery), life jackets, swim ladder, and gratuity — no hidden fees. Most first-time groups spend $800-$2,000 total for a 4-hour Lake Travis boat rental, which comes out to $30-$100 per guest depending on boat and group size.',
     },
     {
       q: 'What should I expect on my first Lake Travis boat rental day?',
@@ -40,7 +40,7 @@ export default function FirstTimeLakeTravisBoatRentalGuideV2() {
     },
     {
       q: 'What is included in a Lake Travis boat rental?',
-      a: 'Every Premier Party Cruises Lake Travis boat rental includes: USCG-licensed captain, trained crew, fuel for the full charter, premium Bluetooth sound system, coolers packed with ice, swim ladder, USCG life jackets in all adult sizes, onboard restroom, shaded lounge areas, swim stop at a scenic cove, and gratuity (20% already baked into the rate). The number you see on the quote is the number you pay. Clever Girl additionally has a full dance floor, 14 disco balls, and LED lighting — no extra charge.',
+      a: 'Every Premier Party Cruises Lake Travis boat rental includes: USCG-licensed captain, trained crew, fuel for the full charter, premium Bluetooth sound system, coolers (bring your own ice, or order pre-iced from Party On Delivery), swim ladder, USCG life jackets in all adult sizes, onboard restroom, shaded lounge areas, swim stop at a scenic cove, and gratuity (20% already baked into the rate). The number you see on the quote is the number you pay. Clever Girl additionally has a full dance floor, 14 disco balls, and LED lighting — no extra charge.',
     },
     {
       q: 'What do I need to bring for a Lake Travis boat rental?',

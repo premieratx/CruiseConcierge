@@ -931,7 +931,7 @@ const DISCO_FAQ_DATA = [
   },
   {
     q: 'Is the ATX Disco Cruise BYOB? What can I bring?',
-    a: 'Yes, the ATX Disco Cruise is 100% BYOB. Bring whatever you want -- beer, wine, spirits, seltzers, hard kombucha, non-alcoholic beverages. Cans and plastic containers only (no glass for safety). We provide a private cooler packed with ice for your group, plus mimosa supplies (juice and fruit), ice water stations, cups, and koozies. You can also coordinate alcohol delivery through our partner Party On Delivery so drinks are waiting on the boat when you arrive.'
+    a: 'Yes, the ATX Disco Cruise is 100% BYOB. Bring whatever you want -- beer, wine, spirits, seltzers, hard kombucha, non-alcoholic beverages. Cans and plastic containers only (no glass for safety). We provide a private cooler for your group (bring your own ice, or order pre-iced from our sister company Party On Delivery), plus mimosa supplies (juice and fruit), ice water stations, cups, and koozies. You can also coordinate alcohol delivery through our partner Party On Delivery so drinks are waiting on the boat when you arrive.'
   },
   {
     q: 'Where do we meet for the ATX Disco Cruise? How do I get there?',
@@ -1506,7 +1506,7 @@ export default function DiscoV2() {
           <div className={`hp2-details-content ${openDetails === 'private' ? 'hp2-details-content--open' : ''}`}>
             <div className="hp2-details-inner">
               <p>Private charters give you exclusive use of any boat in our fleet with a dedicated captain and crew. Available year-round with a 4-hour minimum. Choose from Day Tripper (14 guests), Meeseeks (25-30), The Irony (25-30), or Clever Girl (50-75).</p>
-              <p><strong style={{ color: 'var(--hp2-cream)' }}>Standard Package (included):</strong> Licensed captain, trained crew, premium Bluetooth sound system, large coolers with ice, swim stop, BYOB.</p>
+              <p><strong style={{ color: 'var(--hp2-cream)' }}>Standard Package (included):</strong> Licensed captain, trained crew, premium Bluetooth sound system, large coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company), swim stop, BYOB.</p>
               <p><strong style={{ color: 'var(--hp2-cream)' }}>Essentials Upgrade ($100–$200 flat):</strong> Enhanced party setup, mimosa supplies, towel service, SPF-50 sunscreen station.</p>
               <p><strong style={{ color: 'var(--hp2-cream)' }}>Ultimate Package ($250–$350 flat):</strong> Everything in Essentials plus premium decorations, custom accessories, priority boarding, and a dedicated event coordinator.</p>
             </div>
@@ -1518,7 +1518,7 @@ export default function DiscoV2() {
           </button>
           <div className={`hp2-details-content ${openDetails === 'checklist' ? 'hp2-details-content--open' : ''}`}>
             <div className="hp2-details-inner">
-              <p>We provide coolers with ice, sound systems, and all safety equipment. Here is what to bring for the best experience on Lake Travis.</p>
+              <p>We provide coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company), sound systems, and all safety equipment. Here is what to bring for the best experience on Lake Travis.</p>
               <ul>
                 <li>Sunscreen (SPF 50+ recommended, reef-safe preferred)</li>
                 <li>Swimsuit and coverup</li>

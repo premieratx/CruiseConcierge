@@ -12,7 +12,7 @@ export default function UltimateAustinBacheloretteWeekendV2() {
     },
     {
       q: 'What is included in the ultimate Austin bachelorette weekend package?',
-      a: 'The ultimate Austin bachelorette weekend includes: 2 nights lodging at Hotel Van Zandt or The LINE ($300-$500/person), ATX Disco Cruise Saturday 11 AM-3 PM ($105/person), private Friday sunset charter on Lake Travis ($200-$500/hr), fine dining at Uchi + Jeffrey\'s ($150-$250/person across both), Milk + Honey spa day ($150-$250/person), party bus to the marina ($60-$100/person split), professional photographer ($75-$150/person split), and rideshare for the rest. Total: $1,000-$1,800/person.'
+      a: 'The ultimate Austin bachelorette weekend includes: 2 nights lodging at Hotel Van Zandt or The LINE ($300-$500/person), ATX Disco Cruise Saturday 11 AM-3 PM ($105/person), private Friday sunset charter on Lake Travis (From $200/hr), fine dining at Uchi + Jeffrey\'s ($150-$250/person across both), Milk + Honey spa day ($150-$250/person), party bus to the marina ($60-$100/person split), professional photographer ($75-$150/person split), and rideshare for the rest. Total: $1,000-$1,800/person.'
     },
     {
       q: 'When is the best time of year for an Austin bachelorette weekend?',
@@ -24,7 +24,7 @@ export default function UltimateAustinBacheloretteWeekendV2() {
     },
     {
       q: 'Can we combine the ATX Disco Cruise with a private charter for the ultimate weekend?',
-      a: 'Yes — the ultimate Austin bachelorette formula combines both. Friday: book a private Lake Travis sunset charter 5-9 PM on Clever Girl ($250-$500/hr, 4-hour minimum) with Ultimate decor package ($250-$350 flat). Saturday: book the ATX Disco Cruise 11 AM-3 PM ($105/person) for the peak energy shared party experience with professional DJ and photographer. Two completely different lake experiences in one weekend. Some groups even do Friday AND Sunday private charters plus Saturday Disco Cruise.'
+      a: 'Yes — the ultimate Austin bachelorette formula combines both. Friday: book a private Lake Travis sunset charter 5-9 PM on Clever Girl (From $250/hr, 4-hour minimum) with Ultimate decor package ($250-$350 flat). Saturday: book the ATX Disco Cruise 11 AM-3 PM ($105/person) for the peak energy shared party experience with professional DJ and photographer. Two completely different lake experiences in one weekend. Some groups even do Friday AND Sunday private charters plus Saturday Disco Cruise.'
     },
     {
       q: 'What restaurants are essential for the ultimate Austin bachelorette?',
@@ -115,7 +115,7 @@ export default function UltimateAustinBacheloretteWeekendV2() {
             <div className="hp2-feature-card">
               <div className="hp2-feature-card__num">5 PM</div>
               <div className="hp2-feature-card__title">Optional: Private Sunset Charter</div>
-              <div className="hp2-feature-card__desc">Luxury tier add-on. Private Clever Girl or Day Tripper charter 5-9 PM ($200-$500/hr). Intimate sunset on Lake Travis with Ultimate decor package.</div>
+              <div className="hp2-feature-card__desc">Luxury tier add-on. Private Clever Girl or Day Tripper charter 5-9 PM (From $200/hr). Intimate sunset on Lake Travis with Ultimate decor package.</div>
             </div>
             <div className="hp2-feature-card">
               <div className="hp2-feature-card__num">7 PM</div>

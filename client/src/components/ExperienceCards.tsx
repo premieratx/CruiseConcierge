@@ -717,7 +717,7 @@ function ExperienceCard({ experience }: { experience: Experience }) {
               <div>
                 <p className="font-semibold text-sm">Flexible Booking</p>
                 <p className="text-sm text-gray-600 dark:text-gray-400">
-                  All packages include professional captain, fuel, coolers with ice, premium sound system, 
+                  All packages include professional captain, fuel, coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company), premium sound system, 
                   and safety equipment. Food and beverages can be brought aboard or catered.
                 </p>
               </div>

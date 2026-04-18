@@ -15,7 +15,7 @@ export const bachelorFAQs: FAQItem[] = [
   {
     id: 'bachelor-what-to-bring',
     question: 'What should our bachelor party bring on the boat?',
-    answer: 'Bring your favorite drinks in cans or plastic (no glass), sunscreen, towels, and swimsuits. We provide coolers with ice, cups, and water. Consider bringing snacks or ordering food delivery to the boat. Don\'t forget sunglasses and a phone for photos - you\'ll want to capture these memories!'
+    answer: 'Bring your favorite drinks in cans or plastic (no glass), sunscreen, towels, and swimsuits. We provide coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company), cups, and water. Consider bringing snacks or ordering food delivery to the boat. Don\'t forget sunglasses and a phone for photos - you\'ll want to capture these memories!'
   },
   {
     id: 'bachelor-booking-timeline',

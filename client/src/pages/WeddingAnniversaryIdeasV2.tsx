@@ -119,7 +119,7 @@ export default function WeddingAnniversaryIdeasV2() {
           Anniversary idea <em>budgets</em>.
         </h2>
         <p className="hp2-section__body">
-          Austin anniversary celebration cost ranges: fine-dining dinner for two ($250-$500), private couple Lake Travis cruise 4 hours ($800-$1,200), milestone 25th anniversary party on Clever Girl ($1,500-$2,500 for boat charter, plus catering). Anniversary cruises start at $200/hour with a 4-hour minimum. Day Tripper $200-$350/hr, Meeseeks and The Irony $225-$425/hr, Clever Girl $250-$500/hr. Add Ultimate decor package $250-$350 flat.
+          Austin anniversary celebration cost ranges: fine-dining dinner for two ($250-$500), private couple Lake Travis cruise 4 hours ($800-$1,200), milestone 25th anniversary party on Clever Girl ($1,500-$2,500 for boat charter, plus catering). Anniversary cruises start at $200/hour with a 4-hour minimum. Day Tripper From $200/hr, Meeseeks and The Irony From $225/hr, Clever Girl From $250/hr. Add Ultimate decor package $250-$350 flat.
         </p>
       </section>
     </V2PageTemplate>

@@ -21,7 +21,7 @@ export default function LakeTravisBachelorPartyBoatsV2() {
     },
     {
       q: 'How much does a Lake Travis bachelor party boat rental cost?',
-      a: 'Private Lake Travis bachelor party boat rentals start at $200/hour on Day Tripper with a 4-hour minimum ($800 base). Meeseeks starts at $225/hour, The Irony at $225/hour, and Clever Girl at $250/hour with premium peak-season pricing up to $500/hour. For a shared ticket, the ATX Disco Cruise on Clever Girl is $85-$105 per person depending on time slot, with tax and gratuity included. Private rates include captain, fuel, sound system, coolers with ice, and gratuity.',
+      a: 'Private Lake Travis bachelor party boat rentals start at $200/hour on Day Tripper with a 4-hour minimum ($800 base). Meeseeks starts at $225/hour, The Irony at $225/hour, and Clever Girl at $250/hour with premium peak-season pricing up to $500/hour. For a shared ticket, the ATX Disco Cruise on Clever Girl is $85-$105 per person depending on time slot, with tax and gratuity included. Private rates include captain, fuel, sound system, coolers (BYOB — bring ice or order pre-iced from Party On Delivery), and gratuity.',
     },
     {
       q: 'Which Lake Travis bachelor boat is best for a group of 20?',
@@ -37,7 +37,7 @@ export default function LakeTravisBachelorPartyBoatsV2() {
     },
     {
       q: 'Can we bring our own alcohol on a Lake Travis bachelor boat?',
-      a: 'Yes — every Premier Party Cruises boat is 100% BYOB. Beer, seltzers, spirits, mixers, wine, non-alcoholic drinks. Cans and plastic only, no glass. Every boat comes with large coolers packed with ice. You can also pre-order alcohol through Party On Delivery and have it waiting on the boat when you board. No corkage fees, no minimums, no upcharges.',
+      a: 'Yes — every Premier Party Cruises boat is 100% BYOB. Beer, seltzers, spirits, mixers, wine, non-alcoholic drinks. Cans and plastic only, no glass. Every boat comes with large coolers (bring your own ice, or order pre-iced from Party On Delivery). You can also pre-order alcohol through Party On Delivery and have it waiting on the boat when you board. No corkage fees, no minimums, no upcharges.',
     },
     {
       q: 'Where do Lake Travis bachelor party boats depart from?',
@@ -110,7 +110,7 @@ export default function LakeTravisBachelorPartyBoatsV2() {
             <div className="hp2-feature-card__num">14</div>
             <h3 className="hp2-feature-card__title">Day Tripper</h3>
             <p className="hp2-feature-card__desc">
-              Up to 14 guests. $200-$350/hour. The bachelor-group Swiss
+              Up to 14 guests. from $200/hour. The bachelor-group Swiss
               Army knife — small premium crew, tight pricing, full BYOB
               setup, onboard restroom, swim ladder, floats.
             </p>
@@ -119,7 +119,7 @@ export default function LakeTravisBachelorPartyBoatsV2() {
             <div className="hp2-feature-card__num">25</div>
             <h3 className="hp2-feature-card__title">Meeseeks</h3>
             <p className="hp2-feature-card__desc">
-              Up to 25 guests. $225-$425/hour. Mid-size bachelor sweet
+              Up to 25 guests. from $225/hour. Mid-size bachelor sweet
               spot. Plenty of deck space, generous cooler capacity, strong
               Bluetooth sound, onboard restroom. Popular for 18-25 groomsmen.
             </p>
@@ -128,7 +128,7 @@ export default function LakeTravisBachelorPartyBoatsV2() {
             <div className="hp2-feature-card__num">30</div>
             <h3 className="hp2-feature-card__title">The Irony</h3>
             <p className="hp2-feature-card__desc">
-              Up to 30 guests. $225-$425/hour. The bigger-Meeseeks option
+              Up to 30 guests. from $225/hour. The bigger-Meeseeks option
               for 25-30 guys. Same setup, more room, matches the largest
               non-disco-ball bachelor groups.
             </p>
@@ -137,7 +137,7 @@ export default function LakeTravisBachelorPartyBoatsV2() {
             <div className="hp2-feature-card__num">75</div>
             <h3 className="hp2-feature-card__title">Clever Girl</h3>
             <p className="hp2-feature-card__desc">
-              50-75 guests. $250-$500/hour. The flagship Lake Travis party
+              50-75 guests. from $250/hour. The flagship Lake Travis party
               boat. 14 disco balls, LED lighting, full dance floor, premium
               sound. The boat behind the ATX Disco Cruise.
             </p>
@@ -174,7 +174,7 @@ export default function LakeTravisBachelorPartyBoatsV2() {
             Private bachelor-boat pricing on Lake Travis is hourly, with a
             4-hour minimum across the fleet. Rates vary by boat size and by
             peak vs. off-peak weekends. Every private charter rate includes
-            captain, fuel, sound system, coolers with ice, swim ladder,
+            captain, fuel, sound system, coolers (BYOB — bring ice or order pre-iced from Party On Delivery), swim ladder,
             life jackets, and gratuity — the number you see is the number
             you pay.
           </p>

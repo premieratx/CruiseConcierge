@@ -12,7 +12,7 @@ export default function AfterPartyV2() {
     },
     {
       q: 'What is included in a wedding recovery cruise?',
-      a: 'Every day-after wedding cruise includes a US Coast Guard licensed captain, trained crew, premium Bluetooth sound system, coolers packed with ice, a swim stop in a scenic cove, and all safety equipment. BYOB is welcome - most couples bring champagne, mimosa supplies, breakfast tacos, and brunch bites. Add the Ultimate package for upgraded decor and extras for $250-$350 flat per cruise.'
+      a: 'Every day-after wedding cruise includes a US Coast Guard licensed captain, trained crew, premium Bluetooth sound system, coolers (bring your own ice, or order pre-iced from Party On Delivery), a swim stop in a scenic cove, and all safety equipment. BYOB is welcome - most couples bring champagne, mimosa supplies, breakfast tacos, and brunch bites. Add the Ultimate package for upgraded decor and extras for $250-$350 flat per cruise.'
     },
     {
       q: 'Can we host a post wedding brunch on the boat?',
@@ -28,7 +28,7 @@ export default function AfterPartyV2() {
     },
     {
       q: 'Is BYOB allowed on a wedding recovery cruise?',
-      a: 'Yes, we are 100% BYOB on every cruise including day-after wedding events. Bring champagne, prosecco, beer, bloody mary mix, spirits, and mixers in cans or plastic containers only (no glass for safety). We provide large coolers with ice on every boat. You can also arrange alcohol delivery through our partner Party On Delivery so everything is waiting when you arrive.'
+      a: 'Yes, we are 100% BYOB on every cruise including day-after wedding events. Bring champagne, prosecco, beer, bloody mary mix, spirits, and mixers in cans or plastic containers only (no glass for safety). We provide large coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company) on every boat. You can also arrange alcohol delivery through our partner Party On Delivery so everything is waiting when you arrive.'
     },
     {
       q: 'Where do the boats depart from?',
@@ -98,7 +98,7 @@ export default function AfterPartyV2() {
             <div className="hp2-feature-card">
               <div className="hp2-feature-card__num">02</div>
               <div className="hp2-feature-card__title">BYOB Mimosas & Brunch</div>
-              <div className="hp2-feature-card__desc">Bring your own champagne, OJ, breakfast tacos, and brunch bites. Large coolers with ice provided. No corkage fees.</div>
+              <div className="hp2-feature-card__desc">Bring your own champagne, OJ, breakfast tacos, and brunch bites. Large coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company) provided. No corkage fees.</div>
             </div>
             <div className="hp2-feature-card">
               <div className="hp2-feature-card__num">03</div>
@@ -115,7 +115,7 @@ export default function AfterPartyV2() {
           Transparent rates, <em>no</em> hidden fees.
         </h2>
         <p className="hp2-section__body">
-          Day after wedding cruise pricing starts at $200/hour with a 4-hour minimum. Sunday morning and weekday recovery cruises are typically $200-$350/hour on the Day Tripper, $225-$425/hour on Meeseeks or The Irony, and $250-$500/hour on Clever Girl. Add the Ultimate package for $250-$350 flat for upgraded decor and extras. All rates include captain, crew, coolers with ice, sound system, and safety gear.
+          Day after wedding cruise pricing starts at $200/hour with a 4-hour minimum. Sunday morning and weekday recovery cruises are typically from $200/hour on the Day Tripper, from $225/hour on Meeseeks or The Irony, and from $250/hour on Clever Girl. Add the Ultimate package for $250-$350 flat for upgraded decor and extras. All rates include captain, crew, coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company), sound system, and safety gear.
         </p>
       </section>
     </V2PageTemplate>

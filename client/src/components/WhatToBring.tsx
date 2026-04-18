@@ -68,7 +68,7 @@ const generalCategories: WhatToBringCategory[] = [
     color: 'text-green-600',
     items: [
       { icon: GlassWater, text: 'BYOB (cans/plastic only)', tooltip: 'No glass bottles allowed' },
-      { icon: Package, text: 'Cooler if desired', tooltip: 'We provide coolers with ice' },
+      { icon: Package, text: 'Cooler if desired', tooltip: 'We provide coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company)' },
       { icon: Utensils, text: 'Snacks & food' },
       { icon: Coffee, text: 'Non-alcoholic beverages' },
       { icon: IceCream2, text: 'Ice (we provide but bring extra if needed)' }

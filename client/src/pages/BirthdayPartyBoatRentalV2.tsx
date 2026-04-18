@@ -19,7 +19,7 @@ export default function BirthdayPartyBoatRentalV2() {
     },
     {
       q: 'What is included with a birthday boat rental?',
-      a: 'Every birthday boat rental includes your USCG-licensed captain, fuel, trained crew, premium Bluetooth sound system, large coolers packed with ice, a swim stop in a scenic cove, swim ladder, life jackets in all sizes, lily pads or water toys on most boats, comfortable seating with sun and shade, a clean restroom on board, tax, and standard 20% gratuity.',
+      a: 'Every birthday boat rental includes your USCG-licensed captain, fuel, trained crew, premium Bluetooth sound system, large coolers (bring your own ice, or order pre-iced from Party On Delivery), a swim stop in a scenic cove, swim ladder, life jackets in all sizes, lily pads or water toys on most boats, comfortable seating with sun and shade, a clean restroom on board, tax, and standard 20% gratuity.',
     },
     {
       q: 'How many guests can I invite to a birthday boat party?',
@@ -97,7 +97,7 @@ export default function BirthdayPartyBoatRentalV2() {
         </h2>
         <p className="hp2-section__body">
           Choose the right boat for your group. Every rental includes a
-          USCG-licensed captain, fuel, coolers with ice, premium Bluetooth
+          USCG-licensed captain, fuel, coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company), premium Bluetooth
           sound system, swim stop, restroom, and BYOB privileges. All boats
           require a 4-hour minimum charter.
         </p>

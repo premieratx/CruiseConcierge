@@ -8,7 +8,7 @@ export default function WelcomePartyV2() {
     },
     {
       q: 'How much does a wedding welcome party cost?',
-      a: 'Austin wedding welcome parties on Lake Travis start at $200/hour with a 4-hour minimum. The Day Tripper (14 guests) runs $200-$350/hr, Meeseeks or The Irony (25-30) run $225-$425/hr, and Clever Girl (50-75) runs $250-$500/hr. Total cost for a 4-hour Thursday or Friday welcome party with 40 guests typically runs $1,000-$2,000 depending on day and boat choice.'
+      a: 'Austin wedding welcome parties on Lake Travis start at $200/hour with a 4-hour minimum. The Day Tripper (14 guests) runs From $200/hr, Meeseeks or The Irony (25-30) run From $225/hr, and Clever Girl (50-75) runs From $250/hr. Total cost for a 4-hour Thursday or Friday welcome party with 40 guests typically runs $1,000-$2,000 depending on day and boat choice.'
     },
     {
       q: 'When should we host our Austin welcome party?',
@@ -20,7 +20,7 @@ export default function WelcomePartyV2() {
     },
     {
       q: 'What is included in a welcome party boat rental?',
-      a: 'Every wedding welcome party cruise includes a licensed captain, trained crew, premium Bluetooth sound system, large coolers packed with ice, a swim stop in a scenic cove, and all safety equipment. BYOB is welcome — bring champagne, cocktail ingredients, beer, and any food. Optional Ultimate upgrade ($250-$350 flat) adds premium decor.'
+      a: 'Every wedding welcome party cruise includes a licensed captain, trained crew, premium Bluetooth sound system, large coolers (bring your own ice, or order pre-iced from Party On Delivery), a swim stop in a scenic cove, and all safety equipment. BYOB is welcome — bring champagne, cocktail ingredients, beer, and any food. Optional Ultimate upgrade ($250-$350 flat) adds premium decor.'
     },
     {
       q: 'Can we do a sunset welcome party cruise?',
@@ -28,7 +28,7 @@ export default function WelcomePartyV2() {
     },
     {
       q: 'Is BYOB allowed for a welcome party?',
-      a: 'Yes — all Premier Party Cruises are 100% BYOB including Austin wedding welcome parties. Bring champagne, beer, wine, spirits, mixers, and non-alcoholic drinks in cans or plastic only (no glass for safety). We provide coolers with ice. You can also coordinate food and alcohol delivery via Party On Delivery so everything is waiting on the boat.'
+      a: 'Yes — all Premier Party Cruises are 100% BYOB including Austin wedding welcome parties. Bring champagne, beer, wine, spirits, mixers, and non-alcoholic drinks in cans or plastic only (no glass for safety). We provide coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company). You can also coordinate food and alcohol delivery via Party On Delivery so everything is waiting on the boat.'
     },
     {
       q: 'Where is the marina for Austin welcome parties?',
@@ -119,7 +119,7 @@ export default function WelcomePartyV2() {
           Welcome party pricing, <em>simplified</em>.
         </h2>
         <p className="hp2-section__body">
-          Austin wedding welcome party cruises start at $200/hour with a 4-hour minimum. Typical Thursday or Friday sunset welcome parties run $900-$2,200 total depending on boat choice (Day Tripper through Clever Girl) and guest count (14 to 75). All rates include licensed captain, trained crew, premium sound, coolers with ice, swim stop, and safety equipment. Add the Ultimate package ($250-$350 flat) for premium decor.
+          Austin wedding welcome party cruises start at $200/hour with a 4-hour minimum. Typical Thursday or Friday sunset welcome parties run $900-$2,200 total depending on boat choice (Day Tripper through Clever Girl) and guest count (14 to 75). All rates include licensed captain, trained crew, premium sound, coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company), swim stop, and safety equipment. Add the Ultimate package ($250-$350 flat) for premium decor.
         </p>
       </section>
     </V2PageTemplate>

@@ -19,7 +19,7 @@ export default function Sweet16V2() {
     },
     {
       q: 'Is alcohol allowed on a Sweet 16 party boat?',
-      a: 'No alcohol is permitted at a Sweet 16 event. Because the guest of honor and the majority of guests are minors, we ask the adult host to keep the cruise alcohol-free. We stock coolers with ice for your sodas, mocktails, sparkling water, and juice so the focus stays on the teens having fun.',
+      a: 'No alcohol is permitted at a Sweet 16 event. Because the guest of honor and the majority of guests are minors, we ask the adult host to keep the cruise alcohol-free. We stock coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company) for your sodas, mocktails, sparkling water, and juice so the focus stays on the teens having fun.',
     },
     {
       q: 'How many guests can we invite to a Sweet 16 boat party?',
@@ -191,7 +191,7 @@ export default function Sweet16V2() {
         <p className="hp2-section__body">
           Every private Sweet 16 charter includes a USCG-licensed captain,
           trained crew, premium Bluetooth sound system for the birthday
-          playlist, coolers packed with ice for sodas and mocktails, a swim
+          playlist, coolers (bring your own ice, or order pre-iced from Party On Delivery) for sodas and mocktails, a swim
           stop in a scenic cove, swim ladder, life jackets in all sizes,
           covered and shaded seating, and a clean restroom on board.
         </p>

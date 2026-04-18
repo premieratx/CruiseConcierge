@@ -1374,7 +1374,7 @@ export default function CombinedBachV2() {
               <ul>
                 <li>Licensed captain and trained crew</li>
                 <li>Premium Bluetooth sound system</li>
-                <li>Large coolers packed with ice</li>
+                <li>Large coolers (bring your own ice, or order pre-iced from Party On Delivery)</li>
                 <li>Swim stop in a scenic Lake Travis cove</li>
                 <li>BYOB — bring whatever you want</li>
               </ul>
@@ -1389,7 +1389,7 @@ export default function CombinedBachV2() {
           </button>
           <div className={`hp2-details-content ${openDetails === 'checklist' ? 'hp2-details-content--open' : ''}`}>
             <div className="hp2-details-inner">
-              <p>Here is the complete packing list for your combined bach party on Lake Travis. We provide coolers with ice, sound systems, and all safety equipment.</p>
+              <p>Here is the complete packing list for your combined bach party on Lake Travis. We provide coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company), sound systems, and all safety equipment.</p>
               <ul>
                 <li>Sunscreen (SPF 50+ recommended)</li>
                 <li>Swimsuit and coverup</li>

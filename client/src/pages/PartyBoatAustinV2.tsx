@@ -20,7 +20,7 @@ export default function PartyBoatAustinV2() {
     },
     {
       q: 'How much does a party boat in Austin cost?',
-      a: 'Party boat rentals in Austin start at $200 per hour for Day Tripper (up to 14 guests) with a 4-hour minimum, putting the base charter at $800. Meeseeks (25 guests) and The Irony (30 guests) start at $225/hour. Clever Girl (75 guests) starts at $250/hour and goes up to $500/hour during peak Saturdays. For shared tickets on our ATX Disco Cruise, pricing is $85-$105 per person with tax and gratuity included. Every price includes captain, fuel, sound system, coolers with ice, and gratuity — no hidden fees.',
+      a: 'Party boat rentals in Austin start at $200 per hour for Day Tripper (up to 14 guests) with a 4-hour minimum, putting the base charter at $800. Meeseeks (25 guests) and The Irony (30 guests) start at $225/hour. Clever Girl (75 guests) starts at $250/hour and goes up to $500/hour during peak Saturdays. For shared tickets on our ATX Disco Cruise, pricing is $85-$105 per person with tax and gratuity included. Every price includes captain, fuel, sound system, coolers (BYOB — bring ice or order pre-iced from Party On Delivery), and gratuity — no hidden fees.',
     },
     {
       q: 'Where do Austin party boats launch from?',
@@ -32,11 +32,11 @@ export default function PartyBoatAustinV2() {
     },
     {
       q: 'Can we bring our own alcohol on an Austin party boat?',
-      a: 'Yes — every Premier Party Cruises Austin party boat is 100% BYOB. Bring beer, seltzers, spirits, wine, mixers, non-alcoholic drinks, and snacks. Cans and plastic containers only (no glass for safety). Every boat comes with large coolers packed with ice. You can also use our delivery partner Party On Delivery to have alcohol and food waiting on the boat when you board. No corkage fees, no minimums, no upcharges.',
+      a: 'Yes — every Premier Party Cruises Austin party boat is 100% BYOB. Bring beer, seltzers, spirits, wine, mixers, non-alcoholic drinks, and snacks. Cans and plastic containers only (no glass for safety). Every boat comes with large coolers (bring your own ice, or order pre-iced from Party On Delivery). You can also use our delivery partner Party On Delivery to have alcohol and food waiting on the boat when you board. No corkage fees, no minimums, no upcharges.',
     },
     {
       q: 'What is included on an Austin party boat rental?',
-      a: 'Every Austin party boat private charter includes: a USCG-licensed captain, trained crew, premium Bluetooth sound system, large coolers packed with ice, swim ladder, USCG-approved life jackets in all adult sizes, swim stop in a scenic Lake Travis cove, onboard restroom, covered shaded lounge areas, and gratuity. Clever Girl adds a dance floor, 14 disco balls, and LED lighting. The ATX Disco Cruise shared ticket adds a professional DJ, professional photographer with digital delivery, and giant lily pad floats.',
+      a: 'Every Austin party boat private charter includes: a USCG-licensed captain, trained crew, premium Bluetooth sound system, large coolers (bring your own ice, or order pre-iced from Party On Delivery), swim ladder, USCG-approved life jackets in all adult sizes, swim stop in a scenic Lake Travis cove, onboard restroom, covered shaded lounge areas, and gratuity. Clever Girl adds a dance floor, 14 disco balls, and LED lighting. The ATX Disco Cruise shared ticket adds a professional DJ, professional photographer with digital delivery, and giant lily pad floats.',
     },
     {
       q: 'How long are Austin party boat charters?',
@@ -115,7 +115,7 @@ export default function PartyBoatAustinV2() {
             <p className="hp2-feature-card__desc">
               Austin&apos;s best small-group party boat. Premium feel,
               onboard restroom, premium Bluetooth sound, swim ladder, ice
-              chests. $200-$350/hour with a 4-hour minimum.
+              chests. from $200/hour with a 4-hour minimum.
             </p>
           </div>
           <div className="hp2-feature-card">
@@ -124,7 +124,7 @@ export default function PartyBoatAustinV2() {
             <p className="hp2-feature-card__desc">
               The mid-size Austin party boat sweet spot. Ideal for 18-25
               guests — bachelor parties, milestone birthdays, corporate
-              teams. $225-$425/hour, same 4-hour minimum.
+              teams. from $225/hour, same 4-hour minimum.
             </p>
           </div>
           <div className="hp2-feature-card">
@@ -133,7 +133,7 @@ export default function PartyBoatAustinV2() {
             <p className="hp2-feature-card__desc">
               Slightly larger than Meeseeks. Best pick for 25-30 guests
               who want the full private-boat experience without stepping
-              up to the 75-capacity flagship. $225-$425/hour.
+              up to the 75-capacity flagship. from $225/hour.
             </p>
           </div>
           <div className="hp2-feature-card">
@@ -142,7 +142,7 @@ export default function PartyBoatAustinV2() {
             <p className="hp2-feature-card__desc">
               Austin&apos;s flagship party boat. 14 disco balls, LED
               lighting, a full dance floor, premium sound. The boat behind
-              the ATX Disco Cruise. $250-$500/hour depending on season.
+              the ATX Disco Cruise. from $250/hour depending on season.
             </p>
           </div>
           <div className="hp2-feature-card">
@@ -175,7 +175,7 @@ export default function PartyBoatAustinV2() {
           </h2>
           <p className="hp2-section__body">
             Every Austin party boat rate below includes captain, fuel,
-            sound system, coolers with ice, life jackets, swim ladder,
+            sound system, coolers (BYOB — bring ice or order pre-iced from Party On Delivery), life jackets, swim ladder,
             and gratuity. The number you see is the number you pay. Rates
             vary by season and day of week — peak Saturdays in April-May
             and September-October sit at the upper end of each range.
@@ -302,7 +302,7 @@ export default function PartyBoatAustinV2() {
               <div className="hp2-feature-card__num">◇</div>
               <h3 className="hp2-feature-card__title">What We Supply</h3>
               <p className="hp2-feature-card__desc">
-                Coolers packed with ice, premium sound system (Bluetooth
+                Coolers (BYO ice or order pre-iced from Party On Delivery), premium sound system (Bluetooth
                 to any phone), swim ladder, USCG life jackets in all adult
                 sizes, onboard restroom, shaded lounge areas, captain + crew.
               </p>

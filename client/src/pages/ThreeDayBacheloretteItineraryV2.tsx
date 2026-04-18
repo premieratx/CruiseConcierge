@@ -40,7 +40,7 @@ export default function ThreeDayBacheloretteItineraryV2() {
     },
     {
       q: 'Can we combine the ATX Disco Cruise with a private sunset charter?',
-      a: 'Yes — some groups book the Saturday 11 AM-3 PM ATX Disco Cruise (for the DJ, photographer, and all-inclusive party atmosphere) then add a Sunday sunset private charter (6 PM-9 PM, $200-$500/hr, 4-hour minimum) for a chilled end to the weekend. Others do the opposite: Friday sunset private charter as a warm-up, then Saturday Disco Cruise as the main event. Both options work beautifully.'
+      a: 'Yes — some groups book the Saturday 11 AM-3 PM ATX Disco Cruise (for the DJ, photographer, and all-inclusive party atmosphere) then add a Sunday sunset private charter (6 PM-9 PM, From $200/hr, 4-hour minimum) for a chilled end to the weekend. Others do the opposite: Friday sunset private charter as a warm-up, then Saturday Disco Cruise as the main event. Both options work beautifully.'
     },
     {
       q: 'What are the best restaurants for an Austin bachelorette dinner?',
@@ -130,7 +130,7 @@ export default function ThreeDayBacheloretteItineraryV2() {
             <div className="hp2-feature-card">
               <div className="hp2-feature-card__num">Optional</div>
               <div className="hp2-feature-card__title">Friday Sunset Charter</div>
-              <div className="hp2-feature-card__desc">Add a Friday 5-9 PM private sunset charter ($200-$500/hr) as a warm-up. Smaller group, BYOB, golden hour photos. Some groups do this Friday instead of Rainey Street if they want a quieter start.</div>
+              <div className="hp2-feature-card__desc">Add a Friday 5-9 PM private sunset charter (From $200/hr) as a warm-up. Smaller group, BYOB, golden hour photos. Some groups do this Friday instead of Rainey Street if they want a quieter start.</div>
             </div>
           </div>
         </div>

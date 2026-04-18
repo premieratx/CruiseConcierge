@@ -27,7 +27,7 @@ export default function GraduationCruiseV2() {
     },
     {
       q: 'Is alcohol allowed on a graduation cruise?',
-      a: 'For high school graduation cruises with minor guests, no alcohol is permitted — we stock coolers with ice for sodas, sparkling water, and mocktails. For 21+ college graduation cruises, full BYOB applies: beer, wine, champagne, and spirits in cans or plastic (no glass). A 21+ adult sign-off is required in both cases.',
+      a: 'For high school graduation cruises with minor guests, no alcohol is permitted — we stock coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company) for sodas, sparkling water, and mocktails. For 21+ college graduation cruises, full BYOB applies: beer, wine, champagne, and spirits in cans or plastic (no glass). A 21+ adult sign-off is required in both cases.',
     },
     {
       q: 'How many guests can a graduation cruise hold?',

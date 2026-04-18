@@ -8,7 +8,7 @@ export default function RehearsalDinnerV2() {
     },
     {
       q: 'How much does a Lake Travis rehearsal dinner cost?',
-      a: 'Rehearsal dinners on Lake Travis start at $200/hour with a 4-hour minimum. Day Tripper (14 guests) runs $200-$350/hr, Meeseeks or The Irony (25-30) run $225-$425/hr, and Clever Girl (50-75) runs $250-$500/hr. A typical Friday rehearsal dinner cruise with 25 guests runs $900-$1,700 total. Catering is separate and coordinated through our partner Party On Delivery or your own vendor.'
+      a: 'Rehearsal dinners on Lake Travis start at $200/hour with a 4-hour minimum. Day Tripper (14 guests) runs From $200/hr, Meeseeks or The Irony (25-30) run From $225/hr, and Clever Girl (50-75) runs From $250/hr. A typical Friday rehearsal dinner cruise with 25 guests runs $900-$1,700 total. Catering is separate and coordinated through our partner Party On Delivery or your own vendor.'
     },
     {
       q: 'How many guests fit on a rehearsal dinner cruise?',
@@ -16,7 +16,7 @@ export default function RehearsalDinnerV2() {
     },
     {
       q: 'What is included in a rehearsal dinner cruise?',
-      a: 'Every Lake Travis rehearsal dinner includes a US Coast Guard licensed captain, trained crew, premium Bluetooth sound system for speeches and toasts, large coolers packed with ice, a swim stop in a scenic cove (optional), and all safety equipment. BYOB is welcome — champagne for toasts, wine with dinner, cocktail supplies. Catering is coordinated separately.'
+      a: 'Every Lake Travis rehearsal dinner includes a US Coast Guard licensed captain, trained crew, premium Bluetooth sound system for speeches and toasts, large coolers (bring your own ice, or order pre-iced from Party On Delivery), a swim stop in a scenic cove (optional), and all safety equipment. BYOB is welcome — champagne for toasts, wine with dinner, cocktail supplies. Catering is coordinated separately.'
     },
     {
       q: 'Can we have a plated dinner on the boat?',
@@ -28,7 +28,7 @@ export default function RehearsalDinnerV2() {
     },
     {
       q: 'Is BYOB allowed for a rehearsal dinner?',
-      a: 'Yes, all Premier Party Cruises are 100% BYOB including rehearsal dinner cruises. Bring champagne for toasts, wine pairings, signature cocktails, beer, and any non-alcoholic drinks. Cans and plastic containers only (no glass for safety). We provide large coolers with ice. Many couples coordinate alcohol delivery through Party On Delivery for convenience.'
+      a: 'Yes, all Premier Party Cruises are 100% BYOB including rehearsal dinner cruises. Bring champagne for toasts, wine pairings, signature cocktails, beer, and any non-alcoholic drinks. Cans and plastic containers only (no glass for safety). We provide large coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company). Many couples coordinate alcohol delivery through Party On Delivery for convenience.'
     },
     {
       q: 'Can we do toasts and speeches on the boat?',
@@ -119,7 +119,7 @@ export default function RehearsalDinnerV2() {
           Transparent rehearsal dinner <em>pricing</em>.
         </h2>
         <p className="hp2-section__body">
-          Lake Travis rehearsal dinner cruises start at $200/hour with a 4-hour minimum. Day Tripper runs $200-$350/hr for 14 guests, Meeseeks and The Irony run $225-$425/hr for 25-30 guests, and Clever Girl runs $250-$500/hr for 50-75 guests. All charters include licensed captain, trained crew, sound system, coolers with ice, and safety gear. Catering is billed separately through Party On Delivery or your preferred caterer. Ultimate decor package $250-$350 flat.
+          Lake Travis rehearsal dinner cruises start at $200/hour with a 4-hour minimum. Day Tripper runs From $200/hr for 14 guests, Meeseeks and The Irony run From $225/hr for 25-30 guests, and Clever Girl runs From $250/hr for 50-75 guests. All charters include licensed captain, trained crew, sound system, coolers (BYOB — bring ice or order pre-iced from Party On Delivery), and safety gear. Catering is billed separately through Party On Delivery or your preferred caterer. Ultimate decor package $250-$350 flat.
         </p>
       </section>
     </V2PageTemplate>

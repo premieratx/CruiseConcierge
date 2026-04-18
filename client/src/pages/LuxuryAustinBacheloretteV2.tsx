@@ -4,7 +4,7 @@ export default function LuxuryAustinBacheloretteV2() {
   const faqs = [
     {
       q: 'What is the most luxurious bachelorette experience in Austin?',
-      a: 'The most luxurious Austin bachelorette is a private Lake Travis yacht charter on Clever Girl (our 75-guest flagship) with premium upgrades — $250-$500/hour, 4-hour minimum. Add a private DJ, professional photographer, premium catering from Party On Delivery, bottle service setup, decor package, and transportation via party bus or limo. A luxury Austin bachelorette weekend typically runs $1,200-$2,500 per person across 3-4 days including 5-star hotels and Uchi-level dinners.'
+      a: 'The most luxurious Austin bachelorette is a private Lake Travis yacht charter on Clever Girl (our 75-guest flagship) with premium upgrades — from $250/hour, 4-hour minimum. Add a private DJ, professional photographer, premium catering from Party On Delivery, bottle service setup, decor package, and transportation via party bus or limo. A luxury Austin bachelorette weekend typically runs $1,200-$2,500 per person across 3-4 days including 5-star hotels and Uchi-level dinners.'
     },
     {
       q: 'How much does a luxury Austin bachelorette party cost?',
@@ -12,7 +12,7 @@ export default function LuxuryAustinBacheloretteV2() {
     },
     {
       q: 'What is the best luxury boat for an Austin bachelorette?',
-      a: 'Clever Girl is the best luxury boat for an Austin bachelorette — our 50-75 guest flagship with 14 disco balls, LED lighting, professional-grade sound system, and a full dance floor. Private charter rates $250-$500/hour with a 4-hour minimum. For smaller luxury groups (14-30), The Irony or Meeseeks offer more intimate charters at $225-$425/hour. Add the Ultimate package ($250-$350 flat) for premium decor, custom accessories, dedicated coordinator, and priority boarding.'
+      a: 'Clever Girl is the best luxury boat for an Austin bachelorette — our 50-75 guest flagship with 14 disco balls, LED lighting, professional-grade sound system, and a full dance floor. Private charter rates from $250/hour with a 4-hour minimum. For smaller luxury groups (14-30), The Irony or Meeseeks offer more intimate charters at from $225/hour. Add the Ultimate package ($250-$350 flat) for premium decor, custom accessories, dedicated coordinator, and priority boarding.'
     },
     {
       q: 'What are the best luxury hotels in Austin for a bachelorette?',
@@ -20,7 +20,7 @@ export default function LuxuryAustinBacheloretteV2() {
     },
     {
       q: 'Can we charter a private yacht on Lake Travis for a bachelorette?',
-      a: 'Yes — Premier Party Cruises operates four private party boats on Lake Travis available for exclusive bachelorette charters. Clever Girl (50-75 guests, flagship with 14 disco balls) $250-$500/hour. The Irony (25-30 guests) $225-$425/hour. Meeseeks (25-30 guests) $225-$425/hour. Day Tripper (14 guests, intimate) $200-$350/hour. 4-hour minimum, year-round availability, BYOB, licensed captain and crew included. Add premium upgrades for the full luxury experience.'
+      a: 'Yes — Premier Party Cruises operates four private party boats on Lake Travis available for exclusive bachelorette charters. Clever Girl (50-75 guests, flagship with 14 disco balls) from $250/hour. The Irony (25-30 guests) from $225/hour. Meeseeks (25-30 guests) from $225/hour. Day Tripper (14 guests, intimate) from $200/hour. 4-hour minimum, year-round availability, BYOB, licensed captain and crew included. Add premium upgrades for the full luxury experience.'
     },
     {
       q: 'What premium upgrades are available for a luxury bachelorette charter?',
@@ -64,7 +64,7 @@ export default function LuxuryAustinBacheloretteV2() {
     },
     {
       q: 'How do we book a luxury Austin bachelorette?',
-      a: 'Start with the private Lake Travis charter at /private-cruises — Clever Girl (75 guests, $250-$500/hr) is the luxury flagship. Book 2-3 months ahead for peak season. Then book hotel (Hotel Van Zandt, W, Four Seasons) 3-4 months out, Uchi reservations 6+ weeks out, spa 4-6 weeks out, photographer 4-6 weeks out, and transportation 2-3 weeks out. Call (512) 488-5892 for full luxury planning — our team handles the boat day and can recommend vetted luxury vendors.'
+      a: 'Start with the private Lake Travis charter at /private-cruises — Clever Girl (75 guests, From $250/hr) is the luxury flagship. Book 2-3 months ahead for peak season. Then book hotel (Hotel Van Zandt, W, Four Seasons) 3-4 months out, Uchi reservations 6+ weeks out, spa 4-6 weeks out, photographer 4-6 weeks out, and transportation 2-3 weeks out. Call (512) 488-5892 for full luxury planning — our team handles the boat day and can recommend vetted luxury vendors.'
     }
   ];
 

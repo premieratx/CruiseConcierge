@@ -8,7 +8,7 @@ export default function RehearsalDinnerCruiseV2() {
     },
     {
       q: 'How much does a rehearsal dinner cruise cost in Austin?',
-      a: 'Rehearsal dinner cruises start at $200/hour with a 4-hour minimum. Day Tripper (14 guests) runs $200-$350/hr, Meeseeks or The Irony (25-30) $225-$425/hr, and Clever Girl (50-75) $250-$500/hr. A typical Friday rehearsal dinner cruise totals $900-$2,200 depending on guest count and boat. Catering is coordinated separately through Party On Delivery or your own vendor.'
+      a: 'Rehearsal dinner cruises start at $200/hour with a 4-hour minimum. Day Tripper (14 guests) runs From $200/hr, Meeseeks or The Irony (25-30) From $225/hr, and Clever Girl (50-75) From $250/hr. A typical Friday rehearsal dinner cruise totals $900-$2,200 depending on guest count and boat. Catering is coordinated separately through Party On Delivery or your own vendor.'
     },
     {
       q: 'How long is a rehearsal dinner cruise?',
@@ -24,7 +24,7 @@ export default function RehearsalDinnerCruiseV2() {
     },
     {
       q: 'What is included in the rehearsal dinner cruise?',
-      a: 'Every rehearsal dinner cruise includes a US Coast Guard licensed captain, trained crew, premium Bluetooth sound system, wireless microphone for toasts, large coolers with ice, a swim stop in a scenic cove (optional), and all safety equipment. BYOB is 100% welcome. Catering coordination and Ultimate decor package ($250-$350 flat) available as add-ons.'
+      a: 'Every rehearsal dinner cruise includes a US Coast Guard licensed captain, trained crew, premium Bluetooth sound system, wireless microphone for toasts, large coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company), a swim stop in a scenic cove (optional), and all safety equipment. BYOB is 100% welcome. Catering coordination and Ultimate decor package ($250-$350 flat) available as add-ons.'
     },
     {
       q: 'Can we have a sit-down dinner on the boat?',
@@ -32,7 +32,7 @@ export default function RehearsalDinnerCruiseV2() {
     },
     {
       q: 'Is BYOB allowed for the rehearsal dinner?',
-      a: 'Yes, we are 100% BYOB on every rehearsal dinner cruise. Bring champagne for toasts, wine with dinner, signature cocktails, beer, and non-alcoholic options. Cans and plastic containers only (no glass for safety). We provide large coolers with ice on every boat. Many wedding parties coordinate alcohol delivery so it\'s stocked before boarding.'
+      a: 'Yes, we are 100% BYOB on every rehearsal dinner cruise. Bring champagne for toasts, wine with dinner, signature cocktails, beer, and non-alcoholic options. Cans and plastic containers only (no glass for safety). We provide large coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company) on every boat. Many wedding parties coordinate alcohol delivery so it\'s stocked before boarding.'
     },
     {
       q: 'What time is best for a rehearsal dinner cruise?',
@@ -107,7 +107,7 @@ export default function RehearsalDinnerCruiseV2() {
             <div className="hp2-feature-card">
               <div className="hp2-feature-card__num">03</div>
               <div className="hp2-feature-card__title">BYOB Freedom</div>
-              <div className="hp2-feature-card__desc">Bring your own champagne, wine pairings, signature cocktails. No corkage fees. Large coolers with ice included.</div>
+              <div className="hp2-feature-card__desc">Bring your own champagne, wine pairings, signature cocktails. No corkage fees. Large coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company) included.</div>
             </div>
           </div>
         </div>
@@ -119,7 +119,7 @@ export default function RehearsalDinnerCruiseV2() {
           Transparent cruise <em>pricing</em>.
         </h2>
         <p className="hp2-section__body">
-          Austin rehearsal dinner cruises start at $200/hour with a 4-hour minimum. Day Tripper $200-$350/hr, Meeseeks and The Irony $225-$425/hr, Clever Girl $250-$500/hr. A typical Friday 4-hour sunset rehearsal dinner cruise with 30 guests totals approximately $1,400-$2,000 for the boat charter. Catering is billed separately based on your menu choice. The Ultimate decor package adds $250-$350 flat for premium styling.
+          Austin rehearsal dinner cruises start at $200/hour with a 4-hour minimum. Day Tripper From $200/hr, Meeseeks and The Irony From $225/hr, Clever Girl From $250/hr. A typical Friday 4-hour sunset rehearsal dinner cruise with 30 guests totals approximately $1,400-$2,000 for the boat charter. Catering is billed separately based on your menu choice. The Ultimate decor package adds $250-$350 flat for premium styling.
         </p>
       </section>
     </V2PageTemplate>

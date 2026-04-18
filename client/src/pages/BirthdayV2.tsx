@@ -735,11 +735,11 @@ const FAQ_DATA = [
   },
   {
     q: 'What is included in a birthday party cruise?',
-    a: 'Every private birthday charter includes a USCG-licensed captain and trained crew, a premium Bluetooth sound system for your playlist, large coolers packed with ice, a swim stop in a scenic Lake Travis cove with crystal-clear water, swim ladder and life jackets in all sizes, comfortable seating with both sun and shaded areas, and clean restroom facilities. The Essentials Package ($100-$200 flat) adds enhanced party setup, towel service, mimosa bar supplies, and SPF-50 sunscreen stations. The Ultimate Package ($250-$350 flat) adds premium decorations, champagne flutes, plates, a 6-foot food table, and a dedicated event coordinator.'
+    a: 'Every private birthday charter includes a USCG-licensed captain and trained crew, a premium Bluetooth sound system for your playlist, large coolers (bring your own ice, or order pre-iced from Party On Delivery), a swim stop in a scenic Lake Travis cove with crystal-clear water, swim ladder and life jackets in all sizes, comfortable seating with both sun and shaded areas, and clean restroom facilities. The Essentials Package ($100-$200 flat) adds enhanced party setup, towel service, mimosa bar supplies, and SPF-50 sunscreen stations. The Ultimate Package ($250-$350 flat) adds premium decorations, champagne flutes, plates, a 6-foot food table, and a dedicated event coordinator.'
   },
   {
     q: 'Is the BYOB policy available for 21st birthday parties?',
-    a: 'Yes! All private charters are 100% BYOB friendly. For 21st birthday celebrations, guests who are 21 and older with a valid ID can bring any alcoholic beverages they want — beer, wine, champagne, seltzers, spirits, and mixers. Cans and plastic containers only (no glass for safety). Guests under 21 are welcome on the boat but cannot consume alcohol. We provide large coolers with ice on every cruise. You can also coordinate alcohol delivery through our partners so drinks are waiting on the boat when you arrive.'
+    a: 'Yes! All private charters are 100% BYOB friendly. For 21st birthday celebrations, guests who are 21 and older with a valid ID can bring any alcoholic beverages they want — beer, wine, champagne, seltzers, spirits, and mixers. Cans and plastic containers only (no glass for safety). Guests under 21 are welcome on the boat but cannot consume alcohol. We provide large coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company) on every cruise. You can also coordinate alcohol delivery through our partners so drinks are waiting on the boat when you arrive.'
   },
   {
     q: 'Can we do a sunset birthday cruise on Lake Travis?',
@@ -927,7 +927,7 @@ export default function BirthdayV2() {
           Four boats. One <em>perfect</em> birthday.
         </h2>
         <p style={{ fontSize: '1.15rem', color: '#C8B898', maxWidth: '700px', lineHeight: 1.7, marginBottom: '2rem' }}>
-          Choose the right boat for your group size and celebration style. Every vessel includes a licensed captain, trained crew, premium sound system, coolers with ice, and BYOB privileges. All with a 4-hour minimum.
+          Choose the right boat for your group size and celebration style. Every vessel includes a licensed captain, trained crew, premium sound system, coolers (BYOB — bring ice or order pre-iced from Party On Delivery), and BYOB privileges. All with a 4-hour minimum.
         </p>
 
         <div className="hp2-fleet-grid">
@@ -943,7 +943,7 @@ export default function BirthdayV2() {
             <div className="hp2-fleet-card__content">
               <div className="hp2-fleet-card__name">Day Tripper</div>
               <div className="hp2-fleet-card__capacity">Up to 14 guests</div>
-              <div className="hp2-fleet-card__rate">$200-$350/hr</div>
+              <div className="hp2-fleet-card__rate">From $200/hr</div>
               <div className="hp2-fleet-card__note">4-hour minimum</div>
               <ul className="hp2-fleet-card__features">
                 <li>Intimate birthday celebrations</li>
@@ -967,7 +967,7 @@ export default function BirthdayV2() {
             <div className="hp2-fleet-card__content">
               <div className="hp2-fleet-card__name">Meeseeks</div>
               <div className="hp2-fleet-card__capacity">25-30 guests</div>
-              <div className="hp2-fleet-card__rate">$225-$425/hr</div>
+              <div className="hp2-fleet-card__rate">From $225/hr</div>
               <div className="hp2-fleet-card__note">4-hour minimum</div>
               <ul className="hp2-fleet-card__features">
                 <li>Mid-size birthday parties</li>
@@ -991,7 +991,7 @@ export default function BirthdayV2() {
             <div className="hp2-fleet-card__content">
               <div className="hp2-fleet-card__name">The Irony</div>
               <div className="hp2-fleet-card__capacity">25-30 guests</div>
-              <div className="hp2-fleet-card__rate">$225-$425/hr</div>
+              <div className="hp2-fleet-card__rate">From $225/hr</div>
               <div className="hp2-fleet-card__note">4-hour minimum</div>
               <ul className="hp2-fleet-card__features">
                 <li>Mid-size birthday parties</li>
@@ -1015,7 +1015,7 @@ export default function BirthdayV2() {
             <div className="hp2-fleet-card__content">
               <div className="hp2-fleet-card__name">Clever Girl</div>
               <div className="hp2-fleet-card__capacity">50-75 guests</div>
-              <div className="hp2-fleet-card__rate">$250-$500/hr</div>
+              <div className="hp2-fleet-card__rate">From $250/hr</div>
               <div className="hp2-fleet-card__note">4-hour minimum &middot; 14 disco balls</div>
               <ul className="hp2-fleet-card__features">
                 <li>Austin's flagship party boat</li>
@@ -1099,7 +1099,7 @@ export default function BirthdayV2() {
                 <ul>
                   <li>USCG-licensed captain and trained crew</li>
                   <li>Premium Bluetooth sound system</li>
-                  <li>Large coolers packed with ice</li>
+                  <li>Large coolers (bring your own ice, or order pre-iced from Party On Delivery)</li>
                   <li>Swim stop in a scenic Lake Travis cove</li>
                   <li>Swim ladder and life jackets in all sizes</li>
                   <li>BYOB — bring whatever you want (21+ with valid ID)</li>

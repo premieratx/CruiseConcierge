@@ -8,7 +8,7 @@ export default function AnniversaryCruiseV2() {
     },
     {
       q: 'How much does an anniversary cruise cost in Austin?',
-      a: 'Anniversary cruises on Lake Travis start at $200/hour with a 4-hour minimum. Day Tripper (14 guests) runs $200-$350/hr — perfect for intimate couple or small family anniversary cruises. Meeseeks or The Irony (25-30) run $225-$425/hr. Clever Girl (50-75) runs $250-$500/hr for milestone anniversary parties. Total for a 4-hour couple anniversary cruise runs approximately $800-$1,200.'
+      a: 'Anniversary cruises on Lake Travis start at $200/hour with a 4-hour minimum. Day Tripper (14 guests) runs From $200/hr — perfect for intimate couple or small family anniversary cruises. Meeseeks or The Irony (25-30) run From $225/hr. Clever Girl (50-75) runs From $250/hr for milestone anniversary parties. Total for a 4-hour couple anniversary cruise runs approximately $800-$1,200.'
     },
     {
       q: 'What anniversaries are most popular for a Lake Travis cruise?',
@@ -16,11 +16,11 @@ export default function AnniversaryCruiseV2() {
     },
     {
       q: 'Can we book a private anniversary cruise for just two?',
-      a: 'Yes. Day Tripper (our 14-guest boat) is often booked by couples for intimate anniversary cruises. The 4-hour minimum at $200-$350/hour gives you the entire boat, licensed captain, BYOB champagne, sunset swim stop, and privacy for a romantic anniversary evening. Popular for 1st, 5th, and romantic-retreat anniversaries.'
+      a: 'Yes. Day Tripper (our 14-guest boat) is often booked by couples for intimate anniversary cruises. The 4-hour minimum at from $200/hour gives you the entire boat, licensed captain, BYOB champagne, sunset swim stop, and privacy for a romantic anniversary evening. Popular for 1st, 5th, and romantic-retreat anniversaries.'
     },
     {
       q: 'Is BYOB allowed on an anniversary cruise?',
-      a: 'Yes, all Premier Party Cruises are 100% BYOB including anniversary cruises. Bring the champagne from your wedding (many couples save a bottle), wine you shared on past anniversaries, or new favorites. Cans and plastic containers only (no glass for safety). We provide coolers with ice on every boat. No corkage fees.'
+      a: 'Yes, all Premier Party Cruises are 100% BYOB including anniversary cruises. Bring the champagne from your wedding (many couples save a bottle), wine you shared on past anniversaries, or new favorites. Cans and plastic containers only (no glass for safety). We provide coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company) on every boat. No corkage fees.'
     },
     {
       q: 'How many guests fit on an anniversary cruise?',
@@ -28,7 +28,7 @@ export default function AnniversaryCruiseV2() {
     },
     {
       q: 'What is included in an anniversary cruise?',
-      a: 'Every anniversary cruise includes a US Coast Guard licensed captain, trained crew, premium Bluetooth sound system, large coolers packed with ice, a swim stop in a scenic cove, and all safety equipment. BYOB drinks and food welcome. Optional Ultimate decor package ($250-$350 flat) adds premium anniversary-themed styling, linens, and custom signage.'
+      a: 'Every anniversary cruise includes a US Coast Guard licensed captain, trained crew, premium Bluetooth sound system, large coolers (bring your own ice, or order pre-iced from Party On Delivery), a swim stop in a scenic cove, and all safety equipment. BYOB drinks and food welcome. Optional Ultimate decor package ($250-$350 flat) adds premium anniversary-themed styling, linens, and custom signage.'
     },
     {
       q: 'Can we have a sunset anniversary cruise?',
@@ -119,7 +119,7 @@ export default function AnniversaryCruiseV2() {
           Anniversary cruise <em>rates</em>.
         </h2>
         <p className="hp2-section__body">
-          Lake Travis anniversary cruises start at $200/hour with a 4-hour minimum. Day Tripper (intimate couple or family) $200-$350/hr, Meeseeks and The Irony (extended family) $225-$425/hr, Clever Girl (milestone parties) $250-$500/hr. A typical 4-hour couple anniversary cruise totals $800-$1,200. A 4-hour milestone 50th anniversary party with 45 guests on Clever Girl totals approximately $1,600-$2,200. Catering billed separately.
+          Lake Travis anniversary cruises start at $200/hour with a 4-hour minimum. Day Tripper (intimate couple or family) From $200/hr, Meeseeks and The Irony (extended family) From $225/hr, Clever Girl (milestone parties) From $250/hr. A typical 4-hour couple anniversary cruise totals $800-$1,200. A 4-hour milestone 50th anniversary party with 45 guests on Clever Girl totals approximately $1,600-$2,200. Catering billed separately.
         </p>
       </section>
     </V2PageTemplate>

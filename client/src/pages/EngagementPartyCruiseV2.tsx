@@ -8,7 +8,7 @@ export default function EngagementPartyCruiseV2() {
     },
     {
       q: 'How much does an engagement party cruise cost?',
-      a: 'Engagement party cruises on Lake Travis start at $200/hour with a 4-hour minimum. Day Tripper (14 guests) runs $200-$350/hr, Meeseeks or The Irony (25-30) run $225-$425/hr, and Clever Girl (50-75) runs $250-$500/hr. Total cost for a 4-hour engagement party cruise with 30 guests runs approximately $1,200-$2,000 depending on boat and day of week.'
+      a: 'Engagement party cruises on Lake Travis start at $200/hour with a 4-hour minimum. Day Tripper (14 guests) runs From $200/hr, Meeseeks or The Irony (25-30) run From $225/hr, and Clever Girl (50-75) runs From $250/hr. Total cost for a 4-hour engagement party cruise with 30 guests runs approximately $1,200-$2,000 depending on boat and day of week.'
     },
     {
       q: 'How long is an engagement party boat cruise?',
@@ -16,7 +16,7 @@ export default function EngagementPartyCruiseV2() {
     },
     {
       q: 'Is BYOB allowed for an engagement party?',
-      a: 'Yes, all Premier Party Cruises are 100% BYOB including engagement parties. Bring champagne for the toast, wine, craft beer, signature cocktails (the couple\'s favorites), and non-alcoholic options. Cans and plastic containers only (no glass for safety). We provide coolers with ice on every boat. Coordinate alcohol delivery via Party On Delivery.'
+      a: 'Yes, all Premier Party Cruises are 100% BYOB including engagement parties. Bring champagne for the toast, wine, craft beer, signature cocktails (the couple\'s favorites), and non-alcoholic options. Cans and plastic containers only (no glass for safety). We provide coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company) on every boat. Coordinate alcohol delivery via Party On Delivery.'
     },
     {
       q: 'How many guests fit on an engagement party cruise?',
@@ -24,7 +24,7 @@ export default function EngagementPartyCruiseV2() {
     },
     {
       q: 'What is included in an engagement party cruise?',
-      a: 'Every engagement party cruise includes a US Coast Guard licensed captain, trained crew, premium Bluetooth sound system with wireless mic for toasts, large coolers packed with ice, a swim stop in a scenic cove, and all safety equipment. BYOB welcome. Optional Ultimate decor package ($250-$350 flat) adds premium engagement-themed styling.'
+      a: 'Every engagement party cruise includes a US Coast Guard licensed captain, trained crew, premium Bluetooth sound system with wireless mic for toasts, large coolers (bring your own ice, or order pre-iced from Party On Delivery), a swim stop in a scenic cove, and all safety equipment. BYOB welcome. Optional Ultimate decor package ($250-$350 flat) adds premium engagement-themed styling.'
     },
     {
       q: 'Can we do sunset toasts on the engagement cruise?',
@@ -119,7 +119,7 @@ export default function EngagementPartyCruiseV2() {
           Simple engagement party <em>pricing</em>.
         </h2>
         <p className="hp2-section__body">
-          Austin engagement party cruises start at $200/hour with a 4-hour minimum. Day Tripper $200-$350/hr (14 guests), Meeseeks and The Irony $225-$425/hr (25-30 guests), Clever Girl $250-$500/hr (50-75 guests). A typical 4-hour Saturday engagement party cruise with 35 guests on Clever Girl totals $1,500-$2,200. Catering billed separately. Ultimate decor package adds $250-$350 flat.
+          Austin engagement party cruises start at $200/hour with a 4-hour minimum. Day Tripper From $200/hr (14 guests), Meeseeks and The Irony From $225/hr (25-30 guests), Clever Girl From $250/hr (50-75 guests). A typical 4-hour Saturday engagement party cruise with 35 guests on Clever Girl totals $1,500-$2,200. Catering billed separately. Ultimate decor package adds $250-$350 flat.
         </p>
       </section>
     </V2PageTemplate>

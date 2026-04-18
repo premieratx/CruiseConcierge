@@ -8,7 +8,7 @@ export default function ProposalCruiseV2() {
     },
     {
       q: 'How much does a proposal cruise cost in Austin?',
-      a: 'Proposal cruises on Lake Travis start at $200/hour with a 4-hour minimum. Day Tripper (14 guests) at $200-$350/hr is the most popular for intimate proposals — approximately $800-$1,200 total for a 4-hour sunset proposal cruise. For surprise proposals followed by engagement party, Meeseeks or The Irony (25-30 guests) at $225-$425/hr work well. Custom proposal packages with flowers, photographer, and champagne setup available.'
+      a: 'Proposal cruises on Lake Travis start at $200/hour with a 4-hour minimum. Day Tripper (14 guests) at From $200/hr is the most popular for intimate proposals — approximately $800-$1,200 total for a 4-hour sunset proposal cruise. For surprise proposals followed by engagement party, Meeseeks or The Irony (25-30 guests) at From $225/hr work well. Custom proposal packages with flowers, photographer, and champagne setup available.'
     },
     {
       q: 'What is the best proposal location on Lake Travis?',
@@ -123,7 +123,7 @@ export default function ProposalCruiseV2() {
           Proposal cruise <em>pricing</em>.
         </h2>
         <p className="hp2-section__body">
-          Lake Travis proposal cruises start at $200/hour with a 4-hour minimum. Day Tripper (most popular for intimate proposals) $200-$350/hr — typically $800-$1,200 total for a 4-hour sunset proposal cruise. Add photographer ($400-$800 separate), Ultimate decor package ($250-$350 flat) for premium styling, and optional surprise engagement party boat upgrade. All rates include licensed captain, trained crew, sound system, coolers with ice, and safety gear.
+          Lake Travis proposal cruises start at $200/hour with a 4-hour minimum. Day Tripper (most popular for intimate proposals) From $200/hr — typically $800-$1,200 total for a 4-hour sunset proposal cruise. Add photographer ($400-$800 separate), Ultimate decor package ($250-$350 flat) for premium styling, and optional surprise engagement party boat upgrade. All rates include licensed captain, trained crew, sound system, coolers (BYOB — bring ice or order pre-iced from Party On Delivery), and safety gear.
         </p>
       </section>
     </V2PageTemplate>

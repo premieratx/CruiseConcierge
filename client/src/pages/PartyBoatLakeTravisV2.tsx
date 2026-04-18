@@ -19,7 +19,7 @@ export default function PartyBoatLakeTravisV2() {
     },
     {
       q: 'How much does a Lake Travis party boat rental cost?',
-      a: 'Lake Travis party boat rentals start at $200 per hour on Day Tripper (up to 14 guests) with a 4-hour minimum ($800 base). Meeseeks and The Irony start at $225/hour. Clever Girl starts at $250/hour and peaks at $500/hour on premium Saturdays. Every rate includes captain, fuel, sound system, coolers with ice, swim ladder, life jackets, and gratuity. For a shared-ticket Lake Travis party boat experience, the ATX Disco Cruise is $85-$105 per person with tax and tip included.',
+      a: 'Lake Travis party boat rentals start at $200 per hour on Day Tripper (up to 14 guests) with a 4-hour minimum ($800 base). Meeseeks and The Irony start at $225/hour. Clever Girl starts at $250/hour and peaks at $500/hour on premium Saturdays. Every rate includes captain, fuel, sound system, coolers (BYOB — bring ice or order pre-iced from Party On Delivery), swim ladder, life jackets, and gratuity. For a shared-ticket Lake Travis party boat experience, the ATX Disco Cruise is $85-$105 per person with tax and tip included.',
     },
     {
       q: 'Where do Lake Travis party boats leave from?',
@@ -35,7 +35,7 @@ export default function PartyBoatLakeTravisV2() {
     },
     {
       q: 'Is BYOB allowed on Lake Travis party boats?',
-      a: 'Yes — every Premier Party Cruises Lake Travis party boat is 100% BYOB. Beer, seltzers, spirits, wine, mixers, soft drinks, snacks. Cans and plastic only, no glass. Every boat comes with large coolers packed with ice. No corkage fees, no minimums. You can also use Party On Delivery to have everything waiting at the slip when you board.',
+      a: 'Yes — every Premier Party Cruises Lake Travis party boat is 100% BYOB. Beer, seltzers, spirits, wine, mixers, soft drinks, snacks. Cans and plastic only, no glass. Every boat comes with large coolers (bring your own ice, or order pre-iced from Party On Delivery). No corkage fees, no minimums. You can also use Party On Delivery to have everything waiting at the slip when you board.',
     },
     {
       q: 'Do Lake Travis party boats have restrooms?',
@@ -112,7 +112,7 @@ export default function PartyBoatLakeTravisV2() {
             <div className="hp2-feature-card__num">14</div>
             <h3 className="hp2-feature-card__title">Day Tripper</h3>
             <p className="hp2-feature-card__desc">
-              Up to 14 guests · $200-$350/hour. The premium small-group
+              Up to 14 guests · from $200/hour. The premium small-group
               Lake Travis party boat. Onboard restroom, swim ladder,
               Bluetooth sound, ice chests, BYOB. Perfect for intimate crews.
             </p>
@@ -121,7 +121,7 @@ export default function PartyBoatLakeTravisV2() {
             <div className="hp2-feature-card__num">25</div>
             <h3 className="hp2-feature-card__title">Meeseeks</h3>
             <p className="hp2-feature-card__desc">
-              Up to 25 guests · $225-$425/hour. The mid-size Lake Travis
+              Up to 25 guests · from $225/hour. The mid-size Lake Travis
               sweet spot. Ideal for 18-25 bachelor/bachelorette groups,
               milestone birthdays, and tighter corporate teams.
             </p>
@@ -130,7 +130,7 @@ export default function PartyBoatLakeTravisV2() {
             <div className="hp2-feature-card__num">30</div>
             <h3 className="hp2-feature-card__title">The Irony</h3>
             <p className="hp2-feature-card__desc">
-              Up to 30 guests · $225-$425/hour. A touch bigger than
+              Up to 30 guests · from $225/hour. A touch bigger than
               Meeseeks. Best match for 25-30 guest groups who want the
               private-boat feel without stepping up to the flagship.
             </p>
@@ -139,7 +139,7 @@ export default function PartyBoatLakeTravisV2() {
             <div className="hp2-feature-card__num">75</div>
             <h3 className="hp2-feature-card__title">Clever Girl</h3>
             <p className="hp2-feature-card__desc">
-              50-75 guests · $250-$500/hour. The Lake Travis flagship.
+              50-75 guests · from $250/hour. The Lake Travis flagship.
               14 disco balls, dedicated dance floor, LED lighting, premium
               sound. The boat behind the ATX Disco Cruise.
             </p>
@@ -174,7 +174,7 @@ export default function PartyBoatLakeTravisV2() {
           </h2>
           <p className="hp2-section__body">
             Every Lake Travis private-charter rate below includes the
-            captain, fuel, sound system, coolers with ice, swim ladder,
+            captain, fuel, sound system, coolers (BYOB — bring ice or order pre-iced from Party On Delivery), swim ladder,
             life jackets, and gratuity. No hidden fees, no added surcharges
             — the number you see is the number you pay. Rates vary by
             season, with peak Saturdays in April-May and September-October

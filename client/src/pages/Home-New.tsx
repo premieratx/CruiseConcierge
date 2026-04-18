@@ -911,7 +911,7 @@ const FAQ_DATA = [
   },
   {
     q: 'What is Premier Party Cruises\' BYOB policy?',
-    a: 'We are 100% BYOB — bring whatever you want. Beer, wine, spirits, seltzers, mixers, and non-alcoholic beverages are all welcome. Cans and plastic containers only (no glass for safety). We provide large coolers with ice on every cruise. You can also bring your own food, or we coordinate alcohol and food delivery through our partner Party On Delivery so everything is waiting on the boat when you arrive.'
+    a: 'We are 100% BYOB — bring whatever you want. Beer, wine, spirits, seltzers, mixers, and non-alcoholic beverages are all welcome. Cans and plastic containers only (no glass for safety). We provide large coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company) on every cruise. You can also bring your own food, or we coordinate alcohol and food delivery through our partner Party On Delivery so everything is waiting on the boat when you arrive.'
   },
   {
     q: 'Where do the boats depart from?',
@@ -935,11 +935,11 @@ const FAQ_DATA = [
   },
   {
     q: 'How does Premier compare to other Austin boat rentals?',
-    a: 'Premier Party Cruises is Austin\'s longest-running party boat company (since 2009) with the highest customer rating (4.9/5 stars, 150,000+ guests). Unlike bare-bones pontoon rentals, we provide licensed captains, trained crew, premium sound, coolers with ice, and the only ATX Disco Cruise on the lake. Our fleet of 4 purpose-built party boats accommodates 14–75 guests. We are the only Lake Travis company with 14 disco balls.'
+    a: 'Premier Party Cruises is Austin\'s longest-running party boat company (since 2009) with the highest customer rating (4.9/5 stars, 150,000+ guests). Unlike bare-bones pontoon rentals, we provide licensed captains, trained crew, premium sound, coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company), and the only ATX Disco Cruise on the lake. Our fleet of 4 purpose-built party boats accommodates 14–75 guests. We are the only Lake Travis company with 14 disco balls.'
   },
   {
     q: 'What should I bring on a Lake Travis boat party?',
-    a: 'Bring sunscreen (SPF 50+), sunglasses, a hat, swimsuit, towel, and your favorite beverages (BYOB — cans or plastic only, no glass). We provide coolers with ice, premium sound systems, and all safety equipment. Optional: snacks, a waterproof phone case, and celebration items like sashes or banners. We can also coordinate alcohol delivery through Party On Delivery so drinks are waiting on the boat.'
+    a: 'Bring sunscreen (SPF 50+), sunglasses, a hat, swimsuit, towel, and your favorite beverages (BYOB — cans or plastic only, no glass). We provide coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company), premium sound systems, and all safety equipment. Optional: snacks, a waterproof phone case, and celebration items like sashes or banners. We can also coordinate alcohol delivery through Party On Delivery so drinks are waiting on the boat.'
   },
   {
     q: 'What happens if there is bad weather?',
@@ -1022,7 +1022,7 @@ export default function HomeNew() {
           {
             "@type": "Product",
             "name": "Day Tripper - 14 Person Party Boat",
-            "description": "Intimate party boat for groups up to 14 on Lake Travis. Licensed captain, Bluetooth sound, coolers with ice included.",
+            "description": "Intimate party boat for groups up to 14 on Lake Travis. Licensed captain, Bluetooth sound, coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company) included.",
             "brand": {"@type": "Brand", "name": "Premier Party Cruises"},
             "offers": {"@type": "Offer", "price": "200", "priceCurrency": "USD", "priceValidUntil": "2026-12-31", "availability": "https://schema.org/InStock", "unitText": "per hour"}
           },
@@ -1051,9 +1051,9 @@ export default function HomeNew() {
             "@type": "FAQPage",
             "mainEntity": [
               { "@type": "Question", "name": "What types of party boat rentals do you offer?", "acceptedAnswer": { "@type": "Answer", "text": "We offer the ATX Disco Cruise (shared party from $85/person, March-October, bach groups only) and Private Charters (exclusive boat, any event, year-round, from $200/hour). Four boats: Day Tripper (14), Meeseeks (25-30), The Irony (25-30), Clever Girl (50-75)." }},
-              { "@type": "Question", "name": "How much does it cost to rent a party boat on Lake Travis?", "acceptedAnswer": { "@type": "Answer", "text": "ATX Disco Cruise: $85-$105/person all-inclusive. Private Charters: Day Tripper $200-$350/hr, Meeseeks/The Irony $225-$425/hr, Clever Girl $250-$500/hr. All charters have a 4-hour minimum." }},
+              { "@type": "Question", "name": "How much does it cost to rent a party boat on Lake Travis?", "acceptedAnswer": { "@type": "Answer", "text": "ATX Disco Cruise: $85-$105/person all-inclusive. Private Charters: Day Tripper From $200/hr, Meeseeks/The Irony From $225/hr, Clever Girl From $250/hr. All charters have a 4-hour minimum." }},
               { "@type": "Question", "name": "Where do the boats depart from?", "acceptedAnswer": { "@type": "Answer", "text": "Anderson Mill Marina at 13993 FM 2769, Leander TX 78641 — approximately 25 minutes from downtown Austin. Free parking available." }},
-              { "@type": "Question", "name": "What is the BYOB policy?", "acceptedAnswer": { "@type": "Answer", "text": "100% BYOB. Bring beer, wine, spirits, seltzers in cans or plastic only (no glass). We provide coolers with ice on every cruise." }},
+              { "@type": "Question", "name": "What is the BYOB policy?", "acceptedAnswer": { "@type": "Answer", "text": "100% BYOB. Bring beer, wine, spirits, seltzers in cans or plastic only (no glass). We provide coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company) on every cruise." }},
               { "@type": "Question", "name": "Can you swim during a Lake Travis cruise?", "acceptedAnswer": { "@type": "Answer", "text": "Yes! The captain anchors in a scenic cove with crystal-clear water. Guests swim, float on lily pads, and jump off the boat. Swim ladder and life jackets provided." }},
               { "@type": "Question", "name": "Are there sunset cruises?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — sunset cruises are among our most popular. The Saturday 3:30-7:30 PM ATX Disco Cruise is timed for sunset. Private charters available at any time." }},
               { "@type": "Question", "name": "Is it safe for families with children?", "acceptedAnswer": { "@type": "Answer", "text": "Absolutely. Perfect safety record spanning 15+ years and 150,000+ guests. All boats operated by USCG-certified captains. Life jackets in all sizes including children's." }},
@@ -1061,7 +1061,7 @@ export default function HomeNew() {
               { "@type": "Question", "name": "How far in advance should I book?", "acceptedAnswer": { "@type": "Answer", "text": "2-4 weeks for weekdays, 4-8 weeks for peak season weekends (March-October). For weddings and large events, 3-6 months recommended." }},
               { "@type": "Question", "name": "What happens if there is bad weather?", "acceptedAnswer": { "@type": "Answer", "text": "Unsafe conditions: reschedule at no cost. Light rain: boats depart normally (covered areas available). ATX Disco Cruise: severe weather triggers Lemonade Disco land venue." }},
               { "@type": "Question", "name": "How does Premier compare to other Austin boat rentals?", "acceptedAnswer": { "@type": "Answer", "text": "Austin's longest-running party boat company (since 2009), highest customer rating (4.9/5, 150,000+ guests), licensed captains, trained crew, premium sound, and the only ATX Disco Cruise on the lake." }},
-              { "@type": "Question", "name": "What should I bring on a Lake Travis boat party?", "acceptedAnswer": { "@type": "Answer", "text": "Sunscreen (SPF 50+), sunglasses, hat, swimsuit, towel, and BYOB drinks (cans/plastic only). We provide coolers with ice, sound system, and safety equipment." }},
+              { "@type": "Question", "name": "What should I bring on a Lake Travis boat party?", "acceptedAnswer": { "@type": "Answer", "text": "Sunscreen (SPF 50+), sunglasses, hat, swimsuit, towel, and BYOB drinks (cans/plastic only). We provide coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company), sound system, and safety equipment." }},
               { "@type": "Question", "name": "What are the best things to do on Lake Travis?", "acceptedAnswer": { "@type": "Answer", "text": "Party boat cruises, swimming in coves near Devil's Cove, floating on lily pads, paddle boarding, kayaking. Plus Hill Country wineries, hiking, and waterfront dining. Premier departs 25 min from downtown." }}
             ]
           }
@@ -1167,7 +1167,7 @@ export default function HomeNew() {
           <div className="hp2-promise-card">
             <div className="hp2-promise-card__num">03</div>
             <div className="hp2-promise-card__title">We Set Everything Up</div>
-            <div className="hp2-promise-card__desc">Licensed captain, experienced crew, premium sound system, coolers packed with ice — all handled before you arrive.</div>
+            <div className="hp2-promise-card__desc">Licensed captain, experienced crew, premium sound system, coolers (bring your own ice, or order pre-iced from Party On Delivery) — all handled before you arrive.</div>
           </div>
           <div className="hp2-promise-card">
             <div className="hp2-promise-card__num">04</div>
@@ -1383,7 +1383,7 @@ export default function HomeNew() {
             </button>
             <div className={`hp2-details-content ${openDetails === 'private-charters' ? 'hp2-details-content--open' : ''}`}>
               <div className="hp2-details-inner">
-                <p>Premier Party Cruises offers private charter boat rentals on Lake Travis for groups of 14 to 75 guests. Every private charter includes a licensed captain, trained crew, premium Bluetooth sound system, large coolers packed with ice, and a swim stop in a scenic cove. Choose from four boats: Day Tripper (up to 14, from $200/hr), Meeseeks (25-30, from $225/hr), The Irony (25-30, from $225/hr), or Clever Girl (50-75, from $250/hr). All private charters have a 4-hour minimum and are available year-round. BYOB is welcome on every cruise — bring whatever you want in cans or plastic containers.</p>
+                <p>Premier Party Cruises offers private charter boat rentals on Lake Travis for groups of 14 to 75 guests. Every private charter includes a licensed captain, trained crew, premium Bluetooth sound system, large coolers (bring your own ice, or order pre-iced from Party On Delivery), and a swim stop in a scenic cove. Choose from four boats: Day Tripper (up to 14, from $200/hr), Meeseeks (25-30, from $225/hr), The Irony (25-30, from $225/hr), or Clever Girl (50-75, from $250/hr). All private charters have a 4-hour minimum and are available year-round. BYOB is welcome on every cruise — bring whatever you want in cans or plastic containers.</p>
                 <p style={{ marginTop: '1rem' }}><Link href="/private-cruises"><a style={{ color: 'var(--hp2-gold)', textDecoration: 'underline' }}>View full private charter details & pricing &rarr;</a></Link></p>
               </div>
             </div>
@@ -1427,7 +1427,7 @@ export default function HomeNew() {
             </button>
             <div className={`hp2-details-content ${openDetails === 'birthdays' ? 'hp2-details-content--open' : ''}`}>
               <div className="hp2-details-inner">
-                <p>Celebrate your birthday on the water with a private party boat charter on Lake Travis. From intimate 14-person gatherings on Day Tripper to large milestone celebrations with 75 guests on Clever Girl, we have a boat for every birthday party. Every charter includes a licensed captain, premium sound system, coolers with ice, and a swim stop in a beautiful cove. BYOB means you can bring your own cake, champagne, and party supplies. Birthday parties are available year-round with morning, afternoon, and sunset time slots to fit your schedule.</p>
+                <p>Celebrate your birthday on the water with a private party boat charter on Lake Travis. From intimate 14-person gatherings on Day Tripper to large milestone celebrations with 75 guests on Clever Girl, we have a boat for every birthday party. Every charter includes a licensed captain, premium sound system, coolers (BYOB — bring ice or order pre-iced from Party On Delivery), and a swim stop in a beautiful cove. BYOB means you can bring your own cake, champagne, and party supplies. Birthday parties are available year-round with morning, afternoon, and sunset time slots to fit your schedule.</p>
                 <p style={{ marginTop: '1rem' }}><Link href="/birthday-parties"><a style={{ color: 'var(--hp2-gold)', textDecoration: 'underline' }}>Plan your birthday party cruise &rarr;</a></Link></p>
               </div>
             </div>

@@ -856,7 +856,7 @@ const HP2_STYLES = `
 const FAQ_DATA = [
   {
     q: 'How much does a private boat charter cost on Lake Travis?',
-    a: 'Private boat charters on Lake Travis start at $200 per hour for our smallest vessel (Day Tripper, up to 14 guests) and range up to $500 per hour for our flagship Clever Girl (50-75 guests). All boats have a 4-hour minimum. Here is the full breakdown: Day Tripper (up to 14 guests) is $200-$350/hour, Meeseeks (25-30 guests) is $225-$425/hour, The Irony (25-30 guests) is $225-$425/hour, and Clever Girl (50-75 guests) is $250-$500/hour. Pricing varies by day of week, season, and time of day. Additional costs include crew fees for groups of 26-30 ($50-$75) and 51-75 ($100-$150), 8.25% Texas sales tax, and a suggested 20% gratuity. Package upgrades are available: Essentials adds $100-$200 flat, and Ultimate adds $250-$350 flat per cruise.'
+    a: 'Private boat charters on Lake Travis start at $200 per hour for our smallest vessel (Day Tripper, up to 14 guests) and range up to $500 per hour for our flagship Clever Girl (50-75 guests). All boats have a 4-hour minimum. Here is the full breakdown: Day Tripper (up to 14 guests) is from $200/hour, Meeseeks (25-30 guests) is from $225/hour, The Irony (25-30 guests) is from $225/hour, and Clever Girl (50-75 guests) is from $250/hour. Pricing varies by day of week, season, and time of day. Additional costs include crew fees for groups of 26-30 ($50-$75) and 51-75 ($100-$150), 8.25% Texas sales tax, and a suggested 20% gratuity. Package upgrades are available: Essentials adds $100-$200 flat, and Ultimate adds $250-$350 flat per cruise.'
   },
   {
     q: 'Are private cruises available year-round?',
@@ -864,7 +864,7 @@ const FAQ_DATA = [
   },
   {
     q: 'What boats are available for private charters?',
-    a: 'Premier Party Cruises operates a fleet of four premium boats on Lake Travis. Day Tripper accommodates up to 14 guests and is ideal for intimate gatherings, proposals, and small celebrations ($200-$350/hour). Meeseeks holds 25-30 guests and is our most popular charter — perfect for bachelorette parties, birthdays, and corporate outings ($225-$425/hour). The Irony also holds 25-30 guests with similar amenities, offering a versatile option for mid-size groups ($225-$425/hour). Clever Girl is our flagship vessel accommodating 50-75 guests, featuring 14 disco balls, LED lighting, a full dance floor, and a giant Texas flag — ideal for large events, weddings, and corporate celebrations ($250-$500/hour). All boats include a licensed captain, trained crew, premium Bluetooth sound system, large coolers, and restroom facilities.'
+    a: 'Premier Party Cruises operates a fleet of four premium boats on Lake Travis. Day Tripper accommodates up to 14 guests and is ideal for intimate gatherings, proposals, and small celebrations (from $200/hour). Meeseeks holds 25-30 guests and is our most popular charter — perfect for bachelorette parties, birthdays, and corporate outings (from $225/hour). The Irony also holds 25-30 guests with similar amenities, offering a versatile option for mid-size groups (from $225/hour). Clever Girl is our flagship vessel accommodating 50-75 guests, featuring 14 disco balls, LED lighting, a full dance floor, and a giant Texas flag — ideal for large events, weddings, and corporate celebrations (from $250/hour). All boats include a licensed captain, trained crew, premium Bluetooth sound system, large coolers, and restroom facilities.'
   },
   {
     q: "What's included in each package tier?",
@@ -953,7 +953,7 @@ export default function PrivateCruisesV2() {
             "description": "Private party boat rentals on Lake Travis for 5-75 guests. Exclusive use of entire boat. Year-round availability. Corporate events, weddings, birthdays, bachelor/bachelorette parties.",
             "offers": { "@type": "AggregateOffer", "lowPrice": "200", "highPrice": "500", "priceCurrency": "USD", "offerCount": "4" }
           },
-          { "@type": "Product", "name": "Day Tripper - 14 Person Private Charter", "description": "Intimate private party boat for groups up to 14 on Lake Travis. Licensed captain, premium sound system, coolers with ice. BYOB welcome.", "brand": { "@type": "Brand", "name": "Premier Party Cruises" }, "offers": { "@type": "Offer", "price": "200", "priceCurrency": "USD", "priceValidUntil": "2026-12-31", "availability": "https://schema.org/InStock", "unitText": "per hour" } },
+          { "@type": "Product", "name": "Day Tripper - 14 Person Private Charter", "description": "Intimate private party boat for groups up to 14 on Lake Travis. Licensed captain, premium sound system, coolers (BYOB — bring ice or order pre-iced from Party On Delivery). BYOB welcome.", "brand": { "@type": "Brand", "name": "Premier Party Cruises" }, "offers": { "@type": "Offer", "price": "200", "priceCurrency": "USD", "priceValidUntil": "2026-12-31", "availability": "https://schema.org/InStock", "unitText": "per hour" } },
           { "@type": "Product", "name": "Meeseeks - 25 Person Private Charter", "description": "Mid-size private party boat for groups of 15-25 on Lake Travis. Premium sound, spacious deck.", "brand": { "@type": "Brand", "name": "Premier Party Cruises" }, "offers": { "@type": "Offer", "price": "225", "priceCurrency": "USD", "priceValidUntil": "2026-12-31", "availability": "https://schema.org/InStock", "unitText": "per hour" } },
           { "@type": "Product", "name": "The Irony - 30 Person Private Charter", "description": "Versatile private party boat for groups of 15-30 on Lake Travis. Great for corporate outings and weddings.", "brand": { "@type": "Brand", "name": "Premier Party Cruises" }, "offers": { "@type": "Offer", "price": "225", "priceCurrency": "USD", "priceValidUntil": "2026-12-31", "availability": "https://schema.org/InStock", "unitText": "per hour" } },
           { "@type": "Product", "name": "Clever Girl - 75 Person Flagship Charter", "description": "Premier's flagship: 50-75 guests, 14 disco balls, LED lighting, massive dance floor. The ultimate Lake Travis party vessel.", "brand": { "@type": "Brand", "name": "Premier Party Cruises" }, "offers": { "@type": "Offer", "price": "250", "priceCurrency": "USD", "priceValidUntil": "2026-12-31", "availability": "https://schema.org/InStock", "unitText": "per hour" } },
@@ -1070,7 +1070,7 @@ export default function PrivateCruisesV2() {
                 <ul className="hp2-fleet-card__features">
                   <li>Licensed captain &amp; trained crew</li>
                   <li>Premium Bluetooth sound system</li>
-                  <li>Large coolers with ice</li>
+                  <li>Large coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company)</li>
                   <li>Restroom facilities</li>
                   <li>Swim stop with ladder &amp; life jackets</li>
                   <li>BYOB — bring whatever you want</li>
@@ -1105,7 +1105,7 @@ export default function PrivateCruisesV2() {
                 <ul className="hp2-fleet-card__features">
                   <li>Licensed captain &amp; trained crew</li>
                   <li>Premium Bluetooth sound system</li>
-                  <li>Large coolers with ice</li>
+                  <li>Large coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company)</li>
                   <li>Restroom facilities</li>
                   <li>Swim stop with ladder &amp; life jackets</li>
                   <li>BYOB — bring whatever you want</li>
@@ -1139,7 +1139,7 @@ export default function PrivateCruisesV2() {
                 <ul className="hp2-fleet-card__features">
                   <li>Licensed captain &amp; trained crew</li>
                   <li>Premium Bluetooth sound system</li>
-                  <li>Large coolers with ice</li>
+                  <li>Large coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company)</li>
                   <li>Restroom facilities</li>
                   <li>Swim stop with ladder &amp; life jackets</li>
                   <li>BYOB — bring whatever you want</li>
@@ -1175,7 +1175,7 @@ export default function PrivateCruisesV2() {
                   <li>Licensed captain &amp; trained crew</li>
                   <li>14 disco balls &amp; LED dance floor lighting</li>
                   <li>Premium sound system &amp; dance floor</li>
-                  <li>Large coolers with ice</li>
+                  <li>Large coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company)</li>
                   <li>Restroom facilities &amp; shaded lounge areas</li>
                   <li>Swim stop with ladder &amp; life jackets</li>
                   <li>BYOB — bring whatever you want</li>
