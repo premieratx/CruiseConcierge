@@ -128,7 +128,7 @@ const faqs = [
   },
   {
     question: 'What is included in the base boat rental costs Lake Travis?',
-    answer: 'All boat rental costs Lake Travis include: private charter, professional captain, premium sound system, coolers with ice, giant lily pad float, and swimming stops. Your Lake Travis boat party costs cover everything needed for a great time - just bring your beverages and food.'
+    answer: 'All boat rental costs Lake Travis include: private charter, professional captain, premium sound system, coolers (BYOB — bring ice or order pre-iced from Party On Delivery), giant lily pad float, and swimming stops. Your Lake Travis boat party costs cover everything needed for a great time - just bring your beverages and food.'
   },
   {
     question: 'How can I minimize my Austin boat party budget?',
@@ -304,7 +304,7 @@ export default function LakeTravisBoatPartyCosts() {
               <Badge className="mb-4 bg-green-100 text-green-700">TRANSPARENT PRICING</Badge>
               <h2 className="text-3xl md:text-4xl font-bold mb-4" data-testid="pricing-title">Lake Travis Boat Party Costs by Boat</h2>
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-                Compare party boat pricing Austin across our entire fleet. All boat rental costs Lake Travis include captain, sound system, floats, and coolers with ice.
+                Compare party boat pricing Austin across our entire fleet. All boat rental costs Lake Travis include captain, sound system, floats, and coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company).
               </p>
             </m.div>
 

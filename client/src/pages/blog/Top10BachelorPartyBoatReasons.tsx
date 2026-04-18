@@ -104,7 +104,7 @@ const faqs = [
   },
   {
     question: 'What should we bring on the party boat?',
-    answer: "Bring sunscreen, sunglasses, swimsuits, towels, and your beverages (BYOB - no glass containers). We provide coolers with ice, floats, and all the party equipment. For easy alcohol delivery, check out Party On Delivery who can deliver directly to the marina."
+    answer: "Bring sunscreen, sunglasses, swimsuits, towels, and your beverages (BYOB - no glass containers). We provide coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company), floats, and all the party equipment. For easy alcohol delivery, check out Party On Delivery who can deliver directly to the marina."
   },
   {
     question: 'Is the ATX Disco Cruise or a private charter better for bachelor parties?',

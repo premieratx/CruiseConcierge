@@ -61,7 +61,7 @@ const faqs = [
   },
   {
     question: 'Can we bring our own catering and drinks?',
-    answer: 'Absolutely! We\'re BYOB and BYOF (bring your own food). Many couples work with Austin caterers who deliver to the marina, or you can bring prepared dishes. We provide coolers with ice, tables for food service, and all the setup you need.'
+    answer: 'Absolutely! We\'re BYOB and BYOF (bring your own food). Many couples work with Austin caterers who deliver to the marina, or you can bring prepared dishes. We provide coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company), tables for food service, and all the setup you need.'
   },
   {
     question: 'Is there enough space for toasts and speeches?',

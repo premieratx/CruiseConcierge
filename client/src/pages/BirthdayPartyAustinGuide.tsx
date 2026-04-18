@@ -8,10 +8,12 @@ import { Link } from 'wouter';
 import { BlogImageBreak, BlogPhotoStrip, BlogPartyGallery, BLOG_BOAT_PHOTOS, BLOG_PARTY_PHOTOS } from '@/components/BlogImageBreak';
 import PublicNavigationLuxury from '@/components/PublicNavigationLuxury';
 import Footer from '@/components/Footer';
+import { LuxuryThemeOverrideStyles } from '@/components/LuxuryThemeWrapper';
 
 export default function BirthdayPartyAustinGuide() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-purple-50 via-white to-pink-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950" data-page-ready="birthday-party-austin-guide">
+    <div className="min-h-screen bg-gradient-to-b from-purple-50 via-white to-pink-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950 lux-theme-scope" data-page-ready="birthday-party-austin-guide">
+      <LuxuryThemeOverrideStyles />
       <PublicNavigationLuxury />
       <Helmet>
         <title>Birthday Party Boat Austin | Milestone Celebrations on Lake Travis</title>
@@ -454,7 +456,7 @@ export default function BirthdayPartyAustinGuide() {
                     What's included in the rental price?
                   </h3>
                   <p className="text-gray-700 dark:text-gray-300">
-                    Every cruise includes: professional licensed captain (CPR certified), all fuel & boat fees, coolers with ice & cups, life jackets, lily pad floats, Bluetooth sound system, clean restroom(s), and BYOB capability. Add-ons like DJ, photographer, and extra floats available.
+                    Every cruise includes: professional licensed captain (CPR certified), all fuel & boat fees, coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company) & cups, life jackets, lily pad floats, Bluetooth sound system, clean restroom(s), and BYOB capability. Add-ons like DJ, photographer, and extra floats available.
                   </p>
                 </CardContent>
               </Card>

@@ -48,7 +48,7 @@ export default function EverythingIncludedATXDiscoCruise() {
       <BlogV2Layout
         slug="everything-thats-included-on-the-atx-disco-cruise-so-you-dont-have-to-bring-anything"
         title="Everything That's Included on the ATX Disco Cruise (So You Don't Have to Bring Anything)"
-        description="Complete guide to what's included on the ATX Disco Cruise: professional DJ, photographer, 14 disco balls, giant lily pad floats, coolers with ice, cups, koozies. BYOB. The only thing you need is your drinks."
+        description="Complete guide to what's included on the ATX Disco Cruise: professional DJ, photographer, 14 disco balls, giant lily pad floats, coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company), cups, koozies. BYOB. The only thing you need is your drinks."
         publishDate="2025-05-20"
         author="Captain Brian"
         heroImage={discoFun5}

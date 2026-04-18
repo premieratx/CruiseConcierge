@@ -145,7 +145,7 @@ const faqs = [
   },
   {
     question: 'What is included in a Lake Travis party boat package?',
-    answer: 'All Lake Travis party boat packages include: private boat charter, professional captain, premium Bluetooth sound system, giant lily pad floats, coolers with ice, and swimming stops. Our party boat Lake Travis rentals are BYOB friendly (cans and plastic only). Every party boat Austin experience includes our 14+ years of expertise and perfect safety record.'
+    answer: 'All Lake Travis party boat packages include: private boat charter, professional captain, premium Bluetooth sound system, giant lily pad floats, coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company), and swimming stops. Our party boat Lake Travis rentals are BYOB friendly (cans and plastic only). Every party boat Austin experience includes our 14+ years of expertise and perfect safety record.'
   },
   {
     question: 'How do I choose the right party boat Austin size for my group?',

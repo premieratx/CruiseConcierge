@@ -143,7 +143,7 @@ const faqCategories = {
       },
       {
         question: 'Is food included on the Disco Cruise?',
-        answer: 'Food is not included. Please eat before your cruise and bring snacks/light refreshments if needed. We provide coolers with ice for your BYOB beverages.'
+        answer: 'Food is not included. Please eat before your cruise and bring snacks/light refreshments if needed. We provide coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company) for your BYOB beverages.'
       },
       {
         question: 'What kind of music is played?',

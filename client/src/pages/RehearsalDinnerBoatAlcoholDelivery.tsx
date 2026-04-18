@@ -10,6 +10,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import SEOHead from '@/components/SEOHead';
 import { SectionReveal } from '@/components/SectionReveal';
 import QuoteBuilderSection from '@/components/QuoteBuilderSection';
+import { LuxuryThemeOverrideStyles } from '@/components/LuxuryThemeWrapper';
 import { 
   Wine, Heart, Users, Star, Calendar, Shield, Award,
   Clock, Sparkles, Gift, Camera, Ship, Anchor, Sun,
@@ -187,7 +188,8 @@ export default function RehearsalDinnerBoatAlcoholDelivery() {
   ];
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white lux-theme-scope">
+      <LuxuryThemeOverrideStyles />
       <SEOHead
         pageRoute="/rehearsal-dinner-boat-alcohol-delivery"
         defaultTitle="Rehearsal Dinner Boat Alcohol Delivery | Unique Wedding Weekend Experiences"

@@ -142,7 +142,7 @@ const faqs = [
   },
   {
     question: 'What should we bring for boat party entertainment Austin?',
-    answer: 'For boat party entertainment Austin, bring: sunscreen, sunglasses, swimwear, towels, beverages (BYOB - cans/plastic only), snacks or catering, phone/speaker charger, and any decorations. We provide coolers with ice for your Austin party boat activities essentials.'
+    answer: 'For boat party entertainment Austin, bring: sunscreen, sunglasses, swimwear, towels, beverages (BYOB - cans/plastic only), snacks or catering, phone/speaker charger, and any decorations. We provide coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company) for your Austin party boat activities essentials.'
   }
 ];
 

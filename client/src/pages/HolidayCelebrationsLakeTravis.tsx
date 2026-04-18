@@ -17,6 +17,7 @@ import {
   Snowflake, TreePine, Flag
 } from 'lucide-react';
 import { Link } from 'wouter';
+import { LuxuryThemeOverrideStyles } from '@/components/LuxuryThemeWrapper';
 
 const tableOfContents = [
   { id: 'why-lake-travis', title: 'Why Lake Travis for Holiday Celebrations' },
@@ -31,7 +32,8 @@ const tableOfContents = [
 
 export default function HolidayCelebrationsLakeTravis() {
   return (
-    <div data-page-ready="holiday-celebrations-lake-travis" className="min-h-screen bg-gradient-to-b from-blue-50 via-purple-50 to-white dark:from-gray-900 dark:to-gray-950">
+    <div className="lux-theme-scope"data-page-ready="holiday-celebrations-lake-travis" className="min-h-screen bg-gradient-to-b from-blue-50 via-purple-50 to-white dark:from-gray-900 dark:to-gray-950">
+      <LuxuryThemeOverrideStyles />
       <SEOHead 
         pageRoute="/blogs/holiday-celebrations-on-lake-travis-seasonal-boat-party-planning-and-coordination"
         defaultTitle="Holiday Celebrations on Lake Travis: Seasonal Boat Party Planning"
@@ -183,7 +185,7 @@ export default function HolidayCelebrationsLakeTravis() {
                     </li>
                     <li className="flex items-start gap-2">
                       <CheckCircle2 className="h-4 w-4 text-brand-blue flex-shrink-0 mt-0.5" />
-                      <span>BYOB coolers with ice</span>
+                      <span>BYOB coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company)</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <CheckCircle2 className="h-4 w-4 text-brand-blue flex-shrink-0 mt-0.5" />
@@ -464,7 +466,7 @@ export default function HolidayCelebrationsLakeTravis() {
               </p>
               
               <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                Our <strong>4th of july lake travis</strong> packages include everything for the perfect Independence Day celebration: patriotic decorations, coolers with ice for your beverages, premium sound system for your party playlist, and expert positioning for optimal fireworks viewing. Many families and corporate groups make this an annual tradition, combining daytime swimming and floating with evening fireworks spectacular. <Link href="/atx-disco-cruise" className="text-red-600 hover:text-red-700 font-semibold">Public cruise options</Link> are also available for smaller groups wanting to join the <strong>austin holiday celebration</strong> festivities.
+                Our <strong>4th of july lake travis</strong> packages include everything for the perfect Independence Day celebration: patriotic decorations, coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company) for your beverages, premium sound system for your party playlist, and expert positioning for optimal fireworks viewing. Many families and corporate groups make this an annual tradition, combining daytime swimming and floating with evening fireworks spectacular. <Link href="/atx-disco-cruise" className="text-red-600 hover:text-red-700 font-semibold">Public cruise options</Link> are also available for smaller groups wanting to join the <strong>austin holiday celebration</strong> festivities.
               </p>
             </div>
 
@@ -752,7 +754,7 @@ export default function HolidayCelebrationsLakeTravis() {
                 </CardHeader>
                 <CardContent>
                   <p className="text-gray-700 dark:text-gray-300 mb-4">
-                    All <strong>lake travis holiday parties</strong> are BYOB—bring your own beverages and we provide coolers with ice! For <strong>corporate holiday events austin</strong>, consider coordinating with <a href="https://partyondelivery.com" target="_blank" rel="noopener noreferrer" className="text-green-600 hover:text-green-700 font-semibold">Party On Delivery</a> for hassle-free drink delivery to the marina.
+                    All <strong>lake travis holiday parties</strong> are BYOB—bring your own beverages and we provide coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company)! For <strong>corporate holiday events austin</strong>, consider coordinating with <a href="https://partyondelivery.com" target="_blank" rel="noopener noreferrer" className="text-green-600 hover:text-green-700 font-semibold">Party On Delivery</a> for hassle-free drink delivery to the marina.
                   </p>
                   <p className="text-gray-700 dark:text-gray-300">
                     Food options for your <strong>holiday boat party</strong> include catered meals, potluck-style contributions, or simple appetizers and snacks. Many <strong>christmas party boat austin</strong> events include holiday-themed treats and desserts for festive atmosphere.
@@ -805,7 +807,7 @@ export default function HolidayCelebrationsLakeTravis() {
             
             <div className="prose prose-lg max-w-none dark:prose-invert mb-8">
               <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                Planning your budget for <strong>lake travis holiday parties</strong> is straightforward with our transparent pricing. <Link href="/private-cruises" className="text-blue-600 hover:text-blue-700 font-semibold">Private cruise options</Link> for your <strong>holiday boat party</strong> range from <strong>$1,050 to $2,660 for a complete 4-hour cruise</strong>, depending on boat size and package level. These all-inclusive rates cover captain and crew, fuel, all amenities, coolers with ice, and premium sound systems. For <strong>corporate holiday events austin</strong> or large group celebrations, this represents exceptional value compared to traditional venue rentals plus catering and entertainment costs.
+                Planning your budget for <strong>lake travis holiday parties</strong> is straightforward with our transparent pricing. <Link href="/private-cruises" className="text-blue-600 hover:text-blue-700 font-semibold">Private cruise options</Link> for your <strong>holiday boat party</strong> range from <strong>$1,050 to $2,660 for a complete 4-hour cruise</strong>, depending on boat size and package level. These all-inclusive rates cover captain and crew, fuel, all amenities, coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company), and premium sound systems. For <strong>corporate holiday events austin</strong> or large group celebrations, this represents exceptional value compared to traditional venue rentals plus catering and entertainment costs.
               </p>
               
               <p className="text-gray-700 dark:text-gray-300 leading-relaxed">

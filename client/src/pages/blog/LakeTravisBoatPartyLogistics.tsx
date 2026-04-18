@@ -175,7 +175,7 @@ const faqs = [
   },
   {
     question: 'Can we bring our own food and drinks?',
-    answer: 'Yes! All our cruises are BYOB. Bring coolers with ice. The only rule is no glass bottles for safety reasons.'
+    answer: 'Yes! All our cruises are BYOB. Bring coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company). The only rule is no glass bottles for safety reasons.'
   },
   {
     question: 'What happens if the weather is bad?',

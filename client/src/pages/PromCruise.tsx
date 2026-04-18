@@ -81,7 +81,7 @@ const faqs = [
   },
   {
     question: 'Can we bring our own food and snacks?',
-    answer: 'Yes! We are BYOF (Bring Your Own Food) friendly. Students often bring pizza, snacks, and soda. Our Essentials and Ultimate packages include coolers with ice to keep your beverages cold throughout the cruise.'
+    answer: 'Yes! We are BYOF (Bring Your Own Food) friendly. Students often bring pizza, snacks, and soda. Our Essentials and Ultimate packages include coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company) to keep your beverages cold throughout the cruise.'
   },
   {
     question: 'What happens if we have more than 75 students?',

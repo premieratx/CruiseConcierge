@@ -112,7 +112,7 @@ const whyPremier = [
 const faqs = [
   {
     question: 'What are the food and beverage rules for Lake Travis boat party catering?',
-    answer: 'Lake Travis boat party catering is flexible! You can bring your own food and beverages (BYOB). Important rules: only cans and plastic containers allowed - no glass. We provide coolers with ice. Party boat food Austin can include any type of food you prefer, from snacks to full catered meals.'
+    answer: 'Lake Travis boat party catering is flexible! You can bring your own food and beverages (BYOB). Important rules: only cans and plastic containers allowed - no glass. We provide coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company). Party boat food Austin can include any type of food you prefer, from snacks to full catered meals.'
   },
   {
     question: 'Can we have alcohol on the party boat food Austin cruises?',

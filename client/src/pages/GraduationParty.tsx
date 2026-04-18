@@ -189,12 +189,12 @@ const faqItems = [
   {
     id: 'included',
     question: "What's included?",
-    answer: 'Licensed, experienced captain & crew, premium Bluetooth sound, coolers with ice, restrooms, sun & shade seating, and safety equipment.'
+    answer: 'Licensed, experienced captain & crew, premium Bluetooth sound, coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company), restrooms, sun & shade seating, and safety equipment.'
   },
   {
     id: 'food-drinks',
     question: 'Can we bring food and drinks?',
-    answer: 'Yes. For food, you have two options: (1) Bring your own - easy items that won\'t make a mess, or (2) We can help arrange full catering and setup from Austin vendors. BYOB (21+), cans/plastic only. We provide coolers with ice and cups.'
+    answer: 'Yes. For food, you have two options: (1) Bring your own - easy items that won\'t make a mess, or (2) We can help arrange full catering and setup from Austin vendors. BYOB (21+), cans/plastic only. We provide coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company) and cups.'
   },
   {
     id: 'deposits-payments',

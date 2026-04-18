@@ -145,7 +145,7 @@ const faqs = [
   },
   {
     question: 'What is included in Lake Travis bachelorette party boat rentals?',
-    answer: 'Austin bachelorette party boats include: professional captain, premium Bluetooth sound system, giant lily pad floats, coolers with ice, swimming stops, and all safety equipment. Your Lake Travis bachelorette adventure is BYOB - just bring your crew, drinks, and party spirit!'
+    answer: 'Austin bachelorette party boats include: professional captain, premium Bluetooth sound system, giant lily pad floats, coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company), swimming stops, and all safety equipment. Your Lake Travis bachelorette adventure is BYOB - just bring your crew, drinks, and party spirit!'
   },
   {
     question: 'When is the best time for Austin bachelorette party boats?',

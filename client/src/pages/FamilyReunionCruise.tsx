@@ -61,7 +61,7 @@ const faqs = [
   },
   {
     question: 'Can we bring food for a family picnic on the boat?',
-    answer: 'Yes! We encourage families to bring their own food and snacks. Our Essentials and Ultimate packages include coolers with ice, a folding table, and serving supplies. You can also coordinate catering delivery to the marina.'
+    answer: 'Yes! We encourage families to bring their own food and snacks. Our Essentials and Ultimate packages include coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company), a folding table, and serving supplies. You can also coordinate catering delivery to the marina.'
   },
   {
     question: 'How many family members can fit on your largest boat?',

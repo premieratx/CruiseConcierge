@@ -17,6 +17,7 @@ import {
   CheckCircle2, Crown, Gem, Trophy, Anchor, Utensils
 } from 'lucide-react';
 import { Link } from 'wouter';
+import { LuxuryThemeOverrideStyles } from '@/components/LuxuryThemeWrapper';
 
 const tableOfContents = [
   { id: 'clever-girl-gallery', title: 'Clever Girl - Our Flagship Wedding Boat' },
@@ -43,7 +44,8 @@ const cleverGirlPhotos = [
 
 export default function LakeTravisWeddingBoatRentals() {
   return (
-    <div data-page-ready="lake-travis-wedding-boat-rentals" className="min-h-screen bg-gradient-to-b from-blue-50 via-pink-50 to-purple-50 dark:from-gray-900 dark:to-gray-950">
+    <div className="lux-theme-scope"data-page-ready="lake-travis-wedding-boat-rentals" className="min-h-screen bg-gradient-to-b from-blue-50 via-pink-50 to-purple-50 dark:from-gray-900 dark:to-gray-950">
+      <LuxuryThemeOverrideStyles />
       <SEOHead 
         pageRoute="/blogs/lake-travis-wedding-boat-rentals-unique-venues-for-austin-celebrations"
         defaultTitle="Lake Travis Wedding Boats | Austin Venues"
@@ -1151,7 +1153,7 @@ export default function LakeTravisWeddingBoatRentals() {
             
             <div className="prose prose-lg max-w-none dark:prose-invert mb-8">
               <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                <strong>Wedding boat rental austin</strong> pricing is straightforward and all-inclusive. <Link href="/private-cruises" className="text-blue-600 hover:text-blue-700 font-semibold">Private wedding cruises</Link> range from <strong>$1,050 to $2,660 for a complete 4-hour cruise</strong>, depending on boat size and package level. These rates include captain and crew, all fuel, premium amenities, sound system, coolers with ice, and professional service. When comparing to traditional venue costs plus rentals, catering, and coordination, <strong>lake travis wedding venues</strong> on boats offer exceptional value for your <strong>austin lake wedding</strong> celebration!
+                <strong>Wedding boat rental austin</strong> pricing is straightforward and all-inclusive. <Link href="/private-cruises" className="text-blue-600 hover:text-blue-700 font-semibold">Private wedding cruises</Link> range from <strong>$1,050 to $2,660 for a complete 4-hour cruise</strong>, depending on boat size and package level. These rates include captain and crew, all fuel, premium amenities, sound system, coolers (BYOB — bring ice or order pre-iced from Party On Delivery), and professional service. When comparing to traditional venue costs plus rentals, catering, and coordination, <strong>lake travis wedding venues</strong> on boats offer exceptional value for your <strong>austin lake wedding</strong> celebration!
               </p>
             </div>
 

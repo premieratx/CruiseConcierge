@@ -18,6 +18,7 @@ import AnimatedPhotoGallery from '@/components/AnimatedPhotoGallery';
 import { BlogImageBreak, BlogPhotoStrip, BlogPartyGallery, BLOG_BOAT_PHOTOS, BLOG_PARTY_PHOTOS } from '@/components/BlogImageBreak';
 import Breadcrumb from '@/components/Breadcrumb';
 import InlineCTABar from '@/components/InlineCTABar';
+import { LuxuryThemeOverrideStyles } from '@/components/LuxuryThemeWrapper';
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 20 },
@@ -103,7 +104,8 @@ export default function LakeTravisBachelorPartyBoatRentalsGuide() {
         <meta property="og:type" content="article" />
       </Helmet>
 
-      <div className="min-h-screen bg-white dark:bg-gray-950">
+      <div className="min-h-screen bg-white dark:bg-gray-950 lux-theme-scope">
+        <LuxuryThemeOverrideStyles />
         <PublicNavigation />
         <Breadcrumb />
 

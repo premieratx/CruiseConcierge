@@ -193,7 +193,53 @@ export default function EventPageTemplate({
 
       <PublicNavigation />
 
-      <main className="min-h-screen bg-white" data-page-ready="event-page">
+      {/* Luxury theme overrides for the event-page template */}
+      <style dangerouslySetInnerHTML={{ __html: `
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap');
+        .event-page-luxury { background: #07070C; color: #EDE3D0; font-family: 'Jost', system-ui, sans-serif; }
+        .event-page-luxury [class*="bg-white"],
+        .event-page-luxury [class*="bg-gray-50"],
+        .event-page-luxury [class*="bg-gray-100"],
+        .event-page-luxury [class*="bg-slate-50"],
+        .event-page-luxury [class*="bg-slate-100"] {
+          background: #0F0F18 !important;
+          color: #C8B898 !important;
+        }
+        .event-page-luxury [class*="bg-gray-50"] { background: #07070C !important; }
+        .event-page-luxury section[class*="bg-white"] { background: #0F0F18 !important; }
+        .event-page-luxury h1, .event-page-luxury h2, .event-page-luxury h3, .event-page-luxury h4 {
+          font-family: 'Cormorant Garamond', Georgia, serif !important;
+          color: #F0E6D0 !important;
+          font-weight: 300 !important;
+        }
+        .event-page-luxury h3, .event-page-luxury h4 { font-weight: 400 !important; }
+        .event-page-luxury [class*="text-gray-9"],
+        .event-page-luxury [class*="text-gray-8"],
+        .event-page-luxury [class*="text-slate-9"],
+        .event-page-luxury [class*="text-slate-8"] { color: #F0E6D0 !important; }
+        .event-page-luxury [class*="text-gray-7"],
+        .event-page-luxury [class*="text-gray-6"],
+        .event-page-luxury [class*="text-slate-7"],
+        .event-page-luxury [class*="text-slate-6"] { color: #C8B898 !important; }
+        .event-page-luxury p, .event-page-luxury li { color: #C8B898 !important; line-height: 1.7; }
+        .event-page-luxury [data-state="closed"], .event-page-luxury [data-state="open"],
+        .event-page-luxury [class*="AccordionItem"], .event-page-luxury [role="region"] {
+          background: #1A1A26 !important;
+          color: #EDE3D0 !important;
+          border-color: rgba(200,169,110,0.2) !important;
+        }
+        .event-page-luxury button[class*="bg-gradient"], .event-page-luxury [class*="bg-pink"],
+        .event-page-luxury [class*="bg-purple"], .event-page-luxury [class*="bg-blue-5"],
+        .event-page-luxury [class*="bg-blue-6"] {
+          background: linear-gradient(135deg, #C8A96E 0%, #DFC08A 100%) !important;
+          color: #07070C !important;
+          border: 1px solid #C8A96E !important;
+        }
+        .event-page-luxury .border, .event-page-luxury [class*="border-gray"],
+        .event-page-luxury [class*="border-slate"] { border-color: rgba(200,169,110,0.18) !important; }
+      ` }} />
+
+      <main className="min-h-screen event-page-luxury" data-page-ready="event-page">
         <section className="relative min-h-[70vh] flex flex-col justify-center overflow-hidden">
           {videoId ? (
             <YouTubeVideoBackground videoId={videoId} posterImage={heroImage} />

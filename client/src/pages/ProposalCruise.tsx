@@ -73,7 +73,7 @@ const faqs = [
   },
   {
     question: 'Do you offer a champagne service for the proposal?',
-    answer: 'While we are BYOB, our Essentials and Ultimate packages include coolers with ice. We can help you discreetly store and chill your champagne, and provide glasses for your first toast as a newly engaged couple.'
+    answer: 'While we are BYOB, our Essentials and Ultimate packages include coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company). We can help you discreetly store and chill your champagne, and provide glasses for your first toast as a newly engaged couple.'
   },
   {
     question: 'What happens if the weather is bad on the day of my proposal?',

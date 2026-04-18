@@ -19,6 +19,7 @@ import sectionImage1 from '@assets/@capitalcityshots-28_1760080807867.jpg';
 import sectionImage2 from '@assets/@capitalcityshots-29_1760080807867.jpg';
 import PublicNavigationLuxury from '@/components/PublicNavigationLuxury';
 import Footer from '@/components/Footer';
+import { LuxuryThemeOverrideStyles } from '@/components/LuxuryThemeWrapper';
 
 const partyStats = [
   { stat: '14+', label: 'Years Experience' },
@@ -176,7 +177,8 @@ export default function LakeTravisBoatPartyThemes() {
         image={heroImage}
       />
 
-      <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="lake-travis-boat-party-themes-page">
+      <div className="min-h-screen bg-white dark:bg-gray-950 lux-theme-scope" data-testid="lake-travis-boat-party-themes-page">
+        <LuxuryThemeOverrideStyles />
         <PublicNavigation />
 
         {/* Hero Section */}

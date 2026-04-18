@@ -129,7 +129,7 @@ const faqs = [
   },
   {
     question: 'What is included in the ATX Disco Cruise pricing?',
-    answer: 'Every ATX Disco Cruise includes: professional DJ for 4 hours, professional photographer, 14 disco balls and party lighting, giant lily pad floats, coolers with ice, party supplies (cups, koozies, bubbles), and experienced crew. The cruise is BYOB - just bring your own beverages.'
+    answer: 'Every ATX Disco Cruise includes: professional DJ for 4 hours, professional photographer, 14 disco balls and party lighting, giant lily pad floats, coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company), party supplies (cups, koozies, bubbles), and experienced crew. The cruise is BYOB - just bring your own beverages.'
   },
   {
     question: 'How does BYOB work on the ATX Disco Cruise?',

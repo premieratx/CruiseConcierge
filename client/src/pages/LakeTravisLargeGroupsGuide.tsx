@@ -8,10 +8,12 @@ import { Link } from 'wouter';
 import { BlogImageBreak, BlogPhotoStrip, BlogPartyGallery, BLOG_BOAT_PHOTOS, BLOG_PARTY_PHOTOS } from '@/components/BlogImageBreak';
 import PublicNavigationLuxury from '@/components/PublicNavigationLuxury';
 import Footer from '@/components/Footer';
+import { LuxuryThemeOverrideStyles } from '@/components/LuxuryThemeWrapper';
 
 export default function LakeTravisLargeGroupsGuide() {
   return (
-    <div data-page-ready="lake-travis-large-groups-guide" className="min-h-screen bg-gradient-to-b from-blue-50 via-white to-cyan-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950">
+    <div className="lux-theme-scope"data-page-ready="lake-travis-large-groups-guide" className="min-h-screen bg-gradient-to-b from-blue-50 via-white to-cyan-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950">
+      <LuxuryThemeOverrideStyles />
       <PublicNavigationLuxury />
       <Helmet>
         <title>Lake Travis Boat Rentals Texas | Large Group Party Boats (20-75 Guests) Austin</title>
@@ -559,7 +561,7 @@ export default function LakeTravisLargeGroupsGuide() {
                     Can we bring our own catering for a large group?
                   </h3>
                   <p className="text-gray-700 dark:text-gray-300">
-                    Yes! All cruises are BYOB and you can bring food. Our boats have space for catering setups. Many corporate clients bring catered meals, while reunions often do potluck-style. We provide coolers with ice for beverages (cans/plastic only, no glass). Need drinks? Try <a href="https://partyondelivery.com" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline font-medium">Party On Delivery</a> for convenient alcohol delivery to your group.
+                    Yes! All cruises are BYOB and you can bring food. Our boats have space for catering setups. Many corporate clients bring catered meals, while reunions often do potluck-style. We provide coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company) for beverages (cans/plastic only, no glass). Need drinks? Try <a href="https://partyondelivery.com" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline font-medium">Party On Delivery</a> for convenient alcohol delivery to your group.
                   </p>
                 </CardContent>
               </Card>

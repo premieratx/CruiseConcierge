@@ -109,7 +109,7 @@ const faqs = [
   },
   {
     question: 'What\'s included with your Lake Travis wedding boat packages?',
-    answer: 'All Lake Travis wedding cruises include: private charter, professional captain, premium Bluetooth sound system, giant lily pad floats, coolers with ice, and swimming stops. We\'re BYOB-friendly - just follow wedding venue alcohol policies Austin for lake events (cans/plastic only). Wedding alcohol delivery Austin brings everything dockside before departure.'
+    answer: 'All Lake Travis wedding cruises include: private charter, professional captain, premium Bluetooth sound system, giant lily pad floats, coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company), and swimming stops. We\'re BYOB-friendly - just follow wedding venue alcohol policies Austin for lake events (cans/plastic only). Wedding alcohol delivery Austin brings everything dockside before departure.'
   },
   {
     question: 'How do Austin wedding venue alcohol policies affect timing?',

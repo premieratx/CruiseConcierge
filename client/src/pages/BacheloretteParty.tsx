@@ -427,7 +427,7 @@ export default function BacheloretteParty() {
                   <ul className="space-y-3 mb-6">
                     {[
                       'Party with bachelorette crews from across the country — electric shared energy',
-                      'All-inclusive: DJ, photographer, giant floats, coolers with ice',
+                      'All-inclusive: DJ, photographer, giant floats, coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company)',
                       '$85–$105 per person (three time slots available)',
                       'BYOB — beer in cans; wine, champagne, and spirits in your cooler welcome',
                       'Zero planning stress — we handle everything',

@@ -129,7 +129,7 @@ const planningSteps = [
   {
     step: '4',
     title: 'Plan the Drinks',
-    description: 'We provide coolers with ice. Use Party On Delivery to have alcohol delivered right to the marina or your Airbnb—no errand running needed!'
+    description: 'We provide coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company). Use Party On Delivery to have alcohol delivered right to the marina or your Airbnb—no errand running needed!'
   },
   {
     step: '5',
@@ -150,7 +150,7 @@ const faqs = [
   },
   {
     question: 'How much does a bachelorette boat party cost?',
-    answer: 'ATX Disco Cruise tickets range from $85-$105 per person depending on time slot: Friday 12-4pm ($95), Saturday 11am-3pm ($105), and Saturday 3:30-7:30pm ($85). This includes DJ, photographer, floats, coolers with ice, and all amenities. Private charters start at $800 for a 4-hour cruise on Day Tripper (14 guests).'
+    answer: 'ATX Disco Cruise tickets range from $85-$105 per person depending on time slot: Friday 12-4pm ($95), Saturday 11am-3pm ($105), and Saturday 3:30-7:30pm ($85). This includes DJ, photographer, floats, coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company), and all amenities. Private charters start at $800 for a 4-hour cruise on Day Tripper (14 guests).'
   },
   {
     question: 'Should we do ATX Disco Cruise or Private Charter?',
@@ -162,7 +162,7 @@ const faqs = [
   },
   {
     question: 'Is alcohol included or do we bring our own?',
-    answer: 'Lake Travis is BYOB (Bring Your Own Beverage). We provide coolers with ice and cups. You bring your own alcohol—cans and plastic only, no glass. We partner with Party On Delivery to deliver alcohol right to the marina or your Airbnb for ultimate convenience.'
+    answer: 'Lake Travis is BYOB (Bring Your Own Beverage). We provide coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company) and cups. You bring your own alcohol—cans and plastic only, no glass. We partner with Party On Delivery to deliver alcohol right to the marina or your Airbnb for ultimate convenience.'
   },
   {
     question: 'How far in advance should we book?',
@@ -583,7 +583,7 @@ export default function UltimateAustinBacheloretteBoatGuide() {
                   Plan the Drinks Without the Hassle
                 </h2>
                 <p className="text-lg text-gray-600 dark:text-gray-400 mb-6">
-                  We provide large coolers with ice—you don't need to buy or lug ice. Bring your own alcohol 
+                  We provide large coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company)—you don't need to buy or lug ice. Bring your own alcohol 
                   (21+ of course): canned seltzers, beer, wine, plus water and Gatorade for hydration.
                 </p>
                 <p className="text-lg text-gray-600 dark:text-gray-400 mb-6">

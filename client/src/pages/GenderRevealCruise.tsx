@@ -77,7 +77,7 @@ const faqs = [
   },
   {
     question: 'Can we bring pink and blue themed snacks and drinks?',
-    answer: 'Yes! We are BYOB and BYOF. Many parents-to-be bring themed cupcakes, drinks, and snacks. We provide tables and coolers with ice (in Essentials/Ultimate packages) to keep everything organized and chilled.'
+    answer: 'Yes! We are BYOB and BYOF. Many parents-to-be bring themed cupcakes, drinks, and snacks. We provide tables and coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company) (in Essentials/Ultimate packages) to keep everything organized and chilled.'
   },
   {
     question: 'How long does a gender reveal cruise last?',

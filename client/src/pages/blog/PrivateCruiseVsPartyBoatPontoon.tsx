@@ -195,7 +195,7 @@ const faqs = [
   },
   {
     question: 'What is included in private party cruise pricing?',
-    answer: 'Every private cruise includes: licensed professional captain, premium Bluetooth sound system, giant lily pad floats, coolers with ice, swimming stops, and all safety equipment. Cruises are BYOB - bring your own beverages in cans and plastic. Many groups use Party On Delivery for convenient beverage delivery to the dock.'
+    answer: 'Every private cruise includes: licensed professional captain, premium Bluetooth sound system, giant lily pad floats, coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company), swimming stops, and all safety equipment. Cruises are BYOB - bring your own beverages in cans and plastic. Many groups use Party On Delivery for convenient beverage delivery to the dock.'
   },
   {
     question: 'Why is a private cruise better than renting a pontoon ourselves?',

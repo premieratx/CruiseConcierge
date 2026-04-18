@@ -289,7 +289,7 @@ const faqItems = [
   {
     id: 'alcohol-policy',
     question: 'What\'s the alcohol policy?',
-    answer: 'BYOB for 21+. Bring whatever you want - beer, liquor, seltzers. Cans/plastic only. We provide coolers with ice and cups.'
+    answer: 'BYOB for 21+. Bring whatever you want - beer, liquor, seltzers. Cans/plastic only. We provide coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company) and cups.'
   },
   {
     id: 'booking-timeline',

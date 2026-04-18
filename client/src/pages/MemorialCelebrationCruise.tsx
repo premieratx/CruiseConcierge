@@ -85,7 +85,7 @@ const faqs = [
   },
   {
     question: 'Can we bring food and refreshments for the gathering?',
-    answer: 'Yes, we are BYOB and BYOF friendly. Many families bring light refreshments or a small meal to share while reminiscing. We provide tables and coolers with ice (in Essentials/Ultimate packages).'
+    answer: 'Yes, we are BYOB and BYOF friendly. Many families bring light refreshments or a small meal to share while reminiscing. We provide tables and coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company) (in Essentials/Ultimate packages).'
   }
 ];
 

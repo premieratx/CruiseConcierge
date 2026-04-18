@@ -207,7 +207,7 @@ const faqs = [
   },
   {
     question: 'What\'s included in the 75-person boat charter?',
-    answer: 'Your large company party Lake Travis includes: private charter of the Clever Girl (3+ hours), professional captain and crew, 14 disco balls, giant Texas flag, premium sound system with Bluetooth, giant lily pad floats, coolers with ice, and free marina parking for all guests.'
+    answer: 'Your large company party Lake Travis includes: private charter of the Clever Girl (3+ hours), professional captain and crew, 14 disco balls, giant Texas flag, premium sound system with Bluetooth, giant lily pad floats, coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company), and free marina parking for all guests.'
   }
 ];
 

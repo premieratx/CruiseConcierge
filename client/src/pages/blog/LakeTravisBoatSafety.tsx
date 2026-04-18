@@ -19,6 +19,7 @@ import sectionImage1 from '@assets/@capitalcityshots-25_1760080807866.jpg';
 import sectionImage2 from '@assets/@capitalcityshots-26_1760080807866.jpg';
 import PublicNavigationLuxury from '@/components/PublicNavigationLuxury';
 import Footer from '@/components/Footer';
+import { LuxuryThemeOverrideStyles } from '@/components/LuxuryThemeWrapper';
 
 const safetyStats = [
   { stat: '14+', label: 'Years Experience' },
@@ -189,7 +190,8 @@ export default function LakeTravisBoatSafety() {
         image={heroImage}
       />
 
-      <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="lake-travis-boat-safety-page">
+      <div className="min-h-screen bg-white dark:bg-gray-950 lux-theme-scope" data-testid="lake-travis-boat-safety-page">
+        <LuxuryThemeOverrideStyles />
         <PublicNavigation />
 
         {/* Hero Section */}

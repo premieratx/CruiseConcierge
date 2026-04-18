@@ -132,7 +132,7 @@ const partyTips = [
 const faqs = [
   {
     question: 'What is included on an Austin party boat rental?',
-    answer: 'Most party boats include a professional captain, coolers with ice, Bluetooth sound system, ample seating, and water floats or lily pads. The ATX Disco Cruise also includes a DJ, professional photographer, and disco dance floor. All boats are BYOB—bring your own beverages and snacks.'
+    answer: 'Most party boats include a professional captain, coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company), Bluetooth sound system, ample seating, and water floats or lily pads. The ATX Disco Cruise also includes a DJ, professional photographer, and disco dance floor. All boats are BYOB—bring your own beverages and snacks.'
   },
   {
     question: 'How does BYOB work on party boats?',

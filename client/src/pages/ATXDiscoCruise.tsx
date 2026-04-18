@@ -192,7 +192,7 @@ const faqItems = [
   },
   {
     question: "What's included in the all-inclusive package?",
-    answer: "Your ticket includes the 4-hour cruise, a professional DJ, a professional photographer, giant unicorn and lily pad floats, party supplies (cups, koozies, bubbles), shared coolers with ice, and unlimited ice water. It's designed to be zero-stress!"
+    answer: "Your ticket includes the 4-hour cruise, a professional DJ, a professional photographer, giant unicorn and lily pad floats, party supplies (cups, koozies, bubbles), shared coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company), and unlimited ice water. It's designed to be zero-stress!"
   },
   {
     question: "Is there a DJ on every cruise?",
@@ -947,7 +947,7 @@ export default function ATXDiscoCruise() {
                     <tr className="border-b border-gray-200 dark:border-gray-700">
                       <td className="p-4 font-medium">Pricing</td>
                       <td className="p-4">$85-$138/person (all-inclusive)</td>
-                      <td className="p-4">$200-$520/hour (entire boat)</td>
+                      <td className="p-4">From $200/hour (entire boat)</td>
                     </tr>
                     <tr className="border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
                       <td className="p-4 font-medium">Duration</td>

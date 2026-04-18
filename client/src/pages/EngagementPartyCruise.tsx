@@ -61,7 +61,7 @@ const faqs = [
   },
   {
     question: 'Can we bring our own champagne and appetizers?',
-    answer: 'Absolutely! We\'re completely BYOB and BYOF. Many couples bring champagne for toasts, appetizers, and celebration treats. We provide coolers with ice and tables for food service. You can also coordinate catering delivery to the marina.'
+    answer: 'Absolutely! We\'re completely BYOB and BYOF. Many couples bring champagne for toasts, appetizers, and celebration treats. We provide coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company) and tables for food service. You can also coordinate catering delivery to the marina.'
   },
   {
     question: 'What makes a boat engagement party special?',

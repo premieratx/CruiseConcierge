@@ -175,7 +175,7 @@ const faqs = [
   },
   {
     question: 'Can we bring our own food and drinks for the startup team building event?',
-    answer: 'Absolutely! All our private cruises are BYOB. Many tech companies work with local Austin caterers or simply bring pizzas and snacks. We provide coolers with ice, cups, and can help coordinate delivery with Party On Delivery for beverages.'
+    answer: 'Absolutely! All our private cruises are BYOB. Many tech companies work with local Austin caterers or simply bring pizzas and snacks. We provide coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company), cups, and can help coordinate delivery with Party On Delivery for beverages.'
   },
   {
     question: 'What activities work well for tech team bonding on the water?',

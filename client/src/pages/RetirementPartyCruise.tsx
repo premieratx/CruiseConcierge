@@ -65,7 +65,7 @@ const faqs = [
   },
   {
     question: 'Can we bring food and drinks for the party?',
-    answer: 'Yes! We\'re BYOB friendly and you can bring your own catering. Our Essentials package includes a folding table, coolers with ice, and cups. We can also help coordinate delivery from local caterers.'
+    answer: 'Yes! We\'re BYOB friendly and you can bring your own catering. Our Essentials package includes a folding table, coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company), and cups. We can also help coordinate delivery from local caterers.'
   },
   {
     question: 'Do you allow speeches and presentations?',

@@ -65,7 +65,7 @@ const faqs = [
   },
   {
     question: 'Can we bring food and drinks for our anniversary?',
-    answer: 'Yes! You\'re welcome to bring your own food, champagne, wine, and drinks. We recommend cans and plastic containers. Our Essentials package includes coolers with ice and a table for your celebration spread.'
+    answer: 'Yes! You\'re welcome to bring your own food, champagne, wine, and drinks. We recommend cans and plastic containers. Our Essentials package includes coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company) and a table for your celebration spread.'
   },
   {
     question: 'Do you offer any special anniversary packages?',

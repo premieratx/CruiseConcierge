@@ -261,7 +261,7 @@ export default function UltimateAustinBacheloretteWeekend() {
               </p>
 
               <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                What makes the <Link href="/atx-disco-cruise" className="text-pink-600 hover:text-pink-700 font-semibold">ATX Disco Cruise</Link> perfect for your <strong>austin bachelorette</strong>? You'll have a professional DJ spinning your favorite tracks all day, a professional photographer capturing every moment (delivered digitally after the cruise), giant lily pad floats for swimming and sunbathing, a disco ball dance floor, and coolers with ice provided for your BYOB beverages. Best of all, you'll party with other fun-loving <strong>bachelorette party lake travis</strong> groups, creating an electric social scene!
+                What makes the <Link href="/atx-disco-cruise" className="text-pink-600 hover:text-pink-700 font-semibold">ATX Disco Cruise</Link> perfect for your <strong>austin bachelorette</strong>? You'll have a professional DJ spinning your favorite tracks all day, a professional photographer capturing every moment (delivered digitally after the cruise), giant lily pad floats for swimming and sunbathing, a disco ball dance floor, and coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company) provided for your BYOB beverages. Best of all, you'll party with other fun-loving <strong>bachelorette party lake travis</strong> groups, creating an electric social scene!
               </p>
             </div>
 

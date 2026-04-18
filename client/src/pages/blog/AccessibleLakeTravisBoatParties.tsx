@@ -19,6 +19,7 @@ import sectionImage1 from '@assets/@capitalcityshots-31_1760080807867.jpg';
 import sectionImage2 from '@assets/@capitalcityshots-32_1760080807868.jpg';
 import PublicNavigationLuxury from '@/components/PublicNavigationLuxury';
 import Footer from '@/components/Footer';
+import { LuxuryThemeOverrideStyles } from '@/components/LuxuryThemeWrapper';
 
 const trustStats = [
   { stat: '14+', label: 'Years Experience' },
@@ -182,7 +183,8 @@ export default function AccessibleLakeTravisBoatParties() {
         image={heroImage}
       />
 
-      <div className="min-h-screen bg-white dark:bg-gray-950" data-testid="accessible-lake-travis-boat-parties-page">
+      <div className="min-h-screen bg-white dark:bg-gray-950 lux-theme-scope" data-testid="accessible-lake-travis-boat-parties-page">
+        <LuxuryThemeOverrideStyles />
         <PublicNavigation />
 
         {/* Hero Section */}

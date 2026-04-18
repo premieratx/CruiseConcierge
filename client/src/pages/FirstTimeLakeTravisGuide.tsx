@@ -560,7 +560,7 @@ export default function FirstTimeLakeTravisGuide() {
                       <Sun className="h-8 w-8 text-yellow-500 flex-shrink-0 mt-1" />
                       <div>
                         <h4 className="font-bold text-lg mb-2 text-gray-900 dark:text-white">Pack Smart</h4>
-                        <p className="text-gray-600 dark:text-gray-400">Bring sunscreen, towels, swimwear, sunglasses, and your BYOB beverages in cans/plastic. We provide coolers with ice and cups!</p>
+                        <p className="text-gray-600 dark:text-gray-400">Bring sunscreen, towels, swimwear, sunglasses, and your BYOB beverages in cans/plastic. We provide coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company) and cups!</p>
                       </div>
                     </div>
                   </CardContent>
@@ -627,7 +627,7 @@ export default function FirstTimeLakeTravisGuide() {
                       Is alcohol allowed on Lake Travis boat rentals?
                     </h3>
                     <p className="text-gray-700 dark:text-gray-300">
-                      Yes! All Premier Party Cruises are BYOB (Bring Your Own Beverages). We provide coolers with ice and cups. Please bring beverages in cans or plastic containers only (no glass). You must be 21+ to consume alcohol.
+                      Yes! All Premier Party Cruises are BYOB (Bring Your Own Beverages). We provide coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company) and cups. Please bring beverages in cans or plastic containers only (no glass). You must be 21+ to consume alcohol.
                     </p>
                   </CardContent>
                 </Card>
@@ -660,7 +660,7 @@ export default function FirstTimeLakeTravisGuide() {
                       What should I bring for a day on Lake Travis?
                     </h3>
                     <p className="text-gray-700 dark:text-gray-300">
-                      Essentials include: sunscreen, towels, swimwear, hats, sunglasses, water, and your BYOB beverages in cans/plastic. We provide coolers with ice, cups, Bluetooth speakers, lily pad floats, and all safety equipment.
+                      Essentials include: sunscreen, towels, swimwear, hats, sunglasses, water, and your BYOB beverages in cans/plastic. We provide coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company), cups, Bluetooth speakers, lily pad floats, and all safety equipment.
                     </p>
                   </CardContent>
                 </Card>

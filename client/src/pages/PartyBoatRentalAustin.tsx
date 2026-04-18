@@ -1,7 +1,5 @@
 import EventPageTemplate from '@/components/EventPageTemplate';
 import { Ship, Users, Music, Waves, Shield, Calendar } from 'lucide-react';
-import PublicNavigationLuxury from '@/components/PublicNavigationLuxury';
-import Footer from '@/components/Footer';
 
 const features = [
   {

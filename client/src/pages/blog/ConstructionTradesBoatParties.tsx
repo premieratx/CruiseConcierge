@@ -589,7 +589,7 @@ export default function ConstructionTradesBoatParties() {
                   tips: [
                     'BBQ and finger foods work great',
                     'Bring plenty of water',
-                    'Pack coolers with ice',
+                    'Pack coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company)',
                     'Easy-to-eat items are best'
                   ]
                 },
