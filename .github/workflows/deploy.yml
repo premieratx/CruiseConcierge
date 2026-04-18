@@ -1,0 +1,53 @@
+# Auto-deploy to Netlify on every push to seo-fixes-only.
+#
+# Why this file exists:
+#   The Netlify project "premier-party-cruises-v2" isn't wired to this
+#   repo's GitHub webhook, so previously every `git push` sat there doing
+#   nothing until someone ran `netlify deploy --build --prod` locally. This
+#   workflow runs that exact command on GitHub's runners on every push to
+#   the seo-fixes-only branch.
+#
+# Required GitHub Secrets (Settings → Secrets and variables → Actions):
+#   NETLIFY_AUTH_TOKEN  — personal access token from
+#                         https://app.netlify.com/user/applications
+#                         (scope: "full_access" or at minimum "deploys")
+#
+# Build env:
+#   SKIP_PRERENDER=1 keeps the action under 10 minutes. If you want the full
+#   per-route prerender pass (sets the 19/100 → high SEO score), remove that
+#   variable — expect ~15 minutes per deploy and ensure the runner has
+#   network access to premierpartycruises.com (which it does by default).
+
+name: Deploy to Netlify
+
+on:
+  push:
+    branches: [seo-fixes-only]
+  workflow_dispatch: {}
+
+concurrency:
+  group: netlify-deploy-seo-fixes-only
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      NETLIFY_SITE_ID: 1b0f2e02-d942-4206-b6cf-c8923d1eb223
+      NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+      SKIP_PRERENDER: "1"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Build + deploy to Netlify (prod)
+        run: npx netlify deploy --build --prod --site "$NETLIFY_SITE_ID"
