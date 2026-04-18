@@ -668,6 +668,7 @@ const navItems = [
     ] as any[]
   },
   { title: 'Gallery', href: '/gallery', hasDropdown: false },
+  { title: 'Pricing', href: '/pricing', hasDropdown: false },
   { title: 'Reviews', href: '/testimonials-faq', hasDropdown: false },
   { title: 'Contact', href: '/contact', hasDropdown: false },
 ];
