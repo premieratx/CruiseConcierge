@@ -1,6 +1,16 @@
 import { useState, lazy, Suspense, ReactNode } from 'react';
 import { Link } from 'wouter';
 import PublicNavigationLuxury from '@/components/PublicNavigationLuxury';
+import { useQuoteLightbox } from '@/components/QuoteLightbox';
+
+/** True when the CTA should open the quote lightbox instead of navigating. */
+function isQuoteCta(cta: { text: string; href: string }) {
+  return (
+    cta.href === '/chat' ||
+    cta.href === '/quote' ||
+    /quote/i.test(cta.text)
+  );
+}
 
 const Footer = lazy(() => import('@/components/Footer'));
 
@@ -567,6 +577,7 @@ export default function V2PageTemplate({
   quickLinks = DEFAULT_QUICK_LINKS,
 }: V2PageProps) {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const { openQuote } = useQuoteLightbox();
 
   // Build schema graph
   const schemaGraph = {
@@ -623,12 +634,32 @@ export default function V2PageTemplate({
           <hr className="hp2-hero__rule" />
           <p className="hp2-hero__body">{heroBody}</p>
           <div className="hp2-hero__ctas">
-            <a href={primaryCta.href} className="hp2-btn hp2-btn--primary">
-              {primaryCta.text} →
-            </a>
-            <a href={secondaryCta.href} className="hp2-btn hp2-btn--outline">
-              {secondaryCta.text}
-            </a>
+            {isQuoteCta(primaryCta) ? (
+              <button
+                type="button"
+                className="hp2-btn hp2-btn--primary"
+                onClick={() => openQuote('v2_hero_primary')}
+              >
+                {primaryCta.text} →
+              </button>
+            ) : (
+              <a href={primaryCta.href} className="hp2-btn hp2-btn--primary">
+                {primaryCta.text} →
+              </a>
+            )}
+            {isQuoteCta(secondaryCta) ? (
+              <button
+                type="button"
+                className="hp2-btn hp2-btn--outline"
+                onClick={() => openQuote('v2_hero_secondary')}
+              >
+                {secondaryCta.text}
+              </button>
+            ) : (
+              <a href={secondaryCta.href} className="hp2-btn hp2-btn--outline">
+                {secondaryCta.text}
+              </a>
+            )}
           </div>
         </div>
       </section>
@@ -683,9 +714,19 @@ export default function V2PageTemplate({
         </h2>
         <p className="hp2-final-cta__body">{finalCtaBody}</p>
         <div className="hp2-final-cta__actions">
-          <a href={primaryCta.href} className="hp2-btn hp2-btn--primary">
-            {primaryCta.text} →
-          </a>
+          {isQuoteCta(primaryCta) ? (
+            <button
+              type="button"
+              className="hp2-btn hp2-btn--primary"
+              onClick={() => openQuote('v2_final_cta')}
+            >
+              {primaryCta.text} →
+            </button>
+          ) : (
+            <a href={primaryCta.href} className="hp2-btn hp2-btn--primary">
+              {primaryCta.text} →
+            </a>
+          )}
           <a href="tel:+15124885892" className="hp2-final-cta__phone">(512) 488-5892</a>
         </div>
         <p className="hp2-final-cta__location">

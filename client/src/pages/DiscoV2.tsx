@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, lazy, Suspense } from 'react';
 import { Link } from 'wouter';
 import PublicNavigation from '@/components/PublicNavigationLuxury';
+import { useQuoteLightbox } from '@/components/QuoteLightbox';
 
 const Footer = lazy(() => import('@/components/Footer'));
 
@@ -1032,7 +1033,9 @@ function LazyTikTok({ videoId, title, label, autoplay = false }: { videoId: stri
 }
 
 export default function DiscoV2() {
-  const [openFaq, setOpenFaq] = useState<number | null>(null);
+  
+  const { openQuote } = useQuoteLightbox();
+const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [openDetails, setOpenDetails] = useState<string | null>(null);
 
   const toggleFaq = (index: number) => {

@@ -195,6 +195,41 @@ export function QuoteLightboxProvider({ children }: { children: ReactNode }) {
     };
   }, [isOpen, closeQuote]);
 
+  /*
+   * GLOBAL CLICK INTERCEPTOR
+   * Any link whose href points at the quote builder (`/chat`, `/quote`)
+   * should open the lightbox instead of navigating away. This lets us
+   * leave existing `<a href="/chat">` markup in place across the site
+   * (footer, inline CTAs, pricing tables, etc.) and have it all route
+   * through the popup automatically.
+   *
+   * Opt-out: add `data-no-lightbox` to any link that should still
+   * navigate (e.g. an admin-only link).
+   */
+  useEffect(() => {
+    const onClick = (e: MouseEvent) => {
+      // Respect modifier keys so users can open in a new tab intentionally
+      if (e.defaultPrevented || e.button !== 0) return;
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+
+      const target = e.target as HTMLElement | null;
+      if (!target) return;
+      const anchor = target.closest<HTMLAnchorElement>("a[href]");
+      if (!anchor) return;
+      if (anchor.hasAttribute("data-no-lightbox")) return;
+      if (anchor.target && anchor.target !== "" && anchor.target !== "_self") return;
+
+      const href = anchor.getAttribute("href") || "";
+      const rawPath = href.split("?")[0].split("#")[0];
+      if (rawPath === "/chat" || rawPath === "/quote") {
+        e.preventDefault();
+        openQuote("auto_intercept");
+      }
+    };
+    document.addEventListener("click", onClick);
+    return () => document.removeEventListener("click", onClick);
+  }, [openQuote]);
+
   const currentUrl =
     typeof window !== "undefined" ? encodeURIComponent(window.location.href) : "";
   const iframeSrc = `https://booking.premierpartycruises.com/quote-v2?sourceUrl=${currentUrl}&sourceType=${encodeURIComponent(
