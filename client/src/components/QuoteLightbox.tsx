@@ -164,18 +164,34 @@ const STYLES = `
 
 export function QuoteLightboxProvider({ children }: { children: ReactNode }) {
   const [isOpen, setIsOpen] = useState(false);
-  const [sourceType, setSourceType] = useState<string>("lightbox_quote_v2");
   const [iframeLoaded, setIframeLoaded] = useState(false);
   const dialogRef = useRef<HTMLDivElement>(null);
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const lastFocusedRef = useRef<HTMLElement | null>(null);
+  // Track where the user clicked from WITHOUT changing the iframe URL —
+  // updating the src would cause the preloaded iframe to reload and the
+  // user would see a 1-second flash every time they open the popup.
+  // If the booking app wants to know the source, we post it via
+  // postMessage after open.
+  const sourceTypeRef = useRef<string>("lightbox_quote_v2");
 
   const openQuote = useCallback((source?: string) => {
-    if (source) setSourceType(source);
+    if (source) sourceTypeRef.current = source;
     lastFocusedRef.current = document.activeElement as HTMLElement | null;
-    // Don't reset iframeLoaded — iframe is preloaded on mount so it's
-    // already ready by the time the user clicks a CTA.
     setIsOpen(true);
+    // Optionally notify the booking iframe of the click source via
+    // postMessage so analytics still get the attribution — WITHOUT
+    // reloading the iframe.
+    if (iframeRef.current?.contentWindow) {
+      try {
+        iframeRef.current.contentWindow.postMessage(
+          { type: "quote-v2-source", sourceType: source || sourceTypeRef.current },
+          "https://booking.premierpartycruises.com",
+        );
+      } catch {
+        /* non-fatal */
+      }
+    }
   }, []);
 
   const closeQuote = useCallback(() => {
@@ -258,11 +274,16 @@ export function QuoteLightboxProvider({ children }: { children: ReactNode }) {
     return () => document.removeEventListener("click", onClick);
   }, [openQuote]);
 
-  const currentUrl =
-    typeof window !== "undefined" ? encodeURIComponent(window.location.href) : "";
-  const iframeSrc = `https://booking.premierpartycruises.com/quote-v2?sourceUrl=${currentUrl}&sourceType=${encodeURIComponent(
-    sourceType,
-  )}&autoResize=1&theme=luxury`;
+  // Build the iframe URL ONCE per mount. Using a ref + useState(initializer)
+  // so the src never changes while the provider is alive — this is what
+  // makes the lightbox open instantly instead of re-fetching.
+  const [iframeSrc] = useState<string>(() => {
+    const currentUrl =
+      typeof window !== "undefined" ? encodeURIComponent(window.location.href) : "";
+    return `https://booking.premierpartycruises.com/quote-v2?sourceUrl=${currentUrl}&sourceType=${encodeURIComponent(
+      sourceTypeRef.current,
+    )}&autoResize=1&theme=luxury`;
+  });
 
   return (
     <QuoteLightboxContext.Provider value={{ isOpen, openQuote, closeQuote }}>

@@ -79,10 +79,11 @@ export const V2_STYLES = `
 .hp2-hero__overlay {
   position: absolute;
   inset: 0;
+  /* Smooth monotonic gradient (no mid-page seam). */
   background:
-    radial-gradient(ellipse at 20% 80%, rgba(30,136,229,0.22) 0%, transparent 55%),
-    radial-gradient(ellipse at 80% 20%, rgba(200,169,110,0.15) 0%, transparent 60%),
-    linear-gradient(135deg, rgba(7,7,12,0.88) 0%, rgba(7,7,12,0.55) 60%, rgba(7,7,12,0.78) 100%);
+    radial-gradient(ellipse at 20% 85%, rgba(30,136,229,0.20) 0%, transparent 58%),
+    radial-gradient(ellipse at 82% 18%, rgba(200,169,110,0.14) 0%, transparent 62%),
+    linear-gradient(135deg, rgba(7,7,12,0.82) 0%, rgba(7,7,12,0.68) 45%, rgba(7,7,12,0.74) 100%);
   z-index: 1;
 }
 /* Translucent scrim behind hero text for readability on top of video */
