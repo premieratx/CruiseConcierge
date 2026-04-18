@@ -74,7 +74,7 @@ export const V2_STYLES = `
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0.35;
+  opacity: 0.30;
 }
 .hp2-hero__overlay {
   position: absolute;
@@ -84,6 +84,27 @@ export const V2_STYLES = `
     radial-gradient(ellipse at 80% 20%, rgba(200,169,110,0.15) 0%, transparent 60%),
     linear-gradient(135deg, rgba(7,7,12,0.88) 0%, rgba(7,7,12,0.55) 60%, rgba(7,7,12,0.78) 100%);
   z-index: 1;
+}
+/* Translucent scrim behind hero text for readability on top of video */
+.hp2-hero__content::before {
+  content: "";
+  position: absolute;
+  inset: 2rem -3rem;
+  z-index: -1;
+  background: radial-gradient(
+    ellipse at 30% 50%,
+    rgba(7, 7, 12, 0.72) 0%,
+    rgba(7, 7, 12, 0.55) 38%,
+    rgba(7, 7, 12, 0.20) 65%,
+    transparent 85%
+  );
+  filter: blur(6px);
+  pointer-events: none;
+}
+.hp2-hero__eyebrow,
+.hp2-hero__headline,
+.hp2-hero__body {
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.55);
 }
 .hp2-hero__content {
   position: relative;

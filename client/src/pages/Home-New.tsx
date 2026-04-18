@@ -58,7 +58,7 @@ const HP2_STYLES = `
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0.35;
+  opacity: 0.30;
 }
 
 .hp2-hero__overlay {
@@ -112,6 +112,30 @@ const HP2_STYLES = `
   z-index: 2;
   max-width: 820px;
   padding: 6rem 0;
+}
+
+/* Translucent scrim behind hero text for readability when video is busy.
+   Subtle radial vignette blurred into the background video; keeps the
+   copy crisp on any frame without looking like a solid panel. */
+.hp2-hero__content::before {
+  content: "";
+  position: absolute;
+  inset: 2rem -3rem;
+  z-index: -1;
+  background: radial-gradient(
+    ellipse at 30% 50%,
+    rgba(7, 7, 12, 0.72) 0%,
+    rgba(7, 7, 12, 0.55) 38%,
+    rgba(7, 7, 12, 0.20) 65%,
+    transparent 85%
+  );
+  filter: blur(6px);
+  pointer-events: none;
+}
+.hp2-hero__eyebrow,
+.hp2-hero__headline,
+.hp2-hero__body {
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.55);
 }
 
 .hp2-hero__eyebrow {
