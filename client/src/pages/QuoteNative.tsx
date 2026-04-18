@@ -26,11 +26,24 @@
 import { useEffect, useMemo, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useLocation } from "wouter";
-import { calculatePricing, getAutoCrewFeePerHour, getRecommendedBoat } from "@/lib/pricing";
+import {
+  calculatePricing,
+  calculateDiscoPricing,
+  getAutoCrewFeePerHour,
+  getRecommendedBoat,
+  getPrivatePackages,
+  getCapacityTier,
+  validateDiscoSlot,
+  DISCO_TIME_SLOTS,
+  DISCO_ADDONS,
+  getDiscoSlot,
+  type DiscoSlotId,
+} from "@/lib/pricing";
 import { addDays, format, parseISO, startOfDay } from "date-fns";
 import XolaBookNow from "@/components/XolaBookNow";
 
 type BoatId = "day-tripper" | "meeseeks-irony" | "clever-girl";
+type CruiseType = "private" | "disco";
 
 const PARTY_TYPES: { id: string; label: string; hint?: string }[] = [
   { id: "bachelor_party", label: "Bachelor party" },
@@ -50,12 +63,14 @@ const BOATS: { id: BoatId; label: string; capMin: number; capMax: number; blurb:
 ];
 
 const STYLES = `
+html, body { background: #07070c; }
 .qn-root {
   min-height: 100vh;
   background:
     radial-gradient(ellipse at 10% -10%, rgba(30,136,229,0.06) 0%, transparent 55%),
     radial-gradient(ellipse at 90% 110%, rgba(200,169,110,0.05) 0%, transparent 55%),
     #07070c;
+  background-attachment: fixed;
   color: #EDE3D0;
   font-family: 'Jost', system-ui, sans-serif;
   padding: 4rem 1.25rem 6rem;
@@ -293,6 +308,11 @@ export default function QuoteNative() {
     return startOfDay(addDays(new Date(), 21));
   }, [prefillDate]);
 
+  const prefillCruiseType = useQueryParam("cruiseType") as CruiseType | undefined;
+
+  const [cruiseType, setCruiseType] = useState<CruiseType>(
+    prefillCruiseType === "disco" ? "disco" : "private",
+  );
   const [date, setDate] = useState<string>(format(defaultDate, "yyyy-MM-dd"));
   const [guests, setGuests] = useState<number>(
     prefillGuests ? Math.max(1, Math.min(75, parseInt(prefillGuests, 10) || 22)) : 22,
@@ -306,6 +326,26 @@ export default function QuoteNative() {
       : inferBoatFromGuests(prefillGuests ? parseInt(prefillGuests, 10) || 22 : 22),
   );
   const [partyType, setPartyType] = useState<string>(prefillPartyType || "bachelorette_party");
+
+  // Disco-only state
+  const [discoSlot, setDiscoSlot] = useState<string>("");
+  const [discoAddons, setDiscoAddons] = useState<Set<string>>(new Set());
+  const [ticketQty, setTicketQty] = useState<number>(
+    prefillGuests ? Math.max(8, parseInt(prefillGuests, 10) || 10) : 10,
+  );
+
+  // Private-charter add-on state (Essential / Ultimate package, per-capacity)
+  const [privatePackage, setPrivatePackage] = useState<"none" | "essentials" | "ultimate">(
+    "none",
+  );
+
+  const toggleDiscoAddon = (id: string) =>
+    setDiscoAddons((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -332,12 +372,84 @@ export default function QuoteNative() {
     try { return parseISO(date); } catch { return new Date(); }
   }, [date]);
 
+  // Validate disco slot eligibility if disco is selected.
+  const discoError = useMemo(() => {
+    if (cruiseType !== "disco") return null;
+    return validateDiscoSlot({ date: dateObj, partyType });
+  }, [cruiseType, dateObj, partyType]);
+
+  // Available Essential + Ultimate packages for the current group size.
+  const privatePackages = useMemo(() => getPrivatePackages(guests), [guests]);
+  const privatePackagePrice = useMemo(() => {
+    if (privatePackage === "none") return 0;
+    return privatePackages[privatePackage].price;
+  }, [privatePackage, privatePackages]);
+
+  // Unified pricing result that the sidebar can render for either cruise type.
   const pricing = useMemo(() => {
+    if (cruiseType === "disco") {
+      const p = calculateDiscoPricing({
+        slotId: discoSlot,
+        ticketQty,
+        addonIds: Array.from(discoAddons),
+      });
+      return {
+        hourlyRate: 0,
+        additionalCrewFee: 0,
+        subtotal: p.subtotal,
+        gratuity: p.gratuity,
+        tax: p.tax,
+        xolaFee: p.xolaFee,
+        total: p.total,
+        pricePerPerson: p.pricePerPerson,
+        ticketsSubtotal: p.ticketsSubtotal,
+        addonsSubtotal: p.addonsSubtotal,
+      };
+    }
     const crewFeePerHour = getAutoCrewFeePerHour(guests);
-    return calculatePricing({ date: dateObj, guestCount: guests, duration, crewFeePerHour });
-  }, [dateObj, guests, duration]);
+    const r = calculatePricing({
+      date: dateObj,
+      guestCount: guests,
+      duration,
+      crewFeePerHour,
+      // Essential/Ultimate is folded into subtotal via the discount slot —
+      // we apply it by treating it as a post-subtotal add since the library
+      // uses discount to REDUCE subtotal. We add it as an extra line below.
+    });
+    return {
+      ...r,
+      subtotal: r.subtotal + privatePackagePrice,
+      gratuity: (r.subtotal + privatePackagePrice) * 0.2,
+      tax: (r.hourlyRate * duration + r.additionalCrewFee + privatePackagePrice) * 0.0825,
+      xolaFee: (r.subtotal + privatePackagePrice + (r.subtotal + privatePackagePrice) * 0.2) * 0.03,
+      total:
+        (r.subtotal + privatePackagePrice) +
+        (r.subtotal + privatePackagePrice) * 0.2 +
+        (r.hourlyRate * duration + r.additionalCrewFee + privatePackagePrice) * 0.0825 +
+        (r.subtotal + privatePackagePrice + (r.subtotal + privatePackagePrice) * 0.2) * 0.03,
+      pricePerPerson: 0,
+      ticketsSubtotal: 0,
+      addonsSubtotal: privatePackagePrice,
+      privatePackagePrice,
+    };
+  }, [
+    cruiseType,
+    discoSlot,
+    ticketQty,
+    discoAddons,
+    dateObj,
+    guests,
+    duration,
+    privatePackagePrice,
+  ]);
 
   const recommendedBoat = useMemo(() => getRecommendedBoat(guests), [guests]);
+  const availableDiscoSlots = useMemo(() => {
+    const dow = dateObj.getDay();
+    if (dow === 5) return DISCO_TIME_SLOTS.friday;
+    if (dow === 6) return DISCO_TIME_SLOTS.saturday;
+    return [] as readonly { label: string; start: string; end: string; hours: number }[];
+  }, [dateObj]);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -356,25 +468,67 @@ export default function QuoteNative() {
       return;
     }
 
+    if (cruiseType === "disco" && discoError) {
+      setError(discoError);
+      return;
+    }
+    if (cruiseType === "disco" && !discoSlot) {
+      setError("Please pick a disco cruise time slot.");
+      return;
+    }
+
     setSubmitting(true);
     try {
+      const effectiveGuests = cruiseType === "disco" ? ticketQty : guests;
+      const slotDetails = getDiscoSlot(discoSlot);
+      const selectionDetails =
+        cruiseType === "disco"
+          ? {
+              cruiseType: "disco",
+              boatTier: "clever-girl",
+              boatName: "Clever Girl",
+              experienceType: "disco_cruise",
+              slotId: discoSlot,
+              preferredTimeLabel: slotDetails?.label ?? discoSlot,
+              pricePerPerson: slotDetails?.pricePerPerson ?? 0,
+              ticketQuantity: ticketQty,
+              groupSizeLabel: `${ticketQty} tickets`,
+              addOns: Array.from(discoAddons).map((id) => {
+                const a = DISCO_ADDONS.find((x) => x.id === id);
+                return { id, name: a?.name, price: a?.price ?? 0 };
+              }),
+              sourceType,
+              sourceUrl,
+              notes,
+            }
+          : {
+              cruiseType: "private",
+              boatTier: boat,
+              preferredTimeLabel: `${duration}-hour cruise`,
+              ticketQuantity: guests,
+              groupSizeLabel: `${guests} guests`,
+              prePartyPackage:
+                privatePackage === "none"
+                  ? null
+                  : {
+                      tier: privatePackage,
+                      price: privatePackages[privatePackage].price,
+                      items: privatePackages[privatePackage].items,
+                      capacityTier: getCapacityTier(guests),
+                    },
+              sourceType,
+              sourceUrl,
+              notes,
+            };
+
       const payload = {
         contactInfo: { firstName, lastName, email, phone },
         eventDetails: {
           eventType: partyType,
           eventDate: date,
-          groupSize: guests,
+          groupSize: effectiveGuests,
         },
-        selectionDetails: {
-          cruiseType: "private",
-          boatTier: boat,
-          preferredTimeLabel: `${duration}-hour cruise`,
-          ticketQuantity: guests,
-          groupSizeLabel: `${guests} guests`,
-          sourceType,
-          sourceUrl,
-          notes,
-        },
+        selectionDetails,
         pricing: {
           subtotal: pricing.subtotal,
           tax: pricing.tax,
@@ -421,10 +575,11 @@ export default function QuoteNative() {
               Your quote is on its <em>way</em>.
             </h2>
             <p>
-              We just emailed {email} a detailed breakdown of your {duration}-hour
-              cruise on the {BOATS.find((b) => b.id === boat)?.label} for{" "}
-              {guests} guests on {format(dateObj, "EEEE, MMMM do, yyyy")}. Your
-              total estimate is{" "}
+              We just emailed {email} a detailed breakdown of your{" "}
+              {cruiseType === "disco"
+                ? `${ticketQty}-ticket ATX Disco Cruise (${getDiscoSlot(discoSlot)?.short})`
+                : `${duration}-hour private charter on the ${BOATS.find((b) => b.id === boat)?.label} for ${guests} guests`}{" "}
+              on {format(dateObj, "EEEE, MMMM do, yyyy")}. Your total estimate is{" "}
               <strong style={{ color: "#F5EED8" }}>{currencyDecimal(pricing.total)}</strong> all-in.
             </p>
             <p>
@@ -489,68 +644,231 @@ export default function QuoteNative() {
           {/* Left column — the form */}
           <div style={{ display: "grid", gap: "1.25rem" }}>
             <div className="qn-card">
+              <p className="qn-step">Step 0 · Cruise type</p>
+              <h2 className="qn-step-title">Private charter or ATX Disco Cruise?</h2>
+              <div className="qn-chips">
+                <button
+                  type="button"
+                  className={`qn-chip ${cruiseType === "private" ? "is-active" : ""}`}
+                  onClick={() => setCruiseType("private")}
+                >
+                  Private charter · whole boat
+                </button>
+                <button
+                  type="button"
+                  className={`qn-chip ${cruiseType === "disco" ? "is-active" : ""}`}
+                  onClick={() => setCruiseType("disco")}
+                >
+                  ATX Disco Cruise · per-person tickets
+                </button>
+              </div>
+              <p style={{ fontSize: "0.82rem", color: "rgba(237,227,208,0.6)", marginTop: "0.75rem", lineHeight: 1.5 }}>
+                {cruiseType === "private"
+                  ? "Book the whole boat for your group. Price by boat × hours × day of week."
+                  : "Per-person tickets on the Clever Girl. Friday 12–4pm or Saturday 11am–3pm / 3:30–7:30pm. Bach parties only, March–October."}
+              </p>
+            </div>
+
+            <div className="qn-card">
               <p className="qn-step">Step 1 · Your cruise</p>
-              <h2 className="qn-step-title">When, how long, how many</h2>
+              <h2 className="qn-step-title">
+                {cruiseType === "disco" ? "Pick your date + time slot" : "When, how long, how many"}
+              </h2>
 
-              <div className="qn-row">
-                <div className="qn-field">
-                  <label htmlFor="qn-date">Date</label>
-                  <input
-                    id="qn-date"
-                    type="date"
-                    value={date}
-                    min={format(new Date(), "yyyy-MM-dd")}
-                    onChange={(e) => setDate(e.target.value)}
-                    required
-                  />
-                </div>
-                <div className="qn-field">
-                  <label htmlFor="qn-duration">Duration</label>
-                  <select
-                    id="qn-duration"
-                    value={duration}
-                    onChange={(e) => setDuration(parseInt(e.target.value, 10))}
-                  >
-                    {[3, 4, 5, 6, 7, 8].map((h) => (
-                      <option key={h} value={h}>{h} hours</option>
+              {cruiseType === "private" ? (
+                <>
+                  <div className="qn-row">
+                    <div className="qn-field">
+                      <label htmlFor="qn-date">Date</label>
+                      <input
+                        id="qn-date"
+                        type="date"
+                        value={date}
+                        min={format(new Date(), "yyyy-MM-dd")}
+                        onChange={(e) => setDate(e.target.value)}
+                        required
+                      />
+                    </div>
+                    <div className="qn-field">
+                      <label htmlFor="qn-duration">Duration</label>
+                      <select
+                        id="qn-duration"
+                        value={duration}
+                        onChange={(e) => setDuration(parseInt(e.target.value, 10))}
+                      >
+                        {[3, 4, 5, 6, 7, 8].map((h) => (
+                          <option key={h} value={h}>{h} hours</option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+
+                  <div className="qn-field" style={{ marginBottom: "1rem" }}>
+                    <label htmlFor="qn-guests">
+                      Guest count — {guests} {guests === 1 ? "guest" : "guests"}
+                    </label>
+                    <input
+                      id="qn-guests"
+                      type="range"
+                      min={1}
+                      max={75}
+                      value={guests}
+                      onChange={(e) => setGuests(parseInt(e.target.value, 10))}
+                    />
+                  </div>
+
+                  <p className="qn-step" style={{ marginTop: "1.5rem" }}>Boat</p>
+                  <div className="qn-boat-grid">
+                    {BOATS.map((b) => (
+                      <button
+                        key={b.id}
+                        type="button"
+                        className={`qn-boat ${boat === b.id ? "is-active" : ""}`}
+                        onClick={() => setBoat(b.id)}
+                      >
+                        <div className="qn-boat__name">{b.label}</div>
+                        <div className="qn-boat__cap">{b.capMin}–{b.capMax} guests</div>
+                        <div className="qn-boat__blurb">{b.blurb}</div>
+                      </button>
                     ))}
-                  </select>
-                </div>
-              </div>
+                  </div>
+                  {recommendedBoat.crewFeeNote && (
+                    <p style={{ fontSize: "0.82rem", color: "rgba(237,227,208,0.6)", marginTop: "0.5rem" }}>
+                      Note: {recommendedBoat.crewFeeNote}.
+                    </p>
+                  )}
 
-              <div className="qn-field" style={{ marginBottom: "1rem" }}>
-                <label htmlFor="qn-guests">
-                  Guest count — {guests} {guests === 1 ? "guest" : "guests"}
-                </label>
-                <input
-                  id="qn-guests"
-                  type="range"
-                  min={1}
-                  max={75}
-                  value={guests}
-                  onChange={(e) => setGuests(parseInt(e.target.value, 10))}
-                />
-              </div>
+                  <p className="qn-step" style={{ marginTop: "1.75rem" }}>
+                    Pre-party package (optional · sized for {getCapacityTier(guests)}-guest tier)
+                  </p>
+                  <div className="qn-boat-grid">
+                    <button
+                      type="button"
+                      className={`qn-boat ${privatePackage === "none" ? "is-active" : ""}`}
+                      onClick={() => setPrivatePackage("none")}
+                    >
+                      <div className="qn-boat__name">No package</div>
+                      <div className="qn-boat__cap">Just the boat</div>
+                      <div className="qn-boat__blurb">Coolers + Bluetooth audio + bathroom are always included.</div>
+                    </button>
+                    <button
+                      type="button"
+                      className={`qn-boat ${privatePackage === "essentials" ? "is-active" : ""}`}
+                      onClick={() => setPrivatePackage("essentials")}
+                    >
+                      <div className="qn-boat__name">Essentials</div>
+                      <div className="qn-boat__cap">${privatePackages.essentials.price}</div>
+                      <div className="qn-boat__blurb">
+                        {privatePackages.essentials.items.slice(0, 3).join(" · ")}
+                        {privatePackages.essentials.items.length > 3 ? " · …" : ""}
+                      </div>
+                    </button>
+                    <button
+                      type="button"
+                      className={`qn-boat ${privatePackage === "ultimate" ? "is-active" : ""}`}
+                      onClick={() => setPrivatePackage("ultimate")}
+                    >
+                      <div className="qn-boat__name">Ultimate</div>
+                      <div className="qn-boat__cap">${privatePackages.ultimate.price}</div>
+                      <div className="qn-boat__blurb">
+                        {privatePackages.ultimate.items.slice(0, 3).join(" · ")}
+                        {privatePackages.ultimate.items.length > 3 ? " · …" : ""}
+                      </div>
+                    </button>
+                  </div>
+                  {privatePackage !== "none" && (
+                    <details style={{ marginTop: "0.75rem", color: "rgba(237,227,208,0.7)", fontSize: "0.85rem" }}>
+                      <summary style={{ cursor: "pointer", color: "#C8A96E" }}>
+                        See what's included in {privatePackage === "essentials" ? "Essentials" : "Ultimate"}
+                      </summary>
+                      <ul style={{ marginTop: "0.5rem", paddingLeft: "1.25rem", lineHeight: 1.7 }}>
+                        {privatePackages[privatePackage].items.map((item) => (
+                          <li key={item}>{item}</li>
+                        ))}
+                      </ul>
+                    </details>
+                  )}
+                </>
+              ) : (
+                <>
+                  <div className="qn-field" style={{ marginBottom: "1rem" }}>
+                    <label htmlFor="qn-disco-date">Date (Friday or Saturday only)</label>
+                    <input
+                      id="qn-disco-date"
+                      type="date"
+                      value={date}
+                      min={format(new Date(), "yyyy-MM-dd")}
+                      onChange={(e) => {
+                        setDate(e.target.value);
+                        setDiscoSlot(""); // reset slot when date changes
+                      }}
+                      required
+                    />
+                  </div>
 
-              <p className="qn-step" style={{ marginTop: "1.5rem" }}>Boat</p>
-              <div className="qn-boat-grid">
-                {BOATS.map((b) => (
-                  <button
-                    key={b.id}
-                    type="button"
-                    className={`qn-boat ${boat === b.id ? "is-active" : ""}`}
-                    onClick={() => setBoat(b.id)}
-                  >
-                    <div className="qn-boat__name">{b.label}</div>
-                    <div className="qn-boat__cap">{b.capMin}–{b.capMax} guests</div>
-                    <div className="qn-boat__blurb">{b.blurb}</div>
-                  </button>
-                ))}
-              </div>
-              {recommendedBoat.crewFeeNote && (
-                <p style={{ fontSize: "0.82rem", color: "rgba(237,227,208,0.6)", marginTop: "0.5rem" }}>
-                  Note: {recommendedBoat.crewFeeNote}.
-                </p>
+                  {availableDiscoSlots.length > 0 ? (
+                    <div style={{ marginBottom: "1.25rem" }}>
+                      <p className="qn-step" style={{ marginTop: "1rem" }}>Time slot · price per person</p>
+                      <div className="qn-boat-grid">
+                        {availableDiscoSlots.map((slot) => (
+                          <button
+                            key={slot.id}
+                            type="button"
+                            className={`qn-boat ${discoSlot === slot.id ? "is-active" : ""}`}
+                            onClick={() => setDiscoSlot(slot.id)}
+                          >
+                            <div className="qn-boat__name">{slot.short}</div>
+                            <div className="qn-boat__cap">${slot.pricePerPerson}/person</div>
+                            <div className="qn-boat__blurb">4-hour sailing on Clever Girl. BYOB friendly. Tax, tip, and booking fee added at checkout.</div>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  ) : (
+                    <p style={{ fontSize: "0.88rem", color: "#fca5a5", background: "rgba(239,68,68,0.08)", border: "1px solid rgba(239,68,68,0.3)", padding: "0.6rem 0.9rem", borderRadius: "8px", marginBottom: "1rem" }}>
+                      Pick a Friday or Saturday between March 1 and October 31 for the ATX Disco Cruise.
+                    </p>
+                  )}
+
+                  <div className="qn-field" style={{ marginBottom: "1rem" }}>
+                    <label htmlFor="qn-tickets">
+                      Tickets — {ticketQty} {ticketQty === 1 ? "person" : "people"}
+                    </label>
+                    <input
+                      id="qn-tickets"
+                      type="range"
+                      min={1}
+                      max={50}
+                      value={ticketQty}
+                      onChange={(e) => setTicketQty(parseInt(e.target.value, 10))}
+                    />
+                    <p style={{ fontSize: "0.75rem", color: "rgba(237,227,208,0.55)", marginTop: "0.3rem" }}>
+                      Shared boat — up to 100 guests total per sailing. Bach parties only.
+                    </p>
+                  </div>
+
+                  <p className="qn-step" style={{ marginTop: "1.5rem" }}>Add-ons (optional · $100 each)</p>
+                  <div className="qn-boat-grid">
+                    {DISCO_ADDONS.map((a) => (
+                      <button
+                        key={a.id}
+                        type="button"
+                        className={`qn-boat ${discoAddons.has(a.id) ? "is-active" : ""}`}
+                        onClick={() => toggleDiscoAddon(a.id)}
+                      >
+                        <div className="qn-boat__name">{a.name}</div>
+                        <div className="qn-boat__cap">$100</div>
+                        <div className="qn-boat__blurb">{a.blurb}</div>
+                      </button>
+                    ))}
+                  </div>
+
+                  {discoError && (
+                    <div className="qn-error" style={{ marginTop: "0.75rem" }}>
+                      {discoError}
+                    </div>
+                  )}
+                </>
               )}
             </div>
 
@@ -646,13 +964,33 @@ export default function QuoteNative() {
               <h3 className="qn-step-title" style={{ marginBottom: "1rem" }}>
                 Your cruise so far
               </h3>
+              <div className="qn-summary-row"><span className="l">Cruise type</span><span className="v">{cruiseType === "disco" ? "ATX Disco · per-person" : "Private charter"}</span></div>
               <div className="qn-summary-row"><span className="l">Date</span><span className="v">{format(dateObj, "MMM d, yyyy")}</span></div>
-              <div className="qn-summary-row"><span className="l">Guests</span><span className="v">{guests}</span></div>
-              <div className="qn-summary-row"><span className="l">Duration</span><span className="v">{duration} hrs</span></div>
-              <div className="qn-summary-row"><span className="l">Boat</span><span className="v">{BOATS.find((b) => b.id === boat)?.label}</span></div>
-              <div className="qn-summary-row"><span className="l">Hourly rate</span><span className="v">{currencyDecimal(pricing.hourlyRate)}</span></div>
-              {pricing.additionalCrewFee > 0 && (
-                <div className="qn-summary-row"><span className="l">Extra crew</span><span className="v">{currencyDecimal(pricing.additionalCrewFee)}</span></div>
+              {cruiseType === "disco" ? (
+                <>
+                  <div className="qn-summary-row"><span className="l">Time slot</span><span className="v">{getDiscoSlot(discoSlot)?.short ?? "—"}</span></div>
+                  <div className="qn-summary-row"><span className="l">Tickets × {ticketQty}</span><span className="v">{currencyDecimal(pricing.ticketsSubtotal || 0)}</span></div>
+                  <div className="qn-summary-row"><span className="l">Per person</span><span className="v">{currencyDecimal(pricing.pricePerPerson)}</span></div>
+                  {(pricing.addonsSubtotal ?? 0) > 0 && (
+                    <div className="qn-summary-row"><span className="l">Add-ons × {discoAddons.size}</span><span className="v">{currencyDecimal(pricing.addonsSubtotal || 0)}</span></div>
+                  )}
+                </>
+              ) : (
+                <>
+                  <div className="qn-summary-row"><span className="l">Guests</span><span className="v">{guests}</span></div>
+                  <div className="qn-summary-row"><span className="l">Duration</span><span className="v">{duration} hrs</span></div>
+                  <div className="qn-summary-row"><span className="l">Boat</span><span className="v">{BOATS.find((b) => b.id === boat)?.label}</span></div>
+                  <div className="qn-summary-row"><span className="l">Hourly rate</span><span className="v">{currencyDecimal(pricing.hourlyRate)}</span></div>
+                  {pricing.additionalCrewFee > 0 && (
+                    <div className="qn-summary-row"><span className="l">Extra crew</span><span className="v">{currencyDecimal(pricing.additionalCrewFee)}</span></div>
+                  )}
+                  {privatePackage !== "none" && (
+                    <div className="qn-summary-row">
+                      <span className="l">{privatePackage === "essentials" ? "Essentials" : "Ultimate"} package</span>
+                      <span className="v">{currencyDecimal(privatePackagePrice)}</span>
+                    </div>
+                  )}
+                </>
               )}
               <div className="qn-summary-row"><span className="l">Subtotal</span><span className="v">{currencyDecimal(pricing.subtotal)}</span></div>
               <div className="qn-summary-row"><span className="l">20% gratuity</span><span className="v">{currencyDecimal(pricing.gratuity)}</span></div>

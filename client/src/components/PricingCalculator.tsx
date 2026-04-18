@@ -23,6 +23,10 @@ import { useQuoteLightbox } from "./QuoteLightbox";
 import {
   calculatePricing,
   getAutoCrewFeePerHour,
+  getPrivatePackages,
+  getCapacityTier,
+  DISCO_TIME_SLOTS,
+  DISCO_ADDONS,
 } from "@/lib/pricing";
 import { addDays, getDay, startOfDay } from "date-fns";
 
@@ -562,6 +566,121 @@ export default function PricingCalculator() {
         <a href="tel:+15124885892" className="pc-cta pc-cta--outline">
           Call (512) 488-5892
         </a>
+      </div>
+
+      {/* ── Optional pre-party packages preview ─────────────────────── */}
+      <div
+        style={{
+          marginTop: "2.5rem",
+          paddingTop: "2rem",
+          borderTop: "1px solid rgba(200,169,110,0.2)",
+        }}
+      >
+        <p
+          style={{
+            fontSize: "0.68rem",
+            letterSpacing: "0.25em",
+            textTransform: "uppercase",
+            color: "#C8A96E",
+            marginBottom: "0.75rem",
+            fontWeight: 500,
+          }}
+        >
+          Optional · Pre-party packages for {getCapacityTier(guestCount)}-guest tier
+        </p>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            gap: "0.75rem",
+          }}
+        >
+          {(["essentials", "ultimate"] as const).map((tier) => {
+            const pkg = getPrivatePackages(guestCount)[tier];
+            return (
+              <div
+                key={tier}
+                style={{
+                  background: "rgba(200,169,110,0.04)",
+                  border: "1px solid rgba(200,169,110,0.22)",
+                  borderRadius: "10px",
+                  padding: "1rem",
+                }}
+              >
+                <p
+                  style={{
+                    fontFamily: "'Cormorant Garamond', serif",
+                    fontSize: "1.2rem",
+                    color: "#F5EED8",
+                    margin: "0 0 0.25rem",
+                    textTransform: "capitalize",
+                  }}
+                >
+                  {tier} · ${pkg.price}
+                </p>
+                <p style={{ fontSize: "0.78rem", color: "rgba(237,227,208,0.65)", margin: 0, lineHeight: 1.5 }}>
+                  {pkg.items.slice(0, 3).join(" · ")}
+                  {pkg.items.length > 3 ? " · +" + (pkg.items.length - 3) + " more" : ""}
+                </p>
+              </div>
+            );
+          })}
+        </div>
+        <p style={{ fontSize: "0.75rem", color: "rgba(237,227,208,0.55)", marginTop: "0.5rem" }}>
+          Add Essentials or Ultimate to your quote on the next page — both include everything set up before you step on the boat.
+        </p>
+      </div>
+
+      {/* ── ATX Disco cruise peek ──────────────────────────────────── */}
+      <div
+        style={{
+          marginTop: "1.5rem",
+          paddingTop: "1.5rem",
+          borderTop: "1px solid rgba(200,169,110,0.2)",
+        }}
+      >
+        <p
+          style={{
+            fontSize: "0.68rem",
+            letterSpacing: "0.25em",
+            textTransform: "uppercase",
+            color: "#C8A96E",
+            marginBottom: "0.75rem",
+            fontWeight: 500,
+          }}
+        >
+          Bachelor / bachelorette? · ATX Disco Cruise · per-person tickets
+        </p>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "0.6rem", marginBottom: "0.6rem" }}>
+          {[...DISCO_TIME_SLOTS.friday, ...DISCO_TIME_SLOTS.saturday].map((slot) => (
+            <div
+              key={slot.id}
+              style={{
+                background: "rgba(200,169,110,0.04)",
+                border: "1px solid rgba(200,169,110,0.22)",
+                borderRadius: "10px",
+                padding: "0.75rem",
+                textAlign: "center",
+              }}
+            >
+              <p style={{ fontSize: "0.78rem", color: "rgba(237,227,208,0.75)", margin: 0 }}>{slot.short}</p>
+              <p
+                style={{
+                  fontFamily: "'Cormorant Garamond', serif",
+                  fontSize: "1.4rem",
+                  color: "#C8A96E",
+                  margin: "0.2rem 0 0",
+                }}
+              >
+                ${slot.pricePerPerson}
+              </p>
+              <p style={{ fontSize: "0.65rem", color: "rgba(237,227,208,0.5)", margin: 0 }}>per person</p>
+            </div>
+          ))}
+        </div>
+        <p style={{ fontSize: "0.75rem", color: "rgba(237,227,208,0.55)", lineHeight: 1.5 }}>
+          Optional $100 add-ons: {DISCO_ADDONS.map((a) => a.name).join(" · ")}.
+        </p>
       </div>
 
       <p className="pc-footnote">
