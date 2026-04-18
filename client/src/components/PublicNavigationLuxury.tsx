@@ -37,36 +37,63 @@ const LUX_NAV_STYLES = `
 .lux-header-stack > * { pointer-events: auto; }
 
 /* Spacer reserves document flow below the fixed header so nothing collides.
-   Height matches promo (~33px) + nav (~64px). Use CSS var so it stays
-   synced with nav padding changes in media queries. */
+   Heights tuned per breakpoint (promo bar is 2-line on phones). */
 .lux-header-spacer {
   height: var(--lux-header-height, 97px);
   flex-shrink: 0;
 }
-@media (max-width: 1000px) {
-  .lux-header-spacer { height: 88px; }
-}
-@media (max-width: 760px) {
-  .lux-header-spacer { height: 84px; }
-}
-@media (max-width: 480px) {
-  .lux-header-spacer { height: 78px; }
-}
+@media (max-width: 1000px) { .lux-header-spacer { height: 88px; } }
+@media (max-width: 760px)  { .lux-header-spacer { height: 92px; } }   /* promo stacks */
+@media (max-width: 480px)  { .lux-header-spacer { height: 86px; } }
 
 /* ── Promo Banner (refined: black + gold, no yellow) ── */
 .lux-promo-banner {
   background: linear-gradient(90deg, #07070C 0%, #0D0D18 50%, #07070C 100%);
   color: var(--lux-gold-light);
-  padding: 0.55rem 1rem;
+  padding: 0.5rem 1.25rem;
   text-align: center;
   font-family: var(--lux-font-body);
-  font-size: 0.78rem;
+  font-size: 0.76rem;
   font-weight: 400;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.11em;
   text-transform: uppercase;
   border-bottom: 1px solid var(--lux-border);
   position: relative;
   z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.8rem;
+  line-height: 1.4;
+}
+.lux-promo-line {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  white-space: nowrap;
+}
+.lux-promo-line--primary { color: var(--lux-cream); }
+.lux-promo-icon {
+  color: var(--lux-gold);
+  font-size: 0.9em;
+  line-height: 1;
+  transform: translateY(-1px);
+}
+.lux-promo-sep {
+  color: rgba(200,169,110,0.35);
+  font-weight: 300;
+}
+.lux-promo-line--cta {
+  color: var(--lux-gold-light);
+  text-decoration: none;
+  border-bottom: 1px dotted rgba(200,169,110,0.55);
+  padding-bottom: 1px;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+.lux-promo-line--cta:hover {
+  color: var(--lux-gold-pale, #EDD9AA);
+  border-bottom-color: var(--lux-gold);
 }
 .lux-promo-banner::before {
   content: '';
@@ -565,11 +592,16 @@ const LUX_NAV_STYLES = `
     font-size: 0.68rem;
     letter-spacing: 0.08em;
   }
+  /* Promo stacks to two lines on phones, separator hidden */
   .lux-promo-banner {
-    font-size: 0.65rem;
-    padding: 0.42rem 0.6rem;
+    font-size: 0.62rem;
+    padding: 0.4rem 0.7rem;
     letter-spacing: 0.06em;
+    gap: 0.15rem 0.6rem;
+    flex-direction: column;
   }
+  .lux-promo-sep { display: none; }
+  .lux-promo-line { white-space: normal; }
   /* Mobile drawer: right-size the tap targets + text */
   .lux-nav-mobile-link {
     font-size: 1rem !important;
@@ -659,9 +691,16 @@ export default function PublicNavigationLuxury() {
 
       {/* Fixed header stack: promo + nav never overlap */}
       <div className="lux-header-stack">
-        {/* Promo Banner (black + gold, no yellow) */}
+        {/* Promo Banner — luxury take on live site's 2-line offer */}
         <div className="lux-promo-banner">
-          Book by <em>Feb 5th</em> · <strong>$150 OFF</strong> Your Party Cruise · <em>Limited Dates</em>
+          <span className="lux-promo-line lux-promo-line--primary">
+            <span className="lux-promo-icon" aria-hidden="true">✦</span>
+            Request a quote to unlock a <strong>$150–$300+</strong> discount on your party cruise
+          </span>
+          <span className="lux-promo-sep" aria-hidden="true">·</span>
+          <a href="/chat" className="lux-promo-line lux-promo-line--cta">
+            Book in the <em>next 10 days</em> — <strong>save $150</strong>
+          </a>
         </div>
 
         {/* Navigation */}
