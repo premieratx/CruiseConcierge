@@ -9,6 +9,7 @@
  */
 
 import { useQuoteLightbox } from "./QuoteLightbox";
+import PhotoGallery, { EMPTY_BOAT_PHOTOS, PEOPLE_PHOTOS, BOAT_TABS } from "./PhotoGallery";
 
 type Boat = {
   name: string;
@@ -249,6 +250,26 @@ export default function FleetShowcase() {
         <a href="/pricing">full pricing calculator</a> for your exact estimate, or{" "}
         <a href="/chat">request a quote</a> for real-time availability.
       </p>
+
+      {/* Empty boats — scrolling photo gallery with per-boat tabs */}
+      <PhotoGallery
+        photos={EMPTY_BOAT_PHOTOS}
+        tabs={BOAT_TABS}
+        defaultTabId="all"
+        eyebrow="The Boats · Product Shots"
+        title={<>Every angle of the <em>fleet</em></>}
+        subtitle="Filter by boat to see the full walkthrough — capacity, deck layout, and interior of each charter."
+      />
+
+      {/* People having fun — same tabs, different photo set */}
+      <PhotoGallery
+        photos={PEOPLE_PHOTOS}
+        tabs={BOAT_TABS}
+        defaultTabId="all"
+        eyebrow="Real Guests · Real Moments"
+        title={<>Lake Travis, on your <em>best</em> day</>}
+        subtitle="150,000+ guests since 2009. Filter by boat to see how each one comes alive on the water."
+      />
     </section>
   );
 }

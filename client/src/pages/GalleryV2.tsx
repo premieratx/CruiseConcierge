@@ -1,4 +1,5 @@
 import V2PageTemplate from '@/components/V2PageTemplate';
+import PhotoGallery, { PEOPLE_PHOTOS, DISCO_PHOTOS, BOAT_TABS } from '@/components/PhotoGallery';
 
 /**
  * GalleryV2 — Real guests, real parties. Photo-driven luxury gallery.
@@ -214,20 +215,25 @@ export default function GalleryV2() {
           long-weekend friends making memories on Lake Travis.
         </p>
 
-        <div className="hp2-gallery">
-          {GALLERY_IMAGES.map((img, i) => (
-            <a key={i} href="/book" className="hp2-gallery__item" aria-label={img.alt}>
-              <img
-                src={img.src}
-                alt={img.alt}
-                className="hp2-gallery__img"
-                loading={i < 4 ? 'eager' : 'lazy'}
-              />
-              <div className="hp2-gallery__caption">{img.caption}</div>
-            </a>
-          ))}
-        </div>
       </section>
+
+      {/* Top-level tabs: Private Parties vs ATX Disco Cruise (with per-boat subset tabs) */}
+      <PhotoGallery
+        photos={PEOPLE_PHOTOS}
+        tabs={BOAT_TABS}
+        defaultTabId="all"
+        eyebrow="Private Parties · Real Guests"
+        title={<>Private charters — <em>bachelor, bachelorette, wedding, corporate</em></>}
+        subtitle="Filter by boat to see how each one looks during an actual private charter. Bachelorettes, corporate teams, wedding guests, birthday crews — no stock photos."
+      />
+
+      <PhotoGallery
+        photos={DISCO_PHOTOS}
+        defaultTabId="atx-disco"
+        eyebrow="ATX Disco Cruise · Public Sailings"
+        title={<>The <em>ATX Disco Cruise</em> experience</>}
+        subtitle="Our signature shared-cruise event on Clever Girl — professional DJ, pro photographer, 14 disco balls, every Friday + Saturday in season."
+      />
 
       <section className="hp2-section--alt">
         <div className="hp2-section__inner">
