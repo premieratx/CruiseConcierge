@@ -20,6 +20,11 @@
 
 import { useMemo, useState } from "react";
 import { useQuoteLightbox } from "./QuoteLightbox";
+import {
+  calculatePricing,
+  getAutoCrewFeePerHour,
+} from "@/lib/pricing";
+import { addDays, getDay, startOfDay } from "date-fns";
 
 type BoatTier = "day-tripper" | "meeseeks-irony" | "clever-girl";
 
@@ -403,14 +408,40 @@ export default function PricingCalculator() {
   const boat = BOATS.find((b) => b.id === boatId) ?? BOATS[0];
   const day = DAYS.find((d) => d.id === dayId) ?? DAYS[6];
 
+  // Resolve a concrete Date that matches the selected day-of-week. The
+  // shared pricing library keys off Date (to honor holiday overrides), so
+  // we pick the next occurrence of the chosen weekday starting from today.
+  const resolvedDate = useMemo(() => {
+    const today = startOfDay(new Date());
+    const offset = (dayId - getDay(today) + 7) % 7 || 7;
+    return addDays(today, offset);
+  }, [dayId]);
+
+  // Guest count used for pricing tiers. We pick the MIDPOINT of the boat's
+  // capacity band so the calculator doesn't over- or under-quote; the real
+  // quote flow asks for exact headcount.
+  const guestCount = useMemo(() => {
+    return Math.round((boat.capacityMin + boat.capacityMax) / 2);
+  }, [boat]);
+
   const calc = useMemo(() => {
-    const subtotal = boat.hourly * hours;
-    const gratuity = subtotal * GRATUITY_RATE;
-    const tax = subtotal * SALES_TAX_RATE;
-    const bookingFee = subtotal * BOOKING_FEE_RATE;
-    const total = subtotal + gratuity + tax + bookingFee;
-    return { subtotal, gratuity, tax, bookingFee, total };
-  }, [boat, hours]);
+    const crewFeePerHour = getAutoCrewFeePerHour(guestCount);
+    const result = calculatePricing({
+      date: resolvedDate,
+      guestCount,
+      duration: hours,
+      crewFeePerHour,
+    });
+    return {
+      subtotal: result.subtotal,
+      gratuity: result.gratuity,
+      tax: result.tax,
+      bookingFee: result.xolaFee, // Xola fee is our 3% booking fee
+      total: result.total,
+      hourlyRate: result.hourlyRate,
+      crewFee: result.additionalCrewFee,
+    };
+  }, [resolvedDate, guestCount, hours]);
 
   const sliderProgress = ((hours - MIN_HOURS) / (MAX_HOURS - MIN_HOURS)) * 100;
 
@@ -517,7 +548,14 @@ export default function PricingCalculator() {
         <button
           type="button"
           className="pc-cta pc-cta--primary"
-          onClick={() => openQuote("pricing_calculator")}
+          onClick={() =>
+            openQuote("pricing_calculator", {
+              guests: guestCount,
+              duration: hours,
+              date: resolvedDate.toISOString().slice(0, 10),
+              boat: boat.id,
+            })
+          }
         >
           Get a real quote →
         </button>

@@ -32,6 +32,7 @@ import Home from "./pages/Home";
 import HomeNew from "./pages/Home-New";
 
 // V2 Luxury pages - lazy loaded for performance
+const QuoteNative = lazy(() => import("./pages/QuoteNative"));
 const BacheloretteV2 = lazy(() => import("./pages/BacheloretteV2"));
 const BachelorV2 = lazy(() => import("./pages/BachelorV2"));
 const CombinedBachV2 = lazy(() => import("./pages/CombinedBachV2"));
@@ -425,6 +426,9 @@ function Router() {
   return (
     <Suspense fallback={<PageSkeleton />}>
       <Switch>
+        {/* Native quote flow — replaces the legacy lightbox iframe */}
+        <Route path="/quote" component={QuoteNative} />
+
         {/* Public Homepage */}
         <Route path="/" component={HomeNew} />
         <Route path="/home-v2" component={HomeNew} />
