@@ -305,15 +305,23 @@ const HP2_STYLES = `
   flex-wrap: wrap;
 }
 .hp2-quote-embed__frame-wrap {
-  max-width: 1100px;
+  max-width: 860px;
   margin: 0 auto;
-  border: 1px solid var(--hp2-border);
+  border: 1.5px solid rgba(30, 136, 229, 0.55);
   border-radius: 14px;
   overflow: hidden;
-  background: #FFFFFF;
+  background: transparent;
   box-shadow:
-    0 30px 80px rgba(0,0,0,0.5),
-    0 0 0 1px rgba(200,169,110,0.1);
+    0 30px 80px rgba(0,0,0,0.55),
+    0 0 0 1px rgba(30, 136, 229, 0.18),
+    0 0 42px rgba(30, 136, 229, 0.14);
+}
+.hp2-quote-embed__frame-wrap .eqf-root {
+  margin: 0 !important;
+  max-width: none !important;
+  border-radius: 0 !important;
+  border: 0 !important;
+  box-shadow: none !important;
 }
 .hp2-quote-embed__frame {
   width: 100%;
