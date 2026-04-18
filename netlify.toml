@@ -27,6 +27,331 @@
   status = 200
   force = true
 
+# ──────────────────────────────────────────────────────────────────────────
+# 301 redirects: -v2 preview URLs → canonical.
+# During the V2 iteration we exposed pages at `/xxx-v2`. Those have now
+# replaced the canonical URLs, so the -v2 slugs are duplicates. Redirect
+# them server-side (301 permanent) so search engines and bookmarks land
+# on the single canonical URL.
+# ──────────────────────────────────────────────────────────────────────────
+[[redirects]]
+  from = "/home-v2"
+  to = "/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/bachelorette-v2"
+  to = "/bachelorette-party-austin"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/bachelor-v2"
+  to = "/bachelor-party-austin"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/combined-bach-v2"
+  to = "/combined-bachelor-bachelorette-austin"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/disco-v2"
+  to = "/atx-disco-cruise"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/private-cruises-v2"
+  to = "/private-cruises"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/corporate-v2"
+  to = "/corporate-events"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/birthday-v2"
+  to = "/birthday-parties"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/wedding-v2"
+  to = "/wedding-parties"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/party-boat-austin-v2"
+  to = "/party-boat-austin"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/party-boat-lake-travis-v2"
+  to = "/party-boat-lake-travis"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/gallery-v2"
+  to = "/gallery"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/contact-v2"
+  to = "/contact"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/pricing-v2"
+  to = "/pricing"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/pricing-breakdown-v2"
+  to = "/pricing-breakdown"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/testimonials-faq-v2"
+  to = "/testimonials-faq"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/faq-v2"
+  to = "/faq"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/site-directory-v2"
+  to = "/site-directory"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/after-party-v2"
+  to = "/after-party"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/welcome-party-v2"
+  to = "/welcome-party"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/rehearsal-dinner-v2"
+  to = "/rehearsal-dinner"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/rehearsal-dinner-cruise-v2"
+  to = "/rehearsal-dinner-cruise"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/bridal-shower-cruise-v2"
+  to = "/bridal-shower-cruise"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/engagement-party-cruise-v2"
+  to = "/engagement-party-cruise"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/anniversary-cruise-v2"
+  to = "/anniversary-cruise"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/wedding-anniversary-celebration-ideas-v2"
+  to = "/wedding-anniversary-celebration-ideas"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/proposal-cruise-v2"
+  to = "/proposal-cruise"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/team-building-v2"
+  to = "/team-building"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/client-entertainment-v2"
+  to = "/client-entertainment"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/company-milestone-v2"
+  to = "/company-milestone"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/holiday-party-cruise-v2"
+  to = "/holiday-party-cruise"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/sweet-16-v2"
+  to = "/sweet-16"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/milestone-birthday-v2"
+  to = "/milestone-birthday"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/birthday-party-boat-rental-v2"
+  to = "/birthday-party-boat-rental"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/graduation-party-v2"
+  to = "/graduation-party"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/graduation-cruise-v2"
+  to = "/graduation-cruise"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/prom-cruise-v2"
+  to = "/prom-cruise"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/retirement-party-cruise-v2"
+  to = "/retirement-party-cruise"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/family-reunion-cruise-v2"
+  to = "/family-reunion-cruise"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/baby-shower-cruise-v2"
+  to = "/baby-shower-cruise"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/gender-reveal-cruise-v2"
+  to = "/gender-reveal-cruise"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/memorial-celebration-cruise-v2"
+  to = "/memorial-celebration-cruise"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/celebration-cruises-v2"
+  to = "/celebration-cruises"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/3-day-austin-bachelorette-itinerary-v2"
+  to = "/3-day-austin-bachelorette-itinerary"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/adventure-austin-bachelorette-v2"
+  to = "/adventure-austin-bachelorette"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/budget-austin-bachelorette-v2"
+  to = "/budget-austin-bachelorette"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/luxury-austin-bachelorette-v2"
+  to = "/luxury-austin-bachelorette"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/austin-bachelorette-nightlife-v2"
+  to = "/austin-bachelorette-nightlife"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/top-10-austin-bachelorette-ideas-v2"
+  to = "/top-10-austin-bachelorette-ideas"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/ultimate-austin-bachelorette-weekend-v2"
+  to = "/ultimate-austin-bachelorette-weekend"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/austin-bachelor-party-ideas-v2"
+  to = "/austin-bachelor-party-ideas"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/lake-travis-bachelor-party-boats-v2"
+  to = "/lake-travis-bachelor-party-boats"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/first-time-lake-travis-boat-rental-guide-v2"
+  to = "/first-time-lake-travis-boat-rental-guide"
+  status = 301
+  force = true
+
 # /attached_assets/* is now shipped with the build (see build command), so
 # no proxy needed. Falls back to the 404 page if a file is missing.
 

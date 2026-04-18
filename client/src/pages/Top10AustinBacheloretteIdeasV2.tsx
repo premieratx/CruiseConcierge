@@ -210,7 +210,7 @@ export default function Top10AustinBacheloretteIdeasV2() {
           </div>
           <div style={{ marginTop: '2rem' }}>
             <p className="hp2-section__body">
-              Related: <a href="/bachelorette-party-austin" style={{ color: 'var(--hp2-gold)', textDecoration: 'underline' }}>Main bachelorette page</a> · <a href="/3-day-austin-bachelorette-itinerary-v2" style={{ color: 'var(--hp2-gold)', textDecoration: 'underline' }}>3-day itinerary</a> · <a href="/ultimate-austin-bachelorette-weekend-v2" style={{ color: 'var(--hp2-gold)', textDecoration: 'underline' }}>Ultimate weekend guide</a> · <a href="/budget-austin-bachelorette-v2" style={{ color: 'var(--hp2-gold)', textDecoration: 'underline' }}>Budget guide</a> · <a href="/luxury-austin-bachelorette-v2" style={{ color: 'var(--hp2-gold)', textDecoration: 'underline' }}>Luxury guide</a>
+              Related: <a href="/bachelorette-party-austin" style={{ color: 'var(--hp2-gold)', textDecoration: 'underline' }}>Main bachelorette page</a> · <a href="/3-day-austin-bachelorette-itinerary" style={{ color: 'var(--hp2-gold)', textDecoration: 'underline' }}>3-day itinerary</a> · <a href="/ultimate-austin-bachelorette-weekend" style={{ color: 'var(--hp2-gold)', textDecoration: 'underline' }}>Ultimate weekend guide</a> · <a href="/budget-austin-bachelorette" style={{ color: 'var(--hp2-gold)', textDecoration: 'underline' }}>Budget guide</a> · <a href="/luxury-austin-bachelorette" style={{ color: 'var(--hp2-gold)', textDecoration: 'underline' }}>Luxury guide</a>
             </p>
           </div>
         </div>

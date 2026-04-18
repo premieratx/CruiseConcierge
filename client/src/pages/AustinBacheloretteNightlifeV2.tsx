@@ -221,7 +221,7 @@ export default function AustinBacheloretteNightlifeV2() {
           </div>
           <div style={{ marginTop: '2rem' }}>
             <p className="hp2-section__body">
-              Related: <a href="/bachelorette-party-austin" style={{ color: 'var(--hp2-gold)', textDecoration: 'underline' }}>Main bachelorette page</a> · <a href="/3-day-austin-bachelorette-itinerary-v2" style={{ color: 'var(--hp2-gold)', textDecoration: 'underline' }}>3-day itinerary</a> · <a href="/top-10-austin-bachelorette-ideas-v2" style={{ color: 'var(--hp2-gold)', textDecoration: 'underline' }}>Top 10 bachelorette ideas</a> · <a href="/after-party" style={{ color: 'var(--hp2-gold)', textDecoration: 'underline' }}>After-party options</a>
+              Related: <a href="/bachelorette-party-austin" style={{ color: 'var(--hp2-gold)', textDecoration: 'underline' }}>Main bachelorette page</a> · <a href="/3-day-austin-bachelorette-itinerary" style={{ color: 'var(--hp2-gold)', textDecoration: 'underline' }}>3-day itinerary</a> · <a href="/top-10-austin-bachelorette-ideas" style={{ color: 'var(--hp2-gold)', textDecoration: 'underline' }}>Top 10 bachelorette ideas</a> · <a href="/after-party" style={{ color: 'var(--hp2-gold)', textDecoration: 'underline' }}>After-party options</a>
             </p>
           </div>
         </div>

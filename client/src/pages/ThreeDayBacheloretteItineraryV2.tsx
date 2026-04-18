@@ -261,7 +261,7 @@ export default function ThreeDayBacheloretteItineraryV2() {
         </div>
         <div style={{ marginTop: '2rem' }}>
           <p className="hp2-section__body">
-            See also: <a href="/budget-austin-bachelorette-v2" style={{ color: 'var(--hp2-gold)', textDecoration: 'underline' }}>Budget Austin bachelorette guide</a> · <a href="/luxury-austin-bachelorette-v2" style={{ color: 'var(--hp2-gold)', textDecoration: 'underline' }}>Luxury Austin bachelorette guide</a> · <a href="/ultimate-austin-bachelorette-weekend-v2" style={{ color: 'var(--hp2-gold)', textDecoration: 'underline' }}>Ultimate Austin bachelorette weekend</a> · <a href="/top-10-austin-bachelorette-ideas-v2" style={{ color: 'var(--hp2-gold)', textDecoration: 'underline' }}>Top 10 bachelorette ideas</a>
+            See also: <a href="/budget-austin-bachelorette" style={{ color: 'var(--hp2-gold)', textDecoration: 'underline' }}>Budget Austin bachelorette guide</a> · <a href="/luxury-austin-bachelorette" style={{ color: 'var(--hp2-gold)', textDecoration: 'underline' }}>Luxury Austin bachelorette guide</a> · <a href="/ultimate-austin-bachelorette-weekend" style={{ color: 'var(--hp2-gold)', textDecoration: 'underline' }}>Ultimate Austin bachelorette weekend</a> · <a href="/top-10-austin-bachelorette-ideas" style={{ color: 'var(--hp2-gold)', textDecoration: 'underline' }}>Top 10 bachelorette ideas</a>
           </p>
         </div>
       </section>
