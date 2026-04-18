@@ -221,3 +221,246 @@
   background-color: #0F0F18 !important;
   border: 1px solid rgba(200, 169, 110, 0.3) !important;
 }
+
+/* ══════════════════════════════════════════════════════════════════
+ * READABILITY HARDENING
+ * Force dark surfaces everywhere so gold text never sits on white.
+ * ══════════════════════════════════════════════════════════════════ */
+
+/* Any white / light surface → deep charcoal (FormalQuoteDisplay has
+ * inline bg-white on several content cards). */
+.v2-luxury-root [class*="bg-white"],
+.v2-luxury-root [style*="background: white"],
+.v2-luxury-root [style*="background-color: white"],
+.v2-luxury-root [style*="background:#fff"],
+.v2-luxury-root [style*="background-color:#fff"],
+.v2-luxury-root [style*="background: #fff"],
+.v2-luxury-root [style*="background-color: #fff"],
+.v2-luxury-root [style*="background: rgb(255, 255, 255)"],
+.v2-luxury-root [style*="background-color: rgb(255, 255, 255)"] {
+  background-color: #0F0F18 !important;
+  background-image: linear-gradient(180deg, rgba(200, 169, 110, 0.04) 0%, transparent 60%) !important;
+}
+
+/* Light pastel bgs → slightly lifted dark */
+.v2-luxury-root [class*="bg-gray-50"],
+.v2-luxury-root [class*="bg-gray-100"],
+.v2-luxury-root [class*="bg-stone-50"],
+.v2-luxury-root [class*="bg-stone-100"],
+.v2-luxury-root [class*="bg-neutral-50"],
+.v2-luxury-root [class*="bg-neutral-100"],
+.v2-luxury-root [class*="bg-zinc-50"],
+.v2-luxury-root [class*="bg-zinc-100"],
+.v2-luxury-root [class*="bg-amber-50"],
+.v2-luxury-root [class*="bg-yellow-50"],
+.v2-luxury-root [class*="bg-orange-50"],
+.v2-luxury-root [class*="bg-purple-50"],
+.v2-luxury-root [class*="bg-emerald-50"],
+.v2-luxury-root [class*="bg-green-50"],
+.v2-luxury-root [class*="bg-sky-50"],
+.v2-luxury-root [class*="bg-blue-50"],
+.v2-luxury-root [class*="bg-amber-100"],
+.v2-luxury-root [class*="bg-yellow-100"] {
+  background-color: #141423 !important;
+}
+
+/* Dark text on light bg → cream */
+.v2-luxury-root [class*="text-gray-900"],
+.v2-luxury-root [class*="text-gray-800"],
+.v2-luxury-root [class*="text-gray-700"],
+.v2-luxury-root [class*="text-stone-900"],
+.v2-luxury-root [class*="text-stone-800"],
+.v2-luxury-root [class*="text-zinc-900"],
+.v2-luxury-root [class*="text-zinc-800"],
+.v2-luxury-root [class*="text-black"] {
+  color: #F5EED8 !important;
+}
+
+.v2-luxury-root [class*="text-gray-600"],
+.v2-luxury-root [class*="text-gray-500"],
+.v2-luxury-root [class*="text-stone-600"],
+.v2-luxury-root [class*="text-stone-500"],
+.v2-luxury-root [class*="text-zinc-600"],
+.v2-luxury-root [class*="text-zinc-500"] {
+  color: rgba(237, 227, 208, 0.72) !important;
+}
+
+/* Strong color accents on light surfaces (e.g. orange-600 text on
+ * amber-50 callout) — after we darken the surface, rebalance the
+ * accent toward cream-gold so it stays legible. */
+.v2-luxury-root [class*="bg-amber-50"] [class*="text-amber-"],
+.v2-luxury-root [class*="bg-amber-50"] [class*="text-orange-"],
+.v2-luxury-root [class*="bg-yellow-50"] [class*="text-yellow-"],
+.v2-luxury-root [class*="bg-amber-100"] [class*="text-amber-"],
+.v2-luxury-root [class*="bg-yellow-100"] [class*="text-yellow-"] {
+  color: #E6D4A6 !important; /* warm cream-gold — high contrast on dark amber */
+}
+
+/* Inputs, selects, text areas on light surfaces */
+.v2-luxury-root input:not([type="checkbox"]):not([type="radio"]),
+.v2-luxury-root textarea,
+.v2-luxury-root select,
+.v2-luxury-root [class*="bg-white"] input,
+.v2-luxury-root [class*="bg-white"] textarea,
+.v2-luxury-root [class*="bg-white"] select {
+  background-color: #07070C !important;
+  border-color: rgba(200, 169, 110, 0.28) !important;
+  color: #F5EED8 !important;
+}
+.v2-luxury-root input::placeholder,
+.v2-luxury-root textarea::placeholder {
+  color: rgba(237, 227, 208, 0.38) !important;
+}
+
+/* Radio + checkbox borders */
+.v2-luxury-root input[type="checkbox"],
+.v2-luxury-root input[type="radio"] {
+  accent-color: #C8A96E !important;
+}
+
+/* The large display headlines inside FormalQuoteDisplay ("How many
+ * tickets do you need?", "Disco Cruise Add-Ons", "Quote Summary")
+ * used a bold sans on white. Move them to serif cream. */
+.v2-luxury-root h1, .v2-luxury-root h2, .v2-luxury-root h3 {
+  color: #F5EED8 !important;
+}
+
+/* Price badges + "+$100" / "+$150" pills — currently gold on white.
+ * Force cream-gold on dark for contrast. */
+.v2-luxury-root [class*="text-amber-600"],
+.v2-luxury-root [class*="text-amber-700"],
+.v2-luxury-root [class*="text-yellow-600"],
+.v2-luxury-root [class*="text-yellow-700"],
+.v2-luxury-root [class*="text-orange-600"],
+.v2-luxury-root [class*="text-orange-700"] {
+  color: #E6D4A6 !important;
+}
+
+/* "BEST VALUE" / "AFTER 10 DAYS" pill badges: gold bg + dark text */
+.v2-luxury-root [class*="bg-green-100"],
+.v2-luxury-root [class*="bg-green-200"],
+.v2-luxury-root [class*="bg-emerald-100"],
+.v2-luxury-root [class*="bg-emerald-200"] {
+  background-color: rgba(47, 138, 92, 0.22) !important;
+  color: #9FDDB9 !important;
+}
+.v2-luxury-root [class*="bg-green-100"] *,
+.v2-luxury-root [class*="bg-emerald-100"] * { color: #9FDDB9 !important; }
+
+.v2-luxury-root [class*="bg-gray-200"],
+.v2-luxury-root [class*="bg-neutral-200"],
+.v2-luxury-root [class*="bg-stone-200"],
+.v2-luxury-root [class*="bg-zinc-200"] {
+  background-color: rgba(237, 227, 208, 0.12) !important;
+  color: rgba(237, 227, 208, 0.85) !important;
+}
+
+/* Ring / border visibility on dark surface */
+.v2-luxury-root [class*="ring-1"],
+.v2-luxury-root [class*="ring-2"] {
+  --tw-ring-color: rgba(200, 169, 110, 0.35) !important;
+}
+
+/* Divider lines on content cards */
+.v2-luxury-root [class*="divide-gray"] > * + *,
+.v2-luxury-root [class*="divide-stone"] > * + *,
+.v2-luxury-root [class*="divide-zinc"] > * + *,
+.v2-luxury-root [class*="divide-neutral"] > * + * {
+  border-color: rgba(200, 169, 110, 0.15) !important;
+}
+
+/* Links and underlined CTAs ("Book in next 10 days for $150 off") */
+.v2-luxury-root a, .v2-luxury-root [class*="underline"] {
+  color: #E6D4A6 !important;
+  text-decoration-color: rgba(200, 169, 110, 0.45) !important;
+}
+.v2-luxury-root a:hover { color: #F5EED8 !important; }
+
+/* Card shadows look murky on dark — replace with subtle gold glow */
+.v2-luxury-root [class*="shadow-lg"],
+.v2-luxury-root [class*="shadow-xl"],
+.v2-luxury-root [class*="shadow-md"] {
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(200, 169, 110, 0.10) inset !important;
+}
+
+/* ══════════════════════════════════════════════════════════════════
+ * SHADCN CSS VARIABLE OVERRIDES
+ * The ported Lovable app uses shadcn tokens (--card, --background,
+ * --foreground, --muted, --popover, --primary) that resolve to
+ * light values by default. Override them inside the luxury root so
+ * every shadcn-styled Card, Dialog, Popover, etc. is on dark.
+ * ══════════════════════════════════════════════════════════════════ */
+.v2-luxury-root {
+  --background: 240 14% 6%;         /* #0B0B11 */
+  --foreground: 42 40% 91%;          /* cream */
+  --card: 240 18% 8%;                /* #0F0F18 */
+  --card-foreground: 42 40% 91%;
+  --popover: 240 18% 8%;
+  --popover-foreground: 42 40% 91%;
+  --primary: 39 42% 61%;             /* gold */
+  --primary-foreground: 240 14% 6%;
+  --secondary: 240 14% 12%;
+  --secondary-foreground: 42 40% 91%;
+  --muted: 240 12% 14%;
+  --muted-foreground: 42 20% 72%;
+  --accent: 39 42% 61%;
+  --accent-foreground: 240 14% 6%;
+  --destructive: 0 72% 52%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 39 28% 32%;
+  --input: 240 14% 10%;
+  --ring: 39 42% 61%;
+  --radius: 0.6rem;
+}
+
+/* Make the shadcn Card component honor the new token even where the
+ * component also sets bg-white / bg-white inline. */
+.v2-luxury-root .bg-card,
+.v2-luxury-root [class*="bg-card"] {
+  background-color: hsl(var(--card)) !important;
+  color: hsl(var(--card-foreground)) !important;
+}
+.v2-luxury-root .text-card-foreground,
+.v2-luxury-root [class*="text-card-foreground"] {
+  color: hsl(var(--card-foreground)) !important;
+}
+.v2-luxury-root .bg-background,
+.v2-luxury-root [class*="bg-background"] {
+  background-color: hsl(var(--background)) !important;
+}
+.v2-luxury-root .bg-muted,
+.v2-luxury-root [class*="bg-muted"] {
+  background-color: hsl(var(--muted)) !important;
+}
+.v2-luxury-root .text-muted-foreground,
+.v2-luxury-root [class*="text-muted-foreground"] {
+  color: hsl(var(--muted-foreground)) !important;
+}
+.v2-luxury-root .bg-primary,
+.v2-luxury-root [class*="bg-primary"] {
+  background-color: hsl(var(--primary)) !important;
+  color: hsl(var(--primary-foreground)) !important;
+}
+.v2-luxury-root .text-primary,
+.v2-luxury-root [class*="text-primary"] {
+  color: hsl(var(--primary)) !important;
+}
+.v2-luxury-root .bg-popover,
+.v2-luxury-root [class*="bg-popover"] {
+  background-color: hsl(var(--popover)) !important;
+  color: hsl(var(--popover-foreground)) !important;
+}
+
+/* Inline style="border-color: rgb(0, 102, 204)" (sky-600) on key
+ * quote cards becomes a gold frame on dark. */
+.v2-luxury-root [style*="border-color: rgb(0, 102, 204)"],
+.v2-luxury-root [style*="border-color: #0066cc"],
+.v2-luxury-root [style*="border-color:#0066cc"] {
+  border-color: rgba(200, 169, 110, 0.5) !important;
+}
+
+/* Section dividers between quote panels: ensure cream text survives */
+.v2-luxury-root .prose,
+.v2-luxury-root .prose * {
+  color: inherit !important;
+}
