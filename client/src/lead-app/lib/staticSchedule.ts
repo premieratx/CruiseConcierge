@@ -192,8 +192,13 @@ export function generateStaticSlots(
   const dayOfWeek = selectedDate.getDay();
   const dates: Date[] = [];
   
+  // Always render 4 comparison dates: the closest Mon-Thu weekday, plus
+  // the surrounding Fri/Sat/Sun weekend. When the customer picks a
+  // weekday we anchor on that exact weekday; when they pick Fri/Sat/Sun
+  // we anchor on that weekend date + the Tuesday of the same week (the
+  // cheapest Mon-Thu tier).
   if (dayOfWeek >= 1 && dayOfWeek <= 4) {
-    // Weekday: show selected day + upcoming Fri/Sat/Sun
+    // Weekday pick: show that weekday + Fri/Sat/Sun of the same week.
     dates.push(new Date(selectedDate));
     const daysUntilFriday = (5 - dayOfWeek + 7) % 7 || 7;
     const friday = addDays(selectedDate, daysUntilFriday);
@@ -201,17 +206,23 @@ export function generateStaticSlots(
     dates.push(addDays(friday, 1)); // Saturday
     dates.push(addDays(friday, 2)); // Sunday
   } else if (dayOfWeek === 5) {
-    // Friday: show Fri/Sat/Sun
+    // Friday pick: Tuesday of that week + Fri/Sat/Sun.
+    const tuesday = addDays(selectedDate, -3);
+    dates.push(tuesday);
     dates.push(new Date(selectedDate));
     dates.push(addDays(selectedDate, 1));
     dates.push(addDays(selectedDate, 2));
   } else if (dayOfWeek === 6) {
-    // Saturday: show Fri/Sat/Sun
+    // Saturday pick: Tuesday + Fri/Sat/Sun.
+    const tuesday = addDays(selectedDate, -4);
+    dates.push(tuesday);
     dates.push(addDays(selectedDate, -1));
     dates.push(new Date(selectedDate));
     dates.push(addDays(selectedDate, 1));
   } else {
-    // Sunday: show Fri/Sat/Sun
+    // Sunday pick: Tuesday + Fri/Sat/Sun of that week.
+    const tuesday = addDays(selectedDate, -5);
+    dates.push(tuesday);
     dates.push(addDays(selectedDate, -2));
     dates.push(addDays(selectedDate, -1));
     dates.push(new Date(selectedDate));

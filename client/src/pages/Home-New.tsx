@@ -4,6 +4,7 @@ import PublicNavigation from '@/components/PublicNavigationLuxury';
 import { useQuoteLightbox } from '@/components/QuoteLightbox';
 import CtaPair, { CtaBanner } from '@/components/CtaPair';
 import EmbeddedQuoteFlow from '@/components/EmbeddedQuoteFlow';
+import { ScrollingBackground } from '@/lead-app/components/ScrollingBackground';
 
 const Footer = lazy(() => import('@/components/Footer'));
 
@@ -259,7 +260,20 @@ const HP2_STYLES = `
   position: relative;
   border-top: 1px solid var(--hp2-border);
   border-bottom: 1px solid var(--hp2-border);
+  overflow: hidden;
 }
+.hp2-quote-embed__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  opacity: 0.28;
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 78%);
+  -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 78%);
+}
+.hp2-quote-embed__intro,
+.hp2-quote-embed__frame-wrap { position: relative; z-index: 1; }
 .hp2-quote-embed__intro {
   max-width: 820px;
   margin: 0 auto 2.5rem;
@@ -1204,6 +1218,9 @@ export default function HomeNew() {
 
       {/* ─── Embedded Quote Builder (party-type chooser + photos inside the iframe app) ─── */}
       <section className="hp2-quote-embed" id="quote-builder-embed">
+        <div className="hp2-quote-embed__bg" aria-hidden>
+          <ScrollingBackground />
+        </div>
         <div className="hp2-quote-embed__intro">
           <p className="hp2-section__label" style={{ marginBottom: '0.75rem' }}>Get a Personalized Quote</p>
           <h2 className="hp2-quote-embed__headline">
