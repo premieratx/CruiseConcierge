@@ -33,6 +33,8 @@ import HomeNew from "./pages/Home-New";
 
 // V2 Luxury pages - lazy loaded for performance
 const QuoteNative = lazy(() => import("./pages/QuoteNative"));
+const LeadDashboardMount = lazy(() => import("./pages/LeadDashboardMount"));
+const CustomerDashboardMount = lazy(() => import("./pages/CustomerDashboardMount"));
 const BacheloretteV2 = lazy(() => import("./pages/BacheloretteV2"));
 const BachelorV2 = lazy(() => import("./pages/BachelorV2"));
 const CombinedBachV2 = lazy(() => import("./pages/CombinedBachV2"));
@@ -428,6 +430,17 @@ function Router() {
       <Switch>
         {/* Native quote flow — replaces the legacy lightbox iframe */}
         <Route path="/quote" component={QuoteNative} />
+
+        {/* Native customer lead dashboard (replaces
+            booking.premierpartycruises.com/lead-dashboard) — catch-all so
+            the inner BrowserRouter handles deep-linked sub-paths. */}
+        <Route path="/lead-dashboard" component={LeadDashboardMount} />
+        <Route path="/lead-dashboard/:rest*" component={LeadDashboardMount} />
+
+        {/* Native booked-customer dashboard (replaces
+            booking.premierpartycruises.com/customer-dashboard) */}
+        <Route path="/customer-dashboard" component={CustomerDashboardMount} />
+        <Route path="/customer-dashboard/:rest*" component={CustomerDashboardMount} />
 
         {/* Public Homepage */}
         <Route path="/" component={HomeNew} />

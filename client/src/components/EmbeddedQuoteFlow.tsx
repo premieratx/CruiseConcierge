@@ -317,7 +317,11 @@ export default function EmbeddedQuoteFlow({
     setSubmitting(true);
     try {
       const formattedDate = format(selectedDate, "yyyy-MM-dd");
-      const quoteUrl = `https://booking.premierpartycruises.com/lead-dashboard?sourceHost=${encodeURIComponent(
+      const origin =
+        typeof window !== "undefined"
+          ? window.location.origin
+          : "https://premierpartycruises.com";
+      const quoteUrl = `${origin}/lead-dashboard?sourceHost=${encodeURIComponent(
         typeof window !== "undefined" ? window.location.hostname : "premierpartycruises.com",
       )}`;
 
@@ -376,7 +380,7 @@ export default function EmbeddedQuoteFlow({
 
       setSubmitted({ leadId });
       const target = leadId
-        ? `https://booking.premierpartycruises.com/lead-dashboard?lead=${encodeURIComponent(leadId)}`
+        ? `/lead-dashboard?lead=${encodeURIComponent(leadId)}`
         : null;
       setTimeout(() => {
         if (target) window.location.assign(target);

@@ -462,7 +462,11 @@ export function QuoteLightboxProvider({ children }: { children: ReactNode }) {
       // be a real URL. Generate one that points at the customer lead
       // dashboard; the server backfills the lead id after insert. The
       // `sourceUrl` we pass in `sourceUrl` is the page they clicked from.
-      const quoteUrl = `https://booking.premierpartycruises.com/lead-dashboard?sourceHost=${encodeURIComponent(
+      const origin =
+        typeof window !== "undefined"
+          ? window.location.origin
+          : "https://premierpartycruises.com";
+      const quoteUrl = `${origin}/lead-dashboard?sourceHost=${encodeURIComponent(
         typeof window !== "undefined" ? window.location.hostname : "premierpartycruises.com",
       )}`;
 
@@ -547,7 +551,7 @@ export function QuoteLightboxProvider({ children }: { children: ReactNode }) {
       // the old iframe. Uses the booking subdomain since that's where the
       // full LeadDashboard (with quote viewer) is deployed.
       const target = leadId
-        ? `https://booking.premierpartycruises.com/lead-dashboard?lead=${encodeURIComponent(leadId)}`
+        ? `/lead-dashboard?lead=${encodeURIComponent(leadId)}`
         : null;
 
       setTimeout(() => {
