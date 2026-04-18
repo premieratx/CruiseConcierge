@@ -6,10 +6,8 @@
  *  - Meeseeks OR The Irony (25–30 guests, same tier): from $225/hr
  *  - Clever Girl (31–75 guests): from $250/hr
  *  - 4-hour minimum
- *  - Day-of-week multipliers:
- *      Sun-Thu = 1.00×  (off-peak)
- *      Fri     = 1.15×
- *      Sat     = 1.25×  (prime)
+ *  - Day-of-week pricing: starting rate applies to all days. Actual
+ *    weekend/peak-season pricing is confirmed at quote time.
  *  - Add-ons on subtotal:
  *      +20%   gratuity
  *      +8.25% sales tax
@@ -65,14 +63,14 @@ const BOATS: BoatConfig[] = [
   },
 ];
 
-const DAYS: { id: number; short: string; long: string; multiplier: number; demand: "low" | "med" | "high" }[] = [
-  { id: 0, short: "Sun", long: "Sunday",    multiplier: 1.00, demand: "med"  },
-  { id: 1, short: "Mon", long: "Monday",    multiplier: 1.00, demand: "low"  },
-  { id: 2, short: "Tue", long: "Tuesday",   multiplier: 1.00, demand: "low"  },
-  { id: 3, short: "Wed", long: "Wednesday", multiplier: 1.00, demand: "low"  },
-  { id: 4, short: "Thu", long: "Thursday",  multiplier: 1.00, demand: "med"  },
-  { id: 5, short: "Fri", long: "Friday",    multiplier: 1.15, demand: "high" },
-  { id: 6, short: "Sat", long: "Saturday",  multiplier: 1.25, demand: "high" },
+const DAYS: { id: number; short: string; long: string; demand: "low" | "med" | "high" }[] = [
+  { id: 0, short: "Sun", long: "Sunday",    demand: "med"  },
+  { id: 1, short: "Mon", long: "Monday",    demand: "low"  },
+  { id: 2, short: "Tue", long: "Tuesday",   demand: "low"  },
+  { id: 3, short: "Wed", long: "Wednesday", demand: "low"  },
+  { id: 4, short: "Thu", long: "Thursday",  demand: "med"  },
+  { id: 5, short: "Fri", long: "Friday",    demand: "high" },
+  { id: 6, short: "Sat", long: "Saturday",  demand: "high" },
 ];
 
 const GRATUITY_RATE = 0.20;
@@ -279,13 +277,7 @@ const STYLES = `
   margin: 0 0 0.35rem;
   font-weight: 500;
 }
-.pc-day__price {
-  font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: 1.15rem;
-  color: #F0E6D0;
-  margin: 0 0 0.35rem;
-  line-height: 1;
-}
+.pc-day__price { display: none; }
 .pc-day__availability {
   display: inline-flex;
   align-items: center;
@@ -412,15 +404,13 @@ export default function PricingCalculator() {
   const day = DAYS.find((d) => d.id === dayId) ?? DAYS[6];
 
   const calc = useMemo(() => {
-    const baseHourly = boat.hourly;
-    const adjustedHourly = baseHourly * day.multiplier;
-    const subtotal = adjustedHourly * hours;
+    const subtotal = boat.hourly * hours;
     const gratuity = subtotal * GRATUITY_RATE;
     const tax = subtotal * SALES_TAX_RATE;
     const bookingFee = subtotal * BOOKING_FEE_RATE;
     const total = subtotal + gratuity + tax + bookingFee;
-    return { adjustedHourly, subtotal, gratuity, tax, bookingFee, total };
-  }, [boat, day, hours]);
+    return { subtotal, gratuity, tax, bookingFee, total };
+  }, [boat, hours]);
 
   const sliderProgress = ((hours - MIN_HOURS) / (MAX_HOURS - MIN_HOURS)) * 100;
 
@@ -479,34 +469,29 @@ export default function PricingCalculator() {
 
       <label className="pc-step-label">3 · Day of the week</label>
       <div className="pc-days" role="tablist" aria-label="Day of the week">
-        {DAYS.map((d) => {
-          const dayPrice = boat.hourly * d.multiplier * hours;
-          return (
-            <button
-              key={d.id}
-              type="button"
-              role="tab"
-              aria-selected={d.id === dayId}
-              className={`pc-day ${d.id === dayId ? "is-active" : ""}`}
-              onClick={() => setDayId(d.id)}
-              title={`${d.long} · ${currency(dayPrice)} base · ${d.demand === "low" ? "Wide open" : d.demand === "med" ? "Limited" : "Limited — weekends fill first"}`}
-            >
-              <p className="pc-day__name">{d.short}</p>
-              <p className="pc-day__price">{currency(dayPrice)}</p>
-              <span className="pc-day__availability">
-                <span className={`pc-day__dot pc-day__dot--${d.demand}`} />
-                {d.demand === "low" ? "Open" : d.demand === "med" ? "Ltd" : "Fills"}
-              </span>
-            </button>
-          );
-        })}
+        {DAYS.map((d) => (
+          <button
+            key={d.id}
+            type="button"
+            role="tab"
+            aria-selected={d.id === dayId}
+            className={`pc-day ${d.id === dayId ? "is-active" : ""}`}
+            onClick={() => setDayId(d.id)}
+            title={`${d.long} · ${d.demand === "low" ? "Wide open" : d.demand === "med" ? "Limited" : "Limited — weekends fill first"}`}
+          >
+            <p className="pc-day__name">{d.short}</p>
+            <span className="pc-day__availability">
+              <span className={`pc-day__dot pc-day__dot--${d.demand}`} />
+              {d.demand === "low" ? "Open" : d.demand === "med" ? "Ltd" : "Fills"}
+            </span>
+          </button>
+        ))}
       </div>
 
       <div className="pc-breakdown" aria-live="polite">
         <div className="pc-row">
           <span className="pc-row__label">
             {boat.label} · {hours} hrs · {day.long}
-            {day.multiplier > 1 && <span style={{ color: "#DFC08A" }}> ({Math.round((day.multiplier - 1) * 100)}% premium)</span>}
           </span>
           <span className="pc-row__value">{currencyDecimal(calc.subtotal)}</span>
         </div>

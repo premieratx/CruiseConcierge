@@ -164,70 +164,15 @@ export default function PricingV2() {
       <section className="hp2-section">
         <div className="hp2-section__label">Public Sailings · ATX Disco Cruise</div>
         <h2 className="hp2-section__headline">
-          ATX Disco Cruise <em>per person</em>
+          ATX Disco Cruise <em>from $85/person</em>
         </h2>
         <p className="hp2-section__body">
-          Our signature 2.5-hour public disco cruise on Lake Travis. Pick your
-          day and time — we'll mix you in with other partygoers for Austin's
-          most talked-about floating dance floor. Minimum booking is 2 guests,
-          maximum per booking is 20.
-        </p>
-
-        <div className="hp2-price-table-wrap">
-          <table className="hp2-price-table">
-            <thead>
-              <tr>
-                <th scope="col">Time Slot</th>
-                <th scope="col">Day</th>
-                <th scope="col">Duration</th>
-                <th scope="col">Per Person</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  Friday Sunset
-                  <span className="hp2-price-table__sub">6:00pm – 8:30pm</span>
-                </td>
-                <td>Friday</td>
-                <td>2.5 hours</td>
-                <td>
-                  <span className="hp2-price-table__amount">$95</span>
-                  <span className="hp2-price-table__unit">/ person</span>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  Saturday Morning
-                  <span className="hp2-price-table__sub">10:30am – 1:00pm</span>
-                </td>
-                <td>Saturday</td>
-                <td>2.5 hours</td>
-                <td>
-                  <span className="hp2-price-table__amount">$105</span>
-                  <span className="hp2-price-table__unit">/ person</span>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  Saturday Sunset
-                  <span className="hp2-price-table__sub">6:00pm – 8:30pm</span>
-                </td>
-                <td>Saturday</td>
-                <td>2.5 hours</td>
-                <td>
-                  <span className="hp2-price-table__amount">$85</span>
-                  <span className="hp2-price-table__unit">/ person</span>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <p className="hp2-price-legend">
-          All ATX Disco Cruise prices include captain, fuel, disco-lighting
-          setup, Bluetooth audio, bathroom access, tax, and 20% standard
-          gratuity. BYOB drinks and snacks are allowed (no glass).
+          Our signature public disco cruise on Lake Travis. Austin's most
+          talked-about floating dance floor, mixed-group format. All-inclusive
+          starting at $85 per person — captain, fuel, disco-lighting, Bluetooth
+          audio, bathrooms, tax, and 20% gratuity included. BYOB drinks and
+          snacks welcome (no glass). Request a quote for current time-slot
+          availability and exact pricing.
         </p>
       </section>
 
@@ -239,10 +184,9 @@ export default function PricingV2() {
             Private charters <em>by boat</em>
           </h2>
           <p className="hp2-section__body">
-            Book the whole boat for your group. Pricing scales with boat size
-            and day of week — weekdays are at the lower end of each range,
-            Saturdays at the upper end. 4-hour minimum on weekends, 3-hour
-            minimum on weekdays.
+            Book the whole boat for your group. Starting hourly rates below —
+            request a quote for exact pricing on your date. 4-hour minimum on
+            weekends, 3-hour minimum on weekdays.
           </p>
 
           <div className="hp2-price-table-wrap">
@@ -252,7 +196,7 @@ export default function PricingV2() {
                   <th scope="col">Boat</th>
                   <th scope="col">Capacity</th>
                   <th scope="col">Best For</th>
-                  <th scope="col">Hourly Rate</th>
+                  <th scope="col">Starting Rate</th>
                 </tr>
               </thead>
               <tbody>
@@ -261,10 +205,10 @@ export default function PricingV2() {
                     Day Tripper
                     <span className="hp2-price-table__sub">Intimate party barge</span>
                   </td>
-                  <td>14 guests</td>
+                  <td>Up to 14 guests</td>
                   <td>Small bachelorettes, birthdays</td>
                   <td>
-                    <span className="hp2-price-table__amount">$200–$350</span>
+                    <span className="hp2-price-table__amount">From $200</span>
                     <span className="hp2-price-table__unit">/ hour</span>
                   </td>
                 </tr>
@@ -273,22 +217,22 @@ export default function PricingV2() {
                     Meeseeks
                     <span className="hp2-price-table__sub">Mid-size entertainer</span>
                   </td>
-                  <td>30 guests</td>
+                  <td>25–30 guests</td>
                   <td>Mid-size bachelor/bachelorette</td>
                   <td>
-                    <span className="hp2-price-table__amount">$225–$425</span>
+                    <span className="hp2-price-table__amount">From $225</span>
                     <span className="hp2-price-table__unit">/ hour</span>
                   </td>
                 </tr>
                 <tr>
                   <td>
-                    Irony
-                    <span className="hp2-price-table__sub">Dance-floor tritoon</span>
+                    The Irony
+                    <span className="hp2-price-table__sub">Same size + price as Meeseeks</span>
                   </td>
-                  <td>40 guests</td>
+                  <td>25–30 guests</td>
                   <td>Corporate, milestone birthdays</td>
                   <td>
-                    <span className="hp2-price-table__amount">$225–$425</span>
+                    <span className="hp2-price-table__amount">From $225</span>
                     <span className="hp2-price-table__unit">/ hour</span>
                   </td>
                 </tr>
@@ -297,10 +241,10 @@ export default function PricingV2() {
                     Clever Girl
                     <span className="hp2-price-table__sub">Flagship 75-person boat</span>
                   </td>
-                  <td>75 guests</td>
+                  <td>31–75 guests</td>
                   <td>Weddings, large corporate</td>
                   <td>
-                    <span className="hp2-price-table__amount">$250–$500</span>
+                    <span className="hp2-price-table__amount">From $250</span>
                     <span className="hp2-price-table__unit">/ hour</span>
                   </td>
                 </tr>
@@ -309,8 +253,10 @@ export default function PricingV2() {
           </div>
 
           <p className="hp2-price-legend">
-            All private charter prices include captain, fuel, ice, coolers,
-            Bluetooth audio, bathroom, tax, and 20% standard gratuity. Optional
+            Starting rates for 4-hour minimum charter. All private charter
+            bookings include captain, fuel, coolers, Bluetooth audio, bathroom,
+            tax, and 20% gratuity. BYOB — bring your own ice, or order
+            pre-iced from Party On Delivery (our sister company). Optional
             add-ons (floating bar, DJ, photographer, decorations, overnight
             docking) are quoted separately.
           </p>
