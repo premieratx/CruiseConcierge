@@ -10,7 +10,8 @@
   # Vite build: produces dist/public (static frontend).
   # Post-build: copy attached_assets → dist/public/attached_assets so the
   # deploy is fully self-contained. No runtime proxy to Replit needed.
-  command = "bash scripts/fetch-build-assets.sh && npx vite build --mode production && mkdir -p dist/public/attached_assets && cp -R attached_assets/. dist/public/attached_assets/ && node scripts/generate-seo-files.mjs"
+  # rsync excludes .zip archives and any filename containing # or ? (invalid in URLs / Netlify deploys).
+  command = "bash scripts/fetch-build-assets.sh && npx vite build --mode production && mkdir -p dist/public/attached_assets && rsync -a --exclude='*.zip' --exclude='*#*' --exclude='*\\?*' attached_assets/ dist/public/attached_assets/ && node scripts/generate-seo-files.mjs"
   publish = "dist/public"
 
 [build.environment]

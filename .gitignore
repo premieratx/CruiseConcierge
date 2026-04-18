@@ -8,3 +8,8 @@ vite.config.ts.*
 
 # Large videos fetched at build time by scripts/fetch-build-assets.sh
 attached_assets/*.mp4
+
+# Archives and files with URL-hostile characters — never ship these to Netlify
+attached_assets/*.zip
+attached_assets/*#*
+attached_assets/*\?*
