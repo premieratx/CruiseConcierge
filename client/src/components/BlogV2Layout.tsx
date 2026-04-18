@@ -34,10 +34,131 @@ const BLOG_V2_STYLES = `
   min-height: 100vh;
 }
 
+/* ─── Post Header (compact, under the fixed nav) ──────────────── */
+.bv2-post-header {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 2.5rem 2rem 1.25rem;    /* nav is static, minimal top padding */
+  height: auto !important;          /* override any global header height */
+  min-height: 0 !important;
+}
+
+.bv2-post-crumbs {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  font-family: var(--bv2-font-body);
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--bv2-text-muted);
+  margin-bottom: 1.5rem;
+}
+.bv2-post-crumbs a {
+  color: var(--bv2-gold);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.bv2-post-crumbs a:hover { color: var(--bv2-gold-light); }
+.bv2-post-crumbs .sep { color: var(--bv2-border); font-size: 0.8rem; }
+.bv2-post-crumbs .current {
+  color: var(--bv2-cream-muted);
+  max-width: 22rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  letter-spacing: 0.14em;
+}
+
+.bv2-post-title {
+  font-family: var(--bv2-font-display);
+  font-weight: 300;
+  font-size: clamp(2rem, 3.6vw, 3.25rem);
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+  color: var(--bv2-cream);
+  margin: 0 0 1.1rem;
+}
+.bv2-post-title em {
+  font-style: italic;
+  color: var(--bv2-gold-light);
+}
+
+.bv2-post-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 1rem;
+  font-family: var(--bv2-font-body);
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: var(--bv2-text-muted);
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--bv2-border);
+}
+.bv2-post-meta strong {
+  color: var(--bv2-cream);
+  font-weight: 500;
+}
+.bv2-post-meta .dot { color: var(--bv2-border); }
+.bv2-post-meta a {
+  color: var(--bv2-gold);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+.bv2-post-meta a:hover { color: var(--bv2-gold-light); }
+
+@media (max-width: 880px) {
+  .bv2-post-header {
+    padding: 1.75rem 1.25rem 1rem;
+  }
+  .bv2-post-title {
+    font-size: clamp(1.6rem, 5.5vw, 2.25rem) !important;
+    line-height: 1.12;
+  }
+  .bv2-post-crumbs {
+    font-size: 0.65rem;
+    letter-spacing: 0.16em;
+    gap: 0.35rem;
+    margin-bottom: 1rem;
+  }
+  .bv2-post-crumbs .current { max-width: 100%; }
+  .bv2-post-meta {
+    font-size: 0.8rem;
+    gap: 0.3rem 0.6rem;
+  }
+}
+@media (max-width: 480px) {
+  .bv2-post-header {
+    padding: 1.25rem 1rem 0.9rem;
+  }
+  .bv2-post-title {
+    font-size: clamp(1.45rem, 6.5vw, 1.9rem) !important;
+  }
+  .bv2-post-meta { font-size: 0.76rem; }
+}
+
 /* Apply luxury styling to article content */
 .bv2-article-wrap {
-  padding-top: 6rem;
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 1.75rem 2rem 4rem;
   min-height: 100vh;
+}
+/* Allow wider elements (image grids, full-width photo strips) to escape */
+.bv2-article-wrap section[class*="full-width"],
+.bv2-article-wrap [class*="max-w-none"],
+.bv2-article-wrap [class*="w-screen"] {
+  max-width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+}
+@media (max-width: 768px) {
+  .bv2-article-wrap {
+    padding: 1.5rem 1.1rem 3rem;
+  }
 }
 
 .bv2-article-wrap,
@@ -280,40 +401,79 @@ const BLOG_V2_STYLES = `
   font-family: var(--bv2-font-display) !important;
 }
 
-/* Typography (keep original rules) */
+/* Typography — luxury-scale headings, consistent body */
 .bv2-article-wrap h1,
 .bv2-article-wrap h2 {
   font-family: var(--bv2-font-display) !important;
   color: var(--bv2-cream) !important;
   font-weight: 300 !important;
-  letter-spacing: 0 !important;
+  letter-spacing: -0.005em !important;
+  line-height: 1.12 !important;
+  margin-top: 3rem !important;
+  margin-bottom: 1.25rem !important;
+}
+.bv2-article-wrap h2 {
+  font-size: clamp(1.85rem, 2.6vw, 2.5rem) !important;   /* override Tailwind text-2xl (32px) */
+}
+.bv2-article-wrap h1 {
+  font-size: clamp(2.25rem, 3.2vw, 3rem) !important;
 }
 .bv2-article-wrap h1 em,
-.bv2-article-wrap h2 em {
+.bv2-article-wrap h2 em,
+.bv2-article-wrap h3 em {
   color: var(--bv2-gold-light) !important;
   font-style: italic !important;
 }
-.bv2-article-wrap h3,
+.bv2-article-wrap h3 {
+  font-family: var(--bv2-font-display) !important;
+  color: var(--bv2-cream) !important;
+  font-weight: 400 !important;
+  font-size: clamp(1.35rem, 1.8vw, 1.6rem) !important;   /* override Tailwind text-lg (20px) */
+  line-height: 1.25 !important;
+  margin-top: 2rem !important;
+  margin-bottom: 0.75rem !important;
+}
 .bv2-article-wrap h4,
 .bv2-article-wrap h5 {
   font-family: var(--bv2-font-display) !important;
   color: var(--bv2-cream) !important;
-  font-weight: 400 !important;
+  font-weight: 500 !important;
+  font-size: 1.2rem !important;
+  line-height: 1.3 !important;
+  margin-top: 1.5rem !important;
+  margin-bottom: 0.5rem !important;
 }
-.bv2-article-wrap p,
-.bv2-article-wrap li,
-.bv2-article-wrap span,
-.bv2-article-wrap div {
-  line-height: 1.75;
-}
+
+/* Body: comfortable reading size + rhythm */
 .bv2-article-wrap p,
 .bv2-article-wrap li {
+  font-size: 1.02rem !important;
+  line-height: 1.75 !important;
   color: var(--bv2-cream-muted) !important;
+}
+.bv2-article-wrap p {
+  margin-bottom: 1.1rem !important;
+}
+.bv2-article-wrap ul,
+.bv2-article-wrap ol {
+  margin: 0.75rem 0 1.25rem !important;
+  padding-left: 1.5rem !important;
+}
+.bv2-article-wrap li {
+  margin-bottom: 0.4rem !important;
 }
 .bv2-article-wrap strong,
 .bv2-article-wrap b {
   color: var(--bv2-cream) !important;
   font-weight: 600;
+}
+
+/* Tighten top margin of first heading after a section divider */
+.bv2-article-wrap > *:first-child > h1:first-child,
+.bv2-article-wrap > *:first-child > h2:first-child,
+.bv2-article-wrap > h1:first-child,
+.bv2-article-wrap > h2:first-child {
+  margin-top: 0 !important;
 }
 
 /* Inline links in article body */
@@ -352,9 +512,39 @@ const BLOG_V2_STYLES = `
   transform: translateY(-1px) !important;
 }
 
-/* Images — add subtle gold border */
+/* Images — constrain size, subtle gold border, centered */
 .bv2-article-wrap img {
   border: 1px solid var(--bv2-border);
+  border-radius: 6px;
+  max-width: 100% !important;
+  width: 100% !important;
+  height: auto !important;
+  max-height: 520px !important;
+  object-fit: cover;
+  display: block;
+  margin: 1.75rem auto !important;
+}
+/* Photo strip / gallery variant — smaller thumbs */
+.bv2-article-wrap [class*="grid"] img,
+.bv2-article-wrap [class*="flex"] img {
+  max-height: 360px !important;
+}
+.bv2-article-wrap [class*="grid-cols-2"] img,
+.bv2-article-wrap [class*="grid-cols-3"] img,
+.bv2-article-wrap [class*="grid-cols-4"] img {
+  max-height: 280px !important;
+}
+/* Inline avatars / icons — stay small */
+.bv2-article-wrap img[class*="rounded-full"],
+.bv2-article-wrap img[class*="h-8"],
+.bv2-article-wrap img[class*="h-10"],
+.bv2-article-wrap img[class*="h-12"],
+.bv2-article-wrap img[class*="w-8"],
+.bv2-article-wrap img[class*="w-10"],
+.bv2-article-wrap img[class*="w-12"] {
+  max-height: 48px !important;
+  width: auto !important;
+  margin: 0 !important;
 }
 
 /* Blockquotes */
@@ -923,36 +1113,26 @@ export default function BlogV2Layout({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaGraph) }}
       />
 
-      {/* Breadcrumbs */}
-      <nav className="bv2-breadcrumbs" aria-label="Breadcrumb">
-        <Link href="/">Home</Link>
-        <span className="sep">/</span>
-        <Link href="/blogs">Blog</Link>
-        <span className="sep">/</span>
-        <Link href={categoryHref}>{category}</Link>
-        <span className="sep">/</span>
-        <span style={{ color: 'var(--bv2-cream-muted)' }}>{title.length > 50 ? title.substring(0, 47) + '...' : title}</span>
-      </nav>
-
-      {/* Category label */}
-      <div className="bv2-article-tag">{category}</div>
-
-      {/* Above-the-fold pillar CTA */}
-      <div className="bv2-pillar-cta">
-        <div className="bv2-pillar-cta__text">
-          <strong>{pillarTitle}</strong><br />
-          Looking for the complete <em>{category.toLowerCase()}</em>? Our pillar guide has everything in one place — pricing, itineraries, real-group tips, and more.
+      {/* Compact post header: breadcrumb → title → meta */}
+      <div className="bv2-post-header" role="banner">
+        <div className="bv2-post-crumbs" aria-label="Breadcrumb">
+          <Link href={categoryHref}>{category}</Link>
+          <span className="sep">›</span>
+          <span className="current">{title}</span>
         </div>
-        <a href={pillarHref} className="bv2-pillar-cta__btn">
-          {pillarCtaText} →
-        </a>
-      </div>
 
-      {/* Author byline */}
-      <div className="bv2-byline">
-        <div className="bv2-byline__circle">{authorInitial}</div>
-        <div>
-          By <strong>{author}</strong> · Updated {new Date(modifiedDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long' })} · 15+ years planning Austin celebrations since 2009
+        <h1 className="bv2-post-title">{title}</h1>
+
+        <div className="bv2-post-meta">
+          <span>By <strong>{author}</strong></span>
+          <span className="dot">·</span>
+          <span>Updated {new Date(modifiedDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long' })}</span>
+          {pillarTitle && pillarHref && (
+            <>
+              <span className="dot">·</span>
+              <span>Part of <Link href={pillarHref}>{pillarTitle}</Link></span>
+            </>
+          )}
         </div>
       </div>
 

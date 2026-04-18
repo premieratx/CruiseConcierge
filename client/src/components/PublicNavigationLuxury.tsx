@@ -484,35 +484,94 @@ const LUX_NAV_STYLES = `
   visibility: visible;
 }
 
-/* ── Responsive ── */
-@media (max-width: 1100px) {
-  .lux-nav-links {
-    display: none;
-  }
-  .lux-nav-mobile-toggle {
-    display: flex;
-  }
-  .lux-nav-cta-group .lux-nav-quote {
-    display: none;
-  }
-  .lux-nav-inner {
-    padding: 1rem 1.5rem;
-  }
+/* ── Responsive ─────────────────────────────────────────────────
+   Strategy: keep the full desktop menu visible as long as possible
+   (down to ~880px) by progressively tightening padding and link
+   size. Below ~880px we switch to the hamburger. Phones get extra
+   compact treatment below 640px.
+   ───────────────────────────────────────────────────────────── */
+
+/* Intermediate: tablet landscape / small laptop — tighten rather than hide */
+@media (max-width: 1180px) {
+  .lux-nav-inner { padding: 0.85rem 1.75rem; }
+  .lux-nav-links { gap: 1.1rem; }
+  .lux-nav-link { font-size: 0.78rem; letter-spacing: 0.14em; }
+  .lux-nav-brand-text .lux-nav-brand-name { font-size: 1.02rem; }
+  .lux-nav-brand-sub { font-size: 0.6rem; letter-spacing: 0.14em; }
+  .lux-nav-quote { padding: 0.55rem 0.9rem; font-size: 0.72rem; }
+  .lux-nav-book { padding: 0.55rem 1rem; font-size: 0.72rem; }
 }
+
+@media (max-width: 1000px) {
+  .lux-nav-inner { padding: 0.7rem 1rem; }
+  .lux-nav-links { gap: 0.55rem; }
+  .lux-nav-link { font-size: 0.68rem; letter-spacing: 0.08em; padding: 0.35rem 0.4rem; }
+  .lux-nav-cta-group .lux-nav-quote { display: none; }
+  .lux-nav-brand-sub { display: none; }
+  .lux-nav-brand-text .lux-nav-brand-name { font-size: 0.88rem; }
+  .lux-nav-logo-wrap { width: 42px; height: 42px; }
+}
+@media (max-width: 820px) {
+  .lux-nav-inner { padding: 0.6rem 0.85rem; }
+  .lux-nav-links { gap: 0.35rem; }
+  .lux-nav-link { font-size: 0.62rem; letter-spacing: 0.06em; padding: 0.3rem 0.3rem; }
+  .lux-nav-book { font-size: 0.65rem; padding: 0.45rem 0.7rem; }
+  .lux-nav-brand-text { display: none; }   /* keep logo+links+book visible */
+}
+
+/* Below tablet portrait (the iPhone/small-tablet threshold) */
+@media (max-width: 760px) {
+  .lux-nav-links { display: none; }
+  .lux-nav-mobile-toggle { display: flex; }
+  .lux-nav-inner { padding: 0.65rem 1rem; }
+  .lux-nav-brand-text { display: block; }
+  .lux-nav-brand-text .lux-nav-brand-name { font-size: 0.95rem; }
+}
+
+/* Small tablet + large phone */
 @media (max-width: 640px) {
-  .lux-nav-brand-text {
-    display: none;
-  }
+  .lux-nav-inner { padding: 0.6rem 0.85rem; }
+  .lux-nav-brand-text { display: block; max-width: 55vw; }
+  .lux-nav-brand-text .lux-nav-brand-name { font-size: 0.92rem; }
+  .lux-nav-brand-sub { display: none; }
+  .lux-nav-logo-wrap { width: 38px; height: 38px; }
   .lux-nav-book {
-    padding: 0.6rem 1rem;
-    font-size: 0.7rem;
-    letter-spacing: 0.1em;
-  }
-  .lux-promo-banner {
+    padding: 0.55rem 0.85rem;
     font-size: 0.68rem;
-    padding: 0.45rem 0.75rem;
     letter-spacing: 0.08em;
   }
+  .lux-promo-banner {
+    font-size: 0.65rem;
+    padding: 0.42rem 0.6rem;
+    letter-spacing: 0.06em;
+  }
+  /* Mobile drawer: right-size the tap targets + text */
+  .lux-nav-mobile-link {
+    font-size: 1rem !important;
+    padding: 0.85rem 1rem !important;
+    letter-spacing: 0.08em !important;
+  }
+  .lux-nav-mobile-link[data-level="sub"],
+  .lux-nav-mobile .sub-link {
+    font-size: 0.88rem !important;
+    padding: 0.55rem 1rem 0.55rem 1.75rem !important;
+  }
+  .lux-nav-mobile-ctas a {
+    font-size: 0.85rem !important;
+    padding: 0.85rem 1rem !important;
+  }
+}
+
+/* Very small phones (iPhone SE / small Android) */
+@media (max-width: 380px) {
+  .lux-nav-inner { padding: 0.55rem 0.7rem; }
+  .lux-nav-brand-text .lux-nav-brand-name { font-size: 0.85rem; }
+  .lux-nav-logo-wrap { width: 34px; height: 34px; }
+  .lux-nav-book {
+    padding: 0.45rem 0.7rem;
+    font-size: 0.62rem;
+  }
+  .lux-promo-banner { font-size: 0.6rem; padding: 0.38rem 0.5rem; }
 }
 `;
 
