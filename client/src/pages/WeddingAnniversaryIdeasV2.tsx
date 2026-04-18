@@ -69,7 +69,7 @@ export default function WeddingAnniversaryIdeasV2() {
       heroHeadline={<>Wedding anniversary <em>ideas</em> Austin</>}
       heroBody="The best wedding anniversary celebration ideas in Austin — from intimate 1st anniversary sunset cruises to 50th anniversary vow renewals on Lake Travis. Private boat charters, BYOB, Hill Country sunsets. 25 minutes from downtown."
       primaryCta={{ text: 'Get Quote', href: '/chat' }}
-      secondaryCta={{ text: 'View Fleet', href: '/private-cruises' }}
+      secondaryCta={{ text: 'View Fleet', href: '#fleet' }}
       faqs={faqs}
       finalCtaHeadline={<>The Austin anniversary <em>idea</em> worth booking.</>}
       finalCtaBody="Book your Lake Travis anniversary cruise — the Austin anniversary celebration idea that beats every restaurant, every hotel, every predictable anniversary dinner."

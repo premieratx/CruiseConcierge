@@ -69,7 +69,7 @@ export default function AnniversaryCruiseV2() {
       heroHeadline={<>Anniversary cruises on <em>Lake Travis</em></>}
       heroBody="Celebrate your wedding anniversary on Lake Travis — from intimate couple cruises on our 14-guest Day Tripper to 50+ guest milestone anniversary parties on Clever Girl. Sunset toasts, vow renewals, and BYOB champagne. 25 minutes from downtown Austin."
       primaryCta={{ text: 'Get Quote', href: '/chat' }}
-      secondaryCta={{ text: 'View Fleet', href: '/private-cruises' }}
+      secondaryCta={{ text: 'View Fleet', href: '#fleet' }}
       faqs={faqs}
       finalCtaHeadline={<>Celebrate another <em>year</em> together.</>}
       finalCtaBody="Book your Austin anniversary cruise on Lake Travis — from intimate couple getaways to milestone 25th and 50th celebrations. Private charters, BYOB, sunset toasts, optional vow renewals."

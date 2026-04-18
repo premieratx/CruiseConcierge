@@ -80,7 +80,7 @@ export default function MilestoneBirthdayV2() {
       }
       heroBody="The decades deserve more than a restaurant. Private Lake Travis charter, sunset toast, catered dinner, BYOB champagne — the milestone birthday your guest of honor has been hoping for."
       primaryCta={{ text: 'Get Quote', href: '/chat' }}
-      secondaryCta={{ text: 'View Fleet', href: '/private-cruises' }}
+      secondaryCta={{ text: 'View Fleet', href: '#fleet' }}
       faqs={faqs}
       finalCtaHeadline={
         <>

@@ -82,7 +82,7 @@ export default function ClientEntertainmentV2() {
       }
       heroBody="The client entertainment venue that outperforms every steakhouse in town. Private boat charters for prospect dinners, deal closers, and strategic account deepening — F500-trusted, concierge-managed."
       primaryCta={{ text: 'Get Corporate Quote', href: '/chat' }}
-      secondaryCta={{ text: 'View Fleet', href: '/private-cruises' }}
+      secondaryCta={{ text: 'View Fleet', href: '#fleet' }}
       faqs={faqs}
       finalCtaHeadline={
         <>

@@ -74,7 +74,7 @@ export default function GenderRevealCruiseV2() {
       }
       heroBody="The most photogenic reveal venue in Austin. Confetti cannons, pink-or-blue smoke, sunset cliffs, and a 3-2-1 moment your parents will frame on the wall. Private charters for 12 to 75 guests."
       primaryCta={{ text: 'Get Quote', href: '/chat' }}
-      secondaryCta={{ text: 'View Fleet', href: '/private-cruises' }}
+      secondaryCta={{ text: 'View Fleet', href: '#fleet' }}
       faqs={faqs}
       finalCtaHeadline={
         <>

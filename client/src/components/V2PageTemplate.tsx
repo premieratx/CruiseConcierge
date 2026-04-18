@@ -3,6 +3,7 @@ import { Link } from 'wouter';
 import PublicNavigationLuxury from '@/components/PublicNavigationLuxury';
 import { useQuoteLightbox } from '@/components/QuoteLightbox';
 import { XOLA_BUTTON_ID } from '@/components/XolaBookNow';
+import FleetShowcase from '@/components/FleetShowcase';
 
 /** True when the CTA should open the quote lightbox instead of navigating. */
 function isQuoteCta(cta: { text: string; href: string }) {
@@ -719,6 +720,9 @@ export default function V2PageTemplate({
 
       {/* Custom page content */}
       {children}
+
+      {/* Fleet Showcase — available on every page via #fleet anchor */}
+      <FleetShowcase />
 
       {/* FAQ */}
       {faqs.length > 0 && (

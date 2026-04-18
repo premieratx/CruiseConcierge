@@ -80,7 +80,7 @@ export default function PromCruiseV2() {
       }
       heroBody="Prom photos on a private Lake Travis yacht. Golden-hour portraits on the upper deck, a DJ-ready dance floor, parent-hosted and fully supervised. The prom night every grade talks about for years."
       primaryCta={{ text: 'Get Quote', href: '/chat' }}
-      secondaryCta={{ text: 'View Fleet', href: '/private-cruises' }}
+      secondaryCta={{ text: 'View Fleet', href: '#fleet' }}
       faqs={faqs}
       finalCtaHeadline={
         <>

@@ -82,7 +82,7 @@ export default function TeamBuildingV2() {
       }
       heroBody="The team building activity your people actually want to attend. Private boat charters for corporate teams of 14 to 75 — trusted by F500 offices, Austin tech, and high-performance cultures."
       primaryCta={{ text: 'Get Corporate Quote', href: '/chat' }}
-      secondaryCta={{ text: 'View Fleet', href: '/private-cruises' }}
+      secondaryCta={{ text: 'View Fleet', href: '#fleet' }}
       faqs={faqs}
       finalCtaHeadline={
         <>

@@ -69,7 +69,7 @@ export default function EngagementPartyCruiseV2() {
       heroHeadline={<>Celebrate the <em>engagement</em> on the water</>}
       heroBody="The Austin engagement party cruise on Lake Travis — private charters for 14-75 guests with BYOB champagne, sunset toasts at a scenic cove, catered dinner, and dancing under 14 disco balls. 25 minutes from downtown Austin."
       primaryCta={{ text: 'Get Quote', href: '/chat' }}
-      secondaryCta={{ text: 'View Fleet', href: '/private-cruises' }}
+      secondaryCta={{ text: 'View Fleet', href: '#fleet' }}
       faqs={faqs}
       finalCtaHeadline={<>Toast <em>forever</em> on Lake Travis.</>}
       finalCtaBody="Book your Austin engagement party cruise and celebrate your next chapter on the water. Private boat charters, BYOB, sunset toasts, catering coordination."

@@ -84,7 +84,7 @@ export default function PartyBoatLakeTravisV2() {
       }
       heroBody="The biggest, best-rated Lake Travis party boat fleet. Four boats from 14 to 75 guests, BYOB-friendly, USCG-certified. Private charters from $200/hour — or hop on the shared ATX Disco Cruise from $85/person."
       primaryCta={{ text: 'Book a Lake Travis Boat', href: '/book' }}
-      secondaryCta={{ text: 'Explore the Fleet', href: '/private-cruises' }}
+      secondaryCta={{ text: 'Explore the Fleet', href: '#fleet' }}
       faqs={faqs}
       finalCtaHeadline={
         <>

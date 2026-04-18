@@ -69,7 +69,7 @@ export default function BridalShowerCruiseV2() {
       heroHeadline={<>Bridal shower on <em>Lake Travis</em></>}
       heroBody="The Austin bridal shower, elevated. Private party boat charters on Lake Travis with BYOB champagne, games on the water, gift opening at the scenic cove, and sunset photos. 14-75 guests, 25 minutes from downtown."
       primaryCta={{ text: 'Get Quote', href: '/chat' }}
-      secondaryCta={{ text: 'View Fleet', href: '/private-cruises' }}
+      secondaryCta={{ text: 'View Fleet', href: '#fleet' }}
       faqs={faqs}
       finalCtaHeadline={<>Shower her on the <em>water</em>.</>}
       finalCtaBody="Book your Austin bridal shower cruise on Lake Travis. Private boat charters, BYOB, games, gifts, and unforgettable sunset photos. The bridal shower she\'ll talk about for years."

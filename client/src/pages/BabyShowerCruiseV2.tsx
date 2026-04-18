@@ -77,7 +77,7 @@ export default function BabyShowerCruiseV2() {
       }
       heroBody="A fresh, photo-worthy alternative to the living-room shower. Gentle cruising, calm-cove anchoring, cushioned seating, and a mocktail bar — all on the most scenic venue in Austin."
       primaryCta={{ text: 'Get Quote', href: '/chat' }}
-      secondaryCta={{ text: 'View Fleet', href: '/private-cruises' }}
+      secondaryCta={{ text: 'View Fleet', href: '#fleet' }}
       faqs={faqs}
       finalCtaHeadline={
         <>

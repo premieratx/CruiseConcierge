@@ -80,7 +80,7 @@ export default function GraduationPartyV2() {
       }
       heroBody="The class, the family, the caps in the air. Celebrate graduation with a private Lake Travis charter — cruise, swim stop, and sunset photos worthy of the milestone."
       primaryCta={{ text: 'Get Quote', href: '/chat' }}
-      secondaryCta={{ text: 'View Fleet', href: '/private-cruises' }}
+      secondaryCta={{ text: 'View Fleet', href: '#fleet' }}
       faqs={faqs}
       finalCtaHeadline={
         <>

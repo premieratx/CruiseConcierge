@@ -69,7 +69,7 @@ export default function RehearsalDinnerCruiseV2() {
       heroHeadline={<>Rehearsal dinner cruise <em>Austin</em></>}
       heroBody="Toast the wedding from a private yacht on Lake Travis. Premier Party Cruises hosts rehearsal dinner cruises with BYOB, catering coordination, sunset toasts, and a swim stop. The Austin rehearsal dinner your guests will remember forever."
       primaryCta={{ text: 'Get Quote', href: '/chat' }}
-      secondaryCta={{ text: 'Explore Fleet', href: '/private-cruises' }}
+      secondaryCta={{ text: 'Explore Fleet', href: '#fleet' }}
       faqs={faqs}
       finalCtaHeadline={<>Toast tomorrow on the <em>water</em>.</>}
       finalCtaBody="Book your Austin rehearsal dinner cruise on Lake Travis. Private boat charters, BYOB, catering coordination, licensed captains. The pre-wedding celebration your guests deserve."

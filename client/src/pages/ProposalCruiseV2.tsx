@@ -73,7 +73,7 @@ export default function ProposalCruiseV2() {
       heroHeadline={<>The <em>perfect</em> proposal on Lake Travis</>}
       heroBody="The Austin proposal cruise on Lake Travis — a private sunset charter with hidden flowers, chilled champagne, a photographer posing as crew, and an anchor at the most scenic cove. The proposal she\'ll tell the story of forever. 25 minutes from downtown Austin."
       primaryCta={{ text: 'Get Quote', href: '/chat' }}
-      secondaryCta={{ text: 'View Fleet', href: '/private-cruises' }}
+      secondaryCta={{ text: 'View Fleet', href: '#fleet' }}
       faqs={faqs}
       finalCtaHeadline={<>Ask the <em>question</em> on Lake Travis.</>}
       finalCtaBody="Book your private proposal cruise and ask the most important question against a Texas Hill Country sunset. Licensed captains, BYOB champagne, hidden flower coordination, photographer add-ons."

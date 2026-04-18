@@ -74,7 +74,7 @@ export default function FamilyReunionCruiseV2() {
       }
       heroBody="Multi-generational reunions where grandparents, parents, and grandkids all have the time of their lives. Private charters for 14 to 75 guests, kids free, easy boarding, BYOB."
       primaryCta={{ text: 'Get Quote', href: '/chat' }}
-      secondaryCta={{ text: 'View Fleet', href: '/private-cruises' }}
+      secondaryCta={{ text: 'View Fleet', href: '#fleet' }}
       faqs={faqs}
       finalCtaHeadline={
         <>

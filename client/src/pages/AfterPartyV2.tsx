@@ -65,7 +65,7 @@ export default function AfterPartyV2() {
       heroHeadline={<>Day-after wedding <em>recovery</em> cruise</>}
       heroBody="The perfect day after wedding cruise on Lake Travis — a private boat charter for you and your out-of-town guests to recover with mimosas, breakfast tacos, and a swim stop. Anderson Mill Marina, 25 minutes from downtown Austin."
       primaryCta={{ text: 'Get Quote', href: '/chat' }}
-      secondaryCta={{ text: 'View Fleet', href: '/private-cruises' }}
+      secondaryCta={{ text: 'View Fleet', href: '#fleet' }}
       faqs={faqs}
       finalCtaHeadline={<>Ready for a <em>recovery</em> cruise they'll remember?</>}
       finalCtaBody="Thank your out-of-town guests with the ultimate Lake Travis day-after wedding cruise. Our team handles captain, crew, and coolers — you just bring the mimosas."

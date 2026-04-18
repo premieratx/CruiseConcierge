@@ -83,7 +83,7 @@ export default function CelebrationCruisesV2() {
       }
       heroBody="Engagements, promotions, graduations, retirements, anniversaries, milestones — whatever you are celebrating, Lake Travis is the venue. Private charters for 14 to 75 guests, BYOB, and a crew trained to design the day around your honoree."
       primaryCta={{ text: 'Get Quote', href: '/chat' }}
-      secondaryCta={{ text: 'View Fleet', href: '/private-cruises' }}
+      secondaryCta={{ text: 'View Fleet', href: '#fleet' }}
       faqs={faqs}
       finalCtaHeadline={
         <>

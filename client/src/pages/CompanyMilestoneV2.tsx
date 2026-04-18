@@ -82,7 +82,7 @@ export default function CompanyMilestoneV2() {
       }
       heroBody="The moment your company just hit deserves a venue that matches. Private Lake Travis cruises for IPO celebrations, funding rounds, product launches, and anniversary galas that will define the company's story for years."
       primaryCta={{ text: 'Get Corporate Quote', href: '/chat' }}
-      secondaryCta={{ text: 'View Fleet', href: '/private-cruises' }}
+      secondaryCta={{ text: 'View Fleet', href: '#fleet' }}
       faqs={faqs}
       finalCtaHeadline={
         <>

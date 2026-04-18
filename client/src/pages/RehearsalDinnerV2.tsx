@@ -69,7 +69,7 @@ export default function RehearsalDinnerV2() {
       heroHeadline={<>Rehearsal dinners on <em>Lake Travis</em></>}
       heroBody="Swap the banquet hall for a Lake Travis sunset. Premier Party Cruises hosts rehearsal dinners aboard private charters with BYOB, catering coordination, and a swim stop. 14-75 guests, 25 minutes from downtown Austin."
       primaryCta={{ text: 'Get Quote', href: '/chat' }}
-      secondaryCta={{ text: 'View Fleet', href: '/private-cruises' }}
+      secondaryCta={{ text: 'View Fleet', href: '#fleet' }}
       faqs={faqs}
       finalCtaHeadline={<>A rehearsal dinner they'll <em>never</em> forget.</>}
       finalCtaBody="Book your Lake Travis rehearsal dinner cruise and give your wedding party a pre-ceremony evening on the water. Licensed captains, BYOB, sunset views, catering coordination."

@@ -76,7 +76,7 @@ export default function Sweet16V2() {
       }
       heroBody="The most unforgettable Sweet 16 in Austin. Private boat charter, premium sound system, swim stop, and a deck full of friends celebrating the birthday teen. Parent-hosted, fully supervised, completely memorable."
       primaryCta={{ text: 'Get Quote', href: '/chat' }}
-      secondaryCta={{ text: 'View Fleet', href: '/private-cruises' }}
+      secondaryCta={{ text: 'View Fleet', href: '#fleet' }}
       faqs={faqs}
       finalCtaHeadline={
         <>

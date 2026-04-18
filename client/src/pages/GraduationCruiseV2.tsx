@@ -80,7 +80,7 @@ export default function GraduationCruiseV2() {
       }
       heroBody="A private sunset cruise for the graduate. Catered dinner on the water, golden-hour portraits on the upper deck, a toast to the class of 202X, and a scenic ride back to the marina. Four boats, 14 to 75 guests, fully supervised."
       primaryCta={{ text: 'Get Quote', href: '/chat' }}
-      secondaryCta={{ text: 'View Fleet', href: '/private-cruises' }}
+      secondaryCta={{ text: 'View Fleet', href: '#fleet' }}
       faqs={faqs}
       finalCtaHeadline={
         <>

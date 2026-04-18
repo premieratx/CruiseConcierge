@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, lazy, Suspense } from 'react';
+import { XOLA_BUTTON_ID } from "@/components/XolaBookNow";
 import { Link } from 'wouter';
 import PublicNavigation from '@/components/PublicNavigationLuxury';
 import { useQuoteLightbox } from '@/components/QuoteLightbox';

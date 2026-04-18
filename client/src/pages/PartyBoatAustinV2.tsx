@@ -85,7 +85,7 @@ export default function PartyBoatAustinV2() {
       }
       heroBody="The largest party boat fleet on Lake Travis. Four boats, 14 to 75 guests, BYOB-friendly, USCG-certified captains, departing 25 minutes from downtown Austin. Private charters from $200/hour or hop on the shared ATX Disco Cruise from $85/person."
       primaryCta={{ text: 'Book Your Party Boat', href: '/book' }}
-      secondaryCta={{ text: 'See Full Fleet', href: '/private-cruises' }}
+      secondaryCta={{ text: 'See Full Fleet', href: '#fleet' }}
       faqs={faqs}
       finalCtaHeadline={
         <>

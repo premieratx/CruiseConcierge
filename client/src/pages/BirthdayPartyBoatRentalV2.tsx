@@ -80,7 +80,7 @@ export default function BirthdayPartyBoatRentalV2() {
       }
       heroBody="Rent a private boat for your birthday celebration on Lake Travis. Four boats, 14 to 75 guests, fully BYOB, licensed captain included. Starting at $200/hour with a 4-hour minimum."
       primaryCta={{ text: 'Get Quote', href: '/chat' }}
-      secondaryCta={{ text: 'View Fleet', href: '/private-cruises' }}
+      secondaryCta={{ text: 'View Fleet', href: '#fleet' }}
       faqs={faqs}
       finalCtaHeadline={
         <>

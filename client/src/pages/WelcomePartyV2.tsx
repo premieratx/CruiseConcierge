@@ -69,7 +69,7 @@ export default function WelcomePartyV2() {
       heroHeadline={<>Welcome your wedding guests to <em>Austin</em></>}
       heroBody="Host your Austin wedding welcome party on Lake Travis — a private sunset cruise that greets out-of-town guests with Hill Country views, BYOB drinks, and an Austin introduction they'll never forget. 25 minutes from downtown."
       primaryCta={{ text: 'Get Quote', href: '/chat' }}
-      secondaryCta={{ text: 'Explore Fleet', href: '/private-cruises' }}
+      secondaryCta={{ text: 'Explore Fleet', href: '#fleet' }}
       faqs={faqs}
       finalCtaHeadline={<>The perfect Austin <em>welcome</em> awaits.</>}
       finalCtaBody="Book your Lake Travis wedding welcome party cruise and give your guests an unforgettable first taste of Austin. Licensed captains, BYOB, sunset views."

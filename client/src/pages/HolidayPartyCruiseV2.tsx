@@ -86,7 +86,7 @@ export default function HolidayPartyCruiseV2() {
       }
       heroBody="Skip the hotel ballroom this year. Private Lake Travis holiday cruises for 14 to 75 guests — heated, covered, fully BYOB, and the kind of corporate holiday party your team will actually want to attend."
       primaryCta={{ text: 'Get Corporate Quote', href: '/chat' }}
-      secondaryCta={{ text: 'View Fleet', href: '/private-cruises' }}
+      secondaryCta={{ text: 'View Fleet', href: '#fleet' }}
       faqs={faqs}
       finalCtaHeadline={
         <>

@@ -82,7 +82,7 @@ export default function LakeTravisBachelorPartyBoatsV2() {
       }
       heroBody="Four bachelor party boats on Lake Travis, 14 to 75 guests, all departing from Anderson Mill Marina. Compare the fleet, pick the right boat for your crew, lock in your Saturday — all in one page."
       primaryCta={{ text: 'Book Your Boat', href: '/book' }}
-      secondaryCta={{ text: 'View Full Fleet', href: '/private-cruises' }}
+      secondaryCta={{ text: 'View Full Fleet', href: '#fleet' }}
       faqs={faqs}
       finalCtaHeadline={
         <>
