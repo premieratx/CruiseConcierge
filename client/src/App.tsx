@@ -1191,6 +1191,13 @@ function App() {
     }
   }, []);
 
+  // ATTRIBUTION: First-touch affiliate tracking. Reads ?ref=CODE off the
+  // landing URL, writes a click row in Supabase, and stashes the UUIDs in
+  // sessionStorage so the Get-a-Quote flow picks them up on submit.
+  useEffect(() => {
+    import('@/lib/affiliateTracking').then((m) => m.trackAffiliateLanding?.());
+  }, []);
+
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
