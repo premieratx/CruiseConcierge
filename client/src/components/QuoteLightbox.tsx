@@ -24,7 +24,9 @@ const QuoteLightboxContext = createContext<QuoteLightboxContextValue | null>(nul
 const STYLES = `
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,500&family=Jost:wght@300;400;500;600&display=swap');
 
-/* Overlay */
+/* Overlay — always rendered so the iframe inside can preload. When
+   closed we move it off-viewport instead of display:none so the
+   iframe keeps loading in the background. */
 .qlb-overlay {
   position: fixed;
   inset: 0;
@@ -38,11 +40,14 @@ const STYLES = `
   padding: 2rem 1rem;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.28s ease;
+  visibility: hidden;
+  transition: opacity 0.28s ease, visibility 0s linear 0.28s;
 }
 .qlb-overlay.open {
   opacity: 1;
   pointer-events: auto;
+  visibility: visible;
+  transition: opacity 0.28s ease, visibility 0s linear 0s;
 }
 
 /* Dialog box */
@@ -161,12 +166,14 @@ export function QuoteLightboxProvider({ children }: { children: ReactNode }) {
   const [sourceType, setSourceType] = useState<string>("lightbox_quote_v2");
   const [iframeLoaded, setIframeLoaded] = useState(false);
   const dialogRef = useRef<HTMLDivElement>(null);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
   const lastFocusedRef = useRef<HTMLElement | null>(null);
 
   const openQuote = useCallback((source?: string) => {
     if (source) setSourceType(source);
     lastFocusedRef.current = document.activeElement as HTMLElement | null;
-    setIframeLoaded(false);
+    // Don't reset iframeLoaded — iframe is preloaded on mount so it's
+    // already ready by the time the user clicks a CTA.
     setIsOpen(true);
   }, []);
 
@@ -266,21 +273,22 @@ export function QuoteLightboxProvider({ children }: { children: ReactNode }) {
           </div>
 
           <div className="qlb-body">
-            {isOpen && (
-              <>
-                {!iframeLoaded && (
-                  <div className="qlb-loader" aria-hidden="true">Loading quote builder</div>
-                )}
-                <iframe
-                  key={sourceType}
-                  className="qlb-iframe"
-                  src={iframeSrc}
-                  title="Premier Party Cruises — Quote Builder"
-                  onLoad={() => setIframeLoaded(true)}
-                  allow="payment"
-                />
-              </>
+            {/* Iframe stays mounted for the life of the page. This makes the
+                lightbox open INSTANTLY when a user clicks Get Quote — no
+                cold-start iframe fetch. Scroll is isolated inside the
+                dialog. Only shown when isOpen. */}
+            {!iframeLoaded && (
+              <div className="qlb-loader" aria-hidden={!isOpen}>Loading quote builder</div>
             )}
+            <iframe
+              ref={iframeRef}
+              className="qlb-iframe"
+              src={iframeSrc}
+              title="Premier Party Cruises — Quote Builder"
+              onLoad={() => setIframeLoaded(true)}
+              allow="payment"
+              loading="eager"
+            />
           </div>
         </div>
       </div>
