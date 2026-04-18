@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useLocation } from 'wouter';
 import { Menu, ChevronDown, X } from 'lucide-react';
+import { useQuoteLightbox } from '@/components/QuoteLightbox';
 
 const logoPath = '/attached_assets/PPC-Logo-280x280.webp';
 
@@ -674,6 +675,13 @@ export default function PublicNavigationLuxury() {
   const [location] = useLocation();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { openQuote } = useQuoteLightbox();
+
+  const handleQuoteClick = (e: React.MouseEvent, source: string) => {
+    e.preventDefault();
+    setMobileOpen(false);
+    openQuote(source);
+  };
 
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 40);
@@ -698,7 +706,7 @@ export default function PublicNavigationLuxury() {
             Request a quote to unlock a <strong>$150–$300+</strong> discount on your party cruise
           </span>
           <span className="lux-promo-sep" aria-hidden="true">·</span>
-          <a href="/chat" className="lux-promo-line lux-promo-line--cta">
+          <a href="/chat" className="lux-promo-line lux-promo-line--cta" onClick={(e) => handleQuoteClick(e, 'promo_banner')}>
             Book in the <em>next 10 days</em> — <strong>save $150</strong>
           </a>
         </div>
@@ -749,7 +757,7 @@ export default function PublicNavigationLuxury() {
 
             {/* CTAs */}
             <div className="lux-nav-cta-group">
-              <a href="/chat" className="lux-nav-quote">Get Quote</a>
+              <a href="/chat" className="lux-nav-quote" onClick={(e) => handleQuoteClick(e, 'nav_desktop')}>Get Quote</a>
               <a href="/book" className="lux-nav-book">Book Now</a>
               <button
                 className="lux-nav-mobile-toggle"
@@ -795,7 +803,7 @@ export default function PublicNavigationLuxury() {
           ))}
         </nav>
         <div className="lux-nav-mobile-ctas">
-          <a href="/chat" className="lux-nav-quote" style={{ textAlign: 'center' }}>Get Quote</a>
+          <a href="/chat" className="lux-nav-quote" style={{ textAlign: 'center' }} onClick={(e) => handleQuoteClick(e, 'nav_mobile')}>Get Quote</a>
           <a href="/book" className="lux-nav-book" style={{ textAlign: 'center' }}>Book Now</a>
         </div>
       </aside>

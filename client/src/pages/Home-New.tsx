@@ -1,6 +1,7 @@
 import { useState, useEffect, lazy, Suspense, useRef } from 'react';
 import { Link } from 'wouter';
 import PublicNavigation from '@/components/PublicNavigationLuxury';
+import { useQuoteLightbox } from '@/components/QuoteLightbox';
 
 const Footer = lazy(() => import('@/components/Footer'));
 
@@ -216,6 +217,75 @@ const HP2_STYLES = `
 .hp2-btn--outline:hover {
   border-color: var(--hp2-gold);
   color: var(--hp2-cream);
+}
+
+/* ─── Embedded Quote Builder ─────────────────────────────────── */
+.hp2-quote-embed {
+  padding: 5rem 4rem 4rem;
+  background:
+    radial-gradient(ellipse at 20% 0%, rgba(30,136,229,0.10) 0%, transparent 55%),
+    radial-gradient(ellipse at 80% 100%, rgba(200,169,110,0.08) 0%, transparent 60%),
+    var(--hp2-bg-1);
+  position: relative;
+  border-top: 1px solid var(--hp2-border);
+  border-bottom: 1px solid var(--hp2-border);
+}
+.hp2-quote-embed__intro {
+  max-width: 820px;
+  margin: 0 auto 2.5rem;
+  text-align: center;
+}
+.hp2-quote-embed__headline {
+  font-family: var(--hp2-font-display);
+  font-weight: 300;
+  font-size: clamp(2rem, 3.4vw, 3rem);
+  line-height: 1.1;
+  color: var(--hp2-cream);
+  margin: 0 0 1rem;
+}
+.hp2-quote-embed__headline em {
+  font-style: italic;
+  color: var(--hp2-gold-light);
+}
+.hp2-quote-embed__sub {
+  color: var(--hp2-cream-muted);
+  font-size: 1.08rem;
+  line-height: 1.65;
+  margin: 0 auto 1.75rem;
+  max-width: 620px;
+}
+.hp2-quote-embed__cta-row {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.hp2-quote-embed__frame-wrap {
+  max-width: 1100px;
+  margin: 0 auto;
+  border: 1px solid var(--hp2-border);
+  border-radius: 14px;
+  overflow: hidden;
+  background: #FFFFFF;
+  box-shadow:
+    0 30px 80px rgba(0,0,0,0.5),
+    0 0 0 1px rgba(200,169,110,0.1);
+}
+.hp2-quote-embed__frame {
+  width: 100%;
+  height: 720px;
+  border: 0;
+  display: block;
+  background: #FFFFFF;
+}
+@media (max-width: 768px) {
+  .hp2-quote-embed { padding: 3rem 1.1rem 2.5rem; }
+  .hp2-quote-embed__intro { margin-bottom: 1.75rem; }
+  .hp2-quote-embed__headline { font-size: clamp(1.6rem, 6vw, 2.1rem); }
+  .hp2-quote-embed__sub { font-size: 0.98rem; }
+  .hp2-quote-embed__frame-wrap { border-radius: 10px; }
+  .hp2-quote-embed__frame { height: 820px; min-height: 640px; }
+  .hp2-quote-embed__cta-row .hp2-btn { width: 100%; justify-content: center; }
 }
 
 /* ─── Trust Bar ───────────────────────────────────────────────── */
@@ -957,6 +1027,7 @@ const FAQ_DATA = [
 
 // ─── Component ──────────────────────────────────────────────────────────────
 export default function HomeNew() {
+  const { openQuote } = useQuoteLightbox();
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [openDetails, setOpenDetails] = useState<string | null>(null);
 
@@ -1094,14 +1165,53 @@ export default function HomeNew() {
             Austin party boat rentals on Lake Travis — private charters, the ATX Disco Cruise, BYOB party boats with licensed captains. Anderson Mill Marina, just 25 minutes from downtown Austin.
           </p>
           <div className="hp2-hero__ctas">
-            <Link href="/book">
-              <a className="hp2-btn hp2-btn--primary">Book Your Cruise &rarr;</a>
-            </Link>
-            <a href="#fleet" className="hp2-btn hp2-btn--outline">Explore Our Fleet</a>
+            <button
+              type="button"
+              className="hp2-btn hp2-btn--primary"
+              onClick={() => openQuote('hero_primary')}
+            >
+              Get a Quote &rarr;
+            </button>
+            <a href="#quote-builder-embed" className="hp2-btn hp2-btn--outline">Explore Party Types</a>
           </div>
         </div>
 
         <div className="hp2-hero__scroll" />
+      </section>
+
+      {/* ─── Embedded Quote Builder (party-type chooser + photos inside the iframe app) ─── */}
+      <section className="hp2-quote-embed" id="quote-builder-embed">
+        <div className="hp2-quote-embed__intro">
+          <p className="hp2-section__label" style={{ marginBottom: '0.75rem' }}>Get a Personalized Quote</p>
+          <h2 className="hp2-quote-embed__headline">
+            Pick your <em>party</em> &middot; see real pricing &middot; lock your date
+          </h2>
+          <p className="hp2-quote-embed__sub">
+            Browse every event type, get instant pricing, and request a personalized quote — takes about 60 seconds.
+          </p>
+          <div className="hp2-quote-embed__cta-row">
+            <button
+              type="button"
+              className="hp2-btn hp2-btn--primary"
+              onClick={() => openQuote('hero_below_cta')}
+            >
+              Get a Quote &rarr;
+            </button>
+            <a href="tel:5124885892" className="hp2-btn hp2-btn--outline">Or call (512) 488-5892</a>
+          </div>
+        </div>
+
+        <div className="hp2-quote-embed__frame-wrap">
+          <iframe
+            className="hp2-quote-embed__frame"
+            src={`https://booking.premierpartycruises.com/quote-v2?sourceUrl=${encodeURIComponent(
+              typeof window !== 'undefined' ? window.location.href : 'https://premier-party-cruises-v2.netlify.app/'
+            )}&sourceType=home_embed_v2&autoResize=1`}
+            title="Premier Party Cruises — Quote Builder"
+            loading="lazy"
+            allow="payment"
+          />
+        </div>
       </section>
 
       {/* ─── Trust Bar ─── */}
@@ -1470,9 +1580,13 @@ export default function HomeNew() {
           Whether it's an Austin bachelorette party, birthday celebration, corporate team building, or just a day on Lake Travis with friends — Premier Party Cruises makes it unforgettable. Book your Austin party boat rental online or give us a call.
         </p>
         <div className="hp2-final-cta__actions">
-          <Link href="/book">
-            <a className="hp2-btn hp2-btn--primary">Book Your Cruise &rarr;</a>
-          </Link>
+          <button
+            type="button"
+            className="hp2-btn hp2-btn--primary"
+            onClick={() => openQuote('final_cta')}
+          >
+            Get a Quote &rarr;
+          </button>
           <a href="tel:+15124885892" className="hp2-final-cta__phone">(512) 488-5892</a>
         </div>
         <p className="hp2-final-cta__location">

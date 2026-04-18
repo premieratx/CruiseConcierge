@@ -19,6 +19,7 @@ import { ProtectedRoute } from "@/lib/protected-route";
 const GoogleAnalytics = lazy(() => import("@/components/GoogleAnalytics").then(m => ({ default: m.GoogleAnalytics })));
 // ErrorBoundary must be sync loaded - it wraps Router and delaying it blocks entire app render
 import { ErrorBoundary } from "@/components/ErrorBoundary";
+import { QuoteLightboxProvider } from "@/components/QuoteLightbox";
 // TBT OPTIMIZATION: XolaMobileCloseButton lazy loaded - only used for Xola modal
 const XolaMobileCloseButton = lazy(() => import("@/components/XolaMobileCloseButton").then(m => ({ default: m.XolaMobileCloseButton })));
 
@@ -1199,9 +1200,11 @@ function App() {
                   <XolaMobileCloseButton />
                 </Suspense>
                 {/* TBT OPTIMIZATION: QuoteWidgetPreloader removed - was blocking main thread */}
-                <ErrorBoundary>
-                  <Router />
-                </ErrorBoundary>
+                <QuoteLightboxProvider>
+                  <ErrorBoundary>
+                    <Router />
+                  </ErrorBoundary>
+                </QuoteLightboxProvider>
               {/* </TooltipProvider> */}
             </HelmetProvider>
           {/* </EditModeProvider> */}
