@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useLocation } from 'wouter';
 import { Menu, ChevronDown, X } from 'lucide-react';
 import { useQuoteLightbox } from '@/components/QuoteLightbox';
+import { XOLA_BUTTON_ID } from '@/components/XolaBookNow';
 
 const logoPath = '/attached_assets/PPC-Logo-280x280.webp';
 
@@ -758,7 +759,9 @@ export default function PublicNavigationLuxury() {
             {/* CTAs */}
             <div className="lux-nav-cta-group">
               <a href="/chat" className="lux-nav-quote" onClick={(e) => handleQuoteClick(e, 'nav_desktop')}>Get Quote</a>
-              <a href="/book" className="lux-nav-book">Book Now</a>
+              <div className="xola-custom xola-checkout" data-button-id={XOLA_BUTTON_ID} data-xola-button="true" style={{ display: 'inline-block' }}>
+                <button type="button" className="lux-nav-book">Book Now</button>
+              </div>
               <button
                 className="lux-nav-mobile-toggle"
                 onClick={() => setMobileOpen(true)}
@@ -804,7 +807,9 @@ export default function PublicNavigationLuxury() {
         </nav>
         <div className="lux-nav-mobile-ctas">
           <a href="/chat" className="lux-nav-quote" style={{ textAlign: 'center' }} onClick={(e) => handleQuoteClick(e, 'nav_mobile')}>Get Quote</a>
-          <a href="/book" className="lux-nav-book" style={{ textAlign: 'center' }}>Book Now</a>
+          <div className="xola-custom xola-checkout" data-button-id={XOLA_BUTTON_ID} data-xola-button="true" style={{ display: 'block', textAlign: 'center' }} onClick={() => setMobileOpen(false)}>
+            <button type="button" className="lux-nav-book" style={{ width: '100%', textAlign: 'center' }}>Book Now</button>
+          </div>
         </div>
       </aside>
     </>

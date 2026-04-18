@@ -839,9 +839,7 @@ const [openFaq, setOpenFaq] = useState<number | null>(null);
             From Sweet 16 to milestone 50th — celebrate any age on Lake Travis with a private party boat cruise. 4 boats, 14 to 75 guests, fully BYOB, year-round from $200/hr.
           </p>
           <div className="hp2-hero__ctas">
-            <Link href="/book">
-              <a className="hp2-btn hp2-btn--primary">Plan Your Birthday Cruise &rarr;</a>
-            </Link>
+            <div className="xola-custom xola-checkout" data-button-id={XOLA_BUTTON_ID} data-xola-button="true" style={{ display: "inline-block" }}><button type="button" className="hp2-btn hp2-btn--primary">Plan Your Birthday Cruise &rarr;</button></div>
             <Link href="/private-cruises">
               <a className="hp2-btn hp2-btn--outline">See Our Fleet</a>
             </Link>
@@ -1262,9 +1260,7 @@ const [openFaq, setOpenFaq] = useState<number | null>(null);
           Weekend dates fill fast, especially during peak season. Book your private birthday cruise online or call us to check availability and start planning every detail.
         </p>
         <div className="hp2-final-cta__actions">
-          <Link href="/book">
-            <a className="hp2-btn hp2-btn--primary">Book Your Birthday Cruise &rarr;</a>
-          </Link>
+          <div className="xola-custom xola-checkout" data-button-id={XOLA_BUTTON_ID} data-xola-button="true" style={{ display: "inline-block" }}><button type="button" className="hp2-btn hp2-btn--primary">Book Your Birthday Cruise &rarr;</button></div>
           <a href="tel:+15124885892" className="hp2-final-cta__phone">(512) 488-5892</a>
         </div>
         <p className="hp2-final-cta__location">

@@ -993,9 +993,7 @@ const [openFaq, setOpenFaq] = useState<number | null>(null);
             Exclusive private charters on Lake Travis for any occasion — birthdays, corporate events, weddings, family reunions, and more. Four premium boats, licensed captains, and 15+ years of experience. BYOB, fully customizable, available all year.
           </p>
           <div className="hp2-hero__ctas">
-            <Link href="/book">
-              <a className="hp2-btn hp2-btn--primary">Get a Quote &rarr;</a>
-            </Link>
+            <div className="xola-custom xola-checkout" data-button-id={XOLA_BUTTON_ID} data-xola-button="true" style={{ display: "inline-block" }}><button type="button" className="hp2-btn hp2-btn--primary">Get a Quote &rarr;</button></div>
             <a href="#fleet" className="hp2-btn hp2-btn--outline">Explore Our Fleet</a>
           </div>
         </div>
@@ -1517,9 +1515,7 @@ const [openFaq, setOpenFaq] = useState<number | null>(null);
           Tell us about your event and we will match you with the perfect boat, date, and package. Available year-round on Lake Travis.
         </p>
         <div className="hp2-final-cta__actions">
-          <Link href="/book">
-            <a className="hp2-btn hp2-btn--primary">Get a Quote &rarr;</a>
-          </Link>
+          <div className="xola-custom xola-checkout" data-button-id={XOLA_BUTTON_ID} data-xola-button="true" style={{ display: "inline-block" }}><button type="button" className="hp2-btn hp2-btn--primary">Get a Quote &rarr;</button></div>
           <a href="tel:+15124885892" className="hp2-final-cta__phone">(512) 488-5892</a>
         </div>
         <p className="hp2-final-cta__location">

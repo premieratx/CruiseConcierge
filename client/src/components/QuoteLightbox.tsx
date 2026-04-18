@@ -12,6 +12,7 @@
 
 import { createContext, useCallback, useContext, useEffect, useRef, useState, ReactNode } from "react";
 import { X } from "lucide-react";
+import { XOLA_BUTTON_ID } from "./XolaBookNow";
 
 type QuoteLightboxContextValue = {
   isOpen: boolean;
@@ -204,18 +205,17 @@ export function QuoteLightboxProvider({ children }: { children: ReactNode }) {
 
   /*
    * GLOBAL CLICK INTERCEPTOR
-   * Any link whose href points at the quote builder (`/chat`, `/quote`)
-   * should open the lightbox instead of navigating away. This lets us
-   * leave existing `<a href="/chat">` markup in place across the site
-   * (footer, inline CTAs, pricing tables, etc.) and have it all route
-   * through the popup automatically.
+   * - href="/chat" or "/quote" → opens the quote lightbox
+   * - href="/book" or "/book-now" → opens the Xola slide-out booking
+   *   widget (by synthesizing a click on a hidden `.xola-custom` element
+   *   that has the configured data-button-id; Xola's checkout.js picks
+   *   it up and fires the slide-out).
    *
-   * Opt-out: add `data-no-lightbox` to any link that should still
-   * navigate (e.g. an admin-only link).
+   * Opt-out: add `data-no-lightbox` (quote) or `data-no-xola` (booking)
+   * to any link that should still navigate normally.
    */
   useEffect(() => {
     const onClick = (e: MouseEvent) => {
-      // Respect modifier keys so users can open in a new tab intentionally
       if (e.defaultPrevented || e.button !== 0) return;
       if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
 
@@ -223,14 +223,35 @@ export function QuoteLightboxProvider({ children }: { children: ReactNode }) {
       if (!target) return;
       const anchor = target.closest<HTMLAnchorElement>("a[href]");
       if (!anchor) return;
-      if (anchor.hasAttribute("data-no-lightbox")) return;
       if (anchor.target && anchor.target !== "" && anchor.target !== "_self") return;
+
+      // If the click already landed inside a real Xola-wrapped element,
+      // let Xola's checkout.js handle it directly.
+      if (target.closest(".xola-custom, .xola-checkout, [data-xola-button]")) return;
 
       const href = anchor.getAttribute("href") || "";
       const rawPath = href.split("?")[0].split("#")[0];
-      if (rawPath === "/chat" || rawPath === "/quote") {
+
+      if ((rawPath === "/chat" || rawPath === "/quote") && !anchor.hasAttribute("data-no-lightbox")) {
         e.preventDefault();
         openQuote("auto_intercept");
+        return;
+      }
+
+      if ((rawPath === "/book" || rawPath === "/book-now") && !anchor.hasAttribute("data-no-xola")) {
+        e.preventDefault();
+        // Synthesize a click on the hidden Xola trigger — checkout.js
+        // listens for clicks on .xola-custom and opens its slide-out
+        // for the matching data-button-id.
+        const trigger = document.getElementById("xola-global-book-trigger");
+        if (trigger) {
+          // Ensure the script loader has kicked off (harmless if already loaded)
+          (window as any).loadXolaCheckout?.();
+          trigger.click();
+        } else {
+          // Hard fallback: open Xola's hosted checkout in a new tab
+          window.open(`https://xola.com/checkout/${XOLA_BUTTON_ID}`, "_blank", "noopener,noreferrer");
+        }
       }
     };
     document.addEventListener("click", onClick);
@@ -247,6 +268,28 @@ export function QuoteLightboxProvider({ children }: { children: ReactNode }) {
     <QuoteLightboxContext.Provider value={{ isOpen, openQuote, closeQuote }}>
       <style dangerouslySetInnerHTML={{ __html: STYLES }} />
       {children}
+
+      {/* Hidden Xola trigger — synthesized clicks land here and checkout.js
+          opens the slide-out booking widget for the configured button ID. */}
+      <div
+        id="xola-global-book-trigger"
+        className="xola-custom xola-checkout"
+        data-button-id={XOLA_BUTTON_ID}
+        data-xola-button="true"
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          width: 1,
+          height: 1,
+          padding: 0,
+          margin: -1,
+          overflow: "hidden",
+          clip: "rect(0,0,0,0)",
+          whiteSpace: "nowrap",
+          border: 0,
+        }}
+      />
+
 
       <div
         className={`qlb-overlay ${isOpen ? "open" : ""}`}

@@ -1020,9 +1020,7 @@ const [openFaq, setOpenFaq] = useState<number | null>(null);
             Why celebrate apart when you can party together? The ATX Disco Cruise brings bachelor and bachelorette groups together on Lake Travis for the most epic pre-wedding celebration in Austin. From $85/person.
           </p>
           <div className="hp2-hero__ctas">
-            <Link href="/book">
-              <a className="hp2-btn hp2-btn--primary">Book Combined Party &rarr;</a>
-            </Link>
+            <div className="xola-custom xola-checkout" data-button-id={XOLA_BUTTON_ID} data-xola-button="true" style={{ display: "inline-block" }}><button type="button" className="hp2-btn hp2-btn--primary">Book Combined Party &rarr;</button></div>
             <a href="#how-it-works" className="hp2-btn hp2-btn--outline">See How It Works</a>
           </div>
         </div>
@@ -1130,9 +1128,7 @@ const [openFaq, setOpenFaq] = useState<number | null>(null);
                   The most popular option for combined bach parties. Multiple bachelor and bachelorette groups share our flagship Clever Girl for 4 hours of DJ, dancing, swimming, and celebrating on Lake Travis. Professional photographer included. Both groups book tickets for the same time slot and the party takes care of itself.
                 </p>
                 <div className="hp2-exp-card__price">From $85/person</div>
-                <Link href="/book">
-                  <a className="hp2-btn hp2-btn--primary">Book Disco Cruise &rarr;</a>
-                </Link>
+                <div className="xola-custom xola-checkout" data-button-id={XOLA_BUTTON_ID} data-xola-button="true" style={{ display: "inline-block" }}><button type="button" className="hp2-btn hp2-btn--primary">Book Disco Cruise &rarr;</button></div>
               </div>
             </div>
 
@@ -1157,9 +1153,7 @@ const [openFaq, setOpenFaq] = useState<number | null>(null);
                   Charter Clever Girl exclusively for your entire wedding party. 50&ndash;75 guests, your own captain and crew, your own music, your own schedule. Perfect for large combined groups who want a private celebration with full control over the experience. Available year-round with a 4-hour minimum.
                 </p>
                 <div className="hp2-exp-card__price">From $250/hour (Clever Girl, 50&ndash;75 guests)</div>
-                <Link href="/book">
-                  <a className="hp2-btn hp2-btn--outline">Inquire About Charter &rarr;</a>
-                </Link>
+                <div className="xola-custom xola-checkout" data-button-id={XOLA_BUTTON_ID} data-xola-button="true" style={{ display: "inline-block" }}><button type="button" className="hp2-btn hp2-btn--outline">Inquire About Charter &rarr;</button></div>
               </div>
             </div>
           </div>
@@ -1188,9 +1182,7 @@ const [openFaq, setOpenFaq] = useState<number | null>(null);
               <li>Party supplies &amp; mixers</li>
               <li>BYOB friendly</li>
             </ul>
-            <Link href="/book">
-              <a className="hp2-btn hp2-btn--primary">Book This Slot &rarr;</a>
-            </Link>
+            <div className="xola-custom xola-checkout" data-button-id={XOLA_BUTTON_ID} data-xola-button="true" style={{ display: "inline-block" }}><button type="button" className="hp2-btn hp2-btn--primary">Book This Slot &rarr;</button></div>
           </div>
 
           {/* Saturday AM */}
@@ -1208,9 +1200,7 @@ const [openFaq, setOpenFaq] = useState<number | null>(null);
               <li>Party supplies &amp; mixers</li>
               <li>BYOB friendly</li>
             </ul>
-            <Link href="/book">
-              <a className="hp2-btn hp2-btn--primary">Book This Slot &rarr;</a>
-            </Link>
+            <div className="xola-custom xola-checkout" data-button-id={XOLA_BUTTON_ID} data-xola-button="true" style={{ display: "inline-block" }}><button type="button" className="hp2-btn hp2-btn--primary">Book This Slot &rarr;</button></div>
           </div>
 
           {/* Saturday PM */}
@@ -1228,9 +1218,7 @@ const [openFaq, setOpenFaq] = useState<number | null>(null);
               <li>Party supplies &amp; mixers</li>
               <li>BYOB friendly</li>
             </ul>
-            <Link href="/book">
-              <a className="hp2-btn hp2-btn--primary">Book This Slot &rarr;</a>
-            </Link>
+            <div className="xola-custom xola-checkout" data-button-id={XOLA_BUTTON_ID} data-xola-button="true" style={{ display: "inline-block" }}><button type="button" className="hp2-btn hp2-btn--primary">Book This Slot &rarr;</button></div>
           </div>
         </div>
       </section>
@@ -1447,9 +1435,7 @@ const [openFaq, setOpenFaq] = useState<number | null>(null);
           The ATX Disco Cruise is the easiest way to combine your bachelor and bachelorette parties. DJ, photographer, dance floor, giant floats, and 4 hours on Lake Travis &mdash; all included. Coordinate with both groups and book your spot.
         </p>
         <div className="hp2-final-cta__actions">
-          <Link href="/book">
-            <a className="hp2-btn hp2-btn--primary">Book Combined Party &rarr;</a>
-          </Link>
+          <div className="xola-custom xola-checkout" data-button-id={XOLA_BUTTON_ID} data-xola-button="true" style={{ display: "inline-block" }}><button type="button" className="hp2-btn hp2-btn--primary">Book Combined Party &rarr;</button></div>
           <a href="tel:+15124885892" className="hp2-final-cta__phone">(512) 488-5892</a>
         </div>
         <p className="hp2-final-cta__location">

@@ -1124,9 +1124,7 @@ const [openFaq, setOpenFaq] = useState<number | null>(null);
             DJ. Photographer. Dance floor. Giant floats. 4 hours on Lake Travis with the best bachelor and bachelorette groups in Austin. From $85/person &mdash; everything included.
           </p>
           <div className="hp2-hero__ctas">
-            <Link href="/book">
-              <a className="hp2-btn hp2-btn--primary">Book Your Tickets &rarr;</a>
-            </Link>
+            <div className="xola-custom xola-checkout" data-button-id={XOLA_BUTTON_ID} data-xola-button="true" style={{ display: "inline-block" }}><button type="button" className="hp2-btn hp2-btn--primary">Book Your Tickets &rarr;</button></div>
             <a href="#timeslots" className="hp2-btn hp2-btn--outline">View Time Slots</a>
           </div>
         </div>
@@ -1273,9 +1271,7 @@ const [openFaq, setOpenFaq] = useState<number | null>(null);
                 <li>Party supplies &amp; mixers</li>
                 <li>BYOB friendly</li>
               </ul>
-              <Link href="/book">
-                <a className="hp2-btn hp2-btn--primary">Book This Slot &rarr;</a>
-              </Link>
+              <div className="xola-custom xola-checkout" data-button-id={XOLA_BUTTON_ID} data-xola-button="true" style={{ display: "inline-block" }}><button type="button" className="hp2-btn hp2-btn--primary">Book This Slot &rarr;</button></div>
             </div>
 
             {/* Saturday AM */}
@@ -1293,9 +1289,7 @@ const [openFaq, setOpenFaq] = useState<number | null>(null);
                 <li>Party supplies &amp; mixers</li>
                 <li>BYOB friendly</li>
               </ul>
-              <Link href="/book">
-                <a className="hp2-btn hp2-btn--primary">Book This Slot &rarr;</a>
-              </Link>
+              <div className="xola-custom xola-checkout" data-button-id={XOLA_BUTTON_ID} data-xola-button="true" style={{ display: "inline-block" }}><button type="button" className="hp2-btn hp2-btn--primary">Book This Slot &rarr;</button></div>
             </div>
 
             {/* Saturday PM */}
@@ -1313,9 +1307,7 @@ const [openFaq, setOpenFaq] = useState<number | null>(null);
                 <li>Party supplies &amp; mixers</li>
                 <li>BYOB friendly</li>
               </ul>
-              <Link href="/book">
-                <a className="hp2-btn hp2-btn--primary">Book This Slot &rarr;</a>
-              </Link>
+              <div className="xola-custom xola-checkout" data-button-id={XOLA_BUTTON_ID} data-xola-button="true" style={{ display: "inline-block" }}><button type="button" className="hp2-btn hp2-btn--primary">Book This Slot &rarr;</button></div>
             </div>
           </div>
         </div>
@@ -1576,9 +1568,7 @@ const [openFaq, setOpenFaq] = useState<number | null>(null);
           The ATX Disco Cruise is Austin's most iconic party boat experience. DJ, photographer, dance floor, giant floats, and 4 hours on Lake Travis &mdash; all included. Grab your crew and book your spot.
         </p>
         <div className="hp2-final-cta__actions">
-          <Link href="/book">
-            <a className="hp2-btn hp2-btn--primary">Book Your Tickets &rarr;</a>
-          </Link>
+          <div className="xola-custom xola-checkout" data-button-id={XOLA_BUTTON_ID} data-xola-button="true" style={{ display: "inline-block" }}><button type="button" className="hp2-btn hp2-btn--primary">Book Your Tickets &rarr;</button></div>
           <a href="tel:+15124885892" className="hp2-final-cta__phone">(512) 488-5892</a>
         </div>
         <p className="hp2-final-cta__location">

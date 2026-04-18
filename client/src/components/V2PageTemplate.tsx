@@ -2,6 +2,7 @@ import { useState, lazy, Suspense, ReactNode } from 'react';
 import { Link } from 'wouter';
 import PublicNavigationLuxury from '@/components/PublicNavigationLuxury';
 import { useQuoteLightbox } from '@/components/QuoteLightbox';
+import { XOLA_BUTTON_ID } from '@/components/XolaBookNow';
 
 /** True when the CTA should open the quote lightbox instead of navigating. */
 function isQuoteCta(cta: { text: string; href: string }) {
@@ -10,6 +11,11 @@ function isQuoteCta(cta: { text: string; href: string }) {
     cta.href === '/quote' ||
     /quote/i.test(cta.text)
   );
+}
+
+/** True when the CTA should open the Xola slide-out booking widget. */
+function isBookCta(cta: { text: string; href: string }) {
+  return cta.href === '/book' || /\bbook\b/i.test(cta.text);
 }
 
 const Footer = lazy(() => import('@/components/Footer'));
@@ -642,6 +648,12 @@ export default function V2PageTemplate({
               >
                 {primaryCta.text} →
               </button>
+            ) : isBookCta(primaryCta) ? (
+              <div className="xola-custom xola-checkout" data-button-id={XOLA_BUTTON_ID} data-xola-button="true" style={{ display: 'inline-block' }}>
+                <button type="button" className="hp2-btn hp2-btn--primary">
+                  {primaryCta.text} →
+                </button>
+              </div>
             ) : (
               <a href={primaryCta.href} className="hp2-btn hp2-btn--primary">
                 {primaryCta.text} →
@@ -655,6 +667,12 @@ export default function V2PageTemplate({
               >
                 {secondaryCta.text}
               </button>
+            ) : isBookCta(secondaryCta) ? (
+              <div className="xola-custom xola-checkout" data-button-id={XOLA_BUTTON_ID} data-xola-button="true" style={{ display: 'inline-block' }}>
+                <button type="button" className="hp2-btn hp2-btn--outline">
+                  {secondaryCta.text}
+                </button>
+              </div>
             ) : (
               <a href={secondaryCta.href} className="hp2-btn hp2-btn--outline">
                 {secondaryCta.text}
@@ -722,6 +740,12 @@ export default function V2PageTemplate({
             >
               {primaryCta.text} →
             </button>
+          ) : isBookCta(primaryCta) ? (
+            <div className="xola-custom xola-checkout" data-button-id={XOLA_BUTTON_ID} data-xola-button="true" style={{ display: 'inline-block' }}>
+              <button type="button" className="hp2-btn hp2-btn--primary">
+                {primaryCta.text} →
+              </button>
+            </div>
           ) : (
             <a href={primaryCta.href} className="hp2-btn hp2-btn--primary">
               {primaryCta.text} →

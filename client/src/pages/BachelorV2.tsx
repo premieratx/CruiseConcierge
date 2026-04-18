@@ -1479,9 +1479,7 @@ const [openFaq, setOpenFaq] = useState<number | null>(null);
           The ATX Disco Cruise books fast during peak season. Secure your time slot online or call us to check availability and plan every detail.
         </p>
         <div className="hp2-final-cta__actions">
-          <Link href="/book">
-            <a className="hp2-btn hp2-btn--primary">Book Your Cruise &rarr;</a>
-          </Link>
+          <div className="xola-custom xola-checkout" data-button-id={XOLA_BUTTON_ID} data-xola-button="true" style={{ display: "inline-block" }}><button type="button" className="hp2-btn hp2-btn--primary">Book Your Cruise &rarr;</button></div>
           <a href="tel:+15124885892" className="hp2-final-cta__phone">(512) 488-5892</a>
         </div>
         <p className="hp2-final-cta__location">
