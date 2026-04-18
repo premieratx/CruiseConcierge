@@ -2,6 +2,7 @@ import { useState, useEffect, lazy, Suspense, useRef } from 'react';
 import { Link } from 'wouter';
 import PublicNavigation from '@/components/PublicNavigationLuxury';
 import { useQuoteLightbox } from '@/components/QuoteLightbox';
+import CtaPair, { CtaBanner } from '@/components/CtaPair';
 
 const Footer = lazy(() => import('@/components/Footer'));
 
@@ -1193,14 +1194,7 @@ export default function HomeNew() {
             Austin party boat rentals on Lake Travis — private charters, the ATX Disco Cruise, BYOB party boats with licensed captains. Anderson Mill Marina, just 25 minutes from downtown Austin.
           </p>
           <div className="hp2-hero__ctas">
-            <button
-              type="button"
-              className="hp2-btn hp2-btn--primary"
-              onClick={() => openQuote('hero_primary')}
-            >
-              Get a Quote &rarr;
-            </button>
-            <a href="#quote-builder-embed" className="hp2-btn hp2-btn--outline">Explore Party Types</a>
+            <CtaPair source="home_hero" />
           </div>
         </div>
 
@@ -1218,14 +1212,7 @@ export default function HomeNew() {
             Browse every event type, get instant pricing, and request a personalized quote — takes about 60 seconds.
           </p>
           <div className="hp2-quote-embed__cta-row">
-            <button
-              type="button"
-              className="hp2-btn hp2-btn--primary"
-              onClick={() => openQuote('hero_below_cta')}
-            >
-              Get a Quote &rarr;
-            </button>
-            <a href="tel:5124885892" className="hp2-btn hp2-btn--outline">Or call (512) 488-5892</a>
+            <CtaPair source="home_quote_embed" />
           </div>
         </div>
 
@@ -1608,13 +1595,7 @@ export default function HomeNew() {
           Whether it's an Austin bachelorette party, birthday celebration, corporate team building, or just a day on Lake Travis with friends — Premier Party Cruises makes it unforgettable. Book your Austin party boat rental online or give us a call.
         </p>
         <div className="hp2-final-cta__actions">
-          <button
-            type="button"
-            className="hp2-btn hp2-btn--primary"
-            onClick={() => openQuote('final_cta')}
-          >
-            Get a Quote &rarr;
-          </button>
+          <CtaPair source="home_final_cta" />
           <a href="tel:+15124885892" className="hp2-final-cta__phone">(512) 488-5892</a>
         </div>
         <p className="hp2-final-cta__location">

@@ -3,6 +3,7 @@ import { XOLA_BUTTON_ID } from "@/components/XolaBookNow";
 import { Link } from 'wouter';
 import PublicNavigation from '@/components/PublicNavigationLuxury';
 import { useQuoteLightbox } from '@/components/QuoteLightbox';
+import CtaPair, { CtaBanner } from '@/components/CtaPair';
 
 const Footer = lazy(() => import('@/components/Footer'));
 
@@ -994,8 +995,8 @@ const [openFaq, setOpenFaq] = useState<number | null>(null);
             Exclusive private charters on Lake Travis for any occasion — birthdays, corporate events, weddings, family reunions, and more. Four premium boats, licensed captains, and 15+ years of experience. BYOB, fully customizable, available all year.
           </p>
           <div className="hp2-hero__ctas">
-            <div className="xola-custom xola-checkout" data-button-id={XOLA_BUTTON_ID} data-xola-button="true" style={{ display: "inline-block" }}><button type="button" className="hp2-btn hp2-btn--primary">Get a Quote &rarr;</button></div>
-            <a href="#fleet" className="hp2-btn hp2-btn--outline">Explore Our Fleet</a>
+            <CtaPair source="privatecruisesv2_hero" />
+            <a href="#fleet" className="hp2-btn hp2-btn--outline" style={{ marginLeft: '0.5rem' }}>Explore Our Fleet</a>
           </div>
         </div>
 
@@ -1508,6 +1509,8 @@ const [openFaq, setOpenFaq] = useState<number | null>(null);
       </section>
 
       {/* ─── Final CTA ─── */}
+      <CtaBanner source="privatecruisesv2_mid" />
+
       <section className="hp2-final-cta">
         <h2 className="hp2-final-cta__headline">
           Ready to book your <em>private cruise</em>?
@@ -1516,7 +1519,7 @@ const [openFaq, setOpenFaq] = useState<number | null>(null);
           Tell us about your event and we will match you with the perfect boat, date, and package. Available year-round on Lake Travis.
         </p>
         <div className="hp2-final-cta__actions">
-          <div className="xola-custom xola-checkout" data-button-id={XOLA_BUTTON_ID} data-xola-button="true" style={{ display: "inline-block" }}><button type="button" className="hp2-btn hp2-btn--primary">Get a Quote &rarr;</button></div>
+          <CtaPair source="privatecruisesv2_final" />
           <a href="tel:+15124885892" className="hp2-final-cta__phone">(512) 488-5892</a>
         </div>
         <p className="hp2-final-cta__location">

@@ -2,6 +2,7 @@ import { useState, lazy, Suspense } from 'react';
 import { Link } from 'wouter';
 import PublicNavigation from '@/components/PublicNavigationLuxury';
 import { useQuoteLightbox } from '@/components/QuoteLightbox';
+import CtaPair, { CtaBanner } from '@/components/CtaPair';
 
 const Footer = lazy(() => import('@/components/Footer'));
 
@@ -838,10 +839,7 @@ const [openFaq, setOpenFaq] = useState<number | null>(null);
             Team building, client entertainment, and company milestones on Lake Travis. Four boats, licensed captains, and 15+ years of flawless corporate events from $200/hr.
           </p>
           <div className="hp2-hero__ctas">
-            <Link href="/contact">
-              <a className="hp2-btn hp2-btn--primary">Plan Your Event &rarr;</a>
-            </Link>
-            <a href="#fleet" className="hp2-btn hp2-btn--outline">See Our Fleet</a>
+            <CtaPair source="corporatev2_hero" />
           </div>
         </div>
 
@@ -1169,6 +1167,8 @@ const [openFaq, setOpenFaq] = useState<number | null>(null);
       </section>
 
       {/* ─── Final CTA ─── */}
+      <CtaBanner source="corporatev2_mid" />
+
       <section className="hp2-final-cta">
         <h2 className="hp2-final-cta__headline">
           Ready to <em>elevate</em> your next corporate event?
@@ -1177,9 +1177,7 @@ const [openFaq, setOpenFaq] = useState<number | null>(null);
           From team building to client entertainment, we handle every detail so you can focus on your people. Call us to start planning or request a custom quote.
         </p>
         <div className="hp2-final-cta__actions">
-          <Link href="/contact">
-            <a className="hp2-btn hp2-btn--primary">Plan Your Event &rarr;</a>
-          </Link>
+          <CtaPair source="corporatev2_final" />
           <a href="tel:+15124885892" className="hp2-final-cta__phone">(512) 488-5892</a>
         </div>
         <p className="hp2-final-cta__location">

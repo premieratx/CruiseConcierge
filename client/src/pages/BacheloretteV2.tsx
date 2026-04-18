@@ -3,6 +3,7 @@ import { XOLA_BUTTON_ID } from "@/components/XolaBookNow";
 import { Link } from 'wouter';
 import PublicNavigation from '@/components/PublicNavigationLuxury';
 import { useQuoteLightbox } from '@/components/QuoteLightbox';
+import CtaPair, { CtaBanner } from '@/components/CtaPair';
 
 const Footer = lazy(() => import('@/components/Footer'));
 
@@ -1063,12 +1064,7 @@ const [openFaq, setOpenFaq] = useState<number | null>(null);
             DJ. Photographer. Dance floor. Crystal-clear Lake Travis swimming. Giant floats. The ATX Disco Cruise is the #1 Austin bachelorette party activity — from $85/person with everything included. Austin party boat rentals for bachelorette groups start at Anderson Mill Marina, just 25 minutes from downtown Austin. Go all-inclusive on the Disco Cruise, or book a private Austin bachelorette party boat charter.
           </p>
           <div className="hp2-hero__ctas">
-            <Link href="/atx-disco-cruise">
-              <a className="hp2-btn hp2-btn--primary">Book ATX Disco Cruise &rarr;</a>
-            </Link>
-            <Link href="/private-cruises">
-              <a className="hp2-btn hp2-btn--outline">Explore Private Charters</a>
-            </Link>
+            <CtaPair source="bachelorettev2_hero" />
           </div>
         </div>
 
@@ -1570,6 +1566,8 @@ const [openFaq, setOpenFaq] = useState<number | null>(null);
       </section>
 
       {/* ─── Final CTA ─── */}
+      <CtaBanner source="bachelorettev2_mid" />
+
       <section className="hp2-final-cta">
         <h2 className="hp2-final-cta__headline">
           Ready to plan the <em>best bachelorette ever</em>?
@@ -1578,7 +1576,7 @@ const [openFaq, setOpenFaq] = useState<number | null>(null);
           The ATX Disco Cruise is the most popular Austin bachelorette party boat — it books fast during peak season (March-October). Secure your Lake Travis bachelorette cruise time slot online or call us to check availability and plan every detail of your Austin bachelorette weekend.
         </p>
         <div className="hp2-final-cta__actions">
-          <div className="xola-custom xola-checkout" data-button-id={XOLA_BUTTON_ID} data-xola-button="true" style={{ display: "inline-block" }}><button type="button" className="hp2-btn hp2-btn--primary">Book Your Cruise &rarr;</button></div>
+          <CtaPair source="bachelorettev2_final" />
           <a href="tel:+15124885892" className="hp2-final-cta__phone">(512) 488-5892</a>
         </div>
         <p className="hp2-final-cta__location">

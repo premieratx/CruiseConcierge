@@ -3,6 +3,7 @@ import { XOLA_BUTTON_ID } from "@/components/XolaBookNow";
 import { Link } from 'wouter';
 import PublicNavigation from '@/components/PublicNavigationLuxury';
 import { useQuoteLightbox } from '@/components/QuoteLightbox';
+import CtaPair, { CtaBanner } from '@/components/CtaPair';
 
 const Footer = lazy(() => import('@/components/Footer'));
 
@@ -1021,8 +1022,8 @@ const [openFaq, setOpenFaq] = useState<number | null>(null);
             Why celebrate apart when you can party together? The ATX Disco Cruise brings bachelor and bachelorette groups together on Lake Travis for the most epic pre-wedding celebration in Austin. From $85/person.
           </p>
           <div className="hp2-hero__ctas">
-            <div className="xola-custom xola-checkout" data-button-id={XOLA_BUTTON_ID} data-xola-button="true" style={{ display: "inline-block" }}><button type="button" className="hp2-btn hp2-btn--primary">Book Combined Party &rarr;</button></div>
-            <a href="#how-it-works" className="hp2-btn hp2-btn--outline">See How It Works</a>
+            <CtaPair source="combinedbachv2_hero" />
+            <a href="#how-it-works" className="hp2-btn hp2-btn--outline" style={{ marginLeft: '0.5rem' }}>See How It Works</a>
           </div>
         </div>
 
@@ -1428,6 +1429,8 @@ const [openFaq, setOpenFaq] = useState<number | null>(null);
       </section>
 
       {/* ─── Final CTA ─── */}
+      <CtaBanner source="combinedbachv2_mid" />
+
       <section className="hp2-final-cta">
         <h2 className="hp2-final-cta__headline">
           Ready to bring both crews <em>together</em>?
@@ -1436,7 +1439,7 @@ const [openFaq, setOpenFaq] = useState<number | null>(null);
           The ATX Disco Cruise is the easiest way to combine your bachelor and bachelorette parties. DJ, photographer, dance floor, giant floats, and 4 hours on Lake Travis &mdash; all included. Coordinate with both groups and book your spot.
         </p>
         <div className="hp2-final-cta__actions">
-          <div className="xola-custom xola-checkout" data-button-id={XOLA_BUTTON_ID} data-xola-button="true" style={{ display: "inline-block" }}><button type="button" className="hp2-btn hp2-btn--primary">Book Combined Party &rarr;</button></div>
+          <CtaPair source="combinedbachv2_final" />
           <a href="tel:+15124885892" className="hp2-final-cta__phone">(512) 488-5892</a>
         </div>
         <p className="hp2-final-cta__location">

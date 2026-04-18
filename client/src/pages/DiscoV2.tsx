@@ -3,6 +3,7 @@ import { XOLA_BUTTON_ID } from "@/components/XolaBookNow";
 import { Link } from 'wouter';
 import PublicNavigation from '@/components/PublicNavigationLuxury';
 import { useQuoteLightbox } from '@/components/QuoteLightbox';
+import CtaPair, { CtaBanner } from '@/components/CtaPair';
 
 const Footer = lazy(() => import('@/components/Footer'));
 
@@ -1125,8 +1126,8 @@ const [openFaq, setOpenFaq] = useState<number | null>(null);
             DJ. Photographer. Dance floor. Giant floats. 4 hours on Lake Travis with the best bachelor and bachelorette groups in Austin. From $85/person &mdash; everything included.
           </p>
           <div className="hp2-hero__ctas">
-            <div className="xola-custom xola-checkout" data-button-id={XOLA_BUTTON_ID} data-xola-button="true" style={{ display: "inline-block" }}><button type="button" className="hp2-btn hp2-btn--primary">Book Your Tickets &rarr;</button></div>
-            <a href="#timeslots" className="hp2-btn hp2-btn--outline">View Time Slots</a>
+            <CtaPair source="discov2_hero" />
+            <a href="#timeslots" className="hp2-btn hp2-btn--outline" style={{ marginLeft: '0.5rem' }}>View Time Slots</a>
           </div>
         </div>
 
@@ -1561,6 +1562,8 @@ const [openFaq, setOpenFaq] = useState<number | null>(null);
       </section>
 
       {/* ─── Final CTA ─── */}
+      <CtaBanner source="discov2_mid" />
+
       <section className="hp2-final-cta">
         <h2 className="hp2-final-cta__headline">
           Ready to join the <em>party</em>?
@@ -1569,7 +1572,7 @@ const [openFaq, setOpenFaq] = useState<number | null>(null);
           The ATX Disco Cruise is Austin's most iconic party boat experience. DJ, photographer, dance floor, giant floats, and 4 hours on Lake Travis &mdash; all included. Grab your crew and book your spot.
         </p>
         <div className="hp2-final-cta__actions">
-          <div className="xola-custom xola-checkout" data-button-id={XOLA_BUTTON_ID} data-xola-button="true" style={{ display: "inline-block" }}><button type="button" className="hp2-btn hp2-btn--primary">Book Your Tickets &rarr;</button></div>
+          <CtaPair source="discov2_final" />
           <a href="tel:+15124885892" className="hp2-final-cta__phone">(512) 488-5892</a>
         </div>
         <p className="hp2-final-cta__location">

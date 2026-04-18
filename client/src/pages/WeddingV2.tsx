@@ -2,6 +2,7 @@ import { useState, lazy, Suspense } from 'react';
 import { Link } from 'wouter';
 import PublicNavigation from '@/components/PublicNavigationLuxury';
 import { useQuoteLightbox } from '@/components/QuoteLightbox';
+import CtaPair, { CtaBanner } from '@/components/CtaPair';
 
 const Footer = lazy(() => import('@/components/Footer'));
 
@@ -870,10 +871,7 @@ const [openFaq, setOpenFaq] = useState<number | null>(null);
             Rehearsal dinners, welcome parties, wedding day cruises, and after parties on Lake Travis. Four premium boats for 14 to 75 guests with stunning sunsets and BYOB service.
           </p>
           <div className="hp2-hero__ctas">
-            <Link href="/contact">
-              <a className="hp2-btn hp2-btn--primary">Plan Your Wedding Event &rarr;</a>
-            </Link>
-            <a href="#fleet" className="hp2-btn hp2-btn--outline">View Our Fleet</a>
+            <CtaPair source="weddingv2_hero" />
           </div>
         </div>
 
@@ -1203,6 +1201,8 @@ const [openFaq, setOpenFaq] = useState<number | null>(null);
       </section>
 
       {/* ─── Final CTA ─── */}
+      <CtaBanner source="weddingv2_mid" />
+
       <section className="hp2-final-cta">
         <h2 className="hp2-final-cta__headline">
           Ready to plan your <em>Lake Travis wedding</em>?
@@ -1211,9 +1211,7 @@ const [openFaq, setOpenFaq] = useState<number | null>(null);
           From intimate rehearsal dinners to full wedding receptions, our team has hosted thousands of celebrations since 2009. Call us to discuss your vision and receive a custom quote.
         </p>
         <div className="hp2-final-cta__actions">
-          <Link href="/contact">
-            <a className="hp2-btn hp2-btn--primary">Plan Your Wedding Event &rarr;</a>
-          </Link>
+          <CtaPair source="weddingv2_final" />
           <a href="tel:+15124885892" className="hp2-final-cta__phone">(512) 488-5892</a>
         </div>
         <p className="hp2-final-cta__location">

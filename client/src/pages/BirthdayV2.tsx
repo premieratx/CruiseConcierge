@@ -3,6 +3,7 @@ import { XOLA_BUTTON_ID } from "@/components/XolaBookNow";
 import { Link } from 'wouter';
 import PublicNavigation from '@/components/PublicNavigationLuxury';
 import { useQuoteLightbox } from '@/components/QuoteLightbox';
+import CtaPair, { CtaBanner } from '@/components/CtaPair';
 
 const Footer = lazy(() => import('@/components/Footer'));
 
@@ -840,10 +841,8 @@ const [openFaq, setOpenFaq] = useState<number | null>(null);
             From Sweet 16 to milestone 50th — celebrate any age on Lake Travis with a private party boat cruise. 4 boats, 14 to 75 guests, fully BYOB, year-round from $200/hr.
           </p>
           <div className="hp2-hero__ctas">
-            <div className="xola-custom xola-checkout" data-button-id={XOLA_BUTTON_ID} data-xola-button="true" style={{ display: "inline-block" }}><button type="button" className="hp2-btn hp2-btn--primary">Plan Your Birthday Cruise &rarr;</button></div>
-            <Link href="/private-cruises">
-              <a className="hp2-btn hp2-btn--outline">See Our Fleet</a>
-            </Link>
+            <CtaPair source="birthdayv2_hero" />
+            <a href="#fleet" className="hp2-btn hp2-btn--outline" style={{ marginLeft: '0.5rem' }}>See Our Fleet</a>
           </div>
         </div>
 
@@ -1253,6 +1252,8 @@ const [openFaq, setOpenFaq] = useState<number | null>(null);
       </section>
 
       {/* ─── Final CTA ─── */}
+      <CtaBanner source="birthdayv2_mid" />
+
       <section className="hp2-final-cta">
         <h2 className="hp2-final-cta__headline">
           Ready to plan the birthday of a <em>lifetime</em>?
@@ -1261,7 +1262,7 @@ const [openFaq, setOpenFaq] = useState<number | null>(null);
           Weekend dates fill fast, especially during peak season. Book your private birthday cruise online or call us to check availability and start planning every detail.
         </p>
         <div className="hp2-final-cta__actions">
-          <div className="xola-custom xola-checkout" data-button-id={XOLA_BUTTON_ID} data-xola-button="true" style={{ display: "inline-block" }}><button type="button" className="hp2-btn hp2-btn--primary">Book Your Birthday Cruise &rarr;</button></div>
+          <CtaPair source="birthdayv2_final" />
           <a href="tel:+15124885892" className="hp2-final-cta__phone">(512) 488-5892</a>
         </div>
         <p className="hp2-final-cta__location">

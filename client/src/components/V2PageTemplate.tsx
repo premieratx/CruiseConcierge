@@ -4,6 +4,7 @@ import PublicNavigationLuxury from '@/components/PublicNavigationLuxury';
 import { useQuoteLightbox } from '@/components/QuoteLightbox';
 import { XOLA_BUTTON_ID } from '@/components/XolaBookNow';
 import FleetShowcase from '@/components/FleetShowcase';
+import CtaPair, { CtaBanner } from '@/components/CtaPair';
 
 /** True when the CTA should open the quote lightbox instead of navigating. */
 function isQuoteCta(cta: { text: string; href: string }) {
@@ -662,45 +663,11 @@ export default function V2PageTemplate({
           <h1 className="hp2-hero__headline">{heroHeadline}</h1>
           <hr className="hp2-hero__rule" />
           <p className="hp2-hero__body">{heroBody}</p>
+          {/* Standard CTA pair — Get a Quote (opens lightbox) + Book Now (opens Xola).
+              Replaces the old per-page primaryCta/secondaryCta rendering so every
+              V2 page gets the same nav-styled button pair. */}
           <div className="hp2-hero__ctas">
-            {isQuoteCta(primaryCta) ? (
-              <button
-                type="button"
-                className="hp2-btn hp2-btn--primary"
-                onClick={() => openQuote('v2_hero_primary')}
-              >
-                {primaryCta.text} →
-              </button>
-            ) : isBookCta(primaryCta) ? (
-              <div className="xola-custom xola-checkout" data-button-id={XOLA_BUTTON_ID} data-xola-button="true" style={{ display: 'inline-block' }}>
-                <button type="button" className="hp2-btn hp2-btn--primary">
-                  {primaryCta.text} →
-                </button>
-              </div>
-            ) : (
-              <a href={primaryCta.href} className="hp2-btn hp2-btn--primary">
-                {primaryCta.text} →
-              </a>
-            )}
-            {isQuoteCta(secondaryCta) ? (
-              <button
-                type="button"
-                className="hp2-btn hp2-btn--outline"
-                onClick={() => openQuote('v2_hero_secondary')}
-              >
-                {secondaryCta.text}
-              </button>
-            ) : isBookCta(secondaryCta) ? (
-              <div className="xola-custom xola-checkout" data-button-id={XOLA_BUTTON_ID} data-xola-button="true" style={{ display: 'inline-block' }}>
-                <button type="button" className="hp2-btn hp2-btn--outline">
-                  {secondaryCta.text}
-                </button>
-              </div>
-            ) : (
-              <a href={secondaryCta.href} className="hp2-btn hp2-btn--outline">
-                {secondaryCta.text}
-              </a>
-            )}
+            <CtaPair source="v2_hero" />
           </div>
         </div>
       </section>
@@ -720,6 +687,9 @@ export default function V2PageTemplate({
 
       {/* Custom page content */}
       {children}
+
+      {/* Mid-page CTA pair — second of the three standard placements */}
+      <CtaBanner source="v2_mid_banner" />
 
       {/* Fleet Showcase — available on every page via #fleet anchor */}
       <FleetShowcase />
@@ -758,25 +728,8 @@ export default function V2PageTemplate({
         </h2>
         <p className="hp2-final-cta__body">{finalCtaBody}</p>
         <div className="hp2-final-cta__actions">
-          {isQuoteCta(primaryCta) ? (
-            <button
-              type="button"
-              className="hp2-btn hp2-btn--primary"
-              onClick={() => openQuote('v2_final_cta')}
-            >
-              {primaryCta.text} →
-            </button>
-          ) : isBookCta(primaryCta) ? (
-            <div className="xola-custom xola-checkout" data-button-id={XOLA_BUTTON_ID} data-xola-button="true" style={{ display: 'inline-block' }}>
-              <button type="button" className="hp2-btn hp2-btn--primary">
-                {primaryCta.text} →
-              </button>
-            </div>
-          ) : (
-            <a href={primaryCta.href} className="hp2-btn hp2-btn--primary">
-              {primaryCta.text} →
-            </a>
-          )}
+          {/* Standardized pair — third placement, matches hero + mid-page. */}
+          <CtaPair source="v2_final_cta" />
           <a href="tel:+15124885892" className="hp2-final-cta__phone">(512) 488-5892</a>
         </div>
         <p className="hp2-final-cta__location">
