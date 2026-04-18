@@ -1,4 +1,5 @@
 import V2PageTemplate from '@/components/V2PageTemplate';
+import PricingCalculator from '@/components/PricingCalculator';
 
 /**
  * PricingV2 — Transparent, AI-extractable pricing page.
@@ -145,6 +146,19 @@ export default function PricingV2() {
       finalCtaBody="Use the chat quote builder for an instant written quote, or call (512) 488-5892 and we'll match you to the right boat and time slot in minutes."
     >
       <style dangerouslySetInnerHTML={{ __html: PRICING_STYLES }} />
+
+      {/* ── Interactive Pricing Calculator ────────────────── */}
+      <section className="hp2-section" style={{ paddingTop: '3rem', paddingBottom: '1rem' }}>
+        <div className="hp2-section__label">Instant Calculator</div>
+        <h2 className="hp2-section__headline" style={{ marginBottom: '0.5rem' }}>
+          Estimate your <em>total</em> in 30 seconds.
+        </h2>
+        <p style={{ color: 'var(--hp2-cream-muted)', marginBottom: '2rem', maxWidth: '640px', fontSize: '1.05rem', lineHeight: 1.7 }}>
+          Pick your group size, hours, and day — the calculator shows the all-in price with
+          gratuity, tax, and booking fee already added. No surprises at the quote stage.
+        </p>
+        <PricingCalculator />
+      </section>
 
       {/* ── ATX Disco Cruise ─────────────────────────────── */}
       <section className="hp2-section">
