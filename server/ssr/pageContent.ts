@@ -159,6 +159,47 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         ]
       },
       {
+        heading: 'Premier vs DIY Pontoon Rental — What You Actually Get',
+        paragraphs: [
+          'A "cheap" Lake Travis DIY pontoon rental quickly stops being cheap. The boat alone runs $400-$800/day, then YOU drive, YOU navigate, YOU bring your own music, YOU rent floats, YOU haul your own coolers, and YOU coordinate every detail. With Premier, every cruise includes a Coast Guard licensed captain who handles the boat, professional DJ, professional photographer with digital delivery, premium marine-grade Bluetooth audio, lily pad floats, BYOB cooler service with ice, restrooms, shaded lounges, and tax + gratuity wrapped into a transparent ticket price. By the time you finish adding what a DIY pontoon doesn\'t include, you\'ve spent more — and worked the whole day instead of celebrating.',
+        ],
+        lists: [
+          {
+            title: 'Always Included with Every Cruise (Disco or Private)',
+            items: [
+              'Coast Guard licensed captain handles all driving + navigation',
+              'Premium marine-grade Bluetooth sound system',
+              'Personal cooler + ice for your group',
+              'Lily pad / unicorn floats at the swim stop',
+              'Climate-controlled restrooms',
+              'Shaded lounge areas + open sun deck',
+              'Disco Cruise: pro DJ + pro photographer + 14 disco balls',
+              'Private Charter: full customization, your music, your route',
+              'Premium add-on packages available (Mimosa, Sparkle, Bride/Groom)',
+              'Tax + gratuity included in our pricing',
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Family-Friendly with a Sensible Age Policy',
+        paragraphs: [
+          'Premier Party Cruises is extremely family-friendly. Private charters welcome guests of every age — kids, parents, grandparents, family reunions, anniversaries, school graduations, milestone birthdays. The shared public ATX Disco Cruise has stricter age requirements because it\'s a multi-group BYOB party environment, and we may apply age restrictions on specific public sailings to mitigate risk. We never permit underage drinking. Planning a multi-generation event? Book a private charter — every age is welcome aboard your own boat.'
+        ]
+      },
+      {
+        heading: 'Easy Marina Access — No Stairs, Free Parking',
+        paragraphs: [
+          'Anderson Mill Marina (13993 FM 2769, Leander TX) is purpose-built for party boats. There are NO stairs to walk down to reach the boat. Parking is free, plentiful, and right next to the dock. You walk straight from your car onto the boat. The marina is the easiest party-boat departure point on Lake Travis and is just 25 minutes from downtown Austin.'
+        ]
+      },
+      {
+        heading: 'Fair Cancellation + Free Weather Reschedules',
+        paragraphs: [
+          'Weather is never your fault, so you never pay for it. If the captain cancels for unsafe conditions, every guest gets a FREE reschedule to any future cruise. If weather shortens your cruise, you receive a pro-rated refund. Standard non-weather cancellations have a 48-hour full-refund window after booking; after that, your deposit applies to a reschedule within 12 months. Reschedule changes 30+ days out are always free.'
+        ]
+      },
+      {
         heading: 'Frequently Asked Questions',
         paragraphs: [
           'What types of party boat rentals do you offer? We offer two main types of party boat experiences: Private Charters (exclusive boat rental for your group of 1-75 guests, starting at $200/hour with 4-hour minimum) and the ATX Disco Cruise (join other groups on our signature party cruise with DJ, photographer, and all amenities included). Disco cruises run Fridays 12-4pm ($95/person) and Saturdays 11am-3pm ($105/person) or 3:30-7:30pm ($85/person), with all prices including tax and gratuity. Perfect for bachelor parties, bachelorette parties, corporate events, birthdays, weddings, and any special celebration.',
@@ -688,6 +729,84 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
               'Clean restroom facilities',
               'Shaded lounge areas',
               'Incredible multi-group party vibe'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Comfortable Capacity — Plenty of Personal Space',
+        paragraphs: [
+          'Unlike other shared party boats that pack 100+ guests aboard, the ATX Disco Cruise is hard-capped at 90 guests. Every group gets its own personal cooler and private bin so your drinks, snacks, and personal items stay separate. You always have plenty of room to dance, lounge in the shaded areas, hit the dance floor, or jump on a float at the swim stop. The 90-guest cap is a deliberate choice — we sell fewer tickets per cruise so the energy stays high without ever feeling crowded.'
+        ],
+        lists: [
+          {
+            title: 'Personal Space Guarantees',
+            items: [
+              'Hard cap of 90 guests per sailing (most competitors run 100+)',
+              'One personal cooler + private bin per group',
+              'Multiple seating zones (sun, shade, dance floor, swim deck)',
+              'Reserved spots inside the boat for each group',
+              'No standing-room-only crowding — everyone gets a place',
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Same Price for Every Guest — No Gender-Based Pricing',
+        paragraphs: [
+          'Every ticket on the ATX Disco Cruise is the same price for every guest, regardless of gender. We price by time slot, not by who you are. Friday 12-4 PM is $95/person. Saturday 11 AM-3 PM is $105/person (peak slot — most popular). Saturday 3:30-7:30 PM is $85/person (sunset slot — best value). All prices include the same DJ, photographer, floats, sound system, and party experience. Add-on packages (Mimosa Cooler, Sparkle Package, Bride/Groom Spotlight) are available for $100 each if you want to upgrade — but the base experience is identical for everyone.',
+        ]
+      },
+      {
+        heading: 'Family-Friendly with a Safety-First Age Policy',
+        paragraphs: [
+          'Premier Party Cruises is extremely family-friendly across our fleet. Private charters welcome guests of every age — kids, parents, grandparents, family reunions, anniversaries, weddings. The shared public ATX Disco Cruise has stricter requirements because it\'s a BYOB multi-group party environment, and we may apply age restrictions on specific public sailings to mitigate risk. We do not allow underage drinking at any time, ever. If you\'re planning a multi-generation event, book a private charter — every age is welcome aboard your own boat.'
+        ]
+      },
+      {
+        heading: 'Easy Marina Access — No Stairs, Free Easy Parking',
+        paragraphs: [
+          'Anderson Mill Marina (13993 FM 2769, Leander TX) is purpose-built for party boats. There are NO stairs to navigate to reach the boat — guests walk straight from parking to the dock on a flat, accessible path. Parking is FREE, plentiful, and located right next to the dock. You won\'t walk far, won\'t carry coolers up steps, and won\'t hunt for a spot. The marina is just 25 minutes from downtown Austin and is the easiest party boat marina to access in the entire Lake Travis area.'
+        ]
+      },
+      {
+        heading: 'Fair Refund + Reschedule Policy',
+        paragraphs: [
+          'Our cancellation policy is built around fairness, especially for weather. If the captain calls a weather cancellation, every guest gets a FREE reschedule to any future cruise — no fees, no fine print. If weather shortens an in-progress cruise, you receive a pro-rated refund. Standard non-weather cancellations have a 48-hour full-refund window after booking; after that, deposits are non-refundable but can be applied to a reschedule within 12 months. Weather is never your fault and we never charge you for it.'
+        ],
+        lists: [
+          {
+            title: 'Refund + Reschedule Summary',
+            items: [
+              'Weather cancel by captain → FREE reschedule, every time',
+              'Weather shortens cruise → pro-rated refund',
+              '48-hour full-refund window after booking',
+              'After 48 hours → deposit applies to a reschedule (12 months)',
+              'Reschedule changes 30+ days out → free of charge',
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Why Premier vs DIY Pontoon Rental',
+        paragraphs: [
+          'Cheap DIY pontoon rentals on Lake Travis run $400-$800/day for the boat alone, then YOU drive, YOU navigate, YOU bring music, YOU coordinate everything. The ATX Disco Cruise at $85-$105/person includes a Coast Guard licensed captain who handles all driving and navigation, professional DJ, professional photographer, disco lighting, premium Bluetooth sound, restrooms, shaded areas, life jackets, BYOB cooler service, ice, lily pad floats, and a 4-hour cruise on a 75-person flagship vessel. By the time you add a captain, music, photos, and decor to a DIY pontoon, you\'ve spent more — and you spent your day working instead of celebrating.'
+        ],
+        lists: [
+          {
+            title: 'What\'s Included With Every Disco Cruise Ticket',
+            items: [
+              'Coast Guard licensed captain (you don\'t drive, you don\'t navigate)',
+              'Professional DJ all 4 hours',
+              'Professional photographer + digital delivery',
+              'Disco dance floor with LED lights + 14 disco balls',
+              'Premium marine-grade Bluetooth sound system',
+              'Personal cooler + private bin for your group',
+              'Bottled water + ice + cups',
+              'Multiple lily pad / unicorn floats at the swim stop',
+              'Climate-controlled restrooms',
+              'Shaded lounge areas + open sun deck',
+              'Tax + gratuity included in the ticket price',
             ]
           }
         ]
