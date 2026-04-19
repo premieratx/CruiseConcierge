@@ -89,6 +89,38 @@
         "@type": "Answer",
         "text": "Absolutely! You have complete control over your Lake Travis experience. Work with your captain to customize your route, timing, and activities. Want to anchor at a quiet cove for swimming? Prefer to cruise around Devil's Cove and see the party scene? Looking for scenic spots for photos? Your captain will work with you to create the perfect itinerary for your group. We can also help coordinate with local vendors for catering, photography, or other services to make your event exactly what you envision."
       }
+    },
+    {
+      "@type": "Question",
+      "name": "Are private charters family-friendly with kids welcome?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes — private charters welcome guests of every age. Kids, parents, grandparents, family reunions, anniversary celebrations, school graduations, and milestone birthdays are all common bookings. The shared public ATX Disco Cruise has stricter age requirements because it is a multi-group BYOB party environment, but a private charter is your own boat with your own guest list. Children's life jackets in all sizes are on every boat. We never permit underage drinking, but family events with non-alcoholic beverages are fully welcome."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can we book a private charter for an anniversary or quiet sunset cruise?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes — anniversaries, micro-weddings, vow renewals, intimate milestone birthdays, and executive retreats are some of our most popular quiet-mode bookings. The same fleet that powers a 75-guest disco celebration can host a 14-guest sunset anniversary on the Day Tripper with your own playlist, your own decor, and a calm Hill Country backdrop. Our crew adjusts the vibe to match the occasion — high-energy when you want it, calm and curated when you need it."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does Premier include that a DIY pontoon rental doesn't?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Every private charter includes a US Coast Guard licensed captain (you don't drive or navigate), professional crew, premium marine-grade Bluetooth sound system, large coolers with ice, lily pad and unicorn floats at the swim stop, climate-controlled restrooms, shaded lounges, premium add-on packages (Mimosa Cooler, Sparkle, Bride/Groom Spotlight), tax and 20% gratuity included in the quote, and free reschedules for any weather-caused cancellation. A DIY pontoon rental at $400-$800/day requires you to drive, navigate, bring music, rent floats, haul coolers, and coordinate everything yourself — by the time you add what's missing, Premier almost always wins on total cost AND on effort saved."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the safety record of Premier Party Cruises?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Operating since 2009 — 15+ years on Lake Travis. 150,000+ guests served. Perfect safety record (zero reportable incidents). 100% US Coast Guard licensed captains (Merchant Mariner Credential). 100% CPR-certified crew on every sailing. 4.9/5.0 average rating across hundreds of reviews. Every boat is inspected before every sailing on a documented schedule. Every sailing begins with a signature Premier safety welcome ritual covering life jackets, emergency exits, weather policy, and swim stops. Children's life jackets in all sizes on every boat."
+      }
     }
   ]
 }

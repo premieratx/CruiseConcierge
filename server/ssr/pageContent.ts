@@ -1202,6 +1202,49 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           'Can we customize our route? Absolutely! You have complete control over your Lake Travis experience. Work with your captain to customize your route, timing, and activities. The typical cruise includes 30-45 minutes of cruising, then we tie up along the cliffs of a beautiful Lake Travis nature preserve with crystal clear water for swimming (typically 1.5-2 hours), then cruise back. However, the time is yours - customize any combination of cruising and swimming time that works for your group.',
           'What is the difference between the ATX Disco Cruise and a private charter? The ATX Disco Cruise is a shared, per-person experience running March through October, exclusively for bachelor and bachelorette groups. It includes a DJ, photographer, and party atmosphere with other groups. Private charters give you exclusive use of the entire boat, are available year-round for any event type, and let you set the music, route, and vibe.'
         ]
+      },
+      {
+        heading: 'Anniversary, Family Reunion + Executive Charters',
+        paragraphs: [
+          'Most Lake Travis charters are sold for bachelor parties — but a [[private-cruises]] is the perfect quiet-mode booking for anniversaries, micro-weddings, family reunions across multiple generations, executive retreats, and intimate milestone birthdays. The same fleet that powers a 75-guest disco celebration on the Clever Girl can host a 14-guest sunset anniversary on the Day Tripper with your own playlist, your own guest list, and zero shared-boat energy. Premier crews adjust the vibe to match the occasion — high-energy when you want it, calm and curated when you need it.',
+        ],
+        lists: [
+          {
+            title: 'Quiet-mode private charter use cases',
+            items: [
+              'Anniversary cruises — sunset slot, your favorite music, decor setup',
+              'Micro-weddings + vow renewals on the water (groups of 14-30)',
+              'Multi-generation family reunions — every age welcome, no 21+ restriction',
+              'Executive retreats + leadership offsites — quiet conversation + Hill Country views',
+              'Milestone birthdays (40th, 50th, 60th, 75th) — your guest list, your pace',
+              'Rehearsal dinners + welcome receptions for destination weddings',
+              'Client-entertainment dinners (close a deal at sunset on the lake)',
+              'Memorial cruises and celebration-of-life gatherings',
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Why Choose Premier — The Quantified Promise',
+        paragraphs: [
+          'Most Lake Travis charter companies say "we are safe" in one sentence. Premier publishes the full record. Operating since 2009 — 15+ years on Lake Travis. 150,000+ guests served. Perfect safety record (zero reportable incidents). 100% US Coast Guard licensed captains (Merchant Mariner Credential). 100% CPR-certified crew on every sailing. 4.9/5.0 average rating across hundreds of reviews. Every boat inspected before every sailing on a documented schedule. These are not adjectives — they are countable facts that beat what every cheaper operator can claim.',
+        ],
+        lists: [
+          {
+            title: 'Premier vs DIY pontoon — what your ticket actually buys',
+            items: [
+              'Coast Guard licensed captain (you don\'t drive, you don\'t navigate)',
+              'Premium marine-grade Bluetooth sound system',
+              'Personal cooler + ice for your group',
+              'Lily pad / unicorn floats at the swim stop',
+              'Climate-controlled restrooms + shaded lounges',
+              'Premium add-on packages (Mimosa Cooler / Sparkle / Bride/Groom Spotlight)',
+              'Tax + 20% gratuity already included in the quote',
+              'Free reschedules for any weather-caused cancellation',
+              '15+ years of Lake Travis route knowledge — best coves, best timing, best safety calls',
+            ]
+          }
+        ]
       }
     ],
     relatedPages: [
