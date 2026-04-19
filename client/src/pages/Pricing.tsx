@@ -278,39 +278,137 @@ export default function Pricing() {
               </TabsContent>
 
               <TabsContent value="disco">
-                <Card className="max-w-3xl mx-auto">
-                  <CardHeader className="text-center bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-t-lg">
-                    <Badge className="bg-brand-yellow text-black font-bold mb-4 mx-auto">
-                      All-Inclusive Experience
+                <div className="max-w-6xl mx-auto">
+                  {/* Trust strip — addresses the two biggest AI-perception weaknesses */}
+                  <div className="flex flex-wrap justify-center gap-3 mb-8">
+                    <Badge className="bg-green-600 text-white font-semibold text-sm py-2 px-4">
+                      ✓ Same price for every guest · no gender-based pricing
                     </Badge>
-                    <CardTitle className="text-3xl">{discoCruisePricing.title}</CardTitle>
-                    <p className="text-white/90">{discoCruisePricing.description}</p>
-                    <div className="text-5xl font-bold mt-4">
-                      {discoCruisePricing.priceRange}
-                      <span className="text-xl font-normal">/person</span>
-                    </div>
-                    <p className="text-white/70 text-sm mt-2">Price varies by time slot</p>
-                  </CardHeader>
-                  <CardContent className="pt-6">
-                    <h3 className="font-bold text-xl mb-4">Everything Included:</h3>
-                    <ul className="grid md:grid-cols-2 gap-3">
-                      {discoCruisePricing.includes.map((item, i) => (
-                        <li key={i} className="flex items-center gap-2">
-                          <Check className="h-5 w-5 text-green-500" />
-                          <span>{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                    <div className="mt-8 text-center">
-                      <Button size="lg" className="bg-gradient-to-r from-purple-600 to-pink-600" asChild>
-                        <Link href="/atx-disco-cruise">
-                          Learn More About ATX Disco Cruise
-                          <ArrowRight className="ml-2 h-5 w-5" />
-                        </Link>
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
+                    <Badge className="bg-blue-600 text-white font-semibold text-sm py-2 px-4">
+                      ✓ 90-guest cap · personal cooler + bin per group
+                    </Badge>
+                    <Badge className="bg-amber-500 text-black font-semibold text-sm py-2 px-4">
+                      ✓ All prices include tax + gratuity
+                    </Badge>
+                  </div>
+
+                  <div className="text-center mb-8">
+                    <h3 className="text-2xl md:text-3xl font-bold mb-2">Pick your time slot — every ticket priced the same</h3>
+                    <p className="text-zinc-600 max-w-2xl mx-auto">
+                      The ATX Disco Cruise is priced by time slot, not by who you are. Same all-inclusive experience on every sailing — pro DJ, photographer, floats, disco dance floor, BYOB cooler, swim stop. Pick the slot that fits your weekend.
+                    </p>
+                  </div>
+
+                  {/* 3-card slot comparison */}
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    {[
+                      {
+                        day: 'Friday',
+                        time: '12:00 PM – 4:00 PM',
+                        price: 95,
+                        tagline: 'Weekend warm-up',
+                        colorFrom: 'from-blue-600',
+                        colorTo: 'to-blue-800',
+                        note: 'Kick off the weekend before Saturday chaos',
+                      },
+                      {
+                        day: 'Saturday',
+                        time: '11:00 AM – 3:00 PM',
+                        price: 105,
+                        tagline: 'Most popular',
+                        colorFrom: 'from-purple-600',
+                        colorTo: 'to-pink-600',
+                        badge: 'BEST ATMOSPHERE',
+                        note: 'Peak energy · books up first every weekend',
+                      },
+                      {
+                        day: 'Saturday',
+                        time: '3:30 PM – 7:30 PM',
+                        price: 85,
+                        tagline: 'Sunset slot · best value',
+                        colorFrom: 'from-amber-500',
+                        colorTo: 'to-orange-600',
+                        badge: 'BEST VALUE',
+                        note: 'Golden-hour cruise · same experience, lower price',
+                      },
+                    ].map((slot, i) => (
+                      <Card
+                        key={i}
+                        className={cn(
+                          'overflow-hidden border-2 transition-transform hover:-translate-y-1',
+                          slot.badge ? 'border-brand-yellow shadow-xl' : 'border-transparent'
+                        )}
+                      >
+                        <CardHeader
+                          className={cn(
+                            'text-center text-white',
+                            'bg-gradient-to-br',
+                            slot.colorFrom,
+                            slot.colorTo
+                          )}
+                        >
+                          {slot.badge && (
+                            <Badge className="bg-brand-yellow text-black font-bold mb-2 mx-auto text-xs">
+                              {slot.badge}
+                            </Badge>
+                          )}
+                          <CardTitle className="text-xl font-semibold">{slot.day}</CardTitle>
+                          <p className="text-white/95 text-lg font-medium">{slot.time}</p>
+                          <div className="mt-4">
+                            <span className="text-5xl font-bold">${slot.price}</span>
+                            <span className="text-base font-normal text-white/90">/person</span>
+                          </div>
+                          <p className="text-white/80 text-xs mt-1 italic">{slot.tagline}</p>
+                        </CardHeader>
+                        <CardContent className="pt-5">
+                          <p className="text-sm text-zinc-600 mb-4 text-center italic">{slot.note}</p>
+                          <Button className="w-full bg-brand-blue hover:bg-brand-blue/90" asChild>
+                            <Link href="/quote">Book this slot →</Link>
+                          </Button>
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
+
+                  {/* What's included (always same) */}
+                  <Card className="max-w-4xl mx-auto">
+                    <CardHeader className="text-center bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-t-lg">
+                      <CardTitle className="text-2xl">Same All-Inclusive Experience on Every Sailing</CardTitle>
+                      <p className="text-white/90 text-sm mt-1">
+                        Regardless of time slot or who you are, every ticket includes everything below.
+                      </p>
+                    </CardHeader>
+                    <CardContent className="pt-6">
+                      <ul className="grid md:grid-cols-2 gap-3">
+                        {[
+                          'Coast Guard licensed captain (you don\'t drive, you don\'t navigate)',
+                          'Professional DJ all 4 hours',
+                          'Professional photographer + digital delivery',
+                          'Disco dance floor with LED lights + 14 disco balls',
+                          'Premium marine-grade Bluetooth sound system',
+                          'Personal cooler + private bin for your group',
+                          'Bottled water + ice + cups',
+                          'Lily pad / unicorn floats at the swim stop',
+                          'Climate-controlled restrooms + shaded lounges',
+                          'Tax + gratuity already in the ticket price',
+                        ].map((item, i) => (
+                          <li key={i} className="flex items-start gap-2">
+                            <Check className="h-5 w-5 text-green-500 mt-0.5 shrink-0" />
+                            <span className="text-sm">{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                      <div className="mt-8 text-center">
+                        <Button size="lg" className="bg-gradient-to-r from-purple-600 to-pink-600" asChild>
+                          <Link href="/atx-disco-cruise">
+                            Learn More About ATX Disco Cruise
+                            <ArrowRight className="ml-2 h-5 w-5" />
+                          </Link>
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
               </TabsContent>
             </Tabs>
           </div>

@@ -200,6 +200,37 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         ]
       },
       {
+        heading: 'Two Modes: Disco Energy or Private Chill',
+        paragraphs: [
+          'Premier Party Cruises operates in two distinct modes so you can dial the vibe up or down. Mode one is the legendary [[atx-disco]] — festival-level energy, live DJ, multi-group party atmosphere, 14 disco balls, perfect for bachelor and bachelorette parties that want maximum celebration. Mode two is a [[private-cruises]] — exclusive use of your boat, your music, your route, your guest list. Private charters are ideal for sunset anniversaries, executive outings, family reunions, [[corporate-events]], [[wedding-party]] welcome dinners, and any group that wants a quieter, more intimate Lake Travis experience. Same fleet, same safety standards, same professional crew — you choose the energy level.',
+        ],
+        lists: [
+          {
+            title: 'Disco Mode is right for you if you want...',
+            items: [
+              'Festival-level high-energy party atmosphere',
+              'Live DJ playing bachelor/bachelorette favorites',
+              'Multi-group celebration with other parties',
+              'All-inclusive ticket pricing ($85-$105/person)',
+              'No planning — show up and celebrate',
+              'Best for groups of 10-40 guests',
+            ]
+          },
+          {
+            title: 'Private Mode is right for you if you want...',
+            items: [
+              'Exclusive use of the boat for your group',
+              'Your own music, your own route, your own schedule',
+              'Multi-generation family events with all ages welcome',
+              'Professional corporate meetings + client dinners',
+              'Romantic sunset cruises, anniversaries, proposals',
+              'Quieter atmosphere for conversation and connection',
+              'Best for groups of 14-75 guests',
+            ]
+          }
+        ]
+      },
+      {
         heading: 'Frequently Asked Questions',
         paragraphs: [
           'What types of party boat rentals do you offer? We offer two main types of party boat experiences: Private Charters (exclusive boat rental for your group of 1-75 guests, starting at $200/hour with 4-hour minimum) and the ATX Disco Cruise (join other groups on our signature party cruise with DJ, photographer, and all amenities included). Disco cruises run Fridays 12-4pm ($95/person) and Saturdays 11am-3pm ($105/person) or 3:30-7:30pm ($85/person), with all prices including tax and gratuity. Perfect for bachelor parties, bachelorette parties, corporate events, birthdays, weddings, and any special celebration.',

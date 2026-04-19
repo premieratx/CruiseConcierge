@@ -15,7 +15,7 @@
       "name": "When does the ATX Disco Cruise run?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Fridays 12–4 PM and Saturdays 11–3 PM or 3:30–7:30 PM from March through October. The Saturday 3:30–7:30 PM slot is the most affordable at $85/person."
+        "text": "Fridays 12–4 PM and Saturdays 11 AM–3 PM or 3:30–7:30 PM from March through October. The Saturday 3:30–7:30 PM sunset slot is the best value at $85/person."
       }
     },
     {
@@ -23,7 +23,23 @@
       "name": "How much do ATX Disco Cruise tickets cost?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Friday 12–4 PM: $95/person. Saturday 11 AM–3 PM: $105/person. Saturday 3:30–7:30 PM: $85/person. All packages include professional DJ, photographer, cooler with ice, party supplies, and giant floats."
+        "text": "Friday 12–4 PM: $95 per person. Saturday 11 AM–3 PM: $105 per person (peak slot — most popular). Saturday 3:30–7:30 PM: $85 per person (sunset slot — best value). Every ticket includes tax and gratuity, professional DJ, professional photographer, cooler with ice, party supplies, giant floats, and the full 4-hour cruise experience. Same price for every guest — no gender-based pricing."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is the ATX Disco Cruise crowded or overpacked?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. The ATX Disco Cruise is hard-capped at 90 guests per sailing (most competitor shared boats run 100 or more). Every group gets its own personal cooler and private bin. Multiple seating zones — sun deck, shaded lounge, dance floor, swim deck — mean there's always room to move, dance, or relax. The 90-guest cap is deliberate: we sell fewer tickets per cruise so the atmosphere stays high without feeling packed."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is the ATX Disco Cruise gender-priced?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Every ticket is the same price for every guest regardless of gender. Pricing is structured by time slot only: Friday 12–4 PM $95, Saturday 11 AM–3 PM $105, Saturday 3:30–7:30 PM $85. All add-on packages (Mimosa Cooler, Sparkle Package, Bride/Groom Spotlight) are priced uniformly at $100 each and are equally available to any guest who wants them."
       }
     },
     {
@@ -31,7 +47,15 @@
       "name": "What happens if it rains on the ATX Disco Cruise?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Light rain does not cancel the cruise — the party continues on the water. For severe weather, Premier Party Cruises moves the entire party to Lemonade Disco, an indoor land venue, so no one loses their day. The captain makes the final call on safety."
+        "text": "Light rain does not cancel the cruise — the party continues on the water. For severe weather, the captain makes the call. If we cancel for weather you get a FREE reschedule to any future cruise, or a full refund if you prefer. If weather shortens a cruise that's already underway, you receive a pro-rated refund. Weather is never your fault, so we never charge you for it."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the cancellation and refund policy?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Weather-caused cancellations by the captain: FREE reschedule to any future cruise or full refund. Standard non-weather cancellations: 48-hour full-refund window after booking; after that, your deposit applies to a reschedule within 12 months. Reschedule changes 30+ days out are always free. Our policy is built around fairness — we never penalize you for conditions you can't control."
       }
     },
     {
@@ -39,7 +63,23 @@
       "name": "What is the alcohol policy on the ATX Disco Cruise?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "BYOB for guests 21 and over with valid ID. Cans and plastic containers only — no glass on any Lake Travis vessel. Coolers with ice and cups are provided. Party On Delivery can coordinate alcohol delivery directly to the marina at retail prices with 100% buyback on unopened bottles."
+        "text": "BYOB for guests 21 and over with valid ID. Cans and plastic containers only — no glass on any Lake Travis vessel. Coolers with ice and cups are provided. Party On Delivery can coordinate alcohol delivery directly to the marina at retail prices with 100% buyback on unopened bottles. We never permit underage drinking."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Where is the ATX Disco Cruise departure location and how's the parking?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Anderson Mill Marina, 13993 FM 2769, Leander, TX 78641 — approximately 25 minutes from downtown Austin via 183 North. Parking is FREE, plentiful, and located right next to the dock. There are NO stairs to walk down to reach the boat — the path from parking to the dock is flat and accessible. Arrive 15–20 minutes before your scheduled departure time."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is Premier Party Cruises family-friendly?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Private charters across our fleet welcome guests of every age — kids, parents, grandparents, family reunions, anniversaries, school graduations, milestone birthdays. The shared public ATX Disco Cruise has stricter age requirements because it's a BYOB multi-group party environment, and we reserve the right to apply age restrictions on specific public sailings to mitigate risk. Underage drinking is never permitted. For multi-generation events, book a private charter — every age is welcome on your own boat."
       }
     },
     {
@@ -47,15 +87,7 @@
       "name": "When do we get our photos from the ATX Disco Cruise?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Professional photos are delivered digitally within 2–3 weeks after your cruise. The photographer covers the entire boat throughout the four hours — both candid action shots and group posed photos. Digital delivery only; prints are not included but can be ordered."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Where is the ATX Disco Cruise departure location?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Anderson Mill Marina, 13993 FM 2769, Leander, TX 78641. Approximately 35–40 minutes from downtown Austin via 183 North. Free parking is available at the marina. Arrive 15–20 minutes before your scheduled departure time."
+        "text": "Professional photos are delivered digitally within 2–3 weeks after your cruise. The photographer covers the entire boat throughout the four hours — both candid action shots (dancing, swimming, floats) and posed group photos. You receive all usable photos in digital format."
       }
     },
     {
@@ -63,7 +95,7 @@
       "name": "How many people can join the ATX Disco Cruise?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Individual groups can be any size — from a small group of 4 to a large party of 50+. The boat accommodates multiple bachelor and bachelorette groups simultaneously, with total capacity up to 100 guests. There is no minimum group size requirement."
+        "text": "Individual groups can be any size — from a small group of 4 to a large party of 40+. The boat accommodates multiple bachelor and bachelorette groups simultaneously. Total sailing capacity is hard-capped at 90 guests per cruise so everyone has plenty of room. There is no minimum group size requirement."
       }
     },
     {
@@ -84,7 +116,7 @@
     },
     {
       "@type": "Question",
-      "name": "Can both bachelor and bachelorette parties share the same cruise?",
+      "name": "Can bachelor and bachelorette parties share the same cruise?",
       "acceptedAnswer": {
         "@type": "Answer",
         "text": "Yes — combined bachelor bachelorette parties are one of our most popular configurations. Both groups board together as one crew. The boat has multiple zones so everyone finds their space, and the combined group size creates more energy on the dance floor. It is typically more fun than two separate events and costs the same per person."
@@ -92,18 +124,18 @@
     },
     {
       "@type": "Question",
-      "name": "What is the photo quality like on the ATX Disco Cruise?",
+      "name": "What add-on packages are available?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Professional-grade digital photography delivered within 2–3 weeks. The photographer covers all groups throughout the cruise — both candid action shots (dancing, swimming, floats) and posed group photos. You receive all usable photos in digital format. Quality is professional event photography, not iPhone snapshots."
+        "text": "Flat $100 add-ons available to any guest regardless of slot: Mimosa Party Cooler (champagne + juices + glasses), Sparkle Package (extra floats + VIP amenities + decor), Bride/Groom Spotlight (decorations + celebration items for the guest of honor). All add-ons are priced uniformly — pick whichever upgrades fit your celebration. Premium-service extras are also available with certain slots (towel service, SPF-50 sunscreen, reserved positioning)."
       }
     },
     {
       "@type": "Question",
-      "name": "What add-ons are available for the ATX Disco Cruise?",
+      "name": "What does Premier Party Cruises include that a DIY pontoon rental doesn't?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Available add-ons vary by package tier. The Party Squad package ($95/person) adds a private group cooler with ice, reserved space, celebration items for the honoree, alcohol delivery coordination, a 25% transportation discount, and a $50–100 Airbnb delivery voucher. The Ultimate package ($105/person) adds everything above plus premium party floats, a full mixology setup with champagne and juices, a $100 Airbnb concierge voucher, towel service, and SPF-50 sunscreen — fully turnkey."
+        "text": "Every Disco Cruise ticket includes: Coast Guard licensed captain (you don't drive or navigate), professional DJ for 4 hours, professional photographer with digital delivery, premium marine-grade Bluetooth audio, disco dance floor with LED lights and 14 disco balls, personal cooler plus private bin for your group, bottled water with ice and cups, lily pad and unicorn floats at the swim stop, climate-controlled restrooms, shaded lounge areas, open sun deck, tax and gratuity wrapped into the ticket price. A DIY pontoon rental is $400–$800/day for the boat only — by the time you add a captain, music, photographer, coolers, floats, and decor to a DIY, you've spent more and worked the whole day instead of celebrating."
       }
     }
   ]
