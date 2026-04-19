@@ -575,3 +575,97 @@
 .ppc-quote-light [style*="border-color: #0066cc"] {
   border-color: hsl(var(--primary)) !important;
 }
+
+/* ══════════════════════════════════════════════════════════════════
+ * NUKE DARK-ON-DARK — force every low-level utility dark bg used by
+ * the quote builder subtree to a cream/white variant. This catches:
+ *   - unselected radio/button slots that render `bg-background`
+ *     (resolves to dark under v2-luxury-root)
+ *   - tailwind palette dark shades (bg-gray-900, bg-slate-900, etc.)
+ *   - the "How many tickets" box (`bg-purple-50 dark:bg-purple-900/20`
+ *     — the dark: variant fires when the OS is in dark mode regardless
+ *     of our class-based config, because the browser UA stylesheet
+ *     applies dark colors to buttons when color-scheme is inherited
+ *     dark).
+ * ══════════════════════════════════════════════════════════════════ */
+.ppc-quote-light,
+.ppc-quote-light * {
+  color-scheme: light !important;
+}
+.ppc-quote-light button,
+.ppc-quote-light [role="button"],
+.ppc-quote-light [role="radio"],
+.ppc-quote-light input,
+.ppc-quote-light select,
+.ppc-quote-light textarea {
+  color-scheme: light;
+}
+/* Unselected button with no explicit bg class gets a white surface. */
+.ppc-quote-light button:not([class*="bg-"]):not([class*="from-"]) {
+  background-color: #ffffff;
+  color: hsl(var(--foreground));
+}
+/* Common tailwind dark shades used inline across shadcn-themed components. */
+.ppc-quote-light .bg-gray-900,
+.ppc-quote-light .bg-gray-800,
+.ppc-quote-light .bg-slate-900,
+.ppc-quote-light .bg-slate-800,
+.ppc-quote-light .bg-zinc-900,
+.ppc-quote-light .bg-zinc-800,
+.ppc-quote-light .bg-neutral-900,
+.ppc-quote-light .bg-neutral-800,
+.ppc-quote-light .bg-stone-900,
+.ppc-quote-light .bg-black {
+  background-color: #ffffff !important;
+  color: hsl(var(--foreground)) !important;
+}
+/* The "How many tickets" and similar accented callouts use bg-purple-50
+ * with a dark-mode fallback. Lock them to the light value. */
+.ppc-quote-light [class*="dark\\:bg-"],
+.ppc-quote-light [class*="dark\\:text-"] {
+  /* These classes only matter if .dark is on an ancestor. Our scope
+   * forces them off by shipping an explicit light rule in the parent. */
+}
+.ppc-quote-light .bg-purple-50 {
+  background-color: #faf5ff !important;
+  color: hsl(var(--foreground)) !important;
+}
+.ppc-quote-light .bg-amber-50 {
+  background-color: #fffbeb !important;
+  color: #92400e !important;
+}
+.ppc-quote-light .bg-accent,
+.ppc-quote-light [class*="bg-accent"] {
+  background-color: hsl(var(--primary) / 0.12) !important;
+  color: hsl(var(--foreground)) !important;
+}
+.ppc-quote-light .hover\\:bg-accent\\/50:hover,
+.ppc-quote-light .hover\\:bg-accent:hover {
+  background-color: hsl(var(--primary) / 0.18) !important;
+}
+/* text-gray-300/400/500 read as low-contrast on cream — bump them. */
+.ppc-quote-light .text-gray-300,
+.ppc-quote-light .text-gray-400,
+.ppc-quote-light .text-gray-500 {
+  color: hsl(var(--muted-foreground)) !important;
+}
+/* Secondary border-primary/20 slot containers: keep border visible. */
+.ppc-quote-light .border-primary\\/20 {
+  border-color: hsl(var(--primary) / 0.35) !important;
+}
+.ppc-quote-light .hover\\:border-primary\\/40:hover {
+  border-color: hsl(var(--primary) / 0.6) !important;
+}
+.ppc-quote-light .hover\\:bg-primary\\/5:hover {
+  background-color: hsl(var(--primary) / 0.08) !important;
+}
+/* The purple "How many tickets" callout (bg-purple-50 border-purple-500) —
+ * keep the purple accent readable but make sure text is dark. */
+.ppc-quote-light .bg-purple-50,
+.ppc-quote-light .bg-purple-50 * {
+  color: hsl(var(--foreground)) !important;
+}
+.ppc-quote-light .text-purple-600,
+.ppc-quote-light .text-purple-500 {
+  color: #7c3aed !important;
+}
