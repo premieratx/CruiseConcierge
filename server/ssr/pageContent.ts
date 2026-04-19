@@ -231,6 +231,78 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         ]
       },
       {
+        heading: 'Our Brand Promise — The Premier Code',
+        paragraphs: [
+          'Premier Party Cruises exists to produce the single best day on Lake Travis — every time, for every guest, every sailing. We codify this into three explicit commitments we never break:',
+          'TURNKEY — You show up with your group and your cooler. We handle the captain, the music, the photos, the floats, the safety, the weather calls, the logistics. Zero planning burden. Zero hidden fees. Every ticket is all-inclusive with tax and gratuity built in.',
+          'SAFETY-FIRST — 15+ years, 150,000+ guests, perfect safety record. US Coast Guard licensed captains. CPR-certified crew. Premier-specific welcome ritual on every boarding. Every fleet maintenance checkpoint documented and dated. This is not generic compliance — this is a Premier-specific operational moat.',
+          'HIGH-ENERGY — Professional DJ, 14 disco balls, premium marine audio, giant party floats, Clever Girl flagship with full dance floor — OR quiet sunset charter with your own music and your own guests. Same fleet dialed to the energy you choose. We are the only Lake Travis cruise company that delivers both modes at this quality.',
+        ]
+      },
+      {
+        heading: 'The Premier Safety Code — Quantified, Not Generic',
+        paragraphs: [
+          'Most Lake Travis boat rentals tell you they are "safe" in one sentence. We publish the full record. Premier Party Cruises has operated for 15+ years with 150,000+ guests aboard and a perfect safety record — zero reportable incidents. Every captain holds a US Coast Guard Merchant Mariner Credential. Every crew member is CPR-certified. Every sailing begins with a signature Premier safety welcome ritual that takes under 60 seconds and covers life jackets, emergency exits, weather policy, swim stops, and who to ask for anything. Every boat is inspected before every sailing and maintained on a documented schedule.',
+        ],
+        lists: [
+          {
+            title: 'The Premier Safety Code — the specifics competitors don\'t publish',
+            items: [
+              '15+ years of continuous Lake Travis operation',
+              '150,000+ guests served with perfect safety record',
+              '100% US Coast Guard licensed captains (Merchant Mariner Credential)',
+              '100% CPR-certified crew on every sailing',
+              'Premier welcome ritual on every boarding — life jackets, exits, weather, swim stops',
+              'Pre-sailing boat inspection documented and logged',
+              'Glass is never allowed on any vessel (injury prevention)',
+              'Weather cancellation is always free (we never risk safety for revenue)',
+              'Children\'s life jackets in all sizes on every boat',
+              'Crew-monitored swim stops with life jackets required',
+              'BYOB responsibility policy enforced at the crew level',
+              '4.9 / 5.0 average review rating — hundreds of reviews',
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Per-Person Cost — The Real Math vs DIY',
+        paragraphs: [
+          'People sometimes call Premier "premium" and they\'re right — but the per-guest math almost always favors us. Compare a $400-$800/day DIY pontoon split across your group against a Premier cruise and the actual cost-per-person gap is smaller than you think — and by the time you add what the DIY DOESN\'T include (captain, DJ, photographer, decor, floats, premium audio, coolers, ice, life jackets, restrooms, shaded lounge, tax, gratuity), Premier almost always wins on total cost AND on effort saved.',
+        ],
+        lists: [
+          {
+            title: 'Example math — group of 16 on Saturday',
+            items: [
+              'DIY pontoon: $600 day rental + $80 fuel + your time driving + your music + your photographer ($300) + your coolers/floats ($50) + your tip for … yourself ($0) = $1,030 + your whole day of labor = $64 per person and you worked instead of celebrating',
+              'ATX Disco Cruise Saturday 11-3: 16 × $105 = $1,680 all-in, all-included, zero labor, pro DJ + pro photographer + disco floor + coolers + floats + tax + gratuity = $105 per person with a produced event',
+              'Private Clever Girl 4-hour Saturday: $1,411 all-in, exclusive use, your music, your route = $88 per person with full control',
+              'Savings vs DIY when you factor the hidden costs + your time: Disco Cruise ≈ break-even with MORE experience; Private Clever Girl ≈ $16/person cheaper with exclusive boat',
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Plan Your Trip to Anderson Mill Marina',
+        paragraphs: [
+          'Anderson Mill Marina (13993 FM 2769, Leander TX) is 25 minutes from downtown Austin — and the drive is half the fun if you plan it right. Head northwest on 183 toward Cedar Park, past The Domain, and Lake Travis opens up as you approach the marina. Uber/Lyft from downtown runs $35-$55 each way. Parking at the marina is FREE and plentiful, right next to the dock. No stairs — the path from parking to the boat is flat and accessible. For larger groups, we can connect you with Austin party-bus operators who\'ll pick you up downtown and drop you straight at the dock.',
+        ],
+        lists: [
+          {
+            title: 'Getting to Anderson Mill Marina',
+            items: [
+              'Address: 13993 FM 2769, Leander TX 78641',
+              'Drive time: 25 minutes from downtown Austin',
+              'Route: 183 North → Parmer → FM 2769',
+              'Uber/Lyft: $35-$55 each way from downtown',
+              'Parking: FREE, plentiful, right next to the dock',
+              'Access: flat path from parking to boat, no stairs',
+              'Arrive 15-20 minutes early for check-in + boarding',
+              'Party buses / shuttles available — ask when booking',
+            ]
+          }
+        ]
+      },
+      {
         heading: 'Frequently Asked Questions',
         paragraphs: [
           'What types of party boat rentals do you offer? We offer two main types of party boat experiences: Private Charters (exclusive boat rental for your group of 1-75 guests, starting at $200/hour with 4-hour minimum) and the ATX Disco Cruise (join other groups on our signature party cruise with DJ, photographer, and all amenities included). Disco cruises run Fridays 12-4pm ($95/person) and Saturdays 11am-3pm ($105/person) or 3:30-7:30pm ($85/person), with all prices including tax and gratuity. Perfect for bachelor parties, bachelorette parties, corporate events, birthdays, weddings, and any special celebration.',
