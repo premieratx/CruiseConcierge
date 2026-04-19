@@ -74,15 +74,16 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         ],
         lists: [
           {
-            title: 'Private Charter Features',
+            title: 'Private Charter Features (Year-Round, All Ages Welcome)',
             items: [
-              'Licensed captains & professional crew',
-              'Premium Bluetooth sound systems',
-              'Large coolers with ice provided',
-              'Lily pads & floaties available',
-              'BYOB friendly (21+ with ID)',
-              'Customizable routes on Lake Travis',
-              'Perfect for groups of 14-75 guests'
+              'Available every day, year-round — no seasonal gap',
+              'Licensed Coast Guard captain + professional crew included',
+              'Premium marine-grade Bluetooth sound system',
+              'Large coolers included — always BYOB (Party On Delivery can pre-stock with ice + drinks)',
+              'Standard amenities included; optional Essentials or Ultimate package = fully all-inclusive',
+              'All ages welcome aboard (alcohol 21+ with valid ID only; no underage drinking ever)',
+              'Customizable routes on Lake Travis — pick your vibe: Disco or Chill',
+              'Groups of 14 to 75 guests across Day Tripper, Meeseeks, The Irony, and Clever Girl'
             ]
           }
         ]
@@ -1609,6 +1610,35 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           'How far in advance should we book? Team building dates fill quickly, especially during spring and fall months when weather is ideal. We recommend booking 6-8 weeks in advance to secure your preferred date and boat.',
           'What makes Lake Travis ideal for team building? Lake Travis provides the perfect team building environment—away from office distractions in a relaxed outdoor setting where teams naturally open up and connect on a personal level. Many companies report enhanced communication, collaboration, and team cohesion after Lake Travis team building cruises.'
         ]
+      },
+      {
+        heading: 'Why HR + L&D Teams Choose Premier — Quantified',
+        paragraphs: [
+          'Team-building offsites have to clear two bars: psychological safety + actual fun. A trust-fall in a hotel ballroom delivers neither. A Premier [[team-building]] cruise on Lake Travis delivers both — and the operational record backs it up. 15+ years of continuous operation. 150,000+ guests including hundreds of Fortune 500 corporate offsites. Perfect safety record — zero reportable incidents. 100% US Coast Guard licensed captains. 100% CPR-certified crew. 4.9/5.0 rating across hundreds of reviews. HR doesn\'t have to absorb safety risk, weather risk, or vendor coordination — Premier handles all three.',
+        ],
+        lists: [
+          {
+            title: 'What every team-building charter includes — turnkey, not rental',
+            items: [
+              'Coast Guard licensed captain + professional crew',
+              'Premium marine-grade Bluetooth audio + wireless mic for icebreakers, kickoffs, awards',
+              'Catering coordination with Austin\'s top caterers (lunch, BBQ, charcuterie)',
+              'Flexible layouts for facilitated activities, casual networking, or quiet 1:1 conversations',
+              'Multiple zones — open sun deck, shaded lounge, swim deck — for breakouts',
+              'Private charter so only your team is aboard (no shared-boat distractions)',
+              'BYOB + responsible-consumption policy enforced by the crew',
+              'Tax + 20% gratuity included in transparent quote — easy for L&D budget approvals',
+              'Free weather reschedule — your offsite calendar never absorbs weather risk',
+              'Accessible flat path from parking to dock — no stairs, no mobility blockers',
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Team-Building Charter vs Hotel Ballroom Offsite',
+        paragraphs: [
+          'A typical full-day Austin team-building offsite at a hotel ballroom is $200-$400 per person once you add room rental, AV, catering, branded materials, and the facilitator. A Premier [[team-building]] cruise delivers a more memorable team day for $100-$150 per person on the [[atx-disco]] format or starting at $200/hour for a private charter. Same budget tier — but the team comes back with a story they actually retell, not a pen and a ballroom-style team photo. HR ROI is engagement; engagement comes from memorable shared experience; Lake Travis at sunset delivers it.',
+        ]
       }
     ],
     relatedPages: [
@@ -1821,6 +1851,35 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           'Can kids have birthday parties on Lake Travis? Yes! We host birthday parties for all ages. For children\'s parties, all boats have life jackets in children\'s sizes, experienced crew trained in safety, and swim ladders for easy water access. Many families choose our boats for Sweet 16 parties, tween birthdays, and multi-generational celebrations where grandparents and grandkids celebrate together.',
           'What is included in a birthday boat party? Every private charter includes a Coast Guard certified captain, trained crew, premium Bluetooth sound system for your birthday playlist, large coolers with ice, swim stop in a scenic Lake Travis cove, clean restroom facilities, and all safety equipment. Upgrade to the Essentials package for pre-stocked ice, water, cups, and a folding table. The Ultimate package adds giant lily pad floats, disco ball cups, bubble guns, champagne flutes, and a full party setup.',
           'Can I bring a birthday cake on the boat? Yes! You can bring a cake, cupcakes, or any food aboard. We provide table space (6-foot folding table with Essentials or Ultimate packages) and can coordinate with Austin bakeries and caterers. Many guests also bring charcuterie boards, pizza, sandwiches, and party snacks.'
+        ]
+      },
+      {
+        heading: 'Why Birthday Groups Choose Premier — Quantified',
+        paragraphs: [
+          'Birthdays on Lake Travis are a category — Premier is the brand inside it. 15+ years operating. 150,000+ guests served across bachelor, bachelorette, Sweet 16, milestone, and corporate celebrations. Perfect safety record. 100% US Coast Guard licensed captains. 100% CPR-certified crew on every sailing. 4.9/5.0 average rating. Whether your group wants the high-energy [[atx-disco]] public cruise or an exclusive [[private-cruises]] charter with your own playlist and guest list, every sailing runs under the same operational moat.',
+        ],
+        lists: [
+          {
+            title: 'What every birthday charter or ticket buys',
+            items: [
+              'Coast Guard licensed captain + professional crew',
+              'Premium marine-grade Bluetooth audio (your playlist or ours)',
+              'Personal cooler + ice + cups for your group',
+              'Lily pad / unicorn floats at the swim stop',
+              'Climate-controlled restrooms + shaded lounges + dance floor',
+              'Birthday celebration items + decor setup on request',
+              'Family-friendly private charters — every age welcome',
+              'Sparkle / Bride-Groom Spotlight / Mimosa Cooler add-ons ($100 each)',
+              'Tax + 20% gratuity included in the quote',
+              'Free reschedules for any weather-caused cancellation',
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Birthday Charter vs DIY Pontoon or Venue',
+        paragraphs: [
+          'A "cheap" DIY pontoon is $400-$800/day before you add a captain, music, photographer, decor, floats, and the birthday guest of honor\'s favorite celebration touches. A reserved private-venue birthday room is $1,500-$3,000 with catering markup and no view. Premier [[birthday-party]] charters at $200-$353/hour deliver the full experience — captain, sound, floats, restrooms, shaded lounges, photo-worthy Lake Travis backdrop — at a price that usually beats both alternatives once you add everything the alternatives don\'t include.',
         ]
       }
     ],
@@ -2551,6 +2610,35 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           'How much does a wedding boat party cost in Austin? Wedding cruises are priced per hour: Day Tripper ($200-350/hr for intimate gatherings of 14), Meeseeks or The Irony ($225-425/hr for 25-30 guests), and Clever Girl ($250-500/hr for up to 75 guests). All require a 4-hour minimum. Many couples book multiple events — welcome party, rehearsal dinner, and after party — and we offer package discounts for multi-event weddings.',
           'What types of wedding events can you host on Lake Travis? We host every type of wedding event: [[welcome-party]] cruises for out-of-town guests, [[rehearsal-dinner]] cruises for the wedding party and family, wedding day celebrations and receptions, and [[after-party]] cruises for the late-night crew. Many couples book 2-3 events throughout their wedding weekend. Our wedding coordinator works with you and your planner to ensure seamless timing and execution.',
           'Can you accommodate a destination wedding weekend in Austin? Absolutely. Lake Travis is a top destination wedding location in Texas, and Premier Party Cruises is the premier vendor for wedding weekend boat events. Out-of-town guests love experiencing the Texas Hill Country, and a Lake Travis cruise showcases the best of Austin. We coordinate with hotels, transportation companies, and other vendors to make your destination wedding seamless.'
+        ]
+      },
+      {
+        heading: 'Why Wedding Parties Choose Premier — Quantified',
+        paragraphs: [
+          'Wedding weekends pack a lot of logistics — rehearsal dinner, welcome party, post-ceremony cruise, morning-after brunch. Every Premier sailing is built to reduce that load. 15+ years operating on Lake Travis. 150,000+ guests served including hundreds of wedding-weekend charters. Perfect safety record — zero reportable incidents. 100% US Coast Guard licensed captains. 100% CPR-certified crew. 4.9/5.0 rating across hundreds of reviews. Your planner already has a vendor list — Premier plugs into it: we coordinate with caterers, photographers, and transport, and we handle every on-water logistic so your guests remember the cruise, not the commute.',
+        ],
+        lists: [
+          {
+            title: 'What every wedding-weekend charter includes',
+            items: [
+              'Coast Guard licensed captain + professional crew',
+              'Premium marine-grade Bluetooth sound + optional wireless mic for toasts',
+              'Catering coordination with Austin\'s top caterers + seamless onboard setup',
+              'Flexible layouts for rehearsal dinner, welcome party, or after-ceremony cruise',
+              'BYOB-friendly with full bar service as an option',
+              'Private charter so only your wedding guests are aboard',
+              'Sunset timing available (Saturday 3:30-7:30 PM slot on private Clever Girl is magic)',
+              'Tax + 20% gratuity included in a transparent quote (no day-of surprise fees)',
+              'Free weather reschedule — wedding weekends never absorb weather risk',
+              'Hotel + shuttle + rideshare coordination from downtown Austin (25 minutes to marina)',
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Wedding Charter vs Traditional Venue',
+        paragraphs: [
+          'A typical Austin wedding-venue rehearsal dinner is $3,000-$6,000 plus AV, catering markup, and decor fees for 30-50 guests. A Premier [[wedding-party]] charter delivers the same guest capacity on Lake Travis with captain, crew, premium audio, and catering coordination built in — and with a view nobody forgets. Guest count stays the same. Memorability multiplies. Weather is managed. And the bride and groom relax because Premier handles every on-water logistic while the planner focuses on the rest of the weekend.',
         ]
       }
     ],
@@ -7391,12 +7479,13 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
             items: [
               'Exclusive use of your chosen vessel',
               'Day Tripper (14), Meeseeks (30), or Clever Girl (75 guests)',
-              'Coast Guard certified captain included',
-              'Premium Bluetooth sound system',
-              'Large coolers with ice',
-              'Choose your own music and route',
-              'Starting at $200/hour (4-hour minimum)',
-              'BYOB friendly (21+ with ID)'
+              'Coast Guard licensed captain included',
+              'Premium marine-grade Bluetooth sound system',
+              'Large coolers included — always BYOB (Party On Delivery can pre-stock with ice + drinks)',
+              'Choose your own music, route, and pace',
+              'Available every day, year-round (no seasonal gap)',
+              'All ages welcome aboard; alcohol 21+ with valid ID',
+              'Starting at $200/hour (4-hour min Fri–Sun, 3-hour min Mon–Thu)'
             ]
           },
           {
@@ -7599,7 +7688,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         paragraphs: [
           'How far in advance should we book? Graduation season (May-June) is extremely popular. Weekend dates often book 6-8 weeks in advance. Contact us as soon as you know your graduation date to secure your preferred time.',
           'Can we bring decorations? Absolutely! Graduation banners, balloons, and themed decorations are welcome. Our crew can help with setup when you arrive at the marina.',
-          'What about food and drinks? All cruises are BYOB for guests 21+ with valid ID (cans and plastic only, no glass). Bring your own food or we can coordinate catering delivery. Many groups order pizza, tacos, or full catering to the marina.',
+          'What about food and drinks? All cruises are BYOB (cans and plastic only, no glass). Alcohol is 21+ with valid ID — all ages are welcome aboard, so younger siblings and grandparents celebrate right alongside the graduate. Bring your own food, or our sister company Party On Delivery can pre-stock the coolers with drinks on ice and deliver food orders straight to the marina.',
           'Is swimming included? Yes! Weather and conditions permitting (captain\'s discretion), guests can swim in Lake Travis. Life jackets are provided and required when in the water. Perfect for cooling off during warm graduation season!',
           'What about younger siblings and grandparents? Our cruises accommodate guests of all ages. Calm Lake Travis waters, shaded seating areas, and clean restroom facilities ensure comfort for everyone celebrating the graduate.'
         ]

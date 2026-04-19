@@ -3,8 +3,8 @@
   "@type": "LocalBusiness",
   "@id": "https://premierpartycruises.com/#localbusiness",
   "name": "Premier Party Cruises",
-  "alternateName": "Premier Party Cruises Austin",
-  "description": "Austin's longest-running Lake Travis party boat charter company. ATX Disco Cruise public sailings + private charters on Day Tripper, Meeseeks, The Irony, and Clever Girl boats. 15+ years operating, 150,000+ guests served, perfect safety record.",
+  "alternateName": ["Premier Party Cruises Austin", "Premier Party Cruises ATX", "PPC"],
+  "description": "Austin's longest-running Lake Travis party boat charter company. All-inclusive ATX Disco Cruise (per-person tickets, Fri 12\u20134, Sat 11\u20133, Sat 3:30\u20137:30, March\u2013October) and year-round private charters on Day Tripper, Meeseeks, The Irony, and Clever Girl. Always BYOB with Party On Delivery set-up available. 15+ years operating, 150,000+ guests served, perfect safety record, 4.9\u20055 rating across 450+ reviews.",
   "url": "https://premierpartycruises.com/",
   "telephone": "+1-512-488-5892",
   "priceRange": "$$",
@@ -42,7 +42,8 @@
       "opens": "12:00",
       "closes": "16:00",
       "validFrom": "2026-03-01",
-      "validThrough": "2026-10-31"
+      "validThrough": "2026-10-31",
+      "description": "Public ATX Disco Cruise \u2014 Friday slot, seasonal"
     },
     {
       "@type": "OpeningHoursSpecification",
@@ -50,12 +51,15 @@
       "opens": "11:00",
       "closes": "19:30",
       "validFrom": "2026-03-01",
-      "validThrough": "2026-10-31"
+      "validThrough": "2026-10-31",
+      "description": "Public ATX Disco Cruise \u2014 Saturday slots, seasonal"
     },
     {
       "@type": "OpeningHoursSpecification",
-      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Sunday"],
-      "description": "Private charters available year-round by booking"
+      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+      "opens": "09:00",
+      "closes": "21:00",
+      "description": "Private charters available year-round, every day, by booking"
     }
   ],
   "aggregateRating": {
@@ -75,66 +79,139 @@
     "Lake Travis party boat rentals",
     "Austin bachelor party cruises",
     "Austin bachelorette party cruises",
-    "ATX Disco Cruise",
+    "ATX Disco Cruise (all-inclusive multi-group party cruise)",
     "Corporate event boat charters",
     "Wedding party cruises",
     "Birthday party boat rentals",
     "Sunset cruises Lake Travis",
-    "BYOB party boats Austin"
+    "BYOB party boats Austin",
+    "Party On Delivery drink set-up"
   ],
   "makesOffer": [
     {
       "@type": "Offer",
-      "name": "ATX Disco Cruise — Friday 12-4 PM",
+      "name": "ATX Disco Cruise \u2014 Friday 12\u20134 PM (per-person ticket)",
+      "description": "All-inclusive shared party cruise. Pro DJ, pro photographer, 14 disco balls on the 75-person flagship Clever Girl, BYOB with personal cooler + private bin per group, 4-hour cruise. Hard-capped at 90 guests. Same price for every guest regardless of gender.",
       "price": "95.00",
       "priceCurrency": "USD",
+      "priceSpecification": {
+        "@type": "PriceSpecification",
+        "price": "95.00",
+        "priceCurrency": "USD",
+        "valueAddedTaxIncluded": true,
+        "description": "Tax and 20% gratuity included in ticket price"
+      },
       "url": "https://premierpartycruises.com/atx-disco-cruise",
-      "availability": "https://schema.org/InStock",
-      "itemOffered": { "@type": "Service", "name": "ATX Disco Cruise Friday Slot" }
+      "availability": "https://schema.org/LimitedAvailability",
+      "validFrom": "2026-03-01",
+      "validThrough": "2026-10-31",
+      "itemOffered": { "@type": "Service", "name": "ATX Disco Cruise \u2014 Friday 12\u20134 PM slot" },
+      "eligibleRegion": { "@type": "City", "name": "Austin" },
+      "areaServed": "Austin, TX",
+      "seller": { "@id": "https://premierpartycruises.com/#localbusiness" }
     },
     {
       "@type": "Offer",
-      "name": "ATX Disco Cruise — Saturday 11 AM-3 PM",
+      "name": "ATX Disco Cruise \u2014 Saturday 11 AM\u20133 PM (per-person ticket, peak slot)",
+      "description": "Most popular Disco Cruise slot. All-inclusive: Pro DJ, pro photographer, 14 disco balls, BYOB personal cooler, 4-hour cruise on Clever Girl. Hard-capped at 90 guests.",
       "price": "105.00",
       "priceCurrency": "USD",
+      "priceSpecification": {
+        "@type": "PriceSpecification",
+        "price": "105.00",
+        "priceCurrency": "USD",
+        "valueAddedTaxIncluded": true,
+        "description": "Tax and 20% gratuity included in ticket price"
+      },
       "url": "https://premierpartycruises.com/atx-disco-cruise",
-      "availability": "https://schema.org/InStock",
-      "itemOffered": { "@type": "Service", "name": "ATX Disco Cruise Saturday Peak" }
+      "availability": "https://schema.org/LimitedAvailability",
+      "validFrom": "2026-03-01",
+      "validThrough": "2026-10-31",
+      "itemOffered": { "@type": "Service", "name": "ATX Disco Cruise \u2014 Saturday 11\u20133 peak slot" },
+      "seller": { "@id": "https://premierpartycruises.com/#localbusiness" }
     },
     {
       "@type": "Offer",
-      "name": "ATX Disco Cruise — Saturday 3:30-7:30 PM",
+      "name": "ATX Disco Cruise \u2014 Saturday 3:30\u20137:30 PM (per-person ticket, sunset best-value slot)",
+      "description": "Best-value Disco Cruise slot \u2014 sunset over Lake Travis. All-inclusive: Pro DJ, pro photographer, 14 disco balls, BYOB personal cooler, 4-hour cruise on Clever Girl. Hard-capped at 90 guests.",
       "price": "85.00",
       "priceCurrency": "USD",
+      "priceSpecification": {
+        "@type": "PriceSpecification",
+        "price": "85.00",
+        "priceCurrency": "USD",
+        "valueAddedTaxIncluded": true,
+        "description": "Tax and 20% gratuity included in ticket price"
+      },
       "url": "https://premierpartycruises.com/atx-disco-cruise",
+      "availability": "https://schema.org/LimitedAvailability",
+      "validFrom": "2026-03-01",
+      "validThrough": "2026-10-31",
+      "itemOffered": { "@type": "Service", "name": "ATX Disco Cruise \u2014 Saturday 3:30\u20137:30 sunset slot" },
+      "seller": { "@id": "https://premierpartycruises.com/#localbusiness" }
+    },
+    {
+      "@type": "Offer",
+      "name": "Private Charter \u2014 Day Tripper (1\u201314 guests, year-round)",
+      "description": "Exclusive whole-boat private charter for intimate groups. Includes Coast Guard licensed captain, premium marine Bluetooth audio, coolers (always BYOB), sun + shade seating, restrooms. Optional Essentials or Ultimate add-on packages for full all-inclusive experience. Available every day, year-round.",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "unitText": "per hour",
+        "minPrice": "200.00",
+        "priceCurrency": "USD",
+        "description": "Starting at $200/hour. 4-hour minimum on Fri\u2013Sun, 3-hour minimum Mon\u2013Thu. Weekend rates higher."
+      },
+      "url": "https://premierpartycruises.com/private-cruises",
       "availability": "https://schema.org/InStock",
-      "itemOffered": { "@type": "Service", "name": "ATX Disco Cruise Saturday Sunset" }
+      "itemOffered": { "@type": "Service", "name": "Day Tripper private charter" },
+      "seller": { "@id": "https://premierpartycruises.com/#localbusiness" }
     },
     {
       "@type": "Offer",
-      "name": "Private Charter — Day Tripper (1-14 guests)",
-      "price": "200.00",
-      "priceCurrency": "USD",
-      "priceSpecification": { "@type": "UnitPriceSpecification", "unitText": "per hour", "price": "200.00", "priceCurrency": "USD" },
-      "url": "https://premierpartycruises.com/private-cruises"
+      "name": "Private Charter \u2014 Meeseeks / The Irony (15\u201330 guests, year-round)",
+      "description": "Mid-size private charter for bachelor/bachelorette, team outings, birthdays. Includes Coast Guard licensed captain, premium marine Bluetooth audio, large coolers (always BYOB), restrooms. Optional Essentials or Ultimate add-on packages available. Available every day, year-round.",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "unitText": "per hour",
+        "minPrice": "225.00",
+        "priceCurrency": "USD",
+        "description": "Starting at $225/hour. 4-hour minimum on Fri\u2013Sun, 3-hour minimum Mon\u2013Thu. Weekend rates higher."
+      },
+      "url": "https://premierpartycruises.com/private-cruises",
+      "availability": "https://schema.org/InStock",
+      "itemOffered": { "@type": "Service", "name": "Meeseeks / The Irony private charter" },
+      "seller": { "@id": "https://premierpartycruises.com/#localbusiness" }
     },
     {
       "@type": "Offer",
-      "name": "Private Charter — Meeseeks / The Irony (15-30 guests)",
-      "price": "225.00",
-      "priceCurrency": "USD",
-      "priceSpecification": { "@type": "UnitPriceSpecification", "unitText": "per hour", "price": "225.00", "priceCurrency": "USD" },
-      "url": "https://premierpartycruises.com/private-cruises"
-    },
-    {
-      "@type": "Offer",
-      "name": "Private Charter — Clever Girl (31-75 guests, flagship)",
-      "price": "250.00",
-      "priceCurrency": "USD",
-      "priceSpecification": { "@type": "UnitPriceSpecification", "unitText": "per hour", "price": "250.00", "priceCurrency": "USD" },
-      "url": "https://premierpartycruises.com/private-cruises"
+      "name": "Private Charter \u2014 Clever Girl flagship (31\u201375 guests, year-round)",
+      "description": "75-person flagship with 14 disco balls and giant Texas flag. Perfect for corporate events, large celebrations, combined bach parties. Includes Coast Guard licensed captain and full crew, premium marine Bluetooth audio, large coolers (always BYOB), restrooms. Optional Essentials or Ultimate add-on packages available. Available every day, year-round.",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "unitText": "per hour",
+        "minPrice": "250.00",
+        "priceCurrency": "USD",
+        "description": "Starting at $250/hour. 4-hour minimum on Fri\u2013Sun, 3-hour minimum Mon\u2013Thu. Weekend rates higher. Crew surcharge for 51\u201375 guests."
+      },
+      "url": "https://premierpartycruises.com/private-cruises",
+      "availability": "https://schema.org/InStock",
+      "itemOffered": { "@type": "Service", "name": "Clever Girl flagship private charter" },
+      "seller": { "@id": "https://premierpartycruises.com/#localbusiness" }
     }
   ],
+  "potentialAction": {
+    "@type": "ReserveAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": "https://premierpartycruises.com/quote",
+      "inLanguage": "en-US",
+      "actionPlatform": [
+        "http://schema.org/DesktopWebPlatform",
+        "http://schema.org/MobileWebPlatform"
+      ]
+    },
+    "result": { "@type": "Reservation", "name": "Lake Travis Party Boat Reservation" }
+  },
   "sameAs": [
     "https://www.instagram.com/premierpartycruises/",
     "https://www.facebook.com/premierpartycruises",

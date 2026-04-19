@@ -4,10 +4,10 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "What types of party boat rentals do you offer?",
+      "name": "What types of party boat rentals does Premier Party Cruises offer?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "We offer two main types of party boat experiences: Private Charters (exclusive boat rental for your group of 14-75 guests, starting at $200/hour with 4-hour minimum) and the ATX Disco Cruise (join other groups on our signature party cruise with DJ, photographer, and all amenities included, three time slots available from $85-$105 per person). Perfect for bachelor parties, bachelorette parties, corporate events, birthdays, weddings, and any special celebration."
+        "text": "Two distinct experiences. (1) The ATX Disco Cruise \u2014 Austin's only all-inclusive multi-group bachelor/bachelorette party cruise, per-person ticket, runs March through October only at three fixed time slots: Friday 12\u20134 PM ($95), Saturday 11 AM\u20133 PM ($105, peak), Saturday 3:30\u20137:30 PM ($85, sunset best-value). Always on the 75-person Clever Girl flagship with 14 disco balls, hard-capped at 90 guests. (2) Private charters \u2014 exclusive whole-boat rental, available year-round every day on Day Tripper (14 guests), Meeseeks / The Irony (15\u201330), or Clever Girl (31\u201375). Private charters start at $200/hour; Standard amenities always included, with optional Essentials or Ultimate add-on packages to make it fully all-inclusive."
       }
     },
     {
@@ -15,7 +15,39 @@
       "name": "How much does it cost to rent a party boat on Lake Travis?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Private charters start at $200 per hour with a 4-hour minimum. We have three boats available: Day Tripper (14 people), Meeseeks and The Irony (18-25 people), and Clever Girl (30-50 people with 14 disco balls). ATX Disco Cruise has three time slots: Friday 12-4pm at $95/person, Saturday 11am-3pm at $105/person, and Saturday 3:30-7:30pm at $85/person (prices include DJ, photographer, floats, and all amenities)."
+        "text": "Private charters: starting at $200/hour on Day Tripper (1\u201314 guests), $225/hour on Meeseeks / The Irony (15\u201330), $250/hour on Clever Girl (31\u201375). 4-hour minimum Fri\u2013Sun, 3-hour minimum Mon\u2013Thu. Weekend rates are higher. ATX Disco Cruise per-person: Friday 12\u20134 $95, Saturday 11\u20133 $105 (peak), Saturday 3:30\u20137:30 $85 (sunset). Disco prices include tax and 20% gratuity. Same price for every guest regardless of gender."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Are private cruises available year-round or only in summer?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Private charters operate year-round, every day of the week, 12 months a year. Central Texas has mild winters so cruising is comfortable most days of the year. November through February is actually off-peak \u2014 easier to book, more date flexibility, and a more exclusive lake experience. The seasonal window (March 1 \u2013 October 31) only applies to the shared public ATX Disco Cruise."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is the ATX Disco Cruise overpacked or crowded?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. The ATX Disco Cruise is hard-capped at 90 guests per sailing. Most other shared party boats run 100+ guests. Every group gets its own personal cooler and private bin so your drinks, snacks, and items stay separate. Multiple zones (sun deck, shaded lounge, dance floor, swim deck) mean there's always room to move, dance, or relax. The 90-guest cap is deliberate: fewer tickets per cruise so the energy stays high without ever feeling crowded."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is the ATX Disco Cruise gender-priced?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Every ticket is the same price for every guest regardless of gender. Pricing is structured by time slot only: Friday 12\u20134 PM $95, Saturday 11 AM\u20133 PM $105, Saturday 3:30\u20137:30 PM $85. Add-on packages (Mimosa Cooler, Sparkle Package, Bride/Groom Spotlight) are $100 each and equally available to any guest."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is Premier Party Cruises family-friendly?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes \u2014 private charters welcome guests of every age: kids, parents, grandparents, family reunions, anniversaries, graduations, milestone birthdays, corporate events. The shared public ATX Disco Cruise has stricter age requirements because it's a BYOB multi-group party environment (we may apply age restrictions on specific public sailings to mitigate risk). Underage drinking is never permitted anywhere. For multi-generation events, book a private charter \u2014 every age is welcome on your own boat."
       }
     },
     {
@@ -23,23 +55,39 @@
       "name": "Can we bring food and drinks on the boat?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes! All cruises are fully BYOB friendly (21+ with valid ID required). You can bring your own beer, wine, seltzers, and non-alcoholic beverages in cans or plastic containers - no glass allowed for safety. We provide large coolers with ice. You can also bring snacks and meals, or we can coordinate alcohol delivery directly to the boat for your convenience."
+        "text": "Yes. Every cruise is BYOB (bring your own beverage). Cans and plastic containers only \u2014 no glass on any Lake Travis vessel, for safety. You can also coordinate alcohol delivery through our partner Party On Delivery: order your drinks and they'll be set up with ice and waiting for you on the boat when you arrive, at retail prices with 100% buyback on unopened bottles. You can bring your own snacks or meals, or Party On Delivery can coordinate food too. Public ATX Disco Cruise is BYOB for guests 21+ with valid ID."
       }
     },
     {
       "@type": "Question",
-      "name": "Where do you depart from on Lake Travis?",
+      "name": "Where do you depart from on Lake Travis and how's the parking?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "We depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641. We're the closest marina to downtown Austin, approximately 30 minutes away, making us convenient for all your guests."
+        "text": "Anderson Mill Marina, 13993 FM 2769, Leander, TX 78641 \u2014 approximately 25 minutes from downtown Austin via 183 North. Parking is FREE, plentiful, and located right next to the dock. There are NO stairs to walk down to reach the boat \u2014 the path from parking to the dock is flat and accessible. Uber/Lyft from downtown runs $35\u2013$55 each way. We're the closest purpose-built party-boat marina to downtown Austin."
       }
     },
     {
       "@type": "Question",
-      "name": "What's included with the ATX Disco Cruise?",
+      "name": "What's your weather and cancellation policy?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Every ATX Disco Cruise includes a professional DJ playing all day, professional photographer with photo delivery, giant unicorn floats, multiple lily pad floats, disco dance floor, party supplies and mixers, ice water stations, clean restroom facilities, and an unforgettable party atmosphere with multiple bachelor and bachelorette groups celebrating together."
+        "text": "Weather is never your fault, so we never charge you for it. If the captain cancels for unsafe conditions, every guest gets a FREE reschedule to any future cruise, or a full refund if preferred. If weather shortens an in-progress cruise, you receive a pro-rated refund. Standard non-weather cancellations: 48-hour full-refund window after booking; after that, your deposit applies to a reschedule within 12 months. Reschedule changes 30+ days out are always free."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's included with the ATX Disco Cruise (the all-inclusive cruise)?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Every ATX Disco Cruise ticket includes: Coast Guard licensed captain, professional DJ for the full 4 hours, professional photographer with digital delivery, premium marine-grade Bluetooth audio, disco dance floor with 14 disco balls, personal cooler + private bin per group (always BYOB), giant lily pad and unicorn floats at the swim stop, climate-controlled restrooms, shaded lounge areas, open sun deck, tax and 20% gratuity wrapped into the ticket price. This is the all-inclusive experience \u2014 nothing else to buy to have a full party."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's included with a private charter vs an all-inclusive Disco Cruise?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Every private charter includes the Standard amenities by default: Coast Guard licensed captain + crew, premium marine-grade Bluetooth audio, large coolers (always BYOB), sun + shade seating, climate-controlled restrooms, and full use of the boat for your group only. To make it fully all-inclusive, add the Essentials Package (coolers pre-stocked with ice, water dispenser, cups, 6-ft table for food, vendor coordination) or the Ultimate Package (everything in Essentials + giant lily pad + honor float + disco cup set + bubble guns + champagne flutes + SPF-50 + plates and plasticware + full party setup). The Disco Cruise is per-person and all-inclusive by default; the private charter is per-hour whole-boat with flexible add-ons."
       }
     },
     {
@@ -47,7 +95,7 @@
       "name": "What makes Premier Party Cruises different from other Lake Travis boat rentals?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "With 14+ years of experience and over 125,000 satisfied customers, we are Austin's longest-running and most trusted party cruise company. We maintain a perfect safety record with Coast Guard certified captains, operate the newest fleet in Austin, and provide full-service experiences with professional crew and premium sound systems. We're the only company offering the signature ATX Disco Cruise party experience."
+        "text": "15+ years operating \u2014 Austin's longest-running Lake Travis party boat company. 150,000+ guests served. Perfect safety record (0 incidents). 100% USCG-licensed captains. 100% CPR-certified crew. 4.9/5.0 rating across 450+ reviews. The only operator of the ATX Disco Cruise \u2014 the only all-inclusive multi-group bachelor/bachelorette cruise in the United States. Largest fleet on Lake Travis: Day Tripper (14), Meeseeks (15\u201330), The Irony (15\u201330), Clever Girl (31\u201375 flagship with 14 disco balls + giant Texas flag). Purpose-built Anderson Mill Marina departure \u2014 free parking, no stairs, 25 min from downtown Austin."
       }
     },
     {
@@ -55,7 +103,23 @@
       "name": "Can you accommodate corporate events and team building activities?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Absolutely! We specialize in corporate events and team building on Lake Travis. Our fleet accommodates groups from 14 to 75+ guests with professional service and premium amenities. Customizable packages include catering coordination, AV equipment, and dedicated event planning to ensure your corporate event is a complete success."
+        "text": "Yes \u2014 corporate events and team building are one of our largest segments. Fleet accommodates 14\u201375 guests, any day of the year, with professional captain + crew, premium Bluetooth sound for presentations or playlists, optional wireless microphone + A/V package, catering coordination, accessible marina with free parking, and fully transparent all-in pricing. Free weather reschedules protect your company calendar. Add the Essentials or Ultimate package for a fully branded all-inclusive experience. Popular for holiday parties, client entertainment, company milestones, retreats, and team outings."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is swimming allowed during the cruise?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes \u2014 conditions permitting, at the captain's discretion. The boat anchors at a beautiful Lake Travis cove with crystal-clear water. Life jackets are on board for all swimmers and we encourage guests to wear them. Water temperatures are ideal April through October; private charters cruise year-round, though winter swimming is less common."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How far in advance should we book?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Weekend dates in peak season (April\u2013September) fill up 6\u20138 weeks in advance for bachelor/bachelorette parties and corporate events. Weekdays and off-peak months (November\u2013February) are much easier to book, often available 2\u20133 weeks out. For milestone events, we recommend 2\u20133 months lead time to secure your preferred date and boat. Deposits hold your date: 25% if booking 14+ days out, 50% if booking within 14 days."
       }
     }
   ]

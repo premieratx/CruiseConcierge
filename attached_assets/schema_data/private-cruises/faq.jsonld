@@ -121,6 +121,46 @@
         "@type": "Answer",
         "text": "Operating since 2009 — 15+ years on Lake Travis. 150,000+ guests served. Perfect safety record (zero reportable incidents). 100% US Coast Guard licensed captains (Merchant Mariner Credential). 100% CPR-certified crew on every sailing. 4.9/5.0 average rating across hundreds of reviews. Every boat is inspected before every sailing on a documented schedule. Every sailing begins with a signature Premier safety welcome ritual covering life jackets, emergency exits, weather policy, and swim stops. Children's life jackets in all sizes on every boat."
       }
+    },
+    {
+      "@type": "Question",
+      "name": "Are private charters available year-round?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Private charters operate every day of the year, 12 months a year. Central Texas has mild winters so cruising stays comfortable most days. Off-peak months (November through February) actually offer better availability, more date flexibility, and a more exclusive lake experience — many corporate groups, families, and intimate celebrations prefer them. The seasonal window (March 1 – October 31) only applies to the shared public ATX Disco Cruise, not to private charters."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do the Standard, Essentials, and Ultimate packages differ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Every private charter includes Standard amenities by default: Coast Guard licensed captain + crew, premium marine-grade Bluetooth audio, large coolers (always BYOB), sun + shade seating, climate-controlled restrooms, fully BYOB-friendly setup. Essentials Package adds: coolers pre-stocked with ice, 5-gallon water dispenser, solo cups and ice water, 6-foot folding table for food, and vendor coordination for catering (+$100 on Day Tripper, +$150 on Meeseeks/Irony, +$200 on Clever Girl). Ultimate Package adds everything in Essentials plus: giant 6×20 ft lily pad float, guest-of-honor float (unicorn or ring), disco ball cups, bubble guns + wands, champagne flutes + juices, SPF-50 spray sunscreen, plates + plasticware + paper towels, full party atmosphere setup (+$250 / +$300 / +$350 by boat size). Either package turns a Standard private charter into a fully all-inclusive experience."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can Party On Delivery set up our drinks before we board?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Premier's sister company Party On Delivery takes your BYOB order (beer, wine, seltzers, spirits, mixers, ice — cans and plastic only, no glass) and delivers it straight to the boat with everything set up and iced down when you arrive. You get retail prices (no marina markup) plus 100% buyback on unopened bottles — only pay for what you drink. This is the easiest way to do BYOB on Lake Travis: you step on, drinks are already cold and ready. Food delivery can be coordinated too."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is BYOB always required or is there a bar option?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "BYOB is always the alcohol model on Premier Party Cruises — this keeps prices dramatically lower than bar-service boats and lets you bring exactly what your group wants. Cans and plastic containers only (no glass, for safety). If you'd rather not shop or haul coolers, our sister company Party On Delivery handles the entire BYOB setup for you at retail prices with 100% buyback on unopened bottles. Bartender service is available as an add-on for private charters (not bachelor/bachelorette parties) at $600 per party — the bartender mixes and serves from the BYOB supply you or Party On Delivery bring."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is a private charter quiet enough for an anniversary or corporate retreat?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. A private charter is your boat for your vibe — you set the music, volume, and pace. Most of our private bookings are actually NOT party-mode: anniversaries, micro-weddings, corporate client entertainment, family reunions, retirement celebrations, and executive retreats all run on the same fleet with a quiet sunset cruise template. Premium Bluetooth audio means you can play soft background music or an executive playlist just as easily as a DJ-style party mix. We explicitly support what we call 'Two-Mode Vibe': Disco for party, Chill for quiet. Both get the same captain, crew, safety standards, and Lake Travis scenery."
+      }
     }
   ]
 }
