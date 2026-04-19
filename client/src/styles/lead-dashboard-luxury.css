@@ -669,3 +669,103 @@
 .ppc-quote-light .text-purple-500 {
   color: #7c3aed !important;
 }
+
+/* ══════════════════════════════════════════════════════════════════
+ * NEUTRALIZE v2-luxury-root's READABILITY HARDENING inside the quote.
+ *
+ * The parent v2-luxury-root scope uses partial-match selectors like
+ * [class*="bg-purple-50"] / [class*="bg-white"] / [class*="bg-amber-50"]
+ * to force dark surfaces. Those rules win against our exact-match
+ * .ppc-quote-light .bg-purple-50 override, which is why the unselected
+ * ATX Disco buttons (className="hover:bg-purple-50 dark:hover:bg-purple-900/20")
+ * were still rendering black-on-black inside the quote.
+ *
+ * We replay the same partial-match selectors inside .ppc-quote-light
+ * with light values + !important so the quote subtree is fully
+ * insulated from the luxury dark-forcing cascade.
+ * ══════════════════════════════════════════════════════════════════ */
+.ppc-quote-light [class*="bg-white"],
+.ppc-quote-light [style*="background: white"],
+.ppc-quote-light [style*="background-color: white"],
+.ppc-quote-light [style*="background:#fff"],
+.ppc-quote-light [style*="background-color:#fff"],
+.ppc-quote-light [style*="background: #fff"],
+.ppc-quote-light [style*="background-color: #fff"] {
+  background-color: #ffffff !important;
+  background-image: none !important;
+}
+.ppc-quote-light [class*="bg-gray-50"],
+.ppc-quote-light [class*="bg-gray-100"],
+.ppc-quote-light [class*="bg-stone-50"],
+.ppc-quote-light [class*="bg-stone-100"],
+.ppc-quote-light [class*="bg-neutral-50"],
+.ppc-quote-light [class*="bg-neutral-100"],
+.ppc-quote-light [class*="bg-zinc-50"],
+.ppc-quote-light [class*="bg-zinc-100"],
+.ppc-quote-light [class*="bg-yellow-50"],
+.ppc-quote-light [class*="bg-orange-50"],
+.ppc-quote-light [class*="bg-emerald-50"],
+.ppc-quote-light [class*="bg-green-50"],
+.ppc-quote-light [class*="bg-sky-50"],
+.ppc-quote-light [class*="bg-blue-50"] {
+  background-color: #f7f5f1 !important;
+}
+.ppc-quote-light [class*="bg-purple-50"] {
+  background-color: #faf5ff !important;
+}
+.ppc-quote-light [class*="bg-amber-50"],
+.ppc-quote-light [class*="bg-amber-100"],
+.ppc-quote-light [class*="bg-yellow-100"] {
+  background-color: #fffbeb !important;
+}
+
+/* Restore legible dark foreground text on the now-light surfaces
+ * (v2-luxury-root was recoloring text-gray-700/800/900 to cream). */
+.ppc-quote-light [class*="text-gray-900"],
+.ppc-quote-light [class*="text-gray-800"],
+.ppc-quote-light [class*="text-gray-700"],
+.ppc-quote-light [class*="text-stone-900"],
+.ppc-quote-light [class*="text-stone-800"],
+.ppc-quote-light [class*="text-zinc-900"],
+.ppc-quote-light [class*="text-zinc-800"],
+.ppc-quote-light [class*="text-black"] {
+  color: hsl(var(--foreground)) !important;
+}
+.ppc-quote-light [class*="text-gray-600"],
+.ppc-quote-light [class*="text-gray-500"],
+.ppc-quote-light [class*="text-stone-600"],
+.ppc-quote-light [class*="text-stone-500"],
+.ppc-quote-light [class*="text-zinc-600"],
+.ppc-quote-light [class*="text-zinc-500"] {
+  color: hsl(var(--muted-foreground)) !important;
+}
+
+/* Accent text overrides applied to now-light callouts. */
+.ppc-quote-light [class*="bg-amber-50"] [class*="text-amber-"],
+.ppc-quote-light [class*="bg-amber-50"] [class*="text-orange-"],
+.ppc-quote-light [class*="bg-yellow-50"] [class*="text-yellow-"],
+.ppc-quote-light [class*="bg-amber-100"] [class*="text-amber-"],
+.ppc-quote-light [class*="bg-yellow-100"] [class*="text-yellow-"] {
+  color: #92400e !important;
+}
+.ppc-quote-light [class*="text-purple-400"],
+.ppc-quote-light [class*="text-purple-500"],
+.ppc-quote-light [class*="text-purple-600"],
+.ppc-quote-light [class*="text-purple-700"] {
+  color: #7c3aed !important;
+}
+
+/* Empty background when the class list only has hover: / dark: bg
+ * variants (base bg is implicit). The button is unreadable only because
+ * v2-luxury-root forced a dark color — clearing the inherited dark
+ * lets our parent surface show through. */
+.ppc-quote-light [class*="hover:bg-purple-50"],
+.ppc-quote-light [class*="hover:bg-purple-900"],
+.ppc-quote-light [class*="dark:hover:bg-purple"],
+.ppc-quote-light [class*="dark:bg-purple"] {
+  background-color: transparent !important;
+  color: hsl(var(--foreground)) !important;
+}
+.ppc-quote-light [class*="hover:bg-purple-50"]:hover {
+  background-color: #faf5ff !important;
+}
