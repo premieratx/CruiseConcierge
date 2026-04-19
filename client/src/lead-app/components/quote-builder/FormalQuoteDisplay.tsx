@@ -30,6 +30,7 @@ import { supabase } from "@/lead-app/integrations/supabase/client";
 import { useToast } from "@/lead-app/hooks/use-toast";
 import { ShareQuoteDialog } from "./ShareQuoteDialog";
 import { useIsMobile } from "@/lead-app/hooks/use-mobile";
+import "@/styles/lead-dashboard-luxury.css";
 
 // Current deal configuration - update this when deal changes
 const CURRENT_DEAL = {
@@ -894,7 +895,7 @@ export const FormalQuoteDisplay = ({
   };
 
   return (
-    <div className="space-y-4 sm:space-y-6 px-2 sm:px-3 md:px-6" style={{ marginTop: '20px' }}>
+    <div className="ppc-quote-light space-y-4 sm:space-y-6 px-2 sm:px-3 md:px-6" style={{ marginTop: '20px' }}>
       {/* Action Buttons - compact single row */}
       <div className="flex items-center justify-between gap-2 no-print">
         <div className="flex items-center gap-2 text-xs">

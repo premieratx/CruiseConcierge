@@ -436,14 +436,21 @@
 .v2-luxury-root [class*="text-muted-foreground"] {
   color: hsl(var(--muted-foreground)) !important;
 }
-.v2-luxury-root .bg-primary,
-.v2-luxury-root [class*="bg-primary"] {
+.v2-luxury-root .bg-primary {
   background-color: hsl(var(--primary)) !important;
   color: hsl(var(--primary-foreground)) !important;
 }
-.v2-luxury-root .text-primary,
-.v2-luxury-root [class*="text-primary"] {
+.v2-luxury-root .bg-primary\/5 { background-color: hsl(var(--primary) / 0.05) !important; }
+.v2-luxury-root .bg-primary\/10 { background-color: hsl(var(--primary) / 0.1) !important; }
+.v2-luxury-root .bg-primary\/20 { background-color: hsl(var(--primary) / 0.2) !important; }
+/* NOTE: must be exact .text-primary — partial match [class*="text-primary"]
+ * also caught `text-primary-foreground` and repainted it gold, producing
+ * unreadable gold-on-gold selected buttons. */
+.v2-luxury-root .text-primary {
   color: hsl(var(--primary)) !important;
+}
+.v2-luxury-root .text-primary-foreground {
+  color: hsl(var(--primary-foreground)) !important;
 }
 .v2-luxury-root .bg-popover,
 .v2-luxury-root [class*="bg-popover"] {
@@ -463,4 +470,108 @@
 .v2-luxury-root .prose,
 .v2-luxury-root .prose * {
   color: inherit !important;
+}
+
+/* ══════════════════════════════════════════════════════════════════
+ * PPC-QUOTE-LIGHT — Light theme scope for FormalQuoteDisplay
+ *
+ * The rest of the site stays on the dark/gold luxury theme. The lead
+ * quote itself needs a light surface with dark text for high contrast,
+ * with gold-tan ONLY as a selected-state accent. This scope overrides
+ * the shadcn tokens for its subtree and explicitly fixes time-slot
+ * button readability (bg-primary + text-primary-foreground).
+ * ══════════════════════════════════════════════════════════════════ */
+.ppc-quote-light {
+  --background: 42 38% 96%;           /* warm cream */
+  --foreground: 240 14% 10%;          /* near-black */
+  --card: 0 0% 100%;                  /* white */
+  --card-foreground: 240 14% 10%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 240 14% 10%;
+  --primary: 39 46% 48%;              /* deeper gold-tan for contrast on light */
+  --primary-foreground: 0 0% 100%;    /* white text on gold */
+  --secondary: 42 30% 90%;
+  --secondary-foreground: 240 14% 10%;
+  --muted: 42 24% 92%;
+  --muted-foreground: 240 8% 32%;
+  --accent: 39 46% 48%;
+  --accent-foreground: 0 0% 100%;
+  --destructive: 0 72% 45%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 42 22% 78%;
+  --input: 42 28% 90%;
+  --ring: 39 46% 48%;
+
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+}
+
+/* Force the light scope to win even when mounted inside v2-luxury-root. */
+.ppc-quote-light,
+.ppc-quote-light * {
+  color-scheme: light;
+}
+
+.ppc-quote-light .bg-card,
+.ppc-quote-light [class*="bg-card"] {
+  background-color: hsl(var(--card)) !important;
+  color: hsl(var(--card-foreground)) !important;
+}
+.ppc-quote-light .text-card-foreground {
+  color: hsl(var(--card-foreground)) !important;
+}
+.ppc-quote-light .bg-background {
+  background-color: hsl(var(--background)) !important;
+}
+.ppc-quote-light .bg-muted,
+.ppc-quote-light [class*="bg-muted"] {
+  background-color: hsl(var(--muted)) !important;
+}
+.ppc-quote-light .text-muted-foreground {
+  color: hsl(var(--muted-foreground)) !important;
+}
+.ppc-quote-light .bg-popover {
+  background-color: hsl(var(--popover)) !important;
+  color: hsl(var(--popover-foreground)) !important;
+}
+.ppc-quote-light .text-foreground {
+  color: hsl(var(--foreground)) !important;
+}
+
+/* Selected state = gold-tan bg, WHITE text — high contrast, readable. */
+.ppc-quote-light .bg-primary {
+  background-color: hsl(var(--primary)) !important;
+  color: hsl(var(--primary-foreground)) !important;
+  border-color: hsl(var(--primary)) !important;
+}
+.ppc-quote-light .bg-primary\/5 { background-color: hsl(var(--primary) / 0.08) !important; color: hsl(var(--foreground)) !important; }
+.ppc-quote-light .bg-primary\/10 { background-color: hsl(var(--primary) / 0.12) !important; color: hsl(var(--foreground)) !important; }
+.ppc-quote-light .bg-primary\/20 { background-color: hsl(var(--primary) / 0.2) !important; color: hsl(var(--foreground)) !important; }
+.ppc-quote-light .text-primary {
+  color: hsl(var(--primary)) !important;
+}
+.ppc-quote-light .text-primary-foreground {
+  color: hsl(var(--primary-foreground)) !important;
+}
+.ppc-quote-light .border-primary {
+  border-color: hsl(var(--primary)) !important;
+}
+
+/* Unselected time-slot buttons: dark text on white so they're always legible. */
+.ppc-quote-light button:not(.bg-primary),
+.ppc-quote-light [role="button"]:not(.bg-primary) {
+  color: hsl(var(--foreground));
+}
+
+/* Neutralize the dark-theme shadow recipe that also lives in v2-luxury-root. */
+.ppc-quote-light [class*="shadow"] {
+  box-shadow: 0 4px 14px rgba(20, 20, 30, 0.06), 0 0 0 1px hsl(var(--border)) inset !important;
+}
+
+/* The "border-color: rgb(0, 102, 204)" inline style on quote panels —
+ * already overridden to gold for dark theme. In light theme, keep the
+ * sky-600 accent since it reads well on cream. */
+.ppc-quote-light [style*="border-color: rgb(0, 102, 204)"],
+.ppc-quote-light [style*="border-color: #0066cc"] {
+  border-color: hsl(var(--primary)) !important;
 }
