@@ -499,6 +499,34 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           'Is swimming allowed? Yes, when conditions are safe at the captain\'s discretion. Life jackets required in the water, provided for adults.',
           'How far in advance should we book? Weekend dates fill 6-8 weeks early. Book as soon as possible to secure your preferred date.'
         ]
+      },
+      {
+        heading: 'Why Premier Wins Bachelor Parties — Quantified',
+        paragraphs: [
+          'Austin has lots of "boat rental" options. Premier is the one Austin groups actually remember. 15+ years on Lake Travis. 150,000+ guests served. Perfect safety record — zero reportable incidents. 100% US Coast Guard licensed captains (Merchant Mariner Credential). 100% CPR-certified crew on every sailing. 4.9/5.0 average rating across hundreds of reviews. The [[atx-disco]] multi-group experience and [[private-cruises]] exclusive charter both run under the same operational moat.',
+        ],
+        lists: [
+          {
+            title: 'What every bachelor party ticket or charter buys',
+            items: [
+              'Coast Guard licensed captain (you don\'t drive, you don\'t navigate)',
+              'Professional DJ (Disco Cruise) or premium Bluetooth audio (private charter)',
+              'Professional photographer with digital delivery (Disco Cruise)',
+              'Personal cooler + ice for your group',
+              'Lily pad / unicorn floats at the swim stop',
+              'Climate-controlled restrooms + shaded lounges',
+              'BYOB coolers + cups + 21+ ID policy enforced by the crew',
+              'Free reschedules for any weather-caused cancellation',
+              'Tax + 20% gratuity already included in the quote',
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Bachelor Party vs DIY Pontoon — The Actual Math',
+        paragraphs: [
+          'A "cheap" DIY pontoon rental on Lake Travis runs $400-$800/day for the boat alone. Then YOU drive, YOU navigate, YOU rent the floats ($50+), YOU bring the music, YOU hire the photographer ($300+), YOU haul the coolers, YOU coordinate everything. By the time you add a captain, a photographer, decor, floats, and your whole day of labor, the DIY total tops the [[atx-disco]] ticket price — and you spent the bachelor trip working, not celebrating. Premier is not premium-priced. Premier is all-inclusive-priced.',
+        ]
       }
     ],
     relatedPages: [
@@ -665,6 +693,35 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
               'All boats feature USCG certified captains, Bluetooth speakers, coolers with ice'
             ]
           }
+        ]
+      },
+      {
+        heading: 'Why Premier Wins Bachelorette Parties — Quantified',
+        paragraphs: [
+          'Austin is the #1 bachelorette destination in the country. Plenty of companies will rent you a boat. Premier is the one the bride remembers. 15+ years on Lake Travis. 150,000+ guests served. Perfect safety record — zero reportable incidents. 100% US Coast Guard licensed captains. 100% CPR-certified crew on every sailing. 4.9/5.0 average rating across hundreds of reviews. Whether you choose the high-energy [[atx-disco]] shared party or a [[private-cruises]] exclusive charter, every sailing runs under the same operational moat — you never worry about safety, logistics, or the weather.',
+        ],
+        lists: [
+          {
+            title: 'What every bachelorette party ticket or charter buys',
+            items: [
+              'Coast Guard licensed captain + professional crew',
+              'Professional DJ all 4 hours (Disco Cruise) or your own playlist (private)',
+              'Professional photographer + digital photo delivery (Disco Cruise)',
+              'Personal cooler + ice + cups for your group',
+              'Lily pad + unicorn floats at the swim stop',
+              'Disco dance floor with LED lights + 14 disco balls (Clever Girl + Disco Cruise)',
+              'Climate-controlled restrooms + shaded lounges',
+              'Free reschedules for any weather-caused cancellation',
+              'Tax + 20% gratuity included in the ticket price',
+              'Sparkle Package + Bride Spotlight + Mimosa Cooler add-ons available ($100 each)',
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Bachelorette Party vs DIY Pontoon — The Honest Math',
+        paragraphs: [
+          'The "cheap" Lake Travis pontoon rental is $400-$800/day for the boat alone — and that\'s before you rent a captain, a DJ, a photographer, floats, decor, coolers, and your own bachelorette theme supplies. By the time you add everything Premier already includes, DIY tops the [[atx-disco]] ticket price — and the bride spends her weekend doing logistics instead of celebrating. Premier is not premium-priced. Premier is produced-event-priced.',
         ]
       }
     ],
@@ -2349,6 +2406,35 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           'Is a boat party appropriate for a professional corporate event? Absolutely. Our corporate cruises are tailored for professional settings. The boats are clean, well-maintained, and staffed by experienced crew. We provide premium Bluetooth sound systems that work equally well for a CEO speech or a party playlist. Many Fortune 500 companies, Austin startups, and professional services firms have hosted successful events with us. Your team gets a memorable experience while maintaining the professional standards your brand requires.',
           'How do I plan a team building event on Lake Travis? Contact Premier Party Cruises at (512) 488-5892 or fill out our online quote form. Tell us your group size, preferred date, budget, and goals. We recommend booking 4-6 weeks in advance for weekend dates. We handle all logistics including boat selection, catering coordination, drink delivery through Party On Delivery, and activity planning. All you need to do is show up with your team.',
           'Do Austin companies really do boat parties for team building? Yes — Lake Travis boat parties are one of Austin\'s most popular corporate team building activities. The combination of outdoor scenery, water activities, and a relaxed atmosphere creates authentic team connections that conference rooms cannot replicate. We host corporate events year-round, with spring and fall being especially popular for business groups who prefer mild weather and calmer lake conditions.'
+        ]
+      },
+      {
+        heading: 'Why Corporate Teams Choose Premier — Quantified',
+        paragraphs: [
+          'Corporate events on Lake Travis are served by dozens of boat rental companies. Premier is the one HR directors and event planners return to year after year. 15+ years of continuous operation. 150,000+ guests served including Fortune 500 client entertainment, team-building retreats, and annual company-milestone celebrations. Perfect safety record. 100% US Coast Guard licensed captains. 100% CPR-certified crew on every sailing. 4.9/5.0 rating across hundreds of reviews. Unlike a DIY pontoon rental where your planning team builds the event from scratch, a Premier [[private-cruises]] is a fully-produced corporate experience — captain, crew, audio, catering coordination, decor setup, all handled.',
+        ],
+        lists: [
+          {
+            title: 'What every corporate charter includes — turnkey, not rental',
+            items: [
+              'Coast Guard licensed captain + professional crew',
+              'Premium marine-grade Bluetooth sound system + optional wireless mic for speeches',
+              'Catering coordination with Austin\'s top caterers (pickup + onboard setup)',
+              'Flexible layouts for team-building activities, client dinners, or casual networking',
+              'Professional service standards suitable for senior-leadership + client-facing events',
+              'Custom routes + timing — sunset dinner, midday offsite, or evening reception',
+              'BYOB + full-bar-service options with responsible-consumption policy',
+              'Tax + 20% gratuity included in the transparent quote',
+              'Weather reschedule is always free — corporate calendars don\'t have to absorb weather risk',
+              'Accessible path from parking to dock at Anderson Mill Marina (no stairs)',
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Corporate Charter vs DIY Corporate Event',
+        paragraphs: [
+          'Corporate event budgets usually show a $3,000-$6,000 hotel ballroom line item plus $2,000+ in AV, catering markup, decor, and room-rental fees. A Premier Lake Travis [[corporate-events]] charter delivers the same guest capacity with a far more memorable experience — captain-driven scenic cruising, genuine Texas Hill Country backdrop, integrated audio for speeches, and catering coordination that plugs into your existing vendor list. Same budget, 10x the "remember-when-the-sunset-hit" factor, and zero ballroom logistics. Clients and team members don\'t forget a Lake Travis cruise.',
         ]
       }
     ],

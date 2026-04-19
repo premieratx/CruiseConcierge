@@ -1,0 +1,143 @@
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "@id": "https://premierpartycruises.com/#localbusiness",
+  "name": "Premier Party Cruises",
+  "alternateName": "Premier Party Cruises Austin",
+  "description": "Austin's longest-running Lake Travis party boat charter company. ATX Disco Cruise public sailings + private charters on Day Tripper, Meeseeks, The Irony, and Clever Girl boats. 15+ years operating, 150,000+ guests served, perfect safety record.",
+  "url": "https://premierpartycruises.com/",
+  "telephone": "+1-512-488-5892",
+  "priceRange": "$$",
+  "image": [
+    "https://premierpartycruises.com/attached_assets/atx-disco-cruise-party.webp",
+    "https://premierpartycruises.com/attached_assets/clever-girl-3-bachelorette-boat.jpg"
+  ],
+  "logo": "https://premierpartycruises.com/attached_assets/PPC%20Logo%20LARGE_1757881944449.png",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "13993 FM 2769",
+    "addressLocality": "Leander",
+    "addressRegion": "TX",
+    "postalCode": "78641",
+    "addressCountry": "US"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 30.495,
+    "longitude": -97.893
+  },
+  "areaServed": [
+    { "@type": "City", "name": "Austin" },
+    { "@type": "City", "name": "Round Rock" },
+    { "@type": "City", "name": "Cedar Park" },
+    { "@type": "City", "name": "Leander" },
+    { "@type": "City", "name": "Lakeway" },
+    { "@type": "AdministrativeArea", "name": "Lake Travis" },
+    { "@type": "AdministrativeArea", "name": "Texas Hill Country" }
+  ],
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Friday"],
+      "opens": "12:00",
+      "closes": "16:00",
+      "validFrom": "2026-03-01",
+      "validThrough": "2026-10-31"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Saturday"],
+      "opens": "11:00",
+      "closes": "19:30",
+      "validFrom": "2026-03-01",
+      "validThrough": "2026-10-31"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Sunday"],
+      "description": "Private charters available year-round by booking"
+    }
+  ],
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.9",
+    "bestRating": "5",
+    "ratingCount": 450,
+    "reviewCount": 450
+  },
+  "founder": {
+    "@type": "Person",
+    "name": "Brian Hill"
+  },
+  "foundingDate": "2009",
+  "slogan": "Austin's Lake Travis party experts since 2009",
+  "knowsAbout": [
+    "Lake Travis party boat rentals",
+    "Austin bachelor party cruises",
+    "Austin bachelorette party cruises",
+    "ATX Disco Cruise",
+    "Corporate event boat charters",
+    "Wedding party cruises",
+    "Birthday party boat rentals",
+    "Sunset cruises Lake Travis",
+    "BYOB party boats Austin"
+  ],
+  "makesOffer": [
+    {
+      "@type": "Offer",
+      "name": "ATX Disco Cruise — Friday 12-4 PM",
+      "price": "95.00",
+      "priceCurrency": "USD",
+      "url": "https://premierpartycruises.com/atx-disco-cruise",
+      "availability": "https://schema.org/InStock",
+      "itemOffered": { "@type": "Service", "name": "ATX Disco Cruise Friday Slot" }
+    },
+    {
+      "@type": "Offer",
+      "name": "ATX Disco Cruise — Saturday 11 AM-3 PM",
+      "price": "105.00",
+      "priceCurrency": "USD",
+      "url": "https://premierpartycruises.com/atx-disco-cruise",
+      "availability": "https://schema.org/InStock",
+      "itemOffered": { "@type": "Service", "name": "ATX Disco Cruise Saturday Peak" }
+    },
+    {
+      "@type": "Offer",
+      "name": "ATX Disco Cruise — Saturday 3:30-7:30 PM",
+      "price": "85.00",
+      "priceCurrency": "USD",
+      "url": "https://premierpartycruises.com/atx-disco-cruise",
+      "availability": "https://schema.org/InStock",
+      "itemOffered": { "@type": "Service", "name": "ATX Disco Cruise Saturday Sunset" }
+    },
+    {
+      "@type": "Offer",
+      "name": "Private Charter — Day Tripper (1-14 guests)",
+      "price": "200.00",
+      "priceCurrency": "USD",
+      "priceSpecification": { "@type": "UnitPriceSpecification", "unitText": "per hour", "price": "200.00", "priceCurrency": "USD" },
+      "url": "https://premierpartycruises.com/private-cruises"
+    },
+    {
+      "@type": "Offer",
+      "name": "Private Charter — Meeseeks / The Irony (15-30 guests)",
+      "price": "225.00",
+      "priceCurrency": "USD",
+      "priceSpecification": { "@type": "UnitPriceSpecification", "unitText": "per hour", "price": "225.00", "priceCurrency": "USD" },
+      "url": "https://premierpartycruises.com/private-cruises"
+    },
+    {
+      "@type": "Offer",
+      "name": "Private Charter — Clever Girl (31-75 guests, flagship)",
+      "price": "250.00",
+      "priceCurrency": "USD",
+      "priceSpecification": { "@type": "UnitPriceSpecification", "unitText": "per hour", "price": "250.00", "priceCurrency": "USD" },
+      "url": "https://premierpartycruises.com/private-cruises"
+    }
+  ],
+  "sameAs": [
+    "https://www.instagram.com/premierpartycruises/",
+    "https://www.facebook.com/premierpartycruises",
+    "https://www.tiktok.com/@premierpartycruises"
+  ]
+}
