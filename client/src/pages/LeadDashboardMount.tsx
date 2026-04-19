@@ -19,7 +19,7 @@ const queryClient = new QueryClient();
 
 export default function LeadDashboardMount() {
   return (
-    <div className="v2-luxury-root">
+    <div className="v2-luxury-root" data-page-ready="lead-dashboard">
       <HelmetProvider>
         <QueryClientProvider client={queryClient}>
           <TooltipProvider>

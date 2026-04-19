@@ -14,7 +14,7 @@ const queryClient = new QueryClient();
 
 export default function CustomerDashboardMount() {
   return (
-    <div className="v2-luxury-root">
+    <div className="v2-luxury-root" data-page-ready="customer-dashboard">
       <HelmetProvider>
         <QueryClientProvider client={queryClient}>
           <TooltipProvider>

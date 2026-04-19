@@ -613,7 +613,7 @@ export default function QuoteNative() {
 
   // ── Primary form state ──────────────────────────────────────────────────
   return (
-    <div className="qn-root">
+    <div className="qn-root" data-page-ready="quote-native">
       <Helmet>
         <title>Get Your Quote · Premier Party Cruises · Lake Travis</title>
         <meta

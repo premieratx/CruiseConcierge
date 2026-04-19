@@ -186,10 +186,10 @@ export default function QuoteViewer({}: QuoteViewerProps) {
   const { contactInfo, eventDetails, selectionDetails, pricingDetails } = quote;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 dark:from-gray-900 dark:to-gray-800">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 dark:from-gray-900 dark:to-gray-800" data-page-ready="quote-viewer">
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-4xl mx-auto">
-          
+
           {/* Header */}
           <div className="mb-8 text-center">
             <img src={logoPath} alt="Premier Party Cruises" className="h-20 mx-auto mb-4" />
