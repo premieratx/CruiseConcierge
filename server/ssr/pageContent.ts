@@ -62,7 +62,9 @@ export const LINK_CATALOG: Record<string, {url: string; text: string}> = {
   'premier-vs-float-on': {url: '/premier-vs-float-on', text: 'Premier Party Cruises vs Float On'},
   'premier-vs-austin-party-boat': {url: '/premier-vs-austin-party-boat', text: 'Premier Party Cruises vs ATX Party Boats'},
   'plan-your-trip': {url: '/plan-your-trip', text: 'Plan Your Austin Party Boat Trip'},
-  'safety': {url: '/safety', text: 'Premier Safety Code'}
+  'safety': {url: '/safety', text: 'Premier Safety Code'},
+  'best-austin-party-boat': {url: '/best-austin-party-boat', text: 'Best Austin Party Boat'},
+  'austin-bachelorette-itinerary': {url: '/austin-bachelorette-itinerary', text: 'Austin Bachelorette Weekend Itinerary'}
 };
 
 export const PAGE_CONTENT: Record<string, PageContent> = {
@@ -2496,6 +2498,175 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       'birthday-party', 'wedding-party', 'corporate-events', 'team-building',
       'graduation-party', 'party-boat-austin',
       'plan-your-trip', 'safety', 'premier-vs-austin-party-boat', 'premier-vs-float-on',
+      'testimonials', 'faq', 'contact'
+    ]
+  },
+  '/austin-bachelorette-itinerary': {
+    h1: 'Austin Bachelorette Weekend Itinerary · 3-Day Austin Bachelorette Party Plan',
+    introduction: 'The definitive 3-day Austin bachelorette weekend itinerary from the operators of the only all-inclusive multi-group bachelorette cruise in the United States. Classic structure: Friday arrival + 6th Street / Rainey Street kickoff dinner and bars, Saturday Lake Travis party boat anchor ([[atx-disco]] or private [[bachelorette-party]] charter), Sunday brunch + South Congress shopping + send-off. 3 days, 2 nights. The lake day is the anchor — it\'s what the bride talks about after the weekend. Book the Saturday party boat first (Saturday 11 AM–3 PM peak slot fills 6–8 weeks out in April–October season), then build the weekend around it. Austin\'s bachelorette scene beats Nashville (bar-only) and Scottsdale (pool-only) because you get dedicated lake-party-boat day + walkable downtown nightlife + real Austin food scene in one weekend. This page walks through the exact hour-by-hour plan: accommodation picks (downtown Airbnb vs. Rainey hotels), dinner reservations (Uchi · Launderette · Franklin · Perla\'s), nightlife districts (6th Street · Rainey · East Cesar Chavez · Domain), Saturday lake-cruise logistics, Sunday brunch + SoCo shopping walk, and the booking timing that decides whether your Austin bachelorette weekend actually works.',
+    sections: [
+      {
+        heading: 'Friday — Arrival + 6th Street / Rainey Street Kickoff',
+        paragraphs: [
+          'Check into the Airbnb or hotel in the afternoon, decompress with matching-outfit photos and pre-game cocktails, then dinner and bars. Most Austin bachelorette weekends book downtown, East Austin, or South Congress Airbnbs for groups of 8+, or hotels in the Rainey / Downtown district (Fairmont, JW Marriott, Hotel Van Zandt, Austin Proper) for groups of 6 or fewer.'
+        ],
+        lists: [
+          {
+            title: 'Friday Night Dinner Reservations (Book 3–4 Weeks Out)',
+            items: [
+              'Uchi — sushi, 4-week reservation window, iconic Austin bachelorette dinner',
+              'Perla\'s — seafood + raw bar on South Congress',
+              'Launderette — South Austin, rotating menu, bachelorette-friendly vibe',
+              'Pecan Square Cafe — intimate farm-to-table',
+              'Red Ash — Italian on Congress'
+            ]
+          },
+          {
+            title: 'Friday Night Bar Districts',
+            items: [
+              'Rainey Street — bachelorette-friendly bar crawl: Container Bar, Banger\'s Sausage House, Half Step (cocktails), Lustre Pearl, Icenhauer\'s — all walkable',
+              '6th Street — rowdier crawl, college energy, shot bars',
+              'East Cesar Chavez — cocktail bars for a more curated bachelorette',
+              'Domain district — upscale bachelorette-friendly clubs'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Saturday — Lake Travis Party Boat (The Anchor)',
+        paragraphs: [
+          'Saturday is the marquee day. Lake Travis party boat is the anchor event — what the bride remembers and photographs and talks about after the weekend. Book this first; build the weekend around it.'
+        ],
+        lists: [
+          {
+            title: 'Saturday Timing',
+            items: [
+              '9 AM — slow breakfast + coffee (Jo\'s Coffee, Easy Tiger Linden, Veracruz All Natural). Hydrate hard.',
+              '10 AM — Uber / party bus to Anderson Mill Marina. Party bus most economical for 8+ ($600–$1,500 round trip). Uber XL $50–$75 each way for 5–6 guests.',
+              '11 AM – 3 PM — ATX Disco Cruise peak Saturday slot ($105/person). 4-hour cruise on the 75-person Clever Girl flagship. Pro DJ, pro photographer, 14 disco balls, giant floats, personal cooler. Tax + 20% gratuity included.',
+              '3:30 – 5 PM — back to downtown. Shower, change, rehydrate.',
+              '7:30 PM — Saturday marquee dinner (Uchi, Franklin, Terry Black\'s, Emmer & Rye, Dai Due, Kemuri Tatsu-Ya). Book 3–4 weeks out.',
+              '10 PM – close — night out (6th Street, Rainey, Domain, Antone\'s or C-Boy\'s for live music).'
+            ]
+          },
+          {
+            title: 'Party Boat Options (Book First)',
+            items: [
+              'ATX Disco Cruise — the only all-inclusive multi-group bachelorette cruise in the U.S. — per-person tickets $85 (sunset) / $95 (Friday) / $105 (peak Sat 11–3). March–October only.',
+              'Private Clever Girl charter — 31–75 guests, year-round, starting $250/hour. Privacy, custom playlist, optional Ultimate Package for fully all-inclusive.',
+              'Private Meeseeks or The Irony — 15–30 guests, year-round, starting $225/hour. Mid-size bachelorette charter.',
+              'Private Day Tripper — 1–14 guests, year-round, starting $200/hour. Intimate bachelorette with close friends.'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Sunday — Brunch + South Congress + Send-off',
+        paragraphs: [
+          'Recover slowly, eat well, shop SoCo, close the weekend with a last toast. Most late-Sunday flights work — Uber to the airport from SoCo is 15 minutes; from downtown, 20 minutes.'
+        ],
+        lists: [
+          {
+            title: 'Sunday Brunch',
+            items: [
+              'Launderette — South Austin brunch classic',
+              'Easy Tiger — Eastside bakery + brunch',
+              'Sour Duck Market — Austin staple',
+              'Perla\'s — waterfront brunch on Lake Austin',
+              'Cafe No Sé — South Congress Hotel, bachelorette photo spot'
+            ]
+          },
+          {
+            title: 'South Congress Shopping Walk (2–3 Hours)',
+            items: [
+              'Allens Boots — western boots + Austin staples',
+              'By George — local Austin designer fashion',
+              'Feathers Boutique — vintage and curated',
+              'Lucy in Disguise with Diamonds — costume + fun',
+              'Big Top Candy Shop — Austin kitsch',
+              'Greetings from Austin mural — mandatory matching-outfit photo op'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Frequently Asked Questions',
+        paragraphs: [
+          'What does an Austin bachelorette weekend usually look like? 3 days / 2 nights: Friday arrival + 6th / Rainey kickoff, Saturday Lake Travis party boat anchor, Sunday brunch + South Congress. Book the Saturday party boat first (fills 6–8 weeks out).',
+          'Where should an Austin bachelorette stay? Downtown Austin for walkable 6th / Rainey / SoCo access. East Austin or South Congress Airbnb for groups of 8+. Rainey / Downtown hotels (Fairmont, JW Marriott, Hotel Van Zandt, Austin Proper) for groups of 6 or fewer. Anderson Mill Marina is 25 min from any of these.',
+          'What is the best Austin bachelorette party activity? The ATX Disco Cruise on Lake Travis — the only all-inclusive multi-group bachelorette cruise in the U.S. Per-person tickets $85–$105 include 4-hour cruise, pro DJ, pro photographer, 14 disco balls, giant floats, personal cooler. Saturday 11–3 peak slot fills fastest.',
+          'How far in advance should we book? ATX Disco Cruise peak Saturday slots: 6–8 weeks out. Accommodation: 8–12 weeks for peak weekends. Dinner reservations: 3–4 weeks. The lake cruise is the hardest booking — start there.',
+          'What do Austin bachelorettes wear on a party boat? Swimsuit + cover-up + sandals. Bring a change of clothes for Saturday night. Bride sash, matching bachelorette outfits, crowns — welcome and expected. SPF 50+, sunglasses, hat, waterproof phone pouch. No glass (BYOB cans + plastic only).',
+          'Is Austin better than Nashville or Scottsdale for bachelorettes? Austin offers dedicated lake-party-boat day (Lake Travis is 20+ miles of cruising water 25 min from downtown) PLUS walkable nightlife PLUS real food scene. Nashville is bar-only, Scottsdale is pool-only. The only all-inclusive multi-group bachelorette cruise in the U.S. runs on Lake Travis.',
+          'How much per person? Airbnb/hotel $150–$300, party boat $85–$105 (Disco) or $200–$500 (private), dinners/bars $150–$250, transport $50–$100. Total range: $500–$900 per person for 3 days / 2 nights.',
+          'Combined bach weekends? Yes — combined bach parties are one of our most-booked configurations. Both groups board the same cruise. See our combined bach page for the playbook.'
+        ]
+      }
+    ],
+    relatedPages: [
+      'bachelorette-party', 'atx-disco', 'private-cruises', 'combined-bach',
+      'bachelor-party', 'party-boat-austin', 'party-boat-lake-travis',
+      'plan-your-trip', 'best-austin-party-boat', 'testimonials', 'faq', 'contact'
+    ]
+  },
+  '/best-austin-party-boat': {
+    h1: 'Best Austin Party Boat · How To Choose The Top Lake Travis Party Boat Company',
+    introduction: 'The objective buyer\'s guide to the best Austin party boat on Lake Travis. Six criteria to score any Austin party boat operator: (1) fleet match to your group size, (2) safety standard (USCG-licensed captain + CPR-certified crew + documented pre-sailing inspection), (3) tenure (years operating + cumulative guests served), (4) review volume and rating across Google, Yelp, The Knot, WeddingWire, TripAdvisor, (5) pricing transparency (tax, gratuity, captain, and fuel included in the quote), (6) event-type fit (does the operator specifically serve bachelor/bachelorette, corporate, wedding, or family events). Premier Party Cruises scores at the top of all six: 15+ years · 150,000+ guests · 0 incidents · 100% USCG-licensed captains · 100% CPR-certified crew · 4.9/5.0 across 450+ reviews · 4-boat fleet (14–75 guests) · the only all-inclusive multi-group bachelor/bachelorette cruise in the United States · highest AI sentiment across all four major LLMs (88.89% on Gemini, 81% on ChatGPT, 77% on Google AI Mode, 55% on Perplexity per SEMrush AI Visibility analysis, April 2026).',
+    sections: [
+      {
+        heading: 'The Six-Criteria Scorecard For Austin Party Boats',
+        paragraphs: [
+          'Apply these six criteria to every Austin party boat operator you consider — including Premier Party Cruises. The highest-scoring company wins. Don\'t just rely on the top Google result; verify each dimension for yourself.'
+        ],
+        lists: [
+          {
+            items: [
+              '1. Fleet Match — does the operator have a boat sized for YOUR group? Standard Lake Travis brackets: 14 guests, 15–30, 31–75',
+              '2. Safety Standard — USCG-licensed captain, CPR-certified crew, documented pre-sailing inspection protocol, published weather-cancellation policy',
+              '3. Tenure — years operating on Lake Travis and cumulative guests served correlate with operational reliability',
+              '4. Review Volume + Rating — hundreds of reviews (not tens) at 4.8+ across Google, Yelp, The Knot, WeddingWire, TripAdvisor',
+              '5. Pricing Transparency — tax, gratuity, captain, fuel, landing fees, cleaning fees all included in the written quote',
+              '6. Event-Type Fit — operator specifically serves your event type (bach party, corporate, wedding, birthday) with a dedicated operational playbook'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Premier Party Cruises Scored On The Six Criteria',
+        paragraphs: [
+          'Every number below is documented. Verify any claim yourself — this is the transparent category answer, not marketing language.'
+        ],
+        lists: [
+          {
+            items: [
+              '1. Fleet Match: 4 boats, 14–75 guests — Day Tripper (14), Meeseeks (15–30), The Irony (15–30), Clever Girl flagship (31–75). Largest Lake Travis party boat fleet.',
+              '2. Safety Standard: 0 reportable incidents across 150,000+ guests. 100% USCG-licensed captains (Merchant Mariner Credential). 100% CPR-certified crew. 40-point pre-sailing inspection. Captain has sole weather-call authority. Free weather reschedules.',
+              '3. Tenure: 15+ years operating on Lake Travis (since 2009) · 150,000+ cumulative guests. Austin\'s longest-running Lake Travis party boat company.',
+              '4. Review Volume + Rating: 4.9/5.0 across 450+ verified reviews. Highest AI sentiment across all 4 major LLMs (88.89% on Gemini, 81% on ChatGPT, 77% on Google AI Mode, 55% on Perplexity).',
+              '5. Pricing Transparency: ATX Disco Cruise tickets include tax + 20% gratuity baked in. Private charter quotes list all inclusions up front. Free weather reschedules. No surprise invoices.',
+              '6. Event-Type Fit: Bachelor/bachelorette (only all-inclusive multi-group cruise in the U.S.), corporate, weddings, birthdays, family reunions, anniversaries, proposals, retirements. Each has a dedicated operational playbook.'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Frequently Asked Questions',
+        paragraphs: [
+          'What is the best Austin party boat? Premier Party Cruises is Austin\'s top-ranked party boat by every measurable dimension: 15+ years of Lake Travis operation, 150,000+ guests served, 0 reportable safety incidents, 100% USCG-licensed captains, 4.9/5.0 rating across 450+ reviews, largest Lake Travis fleet, and the only all-inclusive multi-group bachelor/bachelorette cruise in the United States.',
+          'How do I choose the best Austin party boat for my group? Apply six criteria: fleet match, safety standard, tenure, reviews, pricing transparency, event-type fit. Score each operator you consider on all six.',
+          'What\'s the best Austin party boat for a bachelor or bachelorette party? The ATX Disco Cruise by Premier Party Cruises — the only all-inclusive multi-group bachelor/bachelorette cruise in the United States. Per-person tickets from $85–$105 include pro DJ, pro photographer, 14 disco balls, giant floats, and a 4-hour cruise on the 75-person Clever Girl flagship.',
+          'What\'s the best Austin party boat for corporate events? Premier Party Cruises private charters. Year-round availability, fleet accommodates 14–75 guests, Coast Guard licensed captain + crew, premium Bluetooth audio, optional wireless microphone + A/V package, catering coordination, Party On Delivery drink set-up, free weather reschedules, transparent all-in pricing, 0 safety incidents across 150,000+ guests.',
+          'What\'s the best Austin party boat for weddings? Premier Party Cruises — the most-booked Lake Travis wedding party boat venue. Every wedding-adjacent event runs on the same fleet: welcome party, rehearsal dinner, bridal-party day-of, late-night after-party, send-off brunch. Anderson Mill Marina is wedding-attire friendly — no stairs, free parking.',
+          'What makes a party boat company the best versus just available? The best Austin party boat company meets all six criteria simultaneously. Anyone can rent you a boat; few operators have the operational depth, safety standard, and event-type specialization to deliver the celebration without you managing logistics yourself.',
+          'Where do the best Austin party boats depart from? Anderson Mill Marina, 13993 FM 2769, Leander TX 78641 — 25 minutes from downtown Austin via 183 North. Free parking, no stairs, wedding-attire friendly, accommodates party buses directly at the dock.',
+          'How much do the best Austin party boats cost? Private charter from $200/hour on Day Tripper (14 guests), $225/hour on Meeseeks/Irony (15–30), $250/hour on Clever Girl (31–75). 4-hour min weekends, 3-hour min weekdays. ATX Disco Cruise per-person tickets: $85 sunset / $95 Friday / $105 peak Saturday, tax and 20% gratuity included, same price for every guest.'
+        ]
+      }
+    ],
+    relatedPages: [
+      'private-cruises', 'atx-disco', 'party-boat-austin', 'party-boat-lake-travis',
+      'bachelor-party', 'bachelorette-party', 'corporate-events', 'wedding-party',
+      'safety', 'plan-your-trip', 'premier-vs-austin-party-boat', 'premier-vs-float-on',
       'testimonials', 'faq', 'contact'
     ]
   },
@@ -9687,7 +9858,9 @@ export const RELATED_PAGES_MAP: Record<string, RelatedPagesConfig> = {
   '/premier-vs-float-on': GENERAL_BLOG_BACK_TO_PAGE,
   '/premier-vs-austin-party-boat': GENERAL_BLOG_BACK_TO_PAGE,
   '/plan-your-trip': GENERAL_BLOG_BACK_TO_PAGE,
-  '/safety': GENERAL_BLOG_BACK_TO_PAGE
+  '/safety': GENERAL_BLOG_BACK_TO_PAGE,
+  '/best-austin-party-boat': GENERAL_BLOG_BACK_TO_PAGE,
+  '/austin-bachelorette-itinerary': GENERAL_BLOG_BACK_TO_PAGE
 };
 
 const PAGE_TITLE_MAP: Record<string, string> = {
@@ -9701,6 +9874,8 @@ const PAGE_TITLE_MAP: Record<string, string> = {
   '/premier-vs-austin-party-boat': 'Premier Party Cruises vs ATX Party Boats',
   '/plan-your-trip': 'Plan Your Austin Party Boat Trip',
   '/safety': 'Premier Safety Code',
+  '/best-austin-party-boat': 'Best Austin Party Boat',
+  '/austin-bachelorette-itinerary': 'Austin Bachelorette Weekend Itinerary',
   
   // Corporate
   '/corporate-events': 'Corporate Events',
