@@ -77,6 +77,33 @@ async function main() {
     CANONICAL_HOST.replace(/\/$/, ''),
   );
 
+  // V2-only routes that don't exist on the Replit main site yet.
+  // Append these so Google can discover them via sitemap.xml on V2.
+  const V2_ONLY_ROUTES = [
+    '/premier-vs-float-on',
+    '/premier-vs-austin-party-boat',
+    '/plan-your-trip',
+    '/safety',
+    '/best-austin-party-boat',
+    '/austin-bachelorette-itinerary',
+    '/austin-bachelor-itinerary',
+    '/austin-party-boat-pricing-guide',
+  ];
+  const host = CANONICAL_HOST.replace(/\/$/, '');
+  const today = new Date().toISOString().slice(0, 10);
+  const alreadyPresent = new Set([...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]));
+  const v2Urls = V2_ONLY_ROUTES
+    .map((p) => `${host}${p}`)
+    .filter((u) => !alreadyPresent.has(u))
+    .map(
+      (u) =>
+        `  <url>\n    <loc>${u}</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>0.8</priority>\n  </url>`,
+    )
+    .join('\n');
+  if (v2Urls) {
+    sitemap = sitemap.replace('</urlset>', `${v2Urls}\n</urlset>`);
+  }
+
   const sitemapOut = `${OUT_DIR}/sitemap.xml`;
   ensureDir(sitemapOut);
   writeFileSync(sitemapOut, sitemap);

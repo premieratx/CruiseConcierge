@@ -149,13 +149,13 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Why Choose Premier Party Cruises',
         paragraphs: [
-          'With 14+ years of experience and 150,000+ satisfied customers, we are Austin\'s longest-running and most trusted party cruise company. Our perfect safety record, Coast Guard certified captains, and newest fleet ensure an exceptional experience every time.'
+          'With 15+ years of experience and 150,000+ satisfied customers, we are Austin\'s longest-running and most trusted party cruise company. Our perfect safety record, Coast Guard certified captains, and newest fleet ensure an exceptional experience every time.'
         ],
         lists: [
           {
             title: 'Our Advantages',
             items: [
-              '14+ years of Lake Travis expertise',
+              '15+ years of Lake Travis expertise',
               'Hundreds of 5-star reviews',
               'Perfect safety record maintained',
               'Newest fleet in Austin',
@@ -320,7 +320,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           'When does the ATX Disco Cruise run? The disco cruise operates Fridays 12-4pm and Saturdays with two time slots: 11am-3pm (most popular!) or 3:30-7:30pm. Pricing varies by time slot, with all prices including tax and gratuity for a complete, transparent experience.',
           'Where do you depart from on Lake Travis? We depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641. We\'re the closest marina to downtown Austin, approximately 25 minutes away, making us convenient for all your guests.',
           'What\'s included with the ATX Disco Cruise? Every ATX Disco Cruise includes a professional DJ playing all day, professional photographer with photo delivery, giant unicorn floats, multiple lily pad floats, disco dance floor, party supplies and mixers, ice water stations, clean restroom facilities, and an unforgettable party atmosphere with multiple bachelor and bachelorette groups celebrating together.',
-          'What makes Premier Party Cruises different from other Lake Travis boat rentals? With 14+ years of experience and 150,000+ satisfied customers, we are Austin\'s longest-running and most trusted party cruise company. We maintain a perfect safety record with Coast Guard certified captains, operate the newest fleet in Austin, and provide full-service experiences with professional crew and premium sound systems. We\'re the only company offering the signature ATX Disco Cruise party experience.',
+          'What makes Premier Party Cruises different from other Lake Travis boat rentals? With 15+ years of experience and 150,000+ satisfied customers, we are Austin\'s longest-running and most trusted party cruise company. We maintain a perfect safety record with Coast Guard certified captains, operate the newest fleet in Austin, and provide full-service experiences with professional crew and premium sound systems. We\'re the only company offering the signature ATX Disco Cruise party experience.',
           'Can you accommodate corporate events and team building activities? Absolutely! We specialize in corporate events and team building on Lake Travis. Our fleet accommodates groups from 14 to 75+ guests with professional service and premium amenities. Customizable packages include catering coordination, AV equipment, and dedicated event planning to ensure your corporate event is a complete success.',
           'Can you swim on Lake Travis during the cruise? Yes! Swimming is one of the highlights of every Lake Travis cruise. During your private charter, the captain anchors in a scenic cove with crystal-clear water surrounded by limestone cliffs. Guests can swim, float on lily pads, jump off the boat, and enjoy the natural springs that feed Lake Travis. We provide a swim ladder for easy re-boarding. Life jackets are available for all guests. The typical swim stop is 1.5-2 hours during a 4-hour cruise.',
           'Are there sunset cruises on Lake Travis? Yes. Sunset cruises are among our most popular options. The Texas Hill Country sunset over Lake Travis is spectacular, with golden light reflecting off the limestone bluffs and calm water. The Saturday 3:30-7:30pm ATX Disco Cruise time slot is perfectly timed for sunset, or you can book a private charter at any time. Sunset cruises are especially popular for proposals, anniversaries, rehearsal dinners, and romantic celebrations.',
@@ -417,7 +417,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Why Bachelor Parties Love Premier Party Cruises',
         paragraphs: [
-          '150,000+ happy customers have celebrated with us, making us Austin\'s #1 choice for bachelor parties. With 14+ years of experience, perfect safety record, and the newest fleet on Lake Travis, your bachelor party is in expert hands.'
+          '150,000+ happy customers have celebrated with us, making us Austin\'s #1 choice for bachelor parties. With 15+ years of experience, perfect safety record, and the newest fleet on Lake Travis, your bachelor party is in expert hands.'
         ],
         lists: [
           {
@@ -623,7 +623,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Why Bachelorette Parties Choose Us',
         paragraphs: [
-          'With 14+ years specializing in [[bachelorette-party]], we know exactly how to create an unforgettable celebration. 150,000+ happy customers, perfect safety record, and Austin\'s newest fleet make us the #1 choice for Lake Travis bachelorette parties.'
+          'With 15+ years specializing in [[bachelorette-party]], we know exactly how to create an unforgettable celebration. 150,000+ happy customers, perfect safety record, and Austin\'s newest fleet make us the #1 choice for Lake Travis bachelorette parties.'
         ],
         lists: [
           {
@@ -2297,12 +2297,12 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Why Choose Austin Party Boats',
         paragraphs: [
-          'Lake Travis is Austin\'s premier party destination, and Premier Party Cruises has been the leader for 14+ years. Here\'s why Austin groups choose us:'
+          'Lake Travis is Austin\'s premier party destination, and Premier Party Cruises has been the leader for 15+ years. Here\'s why Austin groups choose us:'
         ],
         lists: [
           {
             items: [
-              '14+ years Austin party boat experience',
+              '15+ years Austin party boat experience',
               'Hundreds of 5-star reviews',
               'Perfect safety record maintained',
               'Newest and nicest fleet on Lake Travis',
@@ -3310,7 +3310,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           'Lake Travis provides the ideal setting for corporate events. Away from office distractions, teams and clients engage authentically in a relaxed yet professional environment.',
           'The unique Austin experience impresses clients and delights employees. It shows your company values quality experiences and invests in relationships. Many companies report improved morale, collaboration, and business results after Lake Travis events.',
           'Perfect location just 20 miles from downtown Austin, easily accessible for all attendees. Beautiful Hill Country scenery provides stunning backdrop for corporate photos and social media.',
-          '14+ years serving Austin businesses with perfect safety and service record. Over 150,000 guests have experienced our professional corporate events. We understand business needs and deliver exceptional results.'
+          '15+ years serving Austin businesses with perfect safety and service record. Over 150,000 guests have experienced our professional corporate events. We understand business needs and deliver exceptional results.'
         ]
       },
       {
@@ -3747,12 +3747,12 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Why Choose Premier Party Cruises',
         paragraphs: [
-          'With 14+ years of experience and 150,000+ satisfied customers, Premier Party Cruises is Austin\'s most trusted Lake Travis party boat company. Here\'s what sets us apart:'
+          'With 15+ years of experience and 150,000+ satisfied customers, Premier Party Cruises is Austin\'s most trusted Lake Travis party boat company. Here\'s what sets us apart:'
         ],
         lists: [
           {
             items: [
-              '14+ years Lake Travis expertise',
+              '15+ years Lake Travis expertise',
               'Hundreds of 5-star reviews',
               'Perfect safety record maintained',
               'Newest fleet on Lake Travis',
@@ -7299,7 +7299,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
   },
   '/pricing': {
     h1: 'Party Boat Pricing & Packages | Lake Travis Austin Party Cruises',
-    introduction: 'Discover transparent pricing for Austin\'s premier Lake Travis party boat experiences. Premier Party Cruises offers two main options: [[private-cruises]] starting at $200 per hour with exclusive boat access, and the legendary [[atx-disco]] from $85-$105 per person with DJ, photographer, and all amenities included. With 14+ years of experience, 150,000+ satisfied customers, and the newest fleet on Lake Travis, we deliver exceptional value for [[bachelor-party]], [[bachelorette-party]], [[corporate-events]], [[wedding-party]], [[birthday-party]], and every celebration.',
+    introduction: 'Discover transparent pricing for Austin\'s premier Lake Travis party boat experiences. Premier Party Cruises offers two main options: [[private-cruises]] starting at $200 per hour with exclusive boat access, and the legendary [[atx-disco]] from $85-$105 per person with DJ, photographer, and all amenities included. With 15+ years of experience, 150,000+ satisfied customers, and the newest fleet on Lake Travis, we deliver exceptional value for [[bachelor-party]], [[bachelorette-party]], [[corporate-events]], [[wedding-party]], [[birthday-party]], and every celebration.',
     sections: [
       {
         heading: 'Private Charter Pricing - Exclusive Boat Rentals',
@@ -7406,7 +7406,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         paragraphs: [
           'Both private charters and disco cruises include essential amenities for a comfortable celebration on Lake Travis. Our boats depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 25 minutes from downtown Austin. This convenient location makes us accessible from anywhere in the Austin metro area.',
           'All cruises are fully BYOB-friendly. Guests 21 and older with valid ID may bring beer, wine, seltzers, and other beverages in cans or plastic containers. No glass is allowed for safety. We provide large coolers with ice on every cruise. Many groups coordinate alcohol or food delivery directly to the marina before departure.',
-          'Our Coast Guard certified captains navigate Lake Travis\'s beautiful waters while you celebrate. Professional crew members ensure your cruise runs smoothly from boarding to return. Every boat features clean restroom facilities, shaded areas, and modern safety equipment. With our perfect safety record and 14+ years of experience, your celebration is in expert hands.'
+          'Our Coast Guard certified captains navigate Lake Travis\'s beautiful waters while you celebrate. Professional crew members ensure your cruise runs smoothly from boarding to return. Every boat features clean restroom facilities, shaded areas, and modern safety equipment. With our perfect safety record and 15+ years of experience, your celebration is in expert hands.'
         ],
         lists: [
           {
@@ -7460,7 +7460,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
   },
   '/booking': {
     h1: 'Book Your Lake Travis Party Cruise | Austin Party Boat Reservations',
-    introduction: 'Ready to book your Lake Travis celebration? Premier Party Cruises makes reserving your [[private-cruises]] or [[atx-disco]] experience simple and straightforward. With 14+ years serving Austin, 150,000+ satisfied customers, and the newest fleet on Lake Travis, we\'re the trusted choice for [[bachelor-party]], [[bachelorette-party]], [[corporate-events]], [[wedding-party]], and celebrations of every kind. Use our online booking system or call 512-488-5892 to secure your preferred date.',
+    introduction: 'Ready to book your Lake Travis celebration? Premier Party Cruises makes reserving your [[private-cruises]] or [[atx-disco]] experience simple and straightforward. With 15+ years serving Austin, 150,000+ satisfied customers, and the newest fleet on Lake Travis, we\'re the trusted choice for [[bachelor-party]], [[bachelorette-party]], [[corporate-events]], [[wedding-party]], and celebrations of every kind. Use our online booking system or call 512-488-5892 to secure your preferred date.',
     sections: [
       {
         heading: 'How to Book Your Party Cruise',
@@ -7580,7 +7580,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         paragraphs: [
           'Ready to secure your Lake Travis celebration? Contact Premier Party Cruises at 512-488-5892 to discuss your event and check availability. Our team answers questions about boat options, time slots, group sizes, and custom package possibilities. We\'ve helped 150,000+ customers celebrate and bring that experience to every booking conversation.',
           'For quick ATX Disco Cruise bookings, use our online reservation system for instant confirmation. Private charter inquiries receive prompt responses with availability and detailed quotes. Corporate and event planners receive dedicated support for [[team-building]], [[client-entertainment]], and [[company-milestone]] celebrations.',
-          'Follow up with any questions after booking. Our team is available to help coordinate details, answer questions about what to bring, and ensure your celebration runs smoothly. With 14+ years of Lake Travis expertise and a perfect safety record, Premier Party Cruises delivers exceptional experiences you can trust.'
+          'Follow up with any questions after booking. Our team is available to help coordinate details, answer questions about what to bring, and ensure your celebration runs smoothly. With 15+ years of Lake Travis expertise and a perfect safety record, Premier Party Cruises delivers exceptional experiences you can trust.'
         ]
       }
     ],
@@ -7744,7 +7744,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         paragraphs: [
           'Selecting the right boat depends on your group size, celebration type, and preferences. For groups up to 14, the Day Tripper provides an intimate experience at our most accessible price point. Groups of 15-30 find Meeseeks or The Irony ideally sized. Large celebrations of 31-75 guests deserve the flagship Clever Girl experience with disco balls and Texas flag.',
           'Consider your celebration style when choosing. Intimate gatherings where conversation matters suit the Day Tripper. Medium groups wanting space to mingle and dance enjoy Meeseeks or The Irony. Major celebrations where making a statement matters call for Clever Girl\'s impressive presence and party features.',
-          'Not sure which boat fits best? Contact Premier Party Cruises at 512-488-5892 to discuss your celebration. Our experienced team helps match your group size, event type, and budget to the perfect vessel. With 14+ years and 150,000+ happy customers, we understand what makes Lake Travis celebrations successful.'
+          'Not sure which boat fits best? Contact Premier Party Cruises at 512-488-5892 to discuss your celebration. Our experienced team helps match your group size, event type, and budget to the perfect vessel. With 15+ years and 150,000+ happy customers, we understand what makes Lake Travis celebrations successful.'
         ]
       },
       {
@@ -7752,7 +7752,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         paragraphs: [
           'Ready to reserve your Lake Travis party boat? Weekend dates during peak season book 6-8 weeks in advance, so early booking secures your preferred date. Contact us at 512-488-5892 to check availability and discuss your celebration plans. Our team provides quotes, answers questions, and helps coordinate all details.',
           'All boats depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641. The convenient location is approximately 25 minutes from downtown Austin, accessible from anywhere in the metro area. Arrive 30 minutes before your scheduled departure to meet your captain, load your coolers, and start your Lake Travis adventure on time.',
-          'Premier Party Cruises has operated on Lake Travis for 14+ years with a perfect safety record. Our newest fleet in Austin, experienced captains, and professional crews deliver consistent quality for [[bachelor-party]], [[bachelorette-party]], [[corporate-events]], [[wedding-party]], [[birthday-party]], and celebrations of every kind. Your memorable Lake Travis experience awaits.'
+          'Premier Party Cruises has operated on Lake Travis for 15+ years with a perfect safety record. Our newest fleet in Austin, experienced captains, and professional crews deliver consistent quality for [[bachelor-party]], [[bachelorette-party]], [[corporate-events]], [[wedding-party]], [[birthday-party]], and celebrations of every kind. Your memorable Lake Travis experience awaits.'
         ]
       }
     ],
@@ -7767,7 +7767,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Why Choose a Lake Travis Birthday Party Boat',
         paragraphs: [
           'A birthday party on Lake Travis offers an experience unlike any other celebration venue in Austin. Instead of crowded restaurants or predictable party spaces, your guests enjoy stunning Texas Hill Country views, crystal-clear waters, and the freedom to swim, float on giant lily pads, and dance under the open sky. The natural beauty of Lake Travis creates a magical backdrop for birthday photos that will last a lifetime.',
-          'Premier Party Cruises has hosted thousands of [[birthday-party]] celebrations over our 14+ years on Lake Travis. We understand what makes a birthday cruise special - from the moment your guests step aboard until you return to the marina, every detail is handled by our professional crew. Your only job is to celebrate and enjoy your special day while we navigate the lake, manage the amenities, and ensure everyone has an amazing time.',
+          'Premier Party Cruises has hosted thousands of [[birthday-party]] celebrations over our 15+ years on Lake Travis. We understand what makes a birthday cruise special - from the moment your guests step aboard until you return to the marina, every detail is handled by our professional crew. Your only job is to celebrate and enjoy your special day while we navigate the lake, manage the amenities, and ensure everyone has an amazing time.',
           'Lake Travis birthday parties are perfect for adults of all ages. Whether you\'re celebrating a 21st birthday milestone, a fabulous 40th, or any age in between, the combination of water activities, premium sound systems for your birthday playlist, and BYOB-friendly policies creates the ideal party atmosphere. The unique setting makes your celebration memorable and gives guests an experience they\'ll talk about for years to come.'
         ]
       },
@@ -7815,7 +7815,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Book Your Birthday Boat Rental Today',
         paragraphs: [
           'Ready to plan the ultimate birthday celebration on Lake Travis? Contact Premier Party Cruises at 512-488-5892 to check availability and discuss your party details. Our experienced team helps you select the right boat, coordinate timing, and plan any extras that will make your birthday unforgettable. Also explore our [[atx-disco]] for a different party experience, or check out [[milestone-birthday]] for special age celebrations.',
-          'With 14+ years of experience, 150,000+ satisfied customers, and a perfect safety record, Premier Party Cruises delivers consistent quality for every birthday celebration. Our Coast Guard certified captains and professional crews ensure safe, professional service while you focus entirely on celebrating your special day. Lake Travis awaits - let\'s make your birthday legendary!'
+          'With 15+ years of experience, 150,000+ satisfied customers, and a perfect safety record, Premier Party Cruises delivers consistent quality for every birthday celebration. Our Coast Guard certified captains and professional crews ensure safe, professional service while you focus entirely on celebrating your special day. Lake Travis awaits - let\'s make your birthday legendary!'
         ]
       }
     ],
@@ -7831,7 +7831,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         paragraphs: [
           'Lake Travis offers a romantic escape from everyday life, making it the ideal location to celebrate your anniversary. The stunning Texas Hill Country scenery, crystal-clear waters, and peaceful coves create an atmosphere of intimacy and beauty that enhances any romantic celebration. As the sun reflects off the lake and cliffs frame your views, you\'ll understand why couples choose Lake Travis for their most meaningful celebrations.',
           'Unlike crowded restaurants or typical anniversary outings, a private boat cruise gives you exclusive time with your partner or chosen guests. You control the music, the route, and the pace of your celebration. Whether you prefer a quiet, romantic sunset cruise for two or a lively gathering with family and friends who\'ve witnessed your journey together, Premier Party Cruises creates the experience you envision.',
-          'Our 14+ years on Lake Travis mean we\'ve hosted countless anniversary celebrations, from first anniversaries to golden 50th celebrations and everything in between. We understand the significance of these milestones and take pride in helping couples create memorable experiences that honor their commitment to each other. Your anniversary deserves more than ordinary - it deserves Lake Travis.'
+          'Our 15+ years on Lake Travis mean we\'ve hosted countless anniversary celebrations, from first anniversaries to golden 50th celebrations and everything in between. We understand the significance of these milestones and take pride in helping couples create memorable experiences that honor their commitment to each other. Your anniversary deserves more than ordinary - it deserves Lake Travis.'
         ]
       },
       {
@@ -7877,7 +7877,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         paragraphs: [
           'Anniversary cruises depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 25 minutes from downtown Austin. All boats require a 4-hour minimum rental. Rates vary by vessel and day: Day Tripper ($200-$350/hour), Meeseeks/The Irony ($225-$425/hour), and Clever Girl ($250-$500/hour).',
           'Weekend dates during peak season book 6-8 weeks in advance, so we recommend planning early for anniversary celebrations. Contact Premier Party Cruises at 512-488-5892 to discuss your vision, check availability, and receive a customized quote. Our team has helped thousands of couples celebrate their love on Lake Travis and knows how to make your anniversary extraordinary.',
-          'With 14+ years of experience, 150,000+ satisfied customers, and a perfect safety record, Premier Party Cruises delivers the quality your anniversary deserves. Your love story is unique - let us help you celebrate it on the beautiful waters of Lake Travis. Explore other celebration options including [[proposal-cruise]] for those planning the next chapter or [[celebration-cruises]] for any special occasion.'
+          'With 15+ years of experience, 150,000+ satisfied customers, and a perfect safety record, Premier Party Cruises delivers the quality your anniversary deserves. Your love story is unique - let us help you celebrate it on the beautiful waters of Lake Travis. Explore other celebration options including [[proposal-cruise]] for those planning the next chapter or [[celebration-cruises]] for any special occasion.'
         ]
       }
     ],
@@ -7939,7 +7939,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Book Your Proposal Cruise Today',
         paragraphs: [
           'Ready to plan the perfect proposal? Contact Premier Party Cruises at 512-488-5892 to discuss your vision and check availability. Weekend dates and popular sunset slots book 6-8 weeks in advance, so planning early ensures you get your ideal timing. Our team has supported countless proposals and knows how to make your moment extraordinary.',
-          'With 14+ years of experience, 150,000+ satisfied customers, and a perfect safety record, Premier Party Cruises delivers the quality this important moment deserves. Your love story deserves an unforgettable proposal - let Lake Travis be the backdrop for your perfect "yes." After the proposal, explore [[anniversary-cruise]] options for future milestone celebrations, or check out [[celebration-cruises]] for your engagement party!'
+          'With 15+ years of experience, 150,000+ satisfied customers, and a perfect safety record, Premier Party Cruises delivers the quality this important moment deserves. Your love story deserves an unforgettable proposal - let Lake Travis be the backdrop for your perfect "yes." After the proposal, explore [[anniversary-cruise]] options for future milestone celebrations, or check out [[celebration-cruises]] for your engagement party!'
         ]
       }
     ],
@@ -7954,7 +7954,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Why Lake Travis for Your Celebration',
         paragraphs: [
           'Lake Travis offers a stunning backdrop for any celebration. The Texas Hill Country scenery and crystal-clear waters create an unforgettable atmosphere. A private boat cruise transforms any occasion into something extraordinary.',
-          'We\'ve hosted every type of celebration over 14+ years. Birthdays, anniversaries, graduations, retirements, and family reunions all find their perfect venue here. With 150,000+ happy customers, we know what makes each celebration special.'
+          'We\'ve hosted every type of celebration over 15+ years. Birthdays, anniversaries, graduations, retirements, and family reunions all find their perfect venue here. With 150,000+ happy customers, we know what makes each celebration special.'
         ],
         lists: [
           {
@@ -8058,7 +8058,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Book Your Celebration',
         paragraphs: [
           'Call 512-488-5892 to check availability and get a quote. Peak season weekends (April-October) book 6-8 weeks ahead.',
-          '14+ years experience. 150,000+ happy customers. Perfect safety record. Your celebration deserves Lake Travis.'
+          '15+ years experience. 150,000+ happy customers. Perfect safety record. Your celebration deserves Lake Travis.'
         ],
         lists: [
           {
@@ -8128,7 +8128,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'What\'s Included with Every Austin Party Boat Rental',
         paragraphs: [
-          'Every party boat rental from Premier Party Cruises comes fully equipped with everything you need for an incredible Lake Travis experience. We believe in transparent, all-inclusive pricing so there are no surprises on your special day. Our professional approach to party boat rentals has earned us 14+ years of trust from over 150,000 satisfied customers.',
+          'Every party boat rental from Premier Party Cruises comes fully equipped with everything you need for an incredible Lake Travis experience. We believe in transparent, all-inclusive pricing so there are no surprises on your special day. Our professional approach to party boat rentals has earned us 15+ years of trust from over 150,000 satisfied customers.',
           'Your rental includes a US Coast Guard certified captain who handles all navigation while you focus on enjoying your celebration. Our captains know Lake Travis inside and out, from the best swimming coves to stunning cliff views and perfect sunset spots. They\'ll ensure your safety while delivering the Lake Travis experience your group deserves.',
           'Premium Bluetooth sound systems let you play your own music throughout the cruise. Large coolers with ice keep your beverages cold (BYOB friendly for guests 21+ with valid ID - cans and plastic containers only, no glass). Clean restroom facilities, shaded areas for sun relief, and all required safety equipment are standard on every vessel.'
         ],
@@ -8175,14 +8175,14 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Why Choose Premier Party Cruises',
         paragraphs: [
-          'With 14+ years of experience and 150,000+ satisfied customers, Premier Party Cruises is Austin\'s most trusted party boat rental company. Our perfect safety record, Coast Guard certified captains, and newest fleet on Lake Travis ensure exceptional quality every time. We\'ve built our reputation on delivering unforgettable experiences while treating every group like VIPs.',
+          'With 15+ years of experience and 150,000+ satisfied customers, Premier Party Cruises is Austin\'s most trusted party boat rental company. Our perfect safety record, Coast Guard certified captains, and newest fleet on Lake Travis ensure exceptional quality every time. We\'ve built our reputation on delivering unforgettable experiences while treating every group like VIPs.',
           'Unlike other party boat rental options, we specialize exclusively in Lake Travis celebrations. This focused expertise means our captains know every cove, our crew understands party dynamics, and our boats are optimized for the ultimate celebration experience. From booking to departure to the final moment of your cruise, professional service is our standard.'
         ],
         lists: [
           {
             title: 'Premier Party Cruises Advantages',
             items: [
-              '14+ years of Lake Travis experience',
+              '15+ years of Lake Travis experience',
               '150,000+ satisfied customers',
               'Perfect safety record',
               'Coast Guard certified captains',
@@ -8295,7 +8295,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Why Choose Premier Party Cruises',
         paragraphs: [
-          'With 14+ years of experience and 150,000+ satisfied customers, Premier Party Cruises has established the gold standard for Lake Travis yacht rentals. Our perfect safety record demonstrates our commitment to professional operations. Our Coast Guard certified captains and trained crew deliver consistent excellence.',
+          'With 15+ years of experience and 150,000+ satisfied customers, Premier Party Cruises has established the gold standard for Lake Travis yacht rentals. Our perfect safety record demonstrates our commitment to professional operations. Our Coast Guard certified captains and trained crew deliver consistent excellence.',
           'We specialize exclusively in Lake Travis celebrations, meaning our expertise runs deep. Unlike companies dividing attention across multiple services, every aspect of our operation focuses on creating the best possible yacht rental experience. From booking through departure to return, professional service defines the Premier Party Cruises difference.',
           'Our reputation is built on delivering what we promise: premium vessels, professional service, and unforgettable Lake Travis experiences. Check our [[testimonials]] to see why discerning Austin groups choose Premier Party Cruises for their yacht rental needs. Ready to book? [[Contact]] us today to start planning your Lake Travis adventure!'
         ],
@@ -8303,7 +8303,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           {
             title: 'Why Premier Party Cruises',
             items: [
-              '14+ years Lake Travis experience',
+              '15+ years Lake Travis experience',
               '150,000+ satisfied customers',
               'Perfect safety record',
               'Coast Guard certified captains',
@@ -8326,7 +8326,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'The Ultimate Austin Boat Party Experience',
         paragraphs: [
-          'There\'s nothing quite like an Austin boat party on Lake Travis. The combination of crystal-clear water, stunning Texas Hill Country views, and the freedom of being on the water creates an atmosphere that land-based venues simply cannot match. Premier Party Cruises has perfected the Austin boat party experience over 14+ years, hosting 150,000+ satisfied customers who\'ve celebrated everything from [[bachelor-party]] and [[bachelorette-party]] events to [[corporate-events]], [[wedding-party]] gatherings, and [[birthday-party]] celebrations.',
+          'There\'s nothing quite like an Austin boat party on Lake Travis. The combination of crystal-clear water, stunning Texas Hill Country views, and the freedom of being on the water creates an atmosphere that land-based venues simply cannot match. Premier Party Cruises has perfected the Austin boat party experience over 15+ years, hosting 150,000+ satisfied customers who\'ve celebrated everything from [[bachelor-party]] and [[bachelorette-party]] events to [[corporate-events]], [[wedding-party]] gatherings, and [[birthday-party]] celebrations.',
           'Our fleet offers the perfect boat for any Austin party. Day Tripper accommodates intimate gatherings of 1-14 guests with premium amenities in a cozy setting. Meeseeks and The Irony each handle 15-30 guests perfectly, offering spacious decks for dancing and socializing. Clever Girl, our spectacular flagship, accommodates up to 75 guests with 14 disco balls, a giant Texas flag, and the ultimate party atmosphere.',
           'Every Austin boat party with Premier Party Cruises includes a Coast Guard certified captain who handles navigation while you focus entirely on celebrating. Premium Bluetooth sound systems let you play your party playlist. Large coolers with ice keep your beverages cold (BYOB friendly for guests 21+ with valid ID). Professional crew ensures your party runs smoothly from start to finish.',
           'Lake Travis provides the perfect backdrop for Austin boat parties. The calm, clear waters offer ideal conditions for swimming and floating, while the surrounding cliffs and Hill Country create stunning scenery. Popular anchor spots like Devil\'s Cove become your personal party destination, where groups can swim, float on lily pads, and soak up the Texas sun.'
@@ -8433,7 +8433,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Why Austin Chooses Premier Party Cruises',
         paragraphs: [
-          'Premier Party Cruises has hosted Austin boat parties for 14+ years, earning the trust of 150,000+ satisfied customers. Our perfect safety record, Coast Guard certified captains, and newest fleet on Lake Travis deliver consistent quality every time. We specialize exclusively in Lake Travis celebrations, meaning every aspect of our operation focuses on creating the best possible party experience.',
+          'Premier Party Cruises has hosted Austin boat parties for 15+ years, earning the trust of 150,000+ satisfied customers. Our perfect safety record, Coast Guard certified captains, and newest fleet on Lake Travis deliver consistent quality every time. We specialize exclusively in Lake Travis celebrations, meaning every aspect of our operation focuses on creating the best possible party experience.',
           'Our reputation is built on actually delivering what we promise. Check our [[testimonials]] and you\'ll see why Austin groups choose Premier Party Cruises again and again. From first contact through the final moment of your cruise, professional service defines our approach. Your Austin boat party deserves the best - that\'s Premier Party Cruises.',
           'Ready to book your Austin boat party? Contact us at 512-488-5892 or visit our [[contact]] page to get started. Whether you\'re planning a [[bachelor-party]], [[bachelorette-party]], [[birthday-party]], [[corporate-events]], or any celebration worth having, Premier Party Cruises delivers the ultimate Lake Travis experience. Don\'t settle for ordinary - make your next party legendary on the water!'
         ],
@@ -8441,7 +8441,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           {
             title: 'Why Premier Party Cruises',
             items: [
-              '14+ years of Lake Travis experience',
+              '15+ years of Lake Travis experience',
               '150,000+ happy customers',
               'Perfect safety record',
               'Coast Guard certified captains',
@@ -8656,7 +8656,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         paragraphs: [
           'Many couples book Premier Party Cruises for multiple wedding week events. A [[rehearsal-dinner-cruise]] pairs beautifully with a [[welcome-party]] cruise for out-of-town guests arriving earlier in the week. Some couples host their [[after-party]] on the water following the reception, giving the wedding party one final celebration before the night ends.',
           'We offer special consideration for couples booking multiple events with us. Contact our team to discuss package options for your complete Lake Travis wedding celebration. From the rehearsal dinner through the post-wedding party, we help create cohesive, memorable experiences throughout your wedding festivities.',
-          'Premier Party Cruises has hosted countless wedding-related events over our 14+ years on Lake Travis. Our experience means we anticipate needs before they arise and handle logistics seamlessly. Your rehearsal dinner should be relaxed and joyful, not stressful. Trust our professional crew to deliver an exceptional experience while you focus on celebrating with loved ones.'
+          'Premier Party Cruises has hosted countless wedding-related events over our 15+ years on Lake Travis. Our experience means we anticipate needs before they arise and handle logistics seamlessly. Your rehearsal dinner should be relaxed and joyful, not stressful. Trust our professional crew to deliver an exceptional experience while you focus on celebrating with loved ones.'
         ]
       },
       {
@@ -8681,7 +8681,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Lake Travis Holiday Celebrations',
         paragraphs: [
           'Holidays bring people together, and Lake Travis provides an extraordinary venue for seasonal celebrations throughout the year. Whether you\'re hosting a company Christmas party, ringing in the New Year with friends, watching 4th of July fireworks from the water, or celebrating any holiday occasion, our private boat charters create memories that last far beyond the season.',
-          'Premier Party Cruises has hosted holiday celebrations on Lake Travis for 14+ years, perfecting the art of seasonal entertaining on the water. We understand the unique requirements of holiday events, from accommodating larger groups during the festive season to timing cruises perfectly for fireworks displays. Our professional crew and premium fleet ensure every holiday party exceeds expectations.',
+          'Premier Party Cruises has hosted holiday celebrations on Lake Travis for 15+ years, perfecting the art of seasonal entertaining on the water. We understand the unique requirements of holiday events, from accommodating larger groups during the festive season to timing cruises perfectly for fireworks displays. Our professional crew and premium fleet ensure every holiday party exceeds expectations.',
           'Lake Travis offers natural beauty that enhances every holiday celebration. Winter months bring crisp, clear days perfect for cruising. Summer holidays feature warm waters ideal for swimming. The Texas Hill Country backdrop provides stunning scenery year-round, creating an impressive setting for holiday photos and memories.'
         ]
       },
@@ -8914,7 +8914,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         paragraphs: [
           'A Lake Travis family reunion creates memories that become part of your family\'s story. Children will remember swimming with cousins and listening to grandparents\' stories. Adults will treasure the rare opportunity to relax and reconnect with siblings and extended family. The unique setting and shared experience strengthen family bonds in ways that ordinary gatherings cannot.',
           'Many families make the Lake Travis cruise an annual reunion tradition. The consistency of returning to the same activity year after year creates continuity and anticipation. Children grow up looking forward to the annual boat trip with cousins. The marina becomes a familiar gathering spot, and the cruise itself becomes part of family identity.',
-          'Premier Party Cruises has hosted family reunions on Lake Travis for 14+ years, and we take pride in helping families create these traditions. Our professional crew, reliable vessels, and commitment to service ensure that your family reunion exceeds expectations every time. Contact us to start planning your family\'s Lake Travis tradition today.'
+          'Premier Party Cruises has hosted family reunions on Lake Travis for 15+ years, and we take pride in helping families create these traditions. Our professional crew, reliable vessels, and commitment to service ensure that your family reunion exceeds expectations every time. Contact us to start planning your family\'s Lake Travis tradition today.'
         ]
       },
       {
@@ -9007,7 +9007,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         paragraphs: [
           'A Lake Travis retirement cruise creates the perfect setting for honoring years of service and dedication. The scenic backdrop provides natural beauty for photos and video, while the relaxed atmosphere encourages guests to share stories and memories. Many retirees tell us the cruise was the highlight of their career transition.',
           'Consider incorporating meaningful elements into your retirement celebration. Display photos from throughout the honoree\'s career, invite colleagues to share their favorite memories, or present a memory book signed by coworkers. The private, unhurried setting allows time for genuine tributes that might feel rushed in other venues.',
-          'Premier Party Cruises has hosted retirement celebrations for companies ranging from small family businesses to major corporations. Our professional crew understands the significance of this milestone and works to ensure every detail contributes to a memorable send-off. With 14+ years of Lake Travis experience and 150,000+ satisfied customers, we take pride in making retirement celebrations truly special.'
+          'Premier Party Cruises has hosted retirement celebrations for companies ranging from small family businesses to major corporations. Our professional crew understands the significance of this milestone and works to ensure every detail contributes to a memorable send-off. With 15+ years of Lake Travis experience and 150,000+ satisfied customers, we take pride in making retirement celebrations truly special.'
         ]
       },
       {
@@ -9094,7 +9094,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         paragraphs: [
           'Premier Party Cruises approaches memorial services with deep respect and sensitivity. Our captains and crew understand the significance of these occasions and conduct themselves accordingly. They work quietly and professionally to ensure your family can focus entirely on honoring your loved one.',
           'We recognize that grief affects everyone differently, and we maintain flexibility to accommodate your needs. If you need to adjust timing, change plans, or take extra time, we work with you compassionately. Our goal is simply to provide a peaceful, dignified setting where your family can find comfort together.',
-          'With 14+ years of experience on Lake Travis and countless families served, we understand that these moments matter deeply. We consider it an honor to provide the setting for families to celebrate, remember, and find healing together on the beautiful waters of Lake Travis.'
+          'With 15+ years of experience on Lake Travis and countless families served, we understand that these moments matter deeply. We consider it an honor to provide the setting for families to celebrate, remember, and find healing together on the beautiful waters of Lake Travis.'
         ]
       },
       {
@@ -9120,7 +9120,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         paragraphs: [
           'A gender reveal is one of the most exciting moments of pregnancy, and it deserves an extraordinary setting. Lake Travis provides breathtaking natural beauty with crystal-clear waters, dramatic limestone cliffs, and stunning Texas Hill Country views that create the perfect backdrop for this milestone announcement. The private setting of a boat cruise ensures your moment is shared only with your closest family and friends.',
           'Unlike crowded venues or backyard parties, a gender reveal cruise offers complete privacy and exclusivity. Your group has the entire boat with no strangers or distractions. The scenic lake environment provides countless photo opportunities, and the surprise reveal can incorporate unique water elements like colored smoke, confetti cannons visible against the sky, or balloons released over the open water.',
-          'Premier Party Cruises has hosted numerous gender reveal celebrations, and we love being part of these joyful moments. Our professional crew ensures everything runs smoothly while staying out of the way during the big reveal. With 14+ years of Lake Travis experience, we know how to create the perfect setting for celebrations that matter.'
+          'Premier Party Cruises has hosted numerous gender reveal celebrations, and we love being part of these joyful moments. Our professional crew ensures everything runs smoothly while staying out of the way during the big reveal. With 15+ years of Lake Travis experience, we know how to create the perfect setting for celebrations that matter.'
         ],
         lists: [
           {
@@ -9206,7 +9206,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         paragraphs: [
           'An engagement marks the beginning of your wedding journey, and it deserves a celebration as special as your love story. Lake Travis provides a breathtaking natural setting with crystal-clear waters, stunning limestone cliffs, and the beautiful Texas Hill Country as your backdrop. A private cruise creates an intimate, exclusive atmosphere where your closest family and friends can celebrate this milestone together.',
           'Unlike traditional restaurant or banquet hall engagement parties, a Lake Travis cruise offers unique advantages. Your group has exclusive use of the entire boat with professional crew handling everything. Guests can move freely between decks, enjoy swimming and floating, and experience the natural beauty of the lake. The scenic environment creates countless photo opportunities to document this special time.',
-          'Premier Party Cruises has hosted numerous engagement celebrations over our 14+ years on Lake Travis. We understand that this gathering sets the tone for your wedding celebrations ahead. Our professional crew ensures every detail is handled smoothly, allowing you and your guests to focus on celebrating your love and the exciting journey ahead.'
+          'Premier Party Cruises has hosted numerous engagement celebrations over our 15+ years on Lake Travis. We understand that this gathering sets the tone for your wedding celebrations ahead. Our professional crew ensures every detail is handled smoothly, allowing you and your guests to focus on celebrating your love and the exciting journey ahead.'
         ],
         lists: [
           {
@@ -9279,7 +9279,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         paragraphs: [
           'Private charters for engagement parties start at $200 per hour with a 4-hour minimum. Pricing varies by boat size and timing, with weekends being most popular. We recommend booking 6-8 weeks in advance to secure your preferred date, especially during peak season (April through October).',
           'All cruises depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 25 minutes from downtown Austin. We recommend guests arrive 30 minutes before departure. The marina offers convenient parking, and our crew will be ready to welcome your engagement party and begin the celebration.',
-          'Contact Premier Party Cruises to discuss your engagement celebration vision. We\'ll help you select the right boat, plan the logistics, and ensure every detail is handled. With 14+ years of Lake Travis experience and 150,000+ satisfied customers, we take pride in creating memorable celebrations for couples beginning their wedding journey.'
+          'Contact Premier Party Cruises to discuss your engagement celebration vision. We\'ll help you select the right boat, plan the logistics, and ensure every detail is handled. With 15+ years of Lake Travis experience and 150,000+ satisfied customers, we take pride in creating memorable celebrations for couples beginning their wedding journey.'
         ]
       },
       {
@@ -9368,7 +9368,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         paragraphs: [
           'A Lake Travis bridal shower creates memories that stand out from typical pre-wedding events. The unique setting, shared adventure, and beautiful surroundings combine to create an experience the bride and guests will remember for years. Many brides tell us their bridal shower cruise was a highlight of their wedding celebrations.',
           'Consider incorporating personal elements that celebrate the bride\'s journey. Display photos from the couple\'s relationship, share stories of how guests met the bride, or create a memory book that guests can contribute to during the cruise. The intimate setting encourages genuine moments of connection and celebration.',
-          'Premier Party Cruises has hosted bridal showers for brides from across Texas and beyond. Our professional crew understands the importance of this celebration and works to ensure every detail contributes to an exceptional experience. With 14+ years on Lake Travis and 150,000+ satisfied customers, we take pride in creating memorable bridal celebrations.'
+          'Premier Party Cruises has hosted bridal showers for brides from across Texas and beyond. Our professional crew understands the importance of this celebration and works to ensure every detail contributes to an exceptional experience. With 15+ years on Lake Travis and 150,000+ satisfied customers, we take pride in creating memorable bridal celebrations.'
         ]
       },
       {
@@ -9473,7 +9473,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         paragraphs: [
           'Private baby shower cruises start at $200 per hour with a 4-hour minimum. Pricing varies by boat size and timing. We recommend booking 6-8 weeks in advance for weekend dates, which are most popular. Many hostesses choose weekend mornings or early afternoons, though weekday cruises offer more flexibility.',
           'All cruises depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 25 minutes from downtown Austin. We recommend guests arrive 30 minutes before departure. The marina offers convenient parking for all guests.',
-          'Contact Premier Party Cruises to discuss your baby shower celebration. Our team loves helping families celebrate new arrivals and ensuring every detail creates a memorable experience. With 14+ years on Lake Travis, we take pride in hosting meaningful milestone celebrations.'
+          'Contact Premier Party Cruises to discuss your baby shower celebration. Our team loves helping families celebrate new arrivals and ensuring every detail creates a memorable experience. With 15+ years on Lake Travis, we take pride in hosting meaningful milestone celebrations.'
         ]
       },
       {
@@ -9499,7 +9499,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         paragraphs: [
           'Prom night is one of high school\'s most memorable experiences, and Premier Party Cruises offers a venue that takes this milestone to the next level. A Lake Travis cruise provides a stunning, Instagram-worthy backdrop that makes your prom photos extraordinary. The combination of crystal-clear water, Texas Hill Country scenery, and open sky creates a magical atmosphere for this once-in-a-lifetime celebration.',
           'A prom cruise offers distinct advantages over traditional ballroom or banquet hall venues. Students experience something truly unique—a floating celebration with premium sound, comfortable spaces, and the beautiful Lake Travis environment. The exclusive, private setting creates a controlled environment where students can celebrate safely while creating memories that will last a lifetime.',
-          'Premier Party Cruises has hosted numerous school events over our 14+ years on Lake Travis. We understand the importance of these milestone celebrations and the responsibility involved in hosting student groups. Our professional crew, USCG certified captains, and commitment to safety make us a trusted choice for school organizations.'
+          'Premier Party Cruises has hosted numerous school events over our 15+ years on Lake Travis. We understand the importance of these milestone celebrations and the responsibility involved in hosting student groups. Our professional crew, USCG certified captains, and commitment to safety make us a trusted choice for school organizations.'
         ],
         lists: [
           {
