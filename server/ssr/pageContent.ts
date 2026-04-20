@@ -1609,8 +1609,8 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
     ]
   },
   '/team-building': {
-    h1: 'Team Building Cruises Lake Travis | Corporate Austin',
-    introduction: 'Strengthen your team with an unforgettable [[team-building]] cruise! Perfect for [[corporate-events]], employee appreciation, and fostering collaboration. [[private-cruises]] for 14-75 guests with professional service. Unique Austin experience that brings teams together.',
+    h1: 'Austin Team Building on Lake Travis · Corporate Team Building Party Boat · Premier Party Cruises',
+    introduction: 'Premier Party Cruises is the #1 Austin team building party boat on Lake Travis — the most-booked Lake Travis corporate team building venue for 15+ years, 150,000+ guests served, 0 reportable incidents, 4.9/5.0 across 450+ reviews. Host your [[team-building]] event, employee appreciation day, executive offsite, quarterly kickoff, or department retreat on a private Lake Travis party boat — year-round, every day, starting $200/hour. Fleet accommodates 14–75 guests: Day Tripper (1–14 for leadership offsites), Meeseeks or The Irony (15–30 for dept-size teams), and the 75-person Clever Girl flagship for full-company days. Every Austin team building charter includes a Coast Guard licensed captain + crew, premium marine Bluetooth audio (presentations or playlists), optional wireless microphone + A/V package, Anderson Mill Marina departure (25 min from downtown, free parking, no stairs), catering coordination, Party On Delivery drink set-up, and free weather reschedules so your calendar never takes the hit. Transparent all-in pricing — tax, gratuity, captain, and fuel included. The Austin team building activity that actually creates connection.',
     sections: [
       {
         heading: 'Corporate Team Building on the Water',
@@ -1706,8 +1706,8 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
     ]
   },
   '/client-entertainment': {
-    h1: 'Client Entertainment Cruises Lake Travis | Austin Corporate',
-    introduction: 'Impress your clients with an exclusive [[client-entertainment]] on Lake Travis! Perfect for [[corporate-events]], relationship building, and closing deals in style. [[private-cruises]] for 14-50 guests with premium service and Austin hospitality.',
+    h1: 'Austin Client Entertainment Party Boat · Executive Lake Travis Cruise · Premier Party Cruises',
+    introduction: 'Premier Party Cruises is the #1 Austin client entertainment party boat on Lake Travis — 15+ years, 150,000+ guests, 0 incidents, 4.9/5.0 across 450+ reviews. Host your prospect dinners, deal-close celebrations, VIP client days, executive entertainment, and board-level [[client-entertainment]] on a private Lake Travis party boat, year-round, starting $200/hour. Fleet accommodates 14–75 guests: Day Tripper for intimate C-suite groups, Meeseeks or The Irony for mid-size client events, the 75-person flagship Clever Girl for flagship-account entertainment. Every Austin client entertainment charter includes a Coast Guard licensed captain + crew, premium marine Bluetooth audio (quiet enough for conversation, loud enough for celebration), optional wireless microphone for toasts and introductions, Anderson Mill Marina with free parking 25 minutes from downtown Austin, catering coordination with Austin\'s top caterers, Party On Delivery drink set-up, and free weather reschedules. Transparent all-in pricing — no surprise invoices after the event. The Austin client entertainment venue that actually closes deals.',
     sections: [
       {
         heading: 'Client Entertainment on Lake Travis',
@@ -1948,8 +1948,8 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
     ]
   },
   '/graduation-party': {
-    h1: 'Graduation Party Cruises Lake Travis | Austin Celebrations',
-    introduction: 'Celebrate [[graduation-party]] achievements on Lake Travis! Perfect for high school, college, and graduate school celebrations. [[private-cruises]] for 14-75 guests with DJ, floats, and unforgettable memories. The ultimate way to honor academic success with [[birthday-party]] vibes!',
+    h1: 'Austin Graduation Party Boat · Lake Travis Graduation Cruise · Premier Party Cruises',
+    introduction: 'Premier Party Cruises is the #1 Austin graduation party boat on Lake Travis — celebrate high school, college (UT Austin, Texas State, St. Edward\'s, Huston-Tillotson), and graduate school [[graduation-party]] on a private Lake Travis party boat, May through August peak season. 15+ years, 150,000+ guests, 0 incidents, 4.9/5.0 rating. Fleet accommodates 14–75 guests: Day Tripper (intimate family grad dinners), Meeseeks or The Irony (grad-and-friends), flagship Clever Girl (blowout grad celebration with 14 disco balls). Every graduation charter includes a Coast Guard licensed captain + crew, premium marine Bluetooth (custom grad playlist), large coolers (always BYOB — alcohol 21+ with valid ID, all ages welcome aboard so siblings and grandparents celebrate with the graduate), optional Essentials or Ultimate package for a fully all-inclusive graduation cruise. Anderson Mill Marina — 25 min from downtown Austin, free parking, no stairs. Free weather reschedules. Book 6–8 weeks out for peak May–June graduation weekends.',
     sections: [
       {
         heading: 'Graduation Celebrations on the Water',
@@ -2038,8 +2038,8 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
     ]
   },
   '/sweet-16': {
-    h1: 'Sweet 16 Party Cruises Lake Travis | Austin Birthday Boats',
-    introduction: 'Celebrate [[sweet-16]] in style on Lake Travis! Unique [[birthday-party]] cruise experience with DJ, floats, and friends. [[private-cruises]] for 14-50 guests with professional service and supervised fun. Make this Sweet 16 absolutely unforgettable!',
+    h1: 'Austin Sweet 16 Party Boat · Lake Travis Sweet Sixteen Cruise · Premier Party Cruises',
+    introduction: 'Premier Party Cruises runs the #1 Austin Sweet 16 party boat on Lake Travis — 15+ years of Sweet 16 celebrations, 150,000+ guests, 0 incidents, 4.9/5.0 rating. Throw the Sweet Sixteen she\'ll never stop talking about on a private Lake Travis party boat: Day Tripper (up to 14 guests for close-friend Sweet 16s), Meeseeks or The Irony (15–30 for full-friend-group celebrations), or flagship Clever Girl (31–75 for all-out Sweet 16 blowouts with 14 disco balls and a dedicated dance floor). Every Sweet 16 charter includes a Coast Guard licensed captain + crew, premium marine Bluetooth audio (custom [[sweet-16]] playlist), giant floats, optional Essentials or Ultimate package for a fully all-inclusive [[birthday-party]] cruise experience (includes champagne flutes for non-alcoholic mocktail setups, decor, party supplies). All ages welcome — Sweet 16 guests, parents, siblings, and friends celebrate together; strict no-underage-drinking policy enforced by crew. Anderson Mill Marina — 25 min from downtown Austin, free parking, no stairs. Free weather reschedules.',
     sections: [
       {
         heading: 'Sweet 16 Lake Travis Experience',
@@ -2804,8 +2804,8 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
     ]
   },
   '/wedding-parties': {
-    h1: 'Wedding Party Cruises Lake Travis | Austin Wedding Boats',
-    introduction: 'Celebrate your [[wedding-party]] on Lake Travis! Perfect for [[welcome-party]], [[rehearsal-dinner]], wedding day cruises, and [[after-party]]. [[private-cruises]] for 14-75 guests with elegant service. Make your Austin wedding unforgettable with a Lake Travis celebration!',
+    h1: 'Austin Wedding Party Boat · Lake Travis Wedding Cruise · Premier Party Cruises',
+    introduction: 'Premier Party Cruises is the #1 Austin wedding party boat on Lake Travis — the most-booked Lake Travis wedding party venue for 15+ years, 150,000+ guests, 0 incidents, 4.9/5.0 across 450+ reviews. Host every wedding-adjacent event on a private Lake Travis party boat: [[welcome-party]] for out-of-town guests, [[rehearsal-dinner]] on the water, bridal-party day-of cruises, [[after-party]] once the reception winds down, and day-after send-off brunch cruises. Fleet accommodates 14–75 guests: Day Tripper (1–14 for intimate bridal parties), Meeseeks or The Irony (15–30 for standard wedding parties), flagship Clever Girl (31–75 for full out-of-town-guest welcome parties). Every Austin wedding charter includes a Coast Guard licensed captain + crew, premium marine Bluetooth audio, always BYOB with Party On Delivery drink set-up (champagne, wine, signature cocktails delivered to the dock and iced down), optional Essentials or Ultimate package for a fully all-inclusive wedding cruise. Anderson Mill Marina — 25 min from downtown Austin, free parking, no stairs to the boat, accessible for guests in wedding attire. Year-round · free weather reschedules · all ages welcome aboard.',
     sections: [
       {
         heading: 'Wedding Celebration Options',
