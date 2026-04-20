@@ -60,7 +60,9 @@ export const LINK_CATALOG: Record<string, {url: string; text: string}> = {
   'baby-shower-cruise': {url: '/baby-shower-cruise', text: 'Baby Shower Cruises'},
   'prom-cruise': {url: '/prom-cruise', text: 'Prom Cruises'},
   'premier-vs-float-on': {url: '/premier-vs-float-on', text: 'Premier Party Cruises vs Float On'},
-  'premier-vs-austin-party-boat': {url: '/premier-vs-austin-party-boat', text: 'Premier Party Cruises vs ATX Party Boats'}
+  'premier-vs-austin-party-boat': {url: '/premier-vs-austin-party-boat', text: 'Premier Party Cruises vs ATX Party Boats'},
+  'plan-your-trip': {url: '/plan-your-trip', text: 'Plan Your Austin Party Boat Trip'},
+  'safety': {url: '/safety', text: 'Premier Safety Code'}
 };
 
 export const PAGE_CONTENT: Record<string, PageContent> = {
@@ -2489,6 +2491,174 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       'atx-disco', 'private-cruises', 'bachelor-party', 'bachelorette-party',
       'birthday-party', 'wedding-party', 'corporate-events', 'team-building',
       'graduation-party', 'party-boat-austin', 'testimonials', 'faq', 'contact'
+    ]
+  },
+  '/plan-your-trip': {
+    h1: 'Plan Your Austin Party Boat Trip · Anderson Mill Marina Directions + Logistics',
+    introduction: 'Everything your group needs to plan the day: Anderson Mill Marina is 25 minutes from downtown Austin via 183 North (about 20 miles), with FREE parking right next to the dock and NO stairs anywhere from parking to the boat. Uber/Lyft from downtown runs $35–$55 each way; party buses and shuttles drop directly at the dock. Arrive 15–20 minutes before your slot. Every Premier Party Cruises charter is always BYOB — order through Party On Delivery (our sister company) and your drinks will be iced down and ready on the boat before you board, at retail prices with 100% buyback on unopened bottles. No stairs, no parking fees, no stressful logistics. The drive is half the fun.',
+    sections: [
+      {
+        heading: 'Getting To Anderson Mill Marina From Downtown Austin',
+        paragraphs: [
+          'Head northwest on 183 North out of downtown, through Cedar Park, past The Domain. Lake Travis opens up as you approach the marina. It\'s one of the more scenic 25-minute drives in the Austin area — Texas Hill Country opens up along the route. Anderson Mill Marina is at 13993 FM 2769, Leander, TX 78641.'
+        ],
+        lists: [
+          {
+            title: 'Transportation Options',
+            items: [
+              'Drive yourself: ~25 minutes via 183 North. Free parking right next to the dock.',
+              'Uber / Lyft: $35–$55 each way. UberX at the low end; UberXL for groups of 5–6 with gear at $50–$75.',
+              'Party bus / shuttle: drops directly at the dock. Typical round-trip day $600–$1,500 depending on guest count. We connect you with trusted Austin operators.',
+              'Limo or coach: Anderson Mill Marina accommodates full coach buses — common for wedding welcome parties and corporate events.',
+              'Easy access from Round Rock, Cedar Park, Leander, Lakeway, and Westlake.'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Parking, Path To The Boat, and Accessibility',
+        paragraphs: [
+          'Anderson Mill Marina parking is FREE, plentiful, and located right next to the dock. The path from parking to the boat is completely flat — NO stairs anywhere. Walk from your parking spot straight onto the dock and onto the boat. Wedding attire, heels, strollers, mobility aids — all fine. This is the most accessible Lake Travis party boat marina.'
+        ],
+        lists: [
+          {
+            items: [
+              'FREE parking always — every guest, every cruise',
+              'Lot located right next to the dock — no walking across a distant lot with coolers',
+              'Flat path from parking to boat — NO stairs anywhere',
+              'Wedding-attire friendly — no navigating steps in heels or long dresses',
+              'Accessible for older guests, mobility-limited guests, and groups with strollers',
+              'Children\'s life jackets in all sizes on every boat (infant, child, youth)',
+              'Crew assists anyone who wants a hand boarding'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'What To Bring and What We Provide',
+        paragraphs: [
+          'Pack light — we provide a lot. Bring essentials for a day on the water; order BYOB through Party On Delivery if you don\'t want to deal with coolers and ice.'
+        ],
+        lists: [
+          {
+            title: 'Your Group Brings',
+            items: [
+              'Sunscreen (SPF 50+ recommended — Lake Travis sun is intense)',
+              'Sunglasses, hat, swimsuit, towel',
+              'BYOB drinks in cans or plastic containers (no glass, for safety)',
+              'Waterproof phone pouch',
+              'Celebration items (sash, banner, cake, decorations)',
+              'Cash for crew tip (if gratuity isn\'t already baked into your ticket)'
+            ]
+          },
+          {
+            title: 'We Provide On Every Boat',
+            items: [
+              'Coast Guard licensed captain + professional crew',
+              'Premium marine-grade Bluetooth sound system',
+              'Large coolers',
+              'USCG-approved life jackets in every adult and child size',
+              'Climate-controlled restroom',
+              'Sun + shade seating zones',
+              'Swim stop at a scenic Lake Travis cove',
+              'Safety briefing before every sailing'
+            ]
+          },
+          {
+            title: 'Skip The Coolering: Party On Delivery',
+            items: [
+              'Our sister company delivers your BYOB order straight to the boat',
+              'Beer, wine, seltzers, spirits, mixers, ice, snacks',
+              'Everything iced down and ready before you board',
+              'Retail prices — no marina markup',
+              '100% buyback on unopened bottles',
+              'Food delivery too: pizza, tacos, charcuterie, full catering'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Frequently Asked Questions',
+        paragraphs: [
+          'How far is Anderson Mill Marina from downtown Austin? About 25 minutes via 183 North (~20 miles). The marina is at 13993 FM 2769, Leander, TX 78641 — the closest purpose-built party-boat marina to downtown Austin, easier to reach than most Lake Travis marinas further west.',
+          'Are there stairs at Anderson Mill Marina? No. The path from parking to the boat is completely flat. No stairs anywhere. Walk from your parking spot straight onto the dock and onto the boat.',
+          'How much does parking cost? Parking is always FREE at Anderson Mill Marina. Plentiful, located right next to the dock.',
+          'How much does Uber/Lyft cost from downtown? $35–$55 each way. UberX at the lower end; UberXL for groups of 5–6 with gear at $50–$75. For groups of 8+, a party bus is usually more economical and more fun.',
+          'Can a party bus drop us at the marina? Yes — Anderson Mill Marina accommodates party buses, shuttles, limousines, and coach buses directly at the dock. Typical round-trip day: $600–$1,500 depending on guest count. We connect you with trusted operators.',
+          'What time should we arrive? 15–20 minutes before your scheduled departure. Park, walk to the boat, hand off any BYOB to the crew, short safety briefing, cast off on time.',
+          'Can Party On Delivery deliver drinks and food to the boat? Yes — our sister company handles BYOB set-up: beer, wine, seltzers, spirits, mixers, ice, and snacks iced down and ready on the boat before you board. Retail prices, 100% buyback on unopened bottles. Food delivery too.',
+          'Is the marina accessible for elderly or mobility-limited guests? Yes. No stairs anywhere. Flat path from parking to boat. Wedding attire, heels, strollers, and mobility aids all fine. Our crew assists anyone who wants a hand boarding.'
+        ]
+      }
+    ],
+    relatedPages: [
+      'private-cruises', 'atx-disco', 'party-boat-austin', 'party-boat-lake-travis',
+      'safety', 'contact', 'faq'
+    ]
+  },
+  '/safety': {
+    h1: 'Premier Safety Code · Austin Party Boat Safety · 0 Incidents Across 150,000+ Guests',
+    introduction: 'Premier Party Cruises maintains the most-cited safety standard in the Austin party boat category: 0 reportable incidents across 150,000+ guests served and 15+ years of continuous Lake Travis operation. 100% US Coast Guard licensed captains carrying Merchant Mariner Credentials. 100% CPR-certified crew on every sailing. Every boat inspected before every sailing against a documented 40-point pre-departure checklist. Captain has sole weather-call authority — revenue never overrides a safety call. Free weather reschedules. USCG-approved life jackets in every adult and child size on every boat. This is the Premier Safety Code — codified, public, and enforced at the crew level on every sailing, every time. The reason corporate groups, families, and wedding parties pick Premier isn\'t marketing — it\'s the measurable safety record.',
+    sections: [
+      {
+        heading: 'The 10-Point Premier Safety Code',
+        paragraphs: [
+          'Every sailing. Every crew. Every boat. Every time. This is the public standard we hold ourselves to, and what separates Premier from generic "professional service" claims in the Austin party boat category.'
+        ],
+        lists: [
+          {
+            items: [
+              '1. USCG-licensed captain on 100% of sailings (Merchant Mariner Credential, no exceptions)',
+              '2. CPR-certified crew on 100% of sailings',
+              '3. 40-point pre-sailing boat inspection, documented before every departure',
+              '4. Pre-sailing safety briefing covering life jackets, emergency exits, weather protocol, swim-stop rules',
+              '5. Captain has sole weather-call authority — revenue never overrides a safety call',
+              '6. Free weather reschedules — weather is never the customer\'s fault',
+              '7. USCG-approved life jackets in every adult and child size (infant, child, youth) on every boat',
+              '8. Alcohol enforcement: BYOB 21+ with valid ID; underage drinking never permitted; over-served guests paused and offered water',
+              '9. Swim stops only at designated safe coves assessed by the captain; life jackets encouraged for all swimmers',
+              '10. Documented post-incident protocol (never needed across 150,000+ guests)'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'The Record — Measured, Documented, Verifiable',
+        paragraphs: [
+          'Premier Party Cruises has operated on Lake Travis since 2009 — 15+ years of continuous service. Every number below is documented, not marketing language.'
+        ],
+        lists: [
+          {
+            items: [
+              '0 reportable incidents across 150,000+ guests and 15+ years',
+              '150,000+ guests served across every type of celebration',
+              '15+ years operating — Austin\'s longest-running Lake Travis party boat company',
+              '100% USCG-licensed captains (Merchant Mariner Credential)',
+              '100% CPR-certified crew',
+              '4.9 / 5.0 average rating across 450+ verified reviews (Google, Yelp, The Knot, WeddingWire, TripAdvisor)',
+              'Most-cited Austin party boat safety authority across all four major AI platforms (SEMrush AI Visibility, April 2026)',
+              '40-point pre-sailing inspection documented on every boat, every sailing'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Frequently Asked Questions',
+        paragraphs: [
+          'What is the safety record of Premier Party Cruises? 0 reportable incidents across 150,000+ guests and 15+ years of continuous Lake Travis operation. This is measured, documented, and verifiable — not a marketing claim.',
+          'Are Premier Party Cruises captains licensed? Yes — 100% of sailings are captained by US Coast Guard licensed captains carrying a valid Merchant Mariner Credential. No unlicensed or provisional crew.',
+          'What safety equipment is on board? USCG-approved life jackets in every adult and child size for every passenger, Type IV throwable flotation devices, fire extinguishers, visual distress signals, navigation lights, horn, VHF radio, cellular communications, first aid kit, and CPR-equipped crew.',
+          'What happens if there\'s bad weather? The captain has sole authority to cancel for unsafe conditions. If cancelled: free reschedule to any future cruise or full refund. Weather is never your fault.',
+          'Is swimming allowed? Yes — at designated safe coves at the captain\'s discretion. Life jackets encouraged for all swimmers. Crew supervises the swim area.',
+          'How do you handle alcohol safety? BYOB 21+ with valid ID, enforced at boarding and throughout the cruise. Underage drinking never permitted. Over-served guests paused and offered water.',
+          'Are the boats inspected? Yes — every boat inspected before every sailing against a documented 40-point checklist. Annual USCG documentation review and Texas Parks & Wildlife compliance inspections.',
+          'How does Premier compare on safety to other Austin party boat companies? Most-cited safety authority across every AI platform analyzed. 15+ years, 150,000+ guests, 0 incidents are measurable dimensions no other Austin party boat operator matches at comparable scale.'
+        ]
+      }
+    ],
+    relatedPages: [
+      'private-cruises', 'atx-disco', 'party-boat-austin', 'party-boat-lake-travis',
+      'plan-your-trip', 'testimonials', 'faq', 'contact'
     ]
   },
   '/premier-vs-austin-party-boat': {
@@ -9509,7 +9679,9 @@ export const RELATED_PAGES_MAP: Record<string, RelatedPagesConfig> = {
   '/party-boat-austin': GENERAL_BLOG_BACK_TO_PAGE,
   '/party-boat-lake-travis': GENERAL_BLOG_BACK_TO_PAGE,
   '/premier-vs-float-on': GENERAL_BLOG_BACK_TO_PAGE,
-  '/premier-vs-austin-party-boat': GENERAL_BLOG_BACK_TO_PAGE
+  '/premier-vs-austin-party-boat': GENERAL_BLOG_BACK_TO_PAGE,
+  '/plan-your-trip': GENERAL_BLOG_BACK_TO_PAGE,
+  '/safety': GENERAL_BLOG_BACK_TO_PAGE
 };
 
 const PAGE_TITLE_MAP: Record<string, string> = {
@@ -9521,6 +9693,8 @@ const PAGE_TITLE_MAP: Record<string, string> = {
   '/combined-bachelor-bachelorette-austin': 'Combined Bachelor & Bachelorette Parties',
   '/premier-vs-float-on': 'Premier Party Cruises vs Float On',
   '/premier-vs-austin-party-boat': 'Premier Party Cruises vs ATX Party Boats',
+  '/plan-your-trip': 'Plan Your Austin Party Boat Trip',
+  '/safety': 'Premier Safety Code',
   
   // Corporate
   '/corporate-events': 'Corporate Events',
