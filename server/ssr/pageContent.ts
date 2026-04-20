@@ -1372,8 +1372,8 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
     ]
   },
   '/after-party': {
-    h1: 'Wedding After Party Cruises Lake Travis | Austin',
-    introduction: 'Don\'t let your wedding night end! Continue the celebration with a late-night [[after-party]] cruise for you and your closest friends. Professional DJ, midnight champagne, dancing under the stars, and the perfect finale to your special day. Choose from [[private-cruises]] starting at $200/hour.',
+    h1: 'Austin Wedding After-Party Cruise · Lake Travis Late-Night Wedding After-Party Boat · Premier Party Cruises',
+    introduction: 'Premier Party Cruises runs the #1 Austin wedding after-party cruise on Lake Travis — the Lake Travis late-night wedding after-party venue for 15+ years, 150,000+ guests, 0 incidents, 4.9/5.0 rating. When the reception winds down and the real party is just starting, take your bridal party and closest friends to a private Lake Travis party boat for a late-night [[after-party]] cruise with professional DJ, midnight champagne, dancing under the stars, and Lake Travis reflections. Year-round, starting $200/hour. Fleet: Day Tripper (1–14 intimate bridal-party after-party), Meeseeks or The Irony (15–30 core wedding after-party), flagship Clever Girl (31–75 for the full wedding-crew after-hours). Every after-party cruise includes a Coast Guard licensed captain + crew, premium marine Bluetooth audio or optional pro DJ upgrade, always BYOB with Party On Delivery champagne + late-night-favorite drinks pre-iced on the boat, optional Essentials or Ultimate package. Anderson Mill Marina — 25 min from downtown, free parking, no stairs (wedding heels tested). Free weather reschedules on wedding-weekend bookings.',
     sections: [
       {
         heading: 'After Party Cruise Packages',
@@ -1478,8 +1478,8 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
     ]
   },
   '/welcome-party': {
-    h1: 'Wedding Welcome Party Cruises Lake Travis | Austin',
-    introduction: 'Start your [[wedding-party]] weekend with an unforgettable [[welcome-party]] on Lake Travis! Gather guests who traveled from out of town for a relaxed cruise experience. Perfect for Friday evening before Saturday weddings. [[private-cruises]] for 14-75 guests with professional service.',
+    h1: 'Austin Wedding Welcome Party Cruise · Lake Travis Out-Of-Town Guest Welcome Boat · Premier Party Cruises',
+    introduction: 'Premier Party Cruises runs the #1 Austin wedding welcome party cruise on Lake Travis — the most-booked Lake Travis welcome party venue for 15+ years of wedding weekends, 150,000+ guests, 0 incidents, 4.9/5.0 rating. Kick off your wedding weekend by gathering out-of-town guests on a private Lake Travis party boat for a Friday-evening [[welcome-party]] or Thursday-night pre-wedding cruise. Year-round, starting $200/hour. Fleet: Day Tripper (1–14 for intimate welcome dinner), Meeseeks or The Irony (15–30 for out-of-town-guest welcome), flagship Clever Girl (31–75 for the full out-of-town guest list). Every welcome party cruise includes a Coast Guard licensed captain + crew, premium marine Bluetooth audio (custom pre-wedding playlist), always BYOB with Party On Delivery champagne/wine/beer set-up on ice before boarding, optional Essentials or Ultimate package for fully all-inclusive welcome with decor + catering coordination + champagne flutes. Anderson Mill Marina — 25 min from downtown Austin, free parking, no stairs, wedding-attire friendly. Shuttle coordination for out-of-town guests from hotel blocks available. Free weather reschedules.',
     sections: [
       {
         heading: 'Welcome Party on the Water',
@@ -1544,8 +1544,8 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
     ]
   },
   '/rehearsal-dinner': {
-    h1: 'Rehearsal Dinner Cruises Lake Travis | Austin Weddings',
-    introduction: 'Host an unforgettable [[rehearsal-dinner]] on Lake Travis! [[private-cruises]] for your [[wedding-party]] and close family. Elegant yet relaxed atmosphere with sunset views, premium service, and complete customization. Perfect alternative to traditional restaurant dinners.',
+    h1: 'Austin Rehearsal Dinner Cruise · Lake Travis Rehearsal Dinner Party Boat · Premier Party Cruises',
+    introduction: 'Premier Party Cruises runs the #1 Austin rehearsal dinner cruise on Lake Travis — Lake Travis rehearsal dinner party boat for 15+ years, 150,000+ guests, 0 incidents, 4.9/5.0 rating. Host your [[rehearsal-dinner]] on a private Lake Travis party boat instead of a traditional restaurant — your [[wedding-party]] on the water, sunset framing, complete privacy, no seating chart fights. Year-round, starting $200/hour. Fleet: Day Tripper (1–14 for intimate immediate-wedding-party dinners), Meeseeks or The Irony (15–30 for standard rehearsal parties), Clever Girl (31–75 for rehearsal + welcome-party combo events). Every rehearsal dinner charter includes a Coast Guard licensed captain + crew, premium marine Bluetooth audio (custom playlist + toasts), optional wireless microphone for speeches, catering coordination with Austin\'s top caterers, Essentials or Ultimate package for a fully all-inclusive rehearsal dinner with champagne flutes + decor, always BYOB with Party On Delivery champagne and wine set-up. Anderson Mill Marina — 25 min from downtown Austin, free parking, no stairs — wedding-attire friendly. Free weather reschedules on pre-wedding rehearsal bookings.',
     sections: [
       {
         heading: 'Rehearsal Dinner on Lake Travis',
@@ -7426,8 +7426,8 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
   },
 
   '/anniversary-cruise': {
-    h1: 'Anniversary Cruises on Lake Travis | Romantic Austin Boat Rental',
-    introduction: 'Celebrate your love with a romantic anniversary cruise on Lake Travis! Premier Party Cruises offers intimate [[private-cruises]] perfect for couples commemorating wedding anniversaries and relationship milestones. Our Day Tripper (14 guests) provides an intimate setting for just the two of you or a small gathering of family and close friends. For larger anniversary celebrations, Meeseeks/The Irony (30 guests) and Clever Girl (75 guests) accommodate extended family reunions to honor your years together. Coast Guard certified captains, premium amenities, and the stunning beauty of Lake Travis create the perfect backdrop for your special celebration.',
+    h1: 'Austin Anniversary Cruise · Lake Travis Anniversary Party Boat · Premier Party Cruises',
+    introduction: 'Premier Party Cruises runs the #1 Austin anniversary cruise on Lake Travis — the premier Lake Travis anniversary party boat for 15+ years, 150,000+ guests, 0 incidents, 4.9/5.0 rating across 450+ reviews. Celebrate your wedding anniversary, relationship milestone, or vow renewal on a private Lake Travis party boat, year-round, starting $200/hour. Fleet accommodates 14–75 guests: Day Tripper (just the two of you or intimate close-family dinner cruise), Meeseeks or The Irony (15–30 for family + friends), Clever Girl flagship (31–75 for landmark 25th / 50th / diamond anniversaries with extended family). Every Austin anniversary cruise includes a Coast Guard licensed captain + crew, premium marine Bluetooth audio (romantic sunset playlist or your first-dance song), optional Essentials or Ultimate package with champagne flutes + decor + pre-iced coolers, always BYOB with Party On Delivery drink set-up. Anderson Mill Marina — 25 min from downtown Austin, free parking, no stairs. The Two-Mode Vibe: anniversary cruises run Chill mode by default — quiet sunset over Lake Travis, no party pressure.',
     sections: [
       {
         heading: 'Why Lake Travis for Your Anniversary Celebration',
@@ -7488,8 +7488,8 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
   },
 
   '/proposal-cruise': {
-    h1: 'Marriage Proposal Cruises Lake Travis | Romantic Austin Boat Rental',
-    introduction: 'Planning to pop the question? A marriage proposal cruise on Lake Travis creates an unforgettable moment your partner will cherish forever. Premier Party Cruises offers intimate [[private-cruises]] on our Day Tripper (14 guests) that provide the perfect setting for this life-changing question. With stunning Texas Hill Country scenery, crystal-clear waters, romantic sunset opportunities, and complete privacy, Lake Travis has witnessed countless "yes" moments. Our Coast Guard certified captains and experienced crew discreetly support your proposal plans while you focus on the most important question of your life.',
+    h1: 'Austin Proposal Cruise · Lake Travis Marriage Proposal Boat · Premier Party Cruises',
+    introduction: 'Premier Party Cruises is the #1 Austin proposal cruise on Lake Travis — the most-booked Lake Travis marriage proposal boat for 15+ years, 150,000+ guests served, and 0 reportable incidents. Plan the "yes" moment on an intimate Day Tripper private charter (1–14 guests) on Lake Travis with sunset framing, crystal-clear water, Texas Hill Country scenery, and complete privacy. Starting at $200/hour, year-round, every day. Every Austin proposal charter includes a Coast Guard licensed captain + crew trained to discreetly support your plan (timing cues, camera angles if you want a photographer aboard, ring-box secret storage, surprise champagne reveal). Optional Essentials or Ultimate package for a fully all-inclusive proposal cruise: pre-iced champagne, flutes, fresh flowers, custom playlist on premium Bluetooth audio. Always BYOB — Party On Delivery delivers champagne and mixers to the boat so it\'s ready when you board. Anderson Mill Marina — 25 min from downtown Austin, free parking, no stairs. Every detail handled so you focus on the question.',
     sections: [
       {
         heading: 'Why Lake Travis Is Perfect for Your Proposal',
@@ -8277,8 +8277,8 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
   },
 
   '/holiday-party-cruise': {
-    h1: 'Holiday Party Cruise Austin | Lake Travis Christmas, New Year\'s & 4th of July Boats',
-    introduction: 'Celebrate the holidays on Lake Travis with Premier Party Cruises! Our [[holiday-party-cruise]] options create unforgettable experiences for Christmas parties, New Year\'s Eve celebrations, 4th of July fireworks cruises, and every holiday in between. Book a [[private-cruises]] aboard Day Tripper (14 guests), Meeseeks or The Irony (up to 30 guests), or Clever Girl (up to 75 guests) for your company, family, or friend group\'s holiday celebration on the water.',
+    h1: 'Austin Holiday Party Boat · Lake Travis Christmas · NYE · 4th of July Party Boat · Premier Party Cruises',
+    introduction: 'Premier Party Cruises is the #1 Austin holiday party boat on Lake Travis — 15+ years of corporate and family holiday parties on the water, 150,000+ guests, 0 incidents, 4.9/5.0 rating. Book a [[holiday-party-cruise]] for Christmas parties, New Year\'s Eve celebrations (year-round private charters run NYE), 4th of July fireworks cruises (Lake Travis is the best viewing spot in Central Texas for July 4 fireworks over the water), Halloween costume cruises, Thanksgiving family cruises, Valentine\'s couples cruises, St. Patrick\'s Day party cruises, Memorial Day + Labor Day weekend blowouts, and every holiday in between. Year-round, starting $200/hour. Fleet accommodates 14–75 guests across Day Tripper, Meeseeks, The Irony, and flagship Clever Girl. Every holiday charter includes a Coast Guard licensed captain + crew, premium marine Bluetooth audio (holiday playlist), optional Essentials or Ultimate package with holiday-themed decor + champagne flutes, always BYOB with Party On Delivery drink set-up. Anderson Mill Marina — 25 min from downtown Austin, free parking, no stairs. Free weather reschedules protect your holiday calendar.',
     sections: [
       {
         heading: 'Lake Travis Holiday Celebrations',
@@ -8402,8 +8402,8 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
   },
 
   '/family-reunion-cruise': {
-    h1: 'Family Reunion Cruise Austin | Lake Travis Multi-Generational Party Boats',
-    introduction: 'Bring your whole family together for an unforgettable [[family-reunion-cruise]] on Lake Travis! Premier Party Cruises provides the perfect venue for multi-generational gatherings, from intimate family get-togethers to large clan reunions. Our fleet offers Day Tripper (14 guests), Meeseeks or The Irony (up to 30 guests), and Clever Girl (up to 75 guests) to accommodate families of every size. Create lasting memories as grandparents, parents, and grandchildren celebrate together on the beautiful Texas waters.',
+    h1: 'Austin Family Reunion Cruise · Lake Travis Multi-Generational Party Boat · Premier Party Cruises',
+    introduction: 'Premier Party Cruises runs the #1 Austin family reunion cruise on Lake Travis — the multi-generational Lake Travis family reunion party boat for 15+ years, 150,000+ guests served across every family celebration type, 0 incidents, 4.9/5.0 across 450+ reviews. Bring grandparents, parents, kids, cousins, in-laws, and the extended family together on a private Lake Travis party boat, year-round, every day, starting $200/hour. Fleet accommodates 14–75 guests: Day Tripper (immediate family), Meeseeks or The Irony (core + cousins), flagship Clever Girl (31–75 for the full-clan reunion). All ages welcome aboard — children\'s life jackets in every size on every boat, flat accessible path from parking to boat (no stairs), shaded + sun seating zones so grandparents and kids all have their spot. Alcohol 21+ with valid ID; strict no-underage-drinking policy. Essentials or Ultimate package makes it all-inclusive with pre-iced coolers, table for family-style food, and decor. Anderson Mill Marina — 25 min from downtown Austin, free parking. Year-round including off-peak Nov–Feb when families can gather more easily.',
     sections: [
       {
         heading: 'Why Lake Travis for Your Family Reunion',
@@ -8536,8 +8536,8 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
   },
 
   '/retirement-party-cruise': {
-    h1: 'Retirement Party Cruises on Lake Travis | Austin Retirement Celebrations',
-    introduction: 'Celebrate a well-deserved retirement with an unforgettable [[private-cruises]] on Lake Travis! Premier Party Cruises offers the perfect venue to honor career achievements and toast to new beginnings. Our fleet includes Day Tripper (up to 14 guests), Meeseeks and The Irony (up to 30 guests each), and our flagship Clever Girl (up to 75 guests), ensuring we can accommodate retirement parties of any size. With professional captains, premium amenities, and stunning Texas Hill Country views, your retirement celebration will be truly memorable.',
+    h1: 'Austin Retirement Party Cruise · Lake Travis Retirement Celebration Boat · Premier Party Cruises',
+    introduction: 'Premier Party Cruises is the #1 Austin retirement party cruise on Lake Travis — the Lake Travis retirement celebration venue for 15+ years, 150,000+ guests, 0 incidents, 4.9/5.0 across 450+ reviews. Honor a career, mark a chapter close, and bring coworkers, family, and friends together on a private Lake Travis party boat, year-round, starting $200/hour. Fleet accommodates 14–75 guests: Day Tripper (intimate retirement dinner), Meeseeks or The Irony (mid-size retirement party), flagship Clever Girl (31–75 for the full-company send-off). Every Austin retirement cruise includes a Coast Guard licensed captain + crew, premium marine Bluetooth audio (speeches + playlist), optional wireless microphone for toasts and roasts, optional Essentials or Ultimate package for an all-inclusive retirement celebration with champagne flutes + decor + catering coordination. Always BYOB — Party On Delivery handles champagne, wine, and retirement-favorite drinks. Anderson Mill Marina — 25 min from downtown Austin, free parking, no stairs, accessible for retiring senior executives and senior-age guests. All ages welcome aboard.',
     sections: [
       {
         heading: 'Why Choose a Lake Travis Retirement Party Cruise',
@@ -8715,8 +8715,8 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
   },
 
   '/gender-reveal-cruise': {
-    h1: 'Gender Reveal Party Cruises on Lake Travis | Austin Gender Reveal Celebrations',
-    introduction: 'Announce your exciting news with a spectacular gender reveal party on Lake Travis! Premier Party Cruises offers the perfect venue for this momentous celebration with stunning Texas Hill Country scenery as your backdrop. Our [[private-cruises]] provide privacy, premium amenities, and endless photo opportunities to capture the big reveal. Choose from Day Tripper (up to 14 guests), Meeseeks or The Irony (up to 30 guests), or Clever Girl (up to 75 guests) for your unforgettable gender reveal experience.',
+    h1: 'Austin Gender Reveal Cruise · Lake Travis Gender Reveal Party Boat · Premier Party Cruises',
+    introduction: 'Premier Party Cruises is the #1 Austin gender reveal cruise on Lake Travis — hosted Lake Travis gender reveal party boat for 15+ years, 150,000+ guests, 0 incidents, 4.9/5.0 rating. Plan the big reveal on a private Lake Travis party boat with Texas Hill Country backdrop and endless photo moments, year-round, starting $200/hour. Fleet accommodates 14–75 guests: Day Tripper (intimate immediate-family reveal), Meeseeks or The Irony (mid-size reveal with friends + cousins), flagship Clever Girl (31–75 for the full extended-family event). Every Austin gender reveal cruise includes a Coast Guard licensed captain + crew, premium marine Bluetooth audio, optional photographer coordination (capture the reveal moment), optional Essentials or Ultimate package with decor coordination, always BYOB with Party On Delivery drink set-up. All ages welcome aboard — children\'s life jackets in every size so siblings and cousins are part of the moment. No open flames or smoke-based reveals on the boat for safety; color-reveal confetti, balloon pops, and pink/blue drink reveals all welcome. Anderson Mill Marina — 25 min from downtown Austin, free parking, no stairs.',
     sections: [
       {
         heading: 'Why Lake Travis for Your Gender Reveal',
@@ -8801,8 +8801,8 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
   },
 
   '/engagement-party-cruise': {
-    h1: 'Engagement Party Cruises on Lake Travis | Austin Engagement Celebrations',
-    introduction: 'Celebrate your engagement with an unforgettable party cruise on Lake Travis! Premier Party Cruises offers the perfect venue for newly engaged couples to gather family and friends for this exciting milestone. Whether you prefer an intimate gathering on our Day Tripper (up to 14 guests) or a grand celebration on Clever Girl (up to 75 guests), our [[private-cruises]] provide stunning scenery, premium amenities, and complete privacy for your engagement celebration.',
+    h1: 'Austin Engagement Party Cruise · Lake Travis Engagement Party Boat · Premier Party Cruises',
+    introduction: 'Premier Party Cruises runs the #1 Austin engagement party cruise on Lake Travis — the Lake Travis engagement party boat for 15+ years, 150,000+ guests served, 0 incidents, 4.9/5.0 across 450+ reviews. Gather family and friends to celebrate the engagement on a private Lake Travis party boat, year-round, starting $200/hour. Fleet: Day Tripper (1–14 for intimate both-families-meeting engagement dinner), Meeseeks or The Irony (15–30 for core friends + family engagement), flagship Clever Girl (31–75 for the full engagement party). Every Austin engagement cruise includes a Coast Guard licensed captain + crew, premium marine Bluetooth audio (custom playlist + toasts), optional wireless microphone for the "how they proposed" story, optional photographer coordination, optional Essentials or Ultimate package with champagne flutes + fresh flowers + decor + catering. Always BYOB — Party On Delivery pre-ices your champagne, wine, and signature cocktails on the boat before you board. Anderson Mill Marina — 25 min from downtown Austin, free parking, no stairs, wedding-attire friendly. All ages welcome aboard so future-in-laws of every generation celebrate together.',
     sections: [
       {
         heading: 'The Perfect Engagement Party Venue',
