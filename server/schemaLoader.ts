@@ -33,6 +33,7 @@ interface RouteSchemaMapping {
 const ROUTE_TO_SCHEMA_MAPPING: RouteSchemaMapping = {
   '/': [
     'homepage/organization.jsonld',
+    'homepage/local-business.jsonld',
     'homepage/faq.jsonld',
     'homepage/video.jsonld',
     'homepage/service-private.jsonld',
@@ -41,6 +42,19 @@ const ROUTE_TO_SCHEMA_MAPPING: RouteSchemaMapping = {
     'homepage/service-meeseeks.jsonld',
     'homepage/service-clevergirl.jsonld'
   ],
+  '/austin-bachelor-itinerary': ['austin-bachelor-itinerary/howto.jsonld', 'austin-bachelor-itinerary/faq.jsonld'],
+  '/austin-bachelorette-itinerary': ['austin-bachelorette-itinerary/howto.jsonld', 'austin-bachelorette-itinerary/faq.jsonld'],
+  '/best-austin-party-boat': ['best-austin-party-boat/faq.jsonld', 'best-austin-party-boat/itemlist.jsonld'],
+  '/austin-party-boat-pricing-guide': ['austin-party-boat-pricing-guide/faq.jsonld'],
+  '/austin-corporate-event-guide': ['austin-corporate-event-guide/faq.jsonld'],
+  '/premier-vs-float-on': ['premier-vs-float-on/faq.jsonld'],
+  '/premier-vs-austin-party-boat': ['premier-vs-austin-party-boat/faq.jsonld'],
+  '/safety': ['safety/faq.jsonld'],
+  '/plan-your-trip': ['plan-your-trip/faq.jsonld'],
+  '/austin-party-bus-shuttle': ['austin-party-bus-shuttle/faq.jsonld'],
+  '/combined-bach-itinerary': ['combined-bach-itinerary/faq.jsonld'],
+  '/lake-travis-boat-rental-guide': ['lake-travis-boat-rental-guide/faq.jsonld'],
+  '/what-to-bring-on-a-party-boat': ['what-to-bring-on-a-party-boat/faq.jsonld'],
   '/faq': ['faq/faq.jsonld'],
   '/team-building': ['team-building/faq.jsonld', 'team-building/service.jsonld'],
   '/client-entertainment': ['client-entertainment/faq.jsonld', 'client-entertainment/service.jsonld'],

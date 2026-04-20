@@ -1,0 +1,37 @@
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Best Austin Party Boats — Premier Party Cruises Fleet",
+  "description": "Ranked list of the best Austin party boats on Lake Travis, based on guest capacity, amenities, and use-case fit.",
+  "numberOfItems": 4,
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Clever Girl (flagship, 75 guests, 14 disco balls)",
+      "url": "https://premierpartycruises.com/private-cruises",
+      "description": "Austin's top-rated party boat for large groups and the ATX Disco Cruise. 75-person USCG-rated capacity, 14 disco balls, giant Texas flag, premium marine audio, year-round private charter from $250/hour."
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "The Irony (mid-size, 30 guests)",
+      "url": "https://premierpartycruises.com/private-cruises",
+      "description": "Mid-size private charter — best for bachelor/bachelorette parties of 15–30, milestone birthdays, team outings. Year-round from $225/hour."
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Meeseeks (mid-size, 25 guests)",
+      "url": "https://premierpartycruises.com/private-cruises",
+      "description": "Mid-size private charter — same pricing and amenities as The Irony. Year-round from $225/hour."
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "Day Tripper (intimate, 14 guests)",
+      "url": "https://premierpartycruises.com/private-cruises",
+      "description": "Intimate private charter for small bachelor/bachelorette groups, birthdays, family. Year-round from $200/hour."
+    }
+  ]
+}

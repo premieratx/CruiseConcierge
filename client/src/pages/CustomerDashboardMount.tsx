@@ -14,11 +14,11 @@ const queryClient = new QueryClient();
 
 export default function CustomerDashboardMount() {
   return (
-    <div className="v2-luxury-root" data-page-ready="customer-dashboard">
+    <div className="ppc-quote-light" data-page-ready="customer-dashboard" style={{ minHeight: "100vh" }}>
       <HelmetProvider>
         <QueryClientProvider client={queryClient}>
           <TooltipProvider>
-            <Toaster position="top-center" theme="dark" />
+            <Toaster position="top-center" theme="light" />
             <BrowserRouter basename="/customer-dashboard">
               <Routes>
                 <Route path="/*" element={<CustomerDashboard />} />
