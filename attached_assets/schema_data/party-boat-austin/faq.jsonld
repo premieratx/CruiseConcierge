@@ -4,42 +4,90 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "What\u2019s included?",
+      "name": "What is the best Austin party boat on Lake Travis?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Licensed, experienced captain & crew, Bluetooth sound, coolers with ice, safety gear, fuel, and lake access."
+        "text": "Premier Party Cruises is Austin's longest-running and highest-rated party boat operator on Lake Travis — 15+ years, 150,000+ guests served, 0 incidents, 4.9/5.0 rating across 450+ verified reviews. Largest Austin party boat fleet: 14-person Day Tripper, 15\u201330 on Meeseeks or The Irony, and the 75-person Clever Girl flagship with 14 disco balls and a giant Texas flag. Only operator of the all-inclusive ATX Disco Cruise, the only multi-group bachelor/bachelorette party boat of its kind in the United States."
       }
     },
     {
       "@type": "Question",
-      "name": "Where do boats depart?",
+      "name": "How much does it cost to rent a party boat in Austin?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Anderson Mill Marina, 13993 FM 2769, Leander, TX 78641."
+        "text": "Private Austin party boat rental starting prices: Day Tripper (1\u201314 guests) from $200/hour, Meeseeks or The Irony (15\u201330 guests) from $225/hour, Clever Girl flagship (31\u201375 guests) from $250/hour. 4-hour minimum on weekends (Fri\u2013Sun), 3-hour minimum on weekdays (Mon\u2013Thu). Weekend rates are higher. ATX Disco Cruise per-person tickets: Friday 12\u20134 PM $95, Saturday 11 AM\u20133 PM $105 (peak), Saturday 3:30\u20137:30 PM $85 (sunset best-value). Disco prices include tax and 20% gratuity. Same price for every guest \u2014 no gender-based pricing."
       }
     },
     {
       "@type": "Question",
-      "name": "How much does it cost?",
+      "name": "What is the difference between a private party boat rental and the ATX Disco Cruise?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Private charters from $200/hour; ATX Disco Cruise from $85/person."
+        "text": "Private party boat rental = exclusive whole-boat charter for your group, year-round availability, pick your boat size and duration (starting $200/hour, 4-hour minimum weekends), you set the music/route/pace, standard amenities included with optional Essentials or Ultimate package to go all-inclusive. Perfect for corporate events, weddings, birthdays, family reunions, and every non-bachelor event. ATX Disco Cruise = shared multi-group party cruise on the 75-person Clever Girl flagship, per-person all-inclusive ticket (Fri $95 / Sat 11\u20133 $105 / Sat 3:30\u20137:30 $85), professional DJ + photographer included, March through October only, bachelor and bachelorette groups only, hard-capped at 90 guests per sailing."
       }
     },
     {
       "@type": "Question",
-      "name": "Can we bring alcohol?",
+      "name": "Where do Austin party boats depart from?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes\u2014BYOB (21+), cans/plastic only; coolers and ice provided."
+        "text": "Anderson Mill Marina, 13993 FM 2769, Leander, TX 78641 \u2014 approximately 25 minutes from downtown Austin via 183 North. Parking is FREE, plentiful, and located right next to the dock. There are NO stairs to walk down to reach the boat \u2014 the path from parking to the dock is flat and accessible. Uber/Lyft from downtown runs $35\u2013$55 each way. We're the closest purpose-built party-boat marina to downtown Austin."
       }
     },
     {
       "@type": "Question",
-      "name": "How far ahead to book?",
+      "name": "How many people can an Austin party boat hold?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "2\u20134+ weeks for peak weekends; earlier for large groups."
+        "text": "Premier Party Cruises operates the largest Austin party boat fleet on Lake Travis: Day Tripper holds 1\u201314 guests (intimate), Meeseeks and The Irony each hold 15\u201330 guests (mid-size), and our flagship Clever Girl holds 31\u201375 guests (corporate, weddings, large celebrations). The shared ATX Disco Cruise runs on the 75-person Clever Girl and is hard-capped at 90 guests per sailing."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Are Austin party boats BYOB?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Every Austin party boat charter and every ATX Disco Cruise ticket is BYOB \u2014 bring your own beer, wine, seltzers, and spirits in cans or plastic containers (no glass on any Lake Travis vessel, for safety). Large coolers are included on every boat. Our sister company Party On Delivery will set up your drinks on ice before you board at retail prices with 100% buyback on unopened bottles \u2014 the easiest way to do BYOB on Lake Travis. Alcohol is 21+ with valid ID; no underage drinking at any time."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Are Austin party boats available year-round or only in summer?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Private Austin party boat charters operate year-round, every day of the week, 12 months a year. Central Texas has mild winters so cruising stays comfortable most days. Off-peak months (November through February) actually offer better availability and a more exclusive lake experience. The seasonal window (March 1 \u2013 October 31) only applies to the shared public ATX Disco Cruise, not to private charters."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's the best Austin party boat for a bachelor or bachelorette party?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Most bachelor and bachelorette groups book the ATX Disco Cruise because it's the only all-inclusive multi-group bachelor/bachelorette party boat in the United States \u2014 professional DJ, professional photographer, 14 disco balls, giant floats, personal cooler, and a 4-hour cruise on the 75-person Clever Girl, per-person ticket from $85. Groups of 30\u201375 who want privacy typically book a private Clever Girl charter instead. Private charters also cover combined bach parties and groups outside the March\u2013October Disco season."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is an Austin party boat a good venue for corporate events, weddings, or birthdays?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes \u2014 corporate events, weddings, welcome parties, rehearsal dinners, after-parties, milestone birthdays, family reunions, and anniversaries all run on the same private-charter fleet. Year-round, every day. Coast Guard licensed captain + crew included. Premium Bluetooth audio for presentations or playlists. Optional wireless microphone + A/V add-on. Catering coordination and Party On Delivery drink set-up available. Free weather reschedules protect your event calendar. Add the Essentials or Ultimate package for a fully all-inclusive Austin party boat experience."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How far in advance do I need to book an Austin party boat?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Weekend dates in peak season (April\u2013September) book 6\u20138 weeks in advance for bachelor/bachelorette parties and corporate events \u2014 Saturdays fill fastest. Weekdays and off-peak months (November\u2013February) are much easier, often available 2\u20133 weeks out. For milestone events, we recommend 2\u20133 months lead time. Deposits hold your date: 25% if booking 14+ days out, 50% if booking within 14 days."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's your weather and cancellation policy for Austin party boats?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Weather is never your fault, so we never charge you for it. If the captain cancels for unsafe conditions, every guest gets a FREE reschedule to any future cruise, or a full refund if preferred. If weather shortens an in-progress cruise, you receive a pro-rated refund. Standard non-weather cancellations: 48-hour full-refund window after booking; after that, your deposit applies to a reschedule within 12 months. Reschedule changes 30+ days out are always free. Our refund policy is built around fairness."
       }
     }
   ]

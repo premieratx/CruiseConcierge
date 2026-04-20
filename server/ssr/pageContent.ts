@@ -63,8 +63,8 @@ export const LINK_CATALOG: Record<string, {url: string; text: string}> = {
 
 export const PAGE_CONTENT: Record<string, PageContent> = {
   '/': {
-    h1: 'Premier Party Cruises - Austin Lake Travis Boat Rentals',
-    introduction: 'Experience the ultimate party cruise on Lake Travis with Austin\'s premier boat rental company. Choose from [[private-cruises]], the [[atx-disco]], [[bachelor-party]], [[bachelorette-party]], [[corporate-events]], and more. Professional crew, premium amenities, and unforgettable celebrations await.',
+    h1: 'Austin Party Boat · Lake Travis Party Boat Rentals · Premier Party Cruises',
+    introduction: 'Premier Party Cruises is Austin\'s #1 party boat on Lake Travis — the largest fleet of Austin party boats, the most-booked Lake Travis party boat rentals, and the only operator of the all-inclusive ATX Disco Cruise. Choose a year-round private party boat charter ([[private-cruises]]) on Day Tripper, Meeseeks, The Irony, or the 75-person flagship Clever Girl, or grab tickets to the shared [[atx-disco]] (Mar–Oct, Fri/Sat only). Austin\'s longest-running party boat company since 2009: 15+ years, 150,000+ guests, 0 incidents, 4.9/5.0 across 450+ reviews. The go-to Austin party boat for [[bachelor-party]], [[bachelorette-party]], [[corporate-events]], [[birthday-party]], [[wedding-party]], and every other Lake Travis celebration.',
     sections: [
       {
         heading: 'Private Charters - Your Exclusive Boat Experience',
@@ -330,8 +330,8 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
     ]
   },
   '/bachelor-party-austin': {
-    h1: 'Austin Bachelor Party Boat Rentals | Lake Travis Cruises',
-    introduction: 'Plan the ultimate [[bachelor-party]] on Lake Travis with Premier Party Cruises! Choose from our affordable [[atx-disco]] time slots or rent a [[private-cruises]] exclusively for your group. Professional DJ, photographer, party floats, and unforgettable memories included.',
+    h1: 'Austin Bachelor Party · Bachelor Party Austin TX · Lake Travis Party Boat',
+    introduction: 'Austin bachelor party central — Premier Party Cruises is the most-booked Austin bachelor party operator on Lake Travis and the only operator of the ATX Disco Cruise, the only multi-group bachelor party boat of its kind in the United States. Throwing a bachelor party in Austin TX? Two ways to do it right. Join the ATX Disco Cruise ([[atx-disco]]) for a per-person all-inclusive party on our 75-person flagship Clever Girl — Friday 12–4 PM $95, Saturday 11–3 PM $105 (peak — most popular), Saturday 3:30–7:30 PM $85 (sunset best-value) — same price for every guest, pro DJ + pro photographer + 14 disco balls + giant floats + cooler + 4-hour cruise all included, Mar–Oct, bachelor groups welcome every weekend. Or rent a whole-boat [[private-cruises]] bachelor party boat, year-round, starting $200/hour (Day Tripper 14 · Meeseeks/Irony 15–30 · Clever Girl 31–75). 15+ years, 150,000+ guests, 0 incidents. The Austin bachelor party starts here.',
     sections: [
       {
         heading: 'ATX Disco Cruise Bachelor Party Time Slots',
@@ -537,8 +537,8 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
     ]
   },
   '/bachelorette-party-austin': {
-    h1: 'Austin Bachelorette Party Boat Cruises | Lake Travis',
-    introduction: 'Plan the ultimate [[bachelorette-party]] on Lake Travis! The [[atx-disco]] is our specialty with time slots starting at $85. Professional DJ, photographer, floats, and unforgettable celebration guaranteed!',
+    h1: 'Austin Bachelorette Party · Bachelorette Weekend in Austin · Lake Travis Party Boat',
+    introduction: 'Austin bachelorette party central — Premier Party Cruises is the most-booked Austin bachelorette party operator on Lake Travis and the only producer of the ATX Disco Cruise, the only multi-group bachelorette party boat of its kind in the United States. Planning a bachelorette weekend in Austin? Start on the water. Join the ATX Disco Cruise ([[atx-disco]]) for a per-person all-inclusive party on our 75-person flagship — Friday 12–4 PM $95, Saturday 11–3 PM $105 (peak), Saturday 3:30–7:30 PM $85 (sunset) — same price for every guest, professional DJ + photographer + 14 disco balls + giant floats + cooler + 4-hour cruise all included, Mar–Oct. Or rent a whole-boat [[private-cruises]] party boat for your bachelorette group, year-round, starting $200/hour (Day Tripper 14 · Meeseeks/Irony 15–30 · Clever Girl 31–75). 15+ years, 150,000+ guests, 0 incidents, 4.9/5.0 across 450+ reviews. The Austin bachelorette party starts here.',
     sections: [
       {
         heading: 'Bachelorette Party Cruise Time Slots',
@@ -1046,9 +1046,65 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
     ]
   },
   '/private-cruises': {
-    h1: 'Private Boat Rentals Lake Travis | Austin Party Cruises',
-    introduction: 'Rent a [[private-cruises]] on Lake Travis for your exclusive celebration! Choose from our fleet of premium boats accommodating 1-75 guests. Everything set up when you arrive - professional captain, crew, sound system, coolers, and complete customization. Three package levels from Standard to Ultimate. Starting at $200/hour with 4-hour minimum. Perfect for [[bachelor-party]], [[bachelorette-party]], [[corporate-events]], and more!',
+    h1: 'Party Boat Rentals · Party Boat Hire · Rent a Party Boat on Lake Travis',
+    introduction: 'Premier Party Cruises offers the largest private party boat rentals on Lake Travis — rent a party boat by the hour, year-round, every day of the week, with a Coast Guard licensed captain, premium marine Bluetooth audio, coolers (always BYOB), and zero hidden fees. Whether you\'re searching "party boat rentals," "party boat hire," or "rent a party boat" — this is the page. Our fleet accommodates 1–75 guests across four boats: Day Tripper (14), Meeseeks and The Irony (15–30 each), and flagship Clever Girl (31–75, 14 disco balls, giant Texas flag). Starting at $200/hour with a 4-hour minimum on weekends (3-hour minimum weekdays). Standard amenities included; add the Essentials or Ultimate package to make your rental fully all-inclusive with DJ-quality audio, floats, decor, and champagne flutes. Perfect for [[bachelor-party]], [[bachelorette-party]], [[corporate-events]], [[wedding-party]], [[birthday-party]], family reunions, anniversaries, and every Austin celebration.',
     sections: [
+      {
+        heading: 'Party Boat Rentals on Lake Travis — How It Works',
+        paragraphs: [
+          'Every Premier party boat rental is the same simple model: pick your boat (Day Tripper 14, Meeseeks/Irony 15–30, Clever Girl 31–75), pick your duration (4-hour minimum Fri–Sun, 3-hour minimum Mon–Thu), and pick whether you want Standard, Essentials, or Ultimate. We handle captain, crew, audio, coolers, route, and safety — you handle the vibe. Rent a party boat for any occasion, any day of the year.'
+        ],
+        lists: [
+          {
+            title: 'What Every Party Boat Rental Includes — Standard',
+            items: [
+              'Coast Guard licensed captain + professional crew',
+              'Premium marine-grade Bluetooth audio system',
+              'Large coolers (always BYOB — cans + plastic only, no glass)',
+              'Sun + shade seating zones',
+              'Climate-controlled restroom',
+              'Flexible route on Lake Travis (Devil\'s Cove, Starnes Island, Hippie Hollow, or your plan)',
+              'Free weather reschedules — you never pay for weather',
+              '25 minutes from downtown Austin · free parking · no stairs to the boat'
+            ]
+          },
+          {
+            title: 'Essentials Package · Makes Your Party Boat Rental All-Inclusive',
+            items: [
+              'Everything in Standard, PLUS:',
+              'Coolers pre-stocked with ice',
+              '5-gallon insulated water dispenser',
+              'Solo cups + ice water',
+              '6-foot folding table for food',
+              'Vendor coordination for catering',
+              '+$100 on Day Tripper · +$150 on Meeseeks/Irony · +$200 on Clever Girl'
+            ]
+          },
+          {
+            title: 'Ultimate Package · Fully Turnkey Party Boat Rental',
+            items: [
+              'Everything in Essentials, PLUS:',
+              'Giant 6×20 ft lily pad float',
+              'Guest-of-honor float (unicorn or ring)',
+              'Disco ball cups · bubble guns · bubble wands',
+              'Champagne flutes + fruit juices (mimosa-ready)',
+              'SPF-50 spray sunscreen + plates + plasticware + paper towels',
+              'Full party atmosphere setup',
+              '+$250 on Day Tripper · +$300 on Meeseeks/Irony · +$350 on Clever Girl'
+            ]
+          },
+          {
+            title: 'Party On Delivery · Set-Up-On-Ice BYOB',
+            items: [
+              'Our sister company delivers your BYOB order straight to the boat',
+              'Cans, plastic, mixers, ice — all iced down and ready when you board',
+              'Retail prices (no marina markup) + 100% buyback on unopened bottles',
+              'Food delivery coordinated too — pizza, tacos, charcuterie, catering',
+              'The easiest way to rent a party boat without coolering anything yourself'
+            ]
+          }
+        ]
+      },
       {
         heading: 'Our Private Boat Fleet',
         paragraphs: [
@@ -2140,35 +2196,90 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
     ]
   },
   '/party-boat-austin': {
-    h1: 'Party Boat Austin | Lake Travis Cruises & Rentals',
-    introduction: 'Austin\'s premier [[party-boat-austin]] experience on Lake Travis! Choose from [[private-cruises]] or join the legendary [[atx-disco]]. Perfect for [[bachelor-party]]/[[bachelorette-party]], birthdays, [[corporate-events]], and any celebration. Professional crew, premium amenities, and unforgettable Lake Travis memories!',
+    h1: 'Austin Party Boat · Party Boat Austin TX · Lake Travis Party Boat Rentals',
+    introduction: 'Premier Party Cruises is the #1 Austin party boat and the most-booked party boat in Austin TX for 15+ years. Our Austin party boat fleet runs year-round on Lake Travis: Day Tripper (1–14 guests), Meeseeks and The Irony (15–30), and the 75-person Clever Girl flagship with 14 disco balls. Every Austin party boat charter includes a Coast Guard licensed captain, premium marine-grade Bluetooth audio, large coolers (always BYOB — Party On Delivery can pre-stock drinks + ice), and zero hidden fees. Two ways to book an Austin party boat: a [[private-cruises]] whole-boat charter (starting $200/hour, year-round, every day, any occasion) or per-person tickets on the [[atx-disco]] (Mar–Oct, Fri 12–4 / Sat 11–3 / Sat 3:30–7:30, bach-party focused). 150,000+ guests served, 0 incidents, 4.9/5.0 rating across 450+ reviews. The Austin party boat choice for [[bachelor-party]], [[bachelorette-party]], [[corporate-events]], birthday parties, weddings, graduations, and every Lake Travis celebration.',
     sections: [
       {
-        heading: 'Austin Party Boat Options',
+        heading: 'Why Premier Wins Austin Party Boat Rentals — Quantified',
         paragraphs: [
-          'Premier Party Cruises offers two amazing party boat experiences in Austin:'
+          'When you search "Austin party boat" or "party boat Austin TX" on Google, Premier Party Cruises is the most-booked, highest-rated, and longest-running answer. Here\'s why by the numbers:'
         ],
         lists: [
           {
-            title: 'ATX Disco Cruise - Time slots starting at $85',
             items: [
-              'Join the ultimate multi-group party cruise',
-              'Professional DJ and photographer included',
-              'Giant floats and disco dance floor',
-              'Perfect for bachelor/bachelorette parties',
-              'Most affordable Austin party boat option',
-              'Three time slots: Friday 12-4pm, Saturday 11am-3pm, Saturday 3:30-7:30pm'
+              '15+ years — Austin\'s longest-running party boat company (founded 2009)',
+              '150,000+ guests served across every event type on Lake Travis',
+              '0 reportable incidents — a perfect safety record',
+              '100% US Coast Guard licensed captains (Merchant Mariner Credential)',
+              '100% CPR-certified crew on every sailing',
+              '4.9 / 5.0 rating across 450+ verified reviews',
+              'Largest Austin party boat fleet: 14-person Day Tripper · 15–30 on Meeseeks or The Irony · 75-person Clever Girl flagship with 14 disco balls + giant Texas flag',
+              '25 minutes from downtown Austin — Anderson Mill Marina, free parking, no stairs to the boat',
+              'Only operator of the all-inclusive ATX Disco Cruise — the only multi-group bachelor/bachelorette party boat of its kind in the United States'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Austin Party Boat Options — Two Ways To Book',
+        paragraphs: [
+          'Premier Party Cruises offers the two most-booked Austin party boat experiences on Lake Travis. Both depart from Anderson Mill Marina. Both include a Coast Guard licensed captain, premium Bluetooth audio, coolers, and restrooms. Pick the one that matches your group.'
+        ],
+        lists: [
+          {
+            title: 'Private Austin Party Boat Rental · Starting $200/hour · Year-Round',
+            items: [
+              'Exclusive whole-boat charter — your group only',
+              'Available every day, 12 months a year (no seasonal gap)',
+              'Pick your boat by group size: Day Tripper 14 · Meeseeks/Irony 15–30 · Clever Girl 31–75',
+              'Standard amenities included · optional Essentials or Ultimate package makes it fully all-inclusive',
+              'You set the route, music, pace — Disco mode OR Chill mode',
+              'Always BYOB — Party On Delivery sets up your drinks on ice before you board',
+              'Perfect for [[corporate-events]], [[wedding-party]], birthday parties, [[bachelor-party]], [[bachelorette-party]], family reunions, and anniversaries',
+              'All ages welcome aboard (alcohol 21+ with valid ID only)'
             ]
           },
           {
-            title: 'Private Party Boat Rentals - Starting $195/hour',
+            title: 'ATX Disco Cruise Party Boat Tickets · From $85/person · Mar–Oct',
             items: [
-              'Exclusive boat just for your group',
-              'Fleet: 14, 25, or 50 person capacity',
-              'Complete customization and control',
-              'Perfect for corporate events & private parties',
-              'Professional captain and crew included',
-              'Three package levels available'
+              'Shared multi-group party cruise on the 75-person Clever Girl flagship',
+              'All-inclusive per-person ticket — nothing else to buy',
+              'Professional DJ + professional photographer for the full 4 hours',
+              '14 disco balls · disco dance floor · giant lily pad + unicorn floats at the swim stop',
+              'Per-slot pricing (same price for every guest, no gender pricing): Fri 12–4 PM $95 · Sat 11–3 PM $105 (peak) · Sat 3:30–7:30 PM $85 (sunset best-value)',
+              'Hard-capped at 90 guests per sailing — personal cooler + private bin per group, always room to dance, lounge, or swim',
+              'Tax + 20% gratuity baked into the ticket price — no hidden fees',
+              'Bachelor party and bachelorette party groups only (private charters welcome every other event type)'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Austin Party Boat vs DIY Pontoon — The Actual Math',
+        paragraphs: [
+          'Every Austin party boat search eventually compares Premier to the cheap DIY pontoon rentals on Lake Travis. Here\'s what you actually get for your money on each.'
+        ],
+        lists: [
+          {
+            title: 'DIY Pontoon Rental — What It Includes',
+            items: [
+              'Boat only: $400–$800/day depending on season',
+              'YOU drive the boat (or hire a captain separately)',
+              'YOU navigate Lake Travis coves and traffic',
+              'YOU bring your own music, speakers, coolers, ice, floats',
+              'YOU coordinate food, drinks, photos, and logistics',
+              'You spend your Austin weekend working, not celebrating'
+            ]
+          },
+          {
+            title: 'Premier Austin Party Boat Charter — Same Day, Everything Included',
+            items: [
+              'Coast Guard licensed captain drives — you don\'t touch a wheel',
+              'Premium marine Bluetooth sound system + coolers included',
+              'We know every cove on Lake Travis — you enjoy the ride',
+              'Add Essentials or Ultimate package = DJ, floats, photography, decor, champagne flutes, full party setup',
+              'All-inclusive ticket price on the Disco Cruise — DJ + photographer + floats + cooler already included',
+              'Your group focuses on the celebration, not the logistics — that\'s what people actually pay for'
             ]
           }
         ]
@@ -2246,26 +2357,47 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
     ]
   },
   '/party-boat-lake-travis': {
-    h1: 'Party Boat Lake Travis | Austin Cruises & Rentals',
-    introduction: 'Experience the ultimate [[party-boat-lake-travis]]! Premier Party Cruises offers [[private-cruises]] and the [[atx-disco]] for unforgettable celebrations. 14+ years serving Austin with perfect safety record. Book your Lake Travis party boat today!',
+    h1: 'Lake Travis Party Boat · Party Boats on Lake Travis · Premier Party Cruises',
+    introduction: 'Premier Party Cruises is the #1 Lake Travis party boat operator and the most-booked company for party boats on Lake Travis — 15+ years, 150,000+ guests, 0 incidents, 4.9/5.0 across 450+ reviews. The largest Lake Travis party boat fleet: Day Tripper (14 guests), Meeseeks and The Irony (15–30 each), and the 75-person Clever Girl flagship with 14 disco balls and a giant Texas flag. Every Lake Travis party boat charter is year-round, every day, with a Coast Guard licensed captain, premium marine Bluetooth audio, coolers (always BYOB — Party On Delivery pre-stocks with drinks + ice), and zero hidden fees. Book a [[private-cruises]] whole-boat Lake Travis party boat rental (starting $200/hour) or grab per-person tickets on the [[atx-disco]] (Mar–Oct, Fri 12–4 / Sat 11–3 / Sat 3:30–7:30 on the Clever Girl). Perfect for [[bachelor-party]], [[bachelorette-party]], [[corporate-events]], [[wedding-party]], birthdays, graduations, anniversaries, and every Lake Travis celebration.',
     sections: [
       {
-        heading: 'Lake Travis Party Boat Options',
+        heading: 'Why Premier Wins Lake Travis Party Boats — Quantified',
         paragraphs: [
-          'Choose your perfect Lake Travis party boat experience:'
+          'When people search "Lake Travis party boat" or "party boats on Lake Travis," Premier Party Cruises is the most-booked, highest-rated, and longest-running answer. The numbers explain why.'
         ],
         lists: [
           {
-            title: 'Private Lake Travis Boat Rentals',
             items: [
-              'Exclusive boat just for your group',
-              '14, 25, or 50 person capacity boats',
-              'Professional captain and crew',
-              'Premium Bluetooth sound systems',
-              'BYOB with coolers and ice',
-              'Customizable routes and activities',
-              'Perfect for private celebrations',
-              'Starting at $195/hour'
+              '15+ years on Lake Travis — longest-running party boat operator in Austin',
+              '150,000+ guests served across bach parties, corporate events, weddings, and family celebrations',
+              '0 reportable safety incidents — a perfect record',
+              '100% US Coast Guard licensed captains with Merchant Mariner Credentials',
+              '100% CPR-certified crew on every sailing',
+              '4.9 / 5.0 average rating across 450+ verified reviews',
+              'Largest fleet of party boats on Lake Travis: 14-person Day Tripper · 15–30 on Meeseeks or The Irony · 75-person Clever Girl flagship with 14 disco balls + giant Texas flag',
+              'Anderson Mill Marina departure — free parking, no stairs to the boat, 25 min from downtown Austin',
+              'Only operator of the all-inclusive ATX Disco Cruise — the only multi-group bachelor/bachelorette party boat of its kind in the U.S.',
+              'Year-round private charters — Lake Travis cruising stays comfortable most of the year'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Lake Travis Party Boat Options — Two Ways To Book',
+        paragraphs: [
+          'Every Premier Party Cruises Lake Travis party boat departs from Anderson Mill Marina. Every charter includes a Coast Guard licensed captain, premium Bluetooth audio, large coolers (always BYOB — Party On Delivery can pre-stock drinks on ice), restrooms, and shaded + sun seating.'
+        ],
+        lists: [
+          {
+            title: 'Private Lake Travis Party Boat Rental · From $200/hour · Year-Round',
+            items: [
+              'Exclusive whole-boat charter — your group only',
+              'Available every day, 12 months a year',
+              '14-person Day Tripper · 15–30 on Meeseeks or The Irony · 31–75 on flagship Clever Girl',
+              'Standard amenities included by default; add Essentials or Ultimate to make it all-inclusive',
+              'Pick the Lake Travis vibe: Disco party, sunset cruise, family swim day, corporate retreat',
+              'All ages welcome aboard (alcohol 21+ with valid ID only)',
+              'Customize the route — Devil\'s Cove, Hippie Hollow, Starnes Island, or your own plan'
             ]
           },
           {

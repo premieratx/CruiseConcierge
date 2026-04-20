@@ -4,42 +4,82 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Why Lake Travis?",
+      "name": "What is the best Lake Travis party boat?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Clear water, scenic coves, limestone cliffs, and great swimming."
+        "text": "Premier Party Cruises is the #1 Lake Travis party boat operator \u2014 15+ years on Lake Travis, 150,000+ guests served, 0 incidents, 4.9/5.0 rating across 450+ verified reviews. Largest fleet of party boats on Lake Travis: Day Tripper (14 guests), Meeseeks and The Irony (15\u201330 each), and flagship Clever Girl (31\u201375 guests) with 14 disco balls and a giant Texas flag. Only operator of the all-inclusive ATX Disco Cruise on Lake Travis, the only multi-group bachelor/bachelorette party cruise of its kind in the United States."
       }
     },
     {
       "@type": "Question",
-      "name": "Where do boats depart?",
+      "name": "How much is a party boat on Lake Travis?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Anderson Mill Marina, 13993 FM 2769, Leander, TX 78641."
+        "text": "Lake Travis party boat rental starting prices: Day Tripper (1\u201314 guests) from $200/hour, Meeseeks or The Irony (15\u201330 guests) from $225/hour, Clever Girl flagship (31\u201375 guests) from $250/hour. 4-hour minimum on weekends (Fri\u2013Sun), 3-hour minimum on weekdays (Mon\u2013Thu). Weekend rates are higher. ATX Disco Cruise per-person tickets: Friday 12\u20134 PM $95, Saturday 11 AM\u20133 PM $105 (peak), Saturday 3:30\u20137:30 PM $85 (sunset). Disco ticket prices include tax and 20% gratuity. Same price for every guest regardless of gender."
       }
     },
     {
       "@type": "Question",
-      "name": "Pricing?",
+      "name": "Where do Lake Travis party boats depart from?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Private charters from $200/hour; Disco from $85/person."
+        "text": "Anderson Mill Marina, 13993 FM 2769, Leander, TX 78641 \u2014 the closest purpose-built party-boat marina to downtown Austin, approximately 25 minutes away via 183 North. Parking is FREE, plentiful, and right next to the dock. There are NO stairs to walk down to reach the boat. Uber/Lyft from downtown runs $35\u2013$55. Easy access from Austin, Round Rock, Cedar Park, Leander, and Lakeway."
       }
     },
     {
       "@type": "Question",
-      "name": "What\u2019s included?",
+      "name": "What boats run on Lake Travis?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Captain & crew, Bluetooth sound, coolers with ice, safety gear, fuel."
+        "text": "Premier Party Cruises operates the largest Lake Travis party boat fleet. Day Tripper (1\u201314 guests) \u2014 intimate party barge for small celebrations. Meeseeks and The Irony (15\u201330 guests each) \u2014 mid-size entertainers for bachelor/bachelorette parties, corporate outings, and birthdays. Clever Girl (31\u201375 guests) \u2014 75-person flagship with 14 disco balls, giant Texas flag, LED lighting, and the largest dance floor on Lake Travis. The shared ATX Disco Cruise runs exclusively on the Clever Girl."
       }
     },
     {
       "@type": "Question",
-      "name": "Best time of year?",
+      "name": "Are party boats on Lake Travis available year-round?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Peak April\u2013September; great conditions in spring/fall too."
+        "text": "Private Lake Travis party boat charters operate year-round, every day, 12 months a year. Central Texas has mild winters so cruising stays comfortable most days. Off-peak months (November through February) offer better availability, easier booking, and a more exclusive lake experience. The seasonal window (March 1 \u2013 October 31) applies only to the shared public ATX Disco Cruise, not to private charters."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can we bring alcohol on a Lake Travis party boat?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes \u2014 every Lake Travis party boat charter and every ATX Disco Cruise ticket is BYOB. Bring your own beer, wine, seltzers, and spirits in cans or plastic containers only (no glass on any Lake Travis vessel). Large coolers are included on every boat. Our sister company Party On Delivery delivers your BYOB order straight to the boat with everything iced down and ready before you board \u2014 retail prices, 100% buyback on unopened bottles. Alcohol is 21+ with valid ID; no underage drinking ever."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's included with a Lake Travis party boat rental?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Every private Lake Travis party boat rental includes: Coast Guard licensed captain and professional crew, premium marine-grade Bluetooth audio system, large coolers (BYOB), sun + shade seating, climate-controlled restroom, full use of the boat for your group only, and customizable route on Lake Travis (Devil's Cove, Starnes Island, Hippie Hollow, or your own plan). Add the Essentials Package (+$100\u2013$200/hour depending on boat) for ice-stocked coolers + water dispenser + cups + 6-ft food table + vendor coordination. Add the Ultimate Package (+$250\u2013$350/hour) for giant lily pad + honor float + disco cups + bubble guns + champagne flutes + SPF-50 + full party setup."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's the difference between a Lake Travis party boat rental and the ATX Disco Cruise?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Lake Travis private party boat rental = exclusive whole-boat charter, year-round, any event type, you set the music and route, starting $200/hour. ATX Disco Cruise = shared multi-group party cruise on the Clever Girl flagship, per-person ticket, all-inclusive with DJ + photographer + floats included, March\u2013October only, bachelor and bachelorette groups only, three fixed time slots (Fri 12\u20134, Sat 11\u20133, Sat 3:30\u20137:30). Most corporate groups, weddings, birthdays, and families book a private charter; most bach groups book the Disco Cruise."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How far in advance should we book a Lake Travis party boat?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Lake Travis peak-season weekends (April\u2013September) book 6\u20138 weeks in advance \u2014 Saturdays fill fastest, especially for bachelor/bachelorette parties and corporate events. Weekdays and off-peak months (November\u2013February) are much easier, often available 2\u20133 weeks out. For milestone events we recommend 2\u20133 months lead time. Deposits hold your date: 25% if booking 14+ days out, 50% if within 14 days."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's your weather policy for Lake Travis party boats?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Weather is never your fault, so we never charge you for it. If the captain cancels for unsafe conditions on Lake Travis, every guest gets a FREE reschedule to any future cruise, or a full refund if preferred. If weather shortens an in-progress cruise, you receive a pro-rated refund. Standard non-weather cancellations: 48-hour full-refund window after booking; after that, your deposit applies to a reschedule within 12 months. Reschedule changes 30+ days out are always free."
       }
     }
   ]
