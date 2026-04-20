@@ -330,7 +330,9 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
     relatedPages: [
       'bachelor-party', 'bachelorette-party', 'atx-disco', 'private-cruises',
       'wedding-party', 'corporate-events', 'birthday-party', 'team-building',
-      'combined-bach', 'testimonials', 'faq', 'contact'
+      'combined-bach', 'party-boat-austin', 'party-boat-lake-travis',
+      'plan-your-trip', 'safety', 'premier-vs-austin-party-boat',
+      'testimonials', 'faq', 'contact'
     ]
   },
   '/bachelor-party-austin': {
@@ -2357,7 +2359,9 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
     relatedPages: [
       'atx-disco', 'private-cruises', 'bachelor-party', 'bachelorette-party',
       'birthday-party', 'wedding-party', 'corporate-events', 'team-building',
-      'graduation-party', 'party-boat-lake-travis', 'testimonials', 'faq', 'contact'
+      'graduation-party', 'party-boat-lake-travis',
+      'plan-your-trip', 'safety', 'premier-vs-austin-party-boat', 'premier-vs-float-on',
+      'testimonials', 'faq', 'contact'
     ]
   },
   '/party-boat-lake-travis': {
@@ -2490,7 +2494,9 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
     relatedPages: [
       'atx-disco', 'private-cruises', 'bachelor-party', 'bachelorette-party',
       'birthday-party', 'wedding-party', 'corporate-events', 'team-building',
-      'graduation-party', 'party-boat-austin', 'testimonials', 'faq', 'contact'
+      'graduation-party', 'party-boat-austin',
+      'plan-your-trip', 'safety', 'premier-vs-austin-party-boat', 'premier-vs-float-on',
+      'testimonials', 'faq', 'contact'
     ]
   },
   '/plan-your-trip': {
