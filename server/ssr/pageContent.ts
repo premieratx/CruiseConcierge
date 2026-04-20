@@ -64,7 +64,9 @@ export const LINK_CATALOG: Record<string, {url: string; text: string}> = {
   'plan-your-trip': {url: '/plan-your-trip', text: 'Plan Your Austin Party Boat Trip'},
   'safety': {url: '/safety', text: 'Premier Safety Code'},
   'best-austin-party-boat': {url: '/best-austin-party-boat', text: 'Best Austin Party Boat'},
-  'austin-bachelorette-itinerary': {url: '/austin-bachelorette-itinerary', text: 'Austin Bachelorette Weekend Itinerary'}
+  'austin-bachelorette-itinerary': {url: '/austin-bachelorette-itinerary', text: 'Austin Bachelorette Weekend Itinerary'},
+  'austin-bachelor-itinerary': {url: '/austin-bachelor-itinerary', text: 'Austin Bachelor Weekend Itinerary'},
+  'austin-party-boat-pricing-guide': {url: '/austin-party-boat-pricing-guide', text: 'Austin Party Boat Pricing Guide'}
 };
 
 export const PAGE_CONTENT: Record<string, PageContent> = {
@@ -2498,6 +2500,224 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       'birthday-party', 'wedding-party', 'corporate-events', 'team-building',
       'graduation-party', 'party-boat-austin',
       'plan-your-trip', 'safety', 'premier-vs-austin-party-boat', 'premier-vs-float-on',
+      'testimonials', 'faq', 'contact'
+    ]
+  },
+  '/austin-bachelor-itinerary': {
+    h1: 'Austin Bachelor Weekend Itinerary · 3-Day Austin Bachelor Party Plan',
+    introduction: 'The 3-day Austin bachelor weekend playbook from the operators of the only all-inclusive multi-group bachelor party cruise in the United States. Classic structure: Friday arrival + 6th Street / Rainey Street kickoff + steakhouse dinner, Saturday Lake Travis party boat anchor ([[atx-disco]] or private [[bachelor-party]] charter), Sunday brunch + BBQ pilgrimage (Franklin Barbecue, Terry Black\'s) + golf (Grey Rock, Barton Creek Resort, Spanish Oaks) or a second lake day. 3 days, 2 nights. The lake day is the anchor — what the groom talks about after the weekend. Book the Saturday party boat first (Saturday 11 AM–3 PM peak slot fills 6–8 weeks out in April–October season), then stack golf + BBQ + bars + steakhouse around it. Austin\'s bachelor scene beats Nashville (bar-only) and Vegas (pool + casino-only) because you get dedicated Lake Travis party-boat day + walkable downtown nightlife + world-class BBQ + golf in one weekend.',
+    sections: [
+      {
+        heading: 'Friday — Arrival + 6th / Rainey Kickoff + Steakhouse Dinner',
+        paragraphs: [
+          'Downtown or East Austin Airbnb for groups of 8+. Rainey / Downtown hotels (JW Marriott, Hotel Van Zandt, Austin Proper) for 4–6 guys.'
+        ],
+        lists: [
+          {
+            title: 'Friday Night Steakhouse + Sushi Picks (Book 3–4 Weeks Out)',
+            items: [
+              'Jeffrey\'s — classic Austin steakhouse',
+              'Vince Young Steakhouse — Austin-famous',
+              'Uchi — sushi omakase',
+              'Hestia — open-fire modern',
+              'Red Ash — Italian on Congress',
+              'Nickel City — cocktail bar + elevated food'
+            ]
+          },
+          {
+            title: 'Friday Night Bar Districts',
+            items: [
+              '6th Street — rowdy traditional crawl, college energy, shot bars',
+              'Rainey Street — curated cocktail bars (Container Bar, Banger\'s, Half Step, Lustre Pearl, Icenhauer\'s)',
+              'East Cesar Chavez — craft cocktails',
+              'Domain district — upscale bachelor-friendly clubs'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Saturday — Lake Travis Party Boat (The Anchor)',
+        paragraphs: [
+          'The marquee day. Lake Travis party boat is what the groom remembers and photographs. Book this first, build the weekend around it.'
+        ],
+        lists: [
+          {
+            title: 'Saturday Timing',
+            items: [
+              '9 AM — breakfast + hydrate (Easy Tiger Linden, Jo\'s Coffee, Veracruz All Natural)',
+              '10 AM — Uber XL or party bus to Anderson Mill Marina. Party bus most economical for 8+ ($600–$1,500 round trip).',
+              '11 AM – 3 PM — ATX Disco Cruise peak Saturday slot ($105/person). 4-hour cruise on 75-person Clever Girl flagship. Pro DJ, pro photographer, 14 disco balls, giant floats, personal cooler. Tax + 20% gratuity included.',
+              '3:30 – 5 PM — back to downtown. Shower, hydrate, pre-game.',
+              '7:30 PM — marquee Saturday dinner (Franklin Barbecue pre-order, Terry Black\'s, Uchi, Red Ash, Jeffrey\'s, Dai Due)',
+              '10 PM – close — closing night out (6th Street late-night, Rainey craft cocktails, Antone\'s / C-Boy\'s live music, Empire Control Room EDM, private Airbnb poker + cigars)'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Sunday — BBQ Pilgrimage + Golf + Send-off',
+        paragraphs: [
+          'Austin\'s BBQ scene is a bachelor-weekend must. Franklin Barbecue, Terry Black\'s, la Barbecue, Kemuri Tatsu-Ya. Pair with an early tee time if the group can handle it.'
+        ],
+        lists: [
+          {
+            title: 'Sunday Picks',
+            items: [
+              '9 AM — early tee time (Grey Rock Golf Club public, Barton Creek Resort championship courses, Roy Kizer public river views, Spanish Oaks private invite-only)',
+              '12 PM — BBQ pilgrimage (Franklin Barbecue 10 AM line or catering pickup, Terry Black\'s, la Barbecue, Kemuri Tatsu-Ya BBQ+Japanese, Valentina\'s Tex-Mex BBQ)',
+              '3 – 5 PM — last beer (Easy Tiger, Hops & Grain Brewing, Rainey Street rooftop) + Uber to airport (15 min from SoCo, 20 min from downtown)'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Frequently Asked Questions',
+        paragraphs: [
+          'What is the best Austin bachelor party activity? The ATX Disco Cruise on Lake Travis — the only all-inclusive multi-group bachelor party cruise in the United States. $85–$105/person, 4-hour cruise on the 75-person Clever Girl flagship with pro DJ, pro photographer, 14 disco balls.',
+          'Where should an Austin bachelor party stay? Downtown or East Austin Airbnb for groups of 8+. Rainey / Downtown hotels (JW Marriott, Hotel Van Zandt, Austin Proper) for 4–6 guys. Anderson Mill Marina is 25 min from any downtown location.',
+          'Can we do golf + lake day in one weekend? Yes — morning tee times (Grey Rock, Barton Creek, Roy Kizer) pair with Saturday lake day and Sunday BBQ without killing the weekend energy.',
+          'How much per person? Airbnb/hotel $150–$300, party boat $85–$105 (Disco) or $200–$500 (private), dinners/bars $250–$500, golf $150–$250/round, transport $50–$100. Total: $600–$1,100 per person for 3 days / 2 nights.',
+          'Is Austin better than Nashville or Vegas for bachelor parties? Austin has dedicated Lake Travis party-boat day + walkable nightlife + world-class BBQ + golf in one weekend. Nashville is bar-only, Vegas is pool + casino-only.',
+          'Combined bach weekends? Yes — both groups board the same cruise. Same per-person price. See combined bach page.'
+        ]
+      }
+    ],
+    relatedPages: [
+      'bachelor-party', 'atx-disco', 'private-cruises', 'combined-bach',
+      'bachelorette-party', 'party-boat-austin', 'party-boat-lake-travis',
+      'plan-your-trip', 'best-austin-party-boat', 'testimonials', 'faq', 'contact'
+    ]
+  },
+  '/austin-party-boat-pricing-guide': {
+    h1: 'Austin Party Boat Pricing Guide · Lake Travis Party Boat Cost · No Hidden Fees',
+    introduction: 'The transparent, fact-dense Austin party boat pricing page. Private charter starting rates at Premier Party Cruises: $200/hour on Day Tripper (1–14 guests), $225/hour on Meeseeks or The Irony (15–30 guests), $250/hour on the Clever Girl flagship (31–75 guests). 4-hour minimum on weekends (Fri–Sun), 3-hour minimum on weekdays (Mon–Thu). Weekend rates are higher. ATX Disco Cruise per-person pricing — all-inclusive with tax and 20% gratuity included in the ticket price — is $85 (Saturday 3:30–7:30 PM sunset slot, best value), $95 (Friday 12–4 PM), or $105 (Saturday 11 AM–3 PM peak slot, most popular). Same price for every guest regardless of gender. No hidden fees. Optional Essentials Package (+$100/$150/$200 by boat) or Ultimate Package (+$250/$300/$350 by boat) makes private charters fully all-inclusive. Crew fee applies for large groups on private charters (+$50/hour for 26–30 guests, +$100/hour for 51–75 guests). 25% deposit holds your date 14+ days out, 50% deposit within 14 days. Free weather reschedules — never a fee for a cancelled sailing.',
+    sections: [
+      {
+        heading: 'Private Charter Rate Card',
+        paragraphs: [
+          'Starting prices by boat. Weekend rates are higher. Every rate includes Coast Guard licensed captain + crew + fuel + premium Bluetooth audio + large coolers + restroom + safety equipment.'
+        ],
+        lists: [
+          {
+            items: [
+              'Day Tripper (1–14 guests) — from $200/hour — typical 4-hour weekday base: $800',
+              'Meeseeks (15–30 guests) — from $225/hour — typical 4-hour weekday base: $900',
+              'The Irony (15–30 guests) — from $225/hour — typical 4-hour weekday base: $900 (identical to Meeseeks)',
+              'Clever Girl flagship (31–75 guests) — from $250/hour — typical 4-hour weekday base: $1,000 + crew fee for 51–75 guests'
+            ]
+          },
+          {
+            title: 'Add-Ons',
+            items: [
+              'Essentials Package — +$100 (Day Tripper) / +$150 (Meeseeks or The Irony) / +$200 (Clever Girl)',
+              'Ultimate Package — +$250 / +$300 / +$350 by boat',
+              'Professional DJ (per party, not available for bach parties) — +$600',
+              'Professional Photographer (per party, not for bach) — +$600',
+              'Bartender Service (per party, not for bach) — +$600',
+              'A/V Package (wireless microphone, projector, screen) — +$300 per party',
+              'Lily Pad Float (6×20 ft giant) — +$50 each, max 3',
+              'Crew Fee for 26–30 guests on Meeseeks/Irony — +$50/hour',
+              'Crew Fee for 51–75 guests on Clever Girl — +$100/hour'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'ATX Disco Cruise Per-Person Tickets',
+        paragraphs: [
+          'All-inclusive per-person. Tax and 20% gratuity included in the ticket price. Same price for every guest regardless of gender. Runs March through October. Bachelor and bachelorette groups only. Hard-capped at 90 guests per sailing.'
+        ],
+        lists: [
+          {
+            items: [
+              'Saturday 3:30–7:30 PM (sunset best-value slot) — $85/person',
+              'Friday 12–4 PM — $95/person',
+              'Saturday 11 AM–3 PM (peak most-popular slot) — $105/person',
+              'Every ticket includes: 4-hour cruise on the 75-person Clever Girl flagship, professional DJ, professional photographer with digital delivery, 14 disco balls, giant lily pad + unicorn floats at the swim stop, personal cooler per group (always BYOB — cans + plastic only), climate-controlled restrooms, shaded + sun seating, marina access',
+              'Optional add-ons (flat $100 each): Mimosa Party Cooler, Sparkle Package, Bride/Groom Spotlight'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'What\'s Included vs What\'s Extra — Full Breakdown',
+        paragraphs: [
+          'Every private charter price includes the Standard amenities. Upgrade to Essentials or Ultimate to make it all-inclusive.'
+        ],
+        lists: [
+          {
+            title: 'Standard (Included on Every Private Charter)',
+            items: [
+              'Coast Guard licensed captain + professional crew',
+              'Premium marine-grade Bluetooth audio system',
+              'Large coolers (always BYOB — cans + plastic only)',
+              'Sun + shade seating zones',
+              'Climate-controlled restroom',
+              'Swim stop at a scenic Lake Travis cove',
+              'Safety briefing before sailing',
+              'Free weather reschedules'
+            ]
+          },
+          {
+            title: 'Essentials Package Adds (+$100/$150/$200 by boat)',
+            items: [
+              'Coolers pre-stocked with ice',
+              '5-gallon insulated water dispenser',
+              'Solo cups and ice water',
+              '6-foot folding table for food',
+              'Vendor coordination for catering'
+            ]
+          },
+          {
+            title: 'Ultimate Package Adds (+$250/$300/$350 by boat)',
+            items: [
+              'Everything in Essentials, PLUS:',
+              'Giant 6×20 ft lily pad float',
+              'Guest-of-honor float (unicorn or ring)',
+              'Disco ball cups · bubble guns · bubble wands',
+              'Champagne flutes + fruit juices (mimosa-ready)',
+              'SPF-50 spray sunscreen + plates + plasticware + paper towels',
+              'Full party atmosphere setup'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Deposit + Cancellation Policy',
+        paragraphs: [
+          'Transparent deposit schedule. Weather-cancelled sailings always get a FREE reschedule — weather is never your fault.'
+        ],
+        lists: [
+          {
+            items: [
+              '25% deposit if booking 14 or more days before event date; balance due 14 days before event',
+              '50% deposit if booking within 14 days of event date; balance due 3 days after booking',
+              '48-hour full-refund window after booking for non-weather cancellations',
+              'After 48 hours: deposit applies to a reschedule within 12 months',
+              'Reschedule changes 30+ days out are always free',
+              'Captain-cancelled sailings for weather: FREE reschedule or full refund — no fees, no fine print'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Frequently Asked Questions',
+        paragraphs: [
+          'How much does an Austin party boat cost? Private charter from $200/hour (Day Tripper), $225/hour (Meeseeks/Irony), $250/hour (Clever Girl). 4-hour min weekends, 3-hour min weekdays. Weekend rates higher. ATX Disco Cruise per-person: $85 sunset / $95 Friday / $105 peak Saturday, tax + 20% gratuity included.',
+          'What\'s included in the price? Every private charter: Coast Guard licensed captain + crew, premium Bluetooth audio, large coolers, sun + shade seating, restroom, safety equipment, swim stop, free weather reschedules. ATX Disco Cruise tickets are all-inclusive: pro DJ, pro photographer, 14 disco balls, floats, personal cooler, 4-hour cruise — nothing else to buy.',
+          'Are there hidden fees? No. ATX Disco Cruise prices include tax + gratuity. Private charters: 8.25% Texas sales tax applies; 20% gratuity is industry-standard and suggested (not forced). Optional add-ons (package upgrades, professional services) priced separately and clearly labeled. Crew fees apply for large groups (+$50/hr for 26–30, +$100/hr for 51–75).',
+          'Why is Premier more expensive than a cheap pontoon rental? A cheap Lake Travis pontoon rents for $400–$800/day — boat only. YOU drive, navigate, bring music, haul coolers. Premier\'s $200/hr × 4-hour minimum = $800 base on Day Tripper includes captain + crew + audio + coolers + navigation + safety + marina access. Add what a pontoon doesn\'t include and you spend more on DIY while working the whole day.',
+          'What\'s the cheapest Austin party boat option? ATX Disco Cruise Saturday 3:30–7:30 PM sunset slot at $85/person (tax + gratuity included) — best-value per-dollar Austin party boat experience. Available March–October.',
+          'How much for a bachelor/bachelorette private charter? 15–30 guests on Meeseeks/Irony: 4 hours × $225/hour = $900 base (weekday), plus optional Essentials (+$150) or Ultimate (+$300) package. Per-person cost: ~$36–$45 for boat + $0–$12 for upgrade. Same price per guest — no gender pricing.',
+          'Does Premier charge gratuity? ATX Disco Cruise tickets include 20% gratuity in the price. Private charters: 20% gratuity industry-standard and suggested, guests can adjust at end of cruise. Texas sales tax (8.25%) applies on private charters.',
+          'What payment to book? 25% deposit if 14+ days out, 50% if within 14 days. 48-hour full-refund window. Free weather reschedules always.'
+        ]
+      }
+    ],
+    relatedPages: [
+      'private-cruises', 'atx-disco', 'party-boat-austin', 'party-boat-lake-travis',
+      'bachelor-party', 'bachelorette-party', 'corporate-events',
+      'plan-your-trip', 'best-austin-party-boat', 'safety',
       'testimonials', 'faq', 'contact'
     ]
   },
@@ -9860,7 +10080,9 @@ export const RELATED_PAGES_MAP: Record<string, RelatedPagesConfig> = {
   '/plan-your-trip': GENERAL_BLOG_BACK_TO_PAGE,
   '/safety': GENERAL_BLOG_BACK_TO_PAGE,
   '/best-austin-party-boat': GENERAL_BLOG_BACK_TO_PAGE,
-  '/austin-bachelorette-itinerary': GENERAL_BLOG_BACK_TO_PAGE
+  '/austin-bachelorette-itinerary': GENERAL_BLOG_BACK_TO_PAGE,
+  '/austin-bachelor-itinerary': GENERAL_BLOG_BACK_TO_PAGE,
+  '/austin-party-boat-pricing-guide': GENERAL_BLOG_BACK_TO_PAGE
 };
 
 const PAGE_TITLE_MAP: Record<string, string> = {
@@ -9876,6 +10098,8 @@ const PAGE_TITLE_MAP: Record<string, string> = {
   '/safety': 'Premier Safety Code',
   '/best-austin-party-boat': 'Best Austin Party Boat',
   '/austin-bachelorette-itinerary': 'Austin Bachelorette Weekend Itinerary',
+  '/austin-bachelor-itinerary': 'Austin Bachelor Weekend Itinerary',
+  '/austin-party-boat-pricing-guide': 'Austin Party Boat Pricing Guide',
   
   // Corporate
   '/corporate-events': 'Corporate Events',
