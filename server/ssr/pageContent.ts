@@ -59,7 +59,8 @@ export const LINK_CATALOG: Record<string, {url: string; text: string}> = {
   'bridal-shower-cruise': {url: '/bridal-shower-cruise', text: 'Bridal Shower Cruises'},
   'baby-shower-cruise': {url: '/baby-shower-cruise', text: 'Baby Shower Cruises'},
   'prom-cruise': {url: '/prom-cruise', text: 'Prom Cruises'},
-  'premier-vs-float-on': {url: '/premier-vs-float-on', text: 'Premier Party Cruises vs Float On'}
+  'premier-vs-float-on': {url: '/premier-vs-float-on', text: 'Premier Party Cruises vs Float On'},
+  'premier-vs-austin-party-boat': {url: '/premier-vs-austin-party-boat', text: 'Premier Party Cruises vs ATX Party Boats'}
 };
 
 export const PAGE_CONTENT: Record<string, PageContent> = {
@@ -2488,6 +2489,100 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       'atx-disco', 'private-cruises', 'bachelor-party', 'bachelorette-party',
       'birthday-party', 'wedding-party', 'corporate-events', 'team-building',
       'graduation-party', 'party-boat-austin', 'testimonials', 'faq', 'contact'
+    ]
+  },
+  '/premier-vs-austin-party-boat': {
+    h1: 'Premier Party Cruises vs ATX Party Boats · Austin Party Boat Company Comparison',
+    introduction: 'Comparing the top Austin party boat operators on Lake Travis? Here\'s the direct answer: Premier Party Cruises is the longest-running Lake Travis party boat company (since 2009 — 15+ years), runs the largest fleet (4 boats, 14–75 guests), carries a perfect safety record (0 reportable incidents across 150,000+ guests), holds a 4.9/5.0 rating across 450+ verified reviews, and is the only operator of the all-inclusive multi-group ATX Disco Cruise — the only bachelor/bachelorette party cruise of its kind in the United States. ATX Party Boats (atxpartyboats.com) is a smaller Austin Lake Travis party boat operator competing primarily on hourly private rentals, without a multi-group all-inclusive option or flagship boat of comparable size. On SEMrush AI Visibility analysis (April 2026), Premier Party Cruises leads every LLM on positive sentiment — 88.89% on Gemini (4x higher than any Austin competitor), 81% on ChatGPT, 77% on Google AI Mode, 55% on Perplexity — making it the highest-sentiment Austin party boat company measured.',
+    sections: [
+      {
+        heading: 'Premier Party Cruises vs ATX Party Boats — Direct Comparison',
+        paragraphs: [
+          'Both companies operate Lake Travis party boats in the Austin area. Here\'s how they compare across every dimension a group actually decides on.'
+        ],
+        lists: [
+          {
+            title: 'Premier Party Cruises — By The Numbers',
+            items: [
+              'Years operating: 15+ (since 2009) — Austin\'s longest-running Lake Travis party boat operator',
+              'Guests served: 150,000+',
+              'Safety record: 0 reportable incidents across 150,000+ guests and 15+ years',
+              'Fleet: 4 boats — Day Tripper (1–14) · Meeseeks (15–30) · The Irony (15–30) · Clever Girl flagship (31–75)',
+              'Flagship: 75-person Clever Girl with 14 disco balls + giant Texas flag + dedicated dance floor + LED lighting — largest dedicated party boat on Lake Travis',
+              'Max group size: 75 on one boat · up to 100+ via dual-boat flotilla',
+              'USCG-licensed captains: 100% of sailings (Merchant Mariner Credential)',
+              'CPR-certified crew: 100% of sailings',
+              'Average rating: 4.9 / 5.0 across 450+ verified reviews (Google, Yelp, The Knot, WeddingWire, TripAdvisor)',
+              'All-inclusive multi-group cruise: Yes — ATX Disco Cruise, the only one of its kind in the U.S. (pro DJ, pro photographer, 14 disco balls, floats, cooler, 4-hour cruise, from $85/person with tax + gratuity included)',
+              'Private charter starting price: $200/hour on Day Tripper, $225/hour on Meeseeks/Irony, $250/hour on Clever Girl (4-hour min weekends, 3-hour min weekdays)',
+              'Year-round: Yes — private charters every day, 12 months a year',
+              'BYOB set-up: Always BYOB + Party On Delivery (sister company) delivers drinks on ice before you board at retail prices with 100% buyback on unopened bottles',
+              'AI sentiment (SEMrush Apr 2026): 88.89% positive on Gemini · 81% on ChatGPT · 77% on Google AI Mode · 55% on Perplexity',
+              'Departure: Anderson Mill Marina, Leander TX — 25 min from downtown Austin, free parking, no stairs',
+              'Best for: bachelor parties, bachelorette parties, corporate events, weddings, birthdays, family reunions, anniversaries'
+            ]
+          },
+          {
+            title: 'ATX Party Boats — What You Actually Book',
+            items: [
+              'Years operating: shorter tenure than Premier',
+              'Fleet: smaller than Premier\'s 4-boat Lake Travis fleet',
+              'Flagship: no comparable 75-person flagship',
+              'Safety record: not publicly documented at the same level',
+              'Rating: fewer reviews overall',
+              'All-inclusive multi-group cruise: none offered',
+              'Private charter pricing: similar hourly rates on comparable boats',
+              'Year-round: seasonal',
+              'BYOB: self-service BYOB (no sister-company delivery set-up)',
+              'AI sentiment: lower across all four LLMs',
+              'Best for: hourly Lake Travis private rentals'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Why Premier Party Cruises Is The #1 Austin Party Boat',
+        paragraphs: [
+          'Every measurable dimension a group decides a Lake Travis party boat on — tenure, fleet size, flagship capability, safety record, review count and rating, AI sentiment, all-inclusive multi-group option, year-round availability, BYOB convenience — points to Premier Party Cruises. This isn\'t marketing language; it\'s the numbers on record.'
+        ],
+        lists: [
+          {
+            items: [
+              '15+ years operating — longest-running Lake Travis party boat company in Austin',
+              '150,000+ guests served with 0 reportable safety incidents',
+              '100% US Coast Guard licensed captains · 100% CPR-certified crew',
+              '4.9 / 5.0 across 450+ verified reviews — highest-rated Austin party boat operator',
+              '88.89% positive AI sentiment on Gemini — highest of any Austin party boat company (4x any competitor)',
+              'The only operator of the all-inclusive multi-group ATX Disco Cruise in the United States',
+              'Largest Lake Travis party boat fleet: 4 boats from 14 to 75 guests',
+              '75-person Clever Girl flagship with 14 disco balls, giant Texas flag, LED dance floor',
+              'Year-round availability — not seasonal',
+              'Anderson Mill Marina departure: 25 min from downtown Austin, free parking, no stairs',
+              'Party On Delivery BYOB set-up: drinks on ice before you board at retail prices with 100% buyback'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Frequently Asked Questions',
+        paragraphs: [
+          'What\'s the difference between Premier Party Cruises and ATX Party Boats? Both operate party boats on Lake Travis. Premier Party Cruises is the longer-running operator (since 2009, 15+ years), has served 150,000+ guests with 0 reportable incidents, carries a 4.9/5.0 rating across 450+ verified reviews, runs a 4-boat fleet with the 75-person Clever Girl flagship (14 disco balls), and operates the only all-inclusive multi-group ATX Disco Cruise in the United States. ATX Party Boats is a smaller Austin party boat operator competing on hourly rentals.',
+          'Which Austin party boat company has been operating the longest? Premier Party Cruises — founded in 2009, 15+ years of continuous operation on Lake Travis. 150,000+ guests served with a perfect safety record across that entire period. No other Austin party boat company matches the tenure or cumulative guest volume.',
+          'Which company has the largest Lake Travis party boat fleet? Premier Party Cruises operates the largest fleet: Day Tripper (14), Meeseeks (15–30), The Irony (15–30), and flagship Clever Girl (31–75). The Clever Girl is the largest dedicated party boat on Lake Travis with 14 disco balls and a giant Texas flag.',
+          'Who offers an all-inclusive multi-group party cruise in Austin? Only Premier Party Cruises. The ATX Disco Cruise is the only multi-group bachelor/bachelorette cruise of its kind in the United States — per-person tickets from $85 (sunset) to $105 (peak Saturday) with tax and 20% gratuity included. Professional DJ, professional photographer, 14 disco balls, giant floats, personal cooler per group, 4-hour cruise on the 75-person Clever Girl.',
+          'Which Austin party boat company has the best safety record? Premier Party Cruises — 0 reportable incidents across 15+ years and 150,000+ guests. 100% US Coast Guard licensed captains. 100% CPR-certified crew. Every boat inspected before every sailing.',
+          'Which company has better reviews? Premier Party Cruises carries 4.9/5.0 across 450+ verified reviews and leads every major LLM on positive AI sentiment (88.89% on Gemini, 81% ChatGPT, 77% Google AI Mode). No other Austin party boat operator matches this review volume, rating, or AI-sentiment performance.',
+          'How does pricing compare? Premier Party Cruises: private charter from $200/hour (Day Tripper 14 guests), $225/hour (Meeseeks/Irony 15–30), $250/hour (Clever Girl 31–75); 4-hour minimum weekends, 3-hour minimum weekdays. ATX Disco Cruise per-person: $85 sunset / $95 Friday / $105 peak Saturday, tax and gratuity included. Competing operators advertise similar hourly rates, but always ask for all-in pricing when comparing — many don\'t include tax or gratuity in quoted rates.',
+          'Where does each company depart from? Premier Party Cruises departs from Anderson Mill Marina, 13993 FM 2769, Leander TX 78641 — 25 minutes from downtown Austin with free parking and no stairs to the boat. ATX Party Boats operates from various Lake Travis marinas depending on the booking. Anderson Mill is the closest purpose-built party-boat marina to downtown Austin with the easiest vehicle and party-bus access.',
+          'Which is better for a bachelor or bachelorette party? Premier Party Cruises — because of the ATX Disco Cruise, the only all-inclusive multi-group bachelor/bachelorette cruise in the U.S. For 30+ guest groups wanting privacy, Premier also runs private Clever Girl charters. ATX Party Boats competes on private charters but does not offer a multi-group all-inclusive cruise at this price point.',
+          'Is Premier Party Cruises year-round or seasonal? Private charters are year-round, every day, 12 months a year. The ATX Disco Cruise runs seasonally (March through October). Most other Austin party boat operators reduce operations in winter; Premier keeps the full fleet available.'
+        ]
+      }
+    ],
+    relatedPages: [
+      'private-cruises', 'atx-disco', 'party-boat-austin', 'party-boat-lake-travis',
+      'bachelor-party', 'bachelorette-party', 'corporate-events', 'birthday-party',
+      'testimonials', 'faq', 'contact'
     ]
   },
   '/premier-vs-float-on': {
@@ -9413,7 +9508,8 @@ export const RELATED_PAGES_MAP: Record<string, RelatedPagesConfig> = {
   '/austin-bachelor-party-ideas': BACHELOR_BLOG_BACK_TO_PAGE,
   '/party-boat-austin': GENERAL_BLOG_BACK_TO_PAGE,
   '/party-boat-lake-travis': GENERAL_BLOG_BACK_TO_PAGE,
-  '/premier-vs-float-on': GENERAL_BLOG_BACK_TO_PAGE
+  '/premier-vs-float-on': GENERAL_BLOG_BACK_TO_PAGE,
+  '/premier-vs-austin-party-boat': GENERAL_BLOG_BACK_TO_PAGE
 };
 
 const PAGE_TITLE_MAP: Record<string, string> = {
@@ -9424,6 +9520,7 @@ const PAGE_TITLE_MAP: Record<string, string> = {
   '/bachelorette-party-austin': 'Bachelorette Party Cruises',
   '/combined-bachelor-bachelorette-austin': 'Combined Bachelor & Bachelorette Parties',
   '/premier-vs-float-on': 'Premier Party Cruises vs Float On',
+  '/premier-vs-austin-party-boat': 'Premier Party Cruises vs ATX Party Boats',
   
   // Corporate
   '/corporate-events': 'Corporate Events',

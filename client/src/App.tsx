@@ -100,6 +100,7 @@ const LakeTravisBachelorPartyBoatsV2 = lazy(() => import("./pages/LakeTravisBach
 const PartyBoatAustinV2 = lazy(() => import("./pages/PartyBoatAustinV2"));
 const PartyBoatLakeTravisV2 = lazy(() => import("./pages/PartyBoatLakeTravisV2"));
 const PremierVsFloatOnV2 = lazy(() => import("./pages/PremierVsFloatOnV2"));
+const PremierVsAustinPartyBoatV2 = lazy(() => import("./pages/PremierVsAustinPartyBoatV2"));
 const FirstTimeLakeTravisBoatRentalGuideV2 = lazy(() => import("./pages/FirstTimeLakeTravisBoatRentalGuideV2"));
 const SiteDirectoryV2 = lazy(() => import("./pages/SiteDirectoryV2"));
 
@@ -553,6 +554,7 @@ function Router() {
       
       <Route path="/private-cruises" component={PrivateCruisesV2} />
       <Route path="/premier-vs-float-on" component={PremierVsFloatOnV2} />
+      <Route path="/premier-vs-austin-party-boat" component={PremierVsAustinPartyBoatV2} />
       <Route path="/corporate-events" component={CorporateV2} />
       <Route path="/birthday-parties" component={BirthdayV2} />
       <Route path="/wedding-parties" component={WeddingV2} />
