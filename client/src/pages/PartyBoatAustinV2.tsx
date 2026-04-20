@@ -75,8 +75,8 @@ export default function PartyBoatAustinV2() {
   return (
     <V2PageTemplate
       pageUrl="/party-boat-austin-v2"
-      pageTitle="Party Boat Austin | Lake Travis Party Boat Rentals from $200/hr | Premier Party Cruises"
-      pageDescription="Austin's #1 party boat rental fleet on Lake Travis. 4 boats, 14-75 guests, BYOB, USCG-certified. From $200/hour or $85/person on the ATX Disco Cruise. Book online or call (512) 488-5892."
+      pageTitle="Austin Party Boat · Party Boat Austin TX · Lake Travis Party Boat Rentals from $200/hr"
+      pageDescription="The #1 Austin party boat on Lake Travis. 4-boat fleet (14–75 guests), year-round, always BYOB (Party On Delivery sets up drinks on ice). Private charters from $200/hr or the all-inclusive ATX Disco Cruise from $85/person. 15+ years, 150,000+ guests, 0 incidents, 4.9/5. Book online or call (512) 488-5892."
       heroEyebrow="Party Boat Rentals · Austin, TX"
       heroHeadline={
         <>

@@ -74,8 +74,8 @@ export default function PartyBoatLakeTravisV2() {
   return (
     <V2PageTemplate
       pageUrl="/party-boat-lake-travis-v2"
-      pageTitle="Lake Travis Party Boat Rentals | 4 Boats, 14-75 Guests | From $200/hr"
-      pageDescription="The #1 Lake Travis party boat rental fleet. Private charters from $200/hour on 4 boats (14-75 guests). BYOB, USCG-certified captains, departing Anderson Mill Marina. Book online."
+      pageTitle="Lake Travis Party Boat · Party Boats on Lake Travis · 4 Boats, 14–75 Guests, From $200/hr"
+      pageDescription="The #1 Lake Travis party boat fleet — 4 boats (14–75 guests), year-round private charters from $200/hr, always BYOB with Party On Delivery drink set-up. USCG-certified captains, departing Anderson Mill Marina (25 min from downtown, no stairs, free parking). 15+ years, 150,000+ guests, 0 incidents."
       heroEyebrow="Party Boat Rentals · Lake Travis"
       heroHeadline={
         <>
