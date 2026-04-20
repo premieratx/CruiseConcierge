@@ -1,0 +1,54 @@
+{
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "How To Plan The Perfect Austin Bachelor Weekend",
+  "description": "Step-by-step 3-day Austin bachelor weekend itinerary centered on the Lake Travis party boat anchor. Friday kickoff + steakhouse, Saturday lake day, Sunday BBQ + golf.",
+  "totalTime": "P3D",
+  "estimatedCost": {
+    "@type": "MonetaryAmount",
+    "currency": "USD",
+    "value": "850",
+    "minValue": "600",
+    "maxValue": "1100"
+  },
+  "step": [
+    {
+      "@type": "HowToStep",
+      "position": 1,
+      "name": "Book The Lake Travis Party Boat First (6\u20138 Weeks Out)",
+      "text": "The Saturday lake day is the anchor. Book the ATX Disco Cruise Saturday peak slot ($105/person, all-inclusive) or a private Clever Girl charter (year-round, from $250/hour). Book first; stack golf + BBQ + bars + steakhouse around it.",
+      "url": "https://premierpartycruises.com/atx-disco-cruise"
+    },
+    {
+      "@type": "HowToStep",
+      "position": 2,
+      "name": "Reserve Steakhouse / Sushi Dinner + Airbnb (3\u20138 Weeks Out)",
+      "text": "Top Austin bachelor dinner picks: Jeffrey\u2019s, Vince Young Steakhouse, Uchi, Hestia, Red Ash, Nickel City. Book 3\u20134 weeks out. Airbnb or hotel downtown or East Austin for groups of 8+; Rainey / Downtown hotels for 4\u20136 guys."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 3,
+      "name": "Optional: Reserve Golf Tee Time",
+      "text": "Grey Rock Golf Club (public, 15 min from downtown), Barton Creek Resort (4 championship courses), Roy Kizer (public, river views), Spanish Oaks (private). Morning tee times pair with Saturday lake day and Sunday BBQ without killing weekend energy."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 4,
+      "name": "Friday: Arrival + 6th / Rainey Kickoff + Steakhouse Dinner",
+      "text": "Afternoon check-in, pre-game, 7 PM steakhouse or sushi dinner, 9 PM\u20132 AM 6th Street / Rainey / East Cesar Chavez / Domain crawl."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 5,
+      "name": "Saturday: Lake Travis Party Boat (The Anchor)",
+      "text": "9 AM breakfast + hydrate. 10 AM Uber XL or party bus to Anderson Mill Marina. 11 AM\u20133 PM ATX Disco Cruise peak slot. 3:30\u20135 PM back downtown. 7:30 PM marquee Saturday dinner (Franklin, Terry Black\u2019s, Uchi). 10 PM closing night out.",
+      "url": "https://premierpartycruises.com/atx-disco-cruise"
+    },
+    {
+      "@type": "HowToStep",
+      "position": 6,
+      "name": "Sunday: BBQ Pilgrimage + Golf + Send-Off",
+      "text": "9 AM optional early tee time. 12 PM BBQ pilgrimage (Franklin, Terry Black\u2019s, la Barbecue, Kemuri Tatsu-Ya, Valentina\u2019s). 3\u20135 PM last beer + Uber to airport."
+    }
+  ]
+}

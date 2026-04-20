@@ -1,0 +1,49 @@
+# Premier Party Cruises — Google Search Console disavow file
+# Generated 2026-04-20 (refresh of 2026-04-19) from SEMrush Backlinks audit + anchor-text analysis
+# Upload via: https://search.google.com/search-console/disavow-links
+#
+# Identified as suspicious based on:
+#   1. Anchor text referencing domains we don't own:
+#      - "premierpartycruises.vip" — 141 backlinks across 82 domains (not our domain)
+#      - "thepremierpartycruises.com" — 131 backlinks across 78 domains (not our domain)
+#   2. Blogspot spam patterns — 193 backlinks from a single low-quality Blogspot domain
+#   3. Common PBN / link-farm domain signatures
+#
+# REVIEW each line before submitting — remove any you know to be legitimate partners.
+# To disavow an entire domain, keep the "domain:" prefix.
+# To disavow a single URL, list the full URL without the prefix.
+
+# ====================== Blogspot spam domains ======================
+domain:manaageh.blogspot.com
+domain:geofffitzsimmonsa.blogspot.com
+domain:enzymotictroupera.blogspot.com
+
+# ====================== Domains hosting suspicious "vip" / "the" anchor variants ======================
+# These 82 + 78 domains are linking to us using anchor text referencing
+# domains we don't own (premierpartycruises.vip, thepremierpartycruises.com).
+# This pattern is characteristic of automated PBN link injection.
+#
+# ACTION NEEDED: Export the full backlink list from SEMrush
+#   (Backlinks → Referring Domains → filter by these anchor texts)
+#   and add each domain here with "domain:" prefix.
+#
+# Placeholder — replace with exported list:
+# domain:example-pbn-domain-1.com
+# domain:example-pbn-domain-2.com
+
+# ====================== Low-quality directory links ======================
+# These domains frequently appear in auto-generated link farms.
+# Review each before including — some low-quality directories are still legitimate.
+#
+# domain:fooyoh.com
+
+# ====================== Notes for future audits ======================
+# 1. partyondelivery.com (491 backlinks) — OUR SISTER COMPANY. Do NOT disavow.
+# 2. superpages.com (106 backlinks) — legitimate directory, keep.
+# 3. designnominees.com (79 backlinks) — design awards directory, typically legitimate.
+# 4. Re-audit quarterly: every 90 days re-pull SEMrush backlinks and check for new
+#    anchor-text patterns, new spam Blogspot/Wordpress.com variants, and domains with
+#    suspicious IP clustering.
+#
+# After submitting, monitor Google Search Console → Links report for 2-4 weeks.
+# The disavow doesn't remove links — it tells Google to ignore them for ranking.

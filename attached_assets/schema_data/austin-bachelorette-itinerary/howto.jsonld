@@ -1,0 +1,54 @@
+{
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "How To Plan The Perfect Austin Bachelorette Weekend",
+  "description": "Step-by-step 3-day Austin bachelorette weekend itinerary centered on the Lake Travis party boat anchor. Friday kickoff, Saturday lake day, Sunday brunch + shopping.",
+  "totalTime": "P3D",
+  "estimatedCost": {
+    "@type": "MonetaryAmount",
+    "currency": "USD",
+    "value": "700",
+    "minValue": "500",
+    "maxValue": "900"
+  },
+  "step": [
+    {
+      "@type": "HowToStep",
+      "position": 1,
+      "name": "Book The Lake Travis Party Boat First (6\u20138 Weeks Out)",
+      "text": "The Saturday lake day is the anchor event \u2014 everything else builds around it. Book the ATX Disco Cruise Saturday 11 AM\u20133 PM peak slot ($105/person, includes pro DJ, pro photographer, 14 disco balls, giant floats, personal cooler, 4-hour cruise, tax + 20% gratuity) 6\u20138 weeks in advance during peak season (April\u2013October). For combined-bach or private groups, book a private Clever Girl charter year-round from $250/hour.",
+      "url": "https://premierpartycruises.com/atx-disco-cruise"
+    },
+    {
+      "@type": "HowToStep",
+      "position": 2,
+      "name": "Book Accommodation (8\u201312 Weeks Out For Peak Weekends)",
+      "text": "Downtown, East Austin, or South Congress Airbnb for groups of 8+. Rainey / Downtown hotels (Fairmont, JW Marriott, Hotel Van Zandt, Austin Proper) for smaller groups. Avoid Leander or Cedar Park \u2014 you\u2019ll miss the downtown nightlife that anchors the weekend."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 3,
+      "name": "Reserve Saturday Night Dinner (3\u20134 Weeks Out)",
+      "text": "The marquee Saturday dinner. Top Austin bachelorette picks: Uchi (sushi omakase), Launderette, Franklin Barbecue (book far ahead or pre-order catering), Terry Black\u2019s, Emmer & Rye, Dai Due, Kemuri Tatsu-Ya."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 4,
+      "name": "Friday: Arrival + Rainey Street Bar Crawl",
+      "text": "Check in afternoon, pre-game cocktails + matching-outfit photos, dinner on Rainey or in downtown (Uchi, Perla\u2019s, Launderette, Pecan Square, Red Ash), then bar crawl on Rainey (Container Bar, Banger\u2019s, Half Step, Lustre Pearl, Icenhauer\u2019s), 6th Street, or East Cesar Chavez."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 5,
+      "name": "Saturday: Lake Travis Party Boat (The Anchor)",
+      "text": "9 AM slow breakfast + hydrate. 10 AM Uber XL or party bus to Anderson Mill Marina. 11 AM\u20133 PM ATX Disco Cruise peak slot. 3:30\u20135 PM back to downtown to shower + change. 7:30 PM Saturday marquee dinner. 10 PM\u2013close closing night out.",
+      "url": "https://premierpartycruises.com/atx-disco-cruise"
+    },
+    {
+      "@type": "HowToStep",
+      "position": 6,
+      "name": "Sunday: Brunch + South Congress Shopping + Send-Off",
+      "text": "10 AM brunch (Launderette, Easy Tiger, Sour Duck, Perla\u2019s, Cafe No Se). 12 PM South Congress shopping walk (Allens Boots, By George, Feathers, Greetings from Austin mural for the matching-outfit photo op). 3\u20135 PM last toast + Uber to airport."
+    }
+  ]
+}
