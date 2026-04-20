@@ -66,7 +66,12 @@ export const LINK_CATALOG: Record<string, {url: string; text: string}> = {
   'best-austin-party-boat': {url: '/best-austin-party-boat', text: 'Best Austin Party Boat'},
   'austin-bachelorette-itinerary': {url: '/austin-bachelorette-itinerary', text: 'Austin Bachelorette Weekend Itinerary'},
   'austin-bachelor-itinerary': {url: '/austin-bachelor-itinerary', text: 'Austin Bachelor Weekend Itinerary'},
-  'austin-party-boat-pricing-guide': {url: '/austin-party-boat-pricing-guide', text: 'Austin Party Boat Pricing Guide'}
+  'austin-party-boat-pricing-guide': {url: '/austin-party-boat-pricing-guide', text: 'Austin Party Boat Pricing Guide'},
+  'lake-travis-boat-rental-guide': {url: '/lake-travis-boat-rental-guide', text: 'Lake Travis Boat Rental Guide'},
+  'what-to-bring-on-a-party-boat': {url: '/what-to-bring-on-a-party-boat', text: 'What To Bring On An Austin Party Boat'},
+  'austin-party-bus-shuttle': {url: '/austin-party-bus-shuttle', text: 'Austin Party Bus + Shuttle To Lake Travis'},
+  'combined-bach-itinerary': {url: '/combined-bach-itinerary', text: 'Combined Bach Party Itinerary'},
+  'austin-corporate-event-guide': {url: '/austin-corporate-event-guide', text: 'Austin Corporate Event Guide'}
 };
 
 export const PAGE_CONTENT: Record<string, PageContent> = {
@@ -2586,6 +2591,238 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       'bachelor-party', 'atx-disco', 'private-cruises', 'combined-bach',
       'bachelorette-party', 'party-boat-austin', 'party-boat-lake-travis',
       'plan-your-trip', 'best-austin-party-boat', 'testimonials', 'faq', 'contact'
+    ]
+  },
+  '/lake-travis-boat-rental-guide': {
+    h1: 'Lake Travis Boat Rental Guide · Party Boat Charters · Premier Party Cruises',
+    introduction: 'The Lake Travis boat rental guide for party-focused groups. Premier Party Cruises operates the largest dedicated party-boat fleet on Lake Travis — 4 boats accommodating 14 to 75 guests — with year-round private charters starting $200/hour and the all-inclusive ATX Disco Cruise from $85/person (Mar–Oct). Unlike generic pontoon rentals where you drive yourself, every Lake Travis boat rental at Premier Party Cruises includes a Coast Guard licensed captain + crew, premium marine Bluetooth audio, large coolers (always BYOB — cans + plastic only), sun + shade seating, climate-controlled restroom, swim stop at a scenic Lake Travis cove, USCG-approved life jackets in every size, safety briefing, and free weather reschedules. Optional Essentials Package (+$100/$150/$200 by boat) pre-stocks ice + cups + food table. Optional Ultimate Package (+$250/$300/$350) adds giant lily pad + champagne flutes + decor + full party setup. 15+ years operating, 150,000+ guests served, 0 reportable incidents, 4.9/5.0 across 450+ reviews. Departs Anderson Mill Marina — 25 minutes from downtown Austin, free parking, no stairs. Our target is the party-focused subset of "Lake Travis boat rental" searches: bachelor/bachelorette parties, corporate events, weddings, birthdays, family reunions, anniversaries, and every Austin celebration that wants the celebration to come to them instead of managing logistics.',
+    sections: [
+      {
+        heading: 'Two Ways To Rent A Lake Travis Party Boat',
+        paragraphs: [
+          'Every Premier Party Cruises rental departs from Anderson Mill Marina (25 min from downtown Austin, free parking, no stairs). Pick private for privacy and control, or the Disco Cruise for multi-group energy and all-inclusive pricing.'
+        ],
+        lists: [
+          {
+            title: 'Private Lake Travis Party Boat Charter',
+            items: [
+              'Exclusive whole-boat rental, your group only',
+              'Year-round, every day, 12 months a year',
+              '14-person Day Tripper · 15–30 Meeseeks or The Irony · 31–75 Clever Girl flagship',
+              'Starting $200/hour · 4-hour min weekends · 3-hour min weekdays',
+              'Standard amenities included; add Essentials or Ultimate package for all-inclusive',
+              'Pick your route, music, pace, and vibe'
+            ]
+          },
+          {
+            title: 'ATX Disco Cruise (Per-Person All-Inclusive)',
+            items: [
+              'Shared multi-group cruise on the 75-person Clever Girl flagship',
+              'March through October only · Fri 12–4 / Sat 11–3 / Sat 3:30–7:30',
+              'Per-person tickets: $85 (sunset) / $95 (Friday) / $105 (peak Saturday)',
+              'Tax + 20% gratuity included in ticket price',
+              'All-inclusive: pro DJ + pro photographer + 14 disco balls + giant floats + personal cooler per group + 4-hour cruise',
+              'Bachelor and bachelorette groups only'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Frequently Asked Questions',
+        paragraphs: [
+          'What\'s the best Lake Travis boat rental for a party? Premier Party Cruises — largest dedicated party-boat fleet on Lake Travis, Coast Guard licensed captains, always BYOB with Party On Delivery set-up, year-round.',
+          'What\'s the difference between a party-boat rental and a regular boat rental? Regular rental = bare pontoon, you drive, you bring everything, $400–$800/day. Premier party-boat rental = captain drives, audio + coolers + safety equipment included, $200/hour with 4-hour minimum. Once you add what a DIY pontoon doesn\'t include, Premier ends up competitive or cheaper.',
+          'Can I rent a Lake Travis boat for a bach party? Yes — most-booked use case. ATX Disco Cruise $85–$105/person (March–Oct) or private charter year-round from $200/hour.',
+          'How much is a full-day Lake Travis party boat rental? Typical 8-hour Saturday on Clever Girl: $3,200+ plus tax and gratuity. Weekday rates lower.',
+          'Do I need to know how to drive a boat? No — every Premier Lake Travis rental includes a Coast Guard licensed captain who drives. You don\'t touch a wheel.'
+        ]
+      }
+    ],
+    relatedPages: [
+      'private-cruises', 'atx-disco', 'party-boat-austin', 'party-boat-lake-travis',
+      'bachelor-party', 'bachelorette-party', 'corporate-events',
+      'plan-your-trip', 'safety', 'best-austin-party-boat',
+      'austin-party-boat-pricing-guide', 'testimonials', 'faq', 'contact'
+    ]
+  },
+  '/what-to-bring-on-a-party-boat': {
+    h1: 'What To Bring On An Austin Party Boat · Lake Travis Packing List',
+    introduction: 'The complete Lake Travis party boat packing list. Essentials to bring: sunscreen SPF 50+ (Lake Travis sun is intense), sunglasses, hat, swimsuit + cover-up + towel, BYOB drinks in CANS or PLASTIC containers only (no glass allowed on any Lake Travis vessel, for safety), waterproof phone pouch, sandals or boat shoes, cash for crew tip. What we provide on every boat: Coast Guard licensed captain + crew, premium marine-grade Bluetooth audio (connect your Spotify), large coolers, USCG-approved life jackets in every adult and child size, climate-controlled restroom, sun + shade seating, swim stop at a scenic Lake Travis cove, safety briefing. What NOT to bring: glass bottles or glassware (zero-glass policy on Lake Travis), outside music systems (premium Bluetooth is built in), illegal substances, weapons, valuables you can\'t afford to lose to water, pets (service animals with documentation only). Skip the coolering entirely by ordering BYOB through our sister company Party On Delivery — drinks delivered and iced on the boat before you board, retail prices with 100% buyback on unopened bottles.',
+    sections: [
+      {
+        heading: 'Your Group Brings',
+        paragraphs: ['Pack light — we provide a lot. These are the essentials.'],
+        lists: [
+          {
+            items: [
+              'Sunscreen SPF 50+ (Lake Travis sun is intense and reflects off the water)',
+              'Sunglasses + hat',
+              'Swimsuit + cover-up + towel',
+              'BYOB drinks in CANS or PLASTIC only (no glass)',
+              'Waterproof phone pouch',
+              'Sandals or boat shoes (not heels)',
+              'Cash for crew tip (if gratuity isn\'t already included)',
+              'Celebration accessories (bride/groom sash, matching outfits, birthday candles)'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'We Provide On Every Boat',
+        paragraphs: ['Standard on every Lake Travis party boat charter and every ATX Disco Cruise ticket.'],
+        lists: [
+          {
+            items: [
+              'Coast Guard licensed captain + professional crew',
+              'Premium marine-grade Bluetooth audio system (connect your Spotify)',
+              'Large coolers',
+              'USCG-approved life jackets in every adult and child size (infant, child, youth sizes)',
+              'Type IV throwable flotation devices',
+              'Climate-controlled restroom',
+              'Sun + shade seating zones',
+              'Swim stop at a scenic Lake Travis cove',
+              'Safety briefing before sailing'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Do NOT Bring',
+        paragraphs: ['Hard rules for safety, legal compliance, and crew-level enforcement.'],
+        lists: [
+          {
+            items: [
+              'Glass bottles or glassware — zero-glass policy on all Lake Travis vessels',
+              'Illegal substances',
+              'Weapons',
+              'Outside music systems (premium Bluetooth is built into every boat)',
+              'Valuables you can\'t afford to lose to water',
+              'Pets (service animals with documentation only)',
+              'Anything flammable'
+            ]
+          }
+        ]
+      }
+    ],
+    relatedPages: [
+      'private-cruises', 'atx-disco', 'plan-your-trip', 'safety',
+      'bachelor-party', 'bachelorette-party', 'faq', 'contact'
+    ]
+  },
+  '/austin-party-bus-shuttle': {
+    h1: 'Austin Party Bus + Shuttle To Lake Travis · Anderson Mill Marina Transport',
+    introduction: 'Austin party bus and shuttle coordination for Lake Travis party boat trips. Premier Party Cruises coordinates transport from downtown Austin hotels and Airbnbs to Anderson Mill Marina with trusted party-bus operators going back 15+ years. Typical round-trip day: $600–$1,500 depending on guest count. Buses drop directly at the marina dock — flat, accessible, wedding-attire friendly, no stairs. 25 minutes from downtown Austin via 183 North. For groups of 10+, a single party bus is cleaner and more economical than 3 separate Uber XLs — one pickup window, one drop-off at the dock, and the bus becomes part of the pre-party with BYOB-friendly cabins, sound systems, and LED lighting.',
+    sections: [
+      {
+        heading: 'How Austin Party-Bus Coordination Works',
+        paragraphs: ['We don\'t own the buses (we\'re a party boat company), but we have trusted Austin party-bus operator relationships and make the intro. No middleman markup — you book the bus direct, we just connect.'],
+        lists: [
+          {
+            items: [
+              'Send us your cruise booking details + pickup address + guest count',
+              'We connect you with 2–3 Austin party-bus operators we\'ve worked with for 15+ years',
+              'You book direct with the operator — no middleman markup from us',
+              'Round-trip pricing: $600–$1,000 for 10–20 pax, $1,000–$1,500 for 20–40 pax (coach-bus tier)',
+              'Includes driver, insurance, 4–6 hours of service covering drop-off + wait + pickup',
+              'Tips customary at 15–20% of fare',
+              'Buses drop directly at Anderson Mill Marina dock — flat, wedding-attire friendly'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Frequently Asked Questions',
+        paragraphs: [
+          'Do Austin party boats provide shuttle service? Premier Party Cruises coordinates with trusted party-bus operators. We don\'t own buses but make the intro — you book direct.',
+          'How much does a party bus to Lake Travis cost? $600–$1,500 round-trip depending on guest count and bus size.',
+          'Can Uber/Lyft handle a group of 10+? XL handles 5–6 max per vehicle — so 10+ requires 2–3 vehicles with coordination headaches. Party bus is usually the better call.',
+          'Does Anderson Mill Marina accommodate party buses? Yes — dedicated drop-off zone directly at the dock. Party buses, coach buses, limos, sprinter vans all fit.',
+          'Can we BYOB on the party bus? Depends on the operator — some allow, some don\'t. We connect with BYOB-friendly operators.',
+          'How long is the ride? 25 minutes from downtown via 183 North (about 20 miles).'
+        ]
+      }
+    ],
+    relatedPages: [
+      'plan-your-trip', 'private-cruises', 'atx-disco', 'bachelor-party',
+      'bachelorette-party', 'corporate-events', 'wedding-party', 'faq', 'contact'
+    ]
+  },
+  '/combined-bach-itinerary': {
+    h1: 'Combined Bachelor Bachelorette Party Austin · Combined Bach Weekend Itinerary',
+    introduction: 'The Austin combined bachelor + bachelorette party playbook. Combined bach weekends are the fastest-growing bach-weekend format in Austin — especially for couples with overlapping friend groups, younger couples, destination-wedding couples, and couples who want one weekend instead of two. Premier Party Cruises is the most-booked Austin operator for combined bach because the ATX Disco Cruise is built for multi-group celebration. Both crews board the same sailing (or a private Clever Girl charter for groups of 30–75), creating more energy than either could alone. Same $85–$105 per-person pricing on the Disco (tax + gratuity included), or starting $250/hour on private Clever Girl. Structure: Friday split mornings (golf + spa or bar crawl), lunch reunion, Friday dinner together, Saturday lake-day anchor together (the marquee event), Saturday night dinner together, Sunday BBQ + brunch together, split Sunday afternoon for recovery. Usually cheaper per person than two separate weekends.',
+    sections: [
+      {
+        heading: 'Should You Book Private Or The ATX Disco Cruise?',
+        paragraphs: ['Depends on combined group size. Both work for combined bach; pick on privacy vs. energy vs. headcount.'],
+        lists: [
+          {
+            items: [
+              'Combined group under 30 → ATX Disco Cruise (multi-group energy + DJ + photographer included, $85–$105/person, Mar–Oct only)',
+              'Combined group 30–50 → private Meeseeks + Irony flotilla or private Clever Girl',
+              'Combined group 50–75 → private Clever Girl flagship (whole boat for your crew, $250/hour starting)',
+              'Combined group 75+ → dual-boat charter (Clever Girl + Meeseeks, 100+ pax)'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Frequently Asked Questions',
+        paragraphs: [
+          'What is a combined bachelor bachelorette party? When bride\'s bachelorette group and groom\'s bachelor group celebrate together as one crew instead of splitting up. Fastest-growing bach format.',
+          'Can bach and bachelorette groups share an ATX Disco Cruise? Yes — every Disco sailing is multi-group by design. Combined bach couples join as one crew on the 75-person flagship.',
+          'Should we book private or Disco? Under 30: Disco. 30–75: private Clever Girl charter. 75+: dual-boat flotilla.',
+          'How do we split up activities? Anchor events together (Saturday lake day, Saturday night dinner), split for gendered activities (golf + spa Friday AM) then reunite.',
+          'Is it weird? Not anymore — established format, especially for couples with overlapping friend groups and destination-wedding couples.',
+          'Cost per person? $550–$1,200 for 3 days / 2 nights. Often cheaper than two separate weekends.'
+        ]
+      }
+    ],
+    relatedPages: [
+      'combined-bach', 'bachelor-party', 'bachelorette-party', 'atx-disco',
+      'private-cruises', 'austin-bachelor-itinerary', 'austin-bachelorette-itinerary',
+      'party-boat-austin', 'plan-your-trip', 'faq', 'contact'
+    ]
+  },
+  '/austin-corporate-event-guide': {
+    h1: 'Austin Corporate Event Guide · Lake Travis Team Building + Client Entertainment',
+    introduction: 'The complete Austin corporate event guide for Lake Travis team building, client entertainment, company milestones, holiday parties, employee appreciation days, executive offsites, and board dinners. Premier Party Cruises is the #1 Austin corporate event party boat on Lake Travis — 15+ years, 150,000+ guests, 0 reportable incidents, 4.9/5.0 rating across 450+ reviews. Fleet accommodates 14–75 guests across four boats; year-round private charters starting $200/hour. Every corporate charter includes a Coast Guard licensed captain + crew, premium marine Bluetooth audio with optional wireless microphone + A/V package (+$300), Anderson Mill Marina with free parking 25 minutes from downtown Austin, catering coordination with Austin\'s top caterers (Eastside Café, Franklin BBQ catering, Sterling Affairs, Austin Catering, Kemuri Tatsu-Ya), Party On Delivery drink set-up, certificate-of-insurance documentation on request, PO + vendor-onboarding friendly, and free weather reschedules so your company calendar never absorbs weather risk. Transparent all-in pricing: tax, gratuity, captain, fuel, audio all included or clearly itemized. Corporate-paid team building, client entertainment, and employee appreciation events are generally deductible business expenses; we provide full business invoices suitable for expense reports.',
+    sections: [
+      {
+        heading: 'Corporate Event Types We Host',
+        paragraphs: ['Both quiet-mode (executive retreat with background music + catering) and high-energy (holiday party with DJ) formats work on the same fleet.'],
+        lists: [
+          {
+            items: [
+              'Team building (communication exercises, ice-breakers, relax-together)',
+              'Client entertainment (VIP client days, deal-close celebrations, prospect dinners)',
+              'Company milestones (anniversaries, IPOs, funding rounds, product launches)',
+              'Holiday parties (Christmas, NYE, July 4 fireworks — Lake Travis is the best CTX viewing spot)',
+              'Employee appreciation days',
+              'Executive offsites + retreats',
+              'Board dinners',
+              'Incentive trips',
+              'Year-end celebrations'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Frequently Asked Questions',
+        paragraphs: [
+          'What\'s the best Austin corporate event venue on Lake Travis? Premier Party Cruises — 15+ years, 150K+ guests, 0 incidents, 4.9/5.0, USCG-licensed captains, A/V-capable.',
+          'How do I plan a corporate team-building day? Pick date + headcount → match to boat (Day Tripper 14, Meeseeks/Irony 15–30, Clever Girl 31–75) → pick package level → coordinate catering + transport.',
+          'Can we do presentations? Yes — premium Bluetooth audio doubles as presentation system. Optional wireless mic + A/V package (+$300). Pre-cruise briefing space available at marina.',
+          'What does a corporate cruise cost? From $200/hour Day Tripper, $225 Meeseeks/Irony, $250 Clever Girl. Typical weekday 3-hour afternoon for 25 guests on Meeseeks: ~$1,125 + tax.',
+          'Tax-deductible? Generally yes (consult CFO/tax advisor). We provide full business invoices suitable for expense reports + PO-friendly vendor onboarding.',
+          'Can we have catering? Yes — we coordinate with Austin\'s top caterers. Essentials Package includes 6-ft food table + vendor coordination. Ultimate adds full setup.',
+          'Is it safe for corporate groups? 0 reportable incidents across 15+ years and 150K+ guests. 100% USCG-licensed captains. Certificate of insurance on request. See /safety for the Premier Safety Code.'
+        ]
+      }
+    ],
+    relatedPages: [
+      'corporate-events', 'team-building', 'client-entertainment', 'company-milestone',
+      'holiday-party-cruise', 'private-cruises', 'safety', 'plan-your-trip',
+      'best-austin-party-boat', 'austin-party-boat-pricing-guide', 'faq', 'contact'
     ]
   },
   '/austin-party-boat-pricing-guide': {
@@ -10082,7 +10319,12 @@ export const RELATED_PAGES_MAP: Record<string, RelatedPagesConfig> = {
   '/best-austin-party-boat': GENERAL_BLOG_BACK_TO_PAGE,
   '/austin-bachelorette-itinerary': GENERAL_BLOG_BACK_TO_PAGE,
   '/austin-bachelor-itinerary': GENERAL_BLOG_BACK_TO_PAGE,
-  '/austin-party-boat-pricing-guide': GENERAL_BLOG_BACK_TO_PAGE
+  '/austin-party-boat-pricing-guide': GENERAL_BLOG_BACK_TO_PAGE,
+  '/lake-travis-boat-rental-guide': GENERAL_BLOG_BACK_TO_PAGE,
+  '/what-to-bring-on-a-party-boat': GENERAL_BLOG_BACK_TO_PAGE,
+  '/austin-party-bus-shuttle': GENERAL_BLOG_BACK_TO_PAGE,
+  '/combined-bach-itinerary': GENERAL_BLOG_BACK_TO_PAGE,
+  '/austin-corporate-event-guide': GENERAL_BLOG_BACK_TO_PAGE
 };
 
 const PAGE_TITLE_MAP: Record<string, string> = {
@@ -10100,6 +10342,11 @@ const PAGE_TITLE_MAP: Record<string, string> = {
   '/austin-bachelorette-itinerary': 'Austin Bachelorette Weekend Itinerary',
   '/austin-bachelor-itinerary': 'Austin Bachelor Weekend Itinerary',
   '/austin-party-boat-pricing-guide': 'Austin Party Boat Pricing Guide',
+  '/lake-travis-boat-rental-guide': 'Lake Travis Boat Rental Guide',
+  '/what-to-bring-on-a-party-boat': 'What To Bring On An Austin Party Boat',
+  '/austin-party-bus-shuttle': 'Austin Party Bus + Shuttle',
+  '/combined-bach-itinerary': 'Combined Bach Weekend Itinerary',
+  '/austin-corporate-event-guide': 'Austin Corporate Event Guide',
   
   // Corporate
   '/corporate-events': 'Corporate Events',

@@ -107,6 +107,11 @@ const BestAustinPartyBoatV2 = lazy(() => import("./pages/BestAustinPartyBoatV2")
 const AustinBacheloretteItineraryV2 = lazy(() => import("./pages/AustinBacheloretteItineraryV2"));
 const AustinBachelorItineraryV2 = lazy(() => import("./pages/AustinBachelorItineraryV2"));
 const PartyBoatPricingGuideV2 = lazy(() => import("./pages/PartyBoatPricingGuideV2"));
+const LakeTravisBoatRentalGuideV2 = lazy(() => import("./pages/LakeTravisBoatRentalGuideV2"));
+const WhatToBringPartyBoatV2 = lazy(() => import("./pages/WhatToBringPartyBoatV2"));
+const PartyBusShuttleV2 = lazy(() => import("./pages/PartyBusShuttleV2"));
+const CombinedBachItineraryV2 = lazy(() => import("./pages/CombinedBachItineraryV2"));
+const AustinCorporateEventGuideV2 = lazy(() => import("./pages/AustinCorporateEventGuideV2"));
 const FirstTimeLakeTravisBoatRentalGuideV2 = lazy(() => import("./pages/FirstTimeLakeTravisBoatRentalGuideV2"));
 const SiteDirectoryV2 = lazy(() => import("./pages/SiteDirectoryV2"));
 
@@ -567,6 +572,11 @@ function Router() {
       <Route path="/austin-bachelorette-itinerary" component={AustinBacheloretteItineraryV2} />
       <Route path="/austin-bachelor-itinerary" component={AustinBachelorItineraryV2} />
       <Route path="/austin-party-boat-pricing-guide" component={PartyBoatPricingGuideV2} />
+      <Route path="/lake-travis-boat-rental-guide" component={LakeTravisBoatRentalGuideV2} />
+      <Route path="/what-to-bring-on-a-party-boat" component={WhatToBringPartyBoatV2} />
+      <Route path="/austin-party-bus-shuttle" component={PartyBusShuttleV2} />
+      <Route path="/combined-bach-itinerary" component={CombinedBachItineraryV2} />
+      <Route path="/austin-corporate-event-guide" component={AustinCorporateEventGuideV2} />
       <Route path="/corporate-events" component={CorporateV2} />
       <Route path="/birthday-parties" component={BirthdayV2} />
       <Route path="/wedding-parties" component={WeddingV2} />

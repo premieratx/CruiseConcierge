@@ -88,6 +88,11 @@ async function main() {
     '/austin-bachelorette-itinerary',
     '/austin-bachelor-itinerary',
     '/austin-party-boat-pricing-guide',
+    '/lake-travis-boat-rental-guide',
+    '/what-to-bring-on-a-party-boat',
+    '/austin-party-bus-shuttle',
+    '/combined-bach-itinerary',
+    '/austin-corporate-event-guide',
   ];
   const host = CANONICAL_HOST.replace(/\/$/, '');
   const today = new Date().toISOString().slice(0, 10);
