@@ -39,6 +39,279 @@ const HP2_STYLES = `
   font-weight: 400;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+  transition: background-color 240ms ease, color 240ms ease;
+}
+
+/* ──────────────────────────────────────────────────────────────
+   LIGHT FESTIVE THEME (.hp2-light on .hp2-page root)
+   Bright logo blue as the primary color, yellow+gold as accent
+   pops, white/cream body. Daytime-boat-party energy. High contrast.
+   ────────────────────────────────────────────────────────────── */
+.hp2-page.hp2-light {
+  /* Surfaces */
+  --hp2-bg-0: #FFFFFF;
+  --hp2-bg-1: #F7FAFE;         /* faint blue-tinted cream band */
+  --hp2-bg-2: #EAF2FB;         /* stronger blue-tinted band */
+  --hp2-bg-card: #FFFFFF;
+  /* Primary = logo bright blue */
+  --hp2-logo-blue: #1E6EC5;    /* bright, saturated — festive */
+  --hp2-logo-blue-deep: #0E4B8F;  /* used for text-on-yellow */
+  --hp2-logo-blue-soft: #D9E8F8;
+  --hp2-logo-blue-band: #0E4B8F;  /* hero / cta band bg */
+  /* Accent = logo yellow + classic gold */
+  --hp2-logo-yellow: #F7C948;    /* sunlit yellow */
+  --hp2-logo-yellow-soft: #FFE8A3;
+  --hp2-gold: #B8914E;           /* kept continuity */
+  --hp2-gold-light: #D7B275;
+  --hp2-gold-pale: #EFDDB5;
+  --hp2-gold-dim: rgba(184,145,78,0.14);
+  --hp2-gold-dim2: rgba(247,201,72,0.28);  /* yellow-tinted divider */
+  /* Text — near-black for maximum contrast */
+  --hp2-cream: #0A0A12;
+  --hp2-cream-muted: #3E3E52;
+  --hp2-ltext: #0A0A12;
+  --hp2-text-muted: #54546A;
+  --hp2-border: rgba(30, 110, 197, 0.18);
+  --hp2-border-sub: rgba(10, 10, 18, 0.08);
+}
+
+/* Hero video overlay — light, bright, so the drone footage pops */
+.hp2-page.hp2-light .hp2-hero__video-overlay {
+  background: linear-gradient(135deg,
+    rgba(14, 75, 143, 0.35) 0%,
+    rgba(30, 110, 197, 0.25) 40%,
+    rgba(247, 201, 72, 0.15) 100%) !important;
+}
+
+/* Headings: near-black for max contrast on white */
+.hp2-page.hp2-light h1,
+.hp2-page.hp2-light h2,
+.hp2-page.hp2-light h3,
+.hp2-page.hp2-light h4,
+.hp2-page.hp2-light h5 {
+  color: var(--hp2-ltext) !important;
+}
+
+/* Italicized em inside headings gets the logo BLUE (primary) —
+ * not gold — so the brand color leads. */
+.hp2-page.hp2-light h1 em,
+.hp2-page.hp2-light h2 em,
+.hp2-page.hp2-light h3 em {
+  color: var(--hp2-logo-blue) !important;
+  font-style: italic;
+}
+
+/* Primary CTA = bright blue filled with white text (high contrast).
+ * Secondary CTA = yellow filled with deep-blue text (festive accent). */
+.hp2-page.hp2-light a[class*="btn-primary"],
+.hp2-page.hp2-light button[class*="btn-primary"],
+.hp2-page.hp2-light .hp2-cta-primary,
+.hp2-page.hp2-light .hp2-btn-filled {
+  background: var(--hp2-logo-blue) !important;
+  color: #ffffff !important;
+  border: 1px solid var(--hp2-logo-blue) !important;
+  font-weight: 700 !important;
+  box-shadow: 0 6px 18px rgba(30, 110, 197, 0.32) !important;
+}
+.hp2-page.hp2-light a[class*="btn-primary"]:hover,
+.hp2-page.hp2-light button[class*="btn-primary"]:hover,
+.hp2-page.hp2-light .hp2-cta-primary:hover,
+.hp2-page.hp2-light .hp2-btn-filled:hover {
+  background: var(--hp2-logo-blue-deep) !important;
+  transform: translateY(-1px);
+}
+
+/* Yellow accent pill — used for "Book in next 10 days" style callouts */
+.hp2-page.hp2-light a[class*="btn-accent"],
+.hp2-page.hp2-light button[class*="btn-accent"],
+.hp2-page.hp2-light .hp2-cta-accent {
+  background: var(--hp2-logo-yellow) !important;
+  color: var(--hp2-logo-blue-deep) !important;
+  border: 1px solid #E8B52E !important;
+  font-weight: 700 !important;
+  box-shadow: 0 6px 18px rgba(247, 201, 72, 0.38) !important;
+}
+
+/* Body text: dark on light */
+.hp2-page.hp2-light p,
+.hp2-page.hp2-light li,
+.hp2-page.hp2-light span {
+  color: var(--hp2-ltext);
+}
+
+/* "Cream muted" wherever it was used on dark theme → slate-muted on light */
+.hp2-page.hp2-light [style*="var(--hp2-cream-muted)"],
+.hp2-page.hp2-light [style*="--hp2-cream-muted"] {
+  color: var(--hp2-text-muted) !important;
+}
+
+/* Nav / top chrome: crisp white with thin blue hairline */
+.hp2-page.hp2-light nav,
+.hp2-page.hp2-light header {
+  background-color: rgba(255, 255, 255, 0.96) !important;
+  border-bottom: 1px solid var(--hp2-border) !important;
+  backdrop-filter: blur(14px);
+}
+
+/* Top "Request a Quote" marquee bar: flip from dark → yellow */
+.hp2-page.hp2-light .hp2-marquee,
+.hp2-page.hp2-light [class*="marquee"],
+.hp2-page.hp2-light [class*="announcement-bar"] {
+  background: var(--hp2-logo-yellow) !important;
+  color: var(--hp2-logo-blue-deep) !important;
+  border-bottom: 1px solid rgba(14, 75, 143, 0.2) !important;
+}
+
+/* Sectioned bands — alternate white / pale-blue for visual rhythm */
+.hp2-page.hp2-light section {
+  background-color: var(--hp2-bg-0) !important;
+}
+.hp2-page.hp2-light section:nth-of-type(even) {
+  background-color: var(--hp2-bg-1) !important;
+}
+
+/* Any existing bg-1 / bg-2 inline style wins — preserve intent */
+.hp2-page.hp2-light [style*="--hp2-bg-1"],
+.hp2-page.hp2-light [style*="--hp2-bg-2"] {
+  background-color: transparent !important;
+}
+
+/* "Hero CTA band" — the section with primary blue background */
+.hp2-page.hp2-light .hp2-cta-band,
+.hp2-page.hp2-light [class*="cta-band"] {
+  background: linear-gradient(135deg, var(--hp2-logo-blue) 0%, var(--hp2-logo-blue-deep) 100%) !important;
+  color: #ffffff !important;
+}
+.hp2-page.hp2-light .hp2-cta-band h2,
+.hp2-page.hp2-light [class*="cta-band"] h2,
+.hp2-page.hp2-light .hp2-cta-band h3,
+.hp2-page.hp2-light .hp2-cta-band p {
+  color: #ffffff !important;
+}
+.hp2-page.hp2-light .hp2-cta-band em {
+  color: var(--hp2-logo-yellow) !important;
+}
+
+/* Stat chips: deep-blue text on yellow bg (festive) */
+.hp2-page.hp2-light .hp2-stat-chip,
+.hp2-page.hp2-light [class*="stat-chip"],
+.hp2-page.hp2-light [class*="badge"]:not([class*="destructive"]) {
+  background: var(--hp2-logo-yellow) !important;
+  color: var(--hp2-logo-blue-deep) !important;
+  border: 1px solid #E8B52E !important;
+  font-weight: 700 !important;
+}
+
+/* Cards — crisp white w/ blue-tinted hairline + warm gold shadow */
+.hp2-page.hp2-light [class*="hp2-card"],
+.hp2-page.hp2-light section article,
+.hp2-page.hp2-light [class*="card"] {
+  background-color: #ffffff !important;
+  border: 1px solid var(--hp2-border) !important;
+  box-shadow: 0 8px 24px rgba(14, 75, 143, 0.08) !important;
+}
+
+/* Hover lift on cards */
+.hp2-page.hp2-light [class*="hp2-card"]:hover,
+.hp2-page.hp2-light section article:hover {
+  border-color: var(--hp2-logo-blue) !important;
+  box-shadow: 0 14px 30px rgba(30, 110, 197, 0.18) !important;
+  transform: translateY(-2px);
+}
+
+/* Links — bright blue with yellow underline on hover */
+.hp2-page.hp2-light a:not([class]):not([class*="btn"]) {
+  color: var(--hp2-logo-blue);
+  text-decoration: underline;
+  text-decoration-color: var(--hp2-logo-yellow);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
+/* Eyebrow / small caps labels — yellow on deep-blue for festive pop */
+.hp2-page.hp2-light [class*="eyebrow"],
+.hp2-page.hp2-light [style*="letter-spacing: 0.25em"] {
+  color: var(--hp2-logo-blue-deep) !important;
+}
+
+/* Dividers: yellow hairline for accent pops */
+.hp2-page.hp2-light hr,
+.hp2-page.hp2-light [class*="divider"] {
+  border-color: var(--hp2-logo-yellow) !important;
+  border-top-width: 2px;
+}
+
+/* Icon accents within cards — swap gold icons to bright blue */
+.hp2-page.hp2-light svg[class*="text-gold"],
+.hp2-page.hp2-light [style*="color: var(--hp2-gold)"] svg {
+  color: var(--hp2-logo-blue) !important;
+}
+
+/* Footer — keep high-contrast but with brand blue backdrop */
+.hp2-page.hp2-light footer {
+  background-color: var(--hp2-logo-blue-deep) !important;
+  color: #ffffff !important;
+  border-top: 4px solid var(--hp2-logo-yellow);
+}
+.hp2-page.hp2-light footer * {
+  color: #ffffff !important;
+}
+.hp2-page.hp2-light footer a:hover {
+  color: var(--hp2-logo-yellow) !important;
+}
+
+/* ──────────────────────────────────────────────────────────────
+   THEME TOGGLE — floating pill, top-right. Dark ↔ Light.
+   ────────────────────────────────────────────────────────────── */
+.hp2-theme-toggle {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 9999;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 1rem;
+  background: rgba(26, 26, 40, 0.85);
+  border: 1px solid var(--hp2-gold);
+  border-radius: 999px;
+  color: var(--hp2-gold);
+  font-family: var(--hp2-font-body);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  transition: all 200ms ease;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+}
+
+.hp2-theme-toggle:hover {
+  background: rgba(200, 169, 110, 0.95);
+  color: #1A1A26;
+  transform: translateY(-1px);
+}
+
+.hp2-page.hp2-light .hp2-theme-toggle {
+  background: var(--hp2-logo-blue);
+  color: #ffffff;
+  border-color: var(--hp2-logo-blue-deep);
+  box-shadow: 0 6px 18px rgba(30, 110, 197, 0.35);
+}
+
+.hp2-page.hp2-light .hp2-theme-toggle:hover {
+  background: var(--hp2-logo-yellow);
+  color: var(--hp2-logo-blue-deep);
+  border-color: #E8B52E;
+}
+
+.hp2-theme-toggle__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 6px currentColor;
 }
 
 /* ─── Hero ─────────────────────────────────────────────────────── */
@@ -1082,6 +1355,18 @@ export default function HomeNew() {
   const { openQuote } = useQuoteLightbox();
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [openDetails, setOpenDetails] = useState<string | null>(null);
+  // Theme toggle — dark (default) vs. light festive daytime theme.
+  // Persists across page reloads via localStorage.
+  const [theme, setTheme] = useState<'dark' | 'light'>(() => {
+    if (typeof window === 'undefined') return 'dark';
+    const saved = window.localStorage.getItem('ppc-home-theme');
+    return saved === 'light' ? 'light' : 'dark';
+  });
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      window.localStorage.setItem('ppc-home-theme', theme);
+    }
+  }, [theme]);
 
   const toggleFaq = (index: number) => {
     setOpenFaq(openFaq === index ? null : index);
@@ -1092,8 +1377,18 @@ export default function HomeNew() {
   };
 
   return (
-    <div className="hp2-page">
+    <div className={`hp2-page ${theme === 'light' ? 'hp2-light' : ''}`}>
       <style dangerouslySetInnerHTML={{ __html: HP2_STYLES }} />
+      <button
+        type="button"
+        className="hp2-theme-toggle"
+        onClick={() => setTheme((t) => (t === 'light' ? 'dark' : 'light'))}
+        aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} theme`}
+        data-testid="theme-toggle"
+      >
+        <span className="hp2-theme-toggle__dot" />
+        {theme === 'light' ? 'Dark Mode' : 'Light Mode'}
+      </button>
       <PublicNavigation />
 
       {/* ─── SEO: JSON-LD Structured Data ─── */}
