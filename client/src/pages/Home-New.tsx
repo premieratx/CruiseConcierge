@@ -75,12 +75,37 @@ const HP2_STYLES = `
   --hp2-border-sub: rgba(10, 10, 18, 0.08);
 }
 
-/* Hero video overlay — light, bright, so the drone footage pops */
+/* Hero video overlay — bright/festive so drone footage pops and text
+ * stays readable in white. Lighter gradient than dark mode. */
 .hp2-page.hp2-light .hp2-hero__video-overlay {
   background: linear-gradient(135deg,
-    rgba(14, 75, 143, 0.35) 0%,
-    rgba(30, 110, 197, 0.25) 40%,
-    rgba(247, 201, 72, 0.15) 100%) !important;
+    rgba(253, 250, 242, 0.2) 0%,
+    rgba(30, 110, 197, 0.18) 50%,
+    rgba(247, 201, 72, 0.22) 100%) !important;
+}
+
+/* Hero text in light mode: white with blue-black shadow for legibility
+ * over the drone video */
+.hp2-page.hp2-light .hp2-hero h1,
+.hp2-page.hp2-light .hp2-hero .hp2-hero__headline,
+.hp2-page.hp2-light .hp2-hero p {
+  color: #ffffff !important;
+  text-shadow: 0 2px 16px rgba(14, 75, 143, 0.55),
+    0 1px 3px rgba(0, 0, 0, 0.4) !important;
+}
+
+.hp2-page.hp2-light .hp2-hero h1 em {
+  color: var(--hp2-logo-yellow) !important;
+  text-shadow: 0 2px 20px rgba(14, 75, 143, 0.7),
+    0 1px 3px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Hero eyebrow (PREMIER PARTY CRUISES · LAKE TRAVIS SINCE 2009) —
+ * yellow on blue backdrop */
+.hp2-page.hp2-light .hp2-hero [class*="eyebrow"],
+.hp2-page.hp2-light .hp2-hero [style*="letter-spacing: 0.25em"] {
+  color: var(--hp2-logo-yellow) !important;
+  text-shadow: 0 2px 12px rgba(14, 75, 143, 0.55) !important;
 }
 
 /* Headings: near-black for max contrast on white */
@@ -153,6 +178,67 @@ const HP2_STYLES = `
   backdrop-filter: blur(14px);
 }
 
+/* ─── Nav links (lux-nav-link): bigger, black, blue + underline when active ─── */
+.hp2-page.hp2-light .lux-nav-link {
+  font-size: 0.98rem !important;
+  font-weight: 600 !important;
+  color: var(--hp2-ltext) !important;
+  letter-spacing: 0.04em !important;
+  text-transform: uppercase;
+}
+
+.hp2-page.hp2-light .lux-nav-link:hover {
+  color: var(--hp2-logo-blue) !important;
+}
+
+.hp2-page.hp2-light .lux-nav-link.active {
+  color: var(--hp2-logo-blue) !important;
+  text-decoration: underline;
+  text-decoration-color: var(--hp2-logo-blue);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 6px;
+}
+
+.hp2-page.hp2-light .lux-nav-link.active::after {
+  background: var(--hp2-logo-blue) !important;
+  width: calc(100% - 1.8rem) !important;
+  height: 2px !important;
+}
+
+.hp2-page.hp2-light .lux-nav-link:hover::after {
+  background: var(--hp2-logo-blue) !important;
+}
+
+/* Brand word mark: near-black with blue italic em */
+.hp2-page.hp2-light .lux-nav-brand-name {
+  color: var(--hp2-ltext) !important;
+}
+.hp2-page.hp2-light .lux-nav-brand-name em {
+  color: var(--hp2-logo-blue) !important;
+}
+.hp2-page.hp2-light .lux-nav-brand-sub {
+  color: var(--hp2-text-muted) !important;
+}
+
+/* Promo banner at very top: sunlit yellow bg with deep-blue text */
+.hp2-page.hp2-light .lux-promo-banner {
+  background: var(--hp2-logo-yellow) !important;
+  color: var(--hp2-logo-blue-deep) !important;
+  border-bottom: 1px solid rgba(14, 75, 143, 0.18) !important;
+}
+.hp2-page.hp2-light .lux-promo-line,
+.hp2-page.hp2-light .lux-promo-line--primary,
+.hp2-page.hp2-light .lux-promo-line--cta,
+.hp2-page.hp2-light .lux-promo-sep,
+.hp2-page.hp2-light .lux-promo-icon {
+  color: var(--hp2-logo-blue-deep) !important;
+}
+.hp2-page.hp2-light .lux-promo-line--cta {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
 /* Top "Request a Quote" marquee bar: flip from dark → yellow */
 .hp2-page.hp2-light .hp2-marquee,
 .hp2-page.hp2-light [class*="marquee"],
@@ -192,31 +278,61 @@ const HP2_STYLES = `
   color: var(--hp2-logo-yellow) !important;
 }
 
-/* Stat chips: deep-blue text on yellow bg (festive) */
-.hp2-page.hp2-light .hp2-stat-chip,
-.hp2-page.hp2-light [class*="stat-chip"],
-.hp2-page.hp2-light [class*="badge"]:not([class*="destructive"]) {
-  background: var(--hp2-logo-yellow) !important;
-  color: var(--hp2-logo-blue-deep) !important;
-  border: 1px solid #E8B52E !important;
-  font-weight: 700 !important;
+/* Smooth scroll for anchor jumps */
+html { scroll-behavior: smooth; }
+
+/* ─── Reset stray borders inside light theme ───
+ * My first pass matched every element with "card" or "border" in its
+ * class, which painted outlines around every paragraph inside a
+ * <CardContent>. Kill inner borders; re-apply only on the outer
+ * container. */
+.hp2-page.hp2-light *:not(.hp2-card-outer):not([data-slot="card"]):not(section):not(article):not(input):not(textarea):not(select):not(button):not([role="button"]) {
+  border: 0;
 }
 
-/* Cards — crisp white w/ blue-tinted hairline + warm gold shadow */
-.hp2-page.hp2-light [class*="hp2-card"],
-.hp2-page.hp2-light section article,
-.hp2-page.hp2-light [class*="card"] {
-  background-color: #ffffff !important;
-  border: 1px solid var(--hp2-border) !important;
-  box-shadow: 0 8px 24px rgba(14, 75, 143, 0.08) !important;
+/* Stat chips — tight target (shadcn Badge uses data-slot or .badge)
+ * Only primary-variant badges get the yellow pill treatment. */
+.hp2-page.hp2-light .hp2-stat-chip,
+.hp2-page.hp2-light [data-slot="badge"],
+.hp2-page.hp2-light [class~="badge"],
+.hp2-page.hp2-light .inline-flex.items-center.rounded-full.border {
+  background: var(--hp2-logo-yellow);
+  color: var(--hp2-logo-blue-deep);
+  border: 1px solid #E8B52E;
+  font-weight: 700;
+}
+
+/* Cards — apply border ONLY on the actual card container, not every
+ * descendant. Target explicit card containers via semantic or known
+ * shadcn hooks. */
+.hp2-page.hp2-light [data-slot="card"],
+.hp2-page.hp2-light .hp2-card-outer,
+.hp2-page.hp2-light article.card,
+.hp2-page.hp2-light section > article {
+  background-color: #ffffff;
+  border: 1px solid var(--hp2-border);
+  border-radius: 14px;
+  box-shadow: 0 8px 24px rgba(14, 75, 143, 0.06);
+  transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+}
+
+.hp2-page.hp2-light [data-slot="card"] *,
+.hp2-page.hp2-light .hp2-card-outer * {
+  border-color: transparent;
 }
 
 /* Hover lift on cards */
-.hp2-page.hp2-light [class*="hp2-card"]:hover,
-.hp2-page.hp2-light section article:hover {
-  border-color: var(--hp2-logo-blue) !important;
-  box-shadow: 0 14px 30px rgba(30, 110, 197, 0.18) !important;
+.hp2-page.hp2-light [data-slot="card"]:hover,
+.hp2-page.hp2-light .hp2-card-outer:hover {
+  border-color: var(--hp2-logo-blue);
+  box-shadow: 0 14px 30px rgba(30, 110, 197, 0.15);
   transform: translateY(-2px);
+}
+
+/* Tables/HR/FAQ separators should stay subtle if the page explicitly
+ * requests one — use a single class .hp2-hairline */
+.hp2-page.hp2-light .hp2-hairline {
+  border-top: 1px solid var(--hp2-border);
 }
 
 /* Links — bright blue with yellow underline on hover */
@@ -1363,9 +1479,12 @@ export default function HomeNew() {
     return saved === 'light' ? 'light' : 'dark';
   });
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      window.localStorage.setItem('ppc-home-theme', theme);
-    }
+    if (typeof window === 'undefined') return;
+    window.localStorage.setItem('ppc-home-theme', theme);
+    // Also toggle body-level class so the theme applies to pages
+    // outside the hp2-page scope (nav/footer/overlays).
+    document.body.classList.toggle('ppc-light', theme === 'light');
+    document.body.classList.toggle('ppc-dark', theme === 'dark');
   }, [theme]);
 
   const toggleFaq = (index: number) => {
