@@ -107,10 +107,35 @@ export default function Partners() {
 
   const submitMutation = useMutation({
     mutationFn: async (data: InsertPartnerApplication) => {
-      return apiRequest('/api/partner-signups', {
-        method: 'POST',
-        body: JSON.stringify(data)
-      });
+      // Ported from /api/partner-signups (Replit) → Supabase create-lead
+      // with sourceType=partner-signup so downstream automations (GHL, Sheets,
+      // Zapier) can route partner applications to the right pipeline.
+      const { supabase } = await import('@/lib/supabase');
+      const [firstName, ...rest] = (data.name || '').trim().split(/\s+/);
+      const lastName = rest.join(' ') || '';
+      const origin = typeof window !== 'undefined' ? window.location.origin : 'https://premierpartycruises.com';
+      const body: Record<string, unknown> = {
+        firstName,
+        lastName,
+        email: data.email,
+        phone: (data as any).phone || '',
+        eventDate: new Date().toISOString().slice(0, 10),
+        partyType: 'partner_signup',
+        guestCount: 0,
+        quoteUrl: `${origin}/partners`,
+        sourceType: 'partner-signup',
+        sourceUrl: typeof window !== 'undefined' ? window.location.href : '',
+        // Partner-specific payload forwarded intact
+        partnerDetails: {
+          company: (data as any).company,
+          venmoHandle: (data as any).venmoHandle,
+          source: (data as any).source,
+          notes: (data as any).notes,
+        },
+      };
+      const { data: result, error } = await supabase.functions.invoke('create-lead', { body });
+      if (error) throw new Error((error as any).message || 'Failed to submit partner application');
+      return result;
     },
     onSuccess: () => {
       toast({
