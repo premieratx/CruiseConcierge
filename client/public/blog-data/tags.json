@@ -1,0 +1,200 @@
+[
+  {
+    "id": "629b56c6-7f0b-4101-bbf6-c4e285333798",
+    "orgId": "org_demo",
+    "name": "Authority",
+    "slug": "authority",
+    "description": "Industry authority and leadership",
+    "active": true,
+    "postCount": 1,
+    "createdAt": "2025-10-04T07:17:55.437Z",
+    "updatedAt": "2025-10-04T07:17:55.437Z"
+  },
+  {
+    "id": "59ad8bad-d307-44ce-b3a5-25d96b36f9c2",
+    "orgId": "org_demo",
+    "name": "Claude AI",
+    "slug": "claude-ai",
+    "description": "Claude AI analysis and insights",
+    "active": true,
+    "postCount": 1,
+    "createdAt": "2025-10-04T07:17:55.390Z",
+    "updatedAt": "2025-10-04T07:17:55.390Z"
+  },
+  {
+    "id": "593443e0-0d35-4897-912e-41b840450d08",
+    "orgId": "org_demo",
+    "name": "Innovation",
+    "slug": "innovation",
+    "description": "Innovation and industry firsts",
+    "active": true,
+    "postCount": 1,
+    "createdAt": "2025-10-04T07:17:55.528Z",
+    "updatedAt": "2025-10-04T07:17:55.528Z"
+  },
+  {
+    "id": "ae5ee0f0-6382-4e4b-b3a6-7ab63c8d55f8",
+    "orgId": "org_demo",
+    "name": "Market Analysis",
+    "slug": "market-analysis",
+    "description": "Industry market analysis and research",
+    "active": true,
+    "postCount": 1,
+    "createdAt": "2025-10-04T07:17:55.341Z",
+    "updatedAt": "2025-10-04T07:17:55.341Z"
+  },
+  {
+    "id": "5a0d86ee-87f3-4c7f-acb7-8601b7054661",
+    "orgId": "org_demo",
+    "name": "Safety",
+    "slug": "safety",
+    "description": "Safety records and practices",
+    "active": true,
+    "postCount": 1,
+    "createdAt": "2025-10-04T07:17:55.482Z",
+    "updatedAt": "2025-10-04T07:17:55.482Z"
+  },
+  {
+    "id": "32c27590-6737-4621-a71a-5443d28188f2",
+    "orgId": "org_demo",
+    "name": "ATX Disco Cruise",
+    "slug": "atx-disco-cruise",
+    "description": null,
+    "active": true,
+    "postCount": 0,
+    "createdAt": "2025-10-04T08:45:32.302Z",
+    "updatedAt": "2025-10-04T08:45:32.302Z"
+  },
+  {
+    "id": "6787abba-a334-44c2-91a0-c3c98b57bbbe",
+    "orgId": "org_demo",
+    "name": "All-Inclusive Parties",
+    "slug": "all-inclusive-parties",
+    "description": null,
+    "active": true,
+    "postCount": 0,
+    "createdAt": "2025-10-04T08:45:32.530Z",
+    "updatedAt": "2025-10-04T08:45:32.530Z"
+  },
+  {
+    "id": "3ddf117c-d09e-4c24-a232-65f3af2810c6",
+    "orgId": "org_demo",
+    "name": "Austin",
+    "slug": "austin",
+    "description": "Austin, Texas",
+    "active": true,
+    "postCount": 0,
+    "createdAt": "2025-10-03T09:43:36.851Z",
+    "updatedAt": "2025-10-03T09:43:36.851Z"
+  },
+  {
+    "id": "3ad88d98-87bd-4372-a944-fc1782d1ddf3",
+    "orgId": "org_demo",
+    "name": "Bachelor Party",
+    "slug": "bachelor-party",
+    "description": "Bachelor party planning",
+    "active": true,
+    "postCount": 0,
+    "createdAt": "2025-10-03T09:43:36.851Z",
+    "updatedAt": "2025-10-03T09:43:36.851Z"
+  },
+  {
+    "id": "abe63468-0030-4086-bc47-4103fe0c2170",
+    "orgId": "org_demo",
+    "name": "Bachelor Party Ideas",
+    "slug": "bachelor-party-ideas",
+    "description": null,
+    "active": true,
+    "postCount": 0,
+    "createdAt": "2025-10-04T08:45:32.373Z",
+    "updatedAt": "2025-10-04T08:45:32.373Z"
+  },
+  {
+    "id": "e422d23d-a63e-4195-93d2-260d256c6e9d",
+    "orgId": "org_demo",
+    "name": "Bachelorette Party",
+    "slug": "bachelorette-party",
+    "description": "Bachelorette party ideas",
+    "active": true,
+    "postCount": 0,
+    "createdAt": "2025-10-03T09:43:36.851Z",
+    "updatedAt": "2025-10-03T09:43:36.851Z"
+  },
+  {
+    "id": "db15b635-25d6-4aac-b783-e0ee3dc59697",
+    "orgId": "org_demo",
+    "name": "Bachelorette Party Ideas",
+    "slug": "bachelorette-party-ideas",
+    "description": null,
+    "active": true,
+    "postCount": 0,
+    "createdAt": "2025-10-04T08:45:32.418Z",
+    "updatedAt": "2025-10-04T08:45:32.418Z"
+  },
+  {
+    "id": "73474b3d-c946-4a4c-b6e2-61fda4c48878",
+    "orgId": "org_demo",
+    "name": "Lake Travis",
+    "slug": "lake-travis",
+    "description": "Lake Travis water activities",
+    "active": true,
+    "postCount": 0,
+    "createdAt": "2025-10-03T09:43:36.851Z",
+    "updatedAt": "2025-10-03T09:43:36.851Z"
+  },
+  {
+    "id": "e1261b9b-42f7-4d38-b39a-b664156b7dcb",
+    "orgId": "org_demo",
+    "name": "Monthly Guide",
+    "slug": "monthly-guide",
+    "description": "Month-specific planning guides",
+    "active": true,
+    "postCount": 0,
+    "createdAt": "2025-10-03T09:43:36.952Z",
+    "updatedAt": "2025-10-03T09:43:36.952Z"
+  },
+  {
+    "id": "2e78b6ea-1a82-444a-a963-d5f6090669d3",
+    "orgId": "org_demo",
+    "name": "Party Boat",
+    "slug": "party-boat",
+    "description": "Party boat cruises",
+    "active": true,
+    "postCount": 0,
+    "createdAt": "2025-10-03T09:43:36.852Z",
+    "updatedAt": "2025-10-03T09:43:36.852Z"
+  },
+  {
+    "id": "b182cb2e-c24f-49c8-b1a9-953d3b6ad63c",
+    "orgId": "org_demo",
+    "name": "Party Boat Austin",
+    "slug": "party-boat-austin",
+    "description": null,
+    "active": true,
+    "postCount": 0,
+    "createdAt": "2025-10-04T08:45:32.463Z",
+    "updatedAt": "2025-10-04T08:45:32.463Z"
+  },
+  {
+    "id": "4fd505b1-ecad-4cff-8113-52dc56ce681c",
+    "orgId": "org_demo",
+    "name": "Party Planning",
+    "slug": "party-planning",
+    "description": "Event planning tips",
+    "active": true,
+    "postCount": 0,
+    "createdAt": "2025-10-03T09:43:36.922Z",
+    "updatedAt": "2025-10-03T09:43:36.922Z"
+  },
+  {
+    "id": "ac40286c-d1f3-44f9-877b-96e54987d413",
+    "orgId": "org_demo",
+    "name": "Travel Guide",
+    "slug": "travel-guide",
+    "description": "Travel guides and tips",
+    "active": true,
+    "postCount": 0,
+    "createdAt": "2025-10-03T09:43:36.922Z",
+    "updatedAt": "2025-10-03T09:43:36.922Z"
+  }
+]

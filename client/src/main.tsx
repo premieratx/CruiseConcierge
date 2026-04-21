@@ -2,6 +2,11 @@ import React from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App";
 import "./index.css";
+import { installStaticBlogShim } from "./lib/static-blog-fetch-shim";
+
+// Intercept /api/blog/public/* calls and serve from /blog-data/*.json
+// so the site works without the Replit backend.
+installStaticBlogShim();
 
 // PRODUCTION-SAFE HYDRATION: Use deterministic page-ready signals to avoid Soft 404 errors
 // SSR content stays visible until a page explicitly signals readiness via [data-page-ready]
