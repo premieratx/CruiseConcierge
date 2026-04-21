@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import EmbeddedQuoteFlow from "@/components/EmbeddedQuoteFlow";
 import { Link, useLocation } from 'wouter';
 import { motion, AnimatePresence } from 'framer-motion';
 import PublicNavigation from '@/components/PublicNavigationLuxury';
@@ -444,19 +445,7 @@ export default function Sweet16() {
                     transition={{ delay: 0.2, duration: 0.4 }}
                     className="bg-white rounded-2xl shadow-2xl overflow-hidden"
                   >
-                    <iframe 
-                      src="https://ppc-quote-builder.lovable.app/"
-                      title="Build Your Quote - Premier Party Cruises"
-                      className="w-full"
-                      style={{ 
-                        minHeight: '1200px',
-                        height: '90vh',
-                        border: 'none'
-                      }}
-                      allow="payment; geolocation"
-                      allowFullScreen
-                      data-testid="iframe-quote-builder"
-                    />
+                    <EmbeddedQuoteFlow source="sweet16_embed" />
                   </motion.div>
                 </div>
               </motion.div>

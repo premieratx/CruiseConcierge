@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import EmbeddedQuoteFlow from "@/components/EmbeddedQuoteFlow";
 import { useLocation } from 'wouter';
 import { motion, AnimatePresence } from 'framer-motion';
 import PublicNavigation from '@/components/PublicNavigationLuxury';
@@ -352,19 +353,7 @@ export default function AfterParty() {
                   className="mt-12 overflow-hidden"
                 >
                   <div className="bg-white rounded-xl shadow-2xl overflow-hidden">
-                    <iframe 
-                      src="https://ppc-quote-builder.lovable.app/"
-                      title="Build Your Quote - Premier Party Cruises"
-                      className="w-full"
-                      style={{ 
-                        minHeight: '1200px',
-                        height: '90vh',
-                        border: 'none'
-                      }}
-                      allow="payment; geolocation"
-                      allowFullScreen
-                      data-testid="iframe-quote-builder"
-                    />
+                    <EmbeddedQuoteFlow source="after_party_embed" />
                   </div>
                 </motion.div>
               )}

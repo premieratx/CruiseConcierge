@@ -198,24 +198,8 @@ export default function PartyBoatAustin() {
   const { toast } = useToast();
   const [showQuoteBuilder, setShowQuoteBuilder] = useState(false);
 
-  useEffect(() => {
-    const handleMessage = (event: MessageEvent) => {
-      if (event.origin !== 'https://ppc-quote-builder.lovable.app') {
-        return;
-      }
-      
-      if (event.data && event.data.type === 'quote-submitted') {
-        navigate('/chat');
-        toast({
-          title: "Quote Submitted!",
-          description: "Redirecting you to chat with our team...",
-        });
-      }
-    };
-
-    window.addEventListener('message', handleMessage);
-    return () => window.removeEventListener('message', handleMessage);
-  }, [navigate, toast]);
+  // Lovable iframe listener removed — EmbeddedQuoteFlow handles its own
+  // navigation via Supabase create-lead + router redirect.
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white" data-page-ready="party-boat-austin">

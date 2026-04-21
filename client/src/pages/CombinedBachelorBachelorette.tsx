@@ -149,24 +149,8 @@ export default function CombinedBachelorBachelorette() {
     return () => clearInterval(interval);
   }, [reducedMotion]);
 
-  useEffect(() => {
-    const handleMessage = (event: MessageEvent) => {
-      if (event.origin !== 'https://ppc-quote-builder.lovable.app') {
-        return;
-      }
-      
-      if (event.data && event.data.type === 'quote-submitted') {
-        navigate('/chat');
-        toast({
-          title: "Quote Submitted!",
-          description: "Redirecting you to view your quote details...",
-        });
-      }
-    };
-
-    window.addEventListener('message', handleMessage);
-    return () => window.removeEventListener('message', handleMessage);
-  }, [navigate, toast]);
+  // Lovable iframe listener removed — EmbeddedQuoteFlow handles its own
+  // navigation via Supabase create-lead + router redirect.
 
   useEffect(() => {
     const timer = setTimeout(() => {
