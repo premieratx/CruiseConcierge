@@ -75,37 +75,71 @@ const HP2_STYLES = `
   --hp2-border-sub: rgba(10, 10, 18, 0.08);
 }
 
-/* Hero video overlay — bright/festive so drone footage pops and text
- * stays readable in white. Lighter gradient than dark mode. */
-.hp2-page.hp2-light .hp2-hero__video-overlay {
-  background: linear-gradient(135deg,
-    rgba(253, 250, 242, 0.2) 0%,
-    rgba(30, 110, 197, 0.18) 50%,
-    rgba(247, 201, 72, 0.22) 100%) !important;
+/* Hero video overlay — VERY LIGHT so drone footage shows through.
+ * Readability comes from a frosted panel behind the text, not from
+ * darkening the video. Matches the actual markup class .hp2-hero__overlay. */
+.hp2-page.hp2-light .hp2-hero__video-overlay,
+.hp2-page.hp2-light .hp2-hero__overlay {
+  background: linear-gradient(180deg,
+    rgba(255,255,255,0.08) 0%,
+    rgba(30, 110, 197, 0.06) 50%,
+    rgba(14, 75, 143, 0.12) 100%) !important;
+}
+.hp2-page.hp2-light .hp2-hero__overlay::after {
+  display: none !important;
+}
+.hp2-page.hp2-light .hp2-hero__video {
+  opacity: 1 !important;
 }
 
-/* Hero text in light mode: white with blue-black shadow for legibility
- * over the drone video */
+/* Frosted white panel behind the entire hero content block — ONE
+ * unified card so the layout doesn't break into stacked boxes. The
+ * individual h1 / p keep their original block flow. */
+.hp2-page.hp2-light .hp2-hero .hp2-hero__content {
+  background: rgba(255, 255, 255, 0.82) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 2rem 2.5rem !important;
+  border-radius: 14px;
+  box-shadow: 0 18px 50px rgba(14, 75, 143, 0.22),
+    0 0 0 1px rgba(14, 75, 143, 0.1) inset;
+  max-width: 720px;
+}
 .hp2-page.hp2-light .hp2-hero h1,
-.hp2-page.hp2-light .hp2-hero .hp2-hero__headline,
+.hp2-page.hp2-light .hp2-hero .hp2-hero__headline {
+  color: var(--hp2-ltext) !important;
+  text-shadow: none !important;
+  background: transparent !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  display: block !important;
+  max-width: none !important;
+  box-shadow: none !important;
+}
 .hp2-page.hp2-light .hp2-hero p {
-  color: #ffffff !important;
-  text-shadow: 0 2px 16px rgba(14, 75, 143, 0.55),
-    0 1px 3px rgba(0, 0, 0, 0.4) !important;
+  color: var(--hp2-ltext) !important;
+  text-shadow: none !important;
+  background: transparent !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
 }
 
 .hp2-page.hp2-light .hp2-hero h1 em {
-  color: var(--hp2-logo-yellow) !important;
-  text-shadow: 0 2px 20px rgba(14, 75, 143, 0.7),
-    0 1px 3px rgba(0, 0, 0, 0.5) !important;
+  color: var(--hp2-logo-blue) !important;
+  text-shadow: none !important;
+  background: transparent;
 }
 
-/* Hero eyebrow (PREMIER PARTY CRUISES · LAKE TRAVIS SINCE 2009) —
- * yellow on blue backdrop */
+/* Hero eyebrow — small blue text inside the frosted panel */
 .hp2-page.hp2-light .hp2-hero [class*="eyebrow"],
 .hp2-page.hp2-light .hp2-hero [style*="letter-spacing: 0.25em"] {
-  color: var(--hp2-logo-yellow) !important;
-  text-shadow: 0 2px 12px rgba(14, 75, 143, 0.55) !important;
+  color: var(--hp2-logo-blue-deep) !important;
+  background: transparent !important;
+  padding: 0 !important;
+  text-shadow: none !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.2em !important;
 }
 
 /* Headings: near-black for max contrast on white */
@@ -220,23 +254,238 @@ const HP2_STYLES = `
   color: var(--hp2-text-muted) !important;
 }
 
-/* Promo banner at very top: sunlit yellow bg with deep-blue text */
-.hp2-page.hp2-light .lux-promo-banner {
+/* Promo banner at very top: sunlit yellow bg with deep-blue text. Force
+ * every descendant (spans, links, icons, separators) to the dark-blue
+ * color so nothing inherits the muted gold from the dark theme. */
+.hp2-page.hp2-light .lux-promo-banner,
+body.ppc-light .lux-promo-banner {
+  background: var(--hp2-logo-yellow, #F7C948) !important;
+  color: #0E4B8F !important;
+  border-bottom: 1px solid rgba(14, 75, 143, 0.25) !important;
+}
+.hp2-page.hp2-light .lux-promo-banner *,
+body.ppc-light .lux-promo-banner * {
+  color: #0E4B8F !important;
+  font-weight: 600 !important;
+}
+.hp2-page.hp2-light .lux-promo-line--cta,
+body.ppc-light .lux-promo-line--cta {
+  text-decoration: underline !important;
+  text-decoration-thickness: 2px !important;
+  text-underline-offset: 3px !important;
+  font-weight: 700 !important;
+}
+.hp2-page.hp2-light .lux-promo-line--cta:hover,
+body.ppc-light .lux-promo-line--cta:hover {
+  color: #0A2D54 !important;
+}
+
+/* ────────────────────────────────────────────────
+   UNIFIED BUTTON SYSTEM (light theme)
+   Primary  = bright logo blue fill + white text
+   Secondary = gold fill + deep-blue text
+   Outline  = white bg, blue border, blue text
+   ──────────────────────────────────────────────── */
+.hp2-page.hp2-light .hp2-btn-primary,
+.hp2-page.hp2-light [data-btn="primary"],
+.hp2-page.hp2-light a.btn-primary,
+.hp2-page.hp2-light button.btn-primary {
+  background: var(--hp2-logo-blue) !important;
+  color: #ffffff !important;
+  border: 1px solid var(--hp2-logo-blue) !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.08em;
+  padding: 0.85rem 1.8rem !important;
+  border-radius: 8px !important;
+  box-shadow: 0 6px 18px rgba(30, 110, 197, 0.32) !important;
+  transition: all 180ms ease;
+}
+.hp2-page.hp2-light .hp2-btn-primary:hover {
+  background: var(--hp2-logo-blue-deep) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(14, 75, 143, 0.4) !important;
+}
+
+.hp2-page.hp2-light .hp2-btn-secondary,
+.hp2-page.hp2-light [data-btn="secondary"] {
   background: var(--hp2-logo-yellow) !important;
   color: var(--hp2-logo-blue-deep) !important;
-  border-bottom: 1px solid rgba(14, 75, 143, 0.18) !important;
+  border: 1px solid #E8B52E !important;
+  font-weight: 700 !important;
+  padding: 0.85rem 1.8rem !important;
+  border-radius: 8px !important;
+  box-shadow: 0 6px 18px rgba(247, 201, 72, 0.4) !important;
 }
-.hp2-page.hp2-light .lux-promo-line,
-.hp2-page.hp2-light .lux-promo-line--primary,
-.hp2-page.hp2-light .lux-promo-line--cta,
-.hp2-page.hp2-light .lux-promo-sep,
-.hp2-page.hp2-light .lux-promo-icon {
+.hp2-page.hp2-light .hp2-btn-secondary:hover {
+  background: #F0BC2E !important;
+  transform: translateY(-1px);
+}
+
+.hp2-page.hp2-light .hp2-btn-outline {
+  background: #ffffff !important;
+  color: var(--hp2-logo-blue) !important;
+  border: 2px solid var(--hp2-logo-blue) !important;
+  font-weight: 700 !important;
+}
+.hp2-page.hp2-light .hp2-btn-outline:hover {
+  background: var(--hp2-logo-blue) !important;
+  color: #ffffff !important;
+}
+
+/* Catch-all: any existing "Get a Quote" / "Book Now" / "Learn More" /
+ * "Explore Charters" anchor styled via hp2-cta-* gets the same blue+gold
+ * treatment so every CTA on the page is visually consistent. */
+.hp2-page.hp2-light [class*="hp2-cta"],
+.hp2-page.hp2-light .lux-btn-primary,
+.hp2-page.hp2-light a[href="/quote"]:not(.lux-nav-link):not(.lux-promo-line),
+.hp2-page.hp2-light button[class*="BookNow"],
+.hp2-page.hp2-light a[href*="book"] {
+  background: var(--hp2-logo-blue) !important;
+  color: #ffffff !important;
+  border: 1px solid var(--hp2-logo-blue) !important;
+  font-weight: 700 !important;
+  box-shadow: 0 6px 18px rgba(30, 110, 197, 0.32) !important;
+}
+.hp2-page.hp2-light [class*="hp2-cta"]:hover,
+.hp2-page.hp2-light .lux-btn-primary:hover {
+  background: var(--hp2-logo-blue-deep) !important;
+}
+
+/* Gold button variant — used for "Learn More" / "Explore Charters" on
+ * the "Two ways to celebrate" cards. Apply gold fill with deep-blue text
+ * to maintain high contrast. */
+.hp2-page.hp2-light .hp2-card-outer a[class*="learn"],
+.hp2-page.hp2-light .hp2-card-outer a[class*="explore"],
+.hp2-page.hp2-light [data-slot="card"] a[href*="atx-disco"],
+.hp2-page.hp2-light [data-slot="card"] a[href*="private"] {
+  background: var(--hp2-logo-yellow) !important;
   color: var(--hp2-logo-blue-deep) !important;
+  border: 1px solid #E8B52E !important;
 }
-.hp2-page.hp2-light .lux-promo-line--cta {
-  text-decoration: underline;
-  text-decoration-thickness: 2px;
-  text-underline-offset: 3px;
+
+/* ────────────────────────────────────────────────
+   01 – 04 promise card numbers → bright blue, high
+   contrast (user flagged these as unreadable in gold).
+   ──────────────────────────────────────────────── */
+.hp2-page.hp2-light .hp2-promise-card__num {
+  color: var(--hp2-logo-blue) !important;
+  font-weight: 600 !important;
+  opacity: 1 !important;
+  text-shadow: none !important;
+  font-size: 3.4rem;
+  letter-spacing: -0.02em;
+}
+.hp2-page.hp2-light .hp2-promise-card__title {
+  color: var(--hp2-ltext) !important;
+}
+.hp2-page.hp2-light .hp2-promise-card__desc {
+  color: var(--hp2-text-muted) !important;
+}
+
+/* Experience card tags (SHARED PARTY / BACH ONLY / MARCH-OCT /
+ * EXCLUSIVE / ANY EVENT / YEAR-ROUND) — keep all 3 pills on a single
+ * row even on mobile. Shrink padding + gap, force nowrap, shrink
+ * the font a notch if the row would overflow. */
+.hp2-page.hp2-light .hp2-exp-card__meta,
+body.ppc-light .hp2-exp-card__meta {
+  flex-wrap: nowrap !important;
+  gap: 0.35rem !important;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  justify-content: flex-start;
+}
+.hp2-page.hp2-light .hp2-exp-card__meta::-webkit-scrollbar,
+body.ppc-light .hp2-exp-card__meta::-webkit-scrollbar { display: none; }
+
+.hp2-page.hp2-light .hp2-exp-card__tag,
+body.ppc-light .hp2-exp-card__tag {
+  background: var(--hp2-logo-yellow) !important;
+  color: var(--hp2-logo-blue-deep) !important;
+  border: 1px solid #E8B52E !important;
+  font-weight: 700 !important;
+  font-size: 0.7rem !important;
+  padding: 0.3rem 0.55rem !important;
+  border-radius: 999px;
+  white-space: nowrap;
+  letter-spacing: 0.06em !important;
+  flex-shrink: 0;
+}
+
+@media (max-width: 640px) {
+  .hp2-page.hp2-light .hp2-exp-card__tag,
+  body.ppc-light .hp2-exp-card__tag {
+    font-size: 0.62rem !important;
+    padding: 0.25rem 0.45rem !important;
+    letter-spacing: 0.04em !important;
+  }
+  .hp2-page.hp2-light .hp2-exp-card__meta,
+  body.ppc-light .hp2-exp-card__meta {
+    gap: 0.28rem !important;
+  }
+}
+
+/* ────────────────────────────────────────────────
+   Unify the native .hp2-btn classes with the light
+   blue/gold system. Primary (Book Now etc) = gold fill
+   on deep-blue text (matches "Book in next 10 days"
+   accent bar). Outline (Get a Quote) = white bg, blue
+   border, blue text.
+   ──────────────────────────────────────────────── */
+.hp2-page.hp2-light .hp2-btn--primary,
+body.ppc-light .hp2-btn--primary {
+  background: var(--hp2-logo-yellow, #F7C948) !important;
+  color: #0E4B8F !important;
+  border: 1px solid #E8B52E !important;
+  box-shadow: 0 6px 18px rgba(247, 201, 72, 0.45) !important;
+}
+.hp2-page.hp2-light .hp2-btn--primary:hover,
+body.ppc-light .hp2-btn--primary:hover {
+  background: #F0BC2E !important;
+  box-shadow: 0 10px 26px rgba(14, 75, 143, 0.3) !important;
+}
+
+.hp2-page.hp2-light .hp2-btn--outline,
+body.ppc-light .hp2-btn--outline {
+  background: #ffffff !important;
+  color: #1E6EC5 !important;
+  border: 2px solid #1E6EC5 !important;
+  font-weight: 700 !important;
+}
+.hp2-page.hp2-light .hp2-btn--outline:hover,
+body.ppc-light .hp2-btn--outline:hover {
+  background: #1E6EC5 !important;
+  color: #ffffff !important;
+}
+
+/* CtaPair (used in hero + many sections): outline = blue, filled = gold */
+.hp2-page.hp2-light .cta-pair__btn--quote,
+body.ppc-light .cta-pair__btn--quote {
+  background: #ffffff !important;
+  color: #1E6EC5 !important;
+  border: 2px solid #1E6EC5 !important;
+  font-weight: 700 !important;
+  text-shadow: none !important;
+}
+.hp2-page.hp2-light .cta-pair__btn--quote:hover,
+body.ppc-light .cta-pair__btn--quote:hover {
+  background: #1E6EC5 !important;
+  color: #ffffff !important;
+}
+
+.hp2-page.hp2-light .cta-pair__btn--book,
+body.ppc-light .cta-pair__btn--book {
+  background: #F7C948 !important;
+  color: #0E4B8F !important;
+  border: 2px solid #E8B52E !important;
+  font-weight: 700 !important;
+  text-shadow: none !important;
+  box-shadow: 0 6px 18px rgba(247, 201, 72, 0.4) !important;
+}
+.hp2-page.hp2-light .cta-pair__btn--book:hover,
+body.ppc-light .cta-pair__btn--book:hover {
+  background: #F0BC2E !important;
+  color: #0E4B8F !important;
 }
 
 /* Top "Request a Quote" marquee bar: flip from dark → yellow */
