@@ -1028,7 +1028,7 @@ export default function BlogV2Layout({
   publishDate = '2024-01-01',
   modifiedDate = '2026-04-15',
   author = 'Premier Party Cruises Team',
-  heroImage = 'https://premierpartycruises.com/attached_assets/atx-disco-cruise-party.webp',
+  heroImage = '/attached_assets/atx-disco-cruise-party.webp',
   category = 'Bachelorette Guides',
   categoryHref = '/bachelorette-party-austin',
   pillarTitle = 'Austin Bachelorette Party Guide',

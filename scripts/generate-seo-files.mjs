@@ -181,6 +181,11 @@ async function prerenderOne(slug, canonicalHost, spaHead) {
     // Open Graph URL, Twitter URL, JSON-LD, etc.
     html = html.replace(/https?:\/\/(?:www\.)?premierpartycruises\.com/g, canonicalHost.replace(/\/$/, ''));
 
+    // Defense-in-depth: strip any Replit development hosts that the live
+    // origin might accidentally leak into <head> (favicon, OG image, dev
+    // banner). Rewrite to canonical so paths still resolve.
+    html = html.replace(/https?:\/\/[a-z0-9-]+\.(?:replit\.dev|repl\.co|replit\.app)/gi, canonicalHost.replace(/\/$/, ''));
+
     // Strip the live app's own <script> bundle references (Replit/Vite
     // on the production domain has different hashes from our Netlify
     // build). Replace with our Netlify build's bundle.

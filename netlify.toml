@@ -18,12 +18,25 @@
   NODE_VERSION = "20"
 
 # ──────────────────────────────────────────────────────────────────────────
-# Proxy API + backend-served assets to the live Replit app.
+# Proxy API + backend-served assets to the live Replit backend.
 # Netlify edge rewrites (status 200) are server-side — no CORS issues.
+#
+# ⚠️  CUTOVER REQUIRED BEFORE DNS FLIP ⚠️
+# Today this targets `premierpartycruises.com` (Replit backend on the apex).
+# The moment DNS on the apex flips to Netlify, this becomes a self-loop
+# and every /api/* request dies (chat, blog, availability, admin, etc).
+#
+# BEFORE flipping apex DNS to Netlify:
+#   1. Create CNAME: api.premierpartycruises.com → <replit-host>
+#   2. Verify https://api.premierpartycruises.com/api/health returns 200
+#   3. Swap the `to =` line below to the api.* subdomain
+#   4. Commit + deploy V2
+#   5. Only then flip apex DNS
 # ──────────────────────────────────────────────────────────────────────────
 [[redirects]]
   from = "/api/*"
   to = "https://premierpartycruises.com/api/:splat"
+  # to = "https://api.premierpartycruises.com/api/:splat"   # ← enable at cutover
   status = 200
   force = true
 
