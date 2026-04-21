@@ -173,7 +173,7 @@ export default function PricingBreakdownV2() {
           What's included in <em>each tier</em>
         </h2>
         <p className="hp2-section__body">
-          Every package starts with a USCG-licensed captain, fuel, ice, coolers,
+          Every package starts with a licensed, experienced captain, fuel, ice, coolers,
           Bluetooth audio, and bathroom access — then adds progressive upgrades
           for decor, music, photography, and food &amp; beverage. Pick the tier
           that matches your group, or mix-and-match with the Custom package.
@@ -216,7 +216,7 @@ export default function PricingBreakdownV2() {
                 </th>
               </tr>
               <tr>
-                <th scope="row">USCG-licensed captain</th>
+                <th scope="row">licensed, experienced captain</th>
                 <td className="hp2-pkg-table__yes">✓</td>
                 <td className="hp2-pkg-table__yes">✓</td>
                 <td className="hp2-pkg-table__yes">✓</td>

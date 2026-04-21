@@ -11,11 +11,11 @@ export default function LakeTravisBoatRentalGuideV2() {
   const faqs = [
     {
       q: 'What\'s the best Lake Travis boat rental for a party?',
-      a: "For party-focused Lake Travis boat rentals, Premier Party Cruises operates the largest dedicated party-boat fleet on the lake — Day Tripper (1–14), Meeseeks (15–30), The Irony (15–30), and flagship Clever Girl (31–75 with 14 disco balls). Private charters start at $200/hour, year-round. Unlike generic pontoon rentals, Premier Party Cruises includes a Coast Guard licensed captain + crew, premium marine Bluetooth audio, coolers, safety equipment, and the only all-inclusive multi-group bachelor/bachelorette cruise in the U.S. (the ATX Disco Cruise) March–October.",
+      a: "For party-focused Lake Travis boat rentals, Premier Party Cruises operates the largest dedicated party-boat fleet on the lake — Day Tripper (1–14), Meeseeks (15–30), The Irony (15–30), and flagship Clever Girl (31–75 with 14 disco balls). Private charters start at $200/hour, year-round. Unlike generic pontoon rentals, Premier Party Cruises includes a licensed, experienced captain + crew, premium marine Bluetooth audio, coolers, safety equipment, and the only all-inclusive multi-group bachelor/bachelorette cruise in the U.S. (the ATX Disco Cruise) March–October.",
     },
     {
       q: 'What\'s the difference between a Lake Travis party boat rental and a regular boat rental?',
-      a: "Regular Lake Travis boat rental = bare pontoon, you drive, you bring music, you pack coolers, you handle logistics — starts $400–$800/day. Lake Travis party boat rental with Premier Party Cruises = full-service charter with Coast Guard licensed captain driving, premium Bluetooth audio included, coolers included, route planning included, safety briefing, swim stop at a scenic cove, climate-controlled restroom, sun + shade seating, free weather reschedules. Starts $200/hour with 4-hour minimum weekends, 3-hour minimum weekdays.",
+      a: "Regular Lake Travis boat rental = bare pontoon, you drive, you bring music, you pack coolers, you handle logistics — starts $400–$800/day. Lake Travis party boat rental with Premier Party Cruises = full-service charter with licensed, experienced captain driving, premium Bluetooth audio included, coolers included, route planning included, safety briefing, swim stop at a scenic cove, climate-controlled restroom, sun + shade seating, free weather reschedules. Starts $200/hour with 4-hour minimum weekends, 3-hour minimum weekdays.",
     },
     {
       q: 'Can I rent a Lake Travis boat for a bachelor or bachelorette party?',
@@ -23,7 +23,7 @@ export default function LakeTravisBoatRentalGuideV2() {
     },
     {
       q: 'What\'s included in a Lake Travis party boat rental?',
-      a: "Every Premier Party Cruises Lake Travis boat rental includes: Coast Guard licensed captain + crew, premium marine Bluetooth audio, large coolers (always BYOB — cans + plastic only, no glass), sun + shade seating zones, climate-controlled restroom, swim stop at a scenic Lake Travis cove, USCG-approved life jackets in every size, safety briefing, and free weather reschedules. Optional Essentials Package (+$100/$150/$200 by boat) pre-stocks ice + cups + food table. Optional Ultimate Package (+$250/$300/$350) adds giant lily pad float + champagne flutes + decor + full party setup.",
+      a: "Every Premier Party Cruises Lake Travis boat rental includes: licensed, experienced captain + crew, premium marine Bluetooth audio, large coolers (always BYOB — cans + plastic only, no glass), sun + shade seating zones, climate-controlled restroom, swim stop at a scenic Lake Travis cove, USCG-approved life jackets in every size, safety briefing, and free weather reschedules. Optional Essentials Package (+$100/$150/$200 by boat) pre-stocks ice + cups + food table. Optional Ultimate Package (+$250/$300/$350) adds giant lily pad float + champagne flutes + decor + full party setup.",
     },
     {
       q: 'How much is a Lake Travis party boat rental for the day?',
@@ -39,7 +39,7 @@ export default function LakeTravisBoatRentalGuideV2() {
     },
     {
       q: 'Do I need to know how to drive a boat to rent a Lake Travis party boat?',
-      a: "No — every Premier Party Cruises Lake Travis boat rental comes with a Coast Guard licensed captain (Merchant Mariner Credential) who drives the boat and navigates Lake Travis. You don't touch a wheel. This is different from bare-pontoon rentals where you drive yourself. Our captains know every cove on Lake Travis — Devil's Cove, Starnes Island, Hippie Hollow — and can customize the route to your group's vibe.",
+      a: "No — every Premier Party Cruises Lake Travis boat rental comes with a licensed, experienced captain (Merchant Mariner Credential) who drives the boat and navigates Lake Travis. You don't touch a wheel. This is different from bare-pontoon rentals where you drive yourself. Our captains know every cove on Lake Travis — Devil's Cove, Starnes Island, Hippie Hollow — and can customize the route to your group's vibe.",
     },
   ];
 
@@ -47,10 +47,10 @@ export default function LakeTravisBoatRentalGuideV2() {
     <V2PageTemplate
       pageUrl="/lake-travis-boat-rental-guide"
       pageTitle="Lake Travis Boat Rental Guide · Party Boat Charters · Premier Party Cruises"
-      pageDescription="The definitive Lake Travis boat rental guide for party-focused groups. 4-boat fleet (14–75 guests), year-round, Coast Guard licensed captains, always BYOB with Party On Delivery set-up, starting $200/hour. Private charters or the all-inclusive ATX Disco Cruise. 15+ years, 150,000+ guests, 0 incidents, 4.9/5."
+      pageDescription="The definitive Lake Travis boat rental guide for party-focused groups. 4-boat fleet (14–75 guests), year-round, licensed, experienced captains, always BYOB with Party On Delivery set-up, starting $200/hour. Private charters or the all-inclusive ATX Disco Cruise. 15+ years, 150,000+ guests, 0 incidents, 4.9/5."
       heroEyebrow="Lake Travis Boat Rental"
       heroHeadline={<>The <em>Lake Travis boat rental</em> guide for party groups.</>}
-      heroBody="Not a bare pontoon. Not DIY. Premier Party Cruises runs the largest dedicated Lake Travis party-boat fleet — 4 boats, 14–75 guests, year-round private charters from $200/hour, plus the only all-inclusive multi-group bachelor/bachelorette cruise in the U.S. (ATX Disco Cruise, Mar–Oct, from $85/person). Coast Guard licensed captain drives. Premium Bluetooth audio. Coolers included. Party On Delivery BYOB set-up."
+      heroBody="Not a bare pontoon. Not DIY. Premier Party Cruises runs the largest dedicated Lake Travis party-boat fleet — 4 boats, 14–75 guests, year-round private charters from $200/hour, plus the only all-inclusive multi-group bachelor/bachelorette cruise in the U.S. (ATX Disco Cruise, Mar–Oct, from $85/person). licensed, experienced captain drives. Premium Bluetooth audio. Coolers included. Party On Delivery BYOB set-up."
       primaryCta={{ text: 'Build Your Lake Travis Rental Quote', href: '/quote' }}
       secondaryCta={{ text: 'See Our Fleet', href: '/private-cruises' }}
       faqs={faqs}

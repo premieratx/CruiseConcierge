@@ -25,7 +25,7 @@ export default function FamilyReunionCruiseV2() {
     },
     {
       q: 'What about kids who can\'t swim?',
-      a: 'No problem. We carry USCG-approved kid life vests in infant, child, and youth sizes at no extra charge, and the captain can anchor in a shallow cove where non-swimmers can stand in the water. Many families let little ones play on the swim platform or ride in the shaded cabin while older cousins jump off the slide. No one is pressured to swim — the boat works just as well as a floating picnic deck.',
+      a: 'No problem. We carry marine-grade kid life vests in infant, child, and youth sizes at no extra charge, and the captain can anchor in a shallow cove where non-swimmers can stand in the water. Many families let little ones play on the swim platform or ride in the shaded cabin while older cousins jump off the slide. No one is pressured to swim — the boat works just as well as a floating picnic deck.',
     },
     {
       q: 'How many people can we fit on one boat?',
@@ -216,7 +216,7 @@ export default function FamilyReunionCruiseV2() {
         <p className="hp2-section__body">
           Four vessels covering every family reunion size, from a tight
           immediate-family gathering to the full extended-cousin reunion.
-          All include a USCG-licensed captain, crew, premium sound, water
+          All include a licensed, experienced captain, crew, premium sound, water
           slide, and BYOB.
         </p>
 

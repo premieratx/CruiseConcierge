@@ -161,7 +161,7 @@ export default function LakeTravisBachelorPartyBoats() {
               <strong>Giant lily pad floats</strong> and water toys when the boat anchors at a cove
             </li>
             <li>
-              <strong>USCG-certified captains</strong> piloting the boat (no designated driver needed!)
+              <strong>licensed, experienced captains</strong> piloting the boat (no designated driver needed!)
             </li>
             <li>
               <strong>Perfect safety record</strong> over thousands of trips

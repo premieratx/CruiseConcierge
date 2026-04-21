@@ -127,15 +127,15 @@ const allFAQs = {
         faqs: [
           {
             question: 'What safety measures do you have in place?',
-            answer: 'Safety is our top priority. All our captains are Coast Guard licensed, our boats undergo regular safety inspections, and we carry all required safety equipment including life jackets for every passenger. We have a perfect safety record over 15+ years and maintain comprehensive insurance coverage.'
+            answer: 'Safety is our top priority. All our captains are licensed, experienced, our boats undergo regular safety inspections, and we carry all required safety equipment including life jackets for every passenger. We have a perfect safety record over 15+ years and maintain comprehensive insurance coverage.'
           },
           {
             question: 'Do you provide life jackets?',
-            answer: 'Yes, life jackets are on board and available for swimming - we encourage guests to wear them for safety. We provide Coast Guard approved life jackets in all sizes, including infant and child sizes. Our crew will brief everyone on safety procedures before departure.'
+            answer: 'Yes, life jackets are on board and available for swimming - we encourage guests to wear them for safety. We provide USCG-approved life jackets in all sizes, including infant and child sizes. Our crew will brief everyone on safety procedures before departure.'
           },
           {
             question: 'What are your capacity limits?',
-            answer: 'We strictly adhere to Coast Guard capacity limits, which vary by boat size. Our 14-person boats accommodate up to 14 guests, 25-person boats up to 25 guests, and our largest boats accommodate up to 50 guests. These limits include all passengers and are enforced for safety and comfort.'
+            answer: 'We strictly adhere to Licensed, Experienced capacity limits, which vary by boat size. Our 14-person boats accommodate up to 14 guests, 25-person boats up to 25 guests, and our largest boats accommodate up to 50 guests. These limits include all passengers and are enforced for safety and comfort.'
           },
           {
             question: 'What is your policy on swimming?',

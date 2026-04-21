@@ -40,7 +40,7 @@ export default function TermsAndConditions() {
             <p>
               Premier Party Cruises provides party boat rental experiences on Lake Travis, including the ATX Disco
               Cruise (a shared, all-inclusive boat cruise) and private charter rentals. All services are subject
-              to availability, weather conditions, and compliance with U.S. Coast Guard and applicable Texas
+              to availability, weather conditions, and compliance with Licensed, Experienced and applicable Texas
               regulations. We reserve the right to modify our services, pricing, or availability at any time
               without prior notice.
             </p>
@@ -80,7 +80,7 @@ export default function TermsAndConditions() {
             <p className="mb-3">All guests are expected to conduct themselves safely and respectfully. By boarding our vessels, you agree to:</p>
             <ul className="list-disc pl-6 space-y-2">
               <li>Follow all instructions from the captain and crew at all times.</li>
-              <li>Comply with all U.S. Coast Guard regulations and applicable Texas boating laws.</li>
+              <li>Comply with all Licensed, Experienced regulations and applicable Texas boating laws.</li>
               <li>Not bring glass beer bottles on board. Wine, champagne, and spirits in bottles are permitted if kept in a cooler and handled responsibly. No glass beer bottles.</li>
               <li>Not bring or consume illegal substances on board.</li>
               <li>Not engage in behavior that endangers the safety or comfort of other guests or crew.</li>

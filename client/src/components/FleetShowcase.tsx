@@ -210,7 +210,7 @@ export default function FleetShowcase() {
           Four boats for every <em>celebration</em>.
         </h2>
         <p className="fs-intro__sub">
-          Every charter includes a US Coast Guard-licensed captain, premium Bluetooth sound,
+          Every charter includes a licensed, experienced captain, premium Bluetooth sound,
           coolers (BYO ice, or order pre-iced from Party On Delivery), and a 4-hour minimum.
           Starting prices — tap a boat to get an exact quote.
         </p>

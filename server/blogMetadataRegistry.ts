@@ -499,7 +499,7 @@ export const blogMetadataRegistry: Record<string, BlogMetadata> = {
     modifiedDate: '2026-02-12',
     author: 'Premier Party Cruises',
     heroImage: 'https://premierpartycruises.com/attached_assets/clever-girl-1-lake-travis-party-boat.jpg',
-    keywords: ['Lake Travis boat safety', 'party cruise maintenance', 'USCG licensed captains', 'boat safety inspections', 'Premier Party Cruises safety record']
+    keywords: ['Lake Travis boat safety', 'party cruise maintenance', 'licensed, experienced captains', 'boat safety inspections', 'Premier Party Cruises safety record']
   },
 
   'blogs/lake-travis-party-boat-rentals-ultimate-guide-for-large-group-events-20-guests': {

@@ -718,7 +718,7 @@ const FAQ_DATA = [
   },
   {
     q: 'Are birthday boat parties safe for kids?',
-    a: 'Absolutely. Safety is our top priority for all ages. Every boat carries USCG-required life jackets in children\'s sizes, and our experienced captains and crew are trained in water safety protocols. All boats have swim ladders for easy water access, shaded seating areas, and clean restroom facilities. We have hosted thousands of kids\' birthday parties since 2009, including Sweet 16 celebrations and multi-generational family events where grandparents and young children celebrate together on the same boat.'
+    a: 'Absolutely. Safety is our top priority for all ages. Every boat carries Licensed-required life jackets in children\'s sizes, and our experienced captains and crew are trained in water safety protocols. All boats have swim ladders for easy water access, shaded seating areas, and clean restroom facilities. We have hosted thousands of kids\' birthday parties since 2009, including Sweet 16 celebrations and multi-generational family events where grandparents and young children celebrate together on the same boat.'
   },
   {
     q: 'What ages can have birthday parties on your boats?',
@@ -738,7 +738,7 @@ const FAQ_DATA = [
   },
   {
     q: 'What is included in a birthday party cruise?',
-    a: 'Every private birthday charter includes a USCG-licensed captain and trained crew, a premium Bluetooth sound system for your playlist, large coolers (bring your own ice, or order pre-iced from Party On Delivery), a swim stop in a scenic Lake Travis cove with crystal-clear water, swim ladder and life jackets in all sizes, comfortable seating with both sun and shaded areas, and clean restroom facilities. The Essentials Package ($100-$200 flat) adds enhanced party setup, towel service, mimosa bar supplies, and SPF-50 sunscreen stations. The Ultimate Package ($250-$350 flat) adds premium decorations, champagne flutes, plates, a 6-foot food table, and a dedicated event coordinator.'
+    a: 'Every private birthday charter includes a licensed, experienced captain and trained crew, a premium Bluetooth sound system for your playlist, large coolers (bring your own ice, or order pre-iced from Party On Delivery), a swim stop in a scenic Lake Travis cove with crystal-clear water, swim ladder and life jackets in all sizes, comfortable seating with both sun and shaded areas, and clean restroom facilities. The Essentials Package ($100-$200 flat) adds enhanced party setup, towel service, mimosa bar supplies, and SPF-50 sunscreen stations. The Ultimate Package ($250-$350 flat) adds premium decorations, champagne flutes, plates, a 6-foot food table, and a dedicated event coordinator.'
   },
   {
     q: 'Is the BYOB policy available for 21st birthday parties?',
@@ -1098,7 +1098,7 @@ const [openFaq, setOpenFaq] = useState<number | null>(null);
                 <p>Every private birthday charter starts with our Standard Package, included in the hourly rate. Upgrade to Essentials or Ultimate for an enhanced celebration experience.</p>
                 <p><strong style={{ color: 'var(--hp2-cream)' }}>Standard Package (included with every charter):</strong></p>
                 <ul>
-                  <li>USCG-licensed captain and trained crew</li>
+                  <li>licensed, experienced captain and trained crew</li>
                   <li>Premium Bluetooth sound system</li>
                   <li>Large coolers (bring your own ice, or order pre-iced from Party On Delivery)</li>
                   <li>Swim stop in a scenic Lake Travis cove</li>
@@ -1194,7 +1194,7 @@ const [openFaq, setOpenFaq] = useState<number | null>(null);
             </button>
             <div className={`hp2-details-content ${openDetails === 'safety' ? 'hp2-details-content--open' : ''}`}>
               <div className="hp2-details-inner">
-                <p>We take safety seriously for every guest, especially children. All boats meet or exceed USCG safety requirements, and our crew is trained for all-ages events.</p>
+                <p>We take safety seriously for every guest, especially children. All boats meet or exceed Licensed safety requirements, and our crew is trained for all-ages events.</p>
                 <p><strong style={{ color: 'var(--hp2-cream)' }}>Safety equipment on every boat:</strong></p>
                 <ul>
                   <li>USCG-approved life jackets in children's and adult sizes</li>
@@ -1205,7 +1205,7 @@ const [openFaq, setOpenFaq] = useState<number | null>(null);
                 </ul>
                 <p><strong style={{ color: 'var(--hp2-cream)' }}>Crew training and procedures:</strong></p>
                 <ul>
-                  <li>USCG-licensed captains on every cruise</li>
+                  <li>licensed, experienced captains on every cruise</li>
                   <li>Crew trained in water safety and first aid</li>
                   <li>Headcount protocols before and after swim stops</li>
                   <li>Designated swim areas in calm, protected coves</li>

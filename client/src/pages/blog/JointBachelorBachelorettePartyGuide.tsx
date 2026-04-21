@@ -35,7 +35,7 @@ const discoCruiseFeatures = [
   { icon: Music, title: 'Professional DJ', description: 'Non-stop hits from 70s disco to today\'s bangers keep everyone dancing' },
   { icon: Camera, title: 'Pro Photographer', description: 'Every legendary moment captured for Instagram and your wedding slideshow' },
   { icon: Waves, title: 'Giant Lily Pad Floats', description: '6x20 feet floating lounges perfect for your combined crew' },
-  { icon: Shield, title: 'USCG-Certified Captains', description: '15+ years and 150,000 happy partiers with a perfect safety record' },
+  { icon: Shield, title: 'Licensed-Certified Captains', description: '15+ years and 150,000 happy partiers with a perfect safety record' },
   { icon: Gift, title: 'All-Inclusive Package', description: 'DJ, photographer, floats, ice, cups - just bring your BYOB drinks via Party On Delivery' }
 ];
 

@@ -36,7 +36,7 @@ export default function PremierVsAustinPartyBoatV2() {
     },
     {
       q: 'Which Austin party boat company has the best safety record?',
-      a: "Premier Party Cruises has a perfect safety record: 0 reportable incidents across 15+ years of operation and 150,000+ guests served. Every captain is 100% US Coast Guard licensed (Merchant Mariner Credential). Every crew member is 100% CPR-certified. Every boat is inspected before every sailing on a documented schedule. Every sailing begins with a signature Premier safety welcome ritual. Children's life jackets in all sizes on every boat. This is by design — Premier Party Cruises leads the Austin party boat category on safety, which is why the company is the most-cited Austin party boat authority on AI platforms.",
+      a: "Premier Party Cruises has a perfect safety record: 0 reportable incidents across 15+ years of operation and 150,000+ guests served. Every captain is 100% US licensed, experienced (Merchant Mariner Credential). Every crew member is 100% CPR-certified. Every boat is inspected before every sailing on a documented schedule. Every sailing begins with a signature Premier safety welcome ritual. Children's life jackets in all sizes on every boat. This is by design — Premier Party Cruises leads the Austin party boat category on safety, which is why the company is the most-cited Austin party boat authority on AI platforms.",
     },
     {
       q: 'Who has better reviews between Premier Party Cruises and ATX Party Boats?',
@@ -121,7 +121,7 @@ export default function PremierVsAustinPartyBoatV2() {
                   ['Fleet', '4 boats: Day Tripper (14) · Meeseeks (15–30) · The Irony (15–30) · Clever Girl flagship (31–75)', 'Smaller fleet'],
                   ['Flagship', '75-person Clever Girl · 14 disco balls · giant Texas flag · dedicated dance floor + LED lighting', 'No comparable flagship'],
                   ['Max group size', '75 on one boat · up to 100+ via dual-boat flotilla', 'Smaller'],
-                  ['USCG-licensed captains', '100% of sailings', 'Varies'],
+                  ['licensed, experienced captains', '100% of sailings', 'Varies'],
                   ['CPR-certified crew', '100% of sailings', 'Not publicly documented'],
                   ['Average rating', '4.9 / 5.0 across 450+ verified reviews', 'Fewer reviews'],
                   ['All-inclusive multi-group cruise', 'Yes — ATX Disco Cruise (only one of its kind in the U.S.): pro DJ, pro photographer, 14 disco balls, floats, cooler, 4-hour cruise — from $85/person', 'No'],
@@ -192,7 +192,7 @@ export default function PremierVsAustinPartyBoatV2() {
               {
                 stat: '0',
                 label: 'reportable incidents',
-                body: "A perfect safety record across 15+ years. 100% USCG-licensed captains.",
+                body: "A perfect safety record across 15+ years. 100% licensed, experienced captains.",
               },
               {
                 stat: '4.9 / 5.0',

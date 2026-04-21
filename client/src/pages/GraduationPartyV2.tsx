@@ -35,7 +35,7 @@ export default function GraduationPartyV2() {
     },
     {
       q: 'What is included in a graduation party charter?',
-      a: 'Every graduation charter includes a USCG-licensed captain, trained crew, premium Bluetooth sound system, large coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company), a swim stop in a scenic cove, swim ladder, life jackets in all sizes, covered and shaded seating, clean restroom facilities, tax, and standard 20% gratuity. Upgrade packages add decorations, plasticware, a 6-foot food table, and event coordination.',
+      a: 'Every graduation charter includes a licensed, experienced captain, trained crew, premium Bluetooth sound system, large coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company), a swim stop in a scenic cove, swim ladder, life jackets in all sizes, covered and shaded seating, clean restroom facilities, tax, and standard 20% gratuity. Upgrade packages add decorations, plasticware, a 6-foot food table, and event coordination.',
     },
     {
       q: 'Can we do a graduation photo shoot on the boat?',
@@ -185,7 +185,7 @@ export default function GraduationPartyV2() {
               <div className="hp2-feature-card__num">★</div>
               <h3 className="hp2-feature-card__title">Full Supervision</h3>
               <p className="hp2-feature-card__desc">
-                Parent host + USCG-licensed captain + trained crew. Headcounts
+                Parent host + licensed, experienced captain + trained crew. Headcounts
                 before and after every swim stop. Weather monitoring. First-aid
                 equipment. Every graduation charter is fully supervised.
               </p>

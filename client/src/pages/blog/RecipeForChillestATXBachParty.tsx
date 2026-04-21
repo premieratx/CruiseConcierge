@@ -319,7 +319,7 @@ export default function RecipeForChillestATXBachParty() {
                         </li>
                         <li className="flex items-start gap-3">
                           <CheckCircle2 className="h-5 w-5 text-teal-300 flex-shrink-0 mt-0.5" />
-                          <span>USCG-certified captain handles everything</span>
+                          <span>licensed, experienced captain handles everything</span>
                         </li>
                       </ul>
                     </div>

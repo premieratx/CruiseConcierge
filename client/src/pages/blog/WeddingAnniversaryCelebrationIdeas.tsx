@@ -228,7 +228,7 @@ export default function WeddingAnniversaryCelebrationIdeas() {
               romantic experience. Enjoy the entire boat to yourselves, or invite a few close friends to join the celebration.
             </p>
             <ul className="list-disc pl-6 text-gray-700 dark:text-gray-300 space-y-2">
-              <li>4-hour cruise on Lake Travis with USCG-certified captain</li>
+              <li>4-hour cruise on Lake Travis with licensed, experienced captain</li>
               <li>Sunset timing for the most romantic atmosphere</li>
               <li>BYOB with coolers, ice, and water provided</li>
               <li>Swimming stops with lily pad floats</li>
@@ -846,7 +846,7 @@ export default function WeddingAnniversaryCelebrationIdeas() {
             perfect setting to recreate the magic of your wedding day. With stunning sunset views, customizable packages, 
             hassle-free BYOB options through{' '}
             <Link href="/partners" className="text-brand-blue hover:underline font-semibold" data-testid="link-partners-3">
-            Party On Delivery</Link>, and USCG-certified captains ensuring your safety, we handle all the details so 
+            Party On Delivery</Link>, and licensed, experienced captains ensuring your safety, we handle all the details so 
             you can focus on what matters most: celebrating your love.
           </p>
 
@@ -865,7 +865,7 @@ export default function WeddingAnniversaryCelebrationIdeas() {
               </div>
               <div className="flex items-start">
                 <span className="text-2xl mr-2">✓</span>
-                <span>Perfect safety record with USCG-certified captains</span>
+                <span>Perfect safety record with licensed, experienced captains</span>
               </div>
               <div className="flex items-start">
                 <span className="text-2xl mr-2">✓</span>

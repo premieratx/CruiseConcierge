@@ -336,7 +336,7 @@ export default function PerfectAustinBachelorPartyWeekend() {
                         This is what you came for! Board the legendary <Link href="/atx-disco-cruise" className="text-blue-600 hover:underline font-semibold">ATX Disco Cruise</Link> for a 4-hour floating party on Lake Travis. This isn't just any <strong>Austin party boat</strong> – it's the premier multi-group experience where <strong>bachelor AND bachelorette parties celebrate together</strong>.
                       </p>
                       <p className="text-gray-600 dark:text-gray-400 mt-2">
-                        Think of it as a nightclub on the water with a co-ed mixer vibe. Your ticket includes a professional DJ spinning non-stop hits, a pro photographer capturing every epic moment, giant 6x20 ft lily pad floats for swimming breaks, coolers of ice, and USCG-certified captains with 15+ years and 150,000+ happy guests.
+                        Think of it as a nightclub on the water with a co-ed mixer vibe. Your ticket includes a professional DJ spinning non-stop hits, a pro photographer capturing every epic moment, giant 6x20 ft lily pad floats for swimming breaks, coolers of ice, and licensed, experienced captains with 15+ years and 150,000+ happy guests.
                       </p>
                       <p className="text-gray-600 dark:text-gray-400 mt-2 font-semibold">
                         Just bring your BYOB drinks (no glass!) and get ready for the best 4 hours of your bachelor weekend. Many groups leave the cruise having exchanged numbers with bachelorette crews for later meetups!

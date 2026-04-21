@@ -1072,7 +1072,7 @@ const [openFaq, setOpenFaq] = useState<number | null>(null);
             <div className="hp2-promise-card">
               <div className="hp2-promise-card__num">03</div>
               <div className="hp2-promise-card__title">Professional Service</div>
-              <div className="hp2-promise-card__desc">USCG-certified captains, trained crew, premium sound systems, and 15+ years of event experience. We coordinate with your caterer, florist, and wedding planner to handle every detail.</div>
+              <div className="hp2-promise-card__desc">licensed, experienced captains, trained crew, premium sound systems, and 15+ years of event experience. We coordinate with your caterer, florist, and wedding planner to handle every detail.</div>
             </div>
             <div className="hp2-promise-card">
               <div className="hp2-promise-card__num">04</div>

@@ -24,7 +24,7 @@ export default function RehearsalDinnerCruiseV2() {
     },
     {
       q: 'What is included in the rehearsal dinner cruise?',
-      a: 'Every rehearsal dinner cruise includes a US Coast Guard licensed captain, trained crew, premium Bluetooth sound system, wireless microphone for toasts, large coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company), a swim stop in a scenic cove (optional), and all safety equipment. BYOB is 100% welcome. Catering coordination and Ultimate decor package ($250-$350 flat) available as add-ons.'
+      a: 'Every rehearsal dinner cruise includes a licensed, experienced captain, trained crew, premium Bluetooth sound system, wireless microphone for toasts, large coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company), a swim stop in a scenic cove (optional), and all safety equipment. BYOB is 100% welcome. Catering coordination and Ultimate decor package ($250-$350 flat) available as add-ons.'
     },
     {
       q: 'Can we have a sit-down dinner on the boat?',

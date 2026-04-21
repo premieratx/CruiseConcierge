@@ -381,7 +381,7 @@ export default function Pricing() {
                     <CardContent className="pt-6">
                       <ul className="grid md:grid-cols-2 gap-3">
                         {[
-                          'Coast Guard licensed captain (you don\'t drive, you don\'t navigate)',
+                          'licensed, experienced captain (you don\'t drive, you don\'t navigate)',
                           'Professional DJ all 4 hours',
                           'Professional photographer + digital delivery',
                           'Disco dance floor with LED lights + 14 disco balls',

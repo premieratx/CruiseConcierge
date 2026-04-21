@@ -34,7 +34,7 @@ const whyDiscoCruise = [
   { icon: Music, title: 'Professional DJ', description: 'Non-stop hits from 70s disco to today\'s bangers' },
   { icon: Camera, title: 'Pro Photographer', description: 'Every legendary moment captured for Instagram' },
   { icon: Waves, title: 'Giant Lily Pad Floats', description: '6x20 feet floating lounges for swimming breaks' },
-  { icon: Shield, title: 'USCG-Certified Captains', description: '15+ years and 150,000 happy partiers with perfect safety record' },
+  { icon: Shield, title: 'Licensed-Certified Captains', description: '15+ years and 150,000 happy partiers with perfect safety record' },
   { icon: Gift, title: 'All-Inclusive Package', description: 'DJ, photographer, floats, ice, cups - just bring your BYOB drinks' }
 ];
 
@@ -178,7 +178,7 @@ export default function AustinBachelorPartyIdeas() {
 
               <h3 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">What Makes the ATX Disco Cruise Special for Bachelor Parties</h3>
               <p className="text-lg text-gray-700 dark:text-gray-300 mb-4 leading-relaxed">
-                On the <Link href="/atx-disco-cruise" className="text-blue-600 hover:underline font-semibold">ATX Disco Cruise</Link>, all the essentials are handled. Your ticket gets you a 4-hour Lake Travis cruise with USCG-certified captains at the helm, coolers of ice and water provided, huge lily pad floats for lounging in the lake, and an insane dance floor vibe with a professional DJ spinning hits all day.
+                On the <Link href="/atx-disco-cruise" className="text-blue-600 hover:underline font-semibold">ATX Disco Cruise</Link>, all the essentials are handled. Your ticket gets you a 4-hour Lake Travis cruise with licensed, experienced captains at the helm, coolers of ice and water provided, huge lily pad floats for lounging in the lake, and an insane dance floor vibe with a professional DJ spinning hits all day.
               </p>
               <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
                 All you have to do is BYOB – bring your own beverages (no glass) and snacks – and get ready to party. <strong>Pro tip:</strong> Skip the hassle and use <a href="https://www.partyondelivery.com" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline font-semibold">Party On Delivery</a> to have all your drinks, mixers, and ice delivered directly to the marina before your cruise!

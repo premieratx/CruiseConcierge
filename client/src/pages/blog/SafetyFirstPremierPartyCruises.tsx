@@ -30,8 +30,8 @@ const safetyHighlights = [
   },
   { 
     icon: BadgeCheck, 
-    title: 'Coast Guard Certified', 
-    description: 'All captains are USCG licensed professionals',
+    title: 'Licensed, Experienced Captains',
+    description: 'All captains are licensed, experienced professionals',
     color: 'text-blue-600',
     bg: 'bg-blue-100'
   },
@@ -78,11 +78,11 @@ const faqs = [
   },
   {
     question: 'What happens if the weather turns bad during our cruise?',
-    answer: 'Our Coast Guard certified captains closely monitor weather conditions. If conditions become unsafe, we will dock at a safe location. Your safety always comes first with our Lake Travis boat safety standards. We offer full rescheduling or refunds for weather-related cancellations.'
+    answer: 'Our licensed, experienced captains closely monitor weather conditions. If conditions become unsafe, we will dock at a safe location. Your safety always comes first with our Lake Travis boat safety standards. We offer full rescheduling or refunds for weather-related cancellations.'
   },
   {
     question: 'How do you ensure safe party boat Austin experiences?',
-    answer: 'Our safe party boat Austin reputation comes from rigorous safety protocols: Coast Guard certified captains, first aid trained crew, regular equipment inspections, comprehensive insurance, and 14+ years of operational excellence. Every aspect of premier party cruises safety is carefully managed.'
+    answer: 'Our safe party boat Austin reputation comes from rigorous safety protocols: licensed, experienced captains, first aid trained crew, regular equipment inspections, comprehensive insurance, and 14+ years of operational excellence. Every aspect of premier party cruises safety is carefully managed.'
   },
   {
     question: 'Can children come on the cruise? Is it safe?',
@@ -90,7 +90,7 @@ const faqs = [
   },
   {
     question: 'Are your boats inspected regularly?',
-    answer: 'Yes, all our vessels undergo regular Coast Guard inspections and maintenance checks. This commitment to safety is why we have a perfect Austin boat rental safety record. Premier party cruises safety means never cutting corners on equipment or vessel maintenance.'
+    answer: 'Yes, all our vessels undergo regular Licensed, Experienced inspections and maintenance checks. This commitment to safety is why we have a perfect Austin boat rental safety record. Premier party cruises safety means never cutting corners on equipment or vessel maintenance.'
   },
   {
     question: 'What insurance coverage do you have?',
@@ -98,7 +98,7 @@ const faqs = [
   },
   {
     question: 'How experienced are your captains?',
-    answer: 'All our captains are U.S. Coast Guard certified with extensive Lake Travis experience. They know every cove, shallow area, and safe anchoring spot. This expertise is fundamental to our safe party boat Austin reputation and premier party cruises safety commitment.'
+    answer: 'All our captains are U.S. licensed, experienced with extensive Lake Travis experience. They know every cove, shallow area, and safe anchoring spot. This expertise is fundamental to our safe party boat Austin reputation and premier party cruises safety commitment.'
   }
 ];
 
@@ -115,7 +115,7 @@ const corporateBenefits = [
   },
   {
     title: 'Risk Management',
-    description: 'Coast Guard certified captains and first aid trained crew demonstrate due diligence for safe party boat Austin corporate events.',
+    description: 'licensed, experienced captains and first aid trained crew demonstrate due diligence for safe party boat Austin corporate events.',
     icon: Shield
   },
   {
@@ -136,13 +136,13 @@ export default function SafetyFirstPremierPartyCruises() {
       <SEOHead 
         pageRoute="/blogs/safety-first-how-premiers-perfect-record-and-first-aid-training-set-us-apart"
         defaultTitle="Party Boat Safety | Lake Travis Austin | Premier Cruises"
-        defaultDescription="Premier Party Cruises' perfect safety record: Coast Guard certified captains, first aid trained crew, and 125,000+ guests safely served on Lake Travis."
+        defaultDescription="Premier Party Cruises' perfect safety record: licensed, experienced captains, first aid trained crew, and 125,000+ guests safely served on Lake Travis."
         defaultKeywords={[
           'safe party boat Austin',
           'Lake Travis boat safety',
           'Austin boat rental safety record',
           'premier party cruises safety',
-          'Coast Guard certified boat rental',
+          'licensed, experienced boat rental',
           'party boat safety Texas',
           'Lake Travis party cruise insurance'
         ]}
@@ -157,7 +157,7 @@ export default function SafetyFirstPremierPartyCruises() {
 
       <BlogV2Layout
         title="Safety First - How Premier's Perfect Record and First Aid Training Set Us Apart"
-        description="Premier Party Cruises' perfect safety record: Coast Guard certified captains, first aid trained crew, and 125,000+ guests safely served on Lake Travis."
+        description="Premier Party Cruises' perfect safety record: licensed, experienced captains, first aid trained crew, and 125,000+ guests safely served on Lake Travis."
         slug="safety-first-how-premiers-perfect-record-and-first-aid-training-set-us-apart"
         category="Safety Guides"
         categoryHref="/private-cruises"
@@ -243,7 +243,7 @@ export default function SafetyFirstPremierPartyCruises() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <img 
               src={heroImage} 
-              alt="Premier Party Cruises safety boat Lake Travis Austin Coast Guard certified captain"
+              alt="Premier Party Cruises safety boat Lake Travis Austin licensed, experienced captain"
               className="w-full h-auto rounded-xl shadow-2xl"
               data-testid="image-hero-safety"
             />
@@ -350,7 +350,7 @@ export default function SafetyFirstPremierPartyCruises() {
           </div>
         </section>
 
-        {/* Section 2: Coast Guard Certified Captains */}
+        {/* Section 2: Licensed, Experienced Certified Captains */}
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -377,10 +377,10 @@ export default function SafetyFirstPremierPartyCruises() {
               >
                 <Badge className="mb-4 bg-blue-100 text-blue-700">LICENSED PROFESSIONALS</Badge>
                 <h2 className="text-3xl md:text-4xl font-bold mb-6">
-                  Coast Guard Certified Captains for Your Safe Party Boat Austin Experience
+                  Licensed, Experienced Certified Captains for Your Safe Party Boat Austin Experience
                 </h2>
                 <p className="text-lg text-gray-600 dark:text-gray-400 mb-6">
-                  Every safe party boat Austin cruise is commanded by a U.S. Coast Guard certified captain. These aren't weekend hobbyists—they're licensed professionals with extensive Lake Travis boat safety experience who know every cove, current, and condition on the water.
+                  Every safe party boat Austin cruise is commanded by a licensed, experienced captain. These aren't weekend hobbyists—they're licensed professionals with extensive Lake Travis boat safety experience who know every cove, current, and condition on the water.
                 </p>
                 <p className="text-lg text-gray-600 dark:text-gray-400 mb-6">
                   Our captains undergo rigorous training and must maintain their certifications through ongoing education. This commitment to excellence is why our Austin boat rental safety record remains perfect year after year.
@@ -388,7 +388,7 @@ export default function SafetyFirstPremierPartyCruises() {
                 <div className="bg-blue-50 dark:bg-blue-900/20 rounded-xl p-6">
                   <h4 className="font-bold text-lg mb-3">Captain Certifications Include:</h4>
                   <ul className="space-y-2">
-                    {['U.S. Coast Guard Master Captain License', 'Advanced navigation and safety training', 'Annual recertification requirements', 'Lake Travis specific expertise'].map((cert, index) => (
+                    {['Licensed, Experienced Master Captain License', 'Advanced navigation and safety training', 'Annual recertification requirements', 'Lake Travis specific expertise'].map((cert, index) => (
                       <li key={index} className="flex items-center gap-2">
                         <BadgeCheck className="h-5 w-5 text-blue-600" />
                         <span>{cert}</span>
@@ -462,7 +462,7 @@ export default function SafetyFirstPremierPartyCruises() {
                 Safety Equipment: Lake Travis Boat Safety Standards Exceeded
               </h2>
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-                Our safe party boat Austin vessels are equipped with comprehensive safety gear that exceeds Coast Guard requirements. Austin boat rental safety record excellence requires top-tier equipment.
+                Our safe party boat Austin vessels are equipped with comprehensive safety gear that exceeds Licensed, Experienced requirements. Austin boat rental safety record excellence requires top-tier equipment.
               </p>
             </m.div>
 

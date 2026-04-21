@@ -71,7 +71,7 @@ const boatSafetyFeatures = [
   {
     boat: 'Day Tripper',
     capacity: '14 guests',
-    features: ['Single-deck pontoon with arch canopy', 'USCG safety equipment', 'Professional captain', 'First aid kit aboard'],
+    features: ['Single-deck pontoon with arch canopy', 'Licensed safety equipment', 'Professional captain', 'First aid kit aboard'],
     description: 'Intimate Lake Travis boat safety experience for small groups'
   },
   {
@@ -122,7 +122,7 @@ const emergencyProcedures = [
   {
     icon: Radio,
     title: 'Emergency Communication',
-    description: 'VHF marine radios on all boats for Lake Travis boat safety. Direct contact with Coast Guard and local emergency services.'
+    description: 'VHF marine radios on all boats for Lake Travis boat safety. Direct contact with Licensed, Experienced and local emergency services.'
   }
 ];
 
@@ -136,7 +136,7 @@ const swimmingSafetyTips = [
 ];
 
 const captainCredentials = [
-  { icon: BadgeCheck, title: 'USCG Licensed', description: 'All captains hold valid Coast Guard Master Captain licenses for Lake Travis boat safety' },
+  { icon: BadgeCheck, title: 'Licensed Captains', description: 'All captains hold valid state-issued licenses for Lake Travis boat safety' },
   { icon: Heart, title: 'CPR/First Aid Certified', description: 'Emergency response training for safe party cruises Lake Travis' },
   { icon: MapPin, title: 'Lake Travis Experts', description: 'Years of local experience for optimal party boat safety Lake Travis navigation' },
   { icon: Shield, title: 'Background Verified', description: 'Full background checks for your Lake Travis boat safety peace of mind' }
@@ -161,7 +161,7 @@ const faqs = [
   },
   {
     question: 'Are your captains trained for Lake Travis boat safety emergencies?',
-    answer: 'Absolutely. All captains are USCG licensed, CPR/First Aid certified, and trained in Lake Travis boat safety emergency protocols. They carry marine radios for emergency communication. Safe party cruises Lake Travis include captains with years of local experience handling any situation.'
+    answer: 'Absolutely. All captains are licensed, CPR/First Aid certified, and trained in Lake Travis boat safety emergency protocols. They carry marine radios for emergency communication. Safe party cruises Lake Travis include captains with years of local experience handling any situation.'
   },
   {
     question: 'Why is glass prohibited for party boat safety Lake Travis?',
@@ -384,7 +384,7 @@ export default function LakeTravisBoatSafetyGuidelines() {
               >
                 <Badge className="mb-4 bg-blue-100 text-blue-700">PROFESSIONAL CREW</Badge>
                 <h2 className="text-3xl font-bold mb-6" data-testid="captain-title">
-                  USCG Licensed Captains for Lake Travis Boat Safety
+                  Licensed Captains Captains for Lake Travis Boat Safety
                 </h2>
                 <p className="text-lg text-gray-600 dark:text-gray-400 mb-6">
                   Every safe party cruises Lake Travis experience is led by a fully licensed, trained professional. Our captains are the foundation of our perfect party boat safety Lake Travis record.
@@ -409,7 +409,7 @@ export default function LakeTravisBoatSafetyGuidelines() {
               >
                 <img 
                   src={sectionImage1}
-                  alt="Party boat safety Lake Travis - professional USCG licensed captain ensuring guest safety"
+                  alt="Party boat safety Lake Travis - professional licensed, experienced captain ensuring guest safety"
                   className="rounded-2xl shadow-xl"
                   data-testid="img-captain"
                 />

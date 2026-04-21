@@ -145,13 +145,13 @@ export const BUSINESS_REGISTRATION = {
   taxId: 'Available upon request',
   licenses: [
     'Texas Parks and Wildlife Boating License',
-    'USCG Captain\'s License',
+    'Licensed Captain\'s License',
     'Commercial Vessel Operating License',
   ],
   insurance: 'Fully insured and bonded',
   certifications: [
     'CPR/First Aid Certified',
-    'USCG Safety Certified',
+    'Licensed Safety Certified',
     'Commercial Marine Operator',
   ],
 } as const;

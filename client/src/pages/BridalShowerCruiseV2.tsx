@@ -24,7 +24,7 @@ export default function BridalShowerCruiseV2() {
     },
     {
       q: 'What is included in a bridal shower cruise?',
-      a: 'Every bridal shower cruise includes a US Coast Guard licensed captain, trained crew, premium Bluetooth sound system, large coolers (bring your own ice, or order pre-iced from Party On Delivery), a swim stop in a scenic cove, and all safety equipment. BYOB drinks and food welcome. Optional Ultimate decor package ($250-$350 flat) adds premium styling. Catering coordination through Party On Delivery.'
+      a: 'Every bridal shower cruise includes a licensed, experienced captain, trained crew, premium Bluetooth sound system, large coolers (bring your own ice, or order pre-iced from Party On Delivery), a swim stop in a scenic cove, and all safety equipment. BYOB drinks and food welcome. Optional Ultimate decor package ($250-$350 flat) adds premium styling. Catering coordination through Party On Delivery.'
     },
     {
       q: 'Can we decorate the boat for a bridal shower?',
@@ -97,7 +97,7 @@ export default function BridalShowerCruiseV2() {
             <div className="hp2-feature-card">
               <div className="hp2-feature-card__num">01</div>
               <div className="hp2-feature-card__title">Licensed Captain & Crew</div>
-              <div className="hp2-feature-card__desc">USCG-certified captain handles navigation. Trained crew assists with service, setup, and safety — you focus on celebrating.</div>
+              <div className="hp2-feature-card__desc">licensed, experienced captain handles navigation. Trained crew assists with service, setup, and safety — you focus on celebrating.</div>
             </div>
             <div className="hp2-feature-card">
               <div className="hp2-feature-card__num">02</div>

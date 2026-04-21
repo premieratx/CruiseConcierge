@@ -82,7 +82,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Austin Party Boat Rentals — Your Exclusive Lake Travis Experience',
         paragraphs: [
-          'Rent a party boat in Austin for any celebration — year-round, every day, starting at $200 per hour. Choose from our fleet of four premium Lake Travis party boats: Day Tripper (1–14 people), Meeseeks or The Irony (15–30 people), or flagship Clever Girl (31–75 people) with giant Texas flag and 14 disco balls. Every [[private-cruises]] Austin party boat rental includes a Coast Guard licensed captain + crew, premium marine-grade Bluetooth audio, large coolers (always BYOB — Party On Delivery sets up drinks on ice), and standard amenities. Add the Essentials or Ultimate package for a fully all-inclusive Austin party boat experience.',
+          'Rent a party boat in Austin for any celebration — year-round, every day, starting at $200 per hour. Choose from our fleet of four premium Lake Travis party boats: Day Tripper (1–14 people), Meeseeks or The Irony (15–30 people), or flagship Clever Girl (31–75 people) with giant Texas flag and 14 disco balls. Every [[private-cruises]] Austin party boat rental includes a licensed, experienced captain + crew, premium marine-grade Bluetooth audio, large coolers (always BYOB — Party On Delivery sets up drinks on ice), and standard amenities. Add the Essentials or Ultimate package for a fully all-inclusive Austin party boat experience.',
           'Perfect for [[wedding-party]], [[corporate-events]], [[birthday-party]], [[bachelor-party]], [[bachelorette-party]], and any Lake Travis celebration. 4-hour minimum on weekends (Fri–Sun), 3-hour minimum on weekdays (Mon–Thu). Fully customizable package levels to match your event.'
         ],
         lists: [
@@ -90,7 +90,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
             title: 'Private Charter Features (Year-Round, All Ages Welcome)',
             items: [
               'Available every day, year-round — no seasonal gap',
-              'Licensed Coast Guard captain + professional crew included',
+              'Licensed, Experienced captain + professional crew included',
               'Premium marine-grade Bluetooth sound system',
               'Large coolers included — always BYOB (Party On Delivery can pre-stock with ice + drinks)',
               'Standard amenities included; optional Essentials or Ultimate package = fully all-inclusive',
@@ -154,7 +154,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Why Choose Premier Party Cruises',
         paragraphs: [
-          'With 15+ years of experience and 150,000+ satisfied customers, we are Austin\'s longest-running and most trusted party cruise company. Our perfect safety record, Coast Guard certified captains, and newest fleet ensure an exceptional experience every time.'
+          'With 15+ years of experience and 150,000+ satisfied customers, we are Austin\'s longest-running and most trusted party cruise company. Our perfect safety record, licensed, experienced captains, and newest fleet ensure an exceptional experience every time.'
         ],
         lists: [
           {
@@ -164,7 +164,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
               'Hundreds of 5-star reviews',
               'Perfect safety record maintained',
               'Newest fleet in Austin',
-              'Coast Guard certified captains',
+              'licensed, experienced captains',
               'Full-service experience included',
               'Custom packages for any event',
               'Professional crew & premium sound'
@@ -175,13 +175,13 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Premier vs DIY Pontoon Rental — What You Actually Get',
         paragraphs: [
-          'A "cheap" Lake Travis DIY pontoon rental quickly stops being cheap. The boat alone runs $400-$800/day, then YOU drive, YOU navigate, YOU bring your own music, YOU rent floats, YOU haul your own coolers, and YOU coordinate every detail. With Premier, every cruise includes a Coast Guard licensed captain who handles the boat, professional DJ, professional photographer with digital delivery, premium marine-grade Bluetooth audio, lily pad floats, BYOB cooler service with ice, restrooms, shaded lounges, and tax + gratuity wrapped into a transparent ticket price. By the time you finish adding what a DIY pontoon doesn\'t include, you\'ve spent more — and worked the whole day instead of celebrating.',
+          'A "cheap" Lake Travis DIY pontoon rental quickly stops being cheap. The boat alone runs $400-$800/day, then YOU drive, YOU navigate, YOU bring your own music, YOU rent floats, YOU haul your own coolers, and YOU coordinate every detail. With Premier, every cruise includes a licensed, experienced captain who handles the boat, professional DJ, professional photographer with digital delivery, premium marine-grade Bluetooth audio, lily pad floats, BYOB cooler service with ice, restrooms, shaded lounges, and tax + gratuity wrapped into a transparent ticket price. By the time you finish adding what a DIY pontoon doesn\'t include, you\'ve spent more — and worked the whole day instead of celebrating.',
         ],
         lists: [
           {
             title: 'Always Included with Every Cruise (Disco or Private)',
             items: [
-              'Coast Guard licensed captain handles all driving + navigation',
+              'licensed, experienced captain handles all driving + navigation',
               'Premium marine-grade Bluetooth sound system',
               'Personal cooler + ice for your group',
               'Lily pad / unicorn floats at the swim stop',
@@ -249,14 +249,14 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         paragraphs: [
           'Premier Party Cruises exists to produce the single best day on Lake Travis — every time, for every guest, every sailing. We codify this into three explicit commitments we never break:',
           'TURNKEY — You show up with your group and your cooler. We handle the captain, the music, the photos, the floats, the safety, the weather calls, the logistics. Zero planning burden. Zero hidden fees. Every ticket is all-inclusive with tax and gratuity built in.',
-          'SAFETY-FIRST — 15+ years, 150,000+ guests, perfect safety record. US Coast Guard licensed captains. CPR-certified crew. Premier-specific welcome ritual on every boarding. Every fleet maintenance checkpoint documented and dated. This is not generic compliance — this is a Premier-specific operational moat.',
+          'SAFETY-FIRST — 15+ years, 150,000+ guests, perfect safety record. licensed, experienced captains. CPR-certified crew. Premier-specific welcome ritual on every boarding. Every fleet maintenance checkpoint documented and dated. This is not generic compliance — this is a Premier-specific operational moat.',
           'HIGH-ENERGY — Professional DJ, 14 disco balls, premium marine audio, giant party floats, Clever Girl flagship with full dance floor — OR quiet sunset charter with your own music and your own guests. Same fleet dialed to the energy you choose. We are the only Lake Travis cruise company that delivers both modes at this quality.',
         ]
       },
       {
         heading: 'The Premier Safety Code — Quantified, Not Generic',
         paragraphs: [
-          'Most Lake Travis boat rentals tell you they are "safe" in one sentence. We publish the full record. Premier Party Cruises has operated for 15+ years with 150,000+ guests aboard and a perfect safety record — zero reportable incidents. Every captain holds a US Coast Guard Merchant Mariner Credential. Every crew member is CPR-certified. Every sailing begins with a signature Premier safety welcome ritual that takes under 60 seconds and covers life jackets, emergency exits, weather policy, swim stops, and who to ask for anything. Every boat is inspected before every sailing and maintained on a documented schedule.',
+          'Most Lake Travis boat rentals tell you they are "safe" in one sentence. We publish the full record. Premier Party Cruises has operated for 15+ years with 150,000+ guests aboard and a perfect safety record — zero reportable incidents. Every captain holds a Licensed, Experienced Merchant Mariner Credential. Every crew member is CPR-certified. Every sailing begins with a signature Premier safety welcome ritual that takes under 60 seconds and covers life jackets, emergency exits, weather policy, swim stops, and who to ask for anything. Every boat is inspected before every sailing and maintained on a documented schedule.',
         ],
         lists: [
           {
@@ -264,7 +264,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
             items: [
               '15+ years of continuous Lake Travis operation',
               '150,000+ guests served with perfect safety record',
-              '100% US Coast Guard licensed captains (Merchant Mariner Credential)',
+              '100% licensed, experienced captains (Merchant Mariner Credential)',
               '100% CPR-certified crew on every sailing',
               'Premier welcome ritual on every boarding — life jackets, exits, weather, swim stops',
               'Pre-sailing boat inspection documented and logged',
@@ -325,11 +325,11 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           'When does the ATX Disco Cruise run? The disco cruise operates Fridays 12-4pm and Saturdays with two time slots: 11am-3pm (most popular!) or 3:30-7:30pm. Pricing varies by time slot, with all prices including tax and gratuity for a complete, transparent experience.',
           'Where do you depart from on Lake Travis? We depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641. We\'re the closest marina to downtown Austin, approximately 25 minutes away, making us convenient for all your guests.',
           'What\'s included with the ATX Disco Cruise? Every ATX Disco Cruise includes a professional DJ playing all day, professional photographer with photo delivery, giant unicorn floats, multiple lily pad floats, disco dance floor, party supplies and mixers, ice water stations, clean restroom facilities, and an unforgettable party atmosphere with multiple bachelor and bachelorette groups celebrating together.',
-          'What makes Premier Party Cruises different from other Lake Travis boat rentals? With 15+ years of experience and 150,000+ satisfied customers, we are Austin\'s longest-running and most trusted party cruise company. We maintain a perfect safety record with Coast Guard certified captains, operate the newest fleet in Austin, and provide full-service experiences with professional crew and premium sound systems. We\'re the only company offering the signature ATX Disco Cruise party experience.',
+          'What makes Premier Party Cruises different from other Lake Travis boat rentals? With 15+ years of experience and 150,000+ satisfied customers, we are Austin\'s longest-running and most trusted party cruise company. We maintain a perfect safety record with licensed, experienced captains, operate the newest fleet in Austin, and provide full-service experiences with professional crew and premium sound systems. We\'re the only company offering the signature ATX Disco Cruise party experience.',
           'Can you accommodate corporate events and team building activities? Absolutely! We specialize in corporate events and team building on Lake Travis. Our fleet accommodates groups from 14 to 75+ guests with professional service and premium amenities. Customizable packages include catering coordination, AV equipment, and dedicated event planning to ensure your corporate event is a complete success.',
           'Can you swim on Lake Travis during the cruise? Yes! Swimming is one of the highlights of every Lake Travis cruise. During your private charter, the captain anchors in a scenic cove with crystal-clear water surrounded by limestone cliffs. Guests can swim, float on lily pads, jump off the boat, and enjoy the natural springs that feed Lake Travis. We provide a swim ladder for easy re-boarding. Life jackets are available for all guests. The typical swim stop is 1.5-2 hours during a 4-hour cruise.',
           'Are there sunset cruises on Lake Travis? Yes. Sunset cruises are among our most popular options. The Texas Hill Country sunset over Lake Travis is spectacular, with golden light reflecting off the limestone bluffs and calm water. The Saturday 3:30-7:30pm ATX Disco Cruise time slot is perfectly timed for sunset, or you can book a private charter at any time. Sunset cruises are especially popular for proposals, anniversaries, rehearsal dinners, and romantic celebrations.',
-          'Is Premier Party Cruises safe for families with children? Absolutely. We maintain a perfect safety record spanning 15+ years and over 150,000 guests. All boats are operated by US Coast Guard certified, licensed captains with extensive Lake Travis experience. Life jackets are available in all sizes, including children\'s sizes. Many families choose us for birthday parties, family reunions, graduation celebrations, and holiday gatherings. Children of all ages are welcome on private charters.',
+          'Is Premier Party Cruises safe for families with children? Absolutely. We maintain a perfect safety record spanning 15+ years and over 150,000 guests. All boats are operated by US licensed, experienced, licensed captains with extensive Lake Travis experience. Life jackets are available in all sizes, including children\'s sizes. Many families choose us for birthday parties, family reunions, graduation celebrations, and holiday gatherings. Children of all ages are welcome on private charters.',
           'What are the best things to do on Lake Travis? Lake Travis is Austin\'s premier outdoor destination. Top activities include party boat cruises (our specialty), swimming in the coves near Devil\'s Cove, floating on lily pads, cliff jumping, paddle boarding, kayaking, and fishing. The surrounding Texas Hill Country offers wineries, hiking at Pace Bend Park, and waterfront dining. Premier Party Cruises departs from Anderson Mill Marina, just 25 minutes from downtown Austin, making it easy to combine a lake day with Austin nightlife on 6th Street or Rainey Street.',
           'How does Premier Party Cruises compare to other Austin boat rentals? Premier Party Cruises is Austin\'s longest-running party boat company (since 2009) with the highest customer satisfaction rating (4.9/5 stars). Unlike bare-bones pontoon rentals, we provide a full-service experience: licensed captains, trained crew, premium sound systems, coolers with ice, and the only ATX Disco Cruise on the lake. Our fleet of 4 purpose-built party boats (Day Tripper, Meeseeks, The Irony, Clever Girl) accommodates 14-75 guests. We are also the only Lake Travis boat company with 14 disco balls.',
           'What should I bring on a Lake Travis boat party? Bring sunscreen (SPF 50+ recommended), sunglasses, a hat, swimsuit, towel, and your favorite beverages (BYOB — beer, wine, spirits in cans or plastic, no glass). We provide coolers with ice, premium sound systems, and all safety equipment. Optional: bring snacks, a waterproof phone case, and celebration items like sashes or banners. We can also coordinate alcohol delivery through our partner Party On Delivery so drinks are waiting on the boat when you arrive.'
@@ -501,7 +501,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
               'Day Tripper - Perfect for smaller bachelor groups of 14 guests max',
               'Meeseeks / The Irony - Two identical boats with 25-guest capacity',
               'Clever Girl - Flagship 75-guest boat with giant Texas flag and 14 disco balls',
-              'All boats: USCG certified captains, premium Bluetooth sound, coolers with ice'
+              'All boats: licensed, experienced captains, premium Bluetooth sound, coolers with ice'
             ]
           }
         ]
@@ -519,13 +519,13 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Why Premier Wins Bachelor Parties — Quantified',
         paragraphs: [
-          'Austin has lots of "boat rental" options. Premier is the one Austin groups actually remember. 15+ years on Lake Travis. 150,000+ guests served. Perfect safety record — zero reportable incidents. 100% US Coast Guard licensed captains (Merchant Mariner Credential). 100% CPR-certified crew on every sailing. 4.9/5.0 average rating across hundreds of reviews. The [[atx-disco]] multi-group experience and [[private-cruises]] exclusive charter both run under the same operational moat.',
+          'Austin has lots of "boat rental" options. Premier is the one Austin groups actually remember. 15+ years on Lake Travis. 150,000+ guests served. Perfect safety record — zero reportable incidents. 100% licensed, experienced captains (Merchant Mariner Credential). 100% CPR-certified crew on every sailing. 4.9/5.0 average rating across hundreds of reviews. The [[atx-disco]] multi-group experience and [[private-cruises]] exclusive charter both run under the same operational moat.',
         ],
         lists: [
           {
             title: 'What every bachelor party ticket or charter buys',
             items: [
-              'Coast Guard licensed captain (you don\'t drive, you don\'t navigate)',
+              'licensed, experienced captain (you don\'t drive, you don\'t navigate)',
               'Professional DJ (Disco Cruise) or premium Bluetooth audio (private charter)',
               'Professional photographer with digital delivery (Disco Cruise)',
               'Personal cooler + ice for your group',
@@ -640,7 +640,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
               'Multiple package options for any budget',
               'Easy planning and coordination',
               'Perfect for groups of 10-100+ guests',
-              'Coast Guard certified captains'
+              'licensed, experienced captains'
             ]
           }
         ]
@@ -706,7 +706,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
               'Day Tripper - Intimate 14-guest capacity, perfect for smaller bachelorette groups',
               'Meeseeks / The Irony - Two identical boats with 25-guest capacity and premium sound',
               'Clever Girl - Our flagship 75-guest boat with giant Texas flag and 14 disco balls',
-              'All boats feature USCG certified captains, Bluetooth speakers, coolers with ice'
+              'All boats feature licensed, experienced captains, Bluetooth speakers, coolers with ice'
             ]
           }
         ]
@@ -714,13 +714,13 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Why Premier Wins Bachelorette Parties — Quantified',
         paragraphs: [
-          'Austin is the #1 bachelorette destination in the country. Plenty of companies will rent you a boat. Premier is the one the bride remembers. 15+ years on Lake Travis. 150,000+ guests served. Perfect safety record — zero reportable incidents. 100% US Coast Guard licensed captains. 100% CPR-certified crew on every sailing. 4.9/5.0 average rating across hundreds of reviews. Whether you choose the high-energy [[atx-disco]] shared party or a [[private-cruises]] exclusive charter, every sailing runs under the same operational moat — you never worry about safety, logistics, or the weather.',
+          'Austin is the #1 bachelorette destination in the country. Plenty of companies will rent you a boat. Premier is the one the bride remembers. 15+ years on Lake Travis. 150,000+ guests served. Perfect safety record — zero reportable incidents. 100% licensed, experienced captains. 100% CPR-certified crew on every sailing. 4.9/5.0 average rating across hundreds of reviews. Whether you choose the high-energy [[atx-disco]] shared party or a [[private-cruises]] exclusive charter, every sailing runs under the same operational moat — you never worry about safety, logistics, or the weather.',
         ],
         lists: [
           {
             title: 'What every bachelorette party ticket or charter buys',
             items: [
-              'Coast Guard licensed captain + professional crew',
+              'licensed, experienced captain + professional crew',
               'Professional DJ all 4 hours (Disco Cruise) or your own playlist (private)',
               'Professional photographer + digital photo delivery (Disco Cruise)',
               'Personal cooler + ice + cups for your group',
@@ -966,13 +966,13 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Why Premier vs DIY Pontoon Rental',
         paragraphs: [
-          'Cheap DIY pontoon rentals on Lake Travis run $400-$800/day for the boat alone, then YOU drive, YOU navigate, YOU bring music, YOU coordinate everything. The ATX Disco Cruise at $85-$105/person includes a Coast Guard licensed captain who handles all driving and navigation, professional DJ, professional photographer, disco lighting, premium Bluetooth sound, restrooms, shaded areas, life jackets, BYOB cooler service, ice, lily pad floats, and a 4-hour cruise on a 75-person flagship vessel. By the time you add a captain, music, photos, and decor to a DIY pontoon, you\'ve spent more — and you spent your day working instead of celebrating.'
+          'Cheap DIY pontoon rentals on Lake Travis run $400-$800/day for the boat alone, then YOU drive, YOU navigate, YOU bring music, YOU coordinate everything. The ATX Disco Cruise at $85-$105/person includes a licensed, experienced captain who handles all driving and navigation, professional DJ, professional photographer, disco lighting, premium Bluetooth sound, restrooms, shaded areas, life jackets, BYOB cooler service, ice, lily pad floats, and a 4-hour cruise on a 75-person flagship vessel. By the time you add a captain, music, photos, and decor to a DIY pontoon, you\'ve spent more — and you spent your day working instead of celebrating.'
         ],
         lists: [
           {
             title: 'What\'s Included With Every Disco Cruise Ticket',
             items: [
-              'Coast Guard licensed captain (you don\'t drive, you don\'t navigate)',
+              'licensed, experienced captain (you don\'t drive, you don\'t navigate)',
               'Professional DJ all 4 hours',
               'Professional photographer + digital delivery',
               'Disco dance floor with LED lights + 14 disco balls',
@@ -1062,7 +1062,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
   },
   '/private-cruises': {
     h1: 'Party Boat Rentals · Party Boat Hire · Rent a Party Boat on Lake Travis',
-    introduction: 'Premier Party Cruises offers the largest private party boat rentals on Lake Travis — rent a party boat by the hour, year-round, every day of the week, with a Coast Guard licensed captain, premium marine Bluetooth audio, coolers (always BYOB), and zero hidden fees. Whether you\'re searching "party boat rentals," "party boat hire," or "rent a party boat" — this is the page. Our fleet accommodates 1–75 guests across four boats: Day Tripper (14), Meeseeks and The Irony (15–30 each), and flagship Clever Girl (31–75, 14 disco balls, giant Texas flag). Starting at $200/hour with a 4-hour minimum on weekends (3-hour minimum weekdays). Standard amenities included; add the Essentials or Ultimate package to make your rental fully all-inclusive with DJ-quality audio, floats, decor, and champagne flutes. Perfect for [[bachelor-party]], [[bachelorette-party]], [[corporate-events]], [[wedding-party]], [[birthday-party]], family reunions, anniversaries, and every Austin celebration.',
+    introduction: 'Premier Party Cruises offers the largest private party boat rentals on Lake Travis — rent a party boat by the hour, year-round, every day of the week, with a licensed, experienced captain, premium marine Bluetooth audio, coolers (always BYOB), and zero hidden fees. Whether you\'re searching "party boat rentals," "party boat hire," or "rent a party boat" — this is the page. Our fleet accommodates 1–75 guests across four boats: Day Tripper (14), Meeseeks and The Irony (15–30 each), and flagship Clever Girl (31–75, 14 disco balls, giant Texas flag). Starting at $200/hour with a 4-hour minimum on weekends (3-hour minimum weekdays). Standard amenities included; add the Essentials or Ultimate package to make your rental fully all-inclusive with DJ-quality audio, floats, decor, and champagne flutes. Perfect for [[bachelor-party]], [[bachelorette-party]], [[corporate-events]], [[wedding-party]], [[birthday-party]], family reunions, anniversaries, and every Austin celebration.',
     sections: [
       {
         heading: 'Party Boat Rentals on Lake Travis — How It Works',
@@ -1073,7 +1073,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           {
             title: 'What Every Party Boat Rental Includes — Standard',
             items: [
-              'Coast Guard licensed captain + professional crew',
+              'licensed, experienced captain + professional crew',
               'Premium marine-grade Bluetooth audio system',
               'Large coolers (always BYOB — cans + plastic only, no glass)',
               'Sun + shade seating zones',
@@ -1263,7 +1263,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         lists: [
           {
             items: [
-              'Coast Guard certified captain',
+              'licensed, experienced captain',
               'Professional crew members',
               'Premium Bluetooth sound system',
               'Large coolers (ice in Essentials/Ultimate)',
@@ -1313,7 +1313,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Safety and Professionalism',
         paragraphs: [
-          'Premier Party Cruises maintains a perfect safety record spanning 15+ years and 150,000+ guests on Lake Travis. Every private charter includes a Coast Guard certified, licensed captain with extensive Lake Travis navigation experience. Our professional crew members are trained in safety protocols, guest service, and emergency procedures.',
+          'Premier Party Cruises maintains a perfect safety record spanning 15+ years and 150,000+ guests on Lake Travis. Every private charter includes a licensed, experienced, licensed captain with extensive Lake Travis navigation experience. Our professional crew members are trained in safety protocols, guest service, and emergency procedures.',
           'All four boats in our fleet are regularly inspected, professionally maintained, and equipped with current safety gear including life jackets for all passengers, fire extinguishers, first aid kits, and emergency communication equipment. We monitor weather conditions continuously and our captains have final authority on all safety decisions.'
         ]
       },
@@ -1356,13 +1356,13 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Why Choose Premier — The Quantified Promise',
         paragraphs: [
-          'Most Lake Travis charter companies say "we are safe" in one sentence. Premier publishes the full record. Operating since 2009 — 15+ years on Lake Travis. 150,000+ guests served. Perfect safety record (zero reportable incidents). 100% US Coast Guard licensed captains (Merchant Mariner Credential). 100% CPR-certified crew on every sailing. 4.9/5.0 average rating across hundreds of reviews. Every boat inspected before every sailing on a documented schedule. These are not adjectives — they are countable facts that beat what every cheaper operator can claim.',
+          'Most Lake Travis charter companies say "we are safe" in one sentence. Premier publishes the full record. Operating since 2009 — 15+ years on Lake Travis. 150,000+ guests served. Perfect safety record (zero reportable incidents). 100% licensed, experienced captains (Merchant Mariner Credential). 100% CPR-certified crew on every sailing. 4.9/5.0 average rating across hundreds of reviews. Every boat inspected before every sailing on a documented schedule. These are not adjectives — they are countable facts that beat what every cheaper operator can claim.',
         ],
         lists: [
           {
             title: 'Premier vs DIY pontoon — what your ticket actually buys',
             items: [
-              'Coast Guard licensed captain (you don\'t drive, you don\'t navigate)',
+              'licensed, experienced captain (you don\'t drive, you don\'t navigate)',
               'Premium marine-grade Bluetooth sound system',
               'Personal cooler + ice for your group',
               'Lily pad / unicorn floats at the swim stop',
@@ -1384,7 +1384,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
   },
   '/after-party': {
     h1: 'Austin Wedding After-Party Cruise · Lake Travis Late-Night Wedding After-Party Boat · Premier Party Cruises',
-    introduction: 'Premier Party Cruises runs the #1 Austin wedding after-party cruise on Lake Travis — the Lake Travis late-night wedding after-party venue for 15+ years, 150,000+ guests, 0 incidents, 4.9/5.0 rating. When the reception winds down and the real party is just starting, take your bridal party and closest friends to a private Lake Travis party boat for a late-night [[after-party]] cruise with professional DJ, midnight champagne, dancing under the stars, and Lake Travis reflections. Year-round, starting $200/hour. Fleet: Day Tripper (1–14 intimate bridal-party after-party), Meeseeks or The Irony (15–30 core wedding after-party), flagship Clever Girl (31–75 for the full wedding-crew after-hours). Every after-party cruise includes a Coast Guard licensed captain + crew, premium marine Bluetooth audio or optional pro DJ upgrade, always BYOB with Party On Delivery champagne + late-night-favorite drinks pre-iced on the boat, optional Essentials or Ultimate package. Anderson Mill Marina — 25 min from downtown, free parking, no stairs (wedding heels tested). Free weather reschedules on wedding-weekend bookings.',
+    introduction: 'Premier Party Cruises runs the #1 Austin wedding after-party cruise on Lake Travis — the Lake Travis late-night wedding after-party venue for 15+ years, 150,000+ guests, 0 incidents, 4.9/5.0 rating. When the reception winds down and the real party is just starting, take your bridal party and closest friends to a private Lake Travis party boat for a late-night [[after-party]] cruise with professional DJ, midnight champagne, dancing under the stars, and Lake Travis reflections. Year-round, starting $200/hour. Fleet: Day Tripper (1–14 intimate bridal-party after-party), Meeseeks or The Irony (15–30 core wedding after-party), flagship Clever Girl (31–75 for the full wedding-crew after-hours). Every after-party cruise includes a licensed, experienced captain + crew, premium marine Bluetooth audio or optional pro DJ upgrade, always BYOB with Party On Delivery champagne + late-night-favorite drinks pre-iced on the boat, optional Essentials or Ultimate package. Anderson Mill Marina — 25 min from downtown, free parking, no stairs (wedding heels tested). Free weather reschedules on wedding-weekend bookings.',
     sections: [
       {
         heading: 'After Party Cruise Packages',
@@ -1490,7 +1490,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
   },
   '/welcome-party': {
     h1: 'Austin Wedding Welcome Party Cruise · Lake Travis Out-Of-Town Guest Welcome Boat · Premier Party Cruises',
-    introduction: 'Premier Party Cruises runs the #1 Austin wedding welcome party cruise on Lake Travis — the most-booked Lake Travis welcome party venue for 15+ years of wedding weekends, 150,000+ guests, 0 incidents, 4.9/5.0 rating. Kick off your wedding weekend by gathering out-of-town guests on a private Lake Travis party boat for a Friday-evening [[welcome-party]] or Thursday-night pre-wedding cruise. Year-round, starting $200/hour. Fleet: Day Tripper (1–14 for intimate welcome dinner), Meeseeks or The Irony (15–30 for out-of-town-guest welcome), flagship Clever Girl (31–75 for the full out-of-town guest list). Every welcome party cruise includes a Coast Guard licensed captain + crew, premium marine Bluetooth audio (custom pre-wedding playlist), always BYOB with Party On Delivery champagne/wine/beer set-up on ice before boarding, optional Essentials or Ultimate package for fully all-inclusive welcome with decor + catering coordination + champagne flutes. Anderson Mill Marina — 25 min from downtown Austin, free parking, no stairs, wedding-attire friendly. Shuttle coordination for out-of-town guests from hotel blocks available. Free weather reschedules.',
+    introduction: 'Premier Party Cruises runs the #1 Austin wedding welcome party cruise on Lake Travis — the most-booked Lake Travis welcome party venue for 15+ years of wedding weekends, 150,000+ guests, 0 incidents, 4.9/5.0 rating. Kick off your wedding weekend by gathering out-of-town guests on a private Lake Travis party boat for a Friday-evening [[welcome-party]] or Thursday-night pre-wedding cruise. Year-round, starting $200/hour. Fleet: Day Tripper (1–14 for intimate welcome dinner), Meeseeks or The Irony (15–30 for out-of-town-guest welcome), flagship Clever Girl (31–75 for the full out-of-town guest list). Every welcome party cruise includes a licensed, experienced captain + crew, premium marine Bluetooth audio (custom pre-wedding playlist), always BYOB with Party On Delivery champagne/wine/beer set-up on ice before boarding, optional Essentials or Ultimate package for fully all-inclusive welcome with decor + catering coordination + champagne flutes. Anderson Mill Marina — 25 min from downtown Austin, free parking, no stairs, wedding-attire friendly. Shuttle coordination for out-of-town guests from hotel blocks available. Free weather reschedules.',
     sections: [
       {
         heading: 'Welcome Party on the Water',
@@ -1556,7 +1556,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
   },
   '/rehearsal-dinner': {
     h1: 'Austin Rehearsal Dinner Cruise · Lake Travis Rehearsal Dinner Party Boat · Premier Party Cruises',
-    introduction: 'Premier Party Cruises runs the #1 Austin rehearsal dinner cruise on Lake Travis — Lake Travis rehearsal dinner party boat for 15+ years, 150,000+ guests, 0 incidents, 4.9/5.0 rating. Host your [[rehearsal-dinner]] on a private Lake Travis party boat instead of a traditional restaurant — your [[wedding-party]] on the water, sunset framing, complete privacy, no seating chart fights. Year-round, starting $200/hour. Fleet: Day Tripper (1–14 for intimate immediate-wedding-party dinners), Meeseeks or The Irony (15–30 for standard rehearsal parties), Clever Girl (31–75 for rehearsal + welcome-party combo events). Every rehearsal dinner charter includes a Coast Guard licensed captain + crew, premium marine Bluetooth audio (custom playlist + toasts), optional wireless microphone for speeches, catering coordination with Austin\'s top caterers, Essentials or Ultimate package for a fully all-inclusive rehearsal dinner with champagne flutes + decor, always BYOB with Party On Delivery champagne and wine set-up. Anderson Mill Marina — 25 min from downtown Austin, free parking, no stairs — wedding-attire friendly. Free weather reschedules on pre-wedding rehearsal bookings.',
+    introduction: 'Premier Party Cruises runs the #1 Austin rehearsal dinner cruise on Lake Travis — Lake Travis rehearsal dinner party boat for 15+ years, 150,000+ guests, 0 incidents, 4.9/5.0 rating. Host your [[rehearsal-dinner]] on a private Lake Travis party boat instead of a traditional restaurant — your [[wedding-party]] on the water, sunset framing, complete privacy, no seating chart fights. Year-round, starting $200/hour. Fleet: Day Tripper (1–14 for intimate immediate-wedding-party dinners), Meeseeks or The Irony (15–30 for standard rehearsal parties), Clever Girl (31–75 for rehearsal + welcome-party combo events). Every rehearsal dinner charter includes a licensed, experienced captain + crew, premium marine Bluetooth audio (custom playlist + toasts), optional wireless microphone for speeches, catering coordination with Austin\'s top caterers, Essentials or Ultimate package for a fully all-inclusive rehearsal dinner with champagne flutes + decor, always BYOB with Party On Delivery champagne and wine set-up. Anderson Mill Marina — 25 min from downtown Austin, free parking, no stairs — wedding-attire friendly. Free weather reschedules on pre-wedding rehearsal bookings.',
     sections: [
       {
         heading: 'Rehearsal Dinner on Lake Travis',
@@ -1623,7 +1623,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
   },
   '/team-building': {
     h1: 'Austin Team Building on Lake Travis · Corporate Team Building Party Boat · Premier Party Cruises',
-    introduction: 'Premier Party Cruises is the #1 Austin team building party boat on Lake Travis — the most-booked Lake Travis corporate team building venue for 15+ years, 150,000+ guests served, 0 reportable incidents, 4.9/5.0 across 450+ reviews. Host your [[team-building]] event, employee appreciation day, executive offsite, quarterly kickoff, or department retreat on a private Lake Travis party boat — year-round, every day, starting $200/hour. Fleet accommodates 14–75 guests: Day Tripper (1–14 for leadership offsites), Meeseeks or The Irony (15–30 for dept-size teams), and the 75-person Clever Girl flagship for full-company days. Every Austin team building charter includes a Coast Guard licensed captain + crew, premium marine Bluetooth audio (presentations or playlists), optional wireless microphone + A/V package, Anderson Mill Marina departure (25 min from downtown, free parking, no stairs), catering coordination, Party On Delivery drink set-up, and free weather reschedules so your calendar never takes the hit. Transparent all-in pricing — tax, gratuity, captain, and fuel included. The Austin team building activity that actually creates connection.',
+    introduction: 'Premier Party Cruises is the #1 Austin team building party boat on Lake Travis — the most-booked Lake Travis corporate team building venue for 15+ years, 150,000+ guests served, 0 reportable incidents, 4.9/5.0 across 450+ reviews. Host your [[team-building]] event, employee appreciation day, executive offsite, quarterly kickoff, or department retreat on a private Lake Travis party boat — year-round, every day, starting $200/hour. Fleet accommodates 14–75 guests: Day Tripper (1–14 for leadership offsites), Meeseeks or The Irony (15–30 for dept-size teams), and the 75-person Clever Girl flagship for full-company days. Every Austin team building charter includes a licensed, experienced captain + crew, premium marine Bluetooth audio (presentations or playlists), optional wireless microphone + A/V package, Anderson Mill Marina departure (25 min from downtown, free parking, no stairs), catering coordination, Party On Delivery drink set-up, and free weather reschedules so your calendar never takes the hit. Transparent all-in pricing — tax, gratuity, captain, and fuel included. The Austin team building activity that actually creates connection.',
     sections: [
       {
         heading: 'Corporate Team Building on the Water',
@@ -1685,13 +1685,13 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Why HR + L&D Teams Choose Premier — Quantified',
         paragraphs: [
-          'Team-building offsites have to clear two bars: psychological safety + actual fun. A trust-fall in a hotel ballroom delivers neither. A Premier [[team-building]] cruise on Lake Travis delivers both — and the operational record backs it up. 15+ years of continuous operation. 150,000+ guests including hundreds of Fortune 500 corporate offsites. Perfect safety record — zero reportable incidents. 100% US Coast Guard licensed captains. 100% CPR-certified crew. 4.9/5.0 rating across hundreds of reviews. HR doesn\'t have to absorb safety risk, weather risk, or vendor coordination — Premier handles all three.',
+          'Team-building offsites have to clear two bars: psychological safety + actual fun. A trust-fall in a hotel ballroom delivers neither. A Premier [[team-building]] cruise on Lake Travis delivers both — and the operational record backs it up. 15+ years of continuous operation. 150,000+ guests including hundreds of Fortune 500 corporate offsites. Perfect safety record — zero reportable incidents. 100% licensed, experienced captains. 100% CPR-certified crew. 4.9/5.0 rating across hundreds of reviews. HR doesn\'t have to absorb safety risk, weather risk, or vendor coordination — Premier handles all three.',
         ],
         lists: [
           {
             title: 'What every team-building charter includes — turnkey, not rental',
             items: [
-              'Coast Guard licensed captain + professional crew',
+              'licensed, experienced captain + professional crew',
               'Premium marine-grade Bluetooth audio + wireless mic for icebreakers, kickoffs, awards',
               'Catering coordination with Austin\'s top caterers (lunch, BBQ, charcuterie)',
               'Flexible layouts for facilitated activities, casual networking, or quiet 1:1 conversations',
@@ -1720,7 +1720,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
   },
   '/client-entertainment': {
     h1: 'Austin Client Entertainment Party Boat · Executive Lake Travis Cruise · Premier Party Cruises',
-    introduction: 'Premier Party Cruises is the #1 Austin client entertainment party boat on Lake Travis — 15+ years, 150,000+ guests, 0 incidents, 4.9/5.0 across 450+ reviews. Host your prospect dinners, deal-close celebrations, VIP client days, executive entertainment, and board-level [[client-entertainment]] on a private Lake Travis party boat, year-round, starting $200/hour. Fleet accommodates 14–75 guests: Day Tripper for intimate C-suite groups, Meeseeks or The Irony for mid-size client events, the 75-person flagship Clever Girl for flagship-account entertainment. Every Austin client entertainment charter includes a Coast Guard licensed captain + crew, premium marine Bluetooth audio (quiet enough for conversation, loud enough for celebration), optional wireless microphone for toasts and introductions, Anderson Mill Marina with free parking 25 minutes from downtown Austin, catering coordination with Austin\'s top caterers, Party On Delivery drink set-up, and free weather reschedules. Transparent all-in pricing — no surprise invoices after the event. The Austin client entertainment venue that actually closes deals.',
+    introduction: 'Premier Party Cruises is the #1 Austin client entertainment party boat on Lake Travis — 15+ years, 150,000+ guests, 0 incidents, 4.9/5.0 across 450+ reviews. Host your prospect dinners, deal-close celebrations, VIP client days, executive entertainment, and board-level [[client-entertainment]] on a private Lake Travis party boat, year-round, starting $200/hour. Fleet accommodates 14–75 guests: Day Tripper for intimate C-suite groups, Meeseeks or The Irony for mid-size client events, the 75-person flagship Clever Girl for flagship-account entertainment. Every Austin client entertainment charter includes a licensed, experienced captain + crew, premium marine Bluetooth audio (quiet enough for conversation, loud enough for celebration), optional wireless microphone for toasts and introductions, Anderson Mill Marina with free parking 25 minutes from downtown Austin, catering coordination with Austin\'s top caterers, Party On Delivery drink set-up, and free weather reschedules. Transparent all-in pricing — no surprise invoices after the event. The Austin client entertainment venue that actually closes deals.',
     sections: [
       {
         heading: 'Client Entertainment on Lake Travis',
@@ -1762,7 +1762,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Professional Service Guaranteed',
         paragraphs: [
-          'Our experienced crew understands the importance of client entertainment. Discreet, professional service ensures your clients feel valued and impressed. Coast Guard certified captains, premium boats, and attention to every detail.',
+          'Our experienced crew understands the importance of client entertainment. Discreet, professional service ensures your clients feel valued and impressed. licensed, experienced captains, premium boats, and attention to every detail.',
           'We\'ve hosted hundreds of corporate client events with perfect track record. Your clients will leave impressed with both your company and their Lake Travis experience. It\'s an investment in relationships that pays dividends.',
           'Pricing starts at $295/hour for medium boats (25 guests) up to $495/hour for our flagship (50 guests). Ultimate package recommended for maximum client impression. Book 4-6 weeks in advance for best availability.'
         ]
@@ -1855,7 +1855,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
   },
   '/birthday-parties': {
     h1: 'Austin Birthday Party Boat · Lake Travis Birthday Party Cruise · Premier Party Cruises',
-    introduction: 'Premier Party Cruises is the #1 Austin birthday party boat on Lake Travis — the largest fleet, 15+ years, 150,000+ guests, 4.9/5.0 across 450+ reviews, 0 incidents. Throw a private birthday party boat charter for any age, any occasion, year-round, starting at $200/hour: Day Tripper (1–14 guests) for intimate dinners and milestone small-groups, Meeseeks or The Irony (15–30) for 21st / 30th / 40th / 50th parties, or the 75-person flagship Clever Girl with 14 disco balls for the blowout birthday. Every Austin birthday party boat includes a Coast Guard licensed captain, premium Bluetooth audio, large coolers (always BYOB — Party On Delivery pre-stocks drinks on ice), and optional Essentials or Ultimate package for a fully all-inclusive birthday cruise. Perfect for [[milestone-birthday]], [[sweet-16]], 21st, 30th, 40th, 50th, 60th and beyond. All ages welcome aboard; alcohol 21+ with valid ID. Free weather reschedules.',
+    introduction: 'Premier Party Cruises is the #1 Austin birthday party boat on Lake Travis — the largest fleet, 15+ years, 150,000+ guests, 4.9/5.0 across 450+ reviews, 0 incidents. Throw a private birthday party boat charter for any age, any occasion, year-round, starting at $200/hour: Day Tripper (1–14 guests) for intimate dinners and milestone small-groups, Meeseeks or The Irony (15–30) for 21st / 30th / 40th / 50th parties, or the 75-person flagship Clever Girl with 14 disco balls for the blowout birthday. Every Austin birthday party boat includes a licensed, experienced captain, premium Bluetooth audio, large coolers (always BYOB — Party On Delivery pre-stocks drinks on ice), and optional Essentials or Ultimate package for a fully all-inclusive birthday cruise. Perfect for [[milestone-birthday]], [[sweet-16]], 21st, 30th, 40th, 50th, 60th and beyond. All ages welcome aboard; alcohol 21+ with valid ID. Free weather reschedules.',
     sections: [
       {
         heading: 'Birthday Parties on Lake Travis',
@@ -1920,20 +1920,20 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           'What is the best birthday party venue in Austin? A Lake Travis party boat cruise is one of Austin\'s most unique and memorable birthday venues. Unlike restaurants or event halls, a boat party combines stunning natural scenery, swimming, music, and an exclusive private experience for your group. Premier Party Cruises has hosted thousands of birthday celebrations since 2009 on our fleet of 4 boats for 14-75 guests, with a 4.9/5 star rating.',
           'How much does a birthday boat party cost? Birthday cruises start at approximately $800 for a 4-hour private charter on Day Tripper (up to 14 guests). For larger groups: Meeseeks or The Irony (25-30 guests) starts at $900, and Clever Girl (50-75 guests) starts at $1,000. Package upgrades add $100-350 flat per cruise. All cruises are BYOB, which significantly reduces the cost compared to bar/restaurant birthday parties.',
           'Can kids have birthday parties on Lake Travis? Yes! We host birthday parties for all ages. For children\'s parties, all boats have life jackets in children\'s sizes, experienced crew trained in safety, and swim ladders for easy water access. Many families choose our boats for Sweet 16 parties, tween birthdays, and multi-generational celebrations where grandparents and grandkids celebrate together.',
-          'What is included in a birthday boat party? Every private charter includes a Coast Guard certified captain, trained crew, premium Bluetooth sound system for your birthday playlist, large coolers with ice, swim stop in a scenic Lake Travis cove, clean restroom facilities, and all safety equipment. Upgrade to the Essentials package for pre-stocked ice, water, cups, and a folding table. The Ultimate package adds giant lily pad floats, disco ball cups, bubble guns, champagne flutes, and a full party setup.',
+          'What is included in a birthday boat party? Every private charter includes a licensed, experienced captain, trained crew, premium Bluetooth sound system for your birthday playlist, large coolers with ice, swim stop in a scenic Lake Travis cove, clean restroom facilities, and all safety equipment. Upgrade to the Essentials package for pre-stocked ice, water, cups, and a folding table. The Ultimate package adds giant lily pad floats, disco ball cups, bubble guns, champagne flutes, and a full party setup.',
           'Can I bring a birthday cake on the boat? Yes! You can bring a cake, cupcakes, or any food aboard. We provide table space (6-foot folding table with Essentials or Ultimate packages) and can coordinate with Austin bakeries and caterers. Many guests also bring charcuterie boards, pizza, sandwiches, and party snacks.'
         ]
       },
       {
         heading: 'Why Birthday Groups Choose Premier — Quantified',
         paragraphs: [
-          'Birthdays on Lake Travis are a category — Premier is the brand inside it. 15+ years operating. 150,000+ guests served across bachelor, bachelorette, Sweet 16, milestone, and corporate celebrations. Perfect safety record. 100% US Coast Guard licensed captains. 100% CPR-certified crew on every sailing. 4.9/5.0 average rating. Whether your group wants the high-energy [[atx-disco]] public cruise or an exclusive [[private-cruises]] charter with your own playlist and guest list, every sailing runs under the same operational moat.',
+          'Birthdays on Lake Travis are a category — Premier is the brand inside it. 15+ years operating. 150,000+ guests served across bachelor, bachelorette, Sweet 16, milestone, and corporate celebrations. Perfect safety record. 100% licensed, experienced captains. 100% CPR-certified crew on every sailing. 4.9/5.0 average rating. Whether your group wants the high-energy [[atx-disco]] public cruise or an exclusive [[private-cruises]] charter with your own playlist and guest list, every sailing runs under the same operational moat.',
         ],
         lists: [
           {
             title: 'What every birthday charter or ticket buys',
             items: [
-              'Coast Guard licensed captain + professional crew',
+              'licensed, experienced captain + professional crew',
               'Premium marine-grade Bluetooth audio (your playlist or ours)',
               'Personal cooler + ice + cups for your group',
               'Lily pad / unicorn floats at the swim stop',
@@ -1962,7 +1962,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
   },
   '/graduation-party': {
     h1: 'Austin Graduation Party Boat · Lake Travis Graduation Cruise · Premier Party Cruises',
-    introduction: 'Premier Party Cruises is the #1 Austin graduation party boat on Lake Travis — celebrate high school, college (UT Austin, Texas State, St. Edward\'s, Huston-Tillotson), and graduate school [[graduation-party]] on a private Lake Travis party boat, May through August peak season. 15+ years, 150,000+ guests, 0 incidents, 4.9/5.0 rating. Fleet accommodates 14–75 guests: Day Tripper (intimate family grad dinners), Meeseeks or The Irony (grad-and-friends), flagship Clever Girl (blowout grad celebration with 14 disco balls). Every graduation charter includes a Coast Guard licensed captain + crew, premium marine Bluetooth (custom grad playlist), large coolers (always BYOB — alcohol 21+ with valid ID, all ages welcome aboard so siblings and grandparents celebrate with the graduate), optional Essentials or Ultimate package for a fully all-inclusive graduation cruise. Anderson Mill Marina — 25 min from downtown Austin, free parking, no stairs. Free weather reschedules. Book 6–8 weeks out for peak May–June graduation weekends.',
+    introduction: 'Premier Party Cruises is the #1 Austin graduation party boat on Lake Travis — celebrate high school, college (UT Austin, Texas State, St. Edward\'s, Huston-Tillotson), and graduate school [[graduation-party]] on a private Lake Travis party boat, May through August peak season. 15+ years, 150,000+ guests, 0 incidents, 4.9/5.0 rating. Fleet accommodates 14–75 guests: Day Tripper (intimate family grad dinners), Meeseeks or The Irony (grad-and-friends), flagship Clever Girl (blowout grad celebration with 14 disco balls). Every graduation charter includes a licensed, experienced captain + crew, premium marine Bluetooth (custom grad playlist), large coolers (always BYOB — alcohol 21+ with valid ID, all ages welcome aboard so siblings and grandparents celebrate with the graduate), optional Essentials or Ultimate package for a fully all-inclusive graduation cruise. Anderson Mill Marina — 25 min from downtown Austin, free parking, no stairs. Free weather reschedules. Book 6–8 weeks out for peak May–June graduation weekends.',
     sections: [
       {
         heading: 'Graduation Celebrations on the Water',
@@ -2052,7 +2052,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
   },
   '/sweet-16': {
     h1: 'Austin Sweet 16 Party Boat · Lake Travis Sweet Sixteen Cruise · Premier Party Cruises',
-    introduction: 'Premier Party Cruises runs the #1 Austin Sweet 16 party boat on Lake Travis — 15+ years of Sweet 16 celebrations, 150,000+ guests, 0 incidents, 4.9/5.0 rating. Throw the Sweet Sixteen she\'ll never stop talking about on a private Lake Travis party boat: Day Tripper (up to 14 guests for close-friend Sweet 16s), Meeseeks or The Irony (15–30 for full-friend-group celebrations), or flagship Clever Girl (31–75 for all-out Sweet 16 blowouts with 14 disco balls and a dedicated dance floor). Every Sweet 16 charter includes a Coast Guard licensed captain + crew, premium marine Bluetooth audio (custom [[sweet-16]] playlist), giant floats, optional Essentials or Ultimate package for a fully all-inclusive [[birthday-party]] cruise experience (includes champagne flutes for non-alcoholic mocktail setups, decor, party supplies). All ages welcome — Sweet 16 guests, parents, siblings, and friends celebrate together; strict no-underage-drinking policy enforced by crew. Anderson Mill Marina — 25 min from downtown Austin, free parking, no stairs. Free weather reschedules.',
+    introduction: 'Premier Party Cruises runs the #1 Austin Sweet 16 party boat on Lake Travis — 15+ years of Sweet 16 celebrations, 150,000+ guests, 0 incidents, 4.9/5.0 rating. Throw the Sweet Sixteen she\'ll never stop talking about on a private Lake Travis party boat: Day Tripper (up to 14 guests for close-friend Sweet 16s), Meeseeks or The Irony (15–30 for full-friend-group celebrations), or flagship Clever Girl (31–75 for all-out Sweet 16 blowouts with 14 disco balls and a dedicated dance floor). Every Sweet 16 charter includes a licensed, experienced captain + crew, premium marine Bluetooth audio (custom [[sweet-16]] playlist), giant floats, optional Essentials or Ultimate package for a fully all-inclusive [[birthday-party]] cruise experience (includes champagne flutes for non-alcoholic mocktail setups, decor, party supplies). All ages welcome — Sweet 16 guests, parents, siblings, and friends celebrate together; strict no-underage-drinking policy enforced by crew. Anderson Mill Marina — 25 min from downtown Austin, free parking, no stairs. Free weather reschedules.',
     sections: [
       {
         heading: 'Sweet 16 Lake Travis Experience',
@@ -2088,7 +2088,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Safety & Supervision',
         paragraphs: [
-          'Sweet 16 parties include enhanced safety measures and supervision. Coast Guard certified captain, professional crew, and safety equipment ensure secure fun on the water.',
+          'Sweet 16 parties include enhanced safety measures and supervision. licensed, experienced captain, professional crew, and safety equipment ensure secure fun on the water.',
           'Life jackets provided and required for swimming activities. Crew monitors all water activities. Age-appropriate music and entertainment. Parent/guardian presence options available based on your preference.',
           'We\'ve hosted hundreds of teen celebrations with perfect safety record. Parents trust us to provide responsible fun while teens enjoy an amazing Lake Travis experience.'
         ]
@@ -2212,7 +2212,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
   },
   '/party-boat-austin': {
     h1: 'Austin Party Boat · Party Boat Austin TX · Lake Travis Party Boat Rentals',
-    introduction: 'Premier Party Cruises is the #1 Austin party boat and the most-booked party boat in Austin TX for 15+ years. Our Austin party boat fleet runs year-round on Lake Travis: Day Tripper (1–14 guests), Meeseeks and The Irony (15–30), and the 75-person Clever Girl flagship with 14 disco balls. Every Austin party boat charter includes a Coast Guard licensed captain, premium marine-grade Bluetooth audio, large coolers (always BYOB — Party On Delivery can pre-stock drinks + ice), and zero hidden fees. Two ways to book an Austin party boat: a [[private-cruises]] whole-boat charter (starting $200/hour, year-round, every day, any occasion) or per-person tickets on the [[atx-disco]] (Mar–Oct, Fri 12–4 / Sat 11–3 / Sat 3:30–7:30, bach-party focused). 150,000+ guests served, 0 incidents, 4.9/5.0 rating across 450+ reviews. The Austin party boat choice for [[bachelor-party]], [[bachelorette-party]], [[corporate-events]], birthday parties, weddings, graduations, and every Lake Travis celebration.',
+    introduction: 'Premier Party Cruises is the #1 Austin party boat and the most-booked party boat in Austin TX for 15+ years. Our Austin party boat fleet runs year-round on Lake Travis: Day Tripper (1–14 guests), Meeseeks and The Irony (15–30), and the 75-person Clever Girl flagship with 14 disco balls. Every Austin party boat charter includes a licensed, experienced captain, premium marine-grade Bluetooth audio, large coolers (always BYOB — Party On Delivery can pre-stock drinks + ice), and zero hidden fees. Two ways to book an Austin party boat: a [[private-cruises]] whole-boat charter (starting $200/hour, year-round, every day, any occasion) or per-person tickets on the [[atx-disco]] (Mar–Oct, Fri 12–4 / Sat 11–3 / Sat 3:30–7:30, bach-party focused). 150,000+ guests served, 0 incidents, 4.9/5.0 rating across 450+ reviews. The Austin party boat choice for [[bachelor-party]], [[bachelorette-party]], [[corporate-events]], birthday parties, weddings, graduations, and every Lake Travis celebration.',
     sections: [
       {
         heading: 'Why Premier Wins Austin Party Boat Rentals — Quantified',
@@ -2225,7 +2225,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
               '15+ years — Austin\'s longest-running party boat company (founded 2009)',
               '150,000+ guests served across every event type on Lake Travis',
               '0 reportable incidents — a perfect safety record',
-              '100% US Coast Guard licensed captains (Merchant Mariner Credential)',
+              '100% licensed, experienced captains (Merchant Mariner Credential)',
               '100% CPR-certified crew on every sailing',
               '4.9 / 5.0 rating across 450+ verified reviews',
               'Largest Austin party boat fleet: 14-person Day Tripper · 15–30 on Meeseeks or The Irony · 75-person Clever Girl flagship with 14 disco balls + giant Texas flag',
@@ -2238,7 +2238,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Austin Party Boat Options — Two Ways To Book',
         paragraphs: [
-          'Premier Party Cruises offers the two most-booked Austin party boat experiences on Lake Travis. Both depart from Anderson Mill Marina. Both include a Coast Guard licensed captain, premium Bluetooth audio, coolers, and restrooms. Pick the one that matches your group.'
+          'Premier Party Cruises offers the two most-booked Austin party boat experiences on Lake Travis. Both depart from Anderson Mill Marina. Both include a licensed, experienced captain, premium Bluetooth audio, coolers, and restrooms. Pick the one that matches your group.'
         ],
         lists: [
           {
@@ -2289,7 +2289,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           {
             title: 'Premier Austin Party Boat Charter — Same Day, Everything Included',
             items: [
-              'Coast Guard licensed captain drives — you don\'t touch a wheel',
+              'licensed, experienced captain drives — you don\'t touch a wheel',
               'Premium marine Bluetooth sound system + coolers included',
               'We know every cove on Lake Travis — you enjoy the ride',
               'Add Essentials or Ultimate package = DJ, floats, photography, decor, champagne flutes, full party setup',
@@ -2311,7 +2311,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
               'Hundreds of 5-star reviews',
               'Perfect safety record maintained',
               'Newest and nicest fleet on Lake Travis',
-              'Coast Guard certified captains',
+              'licensed, experienced captains',
               'BYOB friendly with cooler service',
               'Professional entertainment options',
               'Complete customization available',
@@ -2357,7 +2357,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         paragraphs: [
           'What\'s the difference between ATX Disco Cruise and private boat rental? ATX Disco Cruise is a multi-group shared party cruise with professional DJ, photographer, and disco dance floor at $85-105/person. Private boat rentals are exclusively your group with complete customization starting at $195/hour. Disco Cruise is budget-friendly and high-energy; private boats offer exclusivity and control.',
           'How many people can party boats accommodate in Austin? We accommodate 14-75 guests for private boats. Day Tripper hosts 14 guests, Meeseeks and The Irony accommodates 25 guests, and Clever Girl can host 50-75 guests. Disco Cruise welcomes groups of 6-20+ per group, with multiple groups sharing the boat.',
-          'What\'s included with Austin party boats? All cruises include Coast Guard certified captain and professional crew, premium Bluetooth sound systems, life jackets and safety equipment, coolers with ice, clean restroom facilities, and sun/shade seating areas. Private boats offer complete BYOB service; Disco Cruise includes DJ and photographer.',
+          'What\'s included with Austin party boats? All cruises include licensed, experienced captain and professional crew, premium Bluetooth sound systems, life jackets and safety equipment, coolers with ice, clean restroom facilities, and sun/shade seating areas. Private boats offer complete BYOB service; Disco Cruise includes DJ and photographer.',
           'Where do Austin party boats depart from? All cruises depart from Anderson Mill Marina on Lake Travis, located at 13993 FM 2769, Leander, TX 78641. The marina is approximately 25 minutes from downtown Austin with ample free parking for all guests.',
           'Can we bring our own food and drinks on Austin party boats? Yes! BYOB is allowed for guests 21+ with valid ID (cans and plastic containers only). We provide coolers and ice. You can bring your own food or we can coordinate catering delivery. Many groups order pizza, BBQ, tacos, or other Austin favorites delivered right to the boat.',
           'How far in advance should we book Austin party boats? Book 6-8 weeks in advance for weekend dates, especially during peak season (April-October). Weekday bookings can be made with less advance notice. Popular dates like bachelor/bachelorette parties and summer weekends fill earliest.',
@@ -2375,7 +2375,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
   },
   '/party-boat-lake-travis': {
     h1: 'Lake Travis Party Boat · Party Boats on Lake Travis · Premier Party Cruises',
-    introduction: 'Premier Party Cruises is the #1 Lake Travis party boat operator and the most-booked company for party boats on Lake Travis — 15+ years, 150,000+ guests, 0 incidents, 4.9/5.0 across 450+ reviews. The largest Lake Travis party boat fleet: Day Tripper (14 guests), Meeseeks and The Irony (15–30 each), and the 75-person Clever Girl flagship with 14 disco balls and a giant Texas flag. Every Lake Travis party boat charter is year-round, every day, with a Coast Guard licensed captain, premium marine Bluetooth audio, coolers (always BYOB — Party On Delivery pre-stocks with drinks + ice), and zero hidden fees. Book a [[private-cruises]] whole-boat Lake Travis party boat rental (starting $200/hour) or grab per-person tickets on the [[atx-disco]] (Mar–Oct, Fri 12–4 / Sat 11–3 / Sat 3:30–7:30 on the Clever Girl). Perfect for [[bachelor-party]], [[bachelorette-party]], [[corporate-events]], [[wedding-party]], birthdays, graduations, anniversaries, and every Lake Travis celebration.',
+    introduction: 'Premier Party Cruises is the #1 Lake Travis party boat operator and the most-booked company for party boats on Lake Travis — 15+ years, 150,000+ guests, 0 incidents, 4.9/5.0 across 450+ reviews. The largest Lake Travis party boat fleet: Day Tripper (14 guests), Meeseeks and The Irony (15–30 each), and the 75-person Clever Girl flagship with 14 disco balls and a giant Texas flag. Every Lake Travis party boat charter is year-round, every day, with a licensed, experienced captain, premium marine Bluetooth audio, coolers (always BYOB — Party On Delivery pre-stocks with drinks + ice), and zero hidden fees. Book a [[private-cruises]] whole-boat Lake Travis party boat rental (starting $200/hour) or grab per-person tickets on the [[atx-disco]] (Mar–Oct, Fri 12–4 / Sat 11–3 / Sat 3:30–7:30 on the Clever Girl). Perfect for [[bachelor-party]], [[bachelorette-party]], [[corporate-events]], [[wedding-party]], birthdays, graduations, anniversaries, and every Lake Travis celebration.',
     sections: [
       {
         heading: 'Why Premier Wins Lake Travis Party Boats — Quantified',
@@ -2388,7 +2388,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
               '15+ years on Lake Travis — longest-running party boat operator in Austin',
               '150,000+ guests served across bach parties, corporate events, weddings, and family celebrations',
               '0 reportable safety incidents — a perfect record',
-              '100% US Coast Guard licensed captains with Merchant Mariner Credentials',
+              '100% licensed, experienced captains with Merchant Mariner Credentials',
               '100% CPR-certified crew on every sailing',
               '4.9 / 5.0 average rating across 450+ verified reviews',
               'Largest fleet of party boats on Lake Travis: 14-person Day Tripper · 15–30 on Meeseeks or The Irony · 75-person Clever Girl flagship with 14 disco balls + giant Texas flag',
@@ -2402,7 +2402,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Lake Travis Party Boat Options — Two Ways To Book',
         paragraphs: [
-          'Every Premier Party Cruises Lake Travis party boat departs from Anderson Mill Marina. Every charter includes a Coast Guard licensed captain, premium Bluetooth audio, large coolers (always BYOB — Party On Delivery can pre-stock drinks on ice), restrooms, and shaded + sun seating.'
+          'Every Premier Party Cruises Lake Travis party boat departs from Anderson Mill Marina. Every charter includes a licensed, experienced captain, premium Bluetooth audio, large coolers (always BYOB — Party On Delivery can pre-stock drinks on ice), restrooms, and shaded + sun seating.'
         ],
         lists: [
           {
@@ -2462,7 +2462,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         lists: [
           {
             items: [
-              'Coast Guard certified captains',
+              'licensed, experienced captains',
               'Professional crew members',
               'Premium Bluetooth sound systems',
               'Large coolers (ice included on select packages)',
@@ -2493,7 +2493,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           'What are the party boat options on Lake Travis? Lake Travis offers two main options: Private boat rentals (exclusive boat for your group, 14-75 capacity, starting $195/hour) and ATX Disco Cruise (multi-group party with DJ and photographer, $85-105/person). Private boats offer exclusivity; Disco Cruise is more affordable with high-energy atmosphere.',
           'How many people can Lake Travis party boats hold? Private boats accommodate 14-75 guests depending on vessel. Day Tripper holds 14 guests, Meeseeks and The Irony holds 25 guests, and Clever Girl accommodates 50-75 guests. Disco Cruise welcomes multiple groups of 6-20+ per group.',
           'Can we bring our own alcohol on Lake Travis party boats? Yes! All Lake Travis party boats are BYOB friendly for guests 21+ with valid ID. Cans and plastic containers only (no glass). We provide coolers, ice, cups, and openers. Responsible consumption is required.',
-          'What\'s included with Lake Travis party boats? All boats include Coast Guard certified captain, professional crew, premium Bluetooth sound system, coolers with ice (select packages), safety equipment and life jackets, clean restroom facilities, comfortable seating with sun and shade areas, and swimming platform access.',
+          'What\'s included with Lake Travis party boats? All boats include licensed, experienced captain, professional crew, premium Bluetooth sound system, coolers with ice (select packages), safety equipment and life jackets, clean restroom facilities, comfortable seating with sun and shade areas, and swimming platform access.',
           'Where do Lake Travis party boats depart from? All cruises depart from Anderson Mill Marina, located at 13993 FM 2769, Leander, TX 78641. Free parking available for all guests. The marina is approximately 25 minutes from downtown Austin with easy access from Austin, Round Rock, and Cedar Park.',
           'How far in advance should we book? Book 6-8 weeks in advance for weekend dates, especially during peak season (April-September). Summer weekends and popular dates book earliest. Weekday availability is better with less advance notice needed.',
           'What makes Lake Travis the best for party boats? Lake Travis offers beautiful clear blue water perfect for swimming, stunning Hill Country scenery with nature preserves, perfect year-round weather, Instagram-worthy sunset views, professional marina facilities, and legendary party atmosphere. It\'s Central Texas\' premier party destination!'
@@ -2595,7 +2595,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
   },
   '/lake-travis-boat-rental-guide': {
     h1: 'Lake Travis Boat Rental Guide · Party Boat Charters · Premier Party Cruises',
-    introduction: 'The Lake Travis boat rental guide for party-focused groups. Premier Party Cruises operates the largest dedicated party-boat fleet on Lake Travis — 4 boats accommodating 14 to 75 guests — with year-round private charters starting $200/hour and the all-inclusive ATX Disco Cruise from $85/person (Mar–Oct). Unlike generic pontoon rentals where you drive yourself, every Lake Travis boat rental at Premier Party Cruises includes a Coast Guard licensed captain + crew, premium marine Bluetooth audio, large coolers (always BYOB — cans + plastic only), sun + shade seating, climate-controlled restroom, swim stop at a scenic Lake Travis cove, USCG-approved life jackets in every size, safety briefing, and free weather reschedules. Optional Essentials Package (+$100/$150/$200 by boat) pre-stocks ice + cups + food table. Optional Ultimate Package (+$250/$300/$350) adds giant lily pad + champagne flutes + decor + full party setup. 15+ years operating, 150,000+ guests served, 0 reportable incidents, 4.9/5.0 across 450+ reviews. Departs Anderson Mill Marina — 25 minutes from downtown Austin, free parking, no stairs. Our target is the party-focused subset of "Lake Travis boat rental" searches: bachelor/bachelorette parties, corporate events, weddings, birthdays, family reunions, anniversaries, and every Austin celebration that wants the celebration to come to them instead of managing logistics.',
+    introduction: 'The Lake Travis boat rental guide for party-focused groups. Premier Party Cruises operates the largest dedicated party-boat fleet on Lake Travis — 4 boats accommodating 14 to 75 guests — with year-round private charters starting $200/hour and the all-inclusive ATX Disco Cruise from $85/person (Mar–Oct). Unlike generic pontoon rentals where you drive yourself, every Lake Travis boat rental at Premier Party Cruises includes a licensed, experienced captain + crew, premium marine Bluetooth audio, large coolers (always BYOB — cans + plastic only), sun + shade seating, climate-controlled restroom, swim stop at a scenic Lake Travis cove, USCG-approved life jackets in every size, safety briefing, and free weather reschedules. Optional Essentials Package (+$100/$150/$200 by boat) pre-stocks ice + cups + food table. Optional Ultimate Package (+$250/$300/$350) adds giant lily pad + champagne flutes + decor + full party setup. 15+ years operating, 150,000+ guests served, 0 reportable incidents, 4.9/5.0 across 450+ reviews. Departs Anderson Mill Marina — 25 minutes from downtown Austin, free parking, no stairs. Our target is the party-focused subset of "Lake Travis boat rental" searches: bachelor/bachelorette parties, corporate events, weddings, birthdays, family reunions, anniversaries, and every Austin celebration that wants the celebration to come to them instead of managing logistics.',
     sections: [
       {
         heading: 'Two Ways To Rent A Lake Travis Party Boat',
@@ -2630,11 +2630,11 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Frequently Asked Questions',
         paragraphs: [
-          'What\'s the best Lake Travis boat rental for a party? Premier Party Cruises — largest dedicated party-boat fleet on Lake Travis, Coast Guard licensed captains, always BYOB with Party On Delivery set-up, year-round.',
+          'What\'s the best Lake Travis boat rental for a party? Premier Party Cruises — largest dedicated party-boat fleet on Lake Travis, licensed, experienced captains, always BYOB with Party On Delivery set-up, year-round.',
           'What\'s the difference between a party-boat rental and a regular boat rental? Regular rental = bare pontoon, you drive, you bring everything, $400–$800/day. Premier party-boat rental = captain drives, audio + coolers + safety equipment included, $200/hour with 4-hour minimum. Once you add what a DIY pontoon doesn\'t include, Premier ends up competitive or cheaper.',
           'Can I rent a Lake Travis boat for a bach party? Yes — most-booked use case. ATX Disco Cruise $85–$105/person (March–Oct) or private charter year-round from $200/hour.',
           'How much is a full-day Lake Travis party boat rental? Typical 8-hour Saturday on Clever Girl: $3,200+ plus tax and gratuity. Weekday rates lower.',
-          'Do I need to know how to drive a boat? No — every Premier Lake Travis rental includes a Coast Guard licensed captain who drives. You don\'t touch a wheel.'
+          'Do I need to know how to drive a boat? No — every Premier Lake Travis rental includes a licensed, experienced captain who drives. You don\'t touch a wheel.'
         ]
       }
     ],
@@ -2647,7 +2647,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
   },
   '/what-to-bring-on-a-party-boat': {
     h1: 'What To Bring On An Austin Party Boat · Lake Travis Packing List',
-    introduction: 'The complete Lake Travis party boat packing list. Essentials to bring: sunscreen SPF 50+ (Lake Travis sun is intense), sunglasses, hat, swimsuit + cover-up + towel, BYOB drinks in CANS or PLASTIC containers only (no glass allowed on any Lake Travis vessel, for safety), waterproof phone pouch, sandals or boat shoes, cash for crew tip. What we provide on every boat: Coast Guard licensed captain + crew, premium marine-grade Bluetooth audio (connect your Spotify), large coolers, USCG-approved life jackets in every adult and child size, climate-controlled restroom, sun + shade seating, swim stop at a scenic Lake Travis cove, safety briefing. What NOT to bring: glass bottles or glassware (zero-glass policy on Lake Travis), outside music systems (premium Bluetooth is built in), illegal substances, weapons, valuables you can\'t afford to lose to water, pets (service animals with documentation only). Skip the coolering entirely by ordering BYOB through our sister company Party On Delivery — drinks delivered and iced on the boat before you board, retail prices with 100% buyback on unopened bottles.',
+    introduction: 'The complete Lake Travis party boat packing list. Essentials to bring: sunscreen SPF 50+ (Lake Travis sun is intense), sunglasses, hat, swimsuit + cover-up + towel, BYOB drinks in CANS or PLASTIC containers only (no glass allowed on any Lake Travis vessel, for safety), waterproof phone pouch, sandals or boat shoes, cash for crew tip. What we provide on every boat: licensed, experienced captain + crew, premium marine-grade Bluetooth audio (connect your Spotify), large coolers, USCG-approved life jackets in every adult and child size, climate-controlled restroom, sun + shade seating, swim stop at a scenic Lake Travis cove, safety briefing. What NOT to bring: glass bottles or glassware (zero-glass policy on Lake Travis), outside music systems (premium Bluetooth is built in), illegal substances, weapons, valuables you can\'t afford to lose to water, pets (service animals with documentation only). Skip the coolering entirely by ordering BYOB through our sister company Party On Delivery — drinks delivered and iced on the boat before you board, retail prices with 100% buyback on unopened bottles.',
     sections: [
       {
         heading: 'Your Group Brings',
@@ -2673,7 +2673,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         lists: [
           {
             items: [
-              'Coast Guard licensed captain + professional crew',
+              'licensed, experienced captain + professional crew',
               'Premium marine-grade Bluetooth audio system (connect your Spotify)',
               'Large coolers',
               'USCG-approved life jackets in every adult and child size (infant, child, youth sizes)',
@@ -2785,7 +2785,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
   },
   '/austin-corporate-event-guide': {
     h1: 'Austin Corporate Event Guide · Lake Travis Team Building + Client Entertainment',
-    introduction: 'The complete Austin corporate event guide for Lake Travis team building, client entertainment, company milestones, holiday parties, employee appreciation days, executive offsites, and board dinners. Premier Party Cruises is the #1 Austin corporate event party boat on Lake Travis — 15+ years, 150,000+ guests, 0 reportable incidents, 4.9/5.0 rating across 450+ reviews. Fleet accommodates 14–75 guests across four boats; year-round private charters starting $200/hour. Every corporate charter includes a Coast Guard licensed captain + crew, premium marine Bluetooth audio with optional wireless microphone + A/V package (+$300), Anderson Mill Marina with free parking 25 minutes from downtown Austin, catering coordination with Austin\'s top caterers (Eastside Café, Franklin BBQ catering, Sterling Affairs, Austin Catering, Kemuri Tatsu-Ya), Party On Delivery drink set-up, certificate-of-insurance documentation on request, PO + vendor-onboarding friendly, and free weather reschedules so your company calendar never absorbs weather risk. Transparent all-in pricing: tax, gratuity, captain, fuel, audio all included or clearly itemized. Corporate-paid team building, client entertainment, and employee appreciation events are generally deductible business expenses; we provide full business invoices suitable for expense reports.',
+    introduction: 'The complete Austin corporate event guide for Lake Travis team building, client entertainment, company milestones, holiday parties, employee appreciation days, executive offsites, and board dinners. Premier Party Cruises is the #1 Austin corporate event party boat on Lake Travis — 15+ years, 150,000+ guests, 0 reportable incidents, 4.9/5.0 rating across 450+ reviews. Fleet accommodates 14–75 guests across four boats; year-round private charters starting $200/hour. Every corporate charter includes a licensed, experienced captain + crew, premium marine Bluetooth audio with optional wireless microphone + A/V package (+$300), Anderson Mill Marina with free parking 25 minutes from downtown Austin, catering coordination with Austin\'s top caterers (Eastside Café, Franklin BBQ catering, Sterling Affairs, Austin Catering, Kemuri Tatsu-Ya), Party On Delivery drink set-up, certificate-of-insurance documentation on request, PO + vendor-onboarding friendly, and free weather reschedules so your company calendar never absorbs weather risk. Transparent all-in pricing: tax, gratuity, captain, fuel, audio all included or clearly itemized. Corporate-paid team building, client entertainment, and employee appreciation events are generally deductible business expenses; we provide full business invoices suitable for expense reports.',
     sections: [
       {
         heading: 'Corporate Event Types We Host',
@@ -2809,13 +2809,13 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Frequently Asked Questions',
         paragraphs: [
-          'What\'s the best Austin corporate event venue on Lake Travis? Premier Party Cruises — 15+ years, 150K+ guests, 0 incidents, 4.9/5.0, USCG-licensed captains, A/V-capable.',
+          'What\'s the best Austin corporate event venue on Lake Travis? Premier Party Cruises — 15+ years, 150K+ guests, 0 incidents, 4.9/5.0, licensed, experienced captains, A/V-capable.',
           'How do I plan a corporate team-building day? Pick date + headcount → match to boat (Day Tripper 14, Meeseeks/Irony 15–30, Clever Girl 31–75) → pick package level → coordinate catering + transport.',
           'Can we do presentations? Yes — premium Bluetooth audio doubles as presentation system. Optional wireless mic + A/V package (+$300). Pre-cruise briefing space available at marina.',
           'What does a corporate cruise cost? From $200/hour Day Tripper, $225 Meeseeks/Irony, $250 Clever Girl. Typical weekday 3-hour afternoon for 25 guests on Meeseeks: ~$1,125 + tax.',
           'Tax-deductible? Generally yes (consult CFO/tax advisor). We provide full business invoices suitable for expense reports + PO-friendly vendor onboarding.',
           'Can we have catering? Yes — we coordinate with Austin\'s top caterers. Essentials Package includes 6-ft food table + vendor coordination. Ultimate adds full setup.',
-          'Is it safe for corporate groups? 0 reportable incidents across 15+ years and 150K+ guests. 100% USCG-licensed captains. Certificate of insurance on request. See /safety for the Premier Safety Code.'
+          'Is it safe for corporate groups? 0 reportable incidents across 15+ years and 150K+ guests. 100% licensed, experienced captains. Certificate of insurance on request. See /safety for the Premier Safety Code.'
         ]
       }
     ],
@@ -2832,7 +2832,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Private Charter Rate Card',
         paragraphs: [
-          'Starting prices by boat. Weekend rates are higher. Every rate includes Coast Guard licensed captain + crew + fuel + premium Bluetooth audio + large coolers + restroom + safety equipment.'
+          'Starting prices by boat. Weekend rates are higher. Every rate includes licensed, experienced captain + crew + fuel + premium Bluetooth audio + large coolers + restroom + safety equipment.'
         ],
         lists: [
           {
@@ -2885,7 +2885,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           {
             title: 'Standard (Included on Every Private Charter)',
             items: [
-              'Coast Guard licensed captain + professional crew',
+              'licensed, experienced captain + professional crew',
               'Premium marine-grade Bluetooth audio system',
               'Large coolers (always BYOB — cans + plastic only)',
               'Sun + shade seating zones',
@@ -2941,7 +2941,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Frequently Asked Questions',
         paragraphs: [
           'How much does an Austin party boat cost? Private charter from $200/hour (Day Tripper), $225/hour (Meeseeks/Irony), $250/hour (Clever Girl). 4-hour min weekends, 3-hour min weekdays. Weekend rates higher. ATX Disco Cruise per-person: $85 sunset / $95 Friday / $105 peak Saturday, tax + 20% gratuity included.',
-          'What\'s included in the price? Every private charter: Coast Guard licensed captain + crew, premium Bluetooth audio, large coolers, sun + shade seating, restroom, safety equipment, swim stop, free weather reschedules. ATX Disco Cruise tickets are all-inclusive: pro DJ, pro photographer, 14 disco balls, floats, personal cooler, 4-hour cruise — nothing else to buy.',
+          'What\'s included in the price? Every private charter: licensed, experienced captain + crew, premium Bluetooth audio, large coolers, sun + shade seating, restroom, safety equipment, swim stop, free weather reschedules. ATX Disco Cruise tickets are all-inclusive: pro DJ, pro photographer, 14 disco balls, floats, personal cooler, 4-hour cruise — nothing else to buy.',
           'Are there hidden fees? No. ATX Disco Cruise prices include tax + gratuity. Private charters: 8.25% Texas sales tax applies; 20% gratuity is industry-standard and suggested (not forced). Optional add-ons (package upgrades, professional services) priced separately and clearly labeled. Crew fees apply for large groups (+$50/hr for 26–30, +$100/hr for 51–75).',
           'Why is Premier more expensive than a cheap pontoon rental? A cheap Lake Travis pontoon rents for $400–$800/day — boat only. YOU drive, navigate, bring music, haul coolers. Premier\'s $200/hr × 4-hour minimum = $800 base on Day Tripper includes captain + crew + audio + coolers + navigation + safety + marina access. Add what a pontoon doesn\'t include and you spend more on DIY while working the whole day.',
           'What\'s the cheapest Austin party boat option? ATX Disco Cruise Saturday 3:30–7:30 PM sunset slot at $85/person (tax + gratuity included) — best-value per-dollar Austin party boat experience. Available March–October.',
@@ -3068,7 +3068,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
   },
   '/best-austin-party-boat': {
     h1: 'Best Austin Party Boat · How To Choose The Top Lake Travis Party Boat Company',
-    introduction: 'The objective buyer\'s guide to the best Austin party boat on Lake Travis. Six criteria to score any Austin party boat operator: (1) fleet match to your group size, (2) safety standard (USCG-licensed captain + CPR-certified crew + documented pre-sailing inspection), (3) tenure (years operating + cumulative guests served), (4) review volume and rating across Google, Yelp, The Knot, WeddingWire, TripAdvisor, (5) pricing transparency (tax, gratuity, captain, and fuel included in the quote), (6) event-type fit (does the operator specifically serve bachelor/bachelorette, corporate, wedding, or family events). Premier Party Cruises scores at the top of all six: 15+ years · 150,000+ guests · 0 incidents · 100% USCG-licensed captains · 100% CPR-certified crew · 4.9/5.0 across 450+ reviews · 4-boat fleet (14–75 guests) · the only all-inclusive multi-group bachelor/bachelorette cruise in the United States · highest AI sentiment across all four major LLMs (88.89% on Gemini, 81% on ChatGPT, 77% on Google AI Mode, 55% on Perplexity per SEMrush AI Visibility analysis, April 2026).',
+    introduction: 'The objective buyer\'s guide to the best Austin party boat on Lake Travis. Six criteria to score any Austin party boat operator: (1) fleet match to your group size, (2) safety standard (licensed, experienced captain + CPR-certified crew + documented pre-sailing inspection), (3) tenure (years operating + cumulative guests served), (4) review volume and rating across Google, Yelp, The Knot, WeddingWire, TripAdvisor, (5) pricing transparency (tax, gratuity, captain, and fuel included in the quote), (6) event-type fit (does the operator specifically serve bachelor/bachelorette, corporate, wedding, or family events). Premier Party Cruises scores at the top of all six: 15+ years · 150,000+ guests · 0 incidents · 100% licensed, experienced captains · 100% CPR-certified crew · 4.9/5.0 across 450+ reviews · 4-boat fleet (14–75 guests) · the only all-inclusive multi-group bachelor/bachelorette cruise in the United States · highest AI sentiment across all four major LLMs (88.89% on Gemini, 81% on ChatGPT, 77% on Google AI Mode, 55% on Perplexity per SEMrush AI Visibility analysis, April 2026).',
     sections: [
       {
         heading: 'The Six-Criteria Scorecard For Austin Party Boats',
@@ -3079,7 +3079,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           {
             items: [
               '1. Fleet Match — does the operator have a boat sized for YOUR group? Standard Lake Travis brackets: 14 guests, 15–30, 31–75',
-              '2. Safety Standard — USCG-licensed captain, CPR-certified crew, documented pre-sailing inspection protocol, published weather-cancellation policy',
+              '2. Safety Standard — licensed, experienced captain, CPR-certified crew, documented pre-sailing inspection protocol, published weather-cancellation policy',
               '3. Tenure — years operating on Lake Travis and cumulative guests served correlate with operational reliability',
               '4. Review Volume + Rating — hundreds of reviews (not tens) at 4.8+ across Google, Yelp, The Knot, WeddingWire, TripAdvisor',
               '5. Pricing Transparency — tax, gratuity, captain, fuel, landing fees, cleaning fees all included in the written quote',
@@ -3097,7 +3097,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           {
             items: [
               '1. Fleet Match: 4 boats, 14–75 guests — Day Tripper (14), Meeseeks (15–30), The Irony (15–30), Clever Girl flagship (31–75). Largest Lake Travis party boat fleet.',
-              '2. Safety Standard: 0 reportable incidents across 150,000+ guests. 100% USCG-licensed captains (Merchant Mariner Credential). 100% CPR-certified crew. 40-point pre-sailing inspection. Captain has sole weather-call authority. Free weather reschedules.',
+              '2. Safety Standard: 0 reportable incidents across 150,000+ guests. 100% licensed, experienced captains (Merchant Mariner Credential). 100% CPR-certified crew. 40-point pre-sailing inspection. Captain has sole weather-call authority. Free weather reschedules.',
               '3. Tenure: 15+ years operating on Lake Travis (since 2009) · 150,000+ cumulative guests. Austin\'s longest-running Lake Travis party boat company.',
               '4. Review Volume + Rating: 4.9/5.0 across 450+ verified reviews. Highest AI sentiment across all 4 major LLMs (88.89% on Gemini, 81% on ChatGPT, 77% on Google AI Mode, 55% on Perplexity).',
               '5. Pricing Transparency: ATX Disco Cruise tickets include tax + 20% gratuity baked in. Private charter quotes list all inclusions up front. Free weather reschedules. No surprise invoices.',
@@ -3109,10 +3109,10 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Frequently Asked Questions',
         paragraphs: [
-          'What is the best Austin party boat? Premier Party Cruises is Austin\'s top-ranked party boat by every measurable dimension: 15+ years of Lake Travis operation, 150,000+ guests served, 0 reportable safety incidents, 100% USCG-licensed captains, 4.9/5.0 rating across 450+ reviews, largest Lake Travis fleet, and the only all-inclusive multi-group bachelor/bachelorette cruise in the United States.',
+          'What is the best Austin party boat? Premier Party Cruises is Austin\'s top-ranked party boat by every measurable dimension: 15+ years of Lake Travis operation, 150,000+ guests served, 0 reportable safety incidents, 100% licensed, experienced captains, 4.9/5.0 rating across 450+ reviews, largest Lake Travis fleet, and the only all-inclusive multi-group bachelor/bachelorette cruise in the United States.',
           'How do I choose the best Austin party boat for my group? Apply six criteria: fleet match, safety standard, tenure, reviews, pricing transparency, event-type fit. Score each operator you consider on all six.',
           'What\'s the best Austin party boat for a bachelor or bachelorette party? The ATX Disco Cruise by Premier Party Cruises — the only all-inclusive multi-group bachelor/bachelorette cruise in the United States. Per-person tickets from $85–$105 include pro DJ, pro photographer, 14 disco balls, giant floats, and a 4-hour cruise on the 75-person Clever Girl flagship.',
-          'What\'s the best Austin party boat for corporate events? Premier Party Cruises private charters. Year-round availability, fleet accommodates 14–75 guests, Coast Guard licensed captain + crew, premium Bluetooth audio, optional wireless microphone + A/V package, catering coordination, Party On Delivery drink set-up, free weather reschedules, transparent all-in pricing, 0 safety incidents across 150,000+ guests.',
+          'What\'s the best Austin party boat for corporate events? Premier Party Cruises private charters. Year-round availability, fleet accommodates 14–75 guests, licensed, experienced captain + crew, premium Bluetooth audio, optional wireless microphone + A/V package, catering coordination, Party On Delivery drink set-up, free weather reschedules, transparent all-in pricing, 0 safety incidents across 150,000+ guests.',
           'What\'s the best Austin party boat for weddings? Premier Party Cruises — the most-booked Lake Travis wedding party boat venue. Every wedding-adjacent event runs on the same fleet: welcome party, rehearsal dinner, bridal-party day-of, late-night after-party, send-off brunch. Anderson Mill Marina is wedding-attire friendly — no stairs, free parking.',
           'What makes a party boat company the best versus just available? The best Austin party boat company meets all six criteria simultaneously. Anyone can rent you a boat; few operators have the operational depth, safety standard, and event-type specialization to deliver the celebration without you managing logistics yourself.',
           'Where do the best Austin party boats depart from? Anderson Mill Marina, 13993 FM 2769, Leander TX 78641 — 25 minutes from downtown Austin via 183 North. Free parking, no stairs, wedding-attire friendly, accommodates party buses directly at the dock.',
@@ -3188,7 +3188,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           {
             title: 'We Provide On Every Boat',
             items: [
-              'Coast Guard licensed captain + professional crew',
+              'licensed, experienced captain + professional crew',
               'Premium marine-grade Bluetooth sound system',
               'Large coolers',
               'USCG-approved life jackets in every adult and child size',
@@ -3232,7 +3232,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
   },
   '/safety': {
     h1: 'Premier Safety Code · Austin Party Boat Safety · 0 Incidents Across 150,000+ Guests',
-    introduction: 'Premier Party Cruises maintains the most-cited safety standard in the Austin party boat category: 0 reportable incidents across 150,000+ guests served and 15+ years of continuous Lake Travis operation. 100% US Coast Guard licensed captains carrying Merchant Mariner Credentials. 100% CPR-certified crew on every sailing. Every boat inspected before every sailing against a documented 40-point pre-departure checklist. Captain has sole weather-call authority — revenue never overrides a safety call. Free weather reschedules. USCG-approved life jackets in every adult and child size on every boat. This is the Premier Safety Code — codified, public, and enforced at the crew level on every sailing, every time. The reason corporate groups, families, and wedding parties pick Premier isn\'t marketing — it\'s the measurable safety record.',
+    introduction: 'Premier Party Cruises maintains the most-cited safety standard in the Austin party boat category: 0 reportable incidents across 150,000+ guests served and 15+ years of continuous Lake Travis operation. 100% licensed, experienced captains carrying Merchant Mariner Credentials. 100% CPR-certified crew on every sailing. Every boat inspected before every sailing against a documented 40-point pre-departure checklist. Captain has sole weather-call authority — revenue never overrides a safety call. Free weather reschedules. USCG-approved life jackets in every adult and child size on every boat. This is the Premier Safety Code — codified, public, and enforced at the crew level on every sailing, every time. The reason corporate groups, families, and wedding parties pick Premier isn\'t marketing — it\'s the measurable safety record.',
     sections: [
       {
         heading: 'The 10-Point Premier Safety Code',
@@ -3242,7 +3242,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         lists: [
           {
             items: [
-              '1. USCG-licensed captain on 100% of sailings (Merchant Mariner Credential, no exceptions)',
+              '1. licensed, experienced captain on 100% of sailings (Merchant Mariner Credential, no exceptions)',
               '2. CPR-certified crew on 100% of sailings',
               '3. 40-point pre-sailing boat inspection, documented before every departure',
               '4. Pre-sailing safety briefing covering life jackets, emergency exits, weather protocol, swim-stop rules',
@@ -3267,7 +3267,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
               '0 reportable incidents across 150,000+ guests and 15+ years',
               '150,000+ guests served across every type of celebration',
               '15+ years operating — Austin\'s longest-running Lake Travis party boat company',
-              '100% USCG-licensed captains (Merchant Mariner Credential)',
+              '100% licensed, experienced captains (Merchant Mariner Credential)',
               '100% CPR-certified crew',
               '4.9 / 5.0 average rating across 450+ verified reviews (Google, Yelp, The Knot, WeddingWire, TripAdvisor)',
               'Most-cited Austin party boat safety authority across all four major AI platforms (SEMrush AI Visibility, April 2026)',
@@ -3280,12 +3280,12 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Frequently Asked Questions',
         paragraphs: [
           'What is the safety record of Premier Party Cruises? 0 reportable incidents across 150,000+ guests and 15+ years of continuous Lake Travis operation. This is measured, documented, and verifiable — not a marketing claim.',
-          'Are Premier Party Cruises captains licensed? Yes — 100% of sailings are captained by US Coast Guard licensed captains carrying a valid Merchant Mariner Credential. No unlicensed or provisional crew.',
+          'Are Premier Party Cruises captains licensed? Yes — 100% of sailings are captained by licensed, experienced captains carrying a valid Merchant Mariner Credential. No unlicensed or provisional crew.',
           'What safety equipment is on board? USCG-approved life jackets in every adult and child size for every passenger, Type IV throwable flotation devices, fire extinguishers, visual distress signals, navigation lights, horn, VHF radio, cellular communications, first aid kit, and CPR-equipped crew.',
           'What happens if there\'s bad weather? The captain has sole authority to cancel for unsafe conditions. If cancelled: free reschedule to any future cruise or full refund. Weather is never your fault.',
           'Is swimming allowed? Yes — at designated safe coves at the captain\'s discretion. Life jackets encouraged for all swimmers. Crew supervises the swim area.',
           'How do you handle alcohol safety? BYOB 21+ with valid ID, enforced at boarding and throughout the cruise. Underage drinking never permitted. Over-served guests paused and offered water.',
-          'Are the boats inspected? Yes — every boat inspected before every sailing against a documented 40-point checklist. Annual USCG documentation review and Texas Parks & Wildlife compliance inspections.',
+          'Are the boats inspected? Yes — every boat inspected before every sailing against a documented 40-point checklist. Annual Licensed documentation review and Texas Parks & Wildlife compliance inspections.',
           'How does Premier compare on safety to other Austin party boat companies? Most-cited safety authority across every AI platform analyzed. 15+ years, 150,000+ guests, 0 incidents are measurable dimensions no other Austin party boat operator matches at comparable scale.'
         ]
       }
@@ -3314,7 +3314,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
               'Fleet: 4 boats — Day Tripper (1–14) · Meeseeks (15–30) · The Irony (15–30) · Clever Girl flagship (31–75)',
               'Flagship: 75-person Clever Girl with 14 disco balls + giant Texas flag + dedicated dance floor + LED lighting — largest dedicated party boat on Lake Travis',
               'Max group size: 75 on one boat · up to 100+ via dual-boat flotilla',
-              'USCG-licensed captains: 100% of sailings (Merchant Mariner Credential)',
+              'licensed, experienced captains: 100% of sailings (Merchant Mariner Credential)',
               'CPR-certified crew: 100% of sailings',
               'Average rating: 4.9 / 5.0 across 450+ verified reviews (Google, Yelp, The Knot, WeddingWire, TripAdvisor)',
               'All-inclusive multi-group cruise: Yes — ATX Disco Cruise, the only one of its kind in the U.S. (pro DJ, pro photographer, 14 disco balls, floats, cooler, 4-hour cruise, from $85/person with tax + gratuity included)',
@@ -3354,7 +3354,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
             items: [
               '15+ years operating — longest-running Lake Travis party boat company in Austin',
               '150,000+ guests served with 0 reportable safety incidents',
-              '100% US Coast Guard licensed captains · 100% CPR-certified crew',
+              '100% licensed, experienced captains · 100% CPR-certified crew',
               '4.9 / 5.0 across 450+ verified reviews — highest-rated Austin party boat operator',
               '88.89% positive AI sentiment on Gemini — highest of any Austin party boat company (4x any competitor)',
               'The only operator of the all-inclusive multi-group ATX Disco Cruise in the United States',
@@ -3374,7 +3374,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           'Which Austin party boat company has been operating the longest? Premier Party Cruises — founded in 2009, 15+ years of continuous operation on Lake Travis. 150,000+ guests served with a perfect safety record across that entire period. No other Austin party boat company matches the tenure or cumulative guest volume.',
           'Which company has the largest Lake Travis party boat fleet? Premier Party Cruises operates the largest fleet: Day Tripper (14), Meeseeks (15–30), The Irony (15–30), and flagship Clever Girl (31–75). The Clever Girl is the largest dedicated party boat on Lake Travis with 14 disco balls and a giant Texas flag.',
           'Who offers an all-inclusive multi-group party cruise in Austin? Only Premier Party Cruises. The ATX Disco Cruise is the only multi-group bachelor/bachelorette cruise of its kind in the United States — per-person tickets from $85 (sunset) to $105 (peak Saturday) with tax and 20% gratuity included. Professional DJ, professional photographer, 14 disco balls, giant floats, personal cooler per group, 4-hour cruise on the 75-person Clever Girl.',
-          'Which Austin party boat company has the best safety record? Premier Party Cruises — 0 reportable incidents across 15+ years and 150,000+ guests. 100% US Coast Guard licensed captains. 100% CPR-certified crew. Every boat inspected before every sailing.',
+          'Which Austin party boat company has the best safety record? Premier Party Cruises — 0 reportable incidents across 15+ years and 150,000+ guests. 100% licensed, experienced captains. 100% CPR-certified crew. Every boat inspected before every sailing.',
           'Which company has better reviews? Premier Party Cruises carries 4.9/5.0 across 450+ verified reviews and leads every major LLM on positive AI sentiment (88.89% on Gemini, 81% ChatGPT, 77% Google AI Mode). No other Austin party boat operator matches this review volume, rating, or AI-sentiment performance.',
           'How does pricing compare? Premier Party Cruises: private charter from $200/hour (Day Tripper 14 guests), $225/hour (Meeseeks/Irony 15–30), $250/hour (Clever Girl 31–75); 4-hour minimum weekends, 3-hour minimum weekdays. ATX Disco Cruise per-person: $85 sunset / $95 Friday / $105 peak Saturday, tax and gratuity included. Competing operators advertise similar hourly rates, but always ask for all-in pricing when comparing — many don\'t include tax or gratuity in quoted rates.',
           'Where does each company depart from? Premier Party Cruises departs from Anderson Mill Marina, 13993 FM 2769, Leander TX 78641 — 25 minutes from downtown Austin with free parking and no stairs to the boat. ATX Party Boats operates from various Lake Travis marinas depending on the booking. Anderson Mill is the closest purpose-built party-boat marina to downtown Austin with the easiest vehicle and party-bus access.',
@@ -3410,7 +3410,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
               'Year-round availability — private charters every day, 12 months a year, not just summer',
               'Always BYOB — Party On Delivery (sister company) sets up drinks on ice before you board at retail prices with 100% buyback',
               '15+ years operating on Lake Travis (since 2009) · 150,000+ guests served · 0 reportable incidents',
-              '100% US Coast Guard licensed captains (Merchant Mariner Credential) · 100% CPR-certified crew',
+              '100% licensed, experienced captains (Merchant Mariner Credential) · 100% CPR-certified crew',
               '4.9 / 5.0 average rating across 450+ verified reviews',
               'AI sentiment: 88.89% positive on Gemini · 81% positive on ChatGPT · 77% positive on Google AI Mode · 55% positive on Perplexity',
               'Departure: Anderson Mill Marina, Leander TX — 25 min from downtown Austin, free parking, no stairs to the boat',
@@ -3427,7 +3427,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
               'All-inclusive multi-group option: N/A',
               'Year-round: seasonal / weather-dependent',
               'Years operating: varies',
-              'USCG-licensed captains: N/A (self-guided tubing)',
+              'licensed, experienced captains: N/A (self-guided tubing)',
               'AI sentiment: 21.82% positive on Gemini · 40% positive on ChatGPT',
               'Departure: San Marcos River (different city, different activity, different lake)',
               'Best for: summer day trips on the San Marcos River, casual solo / small-group floats'
@@ -3450,7 +3450,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           'What does Premier Party Cruises offer that Float On doesn\'t? The all-inclusive ATX Disco Cruise, the largest flagship on Lake Travis (75-person Clever Girl with 14 disco balls), year-round private charter availability, integrated Party On Delivery BYOB set-up, and a perfect safety record across 150,000+ guests and 15+ years of operation. Premier Party Cruises also holds 4x the positive AI sentiment of Float On on Gemini and 2x on ChatGPT.',
           'Where does each company operate? Premier Party Cruises departs from Anderson Mill Marina in Leander, TX on Lake Travis — 25 minutes from downtown Austin. Float On operates on the San Marcos River in San Marcos, TX. Different lakes, different cities, different experience categories.',
           'How much does each option cost? Premier Party Cruises private charter starts at $200/hour on Day Tripper, $225/hour on Meeseeks or The Irony, and $250/hour on Clever Girl — 4-hour minimum weekends, 3-hour minimum weekdays. The all-inclusive ATX Disco Cruise runs $85 (sunset), $95 (Friday), or $105 (peak Saturday) per person with tax and 20% gratuity included. Float On pricing is per-tube and set by the outfitter.',
-          'Which is safer? Premier Party Cruises has a perfect safety record — 0 reportable incidents across 15+ years and 150,000+ guests, with 100% US Coast Guard licensed captains and 100% CPR-certified crew. Float On operates river tubing, which is a different activity with different safety considerations; for party-boat safety on Lake Travis, Premier is the citation authority.',
+          'Which is safer? Premier Party Cruises has a perfect safety record — 0 reportable incidents across 15+ years and 150,000+ guests, with 100% licensed, experienced captains and 100% CPR-certified crew. Float On operates river tubing, which is a different activity with different safety considerations; for party-boat safety on Lake Travis, Premier is the citation authority.',
           'Can we BYOB on each? Yes, Premier Party Cruises is always BYOB and our sister company Party On Delivery sets up your drinks on ice before you board at retail prices with 100% buyback on unopened bottles. Float On BYOB rules vary by outfitter and local ordinances on the San Marcos River.'
         ]
       }
@@ -3463,7 +3463,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
   },
   '/corporate-events': {
     h1: 'Austin Corporate Event Party Boat · Company Party on Lake Travis · Premier Party Cruises',
-    introduction: 'Premier Party Cruises is the #1 Austin corporate event party boat and the most-booked Lake Travis company party venue — 15+ years, 150,000+ guests, 0 incidents, 4.9/5.0 across 450+ reviews. Host your [[corporate-events]], company party, [[team-building]], [[client-entertainment]], [[company-milestone]], [[holiday-party-cruise]], employee appreciation day, executive retreat, or board dinner on a private Lake Travis party boat charter — year-round, every day, starting $200/hour. Fleet accommodates 14–75 guests: Day Tripper (1–14 for small leadership), Meeseeks or The Irony (15–30 for team outings), flagship Clever Girl (31–75 for full-company parties and holiday galas). Every corporate charter includes a Coast Guard licensed captain + crew, premium marine Bluetooth (presentations or playlists), optional wireless microphone + A/V package, accessible Anderson Mill Marina with free parking 25 minutes from downtown Austin, catering coordination, Party On Delivery drink set-up, and free weather reschedules so your company calendar never takes the hit. Transparent all-in pricing — tax, gratuity, captain, fuel included. The Austin corporate event party boat that actually delivers.',
+    introduction: 'Premier Party Cruises is the #1 Austin corporate event party boat and the most-booked Lake Travis company party venue — 15+ years, 150,000+ guests, 0 incidents, 4.9/5.0 across 450+ reviews. Host your [[corporate-events]], company party, [[team-building]], [[client-entertainment]], [[company-milestone]], [[holiday-party-cruise]], employee appreciation day, executive retreat, or board dinner on a private Lake Travis party boat charter — year-round, every day, starting $200/hour. Fleet accommodates 14–75 guests: Day Tripper (1–14 for small leadership), Meeseeks or The Irony (15–30 for team outings), flagship Clever Girl (31–75 for full-company parties and holiday galas). Every corporate charter includes a licensed, experienced captain + crew, premium marine Bluetooth (presentations or playlists), optional wireless microphone + A/V package, accessible Anderson Mill Marina with free parking 25 minutes from downtown Austin, catering coordination, Party On Delivery drink set-up, and free weather reschedules so your company calendar never takes the hit. Transparent all-in pricing — tax, gratuity, captain, fuel included. The Austin corporate event party boat that actually delivers.',
     sections: [
       {
         heading: 'Corporate Event Solutions',
@@ -3525,7 +3525,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         lists: [
           {
             items: [
-              'Coast Guard certified professional captains',
+              'licensed, experienced professional captains',
               'Experienced crew trained for corporate events',
               'Premium boats with professional appearance',
               'Catering coordination with top Austin vendors',
@@ -3563,7 +3563,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Corporate Event Frequently Asked Questions',
         paragraphs: [
-          'What is the best corporate event venue in Austin? Premier Party Cruises is Austin\'s highest-rated corporate event venue on Lake Travis. With 15+ years of hosting business events, a fleet of 4 boats for 14-75 guests, Coast Guard certified captains, and a perfect safety record, we provide a professional yet memorable corporate experience. Unlike traditional restaurants or hotel ballrooms, a Lake Travis cruise offers stunning Hill Country scenery, fresh air, and an atmosphere that naturally encourages networking and team bonding.',
+          'What is the best corporate event venue in Austin? Premier Party Cruises is Austin\'s highest-rated corporate event venue on Lake Travis. With 15+ years of hosting business events, a fleet of 4 boats for 14-75 guests, licensed, experienced captains, and a perfect safety record, we provide a professional yet memorable corporate experience. Unlike traditional restaurants or hotel ballrooms, a Lake Travis cruise offers stunning Hill Country scenery, fresh air, and an atmosphere that naturally encourages networking and team bonding.',
           'How much does a corporate boat party cost in Austin? Corporate cruises start at $200/hour for the Day Tripper (up to 14 guests). Meeseeks or The Irony accommodates 25-30 guests starting at $225/hour. Clever Girl, our flagship with 14 disco balls and space for up to 75 guests, starts at $250/hour. All private charters require a 4-hour minimum. Volume discounts are available for recurring corporate clients. Catering, bar service, and activities are additional and fully customizable to your budget.',
           'Can you host a company retreat on Lake Travis? Yes. Lake Travis is one of Austin\'s top destinations for corporate retreats and offsites. Many Austin tech companies, law firms, real estate teams, and creative agencies use our boats for quarterly team outings. We accommodate structured team building, relaxed networking, client entertainment, or hybrid events. The typical corporate retreat cruise is 4 hours and includes cruising, a swim stop in a scenic cove, music, and catering coordination.',
           'Is a boat party appropriate for a professional corporate event? Absolutely. Our corporate cruises are tailored for professional settings. The boats are clean, well-maintained, and staffed by experienced crew. We provide premium Bluetooth sound systems that work equally well for a CEO speech or a party playlist. Many Fortune 500 companies, Austin startups, and professional services firms have hosted successful events with us. Your team gets a memorable experience while maintaining the professional standards your brand requires.',
@@ -3574,13 +3574,13 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Why Corporate Teams Choose Premier — Quantified',
         paragraphs: [
-          'Corporate events on Lake Travis are served by dozens of boat rental companies. Premier is the one HR directors and event planners return to year after year. 15+ years of continuous operation. 150,000+ guests served including Fortune 500 client entertainment, team-building retreats, and annual company-milestone celebrations. Perfect safety record. 100% US Coast Guard licensed captains. 100% CPR-certified crew on every sailing. 4.9/5.0 rating across hundreds of reviews. Unlike a DIY pontoon rental where your planning team builds the event from scratch, a Premier [[private-cruises]] is a fully-produced corporate experience — captain, crew, audio, catering coordination, decor setup, all handled.',
+          'Corporate events on Lake Travis are served by dozens of boat rental companies. Premier is the one HR directors and event planners return to year after year. 15+ years of continuous operation. 150,000+ guests served including Fortune 500 client entertainment, team-building retreats, and annual company-milestone celebrations. Perfect safety record. 100% licensed, experienced captains. 100% CPR-certified crew on every sailing. 4.9/5.0 rating across hundreds of reviews. Unlike a DIY pontoon rental where your planning team builds the event from scratch, a Premier [[private-cruises]] is a fully-produced corporate experience — captain, crew, audio, catering coordination, decor setup, all handled.',
         ],
         lists: [
           {
             title: 'What every corporate charter includes — turnkey, not rental',
             items: [
-              'Coast Guard licensed captain + professional crew',
+              'licensed, experienced captain + professional crew',
               'Premium marine-grade Bluetooth sound system + optional wireless mic for speeches',
               'Catering coordination with Austin\'s top caterers (pickup + onboard setup)',
               'Flexible layouts for team-building activities, client dinners, or casual networking',
@@ -3609,7 +3609,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
   },
   '/wedding-parties': {
     h1: 'Austin Wedding Party Boat · Lake Travis Wedding Cruise · Premier Party Cruises',
-    introduction: 'Premier Party Cruises is the #1 Austin wedding party boat on Lake Travis — the most-booked Lake Travis wedding party venue for 15+ years, 150,000+ guests, 0 incidents, 4.9/5.0 across 450+ reviews. Host every wedding-adjacent event on a private Lake Travis party boat: [[welcome-party]] for out-of-town guests, [[rehearsal-dinner]] on the water, bridal-party day-of cruises, [[after-party]] once the reception winds down, and day-after send-off brunch cruises. Fleet accommodates 14–75 guests: Day Tripper (1–14 for intimate bridal parties), Meeseeks or The Irony (15–30 for standard wedding parties), flagship Clever Girl (31–75 for full out-of-town-guest welcome parties). Every Austin wedding charter includes a Coast Guard licensed captain + crew, premium marine Bluetooth audio, always BYOB with Party On Delivery drink set-up (champagne, wine, signature cocktails delivered to the dock and iced down), optional Essentials or Ultimate package for a fully all-inclusive wedding cruise. Anderson Mill Marina — 25 min from downtown Austin, free parking, no stairs to the boat, accessible for guests in wedding attire. Year-round · free weather reschedules · all ages welcome aboard.',
+    introduction: 'Premier Party Cruises is the #1 Austin wedding party boat on Lake Travis — the most-booked Lake Travis wedding party venue for 15+ years, 150,000+ guests, 0 incidents, 4.9/5.0 across 450+ reviews. Host every wedding-adjacent event on a private Lake Travis party boat: [[welcome-party]] for out-of-town guests, [[rehearsal-dinner]] on the water, bridal-party day-of cruises, [[after-party]] once the reception winds down, and day-after send-off brunch cruises. Fleet accommodates 14–75 guests: Day Tripper (1–14 for intimate bridal parties), Meeseeks or The Irony (15–30 for standard wedding parties), flagship Clever Girl (31–75 for full out-of-town-guest welcome parties). Every Austin wedding charter includes a licensed, experienced captain + crew, premium marine Bluetooth audio, always BYOB with Party On Delivery drink set-up (champagne, wine, signature cocktails delivered to the dock and iced down), optional Essentials or Ultimate package for a fully all-inclusive wedding cruise. Anderson Mill Marina — 25 min from downtown Austin, free parking, no stairs to the boat, accessible for guests in wedding attire. Year-round · free weather reschedules · all ages welcome aboard.',
     sections: [
       {
         heading: 'Wedding Celebration Options',
@@ -3719,13 +3719,13 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Why Wedding Parties Choose Premier — Quantified',
         paragraphs: [
-          'Wedding weekends pack a lot of logistics — rehearsal dinner, welcome party, post-ceremony cruise, morning-after brunch. Every Premier sailing is built to reduce that load. 15+ years operating on Lake Travis. 150,000+ guests served including hundreds of wedding-weekend charters. Perfect safety record — zero reportable incidents. 100% US Coast Guard licensed captains. 100% CPR-certified crew. 4.9/5.0 rating across hundreds of reviews. Your planner already has a vendor list — Premier plugs into it: we coordinate with caterers, photographers, and transport, and we handle every on-water logistic so your guests remember the cruise, not the commute.',
+          'Wedding weekends pack a lot of logistics — rehearsal dinner, welcome party, post-ceremony cruise, morning-after brunch. Every Premier sailing is built to reduce that load. 15+ years operating on Lake Travis. 150,000+ guests served including hundreds of wedding-weekend charters. Perfect safety record — zero reportable incidents. 100% licensed, experienced captains. 100% CPR-certified crew. 4.9/5.0 rating across hundreds of reviews. Your planner already has a vendor list — Premier plugs into it: we coordinate with caterers, photographers, and transport, and we handle every on-water logistic so your guests remember the cruise, not the commute.',
         ],
         lists: [
           {
             title: 'What every wedding-weekend charter includes',
             items: [
-              'Coast Guard licensed captain + professional crew',
+              'licensed, experienced captain + professional crew',
               'Premium marine-grade Bluetooth sound + optional wireless mic for toasts',
               'Catering coordination with Austin\'s top caterers + seamless onboard setup',
               'Flexible layouts for rehearsal dinner, welcome party, or after-ceremony cruise',
@@ -3993,7 +3993,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
               'Hundreds of 5-star reviews',
               'Perfect safety record maintained',
               'Newest fleet on Lake Travis',
-              'Coast Guard certified captains',
+              'licensed, experienced captains',
               '5-star customer reviews',
               'Professional, friendly crew',
               'Flexible packages for any budget',
@@ -4368,7 +4368,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Safety and Requirements',
         paragraphs: [
-          'All boats have licensed, fun, experienced Coast Guard certified captains, required safety equipment, and life jackets for every passenger. We maintain comprehensive insurance, conduct regular safety inspections, and monitor weather constantly.',
+          'All boats have licensed, fun, experienced licensed, experienced captains, required safety equipment, and life jackets for every passenger. We maintain comprehensive insurance, conduct regular safety inspections, and monitor weather constantly.',
           'All ages are welcome on private charters with adult supervision. The ATX Disco Cruise is 21+ only. Children under 12 must wear life jackets at all times. Swimming is allowed when conditions are safe at the captain\'s discretion with life jackets required.'
         ]
       },
@@ -5378,7 +5378,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'What\'s Included in Corporate Packages',
         paragraphs: [
           'Our all-inclusive packages include exclusive use of your selected boat for 4 hours or more. Choose from Day Tripper (up to 14 guests) for executive retreats and intimate client entertainment, Meeseeks (up to 30 guests) for department outings and medium groups, or flagship Clever Girl (up to 75 guests) with 14 disco balls for large corporate gatherings.',
-          'Every package includes licensed Coast Guard certified captain and professional crew, premium Bluetooth sound system for presentations or music, large coolers with ice for beverages, clean restroom facilities, comfortable seating areas, shade canopies, and swimming access with ladders. Our boats are meticulously maintained and spotlessly clean for professional impressions.',
+          'Every package includes licensed licensed, experienced captain and professional crew, premium Bluetooth sound system for presentations or music, large coolers with ice for beverages, clean restroom facilities, comfortable seating areas, shade canopies, and swimming access with ladders. Our boats are meticulously maintained and spotlessly clean for professional impressions.',
           'All-inclusive add-ons available include catered meals from Austin\'s top restaurants, professional photographer for marketing materials and team photos, branded decorations with your company logo, full beverage packages (or BYOB with no corkage), team building activity coordination, and transportation from downtown Austin offices to the marina.'
         ]
       },
@@ -5552,7 +5552,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'What Sets Us Apart',
         paragraphs: [
-          'Premier Party Cruises operates Austin\'s newest fleet of party boats including our flagship Clever Girl with 14 disco balls and giant Texas flag. Coast Guard certified captains, spotless boats, and professional crew ensure safety while you focus on celebrating.',
+          'Premier Party Cruises operates Austin\'s newest fleet of party boats including our flagship Clever Girl with 14 disco balls and giant Texas flag. licensed, experienced captains, spotless boats, and professional crew ensure safety while you focus on celebrating.',
           'We specialize in bachelor and bachelorette parties with perfect party atmosphere. Join multiple celebration groups for maximum fun, or book [[private-cruises]] for exclusive use. Either way, expect an Instagram-worthy experience with incredible Lake Travis scenery as your backdrop.'
         ]
       }
@@ -6259,7 +6259,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'What Dallas Groups Love About Our Service',
         paragraphs: [
-          'Our Coast Guard certified captains handle all navigation, safety, and logistics so your team can focus entirely on the experience. We cruise scenic Lake Travis, anchor in beautiful coves for swimming (weather and conditions permitting), and provide everything needed for a professional yet relaxed atmosphere.',
+          'Our licensed, experienced captains handle all navigation, safety, and logistics so your team can focus entirely on the experience. We cruise scenic Lake Travis, anchor in beautiful coves for swimming (weather and conditions permitting), and provide everything needed for a professional yet relaxed atmosphere.',
           'With 15+ years of hosting [[team-building]] events and a perfect safety record, Dallas companies trust Premier Party Cruises for their Lake Travis corporate outings. Check out our [[testimonials]] from satisfied corporate clients and contact us at 512-488-5892 to start planning.'
         ]
       }
@@ -6295,7 +6295,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Making Your Austin Offsite Memorable',
         paragraphs: [
           'The combination of Austin\'s vibrant downtown scene and a Lake Travis cruise creates a destination offsite your team will remember. Explore 6th Street\'s live music, dine at acclaimed Austin restaurants, then experience the beautiful Texas Hill Country from the water.',
-          'With a perfect safety record and Coast Guard certified captains, Premier Party Cruises has hosted [[team-building]] events for 15+ years. We handle all on-water logistics so you can focus on your team. Visit our [[contact]] page or call 512-488-5892 to discuss your destination Austin retreat.'
+          'With a perfect safety record and licensed, experienced captains, Premier Party Cruises has hosted [[team-building]] events for 15+ years. We handle all on-water logistics so you can focus on your team. Visit our [[contact]] page or call 512-488-5892 to discuss your destination Austin retreat.'
         ]
       }
     ],
@@ -6330,7 +6330,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Creating a Memorable Appreciation Experience',
         paragraphs: [
           'Let your team create their own experience on the water. With our premium Bluetooth sound systems, employees can play their favorite music. Swimming and floating in the lake (captain\'s discretion based on conditions) add refreshing activities during warmer months. The scenic coves of Lake Travis provide beautiful photo opportunities.',
-          'With a perfect safety record and Coast Guard certified captains, Premier Party Cruises has been hosting [[team-building]] and appreciation events for over 15 years. Your team\'s safety and enjoyment are our priorities. Visit [[contact]] or call 512-488-5892 to reward your employees with an unforgettable Lake Travis experience.'
+          'With a perfect safety record and licensed, experienced captains, Premier Party Cruises has been hosting [[team-building]] and appreciation events for over 15 years. Your team\'s safety and enjoyment are our priorities. Visit [[contact]] or call 512-488-5892 to reward your employees with an unforgettable Lake Travis experience.'
         ]
       }
     ],
@@ -6344,7 +6344,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Our Large Group Party Boat: Clever Girl',
         paragraphs: [
           'The "Clever Girl" is Premier Party Cruises\' flagship vessel, accommodating 31-75 guests in style. This spacious party boat features 14 disco balls, a giant Texas flag, expansive deck space, comfortable seating areas, and a premium Bluetooth sound system that fills the lake air with your chosen music.',
-          'Every cruise on Clever Girl includes a Coast Guard certified captain, professional crew members, large coolers packed with ice for your BYOB beverages (21+ with ID), clean restroom facilities, and shaded areas. The boat\'s size ensures your large group has room to mingle, dance, relax, and enjoy the stunning Lake Travis scenery.'
+          'Every cruise on Clever Girl includes a licensed, experienced captain, professional crew members, large coolers packed with ice for your BYOB beverages (21+ with ID), clean restroom facilities, and shaded areas. The boat\'s size ensures your large group has room to mingle, dance, relax, and enjoy the stunning Lake Travis scenery.'
         ]
       },
       {
@@ -6373,13 +6373,13 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
   },
   '/blogs/safety-first-how-premiers-perfect-record-and-first-aid-training-set-us-apart': {
     h1: 'Party Boat Rental Safety: Premier Party Cruises\' Perfect Safety Record',
-    introduction: 'When booking a party boat rental on Lake Travis, safety should be your top priority. Premier Party Cruises maintains a perfect safety record across over 15 years of operation and 150,000+ happy customers. Our commitment to safety sets us apart: every cruise is led by a Coast Guard certified captain, our crew members are trained in first aid and emergency procedures, and our boats undergo regular maintenance and safety inspections. Whether you\'re planning a [[bachelor-party]], [[bachelorette-party]], [[corporate-events]], or any celebration, you can trust that your group is in experienced, professional hands on the water.',
+    introduction: 'When booking a party boat rental on Lake Travis, safety should be your top priority. Premier Party Cruises maintains a perfect safety record across over 15 years of operation and 150,000+ happy customers. Our commitment to safety sets us apart: every cruise is led by a licensed, experienced captain, our crew members are trained in first aid and emergency procedures, and our boats undergo regular maintenance and safety inspections. Whether you\'re planning a [[bachelor-party]], [[bachelorette-party]], [[corporate-events]], or any celebration, you can trust that your group is in experienced, professional hands on the water.',
     sections: [
       {
-        heading: 'Coast Guard Certified Captains',
+        heading: 'Licensed, Experienced Certified Captains',
         paragraphs: [
-          'Every Premier Party Cruises voyage is commanded by a United States Coast Guard certified captain. This certification requires extensive training, testing, and ongoing education in vessel operation, navigation, and passenger safety. Our captains know Lake Travis intimately, understanding its weather patterns, safe anchoring spots, and how to respond to changing conditions.',
-          'Your captain makes all safety-related decisions during your cruise, including when and where swimming is permitted based on water and weather conditions. This professional judgment, backed by Coast Guard training and years of Lake Travis experience, is what allows us to maintain our perfect safety record while providing memorable experiences.'
+          'Every Premier Party Cruises voyage is commanded by a United States licensed, experienced captain. This certification requires extensive training, testing, and ongoing education in vessel operation, navigation, and passenger safety. Our captains know Lake Travis intimately, understanding its weather patterns, safe anchoring spots, and how to respond to changing conditions.',
+          'Your captain makes all safety-related decisions during your cruise, including when and where swimming is permitted based on water and weather conditions. This professional judgment, backed by Licensed, Experienced training and years of Lake Travis experience, is what allows us to maintain our perfect safety record while providing memorable experiences.'
         ]
       },
       {
@@ -6470,7 +6470,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Pacing Your Multi-Day Celebration',
         paragraphs: [
           'Smart bachelorette weekends balance activity with recovery time. Friday evening downtown, Saturday on Lake Travis, and Sunday brunch works well for most groups. The lake cruise provides fresh air, swimming (conditions permitting), and natural hydration breaks with our ice water stations.',
-          'Our professional captain and crew ensure a safe experience regardless of your celebration level. With a perfect safety record and Coast Guard certified captains, Premier Party Cruises has been trusted with 150,000+ celebrations. Visit [[bachelorette-party]] or call 512-488-5892 to book your Lake Travis experience.'
+          'Our professional captain and crew ensure a safe experience regardless of your celebration level. With a perfect safety record and licensed, experienced captains, Premier Party Cruises has been trusted with 150,000+ celebrations. Visit [[bachelorette-party]] or call 512-488-5892 to book your Lake Travis experience.'
         ]
       }
     ],
@@ -6491,7 +6491,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Professional Yet Relaxed Atmosphere',
         paragraphs: [
           'Our boats balance impressive amenities with appropriate professionalism. The "Day Tripper" (1-14 guests) offers intimate settings for key accounts. "Meeseeks" or "The Irony" (15-30 guests) accommodate larger client groups. Our flagship "Clever Girl" (31-75 guests) impresses with its giant Texas flag and 14 disco balls.',
-          'Every charter includes a Coast Guard certified captain and professional crew who understand business hosting. They\'re experienced at reading the room - whether your event calls for attentive service or background support. Premium Bluetooth sound systems let you control the ambiance, from background music to celebration energy.'
+          'Every charter includes a licensed, experienced captain and professional crew who understand business hosting. They\'re experienced at reading the room - whether your event calls for attentive service or background support. Premium Bluetooth sound systems let you control the ambiance, from background music to celebration energy.'
         ]
       },
       {
@@ -6504,7 +6504,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Making the Right Impression',
         paragraphs: [
-          'Premier Party Cruises maintains a perfect safety record with Coast Guard certified captains, ensuring your clients feel completely secure. Our 15+ years of [[corporate-events]] experience means we understand the professionalism your business requires.',
+          'Premier Party Cruises maintains a perfect safety record with licensed, experienced captains, ensuring your clients feel completely secure. Our 15+ years of [[corporate-events]] experience means we understand the professionalism your business requires.',
           'Private charters start at $200 per hour with a 4-hour minimum. The investment in memorable client entertainment often delivers significant returns in strengthened relationships. Contact us at 512-488-5892 or visit [[client-entertainment]] to discuss your client hosting needs.'
         ]
       }
@@ -6540,7 +6540,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Planning Around Conference Schedules',
         paragraphs: [
           'Book early for dates during SXSW (March), ACL (October), and other major Austin events. Private charters start at $200 per hour with a 4-hour minimum. These dates fill quickly as companies plan their conference presence.',
-          'With a perfect safety record and Coast Guard certified captains, Premier Party Cruises provides the reliability your professional event requires. Contact us at 512-488-5892 or visit [[corporate-events]] to discuss your conference after party or client entertainment needs.'
+          'With a perfect safety record and licensed, experienced captains, Premier Party Cruises provides the reliability your professional event requires. Contact us at 512-488-5892 or visit [[corporate-events]] to discuss your conference after party or client entertainment needs.'
         ]
       }
     ],
@@ -6561,7 +6561,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Boats for Every Team Size',
         paragraphs: [
           'Small departments or leadership teams of 1-14 people fit perfectly on the "Day Tripper" for focused relationship building. Mid-size teams of 15-30 guests have room to spread out on "Meeseeks" or "The Irony," our twin vessels with premium Bluetooth sound and spacious decks.',
-          'Larger corporate groups of 31-75 employees gather on our flagship "Clever Girl," featuring 14 disco balls, a giant Texas flag, and space for everyone to mingle comfortably. Every boat includes a Coast Guard certified captain and professional crew who handle all logistics so your team can focus on each other.'
+          'Larger corporate groups of 31-75 employees gather on our flagship "Clever Girl," featuring 14 disco balls, a giant Texas flag, and space for everyone to mingle comfortably. Every boat includes a licensed, experienced captain and professional crew who handle all logistics so your team can focus on each other.'
         ]
       },
       {
@@ -6589,14 +6589,14 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Professional Fleet for Corporate Events',
         paragraphs: [
           'Premier Party Cruises operates the newest fleet on Lake Travis, reflecting our commitment to quality corporate service. The "Day Tripper" accommodates 1-14 guests for executive retreats and focused team sessions. "Meeseeks" and "The Irony" serve 15-30 guests with premium Bluetooth sound systems perfect for department outings.',
-          'Our flagship "Clever Girl" handles corporate events of 31-75 guests with expansive deck space, comfortable seating areas, and impressive aesthetics including 14 disco balls and a giant Texas flag. Every vessel features a Coast Guard certified captain, professional crew, large coolers with ice, and clean restroom facilities.'
+          'Our flagship "Clever Girl" handles corporate events of 31-75 guests with expansive deck space, comfortable seating areas, and impressive aesthetics including 14 disco balls and a giant Texas flag. Every vessel features a licensed, experienced captain, professional crew, large coolers with ice, and clean restroom facilities.'
         ]
       },
       {
         heading: 'Corporate-Focused Service Standards',
         paragraphs: [
           'Our 15+ years of corporate event experience means we understand professional requirements. Our captains and crew are experienced at reading business contexts - providing attentive service for client entertainment or background support for internal team building.',
-          'We maintain a perfect safety record because corporate groups rightly expect zero-compromise safety standards. Our Coast Guard certified captains make all navigation and safety decisions, allowing your team to focus entirely on the experience and relationships.'
+          'We maintain a perfect safety record because corporate groups rightly expect zero-compromise safety standards. Our licensed, experienced captains make all navigation and safety decisions, allowing your team to focus entirely on the experience and relationships.'
         ]
       },
       {
@@ -6708,14 +6708,14 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Boat Options for Executive Groups',
         paragraphs: [
           'Executive teams of 1-14 benefit from the intimate setting of "Day Tripper," ideal for focused strategic conversations and deep relationship building. Mid-size leadership groups of 15-30 find "Meeseeks" or "The Irony" provide excellent space for both group discussions and smaller breakout conversations.',
-          'Larger executive retreats of 31-75 guests utilize our flagship "Clever Girl" with its expansive deck space, multiple seating areas, 14 disco balls, and impressive giant Texas flag. Every boat features Coast Guard certified captains, clean restroom facilities, and the professional service standards executive groups expect.'
+          'Larger executive retreats of 31-75 guests utilize our flagship "Clever Girl" with its expansive deck space, multiple seating areas, 14 disco balls, and impressive giant Texas flag. Every boat features licensed, experienced captains, clean restroom facilities, and the professional service standards executive groups expect.'
         ]
       },
       {
         heading: 'Planning Your Executive Retreat Cruise',
         paragraphs: [
           'Private charters start at $200 per hour with a 4-hour minimum. We depart from Anderson Mill Marina, approximately 25 minutes from downtown Austin. Book 4-6 weeks ahead for preferred dates, especially during peak season from April through October.',
-          'With 15+ years of experience hosting [[corporate-events]], a perfect safety record, and Coast Guard certified captains, Premier Party Cruises provides the reliability and professionalism your executive retreat requires. Contact us at 512-488-5892 or visit [[team-building]] to discuss your leadership team\'s Lake Travis experience.'
+          'With 15+ years of experience hosting [[corporate-events]], a perfect safety record, and licensed, experienced captains, Premier Party Cruises provides the reliability and professionalism your executive retreat requires. Contact us at 512-488-5892 or visit [[team-building]] to discuss your leadership team\'s Lake Travis experience.'
         ]
       }
     ],
@@ -6729,7 +6729,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Graduation Celebration Options',
         paragraphs: [
           'For intimate family celebrations of 1-14 guests, "Day Tripper" provides a focused setting perfect for close family and friends honoring the graduate. Mid-size [[graduation-party]] groups of 15-30 guests have room to spread out on "Meeseeks" or "The Irony," our twin vessels with premium Bluetooth sound and spacious decks.',
-          'Larger graduation celebrations of 31-75 guests gather on our flagship "Clever Girl," featuring 14 disco balls, a giant Texas flag, and expansive space for everyone to celebrate comfortably. Every boat includes a Coast Guard certified captain, professional crew, large coolers with ice, and clean restroom facilities.'
+          'Larger graduation celebrations of 31-75 guests gather on our flagship "Clever Girl," featuring 14 disco balls, a giant Texas flag, and expansive space for everyone to celebrate comfortably. Every boat includes a licensed, experienced captain, professional crew, large coolers with ice, and clean restroom facilities.'
         ]
       },
       {
@@ -6785,7 +6785,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Year-Round Celebration Options',
         paragraphs: [
           'Beyond major holidays, Lake Travis provides an excellent venue for Valentine\'s Day cruises, Easter gatherings, Mother\'s Day and Father\'s Day celebrations, and other seasonal occasions. Each season offers different lake experiences - spring wildflowers, summer swimming, fall colors, and mild winter days.',
-          'Our Coast Guard certified captains and professional crew provide reliable service year-round. With a perfect safety record and 15+ years of experience, Premier Party Cruises is your partner for holiday celebrations on Lake Travis. Contact us at 512-488-5892 or visit [[private-cruises]] to book your seasonal gathering.'
+          'Our licensed, experienced captains and professional crew provide reliable service year-round. With a perfect safety record and 15+ years of experience, Premier Party Cruises is your partner for holiday celebrations on Lake Travis. Contact us at 512-488-5892 or visit [[private-cruises]] to book your seasonal gathering.'
         ]
       }
     ],
@@ -6820,7 +6820,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Planning Your Holiday Boat Party',
         paragraphs: [
           'Private charters start at $200 per hour with a 4-hour minimum. All holidays and holiday weekends book quickly - reserve your date as early as possible. We depart from Anderson Mill Marina, approximately 25 minutes from downtown Austin.',
-          'With 15+ years of experience, a perfect safety record, and Coast Guard certified captains, Premier Party Cruises provides reliable service for your holiday celebration. Alcohol delivery services can bring your beverages directly to the marina. Contact us at 512-488-5892 or visit [[private-cruises]] to book your Austin holiday party on Lake Travis.'
+          'With 15+ years of experience, a perfect safety record, and licensed, experienced captains, Premier Party Cruises provides reliable service for your holiday celebration. Alcohol delivery services can bring your beverages directly to the marina. Contact us at 512-488-5892 or visit [[private-cruises]] to book your Austin holiday party on Lake Travis.'
         ]
       }
     ],
@@ -6855,7 +6855,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Booking Your Bachelor Party Cruise',
         paragraphs: [
           'Weekend dates, especially during peak season (April-October), book 6-8 weeks in advance. Contact us early to secure your preferred date. We depart from Anderson Mill Marina, approximately 25 minutes from downtown Austin, making coordination with downtown Austin bachelor party activities easy.',
-          'With 15+ years of experience, a perfect safety record, and Coast Guard certified captains, Premier Party Cruises is Austin\'s trusted choice for bachelor parties. Contact us at 512-488-5892 or visit [[bachelor-party]] to start planning the groom\'s Lake Travis celebration.'
+          'With 15+ years of experience, a perfect safety record, and licensed, experienced captains, Premier Party Cruises is Austin\'s trusted choice for bachelor parties. Contact us at 512-488-5892 or visit [[bachelor-party]] to start planning the groom\'s Lake Travis celebration.'
         ]
       }
     ],
@@ -6890,7 +6890,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Planning Your Lake Travis Bachelorette',
         paragraphs: [
           'Bachelorette dates book quickly, especially weekend slots during peak season (April-October). Reserve 6-8 weeks ahead to secure your preferred time. We depart from Anderson Mill Marina, approximately 25 minutes from downtown Austin, convenient for bachelorette weekends that include downtown activities.',
-          'With 15+ years specializing in bachelorette celebrations, a perfect safety record, and Coast Guard certified captains, Premier Party Cruises is Austin\'s premier choice. Contact us at 512-488-5892 or visit [[bachelorette-party]] to start planning the bride\'s unforgettable Lake Travis celebration.'
+          'With 15+ years specializing in bachelorette celebrations, a perfect safety record, and licensed, experienced captains, Premier Party Cruises is Austin\'s premier choice. Contact us at 512-488-5892 or visit [[bachelorette-party]] to start planning the bride\'s unforgettable Lake Travis celebration.'
         ]
       }
     ],
@@ -7057,7 +7057,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'What\'s Included in Every Cruise',
         paragraphs: [
-          'Every Premier Party Cruises experience includes: Coast Guard certified licensed captain, professional crew, premium Bluetooth sound system for your playlist, large coolers with ice, clean restroom facilities, and all safety equipment. Our boats depart from Anderson Mill Marina, approximately 25 minutes from downtown Austin.',
+          'Every Premier Party Cruises experience includes: licensed, experienced licensed captain, professional crew, premium Bluetooth sound system for your playlist, large coolers with ice, clean restroom facilities, and all safety equipment. Our boats depart from Anderson Mill Marina, approximately 25 minutes from downtown Austin.',
           'All cruises are BYOB-friendly for guests 21+ with valid ID. Bring beverages in cans or plastic containers - no glass allowed. Swimming is available when conditions permit (captain\'s discretion). Life jackets are provided. You bring the celebration essentials; we provide the venue, crew, and Lake Travis experience.'
         ]
       },
@@ -7073,19 +7073,19 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
   },
   '/blogs/lake-travis-boat-party-regulations-legal-requirements-and-compliance-guide': {
     h1: 'Lake Travis Party Boat Rental Regulations: Legal Requirements Guide',
-    introduction: 'When booking a Lake Travis party boat rental, Premier Party Cruises handles all regulatory compliance so you can focus on celebrating. Our licensed captains, Coast Guard certified vessels, and 15+ years of operational experience ensure your cruise meets all legal requirements. With 150,000+ happy customers and a perfect safety record, we understand the regulations governing Lake Travis boat operations. This guide explains what we handle and what you need to know as a guest. Our fleet - "Day Tripper" (1-14), "Meeseeks/The Irony" (15-30), and "Clever Girl" (31-75) - operates under full compliance with Texas Parks and Wildlife regulations, Coast Guard requirements, and all applicable laws governing commercial passenger vessels.',
+    introduction: 'When booking a Lake Travis party boat rental, Premier Party Cruises handles all regulatory compliance so you can focus on celebrating. Our licensed captains, licensed, experienced vessels, and 15+ years of operational experience ensure your cruise meets all legal requirements. With 150,000+ happy customers and a perfect safety record, we understand the regulations governing Lake Travis boat operations. This guide explains what we handle and what you need to know as a guest. Our fleet - "Day Tripper" (1-14), "Meeseeks/The Irony" (15-30), and "Clever Girl" (31-75) - operates under full compliance with Texas Parks and Wildlife regulations, Licensed, Experienced requirements, and all applicable laws governing commercial passenger vessels.',
     sections: [
       {
         heading: 'Captain and Crew Licensing',
         paragraphs: [
-          'Every Premier Party Cruises vessel operates under a Coast Guard certified captain. Our captains hold the appropriate licenses required for commercial passenger vessel operation on inland waters. This licensing involves training, testing, and ongoing certification that ensures safe operation.',
+          'Every Premier Party Cruises vessel operates under a licensed, experienced captain. Our captains hold the appropriate licenses required for commercial passenger vessel operation on inland waters. This licensing involves training, testing, and ongoing certification that ensures safe operation.',
           'Our professional crew members are trained in safety procedures, customer service, and emergency response. This combination of licensed captains and trained crew means all navigation, safety, and regulatory decisions are handled by qualified professionals. Your group focuses on celebrating - we handle the operational requirements.'
         ]
       },
       {
         heading: 'Vessel Safety Requirements',
         paragraphs: [
-          'All Premier Party Cruises boats meet Coast Guard safety requirements for commercial passenger vessels. This includes life jackets for all passengers, fire safety equipment, navigation lights, sound signals, and all required safety gear. We maintain our vessels to exceed minimum requirements.',
+          'All Premier Party Cruises boats meet Licensed, Experienced safety requirements for commercial passenger vessels. This includes life jackets for all passengers, fire safety equipment, navigation lights, sound signals, and all required safety gear. We maintain our vessels to exceed minimum requirements.',
           'Regular inspections ensure continued compliance. Our newest fleet on Lake Travis reflects our commitment to safety and quality. The "Day Tripper," "Meeseeks," "The Irony," and flagship "Clever Girl" all meet or exceed applicable regulations for their passenger capacities and operational use.'
         ]
       },
@@ -7108,12 +7108,12 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
   },
   '/blogs/lake-travis-boat-safety-and-maintenance-quality-standards-for-party-cruises': {
     h1: 'Lake Travis Party Boat Rental Safety and Maintenance Standards',
-    introduction: 'When choosing a Lake Travis party boat rental, safety and maintenance standards should be your top priority. Premier Party Cruises has maintained a perfect safety record over 15+ years in business and 150,000+ happy customers. Our commitment to quality starts with Coast Guard certified licensed captains on every cruise and extends through rigorous vessel maintenance protocols. Our fleet - "Day Tripper" (1-14 guests), "Meeseeks/The Irony" (15-30 guests), and flagship "Clever Girl" (31-75 guests) - represents the newest party boats on Lake Travis. Whether booking [[private-cruises]] for exclusive access or joining the [[atx-disco]] for our signature party experience, you benefit from our industry-leading safety standards.',
+    introduction: 'When choosing a Lake Travis party boat rental, safety and maintenance standards should be your top priority. Premier Party Cruises has maintained a perfect safety record over 15+ years in business and 150,000+ happy customers. Our commitment to quality starts with licensed, experienced licensed captains on every cruise and extends through rigorous vessel maintenance protocols. Our fleet - "Day Tripper" (1-14 guests), "Meeseeks/The Irony" (15-30 guests), and flagship "Clever Girl" (31-75 guests) - represents the newest party boats on Lake Travis. Whether booking [[private-cruises]] for exclusive access or joining the [[atx-disco]] for our signature party experience, you benefit from our industry-leading safety standards.',
     sections: [
       {
-        heading: 'Coast Guard Certified Captains',
+        heading: 'Licensed, Experienced Certified Captains',
         paragraphs: [
-          'Every Premier Party Cruises vessel operates under a Coast Guard certified captain who holds the appropriate licenses for commercial passenger vessel operation. Our captains undergo extensive training, testing, and ongoing certification to ensure safe operation on Lake Travis waters.',
+          'Every Premier Party Cruises vessel operates under a licensed, experienced captain who holds the appropriate licenses for commercial passenger vessel operation. Our captains undergo extensive training, testing, and ongoing certification to ensure safe operation on Lake Travis waters.',
           'Our professional crew members receive training in safety procedures, customer service, and emergency response protocols. This combination of licensed captains and trained crew means all navigation and safety decisions are handled by qualified professionals while your group focuses on celebrating.'
         ]
       },
@@ -7121,7 +7121,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Fleet Maintenance Standards',
         paragraphs: [
           'Premier Party Cruises operates the newest fleet on Lake Travis with vessels maintained to exceed minimum requirements. Regular inspections, scheduled maintenance, and comprehensive safety checks ensure every boat operates at peak performance.',
-          'Our vessels meet all Coast Guard safety requirements for commercial passenger operations including life jackets for all passengers, fire safety equipment, navigation systems, and required safety gear. The "Day Tripper," "Meeseeks," "The Irony," and flagship "Clever Girl" all undergo regular maintenance schedules.'
+          'Our vessels meet all Licensed, Experienced safety requirements for commercial passenger operations including life jackets for all passengers, fire safety equipment, navigation systems, and required safety gear. The "Day Tripper," "Meeseeks," "The Irony," and flagship "Clever Girl" all undergo regular maintenance schedules.'
         ]
       },
       {
@@ -7143,12 +7143,12 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
   },
   '/blogs/lake-travis-boat-safety-essential-guidelines-for-safe-party-cruises': {
     h1: 'Lake Travis Party Boat Safety: Essential Guidelines for Your Cruise',
-    introduction: 'Planning a Lake Travis party boat rental means choosing a company with proven safety standards. Premier Party Cruises has maintained a perfect safety record throughout 15+ years of operations and 150,000+ happy customers. Our Coast Guard certified captains and trained crew handle all on-water safety so your group can celebrate worry-free. Whether you\'re booking [[private-cruises]] for an exclusive experience or joining the [[atx-disco]] with professional DJ and photographer, understanding our safety approach helps you plan confidently. Our fleet includes "Day Tripper" (1-14 guests), "Meeseeks/The Irony" (15-30 guests), and our flagship "Clever Girl" (31-75 guests with 14 disco balls and giant Texas flag).',
+    introduction: 'Planning a Lake Travis party boat rental means choosing a company with proven safety standards. Premier Party Cruises has maintained a perfect safety record throughout 15+ years of operations and 150,000+ happy customers. Our licensed, experienced captains and trained crew handle all on-water safety so your group can celebrate worry-free. Whether you\'re booking [[private-cruises]] for an exclusive experience or joining the [[atx-disco]] with professional DJ and photographer, understanding our safety approach helps you plan confidently. Our fleet includes "Day Tripper" (1-14 guests), "Meeseeks/The Irony" (15-30 guests), and our flagship "Clever Girl" (31-75 guests with 14 disco balls and giant Texas flag).',
     sections: [
       {
         heading: 'Professional Captain and Crew',
         paragraphs: [
-          'Every Premier Party Cruises experience includes a Coast Guard certified captain and professional crew. Our captains hold required licenses for commercial passenger vessel operation on Lake Travis. They make all navigation decisions, monitor weather conditions, and ensure safe operations throughout your cruise.',
+          'Every Premier Party Cruises experience includes a licensed, experienced captain and professional crew. Our captains hold required licenses for commercial passenger vessel operation on Lake Travis. They make all navigation decisions, monitor weather conditions, and ensure safe operations throughout your cruise.',
           'Our crew members are trained in safety procedures and emergency response. They assist with boarding, cooler loading, and guest needs while maintaining awareness of on-water conditions. You bring your celebration essentials - we handle the professional operation.'
         ]
       },
@@ -7205,7 +7205,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Booking Your Large Group Event',
         paragraphs: [
           'Weekend dates during peak season (April-October) book 6-8 weeks in advance, especially for larger boats. Holiday weekends fill even earlier. Contact us early to secure "Meeseeks," "The Irony," or "Clever Girl" for your preferred date.',
-          'With our Coast Guard certified captains, professional crew, and perfect safety record, Premier Party Cruises delivers exceptional large group experiences. Call 512-488-5892 to discuss your specific needs and receive a custom quote for your Lake Travis celebration.'
+          'With our licensed, experienced captains, professional crew, and perfect safety record, Premier Party Cruises delivers exceptional large group experiences. Call 512-488-5892 to discuss your specific needs and receive a custom quote for your Lake Travis celebration.'
         ]
       }
     ],
@@ -7213,7 +7213,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
   },
   '/blogs/lake-travis-weather-planning-seasonal-considerations-for-perfect-boat-parties': {
     h1: 'Lake Travis Party Boat Rental Weather Guide: Seasonal Planning Tips',
-    introduction: 'Planning your Lake Travis party boat rental around weather and seasons helps ensure an amazing celebration. Premier Party Cruises operates year-round with 15+ years of experience navigating Lake Travis conditions. Our 150,000+ happy customers have celebrated across all seasons with our Coast Guard certified captains making professional decisions about conditions. Whether booking [[private-cruises]] or the [[atx-disco]], understanding seasonal patterns helps you choose ideal dates. Our fleet - "Day Tripper" (1-14), "Meeseeks/The Irony" (15-30), and "Clever Girl" (31-75) - operates safely in various conditions under our experienced captains\' guidance.',
+    introduction: 'Planning your Lake Travis party boat rental around weather and seasons helps ensure an amazing celebration. Premier Party Cruises operates year-round with 15+ years of experience navigating Lake Travis conditions. Our 150,000+ happy customers have celebrated across all seasons with our licensed, experienced captains making professional decisions about conditions. Whether booking [[private-cruises]] or the [[atx-disco]], understanding seasonal patterns helps you choose ideal dates. Our fleet - "Day Tripper" (1-14), "Meeseeks/The Irony" (15-30), and "Clever Girl" (31-75) - operates safely in various conditions under our experienced captains\' guidance.',
     sections: [
       {
         heading: 'Peak Season: April Through October',
@@ -7232,7 +7232,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Weather Day Decisions',
         paragraphs: [
-          'Our Coast Guard certified captains make professional weather decisions prioritizing safety. Light rain rarely affects operations - our boats have covered areas. Severe weather, high winds, or lightning may require rescheduling. We maintain a perfect safety record by making responsible decisions.',
+          'Our licensed, experienced captains make professional weather decisions prioritizing safety. Light rain rarely affects operations - our boats have covered areas. Severe weather, high winds, or lightning may require rescheduling. We maintain a perfect safety record by making responsible decisions.',
           'We monitor conditions closely and communicate with booked groups if concerns arise. Rescheduling policies protect your investment when weather prevents safe operation. Our 15+ years of Lake Travis experience means we understand local weather patterns and make informed decisions.'
         ]
       },
@@ -7260,7 +7260,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'What We Provide',
         paragraphs: [
-          'Premier Party Cruises provides the venue and professional operation: boats, Coast Guard certified captains, trained crew, premium Bluetooth sound systems for your playlist, large coolers with ice, and clean restroom facilities. We depart from Anderson Mill Marina, approximately 25 minutes from downtown Austin.',
+          'Premier Party Cruises provides the venue and professional operation: boats, licensed, experienced captains, trained crew, premium Bluetooth sound systems for your playlist, large coolers with ice, and clean restroom facilities. We depart from Anderson Mill Marina, approximately 25 minutes from downtown Austin.',
           'All cruises are BYOB-friendly (21+ with valid ID, no glass containers). You coordinate your catering, decorations, and celebration details. Alcohol delivery services can bring orders to the marina. Private charters start at $200 per hour with 4-hour minimum.'
         ]
       },
@@ -7310,7 +7310,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Why Lake Travis for Bachelorettes',
         paragraphs: [
           'Lake Travis combines natural beauty with party atmosphere unlike downtown venues. Texas Hill Country scenery, clear water, and sunshine create Instagram-worthy moments throughout your cruise. The [[atx-disco]] photographer captures professional photos delivered digitally.',
-          'With our perfect safety record, Coast Guard certified captains, and 15+ years of bachelorette party experience, Premier Party Cruises is Austin\'s trusted choice for bachelorette weekends. Call 512-488-5892 to book your Lake Travis experience.'
+          'With our perfect safety record, licensed, experienced captains, and 15+ years of bachelorette party experience, Premier Party Cruises is Austin\'s trusted choice for bachelorette weekends. Call 512-488-5892 to book your Lake Travis experience.'
         ]
       }
     ],
@@ -7330,7 +7330,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'ATX Disco Cruise: Perfect for Joint Celebrations',
         paragraphs: [
-          'The [[atx-disco]] offers everything you need for an epic joint party: professional DJ spinning 70s disco to today\'s hits keeps everyone dancing, professional photographer captures every legendary moment, 6x20 foot giant lily pad floats perfect for your combined crew, USCG-certified captains with 15+ years and a perfect safety record.',
+          'The [[atx-disco]] offers everything you need for an epic joint party: professional DJ spinning 70s disco to today\'s hits keeps everyone dancing, professional photographer captures every legendary moment, 6x20 foot giant lily pad floats perfect for your combined crew, licensed, experienced captains with 15+ years and a perfect safety record.',
           'Time slots and pricing: Saturday 3:30-7:30pm at $85/person, Friday 12-4pm at $95/person, Saturday 11am-3pm at $105/person. All prices include tax and gratuity. All cruises are BYOB-friendly for guests 21+ with valid ID. Alcohol delivery services can bring orders to Anderson Mill Marina.'
         ]
       },
@@ -7353,7 +7353,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Book Your Joint Celebration',
         paragraphs: [
           'Weekend dates during peak season (April-October) book 6-8 weeks in advance. Major holiday weekends fill even earlier. Call 512-488-5892 to reserve your joint bachelor bachelorette party. Our team specializes in coordinating [[combined-bach]] celebrations and can recommend the perfect boat and time slot for your group.',
-          'With Coast Guard certified captains, the newest fleet on Lake Travis, and a perfect safety record, Premier Party Cruises delivers the combined celebration Austin is known for. Start planning your legendary joint bach party today!'
+          'With licensed, experienced captains, the newest fleet on Lake Travis, and a perfect safety record, Premier Party Cruises delivers the combined celebration Austin is known for. Start planning your legendary joint bach party today!'
         ]
       }
     ],
@@ -7388,7 +7388,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Booking Your Bachelor Party',
         paragraphs: [
           'Weekend dates during peak season (April-October) book 6-8 weeks in advance. Major holiday weekends fill even earlier. For [[combined-bach]] celebrations with the bride\'s crew, we accommodate larger groups across multiple boats or on "Clever Girl."',
-          'With our perfect safety record, Coast Guard certified captains, and newest fleet on Lake Travis, Premier Party Cruises delivers the bachelor party experience Austin is known for. Call 512-488-5892 to book your epic Lake Travis bachelor party.'
+          'With our perfect safety record, licensed, experienced captains, and newest fleet on Lake Travis, Premier Party Cruises delivers the bachelor party experience Austin is known for. Call 512-488-5892 to book your epic Lake Travis bachelor party.'
         ]
       }
     ],
@@ -7423,7 +7423,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Planning Your Summer Celebration',
         paragraphs: [
           'Summer weekends are peak season - book 6-8 weeks in advance for preferred dates. Popular summer holidays (Memorial Day, July 4th, Labor Day) fill even earlier. Contact us early for [[bachelor-party]], [[bachelorette-party]], [[birthday-party]], or [[corporate-events]] summer celebrations.',
-          'With our perfect safety record, Coast Guard certified captains, and Lake Travis expertise, Premier Party Cruises delivers refreshing summer celebrations. Call 512-488-5892 to book your summer Lake Travis party boat experience.'
+          'With our perfect safety record, licensed, experienced captains, and Lake Travis expertise, Premier Party Cruises delivers refreshing summer celebrations. Call 512-488-5892 to book your summer Lake Travis party boat experience.'
         ]
       }
     ],
@@ -7458,7 +7458,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Planning Your Bachelorette Cruise',
         paragraphs: [
           'We depart from Anderson Mill Marina (13993 FM 2769, Leander, TX 78641), approximately 25 minutes from downtown Austin. All cruises are BYOB-friendly (21+ with ID, no glass). Pack swimsuits, sunscreen, towels, and celebration items. Coordinate group transportation.',
-          'Weekend dates during peak season book 6-8 weeks in advance. Contact Premier Party Cruises at 512-488-5892 to secure your preferred date. With our Coast Guard certified captains and perfect safety record, your bachelorette celebration is in expert hands.'
+          'Weekend dates during peak season book 6-8 weeks in advance. Contact Premier Party Cruises at 512-488-5892 to secure your preferred date. With our licensed, experienced captains and perfect safety record, your bachelorette celebration is in expert hands.'
         ]
       }
     ],
@@ -7466,13 +7466,13 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
   },
   '/blogs/why-choose-integrated-event-services-comparing-austin-party-planning-options': {
     h1: 'Austin Party Boat Rental: Why Choose Premier Party Cruises for Your Celebration',
-    introduction: 'When planning an Austin celebration, choosing the right party boat rental company matters. Premier Party Cruises offers 15+ years of Lake Travis experience, 150,000+ happy customers, and a perfect safety record - the longest-running and most trusted party cruise company in Austin. Our integrated approach means you get boats, Coast Guard certified captains, trained crew, premium sound systems, coolers with ice, and clean facilities all included. Compare our [[private-cruises]] and [[atx-disco]] options to understand why we\'re Austin\'s preferred choice for [[bachelor-party]], [[bachelorette-party]], [[corporate-events]], [[wedding-party]], and celebrations of every kind.',
+    introduction: 'When planning an Austin celebration, choosing the right party boat rental company matters. Premier Party Cruises offers 15+ years of Lake Travis experience, 150,000+ happy customers, and a perfect safety record - the longest-running and most trusted party cruise company in Austin. Our integrated approach means you get boats, licensed, experienced captains, trained crew, premium sound systems, coolers with ice, and clean facilities all included. Compare our [[private-cruises]] and [[atx-disco]] options to understand why we\'re Austin\'s preferred choice for [[bachelor-party]], [[bachelorette-party]], [[corporate-events]], [[wedding-party]], and celebrations of every kind.',
     sections: [
       {
         heading: 'Experience and Track Record',
         paragraphs: [
           'Premier Party Cruises has operated on Lake Travis for 15+ years, longer than any other Austin party cruise company. Our 150,000+ happy customers and hundreds of 5-star reviews demonstrate consistent quality. Our perfect safety record reflects our commitment to professional operations.',
-          'Our Coast Guard certified captains and trained crew handle all on-water logistics. This experience translates to smooth operations, professional service, and celebrations that run without complications. First-time bookers and repeat customers benefit from our operational expertise.'
+          'Our licensed, experienced captains and trained crew handle all on-water logistics. This experience translates to smooth operations, professional service, and celebrations that run without complications. First-time bookers and repeat customers benefit from our operational expertise.'
         ]
       },
       {
@@ -7513,7 +7513,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Private Charter Bachelor Parties',
         paragraphs: [
-          '[[Private-cruises]] give your bachelor crew exclusive boat access. Control the music through premium Bluetooth sound, choose your route on Lake Travis, and celebrate with complete privacy. Coast Guard certified captain and professional crew handle all operations while you focus on the groom.',
+          '[[Private-cruises]] give your bachelor crew exclusive boat access. Control the music through premium Bluetooth sound, choose your route on Lake Travis, and celebrate with complete privacy. licensed, experienced captain and professional crew handle all operations while you focus on the groom.',
           'Private charters start at $200 per hour with 4-hour minimum. "Day Tripper" (14 guests), "Meeseeks/The Irony" (30 guests), or "Clever Girl" (75 guests) accommodate any group size. Consider [[combined-bach]] options if celebrating with the bride\'s crew on the same weekend.'
         ]
       },
@@ -7528,7 +7528,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Planning Your Austin Bachelor Party',
         paragraphs: [
           'We depart from Anderson Mill Marina (13993 FM 2769, Leander, TX 78641), approximately 25 minutes from downtown Austin. All cruises are BYOB-friendly (21+ with ID, no glass containers). Pack swimsuits, sunscreen, towels, and celebration essentials. Coordinate group transportation to the marina.',
-          'Weekend dates during peak season (April-October) book 6-8 weeks in advance. Contact Premier Party Cruises at 512-488-5892 to secure your preferred date. With our Coast Guard certified captains, perfect safety record, and newest fleet on Lake Travis, your bachelor party is in expert hands.'
+          'Weekend dates during peak season (April-October) book 6-8 weeks in advance. Contact Premier Party Cruises at 512-488-5892 to secure your preferred date. With our licensed, experienced captains, perfect safety record, and newest fleet on Lake Travis, your bachelor party is in expert hands.'
         ]
       }
     ],
@@ -7541,7 +7541,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Private Charter Pricing - Exclusive Boat Rentals',
         paragraphs: [
-          'Private charters give your group exclusive access to one of our premium party boats. All private rentals include a Coast Guard certified captain, professional crew, premium Bluetooth sound system, large coolers with ice, clean restroom facilities, and all safety equipment. Pricing varies by boat capacity and day of the week, with a 4-hour minimum rental required for all private charters.',
+          'Private charters give your group exclusive access to one of our premium party boats. All private rentals include a licensed, experienced captain, professional crew, premium Bluetooth sound system, large coolers with ice, clean restroom facilities, and all safety equipment. Pricing varies by boat capacity and day of the week, with a 4-hour minimum rental required for all private charters.',
           'Our transparent pricing means no hidden fees or surprise charges. The rates listed include captain, crew, and all standard amenities. All cruises are BYOB-friendly for guests 21 and older with valid ID. No glass containers are permitted for safety reasons. We can coordinate alcohol and food delivery directly to Anderson Mill Marina for your convenience.',
           'Private charters are perfect for groups wanting complete control over their celebration. Choose your music through our premium Bluetooth speakers, select your route on Lake Travis, and enjoy the entire boat exclusively for your party. Whether you\'re celebrating a [[bachelor-party]], hosting [[corporate-events]], or planning a [[wedding-party]] outing, our private charters deliver an unforgettable experience.'
         ],
@@ -7643,13 +7643,13 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         paragraphs: [
           'Both private charters and disco cruises include essential amenities for a comfortable celebration on Lake Travis. Our boats depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 25 minutes from downtown Austin. This convenient location makes us accessible from anywhere in the Austin metro area.',
           'All cruises are fully BYOB-friendly. Guests 21 and older with valid ID may bring beer, wine, seltzers, and other beverages in cans or plastic containers. No glass is allowed for safety. We provide large coolers with ice on every cruise. Many groups coordinate alcohol or food delivery directly to the marina before departure.',
-          'Our Coast Guard certified captains navigate Lake Travis\'s beautiful waters while you celebrate. Professional crew members ensure your cruise runs smoothly from boarding to return. Every boat features clean restroom facilities, shaded areas, and modern safety equipment. With our perfect safety record and 15+ years of experience, your celebration is in expert hands.'
+          'Our licensed, experienced captains navigate Lake Travis\'s beautiful waters while you celebrate. Professional crew members ensure your cruise runs smoothly from boarding to return. Every boat features clean restroom facilities, shaded areas, and modern safety equipment. With our perfect safety record and 15+ years of experience, your celebration is in expert hands.'
         ],
         lists: [
           {
             title: 'Standard Inclusions - All Cruises',
             items: [
-              'Coast Guard certified captain',
+              'licensed, experienced captain',
               'Professional crew members',
               'Premium Bluetooth sound system',
               'Large coolers with ice',
@@ -7825,13 +7825,13 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
   },
   '/boats': {
     h1: 'Our Party Boat Fleet | Lake Travis Austin Boat Rentals',
-    introduction: 'Explore Premier Party Cruises\' fleet of premium party boats on Lake Travis. From the intimate Day Tripper accommodating up to 14 guests, to our twin vessels Meeseeks and The Irony perfect for groups of 30, to our flagship Clever Girl with capacity for 75 guests and featuring 14 disco balls plus a giant Texas flag - we have the perfect boat for your celebration. All boats include Coast Guard certified captains, premium Bluetooth sound systems, large coolers with ice, and professional crew for [[bachelor-party]], [[bachelorette-party]], [[corporate-events]], [[wedding-party]], and every type of Lake Travis celebration.',
+    introduction: 'Explore Premier Party Cruises\' fleet of premium party boats on Lake Travis. From the intimate Day Tripper accommodating up to 14 guests, to our twin vessels Meeseeks and The Irony perfect for groups of 30, to our flagship Clever Girl with capacity for 75 guests and featuring 14 disco balls plus a giant Texas flag - we have the perfect boat for your celebration. All boats include licensed, experienced captains, premium Bluetooth sound systems, large coolers with ice, and professional crew for [[bachelor-party]], [[bachelorette-party]], [[corporate-events]], [[wedding-party]], and every type of Lake Travis celebration.',
     sections: [
       {
         heading: 'Day Tripper - Intimate Celebrations for Up to 14 Guests',
         paragraphs: [
           'The Day Tripper delivers an intimate Lake Travis party experience perfect for smaller groups up to 14 guests. This vessel offers the personal touch that smaller celebrations deserve while maintaining all the premium amenities our customers expect. Whether you\'re hosting a birthday party, small corporate outing, family gathering, or intimate [[wedding-party]] cruise, the Day Tripper provides comfortable cruising with professional service.',
-          'Every Day Tripper cruise includes a Coast Guard certified captain who navigates Lake Travis while you celebrate with your guests. The premium Bluetooth sound system lets you control the music playlist, setting the perfect atmosphere for your event. Large coolers with ice keep your BYOB beverages cold throughout your 4-hour minimum cruise.',
+          'Every Day Tripper cruise includes a licensed, experienced captain who navigates Lake Travis while you celebrate with your guests. The premium Bluetooth sound system lets you control the music playlist, setting the perfect atmosphere for your event. Large coolers with ice keep your BYOB beverages cold throughout your 4-hour minimum cruise.',
           'The Day Tripper is ideal for groups wanting a more personal experience on the water. With a smaller capacity, guests enjoy more space per person and easier conversation. This boat works beautifully for milestone [[birthday-party]] celebrations, small [[team-building]] outings, intimate wedding events like [[rehearsal-dinner]] cruises, and any celebration where quality time with your close group takes priority.'
         ],
         lists: [
@@ -7843,7 +7843,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
               'Weekday rates: $200-$275 per hour',
               'Weekend rates: $275-$350 per hour',
               '4-hour minimum rental required',
-              'Coast Guard certified captain included',
+              'licensed, experienced captain included',
               'Professional crew service',
               'Premium Bluetooth sound system',
               'Large coolers with ice provided',
@@ -7882,7 +7882,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
               'Weekday rates: $225-$325 per hour',
               'Weekend rates: $325-$425 per hour',
               '4-hour minimum rental required',
-              'Coast Guard certified captain included',
+              'licensed, experienced captain included',
               'Professional crew on every cruise',
               'Premium Bluetooth sound system',
               'Extra-large coolers with ice',
@@ -7913,7 +7913,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           'The spacious deck of Clever Girl provides room for large groups to spread out comfortably. Multiple zones allow guests to choose between the energetic dance area near the speakers, quieter conversation spots, shaded lounge areas, and positions with the best views of Lake Travis. This flexibility makes Clever Girl exceptional for diverse groups with varying preferences.',
           'Clever Girl\'s premium sound system features multiple speaker zones to ensure excellent audio coverage across the entire vessel. Whether guests are on the main deck, upper areas, or relaxing in shaded spots, they experience quality sound. The 14 disco balls add visual excitement, especially appreciated by [[bachelor-party]] and [[bachelorette-party]] groups ready to dance.',
           'For [[wedding-party]] celebrations, [[corporate-events]], [[company-milestone]] gatherings, and large [[birthday-party]] events, Clever Girl delivers the scale and atmosphere these occasions deserve. The giant Texas flag makes for iconic photos and clearly marks your celebration as the standout party on Lake Travis. Professional crew members ensure all 75 guests receive attentive service throughout your cruise.',
-          'Multiple large coolers with abundant ice accommodate the beverage needs of large groups. Clean restroom facilities handle high-volume use with regular attention from our crew. Coast Guard certified captain and experienced crew members manage all operations while you and your guests focus entirely on celebrating. Clever Girl represents the pinnacle of Lake Travis party boat experiences.'
+          'Multiple large coolers with abundant ice accommodate the beverage needs of large groups. Clean restroom facilities handle high-volume use with regular attention from our crew. licensed, experienced captain and experienced crew members manage all operations while you and your guests focus entirely on celebrating. Clever Girl represents the pinnacle of Lake Travis party boat experiences.'
         ],
         lists: [
           {
@@ -7926,7 +7926,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
               'Weekday rates: $250-$400 per hour',
               'Weekend rates: $400-$500 per hour',
               '4-hour minimum rental required',
-              'Coast Guard certified captain included',
+              'licensed, experienced captain included',
               'Full professional crew',
               'Multi-zone premium sound system',
               'Multiple large coolers with ice',
@@ -7954,7 +7954,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Fleet-Wide Amenities and Standards',
         paragraphs: [
-          'Every boat in the Premier Party Cruises fleet maintains consistent high standards. All vessels undergo regular maintenance and thorough cleaning between charters. Our Coast Guard certified captains and professional crew members receive ongoing training to ensure safe, professional service on every cruise.',
+          'Every boat in the Premier Party Cruises fleet maintains consistent high standards. All vessels undergo regular maintenance and thorough cleaning between charters. Our licensed, experienced captains and professional crew members receive ongoing training to ensure safe, professional service on every cruise.',
           'All boats feature premium Bluetooth sound systems so you control your music experience. Connect your phone and play your custom playlist throughout your celebration. Large coolers with ice are standard equipment - you bring the beverages, we keep them cold. Clean restroom facilities on every vessel ensure guest comfort during your 4-hour or longer cruise.',
           'BYOB-friendly cruises allow guests 21 and older with valid ID to bring their own beverages. Cans and plastic containers only - no glass for safety. We can coordinate alcohol and food delivery to Anderson Mill Marina before your departure. All boats depart from the same convenient location approximately 25 minutes from downtown Austin.'
         ],
@@ -7962,7 +7962,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           {
             title: 'Standard on All Boats',
             items: [
-              'Coast Guard certified captain',
+              'licensed, experienced captain',
               'Professional crew members',
               'Premium Bluetooth sound system',
               'Large coolers with ice',
@@ -7998,7 +7998,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
 
   '/birthday-party-boat-rental': {
     h1: 'Birthday Party Boat Rentals on Lake Travis | Austin TX',
-    introduction: 'Celebrate your birthday in style with a private party boat rental on Lake Travis! Premier Party Cruises offers the ultimate [[birthday-party]] experience with our fleet of premium vessels. Whether you\'re planning an intimate gathering on the Day Tripper (14 guests), a medium-sized celebration on Meeseeks or The Irony (30 guests), or an unforgettable bash on our flagship Clever Girl (75 guests with 14 disco balls), we have the perfect boat for your special day. All [[private-cruises]] include Coast Guard certified captains, premium Bluetooth sound systems, large coolers with ice, and everything you need to make your birthday the talk of the town.',
+    introduction: 'Celebrate your birthday in style with a private party boat rental on Lake Travis! Premier Party Cruises offers the ultimate [[birthday-party]] experience with our fleet of premium vessels. Whether you\'re planning an intimate gathering on the Day Tripper (14 guests), a medium-sized celebration on Meeseeks or The Irony (30 guests), or an unforgettable bash on our flagship Clever Girl (75 guests with 14 disco balls), we have the perfect boat for your special day. All [[private-cruises]] include licensed, experienced captains, premium Bluetooth sound systems, large coolers with ice, and everything you need to make your birthday the talk of the town.',
     sections: [
       {
         heading: 'Why Choose a Lake Travis Birthday Party Boat',
@@ -8012,7 +8012,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Our Birthday Party Boat Fleet',
         paragraphs: [
           'Choose the perfect vessel for your birthday celebration from our fleet of premium party boats:',
-          'Day Tripper accommodates up to 14 guests, making it perfect for intimate birthday gatherings with close friends and family. This vessel offers all the essential amenities - Coast Guard certified captain, premium Bluetooth sound system, coolers with ice, clean restroom facilities, and shaded areas. Starting at $200-$350 per hour depending on the day, Day Tripper provides exceptional value for smaller birthday groups seeking a private Lake Travis experience.',
+          'Day Tripper accommodates up to 14 guests, making it perfect for intimate birthday gatherings with close friends and family. This vessel offers all the essential amenities - licensed, experienced captain, premium Bluetooth sound system, coolers with ice, clean restroom facilities, and shaded areas. Starting at $200-$350 per hour depending on the day, Day Tripper provides exceptional value for smaller birthday groups seeking a private Lake Travis experience.',
           'Meeseeks and The Irony are identical vessels each accommodating up to 30 guests. These mid-sized boats offer more space for dancing, socializing, and spreading out while maintaining an intimate party atmosphere. Perfect for birthday celebrations with extended friend groups or family gatherings, these boats run $225-$425 per hour and provide the ideal balance of space and value.',
           'Clever Girl is our flagship vessel, accommodating up to 75 guests for the ultimate birthday bash. This impressive boat features 14 disco balls that create an unforgettable party atmosphere plus a giant Texas flag visible across the lake. For milestone birthdays, large friend groups, or those who want to make a major statement, Clever Girl delivers. Rates range from $250-$500 per hour depending on the day.'
         ],
@@ -8020,7 +8020,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           {
             title: 'All Birthday Boats Include',
             items: [
-              'Coast Guard certified captain and professional crew',
+              'licensed, experienced captain and professional crew',
               'Premium Bluetooth sound system for your birthday playlist',
               'Large coolers with ice for BYOB beverages',
               'Clean restroom facilities',
@@ -8052,7 +8052,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Book Your Birthday Boat Rental Today',
         paragraphs: [
           'Ready to plan the ultimate birthday celebration on Lake Travis? Contact Premier Party Cruises at 512-488-5892 to check availability and discuss your party details. Our experienced team helps you select the right boat, coordinate timing, and plan any extras that will make your birthday unforgettable. Also explore our [[atx-disco]] for a different party experience, or check out [[milestone-birthday]] for special age celebrations.',
-          'With 15+ years of experience, 150,000+ satisfied customers, and a perfect safety record, Premier Party Cruises delivers consistent quality for every birthday celebration. Our Coast Guard certified captains and professional crews ensure safe, professional service while you focus entirely on celebrating your special day. Lake Travis awaits - let\'s make your birthday legendary!'
+          'With 15+ years of experience, 150,000+ satisfied customers, and a perfect safety record, Premier Party Cruises delivers consistent quality for every birthday celebration. Our licensed, experienced captains and professional crews ensure safe, professional service while you focus entirely on celebrating your special day. Lake Travis awaits - let\'s make your birthday legendary!'
         ]
       }
     ],
@@ -8061,7 +8061,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
 
   '/anniversary-cruise': {
     h1: 'Austin Anniversary Cruise · Lake Travis Anniversary Party Boat · Premier Party Cruises',
-    introduction: 'Premier Party Cruises runs the #1 Austin anniversary cruise on Lake Travis — the premier Lake Travis anniversary party boat for 15+ years, 150,000+ guests, 0 incidents, 4.9/5.0 rating across 450+ reviews. Celebrate your wedding anniversary, relationship milestone, or vow renewal on a private Lake Travis party boat, year-round, starting $200/hour. Fleet accommodates 14–75 guests: Day Tripper (just the two of you or intimate close-family dinner cruise), Meeseeks or The Irony (15–30 for family + friends), Clever Girl flagship (31–75 for landmark 25th / 50th / diamond anniversaries with extended family). Every Austin anniversary cruise includes a Coast Guard licensed captain + crew, premium marine Bluetooth audio (romantic sunset playlist or your first-dance song), optional Essentials or Ultimate package with champagne flutes + decor + pre-iced coolers, always BYOB with Party On Delivery drink set-up. Anderson Mill Marina — 25 min from downtown Austin, free parking, no stairs. The Two-Mode Vibe: anniversary cruises run Chill mode by default — quiet sunset over Lake Travis, no party pressure.',
+    introduction: 'Premier Party Cruises runs the #1 Austin anniversary cruise on Lake Travis — the premier Lake Travis anniversary party boat for 15+ years, 150,000+ guests, 0 incidents, 4.9/5.0 rating across 450+ reviews. Celebrate your wedding anniversary, relationship milestone, or vow renewal on a private Lake Travis party boat, year-round, starting $200/hour. Fleet accommodates 14–75 guests: Day Tripper (just the two of you or intimate close-family dinner cruise), Meeseeks or The Irony (15–30 for family + friends), Clever Girl flagship (31–75 for landmark 25th / 50th / diamond anniversaries with extended family). Every Austin anniversary cruise includes a licensed, experienced captain + crew, premium marine Bluetooth audio (romantic sunset playlist or your first-dance song), optional Essentials or Ultimate package with champagne flutes + decor + pre-iced coolers, always BYOB with Party On Delivery drink set-up. Anderson Mill Marina — 25 min from downtown Austin, free parking, no stairs. The Two-Mode Vibe: anniversary cruises run Chill mode by default — quiet sunset over Lake Travis, no party pressure.',
     sections: [
       {
         heading: 'Why Lake Travis for Your Anniversary Celebration',
@@ -8090,7 +8090,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Anniversary Cruise Amenities and Options',
         paragraphs: [
-          'Every anniversary cruise includes Coast Guard certified captains, premium Bluetooth sound systems, large coolers with ice, clean restroom facilities, and professional crew members who understand the significance of your celebration. BYOB-friendly policies (21+ with ID, cans and plastic containers only) let you bring your favorite champagne, wines, and beverages.',
+          'Every anniversary cruise includes licensed, experienced captains, premium Bluetooth sound systems, large coolers with ice, clean restroom facilities, and professional crew members who understand the significance of your celebration. BYOB-friendly policies (21+ with ID, cans and plastic containers only) let you bring your favorite champagne, wines, and beverages.',
           'Many anniversary couples add special touches to enhance their celebration. Coordinate catering delivery for elegant dining on the water - from romantic dinners for two to buffet spreads for larger gatherings. Some couples arrange for flowers, balloons, or custom decorations. Our team helps coordinate these details during booking to ensure your vision becomes reality.',
           'Photography and videography coordinate easily with anniversary cruises. The natural beauty of Lake Travis provides stunning backdrops for anniversary portraits that capture this milestone. Some couples hire professional photographers who join the cruise, while others capture moments with smartphones against the spectacular scenery. Either approach results in treasured memories of your celebration.'
         ],
@@ -8123,7 +8123,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
 
   '/proposal-cruise': {
     h1: 'Austin Proposal Cruise · Lake Travis Marriage Proposal Boat · Premier Party Cruises',
-    introduction: 'Premier Party Cruises is the #1 Austin proposal cruise on Lake Travis — the most-booked Lake Travis marriage proposal boat for 15+ years, 150,000+ guests served, and 0 reportable incidents. Plan the "yes" moment on an intimate Day Tripper private charter (1–14 guests) on Lake Travis with sunset framing, crystal-clear water, Texas Hill Country scenery, and complete privacy. Starting at $200/hour, year-round, every day. Every Austin proposal charter includes a Coast Guard licensed captain + crew trained to discreetly support your plan (timing cues, camera angles if you want a photographer aboard, ring-box secret storage, surprise champagne reveal). Optional Essentials or Ultimate package for a fully all-inclusive proposal cruise: pre-iced champagne, flutes, fresh flowers, custom playlist on premium Bluetooth audio. Always BYOB — Party On Delivery delivers champagne and mixers to the boat so it\'s ready when you board. Anderson Mill Marina — 25 min from downtown Austin, free parking, no stairs. Every detail handled so you focus on the question.',
+    introduction: 'Premier Party Cruises is the #1 Austin proposal cruise on Lake Travis — the most-booked Lake Travis marriage proposal boat for 15+ years, 150,000+ guests served, and 0 reportable incidents. Plan the "yes" moment on an intimate Day Tripper private charter (1–14 guests) on Lake Travis with sunset framing, crystal-clear water, Texas Hill Country scenery, and complete privacy. Starting at $200/hour, year-round, every day. Every Austin proposal charter includes a licensed, experienced captain + crew trained to discreetly support your plan (timing cues, camera angles if you want a photographer aboard, ring-box secret storage, surprise champagne reveal). Optional Essentials or Ultimate package for a fully all-inclusive proposal cruise: pre-iced champagne, flutes, fresh flowers, custom playlist on premium Bluetooth audio. Always BYOB — Party On Delivery delivers champagne and mixers to the boat so it\'s ready when you board. Anderson Mill Marina — 25 min from downtown Austin, free parking, no stairs. Every detail handled so you focus on the question.',
     sections: [
       {
         heading: 'Why Lake Travis Is Perfect for Your Proposal',
@@ -8159,7 +8159,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'What Your Proposal Cruise Includes',
         paragraphs: [
-          'Every proposal cruise includes a Coast Guard certified captain who understands the significance of your journey. Our captains are experienced in supporting proposals - they\'ll help time anchor stops for your perfect moment, maintain appropriate distance to give you privacy, and celebrate with you after the big "yes." They\'ve witnessed many proposals on Lake Travis and know how to support your special moment.',
+          'Every proposal cruise includes a licensed, experienced captain who understands the significance of your journey. Our captains are experienced in supporting proposals - they\'ll help time anchor stops for your perfect moment, maintain appropriate distance to give you privacy, and celebrate with you after the big "yes." They\'ve witnessed many proposals on Lake Travis and know how to support your special moment.',
           'The premium Bluetooth sound system lets you play meaningful songs throughout your cruise. From the song that was playing when you first met to your partner\'s favorite romantic ballads, music enhances the emotional atmosphere. Many proposers create special playlists that build to the proposal moment with songs that tell your love story.',
           'Large coolers with ice keep champagne perfectly chilled for post-proposal celebrations. BYOB-friendly policies (21+ with ID, cans and plastic containers only) mean you can bring exactly what you want to toast your engagement. Many couples extend their celebration with a romantic meal on the water after the proposal, savoring the joy of their new engagement surrounded by Lake Travis beauty.'
         ]
@@ -8185,7 +8185,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
 
   '/celebration-cruises': {
     h1: 'Celebration Cruises Lake Travis | Austin Party Boat Rentals',
-    introduction: 'Every milestone deserves a celebration on Lake Travis! We offer [[private-cruises]] and the [[atx-disco]] for any special occasion. Host [[birthday-party]] celebrations, [[anniversary-cruise]] milestones, [[proposal-cruise]] moments, or [[graduation-party]] events on our premium party boats. Choose Day Tripper (14 guests), Meeseeks (30 guests), or Clever Girl (75 guests). All boats include Coast Guard captains and premium amenities.',
+    introduction: 'Every milestone deserves a celebration on Lake Travis! We offer [[private-cruises]] and the [[atx-disco]] for any special occasion. Host [[birthday-party]] celebrations, [[anniversary-cruise]] milestones, [[proposal-cruise]] moments, or [[graduation-party]] events on our premium party boats. Choose Day Tripper (14 guests), Meeseeks (30 guests), or Clever Girl (75 guests). All boats include Licensed, Experienced captains and premium amenities.',
     sections: [
       {
         heading: 'Why Lake Travis for Your Celebration',
@@ -8265,13 +8265,13 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'What\'s Included',
         paragraphs: [
-          'Every cruise includes premium amenities. Coast Guard captains navigate while crew ensures your party runs smoothly. BYOB-friendly with coolers and ice provided (21+ with ID, cans/plastic only).'
+          'Every cruise includes premium amenities. Licensed, Experienced captains navigate while crew ensures your party runs smoothly. BYOB-friendly with coolers and ice provided (21+ with ID, cans/plastic only).'
         ],
         lists: [
           {
             title: 'Standard Amenities',
             items: [
-              'Coast Guard captain and crew',
+              'Licensed, Experienced captain and crew',
               'Bluetooth sound system',
               'Coolers with ice',
               'Restroom facilities',
@@ -8316,7 +8316,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
 
   '/party-boat-rental-austin': {
     h1: 'Party Boat Rental Austin | Lake Travis Private Charters',
-    introduction: 'Looking for the best party boat rental in Austin? Premier Party Cruises offers premium [[private-cruises]] on Lake Travis with three vessels to match any group size. Choose from Day Tripper (up to 14 guests), Meeseeks or The Irony (up to 30 guests), or our flagship Clever Girl (up to 75 guests featuring 14 disco balls and a giant Texas flag). Every Austin party boat rental includes a Coast Guard certified captain, professional crew, premium Bluetooth sound system, large coolers with ice, and all the amenities for an unforgettable celebration. We depart from Anderson Mill Marina, just 25 minutes from downtown Austin, making us the most convenient party boat rental option in the Austin area.',
+    introduction: 'Looking for the best party boat rental in Austin? Premier Party Cruises offers premium [[private-cruises]] on Lake Travis with three vessels to match any group size. Choose from Day Tripper (up to 14 guests), Meeseeks or The Irony (up to 30 guests), or our flagship Clever Girl (up to 75 guests featuring 14 disco balls and a giant Texas flag). Every Austin party boat rental includes a licensed, experienced captain, professional crew, premium Bluetooth sound system, large coolers with ice, and all the amenities for an unforgettable celebration. We depart from Anderson Mill Marina, just 25 minutes from downtown Austin, making us the most convenient party boat rental option in the Austin area.',
     sections: [
       {
         heading: 'Austin Party Boat Rental Fleet Options',
@@ -8332,7 +8332,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
             items: [
               'Perfect for intimate celebrations and small groups',
               'Full premium amenities in a cozy setting',
-              'USCG certified captain included',
+              'licensed, experienced captain included',
               'Premium Bluetooth sound system',
               'Large coolers with ice provided',
               'Starting at $200/hour (4-hour minimum)'
@@ -8366,14 +8366,14 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'What\'s Included with Every Austin Party Boat Rental',
         paragraphs: [
           'Every party boat rental from Premier Party Cruises comes fully equipped with everything you need for an incredible Lake Travis experience. We believe in transparent, all-inclusive pricing so there are no surprises on your special day. Our professional approach to party boat rentals has earned us 15+ years of trust from over 150,000 satisfied customers.',
-          'Your rental includes a US Coast Guard certified captain who handles all navigation while you focus on enjoying your celebration. Our captains know Lake Travis inside and out, from the best swimming coves to stunning cliff views and perfect sunset spots. They\'ll ensure your safety while delivering the Lake Travis experience your group deserves.',
+          'Your rental includes a licensed, experienced captain who handles all navigation while you focus on enjoying your celebration. Our captains know Lake Travis inside and out, from the best swimming coves to stunning cliff views and perfect sunset spots. They\'ll ensure your safety while delivering the Lake Travis experience your group deserves.',
           'Premium Bluetooth sound systems let you play your own music throughout the cruise. Large coolers with ice keep your beverages cold (BYOB friendly for guests 21+ with valid ID - cans and plastic containers only, no glass). Clean restroom facilities, shaded areas for sun relief, and all required safety equipment are standard on every vessel.'
         ],
         lists: [
           {
             title: 'Standard Amenities on Every Rental',
             items: [
-              'US Coast Guard certified captain',
+              'licensed, experienced captain',
               'Professional crew members',
               'Premium Bluetooth sound system',
               'Large coolers with ice',
@@ -8412,7 +8412,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Why Choose Premier Party Cruises',
         paragraphs: [
-          'With 15+ years of experience and 150,000+ satisfied customers, Premier Party Cruises is Austin\'s most trusted party boat rental company. Our perfect safety record, Coast Guard certified captains, and newest fleet on Lake Travis ensure exceptional quality every time. We\'ve built our reputation on delivering unforgettable experiences while treating every group like VIPs.',
+          'With 15+ years of experience and 150,000+ satisfied customers, Premier Party Cruises is Austin\'s most trusted party boat rental company. Our perfect safety record, licensed, experienced captains, and newest fleet on Lake Travis ensure exceptional quality every time. We\'ve built our reputation on delivering unforgettable experiences while treating every group like VIPs.',
           'Unlike other party boat rental options, we specialize exclusively in Lake Travis celebrations. This focused expertise means our captains know every cove, our crew understands party dynamics, and our boats are optimized for the ultimate celebration experience. From booking to departure to the final moment of your cruise, professional service is our standard.'
         ],
         lists: [
@@ -8422,7 +8422,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
               '15+ years of Lake Travis experience',
               '150,000+ satisfied customers',
               'Perfect safety record',
-              'Coast Guard certified captains',
+              'licensed, experienced captains',
               'Newest fleet in Austin',
               'Professional crew on every cruise',
               'Transparent, all-inclusive pricing',
@@ -8444,7 +8444,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
 
   '/lake-travis-yacht-rental': {
     h1: 'Lake Travis Yacht Rental | Premium Party Boat Charters Austin',
-    introduction: 'Experience luxury on the water with a Lake Travis yacht rental from Premier Party Cruises. Our premium fleet offers upscale party boat experiences for discerning groups who want the finest Lake Travis has to offer. Choose from three exceptional vessels: Day Tripper for intimate gatherings of up to 14 guests, Meeseeks or The Irony for groups of up to 30, or our spectacular flagship Clever Girl accommodating up to 75 guests with 14 disco balls and a giant Texas flag. Every Lake Travis yacht rental includes a Coast Guard certified captain, professional crew, and premium amenities. Departing from Anderson Mill Marina just 25 minutes from downtown Austin, your luxury Lake Travis experience awaits.',
+    introduction: 'Experience luxury on the water with a Lake Travis yacht rental from Premier Party Cruises. Our premium fleet offers upscale party boat experiences for discerning groups who want the finest Lake Travis has to offer. Choose from three exceptional vessels: Day Tripper for intimate gatherings of up to 14 guests, Meeseeks or The Irony for groups of up to 30, or our spectacular flagship Clever Girl accommodating up to 75 guests with 14 disco balls and a giant Texas flag. Every Lake Travis yacht rental includes a licensed, experienced captain, professional crew, and premium amenities. Departing from Anderson Mill Marina just 25 minutes from downtown Austin, your luxury Lake Travis experience awaits.',
     sections: [
       {
         heading: 'Premium Lake Travis Yacht Experience',
@@ -8452,7 +8452,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           'Premier Party Cruises delivers the ultimate Lake Travis yacht rental experience with vessels designed for celebration and luxury. While Lake Travis may not have traditional ocean yachts, our premium party boats offer the same elevated experience discerning guests expect: professional crew, pristine vessels, premium sound systems, and first-class service from departure to return.',
           'Our flagship Clever Girl represents the pinnacle of Lake Travis yacht rentals. At 75-guest capacity, this spectacular vessel features 14 disco balls, a giant Texas flag, expansive deck space, multiple lounge areas, and premium amenities throughout. Clever Girl transforms any celebration into a legendary event, from [[wedding-party]] receptions to exclusive [[corporate-events]] and milestone celebrations.',
           'Lake Travis provides the perfect setting for luxury boating experiences. The clear, calm waters reflect the stunning Texas Hill Country scenery, creating an atmosphere of natural beauty and relaxation. Unlike coastal yacht experiences fighting waves and wind, Lake Travis offers smooth cruising ideal for socializing, dining, and celebrating in comfort.',
-          'Every Lake Travis yacht rental from Premier Party Cruises prioritizes your experience. Coast Guard certified captains handle navigation while you enjoy your celebration. Professional crew members ensure your needs are met throughout the cruise. Premium Bluetooth sound systems let you set the perfect musical atmosphere. This is yacht-level service on Lake Travis\'s most beautiful waters.'
+          'Every Lake Travis yacht rental from Premier Party Cruises prioritizes your experience. licensed, experienced captains handle navigation while you enjoy your celebration. Professional crew members ensure your needs are met throughout the cruise. Premium Bluetooth sound systems let you set the perfect musical atmosphere. This is yacht-level service on Lake Travis\'s most beautiful waters.'
         ]
       },
       {
@@ -8483,14 +8483,14 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'What Makes Our Yacht Rentals Premium',
         paragraphs: [
           'Premier Party Cruises differentiates our Lake Travis yacht rentals through uncompromising quality in every aspect of your experience. Beginning with our vessels, each boat is maintained to the highest standards with regular professional cleaning, equipment updates, and safety inspections. We operate the newest fleet on Lake Travis because quality matters to discerning guests.',
-          'Our Coast Guard certified captains bring years of Lake Travis experience to every yacht rental. They know every cove, understand weather patterns, and navigate to the best spots for swimming, sunset views, and scenic cruising. Their expertise ensures safety while maximizing your enjoyment of everything Lake Travis offers.',
+          'Our licensed, experienced captains bring years of Lake Travis experience to every yacht rental. They know every cove, understand weather patterns, and navigate to the best spots for swimming, sunset views, and scenic cruising. Their expertise ensures safety while maximizing your enjoyment of everything Lake Travis offers.',
           'Premium amenities come standard on every Lake Travis yacht rental. High-fidelity Bluetooth sound systems deliver crystal-clear music throughout your cruise. Large coolers with ice keep your beverages perfectly chilled. Clean, well-maintained restroom facilities ensure comfort. Shaded areas provide relief from the Texas sun while maintaining your celebration atmosphere.'
         ],
         lists: [
           {
             title: 'Premium Yacht Rental Amenities',
             items: [
-              'Coast Guard certified professional captains',
+              'licensed, experienced professional captains',
               'Experienced, service-oriented crew',
               'High-fidelity Bluetooth sound systems',
               'Premium coolers with ample ice',
@@ -8532,7 +8532,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Why Choose Premier Party Cruises',
         paragraphs: [
-          'With 15+ years of experience and 150,000+ satisfied customers, Premier Party Cruises has established the gold standard for Lake Travis yacht rentals. Our perfect safety record demonstrates our commitment to professional operations. Our Coast Guard certified captains and trained crew deliver consistent excellence.',
+          'With 15+ years of experience and 150,000+ satisfied customers, Premier Party Cruises has established the gold standard for Lake Travis yacht rentals. Our perfect safety record demonstrates our commitment to professional operations. Our licensed, experienced captains and trained crew deliver consistent excellence.',
           'We specialize exclusively in Lake Travis celebrations, meaning our expertise runs deep. Unlike companies dividing attention across multiple services, every aspect of our operation focuses on creating the best possible yacht rental experience. From booking through departure to return, professional service defines the Premier Party Cruises difference.',
           'Our reputation is built on delivering what we promise: premium vessels, professional service, and unforgettable Lake Travis experiences. Check our [[testimonials]] to see why discerning Austin groups choose Premier Party Cruises for their yacht rental needs. Ready to book? [[Contact]] us today to start planning your Lake Travis adventure!'
         ],
@@ -8543,7 +8543,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
               '15+ years Lake Travis experience',
               '150,000+ satisfied customers',
               'Perfect safety record',
-              'Coast Guard certified captains',
+              'licensed, experienced captains',
               'Newest fleet on Lake Travis',
               'Professional crew on every cruise',
               'Premium amenities standard',
@@ -8558,14 +8558,14 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
 
   '/austin-boat-party': {
     h1: 'Austin Boat Party | Lake Travis Party Cruises',
-    introduction: 'Planning an Austin boat party? Premier Party Cruises delivers the ultimate Lake Travis party experience with [[private-cruises]] and the legendary [[atx-disco]]! Choose from three premium party boats: Day Tripper (up to 14 guests), Meeseeks or The Irony (up to 30 guests), or our flagship Clever Girl (up to 75 guests featuring 14 disco balls). Every Austin boat party includes Coast Guard certified captains, premium Bluetooth sound systems, coolers with ice, and stunning Lake Travis scenery. Departing from Anderson Mill Marina just 25 minutes from downtown Austin, your epic boat party awaits!',
+    introduction: 'Planning an Austin boat party? Premier Party Cruises delivers the ultimate Lake Travis party experience with [[private-cruises]] and the legendary [[atx-disco]]! Choose from three premium party boats: Day Tripper (up to 14 guests), Meeseeks or The Irony (up to 30 guests), or our flagship Clever Girl (up to 75 guests featuring 14 disco balls). Every Austin boat party includes licensed, experienced captains, premium Bluetooth sound systems, coolers with ice, and stunning Lake Travis scenery. Departing from Anderson Mill Marina just 25 minutes from downtown Austin, your epic boat party awaits!',
     sections: [
       {
         heading: 'The Ultimate Austin Boat Party Experience',
         paragraphs: [
           'There\'s nothing quite like an Austin boat party on Lake Travis. The combination of crystal-clear water, stunning Texas Hill Country views, and the freedom of being on the water creates an atmosphere that land-based venues simply cannot match. Premier Party Cruises has perfected the Austin boat party experience over 15+ years, hosting 150,000+ satisfied customers who\'ve celebrated everything from [[bachelor-party]] and [[bachelorette-party]] events to [[corporate-events]], [[wedding-party]] gatherings, and [[birthday-party]] celebrations.',
           'Our fleet offers the perfect boat for any Austin party. Day Tripper accommodates intimate gatherings of 1-14 guests with premium amenities in a cozy setting. Meeseeks and The Irony each handle 15-30 guests perfectly, offering spacious decks for dancing and socializing. Clever Girl, our spectacular flagship, accommodates up to 75 guests with 14 disco balls, a giant Texas flag, and the ultimate party atmosphere.',
-          'Every Austin boat party with Premier Party Cruises includes a Coast Guard certified captain who handles navigation while you focus entirely on celebrating. Premium Bluetooth sound systems let you play your party playlist. Large coolers with ice keep your beverages cold (BYOB friendly for guests 21+ with valid ID). Professional crew ensures your party runs smoothly from start to finish.',
+          'Every Austin boat party with Premier Party Cruises includes a licensed, experienced captain who handles navigation while you focus entirely on celebrating. Premium Bluetooth sound systems let you play your party playlist. Large coolers with ice keep your beverages cold (BYOB friendly for guests 21+ with valid ID). Professional crew ensures your party runs smoothly from start to finish.',
           'Lake Travis provides the perfect backdrop for Austin boat parties. The calm, clear waters offer ideal conditions for swimming and floating, while the surrounding cliffs and Hill Country create stunning scenery. Popular anchor spots like Devil\'s Cove become your personal party destination, where groups can swim, float on lily pads, and soak up the Texas sun.'
         ]
       },
@@ -8583,7 +8583,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
             items: [
               'Exclusive use of your chosen vessel',
               'Day Tripper (14), Meeseeks (30), or Clever Girl (75 guests)',
-              'Coast Guard licensed captain included',
+              'licensed, experienced captain included',
               'Premium marine-grade Bluetooth sound system',
               'Large coolers included — always BYOB (Party On Delivery can pre-stock with ice + drinks)',
               'Choose your own music, route, and pace',
@@ -8619,7 +8619,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Austin Boat Party Essentials',
         paragraphs: [
-          'Every Austin boat party includes essential amenities for an incredible experience. Coast Guard certified captains navigate Lake Travis while you focus on celebrating. Premium Bluetooth sound systems let you control the music. Large coolers with ice keep your beverages cold throughout the cruise. Clean restroom facilities ensure comfort. Shaded areas provide relief from the Texas sun.',
+          'Every Austin boat party includes essential amenities for an incredible experience. licensed, experienced captains navigate Lake Travis while you focus on celebrating. Premium Bluetooth sound systems let you control the music. Large coolers with ice keep your beverages cold throughout the cruise. Clean restroom facilities ensure comfort. Shaded areas provide relief from the Texas sun.',
           'All Austin boat parties are BYOB friendly for guests 21+ with valid ID. Bring your own beer, wine, seltzers, and non-alcoholic beverages in cans or plastic containers (no glass for safety). We can also coordinate alcohol delivery directly to the boat for your convenience. Food is welcome - bring snacks, pizza, or we can coordinate catering.',
           'Optional add-ons enhance your Austin boat party experience. Lily pad floats (6x20 feet) provide platforms for floating in the coves. Photography packages capture professional-quality memories. Catering coordination simplifies food planning. Let us know your vision and we\'ll help make it happen.',
           'Austin boat parties depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641, approximately 25 minutes from downtown Austin. Arrive 30 minutes before departure to meet your captain, load your supplies, and prepare for an amazing Lake Travis experience. All private charters require a 4-hour minimum.'
@@ -8640,7 +8640,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           {
             title: 'What We Provide',
             items: [
-              'Coast Guard certified captain',
+              'licensed, experienced captain',
               'Professional crew',
               'Premium Bluetooth sound system',
               'Large coolers with ice',
@@ -8670,7 +8670,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Why Austin Chooses Premier Party Cruises',
         paragraphs: [
-          'Premier Party Cruises has hosted Austin boat parties for 15+ years, earning the trust of 150,000+ satisfied customers. Our perfect safety record, Coast Guard certified captains, and newest fleet on Lake Travis deliver consistent quality every time. We specialize exclusively in Lake Travis celebrations, meaning every aspect of our operation focuses on creating the best possible party experience.',
+          'Premier Party Cruises has hosted Austin boat parties for 15+ years, earning the trust of 150,000+ satisfied customers. Our perfect safety record, licensed, experienced captains, and newest fleet on Lake Travis deliver consistent quality every time. We specialize exclusively in Lake Travis celebrations, meaning every aspect of our operation focuses on creating the best possible party experience.',
           'Our reputation is built on actually delivering what we promise. Check our [[testimonials]] and you\'ll see why Austin groups choose Premier Party Cruises again and again. From first contact through the final moment of your cruise, professional service defines our approach. Your Austin boat party deserves the best - that\'s Premier Party Cruises.',
           'Ready to book your Austin boat party? Contact us at 512-488-5892 or visit our [[contact]] page to get started. Whether you\'re planning a [[bachelor-party]], [[bachelorette-party]], [[birthday-party]], [[corporate-events]], or any celebration worth having, Premier Party Cruises delivers the ultimate Lake Travis experience. Don\'t settle for ordinary - make your next party legendary on the water!'
         ],
@@ -8681,7 +8681,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
               '15+ years of Lake Travis experience',
               '150,000+ happy customers',
               'Perfect safety record',
-              'Coast Guard certified captains',
+              'licensed, experienced captains',
               'Newest fleet in Austin',
               'Professional crew on every cruise',
               'Exclusive Lake Travis focus',
@@ -8709,7 +8709,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Graduation Party Boat Options',
         paragraphs: [
-          'Premier Party Cruises operates Austin\'s newest fleet of premium party boats, each perfectly suited for graduation celebrations of different sizes. Every vessel includes Coast Guard certified captains, premium Bluetooth sound systems, large coolers with ice, and all the amenities needed for an exceptional celebration. Choose the boat that matches your guest count and celebration style.'
+          'Premier Party Cruises operates Austin\'s newest fleet of premium party boats, each perfectly suited for graduation celebrations of different sizes. Every vessel includes licensed, experienced captains, premium Bluetooth sound systems, large coolers with ice, and all the amenities needed for an exceptional celebration. Choose the boat that matches your guest count and celebration style.'
         ],
         lists: [
           {
@@ -8718,7 +8718,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
               'Perfect for close family graduation celebrations',
               'Cozy atmosphere for meaningful conversations',
               'Starting at $200/hour with 4-hour minimum',
-              'USCG certified captain included',
+              'licensed, experienced captain included',
               'Premium Bluetooth sound system',
               'Large coolers with ice provided',
               'Ideal for immediate family and closest friends'
@@ -8759,7 +8759,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           {
             title: 'Standard Graduation Cruise Amenities',
             items: [
-              'Coast Guard certified professional captain',
+              'licensed, experienced professional captain',
               'Premium Bluetooth sound system',
               'Large coolers with ice provided',
               'Clean restroom facilities on board',
@@ -8825,7 +8825,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
               'Perfect for immediate family rehearsal dinners',
               'Intimate setting for wedding party only',
               'Starting at $200/hour with 4-hour minimum',
-              'USCG certified captain included',
+              'licensed, experienced captain included',
               'Premium Bluetooth sound system',
               'Large coolers with ice provided',
               'Ideal for small, close-knit celebrations'
@@ -8912,7 +8912,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
 
   '/holiday-party-cruise': {
     h1: 'Austin Holiday Party Boat · Lake Travis Christmas · NYE · 4th of July Party Boat · Premier Party Cruises',
-    introduction: 'Premier Party Cruises is the #1 Austin holiday party boat on Lake Travis — 15+ years of corporate and family holiday parties on the water, 150,000+ guests, 0 incidents, 4.9/5.0 rating. Book a [[holiday-party-cruise]] for Christmas parties, New Year\'s Eve celebrations (year-round private charters run NYE), 4th of July fireworks cruises (Lake Travis is the best viewing spot in Central Texas for July 4 fireworks over the water), Halloween costume cruises, Thanksgiving family cruises, Valentine\'s couples cruises, St. Patrick\'s Day party cruises, Memorial Day + Labor Day weekend blowouts, and every holiday in between. Year-round, starting $200/hour. Fleet accommodates 14–75 guests across Day Tripper, Meeseeks, The Irony, and flagship Clever Girl. Every holiday charter includes a Coast Guard licensed captain + crew, premium marine Bluetooth audio (holiday playlist), optional Essentials or Ultimate package with holiday-themed decor + champagne flutes, always BYOB with Party On Delivery drink set-up. Anderson Mill Marina — 25 min from downtown Austin, free parking, no stairs. Free weather reschedules protect your holiday calendar.',
+    introduction: 'Premier Party Cruises is the #1 Austin holiday party boat on Lake Travis — 15+ years of corporate and family holiday parties on the water, 150,000+ guests, 0 incidents, 4.9/5.0 rating. Book a [[holiday-party-cruise]] for Christmas parties, New Year\'s Eve celebrations (year-round private charters run NYE), 4th of July fireworks cruises (Lake Travis is the best viewing spot in Central Texas for July 4 fireworks over the water), Halloween costume cruises, Thanksgiving family cruises, Valentine\'s couples cruises, St. Patrick\'s Day party cruises, Memorial Day + Labor Day weekend blowouts, and every holiday in between. Year-round, starting $200/hour. Fleet accommodates 14–75 guests across Day Tripper, Meeseeks, The Irony, and flagship Clever Girl. Every holiday charter includes a licensed, experienced captain + crew, premium marine Bluetooth audio (holiday playlist), optional Essentials or Ultimate package with holiday-themed decor + champagne flutes, always BYOB with Party On Delivery drink set-up. Anderson Mill Marina — 25 min from downtown Austin, free parking, no stairs. Free weather reschedules protect your holiday calendar.',
     sections: [
       {
         heading: 'Lake Travis Holiday Celebrations',
@@ -9050,7 +9050,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Family Reunion Boat Options',
         paragraphs: [
-          'Premier Party Cruises offers three vessels to accommodate family reunions of different sizes. Each boat includes Coast Guard certified captains, premium sound systems, large coolers with ice, and family-friendly amenities. Choose the vessel that best fits your reunion guest count and celebration style.'
+          'Premier Party Cruises offers three vessels to accommodate family reunions of different sizes. Each boat includes licensed, experienced captains, premium sound systems, large coolers with ice, and family-friendly amenities. Choose the vessel that best fits your reunion guest count and celebration style.'
         ],
         lists: [
           {
@@ -9059,7 +9059,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
               'Perfect for immediate family reunions',
               'Intimate atmosphere for close family connection',
               'Starting at $200/hour with 4-hour minimum',
-              'USCG certified captain included',
+              'licensed, experienced captain included',
               'Premium Bluetooth sound system',
               'Large coolers with ice provided',
               'Ideal for siblings and their families gathering'
@@ -9142,7 +9142,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Accommodating Every Generation',
         paragraphs: [
           'Premier Party Cruises understands that multi-generational events require attention to varied needs. Our boats feature shaded seating areas essential for elderly guests and young children avoiding sun exposure. Clean restroom facilities on board eliminate concerns about long cruise durations. Calm Lake Travis waters ensure comfortable cruising without excessive rocking.',
-          'Safety is paramount for family events. Our Coast Guard certified captains maintain perfect safety records and prioritize guest well-being. Life jackets are provided for all guests and required when swimming. Our crew monitors conditions and makes adjustments to ensure everyone\'s comfort and safety throughout the cruise.',
+          'Safety is paramount for family events. Our licensed, experienced captains maintain perfect safety records and prioritize guest well-being. Life jackets are provided for all guests and required when swimming. Our crew monitors conditions and makes adjustments to ensure everyone\'s comfort and safety throughout the cruise.',
           'Accessibility considerations are important for some families. While our boats do require basic mobility to board, we work with families to ensure everyone can participate safely. Contact us to discuss specific needs, and we\'ll provide honest guidance about what our vessels can accommodate.'
         ]
       },
@@ -9171,7 +9171,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
 
   '/retirement-party-cruise': {
     h1: 'Austin Retirement Party Cruise · Lake Travis Retirement Celebration Boat · Premier Party Cruises',
-    introduction: 'Premier Party Cruises is the #1 Austin retirement party cruise on Lake Travis — the Lake Travis retirement celebration venue for 15+ years, 150,000+ guests, 0 incidents, 4.9/5.0 across 450+ reviews. Honor a career, mark a chapter close, and bring coworkers, family, and friends together on a private Lake Travis party boat, year-round, starting $200/hour. Fleet accommodates 14–75 guests: Day Tripper (intimate retirement dinner), Meeseeks or The Irony (mid-size retirement party), flagship Clever Girl (31–75 for the full-company send-off). Every Austin retirement cruise includes a Coast Guard licensed captain + crew, premium marine Bluetooth audio (speeches + playlist), optional wireless microphone for toasts and roasts, optional Essentials or Ultimate package for an all-inclusive retirement celebration with champagne flutes + decor + catering coordination. Always BYOB — Party On Delivery handles champagne, wine, and retirement-favorite drinks. Anderson Mill Marina — 25 min from downtown Austin, free parking, no stairs, accessible for retiring senior executives and senior-age guests. All ages welcome aboard.',
+    introduction: 'Premier Party Cruises is the #1 Austin retirement party cruise on Lake Travis — the Lake Travis retirement celebration venue for 15+ years, 150,000+ guests, 0 incidents, 4.9/5.0 across 450+ reviews. Honor a career, mark a chapter close, and bring coworkers, family, and friends together on a private Lake Travis party boat, year-round, starting $200/hour. Fleet accommodates 14–75 guests: Day Tripper (intimate retirement dinner), Meeseeks or The Irony (mid-size retirement party), flagship Clever Girl (31–75 for the full-company send-off). Every Austin retirement cruise includes a licensed, experienced captain + crew, premium marine Bluetooth audio (speeches + playlist), optional wireless microphone for toasts and roasts, optional Essentials or Ultimate package for an all-inclusive retirement celebration with champagne flutes + decor + catering coordination. Always BYOB — Party On Delivery handles champagne, wine, and retirement-favorite drinks. Anderson Mill Marina — 25 min from downtown Austin, free parking, no stairs, accessible for retiring senior executives and senior-age guests. All ages welcome aboard.',
     sections: [
       {
         heading: 'Why Choose a Lake Travis Retirement Party Cruise',
@@ -9186,7 +9186,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
             items: [
               'Private, exclusive venue for your celebration',
               'Stunning Lake Travis and Hill Country scenery',
-              'USCG certified captains handle all navigation',
+              'licensed, experienced captains handle all navigation',
               'Premium sound system for speeches and toasts',
               'BYOB friendly - bring any beverages you prefer',
               'Catering coordination available',
@@ -9203,7 +9203,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         paragraphs: [
           'Premier Party Cruises offers three boats perfectly suited for retirement parties of various sizes. Each vessel features professional crew, premium amenities, and everything needed for a successful celebration on Lake Travis.',
           'Day Tripper accommodates up to 14 guests, perfect for intimate retirement gatherings with close colleagues and family. This vessel offers a personalized experience ideal for smaller groups who want quality time with the retiree. Meeseeks and The Irony each accommodate up to 30 guests, suitable for department-wide celebrations or mid-sized company gatherings. These identical boats feature spacious decks and comfortable seating.',
-          'For larger retirement celebrations, our flagship Clever Girl accommodates up to 75 guests. Featuring a giant Texas flag and 14 disco balls, Clever Girl provides ample space for company-wide celebrations, complete with room for presentations, dancing, and mingling. All boats include USCG certified captains, premium Bluetooth sound systems, large coolers with ice, and everything needed for your retirement cruise.'
+          'For larger retirement celebrations, our flagship Clever Girl accommodates up to 75 guests. Featuring a giant Texas flag and 14 disco balls, Clever Girl provides ample space for company-wide celebrations, complete with room for presentations, dancing, and mingling. All boats include licensed, experienced captains, premium Bluetooth sound systems, large coolers with ice, and everything needed for your retirement cruise.'
         ],
         lists: [
           {
@@ -9292,7 +9292,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Our Fleet for Memorial Gatherings',
         paragraphs: [
           'We offer vessels suited to memorial gatherings of various sizes, each providing comfortable, dignified spaces for families and friends to come together. Day Tripper accommodates up to 14 guests for intimate family gatherings. Meeseeks and The Irony each accommodate up to 30 guests for extended family and close friends. Clever Girl accommodates up to 75 guests for larger memorial services.',
-          'Each boat features comfortable seating areas, shaded spaces for sun protection, and clean restroom facilities. Premium Bluetooth sound systems allow you to play meaningful music, share recorded memories, or amplify speakers during tributes. Our USCG certified captains navigate smoothly and quietly, creating a peaceful cruising experience.',
+          'Each boat features comfortable seating areas, shaded spaces for sun protection, and clean restroom facilities. Premium Bluetooth sound systems allow you to play meaningful music, share recorded memories, or amplify speakers during tributes. Our licensed, experienced captains navigate smoothly and quietly, creating a peaceful cruising experience.',
           'The choice between scenic cruising and stationary anchoring is entirely yours. Some families prefer to cruise past meaningful Lake Travis locations or scenic views. Others prefer to anchor in a peaceful cove where guests can focus entirely on the service. We accommodate whatever approach feels right for your gathering.'
         ]
       },
@@ -9350,7 +9350,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
 
   '/gender-reveal-cruise': {
     h1: 'Austin Gender Reveal Cruise · Lake Travis Gender Reveal Party Boat · Premier Party Cruises',
-    introduction: 'Premier Party Cruises is the #1 Austin gender reveal cruise on Lake Travis — hosted Lake Travis gender reveal party boat for 15+ years, 150,000+ guests, 0 incidents, 4.9/5.0 rating. Plan the big reveal on a private Lake Travis party boat with Texas Hill Country backdrop and endless photo moments, year-round, starting $200/hour. Fleet accommodates 14–75 guests: Day Tripper (intimate immediate-family reveal), Meeseeks or The Irony (mid-size reveal with friends + cousins), flagship Clever Girl (31–75 for the full extended-family event). Every Austin gender reveal cruise includes a Coast Guard licensed captain + crew, premium marine Bluetooth audio, optional photographer coordination (capture the reveal moment), optional Essentials or Ultimate package with decor coordination, always BYOB with Party On Delivery drink set-up. All ages welcome aboard — children\'s life jackets in every size so siblings and cousins are part of the moment. No open flames or smoke-based reveals on the boat for safety; color-reveal confetti, balloon pops, and pink/blue drink reveals all welcome. Anderson Mill Marina — 25 min from downtown Austin, free parking, no stairs.',
+    introduction: 'Premier Party Cruises is the #1 Austin gender reveal cruise on Lake Travis — hosted Lake Travis gender reveal party boat for 15+ years, 150,000+ guests, 0 incidents, 4.9/5.0 rating. Plan the big reveal on a private Lake Travis party boat with Texas Hill Country backdrop and endless photo moments, year-round, starting $200/hour. Fleet accommodates 14–75 guests: Day Tripper (intimate immediate-family reveal), Meeseeks or The Irony (mid-size reveal with friends + cousins), flagship Clever Girl (31–75 for the full extended-family event). Every Austin gender reveal cruise includes a licensed, experienced captain + crew, premium marine Bluetooth audio, optional photographer coordination (capture the reveal moment), optional Essentials or Ultimate package with decor coordination, always BYOB with Party On Delivery drink set-up. All ages welcome aboard — children\'s life jackets in every size so siblings and cousins are part of the moment. No open flames or smoke-based reveals on the boat for safety; color-reveal confetti, balloon pops, and pink/blue drink reveals all welcome. Anderson Mill Marina — 25 min from downtown Austin, free parking, no stairs.',
     sections: [
       {
         heading: 'Why Lake Travis for Your Gender Reveal',
@@ -9416,7 +9416,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         heading: 'Our Fleet for Gender Reveal Celebrations',
         paragraphs: [
           'Premier Party Cruises offers vessels suited to gender reveal parties of any size. Day Tripper accommodates up to 14 guests, perfect for intimate reveals with immediate family. Meeseeks and The Irony each accommodate up to 30 guests for celebrations including extended family and close friends. Our flagship Clever Girl accommodates up to 75 guests for larger gatherings.',
-          'All boats feature professional USCG certified captains, premium Bluetooth sound systems, large coolers with ice, and comfortable seating. The sound system allows you to play meaningful music, make announcements, and capture the reactions clearly on video. Our crew handles all navigation while you focus entirely on your celebration.',
+          'All boats feature professional licensed, experienced captains, premium Bluetooth sound systems, large coolers with ice, and comfortable seating. The sound system allows you to play meaningful music, make announcements, and capture the reactions clearly on video. Our crew handles all navigation while you focus entirely on your celebration.',
           'Private charters start at $200 per hour with a 4-hour minimum. Pricing varies by boat size and timing. Weekend dates are most popular for gender reveals, and we recommend booking 6-8 weeks in advance to secure your preferred date. Contact us to discuss your vision and receive accurate pricing.'
         ]
       },
@@ -9436,7 +9436,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
 
   '/engagement-party-cruise': {
     h1: 'Austin Engagement Party Cruise · Lake Travis Engagement Party Boat · Premier Party Cruises',
-    introduction: 'Premier Party Cruises runs the #1 Austin engagement party cruise on Lake Travis — the Lake Travis engagement party boat for 15+ years, 150,000+ guests served, 0 incidents, 4.9/5.0 across 450+ reviews. Gather family and friends to celebrate the engagement on a private Lake Travis party boat, year-round, starting $200/hour. Fleet: Day Tripper (1–14 for intimate both-families-meeting engagement dinner), Meeseeks or The Irony (15–30 for core friends + family engagement), flagship Clever Girl (31–75 for the full engagement party). Every Austin engagement cruise includes a Coast Guard licensed captain + crew, premium marine Bluetooth audio (custom playlist + toasts), optional wireless microphone for the "how they proposed" story, optional photographer coordination, optional Essentials or Ultimate package with champagne flutes + fresh flowers + decor + catering. Always BYOB — Party On Delivery pre-ices your champagne, wine, and signature cocktails on the boat before you board. Anderson Mill Marina — 25 min from downtown Austin, free parking, no stairs, wedding-attire friendly. All ages welcome aboard so future-in-laws of every generation celebrate together.',
+    introduction: 'Premier Party Cruises runs the #1 Austin engagement party cruise on Lake Travis — the Lake Travis engagement party boat for 15+ years, 150,000+ guests served, 0 incidents, 4.9/5.0 across 450+ reviews. Gather family and friends to celebrate the engagement on a private Lake Travis party boat, year-round, starting $200/hour. Fleet: Day Tripper (1–14 for intimate both-families-meeting engagement dinner), Meeseeks or The Irony (15–30 for core friends + family engagement), flagship Clever Girl (31–75 for the full engagement party). Every Austin engagement cruise includes a licensed, experienced captain + crew, premium marine Bluetooth audio (custom playlist + toasts), optional wireless microphone for the "how they proposed" story, optional photographer coordination, optional Essentials or Ultimate package with champagne flutes + fresh flowers + decor + catering. Always BYOB — Party On Delivery pre-ices your champagne, wine, and signature cocktails on the boat before you board. Anderson Mill Marina — 25 min from downtown Austin, free parking, no stairs, wedding-attire friendly. All ages welcome aboard so future-in-laws of every generation celebrate together.',
     sections: [
       {
         heading: 'The Perfect Engagement Party Venue',
@@ -9466,7 +9466,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         paragraphs: [
           'Premier Party Cruises offers vessels perfectly suited for engagement celebrations of any size. Consider your guest count and desired atmosphere when selecting your boat. Day Tripper accommodates up to 14 guests, ideal for intimate celebrations with immediate family and your closest friends. This vessel creates a personal, cozy atmosphere perfect for heartfelt toasts and meaningful conversations.',
           'Meeseeks and The Irony each accommodate up to 30 guests, perfect for engagement parties including extended family and friend groups from both sides. These boats offer more space for mingling while maintaining an intimate feel. For larger engagement celebrations, our flagship Clever Girl accommodates up to 75 guests with room for everyone to celebrate in style.',
-          'All boats feature USCG certified captains, premium Bluetooth sound systems perfect for speeches and music, large coolers with ice for your beverages, and comfortable seating throughout. The sound system connects easily to phones or devices for playing your favorite music or sharing your proposal story with guests.'
+          'All boats feature licensed, experienced captains, premium Bluetooth sound systems perfect for speeches and music, large coolers with ice for your beverages, and comfortable seating throughout. The sound system connects easily to phones or devices for playing your favorite music or sharing your proposal story with guests.'
         ],
         lists: [
           {
@@ -9566,7 +9566,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         paragraphs: [
           'Choose the boat that best fits your bridal shower guest count and desired atmosphere. Day Tripper accommodates up to 14 guests, perfect for intimate bridal showers with the bride\'s closest friends and family. This cozy vessel creates an intimate environment where every guest feels connected to the celebration.',
           'Meeseeks and The Irony each accommodate up to 30 guests, ideal for medium-sized bridal showers including friends from various life chapters, work colleagues, and family. These boats provide ample space for mingling, games, and activities while maintaining a personal atmosphere. For larger bridal showers, our flagship Clever Girl accommodates up to 75 guests.',
-          'All boats feature professional USCG certified captains, premium Bluetooth sound systems, large coolers with ice, and comfortable seating. The sound system makes it easy to play music, host games that require announcements, and ensure everyone can hear toasts and speeches.'
+          'All boats feature professional licensed, experienced captains, premium Bluetooth sound systems, large coolers with ice, and comfortable seating. The sound system makes it easy to play music, host games that require announcements, and ensure everyone can hear toasts and speeches.'
         ]
       },
       {
@@ -9663,7 +9663,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         paragraphs: [
           'Select the vessel that matches your guest count and desired atmosphere. Day Tripper accommodates up to 14 guests, perfect for intimate baby showers with the closest family and friends. This cozy vessel creates a personal celebration where every guest connects meaningfully with the parents-to-be.',
           'Meeseeks and The Irony each accommodate up to 30 guests, ideal for baby showers including extended family, work friends, and various friend groups. These boats offer space for activities and mingling while maintaining intimacy. For larger celebrations, Clever Girl accommodates up to 75 guests with room for all the loved ones eager to welcome the new arrival.',
-          'All boats feature comfortable seating perfect for expectant parents, shaded areas for sun protection, clean restroom facilities, and premium sound systems. The stable nature of Lake Travis (calmer than ocean waters) provides smooth cruising appropriate for pregnant guests. Our USCG certified captains prioritize guest comfort throughout the cruise.'
+          'All boats feature comfortable seating perfect for expectant parents, shaded areas for sun protection, clean restroom facilities, and premium sound systems. The stable nature of Lake Travis (calmer than ocean waters) provides smooth cruising appropriate for pregnant guests. Our licensed, experienced captains prioritize guest comfort throughout the cruise.'
         ]
       },
       {
@@ -9736,7 +9736,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         paragraphs: [
           'Prom night is one of high school\'s most memorable experiences, and Premier Party Cruises offers a venue that takes this milestone to the next level. A Lake Travis cruise provides a stunning, Instagram-worthy backdrop that makes your prom photos extraordinary. The combination of crystal-clear water, Texas Hill Country scenery, and open sky creates a magical atmosphere for this once-in-a-lifetime celebration.',
           'A prom cruise offers distinct advantages over traditional ballroom or banquet hall venues. Students experience something truly unique—a floating celebration with premium sound, comfortable spaces, and the beautiful Lake Travis environment. The exclusive, private setting creates a controlled environment where students can celebrate safely while creating memories that will last a lifetime.',
-          'Premier Party Cruises has hosted numerous school events over our 15+ years on Lake Travis. We understand the importance of these milestone celebrations and the responsibility involved in hosting student groups. Our professional crew, USCG certified captains, and commitment to safety make us a trusted choice for school organizations.'
+          'Premier Party Cruises has hosted numerous school events over our 15+ years on Lake Travis. We understand the importance of these milestone celebrations and the responsibility involved in hosting student groups. Our professional crew, licensed, experienced captains, and commitment to safety make us a trusted choice for school organizations.'
         ],
         lists: [
           {
@@ -9759,7 +9759,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         paragraphs: [
           'Premier Party Cruises offers vessels suited for school events of various sizes. Select the boat that matches your group and desired atmosphere. Day Tripper accommodates up to 14 guests, perfect for smaller friend groups celebrating together or intimate school club events. This vessel provides a personal experience for close-knit groups.',
           'Meeseeks and The Irony each accommodate up to 30 guests, ideal for larger friend groups, student organizations, or class sections celebrating together. These boats offer ample dance floor space, comfortable seating, and room for socializing. For larger school events, our flagship Clever Girl accommodates up to 75 guests with extensive deck space.',
-          'All boats feature professional USCG certified captains, premium Bluetooth sound systems perfect for DJ services or playlists, and comfortable seating. The sound quality rivals any traditional venue, allowing students to dance and celebrate with their favorite music in a spectacular setting.'
+          'All boats feature professional licensed, experienced captains, premium Bluetooth sound systems perfect for DJ services or playlists, and comfortable seating. The sound quality rivals any traditional venue, allowing students to dance and celebrate with their favorite music in a spectacular setting.'
         ],
         lists: [
           {
@@ -9776,7 +9776,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Safety and Supervision for Student Groups',
         paragraphs: [
-          'Premier Party Cruises prioritizes safety for all events, with particular attention to student groups. Our USCG certified captains maintain perfect safety records and ensure professional conduct throughout every cruise. The controlled boat environment provides natural supervision—there are no opportunities for students to wander off or for outsiders to join the event.',
+          'Premier Party Cruises prioritizes safety for all events, with particular attention to student groups. Our licensed, experienced captains maintain perfect safety records and ensure professional conduct throughout every cruise. The controlled boat environment provides natural supervision—there are no opportunities for students to wander off or for outsiders to join the event.',
           'All our cruises for student events operate as dry events—no alcohol is permitted. We maintain this policy strictly for any group primarily composed of minors. Parent chaperones are welcome and encouraged to join the cruise. Many parent organizations coordinate prom cruises specifically because the controlled setting provides peace of mind.',
           'Life jackets are provided for all guests and required if any swimming is permitted. Swimming decisions are made by the captain based on conditions and event requirements. Many prom cruises focus on dancing, socializing, and photos rather than water activities, which is perfectly accommodated by our vessels.'
         ],
@@ -9784,14 +9784,14 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           {
             title: 'Safety Features',
             items: [
-              'USCG certified captains with perfect safety records',
+              'licensed, experienced captains with perfect safety records',
               'No alcohol permitted for student events',
               'Controlled environment—no wandering or outside access',
               'Parent chaperones welcome and encouraged',
               'Life jackets provided for all guests',
               'Swimming at captain\'s discretion only',
               'Professional crew monitors conditions throughout',
-              'Coast Guard certified vessels'
+              'licensed, experienced vessels'
             ]
           }
         ]

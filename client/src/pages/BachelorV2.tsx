@@ -905,7 +905,7 @@ const FAQ_DATA = [
   },
   {
     q: "What's included in a bachelor boat party?",
-    a: 'Every ATX Disco Cruise includes: a professional DJ playing your favorite music, a professional photographer with digital photo delivery within 2-3 weeks, 14 disco balls and LED dance floor lighting, a swim stop in a crystal-clear Lake Travis cove, giant 6x20-foot lily pad floats, a private cooler stocked with ice for your group, party cups and koozies, ice water stations, clean restroom facilities, shaded lounge areas, and a USCG-certified captain and crew. Private charters include a dedicated captain, crew, premium sound system, large coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company), and complete control over your route and schedule.'
+    a: 'Every ATX Disco Cruise includes: a professional DJ playing your favorite music, a professional photographer with digital photo delivery within 2-3 weeks, 14 disco balls and LED dance floor lighting, a swim stop in a crystal-clear Lake Travis cove, giant 6x20-foot lily pad floats, a private cooler stocked with ice for your group, party cups and koozies, ice water stations, clean restroom facilities, shaded lounge areas, and a licensed, experienced captain and crew. Private charters include a dedicated captain, crew, premium sound system, large coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company), and complete control over your route and schedule.'
   },
   {
     q: "Is it BYOB? Can we bring our own alcohol?",
@@ -1363,7 +1363,7 @@ const [openFaq, setOpenFaq] = useState<number | null>(null);
                 <li>Party cups, koozies, and party supplies</li>
                 <li>Ice water stations</li>
                 <li>Clean restroom facilities and shaded lounge areas</li>
-                <li>USCG-certified captain and experienced crew</li>
+                <li>licensed, experienced captain and experienced crew</li>
                 <li>Swim ladder and life jackets in all sizes</li>
               </ul>
               <p><strong style={{ color: 'var(--hp2-cream)' }}>Time slots:</strong> Friday 12-4 PM ($95/person), Saturday 11 AM-3 PM ($105/person, most popular), Saturday 3:30-7:30 PM ($85/person, best value with sunset). All prices include tax and gratuity in the total.</p>

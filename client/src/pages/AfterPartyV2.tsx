@@ -12,7 +12,7 @@ export default function AfterPartyV2() {
     },
     {
       q: 'What is included in a wedding recovery cruise?',
-      a: 'Every day-after wedding cruise includes a US Coast Guard licensed captain, trained crew, premium Bluetooth sound system, coolers (bring your own ice, or order pre-iced from Party On Delivery), a swim stop in a scenic cove, and all safety equipment. BYOB is welcome - most couples bring champagne, mimosa supplies, breakfast tacos, and brunch bites. Add the Ultimate package for upgraded decor and extras for $250-$350 flat per cruise.'
+      a: 'Every day-after wedding cruise includes a licensed, experienced captain, trained crew, premium Bluetooth sound system, coolers (bring your own ice, or order pre-iced from Party On Delivery), a swim stop in a scenic cove, and all safety equipment. BYOB is welcome - most couples bring champagne, mimosa supplies, breakfast tacos, and brunch bites. Add the Ultimate package for upgraded decor and extras for $250-$350 flat per cruise.'
     },
     {
       q: 'Can we host a post wedding brunch on the boat?',
@@ -93,7 +93,7 @@ export default function AfterPartyV2() {
             <div className="hp2-feature-card">
               <div className="hp2-feature-card__num">01</div>
               <div className="hp2-feature-card__title">Licensed Captain & Crew</div>
-              <div className="hp2-feature-card__desc">US Coast Guard certified captains with 15+ years on Lake Travis. Trained crew handles docking, anchoring, and service.</div>
+              <div className="hp2-feature-card__desc">licensed, experienced captains with 15+ years on Lake Travis. Trained crew handles docking, anchoring, and service.</div>
             </div>
             <div className="hp2-feature-card">
               <div className="hp2-feature-card__num">02</div>

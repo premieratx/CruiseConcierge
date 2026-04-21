@@ -53,7 +53,7 @@ export default function CompanyMilestoneV2() {
     },
     {
       q: 'Are you insured for corporate milestone events?',
-      a: 'Yes. Premier Party Cruises carries $2M commercial general liability insurance and $1M marine protection & indemnity coverage. All captains are USCG-licensed; all vessels meet or exceed USCG safety standards. We provide Certificates of Insurance (COI) naming your company as additional insured within 24 hours of request. For milestone events with VIP guests, media presence, or regulated industries, we can accommodate additional documentation requirements — just let your booking concierge know.',
+      a: 'Yes. Premier Party Cruises carries $2M commercial general liability insurance and $1M marine protection & indemnity coverage. All captains are licensed; all vessels meet or exceed Licensed safety standards. We provide Certificates of Insurance (COI) naming your company as additional insured within 24 hours of request. For milestone events with VIP guests, media presence, or regulated industries, we can accommodate additional documentation requirements — just let your booking concierge know.',
     },
     {
       q: 'Can we do sunset milestone cruises?',

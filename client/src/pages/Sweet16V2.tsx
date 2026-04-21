@@ -102,7 +102,7 @@ export default function Sweet16V2() {
           We've hosted Sweet 16 parties since 2009 and worked with hundreds of
           Austin parents to pull off the perfect teen celebration — safely,
           smoothly, and within budget. Our captains and crew are trained for
-          all-ages events, and every boat carries USCG-approved safety
+          all-ages events, and every boat carries marine-grade safety
           equipment in teen and adult sizes.
         </p>
 
@@ -189,7 +189,7 @@ export default function Sweet16V2() {
           Everything she needs for the <em>perfect</em> Sweet 16.
         </h2>
         <p className="hp2-section__body">
-          Every private Sweet 16 charter includes a USCG-licensed captain,
+          Every private Sweet 16 charter includes a licensed, experienced captain,
           trained crew, premium Bluetooth sound system for the birthday
           playlist, coolers (bring your own ice, or order pre-iced from Party On Delivery) for sodas and mocktails, a swim
           stop in a scenic cove, swim ladder, life jackets in all sizes,

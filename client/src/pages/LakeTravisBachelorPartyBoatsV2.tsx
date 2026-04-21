@@ -89,7 +89,7 @@ export default function LakeTravisBachelorPartyBoatsV2() {
           Pick a <em>boat</em>. Pick a date. Pick a playlist.
         </>
       }
-      finalCtaBody="Every Lake Travis bachelor party boat in our fleet is USCG-certified, BYOB-friendly, and captained by a pro. Call or book online — we'll match the right boat to your group size and send a quote within the hour."
+      finalCtaBody="Every Lake Travis bachelor party boat in our fleet is licensed, BYOB-friendly, and captained by a pro. Call or book online — we'll match the right boat to your group size and send a quote within the hour."
     >
       {/* ── Meet the Fleet ──────────────────────────────────────── */}
       <section className="hp2-section">

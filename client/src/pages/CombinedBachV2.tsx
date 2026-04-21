@@ -1350,7 +1350,7 @@ const [openFaq, setOpenFaq] = useState<number | null>(null);
                 <li>Private cooler with ice per group</li>
                 <li>Mimosa supplies (juice and fruit)</li>
                 <li>Party cups, koozies, and supplies</li>
-                <li>USCG-certified captain and experienced crew</li>
+                <li>licensed, experienced captain and experienced crew</li>
               </ul>
               <p><strong style={{ color: 'var(--hp2-cream)' }}>Time slots:</strong> Friday 12-4 PM ($95/person), Saturday 11 AM-3 PM ($105/person), Saturday 3:30-7:30 PM ($85/person). Tax and gratuity included in total.</p>
             </div>

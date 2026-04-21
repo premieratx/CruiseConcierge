@@ -23,7 +23,7 @@ import sectionImage3 from '@assets/@capitalcityshots-24_1760080807866.jpg';
 const captainStats = [
   { stat: '15+', label: 'Years Experience' },
   { stat: '100%', label: 'Safety Record' },
-  { stat: 'USCG', label: 'Licensed Captains' },
+  { stat: 'Licensed', label: 'Licensed Captains' },
   { stat: '5-Star', label: 'Google Rating' }
 ];
 
@@ -53,8 +53,8 @@ const captainResponsibilities = [
 const captainBenefits = [
   {
     icon: BadgeCheck,
-    title: 'USCG Licensed',
-    description: 'All our captains hold valid US Coast Guard licenses, the highest standard for commercial vessel operation'
+    title: 'Licensed Captains',
+    description: 'All our captains hold valid state-issued licenses, the highest standard for commercial vessel operation'
   },
   {
     icon: FileCheck,
@@ -87,7 +87,7 @@ const faqs = [
   },
   {
     question: 'What qualifications do Premier Party Cruises captains have?',
-    answer: 'All Premier Party Cruises captains hold valid US Coast Guard (USCG) licenses, are CPR and first aid certified, have years of Lake Travis experience, and have passed full background checks. They receive ongoing training in safety procedures and customer service.'
+    answer: 'All Premier Party Cruises captains hold valid state-issued licenses, are CPR and first aid certified, have years of Lake Travis experience, and have passed full background checks. They receive ongoing training in safety procedures and customer service.'
   },
   {
     question: 'How do licensed captains keep parties fun while maintaining safety?',
@@ -107,7 +107,7 @@ const faqs = [
   },
   {
     question: 'What is BYOB and how do captains help with alcohol compliance?',
-    answer: 'BYOB (Bring Your Own Beverage) is permitted on Lake Travis party boats. Licensed captains understand BYOB laws, enforce no-glass container rules, and maintain compliance with USCG and local regulations. We also partner with Party On Delivery for convenient, compliant alcohol delivery.'
+    answer: 'BYOB (Bring Your Own Beverage) is permitted on Lake Travis party boats. Licensed captains understand BYOB laws, enforce no-glass container rules, and maintain compliance with Licensed and local regulations. We also partner with Party On Delivery for convenient, compliant alcohol delivery.'
   },
   {
     question: 'Why do professionally captained boats cost more?',
@@ -136,7 +136,7 @@ export default function WhyLicensedCaptainsMatter() {
         pageRoute="/blogs/why-licensed-captains-matter-lake-travis-party-boats"
         defaultTitle="Why Licensed Captains Matter for Lake Travis Party Boats | Premier Party Cruises"
         defaultDescription="Discover why licensed captains are essential for Lake Travis party boats. Learn how professional crews ensure safe, legal, stress-free bachelor parties, bachelorette parties, and celebrations on the water."
-        defaultKeywords={['Lake Travis party boat captain', 'licensed boat captain Austin', 'Lake Travis boat safety', 'party boat crew', 'USCG licensed captain', 'Lake Travis bachelor party', 'bachelorette party boat Austin']}
+        defaultKeywords={['Lake Travis party boat captain', 'licensed boat captain Austin', 'Lake Travis boat safety', 'party boat crew', 'licensed, experienced captain', 'Lake Travis bachelor party', 'bachelorette party boat Austin']}
         image={heroImage}
       />
 

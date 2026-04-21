@@ -31,7 +31,7 @@ const safetyStats = [
 const safetyEquipment = [
   {
     icon: LifeBuoy,
-    title: 'USCG-Approved Life Jackets',
+    title: 'Licensed-Approved Life Jackets',
     description: 'Life jackets for all passengers including children\'s sizes - essential Lake Travis boat safety equipment on every party cruise'
   },
   {
@@ -52,7 +52,7 @@ const safetyEquipment = [
 ];
 
 const captainQualifications = [
-  { title: 'USCG Licensed', description: 'All captains hold valid US Coast Guard licenses for Lake Travis boat safety' },
+  { title: 'Licensed Captains', description: 'All captains hold valid licenses for Lake Travis boat safety' },
   { title: 'First Aid Certified', description: 'CPR and first aid training for emergency response during party cruises' },
   { title: 'Local Expertise', description: 'Years of Lake Travis experience knowing every cove and condition' },
   { title: 'Background Checked', description: 'Full background verification for your safe party cruises Lake Travis experience' }
@@ -137,7 +137,7 @@ const faqs = [
   },
   {
     question: 'Are your captains trained in safety procedures?',
-    answer: 'Yes! All captains hold valid USCG licenses, are CPR and first aid certified, and have years of Lake Travis experience. They receive ongoing training in boat party safety guidelines and emergency procedures. Our 100% safety record reflects their expertise.'
+    answer: 'Yes! All captains hold valid state-issued licenses, are CPR and first aid certified, and have years of Lake Travis experience. They receive ongoing training in boat party safety guidelines and emergency procedures. Our 100% safety record reflects their expertise.'
   },
   {
     question: 'What are the main party boat safety rules for guests?',
@@ -290,7 +290,7 @@ export default function LakeTravisBoatSafety() {
                 Lake Travis Boat Safety Equipment on Every Vessel
               </h2>
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-                All our boats exceed USCG safety requirements for safe party cruises Lake Travis
+                All our boats exceed Licensed safety requirements for safe party cruises Lake Travis
               </p>
             </m.div>
 

@@ -1049,7 +1049,7 @@ const FAQ_DATA = [
   },
   {
     q: 'Is it safe for families with children?',
-    a: 'Absolutely. We maintain a perfect safety record spanning 15+ years and 150,000+ guests. All boats are operated by US Coast Guard certified, licensed captains. Life jackets are available in all sizes including children\'s. Many families choose us for birthday parties, family reunions, graduations, and holiday gatherings. Children of all ages are welcome on private charters.'
+    a: 'Absolutely. We maintain a perfect safety record spanning 15+ years and 150,000+ guests. All boats are operated by US licensed, experienced, licensed captains. Life jackets are available in all sizes including children\'s. Many families choose us for birthday parties, family reunions, graduations, and holiday gatherings. Children of all ages are welcome on private charters.'
   },
   {
     q: 'What are the best things to do on Lake Travis?',
@@ -1179,7 +1179,7 @@ export default function HomeNew() {
               { "@type": "Question", "name": "What is the BYOB policy?", "acceptedAnswer": { "@type": "Answer", "text": "100% BYOB. Bring beer, wine, spirits, seltzers in cans or plastic only (no glass). We provide coolers (BYO ice, or order pre-iced from Party On Delivery, our sister company) on every cruise." }},
               { "@type": "Question", "name": "Can you swim during a Lake Travis cruise?", "acceptedAnswer": { "@type": "Answer", "text": "Yes! The captain anchors in a scenic cove with crystal-clear water. Guests swim, float on lily pads, and jump off the boat. Swim ladder and life jackets provided." }},
               { "@type": "Question", "name": "Are there sunset cruises?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — sunset cruises are among our most popular. The Saturday 3:30-7:30 PM ATX Disco Cruise is timed for sunset. Private charters available at any time." }},
-              { "@type": "Question", "name": "Is it safe for families with children?", "acceptedAnswer": { "@type": "Answer", "text": "Absolutely. Perfect safety record spanning 15+ years and 150,000+ guests. All boats operated by USCG-certified captains. Life jackets in all sizes including children's." }},
+              { "@type": "Question", "name": "Is it safe for families with children?", "acceptedAnswer": { "@type": "Answer", "text": "Absolutely. Perfect safety record spanning 15+ years and 150,000+ guests. All boats operated by licensed, experienced captains. Life jackets in all sizes including children's." }},
               { "@type": "Question", "name": "Can you host corporate events?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — one of Austin's top corporate event venues. Fleet accommodates 14-75 guests. Popular for team building, client entertainment, company milestones. Catering coordination available." }},
               { "@type": "Question", "name": "How far in advance should I book?", "acceptedAnswer": { "@type": "Answer", "text": "2-4 weeks for weekdays, 4-8 weeks for peak season weekends (March-October). For weddings and large events, 3-6 months recommended." }},
               { "@type": "Question", "name": "What happens if there is bad weather?", "acceptedAnswer": { "@type": "Answer", "text": "Unsafe conditions: reschedule at no cost. Light rain: boats depart normally (covered areas available). ATX Disco Cruise: severe weather triggers Lemonade Disco land venue." }},
@@ -1260,7 +1260,7 @@ export default function HomeNew() {
           <span className="hp2-trust__icon">&#9672;</span>
           <div className="hp2-trust__text">
             <span className="hp2-trust__label">Perfect Safety</span>
-            <span className="hp2-trust__sub">Coast Guard certified captains</span>
+            <span className="hp2-trust__sub">licensed, experienced captains</span>
           </div>
         </div>
         <div className="hp2-trust__item">

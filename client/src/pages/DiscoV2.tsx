@@ -1491,7 +1491,7 @@ const [openFaq, setOpenFaq] = useState<number | null>(null);
                 <li>Clean restroom facilities</li>
                 <li>Shaded deck and lounge areas</li>
                 <li>Swim ladder and life jackets in all sizes</li>
-                <li>USCG-certified captain and experienced crew</li>
+                <li>licensed, experienced captain and experienced crew</li>
               </ul>
             </div>
           </div>

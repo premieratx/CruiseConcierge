@@ -190,7 +190,7 @@ export default function TheFunnestDaytimeActivityAustin() {
               <div>
                 <h3 className="font-bold text-xl mb-2 text-slate-900 dark:text-white">Arrive and Party</h3>
                 <p className="text-slate-600 dark:text-slate-400">
-                  Meet at Anderson Mill Marina. From there, our USCG-certified crew takes care of everything while you enjoy 4 hours of pure entertainment.
+                  Meet at Anderson Mill Marina. From there, our licensed crew takes care of everything while you enjoy 4 hours of pure entertainment.
                 </p>
               </div>
             </div>

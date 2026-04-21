@@ -895,7 +895,7 @@ const FAQ_DATA = [
   },
   {
     q: 'Is it safe for children and families?',
-    a: 'Absolutely. Premier Party Cruises has over 15 years of experience and a perfect safety record with more than 150,000 guests served. Every cruise includes a USCG-licensed captain and trained crew. We carry life jackets in all sizes including children\'s sizes. Our boats are USCG-inspected and fully equipped with all required safety gear. Many families choose us for birthday parties, family reunions, graduations, and multi-generational celebrations. Day Tripper is particularly popular for family events due to its intimate size. Just let us know the ages in your group when you book, and we will make sure everything is set up for a safe, fun experience for guests of all ages.'
+    a: 'Absolutely. Premier Party Cruises has over 15 years of experience and a perfect safety record with more than 150,000 guests served. Every cruise includes a licensed, experienced captain and trained crew. We carry life jackets in all sizes including children\'s sizes. Our boats are regularly inspected and fully equipped with all required safety gear. Many families choose us for birthday parties, family reunions, graduations, and multi-generational celebrations. Day Tripper is particularly popular for family events due to its intimate size. Just let us know the ages in your group when you book, and we will make sure everything is set up for a safe, fun experience for guests of all ages.'
   },
   {
     q: "What's the difference between a private charter and ATX Disco Cruise?",
@@ -1037,7 +1037,7 @@ const [openFaq, setOpenFaq] = useState<number | null>(null);
           <span className="hp2-trust__icon">&#9671;</span>
           <div className="hp2-trust__text">
             <span className="hp2-trust__label">Perfect Safety Record</span>
-            <span className="hp2-trust__sub">USCG-licensed captains</span>
+            <span className="hp2-trust__sub">licensed, experienced captains</span>
           </div>
         </div>
       </div>
@@ -1416,7 +1416,7 @@ const [openFaq, setOpenFaq] = useState<number | null>(null);
               <p>Every private charter with Premier Party Cruises includes the following at no additional cost (Standard package):</p>
               <p><strong style={{ color: 'var(--hp2-cream)' }}>Captain &amp; Crew:</strong></p>
               <ul>
-                <li>USCG-licensed captain with 15+ years of Lake Travis experience</li>
+                <li>licensed, experienced captain with 15+ years of Lake Travis experience</li>
                 <li>Trained crew members for guest service and safety</li>
                 <li>Professional, friendly, and attentive staff</li>
               </ul>

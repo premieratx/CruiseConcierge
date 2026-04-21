@@ -31,7 +31,7 @@ export default function PartyBoatLakeTravisV2() {
     },
     {
       q: 'Can we swim on a Lake Travis party boat?',
-      a: 'Yes — swimming at the anchored cove stop is the highlight of every Lake Travis party boat charter. Our captains know the best Lake Travis swim coves (crystal-clear water, limestone cliffs, away from the main boat traffic) and anchor the boat for 1.5-2 hours of open swim time. Every boat has a swim ladder, USCG life jackets in all adult sizes, and room to jump off the deck. Clever Girl carries giant 6x20-foot lily pad floats.',
+      a: 'Yes — swimming at the anchored cove stop is the highlight of every Lake Travis party boat charter. Our captains know the best Lake Travis swim coves (crystal-clear water, limestone cliffs, away from the main boat traffic) and anchor the boat for 1.5-2 hours of open swim time. Every boat has a swim ladder, Licensed life jackets in all adult sizes, and room to jump off the deck. Clever Girl carries giant 6x20-foot lily pad floats.',
     },
     {
       q: 'Is BYOB allowed on Lake Travis party boats?',
@@ -59,7 +59,7 @@ export default function PartyBoatLakeTravisV2() {
     },
     {
       q: 'Are Lake Travis party boats safe?',
-      a: 'Yes. Every Premier Party Cruises Lake Travis party boat is USCG-certified with a USCG-licensed captain and trained crew. Every boat carries USCG-approved life jackets in all adult sizes (and infant/child sizes on family charters), a first-aid kit, fire extinguishers, marine radios, and a swim ladder. Our captains monitor weather continuously and will reschedule at no cost if conditions are unsafe. 150,000+ guests served since 2009 with a perfect safety record.',
+      a: 'Yes. Every Premier Party Cruises Lake Travis party boat is licensed with a licensed, experienced captain and trained crew. Every boat carries USCG-approved life jackets in all adult sizes (and infant/child sizes on family charters), a first-aid kit, fire extinguishers, marine radios, and a swim ladder. Our captains monitor weather continuously and will reschedule at no cost if conditions are unsafe. 150,000+ guests served since 2009 with a perfect safety record.',
     },
     {
       q: 'Can we bring our own food on a Lake Travis party boat?',
@@ -75,14 +75,14 @@ export default function PartyBoatLakeTravisV2() {
     <V2PageTemplate
       pageUrl="/party-boat-lake-travis-v2"
       pageTitle="Lake Travis Party Boat · Party Boats on Lake Travis · 4 Boats, 14–75 Guests, From $200/hr"
-      pageDescription="The #1 Lake Travis party boat fleet — 4 boats (14–75 guests), year-round private charters from $200/hr, always BYOB with Party On Delivery drink set-up. USCG-certified captains, departing Anderson Mill Marina (25 min from downtown, no stairs, free parking). 15+ years, 150,000+ guests, 0 incidents."
+      pageDescription="The #1 Lake Travis party boat fleet — 4 boats (14–75 guests), year-round private charters from $200/hr, always BYOB with Party On Delivery drink set-up. licensed, experienced captains, departing Anderson Mill Marina (25 min from downtown, no stairs, free parking). 15+ years, 150,000+ guests, 0 incidents."
       heroEyebrow="Party Boat Rentals · Lake Travis"
       heroHeadline={
         <>
           Lake Travis party <em>boats</em>.
         </>
       }
-      heroBody="The biggest, best-rated Lake Travis party boat fleet. Four boats from 14 to 75 guests, BYOB-friendly, USCG-certified. Private charters from $200/hour — or hop on the shared ATX Disco Cruise from $85/person."
+      heroBody="The biggest, best-rated Lake Travis party boat fleet. Four boats from 14 to 75 guests, BYOB-friendly, licensed. Private charters from $200/hour — or hop on the shared ATX Disco Cruise from $85/person."
       primaryCta={{ text: 'Book a Lake Travis Boat', href: '/book' }}
       secondaryCta={{ text: 'Explore the Fleet', href: '#fleet' }}
       faqs={faqs}
@@ -101,7 +101,7 @@ export default function PartyBoatLakeTravisV2() {
         </h2>
         <p className="hp2-section__body">
           Our four Lake Travis party boats all depart from Anderson Mill
-          Marina, all come with USCG-certified captains, all are BYOB, and
+          Marina, all come with licensed, experienced captains, all are BYOB, and
           all handle the classic Lake Travis party-boat day — cruise out,
           anchor in a cove, swim, dance, cruise back. The difference is
           guest count and how much dance-floor atmosphere you want built in.
@@ -304,7 +304,7 @@ export default function PartyBoatLakeTravisV2() {
               <h3 className="hp2-feature-card__title">We Supply</h3>
               <p className="hp2-feature-card__desc">
                 Coolers with ice, premium Bluetooth sound, swim ladder,
-                USCG life jackets, onboard restroom, shaded lounge,
+                Licensed life jackets, onboard restroom, shaded lounge,
                 captain and crew, safety equipment, swim stop.
               </p>
             </div>

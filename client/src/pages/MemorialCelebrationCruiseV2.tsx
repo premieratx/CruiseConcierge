@@ -221,7 +221,7 @@ export default function MemorialCelebrationCruiseV2() {
         <p className="hp2-section__body">
           Our fleet accommodates both the tightest inner circle and the
           wider community who loved your person. All memorial cruises
-          include a USCG-licensed captain, a briefed crew, and a 3-hour
+          include a licensed, experienced captain, a briefed crew, and a 3-hour
           minimum (reduced from our standard 4-hour minimum).
         </p>
 

@@ -37,7 +37,7 @@ export default function TeamBuildingV2() {
     },
     {
       q: 'Are you insured for corporate events?',
-      a: 'Yes. Premier Party Cruises carries $2M in commercial general liability insurance and $1M in marine protection & indemnity coverage. All captains are USCG-licensed, and all vessels meet or exceed USCG safety standards. We can provide Certificates of Insurance (COI) naming your company as additional insured — just ask your booking concierge. Most corporate clients forward the COI to their legal or risk management team during the approval process.',
+      a: 'Yes. Premier Party Cruises carries $2M in commercial general liability insurance and $1M in marine protection & indemnity coverage. All captains are licensed, and all vessels meet or exceed Licensed safety standards. We can provide Certificates of Insurance (COI) naming your company as additional insured — just ask your booking concierge. Most corporate clients forward the COI to their legal or risk management team during the approval process.',
     },
     {
       q: 'How far in advance should we book a team building event?',
@@ -195,7 +195,7 @@ export default function TeamBuildingV2() {
         <p className="hp2-section__body">
           Four boats covering every team size from executive off-sites to
           150+ person all-hands flotillas. Every vessel includes a
-          USCG-licensed captain, trained crew, premium sound, and BYOB.
+          licensed, experienced captain, trained crew, premium sound, and BYOB.
         </p>
 
         <div className="hp2-feature-grid">

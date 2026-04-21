@@ -160,7 +160,7 @@ export default function GraduationCruiseV2() {
             <div className="hp2-feature-card__num">06</div>
             <h3 className="hp2-feature-card__title">Fully Supervised</h3>
             <p className="hp2-feature-card__desc">
-              Parent host + USCG-licensed captain + trained crew. Life
+              Parent host + licensed, experienced captain + trained crew. Life
               jackets in all sizes. Weather monitoring. Headcount protocols
               for swim stops. Every cruise fully supervised.
             </p>

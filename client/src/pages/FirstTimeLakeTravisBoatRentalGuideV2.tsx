@@ -32,7 +32,7 @@ export default function FirstTimeLakeTravisBoatRentalGuideV2() {
     },
     {
       q: 'Is a captain included with a Lake Travis boat rental?',
-      a: 'Yes — every Premier Party Cruises Lake Travis boat rental includes a USCG-licensed captain and trained crew. You do not pilot the boat yourself. This is by design: our captains know every cove on Lake Travis, handle weather judgment calls, manage the anchor and swim ladder, and free your group to actually party instead of worrying about boating. The captain and crew tips are already built into the quoted rate — no separate gratuity needed unless you want to add extra.',
+      a: 'Yes — every Premier Party Cruises Lake Travis boat rental includes a licensed, experienced captain and trained crew. You do not pilot the boat yourself. This is by design: our captains know every cove on Lake Travis, handle weather judgment calls, manage the anchor and swim ladder, and free your group to actually party instead of worrying about boating. The captain and crew tips are already built into the quoted rate — no separate gratuity needed unless you want to add extra.',
     },
     {
       q: 'When should a first-timer book a Lake Travis boat rental?',
@@ -40,7 +40,7 @@ export default function FirstTimeLakeTravisBoatRentalGuideV2() {
     },
     {
       q: 'What is included in a Lake Travis boat rental?',
-      a: 'Every Premier Party Cruises Lake Travis boat rental includes: USCG-licensed captain, trained crew, fuel for the full charter, premium Bluetooth sound system, coolers (bring your own ice, or order pre-iced from Party On Delivery), swim ladder, USCG life jackets in all adult sizes, onboard restroom, shaded lounge areas, swim stop at a scenic cove, and gratuity (20% already baked into the rate). The number you see on the quote is the number you pay. Clever Girl additionally has a full dance floor, 14 disco balls, and LED lighting — no extra charge.',
+      a: 'Every Premier Party Cruises Lake Travis boat rental includes: licensed, experienced captain, trained crew, fuel for the full charter, premium Bluetooth sound system, coolers (bring your own ice, or order pre-iced from Party On Delivery), swim ladder, Licensed life jackets in all adult sizes, onboard restroom, shaded lounge areas, swim stop at a scenic cove, and gratuity (20% already baked into the rate). The number you see on the quote is the number you pay. Clever Girl additionally has a full dance floor, 14 disco balls, and LED lighting — no extra charge.',
     },
     {
       q: 'What do I need to bring for a Lake Travis boat rental?',
@@ -48,7 +48,7 @@ export default function FirstTimeLakeTravisBoatRentalGuideV2() {
     },
     {
       q: 'Can I rent a Lake Travis boat without a license?',
-      a: 'Yes — Premier Party Cruises Lake Travis rentals are all captained rentals, meaning a USCG-licensed captain pilots the boat for you. No boating license required on your end. You are the renter of record (you signed the agreement and paid the deposit), but the captain runs the boat. This is different from jet-ski or small bowrider rentals on Lake Travis, which may require a boater education card — we are a captained charter service specifically so first-timers and party groups do not have to worry about any of that.',
+      a: 'Yes — Premier Party Cruises Lake Travis rentals are all captained rentals, meaning a licensed, experienced captain pilots the boat for you. No boating license required on your end. You are the renter of record (you signed the agreement and paid the deposit), but the captain runs the boat. This is different from jet-ski or small bowrider rentals on Lake Travis, which may require a boater education card — we are a captained charter service specifically so first-timers and party groups do not have to worry about any of that.',
     },
     {
       q: 'Can we drink alcohol on a Lake Travis boat rental?',
@@ -375,7 +375,7 @@ export default function FirstTimeLakeTravisBoatRentalGuideV2() {
           </h2>
           <p className="hp2-section__body">
             Every Premier Party Cruises Lake Travis boat rental includes a
-            USCG-licensed captain and trained crew. You do not drive the
+            licensed, experienced captain and trained crew. You do not drive the
             boat. You do not need a boating license. You do not have to
             think about anchoring, navigating, weather, or safety
             equipment. That is the whole point of a captained Lake Travis
@@ -386,9 +386,9 @@ export default function FirstTimeLakeTravisBoatRentalGuideV2() {
           <div className="hp2-feature-grid">
             <div className="hp2-feature-card">
               <div className="hp2-feature-card__num">◈</div>
-              <h3 className="hp2-feature-card__title">USCG Licensed</h3>
+              <h3 className="hp2-feature-card__title">Licensed Captains</h3>
               <p className="hp2-feature-card__desc">
-                Every captain holds a current USCG license and undergoes
+                Every captain holds a current captain's license and undergoes
                 annual drug testing, medical checks, and continuing
                 education. No hobbyists, no side-gig drivers.
               </p>

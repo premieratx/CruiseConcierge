@@ -78,7 +78,7 @@ const top10Reasons = [
     number: 8,
     icon: CheckCircle2,
     title: 'Safe and Hassle-Free (Licensed Captain)',
-    description: "With a professional, Coast Guard certified captain at the helm, nobody in your group has to stay sober to drive. No navigation stress, no legal liability, no worrying about boat rentals. The captain handles everything while you focus on celebrating.",
+    description: "With a professional, licensed, experienced captain at the helm, nobody in your group has to stay sober to drive. No navigation stress, no legal liability, no worrying about boat rentals. The captain handles everything while you focus on celebrating.",
     highlight: "Zero drinking and driving concerns—just pure, stress-free fun on the water."
   },
   {

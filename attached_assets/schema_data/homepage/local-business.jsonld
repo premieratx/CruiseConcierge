@@ -154,7 +154,7 @@
     {
       "@type": "Offer",
       "name": "Private Charter \u2014 Day Tripper (1\u201314 guests, year-round)",
-      "description": "Exclusive whole-boat private charter for intimate groups. Includes Coast Guard licensed captain, premium marine Bluetooth audio, coolers (always BYOB), sun + shade seating, restrooms. Optional Essentials or Ultimate add-on packages for full all-inclusive experience. Available every day, year-round.",
+      "description": "Exclusive whole-boat private charter for intimate groups. Includes licensed, experienced captain, premium marine Bluetooth audio, coolers (always BYOB), sun + shade seating, restrooms. Optional Essentials or Ultimate add-on packages for full all-inclusive experience. Available every day, year-round.",
       "priceSpecification": {
         "@type": "UnitPriceSpecification",
         "unitText": "per hour",
@@ -170,7 +170,7 @@
     {
       "@type": "Offer",
       "name": "Private Charter \u2014 Meeseeks / The Irony (15\u201330 guests, year-round)",
-      "description": "Mid-size private charter for bachelor/bachelorette, team outings, birthdays. Includes Coast Guard licensed captain, premium marine Bluetooth audio, large coolers (always BYOB), restrooms. Optional Essentials or Ultimate add-on packages available. Available every day, year-round.",
+      "description": "Mid-size private charter for bachelor/bachelorette, team outings, birthdays. Includes licensed, experienced captain, premium marine Bluetooth audio, large coolers (always BYOB), restrooms. Optional Essentials or Ultimate add-on packages available. Available every day, year-round.",
       "priceSpecification": {
         "@type": "UnitPriceSpecification",
         "unitText": "per hour",
@@ -186,7 +186,7 @@
     {
       "@type": "Offer",
       "name": "Private Charter \u2014 Clever Girl flagship (31\u201375 guests, year-round)",
-      "description": "75-person flagship with 14 disco balls and giant Texas flag. Perfect for corporate events, large celebrations, combined bach parties. Includes Coast Guard licensed captain and full crew, premium marine Bluetooth audio, large coolers (always BYOB), restrooms. Optional Essentials or Ultimate add-on packages available. Available every day, year-round.",
+      "description": "75-person flagship with 14 disco balls and giant Texas flag. Perfect for corporate events, large celebrations, combined bach parties. Includes licensed, experienced captain and full crew, premium marine Bluetooth audio, large coolers (always BYOB), restrooms. Optional Essentials or Ultimate add-on packages available. Available every day, year-round.",
       "priceSpecification": {
         "@type": "UnitPriceSpecification",
         "unitText": "per hour",

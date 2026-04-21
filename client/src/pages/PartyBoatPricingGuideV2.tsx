@@ -20,7 +20,7 @@ export default function PartyBoatPricingGuideV2() {
     },
     {
       q: 'What\'s included in the Austin party boat price?',
-      a: "Every private charter price includes: Coast Guard licensed captain + professional crew, premium marine-grade Bluetooth audio, large coolers (always BYOB — cans + plastic only), sun + shade seating zones, climate-controlled restroom, swim stop at a scenic Lake Travis cove, safety briefing, and free weather reschedules. Optional Essentials Package (+$100/$150/$200 by boat) adds ice pre-stocked in coolers, water dispenser, cups, 6-ft food table, vendor coordination. Optional Ultimate Package (+$250/$300/$350 by boat) adds everything in Essentials plus giant lily pad, honor float, disco cups, bubble guns, champagne flutes, SPF-50, plates + plasticware, full party setup. ATX Disco Cruise tickets are all-inclusive by default: pro DJ, pro photographer, 14 disco balls, giant floats, personal cooler per group, 4-hour cruise — nothing else to buy.",
+      a: "Every private charter price includes: licensed, experienced captain + professional crew, premium marine-grade Bluetooth audio, large coolers (always BYOB — cans + plastic only), sun + shade seating zones, climate-controlled restroom, swim stop at a scenic Lake Travis cove, safety briefing, and free weather reschedules. Optional Essentials Package (+$100/$150/$200 by boat) adds ice pre-stocked in coolers, water dispenser, cups, 6-ft food table, vendor coordination. Optional Ultimate Package (+$250/$300/$350 by boat) adds everything in Essentials plus giant lily pad, honor float, disco cups, bubble guns, champagne flutes, SPF-50, plates + plasticware, full party setup. ATX Disco Cruise tickets are all-inclusive by default: pro DJ, pro photographer, 14 disco balls, giant floats, personal cooler per group, 4-hour cruise — nothing else to buy.",
     },
     {
       q: 'Are there hidden fees on Austin party boats?',
@@ -28,7 +28,7 @@ export default function PartyBoatPricingGuideV2() {
     },
     {
       q: 'Why is Premier Party Cruises more expensive than a pontoon rental?',
-      a: "A cheap Lake Travis pontoon rental runs $400–$800/day for the boat alone — and that's all it includes. YOU drive, YOU navigate, YOU rent floats, YOU haul coolers, YOU bring music, YOU coordinate everything. Premier Party Cruises at $200/hour × 4-hour minimum = $800 base on Day Tripper includes: Coast Guard licensed captain (you don't drive), premium Bluetooth sound system, large coolers, life jackets, restroom, navigation, safety briefing, Anderson Mill Marina access (free parking, no stairs). By the time you add a captain ($200–$300/day extra on a pontoon), music system, floats, and logistics to a cheap pontoon, you've spent more — and worked the whole day instead of celebrating. Premier is actually cost-competitive once you factor in what you'd add.",
+      a: "A cheap Lake Travis pontoon rental runs $400–$800/day for the boat alone — and that's all it includes. YOU drive, YOU navigate, YOU rent floats, YOU haul coolers, YOU bring music, YOU coordinate everything. Premier Party Cruises at $200/hour × 4-hour minimum = $800 base on Day Tripper includes: licensed, experienced captain (you don't drive), premium Bluetooth sound system, large coolers, life jackets, restroom, navigation, safety briefing, Anderson Mill Marina access (free parking, no stairs). By the time you add a captain ($200–$300/day extra on a pontoon), music system, floats, and logistics to a cheap pontoon, you've spent more — and worked the whole day instead of celebrating. Premier is actually cost-competitive once you factor in what you'd add.",
     },
     {
       q: 'How much is the cheapest Austin party boat option?',
@@ -100,7 +100,7 @@ export default function PartyBoatPricingGuideV2() {
             4-hour minimum on weekends, 3-hour minimum weekdays. Crew fee applies for groups above
             the primary capacity on Meeseeks/Irony (+$50/hour for 26–30) and Clever Girl (+$100/hour
             for 51–75). Texas sales tax (8.25%) applies. 20% gratuity is standard and suggested
-            (not forced). Every rate includes Coast Guard licensed captain + crew + fuel + premium
+            (not forced). Every rate includes licensed, experienced captain + crew + fuel + premium
             Bluetooth audio + large coolers + restrooms + safety equipment.
           </p>
         </div>

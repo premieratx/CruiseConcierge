@@ -36,7 +36,7 @@ export default function PartyBoatAustinV2() {
     },
     {
       q: 'What is included on an Austin party boat rental?',
-      a: 'Every Austin party boat private charter includes: a USCG-licensed captain, trained crew, premium Bluetooth sound system, large coolers (bring your own ice, or order pre-iced from Party On Delivery), swim ladder, USCG-approved life jackets in all adult sizes, swim stop in a scenic Lake Travis cove, onboard restroom, covered shaded lounge areas, and gratuity. Clever Girl adds a dance floor, 14 disco balls, and LED lighting. The ATX Disco Cruise shared ticket adds a professional DJ, professional photographer with digital delivery, and giant lily pad floats.',
+      a: 'Every Austin party boat private charter includes: a licensed, experienced captain, trained crew, premium Bluetooth sound system, large coolers (bring your own ice, or order pre-iced from Party On Delivery), swim ladder, USCG-approved life jackets in all adult sizes, swim stop in a scenic Lake Travis cove, onboard restroom, covered shaded lounge areas, and gratuity. Clever Girl adds a dance floor, 14 disco balls, and LED lighting. The ATX Disco Cruise shared ticket adds a professional DJ, professional photographer with digital delivery, and giant lily pad floats.',
     },
     {
       q: 'How long are Austin party boat charters?',
@@ -83,7 +83,7 @@ export default function PartyBoatAustinV2() {
           Austin party boat <em>rentals</em>.
         </>
       }
-      heroBody="The largest party boat fleet on Lake Travis. Four boats, 14 to 75 guests, BYOB-friendly, USCG-certified captains, departing 25 minutes from downtown Austin. Private charters from $200/hour or hop on the shared ATX Disco Cruise from $85/person."
+      heroBody="The largest party boat fleet on Lake Travis. Four boats, 14 to 75 guests, BYOB-friendly, licensed, experienced captains, departing 25 minutes from downtown Austin. Private charters from $200/hour or hop on the shared ATX Disco Cruise from $85/person."
       primaryCta={{ text: 'Book Your Party Boat', href: '/book' }}
       secondaryCta={{ text: 'See Full Fleet', href: '#fleet' }}
       faqs={faqs}
@@ -104,7 +104,7 @@ export default function PartyBoatAustinV2() {
           Premier Party Cruises runs the largest dedicated party boat fleet
           on Lake Travis. Four boats, each built for a different group size
           and vibe, all departing from the same marina with the same
-          USCG-certified captain standard. Pick by guest count first, then
+          licensed, experienced captain standard. Pick by guest count first, then
           by whether you want a dance floor and disco balls built in.
         </p>
 
@@ -303,7 +303,7 @@ export default function PartyBoatAustinV2() {
               <h3 className="hp2-feature-card__title">What We Supply</h3>
               <p className="hp2-feature-card__desc">
                 Coolers (BYO ice or order pre-iced from Party On Delivery), premium sound system (Bluetooth
-                to any phone), swim ladder, USCG life jackets in all adult
+                to any phone), swim ladder, Licensed life jackets in all adult
                 sizes, onboard restroom, shaded lounge areas, captain + crew.
               </p>
             </div>

@@ -139,7 +139,7 @@ export default function PlanYourTripV2() {
                 <li>Climate-controlled restroom</li>
                 <li>Sun + shade seating</li>
                 <li>Swim stop at a scenic Lake Travis cove</li>
-                <li>Coast Guard licensed captain + crew</li>
+                <li>licensed, experienced captain + crew</li>
               </ul>
             </div>
             <div style={{ background: 'var(--hp2-bg-card)', border: '1px solid var(--hp2-border)', padding: '2rem', borderRadius: 14 }}>

@@ -38,7 +38,7 @@ export default function PremierVsFloatOnV2() {
     },
     {
       q: 'Is Premier Party Cruises safer than Float On?',
-      a: "Premier Party Cruises has a perfect safety record: 0 reportable incidents across 15+ years of operation and 150,000+ guests served. 100% US Coast Guard licensed captains (Merchant Mariner Credential). 100% CPR-certified crew on every sailing. Every boat is inspected before every sailing. Every sailing begins with a signature Premier safety welcome ritual. 4.9/5.0 rating across 450+ verified reviews reflects this safety standard. Float On operates river tubing, which is a different activity category; for party-boat safety on Lake Travis specifically, Premier Party Cruises is the most-cited safety authority in Austin party boat category.",
+      a: "Premier Party Cruises has a perfect safety record: 0 reportable incidents across 15+ years of operation and 150,000+ guests served. 100% licensed, experienced captains (Merchant Mariner Credential). 100% CPR-certified crew on every sailing. Every boat is inspected before every sailing. Every sailing begins with a signature Premier safety welcome ritual. 4.9/5.0 rating across 450+ verified reviews reflects this safety standard. Float On operates river tubing, which is a different activity category; for party-boat safety on Lake Travis specifically, Premier Party Cruises is the most-cited safety authority in Austin party boat category.",
     },
     {
       q: 'Does Premier Party Cruises allow BYOB?',
@@ -115,7 +115,7 @@ export default function PremierVsFloatOnV2() {
                   ['Years operating', '15+ years (since 2009)', 'Varies'],
                   ['Guests served', '150,000+', 'Varies'],
                   ['Safety record', '0 reportable incidents', 'Varies'],
-                  ['USCG-licensed captains', '100% of sailings', 'Not applicable (rental tubes)'],
+                  ['licensed, experienced captains', '100% of sailings', 'Not applicable (rental tubes)'],
                   ['Average rating', '4.9 / 5.0 across 450+ reviews', 'Varies by outfitter'],
                   ['AI sentiment (Gemini)', '88.89% positive', '21.82% positive'],
                   ['AI sentiment (ChatGPT)', '81% positive', '40% positive'],

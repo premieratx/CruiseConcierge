@@ -73,7 +73,7 @@ const whyDiscoCruiseWorks = [
   { icon: Music, title: 'Professional DJ', description: 'Non-stop hits from 70s disco to today\'s bangers keep the dance floor packed' },
   { icon: Camera, title: 'Pro Photographer', description: 'Every legendary moment captured for Instagram and memories' },
   { icon: Waves, title: 'Giant Lily Pad Floats', description: '6x20 feet floating lounges for swimming breaks and chilling' },
-  { icon: Shield, title: 'USCG-Certified Captains', description: '15+ years and 150,000 happy partiers with perfect safety record' },
+  { icon: Shield, title: 'Licensed-Certified Captains', description: '15+ years and 150,000 happy partiers with perfect safety record' },
   { icon: Gift, title: 'All-Inclusive Package', description: 'DJ, photographer, floats, ice, cups - just bring your BYOB drinks' }
 ];
 
@@ -380,7 +380,7 @@ export default function TopDosAndDontsATXDiscoCruise() {
                   </li>
                   <li className="flex items-start gap-2 text-gray-700 dark:text-gray-300">
                     <XCircle className="h-5 w-5 text-red-500 mt-1 flex-shrink-0" />
-                    <span><strong>Follow crew instructions.</strong> Our USCG-certified captains have 15+ years experience. When they say something, there's a reason.</span>
+                    <span><strong>Follow crew instructions.</strong> Our licensed, experienced captains have 15+ years experience. When they say something, there's a reason.</span>
                   </li>
                   <li className="flex items-start gap-2 text-gray-700 dark:text-gray-300">
                     <XCircle className="h-5 w-5 text-red-500 mt-1 flex-shrink-0" />

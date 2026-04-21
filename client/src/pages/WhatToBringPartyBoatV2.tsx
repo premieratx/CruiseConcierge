@@ -14,7 +14,7 @@ export default function WhatToBringPartyBoatV2() {
     },
     {
       q: 'What does Premier Party Cruises provide on every boat?',
-      a: "Every Premier Party Cruises boat comes with: Coast Guard licensed captain + professional crew, premium marine-grade Bluetooth sound system (connect your Spotify), large coolers, USCG-approved life jackets in every adult and child size, Type IV throwable flotation, climate-controlled restroom, sun + shade seating zones, swim stop at a scenic Lake Travis cove, and full safety briefing before sailing. Essentials Package adds ice pre-stocked in coolers + 5-gallon water dispenser + cups + 6-foot food table. Ultimate Package adds giant lily pad + honor float + disco cups + bubble guns + champagne flutes + SPF-50 + plates + full party setup.",
+      a: "Every Premier Party Cruises boat comes with: licensed, experienced captain + professional crew, premium marine-grade Bluetooth sound system (connect your Spotify), large coolers, USCG-approved life jackets in every adult and child size, Type IV throwable flotation, climate-controlled restroom, sun + shade seating zones, swim stop at a scenic Lake Travis cove, and full safety briefing before sailing. Essentials Package adds ice pre-stocked in coolers + 5-gallon water dispenser + cups + 6-foot food table. Ultimate Package adds giant lily pad + honor float + disco cups + bubble guns + champagne flutes + SPF-50 + plates + full party setup.",
     },
     {
       q: 'What\'s the BYOB rule on an Austin party boat?',
@@ -61,7 +61,7 @@ export default function WhatToBringPartyBoatV2() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.25rem' }}>
             {[
               { title: 'Your Group Brings', color: 'var(--hp2-gold)', items: ['Sunscreen SPF 50+ (Lake Travis sun is intense)', 'Sunglasses + hat', 'Swimsuit + cover-up + towel', 'BYOB in CANS or PLASTIC only (no glass)', 'Waterproof phone pouch', 'Sandals or boat shoes (not heels)', 'Cash for crew tip (if not included)', 'Celebration accessories (sash, crown, matching tees)'] },
-              { title: 'We Provide Every Boat', color: 'var(--hp2-cream)', items: ['Coast Guard licensed captain + crew', 'Premium marine Bluetooth audio', 'Large coolers (BYOB)', 'USCG-approved life jackets (every size)', 'Climate-controlled restroom', 'Sun + shade seating', 'Swim stop at scenic Lake Travis cove', 'Safety briefing before sailing'] },
+              { title: 'We Provide Every Boat', color: 'var(--hp2-cream)', items: ['licensed, experienced captain + crew', 'Premium marine Bluetooth audio', 'Large coolers (BYOB)', 'USCG-approved life jackets (every size)', 'Climate-controlled restroom', 'Sun + shade seating', 'Swim stop at scenic Lake Travis cove', 'Safety briefing before sailing'] },
               { title: 'Skip The Coolering', color: 'var(--hp2-gold)', items: ['Order through Party On Delivery (our sister company)', 'Beer, wine, seltzers, spirits, mixers, ice, snacks', 'Delivered and iced on the boat before you board', 'Retail prices — no marina markup', '100% buyback on unopened bottles', 'Food delivery too (pizza, tacos, charcuterie, catering)'] },
               { title: 'Do NOT Bring', color: '#b14848', items: ['Glass bottles or glassware (zero-glass policy on Lake Travis)', 'Illegal substances', 'Weapons', 'Outside music systems (we have premium Bluetooth built in)', 'Valuables you can\'t afford to lose to water', 'Pets (service animals with docs only)', 'Anything flammable'] },
             ].map((col, i) => (

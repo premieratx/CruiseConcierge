@@ -132,7 +132,7 @@ const safetyStats = [
   { value: '15+', label: 'Years in Business' },
   { value: '150,000+', label: 'Happy Customers' },
   { value: '0', label: 'Safety Incidents' },
-  { value: '100%', label: 'Coast Guard Certified' }
+  { value: '100%', label: 'Licensed, Experienced Certified' }
 ];
 
 const faqs = [

@@ -64,7 +64,7 @@ services:
     duration_minimum: 3-4 hours depending on day
     capacity_range: 1-75 guests
     includes:
-      - Coast Guard certified captain
+      - licensed, experienced captain
       - Professional crew
       - Premium Bluetooth sound system
       - Restroom on board
@@ -370,7 +370,7 @@ trust_signals:
   - Operating on Lake Travis since 2009
   - 150,000+ guests served
   - Perfect safety record
-  - Coast Guard certified captains
+  - licensed, experienced captains
   - Local Austin company
   - Professional crew on every cruise
   - Known for organized, stress-free experiences

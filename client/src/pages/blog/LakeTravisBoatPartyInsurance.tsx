@@ -42,7 +42,7 @@ const insuranceCoverage = [
     icon: BadgeCheck,
     title: 'Captain & Crew Coverage',
     description: 'Our licensed captains carry professional liability as part of boat rental insurance Austin requirements',
-    details: 'USCG licensed operators'
+    details: 'licensed, experienced operators'
   }
 ];
 

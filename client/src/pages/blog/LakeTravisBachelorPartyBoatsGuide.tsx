@@ -25,7 +25,7 @@ const whyLakeTravis = [
   { icon: Music, title: 'Floating Nightclub Vibes', description: 'Professional DJ, disco lights, and premium sound systems' },
   { icon: MapPin, title: '30 Min from Downtown', description: 'Close to 6th Street for after-party bar crawls' },
   { icon: Users, title: 'Co-Ed Party Scene', description: 'Bachelor AND bachelorette groups partying together' },
-  { icon: Shield, title: 'USCG-Certified Safety', description: '15+ years, 150,000+ guests, perfect safety record' }
+  { icon: Shield, title: 'Licensed-Certified Safety', description: '15+ years, 150,000+ guests, perfect safety record' }
 ];
 
 const discoCruiseFeatures = [
@@ -33,7 +33,7 @@ const discoCruiseFeatures = [
   { icon: Music, title: 'Professional DJ All Day', description: 'Non-stop hits from 70s disco to today\'s chart-toppers' },
   { icon: Camera, title: 'Pro Photographer Included', description: 'Every legendary moment captured for Instagram and memories' },
   { icon: Waves, title: 'Giant Lily Pad Floats', description: '6x20 feet floating lounges for swimming breaks in Lake Travis' },
-  { icon: Shield, title: 'USCG-Certified Captains', description: '15+ years experience with 150,000+ happy partiers' },
+  { icon: Shield, title: 'Licensed-Certified Captains', description: '15+ years experience with 150,000+ happy partiers' },
   { icon: Gift, title: 'All-Inclusive Package', description: 'DJ, photographer, floats, ice, cups - just bring your BYOB drinks' }
 ];
 

@@ -183,7 +183,7 @@ export default function TestimonialsFAQV2() {
     },
     {
       q: "What's your safety record?",
-      a: 'Perfect. Zero serious incidents since launch in 2009, over 150,000 guests safely transported. Every captain is USCG-licensed, every boat is inspected by the Texas Parks & Wildlife Department annually, and we carry life vests for every guest plus extras.',
+      a: 'Perfect. Zero serious incidents since launch in 2009, over 150,000 guests safely transported. Every captain is licensed, every boat is inspected by the Texas Parks & Wildlife Department annually, and we carry life vests for every guest plus extras.',
     },
     {
       q: 'Do you have insurance?',
@@ -191,7 +191,7 @@ export default function TestimonialsFAQV2() {
     },
     {
       q: 'Are your captains licensed?',
-      a: 'Yes, every captain on our fleet holds an active USCG Master License (100-ton minimum), TABC Seller/Server certification, and current CPR/First Aid certification. Our senior captains have 8–15 years of Lake Travis-specific experience.',
+      a: 'Yes, every captain on our fleet holds an active state-issued captain License (100-ton minimum), TABC Seller/Server certification, and current CPR/First Aid certification. Our senior captains have 8–15 years of Lake Travis-specific experience.',
     },
     {
       q: 'What do guests say?',
@@ -311,7 +311,7 @@ export default function TestimonialsFAQV2() {
               <div className="hp2-feature-card__num">0</div>
               <h3 className="hp2-feature-card__title">Safety Incidents</h3>
               <p className="hp2-feature-card__desc">
-                Perfect safety record. USCG-licensed captains, $2M marine
+                Perfect safety record. licensed, experienced captains, $2M marine
                 liability, annual vessel inspections.
               </p>
             </div>

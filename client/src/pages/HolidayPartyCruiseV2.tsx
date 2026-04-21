@@ -45,7 +45,7 @@ export default function HolidayPartyCruiseV2() {
     },
     {
       q: 'Are you insured for corporate holiday events?',
-      a: 'Yes. Premier Party Cruises carries $2M commercial general liability insurance and $1M marine protection & indemnity coverage. All captains are USCG-licensed, and all vessels meet or exceed USCG safety standards. We provide Certificates of Insurance (COI) naming your company as additional insured within 24 hours of request — essential for most HR/legal approvals. For corporate holiday parties involving employee safety considerations, we can accommodate additional documentation requirements, including serving guidelines and safe-transportation protocols.',
+      a: 'Yes. Premier Party Cruises carries $2M commercial general liability insurance and $1M marine protection & indemnity coverage. All captains are licensed, and all vessels meet or exceed Licensed safety standards. We provide Certificates of Insurance (COI) naming your company as additional insured within 24 hours of request — essential for most HR/legal approvals. For corporate holiday parties involving employee safety considerations, we can accommodate additional documentation requirements, including serving guidelines and safe-transportation protocols.',
     },
     {
       q: 'How do we handle alcohol responsibly for an employee event?',

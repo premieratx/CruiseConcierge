@@ -564,7 +564,7 @@ export interface V2PageProps {
 
 const DEFAULT_TRUST_ITEMS = [
   { icon: '✢', label: '150,000+ Guests', sub: "Austin's trusted since 2009" },
-  { icon: '◈', label: 'Perfect Safety', sub: 'USCG certified captains' },
+  { icon: '◈', label: 'Perfect Safety', sub: 'licensed, experienced captains' },
   { icon: '◎', label: '4.9 Star Rating', sub: 'Hundreds of 5-star reviews' },
   { icon: '★', label: '4 Premium Boats', sub: '14 to 75 guest capacity' },
   { icon: '◇', label: 'BYOB Friendly', sub: 'Your drinks, our boat' },

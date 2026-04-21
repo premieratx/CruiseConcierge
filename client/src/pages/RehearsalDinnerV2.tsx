@@ -16,7 +16,7 @@ export default function RehearsalDinnerV2() {
     },
     {
       q: 'What is included in a rehearsal dinner cruise?',
-      a: 'Every Lake Travis rehearsal dinner includes a US Coast Guard licensed captain, trained crew, premium Bluetooth sound system for speeches and toasts, large coolers (bring your own ice, or order pre-iced from Party On Delivery), a swim stop in a scenic cove (optional), and all safety equipment. BYOB is welcome — champagne for toasts, wine with dinner, cocktail supplies. Catering is coordinated separately.'
+      a: 'Every Lake Travis rehearsal dinner includes a licensed, experienced captain, trained crew, premium Bluetooth sound system for speeches and toasts, large coolers (bring your own ice, or order pre-iced from Party On Delivery), a swim stop in a scenic cove (optional), and all safety equipment. BYOB is welcome — champagne for toasts, wine with dinner, cocktail supplies. Catering is coordinated separately.'
     },
     {
       q: 'Can we have a plated dinner on the boat?',

@@ -190,6 +190,23 @@ const LeadDashboard = () => {
   const [allLeads, setAllLeads] = useState<any[]>([]);
   const [loadingLeads, setLoadingLeads] = useState(false);
   const [activeTab, setActiveTab] = useState("quote");
+
+  // Scrolls the TabsList into view so the newly-active tab content
+  // (e.g. the Xola booking widget) sits at the top of the viewport.
+  // Called from FormalQuoteDisplay's Book-Now callbacks.
+  const scrollToBookingWidget = () => {
+    // Small defer so the tab switch + Xola mount happens before scroll.
+    setTimeout(() => {
+      const el =
+        document.querySelector('[data-tab-anchor="booking"]') ||
+        document.querySelector('[role="tablist"]') ||
+        document.querySelector('.xola-checkout');
+      if (el) {
+        (el as HTMLElement).scrollIntoView({ behavior: "smooth", block: "start" });
+        window.scrollBy({ top: -80, behavior: "smooth" }); // leave room for sticky header
+      }
+    }, 120);
+  };
   const [showEmailPreview, setShowEmailPreview] = useState(false);
   const [emailPreviewType, setEmailPreviewType] = useState<"admin" | "customer">("admin");
   const [sendingTestInquiry, setSendingTestInquiry] = useState(false);
@@ -932,7 +949,7 @@ const LeadDashboard = () => {
 
           {/* Tabs */}
           <Tabs value={activeTab} className="space-y-4" onValueChange={setActiveTab}>
-            <TabsList className="bg-slate-800/90 border border-sky-500/20 w-full grid grid-cols-3 sm:grid-cols-3 lg:grid-cols-9 h-auto p-2 gap-2 rounded-xl">
+            <TabsList data-tab-anchor="booking" className="bg-slate-800/90 border border-sky-500/20 w-full grid grid-cols-3 sm:grid-cols-3 lg:grid-cols-9 h-auto p-2 gap-2 rounded-xl">
               <TabsTrigger value="quote" className="data-[state=active]:bg-sky-600 data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:shadow-sky-500/30 bg-slate-700/80 text-sky-200 border border-slate-600 data-[state=active]:border-sky-400 rounded-lg py-2.5 px-2 text-xs sm:text-sm font-bold transition-all">
                 <FileText className="h-4 w-4 mr-1.5" />
                 Quote
@@ -1001,9 +1018,9 @@ const LeadDashboard = () => {
                         useV2DiscoPricing: true as const,
                         quoteCreatedAt: (lead as any).created_at || undefined,
                         quoteExpiresAt: (lead as any).quote_expires_at || undefined,
-                        onDiscoBook: () => setActiveTab("booking"),
-                        onPrivateBook: () => setActiveTab("booking"),
-                        onBookOnline: () => setActiveTab("booking"),
+                        onDiscoBook: () => { setActiveTab("booking"); scrollToBookingWidget(); },
+                        onPrivateBook: () => { setActiveTab("booking"); scrollToBookingWidget(); },
+                        onBookOnline: () => { setActiveTab("booking"); scrollToBookingWidget(); },
                         onGuestCountChange: (n: number) => {
                           saveLeadField({ guest_count: n });
                           setLead((prev) => (prev ? { ...prev, guest_count: n } : prev));

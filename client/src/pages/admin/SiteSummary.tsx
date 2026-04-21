@@ -2416,7 +2416,7 @@ export default function SiteSummary() {
                           { item: 'Plenty of Shade', detail: "Covered deck areas to escape direct Texas sun between swims." },
                           { item: 'Name Tags', detail: "Set up before boarding. Helps groups mingle across different parties — part of the multi-group energy." },
                           { item: 'Disco Ball Necklace (guest of honor)', detail: "Disco Ball Necklace for the Bride (bachelorette), Groom (bachelor), or both Bride & Groom (combined party). Party type–specific." },
-                          { item: 'Captain & Crew', detail: "USCG-licensed captain. 15+ year perfect safety record. Crew handles all logistics so your group focuses on the party." },
+                          { item: 'Captain & Crew', detail: "licensed, experienced captain. 15+ year perfect safety record. Crew handles all logistics so your group focuses on the party." },
                           { item: 'Multi-Group Energy', detail: "The boat is shared with other bachelor and bachelorette parties from across the country. The shared vibe is a feature, not a bug — groups bond over the celebration." },
                           { item: 'Rain Backup Plan', detail: "If weather cancels the lake cruise, the party moves to Premier Party Cruises' downtown Austin venue — same DJ, same energy, no refund drama." },
                         ].map((row, i) => (

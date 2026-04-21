@@ -28,7 +28,7 @@ export default function AnniversaryCruiseV2() {
     },
     {
       q: 'What is included in an anniversary cruise?',
-      a: 'Every anniversary cruise includes a US Coast Guard licensed captain, trained crew, premium Bluetooth sound system, large coolers (bring your own ice, or order pre-iced from Party On Delivery), a swim stop in a scenic cove, and all safety equipment. BYOB drinks and food welcome. Optional Ultimate decor package ($250-$350 flat) adds premium anniversary-themed styling, linens, and custom signage.'
+      a: 'Every anniversary cruise includes a licensed, experienced captain, trained crew, premium Bluetooth sound system, large coolers (bring your own ice, or order pre-iced from Party On Delivery), a swim stop in a scenic cove, and all safety equipment. BYOB drinks and food welcome. Optional Ultimate decor package ($250-$350 flat) adds premium anniversary-themed styling, linens, and custom signage.'
     },
     {
       q: 'Can we have a sunset anniversary cruise?',

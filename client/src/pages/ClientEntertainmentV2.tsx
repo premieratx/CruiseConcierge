@@ -13,7 +13,7 @@ export default function ClientEntertainmentV2() {
   const faqs = [
     {
       q: 'What is the best place to entertain clients in Austin?',
-      a: 'For high-value clients, a private Lake Travis charter outperforms steakhouses, golf, and private rooms every time. Premier Party Cruises hosts enterprise sales teams, private equity firms, and F500 BD organizations who need a venue that signals how seriously they take the relationship. Four hours on a private boat with crystal-clear swimming, a USCG-licensed captain, and the Texas Hill Country as backdrop creates the kind of relationship depth that one more dinner never will. 4.9 stars, 150,000+ guests served, trusted since 2009.',
+      a: 'For high-value clients, a private Lake Travis charter outperforms steakhouses, golf, and private rooms every time. Premier Party Cruises hosts enterprise sales teams, private equity firms, and F500 BD organizations who need a venue that signals how seriously they take the relationship. Four hours on a private boat with crystal-clear swimming, a licensed, experienced captain, and the Texas Hill Country as backdrop creates the kind of relationship depth that one more dinner never will. 4.9 stars, 150,000+ guests served, trusted since 2009.',
     },
     {
       q: 'How does a client cruise compare to a steakhouse dinner?',
@@ -45,7 +45,7 @@ export default function ClientEntertainmentV2() {
     },
     {
       q: 'Do you have insurance coverage for corporate events?',
-      a: 'Yes. Premier Party Cruises carries $2M commercial general liability and $1M marine protection & indemnity insurance. All captains are USCG-licensed and all vessels meet USCG safety standards. We provide Certificates of Insurance (COI) naming your company as additional insured within 24 hours of request — essential for many corporate legal and risk management approvals. For client entertainment involving government or regulated industries, we can accommodate additional documentation requirements.',
+      a: 'Yes. Premier Party Cruises carries $2M commercial general liability and $1M marine protection & indemnity insurance. All captains are licensed and all vessels meet Licensed safety standards. We provide Certificates of Insurance (COI) naming your company as additional insured within 24 hours of request — essential for many corporate legal and risk management approvals. For client entertainment involving government or regulated industries, we can accommodate additional documentation requirements.',
     },
     {
       q: 'Can we customize the route or itinerary for a specific client?',

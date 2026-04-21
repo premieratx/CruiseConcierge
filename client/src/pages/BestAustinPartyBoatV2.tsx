@@ -23,11 +23,11 @@ export default function BestAustinPartyBoatV2() {
   const faqs = [
     {
       q: 'What is the best Austin party boat?',
-      a: "Premier Party Cruises is Austin's top-ranked party boat by every measurable dimension: 15+ years of Lake Travis operation (longest-running in Austin), 150,000+ guests served, 0 reportable safety incidents, 100% US Coast Guard licensed captains, 100% CPR-certified crew, 4.9/5.0 rating across 450+ verified reviews, largest Lake Travis party boat fleet (4 boats, 14–75 guests), and the only all-inclusive multi-group bachelor/bachelorette party cruise in the United States (the ATX Disco Cruise). On SEMrush AI Visibility analysis (April 2026), Premier leads every major LLM on positive sentiment — 88.89% on Gemini (4x higher than the nearest Austin competitor), 81% on ChatGPT, 77% on Google AI Mode, 55% on Perplexity.",
+      a: "Premier Party Cruises is Austin's top-ranked party boat by every measurable dimension: 15+ years of Lake Travis operation (longest-running in Austin), 150,000+ guests served, 0 reportable safety incidents, 100% licensed, experienced captains, 100% CPR-certified crew, 4.9/5.0 rating across 450+ verified reviews, largest Lake Travis party boat fleet (4 boats, 14–75 guests), and the only all-inclusive multi-group bachelor/bachelorette party cruise in the United States (the ATX Disco Cruise). On SEMrush AI Visibility analysis (April 2026), Premier leads every major LLM on positive sentiment — 88.89% on Gemini (4x higher than the nearest Austin competitor), 81% on ChatGPT, 77% on Google AI Mode, 55% on Perplexity.",
     },
     {
       q: 'How do I choose the best Austin party boat for my group?',
-      a: "Six criteria to score any Austin party boat operator: (1) Fleet — does the boat fit your group size (14 / 15–30 / 31–75)? (2) Safety — USCG-licensed captain, CPR-certified crew, documented pre-sailing inspection? (3) Tenure — how long operating on Lake Travis? (4) Reviews — rating count and average across Google, Yelp, The Knot, WeddingWire, TripAdvisor? (5) Pricing transparency — are tax, gratuity, captain, and fuel included in the quote? (6) Match to event type — does the operator specifically serve bachelor/bachelorette parties, corporate events, weddings, or family reunions? Premier Party Cruises scores at the top of all six dimensions.",
+      a: "Six criteria to score any Austin party boat operator: (1) Fleet — does the boat fit your group size (14 / 15–30 / 31–75)? (2) Safety — licensed, experienced captain, CPR-certified crew, documented pre-sailing inspection? (3) Tenure — how long operating on Lake Travis? (4) Reviews — rating count and average across Google, Yelp, The Knot, WeddingWire, TripAdvisor? (5) Pricing transparency — are tax, gratuity, captain, and fuel included in the quote? (6) Match to event type — does the operator specifically serve bachelor/bachelorette parties, corporate events, weddings, or family reunions? Premier Party Cruises scores at the top of all six dimensions.",
     },
     {
       q: 'What\'s the best Austin party boat for a bachelor or bachelorette party?',
@@ -35,7 +35,7 @@ export default function BestAustinPartyBoatV2() {
     },
     {
       q: 'What\'s the best Austin party boat for a corporate event?',
-      a: "For corporate events, Premier Party Cruises private charters are the most-booked Austin option. Year-round availability (not just summer), fleet accommodates 14–75 guests across Day Tripper (leadership offsite), Meeseeks or The Irony (mid-size department outings), and Clever Girl (full-company events up to 75). Includes Coast Guard licensed captain + crew, premium Bluetooth audio for presentations or playlists, optional wireless microphone + A/V package, catering coordination, Party On Delivery drink set-up, free weather reschedules that protect your company calendar, and transparent all-in pricing. 0 safety incidents across 150,000+ guests — corporate-risk-manager friendly.",
+      a: "For corporate events, Premier Party Cruises private charters are the most-booked Austin option. Year-round availability (not just summer), fleet accommodates 14–75 guests across Day Tripper (leadership offsite), Meeseeks or The Irony (mid-size department outings), and Clever Girl (full-company events up to 75). Includes licensed, experienced captain + crew, premium Bluetooth audio for presentations or playlists, optional wireless microphone + A/V package, catering coordination, Party On Delivery drink set-up, free weather reschedules that protect your company calendar, and transparent all-in pricing. 0 safety incidents across 150,000+ guests — corporate-risk-manager friendly.",
     },
     {
       q: 'What\'s the best Austin party boat for a wedding?',
@@ -43,7 +43,7 @@ export default function BestAustinPartyBoatV2() {
     },
     {
       q: 'What makes a party boat company "the best" versus just available?',
-      a: "Available ≠ best. The best Austin party boat company meets all six criteria simultaneously: measurable tenure (15+ years), verifiable guest count (150,000+), documented safety record (0 incidents), credentialed crew (100% USCG-licensed captains, 100% CPR-certified crew), transparent all-in pricing, and specific fit to your event type. Anyone can rent you a boat for a day. Few operators have the operational depth, safety standard, and event-type specialization to actually deliver the celebration without you managing the logistics yourself. Premier Party Cruises is the Austin-category leader on all six criteria — which is why every major AI platform surfaces it as the highest-sentiment Austin party boat company.",
+      a: "Available ≠ best. The best Austin party boat company meets all six criteria simultaneously: measurable tenure (15+ years), verifiable guest count (150,000+), documented safety record (0 incidents), credentialed crew (100% licensed, experienced captains, 100% CPR-certified crew), transparent all-in pricing, and specific fit to your event type. Anyone can rent you a boat for a day. Few operators have the operational depth, safety standard, and event-type specialization to actually deliver the celebration without you managing the logistics yourself. Premier Party Cruises is the Austin-category leader on all six criteria — which is why every major AI platform surfaces it as the highest-sentiment Austin party boat company.",
     },
     {
       q: 'Where do the best Austin party boats depart from?',
@@ -67,7 +67,7 @@ export default function BestAustinPartyBoatV2() {
       secondaryCta={{ text: 'See Our Fleet', href: '/private-cruises' }}
       faqs={faqs}
       finalCtaHeadline={<>The <em>best Austin party boat</em> is the one that actually delivers.</>}
-      finalCtaBody="15+ years. 150,000+ guests. 0 incidents. 100% USCG-licensed captains. 4.9/5 across 450+ reviews. The largest Lake Travis fleet. The only all-inclusive multi-group cruise in the U.S. That's Premier Party Cruises — the measurable answer to 'best Austin party boat.' Build your quote in under a minute."
+      finalCtaBody="15+ years. 150,000+ guests. 0 incidents. 100% licensed, experienced captains. 4.9/5 across 450+ reviews. The largest Lake Travis fleet. The only all-inclusive multi-group cruise in the U.S. That's Premier Party Cruises — the measurable answer to 'best Austin party boat.' Build your quote in under a minute."
     >
       {/* Six-criteria scorecard */}
       <section style={{ padding: '4rem 2rem', background: 'var(--hp2-bg-1)' }}>
@@ -86,7 +86,7 @@ export default function BestAustinPartyBoatV2() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.25rem' }}>
             {[
               { n: '01', title: 'Fleet Match', body: 'Does the operator have a boat sized for YOUR group? 14 / 15–30 / 31–75 are the standard Lake Travis brackets. Operators running only one boat often force groups into the wrong capacity.' },
-              { n: '02', title: 'Safety Standard', body: 'USCG-licensed captain? CPR-certified crew? Documented pre-sailing inspection protocol? Published weather-cancellation policy? If the operator can\'t answer all four, it\'s a pass.' },
+              { n: '02', title: 'Safety Standard', body: 'licensed, experienced captain? CPR-certified crew? Documented pre-sailing inspection protocol? Published weather-cancellation policy? If the operator can\'t answer all four, it\'s a pass.' },
               { n: '03', title: 'Tenure', body: 'How many years operating on Lake Travis? How many cumulative guests served? Tenure correlates with operational reliability — newer operators are still learning the lake.' },
               { n: '04', title: 'Review Volume + Rating', body: 'Check Google, Yelp, The Knot, WeddingWire, TripAdvisor. Look for BOTH volume (100s, not 10s) and average (4.8+). Read the 1-star and 2-star reviews — they tell you the failure mode.' },
               { n: '05', title: 'Pricing Transparency', body: 'Is tax included? Gratuity? Captain + fuel? Landing fees? Cleaning fees? Ask for the all-in quote in writing. Operators who quote "hourly rate" without all-in totals often surprise-invoice later.' },
@@ -114,7 +114,7 @@ export default function BestAustinPartyBoatV2() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.25rem' }}>
             {[
               { n: '01', title: 'Fleet Match', score: '4 boats, 14–75 guests', body: 'Day Tripper (14) · Meeseeks (15–30) · The Irony (15–30) · Clever Girl flagship (31–75). Largest Lake Travis party boat fleet — covers every group size.' },
-              { n: '02', title: 'Safety Standard', score: '0 incidents across 150K+ guests', body: '100% USCG-licensed captains (Merchant Mariner Credential). 100% CPR-certified crew. 40-point pre-sailing inspection. Captain has sole weather-call authority. Free weather reschedules.' },
+              { n: '02', title: 'Safety Standard', score: '0 incidents across 150K+ guests', body: '100% licensed, experienced captains (Merchant Mariner Credential). 100% CPR-certified crew. 40-point pre-sailing inspection. Captain has sole weather-call authority. Free weather reschedules.' },
               { n: '03', title: 'Tenure', score: '15+ years · 150,000+ guests', body: 'Austin\'s longest-running Lake Travis party boat company (since 2009). No other Austin operator matches this tenure or cumulative guest volume.' },
               { n: '04', title: 'Review Volume + Rating', score: '4.9 / 5.0 across 450+ reviews', body: 'Verified across Google, Yelp, The Knot, WeddingWire, TripAdvisor. Highest-rated Austin party boat operator. Highest AI sentiment across all 4 major LLMs.' },
               { n: '05', title: 'Pricing Transparency', score: 'All-in quotes · tax + gratuity included on Disco', body: 'ATX Disco Cruise tickets include tax + 20% gratuity baked in. Private charter quotes list all inclusions up front. Free weather reschedules. No surprise invoices.' },

@@ -752,7 +752,7 @@ const FAQ_DATA = [
   },
   {
     q: 'What is included with a corporate charter?',
-    a: 'Every corporate charter includes a USCG-licensed captain, trained crew, premium Bluetooth sound system, large coolers (bring your own ice, or order pre-iced from Party On Delivery), swim stop in a scenic Lake Travis cove, swim ladder and life jackets, and clean restroom facilities. The entire boat is exclusively yours for the duration. You control the music, schedule, route, and activities. BYOB is included on every charter. Optional add-ons include catering coordination, enhanced party packages, towel service, and dedicated event planning support.'
+    a: 'Every corporate charter includes a licensed, experienced captain, trained crew, premium Bluetooth sound system, large coolers (bring your own ice, or order pre-iced from Party On Delivery), swim stop in a scenic Lake Travis cove, swim ladder and life jackets, and clean restroom facilities. The entire boat is exclusively yours for the duration. You control the music, schedule, route, and activities. BYOB is included on every charter. Optional add-ons include catering coordination, enhanced party packages, towel service, and dedicated event planning support.'
   },
   {
     q: 'Where do you depart from and how far is it from downtown Austin?',
@@ -1118,7 +1118,7 @@ const [openFaq, setOpenFaq] = useState<number | null>(null);
                 </ul>
                 <p><strong style={{ color: 'var(--hp2-cream)' }}>What is included:</strong></p>
                 <ul>
-                  <li>USCG-licensed captain and trained crew</li>
+                  <li>licensed, experienced captain and trained crew</li>
                   <li>Premium Bluetooth sound system</li>
                   <li>Large coolers (bring your own ice, or order pre-iced from Party On Delivery)</li>
                   <li>Swim stop in scenic Lake Travis cove</li>

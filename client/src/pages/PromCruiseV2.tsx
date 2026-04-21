@@ -39,7 +39,7 @@ export default function PromCruiseV2() {
     },
     {
       q: 'Is it safe to have a prom cruise with teens on a boat?',
-      a: 'Yes — safety is our top priority on every prom cruise. USCG-licensed captain, trained crew, USCG-approved life jackets in teen and adult sizes, swim ladder, first-aid equipment, and continuous weather monitoring. Our crew runs headcounts before and after every stop, and works directly with the parent host throughout the cruise.',
+      a: 'Yes — safety is our top priority on every prom cruise. licensed, experienced captain, trained crew, USCG-approved life jackets in teen and adult sizes, swim ladder, first-aid equipment, and continuous weather monitoring. Our crew runs headcounts before and after every stop, and works directly with the parent host throughout the cruise.',
     },
     {
       q: 'What do teens wear on a prom cruise?',
@@ -171,7 +171,7 @@ export default function PromCruiseV2() {
           <p className="hp2-section__body">
             Prom cruises are one of our most carefully managed charter types.
             Every prom cruise requires at least one adult parent host on board
-            (the renter of record), and every boat sails with a USCG-licensed
+            (the renter of record), and every boat sails with a licensed
             captain and trained crew. Alcohol is never permitted on prom
             cruises with minor guests — we stock coolers with sodas, mocktails,
             and sparkling cider for the toast.
@@ -191,7 +191,7 @@ export default function PromCruiseV2() {
               <div className="hp2-feature-card__num">★</div>
               <h3 className="hp2-feature-card__title">Licensed Captain & Crew</h3>
               <p className="hp2-feature-card__desc">
-                USCG-licensed captain runs the boat. Trained crew monitors
+                licensed, experienced captain runs the boat. Trained crew monitors
                 the guests, runs headcounts at every stop, and handles all
                 safety equipment deployment.
               </p>

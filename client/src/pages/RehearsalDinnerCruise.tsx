@@ -50,7 +50,7 @@ const features = [
   {
     icon: Shield,
     title: 'Expert Captains',
-    description: 'Our USCG licensed captains ensure a smooth, safe, and professional experience for your VIPs.'
+    description: 'Our licensed, experienced captains ensure a smooth, safe, and professional experience for your VIPs.'
   }
 ];
 

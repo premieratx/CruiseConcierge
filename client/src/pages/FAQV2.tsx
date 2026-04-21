@@ -21,7 +21,7 @@ export default function FAQV2() {
     },
     {
       q: "What's included in the price?",
-      a: 'Every Premier Party Cruises booking includes your USCG-licensed captain, fuel, ice, coolers, Bluetooth sound system, bathroom access, lily pads or water toys (on most boats), tax, and standard gratuity. BYOB drinks, food, and any upgrades (floating bar, decorations, pro DJ) are separate.',
+      a: 'Every Premier Party Cruises booking includes your licensed, experienced captain, fuel, ice, coolers, Bluetooth sound system, bathroom access, lily pads or water toys (on most boats), tax, and standard gratuity. BYOB drinks, food, and any upgrades (floating bar, decorations, pro DJ) are separate.',
     },
     {
       q: 'Do you require a deposit?',

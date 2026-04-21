@@ -236,7 +236,7 @@ export default function RetirementPartyCruiseV2() {
           retirement-planning committee from booking to cast-off.
         </p>
         <p className="hp2-section__body">
-          All boats are insured, all captains are USCG-licensed, and our
+          All boats are insured, all captains are licensed, and our
           vendor-compliance documentation is on file with dozens of Austin-area
           Fortune 500 offices, healthcare systems, and universities. Insurance
           COIs available on request. Call (512) 488-5892 to connect directly

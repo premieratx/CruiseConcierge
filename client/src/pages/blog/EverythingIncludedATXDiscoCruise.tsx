@@ -81,7 +81,7 @@ export default function EverythingIncludedATXDiscoCruise() {
               { icon: PackageCheck, text: "14 Disco Balls & Pro Lighting" },
               { icon: IceCream, text: "Coolers Pre-Filled with Ice" },
               { icon: GlassWater, text: "Cups, Koozies, & Bubbles" },
-              { icon: CheckCircle2, text: "USCG-Certified Captain & Crew" },
+              { icon: CheckCircle2, text: "Licensed-Certified Captain & Crew" },
               { icon: CheckCircle2, text: "All Taxes & Gratuities Included" }
             ].map((item, i) => (
               <div key={i} className="flex items-center gap-3 p-4 bg-slate-50 dark:bg-slate-900 rounded-xl shadow-sm">

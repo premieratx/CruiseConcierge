@@ -32,7 +32,7 @@ const premierAdvantages = [
   { 
     icon: Shield, 
     title: 'Perfect Safety Record', 
-    description: 'Premier Party Cruises Austin maintains an impeccable safety record with USCG-certified vessels and trained crew',
+    description: 'Premier Party Cruises Austin maintains an impeccable safety record with licensed vessels and trained crew',
     color: 'text-blue-600',
     bg: 'bg-blue-100'
   },
@@ -133,7 +133,7 @@ const premierDifference = [
   {
     icon: Shield,
     title: 'Safety First',
-    description: 'Premier Party Cruises Austin prioritizes guest safety with USCG-certified vessels, trained captains, and comprehensive safety briefings. Our perfect safety record speaks to our commitment.',
+    description: 'Premier Party Cruises Austin prioritizes guest safety with licensed vessels, trained captains, and comprehensive safety briefings. Our perfect safety record speaks to our commitment.',
     color: 'text-blue-600'
   },
   {
@@ -169,7 +169,7 @@ const faqs = [
   },
   {
     question: 'What safety measures does Premier Party Cruises Austin have in place?',
-    answer: 'Premier Party Cruises Austin maintains USCG-certified vessels, licensed captains, comprehensive safety briefings, and life jackets for all guests. Our perfect safety record over 14+ years demonstrates our commitment to guest wellbeing.'
+    answer: 'Premier Party Cruises Austin maintains licensed vessels, licensed captains, comprehensive safety briefings, and life jackets for all guests. Our perfect safety record over 14+ years demonstrates our commitment to guest wellbeing.'
   },
   {
     question: 'Can Premier coordinate catering and beverages for corporate events?',

@@ -50,7 +50,7 @@ const whyChooseReasons = [
   {
     icon: Anchor,
     title: 'Safe, Captained Cruise',
-    description: 'Professional Coast Guard certified captains handle navigation while you focus on having fun. Safety meets celebration.'
+    description: 'Professional licensed, experienced captains handle navigation while you focus on having fun. Safety meets celebration.'
   }
 ];
 

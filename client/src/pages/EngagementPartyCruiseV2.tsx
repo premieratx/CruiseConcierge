@@ -24,7 +24,7 @@ export default function EngagementPartyCruiseV2() {
     },
     {
       q: 'What is included in an engagement party cruise?',
-      a: 'Every engagement party cruise includes a US Coast Guard licensed captain, trained crew, premium Bluetooth sound system with wireless mic for toasts, large coolers (bring your own ice, or order pre-iced from Party On Delivery), a swim stop in a scenic cove, and all safety equipment. BYOB welcome. Optional Ultimate decor package ($250-$350 flat) adds premium engagement-themed styling.'
+      a: 'Every engagement party cruise includes a licensed, experienced captain, trained crew, premium Bluetooth sound system with wireless mic for toasts, large coolers (bring your own ice, or order pre-iced from Party On Delivery), a swim stop in a scenic cove, and all safety equipment. BYOB welcome. Optional Ultimate decor package ($250-$350 flat) adds premium engagement-themed styling.'
     },
     {
       q: 'Can we do sunset toasts on the engagement cruise?',

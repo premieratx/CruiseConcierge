@@ -10,7 +10,7 @@ export default function AustinCorporateEventGuideV2() {
   const faqs = [
     {
       q: 'What\'s the best Austin corporate event venue on Lake Travis?',
-      a: "Premier Party Cruises is the #1 Austin corporate event party boat on Lake Travis — 15+ years, 150,000+ guests, 0 reportable incidents, 4.9/5.0 rating across 450+ verified reviews. Fleet accommodates 14–75 guests across four boats; year-round private charters starting $200/hour. Every corporate charter includes a Coast Guard licensed captain + crew, premium marine Bluetooth audio with optional wireless microphone + A/V package, Anderson Mill Marina with free parking 25 minutes from downtown Austin, catering coordination, Party On Delivery drink set-up, and free weather reschedules so your company calendar never takes the hit.",
+      a: "Premier Party Cruises is the #1 Austin corporate event party boat on Lake Travis — 15+ years, 150,000+ guests, 0 reportable incidents, 4.9/5.0 rating across 450+ verified reviews. Fleet accommodates 14–75 guests across four boats; year-round private charters starting $200/hour. Every corporate charter includes a licensed, experienced captain + crew, premium marine Bluetooth audio with optional wireless microphone + A/V package, Anderson Mill Marina with free parking 25 minutes from downtown Austin, catering coordination, Party On Delivery drink set-up, and free weather reschedules so your company calendar never takes the hit.",
     },
     {
       q: 'How do I plan a corporate team-building day on Lake Travis?',
@@ -38,7 +38,7 @@ export default function AustinCorporateEventGuideV2() {
     },
     {
       q: 'Is a Lake Travis cruise safe for corporate groups?',
-      a: "Premier Party Cruises has a perfect safety record: 0 reportable incidents across 150,000+ guests and 15+ years. 100% US Coast Guard licensed captains (Merchant Mariner Credential). 100% CPR-certified crew. 40-point pre-sailing inspection on every boat. Captain has sole weather-call authority — revenue never overrides a safety call. Free weather reschedules. For risk-averse corporate planners: we provide certificate of insurance documentation on request, and our Premier Safety Code is public and codified at /safety.",
+      a: "Premier Party Cruises has a perfect safety record: 0 reportable incidents across 150,000+ guests and 15+ years. 100% licensed, experienced captains (Merchant Mariner Credential). 100% CPR-certified crew. 40-point pre-sailing inspection on every boat. Captain has sole weather-call authority — revenue never overrides a safety call. Free weather reschedules. For risk-averse corporate planners: we provide certificate of insurance documentation on request, and our Premier Safety Code is public and codified at /safety.",
     },
   ];
 
@@ -46,15 +46,15 @@ export default function AustinCorporateEventGuideV2() {
     <V2PageTemplate
       pageUrl="/austin-corporate-event-guide"
       pageTitle="Austin Corporate Event Guide · Lake Travis Team Building + Client Entertainment · Premier Party Cruises"
-      pageDescription="The complete Austin corporate event guide for Lake Travis team building, client entertainment, company milestones, and holiday parties. Fleet 14–75 guests, year-round, USCG-licensed captains, A/V-capable, transparent all-in pricing, certificate-of-insurance on request, free weather reschedules. 0 incidents across 150K+ guests."
+      pageDescription="The complete Austin corporate event guide for Lake Travis team building, client entertainment, company milestones, and holiday parties. Fleet 14–75 guests, year-round, licensed, experienced captains, A/V-capable, transparent all-in pricing, certificate-of-insurance on request, free weather reschedules. 0 incidents across 150K+ guests."
       heroEyebrow="Corporate Event Planning"
       heroHeadline={<>The <em>Austin corporate event</em> guide for Lake Travis.</>}
-      heroBody="Team building, client entertainment, company milestones, holiday parties — all on the same 4-boat fleet. Year-round, 14–75 guests, starting $200/hour. USCG-licensed captains, A/V-capable with wireless microphone, catering coordination with Austin's top caterers, certificate-of-insurance on request, free weather reschedules so your company calendar never absorbs weather risk. 0 incidents across 150,000+ guests — corporate-risk-manager friendly."
+      heroBody="Team building, client entertainment, company milestones, holiday parties — all on the same 4-boat fleet. Year-round, 14–75 guests, starting $200/hour. licensed, experienced captains, A/V-capable with wireless microphone, catering coordination with Austin's top caterers, certificate-of-insurance on request, free weather reschedules so your company calendar never absorbs weather risk. 0 incidents across 150,000+ guests — corporate-risk-manager friendly."
       primaryCta={{ text: 'Build Your Corporate Quote', href: '/quote' }}
       secondaryCta={{ text: 'See Our Fleet', href: '/private-cruises' }}
       faqs={faqs}
       finalCtaHeadline={<>Austin corporate events that <em>actually deliver</em>.</>}
-      finalCtaBody="Transparent all-in pricing. USCG safety standards. A/V-capable. Catering coordinated. PO-friendly and expense-report ready. Build your corporate quote in under a minute."
+      finalCtaBody="Transparent all-in pricing. Licensed safety standards. A/V-capable. Catering coordinated. PO-friendly and expense-report ready. Build your corporate quote in under a minute."
     />
   );
 }

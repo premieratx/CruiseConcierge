@@ -58,7 +58,7 @@ export default function CelebrationCruisesV2() {
     },
     {
       q: 'Can the captain help with toasts, announcements, or ceremony moments?',
-      a: 'Yes. Our captains gladly emcee toasts, announce surprise reveals, introduce speakers, cue music, and coordinate photography moments. They are experienced event hosts in addition to USCG-licensed boat operators. Let our booking team know your timeline and speaker list — the captain will have a full brief before you board and will execute the cues naturally throughout the cruise.',
+      a: 'Yes. Our captains gladly emcee toasts, announce surprise reveals, introduce speakers, cue music, and coordinate photography moments. They are experienced event hosts in addition to licensed boat operators. Let our booking team know your timeline and speaker list — the captain will have a full brief before you board and will execute the cues naturally throughout the cruise.',
     },
     {
       q: 'Can we combine a celebration cruise with dinner or after-party?',
@@ -254,7 +254,7 @@ export default function CelebrationCruisesV2() {
         </h2>
         <p className="hp2-section__body">
           Four boats from 14 to 75 guests, each designed around a
-          different celebration size. All include a USCG-licensed
+          different celebration size. All include a licensed
           captain, trained crew, premium sound, water slide, and BYOB.
         </p>
 
